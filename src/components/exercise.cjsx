@@ -3,6 +3,7 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
+PublishedModal = require './published-modal'
 
 Question = require './question'
 ExerciseTags = require './tags'
@@ -12,7 +13,8 @@ Attachments = require './attachments'
 
 
 Exercise = React.createClass
-  exerciseId:   React.PropTypes.string.isRequired
+  propTypes:
+    exerciseId:   React.PropTypes.string.isRequired
 
   getInitialState: -> {}
   update: -> @forceUpdate()
@@ -61,12 +63,6 @@ Exercise = React.createClass
       <Question id={_.first(questions)?.id} sync={@sync} />
     </BS.TabPane>
 
-  previewTag: (tag) ->
-    content = _.compact([tag.name, tag.description]).join(' ') or tag.id
-    isLO = _.include(['lo', 'aplo'], tag.type)
-    {content, isLO}
-
-
   exercisePreviewData: (ex) ->
     content: ex
     tags: _.map ex.tags, (tag) -> name: tag
@@ -97,6 +93,7 @@ Exercise = React.createClass
     tab = @getActiveTab(showMPQ)
 
     <div className='exercise-editor'>
+      <PublishedModal exerciseId={@props.exerciseId} />
       <div className="editing-controls">
 
        {if showMPQ
@@ -120,9 +117,9 @@ Exercise = React.createClass
       </div>
 
       <ExercisePreview
-        extractTag={@previewTag}
         exercise={@exercisePreviewData(exercise)}
         displayAllTags={true}
+        displayFormats={true}
         displayFeedback={true}
         hideAnswers={false}
       />

@@ -48,7 +48,6 @@ ExerciseConfig = {
 
     @_change(id, {tags})
 
-
   sync: (id) ->
     questions = _.map @_local[id].questions, (question) ->
       QuestionActions.syncAnswers(question.id)
@@ -58,6 +57,10 @@ ExerciseConfig = {
   save: (id) ->
     @sync(id)
     @_save(id)
+
+  published: (obj, id) ->
+    @emit('published', id)
+    @saved(obj, id)
 
   _saved: (obj, id) ->
     cascadeLoad(obj, id)
@@ -149,6 +152,18 @@ ExerciseConfig = {
 
     isPublishing: (id) -> !!@_asyncStatusPublish[id]
 
+    isSavable: (id) ->
+      @exports.isChanged.call(@, id) and
+        @exports.validate.call(@, id).valid and
+        not @exports.isSaving.call(@, id) and
+        not @exports.isPublishing.call(@, id)
+
+    isPublishable: (id) ->
+      @exports.validate.call(@, id).valid and
+        not @exports.isSaving.call(@, id) and
+        not @exports.isPublishing.call(@, id) and
+        not @_get(id)?.published_at
+
     getTagsWithPrefix: (id, prefix) ->
       prefix += ':'
       tags = _.select @_get(id).tags, (tag) -> 0 is tag.indexOf(prefix)
@@ -157,15 +172,17 @@ ExerciseConfig = {
     getTemplate: (id) ->
       questionId = QuestionStore.freshLocalId()
 
+      tags: []
       stimulus_html:"",
       questions:[_.extend({}, QuestionStore.getTemplate(), {id: questionId})]
 
     validate: (id) ->
+      return {valid: false, part: 'exercise'} unless @_local[id]
       _.reduce @_local[id].questions, (memo, question) ->
         validity = QuestionStore.validate(question.id)
 
         valid: memo.valid and validity.valid
-        reason: memo.reason or validity.reason
+        part: memo.part or validity.part
       , valid: true
 
 }

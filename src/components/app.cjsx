@@ -1,9 +1,12 @@
 React = require 'react'
+_ = require 'underscore'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
 Exercise = require './exercise'
 ErrorModal = require './error-modal'
 MPQToggle = require './mpq-toggle'
+SuretyGuard = require './surety-guard'
+
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
 AsyncButton = require 'openstax-react-components/src/components/buttons/async-button.cjsx'
 
@@ -27,13 +30,11 @@ module.exports = React.createClass
     if @props.exerciseId is 'new'
       @addNew()
     else if @props.exerciseId
-      @loadExercise(@props.exerciseId)
+      @loadExercise(_.first @props.exerciseId.split('@'))
 
   publishExercise: ->
-    if confirm('Are you sure you want to publish?')
-      ExerciseActions.save(@state.exerciseId)
-      ExerciseActions.publish(@state.exerciseId)
-
+    ExerciseActions.save(@state.exerciseId)
+    ExerciseActions.publish(@state.exerciseId)
 
   addNew: ->
     id = ExerciseStore.freshLocalId()
@@ -55,14 +56,14 @@ module.exports = React.createClass
     ev.preventDefault()
 
   renderExerciseOrLoad: ->
-    if @state.exerciseId and not ExerciseStore.isNew(@state.exerciseId)
-      <MPQToggle exerciseId={@props.exerciseId} />
+    if @state.exerciseId
+      <MPQToggle exerciseId={@state.exerciseId} />
     else
       <div className="input-group">
         <input type="text" className="form-control" onKeyPress={@onFindKeyPress}
           ref="exerciseId" placeholder="Exercise ID"/>
         <span className="input-group-btn">
-          <button className="btn btn-default" type="button" onClick={@onFindExercise}>Load</button>
+          <button className="btn btn-default load" type="button" onClick={@onFindExercise}>Load</button>
         </span>
       </div>
 
@@ -75,44 +76,35 @@ module.exports = React.createClass
 
   saveExercise: ->
     id = @state.exerciseId
-    validity = ExerciseStore.validate(id)
-    if not validity?.valid
-      alert(validity?.reason or 'Not a valid exercise')
-      return
-
-    if confirm('Are you sure you want to save?')
-      if ExerciseStore.isNew(id)
-        ExerciseStore.once 'created', @loadExercise
-
-        ExerciseActions.create(id, ExerciseStore.get(id))
-      else
-        ExerciseActions.save(id)
+    if ExerciseStore.isNew(id)
+      ExerciseStore.once 'created', @loadExercise
+      ExerciseActions.create(id, ExerciseStore.get(id))
+    else
+      ExerciseActions.save(id)
 
   onNewBlank: (ev) ->
     ev.preventDefault()
-    if @canResetPage('Are you sure you want create a blank Exercise?  You will lose all unsaved changes')
-      @setBrowserUrlId('new')
-      @addNew()
+    @setBrowserUrlId('new')
+    @addNew()
 
   onReset: (ev) ->
     ev.preventDefault()
-    if @canResetPage('Are you sure you want reset editing?  You will lose all unsaved changes')
-      @setBrowserUrlId('')
-      @replaceState({})
+    @setBrowserUrlId('')
+    @replaceState({})
 
-  canResetPage: (msg) ->
-    not @state.exerciseId or
-      not ExerciseStore.isChanged(@state.exerciseId) or
-      confirm(msg)
-
+  isExerciseDirty: ->
+    @state.exerciseId and ExerciseStore.isChanged(@state.exerciseId)
 
   render: ->
     id = @state.exerciseId
+    guardProps =
+      onlyPromptIf: @isExerciseDirty
+      placement: 'right'
+      message: "You will lose all unsaved changes"
+
     classes = classnames('exercise', 'openstax', 'container-fluid',
       {'is-loading': ExerciseStore.isLoading()}
     )
-
-    isWorking = ExerciseStore.isSaving(id) or ExerciseStore.isPublishing(id)
 
     <div className={classes}>
       <ErrorModal />
@@ -120,14 +112,24 @@ module.exports = React.createClass
         <div className="container-fluid">
           <div className="navbar-header">
             <BS.ButtonToolbar className="navbar-btn">
-              <a href="/exercises" onClick={@onReset} className="btn btn-danger">Reset</a>
-              <a href="/exercises/new" onClick={@onNewBlank}
-                className="btn btn-success">New Blank Exercise</a>
+              <SuretyGuard
+                onConfirm={@onReset}
+                {...guardProps}
+              >
+                <a href="/exercises" className="btn btn-danger back">Back</a>
+              </SuretyGuard>
+              <SuretyGuard
+                onConfirm={@onNewBlank}
+                {...guardProps}
+              >
+                <a className="btn btn-success blank">New Blank Exercise</a>
+              </SuretyGuard>
               { if id?
                 <AsyncButton
                   bsStyle='info'
+                  className='draft'
                   onClick={@saveExercise}
-                  disabled={isWorking}
+                  disabled={not ExerciseStore.isSavable(id)}
                   isWaiting={ExerciseStore.isSaving(id)}
                   waitingText='Saving...'
                   isFailed={ExerciseStore.isFailed(id)}
@@ -136,16 +138,23 @@ module.exports = React.createClass
                 </AsyncButton>
               }
               { if id and not ExerciseStore.isNew(id)
-                <AsyncButton
-                  bsStyle='primary'
-                  onClick={@publishExercise}
-                  disabled={not id or isWorking or ExerciseStore.isPublished(id)}
-                  isWaiting={ExerciseStore.isPublishing(id)}
-                  waitingText='Publishing...'
-                  isFailed={ExerciseStore.isFailed(id)}
-                  >
-                  Publish
-                </AsyncButton>
+                <SuretyGuard
+                  onConfirm={@publishExercise}
+                  okButtonLabel='Publish'
+                  placement='right'
+                  message="Once an exericse is published, it is available for use."
+                >
+                  <AsyncButton
+                    bsStyle='primary'
+                    className='publish'
+                    disabled={not ExerciseStore.isPublishable(id)}
+                    isWaiting={ExerciseStore.isPublishing(id)}
+                    waitingText='Publishing...'
+                    isFailed={ExerciseStore.isFailed(id)}
+                    >
+                    Publish
+                  </AsyncButton>
+                </SuretyGuard>
               }
             </BS.ButtonToolbar>
           </div>

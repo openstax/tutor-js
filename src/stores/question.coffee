@@ -41,7 +41,8 @@ QuestionConfig = {
       @_local[id]?.answers[index] = @_local[id]?.answers[index + direction]
       @_local[id]?.answers[index + direction] = temp
 
-  updateStem: (id, stem_html) -> @_change(id, {stem_html})
+  updateStem: (id, stem_html) ->
+    @_change(id, {stem_html})
 
   updateStimulus: (id, stimulus_html) -> @_change(id, {stimulus_html})
 
@@ -102,6 +103,7 @@ QuestionConfig = {
     getTemplate: ->
       answerId = AnswerStore.freshLocalId()
 
+      formats: []
       stem_html:"",
       stimulus_html:"",
       collaborator_solutions: [{"content_html": "", "solution_type": "detailed"}],
@@ -109,14 +111,17 @@ QuestionConfig = {
       is_answer_order_important: false
 
     validate: (id) ->
-      if (not @_get(id).stem_html)
-        return valid: false, reason: 'Question Stem is invalid'
+      question = @_get(id)
+      if (not question.stem_html)
+        return valid: false, part: 'Question Stem'
+      if _.isEmpty(question.collaborator_solutions) or not _.first(question.collaborator_solutions)?.content_html
+        return valid: false, part: 'Detailed Solution'
 
       _.reduce @_get(id).answers, (memo, answer) ->
         validity = AnswerStore.validate(answer.id)
 
         valid: memo.valid and validity.valid
-        reason: memo.reason or validity.reason
+        part: memo.part or validity.part
       , valid: true
 }
 

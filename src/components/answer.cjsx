@@ -7,17 +7,25 @@ module.exports = React.createClass
 
   getInitialState: -> {}
 
+  propTypes:
+    id: React.PropTypes.number.isRequired
+    sync: React.PropTypes.func.isRequired
+
   updateContent: (event) ->
     AnswerActions.updateContent(@props.id, event.target?.value)
-    @props.sync()
+    @sync()
 
   changeCorrect: (event) ->
     @props.changeAnswer(@props.id)
-    @props.sync()
+    @sync()
 
   updateFeedback: (event) ->
     AnswerActions.updateFeedback(@props.id, event.target?.value)
+    @sync()
+
+  sync: ->
     @props.sync()
+    @forceUpdate()
 
   render: ->
     moveUp = <a className="pull-right" onClick={_.partial(@props.moveAnswer, @props.id, 1)}>

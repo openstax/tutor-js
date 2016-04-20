@@ -90,7 +90,7 @@ start = ->
     httpMethod: 'POST'
     payload: obj
 
-  apiHelper ExerciseActions, ExerciseActions.publish, ExerciseActions.saved, 'PUT', (id) ->
+  apiHelper ExerciseActions, ExerciseActions.publish, ExerciseActions.published, 'PUT', (id) ->
 
     obj = ExerciseStore.get(id)
     uid = ExerciseStore.getId(id)

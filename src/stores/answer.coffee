@@ -21,7 +21,7 @@ AnswerConfig = {
 
     validate: (id) ->
       if (not @_get(id).content_html)
-        return valid: false, reason: 'Answer has no content'
+        return valid: false, part: 'Answer Distractor'
 
       return valid: true
 

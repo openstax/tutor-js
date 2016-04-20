@@ -20,34 +20,42 @@ module.exports = React.createClass
   componentWillUnmount: ->
     QuestionStore.removeChangeListener(@update)
 
+  propTypes:
+    id: React.PropTypes.number.isRequired
+    sync: React.PropTypes.func.isRequired
+
+  sync: ->
+    @props.sync()
+    @forceUpdate()
+
   changeAnswer: (answerId) ->
     curAnswer = QuestionStore.getCorrectAnswer(@props.id)
     QuestionActions.setCorrectAnswer(@props.id, answerId, curAnswer?.id)
-    @props.sync()
+    @sync()
 
   updateStimulus: (event) ->
     QuestionActions.updateStimulus(@props.id, event.target?.value)
-    @props.sync()
+    @sync()
 
   updateStem: (event) ->
     QuestionActions.updateStem(@props.id, event.target?.value)
-    @props.sync()
+    @sync()
 
   updateSolution: (event) ->
     QuestionActions.updateSolution(@props.id, event.target?.value)
-    @props.sync()
+    @sync()
 
   addAnswer: ->
     QuestionActions.addNewAnswer(@props.id)
-    @props.sync()
+    @sync()
 
   removeAnswer:(answerId) ->
     QuestionActions.removeAnswer(@props.id, answerId)
-    @props.sync()
+    @sync()
 
   moveAnswer: (answerId, direction) ->
     QuestionActions.moveAnswer(@props.id, answerId, direction)
-    @props.sync()
+    @sync()
 
   multipleChoiceClicked: (event) -> QuestionActions.toggleMultipleChoiceFormat(@props.id)
   freeResponseClicked: (event) -> QuestionActions.toggleFreeResponseFormat(@props.id)
@@ -55,7 +63,7 @@ module.exports = React.createClass
 
   render: ->
     { id, removeQuestion, moveQuestion, canMoveLeft, canMoveRight } = @props
-
+    invalid = QuestionStore.validate(id)
     answers = []
 
     for answer, index in QuestionStore.getAnswers(id)
@@ -87,7 +95,10 @@ module.exports = React.createClass
           }
         </div>
       }
-      <QuestionFormatType questionId={id} />
+      {<BS.Alert bsStyle="warning"
+        >To save your work, you must fill out the {invalid.part}</BS.Alert> unless invalid.valid}
+
+      <QuestionFormatType sync={@props.sync} questionId={id} />
 
       <BS.Input type="checkbox" label="Order Matters"
         onChange={@preserveOrderClicked}
@@ -110,4 +121,5 @@ module.exports = React.createClass
         <label>Detailed Solution</label>
         <textarea onChange={@updateSolution} value={QuestionStore.getSolution(id)}></textarea>
       </div>
+
     </div>

@@ -4,7 +4,7 @@ BS = require 'react-bootstrap'
 
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
 
-
+SuretyGuard = require './surety-guard'
 
 MPQToggle = React.createClass
 
@@ -12,12 +12,7 @@ MPQToggle = React.createClass
     exerciseId: React.PropTypes.string.isRequired
 
   onConfirm: ->
-    @refs.overlay.hide()
     ExerciseActions.toggleMultiPart(@props.exerciseId)
-
-  onCancel: ->
-    @refs.overlay.hide()
-
 
   onToggleMPQ: (ev) ->
     # show warning if going from multi-part to multiple choice
@@ -33,25 +28,15 @@ MPQToggle = React.createClass
       checked={showMPQ} wrapperClassName="mpq-toggle" onChange={@onToggleMPQ} />
 
     if showMPQ
-      warning =
-        <BS.Popover
-          className="mpq-toggle-prompt" title="Are you sure?"
-        >
+      <SuretyGuard
+        onConfirm={@onConfirm}
+        okButtonLabel='Convert'
+        placement='left'
+        message={'''
           If this exercise is converted to be multiple-choice,
-         the intro and all but the first question will be removed.
-          <div className="controls">
-            <BS.Button onClick={@onCancel}>Cancel</BS.Button>
-            <BS.Button onClick={@onConfirm} bsStyle="primary">Convert</BS.Button>
-          </div>
-        </BS.Popover>
-      <BS.OverlayTrigger
-        ref="overlay"
-        placement="left"
-        trigger="click"
-        overlay={warning}
-      >
-        {checkbox}
-      </BS.OverlayTrigger>
+          the intro and all but the first question will be
+          removed.'''}
+      >{checkbox}</SuretyGuard>
     else
       checkbox
 

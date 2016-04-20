@@ -34,3 +34,7 @@ describe 'Exercises component', ->
     Testing.renderComponent( Exercise, props: @props ).then ({dom}) ->
       tabs = _.pluck dom.querySelectorAll('.nav-tabs li'), 'textContent'
       expect(tabs).to.deep.equal(['Question', 'Tags', 'Assets'])
+
+  it 'displays question formats on preview', ->
+    Testing.renderComponent( Exercise, props: @props ).then ({dom}) ->
+      expect(dom.querySelector('.openstax-exercise-preview .formats-listing')).to.exist
