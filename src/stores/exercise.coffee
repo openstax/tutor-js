@@ -13,7 +13,10 @@ EmptyFn = -> ''
 multipartCache = {}
 
 ExerciseConfig = {
-  _loaded: cascadeLoad
+  _loaded: (obj, exerciseId) ->
+    cascadeLoad(obj, exerciseId)
+    @emit('loaded', exerciseId)
+
   _asyncStatusPublish: {}
 
   updateStimulus: (id, stimulus_html) -> @_change(id, {stimulus_html})
@@ -135,7 +138,12 @@ ExerciseConfig = {
     exercise.attachments.push(attachment)
     @emitChange()
 
+  createBlank: (id) ->
+    template = @exports.getTemplate.call(@)
+    @loaded(template, id)
+
   exports:
+
     getQuestions: (id) -> @_get(id).questions
 
     isMultiPart: (id) -> @_get(id)?.questions.length > 1

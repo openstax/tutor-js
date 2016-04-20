@@ -14,7 +14,7 @@ Attachments = require './attachments'
 
 Exercise = React.createClass
   propTypes:
-    exerciseId:   React.PropTypes.string.isRequired
+    id:   React.PropTypes.string.isRequired
 
   getInitialState: -> {}
   update: -> @forceUpdate()
@@ -25,19 +25,19 @@ Exercise = React.createClass
   componentWillUnmount: ->
     ExerciseStore.removeChangeListener(@update)
 
-  sync: -> ExerciseActions.sync(@props.exerciseId)
+  sync: -> ExerciseActions.sync(@props.id)
 
   moveQuestion: (questionId, direction) ->
-    ExerciseActions.moveQuestion(@props.exerciseId, questionId, direction)
+    ExerciseActions.moveQuestion(@props.id, questionId, direction)
 
   removeQuestion: (questionId) ->
-    ExerciseActions.removeQuestion(@props.exerciseId, questionId)
+    ExerciseActions.removeQuestion(@props.id, questionId)
 
   updateStimulus: (event) ->
-    ExerciseActions.updateStimulus(@props.exerciseId, event.target?.value)
+    ExerciseActions.updateStimulus(@props.id, event.target?.value)
 
   renderIntroTab: ->
-    id = @props.exerciseId
+    id = @props.id
     <BS.TabPane eventKey="intro" tab="Intro">
       <div className="exercise-stimulus">
         <label>Exercise Stimulus</label>
@@ -46,7 +46,7 @@ Exercise = React.createClass
     </BS.TabPane>
 
   renderMpqTabs: ->
-    {questions} = ExerciseStore.get(@props.exerciseId)
+    {questions} = ExerciseStore.get(@props.id)
     for question, i in questions
       <BS.TabPane key={question.id} eventKey={"question-#{i}"} tab={"Question #{i+1}"}>
         <Question id={question.id}
@@ -58,7 +58,7 @@ Exercise = React.createClass
       </BS.TabPane>
 
   renderSingleQuestionTab: ->
-    {questions} = ExerciseStore.get(@props.exerciseId)
+    {questions} = ExerciseStore.get(@props.id)
     <BS.TabPane key={0} eventKey='question-0' tab='Question'>
       <Question id={_.first(questions)?.id} sync={@sync} />
     </BS.TabPane>
@@ -68,7 +68,7 @@ Exercise = React.createClass
     tags: _.map ex.tags, (tag) -> name: tag
 
   addQuestion: ->
-    ExerciseActions.addQuestionPart(@props.exerciseId)
+    ExerciseActions.addQuestionPart(@props.id)
 
   selectTab: (tab) -> @setState({tab})
 
@@ -77,7 +77,7 @@ Exercise = React.createClass
       return @state.tab
 
     question = @state.tab.split('-')[1]
-    numQuestions = ExerciseStore.getQuestions(@props.exerciseId).length
+    numQuestions = ExerciseStore.getQuestions(@props.id).length
     if (not showMPQ or question >= numQuestions)
       return 'question-0'
 
@@ -85,15 +85,15 @@ Exercise = React.createClass
 
 
   render: ->
-    exercise = ExerciseStore.get(@props.exerciseId)
+    exercise = ExerciseStore.get(@props.id)
     return null unless exercise
 
-    showMPQ = ExerciseStore.isMultiPart(@props.exerciseId)
+    showMPQ = ExerciseStore.isMultiPart(@props.id)
 
     tab = @getActiveTab(showMPQ)
 
     <div className='exercise-editor'>
-      <PublishedModal exerciseId={@props.exerciseId} />
+      <PublishedModal exerciseId={@props.id} />
       <div className="editing-controls">
 
        {if showMPQ
@@ -106,11 +106,11 @@ Exercise = React.createClass
           {if showMPQ then @renderIntroTab()}
           {if showMPQ then @renderMpqTabs() else @renderSingleQuestionTab()}
           <BS.TabPane eventKey='tags' tab='Tags'>
-            <ExerciseTags exerciseId={@props.exerciseId} sync={@sync} />
+            <ExerciseTags exerciseId={@props.id} sync={@sync} />
           </BS.TabPane>
-          { if not ExerciseStore.isNew(@props.exerciseId)
+          { if not ExerciseStore.isNew(@props.id)
             <BS.TabPane eventKey='assets' tab='Assets'>
-              <Attachments exerciseId={@props.exerciseId} />
+              <Attachments exerciseId={@props.id} />
             </BS.TabPane>
           }
         </BS.TabbedArea>

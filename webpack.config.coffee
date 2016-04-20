@@ -15,7 +15,7 @@ module.exports =
   entry:
     exercises: [
       './src/index.coffee',
-      './resources/styles/exercises.less'
+      './resources/styles/app.less'
     ]
 
   output:

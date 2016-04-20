@@ -1,0 +1,52 @@
+@import './variables/paths';
+
+
+//@import 'katex.css';
+
+@import './vendor-variables';
+
+@import 'variables';
+
+@import (reference) './mixins/generic';
+
+@import '~openstax-react-components/resources/styles/main.less';
+
+@import "@{bootstrap-path}/navs";
+@import "@{bootstrap-path}/navbar";
+@import "@{bootstrap-path}/buttons";
+@import "@{bootstrap-path}/button-groups";
+@import "@{bootstrap-path}/responsive-embed";
+
+@import "@{widgets-path}/variables";
+@import "@{widgets-path}/bootstrap-theme";
+@import "@{widgets-path}/mixins";
+@import "@{widgets-path}/core";
+@import "@{widgets-path}/popup";
+@import "@{widgets-path}/selectlist";
+@import "@{widgets-path}/multiselect";
+
+
+@import "global/error-modal";
+
+@import "./exercises";
+
+.editor-app {
+
+  nav.navbar {
+    .controls-container {
+      display: flex;
+
+    }
+    .view-controls {
+      margin-left: 5px;
+      display: flex;
+      flex: 1;
+
+      > * { display: flex; flex: 1; };
+    }
+
+  }
+
+
+
+}
