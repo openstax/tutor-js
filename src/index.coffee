@@ -26,7 +26,9 @@ loadApp = ->
 
   root = document.createElement('div')
   document.body.appendChild(root)
-
-  window.React.render(window.App(), root)
+  user = JSON.parse(
+    document.getElementById('exercises-boostrap-data')?.innerHTML or '{}'
+  )
+  window.React.render(window.App({user}), root)
 
 document.addEventListener('DOMContentLoaded', loadApp)
