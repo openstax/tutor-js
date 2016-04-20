@@ -2,7 +2,7 @@ React = require 'react'
 
 SingleDropdown = require './single-dropdown'
 
-PREFIX = 'question-type'
+PREFIX = 'type'
 TYPES =
   'conceptual-or-recall' : 'Conceptual or Recall'
   'conceptual'           : 'Conceptual'

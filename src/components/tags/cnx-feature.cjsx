@@ -19,7 +19,7 @@ CnxModTag = React.createClass
     <MultiInput
       {...@props}
       label='CNX Feature'
-      prefix='cnx-feature'
+      prefix='context-cnxfeature'
       cleanInput={@cleanInput}
       placeholder='#########-####-###-####-############feature-id'
       validateInput={@validateInput}
