@@ -39,6 +39,9 @@ App = React.createClass
 
   componentWillMount: ->
     @historyUnlisten = @props.history.listen(@onHistoryChange)
+    {view, id} = @getUrlParts(window.location.pathname)
+    if id is 'new'
+      @setState(newId: @createNewRecord(view))
 
   componentWillUnmount: ->
     @historyUnlisten()
@@ -46,25 +49,32 @@ App = React.createClass
   onHistoryChange: (location) ->
     @setState(location: location)
 
-  createRecord: (type, ev) ->
+  onNewRecord: (type, ev) ->
     ev.preventDefault()
+    newId = @createNewRecord(type)
+    @setState({newId})
+    @props.history.push("/#{type}/new")
+
+  createNewRecord: (type) ->
     Component = VIEWS[type]
     newId = Component.store.freshLocalId()
     Component.actions.createBlank(newId)
-    @setState({newId})
-    @props.history.push("/#{type}/new")
+    return newId
+
+  getUrlParts: (path = @state.location.pathname) ->
+    [view, id, args...] = _.tail path.split('/')
+    {view, id, args}
 
   onReset: (ev) ->
     ev.preventDefault()
     @props.history.push('/')
 
   render: ->
-    paths = _.tail @state.location.pathname.split('/')
+    {view, id, args} = @getUrlParts()
+    if id is 'new'
+      id = @state.newId or @createNewRecord(view)
 
-    [view, id] = paths
     Component = VIEWS[view] or VIEWS['search']
-
-    id = @state.newId if id is 'new'
 
     guardProps =
       onlyPromptIf: ->
@@ -72,11 +82,11 @@ App = React.createClass
       placement: 'right'
       message: "You will lose all unsaved changes"
 
-    classes = classnames(view, 'openstax', 'editor-app', 'container-fluid')
-
     componentProps =
       id: id
       history: @props.history
+
+    classes = classnames(view, 'openstax', 'editor-app', 'container-fluid')
 
     <div className={classes}>
       <ErrorModal />
@@ -93,14 +103,14 @@ App = React.createClass
                 </SuretyGuard>}
 
               <SuretyGuard
-                onConfirm={_.partial @createRecord, 'exercise'}
+                onConfirm={_.partial @onNewRecord, 'exercise'}
                 {...guardProps}
               >
                 <a className="btn btn-success blank">New Exercise</a>
               </SuretyGuard>
 
               <SuretyGuard
-                onConfirm={_.partial @createRecord, 'vocabulary'}
+                onConfirm={_.partial @onNewRecord, 'vocabulary'}
                 {...guardProps}
               >
                 <a className="btn btn-success blank">New Vocabulary Term</a>
