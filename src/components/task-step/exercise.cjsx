@@ -25,6 +25,25 @@ CONTROLS_TEXT =
   'review': 'Next Question'
   'teacher-read-only': 'Next Question'
 
+canOnlyContinue = (id) ->
+  _.chain(StepPanel.getRemainingActions(id))
+    .difference(['clickContinue'])
+    .isEmpty()
+    .value()
+
+getWaitingText = (id) ->
+  switch
+    when TaskStepStore.isLoading(id) then "Loading…"
+    when TaskStepStore.isSaving(id)  then "Saving…"
+    else null
+
+getReadingForStep = (id, taskId) ->
+  TaskStore.getReadingForTaskId(taskId, id)
+
+getCurrentPanel = (id) ->
+  unless TaskStepStore.isSaving(id)
+    currentPanel = StepPanel.getPanel(id)
+
 ExerciseControlButtons = React.createClass
   displayName: 'ExerciseControlButtons'
   getDefaultProps: ->
@@ -43,6 +62,55 @@ ExerciseControlButtons = React.createClass
     controlProps.children = controlText
 
     <ControlButtons {...controlProps}/>
+
+ExercisePart = React.createClass
+  displayName: 'ExercisePart'
+
+  isLastPart: (id) ->
+    {lastPartId} = @props
+
+    id is lastPartId
+
+  shouldControl: (id) ->
+    {isSinglePartExercise} = @props
+
+    isSinglePartExercise or not (@isLastPart(id) and canOnlyContinue(id))
+
+  render: ->
+    {taskId, stepProps, onStepCompleted, part, index} = @props
+
+    stepIndex = TaskStore.getStepIndex(taskId, part.id)
+    step = TaskStepStore.get(part.id)
+    waitingText = getWaitingText(part.id)
+    partProps = _.pick(part, 'id', 'taskId')
+    partProps.focus = index is 0
+    controlButtons = [] unless @shouldControl(part.id)
+
+    <div
+      className='exercise-wrapper'
+      data-step-number={stepIndex + 1}
+      key="exercise-part-#{part.id}">
+      <Exercise
+        {...partProps}
+        {...stepProps}
+        onStepCompleted={_.partial(onStepCompleted, part.id)}
+        freeResponseValue={step.temp_free_response}
+        step={step}
+        waitingText={waitingText}
+        controlButtons={controlButtons}
+
+        canReview={StepPanel.canReview(part.id)}
+        disabled={TaskStepStore.isSaving(part.id)}
+        isContinueEnabled={StepPanel.canContinue(part.id)}
+
+        getCurrentPanel={getCurrentPanel}
+        getReadingForStep={getReadingForStep}
+        setFreeResponseAnswer={TaskStepActions.setFreeResponseAnswer}
+        onFreeResponseChange={_.partial(TaskStepActions.updateTempFreeResponse, part.id)}
+        freeResponseValue={TaskStepStore.getTempFreeResponse(part.id)}
+        setAnswerId={TaskStepActions.setAnswerId}
+      />
+    </div>
 
 module.exports = React.createClass
   displayName: 'ExerciseShell'
@@ -124,7 +192,7 @@ module.exports = React.createClass
     {parts} = @state
 
     _.reduce parts, (previous, part) =>
-      previous and @canOnlyContinue(part.id)
+      previous and canOnlyContinue(part.id)
     , true
 
   allCorrect: ->
@@ -133,19 +201,6 @@ module.exports = React.createClass
     _.reduce parts, (previous, part) ->
       previous and (part.correct_answer_id is part.answer_id)
     , true
-
-  getWaitingText: (id) ->
-    switch
-      when TaskStepStore.isLoading(id) then "Loading…"
-      when TaskStepStore.isSaving(id)  then "Saving…"
-      else null
-
-  getReadingForStep: (id, taskId) ->
-    TaskStore.getReadingForTaskId(taskId, id)
-
-  getCurrentPanel: (id) ->
-    unless TaskStepStore.isSaving(id)
-      currentPanel = StepPanel.getPanel(id)
 
   getReviewProps: ->
     {refreshStep, recoverFor} = @props
@@ -156,49 +211,11 @@ module.exports = React.createClass
     canTryAnother: TaskStepStore.canTryAnother(lastPartId, task, not @allCorrect())
     isRecovering: TaskStepStore.isRecovering(lastPartId)
 
-  isLastPart: (id) ->
-    {lastPartId} = @state
-
-    id is lastPartId
-
-  shouldControl: (id) ->
-    {isSinglePartExercise} = @state
-
-    isSinglePartExercise or not (@isLastPart(id) and @canOnlyContinue(id))
-
   renderPart: (taskId, stepProps, onStepCompleted, part, index = 0) ->
-    stepIndex = TaskStore.getStepIndex(taskId, part.id)
-    step = TaskStepStore.get(part.id)
-    waitingText = @getWaitingText(part.id)
-    partProp = _.pick(part, 'id', 'taskId')
-    partProp.focus = index is 0
-    controlButtons = [] unless @shouldControl(part.id)
+    {isSinglePartExercise, lastPartId} = @state
+    propsForPart = {taskId, stepProps, onStepCompleted, part, index, isSinglePartExercise, lastPartId}
 
-    <div
-      className='exercise-wrapper'
-      data-step-number={stepIndex + 1}
-      key="exercise-part-#{part.id}">
-      <Exercise
-        {...partProp}
-        {...stepProps}
-        onStepCompleted={_.partial(onStepCompleted, part.id)}
-        freeResponseValue={step.temp_free_response}
-        step={step}
-        waitingText={waitingText}
-        controlButtons={controlButtons}
-
-        canReview={StepPanel.canReview(part.id)}
-        disabled={TaskStepStore.isSaving(part.id)}
-        isContinueEnabled={StepPanel.canContinue(part.id)}
-
-        getCurrentPanel={@getCurrentPanel}
-        getReadingForStep={@getReadingForStep}
-        setFreeResponseAnswer={TaskStepActions.setFreeResponseAnswer}
-        onFreeResponseChange={_.partial(TaskStepActions.updateTempFreeResponse, part.id)}
-        freeResponseValue={TaskStepStore.getTempFreeResponse(part.id)}
-        setAnswerId={TaskStepActions.setAnswerId}
-      />
-    </div>
+    <ExercisePart {...propsForPart}/>
 
   render: ->
     {id, taskId, courseId, onNextStep, onStepCompleted} = @props
@@ -220,11 +237,10 @@ module.exports = React.createClass
     stepParts = _.map parts, _.partial(@renderPart, taskId, stepProps, onStepCompleted), @
 
     controlProps =
-      panel: @getCurrentPanel(lastPartId)
+      panel: getCurrentPanel(lastPartId)
       controlText: 'Continue' if task.type is 'reading'
 
     if @canAllContinue()
-
       reviewProps = @getReviewProps()
 
       canContinueControlProps =
