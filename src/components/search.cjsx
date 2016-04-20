@@ -6,7 +6,6 @@ BS = require 'react-bootstrap'
 Search = React.createClass
   propTypes:
     history: React.PropTypes.object.isRequired
-    id: React.PropTypes.string.isRequired
 
   displayExercise: (id) ->
     @props.history.push("/exercise/#{id}")
