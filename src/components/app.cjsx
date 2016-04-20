@@ -4,6 +4,7 @@ BS = require 'react-bootstrap'
 classnames = require 'classnames'
 history = require 'history'
 ErrorModal = require './error-modal'
+UserActionsMenu = require 'components/user-actions-menu'
 SuretyGuard = require './surety-guard'
 
 {ExerciseActions, ExerciseStore} = require 'stores/exercise'
@@ -31,6 +32,7 @@ App = React.createClass
 
   propTypes:
     history: React.PropTypes.object
+    user:  React.PropTypes.object.isRequired
 
   getDefaultProps: ->
     history: history.createHistory()
@@ -106,9 +108,14 @@ App = React.createClass
 
             </BS.ButtonToolbar>
           </div>
+
           <div className="navbar-header view-controls">
             <Component.controls {...componentProps} />
           </div>
+
+          <UserActionsMenu user={@props.user} />
+
+
         </div>
       </nav>
 
