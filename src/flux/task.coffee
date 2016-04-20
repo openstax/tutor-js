@@ -275,9 +275,15 @@ TaskConfig =
       result
 
     getStepParts: (taskId, stepId) ->
-      step = @_getStep(taskId, stepId)
-      {content_url} = step
-      _.where @_steps[taskId], {content_url}
+      currentStep = @_getStep(taskId, stepId)
+      {content_url} = currentStep
+      parts =_.filter(@_steps[taskId], (step) ->
+        step.is_in_multipart and step.content_url is content_url
+      )
+
+      parts = [currentStep] if _.isEmpty(parts)
+
+      parts
 
 extendConfig(TaskConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskConfig)

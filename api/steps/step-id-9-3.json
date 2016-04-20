@@ -5,6 +5,7 @@
   "answer_id": "idn1",
   "free_response": "eight",
   "is_in_multipart": true,
+  "has_recovery": true,
   "content_url": "https://exercises-dev.openstax.org/exercises/120@1",
   "feedback_html": "Two apples and then <span data-math='2'>2</span> more apples is <strong>four</strong>",
   "content": {

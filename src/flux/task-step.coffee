@@ -118,10 +118,10 @@ TaskStepConfig =
       return '' unless step.temp_free_response
       step.temp_free_response
 
-    canTryAnother: (id, task) ->
+    canTryAnother: (id, task, hasIncorrect = false) ->
       step = @_get(id)
       step? and
-        (step.has_recovery and step.correct_answer_id isnt step.answer_id) and
+        (step.has_recovery and (hasIncorrect or step.correct_answer_id isnt step.answer_id)) and
         not Durations.isPastDue(task) and
         not @exports.isLoading.call(@, id) and
         not @exports.isSaving.call(@, id)

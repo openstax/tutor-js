@@ -21,14 +21,24 @@ module.exports =
 
     defaultIndex
 
+  latestPartIndex: ->
+    {id} = @props
+    latestIndex = @getDefaultCurrentStep()
+    currentStep = TaskStore.getSteps(id)[latestIndex]
+    return 0 unless currentStep?
+    latestStepId = currentStep.id
+
+    parts = TaskStore.getStepParts(id, latestStepId)
+    latestPartIndex = TaskStore.getStepIndex(id, _.last(parts).id)
+
   _shouldStepCrumb: (index) ->
     {id} = @props
     latestIndex = @getDefaultCurrentStep()
+    latestPartIndex = @latestPartIndex()
 
     # doesAllowSeeAhead is currently true for if task type is homework and for practices.
     doesAllowSeeAhead = TaskStore.doesAllowSeeAhead(id)
-
-    doesAllowSeeAhead or index <= latestIndex
+    doesAllowSeeAhead or index <= latestIndex or index <= latestPartIndex
 
   _getStepListeners: (stepType) ->
     #   One per step for the crumb status updates

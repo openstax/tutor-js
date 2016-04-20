@@ -258,7 +258,7 @@
       "HACK_LOCAL_STEP_COMPLETION": true,
       "title": "Chapter 10 and Chapter 11 Reading, multi-part",
       "description": "###Lorem ipsum dolor sit amet,\n\n consectetur adipiscing elit.\n\n1. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan\n\n1. et viverra justo commodo.\n\n1. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis\n\n1. parturient montes, nascetur ridiculus mus. Nam fermentum,\n\n1. nulla luctus pharetra vulputate, felis tellus\n\n1. mollis orci, sed rhoncus sapien nunc eget odio.",
-      "due_at": "2016-04-20T00:45:20.967Z",
+      "due_at": "2016-04-25T00:45:20.967Z",
       "type":"reading",
       "steps": [
         { "id": "step-id-9-1",
@@ -314,6 +314,7 @@
           "answer_id": "idn1",
           "free_response": "eight",
           "is_in_multipart": true,
+          "has_recovery": true,
           "content_url": "https://exercises-dev.openstax.org/exercises/120@1",
           "feedback_html": "Two apples and then <span data-math='2'>2</span> more apples is <strong>four</strong>",
           "content": {
