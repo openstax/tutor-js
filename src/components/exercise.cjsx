@@ -38,30 +38,30 @@ Exercise = React.createClass
 
   renderIntroTab: ->
     id = @props.id
-    <BS.TabPane eventKey="intro" tab="Intro">
+    <BS.Tab eventKey="intro" title="Intro">
       <div className="exercise-stimulus">
         <label>Exercise Stimulus</label>
         <textarea onChange={@updateStimulus} defaultValue={ExerciseStore.getStimulus(id)}></textarea>
       </div>
-    </BS.TabPane>
+    </BS.Tab>
 
   renderMpqTabs: ->
     {questions} = ExerciseStore.get(@props.id)
     for question, i in questions
-      <BS.TabPane key={question.id} eventKey={"question-#{i}"} tab={"Question #{i+1}"}>
+      <BS.Tab key={question.id} eventKey={"question-#{i}"} title={"Question #{i+1}"}>
         <Question id={question.id}
           sync={@sync}
           canMoveLeft={i isnt 0}
           canMoveRight={i isnt questions.length - 1}
           moveQuestion={@moveQuestion}
           removeQuestion={_.partial(@removeQuestion, question.id)} />
-      </BS.TabPane>
+      </BS.Tab>
 
   renderSingleQuestionTab: ->
     {questions} = ExerciseStore.get(@props.id)
-    <BS.TabPane key={0} eventKey='question-0' tab='Question'>
+    <BS.Tab key={0} eventKey='question-0' title='Question'>
       <Question id={_.first(questions)?.id} sync={@sync} />
-    </BS.TabPane>
+    </BS.Tab>
 
   exercisePreviewData: (ex) ->
     content: ex
@@ -100,20 +100,20 @@ Exercise = React.createClass
          <BS.Button onClick={@addQuestion} className="add-mpq"
            bsStyle="primary">Add Question</BS.Button>}
 
-        <BS.TabbedArea defaultActiveKey='question-0' animation={false}
+        <BS.Tabs defaultActiveKey='question-0' animation={false}
           activeKey={tab} onSelect={@selectTab}
         >
           {if showMPQ then @renderIntroTab()}
           {if showMPQ then @renderMpqTabs() else @renderSingleQuestionTab()}
-          <BS.TabPane eventKey='tags' tab='Tags'>
+          <BS.Tab eventKey='tags' title='Tags'>
             <ExerciseTags exerciseId={@props.id} sync={@sync} />
-          </BS.TabPane>
+          </BS.Tab>
           { if not ExerciseStore.isNew(@props.id)
-            <BS.TabPane eventKey='assets' tab='Assets'>
+            <BS.Tab eventKey='assets' title='Assets'>
               <Attachments exerciseId={@props.id} />
-            </BS.TabPane>
+            </BS.Tab>
           }
-        </BS.TabbedArea>
+        </BS.Tabs>
       </div>
 
       <ExercisePreview
