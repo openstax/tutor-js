@@ -1,7 +1,7 @@
 _ = require 'underscore'
 React = require 'react'
 camelCase = require 'camelcase'
-Router = require 'react-router'
+{ Link } = require 'react-router'
 classnames = require 'classnames'
 
 {Details} = require '../task/details'
@@ -85,24 +85,22 @@ module.exports =
   renderBackButton: ({taskId, courseId, review, panel}, custombuttonClasses) ->
     defaultButtonClasses = 'btn btn-primary'
 
-    backButton = <Router.Link
-      to='viewStudentDashboard'
+    backButton = <Link
+      to="/courses/#{courseId}/list/?"
       key='step-back'
-      params={{courseId}}
       className={custombuttonClasses or defaultButtonClasses}>
         Back to Dashboard
-    </Router.Link>
+    </Link>
 
     if panel? and panel is 'teacher-read-only'
       defaultButtonClasses = 'btn btn-default'
 
-      backButton = <Router.Link
-        to='viewScores'
+      backButton = <Link
+        to="/courses/#{courseId}/t/scores/?"
         key='step-back'
-        params={{courseId}}
         className={custombuttonClasses or defaultButtonClasses}>
           Back to Scores
-      </Router.Link>
+      </Link>
 
     backButton
 

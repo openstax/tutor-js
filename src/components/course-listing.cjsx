@@ -1,7 +1,7 @@
 _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+{ Link } = require 'react-router'
 WindowHelpers = require '../helpers/window'
 
 {CourseListingActions, CourseListingStore} = require '../flux/course-listing'
@@ -63,26 +63,26 @@ CourseListing = React.createClass
 
       if isTeacher
         if courseLink?
-          altLink = <Router.Link
-            className='tutor-course-alt-link'
-            to='taskplans'
-            params={{courseId}}>View as Teacher</Router.Link>
+          altLink = <Link className='tutor-course-alt-link'
+            to="/courses/#{courseId}/t/calendar">
+            View as Teacher
+          </Link>
         else
-          to = if isConceptCoach then 'cc-dashboard' else 'taskplans'
-          courseLink = <Router.Link
-            className='tutor-course-item'
-            to={to}
-            params={{courseId}}>{course.name}</Router.Link>
+          to = "/courses/#{courseId}/t/calendar"
+          if isConceptCoach
+            to = "/courses/#{courseId}/t/cc-dashboard"
+          courseLink = <Link className='tutor-course-item' to={to}>
+            {course.name}
+          </Link>
       else if isStudent
         if isConceptCoach
           courseLink = <a className='tutor-course-item' href={course.webview_url}>
             {course.name}
             </a>
         else
-          courseLink = <Router.Link
-            className='tutor-course-item'
-            to='viewStudentDashboard'
-            params={{courseId}}>{course.name}</Router.Link>
+          courseLink = <Link className='tutor-course-item' to="/courses/#{courseId}/list/?">
+            {course.name}
+          </Link>
       else
         console.warn?("BUG: User is not a teacher or a student on course id: #{course.id}")
         return null

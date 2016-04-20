@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+{ Link } = require 'react-router'
 _ = require 'underscore'
 
 Name = require '../name'
@@ -58,11 +58,10 @@ module.exports = React.createClass
         </BS.DropdownButton>
         <InfoLink type='teacher_student'/>
       </div>
-      <Router.Link activeClassName='' to='viewScores'
-        className='btn btn-default back'
-        params={courseId: @props.courseId}>
+      <Link activeClassName='' to="/courses/#{@props.courseId}/t/scores/?"
+        className='btn btn-default back'>
         Return to Scores
-      </Router.Link>
+      </Link>
     </div>
 
   renderWeakerExplanation: ->

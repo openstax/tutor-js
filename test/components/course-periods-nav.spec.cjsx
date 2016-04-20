@@ -2,7 +2,7 @@
 _ = require 'underscore'
 
 {Promise} = require 'es6-promise'
-React = require 'react/addons'
+React = require 'react'
 
 {componentStub, commonActions}   = require './helpers/utilities'
 

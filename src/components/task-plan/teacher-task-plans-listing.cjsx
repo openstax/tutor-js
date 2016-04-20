@@ -1,7 +1,6 @@
 React = require 'react'
 moment = require 'moment-timezone'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
 _ = require 'underscore'
 
 LoadableItem = require '../loadable-item'

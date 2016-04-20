@@ -1,7 +1,8 @@
 _ = require 'underscore'
 moment = require 'moment'
 
-React = require 'react/addons'
+React = require 'react'
+ReactTestUtils = require 'react-addons-test-utils'
 {Promise} = require 'es6-promise'
 
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../../../src/flux/teacher-task-plan'
@@ -34,19 +35,19 @@ actions =
     commonActions.clickDOMNode(addButton)(args[0])
   clickToday: (args...) ->
     {component} = args[0]
-    currents = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--current')
+    currents = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--current')
     commonActions.clickComponent(currents[0])(args[0])
   clickTomorrow: (args...) ->
     {component} = args[0]
-    upcomings = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming')
+    upcomings = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming')
     commonActions.clickComponent(upcomings[0])(args[0])
   clickYesterday: (args...) ->
     {component} = args[0]
-    pasts = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--past')
+    pasts = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--past')
     commonActions.clickComponent(_.last(pasts))(args[0])
   clickAddHomework: (args...) ->
     {component} = args[0]
-    addOnDayDropdown = React.addons.TestUtils.findRenderedComponentWithType(component, Add)
+    addOnDayDropdown = ReactTestUtils.findRenderedComponentWithType(component, Add)
     commonActions.clickDOMNode(addOnDayDropdown.refs.homeworkLink.getDOMNode().childNodes[0])(args[0])
     args[0]
 
@@ -61,10 +62,10 @@ actions =
 
     moment(firstPlan.starts_at)
 
-  _goToMonth: (testMoment, {div, courseId, component, state, router, history}) ->
+  _goToMonth: (testMoment, {div, courseId, component, history}) ->
     # component.refs.calendarHandler.props.startDate = testMoment
     component.refs.calendarHandler.setDate(testMoment)
-    actions.forceUpdate({div, courseId, component, state, router, history})
+    actions.forceUpdate({div, courseId, component, history})
 
   goToMonth: (testMoment) ->
     (args...) ->

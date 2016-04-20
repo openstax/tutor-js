@@ -3,7 +3,8 @@ twix = require 'twix'
 _ = require 'underscore'
 camelCase = require 'camelcase'
 
-React = require 'react/addons'
+React = require 'react'
+cloneWithProps = require 'react-addons-clone-with-props'
 CoursePlan = require './plan'
 PlanHelper = require '../../helpers/plan'
 TimeHelper = require '../../helpers/time'
@@ -269,7 +270,7 @@ CourseDuration = React.createClass
   renderChildren: (item) ->
     {courseId} = @props
     React.Children.map(@props.children, (child) ->
-      React.addons.cloneWithProps(child, {item, courseId})
+      cloneWithProps(child, {item, courseId})
     )
 
   renderDurations: ->

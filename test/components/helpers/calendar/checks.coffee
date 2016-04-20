@@ -5,7 +5,8 @@ camelCase = require 'camelcase'
 
 moment = require 'moment-timezone'
 twix = require 'twix'
-React = require 'react/addons'
+React = require 'react'
+ReactTestUtils = require 'react-addons-test-utils'
 
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../../../src/flux/teacher-task-plan'
 {TaskPlanStatsStore, TaskPlanStatsActions} = require '../../../../src/flux/task-plan-stats'
@@ -31,7 +32,7 @@ checks =
     expect(addOnDayDropdown.refs.eventLink.getDOMNode().childNodes[0].href).to.contain(targetEventLink)
 
 
-  _doesLabelMatchMonthOf: (testMoment, {div, component, state, router, history, courseId}) ->
+  _doesLabelMatchMonthOf: (testMoment, {div, component, history, courseId}) ->
     monthLabel = div.querySelector('.calendar-header-label')
     monthFormat = component.refs.calendarHandler.refs.calendarHeader.props.format
 
@@ -40,9 +41,9 @@ checks =
     expect(monthLabel).to.not.be.null
     expect(monthLabel.innerText).to.equal(expectedMonthLabel)
 
-    {div, component, state, router, history, courseId}
+    {div, component, history, courseId}
 
-  _doesDateMatchMonthOf: (testMoment, {div, component, state, router, history, courseId}) ->
+  _doesDateMatchMonthOf: (testMoment, {div, component, history, courseId}) ->
     {date} = component.refs.calendarHandler.refs.calendar.props
     {viewingDuration} = component.refs.calendarHandler.refs.courseDurations.props
 
@@ -57,11 +58,11 @@ checks =
     expect(firstCalBox.innerText).to.equal(firstTestDateMonthBox.date().toString())
     expect(testMonthBox.equals(viewingDuration)).to.be.true
 
-    {div, component, state, router, history, courseId}
+    {div, component, history, courseId}
 
-  _checkIsCalendarRendered: ({div, component, state, router, history, courseId}) ->
+  _checkIsCalendarRendered: ({div, component, history, courseId}) ->
     expect(div.querySelector('.rc-Month')).to.not.be.null
-    {div, component, state, router, history, courseId}
+    {div, component, history, courseId}
 
   _checkIsDateToday: (args...) ->
     checks.doesDateMatchMonthOf(TimeHelper.getMomentPreserveDate(TimeStore.getNow()), args...)
@@ -81,7 +82,7 @@ checks =
   _checkIsLabelPreviousMonth: (args...) ->
     checks.doesLabelMatchMonthOf(TimeHelper.getMomentPreserveDate(TimeStore.getNow()).subtract(1, 'month'), args...)
 
-  _checkDoesViewHavePlans: ({div, component, state, router, history, courseId}) ->
+  _checkDoesViewHavePlans: ({div, component, history, courseId}) ->
     {durations, viewingDuration} = component.refs.calendarHandler.refs.courseDurations.props
 
     expect(durations).to.be.an('array')
@@ -94,14 +95,14 @@ checks =
     #     expect(div.querySelectorAll(".course-plan-#{plan.id}").length).to.be.above(0)
     # )
 
-    {div, component, state, router, history, courseId}
+    {div, component, history, courseId}
 
-  _checkDoesAddDropDownShow: ({div, component, state, router, history, courseId}) ->
+  _checkDoesAddDropDownShow: ({div, component, history, courseId}) ->
     expect(div.querySelector('.open .dropdown-menu')).to.not.be.null
 
-    {div, component, state, router, history, courseId}
+    {div, component, history, courseId}
 
-  _checkDoesAddMenuLinkCorrectly: ({div, component, state, router, history, courseId}) ->
+  _checkDoesAddMenuLinkCorrectly: ({div, component, history, courseId}) ->
     React.Children.forEach(component.refs.calendarHandler.refs.addButtonGroup.refs.menu.props.children, (link) ->
       routeName = camelCase("create-#{link.key}")
       expectedLink = router.makeHref(routeName, {courseId})
@@ -109,66 +110,66 @@ checks =
       expect(link._store.props.href).to.equal(expectedLink)
     )
 
-    {div, component, state, router, history, courseId}
+    {div, component, history, courseId}
 
-  _checkIsYesterdayPast: ({div, component, state, router, history, courseId}) ->
-    past = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--past')
+  _checkIsYesterdayPast: ({div, component, history, courseId}) ->
+    past = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--past')
     shouldBeYesterday = _.last(past)
 
     isYesterday = shouldBeYesterday._reactInternalInstance._context.date
       .isSame(moment(TimeStore.getNow()).subtract(1, 'day'), 'day')
     expect(isYesterday).to.be.true
-    {div, component, state, router, history, courseId}
+    {div, component, history, courseId}
 
-  _checkIsTodayCurrent: ({div, component, state, router, history, courseId}) ->
-    currents = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--current')
+  _checkIsTodayCurrent: ({div, component, history, courseId}) ->
+    currents = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--current')
     shouldBeToday = _.first(currents)
 
     isToday = shouldBeToday._reactInternalInstance._context.date.isSame(moment(TimeStore.getNow()), 'day')
     expect(isToday).to.be.true
-    {div, component, state, router, history, courseId}
+    {div, component, history, courseId}
 
-  _checkIsTomorrowUpcoming: ({div, component, state, router, history, courseId}) ->
-    upcomings = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming')
+  _checkIsTomorrowUpcoming: ({div, component, history, courseId}) ->
+    upcomings = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming')
     shouldBeTomorrow = _.first(upcomings)
     isTomorrow = shouldBeTomorrow._reactInternalInstance._context.date.isSame(moment(TimeStore.getNow()).add(1, 'day'), 'day')
     expect(isTomorrow).to.be.true
-    {div, component, state, router, history, courseId}
+    {div, component, history, courseId}
 
-  _checkIsYesterdayClickable: ({div, component, state, router, history, courseId}) ->
-    past = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--past')
+  _checkIsYesterdayClickable: ({div, component, history, courseId}) ->
+    past = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--past')
     shouldBeYesterday = _.last(past)
     expect(shouldBeYesterday.props.onClick).to.be.a('function')
 
-    {div, component, state, router, history, courseId}
+    {div, component, history, courseId}
 
-  _checkAddPlansWarning: ({div, component, state, router, history, courseId}) ->
-    addOnDayDropdown = React.addons.TestUtils.findRenderedComponentWithType(component, Add)
+  _checkAddPlansWarning: ({div, component, history, courseId}) ->
+    addOnDayDropdown = ReactTestUtils.findRenderedComponentWithType(component, Add)
     expect(addOnDayDropdown.getDOMNode().style.display).to.not.equal('none')
     expect(addOnDayDropdown.getDOMNode().innerText).to.contain('Cannot assign')
 
-    {div, component, state, router, history, courseId}
+    {div, component, history, courseId}
 
-  _checkIsTodayClickable: ({div, component, state, router, history, courseId}) ->
-    currents = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--current')
+  _checkIsTodayClickable: ({div, component, history, courseId}) ->
+    currents = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--current')
     shouldBeToday = _.first(currents)
     expect(shouldBeToday.props.onClick).to.be.a('function')
 
-    {div, component, state, router, history, courseId}
+    {div, component, history, courseId}
 
-  _checkIsTomorrowClickable: ({div, component, state, router, history, courseId}) ->
-    upcomings = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming')
+  _checkIsTomorrowClickable: ({div, component, history, courseId}) ->
+    upcomings = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming')
     shouldBeTomorrow = _.first(upcomings)
     expect(shouldBeTomorrow.props.onClick).to.be.a('function')
 
-    {div, component, state, router, history, courseId}
+    {div, component, history, courseId}
 
-  _checkTodayAddPlansDropDown: ({div, component, state, router, history, courseId}) ->
-    currents = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--current')
+  _checkTodayAddPlansDropDown: ({div, component, history, courseId}) ->
+    currents = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--current')
     shouldBeToday = _.first(currents)
     expect(shouldBeToday.getDOMNode().classList.contains('active')).to.be.true
 
-    addOnDayDropdown = React.addons.TestUtils.findRenderedComponentWithType(component, Add)
+    addOnDayDropdown = ReactTestUtils.findRenderedComponentWithType(component, Add)
     expect(addOnDayDropdown.getDOMNode().style.display).to.not.equal('none')
 
     isToday = addOnDayDropdown.state.addDate.isSame(moment(TimeStore.getNow()), 'day')
@@ -176,14 +177,14 @@ checks =
     expect(isToday).to.be.true
     checks._checkAddMenu(addOnDayDropdown, router, courseId)
 
-    {div, component, state, router, history, courseId}
+    {div, component, history, courseId}
 
-  _checkTomorrowAddPlansDropDown: ({div, component, state, router, history, courseId}) ->
-    upcomings = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming')
+  _checkTomorrowAddPlansDropDown: ({div, component, history, courseId}) ->
+    upcomings = ReactTestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--upcoming')
     shouldBeTomorrow = _.first(upcomings)
     expect(shouldBeTomorrow.getDOMNode().classList.contains('active')).to.be.true
 
-    addOnDayDropdown = React.addons.TestUtils.findRenderedComponentWithType(component, Add)
+    addOnDayDropdown = ReactTestUtils.findRenderedComponentWithType(component, Add)
     expect(addOnDayDropdown.getDOMNode().style.display).to.not.equal('none')
 
     isTomorrow = addOnDayDropdown.state.addDate.isSame(moment(TimeStore.getNow()).add(1, 'day'), 'day')
@@ -191,20 +192,20 @@ checks =
     expect(isTomorrow).to.be.true
     checks._checkAddMenu(addOnDayDropdown, router, courseId)
 
-    {div, component, state, router, history, courseId}
+    {div, component, history, courseId}
 
-  _checkIsAtHomeworkLinkAfterAddClick: ({div, component, state, router, history, courseId}) ->
-    addOnDayDropdown = React.addons.TestUtils.findRenderedComponentWithType(component, Add)
+  _checkIsAtHomeworkLinkAfterAddClick: ({div, component, history, courseId}) ->
+    addOnDayDropdown = ReactTestUtils.findRenderedComponentWithType(component, Add)
 
     routeQuery = {due_at: addOnDayDropdown.state.addDate.format(addOnDayDropdown.props.dateFormat)}
     targetHomeworkLink = router.makeHref('createHomework', {courseId}, routeQuery)
     expect(state.path).to.equal(targetHomeworkLink)
-    {div, component, state, router, history, courseId}
+    {div, component, history, courseId}
 
-  _checkDoesTimezoneMatchCourse: ({div, component, state, router, history, courseId}) ->
+  _checkDoesTimezoneMatchCourse: ({div, component, history, courseId}) ->
     expect([undefined, CourseStore.getTimezone(courseId)]).to.contain(moment().tz())
 
-    {div, component, state, router, history, courseId}
+    {div, component, history, courseId}
 
 
 # promisify for chainability in specs
@@ -216,7 +217,7 @@ _.each(checks, (check, checkName) ->
     Promise.resolve(check(args...))
 )
 
-checks._checkDoesViewShowPlan = (planId, {div, component, state, router, history, courseId}) ->
+checks._checkDoesViewShowPlan = (planId, {div, component, history, courseId}) ->
   plansList = TeacherTaskPlanStore.getActiveCoursePlans(courseId)
   plan = _.findWhere(plansList, {id: planId})
 
@@ -226,14 +227,14 @@ checks.checkDoesViewShowPlan = (planId) ->
   (args...) ->
     Promise.resolve(checks._checkDoesViewShowPlan(planId, args...))
 
-checks._checkIsEditPlanLink = (planId, {div, component, state, router, history, courseId}) ->
+checks._checkIsEditPlanLink = (planId, {div, component, history, courseId}) ->
   plansList = TeacherTaskPlanStore.getActiveCoursePlans(courseId)
   plan = _.findWhere(plansList, {id: planId})
 
   planEditRoute = "edit-#{plan.type}"
 
   targetEditLink = router.makeHref(camelCase(planEditRoute), {courseId, id: planId})
-  planEdits = React.addons.TestUtils.scryRenderedComponentsWithType(component, CoursePlanDisplayEdit)
+  planEdits = ReactTestUtils.scryRenderedComponentsWithType(component, CoursePlanDisplayEdit)
   thisPlanEdit = _.find(planEdits, (planEdit) ->
     planEdit.props.plan.id is planId
   )
@@ -247,8 +248,8 @@ checks.checkIsEditPlanLink = (planId) ->
   (args...) ->
     Promise.resolve(checks._checkIsEditPlanLink(planId, args...))
 
-checks._checkIsViewPlanElement = (planId, {div, component, state, router, history, courseId}) ->
-  planQuickLooks = React.addons.TestUtils.scryRenderedComponentsWithType(component, CoursePlanDisplayQuickLook)
+checks._checkIsViewPlanElement = (planId, {div, component, history, courseId}) ->
+  planQuickLooks = ReactTestUtils.scryRenderedComponentsWithType(component, CoursePlanDisplayQuickLook)
   thisPlanQuickLook = _.find(planQuickLooks, (planQuickLook) ->
     planQuickLook.props.plan.id is planId
   )
@@ -262,7 +263,7 @@ checks.checkIsViewPlanElement = (planId) ->
   (args...) ->
     Promise.resolve(checks._checkIsViewPlanElement(planId, args...))
 
-checks._checkDoesViewShowPlanStats = (planId, {div, component, state, router, history, courseId}) ->
+checks._checkDoesViewShowPlanStats = (planId, {div, component, history, courseId}) ->
   plan = TaskPlanStatsStore.get(planId)
 
   expect(document.querySelector(".text-complete").innerText).to.equal(plan.stats[0].complete_count.toString())

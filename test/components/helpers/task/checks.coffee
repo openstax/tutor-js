@@ -1,7 +1,8 @@
 {expect} = require 'chai'
 {Promise} = require 'es6-promise'
 _ = require 'underscore'
-React = require 'react/addons'
+React = require 'react'
+ReactTestUtils = require 'react-addons-test-utils'
 
 {TaskStepActions, TaskStepStore} = require '../../../../src/flux/task-step'
 {TaskActions, TaskStore} = require '../../../../src/flux/task'
@@ -11,24 +12,24 @@ React = require 'react/addons'
 {ExerciseGroup} = require 'openstax-react-components'
 
 checks =
-  _checkAllowContinue: ({div, component, state, router, history}) ->
+  _checkAllowContinue: ({div, component, history}) ->
     continueButton = div.querySelector('.continue')
     expect(continueButton).to.not.be.null
     expect(continueButton.disabled).to.not.be.ok
 
-    {div, component, state, router, history}
+    {div, component, history}
 
-  _checkIsIntroScreen: ({div, component, state, router, history}) ->
+  _checkIsIntroScreen: ({div, component, history}) ->
     expect(div.querySelector('.-task-intro')).to.not.be.null
 
-    {div, component, state, router, history}
+    {div, component, history}
 
-  _checkIsNotIntroScreen: ({div, component, state, router, history}) ->
+  _checkIsNotIntroScreen: ({div, component, history}) ->
     expect(div.querySelector('.-task-intro')).to.be.null
 
-    {div, component, state, router, history}
+    {div, component, history}
 
-  _checkIsTargetStepId: (targetStepId, {div, component, stepId, taskId, state, router, history}) ->
+  _checkIsTargetStepId: (targetStepId, {div, component, stepId, taskId, history}) ->
     expect(stepId).to.equal(targetStepId)
 
     step = TaskStepStore.get(targetStepId)
@@ -37,9 +38,9 @@ checks =
     if componentStepId
       expect(componentStepId).to.equal(targetStepId)
 
-    {div, component, state, router, history}
+    {div, component, history}
 
-  _checkRenderFreeResponse: ({div, component, stepId, taskId, state, router, history}) ->
+  _checkRenderFreeResponse: ({div, component, stepId, taskId, history}) ->
     continueButton = div.querySelector('.continue')
 
     expect(div.querySelector('.answers-table')).to.be.null
@@ -51,24 +52,24 @@ checks =
     step = TaskStepStore.get(stepId)
     expect(step.free_response).to.be.undefined
     expect(div.querySelector('textarea').value).to.equal('')
-    {div, component, stepId, taskId, state, router, history}
+    {div, component, stepId, taskId, history}
 
-  _checkAnswerFreeResponse: ({div, component, stepId, taskId, state, router, history, textarea}) ->
+  _checkAnswerFreeResponse: ({div, component, stepId, taskId, history, textarea}) ->
     step = TaskStepStore.get(stepId)
     expect(step.free_response.length).to.not.equal(0)
     expect(step.free_response).to.equal(textarea.value)
-    {div, component, stepId, taskId, state, router, history, textarea}
+    {div, component, stepId, taskId, history, textarea}
 
-  _checkSubmitFreeResponse: ({div, component, stepId, taskId, state, router, history}) ->
+  _checkSubmitFreeResponse: ({div, component, stepId, taskId, history}) ->
     continueButton = div.querySelector('.continue')
 
     # Prevent continue until answer chosen, answers should be showing.
     expect(continueButton.disabled).to.be.true
     expect(div.querySelector('.answers-table')).to.not.be.null
     expect(div.querySelector('.answer-checked')).to.be.null
-    {div, component, stepId, taskId, state, router, history}
+    {div, component, stepId, taskId, history}
 
-  _checkAnswerMultipleChoice: ({div, component, stepId, taskId, state, router, history, answer}) ->
+  _checkAnswerMultipleChoice: ({div, component, stepId, taskId, history, answer}) ->
     step = TaskStepStore.get(stepId)
     continueButton = div.querySelector('.continue')
 
@@ -76,9 +77,9 @@ checks =
     expect(continueButton.disabled).to.not.be.ok
     expect(step.answer_id).to.not.be.null
     expect(step.answer_id).to.equal(answer.id)
-    {div, component, stepId, taskId, state, router, history, answer}
+    {div, component, stepId, taskId, history, answer}
 
-  _checkSubmitMultipleChoice: ({div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}) ->
+  _checkSubmitMultipleChoice: ({div, component, stepId, taskId, history, correct_answer, feedback_html}) ->
     canReview = StepPanel.canReview(stepId)
 
     if canReview
@@ -89,17 +90,17 @@ checks =
     else
       expect(div.querySelector('.answer-correct')).to.be.null
 
-    {div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}
+    {div, component, stepId, taskId, history, correct_answer, feedback_html}
 
-  _checkNotFeedback: ({div, component, stepId, taskId, state, router, history}) ->
+  _checkNotFeedback: ({div, component, stepId, taskId, history}) ->
     expect(div.querySelector('.question-feedback-content')).to.be.null
-    {div, component, stepId, taskId, state, router, history}
+    {div, component, stepId, taskId, history}
 
-  _checkForFeedback: ({div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}) ->
+  _checkForFeedback: ({div, component, stepId, taskId, history, correct_answer, feedback_html}) ->
     expect(div.querySelector('.question-feedback-content').innerHTML).to.equal(feedback_html)
-    {div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}
+    {div, component, stepId, taskId, history, correct_answer, feedback_html}
 
-  _checkRecoveryRefreshChoice: ({div, component, stepId, taskId, state, router, history}) ->
+  _checkRecoveryRefreshChoice: ({div, component, stepId, taskId, history}) ->
     expect(div.querySelector('.task-footer-buttons').children.length).to.equal(3)
     classes = _.pluck(div.querySelector('.task-footer-buttons').children, 'className')
     expect(classes).to.deep.equal([
@@ -108,64 +109,64 @@ checks =
       # '-refresh-memory btn btn-primary'
       'async-button continue btn btn-primary'
     ])
-    {div, component, stepId, taskId, state, router, history}
+    {div, component, stepId, taskId, history}
 
-  _checkRecoveryContent: ({div, component, stepId, taskId, state, router, history}) ->
+  _checkRecoveryContent: ({div, component, stepId, taskId, history}) ->
     expect(div.innerText).to.contain('recovery')
     expect(div.querySelector('.task-footer-buttons')).to.be.null
     expect(div.querySelector('.continue')).to.not.be.null
 
-    {div, component, stepId, taskId, state, router, history}
+    {div, component, stepId, taskId, history}
 
-  _checkIsNextStep: ({div, component, stepId, taskId, state, router, history}) ->
+  _checkIsNextStep: ({div, component, stepId, taskId, history}) ->
     stepIndex = TaskStore.getCurrentStepIndex(taskId)
     steps = TaskStore.getStepsIds(taskId)
     targetStepId = steps[stepIndex - 1].id
 
-    checks._checkIsTargetStepId(targetStepId, {div, component, stepId, taskId, state, router, history})
+    checks._checkIsTargetStepId(targetStepId, {div, component, stepId, taskId, history})
 
-    {div, component, stepId, taskId, state, router, history}
+    {div, component, stepId, taskId, history}
 
-  _checkIsNotCompletePage: ({div, component, stepId, taskId, state, router, history}) ->
+  _checkIsNotCompletePage: ({div, component, stepId, taskId, history}) ->
     {type} = TaskStore.get(taskId)
     type ?= 'task'
     expect(div.querySelector(".-#{type}-completed")).to.be.null
 
-    {div, component, stepId, taskId, state, router, history}
+    {div, component, stepId, taskId, history}
 
-  _checkIsCompletePage: ({div, component, stepId, taskId, state, router, history}) ->
+  _checkIsCompletePage: ({div, component, stepId, taskId, history}) ->
     {type} = TaskStore.get(taskId)
     type ?= 'task'
     expect(div.querySelector(".-#{type}-completed")).to.not.be.null
 
-    {div, component, stepId, taskId, state, router, history}
+    {div, component, stepId, taskId, history}
 
-  _checkIsDefaultStep: ({div, component, stepId, taskId, state, router, history}) ->
+  _checkIsDefaultStep: ({div, component, stepId, taskId, history}) ->
     stepIndex = TaskStore.getCurrentStepIndex(taskId)
     steps = TaskStore.getStepsIds(taskId)
 
-    return checks._checkIsIntroScreen({div, component, stepId, taskId, state, router, history}) if stepIndex is -1
-    return checks._checkIsCompletePage({div, component, stepId, taskId, state, router, history}) if stepIndex is steps.length
+    return checks._checkIsIntroScreen({div, component, stepId, taskId, history}) if stepIndex is -1
+    return checks._checkIsCompletePage({div, component, stepId, taskId, history}) if stepIndex is steps.length
 
     targetStepId = steps[stepIndex].id
 
-    checks._checkIsTargetStepId(targetStepId, {div, component, stepId, taskId, state, router, history})
-    {div, component, stepId, taskId, state, router, history}
+    checks._checkIsTargetStepId(targetStepId, {div, component, stepId, taskId, history})
+    {div, component, stepId, taskId, history}
 
-  _checkIsPopoverOpen: ({div, component, stepId, taskId, state, router, history}) ->
+  _checkIsPopoverOpen: ({div, component, stepId, taskId, history}) ->
     expect(document.querySelector('.task-details-popover h1')).to.not.be.null
 
-    {div, component, stepId, taskId, state, router, history}
+    {div, component, stepId, taskId, history}
 
-  _checkAreAllStepsShowing: ({div, component, stepId, taskId, state, router, history}) ->
+  _checkAreAllStepsShowing: ({div, component, stepId, taskId, history}) ->
     steps = TaskStore.getStepsIds(taskId)
     stepNodes = div.querySelectorAll('.openstax-breadcrumbs-step')
 
     expect(stepNodes.length).to.equal(steps.length + 1)
 
-    {div, component, stepId, taskId, state, router, history}
+    {div, component, stepId, taskId, history}
 
-  _checkEndReview: ({div, component, stepId, taskId, state, router, history}) ->
+  _checkEndReview: ({div, component, stepId, taskId, history}) ->
     completedStepsInReview = div.querySelectorAll('.task-review-completed .task-step')
     todoStepsInReview = div.querySelectorAll('.task-review-todo .task-step')
 
@@ -175,18 +176,18 @@ checks =
     expect(completedStepsInReview.length).to.equal(completedSteps.length)
     expect(todoStepsInReview.length).to.equal(incompleteSteps.length)
 
-    {div, component, stepId, taskId, state, router, history}
+    {div, component, stepId, taskId, history}
 
-  _checkHasAllBreadcrumbs: ({div, component, stepId, taskId, state, router, history}) ->
-    breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
+  _checkHasAllBreadcrumbs: ({div, component, stepId, taskId, history}) ->
+    breadcrumbs = ReactTestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
     steps = TaskStore.getStepsIds(taskId)
 
     expect(breadcrumbs.length).to.equal(steps.length + 1)
 
-    {div, component, stepId, taskId, state, router, history}
+    {div, component, stepId, taskId, history}
 
-  _checkHasReviewableBreadcrumbs: ({div, component, stepId, taskId, state, router, history}) ->
-    breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
+  _checkHasReviewableBreadcrumbs: ({div, component, stepId, taskId, history}) ->
+    breadcrumbs = ReactTestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
     completedSteps = TaskStore.getCompletedSteps(taskId)
     {type} = TaskStore.get(taskId)
 
@@ -199,10 +200,10 @@ checks =
 
     expect(breadcrumbs.length).to.equal(expectedCrumbs)
 
-    {div, component, stepId, taskId, state, router, history}
+    {div, component, stepId, taskId, history}
 
-  _checkHasExpectedGroupLabel: ({div, component, stepId, taskId, state, router, history}) ->
-    group = React.addons.TestUtils.findRenderedComponentWithType(component, ExerciseGroup)
+  _checkHasExpectedGroupLabel: ({div, component, stepId, taskId, history}) ->
+    group = ReactTestUtils.findRenderedComponentWithType(component, ExerciseGroup)
     step = TaskStepStore.get(stepId)
 
     if step.group is 'personalized'
@@ -211,12 +212,12 @@ checks =
     else if step.group is 'spaced_practice' or step.group is 'spaced practice'
       expect(group.getDOMNode().innerText).to.contain('Review')
 
-    {div, component, stepId, taskId, state, router, history}
+    {div, component, stepId, taskId, history}
 
-  _checkIsSpacerPanel: ({div, component, stepId, taskId, state, router, history}) ->
+  _checkIsSpacerPanel: ({div, component, stepId, taskId, history}) ->
     expect(div.querySelector('.spacer-step')).to.not.be.null
 
-    {div, component, stepId, taskId, state, router, history}
+    {div, component, stepId, taskId, history}
 
 # promisify for chainability in specs
 _.each(checks, (check, checkName) ->
@@ -228,19 +229,19 @@ _.each(checks, (check, checkName) ->
 )
 
 # These guys messed up the groove, maybe will change the way these work later
-checks._checkIsMatchStep = (stepIndex, {div, component, stepId, taskId, state, router, history}) ->
+checks._checkIsMatchStep = (stepIndex, {div, component, stepId, taskId, history}) ->
   steps = TaskStore.getStepsIds(taskId)
   targetStepId = steps[stepIndex].id
-  checks._checkIsTargetStepId(targetStepId, {div, component, stepId, taskId, state, router, history})
+  checks._checkIsTargetStepId(targetStepId, {div, component, stepId, taskId, history})
 
-  {div, component, stepId, taskId, state, router, history}
+  {div, component, stepId, taskId, history}
 
 checks.checkIsMatchStep = (matchStepIndex) ->
   (args...) ->
     Promise.resolve(checks._checkIsMatchStep(matchStepIndex, args...))
 
-checks._checkIsPendingStep = (stepIndex, {div, component, stepId, taskId, state, router, history}) ->
-  breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
+checks._checkIsPendingStep = (stepIndex, {div, component, stepId, taskId, history}) ->
+  breadcrumbs = ReactTestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
   placeholderBreadcrumb = breadcrumbs[stepIndex]
 
   placeholderBreadcrumbDOM = placeholderBreadcrumb.getDOMNode()
@@ -248,7 +249,7 @@ checks._checkIsPendingStep = (stepIndex, {div, component, stepId, taskId, state,
   expect(placeholderBreadcrumbDOM.className).to.contain('placeholder')
   expect(div.querySelector('.placeholder-step')).to.not.be.null
 
-  {div, component, stepId, taskId, state, router, history}
+  {div, component, stepId, taskId, history}
 
 checks.checkIsPendingStep = (matchStepIndex) ->
   (args...) ->
@@ -257,8 +258,8 @@ checks.checkIsPendingStep = (matchStepIndex) ->
 
 checks._checkIsNotPendingStep = (stepIndex, args...) ->
   {component} = args[0]
-  breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
-  breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
+  breadcrumbs = ReactTestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
+  breadcrumbs = ReactTestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
   placeholderBreadcrumb = breadcrumbs[stepIndex]
 
   placeholderBreadcrumbDOM = placeholderBreadcrumb.getDOMNode()
@@ -283,14 +284,10 @@ checks.checkContinueButtonText = (buttonText) ->
     Promise.resolve(checks._checkContinueButtonText(buttonText, args...))
 
 checks._logStuff = (logMessage, args...) ->
-  {div, stepId, taskId, router} = args[0]
+  {div, stepId, taskId} = args[0]
   step = TaskStepStore.get(stepId)
 
   console.info('logMessage', logMessage)
-
-  if router?
-    console.info('router.getCurrentPath', router.getCurrentPath())
-    console.info('router.getCurrentParams', router.getCurrentParams())
 
   console.info('step', step)
   console.info('div', div)

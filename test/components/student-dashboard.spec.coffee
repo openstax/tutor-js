@@ -3,8 +3,7 @@ _              = require 'underscore'
 React          = require 'react'
 {Promise}      = require 'es6-promise'
 {TimeActions}  = require '../../src/flux/time'
-ReactAddons    = require 'react/addons'
-ReactTestUtils = React.addons.TestUtils
+TestUtils = require 'react-addons-test-utils'
 {routerStub}   = require './helpers/utilities'
 
 {StudentDashboardShell} = require '../../src/components/student-dashboard'
@@ -19,7 +18,7 @@ renderDashBoard = ->
   new Promise (resolve, reject) ->
     routerStub.goTo("/courses/#{COURSE_ID}/list").then (result) ->
       resolve(_.extend({
-        dashboard: ReactTestUtils.findRenderedComponentWithType(result.component, StudentDashboardShell)
+        dashboard: TestUtils.findRenderedComponentWithType(result.component, StudentDashboardShell)
       }, result))
 
 describe 'Student Dashboard Component', ->

@@ -2,7 +2,6 @@ _ = require 'underscore'
 twix = require 'twix'
 
 React = require 'react'
-Router = require 'react-router'
 camelCase = require 'camelcase'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'

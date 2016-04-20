@@ -1,7 +1,7 @@
 _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+{ Link } = require 'react-router'
 
 Root = require './root'
 App = require './app'
@@ -93,33 +93,29 @@ TaskResult = React.createClass
       stepsInfo = <small className='details'>({steps.length} steps)</small>
 
     <BS.Panel bsStyle='default' onClick={@onClick}>
-      <Router.Link
-        to='viewTask'
-        params={{courseId, id}}>
+      <Link to="/courses/#{courseId}/tasks/#{id}/?">
         <i className="fa fa-fw #{mainType}"></i>
         {title}
-      </Router.Link>
+      </Link>
       {stepsInfo}
       <span className='pull-right'>
-        <Router.Link
-          to='viewTask'
-          params={{courseId, id}}
+        <Link to="/courses/#{courseId}/tasks/#{id}/?"
           className='ui-action btn btn-primary btn-sm'>
           {actionTitle}
-        </Router.Link>
+        </Link>
       </span>
     </BS.Panel>
 
   onClick: ->
     {courseId, id} = @props
-    @context.router.transitionTo('viewTask', {courseId, id})
+    @context.router.transitionTo("/courses/#{courseId}/tasks/#{id}/")
 
 
 Invalid = React.createClass
   render: ->
     <div>
       <h1>Woops, this is an invalid page {@props.path}</h1>
-      <Router.Link to='dashboard'>Home</Router.Link>
+      <Link to='/dashboard'>Home</Link>
     </div>
 
 module.exports = {App, SingleTask, SinglePractice, Invalid}

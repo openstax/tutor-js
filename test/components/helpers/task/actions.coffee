@@ -1,6 +1,7 @@
 _ = require 'underscore'
 
-React = require 'react/addons'
+React = require 'react'
+ReactTestUtils = require 'react-addons-test-utils'
 {Promise} = require 'es6-promise'
 
 {TaskStepActions, TaskStepStore} = require '../../../../src/flux/task-step'
@@ -16,8 +17,8 @@ TaskStep = require '../../../../src/components/task-step'
 actions =
   forceUpdate: (args...) ->
     {component, div} = args[0]
-    taskStep = React.addons.TestUtils.scryRenderedComponentsWithType(component, TaskStep)
-    breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
+    taskStep = ReactTestUtils.scryRenderedComponentsWithType(component, TaskStep)
+    breadcrumbs = ReactTestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
 
     if breadcrumbs.length is 1
       routerStub.forceUpdate(breadcrumbs[0], args...)
@@ -34,7 +35,7 @@ actions =
   # http://getbootstrap.com/javascript/#dismiss-on-next-click
   triggerDetails: commonActions.hoverMatch('.task-details .task-details-instructions')
 
-  _clickBreadcrumb: (breadcrumbButtonIndex, {div, component, stepId, taskId, state, router, history}) ->
+  _clickBreadcrumb: (breadcrumbButtonIndex, {div, component, stepId, taskId, history}) ->
     breadcrumbs = div.querySelectorAll('.openstax-breadcrumbs-step')
     breadcrumbs = Array.prototype.slice.call(breadcrumbs)
 
@@ -45,7 +46,7 @@ actions =
       # change step
       stepId = steps[breadcrumbButtonIndex].id
 
-    {div, component, stepId, taskId, state, router, history}
+    {div, component, stepId, taskId, history}
 
   clickBreadcrumb: (breadcrumbButtonIndex) ->
     (args...) ->
@@ -53,26 +54,26 @@ actions =
 
   fillFreeResponse: commonActions.fillTextarea('textarea', 'Test Response')
 
-  saveFreeResponse: ({div, component, stepId, taskId, state, router, history, textarea}) ->
+  saveFreeResponse: ({div, component, stepId, taskId, history, textarea}) ->
     commonActions.clickButton(div, '.continue')
     result = TaskStepStore.get(stepId)
     result.free_response = textarea.value
     TaskStepActions.saved(result, stepId)
 
-    actions.forceUpdate({div, component, stepId, taskId, state, router, history})
+    actions.forceUpdate({div, component, stepId, taskId, history})
 
-  pickMultipleChoice: ({div, component, stepId, taskId, state, router, history}) ->
+  pickMultipleChoice: ({div, component, stepId, taskId, history}) ->
     step = TaskStepStore.get(stepId)
     answer = step.content.questions[0].answers[0]
     answerElement = div.querySelector('.answer-input-box')
 
-    React.addons.TestUtils.Simulate.change(answerElement, answer)
+    ReactTestUtils.Simulate.change(answerElement, answer)
     step.answer_id = answer.id
     TaskStepActions.saved(step, stepId)
 
-    actions.forceUpdate({div, component, stepId, taskId, state, router, history, answer})
+    actions.forceUpdate({div, component, stepId, taskId, history, answer})
 
-  saveMultipleChoice: ({div, component, stepId, taskId, state, router, history}) ->
+  saveMultipleChoice: ({div, component, stepId, taskId, history}) ->
     step = TaskStepStore.get(stepId)
     correct_answer = step.content.questions[0].answers[1]
     commonActions.clickButton(div, '.continue')
@@ -87,18 +88,18 @@ actions =
     step.is_completed = true
     TaskStepActions.completed(step, stepId)
 
-    actions.forceUpdate({div, component, stepId, taskId, state, router, history, correct_answer, feedback_html})
+    actions.forceUpdate({div, component, stepId, taskId, history, correct_answer, feedback_html})
 
-  updateStep: (newStepId, {div, component, stepId, taskId, state, router, history}) ->
-    actions.forceUpdate({div, component, stepId: newStepId, taskId, state, router, history})
+  updateStep: (newStepId, {div, component, stepId, taskId, history}) ->
+    actions.forceUpdate({div, component, stepId: newStepId, taskId, history})
 
-  _advanceStep: ({div, component, stepId, taskId, state, router, history}) ->
+  _advanceStep: ({div, component, stepId, taskId, history}) ->
     stepIndex = TaskStore.getCurrentStepIndex(taskId)
     steps = TaskStore.getStepsIds(taskId)
 
     # advance step
     stepId = steps[stepIndex].id
-    actions.updateStep(stepId, {div, component, stepId, taskId, state, router, history})
+    actions.updateStep(stepId, {div, component, stepId, taskId, history})
 
   advanceStep: (args...) ->
     Promise.resolve(actions._advanceStep(args...))
@@ -139,7 +140,7 @@ actions =
 
   forceRecovery: (args...) ->
     {component} = args[0]
-    exerciseReview = React.addons.TestUtils.findRenderedComponentWithType(component, Exercise)
+    exerciseReview = ReactTestUtils.findRenderedComponentWithType(component, Exercise)
     exerciseReview.props.onNextStep()
 
     actions.forceUpdate(args[0])

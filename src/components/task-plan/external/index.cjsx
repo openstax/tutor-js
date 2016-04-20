@@ -1,7 +1,6 @@
 React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
 validator = require 'validator'
 
 {TutorInput, TutorDateInput, TutorTextArea} = require '../../tutor-input'

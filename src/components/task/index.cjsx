@@ -1,6 +1,5 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
 _ = require 'underscore'
 camelCase = require 'camelcase'
 

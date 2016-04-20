@@ -1,5 +1,5 @@
 React    = require 'react'
-Router = require 'react-router'
+{ Link } = require 'react-router'
 Name = require '../name'
 
 TOOLTIP_OPTIONS = enable: true, placement: 'top', delayShow: 1500, delayHide: 150
@@ -16,10 +16,9 @@ module.exports = React.createClass
 
   render: ->
     <div className="name-cell">
-      <Router.Link
+      <Link
         className={"student-name #{@props.className}"}
-        to='viewStudentTeacherPerformanceForecast'
-        params={roleId: @props.roleId, courseId: @props.courseId}>
+        to="/course/#{@props.courseId}/t/guide/student/#{@props.roleId}?">
          <Name tooltip={TOOLTIP_OPTIONS} {...@props.student} />
-      </Router.Link>
+      </Link>
     </div>

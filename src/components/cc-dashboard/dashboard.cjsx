@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+{ Link } = require 'react-router'
 
 {CCDashboardStore} = require '../../flux/cc-dashboard'
 {CoursePeriodsNav} = require '../course-periods-nav'
@@ -97,11 +97,11 @@ CCDashboard = React.createClass
         <h2>
           Class Dashboard
         </h2>
-        <Router.Link className='detailed-scores btn btn-default'
-          to='viewScores' params={courseId: courseId}
+        <Link className='detailed-scores btn btn-default'
+          to="/courses/#{courseId}/t/scores/?"
         >
           View Detailed Scores
-        </Router.Link>
+        </Link>
         <CoursePeriodsNav
           handleSelect={@handlePeriodSelect}
           initialActive={@props.initialActivePeriod}

@@ -1,6 +1,6 @@
 React = require 'react'
-Router = require 'react-router'
-{Route, Redirect, NotFoundRoute} = Router
+ReactDOM = require 'react-dom'
+{ Router, Route, Redirect, NonFoundRoute, IndexRoute, browserHistory } = require 'react-router'
 
 async = require './helpers/webpack-async-loader'
 
@@ -26,41 +26,41 @@ Handler = require './helpers/conditional-rendering'
 QALoader = require 'promise?global!./qa'
 
 routes = (
-  <Route handler={Root} name='root'>
-    <Route path='/' handler={App} name='app'>
+  <Route component={Root} name='root'>
+    <Route path='/' component={App} name='app'>
       <Redirect from='/' to='dashboard' />
-      <Route path='dashboard/?' name='dashboard' handler={CourseListing} />
+      <Route path='dashboard/?' name='dashboard' component={CourseListing} />
       <Route path='courses/:courseId/?'>
-        <Router.DefaultRoute handler={TeacherTaskPlans}/>
+        <IndexRoute component={TeacherTaskPlans}/>
 
-        <Route path='list/?' name='viewStudentDashboard' handler={StudentDashboardShell} />
-        <Route path='tasks/:id/?' name='viewTask' handler={SingleTask}/>
+        <Route path='list/?' name='viewStudentDashboard' component={StudentDashboardShell} />
+        <Route path='tasks/:id/?' name='viewTask' component={SingleTask}/>
         <Route path='tasks/:id/steps/:stepIndex/?'
           name='viewTaskStep'
-          handler={SingleTask}
+          component={SingleTask}
           ignoreScrollBehavior/>
 
-        <Route path='practice/?' name='viewPractice' handler={SinglePractice} />
+        <Route path='practice/?' name='viewPractice' component={SinglePractice} />
         <Route
           path='guide/?'
           name='viewPerformanceForecast'
-          handler={PerformanceForecastShell.Student}/>
+          component={PerformanceForecastShell.Student}/>
 
         <Route path='t/' name='viewTeacherDashBoard'>
-          <Router.DefaultRoute handler={TeacherTaskPlans} />
+          <IndexRoute component={TeacherTaskPlans} />
           <Route path='scores/?' name='viewScores'
-            handler={Handler(ScoresShell, requireRole: 'teacher', requirePeriods: true)} />
+            component={Handler(ScoresShell, requireRole: 'teacher', requirePeriods: true)} />
           <Route path='guide' name='viewTeacherPerformanceForecast'
-            handler={Handler(PerformanceForecastShell.Teacher, requireRole: 'teacher', requirePeriods: true)} />
+            component={Handler(PerformanceForecastShell.Teacher, requireRole: 'teacher', requirePeriods: true)} />
           <Route path='guide/student/:roleId?' name='viewStudentTeacherPerformanceForecast'
-            handler={Handler(PerformanceForecastShell.TeacherStudent, requireRole: 'teacher', requirePeriods: true)}/>
+            component={Handler(PerformanceForecastShell.TeacherStudent, requireRole: 'teacher', requirePeriods: true)}/>
 
-          <Route path='calendar/?' name='taskplans'>
-            <Router.DefaultRoute handler={TeacherTaskPlans} />
+          <Route path='calendar/?'>
+            <IndexRoute component={TeacherTaskPlans} />
             <Route
               path='months/:date/?'
               name='calendarByDate'
-              handler={TeacherTaskPlans}
+              component={TeacherTaskPlans}
               ignoreScrollBehavior>
               <Route
                 path='plans/:planId/?'
@@ -68,21 +68,21 @@ routes = (
                 ignoreScrollBehavior/>
             </Route>
           </Route>
-          <Route path='questions' name='viewQuestionsLibrary' handler={QuestionsLibrary} />
-          <Route path='cc-dashboard/?' name='cc-dashboard' handler={CCDashboard} />
-          <Route path='homeworks/new/?' name='createHomework' handler={HomeworkShell} />
-          <Route path='homeworks/:id/?' name='editHomework' handler={HomeworkShell} />
-          <Route path='readings/new/?' name='createReading' handler={ReadingShell} />
-          <Route path='readings/:id/?' name='editReading' handler={ReadingShell} />
-          <Route path='externals/new/?' name='createExternal' handler={ExternalShell} />
-          <Route path='externals/:id/?' name='editExternal' handler={ExternalShell} />
-          <Route path='events/new/?' name='createEvent' handler={EventShell} />
-          <Route path='events/:id/?' name='editEvent' handler={EventShell} />
-          <Route path='settings' name='courseSettings' handler={CourseSettings} />
+          <Route path='questions' name='viewQuestionsLibrary' component={QuestionsLibrary} />
+          <Route path='cc-dashboard/?' name='cc-dashboard' component={CCDashboard} />
+          <Route path='homeworks/new/?' name='createHomework' component={HomeworkShell} />
+          <Route path='homeworks/:id/?' name='editHomework' component={HomeworkShell} />
+          <Route path='readings/new/?' name='createReading' component={ReadingShell} />
+          <Route path='readings/:id/?' name='editReading' component={ReadingShell} />
+          <Route path='externals/new/?' name='createExternal' component={ExternalShell} />
+          <Route path='externals/:id/?' name='editExternal' component={ExternalShell} />
+          <Route path='events/new/?' name='createEvent' component={EventShell} />
+          <Route path='events/:id/?' name='editEvent' component={EventShell} />
+          <Route path='settings' name='courseSettings' component={CourseSettings} />
           <Route path='plans/:id/?'>
-            <Router.DefaultRoute handler={StatsShell}/>
-            <Route path='stats/?' name='viewStats' handler={StatsShell} />
-            <Route path='summary/?' name='reviewTask' handler={TaskTeacherReviewShell}>
+            <IndexRoute component={StatsShell}/>
+            <Route path='stats/?' name='viewStats' component={StatsShell} />
+            <Route path='summary/?' name='reviewTask' component={TaskTeacherReviewShell}>
               <Route
                 path='periods/:periodIndex/?'
                 name='reviewTaskPeriod'
@@ -96,39 +96,32 @@ routes = (
           </Route>
         </Route>
       </Route>
-      <Route path='sandbox/?' name='sandbox' handler={Sandbox} />
+      <Route path='sandbox/?' name='sandbox' component={Sandbox} />
     </Route> # end of routes handled by App
 
-    <Route path='/books/:courseId/?' name='viewReferenceBook' handler={ReferenceBookShell}>
-      <Router.DefaultRoute name="viewReferenceBookFirstPage" handler={ReferenceBookPageShell}/>
-      <Route path='section/:section' name='viewReferenceBookSection' handler={ReferenceBookShell} />
-      <Route path='page/:cnxId' name='viewReferenceBookPage' handler={ReferenceBookPageShell}/>
+    <Route path='/books/:courseId/?' name='viewReferenceBook' component={ReferenceBookShell}>
+      <IndexRoute name="viewReferenceBookFirstPage" component={ReferenceBookPageShell}/>
+      <Route path='section/:section' name='viewReferenceBookSection' component={ReferenceBookShell} />
+      <Route path='page/:cnxId' name='viewReferenceBookPage' component={ReferenceBookPageShell}/>
     </Route> # end of /books route
 
 
-    <Route path='/qa' name='QADashboard' handler={async(QALoader, 'QADashboard')} >
-      <Router.DefaultRoute name="QAViewFirstBook" handler={async(QALoader, 'QABook')}/>
+    <Route path='/qa' name='QADashboard' component={async(QALoader, 'QADashboard')} >
+      <IndexRoute name="QAViewFirstBook" component={async(QALoader, 'QABook')}/>
 
       <Route path=':ecosystemId' name='QAViewBook'
-        handler={async(QALoader, 'QABook')} />
+        component={async(QALoader, 'QABook')} />
       <Route path=':ecosystemId/section/:section' name='QAViewBookSection'
-        handler={async(QALoader, 'QABook')} />
+        component={async(QALoader, 'QABook')} />
 
     </Route> # end of qa route
 
-    <NotFoundRoute handler={Invalid} />
+    <Route path="*" component={Invalid} />
   </Route>
 )
 
 
-# Remember the router for unit testing
-router = Router.create
-  routes: routes
-  location: Router.HistoryLocation
-
-
 start = (mountPoint) ->
-  router.run (Handler) ->
-    React.render(<Handler/>, mountPoint)
+  ReactDOM.render(<Router history={browserHistory} routes={routes}/>, mountPoint)
 
-module.exports = {start, router, routes}
+module.exports = {start, routes}

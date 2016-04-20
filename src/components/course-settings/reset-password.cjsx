@@ -1,10 +1,11 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 {RosterActions} = require '../../flux/roster'
+LinkedStateMixin = require 'react-addons-linked-state-mixin'
 
 PasswordResetField = React.createClass
   displayName: 'ResetStudentPasswordField'
-  mixins: [React.addons.LinkedStateMixin]
+  mixins: [LinkedStateMixin]
 
   getInitialState: ->
     password: ''
