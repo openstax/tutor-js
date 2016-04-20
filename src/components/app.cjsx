@@ -32,7 +32,7 @@ App = React.createClass
 
   propTypes:
     history: React.PropTypes.object
-    user:  React.PropTypes.object.isRequired
+    data:  React.PropTypes.object.isRequired
 
   getDefaultProps: ->
     history: history.createHistory()
@@ -113,7 +113,7 @@ App = React.createClass
             <Component.controls {...componentProps} />
           </div>
 
-          <UserActionsMenu user={@props.user} />
+          <UserActionsMenu user={@props.data.user} />
 
 
         </div>
