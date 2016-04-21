@@ -27,6 +27,22 @@ ScoresConfig = {
       _.find students, (student) ->
         taskIds = _.pluck student.data, 'id'
         _.indexOf(taskIds, taskId) > -1
+
+
+    recalcAverages: (courseId, period_id) ->
+      scores = @_get(courseId)
+      period = _.findWhere(scores, {period_id})
+      # console.log period
+      period.data_headings[1].total_average = 87
+      change = _.findWhere(period.students, {role:8})
+      change?.first_name = "Fred"
+      change?.last_name = "Flinstone"
+      change?.name = "Fred Flinstone"
+      #@_change(courseId, {data})
+      @_save(courseId)
+      @emit('change', courseId)
+
+
 }
 
 extendConfig(ScoresConfig, new CrudConfig())

@@ -5,19 +5,26 @@ BS = require 'react-bootstrap'
 Time = require '../time'
 CellStatusMixin = require './cell-status-mixin'
 PieProgress = require './pie-progress'
+LateWork = require './late-work'
+
+{ScoresStore, ScoresActions} = require '../../flux/scores'
 
 ConceptCoachCell = React.createClass
 
   mixins: [CellStatusMixin] # prop validation
 
+  recalcAverages: ->
+    ScoresStore.recalcAverages(@props.courseId, @props.period_id)
+
   render: ->
+    {task, courseId, displayAs, isConceptCoach} = @props
     scorePercent =
-      Math.round((@props.task.correct_exercise_count / @props.task.exercise_count) * 100)
+      Math.round((task.correct_exercise_count / task.exercise_count) * 100)
     pieValue =
-      Math.round((@props.task.completed_exercise_count / @props.task.exercise_count) * 100)
+      Math.round((task.completed_exercise_count / task.exercise_count) * 100)
     tooltip =
       <BS.Popover
-        id="cc-cell-info-popover-#{@props.task.id}"
+        id="cc-cell-info-popover-#{task.id}"
         className='cc-scores-tooltip-completed-info'>
         <div className='info'>
           <div className='row'>
@@ -25,28 +32,38 @@ ConceptCoachCell = React.createClass
           </div>
           <div className='row'>
             <div>
-              {@props.task.completed_exercise_count} of 
-               {@props.task.exercise_count} questions
+              {task.completed_exercise_count} of 
+               {task.exercise_count} questions
             </div>
           </div>
           <div className='row'>
             <div>
               <span>Last Worked:</span> <Time
                     format='M/M' 
-                    date={@props.task.last_worked_at} />
+                    date={task.last_worked_at} />
             </div>
           </div>
         </div>
       </BS.Popover>
 
+    lateProps =
+      {
+        task: @props.task,
+        recalcAverages: @recalcAverages,
+        rowIndex: @props.rowIndex,
+        columnIndex: @props.columnIndex
+
+      }
+    latework = <LateWork {...lateProps} />
+
 
     <div className="cc-cell">
       <Router.Link className="score" to='viewTaskStep'
-        data-assignment-type="#{@props.task.type}"
-        params={courseId: @props.courseId, id: @props.task.id, stepIndex: 1}>
+        data-assignment-type="#{task.type}"
+        params={courseId: courseId, id: task.id, stepIndex: 1}>
           {
-            if @props.displayAs is 'number'
-              "#{@props.task.correct_exercise_count} of #{@props.task.exercise_count}"
+            if displayAs is 'number'
+              "#{task.correct_exercise_count} of #{task.exercise_count}"
             else
               "#{scorePercent}%"
           }
@@ -63,6 +80,8 @@ ConceptCoachCell = React.createClass
           </span>
         </BS.OverlayTrigger>
       </div>
+
+      {if not isConceptCoach and task.type is 'homework' then latework}
     </div>
 
 

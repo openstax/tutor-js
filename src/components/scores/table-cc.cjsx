@@ -40,7 +40,6 @@ module.exports = React.createClass
     dataType: React.PropTypes.string
     isConceptCoach: React.PropTypes.bool.isRequired
 
-
   renderNameHeader: ->
     emptyCell = <div className='blank' />
     averageLabel =
@@ -200,7 +199,9 @@ module.exports = React.createClass
         courseId: @props.courseId,
         roleId: student_data.role,
         displayAs: @props.displayAs,
-        isConceptCoach: @props.isConceptCoach
+        isConceptCoach: @props.isConceptCoach,
+        rowIndex: rowIndex,
+        period_id: @props.period_id
       }
     isBottom = if @props.data.rows.length is rowIndex + 1 then 'bottom' else ''
     columns = [
@@ -208,14 +209,14 @@ module.exports = React.createClass
       <div className="overall-cell #{isBottom}">test</div>
     ]
 
-    for task in student_data.data
+    for task, columnIndex in student_data.data
       props.task = task
       columns.push switch task?.type or 'null'
         when 'null'          then <AbsentCell       key='absent' {...props} />
-        when 'concept_coach' then <ConceptCoachCell key='cc'     {...props} />
-        when 'reading'  then <ReadingCell  key='reading'  {...props} />
-        when 'homework' then <HomeworkCell key='homework' {...props} />
-        when 'external' then <ExternalCell key='extern'   {...props} />
+        else <ConceptCoachCell key='cc' columnIndex={columnIndex} {...props} />
+        # when 'reading'  then <ReadingCell  key='reading'  {...props} />
+        # when 'homework' then <HomeworkCell key='homework' {...props} />
+        # when 'external' then <ExternalCell key='extern'   {...props} />
     columns
 
 
