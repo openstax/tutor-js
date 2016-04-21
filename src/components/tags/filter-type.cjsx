@@ -18,7 +18,9 @@ FilterTypeTag = React.createClass
     exerciseId: React.PropTypes.string.isRequired
 
   updateTag: (types) ->
-    ExerciseActions.setPrefixedTag(@props.exerciseId, prefix: PREFIX, tags: _.pluck types, 'id')
+    tags = _.map types, (tag, v) ->
+      if _.isObject(tag) then tag.id else tag
+    ExerciseActions.setPrefixedTag(@props.exerciseId, prefix: PREFIX, tags: tags)
 
   render: ->
     tags = ExerciseStore.getTagsWithPrefix(@props.exerciseId, PREFIX)
