@@ -33,3 +33,11 @@ describe 'Exercise Preview Component', ->
     Testing.renderComponent( ExercisePreview, props: @props ).then ({dom}) ->
       expect(dom.querySelector('.answers-table')).to.be.not.ok
       expect(dom.classList.contains('answers-hidden')).to.be.true
+
+  it 'can render question formats', ->
+    _.extend(@props, displayFormats: true)
+    Testing.renderComponent( ExercisePreview, props: @props ).then ({dom}) ->
+      formats = dom.querySelector('.formats-listing')
+      expect(_.pluck(formats.querySelectorAll('span'), 'textContent')).to.deep.equal([
+        'free-response', 'multiple-choice'
+      ])

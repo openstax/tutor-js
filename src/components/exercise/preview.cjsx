@@ -10,17 +10,18 @@ Question = require '../question'
 ExercisePreview = React.createClass
 
   propTypes:
-    extractTag: React.PropTypes.func
+    extractTag:      React.PropTypes.func
     displayFeedback: React.PropTypes.bool
-    panelStyle: React.PropTypes.string
-    className:  React.PropTypes.string
-    header:     React.PropTypes.element
-    displayAllTags: React.PropTypes.bool
-    hideAnswers: React.PropTypes.bool
-    toggleExercise: React.PropTypes.func
-    isSelected: React.PropTypes.bool
-    hoverMessage: React.PropTypes.string
-    exercise:   React.PropTypes.shape(
+    displayAllTags:  React.PropTypes.bool
+    displayFormats:  React.PropTypes.bool
+    panelStyle:      React.PropTypes.string
+    className:       React.PropTypes.string
+    header:          React.PropTypes.element
+    hideAnswers:     React.PropTypes.bool
+    toggleExercise:  React.PropTypes.func
+    isSelected:      React.PropTypes.bool
+    hoverMessage:    React.PropTypes.string
+    exercise:        React.PropTypes.shape(
       content: React.PropTypes.object
       tags:    React.PropTypes.array
     ).isRequired
@@ -68,28 +69,23 @@ ExercisePreview = React.createClass
     classes = classnames( 'openstax-exercise-preview', @props.className, {
       'answers-hidden': @props.hideAnswers,
       'is-selectable' : @props.toggleExercise?
-      'is-selected': @props.isSelected
+      'is-selected':    @props.isSelected
+      'is-displaying-formats': @props.displayFormats
       'is-displaying-feedback': @props.displayFeedback
     })
 
     questions = _.map(content.questions, (question, questionIter) =>
       question = _.omit(question, 'answers') if @props.hideAnswers
 
-      details = <div className='detailed-solution'>
-        <div className='header'>Detailed solution</div>
-        <ArbitraryHtmlAndMath className="solution" block
-          html={_.pluck(question.collaborator_solutions, 'content_html').join('')}
-        />
-      </div>
-
       <Question
         key={questionIter}
         className='openstax-question-preview'
         model={question}
         choicesEnabled={false}
+        displayFormats={@props.displayFormats}
         show_all_feedback={@props.displayFeedback}
         type='teacher-preview'
-        details={details}>
+      >
         {@props.questionFooters?[questionIter]}
       </Question>
     )
