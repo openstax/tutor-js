@@ -10,7 +10,7 @@ UserActionsMenu = React.createClass
 
   componentWillMount: ->
     @crsfToken =
-      document.querySelector('meta[name=csrf-token]').getAttribute('content')
+      document.querySelector('meta[name=csrf-token]')?.getAttribute('content')
 
   render: ->
     name = @props.user.full_name or
