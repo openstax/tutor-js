@@ -58,16 +58,19 @@ ConceptCoachCell = React.createClass
 
 
     <div className="cc-cell">
-      <Router.Link className="score" to='viewTaskStep'
-        data-assignment-type="#{task.type}"
-        params={courseId: courseId, id: task.id, stepIndex: 1}>
-          {
-            if displayAs is 'number'
-              "#{task.correct_exercise_count} of #{task.exercise_count}"
-            else
-              "#{scorePercent}%"
-          }
-      </Router.Link>
+      <div className="score">
+        <Router.Link to='viewTaskStep'
+          data-assignment-type="#{task.type}"
+          params={courseId: courseId, id: task.id, stepIndex: 1}>
+            {
+              if displayAs is 'number'
+                "#{task.correct_exercise_count} of #{task.exercise_count}"
+              else
+                "#{scorePercent}%"
+            }       
+        </Router.Link>
+        {if not isConceptCoach and task.type is 'homework' then latework}
+      </div>
 
       <div className="worked">
         <BS.OverlayTrigger
@@ -81,7 +84,7 @@ ConceptCoachCell = React.createClass
         </BS.OverlayTrigger>
       </div>
 
-      {if not isConceptCoach and task.type is 'homework' then latework}
+      
     </div>
 
 

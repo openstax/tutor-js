@@ -230,11 +230,12 @@ module.exports = React.createClass
 
     for task, columnIndex in student_data.data
       props.task = task
+      props.columnIndex = columnIndex
       columns.push switch task?.type or 'null'
-        when 'null'          then <AbsentCell       key='absent' {...props} />
+        when 'null'     then <AbsentCell   key='absent'   {...props} />
         when 'external' then <ExternalCell key='extern'   {...props} />
         when 'reading'  then <ReadingCell  key='reading'  {...props} />
-        else <ConceptCoachCell key='cc' columnIndex={columnIndex} {...props} />
+        else <ConceptCoachCell key='cc'  {...props} />
         # when 'reading'  then <ReadingCell  key='reading'  {...props} />
         # when 'homework' then <HomeworkCell key='homework' {...props} />
     columns
