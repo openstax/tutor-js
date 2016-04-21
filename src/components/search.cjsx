@@ -34,7 +34,9 @@ Search = React.createClass
               onKeyPress={@onFindKeyPress}
               ref="exerciseId" placeholder="Exercise ID"/>
             <span className="input-group-btn">
-              <button className="btn btn-default load" type="button" onClick={@onFindExercise}>Load</button>
+              <button className="btn btn-default load"
+                type="button" onClick={@onFindExercise}
+              >Load</button>
             </span>
           </div>
         </BS.Col>
