@@ -5,12 +5,11 @@ Exercise = require 'components/exercise'
 {ExerciseActions} = require 'stores/exercise'
 EXERCISE = require 'exercises/1.json'
 
-
 describe 'Exercises component', ->
   beforeEach ->
     @props =
-      exerciseId: '1'
-    ExerciseActions.loaded(EXERCISE, @props.exerciseId)
+      id: '1'
+    ExerciseActions.loaded(EXERCISE, @props.id)
 
   it 'renders', ->
     Testing.renderComponent( Exercise, props: @props ).then ({dom}) ->
