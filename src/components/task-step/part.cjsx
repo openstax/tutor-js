@@ -86,7 +86,7 @@ ExercisePart = React.createClass
     <div
       className='exercise-wrapper'
       data-step-number={stepIndex + 1}
-      key="exercise-part-#{part.id}">
+      data-step-index={stepIndex}>
       <Exercise
         {...partProps}
         {...stepProps}

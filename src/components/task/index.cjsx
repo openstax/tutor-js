@@ -32,11 +32,14 @@ module.exports = React.createClass
     router: React.PropTypes.func
 
   setStepKey: ->
+    console.info('setStepKey')
     {stepIndex} = @context.router.getCurrentParams()
     # url is 1 based so it matches the breadcrumb button numbers
     defaultKey = @getDefaultCurrentStep()
     crumbKey = if stepIndex then parseInt(stepIndex) - 1 else defaultKey
     crumb = @getCrumb(crumbKey)
+
+    console.info(crumb?.crumb, crumbKey, defaultKey)
 
     # go ahead and render this step only if this step is accessible
     if crumb?.crumb
@@ -99,12 +102,14 @@ module.exports = React.createClass
 
     # if a step needs to be recovered, load a recovery step for it
     if @_stepRecoveryQueued(nextState)
+      console.info('_stepRecoveryQueued')
       return false
 
     # if the recoveredStepId is being set, load the task again
     # so that it will load the recoveredStep as one of it's steps
     if @_stepRecovered(nextState)
       TaskActions.load(id)
+      console.info('_stepRecovered')
       return false
 
     # if the recoveredStepId is being unset, then the step has been loaded into the task.
@@ -113,12 +118,14 @@ module.exports = React.createClass
     if @_taskRecoveredStep(nextState)
       @onNextStep() unless @state.refreshTo
       TaskStore.emit('task.afterRecovery', id)
+      console.info('_taskRecoveredStep')
       return false
 
     # if we are trying to leave the refresh step,
     #   redirect to the step after the step we triggered refresh from.
     if @_leavingRefreshingStep(nextState)
       @continueAfterRefreshStep()
+      console.info('continueAfterRefreshStep')
       return false
 
     # if we reach this point, assume that we should go ahead and do a normal component update
@@ -149,10 +156,15 @@ module.exports = React.createClass
       TaskStepStore.off('step.loaded', @recoverStep)
 
   goToStep: (stepKey, silent = false) ->
+    console.info('goToStep', arguments)
+    stepKey = parseInt(stepKey)
     params = _.clone(@context.router.getCurrentParams())
+    return if params.stepIndex is (stepKey + 1)
     # url is 1 based so it matches the breadcrumb button numbers
     params.stepIndex = stepKey + 1
     params.id = @props.id # if we were rendered directly, the router might not have the id
+    console.info('going', params)
+
     if silent
       @context.router.replaceWith('viewTaskStep', params)
     else
