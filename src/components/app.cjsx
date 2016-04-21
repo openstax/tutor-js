@@ -33,7 +33,6 @@ module.exports = React.createClass
       @loadExercise(_.first @props.exerciseId.split('@'))
 
   publishExercise: ->
-    ExerciseActions.save(@state.exerciseId)
     ExerciseActions.publish(@state.exerciseId)
 
   addNew: ->

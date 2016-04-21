@@ -160,6 +160,7 @@ ExerciseConfig = {
 
     isPublishable: (id) ->
       @exports.validate.call(@, id).valid and
+        not @exports.isChanged.call(@, id) and
         not @exports.isSaving.call(@, id) and
         not @exports.isPublishing.call(@, id) and
         not @_get(id)?.published_at
