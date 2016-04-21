@@ -8,7 +8,7 @@ Search = React.createClass
     history: React.PropTypes.object.isRequired
 
   displayExercise: (id) ->
-    @props.history.push("/exercise/#{id}")
+    @props.history.push("/exercises/#{id}")
 
   loadExercise: (exerciseId) ->
     @setState({exerciseId})

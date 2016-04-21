@@ -11,7 +11,7 @@ SuretyGuard = require './surety-guard'
 {VocabularyActions, VocabularyStore} = require 'stores/vocabulary'
 
 VIEWS =
-  exercise:
+  exercises:
     body:     require './exercise'
     controls: require './exercise/controls'
     store:    ExerciseStore
@@ -26,7 +26,6 @@ VIEWS =
     controls: require './vocabulary/controls'
     store:    VocabularyStore
     actions:  VocabularyActions
-
 
 App = React.createClass
 
@@ -103,7 +102,7 @@ App = React.createClass
                 </SuretyGuard>}
 
               <SuretyGuard
-                onConfirm={_.partial @onNewRecord, 'exercise'}
+                onConfirm={_.partial @onNewRecord, 'exercises'}
                 {...guardProps}
               >
                 <a className="btn btn-success blank">New Exercise</a>
