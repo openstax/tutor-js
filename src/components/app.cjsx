@@ -105,14 +105,14 @@ App = React.createClass
                 onConfirm={_.partial @onNewRecord, 'exercises'}
                 {...guardProps}
               >
-                <a className="btn btn-success blank">New Exercise</a>
+                <a className="btn btn-success exercises blank">New Exercise</a>
               </SuretyGuard>
 
               <SuretyGuard
                 onConfirm={_.partial @onNewRecord, 'vocabulary'}
                 {...guardProps}
               >
-                <a className="btn btn-success blank">New Vocabulary Term</a>
+                <a className="btn btn-success vocabulary blank">New Vocabulary Term</a>
               </SuretyGuard>
 
             </BS.ButtonToolbar>
