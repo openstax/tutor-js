@@ -102,6 +102,14 @@ module.exports = React.createClass
   renderHeadingCell: (heading, i) ->
     i += @props.firstDataColumn # for the first/last name columns
 
+    getAverageCellWidth =
+      if @props.isConceptCoach
+        'wide'
+      else
+        switch heading.type
+          when 'reading' then 'wide'
+          when 'external' then 'wide'
+          else ''
 
     if heading.plan_id?
       linkParams =
@@ -110,7 +118,7 @@ module.exports = React.createClass
         courseId: @props.courseId
 
       review =
-        <span className="review-link">
+        <span className="review-link #{getAverageCellWidth}">
           <Router.Link
             to='reviewTaskPeriod'
             params={linkParams}>
@@ -122,32 +130,43 @@ module.exports = React.createClass
     classAverage = heading.total_average
 
     if classAverage
-      cellWidth = if @props.isConceptCoach then 'wide' else ''
       average =
-        <span className="average #{cellWidth}">
+        <span className="average #{getAverageCellWidth}">
           {(classAverage * 100).toFixed(0)}%
         </span>
 
-
-    label =
-      <div className='cc-cell'>
-        <SortingHeader
-        type={heading.type}
-        sortKey={i}
-        dataType={@props.dataType}
-        sortState={@props.sort}
-        onSort={@props.onSort}>
-          <div ref='score' className='score'>Score</div>
-        </SortingHeader>
-        <SortingHeader
-        type={heading.type}
-        sortKey={i}
-        dataType={@props.dataType}
-        sortState={@props.sort}
-        onSort={@props.onSort}>
-          <div ref='completed' className='completed'>Progress</div>
-        </SortingHeader>
-      </div>
+    if heading.type is 'reading' or heading.type is 'external'
+      label =
+        <div className='cc-cell'>
+          <SortingHeader
+          type={heading.type}
+          className='wide'
+          sortKey={i}
+          sortState={@props.sort}
+          onSort={@props.onSort}>
+            <div ref='completed' className='completed'>Progress</div>
+          </SortingHeader>
+        </div>
+    else
+      label =
+        <div className='cc-cell'>
+          <SortingHeader
+          type={heading.type}
+          sortKey={i}
+          dataType={@props.dataType}
+          sortState={@props.sort}
+          onSort={@props.onSort}>
+            <div ref='score' className='score'>Score</div>
+          </SortingHeader>
+          <SortingHeader
+          type={heading.type}
+          sortKey={i}
+          dataType={@props.dataType}
+          sortState={@props.sort}
+          onSort={@props.onSort}>
+            <div ref='completed' className='completed'>Progress</div>
+          </SortingHeader>
+        </div>
 
     HSHeadingTitleDueDate = <div>{heading.due_at}</div>
 
@@ -172,7 +191,7 @@ module.exports = React.createClass
       className='assignment-header-cell'>
       <div className='average-cell'>
         {average}
-        {review unless @props.isConceptCoach}
+        {review unless @props.isConceptCoach or heading.type is 'external'}
       </div>
       <div className='label-cell'>
         {label}
@@ -213,10 +232,11 @@ module.exports = React.createClass
       props.task = task
       columns.push switch task?.type or 'null'
         when 'null'          then <AbsentCell       key='absent' {...props} />
+        when 'external' then <ExternalCell key='extern'   {...props} />
+        when 'reading'  then <ReadingCell  key='reading'  {...props} />
         else <ConceptCoachCell key='cc' columnIndex={columnIndex} {...props} />
         # when 'reading'  then <ReadingCell  key='reading'  {...props} />
         # when 'homework' then <HomeworkCell key='homework' {...props} />
-        # when 'external' then <ExternalCell key='extern'   {...props} />
     columns
 
 

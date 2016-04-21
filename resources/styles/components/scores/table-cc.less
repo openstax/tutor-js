@@ -21,7 +21,7 @@
     &.is-descending {
       &:after {
         position: absolute;
-        right: 8px;
+        right: 4px;
         top: 15px;
         .fa-icon();
       }
@@ -108,11 +108,17 @@
 
   .scores-cell,
   .assignment-header-cell {
-    .tutor-plan-set(cell);
+    // .tutor-plan-set(cell);
   }
 
   a.scores-cell:hover {
-    .tutor-plan-set(cell-active);
+    // .tutor-plan-set(cell-active);
+  }
+
+  .scores-cell {
+    &.task-result {
+      text-align: center;
+    }
   }
 
   i.late {
@@ -166,7 +172,9 @@
       }
     }
     .review-link {
-
+      &.wide {
+        width: 100%;
+      }
     }
 
     }
@@ -202,6 +210,10 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+
+      &.wide {
+        width: 100%;
+      }
       
       &:first-child {
         border-right: 1px solid @nav-tabs-border-color;
