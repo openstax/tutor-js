@@ -83,7 +83,11 @@ module.exports = React.createClass
     overallTitle = <div className='overall-header-cell'>Overall</div>
     customHeader = 
       <div className='overall-average-cell'>
-        <div className='average'><span>test</span></div>
+        <div className='average'>
+          <span>
+            {"#{(@props.data.overall_average_score * 100).toFixed(0)}%"}
+          </span>
+        </div>
         <div className='average empty'></div>
       </div>
     <ColumnGroup fixed={true} groupHeaderRenderer={-> overallTitle}>
