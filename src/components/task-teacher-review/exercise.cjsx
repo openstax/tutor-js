@@ -2,14 +2,16 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 
+{ScrollTracker} = require '../scroll-tracker'
+
 {ArbitraryHtmlAndMath, Question, CardBody, FreeResponse, ExerciseGroup} = require 'openstax-react-components'
 {ExerciseStore} = require '../../flux/exercise'
 
-TaskTeacherReviewExercise = React.createClass
-  displayName: 'TaskTeacherReviewExercise'
+TaskTeacherReviewQuestion = React.createClass
+  displayName: 'TaskTeacherReviewQuestion'
   propTypes:
-    content: React.PropTypes.object.isRequired
-    question_stats: React.PropTypes.array.isRequired
+    question: React.PropTypes.object.isRequired
+    questionStats: React.PropTypes.object.isRequired
 
   getInitialState: ->
     showAnswers: false
@@ -22,18 +24,8 @@ TaskTeacherReviewExercise = React.createClass
     {showAnswers} = @state
     @setState({showAnswers: not showAnswers})
 
-  getQuestion: ->
-    {content} = @props
-    # TODO: Assumes 1 question.
-    _.clone(content.questions[0])
-
-  getQuestionStatsById: (questionId) ->
-    {question_stats} = @props
-    questionId = questionId.toString()
-    _.findWhere(question_stats, question_id: questionId)
-
-  gatherAnswerStatsById: (question) ->
-    questionStats = @getQuestionStatsById(question.id)
+  gatherAnswerStatsById: ->
+    {questionStats, question} = @props
     {answer_stats} = questionStats
 
     _.map question.answers, (answer) ->
@@ -49,9 +41,9 @@ TaskTeacherReviewExercise = React.createClass
       header={header}
       className={freeResponsesClasses}/>
 
-  renderFreeResponse: (question) ->
+  renderFreeResponse: ->
     {showAnswers} = @state
-    questionStats = @getQuestionStatsById(question.id)
+    {questionStats, question} = @props
     {answers, answered_count} = questionStats
 
     toggleAnswersText = "View student text responses (#{answers.length})"
@@ -72,15 +64,14 @@ TaskTeacherReviewExercise = React.createClass
       </BS.Panel>
     </BS.Accordion>
 
-  renderQuestion: (question) ->
-    question = _.clone(question)
-    questionStats = @getQuestionStatsById(question.id)
-    question.answers = @gatherAnswerStatsById(question)
-
+  render: ->
+    {question, questionStats} = @props
     {answers, answered_count} = questionStats
 
-    if ExerciseStore.hasQuestionWithFormat('free-response', {content: @props.content})
-      studentResponses = if answers.length then @renderFreeResponse(question) else @renderNoFreeResponse()
+    question.answers = @gatherAnswerStatsById()
+
+    if ExerciseStore.doesQuestionHaveFormat('free-response', question)
+      studentResponses = if answers.length then @renderFreeResponse() else @renderNoFreeResponse()
 
     <Question
       model={question}
@@ -89,6 +80,40 @@ TaskTeacherReviewExercise = React.createClass
       onChangeAttempt={@onChangeAnswerAttempt}>
       {studentResponses}
     </Question>
+
+
+TaskTeacherReviewQuestionTracker = React.createClass
+  displayName: 'TaskTeacherReviewQuestionTracker'
+  mixins: [ScrollTracker]
+  render: ->
+    questionProps = _.pick(@props, 'question', 'questionStats')
+    <TaskTeacherReviewQuestion {...questionProps}/>
+
+
+TaskTeacherReviewExercise = React.createClass
+  displayName: 'TaskTeacherReviewExercise'
+  propTypes:
+    content: React.PropTypes.object.isRequired
+    question_stats: React.PropTypes.array.isRequired
+
+  getQuestionStatsById: (questionId) ->
+    {question_stats} = @props
+    questionId = questionId.toString()
+    _.findWhere(question_stats, question_id: questionId)
+
+  renderQuestion: (question, index) ->
+    questionStats = @getQuestionStatsById(question.id)
+    {setScrollPoint, unsetScrollPoint, scrollState} = @props
+    {key} = scrollState
+    scrollState = _.extend {}, scrollState, {key: key + index}
+
+    <TaskTeacherReviewQuestionTracker
+      key={"task-review-question-#{question.id}"}
+      question={question}
+      questionStats={questionStats}
+      scrollState={scrollState}
+      setScrollPoint={setScrollPoint}
+      unsetScrollPoint={unsetScrollPoint}/>
 
   render: ->
     {content} = @props    
