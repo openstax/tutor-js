@@ -230,7 +230,9 @@ module.exports = React.createClass
     isBottom = if @props.data.rows.length is rowIndex + 1 then 'bottom' else ''
     columns = [
       <NameCell key='name' {...props} />,
-      <div className="overall-cell #{isBottom}">test</div>
+      <div className="overall-cell #{isBottom}">
+        {"#{(@props.data.rows[rowIndex].average_score * 100).toFixed(0)}%"}
+      </div>
     ]
 
     for task, columnIndex in student_data.data
