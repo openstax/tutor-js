@@ -122,6 +122,10 @@ TaskTeacherReviewExercise = React.createClass
     exercise = _.map questions, @renderQuestion
 
     <CardBody className='task-step openstax-exercise openstax-exercise-card' pinned={false}>
+      <ArbitraryHtmlAndMath
+        className='exercise-stimulus openstax-question'
+        block={true}
+        html={content.stimulus_html} />
       {exercise}
       <ExerciseGroup
           key='step-exercise-group'
