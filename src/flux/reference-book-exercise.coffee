@@ -9,6 +9,8 @@ combineQueries = (multipleUrls) ->
   tags = _.map(multipleUrls, (url) ->
     queryString = decodeURIComponent(url.split(QUERY_START_STRING)[1])
     [param, value] = queryString.split(':')
+    # trim individual tag of double quotes
+    value = value.replace(/^"(.+(?="$))"$/, '$1')
     params[param] ?= []
     params[param].push(value)
 
@@ -16,7 +18,8 @@ combineQueries = (multipleUrls) ->
   )
   urlsAndTags = _.object(multipleUrls, tags)
   queryStrings = _.map(params, (values, paramKey) ->
-    "#{paramKey}:#{values.join(',')}"
+    # join values and wrap all values with a single pair of double quotes
+    "#{paramKey}:\"#{values.join(',')}\""
   )
   queryString = queryStrings.join(' ')
 
