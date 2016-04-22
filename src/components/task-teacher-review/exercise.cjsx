@@ -2,7 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 
-{ArbitraryHtmlAndMath, Question, CardBody, FreeResponse} = require 'openstax-react-components'
+{ArbitraryHtmlAndMath, Question, CardBody, FreeResponse, ExerciseGroup} = require 'openstax-react-components'
 {ExerciseStore} = require '../../flux/exercise'
 
 TaskTeacherReviewExercise = React.createClass
@@ -86,19 +86,21 @@ TaskTeacherReviewExercise = React.createClass
       model={question}
       answered_count={answered_count}
       type='teacher-review'
-      exercise_uid={@props.content.uid}
       onChangeAttempt={@onChangeAnswerAttempt}>
       {studentResponses}
     </Question>
 
   render: ->
-    question = @getQuestion()
-    {questions} = @props.content
+    {content} = @props    
+    {questions, uid} = content
 
     exercise = _.map questions, @renderQuestion
 
-    <CardBody className='task-step openstax-exercise' pinned={false}>
+    <CardBody className='task-step openstax-exercise openstax-exercise-card' pinned={false}>
       {exercise}
+      <ExerciseGroup
+          key='step-exercise-group'
+          exercise_uid={uid}/>
     </CardBody>
 
 module.exports = TaskTeacherReviewExercise
