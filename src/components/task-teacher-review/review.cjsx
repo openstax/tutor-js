@@ -52,15 +52,15 @@ Review = React.createClass
   render: ->
     {id, focus} = @props
     steps = @getContents()
-
     stepsProps = _.omit(@props, 'focus')
 
     stepsList = _.map steps, (step, index) =>
 
       scrollState = _.pick(step, 'key', 'sectionLabel')
-      if step.content?
+      if step.question_stats?
+        step.content = JSON.parse(step.content)
         stepProps = _.extend({}, stepsProps, step)
-        stepProps.key = "task-review-question-#{step.content.questions[0].id}-#{index}"
+        stepProps.key = "task-review-question-#{step.question_stats[0].question_id}-#{index}"
         stepProps.focus = focus and index is 0
       else
         stepProps = step

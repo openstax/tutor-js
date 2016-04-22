@@ -9,8 +9,7 @@ TaskTeacherReviewExercise = React.createClass
   displayName: 'TaskTeacherReviewExercise'
   propTypes:
     content: React.PropTypes.object.isRequired
-    answers: React.PropTypes.array.isRequired
-    answered_count: React.PropTypes.number.isRequired
+    question_stats: React.PropTypes.array.isRequired
 
   getInitialState: ->
     showAnswers: false
@@ -26,7 +25,21 @@ TaskTeacherReviewExercise = React.createClass
   getQuestion: ->
     {content} = @props
     # TODO: Assumes 1 question.
-    content.questions[0]
+    _.clone(content.questions[0])
+
+  getQuestionStatsById: (questionId) ->
+    {question_stats} = @props
+    questionId = questionId.toString()
+    _.findWhere(question_stats, question_id: questionId)
+
+  gatherAnswerStatsById: (question) ->
+    questionStats = @getQuestionStatsById(question.id)
+    {answer_stats} = questionStats
+
+    _.map question.answers, (answer) ->
+      answerId = answer.id.toString()
+      answerStats = _.chain(answer_stats).findWhere(answer_id: answerId).omit('answer_id').value()
+      _.extend({}, answer, answerStats)
 
   renderNoFreeResponse: ->
     freeResponsesClasses = 'teacher-review-answers has-no-answers'
@@ -36,10 +49,10 @@ TaskTeacherReviewExercise = React.createClass
       header={header}
       className={freeResponsesClasses}/>
 
-  renderFreeResponse: ->
-    {answers} = @props
+  renderFreeResponse: (question) ->
     {showAnswers} = @state
-    question = @getQuestion()
+    questionStats = @getQuestionStatsById(question.id)
+    {answers, answered_count} = questionStats
 
     toggleAnswersText = "View student text responses (#{answers.length})"
     toggleAnswersText = 'Hide student text responses' if showAnswers
@@ -59,22 +72,33 @@ TaskTeacherReviewExercise = React.createClass
       </BS.Panel>
     </BS.Accordion>
 
-  render: ->
-    {answers, answered_count} = @props
-    question = @getQuestion()
+  renderQuestion: (question) ->
+    question = _.clone(question)
+    questionStats = @getQuestionStatsById(question.id)
+    question.answers = @gatherAnswerStatsById(question)
+
+    {answers, answered_count} = questionStats
 
     if ExerciseStore.hasQuestionWithFormat('free-response', {content: @props.content})
-      studentResponses = if answers.length then @renderFreeResponse() else @renderNoFreeResponse()
+      studentResponses = if answers.length then @renderFreeResponse(question) else @renderNoFreeResponse()
+
+    <Question
+      model={question}
+      answered_count={answered_count}
+      type='teacher-review'
+      exercise_uid={@props.content.uid}
+      onChangeAttempt={@onChangeAnswerAttempt}>
+      {studentResponses}
+    </Question>
+
+  render: ->
+    question = @getQuestion()
+    {questions} = @props.content
+
+    exercise = _.map questions, @renderQuestion
 
     <CardBody className='task-step openstax-exercise' pinned={false}>
-      <Question
-        model={question}
-        answered_count={answered_count}
-        type='teacher-review'
-        exercise_uid={@props.content.uid}
-        onChangeAttempt={@onChangeAnswerAttempt}>
-        {studentResponses}
-      </Question>
+      {exercise}
     </CardBody>
 
 module.exports = TaskTeacherReviewExercise
