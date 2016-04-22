@@ -181,7 +181,8 @@ module.exports = React.createClass
         delayHide={0}
         overlay={titleHeaderTooltip}>
         <div
-        data-assignment-type="#{heading.type}" 
+        data-assignment-type="#{heading.type}"
+        ref="#{i}-#{heading.type}"
         className='header-cell title'>
           {heading.title}
         </div>
@@ -232,7 +233,7 @@ module.exports = React.createClass
       props.task = task
       props.columnIndex = columnIndex
       columns.push switch task?.type or 'null'
-        when 'null'     then <AbsentCell   key='absent'   {...props} />
+        when 'null'     then <AbsentCell   key='absent' refs={@refs}   {...props} />
         when 'external' then <ExternalCell key='extern'   {...props} />
         when 'reading'  then <ReadingCell  key='reading'  {...props} />
         else <ConceptCoachCell key='cc'  {...props} />
