@@ -72,7 +72,7 @@ Input = React.createClass
       </span>
     </div>
 
-ExIdTags = React.createClass
+LoTags = React.createClass
 
   propTypes:
     exerciseId: React.PropTypes.string.isRequired
@@ -87,4 +87,4 @@ ExIdTags = React.createClass
         <Input key={tag} {...@props} tag={tag} />}
     </Wrapper>
 
-module.exports = ExIdTags
+module.exports = LoTags

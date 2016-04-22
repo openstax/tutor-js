@@ -9,8 +9,10 @@ PREFIX = 'format'
 TYPES =
   'multiple-choice' : 'Multiple Choice'
   'true-false'      : 'True/False'
-  'vocabulary'      : 'Vocabulary'
-  'open-ended'      : 'Open Ended'
+
+# Temporarily removed as options (not needed & causes 500 on BE)
+#  'vocabulary'      : 'Vocabulary'
+#  'open-ended'      : 'Open Ended'
 
 QuestionFormatType = React.createClass
 
