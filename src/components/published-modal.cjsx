@@ -29,6 +29,7 @@ PublishedModal = React.createClass
     exercise = ExerciseStore.get(@props.exerciseId)
 
     <BS.Modal
+      show={@state.isShowing}
       enforceFocus={false}
       autoFocus={false}
       backdrop={false}
