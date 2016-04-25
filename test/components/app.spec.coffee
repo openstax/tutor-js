@@ -20,6 +20,5 @@ describe 'App component', ->
     )
     Testing.renderComponent( App, props: @props ).then ({dom}) ->
       expect( dom.querySelector('.exercise-editor') ).not.to.exist
-
-      # ReactTestUtils.Simulate.click dom.querySelector('.btn.exercises.blank')
-      # expect( dom.querySelector('.exercise-editor') ).not.exist
+      ReactTestUtils.Simulate.click dom.querySelector('.btn.exercises.blank')
+      expect( dom.querySelector('.exercise-editor') ).not.exist

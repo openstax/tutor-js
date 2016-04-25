@@ -39,7 +39,7 @@ describe 'Exercises component', ->
       expect(tabs).to.deep.equal(['Intro', 'Question 1', 'Question 2', 'Tags', 'Assets'])
 
   it 'renders with out intro and a single question when exercise is MC', ->
-    ExerciseActions.toggleMultiPart(@props.exerciseId)
+    ExerciseActions.toggleMultiPart(@props.id)
     Testing.renderComponent( Exercise, props: @props ).then ({dom}) ->
       tabs = _.pluck dom.querySelectorAll('.nav-tabs li'), 'textContent'
       expect(tabs).to.deep.equal(['Question', 'Tags', 'Assets'])
