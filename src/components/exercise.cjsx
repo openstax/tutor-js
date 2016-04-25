@@ -11,10 +11,12 @@ PublishedModal = require './published-modal'
 ExerciseTags = require 'components/exercise/tags'
 Question = require 'components/exercise/question'
 Attachments = require 'components/exercise/attachments'
+Location = require 'stores/location'
 
 Exercise = React.createClass
   propTypes:
     id:   React.PropTypes.string.isRequired
+    location: React.PropTypes.instanceOf(Location)
 
   getInitialState: -> {}
   update: -> @forceUpdate()
