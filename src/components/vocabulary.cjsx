@@ -5,6 +5,7 @@ classnames = require 'classnames'
 
 {VocabularyActions, VocabularyStore} = require 'stores/vocabulary'
 Distractors = require 'components/vocabulary/distractors'
+Tags = require 'components/vocabulary/tags'
 
 Vocabulary = React.createClass
   propTypes:
@@ -28,13 +29,12 @@ Vocabulary = React.createClass
 
       <BS.Row>
         <BS.Col sm=6>
-          <BS.Row>
-            <BS.Input type="text" label="Term" onChange={@setTerm} value={vt.term} />
-          </BS.Row>
-          <BS.Row>
-            <BS.Input type="textarea" label="Description"
-              onChange={@setDescription} value={vt.description} />
-          </BS.Row>
+
+          <BS.Input type="text" label="Term" onChange={@setTerm} value={vt.term} />
+
+          <BS.Input type="textarea" label="Description"
+            onChange={@setDescription} value={vt.description} />
+
         </BS.Col>
         <BS.Col sm=6>
           <Distractors termId={@props.id} />
@@ -42,7 +42,9 @@ Vocabulary = React.createClass
       </BS.Row>
 
       <BS.Row>
-
+        <BS.Col sm=12>
+          <Tags vocabularyId={@props.id} />
+        </BS.Col>
       </BS.Row>
     </div>
 
