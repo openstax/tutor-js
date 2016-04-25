@@ -4,15 +4,16 @@
 ExerciseControls = require 'components/exercise/controls'
 Exercise = require 'components/exercise'
 {ExerciseActions} = require 'stores/exercise'
-
+Location = require 'stores/location'
 EXERCISE = require 'exercises/1.json'
 
 
-describe 'Exercises component', ->
+describe 'Exercise controls component', ->
 
   beforeEach (done) ->
     @props =
       id: '1'
+      location: new Location
     ExerciseActions.loaded(EXERCISE, @props.id)
     Testing.renderComponent( Exercise, props: @props).then ({dom}) =>
       @exercise = dom

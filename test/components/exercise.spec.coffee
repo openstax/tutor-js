@@ -4,12 +4,22 @@
 Exercise = require 'components/exercise'
 {ExerciseActions} = require 'stores/exercise'
 EXERCISE = require 'exercises/1.json'
+Location = require 'stores/location'
 
 describe 'Exercises component', ->
   beforeEach ->
+    sinon.stub( Location.prototype, '_createHistory', ->
+      @history = {
+        push: -> 0
+      }
+    )
     @props =
       id: '1'
+      location: new Location
     ExerciseActions.loaded(EXERCISE, @props.id)
+
+  afterEach ->
+    Location::_createHistory.restore()
 
   it 'renders', ->
     Testing.renderComponent( Exercise, props: @props ).then ({dom}) ->
