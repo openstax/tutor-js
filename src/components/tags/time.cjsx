@@ -12,7 +12,9 @@ CHOICES = {
 TimeTag = React.createClass
 
   propTypes:
-    exerciseId: React.PropTypes.string.isRequired
+    id:      React.PropTypes.string.isRequired
+    store:   React.PropTypes.object.isRequired
+    actions: React.PropTypes.object.isRequired
 
   render: ->
     <SingleDropdown

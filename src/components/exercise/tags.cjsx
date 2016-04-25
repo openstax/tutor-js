@@ -1,38 +1,42 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
-{ExerciseActions, ExerciseStore} = require '../../stores/exercise'
 
-Books        = require './books'
-Lo           = require './lo'
-QuestionType = require './question-type'
-FilterType   = require './filter-type'
-CnxMod       = require './cnx-mod'
-CnxFeature   = require './cnx-feature'
-Dok          = require './dok'
-Blooms       = require './blooms'
-Time         = require './time'
-RequiresContext = require './requires-context'
+{ExerciseActions, ExerciseStore} = require 'stores/exercise'
+
+Books           = require 'components/tags/books'
+Lo              = require 'components/tags/lo'
+QuestionType    = require 'components/tags/question-type'
+FilterType      = require 'components/tags/filter-type'
+CnxMod          = require 'components/tags/cnx-mod'
+CnxFeature      = require 'components/tags/cnx-feature'
+Dok             = require 'components/tags/dok'
+Blooms          = require 'components/tags/blooms'
+Time            = require 'components/tags/time'
+RequiresContext = require 'components/tags/requires-context'
 
 ExerciseTags = React.createClass
   propTypes:
     exerciseId: React.PropTypes.string.isRequired
 
   render: ->
-    {id} = @props
-
+    tagProps = {
+      id: @props.exerciseId
+      store:   ExerciseStore
+      actions: ExerciseActions
+    }
     <div className="tags">
       <BS.Row>
-        <Books           {...@props} />
-        <Lo              {...@props} />
-        <QuestionType    {...@props} />
-        <FilterType      {...@props} />
-        <RequiresContext {...@props} />
-        <CnxMod          {...@props} />
-        <CnxFeature      {...@props} />
-        <Dok             {...@props} />
-        <Blooms          {...@props} />
-        <Time            {...@props} />
+        <Books           {...tagProps} />
+        <Lo              {...tagProps} />
+        <QuestionType    {...tagProps} />
+        <FilterType      {...tagProps} />
+        <RequiresContext {...tagProps} />
+        <CnxMod          {...tagProps} />
+        <CnxFeature      {...tagProps} />
+        <Dok             {...tagProps} />
+        <Blooms          {...tagProps} />
+        <Time            {...tagProps} />
       </BS.Row>
     </div>
 

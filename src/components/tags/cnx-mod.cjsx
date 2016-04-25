@@ -5,7 +5,9 @@ MultiInput = require './multi-input'
 CnxModTag = React.createClass
 
   propTypes:
-    exerciseId: React.PropTypes.string.isRequired
+    id:      React.PropTypes.string.isRequired
+    store:   React.PropTypes.object.isRequired
+    actions: React.PropTypes.object.isRequired
 
   validateInput: (value) ->
     'Must match CNX module ID (without version number)' unless value.match(

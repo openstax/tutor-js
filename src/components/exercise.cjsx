@@ -8,7 +8,7 @@ classnames = require 'classnames'
 {ExercisePreview} = require 'openstax-react-components'
 
 PublishedModal = require './published-modal'
-ExerciseTags = require './tags'
+ExerciseTags = require 'components/exercise/tags'
 Question = require 'components/exercise/question'
 Attachments = require 'components/exercise/attachments'
 

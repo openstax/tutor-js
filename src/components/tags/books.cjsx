@@ -1,24 +1,24 @@
 React = require 'react'
 
 Wrapper = require './wrapper'
-{ExerciseActions, ExerciseStore} = require '../../stores/exercise'
 
 BookSelection = require './book-selection'
 
 BookTagSelect = React.createClass
   propTypes:
     book: React.PropTypes.string.isRequired
+    id: React.PropTypes.string.isRequired
 
   updateTag: (ev) ->
-    ExerciseActions.setPrefixedTag(@props.exerciseId,
+    @props.actions.setPrefixedTag(@props.id,
       prefix: 'book', tag: ev.target.value, previous: @props.book
     )
 
   onDelete: ->
-    ExerciseActions.setPrefixedTag(@props.exerciseId,
+    @props.actions.setPrefixedTag(@props.id,
       prefix: 'book', tag: false, previous: @props.book
     )
-    ExerciseActions.setPrefixedTag(@props.exerciseId,
+    @props.actions.setPrefixedTag(@props.id,
       prefix: "exid:#{@props.book}", tag: false, replaceOthers: true
     )
 
@@ -33,15 +33,17 @@ BookTagSelect = React.createClass
 BookTags = React.createClass
 
   propTypes:
-    exerciseId: React.PropTypes.string.isRequired
+    id: React.PropTypes.string.isRequired
+    store: React.PropTypes.object.isRequired
+    actions: React.PropTypes.object.isRequired
 
   add: ->
-    ExerciseActions.addBlankPrefixedTag(@props.exerciseId,
+    @props.actions.addBlankPrefixedTag(@props.id,
       prefix: 'book'
     )
 
   render: ->
-    tags = ExerciseStore.getTagsWithPrefix(@props.exerciseId, 'book')
+    tags = @props.store.getTagsWithPrefix(@props.id, 'book')
     <Wrapper label="Book" onAdd={@add}  singleTag={tags.length is 1}>
       {for tag in tags
         <BookTagSelect key={tag} {...@props} book={tag} />}
