@@ -43,9 +43,10 @@ Vocabulary = React.createClass
 
       <BS.Row>
         <BS.Col sm=12>
-          <Tags vocabularyId={@props.id} />
+          <h4>Tags</h4>
         </BS.Col>
       </BS.Row>
+      <Tags vocabularyId={@props.id} />
     </div>
 
 
