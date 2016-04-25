@@ -1,6 +1,7 @@
 _ = require 'underscore'
 flux = require 'flux-react'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
+TaggingMixin = require './tagging-mixin'
 
 
 VocabularyConfig = {
@@ -33,6 +34,7 @@ VocabularyConfig = {
 
 }
 
+TaggingMixin.extend(VocabularyConfig)
 
 extendConfig(VocabularyConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(VocabularyConfig)
