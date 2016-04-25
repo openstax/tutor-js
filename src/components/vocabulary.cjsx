@@ -30,9 +30,9 @@ Vocabulary = React.createClass
       <BS.Row>
         <BS.Col sm=6>
 
-          <BS.Input type="text" label="Term" onChange={@setTerm} value={vt.term} />
+          <BS.Input type="text" label="Key Term" onChange={@setTerm} value={vt.term} />
 
-          <BS.Input type="textarea" label="Description"
+          <BS.Input type="textarea" label="Key Term Definition"
             onChange={@setDescription} value={vt.description} />
 
         </BS.Col>
