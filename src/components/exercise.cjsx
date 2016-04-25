@@ -3,14 +3,14 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
-PublishedModal = require './published-modal'
 
-Question = require './question'
-ExerciseTags = require './tags'
-{ExerciseActions, ExerciseStore} = require '../stores/exercise'
-Attachments = require './attachments'
+{ExerciseActions, ExerciseStore} = require 'stores/exercise'
 {ExercisePreview} = require 'openstax-react-components'
 
+PublishedModal = require './published-modal'
+ExerciseTags = require './tags'
+Question = require 'components/exercise/question'
+Attachments = require 'components/exercise/attachments'
 
 Exercise = React.createClass
   propTypes:

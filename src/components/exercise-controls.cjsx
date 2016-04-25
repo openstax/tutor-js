@@ -4,12 +4,13 @@ BS = require 'react-bootstrap'
 AsyncButton = require 'openstax-react-components/src/components/buttons/async-button.cjsx'
 MPQToggle = require './mpq-toggle'
 SuretyGuard = require './surety-guard'
+Location = require 'stores/location'
 
 ExerciseControls = React.createClass
 
   propTypes:
     id:   React.PropTypes.string.isRequired
-    history: React.PropTypes.object
+    location: React.PropTypes.instanceOf(Location)
 
   componentWillMount: ->
     ExerciseStore.addChangeListener(@update)

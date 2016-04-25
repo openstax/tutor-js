@@ -2,48 +2,39 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
-history = require 'history'
+Location = require 'stores/location'
+
 ErrorModal = require './error-modal'
 UserActionsMenu = require 'components/user-actions-menu'
 SuretyGuard = require './surety-guard'
-
-{ExerciseActions, ExerciseStore} = require 'stores/exercise'
-{VocabularyActions, VocabularyStore} = require 'stores/vocabulary'
-
-VIEWS =
-  exercises:
-    body:     require './exercise'
-    controls: require './exercise/controls'
-    store:    ExerciseStore
-    actions:  ExerciseActions
-
-  search:
-    body:     require './search'
-    controls: require './search/controls'
-
-  vocabulary:
-    body:     require './vocabulary'
-    controls: require './vocabulary/controls'
-    store:    VocabularyStore
-    actions:  VocabularyActions
+NetworkActivity = require './network-activity-spinner'
 
 App = React.createClass
 
   propTypes:
-    history: React.PropTypes.object
+    location: React.PropTypes.instanceOf(Location)
     data:  React.PropTypes.object.isRequired
 
   getDefaultProps: ->
-    history: history.createHistory()
+    location: new Location
 
   componentWillMount: ->
-    @historyUnlisten = @props.history.listen(@onHistoryChange)
-    {view, id} = @getUrlParts(window.location.pathname)
+    @props.location.startListening(@onHistoryChange)
+    {view, id} = @props.location.getCurrentUrlParts()
     if id is 'new'
       @setState(newId: @createNewRecord(view))
+    else
+      @loadRecord(view, id)
+
+  loadRecord: (type, id) ->
+    {actions, store} = @props.location.partsForView(type)
+    store.once 'loaded', @update
+    actions.load(id) unless store.isLoading(id)
+
+  update: -> @forceUpdate()
 
   componentWillUnmount: ->
-    @historyUnlisten()
+    @props.location.stopListening()
 
   onHistoryChange: (location) ->
     @setState(location: location)
@@ -52,40 +43,38 @@ App = React.createClass
     ev.preventDefault()
     newId = @createNewRecord(type)
     @setState({newId})
-    @props.history.push("/#{type}/new")
+    @props.location.visitNewRecord(type)
 
   createNewRecord: (type) ->
-    Component = VIEWS[type]
-    newId = Component.store.freshLocalId()
-    Component.actions.createBlank(newId)
+    {actions, store} = @props.location.partsForView(type)
+    newId = store.freshLocalId()
+    actions.createBlank(newId)
     return newId
-
-  getUrlParts: (path = @state.location.pathname) ->
-    [view, id, args...] = _.tail path.split('/')
-    {view, id, args}
 
   onReset: (ev) ->
     ev.preventDefault()
-    @props.history.push('/')
+    @props.location.visitSearch()
 
   render: ->
-    {view, id, args} = @getUrlParts()
+    {view, id, args} = @props.location.getCurrentUrlParts()
     if id is 'new'
       id = @state.newId or @createNewRecord(view)
 
-    Component = VIEWS[view] or VIEWS['search']
+    {Body, Controls, store, actions} = @props.location.partsForView(view)
+    Body = NetworkActivity if store.isLoading(id)
 
     guardProps =
       onlyPromptIf: ->
-        id and Component.store.isChanged(id)
+        id and store.isChanged(id)
       placement: 'right'
       message: "You will lose all unsaved changes"
 
     componentProps =
       id: id
-      history: @props.history
+      location: @props.location
 
     classes = classnames(view, 'openstax', 'editor-app', 'container-fluid')
+
 
     <div className={classes}>
       <ErrorModal />
@@ -119,7 +108,7 @@ App = React.createClass
           </div>
 
           <div className="navbar-header view-controls">
-            <Component.controls {...componentProps} />
+            <Controls {...componentProps} />
           </div>
 
           <UserActionsMenu user={@props.data.user} />
@@ -128,7 +117,7 @@ App = React.createClass
         </div>
       </nav>
 
-      <Component.body {...componentProps} />
+      <Body {...componentProps} />
     </div>
 
 module.exports = App

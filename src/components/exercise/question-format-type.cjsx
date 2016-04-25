@@ -2,7 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
-{QuestionActions, QuestionStore} = require '../stores/question'
+{QuestionActions, QuestionStore} = require 'stores/question'
 
 
 PREFIX = 'format'

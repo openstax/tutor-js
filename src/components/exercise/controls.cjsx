@@ -1,15 +1,16 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-{ExerciseActions, ExerciseStore} = require '../../stores/exercise'
+{ExerciseActions, ExerciseStore} = require 'stores/exercise'
 AsyncButton = require 'openstax-react-components/src/components/buttons/async-button.cjsx'
-MPQToggle = require '../mpq-toggle'
-SuretyGuard = require '../surety-guard'
+MPQToggle = require 'components/exercise/mpq-toggle'
+SuretyGuard = require 'components/surety-guard'
+Location = require 'stores/location'
 
 ExerciseControls = React.createClass
 
   propTypes:
     id:   React.PropTypes.string.isRequired
-    history: React.PropTypes.object
+    location: React.PropTypes.instanceOf(Location)
 
   componentWillMount: ->
     ExerciseStore.addChangeListener(@update)
@@ -25,16 +26,16 @@ ExerciseControls = React.createClass
   saveExercise: ->
     if ExerciseStore.isNew(@props.id)
       ExerciseActions.create(@props.id, ExerciseStore.get(@props.id))
+      ExerciseStore.once 'created', (id) =>
+        @props.location.visitExercise(id)
     else
       ExerciseActions.save(@props.id)
 
    publishExercise: ->
-    ExerciseActions.save(@state.exerciseId)
-    ExerciseActions.publish(@state.exerciseId)
+    ExerciseActions.publish(@props.id)
 
   render: ->
     {id} = @props
-    return null unless id
 
     guardProps =
       onlyPromptIf: @isExerciseDirty
@@ -56,7 +57,7 @@ ExerciseControls = React.createClass
             Save Draft
           </AsyncButton>
         }
-        { if id and not ExerciseStore.isNew(id)
+        { unless ExerciseStore.isNew(id)
           <SuretyGuard
             onConfirm={@publishExercise}
             okButtonLabel='Publish'

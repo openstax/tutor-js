@@ -21,6 +21,7 @@ window.logout = -> ExerciseActions.changeExerciseMode(EXERCISE_MODES.VIEW)
 
 
 loadApp = ->
+
   api.start()
   MathJaxHelper.startMathJax()
 

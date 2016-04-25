@@ -2,7 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
-{ExerciseStore} = require '../stores/exercise'
+{ExerciseStore} = require 'stores/exercise'
 
 
 PublishedModal = React.createClass

@@ -2,9 +2,9 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 
-{ExerciseActions, ExerciseStore} = require '../stores/exercise'
+{ExerciseActions, ExerciseStore} = require 'stores/exercise'
 
-SuretyGuard = require './surety-guard'
+SuretyGuard = require 'components/surety-guard'
 
 MPQToggle = React.createClass
 

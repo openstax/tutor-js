@@ -5,8 +5,8 @@ _ = require 'underscore'
 
 QuestionFormatType = require './question-format-type'
 Answer = require './answer'
-{QuestionActions, QuestionStore} = require '../stores/question'
-{AnswerActions, AnswerStore} = require '../stores/answer'
+{QuestionActions, QuestionStore} = require 'stores/question'
+{AnswerActions, AnswerStore} = require 'stores/answer'
 
 module.exports = React.createClass
   displayName: 'Question'
