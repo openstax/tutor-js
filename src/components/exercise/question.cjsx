@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 
 _ = require 'underscore'
 
+SuretyGuard = require 'components/surety-guard'
 QuestionFormatType = require './question-format-type'
 Answer = require './answer'
 {QuestionActions, QuestionStore} = require 'stores/question'
@@ -84,10 +85,16 @@ module.exports = React.createClass
               <i className="fa fa-arrow-circle-left"/>
             </a>
           }
-          <a className="remove-question" onClick={removeQuestion}>
-            <i className="fa fa-trash" />
-            Remove Question
-          </a>
+          <SuretyGuard
+            onConfirm={removeQuestion}
+            onlyPromptIf={ -> QuestionStore.isChanged(id)}
+            message="Removing a question will permanently remove the question and it's answers"
+          >
+            <a className="remove-question">
+              <i className="fa fa-trash" />
+              Remove Question
+            </a>
+          </SuretyGuard>
           {if canMoveRight
             <a className="move-question" onClick={_.partial(moveQuestion, id, 1)}>
               <i className="fa fa-arrow-circle-right"/>

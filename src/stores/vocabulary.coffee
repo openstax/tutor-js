@@ -30,6 +30,7 @@ VocabularyConfig = {
   exports:
     getTemplate: (id) ->
       distractors: []
+      tags: []
 
 
 }
