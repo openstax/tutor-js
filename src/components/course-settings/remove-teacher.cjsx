@@ -27,7 +27,7 @@ module.exports = React.createClass
 
   goToDashboard: ->
     TeacherRosterStore.once 'deleted', =>
-      @context.router.transitionTo('dashboard')
+      @context.router.push('/dashboard')
 
   performDeletion: ->
     {courseId} = @props

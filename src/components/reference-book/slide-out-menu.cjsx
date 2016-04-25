@@ -26,15 +26,14 @@ Section = React.createClass
     section = @sectionFormat(@props.section.chapter_section)
 
     className = if section is activeSection then 'active' else ''
-    params = _.extend({ecosystemId: @props.ecosystemId}, @context.router.getCurrentParams(), {section: section})
+    path = "#{@props.menuRouterLinkTarget}#{section}"
 
     <ul className="section" data-depth={@props.section.chapter_section.length}>
       <li data-section={section}>
         <Link
-          params={params}
           className={className}
           onClick={_.partial(@props.onMenuSelection, section)}
-          to={@props.menuRouterLinkTarget}
+          to={path}
           query={@context.router.getCurrentQuery()} >
 
           <span className="section-number">{section}</span>

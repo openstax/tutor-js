@@ -3,7 +3,7 @@
 module.exports =
   getCourseDataProps: (courseId) ->
     unless courseId?
-      {courseId} = @context.router.getCurrentParams()
+      {courseId} = @context.params
 
     dataProps =
       'data-title': CourseStore.getName(courseId)

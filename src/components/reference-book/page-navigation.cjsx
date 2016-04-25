@@ -22,13 +22,13 @@ PageNavigation = React.createClass
   render: ->
     return null unless @props.enabled and @props.section
 
-    params = _.extend({ecosystemId: @props.ecosystemId}, @context.router.getCurrentParams(), section: @props.section)
+    path = "#{@props.pageNavRouterLinkTarget}#{@props.section}"
 
     <Link className={classnames('page-navigation', @props.direction)}
-      to={@props.pageNavRouterLinkTarget}
+      to={path}
       query={@context.router.getCurrentQuery()}
       onClick={@onClick}
-      params={params}>
+    >
       <div className='triangle' />
     </Link>
 

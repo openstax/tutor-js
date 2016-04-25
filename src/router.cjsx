@@ -5,13 +5,13 @@ ReactDOM = require 'react-dom'
 async = require './helpers/webpack-async-loader'
 
 {App, Root, Dashboard, SingleTask, SinglePractice, Invalid} = require './components'
-{CourseListing} = require './components/course-listing'
+{CourseListing, CourseListingOnEnter} = require './components/course-listing'
 QuestionsLibrary = require './components/questions'
 PerformanceForecastShell = require './components/performance-forecast'
 {ScoresShell} = require './components/scores'
 {ReadingShell, HomeworkShell, ExternalShell, EventShell} = require './components/task-plan'
 {StudentDashboardShell} = require './components/student-dashboard'
-TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
+{TeacherTaskPlansListing, TaskPlanListingOnEnter} = require './components/task-plan/teacher-task-plans-listing'
 {TaskTeacherReviewShell} = require './components/task-teacher-review'
 {ReferenceBookShell, ReferenceBookPageShell, ReferenceBookFirstPage} =
   require './components/reference-book'
@@ -29,9 +29,13 @@ routes = (
   <Route component={Root} name='root'>
     <Route path='/' component={App} name='app'>
       <Redirect from='/' to='dashboard' />
-      <Route path='dashboard/?' name='dashboard' component={CourseListing} />
+      <Route path='dashboard/?'
+        onEnter={CourseListingOnEnter}
+        name='dashboard'
+        component={CourseListing} />
+
       <Route path='courses/:courseId/?'>
-        <IndexRoute component={TeacherTaskPlans}/>
+        <IndexRoute component={TeacherTaskPlansListing} onEnter={TaskPlanListingOnEnter}/>
 
         <Route path='list/?' name='viewStudentDashboard' component={StudentDashboardShell} />
         <Route path='tasks/:id/?' name='viewTask' component={SingleTask}/>
@@ -47,7 +51,7 @@ routes = (
           component={PerformanceForecastShell.Student}/>
 
         <Route path='t/' name='viewTeacherDashBoard'>
-          <IndexRoute component={TeacherTaskPlans} />
+          <IndexRoute component={TeacherTaskPlansListing} onEnter={TaskPlanListingOnEnter} />
           <Route path='scores/?' name='viewScores'
             component={Handler(ScoresShell, requireRole: 'teacher', requirePeriods: true)} />
           <Route path='guide' name='viewTeacherPerformanceForecast'
@@ -56,11 +60,12 @@ routes = (
             component={Handler(PerformanceForecastShell.TeacherStudent, requireRole: 'teacher', requirePeriods: true)}/>
 
           <Route path='calendar/?'>
-            <IndexRoute component={TeacherTaskPlans} />
+            <IndexRoute component={TeacherTaskPlansListing} onEnter={TaskPlanListingOnEnter} />
             <Route
               path='months/:date/?'
               name='calendarByDate'
-              component={TeacherTaskPlans}
+              component={TeacherTaskPlansListing}
+              onEnter={TaskPlanListingOnEnter}
               ignoreScrollBehavior>
               <Route
                 path='plans/:planId/?'

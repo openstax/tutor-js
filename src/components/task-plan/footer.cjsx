@@ -19,7 +19,7 @@ PlanFooter = React.createClass
 
   getDefaultProps: ->
     goBackToCalendar: =>
-      @context.router.transitionTo('taskplans', {courseId})
+      @context.router.push("/courses/#{courseId}/t/calendar/")
 
   getInitialState: ->
     isEditable: TaskPlanStore.isEditable(@props.id)
@@ -64,7 +64,7 @@ PlanFooter = React.createClass
 
   onViewStats: ->
     {id, courseId} = @props
-    @context.router.transitionTo('viewStats', {courseId, id})
+    @context.router.push("/courses/#{courseId}/plans/#{id}/stats")
 
   render: ->
     {id, courseId, clickedSelectProblem, onPublish, onSave, onCancel, getBackToCalendarParams} = @props

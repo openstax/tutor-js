@@ -15,10 +15,10 @@ TransitionActions = flux.createActions [
 #
 # This means that the back button will only track the routes that are
 # 'transitioned' to and not those that 'replace' location,
-# as is the case with router.replaceWith
+# as is the case with router.replace
 #
 # TLDR: Use router.transitionTo or Router.Link for routes you want
-# in History and back button.  Only use router.replaceWith when you
+# in History and back button.  Only use router.replace when you
 # want that route to be ignored in History and back.
 
 TransitionStore = flux.createStore
@@ -26,9 +26,9 @@ TransitionStore = flux.createStore
   _local: []
 
   load: (change, router) ->
-    {type, path} = change
-    type ?= 'push'
-    @_local.push(path) if type is 'push' and DestinationHelper.shouldRememberRoute(change, router)
+    {action, pathname} = change
+    action ?= 'push'
+    @_local.push(pathname) if action.toLowerCase() is 'push' and DestinationHelper.shouldRememberRoute(change, router)
 
   reset: ->
     @_local = []

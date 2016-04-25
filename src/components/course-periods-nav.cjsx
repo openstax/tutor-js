@@ -94,13 +94,14 @@ CoursePeriodsNavShell = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   propTypes:
     courseId: React.PropTypes.string
 
   getCourseId: ->
     {courseId} = @props
-    {courseId} = @context.router.getCurrentParams() unless courseId?
+    {courseId} = @context.params unless courseId?
 
     courseId
 

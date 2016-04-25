@@ -27,6 +27,7 @@ module.exports = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   getInitialState: ->
     selectedTabIndex: 1

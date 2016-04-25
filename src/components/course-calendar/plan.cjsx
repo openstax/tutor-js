@@ -20,6 +20,7 @@ CoursePlan = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
@@ -67,29 +68,29 @@ CoursePlan = React.createClass
 
   # utility functions for functions called in lifecycle methods
   _doesPlanMatchesRoute: ->
-    {planId} = @context.router.getCurrentParams()
+    {planId} = @context.params
     planId is @props.item.plan.id
 
   _getExpectedRoute: (isViewingStats) ->
-    closedRouteName = 'calendarByDate'
-    openedRouteName = 'calendarViewPlanStats'
+    closedRoute = '/courses/<%courseId%>/t/calendar/months/<%date%>'
+    openedRoute = '/courses/<%courseId%>/t/calendar/months/<%date%>/plans/<%planId%>'
 
-    if isViewingStats then openedRouteName else closedRouteName
+    if isViewingStats then openedRoute else closedRoute
 
   _getExpectedParams: (isViewingStats) ->
     planId = @props.item.plan.id
 
-    params = @context.router.getCurrentParams()
+    params = @context.params
     closedParams = _.omit(params, 'planId')
     openedParams = _.extend({}, params, {planId})
 
     if isViewingStats then openedParams else closedParams
 
   _updateRoute: (isViewingStats) ->
-    expectedRoute = @_getExpectedRoute(isViewingStats)
+    expectedRoute = _.template(@_getExpectedRoute(isViewingStats))
     expectedParams = @_getExpectedParams(isViewingStats)
-    currentParams = @context.router.getCurrentParams()
-    @context.router.transitionTo(expectedRoute, expectedParams) unless _.isEqual(currentParams, expectedParams)
+    currentParams = @context.params
+    @context.router.push(expectedRoute(expectedParams)) unless _.isEqual(currentParams, expectedParams)
 
   # handles when route changes and modal show/hide needs to sync
   # i.e. when using back or forward on browser

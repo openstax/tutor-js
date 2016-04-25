@@ -12,9 +12,10 @@ StudentDashboardShell = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @context.params
     <div className='student-dashboard '>
       <LoadableItem
         id={courseId}

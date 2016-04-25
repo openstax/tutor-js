@@ -57,7 +57,7 @@ module.exports = React.createClass
     </div>
 
   returnToDashboard: ->
-    @context.router.transitionTo('viewTeacherDashBoard', {courseId: @props.courseId})
+    @context.router.push("/courses/#{@props.courseId}/t/calendar")
 
   renderWeakerExplanation: ->
     <div className='explanation'>

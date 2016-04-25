@@ -16,15 +16,15 @@ TaskPlan = React.createClass
     # TODO: Remove this copy/pasta
     switch type
       when 'homework'
-        @context.router.transitionTo('editHomework', {courseId, id})
+        @context.router.push("/courses/#{courseId}/t/homeworks/#{id}")
       when 'reading'
-        @context.router.transitionTo('editReading', {courseId, id})
+        @context.router.push("/courses/#{courseId}/t/readings/#{id}")
       else throw new Error("BUG: Unknown plan type '#{type}'")
 
   onViewStats: ->
     {courseId} = @props
     {id} = @props.plan
-    @context.router.transitionTo('viewStats', {courseId, id})
+    @context.router.push("/courses/#{courseId}/t/plans/#{id}/stats")
 
   render: ->
     {plan} = @props

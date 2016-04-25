@@ -11,9 +11,10 @@ QuestionsDashboardShell = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @context.params
     ecosystemId = CourseStore.get(courseId).ecosystem_id
 
     <LoadableItem

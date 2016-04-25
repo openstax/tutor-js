@@ -1,5 +1,6 @@
 BS = require 'react-bootstrap'
 React = require 'react'
+ReactDOM = require 'react-dom'
 _ = require 'underscore'
 {Promise} = require 'es6-promise'
 
@@ -94,7 +95,7 @@ module.exports = TutorDialog = React.createClass
         else
           div = document.body.appendChild( document.createElement('div') )
           div.className = '-tutor-dialog-parent'
-          @dialog = React.render(React.createElement(DetachedTutorDialog, props), div)
+          @dialog = ReactDOM.render(React.createElement(DetachedTutorDialog, props), div)
 
         @dialog
 

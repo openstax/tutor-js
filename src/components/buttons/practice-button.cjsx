@@ -18,7 +18,7 @@ PracticeButton = React.createClass
     query = {}
     query.page_ids = pageIds if pageIds
 
-    @context.router.transitionTo('viewPractice', {courseId}, query)
+    @context.router.push("/courses/#{courseId}/practice", query)
 
   render: ->
     text = 'Practice this '

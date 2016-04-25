@@ -23,7 +23,7 @@ module.exports = React.createClass
     {courseId, sections} = @props
     page_ids = PerformanceForecast.Helpers.pagesForSections(sections)
     unless _.isEmpty(page_ids)
-      @context.router.transitionTo('viewPractice', {courseId}, {page_ids})
+      @context.router.push("/courses/#{courseId}/practice", {page_ids})
 
   render: ->
     {sections} = @props

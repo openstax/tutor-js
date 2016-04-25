@@ -26,6 +26,7 @@ CourseCalendarHeader = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   getDefaultProps: ->
     duration: 'month'
@@ -58,7 +59,7 @@ CourseCalendarHeader = React.createClass
   render: ->
     {date} = @state
     {format, duration} = @props
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @context.params
     <div className='calendar-header'>
       <BS.Row className='calendar-actions'>
         <BrowseTheBook bsStyle='default' courseId={courseId} />

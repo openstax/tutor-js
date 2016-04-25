@@ -1,4 +1,4 @@
-_ = require 'underscore'
+_ = require 'lodash'
 
 React = require 'react'
 BS = require 'react-bootstrap'
@@ -6,6 +6,7 @@ BS = require 'react-bootstrap'
 CourseAddMenuMixin =
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   propTypes:
     dateFormat: React.PropTypes.string
@@ -19,16 +20,16 @@ CourseAddMenuMixin =
   goToBuilder: (link) ->
     (clickEvent) =>
       clickEvent.preventDefault()
-      @context.router.transitionTo(link.to, link.params, link.query)
+      @context.router.push(link.to, link.query)
 
   renderAddActions: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @context.params
     {dateFormat} = @props
 
     links = [
       {
         text: 'Add Reading'
-        to: 'createReading'
+        to: '/courses/${courseId}/t/readings/new'
         params:
           courseId: courseId
         type: 'reading'
@@ -36,7 +37,7 @@ CourseAddMenuMixin =
           due_at: @state.addDate?.format(dateFormat)
       }, {
         text: 'Add Homework'
-        to: 'createHomework'
+        to: '/courses/${courseId}/t/homeworks/new'
         params:
           courseId: courseId
         type: 'homework'
@@ -44,7 +45,7 @@ CourseAddMenuMixin =
           due_at: @state.addDate?.format(dateFormat)
       }, {
         text: 'Add External Assignment'
-        to: 'createExternal'
+        to: '/courses/${courseId}/t/externals/new'
         params:
           courseId: courseId
         type: 'external'
@@ -52,7 +53,7 @@ CourseAddMenuMixin =
           due_at: @state.addDate?.format(dateFormat)
       }, {
         text: 'Add Event'
-        to: 'createEvent'
+        to: '/courses/${courseId}/t/events/new'
         params:
           courseId: courseId
         type: 'event'
@@ -62,7 +63,8 @@ CourseAddMenuMixin =
     ]
 
     _.map(links, (link) =>
-      href = @context.router.makeHref(link.to, link.params, link.query)
+      pathTo = _.template(link.to, link.params)
+      href = @context.router.createHref(pathTo(), link.query)
       <li
         key={link.type}
         data-assignment-type={link.type}

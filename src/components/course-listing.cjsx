@@ -11,49 +11,55 @@ CourseDataMixin = require './course-data-mixin'
 
 # Called once the store is loaded
 # checks the course and roles and will redirect if there is only a single course and role
-DisplayOrRedirect = (transition, callback) ->
+DisplayOrRedirect = (replace, callback) ->
   courses = CourseListingStore.allCourses() or []
   [course] = courses
   if courses.length is 1 and course.roles?.length is 1
     roleType = courses[0].roles[0].type
     conceptCoach = courses[0].is_concept_coach
+    courseId = _.first(courses).id
 
     if roleType is 'student'
       if conceptCoach and course.webview_url
         WindowHelpers.replaceBrowserLocation(course.webview_url)
       else
-        view = 'viewStudentDashboard'
+        view = "/courses/#{courseId}/list"
     else if roleType is 'teacher'
-      view = if conceptCoach then 'cc-dashboard' else 'taskplans'
+      if conceptCoach
+        view = "/courses/#{courseId}/t/cc-dashboard"
+      else
+        view = "/courses/#{courseId}/t/calendar"
+
     else
       throw new Error("BUG: Unrecognized role type #{roleType}")
 
-    transition.redirect(view, {courseId: _.first(courses).id}) if view
+    replace(view) if view
   callback()
 
+# Called before the Router mounts and renders the component
+# Uses the callback to delay rendering until the CourseListingStore is loaded
+# and then calls DisplayOrRedirect above to perhaps redirect to a different component
+CourseListingOnEnter = (nextState, replace, callback) ->
+  if CourseListingStore.isFailed()
+    callback()
+  else if not CourseListingStore.isLoaded()
+    CourseListingActions.load() unless CourseListingStore.isLoading()
+    CourseListingStore.once 'failed', callback
+    CourseListingStore.once 'loaded', ->
+      DisplayOrRedirect(replace, callback)
+  else
+    DisplayOrRedirect(replace, callback)
 
 CourseListing = React.createClass
   displayName: 'CourseListing'
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   mixins: [CourseDataMixin]
 
-  statics:
-    # Called before the Router mounts and renders the component
-    # Uses the callback to delay rendering until the CourseListingStore is loaded
-    # and then calls DisplayOrRedirect above to perhaps redirect to a different component
-    willTransitionTo: (transition, params, query, callback) ->
-      if CourseListingStore.isFailed()
-        callback()
-      else if not CourseListingStore.isLoaded()
-        CourseListingActions.load() unless CourseListingStore.isLoading()
-        CourseListingStore.once 'failed', callback
-        CourseListingStore.once 'loaded', ->
-          DisplayOrRedirect(transition, callback)
-      else
-        DisplayOrRedirect(transition, callback)
+
 
   renderCourses: (courses) ->
     _.map courses, (course) =>
@@ -109,4 +115,4 @@ CourseListing = React.createClass
       {refreshBtn}
     </div>
 
-module.exports = {CourseListing}
+module.exports = {CourseListing, CourseListingOnEnter}

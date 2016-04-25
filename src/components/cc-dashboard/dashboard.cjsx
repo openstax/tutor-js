@@ -38,6 +38,7 @@ CCDashboard = React.createClass
   mixins: [CourseDataMixin]
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
   propTypes:
     courseId: React.PropTypes.string
 

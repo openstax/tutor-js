@@ -21,9 +21,10 @@ SingleTask = React.createClass
   displayName: 'SingleTask'
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   render: ->
-    {id} = @context.router.getCurrentParams()
+    {id} = @context.params
     <LoadableItem
       id={id}
       store={TaskStore}
@@ -36,6 +37,7 @@ SinglePractice = React.createClass
   displayName: 'SinglePractice'
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   componentWillMount: ->
     @createPractice(@getId())
@@ -53,7 +55,7 @@ SinglePractice = React.createClass
     taskId: null
 
   getId: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @context.params
     courseId
 
   update: ->
@@ -74,6 +76,7 @@ TaskResult = React.createClass
   displayName: 'TaskResult'
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
   propTypes:
     courseId: React.PropTypes.string.isRequired
     id: React.PropTypes.string.isRequired
@@ -108,7 +111,7 @@ TaskResult = React.createClass
 
   onClick: ->
     {courseId, id} = @props
-    @context.router.transitionTo("/courses/#{courseId}/tasks/#{id}/")
+    @context.router.push("/courses/#{courseId}/tasks/#{id}/")
 
 
 Invalid = React.createClass

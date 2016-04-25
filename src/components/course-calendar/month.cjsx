@@ -24,6 +24,7 @@ CourseMonth = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   propTypes:
     plansList: React.PropTypes.array
@@ -44,9 +45,9 @@ CourseMonth = React.createClass
     date: moment(TimeStore.getNow())
 
   setDateParams: (date) ->
-    params = @context.router.getCurrentParams()
-    params.date = date.format(@props.dateFormat)
-    @context.router.transitionTo('calendarByDate', params)
+    { courseId }  = @context.params
+    date = date.format(@props.dateFormat)
+    @context.router.push("/courses/#{courseId}/t/calendar/months/#{date}")
 
   setDate: (date) ->
     unless moment(date).isSame(@props.date, 'month')

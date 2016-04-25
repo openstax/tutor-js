@@ -12,9 +12,10 @@ Student = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @context.params
     <LoadableItem
       id={courseId}
       store={PerformanceForecast.Student.store}
@@ -31,9 +32,10 @@ TeacherStudent = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   render: ->
-    {courseId, roleId} = @context.router.getCurrentParams()
+    {courseId, roleId} = @context.params
     <LoadableItem
       id={courseId}
       store={ScoresStore}
@@ -47,9 +49,10 @@ Teacher = React.createClass
   displayName: 'PerformanceForecastTeacherShell'
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @context.params
     <LoadableItem
       id={courseId}
       store={PerformanceForecast.Teacher.store}

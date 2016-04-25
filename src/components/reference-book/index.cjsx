@@ -20,11 +20,12 @@ ReferenceBookShell = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
   getInitialState: ->
     @getIds()
 
   componentWillMount: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @context.params
     @setIds()
 
     unless CourseStore.isLoaded(courseId)
@@ -35,7 +36,7 @@ ReferenceBookShell = React.createClass
     @setIds()
 
   getIds: ->
-    {courseId, section} = @context.router.getCurrentParams()
+    {courseId, section} = @context.params
     {ecosystemId} = @context.router.getCurrentQuery()
     ecosystemId ?= CourseStore.get(courseId)?.ecosystem_id
     {courseId, section, ecosystemId}
@@ -55,12 +56,16 @@ ReferenceBookShell = React.createClass
 
   renderBook: ->
     {courseId, ecosystemId} = @state
+    if courseId
+      sectionPath = "/books/#{courseId}/section/"
+    else
+      sectionPath = "/books/#{ecosystemId}/section/"
 
     <ReferenceBook
         navbarControls={@renderNavbarControls()}
         section={@state.section}
-        pageNavRouterLinkTarget='viewReferenceBookSection'
-        menuRouterLinkTarget='viewReferenceBookSection'
+        pageNavRouterLinkTarget={sectionPath}
+        menuRouterLinkTarget={sectionPath}
         className={classnames('is-teacher': @state.isShowingTeacherContent)}
         dataProps={@getCourseDataProps(courseId) if courseId}
         ecosystemId={ecosystemId}

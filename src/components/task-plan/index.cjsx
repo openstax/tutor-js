@@ -20,36 +20,40 @@ HomeworkShell = React.createClass
   displayName: 'HomeworkShell'
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   render: ->
-    {courseId, id} = @context.router.getCurrentParams()
+    {courseId, id} = @context.params
     <PlanShell courseId={courseId} id={id} type='homework'/>
 
 ReadingShell = React.createClass
   displayName: 'ReadingShell'
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   render: ->
-    {courseId, id} = @context.router.getCurrentParams()
+    {courseId, id} = @context.params
     <PlanShell courseId={courseId} id={id} type='reading'/>
 
 ExternalShell = React.createClass
   displayName: 'ExternalShell'
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   render: ->
-    {courseId, id} = @context.router.getCurrentParams()
+    {courseId, id} = @context.params
     <PlanShell courseId={courseId} id={id} type='external'/>
 
 EventShell = React.createClass
   displayName: 'EventShell'
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   render: ->
-    {courseId, id} = @context.router.getCurrentParams()
+    {courseId, id} = @context.params
     <PlanShell courseId={courseId} id={id} type='event'/>
 
 PlanShell = React.createClass
@@ -57,12 +61,13 @@ PlanShell = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   getInitialState: ->
-    {courseId, id} = @context.router.getCurrentParams()
+    {courseId, id} = @context.params
     type = @props.type
     if not getPlanType(type)
-      @context.router.transitionTo('NotFoundRoute')
+      @context.router.push('/404')
       return
 
     if not id
@@ -73,7 +78,7 @@ PlanShell = React.createClass
       })
     {id}
 
-  getId: -> @context.router.getCurrentParams().id or @state.id
+  getId: -> @context.params.id or @state.id
 
   getType: ->
     typeName = @props.type
@@ -85,7 +90,7 @@ PlanShell = React.createClass
 
   render: ->
     Type = @getType()
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @context.params
     id = @getId()
 
     if TaskPlanStore.isDeleteRequested(id)

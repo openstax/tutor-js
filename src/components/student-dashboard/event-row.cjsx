@@ -19,9 +19,9 @@ module.exports = React.createClass
     router: React.PropTypes.func
 
   onClick: ->
-    @context.router.transitionTo 'viewTaskStep',
-      # url is 1 based so it matches the breadcrumb button numbers. 1==first step
-      {courseId:@props.courseId, id: @props.event.id, stepIndex: 1}
+    courseId = @props.courseId
+    eventId = @props.event.id
+    @context.router.push("/courses/#{courseId}/tasks/#{eventId}/steps/1")
 
   render: ->
     {workable} = @props

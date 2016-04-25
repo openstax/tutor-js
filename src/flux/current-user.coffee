@@ -1,5 +1,5 @@
 # coffeelint: disable=no_empty_functions
-_ = require 'underscore'
+_ = require 'lodash'
 flux = require 'flux-react'
 {CourseListingStore} = require './course-listing'
 {CourseActions, CourseStore} = require './course'
@@ -30,27 +30,27 @@ ROUTES =
   dashboard:
     label: 'Dashboard'
     roles:
-      teacher: 'taskplans'
-      student: 'viewStudentDashboard'
-      default: 'app'
+      teacher: '/courses/${courseId}/t/calendar'
+      student: '/courses/${courseId}/list'
+      default: '/'
   guide:
     label: 'Performance Forecast' # a bit hard to read, but we only want to reject the === true case
     allowedForCourse: (course) -> not course?.is_concept_coach is true
     roles:
-      student: 'viewPerformanceForecast'
-      teacher: 'viewTeacherPerformanceForecast'
+      student: '/courses/${courseId}/guide'
+      teacher: '/courses/${courseId}/t/guide'
   questions:
     label: 'Questions Library'
     roles:
-      teacher: 'viewQuestionsLibrary'
+      teacher: '/courses/${courseId}/t/questions'
   scores:
     label: 'Student Scores'
     roles:
-      teacher: 'viewScores'
+      teacher: '/courses/${courseId}/t/scores'
   course:
     label: 'Course Roster'
     roles:
-      teacher: 'courseSettings'
+      teacher: '/courses/${courseId}/t/settings'
 
 CurrentUserActions = flux.createActions [
   'setToken'  # (token) ->
@@ -78,6 +78,11 @@ CurrentUserStore = flux.createStore
 
   _getRouteByRole: (routeType, menuRole) ->
     ROUTES[routeType].roles[menuRole] or ROUTES[routeType].roles.default
+  _getCompiledRoute: (routeType, menuRole, params) ->
+    routePath = @_getRouteByRole(routeType, menuRole)
+    compiled = _.template(routePath)
+    compiled(params)
+
   _getParamsForRoute: (courseId, routeType, menuRole) ->
     if _.isFunction(ROUTES[routeType].params)
       ROUTES[routeType].params(courseId, menuRole)
@@ -147,7 +152,7 @@ CurrentUserStore = flux.createStore
 
     getDashboardRoute: (courseId, silent = true) ->
       menuRole = @_getCourseRole(courseId, silent)
-      @_getRouteByRole('dashboard', menuRole)
+      @_getCompiledRoute('dashboard', menuRole, {courseId})
 
     getHelpLink: (courseId) ->
       course = CourseStore.get(courseId)
@@ -173,11 +178,10 @@ CurrentUserStore = flux.createStore
 
       _.chain(routes)
         .map((routeType) =>
-          routeName = @_getRouteByRole(routeType, menuRole)
-          if routeName?
-            name: routeName
-            params: @_getParamsForRoute(courseId, routeType, menuRole)
-            label: ROUTES[routeType].label
+          params = @_getParamsForRoute(courseId, routeType, menuRole)
+
+          to: @_getCompiledRoute(routeType, menuRole, params)
+          label: ROUTES[routeType].label
         )
         .compact()
         .value()

@@ -22,30 +22,30 @@ UserActionsMenu = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
-  transitionToMenuItem: (routeName, params, mouseEvent) ->
+  transitionToMenuItem: (to, mouseEvent) ->
     mouseEvent.preventDefault()
-    @context.router.transitionTo(routeName, params)
+    @context.router.push(to)
 
   componentWillMount: ->
     CurrentUserStore.ensureLoaded()
 
   renderMenuItem: (route, index) ->
-    isActive = @context.router.isActive(route.name) if route.name?
+    isActive = @context.router.isActive(route.to) if route.to?
 
     menuGoProps = if route.href
       href: route.href
     else
-      onSelect: _.partial(@transitionToMenuItem, route.name, route.params)
-      href: @context.router.makeHref(route.name, route.params)
+      onSelect: _.partial(@transitionToMenuItem, route.to)
+      href: @context.router.createHref(route.to)
 
     key = if route.key then "dropdown-item-#{route.key}" else "dropdown-item-#{index}"
 
-    # MenuItem doesn't pass on props to the li currently, so using className instead for route.name visual control.
+    # MenuItem doesn't pass on props to the li currently, so using className instead for route.to visual control.
     <BS.MenuItem
       {...menuGoProps}
-      className={classnames(route.name, 'active': isActive)}
+      className={classnames(route.to, 'active': isActive)}
       key={key}
-      data-name={route.name}
+      data-name={route.to}
       eventKey={index + 2}>
         {route.label}
     </BS.MenuItem>
@@ -66,7 +66,7 @@ UserActionsMenu = React.createClass
       menu.push @renderMenuItem({label: 'Customer Service', href: '/customer_service', key: 'cs'}, menu.length )
 
     if CurrentUserStore.isContentAnalyst()
-      menu.push @renderMenuItem({name: 'QADashboard', label: 'QA Content', params: {}}, menu.length )
+      menu.push @renderMenuItem({to: '/qa', label: 'QA Content'}, menu.length )
       menu.push @renderMenuItem({label: 'Customer Analyst', href: '/content_analyst', key: 'ca'}, menu.length )
 
     menu.push <BS.MenuItem divider key='dropdown-item-divider'/>

@@ -34,7 +34,7 @@ module.exports = React.createClass
     {courseId} = @props
     PerformanceForecast.TeacherStudent.actions.load(courseId, {roleId})
     @setState({roleId})
-    @context.router.transitionTo('viewStudentTeacherPerformanceForecast', {courseId, roleId})
+    @context.router.push("/courses/#{courseId}/t/guide/student/#{roleId}")
 
   renderHeading: ->
     students = ScoresStore.getAllStudents(@props.courseId)
@@ -71,7 +71,7 @@ module.exports = React.createClass
     </div>
 
   returnToDashboard: ->
-    @context.router.transitionTo('viewTeacherDashBoard', {courseId: @props.courseId})
+    @context.router.push("/courses/#{@props.courseId}/t/calendar")
 
   renderEmptyMessage: ->
     <div className="no-data-message">

@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 _ = require 'underscore'
 S = require '../helpers/string'
 dom = require '../helpers/dom'
@@ -26,13 +27,14 @@ LinkContentMixin =
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   getCnxIdOfHref: (href) ->
     beforeHash = _.first(href.split('#'))
     _.last(beforeHash.split('/'))
 
   buildReferenceBookLink: (cnxId) ->
-    {courseId, ecosystemId} = @context.router.getCurrentParams()
+    {courseId, ecosystemId} = @context.params
     {query, id} = @props
 
     if ecosystemId and not courseId
@@ -46,9 +48,11 @@ LinkContentMixin =
 
       if related_content?
         section = @sectionFormat?(related_content[0]?.chapter_section or related_content[0]?.book_location)
-        referenceBookLink = @context.router.makeHref('viewReferenceBookSection', {courseId, section}, query) if section?
+        href = "/books/#{courseId}/section/#{section}"
+        referenceBookLink = @context.router.createHref(href, query) if section?
     else if cnxId?
-      referenceBookLink = @context.router.makeHref( 'viewReferenceBookPage', { courseId, cnxId })
+      href = "/books/#{courseId}/page/#{cnxId}"
+      referenceBookLink = @context.router.createHref(href)
 
     referenceBookLink
 
@@ -68,7 +72,7 @@ LinkContentMixin =
     previewNodes = root.getElementsByClassName('media-preview-wrapper')
 
     _.each(previewNodes, (previewNode) ->
-      React.unmountComponentAtNode(previewNode)
+      ReactDOM.unmountComponentAtNode(previewNode)
     )
 
   linkPreview: (link) ->
@@ -91,7 +95,7 @@ LinkContentMixin =
         {link.innerText}
       </MediaPreview>
 
-    React.render(mediaPreview, previewNode)
+    ReactDOM.render(mediaPreview, previewNode)
 
   processLink: (link) ->
     if @isMediaLink(link)
@@ -135,6 +139,7 @@ ReadingContentMixin =
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   insertOverlays: ->
     title = @getSplashTitle()

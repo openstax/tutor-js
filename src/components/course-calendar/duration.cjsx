@@ -4,7 +4,6 @@ _ = require 'underscore'
 camelCase = require 'camelcase'
 
 React = require 'react'
-cloneWithProps = require 'react-addons-clone-with-props'
 CoursePlan = require './plan'
 PlanHelper = require '../../helpers/plan'
 TimeHelper = require '../../helpers/time'
@@ -270,7 +269,7 @@ CourseDuration = React.createClass
   renderChildren: (item) ->
     {courseId} = @props
     React.Children.map(@props.children, (child) ->
-      cloneWithProps(child, {item, courseId})
+      React.cloneElement(child, {item, courseId})
     )
 
   renderDurations: ->

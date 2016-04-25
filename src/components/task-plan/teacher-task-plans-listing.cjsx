@@ -19,19 +19,20 @@ TeacherTaskPlans = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   onEditPlan: ->
     {courseId, plan} = @props
     {id, type} = plan
     if type is 'reading'
-      @context.router.transitionTo('editReading', {courseId, id})
+      @context.router.push("/courses/#{courseId}/t/readings/#{id}")
     else if type is 'homework'
-      @context.router.transitionTo('editHomework', {courseId, id})
+      @context.router.push("/courses/#{courseId}/t/homeworks/#{id}")
 
   onViewStats: ->
     {courseId, plan} = @props
     {id} = @props.plan
-    @context.router.transitionTo('viewStats', {courseId, id})
+    @context.router.push("/courses/#{courseId}/t/plans/#{id}/stats")
 
   render: ->
     {plan} = @props
@@ -49,6 +50,24 @@ TeacherTaskPlans = React.createClass
         onClick={@onViewStats}>View Stats</BS.Button>
     </div>
 
+TaskPlanListingOnEnter = (nextState, replace, callback) ->
+  {date, planId, courseId} = nextState.params
+  course = CourseStore.get(courseId)
+  if course.is_concept_coach
+    replace("/course/#{courseId}/t/cc-dashboard")
+    return callback()
+
+  unless date? and moment(date, DATE_FORMAT).isValid()
+    date = moment(TimeStore.getNow())
+    params.date = date.format(DATE_FORMAT)
+    replace("/courses/#{courseId}/t/calendar/months/#{params.date}")
+    return callback()
+
+  if planId? and TaskPlanStore.isDeleteRequested(planId)
+    replace("/courses/#{courseId}/t/calendar/months/#{date}")
+    return callback()
+
+  callback()
 
 TeacherTaskPlanListing = React.createClass
 
@@ -56,6 +75,7 @@ TeacherTaskPlanListing = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   propTypes:
     dateFormat: React.PropTypes.string
@@ -65,42 +85,22 @@ TeacherTaskPlanListing = React.createClass
 
   mixins: [CourseDataMixin]
 
-  statics:
-    willTransitionTo: (transition, params, query, callback) ->
-      {date, planId, courseId} = params
-      course = CourseStore.get(courseId)
-      if course.is_concept_coach
-        transition.redirect('cc-dashboard', {courseId})
-        return callback()
-
-      unless date? and moment(date, DATE_FORMAT).isValid()
-        date = moment(TimeStore.getNow())
-        params.date = date.format(DATE_FORMAT)
-        transition.redirect('calendarByDate', params)
-        return callback()
-
-      if planId? and TaskPlanStore.isDeleteRequested(planId)
-        transition.redirect('calendarByDate', _.omit(params, 'planId'))
-        return callback()
-
-      callback()
-
   componentWillMount: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @context.params
     TimeHelper.syncCourseTimezone(courseId)
 
   componentWillUnmount: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @context.params
     TimeHelper.unsyncCourseTimezone(courseId)
 
   getDateFromParams: ->
-    {date} = @context.router.getCurrentParams()
+    {date} = @context.params
     if date?
       date = TimeHelper.getMomentPreserveDate(date, @props.dateFormat)
     date
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @context.params
     courseDataProps = @getCourseDataProps(courseId)
 
     date = @getDateFromParams()
@@ -126,4 +126,4 @@ TeacherTaskPlanListing = React.createClass
       </BS.Panel>
     </div>
 
-module.exports = TeacherTaskPlanListing
+module.exports = {TeacherTaskPlanListing, TaskPlanListingOnEnter}

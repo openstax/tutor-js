@@ -8,6 +8,7 @@ module.exports = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   getDefaultProps: ->
     bsStyle: 'primary'
@@ -58,7 +59,7 @@ module.exports = React.createClass
       query: queryParams
 
   getCourseId: ->
-    @props.courseId or @context.router.getCurrentParams().courseId
+    @props.courseId or @context.params.courseId
 
   canBrowse: (courseId) ->
     courseId? and not CourseStore.get(courseId)?.is_concept_coach

@@ -32,7 +32,10 @@ Review = React.createClass
         pinned={false}
       />
 
-    <ReactCSSTransitionGroup transitionName="homework-review-problem">
+    <ReactCSSTransitionGroup
+      transitionEnterTimeout={500}
+      transitionName="homework-review-problem"
+    >
       {stepsList}
     </ReactCSSTransitionGroup>
 

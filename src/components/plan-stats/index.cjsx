@@ -105,8 +105,9 @@ Stats = React.createClass
 StatsShell = React.createClass
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
-  getId: -> @context.router.getCurrentParams().id
+  getId: -> @context.params.id
 
   render: ->
     id = @getId()

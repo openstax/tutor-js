@@ -29,7 +29,8 @@ ProgressGuide = React.createClass
     sampleSizeThreshold: React.PropTypes.number.isRequired
 
   onPractice: (section) ->
-    @context.router.transitionTo('viewPractice', {courseId: @props.courseId}, {page_ids: section.page_ids})
+    courseId = @props.courseId
+    @context.router.push("/courses/#{courseId}/practice", {page_ids: section.page_ids})
 
   render: ->
     courseId = @props.courseId
@@ -62,7 +63,8 @@ ProgressGuidePanels = React.createClass
 
   mixins: [ChapterSectionMixin]
   viewPerformanceForecast: ->
-    @context.router.transitionTo('viewPerformanceForecast', {courseId: @props.courseId})
+    courseId = @props.courseId
+    @context.router.push("/courses/#{courseId}/guide")
 
   renderEmpty: (sections) ->
     <div className='progress-guide empty'>

@@ -24,6 +24,7 @@ Reading = React.createClass
   mixins: [StepMixin, StepFooterMixin, CourseDataMixin]
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
   isContinueEnabled: -> true
   onContinue: ->
     @props.onStepCompleted()

@@ -18,10 +18,12 @@ module.exports = React.createClass
     courseId:  React.PropTypes.string.isRequired
 
   onPractice: (section) ->
-    @context.router.transitionTo('viewPractice', {courseId: @props.courseId}, {page_ids: section.page_ids})
+    { courseId } = @props.courseId
+    @context.router.push("/courses/#{courseId}/practice", {page_ids: section.page_ids})
 
   returnToDashboard: ->
-    @context.router.transitionTo('viewStudentDashboard', {courseId: @props.courseId})
+    { courseId } = @props.courseId
+    @context.router.push("/courses/#{courseId}/list")
 
   renderHeading: ->
     <div className='guide-heading'>

@@ -52,8 +52,8 @@ QAViewBook = React.createClass
     contentComponent = if @state.isShowingBook then QAContent else QAExercises
 
     <ReferenceBook
-      pageNavRouterLinkTarget='QAViewBookSection'
-      menuRouterLinkTarget='QAViewBookSection'
+      pageNavRouterLinkTarget="/qa/#{@props.ecosystemId}/section/"
+      menuRouterLinkTarget="/qa/#{@props.ecosystemId}/section/"
       navbarControls={@renderNavbarControls()}
       section={section}
       className={classnames('qa', 'is-teacher': @state.isShowingTeacherContent)}

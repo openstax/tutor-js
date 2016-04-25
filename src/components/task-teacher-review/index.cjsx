@@ -20,16 +20,17 @@ TaskTeacherReview = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   setStepKey: ->
-    {sectionIndex} = @context.router.getCurrentParams()
+    {sectionIndex} = @context.params
     defaultKey = null
     # url is 1 based so it matches the breadcrumb button numbers
     crumbKey = if sectionIndex then parseInt(sectionIndex) - 1 else defaultKey
     @setState(currentStep: crumbKey)
 
   getPeriodIndex: ->
-    {periodIndex} = @context.router.getCurrentParams()
+    {periodIndex} = @context.params
     periodIndex ?= 1
 
     parseInt(periodIndex) - 1
@@ -53,27 +54,34 @@ TaskTeacherReview = React.createClass
     @setStepKey()
 
   goToStep: (stepKey) ->
-    params = _.clone(@context.router.getCurrentParams())
+    params = _.clone(@context.params)
     # url is 1 based so it matches the breadcrumb button numbers
     params.sectionIndex = stepKey + 1
     params.id = @props.id # if we were rendered directly, the router might not have the id
 
     params.periodIndex ?= 1
 
-    @context.router.replaceWith('reviewTaskStep', params)
+    {courseId, periodIndex, sectionIndex} = params
+    periodPath = "/courses/#{courseId}/t/plans/#{@props.id}/step/periods/#{periodIndex}"
+    stepPath = "#{periodPath}/sections/#{sectionIndex}"
+    @context.router.replace(stepPath)
 
   setPeriod: (period) ->
     @setState({period})
 
   setPeriodIndex: (key) ->
     periodKey = key + 1
-    params = _.clone(@context.router.getCurrentParams())
+    params = _.clone(@context.params)
     params.periodIndex = periodKey
 
-    if params.sectionIndex
-      @context.router.replaceWith('reviewTaskStep', params)
+    {courseId, periodIndex, sectionIndex} = params
+    periodPath = "/courses/#{courseId}/t/plans/#{@props.id}/step/periods/#{periodIndex}"
+
+    if sectionIndex
+      stepPath = "#{periodPath}/sections/#{sectionIndex}"
+      @context.router.replace(stepPath)
     else
-      @context.router.replaceWith('reviewTaskPeriod', params)
+      @context.router.replace(periodPath)
 
   setIsReviewLoaded: (id) ->
     return null unless id is @props.id
@@ -136,8 +144,9 @@ TaskTeacherReview = React.createClass
 TaskTeacherReviewShell = React.createClass
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
   render: ->
-    {id, courseId} = @context.router.getCurrentParams()
+    {id, courseId} = @context.params
     <TaskTeacherReview key={id} id={id} courseId={courseId}/>
 
 module.exports = {TaskTeacherReview, TaskTeacherReviewShell}

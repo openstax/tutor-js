@@ -12,20 +12,22 @@ module.exports = React.createClass
   displayName: 'App'
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   componentDidMount: ->
     @storeInitial()
     Analytics.setTracker(window.ga)
-    HistoryLocation.addChangeListener(@storeHistory)
+    unlisten = @context.router.history.listen(@storeHistory)
+    @setState({ unlisten })
 
   componentWillUnmount: ->
-    HistoryLocation.removeChangeListener(@storeHistory)
+    @state.unlisten?()
 
   storeInitial: ->
-    @storeHistory(path: @context.router.getCurrentPath())
+    @storeHistory(unlisten: null, path: @context.router.getCurrentPath())
 
   storeHistory: (locationChangeEvent) ->
-    Analytics.onNavigation(locationChangeEvent, @context.router)
+    Analytics.onNavigation(locationChangeEvent, @context.router, @context.params)
     TransitionActions.load(locationChangeEvent, @context.router)
 
   render: ->

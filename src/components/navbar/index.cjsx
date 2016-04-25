@@ -18,6 +18,7 @@ module.exports = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   componentWillMount: ->
     CourseListingStore.ensureLoaded()
@@ -27,7 +28,7 @@ module.exports = React.createClass
     {course}
 
   getCourseFromParams: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @context.params
     CourseStore.get(courseId) if courseId?
 
   handleCourseChanges: ->
@@ -47,7 +48,7 @@ module.exports = React.createClass
 
   render: ->
     {course} = @state
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @context.params
 
     brand = <Link to='/dashboard' className='navbar-brand'>
               <i className='ui-brand-logo'></i>

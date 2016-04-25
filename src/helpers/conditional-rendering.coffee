@@ -9,9 +9,13 @@ NoPeriods = require '../components/no-periods'
 module.exports = (component, options = {}) ->
 
   RouteHandler = ->
-  RouteHandler.contextTypes = { router: React.PropTypes.func }
+  RouteHandler.contextTypes = {
+    router: React.PropTypes.func,
+    params: React.PropTypes.object
+  }
+
   RouteHandler::render = ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @context.params
     course = CourseStore.get(courseId)
     React.createElement(
       if options.requireRole and courseId and options.requireRole isnt CurrentUserStore.getCourseRole(courseId)

@@ -18,10 +18,11 @@ QADashboard = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   render: ->
     if EcosystemsStore.isLoaded()
-      params = _.clone @context.router.getCurrentParams()
+      params = _.clone @context.params
       params.ecosystemId ?= "#{EcosystemsStore.first().id}"
       <RouteHandler {...params} />
     else

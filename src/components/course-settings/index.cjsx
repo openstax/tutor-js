@@ -9,9 +9,10 @@ module.exports = React.createClass
   displayName: 'CourseSettingsShell'
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @context.params
     <LoadableItem
       id={courseId}
       store={CourseStore}

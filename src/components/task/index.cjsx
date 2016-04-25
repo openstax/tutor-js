@@ -29,9 +29,10 @@ module.exports = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   setStepKey: ->
-    {stepIndex} = @context.router.getCurrentParams()
+    {stepIndex} = @context.params
     # url is 1 based so it matches the breadcrumb button numbers
     defaultKey = @getDefaultCurrentStep()
     crumbKey = if stepIndex then parseInt(stepIndex) - 1 else defaultKey
@@ -148,21 +149,23 @@ module.exports = React.createClass
       TaskStepStore.off('step.loaded', @recoverStep)
 
   goToStep: (stepKey, silent = false) ->
-    params = _.clone(@context.router.getCurrentParams())
+    params = _.clone(@context.params)
     # url is 1 based so it matches the breadcrumb button numbers
     params.stepIndex = stepKey + 1
     params.id = @props.id # if we were rendered directly, the router might not have the id
+
+    {courseId, id, stepIndex} = params
     if silent
-      @context.router.replaceWith('viewTaskStep', params)
+      @context.router.replace("/courses/#{courseId}/tasks/#{id}/steps/#{stepIndex}")
     else
-      @context.router.transitionTo('viewTaskStep', params)
+      @context.router.push("/courses/#{courseId}/tasks/#{id}/steps/#{stepIndex}")
 
   getCrumb: (crumbKey) ->
     crumbs = @generateCrumbs()
     _.findWhere crumbs, {key: crumbKey}
 
   renderStep: (data) ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @context.params
 
     <TaskStep
       id={data.id}
@@ -176,7 +179,7 @@ module.exports = React.createClass
 
   renderDefaultEndFooter: (data) ->
     {id} = @props
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @context.params
 
     taskFooterParams =
       stepId: data.id
@@ -186,7 +189,7 @@ module.exports = React.createClass
     @renderEndFooter(taskFooterParams)
 
   renderEnd: (data) ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @context.params
     type = if data.type then data.type else 'task'
     End = Ends.get(type)
 
@@ -199,7 +202,7 @@ module.exports = React.createClass
       footer={footer} />
 
   renderSpacer: (data) ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @context.params
     <Spacer onNextStep={@onNextStep} taskId={@props.id} courseId={courseId}/>
 
   # add render methods for different panel types as needed here

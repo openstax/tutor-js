@@ -21,6 +21,7 @@ Scores = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
@@ -203,9 +204,10 @@ Scores = React.createClass
 ScoresShell = React.createClass
   contextTypes:
     router: React.PropTypes.func
+    params: React.PropTypes.object
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @context.params
     course = CourseStore.get(courseId)
     tableClass = if course.is_concept_coach then 'cc' else 'hs'
     <BS.Panel className="scores-report #{tableClass}">

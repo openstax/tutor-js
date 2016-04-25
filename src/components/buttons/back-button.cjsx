@@ -31,7 +31,7 @@ BackButton = React.createClass
 
     backText = if historyInfo.name then "Back to #{historyInfo.name}" else fallbackLink.text
 
-    href =  historyInfo.path or @context.router.makeHref(
+    href =  historyInfo.path or @context.router.createHref(
       @props.fallbackLink.to, @props.fallbackLink.params
     )
 
