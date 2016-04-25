@@ -25,6 +25,9 @@ VIEWS =
 class Location
 
   constructor: ->
+    @_createHistory()
+
+  _createHistory: ->
     @history = history.createHistory()
 
   startListening: (cb) ->
