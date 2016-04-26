@@ -11,7 +11,7 @@ AbsentCell   = require './absent-cell'
 ExternalCell = require './external-cell'
 SortingHeader = require './sorting-header'
 FixedDataTable = require 'fixed-data-table'
-ConceptCoachCell = require './concept-coach-cell'
+ProgressCell = require './progress-cell'
 
 Table = FixedDataTable.Table
 Column = FixedDataTable.Column
@@ -41,6 +41,8 @@ module.exports = React.createClass
     isConceptCoach: React.PropTypes.bool.isRequired
 
   renderNameHeader: ->
+    {sort, onSort, colSetWidth} = @props
+
     emptyCell = <div className='blank' />
     averageLabel =
       <div>
@@ -50,8 +52,8 @@ module.exports = React.createClass
       <div className='cc-cell'>
         <SortingHeader
         sortKey='name'
-        sortState={@props.sort}
-        onSort={@props.onSort}>
+        sortState={sort}
+        onSort={onSort}>
           <div className='student-name'>Student Name</div>
         </SortingHeader>
       </div>
@@ -69,7 +71,7 @@ module.exports = React.createClass
     nameColumns = 1
     <ColumnGroup fixed={true} groupHeaderRenderer={-> emptyCell}>
       <Column
-        width={@props.colSetWidth * nameColumns}
+        width={colSetWidth * nameColumns}
         flexGrow={0}
         allowCellsRecycling={true}
         isResizable=false
@@ -80,19 +82,21 @@ module.exports = React.createClass
     </ColumnGroup>
 
   renderOverallHeader: ->
+    {colSetWidth, data} = @props
+
     overallTitle = <div className='overall-header-cell'>Overall</div>
     customHeader = 
       <div className='overall-average-cell'>
         <div className='average'>
           <span>
-            {"#{(@props.data.overall_average_score * 100).toFixed(0)}%"}
+            {"#{(data.overall_average_score * 100).toFixed(0)}%"}
           </span>
         </div>
         <div className='average empty'></div>
       </div>
     <ColumnGroup fixed={true} groupHeaderRenderer={-> overallTitle}>
       <Column
-        width={@props.colSetWidth / 2}
+        width={colSetWidth / 2}
         flexGrow={0}
         allowCellsRecycling={true}
         isResizable=false
@@ -104,10 +108,12 @@ module.exports = React.createClass
 
 
   renderHeadingCell: (heading, i) ->
-    i += @props.firstDataColumn # for the first/last name columns
+    {firstDataColumn, isConceptCoach, periodIndex, courseId, sort, onSort, dataType, colSetWidth} = @props
+
+    i += firstDataColumn # for the first/last name columns
 
     getAverageCellWidth =
-      if @props.isConceptCoach
+      if isConceptCoach
         'wide'
       else
         switch heading.type
@@ -118,8 +124,8 @@ module.exports = React.createClass
     if heading.plan_id?
       linkParams =
         id: heading.plan_id
-        periodIndex: @props.periodIndex
-        courseId: @props.courseId
+        periodIndex: periodIndex
+        courseId: courseId
 
       review =
         <span className="review-link #{getAverageCellWidth}">
@@ -146,8 +152,8 @@ module.exports = React.createClass
           type={heading.type}
           className='wide'
           sortKey={i}
-          sortState={@props.sort}
-          onSort={@props.onSort}>
+          sortState={sort}
+          onSort={onSort}>
             <div ref='completed' className='completed'>Progress</div>
           </SortingHeader>
         </div>
@@ -157,58 +163,64 @@ module.exports = React.createClass
           <SortingHeader
           type={heading.type}
           sortKey={i}
-          dataType={@props.dataType}
-          sortState={@props.sort}
-          onSort={@props.onSort}>
+          dataType={dataType}
+          sortState={sort}
+          onSort={onSort}>
             <div ref='score' className='score'>Score</div>
           </SortingHeader>
           <SortingHeader
           type={heading.type}
           sortKey={i}
-          dataType={@props.dataType}
-          sortState={@props.sort}
-          onSort={@props.onSort}>
+          dataType={dataType}
+          sortState={sort}
+          onSort={onSort}>
             <div ref='completed' className='completed'>Progress</div>
           </SortingHeader>
         </div>
 
-    HSHeadingTitleDueDate = <div>{heading.due_at}</div>
+    groupHeaderClass = if not isConceptCoach then 'hs' else ''
 
-    titleHeaderTooltip =
+    groupHeaderDueDate =
+      <div className='due'>due <Time date={heading.due_at} format='shortest'/></div>
+
+    groupHeaderTooltip =
       <BS.Tooltip id="header-cell-title-#{i}">
         <div>{heading.title}</div>
       </BS.Tooltip>
-    titleHeader =
+    groupHeader =
       <BS.OverlayTrigger
         placement='top'
         delayShow={1000}
         delayHide={0}
-        overlay={titleHeaderTooltip}>
-        <div
-        data-assignment-type="#{heading.type}"
-        ref="#{i}-#{heading.type}"
-        className='header-cell title'>
-          {heading.title}
-        </div>
+        overlay={groupHeaderTooltip}>
+        <span className="group-header">
+          <div
+          data-assignment-type="#{heading.type}"
+          ref="#{i}-#{heading.type}"
+          className="header-cell group title #{groupHeaderClass}">
+            {heading.title}
+          </div>
+          {groupHeaderDueDate}
+        </span>
       </BS.OverlayTrigger>
 
     customHeader = <div
       className='assignment-header-cell'>
       <div className='average-cell'>
         {average}
-        {review unless @props.isConceptCoach or heading.type is 'external'}
+        {review unless isConceptCoach or heading.type is 'external'}
       </div>
       <div className='label-cell'>
         {label}
       </div>
     </div>
 
-    <ColumnGroup key={i} groupHeaderRenderer={-> titleHeader} >
+    <ColumnGroup key={i} groupHeaderRenderer={-> groupHeader} >
       <Column
         label={heading.title}
         headerRenderer={-> customHeader}
         cellRenderer={-> @cellData}
-        width={@props.colSetWidth}
+        width={colSetWidth}
         flexGrow={1}
         allowCellsRecycling={true}
         isResizable=false
@@ -217,21 +229,23 @@ module.exports = React.createClass
 
 
   renderStudentRow: (student_data, rowIndex) ->
+    {courseId, displayAs, isConceptCoach, period_id, data} = @props
+
     props =
       {
         student: student_data,
-        courseId: @props.courseId,
+        courseId: courseId,
         roleId: student_data.role,
-        displayAs: @props.displayAs,
-        isConceptCoach: @props.isConceptCoach,
+        displayAs: displayAs,
+        isConceptCoach: isConceptCoach,
         rowIndex: rowIndex,
-        period_id: @props.period_id
+        period_id: period_id
       }
-    isBottom = if @props.data.rows.length is rowIndex + 1 then 'bottom' else ''
+    isBottom = if data.rows.length is rowIndex + 1 then 'bottom' else ''
     columns = [
       <NameCell key='name' {...props} />,
       <div className="overall-cell #{isBottom}">
-        {"#{(@props.data.rows[rowIndex].average_score * 100).toFixed(0)}%"}
+        {"#{(data.rows[rowIndex].average_score * 100).toFixed(0)}%"}
       </div>
     ]
 
@@ -242,27 +256,29 @@ module.exports = React.createClass
         when 'null'     then <AbsentCell   key='absent' refs={@refs}   {...props} />
         when 'external' then <ExternalCell key='extern'   {...props} />
         when 'reading'  then <ReadingCell  key='reading'  {...props} />
-        else <ConceptCoachCell key='cc'  {...props} />
-        # when 'reading'  then <ReadingCell  key='reading'  {...props} />
-        # when 'homework' then <HomeworkCell key='homework' {...props} />
+        else <ProgressCell key='progress'  {...props} />
     columns
 
 
   render: ->
+    {data, width, height, isConceptCoach} = @props
+
     rowGetter = (rowIndex) =>
-      @renderStudentRow(@props.data.rows[rowIndex], rowIndex)
+      @renderStudentRow(data.rows[rowIndex], rowIndex)
+
+    groupHeaderHeight = if isConceptCoach then 50 else 100
 
     <Table
       rowHeight={46}
       rowGetter={rowGetter}
-      rowsCount={@props.data.rows.length}
-      width={@props.width}
-      height={@props.height}
+      rowsCount={data.rows.length}
+      width={width}
+      height={height}
       headerHeight={94}
-      groupHeaderHeight={50}>
+      groupHeaderHeight={groupHeaderHeight}>
 
       {@renderNameHeader()}
       {@renderOverallHeader()}
-      {_.map(@props.data.headings, @renderHeadingCell)}
+      {_.map(data.headings, @renderHeadingCell)}
 
     </Table>

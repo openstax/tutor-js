@@ -4,6 +4,7 @@
   @pie-bg-color: lighten(@tutor-neutral,40%);
   @pie-color-hover: #0DC0DC;
   @finished-icon-size: 24px;
+  @group-header-title-height: 60px;
 
   .nav.nav-tabs {
     clear: both;
@@ -33,16 +34,25 @@
       height: 100%;
     }
 
-    
-    &.title {
+    &.group.title {
       .tutor-plan-set(heading);
       padding: 8px;
       cursor: default;
       text-align: center;
+      &.hs {
+        height: @group-header-title-height;
+      }
     }
     &.sortable:hover {
       background: @tutor-neutral-lightest;
       .transition(background 0.2s);
+    }
+  }
+
+  .group-header {
+    .due {
+      line-height: 40px;
+      text-align: center;
     }
   }
 
@@ -106,14 +116,7 @@
     display: block;
   }
 
-  .scores-cell,
-  .assignment-header-cell {
-    // .tutor-plan-set(cell);
-  }
 
-  a.scores-cell:hover {
-    // .tutor-plan-set(cell-active);
-  }
 
   .scores-cell {
     &.task-result {

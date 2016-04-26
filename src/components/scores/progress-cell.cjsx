@@ -9,7 +9,7 @@ LateWork = require './late-work'
 
 {ScoresStore, ScoresActions} = require '../../flux/scores'
 
-ConceptCoachCell = React.createClass
+ProgressCell = React.createClass
 
   mixins: [CellStatusMixin] # prop validation
 
@@ -89,4 +89,4 @@ ConceptCoachCell = React.createClass
 
 
 
-module.exports = ConceptCoachCell
+module.exports = ProgressCell
