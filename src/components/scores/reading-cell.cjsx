@@ -13,10 +13,8 @@ ReadingCell = React.createClass
 
   render: ->
     {task, courseId} = @props
-    scorePercent =
-      Math.round((task.correct_exercise_count / task.exercise_count) * 100)
     pieValue =
-      Math.round((task.completed_exercise_count / task.exercise_count) * 100)
+      Math.round((task.completed_step_count / task.step_count) * 100)
     tooltip =
       <BS.Popover
         id="scores-cell-info-popover-#{task.id}"
@@ -27,15 +25,8 @@ ReadingCell = React.createClass
           </div>
           <div className='row'>
             <div>
-              {task.completed_exercise_count} of 
-               {task.exercise_count} questions
-            </div>
-          </div>
-          <div className='row'>
-            <div>
-              <span>Last Worked:</span> <Time
-                    format='M/M' 
-                    date={task.last_worked_at} />
+              {task.completed_step_count} of 
+               {task.step_count} questions
             </div>
           </div>
         </div>
