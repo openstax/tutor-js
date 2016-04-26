@@ -68,7 +68,7 @@ HomeworkCell = React.createClass
                 "#{scorePercent}%"
             }       
         </Router.Link>
-        {if not isConceptCoach and task.type is 'homework' then latework}
+        
       </div>
 
       <div className="worked">
@@ -83,7 +83,7 @@ HomeworkCell = React.createClass
         </BS.OverlayTrigger>
       </div>
 
-      
+      {latework}
     </div>
 
 

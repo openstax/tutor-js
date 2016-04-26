@@ -5,6 +5,7 @@ BS = require 'react-bootstrap'
 Time = require '../time'
 CellStatusMixin = require './cell-status-mixin'
 PieProgress = require './pie-progress'
+LateWork = require './late-work'
 
 
 ReadingCell = React.createClass
@@ -12,7 +13,7 @@ ReadingCell = React.createClass
   mixins: [CellStatusMixin] # prop validation
 
   render: ->
-    {task, courseId} = @props
+    {task, courseId, displayAs, isConceptCoach, rowIndex, columnIndex, period_id} = @props
     pieValue =
       Math.round((task.completed_step_count / task.step_count) * 100)
     tooltip =
@@ -32,6 +33,17 @@ ReadingCell = React.createClass
         </div>
       </BS.Popover>
 
+    lateProps =
+      {
+        task: task,
+        rowIndex: rowIndex,
+        columnIndex: columnIndex,
+        courseId: courseId,
+        period_id: period_id
+
+      }
+    latework = <LateWork {...lateProps} />
+
 
     <div className="scores-cell">
 
@@ -47,7 +59,7 @@ ReadingCell = React.createClass
         </BS.OverlayTrigger>
       </div>
 
-      
+      {latework}
     </div>
 
 
