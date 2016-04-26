@@ -5,23 +5,6 @@ PieProgress = React.createClass
   propTypes:
     size: React.PropTypes.number.isRequired
     value: React.PropTypes.number.isRequired
-    roundToQuarters: React.PropTypes.bool
-
-  radius: (size) ->
-    size / 2
-
-  buildCircle: (value) ->
-    size = @props.size
-    radius = @radius(size)
-    value = parseInt(value)
-    value = Math.min(Math.max(value, 0), 100)
-    x = Math.cos((2 * Math.PI) / (100 / value))
-    y = Math.sin((2 * Math.PI) / (100 / value))
-    longArc = if value <= 50 then 0 else 1
-    arcX = radius + (y * radius)
-    arcY = radius - (x * radius)
-    d =
-      "M#{radius} #{radius} L#{radius} 0 A#{radius} #{radius} 0 #{longArc} 1 #{arcX} #{arcY} z"
 
   roundToQuarters: (value) ->
     if value <= 49
@@ -33,33 +16,45 @@ PieProgress = React.createClass
     else
       100
 
-  renderQuarterDividers: ->
-    {size} = @props
-    dWidth = 1.3
-    dSize = (size / 2) - (dWidth / 2)
-    dOffset = dSize + dWidth
-    <defs>
-      <mask id="dividers" className="dividers">
-        <rect x="0" y="0" width="#{dSize}" height="#{dSize}" />
-        <rect x="#{dOffset}" y="0" width="#{dSize}" height="#{dSize}" />
-        <rect x="#{dOffset}" y="#{dOffset}" width="#{dSize}" height="#{dSize}" />
-        <rect x="0" y="#{dOffset}" width="#{dSize}" height="#{dSize}" />
-      </mask>
-    </defs>
-
   render: ->
-    {size, value, roundToQuarters, isConceptCoach} = @props
-    radius = @radius(size)
-    fullCircle = <circle r="#{radius}" cx="#{radius}" cy="#{radius}" className='slice'></circle>
-    backCircle = <circle r="#{radius}" cx="#{radius}" cy="#{radius}" className='backdrop'></circle>
-    progress = if roundToQuarters? then @roundToQuarters(value) else value
-    circle = @buildCircle(progress)
-    path = <path d="#{circle}" className='slice' />
+    {size, value, isConceptCoach} = @props
+    progress = @roundToQuarters(value)
+    q1 =
+      <g>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice" transform="translate(1 -1) rotate(0)"></path>
+      </g>
+    q2 =
+      <g>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice" transform="translate(1 -1) rotate(0)"></path>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice" transform="translate(25 0) rotate(90)"></path>
+      </g>
+    q3 =
+      <g>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice" transform="translate(1 -1) rotate(0)"></path>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice" transform="translate(25 0) rotate(90)"></path>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice" transform="translate(24 24) rotate(180)"></path>
+      </g>
+    q4 =
+      <g>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice" transform="translate(1 -1) rotate(0)"></path>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice" transform="translate(25 0) rotate(90)"></path>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice" transform="translate(24 24) rotate(180)"></path>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice" transform="translate(0 23) rotate(270)"></path>
+      </g>
+    backCircle =
+      <g>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="backdrop" transform="translate(1 -1) rotate(0)"></path>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="backdrop" transform="translate(25 0) rotate(90)"></path>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="backdrop" transform="translate(24 24) rotate(180)"></path>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="backdrop" transform="translate(0 23) rotate(270)"></path>
+      </g>
     pieCircle =
       <svg width="#{size}" height="#{size}" className='pie-progress'>
         {backCircle}
-        {if progress is 100 then fullCircle else path}
-        {@renderQuarterDividers() if roundToQuarters}
+        {if progress is 25 then q1}
+        {if progress is 50 then q2}
+        {if progress is 75 then q3}
+        {if progress is 100 then q4}
       </svg>
     finishedIcon =
       <svg className='finished'>
