@@ -6,6 +6,15 @@ _  = require 'underscore'
 {AppStore, AppActions} = require '../../flux/app'
 Dialog = require '../tutor-dialog'
 
+reloadOnce = ->
+  navigation = AppStore.errorNavigation()
+  return if _.isEmpty navigation
+  if navigation.shouldReload
+    join = if window.location.search then '&' else '?'
+    window.location.href = window.location.href + join + 'reloaded'
+  else if navigation.href
+    window.location.href = navigation.href
+
 
 ServerErrorMessage = React.createClass
   displayName: 'ServerErrorMessage'
@@ -45,6 +54,39 @@ ServerErrorMessage = React.createClass
       </div>
 
 
+NoExercisesMessage = React.createClass
+  render: ->
+    <div className="no-exercises">
+      <p className="lead">There are no practice problems available for this topic.</p>
+    </div>
+
+
+ERROR_HANDLERS =
+
+  no_exercises: (error, message, router) ->
+    hideDialog = ->
+      {courseId} = router.getCurrentParams()
+      router.transitionTo('viewStudentDashboard', {courseId})
+      Dialog.hide()
+    dialog:
+      title: 'Unable to practice topic'
+      body: <NoExercisesMessage />
+      buttons: [
+        <BS.Button key='ok' onClick={hideDialog} bsStyle='primary'>OK</BS.Button>
+      ]
+    onOk: hideDialog
+    onCancel: hideDialog
+
+  default: (error, message, router) ->
+    dialog:
+      title: 'Server Error'
+      body: <ServerErrorMessage {...error}/>
+      buttons: [
+        <BS.Button key='ok' onClick={-> Dialog.hide()} bsStyle='primary'>OK</BS.Button>
+      ]
+    onOk: reloadOnce
+    onCancel: reloadOnce
+
 module.exports = React.createClass
   displayName: 'ServerErrorMonitoring'
 
@@ -52,26 +94,26 @@ module.exports = React.createClass
   bindStore: AppStore
   bindEvent: 'server-error'
 
+  contextTypes:
+    router: React.PropTypes.func
+
   bindUpdate: ->
-    serverErr = AppStore.getError()
-    return unless serverErr and -1 is window.location.search.indexOf('reloaded')
+    error = AppStore.getError()
 
-    dismissError = ->
-      navigation = AppStore.errorNavigation()
-      return if _.isEmpty navigation
-      if navigation.shouldReload
-        join = if window.location.search then '&' else '?'
-        window.location.href = window.location.href + join + 'reloaded'
-      else if navigation.href
-        window.location.href = navigation.href
+    return unless error and -1 is window.location.search.indexOf('reloaded')
+    message = {}
+    handler = 'default'
+    if error.message
+      try
+        message = JSON.parse(error.message)
+      catch e
 
-    Dialog.show(
-      title: 'Server Error', body: <ServerErrorMessage {...serverErr}/>
-      buttons: [
-        <BS.Button key='ok'
-          onClick={-> Dialog.hide()} bsStyle='primary'>OK</BS.Button>
-      ]
-    ).then(dismissError, dismissError)
+      if message.errors?.length is 1 and ERROR_HANDLERS[message.errors[0].code]
+        handler = message.errors[0].code
+
+    attrs = ERROR_HANDLERS[handler](error, message, @context.router)
+
+    Dialog.show( attrs.dialog ).then(attrs.onOk, attrs.onCancel)
 
 
   # We don't actually render anything
