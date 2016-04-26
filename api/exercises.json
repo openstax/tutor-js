@@ -411,7 +411,7 @@
             "questions": [{
                 "id": 1667,
                 "stimulus_html": "",
-                "stem_html": "Can classical physics be used to accurately describe a satellite moving at a speed of <span data-math=\"7500\\,\\text{m/s}\">7500\\,\\text{m/s}</span>? Explain why or why not.",
+                "stem_html": "Can classical physics be used to accurately describe a satellite moving at a speed of? Explain why or why not.",
                 "answers": [{
                     "id": 6627,
                     "content_html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
