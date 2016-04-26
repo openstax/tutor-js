@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 _ = require 'underscore'
 
 classnames = require 'classnames'
@@ -131,7 +131,8 @@ ExerciseStepCard = React.createClass
       onContinue: @onContinue
 
     if includeFooter
-      footer = <ExFooter {...@props} {...controlProps}/>
+      footerProps =
+        footer: <ExFooter {...@props} {...controlProps}/>
 
     if includeGroup
       exerciseGroup =
@@ -143,7 +144,7 @@ ExerciseStepCard = React.createClass
 
     cardClasses = classnames 'task-step', 'openstax-exercise-card', className
 
-    <CardBody className={cardClasses} pinned={pinned}>
+    <CardBody {...footerProps} className={cardClasses} pinned={pinned}>
       <div className="exercise-#{panel}">
         <ExMode
           {...step}
