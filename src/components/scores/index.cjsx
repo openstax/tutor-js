@@ -104,8 +104,16 @@ Scores = React.createClass
         record = d.data[index]
         return 0 unless record
         switch record.type
-          when 'reading'  then record.status
-          when 'homework' then record.correct_exercise_count or 0
+          when 'reading'  then @percent(record.completed_step_count, record.step_count) or 0
+          when 'homework'
+            switch sort.dataType
+              when 'score'
+                if displayAs is 'number'
+                  record.correct_exercise_count or 0
+                else
+                  @percent(record.correct_exercise_count, record.exercise_count) or 0
+              when 'completed'
+                @percent(record.completed_exercise_count, record.exercise_count) or 0
           when 'concept_coach'
             switch sort.dataType
               when 'score'
