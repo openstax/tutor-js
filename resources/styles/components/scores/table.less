@@ -1,6 +1,7 @@
 .scores-report {
   @table-row-height: 46px;
   @pie-color: lighten(@tutor-neutral,10%);
+  @pie-color-late: #268FBE;
   @pie-bg-color: lighten(@tutor-neutral,40%);
   @pie-color-hover: #0DC0DC;
   @finished-icon-size: 24px;
@@ -246,6 +247,9 @@
         .slice {
           fill: @pie-color;
           mask: url(#dividers);
+          &.late {
+            fill: @pie-color-late;
+          }
         }
         &:hover .slice {
           fill: @pie-color-hover;

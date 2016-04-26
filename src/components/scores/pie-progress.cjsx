@@ -17,29 +17,30 @@ PieProgress = React.createClass
       100
 
   render: ->
-    {size, value, isConceptCoach} = @props
+    {size, value, isConceptCoach, isLate} = @props
     progress = @roundToQuarters(value)
+    lateClass = if isLate and not isConceptCoach then 'late' else ''
     q1 =
       <g>
-        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice" transform="translate(1 -1) rotate(0)"></path>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice #{lateClass}" transform="translate(1 -1) rotate(0)"></path>
       </g>
     q2 =
       <g>
-        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice" transform="translate(1 -1) rotate(0)"></path>
-        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice" transform="translate(25 0) rotate(90)"></path>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice #{lateClass}" transform="translate(1 -1) rotate(0)"></path>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice #{lateClass}" transform="translate(25 0) rotate(90)"></path>
       </g>
     q3 =
       <g>
-        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice" transform="translate(1 -1) rotate(0)"></path>
-        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice" transform="translate(25 0) rotate(90)"></path>
-        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice" transform="translate(24 24) rotate(180)"></path>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice #{lateClass}" transform="translate(1 -1) rotate(0)"></path>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice #{lateClass}" transform="translate(25 0) rotate(90)"></path>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice #{lateClass}" transform="translate(24 24) rotate(180)"></path>
       </g>
     q4 =
       <g>
-        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice" transform="translate(1 -1) rotate(0)"></path>
-        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice" transform="translate(25 0) rotate(90)"></path>
-        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice" transform="translate(24 24) rotate(180)"></path>
-        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice" transform="translate(0 23) rotate(270)"></path>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice #{lateClass}" transform="translate(1 -1) rotate(0)"></path>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice #{lateClass}" transform="translate(25 0) rotate(90)"></path>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice #{lateClass}" transform="translate(24 24) rotate(180)"></path>
+        <path d="M12 12 L12 0 A12 12 0 0 1 24 12 z" className="slice #{lateClass}" transform="translate(0 23) rotate(270)"></path>
       </g>
     backCircle =
       <g>

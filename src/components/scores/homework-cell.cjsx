@@ -34,15 +34,10 @@ HomeworkCell = React.createClass
                {task.exercise_count} questions
             </div>
           </div>
-          <div className='row'>
-            <div>
-              <span>Last Worked:</span> <Time
-                    format='M/M' 
-                    date={task.last_worked_at} />
-            </div>
-          </div>
         </div>
       </BS.Popover>
+
+    isLate = task.completed_on_time_exercise_count < task.completed_exercise_count
 
     lateProps =
       {
@@ -81,12 +76,13 @@ HomeworkCell = React.createClass
             <PieProgress 
             isConceptCoach={isConceptCoach} 
             size={24} 
-            value={pieValue} />
+            value={pieValue}
+            isLate={isLate} />
           </span>
         </BS.OverlayTrigger>
       </div>
 
-      {latework}
+      {latework if isLate}
     </div>
 
 

@@ -24,14 +24,10 @@ ReadingCell = React.createClass
           <div className='row'>
             <div>Completed {pieValue}%</div>
           </div>
-          <div className='row'>
-            <div>
-              {task.completed_step_count} of 
-               {task.step_count} questions
-            </div>
-          </div>
         </div>
       </BS.Popover>
+
+    isLate = task.completed_on_time_step_count < task.completed_step_count
 
     lateProps =
       {
@@ -57,12 +53,13 @@ ReadingCell = React.createClass
             <PieProgress
             isConceptCoach={isConceptCoach}
             size={24}
-            value={pieValue} />
+            value={pieValue}
+            isLate={isLate} />
           </span>
         </BS.OverlayTrigger>
       </div>
 
-      {latework}
+      {latework if isLate}
     </div>
 
 

@@ -18,6 +18,14 @@ ConceptCoachCell = React.createClass
       Math.round((task.correct_exercise_count / task.exercise_count) * 100)
     pieValue =
       Math.round((task.completed_exercise_count / task.exercise_count) * 100)
+    lastWorked =
+      <div className='row'>
+        <div>
+          <span>Last Worked:</span> <Time
+                format='M/M' 
+                date={task.last_worked_at} />
+        </div>
+      </div>
     tooltip =
       <BS.Popover
         id="scores-cell-info-popover-#{task.id}"
@@ -32,13 +40,7 @@ ConceptCoachCell = React.createClass
                {task.exercise_count} questions
             </div>
           </div>
-          <div className='row'>
-            <div>
-              <span>Last Worked:</span> <Time
-                    format='M/M' 
-                    date={task.last_worked_at} />
-            </div>
-          </div>
+          { if task.completed_exercise_count is task.exercise_count then lastWorked }
         </div>
       </BS.Popover>
 
