@@ -27,6 +27,7 @@ App = React.createClass
       @loadRecord(view, id)
 
   loadRecord: (type, id) ->
+    return unless type and id
     {actions, store} = @props.location.partsForView(type)
     store.once 'loaded', @update
     actions.load(id) unless store.isLoading(id)
@@ -61,11 +62,12 @@ App = React.createClass
       id = @state.newId or @createNewRecord(view)
 
     {Body, Controls, store, actions} = @props.location.partsForView(view)
-    Body = NetworkActivity if store.isLoading(id)
+
+    Body = NetworkActivity if store?.isLoading(id)
 
     guardProps =
       onlyPromptIf: ->
-        id and store.isChanged(id)
+        id and store?.isChanged(id)
       placement: 'right'
       message: "You will lose all unsaved changes"
 
