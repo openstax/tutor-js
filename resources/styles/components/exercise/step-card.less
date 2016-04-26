@@ -19,7 +19,7 @@
 
 }
 
-&-exercise-card {
+&-exercise-card, &-multipart-exercise-card {
   position: relative;
   .exercise-identifier-link {
     position: absolute;
@@ -28,5 +28,11 @@
     color: @answer-label-color;
     font-size: 1.2rem;
     line-height: 1.2rem;
+  }
+}
+
+&-multipart-exercise-card {
+  .card-body {
+    margin-bottom: 4rem;
   }
 }

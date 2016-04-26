@@ -61,30 +61,25 @@ ExerciseParts = React.createClass
 
       @renderPart(part, partProps)
 
-    part = _.last(parts)
+    {step} = _.last(parts)
 
     exerciseGroup =
       <ExerciseGroup
         key='step-exercise-group'
-        group={part.group}
-        exercise_uid={part.content?.uid}
-        related_content={part.related_content}/>
-
-    panel = getCurrentPanel(@getLastPartId())
+        group={step.group}
+        exercise_uid={step.content?.uid}
+        related_content={step.related_content}/>
 
     if @canAllContinue()
       canContinueControlProps =
         isContinueEnabled: true
         onContinue: onNextStep
 
-    footer ?= <ExFooter {...canContinueControlProps} {...@props} panel={panel}/>
+    footer ?= <ExFooter {...canContinueControlProps} {...@props} panel='review'/>
 
-    <ExerciseStepCard
-      {...cardProps}
-      step={step}
-      panel={currentPanel}
-      waitingText={waitingText}
-      helpLink={helpLink}
-    />
+    <CardBody footer={footer} className='openstax-multipart-exercise-card'>
+      {exerciseParts}
+      {exerciseGroup}
+    </CardBody>
 
 module.exports = ExerciseParts

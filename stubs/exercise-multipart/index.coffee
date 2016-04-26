@@ -5,15 +5,26 @@ stepsStubs = {}
 
 TASK_ID = '40'
 
-assignTaskIdToStep = (step) ->
-  _.extend {}, step, task_id: TASK_ID
+commonInfo =
+  content_url: 'https://exercises-dev.openstax.org/exercises/120@1'
+  content:
+    uid: '120@1'
+  group: 'core'
+  related_content: [
+    title: 'Physics is cool, yo'
+    chapter_section: '1.3'
+  ]
+  task_id: TASK_ID
+
+assignStepToTask = (step, questionNumber) ->
+  _.defaultsDeep {questionNumber}, commonInfo, step
 
 
 _.forEach steps, (step) ->
   stepStubs =
-    'free-response': assignTaskIdToStep _.omit(step, 'correct_answer_id')
-    'multiple-choice': assignTaskIdToStep _.omit(step, 'correct_answer_id')
-    'review': assignTaskIdToStep _.clone(step)
+    'free-response': assignStepToTask _.omit(step, 'correct_answer_id'), 1
+    'multiple-choice': assignStepToTask _.omit(step, 'correct_answer_id'), 2
+    'review': assignStepToTask _.clone(step), 3
 
   stepsStubs[step.id] = stepStubs
 

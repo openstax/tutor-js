@@ -2,7 +2,6 @@ var steps = [{ "id": "step-id-9-1",
     "type": "exercise",
     "correct_answer_id": "id2",
     "is_in_multipart": true,
-    "content_url": "https://exercises-dev.openstax.org/exercises/120@1",
     "content": {
       "stimulus_html": "Addition is fun",
       "questions":[
@@ -16,14 +15,12 @@ var steps = [{ "id": "step-id-9-1",
           ]
         }
       ]
-    },
-    "group": "core"
+    }
   },
   { "id": "step-id-9-2",
     "type": "exercise",
     "correct_answer_id": "id3",
     "is_in_multipart": true,
-    "content_url": "https://exercises-dev.openstax.org/exercises/120@1",
     "content": {
       "stimulus_html": "Stimulus for Second Exercise",
       "questions":[
@@ -37,19 +34,13 @@ var steps = [{ "id": "step-id-9-1",
           ]
         }
       ]
-    },
-    "group": "core",
-    "related_content": [{
-        "title": "Physics is cool, yo",
-        "chapter_section": "1.3"
-    }]
+    }
   },
   { "id": "step-id-9-3",
     "type": "exercise",
     "correct_answer_id": "idn2",
     "is_in_multipart": true,
     "has_recovery": true,
-    "content_url": "https://exercises-dev.openstax.org/exercises/120@1",
     "feedback_html": "Two apples and then <span data-math='2'>2</span> more apples is <strong>four</strong>",
     "content": {
       "stimulus_html": "Multiplication is fun",
@@ -64,8 +55,7 @@ var steps = [{ "id": "step-id-9-1",
           ]
         }
       ]
-    },
-    "group": "core"
+    }
   }
 ];
 
