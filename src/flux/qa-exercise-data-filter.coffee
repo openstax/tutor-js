@@ -10,7 +10,7 @@ _ = require 'underscore'
 # are not related to the given ecosystem
 
 
-BOOK_MAPPINGS =
+BOOK_UUID_MAPPINGS =
   '02040312-72c8-441e-a685-20e9333f3e1d': 'stax-soc'
   'a4579e90-f894-4438-88c3-14772d3da9ff': 'stax-phys'
   '334f8b61-30eb-4475-8e05-5260a4866b4b': 'stax-k12phys'
@@ -22,18 +22,20 @@ BOOK_MAPPINGS =
   'ea2f225e-6063-41ca-bcd8-36482e15ef65': 'stax-micro'
   '14fb4ad7-39a1-4eee-ab6e-3ef2482e3e22': 'stax-anp'
 
+BOOK_CODE_MAPPINGS = _.invert(BOOK_UUID_MAPPINGS)
+
 
 module.exports = (exercise, {ecosystemId} ) ->
-
-
-  book = BOOK_MAPPINGS[ EcosystemsStore.getBook(ecosystemId)?.uuid ]
-  return exercise unless book
+  bookUuid = EcosystemsStore.getBook(ecosystemId)?.uuid
+  bookCode = BOOK_UUID_MAPPINGS[ bookUuid ]
+  return exercise unless bookCode
 
   exercise.tags = _.select exercise.tags, (tag) ->
-    parts = tag.id.split(':')
-    if parts[0] is 'lo' or parts[0] is 'context-cnxmod'
-      book is parts[1]
-    else
-      true # allow all other tags
+    [prefix, value] = tag.id.split(':')
+    switch prefix
+      when 'lo'             then value is bookCode
+      when 'context-cnxmod' then value is bookUuid
+      else
+        true # allow all other tags
 
   return exercise
