@@ -1,4 +1,4 @@
-.scores-report.cc {
+.scores-report {
   @table-row-height: 46px;
   @pie-color: lighten(@tutor-neutral,10%);
   @pie-bg-color: lighten(@tutor-neutral,40%);
@@ -108,7 +108,7 @@
     }  
   }
 
-  .scores-cell,
+  .status-cell,
   .assignment-header-cell,
   .student-name {
     width: 100%;
@@ -118,7 +118,7 @@
 
 
 
-  .scores-cell {
+  .status-cell {
     &.task-result {
       text-align: center;
     }
@@ -204,7 +204,7 @@
   }
 
   // concept coach cells that are split
-  .cc-cell {
+  .scores-cell {
     & > * {
       line-height: @table-row-height;
       display: inline-block;
@@ -224,7 +224,7 @@
     }
 
   }
-  .cc-cell {
+  .scores-cell {
     .not-started {
       color: @tutor-tertiary-light;  
     }
@@ -322,7 +322,7 @@
 
 }
 
-.cc-scores-tooltip-completed-info {
+.scores-scores-tooltip-completed-info {
   @completed-popover-row-height: 30px;
   height: @completed-popover-row-height * 3;
   .popover-content {

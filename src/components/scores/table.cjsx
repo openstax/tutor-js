@@ -2,16 +2,18 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
+FixedDataTable = require 'fixed-data-table'
 Time   = require '../time'
 Icon = require '../icon'
+
+SortingHeader = require './sorting-header'
+
 ReadingCell  = require './reading-cell'
 HomeworkCell = require './homework-cell'
 NameCell     = require './name-cell'
 AbsentCell   = require './absent-cell'
 ExternalCell = require './external-cell'
-SortingHeader = require './sorting-header'
-FixedDataTable = require 'fixed-data-table'
-ProgressCell = require './progress-cell'
+ConceptCoachCell = require './concept-coach-cell'
 
 Table = FixedDataTable.Table
 Column = FixedDataTable.Column
@@ -20,7 +22,7 @@ ColumnGroup = FixedDataTable.ColumnGroup
 Router = require 'react-router'
 
 module.exports = React.createClass
-  displayName: 'CCTable'
+  displayName: 'ScoresTable'
 
   contextTypes:
     router: React.PropTypes.func
@@ -49,7 +51,7 @@ module.exports = React.createClass
         Class Average &nbsp
       </div>
     studentHeader =
-      <div className='cc-cell'>
+      <div className='scores-cell'>
         <SortingHeader
         sortKey='name'
         sortState={sort}
@@ -147,7 +149,7 @@ module.exports = React.createClass
 
     if heading.type is 'reading' or heading.type is 'external'
       label =
-        <div className='cc-cell'>
+        <div className='scores-cell'>
           <SortingHeader
           type={heading.type}
           className='wide'
@@ -159,7 +161,7 @@ module.exports = React.createClass
         </div>
     else
       label =
-        <div className='cc-cell'>
+        <div className='scores-cell'>
           <SortingHeader
           type={heading.type}
           sortKey={i}
@@ -256,7 +258,8 @@ module.exports = React.createClass
         when 'null'     then <AbsentCell   key='absent' refs={@refs}   {...props} />
         when 'external' then <ExternalCell key='extern'   {...props} />
         when 'reading'  then <ReadingCell  key='reading'  {...props} />
-        else <ProgressCell key='progress'  {...props} />
+        when 'homework' then <HomeworkCell key='homework'  {...props} />
+        else <ConceptCoachCell key='concept_coach'  {...props} />
     columns
 
 

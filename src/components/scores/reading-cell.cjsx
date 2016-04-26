@@ -19,8 +19,8 @@ ReadingCell = React.createClass
       Math.round((task.completed_exercise_count / task.exercise_count) * 100)
     tooltip =
       <BS.Popover
-        id="cc-cell-info-popover-#{task.id}"
-        className='cc-scores-tooltip-completed-info'>
+        id="scores-cell-info-popover-#{task.id}"
+        className='scores-scores-tooltip-completed-info'>
         <div className='info'>
           <div className='row'>
             <div>Completed {pieValue}%</div>
@@ -42,7 +42,7 @@ ReadingCell = React.createClass
       </BS.Popover>
 
 
-    <div className="cc-cell">
+    <div className="scores-cell">
 
       <div className="worked wide">
         <BS.OverlayTrigger

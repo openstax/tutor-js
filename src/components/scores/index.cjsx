@@ -2,8 +2,8 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
-CCTable = require './table-cc'
-CCTableFilters = require './cc-table-filters'
+ScoresTable = require './table'
+TableFilters = require './table-filters'
 
 Router = require 'react-router'
 
@@ -134,7 +134,7 @@ Scores = React.createClass
     scoresExport = <ScoresExport courseId={courseId}/>
 
     scoresTable =
-      <CCTable
+      <ScoresTable
       courseId={@props.courseId} 
       data={data}
       width={tableWidth}
@@ -163,7 +163,7 @@ Scores = React.createClass
           Click an orange triangle to see late work.
         </span>
     tableFilters =
-      <CCTableFilters
+      <TableFilters
       displayAs={@state.displayAs}
       changeDisplayAs={@changeDisplayAs}
       />
@@ -199,8 +199,7 @@ ScoresShell = React.createClass
   render: ->
     {courseId} = @context.router.getCurrentParams()
     course = CourseStore.get(courseId)
-    tableClass = if course.is_concept_coach then 'cc' else 'cc'  ## temp
-    <BS.Panel className="scores-report #{tableClass}">
+    <BS.Panel className="scores-report">
       <LoadableItem
         id={courseId}
         store={ScoresStore}

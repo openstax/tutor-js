@@ -13,11 +13,11 @@ module.exports = React.createClass
     columnType = @findTypeFromColumn()
 
     if columnType is 'reading' or columnType is 'external'
-      <div className="cc-cell">
+      <div className="scores-cell">
         <div className="worked not-started wide">---</div>
       </div>
     else
-      <div className="cc-cell">
+      <div className="scores-cell">
         <div className="score not-started">---</div>
         <div className="worked not-started">---</div>
       </div>

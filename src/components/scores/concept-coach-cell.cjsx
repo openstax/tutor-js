@@ -9,7 +9,7 @@ LateWork = require './late-work'
 
 {ScoresStore, ScoresActions} = require '../../flux/scores'
 
-ProgressCell = React.createClass
+ConceptCoachCell = React.createClass
 
   mixins: [CellStatusMixin] # prop validation
 
@@ -18,14 +18,17 @@ ProgressCell = React.createClass
 
   render: ->
     {task, courseId, displayAs, isConceptCoach} = @props
+
+    console.log task
+
     scorePercent =
       Math.round((task.correct_exercise_count / task.exercise_count) * 100)
     pieValue =
       Math.round((task.completed_exercise_count / task.exercise_count) * 100)
     tooltip =
       <BS.Popover
-        id="cc-cell-info-popover-#{task.id}"
-        className='cc-scores-tooltip-completed-info'>
+        id="scores-cell-info-popover-#{task.id}"
+        className='scores-scores-tooltip-completed-info'>
         <div className='info'>
           <div className='row'>
             <div>Completed {pieValue}%</div>
@@ -57,7 +60,7 @@ ProgressCell = React.createClass
     latework = <LateWork {...lateProps} />
 
 
-    <div className="cc-cell">
+    <div className="scores-cell">
       <div className="score">
         <Router.Link to='viewTaskStep'
           data-assignment-type="#{task.type}"
@@ -89,4 +92,4 @@ ProgressCell = React.createClass
 
 
 
-module.exports = ProgressCell
+module.exports = ConceptCoachCell

@@ -1,19 +1,95 @@
-React    = require 'react'
-CellStatusMixin = require './cell-status-mixin'
-TaskHelper = require '../../helpers/task'
+React  = require 'react'
+Router = require 'react-router'
+BS = require 'react-bootstrap'
 
-module.exports = React.createClass
-  displayName: 'HomeworkCell'
-  mixins: [CellStatusMixin] # handles rendering
+Time = require '../time'
+CellStatusMixin = require './cell-status-mixin'
+PieProgress = require './pie-progress'
+LateWork = require './late-work'
+
+{ScoresStore, ScoresActions} = require '../../flux/scores'
+
+HomeworkCell = React.createClass
+
+  mixins: [CellStatusMixin] # prop validation
+
+  recalcAverages: ->
+    ScoresStore.recalcAverages(@props.courseId, @props.period_id)
 
   render: ->
-    message = if @props.task.status is 'not_started'
-      'Not started'
-    else if TaskHelper.isDue(@props.task)
-      "#{@props.task.correct_exercise_count}/#{@props.task.exercise_count}"
-    else if @props.task.status is 'completed'
-      'Complete'
-    else
-      'In progress'
+    {task, courseId, displayAs, isConceptCoach} = @props
 
-    @renderLink({message})
+    console.log task
+
+    scorePercent =
+      Math.round((task.correct_exercise_count / task.exercise_count) * 100)
+    pieValue =
+      Math.round((task.completed_exercise_count / task.exercise_count) * 100)
+    tooltip =
+      <BS.Popover
+        id="scores-cell-info-popover-#{task.id}"
+        className='scores-scores-tooltip-completed-info'>
+        <div className='info'>
+          <div className='row'>
+            <div>Completed {pieValue}%</div>
+          </div>
+          <div className='row'>
+            <div>
+              {task.completed_exercise_count} of 
+               {task.exercise_count} questions
+            </div>
+          </div>
+          <div className='row'>
+            <div>
+              <span>Last Worked:</span> <Time
+                    format='M/M' 
+                    date={task.last_worked_at} />
+            </div>
+          </div>
+        </div>
+      </BS.Popover>
+
+    lateProps =
+      {
+        task: @props.task,
+        recalcAverages: @recalcAverages,
+        rowIndex: @props.rowIndex,
+        columnIndex: @props.columnIndex
+
+      }
+    latework = <LateWork {...lateProps} />
+
+
+    <div className="scores-cell">
+      <div className="score">
+        <Router.Link to='viewTaskStep'
+          data-assignment-type="#{task.type}"
+          params={courseId: courseId, id: task.id, stepIndex: 1}>
+            {
+              if displayAs is 'number'
+                "#{task.correct_exercise_count} of #{task.exercise_count}"
+              else
+                "#{scorePercent}%"
+            }       
+        </Router.Link>
+        {if not isConceptCoach and task.type is 'homework' then latework}
+      </div>
+
+      <div className="worked">
+        <BS.OverlayTrigger
+        placement="left"
+        delayShow={1000}
+        delayHide={0}
+        overlay={tooltip}>
+          <span className='trigger-wrap'>
+            <PieProgress size={24} value={pieValue} roundToQuarters />
+          </span>
+        </BS.OverlayTrigger>
+      </div>
+
+      
+    </div>
+
+
+
+module.exports = HomeworkCell
