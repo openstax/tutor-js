@@ -4,7 +4,7 @@ classnames = require 'classnames'
 {ExerciseStore} = require '../../flux/exercise'
 String = require '../../helpers/string'
 {ExercisePreview} = require 'openstax-react-components'
-exerciseDataFilter = require './exercise-data-filter'
+exerciseDataFilter = require '../../flux/qa-exercise-data-filter'
 Exercise = React.createClass
 
   propTypes:
