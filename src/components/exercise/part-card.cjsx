@@ -131,8 +131,7 @@ ExerciseStepCard = React.createClass
       onContinue: @onContinue
 
     if includeFooter
-      footerProps =
-        footer: <ExFooter {...@props} {...controlProps}/>
+      footer = <ExFooter {...@props} {...controlProps}/>
 
     if includeGroup
       exerciseGroup =
@@ -144,7 +143,7 @@ ExerciseStepCard = React.createClass
 
     cardClasses = classnames 'task-step', 'openstax-exercise-card', className
 
-    <CardBody {...footerProps} className={cardClasses} pinned={pinned}>
+    <CardBody className={cardClasses} pinned={pinned} footer={footer}>
       <div className="exercise-#{panel}">
         <ExMode
           {...step}

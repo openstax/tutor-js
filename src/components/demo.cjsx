@@ -44,9 +44,17 @@ getProps = ->
   step = getUpdatedStep(STEP_ID)
 
   props =
-    id: step.content.questions[0].id
-    taskId: '1'
-    step: step
+    parts: [{
+      id: step.content.questions[0].id
+      taskId: '1'
+      step: step
+    }]
+    step: _.pick(step, 'group', 'content', 'related_content')
+    canOnlyContinue: ->
+      false
+    canAllContinue: ->
+      false
+
     getCurrentPanel: getCurrentPanel
     setAnswerId: (stepId, answerId) ->
       step.answer_id = answerId

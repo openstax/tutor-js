@@ -1,124 +1,68 @@
 React = require 'react'
 _ = require 'underscore'
 
-camelCase = require 'camelcase'
+Exercise = require './part'
+{ExFooter} = require './controls'
+{CardBody} = require '../pinned-header-footer-card/sections'
+ExerciseGroup = require './group'
 
-ExerciseStepCard = require './step-card'
-{propTypes} = require './props'
-{step} = propTypes.ExerciseStepCard
+ExerciseParts = React.createClass
+  displayName: 'ExerciseParts'
 
-# TODO clean this up.
-REVIEW_CONTROL_PROPS = ['refreshStep', 'recoverFor', 'canTryAnother']
+  getLastPartId: ->
+    {parts} = @props
+    _.last(parts).id
 
-NOT_REVIEW_PROPS = ['onNextStep', 'canReview', 'disabled']
-NOT_TEACHER_READ_ONLY_PROPS = _.union(NOT_REVIEW_PROPS, ['onStepCompleted', 'canTryAnother'])
-NOT_MULTIPLE_CHOICE_PROPS = _.union(REVIEW_CONTROL_PROPS, ['disabled'])
-NOT_FREE_RESPONSE_PROPS = _.union(REVIEW_CONTROL_PROPS, ['onStepCompleted', 'onNextStep', 'canReview'])
+  isSinglePart: ->
+    {parts} = @props
+    parts.length is 1
 
-Exercise = React.createClass
-  displayName: 'Exercise'
-  propTypes:
-    id: React.PropTypes.string.isRequired
-    taskId: React.PropTypes.string.isRequired
-    onStepCompleted: React.PropTypes.func.isRequired
-    onNextStep: React.PropTypes.func.isRequired
-    getCurrentPanel: React.PropTypes.func.isRequired
-    step: step
+  isLastPart: (id) ->
+    lastPartId = @getLastPartId()
+    lastPartId is id
 
-    setFreeResponseAnswer: React.PropTypes.func.isRequired
-    setAnswerId: React.PropTypes.func.isRequired
+  shouldControl: (id) ->
+    {canOnlyContinue} = @props
 
-    getReadingForStep: React.PropTypes.func
-    refreshStep: React.PropTypes.func
-    recoverFor: React.PropTypes.func
+    not (@isLastPart(id) and canOnlyContinue(id))
 
-    review: React.PropTypes.string
-    focus: React.PropTypes.bool
-    courseId: React.PropTypes.string
-    canTryAnother: React.PropTypes.bool
-    canReview: React.PropTypes.bool
-    disabled: React.PropTypes.bool
+  renderPart: (part, partProps) ->
+    props = _.omit(@props, 'part', 'canOnlyContinue', 'canAllContinue', 'footer')
 
-  getInitialState: ->
-    {id} = @props
-
-    currentPanel: @props.getCurrentPanel(id)
-
-  componentWillMount: ->
-    {id} = @props
-    @updateCurrentPanel(@props) unless @state.currentPanel
-
-  componentWillReceiveProps: (nextProps) ->
-    @updateCurrentPanel(nextProps)
-
-  updateCurrentPanel: (props) ->
-    {id, getCurrentPanel} = props or @props
-    currentPanel = getCurrentPanel(id)
-    @setState({currentPanel}) if currentPanel? and @state.currentPanel isnt currentPanel
-
-  getDefaultProps: ->
-    focus: true
-    review: ''
-    pinned: true
-    canTryAnother: false
-    canReview: false
-
-  refreshMemory: ->
-    {id, taskId} = @props
-
-    {index} = @props.getReadingForStep(id, taskId)
-    @props.refreshStep(index, id)
-
-  tryAnother: ->
-    {id} = @props
-    @props.recoverFor(id)
-
-  onFreeResponseContinue: (state) ->
-    {id} = @props
-    {freeResponse} = state
-    @props.setFreeResponseAnswer(id, freeResponse)
-
-  onMultipleChoiceAnswerChanged: (answer) ->
-    {id} = @props
-    @props.setAnswerId(id, answer.id)
-
-  getReviewProps: ->
-    reviewProps = _.omit(@props, NOT_REVIEW_PROPS)
-    reviewProps.onContinue = @props.onNextStep
-    reviewProps.refreshMemory = @refreshMemory
-    reviewProps.tryAnother = @tryAnother
-
-    reviewProps
-
-  getMultipleChoiceProps: ->
-    multipleChoiceProps = _.omit(@props, NOT_MULTIPLE_CHOICE_PROPS)
-    multipleChoiceProps.onAnswerChanged = @onMultipleChoiceAnswerChanged
-
-    multipleChoiceProps
-
-  getFreeResponseProps: ->
-    freeResponseProps = _.omit(@props, NOT_FREE_RESPONSE_PROPS)
-    freeResponseProps.onContinue = @onFreeResponseContinue
-
-    freeResponseProps
-
-  getTeacherReadOnlyProps: ->
-    teacherReadOnlyProps = _.omit(@props, NOT_TEACHER_READ_ONLY_PROPS)
-    teacherReadOnlyProps.onContinue = @props.onNextStep
-    teacherReadOnlyProps.controlButtons = false
-    teacherReadOnlyProps.type = 'teacher-review'
-
-    teacherReadOnlyProps
-
-  # add get props methods for different panel types as needed here
+    <Exercise {...partProps} {...part} {...props}/>
 
   render: ->
-    {id, step, waitingText, helpLink} = @props
-    {currentPanel} = @state
+    {parts, step, footer, getCurrentPanel} = @props
 
-    # panel is one of ['review', 'multiple-choice', 'free-response', 'teacher-read-only']
-    getPropsForPanel = camelCase "get-#{currentPanel}-props"
-    cardProps = @[getPropsForPanel]?()
+    if @isSinglePart()
+      part = _.first(parts)
+
+      partProps =
+        footer: footer
+        pinned: true
+        focus: true
+        includeGroup: true
+
+      return @renderPart(part, partProps)
+
+    exerciseParts = _.map parts, (part, index) =>
+      partProps =
+        pinned: false
+        focus: index is 0
+        includeGroup: false
+        includeFooter: @shouldControl(part.id)
+
+      @renderPart(part, partProps)
+
+    exerciseGroup =
+      <ExerciseGroup
+        key='step-exercise-group'
+        group={step.group}
+        exercise_uid={step.content?.uid}
+        related_content={step.related_content}/>
+
+    panel = getCurrentPanel(@getLastPartId())
+    footer ?= <ExFooter {...@props} panel={panel}/>
 
     <ExerciseStepCard
       {...cardProps}
@@ -128,4 +72,4 @@ Exercise = React.createClass
       helpLink={helpLink}
     />
 
-module.exports = Exercise
+module.exports = ExerciseParts
