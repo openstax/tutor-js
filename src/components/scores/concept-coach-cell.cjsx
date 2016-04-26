@@ -5,21 +5,14 @@ BS = require 'react-bootstrap'
 Time = require '../time'
 CellStatusMixin = require './cell-status-mixin'
 PieProgress = require './pie-progress'
-LateWork = require './late-work'
 
-{ScoresStore, ScoresActions} = require '../../flux/scores'
 
 ConceptCoachCell = React.createClass
 
   mixins: [CellStatusMixin] # prop validation
 
-  recalcAverages: ->
-    ScoresStore.recalcAverages(@props.courseId, @props.period_id)
-
   render: ->
-    {task, courseId, displayAs, isConceptCoach} = @props
-
-    console.log task
+    {task, courseId, displayAs, isConceptCoach, rowIndex, columnIndex, period_id} = @props
 
     scorePercent =
       Math.round((task.correct_exercise_count / task.exercise_count) * 100)
@@ -49,16 +42,6 @@ ConceptCoachCell = React.createClass
         </div>
       </BS.Popover>
 
-    lateProps =
-      {
-        task: @props.task,
-        recalcAverages: @recalcAverages,
-        rowIndex: @props.rowIndex,
-        columnIndex: @props.columnIndex
-
-      }
-    latework = <LateWork {...lateProps} />
-
 
     <div className="scores-cell">
       <div className="score">
@@ -72,7 +55,6 @@ ConceptCoachCell = React.createClass
                 "#{scorePercent}%"
             }       
         </Router.Link>
-        {if not isConceptCoach and task.type is 'homework' then latework}
       </div>
 
       <div className="worked">

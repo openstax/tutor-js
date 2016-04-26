@@ -7,19 +7,14 @@ CellStatusMixin = require './cell-status-mixin'
 PieProgress = require './pie-progress'
 LateWork = require './late-work'
 
-{ScoresStore, ScoresActions} = require '../../flux/scores'
 
 HomeworkCell = React.createClass
 
   mixins: [CellStatusMixin] # prop validation
 
-  recalcAverages: ->
-    ScoresStore.recalcAverages(@props.courseId, @props.period_id)
 
   render: ->
-    {task, courseId, displayAs, isConceptCoach} = @props
-
-    console.log task
+    {task, courseId, displayAs, isConceptCoach, rowIndex, columnIndex, period_id} = @props
 
     scorePercent =
       Math.round((task.correct_exercise_count / task.exercise_count) * 100)
@@ -51,10 +46,11 @@ HomeworkCell = React.createClass
 
     lateProps =
       {
-        task: @props.task,
-        recalcAverages: @recalcAverages,
-        rowIndex: @props.rowIndex,
-        columnIndex: @props.columnIndex
+        task: task,
+        rowIndex: rowIndex,
+        columnIndex: columnIndex,
+        courseId: courseId,
+        period_id: period_id
 
       }
     latework = <LateWork {...lateProps} />

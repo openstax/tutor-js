@@ -1,3 +1,4 @@
+# coffeelint: disable=no_empty_functions
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 _ = require 'underscore'
 
@@ -7,7 +8,33 @@ allStudents = (scores) ->
     .flatten(true)
     .value()
 
+ACCEPTING = 'accepting'
+ACCEPTED = 'accepted'
+
+REJECTING = 'rejecting'
+REJECTED = 'rejected'
+
+
 ScoresConfig = {
+
+
+  acceptLate: (taskId) ->
+    @_asyncStatus[taskId] = ACCEPTING
+    @emitChange()
+
+  acceptedLate: (taskId) ->
+    @_asyncStatus[taskId] = ACCEPTED
+    @emitChange()
+
+  rejectLate: (taskId) ->
+    @_asyncStatus[taskId] = REJECTING
+    @emitChange()
+
+  rejectedLate: (taskId) ->
+    @_asyncStatus[taskId] = REJECTED
+    @emitChange()
+
+
   exports:
 
     getStudent: (courseId, roleId) ->
@@ -29,10 +56,14 @@ ScoresConfig = {
         _.indexOf(taskIds, taskId) > -1
 
 
+    isAccepting: (taskId) -> @_asyncStatus[taskId] is ACCEPTING
+
+    isRejecting: (taskId) -> @_asyncStatus[taskId] is REJECTING
+
     recalcAverages: (courseId, period_id) ->
       scores = @_get(courseId)
       period = _.findWhere(scores, {period_id})
-      # console.log period
+      console.log period
       period.data_headings[1].total_average = 87
       change = _.findWhere(period.students, {role:8})
       change?.first_name = "Fred"
