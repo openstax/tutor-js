@@ -7,23 +7,10 @@ keymaster = require 'keymaster'
 ExerciseGroup = require './group'
 {CardBody} = require '../pinned-header-footer-card/sections'
 
-{ExContinueButton, ExReviewControls} = require './controls'
-
+{ExFooter} = require './controls'
 {ExMode} = require './mode'
 
 {propTypes, props} = require './props'
-
-CONTROLS =
-  'free-response': ExContinueButton
-  'multiple-choice': ExContinueButton
-  'review': ExReviewControls
-  'teacher-read-only': ExContinueButton
-
-CONTROLS_TEXT =
-  'free-response': 'Answer'
-  'multiple-choice': 'Submit'
-  'review': 'Next Question'
-  'teacher-read-only': 'Next Question'
 
 CONTINUE_CHECKS =
   'free-response': 'freeResponse'
@@ -37,11 +24,6 @@ ON_CHANGE =
   'review': 'onChangeAnswerAttempt'
   'teacher-read-only': 'onChangeAnswerAttempt'
 
-ExerciseDefaultFooter = React.createClass
-  displayName: 'ExerciseDefaultFooter'
-  render: ->
-    <div>{@props.controlButtons}</div>
-
 ExerciseStepCard = React.createClass
   displayName: 'ExerciseStepCard'
   propTypes:
@@ -49,8 +31,9 @@ ExerciseStepCard = React.createClass
   getDefaultProps: ->
     disabled: false
     isContinueEnabled: true
-    footer: <ExerciseDefaultFooter/>
     allowKeyNext: false
+    includeGroup: true
+    includeFooter: true
 
   getInitialState: ->
     stepState = @getStepState(@props)
@@ -92,76 +75,81 @@ ExerciseStepCard = React.createClass
     state[toCheck]?.trim().length > 0
 
   onAnswerChanged: (answer) ->
+    {id} = @props
+
     @setState {answerId: answer.id}
-    @props.onAnswerChanged?(answer)
+    @props.onAnswerChanged?(id, answer)
 
   onFreeResponseChange: (freeResponse) ->
+    {id} = @props
+
     @setState {freeResponse}
-    @props.onFreeResponseChange?(freeResponse)
+    @props.onFreeResponseChange?(id, freeResponse)
 
   onChangeAnswerAttempt: (answer) ->
+    {id} = @props
+
     console.log('You cannot change an answer on a problem you\'ve reviewed.', 'TODO: show warning in ui.')
-    @props.onChangeAnswerAttempt?(answer)
+    @props.onChangeAnswerAttempt?(id, answer)
 
   onContinue: ->
-    {panel, canReview, onNextStep, onStepCompleted, onContinue, isContinueEnabled} = @props
+    {id, panel, canReview, onNextStep, onStepCompleted, onContinue, isContinueEnabled} = @props
 
     return unless isContinueEnabled and @isContinueEnabled(@props, @state)
 
     if onContinue?
-      onContinue(@state)
+      onContinue(id, @state)
       return
 
     if panel is 'multiple-choice'
-      onStepCompleted()
-      onNextStep() unless canReview
+      onStepCompleted(id)
+      onNextStep(id) unless canReview
 
   render: ->
     {
       step,
       panel,
       pinned,
-      isContinueEnabled,
       helpLink,
+      isContinueEnabled,
       waitingText,
-      controlButtons,
-      controlText,
       className,
-      footer
+      includeFooter,
+      includeGroup
     } = @props
 
     {group, related_content} = step
 
-    ControlButtons = CONTROLS[panel]
     onInputChange = ON_CHANGE[panel]
-    controlText ?= CONTROLS_TEXT[panel]
-
-    controlProps = _.pick(@props, props.ExReviewControls)
-    controlProps.isContinueEnabled = isContinueEnabled and @isContinueEnabled(@props, @state)
-    controlProps.onContinue = @onContinue
-    controlProps.children = controlText
 
     panelProps = _.omit(@props, props.notPanel)
     panelProps.choicesEnabled = not waitingText and panel is 'multiple-choice'
     panelProps[onInputChange] = @[onInputChange]
 
-    footerProps = _.pick(@props, props.StepFooter)
-    footerProps.controlButtons = controlButtons or <ControlButtons {...controlProps}/>
-    footer = React.addons.cloneWithProps(footer, footerProps)
+    controlProps =
+      isContinueEnabled: isContinueEnabled and @isContinueEnabled(@props, @state)
+      onContinue: @onContinue
 
-    cardClasses = classnames 'task-step', 'openstax-exercise-card', className
+    if includeFooter
+      footer = <ExFooter {...@props} {...controlProps}/>
 
-    <CardBody className={cardClasses} footer={footer} pinned={pinned}>
-      <div className="exercise-#{panel}">
-        <ExMode
-          {...step}
-          {...panelProps}
-          mode={panel}/>
+    if includeGroup
+      exerciseGroup =
         <ExerciseGroup
           key='step-exercise-group'
           group={group}
           exercise_uid={step.content?.uid}
           related_content={related_content}/>
+
+    cardClasses = classnames 'task-step', 'openstax-exercise-card', className
+
+    <CardBody className={cardClasses} pinned={pinned}>
+      <div className="exercise-#{panel}">
+        <ExMode
+          {...step}
+          {...panelProps}
+          mode={panel}/>
+        {exerciseGroup}
       </div>
       {helpLink}
     </CardBody>

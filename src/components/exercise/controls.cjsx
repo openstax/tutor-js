@@ -5,6 +5,18 @@ _ = require 'underscore'
 AsyncButton = require '../buttons/async-button'
 {propTypes, props} = require './props'
 
+CONTROLS =
+  'free-response': ExContinueButton
+  'multiple-choice': ExContinueButton
+  'review': ExReviewControls
+  'teacher-read-only': ExContinueButton
+
+CONTROLS_TEXT =
+  'free-response': 'Answer'
+  'multiple-choice': 'Submit'
+  'review': 'Next Question'
+  'teacher-read-only': 'Next Question'
+
 ExContinueButton = React.createClass
   displayName: 'ExContinueButton'
   propTypes: propTypes.ExContinueButton
@@ -82,4 +94,54 @@ ExReviewControls = React.createClass
       {continueButton}
     </div>
 
-module.exports = {ExContinueButton, ExReviewControls}
+ExControlButtons = React.createClass
+  displayName: 'ExerciseControlButtons'
+  getDefaultProps: ->
+    disabled: false
+    isContinueEnabled: false
+    allowKeyNext: false
+  shouldComponentUpdate: (nextProps) ->
+    nextProps.panel?
+  render: ->
+    {panel, controlButtons, controlText} = @props
+
+    ControlButtons = CONTROLS[panel]
+    controlText ?= CONTROLS_TEXT[panel]
+
+    controlProps = _.pick(@props, props.ExReviewControls)
+    controlProps.children = controlText
+
+    <ControlButtons {...controlProps}/>
+
+
+ExerciseDefaultFooter = React.createClass
+  displayName: 'ExerciseDefaultFooter'
+  render: ->
+    <div>{@props.controlButtons}</div>
+
+ExFooter = React.createClass
+  displayName: 'ExFooter'
+  getDefaultProps: ->
+    disabled: false
+    isContinueEnabled: false
+    allowKeyNext: false
+    footer: <ExerciseDefaultFooter/>
+
+  render: ->
+    {panel, controlButtons, controlText, footer} = @props
+
+    ControlButtons = CONTROLS[panel]
+    controlText ?= CONTROLS_TEXT[panel]
+
+    controlProps = _.pick(@props, props.ExReviewControls)
+    controlProps.children = controlText
+
+    controlButtons = <ControlButtons {...controlProps}/>
+
+    footerProps = _.pick(@props, props.StepFooter)
+    footerProps.controlButtons = controlButtons or <ControlButtons {...controlProps}/>
+
+    React.addons.cloneWithProps(footer, footerProps)
+
+
+module.exports = {ExContinueButton, ExReviewControls, ExControlButtons, ExFooter}

@@ -5,6 +5,12 @@ extendPropTypes = (propTypes...) ->
   propTypes.unshift({})
   _.extend.apply(_, propTypes)
 
+PANEL_PROPS_TYPES =
+  panel: React.PropTypes.oneOf(['review', 'multiple-choice', 'free-response', 'teacher-read-only'])
+
+CONTROL_PROPS_TYPES =
+  controlText: React.PropTypes.string
+
 STEP_PROP_TYPES =
   content: React.PropTypes.object.isRequired
   feedback_html: React.PropTypes.string
@@ -43,10 +49,9 @@ MULTIPLE_CHOICE_PROP_TYPES =
 
 EXERCISE_STEP_CARD_PROP_TYPES = _.extend({}, CONTINUE_PROP_TYPES, REVIEW_CONTROL_PROP_TYPES)
 EXERCISE_STEP_CARD_PROP_TYPES.step = React.PropTypes.shape(STEP_PROP_TYPES).isRequired
-EXERCISE_STEP_CARD_PROP_TYPES.footer = React.PropTypes.node.isRequired
+# EXERCISE_STEP_CARD_PROP_TYPES.footer = React.PropTypes.node.isRequired
 EXERCISE_STEP_CARD_PROP_TYPES.pinned = React.PropTypes.bool
 EXERCISE_STEP_CARD_PROP_TYPES.allowKeyNav = React.PropTypes.bool
-EXERCISE_STEP_CARD_PROP_TYPES.panel = React.PropTypes.oneOf(['review', 'multiple-choice', 'free-response', 'teacher-read-only'])
 EXERCISE_STEP_CARD_PROP_TYPES.review = React.PropTypes.string
 EXERCISE_STEP_CARD_PROP_TYPES.controlText = React.PropTypes.string
 
@@ -65,10 +70,11 @@ NOT_PANEL_PROPS = _.union(
 propTypes =
   ExContinueButton: extendPropTypes(CONTINUE_PROP_TYPES)
   ExReviewControls: extendPropTypes(CONTINUE_PROP_TYPES, REVIEW_CONTROL_PROP_TYPES)
+  ExControls: extendPropTypes(CONTINUE_PROP_TYPES, REVIEW_CONTROL_PROP_TYPES, PANEL_PROPS_TYPES, CONTROL_PROPS_TYPES)
   ExFreeResponse: extendPropTypes(STEP_PROP_TYPES, FREE_RESPONSE_PROP_TYPES)
   ExMultipleChoice: extendPropTypes(STEP_PROP_TYPES, MULTIPLE_CHOICE_PROP_TYPES)
   ExReview: extendPropTypes(STEP_PROP_TYPES)
-  ExerciseStepCard: EXERCISE_STEP_CARD_PROP_TYPES
+  ExerciseStepCard: extendPropTypes(EXERCISE_STEP_CARD_PROP_TYPES, PANEL_PROPS_TYPES)
 
 props = _.mapObject(propTypes, _.keys)
 props.StepFooter = ['pinned', 'courseId', 'id', 'taskId', 'review', 'panel']
