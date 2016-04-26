@@ -35,6 +35,13 @@ QuestionFormatType = React.createClass
       formats.push(ev.target.name)
     else
       formats = _.without(formats, ev.target.name)
+
+    # 'true-false' and 'multiple-choice' are mutually exclusive
+    if ev.target.name is 'multiple-choice'
+      formats = _.without(formats, 'true-false')
+    if ev.target.name is 'true-false'
+      formats = _.without(formats, 'multiple-choice')
+
     QuestionActions.setFormats(@props.questionId, formats)
     @props.sync()
 
