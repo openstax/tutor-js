@@ -137,7 +137,7 @@ module.exports = React.createClass
         </span>
 
 
-    classAverage = heading.total_average
+    classAverage = heading.average_score
 
     if classAverage
       average =
