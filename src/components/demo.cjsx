@@ -10,12 +10,21 @@ URLs = require '../model/urls'
 NotificationBar = require './notifications/bar'
 
 exerciseStub = require '../../stubs/exercise'
+multipartExerciseStub = require '../../stubs/exercise-multipart'
 exerciseEvents = new EventEmitter2(wildcard: true)
 STEP_ID = exerciseStub['free-response'].content.questions[0].id
+MULTIPART_STEP_IDS = _.keys(multipartExerciseStub)
+SINGLEPART_STEP_IDS = [STEP_ID]
 
 steps = []
 steps[STEP_ID] = {}
+_.forEach multipartExerciseStub, (step, stepId) ->
+  steps[stepId] = {}
 
+stubForExercise = {}
+stubForExercise[STEP_ID] = exerciseStub
+
+stubsForExercises = _.extend {}, multipartExerciseStub, stubForExercise
 
 ExercisePreview = require './exercise/preview'
 exercisePreviewStub = require '../../stubs/exercise-preview/data'
@@ -36,28 +45,30 @@ getCurrentPanel = (stepId) ->
   panel
 
 getUpdatedStep = (stepId) ->
-  step = steps[STEP_ID]
-  panel = getCurrentPanel(STEP_ID)
-  steps[STEP_ID] = _.merge({}, exerciseStub[panel], step)
+  step = steps[stepId]
+  panel = getCurrentPanel(stepId)
+  steps[stepId] = _.merge({}, stubsForExercises[stepId][panel], step)
 
-getProps = ->
-  step = getUpdatedStep(STEP_ID)
+getProps = (stepIds) ->
+  localSteps = {}
+
+  _.forEach stepIds, (stepId) ->
+    localSteps[stepId] = getUpdatedStep(stepId)
+
+  parts = _.map stepIds, (stepId) ->
+    id: stepId
+    taskId: localSteps[stepId].task_id
+    step: localSteps[stepId]
+
   props =
-    parts: [{
-      id: step.content.questions[0].id
-      taskId: '1'
-      step: step
-    }]
-    canOnlyContinue: ->
-      true
-    canAllContinue: ->
-      false
-
+    parts: parts
+    canOnlyContinue: (stepId) ->
+      localSteps[stepId].correct_answer_id?
     getCurrentPanel: getCurrentPanel
     setAnswerId: (stepId, answerId) ->
-      step.answer_id = answerId
+      localSteps[stepId].answer_id = answerId
     setFreeResponseAnswer: (stepId, freeResponse) ->
-      step.free_response = freeResponse
+      localSteps[stepId].free_response = freeResponse
       exerciseEvents.emit('change')
     onContinue: ->
       exerciseEvents.emit('change')
@@ -69,9 +80,23 @@ getProps = ->
 ExerciseDemo = React.createClass
   displayName: 'ExerciseDemo'
   getInitialState: ->
-    exerciseProps: getProps()
+    exerciseProps: getProps(SINGLEPART_STEP_IDS)
   update: ->
-    @setState(exerciseProps: getProps())
+    @setState(exerciseProps: getProps(SINGLEPART_STEP_IDS))
+  componentWillMount: ->
+    exerciseEvents.on('change', @update)
+  componentWillUnmount: ->
+    exerciseEvents.off('change', @update)
+  render: ->
+    {exerciseProps} = @state
+    <Exercise {...exerciseProps} pinned={false}/>
+
+MultipartExerciseDemo = React.createClass
+  displayName: 'MultipartExerciseDemo'
+  getInitialState: ->
+    exerciseProps: getProps(MULTIPART_STEP_IDS)
+  update: ->
+    @setState(exerciseProps: getProps(MULTIPART_STEP_IDS))
   componentWillMount: ->
     exerciseEvents.on('change', @update)
   componentWillUnmount: ->
@@ -256,6 +281,8 @@ Demo = React.createClass
       exercisePreview: <ExercisePreviewDemo/>
       notices: <NoticesDemo />
       exercise: <ExerciseDemo/>
+      multipartExercise: <MultipartExerciseDemo/>
+      exercisePreview: <ExercisePreviewDemo/>
       breadcrumbs: <BreadcrumbDemo/>
       html: <HTMLDemo/>
 

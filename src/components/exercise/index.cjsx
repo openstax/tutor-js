@@ -21,18 +21,25 @@ ExerciseParts = React.createClass
     lastPartId = @getLastPartId()
     lastPartId is id
 
+  canAllContinue: ->
+    {parts, canOnlyContinue} = @props
+
+    _.reduce parts, (previous, part) ->
+      previous and canOnlyContinue(part.id)
+    , true
+
   shouldControl: (id) ->
     {canOnlyContinue} = @props
 
     not (@isLastPart(id) and canOnlyContinue(id))
 
   renderPart: (part, partProps) ->
-    props = _.omit(@props, 'part', 'canOnlyContinue', 'canAllContinue', 'footer', 'step')
+    props = _.omit(@props, 'part', 'canOnlyContinue', 'footer', 'step')
 
     <Exercise {...partProps} {...part} {...props}/>
 
   render: ->
-    {parts, footer, getCurrentPanel} = @props
+    {parts, footer, getCurrentPanel, onNextStep} = @props
 
     if @isSinglePart()
       part = _.first(parts)
@@ -64,7 +71,13 @@ ExerciseParts = React.createClass
         related_content={part.related_content}/>
 
     panel = getCurrentPanel(@getLastPartId())
-    footer ?= <ExFooter {...@props} panel={panel}/>
+
+    if @canAllContinue()
+      canContinueControlProps =
+        isContinueEnabled: true
+        onContinue: onNextStep
+
+    footer ?= <ExFooter {...canContinueControlProps} {...@props} panel={panel}/>
 
     <ExerciseStepCard
       {...cardProps}
