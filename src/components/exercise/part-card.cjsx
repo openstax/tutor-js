@@ -75,10 +75,8 @@ ExerciseStepCard = React.createClass
     state[toCheck]?.trim().length > 0
 
   onAnswerChanged: (answer) ->
-    {id} = @props
-
     @setState {answerId: answer.id}
-    @props.onAnswerChanged?(id, answer)
+    @props.onAnswerChanged?(answer)
 
   onFreeResponseChange: (freeResponse) ->
     {id} = @props
@@ -98,7 +96,7 @@ ExerciseStepCard = React.createClass
     return unless isContinueEnabled and @isContinueEnabled(@props, @state)
 
     if onContinue?
-      onContinue(id, @state)
+      onContinue(@state)
       return
 
     if panel is 'multiple-choice'

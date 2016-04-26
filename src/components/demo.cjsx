@@ -42,16 +42,14 @@ getUpdatedStep = (stepId) ->
 
 getProps = ->
   step = getUpdatedStep(STEP_ID)
-
   props =
     parts: [{
       id: step.content.questions[0].id
       taskId: '1'
       step: step
     }]
-    step: _.pick(step, 'group', 'content', 'related_content')
     canOnlyContinue: ->
-      false
+      true
     canAllContinue: ->
       false
 
