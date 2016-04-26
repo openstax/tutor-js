@@ -54,7 +54,10 @@ ReadingCell = React.createClass
         delayHide={0}
         overlay={tooltip}>
           <span className='trigger-wrap'>
-            <PieProgress size={24} value={pieValue} roundToQuarters />
+            <PieProgress
+            isConceptCoach={isConceptCoach}
+            size={24} value={pieValue}
+            roundToQuarters />
           </span>
         </BS.OverlayTrigger>
       </div>

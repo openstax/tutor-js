@@ -28,8 +28,10 @@ PieProgress = React.createClass
       25
     else if value >= 50 and value < 75
       50
-    else
+    else if value >= 75 and value < 100
       75
+    else
+      100
 
   renderQuarterDividers: ->
     {size} = @props
@@ -46,16 +48,17 @@ PieProgress = React.createClass
     </defs>
 
   render: ->
-    {size, value, roundToQuarters} = @props
+    {size, value, roundToQuarters, isConceptCoach} = @props
     radius = @radius(size)
     fullCircle = <circle r="#{radius}" cx="#{radius}" cy="#{radius}" className='slice'></circle>
     backCircle = <circle r="#{radius}" cx="#{radius}" cy="#{radius}" className='backdrop'></circle>
-    circle = if roundToQuarters? then @buildCircle(@roundToQuarters(value)) else @buildCircle(value)
+    progress = if roundToQuarters? then @roundToQuarters(value) else value
+    circle = @buildCircle(progress)
     path = <path d="#{circle}" className='slice' />
     pieCircle =
       <svg width="#{size}" height="#{size}" className='pie-progress'>
         {backCircle}
-        {path}
+        {if progress is 100 then fullCircle else path}
         {@renderQuarterDividers() if roundToQuarters}
       </svg>
     finishedIcon =
@@ -67,7 +70,7 @@ PieProgress = React.createClass
     notStarted = <span className='not-started'>---</span>
     
     if value >= 100
-      finishedIcon
+      if isConceptCoach then finishedIcon else pieCircle
     else if value <= 0
       notStarted
     else
