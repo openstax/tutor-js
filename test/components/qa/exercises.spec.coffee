@@ -56,3 +56,10 @@ describe 'QA Exercises Component', ->
     ExerciseActions.loadedForCourse(ex, COURSE_ID, ['146'])
     Testing.renderComponent( Exercises, props: @props ).then ({dom, element}) ->
       expect( dom.querySelectorAll('.exercise').length ).to.equal(5)
+
+  it 'hides exercise lo tags that don\'t belong to current book', ->
+    ex = ld.cloneDeep EXERCISES
+    _.each ex.items, (e) -> e.content.tags.push("lo:uknown-fake-uuid")
+    ExerciseActions.loadedForCourse(ex, COURSE_ID, ['146'])
+    Testing.renderComponent( Exercises, props: @props ).then ({dom, element}) ->
+      expect( dom.textContent ).not.to.contain('uknown-fake-uuid')

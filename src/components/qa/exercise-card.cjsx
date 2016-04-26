@@ -4,12 +4,15 @@ classnames = require 'classnames'
 {ExerciseStore} = require '../../flux/exercise'
 String = require '../../helpers/string'
 {ExercisePreview} = require 'openstax-react-components'
-
+exerciseDataFilter = require './exercise-data-filter'
 Exercise = React.createClass
 
   propTypes:
     exercise: React.PropTypes.object.isRequired
     ignoredTypes: React.PropTypes.object.isRequired
+    ecosystemId: React.PropTypes.string.isRequired
+    section: React.PropTypes.string.isRequired
+    cnxId: React.PropTypes.string.isRequired
 
   renderHeader: (types) ->
     <div className='types'>
@@ -32,7 +35,8 @@ Exercise = React.createClass
       freeResponse = _.map doQuestionsHaveFormat, (hasFreeResponse) ->
         <div className='exercise-free-response-preview'/> if hasFreeResponse
 
-    <ExercisePreview {...@props}
+    <ExercisePreview
+      exercise={exerciseDataFilter(exercise, @props)}
       className='exercise'
       header={@renderHeader(types)}
       questionFooters={freeResponse}
