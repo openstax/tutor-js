@@ -43,6 +43,12 @@ Question = React.createClass
   getChildContext: ->
     processHtmlAndMath: @props.processHtmlAndMath
 
+  hasSolution: ->
+    {model} = @props
+    {collaborator_solutions} = model
+
+    not _.isEmpty(_.pluck(collaborator_solutions, 'content_html'))
+
   render: ->
     {model, correct_answer_id, exercise_uid, className} = @props
     {stem_html, collaborator_solutions, formats, stimulus_html} = model
@@ -53,19 +59,23 @@ Question = React.createClass
 
     exerciseUid = <div className="exercise-uid">{exercise_uid}</div> if exercise_uid?
 
+    if @hasSolution()
+      solution =
+        <div className='detailed-solution'>
+          <div className='header'>Detailed solution</div>
+          <ArbitraryHtmlAndMath className="solution" block
+            html={_.pluck(collaborator_solutions, 'content_html').join('')}
+          />
+        </div>
+
+
     <div className={classes}>
       <QuestionHtml type='stimulus' html={stimulus_html} />
       <QuestionHtml type='stem' html={stem_html} />
       {@props.children}
       <AnswersTable {...@props}/>
-      <div className='detailed-solution'>
-        <div className='header'>Detailed solution</div>
-        <ArbitraryHtmlAndMath className="solution" block
-          html={_.pluck(collaborator_solutions, 'content_html').join('')}
-        />
-      </div>
       {<FormatsListing formats={formats} /> if @props.displayFormats}
-
+      {solution}
       {exerciseUid}
     </div>
 
