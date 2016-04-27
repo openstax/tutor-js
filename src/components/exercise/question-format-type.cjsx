@@ -37,8 +37,8 @@ QuestionFormatType = React.createClass
   isFormatChecked: (name) ->
     QuestionStore.hasFormat(@props.questionId, name)
 
-  isFormatDisabled: (id, required) ->
-    id is 'free-response' and required
+  isFormatDisabled: (name) ->
+    QuestionStore.isFormatDisabled(@props.questionId, name)
 
   render: ->
     formats =  QuestionStore.get(@props.questionId).formats
@@ -47,6 +47,7 @@ QuestionFormatType = React.createClass
       {for id, name of TYPES
         <BS.Input key={id} name={id} type="checkbox" label={name}
           checked={@isFormatChecked(id)}
+          disabled={@isFormatDisabled(id)}
           onChange={@updateFormat} />}
     </div>
 

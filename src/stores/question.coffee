@@ -72,14 +72,17 @@ QuestionConfig = {
 
     formats = switch name
       when 'requires-choices'
-        if isSelected then formats.concat('free-response') else _.without(formats, 'free-response')
-      when 'multiple-choice'
         if isSelected
-          _.without( formats.concat('multiple-choice'), 'true-false')
+          formats.concat('free-response')
         else
+          _.without(formats, 'free-response')
+      when 'multiple-choice'
+        if isSelected # add multiple-choice, remove true-false
+          _.without( formats.concat('multiple-choice'), 'true-false')
+        else # remove multiple-choice
           _.without( formats, 'multiple-choice' )
       when 'true-false'
-        if isSelected
+        if isSelected # add true-false, remove multiple-choice
           _.without( formats.concat('true-false'), 'multiple-choice')
         else
           _.without( formats, 'true-false' )
@@ -88,7 +91,7 @@ QuestionConfig = {
           formats.concat(name)
         else
           _.without( formats, name )
-    console.log formats
+
     @_change(id, {formats: _.unique(formats)})
 
   exports:
@@ -99,6 +102,13 @@ QuestionConfig = {
         _.include formats, 'free-response'
       else
         _.include formats, name
+
+    isFormatDisabled: (id, name) ->
+      formats = @_get(id)?.formats
+      if name is 'requires-choices'
+        _.include formats, 'true-false'
+      else
+        false
 
     getAnswers: (id) -> @_get(id)?.answers or []
 
