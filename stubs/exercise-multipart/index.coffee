@@ -30,8 +30,6 @@ _.forEach steps, (step) ->
     'multiple-choice': assignStepToTask _.omit(step, 'correct_answer_id', 'feedback_html'), 2
     'review': assignStepToTask _.clone(step), 3
 
-  console.info(JSON.stringify(stepStubs['free-response']))
-
   stepsStubs[step.id] = stepStubs
 
 module.exports = stepsStubs
