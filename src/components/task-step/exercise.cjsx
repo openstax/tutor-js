@@ -9,11 +9,10 @@ _ = require 'underscore'
 BrowseTheBook = require '../buttons/browse-the-book'
 
 {CardBody, Exercise} = require 'openstax-react-components'
+{ExControlButtons} = require 'openstax-react-components/src/components/exercise/controls'
 
 ScrollSpy = require '../scroll-spy'
 StepFooter = require './step-footer'
-
-{ExerciseControlButtons} = require './part'
 
 canOnlyContinue = (id) ->
   _.chain(StepPanel.getRemainingActions(id))
@@ -76,20 +75,11 @@ module.exports = React.createClass
     parts.length is 1
 
   componentWillReceiveProps: (nextProps) ->
-    console.info('is part in parts', not _.isEmpty(_.findWhere(@state.parts, {id: nextProps.id})))
     if nextProps.taskId isnt @props.taskId
       nextState = _.extend({}, @getTaskInfo(nextProps), @getPartsInfo(nextProps))
-      console.info('setting state here')
       @setState(nextState)
-    else unless _.findWhere(@state.parts, {id: nextProps.id}) or nextProps.id isnt @props.id
-      console.info('setting state there')
+    else
       @setState(@getPartsInfo(nextProps))
-
-  canOnlyContinue: (id) ->
-    _.chain(StepPanel.getRemainingActions(id))
-      .difference(['clickContinue'])
-      .isEmpty()
-      .value()
 
   renderHelpLink: (sections) ->
     return null unless sections? and not _.isEmpty(sections)
@@ -115,27 +105,6 @@ module.exports = React.createClass
       </div>
 
     if sectionsLinks.length > 0 then helpLink
-
-  shouldComponentUpdate: (nextProps, nextState, nextContext) ->
-    if nextProps.id isnt @props.id and not _.isEmpty(_.findWhere(@state.parts, {id: nextProps.id}))
-      console.info('shouldComponentUpdate', false)
-      return false
-
-    if nextProps.id is @props.id
-      {stepIndex} = @context.router.getCurrentParams()
-      if @isIndexInPart(stepIndex)
-        console.info('index in part, not updating')
-        return false
-
-      console.info(_.isEqual(nextProps, @props), 'same props?')
-      console.info(_.isEqual(nextState, @state), 'same state?')
-      console.info(_.isEqual(nextContext, @context), 'same context?', nextContext, @context)
-      console.info(stepIndex)
-      console.info('shouldComponentUpdate', 'ids are same')
-
-    console.info('shouldComponentUpdate', true)
-    return true
-    # return false
 
   canAllContinue: ->
     {parts} = @state
@@ -181,7 +150,7 @@ module.exports = React.createClass
     part = _.last(parts)
 
     controlProps =
-      panel: getCurrentPanel(lastPartId)
+      panel: 'review'
       controlText: 'Continue' if task.type is 'reading'
 
     if @canAllContinue()
@@ -193,7 +162,7 @@ module.exports = React.createClass
 
       canContinueControlProps = _.extend({}, canContinueControlProps, reviewProps)
 
-    controlButtons = <ExerciseControlButtons {...controlProps} {...canContinueControlProps} key='step-control-buttons'/>
+    controlButtons = <ExControlButtons {...controlProps} {...canContinueControlProps} key='step-control-buttons'/>
 
     footer = <StepFooter
       id={id}
@@ -202,32 +171,25 @@ module.exports = React.createClass
       courseId={courseId}
       controlButtons={controlButtons}/>
 
-        # freeResponseValue={step.temp_free_response}
-        # step={step}
-        # waitingText={waitingText}
-    <ScrollSpy dataSelector='data-step-index'>
-      <Exercise
-        {...@props}
-        getCurrentPanel={getCurrentPanel}
-        task={task}
-        footer={footer}
-        parts={parts}
-        goToStep={_.partial(goToStep, _, true)}
-        canOnlyContinue={canOnlyContinue}
+    <Exercise
+      {...@props}
+      getCurrentPanel={getCurrentPanel}
+      task={task}
+      footer={footer}
+      parts={parts}
 
-        onStepCompleted={_.partial(onStepCompleted, part.id)}
-        controlButtons={controlButtons}
+      onStepCompleted={onStepCompleted}
+      controlButtons={controlButtons}
 
-        canReview={StepPanel.canReview(part.id)}
-        disabled={TaskStepStore.isSaving(part.id)}
-        isContinueEnabled={StepPanel.canContinue(part.id)}
+      canReview={StepPanel.canReview(part.id)}
+      disabled={TaskStepStore.isSaving(part.id)}
+      isContinueEnabled={StepPanel.canContinue(part.id)}
 
-        getCurrentPanel={getCurrentPanel}
-        getReadingForStep={getReadingForStep}
-        setFreeResponseAnswer={TaskStepActions.setFreeResponseAnswer}
-        onFreeResponseChange={TaskStepActions.updateTempFreeResponse}
-
-        freeResponseValue={TaskStepStore.getTempFreeResponse(part.id)}
-
-        setAnswerId={TaskStepActions.setAnswerId}/>
-    </ScrollSpy>
+      goToStep={_.partial(goToStep, _, true)}
+      canOnlyContinue={canOnlyContinue}
+      getWaitingText={getWaitingText}
+      getCurrentPanel={getCurrentPanel}
+      getReadingForStep={getReadingForStep}
+      setFreeResponseAnswer={TaskStepActions.setFreeResponseAnswer}
+      onFreeResponseChange={TaskStepActions.updateTempFreeResponse}
+      setAnswerId={TaskStepActions.setAnswerId}/>

@@ -44,8 +44,8 @@ TaskStepConfig =
     @_change(id, {free_response})
     @_save(id)
 
-  updateTempFreeResponse: (id, temp_free_response) ->
-    @_change(id, {temp_free_response})
+  updateTempFreeResponse: (id, cachedFreeResponse) ->
+    @_change(id, {cachedFreeResponse})
 
   loadRecovery: (id) ->
     @_asyncStatus[id] = RECOVERY
@@ -115,8 +115,8 @@ TaskStepConfig =
 
     getTempFreeResponse: (id) ->
       step = @_get(id)
-      return '' unless step.temp_free_response
-      step.temp_free_response
+      return '' unless step.cachedFreeResponse
+      step.cachedFreeResponse
 
     canTryAnother: (id, task, hasIncorrect = false) ->
       step = @_get(id)

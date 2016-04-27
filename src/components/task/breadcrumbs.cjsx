@@ -42,6 +42,7 @@ module.exports = React.createClass
     TaskStore.on('task.afterRecovery', @update)
 
     crumbs = @getCrumableCrumbs()
+    @setState {crumbs}
 
   componentDidMount: ->
     @calculateCrumbsWidth()
@@ -95,7 +96,7 @@ module.exports = React.createClass
     @setState(hoverCrumb: hover)
 
   render: ->
-    crumbs = @getCrumableCrumbs()
+    {crumbs} = @state
     {currentStep, goToStep} = @props
 
     stepButtons = _.map crumbs, (crumb, crumbIndex) =>
