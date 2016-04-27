@@ -34,9 +34,9 @@ ExerciseParts = React.createClass
     not (@isLastPart(id) and canOnlyContinue(id))
 
   renderPart: (part, partProps) ->
-    props = _.omit(@props, 'part', 'canOnlyContinue', 'footer', 'step')
+    props = _.omit(@props, 'part', 'canOnlyContinue', 'footer')
 
-    <Exercise {...partProps} {...part} {...props}/>
+    <Exercise {...partProps}  {...props} step={part} id={part.id} taskId={part.task_id}/>
 
   render: ->
     {parts, footer, getCurrentPanel, onNextStep} = @props
@@ -61,7 +61,7 @@ ExerciseParts = React.createClass
 
       @renderPart(part, partProps)
 
-    {step} = _.last(parts)
+    step = _.last(parts)
 
     exerciseGroup =
       <ExerciseGroup

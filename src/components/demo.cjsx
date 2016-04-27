@@ -12,7 +12,7 @@ NotificationBar = require './notifications/bar'
 exerciseStub = require '../../stubs/exercise'
 multipartExerciseStub = require '../../stubs/exercise-multipart'
 exerciseEvents = new EventEmitter2(wildcard: true)
-STEP_ID = exerciseStub['free-response'].content.questions[0].id
+STEP_ID = exerciseStub['free-response'].id
 MULTIPART_STEP_IDS = _.keys(multipartExerciseStub)
 SINGLEPART_STEP_IDS = [STEP_ID]
 
@@ -56,9 +56,7 @@ getProps = (stepIds) ->
     localSteps[stepId] = getUpdatedStep(stepId)
 
   parts = _.map stepIds, (stepId) ->
-    id: stepId
-    taskId: localSteps[stepId].task_id
-    step: localSteps[stepId]
+    localSteps[stepId]
 
   props =
     parts: parts

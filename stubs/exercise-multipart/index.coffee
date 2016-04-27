@@ -7,8 +7,6 @@ TASK_ID = '40'
 
 commonInfo =
   content_url: 'https://exercises-dev.openstax.org/exercises/120@1'
-  content:
-    uid: '120@1'
   group: 'core'
   related_content: [
     title: 'Physics is cool, yo'
@@ -17,13 +15,13 @@ commonInfo =
   task_id: TASK_ID
 
 assignStepToTask = (step, questionNumber) ->
-  _.defaultsDeep {questionNumber}, commonInfo, step
+  _.extend {questionNumber}, commonInfo, step
 
 
 _.forEach steps, (step) ->
   stepStubs =
-    'free-response': assignStepToTask _.omit(step, 'correct_answer_id'), 1
-    'multiple-choice': assignStepToTask _.omit(step, 'correct_answer_id'), 2
+    'free-response': assignStepToTask _.omit(step, 'correct_answer_id', 'feedback_html'), 1
+    'multiple-choice': assignStepToTask _.omit(step, 'correct_answer_id', 'feedback_html'), 2
     'review': assignStepToTask _.clone(step), 3
 
   stepsStubs[step.id] = stepStubs

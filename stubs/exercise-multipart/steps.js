@@ -3,6 +3,7 @@ var steps = [{ "id": "step-id-9-1",
     "correct_answer_id": "id2",
     "is_in_multipart": true,
     "content": {
+      "uid": "120@1",
       "stimulus_html": "Addition is fun",
       "questions":[
         {
@@ -22,6 +23,7 @@ var steps = [{ "id": "step-id-9-1",
     "correct_answer_id": "id3",
     "is_in_multipart": true,
     "content": {
+      "uid": "120@1",
       "stimulus_html": "Stimulus for Second Exercise",
       "questions":[
         {
@@ -43,6 +45,7 @@ var steps = [{ "id": "step-id-9-1",
     "has_recovery": true,
     "feedback_html": "Two apples and then <span data-math='2'>2</span> more apples is <strong>four</strong>",
     "content": {
+      "uid": "120@1",
       "stimulus_html": "Multiplication is fun",
       "questions":[
         {
