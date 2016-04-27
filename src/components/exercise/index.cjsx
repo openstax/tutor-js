@@ -83,6 +83,7 @@ ExerciseParts = React.createClass
     footer ?= <ExFooter {...canContinueControlProps} {...@props} panel='review'/>
 
     <CardBody footer={footer} className='openstax-multipart-exercise-card'>
+      <label className='openstax-multipart-exercise-card-label'/>
       {exerciseParts}
       {exerciseGroup}
     </CardBody>
