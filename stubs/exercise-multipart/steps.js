@@ -3,12 +3,11 @@ var steps = [{ "id": "step-id-9-1",
     "correct_answer_id": "id2",
     "is_in_multipart": true,
     "content": {
-      "uid": "120@1",
-      "stimulus_html": "Addition is fun",
       "questions":[
         {
           "id": "987",
           "formats": ["multiple-choice", "free-response"],
+          "stimulus_html": "Addition is fun",
           "stem_html":"What is <span data-math='2+2'>2+2</span>?",
           "answers":[
             {"id":"id1","content_html":"22"},
@@ -23,12 +22,11 @@ var steps = [{ "id": "step-id-9-1",
     "correct_answer_id": "id3",
     "is_in_multipart": true,
     "content": {
-      "uid": "120@1",
-      "stimulus_html": "Stimulus for Second Exercise",
       "questions":[
         {
           "id": "876",
           "formats": ["multiple-choice", "free-response"],
+          "stimulus_html": "Stimulus for Second Exercise",
           "stem_html":"Is the glass half full or half empty?",
           "answers":[
             {"id":"id3","content_html":"Half Full"},
@@ -45,12 +43,11 @@ var steps = [{ "id": "step-id-9-1",
     "has_recovery": true,
     "feedback_html": "Two apples and then <span data-math='2'>2</span> more apples is <strong>four</strong>",
     "content": {
-      "uid": "120@1",
-      "stimulus_html": "Multiplication is fun",
       "questions":[
         {
           "id": "990",
           "formats": ["multiple-choice", "free-response"],
+          "stimulus_html": "Multiplication is fun",
           "stem_html":"What is <span data-math='4+4'>4+4</span>?",
           "answers":[
             {"id":"idn1","content_html":"222"},

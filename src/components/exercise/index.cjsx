@@ -36,7 +36,7 @@ ExerciseParts = React.createClass
   renderPart: (part, partProps) ->
     props = _.omit(@props, 'part', 'canOnlyContinue', 'footer')
 
-    <Exercise {...partProps}  {...props} step={part} id={part.id} taskId={part.task_id}/>
+    <Exercise {...partProps} {...props} step={part} id={part.id} taskId={part.task_id}/>
 
   render: ->
     {parts, footer, getCurrentPanel, onNextStep} = @props
@@ -58,6 +58,11 @@ ExerciseParts = React.createClass
         focus: index is 0
         includeGroup: false
         includeFooter: @shouldControl(part.id)
+
+      # stim and stem are the same for different steps currently.
+      # they should only show up once.
+      unless index is 0
+        part.content = _.omit(part.content, 'stimulus_html', 'stem_html')
 
       @renderPart(part, partProps)
 
