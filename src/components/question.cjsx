@@ -100,9 +100,10 @@ module.exports = React.createClass
 
       <QuestionFormatType sync={@props.sync} questionId={id} />
 
-      <BS.Input type="checkbox" label="Order Matters"
+      {<BS.Input type="checkbox" label="Order Matters"
         onChange={@preserveOrderClicked}
-        checked={QuestionStore.isOrderPreserved(id)} />
+        checked={QuestionStore.isOrderPreserved(id)}
+        /> if QuestionStore.hasFormat(id, 'multiple-choice')}
 
       <div>
         <label>Question Stem</label>
