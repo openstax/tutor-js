@@ -43,11 +43,17 @@ Question = React.createClass
   getChildContext: ->
     processHtmlAndMath: @props.processHtmlAndMath
 
+  hasAnswerCorrectness: ->
+    {correct_answer_id, model} = @props
+    {answers} = model
+
+    correct_answer_id? or not _.isEmpty _.pluck(answers, 'correctness')
+
   hasSolution: ->
-    {model} = @props
+    {model, correct_answer_id} = @props
     {collaborator_solutions} = model
 
-    not _.isEmpty(_.pluck(collaborator_solutions, 'content_html'))
+    @hasAnswerCorrectness() and not _.isEmpty(_.pluck(collaborator_solutions, 'content_html'))
 
   render: ->
     {model, correct_answer_id, exercise_uid, className} = @props
