@@ -33,10 +33,10 @@ ExMode = React.createClass
     @focusBox() if mode is 'free-response'
 
   componentWillReceiveProps: (nextProps) ->
-    {free_response, answer_id, freeResponseValue} = nextProps
+    {free_response, answer_id, cachedFreeResponse} = nextProps
 
     nextAnswers = {}
-    freeResponse = free_response or freeResponseValue or ''
+    freeResponse = free_response or cachedFreeResponse or ''
 
     nextAnswers.freeResponse = freeResponse if @state.freeResponse isnt freeResponse
     nextAnswers.answerId = answer_id if @state.answerId isnt answer_id
