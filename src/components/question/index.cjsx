@@ -43,20 +43,20 @@ Question = React.createClass
   getChildContext: ->
     processHtmlAndMath: @props.processHtmlAndMath
 
-  isArrayMissingProperty: (arrayToCheck, property) ->
+  doesArrayHaveProperty: (arrayToCheck, property) ->
     not _.isEmpty(_.compact(_.pluck(arrayToCheck, property)))
 
   hasAnswerCorrectness: ->
     {correct_answer_id, model} = @props
     {answers} = model
 
-    correct_answer_id or @isArrayMissingProperty(answers, 'correctness')
+    correct_answer_id or @doesArrayHaveProperty(answers, 'correctness')
 
   hasSolution: ->
     {model, correct_answer_id} = @props
     {collaborator_solutions} = model
 
-    @hasAnswerCorrectness() and @isArrayMissingProperty(collborator_solutions, 'content_html')
+    @hasAnswerCorrectness() and @doesArrayHaveProperty(collaborator_solutions, 'content_html')
 
   render: ->
     {model, correct_answer_id, exercise_uid, className, questionNumber} = @props
