@@ -10,7 +10,6 @@ LateWork = React.createClass
   setLateStatus: ->
     {task} = @props
     console.log task
-    console.log @isUpdatingLateStatus()
     if not @isUpdatingLateStatus()
       if task.is_late_work_accepted
         ScoresActions.rejectLate(task.id)
@@ -27,21 +26,34 @@ LateWork = React.createClass
 
   render: ->
     {task, rowIndex, columnIndex} = @props
+    lateQuestionCount =
+      task.completed_exercise_count - task.completed_on_time_exercise_count
+    titleProgress =
+      if task.type is 'homework'
+        if not task.is_late_work_accepted
+          "#{lateQuestionCount} questions worked after the due date" 
+        else 
+          'You accepted this student\'s late score.'
+      else
+        if not task.is_late_work_accepted
+          'Reading progress after the due date' 
+        else 
+          'You accepted this student\'s late reading progress.'
     title =
       if @isUpdatingLateStatus()
         <span>
           <i className='fa fa-spinner fa-spin'/> Updating...
         </span>
       else
-        <span>late work</span>
+        <span>{titleProgress}</span>
     buttonLabel =
       if task.type is 'homework'
-        if task.is_late_work_accepted
+        if not task.is_late_work_accepted
           'Accept late score' 
         else 
           'Use this score'
       else
-        if task.is_late_work_accepted
+        if not task.is_late_work_accepted
           'Accept late progress' 
         else 
           'Use due date progress'
