@@ -77,10 +77,11 @@ QuestionConfig = {
 
     # toggle free-response depending on selection
     if isSelected
-      if name is 'true-false'
-        formats = _.without(formats, 'free-response')
-      if name is 'multiple-choice'
-        formats = formats.concat('free-response')
+      switch name
+        when 'true-false'
+          formats = _.without(formats, 'free-response')
+        when 'multiple-choice'
+          formats = formats.concat('free-response')
 
     @_change(id, {formats: _.unique(formats)})
 
