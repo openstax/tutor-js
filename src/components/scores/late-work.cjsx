@@ -57,11 +57,12 @@ LateWork = React.createClass
           'Accept late progress' 
         else 
           'Use due date progress'
+    acceptedClass = if task.is_late_work_accepted then 'accepted' else ''
     popover =
       <BS.Popover
         title={title}
         id="late-work-info-popover-#{task.id}"
-        className='late-work-info-popover'>
+        className="late-work-info-popover #{acceptedClass}">
           <BS.Button onClick={@setLateStatus}>
             {buttonLabel}
           </BS.Button>
