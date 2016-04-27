@@ -31,6 +31,7 @@ class ExerciseSelector extends TestHelper
     for i in [0...numExercises]
       @el.inactiveExerciseCard().findElement().isDisplayed().then =>
         @el.inactiveExerciseCard().waitClick()
+        #BUG add in a second click event to make sure it sticks, not sure why this is needed
         @el.inactiveExerciseCard().waitClick()
 
   startReview: () ->
