@@ -14,5 +14,6 @@ describe 'ErrorList Component', ->
     ]
     Testing.renderComponent( ErrorList, props: {course} ).then ({dom}) ->
       expect(_.pluck(dom.querySelectorAll('li'), 'textContent')).to.deep.equal(
-        ['You are already enrolled in this course', 'The request has already been processed']
+        ['You are already enrolled in this course. Please log in.',
+         'Your enrollment in this course has been processed. Please reload the page.']
       )
