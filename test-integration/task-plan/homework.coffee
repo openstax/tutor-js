@@ -4,7 +4,7 @@ Helpers = require '../helpers'
 {expect} = require 'chai'
 
 TEACHER_USERNAME = 'teacher01'
-NUM_EXERCISES = 2
+NUM_EXERCISES = 4
 
 describe 'Assignment Publishing Tests', ->
 

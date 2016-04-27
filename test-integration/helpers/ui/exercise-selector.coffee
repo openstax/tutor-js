@@ -15,7 +15,7 @@ COMMON_ELEMENTS =
 
 EXERCISE_SELECTOR_ELEMENTS =
   inactiveExerciseCard:
-    css: '.openstax.exercise-wrapper .is-selectable:not(.is-selected)'
+    css: '.openstax.exercise-wrapper .is-selectable:not(.is-selected) .panel-body'
 
   reviewExercisesButton:
     css: '.btn.-review-exercises'
@@ -23,12 +23,15 @@ EXERCISE_SELECTOR_ELEMENTS =
 
 class ExerciseSelector extends TestHelper
   constructor: (test, testElementLocator) ->
-    testElementLocator ?= css: '.add-exercise-list'
+    testElementLocator ?= EXERCISE_SELECTOR_ELEMENTS.inactiveExerciseCard
     super test, testElementLocator, EXERCISE_SELECTOR_ELEMENTS, defaultWaitTime: 3000
 
   selectNumberOfExercises: (numExercises) ->
+    @waitUntilLoaded()
     for i in [0...numExercises]
-      @el.inactiveExerciseCard().waitClick(30*1000)
+      @el.inactiveExerciseCard().findElement().isDisplayed().then =>
+        @el.inactiveExerciseCard().waitClick()
+        @el.inactiveExerciseCard().waitClick()
 
   startReview: () ->
     @el.reviewExercisesButton().waitClick()
