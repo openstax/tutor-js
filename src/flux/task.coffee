@@ -282,7 +282,9 @@ TaskConfig =
 
       parts = [currentStep] if _.isEmpty(parts)
 
-      parts
+      _.map parts, (part) =>
+        part.questionNumber = @exports.getStepIndex.call(@, taskId, part.id) + 1
+        part
 
 extendConfig(TaskConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskConfig)

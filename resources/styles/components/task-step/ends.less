@@ -64,6 +64,17 @@
       .exercise-typography();
     }
   }
+  .openstax-question[data-question-number] {
+    position: relative;
+    &::before {
+      content: attr(data-question-number) ")";
+      position: absolute;
+      z-index: 1;
+      left: -25px;
+      top: -2px;
+      .exercise-typography();
+    }
+  }
 }
 
 

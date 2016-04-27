@@ -1,33 +1,38 @@
 React = require 'react'
 _ = require 'underscore'
 
-{TaskStepStore} = require '../../flux/task-step'
+{TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 {TaskStore} = require '../../flux/task'
+{StepPanel} = require '../../helpers/policies'
 
 {ChapterSectionMixin} = require 'openstax-react-components'
 BrowseTheBook = require '../buttons/browse-the-book'
 
-{CardBody} = require 'openstax-react-components'
+{CardBody, Exercise} = require 'openstax-react-components'
 
 ScrollSpy = require '../scroll-spy'
 StepFooter = require './step-footer'
 
-{ExerciseControlButtons, ExercisePart, canOnlyContinue, getCurrentPanel} = require './part'
+{ExerciseControlButtons} = require './part'
 
-ExerciseParts = React.createClass
-  displayName: 'ExerciseParts'
-  componentWillReceiveProps: (nextProps) ->
-    stepIndex = _.first(nextProps.onScreenElements)
-    if stepIndex isnt _.first(@props.onScreenElements)
-      nextProps.goToStep(stepIndex)
+canOnlyContinue = (id) ->
+  _.chain(StepPanel.getRemainingActions(id))
+    .difference(['clickContinue'])
+    .isEmpty()
+    .value()
 
-  render: ->
-    {stepParts, footer, onScreenElements} = @props
+getWaitingText = (id) ->
+  switch
+    when TaskStepStore.isLoading(id) then "Loading…"
+    when TaskStepStore.isSaving(id)  then "Saving…"
+    else null
 
-    <CardBody footer={footer}>
-      {stepParts}
-    </CardBody>
+getReadingForStep = (id, taskId) ->
+  TaskStore.getReadingForTaskId(taskId, id)
 
+getCurrentPanel = (id) ->
+  unless TaskStepStore.isSaving(id)
+    currentPanel = StepPanel.getPanel(id)
 
 module.exports = React.createClass
   displayName: 'ExerciseShell'
@@ -112,21 +117,25 @@ module.exports = React.createClass
     if sectionsLinks.length > 0 then helpLink
 
   shouldComponentUpdate: (nextProps, nextState, nextContext) ->
-    # if nextProps.id isnt @props.id and not _.isEmpty(_.findWhere(@state.parts, {id: nextProps.id}))
-    #   console.info('shouldComponentUpdate', false)
-    #   return false
+    if nextProps.id isnt @props.id and not _.isEmpty(_.findWhere(@state.parts, {id: nextProps.id}))
+      console.info('shouldComponentUpdate', false)
+      return false
 
-    # if nextProps.id is @props.id
-    #   {stepIndex} = @context.router.getCurrentParams()
-    #   console.info(_.isEqual(nextProps, @props), 'same props?')
-    #   console.info(_.isEqual(nextState, @state), 'same state?')
-    #   console.info(_.isEqual(nextContext, @context), 'same context?', nextContext, @context)
-    #   console.info(stepIndex)
-    #   console.info('shouldComponentUpdate', 'ids are same')
+    if nextProps.id is @props.id
+      {stepIndex} = @context.router.getCurrentParams()
+      if @isIndexInPart(stepIndex)
+        console.info('index in part, not updating')
+        return false
 
-    # console.info('shouldComponentUpdate', true)
-    # return true
-    return false
+      console.info(_.isEqual(nextProps, @props), 'same props?')
+      console.info(_.isEqual(nextState, @state), 'same state?')
+      console.info(_.isEqual(nextContext, @context), 'same context?', nextContext, @context)
+      console.info(stepIndex)
+      console.info('shouldComponentUpdate', 'ids are same')
+
+    console.info('shouldComponentUpdate', true)
+    return true
+    # return false
 
   canAllContinue: ->
     {parts} = @state
@@ -134,6 +143,21 @@ module.exports = React.createClass
     _.reduce parts, (previous, part) ->
       previous and canOnlyContinue(part.id)
     , true
+
+  getAllIndexes: (props, state) ->
+    props ?= @props
+    state ?= @state
+
+    {taskId} = props
+    {parts} = state
+
+    _.map parts, (part) ->
+      TaskStore.getStepIndex(taskId, part.id)
+
+  isIndexInPart: (stepIndex) ->
+    index = stepIndex - 1
+    partsIndexes = @getAllIndexes()
+    _.contains(partsIndexes, index)
 
   allCorrect: ->
     {parts} = @state
@@ -151,30 +175,10 @@ module.exports = React.createClass
     canTryAnother: TaskStepStore.canTryAnother(lastPartId, task, not @allCorrect())
     isRecovering: TaskStepStore.isRecovering(lastPartId)
 
-  renderPart: (taskId, stepProps, onStepCompleted, part, index = 0) ->
-    {isSinglePartExercise, lastPartId} = @state
-    propsForPart = {taskId, stepProps, onStepCompleted, part, index, isSinglePartExercise, lastPartId}
-
-    <ExercisePart {...propsForPart} key="exercise-part-#{part.id}"/>
-
   render: ->
     {id, taskId, courseId, onNextStep, onStepCompleted, goToStep} = @props
     {parts, lastPartId, isSinglePartExercise, task} = @state
-
-    stepProps = _.pick(@props, 'taskId', 'courseId', 'goToStep', 'onNextStep')
-
-    if isSinglePartExercise
-      stepProps = _.extend {}, stepProps, @getReviewProps()
-      stepProps.pinned = true
-      stepProps.footer = <StepFooter/>
-      stepProps.focus = true
-
-      # render as single part
-      return @renderPart(taskId, stepProps, onStepCompleted, _.last(parts))
-
-    # otherwise, continue with rendering as multi-part
-    stepProps.pinned = false
-    stepParts = _.map parts, _.partial(@renderPart, taskId, stepProps, onStepCompleted), @
+    part = _.last(parts)
 
     controlProps =
       panel: getCurrentPanel(lastPartId)
@@ -198,6 +202,32 @@ module.exports = React.createClass
       courseId={courseId}
       controlButtons={controlButtons}/>
 
+        # freeResponseValue={step.temp_free_response}
+        # step={step}
+        # waitingText={waitingText}
     <ScrollSpy dataSelector='data-step-index'>
-      <ExerciseParts footer={footer} stepParts={stepParts} goToStep={_.partial(goToStep, _, true)}/>
+      <Exercise
+        {...@props}
+        getCurrentPanel={getCurrentPanel}
+        task={task}
+        footer={footer}
+        parts={parts}
+        goToStep={_.partial(goToStep, _, true)}
+        canOnlyContinue={canOnlyContinue}
+
+        onStepCompleted={_.partial(onStepCompleted, part.id)}
+        controlButtons={controlButtons}
+
+        canReview={StepPanel.canReview(part.id)}
+        disabled={TaskStepStore.isSaving(part.id)}
+        isContinueEnabled={StepPanel.canContinue(part.id)}
+
+        getCurrentPanel={getCurrentPanel}
+        getReadingForStep={getReadingForStep}
+        setFreeResponseAnswer={TaskStepActions.setFreeResponseAnswer}
+        onFreeResponseChange={TaskStepActions.updateTempFreeResponse}
+
+        freeResponseValue={TaskStepStore.getTempFreeResponse(part.id)}
+
+        setAnswerId={TaskStepActions.setAnswerId}/>
     </ScrollSpy>

@@ -102,14 +102,12 @@ module.exports = React.createClass
 
     # if a step needs to be recovered, load a recovery step for it
     if @_stepRecoveryQueued(nextState)
-      console.info('_stepRecoveryQueued')
       return false
 
     # if the recoveredStepId is being set, load the task again
     # so that it will load the recoveredStep as one of it's steps
     if @_stepRecovered(nextState)
       TaskActions.load(id)
-      console.info('_stepRecovered')
       return false
 
     # if the recoveredStepId is being unset, then the step has been loaded into the task.
@@ -118,14 +116,12 @@ module.exports = React.createClass
     if @_taskRecoveredStep(nextState)
       @onNextStep() unless @state.refreshTo
       TaskStore.emit('task.afterRecovery', id)
-      console.info('_taskRecoveredStep')
       return false
 
     # if we are trying to leave the refresh step,
     #   redirect to the step after the step we triggered refresh from.
     if @_leavingRefreshingStep(nextState)
       @continueAfterRefreshStep()
-      console.info('continueAfterRefreshStep')
       return false
 
     # if we reach this point, assume that we should go ahead and do a normal component update
