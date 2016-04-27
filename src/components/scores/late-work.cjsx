@@ -9,35 +9,49 @@ LateWork = React.createClass
 
   setLateStatus: ->
     {task} = @props
-    if not @isAccepting() and not @isRejecting()
+    console.log task
+    console.log @isUpdatingLateStatus()
+    if not @isUpdatingLateStatus()
       if task.is_late_work_accepted
         ScoresActions.rejectLate(task.id)
       else
         ScoresActions.acceptLate(task.id)
     #ScoresStore.recalcAverages(@props.courseId, @props.period_id)
 
-  isAccepting: ->
-    ScoresStore.isAccepting(@props.task.id)
+  updateAverages: ->
+    {task, columnIndex, rowIndex} = @props
+    #ScoresStore.recalcAverages(@props.courseId, @props.period_id)
 
-  isRejecting: ->
-    ScoresStore.isRejecting(@props.task.id)
+  isUpdatingLateStatus: ->
+    ScoresStore.isUpdatingLateStatus(@props.task.id)
 
   render: ->
     {task, rowIndex, columnIndex} = @props
     title =
-      if @isAccepting() or @isRejecting()
+      if @isUpdatingLateStatus()
         <span>
           <i className='fa fa-spinner fa-spin'/> Updating...
         </span>
       else
         <span>late work</span>
+    buttonLabel =
+      if task.type is 'homework'
+        if task.is_late_work_accepted
+          'Accept late score' 
+        else 
+          'Use this score'
+      else
+        if task.is_late_work_accepted
+          'Accept late progress' 
+        else 
+          'Use due date progress'
     popover =
       <BS.Popover
         title={title}
         id="late-work-info-popover-#{task.id}"
         className='late-work-info-popover'>
           <BS.Button onClick={@setLateStatus}>
-            late work
+            {buttonLabel}
           </BS.Button>
 
       </BS.Popover>
