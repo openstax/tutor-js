@@ -63,24 +63,42 @@ QuestionConfig = {
       AnswerActions.setCorrect(newAnswer)
       AnswerActions.setIncorrect(curAnswer) if curAnswer
 
-  setFormats: (id, formats) ->
-    @_change(id, {formats: _.unique(formats)})
-
   togglePreserveOrder: (id) ->
     {is_answer_order_important} = @_get(id)
     @_change(id, {is_answer_order_important: not is_answer_order_important})
 
-  setChoiceRequired: (id, isChoiceRequired) ->
-    {formats} = @_get(id)
+  toggleFormat: (id, name, isSelected) ->
+    formats = _.clone @_get(id).formats
 
-    if isChoiceRequired # remove 'free-response'
-      formats = _.without( formats, 'free-response' )
-    else # Must have 'multiple-choice', 'free-response'
-      formats = _.unique formats.concat(['multiple-choice', 'free-response'] )
-
+    formats = switch name
+      when 'requires-choices'
+        if isSelected then formats.concat('free-response') else _.without(formats, 'free-response')
+      when 'multiple-choice'
+        if isSelected
+          _.without( formats.concat('multiple-choice'), 'true-false')
+        else
+          _.without( formats, 'multiple-choice' )
+      when 'true-false'
+        if isSelected
+          _.without( formats.concat('true-false'), 'multiple-choice')
+        else
+          _.without( formats, 'true-false' )
+      else
+        if isSelected
+          formats.concat(name)
+        else
+          _.without( formats, name )
+    console.log formats
     @_change(id, {formats: _.unique(formats)})
 
   exports:
+
+    hasFormat: (id, name) ->
+      formats = @_get(id)?.formats
+      if name is 'requires-choices'
+        _.include formats, 'free-response'
+      else
+        _.include formats, name
 
     getAnswers: (id) -> @_get(id)?.answers or []
 
@@ -96,9 +114,6 @@ QuestionConfig = {
 
     isOrderPreserved: (id) ->
       @_get(id).is_answer_order_important
-
-    isChoiceRequired: (id) ->
-      not _.include( @_get(id)?.formats, 'free-response' )
 
     getTemplate: ->
       answerId = AnswerStore.freshLocalId()
