@@ -9,18 +9,15 @@ LateWork = React.createClass
   displayName: 'LateWork'
 
   setLateStatus: ->
-    {task} = @props
+    {task, courseId, period_id} = @props
     console.log task
     if not @isUpdatingLateStatus()
       if task.is_late_work_accepted
-        ScoresActions.rejectLate(task.id)
+        ScoresActions.rejectLate(task.id, courseId, period_id)
       else
-        ScoresActions.acceptLate(task.id)
+        ScoresActions.acceptLate(task.id, courseId, period_id)
     #ScoresStore.recalcAverages(@props.courseId, @props.period_id)
 
-  updateAverages: ->
-    {task, columnIndex, rowIndex} = @props
-    #ScoresStore.recalcAverages(@props.courseId, @props.period_id)
 
   isUpdatingLateStatus: ->
     ScoresStore.isUpdatingLateStatus(@props.task.id)

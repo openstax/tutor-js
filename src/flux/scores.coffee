@@ -8,6 +8,7 @@ allStudents = (scores) ->
     .flatten(true)
     .value()
 
+
 ACCEPTING = 'accepting'
 ACCEPTED = 'accepted'
 
@@ -17,21 +18,33 @@ REJECTED = 'rejected'
 
 ScoresConfig = {
 
+  _asyncStatus: {}
+
+
+  getTaskById: (taskId, courseId) ->
+    students = allStudents @_get(courseId)
+    data = _.flatten(_.pluck(students, 'data'))
+    task = _.findWhere(data, {id: taskId})
+    task
 
   acceptLate: (taskId) ->
     @_asyncStatus[taskId] = ACCEPTING
     @emitChange()
 
-  acceptedLate: (taskId) ->
+  acceptedLate: (unused, taskId, courseId, period_id) ->
     @_asyncStatus[taskId] = ACCEPTED
+    task = @getTaskById(taskId, courseId)
+    task.is_late_work_accepted = true
     @emitChange()
 
   rejectLate: (taskId) ->
     @_asyncStatus[taskId] = REJECTING
     @emitChange()
 
-  rejectedLate: (taskId) ->
+  rejectedLate: (unused, taskId, courseId, period_id) ->
     @_asyncStatus[taskId] = REJECTED
+    task = @getTaskById(taskId, courseId)
+    task.is_late_work_accepted = false
     @emitChange()
 
 
@@ -56,9 +69,10 @@ ScoresConfig = {
         _.indexOf(taskIds, taskId) > -1
 
 
-    isAccepting: (taskId) -> @_asyncStatus[taskId] is ACCEPTING
 
-    isRejecting: (taskId) -> @_asyncStatus[taskId] is REJECTING
+    isUpdatingLateStatus: (taskId) -> 
+      @_asyncStatus[taskId] is ACCEPTING or
+      @_asyncStatus[taskId] is REJECTING
 
     recalcAverages: (courseId, period_id) ->
       scores = @_get(courseId)
