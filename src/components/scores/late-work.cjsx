@@ -56,6 +56,7 @@ LateWork = React.createClass
         else 
           'Use due date progress'
     acceptedClass = if task.is_late_work_accepted then 'accepted' else ''
+    keyword = if task.type is 'homework' then 'Score' else 'Progress'
     popover =
       <BS.Popover
         title={title}
@@ -64,7 +65,7 @@ LateWork = React.createClass
           <div className='late-status'>
             <div className='description'>
               <span className='title'>
-                {'Progress on '}
+                {"#{keyword} on "}
                 <Time date={task.last_worked_at} format='shortest'/>:
               </span>
               <span className='status'>{'100%'}</span>
