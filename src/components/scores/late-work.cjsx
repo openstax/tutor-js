@@ -16,6 +16,7 @@ LateWork = React.createClass
         ScoresActions.rejectLate(task.id, courseId, period_id)
       else
         ScoresActions.acceptLate(task.id, courseId, period_id)
+    @refs.overlay.hide()
     #ScoresStore.recalcAverages(@props.courseId, @props.period_id)
 
 
@@ -86,6 +87,7 @@ LateWork = React.createClass
 
     <div className="late-caret-trigger">
       <BS.OverlayTrigger
+      ref="overlay"
       placement="top"
       trigger="click"
       rootClose={true}
