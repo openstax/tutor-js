@@ -1,6 +1,7 @@
 React  = require 'react'
 Router = require 'react-router'
 BS = require 'react-bootstrap'
+Time   = require '../time'
 
 {ScoresStore, ScoresActions} = require '../../flux/scores'
 
@@ -65,7 +66,10 @@ LateWork = React.createClass
         className="late-work-info-popover #{acceptedClass}">
           <div className='late-status'>
             <div className='description'>
-              <span className='title'>{'Progress on 3/9:'}</span>
+              <span className='title'>
+                {'Progress on '}
+                <Time date={task.last_worked_at} format='shortest'/>:
+              </span>
               <span className='status'>{'100%'}</span>
             </div>
             <BS.Button className='late-button' onClick={@setLateStatus}>
