@@ -12,6 +12,13 @@ HomeworkCell = React.createClass
 
   mixins: [CellStatusMixin] # prop validation
 
+  showPercent: (numerator) ->
+    {task} = @props
+    (numerator / task.exercise_count) * 100
+
+  showNumber: (numerator) ->
+    {task} = @props
+    "#{numerator} of #{task.exercise_count}"
 
   render: ->
     {task, courseId, displayAs, isConceptCoach, rowIndex, columnIndex, period_id} = @props
@@ -19,44 +26,24 @@ HomeworkCell = React.createClass
     isLate = task.completed_on_time_exercise_count < task.completed_exercise_count
     isIncludedInAverages = task.is_included_in_averages
 
-    scorePercent =
-      if isLate
-        if task.is_late_work_accepted
-          task.correct_on_time_exercise_count / task.exercise_count
-        else
-          task.correct_exercise_count / task.exercise_count
+    score = 
+      if task.is_late_work_accepted
+        task.correct_exercise_count
       else
-        task.correct_exercise_count / task.exercise_count
+        task.correct_on_time_exercise_count
 
-    scoreNumber =
-      if isLate
-        if task.is_late_work_accepted
-          "#{task.correct_on_time_exercise_count} of #{task.exercise_count}"
-        else
-          "#{task.correct_exercise_count} of #{task.exercise_count}"
+    progress =
+      if task.is_late_work_accepted
+        task.completed_exercise_count
       else
-        "#{task.correct_exercise_count} of #{task.exercise_count}"
-
-    completedNumber =
-      if isLate
-        if task.is_late_work_accepted
-          "#{task.completed_on_time_exercise_count} of #{task.exercise_count}"
-        else
-          "#{task.completed_exercise_count} of #{task.exercise_count}"
-      else
-        "#{task.completed_exercise_count} of #{task.exercise_count}"
+        task.completed_on_time_exercise_count
 
 
-    pieValue =
-      if isLate
-        if task.is_late_work_accepted
-          task.completed_on_time_exercise_count / task.exercise_count
-        else
-          task.completed_exercise_count / task.exercise_count
-      else
-        task.completed_exercise_count / task.exercise_count
+    scorePercent = @showPercent(score)
+    scoreNumber = @showNumber(score)
 
-    pieValue = Math.round(pieValue) * 100
+    progressPercent = Math.round(@showPercent(progress))
+    progressNumber = @showNumber(progress)
 
 
     tooltip =
@@ -65,11 +52,11 @@ HomeworkCell = React.createClass
         className='scores-scores-tooltip-completed-info'>
         <div className='info'>
           <div className='row'>
-            <div>Completed {pieValue}%</div>
+            <div>Completed {progressPercent}%</div>
           </div>
           <div className='row'>
             <div>
-              {completedNumber} questions
+              {progressNumber} questions
             </div>
           </div>
         </div>
@@ -98,7 +85,7 @@ HomeworkCell = React.createClass
               if displayAs is 'number'
                 scoreNumber
               else
-                "#{(scorePercent * 100).toFixed(0)}%"
+                "#{(scorePercent).toFixed(0)}%"
             }       
         </Router.Link>
         
@@ -114,7 +101,7 @@ HomeworkCell = React.createClass
             <PieProgress 
             isConceptCoach={isConceptCoach} 
             size={24} 
-            value={pieValue}
+            value={progressPercent}
             isLate={isLate} />
           </span>
         </BS.OverlayTrigger>

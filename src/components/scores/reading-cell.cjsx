@@ -12,23 +12,23 @@ ReadingCell = React.createClass
 
   mixins: [CellStatusMixin] # prop validation
 
+  showPercent: (numerator) ->
+    {task} = @props
+    (numerator / task.step_count) * 100
+
   render: ->
     {task, courseId, displayAs, isConceptCoach, rowIndex, columnIndex, period_id} = @props
 
     isLate = task.completed_on_time_step_count < task.completed_step_count
     isIncludedInAverages = task.is_included_in_averages
 
-
-    pieValue =
-      if isLate
-        if task.is_late_work_accepted
-          task.completed_on_time_step_count / task.step_count
-        else
-          task.completed_step_count / task.step_count
+    progress =
+      if task.is_late_work_accepted
+        task.completed_step_count
       else
-        task.completed_step_count / task.step_count
+        task.completed_on_time_step_count
 
-    pieValue = Math.round(pieValue) * 100
+    progressPercent = Math.round(@showPercent(progress))
 
 
     tooltip =
@@ -37,7 +37,7 @@ ReadingCell = React.createClass
         className='scores-scores-tooltip-completed-info'>
         <div className='info'>
           <div className='row'>
-            <div>Completed {pieValue}%</div>
+            <div>Completed {progressPercent}%</div>
           </div>
         </div>
       </BS.Popover>
@@ -68,7 +68,7 @@ ReadingCell = React.createClass
             <PieProgress
             isConceptCoach={isConceptCoach}
             size={24}
-            value={pieValue}
+            value={progressPercent}
             isLate={isLate} />
           </span>
         </BS.OverlayTrigger>
