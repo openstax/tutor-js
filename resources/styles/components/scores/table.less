@@ -1,7 +1,8 @@
+@pie-color-late: #268FBE;
+
 .scores-report {
   @table-row-height: 46px;
   @pie-color: lighten(@tutor-neutral,10%);
-  @pie-color-late: #268FBE;
   @pie-bg-color: lighten(@tutor-neutral,40%);
   @pie-color-hover: #0DC0DC;
   @finished-icon-size: 24px;
@@ -279,6 +280,9 @@
       border-style: solid;
       border-width: 0 10px 10px 0;
       border-color: transparent @tutor-primary transparent transparent;
+      &.accepted {
+        border-color: transparent lighten(@tutor-neutral, 25%) transparent transparent;
+      }
     }
   }
   .name-cell {
@@ -362,6 +366,7 @@
 }
 
 .late-work-info-popover {
+  height: 98px;
   min-width: 310px;
   border-radius: 0;
   border: 1px solid @tutor-neutral-light;
@@ -369,6 +374,11 @@
     .popover-title {
       color: @tutor-black;
       background: @tutor-info-bg;
+    }
+    .popover-content {
+      .status {
+        color: @pie-color-late !important;
+      }
     }
   }
   .popover-title {
@@ -380,6 +390,39 @@
     border-radius: 0;
     color: @tutor-white;
     background: @tutor-primary;
+  }
+  .popover-content {
+    padding: 3px;
+    .late-status {
+      height: 60px;
+      .description {
+        height: inherit;
+        display: table;
+        width: 48%;
+        float: left;
+        font-weight: bold;
+      }
+      
+      .title {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+
+      }
+      .status {
+        display: table-cell;
+        vertical-align: middle;
+        color: @tutor-primary;
+      }
+    }
+    .late-button {
+      padding-left: 2px !important;
+      padding-right: 2px !important;
+      width: 50%;
+      text-transform: none !important;
+      font-size: 1.1em !important;
+      float: right;
+    }
   }
 
 }

@@ -63,9 +63,15 @@ LateWork = React.createClass
         title={title}
         id="late-work-info-popover-#{task.id}"
         className="late-work-info-popover #{acceptedClass}">
-          <BS.Button onClick={@setLateStatus}>
-            {buttonLabel}
-          </BS.Button>
+          <div className='late-status'>
+            <div className='description'>
+              <span className='title'>{'Progress on 3/9:'}</span>
+              <span className='status'>{'100%'}</span>
+            </div>
+            <BS.Button className='late-button' onClick={@setLateStatus}>
+              {buttonLabel}
+            </BS.Button>
+          </div>
 
       </BS.Popover>
 
@@ -77,7 +83,7 @@ LateWork = React.createClass
       trigger="click"
       rootClose={true}
       overlay={popover}>
-        <div className="late-caret"></div>
+        <div className="late-caret #{acceptedClass}"></div>
       </BS.OverlayTrigger>
     </div>
 
