@@ -63,7 +63,9 @@ QAExercises = React.createClass
       <ExerciseCard key={exercise.id}
         exercise={exercise}
         show2StepPreview={@state.isShowing2StepPreview}
-        ignoredTypes={@state.ignored} />
+        ignoredTypes={@state.ignored}
+        {...@props}
+      />
 
     selections = _.map ExerciseStore.getPageExerciseTypes(@state.pageId), (pt) =>
       id: pt, title: String.titleize(pt), selected: not @state.ignored[pt]

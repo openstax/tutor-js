@@ -76,7 +76,21 @@
             "type": "lo",
             "description": "(3D): Explain the impacts of the scientific contributions of a variety of historical and contemporary scientists on scientific thought and society.",
             "chapter_section": [1, 1]
-        }, {
+        },{
+            "id": "lo:stax-bio:1-1-1",
+            "type": "lo",
+            "description": "(3D): Explain the impacts of the scientific contributions of a variety of historical and contemporary scientists on scientific thought and society.",
+            "chapter_section": [1, 1]
+        },{
+            "id": "context-cnxmod:d52e93f4-8653-4273-86da-3850001c0786"
+        },{
+            "id": "context-cnxmod:185cbf87-c72e-48f5-b51e-f14f21b5eabd"
+        },{
+            "id": "lo:stax-apbio:2-2-2",
+            "type": "lo",
+            "description": "(3D): Explain the impacts of the scientific contributions of a variety of historical and contemporary scientists on scientific thought and society.",
+            "chapter_section": [1, 1]
+        },{
             "id": "dok2",
             "type": "dok",
             "name": "DOK: 2",
@@ -411,7 +425,7 @@
             "questions": [{
                 "id": 1667,
                 "stimulus_html": "",
-                "stem_html": "Can classical physics be used to accurately describe a satellite moving at a speed of <span data-math=\"7500\\,\\text{m/s}\">7500\\,\\text{m/s}</span>? Explain why or why not.",
+                "stem_html": "Can classical physics be used to accurately describe a satellite moving at a speed of? Explain why or why not.",
                 "answers": [{
                     "id": 6627,
                     "content_html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",

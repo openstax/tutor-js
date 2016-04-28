@@ -37,18 +37,16 @@ describe 'QA Exercises Component', ->
       renderedQs = _.pluck dom.querySelectorAll('.panel-body .question-stem'), 'textContent'
       expect(renderedQs).to.deep.equal(questions)
 
-  it 'hides answers when previewing 2-step', ->
+  it 'displays free-response box when previewing 2-step', ->
     Testing.renderComponent( Exercises, props: @props ).then ({dom, element}) ->
+      expect( dom.querySelector('.exercise-free-response-preview') ).to.not.exist
       cb = dom.querySelector('.preview2step')
       ReactTestUtils.Simulate.change(cb, {target: checked: true})
-      all  = element.getDOMNode().querySelectorAll('.exercise')
-      hidden = element.getDOMNode().querySelectorAll('.answers-hidden')
       freeResponseCount = _.reduce(EXERCISES.items, (count, ex) ->
-        count + (if ExerciseStore.hasQuestionWithFormat(ex, 'free-response') then 1 else 0)
+        count + (if ExerciseStore.hasQuestionWithFormat('free-response', ex) then 1 else 0)
       , 0)
-      expect(all.length).to.equal(EXERCISES.items.length)
-      expect(hidden.length).to.equal(freeResponseCount)
-      expect(hidden[0].querySelector('.answers-table').textContent).to.be.empty
+      expect( dom.querySelectorAll('.exercise-free-response-preview').length )
+        .to.equal(freeResponseCount)
 
   it 'renders exercises even if they dont have tags', ->
     ex = ld.cloneDeep EXERCISES
@@ -56,3 +54,10 @@ describe 'QA Exercises Component', ->
     ExerciseActions.loadedForCourse(ex, COURSE_ID, ['146'])
     Testing.renderComponent( Exercises, props: @props ).then ({dom, element}) ->
       expect( dom.querySelectorAll('.exercise').length ).to.equal(5)
+
+  it 'hides exercise lo tags that don\'t belong to current book', ->
+    ex = ld.cloneDeep EXERCISES
+    _.each ex.items, (e) -> e.content.tags.push("lo:uknown-fake-uuid")
+    ExerciseActions.loadedForCourse(ex, COURSE_ID, ['146'])
+    Testing.renderComponent( Exercises, props: @props ).then ({dom, element}) ->
+      expect( dom.textContent ).not.to.contain('uknown-fake-uuid')
