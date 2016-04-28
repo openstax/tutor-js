@@ -8,7 +8,7 @@ Course = require './model'
 {AsyncButton} = require 'openstax-react-components'
 User = require '../user/model'
 
-InviteCodeInput = React.createClass
+EnrollmentCodeInput = React.createClass
 
   propTypes:
     title: React.PropTypes.string.isRequired
@@ -32,6 +32,7 @@ InviteCodeInput = React.createClass
   render: ->
     button =
       <AsyncButton
+        className='enroll'
         isWaiting={!!@props.course.isBusy}
         waitingText={'Registering…'}
         onClick={@startRegistration}
@@ -39,7 +40,7 @@ InviteCodeInput = React.createClass
         Enroll
       </AsyncButton>
 
-    <div className="form-group">
+    <div className="enrollment-code form-group">
       {@renderCurrentCourses() if @props.currentCourses?.length}
       <h3 className="text-center">{@props.title}</h3>
       <hr/>
@@ -52,4 +53,4 @@ InviteCodeInput = React.createClass
       </div>
     </div>
 
-module.exports = InviteCodeInput
+module.exports = EnrollmentCodeInput

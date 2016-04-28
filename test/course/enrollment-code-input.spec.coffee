@@ -1,10 +1,10 @@
 {Testing, expect, sinon, _, ReactTestUtils} = require 'openstax-react-components/test/helpers'
 
-InviteCodeInput = require 'course/invite-code-input'
+EnrollmentCodeInput = require 'course/enrollment-code-input'
 Course = require 'course/model'
 STATUS = require '../../auth/status/GET'
 
-describe 'InviteCodeInput Component', ->
+describe 'EnrollmentCodeInput Component', ->
 
   beforeEach ->
     @props =
@@ -14,20 +14,20 @@ describe 'InviteCodeInput Component', ->
 
   it 'lists current courses', ->
     @props.optionalStudentId = true
-    Testing.renderComponent( InviteCodeInput, props: @props ).then ({dom}) ->
+    Testing.renderComponent( EnrollmentCodeInput, props: @props ).then ({dom}) ->
       courses = _.pluck(dom.querySelectorAll('.list-group-item'), 'textContent')
       expect(courses).to.deep.equal(['Biology I 1st'])
 
   it 'model registers when submit is clicked', ->
     sinon.stub(@props.course, 'register')
-    Testing.renderComponent( InviteCodeInput, props: @props ).then ({dom}) =>
+    Testing.renderComponent( EnrollmentCodeInput, props: @props ).then ({dom}) =>
       dom.querySelector('input').value = 'test'
       Testing.actions.click(dom.querySelector('.btn-default'))
       expect(@props.course.register).to.have.been.calledWith('test')
 
   it 'model registers when enter is pressed in input', ->
     sinon.stub(@props.course, 'register')
-    Testing.renderComponent( InviteCodeInput, props: @props ).then ({dom}) =>
+    Testing.renderComponent( EnrollmentCodeInput, props: @props ).then ({dom}) =>
       input = dom.querySelector('input')
       input.value = 'test'
       ReactTestUtils.Simulate.keyPress(input, {key: "Enter"})

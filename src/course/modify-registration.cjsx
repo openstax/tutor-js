@@ -1,7 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
 
-InviteCodeInput = require './invite-code-input'
+EnrollmentCodeInput = require './enrollment-code-input'
 RequestStudentId = require './request-student-id'
 
 ConfirmJoin = require './confirm-join'
@@ -45,7 +45,7 @@ ModifyCourseRegistration = React.createClass
     {course, original} = @state
 
     if course.isIncomplete()
-      <InviteCodeInput
+      <EnrollmentCodeInput
         course={course}
         title={"Leave #{original.description()} for new course/period"} />
     else if course.isPending()
