@@ -16,8 +16,8 @@ LateWork = React.createClass
         ScoresActions.rejectLate(task.id, courseId, period_id)
       else
         ScoresActions.acceptLate(task.id, courseId, period_id)
+      ScoresActions.updateAverages(courseId, period_id)
     @refs.overlay.hide()
-    #ScoresStore.recalcAverages(@props.courseId, @props.period_id)
 
 
   isUpdatingLateStatus: ->

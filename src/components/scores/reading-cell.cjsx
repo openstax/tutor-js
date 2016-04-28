@@ -14,8 +14,23 @@ ReadingCell = React.createClass
 
   render: ->
     {task, courseId, displayAs, isConceptCoach, rowIndex, columnIndex, period_id} = @props
+
+    isLate = task.completed_on_time_step_count < task.completed_step_count
+    isIncludedInAverages = task.is_included_in_averages
+
+
     pieValue =
-      Math.round((task.completed_step_count / task.step_count) * 100)
+      if isLate
+        if task.is_late_work_accepted
+          task.completed_on_time_step_count / task.step_count
+        else
+          task.completed_step_count / task.step_count
+      else
+        task.completed_step_count / task.step_count
+
+    pieValue = Math.round(pieValue) * 100
+
+
     tooltip =
       <BS.Popover
         id="scores-cell-info-popover-#{task.id}"
@@ -27,7 +42,7 @@ ReadingCell = React.createClass
         </div>
       </BS.Popover>
 
-    isLate = task.completed_on_time_step_count < task.completed_step_count
+    
 
     lateProps =
       {

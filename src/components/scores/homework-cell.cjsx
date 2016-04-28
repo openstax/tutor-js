@@ -16,10 +16,49 @@ HomeworkCell = React.createClass
   render: ->
     {task, courseId, displayAs, isConceptCoach, rowIndex, columnIndex, period_id} = @props
 
+    isLate = task.completed_on_time_exercise_count < task.completed_exercise_count
+    isIncludedInAverages = task.is_included_in_averages
+
     scorePercent =
-      Math.round((task.correct_exercise_count / task.exercise_count) * 100)
+      if isLate
+        if task.is_late_work_accepted
+          task.correct_on_time_exercise_count / task.exercise_count
+        else
+          task.correct_exercise_count / task.exercise_count
+      else
+        task.correct_exercise_count / task.exercise_count
+
+    scoreNumber =
+      if isLate
+        if task.is_late_work_accepted
+          "#{task.correct_on_time_exercise_count} of #{task.exercise_count}"
+        else
+          "#{task.correct_exercise_count} of #{task.exercise_count}"
+      else
+        "#{task.correct_exercise_count} of #{task.exercise_count}"
+
+    completedNumber =
+      if isLate
+        if task.is_late_work_accepted
+          "#{task.completed_on_time_exercise_count} of #{task.exercise_count}"
+        else
+          "#{task.completed_exercise_count} of #{task.exercise_count}"
+      else
+        "#{task.completed_exercise_count} of #{task.exercise_count}"
+
+
     pieValue =
-      Math.round((task.completed_exercise_count / task.exercise_count) * 100)
+      if isLate
+        if task.is_late_work_accepted
+          task.completed_on_time_exercise_count / task.exercise_count
+        else
+          task.completed_exercise_count / task.exercise_count
+      else
+        task.completed_exercise_count / task.exercise_count
+
+    pieValue = Math.round(pieValue) * 100
+
+
     tooltip =
       <BS.Popover
         id="scores-cell-info-popover-#{task.id}"
@@ -30,14 +69,13 @@ HomeworkCell = React.createClass
           </div>
           <div className='row'>
             <div>
-              {task.completed_exercise_count} of 
-               {task.exercise_count} questions
+              {completedNumber} questions
             </div>
           </div>
         </div>
       </BS.Popover>
 
-    isLate = task.completed_on_time_exercise_count < task.completed_exercise_count
+    
 
     lateProps =
       {
@@ -58,9 +96,9 @@ HomeworkCell = React.createClass
           params={courseId: courseId, id: task.id, stepIndex: 1}>
             {
               if displayAs is 'number'
-                "#{task.correct_exercise_count} of #{task.exercise_count}"
+                scoreNumber
               else
-                "#{scorePercent}%"
+                "#{(scorePercent * 100).toFixed(0)}%"
             }       
         </Router.Link>
         

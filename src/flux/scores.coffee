@@ -2,18 +2,20 @@
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 _ = require 'underscore'
 
-allStudents = (scores) ->
-  _.chain(scores)
-    .pluck('students')
-    .flatten(true)
-    .value()
-
 
 ACCEPTING = 'accepting'
 ACCEPTED = 'accepted'
 
 REJECTING = 'rejecting'
 REJECTED = 'rejected'
+
+
+
+allStudents = (scores) ->
+  _.chain(scores)
+    .pluck('students')
+    .flatten(true)
+    .value()
 
 
 ScoresConfig = {
@@ -27,6 +29,20 @@ ScoresConfig = {
     task = _.findWhere(data, {id: taskId})
     task
 
+  updateAverages: (courseId, period_id) ->
+    console.log 'recalc'
+    # scores = @_get(courseId)
+    # period = _.findWhere(scores, {period_id})
+    # console.log period
+    # period.data_headings[1].total_average = 87
+    # change = _.findWhere(period.students, {role:8})
+    # change?.first_name = "Fred"
+    # change?.last_name = "Flinstone"
+    # change?.name = "Fred Flinstone"
+    # #@_change(courseId, {data})
+    # @_save(courseId)
+    # @emit('change', courseId)
+
   acceptLate: (taskId) ->
     @_asyncStatus[taskId] = ACCEPTING
     @emitChange()
@@ -35,6 +51,8 @@ ScoresConfig = {
     @_asyncStatus[taskId] = ACCEPTED
     task = @getTaskById(taskId, courseId)
     task.is_late_work_accepted = true
+    # task.
+
     @emitChange()
 
   rejectLate: (taskId) ->
@@ -45,6 +63,7 @@ ScoresConfig = {
     @_asyncStatus[taskId] = REJECTED
     task = @getTaskById(taskId, courseId)
     task.is_late_work_accepted = false
+
     @emitChange()
 
 
@@ -69,23 +88,9 @@ ScoresConfig = {
         _.indexOf(taskIds, taskId) > -1
 
 
-
     isUpdatingLateStatus: (taskId) -> 
       @_asyncStatus[taskId] is ACCEPTING or
       @_asyncStatus[taskId] is REJECTING
-
-    recalcAverages: (courseId, period_id) ->
-      scores = @_get(courseId)
-      period = _.findWhere(scores, {period_id})
-      console.log period
-      period.data_headings[1].total_average = 87
-      change = _.findWhere(period.students, {role:8})
-      change?.first_name = "Fred"
-      change?.last_name = "Flinstone"
-      change?.name = "Fred Flinstone"
-      #@_change(courseId, {data})
-      @_save(courseId)
-      @emit('change', courseId)
 
 
 }
