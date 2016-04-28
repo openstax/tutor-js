@@ -307,11 +307,17 @@
     .filter-group {
       box-shadow: none;
       button {
-        border-radius: 0px;
+        &.btn-default {
+          border-radius: 0px;
+        }
         &.btn-primary {
+          border-radius: 0px;
           border: @tutor-tertiary-light;
           background: @tutor-tertiary-light;
           height: 32px;
+          &:hover {
+            background: @tutor-tertiary-light;
+          }
         }
       }
     }
