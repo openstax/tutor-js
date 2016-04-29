@@ -12,6 +12,20 @@ HomeworkCell = React.createClass
 
   mixins: [CellStatusMixin] # prop validation
 
+  getScore: (isAccepted) ->
+    {task} = @props
+    if isAccepted
+      task.correct_exercise_count
+    else
+      task.correct_on_time_exercise_count
+
+  getProgress: (isAccepted) ->
+    {task} = @props
+    if isAccepted
+      task.completed_exercise_count
+    else
+      task.completed_on_time_exercise_count
+
   showPercent: (numerator) ->
     {task} = @props
     (numerator / task.exercise_count) * 100
@@ -25,19 +39,10 @@ HomeworkCell = React.createClass
 
     isLate = task.completed_on_time_exercise_count < task.completed_exercise_count
     isIncludedInAverages = task.is_included_in_averages
+    isAccepted = task.is_late_work_accepted
 
-    score = 
-      if task.is_late_work_accepted
-        task.correct_exercise_count
-      else
-        task.correct_on_time_exercise_count
-
-    progress =
-      if task.is_late_work_accepted
-        task.completed_exercise_count
-      else
-        task.completed_on_time_exercise_count
-
+    score = @getScore(isAccepted)
+    progress = @getProgress(isAccepted)
 
     scorePercent = @showPercent(score)
     scoreNumber = @showNumber(score)
@@ -62,7 +67,6 @@ HomeworkCell = React.createClass
         </div>
       </BS.Popover>
 
-    
 
     lateProps =
       {
@@ -70,7 +74,8 @@ HomeworkCell = React.createClass
         rowIndex: rowIndex,
         columnIndex: columnIndex,
         courseId: courseId,
-        period_id: period_id
+        period_id: period_id,
+        acceptValue: @showPercent(@getScore(not isAccepted))
 
       }
     latework = <LateWork {...lateProps} />

@@ -24,7 +24,7 @@ LateWork = React.createClass
     ScoresStore.isUpdatingLateStatus(@props.task.id)
 
   render: ->
-    {task, rowIndex, columnIndex} = @props
+    {task, rowIndex, columnIndex, acceptValue} = @props
     lateQuestionCount =
       task.completed_exercise_count - task.completed_on_time_exercise_count
     titleProgress =
@@ -74,7 +74,7 @@ LateWork = React.createClass
                 {"#{keyword} on "}
                 {time}:
               </span>
-              <span className='status'>{'100%'}</span>
+              <span className='status'>{"#{Math.round(acceptValue)}%"}</span>
             </div>
             <BS.Button className='late-button' onClick={@setLateStatus}>
               {buttonLabel}

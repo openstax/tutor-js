@@ -16,17 +16,21 @@ ReadingCell = React.createClass
     {task} = @props
     (numerator / task.step_count) * 100
 
+  getProgress: (isAccepted) ->
+    {task} = @props
+    if isAccepted
+      task.completed_step_count
+    else
+      task.completed_on_time_step_count
+
   render: ->
     {task, courseId, displayAs, isConceptCoach, rowIndex, columnIndex, period_id} = @props
 
     isLate = task.completed_on_time_step_count < task.completed_step_count
     isIncludedInAverages = task.is_included_in_averages
+    isAccepted = task.is_late_work_accepted
 
-    progress =
-      if task.is_late_work_accepted
-        task.completed_step_count
-      else
-        task.completed_on_time_step_count
+    progress = @getProgress(isAccepted)
 
     progressPercent = Math.round(@showPercent(progress))
 
@@ -50,7 +54,8 @@ ReadingCell = React.createClass
         rowIndex: rowIndex,
         columnIndex: columnIndex,
         courseId: courseId,
-        period_id: period_id
+        period_id: period_id,
+        acceptValue: @showPercent(@getProgress(not isAccepted))
 
       }
     latework = <LateWork {...lateProps} />
