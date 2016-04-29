@@ -102,27 +102,45 @@ Scores = React.createClass
       if _.isNumber(sort.key)
         index = sort.key - firstDataColumn
         record = d.data[index]
-        return 0 unless record
+        return -1 unless record
         switch record.type
-          when 'reading'  then @percent(record.completed_step_count, record.step_count) or 0
+          when 'reading'
+            progress = 
+              if record.is_late_work_accepted
+                record.completed_step_count
+              else
+                record.completed_on_time_step_count
+            @percent(progress, record.step_count) or 0
           when 'homework'
             switch sort.dataType
               when 'score'
+                score =
+                  if record.is_late_work_accepted
+                    record.correct_exercise_count
+                  else
+                    record.correct_on_time_exercise_count
                 if displayAs is 'number'
-                  record.correct_exercise_count or 0
+                  score or 0
                 else
-                  @percent(record.correct_exercise_count, record.exercise_count) or 0
+                  @percent(score, record.exercise_count) or 0
               when 'completed'
-                @percent(record.completed_exercise_count, record.exercise_count) or 0
+                progress =
+                  if record.is_late_work_accepted
+                    record.completed_exercise_count
+                  else
+                    record.completed_on_time_exercise_count  
+                @percent(progress, record.exercise_count) or 0
           when 'concept_coach'
             switch sort.dataType
               when 'score'
+                score = record.correct_exercise_count
                 if displayAs is 'number'
-                  record.correct_exercise_count or 0
+                  score or 0
                 else
-                  @percent(record.correct_exercise_count, record.exercise_count) or 0
+                  @percent(score, record.exercise_count) or 0
               when 'completed'
-                @percent(record.completed_exercise_count, record.exercise_count) or 0
+                progress = record.completed_exercise_count
+                @percent(progress, record.exercise_count) or 0
       else
         (d.last_name or d.name).toLowerCase()
     )
