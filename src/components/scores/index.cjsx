@@ -128,7 +128,7 @@ Scores = React.createClass
 
     data = @getStudentRowData()
 
-    scoresExport = <ScoresExport courseId={courseId} className='pull-right'/>
+    scoresExport = <ScoresExport courseId={courseId}/>
 
     if isConceptCoach
       scoresTable =

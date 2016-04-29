@@ -1,6 +1,7 @@
 BS = require 'react-bootstrap'
 React = require 'react'
 mime = require 'mime-types'
+classnames = require 'classnames'
 
 BindStoreMixin = require '../bind-store-mixin'
 {AsyncButton} = require 'openstax-react-components'
@@ -124,8 +125,9 @@ ScoresExport = React.createClass
   render: ->
     {courseId, className} = @props
     {downloadUrl, lastExported, downloadHasError, tryToDownload, finalDownloadUrl} = @state
+    isWorking = ScoresExportStore.isExporting(courseId) or tryToDownload
 
-    className += ' export-button'
+    classes = classnames 'export-button', className
     actionButtonClass = 'primary'
 
     failedProps =
@@ -135,7 +137,7 @@ ScoresExport = React.createClass
       <AsyncButton
         bsStyle={actionButtonClass}
         onClick={-> ScoresExportActions.export(courseId)}
-        isWaiting={ScoresExportStore.isExporting(courseId) or tryToDownload}
+        isWaiting={isWorking}
         isFailed={ScoresExportStore.isFailed(courseId) or downloadHasError}
         failedProps={failedProps}
         isJob={true}
@@ -144,11 +146,14 @@ ScoresExport = React.createClass
         Export
       </AsyncButton>
 
-    <span className={className}>
+    exportTimeNotice = <i><small>The export may take up to 10 minutes.</small></i> if isWorking
+
+    <div className={classes}>
       <div className='export-button-buttons'>
         {actionButton}
       </div>
+      {exportTimeNotice}
       <iframe id="downloadExport" src={finalDownloadUrl}></iframe>
-    </span>
+    </div>
 
 module.exports = ScoresExport
