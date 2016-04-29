@@ -75,7 +75,8 @@ HomeworkCell = React.createClass
         columnIndex: columnIndex,
         courseId: courseId,
         period_id: period_id,
-        acceptValue: @showPercent(@getScore(not isAccepted))
+        acceptValue: @showPercent(@getScore(not isAccepted)),
+        isIncludedInAverages: isIncludedInAverages
 
       }
     latework = <LateWork {...lateProps} />

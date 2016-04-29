@@ -55,7 +55,8 @@ ReadingCell = React.createClass
         columnIndex: columnIndex,
         courseId: courseId,
         period_id: period_id,
-        acceptValue: @showPercent(@getProgress(not isAccepted))
+        acceptValue: @showPercent(@getProgress(not isAccepted)),
+        isIncludedInAverages: isIncludedInAverages
 
       }
     latework = <LateWork {...lateProps} />

@@ -29,41 +29,43 @@ ScoresConfig = {
     task = _.findWhere(data, {id: taskId})
     task
 
-  updateAverages: (courseId, period_id) ->
-    console.log 'recalc'
-    # scores = @_get(courseId)
-    # period = _.findWhere(scores, {period_id})
-    # console.log period
-    # period.data_headings[1].total_average = 87
-    # change = _.findWhere(period.students, {role:8})
-    # change?.first_name = "Fred"
-    # change?.last_name = "Flinstone"
-    # change?.name = "Fred Flinstone"
-    # #@_change(courseId, {data})
-    # @_save(courseId)
-    # @emit('change', courseId)
+  updateAverages: (task, courseId, period_id, columnIndex) ->
+    scores = @_get(courseId)
+    period = _.findWhere(scores, {period_id})
+
+    period?.overall_average_score = 79
+
+    period?.data_headings[columnIndex]?.average_score = 79
+
+    students = allStudents @_get(courseId)
+    taskId = parseInt(task.id)
+
+    taskStudent =
+      _.find students, (student) ->
+        taskIds = _.pluck student.data, 'id'
+        _.indexOf(taskIds, taskId) > -1
+
+    taskStudent?.average_score = 79
+
 
   acceptLate: (taskId) ->
     @_asyncStatus[taskId] = ACCEPTING
     @emitChange()
 
-  acceptedLate: (unused, taskId, courseId, period_id) ->
+  acceptedLate: (unused, taskId, courseId) ->
     @_asyncStatus[taskId] = ACCEPTED
     task = @getTaskById(taskId, courseId)
     task.is_late_work_accepted = true
-    # task.
-
     @emitChange()
 
   rejectLate: (taskId) ->
     @_asyncStatus[taskId] = REJECTING
     @emitChange()
 
-  rejectedLate: (unused, taskId, courseId, period_id) ->
+  rejectedLate: (unused, taskId, courseId) ->
     @_asyncStatus[taskId] = REJECTED
     task = @getTaskById(taskId, courseId)
     task.is_late_work_accepted = false
-
     @emitChange()
 
 
