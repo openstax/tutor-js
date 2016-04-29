@@ -29,13 +29,24 @@ ScoresConfig = {
     task = _.findWhere(data, {id: taskId})
     task
 
-  updateAverages: (task, courseId, period_id, columnIndex) ->
+  updateAverages: (task, courseId, period_id, columnIndex, isAccepted, currentValue, acceptValue) ->
     scores = @_get(courseId)
     period = _.findWhere(scores, {period_id})
+    numStudents = period.students.length
+    currentValue = currentValue / 100
+    acceptValue = acceptValue / 100
+
+    currentAssignmentAverage = period?.data_headings[columnIndex]?.average_score
+
+    assignmentAverage =
+      (currentAssignmentAverage - (currentValue / numStudents)) + (acceptValue / numStudents)
+
+    period?.data_headings[columnIndex]?.average_score = assignmentAverage
+
 
     period?.overall_average_score = 79
 
-    period?.data_headings[columnIndex]?.average_score = 79
+
 
     students = allStudents @_get(courseId)
     taskId = parseInt(task.id)

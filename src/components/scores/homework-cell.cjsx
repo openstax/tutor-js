@@ -75,6 +75,7 @@ HomeworkCell = React.createClass
         columnIndex: columnIndex,
         courseId: courseId,
         period_id: period_id,
+        currentValue: @showPercent(@getScore(isAccepted)),
         acceptValue: @showPercent(@getScore(not isAccepted)),
         isIncludedInAverages: isIncludedInAverages
 

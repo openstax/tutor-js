@@ -9,9 +9,10 @@ LateWork = React.createClass
   displayName: 'LateWork'
 
   setLateStatus: ->
-    {task, courseId, period_id, columnIndex, isIncludedInAverages} = @props
+    {task, courseId, period_id, columnIndex, isIncludedInAverages, currentValue, acceptValue} = @props
+    isAccepted = task.is_late_work_accepted
     if not @isUpdatingLateStatus()
-      if task.is_late_work_accepted
+      if isAccepted
         ScoresActions.rejectLate(task.id, courseId)
       else
         ScoresActions.acceptLate(task.id, courseId)
@@ -21,7 +22,10 @@ LateWork = React.createClass
           task,
           courseId,
           period_id,
-          columnIndex
+          columnIndex,
+          isAccepted,
+          currentValue,
+          acceptValue
         ]
         ScoresActions.updateAverages(updateAveragesParams...)
 
@@ -33,16 +37,17 @@ LateWork = React.createClass
 
   render: ->
     {task, acceptValue} = @props
+    isAccepted = task.is_late_work_accepted
     lateQuestionCount =
       task.completed_exercise_count - task.completed_on_time_exercise_count
     titleProgress =
       if task.type is 'homework'
-        if not task.is_late_work_accepted
+        if not isAccepted
           "#{lateQuestionCount} questions worked after the due date" 
         else 
           'You accepted this student\'s late score.'
       else
-        if not task.is_late_work_accepted
+        if not isAccepted
           'Reading progress after the due date' 
         else 
           'You accepted this student\'s late reading progress.'
@@ -55,19 +60,19 @@ LateWork = React.createClass
         <span>{titleProgress}</span>
     buttonLabel =
       if task.type is 'homework'
-        if not task.is_late_work_accepted
+        if not isAccepted
           'Accept late score' 
         else 
           'Use this score'
       else
-        if not task.is_late_work_accepted
+        if not isAccepted
           'Accept late progress' 
         else 
           'Use due date progress'
-    acceptedClass = if task.is_late_work_accepted then 'accepted' else ''
+    acceptedClass = if isAccepted then 'accepted' else ''
     keyword = if task.type is 'homework' then 'Score' else 'Progress'
     time =
-      if task.is_late_work_accepted
+      if isAccepted
         'due date'
       else
         <Time date={task.last_worked_at} format='shortest'/>
