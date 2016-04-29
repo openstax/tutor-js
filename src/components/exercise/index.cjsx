@@ -6,6 +6,8 @@ Exercise = require './part'
 {CardBody} = require '../pinned-header-footer-card/sections'
 ExerciseGroup = require './group'
 
+{ScrollTracker, ScrollTrackerParentMixin} = require '../scroll-tracker'
+
 ExerciseParts = React.createClass
   displayName: 'ExerciseParts'
 
@@ -64,7 +66,17 @@ ExerciseParts = React.createClass
       unless index is 0
         part.content = _.omit(part.content, 'stimulus_html', 'stem_html')
 
-      @renderPart(part, partProps)
+      scrollState =
+        key: part.id
+        questionNumber: part.questionNumber
+        index: index
+
+      <ScrollTracker
+        scrollState={scrollState}
+        setScrollPoint={@setScrollPoint}
+        unsetScrollPoint={@unsetScrollPoint}>
+        {@renderPart(part, partProps)}
+      </ScrollTracker>
 
     step = _.last(parts)
 
