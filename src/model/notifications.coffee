@@ -1,11 +1,11 @@
 EventEmitter2 = require 'eventemitter2'
 _ = require 'underscore'
 
+URLs = require './urls'
 EVENT_BUS = new EventEmitter2
-URL = {}
 POLLERS = {}
 
-pollerFactory = require './pollers'
+pollerFactory = require './notifications/pollers'
 
 Notifications = {
 
@@ -21,16 +21,14 @@ Notifications = {
     POLLERS[type].setUrl(url)
 
   initialize: (bootstrapData, @windowImpl = window) ->
-    URL.accounts ||= bootstrapData.accounts_notices_url
-    URL.profile  ||= bootstrapData.accounts_profile_url
 
     @_startPolling(
-      'accounts', bootstrapData.accounts_notices_url
-    ) if bootstrapData.accounts_notices_url
+      'accounts', URLs.get('accounts_user')
+    ) if URLs.get('accounts_user')
 
     @_startPolling(
-      'tutor', bootstrapData.tutor_notices_url
-    ) if bootstrapData.tutor_notices_url
+      'tutor', URLs.get('tutor_notices')
+    ) if URLs.get('tutor_notices')
 
 
   acknowledge: (notice) ->

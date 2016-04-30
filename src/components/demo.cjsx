@@ -6,7 +6,8 @@ classnames = require 'classnames'
 
 Exercise = require './exercise'
 Notifications = require '../model/notifications'
-NotificationBar = require './notifications-bar'
+URLs = require '../model/urls'
+NotificationBar = require './notifications/bar'
 
 exerciseStub = require '../../stubs/exercise'
 exerciseEvents = new EventEmitter2(wildcard: true)
@@ -202,18 +203,20 @@ HTMLDemo = React.createClass
 NoticesDemo = React.createClass
   getInitialState: -> {running: false}
 
-  doIt: ->
-    Notifications.initialize(
-      base_accounts_url:    'http://localhost:2999/'
-      accounts_notices_url: 'http://localhost:2999/api/notices'
+  startPoll: ->
+    # These will be loaded from the app's bootsrap data in normal use
+    URLs.update(
+      base_accounts_url:    'http://localhost:2999'
+      accounts_user_url:    'http://localhost:2999/api/user'
       tutor_notices_url:    'http://localhost:3001/api/notifications'
       accounts_profile_url: 'http://localhost:2999/profile'
     )
+    Notifications.initialize()
 
   render: ->
-    <div class="notices">
+    <div className="notices">
       <NotificationBar />
-      <button onClick={@doIt}>{if @state.running then 'Start' else 'Poll'}</button>
+      <button onClick={@startPoll}>Start Polling</button>
     </div>
 
 Demo = React.createClass

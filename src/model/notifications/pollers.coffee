@@ -1,7 +1,8 @@
-moment        = require 'moment'
-_ = require 'underscore'
-axios         = require 'axios'
+_           = require 'underscore'
+moment      = require 'moment'
+axios       = require 'axios'
 STORAGE_KEY = 'ox-notifications'
+User        = require '../user'
 
 class Poller
   constructor: (@type, @notices, @interval) ->
@@ -17,7 +18,7 @@ class Poller
 
   poll: ->
     return if @notices.windowImpl.document.hidden is true
-    axios.get(@url).then(@onReply).catch(@onError)
+    axios.get(@url, withCredentials: true).then(@onReply).catch(@onError)
 
   onReply: ({data}) ->
     console.warn "base onReply method called unnecessarily"
@@ -59,21 +60,25 @@ class TutorNotices extends Poller
 
   onReply: ({data}) ->
     observedIds = @_getObservedNoticeIds()
-    newActiveNotices = {}
+    notices = {}
     currentIds = []
     for notice in data
       currentIds.push(notice.id)
       continue unless observedIds.indexOf(notice.id) is -1
-      newActiveNotices[notice.id] = _.extend(notice, {type: @type})
+      notices[notice.id] = _.extend(notice, {type: @type})
 
-    @_setActiveNotices(newActiveNotices, currentIds)
+    @_setActiveNotices(notices, currentIds)
 
 
 class AccountsNagger extends Poller
   constructor: (type, notices) -> super(type, notices, moment.duration(1, 'day'))
 
   onReply: ({data}) ->
-    debugger
+    User.setCurrent(data)
+    emails = {}
+    for email in User.current().unVerfiedEmails()
+      emails[email.id] = _.extend(email, {type: @type})
+    @_setActiveNotices(emails, _.keys(emails))
 
 
 POLLER_TYPES =
