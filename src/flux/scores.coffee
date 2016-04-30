@@ -32,6 +32,7 @@ ScoresConfig = {
   updateAverages: (task, courseId, period_id, columnIndex, isAccepted, currentValue, acceptValue) ->
     scores = @_get(courseId)
     period = _.findWhere(scores, {period_id})
+    #students = _.findWhere(period,student, {})
     numStudents = period.students.length
     currentValue = currentValue / 100
     acceptValue = acceptValue / 100
@@ -39,13 +40,19 @@ ScoresConfig = {
     currentAssignmentAverage = period?.data_headings[columnIndex]?.average_score
 
     assignmentAverage =
-      (currentAssignmentAverage - (currentValue / numStudents)) + (acceptValue / numStudents)
+      (currentAssignmentAverage - (currentValue / numStudents)) + 
+      (acceptValue / numStudents)
 
     period?.data_headings[columnIndex]?.average_score = assignmentAverage
 
 
-    period?.overall_average_score = 79
+    currentPeriodAverage = period?.overall_average_score
 
+    periodAverage =
+      (currentPeriodAverage - (currentValue / numStudents)) + 
+      (acceptValue / numStudents)
+
+    period?.overall_average_score = periodAverage
 
 
     students = allStudents @_get(courseId)
@@ -56,7 +63,14 @@ ScoresConfig = {
         taskIds = _.pluck student.data, 'id'
         _.indexOf(taskIds, taskId) > -1
 
-    taskStudent?.average_score = 79
+    currentStudentAverage = taskStudent?.average_score
+    numTasks = taskStudent.data.length
+
+    studentAverage =
+      (currentStudentAverage - (currentValue / numTasks)) + 
+      (acceptValue / numTasks)
+
+    taskStudent?.average_score = studentAverage
 
 
   acceptLate: (taskId) ->
