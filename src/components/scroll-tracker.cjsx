@@ -34,6 +34,7 @@ ScrollTrackerMixin =
 
 ScrollTracker = React.createClass
   displayName: 'ScrollTracker'
+  mixins: [ScrollTrackerMixin]
   render: ->
     @props.children
 
@@ -100,7 +101,9 @@ ScrollTrackerParentMixin =
       @scrollToKey(@props.currentStep)
 
   scrollToKey: (stepKey) ->
+    return unless stepKey?
     scrollState = @getScrollStateByKey(stepKey)
+    return unless scrollState?
     window.scrollTo(0, (scrollState?.scrollPoint - @state.scrollTopBuffer))
 
 module.exports = {ScrollTrackerMixin, ScrollTracker, ScrollTrackerParentMixin}

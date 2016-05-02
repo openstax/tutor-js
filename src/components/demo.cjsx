@@ -79,6 +79,13 @@ ExerciseDemo = React.createClass
   displayName: 'ExerciseDemo'
   getInitialState: ->
     exerciseProps: getProps(SINGLEPART_STEP_IDS)
+  getDefaultProps: ->
+    setScrollState: ->
+      console.info('scrolling', arguments)
+      {key} = scrollState
+      @setState(currentStep: key)
+    goToStep: ->
+      console.info('goToStep', arguments)
   update: ->
     @setState(exerciseProps: getProps(SINGLEPART_STEP_IDS))
   componentWillMount: ->
@@ -87,12 +94,19 @@ ExerciseDemo = React.createClass
     exerciseEvents.off('change', @update)
   render: ->
     {exerciseProps} = @state
-    <Exercise {...exerciseProps} pinned={false}/>
+    <Exercise {...@props} {...exerciseProps} pinned={false}/>
 
 MultipartExerciseDemo = React.createClass
   displayName: 'MultipartExerciseDemo'
   getInitialState: ->
     exerciseProps: getProps(MULTIPART_STEP_IDS)
+  getDefaultProps: ->
+    setScrollState: (scrollState) ->
+      console.info('scrolling', arguments)
+      {key} = scrollState
+      @setState(currentStep: key)
+    goToStep: ->
+      console.info('goToStep', arguments)
   update: ->
     @setState(exerciseProps: getProps(MULTIPART_STEP_IDS))
   componentWillMount: ->
@@ -100,8 +114,15 @@ MultipartExerciseDemo = React.createClass
   componentWillUnmount: ->
     exerciseEvents.off('change', @update)
   render: ->
-    {exerciseProps} = @state
-    <Exercise {...exerciseProps} pinned={false}/>
+    {exerciseProps, currentStep} = @state
+    {setScrollState, goToStep} = @props
+    <Exercise
+      {...exerciseProps}
+      setScrollState={setScrollState.bind(@)}
+      goToStep={goToStep}
+      currentStep={currentStep}
+      pinned={false}
+    />
 
 ExercisePreviewDemo = React.createClass
   displayName: 'ExercisePreviewDemo'
@@ -278,7 +299,6 @@ Demo = React.createClass
     demos =
       exercisePreview: <ExercisePreviewDemo/>
       notices: <NoticesDemo />
-      exercise: <ExerciseDemo/>
       multipartExercise: <MultipartExerciseDemo/>
       exercisePreview: <ExercisePreviewDemo/>
       breadcrumbs: <BreadcrumbDemo/>

@@ -6,11 +6,12 @@ Exercise = require './part'
 {CardBody} = require '../pinned-header-footer-card/sections'
 ExerciseGroup = require './group'
 
+{ScrollListenerMixin} = require 'react-scroll-components'
 {ScrollTracker, ScrollTrackerParentMixin} = require '../scroll-tracker'
 
 ExerciseParts = React.createClass
   displayName: 'ExerciseParts'
-
+  mixins: [ScrollListenerMixin, ScrollTrackerParentMixin]
   getLastPartId: ->
     {parts} = @props
     _.last(parts).id
@@ -36,12 +37,12 @@ ExerciseParts = React.createClass
     not (@isLastPart(id) and canOnlyContinue(id))
 
   renderPart: (part, partProps) ->
-    props = _.omit(@props, 'part', 'canOnlyContinue', 'footer')
+    props = _.omit(@props, 'part', 'canOnlyContinue', 'footer', 'setScrollState', 'goToStep')
 
     <Exercise {...partProps} {...props} step={part} id={part.id} taskId={part.task_id}/>
 
   render: ->
-    {parts, footer, getCurrentPanel, onNextStep} = @props
+    {parts, footer, getCurrentPanel, onNextStep, currentStep} = @props
 
     if @isSinglePart()
       part = _.first(parts)
