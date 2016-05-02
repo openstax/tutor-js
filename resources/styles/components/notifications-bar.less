@@ -14,6 +14,20 @@
     font-size: 2rem;
     line-height: 2rem;
 
+    .body, .error {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      .message {
+        flex: 1;
+        text-align: right;
+      }
+    }
+    .body {
+      flex: 1;
+    }
+
     & + .notification {
       border-top: 1px solid darken(@openstax-primary, 5%);
     }
@@ -39,22 +53,22 @@
       &.verify {
         .action { text-decoration: underline; }
       }
-      &.pin {
-        input {
-          width: 10rem;
-          margin-left: 1rem;
-          color: @openstax-neutral-darker;
-        }
-        .form-group { margin: 0; }
-        .action {
-          border: 2px solid @openstax-neutral-lighter;
-          border-radius: 20px;
-          padding: 4px;
-          width: 60px;
-          text-align: center;
 
-        }
+      input {
+        width: 10rem;
+        margin-left: 1rem;
+        color: @openstax-neutral-darker;
       }
+      .form-group { margin: 0; }
+      .pin-check {
+        border: 2px solid @openstax-neutral-lighter;
+        border-radius: 20px;
+        padding: 4px;
+        width: 60px;
+        text-align: center;
+
+      }
+
     }
   }
 }
