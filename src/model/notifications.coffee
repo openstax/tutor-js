@@ -11,11 +11,6 @@ Notifications = {
 
   _asyncStatus: {}
 
-  # # The _get/_set methods below are privatish and are called only by the poller instances
-  # _getObservedNoticeIds: ->
-  #   JSON.parse(@windowImpl.localStorage.getItem(STORAGE_KEY) or '[]')
-  # _setObservedNoticeIds: (newIds) ->
-  #   @windowImpl.localStorage.setItem(STORAGE_KEY, JSON.stringify(newIds) )
   _startPolling: (type, url) ->
     POLLERS[type] ||= pollerFactory(@, type)
     POLLERS[type].setUrl(url)
