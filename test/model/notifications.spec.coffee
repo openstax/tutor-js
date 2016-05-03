@@ -3,18 +3,11 @@
 URLs = require 'model/urls'
 Notifications = require 'model/notifications'
 Poller = require 'model/notifications/pollers'
+FakeWindow = require 'test/helpers/fake-window'
 
 describe 'Notifications', ->
   beforeEach ->
-    @windowImpl =
-      clearInterval: sinon.spy()
-      setInterval: sinon.spy -> Math.random()
-      localStorage:
-        getItem: sinon.stub().returns('[]')
-        setItem: sinon.stub()
-      document:
-        hidden: false
-
+    @windowImpl = new FakeWindow
     sinon.stub(Poller.prototype, 'poll')
     sinon.spy(Poller.prototype, 'setUrl')
 
