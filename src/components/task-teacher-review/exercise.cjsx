@@ -2,9 +2,8 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 
-{ScrollTracker} = require '../scroll-tracker'
-
 {ArbitraryHtmlAndMath, Question, CardBody, FreeResponse, ExerciseGroup} = require 'openstax-react-components'
+{ScrollTrackerMixin} = require 'openstax-react-components/src/components/scroll-tracker'
 {ExerciseStore} = require '../../flux/exercise'
 
 TaskTeacherReviewQuestion = React.createClass
@@ -84,7 +83,7 @@ TaskTeacherReviewQuestion = React.createClass
 
 TaskTeacherReviewQuestionTracker = React.createClass
   displayName: 'TaskTeacherReviewQuestionTracker'
-  mixins: [ScrollTracker]
+  mixins: [ScrollTrackerMixin]
   render: ->
     questionProps = _.pick(@props, 'question', 'questionStats')
     <TaskTeacherReviewQuestion {...questionProps}/>
@@ -116,7 +115,7 @@ TaskTeacherReviewExercise = React.createClass
       unsetScrollPoint={unsetScrollPoint}/>
 
   render: ->
-    {content} = @props    
+    {content} = @props
     {questions, uid} = content
 
     exercise = _.map questions, @renderQuestion

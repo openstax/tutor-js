@@ -2,19 +2,19 @@ React = require 'react'
 _ = require 'underscore'
 
 TaskTeacherReviewExercise = require './exercise'
-{ScrollTracker, ScrollTrackerParentMixin} = require '../scroll-tracker'
 LoadableItem = require '../loadable-item'
 
 CrumbMixin = require './crumb-mixin'
-{ChapterSectionMixin} = require 'openstax-react-components'
 {ScrollListenerMixin} = require 'react-scroll-components'
+{ChapterSectionMixin} = require 'openstax-react-components'
+{ScrollTrackerMixin, ScrollTrackerParentMixin} = require 'openstax-react-components/src/components/scroll-tracker'
 
 {TaskTeacherReviewActions, TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
 
 
 ReviewHeadingTracker = React.createClass
   displayName: 'ReviewHeadingTracker'
-  mixins: [ScrollTracker]
+  mixins: [ScrollTrackerMixin]
   render: ->
     {sectionLabel, title} = @props
 
