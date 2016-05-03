@@ -30,34 +30,38 @@ QuestionFormatType = React.createClass
     sync: React.PropTypes.func.isRequired
 
   updateFormat: (ev) ->
-    formats =  QuestionStore.get(@props.questionId).formats or []
-    if ev.target.checked
-      formats.push(ev.target.name)
-    else
-      formats = _.without(formats, ev.target.name)
-    QuestionActions.setFormats(@props.questionId, formats)
+    selected = ev.target.value
+    for id, name of TYPES
+      QuestionActions.toggleFormat(@props.questionId, id, selected is id)
     @props.sync()
 
-  setChoiceRequired: (ev) ->
-    QuestionActions.setChoiceRequired(@props.questionId, ev.target.checked)
+  isFormatChecked: (name) ->
+    QuestionStore.hasFormat(@props.questionId, name)
 
-  isFormatDisabled: (id, required) ->
-    id is 'free-response' and required
+  setChoiceRequired: (ev) ->
+    QuestionActions.toggleFormat(@props.questionId, 'free-response', not ev.target.checked)
+    @props.sync()
+
+  doesRequireChoices: ->
+    not @isFormatChecked('free-response')
 
   render: ->
-    formats =  QuestionStore.get(@props.questionId).formats
-    isChoiceRequired = QuestionStore.isChoiceRequired(@props.questionId)
-
     <div className="format-type">
       {for id, name of TYPES
-        <BS.Input key={id} name={id} type="checkbox" label={name}
-          disabled={@isFormatDisabled(id, isChoiceRequired)}
-          checked={_.contains(formats, id)}
-          onChange={@updateFormat} />}
+        <BS.Input
+          key={id}
+          type="radio"
+          name='formats'
+          label={name}
+          value={id}
+          onClick={@updateFormat}
+          checked={@isFormatChecked(id)}
+        />}
 
-      <BS.Input type="checkbox" label="Requires Choices"
+      {<BS.Input type="checkbox" label="Requires Choices"
         onChange={@setChoiceRequired}
-        checked={isChoiceRequired} />
+        checked={@doesRequireChoices()}
+      /> if QuestionStore.hasFormat(@props.questionId, 'multiple-choice')}
     </div>
 
 

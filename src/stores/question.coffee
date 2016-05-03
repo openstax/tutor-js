@@ -63,24 +63,32 @@ QuestionConfig = {
       AnswerActions.setCorrect(newAnswer)
       AnswerActions.setIncorrect(curAnswer) if curAnswer
 
-  setFormats: (id, formats) ->
-    @_change(id, {formats: _.unique(formats)})
-
   togglePreserveOrder: (id) ->
     {is_answer_order_important} = @_get(id)
     @_change(id, {is_answer_order_important: not is_answer_order_important})
 
-  setChoiceRequired: (id, isChoiceRequired) ->
-    {formats} = @_get(id)
+  toggleFormat: (id, name, isSelected) ->
+    formats = @_get(id).formats
 
-    if isChoiceRequired # remove 'free-response'
-      formats = _.without( formats, 'free-response' )
-    else # Must have 'multiple-choice', 'free-response'
-      formats = _.unique formats.concat(['multiple-choice', 'free-response'] )
+    formats = if isSelected
+      formats.concat(name)
+    else
+      _.without(formats, name)
+
+    # toggle free-response depending on selection
+    if isSelected
+      switch name
+        when 'true-false'
+          formats = _.without(formats, 'free-response')
+        when 'multiple-choice'
+          formats = formats.concat('free-response')
 
     @_change(id, {formats: _.unique(formats)})
 
   exports:
+
+    hasFormat: (id, name) ->
+      _.include @_get(id)?.formats, name
 
     getAnswers: (id) -> @_get(id)?.answers or []
 
@@ -103,7 +111,7 @@ QuestionConfig = {
     getTemplate: ->
       answerId = AnswerStore.freshLocalId()
 
-      formats: []
+      formats: ['multiple-choice', 'free-response']
       stem_html:"",
       stimulus_html:"",
       collaborator_solutions: [{"content_html": "", "solution_type": "detailed"}],
