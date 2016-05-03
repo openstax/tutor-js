@@ -5,7 +5,7 @@ URL = {}
 URLMethods = {
 
   update: (urls) ->
-    for name, url of urls
+    for name, url of urls when _.isString(url)
       URL[ name.replace(/_url$/, '') ] = url.replace(/\/$/, '')
 
   get: (url) ->

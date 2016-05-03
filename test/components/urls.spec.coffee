@@ -16,3 +16,12 @@ describe 'URLs', ->
   it 'can construct a url from parts', ->
     expect( URLs.construct('foo', 'bar', 'baz', 1) )
       .to.equal( 'http://foo.bar.com/bar/baz/1' )
+
+
+  it 'ignores non-string urls', ->
+    URLs.update({
+      'object': {object: true}
+      'number': 42
+    })
+    expect( URLs.get('object') ).not.to.exist
+    expect( URLs.get('number') ).not.to.exist
