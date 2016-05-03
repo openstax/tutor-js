@@ -207,7 +207,6 @@ NoticesDemo = React.createClass
     # These will be loaded from the app's bootsrap data in normal use
     URLs.update(
       base_accounts_url:    'http://localhost:2999'
-      accounts_user_url:    'http://localhost:2999/api/user'
       tutor_notices_url:    'http://localhost:3001/api/notifications'
       accounts_profile_url: 'http://localhost:2999/profile'
     )
