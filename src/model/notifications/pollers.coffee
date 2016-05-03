@@ -5,6 +5,10 @@ STORAGE_KEY = 'ox-notifications'
 User        = require '../user'
 
 class Poller
+
+  @forType: (notices, type) ->
+    new POLLER_TYPES[type](type, notices)
+
   constructor: (@type, @notices, @interval) ->
     @localStorageKey = STORAGE_KEY + '-' + @type
     _.bindAll(@, 'poll', 'onReply', 'onError')
@@ -89,5 +93,4 @@ POLLER_TYPES =
   tutor: TutorNotices
   accounts: AccountsNagger
 
-module.exports = (notices, type) ->
-  new POLLER_TYPES[type](type, notices)
+module.exports = Poller

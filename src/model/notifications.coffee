@@ -5,18 +5,15 @@ URLs = require './urls'
 EVENT_BUS = new EventEmitter2
 POLLERS = {}
 
-pollerFactory = require './notifications/pollers'
+Poller = require './notifications/pollers'
 
 Notifications = {
 
-  _asyncStatus: {}
-
   _startPolling: (type, url) ->
-    POLLERS[type] ||= pollerFactory(@, type)
+    POLLERS[type] ||= Poller.forType(@, type)
     POLLERS[type].setUrl(url)
 
-  initialize: (bootstrapData, @windowImpl = window) ->
-
+  startPolling: (@windowImpl = window) ->
     @_startPolling(
       'accounts', URLs.get('accounts_user')
     ) if URLs.get('accounts_user')

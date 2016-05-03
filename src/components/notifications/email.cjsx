@@ -105,7 +105,7 @@ EmailNotification = React.createClass
           <span className="body">{@props.notice.error}</span>
         </span>
 
-    classNames = classnames('notification','email',
+    classNames = classnames('notification', 'email',
       {'with-error': @props.notice.error}
     )
     <div className={classNames}>
