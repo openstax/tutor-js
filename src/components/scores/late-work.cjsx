@@ -97,16 +97,17 @@ LateWork = React.createClass
 
 
 
-    <div className="late-caret-trigger">
-      <BS.OverlayTrigger
-      ref="overlay"
-      placement="top"
-      trigger="click"
-      rootClose={true}
-      overlay={popover}>
+    <BS.OverlayTrigger
+    ref="overlay"
+    placement="top"
+    trigger="click"
+    rootClose={true}
+    overlay={popover}>
+      <div className="late-caret-trigger">
         <div className="late-caret #{acceptedClass}"></div>
-      </BS.OverlayTrigger>
-    </div>
+      </div>
+    </BS.OverlayTrigger>
+   
 
 
 module.exports = LateWork

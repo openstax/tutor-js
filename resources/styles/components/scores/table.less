@@ -270,18 +270,26 @@
     .score {
       position: relative;
     }
-    .late-caret {
-      position: absolute;
-      cursor: pointer;
-      top: 0px;
-      right: 0px;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 0 10px 10px 0;
-      border-color: transparent @tutor-primary transparent transparent;
-      &.accepted {
-        border-color: transparent lighten(@tutor-neutral, 25%) transparent transparent;
+    .late-caret-trigger {
+        position: absolute;
+        cursor: pointer;
+        top: 0px;
+        right: 0px;
+        width: 25px;
+        height: @table-row-height;
+      .late-caret {
+        position: absolute;
+        cursor: pointer;
+        top: 0px;
+        right: 0px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 10px 10px 0;
+        border-color: transparent @tutor-primary transparent transparent;
+        &.accepted {
+          border-color: transparent lighten(@tutor-neutral, 25%) transparent transparent;
+        }
       }
     }
   }
