@@ -211,7 +211,7 @@ NoticesDemo = React.createClass
       tutor_notices_url:    'http://localhost:3001/api/notifications'
       accounts_profile_url: 'http://localhost:2999/profile'
     )
-    Notifications.initialize()
+    Notifications.startPolling()
 
   render: ->
     <div className="notices">

@@ -1,6 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
+_ = require 'underscore'
 
 URLs = require '../../model/urls'
 Notifications = require '../../model/notifications'
@@ -30,10 +31,10 @@ EmailNotification = React.createClass
     @forceUpdate()
 
   onVerify: ->
-    @props.notice.sendVerification()
+    @props.notice.sendConfirmation()
 
   onPinCheck: ->
-    @props.notice.verify( @refs.verifyInput.getValue(), @onSuccess)
+    @props.notice.sendVerification( @refs.verifyInput.getValue(), @onSuccess)
 
   renderSpinner: ->
     <span className="body">
