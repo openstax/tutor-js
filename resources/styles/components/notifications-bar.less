@@ -5,27 +5,27 @@
   background-color: @openstax-primary;
   padding-left: 4rem;
   .notification {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
+    .flex-display();
+    .flex-direction(row);
+    .justify-content(flex-start);
+    .align-items(center);
     color: @openstax-neutral-lighter;
     padding: 15px;
     font-size: 2rem;
     line-height: 2rem;
 
     .body, .error {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
-      align-items: center;
+      .flex-display();
+      .flex-direction(row);
+      .justify-content(flex-start);
+      .align-items(center);
       .message {
-        flex: 1;
+        .flex(1);
         text-align: right;
       }
     }
     .body {
-      flex: 1;
+      .flex(1);
     }
 
     & + .notification {
