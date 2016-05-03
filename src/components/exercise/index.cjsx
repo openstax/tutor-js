@@ -68,8 +68,9 @@ ExerciseParts = React.createClass
         part.content = _.omit(part.content, 'stimulus_html', 'stem_html')
 
       scrollState =
-        key: part.id
+        key: part.stepIndex
         questionNumber: part.questionNumber
+        id: part.id
         index: index
 
       <ScrollTracker
@@ -91,9 +92,10 @@ ExerciseParts = React.createClass
     if @canAllContinue()
       canContinueControlProps =
         isContinueEnabled: true
-        onContinue: onNextStep
+        onContinue: _.partial onNextStep, currentStep: step.stepIndex
 
-    footer ?= <ExFooter {...canContinueControlProps} {...@props} panel='review'/>
+    footerProps = _.omit(@props, 'onContinue')
+    footer ?= <ExFooter {...canContinueControlProps} {...footerProps} panel='review'/>
 
     <CardBody footer={footer} className='openstax-multipart-exercise-card'>
       <label className='openstax-multipart-exercise-card-label'/>

@@ -71,9 +71,12 @@ ScrollTrackerParentMixin =
 
     scrollState or _.last(@state.scrollPoints)
 
+  areKeysSame: (key, keyToCompare) ->
+    key is keyToCompare or parseInt(key) is parseInt(keyToCompare)
+
   getScrollStateByKey: (stepKey) ->
-    scrollStateIndex = _.findLastIndex @state.scrollPoints, (scrollData) ->
-      scrollData.key is stepKey
+    scrollStateIndex = _.findLastIndex @state.scrollPoints, (scrollData) =>
+      @areKeysSame(scrollData.key, stepKey)
 
     @state.scrollPoints[scrollStateIndex]
 
@@ -83,17 +86,24 @@ ScrollTrackerParentMixin =
 
     @props.setScrollState(scrollState)
 
+  shouldCheckForScrollingState: (state) ->
+    state ?= @state
+
+    not _.isEmpty(state.scrollPoints) and not _.isUndefined(state.scrollState)
+
   componentDidMount: ->
     @setScrollTopBuffer()
     @scrollToKey(@props.currentStep) if @props.currentStep?
 
   componentWillUpdate: (nextProps, nextState) ->
-    willScrollStateKeyChange = not (nextState.scrollState.key is @state.scrollState.key)
+    return unless @shouldCheckForScrollingState(nextState)
+    willScrollStateKeyChange = not @areKeysSame(nextState.scrollState.key, @state.scrollState.key)
     @props.goToStep(nextState.scrollState.key) if willScrollStateKeyChange
 
   componentDidUpdate: (prevProps, prevState) ->
-    doesScrollStateMatch = (prevState.scrollState.key is @getScrollStateByScroll(@state.scrollTop)?.key)
-    didCurrentStepChange = not (@props.currentStep is prevState.scrollState?.key)
+    return unless @shouldCheckForScrollingState(prevState)
+    doesScrollStateMatch = @areKeysSame(prevState.scrollState.key, @getScrollStateByScroll(@state.scrollTop)?.key)
+    didCurrentStepChange = not @areKeysSame(@props.currentStep, prevState.scrollState?.key)
 
     unless doesScrollStateMatch
       @setScrollState()
