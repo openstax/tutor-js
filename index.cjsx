@@ -3,6 +3,7 @@
 module.exports = {
   ArbitraryHtmlAndMath:   require './src/components/html'
   AsyncButton:            require './src/components/buttons/async-button'
+  BootrapURLs:            require './src/model/urls'
   Breadcrumb:             require './src/components/breadcrumb'
   CardBody,
   ChapterSectionMixin:    require './src/components/chapter-section-mixin'
@@ -14,6 +15,8 @@ module.exports = {
   FreeResponse:           require './src/components/exercise/free-response'
   GetPositionMixin:       require './src/components/get-position-mixin'
   KeysHelper:             require './src/helpers/keys'
+  NotificationActions:    require './src/model/notifications'
+  NotificationsBar:       require './src/components/notifications/bar'
   PinnableFooter,
   PinnedHeader,
   PinnedHeaderFooterCard: require './src/components/pinned-header-footer-card'
