@@ -1,51 +1,25 @@
-Exercise = require './src/components/exercise'
-FreeResponse = require './src/components/exercise/free-response'
-ExerciseGroup = require './src/components/exercise/group'
-Breadcrumb = require './src/components/breadcrumb'
-SpyMode = require './src/components/spy-mode'
-PinnedHeaderFooterCard = require './src/components/pinned-header-footer-card'
 {PinnedHeader, CardBody, PinnableFooter} = require './src/components/pinned-header-footer-card/sections'
 
-Question = require './src/components/question'
-ArbitraryHtmlAndMath = require './src/components/html'
-SmartOverflow = require './src/components/smart-overflow'
-
-RefreshButton = require './src/components/buttons/refresh-button'
-AsyncButton = require './src/components/buttons/async-button'
-CloseButton = require './src/components/buttons/close-button'
-ExercisePreview = require './src/components/exercise/preview'
-ExerciseIdentifierLink = require './src/components/exercise/identifier-link'
-ChapterSectionMixin = require './src/components/chapter-section-mixin'
-GetPositionMixin = require './src/components/get-position-mixin'
-ResizeListenerMixin = require './src/components/resize-listener-mixin'
-
-KeysHelper = require './src/helpers/keys'
-
 module.exports = {
-  Exercise,
-  ExerciseGroup,
-  FreeResponse,
-  Breadcrumb,
-
-  PinnedHeaderFooterCard,
-  PinnedHeader,
+  ArbitraryHtmlAndMath:   require './src/components/html'
+  AsyncButton:            require './src/components/buttons/async-button'
+  Breadcrumb:             require './src/components/breadcrumb'
   CardBody,
+  ChapterSectionMixin:    require './src/components/chapter-section-mixin'
+  CloseButton:            require './src/components/buttons/close-button'
+  Exercise:               require './src/components/exercise'
+  ExerciseGroup:          require './src/components/exercise/group'
+  ExerciseIdentifierLink: require './src/components/exercise/identifier-link'
+  ExercisePreview:        require './src/components/exercise/preview'
+  FreeResponse:           require './src/components/exercise/free-response'
+  GetPositionMixin:       require './src/components/get-position-mixin'
+  KeysHelper:             require './src/helpers/keys'
   PinnableFooter,
-
-  Question,
-  ArbitraryHtmlAndMath,
-  SmartOverflow,
-
-  RefreshButton,
-  AsyncButton,
-  CloseButton,
-
-  ChapterSectionMixin,
-  GetPositionMixin,
-  ResizeListenerMixin,
-
-  SpyMode,
-  ExercisePreview,
-  ExerciseIdentifierLink,
-  KeysHelper
+  PinnedHeader,
+  PinnedHeaderFooterCard: require './src/components/pinned-header-footer-card'
+  Question:               require './src/components/question'
+  RefreshButton:          require './src/components/buttons/refresh-button'
+  ResizeListenerMixin:    require './src/components/resize-listener-mixin'
+  SmartOverflow:          require './src/components/smart-overflow'
+  SpyMode:                require './src/components/spy-mode'
 }
