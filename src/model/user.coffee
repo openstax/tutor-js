@@ -13,7 +13,7 @@ class Email extends EventEmitter2
     _.extend(@, attrs)
     super()
 
-  verify: (pin, successCallBack) ->
+  sendVerification: (pin, successCallBack) ->
     @makeRequest('confirm_by_pin', {pin}).then (resp) =>
       if resp.status is 204
         delete @error
@@ -27,9 +27,7 @@ class Email extends EventEmitter2
       @emit('change')
 
 
-
-
-  sendVerification: ->
+  sendConfirmation: ->
     @makeRequest('resend_confirmation').then (resp) =>
       @verifyInProgress = (resp.status is 204)
       @emit('change')
