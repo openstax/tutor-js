@@ -86,10 +86,12 @@ ScrollTrackerParentMixin =
 
     @props.setScrollState(scrollState)
 
+  isScrollPointsStable: (compareState) ->
+    _.isEqual(@state.scrollPoints, compareState.scrollPoints)
+
   shouldCheckForScrollingState: (state) ->
     state ?= @state
-
-    not _.isEmpty(state.scrollPoints) and not _.isUndefined(state.scrollState)
+    not _.isEmpty(state.scrollPoints) and not _.isUndefined(state.scrollState) and @isScrollPointsStable(state)
 
   componentDidMount: ->
     @setScrollTopBuffer()
