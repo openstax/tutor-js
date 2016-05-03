@@ -12,6 +12,10 @@ class Poller
   setUrl: (@url) ->
     @startPolling() unless @polling
 
+  destroy: ->
+    @notices.windowImpl.clearInterval(@polling) if @polling
+    delete @polling
+
   startPolling: ->
     @polling = @notices.windowImpl.setInterval(@poll, @interval.asMilliseconds())
     @poll()

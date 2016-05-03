@@ -13,6 +13,8 @@ URLMethods = {
 
   construct: (base, parts...) ->
     @get(base) + '/' + parts.join('/')
+
+  reset: -> URL = {}
 }
 
 module.exports = URLMethods

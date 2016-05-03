@@ -35,6 +35,10 @@ Notifications = {
       notices = notices.concat( poller.getActiveNotifications() )
     notices
 
+  stopPolling: ->
+    poller.destroy() for type, poller of POLLERS
+    POLLERS = {}
+
 }
 
 # mixin event emitter methods, particulary it's 'on' and 'off'
