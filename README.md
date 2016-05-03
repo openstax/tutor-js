@@ -72,6 +72,10 @@ As [seen here](https://github.com/openstax/react-components/blob/master/index.cj
 * RefreshButton
 * AsyncButton
 
+### Notices
+* NotificationsBar
+* NotificationActions (polling for notifications)
+
 ### Mixins
 
 * ChapterSectionMixin
