@@ -2,6 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
+{TaskProgressActions, TaskProgressStore} = require '../../flux/task-progress'
 {TaskStore} = require '../../flux/task'
 {StepPanel} = require '../../helpers/policies'
 
@@ -68,16 +69,25 @@ module.exports = React.createClass
     {taskId} = props
 
     task = TaskStore.get(taskId)
+    currentStep = TaskProgressStore.get(taskId)
 
-    {task}
+    {task, currentStep}
 
   isSinglePart: (parts) ->
     parts.length is 1
+
+  componentWillMount: ->
+    @startListeningForProgress()
+
+  componentWillUnmount: ->
+    @stopListeningForProgress()
 
   componentWillReceiveProps: (nextProps) ->
     if nextProps.taskId isnt @props.taskId
       nextState = _.extend({}, @getTaskInfo(nextProps), @getPartsInfo(nextProps))
       @setState(nextState)
+      @stopListeningForProgress()
+      @startListeningForProgress(nextProps)
     else
       @setState(@getPartsInfo(nextProps))
 
@@ -105,6 +115,18 @@ module.exports = React.createClass
       </div>
 
     if sectionsLinks.length > 0 then helpLink
+
+  stopListeningForProgress: (props) ->
+    props ?= @props
+    {taskId} = props
+
+    TaskProgressStore.off("update.#{taskId}", @setCurrentStepFromProgress)
+
+  startListeningForProgress: (props) ->
+    props ?= @props
+    {taskId} = props
+
+    TaskProgressStore.on("update.#{taskId}", @setCurrentStepFromProgress)
 
   canAllContinue: ->
     {parts} = @state
@@ -144,9 +166,20 @@ module.exports = React.createClass
     canTryAnother: TaskStepStore.canTryAnother(lastPartId, task, not @allCorrect())
     isRecovering: TaskStepStore.isRecovering(lastPartId)
 
+  setScrollState: (scrollState) ->
+    return unless scrollState?
+    {key} = scrollState
+    @setCurrentStep(key)
+
+  setCurrentStepFromProgress: ({current}) ->
+    @setCurrentStep(current)
+
+  setCurrentStep: (currentStep) ->
+    @setState({currentStep})
+
   render: ->
     {id, taskId, courseId, onNextStep, onStepCompleted, goToStep} = @props
-    {parts, lastPartId, isSinglePartExercise, task} = @state
+    {parts, lastPartId, isSinglePartExercise, task, currentStep} = @state
     part = _.last(parts)
 
     controlProps =
@@ -158,7 +191,7 @@ module.exports = React.createClass
 
       canContinueControlProps =
         isContinueEnabled: true
-        onContinue: onNextStep
+        onContinue: _.partial onNextStep, currentStep: part.stepIndex
 
       canContinueControlProps = _.extend({}, canContinueControlProps, reviewProps)
 
@@ -173,6 +206,11 @@ module.exports = React.createClass
 
     <Exercise
       {...@props}
+
+      setScrollState={@setScrollState}
+      goToStep={_.partial(goToStep, _, true)}
+      currentStep={currentStep}
+
       getCurrentPanel={getCurrentPanel}
       task={task}
       footer={footer}
@@ -185,7 +223,6 @@ module.exports = React.createClass
       disabled={TaskStepStore.isSaving(part.id)}
       isContinueEnabled={StepPanel.canContinue(part.id)}
 
-      goToStep={_.partial(goToStep, _, true)}
       canOnlyContinue={canOnlyContinue}
       getWaitingText={getWaitingText}
       getCurrentPanel={getCurrentPanel}

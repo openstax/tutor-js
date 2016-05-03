@@ -285,8 +285,27 @@ TaskConfig =
       parts = getSteps(parts)
 
       _.map parts, (part) =>
-        part.questionNumber = @exports.getStepIndex.call(@, taskId, part.id) + 1
+        part.stepIndex = @exports.getStepIndex.call(@, taskId, part.id)
+        part.questionNumber = part.stepIndex + 1
         part
+
+    getStepByIndex: (taskId, stepIndex) ->
+      @_steps[taskId][stepIndex]
+
+    isSameStep: (taskId, stepIndices...) ->
+      contentUrls = _.chain(stepIndices)
+        .map (stepIndex) =>
+          step = @exports.getStepByIndex.call(@, taskId, stepIndex)
+
+          if step?.is_in_multipart
+            step.content_url
+          else
+            null
+
+        .uniq()
+        .value()
+
+      contentUrls.length is 1 and _.first(contentUrls)?
 
 extendConfig(TaskConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskConfig)

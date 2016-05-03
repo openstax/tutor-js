@@ -1,5 +1,6 @@
 React = require 'react'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
+{TaskProgressActions, TaskProgressStore} = require '../../flux/task-progress'
 {TaskStore} = require '../../flux/task'
 
 _ = require 'underscore'
@@ -15,14 +16,16 @@ module.exports = React.createClass
 
   propTypes:
     id: React.PropTypes.string.isRequired
-    currentStep: React.PropTypes.number.isRequired
     goToStep: React.PropTypes.func.isRequired
 
   getInitialState: ->
+    currentStep = TaskProgressStore.get(@props.id)
+
     updateOnNext: true
-    hoverCrumb: @props.currentStep
+    hoverCrumb: currentStep
     shouldShrink: null
     crumbsWidth: null
+    currentStep: currentStep
 
   componentWillMount: ->
     listeners = @getMaxListeners()
@@ -42,6 +45,7 @@ module.exports = React.createClass
     TaskStore.on('task.afterRecovery', @update)
 
     crumbs = @getCrumableCrumbs()
+    @startListeningForProgress()
     @setState {crumbs}
 
   componentDidMount: ->
@@ -65,6 +69,7 @@ module.exports = React.createClass
     TaskStepStore.setMaxListeners(10)
     TaskStore.off('task.beforeRecovery', @stopUpdate)
     TaskStore.off('task.afterRecovery', @update)
+    @stopListeningForProgress()
 
   componentDidUpdate: (prevProps, prevState) ->
     if @didWidthChange(prevState, @state)
@@ -72,6 +77,21 @@ module.exports = React.createClass
 
   componentWillReceiveProps: (nextProps) ->
     @setState(hoverCrumb: nextProps.currentStep)
+    if @props.id isnt nextProps.id
+      @stopListeningForProgress()
+      @startListeningForProgress(nextProps)
+
+  stopListeningForProgress: (props) ->
+    props ?= @props
+    {id} = props
+
+    TaskProgressStore.off("update.#{id}", @setCurrentStep)
+
+  startListeningForProgress: (props) ->
+    props ?= @props
+    {id} = props
+
+    TaskProgressStore.on("update.#{id}", @setCurrentStep)
 
   crumbMounted: ->
     @calculateCrumbsWidth() if @state.crumbsWidth?
@@ -89,6 +109,9 @@ module.exports = React.createClass
   update: ->
     @setState(updateOnNext: true)
 
+  setCurrentStep: ({previous, current}) ->
+    @setState(currentStep: current)
+
   stopUpdate: ->
     @setState(updateOnNext: false)
 
@@ -96,8 +119,8 @@ module.exports = React.createClass
     @setState(hoverCrumb: hover)
 
   render: ->
-    {crumbs} = @state
-    {currentStep, goToStep} = @props
+    {crumbs, currentStep} = @state
+    {goToStep} = @props
 
     stepButtons = _.map crumbs, (crumb, crumbIndex) =>
       crumbStyle =
