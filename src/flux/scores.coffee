@@ -29,7 +29,7 @@ ScoresConfig = {
     task = _.findWhere(data, {id: taskId})
     task
 
-  updateAverages: (task, courseId, period_id, columnIndex, isAccepted, currentValue, acceptValue) ->
+  updateAverages: (task, courseId, period_id, columnIndex, currentValue, acceptValue) ->
     scores = @_get(courseId)
     period = _.findWhere(scores, {period_id})
     periodTasks = _.flatten(_.pluck(period.students, 'data'))
@@ -42,7 +42,7 @@ ScoresConfig = {
     currentAssignmentAverage = period?.data_headings[columnIndex]?.average_score
 
     assignmentAverage =
-      (currentAssignmentAverage - (currentValue / numStudents)) + 
+      (currentAssignmentAverage - (currentValue / numStudents)) +
       (acceptValue / numStudents)
 
     period?.data_headings[columnIndex]?.average_score = assignmentAverage
@@ -54,7 +54,7 @@ ScoresConfig = {
     currentPeriodAverage = period?.overall_average_score
 
     periodAverage =
-      (currentPeriodAverage - (currentValue / numStudentTasks)) + 
+      (currentPeriodAverage - (currentValue / numStudentTasks)) +
       (acceptValue / numStudentTasks)
 
     period?.overall_average_score = periodAverage
@@ -76,7 +76,7 @@ ScoresConfig = {
     numTasksStudent = _.filter(taskStudent.data, {is_included_in_averages: true}).length
 
     studentAverage =
-      (currentStudentAverage - (currentValue / numTasksStudent)) + 
+      (currentStudentAverage - (currentValue / numTasksStudent)) +
       (acceptValue / numTasksStudent)
 
     taskStudent?.average_score = studentAverage
@@ -128,7 +128,7 @@ ScoresConfig = {
         _.indexOf(taskIds, taskId) > -1
 
 
-    isUpdatingLateStatus: (taskId) -> 
+    isUpdatingLateStatus: (taskId) ->
       @_asyncStatus[taskId] is ACCEPTING or
       @_asyncStatus[taskId] is REJECTING
 

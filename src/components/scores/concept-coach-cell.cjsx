@@ -36,8 +36,8 @@ ConceptCoachCell = React.createClass
           </div>
           <div className='row'>
             <div>
-              {task.completed_exercise_count} of 
-               {task.exercise_count} questions
+              {task.completed_exercise_count}{' of '}
+              {task.exercise_count} questions
             </div>
           </div>
           { if task.completed_exercise_count is task.exercise_count then lastWorked }
@@ -55,7 +55,7 @@ ConceptCoachCell = React.createClass
                 "#{task.correct_exercise_count} of #{task.exercise_count}"
               else
                 "#{scorePercent}%"
-            }       
+            }
         </Router.Link>
       </div>
 

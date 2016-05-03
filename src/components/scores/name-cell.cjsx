@@ -17,7 +17,7 @@ module.exports = React.createClass
 
   render: ->
     if @props.isConceptCoach
-      nameCell = 
+      nameCell =
         <Name tooltip={TOOLTIP_OPTIONS} className="name" {...@props.student} />
     else
       nameCell =

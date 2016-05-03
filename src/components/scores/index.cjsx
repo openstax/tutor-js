@@ -105,7 +105,7 @@ Scores = React.createClass
         return -1 unless record
         switch record.type
           when 'reading'
-            progress = 
+            progress =
               if record.is_late_work_accepted
                 record.completed_step_count
               else
@@ -128,7 +128,7 @@ Scores = React.createClass
                   if record.is_late_work_accepted
                     record.completed_exercise_count
                   else
-                    record.completed_on_time_exercise_count  
+                    record.completed_on_time_exercise_count
                 @percent(progress, record.exercise_count) or 0
           when 'concept_coach'
             switch sort.dataType
@@ -144,7 +144,7 @@ Scores = React.createClass
       else
         (d.last_name or d.name).toLowerCase()
     )
-    { 
+    {
       overall_average_score: scores.overall_average_score,
       headings: scores.data_headings,
       rows: if sort.asc then sortData else sortData.reverse()

@@ -23,7 +23,6 @@ LateWork = React.createClass
           courseId,
           period_id,
           columnIndex,
-          isAccepted,
           currentValue,
           acceptValue
         ]
@@ -43,13 +42,13 @@ LateWork = React.createClass
     titleProgress =
       if task.type is 'homework'
         if not isAccepted
-          "#{lateQuestionCount} questions worked after the due date" 
-        else 
+          "#{lateQuestionCount} questions worked after the due date"
+        else
           'You accepted this student\'s late score.'
       else
         if not isAccepted
-          'Reading progress after the due date' 
-        else 
+          'Reading progress after the due date'
+        else
           'You accepted this student\'s late reading progress.'
     title =
       if @isUpdatingLateStatus()
@@ -61,13 +60,13 @@ LateWork = React.createClass
     buttonLabel =
       if task.type is 'homework'
         if not isAccepted
-          'Accept late score' 
-        else 
+          'Accept late score'
+        else
           'Use this score'
       else
         if not isAccepted
-          'Accept late progress' 
-        else 
+          'Accept late progress'
+        else
           'Use due date progress'
     acceptedClass = if isAccepted then 'accepted' else ''
     keyword = if task.type is 'homework' then 'Score' else 'Progress'

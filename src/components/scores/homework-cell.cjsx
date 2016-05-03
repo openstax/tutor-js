@@ -93,7 +93,7 @@ HomeworkCell = React.createClass
                 scoreNumber
               else
                 "#{(scorePercent).toFixed(0)}%"
-            }       
+            }
         </Router.Link>
         
       </div>

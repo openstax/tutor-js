@@ -87,7 +87,7 @@ module.exports = React.createClass
     {colSetWidth, data} = @props
 
     overallTitle = <div className='overall-header-cell'>Overall</div>
-    customHeader = 
+    customHeader =
       <div className='overall-average-cell'>
         <div className='average'>
           <span>
@@ -183,7 +183,8 @@ module.exports = React.createClass
     groupHeaderClass = if not isConceptCoach then 'hs' else ''
 
     groupHeaderDueDate =
-      <div className='due'>due <Time date={heading.due_at} format='shortest'/></div>
+      <div className='due'>due <Time date={heading.due_at}
+      format='shortest'/></div>
 
     groupHeaderTooltip =
       <BS.Tooltip id="header-cell-title-#{i}">
