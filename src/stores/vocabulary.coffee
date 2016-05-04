@@ -6,33 +6,48 @@ TaggingMixin = require './tagging-mixin'
 
 VocabularyConfig = {
 
+  _loaded: (obj, exerciseId) -> @emit('loaded', exerciseId)
+
   createBlank: (id) ->
     template = @exports.getTemplate.call(@)
     @loaded(template, id)
 
   updateDistractor: (id, oldValue, newValue) ->
-    distractors = @_get(id).distractors
-    index = _.indexOf distractors, oldValue
+    distractor_literals = @_get(id).distractor_literals
+    index = _.indexOf distractor_literals, oldValue
     if -1 is index
-      distractors.push(newValue)
+      distractor_literals.push(newValue)
     else
-      distractors[index] = newValue
-    @_change(id, {distractors})
+      distractor_literals[index] = newValue
+    @_change(id, {distractor_literals})
 
   change: (id, attrs) ->
     @_change(id, attrs)
 
   addBlankDistractor: (id) ->
-    distractors = _.clone(@_get(id).distractors)
-    distractors.push('')
-    @_change(id, {distractors})
+    distractor_literals = _.clone(@_get(id).distractor_literals)
+    distractor_literals.push('')
+    @_change(id, {distractor_literals})
 
   exports:
     getTemplate: (id) ->
-      distractors: []
+      distractor_literals: []
       tags: []
 
+    isSavable: (id) ->
+      @exports.isChanged.call(@, id) and
+        @exports.validate.call(@, id).valid and
+        not @exports.isSaving.call(@, id)
 
+    isPublishable: (id) ->
+      @exports.validate.call(@, id).valid and
+        not @exports.isChanged.call(@, id) and
+        not @exports.isSaving.call(@, id) and
+        not @_get(id)?.published_at
+
+    validate: (id) ->
+      return {valid: false, part: 'vocab'} unless @_get(id)
+      valid: true
 }
 
 TaggingMixin.extend(VocabularyConfig)

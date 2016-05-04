@@ -47,7 +47,7 @@ Distractors = React.createClass
         </div>
       </div>
       <div className="values">
-        {for distractor, i in vt.distractors
+        {for distractor, i in vt.distractor_literals
           <Distractor key={i} termId={@props.termId} term={distractor} />}
       </div>
     </div>

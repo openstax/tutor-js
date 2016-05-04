@@ -12,7 +12,7 @@ Vocabulary = React.createClass
     id:   React.PropTypes.string.isRequired
 
   setTerm: (ev) -> VocabularyActions.change(@props.id, term: ev.target.value)
-  setDescription: (ev) -> VocabularyActions.change(@props.id, description: ev.target.value)
+  setDefinition: (ev) -> VocabularyActions.change(@props.id, definition: ev.target.value)
 
   update: -> @forceUpdate()
 
@@ -33,7 +33,7 @@ Vocabulary = React.createClass
           <BS.Input type="text" label="Key Term" onChange={@setTerm} value={vt.term} />
 
           <BS.Input type="textarea" label="Key Term Definition"
-            onChange={@setDescription} value={vt.description} />
+            onChange={@setDefinition} value={vt.definition} />
 
         </BS.Col>
         <BS.Col sm=6>
