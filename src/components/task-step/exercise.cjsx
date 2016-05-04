@@ -209,6 +209,7 @@ module.exports = React.createClass
 
     <Exercise
       {...@props}
+      {...controlProps}
 
       setScrollState={@setScrollState}
       goToStep={_.partial(goToStep, _, true)}

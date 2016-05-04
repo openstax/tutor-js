@@ -83,7 +83,6 @@ module.exports = React.createClass
 
   _isSameStep: (nextProps, nextState) ->
     return false unless nextProps.id is @props.id
-    # console.info(@state.currentStep, nextState.currentStep, 'isSameStep')
     TaskStore.isSameStep(@props.id, @state.currentStep, nextState.currentStep)
 
   # After a step is recovered, the task needs to load itself in order to store the new step

@@ -44,8 +44,8 @@ module.exports = React.createClass
     # until the recovery step has been loaded
     TaskStore.on('task.afterRecovery', @update)
 
-    crumbs = @getCrumableCrumbs()
     @startListeningForProgress()
+    crumbs = @getCrumableCrumbs()
     @setState {crumbs}
 
   componentDidMount: ->
@@ -76,10 +76,11 @@ module.exports = React.createClass
       @setShouldShrink(@state)
 
   componentWillReceiveProps: (nextProps) ->
-    @setState(hoverCrumb: nextProps.currentStep)
     if @props.id isnt nextProps.id
       @stopListeningForProgress()
       @startListeningForProgress(nextProps)
+    crumbs = @getCrumableCrumbs()
+    @setState({hoverCrumb: nextProps.currentStep, crumbs})
 
   stopListeningForProgress: (props) ->
     props ?= @props
