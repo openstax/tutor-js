@@ -125,9 +125,10 @@
   }
 
   .exercise-card {
-    -webkit-column-break-inside: avoid;
     page-break-inside: avoid;
     break-inside: avoid;
+    display: inline-block;
+    width: 100%;
     .exercise-card-hover-styles( @color: @tutor-neutral-lighter,
                                  @background-color: lighten(@tutor-primary, 10%),
                                  @selection-icon: @fa-var-minus,
