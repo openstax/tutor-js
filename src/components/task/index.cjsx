@@ -263,6 +263,7 @@ module.exports = React.createClass
   reloadTask: ->
     @setState({currentStep: 0})
 
-  onNextStep: ({currentStep}) ->
+  onNextStep: (state) ->
+    {currentStep} = state?
     currentStep ?= @state.currentStep
     @goToStep(currentStep + 1)
