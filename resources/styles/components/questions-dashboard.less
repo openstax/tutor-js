@@ -125,7 +125,9 @@
   }
 
   .exercise-card {
-    display: inline-block; // <- prevents column display from wrapping mid-card
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
     .exercise-card-hover-styles( @color: @tutor-neutral-lighter,
                                  @background-color: lighten(@tutor-primary, 10%),
                                  @selection-icon: @fa-var-minus,
@@ -136,7 +138,7 @@
     .panel-body { background-color: @tutor-neutral-light; }
 
     .exercise-card-hover-styles( @color: @tutor-neutral-lighter,
-                                 @background-color: lighten(@homework-color, 10%),
+                                 @background-color: rgba(133, 193, 202, 0.8),
                                  @selection-icon: @fa-var-minus,
                                  @de-selection-icon: @fa-var-plus );
 
