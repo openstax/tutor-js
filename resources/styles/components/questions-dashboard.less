@@ -138,6 +138,7 @@
   }
 
   .exercise-card {
+    display: inline-block; // <- prevents column display from wrapping mid-card
     .exercise-card-hover-styles( @color: @tutor-neutral-lighter,
                                  @background-color: lighten(@tutor-primary, 10%),
                                  @selection-icon: @fa-var-minus,
