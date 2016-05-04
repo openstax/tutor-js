@@ -48,7 +48,7 @@ QuestionsDashboard = React.createClass
         <div className="wrapper">
           Select sections below to review and exclude questions from your
            students’ experience.
-          <Icon type='question-circle' tooltip={HELPTOOLTIP} />
+          <Icon type='info-circle' tooltip={HELPTOOLTIP} />
         </div>
       </div>
 
