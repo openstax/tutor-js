@@ -13,7 +13,9 @@ QuestionsList = React.createClass
     courseId: React.PropTypes.string.isRequired
     helpTooltip: React.PropTypes.string.isRequired
     sectionIds: React.PropTypes.array
-
+  getInitialState: -> {
+    filter: 'reading'
+  }
   componentWillMount:   -> ExerciseStore.on('change',  @update)
   componentWillUnmount: -> ExerciseStore.off('change', @update)
   update: -> @forceUpdate()
@@ -57,7 +59,7 @@ QuestionsList = React.createClass
         <div className="wrapper">
           Click each question that you would like to exclude from
           all aspects of your students’ Tutor experience.
-          <Icon type='question-circle' tooltip={@props.helpTooltip} />
+          <Icon type='info-circle' tooltip={@props.helpTooltip} />
         </div>
       </div>
 
