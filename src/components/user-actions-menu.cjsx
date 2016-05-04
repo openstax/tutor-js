@@ -13,8 +13,8 @@ UserActionsMenu = React.createClass
       document.querySelector('meta[name=csrf-token]')?.getAttribute('content')
 
   render: ->
-    name = @props.user.full_name or
-      [@props.user.first_name, @props.user_last_name].join(' ')
+    name = @props.user?.full_name or
+      [@props.user?.first_name, @props.user?.last_name].join(' ')
     <BS.Nav right navbar>
 
       <BS.NavDropdown
