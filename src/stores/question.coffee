@@ -68,47 +68,27 @@ QuestionConfig = {
     @_change(id, {is_answer_order_important: not is_answer_order_important})
 
   toggleFormat: (id, name, isSelected) ->
-    formats = _.clone @_get(id).formats
+    formats = @_get(id).formats
 
-    formats = switch name
-      when 'requires-choices'
-        if isSelected
-          formats.concat('free-response')
-        else
-          _.without(formats, 'free-response')
-      when 'multiple-choice'
-        if isSelected # add multiple-choice, remove true-false
-          _.without( formats.concat('multiple-choice'), 'true-false')
-        else # remove multiple-choice
-          _.without( formats, 'multiple-choice' )
-      when 'true-false'
-        if isSelected # add true-false, remove multiple-choice
-          _.without( formats.concat('true-false'), 'multiple-choice')
-        else
-          _.without( formats, 'true-false' )
-      else
-        if isSelected
-          formats.concat(name)
-        else
-          _.without( formats, name )
+    formats = if isSelected
+      formats.concat(name)
+    else
+      _.without(formats, name)
+
+    # toggle free-response depending on selection
+    if isSelected
+      switch name
+        when 'true-false'
+          formats = _.without(formats, 'free-response')
+        when 'multiple-choice'
+          formats = formats.concat('free-response')
 
     @_change(id, {formats: _.unique(formats)})
 
   exports:
 
     hasFormat: (id, name) ->
-      formats = @_get(id)?.formats
-      if name is 'requires-choices'
-        _.include formats, 'free-response'
-      else
-        _.include formats, name
-
-    isFormatDisabled: (id, name) ->
-      formats = @_get(id)?.formats
-      if name is 'requires-choices'
-        _.include formats, 'true-false'
-      else
-        false
+      _.include @_get(id)?.formats, name
 
     getAnswers: (id) -> @_get(id)?.answers or []
 
