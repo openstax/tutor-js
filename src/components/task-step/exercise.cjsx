@@ -195,7 +195,10 @@ module.exports = React.createClass
 
       canContinueControlProps = _.extend({}, canContinueControlProps, reviewProps)
 
-    controlButtons = <ExControlButtons {...controlProps} {...canContinueControlProps} key='step-control-buttons'/>
+    controlButtons = <ExControlButtons
+      {...controlProps}
+      {...canContinueControlProps}
+      key='step-control-buttons'/>
 
     footer = <StepFooter
       id={id}

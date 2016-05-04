@@ -58,7 +58,7 @@ Review = React.createClass
         stepProps = step
         stepProps.key = "task-review-heading-#{step.sectionLabel}"
 
-        Tracker = ReviewHeadingTracker 
+        Tracker = ReviewHeadingTracker
 
       item = <Tracker
         {...stepProps}
