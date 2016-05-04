@@ -8,7 +8,6 @@ step = null
 props = null
 
 FREE_RESPONSE_PROPS =
-  id: '1'
   taskId: '1'
   onStepCompleted: sinon.spy()
   onNextStep: sinon.spy()
@@ -42,17 +41,17 @@ FREE_RESPONSE_PROPS =
 resetProps = ->
   step = _.clone(STEP)
   props = _.clone(FREE_RESPONSE_PROPS)
-  props.step = step
+  props.parts = [step]
 
 exerciseActionsAndChecks =
   enterFreeResponse: ({dom, wrapper, element}, freeResponse = 'HELLO') ->
     {textarea} = Testing.actions._fillTextarea('textarea', freeResponse, {div: dom})
     expect(textarea.value).equals(freeResponse)
-    expect(props.onFreeResponseChange).to.have.been.calledWith(freeResponse)
+    expect(props.onFreeResponseChange).to.have.been.calledWith(step.id, freeResponse)
 
   continueOnFreeResponse: ({dom, wrapper, element}, freeResponse = 'HELLO') ->
     Testing.actions._clickMatch('.continue', {div: dom})
-    expect(props.setFreeResponseAnswer).to.have.been.calledWith('1', freeResponse)
+    expect(props.setFreeResponseAnswer).to.have.been.calledWith(step.id, freeResponse)
     expect(step.free_response).equals(freeResponse)
 
     wrapper.setProps({})
@@ -74,11 +73,11 @@ exerciseActionsAndChecks =
 
     Testing.actions._changeDOMNode(choicesDOMs[FIRST_CHOICE_INDEX])
     expect(_.pluck(dom.querySelectorAll('.answer-checked'), 'textContent')).to.deep.equal([CHOICES[FIRST_CHOICE_INDEX].content_html])
-    expect(props.setAnswerId).to.have.been.calledWith('1', CHOICES[FIRST_CHOICE_INDEX].id)
+    expect(props.setAnswerId).to.have.been.calledWith(step.id, CHOICES[FIRST_CHOICE_INDEX].id)
 
     Testing.actions._changeDOMNode(choicesDOMs[SECOND_CHOICE_INDEX])
     expect(_.pluck(dom.querySelectorAll('.answer-checked'), 'textContent')).to.deep.equal([CHOICES[SECOND_CHOICE_INDEX].content_html])
-    expect(props.setAnswerId).to.have.been.calledWith('1', CHOICES[SECOND_CHOICE_INDEX].id)
+    expect(props.setAnswerId).to.have.been.calledWith(step.id, CHOICES[SECOND_CHOICE_INDEX].id)
 
   setCorrectAnswerAndFeedback: (renderedData, choiceIndex = 0) ->
     {wrapper, dom} = renderedData
