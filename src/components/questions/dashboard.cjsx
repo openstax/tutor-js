@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 {RouteHandler} = require 'react-router'
 
 {EcosystemsStore, EcosystemsActions} = require '../../flux/ecosystems'
+{CourseStore} = require '../../flux/course'
 {ExerciseActions} = require '../../flux/exercise'
 {TocStore, TocActions} = require '../../flux/toc'
 
@@ -13,7 +14,22 @@ BindStore = require '../bind-store-mixin'
 Icon = require '../icon'
 LoadingDisplay = require './loading-display'
 
-HELPTOOLTIP = '''
+CC_HELP = '''
+By default, Concept Coach will use all questions in the Library
+to deliver practice questions to your students.
+The Library gives you the option to exclude questions from your
+students' experiences. However, please note that you will
+not be able to exclude questions from assignments or
+scores once your students start using Concept Coach.
+'''
+
+CC_SECONDARY_HELP = <div className="secondary-help">
+  <b>Best Practice:</b>
+  Exclude desired questions <u>before</u> giving students
+  access to Concept Coach.
+</div>
+
+TUTOR_HELP = '''
     Tutor uses these questions for your assignments,
     spaced practice, personalization, and Performance Forecast practice.
 '''
@@ -34,6 +50,10 @@ QuestionsDashboard = React.createClass
 
 
   render: ->
+    course = CourseStore.get(@props.courseId)
+    helpText = if course.is_concept_coach then CC_HELP else TUTOR_HELP
+    secondaryHelp = if course.is_concept_coach then CC_SECONDARY_HELP else nil
+
     <div className="questions-dashboard">
       <LoadingDisplay chapterIds={@state.chapterIds} sectionIds={@state.sectionIds} />
       <div className="header">
@@ -48,10 +68,10 @@ QuestionsDashboard = React.createClass
         <div className="wrapper">
           Select sections below to review and exclude questions from your
            students’ experience.
-          <Icon type='info-circle' tooltip={HELPTOOLTIP} />
+          <Icon type='info-circle' tooltip={helpText} />
         </div>
       </div>
-
+      {secondaryHelp}
       <div className="sections-list">
         <SectionsChooser
           onSelectionChange={@onSectionChange}
@@ -73,7 +93,7 @@ QuestionsDashboard = React.createClass
         </div>
       </div>
 
-      <QuestionsList helpTooltip={HELPTOOLTIP} {...@props}
+      <QuestionsList helpTooltip={helpText} {...@props}
         sectionIds={@state.displayingIds} />
 
     </div>
