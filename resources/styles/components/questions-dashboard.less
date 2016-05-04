@@ -8,7 +8,7 @@
   >.header {
     margin-top: @tutor-panel-padding-vertical;
     background-color: @tutor-white;
-    padding: 0 @padding;
+    padding: 0 @padding+5px;
     .wrapper {
       display: flex;
       justify-content: space-between;
@@ -26,8 +26,13 @@
     font-weight: 700;
     font-style: italic;
     margin: 0;
-    padding: @padding;
-    .tutor-icon { margin-left: 0.5rem; }
+    padding: @padding - 5px;
+
+    .tutor-icon {
+      position: relative;
+      left: 0.5rem;
+      top: -0.5rem;
+    }
   }
 
   .sections-list {
