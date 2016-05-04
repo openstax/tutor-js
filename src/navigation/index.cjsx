@@ -8,7 +8,7 @@ user = require '../user/model'
 {channel} = require './model'
 api = require '../api'
 UserMenu = require '../user/menu'
-NotificationsBar = require './notifications-bar'
+{NotificationsBar} = require 'openstax-react-components'
 
 Navigation = React.createClass
   displayName: 'Navigation'
