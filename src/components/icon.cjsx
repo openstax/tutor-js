@@ -17,7 +17,9 @@ module.exports = React.createClass
     @setState({uniqueId: uniqueId})
 
   getDefaultProps: ->
-    tooltipProps: { placement: 'bottom' }
+    tooltipProps:
+      placement: 'bottom',
+      trigger: 'click'
 
   render: ->
     classNames = classnames('tutor-icon', 'fa', "fa-#{@props.type}", @props.className, {
