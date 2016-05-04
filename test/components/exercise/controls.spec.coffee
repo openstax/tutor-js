@@ -3,33 +3,34 @@
 
 ExerciseControls = require 'components/exercise/controls'
 Exercise = require 'components/exercise'
-{ExerciseActions} = require 'stores/exercise'
+{ExerciseActions, ExerciseStore} = require 'stores/exercise'
 Location = require 'stores/location'
-EXERCISE = require 'exercises/1.json'
+EXERCISE = require '../../../api/exercises/1.json'
 
 
 describe 'Exercise controls component', ->
 
-  beforeEach (done) ->
+  beforeEach ->
     @props =
       id: '1'
       location: new Location
+    @blankProps =
+      id: 'new'
+      location: new Location
     ExerciseActions.loaded(EXERCISE, @props.id)
-    Testing.renderComponent( Exercise, props: @props).then ({dom}) =>
-      @exercise = dom
+
+  it 'does not enable the save draft on blank exercises', (done) ->
+    Testing.renderComponent( ExerciseControls, props: @blankProps ).then ({dom}) ->
+      draftBtn = dom.querySelector('.btn.draft')
+      expect( draftBtn.hasAttribute('disabled') ).to.be.true
+      done()
+
+  it 'does enables the save draft when not blank and valid and changed', (done) ->
+    #trigger a change
+    ExerciseActions.sync(1)
+    Testing.renderComponent( ExerciseControls, props: @props ).then ({dom}) ->
+      draftBtn = dom.querySelector('.btn.draft')
+      expect( draftBtn.hasAttribute('disabled') ).to.be.false
       done()
 
 
-  it 'does not enable the save draft until savable', (done) ->
-    Testing.renderComponent( ExerciseControls, props: @props ).then ({dom}) =>
-
-      draftBtn = dom.querySelector('.btn.draft')
-      expect( draftBtn.hasAttribute('disabled') ).to.be.true
-
-      for input in @exercise.querySelectorAll('.question textarea')
-        ReactTestUtils.Simulate.change(input,
-           target: {value: 'Something, something, something'})
-
-      _.defer ->
-        expect(draftBtn.hasAttribute('disabled')).to.be.false
-        done()
