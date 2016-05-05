@@ -22,6 +22,8 @@ VocabularyConfig = {
     index = _.indexOf distractor_literals, oldValue
     if -1 is index
       distractor_literals.push(newValue)
+    else if newValue is ''
+      distractor_literals.splice(index, 1)
     else
       distractor_literals[index] = newValue
     @_change(id, {distractor_literals})
