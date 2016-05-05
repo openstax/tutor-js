@@ -46,7 +46,7 @@ VocabularyConfig = {
   exports:
     getTemplate: (id) ->
       distractor_literals: []
-      tags: []
+      tags: ['dok:1', 'blooms:1', 'time:short']
 
     hasExercise: (id) -> @_get(id)?.exercise_uids?.length
 
