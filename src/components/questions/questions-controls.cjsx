@@ -4,6 +4,7 @@ cn = require 'classnames'
 
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
 {AsyncButton} = require 'openstax-react-components'
+showDialog = require './unsaved-dialog'
 
 Icon = require '../icon'
 ScrollSpy = require '../scroll-spy'
@@ -22,7 +23,9 @@ QuestionsControls = React.createClass
     filter: React.PropTypes.string
     onFilterChange: React.PropTypes.func.isRequired
 
-  getInitialState: -> {}
+  getInitialState: -> {
+    hasSaved: false
+  }
 
   getSections: ->
     _.keys @props.exercises.all.grouped
@@ -33,19 +36,30 @@ QuestionsControls = React.createClass
     @props.onFilterChange( filter )
 
   saveExclusions: ->
+    @setState(hasSaved: true)
     ExerciseActions.saveExclusions(@props.courseId)
 
   resetExclusions: ->
-    ExerciseActions.resetUnsavedExclusions()
+    return unless ExerciseStore.hasUnsavedExclusions()
+
+    showDialog('Are you sure you want to cancel?').then ->
+      ExerciseActions.resetUnsavedExclusions()
 
   renderSaveCancelButtons: ->
+    return null unless ExerciseStore.hasUnsavedExclusions() or @state.hasSaved
+    saveButtonText = if ExerciseStore.hasUnsavedExclusions() then 'Save' else 'Saved'
+    disabled = not ExerciseStore.hasUnsavedExclusions()
     [
         <AsyncButton key='save' bsStyle='primary' className="save"
           onClick={@saveExclusions}
+          disabled={disabled}
           waitingText='Saving...'
           isWaiting={ExerciseStore.isSavingExclusions()}
-        >Save</AsyncButton>
-        <BS.Button key='cancel' className="cancel" onClick={@resetExclusions}>Cancel</BS.Button>
+        >{saveButtonText}</AsyncButton>
+        <BS.Button key='cancel' className="cancel"
+          disabled={disabled}
+          onClick={@resetExclusions}
+        >Cancel</BS.Button>
     ]
 
   render: ->
@@ -69,7 +83,7 @@ QuestionsControls = React.createClass
         <Sectionizer onScreenElements={[]} chapter_sections={@getSections()} />
       </ScrollSpy>
       <div className="save-cancel">
-        {@renderSaveCancelButtons() if ExerciseStore.hasUnsavedExclusions()}
+        {@renderSaveCancelButtons()}
       </div>
     </div>
 
