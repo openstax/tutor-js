@@ -39,6 +39,7 @@ PracticeEnd = React.createClass
 
   render: ->
     {courseId, taskId, reloadPractice} = @props
+    {type} = TaskStore.get(taskId)
 
     pageIds = CourseStore.getPracticePageIds(courseId)
 
@@ -49,14 +50,14 @@ PracticeEnd = React.createClass
 
     # custom footer for practices
     footer =
-      <div className='-practice-end'>
+      <div className="-#{type}-end">
         <BackButton bsStyle="primary" fallbackLink={fallbackLink} />
       </div>
 
     completeSteps = TaskStore.getCompletedStepsCount(taskId)
     totalSteps = TaskStore.getTotalStepsCount(taskId)
     <div className='task task-completed'>
-      <CardBody footer={footer} className='-practice-completed'>
+      <CardBody footer={footer} className="-#{type}-completed">
         <div className='completed-message'>
           {renderStatusMessage(completeSteps, totalSteps)}
         </div>
