@@ -31,7 +31,7 @@ ScoresExportConfig = {
 
 }
 
-JobCrudConfig = extendConfig(new JobListenerConfig(), new CrudConfig())
+JobCrudConfig = extendConfig(new JobListenerConfig(null, 60 * 60), new CrudConfig())
 extendConfig(ScoresExportConfig, JobCrudConfig)
 
 ScoresExportConfig.exports.isExported = ScoresExportConfig.exports.isSucceeded
