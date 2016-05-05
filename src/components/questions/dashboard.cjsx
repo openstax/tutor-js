@@ -52,7 +52,7 @@ QuestionsDashboard = React.createClass
   render: ->
     course = CourseStore.get(@props.courseId)
     helpText = if course.is_concept_coach then CC_HELP else TUTOR_HELP
-    secondaryHelp = if course.is_concept_coach then CC_SECONDARY_HELP else nil
+    secondaryHelp = if course.is_concept_coach then CC_SECONDARY_HELP else null
 
     <div className="questions-dashboard">
       <LoadingDisplay chapterIds={@state.chapterIds} sectionIds={@state.sectionIds} />
