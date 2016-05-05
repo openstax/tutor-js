@@ -10,7 +10,7 @@ ExerciseControls = React.createClass
 
   propTypes:
     id:   React.PropTypes.string.isRequired
-    location: React.PropTypes.instanceOf(Location)
+    location: React.PropTypes.object
 
   componentWillMount: ->
     ExerciseStore.addChangeListener(@update)

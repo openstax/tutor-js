@@ -11,7 +11,7 @@ Tags = require 'components/vocabulary/tags'
 Vocabulary = React.createClass
   propTypes:
     id:   React.PropTypes.string.isRequired
-    location: React.PropTypes.instanceOf(Location)
+    location: React.PropTypes.object
 
   setTerm: (ev) -> VocabularyActions.change(@props.id, term: ev.target.value)
   setDefinition: (ev) -> VocabularyActions.change(@props.id, definition: ev.target.value)

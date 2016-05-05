@@ -12,7 +12,7 @@ NetworkActivity = require './network-activity-spinner'
 App = React.createClass
 
   propTypes:
-    location: React.PropTypes.instanceOf(Location)
+    location: React.PropTypes.object
     data:  React.PropTypes.object.isRequired
 
   getDefaultProps: ->
