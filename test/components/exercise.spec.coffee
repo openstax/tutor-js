@@ -4,13 +4,22 @@
 Exercise = require 'components/exercise'
 {ExerciseActions} = require 'stores/exercise'
 EXERCISE = require 'exercises/1.json'
-
+Location = require 'stores/location'
 
 describe 'Exercises component', ->
   beforeEach ->
+    sinon.stub( Location.prototype, '_createHistory', ->
+      @history = {
+        push: -> 0
+      }
+    )
     @props =
-      exerciseId: '1'
-    ExerciseActions.loaded(EXERCISE, @props.exerciseId)
+      id: '1'
+      location: new Location
+    ExerciseActions.loaded(EXERCISE, @props.id)
+
+  afterEach ->
+    Location::_createHistory.restore()
 
   it 'renders', ->
     Testing.renderComponent( Exercise, props: @props ).then ({dom}) ->
@@ -30,7 +39,7 @@ describe 'Exercises component', ->
       expect(tabs).to.deep.equal(['Intro', 'Question 1', 'Question 2', 'Tags', 'Assets'])
 
   it 'renders with out intro and a single question when exercise is MC', ->
-    ExerciseActions.toggleMultiPart(@props.exerciseId)
+    ExerciseActions.toggleMultiPart(@props.id)
     Testing.renderComponent( Exercise, props: @props ).then ({dom}) ->
       tabs = _.pluck dom.querySelectorAll('.nav-tabs li'), 'textContent'
       expect(tabs).to.deep.equal(['Question', 'Tags', 'Assets'])

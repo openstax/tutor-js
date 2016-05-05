@@ -3,18 +3,19 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
-PublishedModal = require './published-modal'
 
-Question = require './question'
-ExerciseTags = require './tags'
-{ExerciseActions, ExerciseStore} = require '../stores/exercise'
-Attachments = require './attachments'
+{ExerciseActions, ExerciseStore} = require 'stores/exercise'
 {ExercisePreview} = require 'openstax-react-components'
 
+PublishedModal = require './published-modal'
+ExerciseTags = require 'components/exercise/tags'
+Question = require 'components/exercise/question'
+Attachments = require 'components/exercise/attachments'
 
 Exercise = React.createClass
   propTypes:
-    exerciseId:   React.PropTypes.string.isRequired
+    id:   React.PropTypes.string.isRequired
+    location: React.PropTypes.object
 
   getInitialState: -> {}
   update: -> @forceUpdate()
@@ -25,104 +26,123 @@ Exercise = React.createClass
   componentWillUnmount: ->
     ExerciseStore.removeChangeListener(@update)
 
-  sync: -> ExerciseActions.sync(@props.exerciseId)
+  sync: -> ExerciseActions.sync(@props.id)
 
   moveQuestion: (questionId, direction) ->
-    ExerciseActions.moveQuestion(@props.exerciseId, questionId, direction)
+    ExerciseActions.moveQuestion(@props.id, questionId, direction)
 
   removeQuestion: (questionId) ->
-    ExerciseActions.removeQuestion(@props.exerciseId, questionId)
+    ExerciseActions.removeQuestion(@props.id, questionId)
 
   updateStimulus: (event) ->
-    ExerciseActions.updateStimulus(@props.exerciseId, event.target?.value)
+    ExerciseActions.updateStimulus(@props.id, event.target?.value)
 
   renderIntroTab: ->
-    id = @props.exerciseId
-    <BS.TabPane eventKey="intro" tab="Intro">
+    id = @props.id
+    <BS.Tab eventKey="intro" title="Intro">
       <div className="exercise-stimulus">
         <label>Exercise Stimulus</label>
         <textarea onChange={@updateStimulus} defaultValue={ExerciseStore.getStimulus(id)}></textarea>
       </div>
-    </BS.TabPane>
+    </BS.Tab>
 
   renderMpqTabs: ->
-    {questions} = ExerciseStore.get(@props.exerciseId)
+    {questions} = ExerciseStore.get(@props.id)
     for question, i in questions
-      <BS.TabPane key={question.id} eventKey={"question-#{i}"} tab={"Question #{i+1}"}>
+      <BS.Tab key={question.id} eventKey={"question-#{i}"} title={"Question #{i+1}"}>
         <Question id={question.id}
           sync={@sync}
           canMoveLeft={i isnt 0}
           canMoveRight={i isnt questions.length - 1}
           moveQuestion={@moveQuestion}
           removeQuestion={_.partial(@removeQuestion, question.id)} />
-      </BS.TabPane>
+      </BS.Tab>
 
   renderSingleQuestionTab: ->
-    {questions} = ExerciseStore.get(@props.exerciseId)
-    <BS.TabPane key={0} eventKey='question-0' tab='Question'>
+    {questions} = ExerciseStore.get(@props.id)
+    <BS.Tab key={0} eventKey='question-0' title='Question'>
       <Question id={_.first(questions)?.id} sync={@sync} />
-    </BS.TabPane>
+    </BS.Tab>
 
   exercisePreviewData: (ex) ->
     content: ex
     tags: _.map ex.tags, (tag) -> name: tag
 
   addQuestion: ->
-    ExerciseActions.addQuestionPart(@props.exerciseId)
+    ExerciseActions.addQuestionPart(@props.id)
 
   selectTab: (tab) -> @setState({tab})
+
+  visitVocab: ->
+    vocabId = ExerciseStore.getVocabId(@props.id)
+    @props.location.visitVocab(vocabId)
 
   getActiveTab: (showMPQ) ->
     if (not @state.tab or @state.tab?.indexOf('question-') is -1)
       return @state.tab
 
     question = @state.tab.split('-')[1]
-    numQuestions = ExerciseStore.getQuestions(@props.exerciseId).length
+    numQuestions = ExerciseStore.getQuestions(@props.id).length
     if (not showMPQ or question >= numQuestions)
       return 'question-0'
 
     @state.tab
 
+  renderPreview: ->
+    exercise = ExerciseStore.get(@props.id)
+    <ExercisePreview
+      exercise={@exercisePreviewData(exercise)}
+      displayAllTags={true}
+      displayFormats={true}
+      displayFeedback={true}
+      hideAnswers={false}
+    />
+
+  renderVocabExercise: ->
+    <div className='exercise-editor'>
+      <div className="editing-controls">
+        <a onClick={@visitVocab}>
+          Edit Vocabulary Question <i className="fa fa-chevron-right" />
+        </a>
+      </div>
+      { @renderPreview() }
+    </div>
 
   render: ->
-    exercise = ExerciseStore.get(@props.exerciseId)
+    exercise = ExerciseStore.get(@props.id)
     return null unless exercise
 
-    showMPQ = ExerciseStore.isMultiPart(@props.exerciseId)
+    if (ExerciseStore.isVocabQuestion(@props.id))
+      return @renderVocabExercise()
+
+    showMPQ = ExerciseStore.isMultiPart(@props.id)
 
     tab = @getActiveTab(showMPQ)
 
     <div className='exercise-editor'>
-      <PublishedModal exerciseId={@props.exerciseId} />
+      <PublishedModal exerciseId={@props.id} />
       <div className="editing-controls">
 
        {if showMPQ
          <BS.Button onClick={@addQuestion} className="add-mpq"
            bsStyle="primary">Add Question</BS.Button>}
 
-        <BS.TabbedArea defaultActiveKey='question-0' animation={false}
+        <BS.Tabs defaultActiveKey='question-0' animation={false}
           activeKey={tab} onSelect={@selectTab}
         >
           {if showMPQ then @renderIntroTab()}
           {if showMPQ then @renderMpqTabs() else @renderSingleQuestionTab()}
-          <BS.TabPane eventKey='tags' tab='Tags'>
-            <ExerciseTags exerciseId={@props.exerciseId} sync={@sync} />
-          </BS.TabPane>
-          { if not ExerciseStore.isNew(@props.exerciseId)
-            <BS.TabPane eventKey='assets' tab='Assets'>
-              <Attachments exerciseId={@props.exerciseId} />
-            </BS.TabPane>
+          <BS.Tab eventKey='tags' title='Tags'>
+            <ExerciseTags exerciseId={@props.id} sync={@sync} />
+          </BS.Tab>
+          { if not ExerciseStore.isNew(@props.id)
+            <BS.Tab eventKey='assets' title='Assets'>
+              <Attachments exerciseId={@props.id} />
+            </BS.Tab>
           }
-        </BS.TabbedArea>
+        </BS.Tabs>
       </div>
-
-      <ExercisePreview
-        exercise={@exercisePreviewData(exercise)}
-        displayAllTags={true}
-        displayFormats={true}
-        displayFeedback={true}
-        hideAnswers={false}
-      />
+      { @renderPreview() }
     </div>
 
 

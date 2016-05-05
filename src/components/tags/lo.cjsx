@@ -4,18 +4,20 @@ classnames = require 'classnames'
 
 Error = require './error'
 Wrapper = require './wrapper'
-{ExerciseActions, ExerciseStore} = require '../../stores/exercise'
 
 PREFIX = 'lo'
 BookSelection = require './book-selection'
 
 Input = React.createClass
 
+  propTypes:
+    id:      React.PropTypes.string.isRequired
+    store:   React.PropTypes.object.isRequired
+    actions: React.PropTypes.object.isRequired
+    tag:     React.PropTypes.string.isRequired
+
   getDefaultProps: ->
     inputType: 'text'
-
-  propTypes:
-    tag: React.PropTypes.string.isRequired
 
   getInitialState: ->
     [book, lo] = @props.tag.split(':')
@@ -37,7 +39,7 @@ Input = React.createClass
   validateAndSave: (attrs = {}) ->
     {lo, book} = _.defaults attrs, @state
     if book and lo?.match( /^\d{1,2}-\d{1,2}-\d{1,2}$/ )
-      ExerciseActions.setPrefixedTag(@props.exerciseId,
+      @props.actions.setPrefixedTag(@props.id,
         prefix: PREFIX, tag: "#{book}:#{lo}", previous: @props.tag
       )
     else
@@ -49,7 +51,7 @@ Input = React.createClass
     @validateAndSave({book})
 
   onDelete: ->
-    ExerciseActions.setPrefixedTag(@props.exerciseId,
+    @props.actions.setPrefixedTag(@props.id,
       prefix: PREFIX, tag: false, previous: @props.tag
     )
 
@@ -57,7 +59,7 @@ Input = React.createClass
 
     <div className={classnames('tag', 'has-error': @state.errorMsg)}>
       <BookSelection onChange={@updateBook} selected={@state.book}
-        limit={ExerciseStore.getTagsWithPrefix(@props.exerciseId, 'book')}
+        limit={@props.store.getTagsWithPrefix(@props.id, 'book')}
       />
       <input
         className='form-control'
@@ -75,13 +77,15 @@ Input = React.createClass
 LoTags = React.createClass
 
   propTypes:
-    exerciseId: React.PropTypes.string.isRequired
+    id:      React.PropTypes.string.isRequired
+    store:   React.PropTypes.object.isRequired
+    actions: React.PropTypes.object.isRequired
 
   onAdd: ->
-    ExerciseActions.addBlankPrefixedTag(@props.exerciseId, prefix: PREFIX)
+    @props.actions.addBlankPrefixedTag(@props.id, prefix: PREFIX)
 
   render: ->
-    tags = ExerciseStore.getTagsWithPrefix(@props.exerciseId, PREFIX)
+    tags = @props.store.getTagsWithPrefix(@props.id, PREFIX)
     <Wrapper label="LO" onAdd={@onAdd}>
       {for tag in tags
         <Input key={tag} {...@props} tag={tag} />}

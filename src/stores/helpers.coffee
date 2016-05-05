@@ -103,6 +103,9 @@ CrudConfig = ->
 
     created: (result, localId) ->
       @_local[localId] = result # HACK: So react component can still manipulate the same object
+      # If the specific type needs to do something else to the object:
+      obj = @_created?(result, result.id, localId)
+      result = obj if obj
       @_local[result.id] = result
       @_asyncStatus[localId] = LOADED
       @_asyncStatus[result.id] = LOADED

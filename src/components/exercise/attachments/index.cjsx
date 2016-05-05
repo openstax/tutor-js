@@ -1,6 +1,6 @@
 React = require 'react'
 
-{ExerciseActions, ExerciseStore} = require '../../stores/exercise'
+{ExerciseActions, ExerciseStore} = require 'stores/exercise'
 Attachment = require './attachment'
 AttachmentChooser = require './chooser'
 

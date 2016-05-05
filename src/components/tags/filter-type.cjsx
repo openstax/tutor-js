@@ -3,7 +3,6 @@ _ = require 'underscore'
 
 Wrapper = require './wrapper'
 Multiselect = require 'react-widgets/lib/Multiselect'
-{ExerciseActions, ExerciseStore} = require '../../stores/exercise'
 
 PREFIX = 'filter-type'
 TYPES = [
@@ -15,15 +14,17 @@ TYPES = [
 FilterTypeTag = React.createClass
 
   propTypes:
-    exerciseId: React.PropTypes.string.isRequired
+    id:      React.PropTypes.string.isRequired
+    store:   React.PropTypes.object.isRequired
+    actions: React.PropTypes.object.isRequired
 
   updateTag: (types) ->
     tags = _.map types, (tag, v) ->
       if _.isObject(tag) then tag.id else tag
-    ExerciseActions.setPrefixedTag(@props.exerciseId, prefix: PREFIX, tags: tags)
+    @props.actions.setPrefixedTag(@props.id, prefix: PREFIX, tags: tags)
 
   render: ->
-    tags = ExerciseStore.getTagsWithPrefix(@props.exerciseId, PREFIX)
+    tags = @props.store.getTagsWithPrefix(@props.id, PREFIX)
 
     <Wrapper label="Filter Type">
       <div className="tag">

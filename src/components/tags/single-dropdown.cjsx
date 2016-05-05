@@ -2,23 +2,24 @@ React = require 'react'
 _ = require 'underscore'
 
 Wrapper = require './wrapper'
-{ExerciseActions, ExerciseStore} = require '../../stores/exercise'
 
 SingleDropdown = React.createClass
 
   propTypes:
-    label:  React.PropTypes.string.isRequired
-    prefix: React.PropTypes.string.isRequired
-    exerciseId:    React.PropTypes.string.isRequired
+    id:      React.PropTypes.string.isRequired
+    label:   React.PropTypes.string.isRequired
+    prefix:  React.PropTypes.string.isRequired
+    store:   React.PropTypes.object.isRequired
+    actions: React.PropTypes.object.isRequired
 
 
   updateTag: (ev) ->
-    ExerciseActions.setPrefixedTag(@props.exerciseId,
+    @props.actions.setPrefixedTag(@props.id,
       tag: ev.target.value, prefix: @props.prefix, replaceOthers: true
     )
 
   render: ->
-    tag = _.first ExerciseStore.getTagsWithPrefix(@props.exerciseId, @props.prefix)
+    tag = _.first @props.store.getTagsWithPrefix(@props.id, @props.prefix)
     <Wrapper label={@props.label} singleTag={true}>
       <div className="tag">
         <select className='form-control' onChange={@updateTag} value={tag}>

@@ -1,29 +1,24 @@
 {Testing, expect, sinon, _, ReactTestUtils} = require 'openstax-react-components/test/helpers'
 
-
 App = require 'components/app'
+Location = require 'stores/location'
+{ExerciseActions, ExerciseStore} = require 'stores/exercise'
+Exercise = require 'components/exercise'
+ExerciseControls = require 'components/exercise/controls'
 
-
-
-describe 'Exercises component', ->
+describe 'App component', ->
   beforeEach ->
-    @props = {}
+    @props =
+      location: new Location
+      data:
+        user:
+          full_name: 'Bob'
 
   it 'renders a blank exercise when btn is clicked', ->
+    sinon.stub(@props.location, 'partsForView', ->
+      Body: Exercise, Controls: ExerciseControls, store: ExerciseStore, actions: ExerciseActions
+    )
     Testing.renderComponent( App, props: @props ).then ({dom}) ->
-      expect( dom.querySelector('.exercise') ).not.to.exist
-      ReactTestUtils.Simulate.click dom.querySelector('.btn.blank')
-      expect( dom.querySelector('.exercise') ).not.exist
-
-
-  it 'does not enable the save draft until savable', (done) ->
-    Testing.renderComponent( App, props: @props ).then ({dom}) ->
-      ReactTestUtils.Simulate.click dom.querySelector('.btn.blank')
-      draftBtn = dom.querySelector('.btn.draft')
-      expect( draftBtn.hasAttribute('disabled') ).to.be.true
-      for input in dom.querySelectorAll('.question textarea')
-        ReactTestUtils.Simulate.change(input,
-          target: {value: 'Something, something, something'})
-      _.defer ->
-        expect(draftBtn.hasAttribute('disabled')).to.be.false
-        done()
+      expect( dom.querySelector('.exercise-editor') ).not.to.exist
+      ReactTestUtils.Simulate.click dom.querySelector('.btn.exercises.blank')
+      expect( dom.querySelector('.exercise-editor') ).to.exist

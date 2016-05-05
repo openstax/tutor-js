@@ -26,6 +26,7 @@ SuretyGuard = React.createClass
 
   renderPopover: ->
     <BS.Popover
+      id="confirmation-alert"
       className="surety-guard"
       title={@props.title}
     >

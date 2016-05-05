@@ -105,9 +105,6 @@ QuestionConfig = {
     isOrderPreserved: (id) ->
       @_get(id).is_answer_order_important
 
-    isChoiceRequired: (id) ->
-      not _.include( @_get(id)?.formats, 'free-response' )
-
     getTemplate: ->
       answerId = AnswerStore.freshLocalId()
 

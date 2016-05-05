@@ -1,6 +1,6 @@
 React = require 'react'
 _ = require 'underscore'
-{AnswerActions, AnswerStore} = require '../stores/answer'
+{AnswerActions, AnswerStore} = require 'stores/answer'
 
 module.exports = React.createClass
   displayName: 'Answer'

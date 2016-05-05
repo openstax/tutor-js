@@ -1,6 +1,7 @@
 $ = require 'jquery'
 _ = require 'underscore'
-{ExerciseActions} = require './stores/exercise'
+{ExerciseActions, ExerciseStore} = require './stores/exercise'
+{VocabularyActions, VocabularyStore} = require './stores/vocabulary'
 {ErrorsActions} = require './stores/errors'
 
 # Do some special things when running without a tutor-server backend.
@@ -104,7 +105,29 @@ start = ->
     url: "/api/exercises/#{exerciseUid}/attachments/#{attachmentId}"
     httpMethod: 'DELETE'
 
+  apiHelper VocabularyActions, VocabularyActions.load, VocabularyActions.loaded, 'GET', (id) ->
+    url: "/api/vocab_terms/#{id}@draft"
 
+  apiHelper VocabularyActions, VocabularyActions.create, VocabularyActions.created, 'POST', (id, obj) ->
+    obj = VocabularyStore.get(id)
+
+    url:"/api/vocab_terms"
+    httpMethod: 'POST'
+    payload: obj
+
+  apiHelper VocabularyActions, VocabularyActions.save, VocabularyActions.saved , 'PUT', (id, obj) ->
+    obj = VocabularyStore.get(id)
+
+    url:"/api/vocab_terms/#{obj.uid}"
+    httpMethod: 'PUT'
+    payload: obj
+
+  apiHelper VocabularyActions, VocabularyActions.publish, VocabularyActions.published, 'PUT', (id) ->
+    obj = VocabularyStore.get(id)
+
+    url: "/api/vocab_terms/#{obj.uid}/publish"
+    httpMethod: 'PUT'
+    payload: obj
 
 uploadExerciseImage = (exerciseUid, image, cb) ->
   url = "/api/exercises/#{exerciseUid}/attachments"

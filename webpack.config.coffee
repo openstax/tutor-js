@@ -1,3 +1,4 @@
+path = require 'path'
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 
 isProduction = process.env.NODE_ENV is 'production'
@@ -15,7 +16,7 @@ module.exports =
   entry:
     exercises: [
       './src/index.coffee',
-      './resources/styles/exercises.less'
+      './resources/styles/app.less'
     ]
 
   output:
@@ -38,6 +39,7 @@ module.exports =
       { test: /\.(woff|woff2|eot|ttf)/, loader: "url-loader?limit=30000&name=[name]-[hash].[ext]" }
    ]
   resolve:
+    root: [ path.resolve(__dirname, './src') ]
     extensions: ['', '.js', '.json', '.coffee', '.cjsx']
 
   devServer:

@@ -2,168 +2,129 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
-Exercise = require './exercise'
+Location = require 'stores/location'
+
 ErrorModal = require './error-modal'
-MPQToggle = require './mpq-toggle'
+UserActionsMenu = require 'components/user-actions-menu'
 SuretyGuard = require './surety-guard'
+NetworkActivity = require './network-activity-spinner'
 
-{ExerciseActions, ExerciseStore} = require '../stores/exercise'
-AsyncButton = require 'openstax-react-components/src/components/buttons/async-button.cjsx'
+App = React.createClass
 
-module.exports = React.createClass
-  displayName: 'App'
-  getInitialState: ->
-    exerciseId: null
+  propTypes:
+    location: React.PropTypes.object
+    data:  React.PropTypes.object.isRequired
 
-  setBrowserUrlId: (id) ->
-    window.history.pushState({}, "Exercise Editor", "/exercises/#{id}")
+  getDefaultProps: ->
+    location: new Location
+
+  componentWillMount: ->
+    @props.location.startListening(@onHistoryChange)
+    {view, id} = @props.location.getCurrentUrlParts()
+    if id is 'new'
+      @setState(newId: @createNewRecord(view))
+    else
+      @loadRecord(view, id)
+
+  loadRecord: (type, id) ->
+    return unless type and id
+    {actions, store} = @props.location.partsForView(type)
+    store.once 'loaded', @update
+    actions.load(id) unless store.isLoading(id)
 
   update: -> @forceUpdate()
 
-  componentWillMount: ->
-    ExerciseStore.addChangeListener(@update)
-
   componentWillUnmount: ->
-    ExerciseStore.removeChangeListener(@update)
+    @props.location.stopListening()
 
-  componentDidMount: ->
-    if @props.exerciseId is 'new'
-      @addNew()
-    else if @props.exerciseId
-      @loadExercise(_.first @props.exerciseId.split('@'))
+  onHistoryChange: (location) ->
+    @setState(location: location)
+    {view, id} = @props.location.getCurrentUrlParts()
+    if id is 'new'
+      @setState(newId: @createNewRecord(view))
+    else
+      @loadRecord(view, id)
 
-  publishExercise: ->
-    ExerciseActions.publish(@state.exerciseId)
-
-  addNew: ->
-    id = ExerciseStore.freshLocalId()
-    template = ExerciseStore.getTemplate()
-    ExerciseActions.loaded(template, id)
-    @setState({exerciseId: id })
-
-  loadExercise: (exerciseId) ->
-    @setState({exerciseId})
-    ExerciseActions.load(exerciseId)
-    @setBrowserUrlId(exerciseId)
-
-  onFindExercise: ->
-    @loadExercise(this.refs.exerciseId.getDOMNode().value)
-
-  onFindKeyPress: (ev) ->
-    return unless ev.key is 'Enter'
-    @loadExercise(this.refs.exerciseId.getDOMNode().value)
+  onNewRecord: (type, ev) ->
     ev.preventDefault()
+    newId = @createNewRecord(type)
+    @setState({newId})
+    @props.location.visitNewRecord(type)
 
-  renderExerciseOrLoad: ->
-    if @state.exerciseId
-      <MPQToggle exerciseId={@state.exerciseId} />
-    else
-      <div className="input-group">
-        <input type="text" className="form-control" onKeyPress={@onFindKeyPress}
-          ref="exerciseId" placeholder="Exercise ID"/>
-        <span className="input-group-btn">
-          <button className="btn btn-default load" type="button" onClick={@onFindExercise}>Load</button>
-        </span>
-      </div>
-
-  renderEditingBody: ->
-    return null unless @state.exerciseId
-    if ExerciseStore.isLoading()
-      <div className="loadable is-loading">Loading...</div>
-    else
-      <Exercise exerciseId={@state.exerciseId} />
-
-  saveExercise: ->
-    id = @state.exerciseId
-    if ExerciseStore.isNew(id)
-      ExerciseStore.once 'created', @loadExercise
-      ExerciseActions.create(id, ExerciseStore.get(id))
-    else
-      ExerciseActions.save(id)
-
-  onNewBlank: (ev) ->
-    ev.preventDefault()
-    @setBrowserUrlId('new')
-    @addNew()
+  createNewRecord: (type) ->
+    {actions, store} = @props.location.partsForView(type)
+    newId = store.freshLocalId()
+    actions.createBlank(newId)
+    return newId
 
   onReset: (ev) ->
     ev.preventDefault()
-    @setBrowserUrlId('')
-    @replaceState({})
-
-  isExerciseDirty: ->
-    @state.exerciseId and ExerciseStore.isChanged(@state.exerciseId)
+    @props.location.visitSearch()
 
   render: ->
-    id = @state.exerciseId
+    {view, id, args} = @props.location.getCurrentUrlParts()
+    if id is 'new'
+      id = @state.newId or @createNewRecord(view)
+
+    {Body, Controls, store, actions} = @props.location.partsForView(view)
+
+    Body = NetworkActivity if store?.isLoading(id)
+
     guardProps =
-      onlyPromptIf: @isExerciseDirty
+      onlyPromptIf: ->
+        id and store?.isChanged(id)
       placement: 'right'
       message: "You will lose all unsaved changes"
 
-    classes = classnames('exercise', 'openstax', 'container-fluid',
-      {'is-loading': ExerciseStore.isLoading()}
-    )
+    componentProps =
+      id: id
+      location: @props.location
+
+    classes = classnames(view, 'openstax', 'editor-app', 'container-fluid')
+
 
     <div className={classes}>
       <ErrorModal />
       <nav className="navbar navbar-default">
-        <div className="container-fluid">
+        <div className="container-fluid controls-container">
           <div className="navbar-header">
             <BS.ButtonToolbar className="navbar-btn">
-              <SuretyGuard
-                onConfirm={@onReset}
-                {...guardProps}
-              >
-                <a href="/exercises" className="btn btn-danger back">Back</a>
-              </SuretyGuard>
-              <SuretyGuard
-                onConfirm={@onNewBlank}
-                {...guardProps}
-              >
-                <a className="btn btn-success blank">New Blank Exercise</a>
-              </SuretyGuard>
-              { if id?
-                <AsyncButton
-                  bsStyle='info'
-                  className='draft'
-                  onClick={@saveExercise}
-                  disabled={not ExerciseStore.isSavable(id)}
-                  isWaiting={ExerciseStore.isSaving(id)}
-                  waitingText='Saving...'
-                  isFailed={ExerciseStore.isFailed(id)}
-                  >
-                  Save Draft
-                </AsyncButton>
-              }
-              { if id and not ExerciseStore.isNew(id)
+              {if view
                 <SuretyGuard
-                  onConfirm={@publishExercise}
-                  okButtonLabel='Publish'
-                  placement='right'
-                  message="Once an exericse is published, it is available for use."
+                  onConfirm={@onReset}
+                  {...guardProps}
                 >
-                  <AsyncButton
-                    bsStyle='primary'
-                    className='publish'
-                    disabled={not ExerciseStore.isPublishable(id)}
-                    isWaiting={ExerciseStore.isPublishing(id)}
-                    waitingText='Publishing...'
-                    isFailed={ExerciseStore.isFailed(id)}
-                    >
-                    Publish
-                  </AsyncButton>
-                </SuretyGuard>
-              }
+                  <a href="/exercises" className="btn btn-danger back">Back</a>
+                </SuretyGuard>}
+
+              <SuretyGuard
+                onConfirm={_.partial @onNewRecord, 'exercises'}
+                {...guardProps}
+              >
+                <a className="btn btn-success exercises blank">New Exercise</a>
+              </SuretyGuard>
+
+              <SuretyGuard
+                onConfirm={_.partial @onNewRecord, 'vocabulary'}
+                {...guardProps}
+              >
+                <a className="btn btn-success vocabulary blank">New Vocabulary Term</a>
+              </SuretyGuard>
+
             </BS.ButtonToolbar>
           </div>
 
-          <form className="navbar-form navbar-right" role="search">
-            <div className="form-group">
-              {@renderExerciseOrLoad()}
-            </div>
-          </form>
+          <div className="navbar-header view-controls">
+            <Controls {...componentProps} />
+          </div>
+
+          <UserActionsMenu user={@props.data.user} />
+
+
         </div>
       </nav>
-      {@renderEditingBody()}
+
+      <Body {...componentProps} />
     </div>
+
+module.exports = App

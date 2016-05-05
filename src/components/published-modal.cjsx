@@ -2,7 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
-{ExerciseStore} = require '../stores/exercise'
+{ExerciseStore} = require 'stores/exercise'
 
 
 PublishedModal = React.createClass
@@ -29,6 +29,7 @@ PublishedModal = React.createClass
     exercise = ExerciseStore.get(@props.exerciseId)
 
     <BS.Modal
+      show={@state.isShowing}
       enforceFocus={false}
       autoFocus={false}
       backdrop={false}

@@ -5,7 +5,6 @@ classnames = require 'classnames'
 
 Wrapper = require './wrapper'
 Error = require './error'
-{ExerciseActions, ExerciseStore} = require '../../stores/exercise'
 
 Input = React.createClass
 
@@ -30,12 +29,12 @@ Input = React.createClass
     if error
       @setState({errorMsg: error})
     else
-      ExerciseActions.setPrefixedTag(@props.exerciseId,
+      @props.actions.setPrefixedTag(@props.id,
         prefix: @props.prefix, tag: value, previous: @props.tag
       )
 
   onDelete: ->
-    ExerciseActions.setPrefixedTag(@props.exerciseId,
+    @props.actions.setPrefixedTag(@props.id,
       prefix: @props.prefix, tag: false, previous: @props.tag
     )
 
@@ -57,17 +56,19 @@ Input = React.createClass
 MultiInput = React.createClass
 
   propTypes:
-    label:  React.PropTypes.string.isRequired
-    prefix: React.PropTypes.string.isRequired
+    id:            React.PropTypes.string.isRequired
+    store:         React.PropTypes.object.isRequired
+    actions:       React.PropTypes.object.isRequired
+    label:         React.PropTypes.string.isRequired
+    prefix:        React.PropTypes.string.isRequired
     cleanInput:    React.PropTypes.func.isRequired
-    exerciseId:    React.PropTypes.string.isRequired
     validateInput: React.PropTypes.func.isRequired
 
   add: ->
-    ExerciseActions.addBlankPrefixedTag(@props.exerciseId, prefix: @props.prefix)
+    @props.actions.addBlankPrefixedTag(@props.id, prefix: @props.prefix)
 
   render: ->
-    tags = ExerciseStore.getTagsWithPrefix(@props.exerciseId, @props.prefix)
+    tags = @props.store.getTagsWithPrefix(@props.id, @props.prefix)
 
     <Wrapper label={@props.label} onAdd={@add} singleTag={tags.length is 1}>
       {for tag in tags

@@ -1,70 +1,30 @@
-@import './variables/paths';
+.exercise-navbar-controls {
 
-
-//@import 'katex.css';
-
-@import './vendor-variables';
-
-@import 'variables';
-
-@import (reference) './mixins/generic';
-
-@import '~openstax-react-components/resources/styles/main.less';
-
-@import "@{bootstrap-path}/navs";
-@import "@{bootstrap-path}/navbar";
-@import "@{bootstrap-path}/buttons";
-@import "@{bootstrap-path}/button-groups";
-@import "@{bootstrap-path}/responsive-embed";
-
-@import "@{widgets-path}/variables";
-@import "@{widgets-path}/bootstrap-theme";
-@import "@{widgets-path}/mixins";
-@import "@{widgets-path}/core";
-@import "@{widgets-path}/popup";
-@import "@{widgets-path}/selectlist";
-@import "@{widgets-path}/multiselect";
-
-
-@import "global/error-modal";
-
-// @answer-correct: #34b27d;
-// @answer-incorrect: #cb4d4d;
-
-html { font-size: 12px; }
-body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background-color: #efefef;
-  padding: 10px;
-}
-
-// renders outside of editor, appended to body
-.surety-guard {
-  .controls {
-    border-top: 1px solid @openstax-neutral-light;
+  .right-side {
+    flex: 1;
     display: flex;
-    justify-content: space-around;
-    margin-top: 0.5rem;
-    padding-top: 0.5rem;
+    justify-content: flex-end;
+    align-items: center;
   }
-}
+  .form-group {
+    margin-bottom: 0;
 
-.exercise {
-  .mpq-toggle {
-    line-height: 30px;
-    label {
-      width: 140px;
+    .mpq-toggle {
 
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      line-height: 12px;
-      justify-content: flex-start;
-      text-align: center;
-      input { margin: 0; }
+      label {
+        width: 180px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        line-height: 14px;
+        justify-content: flex-start;
+        text-align: center;
+        input { margin: 0; }
+      }
     }
   }
 }
+
 
 .exercise-editor {
 
@@ -116,10 +76,7 @@ body {
       height: 8rem;
     }
   }
-  a {
-    cursor: pointer;
-  }
-  @import './tags';
+
   @import './attachments';
   @import './question';
 
