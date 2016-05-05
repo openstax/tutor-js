@@ -124,7 +124,7 @@ ExerciseConfig = {
 
     isVocabQuestion: (id) -> @_get(id)?.is_vocab
 
-    getVocabId: (id) -> @_get(id)?.vocab_term_id
+    getVocabId: (id) -> @_get(id)?.vocab_term_uid
 
     getId: (id) -> @_get(id).uid
 
