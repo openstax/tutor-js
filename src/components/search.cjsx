@@ -61,7 +61,7 @@ Search = React.createClass
       <BS.Row>
         <BS.Col sm=3>
           <div className="input-group">
-            <input type="text" autoFocus
+            <input type="text"
               className="form-control"
               onKeyPress={@onVocabKeyPress}
               ref="vocabularyId" placeholder="Vocabulary ID"/>
