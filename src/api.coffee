@@ -109,7 +109,6 @@ start = ->
     url: "/api/vocab_terms/#{id}@draft"
 
   apiHelper VocabularyActions, VocabularyActions.create, VocabularyActions.created, 'POST', (id, obj) ->
-    # backend expects the changed props and the entire exercise for some reason
     obj = VocabularyStore.get(id)
 
     url:"/api/vocab_terms"
@@ -117,10 +116,16 @@ start = ->
     payload: obj
 
   apiHelper VocabularyActions, VocabularyActions.save, VocabularyActions.saved , 'PUT', (id, obj) ->
-    # backend expects the changed props and the entire exercise for some reason
     obj = VocabularyStore.get(id)
 
-    url:"/api/vocab_terms"
+    url:"/api/vocab_terms/#{obj.uid}"
+    httpMethod: 'PUT'
+    payload: obj
+
+  apiHelper VocabularyActions, VocabularyActions.publish, VocabularyActions.published, 'PUT', (id) ->
+    obj = VocabularyStore.get(id)
+
+    url: "/api/vocab_terms/#{obj.uid}/publish"
     httpMethod: 'PUT'
     payload: obj
 

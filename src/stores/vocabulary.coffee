@@ -6,7 +6,12 @@ TaggingMixin = require './tagging-mixin'
 
 VocabularyConfig = {
 
+  _asyncStatusPublish: {}
+
   _loaded: (obj, exerciseId) -> @emit('loaded', exerciseId)
+
+  _created:(obj, id) ->
+    @emit('created', obj.uid)
 
   createBlank: (id) ->
     template = @exports.getTemplate.call(@)
@@ -29,20 +34,39 @@ VocabularyConfig = {
     distractor_literals.push('')
     @_change(id, {distractor_literals})
 
+  publish: (id) ->
+    @_asyncStatusPublish[id] = true
+    @emitChange()
+
+  published: (obj, id) ->
+    @_asyncStatusPublish[id] = false
+    @emit('published', id)
+    @saved(obj, id)
+
   exports:
     getTemplate: (id) ->
       distractor_literals: []
       tags: []
 
+    hasExercise: (id) -> @_get(id)?.exercise_uids?.length
+
+    getExerciseIds: (id) -> @_get(id)?.exercise_uids
+
     isSavable: (id) ->
       @exports.isChanged.call(@, id) and
         @exports.validate.call(@, id).valid and
-        not @exports.isSaving.call(@, id)
+        not @exports.isSaving.call(@, id) and
+        not @exports.isPublishing.call(@, id)
+
+    isPublished: (id) -> !!@_get(id)?.published_at
+
+    isPublishing: (id) -> !!@_asyncStatusPublish[id]
 
     isPublishable: (id) ->
       @exports.validate.call(@, id).valid and
         not @exports.isChanged.call(@, id) and
         not @exports.isSaving.call(@, id) and
+        not @exports.isPublishing.call(@, id) and
         not @_get(id)?.published_at
 
     validate: (id) ->

@@ -15,6 +15,7 @@ Attachments = require 'components/exercise/attachments'
 Exercise = React.createClass
   propTypes:
     id:   React.PropTypes.string.isRequired
+    location: React.PropTypes.instanceOf(Location)
 
   getInitialState: -> {}
   update: -> @forceUpdate()
@@ -72,6 +73,10 @@ Exercise = React.createClass
 
   selectTab: (tab) -> @setState({tab})
 
+  visitVocab: ->
+    vocabId = ExerciseStore.getVocabId(@props.id)
+    @props.location.visitVocab(vocabId)
+
   getActiveTab: (showMPQ) ->
     if (not @state.tab or @state.tab?.indexOf('question-') is -1)
       return @state.tab
@@ -83,10 +88,32 @@ Exercise = React.createClass
 
     @state.tab
 
+  renderPreview: ->
+    exercise = ExerciseStore.get(@props.id)
+    <ExercisePreview
+      exercise={@exercisePreviewData(exercise)}
+      displayAllTags={true}
+      displayFormats={true}
+      displayFeedback={true}
+      hideAnswers={false}
+    />
+
+  renderVocabExercise: ->
+    <div className='exercise-editor'>
+      <div className="editing-controls">
+        <a onClick={@visitVocab}>
+          Edit Vocabulary Question <i className="fa fa-chevron-right" />
+        </a>
+      </div>
+      { @renderPreview() }
+    </div>
 
   render: ->
     exercise = ExerciseStore.get(@props.id)
     return null unless exercise
+
+    if (ExerciseStore.isVocabQuestion(@props.id))
+      return @renderVocabExercise()
 
     showMPQ = ExerciseStore.isMultiPart(@props.id)
 
@@ -115,14 +142,7 @@ Exercise = React.createClass
           }
         </BS.Tabs>
       </div>
-
-      <ExercisePreview
-        exercise={@exercisePreviewData(exercise)}
-        displayAllTags={true}
-        displayFormats={true}
-        displayFeedback={true}
-        hideAnswers={false}
-      />
+      { @renderPreview() }
     </div>
 
 

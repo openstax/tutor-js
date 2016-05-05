@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+Location = require 'stores/location'
 
 {VocabularyActions, VocabularyStore} = require 'stores/vocabulary'
 
@@ -20,10 +21,8 @@ VocabularyControls = React.createClass
   saveVocabulary: ->
     if VocabularyStore.isNew(@props.id)
       VocabularyActions.create(@props.id, VocabularyStore.get(@props.id))
-      ###
       VocabularyStore.once 'created', (id) =>
-        @props.location.visitVocabulary(id)
-      ###
+        @props.location.visitVocab(id)
     else
       VocabularyActions.save(@props.id)
 
@@ -56,6 +55,25 @@ VocabularyControls = React.createClass
             >
             Save Draft
           </AsyncButton>
+        }
+        { unless VocabularyStore.isNew(id)
+          <SuretyGuard
+            onConfirm={@publishVocabulary}
+            okButtonLabel='Publish'
+            placement='right'
+            message="Once an exericse is published, it is available for use."
+          >
+            <AsyncButton
+              bsStyle='primary'
+              className='publish'
+              disabled={not VocabularyStore.isPublishable(id)}
+              isWaiting={VocabularyStore.isPublishing(id)}
+              waitingText='Publishing...'
+              isFailed={VocabularyStore.isFailed(id)}
+            >
+              Publish
+            </AsyncButton>
+          </SuretyGuard>
         }
       </BS.ButtonToolbar>
     </div>

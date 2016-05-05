@@ -122,6 +122,10 @@ ExerciseConfig = {
 
     isMultiPart: (id) -> @_get(id)?.questions.length > 1
 
+    isVocabQuestion: (id) -> @_get(id)?.is_vocab
+
+    getVocabId: (id) -> @_get(id)?.vocab_term_id
+
     getId: (id) -> @_get(id).uid
 
     getNumber: (id) -> @_get(id).number

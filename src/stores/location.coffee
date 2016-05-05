@@ -45,6 +45,9 @@ class Location
   visitExercise: (id) ->
     @history.push("/exercises/#{id}")
 
+  visitVocab: (id) ->
+    @history.push("/vocabulary/#{id}")
+
   getCurrentUrlParts: ->
     path = window.location.pathname
     [view, id, args...] = _.tail path.split('/')
