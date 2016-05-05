@@ -2,7 +2,6 @@ React = require 'react'
 BS = require 'react-bootstrap'
 {RouteHandler} = require 'react-router'
 
-{EcosystemsStore, EcosystemsActions} = require '../../flux/ecosystems'
 {CourseStore} = require '../../flux/course'
 {ExerciseActions} = require '../../flux/exercise'
 {TocStore, TocActions} = require '../../flux/toc'
@@ -25,8 +24,7 @@ scores once your students start using Concept Coach.
 
 CC_SECONDARY_HELP = <div className="secondary-help">
   <b>Best Practice:</b>
-  Exclude desired questions <u>before</u> giving students
-  access to Concept Coach.
+  Exclude desired questions <u>before</u> giving students access to Concept Coach.
 </div>
 
 TUTOR_HELP = '''
@@ -51,6 +49,7 @@ QuestionsDashboard = React.createClass
 
   render: ->
     course = CourseStore.get(@props.courseId)
+
     helpText = if course.is_concept_coach then CC_HELP else TUTOR_HELP
     secondaryHelp = if course.is_concept_coach then CC_SECONDARY_HELP else null
 
