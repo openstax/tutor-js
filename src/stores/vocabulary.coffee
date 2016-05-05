@@ -45,6 +45,8 @@ VocabularyConfig = {
 
   exports:
     getTemplate: (id) ->
+      term: ''
+      definition: ''
       distractor_literals: []
       tags: ['dok:1', 'blooms:1', 'time:short']
 
