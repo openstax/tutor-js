@@ -56,11 +56,15 @@ ExerciseParts = React.createClass
       return @renderPart(part, partProps)
 
     exerciseParts = _.map parts, (part, index) =>
+      # disable keyStep if this is not the current step
+      keySet = null if part.stepIndex isnt currentStep
+
       partProps =
         pinned: false
         focus: index is 0
         includeGroup: false
         includeFooter: @shouldControl(part.id)
+        keySet: keySet
 
       # stim and stem are the same for different steps currently.
       # they should only show up once.
