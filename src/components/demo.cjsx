@@ -5,6 +5,9 @@ EventEmitter2 = require 'eventemitter2'
 classnames = require 'classnames'
 
 Exercise = require './exercise'
+Notifications = require '../model/notifications'
+URLs = require '../model/urls'
+NotificationBar = require './notifications/bar'
 
 exerciseStub = require '../../stubs/exercise'
 exerciseEvents = new EventEmitter2(wildcard: true)
@@ -196,10 +199,30 @@ HTMLDemo = React.createClass
   render: ->
     <ArbitraryHtmlAndMath {...HTMLStub} className='col-xs-6'/>
 
+
+NoticesDemo = React.createClass
+  getInitialState: -> {running: false}
+
+  startPoll: ->
+    # These will be loaded from the app's bootsrap data in normal use
+    URLs.update(
+      base_accounts_url:    'http://localhost:2999'
+      tutor_notices_url:    'http://localhost:3001/api/notifications'
+      accounts_profile_url: 'http://localhost:2999/profile'
+    )
+    Notifications.startPolling()
+
+  render: ->
+    <div className="notices">
+      <NotificationBar />
+      <button onClick={@startPoll}>Start Polling</button>
+    </div>
+
 Demo = React.createClass
   displayName: 'Demo'
   render: ->
     demos =
+      notices: <NoticesDemo />
       exercise: <ExerciseDemo/>
       exercisePreview: <ExercisePreviewDemo/>
       breadcrumbs: <BreadcrumbDemo/>
