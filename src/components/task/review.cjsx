@@ -22,15 +22,22 @@ Review = React.createClass
 
     stepProps = _.omit(@props, 'steps', 'focus')
 
-    stepsList = _.map steps, (step, index) ->
-      <TaskStep
-        {...stepProps}
-        id={step.id}
-        key="task-review-#{step.id}"
-        # focus on first problem
-        focus={focus and index is 0}
-        pinned={false}
-      />
+    uniqueSteps = _.uniq steps, false, (step) ->
+      step.content_url
+
+    stepsList = _.chain steps
+      .uniq false, (step) ->
+        step.content_url
+      .map (step, index) ->
+        <TaskStep
+          {...stepProps}
+          id={step.id}
+          key="task-review-#{step.id}"
+          # focus on first problem
+          focus={focus and index is 0}
+          pinned={false}
+        />
+      .value()
 
     <ReactCSSTransitionGroup transitionName="homework-review-problem">
       {stepsList}
