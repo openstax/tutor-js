@@ -40,7 +40,10 @@ App = React.createClass
   onHistoryChange: (location) ->
     @setState(location: location)
     {view, id} = @props.location.getCurrentUrlParts()
-    @loadRecord(view, id)
+    if id is 'new'
+      @setState(newId: @createNewRecord(view))
+    else
+      @loadRecord(view, id)
 
   onNewRecord: (type, ev) ->
     ev.preventDefault()
