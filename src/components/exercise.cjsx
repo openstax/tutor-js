@@ -11,6 +11,7 @@ PublishedModal = require './published-modal'
 ExerciseTags = require 'components/exercise/tags'
 Question = require 'components/exercise/question'
 Attachments = require 'components/exercise/attachments'
+Location = require 'stores/location'
 
 Exercise = React.createClass
   propTypes:
