@@ -126,10 +126,9 @@ ExercisesRenderMixin =
 
   renderLoading: ->
     {courseId, planId, pageIds} = @props
-    ecosystemId = TaskPlanStore.getEcosystemId(planId, courseId)
 
     unless ExerciseStore.isLoaded(pageIds)
-      ExerciseActions.loadForEcosystem(ecosystemId, pageIds)
+      ExerciseActions.loadForCourse(courseId, pageIds)
       return <span className="hw-loading-spinner">
         <i className="fa fa-spinner fa-spin"></i>
         Loading...
@@ -324,7 +323,7 @@ AddExercises = React.createClass
         Please select more sections.
       </span>
 
-    groups = ExerciseStore.getGroupedExercises(pageIds)
+    groups = ExerciseStore.getGroupedIncludedExercises(pageIds)
     renderExercise = @renderExercise
     renderSection = @renderSection
     renderInRows = @renderInRows

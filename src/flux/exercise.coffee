@@ -134,8 +134,10 @@ ExerciseConfig =
       else
         @_exerciseCache[exerciseId]?.is_excluded
 
-    getGroupedExercises: (pageIds) ->
-      _.groupBy(@_exercises[pageIds.toString()], getChapterSection)
+    getGroupedIncludedExercises: (pageIds) ->
+      exercises = @_exercises[pageIds.toString()]
+      includedExercises = _.reject exercises, 'is_excluded'
+      _.groupBy(includedExercises, getChapterSection)
 
     groupBySectionsAndTypes: (pageIds) ->
       all = @_exercises[pageIds.toString()]
