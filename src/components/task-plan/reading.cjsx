@@ -156,6 +156,7 @@ ReadingPlan = React.createClass
 
     if not @state.isVisibleToStudents
       addReadingsButton = <BS.Button id='reading-select'
+        className="-select-sections-btn"
         onClick={@showSectionTopics}
         bsStyle='default'>+ {addReadingText}
       </BS.Button>
