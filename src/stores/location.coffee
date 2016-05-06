@@ -21,6 +21,7 @@ VIEWS =
     store:    VocabularyStore
     actions:  VocabularyActions
 
+
 # The Location class pairs urls with components and stores
 class Location
 
@@ -50,8 +51,8 @@ class Location
 
   getCurrentUrlParts: ->
     path = window.location.pathname
-    [view, id, args...] = _.tail path.split('/')
-    {view, id, args}
+    [view, versionedId, args...] = _.tail path.split('/')
+    {view, id: versionedId.replace(/@.*/, ''), versionedId, args}
 
   partsForView: (view = @getCurrentUrlParts().view) ->
     VIEWS[view] or VIEWS['search']
