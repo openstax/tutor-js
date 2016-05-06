@@ -63,11 +63,4 @@ settings =
       failedEvent: 'course.*.send.studentUpdate.failure'
       completedEvent: 'course.*.receive.studentUpdate.complete'
 
-    'notifications.send.fetch':
-      url: 'api/notifications'
-      method: 'GET'
-      failedEvent: 'notifications.fetch.failure'
-      completedEvent: 'notifications.fetch.complete'
-
-
 module.exports = settings

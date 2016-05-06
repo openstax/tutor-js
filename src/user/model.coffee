@@ -3,6 +3,7 @@ React = require 'react'
 EventEmitter2 = require 'eventemitter2'
 Course = require '../course/model'
 api = require '../api'
+{BootrapURLs, NotificationActions}  = require 'openstax-react-components'
 
 BLANK_USER =
   is_admin: false
@@ -85,6 +86,8 @@ User =
         api.channel.emit('set.access_token', data.access_token)
       User.endpoints = data.endpoints
       if data.user
+        BootrapURLs.update(data)
+        NotificationActions.startPolling()
         User.update(data)
       else
         _.extend(this, BLANK_USER)
