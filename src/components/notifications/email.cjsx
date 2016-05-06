@@ -46,6 +46,7 @@ EmailNotification = React.createClass
 
   renderStart: ->
     <span className="body">
+      <i className='icon fa fa-envelope-o' />
       Verifying your email address allows you to recover your password if you ever forget it.
       <a className='action' onClick={@onVerify}>Verify now</a>
     </span>
@@ -58,6 +59,7 @@ EmailNotification = React.createClass
     _.defer =>
       @refs.verifyInput?.getInputDOMNode().focus()
     <span className="body verify">
+      <i className='icon fa fa-envelope-o' />
       <span className="message">
         Check your email inbox. Enter the 6-digit verification code:
       </span>
@@ -74,9 +76,13 @@ EmailNotification = React.createClass
 
   renderSuccess: ->
     <span className="body">
+      <i className='icon fa fa-envelope-o' />
       <span className="message">Verification was successful!</span>
     </span>
 
+  onDismiss: ->
+    Notifications.acknowledge(@props.notice)
+    undefined # silence react warning about return value
 
   onSuccess: ->
     # wait a bit so the "Success" message is seen, then hide
@@ -109,9 +115,9 @@ EmailNotification = React.createClass
       {'with-error': @props.notice.error}
     )
     <div className={classNames}>
-      <i className='icon fa fa-envelope-o' />
       {error}
       {body}
+      <a className='dismiss' onClick={@onDismiss}>Dismiss</a>
     </div>
 
 
