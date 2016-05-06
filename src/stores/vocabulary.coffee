@@ -11,7 +11,8 @@ VocabularyConfig = {
   _loaded: (obj, exerciseId) -> @emit('loaded', exerciseId)
 
   _created:(obj, id) ->
-    @emit('created', obj.uid)
+    obj.id = obj.number
+    @emit('created', obj.id)
 
   createBlank: (id) ->
     template = @exports.getTemplate.call(@)
