@@ -14,10 +14,12 @@ SystemNotification = React.createClass
     undefined # silence React warning about return value
 
   render: ->
-    <div className="notification">
-      <i className='icon fa fa-info-circle' />
-      {@props.notice.message}
-      <a className='action' onClick={@acknowledge}>Dismiss</a>
+    <div className="notification system">
+      <span className="body">
+        <i className='icon fa fa-info-circle' />
+        {@props.notice.message}
+      </span>
+      <a className='dismiss' onClick={@acknowledge}>Dismiss</a>
     </div>
 
 module.exports = SystemNotification
