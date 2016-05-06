@@ -8,7 +8,7 @@
   >.header {
     margin-top: @tutor-panel-padding-vertical;
     background-color: @tutor-white;
-    padding: 0 @padding;
+    padding: 0 @padding+5px;
     .wrapper {
       display: flex;
       justify-content: space-between;
@@ -26,10 +26,18 @@
     font-weight: 700;
     font-style: italic;
     margin: 0;
-    padding: @padding;
-    .tutor-icon { margin-left: 0.5rem; }
-  }
+    padding: @padding - 5px;
 
+    .tutor-icon {
+      position: relative;
+      left: 0.5rem;
+      top: -0.5rem;
+    }
+  }
+  .secondary-help {
+    text-align: center;
+    color: @tutor-neutral;
+  }
   .sections-list {
     margin-top: @tutor-panel-padding-vertical;
     padding: @padding;
@@ -109,35 +117,21 @@
     margin-top: @tutor-panel-padding-vertical;
     @column-width: 450px;
 
-    // The below .cols and .rows is a UX test to choose between the two layouts
-    // one will be choosen and the other removed once test is concluded
-    &.cols {
-      .exercises {
-        -webkit-column-width: @column-width;
-        -moz-column-width: @column-width;
-        column-width: @column-width;
-
-      }
+    .exercises {
+      -webkit-column-width: @column-width;
+      -moz-column-width: @column-width;
+      column-width: @column-width;
     }
-    &.rows {
-      .exercises {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: baseline;
-        .exercise-card {
-          min-width: @column-width;
-          flex: 1;
-          margin-right: 20px;
-        }
-      }
-    }
-
     .exercise-sections {
       margin-top: @tutor-panel-padding-vertical;
     }
   }
 
   .exercise-card {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    display: inline-block;
+    width: 100%;
     .exercise-card-hover-styles( @color: @tutor-neutral-lighter,
                                  @background-color: lighten(@tutor-primary, 10%),
                                  @selection-icon: @fa-var-minus,
@@ -148,7 +142,7 @@
     .panel-body { background-color: @tutor-neutral-light; }
 
     .exercise-card-hover-styles( @color: @tutor-neutral-lighter,
-                                 @background-color: lighten(@homework-color, 10%),
+                                 @background-color: rgba(133, 193, 202, 0.8),
                                  @selection-icon: @fa-var-minus,
                                  @de-selection-icon: @fa-var-plus );
 

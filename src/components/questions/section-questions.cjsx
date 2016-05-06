@@ -78,11 +78,11 @@ SectionsQuestions = React.createClass
       ExerciseActions.setExerciseExclusion(exercise.id, isSelected)
 
   render: ->
-    section = TocStore.getSectionLabel(@props.chapter_section)
+    title = TocStore.getSectionLabel(@props.chapter_section)?.title
 
-    <div className='exercise-sections' data-section={section.chapter_section.join('.')}>
+    <div className='exercise-sections' data-section={@props.chapter_section}>
       <label className='exercises-section-label'>
-        <ChapterSection section={section.chapter_section}/> {section.title}
+        <ChapterSection section={@props.chapter_section}/> {title}
       </label>
       <div className="exercises">
       {for exercise in @props.exercises

@@ -13,8 +13,9 @@ QuestionsList = React.createClass
     courseId: React.PropTypes.string.isRequired
     helpTooltip: React.PropTypes.string.isRequired
     sectionIds: React.PropTypes.array
-
-  getInitialState:      -> {displayType: 'cols'}
+  getInitialState: -> {
+    filter: 'reading'
+  }
   componentWillMount:   -> ExerciseStore.on('change',  @update)
   componentWillUnmount: -> ExerciseStore.off('change', @update)
   update: -> @forceUpdate()
@@ -43,9 +44,6 @@ QuestionsList = React.createClass
       <SectionQuestions key={cs} {...@props}
         chapter_section={cs} exercises={exercises.grouped[cs]} />
 
-  changeDisplay: (ev) ->
-    @setState({displayType: ev.currentTarget.value})
-
   render: ->
     return null if ExerciseStore.isLoading() or _.isEmpty(@props.sectionIds)
 
@@ -56,12 +54,12 @@ QuestionsList = React.createClass
     else
       @renderEmpty()
 
-    <div className={"questions-list #{@state.displayType}"}>
+    <div className="questions-list">
       <div className="instructions">
         <div className="wrapper">
           Click each question that you would like to exclude from
           all aspects of your students’ Tutor experience.
-          <Icon type='question-circle' tooltip={@props.helpTooltip} />
+          <Icon type='info-circle' tooltip={@props.helpTooltip} />
         </div>
       </div>
 
@@ -70,24 +68,6 @@ QuestionsList = React.createClass
         header={@renderQuestionControls(exercises)}
         cardType='sections-questions'
       >
-
-      <div>
-        <b>UX DISPLAY TEST:</b>
-        <br />
-        <label>
-          <input type="radio" name='coldisplay'
-            checked={@state.displayType is 'cols'}
-            value="cols" onChange={@changeDisplay}
-          /> Vertical Columns
-        </label>
-        <br />
-        <label>
-          <input type="radio" name='coldisplay'
-            checked={@state.displayType is 'rows'}
-            value="rows" onChange={@changeDisplay}
-          /> Horizontal Rows
-        </label>
-      </div>
 
       {questions}
 

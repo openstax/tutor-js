@@ -8,10 +8,14 @@
     background-color: fade(@background-color, 0%);
     .message {
       color: fade(@color, 0%);
+      font-size: 1.3em;
       &::before {
         background-color: fade(@background-color, 0%);
         border: 1px solid fade(@color, 0%);
         content: @selection-icon;
+        line-height: 70px;
+        height: 80px;
+        width: 80px;
       }
     }
   }
