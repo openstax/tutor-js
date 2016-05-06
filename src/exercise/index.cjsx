@@ -35,7 +35,7 @@ ExerciseBase = React.createClass
 
     exerciseProps =
       taskId: step.task_id
-      step: step
+      parts: [step]
       getCurrentPanel: getCurrentPanel
       canReview: true
       freeResponseValue: step.cachedFreeResponse
@@ -53,8 +53,8 @@ ExerciseBase = React.createClass
         channel.emit("change.#{step.id}", eventData)
         api.channel.emit("exercise.#{step.id}.send.save", eventData)
 
-      onFreeResponseChange: (freeResponse) ->
-        exercises.cacheFreeResponse(step.id, freeResponse)
+      onFreeResponseChange: (id, freeResponse) ->
+        exercises.cacheFreeResponse(id, freeResponse)
 
       onContinue: ->
         step.is_completed = true
