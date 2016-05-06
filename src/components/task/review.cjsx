@@ -24,7 +24,7 @@ Review = React.createClass
 
     stepsList = _.chain steps
       .uniq false, (step) ->
-        if step.content_url?
+        if step.is_in_multipart and step.content_url?
           step.content_url
         else
           step.id
