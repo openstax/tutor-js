@@ -90,7 +90,11 @@ ExerciseStep = React.createClass
   render: ->
     {id} = @props
 
-    <Reactive topic={id} store={exercises} apiChannelName={apiChannelName} getter={exercises.getAllParts}>
+    <Reactive
+      topic={id}
+      store={exercises}
+      apiChannelName={apiChannelName}
+      getter={exercises.getAllParts}>
       <ExerciseBase {...@props}/>
     </Reactive>
 
