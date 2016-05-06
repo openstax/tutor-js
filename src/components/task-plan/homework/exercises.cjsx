@@ -1,7 +1,6 @@
 React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
-$ = require 'jquery'
 
 {ArbitraryHtmlAndMath, ExercisePreview} = require 'openstax-react-components'
 ChapterSection = require '../chapter-section'

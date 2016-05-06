@@ -5,7 +5,7 @@
 # For example, `TaskActions.load` everntually yields either
 # `TaskActions.loaded` or `TaskActions.FAILED`
 
-$ = require 'jquery'
+axios = require 'axios'
 _ = require 'underscore'
 QS = require 'qs'
 
@@ -51,10 +51,9 @@ delay = (ms, fn) -> setTimeout(fn, ms)
 toParams = (object) ->
   QS.stringify(object, {arrayFormat: 'brackets'})
 
-setNow = (jqXhr) ->
-  date = jqXhr.getResponseHeader('X-App-Date')
-  # Fallback to nginx date
-  date ?= jqXhr.getResponseHeader('Date')
+setNow = (headers) ->
+  # X-App-Date with fallback to nginx date
+  date = headers['X-App-Date'] or headers['Date']
   TimeActions.setFromString(date)
 
 apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, options) ->
@@ -87,13 +86,15 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
           url = "#{uri}/#{opts.method}.json?#{params}"
           opts.method = 'GET'
 
-      resolved = (results, statusStr, jqXhr) ->
-        setNow(jqXhr)
-        successAction(results, args...) # Include listenAction for faking
-      rejected = (jqXhr, statusMessage, err) ->
-        setNow(jqXhr)
-        statusCode = jqXhr.status
-        AppActions.setServerError(statusCode, jqXhr.responseText, {url, opts})
+      resolved = ({headers, data}) ->
+        setNow(headers)
+        successAction(data, args...) # Include listenAction for faking
+      rejected = (response) ->
+        # jqXhr, statusMessage, err
+        setNow(response.headers)
+        statusCode = response.status
+        statusMessage = response.statusText
+        AppActions.setServerError(statusCode, statusMessage, {url, opts})
         if statusCode is 400
           CurrentUserActions.logout()
         else if statusMessage is 'parsererror' and statusCode is 200 and IS_LOCAL
@@ -108,12 +109,12 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
         else
           # Parse the error message and fail
           try
-            msg = JSON.parse(jqXhr.responseText)
+            msg = JSON.parse(statusMessage)
           catch e
-            msg = jqXhr.responseText
+            msg = statusMessage
           Actions.FAILED(statusCode, msg, args...)
-      $.ajax(url, opts)
-      .then(resolved, rejected)
+      axios(url, opts)
+        .then(resolved, rejected)
 
 BOOTSTRAPED_STORES = {
   user:   CurrentUserActions.loaded
