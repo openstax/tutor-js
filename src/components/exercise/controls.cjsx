@@ -62,7 +62,7 @@ ExerciseControls = React.createClass
             onConfirm={@publishExercise}
             okButtonLabel='Publish'
             placement='right'
-            message="Once an exericse is published, it is available for use."
+            message="Once an exercise is published, it is available for use."
           >
             <AsyncButton
               bsStyle='primary'
