@@ -8,7 +8,9 @@ VocabularyConfig = {
 
   _asyncStatusPublish: {}
 
-  _loaded: (obj, exerciseId) -> @emit('loaded', exerciseId)
+  _loaded: (obj, exerciseId) ->
+
+    @emit('loaded', exerciseId)
 
   _created:(obj, id) ->
     obj.id = obj.number
@@ -19,7 +21,7 @@ VocabularyConfig = {
     @loaded(template, id)
 
   updateDistractor: (id, oldValue, newValue) ->
-    distractor_literals = @_get(id).distractor_literals
+    distractor_literals = @_get(id).distractor_literals or []
     index = _.indexOf distractor_literals, oldValue
     if -1 is index
       distractor_literals.push(newValue)

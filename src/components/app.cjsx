@@ -20,11 +20,11 @@ App = React.createClass
 
   componentWillMount: ->
     @props.location.startListening(@onHistoryChange)
-    {view, versionedId} = @props.location.getCurrentUrlParts()
-    if versionedId is 'new'
+    {view, id} = @props.location.getCurrentUrlParts()
+    if id is 'new'
       @setState(newId: @createNewRecord(view))
     else
-      @loadRecord(view, versionedId)
+      @loadRecord(view, id)
 
   loadRecord: (type, id) ->
     return unless type and id
@@ -39,11 +39,11 @@ App = React.createClass
 
   onHistoryChange: (location) ->
     @setState(location: location)
-    {view, versionedId} = @props.location.getCurrentUrlParts()
-    if versionedId is 'new'
+    {view, id} = @props.location.getCurrentUrlParts()
+    if id is 'new'
       @setState(newId: @createNewRecord(view))
     else
-      @loadRecord(view, versionedId)
+      @loadRecord(view, id)
 
   onNewRecord: (type, ev) ->
     ev.preventDefault()

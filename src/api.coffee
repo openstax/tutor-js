@@ -118,13 +118,15 @@ start = ->
   apiHelper VocabularyActions, VocabularyActions.save, VocabularyActions.saved , 'PUT', (id, obj) ->
     obj = VocabularyStore.get(id)
 
-    url:"/api/vocab_terms/#{obj.uid}"
+    vocabId = if id.indexOf("@") is -1 then id else id.split("@")[0]
+
+    url:"/api/exercises/#{vocabId}@draft"
     httpMethod: 'PUT'
     payload: obj
 
   apiHelper VocabularyActions, VocabularyActions.publish, VocabularyActions.published, 'PUT', (id) ->
     obj = VocabularyStore.get(id)
-
+    debugger
     url: "/api/vocab_terms/#{obj.uid}/publish"
     httpMethod: 'PUT'
     payload: obj

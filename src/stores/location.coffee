@@ -51,8 +51,9 @@ class Location
 
   getCurrentUrlParts: ->
     path = window.location.pathname
-    [view, versionedId, args...] = _.tail path.split('/')
-    {view, id: versionedId?.replace(/@.*/, ''), versionedId, args}
+    [view, id, args...] = _.tail path.split('/')
+    id = id.replace(/@.*/, '')
+    {view, id, args}
 
   partsForView: (view = @getCurrentUrlParts().view) ->
     VIEWS[view] or VIEWS['search']
