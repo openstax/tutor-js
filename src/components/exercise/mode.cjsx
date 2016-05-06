@@ -92,7 +92,7 @@ ExMode = React.createClass
     htmlAndMathProps = _.pick(@props, 'processHtmlAndMath')
     {stimulus_html} = content
 
-    questions = _.map(content.questions, (question) =>
+    questions = _.map content.questions, (question) =>
       question = _.omit(question, 'answers') if mode is 'free-response'
       <Question
         {...questionProps}
@@ -103,7 +103,6 @@ ExMode = React.createClass
         keySet={answerKeySet}>
         {@getFreeResponse()}
       </Question>
-    )
 
     <div className='openstax-exercise'>
       <ArbitraryHtmlAndMath
