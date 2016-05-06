@@ -38,6 +38,7 @@ Distractors = React.createClass
 
   render: ->
     vt = VocabularyStore.get(@props.termId)
+    return null unless vt
 
     <div className="distractors">
       <div className="heading">
@@ -47,7 +48,7 @@ Distractors = React.createClass
         </div>
       </div>
       <div className="values">
-        {for distractor, i in vt.distractor_literals
+        {for distractor, i in vt.distractor_literals or []
           <Distractor key={i} termId={@props.termId} term={distractor} />}
       </div>
     </div>
