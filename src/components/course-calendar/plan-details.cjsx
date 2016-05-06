@@ -4,6 +4,8 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 
+LmsInfo = require '../task-plan/lms-info'
+
 {StatsModalShell} = require '../plan-stats'
 {EventModalShell} = require '../plan-stats/event'
 
@@ -59,6 +61,12 @@ CoursePlanDetails = React.createClass
     # is updating.
     @setState(keepVisible: true)
 
+  selectShareLink: (ev) ->
+    ev.target.select()
+  onInputC: (ev) ->
+    console.log ev
+  renderSharedLinkContent: ->
+
   render: ->
     {plan, courseId, className, isPublishing, isPublished, hasReview} = @props
     {title, type, id} = plan
@@ -80,8 +88,11 @@ CoursePlanDetails = React.createClass
 
     body = if isPublished
       footer =  <div className='modal-footer'>
-        {reviewButton}
-        {editButton}
+        <div className="left-buttons">
+          {reviewButton}
+          {editButton}
+        </div>
+        <LmsInfo plan={plan}/>
       </div>
 
       if type is 'event'

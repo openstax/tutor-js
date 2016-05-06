@@ -1,0 +1,25 @@
+.lms-info {
+  position: relative;
+
+  .popover {
+    width: 300px;
+    .tooltip-inner {
+      max-width: 300px;
+      text-align: left;
+    }
+    input {
+      width: 100%;
+      -ms-user-select: auto;
+      -moz-user-select: auto;
+      -khtml-user-select: auto;
+      -webkit-user-select: auto;
+      user-select: auto;
+      &::selection {
+        background: @yellow;
+      }
+      &::-moz-selection {
+        background: @yellow;
+      }
+    }
+  }
+}
