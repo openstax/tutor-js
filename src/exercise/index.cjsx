@@ -11,13 +11,19 @@ apiChannelName = 'exercise'
 ExerciseBase = React.createClass
   displayName: 'ExerciseBase'
   getInitialState: ->
+    @getStepState()
+
+  getStepState: (props) ->
+    props ?= @props
     {item} = @props
 
-    step: item
+    step: _.last(item)
+    parts: item
 
   componentWillReceiveProps: (nextProps) ->
-    {item} = nextProps
-    @setState(step: item)
+    nextState = @getStepState(nextProps)
+
+    @setState(nextState)
 
   componentDidUpdate: (prevProps, prevState) ->
     {status} = @props
@@ -84,7 +90,7 @@ ExerciseStep = React.createClass
   render: ->
     {id} = @props
 
-    <Reactive topic={id} store={exercises} apiChannelName={apiChannelName}>
+    <Reactive topic={id} store={exercises} apiChannelName={apiChannelName} getter={exercises.getAllParts}>
       <ExerciseBase {...@props}/>
     </Reactive>
 
