@@ -245,7 +245,7 @@ module.exports = React.createClass
         period_id: period_id
       }
     isBottom = if data.rows.length is rowIndex + 1 then 'bottom' else ''
-    studentAverage = "#{(data.rows[rowIndex].average_score * 100).toFixed(0)}%";
+    studentAverage = "#{(data.rows[rowIndex].average_score * 100).toFixed(0)}%"
 
     columns = [
       <NameCell key='name' {...props} />,
