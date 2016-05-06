@@ -22,12 +22,12 @@ Review = React.createClass
 
     stepProps = _.omit(@props, 'steps', 'focus')
 
-    uniqueSteps = _.uniq steps, false, (step) ->
-      step.content_url
-
     stepsList = _.chain steps
       .uniq false, (step) ->
-        step.content_url
+        if step.content_url?
+          step.content_url
+        else
+          step.id
       .map (step, index) ->
         <TaskStep
           {...stepProps}

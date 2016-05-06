@@ -38,7 +38,10 @@ ScoresExport = React.createClass
     @setState(finalDownloadUrl: @state.downloadUrl) if @shouldTriggerDownload(prevState, @state)
 
   shouldTriggerDownload: (prevState, currentState) ->
-    prevState.tryToDownload and not currentState.tryToDownload and not currentState.downloadHasError and currentState.downloadUrl?
+    prevState.tryToDownload and
+      not currentState.tryToDownload and
+      not currentState.downloadHasError and
+      currentState.downloadUrl?
 
   handleCompletedExport: (exportData) ->
     {courseId} = @props
@@ -146,7 +149,8 @@ ScoresExport = React.createClass
         Export
       </AsyncButton>
 
-    exportTimeNotice = <i><small>The export may take up to 10 minutes.</small></i> if isWorking
+    if isWorking
+      exportTimeNotice = <i><small>The export may take up to 10 minutes.</small></i>
 
     <div className={classes}>
       <div className='export-button-buttons'>
