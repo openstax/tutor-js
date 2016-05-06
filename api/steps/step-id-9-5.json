@@ -1,0 +1,23 @@
+{ "id": "step-id-9-5",
+  "type": "exercise",
+  "is_in_multipart": true,
+  "content_url": "https://exercises-dev.openstax.org/exercises/121@1",
+  "content": {
+    "questions":[
+      {
+        "id": "234",
+        "formats": ["multiple-choice", "free-response"],
+        "stem_html":"<p>The spaceship moves at <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span> 1 m/s</p><p>What is the force if it slams into a wall?</p>",
+        "answers":[
+          {"id":"id1","content_html":"10 N"},
+          {"id":"id2","content_html":"1 N"}
+        ]
+      }
+    ]
+  },
+  "group": "core",
+  "related_content": [{
+      "title": "Physics is cool, yo",
+      "chapter_section": "1.3"
+  }]
+}

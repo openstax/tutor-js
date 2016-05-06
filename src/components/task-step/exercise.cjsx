@@ -55,14 +55,14 @@ module.exports = React.createClass
 
   render: ->
     {id, taskId} = @props
-    step = TaskStepStore.get(id)
     task = TaskStore.get(taskId)
-    stepIndex = TaskStore.getStepIndex(taskId, id)
+    parts = TaskStore.getStepParts(taskId, id)
 
-    waitingText = switch
-      when TaskStepStore.isLoading(id) then "Loading…"
-      when TaskStepStore.isSaving(id)  then "Saving…"
-      else null
+    getWaitingText = (id) ->
+      switch
+        when TaskStepStore.isLoading(id) then "Loading…"
+        when TaskStepStore.isSaving(id)  then "Saving…"
+        else null
 
     getReadingForStep = (id, taskId) ->
       TaskStore.getReadingForTaskId(taskId, id)
@@ -72,28 +72,43 @@ module.exports = React.createClass
         currentPanel = StepPanel.getPanel(id)
 
     controlText = 'Continue' if task.type is 'reading' and @canOnlyContinue()
+    stepProps = _.pick(@props, 'taskId', 'courseId', 'goToStep', 'onNextStep')
+    {onStepCompleted, refreshStep, recoverFor} = @props
 
-    <div className='exercise-wrapper' data-step-number={stepIndex + 1}>
-      <Exercise
-        {...@props}
-        freeResponseValue={step.temp_free_response}
-        controlText={controlText}
-        step={step}
-        footer={<StepFooter/>}
-        helpLink={@renderHelpLink(step.related_content)}
-        waitingText={waitingText}
+    stepParts = _.map parts, (part, index) ->
+      stepIndex = TaskStore.getStepIndex(taskId, part.id)
+      step = TaskStepStore.get(part.id)
+      waitingText = getWaitingText(part.id)
+      partProp = _.pick(part, 'id', 'taskId')
 
-        canTryAnother={TaskStepStore.canTryAnother(id, task)}
-        isRecovering={TaskStepStore.isRecovering(id)}
-        disabled={TaskStepStore.isSaving(id)}
-        canReview={StepPanel.canReview(id)}
-        isContinueEnabled={StepPanel.canContinue(id)}
+      <div className='exercise-wrapper' data-step-number={stepIndex + 1} key="exercise-part-#{part.id}">
+        <Exercise
+          {...partProp}
+          {...stepProps}
+          helpLink={@renderHelpLink(step.related_content)}
+          onStepCompleted={_.partial(onStepCompleted, part.id)}
+          refreshStep={_.partial(refreshStep, part.id)}
+          recoverFor={_.partial(recoverFor, part.id)}
+          freeResponseValue={step.temp_free_response}
+          controlText={controlText}
+          step={step}
+          waitingText={waitingText}
+          pinned={false}
+          focus={parts.length is 1 or index is 0}
 
-        getCurrentPanel={getCurrentPanel}
-        getReadingForStep={getReadingForStep}
-        setFreeResponseAnswer={TaskStepActions.setFreeResponseAnswer}
-        onFreeResponseChange={@updateFreeResponse}
-        freeResponseValue={TaskStepStore.getTempFreeResponse(id)}
-        setAnswerId={TaskStepActions.setAnswerId}
-      />
-    </div>
+          canTryAnother={TaskStepStore.canTryAnother(part.id, task)}
+          isRecovering={TaskStepStore.isRecovering(part.id)}
+          disabled={TaskStepStore.isSaving(part.id)}
+          canReview={StepPanel.canReview(part.id)}
+          isContinueEnabled={StepPanel.canContinue(part.id)}
+
+          getCurrentPanel={getCurrentPanel}
+          getReadingForStep={getReadingForStep}
+          setFreeResponseAnswer={TaskStepActions.setFreeResponseAnswer}
+          onFreeResponseChange={_.partial(TaskStepActions.updateTempFreeResponse, part.id)}
+          freeResponseValue={TaskStepStore.getTempFreeResponse(part.id)}
+          setAnswerId={TaskStepActions.setAnswerId}
+        />
+      </div>
+
+    <div>{stepParts}</div>

@@ -274,6 +274,11 @@ TaskConfig =
 
       result
 
+    getStepParts: (taskId, stepId) ->
+      step = @_getStep(taskId, stepId)
+      {content_url} = step
+      _.where @_steps[taskId], {content_url}
+
 extendConfig(TaskConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskConfig)
 module.exports = {TaskActions:actions, TaskStore:store}
