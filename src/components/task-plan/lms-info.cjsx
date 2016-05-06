@@ -1,11 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
-# TODO drag and drop, and resize behavior
 LmsInfo = React.createClass
-
-  getInitialState: ->
-    isShowing: false
 
   propTypes:
     plan: React.PropTypes.shape(
@@ -13,9 +9,6 @@ LmsInfo = React.createClass
       title: React.PropTypes.string.isRequired
       shareable_url: React.PropTypes.string
     ).isRequired
-
-  togglePopover: ->
-    @setState(isShowing: not @state.isShowing)
 
   onInputFocus: (ev) ->
     ev.target.select()
@@ -31,7 +24,6 @@ LmsInfo = React.createClass
     <BS.Popover
       className="sharable-link"
       id={_.uniqueId('sharable-link-popover')}
-      arrowOffsetLeft={-120} # seems to have no effect?
     >
       <div className='body'>
         <h4>Copy information for your LMS</h4>
@@ -48,7 +40,6 @@ LmsInfo = React.createClass
       <BS.OverlayTrigger trigger="click"
         placement="top"
         container={this}
-        arrowOffsetLeft={-120} # seems to have no effect?
         overlay={@renderPopOver()}
       >
         <a onClick={@togglePopover} className="get-link">Get assignment link</a>

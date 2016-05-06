@@ -4,12 +4,11 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 
-LmsInfo = require '../task-plan/lms-info'
-
 {StatsModalShell} = require '../plan-stats'
 {EventModalShell} = require '../plan-stats/event'
 
 LoadableItem = require '../loadable-item'
+LmsInfo = require '../task-plan/lms-info'
 
 # TODO drag and drop, and resize behavior
 CoursePlanDetails = React.createClass
@@ -60,12 +59,6 @@ CoursePlanDetails = React.createClass
     # In that case, make sure the modal remains open while it's content
     # is updating.
     @setState(keepVisible: true)
-
-  selectShareLink: (ev) ->
-    ev.target.select()
-  onInputC: (ev) ->
-    console.log ev
-  renderSharedLinkContent: ->
 
   render: ->
     {plan, courseId, className, isPublishing, isPublished, hasReview} = @props
