@@ -51,7 +51,7 @@ LmsInfo = React.createClass
         arrowOffsetLeft={-120} # seems to have no effect?
         overlay={@renderPopOver()}
       >
-        <span onClick={@togglePopover} className="get-link">Get assignment link</span>
+        <a onClick={@togglePopover} className="get-link">Get assignment link</a>
       </BS.OverlayTrigger>
 
     </div>
