@@ -61,7 +61,7 @@ VocabularyControls = React.createClass
             onConfirm={@publishVocabulary}
             okButtonLabel='Publish'
             placement='right'
-            message="Once an exericse is published, it is available for use."
+            message="Once an vocabulary term is published, it is available for use as an exercise. "
           >
             <AsyncButton
               bsStyle='primary'
