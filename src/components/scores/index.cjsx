@@ -63,7 +63,7 @@ Scores = React.createClass
   tableHeight: ->
     windowEl = @_getWindowSize()
     table = React.findDOMNode(@refs.tableContainer)
-    bottomMargin = 40
+    bottomMargin = 140
     windowEl.height - table.offsetTop - bottomMargin
 
 
