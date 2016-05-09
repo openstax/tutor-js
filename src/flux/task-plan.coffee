@@ -152,7 +152,7 @@ TaskPlanConfig =
     )
 
     commonDate = _.reduce taskingDates, (previous, current) ->
-      if not _.isUndefined(previous) and current.isSame(previous, 'day')
+      if not _.isUndefined(previous) and current?.isSame?(previous, 'day')
         current
       else
         undefined

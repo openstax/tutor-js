@@ -104,7 +104,10 @@ CourseConfig =
       sortedPeriods = PeriodHelper.sort(periods)
 
     getTimezone: (courseId) ->
-      @_get(courseId)?.timezone or DEFAULT_COURSE_TIMEZONE
+      # @_get(courseId)?.timezone or
+      # TODO use moment.tz.link to link BE names with moment-timezone names
+      # http://momentjs.com/timezone/docs/#/data-loading/adding-a-link/
+      DEFAULT_COURSE_TIMEZONE
 
     isTeacher: (courseId) ->
       !!_.findWhere(@_get(courseId)?.roles, type: 'teacher')
