@@ -7,6 +7,7 @@ Time   = require '../time'
 Icon = require '../icon'
 
 SortingHeader = require './sorting-header'
+AverageInfo = require './average-info'
 
 ReadingCell  = require './reading-cell'
 HomeworkCell = require './homework-cell'
@@ -43,12 +44,13 @@ module.exports = React.createClass
     isConceptCoach: React.PropTypes.bool.isRequired
 
   renderNameHeader: ->
-    {sort, onSort, colSetWidth} = @props
+    {sort, onSort, colSetWidth, isConceptCoach} = @props
 
     emptyCell = <div className='blank' />
     averageLabel =
       <div>
         Class Average &nbsp
+        <AverageInfo isConceptCoach={isConceptCoach} />
       </div>
     studentHeader =
       <div className='scores-cell'>
