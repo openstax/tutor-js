@@ -44,8 +44,7 @@ ConceptCoachCell = React.createClass
         </div>
       </BS.Popover>
 
-
-    <div className="scores-cell">
+    score =
       <div className="score">
         <Router.Link to='viewTaskStep'
           data-assignment-type="#{task.type}"
@@ -58,6 +57,13 @@ ConceptCoachCell = React.createClass
             }
         </Router.Link>
       </div>
+
+    scoreNotComplete = <div className="score not-complete">---</div>
+
+
+    <div className="scores-cell">
+
+      { if task.completed_exercise_count is task.exercise_count then score else scoreNotComplete }
 
       <div className="worked">
         <BS.OverlayTrigger
