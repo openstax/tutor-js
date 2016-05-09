@@ -69,7 +69,8 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
 
 start = ->
   apiHelper ExerciseActions, ExerciseActions.load, ExerciseActions.loaded, 'GET', (id) ->
-    url: "/api/exercises/#{id}@draft"
+    id = if id.indexOf("@") is -1 then "#{id}@draft" else id
+    url: "/api/exercises/#{id}"
 
   apiHelper ExerciseActions, ExerciseActions.save, ExerciseActions.saved, 'PUT', (id) ->
 
@@ -106,7 +107,10 @@ start = ->
     httpMethod: 'DELETE'
 
   apiHelper VocabularyActions, VocabularyActions.load, VocabularyActions.loaded, 'GET', (id) ->
-    url: "/api/vocab_terms/#{id}@draft"
+
+    id = if id.indexOf("@") is -1 then "#{id}@draft" else id
+
+    url: "/api/vocab_terms/#{id}"
 
   apiHelper VocabularyActions, VocabularyActions.create, VocabularyActions.created, 'POST', (id, obj) ->
     obj = VocabularyStore.get(id)
@@ -118,7 +122,9 @@ start = ->
   apiHelper VocabularyActions, VocabularyActions.save, VocabularyActions.saved , 'PUT', (id, obj) ->
     obj = VocabularyStore.get(id)
 
-    url:"/api/vocab_terms/#{obj.uid}"
+    vocabId = if id.indexOf("@") is -1 then id else id.split("@")[0]
+
+    url:"/api/vocab_terms/#{vocabId}@draft"
     httpMethod: 'PUT'
     payload: obj
 

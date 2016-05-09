@@ -44,6 +44,7 @@ ExerciseConfig = {
     cascadeLoad(obj, obj.number)
     obj.id = obj.number
     @emit('created', obj.id)
+    obj
 
   publish: (id) ->
     @_asyncStatusPublish[id] = true

@@ -8,18 +8,21 @@ VocabularyConfig = {
 
   _asyncStatusPublish: {}
 
-  _loaded: (obj, exerciseId) -> @emit('loaded', exerciseId)
+  _loaded: (obj, exerciseId) ->
+
+    @emit('loaded', exerciseId)
 
   _created:(obj, id) ->
     obj.id = obj.number
     @emit('created', obj.id)
+    obj
 
   createBlank: (id) ->
     template = @exports.getTemplate.call(@)
     @loaded(template, id)
 
   updateDistractor: (id, oldValue, newValue) ->
-    distractor_literals = @_get(id).distractor_literals
+    distractor_literals = @_get(id).distractor_literals or []
     index = _.indexOf distractor_literals, oldValue
     if -1 is index
       distractor_literals.push(newValue)
@@ -33,7 +36,7 @@ VocabularyConfig = {
     @_change(id, attrs)
 
   addBlankDistractor: (id) ->
-    distractor_literals = _.clone(@_get(id).distractor_literals)
+    distractor_literals = _.clone(@_get(id).distractor_literals) or []
     distractor_literals.push('')
     @_change(id, {distractor_literals})
 
