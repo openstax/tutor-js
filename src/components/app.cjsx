@@ -30,7 +30,8 @@ App = React.createClass
     return unless type and id
     {actions, store} = @props.location.partsForView(type)
     store.once 'loaded', @update
-    actions.load(id) unless store.isLoading(id)
+    unless store.isLoading(id) or store.get(id)
+      actions.load(id)
 
   update: -> @forceUpdate()
 
