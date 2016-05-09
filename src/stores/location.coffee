@@ -52,7 +52,6 @@ class Location
   getCurrentUrlParts: ->
     path = window.location.pathname
     [view, id, args...] = _.tail path.split('/')
-    id = id.replace(/@.*/, '')
     {view, id, args}
 
   partsForView: (view = @getCurrentUrlParts().view) ->
