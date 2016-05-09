@@ -36,7 +36,7 @@ VocabularyConfig = {
     @_change(id, attrs)
 
   addBlankDistractor: (id) ->
-    distractor_literals = _.clone(@_get(id).distractor_literals)
+    distractor_literals = _.clone(@_get(id).distractor_literals) or []
     distractor_literals.push('')
     @_change(id, {distractor_literals})
 
