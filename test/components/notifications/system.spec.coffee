@@ -18,5 +18,5 @@ describe 'System Notifications', ->
 
   it 'remembers notice as ignored when dismiss is clicked', ->
     Testing.renderComponent( SystemNotifications, props: @props ).then ({dom}) =>
-      Testing.actions.click(dom.querySelector('.action'))
+      Testing.actions.click(dom.querySelector('.dismiss'))
       expect(Notifications.acknowledge).to.have.been.calledWith(@props.notice)
