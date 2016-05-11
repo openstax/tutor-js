@@ -70,7 +70,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
 
 start = ->
   apiHelper ExerciseActions, ExerciseActions.load, ExerciseActions.loaded, 'GET', (id) ->
-    id = if id.indexOf("@") is -1 then "#{id}@draft" else id
+    id = if id.indexOf("@") is -1 then "#{id}@latest" else id
     url: "/api/exercises/#{id}"
 
   apiHelper ExerciseActions, ExerciseActions.save, ExerciseActions.saved, 'PUT', (id) ->
