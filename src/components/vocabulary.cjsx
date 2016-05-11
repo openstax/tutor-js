@@ -57,7 +57,8 @@ Vocabulary = React.createClass
 
       </div>
 
-      <ExercisePreview exerciseId={_.last(vt.exercise_uids)} />
+      {<ExercisePreview
+        exerciseId={_.last(vt.exercise_uids)} /> unless _.isEmpty(vt.exercise_uids)}
     </div>
 
 
