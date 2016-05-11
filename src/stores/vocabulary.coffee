@@ -26,7 +26,7 @@ VocabularyConfig = {
     @loaded(template, id)
 
   updateDistractor: (id, oldValue, newValue) ->
-    distractor_literals = @_get(id).distractor_literals or []
+    distractor_literals = _.clone(@_get(id).distractor_literals or [])
     index = _.indexOf distractor_literals, oldValue
     if -1 is index
       distractor_literals.push(newValue)
@@ -34,6 +34,11 @@ VocabularyConfig = {
       distractor_literals.splice(index, 1)
     else
       distractor_literals[index] = newValue
+    @_change(id, {distractor_literals})
+
+  addBlankDistractor: (id, index) ->
+    distractor_literals = _.clone(@_get(id).distractor_literals or [])
+    distractor_literals.splice(index, 0, '')
     @_change(id, {distractor_literals})
 
   change: (id, attrs) ->
@@ -57,7 +62,7 @@ VocabularyConfig = {
     getTemplate: (id) ->
       term: ''
       definition: ''
-      distractor_literals: []
+      distractor_literals: ['']
       tags: ['dok:1', 'blooms:1', 'time:short']
 
     hasExercise: (id) -> @_get(id)?.exercise_uids?.length
