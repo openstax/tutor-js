@@ -1,8 +1,10 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Location = require 'stores/location'
+_ = require 'underscore'
 
+Location = require 'stores/location'
 {VocabularyActions, VocabularyStore} = require 'stores/vocabulary'
+{ExerciseActions} = require 'stores/exercise'
 
 AsyncButton = require 'openstax-react-components/src/components/buttons/async-button.cjsx'
 SuretyGuard = require 'components/surety-guard'
@@ -10,21 +12,32 @@ SuretyGuard = require 'components/surety-guard'
 
 VocabularyControls = React.createClass
 
+  propTypes:
+    id:   React.PropTypes.string.isRequired
+    location: React.PropTypes.object
+
   update: -> @forceUpdate()
 
   componentWillMount: ->
     VocabularyStore.addChangeListener(@update)
+    VocabularyStore.on('updated', @onUpdated)
 
   componentWillUnmount: ->
     VocabularyStore.removeChangeListener(@update)
+    VocabularyStore.off('updated', @onUpdated)
 
   saveVocabulary: ->
     if VocabularyStore.isNew(@props.id)
       VocabularyActions.create(@props.id, VocabularyStore.get(@props.id))
-      VocabularyStore.once 'created', (id) =>
-        @props.location.visitVocab(id)
     else
       VocabularyActions.save(@props.id)
+
+  onUpdated: ->
+    vocab = VocabularyStore.get(@props.id)
+    ExerciseActions.load(_.last(vocab.exercise_uids))
+    {id} = @props.location.getCurrentUrlParts()
+    if id isnt vocab.uid
+      @props.location.visitVocab(vocab.uid)
 
   publishVocabulary: ->
     VocabularyActions.publish(@props.id)
