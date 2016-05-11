@@ -47,6 +47,9 @@ ExerciseConfig = {
     @emit('updated', obj.id)
     obj
 
+  setAsVocabularyPlaceHolder: (id, newVocabId) ->
+    @_change(id, {vocab_term_uid: newVocabId})
+
   publish: (id) ->
     @_asyncStatusPublish[id] = true
     @emitChange()
