@@ -46,7 +46,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
         successAction(results, args...) # Include listenAction for faking
       rejected = (jqXhr, statusMessage, err) ->
         statusCode = jqXhr.status
-        ErrorsActions.setServerError(statusCode, jqXhr.responseText, {url, opts})
+
         if statusMessage is 'parsererror' and statusCode is 200 and IS_LOCAL
           if httpMethod is 'PUT' or httpMethod is 'PATCH'
             # HACK for PUT
@@ -62,6 +62,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
             msg = JSON.parse(jqXhr.responseText)
           catch e
             msg = jqXhr.responseText
+          ErrorsActions.setServerError(statusCode, jqXhr.responseText, {url, opts})
           Actions.FAILED(statusCode, msg, args...)
 
       $.ajax(url, opts)
