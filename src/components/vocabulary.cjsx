@@ -80,6 +80,7 @@ Vocabulary = React.createClass
       </div>
 
       <ExercisePreview exerciseId={@props.id} />
+      <div className="vocabulary-hidden-id">{vocabId}</div>
     </div>
 
 
