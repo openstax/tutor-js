@@ -2,20 +2,27 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 
+NetworkActivity = require 'components/network-activity-spinner'
+RecordNotFound  = require 'components/record-not-found'
 
 Search = React.createClass
   propTypes:
     location: React.PropTypes.object.isRequired
 
-#   displayExercise: (id) ->
-#     @props.location.onRecordLoad(id, store)
-# 96@6
-#     @props.location.visitExercise(id)
+  getInitialState: -> {}
+
+  componentWillMount: ->
+    ExerciseStore.addChangeListener(@update)
+
+  componentWillUnmount: ->
+    ExerciseStore.removeChangeListener(@update)
+
+  update: -> @forceUpdate()
 
   loadExercise: (exerciseId) ->
-    @setState({exerciseId})
+    @replaceState(loading: exerciseId)
     ExerciseStore.once 'loaded', =>
-      @props.location.onRecordLoad('exercises', exerciseId, ExerciseStore)
+      @props.location.onRecordLoad('exercises', exerciseId, ExerciseStore) if ExerciseStore.get(exerciseId)
 
     ExerciseActions.load(exerciseId)
 
@@ -29,7 +36,13 @@ Search = React.createClass
 
   render: ->
     <div className="search">
+      {<NetworkActivity /> if ExerciseStore.isLoading(@state.loading) }
+      {<RecordNotFound
+        recordType="Exercise" id={@state.loading}
+        /> if ExerciseStore.isFailed(@state.loading)}
+
       <h1>Edit exercise:</h1>
+
       <BS.Row>
         <BS.Col sm=3>
           <div className="input-group">
