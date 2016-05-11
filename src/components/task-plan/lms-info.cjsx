@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+Markdown = require '../markdown'
 
 LmsInfo = React.createClass
 
@@ -19,7 +20,8 @@ LmsInfo = React.createClass
     l = window.location
     url = "#{l.protocol}//#{l.host}#{shareable_url}"
     if description
-      description = <p>{description}</p>
+      description =
+        <Markdown className="description" text={description} block={true}/>
 
     <BS.Popover
       className="sharable-link"
@@ -34,6 +36,7 @@ LmsInfo = React.createClass
     </BS.Popover>
 
   render: ->
+    console.log @props.plan
     return null unless @props.plan.shareable_url
 
     <div className="lms-info">
