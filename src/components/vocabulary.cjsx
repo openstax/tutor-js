@@ -17,8 +17,6 @@ Vocabulary = React.createClass
     location: React.PropTypes.object
 
   setTerm: (ev) ->
-    console.log @getVocabId(), ev.target.value
-
     VocabularyActions.change(@getVocabId(), term: ev.target.value)
 
   setDefinition: (ev) ->
@@ -27,7 +25,6 @@ Vocabulary = React.createClass
   update: -> @forceUpdate()
 
   componentWillMount: ->
-    console.log 'mount'
     VocabularyStore.addChangeListener(@update)
     @loadIfNeeded( @getVocabId() )
 
