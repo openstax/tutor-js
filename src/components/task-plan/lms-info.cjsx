@@ -36,7 +36,6 @@ LmsInfo = React.createClass
     </BS.Popover>
 
   render: ->
-    console.log @props.plan
     return null unless @props.plan.shareable_url
 
     <div className="lms-info">
