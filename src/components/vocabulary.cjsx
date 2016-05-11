@@ -52,7 +52,6 @@ Vocabulary = React.createClass
     unless vocabTerm
       return <RecordNotFound recordType="Vocabulary Term" id={vocabId} />
 
-    console.log vocabId, vocabTerm.term
     <div className='vocabulary-editor'>
 
       <div className="editing-controls">

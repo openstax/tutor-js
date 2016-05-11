@@ -58,9 +58,7 @@ VocabularyControls = React.createClass
     {id} = @props
     vocabTerm = VocabularyStore.getFromExerciseId(@props.id)
     return null unless vocabTerm
-
-    vocabId = vocabTerm.uid
-
+    vocabId = @getVocabId()
 
     guardProps =
       onlyPromptIf: @isVocabularyDirty
