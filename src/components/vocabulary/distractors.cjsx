@@ -15,14 +15,24 @@ Distractor = React.createClass
   save: (ev) ->
     VocabularyActions.updateDistractor(@props.termId, @props.term, @state.term)
 
+  onKeyPress: (ev) ->
+    if ev.key is 'Enter'
+      @save()
+      VocabularyActions.addBlankDistractor(@props.termId, @props.index + 1)
+      _.defer =>
+        @getDOMNode().parentElement.querySelector("[data-index='#{@props.index+1}']")?.focus()
+
+
   onChange: (ev) ->
     @setState(term: ev.target.value)
 
   render: ->
     <input
+      data-index={@props.index}
       className='form-control'
       type='text'
       value={@state.term}
+      onKeyPress={@onKeyPress}
       onChange={@onChange}
       onBlur={@save}
       placeholder={@props.placeholder} />
@@ -49,7 +59,7 @@ Distractors = React.createClass
       </div>
       <div className="values">
         {for distractor, i in vt.distractor_literals or []
-          <Distractor key={i} termId={@props.termId} term={distractor} />}
+          <Distractor key={i} index={i} termId={@props.termId} term={distractor} />}
       </div>
     </div>
 
