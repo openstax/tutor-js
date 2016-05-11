@@ -22,23 +22,33 @@ TimeHelper =
     return if @isCourseTimezone(courseId)
     courseTimezone = CourseStore.getTimezone(courseId)
     @_local ?= @getLocalTimezone()
-    zonedMoment = moment.fn.tz(courseTimezone)
+    zonedMoment = moment.tz.setDefault(courseTimezone)
     zonedMoment
 
   unsyncCourseTimezone: ->
     return unless @_local?
-    unzonedMoment = moment.fn.tz(@_local)
+    unzonedMoment = moment.tz.setDefault(@_local)
     @unsetLocal()
     unzonedMoment
+
+  makeMoment: (value, args...) ->
+    if moment.isMoment(value)
+      if value instanceof moment
+        value.clone()
+      else
+        moment(value._d, args...)
+    else
+      moment(value, args...)
 
   getLocalTimezone: ->
     moment.tz.guess()
 
   getMomentPreserveDate: (value, args...) ->
-    if @_local
-      return moment(value, args...).tz(@_local).hour(12)
+    # if @_local
+    #   return moment(value, args...).tz(@_local).hour(12)
 
-    moment(value, args...).hour(12).locale(moment.locale())
+    preserve = TimeHelper.makeMoment(value, args...)
+    preserve.hour(12).locale(moment.locale())
 
   getLocal: ->
     @_local
