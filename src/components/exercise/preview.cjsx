@@ -30,13 +30,14 @@ ExercisePreviewWrapper = React.createClass
   render: ->
     exercise = ExerciseStore.get(@props.exerciseId)
     return null unless exercise
-
-    <ExercisePreview
-      exercise={@previewData(exercise)}
-      displayAllTags={true}
-      displayFormats={true}
-      displayFeedback={true}
-      hideAnswers={false}
-    />
+    <div className="exercise-preview">
+      <ExercisePreview
+        exercise={@previewData(exercise)}
+        displayAllTags={true}
+        displayFormats={true}
+        displayFeedback={true}
+        hideAnswers={false}
+      />
+    </div>
 
 module.exports = ExercisePreviewWrapper
