@@ -59,12 +59,13 @@ class Location
 
   # callback for when a record is newly loaded from store
   # Location may choose to redirect to a different editor depending on the data
-  onRecordLoad: (id, store) ->
+  onRecordLoad: (type, id, store) ->
     {view} = @getCurrentUrlParts()
     record = store.get(id)
     # use vocab editor
-    if view is 'exercises' and record.vocab_term_uid
+    if type is 'exercises' and record.vocab_term_uid
       @visitVocab(record.vocab_term_uid)
-
+    else
+      @history.push("/#{type}/#{id}")
 
 module.exports = Location

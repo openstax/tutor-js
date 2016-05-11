@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+
 {ExerciseActions, ExerciseStore} = require 'stores/exercise'
 AsyncButton = require 'openstax-react-components/src/components/buttons/async-button.cjsx'
 MPQToggle = require 'components/exercise/mpq-toggle'
@@ -26,7 +27,7 @@ ExerciseControls = React.createClass
   saveExercise: ->
     if ExerciseStore.isNew(@props.id)
       ExerciseActions.create(@props.id, ExerciseStore.get(@props.id))
-      ExerciseStore.once 'created', (id) =>
+      ExerciseStore.once 'updated', (id) =>
         @props.location.visitExercise(id)
     else
       ExerciseActions.save(@props.id)

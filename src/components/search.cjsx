@@ -7,15 +7,16 @@ Search = React.createClass
   propTypes:
     location: React.PropTypes.object.isRequired
 
-  displayExercise: (id) ->
-    @props.location.visitExercise(id)
-
-  displayVocab: (id) ->
-    @props.location.visitVocab(id)
+#   displayExercise: (id) ->
+#     @props.location.onRecordLoad(id, store)
+# 96@6
+#     @props.location.visitExercise(id)
 
   loadExercise: (exerciseId) ->
     @setState({exerciseId})
-    ExerciseStore.once 'loaded', @displayExercise
+    ExerciseStore.once 'loaded', =>
+      @props.location.onRecordLoad('exercises', exerciseId, ExerciseStore)
+
     ExerciseActions.load(exerciseId)
 
   onFindExercise: ->
