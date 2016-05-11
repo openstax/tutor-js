@@ -38,9 +38,9 @@ JOB_UUID = 'this-is-a-fake-job-uuid'
 
 _.each(TEST_ITEMS, (item) ->
   _.each(item.displays, (display) ->
-    display.rangeDuration = display.rangeDuration.start()
+    display.rangeDuration = moment(display.rangeDuration.start)
       .add(RELATIVE_DIFF_DAYS, 'days')
-      .twix(display.rangeDuration.end().add(RELATIVE_DIFF_DAYS, 'days'))
+      .twix(moment(display.rangeDuration.end).add(RELATIVE_DIFF_DAYS, 'days'))
   )
 )
 
