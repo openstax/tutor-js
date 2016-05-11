@@ -2,7 +2,7 @@ _ = require 'underscore'
 flux = require 'flux-react'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 TaggingMixin = require './tagging-mixin'
-
+{ExerciseStore} = require './exercise'
 
 VocabularyConfig = {
 
@@ -38,16 +38,12 @@ VocabularyConfig = {
 
   addBlankDistractor: (id, index) ->
     distractor_literals = _.clone(@_get(id).distractor_literals or [])
+    index = distractor_literals.length unless index?
     distractor_literals.splice(index, 0, '')
     @_change(id, {distractor_literals})
 
   change: (id, attrs) ->
     @_change(id, attrs)
-
-  addBlankDistractor: (id) ->
-    distractor_literals = _.clone(@_get(id).distractor_literals) or []
-    distractor_literals.push('')
-    @_change(id, {distractor_literals})
 
   publish: (id) ->
     @_asyncStatusPublish[id] = true
@@ -59,6 +55,10 @@ VocabularyConfig = {
     @saved(obj, id)
 
   exports:
+    getFromExerciseId: (id) ->
+      ex = ExerciseStore.get(id)
+      if ex then @exports.get.call(@, ex.vocab_term_uid) else null
+
     getTemplate: (id) ->
       term: ''
       definition: ''

@@ -29,6 +29,7 @@ App = React.createClass
   loadRecord: (type, id) ->
     return unless type and id
     {actions, store} = @props.location.partsForView(type)
+
     unless store.isLoading(id) or store.get(id)
       store.once 'loaded', =>
         @props.location.onRecordLoad(type, id, store)

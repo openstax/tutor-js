@@ -18,8 +18,8 @@ VIEWS =
   vocabulary:
     Body:     require 'components/vocabulary'
     Controls: require 'components/vocabulary/controls'
-    store:    VocabularyStore
-    actions:  VocabularyActions
+    store:    ExerciseStore
+    actions:  ExerciseActions
 
 
 # The Location class pairs urls with components and stores
@@ -64,7 +64,7 @@ class Location
     record = store.get(id)
     # use vocab editor
     if type is 'exercises' and record.vocab_term_uid
-      @visitVocab(record.vocab_term_uid)
+      @visitVocab(id) #record.vocab_term_uid)
     else
       @history.push("/#{type}/#{id}")
 
