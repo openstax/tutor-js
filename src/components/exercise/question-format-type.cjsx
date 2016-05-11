@@ -16,6 +16,9 @@ TYPES =
 
 QuestionFormatType = React.createClass
 
+  propTypes:
+    questionId: React.PropTypes.number.isRequired
+    sync: React.PropTypes.func.isRequired
 
   update: -> @forceUpdate()
 
@@ -24,10 +27,6 @@ QuestionFormatType = React.createClass
 
   componentWillUnmount: ->
     QuestionStore.removeChangeListener(@update)
-
-  propTypes:
-    questionId: React.PropTypes.number.isRequired
-    sync: React.PropTypes.func.isRequired
 
   updateFormat: (ev) ->
     selected = ev.target.value
@@ -51,7 +50,7 @@ QuestionFormatType = React.createClass
         <BS.Input
           key={id}
           type="radio"
-          name='formats'
+          name={"#{@props.questionId}-formats"}
           label={name}
           value={id}
           onClick={@updateFormat}
