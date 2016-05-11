@@ -181,7 +181,6 @@ module.exports = React.createClass
     {id} = @props
 
     periodTasking = @getSavedTaskingFor(period.id)
-    {taskingOpensAt, taskingDueAt} = @getDefaultPlanDates(period.id)
 
     if ev.target.checked
       if periodTasking?
@@ -215,8 +214,10 @@ module.exports = React.createClass
     cannotEditNote = '  Open times cannot be edited after assignment is visible to students.' if @state.isVisibleToStudents
 
     assignmentNameLabel = [
-      "#{@props.label} name"
-      <span className='instructions'> (students will see this on their dashboard)</span>
+      <span key='assignment-label'>{"#{@props.label} name"}</span>
+      <span
+        key='assignment-label-instructions'
+        className='instructions'> (students will see this on their dashboard)</span>
     ]
 
     <div className="assignment">
@@ -289,7 +290,7 @@ module.exports = React.createClass
     maxOpensAt = TimeHelper.makeMoment(TaskPlanStore.getDueAt(@props.id), ISO_DATE_FORMAT).subtract(1, 'day')
     minDueAt = TimeHelper.makeMoment(TaskPlanStore.getMinDueAt(@props.id), ISO_DATE_FORMAT)
 
-    opensAt = <BS.Col sm=4 md=3>
+    opensAt = <BS.Col sm=4 md=3 key='common-open'>
       <TutorDateInput
         className='-assignment-open-date'
         ref="openDate"
@@ -303,7 +304,7 @@ module.exports = React.createClass
         currentLocale={@state.currentLocale} />
     </BS.Col>
 
-    dueAt = <BS.Col sm=4 md=3>
+    dueAt = <BS.Col sm=4 md=3 key='common-due'>
       <TutorDateInput
         className='-assignment-due-date'
         ref="dueDate"
@@ -317,7 +318,7 @@ module.exports = React.createClass
     </BS.Col>
 
     [
-      opensAt,
+      opensAt
       dueAt
     ]
 
@@ -330,7 +331,7 @@ module.exports = React.createClass
       disabled={@state.isVisibleToStudents}
       checked={@state.showingPeriods}/> unless @state.isVisibleToStudents
 
-    choiceLabel = <BS.Row>
+    choiceLabel = <BS.Row key='tasking-individual-choice'>
       <BS.Col md=12>
         {radio}
         <label className="period" htmlFor='show-periods-radio'>
@@ -354,7 +355,7 @@ module.exports = React.createClass
       @renderDisabledTasking(plan)
 
   renderDisabledTasking: (plan) ->
-    <BS.Row key={plan.id} className="tasking-plan disabled">
+    <BS.Row key="tasking-disabled-#{plan.id}" className="tasking-plan disabled">
       <BS.Col sm=12>
         <input
           id={"period-toggle-#{plan.id}"}
@@ -371,7 +372,7 @@ module.exports = React.createClass
     maxOpensAt = TimeHelper.makeMoment(TaskPlanStore.getDueAt(@props.id, plan.id), ISO_DATE_FORMAT).subtract(1, 'day')
     minDueAt = TimeHelper.makeMoment(TaskPlanStore.getMinDueAt(@props.id, plan.id), ISO_DATE_FORMAT)
 
-    <BS.Row key={plan.id} className="tasking-plan tutor-date-input">
+    <BS.Row key="tasking-enabled-#{plan.id}" className="tasking-plan tutor-date-input">
       <BS.Col sm=4 md=3>
         <input
           id={"period-toggle-#{plan.id}"}
