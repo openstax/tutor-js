@@ -39,11 +39,12 @@ ExerciseConfig = {
   _saved: (obj, id) ->
     cascadeLoad(obj, id)
     @_asyncStatusPublish[id] = false
+    @emit('updated', obj.id)
 
   _created:(obj, id) ->
     cascadeLoad(obj, obj.number)
     obj.id = obj.number
-    @emit('created', obj.id)
+    @emit('updated', obj.id)
     obj
 
   publish: (id) ->

@@ -14,7 +14,11 @@ VocabularyConfig = {
 
   _created:(obj, id) ->
     obj.id = obj.number
-    @emit('created', obj.id)
+    @emit('updated', obj.id)
+    obj
+
+  _saved: (obj, id) ->
+    @emit('updated', obj.id)
     obj
 
   createBlank: (id) ->
