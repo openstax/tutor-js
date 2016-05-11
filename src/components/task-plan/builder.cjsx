@@ -81,7 +81,7 @@ module.exports = React.createClass
   getQueriedDueAt: ->
     {due_at} = @context?.router?.getCurrentQuery() # attempt to read the due date from query params
     isNewPlan = TaskPlanStore.isNew(@props.id)
-    dueAt = if due_at and isNewPlan then TimeHelper.getMomentPreserveDate(due_at)
+    dueAt = if due_at and isNewPlan then TimeHelper.getMomentPreserveDate(due_at).format(ISO_DATE_FORMAT)
 
   # Copies the available periods from the course store and sets
   # them to open at the default start date
@@ -133,16 +133,12 @@ module.exports = React.createClass
 
   setOpensAt: (value, period) ->
     {id} = @props
-    if Object.prototype.toString.call(value) is '[object Date]'
-      value = TimeHelper.getMomentPreserveDate(value).format(TutorDateFormat)
-
+    value = value.format(ISO_DATE_FORMAT) if moment.isMoment(value)
     TaskPlanActions.updateOpensAt(id, value, period?.id)
 
   setDueAt: (value, period) ->
     {id} = @props
-    if Object.prototype.toString.call(value) is '[object Date]'
-      value = TimeHelper.getMomentPreserveDate(value).format(TutorDateFormat)
-
+    value = value.format(ISO_DATE_FORMAT) if moment.isMoment(value)
     TaskPlanActions.updateDueAt(id, value, period?.id)
 
   setAllPeriods: ->
@@ -290,7 +286,8 @@ module.exports = React.createClass
     {taskingOpensAt, taskingDueAt} = @getDefaultPlanDates()
     commonOpensAt = taskingOpensAt
     commonDueAt = taskingDueAt
-    maxOpensAt = moment(TaskPlanStore.getDueAt(@props.id)).subtract(1, 'day')
+    maxOpensAt = TimeHelper.makeMoment(TaskPlanStore.getDueAt(@props.id), ISO_DATE_FORMAT).subtract(1, 'day')
+    minDueAt = TimeHelper.makeMoment(TaskPlanStore.getMinDueAt(@props.id), ISO_DATE_FORMAT)
 
     opensAt = <BS.Col sm=4 md=3>
       <TutorDateInput
@@ -314,7 +311,7 @@ module.exports = React.createClass
         label="Due Date"
         onChange={@setDueAt}
         disabled={@state.showingPeriods or not @state.isEditable}
-        min={TaskPlanStore.getMinDueAt(@props.id)}
+        min={minDueAt}
         value={commonDueAt}
         currentLocale={@state.currentLocale} />
     </BS.Col>
@@ -371,7 +368,8 @@ module.exports = React.createClass
 
   renderEnabledTasking: (plan) ->
     {taskingOpensAt, taskingDueAt} = @getDefaultPlanDates(plan.id)
-    maxOpensAt = moment(TaskPlanStore.getDueAt(@props.id, plan.id)).subtract(1, 'day')
+    maxOpensAt = TimeHelper.makeMoment(TaskPlanStore.getDueAt(@props.id, plan.id), ISO_DATE_FORMAT).subtract(1, 'day')
+    minDueAt = TimeHelper.makeMoment(TaskPlanStore.getMinDueAt(@props.id, plan.id), ISO_DATE_FORMAT)
 
     <BS.Row key={plan.id} className="tasking-plan tutor-date-input">
       <BS.Col sm=4 md=3>
@@ -397,7 +395,7 @@ module.exports = React.createClass
           disabled={not @state.isEditable}
           label="Due Date"
           required={@state.showingPeriods}
-          min={TaskPlanStore.getMinDueAt(@props.id, plan.id)}
+          min={minDueAt}
           onChange={_.partial(@setDueAt, _, plan)}
           value={taskingDueAt}
           currentLocale={@state.currentLocale} />

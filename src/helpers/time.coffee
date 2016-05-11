@@ -44,10 +44,12 @@ TimeHelper =
     moment.tz.guess()
 
   getMomentPreserveDate: (value, args...) ->
-    # if @_local
-    #   return moment(value, args...).tz(@_local).hour(12)
-
     preserve = TimeHelper.makeMoment(value, args...)
+    preserve.hour(12).locale(moment.locale())
+
+  getZonedMoment: (value, args...) ->
+    preserve = TimeHelper.makeMoment(value, args...)
+    preserve.tz(@_local) if @_local
     preserve.hour(12).locale(moment.locale())
 
   getLocal: ->

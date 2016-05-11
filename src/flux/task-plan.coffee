@@ -12,6 +12,8 @@ validator = require 'validator'
 TaskHelpers = require '../helpers/task'
 TimeHelper = require '../helpers/time'
 
+ISO_DATE_FORMAT = 'YYYY-MM-DD'
+
 TUTOR_SELECTIONS =
   default: 3
   max: 4
@@ -195,17 +197,13 @@ TaskPlanConfig =
     throw new Error('id is required') unless id
     throw new Error("#{attr} is required") unless date
 
-    # use of moment(date).toDate() will make sure to convert
-    # any type of date (string, js date, moment, etc) to date for
-    # the BE to accept.
-
-    console.info(date, 'updateDateAttribute')
+    # assumes that date is an ISO format date string.
     if periodId
       tasking = @_findTasking(tasking_plans, periodId)
-      tasking[attr] = TimeHelper.getMomentPreserveDate(date, [TimeStore.getFormat()]) #.format('YYYY-MM-DD')
+      tasking[attr] = date
     else
       for tasking in tasking_plans
-        tasking[attr] = TimeHelper.getMomentPreserveDate(date, [TimeStore.getFormat()]) #.format('YYYY-MM-DD')
+        tasking[attr] = date
 
     @_change(id, {tasking_plans})
 
@@ -412,7 +410,7 @@ TaskPlanConfig =
       plan = @_getPlan(id)
       firstDueTasking = @_getFirstTaskingByDueDate(id)
       isPublishedOrPublishing = !!plan?.published_at or !!plan?.is_publish_requested
-      isPastDue = moment(firstDueTasking?.due_at).isBefore(TimeStore.getNow())
+      isPastDue = moment(firstDueTasking?.due_at, ISO_DATE_FORMAT).isBefore(TimeStore.getNow())
       # cannot be a publishing/published past due assignment, and
       # cannot be/being deleted
       not ((isPublishedOrPublishing and isPastDue) or @_isDeleteRequested(id))
@@ -438,27 +436,28 @@ TaskPlanConfig =
     getOpensAt: (id, periodId) ->
       if periodId?
         tasking = @_getPeriodDates(id, periodId)
-        opensAt = TimeHelper.getMomentPreserveDate(tasking?.opens_at) if tasking?.opens_at?
+        opensAt = TimeHelper.getMomentPreserveDate(tasking?.opens_at, ISO_DATE_FORMAT) if tasking?.opens_at?
       else
         # default opens_at to 1 day from now
         opensAt = @_getTaskingsCommonDate(id, 'opens_at')
 
-      opensAt
+      opensAt?.format?(ISO_DATE_FORMAT) or opensAt
 
     getDueAt: (id, periodId) ->
       if periodId?
         tasking = @_getPeriodDates(id, periodId)
-        dueAt = TimeHelper.getMomentPreserveDate(tasking?.due_at) if tasking?.due_at?
+        dueAt = TimeHelper.getMomentPreserveDate(tasking?.due_at, ISO_DATE_FORMAT) if tasking?.due_at?
       else
         dueAt = @_getTaskingsCommonDate(id, 'due_at')
 
-      dueAt
+      dueAt?.format?(ISO_DATE_FORMAT) or dueAt
 
     getMinDueAt: (id, periodId) ->
-      opensAt = moment(@exports.getOpensAt.call(@, id, periodId))
+      opensAt = TimeHelper.makeMoment(@exports.getOpensAt.call(@, id, periodId), ISO_DATE_FORMAT)
       if opensAt.isBefore(TimeStore.getNow())
         opensAt = moment(TimeStore.getNow())
-      opensAt.startOf('day').add(1, 'day')
+
+      opensAt.startOf('day').add(1, 'day').format(ISO_DATE_FORMAT)
 
     hasTasking: (id, periodId) ->
       plan = @_getPlan(id)
