@@ -1,7 +1,6 @@
 React  = require 'react'
 BS     = require 'react-bootstrap'
-moment = require 'moment'
-_ = require 'underscore'
+
 DontForgetPanel = require './dont-forget-panel'
 EmptyPanel      = require './empty-panel'
 UpcomingPanel   = require './upcoming-panel'

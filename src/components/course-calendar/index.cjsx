@@ -1,4 +1,3 @@
-moment = require 'moment'
 React = require 'react'
 
 CourseMonth = require './month'

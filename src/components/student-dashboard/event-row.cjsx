@@ -1,6 +1,6 @@
 React  = require 'react'
 BS     = require 'react-bootstrap'
-moment = require 'moment'
+
 Time   = require '../time'
 {StudentDashboardStore} = require '../../flux/student-dashboard'
 EventInfoIcon = require './event-info-icon'
