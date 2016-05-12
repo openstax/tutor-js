@@ -1,6 +1,6 @@
 {Testing, expect, sinon, _, ReactTestUtils} = require 'openstax-react-components/test/helpers'
-{ExercisePreview} = require 'openstax-react-components'
 
+ExercisePreview = require 'components/exercise/preview'
 Exercise = require 'components/exercise'
 {ExerciseActions} = require 'stores/exercise'
 EXERCISE = require 'exercises/1.json'
@@ -26,12 +26,10 @@ describe 'Exercises component', ->
       expect(dom.classList.contains('.exercise-editor')).not.to.true
 
   it 'renders a preview of the exercise', ->
-    Testing.renderComponent( Exercise, props: @props ).then ({element}) ->
+    Testing.renderComponent( Exercise, props: @props ).then ({element}) =>
+
       preview = ReactTestUtils.findRenderedComponentWithType(element, ExercisePreview)
-      expect(preview.props.exercise).to.deep.equal(
-        content: EXERCISE
-        tags: _.map EXERCISE.tags, (tag) -> name: tag
-      )
+      expect(preview.props.exerciseId).to.equal(@props.id)
 
   it 'renders with intro and a multiple questions when exercise is MC', ->
     Testing.renderComponent( Exercise, props: @props ).then ({dom}) ->

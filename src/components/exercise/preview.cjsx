@@ -2,7 +2,6 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
-Location = require 'stores/location'
 
 {ExercisePreview} = require 'openstax-react-components'
 
