@@ -5,7 +5,7 @@ BS = require 'react-bootstrap'
 classnames = require 'classnames'
 
 {ExerciseActions, ExerciseStore} = require 'stores/exercise'
-
+ExercisePreview = require 'components/exercise/preview'
 PublishedModal  = require './published-modal'
 ExerciseTags    = require 'components/exercise/tags'
 Question        = require 'components/exercise/question'
@@ -84,16 +84,9 @@ Exercise = React.createClass
 
     @state.tab
 
-
-  # renderVocabExercise: (exercise) ->
-  #   <Vocabulary id={ _.last(exercise.exercise_uids) } />
-
   render: ->
     exercise = ExerciseStore.get(@props.id)
     return null unless exercise
-
-    # if (ExerciseStore.isVocabQuestion(@props.id))
-    #   return @renderVocabExercise()
 
     showMPQ = ExerciseStore.isMultiPart(@props.id)
 
@@ -123,6 +116,7 @@ Exercise = React.createClass
         </BS.Tabs>
       </div>
 
+      <ExercisePreview exerciseId={@props.id} />
 
     </div>
 
