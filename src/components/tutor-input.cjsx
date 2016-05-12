@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 moment = require 'moment-timezone'
 _ = require 'underscore'
 classnames = require 'classnames'
+MaskedInput = require 'react-input-mask'
 
 {TimeStore} = require '../flux/time'
 TimeHelper = require '../helpers/time'
@@ -203,6 +204,20 @@ TutorDateInput = React.createClass
       </div>
     </div>
 
+TutorTimeInput = React.createClass
+  getDefaultProps: ->
+    formatChars:
+      h: '[0-9]'
+      H: '[0-1]'
+      M: '[0-6]'
+      m: '[0-9]'
+      P: '(A|P|a|p)'
+      p: '(M|m)'
+  render: ->
+    <MaskedInput
+      {...@props}
+      mask='Hh:Mm Pp'
+      name='time'/>
 
 TutorTextArea = React.createClass
   propTypes:
@@ -252,4 +267,4 @@ TutorTextArea = React.createClass
       </div>
     </div>
 
-module.exports = {TutorInput, TutorDateInput, TutorDateFormat, TutorTextArea}
+module.exports = {TutorInput, TutorDateInput, TutorDateFormat, TutorTimeInput, TutorTextArea}

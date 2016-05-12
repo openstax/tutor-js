@@ -13,11 +13,94 @@ TutorDateFormat = TimeStore.getFormat()
 TimeHelper = require '../../helpers/time'
 
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
-{TutorInput, TutorDateInput, TutorDateFormat, TutorTextArea} = require '../tutor-input'
+{TutorInput, TutorDateInput, TutorTimeInput, TutorDateFormat, TutorTextArea} = require '../tutor-input'
 {CourseStore}   = require '../../flux/course'
 {UnsavedStateMixin} = require '../unsaved-state'
 
 ISO_DATE_FORMAT = 'YYYY-MM-DD'
+
+
+TaskingDateTime = React.createClass
+  render: ->
+    <div>
+      <BS.Col sm=4 md=3>
+        <TutorDateInput {...@props}/>
+      </BS.Col>
+      <BS.Col sm=1 md=1>
+        <TutorTimeInput {...@props}/>
+      </BS.Col>
+    </div>
+
+TaskingTimes = React.createClass
+  render: ->
+    {
+      isVisibleToStudents,
+      isEditable,
+      isEnabled,
+      currentLocale,
+      required,
+      period,
+      id,
+      togglePeriodEnabled,
+      taskingOpensAt,
+      taskingDueAt,
+      setDueAt,
+      setOpensAt
+    } = @props
+
+    taskingIdentifier = period?.id or 'common'
+
+    maxOpensAt = TimeHelper.makeMoment(TaskPlanStore.getDueAt(id, period?.id), ISO_DATE_FORMAT).subtract(1, 'day')
+    minDueAt = TimeHelper.makeMoment(TaskPlanStore.getMinDueAt(id, period?.id), ISO_DATE_FORMAT)
+
+    if period?
+      toggler = <BS.Col sm=4 md=3>
+        <input
+          id={"period-toggle-#{period.id}"}
+          disabled={isVisibleToStudents}
+          type='checkbox'
+          onChange={_.partial(togglePeriodEnabled, period)}
+          checked={true}/>
+        <label className="period" htmlFor={"period-toggle-#{period.id}"}>{period.name}</label>
+      </BS.Col>
+
+    if isEnabled
+      <BS.Row key="tasking-enabled-#{taskingIdentifier}" className="tasking-plan tutor-date-input">
+        {toggler}
+        <TaskingDateTime
+          disabled={isVisibleToStudents or not isEditable}
+          label="Open Date"
+          required={required}
+          min={TimeStore.getNow()}
+          max={maxOpensAt}
+          onChange={_.partial(setOpensAt, _, period)}
+          value={ taskingOpensAt }
+          currentLocale={currentLocale} />
+        <TaskingDateTime
+          disabled={not isEditable}
+          label="Due Date"
+          required={required}
+          min={minDueAt}
+          onChange={_.partial(setDueAt, _, period)}
+          value={taskingDueAt}
+          currentLocale={currentLocale} />
+      </BS.Row>
+    else
+      if period?
+        <BS.Row key="tasking-disabled-#{period.id}" className="tasking-plan disabled">
+          <BS.Col sm=12>
+            <input
+              id={"period-toggle-#{period.id}"}
+              type='checkbox'
+              disabled={isVisibleToStudents}
+              onChange={_.partial(togglePeriodEnabled, period)}
+              checked={false}/>
+            <label className="period" htmlFor={"period-toggle-#{period.id}"}>{period.name}</label>
+          </BS.Col>
+        </BS.Row>
+      else
+        null
+
 
 module.exports = React.createClass
   displayName: 'TaskPlanBuilder'
@@ -232,7 +315,8 @@ module.exports = React.createClass
             disabled={not @state.isEditable}
             onChange={@setTitle} />
         </BS.Col>
-      </BS.Row><BS.Row>
+      </BS.Row>
+      <BS.Row>
         <BS.Col xs=12>
           <TutorTextArea
             label='Description or special instructions'
@@ -242,7 +326,8 @@ module.exports = React.createClass
             disabled={not @state.isEditable}
             onChange={@setDescription} />
         </BS.Col>
-      </BS.Row><BS.Row>
+      </BS.Row>
+      <BS.Row>
         <BS.Col sm=12 className='assign-to-label'>
           Assign to
         </BS.Col>
@@ -280,47 +365,8 @@ module.exports = React.createClass
         {radio}
         <label className="period" htmlFor='hide-periods-radio'>All Periods</label>
       </BS.Col>
-      {@renderCommonDateInputs() unless @state.showingPeriods}
+      {@renderTaskPlanRow()}
     </BS.Row>
-
-  renderCommonDateInputs: ->
-    {taskingOpensAt, taskingDueAt} = @getDefaultPlanDates()
-    commonOpensAt = taskingOpensAt
-    commonDueAt = taskingDueAt
-    maxOpensAt = TimeHelper.makeMoment(TaskPlanStore.getDueAt(@props.id), ISO_DATE_FORMAT).subtract(1, 'day')
-    minDueAt = TimeHelper.makeMoment(TaskPlanStore.getMinDueAt(@props.id), ISO_DATE_FORMAT)
-
-    opensAt = <BS.Col sm=4 md=3 key='common-open'>
-      <TutorDateInput
-        className='-assignment-open-date'
-        ref="openDate"
-        required={not @state.showingPeriods}
-        label="Open Date"
-        onChange={@setOpensAt}
-        disabled={@state.showingPeriods or @state.isVisibleToStudents or not @state.isEditable}
-        min={TimeStore.getNow()}
-        max={maxOpensAt}
-        value={commonOpensAt}
-        currentLocale={@state.currentLocale} />
-    </BS.Col>
-
-    dueAt = <BS.Col sm=4 md=3 key='common-due'>
-      <TutorDateInput
-        className='-assignment-due-date'
-        ref="dueDate"
-        required={not @state.showingPeriods}
-        label="Due Date"
-        onChange={@setDueAt}
-        disabled={@state.showingPeriods or not @state.isEditable}
-        min={minDueAt}
-        value={commonDueAt}
-        currentLocale={@state.currentLocale} />
-    </BS.Col>
-
-    [
-      opensAt
-      dueAt
-    ]
 
   renderPeriodsChoice: ->
     radio = <input
@@ -345,60 +391,25 @@ module.exports = React.createClass
     periodsChoice.unshift(choiceLabel)
     periodsChoice
 
+  renderTaskPlanRow: (period) ->
+    {taskingOpensAt, taskingDueAt} = @getDefaultPlanDates(period?.id)
+    {isEditable, showingPeriods, currentLocale, isVisibleToStudents} = @state
 
-  renderTaskPlanRow: (plan) ->
-    # newAndUnchanged = TaskPlanStore.isNew(@props.id) and not store.isChanged(@props.id)
-    # if TaskPlanStore.hasTasking(@props.id, plan.id) or newAndUnchanged
-    if TaskPlanStore.hasTasking(@props.id, plan.id)
-      @renderEnabledTasking(plan)
+    isEnabled = if period?
+      TaskPlanStore.hasTasking(@props.id, period.id)
     else
-      @renderDisabledTasking(plan)
+      not showingPeriods
 
-  renderDisabledTasking: (plan) ->
-    <BS.Row key="tasking-disabled-#{plan.id}" className="tasking-plan disabled">
-      <BS.Col sm=12>
-        <input
-          id={"period-toggle-#{plan.id}"}
-          type='checkbox'
-          disabled={@state.isVisibleToStudents}
-          onChange={_.partial(@togglePeriodEnabled, plan)}
-          checked={false}/>
-        <label className="period" htmlFor={"period-toggle-#{plan.id}"}>{plan.name}</label>
-      </BS.Col>
-    </BS.Row>
-
-  renderEnabledTasking: (plan) ->
-    {taskingOpensAt, taskingDueAt} = @getDefaultPlanDates(plan.id)
-    maxOpensAt = TimeHelper.makeMoment(TaskPlanStore.getDueAt(@props.id, plan.id), ISO_DATE_FORMAT).subtract(1, 'day')
-    minDueAt = TimeHelper.makeMoment(TaskPlanStore.getMinDueAt(@props.id, plan.id), ISO_DATE_FORMAT)
-
-    <BS.Row key="tasking-enabled-#{plan.id}" className="tasking-plan tutor-date-input">
-      <BS.Col sm=4 md=3>
-        <input
-          id={"period-toggle-#{plan.id}"}
-          disabled={@state.isVisibleToStudents}
-          type='checkbox'
-          onChange={_.partial(@togglePeriodEnabled, plan)}
-          checked={true}/>
-        <label className="period" htmlFor={"period-toggle-#{plan.id}"}>{plan.name}</label>
-      </BS.Col><BS.Col sm=4 md=3>
-        <TutorDateInput
-          disabled={@state.isVisibleToStudents or not @state.isEditable}
-          label="Open Date"
-          required={@state.showingPeriods}
-          min={TimeStore.getNow()}
-          max={maxOpensAt}
-          onChange={_.partial(@setOpensAt, _, plan)}
-          value={ taskingOpensAt }
-          currentLocale={@state.currentLocale} />
-      </BS.Col><BS.Col sm=4 md=3>
-        <TutorDateInput
-          disabled={not @state.isEditable}
-          label="Due Date"
-          required={@state.showingPeriods}
-          min={minDueAt}
-          onChange={_.partial(@setDueAt, _, plan)}
-          value={taskingDueAt}
-          currentLocale={@state.currentLocale} />
-        </BS.Col>
-    </BS.Row>
+    <TaskingTimes
+      {...@props}
+      period={period}
+      setDueAt={@setDueAt}
+      setOpensAt={@setOpensAt}
+      togglePeriodEnabled={@togglePeriodEnabled}
+      isVisibleToStudents={isVisibleToStudents}
+      isEditable={isEditable}
+      isEnabled={isEnabled}
+      currentLocale={currentLocale}
+      required={showingPeriods}
+      taskingOpensAt={taskingOpensAt}
+      taskingDueAt={taskingDueAt} />
