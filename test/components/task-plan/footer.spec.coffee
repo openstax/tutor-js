@@ -18,7 +18,10 @@ dayAfter = moment(TimeStore.getNow()).add(2, 'day').format(ISO_DATE_FORMAT)
 NEW_READING = ExtendBasePlan({type: 'reading', id: "_CREATING_1"})
 UNPUBLISHED_READING = ExtendBasePlan({type: 'reading'})
 PUBLISHED_READING = ExtendBasePlan({type: 'reading', published_at: yesterday})
-PAST_DUE_PUBLISHED_READING = ExtendBasePlan({type: 'reading', published_at: twoDaysBefore}, {opens_at: twoDaysBefore, due_at: yesterday})
+PAST_DUE_PUBLISHED_READING = ExtendBasePlan(
+  {type: 'reading', published_at: twoDaysBefore},
+  {opens_at: twoDaysBefore, due_at: yesterday}
+)
 VISIBLE_READING = ExtendBasePlan({type: 'reading', published_at: yesterday}, {opens_at: yesterday})
 VISIBLE_HW = ExtendBasePlan({type: 'homework', published_at: yesterday}, {opens_at: yesterday})
 

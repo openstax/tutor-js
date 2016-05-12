@@ -85,7 +85,12 @@ TimeHelper =
 
   isCourseTimezone: (courseId) ->
     courseTimezone = CourseStore.getTimezone(courseId)
-    moment.tz(TimeHelper.getLocalTimezone()).zoneName() is moment.tz(courseTimezone).zoneName()
+    {offsets} = moment()._z or moment.tz(TimeHelper.getLocalTimezone())._z
+    courseTimezoneOffsets = moment.tz(courseTimezone)._z.offsets
+
+    # Use moment offsets to check if set timezone is matching.
+    # Zone abbr/zone name are not globally unique
+    _.isEqual(offsets, courseTimezoneOffsets)
 
 # link on require.
 TimeHelper.linkZoneNames()
