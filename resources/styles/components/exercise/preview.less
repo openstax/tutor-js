@@ -1,5 +1,4 @@
 &-exercise-preview {
-
   position: relative;
 
   .sans(@size: 1.5rem, @line-height: 3rem) {
@@ -27,17 +26,15 @@
       &:hover {
         .toggle-mask {
           visibility: visible;
+          background-color: fade( @openstax-neutral-light, 80%);
+          .message { opacity: 1; }
         }
       }
     }
-
     .toggle-mask {
       cursor: pointer;
       position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
+      top: 0; right: 0; bottom: 0; left: 0;  // completely cover panel body
       visibility: hidden;
       z-index: 1;
       display: flex;
@@ -48,22 +45,70 @@
 
       .message {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: center;
-        align-items: center;
-        font-size: 2.5rem;
-        font-weight: 700;
+        align-items: stretch;
 
-        &::before {
-          .fa-icon();
-          font-weight: 300;
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+        font-weight: 700;
+        height: 130px;
+        opacity: 0;
+        .transition(all .25s ease-in-out);
+        .openstax-disable-text-select();
+        .block {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-around;
           text-align: center;
-          font-size: 50px;
-          border-radius: 60px;
-          width: 60px;
-          height: 60px;
-          padding-top: 5px;
+          color: white;
+          user-select:  none;
+          width: 150px;
+
+          &.select {
+            background-color: @openstax-primary;
+            &::before {
+              color: @openstax-primary;
+              content: @fa-var-minus;
+            }
+          }
+          &.details {
+            background-color: @openstax-neutral-dark;
+            &::before {
+              color: @openstax-neutral-dark;
+              content: @fa-var-ellipsis-h;
+            }
+          }
+
+          @icon-circle-size: 80px;
+          &::before {
+            .fa-icon();
+            font-weight: 300;
+            text-align: center;
+            background-color: white;
+            font-size: @icon-circle-size * 0.75;
+            border-radius: @icon-circle-size / 2;
+            width: @icon-circle-size;
+            height: @icon-circle-size;
+            padding-top: 12px;
+          }
         }
+      }
+    }
+  } // end toggle-mask
+  // styles for how the select block should appear when it's re-selecting
+  // a previously de-selected card
+  &.is-selected {
+    .panel-body {
+      background-color: @openstax-neutral-light;
+    }
+    .toggle-mask .message .block.select {
+      background-color: @light-blue;
+      &::before {
+        color: @light-blue;
+        content: @fa-var-plus;
       }
     }
   }
