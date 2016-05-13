@@ -80,6 +80,7 @@ ExercisePreviewDemo = React.createClass
     displayFeedback: false
     displayFormats:  false
     displayTags: false
+    isSelected: false
 
   toggleFeedbackDisplay: (ev) ->
     @setState(displayFeedback: not @state.displayFeedback)
@@ -89,6 +90,12 @@ ExercisePreviewDemo = React.createClass
 
   toggleTagsDisplay: (ev) ->
     @setState(displayTags: not @state.TagsFormats)
+
+  onSelection: ->
+    @setState(isSelected: not @state.isSelected)
+
+  onDetailsClick: (ev, exercise) ->
+    console.warn "Exercise details was clicked"
 
   render: ->
     {displayFeedback, displayFormats, displayTags} = @state
@@ -106,8 +113,11 @@ ExercisePreviewDemo = React.createClass
       'fa-square-o':  not displayTags
 
     <ExercisePreview exercise={exercisePreviewStub}
+      onSelection={@onSelection}
+      onDetailsClick={@onDetailsClick}
       displayFormats={displayFormats}
       displayAllTags={displayTags}
+      isSelected={@state.isSelected}
       displayFeedback={displayFeedback}
     >
       <button className="toggle" onClick={@toggleFeedbackDisplay}>
@@ -222,9 +232,9 @@ Demo = React.createClass
   displayName: 'Demo'
   render: ->
     demos =
+      exercisePreview: <ExercisePreviewDemo/>
       notices: <NoticesDemo />
       exercise: <ExerciseDemo/>
-      exercisePreview: <ExercisePreviewDemo/>
       breadcrumbs: <BreadcrumbDemo/>
       html: <HTMLDemo/>
 
