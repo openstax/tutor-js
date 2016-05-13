@@ -27,7 +27,6 @@ getWebpackConfig = (name, isProduction) ->
         entry:
           demo: [
             './demo'
-            './resources/styles/main.less'
             './resources/styles/demo.less'
           ]
       }, {isProduction}]
