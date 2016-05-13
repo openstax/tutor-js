@@ -213,10 +213,19 @@ TutorTimeInput = React.createClass
       m: '[0-9]'
       P: '(A|P|a|p)'
       p: '(M|m)'
+  getDefaultValue: ->
+    {defaultValue} = @props
+    moment(defaultValue, 'HH:mm').format('hh:mm a')
+
   render: ->
+    defaultValue = @getDefaultValue()
+    maskedProps = _.omit(@props, 'defaultValue')
+
     <MaskedInput
-      {...@props}
+      {...maskedProps}
+      defaultValue={defaultValue}
       mask='Hh:Mm Pp'
+      size='8'
       name='time'/>
 
 TutorTextArea = React.createClass

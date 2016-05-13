@@ -22,12 +22,13 @@ ISO_DATE_FORMAT = 'YYYY-MM-DD'
 
 TaskingDateTime = React.createClass
   render: ->
+    timeProps = _.omit(@props, 'value')
     <div>
-      <BS.Col sm=4 md=3>
+      <BS.Col sm=4 md=3 className='tasking-date'>
         <TutorDateInput {...@props}/>
       </BS.Col>
-      <BS.Col sm=1 md=1>
-        <TutorTimeInput {...@props}/>
+      <BS.Col sm=1 md=1 className='tasking-time'>
+        <TutorTimeInput {...timeProps}/>
       </BS.Col>
     </div>
 
@@ -45,7 +46,9 @@ TaskingTimes = React.createClass
       taskingOpensAt,
       taskingDueAt,
       setDueAt,
-      setOpensAt
+      setOpensAt,
+      defaultDueTime,
+      defaultOpenTime
     } = @props
 
     taskingIdentifier = period?.id or 'common'
@@ -75,7 +78,8 @@ TaskingTimes = React.createClass
           max={maxOpensAt}
           onChange={_.partial(setOpensAt, _, period)}
           value={ taskingOpensAt }
-          currentLocale={currentLocale} />
+          currentLocale={currentLocale}
+          defaultValue={defaultOpenTime} />
         <TaskingDateTime
           disabled={not isEditable}
           label="Due Date"
@@ -83,7 +87,8 @@ TaskingTimes = React.createClass
           min={minDueAt}
           onChange={_.partial(setDueAt, _, period)}
           value={taskingDueAt}
-          currentLocale={currentLocale} />
+          currentLocale={currentLocale}
+          defaultValue={defaultDueTime} />
       </BS.Row>
     else
       if period?
@@ -391,9 +396,21 @@ module.exports = React.createClass
     periodsChoice.unshift(choiceLabel)
     periodsChoice
 
+  getTimes: (periodId) ->
+    course = CourseStore.get(@props.courseId)
+
+    if periodId?
+      tasking = _.findWhere(course.periods, id: periodId)
+    else
+      tasking = course
+
+    {default_due_time, default_open_time} = tasking
+
   renderTaskPlanRow: (period) ->
     {taskingOpensAt, taskingDueAt} = @getDefaultPlanDates(period?.id)
     {isEditable, showingPeriods, currentLocale, isVisibleToStudents} = @state
+
+    {default_due_time, default_open_time} = @getTimes(period?.id)
 
     isEnabled = if period?
       TaskPlanStore.hasTasking(@props.id, period.id)
@@ -412,4 +429,6 @@ module.exports = React.createClass
       currentLocale={currentLocale}
       required={showingPeriods}
       taskingOpensAt={taskingOpensAt}
-      taskingDueAt={taskingDueAt} />
+      taskingDueAt={taskingDueAt}
+      defaultDueTime={default_due_time}
+      defaultOpenTime={default_open_time} />
