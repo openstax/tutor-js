@@ -38,14 +38,26 @@ QuestionsDashboard = React.createClass
     courseId: React.PropTypes.string.isRequired
     ecosystemId: React.PropTypes.string.isRequired
 
+  contextTypes:
+    router: React.PropTypes.func
+
   getInitialState: -> {}
+
+  componentWillMount: ->
+    selectedSections = @context.router.getCurrentQuery()['sid']?.split('-')
+    if selectedSections
+      @setState(sectionIds: selectedSections, displayingIds: selectedSections)
+      ExerciseActions.loadForCourse( @props.courseId, selectedSections, '' )
+
   showQuestions: ->
     ExerciseActions.loadForCourse( @props.courseId, @state.sectionIds, '' )
-    @setState(displayingIds: @state.sectionIds)
+    @context.router.transitionTo('viewQuestionsLibrary',
+      {courseId: @props.courseId},
+      {sid: @state.sectionIds.join('-')}
+    )
 
   clearQuestions: -> @replaceState({sectionIds: []})
   onSectionChange: (sectionIds) -> @setState({sectionIds})
-
 
   render: ->
     course = CourseStore.get(@props.courseId)
