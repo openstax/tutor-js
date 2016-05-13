@@ -21,14 +21,44 @@ ISO_DATE_FORMAT = 'YYYY-MM-DD'
 
 
 TaskingDateTime = React.createClass
+  getInitialState: ->
+    @getStateFromProps()
+
+  getStateFromProps: (props) ->
+    props ?= @props
+    {value, defaultValue} = props
+
+    date: moment(value).format(ISO_DATE_FORMAT)
+    time: defaultValue
+
+  onTimeChange: (time) ->
+    @setState({time})
+
+  onDateChange: (date) ->
+    date = date.format(ISO_DATE_FORMAT) if moment.isMoment(date)
+    @setState({date})
+
+  componentWillReceiveProps: (nextProps) ->
+    nextState = @getStateFromProps(nextProps)
+    @setState(nextState)
+
+  componentDidUpdate: (prevProps, prevState) ->
+    {date, time} = @state
+
+    unless _.isEqual(prevState, @state)
+      dateTime = "#{date} #{time}"
+      @props.onChange(dateTime)
+
   render: ->
-    timeProps = _.omit(@props, 'value')
+    timeProps = _.omit(@props, 'value', 'onChange')
+    dateProps = _.omit(@props, 'defaultValue', 'onChange')
+
     <div>
       <BS.Col sm=4 md=3 className='tasking-date'>
-        <TutorDateInput {...@props}/>
+        <TutorDateInput {...dateProps} onChange={@onDateChange} ref='date'/>
       </BS.Col>
       <BS.Col sm=1 md=1 className='tasking-time'>
-        <TutorTimeInput {...timeProps}/>
+        <TutorTimeInput {...timeProps} onChange={@onTimeChange}/>
       </BS.Col>
     </div>
 
@@ -407,13 +437,16 @@ module.exports = React.createClass
     {default_due_time, default_open_time} = tasking
 
   renderTaskPlanRow: (period) ->
+    {id} = @props
     {taskingOpensAt, taskingDueAt} = @getDefaultPlanDates(period?.id)
     {isEditable, showingPeriods, currentLocale, isVisibleToStudents} = @state
 
+    openTime = TaskPlanStore.getOpensAtTime(id, period?.id)
+    dueTime = TaskPlanStore.getDueAtTime(id, period?.id)
     {default_due_time, default_open_time} = @getTimes(period?.id)
 
     isEnabled = if period?
-      TaskPlanStore.hasTasking(@props.id, period.id)
+      TaskPlanStore.hasTasking(id, period.id)
     else
       not showingPeriods
 
@@ -430,5 +463,5 @@ module.exports = React.createClass
       required={showingPeriods}
       taskingOpensAt={taskingOpensAt}
       taskingDueAt={taskingDueAt}
-      defaultDueTime={default_due_time}
-      defaultOpenTime={default_open_time} />
+      defaultDueTime={dueTime or default_due_time}
+      defaultOpenTime={openTime or default_open_time} />

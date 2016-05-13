@@ -213,17 +213,35 @@ TutorTimeInput = React.createClass
       m: '[0-9]'
       P: '(A|P|a|p)'
       p: '(M|m)'
+    fromMomentFormat: 'HH:mm'
+    toMomentFormat: 'hh:mm a'
+
+  timeIn: (value) ->
+    {fromMomentFormat, toMomentFormat} = @props
+    moment(value, fromMomentFormat).format(toMomentFormat)
+
+  timeOut: (value) ->
+    {fromMomentFormat, toMomentFormat} = @props
+    moment(value, toMomentFormat).format(fromMomentFormat)
+
   getDefaultValue: ->
     {defaultValue} = @props
-    moment(defaultValue, 'HH:mm').format('hh:mm a')
+    @timeIn(defaultValue)
+
+  onChange: ->
+    time = @refs.timeInput.formatValue(@refs.timeInput.refs.input.getDOMNode().value)
+    outputTime = @timeOut(time)
+    @props.onChange?(outputTime)
 
   render: ->
     defaultValue = @getDefaultValue()
-    maskedProps = _.omit(@props, 'defaultValue')
+    maskedProps = _.omit(@props, 'defaultValue', 'onChange')
 
     <MaskedInput
       {...maskedProps}
       defaultValue={defaultValue}
+      onChange={@onChange}
+      ref='timeInput'
       mask='Hh:Mm Pp'
       size='8'
       name='time'/>
