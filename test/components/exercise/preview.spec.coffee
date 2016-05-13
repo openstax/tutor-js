@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _} = require 'test/helpers'
+{Testing, expect, sinon, _, ReactTestUtils} = require 'test/helpers'
 
 ExercisePreview = require 'components/exercise/preview'
 
@@ -41,3 +41,24 @@ describe 'Exercise Preview Component', ->
       expect(_.pluck(formats.querySelectorAll('span'), 'textContent')).to.deep.equal([
         'free-response', 'multiple-choice'
       ])
+
+  it 'does not render overlay by default', ->
+    Testing.renderComponent( ExercisePreview, props: @props ).then ({dom}) ->
+      expect( dom.querySelector('.toggle-mask') ).not.to.exist
+
+  it 'calls select callback when overlay is clicked', ->
+    onSelect = sinon.spy()
+    _.extend(@props, onSelection: onSelect)
+    Testing.renderComponent( ExercisePreview, props: @props ).then ({dom}) ->
+      Testing.actions.click( dom.querySelector('.toggle-mask') )
+      expect( dom.querySelector('.toggle-mask .details') ).not.to.exist # does not render since no callback
+      expect(onSelect).to.have.been.called
+
+  it 'calls details callback when details pane is clicked', ->
+    onSelect = sinon.spy()
+    onDetails = sinon.spy()
+    _.extend(@props, onSelection: onSelect, onDetailsClick: onDetails)
+    Testing.renderComponent( ExercisePreview, props: @props ).then ({dom}) ->
+      Testing.actions.click( dom.querySelector('.toggle-mask .details') )
+      expect(onDetails).to.have.been.called
+      expect(onSelect).not.to.have.been.called

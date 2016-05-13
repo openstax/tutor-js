@@ -18,9 +18,12 @@ ExercisePreview = React.createClass
     className:       React.PropTypes.string
     header:          React.PropTypes.element
     hideAnswers:     React.PropTypes.bool
-    toggleExercise:  React.PropTypes.func
+
+    onSelection: React.PropTypes.func
+    onDetailsClick:   React.PropTypes.func
+
     isSelected:      React.PropTypes.bool
-    hoverMessage:    React.PropTypes.string
+
     exercise:        React.PropTypes.shape(
       content: React.PropTypes.object
       tags:    React.PropTypes.array
@@ -43,7 +46,11 @@ ExercisePreview = React.createClass
     <span key={tag.id or tag.name} className={classes}>{content}</span>
 
   onOverlayClick: (ev) ->
-    @props.toggleExercise(ev, not @props.isSelected)
+    @props.onSelection(ev, not @props.isSelected, @props.exercise)
+
+  onDetailsClick: (ev) ->
+    ev.stopPropagation() # needed to prevent click from triggering onOverlay handler
+    @props.onDetailsClick(ev, @props.exercise)
 
   renderFooter: ->
     <div className="controls">
@@ -51,11 +58,19 @@ ExercisePreview = React.createClass
       <ExerciseIdentifierLink exerciseId={@props.exercise.content.uid} />
     </div>
 
+
   renderToggleOverlay: ->
+
     <div onClick={@onOverlayClick} className={classnames('toggle-mask', {active: @props.isSelected})}>
       <div className='message'>
-        {@props.hoverMessage}
+        <div className='block select'>
+          <span>{if @props.isSelected then 'ReInclude question' else 'Exclude question'}</span>
+        </div>
+        {<div onClick={@onDetailsClick} className='block details'>
+          <span>Question details</span>
+        </div> if @props.onDetailsClick}
       </div>
+
     </div>
 
   render: ->
@@ -67,8 +82,8 @@ ExercisePreview = React.createClass
       tags = _.where tags, is_visible: true
     renderedTags = _.map(_.sortBy(tags, 'name'), @renderTag)
     classes = classnames( 'openstax-exercise-preview', @props.className, {
-      'answers-hidden': @props.hideAnswers,
-      'is-selectable' : @props.toggleExercise?
+      'answers-hidden': @props.hideAnswers
+      'is-selectable':  @props.onSelection
       'is-selected':    @props.isSelected
       'is-displaying-formats': @props.displayFormats
       'is-displaying-feedback': @props.displayFeedback
@@ -96,7 +111,7 @@ ExercisePreview = React.createClass
       header={@props.header}
       footer={@renderFooter()}
     >
-      {@renderToggleOverlay() if @props.toggleExercise?}
+      {@renderToggleOverlay() if @props.onSelection?}
       <ArbitraryHtmlAndMath className='-stimulus' block={true} html={content.stimulus_html} />
       {questions}
       <div className='exercise-tags' key='tags'>{renderedTags}</div>
