@@ -2,7 +2,7 @@ _ = require 'underscore'
 flux = require 'flux-react'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 TaggingMixin = require './tagging-mixin'
-
+{ExerciseStore} = require './exercise'
 
 VocabularyConfig = {
 
@@ -14,7 +14,11 @@ VocabularyConfig = {
 
   _created:(obj, id) ->
     obj.id = obj.number
-    @emit('created', obj.id)
+    @emit('updated', obj.id)
+    obj
+
+  _saved: (obj, id) ->
+    @emit('updated', obj.id)
     obj
 
   createBlank: (id) ->
@@ -22,7 +26,7 @@ VocabularyConfig = {
     @loaded(template, id)
 
   updateDistractor: (id, oldValue, newValue) ->
-    distractor_literals = @_get(id).distractor_literals or []
+    distractor_literals = _.clone(@_get(id).distractor_literals or [])
     index = _.indexOf distractor_literals, oldValue
     if -1 is index
       distractor_literals.push(newValue)
@@ -32,13 +36,14 @@ VocabularyConfig = {
       distractor_literals[index] = newValue
     @_change(id, {distractor_literals})
 
+  addBlankDistractor: (id, index) ->
+    distractor_literals = _.clone(@_get(id).distractor_literals or [])
+    index = distractor_literals.length unless index?
+    distractor_literals.splice(index, 0, '')
+    @_change(id, {distractor_literals})
+
   change: (id, attrs) ->
     @_change(id, attrs)
-
-  addBlankDistractor: (id) ->
-    distractor_literals = _.clone(@_get(id).distractor_literals) or []
-    distractor_literals.push('')
-    @_change(id, {distractor_literals})
 
   publish: (id) ->
     @_asyncStatusPublish[id] = true
@@ -50,10 +55,14 @@ VocabularyConfig = {
     @saved(obj, id)
 
   exports:
+    getFromExerciseId: (id) ->
+      ex = ExerciseStore.get(id)
+      if ex then @exports.get.call(@, ex.vocab_term_uid) else null
+
     getTemplate: (id) ->
       term: ''
       definition: ''
-      distractor_literals: []
+      distractor_literals: ['']
       tags: ['dok:1', 'blooms:1', 'time:short']
 
     hasExercise: (id) -> @_get(id)?.exercise_uids?.length

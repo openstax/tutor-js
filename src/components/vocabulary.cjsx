@@ -7,61 +7,80 @@ Location = require 'stores/location'
 {VocabularyActions, VocabularyStore} = require 'stores/vocabulary'
 Distractors = require 'components/vocabulary/distractors'
 Tags = require 'components/vocabulary/tags'
+ExercisePreview = require 'components/exercise/preview'
+NetworkActivity = require 'components/network-activity-spinner'
+RecordNotFound  = require 'components/record-not-found'
 
 Vocabulary = React.createClass
   propTypes:
     id:   React.PropTypes.string.isRequired
     location: React.PropTypes.object
 
-  setTerm: (ev) -> VocabularyActions.change(@props.id, term: ev.target.value)
-  setDefinition: (ev) -> VocabularyActions.change(@props.id, definition: ev.target.value)
+  setTerm: (ev) ->
+    VocabularyActions.change(@getVocabId(), term: ev.target.value)
+
+  setDefinition: (ev) ->
+    VocabularyActions.change(@getVocabId(), definition: ev.target.value)
 
   update: -> @forceUpdate()
 
   componentWillMount: ->
     VocabularyStore.addChangeListener(@update)
+    @loadIfNeeded( @getVocabId() )
+
+  componentWillReceiveProps: (nextProps) ->
+    @loadIfNeeded( ExerciseStore.get(nextProps.id)?.vocab_term_uid )
+
+  loadIfNeeded: (vocabId) ->
+    if vocabId and not ( VocabularyStore.get(vocabId) or VocabularyStore.isLoading(vocabId) )
+      VocabularyActions.load(vocabId)
 
   componentWillUnmount: ->
     VocabularyStore.removeChangeListener(@update)
 
-  visitExercise: ->
-    exerciseIds = VocabularyStore.getExerciseIds(@props.id)
-    if (exerciseIds.length)
-      @props.location.visitExercise(exerciseIds[0])
+  getVocabId: ->
+    ExerciseStore.get(@props.id)?.vocab_term_uid
 
   render: ->
-    vt = VocabularyStore.get(@props.id)
-    if not vt
-      return null
+    vocabId = @getVocabId()
+    return null unless vocabId
 
-    linkToExercise = <p>
-      <a onClick={@visitExercise}>
-        Go to Exercise <i className="fa fa-chevron-right" />
-      </a>
-    </p> if VocabularyStore.hasExercise(@props.id)
+    if vocabId and VocabularyStore.isLoading(vocabId)
+      return <NetworkActivity />
+
+    vocabTerm = VocabularyStore.getFromExerciseId(@props.id)
+    unless vocabTerm
+      return <RecordNotFound recordType="Vocabulary Term" id={vocabId} />
 
     <div className='vocabulary-editor'>
 
-      <BS.Row>
-        <BS.Col sm=6>
-          { linkToExercise }
-          <BS.Input type="text" label="Key Term" onChange={@setTerm} value={vt.term} />
+      <div className="editing-controls">
 
-          <BS.Input type="textarea" label="Key Term Definition"
-            onChange={@setDefinition} value={vt.definition} />
+        <BS.Row>
+          <BS.Col sm=6>
 
-        </BS.Col>
-        <BS.Col sm=6>
-          <Distractors termId={@props.id} />
-        </BS.Col>
-      </BS.Row>
+            <BS.Input type="text" label="Key Term" onChange={@setTerm} value={vocabTerm.term} />
 
-      <BS.Row>
-        <BS.Col sm=12>
-          <h4>Tags</h4>
-        </BS.Col>
-      </BS.Row>
-      <Tags vocabularyId={@props.id} />
+            <BS.Input type="textarea" label="Key Term Definition"
+              onChange={@setDefinition} value={vocabTerm.definition} />
+
+          </BS.Col>
+          <BS.Col sm=6>
+            <Distractors termId={vocabId} />
+          </BS.Col>
+        </BS.Row>
+
+        <BS.Row>
+          <BS.Col sm=12>
+            <h4>Tags</h4>
+          </BS.Col>
+        </BS.Row>
+        <Tags vocabularyId={vocabId} />
+
+      </div>
+
+      <ExercisePreview exerciseId={@props.id} />
+      <div className="vocabulary-hidden-id">{vocabId}</div>
     </div>
 
 

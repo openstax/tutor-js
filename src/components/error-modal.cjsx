@@ -31,9 +31,11 @@ ErrorModal = React.createClass
 
   render: ->
     error = ErrorsStore.getError()
+
     return null if _.isEmpty(error)
 
     {statusCode, message, request} = error
+
     if request.opts.data?
       dataMessage =
         <span>with <pre>{request.opts.data}</pre></span>
@@ -48,6 +50,7 @@ ErrorModal = React.createClass
       className='error-modal'
       enforceFocus={false}
       autoFocus={false}
+      show={true}
       backdrop={false}
       animation={false}
       onRequestHide={@onHide}

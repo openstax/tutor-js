@@ -39,12 +39,16 @@ ExerciseConfig = {
   _saved: (obj, id) ->
     cascadeLoad(obj, id)
     @_asyncStatusPublish[id] = false
+    @emit('updated', obj.id)
 
   _created:(obj, id) ->
     cascadeLoad(obj, obj.number)
     obj.id = obj.number
-    @emit('created', obj.id)
+    @emit('updated', obj.id)
     obj
+
+  setAsVocabularyPlaceHolder: (id, newVocabId) ->
+    @_change(id, {vocab_term_uid: newVocabId})
 
   publish: (id) ->
     @_asyncStatusPublish[id] = true

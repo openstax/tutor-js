@@ -1,3 +1,5 @@
+@import "./mixins/editing-panes";
+
 .exercise-navbar-controls {
 
   .right-side {
@@ -28,29 +30,7 @@
 
 .exercise-editor {
 
-  display: flex;
-
-  .openstax-exercise-preview,
-  .editing-controls {
-    flex: 1;
-    height: 100%;
-    justify-content: flex-start;
-  }
-  .openstax-exercise-preview {
-    max-width: 800px;
-  }
-
-  .editing-controls {
-    margin-right: 1rem;
-    position: relative;
-    min-width: 700px;
-    .add-mpq {
-      position: absolute;
-      right: 0;
-      z-index: 2; // above tabs;
-    }
-
-  }
+  .editing-panes();
 
 
   .tab-pane {

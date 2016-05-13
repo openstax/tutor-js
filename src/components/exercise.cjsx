@@ -5,12 +5,12 @@ BS = require 'react-bootstrap'
 classnames = require 'classnames'
 
 {ExerciseActions, ExerciseStore} = require 'stores/exercise'
-{ExercisePreview} = require 'openstax-react-components'
+ExercisePreview = require 'components/exercise/preview'
+PublishedModal  = require './published-modal'
+ExerciseTags    = require 'components/exercise/tags'
+Question        = require 'components/exercise/question'
+Attachments     = require 'components/exercise/attachments'
 
-PublishedModal = require './published-modal'
-ExerciseTags = require 'components/exercise/tags'
-Question = require 'components/exercise/question'
-Attachments = require 'components/exercise/attachments'
 
 Exercise = React.createClass
   propTypes:
@@ -64,10 +64,6 @@ Exercise = React.createClass
       <Question id={_.first(questions)?.id} sync={@sync} />
     </BS.Tab>
 
-  exercisePreviewData: (ex) ->
-    content: ex
-    tags: _.map ex.tags, (tag) -> name: tag
-
   addQuestion: ->
     ExerciseActions.addQuestionPart(@props.id)
 
@@ -88,32 +84,9 @@ Exercise = React.createClass
 
     @state.tab
 
-  renderPreview: ->
-    exercise = ExerciseStore.get(@props.id)
-    <ExercisePreview
-      exercise={@exercisePreviewData(exercise)}
-      displayAllTags={true}
-      displayFormats={true}
-      displayFeedback={true}
-      hideAnswers={false}
-    />
-
-  renderVocabExercise: ->
-    <div className='exercise-editor'>
-      <div className="editing-controls">
-        <a onClick={@visitVocab}>
-          Edit Vocabulary Question <i className="fa fa-chevron-right" />
-        </a>
-      </div>
-      { @renderPreview() }
-    </div>
-
   render: ->
     exercise = ExerciseStore.get(@props.id)
     return null unless exercise
-
-    if (ExerciseStore.isVocabQuestion(@props.id))
-      return @renderVocabExercise()
 
     showMPQ = ExerciseStore.isMultiPart(@props.id)
 
@@ -142,7 +115,9 @@ Exercise = React.createClass
           }
         </BS.Tabs>
       </div>
-      { @renderPreview() }
+
+      <ExercisePreview exerciseId={@props.id} />
+
     </div>
 
 

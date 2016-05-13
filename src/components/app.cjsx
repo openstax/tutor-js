@@ -8,6 +8,7 @@ ErrorModal = require './error-modal'
 UserActionsMenu = require 'components/user-actions-menu'
 SuretyGuard = require './surety-guard'
 NetworkActivity = require './network-activity-spinner'
+{VocabularyStore, VocabularyActions} = require 'stores/vocabulary'
 
 App = React.createClass
 
@@ -29,8 +30,10 @@ App = React.createClass
   loadRecord: (type, id) ->
     return unless type and id
     {actions, store} = @props.location.partsForView(type)
-    store.once 'loaded', @update
+
     unless store.isLoading(id) or store.get(id)
+      store.once 'loaded', =>
+        @props.location.onRecordLoad(type, id, store)
       actions.load(id)
 
   update: -> @forceUpdate()
@@ -56,6 +59,11 @@ App = React.createClass
     {actions, store} = @props.location.partsForView(type)
     newId = store.freshLocalId()
     actions.createBlank(newId)
+    if type is 'vocabulary'
+      vocabId = VocabularyStore.freshLocalId()
+      actions.setAsVocabularyPlaceHolder(newId, vocabId)
+      VocabularyActions.createBlank(vocabId)
+
     return newId
 
   onReset: (ev) ->

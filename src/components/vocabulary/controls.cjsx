@@ -1,8 +1,10 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Location = require 'stores/location'
+_ = require 'underscore'
 
+Location = require 'stores/location'
 {VocabularyActions, VocabularyStore} = require 'stores/vocabulary'
+{ExerciseActions} = require 'stores/exercise'
 
 AsyncButton = require 'openstax-react-components/src/components/buttons/async-button.cjsx'
 SuretyGuard = require 'components/surety-guard'
@@ -10,31 +12,53 @@ SuretyGuard = require 'components/surety-guard'
 
 VocabularyControls = React.createClass
 
+  propTypes:
+    id:   React.PropTypes.string.isRequired
+    location: React.PropTypes.object
+
   update: -> @forceUpdate()
 
   componentWillMount: ->
     VocabularyStore.addChangeListener(@update)
+    VocabularyStore.on('updated', @onUpdated)
 
   componentWillUnmount: ->
     VocabularyStore.removeChangeListener(@update)
+    VocabularyStore.off('updated', @onUpdated)
 
   saveVocabulary: ->
-    if VocabularyStore.isNew(@props.id)
-      VocabularyActions.create(@props.id, VocabularyStore.get(@props.id))
-      VocabularyStore.once 'created', (id) =>
-        @props.location.visitVocab(id)
+    vocabId = @getVocabId()
+    if VocabularyStore.isNew(vocabId)
+      VocabularyActions.create(vocabId, VocabularyStore.get(vocabId))
     else
-      VocabularyActions.save(@props.id)
+      VocabularyActions.save(vocabId)
+
+  onUpdated: ->
+    vocab = VocabularyStore.getFromExerciseId(@props.id)
+    exId = _.last(vocab.exercise_uids)
+    {id} = @props.location.getCurrentUrlParts()
+    if id is exId
+      ExerciseActions.load(exId)
+    else
+      @props.location.visitVocab(exId) # update URL with new version
 
   publishVocabulary: ->
-    VocabularyActions.publish(@props.id)
+    VocabularyActions.publish(@getVocabId())
 
   isVocabularyDirty: ->
-    @props.id and VocabularyStore.isChanged(@props.id)
+    vocabId = @getVocabId()
+    vocabId and VocabularyStore.isChanged(vocabId)
+
+  getVocabId: ->
+    ExerciseStore.get(@props.id)?.vocab_term_uid
 
   # render nothing for now, maybe a header message or something later?
   render: ->
+
     {id} = @props
+    vocabTerm = VocabularyStore.getFromExerciseId(@props.id)
+    return null unless vocabTerm
+    vocabId = @getVocabId()
 
     guardProps =
       onlyPromptIf: @isVocabularyDirty
@@ -43,20 +67,20 @@ VocabularyControls = React.createClass
 
     <div className="vocabulary-navbar-controls">
       <BS.ButtonToolbar className="navbar-btn">
-        { if id?
-          <AsyncButton
-            bsStyle='info'
-            className='draft'
-            onClick={@saveVocabulary}
-            disabled={not VocabularyStore.isSavable(id)}
-            isWaiting={VocabularyStore.isSaving(id)}
-            waitingText='Saving...'
-            isFailed={VocabularyStore.isFailed(id)}
-            >
-            Save Draft
-          </AsyncButton>
-        }
-        { unless VocabularyStore.isNew(id)
+
+        <AsyncButton
+          bsStyle='info'
+          className='draft'
+          onClick={@saveVocabulary}
+          disabled={not VocabularyStore.isSavable(vocabId)}
+          isWaiting={VocabularyStore.isSaving(vocabId)}
+          waitingText='Saving...'
+          isFailed={VocabularyStore.isFailed(vocabId)}
+          >
+          Save Draft
+        </AsyncButton>
+
+        { unless VocabularyStore.isNew(vocabId)
           <SuretyGuard
             onConfirm={@publishVocabulary}
             okButtonLabel='Publish'
@@ -66,10 +90,10 @@ VocabularyControls = React.createClass
             <AsyncButton
               bsStyle='primary'
               className='publish'
-              disabled={not VocabularyStore.isPublishable(id)}
-              isWaiting={VocabularyStore.isPublishing(id)}
+              disabled={not VocabularyStore.isPublishable(vocabId)}
+              isWaiting={VocabularyStore.isPublishing(vocabId)}
               waitingText='Publishing...'
-              isFailed={VocabularyStore.isFailed(id)}
+              isFailed={VocabularyStore.isFailed(vocabId)}
             >
               Publish
             </AsyncButton>
