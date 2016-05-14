@@ -7,11 +7,16 @@ React = require 'react'
 {Exercise} = require 'openstax-react-components'
 StepFooter = require './step-footer'
 
+{ChapterSectionMixin} = require 'openstax-react-components'
+BrowseTheBook = require '../buttons/browse-the-book'
+
 module.exports = React.createClass
   displayName: 'ExerciseShell'
   propTypes:
     id: React.PropTypes.string.isRequired
     taskId: React.PropTypes.string.isRequired
+
+  mixins: [ ChapterSectionMixin ]
 
   updateFreeResponse: (freeResponse) -> TaskStepActions.updateTempFreeResponse(@props.id, freeResponse)
 
@@ -21,6 +26,21 @@ module.exports = React.createClass
       .difference(['clickContinue'])
       .isEmpty()
       .value()
+
+  renderHelpLink: (sections) ->
+    sections = _.map sections, (section) =>
+      combined = @sectionFormat(section.chapter_section)
+      <BrowseTheBook unstyled key={combined} section={combined} onlyShowBrowsable={false}>
+        {combined} {section.title} <i className='fa fa-external-link' />
+      </BrowseTheBook>
+
+    helpLink =
+      <div key='task-help-links' className='task-help-links'>
+        Comes from&nbsp&nbsp{sections}
+      </div>
+
+    if sections.length > 0 then helpLink
+
 
   render: ->
     {id, taskId} = @props
@@ -49,6 +69,7 @@ module.exports = React.createClass
         controlText={controlText}
         step={step}
         footer={<StepFooter/>}
+        helpLink={@renderHelpLink(step.related_content)}
         waitingText={waitingText}
 
         canTryAnother={TaskStepStore.canTryAnother(id, task)}
