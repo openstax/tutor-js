@@ -117,7 +117,19 @@ ExerciseStepCard = React.createClass
       onNextStep() unless canReview
 
   render: ->
-    {step, panel, pinned, isContinueEnabled, waitingText, controlButtons, controlText, className, footer} = @props
+    {
+      step,
+      panel,
+      pinned,
+      isContinueEnabled,
+      helpLink,
+      waitingText,
+      controlButtons,
+      controlText,
+      className,
+      footer
+    } = @props
+
     {group, related_content} = step
 
     ControlButtons = CONTROLS[panel]
@@ -151,6 +163,7 @@ ExerciseStepCard = React.createClass
           exercise_uid={step.content?.uid}
           related_content={related_content}/>
       </div>
+      {helpLink}
     </CardBody>
 
 module.exports = ExerciseStepCard

@@ -113,7 +113,7 @@ Exercise = React.createClass
   # add get props methods for different panel types as needed here
 
   render: ->
-    {id, step, waitingText} = @props
+    {id, step, waitingText, helpLink} = @props
     {currentPanel} = @state
 
     # panel is one of ['review', 'multiple-choice', 'free-response', 'teacher-read-only']
@@ -125,6 +125,7 @@ Exercise = React.createClass
       step={step}
       panel={currentPanel}
       waitingText={waitingText}
+      helpLink={helpLink}
     />
 
 module.exports = Exercise
