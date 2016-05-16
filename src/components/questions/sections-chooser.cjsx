@@ -52,7 +52,7 @@ QLSectionsChooser = React.createClass
 
     <div className="sections-chooser">
 
-      <div class="header">
+      <div className="header">
         <div className="wrapper">
           <h2>Question Library</h2>
           <BackButton fallbackLink={
