@@ -53,26 +53,22 @@ TaskingDateTime = React.createClass
     timeProps = _.omit(@props, 'value', 'onChange')
     dateProps = _.omit(@props, 'defaultValue', 'onChange')
 
-    <div>
-      <BS.Col sm=4 md=3 className='tasking-date'>
+    <BS.Col xs=12 md=6>
+      <BS.Col xs=9 className='tasking-date'>
         <TutorDateInput {...dateProps} onChange={@onDateChange} ref='date'/>
       </BS.Col>
-      <BS.Col sm=1 md=1 className='tasking-time'>
+      <BS.Col xs=3 className='tasking-time'>
         <TutorTimeInput {...timeProps} onChange={@onTimeChange}/>
       </BS.Col>
-    </div>
+    </BS.Col>
 
-TaskingTimes = React.createClass
+TaskingDateTimes = React.createClass
   render: ->
     {
       isVisibleToStudents,
       isEditable,
-      isEnabled,
-      currentLocale,
-      required,
       period,
       id,
-      togglePeriodEnabled,
       taskingOpensAt,
       taskingDueAt,
       setDueAt,
@@ -81,45 +77,59 @@ TaskingTimes = React.createClass
       defaultOpenTime
     } = @props
 
-    taskingIdentifier = period?.id or 'common'
+    commonDateTimesProps = _.pick @props, 'required', 'currentLocale'
 
     maxOpensAt = TaskPlanStore.getMaxDueAt(id, period?.id)
     minDueAt = TaskPlanStore.getMinDueAt(id, period?.id)
 
-    if period?
-      toggler = <BS.Col sm=4 md=3>
-        <input
-          id={"period-toggle-#{period.id}"}
-          disabled={isVisibleToStudents}
-          type='checkbox'
-          onChange={_.partial(togglePeriodEnabled, period)}
-          checked={true}/>
-        <label className="period" htmlFor={"period-toggle-#{period.id}"}>{period.name}</label>
-      </BS.Col>
+    <BS.Col sm=8 md=9>
+      <TaskingDateTime
+        {...commonDateTimesProps}
+        disabled={isVisibleToStudents or not isEditable}
+        label="Open Date"
+        min={TimeStore.getNow()}
+        max={maxOpensAt}
+        onChange={_.partial(setOpensAt, _, period)}
+        value={ taskingOpensAt }
+        defaultValue={defaultOpenTime} />
+      <TaskingDateTime
+        {...commonDateTimesProps}
+        disabled={not isEditable}
+        label="Due Date"
+        min={minDueAt}
+        onChange={_.partial(setDueAt, _, period)}
+        value={taskingDueAt}
+        defaultValue={defaultDueTime} />
+    </BS.Col>
+
+
+Tasking = React.createClass
+  render: ->
+    {
+      isVisibleToStudents,
+      isEnabled,
+      period,
+      togglePeriodEnabled
+    } = @props
+
+    taskingIdentifier = period?.id or 'common'
 
     if isEnabled
-      <BS.Row key="tasking-enabled-#{taskingIdentifier}" className="tasking-plan tutor-date-input">
-        {toggler}
-        <TaskingDateTime
-          disabled={isVisibleToStudents or not isEditable}
-          label="Open Date"
-          required={required}
-          min={TimeStore.getNow()}
-          max={maxOpensAt}
-          onChange={_.partial(setOpensAt, _, period)}
-          value={ taskingOpensAt }
-          currentLocale={currentLocale}
-          defaultValue={defaultOpenTime} />
-        <TaskingDateTime
-          disabled={not isEditable}
-          label="Due Date"
-          required={required}
-          min={minDueAt}
-          onChange={_.partial(setDueAt, _, period)}
-          value={taskingDueAt}
-          currentLocale={currentLocale}
-          defaultValue={defaultDueTime} />
-      </BS.Row>
+      if period?
+        <BS.Row key="tasking-enabled-#{taskingIdentifier}" className="tasking-plan tutor-date-input">
+          <BS.Col sm=4 md=3>
+            <input
+              id={"period-toggle-#{period.id}"}
+              disabled={isVisibleToStudents}
+              type='checkbox'
+              onChange={_.partial(togglePeriodEnabled, period)}
+              checked={true}/>
+            <label className="period" htmlFor={"period-toggle-#{period.id}"}>{period.name}</label>
+          </BS.Col>
+          <TaskingDateTimes {...@props}/>
+        </BS.Row>
+      else
+        <TaskingDateTimes {...@props}/>
     else
       if period?
         <BS.Row key="tasking-disabled-#{period.id}" className="tasking-plan disabled">
@@ -443,7 +453,7 @@ module.exports = React.createClass
     else
       not showingPeriods
 
-    <TaskingTimes
+    <Tasking
       {...@props}
       period={period}
       setDueAt={@setDueAt}
