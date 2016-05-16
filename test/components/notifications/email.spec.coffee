@@ -2,7 +2,7 @@
 
 EmailNotification = require 'components/notifications/email'
 
-describe 'System Notifications', ->
+describe 'Email Notifications', ->
 
   beforeEach ->
     @props =
