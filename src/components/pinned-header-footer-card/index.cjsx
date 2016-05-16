@@ -132,6 +132,9 @@ module.exports = React.createClass
 
     @setState(headerHeight: headerHeight)
 
+  unPin: ->
+    @setState(pinned: false)
+
   _resizeListener: ->
     @setContainerMargin()
 
