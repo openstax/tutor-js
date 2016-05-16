@@ -106,6 +106,16 @@ CourseConfig =
     getTimezone: (courseId) ->
       @_get(courseId)?.timezone or DEFAULT_COURSE_TIMEZONE
 
+    getDefaultTimes: (courseId, periodId) ->
+      course = @_get(courseId)
+
+      if periodId?
+        tasking = _.findWhere(course.periods, id: periodId)
+      else
+        tasking = course
+
+      _.pick tasking, 'default_open_time', 'default_due_time'
+
     isTeacher: (courseId) ->
       !!_.findWhere(@_get(courseId)?.roles, type: 'teacher')
 

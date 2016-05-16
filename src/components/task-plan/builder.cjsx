@@ -83,8 +83,8 @@ TaskingTimes = React.createClass
 
     taskingIdentifier = period?.id or 'common'
 
-    maxOpensAt = TimeHelper.makeMoment(TaskPlanStore.getDueAt(id, period?.id), ISO_DATE_FORMAT).subtract(1, 'day')
-    minDueAt = TimeHelper.makeMoment(TaskPlanStore.getMinDueAt(id, period?.id), ISO_DATE_FORMAT)
+    maxOpensAt = TaskPlanStore.getMaxDueAt(id, period?.id)
+    minDueAt = TaskPlanStore.getMinDueAt(id, period?.id)
 
     if period?
       toggler = <BS.Col sm=4 md=3>
@@ -206,6 +206,7 @@ module.exports = React.createClass
   setPeriodDefaults: ->
     planId = @props.id
     isNewPlan = TaskPlanStore.isNew(@props.id)
+    {courseId} = @props
 
     # check for common open/due dates, remember it now before we set defaults
     dueAt = TaskPlanStore.getDueAt(@props.id)
@@ -220,7 +221,7 @@ module.exports = React.createClass
     , true)
 
     # Inform the store of the available periods
-    TaskPlanActions.setPeriods(planId, periods)
+    TaskPlanActions.setPeriods(planId, courseId, periods)
 
     unless isNewPlan
       @setState({showingPeriods: not (commonDates and hasAllTaskings)})
@@ -260,18 +261,20 @@ module.exports = React.createClass
     TaskPlanActions.updateDueAt(id, value, period?.id)
 
   setAllPeriods: ->
+    {courseId} = @props
+
     #save current taskings
     if @state.showingPeriods
       saveTaskings = TaskPlanStore.getEnabledTaskings(@props.id)
       @setState(showingPeriods: false, savedTaskings: saveTaskings)
 
     #get opens at and due at
-    taskingOpensAt = TaskPlanStore.getOpensAt(@props.id) or TimeStore.getNow()
+    taskingOpensAt = TaskPlanStore.getOpensAt(@props.id) or TimeHelper.makeMoment(TimeStore.getNow()).format(ISO_DATE_FORMAT)
     @setOpensAt(taskingOpensAt)
 
     #enable all periods
     periods = _.map CourseStore.getPeriods(@props.courseId), (period) -> id: period.id
-    TaskPlanActions.setPeriods(@props.id, periods)
+    TaskPlanActions.setPeriods(@props.id, courseId, periods)
 
     #set dates for all periods
     taskingDueAt = TaskPlanStore.getDueAt(@props.id) or @getQueriedDueAt()
@@ -426,24 +429,14 @@ module.exports = React.createClass
     periodsChoice.unshift(choiceLabel)
     periodsChoice
 
-  getTimes: (periodId) ->
-    course = CourseStore.get(@props.courseId)
-
-    if periodId?
-      tasking = _.findWhere(course.periods, id: periodId)
-    else
-      tasking = course
-
-    {default_due_time, default_open_time} = tasking
-
   renderTaskPlanRow: (period) ->
-    {id} = @props
+    {id, courseId} = @props
     {taskingOpensAt, taskingDueAt} = @getDefaultPlanDates(period?.id)
     {isEditable, showingPeriods, currentLocale, isVisibleToStudents} = @state
 
     openTime = TaskPlanStore.getOpensAtTime(id, period?.id)
     dueTime = TaskPlanStore.getDueAtTime(id, period?.id)
-    {default_due_time, default_open_time} = @getTimes(period?.id)
+    {default_due_time, default_open_time} = CourseStore.getDefaultTimes(courseId, period?.id)
 
     isEnabled = if period?
       TaskPlanStore.hasTasking(id, period.id)
