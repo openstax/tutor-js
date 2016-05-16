@@ -5,19 +5,23 @@
     margin: 0 auto;
 
   }
-  >.header {
-    margin-top: @tutor-panel-padding-vertical;
-    background-color: @tutor-white;
-    padding: 0 @padding+5px;
-    .wrapper {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      h2 {
-        #fonts >.sans(2.8rem, 2.8rem);
+
+  .sections-chooser {
+    .header {
+      margin-top: @tutor-panel-padding-vertical;
+      background-color: @tutor-white;
+      padding: 0 @padding+5px;
+      .wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        h2 {
+          #fonts >.sans(2.8rem, 2.8rem);
+        }
       }
     }
   }
+
 
   .instructions {
     background-color: @tutor-secondary;
@@ -33,6 +37,11 @@
       left: 0.5rem;
       top: -0.5rem;
     }
+  }
+  &.is-showing-details {
+    // hide top elements in details view to prevent scrolling up to them
+    .sections-chooser { display: none; }
+    .instructions { display: none; }
   }
   .secondary-help {
     text-align: center;
@@ -113,7 +122,25 @@
     }
   }
 
-  .questions-list {
+  .exercise-details {
+    .controls {
+      display: flex;
+      justify-content: flex-end;
+      .show-cards {
+        cursor: pointer;
+      }
+    }
+    .exercise-card { width: 800px; }
+    position: relative;
+
+    .page-navigation {
+      .page-navigation-arrows(800px);
+      position: absolute;
+    }
+
+  }
+
+  .exercise-cards {
     margin-top: @tutor-panel-padding-vertical;
     @column-width: 450px;
 
@@ -125,28 +152,19 @@
     .exercise-sections {
       margin-top: @tutor-panel-padding-vertical;
     }
-  }
 
-  .exercise-card {
-    page-break-inside: avoid;
-    break-inside: avoid;
-    display: inline-block;
-    width: 100%;
-    .exercise-card-hover-styles( @color: @tutor-neutral-lighter,
-                                 @background-color: lighten(@tutor-primary, 10%),
-                                 @selection-icon: @fa-var-minus,
-                                 @de-selection-icon: @fa-var-plus );
-  }
-
-  .exercise-card.is-selected {
-    .panel-body { background-color: @tutor-neutral-light; }
-
-    .exercise-card-hover-styles( @color: @tutor-neutral-lighter,
-                                 @background-color: rgba(133, 193, 202, 0.8),
-                                 @selection-icon: @fa-var-minus,
-                                 @de-selection-icon: @fa-var-plus );
+    .exercise-card {
+      page-break-inside: avoid;
+      break-inside: avoid;
+      display: inline-block;
+      width: 100%;
+    }
 
   }
+
+  // .exercise-card.is-selected {
+  //   .panel-body { background-color: @tutor-neutral-light; }
+  // }
 
 }
 

@@ -5,14 +5,18 @@ BS = require 'react-bootstrap'
 {ExerciseStore} = require '../../flux/exercise'
 Icon = require '../icon'
 QuestionsControls = require './questions-controls'
-SectionQuestions = require './section-questions'
 
-QuestionsList = React.createClass
+ExerciseDetails   = require './exercise-details'
+ExerciseCards     = require './exercise-cards'
+
+ExercisesDisplay = React.createClass
 
   propTypes:
-    courseId: React.PropTypes.string.isRequired
-    helpTooltip: React.PropTypes.string.isRequired
-    sectionIds: React.PropTypes.array
+    courseId:        React.PropTypes.string.isRequired
+    helpTooltip:     React.PropTypes.string.isRequired
+    sectionIds:      React.PropTypes.array
+    focusedExercise: React.PropTypes.object
+
   getInitialState: -> {
     filter: 'reading'
   }
@@ -39,10 +43,14 @@ QuestionsList = React.createClass
     />
 
   renderQuestions: (exercises) ->
-    chapter_sections = _.keys(exercises.grouped).sort()
-    for cs in chapter_sections
-      <SectionQuestions key={cs} {...@props}
-        chapter_section={cs} exercises={exercises.grouped[cs]} />
+    if @props.focusedExercise
+      <ExerciseDetails {...@props}
+        exercise={@props.focusedExercise}
+        onShowCardViewClick={@props.onShowCardViewClick} />
+    else
+      <ExerciseCards {...@props}
+        exercises={exercises}
+        onDetailsClick={@props.onShowDetailsViewClick} />
 
   render: ->
     return null if ExerciseStore.isLoading() or _.isEmpty(@props.sectionIds)
@@ -54,7 +62,7 @@ QuestionsList = React.createClass
     else
       @renderEmpty()
 
-    <div className="questions-list">
+    <div className="exercises-list">
       <div className="instructions">
         <div className="wrapper">
           Click each question that you would like to exclude from
@@ -75,4 +83,4 @@ QuestionsList = React.createClass
     </div>
 
 
-module.exports = QuestionsList
+module.exports = ExercisesDisplay

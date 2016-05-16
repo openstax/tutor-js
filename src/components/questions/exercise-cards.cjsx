@@ -4,40 +4,12 @@ BS = require 'react-bootstrap'
 {TocStore} = require '../../flux/toc'
 {ExerciseActions, ExerciseStore} = require '../../flux/exercise'
 Dialog = require '../tutor-dialog'
-{ExercisePreview} = require 'openstax-react-components'
+ExerciseCard = require './exercise'
+
 ChapterSection = require '../task-plan/chapter-section'
 Icon = require '../icon'
 
-QLExerciseCard = React.createClass
-
-  getInitialState: -> {}
-
-  propTypes:
-    isExcluded: React.PropTypes.bool
-    exercise:   React.PropTypes.object.isRequired
-
-  onExerciseToggle: (ev) ->
-    @props.onExerciseToggle(@props.exercise, not @props.isExcluded)
-
-  toggleFeedbackDisplay: ->
-    @setState(isShowingFeedback: not @state.isShowingFeedback)
-
-  render: ->
-    inc_ex = if @props.isExcluded then 'Reinclude' else 'Exclude'
-    <ExercisePreview
-      className='exercise-card'
-      displayFeedback={@state.isShowingFeedback}
-      hoverMessage={"#{inc_ex} this question"}
-      isSelected={@props.isExcluded}
-      toggleExercise={@onExerciseToggle} {...@props}
-    >
-      <button className="feedback-toggle" onClick={@toggleFeedbackDisplay}>
-        <Icon type={(if @state?.isShowingFeedback then 'check-' else '' ) + 'square-o'} />
-        Preview Feedback
-      </button>
-    </ExercisePreview>
-
-SectionsQuestions = React.createClass
+SectionsExercises = React.createClass
 
   propTypes:
     ecosystemId: React.PropTypes.string.isRequired
@@ -86,12 +58,31 @@ SectionsQuestions = React.createClass
       </label>
       <div className="exercises">
       {for exercise in @props.exercises
-        <QLExerciseCard key={exercise.id}
+        <ExerciseCard key={exercise.id}
           isExcluded={ExerciseStore.isExerciseExcluded(exercise.id)}
           exercise={exercise}
+          onDetailsClick={@props.onDetailsClick}
           onExerciseToggle={@onExerciseToggle} />}
       </div>
     </div>
 
 
-module.exports = SectionsQuestions
+
+ExerciseCards = React.createClass
+
+  propTypes:
+    exercises: React.PropTypes.object.isRequired
+
+
+  render: ->
+    chapter_sections = _.keys(@props.exercises.grouped).sort()
+
+    <div className="exercise-cards">
+      {for cs in chapter_sections
+        <SectionsExercises key={cs}
+          {...@props}
+          chapter_section={cs}
+          exercises={@props.exercises.grouped[cs]} />}
+    </div>
+
+module.exports = ExerciseCards

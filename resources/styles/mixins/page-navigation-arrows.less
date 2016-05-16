@@ -1,0 +1,67 @@
+.page-navigation-arrows(@center-width) {
+  position: fixed;
+  height: 100%;
+  width: calc(~"50% - " @center-width / 2 );
+
+  top: 50px;
+  .flex-display();
+  .justify-content(center);
+  .flex-direction(column);
+  .transition(background-color 150ms linear);
+  .transition(width 150ms linear);
+
+  &:hover {
+    background-color: @tutor-neutral-light;
+  }
+
+  // this value governs how large the triangle can grow
+  @triangle-max-side: 80px;
+
+  .triangle {
+    height: 0;
+    padding-top: 45%;
+    padding-bottom: 45%;
+    overflow: hidden;
+    margin: 0 auto;
+    &:after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 0;
+      margin-top:  -@triangle-max-side;
+      border-top:    @triangle-max-side solid transparent;
+      border-bottom: @triangle-max-side solid transparent;
+    }
+  }
+
+  &.next {
+    right: 0;
+
+    .triangle {
+      width: 0;
+      padding-left: 45%;
+    }
+    .triangle:after {
+      margin-left: -@triangle-max-side;
+      border-left:   @triangle-max-side solid @tutor-neutral-light;
+    }
+    &:hover {
+      .triangle:after { border-left: @triangle-max-side solid @tutor-neutral-lighter; }
+    }
+    .printer-safe(none);
+  }
+
+  &.prev {
+    .triangle {
+      width: 45%;
+    }
+    .triangle:after {
+      border-right: @triangle-max-side solid @tutor-neutral-light;
+    }
+    &:hover {
+      .triangle:after { border-right: @triangle-max-side solid @tutor-neutral-lighter; }
+    }
+    .printer-safe(none);
+  }
+
+}
