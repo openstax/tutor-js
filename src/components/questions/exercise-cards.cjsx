@@ -5,6 +5,7 @@ BS = require 'react-bootstrap'
 {ExerciseActions, ExerciseStore} = require '../../flux/exercise'
 Dialog = require '../tutor-dialog'
 ExerciseCard = require './exercise'
+ScrollTo = require '../scroll-to-mixin'
 
 ChapterSection = require '../task-plan/chapter-section'
 Icon = require '../icon'
@@ -73,6 +74,12 @@ ExerciseCards = React.createClass
   propTypes:
     exercises: React.PropTypes.object.isRequired
 
+  mixins: [ScrollTo]
+
+  componentDidMount:   ->
+    @scrollToSelector('.exercise-sections')
+
+  getScrollTopOffset: -> 80
 
   render: ->
     chapter_sections = _.keys(@props.exercises.grouped).sort()

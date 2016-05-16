@@ -7,6 +7,13 @@ Icon = require '../icon'
 
 ExerciseDetails = React.createClass
 
+  propTypes:
+    exercise: React.PropTypes.object.isRequired
+
+  componentDidMount:   ->
+    window.scroll(0, 0)
+
+  getScrollTopOffset: -> 80
 
   render: ->
     {exercise} = @props
