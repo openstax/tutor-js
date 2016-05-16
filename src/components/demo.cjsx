@@ -77,10 +77,17 @@ ExerciseDemo = React.createClass
 ExercisePreviewDemo = React.createClass
   displayName: 'ExercisePreviewDemo'
   getInitialState: ->
-    displayFeedback: false
-    displayFormats:  false
-    displayTags: false
     isSelected: false
+    toggles:
+      feedback: false
+      tags:     false
+      formats:  false
+      height:   false
+
+  onToggle: (ev) ->
+    toggles = @state.toggles
+    toggles[ev.target.name] = ev.target.checked
+    @setState({toggles})
 
   toggleFeedbackDisplay: (ev) ->
     @setState(displayFeedback: not @state.displayFeedback)
@@ -98,37 +105,45 @@ ExercisePreviewDemo = React.createClass
     console.warn "Exercise details was clicked"
 
   render: ->
-    {displayFeedback, displayFormats, displayTags} = @state
 
-    displayFormatsIconClasses = classnames 'fa',
-      'fa-check-square-o': displayFormats
-      'fa-square-o':  not displayFormats
-
-    displayFeedbackIconClasses = classnames 'fa',
-      'fa-check-square-o': displayFeedback
-      'fa-square-o':  not displayFeedback
-
-    displayTagsIconClasses = classnames 'fa',
-      'fa-check-square-o': displayTags
-      'fa-square-o':  not displayTags
 
     <ExercisePreview exercise={exercisePreviewStub}
       onSelection={@onSelection}
       onDetailsClick={@onDetailsClick}
-      displayFormats={displayFormats}
-      displayAllTags={displayTags}
       isSelected={@state.isSelected}
-      displayFeedback={displayFeedback}
+      displayFormats={@state.toggles.formats}
+      displayAllTags={@state.toggles.tags}
+      displayFeedback={@state.toggles.feedback}
+      isHeightLimited={@state.toggles.height}
     >
-      <button className="toggle" onClick={@toggleFeedbackDisplay}>
-        <i className={displayFeedbackIconClasses}/> Preview Feedback
-      </button>
-      <button className="toggle" onClick={@toggleTagsDisplay}>
-        <i className={displayTagsIconClasses}/> Display All Tags
-      </button>
-      <button className="toggle" onClick={@toggleFormatsDisplay}>
-        <i className={displayFormatsIconClasses}/> Show Formats
-      </button>
+      <label>
+        <input type="checkbox"
+          onChange={@onToggle} name='feedback'
+          checked={@state.toggles.feedback}
+        /> Preview Feedback
+      </label>
+
+      <label>
+        <input type="checkbox"
+          onChange={@onToggle} name='tags'
+          checked={@state.toggles.tags}
+        /> Display All Tags
+      </label>
+
+      <label>
+        <input type="checkbox"
+          onChange={@onToggle} name='formats'
+          checked={@state.toggles.formats}
+        /> Show Formats
+      </label>
+
+      <label>
+        <input type="checkbox"
+          onChange={@onToggle} name='height'
+          checked={@state.toggles.height}
+        /> Limit Height
+      </label>
+
     </ExercisePreview>
 
 
