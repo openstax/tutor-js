@@ -189,6 +189,17 @@
     margin-bottom: 20px;
   }
 
+	.instructions {
+		font-size: 1.4rem;
+		font-style: italic;
+		margin-top: 10px;
+
+		i {
+			margin-left: 5px;
+		}
+
+	}
+
   .multiple-choice-prompt {
     font-weight: 600;
   }
@@ -332,4 +343,14 @@
       }
     }
   }
+}
+
+&.instructions {
+	//Product name and content for instructions
+	.product-name:after {
+		content: 'Concept Coach';
+	}
+	.feedback-type:after {
+		content: 'immediate feedback';
+	}
 }

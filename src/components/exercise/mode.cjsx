@@ -80,7 +80,11 @@ ExMode = React.createClass
 
     answerKeySet = null unless choicesEnabled
 
-    questionProperties = ['processHtmlAndMath', 'choicesEnabled', 'correct_answer_id', 'feedback_html', 'type', 'questionNumber']
+    questionProperties = [
+      'processHtmlAndMath', 'choicesEnabled', 'correct_answer_id',
+      'feedback_html', 'type', 'questionNumber', 'project'
+    ]
+
     questionProps = _.pick(@props, questionProperties)
     if mode is 'multiple-choice'
       changeProps =

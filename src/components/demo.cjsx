@@ -118,6 +118,7 @@ MultipartExerciseDemo = React.createClass
     {setScrollState, goToStep} = @props
     <Exercise
       {...exerciseProps}
+      project='concept-coach'
       setScrollState={setScrollState.bind(@)}
       goToStep={goToStep}
       currentStep={currentStep}
@@ -312,7 +313,7 @@ Demo = React.createClass
         </BS.Col>
       </BS.Row>
     )
-    <BS.Grid className='demos'>
+    <BS.Grid className='demos openstax'>
       {demos}
     </BS.Grid>
 
