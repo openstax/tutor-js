@@ -50,14 +50,17 @@ TaskingDateTime = React.createClass
       @props.onChange(dateTime)
 
   render: ->
-    timeProps = _.omit(@props, 'value', 'onChange')
-    dateProps = _.omit(@props, 'defaultValue', 'onChange')
+    timeProps = _.omit(@props, 'value', 'onChange', 'label')
+    dateProps = _.omit(@props, 'defaultValue', 'onChange', 'label')
+
+    timeProps.label = "#{@props.label} Time"
+    dateProps.label = "#{@props.label} Date"
 
     <BS.Col xs=12 md=6>
-      <BS.Col xs=9 className='tasking-date'>
+      <BS.Col xs=8 className='tasking-date'>
         <TutorDateInput {...dateProps} onChange={@onDateChange} ref='date'/>
       </BS.Col>
-      <BS.Col xs=3 className='tasking-time'>
+      <BS.Col xs=4 className='tasking-time'>
         <TutorTimeInput {...timeProps} onChange={@onTimeChange}/>
       </BS.Col>
     </BS.Col>
@@ -86,7 +89,7 @@ TaskingDateTimes = React.createClass
       <TaskingDateTime
         {...commonDateTimesProps}
         disabled={isVisibleToStudents or not isEditable}
-        label="Open Date"
+        label="Open"
         min={TimeStore.getNow()}
         max={maxOpensAt}
         onChange={_.partial(setOpensAt, _, period)}
@@ -95,7 +98,7 @@ TaskingDateTimes = React.createClass
       <TaskingDateTime
         {...commonDateTimesProps}
         disabled={not isEditable}
-        label="Due Date"
+        label="Due"
         min={minDueAt}
         onChange={_.partial(setDueAt, _, period)}
         value={taskingDueAt}

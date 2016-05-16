@@ -1,4 +1,4 @@
-React = require 'react'
+React = require 'react/addons'
 BS = require 'react-bootstrap'
 moment = require 'moment-timezone'
 _ = require 'underscore'
@@ -53,8 +53,9 @@ TutorInput = React.createClass
   forwardLabelClick: -> @focus()
 
   render: ->
+    {children} = @props
     classes = classnames 'form-control', @props.class,
-      empty: not @props.default
+      empty: not (@props.default or @props.defaultValue)
 
     wrapperClasses = classnames 'form-control-wrapper', 'tutor-input', @props.className,
       'is-required': @props.required
@@ -66,7 +67,17 @@ TutorInput = React.createClass
       <ErrorWarning key={error}/>
     )
 
-    inputProps = _.omit(@props, 'label', 'className', 'onChange', 'validate', 'default', 'value')
+    inputProps = _.omit(@props, 'label', 'className', 'onChange', 'validate', 'default', 'value', 'children')
+    inputProps.ref = 'input'
+    inputProps.className = classes
+    inputProps.onChange = @onChange
+    inputProps.defaultValue ?= @props.default if @props.default?
+
+    if children?
+      inputBox = React.addons.cloneWithProps(children, inputProps)
+    else
+      inputBox = <input {...inputProps}/>
+
 
     # Please do not set value={@props.value} on input.
     #
@@ -77,13 +88,7 @@ TutorInput = React.createClass
     #
     # Instead, use @props.default to set an intial defaul value.
     <div className={wrapperClasses}>
-      <input
-        {...inputProps}
-        ref='input'
-        className={classes}
-        defaultValue={@props.default}
-        onChange={@onChange}
-      />
+      {inputBox}
       <div className='floating-label' onClick={@forwardLabelClick}>{@props.label}</div>
       {errors}
     </div>
@@ -229,7 +234,7 @@ TutorTimeInput = React.createClass
     @timeIn(defaultValue)
 
   onChange: ->
-    time = @refs.timeInput.formatValue(@refs.timeInput.refs.input.getDOMNode().value)
+    time = @refs.timeInput.refs.input.formatValue(@refs.timeInput.refs.input.refs.input.getDOMNode().value)
     outputTime = @timeOut(time)
     @props.onChange?(outputTime)
 
@@ -237,14 +242,16 @@ TutorTimeInput = React.createClass
     defaultValue = @getDefaultValue()
     maskedProps = _.omit(@props, 'defaultValue', 'onChange')
 
-    <MaskedInput
+    <TutorInput
       {...maskedProps}
       defaultValue={defaultValue}
       onChange={@onChange}
-      ref='timeInput'
+      ref="timeInput"
       mask='Hh:Mm Pp'
       size='8'
-      name='time'/>
+      name='time'>
+      <MaskedInput/>
+    </TutorInput>
 
 TutorTextArea = React.createClass
   propTypes:
