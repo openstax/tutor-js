@@ -21,11 +21,11 @@ ExercisePreview = React.createClass
     onSelection:     React.PropTypes.func
     onDetailsClick:  React.PropTypes.func
     isSelected:      React.PropTypes.bool
-    isHeightLimited: React.PropTypes.bool
     exercise:        React.PropTypes.shape(
       content: React.PropTypes.object
       tags:    React.PropTypes.array
     ).isRequired
+    isVerticallyTruncated: React.PropTypes.bool
 
   getDefaultProps: ->
     panelStyle: 'default'
@@ -53,7 +53,6 @@ ExercisePreview = React.createClass
   renderFooter: ->
     <div className="controls">
       {@props.children}
-      <ExerciseIdentifierLink exerciseId={@props.exercise.content.uid} />
     </div>
 
 
@@ -108,7 +107,7 @@ ExercisePreview = React.createClass
       className={classes}
       bsStyle={@props.panelStyle}
       header={@props.header}
-      footer={@renderFooter()}
+      footer={@renderFooter() if @props.children}
     >
       {@renderToggleOverlay() if @props.onSelection?}
       <ArbitraryHtmlAndMath className='-stimulus' block={true} html={content.stimulus_html} />
