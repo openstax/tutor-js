@@ -18,12 +18,10 @@ ExercisePreview = React.createClass
     className:       React.PropTypes.string
     header:          React.PropTypes.element
     hideAnswers:     React.PropTypes.bool
-
-    onSelection: React.PropTypes.func
-    onDetailsClick:   React.PropTypes.func
-
+    onSelection:     React.PropTypes.func
+    onDetailsClick:  React.PropTypes.func
     isSelected:      React.PropTypes.bool
-
+    isHeightLimited: React.PropTypes.bool
     exercise:        React.PropTypes.shape(
       content: React.PropTypes.object
       tags:    React.PropTypes.array
@@ -85,8 +83,9 @@ ExercisePreview = React.createClass
       'answers-hidden': @props.hideAnswers
       'is-selectable':  @props.onSelection
       'is-selected':    @props.isSelected
-      'is-displaying-formats': @props.displayFormats
-      'is-displaying-feedback': @props.displayFeedback
+      'is-vertically-truncated': @props.isVerticallyTruncated
+      'is-displaying-formats':   @props.displayFormats
+      'is-displaying-feedback':  @props.displayFeedback
     })
 
     questions = _.map(content.questions, (question, questionIter) =>

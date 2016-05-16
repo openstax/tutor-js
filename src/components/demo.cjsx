@@ -114,7 +114,7 @@ ExercisePreviewDemo = React.createClass
       displayFormats={@state.toggles.formats}
       displayAllTags={@state.toggles.tags}
       displayFeedback={@state.toggles.feedback}
-      isHeightLimited={@state.toggles.height}
+      isVerticallyTruncated={@state.toggles.truncated}
     >
       <label>
         <input type="checkbox"
@@ -139,8 +139,8 @@ ExercisePreviewDemo = React.createClass
 
       <label>
         <input type="checkbox"
-          onChange={@onToggle} name='height'
-          checked={@state.toggles.height}
+          onChange={@onToggle} name='truncated'
+          checked={@state.toggles.truncated}
         /> Limit Height
       </label>
 

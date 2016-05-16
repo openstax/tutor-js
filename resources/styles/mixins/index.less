@@ -83,3 +83,19 @@
   user-select: none;           /* Non-prefixed version, currently
                                   not supported by any browser */
 }
+
+// limit an element's height to max-height and display a gradient at the bottom
+.height-limited-panel(@max-height: 150px){
+  position: relative;
+  max-height: @max-height;
+  overflow: hidden;
+  &:after {
+    content: '';
+    width: 100%;
+    height: 150px;
+    position: absolute;
+    left: 0;
+    top: @max-height - 150px;
+    background: linear-gradient(to top, white, white 10%, transparent);
+  }
+}

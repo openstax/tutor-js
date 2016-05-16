@@ -20,6 +20,15 @@
     background-color: @pale-yellow;
   }
 
+  &.is-vertically-truncated {
+    .question-stem {
+      .height-limited-panel(370px);
+    }
+    .panel-body {
+      .height-limited-panel(720px);
+    }
+  }
+
   &.is-selectable {
     .panel-body {
       position: relative;
