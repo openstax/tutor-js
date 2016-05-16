@@ -43,6 +43,21 @@ Question = React.createClass
   getChildContext: ->
     processHtmlAndMath: @props.processHtmlAndMath
 
+  doesArrayHaveProperty: (arrayToCheck, property) ->
+    not _.isEmpty(_.compact(_.pluck(arrayToCheck, property)))
+
+  hasAnswerCorrectness: ->
+    {correct_answer_id, model} = @props
+    {answers} = model
+
+    correct_answer_id or @doesArrayHaveProperty(answers, 'correctness')
+
+  hasSolution: ->
+    {model, correct_answer_id} = @props
+    {collaborator_solutions} = model
+
+    @hasAnswerCorrectness() and @doesArrayHaveProperty(collaborator_solutions, 'content_html')
+
   render: ->
     {model, correct_answer_id, exercise_uid, className} = @props
     {stem_html, collaborator_solutions, formats, stimulus_html} = model
@@ -53,19 +68,23 @@ Question = React.createClass
 
     exerciseUid = <div className="exercise-uid">{exercise_uid}</div> if exercise_uid?
 
+    if @hasSolution()
+      solution =
+        <div className='detailed-solution'>
+          <div className='header'>Detailed solution</div>
+          <ArbitraryHtmlAndMath className="solution" block
+            html={_.pluck(collaborator_solutions, 'content_html').join('')}
+          />
+        </div>
+
+
     <div className={classes}>
       <QuestionHtml type='stimulus' html={stimulus_html} />
       <QuestionHtml type='stem' html={stem_html} />
       {@props.children}
       <AnswersTable {...@props}/>
-      <div className='detailed-solution'>
-        <div className='header'>Detailed solution</div>
-        <ArbitraryHtmlAndMath className="solution" block
-          html={_.pluck(collaborator_solutions, 'content_html').join('')}
-        />
-      </div>
       {<FormatsListing formats={formats} /> if @props.displayFormats}
-
+      {solution}
       {exerciseUid}
     </div>
 
