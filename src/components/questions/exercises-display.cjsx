@@ -33,7 +33,7 @@ ExercisesDisplay = React.createClass
   onFilterChange: (filter) ->
     @setState({filter})
 
-  renderQuestionControls: (exercises) ->
+  renderControls: (exercises) ->
     <QuestionsControls
       filter={@state.filter}
       courseId={@props.courseId}
@@ -42,11 +42,17 @@ ExercisesDisplay = React.createClass
       exercises={exercises}
     />
 
+  onShowCardViewClick: ->
+    # The pinned header doesn't notice when the elements above it are unhidden
+    # and will never unstick by itself.
+    @refs.controls.unPin()
+    @props.onShowCardViewClick(arguments...)
+
   renderQuestions: (exercises) ->
     if @props.focusedExercise
       <ExerciseDetails {...@props}
         exercise={@props.focusedExercise}
-        onShowCardViewClick={@props.onShowCardViewClick} />
+        onShowCardViewClick={@onShowCardViewClick} />
     else
       <ExerciseCards {...@props}
         exercises={exercises}
@@ -72,8 +78,9 @@ ExercisesDisplay = React.createClass
       </div>
 
       <PinnedHeaderFooterCard
+        ref='controls'
         containerBuffer={50}
-        header={@renderQuestionControls(exercises)}
+        header={@renderControls(exercises)}
         cardType='sections-questions'
       >
 
