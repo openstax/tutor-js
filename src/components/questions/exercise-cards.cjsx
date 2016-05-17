@@ -78,7 +78,6 @@ ExerciseCards = React.createClass
   mixins: [ScrollTo]
 
   componentDidMount:   ->
-
     @scrollToSelector('.exercise-sections', {immediate: @props.scrollFast})
 
   getScrollTopOffset: -> 140

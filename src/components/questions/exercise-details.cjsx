@@ -4,6 +4,7 @@ BS = require 'react-bootstrap'
 {ExerciseStore} = require '../../flux/exercise'
 ExerciseCard = require './exercise'
 Icon = require '../icon'
+ScrollTo = require '../scroll-to-mixin'
 
 ExerciseDetails = React.createClass
 
@@ -11,10 +12,14 @@ ExerciseDetails = React.createClass
     selected: React.PropTypes.object.isRequired
     exercises: React.PropTypes.object.isRequired
 
-  componentDidMount:   ->
-    window.scroll(0, 0)
+  mixins: [ScrollTo]
 
-  getScrollTopOffset: -> 80
+  componentDidMount:   ->
+    @scrollToSelector('.questions-controls', {immediate: true})
+
+
+  scrollingTargetDOM: -> document
+  getScrollTopOffset: -> 60
 
   componentWillMount: ->
     @flattenExercises(@props.selected, @props.exercises.grouped)

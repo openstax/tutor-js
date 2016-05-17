@@ -40,8 +40,8 @@
   }
   &.is-showing-details {
     // hide top elements in details view to prevent scrolling up to them
-    .sections-chooser { display: none; }
-    .instructions { display: none; }
+    // .sections-chooser { display: none; }
+    // .instructions { display: none; }
   }
   .secondary-help {
     text-align: center;
@@ -123,6 +123,9 @@
   }
 
   .exercise-details {
+    min-height: calc(~"100vh - 150px");
+    position: relative;
+
     .controls {
       display: flex;
       justify-content: flex-end;
@@ -131,11 +134,11 @@
       }
     }
     .exercise-card { width: 800px; }
-    position: relative;
 
     .page-navigation {
       .page-navigation-arrows(800px);
       position: absolute;
+      display: none; // toggled on at bottom of file when body has pinned navbar
     }
 
   }
@@ -190,5 +193,15 @@
       background-color: @tutor-tertiary-light !important; // material design override
       border: 1px solid darken(@tutor-tertiary-light, 10%) !important;
     }
+  }
+}
+
+.pinned-view.pinned-on {
+  .questions-dashboard {
+      .exercise-details {
+        .page-navigation {
+          display: flex;
+        }
+      }
   }
 }
