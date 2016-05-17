@@ -14,7 +14,7 @@ TimeHelper = require '../../helpers/time'
 
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TutorInput, TutorDateInput, TutorTimeInput, TutorDateFormat, TutorTextArea} = require '../tutor-input'
-{CourseStore}   = require '../../flux/course'
+{CourseStore, CourseActions}   = require '../../flux/course'
 {UnsavedStateMixin} = require '../unsaved-state'
 
 ISO_DATE_FORMAT = 'YYYY-MM-DD'
@@ -49,23 +49,71 @@ TaskingDateTime = React.createClass
       dateTime = "#{date} #{time}"
       @props.onChange(dateTime)
 
+  canSetAsDefaultTime: ->
+    _.isEmpty @refs.time?.refs.timeInput?.state?.errors
+
+  setDefaultTime: ->
+    {timeLabel, setDefaultTime} = @props
+    {time} = @state
+
+    timeChange = {}
+    timeChange[timeLabel] = time
+
+    setDefaultTime(timeChange)
+
   render: ->
+    {isTimeDefault} = @props
+
     timeProps = _.omit(@props, 'value', 'onChange', 'label')
     dateProps = _.omit(@props, 'defaultValue', 'onChange', 'label')
 
     timeProps.label = "#{@props.label} Time"
     dateProps.label = "#{@props.label} Date"
 
+    if not isTimeDefault and @canSetAsDefaultTime()
+      setAsDefault = <a className='tasking-time-default' onClick=@setDefaultTime>
+        Set as default <i className="fa fa-info-circle"></i>
+      </a>
+
     <BS.Col xs=12 md=6>
-      <BS.Col xs=8 className='tasking-date'>
-        <TutorDateInput {...dateProps} onChange={@onDateChange} ref='date'/>
-      </BS.Col>
-      <BS.Col xs=4 className='tasking-time'>
-        <TutorTimeInput {...timeProps} onChange={@onTimeChange}/>
-      </BS.Col>
+      <BS.Row>
+        <BS.Col xs=8 md=7 className='tasking-date'>
+          <TutorDateInput {...dateProps} onChange={@onDateChange} ref='date'/>
+        </BS.Col>
+        <BS.Col xs=4 md=5 className='tasking-time'>
+          <TutorTimeInput {...timeProps} onChange={@onTimeChange} ref='time'/>
+          {setAsDefault}
+        </BS.Col>
+      </BS.Row>
     </BS.Col>
 
 TaskingDateTimes = React.createClass
+  isTimeDefault: (time, defaultTime) ->
+    return true if _.isUndefined(time)
+    TimeHelper.makeMoment(time, 'HH:mm').isSame(TimeHelper.makeMoment(defaultTime, 'HH:mm'), 'minute')
+
+  setDefaultTime: (timeChange) ->
+    {courseId, period} = @props
+
+    if period?
+      periodChange = _.extend {}, period, timeChange
+      {periods} = CourseStore.get(courseId)
+
+      changePeriods = _.map periods, (coursePeriod) ->
+        if coursePeriod.id is period.id
+          coursePeriod = periodChange
+        coursePeriod
+
+      change =
+        periods: changePeriods
+
+    else
+      change = timeChange
+
+    # simulating save for now
+    CourseActions._change(courseId, change)
+    CourseActions.saved(null, courseId)
+
   render: ->
     {
       isVisibleToStudents,
@@ -76,11 +124,16 @@ TaskingDateTimes = React.createClass
       taskingDueAt,
       setDueAt,
       setOpensAt,
+      dueTime,
+      openTime,
       defaultDueTime,
       defaultOpenTime
     } = @props
 
     commonDateTimesProps = _.pick @props, 'required', 'currentLocale'
+
+    isDueTimeDefault = @isTimeDefault dueTime, defaultDueTime
+    isOpenTimeDefault = @isTimeDefault openTime, defaultOpenTime
 
     maxOpensAt = TaskPlanStore.getMaxDueAt(id, period?.id)
     minDueAt = TaskPlanStore.getMinDueAt(id, period?.id)
@@ -94,7 +147,10 @@ TaskingDateTimes = React.createClass
         max={maxOpensAt}
         onChange={_.partial(setOpensAt, _, period)}
         value={ taskingOpensAt }
-        defaultValue={defaultOpenTime} />
+        defaultValue={openTime or defaultOpenTime}
+        setDefaultTime={@setDefaultTime}
+        timeLabel='default_open_time'
+        isTimeDefault={isOpenTimeDefault} />
       <TaskingDateTime
         {...commonDateTimesProps}
         disabled={not isEditable}
@@ -102,7 +158,10 @@ TaskingDateTimes = React.createClass
         min={minDueAt}
         onChange={_.partial(setDueAt, _, period)}
         value={taskingDueAt}
-        defaultValue={defaultDueTime} />
+        defaultValue={dueTime or defaultDueTime}
+        setDefaultTime={@setDefaultTime}
+        timeLabel='default_due_time'
+        isTimeDefault={isDueTimeDefault} />
     </BS.Col>
 
 
@@ -469,5 +528,7 @@ module.exports = React.createClass
       required={showingPeriods}
       taskingOpensAt={taskingOpensAt}
       taskingDueAt={taskingDueAt}
-      defaultDueTime={dueTime or default_due_time}
-      defaultOpenTime={openTime or default_open_time} />
+      dueTime={dueTime}
+      openTime={openTime}
+      defaultDueTime={default_due_time}
+      defaultOpenTime={default_open_time} />

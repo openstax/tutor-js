@@ -37,6 +37,7 @@ TutorInput = React.createClass
   validate: (inputValue) ->
     errors = @props.validate(inputValue)
     errors ?= []
+
     @setState({errors})
 
   focus: ->
@@ -233,10 +234,21 @@ TutorTimeInput = React.createClass
     {defaultValue} = @props
     @timeIn(defaultValue)
 
+  getValue: ->
+    @refs.timeInput?.refs.input?.getInputValue()
+
+  validate: (inputValue) ->
+    timeInputValue = @getValue()
+    unless _.isUndefined(timeInputValue)
+      ['incorrectTime'] if timeInputValue.indexOf('_') > -1
+
   onChange: ->
-    time = @refs.timeInput.refs.input.formatValue(@refs.timeInput.refs.input.refs.input.getDOMNode().value)
-    outputTime = @timeOut(time)
-    @props.onChange?(outputTime)
+    # unfortunately need to use defer -- for some reason, masked input's value state update doesn't happen immediately.
+    _.defer =>
+      time = @getValue()
+      outputTime = @timeOut(time)
+      @props.onChange?(outputTime)
+      @refs.timeInput.validate(time)
 
   render: ->
     defaultValue = @getDefaultValue()
@@ -246,6 +258,7 @@ TutorTimeInput = React.createClass
       {...maskedProps}
       defaultValue={defaultValue}
       onChange={@onChange}
+      validate={@validate}
       ref="timeInput"
       mask='Hh:Mm Pp'
       size='8'

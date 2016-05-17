@@ -478,6 +478,8 @@ TaskPlanConfig =
 
     getOpensAtTime: (id, periodId) ->
       opensAt = @exports._getOpensAt.call(@, id, periodId)
+      return undefined if isDateStringOnly opensAt?.creationData?().input
+
       opensAt?.format?(ISO_TIME_FORMAT)
 
     getOpensAt: (id, periodId) ->
@@ -493,6 +495,8 @@ TaskPlanConfig =
 
     getDueAtTime: (id, periodId) ->
       dueAt = @exports._getDueAt.call(@, id, periodId)
+      return undefined if isDateStringOnly dueAt?.creationData?().input
+
       dueAt?.format?(ISO_TIME_FORMAT)
 
     getDueAt: (id, periodId) ->
