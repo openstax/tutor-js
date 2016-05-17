@@ -170,7 +170,7 @@ module.exports = React.createClass
           dataType={dataType}
           sortState={sort}
           onSort={onSort}>
-            <div ref='score' className='score'>Score</div>
+            <div ref='score'>Score</div>
           </SortingHeader>
           <SortingHeader
           type={heading.type}
@@ -277,12 +277,12 @@ module.exports = React.createClass
     groupHeaderHeight = if isConceptCoach then 50 else 100
 
     <Table
-      rowHeight={46}
+      rowHeight={60}
       rowGetter={rowGetter}
       rowsCount={data.rows.length}
       width={width}
       height={height}
-      headerHeight={94}
+      headerHeight={120}
       groupHeaderHeight={groupHeaderHeight}>
 
       {@renderNameHeader()}

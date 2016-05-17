@@ -1,7 +1,7 @@
 @pie-color-late: #268FBE;
 
 .scores-report {
-  @table-row-height: 46px;
+  @table-row-height: 60px;
   @pie-color: lighten(@tutor-neutral,10%);
   @pie-bg-color: lighten(@tutor-neutral,40%);
   @pie-color-hover: #0DC0DC;
@@ -20,12 +20,15 @@
     text-overflow: ellipsis;
     width: 100%;
     position: relative;
+    &.sortable {
+      font-size: 1.42rem;
+    }
     &.is-ascending,
     &.is-descending {
       &:after {
         position: absolute;
-        right: 4px;
-        top: 15px;
+        right: 2px;
+        top: 23px;
         .fa-icon();
       }
     }
@@ -82,6 +85,7 @@
     text-align: center;
     background: @tutor-info-bg;
     height: 100%;
+    padding-top: 11px;
     .overall-border-top();
   }
 
@@ -92,7 +96,7 @@
       height: @table-row-height;
       span {
         .align-center();
-        padding: 8px;
+        padding: 16px;
       }
       &.empty {
         background: @tutor-neutral-lighter; 
@@ -102,12 +106,12 @@
 
   .overall-cell {
     height: @table-row-height;
+    padding-top: 15px;
     .align-center();
     .overall-border-middle();
     &.bottom {
       .overall-border-bottom();
       height: @table-row-height - 1;
-      padding-top: 7px;
     }  
   }
 
@@ -142,7 +146,7 @@
       display: block;
       width: 100%;
       height: @table-row-height;
-      padding: 8px;
+      padding: 16px;
     }
 
     > div:nth-child(even) {
@@ -206,7 +210,7 @@
     text-align: center;
   }
 
-  // concept coach cells that are split
+  // includes split cells
   .scores-cell {
     & > * {
       line-height: @table-row-height;
@@ -225,7 +229,7 @@
         border-right: 1px solid @nav-tabs-border-color;
       }
     }
-
+    
   }
   .scores-cell {
     .not-started, .not-complete {
@@ -269,6 +273,7 @@
       }
     }
     .score {
+      #fonts > .scores-cells();
       position: relative;
     }
     .late-caret-trigger {

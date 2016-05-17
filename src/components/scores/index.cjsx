@@ -33,9 +33,9 @@ Scores = React.createClass
     sortIndex: 0
     tableWidth: 0
     tableHeight: 0
-    colDefaultWidth: 180
-    colSetWidth: 180
-    colResizeWidth: 180
+    colDefaultWidth: 160
+    colSetWidth: 160
+    colResizeWidth: 160
     colResizeKey: 0
     sort: { key: 'name', asc: true, dataType: 'score' }
     # index of first column that contains data
