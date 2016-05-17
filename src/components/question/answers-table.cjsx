@@ -55,6 +55,17 @@ AnswersTable = React.createClass
       changeEvent.preventDefault()
       @props.onChangeAttempt?(answer)
 
+  hasCorrectAnswer: ->
+    {correct_answer_id} = @props
+
+    !! correct_answer_id
+
+  shouldInstructionsShow: ->
+    {type, model} = @props
+    hasCorrectAnswer = @hasCorrectAnswer()
+
+    model.formats.length > 1 and not (hasCorrectAnswer or type in ['teacher-preview', 'teacher-review'])
+
   render: ->
     {
       model, type, answered_count, choicesEnabled, correct_answer_id,
@@ -66,7 +77,7 @@ AnswersTable = React.createClass
 
     chosenAnswer = [answer_id, @state.answer_id]
     checkedAnswerIndex = null
-    hasCorrectAnswer = !! correct_answer_id
+    hasCorrectAnswer = @hasCorrectAnswer()
 
     questionAnswerProps =
       qid: id or "auto-#{idCounter++}"
@@ -93,7 +104,7 @@ AnswersTable = React.createClass
 
     instructions = <Instructions
       project={project}
-    /> if model.formats.length > 1 and not (hasCorrectAnswer or type is 'teacher-preview')
+    /> if @shouldInstructionsShow()
 
     <div className='answers-table'>
       {instructions}
