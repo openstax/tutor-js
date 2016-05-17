@@ -30,10 +30,10 @@ ScrollToMixin =
 
   _scrollingTargetDOM: -> @scrollingTargetDOM?() or React.findDOMNode(@)
 
-  scrollToSelector: (selector) ->
+  scrollToSelector: (selector, options) ->
     return if _.isEmpty(selector)
     el = @_scrollingTargetDOM().querySelector(selector)
-    @scrollToElement(el) if el
+    @scrollToElement(el, options) if el
 
   _onBeforeScroll: (el) ->
     el.classList.add('target-scroll')
@@ -45,31 +45,37 @@ ScrollToMixin =
     @props.windowImpl.history.pushState(null, null, "##{el.id}")
     @onAfterScroll?(el)
 
-  _onScrollStep: (el, attemptNumber) ->
+  _onScrollStep: (el, options) ->
     # The element's postion may have changed if scrolling was initiated while
     # the page was still being manipulated.
     # If that's the case, we begin another scroll to it's current position
-    if attemptNumber < MAXIMUM_SCROLL_ATTEMPTS and @props.windowImpl.pageYOffset isnt @_desiredTopPosition(el)
-      @scrollToElement(el, attemptNumber + 1)
+    if options.attemptNumber < MAXIMUM_SCROLL_ATTEMPTS and @props.windowImpl.pageYOffset isnt @_desiredTopPosition(el)
+      @scrollToElement(el, options.attemptNumber + 1)
     else
       @_onAfterScroll(el)
 
   _desiredTopPosition: (el) ->
     GetPositionMixin.getTopPosition(el) - _.result(@, 'getScrollTopOffset', DEFAULT_TOP_OFFSET)
 
-  scrollToElement: (el, attemptNumber = 0) ->
+  scrollToElement: (el, options = {} ) ->
     win       = @props.windowImpl
-    startPos  = win.pageYOffset
     endPos    = @_desiredTopPosition(el)
+
+    if options.immediate is true
+      win.scroll(0, endPos)
+      return
+
+    startPos  = win.pageYOffset
     startTime = Date.now()
     duration  = _.result(@, 'getScrollDuration', DEFAULT_DURATION)
     requestAnimationFrame = win.requestAnimationFrame or _.defer
+    options.attemptNumber ||= 0
 
     step = =>
       elapsed = Date.now() - startTime
       win.scroll(0, POSITION(startPos, endPos, elapsed, duration) )
       if elapsed < duration then requestAnimationFrame(step)
-      else @_onScrollStep(el, attemptNumber)
+      else @_onScrollStep(el, options)
 
     @_onBeforeScroll(el)
     step()
