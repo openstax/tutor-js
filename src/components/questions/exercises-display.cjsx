@@ -53,7 +53,8 @@ ExercisesDisplay = React.createClass
   renderQuestions: (exercises) ->
     if @props.focusedExercise
       <ExerciseDetails {...@props}
-        exercise={@props.focusedExercise}
+        exercises={exercises}
+        selected={@props.focusedExercise}
         onShowCardViewClick={@onShowCardViewClick} />
     else
       <ExerciseCards {...@props}
