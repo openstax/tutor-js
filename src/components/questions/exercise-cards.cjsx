@@ -72,14 +72,16 @@ SectionsExercises = React.createClass
 ExerciseCards = React.createClass
 
   propTypes:
-    exercises: React.PropTypes.object.isRequired
+    exercises:  React.PropTypes.object.isRequired
+    scrollFast: React.PropTypes.bool
 
   mixins: [ScrollTo]
 
   componentDidMount:   ->
-    @scrollToSelector('.exercise-sections')
 
-  getScrollTopOffset: -> 80
+    @scrollToSelector('.exercise-sections', {immediate: @props.scrollFast})
+
+  getScrollTopOffset: -> 140
 
   render: ->
     chapter_sections = _.keys(@props.exercises.grouped).sort()

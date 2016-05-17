@@ -19,6 +19,7 @@ ExercisesDisplay = React.createClass
 
   getInitialState: -> {
     filter: 'reading'
+    showingCardsFromDetailsView: false
   }
   componentWillMount:   -> ExerciseStore.on('change',  @update)
   componentWillUnmount: -> ExerciseStore.off('change', @update)
@@ -46,6 +47,7 @@ ExercisesDisplay = React.createClass
     # The pinned header doesn't notice when the elements above it are unhidden
     # and will never unstick by itself.
     @refs.controls.unPin()
+    @setState({showingCardsFromDetailsView: true})
     @props.onShowCardViewClick(arguments...)
 
   renderQuestions: (exercises) ->
@@ -55,6 +57,7 @@ ExercisesDisplay = React.createClass
         onShowCardViewClick={@onShowCardViewClick} />
     else
       <ExerciseCards {...@props}
+        scrollFast={@state.showingCardsFromDetailsView}
         exercises={exercises}
         onDetailsClick={@props.onShowDetailsViewClick} />
 
