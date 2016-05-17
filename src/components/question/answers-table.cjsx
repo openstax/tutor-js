@@ -93,7 +93,7 @@ AnswersTable = React.createClass
 
     instructions = <Instructions
       project={project}
-    /> if model.formats.length > 1 and not feedback
+    /> if model.formats.length > 1 and not (hasCorrectAnswer or type is 'teacher-preview')
 
     <div className='answers-table'>
       {instructions}
