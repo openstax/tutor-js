@@ -134,6 +134,9 @@ ExerciseConfig =
       else
         @_exerciseCache[exerciseId]?.is_excluded
 
+    getChapterSectionOfExercise: (exercise) ->
+      getChapterSection(exercise)
+
     getGroupedIncludedExercises: (pageIds) ->
       exercises = @_exercises[pageIds.toString()]
       includedExercises = _.reject exercises, 'is_excluded'
