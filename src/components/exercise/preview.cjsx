@@ -18,9 +18,12 @@ ExercisePreview = React.createClass
     className:       React.PropTypes.string
     header:          React.PropTypes.element
     hideAnswers:     React.PropTypes.bool
-    onSelection:     React.PropTypes.func
-    onDetailsClick:  React.PropTypes.func
+    onOverlayClick:  React.PropTypes.func
     isSelected:      React.PropTypes.bool
+    overlayActions:  React.PropTypes.shape(
+      message: React.PropTypes.string.isRequired
+      handler: React.PropTypes.func.isRequired
+    )
     exercise:        React.PropTypes.shape(
       content: React.PropTypes.object
       tags:    React.PropTypes.array
@@ -29,6 +32,7 @@ ExercisePreview = React.createClass
 
   getDefaultProps: ->
     panelStyle: 'default'
+    overlayActions:  {}
     extractTag: (tag) ->
       content = _.compact([tag.name, tag.description]).join(' ') or tag.id
       isLO = _.include(['lo', 'aplo'], tag.type)
@@ -44,11 +48,11 @@ ExercisePreview = React.createClass
     <span key={tag.id or tag.name} className={classes}>{content}</span>
 
   onOverlayClick: (ev) ->
-    @props.onSelection(ev, not @props.isSelected, @props.exercise)
+    @props.onOverlayClick(ev, @props.exercise)
 
-  onDetailsClick: (ev) ->
-    ev.stopPropagation() # needed to prevent click from triggering onOverlay handler
-    @props.onDetailsClick(ev, @props.exercise)
+  onActionClick: (ev, handler) ->
+    ev.stopPropagation() if @props.onOverlayClick # needed to prevent click from triggering onOverlay handler
+    handler(ev, @props.exercise)
 
   renderFooter: ->
     <div className="controls">
@@ -56,18 +60,20 @@ ExercisePreview = React.createClass
     </div>
 
 
-  renderToggleOverlay: ->
-
-    <div onClick={@onOverlayClick} className={classnames('toggle-mask', {active: @props.isSelected})}>
+  renderOverlay: ->
+    <div
+      onClick={@onOverlayClick if @props.onOverlayClick}
+      className={classnames('toggle-mask', {active: @props.isSelected})}
+    >
       <div className='message'>
-        <div className='block select'>
-          <span>{if @props.isSelected then 'ReInclude question' else 'Exclude question'}</span>
-        </div>
-        {<div onClick={@onDetailsClick} className='block details'>
-          <span>Question details</span>
-        </div> if @props.onDetailsClick}
+        {for type, action of @props.overlayActions
+          <div key={type}
+            className="action #{type}"
+            onClick={_.partial(@onActionClick, _, action.handler)}
+          >
+            <span>{action.message}</span>
+          </div>}
       </div>
-
     </div>
 
   render: ->
@@ -79,9 +85,10 @@ ExercisePreview = React.createClass
       tags = _.where tags, is_visible: true
     renderedTags = _.map(_.sortBy(tags, 'name'), @renderTag)
     classes = classnames( 'openstax-exercise-preview', @props.className, {
-      'answers-hidden': @props.hideAnswers
-      'is-selectable':  @props.onSelection
-      'is-selected':    @props.isSelected
+      'answers-hidden':  @props.hideAnswers
+      'is-selectable':   not _.isEmpty(@props.overlayActions)
+      'is-selected':     @props.isSelected
+      'actions-on-side': @props.actionsOnSide
       'is-vertically-truncated': @props.isVerticallyTruncated
       'is-displaying-formats':   @props.displayFormats
       'is-displaying-feedback':  @props.displayFeedback
@@ -109,7 +116,7 @@ ExercisePreview = React.createClass
       header={@props.header}
       footer={@renderFooter() if @props.children}
     >
-      {@renderToggleOverlay() if @props.onSelection?}
+      {@renderOverlay() unless _.isEmpty(@props.overlayActions)}
       <ArbitraryHtmlAndMath className='-stimulus' block={true} html={content.stimulus_html} />
       {questions}
       <div className='exercise-tags' key='tags'>{renderedTags}</div>

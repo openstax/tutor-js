@@ -1,5 +1,7 @@
 &-exercise-preview {
   position: relative;
+  @action-square-size: 150px;
+  @action-icon-circle-size: 80px;
 
   .sans(@size: 1.5rem, @line-height: 3rem) {
     font-family: 'Lato', Helvetica, sans-serif;
@@ -30,6 +32,7 @@
   }
 
   &.is-selectable {
+
     .panel-body {
       position: relative;
       &:hover {
@@ -61,11 +64,10 @@
         font-size: 1.5rem;
         line-height: 1.5rem;
         font-weight: 700;
-        height: 130px;
         opacity: 0;
         .transition(all .25s ease-in-out);
         .openstax-disable-text-select();
-        .block {
+        .action {
           flex: 1;
           display: flex;
           flex-direction: column;
@@ -74,52 +76,105 @@
           text-align: center;
           color: white;
           user-select:  none;
-          width: 150px;
+          width: @action-square-size;
+          height: @action-square-size;
+          &:hover { box-shadow: 0 0 5px rgba(0,0,0,0.5); }
 
-          &.select {
+          &:before {
+            .fa-icon();
+            font-weight: 300;
+            text-align: center;
+            background-color: white;
+            font-size: @action-icon-circle-size * 0.75;
+            border-radius: @action-icon-circle-size / 2;
+            width: @action-icon-circle-size;
+            height: @action-icon-circle-size;
+            padding-top: 12px;
+          }
+
+          &.include {
+            background-color: @light-blue;
+            &:before {
+              color: @light-blue;
+              content: @fa-var-plus;
+            }
+          }
+
+          &.exclude {
             background-color: @openstax-primary;
-            &::before {
+            &:before {
               color: @openstax-primary;
               content: @fa-var-minus;
             }
           }
+
           &.details {
             background-color: @openstax-neutral-dark;
-            &::before {
+            &:before {
               color: @openstax-neutral-dark;
               content: @fa-var-ellipsis-h;
             }
           }
 
-          @icon-circle-size: 80px;
-          &::before {
-            .fa-icon();
-            font-weight: 300;
-            text-align: center;
-            background-color: white;
-            font-size: @icon-circle-size * 0.75;
-            border-radius: @icon-circle-size / 2;
-            width: @icon-circle-size;
-            height: @icon-circle-size;
-            padding-top: 12px;
+          &.feedback {
+            background-color: @openstax-neutral-dark;
+            &:before {
+              color: @openstax-neutral-dark;
+              content: @fa-var-eye;
+            }
           }
+
+          &.report-error {
+            background-color: @openstax-quaternary;
+            &:before {
+              background-color: @openstax-quaternary;
+              font-size: 90px;
+              content: @fa-var-exclamation-circle;
+            }
+          }
+
         }
       }
     }
   } // end toggle-mask
-  // styles for how the select block should appear when it's re-selecting
-  // a previously de-selected card
+
+  // styles for how the select block should appear when card has is-selected
   &.is-selected {
     .panel-body {
       background-color: @openstax-neutral-light;
     }
-    .toggle-mask .message .block.select {
-      background-color: @light-blue;
-      &::before {
-        color: @light-blue;
-        content: @fa-var-plus;
+  }
+
+  &.actions-on-side {
+    @size-scale: 0.75;
+    .panel-body, .panel-body:hover {
+      position: relative;
+      .toggle-mask {
+        visibility: visible;
+        right: inherit;
+        width: @action-square-size * @size-scale;
+        background-color: transparent;
+        pointer-events: none;
+        .message { opacity: 1; }
+      }
+      .message {
+        pointer-events: all;
+        flex-direction: column;
+        .action {
+          height: @action-square-size * @size-scale;
+          width:  @action-square-size * @size-scale;
+          &:before {
+            padding-top: 8px;
+            font-size: @action-icon-circle-size * 0.75 * @size-scale;
+            border-radius: (@action-icon-circle-size / 2) * @size-scale;
+            width: @action-icon-circle-size * @size-scale;
+            height: @action-icon-circle-size * @size-scale;
+          }
+          &.report-error:before{ font-size: 90px * @size-scale; };
+        }
       }
     }
+
   }
 
   .panel-body {
@@ -150,7 +205,7 @@
           color: @openstax-secondary;
           padding-left: 0;
 
-          &::before {
+          &:before {
             .fa-icon();
             float: left;
             margin-top: 0.15em;
@@ -168,7 +223,7 @@
           margin-right: 1rem;
           float: left;
 
-          &::after {
+          &:after {
             content: counter(answer, lower-latin) ')';
           }
         }
@@ -224,7 +279,7 @@
 
     .exercise-tags {
       .metadata-styles();
-      .exercise-tag + .exercise-tag::before {
+      .exercise-tag + .exercise-tag:before {
         content: ',';
         margin-right: 1rem;
       }
