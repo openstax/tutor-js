@@ -4,6 +4,7 @@ _ = require 'underscore'
 {PeriodActions, PeriodStore} = require '../../flux/period'
 {RosterActions, RosterStore} = require '../../flux/roster'
 {TutorInput} = require '../tutor-input'
+{AsyncButton} = require 'openstax-react-components'
 
 CourseGroupingLabel = require '../course-grouping-label'
 EMPTY_WARNING = 'EMPTY'
@@ -19,9 +20,10 @@ module.exports = React.createClass
   getInitialState: ->
     warning: ''
     showModal: false
+    deleting: false
 
   close: ->
-    @setState({showModal: false})
+    @setState({showModal: false, deleting: false})
 
   open: ->
     @setState({showModal: true})
@@ -31,8 +33,10 @@ module.exports = React.createClass
       # tab to be deleted cannot be activeTab unless first, so select previous or first
       @props.selectPreviousTab()
       id = @props.activeTab.id
+
+      @setState deleting: true
       PeriodActions.delete(id, @props.courseId)
-      @close()
+      PeriodStore.once 'deleted', => @close()
     else
       @setState(warning: EMPTY_WARNING)
 
@@ -48,9 +52,13 @@ module.exports = React.createClass
       @state.warning = ''
     deleteQuestion = "Delete '#{@props.activeTab.name}'?"
     deleteButton =
-      <BS.Button className='-edit-period-confirm' onClick={@performUpdate}>
+      <AsyncButton
+        className='-edit-period-confirm'
+        onClick={@performUpdate}
+        isWaiting={@state.deleting}
+        waitingText="Deleting...">
         Delete
-      </BS.Button>
+      </AsyncButton>
     warning = if @state.warning is EMPTY_WARNING
       <span>
         Only <CourseGroupingLabel courseId={@props.courseId} lowercase/>s without

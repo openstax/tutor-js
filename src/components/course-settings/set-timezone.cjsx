@@ -65,7 +65,6 @@ SetTimezoneField = React.createClass
   displayName: 'SetTimezoneField'
   propTypes:
     courseId: React.PropTypes.string
-    label: React.PropTypes.string.isRequired
     name: React.PropTypes.string.isRequired
     defaultValue: PropTypes.Timezone.isRequired
     onChange: React.PropTypes.func.isRequired
@@ -110,7 +109,7 @@ SetTimezone = React.createClass
     courseId: React.PropTypes.string.isRequired
 
   getInitialState: ->
-    course_timezone: @props.course.timezone
+    course_timezone: CourseStore.getTimezone(@props.courseId)
     showModal: false
 
   close: ->
@@ -126,8 +125,8 @@ SetTimezone = React.createClass
 
   performUpdate: ->
     unless @state.invalid
-      CourseActions.save(@props.courseId, course: {timezone: @state.course_timezone})
-      CourseStore.once 'saved', ->
+      CourseActions.save(@props.courseId, time_zone: @state.course_timezone)
+      CourseStore.once 'saved', =>
         @close()
 
   renderForm: ->
@@ -148,7 +147,7 @@ SetTimezone = React.createClass
       <div className={formClasses} >
         <SetTimezoneField
         name='course-timezone'
-        defaultValue={@props.course.timezone}
+        defaultValue={CourseStore.getTimezone(@props.courseId)}
         onChange={(val) => @setState(course_timezone: val)}
         validate={@validate}
         autofocus />

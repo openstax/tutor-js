@@ -3,6 +3,8 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 {PeriodActions, PeriodStore} = require '../../flux/period'
 {TutorInput} = require '../tutor-input'
+{AsyncButton} = require 'openstax-react-components'
+
 CourseGroupingLabel = require '../course-grouping-label'
 
 
@@ -42,9 +44,10 @@ module.exports = React.createClass
   getInitialState: ->
     period_name: ''
     showModal: false
+    creating: false
 
   close: ->
-    @setState({showModal: false})
+    @setState({showModal: false, creating: false})
 
   open: ->
     @setState({showModal: true})
@@ -56,8 +59,9 @@ module.exports = React.createClass
 
   performUpdate: ->
     if not @state.invalid
-      PeriodActions.create(@props.courseId, period: {name: @state.period_name})
-      @close()
+      @setState(creating: true)
+      PeriodActions.create(@props.courseId, name: @state.period_name)
+      PeriodStore.once 'created', => @close()
 
   renderForm: ->
     formClasses = ['modal-body', 'teacher-edit-period-form']
@@ -81,18 +85,21 @@ module.exports = React.createClass
         <AddPeriodField
         label={label}
         name='period-name'
+        default={@state.period_name}
         onChange={(val) => @setState(period_name: val)}
         validate={@validate}
         autofocus />
       </div>
 
       <div className='modal-footer'>
-        <BS.Button
-        className='-edit-period-confirm'
-        onClick={@performUpdate}
-        disabled={disabled}>
+        <AsyncButton
+          className='-edit-period-confirm'
+          onClick={@performUpdate}
+          isWaiting={@state.creating}
+          waitingText="Adding..."
+          disabled={disabled}>
           Add
-        </BS.Button>
+        </AsyncButton>
       </div>
 
     </BS.Modal>

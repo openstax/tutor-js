@@ -91,6 +91,8 @@ TimeHelper =
 
   isCourseTimezone: (courseId) ->
     courseTimezone = CourseStore.getTimezone(courseId)
+    return false unless courseTimezone?
+
     {offsets} = moment()._z or moment.tz(TimeHelper.getLocalTimezone())._z
     courseTimezoneOffsets = moment.tz(courseTimezone)._z.offsets
 

@@ -35,8 +35,8 @@ module.exports = React.createClass
       <div className='course-settings-title'>{course.name}
         <RenameCourse courseId={@props.courseId}  course={course}/>
       </div>
-      <div className='course-settings-timezone'>{course.timezone}
-        <SetTimezone courseId={@props.courseId}  course={course}/>
+      <div className='course-settings-timezone'>{CourseStore.getTimezone(@props.courseId)}
+        <SetTimezone courseId={@props.courseId}/>
       </div>
 
       <div className="settings-section teachers">

@@ -11,6 +11,7 @@ BindStoreMixin = require '../bind-store-mixin'
 {TimeStore} = require '../../flux/time'
 TutorDateFormat = TimeStore.getFormat()
 TimeHelper = require '../../helpers/time'
+{PeriodActions} = require '../../flux/period'
 
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TutorInput, TutorDateInput, TutorTimeInput, TutorDateFormat, TutorTextArea} = require '../tutor-input'
@@ -104,23 +105,9 @@ TaskingDateTimes = React.createClass
     {courseId, period} = @props
 
     if period?
-      periodChange = _.extend {}, period, timeChange
-      {periods} = CourseStore.get(courseId)
-
-      changePeriods = _.map periods, (coursePeriod) ->
-        if coursePeriod.id is period.id
-          coursePeriod = periodChange
-        coursePeriod
-
-      change =
-        periods: changePeriods
-
+      PeriodActions.save(courseId, period.id, timeChange)
     else
-      change = timeChange
-
-    # simulating save for now
-    CourseActions._change(courseId, change)
-    CourseActions.saved(null, courseId)
+      CourseActions.save(courseId, timeChange)
 
   render: ->
     {

@@ -3,6 +3,9 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 {PeriodActions, PeriodStore} = require '../../flux/period'
 {TutorInput} = require '../tutor-input'
+{AsyncButton} = require 'openstax-react-components'
+
+BindStoreMixin = require '../bind-store-mixin'
 CourseGroupingLabel = require '../course-grouping-label'
 
 RenamePeriodField = React.createClass
@@ -40,9 +43,20 @@ module.exports = React.createClass
     periods: React.PropTypes.array.isRequired
     activeTab: React.PropTypes.object.isRequired
 
+  mixins: [BindStoreMixin]
+
+  bindStore: PeriodStore
+
+  bindUpdate: ->
+    {courseId} = @props
+
+    saving = PeriodStore.isSaving(courseId)
+    @setState({saving}) if @state.saving isnt saving
+
   getInitialState: ->
     period_name: @props.activeTab.name
     showModal: false
+    saving: false
 
   close: ->
     @setState({showModal: false})
@@ -58,8 +72,9 @@ module.exports = React.createClass
   performUpdate: ->
     if not @state.invalid
       id = @props.activeTab.id
-      PeriodActions.save(@props.courseId, id, period: {name: @state.period_name})
-      @close()
+      PeriodActions.save(@props.courseId, id, name: @state.period_name)
+      PeriodStore.once 'saved', =>
+        @close()
 
   renderForm: ->
     formClasses = ['modal-body', 'teacher-edit-period-form']
@@ -92,12 +107,14 @@ module.exports = React.createClass
       </div>
 
       <div className='modal-footer'>
-        <BS.Button
-        className='-edit-period-confirm'
+        <AsyncButton
+          className='-edit-period-confirm'
           onClick={@performUpdate}
+          isWaiting={@state.saving}
+          waitingText="Saving..."
           disabled={disabled}>
-          Rename
-        </BS.Button>
+        Rename
+        </AsyncButton>
       </div>
 
     </BS.Modal>
