@@ -178,7 +178,7 @@ module.exports = React.createClass
           dataType={dataType}
           sortState={sort}
           onSort={onSort}>
-            <div ref='completed' className='completed'>Progress</div>
+            <div ref='completed'>Progress</div>
           </SortingHeader>
         </div>
 

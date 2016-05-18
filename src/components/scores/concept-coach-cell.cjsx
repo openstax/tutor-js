@@ -44,26 +44,29 @@ ConceptCoachCell = React.createClass
         </div>
       </BS.Popover>
 
+    completed = not task.completed_exercise_count is task.exercise_count
+
     score =
-      <div className="score">
-        <Router.Link to='viewTaskStep'
-          data-assignment-type="#{task.type}"
-          params={courseId: courseId, id: task.id, stepIndex: 1}>
-            {
-              if displayAs is 'number'
-                "#{task.correct_exercise_count} of #{task.exercise_count}"
-              else
-                "#{scorePercent}%"
-            }
-        </Router.Link>
-      </div>
+      if displayAs is 'number'
+        "#{task.correct_exercise_count} of #{task.exercise_count}"
+      else
+        "#{scorePercent}%"
+
 
     scoreNotComplete = <div className="score not-complete">---</div>
 
 
     <div className="scores-cell">
 
-      { if task.completed_exercise_count is task.exercise_count then score else scoreNotComplete }
+
+      <div className="score">
+        <Router.Link to='viewTaskStep'
+          className="#{if not completed then 'not-complete'}"
+          data-assignment-type="#{task.type}"
+          params={courseId: courseId, id: task.id, stepIndex: 1}>
+            { if completed then score else scoreNotComplete }
+        </Router.Link>
+      </div>
 
       <div className="worked">
         <BS.OverlayTrigger

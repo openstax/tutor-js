@@ -232,8 +232,12 @@
     
   }
   .scores-cell {
-    .not-started, .not-complete {
-      color: @tutor-tertiary-light;  
+    a.not-complete {
+      text-decoration: none;
+    }
+    .not-started {
+      color: @tutor-black;
+      cursor: default;
     }
     .worked {
       height: @table-row-height;
