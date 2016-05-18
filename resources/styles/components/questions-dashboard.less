@@ -133,7 +133,12 @@
         cursor: pointer;
       }
     }
-    .exercise-card { width: 800px; }
+    .exercise-card {
+      width: 800px;
+      .toggle-mask {
+        display: none;
+      }
+    }
 
     .page-navigation {
       .page-navigation-arrows(800px);
@@ -196,12 +201,14 @@
   }
 }
 
+// re-enable hidden controls when nav is pinned
 .pinned-view.pinned-on {
   .questions-dashboard {
-      .exercise-details {
-        .page-navigation {
-          display: flex;
-        }
+    .exercise-details {
+      .exercise-card {
+        .toggle-mask     { display: flex; }
+        .page-navigation { display: flex; }
       }
+    }
   }
 }
