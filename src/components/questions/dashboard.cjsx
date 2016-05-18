@@ -24,9 +24,9 @@ QuestionsDashboard = React.createClass
     focusedExercise: false
 
   onShowDetailsViewClick: (ev, exercise) ->
-    @setState(focusedExercise: exercise)
+    @setState(showingDetails: true)
   onShowCardViewClick: ->
-    @setState(focusedExercise: false)
+    @setState(showingDetails: false)
 
   onSelectionsChange: (sectionIds) ->
     @setState({sectionIds})
@@ -43,7 +43,7 @@ QuestionsDashboard = React.createClass
       <ExercisesDisplay
         helpTooltip={Help.forCourseId(@props.courseId).primary}
         {...@props}
-        focusedExercise={@state.focusedExercise if @state.focusedExercise}
+        showingDetails={@state.showingDetails}
         onShowCardViewClick={@onShowCardViewClick}
         onShowDetailsViewClick={@onShowDetailsViewClick}
         sectionIds={@state.sectionIds} />

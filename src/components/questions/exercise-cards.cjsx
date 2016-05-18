@@ -13,7 +13,6 @@ Icon = require '../icon'
 SectionsExercises = React.createClass
 
   propTypes:
-    ecosystemId: React.PropTypes.string.isRequired
     exercises:   React.PropTypes.array.isRequired
     chapter_section: React.PropTypes.string.isRequired
 

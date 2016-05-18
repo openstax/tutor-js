@@ -7,8 +7,6 @@ cn = require 'classnames'
 showDialog = require './unsaved-dialog'
 
 Icon = require '../icon'
-ScrollSpy = require '../scroll-spy'
-Sectionizer = require './sectionizer'
 
 QuestionsControls = React.createClass
 
@@ -22,6 +20,10 @@ QuestionsControls = React.createClass
     selectedExercises: React.PropTypes.array
     filter: React.PropTypes.string
     onFilterChange: React.PropTypes.func.isRequired
+    sectionizerProps:  React.PropTypes.object
+
+  getDefaultProps: ->
+    sectionizerProps: {}
 
   getInitialState: -> {
     hasSaved: false
@@ -79,9 +81,7 @@ QuestionsControls = React.createClass
           Practice <span className="count">({@props.exercises.homework.count})</span>
         </BS.Button>
       </BS.ButtonGroup>
-      <ScrollSpy dataSelector='data-section' >
-        <Sectionizer onScreenElements={[]} chapter_sections={@getSections()} />
-      </ScrollSpy>
+        {@props.children}
       <div className="save-cancel">
         {@renderSaveCancelButtons()}
       </div>

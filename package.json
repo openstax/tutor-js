@@ -32,6 +32,7 @@
   },
   "homepage": "https://github.com/openstax/tutor-js",
   "dependencies": {
+    "axios": "0.11.0",
     "bootstrap": "3.3.5",
     "bootstrap-material-design": "fezvrasta/bootstrap-material-design#0.3.0",
     "camelcase": "1.2.1",
@@ -40,7 +41,7 @@
     "flux-react": "2.6.6",
     "font-awesome": "4.4.0",
     "htmlparser2": "3.8.3",
-    "axios": "0.11.0",
+    "keymaster": "^1.6.2",
     "lodash": "2.4.1",
     "markdown-it": "4.4.0",
     "mime-types": "2.1.7",

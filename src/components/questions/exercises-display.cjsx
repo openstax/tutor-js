@@ -4,10 +4,11 @@ BS = require 'react-bootstrap'
 {PinnedHeaderFooterCard} = require 'openstax-react-components'
 {ExerciseStore} = require '../../flux/exercise'
 Icon = require '../icon'
-QuestionsControls = require './questions-controls'
-
-ExerciseDetails   = require './exercise-details'
-ExerciseCards     = require './exercise-cards'
+ExerciseControls = require './Exercise-controls'
+ExerciseDetails  = require './exercise-details'
+ExerciseCards    = require './exercise-cards'
+ScrollSpy        = require '../scroll-spy'
+Sectionizer      = require './sectionizer'
 
 ExercisesDisplay = React.createClass
 
@@ -15,7 +16,6 @@ ExercisesDisplay = React.createClass
     courseId:        React.PropTypes.string.isRequired
     helpTooltip:     React.PropTypes.string.isRequired
     sectionIds:      React.PropTypes.array
-    focusedExercise: React.PropTypes.object
 
   getInitialState: -> {
     filter: 'reading'
@@ -35,32 +35,59 @@ ExercisesDisplay = React.createClass
     @setState({filter})
 
   renderControls: (exercises) ->
-    <QuestionsControls
+
+    sections = _.keys exercises.all.grouped
+
+    if @props.showingDetails
+      sectionizerProps =
+        currentSection: @state.currentSection
+        onSectionClick: @setCurrentSection
+
+    <ExerciseControls
       filter={@state.filter}
       courseId={@props.courseId}
       onFilterChange={@onFilterChange}
       onSectionSelect={@scrollToSection}
       exercises={exercises}
-    />
+    >
+      <ScrollSpy dataSelector='data-section' >
+        <Sectionizer
+          ref="sectionizer"
+          {...sectionizerProps}
+          onScreenElements={[]}
+          chapter_sections={sections} />
+      </ScrollSpy>
+    </ExerciseControls>
 
-  onShowCardViewClick: ->
+  # called by sectionizer and details view
+  setCurrentSection: (currentSection) ->
+    @setState({currentSection})
+
+  onDetailsViewClick: (ev, exercise) ->
+    @setState(selectedExercise: exercise)
+    @props.onShowDetailsViewClick(ev, exercise)
+
+  onShowCardViewClick: (ev, exercise) ->
     # The pinned header doesn't notice when the elements above it are unhidden
     # and will never unstick by itself.
     @refs.controls.unPin()
     @setState({showingCardsFromDetailsView: true})
-    @props.onShowCardViewClick(arguments...)
+    @props.onShowCardViewClick(ev, exercise)
 
   renderQuestions: (exercises) ->
-    if @props.focusedExercise
-      <ExerciseDetails {...@props}
+    if @props.showingDetails
+      <ExerciseDetails
+        ref='details'
         exercises={exercises}
-        selected={@props.focusedExercise}
+        selectedExercise={@state.selectedExercise}
+        selectedSection={@state.currentSection}
+        onSectionChange={@setCurrentSection}
         onShowCardViewClick={@onShowCardViewClick} />
     else
-      <ExerciseCards {...@props}
+      <ExerciseCards
         scrollFast={@state.showingCardsFromDetailsView}
         exercises={exercises}
-        onDetailsClick={@props.onShowDetailsViewClick} />
+        onDetailsClick={@onDetailsViewClick} />
 
   render: ->
     return null if ExerciseStore.isLoading() or _.isEmpty(@props.sectionIds)
