@@ -77,6 +77,26 @@ ExercisesDisplay = React.createClass
     @setState({showingCardsFromDetailsView: true})
     @props.onShowCardViewClick(ev, exercise)
 
+  onExerciseToggle: (ev, exercise) ->
+    isSelected = not ExerciseStore.isExerciseExcluded(exercise.id)
+    if isSelected and ExerciseStore.isExcludedAtMinimum(@props.exercises)
+      Dialog.show(
+        className: 'question-library-min-exercise-exclusions'
+        title: '', body: @renderMinimumExclusionWarning()
+        buttons: [
+          <BS.Button key='exclude'
+            onClick={->
+              ExerciseActions.setExerciseExclusion(exercise.id, isSelected)
+              Dialog.hide()
+            }>Exclude</BS.Button>
+
+          <BS.Button key='cancel' bsStyle='primary'
+            onClick={-> Dialog.hide()} bsStyle='primary'>Cancel</BS.Button>
+        ]
+      )
+    else
+      ExerciseActions.setExerciseExclusion(exercise.id, isSelected)
+
   renderQuestions: (exercises) ->
     if @props.showingDetails
       <ExerciseDetails
@@ -85,10 +105,12 @@ ExercisesDisplay = React.createClass
         selectedExercise={@state.selectedExercise}
         selectedSection={@state.currentSection}
         onSectionChange={@setCurrentSection}
+        onExerciseToggle={@onExerciseToggle}
         onShowCardViewClick={@onShowCardViewClick} />
     else
       <ExerciseCards
         scrollFast={@state.showingCardsFromDetailsView}
+        onExerciseToggle={@onExerciseToggle}
         exercises={exercises}
         onDetailsClick={@onDetailsViewClick} />
 

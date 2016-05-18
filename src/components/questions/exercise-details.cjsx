@@ -3,7 +3,9 @@ BS        = require 'react-bootstrap'
 keymaster = require 'keymaster'
 
 {ExerciseStore} = require '../../flux/exercise'
-ExerciseCard    = require './exercise'
+{ExercisePreview, ExerciseTroubleUrl} = require 'openstax-react-components'
+exerciseActionsBuilder = require './exercise-actions-builder'
+
 Icon            = require '../icon'
 ScrollTo        = require '../scroll-to-mixin'
 
@@ -16,6 +18,7 @@ ExerciseDetails = React.createClass
     selectedSection:  React.PropTypes.string
     exercises: React.PropTypes.object.isRequired
     onSectionChange: React.PropTypes.func.isRequired
+    onExerciseToggle: React.PropTypes.func.isRequired
 
   mixins: [ScrollTo]
   scrollingTargetDOM: -> document
@@ -40,7 +43,7 @@ ExerciseDetails = React.createClass
     for exercise, index in exercises
       if selectedExercise?.id is exercise.id
         currentIndex = index
-        currentSection = exercise.section
+        currentSection = ExerciseStore.getChapterSectionOfExercise(exercise)
         break
     @setState({exercises, currentIndex, currentSection})
 
@@ -49,20 +52,20 @@ ExerciseDetails = React.createClass
     {selectedSection} = nextProps
     nextState = {exercises}
     if selectedSection and selectedSection isnt @state.currentSection
+      section = ExerciseStore.getChapterSectionOfExercise(exercise)
       for exercise, index in exercises
-        if selectedSection is exercise.section
+        if selectedSection is section
           nextState.currentSection = selectedSection
           nextState.currentIndex = index
           break
     @setState(nextState)
-
 
   flattenExercises: (props) ->
     groups = props.exercises.grouped
     exercises = []
     for section in _.keys(groups).sort()
       for exercise in groups[section]
-        exercises.push _.extend({}, exercise, section: section)
+        exercises.push exercise
     return exercises
 
   toggleNavHighlight: (type) ->
@@ -85,20 +88,36 @@ ExerciseDetails = React.createClass
 
   moveTo: (index) ->
     exercise = @state.exercises[index]
-    unless @state.currentSection is exercise.section
+    section = ExerciseStore.getChapterSectionOfExercise(exercise)
+    unless @state.currentSection is section
       # defer is needed to allow setState to complete before callback is fired
       # otherwise component recieves props with the new section and doesn't know it's already on it
       # causing it to jump to the first exercise in section
-      _.defer => @props.onSectionChange(exercise.section)
-    @setState({currentIndex: index, currentSection: exercise.section})
+      _.defer => @props.onSectionChange(section)
+    @setState({currentIndex: index, currentSection: section})
 
   getValidMovements: ->
     prev: @state.currentIndex isnt 0
     next: @state.currentIndex isnt @state.exercises.length - 1
 
+  toggleFeedback: ->
+    @setState(displayFeedback: not @state.displayFeedback)
+
+  reportError: (ev, exercise) ->
+    window.open(ExerciseTroubleUrl.generate(exerciseId: exercise.content.uid), '_blank')
+
   render: ->
     exercise = @state.exercises[@state.currentIndex]
     moves = @getValidMovements()
+    isExcluded = ExerciseStore.isExerciseExcluded(exercise.id)
+    actions = exerciseActionsBuilder(exercise, @props.onExerciseToggle, {
+      feedback:
+        message: 'Preview Feedback'
+        handler: @toggleFeedback
+      'report-error':
+        message: 'Report an error'
+        handler: @reportError
+    })
 
     <div className="exercise-details">
 
@@ -112,11 +131,14 @@ ExerciseDetails = React.createClass
         </a>
       </div>
 
-      <ExerciseCard key={exercise.id}
-        isExcluded={ExerciseStore.isExerciseExcluded(exercise.id)}
+      <ExercisePreview
+        className='exercise-card'
+        isVerticallyTruncated={false}
+        isSelected={false}
+        displayFeedback={@state.displayFeedback}
         exercise={exercise}
-        interactive={true}
-        onExerciseToggle={@onExerciseToggle}
+        actionsOnSide={true}
+        overlayActions={actions}
       />
 
       {<div className="page-navigation next" onClick={@onNext}>

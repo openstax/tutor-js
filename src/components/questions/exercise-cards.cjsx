@@ -4,7 +4,10 @@ BS = require 'react-bootstrap'
 {TocStore} = require '../../flux/toc'
 {ExerciseActions, ExerciseStore} = require '../../flux/exercise'
 Dialog = require '../tutor-dialog'
-ExerciseCard = require './exercise'
+{ExercisePreview} = require 'openstax-react-components'
+
+exerciseActionsBuilder = require './exercise-actions-builder'
+
 ScrollTo = require '../scroll-to-mixin'
 
 ChapterSection = require '../task-plan/chapter-section'
@@ -15,6 +18,8 @@ SectionsExercises = React.createClass
   propTypes:
     exercises:   React.PropTypes.array.isRequired
     chapter_section: React.PropTypes.string.isRequired
+    onDetailsClick: React.PropTypes.func.isRequired
+    onExerciseToggle: React.PropTypes.func.isRequired
 
   renderMinimumExclusionWarning: ->
     [
@@ -30,24 +35,22 @@ SectionsExercises = React.createClass
       </div>
     ]
 
-  onExerciseToggle: (exercise, isSelected) ->
-    if isSelected and ExerciseStore.isExcludedAtMinimum(@props.exercises)
-      Dialog.show(
-        className: 'question-library-min-exercise-exclusions'
-        title: '', body: @renderMinimumExclusionWarning()
-        buttons: [
-          <BS.Button key='exclude'
-            onClick={->
-              ExerciseActions.setExerciseExclusion(exercise.id, isSelected)
-              Dialog.hide()
-            }>Exclude</BS.Button>
+  renderExercise: (exercise) ->
+    actions = exerciseActionsBuilder(exercise, @props.onExerciseToggle, {
+      details:
+        message: 'Question details'
+        handler: @props.onDetailsClick
+    })
 
-          <BS.Button key='cancel' bsStyle='primary'
-            onClick={-> Dialog.hide()} bsStyle='primary'>Cancel</BS.Button>
-        ]
-      )
-    else
-      ExerciseActions.setExerciseExclusion(exercise.id, isSelected)
+    <ExercisePreview
+      key={exercise.id}
+      className='exercise-card'
+      isVerticallyTruncated={true}
+      isSelected={ExerciseStore.isExerciseExcluded(exercise.id)}
+      exercise={exercise}
+      onOverlayClick={@onExerciseToggle}
+      overlayActions={actions}
+    />
 
   render: ->
     title = TocStore.getSectionLabel(@props.chapter_section)?.title
@@ -57,12 +60,7 @@ SectionsExercises = React.createClass
         <ChapterSection section={@props.chapter_section}/> {title}
       </label>
       <div className="exercises">
-      {for exercise in @props.exercises
-        <ExerciseCard key={exercise.id}
-          isExcluded={ExerciseStore.isExerciseExcluded(exercise.id)}
-          exercise={exercise}
-          onDetailsClick={@props.onDetailsClick}
-          onExerciseToggle={@onExerciseToggle} />}
+        {@renderExercise(exercise) for exercise in @props.exercises}
       </div>
     </div>
 
@@ -72,7 +70,9 @@ ExerciseCards = React.createClass
 
   propTypes:
     exercises:  React.PropTypes.object.isRequired
+    onDetailsClick: React.PropTypes.func.isRequired
     scrollFast: React.PropTypes.bool
+    onExerciseToggle: React.PropTypes.func.isRequired
 
   mixins: [ScrollTo]
 
