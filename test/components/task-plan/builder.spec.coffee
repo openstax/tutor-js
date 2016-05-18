@@ -71,7 +71,11 @@ describe 'Task Plan Builder', ->
   it 'should not allow editable open date if plan is visible', ->
     helper(PUBLISHED_MODEL).then ({dom, element}) ->
       element.setAllPeriods()
-      expect(element.refs.openDate.props.disabled).to.be.true
+      datepicker = dom.querySelector('.-assignment-open-date .datepicker__input-container input')
+      inputDom = dom.querySelector('.-assignment-open-date .-tutor-date-input input')
+
+      expect(datepicker).to.be.null
+      expect(inputDom.disabled).to.be.true
 
 
   it 'hides periods by default', ->

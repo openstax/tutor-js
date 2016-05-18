@@ -62,17 +62,18 @@ TaskingDateTime = React.createClass
     setDefaultTime(timeChange)
 
   render: ->
-    {isTimeDefault} = @props
+    {isTimeDefault, label} = @props
+    type = label.toLowerCase()
 
     timeProps = _.omit(@props, 'value', 'onChange', 'label')
     dateProps = _.omit(@props, 'defaultValue', 'onChange', 'label')
 
-    timeProps.label = "#{@props.label} Time"
-    dateProps.label = "#{@props.label} Date"
+    timeProps.label = "#{label} Time"
+    dateProps.label = "#{label} Date"
 
     if not isTimeDefault and @canSetAsDefaultTime()
       setAsDefaultExplanation = <BS.Popover>
-        {@props.label} times for assignments created from now on will have this time set as the default.
+        {label} times for assignments created from now on will have this time set as the default.
       </BS.Popover>
 
       setAsDefault = <a className='tasking-time-default' onClick=@setDefaultTime>
@@ -84,10 +85,10 @@ TaskingDateTime = React.createClass
 
     <BS.Col xs=12 md=6>
       <BS.Row>
-        <BS.Col xs=8 md=7 className='tasking-date'>
+        <BS.Col xs=8 md=7 className="tasking-date -assignment-#{type}-date">
           <TutorDateInput {...dateProps} onChange={@onDateChange} ref='date'/>
         </BS.Col>
-        <BS.Col xs=4 md=5 className='tasking-time'>
+        <BS.Col xs=4 md=5 className="tasking-time -assignment-#{type}-time">
           <TutorTimeInput {...timeProps} onChange={@onTimeChange} ref='time'/>
           {setAsDefault}
         </BS.Col>
@@ -150,6 +151,7 @@ TaskingDateTimes = React.createClass
         {...commonDateTimesProps}
         disabled={isVisibleToStudents or not isEditable}
         label="Open"
+        ref="open"
         min={TimeStore.getNow()}
         max={maxOpensAt}
         onChange={_.partial(setOpensAt, _, period)}
@@ -162,6 +164,7 @@ TaskingDateTimes = React.createClass
         {...commonDateTimesProps}
         disabled={not isEditable}
         label="Due"
+        ref="due"
         min={minDueAt}
         onChange={_.partial(setDueAt, _, period)}
         value={taskingDueAt}

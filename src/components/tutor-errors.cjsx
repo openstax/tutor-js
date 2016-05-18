@@ -21,7 +21,7 @@ TutorPeriodNameExists = React.createClass
 TutorTimeIncorrectFormat = React.createClass
   render: ->
     <div className='hint'>
-      Please type a proper time <i className='fa fa-exclamation-circle'></i>
+      Please type a time.
     </div>
 
 module.exports =
