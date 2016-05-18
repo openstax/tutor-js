@@ -72,7 +72,7 @@
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: space-around;
+          justify-content: center;
           text-align: center;
           color: white;
           user-select:  none;
@@ -90,6 +90,7 @@
             width: @action-icon-circle-size;
             height: @action-icon-circle-size;
             padding-top: 12px;
+            margin-bottom: 8px;
           }
 
           &.include {
@@ -146,7 +147,7 @@
   }
 
   &.actions-on-side {
-    @size-scale: 0.75;
+    @size-scale: 0.45;
     .panel-body, .panel-body:hover {
       position: relative;
       .toggle-mask {
@@ -163,14 +164,17 @@
         .action {
           height: @action-square-size * @size-scale;
           width:  @action-square-size * @size-scale;
+          font-size: 12px;
+          line-height: 12px;
           &:before {
-            padding-top: 8px;
+            padding-top: 4px;
+            margin-bottom: 0;
             font-size: @action-icon-circle-size * 0.75 * @size-scale;
             border-radius: (@action-icon-circle-size / 2) * @size-scale;
             width: @action-icon-circle-size * @size-scale;
             height: @action-icon-circle-size * @size-scale;
           }
-          &.report-error:before{ font-size: 90px * @size-scale; };
+          &.report-error:before{ padding-top: 0px; font-size: 90px * @size-scale; };
         }
       }
     }

@@ -89,6 +89,9 @@ module.exports = React.createClass
 
     shouldBeShy
 
+  unPin: ->
+    @setState(pinned: false)
+
   updatePinState: (prevScrollTop) ->
     addOrRemove = [
       'remove' # remove class if shouldPinHeader is false
@@ -131,9 +134,6 @@ module.exports = React.createClass
     return unless container
 
     @setState(headerHeight: headerHeight)
-
-  unPin: ->
-    @setState(pinned: false)
 
   _resizeListener: ->
     @setContainerMargin()
