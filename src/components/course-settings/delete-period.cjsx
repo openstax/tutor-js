@@ -20,10 +20,10 @@ module.exports = React.createClass
   getInitialState: ->
     warning: ''
     showModal: false
-    deleting: false
+    isDeleting: false
 
   close: ->
-    @setState({showModal: false, deleting: false})
+    @setState({showModal: false, isDeleting: false})
 
   open: ->
     @setState({showModal: true})
@@ -34,7 +34,7 @@ module.exports = React.createClass
       @props.selectPreviousTab()
       id = @props.activeTab.id
 
-      @setState deleting: true
+      @setState isDeleting: true
       PeriodActions.delete(id, @props.courseId)
       PeriodStore.once 'deleted', => @close()
     else
@@ -55,7 +55,7 @@ module.exports = React.createClass
       <AsyncButton
         className='-edit-period-confirm'
         onClick={@performUpdate}
-        isWaiting={@state.deleting}
+        isWaiting={@state.isDeleting}
         waitingText="Deleting...">
         Delete
       </AsyncButton>

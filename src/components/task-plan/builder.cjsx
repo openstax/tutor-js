@@ -17,6 +17,7 @@ TimeHelper = require '../../helpers/time'
 {TutorInput, TutorDateInput, TutorTimeInput, TutorDateFormat, TutorTextArea} = require '../tutor-input'
 {CourseStore, CourseActions}   = require '../../flux/course'
 {UnsavedStateMixin} = require '../unsaved-state'
+{AsyncButton} = require 'openstax-react-components'
 
 ISO_DATE_FORMAT = 'YYYY-MM-DD'
 
@@ -27,10 +28,11 @@ TaskingDateTime = React.createClass
 
   getStateFromProps: (props) ->
     props ?= @props
-    {value, defaultValue} = props
+    {value, defaultValue, isSetting} = props
 
     date: moment(value).format(ISO_DATE_FORMAT)
     time: defaultValue
+    isSetting: isSetting()
 
   onTimeChange: (time) ->
     @setState({time})
@@ -63,7 +65,9 @@ TaskingDateTime = React.createClass
     setDefaultTime(timeChange)
 
   render: ->
-    {isTimeDefault, label} = @props
+    {isTimeDefault, label, taskingIdentifier} = @props
+    {isSetting} = @state
+
     type = label.toLowerCase()
 
     timeProps = _.omit(@props, 'value', 'onChange', 'label')
@@ -73,16 +77,21 @@ TaskingDateTime = React.createClass
     dateProps.label = "#{label} Date"
 
     if not isTimeDefault and @canSetAsDefaultTime()
-      setAsDefaultExplanation = <BS.Popover>
+      setAsDefaultExplanation = <BS.Popover id="tasking-datetime-default-tip-#{label}-#{taskingIdentifier}">
         {label} times for assignments created from now on will have this time set as the default.
       </BS.Popover>
 
-      setAsDefault = <a className='tasking-time-default' onClick=@setDefaultTime>
+      setAsDefault = <AsyncButton
+        className='tasking-time-default'
+        bsStyle='link'
+        waitingText='Saving…'
+        isWaiting={isSetting}
+        onClick=@setDefaultTime>
         Set as default
         <BS.OverlayTrigger placement='top' overlay={setAsDefaultExplanation}>
           <i className="fa fa-info-circle"></i>
         </BS.OverlayTrigger>
-      </a>
+      </AsyncButton>
 
     <BS.Col xs=12 md=6>
       <BS.Row>
@@ -109,6 +118,14 @@ TaskingDateTimes = React.createClass
     else
       CourseActions.save(courseId, timeChange)
 
+  isSetting: ->
+    {courseId, period} = @props
+
+    if period?
+      PeriodStore.isSaving(courseId)
+    else
+      CourseStore.isSaving(courseId)
+
   render: ->
     {
       isVisibleToStudents,
@@ -125,7 +142,7 @@ TaskingDateTimes = React.createClass
       defaultOpenTime
     } = @props
 
-    commonDateTimesProps = _.pick @props, 'required', 'currentLocale'
+    commonDateTimesProps = _.pick @props, 'required', 'currentLocale', 'taskingIdentifier'
 
     isDueTimeDefault = @isTimeDefault dueTime, defaultDueTime
     isOpenTimeDefault = @isTimeDefault openTime, defaultOpenTime
@@ -146,7 +163,8 @@ TaskingDateTimes = React.createClass
         defaultValue={openTime or defaultOpenTime}
         setDefaultTime={@setDefaultTime}
         timeLabel='default_open_time'
-        isTimeDefault={isOpenTimeDefault} />
+        isTimeDefault={isOpenTimeDefault}
+        isSetting={@isSetting} />
       <TaskingDateTime
         {...commonDateTimesProps}
         disabled={not isEditable}
@@ -158,7 +176,8 @@ TaskingDateTimes = React.createClass
         defaultValue={dueTime or defaultDueTime}
         setDefaultTime={@setDefaultTime}
         timeLabel='default_due_time'
-        isTimeDefault={isDueTimeDefault} />
+        isTimeDefault={isDueTimeDefault}
+        isSetting={@isSetting} />
     </BS.Col>
 
 
@@ -185,10 +204,10 @@ Tasking = React.createClass
               checked={true}/>
             <label className="period" htmlFor={"period-toggle-#{period.id}"}>{period.name}</label>
           </BS.Col>
-          <TaskingDateTimes {...@props}/>
+          <TaskingDateTimes {...@props} taskingIdentifier={taskingIdentifier}/>
         </BS.Row>
       else
-        <TaskingDateTimes {...@props}/>
+        <TaskingDateTimes {...@props} taskingIdentifier={taskingIdentifier}/>
     else
       if period?
         <BS.Row key="tasking-disabled-#{period.id}" className="tasking-plan disabled">

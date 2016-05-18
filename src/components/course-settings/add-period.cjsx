@@ -44,10 +44,10 @@ module.exports = React.createClass
   getInitialState: ->
     period_name: ''
     showModal: false
-    creating: false
+    isCreating: false
 
   close: ->
-    @setState({showModal: false, creating: false})
+    @setState({showModal: false, isCreating: false})
 
   open: ->
     @setState({showModal: true})
@@ -59,7 +59,7 @@ module.exports = React.createClass
 
   performUpdate: ->
     if not @state.invalid
-      @setState(creating: true)
+      @setState(isCreating: true)
       PeriodActions.create(@props.courseId, name: @state.period_name)
       PeriodStore.once 'created', => @close()
 
@@ -95,7 +95,7 @@ module.exports = React.createClass
         <AsyncButton
           className='-edit-period-confirm'
           onClick={@performUpdate}
-          isWaiting={@state.creating}
+          isWaiting={@state.isCreating}
           waitingText="Adding..."
           disabled={disabled}>
           Add

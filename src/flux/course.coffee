@@ -58,8 +58,11 @@ CourseConfig =
     @_practices = {}
     @_asyncStatusPractices = {}
 
-  _saved: ->
+  _saved: (result, id) ->
     @emit('saved')
+
+    # make sure all of course remains loaded after course gets saved to
+    _.extend {}, @_local[id], result
 
   exports:
     getGuide: (courseId) ->

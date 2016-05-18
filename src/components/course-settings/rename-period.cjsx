@@ -50,13 +50,13 @@ module.exports = React.createClass
   bindUpdate: ->
     {courseId} = @props
 
-    saving = PeriodStore.isSaving(courseId)
-    @setState({saving}) if @state.saving isnt saving
+    isSaving = PeriodStore.isSaving(courseId)
+    @setState({isSaving}) if @state.isSaving isnt isSaving
 
   getInitialState: ->
     period_name: @props.activeTab.name
     showModal: false
-    saving: false
+    isSaving: false
 
   close: ->
     @setState({showModal: false})
@@ -110,7 +110,7 @@ module.exports = React.createClass
         <AsyncButton
           className='-edit-period-confirm'
           onClick={@performUpdate}
-          isWaiting={@state.saving}
+          isWaiting={@state.isSaving}
           waitingText="Saving..."
           disabled={disabled}>
         Rename
