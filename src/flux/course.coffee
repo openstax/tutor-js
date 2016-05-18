@@ -4,6 +4,7 @@ _ = require 'underscore'
 {TaskActions, TaskStore} = require './task'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 PeriodHelper = require '../helpers/period'
+TimeHelper = require '../helpers/time'
 
 DEFAULT_COURSE_TIMEZONE = 'US/Central'
 
@@ -91,6 +92,10 @@ CourseConfig =
           return['courseNameExists'] unless name is active
         if not name? or name is ''
           return ['required']
+
+    validateCourseTimezone: (timezone, courses, active) ->
+      unless timezone in _.values(TimeHelper.getTimezones())
+        return ['required']
 
     # Returns the configured appearance code for a course
     getAppearanceCode: (courseId) ->

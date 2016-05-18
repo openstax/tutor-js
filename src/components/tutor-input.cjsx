@@ -314,4 +314,38 @@ TutorTextArea = React.createClass
       </div>
     </div>
 
-module.exports = {TutorInput, TutorDateInput, TutorDateFormat, TutorTimeInput, TutorTextArea}
+# TODO: replace with new and improved BS.Radio when we update
+TutorRadio = React.createClass
+
+  propTypes:
+    value: React.PropTypes.string.isRequired
+    id: React.PropTypes.string.isRequired
+    name: React.PropTypes.string.isRequired
+    label: React.PropTypes.string
+    className: React.PropTypes.string
+    onChange: React.PropTypes.func
+    checked: React.PropTypes.bool
+    disabled: React.PropTypes.bool
+
+  isChecked: ->
+    @refs.radio.getDOMNode().checked
+
+  handleChange: (changeEvent) ->
+    {value} = @props
+
+    @props.onChange?(changeEvent, {value})
+
+  render: ->
+    {label, className, value, id, checked} = @props
+    inputProps = _.pick(@props, 'value', 'id', 'name', 'checked', 'disabled')
+
+    label ?= value
+    classes = classnames 'tutor-radio', className,
+      active: checked
+
+    <div className={classes}>
+      <input ref='radio' {...inputProps} type='radio' onChange={@handleChange}/>
+      <label htmlFor={id}>{label}</label>
+    </div>
+
+module.exports = {TutorInput, TutorDateInput, TutorDateFormat, TutorTimeInput, TutorTextArea, TutorRadio}

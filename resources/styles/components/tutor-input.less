@@ -119,3 +119,19 @@
   .form-control-wrapper .floating-label,
   .tasking-time input { font-size: 1.6rem; }
 }
+
+.tutor-radio {
+  &:not(.active) {
+    .transition(color 0.1s linear);
+    color: @tutor-neutral;
+
+    label[for] {
+      cursor: pointer;
+      font-weight: 400;
+    }
+
+    &:hover {
+      color: @tutor-neutral-darker;
+    }
+  }
+}
