@@ -82,8 +82,9 @@ HomeworkCell = React.createClass
       }
     latework = <LateWork {...lateProps} />
 
+    notStarted = task.completed_exercise_count <= 0
 
-    <div className="scores-cell">
+    score =
       <div className="score">
         <Router.Link to='viewTaskStep'
           data-assignment-type="#{task.type}"
@@ -95,8 +96,15 @@ HomeworkCell = React.createClass
                 "#{(scorePercent).toFixed(0)}%"
             }
         </Router.Link>
-        
       </div>
+
+    scoreNotStarted = <div className="score not-started">---</div>
+
+
+    <div className="scores-cell">
+
+      {if notStarted then scoreNotStarted else score }
+
 
       <div className="worked">
         <BS.OverlayTrigger
