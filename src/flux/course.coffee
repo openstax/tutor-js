@@ -5,6 +5,8 @@ _ = require 'underscore'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 PeriodHelper = require '../helpers/period'
 
+DEFAULT_TIME_ZONE = 'Central Time (US & Canada)'
+
 CourseConfig =
 
   _practices: {}
@@ -108,7 +110,7 @@ CourseConfig =
       sortedPeriods = PeriodHelper.sort(periods)
 
     getTimezone: (courseId) ->
-      @_get(courseId)?.time_zone
+      @_get(courseId)?.time_zone or DEFAULT_TIME_ZONE
 
     getDefaultTimes: (courseId, periodId) ->
       course = @_get(courseId)

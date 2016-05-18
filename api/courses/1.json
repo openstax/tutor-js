@@ -28,7 +28,7 @@
       "id": "8",
       "name" : "10th"
   }],
-  "timezone": "",
+  "time_zone": "Central Time (US & Canada)",
   "default_due_time": "",
   "default_open_time": ""
 }
