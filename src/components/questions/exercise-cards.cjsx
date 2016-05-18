@@ -18,7 +18,7 @@ SectionsExercises = React.createClass
   propTypes:
     exercises:   React.PropTypes.array.isRequired
     chapter_section: React.PropTypes.string.isRequired
-    onDetailsClick: React.PropTypes.func.isRequired
+    onShowDetailsViewClick: React.PropTypes.func.isRequired
     onExerciseToggle: React.PropTypes.func.isRequired
 
   renderMinimumExclusionWarning: ->
@@ -39,7 +39,7 @@ SectionsExercises = React.createClass
     actions = exerciseActionsBuilder(exercise, @props.onExerciseToggle, {
       details:
         message: 'Question details'
-        handler: @props.onDetailsClick
+        handler: @props.onShowDetailsViewClick
     })
 
     <ExercisePreview
@@ -70,7 +70,8 @@ ExerciseCards = React.createClass
 
   propTypes:
     exercises:  React.PropTypes.object.isRequired
-    onDetailsClick: React.PropTypes.func.isRequired
+    onShowDetailsViewClick: React.PropTypes.func.isRequired
+    onShowCardViewClick: React.PropTypes.func.isRequired
     scrollFast: React.PropTypes.bool
     onExerciseToggle: React.PropTypes.func.isRequired
 
@@ -79,7 +80,7 @@ ExerciseCards = React.createClass
   componentDidMount:   ->
     @scrollToSelector('.exercise-sections', {immediate: @props.scrollFast})
 
-  getScrollTopOffset: -> 140
+  getScrollTopOffset: -> if @props.scrollFast then 110 else 150 # no idea why the difference, sorry :(
 
   render: ->
     chapter_sections = _.keys(@props.exercises.grouped).sort()

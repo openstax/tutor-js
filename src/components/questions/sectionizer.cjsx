@@ -1,6 +1,7 @@
 React = require 'react'
 cn = require 'classnames'
 ScrollTo = require '../scroll-to-mixin'
+classnames = require 'classnames'
 
 Sectionizer = React.createClass
 
@@ -50,15 +51,15 @@ Sectionizer = React.createClass
     <div className="sectionizer">
       <div
         className={cn('prev', disabled: 0 is @scrollIndex())}
-        onClick={@goBack}>❮</div>
+        onClick={@goBack}>❮❮</div>
       {for cs in @props.chapter_sections.sort()
         <div key={cs}
           onClick={_.partial(@selectSection, cs)}
-          className={'active' if cs is @currentSection()}
+          className={classnames('section', {active: cs is @currentSection()})}
         >{cs}</div>}
       <div className="next"
         className={cn('next', disabled: @props.chapter_sections.length - 1 is @scrollIndex())}
-        onClick={@goNext}>❯</div>
+        onClick={@goNext}>❯❯</div>
     </div>
 
 

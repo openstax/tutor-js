@@ -19,6 +19,7 @@ ExerciseDetails = React.createClass
     exercises: React.PropTypes.object.isRequired
     onSectionChange: React.PropTypes.func.isRequired
     onExerciseToggle: React.PropTypes.func.isRequired
+    onShowCardViewClick: React.PropTypes.func.isRequired
 
   mixins: [ScrollTo]
   scrollingTargetDOM: -> document

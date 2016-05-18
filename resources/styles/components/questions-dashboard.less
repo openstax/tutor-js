@@ -38,6 +38,10 @@
       top: -0.5rem;
     }
   }
+
+  .exercises-list {
+    pinned-header { z-index: 3; } // above exercise hover mask of 2
+  }
   &.is-showing-details {
     // hide top elements in details view to prevent scrolling up to them
     // .sections-chooser { display: none; }
@@ -76,44 +80,76 @@
     text-align: center;
     #fonts >.sans(3rem, 200px);
   }
+
   .questions-controls {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 @padding;
-    .sectionizer > * {
-      cursor: pointer;
-      display: inline-block;
-      margin: 5px;
-      padding: 5px;
-      &.active {
-        border: 1px solid @tutor-neutral;
-      }
-      &.disabled {
-        cursor: default;
-        color: @tutor-neutral-light;
+    .sectionizer {
+      flex: 1;
+      text-align: center;
+      div {
+        cursor: pointer;
+        display: inline-block;
+        font-size: 12px;
+        width: 40px;
+        line-height: 40px;
+
+        &.section {
+          border: 1px solid @tutor-neutral-light;
+          &+.section {
+            border-left: 0;
+          }
+        }
+        &.active {
+          background-color: @tutor-neutral-light;
+        }
+        &.disabled {
+          cursor: default;
+          color: @tutor-neutral-light;
+        }
       }
     }
     .btn-group {
       box-shadow: none;
       button:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
-        border: 0 !important;
+
+        font-size: 12px;
         background-size: @icon-size-lg @icon-size-lg;
         background-repeat: no-repeat;
-        background-position: 10px;
-        padding-left: 50px;
-        height: 50px;
         border-radius: 0;
         box-shadow: none !important;
-        background-color: @tutor-neutral-light;
+        border: 1px solid @tutor-neutral;
+        height: 40px;
+        .tutor-icon {
+          margin: 0;
+        }
+        // &+button {
+        //   border-left: 0;
+        // }
+//        background-color: @tutor-neutral-light;
         margin-right: 0;
         &.active {
-          color: @tutor-white !important; // needed to override material styles
-          background-color: @tutor-tertiary-light;
+//          color:  !important; // needed to override material styles
+          background-color: @tutor-neutral-light;
         }
-        &.reading {.x-icon-bg(reading); }
-        &.homework { .x-icon-bg(homework); }
+
+
       }
+
+      &.filters {
+        button {
+          width: 90px;
+        }
+      }
+      &.display-types {
+        margin-left: 10px;
+        button {
+          width: 40px;
+        }
+      }
+
     }
     .save-cancel {
       width: 200px;

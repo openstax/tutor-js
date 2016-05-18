@@ -18,7 +18,8 @@ ExercisesDisplay = React.createClass
     sectionIds:      React.PropTypes.array
 
   getInitialState: -> {
-    filter: 'reading'
+    filter: ''
+    currentView: 'cards'
     showingCardsFromDetailsView: false
   }
   componentWillMount:   -> ExerciseStore.on('change',  @update)
@@ -46,8 +47,11 @@ ExercisesDisplay = React.createClass
     <ExerciseControls
       filter={@state.filter}
       courseId={@props.courseId}
+      currentView={@state.currentView}
       onFilterChange={@onFilterChange}
       onSectionSelect={@scrollToSection}
+      onShowCardViewClick={@onShowCardViewClick}
+      onShowDetailsViewClick={@onShowDetailsViewClick}
       exercises={exercises}
     >
       <ScrollSpy dataSelector='data-section' >
@@ -63,9 +67,11 @@ ExercisesDisplay = React.createClass
   setCurrentSection: (currentSection) ->
     @setState({currentSection})
 
-  onDetailsViewClick: (ev, exercise) ->
+  onShowDetailsViewClick: (ev, exercise) ->
+    exercise ||= _.first ExerciseStore.get(@props.sectionIds)
     @setState(
       selectedExercise: exercise,
+      currentView: 'details'
       currentSection: ExerciseStore.getChapterSectionOfExercise(exercise)
     )
     @props.onShowDetailsViewClick(ev, exercise)
@@ -74,7 +80,7 @@ ExercisesDisplay = React.createClass
     # The pinned header doesn't notice when the elements above it are unhidden
     # and will never unstick by itself.
     @refs.controls.unPin()
-    @setState({showingCardsFromDetailsView: true})
+    @setState({currentView: 'cards', showingCardsFromDetailsView: true})
     @props.onShowCardViewClick(ev, exercise)
 
   onExerciseToggle: (ev, exercise) ->
@@ -113,7 +119,7 @@ ExercisesDisplay = React.createClass
         scrollFast={@state.showingCardsFromDetailsView}
         onExerciseToggle={@onExerciseToggle}
         exercises={exercises}
-        onDetailsClick={@onDetailsViewClick} />
+        onShowDetailsViewClick={@onShowDetailsViewClick} />
 
   render: ->
     return null if ExerciseStore.isLoading() or _.isEmpty(@props.sectionIds)
@@ -125,7 +131,7 @@ ExercisesDisplay = React.createClass
     else
       @renderEmpty()
 
-    <div className="exercises-list">
+    <div className="exercises-display">
       <div className="instructions">
         <div className="wrapper">
           Click each question that you would like to exclude from
