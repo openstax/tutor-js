@@ -148,6 +148,10 @@ module.exports = React.createClass
         <span className="average #{getAverageCellWidth}">
           {(classAverage * 100).toFixed(0)}%
         </span>
+    else
+      if heading.type is 'homework'
+        average =
+          <span className="average">---</span>
 
     if heading.type is 'reading' or heading.type is 'external'
       label =
