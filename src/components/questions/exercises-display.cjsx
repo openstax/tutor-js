@@ -64,7 +64,10 @@ ExercisesDisplay = React.createClass
     @setState({currentSection})
 
   onDetailsViewClick: (ev, exercise) ->
-    @setState(selectedExercise: exercise)
+    @setState(
+      selectedExercise: exercise,
+      currentSection: ExerciseStore.getChapterSectionOfExercise(exercise)
+    )
     @props.onShowDetailsViewClick(ev, exercise)
 
   onShowCardViewClick: (ev, exercise) ->
