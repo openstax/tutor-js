@@ -120,7 +120,7 @@ SetTimezone = React.createClass
     @setState({showModal: true})
 
   validate: (timezone) ->
-    error = CourseStore.validateCourseTimezone(timezone, @props.course.timezone)
+    error = ['review'] unless TimeHelper.isTimezoneValid(timezone)
     @setState({invalid: error?})
     error
 

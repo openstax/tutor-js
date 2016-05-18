@@ -86,6 +86,9 @@ TimeHelper =
   getTimezones: ->
     _.clone(TIME_LINKS)
 
+  isTimezoneValid: (timezone) ->
+    timezone in _.values(TimeHelper.getTimezones())
+
   isCourseTimezone: (courseId) ->
     courseTimezone = CourseStore.getTimezone(courseId)
     {offsets} = moment()._z or moment.tz(TimeHelper.getLocalTimezone())._z
