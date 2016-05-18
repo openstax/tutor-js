@@ -44,7 +44,7 @@ ConceptCoachCell = React.createClass
         </div>
       </BS.Popover>
 
-    completed = not task.completed_exercise_count is task.exercise_count
+    completed = task.completed_exercise_count is task.exercise_count
 
     score =
       if displayAs is 'number'
