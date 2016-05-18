@@ -71,8 +71,15 @@ TaskingDateTime = React.createClass
     dateProps.label = "#{@props.label} Date"
 
     if not isTimeDefault and @canSetAsDefaultTime()
+      setAsDefaultExplanation = <BS.Popover>
+        {@props.label} times for assignments created from now on will have this time set as the default.
+      </BS.Popover>
+
       setAsDefault = <a className='tasking-time-default' onClick=@setDefaultTime>
-        Set as default <i className="fa fa-info-circle"></i>
+        Set as default
+        <BS.OverlayTrigger placement='top' overlay={setAsDefaultExplanation}>
+          <i className="fa fa-info-circle"></i>
+        </BS.OverlayTrigger>
       </a>
 
     <BS.Col xs=12 md=6>
