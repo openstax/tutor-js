@@ -123,9 +123,20 @@
   }
 
   .exercise-details {
-    min-height: calc(~"100vh - 150px");
+    min-height: calc(~"100vh - 200px");
     position: relative;
-
+    display: flex;
+    flex-direction: column;
+    .content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    .center {
+      display: flex;
+      height: 100%;
+      justify-content: center;
+    }
     .controls {
       display: flex;
       justify-content: flex-end;
@@ -135,7 +146,7 @@
     }
     .exercise-card {
       width: 800px;
-      .toggle-mask {
+      .controls-overlay {
         display: none;
       }
     }
@@ -206,7 +217,7 @@
   .questions-dashboard {
     .exercise-details {
       .exercise-card {
-        .toggle-mask     { display: flex; }
+        .controls-overlay { display: flex; }
       }
       .page-navigation { display: flex; }
     }

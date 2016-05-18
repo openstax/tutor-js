@@ -22,7 +22,7 @@ ExerciseDetails = React.createClass
 
   mixins: [ScrollTo]
   scrollingTargetDOM: -> document
-  getScrollTopOffset: -> 80
+  getScrollTopOffset: -> 40
 
   getInitialState: -> {}
 
@@ -121,29 +121,31 @@ ExerciseDetails = React.createClass
 
     <div className="exercise-details">
 
-      {<div className="page-navigation prev" onClick={@onPrev}>
-        <div className='triangle' />
-      </div> if moves.prev}
-
       <div className="controls">
         <a className="show-cards" onClick={@props.onShowCardViewClick}>
           <Icon type="th" /> Back to Card View
         </a>
       </div>
 
-      <ExercisePreview
-        className='exercise-card'
-        isVerticallyTruncated={false}
-        isSelected={false}
-        displayFeedback={@state.displayFeedback}
-        exercise={exercise}
-        actionsOnSide={true}
-        overlayActions={actions}
-      />
+      <div className="content">
 
+        {<div className="page-navigation prev" onClick={@onPrev}>
+          <div className='triangle' />
+         </div> if moves.prev}
+
+        <ExercisePreview
+          className='exercise-card'
+          isVerticallyTruncated={false}
+          isSelected={isExcluded}
+          displayFeedback={@state.displayFeedback}
+          exercise={exercise}
+          actionsOnSide={true}
+          overlayActions={actions}
+        />
+      </div>
       {<div className="page-navigation next" onClick={@onNext}>
         <div className='triangle' />
-      </div> if moves.next}
+       </div> if moves.next}
 
     </div>
 
