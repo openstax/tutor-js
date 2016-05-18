@@ -11,6 +11,7 @@ module.exports = {
   Exercise:               require './src/components/exercise'
   ExerciseGroup:          require './src/components/exercise/group'
   ExerciseIdentifierLink: require './src/components/exercise/identifier-link'
+  ExerciseTroubleUrl:     require './src/model/exercise-trouble-url'
   ExercisePreview:        require './src/components/exercise/preview'
   FreeResponse:           require './src/components/exercise/free-response'
   GetPositionMixin:       require './src/components/get-position-mixin'
