@@ -60,10 +60,10 @@ ExercisePreview = React.createClass
     </div>
 
 
-  renderOverlay: ->
+  renderControlsOverlay: ->
     <div
       onClick={@onOverlayClick if @props.onOverlayClick}
-      className={classnames('toggle-mask', {active: @props.isSelected})}
+      className={classnames('controls-overlay', {active: @props.isSelected})}
     >
       <div className='message'>
         {for type, action of @props.overlayActions
@@ -76,6 +76,10 @@ ExercisePreview = React.createClass
       </div>
     </div>
 
+  renderSelectedMask: ->
+    <div className='selected-mask'></div>
+
+
   render: ->
     content = @props.exercise.content
     question = content.questions[0]
@@ -86,7 +90,7 @@ ExercisePreview = React.createClass
     renderedTags = _.map(_.sortBy(tags, 'name'), @renderTag)
     classes = classnames( 'openstax-exercise-preview', @props.className, {
       'answers-hidden':  @props.hideAnswers
-      'is-selectable':   not _.isEmpty(@props.overlayActions)
+      'has-actions':   not _.isEmpty(@props.overlayActions)
       'is-selected':     @props.isSelected
       'actions-on-side': @props.actionsOnSide
       'is-vertically-truncated': @props.isVerticallyTruncated
@@ -116,7 +120,8 @@ ExercisePreview = React.createClass
       header={@props.header}
       footer={@renderFooter() if @props.children}
     >
-      {@renderOverlay() unless _.isEmpty(@props.overlayActions)}
+      {@renderSelectedMask() if @props.isSelected}
+      {@renderControlsOverlay() unless _.isEmpty(@props.overlayActions)}
       <ArbitraryHtmlAndMath className='-stimulus' block={true} html={content.stimulus_html} />
       {questions}
       <div className='exercise-tags' key='tags'>{renderedTags}</div>
