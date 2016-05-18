@@ -19,7 +19,7 @@ ExerciseDetails = React.createClass
 
   mixins: [ScrollTo]
   scrollingTargetDOM: -> document
-  getScrollTopOffset: -> 60
+  getScrollTopOffset: -> 80
 
   getInitialState: -> {}
 
@@ -30,16 +30,17 @@ ExerciseDetails = React.createClass
     keymaster.deleteScope(KEYBINDING_SCOPE)
 
   componentWillMount: ->
-    keymaster('left',  KEYBINDING_SCOPE, @onPrev)
-    keymaster('right', KEYBINDING_SCOPE, @onNext)
+    keymaster('left',  KEYBINDING_SCOPE, @keyOnPrev)
+    keymaster('right', KEYBINDING_SCOPE, @keyOnNext)
     keymaster.setScope(KEYBINDING_SCOPE)
 
+    {selectedExercise} = @props
     exercises = @flattenExercises(@props)
     currentIndex = currentSection = 0
     for exercise, index in exercises
       if selectedExercise?.id is exercise.id
         currentIndex = index
-        currentSection = section
+        currentSection = exercise.section
         break
     @setState({exercises, currentIndex, currentSection})
 
@@ -64,8 +65,23 @@ ExerciseDetails = React.createClass
         exercises.push _.extend({}, exercise, section: section)
     return exercises
 
-  onPrev: -> @moveTo(@state.currentIndex - 1) if @getValidMovements().prev
-  onNext: -> @moveTo(@state.currentIndex + 1) if @getValidMovements().next
+  toggleNavHighlight: (type) ->
+    nav = @getDOMNode().querySelector(".page-navigation.#{type}")
+    nav.classList.add('active')
+    _.delay ->
+      nav.classList.remove('active')
+    , 300
+
+  keyOnPrev: ->
+    return unless @getValidMovements().prev
+    @toggleNavHighlight('prev')
+    @onPrev()
+  keyOnNext: ->
+    return unless @getValidMovements().next
+    @toggleNavHighlight('next')
+    @onNext()
+  onPrev: -> @moveTo(@state.currentIndex - 1)
+  onNext: -> @moveTo(@state.currentIndex + 1)
 
   moveTo: (index) ->
     exercise = @state.exercises[index]
@@ -82,7 +98,6 @@ ExerciseDetails = React.createClass
 
   render: ->
     exercise = @state.exercises[@state.currentIndex]
-
     moves = @getValidMovements()
 
     <div className="exercise-details">

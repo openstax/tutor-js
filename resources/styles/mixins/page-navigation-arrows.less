@@ -10,7 +10,7 @@
   .transition(background-color 150ms linear);
   .transition(width 150ms linear);
 
-  &:hover {
+  &.active, &:hover {
     background-color: @tutor-neutral-light;
   }
 
@@ -45,7 +45,7 @@
       margin-left: -@triangle-max-side;
       border-left:   @triangle-max-side solid @tutor-neutral-light;
     }
-    &:hover {
+    &.active, &:hover {
       .triangle:after { border-left: @triangle-max-side solid @tutor-neutral-lighter; }
     }
     .printer-safe(none);
@@ -58,7 +58,7 @@
     .triangle:after {
       border-right: @triangle-max-side solid @tutor-neutral-light;
     }
-    &:hover {
+    &.active, &:hover {
       .triangle:after { border-right: @triangle-max-side solid @tutor-neutral-lighter; }
     }
     .printer-safe(none);
