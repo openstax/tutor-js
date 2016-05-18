@@ -2,7 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 
 {PinnedHeaderFooterCard} = require 'openstax-react-components'
-{ExerciseStore} = require '../../flux/exercise'
+{ExerciseStore, ExerciseActions} = require '../../flux/exercise'
 Icon = require '../icon'
 ExerciseControls = require './exercise-controls'
 ExerciseDetails  = require './exercise-details'
@@ -79,7 +79,7 @@ ExercisesDisplay = React.createClass
 
   onExerciseToggle: (ev, exercise) ->
     isSelected = not ExerciseStore.isExerciseExcluded(exercise.id)
-    if isSelected and ExerciseStore.isExcludedAtMinimum(@props.exercises)
+    if isSelected and ExerciseStore.isExcludedAtMinimum(ExerciseStore.get(@props.sectionIds))
       Dialog.show(
         className: 'question-library-min-exercise-exclusions'
         title: '', body: @renderMinimumExclusionWarning()
@@ -96,6 +96,7 @@ ExercisesDisplay = React.createClass
       )
     else
       ExerciseActions.setExerciseExclusion(exercise.id, isSelected)
+    @forceUpdate()
 
   renderQuestions: (exercises) ->
     if @props.showingDetails

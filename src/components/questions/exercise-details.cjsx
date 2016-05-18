@@ -52,8 +52,8 @@ ExerciseDetails = React.createClass
     {selectedSection} = nextProps
     nextState = {exercises}
     if selectedSection and selectedSection isnt @state.currentSection
-      section = ExerciseStore.getChapterSectionOfExercise(exercise)
       for exercise, index in exercises
+        section = ExerciseStore.getChapterSectionOfExercise(exercise)
         if selectedSection is section
           nextState.currentSection = selectedSection
           nextState.currentIndex = index
