@@ -1,5 +1,6 @@
 React = require 'react'
 _ = require 'underscore'
+Exercise = require 'model/exercise'
 
 ExerciseBadges = React.createClass
 
@@ -7,14 +8,14 @@ ExerciseBadges = React.createClass
     isInteractive:   React.PropTypes.bool
     exercise: React.PropTypes.object.isRequired
 
-  getStimulus: ->
-    @props.exercise.content?.stimulus_html or ''
+  # getStimulus: ->
+  #   @props.exercise.content?.stimulus_html or ''
 
-  hasInteractive: ->
-    !!@getStimulus().match(/iframe.*(cnx.org|phet.colorado.edu)/)
+  # hasInteractive: ->
+  #   !!@getStimulus().match(/iframe.*(cnx.org|phet.colorado.edu)/)
 
-  hasVideo: ->
-    !!@getStimulus().match(/(youtube.com\/(v|embed)\/|khanacademy.org)/)
+  # hasVideo: ->
+  #   !!@getStimulus().match(/(youtube.com\/(v|embed)\/|khanacademy.org)/)
 
   render: ->
     badges = []
@@ -23,12 +24,12 @@ ExerciseBadges = React.createClass
           <i className='fa fa-pie-chart' /> Multi-part question
         </span>
 
-    if @hasInteractive()
+    if Exercise.hasInteractive(@props.exercise)
       badges.push <span key='interactive' className="interactive">
           <i className='fa fa-object-group' /> Interactive
         </span>
 
-    if @hasVideo()
+    if Exercise.hasVideo(@props.exercise)
       badges.push <span key='video' className="video">
           <i className='fa fa-television' /> Video
         </span>

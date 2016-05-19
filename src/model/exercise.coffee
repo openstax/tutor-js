@@ -8,9 +8,9 @@ BOOK_UID_XREF =
   'd2fbadca-e4f3-4432-a074-2438c216b62a': 'Principles of Economics with Concept Coach'
   '99e127f8-f722-4907-a6b3-2d62fca135d6': 'Anatomy & Physiology with Concept Coach'
 
-ExerciseTroubleUrl =
+Exercises =
 
-  generate: (options = {}) ->
+  troubleUrl: (options = {}) ->
     url = 'https://docs.google.com/a/rice.edu/forms/d/' +
     '1AmwbFIRvZJ6F91PQp1I6jQgqM9Kc3qNMrHdLdqhj8FE/viewform' +
     "?entry.649352110=#{options.exerciseId}"
@@ -21,4 +21,14 @@ ExerciseTroubleUrl =
     url
 
 
-module.exports = ExerciseTroubleUrl
+  getStimulus: (exercise) ->
+    exercise.content?.stimulus_html or ''
+
+  hasInteractive: (exercise) ->
+    !!@getStimulus(exercise).match(/iframe.*(cnx.org|phet.colorado.edu)/)
+
+  hasVideo: (exercise) ->
+    !!@getStimulus(exercise).match(/(youtube.com\/(v|embed)\/|khanacademy.org)/)
+
+
+module.exports = Exercises

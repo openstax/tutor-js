@@ -10,6 +10,7 @@ VideoPlaceholder = require './video-placeholder'
 InteractivePlaceholder = require './interactive-placeholder'
 Badges = require './preview/badges'
 ControlsOverlay = require './preview/controls-overlay'
+Exercise = require 'model/exercise'
 
 ExercisePreview = React.createClass
 
@@ -59,14 +60,11 @@ ExercisePreview = React.createClass
       {@props.children}
     </div>
 
-
-
-
   renderPlaceholders: ->
     return null if @props.isInteractive isnt false
     placeholders = []
-    placeholders.push(<VideoPlaceholder key='video'/>) if @hasVideo()
-    placeholders.push(<InteractivePlaceholder key='interactive'/>) if @hasInteractive()
+    placeholders.push(<VideoPlaceholder key='video'/>) if Exercise.hasVideo(@props.exercise)
+    placeholders.push(<InteractivePlaceholder key='interactive'/>) if Exercise.hasInteractive(@props.exercise)
     if placeholders.length
       <div className="placeholders">{placeholders}</div>
     else

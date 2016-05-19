@@ -58,7 +58,6 @@ describe 'Exercise Preview Component', ->
       Testing.actions.click( dom.querySelector('.controls-overlay') )
       expect(onSelect).to.have.been.called
       expect(actions.include.handler).not.to.have.been.called
-      console.log action = dom.querySelector('.controls-overlay')
       action = dom.querySelector('.controls-overlay .action.include')
       expect(action).to.exist
       Testing.actions.click(action)
