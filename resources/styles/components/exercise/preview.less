@@ -10,7 +10,9 @@
     font-size: @size;
     line-height: @line-height;
   }
-
+  iframe {
+    width: 100%;
+  }
   img {
     max-width: 100%;
     display: block;
@@ -192,7 +194,15 @@
 
   .panel-body {
     position: relative;
-
+    .badges {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      color: @openstax-neutral;
+      span {
+        & + span { margin-left: 8px; }
+      }
+    }
     // used by formats and tags
     .metadata-styles() {
       color: @openstax-neutral;
@@ -305,8 +315,12 @@
         content: '';
       }
     }
+    .exercise-uid {
+      font-size: 11px;
+      line-height: 11px;
+      color: @openstax-neutral-medium;
+    }
   }
-
 
   &.is-displaying-feedback {
     .panel-body .answers-table .question-feedback-content { display: table; }

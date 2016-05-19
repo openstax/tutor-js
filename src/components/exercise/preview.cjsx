@@ -76,13 +76,39 @@ ExercisePreview = React.createClass
       </div>
     </div>
 
+  stimulusHtml: ->
+    @props.exercise.content.stimulus_html
+
+  isInteractive: ->
+    !!@stimulusHtml().match(/iframe.*[cnx.org|phet.colorado.edu]/)
+
+  isVideo: ->
+    !!@stimulusHtml().match(/[youtube|khanacademy]/)
+
+  renderBadges: ->
+    badges = []
+    if @props.exercise.content.questions.length > 1
+      badges.push <span className="mpq">
+          <i className='fa fa-pie-chart' /> Multi-part question
+        </span>
+
+    if @isInteractive()
+      badges.push <span className="interactive">
+          <i className='fa fa-object-group' /> Interactive
+        </span>
+
+    if @isVideo()
+      badges.push <span className="video">
+          <i className='fa fa-television' /> Video
+        </span>
+
+    badges
+
   renderSelectedMask: ->
     <div className='selected-mask'></div>
 
-
   render: ->
     content = @props.exercise.content
-    question = content.questions[0]
 
     tags = _.clone @props.exercise.tags
     unless @props.displayAllTags
@@ -92,6 +118,7 @@ ExercisePreview = React.createClass
       'answers-hidden':  @props.hideAnswers
       'has-actions':   not _.isEmpty(@props.overlayActions)
       'is-selected':     @props.isSelected
+      'is-interactive':  @isInteractive()
       'actions-on-side': @props.actionsOnSide
       'is-vertically-truncated': @props.isVerticallyTruncated
       'is-displaying-formats':   @props.displayFormats
@@ -122,9 +149,13 @@ ExercisePreview = React.createClass
     >
       {@renderSelectedMask() if @props.isSelected}
       {@renderControlsOverlay() unless _.isEmpty(@props.overlayActions)}
-      <ArbitraryHtmlAndMath className='-stimulus' block={true} html={content.stimulus_html} />
+      <div className="badges">
+        {@renderBadges()}
+      </div>
+      <ArbitraryHtmlAndMath className='stimulus' block={true} html={content.stimulus_html} />
       {questions}
-      <div className='exercise-tags' key='tags'>{renderedTags}</div>
+      <div className='exercise-uid'>Exercise ID: {@props.exercise.content.uid}</div>
+      <div className='exercise-tags'>{renderedTags}</div>
     </BS.Panel>
 
 module.exports = ExercisePreview
