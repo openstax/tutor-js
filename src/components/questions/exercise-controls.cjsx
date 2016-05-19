@@ -70,7 +70,7 @@ QuestionsControls = React.createClass
     sections = @getSections()
 
     selected = @props.selectedSection or _.first(sections)
-    console.log @props
+
     <div className="questions-controls">
       <BS.ButtonGroup className="filters">
 
@@ -97,7 +97,7 @@ QuestionsControls = React.createClass
         <BS.Button onClick={@props.onShowCardViewClick}
           className={if @props.currentView is 'cards' then 'cards active' else 'cards'}
         >
-          <Icon type="th" />
+          <Icon type="th-large" />
         </BS.Button>
 
         <BS.Button onClick={@props.onShowDetailsViewClick}

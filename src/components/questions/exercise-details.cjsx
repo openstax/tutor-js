@@ -124,7 +124,7 @@ ExerciseDetails = React.createClass
 
       <div className="controls">
         <a className="show-cards" onClick={@props.onShowCardViewClick}>
-          <Icon type="th" /> Back to Card View
+          <Icon type="th-large" /> Back to Card View
         </a>
       </div>
 

@@ -22,7 +22,6 @@
     }
   }
 
-
   .instructions {
     background-color: @tutor-secondary;
     color: @tutor-white;
@@ -42,7 +41,9 @@
   .exercises-list {
     pinned-header { z-index: 3; } // above exercise hover mask of 2
   }
+
   &.is-showing-details {
+
     .exercise-card.is-selected {
       .selected-mask { opacity: 0.4; } // bump up a bit to stand out from background
     }
@@ -217,6 +218,13 @@
       break-inside: avoid;
       display: inline-block;
       width: 100%;
+
+      .stimulus {
+        iframe { display: none; }
+        &:after {
+
+        }
+      }
     }
 
   }
