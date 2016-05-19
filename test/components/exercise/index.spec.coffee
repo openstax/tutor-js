@@ -1,6 +1,6 @@
 {Testing, expect, sinon, _, ReactTestUtils} = require 'test/helpers'
 
-Exercise = require 'components/exercise'
+{Exercise} = require 'components/exercise'
 STEP = require './step-data'
 CHOICES = STEP.content.questions[0].answers
 
