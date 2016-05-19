@@ -1,7 +1,5 @@
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {JobListenerConfig} = require '../helpers/job'
-_ = require 'underscore'
-moment = require 'moment'
 
 getIds = (obj) ->
   {publish_job, id} = obj

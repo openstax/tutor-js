@@ -131,9 +131,10 @@ TutorDateInput = React.createClass
     if (not valid)
       value = moment(@props.min) or null
 
-    date = value.format(TutorDateFormat)
-    @props.onChange(date)
-    @setState({expandCalendar: false, valid: valid, value: date})
+    value = TimeHelper.getZonedMoment(value)
+
+    @props.onChange(value)
+    @setState({expandCalendar: false, valid, value})
 
   getValue: ->
     @props.value or @state.value
@@ -160,7 +161,8 @@ TutorDateInput = React.createClass
 
     now = TimeStore.getNow()
     value = @props.value
-    value = if value and value.getTime and not isNaN(value.getTime())
+
+    value = if value
       TimeHelper.getMomentPreserveDate(value)
     else
       null
@@ -171,7 +173,6 @@ TutorDateInput = React.createClass
 
     if not @props.disabled
       dateElem = <DatePicker
-          moment={moment}
           minDate={min}
           maxDate={max}
           onFocus={@expandCalendar}
@@ -183,7 +184,7 @@ TutorDateInput = React.createClass
           onChange={@dateSelected}
           disabled={@props.disabled}
           selected={value}
-          weekStart={@props.currentLocale.week.dow}
+          weekStart={"#{@props.currentLocale.week.dow}"}
         />
     else if isDatePickerDisabled
       displayValue = value.format(TutorDateFormat)

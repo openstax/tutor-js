@@ -72,10 +72,10 @@ CourseDuration = React.createClass
         moment(plan.published_at).valueOf()
       )
       .sortBy((plan) ->
-        plan.duration.end.valueOf()
+        plan.duration.end().valueOf()
       )
       .sortBy((plan) ->
-        plan.duration.start.valueOf()
+        plan.duration.start().valueOf()
       )
       .value()
 
@@ -151,7 +151,7 @@ CourseDuration = React.createClass
     openDates = _.pluck(plan.tasking_plans, 'opens_at')
     rangeDates = _.union(openDates)
     openRange = @_getDurationFromMoments(rangeDates)
-    openRange.start
+    openRange.start()
 
   # For displaying ranges for units in the future
   setDurationRange: (plan) ->
@@ -170,11 +170,11 @@ CourseDuration = React.createClass
     {referenceDate} = @props
     openRange = @_getDurationRange(plan)
 
-    plan.isOpen = openRange.start.isBefore(referenceDate)
+    plan.isOpen = openRange.start().isBefore(referenceDate)
     plan.isPublished = (plan.published_at? and plan.published_at)
     plan.isPublishing = @isPlanPublishing(plan)
     plan.isTrouble = plan.is_trouble
-    plan.isEditable = plan.duration.start.isAfter(referenceDate)
+    plan.isEditable = plan.duration.start().isAfter(referenceDate)
 
   # TODO see how to pull out plan specific logic to show that this
   # can be reused for units, for example
@@ -233,11 +233,11 @@ CourseDuration = React.createClass
 
           planForRange =
             rangeDuration: plan.duration.intersection(range)
-            offset: moment(range.start).twix(plan.duration.start).length('days')
+            offset: range.start().twix(plan.duration.start()).length('days')
             plan: simplePlans[plan.id]
             index: counter[plan.id]
 
-          planForRange.offsetFromPlanStart = planForRange.rangeDuration.start.diff(plan.duration.start, 'days')
+          planForRange.offsetFromPlanStart = planForRange.rangeDuration.start().diff(plan.duration.start(), 'days')
 
           # Add plan to plans in range
           rangeData.plansInRange.push(planForRange)

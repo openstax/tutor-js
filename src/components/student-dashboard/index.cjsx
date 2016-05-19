@@ -1,9 +1,7 @@
 React = require 'react'
-BS = require 'react-bootstrap'
-_ = require 'underscore'
+
 {StudentDashboardStore, StudentDashboardActions} = require '../../flux/student-dashboard'
 LoadableItem = require '../loadable-item'
-moment = require 'moment'
 isStepComplete = (step) -> step.is_completed
 StudentDashboard = require './dashboard'
 

@@ -1,39 +1,35 @@
 moment = require 'moment-timezone'
+require 'moment-timezone/moment-timezone-utils'
 _ = require 'underscore'
 
 {TimeStore} = require '../flux/time'
 {CourseStore} = require '../flux/course'
 
-# Using tzdetect until https://github.com/moment/moment-timezone/issues/138
-# gets straightened out.
-#
-# A small public domain library detecting the user's timezone using moment.js
-# Repository : https://github.com/Canop/tzdetect.js
-# Usage :
-#   tzdetect.matches()     : array of all timezones matching the user's one
-#   tzdetect.matches(base) : array of all timezones matching the supplied one
-tzdetect =
-  names: moment.tz.names()
-  matches: (base) ->
-    results = []
-    now = Date.now()
 
-    makekey = (id) ->
-      [0, 4, 8, -5 * 12, 4 - 5 * 12, 8 - 5 * 12, 4 - 2 * 12, 8 - 2 * 12].map((months) ->
-        m = moment(now + months * 30 * 24 * 60 * 60 * 1000)
-        m.tz(id) if id
-        m.format('DDHHmm')
-      ).join(' ')
-
-    lockey = makekey(base)
-
-    tzdetect.names.forEach (id) ->
-      results.push(id) if makekey(id) is lockey
-
-    return results
-
+# Map http://www.iana.org/time-zones names to timezone names in Rails
+# https://github.com/openstax/tutor-server/pull/1057#issuecomment-212678167
+TIME_LINKS =
+  'US/Hawaii': 'Hawaii'
+  'US/Alaska': 'Alaska'
+  'US/Pacific': 'Pacific Time (US & Canada)'
+  'US/Arizona': 'Arizona'
+  'US/Mountain': 'Mountain Time (US & Canada)'
+  'US/Central': 'Central Time (US & Canada)'
+  'US/Eastern': 'Eastern Time (US & Canada)'
+  'US/East-Indiana': 'Indiana (East)'
+  'Canada/Atlantic': 'Atlantic Time (Canada)'
 
 TimeHelper =
+
+  linkZoneNames: ->
+    # uses moment-timezone-utils to alias loaded timezone data to timezone names in Rails
+    ALIAS_TIMEZONE_DATA = _.map TIME_LINKS, (alternativeZoneName, loadedZoneName) ->
+      loadedUnpackedObject = _.pick moment.tz.zone(loadedZoneName), 'abbrs', 'offsets', 'untils'
+      loadedUnpackedObject.name = alternativeZoneName
+
+      moment.tz.pack(loadedUnpackedObject)
+
+    moment.tz.add(ALIAS_TIMEZONE_DATA)
 
   PropTypes:
     moment: (props, propName, componentName) ->
@@ -50,24 +46,36 @@ TimeHelper =
   syncCourseTimezone: (courseId) ->
     return if @isCourseTimezone(courseId)
     courseTimezone = CourseStore.getTimezone(courseId)
-    @_local ?= _.first(@getLocalTimezone())
-    zonedMoment = moment.fn.tz(courseTimezone)
+    @_local ?= @getLocalTimezone()
+    zonedMoment = moment.tz.setDefault(courseTimezone)
     zonedMoment
 
   unsyncCourseTimezone: ->
     return unless @_local?
-    unzonedMoment = moment.fn.tz(@_local)
+    unzonedMoment = moment.tz.setDefault(@_local)
     @unsetLocal()
     unzonedMoment
 
+  makeMoment: (value, args...) ->
+    if moment.isMoment(value)
+      if value instanceof moment
+        value.clone()
+      else
+        moment(value._d, args...)
+    else
+      moment(value, args...)
+
   getLocalTimezone: ->
-    tzdetect.matches()
+    moment.tz.guess()
 
   getMomentPreserveDate: (value, args...) ->
-    if @_local
-      return moment(value, args...).tz(@_local).hour(12)
+    preserve = TimeHelper.makeMoment(value, args...)
+    preserve.hour(12).locale(moment.locale())
 
-    moment(value, args...).hour(12)
+  getZonedMoment: (value, args...) ->
+    preserve = TimeHelper.makeMoment(value, args...)
+    preserve.tz(@_local) if @_local
+    preserve.hour(12).locale(moment.locale())
 
   getLocal: ->
     @_local
@@ -77,6 +85,14 @@ TimeHelper =
 
   isCourseTimezone: (courseId) ->
     courseTimezone = CourseStore.getTimezone(courseId)
-    TimeHelper.getLocalTimezone().indexOf(courseTimezone) > -1
+    {offsets} = moment()._z or moment.tz(TimeHelper.getLocalTimezone())._z
+    courseTimezoneOffsets = moment.tz(courseTimezone)._z.offsets
+
+    # Use moment offsets to check if set timezone is matching.
+    # Zone abbr/zone name are not globally unique
+    _.isEqual(offsets, courseTimezoneOffsets)
+
+# link on require.
+TimeHelper.linkZoneNames()
 
 module.exports = TimeHelper

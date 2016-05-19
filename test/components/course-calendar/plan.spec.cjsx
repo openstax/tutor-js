@@ -226,7 +226,7 @@ describe 'Plan on Course Calendar', ->
       routerParams:
         planId: ITEM_PUBLISHED_THREE_DAYS.plan.id
         courseId: PLAN_COURSE_ID
-        date: moment(ITEM_PUBLISHED_THREE_DAYS.displays[0].rangeDuration.start).format(CALENDAR_DATE_FORMAT)
+        date: ITEM_PUBLISHED_THREE_DAYS.displays[0].rangeDuration.start().format(CALENDAR_DATE_FORMAT)
 
     Testing
       .renderComponent( ContainedPlan, optionsWithParams)
@@ -250,7 +250,7 @@ describe 'Plan on Course Calendar', ->
       routerParams:
         planId: ITEM_PUBLISHED_TWO_DAYS.plan.id
         courseId: PLAN_COURSE_ID
-        date: moment(ITEM_PUBLISHED_TWO_DAYS.displays[0].rangeDuration.start).format(CALENDAR_DATE_FORMAT)
+        date: ITEM_PUBLISHED_TWO_DAYS.displays[0].rangeDuration.start().format(CALENDAR_DATE_FORMAT)
 
     Testing
       .renderComponent( ContainedPlan, optionsWithParams)

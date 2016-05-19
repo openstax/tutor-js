@@ -13,7 +13,7 @@ checkForClosedDatepicker = ->
   expect(datepickerContainers.length).to.equal(0)
 
 triggerAndCheckDatePicker = (dateInput) ->
-  React.addons.TestUtils.Simulate.focus(dateInput.getDOMNode().querySelector('.datepicker__input'))
+  React.addons.TestUtils.Simulate.focus(dateInput.getDOMNode().querySelector('.datepicker__input-container input'))
   dateInput.expandCalendar()
   datepickerContainers = Array.prototype.slice.call(document.querySelectorAll('.datepicker__container'))
   hasDatepicker = datepickerContainers.length > 0

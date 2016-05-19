@@ -1,6 +1,5 @@
 React = require 'react'
 _ = require 'underscore'
-moment = require 'moment'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 

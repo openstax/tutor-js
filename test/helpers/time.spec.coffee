@@ -6,13 +6,13 @@ TimeHelper = require '../../src/helpers/time'
 {CourseActions, CourseStore} = require '../../src/flux/course'
 
 COURSE_ID = 'TEST_COURSE_ID'
-TEST_TIMEZONE = 'Pacific/Midway'
+TEST_TIMEZONE = 'Pacific Time (US & Canada)'
 TODAY_IN_CURRENT_ZONE = moment().startOf('day').format()
 
 describe 'Time Helpers', ->
 
   beforeEach ->
-    CourseActions.loaded(timezone: 'Pacific/Midway', COURSE_ID)
+    CourseActions.loaded(timezone: TEST_TIMEZONE, COURSE_ID)
 
   afterEach ->
     CourseActions.reset()
@@ -40,7 +40,7 @@ describe 'Time Helpers', ->
     localTimezone = TimeHelper.getLocal()
     TimeHelper.unsyncCourseTimezone()
     expect(moment()._z).to.have.property('name').and.to.equal(localTimezone)
-    expect(moment().startOf('day').format()).to.equal(TODAY_IN_CURRENT_ZONE)
+    expect(moment().startOf('day').isSame(TODAY_IN_CURRENT_ZONE)).to.be.true
 
 
   it 'can check the default timezone', ->
@@ -48,7 +48,7 @@ describe 'Time Helpers', ->
     isCourseTimezone = TimeHelper.isCourseTimezone(COURSE_ID)
     expect(isCourseTimezone).to.be.false
 
-    TimeHelper.syncCourseTimezone(TEST_TIMEZONE)
-    isCourseTimezone = TimeHelper.isCourseTimezone(TEST_TIMEZONE)
+    TimeHelper.syncCourseTimezone(COURSE_ID)
+    isCourseTimezone = TimeHelper.isCourseTimezone(COURSE_ID)
     expect(isCourseTimezone).to.be.true
     TimeHelper.unsyncCourseTimezone()

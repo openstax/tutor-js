@@ -8,16 +8,20 @@ PlanFooter = require '../../../src/components/task-plan/footer'
 {Testing, sinon, expect, _, React} = require '../helpers/component-testing'
 {ExtendBasePlan, PlanRenderHelper} = require '../helpers/task-plan'
 
-two_days_ago = (new Date(Date.now() - 1000 * 3600 * 24 * 2)).toString()
-yesterday = (new Date(Date.now() - 1000 * 3600 * 24)).toString()
-tomorrow = (new Date(Date.now() + 1000 * 3600 * 24)).toString()
-dayAfter = (new Date(tomorrow + 1000 * 3600 * 24)).toString()
+ISO_DATE_FORMAT = 'YYYY-MM-DD'
 
+twoDaysBefore = moment(TimeStore.getNow()).subtract(2, 'days').format(ISO_DATE_FORMAT)
+yesterday = moment(TimeStore.getNow()).subtract(1, 'day').format(ISO_DATE_FORMAT)
+tomorrow = moment(TimeStore.getNow()).add(1, 'day').format(ISO_DATE_FORMAT)
+dayAfter = moment(TimeStore.getNow()).add(2, 'day').format(ISO_DATE_FORMAT)
 
 NEW_READING = ExtendBasePlan({type: 'reading', id: "_CREATING_1"})
 UNPUBLISHED_READING = ExtendBasePlan({type: 'reading'})
 PUBLISHED_READING = ExtendBasePlan({type: 'reading', published_at: yesterday})
-PAST_DUE_PUBLISHED_READING = ExtendBasePlan({type: 'reading', published_at: two_days_ago}, {opens_at: two_days_ago, due_at: yesterday})
+PAST_DUE_PUBLISHED_READING = ExtendBasePlan(
+  {type: 'reading', published_at: twoDaysBefore},
+  {opens_at: twoDaysBefore, due_at: yesterday}
+)
 VISIBLE_READING = ExtendBasePlan({type: 'reading', published_at: yesterday}, {opens_at: yesterday})
 VISIBLE_HW = ExtendBasePlan({type: 'homework', published_at: yesterday}, {opens_at: yesterday})
 

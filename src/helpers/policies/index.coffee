@@ -14,7 +14,6 @@
 # 8. After due -- does show feedback before moving on
 
 _ = require 'underscore'
-moment = require 'moment'
 flux = require 'flux-react'
 
 {TaskStepStore} = require '../../flux/task-step'
