@@ -6,6 +6,8 @@ BS = require 'react-bootstrap'
 ArbitraryHtmlAndMath = require '../html'
 ExerciseIdentifierLink = require './identifier-link'
 Question = require '../question'
+VideoPlaceholder = require './video-placeholder'
+InteractivePlaceholder = require './interactive-placeholder'
 
 ExercisePreview = React.createClass
 
@@ -20,6 +22,7 @@ ExercisePreview = React.createClass
     hideAnswers:     React.PropTypes.bool
     onOverlayClick:  React.PropTypes.func
     isSelected:      React.PropTypes.bool
+    isInteractive:   React.PropTypes.bool
     overlayActions:  React.PropTypes.shape(
       message: React.PropTypes.string.isRequired
       handler: React.PropTypes.func.isRequired
@@ -32,6 +35,7 @@ ExercisePreview = React.createClass
 
   getDefaultProps: ->
     panelStyle: 'default'
+    isInteractive:   true
     overlayActions:  {}
     extractTag: (tag) ->
       content = _.compact([tag.name, tag.description]).join(' ') or tag.id
@@ -79,33 +83,49 @@ ExercisePreview = React.createClass
   stimulusHtml: ->
     @props.exercise.content.stimulus_html
 
-  isInteractive: ->
-    !!@stimulusHtml().match(/iframe.*[cnx.org|phet.colorado.edu]/)
+  hasInteractive: ->
+    !!@stimulusHtml().match(/iframe.*(cnx.org|phet.colorado.edu)/)
 
-  isVideo: ->
-    !!@stimulusHtml().match(/[youtube|khanacademy]/)
+  hasVideo: ->
+    !!@stimulusHtml().match(/(youtube|khanacademy)/)
 
   renderBadges: ->
     badges = []
     if @props.exercise.content.questions.length > 1
-      badges.push <span className="mpq">
+      badges.push <span key='mpq' className="mpq">
           <i className='fa fa-pie-chart' /> Multi-part question
         </span>
 
-    if @isInteractive()
-      badges.push <span className="interactive">
+    if @hasInteractive()
+      badges.push <span key='interactive' className="interactive">
           <i className='fa fa-object-group' /> Interactive
         </span>
 
-    if @isVideo()
-      badges.push <span className="video">
+    if @hasVideo()
+      badges.push <span key='video' className="video">
           <i className='fa fa-television' /> Video
         </span>
 
-    badges
+    if badges.length
+      <div className="badges">
+        {badges}
+      </div>
+    else
+      null
+
 
   renderSelectedMask: ->
     <div className='selected-mask'></div>
+
+  renderPlaceholders: ->
+    return null if @props.isInteractive isnt false
+    placeholders = []
+    placeholders.push(<VideoPlaceholder key='video'/>) if @hasVideo()
+    placeholders.push(<InteractivePlaceholder key='interactive'/>) if @hasInteractive()
+    if placeholders.length
+      <div className="placeholders">{placeholders}</div>
+    else
+      null
 
   render: ->
     content = @props.exercise.content
@@ -115,11 +135,13 @@ ExercisePreview = React.createClass
       tags = _.where tags, is_visible: true
     renderedTags = _.map(_.sortBy(tags, 'name'), @renderTag)
     classes = classnames( 'openstax-exercise-preview', @props.className, {
-      'answers-hidden':  @props.hideAnswers
-      'has-actions':   not _.isEmpty(@props.overlayActions)
-      'is-selected':     @props.isSelected
-      'is-interactive':  @isInteractive()
-      'actions-on-side': @props.actionsOnSide
+      'answers-hidden':   @props.hideAnswers
+      'has-actions':      not _.isEmpty(@props.overlayActions)
+      'is-selected':      @props.isSelected
+      'has-interactive':  @hasInteractive()
+      'has-video':        @hasVideo()
+      'actions-on-side':  @props.actionsOnSide
+      'non-interactive':  @props.isInteractive is false
       'is-vertically-truncated': @props.isVerticallyTruncated
       'is-displaying-formats':   @props.displayFormats
       'is-displaying-feedback':  @props.displayFeedback
@@ -149,10 +171,9 @@ ExercisePreview = React.createClass
     >
       {@renderSelectedMask() if @props.isSelected}
       {@renderControlsOverlay() unless _.isEmpty(@props.overlayActions)}
-      <div className="badges">
-        {@renderBadges()}
-      </div>
+      {@renderBadges()}
       <ArbitraryHtmlAndMath className='stimulus' block={true} html={content.stimulus_html} />
+      {@renderPlaceholders()}
       {questions}
       <div className='exercise-uid'>Exercise ID: {@props.exercise.content.uid}</div>
       <div className='exercise-tags'>{renderedTags}</div>

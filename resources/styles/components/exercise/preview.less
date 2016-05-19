@@ -23,6 +23,20 @@
   &.panel-info {
     background-color: @pale-yellow;
   }
+  &.non-interactive {
+    .stimulus {
+      .frame-wrapper, iframe { display: none; }
+    }
+    .placeholders {
+      height: 200px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      .placeholder {
+        flex: 1;
+      }
+    }
+  }
 
   &.is-vertically-truncated {
     .question-stem {
