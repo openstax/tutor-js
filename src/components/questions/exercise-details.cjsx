@@ -113,14 +113,18 @@ ExerciseDetails = React.createClass
     exercise = @state.exercises[@state.currentIndex]
     moves = @getValidMovements()
     isExcluded = ExerciseStore.isExerciseExcluded(exercise.id)
-    actions = ExerciseHelpers.buildPreviewActions(exercise, @props.onExerciseToggle, {
-      feedback:
-        message: if @state.displayFeedback then 'Hide Feedback' else 'Preview Feedback'
+    actions = ExerciseHelpers.buildPreviewActions(exercise, @props.onExerciseToggle)
+    if @state.displayFeedback
+      actions['feedback-off'] =
+        message: 'Hide Feedback'
         handler: @toggleFeedback
-      'report-error':
+    else
+      actions['feedback-on'] =
+        message: 'Preview Feedback'
+        handler: @toggleFeedback
+    actions['report-error'] =
         message: 'Report an error'
         handler: @reportError
-    })
 
     <div className="exercise-details">
 

@@ -1,7 +1,58 @@
-.openstax-exercise-preview .panel-footer .controls {
+.openstax-exercise-preview {
+  .controls-overlay {
+    .message {
+      .action {
 
-  .exercise-identifier-link a {
-    color: @link-color;
+        &.include {
+          background-color: @light-blue;
+          &:before {
+            color: @light-blue;
+            content: @fa-var-plus;
+          }
+        }
+
+        &.exclude {
+          background-color: @openstax-primary;
+          &:before {
+            color: @openstax-primary;
+            content: @fa-var-minus;
+          }
+        }
+
+        &.details {
+          background-color: @openstax-neutral-dark;
+          &:before {
+            color: @openstax-neutral-dark;
+            content: @fa-var-ellipsis-h;
+          }
+        }
+
+        &.feedback-on {
+          background-color: @openstax-neutral-dark;
+          &:before {
+            color: @openstax-neutral-dark;
+            content: @fa-var-eye;
+          }
+        }
+
+        &.feedback-off {
+          background-color: @openstax-neutral-dark;
+          &:before {
+            color: @openstax-neutral-dark;
+            content: @fa-var-eye-slash;
+          }
+        }
+
+        &.report-error {
+          background-color: @openstax-quaternary;
+          &:before {
+            background-color: @openstax-quaternary;
+            font-size: 90px;
+            content: @fa-var-exclamation-circle;
+          }
+        }
+
+      }
+    }
   }
-
 }

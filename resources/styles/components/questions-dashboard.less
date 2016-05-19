@@ -109,7 +109,6 @@
     .btn-group {
       box-shadow: none;
       button:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
-
         font-size: 12px;
         background-size: @icon-size-lg @icon-size-lg;
         background-repeat: no-repeat;
@@ -117,22 +116,14 @@
         box-shadow: none !important;
         border: 1px solid @tutor-neutral;
         height: 40px;
+        margin-right: 0;
+        &.active {
+          background-color: @tutor-neutral-light;
+        }
         .tutor-icon {
           margin: 0;
         }
-        // &+button {
-        //   border-left: 0;
-        // }
-//        background-color: @tutor-neutral-light;
-        margin-right: 0;
-        &.active {
-//          color:  !important; // needed to override material styles
-          background-color: @tutor-neutral-light;
-        }
-
-
       }
-
       &.filters {
         button {
           width: 90px;
@@ -144,7 +135,6 @@
           width: 40px;
         }
       }
-
     }
     .save-cancel {
       width: 200px;
@@ -152,7 +142,6 @@
       justify-content: space-around;
     }
   }
-
 
   .exercise-card.is-selected {
     .selected-mask { opacity: 0.4; } // bump up a bit to stand out from background
@@ -214,10 +203,7 @@
       display: inline-block;
       width: 100%;
     }
-
   }
-
-
 }
 
 .question-library-min-exercise-exclusions {

@@ -20,8 +20,13 @@ ExerciseCardMixin =
       actions.include =
         message: 'Add question'
         handler: @toggleExercise
-    actions.feedback =
-        message: if @state?.displayFeedback then 'Hide Feedback' else 'Preview Feedback'
+    if @state?.displayFeedback
+      actions['feedback-off'] =
+        message: 'Hide Feedback'
+        handler: @toggleFeedbackDisplay
+    else
+      actions['feedback-on'] =
+        message: 'Preview Feedback'
         handler: @toggleFeedbackDisplay
     actions
 
