@@ -38,10 +38,6 @@
     }
   }
 
-  .exercises-list {
-    pinned-header { z-index: 3; } // above exercise hover mask of 2
-  }
-
   .secondary-help {
     text-align: center;
     color: @tutor-neutral;
@@ -236,6 +232,8 @@
 // re-enable hidden controls when nav is pinned
 .pinned-view.pinned-on {
   .questions-dashboard {
+    .pinned-header { z-index: 3; } // above exercise hover mask of 2
+
     .exercise-details {
       .exercise-card {
         .controls-overlay { display: flex; }
