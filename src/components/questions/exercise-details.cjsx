@@ -3,7 +3,7 @@ BS        = require 'react-bootstrap'
 keymaster = require 'keymaster'
 
 {ExerciseStore} = require '../../flux/exercise'
-{ExercisePreview, ExerciseTroubleUrl} = require 'openstax-react-components'
+{ExercisePreview, ExerciseHelpers} = require 'openstax-react-components'
 exerciseActionsBuilder = require './exercise-actions-builder'
 
 Icon            = require '../icon'
@@ -105,7 +105,7 @@ ExerciseDetails = React.createClass
     @setState(displayFeedback: not @state.displayFeedback)
 
   reportError: (ev, exercise) ->
-    window.open(ExerciseTroubleUrl.generate(exerciseId: exercise.content.uid), '_blank')
+    window.open(ExerciseHelpers.troubleUrl(exerciseId: exercise.content.uid), '_blank')
 
   render: ->
     exercise = @state.exercises[@state.currentIndex]
