@@ -1,11 +1,9 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-{RouteHandler} = require 'react-router'
 
 {ExerciseActions} = require '../../flux/exercise'
 {TocStore, TocActions} = require '../../flux/toc'
 
-ExercisesDisplay = require './exercises-display'
 BackButton = require '../buttons/back-button'
 Chooser = require '../sections-chooser'
 Help = require './help'
@@ -22,23 +20,10 @@ QLSectionsChooser = React.createClass
     ecosystemId: React.PropTypes.string.isRequired
     onSelectionsChange: React.PropTypes.func.isRequired
 
-  contextTypes:
-    router: React.PropTypes.func
-
   getInitialState: -> {}
-
-  componentWillMount: ->
-    selectedSections = @context.router.getCurrentQuery()['sid']?.split('-')
-    if selectedSections
-      @setState(sectionIds: selectedSections, displayingIds: selectedSections)
-      ExerciseActions.loadForCourse( @props.courseId, selectedSections, '' )
 
   showQuestions: ->
     ExerciseActions.loadForCourse( @props.courseId, @state.sectionIds, '' )
-    @context.router.transitionTo('viewQuestionsLibrary',
-      {courseId: @props.courseId},
-      {sid: @state.sectionIds.join('-')}
-    )
     @props.onSelectionsChange(@state.sectionIds)
 
   clearQuestions: ->
