@@ -196,7 +196,9 @@
     .exercise-sections {
       margin-top: @tutor-panel-padding-vertical;
     }
-
+    @media (min-width: @screen-md-min) {
+      .panel { margin: 5px; }
+    }
     .exercise-card {
       page-break-inside: avoid;
       break-inside: avoid;
