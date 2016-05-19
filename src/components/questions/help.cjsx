@@ -19,7 +19,7 @@ TUTOR_HELP = '''
 
 CC_SECONDARY_HELP = <div className="secondary-help">
   <b>Best Practice:</b>
-  Exclude desired questions <u>before</u> giving students access to Concept Coach.
+  Exclude questions <u>before</u> giving students access to Concept Coach.
 </div>
 
 
