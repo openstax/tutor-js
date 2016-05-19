@@ -37,7 +37,12 @@ ExerciseMixin =
   renderPart: (part, partProps) ->
     props = _.omit(@props, 'part', 'canOnlyContinue', 'footer', 'setScrollState', 'goToStep')
 
-    <ExercisePart {...partProps} {...props} step={part} id={part.id} taskId={part.task_id}/>
+    <ExercisePart
+      {...partProps}
+      {...props}
+      step={part}
+      id={part.id}
+      taskId={part.task_id}/>
 
   renderSinglePart: ->
     {parts, footer} = @props
@@ -99,7 +104,9 @@ ExerciseMixin =
 ExerciseWithScroll = React.createClass
   displayName: 'ExerciseWithScroll'
   mixins: [ScrollListenerMixin, ScrollTrackerParentMixin, ExerciseMixin]
-  wrapPartWithScrollTracker: (exerciseParts, part, index) ->
+  wrapPartWithScroll: (parts, exercisePart, index) ->
+    part = parts[index]
+
     scrollState =
       key: part.stepIndex
       questionNumber: part.questionNumber
@@ -110,7 +117,7 @@ ExerciseWithScroll = React.createClass
       scrollState={scrollState}
       setScrollPoint={@setScrollPoint}
       unsetScrollPoint={@unsetScrollPoint}>
-      {exerciseParts[index]}
+      {exercisePart}
     </ScrollTracker>
 
   render: ->
@@ -120,7 +127,7 @@ ExerciseWithScroll = React.createClass
       return @renderSinglePart()
 
     exerciseParts = @renderMultiParts()
-    exercisePartsWithScroll = _.map parts, _.partial @wrapPartWithScrollTracker, exerciseParts
+    exercisePartsWithScroll = _.map exerciseParts, _.partial @wrapPartWithScroll, parts
     exerciseGroup = @renderGroup()
     footer ?= @renderFooter()
 
