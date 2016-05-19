@@ -3,8 +3,10 @@ BS        = require 'react-bootstrap'
 keymaster = require 'keymaster'
 
 {ExerciseStore} = require '../../flux/exercise'
-{ExercisePreview, ExerciseHelpers} = require 'openstax-react-components'
-exerciseActionsBuilder = require './exercise-actions-builder'
+{ExercisePreview} = require 'openstax-react-components'
+
+ExerciseHelpers = require '../../helpers/exercise'
+
 
 Icon            = require '../icon'
 ScrollTo        = require '../scroll-to-mixin'
@@ -111,9 +113,9 @@ ExerciseDetails = React.createClass
     exercise = @state.exercises[@state.currentIndex]
     moves = @getValidMovements()
     isExcluded = ExerciseStore.isExerciseExcluded(exercise.id)
-    actions = exerciseActionsBuilder(exercise, @props.onExerciseToggle, {
+    actions = ExerciseHelpers.buildPreviewActions(exercise, @props.onExerciseToggle, {
       feedback:
-        message: 'Preview Feedback'
+        message: if @state.displayFeedback then 'Hide Feedback' else 'Preview Feedback'
         handler: @toggleFeedback
       'report-error':
         message: 'Report an error'

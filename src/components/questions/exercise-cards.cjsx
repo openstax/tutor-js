@@ -6,7 +6,7 @@ BS = require 'react-bootstrap'
 Dialog = require '../tutor-dialog'
 {ExercisePreview} = require 'openstax-react-components'
 
-exerciseActionsBuilder = require './exercise-actions-builder'
+ExerciseHelpers = require '../../helpers/exercise'
 
 ScrollTo = require '../scroll-to-mixin'
 
@@ -36,7 +36,7 @@ SectionsExercises = React.createClass
     ]
 
   renderExercise: (exercise) ->
-    actions = exerciseActionsBuilder(exercise, @props.onExerciseToggle, {
+    actions = ExerciseHelpers.buildPreviewActions(exercise, @props.onExerciseToggle, {
       details:
         message: 'Question details'
         handler: @props.onShowDetailsViewClick
