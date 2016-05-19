@@ -11,7 +11,7 @@ BindStoreMixin = require '../bind-store-mixin'
 {TimeStore} = require '../../flux/time'
 TutorDateFormat = TimeStore.getFormat()
 TimeHelper = require '../../helpers/time'
-{PeriodActions} = require '../../flux/period'
+{PeriodActions, PeriodStore} = require '../../flux/period'
 
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TutorInput, TutorDateInput, TutorTimeInput, TutorDateFormat, TutorTextArea} = require '../tutor-input'
