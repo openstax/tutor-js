@@ -7,10 +7,11 @@ Pagination = require('ultimate-pagination')
 # Rough amount taken up by other controls on bar
 NON_AVAILABLE_WIDTH = 600
 
+{ResizeListenerMixin} = require 'openstax-react-components'
 
 Sectionizer = React.createClass
 
-  mixins: [ScrollTo]
+  mixins: [ScrollTo, ResizeListenerMixin]
 
   propTypes:
     chapter_sections:  React.PropTypes.array.isRequired
@@ -20,16 +21,21 @@ Sectionizer = React.createClass
 
   getInitialState: ->
     scrollingTo: _.first(@props.chapter_sections)
-    renderCount: @calculateAvailableSpace()
+    renderCount: 5 # a decent default
 
-  calculateAvailableSpace: ->
-    Math.floor( (document.body.clientWidth - NON_AVAILABLE_WIDTH) / 40 ) - 2
+
+  _resizeListener: (sizes) ->
+    @calculateAvailableSpace(sizes.windowEl)
+
+  calculateAvailableSpace: (size) ->
+    @setState(renderCount: ((Math.floor( size.width - NON_AVAILABLE_WIDTH) / 42) - 2))
 
   # the below properties are read by the ScrollTo mixin
   scrollingTargetDOM: -> window.document
   getScrollTopOffset: -> 80 # 70px high control bar and a bit of padding
 
   componentDidMount: ->
+    @calculateAvailableSpace(@state.windowEl or @_getWindowSize())
     @scrollToSelector(".questions-list")
 
   selectSection: (section) ->
