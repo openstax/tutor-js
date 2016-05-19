@@ -1,6 +1,6 @@
 React = require 'react'
 
-ExerciseTroubleUrl = require '../../model/exercise-trouble-url'
+Exercise = require '../../model/exercise'
 
 
 ExerciseIdentifierLink = React.createClass
@@ -11,7 +11,7 @@ ExerciseIdentifierLink = React.createClass
     project: React.PropTypes.oneOf(['concept-coach', 'tutor'])
 
   render: ->
-    url = ExerciseTroubleUrl.generate(@props)
+    url = Exercise.troubleUrl(@props)
     <span className='exercise-identifier-link'>
       ID# {@props.exerciseId} | <a target="_blank" href={url}>Report an error</a>
     </span>

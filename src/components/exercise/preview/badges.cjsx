@@ -1,21 +1,12 @@
 React = require 'react'
 _ = require 'underscore'
-Exercise = require 'model/exercise'
+Exercise = require '../../../model/exercise'
 
 ExerciseBadges = React.createClass
 
   propTypes:
     isInteractive:   React.PropTypes.bool
     exercise: React.PropTypes.object.isRequired
-
-  # getStimulus: ->
-  #   @props.exercise.content?.stimulus_html or ''
-
-  # hasInteractive: ->
-  #   !!@getStimulus().match(/iframe.*(cnx.org|phet.colorado.edu)/)
-
-  # hasVideo: ->
-  #   !!@getStimulus().match(/(youtube.com\/(v|embed)\/|khanacademy.org)/)
 
   render: ->
     badges = []

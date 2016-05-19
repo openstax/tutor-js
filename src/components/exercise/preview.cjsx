@@ -10,7 +10,7 @@ VideoPlaceholder = require './video-placeholder'
 InteractivePlaceholder = require './interactive-placeholder'
 Badges = require './preview/badges'
 ControlsOverlay = require './preview/controls-overlay'
-Exercise = require 'model/exercise'
+Exercise = require '../../model/exercise'
 
 ExercisePreview = React.createClass
 
