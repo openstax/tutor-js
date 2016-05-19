@@ -1,6 +1,11 @@
 React = require 'react'
 
-class InteractivePlaceholder
+# Basically just an icon,
+# create as plain class without this binding and never updates
+class InteractivePlaceholder extends React.Component
+
+  shouldComponentUpdate: ->
+    false
 
   render: ->
     <svg className="placeholder interactive"

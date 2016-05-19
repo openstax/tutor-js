@@ -2,7 +2,12 @@
 
 React = require 'react'
 
-class VideoPlaceholder
+# Basically just an icon,
+# create as plain class without this binding and never updates
+class VideoPlaceholder extends React.Component
+
+  shouldComponentUpdate: ->
+    false
 
   render: ->
     <svg className="placeholder video"

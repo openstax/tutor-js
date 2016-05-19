@@ -63,3 +63,9 @@ describe 'Exercise Preview Component', ->
       Testing.actions.click(action)
       expect(actions.include.handler).to.have.been.called
       expect(onSelect.callCount).to.equal(1)
+
+  it 'renders placeholders', ->
+    _.extend(@props, isInteractive: false)
+    @props.exercise.content.stimulus_html = 'watch this: <iframe src="youtube.com/embed/u030w90rawe"></iframe>'
+    Testing.renderComponent( ExercisePreview, props: @props ).then ({dom}) ->
+      expect(dom.querySelector('svg.placeholder.video')).to.exist
