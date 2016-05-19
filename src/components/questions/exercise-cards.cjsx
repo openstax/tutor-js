@@ -45,6 +45,7 @@ SectionsExercises = React.createClass
     <ExercisePreview
       key={exercise.id}
       className='exercise-card'
+      isInteractive={false}
       isVerticallyTruncated={true}
       isSelected={ExerciseStore.isExerciseExcluded(exercise.id)}
       exercise={exercise}
@@ -71,7 +72,6 @@ ExerciseCards = React.createClass
   propTypes:
     exercises:  React.PropTypes.object.isRequired
     onShowDetailsViewClick: React.PropTypes.func.isRequired
-    onShowCardViewClick: React.PropTypes.func.isRequired
     scrollFast: React.PropTypes.bool
     onExerciseToggle: React.PropTypes.func.isRequired
 
