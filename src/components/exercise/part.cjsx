@@ -15,8 +15,8 @@ NOT_TEACHER_READ_ONLY_PROPS = _.union(NOT_REVIEW_PROPS, ['onStepCompleted', 'can
 NOT_MULTIPLE_CHOICE_PROPS = _.union(REVIEW_CONTROL_PROPS, ['disabled'])
 NOT_FREE_RESPONSE_PROPS = _.union(REVIEW_CONTROL_PROPS, ['onStepCompleted', 'onNextStep', 'canReview'])
 
-Exercise = React.createClass
-  displayName: 'Exercise'
+ExercisePart = React.createClass
+  displayName: 'ExercisePart'
   propTypes:
     id: React.PropTypes.string.isRequired
     taskId: React.PropTypes.string.isRequired
@@ -127,4 +127,4 @@ Exercise = React.createClass
       waitingText={getWaitingText?(id) or waitingText}
     />
 
-module.exports = Exercise
+module.exports = ExercisePart

@@ -1,7 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
 
-Exercise = require './part'
+ExercisePart = require './part'
 {ExFooter} = require './controls'
 {CardBody} = require '../pinned-header-footer-card/sections'
 ExerciseGroup = require './group'
@@ -9,9 +9,7 @@ ExerciseGroup = require './group'
 {ScrollListenerMixin} = require 'react-scroll-components'
 {ScrollTracker, ScrollTrackerParentMixin} = require '../scroll-tracker'
 
-ExerciseParts = React.createClass
-  displayName: 'ExerciseParts'
-  mixins: [ScrollListenerMixin, ScrollTrackerParentMixin]
+ExerciseMixin =
   getLastPartId: ->
     {parts} = @props
     _.last(parts).id
@@ -39,23 +37,25 @@ ExerciseParts = React.createClass
   renderPart: (part, partProps) ->
     props = _.omit(@props, 'part', 'canOnlyContinue', 'footer', 'setScrollState', 'goToStep')
 
-    <Exercise {...partProps} {...props} step={part} id={part.id} taskId={part.task_id}/>
+    <ExercisePart {...partProps} {...props} step={part} id={part.id} taskId={part.task_id}/>
 
-  render: ->
-    {parts, footer, getCurrentPanel, onNextStep, currentStep} = @props
+  renderSinglePart: ->
+    {parts, footer} = @props
 
-    if @isSinglePart()
-      part = _.first(parts)
+    part = _.first(parts)
 
-      partProps =
-        footer: footer
-        pinned: true
-        focus: true
-        includeGroup: true
+    partProps =
+      footer: footer
+      pinned: true
+      focus: true
+      includeGroup: true
 
-      return @renderPart(part, partProps)
+    @renderPart(part, partProps)
 
-    exerciseParts = _.map parts, (part, index) =>
+  renderMultiParts: ->
+    {parts, currentStep} = @props
+
+    _.map parts, (part, index) =>
       # disable keyStep if this is not the current step
       keySet = null if part.stepIndex isnt currentStep
 
@@ -71,27 +71,21 @@ ExerciseParts = React.createClass
       unless index is 0
         part.content = _.omit(part.content, 'stimulus_html', 'stem_html')
 
-      scrollState =
-        key: part.stepIndex
-        questionNumber: part.questionNumber
-        id: part.id
-        index: index
+      @renderPart(part, partProps)
 
-      <ScrollTracker
-        scrollState={scrollState}
-        setScrollPoint={@setScrollPoint}
-        unsetScrollPoint={@unsetScrollPoint}>
-        {@renderPart(part, partProps)}
-      </ScrollTracker>
-
+  renderGroup: ->
+    {parts} = @props
     step = _.last(parts)
 
-    exerciseGroup =
-      <ExerciseGroup
-        key='step-exercise-group'
-        group={step.group}
-        exercise_uid={step.content?.uid}
-        related_content={step.related_content}/>
+    <ExerciseGroup
+      key='step-exercise-group'
+      group={step.group}
+      exercise_uid={step.content?.uid}
+      related_content={step.related_content}/>
+
+  renderFooter: ->
+    {parts, onNextStep, currentStep} = @props
+    step = _.last(parts)
 
     if @canAllContinue()
       canContinueControlProps =
@@ -99,7 +93,56 @@ ExerciseParts = React.createClass
         onContinue: _.partial onNextStep, currentStep: step.stepIndex
 
     footerProps = _.omit(@props, 'onContinue')
-    footer ?= <ExFooter {...canContinueControlProps} {...footerProps} panel='review'/>
+    <ExFooter {...canContinueControlProps} {...footerProps} panel='review'/>
+
+
+ExerciseWithScroll = React.createClass
+  displayName: 'ExerciseWithScroll'
+  mixins: [ScrollListenerMixin, ScrollTrackerParentMixin, ExerciseMixin]
+  wrapPartWithScrollTracker: (exerciseParts, part, index) ->
+    scrollState =
+      key: part.stepIndex
+      questionNumber: part.questionNumber
+      id: part.id
+      index: index
+
+    <ScrollTracker
+      scrollState={scrollState}
+      setScrollPoint={@setScrollPoint}
+      unsetScrollPoint={@unsetScrollPoint}>
+      {exerciseParts[index]}
+    </ScrollTracker>
+
+  render: ->
+    {parts, footer} = @props
+
+    if @isSinglePart()
+      return @renderSinglePart()
+
+    exerciseParts = @renderMultiParts()
+    exercisePartsWithScroll = _.map parts, _.partial @wrapPartWithScrollTracker, exerciseParts
+    exerciseGroup = @renderGroup()
+    footer ?= @renderFooter()
+
+    <CardBody footer={footer} className='openstax-multipart-exercise-card'>
+      <label className='openstax-multipart-exercise-card-label'/>
+      {exercisePartsWithScroll}
+      {exerciseGroup}
+    </CardBody>
+
+
+Exercise = React.createClass
+  displayName: 'Exercise'
+  mixins: [ExerciseMixin]
+  render: ->
+    {footer} = @props
+
+    if @isSinglePart()
+      return @renderSinglePart()
+
+    exerciseParts = @renderMultiParts()
+    exerciseGroup = @renderGroup()
+    footer ?= @renderFooter()
 
     <CardBody footer={footer} className='openstax-multipart-exercise-card'>
       <label className='openstax-multipart-exercise-card-label'/>
@@ -107,4 +150,4 @@ ExerciseParts = React.createClass
       {exerciseGroup}
     </CardBody>
 
-module.exports = ExerciseParts
+module.exports = {Exercise, ExerciseWithScroll}
