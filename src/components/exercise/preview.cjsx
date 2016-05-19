@@ -8,6 +8,8 @@ ExerciseIdentifierLink = require './identifier-link'
 Question = require '../question'
 VideoPlaceholder = require './video-placeholder'
 InteractivePlaceholder = require './interactive-placeholder'
+Badges = require './preview/badges'
+ControlsOverlay = require './preview/controls-overlay'
 
 ExercisePreview = React.createClass
 
@@ -51,12 +53,6 @@ ExercisePreview = React.createClass
       'exercise-tag'
     <span key={tag.id or tag.name} className={classes}>{content}</span>
 
-  onOverlayClick: (ev) ->
-    @props.onOverlayClick(ev, @props.exercise)
-
-  onActionClick: (ev, handler) ->
-    ev.stopPropagation() if @props.onOverlayClick # needed to prevent click from triggering onOverlay handler
-    handler(ev, @props.exercise)
 
   renderFooter: ->
     <div className="controls">
@@ -64,58 +60,7 @@ ExercisePreview = React.createClass
     </div>
 
 
-  renderControlsOverlay: ->
-    <div
-      onClick={@onOverlayClick if @props.onOverlayClick}
-      className={classnames('controls-overlay', {active: @props.isSelected})}
-    >
-      <div className='message'>
-        {for type, action of @props.overlayActions
-          <div key={type}
-            className="action #{type}"
-            onClick={_.partial(@onActionClick, _, action.handler)}
-          >
-            <span>{action.message}</span>
-          </div>}
-      </div>
-    </div>
 
-  stimulusHtml: ->
-    @props.exercise.content.stimulus_html
-
-  hasInteractive: ->
-    !!@stimulusHtml().match(/iframe.*(cnx.org|phet.colorado.edu)/)
-
-  hasVideo: ->
-    !!@stimulusHtml().match(/(youtube|khanacademy)/)
-
-  renderBadges: ->
-    badges = []
-    if @props.exercise.content.questions.length > 1
-      badges.push <span key='mpq' className="mpq">
-          <i className='fa fa-pie-chart' /> Multi-part question
-        </span>
-
-    if @hasInteractive()
-      badges.push <span key='interactive' className="interactive">
-          <i className='fa fa-object-group' /> Interactive
-        </span>
-
-    if @hasVideo()
-      badges.push <span key='video' className="video">
-          <i className='fa fa-television' /> Video
-        </span>
-
-    if badges.length
-      <div className="badges">
-        {badges}
-      </div>
-    else
-      null
-
-
-  renderSelectedMask: ->
-    <div className='selected-mask'></div>
 
   renderPlaceholders: ->
     return null if @props.isInteractive isnt false
@@ -138,8 +83,6 @@ ExercisePreview = React.createClass
       'answers-hidden':   @props.hideAnswers
       'has-actions':      not _.isEmpty(@props.overlayActions)
       'is-selected':      @props.isSelected
-      'has-interactive':  @hasInteractive()
-      'has-video':        @hasVideo()
       'actions-on-side':  @props.actionsOnSide
       'non-interactive':  @props.isInteractive is false
       'is-vertically-truncated': @props.isVerticallyTruncated
@@ -169,9 +112,13 @@ ExercisePreview = React.createClass
       header={@props.header}
       footer={@renderFooter() if @props.children}
     >
-      {@renderSelectedMask() if @props.isSelected}
-      {@renderControlsOverlay() unless _.isEmpty(@props.overlayActions)}
-      {@renderBadges()}
+      {<div className='selected-mask' /> if @props.isSelected}
+
+      <ControlsOverlay exercise={@props.exercise}
+        actions={@props.overlayActions} onClick={@props.onOverlayClick} />
+
+      <Badges isInteractive={@props.isInteractive} exercise={@props.exercise} />
+
       <ArbitraryHtmlAndMath className='stimulus' block={true} html={content.stimulus_html} />
       {@renderPlaceholders()}
       {questions}
