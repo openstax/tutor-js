@@ -9,6 +9,7 @@ ExerciseDetails  = require './exercise-details'
 ExerciseCards    = require './exercise-cards'
 ScrollSpy        = require '../scroll-spy'
 Sectionizer      = require './sectionizer'
+NoExercisesFound = require './no-exercises-found'
 
 ExercisesDisplay = React.createClass
 
@@ -26,11 +27,6 @@ ExercisesDisplay = React.createClass
   componentWillUnmount: -> ExerciseStore.off('change', @update)
   update: -> @forceUpdate()
 
-  renderEmpty: ->
-    <div className="no-exercises">
-      <h3>No exercises were found for the given sections.</h3>
-      <p className="lead">Please select addtional sections and retry</p>
-    </div>
 
   onFilterChange: (filter) ->
     @setState({filter})
@@ -129,7 +125,7 @@ ExercisesDisplay = React.createClass
     questions = if selectedExercises.count
       @renderQuestions(selectedExercises)
     else
-      @renderEmpty()
+      <NoExercisesFound />
 
     <div className="exercises-display">
       <div className="instructions">

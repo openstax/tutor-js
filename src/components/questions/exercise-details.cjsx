@@ -2,16 +2,14 @@ React     = require 'react'
 BS        = require 'react-bootstrap'
 keymaster = require 'keymaster'
 
-{ExerciseStore} = require '../../flux/exercise'
+{ExerciseStore}   = require '../../flux/exercise'
 {ExercisePreview} = require 'openstax-react-components'
+ExerciseHelpers   = require '../../helpers/exercise'
+NoExercisesFound  = require './no-exercises-found'
+Icon              = require '../icon'
+ScrollTo          = require '../scroll-to-mixin'
 
-ExerciseHelpers = require '../../helpers/exercise'
-
-
-Icon            = require '../icon'
-ScrollTo        = require '../scroll-to-mixin'
-
-KEYBINDING_SCOPE = 'exercise-details'
+KEYBINDING_SCOPE  = 'exercise-details'
 
 ExerciseDetails = React.createClass
 
@@ -110,7 +108,10 @@ ExerciseDetails = React.createClass
     window.open(ExerciseHelpers.troubleUrl(exerciseId: exercise.content.uid), '_blank')
 
   render: ->
-    exercise = @state.exercises[@state.currentIndex]
+    exercise = @state.exercises[@state.currentIndex] or _.first(@state.exercises)
+    unless exercise
+      return <NoExercisesFound />
+
     moves = @getValidMovements()
     isExcluded = ExerciseStore.isExerciseExcluded(exercise.id)
     actions = ExerciseHelpers.buildPreviewActions(exercise, @props.onExerciseToggle)
