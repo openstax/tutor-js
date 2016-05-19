@@ -1,5 +1,5 @@
 {Testing, expect, sinon, _, ReactTestUtils} = require 'test/helpers'
-
+ld = require 'lodash'
 ExercisePreview = require 'components/exercise/preview'
 
 EXERCISE = require '../../../stubs/exercise/review'
@@ -9,7 +9,7 @@ describe 'Exercise Preview Component', ->
 
   beforeEach ->
     @props = {
-      exercise: EXERCISE
+      exercise: ld.cloneDeep(EXERCISE)
     }
 
   it 'displays the exercise answers', ->
@@ -44,21 +44,23 @@ describe 'Exercise Preview Component', ->
 
   it 'does not render overlay by default', ->
     Testing.renderComponent( ExercisePreview, props: @props ).then ({dom}) ->
-      expect( dom.querySelector('.toggle-mask') ).not.to.exist
+      expect( dom.querySelector('.controls-overlay') ).not.to.exist
 
-  it 'calls select callback when overlay is clicked', ->
+  it 'callbacks are called when overlay and actions are clicked', ->
     onSelect = sinon.spy()
-    _.extend(@props, onSelection: onSelect)
+    actions =
+      include:
+        message: 'ReInclude question'
+        handler: sinon.spy()
+
+    _.extend(@props, {overlayActions: actions, onOverlayClick: onSelect})
     Testing.renderComponent( ExercisePreview, props: @props ).then ({dom}) ->
-      Testing.actions.click( dom.querySelector('.toggle-mask') )
-      expect( dom.querySelector('.toggle-mask .details') ).not.to.exist # does not render since no callback
+      Testing.actions.click( dom.querySelector('.controls-overlay') )
       expect(onSelect).to.have.been.called
-
-  it 'calls details callback when details pane is clicked', ->
-    onSelect = sinon.spy()
-    onDetails = sinon.spy()
-    _.extend(@props, onSelection: onSelect, onDetailsClick: onDetails)
-    Testing.renderComponent( ExercisePreview, props: @props ).then ({dom}) ->
-      Testing.actions.click( dom.querySelector('.toggle-mask .details') )
-      expect(onDetails).to.have.been.called
-      expect(onSelect).not.to.have.been.called
+      expect(actions.include.handler).not.to.have.been.called
+      console.log action = dom.querySelector('.controls-overlay')
+      action = dom.querySelector('.controls-overlay .action.include')
+      expect(action).to.exist
+      Testing.actions.click(action)
+      expect(actions.include.handler).to.have.been.called
+      expect(onSelect.callCount).to.equal(1)
