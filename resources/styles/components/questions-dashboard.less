@@ -42,16 +42,6 @@
     pinned-header { z-index: 3; } // above exercise hover mask of 2
   }
 
-  &.is-showing-details {
-
-    .exercise-card.is-selected {
-      .selected-mask { opacity: 0.4; } // bump up a bit to stand out from background
-    }
-
-    // hide top elements in details view to prevent scrolling up to them
-    // .sections-chooser { display: none; }
-    // .instructions { display: none; }
-  }
   .secondary-help {
     text-align: center;
     color: @tutor-neutral;
@@ -161,6 +151,11 @@
       display: flex;
       justify-content: space-around;
     }
+  }
+
+
+  .exercise-card.is-selected {
+    .selected-mask { opacity: 0.4; } // bump up a bit to stand out from background
   }
 
   .exercise-details {
