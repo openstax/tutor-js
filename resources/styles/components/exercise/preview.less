@@ -113,6 +113,7 @@
   &.actions-on-side {
     @size-scale: 0.45;
     .panel-body, .panel-body:hover {
+      padding-left: 90px;
       position: relative;
       .controls-overlay {
         visibility: visible;
@@ -161,7 +162,13 @@
       justify-content: flex-end;
       align-items: center;
       color: @openstax-neutral;
+      .badge {
+        height: 18px;
+        margin-right: 0.5rem;
+      }
       span {
+        display: flex;
+        align-items: center;
         & + span { margin-left: 8px; }
       }
     }

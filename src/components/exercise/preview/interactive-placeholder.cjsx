@@ -1,3 +1,5 @@
+# coffeelint: disable=max_line_length
+
 React = require 'react'
 
 # Basically just an icon,
