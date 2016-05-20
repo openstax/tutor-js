@@ -89,6 +89,9 @@ module.exports = React.createClass
 
     shouldBeShy
 
+  unPin: ->
+    @setState(pinned: false)
+
   updatePinState: (prevScrollTop) ->
     addOrRemove = [
       'remove' # remove class if shouldPinHeader is false

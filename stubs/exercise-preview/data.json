@@ -1,197 +1,265 @@
 {
-    "id": "3",
-    "url": "https://exercises-dev.openstax.org/exercises/3@43",
-    "content": {
-        "tags": [
-            "book:stax-apbio",
-            "apbio-ch01",
-            "apbio-ch01-s01",
-            "apbio-ch01-s01-lo02",
-            "apbio-ch01-ex003",
-            "ost-chapter-review",
-            "review",
-            "dok1",
-            "time-short",
-            "blooms-2",
-            "blooms:2",
-            "time:short",
-            "dok:1",
-            "exid:stax-apbio:3",
-            "cnxmod:4d5fc58c-cdea-4950-a91d-a5f141a38744",
-            "type:conceptual-or-recall",
-            "type:practice",
-            "filter-type:chapter-review"
-        ],
-        "uid": "3@43",
-        "number": 3,
-        "version": 43,
-        "published_at": "2015-12-16T20:46:58.862Z",
-        "editors": [],
-        "authors": [{
-            "user_id": 1,
-            "name": "OpenStax"
-        }],
-        "copyright_holders": [{
-            "user_id": 2,
-            "name": "Rice University"
-        }],
-        "derived_from": [],
+  "id": "28",
+  "url": "https://exercises-dev.openstax.org/exercises/28@2",
+  "content": {
+    "attachments": [
+      {
+        "id": 298,
+        "asset": {
+          "url": "https://s3-us-west-2.amazonaws.com/openstax-assets/pxorif9287q9er-dev/exercises/attachments/0faa585c79a14c2fa728d331087bfcd09f583c482c01f82ebcd0ec49109b2486.png",
+          "large": {
+            "url": "https://s3-us-west-2.amazonaws.com/openstax-assets/pxorif9287q9er-dev/exercises/attachments/large_0faa585c79a14c2fa728d331087bfcd09f583c482c01f82ebcd0ec49109b2486.png"
+          },
+          "medium": {
+            "url": "https://s3-us-west-2.amazonaws.com/openstax-assets/pxorif9287q9er-dev/exercises/attachments/medium_0faa585c79a14c2fa728d331087bfcd09f583c482c01f82ebcd0ec49109b2486.png"
+          },
+          "small": {
+            "url": "https://s3-us-west-2.amazonaws.com/openstax-assets/pxorif9287q9er-dev/exercises/attachments/small_0faa585c79a14c2fa728d331087bfcd09f583c482c01f82ebcd0ec49109b2486.png"
+          }
+        }
+      }
+    ],
+    "tags": [
+      "apbio",
+      "apbio-ch01",
+      "dok1",
+      "time-short",
+      "blooms-3",
+      "apbio-ch01-s02",
+      "apbio-ch01-s02-aplo-1-18",
+      "apbio-ch01-ex028",
+      "ap-everyday",
+      "book:stax-bio",
+      "time:short",
+      "blooms:3",
+      "dok:1",
+      "context-cnxmod:cb7cf05b-7e16-4a53-a498-003b01ec3d7f",
+      "type:conceptual-or-recall",
+      "book:stax-apbio",
+      "exid:apbio-ch01-ex028",
+      "filter-type:import:hs"
+    ],
+    "uid": "28@2",
+    "number": 28,
+    "version": 2,
+    "published_at": "2016-05-13T16:51:37.001Z",
+    "editors": [],
+    "authors": [
+      {
+        "user_id": 1,
+        "name": "OpenStax"
+      }
+    ],
+    "copyright_holders": [
+      {
+        "user_id": 2,
+        "name": "Rice University"
+      }
+    ],
+    "derived_from": [],
+    "is_vocab": false,
+    "stimulus_html": "",
+    "questions": [
+      {
+        "id": 6378,
+        "is_answer_order_important": true,
         "stimulus_html": "",
-        "questions": [{
-            "id": 5882,
-            "is_answer_order_important": true,
-            "stimulus_html": "",
-            "stem_html": "What is a suggested and testable explanation for an event called?",
-            "answers": [{
-                "id": 23238,
-                "content_html": "discovery",
-                "correctness": "0.0",
-                "feedback_html": "A hypothesis is a suggested and testable explanation for an event."
-            }, {
-                "id": 23239,
-                "content_html": "hypothesis",
-                "correctness": "1.0",
-                "feedback_html": "A hypothesis is a proposed explanation for a phenomenon that can be tested."
-            }, {
-                "id": 23237,
-                "content_html": "scientific method",
-                "correctness": "0.0",
-                "feedback_html": "A hypothesis refers to the suggested and testable explanation of an event."
-            }, {
-                "id": 23236,
-                "content_html": "theory",
-                "correctness": "0.0",
-                "feedback_html": "A theory is a broad explanation for a long number of observations and tested hypotheses while a hypothesis refers to the suggested and testable explanation for an event."
-            }],
-            "collaborator_solutions": [{
-                "attachments": [],
-                "solution_type": "detailed",
-                "content_html": "A hypothesis is a proposed explanation for an occurance or event based on previous observations that can be tested."
-            }],
-            "solutions": [{
-              "uid": "1@1",
-              "number": 1,
-              "version": 1,
-              "published_at": "2015-09-16T20:13:32.533Z",
-              "editors": [],
-              "authors": [{
-                "user_id": 1,
-                "name": "OpenStax"
-              }],
-              "copyright_holders": [{
-                "user_id": 2,
-                "name": "Rice University"
-              }],
-              "derived_from": [],
-              "attachments": [],
-              "solution_type": "detailed",
-              "content_html": "<ol>\n  <li>C</li>\n  <li>F</li>\n  <li>A</li>\n  <li>B</li>\n  <li>D</li>\n  <li>E</li>\n</ol>\n\n<p>The original hypothesis is incorrect, as the coffeemaker works when plugged into the outlet. Alternative hypotheses include that the toaster might be broken or that the toaster wasn’t turned on.</p>\n"
-            }],
-            "community_solutions": [],
-            "hints": [],
-            "formats": [
-                "free-response",
-                "multiple-choice"
-            ],
-            "combo_choices": []
-        }]
-    },
-    "tags": [{
-        "id": "cnxmod:4d5fc58c-cdea-4950-a91d-a5f141a38744",
-        "type": "cnxmod",
-        "is_visible": false,
-        "data": "4d5fc58c-cdea-4950-a91d-a5f141a38744"
-    }, {
-        "id": "apbio-ch01-s01-lo02",
-        "type": "lo",
-        "description": "What are the steps of the scientific method?",
-        "chapter_section": [
-            1,
-            1
+        "stem_html": "<p><img src=\"https://s3-us-west-2.amazonaws.com/openstax-assets/pxorif9287q9er-dev/exercises/attachments/large_0faa585c79a14c2fa728d331087bfcd09f583c482c01f82ebcd0ec49109b2486.png\" alt=\"A phylogenetic tree for mammals is illustrated. Most of the descendants of the common ancestor have legs except for the whale who shares a common ancestor with the camel, pig, deer, sheep and hippo; and manatee and dugong who share a common ancestor with the elephant.\"></p>\n\n<p>Phylogenetic trees can represent traits that are derived or lost due to evolution. One example is the absence of legs in some marine mammals. One such group is the Cetaceans, which includes toothed whales, such as dolphins and killer whales, and baleen whales, such as humpback whales. Cetaceans are descended from even-toed ungulates and share a common ancestry with the hippopotamus, cows, sheep, camel, and pig. Based on this phylogenetic tree, which of the following animal is the most closely related to a horse?</p>\n",
+        "answers": [
+          {
+            "id": 24871,
+            "content_html": "an armadillo",
+            "correctness": "0.0",
+            "feedback_html": "Closely-related organisms share the smallest and right-most brackets on the tree. Another animal is closer to the horse on the phylogenetic tree than the armadillo."
+          },
+          {
+            "id": 24872,
+            "content_html": "a camel",
+            "correctness": "0.0",
+            "feedback_html": "Closely-related organisms share the smallest and right-most brackets on the tree. Another animal is closer to the horse on the phylogenetic tree than the camel."
+          },
+          {
+            "id": 24873,
+            "content_html": "a bat",
+            "correctness": "0.0",
+            "feedback_html": "Closely-related organisms share the smallest and right-most brackets on the tree. Other animals are closer to the horse on the phylogenetic tree than the bat."
+          },
+          {
+            "id": 24874,
+            "content_html": "a cat",
+            "correctness": "1.0",
+            "feedback_html": "Closely-related organisms share the smallest and right-most brackets on the tree. Of the animals listed, the horse is closest to a cat on the phylogenetic tree, as they are connected by the smallest of the brackets."
+          }
         ],
-        "is_visible": true
-    }, {
-        "id": "book:stax-apbio",
-        "type": "generic",
-        "is_visible": false
-    }, {
-        "id": "apbio-ch01",
-        "type": "generic",
-        "is_visible": false
-    }, {
-        "id": "apbio-ch01-s01",
-        "type": "generic",
-        "chapter_section": [
-            1,
-            1
+        "collaborator_solutions": [
+          {
+            "attachments": [],
+            "solution_type": "detailed",
+            "content_html": "a cat"
+          }
         ],
-        "is_visible": false
-    }, {
-        "id": "type:conceptual-or-recall",
-        "type": "generic",
-        "is_visible": false
-    }, {
-        "id": "apbio-ch01-ex003",
-        "type": "generic",
-        "is_visible": false
-    }, {
-        "id": "ost-chapter-review",
-        "type": "generic",
-        "is_visible": false
-    }, {
-        "id": "review",
-        "type": "generic",
-        "is_visible": false
-    }, {
-        "id": "dok1",
-        "type": "dok",
-        "name": "DOK: 1",
-        "is_visible": true,
-        "data": "1"
-    }, {
-        "id": "time-short",
-        "type": "length",
-        "name": "Length: S",
-        "is_visible": true,
-        "data": "short"
-    }, {
-        "id": "blooms-2",
-        "type": "blooms",
-        "name": "Blooms: 2",
-        "is_visible": true,
-        "data": "2"
-    }, {
-        "id": "blooms:2",
-        "type": "blooms",
-        "name": "Blooms: 2",
-        "is_visible": true,
-        "data": "2"
-    }, {
-        "id": "time:short",
-        "type": "length",
-        "name": "Length: S",
-        "is_visible": true,
-        "data": "short"
-    }, {
-        "id": "dok:1",
-        "type": "dok",
-        "name": "DOK: 1",
-        "is_visible": true,
-        "data": "1"
-    }, {
-        "id": "exid:stax-apbio:3",
-        "type": "generic",
-        "is_visible": false
-    }, {
-        "id": "type:practice",
-        "type": "generic",
-        "is_visible": false
-    }, {
-        "id": "filter-type:chapter-review",
-        "type": "generic",
-        "is_visible": false
-    }],
-    "pool_types": [
-        "homework_core"
+        "community_solutions": [],
+        "hints": [],
+        "formats": [
+          "multiple-choice"
+        ],
+        "combo_choices": []
+      },
+      {
+        "id": 6379,
+        "is_answer_order_important": false,
+        "stimulus_html": "",
+        "stem_html": "<p>\nA phylogenetic tree for mammals is illustrated. Most of the descendants of the common ancestor have legs except for the whale who shares a common ancestor with the camel, pig, deer, sheep and hippo; and manatee and dugong who share a common ancestor with the elephant.\n</p>\n",
+        "answers": [
+          {
+            "id": 24875,
+            "content_html": "A camel",
+            "correctness": "1.0",
+            "feedback_html": "how many humps?"
+          },
+          {
+            "id": 24876,
+            "content_html": "An ostrich",
+            "correctness": "0.0",
+            "feedback_html": "Can it run fast?"
+          }
+        ],
+        "collaborator_solutions": [
+          {
+            "attachments": [],
+            "solution_type": "detailed",
+            "content_html": "Why or why not?"
+          }
+        ],
+        "community_solutions": [],
+        "hints": [],
+        "formats": [
+          "multiple-choice",
+          "free-response"
+        ],
+        "combo_choices": []
+      }
     ]
+  },
+  "tags": [
+    {
+      "id": "context-cnxmod:cb7cf05b-7e16-4a53-a498-003b01ec3d7f",
+      "type": "cnxmod",
+      "is_visible": false,
+      "data": "cb7cf05b-7e16-4a53-a498-003b01ec3d7f"
+    },
+    {
+      "id": "apbio-ch01-s02-aplo-1-18",
+      "type": "aplo",
+      "name": "1.18",
+      "description": "The student is able to evaluate evidence provided by a data set in conjunction with a phylogenetic tree or simply cladogram to determine evolutionary history and speciation.",
+      "chapter_section": [
+        1,
+        2
+      ],
+      "is_visible": true
+    },
+    {
+      "id": "apbio",
+      "type": "generic",
+      "is_visible": false
+    },
+    {
+      "id": "apbio-ch01",
+      "type": "generic",
+      "is_visible": false
+    },
+    {
+      "id": "book:stax-bio",
+      "type": "generic",
+      "is_visible": false
+    },
+    {
+      "id": "book:stax-apbio",
+      "type": "generic",
+      "is_visible": false
+    },
+    {
+      "id": "filter-type:import:hs",
+      "type": "generic",
+      "is_visible": false
+    },
+    {
+      "id": "dok1",
+      "type": "dok",
+      "name": "DOK: 1",
+      "is_visible": true,
+      "data": "1"
+    },
+    {
+      "id": "time-short",
+      "type": "length",
+      "name": "Length: S",
+      "is_visible": true,
+      "data": "short"
+    },
+    {
+      "id": "time:short",
+      "type": "length",
+      "name": "Length: S",
+      "is_visible": true,
+      "data": "short"
+    },
+    {
+      "id": "dok:1",
+      "type": "dok",
+      "name": "DOK: 1",
+      "is_visible": true,
+      "data": "1"
+    },
+    {
+      "id": "blooms-3",
+      "type": "blooms",
+      "name": "Blooms: 3",
+      "is_visible": true,
+      "data": "3"
+    },
+    {
+      "id": "blooms:3",
+      "type": "blooms",
+      "name": "Blooms: 3",
+      "is_visible": true,
+      "data": "3"
+    },
+    {
+      "id": "apbio-ch01-s02",
+      "type": "generic",
+      "chapter_section": [
+        1,
+        2
+      ],
+      "is_visible": false
+    },
+    {
+      "id": "apbio-ch01-ex028",
+      "type": "generic",
+      "is_visible": false
+    },
+    {
+      "id": "ap-everyday",
+      "type": "generic",
+      "is_visible": false
+    },
+    {
+      "id": "type:conceptual-or-recall",
+      "type": "generic",
+      "is_visible": false
+    },
+    {
+      "id": "exid:apbio-ch01-ex028",
+      "type": "generic",
+      "is_visible": false
+    }
+  ],
+  "pool_types": [
+    "reading_dynamic",
+    "practice_widget",
+    "all_exercises"
+  ],
+  "is_excluded": false
 }

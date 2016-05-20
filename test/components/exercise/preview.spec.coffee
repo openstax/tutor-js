@@ -1,5 +1,5 @@
-{Testing, expect, sinon, _} = require 'test/helpers'
-
+{Testing, expect, sinon, _, ReactTestUtils} = require 'test/helpers'
+ld = require 'lodash'
 ExercisePreview = require 'components/exercise/preview'
 
 EXERCISE = require '../../../stubs/exercise/review'
@@ -9,7 +9,7 @@ describe 'Exercise Preview Component', ->
 
   beforeEach ->
     @props = {
-      exercise: EXERCISE
+      exercise: ld.cloneDeep(EXERCISE)
     }
 
   it 'displays the exercise answers', ->
@@ -41,3 +41,31 @@ describe 'Exercise Preview Component', ->
       expect(_.pluck(formats.querySelectorAll('span'), 'textContent')).to.deep.equal([
         'free-response', 'multiple-choice'
       ])
+
+  it 'does not render overlay by default', ->
+    Testing.renderComponent( ExercisePreview, props: @props ).then ({dom}) ->
+      expect( dom.querySelector('.controls-overlay') ).not.to.exist
+
+  it 'callbacks are called when overlay and actions are clicked', ->
+    onSelect = sinon.spy()
+    actions =
+      include:
+        message: 'ReInclude question'
+        handler: sinon.spy()
+
+    _.extend(@props, {overlayActions: actions, onOverlayClick: onSelect})
+    Testing.renderComponent( ExercisePreview, props: @props ).then ({dom}) ->
+      Testing.actions.click( dom.querySelector('.controls-overlay') )
+      expect(onSelect).to.have.been.called
+      expect(actions.include.handler).not.to.have.been.called
+      action = dom.querySelector('.controls-overlay .action.include')
+      expect(action).to.exist
+      Testing.actions.click(action)
+      expect(actions.include.handler).to.have.been.called
+      expect(onSelect.callCount).to.equal(1)
+
+  it 'renders placeholders', ->
+    _.extend(@props, isInteractive: false)
+    @props.exercise.content.stimulus_html = 'watch this: <iframe src="youtube.com/embed/u030w90rawe"></iframe>'
+    Testing.renderComponent( ExercisePreview, props: @props ).then ({dom}) ->
+      expect(dom.querySelector('svg.placeholder.video')).to.exist

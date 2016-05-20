@@ -77,9 +77,17 @@ ExerciseDemo = React.createClass
 ExercisePreviewDemo = React.createClass
   displayName: 'ExercisePreviewDemo'
   getInitialState: ->
-    displayFeedback: false
-    displayFormats:  false
-    displayTags: false
+    isSelected: false
+    toggles:
+      feedback: false
+      tags:     false
+      formats:  false
+      height:   false
+
+  onToggle: (ev) ->
+    toggles = @state.toggles
+    toggles[ev.target.name] = ev.target.checked
+    @setState({toggles})
 
   toggleFeedbackDisplay: (ev) ->
     @setState(displayFeedback: not @state.displayFeedback)
@@ -90,35 +98,52 @@ ExercisePreviewDemo = React.createClass
   toggleTagsDisplay: (ev) ->
     @setState(displayTags: not @state.TagsFormats)
 
+  onSelection: ->
+    @setState(isSelected: not @state.isSelected)
+
+  onDetailsClick: (ev, exercise) ->
+    console.warn "Exercise details was clicked"
+
   render: ->
-    {displayFeedback, displayFormats, displayTags} = @state
 
-    displayFormatsIconClasses = classnames 'fa',
-      'fa-check-square-o': displayFormats
-      'fa-square-o':  not displayFormats
-
-    displayFeedbackIconClasses = classnames 'fa',
-      'fa-check-square-o': displayFeedback
-      'fa-square-o':  not displayFeedback
-
-    displayTagsIconClasses = classnames 'fa',
-      'fa-check-square-o': displayTags
-      'fa-square-o':  not displayTags
 
     <ExercisePreview exercise={exercisePreviewStub}
-      displayFormats={displayFormats}
-      displayAllTags={displayTags}
-      displayFeedback={displayFeedback}
+      onSelection={@onSelection}
+      onDetailsClick={@onDetailsClick}
+      isSelected={@state.isSelected}
+      displayFormats={@state.toggles.formats}
+      displayAllTags={@state.toggles.tags}
+      displayFeedback={@state.toggles.feedback}
+      isVerticallyTruncated={@state.toggles.truncated}
     >
-      <button className="toggle" onClick={@toggleFeedbackDisplay}>
-        <i className={displayFeedbackIconClasses}/> Preview Feedback
-      </button>
-      <button className="toggle" onClick={@toggleTagsDisplay}>
-        <i className={displayTagsIconClasses}/> Display All Tags
-      </button>
-      <button className="toggle" onClick={@toggleFormatsDisplay}>
-        <i className={displayFormatsIconClasses}/> Show Formats
-      </button>
+      <label>
+        <input type="checkbox"
+          onChange={@onToggle} name='feedback'
+          checked={@state.toggles.feedback}
+        /> Preview Feedback
+      </label>
+
+      <label>
+        <input type="checkbox"
+          onChange={@onToggle} name='tags'
+          checked={@state.toggles.tags}
+        /> Display All Tags
+      </label>
+
+      <label>
+        <input type="checkbox"
+          onChange={@onToggle} name='formats'
+          checked={@state.toggles.formats}
+        /> Show Formats
+      </label>
+
+      <label>
+        <input type="checkbox"
+          onChange={@onToggle} name='truncated'
+          checked={@state.toggles.truncated}
+        /> Limit Height
+      </label>
+
     </ExercisePreview>
 
 
@@ -222,9 +247,9 @@ Demo = React.createClass
   displayName: 'Demo'
   render: ->
     demos =
+      exercisePreview: <ExercisePreviewDemo/>
       notices: <NoticesDemo />
       exercise: <ExerciseDemo/>
-      exercisePreview: <ExercisePreviewDemo/>
       breadcrumbs: <BreadcrumbDemo/>
       html: <HTMLDemo/>
 
