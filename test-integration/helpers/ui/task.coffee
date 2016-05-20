@@ -14,6 +14,8 @@ COMMON_ELEMENTS =
     css: '.task-breadcrumbs-step'
   currentBreadcrumbStep:
     css: '.openstax-breadcrumbs-step.current.active'
+  helpLink:
+    css: '.task-help-links a'
 
   # taskTypeIsExternal:
   #   css: '.pinned-container.task.task-external'
@@ -52,5 +54,8 @@ class Task extends TestHelper
 
       @test.utils.wait.until 'Waiting for continue button to be enabled again', =>
         selenium.until.elementIsEnabled(@el.continueButton().get())
+
+  goToHelpLink: =>
+    @el.helpLink().waitClick()
 
 module.exports = Task
