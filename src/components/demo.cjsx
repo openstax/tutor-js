@@ -94,7 +94,7 @@ ExerciseDemo = React.createClass
     exerciseEvents.off('change', @update)
   render: ->
     {exerciseProps} = @state
-    <Exercise {...@props} {...exerciseProps} pinned={false}/>
+    <Exercise {...@props} {...exerciseProps} project='tutor' pinned={false}/>
 
 MultipartExerciseDemo = React.createClass
   displayName: 'MultipartExerciseDemo'
