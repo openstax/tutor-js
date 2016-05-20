@@ -4,13 +4,13 @@ React = require 'react'
 
 # Basically just an icon,
 # create as plain class without this binding and never updates
-class MultipartBadge extends React.Component
+class MultipartIcon extends React.Component
 
   shouldComponentUpdate: ->
     false
 
   render: ->
-    <svg className="badge multipart"
+    <svg className="icon multipart"
       version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
       viewBox="0 0 17 17"
     >
@@ -36,4 +36,4 @@ class MultipartBadge extends React.Component
         style={fill:'#a1a1a1'} />
     </svg>
 
-module.exports = MultipartBadge
+module.exports = MultipartIcon

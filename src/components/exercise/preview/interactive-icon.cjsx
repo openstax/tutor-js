@@ -4,13 +4,13 @@ React = require 'react'
 
 # Basically just an icon,
 # create as plain class without this binding and never updates
-class InteractiveBadge extends React.Component
+class InteractiveIcon extends React.Component
 
   shouldComponentUpdate: ->
     false
 
   render: ->
-    <svg className="badge interactive"
+    <svg className="icon interactive"
       version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
       viewBox="0 0 17 17"
     >
@@ -33,4 +33,4 @@ class InteractiveBadge extends React.Component
       </g>
     </svg>
 
-module.exports = InteractiveBadge
+module.exports = InteractiveIcon

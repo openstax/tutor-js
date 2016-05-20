@@ -1,8 +1,8 @@
 React = require 'react'
 _ = require 'underscore'
 Exercise = require '../../../model/exercise'
-Interactive = require './interactive-badge'
-MultiPart   = require './multipart-badge'
+Interactive = require './interactive-icon'
+MultiPart   = require './multipart-icon'
 
 ExerciseBadges = React.createClass
 
