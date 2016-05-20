@@ -6,10 +6,9 @@ _ = require 'underscore'
 {TaskStore} = require '../../flux/task'
 {StepPanel} = require '../../helpers/policies'
 
-{ChapterSectionMixin} = require 'openstax-react-components'
 BrowseTheBook = require '../buttons/browse-the-book'
 
-{CardBody, Exercise} = require 'openstax-react-components'
+{ChapterSectionMixin, CardBody, ExerciseWithScroll} = require 'openstax-react-components'
 {ExControlButtons} = require 'openstax-react-components/src/components/exercise/controls'
 
 ScrollSpy = require '../scroll-spy'
@@ -207,10 +206,11 @@ module.exports = React.createClass
       courseId={courseId}
       controlButtons={controlButtons}/>
 
-    <Exercise
+    <ExerciseWithScroll
       {...@props}
       {...controlProps}
 
+      project='tutor'
       setScrollState={@setScrollState}
       goToStep={_.partial(goToStep, _, true)}
       currentStep={currentStep}
