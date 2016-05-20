@@ -24,7 +24,9 @@ module.exports = React.createClass
     shouldShowRight = (
       @props.stepKey < TaskStore.getTotalStepsCount(@props.taskId) - 1 and
       StepPanel.canContinue(@props.stepId) and
+      step and
       step.type isnt 'exercise' or (
+        step and
         step.type is 'exercise' and
         TaskStepStore.isAnswered(@props.stepId)
       )
