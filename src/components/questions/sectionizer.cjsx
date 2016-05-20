@@ -71,7 +71,7 @@ Sectionizer = React.createClass
     <div key={cs} onClick={_.partial(@selectSection, cs)} className='section ellipsis'>…</div>
 
   renderCurrentLinks: ->
-    sections = @props.chapter_sections.sort()
+    sections = @props.chapter_sections
     active = @currentSection()
     currentPage = _.findIndex(sections, (section) -> section is active )
     links = []

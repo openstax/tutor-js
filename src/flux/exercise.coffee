@@ -1,4 +1,7 @@
 # coffeelint: disable=no_empty_functions
+
+ContentHelpers = require '../helpers/content'
+
 flux = require 'flux-react'
 _ = require 'underscore'
 {TocStore} = require './toc'
@@ -28,6 +31,14 @@ EXERCISE_TYPE_MAPPING =
 
 filterForPoolType = (exercises, pool_type) ->
   _.filter exercises, (exercise) -> -1 isnt exercise.pool_types.indexOf(pool_type)
+
+groupBySortedSections = ( exercises ) ->
+  sections = {}
+  grouped = _.groupBy(exercises, getChapterSection)
+  for section in _.sortBy( _.keys(grouped), ContentHelpers.chapterSectionToNumber)
+    sections[section] = grouped[section]
+  sections
+
 
 getImportantTags = (tags) ->
   obj =
@@ -147,13 +158,13 @@ ExerciseConfig =
       results = {
         all:
           count: all.length
-          grouped: _.groupBy(all, getChapterSection)
+          grouped: groupBySortedSections(all)
       }
       for name, pool_type of EXERCISE_TYPE_MAPPING
         exercises = filterForPoolType(all, pool_type)
         results[name] = {
           count: exercises.length
-          grouped: _.groupBy( exercises, getChapterSection)
+          grouped: groupBySortedSections(exercises)
         }
       results
 
