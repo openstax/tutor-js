@@ -1,5 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+{addons} = require 'react/addons'
+
 
 {TocStore} = require '../../flux/toc'
 {ExerciseActions, ExerciseStore} = require '../../flux/exercise'
@@ -14,6 +16,8 @@ ChapterSection = require '../task-plan/chapter-section'
 Icon = require '../icon'
 
 SectionsExercises = React.createClass
+
+  mixins: [addons.PureRenderMixin]
 
   propTypes:
     exercises:   React.PropTypes.array.isRequired
@@ -75,7 +79,7 @@ ExerciseCards = React.createClass
     scrollFast: React.PropTypes.bool
     onExerciseToggle: React.PropTypes.func.isRequired
 
-  mixins: [ScrollTo]
+  mixins: [ScrollTo, addons.PureRenderMixin]
 
   componentDidMount:   ->
     @scrollToSelector('.exercise-sections', {immediate: @props.scrollFast})
@@ -83,7 +87,7 @@ ExerciseCards = React.createClass
   getScrollTopOffset: -> if @props.scrollFast then 110 else 150 # no idea why the difference, sorry :(
 
   render: ->
-    chapter_sections = _.keys(@props.exercises.grouped).sort()
+    chapter_sections = _.keys @props.exercises.grouped
 
     <div className="exercise-cards">
       {for cs in chapter_sections
