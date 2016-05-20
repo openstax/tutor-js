@@ -176,6 +176,12 @@ module.exports = React.createClass
   setCurrentStep: (currentStep) ->
     @setState({currentStep})
 
+  onFreeResponseChange: (id, tempFreeResponse) ->
+    {taskId} = @props
+    stepIndex = TaskStore.getStepIndex(taskId, id)
+    TaskStepActions.updateTempFreeResponse(id, tempFreeResponse)
+    @setCurrentStep(stepIndex)
+
   render: ->
     {id, taskId, courseId, onNextStep, onStepCompleted, goToStep} = @props
     {parts, lastPartId, isSinglePartExercise, task, currentStep} = @state
@@ -232,5 +238,5 @@ module.exports = React.createClass
       getCurrentPanel={getCurrentPanel}
       getReadingForStep={getReadingForStep}
       setFreeResponseAnswer={TaskStepActions.setFreeResponseAnswer}
-      onFreeResponseChange={TaskStepActions.updateTempFreeResponse}
+      onFreeResponseChange={@onFreeResponseChange}
       setAnswerId={TaskStepActions.setAnswerId}/>
