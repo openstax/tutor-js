@@ -144,7 +144,7 @@
   }
 
   .exercise-details {
-    min-height: calc(~"100vh - 200px");
+    min-height: calc(~"100vh - 150px");
     position: relative;
     display: flex;
     flex-direction: column;
@@ -238,7 +238,20 @@
       .exercise-card {
         .controls-overlay { display: flex; }
       }
-      .page-navigation { display: flex; }
+      .page-navigation {
+        display: flex;
+        cursor: pointer;
+      }
     }
   }
+}
+
+
+// TODO put in shared instead, this is just for quick edits
+.openstax-exercise-preview.actions-on-side {
+  .panel-body {
+    // add left padding to make space for action buttons.
+    padding-left: 90px;
+  }
+
 }
