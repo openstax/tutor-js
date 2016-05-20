@@ -86,8 +86,11 @@ SetTimezoneField = React.createClass
     {courseTimezone} = @state
 
     timezonesToPick = _.map timezones, (timezone) =>
+      identifier = S.dasherize(timezone)
+
       <TutorRadio
-        id={S.dasherize(timezone)}
+        id={identifier}
+        key="timezone-choice-#{identifier}"
         value={timezone}
         name={name}
         checked={timezone is courseTimezone}
