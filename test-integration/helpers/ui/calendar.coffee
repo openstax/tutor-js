@@ -24,6 +24,8 @@ COMMON_ELEMENTS =
     linkText: 'Add External Assignment'
   publishedPlan:
     css: '.plan.is-published label:not(.continued)'
+  publishedHomework:
+    css: '.plan.is-published label:not(.continued)[data-assignment-type=homework]'
   draftPlan:
     css: '.plan:not(.is-published) label:not(.continued)'
     ignoreLengthChange: true
@@ -39,6 +41,10 @@ COMMON_ELEMENTS =
     css: ".plan label[data-title='#{title}']"
   publishedPlanByTitle: (title) ->
     css: ".plan.is-published label[data-title='#{title}']"
+  lmsLink:
+    css: '.lms-info a'
+  lmsPopover:
+    css: '.sharable-link.popover'
 
 
 COMMON_POPUP_ELEMENTS =
@@ -148,6 +154,10 @@ class Calendar extends TestHelper
 
   goToBook: ->
     @el.bookLink().click()
+
+  getLmsPopover: =>
+    @el.lmsLink().click()
+    @el.lmsPopover().get()
 
   # goToAddByType(assignmentType)
   # goToAddByTypeFromNow(assignmentType, relativeDate)

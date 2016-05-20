@@ -36,6 +36,19 @@ describe 'Calendar and Stats', ->
       @calendar.waitUntilLoaded()
 
 
+  @eachCourse 'Shows LMS Info for all published homeworks', (courseCategory) ->
+    @calendar.el.publishedHomework.forEach (plan, index, total) =>
+      plan.click()
+      @calendarPopup.waitUntilLoaded()
+
+      @calendar.getLmsPopover().getText().then (txt) ->
+        expect(txt).to.contain('Copy information for your LMS')
+
+      @calendarPopup.close()
+      @calendar.waitUntilLoaded()
+
+
+
   @eachCourse 'Opens the review page for every visible plan (readonly)', (courseCategory) ->
     @calendar.el.openPlan.forEach (plan, index, total) =>
       @addTimeout(10)
