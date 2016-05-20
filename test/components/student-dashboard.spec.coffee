@@ -32,6 +32,8 @@ describe 'Student Dashboard Component', ->
 
   afterEach ->
     StudentDashboardActions.HACK_DO_NOT_RELOAD(false)
+    # reset time to stop side effects in other tests
+    TimeActions.setNow(new Date())
 
   it 'renders this week panel',  ->
     TimeActions.setNow(NOW)

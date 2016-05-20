@@ -2,9 +2,8 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
-HSTable = require './table-hs'
-CCTable = require './table-cc'
-CCTableFilters = require './cc-table-filters'
+ScoresTable = require './table'
+TableFilters = require './table-filters'
 
 Router = require 'react-router'
 
@@ -34,13 +33,13 @@ Scores = React.createClass
     sortIndex: 0
     tableWidth: 0
     tableHeight: 0
-    colDefaultWidth: 180
-    colSetWidth: 180
-    colResizeWidth: 180
+    colDefaultWidth: 160
+    colSetWidth: 160
+    colResizeWidth: 160
     colResizeKey: 0
     sort: { key: 'name', asc: true, dataType: 'score' }
     # index of first column that contains data
-    firstDataColumn: 1
+    firstDataColumn: 2
     displayAs: 'percentage'
 
   componentDidMount: ->
@@ -64,7 +63,7 @@ Scores = React.createClass
   tableHeight: ->
     windowEl = @_getWindowSize()
     table = React.findDOMNode(@refs.tableContainer)
-    bottomMargin = 40
+    bottomMargin = 140
     windowEl.height - table.offsetTop - bottomMargin
 
 
@@ -103,23 +102,53 @@ Scores = React.createClass
       if _.isNumber(sort.key)
         index = sort.key - firstDataColumn
         record = d.data[index]
-        return 0 unless record
+        return -1 unless record
         switch record.type
-          when 'reading'  then record.status
-          when 'homework' then record.correct_exercise_count or 0
+          when 'reading'
+            progress =
+              if record.is_late_work_accepted
+                record.completed_step_count
+              else
+                record.completed_on_time_step_count
+            @percent(progress, record.step_count) or 0
+          when 'homework'
+            switch sort.dataType
+              when 'score'
+                score =
+                  if record.is_late_work_accepted
+                    record.correct_exercise_count
+                  else
+                    record.correct_on_time_exercise_count
+                if displayAs is 'number'
+                  score or 0
+                else
+                  @percent(score, record.exercise_count) or 0
+              when 'completed'
+                progress =
+                  if record.is_late_work_accepted
+                    record.completed_exercise_count
+                  else
+                    record.completed_on_time_exercise_count
+                @percent(progress, record.exercise_count) or 0
           when 'concept_coach'
             switch sort.dataType
               when 'score'
+                score = record.correct_exercise_count
                 if displayAs is 'number'
-                  record.correct_exercise_count or 0
+                  score or 0
                 else
-                  @percent(record.correct_exercise_count, record.exercise_count) or 0
+                  @percent(score, record.exercise_count) or 0
               when 'completed'
-                @percent(record.completed_exercise_count, record.exercise_count) or 0
+                progress = record.completed_exercise_count
+                @percent(progress, record.exercise_count) or 0
       else
         (d.last_name or d.name).toLowerCase()
     )
-    { headings: scores.data_headings, rows: if sort.asc then sortData else sortData.reverse() }
+    {
+      overall_average_score: scores.overall_average_score,
+      headings: scores.data_headings,
+      rows: if sort.asc then sortData else sortData.reverse()
+    }
 
 
   render: ->
@@ -130,50 +159,40 @@ Scores = React.createClass
 
     scoresExport = <ScoresExport courseId={courseId}/>
 
-    if isConceptCoach
-      scoresTable =
-        <CCTable
-        courseId={@props.courseId} 
-        data={data}
-        width={tableWidth}
-        height={tableHeight}
-        sort={@state.sort}
-        onSort={@changeSortingOrder}
-        colSetWidth={@state.colSetWidth}
-        period_id={@state.period_id}
-        periodIndex={@state.periodIndex}
-        firstDataColumn={@state.firstDataColumn}
-        displayAs={@state.displayAs}
-        dataType={@state.sort.dataType}
-          />
-      afterTabsItem = ->
+    scoresTable =
+      <ScoresTable
+      courseId={@props.courseId} 
+      data={data}
+      width={tableWidth}
+      height={tableHeight}
+      sort={@state.sort}
+      onSort={@changeSortingOrder}
+      colSetWidth={@state.colSetWidth}
+      period_id={@state.period_id}
+      periodIndex={@state.periodIndex}
+      firstDataColumn={@state.firstDataColumn}
+      displayAs={@state.displayAs}
+      dataType={@state.sort.dataType}
+      isConceptCoach={isConceptCoach}
+        />
+    afterTabsItem = ->
+      if isConceptCoach
         <span className='course-scores-note tab'>
           Click on a student's score to review their work.
-          &nbsp 
+          &nbsp
           Click the icon to see their progress completing the assignment.
         </span>
-      tableFilters =
-        <CCTableFilters
-        displayAs={@state.displayAs}
-        changeDisplayAs={@changeDisplayAs}
-        />
-    else
-      scoresTable =
-        <HSTable
-        courseId={@props.courseId}
-        data={data}
-        width={tableWidth}
-        height={tableHeight}
-        sort={@state.sort}
-        onSort={@changeSortingOrder}
-        colSetWidth={@state.colSetWidth}
-        period_id={@state.period_id}
-        periodIndex={@state.periodIndex}
-        firstDataColumn={@state.firstDataColumn}
-          />
-      afterTabsItem = -> null
-      tableFilters = null
-
+      else
+        <span className='course-scores-note tab'>
+          Scores on the due date are displayed.
+          &nbsp
+          Click an orange triangle to see late work.
+        </span>
+    tableFilters =
+      <TableFilters
+      displayAs={@state.displayAs}
+      changeDisplayAs={@changeDisplayAs}
+      />
 
     periodNav =
       <CoursePeriodsNavShell
@@ -184,7 +203,6 @@ Scores = React.createClass
         afterTabsItem={afterTabsItem} />
 
     noAssignments = <span className='course-scores-notice'>No Assignments Yet</span>
-
 
     if data.rows.length > 0 then students = true
 
@@ -207,8 +225,7 @@ ScoresShell = React.createClass
   render: ->
     {courseId} = @context.router.getCurrentParams()
     course = CourseStore.get(courseId)
-    tableClass = if course.is_concept_coach then 'cc' else 'hs'
-    <BS.Panel className="scores-report #{tableClass}">
+    <BS.Panel className="scores-report">
       <LoadableItem
         id={courseId}
         store={ScoresStore}

@@ -26,11 +26,11 @@ COMMON_ELEMENTS =
   displayAs:
     css: '.filter-item:nth-child(1) .filter-group .btn:nth-child(2)'
   scoreCell:
-    css: '.cc-cell a.score'
+    css: '.scores-cell a.score'
   hoverCCTooltip:
-    css: '.cc-cell .worked .trigger-wrap'
+    css: '.scores-cell .worked .trigger-wrap'
   ccTooltip:
-    css: '.cc-scores-tooltip-completed-info'
+    css: '.scores-scores-tooltip-completed-info'
   averageLabel:
     css: '.average-label span:last-child'
   exportUrl:

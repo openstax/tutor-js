@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 
 module.exports = React.createClass
-  displayName: 'CCTableFilters'
+  displayName: 'TableFilters'
 
   propTypes:
     displayAs: React.PropTypes.string.isRequired

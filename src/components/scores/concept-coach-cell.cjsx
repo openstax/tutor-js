@@ -6,58 +6,67 @@ Time = require '../time'
 CellStatusMixin = require './cell-status-mixin'
 PieProgress = require './pie-progress'
 
+
 ConceptCoachCell = React.createClass
 
   mixins: [CellStatusMixin] # prop validation
 
   render: ->
+    {task, courseId, displayAs, isConceptCoach, rowIndex, columnIndex, period_id} = @props
+
     scorePercent =
-      Math.round((@props.task.correct_exercise_count / @props.task.exercise_count) * 100)
+      Math.round((task.correct_exercise_count / task.exercise_count) * 100)
     pieValue =
-      Math.round((@props.task.completed_exercise_count / @props.task.exercise_count) * 100)
+      Math.round((task.completed_exercise_count / task.exercise_count) * 100)
+    lastWorked =
+      <div className='row'>
+        <div>
+          <span>Last Worked:</span> <Time
+                format='M/M' 
+                date={task.last_worked_at} />
+        </div>
+      </div>
     tooltip =
       <BS.Popover
-        id="cc-cell-info-popover-#{@props.task.id}"
-        className='cc-scores-tooltip-completed-info'>
-        <div>
-          <BS.Table>
-            <thead>
-              <tr>
-                <th>Correct</th>
-                <th>Attempted</th>
-                <th>Total possible</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className='data-row'>
-                <td>{@props.task.correct_exercise_count}</td>
-                <td>{@props.task.completed_exercise_count}</td>
-                <td>{@props.task.exercise_count}</td>
-              </tr>
-              <tr>
-                <td colSpan="3">
-                  <span>Date Last Worked:</span> <Time 
-                  format='MMM. D' 
-                  date={@props.task.last_worked_at} />
-                </td>
-              </tr>
-            </tbody>
-          </BS.Table>
+        id="scores-cell-info-popover-#{task.id}"
+        className='scores-scores-tooltip-completed-info'>
+        <div className='info'>
+          <div className='row'>
+            <div>Completed {pieValue}%</div>
+          </div>
+          <div className='row'>
+            <div>
+              {task.completed_exercise_count}{' of '}
+              {task.exercise_count} questions
+            </div>
+          </div>
+          { if task.completed_exercise_count is task.exercise_count then lastWorked }
         </div>
       </BS.Popover>
 
+    completed = task.completed_exercise_count is task.exercise_count
 
-    <div className="cc-cell">
-      <Router.Link className="score" to='viewTaskStep'
-        data-assignment-type="#{@props.task.type}"
-        params={courseId: @props.courseId, id: @props.task.id, stepIndex: 1}>
-          {
-            if @props.displayAs is 'number'
-              "#{@props.task.correct_exercise_count} of #{@props.task.exercise_count}"
-            else
-              "#{scorePercent}%"
-          }
-      </Router.Link>
+    score =
+      if displayAs is 'number'
+        "#{task.correct_exercise_count} of #{task.exercise_count}"
+      else
+        "#{scorePercent}%"
+
+
+    scoreNotComplete = <div className="score not-complete">---</div>
+
+
+    <div className="scores-cell">
+
+
+      <div className="score">
+        <Router.Link to='viewTaskStep'
+          className="#{if not completed then 'not-complete'}"
+          data-assignment-type="#{task.type}"
+          params={courseId: courseId, id: task.id, stepIndex: 1}>
+            { if completed then score else scoreNotComplete }
+        </Router.Link>
+      </div>
 
       <div className="worked">
         <BS.OverlayTrigger
@@ -66,10 +75,15 @@ ConceptCoachCell = React.createClass
         delayHide={0}
         overlay={tooltip}>
           <span className='trigger-wrap'>
-            <PieProgress size={24} value={pieValue} roundToQuarters />
+            <PieProgress
+            isConceptCoach={isConceptCoach}
+            size={24}
+            value={pieValue} />
           </span>
         </BS.OverlayTrigger>
       </div>
+
+      
     </div>
 
 

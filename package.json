@@ -92,7 +92,7 @@
     "extract-text-webpack-plugin": "0.8.2",
     "file-exists": "0.1.1",
     "file-loader": "0.8.4",
-    "fixed-data-table": "0.4.1",
+    "fixed-data-table": "0.4.7",
     "gulp": "3.9.0",
     "gulp-coffeelint": "0.4.0",
     "gulp-env": "0.2.0",

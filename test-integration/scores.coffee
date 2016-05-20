@@ -85,7 +85,7 @@ describe 'CC Student Scores', ->
 
   @it 'hovers tooltip info popover', ->
     @scores.getCCTooltip().getText().then (txt) ->
-      expect(txt).to.contain('Correct')
-      expect(txt).to.contain('Attempted')
-      expect(txt).to.contain('Total possible')
+      expect(txt).to.contain('Completed')
+      expect(txt).to.contain('questions')
+      expect(txt).to.contain('Last Worked')
 
