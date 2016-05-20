@@ -9,15 +9,6 @@ LoadableItem = require '../loadable-item'
 showDialog = require './unsaved-dialog'
 Dashboard = require './dashboard'
 
-# showDialog = ->
-#   body =
-#     <div>
-#       <h4>You have excluded exercises that have not been saved</h4>
-#       <p className="lead">Are you sure you want to leave the Question Library?</p>
-#     </div>
-#   TutorDialog.show({
-#     title: null, body
-#   })
 
 
 QuestionsDashboardShell = React.createClass

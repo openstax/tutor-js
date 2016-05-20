@@ -10,26 +10,44 @@ Icon = require '../../icon'
 {TocStore} = require '../../../flux/toc'
 
 ExerciseCardMixin =
+  getExerciseActions: ->
+    actions = {}
+    if @isSelected?()
+      actions.exclude =
+        message: 'Remove question'
+        handler: @toggleExercise
+    else
+      actions.include =
+        message: 'Add question'
+        handler: @toggleExercise
+    if @state?.displayFeedback
+      actions['feedback-off'] =
+        message: 'Hide Feedback'
+        handler: @toggleFeedbackDisplay
+    else
+      actions['feedback-on'] =
+        message: 'Preview Feedback'
+        handler: @toggleFeedbackDisplay
+    actions
 
   toggleFeedbackDisplay: (ev) ->
     @setState(displayFeedback: not @state?.displayFeedback)
 
   renderExercise: ->
+
     <div className="openstax exercise-wrapper">
       <ExercisePreview
         {...@props}
         className='exercise-card'
-        toggleExercise={@toggleExercise}
+        isInteractive={false}
+        isVerticallyTruncated={true}
+        onOverlayClick={@toggleExercise}
         isSelected={@isSelected?()}
         header={@renderHeader()}
-        hoverMessage={if @isSelected?() then 'Remove Problem' else 'Select Problem'}
+        overlayActions={@getExerciseActions()}
+
         displayFeedback={@state?.displayFeedback}
         panelStyle={@getPanelStyle()}>
-        <button className="feedback-toggle" onClick={@toggleFeedbackDisplay}>
-          <Icon
-            type={(if @state?.displayFeedback then 'check-' else '' ) + 'square-o'}
-          /> Preview Feedback
-        </button>
       </ExercisePreview>
     </div>
 
@@ -99,6 +117,7 @@ AddExerciseCard = React.createClass
   mixins: [ExerciseCardMixin]
 
   toggleExercise: ->
+
     if TaskPlanStore.hasExercise(@props.planId, @props.exercise.id)
       TaskPlanActions.removeExercise(@props.planId, @props.exercise)
     else

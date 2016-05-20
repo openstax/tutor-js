@@ -5,16 +5,19 @@
     margin: 0 auto;
 
   }
-  >.header {
-    margin-top: @tutor-panel-padding-vertical;
-    background-color: @tutor-white;
-    padding: 0 @padding+5px;
-    .wrapper {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      h2 {
-        #fonts >.sans(2.8rem, 2.8rem);
+
+  .sections-chooser {
+    .header {
+      margin-top: @tutor-panel-padding-vertical;
+      background-color: @tutor-white;
+      padding: 0 @padding+5px;
+      .wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        h2 {
+          #fonts >.sans(2.8rem, 2.8rem);
+        }
       }
     }
   }
@@ -34,6 +37,7 @@
       top: -0.5rem;
     }
   }
+
   .secondary-help {
     text-align: center;
     color: @tutor-neutral;
@@ -58,7 +62,7 @@
   .loading {
     position: fixed;
     width: 400px;
-    left: calc(~"50% - 200px");
+    left: calc(~"50% - 150px");
     top: 40%;
     z-index: 2;
     background-color: @tutor-neutral-bright;
@@ -67,43 +71,65 @@
     text-align: center;
     #fonts >.sans(3rem, 200px);
   }
+
   .questions-controls {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 @padding;
-    .sectionizer > * {
-      cursor: pointer;
-      display: inline-block;
-      margin: 5px;
-      padding: 5px;
-      &.active {
-        border: 1px solid @tutor-neutral;
-      }
-      &.disabled {
-        cursor: default;
-        color: @tutor-neutral-light;
+    .sectionizer {
+      flex: 1;
+      text-align: center;
+      div {
+        cursor: pointer;
+        display: inline-block;
+        font-size: 12px;
+        width: 40px;
+        line-height: 40px;
+
+        &.section {
+          border: 1px solid @tutor-neutral-light;
+          &+.section {
+            border-left: 0;
+          }
+        }
+        &.active {
+          background-color: @tutor-neutral-light;
+        }
+        &.disabled {
+          cursor: default;
+          color: @tutor-neutral-light;
+        }
       }
     }
     .btn-group {
       box-shadow: none;
       button:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
-        border: 0 !important;
+        font-size: 12px;
         background-size: @icon-size-lg @icon-size-lg;
         background-repeat: no-repeat;
-        background-position: 10px;
-        padding-left: 50px;
-        height: 50px;
         border-radius: 0;
         box-shadow: none !important;
-        background-color: @tutor-neutral-light;
+        border: 1px solid @tutor-neutral;
+        height: 40px;
         margin-right: 0;
         &.active {
-          color: @tutor-white !important; // needed to override material styles
-          background-color: @tutor-tertiary-light;
+          background-color: @tutor-neutral-light;
         }
-        &.reading {.x-icon-bg(reading); }
-        &.homework { .x-icon-bg(homework); }
+        .tutor-icon {
+          margin: 0;
+        }
+      }
+      &.filters {
+        button {
+          width: 90px;
+        }
+      }
+      &.display-types {
+        margin-left: 10px;
+        button {
+          width: 40px;
+        }
       }
     }
     .save-cancel {
@@ -113,7 +139,48 @@
     }
   }
 
-  .questions-list {
+  .exercise-card.is-selected {
+    .selected-mask { opacity: 0.4; } // bump up a bit to stand out from background
+  }
+
+  .exercise-details {
+    min-height: calc(~"100vh - 200px");
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    .content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    .center {
+      display: flex;
+      height: 100%;
+      justify-content: center;
+    }
+    .controls {
+      display: flex;
+      justify-content: flex-end;
+      .show-cards {
+        cursor: pointer;
+      }
+    }
+    .exercise-card {
+      width: 800px;
+      .controls-overlay {
+        display: none;
+      }
+    }
+
+    .page-navigation {
+      .page-navigation-arrows(800px);
+      position: absolute;
+      display: none; // toggled on at bottom of file when body has pinned navbar
+    }
+
+  }
+
+  .exercise-cards {
     margin-top: @tutor-panel-padding-vertical;
     @column-width: 450px;
 
@@ -125,29 +192,16 @@
     .exercise-sections {
       margin-top: @tutor-panel-padding-vertical;
     }
+    @media (min-width: @screen-md-min) {
+      .panel { margin: 5px; }
+    }
+    .exercise-card {
+      page-break-inside: avoid;
+      break-inside: avoid;
+      display: inline-block;
+      width: 100%;
+    }
   }
-
-  .exercise-card {
-    page-break-inside: avoid;
-    break-inside: avoid;
-    display: inline-block;
-    width: 100%;
-    .exercise-card-hover-styles( @color: @tutor-neutral-lighter,
-                                 @background-color: lighten(@tutor-primary, 10%),
-                                 @selection-icon: @fa-var-minus,
-                                 @de-selection-icon: @fa-var-plus );
-  }
-
-  .exercise-card.is-selected {
-    .panel-body { background-color: @tutor-neutral-light; }
-
-    .exercise-card-hover-styles( @color: @tutor-neutral-lighter,
-                                 @background-color: rgba(133, 193, 202, 0.8),
-                                 @selection-icon: @fa-var-minus,
-                                 @de-selection-icon: @fa-var-plus );
-
-  }
-
 }
 
 .question-library-min-exercise-exclusions {
@@ -171,6 +225,20 @@
       color: @tutor-white;
       background-color: @tutor-tertiary-light !important; // material design override
       border: 1px solid darken(@tutor-tertiary-light, 10%) !important;
+    }
+  }
+}
+
+// re-enable hidden controls when nav is pinned
+.pinned-view.pinned-on {
+  .questions-dashboard {
+    .pinned-header { z-index: 3; } // above exercise hover mask of 2
+
+    .exercise-details {
+      .exercise-card {
+        .controls-overlay { display: flex; }
+      }
+      .page-navigation { display: flex; }
     }
   }
 }
