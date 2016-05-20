@@ -28,18 +28,30 @@ module.exports = React.createClass
       .value()
 
   renderHelpLink: (sections) ->
-    sections = _.map sections, (section) =>
-      combined = @sectionFormat(section.chapter_section)
-      <BrowseTheBook unstyled key={combined} section={combined} onlyShowBrowsable={false}>
-        {combined} {section.title} <i className='fa fa-external-link' />
-      </BrowseTheBook>
+    return null unless sections? and not _.isEmpty(sections)
+    {courseId} = @props
+
+    sectionsLinks = _.chain sections
+      .map (section) =>
+        combined = @sectionFormat(section.chapter_section)
+        return null
+        <BrowseTheBook
+          unstyled
+          key={combined}
+          section={combined}
+          courseId={courseId}
+          onlyShowBrowsable={false}>
+          {combined} {section.title} <i className='fa fa-external-link' />
+        </BrowseTheBook>
+      .compact()
+      .value()
 
     helpLink =
       <div key='task-help-links' className='task-help-links'>
-        Comes from&nbsp&nbsp{sections}
+        Comes from&nbsp&nbsp{sectionsLinks}
       </div>
 
-    if sections.length > 0 then helpLink
+    if sectionsLinks.length > 0 then helpLink
 
 
   render: ->

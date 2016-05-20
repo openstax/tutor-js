@@ -21,11 +21,12 @@ describe 'Task Widget, Reading Task', ->
   beforeEach (done) ->
     TaskActions.HACK_DO_NOT_RELOAD(true)
     TaskStepActions.HACK_DO_NOT_RELOAD(true)
+    CourseActions.loaded(COURSE, COURSE_ID)
 
     TaskActions.loaded(VALID_MODEL, TASK_ID)
 
     taskTests
-      .renderStep(TASK_ID)
+      .renderStep(TASK_ID, COURSE_ID)
       .then((result) =>
         @result = result
         done()
