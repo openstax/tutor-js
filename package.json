@@ -34,7 +34,7 @@
   "dependencies": {
     "axios": "0.11.0",
     "bootstrap": "3.3.5",
-    "bootstrap-material-design": "fezvrasta/bootstrap-material-design#0.3.0",
+    "bootstrap-material-design": "0.3.0",
     "camelcase": "1.2.1",
     "classnames": "2.1.5",
     "es6-promise": "2.3.0",
@@ -55,6 +55,8 @@
     "react-bootstrap": "0.26.2",
     "react-calendar": "0.4.0",
     "react-datepicker": "0.13.0",
+    "react-input-mask": "0.6.7",
+    "react-maskedinput": "2.0.0",
     "react-router": "0.13.4",
     "react-scroll-components": "0.2.2",
     "recordo": "0.0.3",

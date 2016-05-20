@@ -9,30 +9,49 @@
         "type": "student"
       }
     ],
+    "time_zone": "Central Time (US & Canada)",
+    "default_open_time": "00:01",
+    "default_due_time": "07:00",
     "periods": [{
         "id": "1",
-        "name" : "1st"
+        "name" : "1st",
+        "default_open_time": "00:01",
+        "default_due_time": "07:00"
       },{
         "id": "5",
-        "name" : "5th"
+        "name" : "5th",
+        "default_open_time": "00:01",
+        "default_due_time": "07:00"
       },{
         "id": "2",
-        "name" : "zZZ"
+        "name" : "zZZ",
+        "default_open_time": "00:01",
+        "default_due_time": "07:00"
       },{
         "id": "8",
-        "name" : "10th"
+        "name" : "10th",
+        "default_open_time": "00:01",
+        "default_due_time": "07:00"
       },{
         "id": "3",
-        "name" : "3rd"
+        "name" : "3rd",
+        "default_open_time": "00:01",
+        "default_due_time": "07:00"
       },{
         "id": "4",
-        "name" : "4th"
+        "name" : "4th",
+        "default_open_time": "00:01",
+        "default_due_time": "07:00"
       },{
         "id": "6",
-        "name" : "6th"
+        "name" : "6th",
+        "default_open_time": "00:01",
+        "default_due_time": "07:00"
       },{
         "id": "7",
-        "name" : "AAA"
+        "name" : "AAA",
+        "default_open_time": "00:01",
+        "default_due_time": "07:00"
       }
     ]
   }

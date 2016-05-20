@@ -13,6 +13,9 @@ TaskHelpers = require '../helpers/task'
 TimeHelper = require '../helpers/time'
 
 ISO_DATE_FORMAT = 'YYYY-MM-DD'
+ISO_TIME_FORMAT = 'HH:mm'
+ISO_DATE_ONLY_REGEX = /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/
+
 
 TUTOR_SELECTIONS =
   default: 3
@@ -35,6 +38,9 @@ sortTopics = (topics) ->
 
 isSameOrBeforeNow = (time) ->
   moment(time).isSame(TimeStore.getNow()) or moment(time).isBefore(TimeStore.getNow())
+
+isDateStringOnly = (timeString) ->
+  ISO_DATE_ONLY_REGEX.test(timeString)
 
 
 TaskPlanConfig =
@@ -60,6 +66,11 @@ TaskPlanConfig =
     if @_local[planId]?.type is PLAN_TYPES.HOMEWORK or @_changed[planId]?.type is PLAN_TYPES.HOMEWORK
       @_local[planId].settings.exercise_ids ?= []
       @_local[planId].settings.exercises_count_dynamic ?= TUTOR_SELECTIONS.default
+
+    if @_local[planId]?.tasking_plans?
+      _.each @_local[planId]?.tasking_plans, (tasking) ->
+        tasking.due_at = TimeHelper.makeMoment(tasking.due_at).format("#{ISO_DATE_FORMAT} #{ISO_TIME_FORMAT}")
+        tasking.opens_at = TimeHelper.makeMoment(tasking.opens_at).format("#{ISO_DATE_FORMAT} #{ISO_TIME_FORMAT}")
 
     #TODO take out once TaskPlan api is in place
     obj = _.extend({}, @_local[planId], @_changed[planId])
@@ -108,19 +119,33 @@ TaskPlanConfig =
     plan = @_getPlan(id)
     @_change(id, settings: _.extend({}, plan.settings, attributes))
 
-  setPeriods: (id, periods) ->
+  setDefaultTimes: (course, period) ->
+    periodTimes = _.pick(period, 'opens_at', 'due_at')
+    {default_open_time, default_due_time} = course
+
+    periodSettings = _.findWhere course.periods, id: period.id
+    {default_open_time, default_due_time} = periodSettings
+
+    periodTimes.opens_at += " #{default_open_time}" if isDateStringOnly(periodTimes.opens_at)
+    periodTimes.due_at += " #{default_due_time}" if isDateStringOnly(periodTimes.due_at)
+
+    periodTimes
+
+  setPeriods: (id, courseId, periods) ->
     plan = @_getPlan(id)
+    course = CourseStore.get(courseId)
+
     curTaskings = plan?.tasking_plans
     findTasking = @_findTasking
 
-    tasking_plans = _.map periods, (period) ->
+    tasking_plans = _.map periods, (period) =>
       tasking = findTasking(curTaskings, period.id)
       if not tasking
         tasking = target_id: period.id, target_type:'period'
 
-      _.extend( _.pick(period, 'opens_at', 'due_at'),
-        tasking
-      )
+      periodTimes = @setDefaultTimes(course, period)
+
+      _.extend(periodTimes, tasking)
 
     if not @exports.isNew(id)
       tasking_plans = @_removeEmptyTaskings(tasking_plans)
@@ -135,12 +160,12 @@ TaskPlanConfig =
   _findTasking: (tasking_plans, periodId) ->
     _.findWhere(tasking_plans, {target_id:periodId, target_type:'period'})
 
-  _getPeriodDates: (id, period) ->
-    throw new Error('BUG: Period is required arg') unless period
+  _getPeriodDates: (id, periodId) ->
+    throw new Error('BUG: Period is required arg') unless periodId
     plan = @_getPlan(id)
     {tasking_plans} = plan
     if tasking_plans
-      @_findTasking(tasking_plans, period)
+      @_findTasking(tasking_plans, periodId)
     else
       undefined
 
@@ -150,11 +175,11 @@ TaskPlanConfig =
     {tasking_plans} = @_getPlan(id)
     # do all the tasking_plans have the same date?
     taskingDates = _.map(tasking_plans, (plan) ->
-      date = TimeHelper.getMomentPreserveDate(plan[attr]) if plan[attr]?
+      date = TimeHelper.makeMoment(plan[attr]) if plan[attr]?
     )
 
     commonDate = _.reduce taskingDates, (previous, current) ->
-      if not _.isUndefined(previous) and current?.isSame?(previous, 'day')
+      if not _.isUndefined(previous) and current?.isSame?(previous)
         current
       else
         undefined
@@ -433,27 +458,57 @@ TaskPlanConfig =
     getStats: (id) ->
       @_getStats(id)
 
-    getOpensAt: (id, periodId) ->
+    _getAt: (id, periodId, attr = 'opens_at') ->
       if periodId?
         tasking = @_getPeriodDates(id, periodId)
-        opensAt = TimeHelper.getMomentPreserveDate(tasking?.opens_at, ISO_DATE_FORMAT) if tasking?.opens_at?
+        if tasking?[attr]?
+          at = tasking?[attr]
+          at = TimeHelper.makeMoment(at)
       else
         # default opens_at to 1 day from now
-        opensAt = @_getTaskingsCommonDate(id, 'opens_at')
+        at = @_getTaskingsCommonDate(id, attr)
+      at
 
+    _getOpensAt: (id, periodId) ->
+      opensAt = @exports._getAt.call(@, id, periodId, 'opens_at')
+
+    getOpensAtDate: (id, periodId) ->
+      opensAt = @exports._getOpensAt.call(@, id, periodId)
       opensAt?.format?(ISO_DATE_FORMAT) or opensAt
 
-    getDueAt: (id, periodId) ->
-      if periodId?
-        tasking = @_getPeriodDates(id, periodId)
-        dueAt = TimeHelper.getMomentPreserveDate(tasking?.due_at, ISO_DATE_FORMAT) if tasking?.due_at?
-      else
-        dueAt = @_getTaskingsCommonDate(id, 'due_at')
+    getOpensAtTime: (id, periodId) ->
+      opensAt = @exports._getOpensAt.call(@, id, periodId)
+      return undefined if isDateStringOnly opensAt?.creationData?().input
 
+      opensAt?.format?(ISO_TIME_FORMAT)
+
+    getOpensAt: (id, periodId) ->
+      opensAt = @exports._getOpensAt.call(@, id, periodId)
+      opensAt?.format?("#{ISO_DATE_FORMAT} #{ISO_TIME_FORMAT}") or opensAt
+
+    _getDueAt: (id, periodId) ->
+      dueAt = @exports._getAt.call(@, id, periodId, 'due_at')
+
+    getDueAtDate: (id, periodId) ->
+      dueAt = @exports._getDueAt.call(@, id, periodId)
       dueAt?.format?(ISO_DATE_FORMAT) or dueAt
 
+    getDueAtTime: (id, periodId) ->
+      dueAt = @exports._getDueAt.call(@, id, periodId)
+      return undefined if isDateStringOnly dueAt?.creationData?().input
+
+      dueAt?.format?(ISO_TIME_FORMAT)
+
+    getDueAt: (id, periodId) ->
+      dueAt = @exports._getDueAt.call(@, id, periodId)
+      dueAt?.format?("#{ISO_DATE_FORMAT} #{ISO_TIME_FORMAT}") or dueAt
+
+    getMaxDueAt: (id, periodId) ->
+      dueAt = TimeHelper.makeMoment(@exports.getDueAt.call(@, id, periodId))
+      dueAt.startOf('day').subtract(1, 'day').format(ISO_DATE_FORMAT)
+
     getMinDueAt: (id, periodId) ->
-      opensAt = TimeHelper.makeMoment(@exports.getOpensAt.call(@, id, periodId), ISO_DATE_FORMAT)
+      opensAt = TimeHelper.makeMoment(@exports.getOpensAt.call(@, id, periodId))
       if opensAt.isBefore(TimeStore.getNow())
         opensAt = moment(TimeStore.getNow())
 

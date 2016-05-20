@@ -83,8 +83,16 @@ TimeHelper =
   unsetLocal: ->
     @_local = null
 
+  getTimezones: ->
+    _.clone(TIME_LINKS)
+
+  isTimezoneValid: (timezone) ->
+    timezone in _.values(TimeHelper.getTimezones())
+
   isCourseTimezone: (courseId) ->
     courseTimezone = CourseStore.getTimezone(courseId)
+    return false unless courseTimezone?
+
     {offsets} = moment()._z or moment.tz(TimeHelper.getLocalTimezone())._z
     courseTimezoneOffsets = moment.tz(courseTimezone)._z.offsets
 

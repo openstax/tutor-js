@@ -12,6 +12,7 @@ Roster = require './roster'
 TeacherRoster = require './teacher-roster'
 
 RenameCourse = require './rename-course'
+SetTimezone = require './set-timezone'
 
 module.exports = React.createClass
   displayName: 'CourseSettings'
@@ -31,9 +32,12 @@ module.exports = React.createClass
 
     <BS.Panel className='course-settings'>
 
-      <span className='course-settings-title'>{course.name}
+      <div className='course-settings-title'>{course.name}
         <RenameCourse courseId={@props.courseId}  course={course}/>
-      </span>
+      </div>
+      <div className='course-settings-timezone'>{CourseStore.getTimezone(@props.courseId)}
+        <SetTimezone courseId={@props.courseId}/>
+      </div>
 
       <div className="settings-section teachers">
         <LoadableItem

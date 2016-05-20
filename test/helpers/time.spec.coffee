@@ -12,7 +12,7 @@ TODAY_IN_CURRENT_ZONE = moment().startOf('day').format()
 describe 'Time Helpers', ->
 
   beforeEach ->
-    CourseActions.loaded(timezone: TEST_TIMEZONE, COURSE_ID)
+    CourseActions.loaded(time_zone: TEST_TIMEZONE, COURSE_ID)
 
   afterEach ->
     CourseActions.reset()

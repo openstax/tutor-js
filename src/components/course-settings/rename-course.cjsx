@@ -56,8 +56,8 @@ RenameCourse = React.createClass
 
   performUpdate: ->
     unless @state.invalid
-      CourseActions.save(@props.courseId, course: {name: @state.course_name})
-      CourseStore.once 'saved', ->
+      CourseActions.save(@props.courseId, name: @state.course_name)
+      CourseStore.once 'saved', =>
         @close()
 
   renderForm: ->
