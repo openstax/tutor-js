@@ -34,7 +34,6 @@ module.exports = React.createClass
     sectionsLinks = _.chain sections
       .map (section) =>
         combined = @sectionFormat(section.chapter_section)
-        return null
         <BrowseTheBook
           unstyled
           key={combined}
