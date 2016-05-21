@@ -66,7 +66,7 @@ ExerciseMixin =
 
       partProps =
         pinned: false
-        focus: index is 0
+        focus: index is currentStep
         includeGroup: false
         includeFooter: @shouldControl(part.id)
         keySet: keySet
