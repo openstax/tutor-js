@@ -303,7 +303,6 @@ Demo = React.createClass
       notices: <NoticesDemo />
       multipartExercise: <MultipartExerciseDemo/>
       exercise: <ExerciseDemo/>
-      exercisePreview: <ExercisePreviewDemo/>
       breadcrumbs: <BreadcrumbDemo/>
       html: <HTMLDemo/>
 
