@@ -41,8 +41,6 @@ module.exports = React.createClass
 
   mixins: [ ChapterSectionMixin ]
 
-  updateFreeResponse: (freeResponse) -> TaskStepActions.updateTempFreeResponse(@props.id, freeResponse)
-
   contextTypes:
     router: React.PropTypes.func
 
@@ -225,6 +223,7 @@ module.exports = React.createClass
       task={task}
       footer={footer}
       parts={parts}
+      helpLink={@renderHelpLink(part.related_content)}
 
       onStepCompleted={onStepCompleted}
       controlButtons={controlButtons}
