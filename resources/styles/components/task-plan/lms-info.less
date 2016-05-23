@@ -1,0 +1,22 @@
+.lms-info {
+  position: relative;
+  .get-link {
+    cursor: pointer;
+  }
+  .popover {
+    width: 300px;
+    .tooltip-inner {
+      max-width: 300px;
+      text-align: left;
+    }
+    input {
+      width: 100%;
+      &::selection {
+        background: @yellow;
+      }
+      &::-moz-selection {
+        background: @yellow;
+      }
+    }
+  }
+}
