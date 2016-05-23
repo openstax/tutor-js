@@ -12,14 +12,15 @@ Icon = require '../../icon'
 ExerciseCardMixin =
   getExerciseActions: ->
     actions = {}
-    if @isSelected?()
-      actions.exclude =
-        message: 'Remove question'
-        handler: @toggleExercise
-    else
-      actions.include =
-        message: 'Add question'
-        handler: @toggleExercise
+    unless @props.canEdit?  # canEdit means that it's already selected and can't be removed
+      if @isSelected?()
+        actions.exclude =
+          message: 'Remove question'
+          handler: @toggleExercise
+      else
+        actions.include =
+          message: 'Add question'
+          handler: @toggleExercise
     if @state?.displayFeedback
       actions['feedback-off'] =
         message: 'Hide Feedback'
