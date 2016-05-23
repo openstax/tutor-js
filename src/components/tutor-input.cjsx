@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 moment = require 'moment-timezone'
 _ = require 'underscore'
 classnames = require 'classnames'
-MaskedInput = require 'react-input-mask'
+MaskedInput = require 'react-maskedinput'
 
 {TimeStore} = require '../flux/time'
 TimeHelper = require '../helpers/time'
@@ -31,7 +31,8 @@ TutorInput = React.createClass
     errors: errors or []
 
   onChange: (event) ->
-    @props.onChange(event.target?.value, event.target)
+    # TODO make this more intuitive to parent elements
+    @props.onChange(event.target?.value, event.target, event)
     @validate(event.target?.value)
 
   validate: (inputValue) ->
@@ -68,7 +69,7 @@ TutorInput = React.createClass
       <ErrorWarning key={error}/>
     )
 
-    inputProps = _.omit(@props, 'label', 'className', 'onChange', 'validate', 'default', 'value', 'children')
+    inputProps = _.omit(@props, 'label', 'className', 'onChange', 'validate', 'default', 'children')
     inputProps.ref = 'input'
     inputProps.className = classes
     inputProps.onChange = @onChange
@@ -212,15 +213,33 @@ TutorDateInput = React.createClass
 
 TutorTimeInput = React.createClass
   getDefaultProps: ->
-    formatChars:
-      h: '[0-9]'
-      H: '[0-1]'
-      M: '[0-6]'
-      m: '[0-9]'
-      P: '(A|P|a|p)'
-      p: '(M|m)'
     fromMomentFormat: 'HH:mm'
-    toMomentFormat: 'hh:mm a'
+    toMomentFormat: 'h:mm a'
+    commonMomentFormat: 'h:mm a'
+    formatCharacters:
+      h:
+        validate: (char) ->
+          /([0-9]|:)/.test(char)
+      H:
+        validate: (char) ->
+          /[0-1]/.test(char)
+      M:
+        validate: (char) ->
+          /[0-5]/.test(char)
+      m:
+        validate: (char) ->
+          /[0-9]/.test(char)
+      P:
+        validate: (char) ->
+          /(A|P|a|p)/.test(char)
+        transform: (char) ->
+          "#{char}m".toLowerCase()
+
+  getInitialState: ->
+    timeValue = @getDefaultValue()
+
+    timeValue: timeValue
+    timePattern: @getPatternFromValue(timeValue)
 
   timeIn: (value) ->
     {fromMomentFormat, toMomentFormat} = @props
@@ -230,37 +249,106 @@ TutorTimeInput = React.createClass
     {fromMomentFormat, toMomentFormat} = @props
     moment(value, toMomentFormat).format(fromMomentFormat)
 
+  timeType: (value) ->
+    {commonMomentFormat, toMomentFormat} = @props
+    moment(value, commonMomentFormat).format(toMomentFormat)
+
   getDefaultValue: ->
     {defaultValue} = @props
     @timeIn(defaultValue)
 
+  getInput: ->
+    @refs.timeInput?.refs.input
+
+  getMask: ->
+    @getInput()?.mask
+
   getValue: ->
-    @refs.timeInput?.refs.input?.getInputValue()
+    @getMask()?.getValue()
+
+  getRawValue: ->
+    @getMask()?.getRawValue()
 
   validate: (inputValue) ->
     timeInputValue = @getValue()
     unless _.isUndefined(timeInputValue)
       ['incorrectTime'] if timeInputValue.indexOf('_') > -1
 
-  onChange: ->
-    # unfortunately need to use defer -- for some reason, masked input's value state update doesn't happen immediately.
-    _.defer =>
-      time = @getValue()
+  isColon: (changeEvent) ->
+    KEY_CODE =
+      shiftKey: true
+      charCode: 58
+
+    _.isEqual(_.pick(changeEvent, _.keys(KEY_CODE)), KEY_CODE)
+
+  isShortColonPosition: ->
+    SHORT_COLON_POSITION =
+      start: 2
+      end: 2
+
+    _.isEqual(@getMask()?.selection, SHORT_COLON_POSITION)
+
+  shouldExpandMask: (changeEvent) ->
+    not @isColon(changeEvent) and @isShortColonPosition()
+
+  isCursor: ->
+    {selection} = @getMask()
+    (selection.end - selection.start) is 0
+
+  onChange: (value, input, changeEvent) ->
+    timePattern = @getPatternFromValue(value)
+
+    if @shouldExpandMask(changeEvent)
+      timePattern = 'hh:Mm P'
+
+    # TODO value needs some help when updating from compact to expanded
+
+    time = @getValue()
+    timeValue = @timeType(value)
+
+    if timePattern isnt @state.timePattern
+      cursorChange =  timePattern.length - @state.timePattern.length
+
+      if cursorChange < 0 and @isCursor()
+        currentSelection = _.clone(@getMask()?.selection)
+        currentSelection.start = currentSelection.start + cursorChange
+        currentSelection.end = currentSelection.end + cursorChange
+
+      @setState({timePattern})
+      if currentSelection?
+        @getMask()?.selection = currentSelection
+        @getInput()?._updateInputSelection()
+
+    if @isValidTime(time)
       outputTime = @timeOut(time)
       @props.onChange?(outputTime)
+    else
       @refs.timeInput.validate(time)
 
+  getPatternFromValue: (value) ->
+    if /^([2-9]|1:)/.test(value)
+      patten = 'h:Mm P'
+    else
+      pattern = 'hh:Mm P'
+
+  isValidTime: (value) ->
+    not /[_]/.test(value)
+
   render: ->
-    defaultValue = @getDefaultValue()
     maskedProps = _.omit(@props, 'defaultValue', 'onChange')
+
+    {formatCharacters} = @props
+    {timePattern, timeValue} = @state
 
     <TutorInput
       {...maskedProps}
-      defaultValue={defaultValue}
+      value={timeValue}
+      defaultValue={timeValue}
       onChange={@onChange}
       validate={@validate}
       ref="timeInput"
-      mask='Hh:Mm Pp'
+      mask={timePattern}
+      formatCharacters={formatCharacters}
       size='8'
       name='time'>
       <MaskedInput/>
