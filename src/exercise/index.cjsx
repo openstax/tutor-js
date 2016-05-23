@@ -11,13 +11,19 @@ apiChannelName = 'exercise'
 ExerciseBase = React.createClass
   displayName: 'ExerciseBase'
   getInitialState: ->
+    @getStepState()
+
+  getStepState: (props) ->
+    props ?= @props
     {item} = @props
 
-    step: item
+    step: _.last(item)
+    parts: item
 
   componentWillReceiveProps: (nextProps) ->
-    {item} = nextProps
-    @setState(step: item)
+    nextState = @getStepState(nextProps)
+
+    @setState(nextState)
 
   componentDidUpdate: (prevProps, prevState) ->
     {status} = @props
@@ -35,7 +41,7 @@ ExerciseBase = React.createClass
 
     exerciseProps =
       taskId: step.task_id
-      step: step
+      parts: [step]
       getCurrentPanel: getCurrentPanel
       canReview: true
       freeResponseValue: step.cachedFreeResponse
@@ -53,8 +59,8 @@ ExerciseBase = React.createClass
         channel.emit("change.#{step.id}", eventData)
         api.channel.emit("exercise.#{step.id}.send.save", eventData)
 
-      onFreeResponseChange: (freeResponse) ->
-        exercises.cacheFreeResponse(step.id, freeResponse)
+      onFreeResponseChange: (id, freeResponse) ->
+        exercises.cacheFreeResponse(id, freeResponse)
 
       onContinue: ->
         step.is_completed = true
@@ -84,7 +90,11 @@ ExerciseStep = React.createClass
   render: ->
     {id} = @props
 
-    <Reactive topic={id} store={exercises} apiChannelName={apiChannelName}>
+    <Reactive
+      topic={id}
+      store={exercises}
+      apiChannelName={apiChannelName}
+      getter={exercises.getAllParts}>
       <ExerciseBase {...@props}/>
     </Reactive>
 

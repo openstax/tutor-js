@@ -13,6 +13,10 @@ STEP_TYPES =
   'free-response': ['free_response']
   'multiple-choice': ['answer_id', 'is_completed']
 
+
+getStepsByTaskId = (taskId) ->
+  _.where steps, {task_id: taskId}
+
 quickLoad = (stepId, data) ->
   steps[stepId] = data
   channel.emit("quickLoad.#{stepId}", {data})
@@ -46,16 +50,16 @@ getCurrentPanel = (stepId) ->
 
   {formats} = question
 
-  _.find(STEP_TYPES, (stepChecks, format) ->
+  _.find STEP_TYPES, (stepChecks, format) ->
     return false unless format in formats
-    isStepCompleted = _.reduce(stepChecks, (isOtherCompleted, currentCheck) ->
+    isStepCompleted = _.reduce stepChecks, (isOtherCompleted, currentCheck) ->
       step[currentCheck]? and step[currentCheck] and isOtherCompleted
-    , true)
+    , true
 
     unless isStepCompleted
       panel = format
       true
-  )
+
   panel
 
 get = (stepId) ->
@@ -63,10 +67,24 @@ get = (stepId) ->
   steps[stepId].cachedFreeResponse = freeResponseCache[stepId]
   steps[stepId]
 
+getAllParts = (stepId) ->
+  step = steps[stepId]
+  {task_id, content_url} = step
+
+  stepsForTask = getStepsByTaskId(task_id)
+
+  parts = _.filter stepsForTask, (part) ->
+    part.is_in_multipart and part.content_url is content_url
+
+  parts = [step] if _.isEmpty(parts)
+
+  _.map parts, (part) ->
+    get(part.id)
+
 init = ->
   user.channel.on 'logout.received', ->
     steps = {}
 
   api.channel.on("exercise.*.receive.*", update)
 
-module.exports = {fetch, getCurrentPanel, get, init, channel, quickLoad, cacheFreeResponse}
+module.exports = {fetch, getCurrentPanel, get, getAllParts, init, channel, quickLoad, cacheFreeResponse}
