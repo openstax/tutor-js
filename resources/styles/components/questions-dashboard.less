@@ -64,7 +64,7 @@
     width: 400px;
     left: calc(~"50% - 150px");
     top: 40%;
-    z-index: 2;
+    z-index: 1;
     background-color: @tutor-neutral-bright;
     border: 1px solid @tutor-neutral-light;
     height: 200px;
@@ -232,8 +232,6 @@
 // re-enable hidden controls when nav is pinned
 .pinned-view.pinned-on {
   .questions-dashboard {
-    .pinned-header { z-index: 3; } // above exercise hover mask of 2
-
     .exercise-details {
       .exercise-card {
         .controls-overlay { display: flex; }
