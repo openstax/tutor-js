@@ -1,6 +1,8 @@
 React = require 'react'
 {TaskStore} = require '../../../flux/task'
 {TaskStepStore, TaskStepActions} = require '../../../flux/task-step'
+keymaster = require 'keymaster'
+KEYBINDING_SCOPE  = 'reading-progress'
 
 module.exports = React.createClass
   propTypes:
@@ -9,6 +11,12 @@ module.exports = React.createClass
     stepKey: React.PropTypes.number
     goToStep: React.PropTypes.func
 
+  componentWillUnmount: ->
+    keymaster.deleteScope(KEYBINDING_SCOPE)
+
+  componentWillMount: ->
+    keymaster(@props.direction,  KEYBINDING_SCOPE, @arrowClicked)
+    keymaster.setScope(KEYBINDING_SCOPE)
 
   transition: ->
     { stepId, stepKey, direction, goToStep } = @props
@@ -23,7 +31,7 @@ module.exports = React.createClass
   arrowClicked: ->
     { stepId, direction } = @props
 
-    if (direction is 'right' and not TaskStepStore.get(stepId).is_completed)
+    if (direction is 'right' and stepId and not TaskStepStore.get(stepId).is_completed)
       TaskStepStore.on('step.completed', @transition)
       TaskStepActions.complete(stepId)
     else
