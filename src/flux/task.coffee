@@ -137,7 +137,7 @@ TaskConfig =
       steps = getSteps(@_steps[taskId])
 
       if steps.length
-        stepKey / steps.length * 100
+        (stepKey + 1) / (steps.length + 1) * 100
       else
         0
 
