@@ -22,12 +22,15 @@ Instructions = React.createClass
       feedbackType ?= PROJECT_NAME_AND_FEEDBACK[project].feedbackType
 
     popover = <BS.Popover ref="popover" className="openstax instructions">
-      Research shows that a great way to boost your learning is to quiz yourself.
-      OpenStax <span className="product-name">{projectName}</span> helps improve your memory
-      by asking you to recall answers from memory <em>before</em> showing the
-      possible answers. Now, select the best answer to
-      get <span className="feedback-type">{feedbackType}</span>. Both you and your instructor can
-      review your work later.
+      <p>Why do you ask me to answer twice?</p>
+      <p>
+        Research shows that recalling the answer to a question from
+        memory helps your learning last longer. So,
+        OpenStax <span className="product-name">{projectName}</span> asks
+        for your own answer first, then gives multiple-choice options so you can
+        get <span className="feedback-type">{feedbackType}</span>. Both you and your instructor
+        can review your work later.
+      </p>
     </BS.Popover>
 
     <p className="instructions">
