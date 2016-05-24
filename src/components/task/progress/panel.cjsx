@@ -29,7 +29,8 @@ module.exports = React.createClass
         step and
         step.type is 'exercise' and
         TaskStepStore.isAnswered(@props.stepId)
-      )
+      ) or
+      @props.isSpacer is true
     )
 
     <div>

@@ -259,6 +259,7 @@ module.exports = React.createClass
         taskId={id}
         stepId={crumb.data?.id}
         goToStep={@goToStep}
+        isSpacer={crumb?.type is 'spacer'}
         stepKey={@state.currentStep}
       >
         {panel}
