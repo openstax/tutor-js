@@ -1,38 +1,37 @@
 _ = require 'underscore'
 {TestHelper} = require './test-element'
 
-COMMON_ELEMENTS =
-
-  selectSectionsContainer:
-    css: '.homework-plan-exercise-select-topics'
-
-  addExercisesContainer:
-    css: '.add-exercise-list'
-
-  closeButton:
-    css: '.footer-buttons [aria-role="close"]'
-
+ROOT_EXERCISE_SELECTOR_CONTAINER = '.homework-plan-exercise-select-topics .pinned-container'
 
 EXERCISE_SELECTOR_ELEMENTS =
+  loadingState:
+    css: "#{ROOT_EXERCISE_SELECTOR_CONTAINER} .hw-loading"
+
   inactiveExerciseCard:
     css: '.openstax.exercise-wrapper .has-actions:not(.is-selected) .panel-body'
 
   reviewExercisesButton:
     css: '.btn.-review-exercises'
 
+  actions: (action) ->
+    css: ".controls-overlay .action.#{action}"
 
 class ExerciseSelector extends TestHelper
   constructor: (test, testElementLocator) ->
-    testElementLocator ?= EXERCISE_SELECTOR_ELEMENTS.inactiveExerciseCard
+    testElementLocator ?= css: "#{ROOT_EXERCISE_SELECTOR_CONTAINER} .add-exercise-list"
     super test, testElementLocator, EXERCISE_SELECTOR_ELEMENTS, defaultWaitTime: 3000
 
   selectNumberOfExercises: (numExercises) ->
     @waitUntilLoaded()
     for i in [0...numExercises]
+      exerciseCount = 0
+
       @el.inactiveExerciseCard().findElement().then (inactiveExercise) =>
+        exerciseCount = exerciseCount + 1
+        console.log 'Adding exercise', exerciseCount, 'of', numExercises
         @test.utils.windowPosition.scrollTo(inactiveExercise)
         @test.driver.actions().mouseMove(inactiveExercise).perform()
-        inactiveExercise.findElement(css: '.include').click()
+        @el.actions('include').getOn(inactiveExercise).click()
 
   startReview: () ->
     @el.reviewExercisesButton().waitClick()
