@@ -60,7 +60,7 @@
       position: absolute;
       top: 0; right: 0; bottom: 0; left: 0;  // completely cover panel body
       visibility: hidden;
-      z-index: 2;
+      z-index: 1;
       display: flex;
       border: none;
       justify-content: center;
@@ -113,6 +113,7 @@
   &.actions-on-side {
     @size-scale: 0.45;
     .panel-body, .panel-body:hover {
+      padding-left: 90px;
       position: relative;
       .controls-overlay {
         visibility: visible;
@@ -161,7 +162,13 @@
       justify-content: flex-end;
       align-items: center;
       color: @openstax-neutral;
+      .icon {
+        height: 20px;
+        margin-right: 0.5rem;
+      }
       span {
+        display: flex;
+        align-items: center;
         & + span { margin-left: 8px; }
       }
     }

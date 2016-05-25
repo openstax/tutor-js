@@ -1,6 +1,8 @@
 React = require 'react'
 _ = require 'underscore'
 Exercise = require '../../../model/exercise'
+Interactive = require './interactive-icon'
+MultiPart   = require './multipart-icon'
 
 ExerciseBadges = React.createClass
 
@@ -12,17 +14,17 @@ ExerciseBadges = React.createClass
     badges = []
     if @props.exercise.content.questions.length > 1
       badges.push <span key='mpq' className="mpq">
-          <i className='fa fa-pie-chart' /> Multi-part question
+          <MultiPart />Multi-part question
         </span>
 
     if Exercise.hasInteractive(@props.exercise)
       badges.push <span key='interactive' className="interactive">
-          <i className='fa fa-object-group' /> Interactive
+          <Interactive />Interactive
         </span>
 
     if Exercise.hasVideo(@props.exercise)
       badges.push <span key='video' className="video">
-          <i className='fa fa-television' /> Video
+          <Interactive />Video
         </span>
 
     if badges.length
