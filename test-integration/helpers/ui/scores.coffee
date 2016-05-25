@@ -50,7 +50,9 @@ COMMON_ELEMENTS =
   shadow:
     css: '.public_fixedDataTable_bottomShadow'
   taskResultByRow: (rowNumber) ->
-    css: ".fixedDataTableRowLayout_rowWrapper:nth-of-type(#{rowNumber}) .task-result"
+    rowSelector = if rowNumber? then ":nth-of-type(#{rowNumber})" else ''
+
+    css: ".fixedDataTableRowLayout_rowWrapper#{rowSelector} .scores-cell .score a"
 
 
 class Scores extends TestHelper
@@ -82,6 +84,13 @@ class Scores extends TestHelper
     @el.periodTab().forEach (periodTab) =>
       @el.noAssignmentNotice().isDisplayed().then (hasNoAssignments) =>
         if hasNoAssignments
+          periodTab.click()
+          @waitUntilLoaded()
+
+  goToPeriodWithWorkedAssignments: (rowNumber) =>
+    @el.periodTab().forEach (periodTab) =>
+      @el.taskResultByRow(rowNumber).isDisplayed().then (hasWorkedTask) =>
+        unless hasWorkedTask
           periodTab.click()
           @waitUntilLoaded()
 

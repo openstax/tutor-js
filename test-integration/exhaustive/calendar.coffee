@@ -110,7 +110,8 @@ describe 'Calendar and Stats', ->
       @forecast.el.back().click()
       @scores.goToPeriodWithAssignments()
 
-    @scores.goToPeriodWithAssignments()
+    # this may not find any period :( depending on the stubbed data.
+    @scores.goToPeriodWithWorkedAssignments(1)
     # only test the 1st row of each Student Response
     @scores.el.taskResultByRow(1).forEach (item, index, total) =>
       console.log 'opening Student view', courseCategory, index, 'of', total

@@ -15,7 +15,7 @@ COMMON_ELEMENTS =
 
 EXERCISE_SELECTOR_ELEMENTS =
   inactiveExerciseCard:
-    css: '.openstax.exercise-wrapper .is-selectable:not(.is-selected) .panel-body'
+    css: '.openstax.exercise-wrapper .has-actions:not(.is-selected) .panel-body'
 
   reviewExercisesButton:
     css: '.btn.-review-exercises'
@@ -29,10 +29,10 @@ class ExerciseSelector extends TestHelper
   selectNumberOfExercises: (numExercises) ->
     @waitUntilLoaded()
     for i in [0...numExercises]
-      @el.inactiveExerciseCard().findElement().isDisplayed().then =>
-        @el.inactiveExerciseCard().waitClick()
-        #BUG add in a second click event to make sure it sticks, not sure why this is needed
-        @el.inactiveExerciseCard().waitClick()
+      @el.inactiveExerciseCard().findElement().then (inactiveExercise) =>
+        @test.utils.windowPosition.scrollTo(inactiveExercise)
+        @test.driver.actions().mouseMove(inactiveExercise).perform()
+        inactiveExercise.findElement(css: '.include').click()
 
   startReview: () ->
     @el.reviewExercisesButton().waitClick()

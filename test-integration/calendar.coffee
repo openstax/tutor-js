@@ -87,9 +87,9 @@ describe 'Calendar and Stats', ->
     @forecast.waitUntilLoaded()
     @forecast.el.back().click()
 
-    @scores.goToPeriodWithAssignments()
+    @scores.goToPeriodWithWorkedAssignments()
     # only test the 1st row of each Student Response
-    @scores.el.taskResultByRow(1).click()
+    @scores.el.taskResultByRow().click()
     # console.log 'opening Student view', courseCategory, index, 'of', total
     @taskTeacher.waitUntilLoaded()
     # @utils.wait.click(linkText: 'Back to Student Scores')
