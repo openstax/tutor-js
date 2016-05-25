@@ -20,7 +20,7 @@ COMMON_ELEMENTS =
   hsNameLink:
     css: '.name-cell a.student-name'
   hsReviewLink:
-    css: 'a.review-plan'
+    css: '.review-link a'
   periodTab:
     css: '.nav-tabs li:nth-child(2)'
   displayAs:
