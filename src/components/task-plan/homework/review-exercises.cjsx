@@ -4,10 +4,10 @@ _ = require 'underscore'
 
 Icon = require '../../icon'
 LoadingExercises = require './loading-exercises-mixin'
+
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 {ExerciseStore} = require '../../../flux/exercise'
-{ExercisePreview} = require 'openstax-react-components'
-{PinnedHeaderFooterCard} = require 'openstax-react-components'
+{ExercisePreview, SuretyGuard, PinnedHeaderFooterCard} = require 'openstax-react-components'
 
 ExerciseSummary = require './exercise-summary'
 ExerciseTable   = require './exercises-table'
@@ -30,8 +30,7 @@ ReviewExerciseCard = React.createClass
     TaskPlanActions.moveExercise(@props.planId, @props.exercise, 1)
 
   removeExercise: ->
-    if confirm('Are you sure you want to remove this exercise?')
-      TaskPlanActions.removeExercise(@props.planId, @props.exercise)
+    TaskPlanActions.removeExercise(@props.planId, @props.exercise)
 
   getActionButtons: ->
     return null unless @props.canEdit
@@ -43,9 +42,17 @@ ReviewExerciseCard = React.createClass
       {<BS.Button onClick={@moveExerciseDown} className="btn-xs -move-exercise-down">
          <Icon type='arrow-down' />
        </BS.Button> unless @props.isLast}
-      <BS.Button onClick={@removeExercise} className="btn-xs -remove-exercise">
-        <Icon type='close' />
-      </BS.Button>
+      <SuretyGuard
+        title={false}
+        onConfirm={@removeExercise}
+        okButtonLabel='Remove'
+        placement='left'
+        message="Are you sure you want to remove this exercise?"
+      >
+        <BS.Button className="btn-xs -remove-exercise">
+          <Icon type='close' />
+        </BS.Button>
+      </SuretyGuard>
     </span>
 
   renderHeader: ->
