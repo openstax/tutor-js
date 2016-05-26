@@ -7,8 +7,7 @@ Location = require 'stores/location'
 {ExerciseActions} = require 'stores/exercise'
 
 AsyncButton = require 'openstax-react-components/src/components/buttons/async-button.cjsx'
-SuretyGuard = require 'components/surety-guard'
-
+{SuretyGuard} = require 'openstax-react-components'
 
 VocabularyControls = React.createClass
 
