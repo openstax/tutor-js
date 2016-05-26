@@ -17,7 +17,8 @@ TutorHelpers = {
         handler: handler
     _.extend( actions, additionalActions)
 
-
+  openReportErrorPage: (exercise) ->
+    window.open(@troubleUrl(exerciseId: exercise.content.uid), '_blank')
 }
 
 module.exports = _.extend TutorHelpers, ExerciseHelpers
