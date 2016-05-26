@@ -94,7 +94,13 @@ ExMode = React.createClass
         onChangeAttempt: onChangeAnswerAttempt
 
     htmlAndMathProps = _.pick(@props, 'processHtmlAndMath')
+
     {stimulus_html} = content
+    stimulus = <ArbitraryHtmlAndMath
+      {...htmlAndMathProps}
+      className='exercise-stimulus'
+      block={true}
+      html={stimulus_html} /> if stimulus_html?.length > 0
 
     questions = _.map content.questions, (question) =>
       question = _.omit(question, 'answers') if mode is 'free-response'
@@ -109,12 +115,8 @@ ExMode = React.createClass
       </Question>
 
     <div className='openstax-exercise'>
-      <ArbitraryHtmlAndMath
-        {...htmlAndMathProps}
-        className='exercise-stimulus'
-        block={true}
-        html={stimulus_html} />
-        {questions}
+      {stimulus}
+      {questions}
     </div>
 
 

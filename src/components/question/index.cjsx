@@ -66,13 +66,15 @@ Question = React.createClass
     classes = classnames 'openstax-question', className,
       'has-correct-answer': hasCorrectAnswer
 
+    htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
+
     exerciseUid = <div className="exercise-uid">{exercise_uid}</div> if exercise_uid?
 
     if @hasSolution()
       solution =
         <div className='detailed-solution'>
           <div className='header'>Detailed solution</div>
-          <ArbitraryHtmlAndMath className="solution" block
+          <ArbitraryHtmlAndMath {...htmlAndMathProps} className="solution" block
             html={_.pluck(collaborator_solutions, 'content_html').join('')}
           />
         </div>
