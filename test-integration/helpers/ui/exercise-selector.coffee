@@ -29,9 +29,12 @@ class ExerciseSelector extends TestHelper
       @el.inactiveExerciseCard().findElement().then (inactiveExercise) =>
         exerciseCount = exerciseCount + 1
         console.log 'Adding exercise', exerciseCount, 'of', numExercises
-        @test.utils.windowPosition.scrollTo(inactiveExercise)
-        @test.driver.actions().mouseMove(inactiveExercise).perform()
-        @el.actions('include').getOn(inactiveExercise).click()
+        @actOnExercise(inactiveExercise, 'include')
+
+  actOnExercise: (exercise, action) ->
+    @test.utils.windowPosition.scrollTo(exercise)
+    @test.driver.actions().mouseMove(exercise).perform()
+    @el.actions(action).getOn(exercise).click()
 
   startReview: () ->
     @el.reviewExercisesButton().waitClick()

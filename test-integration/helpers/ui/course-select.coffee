@@ -52,7 +52,7 @@ class CourseSelect extends TestHelper
       when 'CONCEPT_COACH'
         course = @el.courseByAppearance({isCoach: true}, roles).findElement()
       else
-        course = @el.courseByAppearance().findElement()
+        course = @el.courseByAppearance({}, roles).findElement()
 
     course
 
