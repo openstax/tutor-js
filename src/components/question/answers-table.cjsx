@@ -57,8 +57,11 @@ AnswersTable = React.createClass
 
   shouldInstructionsShow: ->
     {type, model, hasCorrectAnswer} = @props
-
     model.formats.length > 1 and not (hasCorrectAnswer or type in ['teacher-preview', 'teacher-review'])
+
+  hasIncorrectAnswer: ->
+    {answer_id, correct_answer_id, choicesEnabled} = @props
+    answer_id and not choicesEnabled and answer_id isnt correct_answer_id
 
   render: ->
     {
@@ -97,6 +100,7 @@ AnswersTable = React.createClass
 
     instructions = <Instructions
       project={project}
+      hasIncorrectAnswer={@hasIncorrectAnswer()}
     /> if @shouldInstructionsShow()
 
     <div className='answers-table'>
