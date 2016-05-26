@@ -154,7 +154,7 @@ ExerciseConfig =
       _.groupBy(includedExercises, getChapterSection)
 
     groupBySectionsAndTypes: (pageIds) ->
-      all = @_exercises[pageIds.toString()]
+      all = @_exercises[pageIds.toString()] or []
       results = {
         all:
           count: all.length
