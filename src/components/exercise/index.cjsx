@@ -70,6 +70,7 @@ ExerciseMixin =
         includeGroup: false
         includeFooter: @shouldControl(part.id)
         keySet: keySet
+        key: "exercise-part-#{index}"
 
       # stim and stem are the same for different steps currently.
       # they should only show up once.
@@ -114,6 +115,7 @@ ExerciseWithScroll = React.createClass
       index: index
 
     <ScrollTracker
+      key="exercise-part-with-scroll-#{index}"
       scrollState={scrollState}
       setScrollPoint={@setScrollPoint}
       unsetScrollPoint={@unsetScrollPoint}>

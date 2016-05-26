@@ -81,7 +81,7 @@ Question = React.createClass
       <QuestionHtml type='stimulus' html={stimulus_html} />
       <QuestionHtml type='stem' html={stem_html} />
       {@props.children}
-      <AnswersTable {...@props}/>
+      <AnswersTable {...@props} hasCorrectAnswer={hasCorrectAnswer}/>
       {<FormatsListing formats={formats} /> if @props.displayFormats}
       {solution}
       {exerciseUid}
