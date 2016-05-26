@@ -115,7 +115,7 @@ ExercisePreview = React.createClass
       <ControlsOverlay exercise={@props.exercise}
         actions={@props.overlayActions} onClick={@props.onOverlayClick} />
 
-      <ExerciseBadges isInteractive={@props.isInteractive} exercise={@props.exercise} />
+      <ExerciseBadges exercise={@props.exercise} />
 
       <ArbitraryHtmlAndMath className='stimulus' block={true} html={content.stimulus_html} />
       {@renderPlaceholders()}

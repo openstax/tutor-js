@@ -9,13 +9,13 @@ ExerciseBadges = React.createClass
 
   propTypes:
     isMultipart:   React.PropTypes.bool
-    isInteractive:   React.PropTypes.bool
+    hasInteractive:   React.PropTypes.bool
     hasVideo:   React.PropTypes.bool
     exercise: React.PropTypes.object
 
   getDefaultProps: ->
     isMultipart: false
-    isInteractive: false
+    hasInteractive: false
     hasVideo: false
     exercise: {}
 
@@ -28,7 +28,7 @@ ExerciseBadges = React.createClass
           <MultiPart />Multi-part question
         </span>
 
-    if @props.isInteractive or Exercise.hasInteractive(@props.exercise)
+    if @props.hasInteractive or Exercise.hasInteractive(@props.exercise)
       badges.push <span key='interactive' className="interactive">
           <Interactive />Interactive
         </span>
