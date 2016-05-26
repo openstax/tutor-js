@@ -26,7 +26,7 @@ stubForExercise[STEP_ID] = exerciseStub
 
 stubsForExercises = _.extend {}, multipartExerciseStub, stubForExercise
 
-ExercisePreview = require './exercise/preview'
+ExercisePreview = require './exercise-preview'
 exercisePreviewStub = require '../../stubs/exercise-preview/data'
 
 Breadcrumb = require './breadcrumb'

@@ -5,6 +5,7 @@ ExercisePart = require './part'
 {ExFooter} = require './controls'
 {CardBody} = require '../pinned-header-footer-card/sections'
 ExerciseGroup = require './group'
+ExerciseBadges = require '../exercise-badges'
 
 {ScrollListenerMixin} = require 'react-scroll-components'
 {ScrollTracker, ScrollTrackerParentMixin} = require '../scroll-tracker'
@@ -25,9 +26,8 @@ ExerciseMixin =
   canAllContinue: ->
     {parts, canOnlyContinue} = @props
 
-    _.reduce parts, (previous, part) ->
-      previous and canOnlyContinue(part.id)
-    , true
+    _.every parts, (part) ->
+      canOnlyContinue(part.id)
 
   shouldControl: (id) ->
     {canOnlyContinue} = @props
@@ -132,7 +132,7 @@ ExerciseWithScroll = React.createClass
     footer ?= @renderFooter()
 
     <CardBody footer={footer} className='openstax-multipart-exercise-card'>
-      <label className='openstax-multipart-exercise-card-label'/>
+      <ExerciseBadges isMultipart={true}/>
       {exercisePartsWithScroll}
       {exerciseGroup}
     </CardBody>
@@ -152,7 +152,7 @@ Exercise = React.createClass
     footer ?= @renderFooter()
 
     <CardBody footer={footer} className='openstax-multipart-exercise-card'>
-      <label className='openstax-multipart-exercise-card-label'/>
+      <ExerciseBadges isMultipart={true}/>
       {exerciseParts}
       {exerciseGroup}
     </CardBody>

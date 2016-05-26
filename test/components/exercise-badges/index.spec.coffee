@@ -1,9 +1,9 @@
 {Testing, expect, sinon, _, ReactTestUtils} = require 'test/helpers'
 ld = require 'lodash'
-Badges = require 'components/exercise/preview/badges'
+Badges = require 'components/exercise-badges'
 
 
-EXERCISE = require '../../../../stubs/exercise/review'
+EXERCISE = require '../../../stubs/exercise/review'
 
 describe 'Exercise Preview Component', ->
 

@@ -12,9 +12,9 @@ module.exports = {
 
   Exercise,
   ExerciseGroup:          require './src/components/exercise/group'
-  ExerciseIdentifierLink: require './src/components/exercise/identifier-link'
+  ExerciseIdentifierLink: require './src/components/exercise-identifier-link'
   ExerciseHelpers:        require './src/model/exercise'
-  ExercisePreview:        require './src/components/exercise/preview'
+  ExercisePreview:        require './src/components/exercise-preview'
   ExerciseWithScroll,
 
   FreeResponse:           require './src/components/exercise/free-response'

@@ -4,12 +4,12 @@ classnames = require 'classnames'
 BS = require 'react-bootstrap'
 
 ArbitraryHtmlAndMath = require '../html'
-ExerciseIdentifierLink = require './identifier-link'
+ExerciseIdentifierLink = require '../exercise-identifier-link'
 Question = require '../question'
-VideoPlaceholder = require './preview/video-placeholder'
-InteractivePlaceholder = require './preview/interactive-placeholder'
-Badges = require './preview/badges'
-ControlsOverlay = require './preview/controls-overlay'
+VideoPlaceholder = require './video-placeholder'
+InteractivePlaceholder = require './interactive-placeholder'
+ExerciseBadges = require '../exercise-badges'
+ControlsOverlay = require './controls-overlay'
 Exercise = require '../../model/exercise'
 
 ExercisePreview = React.createClass
@@ -115,7 +115,7 @@ ExercisePreview = React.createClass
       <ControlsOverlay exercise={@props.exercise}
         actions={@props.overlayActions} onClick={@props.onOverlayClick} />
 
-      <Badges isInteractive={@props.isInteractive} exercise={@props.exercise} />
+      <ExerciseBadges isInteractive={@props.isInteractive} exercise={@props.exercise} />
 
       <ArbitraryHtmlAndMath className='stimulus' block={true} html={content.stimulus_html} />
       {@renderPlaceholders()}
