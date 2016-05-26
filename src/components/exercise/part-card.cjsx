@@ -143,11 +143,11 @@ ExerciseStepCard = React.createClass
 
     <CardBody className={cardClasses} pinned={pinned} footer={footer}>
       <div className="exercise-#{panel}">
+        {exerciseGroup}
         <ExMode
           {...step}
           {...panelProps}
           mode={panel}/>
-        {exerciseGroup}
       </div>
       {helpLink}
     </CardBody>
