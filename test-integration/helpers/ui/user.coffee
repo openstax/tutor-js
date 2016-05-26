@@ -94,7 +94,7 @@ class User extends TestHelper
     @el.loginSubmit().click()
 
   login: (username, password = 'password') =>
-    @el.loginLink().isDisplayed().then (isDisplayed) =>
+    @el.loginLink().get().isDisplayed().then (isDisplayed) =>
       unless isDisplayed
         @el.smallScreenNavbarToggle().click()
       @el.loginLink().click()
