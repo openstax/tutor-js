@@ -143,64 +143,9 @@
     .selected-mask { opacity: 0.4; } // bump up a bit to stand out from background
   }
 
-  .exercise-details {
-    min-height: calc(~"100vh - 150px");
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    .content {
-      flex: 1;
-      display: flex;
-      align-items: center;
-    }
-    .center {
-      display: flex;
-      height: 100%;
-      justify-content: center;
-    }
-    .controls {
-      display: flex;
-      justify-content: flex-end;
-      .show-cards {
-        cursor: pointer;
-      }
-    }
-    .exercise-card {
-      width: 800px;
-      .controls-overlay {
-        display: none;
-      }
-    }
-
-    .page-navigation {
-      .page-navigation-arrows(800px);
-      position: absolute;
-      display: none; // toggled on at bottom of file when body has pinned navbar
-    }
-
-  }
 
   .exercise-cards {
-    margin-top: @tutor-panel-padding-vertical;
-    @column-width: 450px;
-
-    .exercises {
-      -webkit-column-width: @column-width;
-      -moz-column-width: @column-width;
-      column-width: @column-width;
-    }
-    .exercise-sections {
-      margin-top: @tutor-panel-padding-vertical;
-    }
-    @media (min-width: @screen-md-min) {
-      .panel { margin: 5px; }
-    }
-    .exercise-card {
-      page-break-inside: avoid;
-      break-inside: avoid;
-      display: inline-block;
-      width: 100%;
-    }
+    .exercise-cards-column-layout();
   }
 }
 
@@ -225,21 +170,6 @@
       color: @tutor-white;
       background-color: @tutor-tertiary-light !important; // material design override
       border: 1px solid darken(@tutor-tertiary-light, 10%) !important;
-    }
-  }
-}
-
-// re-enable hidden controls when nav is pinned
-.pinned-view.pinned-on {
-  .questions-dashboard {
-    .exercise-details {
-      .exercise-card {
-        .controls-overlay { display: flex; }
-      }
-      .page-navigation {
-        display: flex;
-        cursor: pointer;
-      }
     }
   }
 }

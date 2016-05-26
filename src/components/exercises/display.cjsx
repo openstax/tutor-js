@@ -10,7 +10,6 @@ ExerciseCards    = require '../exercises/cards'
 ScrollSpy        = require '../scroll-spy'
 Sectionizer      = require './sectionizer'
 NoExercisesFound = require './no-exercises-found'
-ExerciseHelpers  = require '../../helpers/exercise'
 
 ExercisesDisplay = React.createClass
 
@@ -101,80 +100,35 @@ ExercisesDisplay = React.createClass
       ExerciseActions.setExerciseExclusion(exercise.id, isSelected)
     @forceUpdate()
 
-  getExerciseActions: (exercise) ->
-    actions = {}
-    if @getExerciseIsSelected(exercise)
-      actions.include =
-        message: 'ReInclude question'
-        handler: @onExerciseToggle
-    else
-      actions.exclude =
-        message: 'Exclude question'
-        handler: @onExerciseToggle
-    if @state.currentView is 'details'
-      @addDetailsActions(actions, exercise)
-    else
-      @addCardActions(actions, exercise)
-
-    actions
-
-  addDetailsActions: (actions, exercise) ->
-    if @state.displayFeedback
-      actions['feedback-off'] =
-        message: 'Hide Feedback'
-        handler: @toggleFeedback
-    else
-      actions['feedback-on'] =
-        message: 'Preview Feedback'
-        handler: @toggleFeedback
-    actions['report-error'] =
-        message: 'Report an error'
-        handler: @reportError
-
-
-  addCardActions: (actions, exercise) ->
-    actions.details =
-      message: 'Question details'
-      handler: @onShowDetailsViewClick
-
-  reportError: (ev, exercise) ->
-    ExerciseHelpers.openReportErrorPage(exercise)
-
-  toggleFeedback: ->
-    @setState(displayFeedback: not @state.displayFeedback)
-
-  getExerciseIsSelected: (exercise) ->
-    ExerciseStore.isExerciseExcluded(exercise.id)
-
-  renderExercises: (exercises) ->
-    return <NoExercisesFound /> unless exercises.count
-
-    sharedProps =
-        exercises: exercises
-        onExerciseToggle: @onExerciseToggle
-        getExerciseActions: @getExerciseActions
-        getExerciseIsSelected: @getExerciseIsSelected
-
+  renderQuestions: (exercises) ->
     if @props.showingDetails
       <ExerciseDetails
-        {...sharedProps}
+        exercises={exercises}
         selectedExercise={@state.selectedExercise}
         selectedSection={@state.currentSection}
         onSectionChange={@setCurrentSection}
         onExerciseToggle={@onExerciseToggle}
-        displayFeedback={@state.displayFeedback}
-        onShowCardViewClick={@onShowCardViewClick} />
+        onShowCardViewClick={@onShowCardViewClick}
+        isExerciseIdSelected={ExerciseStore.isExerciseExcluded}
+      />
     else
       <ExerciseCards
-        {...sharedProps}
         scrollFast={@state.showingCardsFromDetailsView}
         onExerciseToggle={@onExerciseToggle}
-        onShowDetailsViewClick={@onShowDetailsViewClick} />
+        exercises={exercises}
+        onShowDetailsViewClick={@onShowDetailsViewClick}
+        isExerciseIdSelected={ExerciseStore.isExerciseExcluded}
+      />
 
   render: ->
     return null if ExerciseStore.isLoading() or _.isEmpty(@props.sectionIds)
 
     exercises = ExerciseStore.groupBySectionsAndTypes(@props.sectionIds)
+    selectedExercises = if @state.filter then exercises[@state.filter] else exercises.all
+    questions = if selectedExercises.count
+      @renderQuestions(selectedExercises)
+    else
+      <NoExercisesFound />
 
     <div className="exercises-display">
       <div className="instructions">
@@ -192,9 +146,7 @@ ExercisesDisplay = React.createClass
         cardType='sections-questions'
       >
 
-      {@renderExercises(
-        if @state.filter then exercises[@state.filter] else exercises.all
-      )}
+      {questions}
 
       </PinnedHeaderFooterCard>
     </div>
