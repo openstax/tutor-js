@@ -102,7 +102,7 @@ ExerciseMixin =
 
     <ExFooter {...canContinueControlProps} {...footerProps} panel='review'/>
 
-  renderIdLink: () ->
+  renderIdLink: ->
     {parts} = @props
     step = _.last(parts)
 
