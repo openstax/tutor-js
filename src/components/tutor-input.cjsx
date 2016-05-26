@@ -220,26 +220,14 @@ TutorTimeInput = React.createClass
     fromMomentFormat: 'HH:mm'
     toMomentFormat: 'h:mm a'
     formatCharacters:
-      i:
-        validate: (char) ->
-          /([0-2]|:)/.test(char)
-      h:
-        validate: (char) ->
-          /[0-9]/.test(char)
-      H:
-        validate: (char) ->
-          /[0-1]/.test(char)
-      M:
-        validate: (char) ->
-          /[0-5]/.test(char)
-      m:
-        validate: (char) ->
-          /[0-9]/.test(char)
+      i: validate: (char) -> /([0-2]|:)/.test(char)
+      h: validate: (char) -> /[0-9]/.test(char)
+      H: validate: (char) -> /[0-1]/.test(char)
+      M: validate: (char) -> /[0-5]/.test(char)
+      m: validate: (char) -> /[0-9]/.test(char)
       P:
-        validate: (char) ->
-          /(A|P|a|p)/.test(char)
-        transform: (char) ->
-          "#{char}m".toLowerCase()
+        validate: (char) -> /(A|P|a|p)/.test(char)
+        transform: (char) -> "#{char}m".toLowerCase()
 
   getInitialState: ->
     {defaultValue} = @props
