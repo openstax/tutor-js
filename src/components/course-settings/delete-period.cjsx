@@ -13,8 +13,7 @@ module.exports = React.createClass
   displayName: 'DeletePeriodLink'
   propTypes:
     courseId: React.PropTypes.string.isRequired
-    periods: React.PropTypes.array.isRequired
-    activeTab: React.PropTypes.object.isRequired
+    period: React.PropTypes.object.isRequired
     selectPreviousTab: React.PropTypes.func.isRequired
 
   getInitialState: ->
@@ -32,7 +31,7 @@ module.exports = React.createClass
     if @isPeriodEmpty()
       # tab to be deleted cannot be activeTab unless first, so select previous or first
       @props.selectPreviousTab()
-      id = @props.activeTab.id
+      id = @props.period.id
 
       @setState isDeleting: true
       PeriodActions.delete(id, @props.courseId)
@@ -41,7 +40,7 @@ module.exports = React.createClass
       @setState(warning: EMPTY_WARNING)
 
   isPeriodEmpty: ->
-    id = @props.activeTab.id
+    id = @props.period.id
     students = RosterStore.getActiveStudentsForPeriod(@props.courseId, id)
     students.length is 0
 
@@ -50,7 +49,7 @@ module.exports = React.createClass
       @state.warning = EMPTY_WARNING
     else
       @state.warning = ''
-    deleteQuestion = "Delete '#{@props.activeTab.name}'?"
+    deleteQuestion = "Delete '#{@props.period.name}'?"
     deleteButton =
       <AsyncButton
         className='-edit-period-confirm'
@@ -95,6 +94,8 @@ module.exports = React.createClass
     </BS.Modal>
 
   render: ->
+    return null if _.isEmpty @props.periods
+
     <span className='-delete-period-link'>
       <BS.Button onClick={@open} bsStyle='link' className='edit-period'>
         <i className='fa fa-trash-o' />

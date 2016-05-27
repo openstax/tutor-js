@@ -12,7 +12,7 @@ NoPeriods = require '../no-periods'
 PeriodRoster = require './period-roster'
 DroppedRoster = require './dropped-roster'
 
-PeriodEnrollmentCode = require './period-enrollment-code'
+StudentEnrollment = require './student-enrollment'
 
 AddPeriodLink = require './add-period'
 RenamePeriodLink = require './rename-period'
@@ -27,16 +27,12 @@ module.exports = React.createClass
 
   getInitialState: ->
     key: 0
+    activePeriod: _.first CourseStore.get(@props.courseId)?.periods
 
   handleSelect: (key) ->
-    @setState({key})
-
-  getActivePeriod: (active, periods) ->
-    for period, i in periods
-      if i is active
-        name = period.name
-        id = period.id
-    {name, id}
+    periods = CourseStore.get(@props.courseId)?.periods or []
+    activePeriod = periods[key] or _.first(periods)
+    @setState({key, activePeriod})
 
   selectPreviousTab: ->
     if @state.key > 0
@@ -45,74 +41,69 @@ module.exports = React.createClass
       previous = 0
     @handleSelect(previous)
 
-  render: ->
-    course = CourseStore.get(@props.courseId)
-    {is_concept_coach} = course
-    periods = course.periods.length > 0
-    tabs = _.map course.periods, (period, index) =>
-      className = classnames({'is-trouble': period.is_trouble})
-      tooltip =
-        <BS.Tooltip id="roster-periods-nav-tab-#{index}">
-          {period.name}
-        </BS.Tooltip>
-      name =
-        <BS.OverlayTrigger
+  renderPeriod: (period, index) ->
+
+    className = classnames({'is-trouble': period.is_trouble})
+    tooltip =
+      <BS.Tooltip id="roster-periods-nav-tab-#{index}">
+        {period.name}
+      </BS.Tooltip>
+    name =
+      <BS.OverlayTrigger
         placement='top'
         delayShow={1000}
         delayHide={0}
-        overlay={tooltip}>
-          <span className='tab-item-period-name'>{period.name}</span>
-        </BS.OverlayTrigger>
+        overlay={tooltip}
+      >
+        <span className='tab-item-period-name'>{period.name}</span>
+      </BS.OverlayTrigger>
 
-      <BS.Tab key={period.id} eventKey={index} title={name} tabClassName={className}>
+    <BS.Tab key={period.id} eventKey={index} title={name} tabClassName={className}>
 
-        <PeriodRoster
+      <PeriodRoster
         period={period}
         courseId={@props.courseId}
-        activeTab={@getActivePeriod(@state.key, course.periods)}
-        isConceptCoach={is_concept_coach} />
-        <div className="settings-section dropped-students">
-          <DroppedRoster
-          period={period}
-          courseId={@props.courseId}
-          activeTab={@getActivePeriod(@state.key, course.periods)} />
-        </div>
-      </BS.Tab>
+        activeTab={@state.activePeriod}
+        isConceptCoach={CourseStore.isConceptCoach(@props.courseId)}
+      />
+
+      <DroppedRoster
+        period={period}
+        courseId={@props.courseId}
+        activeTab={@state.activePeriod} />
+
+    </BS.Tab>
 
 
-    enrollmentButton =
-      <PeriodEnrollmentCode
-      activeTab={@getActivePeriod(@state.key, course.periods)}
-      periods={course.periods}
-      bookUrl={course.webview_url}
-      bookName={course.salesforce_book_name} />
-    renameButton =
-      <RenamePeriodLink
-      courseId={@props.courseId}
-      periods={course.periods}
-      activeTab={@getActivePeriod(@state.key, course.periods)} />
-    deleteButton =
-      <DeletePeriodLink
-      courseId={@props.courseId}
-      periods={course.periods}
-      activeTab={@getActivePeriod(@state.key, course.periods)}
-      selectPreviousTab={@selectPreviousTab} />
-    noPeriodMessage =
-      <NoPeriods noPanel={true} />
+  render: ->
+    course = CourseStore.get(@props.courseId)
+    hasPeriods = not _.isEmpty course.periods
 
     <div>
       <div className="settings-section periods">
         <BS.Tabs activeKey={@state.key} onSelect={@handleSelect} animation={false}>
           <div className='period-edit-ui'>
             <AddPeriodLink courseId={@props.courseId} periods={course.periods} />
-            {renameButton if periods}
-            {deleteButton if periods}
+            <RenamePeriodLink
+              courseId={@props.courseId}
+              period={@state.activePeriod}
+            />
+            <DeletePeriodLink
+              courseId={@props.courseId}
+              period={@state.activePeriod}
+              selectPreviousTab={@selectPreviousTab}
+            />
           </div>
-          {enrollmentButton if periods and is_concept_coach}
+          <StudentEnrollment
+            period={@state.activePeriod}
+            courseId={@props.courseId}
+          />
           <div><span className='course-settings-subtitle tabbed'>Roster</span></div>
-          {noPeriodMessage unless periods}
-          {tabs}
+          {<NoPeriods noPanel={true} /> unless hasPeriods}
+          {_.map course.periods, @renderPeriod}
         </BS.Tabs>
       </div>
 
     </div>
+
+      #  if hasPeriods and CourseStore.isConceptCoach(@props.courseId)

@@ -1,4 +1,5 @@
 # coffeelint: disable=max_line_length
+
 React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
@@ -11,8 +12,7 @@ TITLE = 'Get Student Enrollment Code'
 module.exports = React.createClass
   displayName: 'PeriodEnrollmentCode'
   propTypes:
-    activeTab: React.PropTypes.object.isRequired
-    periods: React.PropTypes.array.isRequired
+    period: React.PropTypes.object.isRequired
     bookUrl: React.PropTypes.string.isRequired
     bookName: React.PropTypes.string.isRequired
 
@@ -24,10 +24,6 @@ module.exports = React.createClass
 
   open: ->
     @setState({showModal: true})
-
-  getEnrollmentCode: (name, periods) ->
-    period = _.findWhere(periods, {name: name})
-    period.enrollment_code
 
   getInstructions: (code) ->
     {bookUrl, bookName} = @props
@@ -75,8 +71,8 @@ module.exports = React.createClass
     ev.target.select()
 
   renderForm: ->
-    {activeTab, periods} = @props
-    enrollmentCode = @getEnrollmentCode(activeTab.name, periods)
+    {period} = @props
+    enrollmentCode = period.enrollment_code
     codeInstructions = @getInstructions(enrollmentCode)
 
     <BS.Modal

@@ -51,6 +51,6 @@ module.exports = React.createClass
       </div>
     empty = <div />
 
-    <div className="period">
+    <div className="settings-section dropped-students">
       {if @hasDroppedStudents() then studentsTable else empty}
     </div>
