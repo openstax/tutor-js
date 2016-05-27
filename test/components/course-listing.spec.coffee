@@ -80,7 +80,7 @@ describe 'Course Listing Component', ->
     CourseActions._reset()
     CourseListingActions.loaded([])
     renderListing().then (state) ->
-      expect(state.div.textContent).to.include('You are not a member of any courses')
+      expect(state.div.textContent).to.include('We cannot find an OpenStax course associated with your account')
 
   describe 'redirecting to CC', ->
     beforeEach ->

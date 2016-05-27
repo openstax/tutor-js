@@ -8,13 +8,24 @@ EmptyCourses = React.createClass
   render: ->
     <BS.Panel
       className='-course-list-empty'
-      header='You are not a member of any courses'
     >
       <p className="lead">
-        Your account is not associated with any Openstax&trade; Tutor Courses.
+        We cannot find an OpenStax course associated with your account.
       </p>
-      <p>
-        Contact your teacher or administrator for your course's registration information.
+      <p className="lead">
+        <a target="_blank" href="https://openstaxcnx.zendesk.com/hc/en-us/articles/207705436">
+          Concept Coach Students.  Get help >
+        </a>
+      </p>
+      <p className="lead">
+        <a target="_blank" href="https://openstaxcnx.zendesk.com/hc/en-us/articles/208050973">
+          Concept Coach Faculty.  Get help >
+        </a>
+      </p>
+      <p className="lead">
+        <a target="_blank" href="https://openstaxcnx.zendesk.com/hc/en-us/articles/208051053">
+          Tutor Students.  Get help >
+        </a>
       </p>
     </BS.Panel>
 
