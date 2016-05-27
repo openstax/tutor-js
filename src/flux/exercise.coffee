@@ -191,12 +191,15 @@ ExerciseConfig =
     # Searches for the given format in either an exercise or it's content
     hasQuestionWithFormat: (format, {exercise, content}) ->
       content = exercise.content unless content?
-      !!_.detect content.questions, (q) -> _.include(q.formats, format)
+      !!_.detect content.questions, _.partial(@exports.doesQuestionHaveFormat, format)
 
     # Searches for the given format in either an exercise or it's content
     doQuestionsHaveFormat: (format, {exercise, content}) ->
       content = exercise.content unless content?
-      _.map content.questions, (q) -> _.include(q.formats, format)
+      _.map content.questions, _.partial(@exports.doesQuestionHaveFormat, format)
+
+    doesQuestionHaveFormat: (format, question) ->
+      _.include(question.formats, format)
 
     getExerciseTypes: (exercise) ->
       tags = _.filter exercise.tags, (tag) ->

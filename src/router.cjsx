@@ -34,7 +34,7 @@ routes = (
         <Router.DefaultRoute handler={TeacherTaskPlans}/>
 
         <Route path='list/?' name='viewStudentDashboard' handler={StudentDashboardShell} />
-        <Route path='tasks/:id/?' name='viewTask' handler={SingleTask}/>
+        <Route path='tasks/:id/?' name='viewTask' handler={SingleTask} ignoreScrollBehavior/>
         <Route path='tasks/:id/steps/:stepIndex/?'
           name='viewTaskStep'
           handler={SingleTask}

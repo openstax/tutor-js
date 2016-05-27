@@ -2,15 +2,15 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 
-{ArbitraryHtmlAndMath, Question, CardBody, FreeResponse} = require 'openstax-react-components'
+{ArbitraryHtmlAndMath, Question, CardBody, FreeResponse, ExerciseGroup} = require 'openstax-react-components'
+{ScrollTrackerMixin} = require 'openstax-react-components/src/components/scroll-tracker'
 {ExerciseStore} = require '../../flux/exercise'
 
-TaskTeacherReviewExercise = React.createClass
-  displayName: 'TaskTeacherReviewExercise'
+TaskTeacherReviewQuestion = React.createClass
+  displayName: 'TaskTeacherReviewQuestion'
   propTypes:
-    content: React.PropTypes.object.isRequired
-    answers: React.PropTypes.array.isRequired
-    answered_count: React.PropTypes.number.isRequired
+    question: React.PropTypes.object.isRequired
+    questionStats: React.PropTypes.object.isRequired
 
   getInitialState: ->
     showAnswers: false
@@ -23,10 +23,14 @@ TaskTeacherReviewExercise = React.createClass
     {showAnswers} = @state
     @setState({showAnswers: not showAnswers})
 
-  getQuestion: ->
-    {content} = @props
-    # TODO: Assumes 1 question.
-    content.questions[0]
+  gatherAnswerStatsById: ->
+    {questionStats, question} = @props
+    {answer_stats} = questionStats
+
+    _.map question.answers, (answer) ->
+      answerId = answer.id.toString()
+      answerStats = _.chain(answer_stats).findWhere(answer_id: answerId).omit('answer_id').value()
+      _.extend({}, answer, answerStats)
 
   renderNoFreeResponse: ->
     freeResponsesClasses = 'teacher-review-answers has-no-answers'
@@ -37,9 +41,9 @@ TaskTeacherReviewExercise = React.createClass
       className={freeResponsesClasses}/>
 
   renderFreeResponse: ->
-    {answers} = @props
     {showAnswers} = @state
-    question = @getQuestion()
+    {questionStats, question} = @props
+    {answers, answered_count} = questionStats
 
     toggleAnswersText = "View student text responses (#{answers.length})"
     toggleAnswersText = 'Hide student text responses' if showAnswers
@@ -60,21 +64,74 @@ TaskTeacherReviewExercise = React.createClass
     </BS.Accordion>
 
   render: ->
-    {answers, answered_count} = @props
-    question = @getQuestion()
+    {question, questionStats} = @props
+    {answers, answered_count} = questionStats
 
-    if ExerciseStore.hasQuestionWithFormat('free-response', {content: @props.content})
+    question.answers = @gatherAnswerStatsById()
+
+    if ExerciseStore.doesQuestionHaveFormat('free-response', question)
       studentResponses = if answers.length then @renderFreeResponse() else @renderNoFreeResponse()
 
-    <CardBody className='task-step openstax-exercise' pinned={false}>
-      <Question
-        model={question}
-        answered_count={answered_count}
-        type='teacher-review'
-        exercise_uid={@props.content.uid}
-        onChangeAttempt={@onChangeAnswerAttempt}>
-        {studentResponses}
-      </Question>
+    <Question
+      model={question}
+      answered_count={answered_count}
+      type='teacher-review'
+      onChangeAttempt={@onChangeAnswerAttempt}>
+      {studentResponses}
+    </Question>
+
+
+TaskTeacherReviewQuestionTracker = React.createClass
+  displayName: 'TaskTeacherReviewQuestionTracker'
+  mixins: [ScrollTrackerMixin]
+  render: ->
+    questionProps = _.pick(@props, 'question', 'questionStats')
+    <TaskTeacherReviewQuestion {...questionProps}/>
+
+
+TaskTeacherReviewExercise = React.createClass
+  displayName: 'TaskTeacherReviewExercise'
+  propTypes:
+    content: React.PropTypes.object.isRequired
+    question_stats: React.PropTypes.array.isRequired
+
+  getQuestionStatsById: (questionId) ->
+    {question_stats} = @props
+    questionId = questionId.toString()
+    _.findWhere(question_stats, question_id: questionId)
+
+  renderQuestion: (question, index) ->
+    questionStats = @getQuestionStatsById(question.id)
+    {setScrollPoint, unsetScrollPoint, scrollState} = @props
+    {key} = scrollState
+    scrollState = _.extend {}, scrollState, {key: key + index}
+
+    <TaskTeacherReviewQuestionTracker
+      key={"task-review-question-#{question.id}"}
+      question={question}
+      questionStats={questionStats}
+      scrollState={scrollState}
+      setScrollPoint={setScrollPoint}
+      unsetScrollPoint={unsetScrollPoint}/>
+
+  render: ->
+    {content} = @props
+    {questions, uid} = content
+
+    exercise = _.map questions, @renderQuestion
+    {stimulus_html} = content
+
+    stimulus = <ArbitraryHtmlAndMath
+      className='exercise-stimulus'
+      block={true}
+      html={stimulus_html} /> if stimulus_html?.length > 0
+
+    <CardBody className='task-step openstax-exercise openstax-exercise-card' pinned={false}>
+      {stimulus}
+      {exercise}
+      <ExerciseGroup
+          key='step-exercise-group'
+          exercise_uid={uid}/>
     </CardBody>
 
 module.exports = TaskTeacherReviewExercise

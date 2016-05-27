@@ -16,14 +16,15 @@
   .task-review {
     .card-body {
       .transition(~"max-height 0.5s ease-in, padding 0.5s ease-in, margin 0.5s ease-in");
-      max-height: 999px;
+      max-height: 3000px;
       overflow: hidden;
     }
 
     .homework-review-problem-leave-active {
       .card-body {
         max-height: 0;
-        padding: 0;
+        padding-top: 0;
+        padding-bottom: 0;
         margin: 0;
       }
     }
@@ -31,7 +32,8 @@
     .homework-review-problem-enter {
       .card-body {
         max-height: 0;
-        padding: 0;
+        padding-top: 0;
+        padding-bottom: 0;
         margin: 0;
         overflow: hidden;
       }
@@ -40,15 +42,19 @@
     .homework-review-problem-enter-active {
       .card-body {
         .transition(~"max-height 0.5s ease-in, padding 0.5s ease-in, margin 0.5s ease-in");
-        max-height: 999px;
+        max-height: 3000px;
         padding: @tutor-card-body-padding;
         margin-bottom: 4rem;
       }
     }
   }
+
 }
 
-.task-review {
+.task-practice,
+.task-chapter_practice,
+.task-page_practice,
+.task-homework {
   .exercise-wrapper[data-step-number] {
     position: relative;
     &::before {
@@ -60,10 +66,22 @@
       .exercise-typography();
     }
   }
+  .openstax-question[data-question-number] {
+    position: relative;
+    &::before {
+      content: attr(data-question-number) ")";
+      position: absolute;
+      z-index: 1;
+      left: -25px;
+      top: -2px;
+      .exercise-typography();
+    }
+  }
 }
 
+
 .task-step {
-  .placeholder-step {
+  &.placeholder-step {
     .size-exercise-card();
   }
   .external-step {

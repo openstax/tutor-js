@@ -6,6 +6,7 @@ camelCase = require 'camelcase'
 
 {TaskActions, TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
+{TaskProgressActions, TaskProgressStore} = require '../../flux/task-progress'
 
 CrumbMixin = require './crumb-mixin'
 StepFooterMixin = require '../task-step/step-footer-mixin'
@@ -37,6 +38,7 @@ module.exports = React.createClass
     defaultKey = @getDefaultCurrentStep()
     crumbKey = if stepIndex then parseInt(stepIndex) - 1 else defaultKey
     crumb = @getCrumb(crumbKey)
+    TaskProgressActions.update(@props.id, crumbKey)
 
     # go ahead and render this step only if this step is accessible
     if crumb?.crumb
@@ -78,6 +80,10 @@ module.exports = React.createClass
 
   _leavingRefreshingStep: (nextState) ->
     @state.refreshTo and not (nextState.currentStep is @state.refreshTo)
+
+  _isSameStep: (nextProps, nextState) ->
+    return false unless nextProps.id is @props.id
+    TaskStore.isSameStep(@props.id, @state.currentStep, nextState.currentStep)
 
   # After a step is recovered, the task needs to load itself in order to store the new step
   # at the proper index.  prepareToRecover handles this.
@@ -121,6 +127,12 @@ module.exports = React.createClass
       @continueAfterRefreshStep()
       return false
 
+    if @_isSameStep(nextProps, nextState)
+      unless @state.currentStep is nextState.currentStep
+        nextStep = TaskStore.getStepByIndex(id, nextState.currentStep)
+        TaskStepActions.load(nextStep.id)
+      return false
+
     # if we reach this point, assume that we should go ahead and do a normal component update
     true
 
@@ -148,11 +160,17 @@ module.exports = React.createClass
       @setState({recoveredStepId: false})
       TaskStepStore.off('step.loaded', @recoverStep)
 
+  areKeysSame: (key, keyToCompare) ->
+    key is keyToCompare or parseInt(key) is parseInt(keyToCompare)
+
   goToStep: (stepKey, silent = false) ->
+    stepKey = parseInt(stepKey)
     params = _.clone(@context.router.getCurrentParams())
+    return if @areKeysSame(params.stepIndex, stepKey + 1)
     # url is 1 based so it matches the breadcrumb button numbers
     params.stepIndex = stepKey + 1
     params.id = @props.id # if we were rendered directly, the router might not have the id
+
     if silent
       @context.router.replaceWith('viewTaskStep', params)
     else
@@ -230,7 +248,6 @@ module.exports = React.createClass
       breadcrumbs = <Breadcrumbs
         id={id}
         goToStep={@goToStep}
-        currentStep={@state.currentStep}
         key="task-#{id}-breadcrumbs"/>
 
     <PinnedHeaderFooterCard
@@ -245,5 +262,7 @@ module.exports = React.createClass
   reloadTask: ->
     @setState({currentStep: 0})
 
-  onNextStep: ->
-    @goToStep(@state.currentStep + 1)
+  onNextStep: (state) ->
+    {currentStep} = state?
+    currentStep ?= @state.currentStep
+    @goToStep(currentStep + 1)

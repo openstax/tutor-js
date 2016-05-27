@@ -2,23 +2,20 @@ React = require 'react'
 _ = require 'underscore'
 
 TaskTeacherReviewExercise = require './exercise'
-{ScrollTracker, ScrollTrackerParentMixin} = require '../scroll-tracker'
 LoadableItem = require '../loadable-item'
 
 CrumbMixin = require './crumb-mixin'
-{ChapterSectionMixin} = require 'openstax-react-components'
 {ScrollListenerMixin} = require 'react-scroll-components'
+{ChapterSectionMixin} = require 'openstax-react-components'
+{ScrollTrackerMixin, ScrollTrackerParentMixin} = require 'openstax-react-components/src/components/scroll-tracker'
 
 {TaskTeacherReviewActions, TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
 
 
-ReviewTracker = React.createClass
-  displayName: 'ReviewTracker'
-  mixins: [ScrollTracker]
-  renderQuestion: ->
-    <TaskTeacherReviewExercise {...@props}/>
-
-  renderHeading: ->
+ReviewHeadingTracker = React.createClass
+  displayName: 'ReviewHeadingTracker'
+  mixins: [ScrollTrackerMixin]
+  render: ->
     {sectionLabel, title} = @props
 
     <h2>
@@ -26,15 +23,6 @@ ReviewTracker = React.createClass
         {sectionLabel}
       </span> {title}
     </h2>
-
-  render: ->
-    {content} = @props
-
-    renderFn = 'renderQuestion'
-    renderFn = 'renderHeading' unless content?
-
-    @[renderFn]()
-
 
 
 Review = React.createClass
@@ -52,21 +40,27 @@ Review = React.createClass
   render: ->
     {id, focus} = @props
     steps = @getContents()
-
     stepsProps = _.omit(@props, 'focus')
 
     stepsList = _.map steps, (step, index) =>
 
       scrollState = _.pick(step, 'key', 'sectionLabel')
-      if step.content?
+
+      if step.question_stats?
+        return null unless step.content
+        step.content = JSON.parse(step.content)
         stepProps = _.extend({}, stepsProps, step)
-        stepProps.key = "task-review-question-#{step.content.questions[0].id}-#{index}"
+        stepProps.key = "task-review-question-#{step.question_stats[0].question_id}-#{index}"
         stepProps.focus = focus and index is 0
+
+        Tracker = TaskTeacherReviewExercise
       else
         stepProps = step
         stepProps.key = "task-review-heading-#{step.sectionLabel}"
 
-      item = <ReviewTracker
+        Tracker = ReviewHeadingTracker
+
+      item = <Tracker
         {...stepProps}
         scrollState={scrollState}
         setScrollPoint={@setScrollPoint}

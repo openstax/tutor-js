@@ -88,6 +88,8 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
 
       resolved = ({headers, data}) ->
         setNow(headers)
+        if IS_LOCAL
+          data = _.extend({}, data, payload)
         successAction(data, args...) # Include listenAction for faking
       rejected = (response) ->
         # jqXhr, statusMessage, err

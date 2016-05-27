@@ -20,8 +20,11 @@ module.exports = React.createClass
     title: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired
 
+  getInitialState: ->
+    crumbs: @getCrumableCrumbs()
+
   render: ->
-    crumbs = @getCrumableCrumbs()
+    {crumbs} = @state
     {currentStep, goToStep, title, courseId} = @props
 
     stepButtons = _.map crumbs, (crumb) ->

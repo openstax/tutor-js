@@ -66,15 +66,28 @@ module.exports =
       _.each crumb.data, (data) ->
         data.key = crumb.key
     else
-      crumb.data.key = crumb.key
+      crumb.data.key = index
 
 
   _getCrumbsForHomework: (stats) ->
     exercises = @_getExercisesFromStats(stats)
     crumbs = _.chain(exercises)
-      .map(@_makeCrumb)
-      .each(@_indexCrumb)
+      .map((data) =>
+        {questions} = JSON.parse(data.content)
+        stepCrumbs = []
+        mainCrumb = @_makeCrumb(data)
+        stepCrumbs.push(mainCrumb)
+        _.chain(questions).rest(1).each((question) =>
+          stepCrumbs.push(@_makeCrumb(_.pick(data, 'chapter_section', 'average_step_number', 'question_stats')))
+        )
+        stepCrumbs
+      )
+      .flatten()
       .value()
+
+    _.each(crumbs, @_indexCrumb)
+
+    crumbs
 
   _getCrumbsForReading: (stats) ->
     exercises = @_getExercisesFromStats(stats)
