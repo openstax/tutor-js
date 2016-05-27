@@ -8,7 +8,7 @@ ExerciseControls = require './exercise-controls'
 ExerciseDetails  = require '../exercises/details'
 ExerciseCards    = require '../exercises/cards'
 ScrollSpy        = require '../scroll-spy'
-Sectionizer      = require './sectionizer'
+Sectionizer      = require '../exercises/sectionizer'
 NoExercisesFound = require './no-exercises-found'
 ExerciseHelpers  = require '../../helpers/exercise'
 
@@ -55,6 +55,7 @@ ExercisesDisplay = React.createClass
         <Sectionizer
           ref="sectionizer"
           {...sectionizerProps}
+          nonAvailableWidth={600}
           onScreenElements={[]}
           chapter_sections={sections} />
       </ScrollSpy>

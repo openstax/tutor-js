@@ -4,9 +4,6 @@ ScrollTo = require '../scroll-to-mixin'
 classnames = require 'classnames'
 Pagination = require('ultimate-pagination')
 
-# Rough amount taken up by other controls on bar
-NON_AVAILABLE_WIDTH = 600
-
 {ResizeListenerMixin} = require 'openstax-react-components'
 
 Sectionizer = React.createClass
@@ -16,6 +13,7 @@ Sectionizer = React.createClass
   propTypes:
     chapter_sections:  React.PropTypes.array.isRequired
     onScreenElements:  React.PropTypes.array.isRequired
+    nonAvailableWidth: React.PropTypes.number.isRequired
     getCurrentSection: React.PropTypes.func
     onSectionClick:    React.PropTypes.func
 
@@ -28,7 +26,7 @@ Sectionizer = React.createClass
     @calculateAvailableSpace(sizes.windowEl)
 
   calculateAvailableSpace: (size) ->
-    @setState(renderCount: ((Math.floor( size.width - NON_AVAILABLE_WIDTH) / 42) - 2))
+    @setState(renderCount: ((Math.floor( size.width - @props.nonAvailableWidth) / 42) - 2))
 
   # the below properties are read by the ScrollTo mixin
   scrollingTargetDOM: -> window.document
