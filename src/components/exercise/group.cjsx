@@ -4,7 +4,7 @@ _ = require 'underscore'
 camelCase = require 'camelcase'
 
 ChapterSectionMixin = require '../chapter-section-mixin'
-ExerciseIdentifierLink = require './identifier-link'
+ExerciseIdentifierLink = require '../exercise-identifier-link'
 DEFAULT_GROUP =
   show: false
 

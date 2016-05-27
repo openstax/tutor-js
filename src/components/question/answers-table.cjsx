@@ -17,6 +17,7 @@ KEYSETS_PROPS.push(null) # keySet could be null for disabling keyControling
 ArbitraryHtmlAndMath = require '../html'
 {Answer} = require './answer'
 {Feedback} = require './feedback'
+Instructions = require './instructions'
 
 idCounter = 0
 
@@ -54,14 +55,22 @@ AnswersTable = React.createClass
       changeEvent.preventDefault()
       @props.onChangeAttempt?(answer)
 
+  shouldInstructionsShow: ->
+    {type, model, hasCorrectAnswer} = @props
+
+    model.formats.length > 1 and not (hasCorrectAnswer or type in ['teacher-preview', 'teacher-review'])
+
   render: ->
-    {model, type, answered_count, choicesEnabled, correct_answer_id, answer_id, feedback_html, show_all_feedback, keySet} = @props
+    {
+      model, type, answered_count, choicesEnabled, correct_answer_id,
+      answer_id, feedback_html, show_all_feedback, keySet, project, hasCorrectAnswer
+    } = @props
+
     {answers, id} = model
     return null unless answers?.length > 0
 
     chosenAnswer = [answer_id, @state.answer_id]
     checkedAnswerIndex = null
-    hasCorrectAnswer = !! correct_answer_id
 
     questionAnswerProps =
       qid: id or "auto-#{idCounter++}"
@@ -86,7 +95,12 @@ AnswersTable = React.createClass
     feedback = <Feedback key='question-mc-feedback'>{feedback_html}</Feedback> if feedback_html
     answersHtml.splice(checkedAnswerIndex + 1, 0, feedback) if feedback? and checkedAnswerIndex?
 
+    instructions = <Instructions
+      project={project}
+    /> if @shouldInstructionsShow()
+
     <div className='answers-table'>
+      {instructions}
       {answersHtml}
     </div>
 

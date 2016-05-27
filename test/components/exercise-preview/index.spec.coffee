@@ -1,6 +1,6 @@
 {Testing, expect, sinon, _, ReactTestUtils} = require 'test/helpers'
 ld = require 'lodash'
-ExercisePreview = require 'components/exercise/preview'
+ExercisePreview = require 'components/exercise-preview'
 
 EXERCISE = require '../../../stubs/exercise/review'
 ANSWERS  = EXERCISE.content.questions[0].answers

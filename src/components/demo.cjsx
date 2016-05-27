@@ -4,20 +4,29 @@ _ = require 'lodash'
 EventEmitter2 = require 'eventemitter2'
 classnames = require 'classnames'
 
-Exercise = require './exercise'
+{Exercise, ExerciseWithScroll} = require './exercise'
 Notifications = require '../model/notifications'
 URLs = require '../model/urls'
 NotificationBar = require './notifications/bar'
 SuretyGuard = require './surety-guard'
 exerciseStub = require '../../stubs/exercise'
+multipartExerciseStub = require '../../stubs/exercise-multipart'
 exerciseEvents = new EventEmitter2(wildcard: true)
-STEP_ID = exerciseStub['free-response'].content.questions[0].id
+STEP_ID = exerciseStub['free-response'].id
+MULTIPART_STEP_IDS = _.keys(multipartExerciseStub)
+SINGLEPART_STEP_IDS = [STEP_ID]
 
 steps = []
 steps[STEP_ID] = {}
+_.forEach multipartExerciseStub, (step, stepId) ->
+  steps[stepId] = {}
 
+stubForExercise = {}
+stubForExercise[STEP_ID] = exerciseStub
 
-ExercisePreview = require './exercise/preview'
+stubsForExercises = _.extend {}, multipartExerciseStub, stubForExercise
+
+ExercisePreview = require './exercise-preview'
 exercisePreviewStub = require '../../stubs/exercise-preview/data'
 
 Breadcrumb = require './breadcrumb'
@@ -36,22 +45,28 @@ getCurrentPanel = (stepId) ->
   panel
 
 getUpdatedStep = (stepId) ->
-  step = steps[STEP_ID]
-  panel = getCurrentPanel(STEP_ID)
-  steps[STEP_ID] = _.merge({}, exerciseStub[panel], step)
+  step = steps[stepId]
+  panel = getCurrentPanel(stepId)
+  steps[stepId] = _.merge({}, stubsForExercises[stepId][panel], step)
 
-getProps = ->
-  step = getUpdatedStep(STEP_ID)
+getProps = (stepIds) ->
+  localSteps = {}
+
+  _.forEach stepIds, (stepId) ->
+    localSteps[stepId] = getUpdatedStep(stepId)
+
+  parts = _.map stepIds, (stepId) ->
+    localSteps[stepId]
 
   props =
-    id: step.content.questions[0].id
-    taskId: '1'
-    step: step
+    parts: parts
+    canOnlyContinue: (stepId) ->
+      localSteps[stepId].correct_answer_id?
     getCurrentPanel: getCurrentPanel
     setAnswerId: (stepId, answerId) ->
-      step.answer_id = answerId
+      localSteps[stepId].answer_id = answerId
     setFreeResponseAnswer: (stepId, freeResponse) ->
-      step.free_response = freeResponse
+      localSteps[stepId].free_response = freeResponse
       exerciseEvents.emit('change')
     onContinue: ->
       exerciseEvents.emit('change')
@@ -86,16 +101,53 @@ SuretyDemo = React.createClass
 ExerciseDemo = React.createClass
   displayName: 'ExerciseDemo'
   getInitialState: ->
-    exerciseProps: getProps()
+    exerciseProps: getProps(SINGLEPART_STEP_IDS)
+  getDefaultProps: ->
+    setScrollState: ->
+      console.info('scrolling', arguments)
+      {key} = scrollState
+      @setState(currentStep: key)
+    goToStep: ->
+      console.info('goToStep', arguments)
   update: ->
-    @setState(exerciseProps: getProps())
+    @setState(exerciseProps: getProps(SINGLEPART_STEP_IDS))
   componentWillMount: ->
     exerciseEvents.on('change', @update)
   componentWillUnmount: ->
     exerciseEvents.off('change', @update)
   render: ->
     {exerciseProps} = @state
-    <Exercise {...exerciseProps} pinned={false}/>
+    <Exercise {...@props} {...exerciseProps} project='tutor' pinned={false}/>
+
+MultipartExerciseDemo = React.createClass
+  displayName: 'MultipartExerciseDemo'
+  getInitialState: ->
+    exerciseProps: getProps(MULTIPART_STEP_IDS)
+  getDefaultProps: ->
+    setScrollState: (scrollState) ->
+      console.info('scrolling', arguments)
+      {key} = scrollState
+      @setState(currentStep: key)
+    goToStep: ->
+      console.info('goToStep', arguments)
+  update: ->
+    @setState(exerciseProps: getProps(MULTIPART_STEP_IDS))
+  componentWillMount: ->
+    exerciseEvents.on('change', @update)
+  componentWillUnmount: ->
+    exerciseEvents.off('change', @update)
+  render: ->
+    {exerciseProps, currentStep} = @state
+    {setScrollState, goToStep} = @props
+
+    <ExerciseWithScroll
+      {...exerciseProps}
+      project='concept-coach'
+      setScrollState={setScrollState.bind(@)}
+      goToStep={goToStep}
+      currentStep={currentStep}
+      pinned={false}
+    />
 
 ExercisePreviewDemo = React.createClass
   displayName: 'ExercisePreviewDemo'
@@ -272,6 +324,7 @@ Demo = React.createClass
     demos =
       exercisePreview: <ExercisePreviewDemo/>
       notices: <NoticesDemo />
+      multipartExercise: <MultipartExerciseDemo/>
       exercise: <ExerciseDemo/>
       surety: <SuretyDemo/>
       breadcrumbs: <BreadcrumbDemo/>
@@ -285,7 +338,7 @@ Demo = React.createClass
         </BS.Col>
       </BS.Row>
     )
-    <BS.Grid className='demos'>
+    <BS.Grid className='demos openstax'>
       {demos}
     </BS.Grid>
 

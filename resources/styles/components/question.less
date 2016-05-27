@@ -159,16 +159,46 @@
 
   .clearfix();
 
+  .detailed-solution {
+    margin-bottom: 1.5rem;
+
+    .header {
+      color: @openstax-neutral-darker;
+      margin-bottom: 0.5rem;
+      .sans(1.3rem, 1.3rem);
+    }
+
+    .solution {
+      color: @openstax-neutral;
+      .sans(1.1rem, 1.1rem);
+      font-style: italic;
+    }
+  }
+
   img {
     display: block;
     margin: auto;
     max-width: 100%;
   }
 
-  .question-stem,
+  .question-stem {
+    margin-bottom: 0;
+  }
+
   .answers-table {
     margin-bottom: 20px;
   }
+
+	.instructions {
+		font-size: 1.4rem;
+		font-style: italic;
+		margin-top: 10px;
+
+		i {
+			margin-left: 5px;
+		}
+
+	}
 
   .multiple-choice-prompt {
     font-weight: 600;

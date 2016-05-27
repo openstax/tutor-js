@@ -33,10 +33,10 @@ ExMode = React.createClass
     @focusBox() if mode is 'free-response'
 
   componentWillReceiveProps: (nextProps) ->
-    {free_response, answer_id, freeResponseValue} = nextProps
+    {free_response, answer_id, cachedFreeResponse} = nextProps
 
     nextAnswers = {}
-    freeResponse = free_response or freeResponseValue or ''
+    freeResponse = free_response or cachedFreeResponse or ''
 
     nextAnswers.freeResponse = freeResponse if @state.freeResponse isnt freeResponse
     nextAnswers.answerId = answer_id if @state.answerId isnt answer_id
@@ -80,7 +80,12 @@ ExMode = React.createClass
 
     answerKeySet = null unless choicesEnabled
 
-    questionProps = _.pick(@props, 'processHtmlAndMath', 'choicesEnabled', 'correct_answer_id', 'feedback_html', 'type')
+    questionProperties = [
+      'processHtmlAndMath', 'choicesEnabled', 'correct_answer_id',
+      'feedback_html', 'type', 'questionNumber', 'project'
+    ]
+
+    questionProps = _.pick(@props, questionProperties)
     if mode is 'multiple-choice'
       changeProps =
         onChange: @onAnswerChanged
@@ -89,9 +94,15 @@ ExMode = React.createClass
         onChangeAttempt: onChangeAnswerAttempt
 
     htmlAndMathProps = _.pick(@props, 'processHtmlAndMath')
-    {stimulus_html} = content
 
-    questions = _.map(content.questions, (question) =>
+    {stimulus_html} = content
+    stimulus = <ArbitraryHtmlAndMath
+      {...htmlAndMathProps}
+      className='exercise-stimulus'
+      block={true}
+      html={stimulus_html} /> if stimulus_html?.length > 0
+
+    questions = _.map content.questions, (question) =>
       question = _.omit(question, 'answers') if mode is 'free-response'
       <Question
         {...questionProps}
@@ -102,15 +113,10 @@ ExMode = React.createClass
         keySet={answerKeySet}>
         {@getFreeResponse()}
       </Question>
-    )
 
     <div className='openstax-exercise'>
-      <ArbitraryHtmlAndMath
-        {...htmlAndMathProps}
-        className='exercise-stimulus'
-        block={true}
-        html={stimulus_html} />
-        {questions}
+      {stimulus}
+      {questions}
     </div>
 
 

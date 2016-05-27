@@ -24,6 +24,12 @@ Exercises =
   getStimulus: (exercise) ->
     exercise.content?.stimulus_html or ''
 
+  getParts: (exercise) ->
+    exercise.content?.questions or []
+
+  isMultipart: (exercise) ->
+    @getParts(exercise).length > 1
+
   hasInteractive: (exercise) ->
     !!@getStimulus(exercise).match(/iframe.*(cnx.org|phet.colorado.edu)/)
 

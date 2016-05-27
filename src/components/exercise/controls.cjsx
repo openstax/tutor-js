@@ -1,4 +1,4 @@
-React = require 'react'
+React = require 'react/addons'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
@@ -82,4 +82,58 @@ ExReviewControls = React.createClass
       {continueButton}
     </div>
 
-module.exports = {ExContinueButton, ExReviewControls}
+CONTROLS =
+  'free-response': ExContinueButton
+  'multiple-choice': ExContinueButton
+  'review': ExReviewControls
+  'teacher-read-only': ExContinueButton
+
+CONTROLS_TEXT =
+  'free-response': 'Answer'
+  'multiple-choice': 'Submit'
+  'review': 'Next Question'
+  'teacher-read-only': 'Next Question'
+
+ExControlButtons = React.createClass
+  displayName: 'ExerciseControlButtons'
+  getDefaultProps: ->
+    disabled: false
+    isContinueEnabled: false
+    allowKeyNext: false
+  shouldComponentUpdate: (nextProps) ->
+    nextProps.panel?
+  render: ->
+    {panel, controlButtons, controlText} = @props
+
+    ControlButtons = CONTROLS[panel]
+    controlText ?= CONTROLS_TEXT[panel]
+
+    controlProps = _.pick(@props, props.ExReviewControls)
+    controlProps.children = controlText
+
+    <ControlButtons {...controlProps}/>
+
+
+ExerciseDefaultFooter = React.createClass
+  displayName: 'ExerciseDefaultFooter'
+  render: ->
+    <div>{@props.controlButtons}</div>
+
+ExFooter = React.createClass
+  displayName: 'ExFooter'
+  getDefaultProps: ->
+    disabled: false
+    isContinueEnabled: false
+    allowKeyNext: false
+    footer: <ExerciseDefaultFooter/>
+
+  render: ->
+    {footer} = @props
+
+    footerProps = _.pick(@props, props.StepFooter)
+    footerProps.controlButtons = <ExControlButtons {...@props}/>
+
+    React.addons.cloneWithProps(footer, footerProps)
+
+
+module.exports = {ExContinueButton, ExReviewControls, ExControlButtons, ExFooter}

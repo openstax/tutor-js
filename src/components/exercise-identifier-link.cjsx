@@ -1,6 +1,6 @@
 React = require 'react'
 
-Exercise = require '../../model/exercise'
+Exercise = require '../model/exercise'
 
 
 ExerciseIdentifierLink = React.createClass

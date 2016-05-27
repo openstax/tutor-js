@@ -1,6 +1,6 @@
 {Testing, expect, sinon, _} = require 'test/helpers'
 
-ExerciseIdentifierLink = require 'components/exercise/identifier-link'
+ExerciseIdentifierLink = require 'components/exercise-identifier-link'
 
 describe 'Exercise Identifier Link', ->
 

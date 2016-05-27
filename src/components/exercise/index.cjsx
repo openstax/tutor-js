@@ -1,131 +1,162 @@
 React = require 'react'
 _ = require 'underscore'
 
-camelCase = require 'camelcase'
+ExercisePart = require './part'
+{ExFooter} = require './controls'
+{CardBody} = require '../pinned-header-footer-card/sections'
+ExerciseGroup = require './group'
+ExerciseBadges = require '../exercise-badges'
 
-ExerciseStepCard = require './step-card'
-{propTypes} = require './props'
-{step} = propTypes.ExerciseStepCard
+{ScrollListenerMixin} = require 'react-scroll-components'
+{ScrollTracker, ScrollTrackerParentMixin} = require '../scroll-tracker'
 
-# TODO clean this up.
-REVIEW_CONTROL_PROPS = ['refreshStep', 'recoverFor', 'canTryAnother']
+ExerciseMixin =
+  getLastPartId: ->
+    {parts} = @props
+    _.last(parts).id
 
-NOT_REVIEW_PROPS = ['onNextStep', 'canReview', 'disabled']
-NOT_TEACHER_READ_ONLY_PROPS = _.union(NOT_REVIEW_PROPS, ['onStepCompleted', 'canTryAnother'])
-NOT_MULTIPLE_CHOICE_PROPS = _.union(REVIEW_CONTROL_PROPS, ['disabled'])
-NOT_FREE_RESPONSE_PROPS = _.union(REVIEW_CONTROL_PROPS, ['onStepCompleted', 'onNextStep', 'canReview'])
+  isSinglePart: ->
+    {parts} = @props
+    parts.length is 1
+
+  isLastPart: (id) ->
+    lastPartId = @getLastPartId()
+    lastPartId is id
+
+  canAllContinue: ->
+    {parts, canOnlyContinue} = @props
+
+    _.every parts, (part) ->
+      canOnlyContinue(part.id)
+
+  shouldControl: (id) ->
+    {canOnlyContinue} = @props
+
+    not (@isLastPart(id) and canOnlyContinue(id))
+
+  renderPart: (part, partProps) ->
+    props = _.omit(@props, 'part', 'canOnlyContinue', 'footer', 'setScrollState', 'goToStep')
+
+    <ExercisePart
+      {...partProps}
+      {...props}
+      step={part}
+      id={part.id}
+      taskId={part.task_id}/>
+
+  renderSinglePart: ->
+    {parts, footer} = @props
+
+    part = _.first(parts)
+
+    partProps =
+      footer: footer
+      pinned: true
+      focus: true
+      includeGroup: true
+
+    @renderPart(part, partProps)
+
+  renderMultiParts: ->
+    {parts, currentStep} = @props
+
+    _.map parts, (part, index) =>
+      # disable keyStep if this is not the current step
+      keySet = null if part.stepIndex isnt currentStep
+
+      partProps =
+        pinned: false
+        focus: index is currentStep
+        includeGroup: false
+        includeFooter: @shouldControl(part.id)
+        keySet: keySet
+        key: "exercise-part-#{index}"
+
+      # stim and stem are the same for different steps currently.
+      # they should only show up once.
+      unless index is 0
+        part.content = _.omit(part.content, 'stimulus_html', 'stem_html')
+
+      @renderPart(part, partProps)
+
+  renderGroup: ->
+    {parts} = @props
+    step = _.last(parts)
+
+    <ExerciseGroup
+      key='step-exercise-group'
+      group={step.group}
+      exercise_uid={step.content?.uid}
+      related_content={step.related_content}/>
+
+  renderFooter: ->
+    {parts, onNextStep, currentStep} = @props
+    step = _.last(parts)
+
+    if @canAllContinue()
+      canContinueControlProps =
+        isContinueEnabled: true
+        onContinue: _.partial onNextStep, currentStep: step.stepIndex
+
+    footerProps = _.omit(@props, 'onContinue')
+    <ExFooter {...canContinueControlProps} {...footerProps} panel='review'/>
+
+
+ExerciseWithScroll = React.createClass
+  displayName: 'ExerciseWithScroll'
+  mixins: [ScrollListenerMixin, ScrollTrackerParentMixin, ExerciseMixin]
+  wrapPartWithScroll: (parts, exercisePart, index) ->
+    part = parts[index]
+
+    scrollState =
+      key: part.stepIndex
+      questionNumber: part.questionNumber
+      id: part.id
+      index: index
+
+    <ScrollTracker
+      key="exercise-part-with-scroll-#{index}"
+      scrollState={scrollState}
+      setScrollPoint={@setScrollPoint}
+      unsetScrollPoint={@unsetScrollPoint}>
+      {exercisePart}
+    </ScrollTracker>
+
+  render: ->
+    {parts, footer} = @props
+
+    if @isSinglePart()
+      return @renderSinglePart()
+
+    exerciseParts = @renderMultiParts()
+    exercisePartsWithScroll = _.map exerciseParts, _.partial @wrapPartWithScroll, parts
+    exerciseGroup = @renderGroup()
+    footer ?= @renderFooter()
+
+    <CardBody footer={footer} className='openstax-multipart-exercise-card'>
+      <ExerciseBadges isMultipart={true}/>
+      {exercisePartsWithScroll}
+      {exerciseGroup}
+    </CardBody>
+
 
 Exercise = React.createClass
   displayName: 'Exercise'
-  propTypes:
-    id: React.PropTypes.string.isRequired
-    taskId: React.PropTypes.string.isRequired
-    onStepCompleted: React.PropTypes.func.isRequired
-    onNextStep: React.PropTypes.func.isRequired
-    getCurrentPanel: React.PropTypes.func.isRequired
-    step: step
-
-    setFreeResponseAnswer: React.PropTypes.func.isRequired
-    setAnswerId: React.PropTypes.func.isRequired
-
-    getReadingForStep: React.PropTypes.func
-    refreshStep: React.PropTypes.func
-    recoverFor: React.PropTypes.func
-
-    review: React.PropTypes.string
-    focus: React.PropTypes.bool
-    courseId: React.PropTypes.string
-    canTryAnother: React.PropTypes.bool
-    canReview: React.PropTypes.bool
-    disabled: React.PropTypes.bool
-
-  getInitialState: ->
-    {id} = @props
-
-    currentPanel: @props.getCurrentPanel(id)
-
-  componentWillMount: ->
-    {id} = @props
-    @updateCurrentPanel(@props) unless @state.currentPanel
-
-  componentWillReceiveProps: (nextProps) ->
-    @updateCurrentPanel(nextProps)
-
-  updateCurrentPanel: (props) ->
-    {id, getCurrentPanel} = props or @props
-    currentPanel = getCurrentPanel(id)
-    @setState({currentPanel}) if currentPanel? and @state.currentPanel isnt currentPanel
-
-  getDefaultProps: ->
-    focus: true
-    review: ''
-    pinned: true
-    canTryAnother: false
-    canReview: false
-
-  refreshMemory: ->
-    {id, taskId} = @props
-
-    {index} = @props.getReadingForStep(id, taskId)
-    @props.refreshStep(index, id)
-
-  tryAnother: ->
-    {id} = @props
-    @props.recoverFor(id)
-
-  onFreeResponseContinue: (state) ->
-    {id} = @props
-    {freeResponse} = state
-    @props.setFreeResponseAnswer(id, freeResponse)
-
-  onMultipleChoiceAnswerChanged: (answer) ->
-    {id} = @props
-    @props.setAnswerId(id, answer.id)
-
-  getReviewProps: ->
-    reviewProps = _.omit(@props, NOT_REVIEW_PROPS)
-    reviewProps.onContinue = @props.onNextStep
-    reviewProps.refreshMemory = @refreshMemory
-    reviewProps.tryAnother = @tryAnother
-
-    reviewProps
-
-  getMultipleChoiceProps: ->
-    multipleChoiceProps = _.omit(@props, NOT_MULTIPLE_CHOICE_PROPS)
-    multipleChoiceProps.onAnswerChanged = @onMultipleChoiceAnswerChanged
-
-    multipleChoiceProps
-
-  getFreeResponseProps: ->
-    freeResponseProps = _.omit(@props, NOT_FREE_RESPONSE_PROPS)
-    freeResponseProps.onContinue = @onFreeResponseContinue
-
-    freeResponseProps
-
-  getTeacherReadOnlyProps: ->
-    teacherReadOnlyProps = _.omit(@props, NOT_TEACHER_READ_ONLY_PROPS)
-    teacherReadOnlyProps.onContinue = @props.onNextStep
-    teacherReadOnlyProps.controlButtons = false
-    teacherReadOnlyProps.type = 'teacher-review'
-
-    teacherReadOnlyProps
-
-  # add get props methods for different panel types as needed here
-
+  mixins: [ExerciseMixin]
   render: ->
-    {id, step, waitingText, helpLink} = @props
-    {currentPanel} = @state
+    {footer} = @props
 
-    # panel is one of ['review', 'multiple-choice', 'free-response', 'teacher-read-only']
-    getPropsForPanel = camelCase "get-#{currentPanel}-props"
-    cardProps = @[getPropsForPanel]?()
+    if @isSinglePart()
+      return @renderSinglePart()
 
-    <ExerciseStepCard
-      {...cardProps}
-      step={step}
-      panel={currentPanel}
-      waitingText={waitingText}
-      helpLink={helpLink}
-    />
+    exerciseParts = @renderMultiParts()
+    exerciseGroup = @renderGroup()
+    footer ?= @renderFooter()
 
-module.exports = Exercise
+    <CardBody footer={footer} className='openstax-multipart-exercise-card'>
+      <ExerciseBadges isMultipart={true}/>
+      {exerciseParts}
+      {exerciseGroup}
+    </CardBody>
+
+module.exports = {Exercise, ExerciseWithScroll}

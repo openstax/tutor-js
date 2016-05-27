@@ -59,12 +59,14 @@ Question = React.createClass
     @hasAnswerCorrectness() and @doesArrayHaveProperty(collaborator_solutions, 'content_html')
 
   render: ->
-    {model, correct_answer_id, exercise_uid, className} = @props
+    {model, correct_answer_id, exercise_uid, className, questionNumber} = @props
     {stem_html, collaborator_solutions, formats, stimulus_html} = model
 
     hasCorrectAnswer = !! correct_answer_id
     classes = classnames 'openstax-question', className,
       'has-correct-answer': hasCorrectAnswer
+
+    htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
 
     exerciseUid = <div className="exercise-uid">{exercise_uid}</div> if exercise_uid?
 
@@ -72,17 +74,16 @@ Question = React.createClass
       solution =
         <div className='detailed-solution'>
           <div className='header'>Detailed solution</div>
-          <ArbitraryHtmlAndMath className="solution" block
+          <ArbitraryHtmlAndMath {...htmlAndMathProps} className="solution" block
             html={_.pluck(collaborator_solutions, 'content_html').join('')}
           />
         </div>
 
-
-    <div className={classes}>
+    <div className={classes} data-question-number={questionNumber}>
       <QuestionHtml type='stimulus' html={stimulus_html} />
       <QuestionHtml type='stem' html={stem_html} />
       {@props.children}
-      <AnswersTable {...@props}/>
+      <AnswersTable {...@props} hasCorrectAnswer={hasCorrectAnswer}/>
       {<FormatsListing formats={formats} /> if @props.displayFormats}
       {solution}
       {exerciseUid}
