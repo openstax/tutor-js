@@ -4,13 +4,10 @@ BS         = require 'react-bootstrap'
 classnames = require 'classnames'
 
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
-{PinnedHeaderFooterCard} = require 'openstax-react-components'
 
 AddExercises    = require './add-exercises'
 ReviewExercises = require './review-exercises'
 SelectTopics    = require '../select-topics'
-ExerciseSummary = require './exercise-summary'
-
 
 ChooseExercises = React.createClass
 
@@ -21,46 +18,31 @@ ChooseExercises = React.createClass
     hide: React.PropTypes.func.isRequired
     canEdit: React.PropTypes.bool
 
+  getInitialState: ->
+    showProblems: false
+
   selectProblems: ->
-    @setState({
-      showProblems: true
-    })
+    @setState(showProblems: true)
 
   render: ->
-    return null unless @props.isVisible
-
     {courseId, planId, ecosystemId, selected, hide, cancel} = @props
 
-    header = <span>Add Problems</span>
     selected = TaskPlanStore.getTopics(planId)
-    shouldShowExercises = @props.selected?.length and @state?.showProblems
+    classes  = classnames('-show-problems', { disabled: _.isEmpty(selected) })
 
-    classes = classnames('-show-problems', { disabled: _.isEmpty(selected) })
-
-    primary =
+    primaryBtn =
       <BS.Button
+        key='pb'
         className={classes}
         bsStyle='primary'
-        onClick={@selectProblems}>Show Problems
-      </BS.Button>
-
-    if shouldShowExercises
-      exerciseSummary = <ExerciseSummary
-          canReview={true}
-          canEdit={@props.canEdit}
-          reviewClicked={hide}
-          onCancel={cancel}
-          planId={planId}/>
-
-      addExercises = <AddExercises
-          courseId={courseId}
-          planId={planId}
-          sectionIds={selected}/>
+        onClick={@selectProblems}
+      >Show Problems</BS.Button>
 
     <div className='homework-plan-exercise-select-topics'>
+
       <SelectTopics
-        primary={primary}
-        header={header}
+        primary={primaryBtn}
+        header={<span key='hd'>Add Problems</span>}
         courseId={courseId}
         ecosystemId={ecosystemId}
         planId={planId}
@@ -68,12 +50,15 @@ ChooseExercises = React.createClass
         cancel={cancel}
         hide={hide} />
 
-      <PinnedHeaderFooterCard
-        containerBuffer={50}
-        header={exerciseSummary}
-        cardType='homework-builder'>
-        {addExercises}
-      </PinnedHeaderFooterCard>
+      {<AddExercises
+        hide={hide}
+        cancel={cancel}
+        courseId={courseId}
+        planId={planId}
+        sectionIds={selected}
+      /> if selected.length and @state.showProblems}
+
+
     </div>
 
 module.exports = ChooseExercises

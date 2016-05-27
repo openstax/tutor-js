@@ -2,11 +2,12 @@ React = require 'react'
 _ = require 'underscore'
 
 LoadingExercises = require './loading-exercises-mixin'
+{PinnedHeaderFooterCard} = require 'openstax-react-components'
 
 {ExerciseStore, ExerciseActions} = require '../../../flux/exercise'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 ExerciseHelpers  = require '../../../helpers/exercise'
-
+ExerciseControls = require './exercise-controls'
 ExerciseDetails  = require '../../exercises/details'
 ExerciseCards    = require '../../exercises/cards'
 
@@ -82,25 +83,50 @@ AddExercises = React.createClass
     return @renderLoading() if @exercisesAreLoading()
 
     exercises = ExerciseStore.groupBySectionsAndTypes(@props.sectionIds)
+
     sharedProps =
         exercises: exercises.all
         onExerciseToggle: @onExerciseToggle
         getExerciseActions: @getExerciseActions
         getExerciseIsSelected: @getExerciseIsSelected
 
-    if @state.currentView is 'details'
-      <ExerciseDetails
-        {...sharedProps}
-        selectedExercise={@state.selectedExercise}
-        displayFeedback={@state.displayFeedback}
+    body = switch @state.currentView
+      when 'details'
+        <ExerciseDetails
+          {...sharedProps}
+          selectedExercise={@state.selectedExercise}
+          displayFeedback={@state.displayFeedback}
+          onShowCardViewClick={@onShowCardViewClick}
+        />
+      else
+        <ExerciseCards
+          {...sharedProps}
+          topScrollOffset={150}
+          onShowDetailsViewClick={@onShowDetailsViewClick}
+        />
+
+    controls =
+      <ExerciseControls
+        canReview={true}
+        canEdit={@props.canEdit}
+        reviewClicked={@props.hide}
+        onCancel={@props.cancel}
+        planId={@props.planId}
         onShowCardViewClick={@onShowCardViewClick}
-      />
-    else
-      <ExerciseCards
-        {...sharedProps}
-        topScrollOffset={150}
         onShowDetailsViewClick={@onShowDetailsViewClick}
+        sectionizerProps={
+          currentSection: @state.currentSection
+          onSectionClick: @setCurrentSection
+          nonAvailableWidth: 600
+          chapter_sections: _.keys(exercises.all.grouped)
+        }
       />
 
+    <PinnedHeaderFooterCard
+      containerBuffer={50}
+      header={controls}
+      cardType='homework-builder'>
+      {body}
+    </PinnedHeaderFooterCard>
 
 module.exports = AddExercises

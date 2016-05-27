@@ -14,7 +14,8 @@ LoadingExercisesMixin =
     ExerciseActions.loadForCourse(@props.courseId, @props.sectionIds)
 
   exercisesNeedLoading: ->
-    not (ExerciseStore.isLoaded(@props.sectionIds) or @exercisesAreLoading())
+    not _.isEmpty(@props.sectionIds) and
+      not (ExerciseStore.isLoaded(@props.sectionIds) or @exercisesAreLoading())
 
   exercisesAreLoading: ->
     ExerciseStore.isLoading(@props.sectionIds)

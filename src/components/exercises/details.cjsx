@@ -33,7 +33,7 @@ ExerciseDetails = React.createClass
   getInitialState: -> {}
 
   componentDidMount:   ->
-    @scrollToSelector('.questions-controls', {immediate: true})
+    @scrollToSelector('.exercise-controls-bar', {immediate: true})
 
   componentWillUnmount: ->
     keymaster.deleteScope(KEYBINDING_SCOPE)
@@ -95,7 +95,7 @@ ExerciseDetails = React.createClass
   moveTo: (index) ->
     exercise = @state.exercises[index]
     section = ExerciseStore.getChapterSectionOfExercise(exercise)
-    unless @state.currentSection is section and @props.onSectionChange
+    if @props.onSectionChange and @state.currentSection isnt section
       # defer is needed to allow setState to complete before callback is fired
       # otherwise component recieves props with the new section and doesn't know it's already on it
       # causing it to jump to the first exercise in section
@@ -106,28 +106,15 @@ ExerciseDetails = React.createClass
     prev: @state.currentIndex isnt 0
     next: @state.currentIndex isnt @state.exercises.length - 1
 
-  # toggleFeedback: ->
-  #   @setState(displayFeedback: not @state.displayFeedback)
-
   render: ->
+
     exercise = @state.exercises[@state.currentIndex] or _.first(@state.exercises)
     unless exercise
       return <NoExercisesFound />
 
     moves = @getValidMovements()
+
     isExcluded = ExerciseStore.isExerciseExcluded(exercise.id)
-    # actions = ExerciseHelpers.buildPreviewActions(exercise, @props.onExerciseToggle)
-    # if @state.displayFeedback
-    #   actions['feedback-off'] =
-    #     message: 'Hide Feedback'
-    #     handler: @toggleFeedback
-    # else
-    #   actions['feedback-on'] =
-    #     message: 'Preview Feedback'
-    #     handler: @toggleFeedback
-    # actions['report-error'] =
-    #     message: 'Report an error'
-    #     handler: @reportError
 
     <div className="exercise-details">
 

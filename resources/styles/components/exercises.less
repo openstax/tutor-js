@@ -49,3 +49,76 @@
   }
 
 }
+
+
+.exercise-controls-bar {
+  @padding: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 @padding;
+  .sectionizer {
+    flex-wrap: nowrap;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    text-align: center;
+    div {
+      cursor: pointer;
+      display: inline-block;
+      font-size: 12px;
+      width: 40px;
+      line-height: 40px;
+
+      &.section {
+        border: 1px solid @tutor-neutral-light;
+        &+.section {
+          border-left: 0;
+        }
+      }
+      &.active {
+        background-color: @tutor-neutral-light;
+      }
+      &.disabled {
+        cursor: default;
+        color: @tutor-neutral-light;
+      }
+    }
+  }
+  .btn-group {
+    box-shadow: none;
+    button:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
+      font-size: 12px;
+      background-size: @icon-size-lg @icon-size-lg;
+      background-repeat: no-repeat;
+      border-radius: 0;
+      box-shadow: none !important;
+      border: 1px solid @tutor-neutral;
+      height: 40px;
+      margin-right: 0;
+      &.active {
+        background-color: @tutor-neutral-light;
+      }
+      .tutor-icon {
+        margin: 0;
+      }
+    }
+    &.filters {
+      button {
+        width: 90px;
+      }
+    }
+    &.display-types {
+      margin-left: 10px;
+      button {
+        width: 40px;
+      }
+    }
+  }
+  .save-cancel {
+    width: 200px;
+    display: flex;
+    justify-content: space-around;
+  }
+}

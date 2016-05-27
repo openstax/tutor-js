@@ -388,6 +388,10 @@ TaskPlanConfig =
       plan = @_getPlan(id)
       plan?.settings.exercise_ids
 
+    exerciseCount: (id) ->
+      plan = @_getPlan(id)
+      plan?.settings.exercise_ids.length
+
     getDescription: (id) ->
       plan = @_getPlan(id)
       plan?.description

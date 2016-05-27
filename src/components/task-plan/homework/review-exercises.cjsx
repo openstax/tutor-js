@@ -9,8 +9,8 @@ LoadingExercises = require './loading-exercises-mixin'
 {ExerciseStore} = require '../../../flux/exercise'
 {ExercisePreview, SuretyGuard, PinnedHeaderFooterCard} = require 'openstax-react-components'
 
-ExerciseSummary = require './exercise-summary'
-ExerciseTable   = require './exercises-table'
+ExerciseControls = require './exercise-controls'
+ExerciseTable    = require './exercises-table'
 
 ReviewExerciseCard = React.createClass
 
@@ -21,7 +21,6 @@ ReviewExerciseCard = React.createClass
     isFirst:  React.PropTypes.bool.isRequired
     isLast:   React.PropTypes.bool.isRequired
     index:    React.PropTypes.number.isRequired
-
 
   moveExerciseUp: ->
     TaskPlanActions.moveExercise(@props.planId, @props.exercise, -1)
@@ -85,36 +84,38 @@ ReviewExercises = React.createClass
     planId: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired
     canEdit: React.PropTypes.bool
-    pageIds: React.PropTypes.array
-
+    sectionIds: React.PropTypes.array.isRequired
+    showSectionTopics: React.PropTypes.func.isRequired
 
 
   render: ->
-    return null unless @props.isVisible
     return @renderLoading() if @exercisesAreLoading()
     unless TaskPlanStore.getTopics(@props.planId).length
       return <div className='-bug'>Failed loading exercises</div>
 
-    {courseId, pageIds, planId} = @props
+    {courseId, sectionIds, planId} = @props
 
-    exerciseSummary = <ExerciseSummary
-      onCancel={@cancel}
-      onPublish={@publish}
-      canAdd={@props.canAdd}
-      addClicked={@showSectionTopics}
-      planId={planId}/>
+    controls =
+      <ExerciseControls
+        onCancel={@cancel}
+        onPublish={@publish}
+        canAdd={@props.canAdd}
+        addClicked={@props.showSectionTopics}
+        hideDisplayControls
+        planId={planId}/>
 
-    exerciseTable = <ExerciseTable
-      courseId={courseId}
-      sectionIds={@props.sectionIds}
-      planId={planId}/>
+    exerciseTable =
+      <ExerciseTable
+        courseId={courseId}
+        sectionIds={sectionIds}
+        planId={planId}/>
 
     exercise_ids = TaskPlanStore.getExercises(planId)
     exercises = _.map(exercise_ids, ExerciseStore.getExerciseById)
 
     <PinnedHeaderFooterCard
       containerBuffer={50}
-      header={exerciseSummary}
+      header={controls}
       cardType='homework-builder'>
       {exerciseTable}
       <div className="card-list exercises">

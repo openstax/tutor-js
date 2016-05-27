@@ -71,7 +71,7 @@ QuestionsControls = React.createClass
 
     selected = @props.selectedSection or _.first(sections)
 
-    <div className="questions-controls">
+    <div className="exercise-controls-bar">
       <BS.ButtonGroup className="filters">
 
         <BS.Button data-filter='all' onClick={@onFilterClick}

@@ -6,7 +6,6 @@ classnames = require 'classnames'
 
 Icon            = require '../icon'
 PlanMixin       = require './plan-mixin'
-ExerciseSummary = require './homework/exercise-summary'
 PlanFooter      = require './footer'
 TaskPlanBuilder = require './builder'
 ChooseExercises = require './homework/choose-exercises'
@@ -87,24 +86,24 @@ HomeworkPlan = React.createClass
 
       </BS.Panel>
 
-      <ChooseExercises
-        isVisible={@state.showSectionTopics}
+      {<ChooseExercises
         courseId={courseId}
         planId={id}
         ecosystemId={ecosystemId}
         cancel={@cancelSelection}
         hide={@hideSectionTopics}
         canEdit={not @state.isVisibleToStudents}
-        selected={topics}/>
+        selected={topics}
+      /> if @state.showSectionTopics}
 
-      <ReviewExercises
-        isVisible={hasExercises and not @state.showSectionTopics}
+      {<ReviewExercises
         canAdd={not @state.isVisibleToStudents}
         canEdit={not @state.isVisibleToStudents}
+        showSectionTopics={@showSectionTopics}
         courseId={courseId}
         sectionIds={topics}
         planId={id}
-      />
+      /> if hasExercises and not @state.showSectionTopics}
 
     </div>
 
