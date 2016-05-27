@@ -37,8 +37,10 @@
     }
   }
 
-  .period-edit-ui {
-    float: right;
+  .period-edit-controls {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
     .edit-period {
       color: @tutor-tertiary-light;
       text-transform: capitalize;
@@ -47,15 +49,25 @@
         padding: 0;
       }
     }
-  }
+    .spacer { flex: 1; }
+    .edit-course,
+    .show-enrollment-code {
+      color: @tutor-tertiary-light;
+      text-transform: capitalize;
+      margin-left: 10px;
+      &.btn {
+        padding: 0;
+      }
+    }
 
-  .edit-course,
-  .show-enrollment-code {
-    color: @tutor-tertiary-light;
-    text-transform: capitalize;
-    margin-left: 10px;
-    &.btn {
-      padding: 0;
+    .enrollment-code-link {
+      padding: 0 0.5rem;
+      border: 1px solid @tutor-neutral-light;
+      color: @tutor-neutral;
+      .title { margin-right: 0.5rem; }
+      input {
+        border: 0;
+      }
     }
   }
 

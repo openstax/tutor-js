@@ -5,6 +5,7 @@ _ = require 'underscore'
 {CourseStore, CourseActions} = require '../../flux/course'
 
 CCEnrollmentCode = require './cc-enrollment-code'
+StudentEnrollmentLink = require './student-enrollment-link'
 
 StudentEnrollment = React.createClass
 
@@ -15,11 +16,13 @@ StudentEnrollment = React.createClass
   render: ->
     return null unless @props.period
     course = CourseStore.get(@props.courseId)
-    # TODO: toggle render based on: if CourseStore.isConceptCoach(@props.courseId)
-    <CCEnrollmentCode
-      period={@props.period}
-      bookUrl={course.webview_url}
-      bookName={course.salesforce_book_name}
-    />
+    if CourseStore.isConceptCoach(@props.courseId)
+      <CCEnrollmentCode
+        period={@props.period}
+        bookUrl={course.webview_url}
+        bookName={course.salesforce_book_name}
+      />
+    else
+      <StudentEnrollmentLink period={@props.period} />
 
 module.exports = StudentEnrollment

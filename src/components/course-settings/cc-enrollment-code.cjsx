@@ -6,7 +6,7 @@ _ = require 'underscore'
 
 {TutorInput} = require '../tutor-input'
 CourseGroupingLabel = require '../course-grouping-label'
-
+Icon = require '../icon'
 TITLE = 'Get Student Enrollment Code'
 
 module.exports = React.createClass
@@ -93,9 +93,9 @@ module.exports = React.createClass
     </BS.Modal>
 
   render: ->
-    <span className='-show-enrollment-code-link'>
+    <span className='cc-enrollment-code'>
       <BS.Button onClick={@open} bsStyle='link' className='show-enrollment-code'>
-        <i className='fa fa-qrcode' /> {TITLE}
+        <Icon type='qrcode' /> {TITLE}
       </BS.Button>
       {@renderForm()}
     </span>

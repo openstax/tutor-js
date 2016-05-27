@@ -79,10 +79,15 @@ module.exports = React.createClass
     course = CourseStore.get(@props.courseId)
     hasPeriods = not _.isEmpty course.periods
 
-    <div>
+    <div className="roster">
       <div className="settings-section periods">
         <BS.Tabs activeKey={@state.key} onSelect={@handleSelect} animation={false}>
-          <div className='period-edit-ui'>
+          <div className='period-edit-controls'>
+            <StudentEnrollment
+              period={@state.activePeriod}
+              courseId={@props.courseId}
+            />
+            <span className="spacer" />
             <AddPeriodLink courseId={@props.courseId} periods={course.periods} />
             <RenamePeriodLink
               courseId={@props.courseId}
@@ -94,10 +99,6 @@ module.exports = React.createClass
               selectPreviousTab={@selectPreviousTab}
             />
           </div>
-          <StudentEnrollment
-            period={@state.activePeriod}
-            courseId={@props.courseId}
-          />
           <div><span className='course-settings-subtitle tabbed'>Roster</span></div>
           {<NoPeriods noPanel={true} /> unless hasPeriods}
           {_.map course.periods, @renderPeriod}
