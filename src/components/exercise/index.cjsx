@@ -6,7 +6,7 @@ ExercisePart = require './part'
 {CardBody} = require '../pinned-header-footer-card/sections'
 ExerciseGroup = require './group'
 ExerciseBadges = require '../exercise-badges'
-ExerciseIdentifierLink = require '../identifier-link'
+ExerciseIdentifierLink = require '../exercise-identifier-link'
 
 {ScrollListenerMixin} = require 'react-scroll-components'
 {ScrollTracker, ScrollTrackerParentMixin} = require '../scroll-tracker'
