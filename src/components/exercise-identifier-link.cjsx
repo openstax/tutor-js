@@ -1,3 +1,4 @@
+_ = require 'underscore'
 React = require 'react'
 Exercise = require '../model/exercise'
 ChapterSectionMixin = require './chapter-section-mixin'

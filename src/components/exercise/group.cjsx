@@ -61,7 +61,7 @@ ExerciseGroup = React.createClass
       ]
 
     if RULES[group].show and RULES[group].tooltip
-      popover = <BS.Popover ref="popover" className="openstax instructions">
+      popover = <BS.Popover id="instructions" ref="popover" className="openstax instructions">
         {RULES[group].tooltip}
       </BS.Popover>
       groupDOM.push  <BS.OverlayTrigger placement="bottom" overlay={popover}>
