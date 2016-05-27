@@ -1,3 +1,5 @@
+# coffeelint: disable=max_line_length
+
 React  = require 'react'
 
 PieProgress = React.createClass
@@ -76,7 +78,7 @@ PieProgress = React.createClass
         </g>
       </svg>
     notStarted = <span className='not-started'>---</span>
-    
+
     if value >= 100
       if isConceptCoach then finishedIcon else pieCircle
     else if value <= 0

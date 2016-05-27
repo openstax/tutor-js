@@ -39,7 +39,7 @@ module.exports = React.createClass
     </div>
 
   render: ->
-    className = classnames 'guide-container', 
+    className = classnames 'guide-container',
       'is-loading': @props.isLoading?()
       'is-empty'  : _.isEmpty(@props.allSections)
 

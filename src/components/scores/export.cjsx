@@ -1,3 +1,5 @@
+# coffeelint: disable=max_line_length
+
 BS = require 'react-bootstrap'
 React = require 'react'
 mime = require 'mime-types'
