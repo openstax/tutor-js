@@ -66,7 +66,7 @@ TaskPlanConfig =
     if @_local[planId]?.type is PLAN_TYPES.HOMEWORK or @_changed[planId]?.type is PLAN_TYPES.HOMEWORK
       @_changed[planId] ?= {}
       # need to default final posting json's is feedback immediate to false
-      @_changed[planId].is_feedback_immediate = false
+      @_changed[planId].is_feedback_immediate ?= false
       @_local[planId].settings.exercise_ids ?= []
       @_local[planId].settings.exercises_count_dynamic ?= TUTOR_SELECTIONS.default
 
