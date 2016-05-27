@@ -20,6 +20,10 @@ describe 'Calendar and Stats', ->
     @calendar = new Helpers.Calendar(@)
     @calendarPopup = new Helpers.Calendar.Popup(@)
     @courseSelect = new Helpers.CourseSelect(@)
+    @scores = new Helpers.Scores(@)
+    @taskPlanReview = new Helpers.TaskPlanReview(@)
+    @taskTeacher = new Helpers.TaskTeacher(@)
+    @forecast = new Helpers.Forecast(@)
 
     @user.login(TEACHER_USERNAME)
 
@@ -49,6 +53,7 @@ describe 'Calendar and Stats', ->
 
 
 
+  # TODO -- probably broken, fix
   @eachCourse 'Opens the review page for every visible plan (readonly)', (courseCategory) ->
     @calendar.el.openPlan.forEach (plan, index, total) =>
       @addTimeout(10)
@@ -70,7 +75,7 @@ describe 'Calendar and Stats', ->
       @calendarPopup.close()
       @calendar.waitUntilLoaded()
 
-
+  # TODO -- probably broken, fix
   @eachCourse 'Opens the learning guide for each course (readonly)', (courseCategory) ->
     @addTimeout(10)
     @calendar.goToForecast()
@@ -83,41 +88,37 @@ describe 'Calendar and Stats', ->
 
 
   @eachCourse 'Clicks through the Student Scores (readonly)', (courseCategory) ->
-    # The facebook table has some "fancy" elements that don't move when the table
-    # scrolls vertically. Unfortunately, they cover the links.
-    # There is a UI "border shadow" element that ends up going right
-    # through the middle of a link. So, just hide the element
-    @addTimeoutMs(1000)
-    @driver.executeScript ->
-      hider = document.createElement('style')
-      hider.textContent = '.public_fixedDataTable_bottomShadow { display: none; }'
-      document.head.appendChild(hider)
 
-    @calendar.goToScores().then => @addTimeout(60)
-    @utils.wait.for(css: '.scores-report .course-scores-title')
+    @calendar.goToScores()
+    @scores.waitUntilLoaded()
 
+    @scores.goToPeriodWithAssignments()
     # Click the "Review" links (each task-plan)
-    @utils.forEach css: '.review-plan', (item, index, total) =>
+    @scores.el.hsReviewLink().forEach (item, index, total) =>
       console.log 'opening Review', courseCategory, index, 'of', total
       item.click()
-      @utils.wait.click(css: '.task-breadcrumbs > a')
-      @utils.wait.for(css: '.course-scores-wrap')
+      @taskPlanReview.waitUntilLoaded()
+      @taskPlanReview.el.backToScores().click()
+      @scores.goToPeriodWithAssignments()
 
+    @scores.goToPeriodWithAssignments()
     # Click each Student Forecast
-    @utils.forEach css: '.student-name', ignoreLengthChange: true, (item, index, total) =>
+    @scores.el.hsNameLink(ignoreLengthChange: true).forEach (item, index, total) =>
       console.log 'opening Student Forecast', courseCategory, index, 'of', total
       item.click()
-      @utils.wait.for(css: '.chapter-panel.weaker, .no-data-message')
-      @utils.wait.click(css: '.performance-forecast a.back')
-      @utils.wait.for(css: '.course-scores-wrap')
+      @forecast.waitUntilLoaded()
+      @forecast.el.back().click()
+      @scores.goToPeriodWithAssignments()
 
+    # this may not find any period :( depending on the stubbed data.
+    @scores.goToPeriodWithWorkedAssignments(1)
     # only test the 1st row of each Student Response
-    @utils.forEach css: '.fixedDataTableRowLayout_rowWrapper:nth-of-type(1) .task-result', (item, index, total) =>
+    @scores.el.taskResultByRow(1).forEach (item, index, total) =>
       console.log 'opening Student view', courseCategory, index, 'of', total
       item.click()
-      @utils.wait.for(css: '.async-button.continue')
-      # @utils.wait.click(linkText: 'Back to Student Scores')
-      @utils.wait.click(css: '.pinned-footer a.btn-default')
+      @taskTeacher.waitUntilLoaded()
+      @taskTeacher.el.backToScores().click()
+      @scores.goToPeriodWithAssignments()
 
       # # BUG: Click on "Period 1"
       # @utils.wait.click(css: '.course-scores-wrap li:first-child')

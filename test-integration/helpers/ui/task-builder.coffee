@@ -10,7 +10,7 @@ COMMON_ELEMENTS =
   datepickerContainer:
     css: '.datepicker__container'
   dateInput: (type) ->
-    css: ".-assignment-#{type}-date .datepicker__input"
+    css: ".-assignment-#{type}-date .datepicker__input-container input"
   datepickerDay: (dayDescription) ->
     dayDescriptor = switch dayDescription
       when 'TODAY'

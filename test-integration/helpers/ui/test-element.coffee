@@ -65,10 +65,18 @@ class TestItemHelper
   aliasWait: (waitFunction, args...) =>
     locator = @getLocator(args...)
 
-    waitTime = _.last(args)
-    waitTime = null unless _.isNumber(waitTime)
+    lastArg = _.last(args)
+    waitTime = if _.isNumber(lastArg) then lastArg else null
 
-    waitFunction(locator, waitTime)
+    if _.isNumber(lastArg)
+      waitTime = lastArg
+      lastArg = null
+    else if _.isNumber(args[args.length - 2])
+      waitTime = args[args.length - 2]
+    else
+      waitTime = null
+
+    waitFunction(locator, waitTime, lastArg)
 
   ###
   Waits until element is visible before trying to return the Selenium.Promise of the matching Selenium.WebElement
@@ -91,6 +99,20 @@ class TestItemHelper
   ###
   getAll: (args...) =>
     @aliasWait(@test.utils.wait.forMultiple, args...)
+
+  ###
+  Waits until an element is visible on passed in element before trying to return the Selenium.Promise of Array of
+  matching Selenium.WebElements
+
+  This will only wait until waitMs (default `60000`).
+
+  @param {Any} [args...] Any number of parameters for `locator` to use if `locator` is a function dependent on parameters.
+  @param {Number} [waitMs] The last parameter, if provided and is a number.
+  @param {SeleniumWebElement} Selenium Web element object to find `locator` on
+  @returns {Selenium.Promise}
+  ###
+  getOn: (args...) =>
+    @aliasWait(@test.utils.wait.forOn, args...)
 
   ###
   Helper for the common case of `wait.for(...).click()`.
@@ -125,6 +147,23 @@ class TestItemHelper
   findElements: (args...) =>
     locator = @getLocator(args...)
     @test.driver.findElements(locator)
+
+
+  ###
+  Tries to find and return Selenium.Promise of Selenium.WebElement immediately on the Selenium element that gets passed in
+
+  @param {Any} [args...] Any number of parameters for `locator` to use if `locator` is a function dependent on parameters.
+  @param {SeleniumWebElement} Selenium Web element object to find `locator` on
+  @returns {Selenium.Promise}
+  ###
+  findOn: (args...) =>
+    locator = @getLocator(args...)
+
+    element = _.last(args)
+
+    # need to throw error unless element.findElement?
+
+    element.findElement?(locator)
 
   ###
   Tries to find and click immediately

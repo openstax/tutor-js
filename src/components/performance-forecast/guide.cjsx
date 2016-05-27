@@ -2,6 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 _ = require 'underscore'
+classnames = require 'classnames'
 
 Chapter     = require './chapter'
 Section     = require './section'
@@ -38,7 +39,9 @@ module.exports = React.createClass
     </div>
 
   render: ->
-    className = 'guide-container'
+    className = classnames 'guide-container', 
+      'is-loading': @props.isLoading?()
+      'is-empty'  : _.isEmpty(@props.allSections)
 
     if @props.isLoading?()
       body = @props.loadingMessage
@@ -47,7 +50,7 @@ module.exports = React.createClass
     else
       body = @renderBody()
 
-    <div className='guide-container'>
+    <div className={className}>
       {@props.heading}
       {body}
     </div>

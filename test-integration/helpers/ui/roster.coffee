@@ -45,6 +45,8 @@ COMMON_POPUP_ELEMENTS =
     css: '.modal-body.teacher-edit-period-form .tutor-input input[type=text]'
   saveUpdate:
     css: '.modal-footer .-edit-period-confirm'
+  base:
+    css: '.teacher-edit-period-modal'
 
 class PeriodEditModal extends TestHelper
   constructor: (test, testElementLocator) ->
@@ -56,7 +58,7 @@ class PeriodEditModal extends TestHelper
   waitUntilClose: =>
     # waits until the locator element is not present
     @test.driver.wait =>
-      @el.self().isPresent().then (isPresent) ->
+      @el.base().isPresent().then (isPresent) ->
         not isPresent
 
   close: =>

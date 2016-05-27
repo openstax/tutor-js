@@ -1,38 +1,40 @@
 _ = require 'underscore'
 {TestHelper} = require './test-element'
 
-COMMON_ELEMENTS =
-
-  selectSectionsContainer:
-    css: '.homework-plan-exercise-select-topics'
-
-  addExercisesContainer:
-    css: '.add-exercise-list'
-
-  closeButton:
-    css: '.footer-buttons [aria-role="close"]'
-
+ROOT_EXERCISE_SELECTOR_CONTAINER = '.homework-plan-exercise-select-topics .pinned-container'
 
 EXERCISE_SELECTOR_ELEMENTS =
+  loadingState:
+    css: "#{ROOT_EXERCISE_SELECTOR_CONTAINER} .hw-loading"
+
   inactiveExerciseCard:
-    css: '.openstax.exercise-wrapper .is-selectable:not(.is-selected) .panel-body'
+    css: '.openstax.exercise-wrapper .has-actions:not(.is-selected) .panel-body'
 
   reviewExercisesButton:
     css: '.btn.-review-exercises'
 
+  actions: (action) ->
+    css: ".controls-overlay .action.#{action}"
 
 class ExerciseSelector extends TestHelper
   constructor: (test, testElementLocator) ->
-    testElementLocator ?= EXERCISE_SELECTOR_ELEMENTS.inactiveExerciseCard
+    testElementLocator ?= css: "#{ROOT_EXERCISE_SELECTOR_CONTAINER} .add-exercise-list"
     super test, testElementLocator, EXERCISE_SELECTOR_ELEMENTS, defaultWaitTime: 3000
 
   selectNumberOfExercises: (numExercises) ->
     @waitUntilLoaded()
     for i in [0...numExercises]
-      @el.inactiveExerciseCard().findElement().isDisplayed().then =>
-        @el.inactiveExerciseCard().waitClick()
-        #BUG add in a second click event to make sure it sticks, not sure why this is needed
-        @el.inactiveExerciseCard().waitClick()
+      exerciseCount = 0
+
+      @el.inactiveExerciseCard().findElement().then (inactiveExercise) =>
+        exerciseCount = exerciseCount + 1
+        console.log 'Adding exercise', exerciseCount, 'of', numExercises
+        @actOnExercise(inactiveExercise, 'include')
+
+  actOnExercise: (exercise, action) ->
+    @test.utils.windowPosition.scrollTo(exercise)
+    @test.driver.actions().mouseMove(exercise).perform()
+    @el.actions(action).getOn(exercise).click()
 
   startReview: () ->
     @el.reviewExercisesButton().waitClick()

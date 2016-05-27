@@ -28,7 +28,9 @@ Scores = React.createClass
   mixins: [ResizeListenerMixin]
 
   getInitialState: ->
-    period_id: null
+    sortedPeriods = CourseStore.getPeriods(@props.courseId)
+
+    period_id: _.first(sortedPeriods).id
     periodIndex: 1
     sortIndex: 0
     tableWidth: 0
@@ -92,11 +94,12 @@ Scores = React.createClass
   getStudentRowData: ->
     # The period may not have been selected. If not, just use the 1st period
     {sort, period_id, firstDataColumn, displayAs} = @state
+
     data = ScoresStore.get(@props.courseId)
     scores = if period_id
       _.findWhere(data, {period_id})
     else
-      data[0]
+      _.first(data)
 
     sortData = _.sortBy(scores.students, (d) =>
       if _.isNumber(sort.key)

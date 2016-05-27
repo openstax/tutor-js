@@ -1,9 +1,12 @@
 Helpers = require './helpers'
 {describe} = Helpers
 {expect} = require 'chai'
+_ = require 'underscore'
 
 TEACHER_USERNAME = 'teacher01'
 CC_HELP_LINK = 'openstaxcc.zendesk.com/hc/en-us'
+TYPE = 'CONCEPT_COACH'
+ROLE = 'teacher'
 
 
 describe 'Concept Coach Dashboard', ->
@@ -14,21 +17,28 @@ describe 'Concept Coach Dashboard', ->
     @scores = new Helpers.Scores(@)
 
     @user.login(TEACHER_USERNAME)
-    @courseSelect.goToByType('CONCEPT_COACH')
+
+  canGo = ->
+    @courseSelect.canGoToType(TYPE, ROLE)
+
+  go = ->
+    @courseSelect.goToByType(TYPE, ROLE)
     @conceptCoach.waitUntilLoaded()
 
-  @it 'Can switch periods (readonly)', ->
+  @ccDashboardIt = _.partial @maybeIt, {maybe: canGo, beforeEach: go}
+
+  @ccDashboardIt 'Can switch periods (readonly)', ->
     @conceptCoach.switchPeriods()
 
     @conceptCoach.getTabPeriod().then (periodId) =>
       @conceptCoach.getDashboardPeriod().then (reactId) ->
         expect(reactId.indexOf("period-nav-#{periodId}")).is.not.equal(-1)
 
-  @it 'Can go to detailed scores (readonly)', ->
+  @ccDashboardIt 'Can go to detailed scores (readonly)', ->
     @conceptCoach.clickViewScores()
     @scores.waitUntilLoaded()
 
-  @it 'Can display correct help link (readonly)', ->
+  @ccDashboardIt 'Can display correct help link (readonly)', ->
     # Go to the concept coach dashboard
     @user.openHamburgerMenu()
     @conceptCoach.getHelpLinkHref().then (href) ->
