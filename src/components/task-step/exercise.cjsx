@@ -219,7 +219,6 @@ module.exports = React.createClass
 
       getCurrentPanel={getCurrentPanel}
       task={task}
-      footer={footer}
       parts={parts}
       helpLink={@renderHelpLink(part.related_content)}
 

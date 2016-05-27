@@ -43,7 +43,7 @@ module.exports =
     classes = classnames 'task-step', className
 
     # from StepFooterMixin
-    footer = @renderFooter({stepId: id, taskId, courseId, review})
+    footer = @renderFooter?({stepId: id, taskId, courseId, review})
     <CardBody className={classes} footer={footer} pinned={pinned}>
       {@renderBody()}
       {@renderGroup?()}

@@ -21,7 +21,7 @@ err = (msgs...) ->
 
 Reading = React.createClass
   displayName: 'Reading'
-  mixins: [StepMixin, StepFooterMixin, CourseDataMixin]
+  mixins: [StepMixin, CourseDataMixin]
   contextTypes:
     router: React.PropTypes.func
   isContinueEnabled: -> true

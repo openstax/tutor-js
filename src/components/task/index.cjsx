@@ -22,7 +22,7 @@ ProgressPanel = require './progress/panel'
 
 {UnsavedStateMixin} = require '../unsaved-state'
 
-{PinnedHeaderFooterCard} = require 'openstax-react-components'
+{PinnedHeaderFooterCard, HeaderFooterCard} = require 'openstax-react-components'
 
 module.exports = React.createClass
   propTypes:
@@ -185,6 +185,8 @@ module.exports = React.createClass
 
   renderStep: (data) ->
     {courseId} = @context.router.getCurrentParams()
+    {id} = @props
+    pinned = if TaskStore.hasCrumbs(id) then true else false
 
     <TaskStep
       id={data.id}
@@ -194,6 +196,7 @@ module.exports = React.createClass
       onNextStep={@onNextStep}
       refreshStep={@refreshStep}
       recoverFor={@recoverFor}
+      pinned={pinned}
     />
 
   renderDefaultEndFooter: (data) ->
@@ -247,6 +250,8 @@ module.exports = React.createClass
     taskClasses += " task-#{panelType}" if panelType?
     taskClasses += ' task-completed' if TaskStore.isTaskCompleted(id)
 
+    TaskContainer = PinnedHeaderFooterCard
+
     if TaskStore.hasCrumbs(id)
       breadcrumbs = <Breadcrumbs
         id={id}
@@ -265,14 +270,16 @@ module.exports = React.createClass
         {panel}
       </ProgressPanel>
 
-    <PinnedHeaderFooterCard
+      TaskContainer = HeaderFooterCard
+
+    <TaskContainer
       forceShy={true}
       className={taskClasses}
       fixedOffset={0}
       header={breadcrumbs}
       cardType='task'>
       {panel}
-    </PinnedHeaderFooterCard>
+    </TaskContainer>
 
   reloadTask: ->
     @setState({currentStep: 0})
