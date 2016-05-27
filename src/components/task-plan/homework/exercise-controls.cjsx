@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+_  = require 'underscore'
 
 ScrollSpy   = require '../../scroll-spy'
 Sectionizer = require '../../exercises/sectionizer'

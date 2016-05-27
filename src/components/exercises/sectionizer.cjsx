@@ -1,5 +1,7 @@
 React = require 'react'
+_ = require 'underscore'
 cn = require 'classnames'
+
 ScrollTo = require '../scroll-to-mixin'
 classnames = require 'classnames'
 Pagination = require('ultimate-pagination')
