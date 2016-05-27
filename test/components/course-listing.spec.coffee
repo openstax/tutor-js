@@ -8,6 +8,7 @@ ReactTestUtils = React.addons.TestUtils
 {sinon}        = require './helpers/component-testing'
 {CourseListing} = require '../../src/components/course-listing'
 {CourseListingActions, CourseListingStore} = require '../../src/flux/course-listing'
+{CourseActions} = require '../../src/flux/course'
 {StudentDashboardShell} = require '../../src/components/student-dashboard'
 CourseCalendar = require '../../src/components/course-calendar'
 WindowHelpers  = require '../../src/helpers/window'
@@ -73,6 +74,13 @@ describe 'Course Listing Component', ->
       expect(state.listing).to.be.undefined # Won't have rendered the listing
       expect(ReactTestUtils.scryRenderedComponentsWithType(state.component, CourseCalendar))
         .to.have.length(1)
+
+  it 'renders a "no membership" page when not a member of any courses', ->
+    # clear all course stores
+    CourseActions._reset()
+    CourseListingActions.loaded([])
+    renderListing().then (state) ->
+      expect(state.div.textContent).to.include('You are not a member of any courses')
 
   describe 'redirecting to CC', ->
     beforeEach ->

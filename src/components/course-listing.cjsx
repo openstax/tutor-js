@@ -6,7 +6,7 @@ WindowHelpers = require '../helpers/window'
 
 {CourseListingActions, CourseListingStore} = require '../flux/course-listing'
 {RefreshButton} = require 'openstax-react-components'
-
+EmptyCourses    = require './course-listing/empty'
 CourseDataMixin = require './course-data-mixin'
 
 # Called once the store is loaded
@@ -99,7 +99,7 @@ CourseListing = React.createClass
     body = if courses.length
       <div className='-course-list'>{@renderCourses(courses)}</div>
     else
-      <div className='-course-list-empty'>No Courses</div>
+      <EmptyCourses />
 
     unless CourseListingStore.isLoaded()
       refreshBtn = <RefreshButton/>
