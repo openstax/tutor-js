@@ -128,9 +128,8 @@ module.exports = React.createClass
   canAllContinue: ->
     {parts} = @state
 
-    _.reduce parts, (previous, part) ->
-      previous and canOnlyContinue(part.id)
-    , true
+    _.every parts, (part) ->
+      canOnlyContinue(part.id)
 
   getAllIndexes: (props, state) ->
     props ?= @props
@@ -150,9 +149,8 @@ module.exports = React.createClass
   allCorrect: ->
     {parts} = @state
 
-    _.reduce parts, (previous, part) ->
-      previous and (part.correct_answer_id is part.answer_id)
-    , true
+    _.every parts, (part) ->
+      (part.correct_answer_id is part.answer_id)
 
   getReviewProps: ->
     {refreshStep, recoverFor} = @props

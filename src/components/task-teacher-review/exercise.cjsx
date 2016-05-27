@@ -122,7 +122,6 @@ TaskTeacherReviewExercise = React.createClass
     {stimulus_html} = content
 
     stimulus = <ArbitraryHtmlAndMath
-      {...htmlAndMathProps}
       className='exercise-stimulus'
       block={true}
       html={stimulus_html} /> if stimulus_html?.length > 0
