@@ -26,6 +26,9 @@ ExerciseDetails = React.createClass
   mixins: [ScrollTo]
   scrollingTargetDOM: -> document
   getDefaultProps: ->
+    # leave this many pixels of space at top of component
+    # Is a prop because consumers may need to adjust the top
+    # position for various sized navbars
     topScrollOffset: 40
   getScrollTopOffset: ->
     @props.topScrollOffset
