@@ -15,14 +15,14 @@ HomeworkCell = React.createClass
   getScore: (isAccepted) ->
     {task} = @props
     if isAccepted
-      task.correct_exercise_count
+      task.correct_on_time_exercise_count + task.correct_accepted_late_exercise_count
     else
       task.correct_on_time_exercise_count
 
   getProgress: (isAccepted) ->
     {task} = @props
     if isAccepted
-      task.completed_exercise_count
+      task.completed_on_time_exercise_count + task.completed_accepted_late_exercise_count
     else
       task.completed_on_time_exercise_count
 
@@ -40,7 +40,7 @@ HomeworkCell = React.createClass
     isLate = task.completed_on_time_exercise_count < task.completed_exercise_count
     isIncludedInAverages = task.is_included_in_averages
     isAccepted = task.is_late_work_accepted
-
+  
     score = @getScore(isAccepted)
     progress = @getProgress(isAccepted)
 
