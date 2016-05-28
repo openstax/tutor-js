@@ -11,8 +11,13 @@ LateWork = React.createClass
   setLateStatus: ->
     {task, courseId, period_id, columnIndex, isIncludedInAverages, currentValue, acceptValue} = @props
     isAccepted = task.is_late_work_accepted
+    isFullyAccepted = 
+      task.completed_accepted_late_exercise_count > 0 and 
+      task.completed_exercise_count == (task.completed_on_time_exercise_count + task.completed_accepted_late_exercise_count)
+
+    console.log(isFullyAccepted)
     if not @isUpdatingLateStatus()
-      if isAccepted
+      if isAccepted and isFullyAccepted
         ScoresActions.rejectLate(task.id, courseId)
       else
         ScoresActions.acceptLate(task.id, courseId)
