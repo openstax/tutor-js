@@ -3,10 +3,11 @@ Recordo = require('recordo')
 Recordo.initialize()
 # Recordo.start()
 
-{BootrapURLs, NotificationActions}  = require 'openstax-react-components'
+{BootrapURLs}  = require 'openstax-react-components'
 
 api = require './src/api'
 router = require './src/router'
+Notices = require './src/helpers/notifications'
 dom = require './src/helpers/dom'
 {startMathJax} = require 'openstax-react-components/src/helpers/mathjax'
 {TransitionAssistant} = require './src/components/unsaved-state'
@@ -35,7 +36,7 @@ loadApp = ->
   bootstrapData = dom.readBootstrapData()
   api.start(bootstrapData)
   BootrapURLs.update(bootstrapData)
-  NotificationActions.startPolling()
+  Notices.start(bootstrapData)
 
   startMathJax()
   TransitionAssistant.startMonitoring()
