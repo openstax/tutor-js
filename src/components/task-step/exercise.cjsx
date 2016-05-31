@@ -201,16 +201,19 @@ module.exports = React.createClass
       {...canContinueControlProps}
       key='step-control-buttons'/>
 
-    footer = <StepFooter
-      id={id}
-      key='step-footer'
-      taskId={taskId}
-      courseId={courseId}
-      controlButtons={controlButtons}/>
+    unless TaskStore.hasProgress(taskId)
+      footer = <StepFooter
+        id={id}
+        key='step-footer'
+        taskId={taskId}
+        courseId={courseId}
+        controlButtons={controlButtons}/>
 
     <ExerciseWithScroll
       {...@props}
       {...controlProps}
+
+      footer={footer}
 
       project='tutor'
       setScrollState={@setScrollState}
