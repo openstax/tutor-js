@@ -28,7 +28,6 @@ class ExerciseSelector extends TestHelper
 
       @el.inactiveExerciseCard().findElement().then (inactiveExercise) =>
         exerciseCount = exerciseCount + 1
-        console.log 'Adding exercise', exerciseCount, 'of', numExercises
         @actOnExercise(inactiveExercise, 'include')
 
   actOnExercise: (exercise, action) ->
