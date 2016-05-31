@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 
 _ = require 'underscore'
 
-SuretyGuard = require 'components/surety-guard'
+{SuretyGuard} = require 'openstax-react-components'
 QuestionFormatType = require './question-format-type'
 Answer = require './answer'
 {QuestionActions, QuestionStore} = require 'stores/question'

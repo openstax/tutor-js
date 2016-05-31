@@ -4,7 +4,8 @@ BS = require 'react-bootstrap'
 {ExerciseActions, ExerciseStore} = require 'stores/exercise'
 AsyncButton = require 'openstax-react-components/src/components/buttons/async-button.cjsx'
 MPQToggle = require 'components/exercise/mpq-toggle'
-SuretyGuard = require 'components/surety-guard'
+{SuretyGuard} = require 'openstax-react-components'
+
 Location = require 'stores/location'
 
 ExerciseControls = React.createClass
