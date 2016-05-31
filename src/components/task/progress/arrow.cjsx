@@ -19,14 +19,10 @@ module.exports = React.createClass
     keymaster.setScope(KEYBINDING_SCOPE)
 
   transition: ->
-    { stepId, stepKey, direction, goToStep } = @props
-    increment = -1
-    increment = 1 if direction is 'right'
+    { stepKey, goToStep } = @props
 
     TaskStepStore.off('step.completed', @transition)
-
-    { stepId, goToStep } = @props
-    goToStep(stepKey + increment)
+    goToStep(stepKey + @getIncrement())
 
   arrowClicked: ->
     { stepId, direction } = @props
@@ -37,10 +33,17 @@ module.exports = React.createClass
     else
       @transition()
 
+  getIncrement: ->
+    { direction } = @props
+    increment = -1
+    increment = 1 if direction is 'right'
+    increment
+
   render: ->
     if not @props.shouldShow
       return null
 
-    <a onClick={@arrowClicked} className="arrow #{@props.direction}">
+    step = @props.stepKey + @getIncrement()
+    <a onClick={@arrowClicked} className="arrow #{@props.direction}" data-step={step}>
       <i className="fa fa-angle-#{@props.direction}" />
     </a>

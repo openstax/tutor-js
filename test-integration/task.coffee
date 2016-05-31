@@ -59,7 +59,9 @@ describe 'Student performing tasks', ->
       @dashboard.el.workableTask().click()
       @task.waitUntilLoaded()
 
-      @task.goToHelpLink()
+      @task.stepIsExercise().then (isPresent) =>
+        debugger
+        @task.goToHelpLink() if isPresent
 
       # Go back to the course selection
       @user.goToHome()

@@ -16,13 +16,17 @@ COMMON_ELEMENTS =
     css: '.openstax-breadcrumbs-step.current.active'
   helpLink:
     css: '.task-help-links a'
+  taskTypeIsReading:
+    css: '.pinned-container.task.task-reading'
+  readingNextArrow:
+    css: '.pinned-container .arrow.right'
+  taskStepIsExercise:
+    css: '.openstax-exercise-card'
 
   # taskTypeIsExternal:
   #   css: '.pinned-container.task.task-external'
   # taskTypeIsHomework:
   #   css: '.pinned-container.task.task-homework'
-  # taskTypeIsReading:
-  #   css: '.pinned-container.task.task-reading'
   # taskTypeIsEvent:
   #   css: '.pinned-container.task.task-event'
 
@@ -36,24 +40,40 @@ class Task extends TestHelper
 
   # isExternal: => @el.taskTypeIsExternal().isPresent()
   # isHomework: => @el.taskTypeIsHomework().isPresent()
-  # isReading:  => @el.taskTypeIsReading().isPresent()
+  isReading:  => @el.taskTypeIsReading().isPresent()
+  stepIsExercise: =>
+    debugger
+    @el.taskStepIsExercise().isPresent()
   # isEvent:    => @el.taskTypeIsEvent().isPresent()
 
   canContinue: => @el.enabledContinueButton().isPresent()
+
+  getCurrentStep: =>
+    if @isReading()
+      @el.readingNextArrow().get().getAttribute('data-step')
+    else
+      @el.currentBreadcrumbStep().get().getAttribute('data-reactid')
+
 
   continue: =>
     @test.utils.windowPosition.scrollTo(@el.continueButton().get()) # HACK For some reason we have to scroll down to the continue button
 
     # Get the current step, click continue, and wait until the current step changes
-    @el.currentBreadcrumbStep().get().getAttribute('data-reactid').then (oldStepId) =>
-      @el.enabledContinueButton().waitClick()
+    @getCurrentStep().then (oldStepId) =>
+      @continueTask()
 
-      @test.utils.wait.until 'Waiting for current step to change', =>
-        @el.currentBreadcrumbStep().get().getAttribute('data-reactid').then (newStepId) =>
+      @test.utils.wait.until "Waiting for current step: #{oldStepId} to change", =>
+        @getCurrentStep().then (newStepId) =>
           newStepId isnt oldStepId
 
       @test.utils.wait.until 'Waiting for continue button to be enabled again', =>
         selenium.until.elementIsEnabled(@el.continueButton().get())
+
+  continueTask: =>
+    if @isReading()
+      @el.readingNextArrow().waitClick()
+    else
+      @el.enabledContinueButton().waitClick()
 
   goToHelpLink: =>
     @el.helpLink().waitClick()
