@@ -86,6 +86,7 @@ ExerciseMixin =
 
     <ExerciseGroup
       key='step-exercise-group'
+      project={@props.project}
       group={step.group}
       related_content={step.related_content}/>
 

@@ -11,10 +11,17 @@ DEFAULT_GROUP =
 REVIEW_GROUP =
   show: true
   label: 'Review'
-  tooltip: '''Did you know? Research shows you can strengthen your memory —
-    and spend less time studying — if you revisit material over multiple study sessions.
-    OpenStax Concept Coach will include review questions from prior sections to give your
-    learning a boost.'''
+  tooltip:
+    'concept-coach':
+      '''Did you know? Research shows you can strengthen your memory —
+      and spend less time studying — if you revisit material over multiple study sessions.
+      OpenStax Concept Coach will include review questions from prior sections to give your
+      learning a boost.'''
+    'tutor':
+      '''Did you know? Research shows you can strengthen your memory —
+      and spend less time studying — if you revisit material over multiple study sessions.
+      OpenStax Tutor will include review questions from prior sections to give your
+      learning a boost.'''
 
 RULES =
   default: DEFAULT_GROUP
@@ -48,7 +55,7 @@ ExerciseGroup = React.createClass
     labels
 
   render: ->
-    {group, related_content, exercise_uid} = @props
+    {group, related_content, exercise_uid, project} = @props
     groupDOM = []
 
     if RULES[group].show
@@ -62,7 +69,7 @@ ExerciseGroup = React.createClass
 
     if RULES[group].show and RULES[group].tooltip
       popover = <BS.Popover id="instructions" ref="popover" className="openstax instructions">
-        {RULES[group].tooltip}
+        {RULES[group].tooltip[project]}
       </BS.Popover>
       groupDOM.push  <BS.OverlayTrigger placement="bottom" overlay={popover}>
         <i className="fa fa-info-circle" />
