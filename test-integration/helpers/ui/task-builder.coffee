@@ -276,10 +276,10 @@ class TaskBuilder extends TestHelper
     @test.utils.wait.for(css: '.exercise-table')
 
   addTutorSelection: () ->
-    @el.addTutorSelection().click()
+    @el.addTutorSelection().waitClick()
 
   removeTutorSelection: () ->
-    @el.removeTutorSelection().click()
+    @el.removeTutorSelection().waitClick()
 
   delete: =>
     # Wait up to 2min for delete to complete
