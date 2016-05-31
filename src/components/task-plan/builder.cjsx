@@ -30,7 +30,9 @@ TaskingDateTime = React.createClass
     props ?= @props
     {value, defaultValue, isSetting} = props
 
-    date: moment(value).format(ISO_DATE_FORMAT)
+    date = moment(value).format(ISO_DATE_FORMAT) if value?
+
+    date: date
     time: defaultValue
     isSetting: isSetting()
 
@@ -48,12 +50,15 @@ TaskingDateTime = React.createClass
   componentDidUpdate: (prevProps, prevState) ->
     {date, time} = @state
 
-    unless _.isEqual(prevState, @state)
+    if @hasValidInputs() and not _.isEqual(prevState, @state)
       dateTime = "#{date} #{time}"
       @props.onChange(dateTime)
 
   canSetAsDefaultTime: ->
     _.isEmpty @refs.time?.refs.timeInput?.state?.errors
+
+  hasValidInputs: ->
+    _.isEmpty(@refs.date?.state?.errors) and _.isEmpty(@refs.time?.refs.timeInput?.state?.errors)
 
   setDefaultTime: ->
     {timeLabel, setDefaultTime} = @props
@@ -541,7 +546,7 @@ module.exports = React.createClass
       isEditable={isEditable}
       isEnabled={isEnabled}
       currentLocale={currentLocale}
-      required={showingPeriods}
+      required={true}
       taskingOpensAt={taskingOpensAt}
       taskingDueAt={taskingDueAt}
       dueTime={dueTime}

@@ -507,6 +507,9 @@ TaskPlanConfig =
       dueAt?.format?("#{ISO_DATE_FORMAT} #{ISO_TIME_FORMAT}") or dueAt
 
     getMaxDueAt: (id, periodId) ->
+      dueAt = @exports.getDueAt.call(@, id, periodId)
+      return dueAt unless dueAt?
+
       dueAt = TimeHelper.makeMoment(@exports.getDueAt.call(@, id, periodId))
       dueAt.startOf('day').subtract(1, 'day').format(ISO_DATE_FORMAT)
 

@@ -7,8 +7,8 @@ function validate(group) {
   for (var index in packageNames) {
     var packageName = packageNames[index];
     var ver = data[group][packageName];
-    // Either the format is `0.0.0` or `xxx/xxx#sha`
-    if (/^[0-9]+\.[0-9]+\.[0-9]+/.test(ver) || /.*\/.*#[0-9a-f]/.test(ver)) {
+    // Either the format is `0.0.0` or `xxx/xxx#sha` or `xxx/xxx#tag`
+    if (/^[0-9]+\.[0-9]+\.[0-9]+/.test(ver) || /.*\/.*#[a-zA-Z0-9_]/.test(ver)) {
     } else {
       console.log('Invalid entry in package.json ' + group + '. package must be an exact version or point to a GitHub repo: ' + packageName + ' ' + ver);
       process.exit(1);

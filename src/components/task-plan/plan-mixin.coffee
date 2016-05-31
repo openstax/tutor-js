@@ -100,7 +100,9 @@ PlanMixin =
     if dueAt?
       date = dueAt
     else
-      date = moment(TimeStore.getNow()).format(CALENDAR_DATE_FORMAT)
+      date = TimeStore.getNow()
+
+    date = moment(date).format(CALENDAR_DATE_FORMAT)
 
     unless TaskPlanStore.isNew(id) or TaskPlanStore.isPublishing(id) or TaskPlanStore.isDeleteRequested(id)
       calendarRoute = 'calendarViewPlanStats'

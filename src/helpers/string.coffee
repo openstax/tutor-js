@@ -8,6 +8,15 @@ module.exports = {
     other = if lowerOthers then string.substring(1).toLowerCase() else string.substring(1)
     string.charAt(0).toUpperCase() + other
 
+  replaceAt: (string, index, character) ->
+    string.substr(0, index) + character + string.substr(index + character.length)
+
+  insertAt: (string, index, character) ->
+    string.substr(0, index) + character + string.substr(index)
+
+  removeAt: (string, index, length = 1) ->
+    string.substr(0, index) + string.substr(index + length)
+
   getNumberAndStringOrder: (string) ->
     parsedInt = parseFloat(string)
     if _.isNaN(parsedInt) then string.toLowerCase() else parsedInt
