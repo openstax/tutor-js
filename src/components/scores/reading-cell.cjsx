@@ -46,21 +46,6 @@ ReadingCell = React.createClass
         </div>
       </BS.Popover>
 
-    
-
-    lateProps =
-      {
-        task: task,
-        rowIndex: rowIndex,
-        columnIndex: columnIndex,
-        courseId: courseId,
-        period_id: period_id,
-        acceptValue: @showPercent(@getProgress(not isAccepted)),
-        isIncludedInAverages: isIncludedInAverages
-
-      }
-    latework = <LateWork {...lateProps} />
-
 
     <div className="scores-cell">
 
@@ -80,7 +65,15 @@ ReadingCell = React.createClass
         </BS.OverlayTrigger>
       </div>
 
-      {latework if isLate}
+      {<LateWork
+        task={task}
+        rowIndex={rowIndex}
+        columnIndex={columnIndex}
+        courseId={courseId}
+        period_id={period_id}
+        acceptValue={@showPercent(@getProgress(not isAccepted))}
+        isIncludedInAverages={isIncludedInAverages}
+      /> if isLate}
     </div>
 
 

@@ -40,7 +40,7 @@ HomeworkCell = React.createClass
     isLate = task.completed_on_time_exercise_count < task.completed_exercise_count
     isIncludedInAverages = task.is_included_in_averages
     isAccepted = task.is_late_work_accepted
-  
+
     score = @getScore(isAccepted)
     progress = @getProgress(isAccepted)
 
@@ -66,21 +66,6 @@ HomeworkCell = React.createClass
           </div>
         </div>
       </BS.Popover>
-
-
-    lateProps =
-      {
-        task: task,
-        rowIndex: rowIndex,
-        columnIndex: columnIndex,
-        courseId: courseId,
-        period_id: period_id,
-        currentValue: @showPercent(@getScore(isAccepted)),
-        acceptValue: @showPercent(@getScore(not isAccepted)),
-        isIncludedInAverages: isIncludedInAverages
-
-      }
-    latework = <LateWork {...lateProps} />
 
     notStarted = task.completed_exercise_count <= 0
 
@@ -113,16 +98,26 @@ HomeworkCell = React.createClass
         delayHide={0}
         overlay={tooltip}>
           <span className='trigger-wrap'>
-            <PieProgress 
-            isConceptCoach={isConceptCoach} 
-            size={24} 
+            <PieProgress
+            isConceptCoach={isConceptCoach}
+            size={24}
             value={progressPercent}
             isLate={isLate} />
           </span>
         </BS.OverlayTrigger>
       </div>
 
-      {latework if isLate}
+      {<LateWork
+        task={task}
+        rowIndex={rowIndex}
+        columnIndex={columnIndex}
+        courseId={courseId}
+        period_id={period_id}
+        currentValue={@showPercent(@getScore(isAccepted))}
+        acceptValue={@showPercent(@getScore(not isAccepted))}
+        isIncludedInAverages={isIncludedInAverages}
+      /> if isLate}
+
     </div>
 
 
