@@ -275,7 +275,6 @@ module.exports = React.createClass
       forceShy={true}
       className={taskClasses}
       fixedOffset={0}
-      header={breadcrumbs}
       cardType='task'>
       {panel}
     </PinnedHeaderFooterCard>

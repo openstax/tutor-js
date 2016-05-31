@@ -7,6 +7,7 @@ CourseName = require './course-name'
 ServerErrorMonitoring = require './server-error-monitoring'
 UserActionsMenu = require './user-actions-menu'
 BookLinks = require './book-links'
+CenterControls = require './center-controls'
 {NotificationsBar} = require 'openstax-react-components'
 
 {CurrentUserActions} = require '../../flux/current-user'
@@ -57,6 +58,7 @@ module.exports = React.createClass
       <BS.NavBrand>
         {brand}
       </BS.NavBrand>
+      <CenterControls courseId={courseId} router={@context.router}/>
       <BS.CollapsibleNav eventKey={0}>
         <BS.Nav navbar>
           <CourseName course={course}/>

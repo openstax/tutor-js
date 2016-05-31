@@ -1,5 +1,4 @@
 React = require 'react'
-BindStoreMixin = require '../bind-store-mixin'
 
 {CurrentUserStore} = require '../../flux/current-user'
 
