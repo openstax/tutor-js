@@ -4,7 +4,7 @@ _ = require 'underscore'
 Notifications = require '../../model/notifications'
 
 TYPES =
-  tutor: require './system'
+  system: require './system'
   accounts: require './email'
 
 NotificationBar = React.createClass
@@ -23,7 +23,7 @@ NotificationBar = React.createClass
 
     <div className="openstax-notifications-bar">
       {for notice in notifications
-        Component = TYPES[notice.type]
+        Component = TYPES[notice.type] or TYPES['system']
         <Component key={notice.id} notice={notice} />}
     </div>
 

@@ -20,3 +20,13 @@ describe 'System Notifications', ->
     Testing.renderComponent( SystemNotifications, props: @props ).then ({dom}) =>
       Testing.actions.click(dom.querySelector('.dismiss'))
       expect(Notifications.acknowledge).to.have.been.calledWith(@props.notice)
+
+  it 'displays icon based on level', ->
+    @props.notice.level = 'alert'
+    Testing.renderComponent( SystemNotifications, props: @props ).then ({dom}) ->
+      expect(dom.querySelector('.fa-exclamation-triangle')).to.exist
+
+  it 'displays icon provided', ->
+    @props.notice.icon = 'beer'
+    Testing.renderComponent( SystemNotifications, props: @props ).then ({dom}) ->
+      expect(dom.querySelector('.fa-beer')).to.exist
