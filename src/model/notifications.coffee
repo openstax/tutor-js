@@ -5,9 +5,17 @@ URLs = require './urls'
 EVENT_BUS = new EventEmitter2
 POLLERS = {}
 
+NOTICES = []
+
+CLIENT_ID = 'client-specified'
 Poller = require './notifications/pollers'
 
 Notifications = {
+
+  display: (notice) ->
+    # fill in an id and type if not provided
+    NOTICES.push( _.defaults(_.clone(notice), id: _.uniqueId(CLIENT_ID), type: CLIENT_ID ))
+    @emit('change')
 
   _startPolling: (type, url) ->
     POLLERS[type] ||= Poller.forType(@, type)
@@ -24,10 +32,14 @@ Notifications = {
 
 
   acknowledge: (notice) ->
-    POLLERS[notice.type].acknowledge(notice)
+    if notice.type is CLIENT_ID
+      NOTICES = _.without(NOTICES, _.findWhere(NOTICES, id: notice.id))
+      @emit('change')
+    else
+      POLLERS[notice.type].acknowledge(notice)
 
   getActive: ->
-    notices = []
+    notices = _.clone NOTICES
     for type, poller of POLLERS
       notices = notices.concat( poller.getActiveNotifications() )
     notices

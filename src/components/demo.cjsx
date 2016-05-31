@@ -312,9 +312,26 @@ NoticesDemo = React.createClass
     )
     Notifications.startPolling()
 
+  showMessage: ->
+    Notifications.display(
+      message: @refs.message.getDOMNode().value,
+      level: @refs.type.getDOMNode().value
+    )
+
   render: ->
     <div className="notices">
       <NotificationBar />
+      <div className="test-message">
+        <span>Test Message:</span>
+        <input type="text" ref="message" />
+        <select ref="type">
+          <option value="success">Success</option>
+          <option value="notice" selected>Notice</option>
+          <option value="alert">Alert</option>
+          <option value="error">Error</option>
+        </select>
+        <button onClick={@showMessage}>Display</button>
+      </div>
       <button onClick={@startPoll}>Start Polling</button>
     </div>
 

@@ -25,3 +25,21 @@ describe 'Notifications', ->
     URLs.update(tutor_notices_url: 'http://localhost:3001/api/notifications')
     Notifications.startPolling(@windowImpl)
     expect(Poller::poll).to.have.callCount(2)
+
+
+  it 'can display and confirm manual notifications', ->
+    changeListener = sinon.stub()
+    notice = {message: 'hello world', icon: 'globe'}
+    Notifications.on('change', changeListener)
+    Notifications.display(notice)
+    expect(changeListener).to.have.been.called
+
+    active = Notifications.getActive()
+    expect(active).to.have.length(1)
+    # should have copied the object vs mutating it
+    expect(active[0]).not.to.not.equal(notice)
+    expect(active[0].type).to.exist
+
+    Notifications.acknowledge(active[0])
+    expect(changeListener).to.have.callCount(2)
+    expect(Notifications.getActive()).to.be.empty
