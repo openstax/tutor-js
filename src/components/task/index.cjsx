@@ -292,7 +292,6 @@ module.exports = React.createClass
         'task-with-milestones': showMilestones
 
     <PinnedHeaderFooterCard
-      forceShy={true}
       className={taskClasses}
       fixedOffset={0}
       header={header}
