@@ -18,12 +18,13 @@ Breadcrumbs = require './breadcrumbs'
 
 TaskProgress = require './progress'
 ProgressPanel = require './progress/panel'
+{MilestonesWrapper, Milestones, Milestone} = require './progress/milestones'
 
 {StepPanel} = require '../../helpers/policies'
 
 {UnsavedStateMixin} = require '../unsaved-state'
 
-{PinnedHeaderFooterCard} = require 'openstax-react-components'
+{PinnedHeaderFooterCard, PinnedHeader} = require 'openstax-react-components'
 
 module.exports = React.createClass
   propTypes:
@@ -58,6 +59,7 @@ module.exports = React.createClass
       refreshTo: false
       recoverForStepId: false
       recoveredStepId: false
+      showMilestones: false
     }
 
   hasUnsavedState: -> TaskStore.hasAnyStepChanged(@props.id)
@@ -184,6 +186,9 @@ module.exports = React.createClass
     crumbs = @generateCrumbs()
     _.findWhere crumbs, {key: crumbKey}
 
+  toggleMilestones: ->
+    @setState(showMilestones: not @state.showMilestones)
+
   renderStep: (data) ->
     {courseId} = @context.router.getCurrentParams()
     {id} = @props
@@ -232,6 +237,7 @@ module.exports = React.createClass
 
   render: ->
     {id} = @props
+    {showMilestones} = @state
     task = TaskStore.get(id)
     return null unless task?
 
@@ -256,9 +262,20 @@ module.exports = React.createClass
         id={id}
         goToStep={@goToStep}
         key="task-#{id}-breadcrumbs"/>
+      header = breadcrumbs
 
     if TaskStore.hasProgress(id)
-      breadcrumbs = <TaskProgress taskId={id} stepKey={@state.currentStep} />
+
+      breadcrumbs = <Milestones
+        id={id}
+        goToStep={@goToStep}
+        key="task-#{id}-breadcrumbs"/>
+
+      header = <TaskProgress taskId={id} stepKey={@state.currentStep} key='task-progress'/>
+      milestones = <MilestonesWrapper toggleMilestones={@toggleMilestones} key='task-milestones'>
+        {breadcrumbs if showMilestones}
+      </MilestonesWrapper>
+
       panel = <ProgressPanel
         taskId={id}
         stepId={crumb.data?.id}
@@ -266,15 +283,19 @@ module.exports = React.createClass
         isSpacer={crumb?.type is 'spacer'}
         stepKey={@state.currentStep}
       >
+        <BS.Button onClick={@toggleMilestones}>Toggle</BS.Button>
+        {milestones}
         {panel}
       </ProgressPanel>
 
-      taskClasses = classnames taskClasses, 'task-with-progress'
+      taskClasses = classnames taskClasses, 'task-with-progress',
+        'task-with-milestones': showMilestones
 
     <PinnedHeaderFooterCard
       forceShy={true}
       className={taskClasses}
       fixedOffset={0}
+      header={header}
       cardType='task'>
       {panel}
     </PinnedHeaderFooterCard>

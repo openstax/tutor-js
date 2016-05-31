@@ -121,7 +121,7 @@ module.exports = React.createClass
 
   render: ->
     {crumbs, currentStep} = @state
-    {goToStep} = @props
+    {goToStep, wrapper} = @props
 
     stepButtons = _.map crumbs, (crumb, crumbIndex) =>
       crumbStyle =
@@ -138,6 +138,11 @@ module.exports = React.createClass
         goToStep={goToStep}
         key="breadcrumb-#{crumb.type}-#{crumb.key}"
         ref="breadcrumb-#{crumb.type}-#{crumb.key}"/>
+
+    if wrapper?
+      Wrapper = wrapper
+      stepButtons = _.map stepButtons, (crumb, crumbIndex) ->
+        <Wrapper key={"crumb-wrapper-#{crumbIndex}"} breadcrumb={crumb}/>
 
     classes = 'task-breadcrumbs'
     classes += ' shrink' if @state.shouldShrink

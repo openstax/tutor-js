@@ -1,12 +1,89 @@
+@milestone-scale: 1.6;
+
 .task-view {
   .task-with-progress {
     .pinned-header { 
       padding: 0;
+      z-index: 4;
     }
 
     .task-step {
       margin-top: 40px;
     }
+
+    .task-with-milestones-enter, .task-with-milestones-appear {
+      .transform-origin(0 bottom);
+      .translate(0, -100%);
+
+      &.task-with-milestones-enter-active,
+      &.task-with-milestones-appear-active {
+        .transition(transform 0.5s ease-in);
+        .translate(0, 0);
+      }
+    }
+
+    .task-with-milestones-leave {
+      .transform-origin(0 bottom);
+      .translate(0, 0);
+
+      &.task-with-milestones-leave-active {
+        .transition(transform 0.3s ease-out);
+        .translate(0, -100%);
+      }
+    }
+
+    .milestones-wrapper {
+      .fixed-bar();
+      z-index: 3;
+      min-height: 100%;
+      top: 0;
+      padding: 5%;
+      background: @tutor-neutral-light;
+    }
+
+    .milestones {
+
+    }
+
+    .milestone {
+      position: relative;
+      background: @tutor-white;
+      height: 200px;
+      margin-bottom: 40px;
+      .tutor-shadow(1);
+
+      .openstax-breadcrumbs-step {
+        .scale(@milestone-scale);
+        display: block;
+        margin: auto;
+        top: 3rem;
+
+        &:hover,
+        &.active {
+          .scale(@milestone-scale);
+          box-shadow: none;
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+        .tutor-shadow(2);
+      }
+
+      &.active {
+        &::after {
+          position: absolute;
+          bottom: 0;
+          display: block;
+          height: 8px;
+          background: @tutor-success;
+          width: 100%;
+          content: ' ';
+        }
+      }
+    }
+
+
   }
 }
 
