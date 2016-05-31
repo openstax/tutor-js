@@ -94,14 +94,12 @@ ScoresConfig = {
     @_asyncStatus[taskId] = ACCEPTED
     task = @getTaskById(taskId, courseId)
     task.is_late_work_accepted = true
-    if task.type is 'homework'
-      task.completed_accepted_late_exercise_count =
-        task.completed_exercise_count - task.completed_on_time_exercise_count
-      task.correct_accepted_late_exercise_count =
-        task.correct_exercise_count - task.correct_on_time_exercise_count
-    else
-      task.completed_accepted_late_step_count =
-        task.completed_step_count - task.completed_on_time_step_count
+    task.completed_accepted_late_exercise_count =
+      task.completed_exercise_count - task.completed_on_time_exercise_count
+    task.correct_accepted_late_exercise_count =
+      task.correct_exercise_count - task.correct_on_time_exercise_count
+    task.completed_accepted_late_step_count =
+      task.completed_step_count - task.completed_on_time_step_count
     @emitChange()
 
   rejectLate: (taskId) ->
@@ -112,11 +110,9 @@ ScoresConfig = {
     @_asyncStatus[taskId] = REJECTED
     task = @getTaskById(taskId, courseId)
     task.is_late_work_accepted = false
-    if task.type is 'homework'
-      task.completed_accepted_late_exercise_count = 0
-      task.correct_accepted_late_exercise_count = 0
-    else
-      task.completed_accepted_late_step_count = 0
+    task.completed_accepted_late_exercise_count = 0
+    task.correct_accepted_late_exercise_count = 0
+    task.completed_accepted_late_step_count = 0
     @emitChange()
 
 
