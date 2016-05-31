@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 Router = require 'react-router'
 _ = require 'underscore'
 camelCase = require 'camelcase'
+classnames = require 'classnames'
 
 {TaskActions, TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
@@ -22,7 +23,7 @@ ProgressPanel = require './progress/panel'
 
 {UnsavedStateMixin} = require '../unsaved-state'
 
-{PinnedHeaderFooterCard, HeaderFooterCard} = require 'openstax-react-components'
+{PinnedHeaderFooterCard} = require 'openstax-react-components'
 
 module.exports = React.createClass
   propTypes:
@@ -246,11 +247,9 @@ module.exports = React.createClass
     panelData = _.extend({}, crumb.data, {panelType})
     panel = @[renderPanelMethod]?(panelData)
 
-    taskClasses = "task task-#{task.type}"
-    taskClasses += " task-#{panelType}" if panelType?
-    taskClasses += ' task-completed' if TaskStore.isTaskCompleted(id)
-
-    TaskContainer = PinnedHeaderFooterCard
+    taskClasses = classnames 'task', "task-#{task.type}",
+      "task-#{panelType}": panelType?
+      'task-completed': TaskStore.isTaskCompleted(id)
 
     if TaskStore.hasCrumbs(id)
       breadcrumbs = <Breadcrumbs
@@ -270,16 +269,16 @@ module.exports = React.createClass
         {panel}
       </ProgressPanel>
 
-      TaskContainer = HeaderFooterCard
+      taskClasses = classnames taskClasses, 'task-with-progress'
 
-    <TaskContainer
+    <PinnedHeaderFooterCard
       forceShy={true}
       className={taskClasses}
       fixedOffset={0}
       header={breadcrumbs}
       cardType='task'>
       {panel}
-    </TaskContainer>
+    </PinnedHeaderFooterCard>
 
   reloadTask: ->
     @setState({currentStep: 0})
