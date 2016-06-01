@@ -61,8 +61,11 @@ LateWorkPopover = React.createClass
       content: new Content(@props.task)
     )
 
-  onLateScoreAcceptance: ->
-    ScoresActions.acceptLate(@state.content.task.id)
+  onButtonClick: ->
+    if @state.content.isAccepted
+      ScoresActions.rejectLate(@state.content.task.id)
+    else
+      ScoresActions.acceptLate(@state.content.task.id)
     @props.hide()
 
   render: ->
@@ -82,7 +85,7 @@ LateWorkPopover = React.createClass
             </span>
             <span className='status'>{content.displayValue}</span>
           </div>
-          <BS.Button className='late-button' onClick={@onLateScoreAcceptance}>
+          <BS.Button className='late-button' onClick={@onButtonClick}>
             {content.get('button')}
           </BS.Button>
         </div>

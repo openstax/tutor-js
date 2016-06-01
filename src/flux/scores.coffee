@@ -27,14 +27,21 @@ getTaskInfoById = (taskId, data) ->
             return {task, courseId, period, periodIndex, studentIndex}
 
 
-adjustAssignmentAverages = (data, taskInfo, oldScore, newScore) ->
+adjustTaskAverages = (data, taskInfo) ->
+  {task} = taskInfo
+  score = (task.correct_on_time_exercise_count + task.correct_accepted_late_exercise_count ) /
+    task.exercise_count
+
+  oldScore = task.score
+  task.score = Math.round( score * 100 ) / 100
+
   course = data[taskInfo.courseId][0]
 
   studentCount = course.students.length
   heading = course.data_headings[taskInfo.periodIndex]
   heading.average_score =
     ( heading.average_score - ( oldScore / studentCount ) ) +
-      ( newScore / studentCount )
+      ( task.score / studentCount )
 
   taskCount = 0
   for student in course.students
@@ -42,7 +49,7 @@ adjustAssignmentAverages = (data, taskInfo, oldScore, newScore) ->
 
   course.overall_average_score =
     (course.overall_average_score - ( oldScore / taskCount ) ) +
-      ( newScore / taskCount )
+      ( task.score / taskCount )
 
 
 ScoresConfig = {
@@ -53,12 +60,17 @@ ScoresConfig = {
     task.completed_step_count > task.completed_on_time_step_count +
       task.completed_accepted_late_step_count
 
+  ######################################################################
+  ## The accept / reject methods mirror Tutor-Server logic.           ##
+  ## See: app/subsystems/tasks/models/task.rb                         ##
+  ######################################################################
+
   acceptLate: (taskId) ->
     @_asyncStatus[taskId] = ACCEPTING
     taskInfo = getTaskInfoById(taskId, @_local)
     {task} = taskInfo
 
-    # nothing to do if it's not acutally late
+    # nothing to do if it's not actually late
     return unless @hasLateWork(task)
 
     task.is_late_work_accepted = true
@@ -70,14 +82,9 @@ ScoresConfig = {
     task.completed_accepted_late_step_count =
       task.completed_step_count - task.completed_on_time_step_count
 
-    score = (task.correct_on_time_exercise_count + task.correct_accepted_late_exercise_count ) /
-      task.exercise_count
+    task.accepted_late_at = TimeStore.getNow().toISOString()
 
-    previousScore = task.score
-
-    task.score = Math.round( score * 100 ) / 100
-
-    adjustAssignmentAverages(@_local, taskInfo, previousScore, task.score)
+    adjustTaskAverages(@_local, taskInfo)
 
     @emitChange()
 
@@ -87,15 +94,15 @@ ScoresConfig = {
 
   rejectLate: (taskId) ->
     @_asyncStatus[taskId] = REJECTING
-    taskInfo = @getTaskInfoById(taskId)
+    taskInfo = getTaskInfoById(taskId, @_local)
     {task} = taskInfo
     task.is_late_work_accepted = false
-    if task.type is 'homework'
-      task.is_late_work_accepted = true
-      task.is_included_in_averages = true
+    task.correct_accepted_late_exercise_count = 0
+    task.completed_accepted_late_exercise_count = 0
+    task.completed_accepted_late_step_count = 0
+    delete task.accepted_late_at
 
-    else
-      task.completed_accepted_late_step_count = 0
+    adjustTaskAverages(@_local, taskInfo)
 
     @emitChange()
 
@@ -126,7 +133,6 @@ ScoresConfig = {
       _.find students, (student) ->
         taskIds = _.pluck student.data, 'id'
         _.indexOf(taskIds, taskId) > -1
-
 
     isUpdatingLateStatus: (taskId) ->
       @_asyncStatus[taskId] is ACCEPTING or

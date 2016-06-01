@@ -83,9 +83,30 @@ describe 'scores store', ->
     ScoresActions.acceptLate(PARTIALLY_WORKED_LATE_TASK_ID)
     expect(courseData().data_headings[0].average_score).closeTo(0.1944, 0.0001)
 
-
   it 'adjusts overal course average', ->
     expect(courseData().overall_average_score).closeTo(0.1666, 0.0001)
     ScoresActions.acceptLate(PARTIALLY_WORKED_LATE_TASK_ID)
     ScoresActions.acceptLate(ALL_LATE_TASK_ID)
     expect(courseData().overall_average_score).closeTo(0.2222, 0.0001)
+
+  it 'resets properties after a rejection', ->
+    ScoresActions.acceptLate(PARTIALLY_WORKED_LATE_TASK_ID)
+    task = gT(PARTIALLY_WORKED_LATE_TASK_ID)
+
+    expect(task.is_late_work_accepted).to.be.true
+    expect(task.correct_accepted_late_exercise_count ).to.equal( 1 )
+    expect(task.completed_accepted_late_exercise_count ).to.equal( 2 )
+    expect(task.completed_accepted_late_step_count ).to.equal( 2 )
+    expect(task.accepted_late_at ).to.exist
+    expect(courseData().overall_average_score).closeTo(0.1944, 0.0001)
+
+
+    ScoresActions.rejectLate(PARTIALLY_WORKED_LATE_TASK_ID)
+
+    task = gT(PARTIALLY_WORKED_LATE_TASK_ID)
+    expect(task.is_late_work_accepted).to.be.false
+    expect(task.correct_accepted_late_exercise_count ).to.equal( 0 )
+    expect(task.completed_accepted_late_exercise_count ).to.equal( 0 )
+    expect(task.completed_accepted_late_step_count ).to.equal( 0 )
+    expect(task.accepted_late_at ).not.to.exist
+    expect(courseData().overall_average_score).closeTo(0.1666, 0.0001)
