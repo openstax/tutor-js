@@ -6,34 +6,14 @@ Time = require '../time'
 CellStatusMixin = require './cell-status-mixin'
 PieProgress = require './pie-progress'
 {LateWork} = require './late-work'
-
+{ScoresStore} = require '../../flux/scores'
 
 ReadingCell = React.createClass
 
   mixins: [CellStatusMixin] # prop validation
 
-  showPercent: (numerator) ->
-    {task} = @props
-    (numerator / task.step_count) * 100
-
-  getProgress: (isAccepted) ->
-    {task} = @props
-    if isAccepted
-      task.completed_step_count
-    else
-      task.completed_on_time_step_count
-
   render: ->
     {task, courseId, displayAs, isConceptCoach, rowIndex, columnIndex, period_id} = @props
-
-    isLate = task.completed_on_time_step_count < task.completed_step_count
-    isIncludedInAverages = task.is_included_in_averages
-    isAccepted = task.is_late_work_accepted
-
-    progress = @getProgress(isAccepted)
-
-    progressPercent = Math.round(@showPercent(progress))
-
 
     tooltip =
       <BS.Popover
@@ -41,7 +21,7 @@ ReadingCell = React.createClass
         className='scores-scores-tooltip-completed-info'>
         <div className='info'>
           <div className='row'>
-            <div>Completed {progressPercent}%</div>
+            <div>Completed {ScoresStore.getHumanCompletedPercent(task)}</div>
           </div>
         </div>
       </BS.Popover>
@@ -57,23 +37,17 @@ ReadingCell = React.createClass
         overlay={tooltip}>
           <span className='trigger-wrap'>
             <PieProgress
-            isConceptCoach={isConceptCoach}
-            size={24}
-            value={progressPercent}
-            isLate={isLate} />
+              isConceptCoach={isConceptCoach}
+              size={24}
+              value={ScoresStore.getCompletedPercent(task)}
+              isLate={ScoresStore.isTaskLate(task)}
+            />
           </span>
         </BS.OverlayTrigger>
       </div>
 
-      {<LateWork
-        task={task}
-        rowIndex={rowIndex}
-        columnIndex={columnIndex}
-        courseId={courseId}
-        period_id={period_id}
-        acceptValue={@showPercent(@getProgress(not isAccepted))}
-        isIncludedInAverages={isIncludedInAverages}
-      /> if isLate}
+      {<LateWork task={task} /> if ScoresStore.isTaskLate(task)}
+
     </div>
 
 

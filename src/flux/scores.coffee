@@ -112,6 +112,28 @@ ScoresConfig = {
 
 
   exports:
+    getCompletedSteps: (task) ->
+      task.completed_on_time_step_count + task.completed_accepted_late_step_count
+
+    getCompletedPercent: (task) ->
+      score = task.correct_on_time_exercise_count + task.correct_accepted_late_exercise_count
+      percent = Math.round( (score / task.exercise_count) * 100 )
+
+    getHumanProgress: (task) ->
+      complete = ScoresConfig.exports.getCompletedSteps(task)
+      "#{complete} of #{task.step_count}"
+
+    getHumanCompletedPercent: (task) ->
+      "#{ScoresConfig.exports.getCompletedPercent(task)}%"
+
+    getHumanTaskStatus: (task, options = {displayAs: 'number'}) ->
+      if options.displayAs is 'number'
+        ScoresConfig.exports.getHumanProgress(task)
+      else
+        ScoresConfig.exports.getHumanCompletedPercent(task)
+
+    isTaskLate: (task) ->
+      task.completed_on_time_step_count < task.completed_step_count
 
     getTaskInfoById: (taskId) ->
       getTaskInfoById(taskId, @_local)
