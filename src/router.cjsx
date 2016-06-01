@@ -6,6 +6,7 @@ async = require './helpers/webpack-async-loader'
 
 {App, Root, Dashboard, SingleTask, SinglePractice, Invalid} = require './components'
 {CourseListing} = require './components/course-listing'
+{Toc} = require './components/toc'
 QuestionsLibrary = require './components/questions'
 PerformanceForecastShell = require './components/performance-forecast'
 {ScoresShell} = require './components/scores'
@@ -33,6 +34,7 @@ routes = (
       <Route path='courses/:courseId/?'>
         <Router.DefaultRoute handler={TeacherTaskPlans}/>
 
+        <Route path='toc/?' name='viewToc' handler={Toc} />
         <Route path='list/?' name='viewStudentDashboard' handler={StudentDashboardShell} />
         <Route path='tasks/:id/?' name='viewTask' handler={SingleTask} ignoreScrollBehavior/>
         <Route path='tasks/:id/steps/:stepIndex/?'

@@ -25,6 +25,9 @@ ReferenceBookConfig = {
     getToc: (ecosystemId) ->
       @_get(ecosystemId)['0']
 
+    getNullToc: (ecosystemId) ->
+      @_get(ecosystemId)?['0']
+
     getFirstSection: (ecosystemId) ->
       toc = @_get(ecosystemId)?['0']
       return null unless toc?.children?
