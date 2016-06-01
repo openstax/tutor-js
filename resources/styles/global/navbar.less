@@ -109,12 +109,19 @@
     .milestones-toggle {
       padding: 0;
 
+      i {
+        margin-right: 0;
+      }
+
       &:hover,
       &.active {
         i {
           color: @tutor-info;
         }
       }
+
+      // TODO find out about universal focus style.
+      &:focus {}
     }
   }
 
