@@ -82,28 +82,34 @@ ScoresConfig = {
 
     taskStudent?.average_score = studentAverage
 
+  hasLateWork: (task) ->
+    task.completed_step_count > task.completed_on_time_step_count +
+      task.completed_accepted_late_step_count
 
   acceptLate: (taskId) ->
     @_asyncStatus[taskId] = ACCEPTING
-
     task = getTaskById(taskId, @_local)
 
+    # nothing to do if it's not acutally late
+    return unless @hasLateWork(task)
+
     task.is_late_work_accepted = true
+
+    task.completed_accepted_late_exercise_count =
+      task.completed_exercise_count - task.completed_on_time_exercise_count
+    task.correct_accepted_late_exercise_count =
+      task.correct_exercise_count - task.correct_on_time_exercise_count
+    task.completed_accepted_late_step_count =
+      task.completed_step_count - task.completed_on_time_step_count
+
     if task.type is 'homework'
 
-      if task.completed_on_time_exercise_count isnt task.completed_exercise_count
+      score = (task.correct_on_time_exercise_count + task.correct_accepted_late_exercise_count ) /
+        task.exercise_count
 
-        task.completed_on_time_exercise_count = task.completed_exercise_count
-        task.correct_on_time_exercise_count   = task.completed_exercise_count
-
-        task.score = Math.round(
-          ( (task.correct_exercise_count / task.exercise_count) * 100 )
-        )  / 100
+      task.score = Math.round( score * 100 ) / 100
 
 
-    else
-      task.completed_accepted_late_step_count =
-        task.completed_step_count - task.completed_on_time_step_count
 
     @emitChange()
 
