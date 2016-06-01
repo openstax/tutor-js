@@ -29,11 +29,11 @@ getTaskInfoById = (taskId, data) ->
 
 adjustTaskAverages = (data, taskInfo) ->
   {task} = taskInfo
-  score = (task.correct_on_time_exercise_count + task.correct_accepted_late_exercise_count ) /
-    task.exercise_count
-
   oldScore = task.score
-  task.score = Math.round( score * 100 ) / 100
+  task.score = Math.round((
+    (task.correct_on_time_exercise_count + task.correct_accepted_late_exercise_count ) /
+      task.exercise_count
+  ) * 100 ) / 100
 
   course = data[taskInfo.courseId][0]
 
