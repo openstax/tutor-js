@@ -2,6 +2,7 @@
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 _ = require 'underscore'
 
+{TimeStore} = require './time'
 
 ACCEPTING = 'accepting'
 ACCEPTED = 'accepted'
@@ -10,77 +11,43 @@ REJECTING = 'rejecting'
 REJECTED = 'rejected'
 
 
-
 allStudents = (scores) ->
   _.chain(scores)
     .pluck('students')
     .flatten(true)
     .value()
 
-getTaskById = (taskId, data) ->
+getTaskInfoById = (taskId, data) ->
   taskId = parseInt(taskId, 10)
   for courseId, period of data
-    for period in data[courseId]
-      for student in period.students
+    for period, periodIndex in data[courseId]
+      for student, studentIndex in period.students
         for task in student.data
-          return task if task.id is taskId
+          if task.id is taskId
+            return {task, courseId, period, periodIndex, studentIndex}
+
+
+adjustAssignmentAverages = (data, taskInfo, oldScore, newScore) ->
+  course = data[taskInfo.courseId][0]
+
+  studentCount = course.students.length
+  heading = course.data_headings[taskInfo.periodIndex]
+  heading.average_score =
+    ( heading.average_score - ( oldScore / studentCount ) ) +
+      ( newScore / studentCount )
+
+  taskCount = 0
+  for student in course.students
+    taskCount += 1 for studentTask in student.data when studentTask.is_included_in_averages
+
+  course.overall_average_score =
+    (course.overall_average_score - ( oldScore / taskCount ) ) +
+      ( newScore / taskCount )
 
 
 ScoresConfig = {
 
   _asyncStatus: {}
-
-  updateAverages: (task, courseId, period_id, columnIndex, currentValue, acceptValue) ->
-    scores = @_get(courseId)
-    period = _.findWhere(scores, {period_id})
-    periodTasks = _.flatten(_.pluck(period.students, 'data'))
-
-    numStudents = period.students.length
-    currentValue = currentValue / 100
-    acceptValue = acceptValue / 100
-
-
-    currentAssignmentAverage = period?.data_headings[columnIndex]?.average_score
-
-    assignmentAverage =
-      (currentAssignmentAverage - (currentValue / numStudents)) +
-      (acceptValue / numStudents)
-
-    period?.data_headings[columnIndex]?.average_score = assignmentAverage
-
-
-    # number of included homeworks tasks in period
-    numStudentTasks = _.filter(periodTasks, {is_included_in_averages: true}).length
-
-    currentPeriodAverage = period?.overall_average_score
-
-    periodAverage =
-      (currentPeriodAverage - (currentValue / numStudentTasks)) +
-      (acceptValue / numStudentTasks)
-
-    period?.overall_average_score = periodAverage
-
-
-
-    students = allStudents @_get(courseId)
-    taskId = parseInt(task.id)
-
-    taskStudent =
-      _.find students, (student) ->
-        taskIds = _.pluck student.data, 'id'
-        _.indexOf(taskIds, taskId) > -1
-
-
-    currentStudentAverage = taskStudent?.average_score
-
-    # number of included homework tasks for student
-    numTasksStudent = _.filter(taskStudent.data, {is_included_in_averages: true}).length
-
-    studentAverage =
-      (currentStudentAverage - (currentValue / numTasksStudent)) +
-      (acceptValue / numTasksStudent)
-
-    taskStudent?.average_score = studentAverage
 
   hasLateWork: (task) ->
     task.completed_step_count > task.completed_on_time_step_count +
@@ -88,7 +55,8 @@ ScoresConfig = {
 
   acceptLate: (taskId) ->
     @_asyncStatus[taskId] = ACCEPTING
-    task = getTaskById(taskId, @_local)
+    taskInfo = getTaskInfoById(taskId, @_local)
+    {task} = taskInfo
 
     # nothing to do if it's not acutally late
     return unless @hasLateWork(task)
@@ -102,14 +70,14 @@ ScoresConfig = {
     task.completed_accepted_late_step_count =
       task.completed_step_count - task.completed_on_time_step_count
 
-    if task.type is 'homework'
+    score = (task.correct_on_time_exercise_count + task.correct_accepted_late_exercise_count ) /
+      task.exercise_count
 
-      score = (task.correct_on_time_exercise_count + task.correct_accepted_late_exercise_count ) /
-        task.exercise_count
+    previousScore = task.score
 
-      task.score = Math.round( score * 100 ) / 100
+    task.score = Math.round( score * 100 ) / 100
 
-
+    adjustAssignmentAverages(@_local, taskInfo, previousScore, task.score)
 
     @emitChange()
 
@@ -119,11 +87,8 @@ ScoresConfig = {
 
   rejectLate: (taskId) ->
     @_asyncStatus[taskId] = REJECTING
-    @emitChange()
-
-  rejectedLate: (unused, taskId, courseId) ->
-    @_asyncStatus[taskId] = REJECTED
-    task = @getTaskById(taskId)
+    taskInfo = @getTaskInfoById(taskId)
+    {task} = taskInfo
     task.is_late_work_accepted = false
     if task.type is 'homework'
       task.is_late_work_accepted = true
@@ -131,13 +96,18 @@ ScoresConfig = {
 
     else
       task.completed_accepted_late_step_count = 0
+
+    @emitChange()
+
+  rejectedLate: (unused, taskId, courseId) ->
+    @_asyncStatus[taskId] = REJECTED
     @emitChange()
 
 
   exports:
 
-    getTaskById: (taskId) ->
-      getTaskById(taskId, @_local)
+    getTaskInfoById: (taskId) ->
+      getTaskInfoById(taskId, @_local)
 
     getStudent: (courseId, roleId) ->
       students = allStudents @_get(courseId)
