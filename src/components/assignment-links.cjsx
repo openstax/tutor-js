@@ -2,14 +2,13 @@ _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
-WindowHelpers = require '../helpers/window'
 
 BindStoreMixin = require './bind-store-mixin'
 {ReferenceBookActions, ReferenceBookStore} = require '../flux/reference-book'
 {CourseStore} = require '../flux/course'
 
-Toc = React.createClass
-  displayName: 'Toc'
+AssignmentLinks = React.createClass
+  displayName: 'AssignmentLinks'
   mixins: [BindStoreMixin]
   bindStore: ReferenceBookStore
 
@@ -25,6 +24,7 @@ Toc = React.createClass
   renderBullet: (item) ->
     line = "#{item.chapter_section.join('.')} #{item.title}"
 
+    # TODO get URL base from tutor-server
     if item.type is "page"
       line = <a href="https://cnx.org/contents/#{item.cnx_id}">{line}</a>
 
@@ -40,7 +40,7 @@ Toc = React.createClass
     if item.chapter_section.length == 1
       return _.map item.children, (child) => @renderRow(child)
 
-    line = "#{item.title}"
+    line = item.title
 
     if item.type is "page"
       line = <a href="https://cnx.org/contents/#{item.cnx_id}">{line}</a>
@@ -92,4 +92,4 @@ Toc = React.createClass
 
     </BS.Panel>
 
-module.exports = {Toc}
+module.exports = {AssignmentLinks}

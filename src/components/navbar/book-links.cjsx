@@ -27,7 +27,7 @@ BookLinks = React.createClass
       )
     links.push(
       <Router.Link
-        to='viewToc'
+        to='viewAssignmentLinks'
         params={courseId: @props.courseId}>Assignment Links</Router.Link>
     )
 
