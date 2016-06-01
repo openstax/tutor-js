@@ -7,22 +7,17 @@ classnames = require 'classnames'
 
 class LateWork
   constructor: (@task) ->
-    @status = if @task.is_late_work_accepted then 'accepted' else 'pending'
     @isAccepted = @task.is_late_work_accepted
-    @allowedCount = @task.completed_on_time_exercise_count + @task.completed_accepted_late_exercise_count
-
-    @isFullyAccepted =
-      @task.completed_exercise_count is @allowedCount and
-        @task.completed_accepted_late_exercise_count > 0
-
-    @lateQuestionCount =
-      @task.completed_exercise_count - @task.completed_on_time_exercise_count
+    @status = if @isAccepted then 'accepted' else 'pending'
 
     @displayValue =
         if @isAccepted
           @task.correct_on_time_exercise_count + @task.correct_accepted_late_exercise_count
         else
           @task.correct_on_time_exercise_count
+
+  lateExerciseCount: ->
+    @task.completed_exercise_count - @task.completed_on_time_exercise_count
 
   timeDisplay: ->
     if @isAccepted
@@ -43,7 +38,7 @@ class HomeworkContent extends LateWork
 
   title: ->
     accepted: "You accepted this student's late score."
-    pending:  "#{@lateQuestionCount} questions worked after the due date"
+    pending:  "#{@lateExerciseCount()} questions worked after the due date"
   button: ->
     accepted: 'Use this score'
     pending:  'Accept late score'
