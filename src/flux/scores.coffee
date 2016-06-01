@@ -56,10 +56,6 @@ ScoresConfig = {
 
   _asyncStatus: {}
 
-  hasLateWork: (task) ->
-    task.completed_step_count > task.completed_on_time_step_count +
-      task.completed_accepted_late_step_count
-
   ######################################################################
   ## The accept / reject methods mirror Tutor-Server logic.           ##
   ## See: app/subsystems/tasks/models/task.rb                         ##
@@ -71,7 +67,7 @@ ScoresConfig = {
     {task} = taskInfo
 
     # nothing to do if it's not actually late
-    return unless @hasLateWork(task)
+    return unless ScoresConfig.exports.hasLateWork(task)
 
     task.is_late_work_accepted = true
 
@@ -112,6 +108,19 @@ ScoresConfig = {
 
 
   exports:
+
+    getHumanUnacceptedScore: (task) ->
+      score = Math.round((
+        task.correct_on_time_exercise_count / task.exercise_count
+        ) * 100 ) / 100
+      "#{score * 100}%"
+
+    getHumanScoreWithLateWork: (task) ->
+      score = Math.round((
+        task.correct_exercise_count / task.exercise_count
+        ) * 100) / 100
+      "#{score * 100}%"
+
     getCompletedSteps: (task) ->
       task.completed_on_time_step_count + task.completed_accepted_late_step_count
 
@@ -119,9 +128,26 @@ ScoresConfig = {
       score = task.correct_on_time_exercise_count + task.correct_accepted_late_exercise_count
       percent = Math.round( (score / task.exercise_count) * 100 )
 
+    hasAdditionalLateWork: (task) ->
+      task.completed_accepted_late_step_count and (
+        task.completed_step_count >  task.completed_on_time_step_count +
+          task.completed_accepted_late_step_count
+      )
+
+    hasLateWork: (task) ->
+      ScoresConfig.exports.taskLateStepCount(task) > 0
+
+    taskLateStepCount: (task) ->
+      task.completed_step_count - task.completed_on_time_step_count +
+        task.completed_accepted_late_step_count
+
+
     getHumanProgress: (task) ->
       complete = ScoresConfig.exports.getCompletedSteps(task)
       "#{complete} of #{task.step_count}"
+
+    getHumanDueDate: (task) ->
+      task.due_at
 
     getHumanCompletedPercent: (task) ->
       "#{ScoresConfig.exports.getCompletedPercent(task)}%"

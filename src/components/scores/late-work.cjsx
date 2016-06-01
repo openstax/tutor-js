@@ -8,22 +8,25 @@ classnames = require 'classnames'
 class LateWork
   constructor: (@task) ->
     @isAccepted = @task.is_late_work_accepted
-    @status = if @isAccepted then 'accepted' else 'pending'
+    @status = if @isAccepted
+      if ScoresStore.hasAdditionalLateWork(@task) then 'additional' else 'accepted'
+    else
+      'pending'
 
-    @displayValue =
-        if @isAccepted
-          @task.correct_on_time_exercise_count + @task.correct_accepted_late_exercise_count
-        else
-          @task.correct_on_time_exercise_count
+  score: ->
+    if @isAccepted
+      ScoresStore.getHumanUnacceptedScore(@task)
+    else
+      ScoresStore.getHumanScoreWithLateWork(@task)
 
   lateExerciseCount: ->
     @task.completed_exercise_count - @task.completed_on_time_exercise_count
 
-  timeDisplay: ->
+  lateDueDate: ->
     if @isAccepted
-      'due date'
+      'the due date'
     else
-      <Time date={@task.last_worked_at} format='shortest'/>
+      <Time date={@task.last_worked_at} format='shortest' />
 
   className: ->
     classnames( 'late-work-info-popover', @keyword, {
@@ -31,27 +34,39 @@ class LateWork
     })
 
   get: (type) ->
-    @[type]()[@status]
+    @[type]()?[@status] or ''
 
 class HomeworkContent extends LateWork
-  keyword:  'homework'
 
+  reportingOn:  'Score'
   title: ->
-    accepted: "You accepted this student's late score."
-    pending:  "#{@lateExerciseCount()} questions worked after the due date"
+    additional: "Additional late work"
+    accepted:   "You accepted this student's late score."
+    pending:    "#{@lateExerciseCount()} questions worked after the due date"
   button: ->
-    accepted: 'Use this score'
-    pending:  'Accept late score'
+    additional: 'Accept new late score'
+    accepted:   'Use this score'
+    pending:    'Accept late score'
+  body: ->
+    additional:
+      <span>
+        This student worked {ScoresStore.taskLateStepCount(@task)}
+        questions after you accepted a late score
+        on <Time date={@task.accepted_late_at} format='shortest' />
+      </span>
+
 
 class ReadingContent extends LateWork
-  keyword:  'reading'
 
+  reportingOn:  'Progress'
   title: ->
-    accepted: "You accepted this student's late reading progress."
-    pending:  "Reading progress after the due date"
+    additional: "Additional late work"
+    accepted:   "You accepted this student's late reading progress."
+    pending:    "Reading progress after the due date"
   button: ->
-    accepted: 'Use this score'
-    pending:  'Accept late score'
+    additional: 'Accept new late score'
+    accepted:   'Use this score'
+    pending:    'Accept late score'
 
 LateWorkPopover = React.createClass
 
@@ -80,10 +95,9 @@ LateWorkPopover = React.createClass
         <div className='late-status'>
           <div className='description'>
             <span className='title'>
-              {"#{content.keyword} on "}
-              {content.timeDisplay()}:
+              {content.reportingOn} on {content.lateDueDate()}:
             </span>
-            <span className='status'>{content.displayValue}</span>
+            <span className='status'>{content.score()}</span>
           </div>
           <BS.Button className='late-button' onClick={@onButtonClick}>
             {content.get('button')}
