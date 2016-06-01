@@ -12,6 +12,12 @@ module.exports = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
+  componentDidMount: ->
+    TaskStore.on('change', @update)
+
+  update: ->
+    @setState(updateOnNext: true)
+
   handleClick: (event) ->
     event.preventDefault()
     @toggleMilestones()
@@ -32,6 +38,7 @@ module.exports = React.createClass
     @context.router.transitionTo(path, toParams)
 
   render: ->
+    return false unless @context?.router
     {courseId, id, stepIndex} = @context.router.getCurrentParams()
     task = TaskStore.get(id)
     return false unless task?

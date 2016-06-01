@@ -1,5 +1,4 @@
 React  = require 'react'
-BS     = require 'react-bootstrap'
 moment = require 'moment'
 EmptyPanel  = require './empty-panel'
 EventsPanel = require './events-panel'

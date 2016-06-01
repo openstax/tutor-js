@@ -1,5 +1,4 @@
 React = require 'react'
-_ = require 'underscore'
 
 {TaskStepStore} = require '../../flux/task-step'
 {ArbitraryHtmlAndMath, ChapterSectionMixin} = require 'openstax-react-components'

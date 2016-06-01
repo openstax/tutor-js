@@ -1,5 +1,4 @@
 React = require 'react'
-_ = require 'underscore'
 
 {TaskStepStore} = require '../../flux/task-step'
 {TaskStore} = require '../../flux/task'
@@ -8,16 +7,9 @@ Exercise = require './exercise'
 Markdown = require '../markdown'
 StepMixin = require './step-mixin'
 StepFooterMixin = require './step-footer-mixin'
-{BookContentMixin, LinkContentMixin} = require '../book-content-mixin'
 CourseDataMixin = require '../course-data-mixin'
 
 {StepPanel} = require '../../helpers/policies'
-
-# React swallows thrown errors so log them first
-err = (msgs...) ->
-  console.error(msgs...)
-  throw new Error(JSON.stringify(msgs...))
-
 
 Reading = React.createClass
   displayName: 'Reading'
@@ -32,7 +24,6 @@ Reading = React.createClass
     {id} = @props
     courseDataProps = @getCourseDataProps()
     <ReadingStepContent id={id} stepType='reading' courseDataProps={courseDataProps}/>
-
 
 Interactive = React.createClass
   displayName: 'Interactive'

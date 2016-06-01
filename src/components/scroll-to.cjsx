@@ -1,5 +1,4 @@
 React = require 'react'
-_ = require 'underscore'
 
 ScrollToMixin = require './scroll-to-mixin'
 
