@@ -12,11 +12,23 @@ ProgressArrow = React.createClass
     goToStep: React.PropTypes.func
 
   componentWillUnmount: ->
-    keymaster.deleteScope(KEYBINDING_SCOPE)
+    @disableKeys() if @props.enableKeys
 
   componentWillMount: ->
+    @enableKeys() if @props.enableKeys
+
+  componentWillReceiveProps: (nextProps) ->
+    if nextProps.enableKeys and not @props.enableKeys
+      @enableKeys()
+    else if not nextProps.enableKeys and @props.enableKeys
+      @disableKeys()
+
+  enableKeys: ->
     keymaster(@props.direction,  KEYBINDING_SCOPE, @arrowClicked)
     keymaster.setScope(KEYBINDING_SCOPE)
+
+  disableKeys: =>
+    keymaster.deleteScope(KEYBINDING_SCOPE)
 
   transition: ->
     { stepKey, goToStep } = @props

@@ -4,7 +4,7 @@ BS = require 'react-bootstrap'
 classnames = require 'classnames'
 
 CrumbMixin = require '../crumb-mixin'
-{ChapterSectionMixin} = require 'openstax-react-components'
+{ChapterSectionMixin, ArbitraryHtmlAndMath} = require 'openstax-react-components'
 {BreadcrumbTaskDynamic} = require '../../breadcrumb'
 
 {TaskStepActions, TaskStepStore} = require '../../../flux/task-step'
@@ -23,13 +23,46 @@ Milestone = React.createClass
     classes = classnames 'milestone',
       'active': isCurrent
 
+
+    if crumb.data.title?
+      previewText = crumb.data.title
+      if crumb.type is 'end'
+        previewText = "#{previewText} Completed"
+
+      preview = <div className='milestone-preview'>
+        <p>
+          {previewText}
+        </p>
+      </div>
+
+    if crumb.data.type is 'coach'
+      preview = <div className='milestone-preview'>
+        <p>Concept Coach</p>
+      </div>
+
+    preview = <div className='milestone-preview'>
+      <p>
+        {crumb.data.related_content[0].title}
+      </p>
+    </div> if crumb.data.related_content?[0]?.title?
+
+    if crumb.data.content?.questions?
+      question = _.first(crumb.data.content.questions)
+      preview = <ArbitraryHtmlAndMath
+        block={true}
+        className='milestone-preview'
+        html={question.stem_html}/>
+
+    console.info(crumb) if crumb.data.related_content?[0]?.title? or crumb.type is 'end'
+
     <BS.Col xs=3 lg=2 className='milestone-wrapper'>
-      <BS.Button
-        bsStyle='link'
+      <div
+        tabIndex='0'
         className={classes}
         onClick={_.partial(goToStep, crumb.key)}>
         {@props.children}
-      </BS.Button>
+        {preview}
+      </div>
     </BS.Col>
 
 MilestonesWrapper = React.createClass
@@ -93,7 +126,7 @@ MilestonesWrapper = React.createClass
 
   checkAllowed: (focusEvent) ->
     modal = @getDOMNode()
-    console.info('filter click', @props.filterClick?(focusEvent))
+
     unless modal.contains(focusEvent.target) or @props.filterClick?(focusEvent)
       focusEvent.preventDefault()
       focusEvent.stopImmediatePropagation()

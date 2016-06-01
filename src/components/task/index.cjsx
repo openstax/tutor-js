@@ -292,6 +292,7 @@ module.exports = React.createClass
         goToStep={@goToStep}
         isSpacer={crumb?.type is 'spacer'}
         stepKey={@state.currentStep}
+        enableKeys={not showMilestones}
       >
         {milestones}
         {panel}
