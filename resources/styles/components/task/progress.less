@@ -1,4 +1,5 @@
 @milestone-scale: 1.6;
+@milestone-active-indicator-height: 8px;
 
 .task-view {
   .task-with-progress {
@@ -9,15 +10,24 @@
 
     .task-step {
       margin-top: 40px;
+      .transition(all 1s ease);
+    }
+
+    // TODO trigger this.
+    &.task-with-milestones-entered {
+      .task-step {
+        overflow: hidden;
+        height: 0;
+      }
     }
 
     .task-with-milestones-enter, .task-with-milestones-appear {
       .transform-origin(0 bottom);
-      .translate(0, -100%);
+      .translate(0, -90%);
 
       &.task-with-milestones-enter-active,
       &.task-with-milestones-appear-active {
-        .transition(transform 0.5s ease-in);
+        .transition(transform 0.5s ease-out);
         .translate(0, 0);
       }
     }
@@ -27,22 +37,21 @@
       .translate(0, 0);
 
       &.task-with-milestones-leave-active {
-        .transition(transform 0.3s ease-out);
-        .translate(0, -100%);
+        .transition(transform 0.3s ease-in);
+        .translate(0, -90%);
       }
     }
 
     .milestones-wrapper {
       .fixed-bar();
+      position: absolute;
       z-index: 3;
       min-height: 100%;
       top: 0;
+      margin-top: @openstax-navbar-height;
       padding: 5%;
       background: @tutor-neutral-light;
-    }
-
-    .milestones {
-
+      .transition(margin-top 0.2s ease-out);
     }
 
     .milestone {
@@ -71,11 +80,14 @@
       }
 
       &.active {
+        height: 200px + @milestone-active-indicator-height;
+        margin-bottom: 40px - @milestone-active-indicator-height;
+
         &::after {
           position: absolute;
           bottom: 0;
           display: block;
-          height: 8px;
+          height: @milestone-active-indicator-height;
           background: @tutor-success;
           width: 100%;
           content: ' ';
@@ -84,6 +96,16 @@
     }
 
 
+  }
+}
+
+body.pinned-shy {
+  &.task-view {
+    .task-with-progress {
+      .milestones-wrapper {
+        margin-top: 0;
+      }
+    }
   }
 }
 

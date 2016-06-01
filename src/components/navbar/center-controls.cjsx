@@ -1,7 +1,10 @@
 React = require 'react'
 moment = require 'moment'
+classnames = require 'classnames'
+
 Icon = require '../icon'
 {TaskStore} = require '../../flux/task'
+
 
 module.exports = React.createClass
   displayName: 'CenterControls'
@@ -9,21 +12,42 @@ module.exports = React.createClass
     router: React.PropTypes.func
 
   handleClick: (event) ->
-      console.debug('clicked')
-      event.preventDefault()
+    event.preventDefault()
+    @toggleMilestones()
+
+  hasMilestones: ->
+    @context.router.getCurrentParams().milestones?
+
+  toggleMilestones: ->
+    params = @context.router.getCurrentParams()
+
+    if @hasMilestones()
+      toParams = _.omit(params, 'milestones')
+      path = 'viewTaskStep'
+    else
+      toParams = _.extend({milestones: 'milestones'}, params)
+      path = 'viewTaskStepMilestones'
+
+    @context.router.transitionTo(path, toParams)
 
   render: ->
-    {courseId, id, stepIndex} = @props.router.getCurrentParams()
+    {courseId, id, stepIndex} = @context.router.getCurrentParams()
     task = TaskStore.get(id)
     return false unless task?
     assignment = task.title
     due = moment(task.due_at).calendar()
+
+    milestonesToggleClasses = classnames 'milestones-toggle',
+      'active': @hasMilestones()
+
     <div className='navbar-overlay'>
       <div className='center-control'>
         {assignment}
         <Icon type='calendar-check-o'
           tooltipProps={placement: 'bottom'}
           tooltip={due} />
-        <a href="#" onClick={@handleClick}><Icon type='th' /></a>
+        <Icon type='th'
+          className={milestonesToggleClasses}
+          onClick={@handleClick}/>
       </div>
     </div>

@@ -29,8 +29,8 @@ Milestone = React.createClass
       </div>
     </BS.Col>
 
-Milestones = React.createClass
-  displayName: 'Milestones'
+MilestonesWrapper = React.createClass
+  displayName: 'MilestonesWrapper'
 
   mixins: [ChapterSectionMixin, CrumbMixin]
 
@@ -123,32 +123,26 @@ Milestones = React.createClass
 
     classes = 'task-breadcrumbs'
 
-    <div className={classes}>
-      {stepButtons}
+    <div className='milestones-wrapper'>
+      <div className='milestones task-breadcrumbs'>
+        {stepButtons}
+      </div>
     </div>
 
 
-MilestonesWrapper = React.createClass
-  displayName: 'MilestonesWrapper'
+Milestones = React.createClass
+  displayName: 'Milestones'
   # propTypes:
   #   taskId: React.PropTypes.string.isRequired
   #   focus: React.PropTypes.bool.isRequired
   render: ->
 
-    milestones = <div
-      className='milestones-wrapper'
-      onClick={@props.toggleMilestones}
-      key='milestones'>
-      <div className='milestones'>
-        {@props.children}
-      </div>
-    </div> if @props.children?
+    milestones = <MilestonesWrapper {...@props} key='milestones'/> if @props.showMilestones
 
     <ReactCSSTransitionGroup
       transitionName='task-with-milestones'
-      transitionEnterTimeout={500}
-      transitionAppear={true}
-      transitionLeaveTimeout={300}>
+      transitionAppearTimeout={0}
+      transitionAppear={true}>
       {milestones}
     </ReactCSSTransitionGroup>
 

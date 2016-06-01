@@ -18,7 +18,7 @@ Breadcrumbs = require './breadcrumbs'
 
 TaskProgress = require './progress'
 ProgressPanel = require './progress/panel'
-{MilestonesWrapper, Milestones, Milestone} = require './progress/milestones'
+{Milestones, Milestone} = require './progress/milestones'
 
 {StepPanel} = require '../../helpers/policies'
 
@@ -59,7 +59,6 @@ module.exports = React.createClass
       refreshTo: false
       recoverForStepId: false
       recoveredStepId: false
-      showMilestones: false
     }
 
   hasUnsavedState: -> TaskStore.hasAnyStepChanged(@props.id)
@@ -186,9 +185,6 @@ module.exports = React.createClass
     crumbs = @generateCrumbs()
     _.findWhere crumbs, {key: crumbKey}
 
-  toggleMilestones: ->
-    @setState(showMilestones: not @state.showMilestones)
-
   renderStep: (data) ->
     {courseId} = @context.router.getCurrentParams()
     {id} = @props
@@ -237,7 +233,7 @@ module.exports = React.createClass
 
   render: ->
     {id} = @props
-    {showMilestones} = @state
+    showMilestones = @context.router.getCurrentParams().milestones?
     task = TaskStore.get(id)
     return null unless task?
 
@@ -266,15 +262,8 @@ module.exports = React.createClass
 
     if TaskStore.hasProgress(id)
 
-      breadcrumbs = <Milestones
-        id={id}
-        goToStep={@goToStep}
-        key="task-#{id}-breadcrumbs"/>
-
       header = <TaskProgress taskId={id} stepKey={@state.currentStep} key='task-progress'/>
-      milestones = <MilestonesWrapper toggleMilestones={@toggleMilestones} key='task-milestones'>
-        {breadcrumbs if showMilestones}
-      </MilestonesWrapper>
+      milestones = <Milestones id={id} goToStep={@goToStep} showMilestones={showMilestones}/>
 
       panel = <ProgressPanel
         taskId={id}
@@ -283,7 +272,6 @@ module.exports = React.createClass
         isSpacer={crumb?.type is 'spacer'}
         stepKey={@state.currentStep}
       >
-        <BS.Button onClick={@toggleMilestones}>Toggle</BS.Button>
         {milestones}
         {panel}
       </ProgressPanel>
