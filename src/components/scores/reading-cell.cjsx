@@ -5,7 +5,7 @@ BS = require 'react-bootstrap'
 Time = require '../time'
 CellStatusMixin = require './cell-status-mixin'
 PieProgress = require './pie-progress'
-LateWork = require './late-work'
+{LateWork} = require './late-work'
 
 
 ReadingCell = React.createClass
