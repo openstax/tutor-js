@@ -23,9 +23,6 @@ ReferenceBookConfig = {
 
   exports:
     getToc: (ecosystemId) ->
-      @_get(ecosystemId)['0']
-
-    getNullToc: (ecosystemId) ->
       @_get(ecosystemId)?['0']
 
     getFirstSection: (ecosystemId) ->

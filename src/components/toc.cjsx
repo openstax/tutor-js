@@ -51,10 +51,12 @@ Toc = React.createClass
     </tr>
 
   render: ->
-    toc = ReferenceBookStore.getNullToc(@ecosystem_id)
+    toc = ReferenceBookStore.getToc(@ecosystem_id)
     return null if !toc?.children?
 
-    <div className="assignment-links panel panel-default">
+    <BS.Panel className="assignment-links">
+      <span className='assignment-links-title'>Assignment Links</span>
+
       <p>Here are 3 easy steps to assigning Concept Coach.</p>
 
       <ol>
@@ -88,6 +90,6 @@ Toc = React.createClass
         </tbody>
       </table>
 
-    </div>
+    </BS.Panel>
 
 module.exports = {Toc}
