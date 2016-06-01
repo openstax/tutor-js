@@ -42,7 +42,6 @@ class Task extends TestHelper
   # isHomework: => @el.taskTypeIsHomework().isPresent()
   isReading:  => @el.taskTypeIsReading().isPresent()
   stepIsExercise: =>
-    debugger
     @el.taskStepIsExercise().isPresent()
   # isEvent:    => @el.taskTypeIsEvent().isPresent()
 

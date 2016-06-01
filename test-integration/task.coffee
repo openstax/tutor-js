@@ -60,7 +60,6 @@ describe 'Student performing tasks', ->
       @task.waitUntilLoaded()
 
       @task.stepIsExercise().then (isPresent) =>
-        debugger
         @task.goToHelpLink() if isPresent
 
       # Go back to the course selection
