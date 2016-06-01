@@ -58,17 +58,23 @@ class ReadingContent extends LateWork
 LateWork = React.createClass
   displayName: 'LateWork'
 
+  getInitialState: ->
+    isShown: true
+
   componentWillMount: ->
-    {task} = @props
+    Content = if @props.task.type is 'homework' then HomeworkContent else ReadingContent
     @setState(
-      content: if task.type is 'homework' then new HomeworkContent(task) else ReadingContent(task)
+      content: new Content(@props.task)
     )
 
   onLateScoreAcceptance: ->
-    ScoresActions.acceptLate(task.id, courseId)
+    ScoresActions.acceptLate(@props.task.id)
+    @refs.overlay.hide()
+
 
   renderPopover: (content) ->
     <BS.Popover
+      show={@state.isShown}
       title={content.get('title')}
       id="late-work-info-popover-#{content.task.id}"
       className={content.className()}>
@@ -93,11 +99,9 @@ LateWork = React.createClass
       ref="overlay" placement="top" trigger="click" rootClose={true}
       overlay={@renderPopover(content)}
     >
-
       <div className="late-caret-trigger" onClick={@showPopover}>
         <div className="late-caret #{content.acceptedClass()}"></div>
       </div>
-
     </BS.OverlayTrigger>
 
 

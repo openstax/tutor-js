@@ -17,17 +17,18 @@ allStudents = (scores) ->
     .flatten(true)
     .value()
 
+getTaskById = (taskId, data) ->
+  taskId = parseInt(taskId, 10)
+  for courseId, period of data
+    for period in data[courseId]
+      for student in period.students
+        for task in student.data
+          return task if task.id is taskId
+
 
 ScoresConfig = {
 
   _asyncStatus: {}
-
-
-  getTaskById: (taskId, courseId) ->
-    students = allStudents @_get(courseId)
-    data = _.flatten(_.pluck(students, 'data'))
-    task = _.findWhere(data, {id: taskId})
-    task
 
   updateAverages: (task, courseId, period_id, columnIndex, currentValue, acceptValue) ->
     scores = @_get(courseId)
@@ -82,26 +83,32 @@ ScoresConfig = {
     taskStudent?.average_score = studentAverage
 
 
-
-
-
-
   acceptLate: (taskId) ->
     @_asyncStatus[taskId] = ACCEPTING
+
+    task = getTaskById(taskId, @_local)
+
+    task.is_late_work_accepted = true
+    if task.type is 'homework'
+
+      if task.completed_on_time_exercise_count isnt task.completed_exercise_count
+
+        task.completed_on_time_exercise_count = task.completed_exercise_count
+        task.correct_on_time_exercise_count   = task.completed_exercise_count
+
+        task.score = Math.round(
+          ( (task.correct_exercise_count / task.exercise_count) * 100 )
+        )  / 100
+
+
+    else
+      task.completed_accepted_late_step_count =
+        task.completed_step_count - task.completed_on_time_step_count
+
     @emitChange()
 
   acceptedLate: (unused, taskId, courseId) ->
     @_asyncStatus[taskId] = ACCEPTED
-    task = @getTaskById(taskId, courseId)
-    task.is_late_work_accepted = true
-    if task.type is 'homework'
-      task.completed_accepted_late_exercise_count =
-        task.completed_exercise_count - task.completed_on_time_exercise_count
-      task.correct_accepted_late_exercise_count =
-        task.correct_exercise_count - task.correct_on_time_exercise_count
-    else
-      task.completed_accepted_late_step_count =
-        task.completed_step_count - task.completed_on_time_step_count
     @emitChange()
 
   rejectLate: (taskId) ->
@@ -110,17 +117,21 @@ ScoresConfig = {
 
   rejectedLate: (unused, taskId, courseId) ->
     @_asyncStatus[taskId] = REJECTED
-    task = @getTaskById(taskId, courseId)
+    task = @getTaskById(taskId)
     task.is_late_work_accepted = false
     if task.type is 'homework'
-      task.completed_accepted_late_exercise_count = 0
-      task.correct_accepted_late_exercise_count = 0
+      task.is_late_work_accepted = true
+      task.is_included_in_averages = true
+
     else
       task.completed_accepted_late_step_count = 0
     @emitChange()
 
 
   exports:
+
+    getTaskById: (taskId) ->
+      getTaskById(taskId, @_local)
 
     getStudent: (courseId, roleId) ->
       students = allStudents @_get(courseId)

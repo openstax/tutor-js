@@ -1,182 +1,443 @@
-[{
-  "period_id": "1",
-  "data_headings": [
-    {
-      "title": "External task 1"
-    },
-    {
-      "title": "Reading 1"
-    },
-    {
-      "title": "HW 1",
-      "class_average": 81.2
-    },
-    {
-      "title": "Reading 2"
-    },
-    {
-      "title": "HW 2",
-      "class_average": 76.5
-    }
-  ],
-  "students": [
-    {
-      "name": "Johnny Tran",
-      "role": 3482,
-      "data": [
-        {
-          "type": "external",
-          "id": "8",
-          "status": "completed"
-        },
-        {
-          "type": "reading",
-          "id": "456",
-          "status": "completed"
-        },
-        {
-          "type": "homework",
-          "id": "890",
-          "status": "in_progress",
-          "exercise_count": 8,
-          "correct_exercise_count": 4,
-          "recovered_exercise_count": 6
-        },
-        {
-          "type": "reading",
-          "id": "123",
-          "status": "completed"
-        },
-        {
-          "type": "homework",
-          "id": "712",
-          "status": "in_progress",
-          "exercise_count": 8,
-          "correct_exercise_count": 3,
-          "recovered_exercise_count": 7
-        }
-      ]
-    },
-    {
-      "name": "Elizabeth Gray",
-      "role": 9026,
-      "data": [
-        {
-          "type": "external",
-          "id": "9",
-          "status": "completed"
-        },
-        {
-          "type": "reading",
-          "id": "257",
-          "status": "completed"
-        },
-        {
-          "type": "homework",
-          "id": "313",
-          "status": "in_progress",
-          "exercise_count": 8,
-          "correct_exercise_count": 7,
-          "recovered_exercise_count": 1
-        },
-        {
-          "type": "reading",
-          "id": "99",
-          "status": "in_progress"
-        },
-        {
-          "type": "homework",
-          "id": "888",
-          "status": "in_progress",
-          "exercise_count": 8,
-          "correct_exercise_count": 7,
-          "recovered_exercise_count": 0
-        }
-      ]
-    }
-  ]
-},{
-  "period_id": "2",
-  "data_headings": [
-    {
-      "title": "Reading 1"
-    },
-    {
-      "title": "HW 1",
-      "class_average": 81.2
-    },
-    {
-      "title": "Reading 2"
-    },
-    {
-      "title": "HW 2",
-      "class_average": 76.5
-    }
-  ],
-  "students": [
-    {
-      "name": "Johnny Applebottom",
-      "role": 3482,
-      "data": [
-        {
-          "type": "reading",
-          "id": "456",
-          "status": "completed"
-        },
-        {
-          "type": "homework",
-          "id": "890",
-          "status": "in_progress",
-          "exercise_count": 8,
-          "correct_exercise_count": 4,
-          "recovered_exercise_count": 6
-        },
-        {
-          "type": "reading",
-          "id": "123",
-          "status": "completed"
-        },
-        {
-          "type": "homework",
-          "id": "712",
-          "status": "in_progress",
-          "exercise_count": 8,
-          "correct_exercise_count": 3,
-          "recovered_exercise_count": 7
-        }
-      ]
-    },
-    {
-      "name": "Elizabeth Black",
-      "role": 9026,
-      "data": [
-        {
-          "type": "reading",
-          "id": "257",
-          "status": "completed"
-        },
-        {
-          "type": "homework",
-          "id": "313",
-          "status": "in_progress",
-          "exercise_count": 8,
-          "correct_exercise_count": 7,
-          "recovered_exercise_count": 1
-        },
-        {
-          "type": "reading",
-          "id": "99",
-          "status": "in_progress"
-        },
-        {
-          "type": "homework",
-          "id": "888",
-          "status": "in_progress",
-          "exercise_count": 8,
-          "correct_exercise_count": 7,
-          "recovered_exercise_count": 0
-        }
-      ]
-    }
-  ]
-}]
+[
+  {
+    "students": [
+      {
+        "data": [
+          {
+            "is_included_in_averages": false,
+            "is_late_work_accepted": false,
+            "due_at": "2016-05-30T12:00:00.000Z",
+            "recovered_exercise_count": 0,
+            "score": 0.0,
+            "correct_on_time_exercise_count": 0,
+            "correct_exercise_count": 0,
+            "completed_on_time_exercise_count": 0,
+            "completed_exercise_count": 0,
+            "exercise_count": 13,
+            "completed_on_time_step_count": 0,
+            "completed_step_count": 0,
+            "step_count": 39,
+            "status": "not_started",
+            "id": 17,
+            "type": "reading"
+          },
+          {
+            "is_included_in_averages": true,
+            "is_late_work_accepted": true,
+            "last_worked_at": "2016-06-01T03:36:51.838Z",
+            "due_at": "2016-05-30T12:00:00.000Z",
+            "recovered_exercise_count": 0,
+            "score": 0.6666666666666666,
+            "correct_on_time_exercise_count": 0,
+            "correct_exercise_count": 2,
+            "completed_on_time_exercise_count": 0,
+            "completed_exercise_count": 3,
+            "exercise_count": 3,
+            "completed_on_time_step_count": 0,
+            "completed_step_count": 3,
+            "step_count": 3,
+            "status": "completed",
+            "id": 8,
+            "type": "homework"
+          }
+        ],
+        "average_score": 0.6666666666666666,
+        "student_identifier": "IMGRTVFP4N",
+        "role": 9,
+        "last_name": "Angstrom",
+        "first_name": "Rabbit",
+        "name": "Rabbit Angstrom"
+      },
+      {
+        "data": [
+          {
+            "is_included_in_averages": false,
+            "is_late_work_accepted": false,
+            "due_at": "2016-05-30T12:00:00.000Z",
+            "recovered_exercise_count": 0,
+            "score": 0.0,
+            "correct_on_time_exercise_count": 0,
+            "correct_exercise_count": 0,
+            "completed_on_time_exercise_count": 0,
+            "completed_exercise_count": 0,
+            "exercise_count": 13,
+            "completed_on_time_step_count": 0,
+            "completed_step_count": 0,
+            "step_count": 39,
+            "status": "not_started",
+            "id": 16,
+            "type": "reading"
+          },
+          {
+            "is_included_in_averages": true,
+            "is_late_work_accepted": false,
+            "due_at": "2016-05-30T12:00:00.000Z",
+            "recovered_exercise_count": 0,
+            "score": 0.0,
+            "correct_on_time_exercise_count": 0,
+            "correct_exercise_count": 0,
+            "completed_on_time_exercise_count": 0,
+            "completed_exercise_count": 0,
+            "exercise_count": 3,
+            "completed_on_time_step_count": 0,
+            "completed_step_count": 0,
+            "step_count": 3,
+            "status": "not_started",
+            "id": 7,
+            "type": "homework"
+          }
+        ],
+        "average_score": 0.0,
+        "student_identifier": "Y3S51QTVK0",
+        "role": 8,
+        "last_name": "Bloom",
+        "first_name": "Molly",
+        "name": "Molly Bloom"
+      },
+      {
+        "data": [
+          {
+            "is_included_in_averages": false,
+            "is_late_work_accepted": false,
+            "due_at": "2016-05-30T12:00:00.000Z",
+            "recovered_exercise_count": 0,
+            "score": 0.0,
+            "correct_on_time_exercise_count": 0,
+            "correct_exercise_count": 0,
+            "completed_on_time_exercise_count": 0,
+            "completed_exercise_count": 0,
+            "exercise_count": 13,
+            "completed_on_time_step_count": 0,
+            "completed_step_count": 0,
+            "step_count": 39,
+            "status": "not_started",
+            "id": 18,
+            "type": "reading"
+          },
+          {
+            "is_included_in_averages": true,
+            "is_late_work_accepted": false,
+            "due_at": "2016-05-30T12:00:00.000Z",
+            "recovered_exercise_count": 0,
+            "score": 0.0,
+            "correct_on_time_exercise_count": 0,
+            "correct_exercise_count": 0,
+            "completed_on_time_exercise_count": 0,
+            "completed_exercise_count": 0,
+            "exercise_count": 3,
+            "completed_on_time_step_count": 0,
+            "completed_step_count": 0,
+            "step_count": 3,
+            "status": "not_started",
+            "id": 9,
+            "type": "homework"
+          }
+        ],
+        "average_score": 0.0,
+        "student_identifier": "CBH35SLPUR",
+        "role": 10,
+        "last_name": "Glass",
+        "first_name": "Seymour",
+        "name": "Seymour Glass"
+      },
+      {
+        "data": [
+          {
+            "is_included_in_averages": false,
+            "is_late_work_accepted": false,
+            "last_worked_at": "2016-05-30T03:33:17.181Z",
+            "due_at": "2016-05-30T12:00:00.000Z",
+            "recovered_exercise_count": 0,
+            "score": 0.0,
+            "correct_on_time_exercise_count": 0,
+            "correct_exercise_count": 0,
+            "completed_on_time_exercise_count": 1,
+            "completed_exercise_count": 1,
+            "exercise_count": 13,
+            "completed_on_time_step_count": 4,
+            "completed_step_count": 4,
+            "step_count": 39,
+            "status": "in_progress",
+            "id": 12,
+            "type": "reading"
+          },
+          {
+            "is_included_in_averages": true,
+            "is_late_work_accepted": false,
+            "last_worked_at": "2016-05-30T03:32:57.696Z",
+            "due_at": "2016-05-30T12:00:00.000Z",
+            "recovered_exercise_count": 0,
+            "score": 0.66,
+            "correct_on_time_exercise_count": 2,
+            "correct_exercise_count": 0,
+            "completed_on_time_exercise_count": 3,
+            "completed_exercise_count": 3,
+            "exercise_count": 3,
+            "completed_on_time_step_count": 3,
+            "completed_step_count": 3,
+            "step_count": 3,
+            "status": "completed",
+            "id": 3,
+            "type": "homework"
+          }
+        ],
+        "average_score": 0.0,
+        "student_identifier": "LZHOVR76J0",
+        "role": 4,
+        "last_name": "Hackett",
+        "first_name": "Bettie",
+        "name": "Bettie Hackett"
+      },
+      {
+        "data": [
+          {
+            "is_included_in_averages": false,
+            "is_late_work_accepted": false,
+            "due_at": "2016-05-30T12:00:00.000Z",
+            "recovered_exercise_count": 0,
+            "score": 0.0,
+            "correct_on_time_exercise_count": 0,
+            "correct_exercise_count": 0,
+            "completed_on_time_exercise_count": 0,
+            "completed_exercise_count": 0,
+            "exercise_count": 13,
+            "completed_on_time_step_count": 0,
+            "completed_step_count": 0,
+            "step_count": 39,
+            "status": "not_started",
+            "id": 13,
+            "type": "reading"
+          },
+          {
+            "is_included_in_averages": true,
+            "is_late_work_accepted": false,
+            "due_at": "2016-05-30T12:00:00.000Z",
+            "recovered_exercise_count": 0,
+            "score": 0.0,
+            "correct_on_time_exercise_count": 0,
+            "correct_exercise_count": 0,
+            "completed_on_time_exercise_count": 0,
+            "completed_exercise_count": 0,
+            "exercise_count": 3,
+            "completed_on_time_step_count": 0,
+            "completed_step_count": 0,
+            "step_count": 3,
+            "status": "not_started",
+            "id": 4,
+            "type": "homework"
+          }
+        ],
+        "average_score": 0.0,
+        "student_identifier": "ZBJQG7V02C",
+        "role": 5,
+        "last_name": "Jaskolski",
+        "first_name": "Giovanny",
+        "name": "Giovanny Jaskolski"
+      },
+      {
+        "data": [
+          {
+            "is_included_in_averages": false,
+            "is_late_work_accepted": false,
+            "due_at": "2016-05-30T12:00:00.000Z",
+            "recovered_exercise_count": 0,
+            "score": 0.0,
+            "correct_on_time_exercise_count": 0,
+            "correct_exercise_count": 0,
+            "completed_on_time_exercise_count": 0,
+            "completed_exercise_count": 0,
+            "exercise_count": 13,
+            "completed_on_time_step_count": 0,
+            "completed_step_count": 0,
+            "step_count": 39,
+            "status": "not_started",
+            "id": 10,
+            "type": "reading"
+          },
+          {
+            "is_included_in_averages": true,
+            "is_late_work_accepted": false,
+            "last_worked_at": "2016-05-30T03:33:58.143Z",
+            "due_at": "2016-05-30T12:00:00.000Z",
+            "recovered_exercise_count": 0,
+            "score": 0.3333333333333333,
+            "correct_on_time_exercise_count": 1,
+            "correct_exercise_count": 1,
+            "completed_on_time_exercise_count": 2,
+            "completed_exercise_count": 3,
+            "exercise_count": 3,
+            "completed_on_time_step_count": 3,
+            "completed_step_count": 2,
+            "step_count": 3,
+            "status": "in_progress",
+            "id": 1,
+            "type": "homework"
+          }
+        ],
+        "average_score": 0.3333333333333333,
+        "student_identifier": "TEBPFR8IC3",
+        "role": 2,
+        "last_name": "Kirlin",
+        "first_name": "Albin",
+        "name": "Albin Kirlin"
+      },
+      {
+        "data": [
+          {
+            "is_included_in_averages": false,
+            "is_late_work_accepted": false,
+            "due_at": "2016-05-30T12:00:00.000Z",
+            "recovered_exercise_count": 0,
+            "score": 0.0,
+            "correct_on_time_exercise_count": 0,
+            "correct_exercise_count": 0,
+            "completed_on_time_exercise_count": 0,
+            "completed_exercise_count": 0,
+            "exercise_count": 13,
+            "completed_on_time_step_count": 0,
+            "completed_step_count": 0,
+            "step_count": 39,
+            "status": "not_started",
+            "id": 14,
+            "type": "reading"
+          },
+          {
+            "is_included_in_averages": true,
+            "is_late_work_accepted": false,
+            "due_at": "2016-05-30T12:00:00.000Z",
+            "recovered_exercise_count": 0,
+            "score": 0.0,
+            "correct_on_time_exercise_count": 0,
+            "correct_exercise_count": 0,
+            "completed_on_time_exercise_count": 0,
+            "completed_exercise_count": 0,
+            "exercise_count": 3,
+            "completed_on_time_step_count": 0,
+            "completed_step_count": 0,
+            "step_count": 3,
+            "status": "not_started",
+            "id": 5,
+            "type": "homework"
+          }
+        ],
+        "average_score": 0.0,
+        "student_identifier": "U2416WVHML",
+        "role": 6,
+        "last_name": "Lowe",
+        "first_name": "Kevin",
+        "name": "Kevin Lowe"
+      },
+      {
+        "data": [
+          {
+            "is_included_in_averages": false,
+            "is_late_work_accepted": false,
+            "due_at": "2016-05-30T12:00:00.000Z",
+            "recovered_exercise_count": 0,
+            "score": 0.0,
+            "correct_on_time_exercise_count": 0,
+            "correct_exercise_count": 0,
+            "completed_on_time_exercise_count": 0,
+            "completed_exercise_count": 0,
+            "exercise_count": 13,
+            "completed_on_time_step_count": 0,
+            "completed_step_count": 0,
+            "step_count": 39,
+            "status": "not_started",
+            "id": 15,
+            "type": "reading"
+          },
+          {
+            "is_included_in_averages": true,
+            "is_late_work_accepted": false,
+            "due_at": "2016-05-30T12:00:00.000Z",
+            "recovered_exercise_count": 0,
+            "score": 0.0,
+            "correct_on_time_exercise_count": 0,
+            "correct_exercise_count": 0,
+            "completed_on_time_exercise_count": 0,
+            "completed_exercise_count": 0,
+            "exercise_count": 3,
+            "completed_on_time_step_count": 0,
+            "completed_step_count": 0,
+            "step_count": 3,
+            "status": "not_started",
+            "id": 6,
+            "type": "homework"
+          }
+        ],
+        "average_score": 0.0,
+        "student_identifier": "GCLT340J8U",
+        "role": 7,
+        "last_name": "Reilly",
+        "first_name": "Ignatius",
+        "name": "Ignatius Reilly"
+      },
+      {
+        "data": [
+          {
+            "is_included_in_averages": false,
+            "is_late_work_accepted": false,
+            "last_worked_at": "2016-06-01T03:36:11.839Z",
+            "due_at": "2016-05-30T12:00:00.000Z",
+            "recovered_exercise_count": 0,
+            "score": 0.0,
+            "correct_on_time_exercise_count": 0,
+            "correct_exercise_count": 0,
+            "completed_on_time_exercise_count": 0,
+            "completed_exercise_count": 1,
+            "exercise_count": 13,
+            "completed_on_time_step_count": 0,
+            "completed_step_count": 4,
+            "step_count": 39,
+            "status": "in_progress",
+            "id": 11,
+            "type": "reading"
+          },
+          {
+            "type": "homework",
+            "id": 2,
+            "status": "in_progress",
+            "step_count": 3,
+            "completed_step_count": 2,
+            "completed_on_time_step_count": 1,
+            "exercise_count": 3,
+            "completed_exercise_count": 2,
+            "completed_on_time_exercise_count": 1,
+            "correct_exercise_count": 2,
+            "correct_on_time_exercise_count": 1,
+            "score": 0.3333333333333333,
+            "recovered_exercise_count": 0,
+            "due_at": "2016-05-30T12:00:00.000Z",
+            "last_worked_at": "2016-06-01T03:35:51.937Z",
+            "is_late_work_accepted": false,
+            "is_included_in_averages": true
+          }
+        ],
+        "average_score": 0.6666666666666666,
+        "student_identifier": "0JM4NVHQUR",
+        "role": 3,
+        "last_name": "Tromp",
+        "first_name": "Alyce",
+        "name": "Alyce Tromp"
+      }
+    ],
+    "data_headings": [
+      {
+        "due_at": "2016-05-30T12:00:00.000Z",
+        "type": "reading",
+        "plan_id": 2,
+        "title": "late"
+      },
+      {
+        "average_score": 0.18518518518518517,
+        "due_at": "2016-05-30T12:00:00.000Z",
+        "type": "homework",
+        "plan_id": 1,
+        "title": "late"
+      }
+    ],
+    "overall_average_score": 0.18518518518518517,
+    "period_id": "1"
+  }
+]
