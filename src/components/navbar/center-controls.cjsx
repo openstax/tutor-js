@@ -1,4 +1,5 @@
 React = require 'react'
+BS = require 'react-bootstrap'
 moment = require 'moment'
 classnames = require 'classnames'
 
@@ -46,8 +47,11 @@ module.exports = React.createClass
         <Icon type='calendar-check-o'
           tooltipProps={placement: 'bottom'}
           tooltip={due} />
-        <Icon type='th'
-          className={milestonesToggleClasses}
-          onClick={@handleClick}/>
+        <BS.Button
+          bsStyle='link'
+          onClick={@handleClick}
+          className={milestonesToggleClasses}>
+          <Icon type='th'/>
+        </BS.Button>
       </div>
     </div>

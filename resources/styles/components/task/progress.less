@@ -56,8 +56,12 @@
 
     .milestone {
       position: relative;
+      display: block;
+      padding: 0;
       background: @tutor-white;
       height: 200px;
+      width: 100%;
+      margin-top: 0;
       margin-bottom: 40px;
       .tutor-shadow(1);
 
@@ -65,7 +69,6 @@
         .scale(@milestone-scale);
         display: block;
         margin: auto;
-        top: 3rem;
 
         &:hover,
         &.active {
@@ -76,6 +79,10 @@
 
       &:hover {
         cursor: pointer;
+      }
+
+      &:hover,
+      &:focus {
         .tutor-shadow(2);
       }
 

@@ -24,9 +24,12 @@ Milestone = React.createClass
       'active': isCurrent
 
     <BS.Col xs=3 lg=2 className='milestone-wrapper'>
-      <div className={classes} onClick={_.partial(goToStep, crumb.key)}>
+      <BS.Button
+        bsStyle='link'
+        className={classes}
+        onClick={_.partial(goToStep, crumb.key)}>
         {@props.children}
-      </div>
+      </BS.Button>
     </BS.Col>
 
 MilestonesWrapper = React.createClass
@@ -65,11 +68,15 @@ MilestonesWrapper = React.createClass
     crumbs = @getCrumableCrumbs()
     @setState {crumbs}
 
+    @toggleCheckingClick()
+
   componentWillUnmount: ->
     TaskStepStore.setMaxListeners(10)
     TaskStore.off('task.beforeRecovery', @stopUpdate)
     TaskStore.off('task.afterRecovery', @update)
     @stopListeningForProgress()
+
+    @toggleCheckingClick(false)
 
   componentWillReceiveProps: (nextProps) ->
     if @props.id isnt nextProps.id
@@ -77,6 +84,20 @@ MilestonesWrapper = React.createClass
       @startListeningForProgress(nextProps)
     crumbs = @getCrumableCrumbs()
     @setState({crumbs})
+
+  toggleCheckingClick: (toggleOn = true) ->
+    eventAction = if toggleOn then 'addEventListener' else 'removeEventListener'
+
+    document[eventAction]('click', @checkAllowed, true)
+    document[eventAction]('focus', @checkAllowed, true)
+
+  checkAllowed: (focusEvent) ->
+    modal = @getDOMNode()
+    console.info('filter click', @props.filterClick?(focusEvent))
+    unless modal.contains(focusEvent.target) or @props.filterClick?(focusEvent)
+      focusEvent.preventDefault()
+      focusEvent.stopImmediatePropagation()
+      modal.focus()
 
   stopListeningForProgress: (props) ->
     props ?= @props
@@ -102,29 +123,31 @@ MilestonesWrapper = React.createClass
   stopUpdate: ->
     @setState(updateOnNext: false)
 
+  goToStep: (args...) ->
+    @props.closeMilestones() unless @props.goToStep(args...)
+
   render: ->
     {crumbs, currentStep} = @state
-    {goToStep} = @props
 
     stepButtons = _.map crumbs, (crumb, crumbIndex) =>
       <Milestone
         key={"crumb-wrapper-#{crumbIndex}"}
         crumb={crumb}
-        goToStep={goToStep}
+        goToStep={@goToStep}
         currentStep={currentStep}>
         <BreadcrumbTaskDynamic
           crumb={crumb}
           data-label={crumb.label}
           currentStep={currentStep}
-          goToStep={goToStep}
+          goToStep={@goToStep}
           key="breadcrumb-#{crumb.type}-#{crumb.key}"
           ref="breadcrumb-#{crumb.type}-#{crumb.key}"/>
       </Milestone>
 
     classes = 'task-breadcrumbs'
 
-    <div className='milestones-wrapper'>
-      <div className='milestones task-breadcrumbs'>
+    <div className='milestones-wrapper' role='dialog' tabIndex='-1'>
+      <div className='milestones task-breadcrumbs' role='document'>
         {stepButtons}
       </div>
     </div>

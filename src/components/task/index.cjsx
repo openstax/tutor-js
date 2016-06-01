@@ -171,15 +171,25 @@ module.exports = React.createClass
   goToStep: (stepKey, silent = false) ->
     stepKey = parseInt(stepKey)
     params = _.clone(@context.router.getCurrentParams())
-    return if @areKeysSame(params.stepIndex, stepKey + 1)
+    return false if @areKeysSame(params.stepIndex, stepKey + 1)
     # url is 1 based so it matches the breadcrumb button numbers
     params.stepIndex = stepKey + 1
     params.id = @props.id # if we were rendered directly, the router might not have the id
 
     if silent
       @context.router.replaceWith('viewTaskStep', params)
+      true
     else
       @context.router.transitionTo('viewTaskStep', params)
+      true
+
+  closeMilestones: ->
+    params = @context.router.getCurrentParams()
+    @context.router.transitionTo('viewTaskStep', params)
+
+  filterClickForMilestones: (focusEvent) ->
+    stepPanel = @refs.stepPanel.getDOMNode()
+    not stepPanel.contains(focusEvent.target)
 
   getCrumb: (crumbKey) ->
     crumbs = @generateCrumbs()
@@ -199,6 +209,7 @@ module.exports = React.createClass
       refreshStep={@refreshStep}
       recoverFor={@recoverFor}
       pinned={pinned}
+      ref='stepPanel'
     />
 
   renderDefaultEndFooter: (data) ->
@@ -223,11 +234,16 @@ module.exports = React.createClass
       courseId={courseId}
       taskId={data.id}
       reloadPractice={@reloadTask}
-      footer={footer} />
+      footer={footer}
+      ref='stepPanel'/>
 
   renderSpacer: (data) ->
     {courseId} = @context.router.getCurrentParams()
-    <Spacer onNextStep={@onNextStep} taskId={@props.id} courseId={courseId}/>
+    <Spacer
+      onNextStep={@onNextStep}
+      taskId={@props.id}
+      courseId={courseId}
+      ref='stepPanel'/>
 
   # add render methods for different panel types as needed here
 
@@ -263,7 +279,12 @@ module.exports = React.createClass
     if TaskStore.hasProgress(id)
 
       header = <TaskProgress taskId={id} stepKey={@state.currentStep} key='task-progress'/>
-      milestones = <Milestones id={id} goToStep={@goToStep} showMilestones={showMilestones}/>
+      milestones = <Milestones
+        id={id}
+        goToStep={@goToStep}
+        closeMilestones={@closeMilestones}
+        filterClick={@filterClickForMilestones}
+        showMilestones={showMilestones}/>
 
       panel = <ProgressPanel
         taskId={id}
