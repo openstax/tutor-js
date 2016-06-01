@@ -12,7 +12,7 @@ CC_AVERAGE_INFO = '''
   Scores from completed assignments
    (in which all questions have been answered)
    are included in class and overall averages.
-  '''    
+  '''
 
 
 AverageInfo = React.createClass
@@ -48,7 +48,7 @@ AverageInfo = React.createClass
     overlay={popover}>
       <Icon type='info-circle' />
     </BS.OverlayTrigger>
-   
+
 
 
 module.exports = AverageInfo

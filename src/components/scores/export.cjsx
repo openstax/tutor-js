@@ -150,7 +150,8 @@ ScoresExport = React.createClass
       </AsyncButton>
 
     if isWorking
-      exportTimeNotice = <i><small>The export may take up to 10 minutes.</small></i>
+      exportTimeNotice =
+        <i><small>The export may take up to 10 minutes.</small></i>
 
     <div className={classes}>
       <div className='export-button-buttons'>
