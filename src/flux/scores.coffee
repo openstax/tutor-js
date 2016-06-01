@@ -30,19 +30,29 @@ getTaskInfoById = (taskId, data) ->
 adjustTaskAverages = (data, taskInfo) ->
   {task} = taskInfo
   oldScore = task.score
+  course = data[taskInfo.courseId][0]
+  student = course.students[taskInfo.studentIndex]
+
+  # Calculate score for the task
   task.score = Math.round((
     (task.correct_on_time_exercise_count + task.correct_accepted_late_exercise_count ) /
       task.exercise_count
   ) * 100 ) / 100
 
-  course = data[taskInfo.courseId][0]
+  # Student's course average
+  assignmentCount = student.data.length
+  student.average_score =
+    ( student.average_score - ( oldScore / assignmentCount ) ) +
+      ( task.score / assignmentCount )
 
+  # Assignment averages
   studentCount = course.students.length
   heading = course.data_headings[taskInfo.periodIndex]
   heading.average_score =
     ( heading.average_score - ( oldScore / studentCount ) ) +
       ( task.score / studentCount )
 
+  # Overall course averages
   taskCount = 0
   for student in course.students
     taskCount += 1 for studentTask in student.data when studentTask.is_included_in_averages
