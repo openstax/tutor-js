@@ -53,6 +53,8 @@ ChooseExercises = React.createClass
       {<AddExercises
         hide={hide}
         cancel={cancel}
+        canEdit={true}
+        canAdd={true}
         courseId={courseId}
         planId={planId}
         sectionIds={selected}

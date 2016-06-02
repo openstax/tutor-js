@@ -108,7 +108,7 @@ AddExercises = React.createClass
     controls =
       <ExerciseControls
         canReview={true}
-        canEdit={@props.canEdit}
+        canAdd={@props.canEdit}
         reviewClicked={@props.hide}
         onCancel={@props.cancel}
         planId={@props.planId}

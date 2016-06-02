@@ -90,13 +90,13 @@ ExerciseControls = React.createClass
 
   renderIncreaseButton: ->
     return null unless @canChangeTutorQty() and TaskPlanStore.canIncreaseTutorExercises(@props.planId)
-    <BS.Button onClick={@addTutorSelection} className="btn-xs">
+    <BS.Button onClick={@addTutorSelection} className="btn-xs circle">
       <Icon type='arrow-up' />
     </BS.Button>
 
   renderDecreaseButton: ->
     return null unless @canChangeTutorQty() and TaskPlanStore.canDecreaseTutorExercises(@props.planId)
-    <BS.Button onClick={@removeTutorSelection} className="btn-xs">
+    <BS.Button onClick={@removeTutorSelection} className="btn-xs circle">
       <Icon type='arrow-down' />
     </BS.Button>
 

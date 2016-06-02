@@ -35,10 +35,10 @@ ReviewExerciseCard = React.createClass
     return null unless @props.canEdit
 
     <span className="pull-right card-actions">
-      {<BS.Button onClick={@moveExerciseUp} className="btn-xs -move-exercise-up">
+      {<BS.Button onClick={@moveExerciseUp} className="btn-xs -move-exercise-up circle">
          <Icon type='arrow-up' />
        </BS.Button> unless @props.isFirst}
-      {<BS.Button onClick={@moveExerciseDown} className="btn-xs -move-exercise-down">
+      {<BS.Button onClick={@moveExerciseDown} className="btn-xs -move-exercise-down circle">
          <Icon type='arrow-down' />
        </BS.Button> unless @props.isLast}
       <SuretyGuard
@@ -48,7 +48,7 @@ ReviewExerciseCard = React.createClass
         placement='left'
         message="Are you sure you want to remove this exercise?"
       >
-        <BS.Button className="btn-xs -remove-exercise">
+        <BS.Button className="btn-xs -remove-exercise circle">
           <Icon type='close' />
         </BS.Button>
       </SuretyGuard>
