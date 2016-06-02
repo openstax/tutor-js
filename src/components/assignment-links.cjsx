@@ -24,20 +24,21 @@ AssignmentLinks = React.createClass
   renderRow: (item, baseUrl, bookId) ->
     chapter_section = item.chapter_section.join('.')
 
-    pageId = item.short_id || item.uuid
+    pageId = item.short_id or item.uuid
     url = "#{baseUrl}/contents/#{bookId}:#{pageId}/#{chapter_section}"
 
-    link = if (item.type is "page") and (item.chapter_section[1] != 0)
-             <a href="#{url}">{url}</a>
-           else
-             null
+    link =
+      if (item.type is "page") and (item.chapter_section[1] isnt 0)
+        <a href="#{url}">{url}</a>
+      else
+        null
 
     row = <tr>
       <td>{chapter_section}</td>
       <td>{item.title}{link}</td>
     </tr>
 
-    if item.chapter_section.length == 1
+    if item.chapter_section.length is 1
       <tbody>
         { row }
         { _.map item.children, (child) => @renderRow(child, baseUrl, bookId) }
@@ -47,10 +48,10 @@ AssignmentLinks = React.createClass
 
   render: ->
     toc = ReferenceBookStore.getToc(@ecosystem_id)
-    return null if !toc?.children?
+    return null if not toc?.children?
 
-    bookId = toc.short_id || toc.uuid
-    baseUrl = toc.webview_url || 'https://cnx.org'
+    bookId = toc.short_id or toc.uuid
+    baseUrl = toc.webview_url or 'https://cnx.org'
 
     <BS.Panel className="assignment-links">
       <span className='assignment-links-title'>Assignment Links</span>

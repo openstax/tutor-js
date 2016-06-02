@@ -23,6 +23,9 @@ COMMON_ELEMENTS =
   bookLink:
     linkText: 'Online Book'
 
+  assignmentlinksLink:
+    linkText: 'Assignment Links'
+
   studentScoresLink:
     linkText: 'View Detailed Scores'
 
@@ -44,6 +47,9 @@ class CCDashboard extends TestHelper
 
   clickViewScores: ->
     @el.viewScoresButton().click()
+
+  clickViewAssignmentLinks: ->
+    @el.assignmentlinksLink().click()
 
   getHelpLinkHref: ->
     @el.helpLink().get().getAttribute('href')
