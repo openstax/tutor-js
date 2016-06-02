@@ -6,8 +6,8 @@ Icon = require '../icon'
 {RosterStore, RosterActions} = require '../../flux/roster'
 UnDropStudentLink = require './undrop-student'
 
-module.exports = React.createClass
-  displayName: 'DroppedRoster'
+DroppedRoster = React.createClass
+
   propTypes:
     courseId: React.PropTypes.string.isRequired
     period: React.PropTypes.object.isRequired
@@ -23,34 +23,28 @@ module.exports = React.createClass
       </td>
     </tr>
 
-  hasDroppedStudents: ->
-    id = @props.activeTab.id
-    students = RosterStore.getDroppedStudents(@props.courseId, id)
-    students.length > 0
 
   render: ->
     students = RosterStore.getDroppedStudents(@props.courseId, @props.period.id)
-    studentsTable =
-      <div>
-        <div>
-          <span className='course-settings-subtitle tabbed'>Dropped Students</span>
-        </div>
-        <BS.Table striped bordered condensed hover className="roster">
-          <thead>
-            <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {for student in _.sortBy(students, 'last_name')
-              @renderStudentRow(student)}
-          </tbody>
-        </BS.Table>
-      </div>
-    empty = <div />
+    return null if _.isEmpty(students)
 
-    <div className="settings-section dropped-students">
-      {if @hasDroppedStudents() then studentsTable else empty}
+    <div className='settings-section dropped-students'>
+      <div>
+        <span className='course-settings-subtitle tabbed'>Dropped Students</span>
+      </div>
+      <BS.Table striped bordered condensed hover className="roster">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {for student in _.sortBy(students, 'last_name')
+            @renderStudentRow(student)}
+        </tbody>
+      </BS.Table>
     </div>
+
+module.exports = DroppedRoster

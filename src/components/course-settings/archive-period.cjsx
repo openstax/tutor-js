@@ -6,11 +6,12 @@ _ = require 'underscore'
 {TutorInput} = require '../tutor-input'
 {AsyncButton} = require 'openstax-react-components'
 
+Icon = require '../icon'
 CourseGroupingLabel = require '../course-grouping-label'
 EMPTY_WARNING = 'EMPTY'
 
-module.exports = React.createClass
-  displayName: 'DeletePeriodLink'
+ArchivePeriodLink = React.createClass
+
   propTypes:
     courseId: React.PropTypes.string.isRequired
     period: React.PropTypes.object.isRequired
@@ -98,8 +99,11 @@ module.exports = React.createClass
 
     <span className='control delete-period'>
       <BS.Button onClick={@open} bsStyle='link'>
-        <i className='fa fa-trash-o' />
-        Delete <CourseGroupingLabel courseId={@props.courseId}/>
+        <Icon type='archive' />
+        Archive <CourseGroupingLabel courseId={@props.courseId}/>
       </BS.Button>
       {@renderForm()}
     </span>
+
+
+module.exports = ArchivePeriodLink
