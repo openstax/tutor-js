@@ -4,6 +4,8 @@ _ = require 'underscore'
 
 {TimeStore} = require './time'
 
+TH = require '../helpers/task'
+
 ACCEPTING = 'accepting'
 ACCEPTED = 'accepted'
 
@@ -88,7 +90,7 @@ ScoresConfig = {
     {task} = taskInfo
 
     # nothing to do if it's not actually late
-    return unless ScoresConfig.exports.hasLateWork(task)
+    return unless TH.hasLateWork(task)
 
     task.is_late_work_accepted = true
 
