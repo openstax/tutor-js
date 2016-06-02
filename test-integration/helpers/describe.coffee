@@ -1,5 +1,10 @@
 fs = require 'fs'
+path = require 'path'
+{exec} = require 'child_process'
 selenium = require 'selenium-webdriver'
+chrome = require 'selenium-webdriver/chrome'
+firefox = require 'selenium-webdriver/firefox'
+io = require 'selenium-webdriver/io'
 seleniumMocha = require('selenium-webdriver/testing')
 _ = require 'underscore'
 
@@ -49,14 +54,40 @@ describe = (name, cb) ->
       # Wait 20sec for the browser to start up
       @timeout(20 * 1000, true)
 
-      @driver = new selenium.Builder()
-        # Choose which browser to run by setting the SELENIUM_BROWSER='firefox' envoronment variable
+      @downloadDirectory = path.normalize "#{__dirname}/../../.tmp/test-integration"
+
+      chromeOptions = new chrome.Options()
+      prefs =
+        download:
+          "default_directory": @downloadDirectory
+      chromeOptions.setUserPreferences(prefs)
+
+      firefoxProfile = new firefox.Profile()
+      firefoxProfile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+      firefoxProfile.setPreference("browser.helperApps.neverAsk.openFile", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+      firefoxProfile.setPreference("browser.helperApps.alwaysAsk.force", false)
+      firefoxProfile.setPreference("browser.download.useDownloadDir", true)
+      firefoxProfile.setPreference("browser.download.manager.showWhenStarting",false)
+      firefoxProfile.setPreference("browser.download.folderList", 2)
+      firefoxProfile.setPreference("browser.download.dir", @downloadDirectory)
+      firefoxOptions = new firefox.Options().setProfile(firefoxProfile)
+
+      builder = new selenium.Builder()
+        # Choose which browser to run by setting the SELENIUM_BROWSER='firefox' environment variable
         # see https://selenium.googlecode.com/git/docs/api/javascript/module_selenium-webdriver_class_Builder.html
         .withCapabilities(selenium.Capabilities.phantomjs()) # TODO: get alerts working https://github.com/robotframework/Selenium2Library/issues/441
         .withCapabilities(selenium.Capabilities.firefox())
         .withCapabilities(selenium.Capabilities.chrome())
+
+      # Make capabilities extendable as an env, used in test-automation
+      builder.withCapabilities(JSON.parse(process.env.SELENIUM_CAPABILITIES)) if _.isString(process.env.SELENIUM_CAPABILITIES)
+
+      @driver = builder
+        .setChromeOptions(chromeOptions)
+        .setFirefoxOptions(firefoxOptions)
         .build()
 
+      io.rmDir(@downloadDirectory)
 
       # Check for JS errors by injecting a little script before the test and then checking it afterEach
       @injectErrorLogging = =>
@@ -127,6 +158,16 @@ describe = (name, cb) ->
         coverageData = User.getCoverageData()
         fs.writeFileSync('./coverage-selenium.json', JSON.stringify(coverageData), 'utf8')
 
+    @maybeIt = ({maybe, beforeEach}, title, fn) =>
+      mochaContext = @
+      @it title, ->
+        testContext = @
+        maybe.call(testContext).then (canGo) ->
+          if canGo
+            beforeEach.call(testContext)
+            fn.call(testContext)
+          else
+            console.log 'Skipping test, maybe condition failed.'
 
     @after ->
       @driver.quit()

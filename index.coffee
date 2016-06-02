@@ -3,14 +3,13 @@ Recordo = require('recordo')
 Recordo.initialize()
 # Recordo.start()
 
-require 'jquery'
+{BootrapURLs, NotificationActions}  = require 'openstax-react-components'
 
 api = require './src/api'
 router = require './src/router'
 dom = require './src/helpers/dom'
 {startMathJax} = require 'openstax-react-components/src/helpers/mathjax'
 {TransitionAssistant} = require './src/components/unsaved-state'
-{NotificationActions} = require './src/flux/notifications'
 
 window._STORES =
   APP: require './src/flux/app'
@@ -33,7 +32,9 @@ loadApp = ->
   unless document.readyState is 'interactive'
     return false
 
-  api.start(dom.readBootstrapData())
+  bootstrapData = dom.readBootstrapData()
+  api.start(bootstrapData)
+  BootrapURLs.update(bootstrapData)
   NotificationActions.startPolling()
 
   startMathJax()

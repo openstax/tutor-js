@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+_ = require 'underscore'
 
 ChapterSectionType = require './chapter-section-type'
 PerformanceForecast = require '../../flux/performance-forecast'
@@ -12,6 +13,10 @@ module.exports = React.createClass
     onPractice: React.PropTypes.func
     courseId:    React.PropTypes.string.isRequired
     sampleSizeThreshold: React.PropTypes.number.isRequired
+
+  componentWillMount: ->
+    uniqueId = _.uniqueId('progress-bar-tooltip-')
+    @setState({uniqueId: uniqueId})
 
   render: ->
     {section, onPractice} = @props
@@ -26,7 +31,7 @@ module.exports = React.createClass
       </span>
 
     if onPractice
-      tooltip = <BS.Tooltip>Click to practice</BS.Tooltip>
+      tooltip = <BS.Tooltip id={@state.uniqueId}>Click to practice</BS.Tooltip>
       <BS.OverlayTrigger placement='bottom' overlay={tooltip}>
         <BS.Button onClick={-> onPractice(section)} block>{bar}</BS.Button>
       </BS.OverlayTrigger>

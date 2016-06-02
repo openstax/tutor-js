@@ -1,5 +1,4 @@
 React = require 'react'
-moment = require 'moment'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
@@ -83,6 +82,9 @@ HomeworkPlan = React.createClass
   displayName: 'HomeworkPlan'
   mixins: [PlanMixin]
 
+  setImmediateFeedback: (ev) ->
+    TaskPlanActions.setImmediateFeedback( @props.id, ev.target.value is 'immediate' )
+
   render: ->
     {id, courseId} = @props
     plan = TaskPlanStore.get(id)
@@ -146,6 +148,7 @@ HomeworkPlan = React.createClass
 
     if not @state.isVisibleToStudents
       addProblemsButton = <BS.Button id='problems-select'
+        className="-select-sections-btn"
         onClick={@showSectionTopics}
         bsStyle='default'>+ Select Problems
       </BS.Button>
@@ -165,13 +168,32 @@ HomeworkPlan = React.createClass
         <BS.Grid fluid>
           <TaskPlanBuilder courseId={courseId} id={id} />
           <BS.Row>
-          <BS.Col xs=12 md=12>
-            {addProblemsButton}
-            {problemsRequired}
-          </BS.Col>
+            <BS.Col xs=8>
+              <div className="form-group">
+                <label htmlFor="feedback-select">Show feedback</label>
+                <select
+                  onChange={@setImmediateFeedback}
+                  value={if TaskPlanStore.isFeedbackImmediate(id) then 'immediate' else 'due_at'}
+                  id="feedback-select" className="form-control"
+                >
+                  <option value="immediate">
+                    instantly after the student answers each question
+                  </option>
+                  <option value="due_at">
+                    only after due date/time passes
+                  </option>
+                </select>
+              </div>
+            </BS.Col>
+          </BS.Row>
+          <BS.Row>
+            <BS.Col xs=12 md=12>
+              {addProblemsButton}
+              {problemsRequired}
+            </BS.Col>
           </BS.Row>
         </BS.Grid>
-        
+
       </BS.Panel>
       {chooseExercises}
       {reviewExercisesSummary}

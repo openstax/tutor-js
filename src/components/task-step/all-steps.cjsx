@@ -58,6 +58,8 @@ Video = React.createClass
 
 Placeholder = React.createClass
   displayName: 'Placeholder'
+  getDefaultProps: ->
+    className: 'placeholder-step'
   mixins: [StepMixin, StepFooterMixin]
   isContinueEnabled: ->
     {review} = @props
@@ -65,10 +67,8 @@ Placeholder = React.createClass
   onContinue: ->
     @props.onNextStep()
   renderBody: ->
-    <div className='placeholder-step'>
-      <p>This is a personalized question that will become available
-        to you after you answer more homework problems in this assignment.</p>
-    </div>
+    <p>This is a personalized question that will become available
+      to you after you answer more homework problems in this assignment.</p>
 
 ExternalUrl = React.createClass
   displayName: 'ExternalUrl'

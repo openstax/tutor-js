@@ -3,8 +3,9 @@
 {TimeActions, TimeStore} = require '../../../src/flux/time'
 
 Cell = require '../../../src/components/scores/reading-cell'
+PieProgress = require '../../../src/components/scores/pie-progress'
 
-describe 'Scores Report Reading Cell', ->
+describe 'Student Scores Report Reading Cell', ->
 
   beforeEach ->
     @props =
@@ -14,27 +15,31 @@ describe 'Scores Report Reading Cell', ->
         role: 'student'
       task:
         status:          'in_progress'
-        due_at:          '2015-10-14T12:00:00.000Z'
-        last_worked_at:  '2015-10-13T12:00:00.000Z'
         type:            'reading'
+        step_count: 17
+        completed_step_count: 11
+        completed_on_time_step_count: 11
 
-  it 'renders as in progress', ->
-    Testing.renderComponent( Cell, props: @props ).then ({dom}) ->
-      expect(dom.innerText).to.equal('In progress')
-      expect(dom.querySelector('i.late')).to.be.null
+
+  it 'renders progress cell', ->
+    @props.size = 24
+    @props.value = 33
+    Testing.renderComponent( PieProgress, props: @props ).then ({dom}) ->
+      expect(dom.querySelector('g')).to.not.be.null
 
   it 'renders as not started', ->
-    @props.task.status = 'not_started'
+    @props.task.completed_step_count = 0
+    @props.task.completed_on_time_step_count = 0
     Testing.renderComponent( Cell, props: @props ).then ({dom}) ->
-      expect(dom.innerText).to.equal('Not started')
-      expect(dom.querySelector('i.late')).to.be.null
+      expect(dom.querySelector('.worked .not-started')).to.not.be.null
 
-  it 'renders as complete', ->
-    @props.task.status = 'completed'
+  it 'displays late caret when worked late', ->
+    @props.task.completed_on_time_step_count = 3
     Testing.renderComponent( Cell, props: @props ).then ({dom}) ->
-      expect(dom.innerText).to.equal('Complete')
+      expect(dom.querySelector('.late-caret')).to.not.be.null
 
-  it 'renders with late icon', ->
-    @props.task.last_worked_at = '2015-10-15T12:00:00.000Z'
+  it 'displays accepted caret when accepted', ->
+    @props.task.completed_on_time_step_count = 3
+    @props.task.is_late_work_accepted = true
     Testing.renderComponent( Cell, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('i.late')).not.to.be.null
+      expect(dom.querySelector('.late-caret.accepted')).to.not.be.null

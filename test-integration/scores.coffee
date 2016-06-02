@@ -15,6 +15,7 @@ describe 'HS Student Scores', ->
     @courseSelect = new Helpers.CourseSelect(@)
     @user.login(TEACHER_USERNAME)
     @courseSelect.goToByType('PHYSICS')
+    @calendar.waitUntilLoaded()
     @calendar.goToScores()
     @scores.waitUntilLoaded()
 
@@ -30,7 +31,19 @@ describe 'HS Student Scores', ->
     @scores.el.periodTab().click()
     @user.goToHome()
 
+  @it 'generates export', ->
+    @scores.el.generateExport().click()
+    @scores.waitUntilDoneExporting()
 
+    # Did export succeeed?
+    @scores.isExportSucceeded().then (isExportSucceeded) =>
+      console.log('exported:', isExportSucceeded)
+      expect(isExportSucceeded).to.be.true
+
+    # Is export downloaded?
+    @scores.isExportDownloaded().then (isExportDownloaded) =>
+      console.log('downloaded:', isExportDownloaded)
+      expect(isExportDownloaded).to.be.true
 
 
 describe 'CC Student Scores', ->
@@ -40,9 +53,12 @@ describe 'CC Student Scores', ->
     @calendar = new Helpers.Calendar(@)
     @scores = new Helpers.Scores(@)
     @courseSelect = new Helpers.CourseSelect(@)
+    @conceptCoach = new Helpers.CCDashboard(@)
     @user.login(TEACHER_USERNAME)
     @courseSelect.goToByType('CONCEPT_COACH')
-    @scores.goCCScores()
+    @conceptCoach.waitUntilLoaded()
+    @conceptCoach.goToScores()
+    @scores.waitUntilLoaded()
 
   @it 'sorts by name or data', ->
     @scores.el.scoreCell().isPresent().then (isPresent) =>
@@ -62,12 +78,14 @@ describe 'CC Student Scores', ->
 
       @scores.el.scoreCell().get().getText().then (txt) ->
         expect(txt).to.contain('%')
-      @scores.el.displayAs.click()
+      @scores.el.displayAs().click()
       @scores.el.scoreCell().get().getText().then (txt) ->
         expect(txt).to.contain('of')
       @user.goToHome()
 
   @it 'hovers tooltip info popover', ->
-    @addTimeout(60)
-    @scores.hoverCCTooltip()
+    @scores.getCCTooltip().getText().then (txt) ->
+      expect(txt).to.contain('Completed')
+      expect(txt).to.contain('questions')
+      expect(txt).to.contain('Last Worked')
 

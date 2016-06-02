@@ -37,6 +37,11 @@ TEACHER_MENU = [
     label: 'Performance Forecast'
   }
   {
+    name: 'viewQuestionsLibrary'
+    params: {courseId: '2'}
+    label: 'Questions Library'
+  }
+  {
     name: 'viewScores'
     label: 'Student Scores'
     params: {courseId: '2'}

@@ -1,6 +1,5 @@
 {JobActions, JobStore} = require '../flux/job'
 _ = require 'underscore'
-moment = require 'moment'
 
 JOB_REQUESTING = 'job_requesting'
 JOB_REQUESTED = 'job_queued'

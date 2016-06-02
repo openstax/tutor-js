@@ -54,8 +54,8 @@ module.exports = React.createClass
     id: React.PropTypes.string.isRequired
     onNextStep: React.PropTypes.func.isRequired
 
-  onStepCompleted: ->
-    {id} = @props
+  onStepCompleted: (id) ->
+    {id} = @props unless id?
     canWrite = StepPanel.canWrite(id)
 
     if canWrite

@@ -7,19 +7,18 @@ PeriodConfig = {
 
   create: (courseId, params) ->
 
-  created: (period, courseId) ->
+  _created: (period, courseId) ->
     CourseActions.load(courseId)
+    @emit('created')
 
-  save: (courseId, periodId, params) ->
-
-  saved: (periodId, courseId) ->
+  _saved: (periodId, courseId) ->
+    @emit('saved')
     CourseActions.load(courseId)
+    null
 
-  delete: (periodId, courseId) ->
-
-  deleted: (result, periodId, courseId) ->
+  _deleted: (result, periodId, courseId) ->
     CourseActions.load(courseId)
-    
+    @emit('deleted')
 
   exports:
 

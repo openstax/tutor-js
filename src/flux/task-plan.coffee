@@ -12,6 +12,11 @@ validator = require 'validator'
 TaskHelpers = require '../helpers/task'
 TimeHelper = require '../helpers/time'
 
+ISO_DATE_FORMAT = 'YYYY-MM-DD'
+ISO_TIME_FORMAT = 'HH:mm'
+ISO_DATE_ONLY_REGEX = /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/
+
+
 TUTOR_SELECTIONS =
   default: 3
   max: 4
@@ -28,6 +33,15 @@ sortTopics = (topics) ->
     topic = TocStore.getSectionInfo(topicId)
     TaskHelpers.chapterSectionToNumber(topic.chapter_section)
   )
+
+
+
+isSameOrBeforeNow = (time) ->
+  moment(time).isSame(TimeStore.getNow()) or moment(time).isBefore(TimeStore.getNow())
+
+isDateStringOnly = (timeString) ->
+  ISO_DATE_ONLY_REGEX.test(timeString)
+
 
 TaskPlanConfig =
 
@@ -50,11 +64,18 @@ TaskPlanConfig =
     @_local[planId].settings.page_ids ?= []
 
     if @_local[planId]?.type is PLAN_TYPES.HOMEWORK or @_changed[planId]?.type is PLAN_TYPES.HOMEWORK
+      @_changed[planId] ?= {}
+      # need to default final posting json's is feedback immediate to false
+      @_changed[planId].is_feedback_immediate ?= false
       @_local[planId].settings.exercise_ids ?= []
       @_local[planId].settings.exercises_count_dynamic ?= TUTOR_SELECTIONS.default
 
+    if @_local[planId]?.tasking_plans?
+      _.each @_local[planId]?.tasking_plans, (tasking) ->
+        tasking.due_at = TimeHelper.makeMoment(tasking.due_at).format("#{ISO_DATE_FORMAT} #{ISO_TIME_FORMAT}")
+        tasking.opens_at = TimeHelper.makeMoment(tasking.opens_at).format("#{ISO_DATE_FORMAT} #{ISO_TIME_FORMAT}")
+
     #TODO take out once TaskPlan api is in place
-    _.extend({}, @_local[planId], @_changed[planId])
     obj = _.extend({}, @_local[planId], @_changed[planId])
 
     # iReadings should not contain exercise_ids and will cause a silent 422 on publish
@@ -88,19 +109,46 @@ TaskPlanConfig =
     _.reject tasking_plans, (tasking) ->
       not (tasking.due_at and tasking.opens_at)
 
-  setPeriods: (id, periods) ->
+  # Returns copies of the given property names from settings
+  # Copies are returned so that the store can be reset
+  _getClonedSettings: (id, names...) ->
     plan = @_getPlan(id)
+    settings = {}
+    for name in names
+      settings[name] = _.clone(plan.settings[name])
+    return settings
+
+  _changeSettings: (id, attributes) ->
+    plan = @_getPlan(id)
+    @_change(id, settings: _.extend({}, plan.settings, attributes))
+
+  setDefaultTimes: (course, period) ->
+    periodTimes = _.pick(period, 'opens_at', 'due_at')
+    {default_open_time, default_due_time} = course
+
+    periodSettings = _.findWhere course.periods, id: period.id
+    {default_open_time, default_due_time} = periodSettings
+
+    periodTimes.opens_at += " #{default_open_time}" if isDateStringOnly(periodTimes.opens_at)
+    periodTimes.due_at += " #{default_due_time}" if isDateStringOnly(periodTimes.due_at)
+
+    periodTimes
+
+  setPeriods: (id, courseId, periods) ->
+    plan = @_getPlan(id)
+    course = CourseStore.get(courseId)
+
     curTaskings = plan?.tasking_plans
     findTasking = @_findTasking
 
-    tasking_plans = _.map periods, (period) ->
+    tasking_plans = _.map periods, (period) =>
       tasking = findTasking(curTaskings, period.id)
       if not tasking
         tasking = target_id: period.id, target_type:'period'
 
-      _.extend( _.pick(period, 'opens_at', 'due_at'),
-        tasking
-      )
+      periodTimes = @setDefaultTimes(course, period)
+
+      _.extend(periodTimes, tasking)
 
     if not @exports.isNew(id)
       tasking_plans = @_removeEmptyTaskings(tasking_plans)
@@ -115,25 +163,29 @@ TaskPlanConfig =
   _findTasking: (tasking_plans, periodId) ->
     _.findWhere(tasking_plans, {target_id:periodId, target_type:'period'})
 
-  _getPeriodDates: (id, period) ->
-    throw new Error('BUG: Period is required arg') unless period
+  _getPeriodDates: (id, periodId) ->
+    throw new Error('BUG: Period is required arg') unless periodId
     plan = @_getPlan(id)
     {tasking_plans} = plan
     if tasking_plans
-      @_findTasking(tasking_plans, period)
+      @_findTasking(tasking_plans, periodId)
     else
-      null
+      undefined
 
   # detects if all taskings are set to the same due_at/opens_at date
-  # if so the date is returned, else null
+  # if so the date is returned, else undefined
   _getTaskingsCommonDate: (id, attr) ->
     {tasking_plans} = @_getPlan(id)
     # do all the tasking_plans have the same date?
-    dates = _.compact _.uniq _.map(tasking_plans, (plan) ->
-      date = TimeHelper.getMomentPreserveDate(plan[attr]).toDate() if plan[attr]?
-      if isNaN(date?.getTime()) then 0 else date.getTime()
+    taskingDates = _.map(tasking_plans, (plan) ->
+      date = TimeHelper.makeMoment(plan[attr]) if plan[attr]?
     )
-    if dates.length is 1 then new Date(_.first(dates)) else null
+
+    commonDate = _.reduce taskingDates, (previous, current) ->
+      if not _.isUndefined(previous) and current?.isSame?(previous)
+        current
+      else
+        undefined
 
   _getFirstTaskingByOpenDate: (id) ->
     {tasking_plans} = @_getPlan(id)
@@ -147,14 +199,13 @@ TaskPlanConfig =
     sortedTaskings[0] if sortedTaskings?.length
 
   updateTutorSelection: (id, direction) ->
-    plan = @_getPlan(id)
-    {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
+    {exercises_count_dynamic} = @_getClonedSettings(id, 'exercises_count_dynamic')
+
     exercises_count_dynamic += direction
 
     exercises_count_dynamic = Math.min(TUTOR_SELECTIONS.max, exercises_count_dynamic)
     exercises_count_dynamic = Math.max(TUTOR_SELECTIONS.min, exercises_count_dynamic)
-
-    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
+    @_changeSettings(id, {exercises_count_dynamic})
 
   updateTitle: (id, title) ->
     @_change(id, {title})
@@ -174,15 +225,13 @@ TaskPlanConfig =
     throw new Error('id is required') unless id
     throw new Error("#{attr} is required") unless date
 
-    # use of moment(date).toDate() will make sure to convert
-    # any type of date (string, js date, moment, etc) to date for
-    # the BE to accept.
+    # assumes that date is an ISO format date string.
     if periodId
       tasking = @_findTasking(tasking_plans, periodId)
-      tasking[attr] = TimeHelper.getMomentPreserveDate(date, [TimeStore.getFormat()]).format('YYYY-MM-DD')
+      tasking[attr] = date
     else
       for tasking in tasking_plans
-        tasking[attr] = TimeHelper.getMomentPreserveDate(date, [TimeStore.getFormat()]).format('YYYY-MM-DD')
+        tasking[attr] = date
 
     @_change(id, {tasking_plans})
 
@@ -193,7 +242,7 @@ TaskPlanConfig =
     tasking_plans = tasking_plans[..] # Clone it
 
     for tasking in tasking_plans
-      tasking['due_at'] = null
+      tasking['due_at'] = undefined
 
     @_change(id, {tasking_plans})
 
@@ -210,68 +259,44 @@ TaskPlanConfig =
     @_change(id, {settings: {}})
 
   sortTopics: (id) ->
-    plan = @_getPlan(id)
-    {page_ids, exercises_count_dynamic} = plan.settings
-
-    page_ids = sortTopics(page_ids)
-    @_change(id, {settings: {page_ids, exercises_count_dynamic}})
+    {page_ids} = @_getClonedSettings(id, 'page_ids')
+    @_changeSettings(id, page_ids: sortTopics(page_ids))
 
   addTopic: (id, topicId) ->
-    plan = @_getPlan(id)
-    {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
-    page_ids = page_ids[..] # Copy the page_ids so we can reset it back if clearChanged() is called
+    {page_ids} = @_getClonedSettings(id, 'page_ids')
+    page_ids.push(topicId) unless page_ids.indexOf(topicId) >= 0
+    @_changeSettings(id, {page_ids})
 
-    page_ids.push(topicId) unless plan.settings.page_ids.indexOf(topicId) >= 0
-    #sortTopics(page_ids)
-
-    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
+  setImmediateFeedback: (id, is_feedback_immediate) ->
+    @_change(id, {is_feedback_immediate})
 
   removeTopic: (id, topicId) ->
-    plan = @_getPlan(id)
-    {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
-    page_ids = page_ids[..] # Copy the page_ids so we can reset it back if clearChanged() is called
-
+    {page_ids, exercise_ids} = @_getClonedSettings(id, 'page_ids', 'exercise_ids')
     index = page_ids?.indexOf(topicId)
     page_ids?.splice(index, 1)
-
     exercise_ids = ExerciseStore.removeTopicExercises(exercise_ids, topicId)
-    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
+    @_changeSettings(id, {page_ids, exercise_ids })
 
   updateTopics: (id, page_ids) ->
-    plan = @_getPlan(id)
-    {exercise_ids, exercises_count_dynamic} = plan.settings
-    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
+    @_changeSettings(id, {page_ids})
 
   addExercise: (id, exercise) ->
-    plan = @_getPlan(id)
-    {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
-    exercise_ids = exercise_ids[..]
-
-    unless plan.settings.exercise_ids.indexOf(exercise.id) >= 0
+    {exercise_ids} = @_getClonedSettings(id, 'exercise_ids')
+    unless exercise_ids.indexOf(exercise.id) >= 0
       exercise_ids.push(exercise.id)
-
-    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
+    @_changeSettings(id, {exercise_ids})
 
   removeExercise: (id, exercise) ->
-    plan = @_getPlan(id)
-    {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
-    exercise_ids = exercise_ids[..]
-
+    {exercise_ids} = @_getClonedSettings(id, 'exercise_ids')
     index = exercise_ids?.indexOf(exercise.id)
     exercise_ids?.splice(index, 1)
-
-    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
+    @_changeSettings(id, {exercise_ids})
 
   updateExercises: (id, exercise_ids) ->
-    plan = @_getPlan(id)
-    {page_ids, exercises_count_dynamic} = plan.settings
-    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
-    
-  moveReading: (id, topicId, step) ->
-    plan = @_getPlan(id)
-    {page_ids, exercises_count_dynamic} = plan.settings
-    page_ids = page_ids[..]
+    @_changeSettings(id, {exercise_ids})
 
+  moveReading: (id, topicId, step) ->
+    {page_ids} = @_getClonedSettings(id, 'page_ids')
     curIndex = page_ids?.indexOf(topicId)
     newIndex = curIndex + step
 
@@ -283,13 +308,10 @@ TaskPlanConfig =
     page_ids[curIndex] = page_ids[newIndex]
     page_ids[newIndex] = topicId
 
-    @_change(id, {settings: {page_ids, exercises_count_dynamic}})
+    @_changeSettings(id, {page_ids})
 
   moveExercise: (id, exercise, step) ->
-    plan = @_getPlan(id)
-    {page_ids, exercise_ids, exercises_count_dynamic} = plan.settings
-    exercise_ids = exercise_ids[..]
-
+    {exercise_ids} = @_getClonedSettings(id, 'exercise_ids')
     curIndex = exercise_ids?.indexOf(exercise.id)
     newIndex = curIndex + step
 
@@ -301,8 +323,7 @@ TaskPlanConfig =
     exercise_ids[curIndex] = exercise_ids[newIndex]
     exercise_ids[newIndex] = exercise.id
 
-    @_change(id, {settings: {page_ids, exercise_ids, exercises_count_dynamic}})
-
+    @_changeSettings(id, {exercise_ids})
 
   _getStats: (id) ->
     @_stats[id]
@@ -350,6 +371,10 @@ TaskPlanConfig =
     getTopics: (id) ->
       plan = @_getPlan(id)
       plan?.settings.page_ids
+
+    isFeedbackImmediate: (id) ->
+      plan = @_getPlan(id)
+      plan?.is_feedback_immediate
 
     getEcosystemId: (id, courseId) ->
       plan = @_getPlan(id)
@@ -399,12 +424,12 @@ TaskPlanConfig =
 
     isOpened: (id) ->
       firstTasking = @_getFirstTaskingByOpenDate(id)
-      new Date(firstTasking?.opens_at) <= TimeStore.getNow()
+      isSameOrBeforeNow(firstTasking?.opens_at)
 
     isVisibleToStudents: (id) ->
       plan = @_getPlan(id)
       firstTasking = @_getFirstTaskingByOpenDate(id)
-      (!!plan?.published_at or !!plan?.is_publish_requested) and new Date(firstTasking?.opens_at) <= TimeStore.getNow()
+      (!!plan?.published_at or !!plan?.is_publish_requested) and isSameOrBeforeNow(firstTasking?.opens_at)
 
     getFirstDueDate: (id) ->
       due_at = @_getFirstTaskingByDueDate(id)?.due_at
@@ -413,7 +438,7 @@ TaskPlanConfig =
       plan = @_getPlan(id)
       firstDueTasking = @_getFirstTaskingByDueDate(id)
       isPublishedOrPublishing = !!plan?.published_at or !!plan?.is_publish_requested
-      isPastDue = new Date(firstDueTasking?.due_at) < TimeStore.getNow()
+      isPastDue = moment(firstDueTasking?.due_at, ISO_DATE_FORMAT).isBefore(TimeStore.getNow())
       # cannot be a publishing/published past due assignment, and
       # cannot be/being deleted
       not ((isPublishedOrPublishing and isPastDue) or @_isDeleteRequested(id))
@@ -436,30 +461,61 @@ TaskPlanConfig =
     getStats: (id) ->
       @_getStats(id)
 
-    getOpensAt: (id, periodId) ->
+    _getAt: (id, periodId, attr = 'opens_at') ->
       if periodId?
         tasking = @_getPeriodDates(id, periodId)
-        opensAt = TimeHelper.getMomentPreserveDate(tasking?.opens_at).toDate() if tasking?.opens_at?
+        if tasking?[attr]?
+          at = tasking?[attr]
+          at = TimeHelper.makeMoment(at)
       else
         # default opens_at to 1 day from now
-        opensAt = @_getTaskingsCommonDate(id, 'opens_at')
+        at = @_getTaskingsCommonDate(id, attr)
+      at
 
-      opensAt
+    _getOpensAt: (id, periodId) ->
+      opensAt = @exports._getAt.call(@, id, periodId, 'opens_at')
+
+    getOpensAtDate: (id, periodId) ->
+      opensAt = @exports._getOpensAt.call(@, id, periodId)
+      opensAt?.format?(ISO_DATE_FORMAT) or opensAt
+
+    getOpensAtTime: (id, periodId) ->
+      opensAt = @exports._getOpensAt.call(@, id, periodId)
+      return undefined if isDateStringOnly opensAt?.creationData?().input
+
+      opensAt?.format?(ISO_TIME_FORMAT)
+
+    getOpensAt: (id, periodId) ->
+      opensAt = @exports._getOpensAt.call(@, id, periodId)
+      opensAt?.format?("#{ISO_DATE_FORMAT} #{ISO_TIME_FORMAT}") or opensAt
+
+    _getDueAt: (id, periodId) ->
+      dueAt = @exports._getAt.call(@, id, periodId, 'due_at')
+
+    getDueAtDate: (id, periodId) ->
+      dueAt = @exports._getDueAt.call(@, id, periodId)
+      dueAt?.format?(ISO_DATE_FORMAT) or dueAt
+
+    getDueAtTime: (id, periodId) ->
+      dueAt = @exports._getDueAt.call(@, id, periodId)
+      return undefined if isDateStringOnly dueAt?.creationData?().input
+
+      dueAt?.format?(ISO_TIME_FORMAT)
 
     getDueAt: (id, periodId) ->
-      if periodId?
-        tasking = @_getPeriodDates(id, periodId)
-        dueAt = TimeHelper.getMomentPreserveDate(tasking?.due_at).toDate() if tasking?.due_at?
-      else
-        dueAt = @_getTaskingsCommonDate(id, 'due_at')
+      dueAt = @exports._getDueAt.call(@, id, periodId)
+      dueAt?.format?("#{ISO_DATE_FORMAT} #{ISO_TIME_FORMAT}") or dueAt
 
-      dueAt
+    getMaxDueAt: (id, periodId) ->
+      dueAt = TimeHelper.makeMoment(@exports.getDueAt.call(@, id, periodId))
+      dueAt.startOf('day').subtract(1, 'day').format(ISO_DATE_FORMAT)
 
     getMinDueAt: (id, periodId) ->
-      opensAt = moment(@exports.getOpensAt.call(@, id, periodId))
+      opensAt = TimeHelper.makeMoment(@exports.getOpensAt.call(@, id, periodId))
       if opensAt.isBefore(TimeStore.getNow())
         opensAt = moment(TimeStore.getNow())
-      opensAt.startOf('day').add(1, 'day').toDate()
+
+      opensAt.startOf('day').add(1, 'day').format(ISO_DATE_FORMAT)
 
     hasTasking: (id, periodId) ->
       plan = @_getPlan(id)

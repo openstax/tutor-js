@@ -4,6 +4,7 @@
 /.tmp
 /test-failed-*.png
 /coverage-selenium.json
+/docs*
 
 *.cjsx.js
 

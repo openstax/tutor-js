@@ -10,13 +10,14 @@ describe 'Assignment Publishing Tests', ->
   beforeEach ->
     @calendar = new Helpers.Calendar(@)
     @calendarPopup = new Helpers.Calendar.Popup(@)
-    @reading = new Helpers.ReadingBuilder(@)
+    @reading = new Helpers.TaskBuilder(@)
 
     @title = @utils.getFreshId()
     new Helpers.User(@).login(TEACHER_USERNAME)
 
     # Go to the 1st courses dashboard
     new Helpers.CourseSelect(@).goToByType('ANY')
+    @calendar.waitUntilLoaded()
 
     @calendar.createNew('READING')
 

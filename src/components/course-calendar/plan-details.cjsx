@@ -8,6 +8,7 @@ Router = require 'react-router'
 {EventModalShell} = require '../plan-stats/event'
 
 LoadableItem = require '../loadable-item'
+LmsInfo = require '../task-plan/lms-info'
 
 # TODO drag and drop, and resize behavior
 CoursePlanDetails = React.createClass
@@ -26,7 +27,7 @@ CoursePlanDetails = React.createClass
       type: React.PropTypes.string.isRequired
     ).isRequired
     courseId: React.PropTypes.string.isRequired
-    onRequestHide: React.PropTypes.func.isRequired
+    onHide: React.PropTypes.func.isRequired
     hasReview: React.PropTypes.bool
 
   renderReviewButton: ->
@@ -80,8 +81,11 @@ CoursePlanDetails = React.createClass
 
     body = if isPublished
       footer =  <div className='modal-footer'>
-        {reviewButton}
-        {editButton}
+        <div className="left-buttons">
+          {reviewButton}
+          {editButton}
+        </div>
+        <LmsInfo plan={plan}/>
       </div>
 
       if type is 'event'
@@ -97,9 +101,14 @@ CoursePlanDetails = React.createClass
 
     <BS.Modal
       {...@props}
-      title={title}
+      show={true}
       data-assignment-type={type}
       className={classes}>
+
+      <BS.Modal.Header closeButton>
+        <BS.Modal.Title>{title}</BS.Modal.Title>
+      </BS.Modal.Header>
+
       <div className='modal-body'>
         {body}
       </div>

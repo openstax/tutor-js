@@ -11,7 +11,7 @@ PAGE_ID = 1
 
 describe 'Exercise Store and Actions', ->
   beforeEach ->
-    ExerciseActions.loaded(exercises, COURSE_ID, PAGE_ID)
+    ExerciseActions.loadedForCourse(exercises, COURSE_ID, PAGE_ID)
 
   afterEach ->
     ExerciseActions.reset()
@@ -21,7 +21,7 @@ describe 'Exercise Store and Actions', ->
     bloomsTag = findTagByType(exercise, 'blooms')
     lengthTag = findTagByType(exercise, 'length')
     dokTag = findTagByType(exercise, 'dok')
-    
+
     {tagString} = ExerciseStore.getTagStrings(exercise.id)
 
     expect(_.indexOf(tagString, bloomsTag.name)).to.not.equal(-1)
@@ -35,7 +35,3 @@ describe 'Exercise Store and Actions', ->
     teks = ExerciseStore.getTeksString(exercise.id)
 
     expect(teksTag.name.indexOf(teks)).to.not.equal(-1)
-
-
-
-

@@ -1,6 +1,17 @@
 @selected-exercise-background: @tutor-highlight;
 @hovered-exercise-background: rgba(241, 241, 241, 0.4);
 
+.homework-plan-exercise-select-topics {
+  .exercise-card {
+    .selected-mask {
+      background-color: @selected-exercise-background;
+    }
+    .controls-overlay {
+      background-color: @hovered-exercise-background;
+    }
+  }
+}
+
 table.exercise-table {
   width: 100%;
   max-width: 1200px;
@@ -56,9 +67,7 @@ table.exercise-table {
     }
 
     img {
-      display: block;
-      width: 100%;
-      padding: 20px;
+      display: none;
     }
 
     span p:first-child {
@@ -77,7 +86,6 @@ label.exercises-section-label {
 
 
 .card-list.exercises {
-  text-align: center;
   margin: 10px auto;
 
   .panel { margin: 10px auto @tutor-card-body-padding-vertical; }
@@ -112,25 +120,6 @@ label.exercises-section-label {
   .exercise-wrapper {
     max-width: 1200px;
     margin: 10px auto;
-  }
-}
-
-.card-list.exercises {
-  .exercise.card {
-    text-align: left;
-    .panel-body { padding: 20px 100px; }
-  }
-
-}
-
-.task-plan {
-
-  .feedback-toggle {
-    float: right;
-    margin-top: -@tutor-card-body-padding-vertical;
-    color: @tutor-neutral;
-    background-color: @tutor-white;
-    border: 0;
   }
 
 }

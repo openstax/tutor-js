@@ -3,6 +3,9 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 {PeriodActions, PeriodStore} = require '../../flux/period'
 {TutorInput} = require '../tutor-input'
+{AsyncButton} = require 'openstax-react-components'
+
+BindStoreMixin = require '../bind-store-mixin'
 CourseGroupingLabel = require '../course-grouping-label'
 
 RenamePeriodField = React.createClass
@@ -10,7 +13,7 @@ RenamePeriodField = React.createClass
   displayName: 'RenamePeriodField'
   propTypes:
     courseId: React.PropTypes.string
-    label: React.PropTypes.string.isRequired
+    label: React.PropTypes.object.isRequired
     name:  React.PropTypes.string.isRequired
     default: React.PropTypes.string.isRequired
     onChange:  React.PropTypes.func.isRequired
@@ -40,8 +43,26 @@ module.exports = React.createClass
     periods: React.PropTypes.array.isRequired
     activeTab: React.PropTypes.object.isRequired
 
+  mixins: [BindStoreMixin]
+
+  bindStore: PeriodStore
+
+  bindUpdate: ->
+    {courseId} = @props
+
+    isSaving = PeriodStore.isSaving(courseId)
+    @setState({isSaving}) if @state.isSaving isnt isSaving
+
   getInitialState: ->
     period_name: @props.activeTab.name
+    showModal: false
+    isSaving: false
+
+  close: ->
+    @setState({showModal: false})
+
+  open: ->
+    @setState({showModal: true})
 
   validate: (name) ->
     error = PeriodStore.validatePeriodName(name, @props.periods, @props.activeTab.name)
@@ -51,8 +72,9 @@ module.exports = React.createClass
   performUpdate: ->
     if not @state.invalid
       id = @props.activeTab.id
-      PeriodActions.save(@props.courseId, id, period: {name: @state.period_name})
-      @refs.overlay.hide()
+      PeriodActions.save(@props.courseId, id, name: @state.period_name)
+      PeriodStore.once 'saved', =>
+        @close()
 
   renderForm: ->
     formClasses = ['modal-body', 'teacher-edit-period-form']
@@ -66,8 +88,13 @@ module.exports = React.createClass
 
     <BS.Modal
       {...@props}
-      title={title}
+      show={@state.showModal}
+      onHide={@close}
       className='teacher-edit-period-modal'>
+
+      <BS.Modal.Header closeButton>
+        <BS.Modal.Title>{title}</BS.Modal.Title>
+      </BS.Modal.Header>
 
       <div className={formClasses.join(' ')}>
         <RenamePeriodField
@@ -80,24 +107,23 @@ module.exports = React.createClass
       </div>
 
       <div className='modal-footer'>
-        <BS.Button
-        className='-edit-period-confirm'
+        <AsyncButton
+          className='-edit-period-confirm'
           onClick={@performUpdate}
+          isWaiting={@state.isSaving}
+          waitingText="Saving..."
           disabled={disabled}>
-          Rename
-        </BS.Button>
+        Rename
+        </AsyncButton>
       </div>
 
     </BS.Modal>
 
   render: ->
-    <BS.OverlayTrigger
-      ref='overlay'
-      rootClose={true}
-      trigger='click'
-      overlay={@renderForm()}>
-        <BS.Button bsStyle='link' className='edit-period'>
-          <i className='fa fa-pencil' />
-          Rename <CourseGroupingLabel courseId={@props.courseId}/>
-        </BS.Button>
-    </BS.OverlayTrigger>
+    <span className='-rename-period-link'>
+      <BS.Button onClick={@open} bsStyle='link' className='edit-period'>
+        <i className='fa fa-pencil' />
+        Rename <CourseGroupingLabel courseId={@props.courseId}/>
+      </BS.Button>
+      {@renderForm()}
+    </span>

@@ -6,6 +6,7 @@ async = require './helpers/webpack-async-loader'
 
 {App, Root, Dashboard, SingleTask, SinglePractice, Invalid} = require './components'
 {CourseListing} = require './components/course-listing'
+QuestionsLibrary = require './components/questions'
 PerformanceForecastShell = require './components/performance-forecast'
 {ScoresShell} = require './components/scores'
 {ReadingShell, HomeworkShell, ExternalShell, EventShell} = require './components/task-plan'
@@ -33,7 +34,7 @@ routes = (
         <Router.DefaultRoute handler={TeacherTaskPlans}/>
 
         <Route path='list/?' name='viewStudentDashboard' handler={StudentDashboardShell} />
-        <Route path='tasks/:id/?' name='viewTask' handler={SingleTask}/>
+        <Route path='tasks/:id/?' name='viewTask' handler={SingleTask} ignoreScrollBehavior/>
         <Route path='tasks/:id/steps/:stepIndex/?'
           name='viewTaskStep'
           handler={SingleTask}
@@ -67,8 +68,8 @@ routes = (
                 ignoreScrollBehavior/>
             </Route>
           </Route>
+          <Route path='questions' name='viewQuestionsLibrary' handler={QuestionsLibrary} />
           <Route path='cc-dashboard/?' name='cc-dashboard' handler={CCDashboard} />
-
           <Route path='homeworks/new/?' name='createHomework' handler={HomeworkShell} />
           <Route path='homeworks/:id/?' name='editHomework' handler={HomeworkShell} />
           <Route path='readings/new/?' name='createReading' handler={ReadingShell} />
@@ -103,6 +104,7 @@ routes = (
       <Route path='section/:section' name='viewReferenceBookSection' handler={ReferenceBookShell} />
       <Route path='page/:cnxId' name='viewReferenceBookPage' handler={ReferenceBookPageShell}/>
     </Route> # end of /books route
+
 
     <Route path='/qa' name='QADashboard' handler={async(QALoader, 'QADashboard')} >
       <Router.DefaultRoute name="QAViewFirstBook" handler={async(QALoader, 'QABook')}/>

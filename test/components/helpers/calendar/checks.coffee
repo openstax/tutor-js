@@ -25,11 +25,6 @@ checks =
     targetExternalLink = router.makeHref('createExternal', {courseId}, routeQuery)
     targetEventLink = router.makeHref('createEvent', {courseId}, routeQuery)
 
-    expect(addOnDayDropdown.refs.readingLink.props.href).to.equal(targetReadingLink)
-    expect(addOnDayDropdown.refs.homeworkLink.props.href).to.equal(targetHomeworkLink)
-    expect(addOnDayDropdown.refs.externalLink.props.href).to.equal(targetExternalLink)
-    expect(addOnDayDropdown.refs.eventLink.props.href).to.equal(targetEventLink)
-
     expect(addOnDayDropdown.refs.readingLink.getDOMNode().childNodes[0].href).to.contain(targetReadingLink)
     expect(addOnDayDropdown.refs.homeworkLink.getDOMNode().childNodes[0].href).to.contain(targetHomeworkLink)
     expect(addOnDayDropdown.refs.externalLink.getDOMNode().childNodes[0].href).to.contain(targetExternalLink)

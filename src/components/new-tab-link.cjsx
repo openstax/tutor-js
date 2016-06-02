@@ -27,7 +27,7 @@ NewTabLink = React.createClass
 
   render: ->
     {to, params, query, children} = @props
-    link = @context.router.makeHref(to, params, query)
+    link = @context.router?.makeHref(to, params, query)
     linkProps = @getLinkProps(link)
 
     <a {...linkProps}>{children}</a>

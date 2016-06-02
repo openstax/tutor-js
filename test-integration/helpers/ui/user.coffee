@@ -21,13 +21,16 @@ COMMON_ELEMENTS =
 
   usernameInput:
     css: '#auth_key'
-  passworkInput:
+  passwordInput:
     css: '#password'
   loginSubmit:
-    css: '.password-actions button.standard'
+    css: '.password-actions button[type="submit"]'
 
   modalClose:
     css: '.modal-dialog .modal-header .close'
+
+  menu:
+    css: '#react-root-container .-hamburger-menu'
 
   userMenu:
     css: '.-hamburger-menu .dropdown-toggle'
@@ -46,6 +49,9 @@ COMMON_ELEMENTS =
 
   courseListing:
     css: '.course-listing'
+
+  courseRosterLink:
+    linkText: 'Course Roster'
 
 COMMON_ELEMENTS.eitherSignInElement =
   css: "#{COMMON_ELEMENTS.searchQuery.css}, #{COMMON_ELEMENTS.usernameInput.css}"
@@ -67,7 +73,8 @@ mergeCoverage = (obj) ->
 
 class User extends TestHelper
   constructor: (test) ->
-    testElementLocator = 'body'
+    testElementLocator =
+      css: 'body'
     super(test, testElementLocator, COMMON_ELEMENTS)
 
   isLocal: =>
@@ -83,11 +90,11 @@ class User extends TestHelper
   logInDeployed: (username, password = 'password') =>
     # Login as dev (using accounts)
     @el.usernameInput().get().sendKeys(username)
-    @el.passworkInput().get().sendKeys(password)
+    @el.passwordInput().get().sendKeys(password)
     @el.loginSubmit().click()
 
   login: (username, password = 'password') =>
-    @el.loginLink().isDisplayed().then (isDisplayed) =>
+    @el.loginLink().get().isDisplayed().then (isDisplayed) =>
       unless isDisplayed
         @el.smallScreenNavbarToggle().click()
       @el.loginLink().click()
@@ -122,7 +129,8 @@ class User extends TestHelper
     # Going to the root URL while logged in will redirect to dashboard
     # which may redirect to the course page.
     @test.utils.verbose('Waiting until tutor-js page loads up')
-    @test.driver.wait(selenium.until.elementLocated(css: '#react-root-container .-hamburger-menu'))
+    @waitUntilLoaded()
+    @el.menu().get()
 
 
   isModalOpen: =>
@@ -184,7 +192,9 @@ class User extends TestHelper
   # # Teacher-only:
   #
   # goToScores()
-  # goToRoster()
+  goToRoster: =>
+    @openHamburgerMenu()
+    @el.courseRosterLink().waitClick()
 
 User.getCoverageData = ->
   __coverage__

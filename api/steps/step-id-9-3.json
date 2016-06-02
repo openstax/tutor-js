@@ -1,0 +1,26 @@
+{ "id": "step-id-9-3",
+  "type": "exercise",
+  "is_completed": true,
+  "correct_answer_id": "idn2",
+  "answer_id": "idn1",
+  "free_response": "eight",
+  "is_in_multipart": true,
+  "has_recovery": true,
+  "content_url": "https://exercises-dev.openstax.org/exercises/120@1",
+  "feedback_html": "Two apples and then <span data-math='2'>2</span> more apples is <strong>four</strong>",
+  "content": {
+    "stimulus_html": "Multiplication is fun",
+    "questions":[
+      {
+        "id": "990",
+        "formats": ["multiple-choice", "free-response"],
+        "stem_html":"What is <span data-math='4+4'>4+4</span>?",
+        "answers":[
+          {"id":"idn1","content_html":"222"},
+          {"id":"idn2","content_html":"42"}
+        ]
+      }
+    ]
+  },
+  "group": "core"
+}

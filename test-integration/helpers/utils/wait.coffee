@@ -59,6 +59,13 @@ class Wait
 
     @_for(settings)(locator, ms)
 
+
+  forOn: (locator, ms = 60 * 1000, element) =>
+    settings =
+      find: element.findElement.bind(element)
+
+    @_for(settings)(locator, ms)
+
   click: (locator, ms) =>
     @test.utils.verboseWrap "Wait and click #{JSON.stringify(locator)}", =>
       el = @for(locator, ms)

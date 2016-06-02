@@ -74,8 +74,7 @@ CourseMonth = React.createClass
     endMonthBlock = date.clone().endOf('month').endOf('week').add(1, 'millisecond')
 
     calendarDuration = moment(startMonthBlock).twix(endMonthBlock)
-    calendarWeeks = calendarDuration.split(moment.duration(1, 'week'))
-
+    calendarWeeks = calendarDuration.split(1, 'week')
     {calendarDuration, calendarWeeks}
 
   handleClick: (componentName, dayMoment, mouseEvent) ->

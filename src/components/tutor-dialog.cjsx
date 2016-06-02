@@ -44,7 +44,15 @@ DetachedTutorDialog = React.createClass
     classes = ['tutor-dialog']
     classes.push @props.className if @props.className
 
-    <BS.Modal className={classes.join(' ')} onRequestHide={@hide} title={@props.title}>
+    <BS.Modal
+      className={classes.join(' ')}
+      show={@state.show}
+      onHide={@hide}>
+
+      <BS.Modal.Header closeButton>
+        <BS.Modal.Title>{@props.title}</BS.Modal.Title>
+      </BS.Modal.Header>
+
       <div className='modal-body'>
         {@props.body}
       </div>

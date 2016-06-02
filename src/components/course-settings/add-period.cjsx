@@ -3,6 +3,8 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 {PeriodActions, PeriodStore} = require '../../flux/period'
 {TutorInput} = require '../tutor-input'
+{AsyncButton} = require 'openstax-react-components'
+
 CourseGroupingLabel = require '../course-grouping-label'
 
 
@@ -11,7 +13,7 @@ AddPeriodField = React.createClass
   displayName: 'AddPeriodField'
   propTypes:
     courseId: React.PropTypes.string
-    label: React.PropTypes.string.isRequired
+    label: React.PropTypes.object.isRequired
     name:  React.PropTypes.string.isRequired
     default: React.PropTypes.string
     onChange:  React.PropTypes.func.isRequired
@@ -41,6 +43,14 @@ module.exports = React.createClass
 
   getInitialState: ->
     period_name: ''
+    showModal: false
+    isCreating: false
+
+  close: ->
+    @setState({showModal: false, isCreating: false})
+
+  open: ->
+    @setState({showModal: true})
 
   validate: (name) ->
     error = PeriodStore.validatePeriodName(name, @props.periods)
@@ -49,8 +59,9 @@ module.exports = React.createClass
 
   performUpdate: ->
     if not @state.invalid
-      PeriodActions.create(@props.courseId, period: {name: @state.period_name})
-      @refs.overlay.hide()
+      @setState(isCreating: true)
+      PeriodActions.create(@props.courseId, name: @state.period_name)
+      PeriodStore.once 'created', => @close()
 
   renderForm: ->
     formClasses = ['modal-body', 'teacher-edit-period-form']
@@ -59,39 +70,45 @@ module.exports = React.createClass
       disabled = true
     title = <h4>Add <CourseGroupingLabel courseId={@props.courseId} /></h4>
     label = <span><CourseGroupingLabel courseId={@props.courseId} /> Name</span>
+
     <BS.Modal
       {...@props}
-      title={title}
+      show={@state.showModal}
+      onHide={@close}
       className='teacher-edit-period-modal'>
+
+      <BS.Modal.Header closeButton>
+        <BS.Modal.Title>{title}</BS.Modal.Title>
+      </BS.Modal.Header>
 
       <div className={formClasses.join(' ')}>
         <AddPeriodField
         label={label}
         name='period-name'
+        default={@state.period_name}
         onChange={(val) => @setState(period_name: val)}
         validate={@validate}
         autofocus />
       </div>
 
       <div className='modal-footer'>
-        <BS.Button
-        className='-edit-period-confirm'
-        onClick={@performUpdate}
-        disabled={disabled}>
+        <AsyncButton
+          className='-edit-period-confirm'
+          onClick={@performUpdate}
+          isWaiting={@state.isCreating}
+          waitingText="Adding..."
+          disabled={disabled}>
           Add
-        </BS.Button>
+        </AsyncButton>
       </div>
 
     </BS.Modal>
 
   render: ->
-    <BS.OverlayTrigger
-      ref='overlay'
-      rootClose={true}
-      trigger='click'
-      overlay={@renderForm()}>
-        <BS.Button bsStyle='link' className='edit-period'>
-          <i className='fa fa-plus' />
-          Add <CourseGroupingLabel courseId={@props.courseId} />
-        </BS.Button>
-    </BS.OverlayTrigger>
+    <span className='-add-period-link'>
+      <BS.Button onClick={@open} bsStyle='link' className='edit-period'>
+        <i className='fa fa-plus' />
+        Add <CourseGroupingLabel courseId={@props.courseId} />
+      </BS.Button>
+      {@renderForm()}
+    </span>

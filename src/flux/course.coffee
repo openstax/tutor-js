@@ -5,7 +5,7 @@ _ = require 'underscore'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 PeriodHelper = require '../helpers/period'
 
-DEFAULT_COURSE_TIMEZONE = 'US/Central'
+DEFAULT_TIME_ZONE = 'Central Time (US & Canada)'
 
 CourseConfig =
 
@@ -60,6 +60,12 @@ CourseConfig =
     @_practices = {}
     @_asyncStatusPractices = {}
 
+  _saved: (result, id) ->
+    @emit('saved')
+
+    # make sure all of course remains loaded after course gets saved to
+    _.extend {}, @_local[id], result
+
   exports:
     getGuide: (courseId) ->
       @_guides[courseId] or throw new Error('BUG: Not loaded yet')
@@ -104,7 +110,17 @@ CourseConfig =
       sortedPeriods = PeriodHelper.sort(periods)
 
     getTimezone: (courseId) ->
-      @_get(courseId)?.timezone or DEFAULT_COURSE_TIMEZONE
+      @_get(courseId)?.time_zone or DEFAULT_TIME_ZONE
+
+    getDefaultTimes: (courseId, periodId) ->
+      course = @_get(courseId)
+
+      if periodId?
+        tasking = _.findWhere(course.periods, id: periodId)
+      else
+        tasking = course
+
+      _.pick tasking, 'default_open_time', 'default_due_time'
 
     isTeacher: (courseId) ->
       !!_.findWhere(@_get(courseId)?.roles, type: 'teacher')

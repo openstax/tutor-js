@@ -9,7 +9,7 @@ DEFAULT = 'default'
 utils =
   _dueState: (task) ->
     state = 'before'
-    state = 'after' if task.due_at? and TaskStore.isTaskPastDue(task.id)
+    state = 'after' if task.is_feedback_available or (task.due_at? and TaskStore.isTaskPastDue(task.id))
 
     state
 
@@ -20,7 +20,12 @@ utils =
     # assuming 1 question right now
     question = step.content.questions[0]
 
-    question.formats.indexOf(panel.name) > -1
+    {aliases} = panel
+    aliases ?= []
+    aliases.push(panel.name)
+
+    # change for matches with panel name or aliases
+    not _.isEmpty _.intersection question.formats, aliases
 
   _getCheckedPolicy: (task, step, possiblePolicies) ->
     checkFn = "_#{possiblePolicies.check}"

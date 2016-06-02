@@ -5,8 +5,10 @@
 # For example, `TaskActions.load` everntually yields either
 # `TaskActions.loaded` or `TaskActions.FAILED`
 
-$ = require 'jquery'
+axios = require 'axios'
 _ = require 'underscore'
+QS = require 'qs'
+
 {AppActions} = require './flux/app'
 {TimeActions} = require './flux/time'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
@@ -26,7 +28,7 @@ PerformanceForecast = require './flux/performance-forecast'
 {TaskTeacherReviewActions, TaskTeacherReviewStore} = require './flux/task-teacher-review'
 {TaskPlanStatsActions, TaskPlanStatsStore} = require './flux/task-plan-stats'
 {TocActions} = require './flux/toc'
-{ExerciseActions} = require './flux/exercise'
+{ExerciseActions, ExerciseStore} = require './flux/exercise'
 {TeacherTaskPlanActions, TeacherTaskPlanStore} = require './flux/teacher-task-plan'
 {StudentDashboardActions} = require './flux/student-dashboard'
 {CourseListingActions, CourseListingStore} = require './flux/course-listing'
@@ -46,10 +48,12 @@ IS_LOCAL = window.location.port is '8000' or window.__karma__
 # Make sure API calls occur **after** all local Action listeners complete
 delay = (ms, fn) -> setTimeout(fn, ms)
 
-setNow = (jqXhr) ->
-  date = jqXhr.getResponseHeader('X-App-Date')
-  # Fallback to nginx date
-  date ?= jqXhr.getResponseHeader('Date')
+toParams = (object) ->
+  QS.stringify(object, {arrayFormat: 'brackets'})
+
+setNow = (headers) ->
+  # X-App-Date with fallback to nginx date
+  date = headers['X-App-Date'] or headers['Date']
   TimeActions.setFromString(date)
 
 apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, options) ->
@@ -82,13 +86,17 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
           url = "#{uri}/#{opts.method}.json?#{params}"
           opts.method = 'GET'
 
-      resolved = (results, statusStr, jqXhr) ->
-        setNow(jqXhr)
-        successAction(results, args...) # Include listenAction for faking
-      rejected = (jqXhr, statusMessage, err) ->
-        setNow(jqXhr)
-        statusCode = jqXhr.status
-        AppActions.setServerError(statusCode, jqXhr.responseText, {url, opts})
+      resolved = ({headers, data}) ->
+        setNow(headers)
+        if IS_LOCAL
+          data = _.extend({}, data, payload)
+        successAction(data, args...) # Include listenAction for faking
+      rejected = (response) ->
+        # jqXhr, statusMessage, err
+        setNow(response.headers)
+        statusCode = response.status
+        statusMessage = response.statusText
+        AppActions.setServerError(statusCode, statusMessage, {url, opts})
         if statusCode is 400
           CurrentUserActions.logout()
         else if statusMessage is 'parsererror' and statusCode is 200 and IS_LOCAL
@@ -103,12 +111,12 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
         else
           # Parse the error message and fail
           try
-            msg = JSON.parse(jqXhr.responseText)
+            msg = JSON.parse(statusMessage)
           catch e
-            msg = jqXhr.responseText
+            msg = statusMessage
           Actions.FAILED(statusCode, msg, args...)
-      $.ajax(url, opts)
-      .then(resolved, rejected)
+      axios(url, opts)
+        .then(resolved, rejected)
 
 BOOTSTRAPED_STORES = {
   user:   CurrentUserActions.loaded
@@ -153,10 +161,23 @@ start = (bootstrapData) ->
   apiHelper TaskPlanStatsActions, TaskPlanStatsActions.load , TaskPlanStatsActions.loaded, 'GET', (id) ->
     url: "/api/plans/#{id}/stats"
 
-  apiHelper ExerciseActions, ExerciseActions.load,
-    ExerciseActions.loaded, 'GET', (ecosystemId, pageIds, requestType = 'homework_core') ->
-      page_id_str = pageIds.join('&page_ids[]=')
-      url: "/api/ecosystems/#{ecosystemId}/exercises/#{requestType}?page_ids[]=#{page_id_str}"
+  # Note: the below exercise endpoints share the same store.
+  # The contents of the json payload is identical, except the second includes an is_excluded flag
+  # since it operates at the course level
+  #
+  # This one loads using an ecosystemId
+  apiHelper ExerciseActions, ExerciseActions.loadForEcosystem,
+    ExerciseActions.loadedForEcosystem, 'GET', (ecosystemId, page_ids, requestType = 'homework_core') ->
+      url: "/api/ecosystems/#{ecosystemId}/exercises/#{requestType}?#{toParams({page_ids})}"
+  # And this one loads using a courseId
+  apiHelper ExerciseActions, ExerciseActions.loadForCourse,
+    ExerciseActions.loadedForCourse, 'GET', (courseId, page_ids, requestType = 'homework_core') ->
+      url: "/api/courses/#{courseId}/exercises/#{requestType}?#{toParams({page_ids})}"
+
+  apiHelper ExerciseActions, ExerciseActions.saveExclusions,
+    ExerciseActions.exclusionsSaved, 'PUT', (courseId) ->
+      url: "/api/courses/#{courseId}/exercises"
+      payload: _.map ExerciseStore.getUnsavedExclusions(), (is_excluded, id) -> {id, is_excluded}
 
   apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', (ecosystemId) ->
     url: "/api/ecosystems/#{ecosystemId}/readings"
@@ -194,6 +215,10 @@ start = (bootstrapData) ->
 
   apiHelper ScoresActions, ScoresActions.load, ScoresActions.loaded, 'GET', (id) ->
     url: "/api/courses/#{id}/performance"
+  apiHelper ScoresActions, ScoresActions.acceptLate, ScoresActions.acceptedLate, 'PUT', (id) ->
+    url: "/api/tasks/#{id}/accept_late_work"
+  apiHelper ScoresActions, ScoresActions.rejectLate, ScoresActions.rejectedLate, 'PUT', (id) ->
+    url: "/api/tasks/#{id}/reject_late_work"
 
   apiHelper ScoresExportActions, ScoresExportActions.load, ScoresExportActions.loaded, 'GET', (id) ->
     url: "/api/courses/#{id}/performance/exports"
@@ -215,6 +240,8 @@ start = (bootstrapData) ->
     url: "/api/students/#{id}"
   apiHelper RosterActions, RosterActions.save, RosterActions.saved, 'PATCH', (id, params) ->
     url: "/api/students/#{id}", payload: params
+  apiHelper RosterActions, RosterActions.undrop, RosterActions.undropped, 'PUT', (id) ->
+    url: "/api/students/#{id}/undrop"
   apiHelper RosterActions, RosterActions.create, RosterActions.created, createMethod, (courseId, params) ->
     url: "/api/courses/#{courseId}/roster", payload: params
   apiHelper RosterActions, RosterActions.load, RosterActions.loaded, 'GET', (id) ->

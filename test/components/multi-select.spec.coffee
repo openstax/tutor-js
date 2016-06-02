@@ -35,3 +35,17 @@ describe 'MultiSelect component', ->
     Testing.renderComponent( MultiSelect, props: @props ).then ({dom}) =>
       Testing.actions.click(dom.querySelector('.dropdown-menu li:first-child a'))
       expect(@props.onSelect).to.have.been.calledWith(SELECTIONS[0])
+
+  it 'does not render only link if handler isnt given', ->
+    @props.onSelect = sinon.spy()
+    @props.onOnlySelection = null
+    Testing.renderComponent( MultiSelect, props: @props ).then ({dom}) ->
+      expect(dom.querySelector('.dropdown-menu .only')).to.be.null
+
+  it 'fires onOnlySelection when only is clicked', ->
+    @props.onSelect = sinon.spy()
+    @props.onOnlySelection = sinon.spy()
+    Testing.renderComponent( MultiSelect, props: @props ).then ({dom}) =>
+      Testing.actions.click(dom.querySelector('.dropdown-menu li:last-child .only'))
+      expect(@props.onOnlySelection).to.have.been.calledWith('st')
+      expect(@props.onSelect).not.to.have.been.called

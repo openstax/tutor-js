@@ -2,8 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 
-{ArbitraryHtmlAndMath} = require 'openstax-react-components'
-ExerciseCard = require '../../exercise-card'
+{ArbitraryHtmlAndMath, ExercisePreview} = require 'openstax-react-components'
 ChapterSection = require '../chapter-section'
 Icon = require '../../icon'
 {ExerciseStore, ExerciseActions} = require '../../../flux/exercise'
@@ -11,24 +10,45 @@ Icon = require '../../icon'
 {TocStore} = require '../../../flux/toc'
 
 ExerciseCardMixin =
+  getExerciseActions: ->
+    actions = {}
+    if @isSelected?()
+      actions.exclude =
+        message: 'Remove question'
+        handler: @toggleExercise
+    else
+      actions.include =
+        message: 'Add question'
+        handler: @toggleExercise
+    if @state?.displayFeedback
+      actions['feedback-off'] =
+        message: 'Hide Feedback'
+        handler: @toggleFeedbackDisplay
+    else
+      actions['feedback-on'] =
+        message: 'Preview Feedback'
+        handler: @toggleFeedbackDisplay
+    actions
 
   toggleFeedbackDisplay: (ev) ->
     @setState(displayFeedback: not @state?.displayFeedback)
 
   renderExercise: ->
-    <div className="exercise-wrapper">
-      <ExerciseCard
+
+    <div className="openstax exercise-wrapper">
+      <ExercisePreview
         {...@props}
-        toggleExercise={@toggleExercise}
+        className='exercise-card'
+        isInteractive={false}
+        isVerticallyTruncated={true}
+        onOverlayClick={@toggleExercise}
+        isSelected={@isSelected?()}
         header={@renderHeader()}
+        overlayActions={@getExerciseActions()}
+
         displayFeedback={@state?.displayFeedback}
         panelStyle={@getPanelStyle()}>
-      </ExerciseCard>
-      <button className="feedback-toggle" onClick={@toggleFeedbackDisplay}>
-        <Icon
-          type={(if @state?.displayFeedback then 'check-' else '' ) + 'square-o'}
-        /> Display Feedback
-      </button>
+      </ExercisePreview>
     </div>
 
 ReviewExerciseCard = React.createClass
@@ -76,7 +96,6 @@ ReviewExerciseCard = React.createClass
 
   renderHeader: ->
     actionButtons = @getActionButtons()
-
     <span className="-exercise-header">
       <span className="exercise-number">{@props.index + 1}</span>
       {actionButtons}
@@ -98,17 +117,15 @@ AddExerciseCard = React.createClass
   mixins: [ExerciseCardMixin]
 
   toggleExercise: ->
+
     if TaskPlanStore.hasExercise(@props.planId, @props.exercise.id)
       TaskPlanActions.removeExercise(@props.planId, @props.exercise)
     else
       TaskPlanActions.addExercise(@props.planId, @props.exercise)
 
-  renderHeader: ->
-    active = TaskPlanStore.hasExercise(@props.planId, @props.exercise.id)
-    classes = 'add-or-remove -add-exercise'
-    classes = "#{classes} active" if active
-    <div className={classes}></div>
-
+  renderHeader: -> null
+  isSelected: ->
+    TaskPlanStore.hasExercise(@props.planId, @props.exercise.id)
   getPanelStyle: ->
     if TaskPlanStore.hasExercise(@props.planId, @props.exercise.id)
       return "info"
@@ -127,10 +144,9 @@ ExercisesRenderMixin =
 
   renderLoading: ->
     {courseId, planId, pageIds} = @props
-    ecosystemId = TaskPlanStore.getEcosystemId(planId, courseId)
 
     unless ExerciseStore.isLoaded(pageIds)
-      ExerciseActions.load(ecosystemId, pageIds)
+      ExerciseActions.loadForCourse(courseId, pageIds)
       return <span className="hw-loading-spinner">
         <i className="fa fa-spinner fa-spin"></i>
         Loading...
@@ -182,7 +198,13 @@ ExerciseTable = React.createClass
 
   renderExerciseRow: (exerciseId, index, hasTeks) ->
     {section, lo, tagString} = ExerciseStore.getTagStrings(exerciseId)
-    content = ExerciseStore.getContent(exerciseId)
+    content = document.createElement("span")
+    content.innerHTML = ExerciseStore.getContent(exerciseId)
+    _.each(content.getElementsByTagName('img'), (img) ->
+      if img.nextSibling then img.remove() else img.parentElement?.remove()
+    )
+
+    content = content.innerHTML
 
     if (hasTeks)
       teksString = ExerciseStore.getTeksString(exerciseId)
@@ -319,12 +341,14 @@ AddExercises = React.createClass
         Please select more sections.
       </span>
 
-    groups = ExerciseStore.getGroupedExercises(pageIds)
+    groups = ExerciseStore.getGroupedIncludedExercises(pageIds)
     renderExercise = @renderExercise
     renderSection = @renderSection
     renderInRows = @renderInRows
 
-    renderedExercises = _.reduce(groups, (memo, exercises, key) ->
+    sections = _.keys(groups).sort()
+    renderedExercises = _.reduce(sections, (memo, key) ->
+      exercises = groups[key]
       section = renderSection(key)
       exerciseCards = _.map(exercises, renderExercise)
       memo.push(section)

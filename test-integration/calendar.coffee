@@ -12,7 +12,7 @@ describe 'Calendar and Stats', ->
   @eachCourse = (msg, fn) =>
     _.each ['BIOLOGY', 'PHYSICS'], (courseCategory) =>
       @it "#{msg} for #{courseCategory}", (done) ->
-        @courseSelect.goToByType(courseCategory)
+        @courseSelect.goToByType(courseCategory, 'teacher')
         @calendar.waitUntilLoaded()
         fn.call(@, courseCategory)
         # Go back to the course selection after the spec
@@ -24,6 +24,9 @@ describe 'Calendar and Stats', ->
     @calendar = new Helpers.Calendar(@)
     @courseSelect = new Helpers.CourseSelect(@)
     @scores = new Helpers.Scores(@)
+    @taskPlanReview = new Helpers.TaskPlanReview(@)
+    @taskTeacher = new Helpers.TaskTeacher(@)
+    @forecast = new Helpers.Forecast(@)
 
     @user.login(TEACHER_USERNAME)
 
@@ -67,45 +70,30 @@ describe 'Calendar and Stats', ->
 
 
   @eachCourse 'Clicks an item in the Student Scores (readonly)', (courseCategory) ->
-    # The facebook table has some "fancy" elements that don't move when the table
-    # scrolls vertically. Unfortunately, they cover the links.
-    # There is a UI "border shadow" element that ends up going right
-    # through the middle of a link. So, just hide the element
-    @addTimeoutMs(1000)
-    @driver.executeScript ->
-      hider = document.createElement('style')
-      hider.textContent = '.public_fixedDataTable_bottomShadow { display: none; }'
-      document.head.appendChild(hider)
 
     @calendar.goToScores()
     @scores.waitUntilLoaded()
-    @addTimeout(60)
-    @utils.wait.for({css: '.scores-report .course-scores-title'})
 
+    @scores.goToPeriodWithAssignments()
     # Click the "Review" links (each task-plan)
-    @utils.wait.click({css: '.review-plan'})
-    # Depending on the type of plan, the "Back to Scores" button could be pinned to the bottom (iReading) or up by the breadcrumbs (HW)
-    @utils.wait.for({css: '.task-step .pinned-footer .btn-default:not([disabled]), .task-breadcrumbs .btn-default:not([disabled])'})
-    @utils.wait.click({css: '.task-step .pinned-footer .btn-default:not([disabled]), .task-breadcrumbs .btn-default:not([disabled])'})
-    @utils.wait.for({css: '.course-scores-wrap'})
+    @scores.el.hsReviewLink().click()
+    @taskPlanReview.waitUntilLoaded()
+    @taskPlanReview.el.backToScores().click()
 
+    @scores.goToPeriodWithAssignments()
     # Click each Student Forecast
-    @utils.wait.click({css: '.student-name'})
+    @scores.el.hsNameLink().click()
     # console.log 'opening Student Forecast', courseCategory, index, 'of', total
-    @utils.wait.for({css: '.chapter-panel.weaker, .no-data-message'})
-    @utils.wait.click({css: '.performance-forecast a.back'})
-    @utils.wait.for({css: '.course-scores-wrap'})
+    @forecast.waitUntilLoaded()
+    @forecast.el.back().click()
 
+    @scores.goToPeriodWithWorkedAssignments()
     # only test the 1st row of each Student Response
-    @utils.wait.click({css: '.fixedDataTableRowLayout_rowWrapper:nth-of-type(1) .task-result'})
+    @scores.el.taskResultByRow().click()
     # console.log 'opening Student view', courseCategory, index, 'of', total
-    @utils.wait.for({css: '.async-button.continue'})
+    @taskTeacher.waitUntilLoaded()
     # @utils.wait.click(linkText: 'Back to Student Scores')
-    # Depending on the type of plan, the "Back to Scores" button could be pinned to the bottom (iReading) or up by the breadcrumbs (HW)
-    @utils.wait.for({css: '.task-step .pinned-footer .btn-default:not([disabled]), .task-breadcrumbs .btn-default:not([disabled])'})
-    el = @driver.findElement({css: '.task-step .pinned-footer .btn-default:not([disabled]), .task-breadcrumbs .btn-default:not([disabled])'})
-    @utils.windowPosition.scrollTo(el)
-    @utils.wait.click({css: '.task-step .pinned-footer .btn-default:not([disabled]), .task-breadcrumbs .btn-default:not([disabled])'})
+    @taskTeacher.el.backToScores().click()
 
     # # BUG: Click on "Period 1"
     # @utils.wait.click({css: '.course-scores-wrap li:first-child'})

@@ -16,6 +16,15 @@ module.exports = React.createClass
     bookUrl: React.PropTypes.string.isRequired
     bookName: React.PropTypes.string.isRequired
 
+  getInitialState: ->
+    showModal: false
+
+  close: ->
+    @setState({showModal: false})
+
+  open: ->
+    @setState({showModal: true})
+
   getEnrollmentCode: (name, periods) ->
     period = _.findWhere(periods, {name: name})
     period.enrollment_code
@@ -71,9 +80,13 @@ module.exports = React.createClass
     codeInstructions = @getInstructions(enrollmentCode)
 
     <BS.Modal
-      {...@props}
-      title={TITLE}
+      show={@state.showModal}
+      onHide={@close}
       className="teacher-edit-period-modal">
+
+      <BS.Modal.Header closeButton>
+        <BS.Modal.Title>{TITLE}</BS.Modal.Title>
+      </BS.Modal.Header>
 
       <div className='modal-body teacher-enrollment-code-modal'>
         <div className='enrollment-code'>
@@ -84,12 +97,9 @@ module.exports = React.createClass
     </BS.Modal>
 
   render: ->
-    <BS.OverlayTrigger
-      ref='overlay'
-      rootClose={true}
-      trigger='click'
-      overlay={@renderForm()}>
-        <BS.Button bsStyle='link' className='show-enrollment-code'>
-          <i className='fa fa-qrcode' /> {TITLE}
-        </BS.Button>
-    </BS.OverlayTrigger>
+    <span className='-show-enrollment-code-link'>
+      <BS.Button onClick={@open} bsStyle='link' className='show-enrollment-code'>
+        <i className='fa fa-qrcode' /> {TITLE}
+      </BS.Button>
+      {@renderForm()}
+    </span>

@@ -12,6 +12,8 @@ COMMON_ELEMENTS =
     linkText: 'Performance Forecast'
   studentScoresLink:
     linkText: 'Student Scores'
+  bookLink:
+    linkText: 'Browse The Book'
   addToggle:
     css: '.add-assignment .dropdown-toggle'
   addReadingButton:
@@ -22,6 +24,8 @@ COMMON_ELEMENTS =
     linkText: 'Add External Assignment'
   publishedPlan:
     css: '.plan.is-published label:not(.continued)'
+  publishedHomework:
+    css: '.plan.is-published label:not(.continued)[data-assignment-type=homework]'
   draftPlan:
     css: '.plan:not(.is-published) label:not(.continued)'
     ignoreLengthChange: true
@@ -37,6 +41,10 @@ COMMON_ELEMENTS =
     css: ".plan label[data-title='#{title}']"
   publishedPlanByTitle: (title) ->
     css: ".plan.is-published label[data-title='#{title}']"
+  lmsLink:
+    css: '.lms-info a'
+  lmsPopover:
+    css: '.sharable-link.popover'
 
 
 COMMON_POPUP_ELEMENTS =
@@ -61,7 +69,7 @@ class Popup extends TestHelper
     @setCommonHelper('periodReviewTab', new PeriodReviewTab(@test))
 
   close: =>
-    @el.closeButton.click()
+    @el.closeButton().click()
     # waits until the locator element is not present
     @test.driver.wait =>
       @el.self().isPresent().then (isPresent) ->
@@ -116,25 +124,41 @@ class Calendar extends TestHelper
   goToOpenByTitle: (title) =>
     # wait until the calendar is open
     @waitUntilLoaded()
+    plan = null
     # TODO: Make this a `data-title` attribute
     # HACK: Might need to scroll the item to click on into view
-    el = @el.planByTitle(title).get()
-    @test.utils.windowPosition.scrollTo(el)
-    @el.planByTitle(title).click()
-    @waitUntilLoaded() # Wait until either the popup opens or the Reading Builder opens (depending on the state of the thing clicked)
+    @el.planByTitle(title).get().then (el) =>
+      plan = el
+      @doesPlanPopup(plan)
+    .then (doesPopup) =>
+      plan.click()
+      # Wait until the popup opens if this plan should open a popup
+      if doesPopup
+        popup = new Popup(@test)
+        popup.waitUntilLoaded()
 
   waitUntilPublishingFinishedByTitle: (title) =>
     @test.utils.verbose("Waiting to see if plan is published #{title}")
     @test.utils.wait.giveTime PUBLISHING_TIMEOUT, =>
       @test.driver.wait((=> @el.publishedPlanByTitle(title).isPresent()), PUBLISHING_TIMEOUT)
 
+  doesPlanPopup: (plan) =>
+    @test.utils.dom.getParentOfEl(plan).getTagName().then (tagName) ->
+      tagName isnt 'a'
+
   canReviewPlan: (plan) =>
-    @test.utils.dom._getParent(plan).getAttribute(@el.canReview().locator.attr)
+    @test.utils.dom.getParentOfEl(plan).getAttribute(@el.canReview().locator.attr)
 
   getPlanTitle: (plan) ->
     plan.getText()
 
-  # goToBook()
+  goToBook: ->
+    @el.bookLink().click()
+
+  getLmsPopover: =>
+    @el.lmsLink().click()
+    @el.lmsPopover().get()
+
   # goToAddByType(assignmentType)
   # goToAddByTypeFromNow(assignmentType, relativeDate)
   # goToPreviousMonth()

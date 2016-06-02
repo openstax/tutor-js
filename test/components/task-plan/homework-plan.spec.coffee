@@ -6,7 +6,7 @@ _ = require 'underscore'
 
 {HomeworkPlan} = require '../../../src/components/task-plan/homework'
 
-{Testing, sinon, expect, _, React} = require '../helpers/component-testing'
+{Testing, sinon, expect, _, React, ReactTestUtils} = require '../helpers/component-testing'
 {ExtendBasePlan, PlanRenderHelper} = require '../helpers/task-plan'
 
 yesterday = (new Date(Date.now() - 1000 * 3600 * 24)).toString()
@@ -63,9 +63,14 @@ describe 'Homework Plan', ->
       element.showSectionTopics()
       expect(TocActions.load).to.have.been.calledWith(COURSE_ECOSYSTEM_ID)
 
+  it 'toggles immediate feedback when options are changed', ->
+    sinon.spy(TaskPlanActions, 'setImmediateFeedback')
+    helper(NEW_HW).then ({dom}) ->
+      ReactTestUtils.Simulate.change(dom.querySelector('#feedback-select'), target: {value: 'immediate'})
+      expect(TaskPlanActions.setImmediateFeedback).to.have.been.calledWith(NEW_HW.id, true)
+
   it 'should load the plan\'s specified ecosystem_id', ->
     TocActions.load = sinon.spy()
-
     helper(ECO_HOMEWORK).then ({element}) ->
       element.showSectionTopics()
       expect(TocActions.load).to.have.been.calledWith(ECO_HOMEWORK_ECOSYSTEM_ID)

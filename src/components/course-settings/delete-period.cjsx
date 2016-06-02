@@ -4,6 +4,7 @@ _ = require 'underscore'
 {PeriodActions, PeriodStore} = require '../../flux/period'
 {RosterActions, RosterStore} = require '../../flux/roster'
 {TutorInput} = require '../tutor-input'
+{AsyncButton} = require 'openstax-react-components'
 
 CourseGroupingLabel = require '../course-grouping-label'
 EMPTY_WARNING = 'EMPTY'
@@ -18,14 +19,24 @@ module.exports = React.createClass
 
   getInitialState: ->
     warning: ''
+    showModal: false
+    isDeleting: false
+
+  close: ->
+    @setState({showModal: false, isDeleting: false})
+
+  open: ->
+    @setState({showModal: true})
 
   performUpdate: ->
     if @isPeriodEmpty()
-      @refs.overlay.hide()
       # tab to be deleted cannot be activeTab unless first, so select previous or first
       @props.selectPreviousTab()
       id = @props.activeTab.id
+
+      @setState isDeleting: true
       PeriodActions.delete(id, @props.courseId)
+      PeriodStore.once 'deleted', => @close()
     else
       @setState(warning: EMPTY_WARNING)
 
@@ -41,9 +52,13 @@ module.exports = React.createClass
       @state.warning = ''
     deleteQuestion = "Delete '#{@props.activeTab.name}'?"
     deleteButton =
-      <BS.Button className='-edit-period-confirm' onClick={@performUpdate}>
+      <AsyncButton
+        className='-edit-period-confirm'
+        onClick={@performUpdate}
+        isWaiting={@state.isDeleting}
+        waitingText="Deleting...">
         Delete
-      </BS.Button>
+      </AsyncButton>
     warning = if @state.warning is EMPTY_WARNING
       <span>
         Only <CourseGroupingLabel courseId={@props.courseId} lowercase/>s without
@@ -54,8 +69,13 @@ module.exports = React.createClass
 
     <BS.Modal
       {...@props}
-      title={title}
+      show={@state.showModal}
+      onHide={@close}
       className="teacher-edit-period-modal">
+
+      <BS.Modal.Header closeButton>
+        <BS.Modal.Title>{title}</BS.Modal.Title>
+      </BS.Modal.Header>
 
       <div className='modal-body teacher-edit-period-form'>
 
@@ -72,18 +92,13 @@ module.exports = React.createClass
         {deleteButton if @isPeriodEmpty()}
       </div>
 
-
-
     </BS.Modal>
 
   render: ->
-    <BS.OverlayTrigger
-      ref='overlay'
-      rootClose={true}
-      trigger='click'
-      overlay={@renderForm()}>
-        <BS.Button bsStyle='link' className='edit-period'>
-          <i className='fa fa-trash-o' />
-          Delete <CourseGroupingLabel courseId={@props.courseId}/>
-        </BS.Button>
-    </BS.OverlayTrigger>
+    <span className='-delete-period-link'>
+      <BS.Button onClick={@open} bsStyle='link' className='edit-period'>
+        <i className='fa fa-trash-o' />
+        Delete <CourseGroupingLabel courseId={@props.courseId}/>
+      </BS.Button>
+      {@renderForm()}
+    </span>

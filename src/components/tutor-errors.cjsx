@@ -18,7 +18,14 @@ TutorPeriodNameExists = React.createClass
       Name already exists.
     </div>
 
+TutorTimeIncorrectFormat = React.createClass
+  render: ->
+    <div className='hint'>
+      Please type a time.
+    </div>
+
 module.exports =
   required: TutorRequired
   url: TutorUrl
   periodNameExists: TutorPeriodNameExists
+  incorrectTime: TutorTimeIncorrectFormat

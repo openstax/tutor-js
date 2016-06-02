@@ -98,7 +98,7 @@ PlanMixin =
     calendarRoute = 'calendarByDate'
     dueAt = TaskPlanStore.getFirstDueDate(id) or @context.router.getCurrentQuery().due_at
     if dueAt?
-      date = moment(dueAt).format(CALENDAR_DATE_FORMAT)
+      date = dueAt
     else
       date = moment(TimeStore.getNow()).format(CALENDAR_DATE_FORMAT)
 

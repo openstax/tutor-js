@@ -8,7 +8,7 @@ classnames = require 'classnames'
 {CourseActions, CourseStore} = require '../../flux/course'
 ReferenceBookPageShell = require './page-shell'
 LoadableItem = require '../loadable-item'
-moment = require 'moment'
+
 ReferenceBook = require './reference-book'
 CourseDataMixin = require '../course-data-mixin'
 TeacherContentToggle = require './teacher-content-toggle'

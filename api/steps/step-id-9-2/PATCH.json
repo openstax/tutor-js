@@ -1,0 +1,25 @@
+{ "id": "step-id-9-2",
+  "type": "exercise",
+  "is_in_multipart": true,
+  "content_url": "https://exercises-dev.openstax.org/exercises/120@1",
+  "free_response": "hello",
+  "content": {
+    "stimulus_html": "Stimulus for Second Exercise",
+    "questions":[
+      {
+        "id": "876",
+        "formats": ["multiple-choice", "free-response"],
+        "stem_html":"Is the glass half full or half empty?",
+        "answers":[
+          {"id":"id3","content_html":"Half Full"},
+          {"id":"id4","content_html":"Half Empty"}
+        ]
+      }
+    ]
+  },
+  "group": "core",
+  "related_content": [{
+      "title": "Physics is cool, yo",
+      "chapter_section": "1.3"
+  }]
+}

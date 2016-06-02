@@ -3,31 +3,49 @@ React = require 'react'
 classnames = require 'classnames'
 {ExerciseStore} = require '../../flux/exercise'
 String = require '../../helpers/string'
-ExerciseCard = require '../exercise-card'
-
+{ExercisePreview} = require 'openstax-react-components'
+exerciseDataFilter = require '../../flux/qa-exercise-data-filter'
 Exercise = React.createClass
 
   propTypes:
     exercise: React.PropTypes.object.isRequired
-    ignoredPoolTypes: React.PropTypes.object.isRequired
+    ignoredTypes: React.PropTypes.object.isRequired
+    ecosystemId: React.PropTypes.string.isRequired
+    section: React.PropTypes.string.isRequired
+    cnxId: React.PropTypes.string.isRequired
 
-  renderHeader: ->
-    <div className='pools'>
-      {for pool in ExerciseStore.poolTypes(@props.exercise)
-        className = classnames(pool, {'is-ignored': @props.ignoredPoolTypes[pool]})
-        <span key={pool} className={className}>{String.titleize(pool)}</span>}
+  renderHeader: (types) ->
+    <div className='types'>
+      {for type in types
+        className = classnames(type, {'is-ignored': @props.ignoredTypes[type]})
+        <span key={type} className={className}>{String.titleize(type)}</span>}
     </div>
 
   render: ->
-    return null if _.every( ExerciseStore.poolTypes(@props.exercise), (pt) => @props.ignoredPoolTypes[pt] )
-    editUrl = @props.exercise.url.replace(/@\d+/, '@draft')
-    <ExerciseCard {...@props}
-      header={@renderHeader()}
+    {exercise, ignoredTypes, show2StepPreview} = @props
+    types = ExerciseStore.getExerciseTypes(exercise)
+
+    return null if _.any(types) and _.every( types, (pt) -> ignoredTypes[pt] )
+
+    editUrl = exercise.url.replace(/@\d+/, '@draft')
+
+    doQuestionsHaveFormat = ExerciseStore.doQuestionsHaveFormat('free-response', {exercise})
+
+    if show2StepPreview
+      freeResponse = _.map doQuestionsHaveFormat, (hasFreeResponse) ->
+        <div className='exercise-free-response-preview'/> if hasFreeResponse
+
+    <ExercisePreview
+      exercise={exerciseDataFilter(exercise, @props)}
+      className='exercise'
+      header={@renderHeader(types)}
+      displayFormats={true}
+      questionFooters={freeResponse}
       displayAllTags
       displayFeedback
     >
       <a target="_blank" className="edit-link" href={editUrl}>edit</a>
-    </ExerciseCard>
+    </ExercisePreview>
 
 
 module.exports = Exercise

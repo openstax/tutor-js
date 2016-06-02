@@ -12,6 +12,10 @@ module.exports = {
     parsedInt = parseFloat(string)
     if _.isNaN(parsedInt) then string.toLowerCase() else parsedInt
 
+  # from http://jamesroberts.name/blog/2010/02/22/string-functions-for-javascript-trim-to-camel-case-to-dashed-and-to-underscore/
+  dasherize: (string) ->
+    string.replace(/\W+/g, '').replace /([A-Z])/g, ($1) -> "-#{$1.toLowerCase()}"
+
   # originated from http://individed.com/code/to-title-case/
   titleize: (string) ->
     string

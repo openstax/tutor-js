@@ -1,7 +1,4 @@
 React    = require 'react'
-BS       = require 'react-bootstrap'
-moment   = require 'moment'
-_ = require 'underscore'
 
 {TimeStore} = require '../../flux/time'
 EventRow = require './event-row'

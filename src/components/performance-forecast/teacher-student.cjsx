@@ -30,7 +30,7 @@ module.exports = React.createClass
 
   bindStore: PerformanceForecast.TeacherStudent.store
 
-  onSelectStudent: (roleId) ->
+  onSelectStudent: (ev, roleId) ->
     {courseId} = @props
     PerformanceForecast.TeacherStudent.actions.load(courseId, {roleId})
     @setState({roleId})
@@ -44,8 +44,13 @@ module.exports = React.createClass
     <div className='guide-heading'>
       <div className='guide-group-title'>
         <span className='preamble'>Performance Forecast for:</span>
-        <BS.DropdownButton bzSize='large' className='student-selection' title={name}
-          bsStyle='link' onSelect={@onSelectStudent}>
+        <BS.DropdownButton
+          bzSize='large'
+          id='student-selection'
+          className='student-selection'
+          title={name}
+          bsStyle='link'
+          onSelect={@onSelectStudent}>
             { for student in _.sortBy(students, 'name') when student.role isnt selected.role
               <BS.MenuItem key={student.role} eventKey={student.role}>
                 <Name {...student} />

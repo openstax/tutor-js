@@ -1,5 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+classnames = require 'classnames'
+
 _ = require 'underscore'
 {StepPanel} = require '../../helpers/policies'
 
@@ -36,11 +38,13 @@ module.exports =
     </AsyncButton>
 
   render: ->
-    {pinned, courseId, id, taskId, review} = @props
+    {pinned, courseId, id, taskId, review, className} = @props
+
+    classes = classnames 'task-step', className
 
     # from StepFooterMixin
     footer = @renderFooter({stepId: id, taskId, courseId, review})
-    <CardBody className='task-step' footer={footer} pinned={pinned}>
+    <CardBody className={classes} footer={footer} pinned={pinned}>
       {@renderBody()}
       {@renderGroup?()}
     </CardBody>

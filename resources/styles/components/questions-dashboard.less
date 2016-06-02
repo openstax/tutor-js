@@ -1,0 +1,257 @@
+.questions-dashboard {
+  @padding: 20px;
+  .wrapper {
+    max-width: 1200px; // match panel width
+    margin: 0 auto;
+
+  }
+
+  .sections-chooser {
+    .header {
+      margin-top: @tutor-panel-padding-vertical;
+      background-color: @tutor-white;
+      padding: 0 @padding+5px;
+      .wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        h2 {
+          #fonts >.sans(2.8rem, 2.8rem);
+        }
+      }
+    }
+  }
+
+  .instructions {
+    background-color: @tutor-secondary;
+    color: @tutor-white;
+    #fonts >.sans(1.6rem, 1.6rem);
+    font-weight: 700;
+    font-style: italic;
+    margin: 0;
+    padding: @padding - 5px;
+
+    .tutor-icon {
+      position: relative;
+      left: 0.5rem;
+      top: -0.5rem;
+    }
+  }
+
+  .secondary-help {
+    text-align: center;
+    color: @tutor-neutral;
+  }
+  .sections-list {
+    margin-top: @tutor-panel-padding-vertical;
+    padding: @padding;
+    background-color: @tutor-white;
+  }
+
+  .questions-controls {
+    background-color: @tutor-white;
+  }
+
+  .section-controls {
+    background-color: @tutor-neutral-bright;
+    border: 1px solid @tutor-neutral-light;
+    // important to override material-design styles
+    button.btn { margin-right: 1rem !important; }
+  }
+
+  .loading {
+    position: fixed;
+    width: 400px;
+    left: calc(~"50% - 150px");
+    top: 40%;
+    z-index: 2;
+    background-color: @tutor-neutral-bright;
+    border: 1px solid @tutor-neutral-light;
+    height: 200px;
+    text-align: center;
+    #fonts >.sans(3rem, 200px);
+  }
+
+  .questions-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 @padding;
+    .sectionizer {
+      flex: 1;
+      text-align: center;
+      div {
+        cursor: pointer;
+        display: inline-block;
+        font-size: 12px;
+        width: 40px;
+        line-height: 40px;
+
+        &.section {
+          border: 1px solid @tutor-neutral-light;
+          &+.section {
+            border-left: 0;
+          }
+        }
+        &.active {
+          background-color: @tutor-neutral-light;
+        }
+        &.disabled {
+          cursor: default;
+          color: @tutor-neutral-light;
+        }
+      }
+    }
+    .btn-group {
+      box-shadow: none;
+      button:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
+        font-size: 12px;
+        background-size: @icon-size-lg @icon-size-lg;
+        background-repeat: no-repeat;
+        border-radius: 0;
+        box-shadow: none !important;
+        border: 1px solid @tutor-neutral;
+        height: 40px;
+        margin-right: 0;
+        &.active {
+          background-color: @tutor-neutral-light;
+        }
+        .tutor-icon {
+          margin: 0;
+        }
+      }
+      &.filters {
+        button {
+          width: 90px;
+        }
+      }
+      &.display-types {
+        margin-left: 10px;
+        button {
+          width: 40px;
+        }
+      }
+    }
+    .save-cancel {
+      width: 200px;
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+
+  .exercise-card.is-selected {
+    .selected-mask { opacity: 0.4; } // bump up a bit to stand out from background
+  }
+
+  .exercise-details {
+    min-height: calc(~"100vh - 150px");
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    .content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    .center {
+      display: flex;
+      height: 100%;
+      justify-content: center;
+    }
+    .controls {
+      display: flex;
+      justify-content: flex-end;
+      .show-cards {
+        cursor: pointer;
+      }
+    }
+    .exercise-card {
+      width: 800px;
+      .controls-overlay {
+        display: none;
+      }
+    }
+
+    .page-navigation {
+      .page-navigation-arrows(800px);
+      position: absolute;
+      display: none; // toggled on at bottom of file when body has pinned navbar
+    }
+
+  }
+
+  .exercise-cards {
+    margin-top: @tutor-panel-padding-vertical;
+    @column-width: 450px;
+
+    .exercises {
+      -webkit-column-width: @column-width;
+      -moz-column-width: @column-width;
+      column-width: @column-width;
+    }
+    .exercise-sections {
+      margin-top: @tutor-panel-padding-vertical;
+    }
+    @media (min-width: @screen-md-min) {
+      .panel { margin: 5px; }
+    }
+    .exercise-card {
+      page-break-inside: avoid;
+      break-inside: avoid;
+      display: inline-block;
+      width: 100%;
+    }
+  }
+}
+
+.question-library-min-exercise-exclusions {
+  top: 30%;
+  .modal-dialog {
+    width: 400px;
+  }
+  .modal-body {
+    #fonts >.sans(1.8rem, 1.8rem);
+    padding: 3rem;
+    display: flex;
+    .tutor-icon {
+      font-size: 4rem;
+      margin-right: 1rem;
+      color: @tutor-primary;
+    }
+  }
+  .modal-footer{
+    text-align: right;
+    .btn-primary {
+      color: @tutor-white;
+      background-color: @tutor-tertiary-light !important; // material design override
+      border: 1px solid darken(@tutor-tertiary-light, 10%) !important;
+    }
+  }
+}
+
+// re-enable hidden controls when nav is pinned
+.pinned-view.pinned-on {
+  .questions-dashboard {
+    .pinned-header { z-index: 3; } // above exercise hover mask of 2
+
+    .exercise-details {
+      .exercise-card {
+        .controls-overlay { display: flex; }
+      }
+      .page-navigation {
+        display: flex;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+
+// TODO put in shared instead, this is just for quick edits
+.openstax-exercise-preview.actions-on-side {
+  .panel-body {
+    // add left padding to make space for action buttons.
+    padding-left: 90px;
+  }
+
+}

@@ -1,8 +1,9 @@
-React = require 'react'
+React = require 'react/addons'
 BS = require 'react-bootstrap'
 moment = require 'moment-timezone'
 _ = require 'underscore'
 classnames = require 'classnames'
+MaskedInput = require 'react-input-mask'
 
 {TimeStore} = require '../flux/time'
 TimeHelper = require '../helpers/time'
@@ -36,6 +37,7 @@ TutorInput = React.createClass
   validate: (inputValue) ->
     errors = @props.validate(inputValue)
     errors ?= []
+
     @setState({errors})
 
   focus: ->
@@ -52,8 +54,9 @@ TutorInput = React.createClass
   forwardLabelClick: -> @focus()
 
   render: ->
+    {children} = @props
     classes = classnames 'form-control', @props.class,
-      empty: not @props.default
+      empty: not (@props.default or @props.defaultValue)
 
     wrapperClasses = classnames 'form-control-wrapper', 'tutor-input', @props.className,
       'is-required': @props.required
@@ -65,7 +68,17 @@ TutorInput = React.createClass
       <ErrorWarning key={error}/>
     )
 
-    inputProps = _.omit(@props, 'label', 'className', 'onChange', 'validate', 'default', 'value')
+    inputProps = _.omit(@props, 'label', 'className', 'onChange', 'validate', 'default', 'value', 'children')
+    inputProps.ref = 'input'
+    inputProps.className = classes
+    inputProps.onChange = @onChange
+    inputProps.defaultValue ?= @props.default if @props.default?
+
+    if children?
+      inputBox = React.addons.cloneWithProps(children, inputProps)
+    else
+      inputBox = <input {...inputProps}/>
+
 
     # Please do not set value={@props.value} on input.
     #
@@ -76,13 +89,7 @@ TutorInput = React.createClass
     #
     # Instead, use @props.default to set an intial defaul value.
     <div className={wrapperClasses}>
-      <input
-        {...inputProps}
-        ref='input'
-        className={classes}
-        defaultValue={@props.default}
-        onChange={@onChange}
-      />
+      {inputBox}
       <div className='floating-label' onClick={@forwardLabelClick}>{@props.label}</div>
       {errors}
     </div>
@@ -131,9 +138,10 @@ TutorDateInput = React.createClass
     if (not valid)
       value = moment(@props.min) or null
 
-    date = value.format(TutorDateFormat)
-    @props.onChange(date)
-    @setState({expandCalendar: false, valid: valid, value: date})
+    value = TimeHelper.getZonedMoment(value)
+
+    @props.onChange(value)
+    @setState({expandCalendar: false, valid, value})
 
   getValue: ->
     @props.value or @state.value
@@ -160,7 +168,8 @@ TutorDateInput = React.createClass
 
     now = TimeStore.getNow()
     value = @props.value
-    value = if value and value.getTime and not isNaN(value.getTime())
+
+    value = if value
       TimeHelper.getMomentPreserveDate(value)
     else
       null
@@ -171,7 +180,6 @@ TutorDateInput = React.createClass
 
     if not @props.disabled
       dateElem = <DatePicker
-          moment={moment}
           minDate={min}
           maxDate={max}
           onFocus={@expandCalendar}
@@ -183,7 +191,7 @@ TutorDateInput = React.createClass
           onChange={@dateSelected}
           disabled={@props.disabled}
           selected={value}
-          weekStart={@props.currentLocale.week.dow}
+          weekStart={"#{@props.currentLocale.week.dow}"}
         />
     else if isDatePickerDisabled
       displayValue = value.format(TutorDateFormat)
@@ -202,6 +210,61 @@ TutorDateInput = React.createClass
       </div>
     </div>
 
+TutorTimeInput = React.createClass
+  getDefaultProps: ->
+    formatChars:
+      h: '[0-9]'
+      H: '[0-1]'
+      M: '[0-6]'
+      m: '[0-9]'
+      P: '(A|P|a|p)'
+      p: '(M|m)'
+    fromMomentFormat: 'HH:mm'
+    toMomentFormat: 'hh:mm a'
+
+  timeIn: (value) ->
+    {fromMomentFormat, toMomentFormat} = @props
+    moment(value, fromMomentFormat).format(toMomentFormat)
+
+  timeOut: (value) ->
+    {fromMomentFormat, toMomentFormat} = @props
+    moment(value, toMomentFormat).format(fromMomentFormat)
+
+  getDefaultValue: ->
+    {defaultValue} = @props
+    @timeIn(defaultValue)
+
+  getValue: ->
+    @refs.timeInput?.refs.input?.getInputValue()
+
+  validate: (inputValue) ->
+    timeInputValue = @getValue()
+    unless _.isUndefined(timeInputValue)
+      ['incorrectTime'] if timeInputValue.indexOf('_') > -1
+
+  onChange: ->
+    # unfortunately need to use defer -- for some reason, masked input's value state update doesn't happen immediately.
+    _.defer =>
+      time = @getValue()
+      outputTime = @timeOut(time)
+      @props.onChange?(outputTime)
+      @refs.timeInput.validate(time)
+
+  render: ->
+    defaultValue = @getDefaultValue()
+    maskedProps = _.omit(@props, 'defaultValue', 'onChange')
+
+    <TutorInput
+      {...maskedProps}
+      defaultValue={defaultValue}
+      onChange={@onChange}
+      validate={@validate}
+      ref="timeInput"
+      mask='Hh:Mm Pp'
+      size='8'
+      name='time'>
+      <MaskedInput/>
+    </TutorInput>
 
 TutorTextArea = React.createClass
   propTypes:
@@ -251,4 +314,38 @@ TutorTextArea = React.createClass
       </div>
     </div>
 
-module.exports = {TutorInput, TutorDateInput, TutorDateFormat, TutorTextArea}
+# TODO: replace with new and improved BS.Radio when we update
+TutorRadio = React.createClass
+
+  propTypes:
+    value: React.PropTypes.string.isRequired
+    id: React.PropTypes.string.isRequired
+    name: React.PropTypes.string.isRequired
+    label: React.PropTypes.string
+    className: React.PropTypes.string
+    onChange: React.PropTypes.func
+    checked: React.PropTypes.bool
+    disabled: React.PropTypes.bool
+
+  isChecked: ->
+    @refs.radio.getDOMNode().checked
+
+  handleChange: (changeEvent) ->
+    {value} = @props
+
+    @props.onChange?(changeEvent, {value})
+
+  render: ->
+    {label, className, value, id, checked} = @props
+    inputProps = _.pick(@props, 'value', 'id', 'name', 'checked', 'disabled')
+
+    label ?= value
+    classes = classnames 'tutor-radio', className,
+      active: checked
+
+    <div className={classes}>
+      <input ref='radio' {...inputProps} type='radio' onChange={@handleChange}/>
+      <label htmlFor={id}>{label}</label>
+    </div>
+
+module.exports = {TutorInput, TutorDateInput, TutorDateFormat, TutorTimeInput, TutorTextArea, TutorRadio}

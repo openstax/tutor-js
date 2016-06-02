@@ -18,6 +18,7 @@ describe 'Student performing tasks', ->
     @user.login(STUDENT_USERNAME)
 
     @courseSelect.goToByType('ANY')
+    @dashboard.waitUntilLoaded()
 
   @it 'Can continue and go to expected steps (readonly)', ->
     @dashboard.el.workableTask().isPresent().then (isPresent) =>
@@ -47,6 +48,18 @@ describe 'Student performing tasks', ->
       @task.waitUntilLoaded()
 
       @task.canContinue().then (canContinue) => @task.continue() if canContinue
+
+      # Go back to the course selection
+      @user.goToHome()
+
+  @it 'Can click on help link', ->
+    @dashboard.el.workableTask().isPresent().then (isPresent) =>
+      return console.log('No Workable tasks to click on so skipping') unless isPresent
+
+      @dashboard.el.workableTask().click()
+      @task.waitUntilLoaded()
+
+      @task.goToHelpLink()
 
       # Go back to the course selection
       @user.goToHome()

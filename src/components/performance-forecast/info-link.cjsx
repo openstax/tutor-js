@@ -32,7 +32,7 @@ module.exports = React.createClass
 
   render: ->
     tooltip =
-    <BS.Tooltip className='info-link-tooltip' html='true'>
+    <BS.Tooltip id='info-link-tooltip' className='info-link-tooltip' html='true'>
       {MESSAGES[@props.type]}
     </BS.Tooltip>
 

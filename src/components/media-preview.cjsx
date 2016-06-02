@@ -31,6 +31,7 @@ MediaPreview = React.createClass
     buffer: 160
     shouldLinkOut: false
     windowImpl: window
+    trigger: 'focus'
 
   componentWillMount: ->
     {mediaId, cnxId} = @props
@@ -106,7 +107,7 @@ MediaPreview = React.createClass
     not (popoverDOM.contains(mouseEvent.relatedTarget) or linkDOM.isEqualNode(mouseEvent.relatedTarget))
 
   getOverlayProps: ->
-    _.pick(@props, 'containerPadding')
+    _.pick(@props, 'containerPadding', 'trigger')
 
   getLinkProps: (otherProps) ->
     {mediaId, mediaDOMOnParent, bookHref, shouldLinkOut, originalHref} = @props
@@ -154,6 +155,7 @@ MediaPreview = React.createClass
         'data-content-type': media.name
         className: 'media-preview'
         ref: 'popover'
+        mediaId: mediaId
         onMouseLeave: @onMouseLeave
 
       content = <ArbitraryHtmlAndMath {...contentProps} html={contentHtml}/>

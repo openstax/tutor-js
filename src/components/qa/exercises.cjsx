@@ -36,7 +36,7 @@ QAExercises = React.createClass
     page = ReferenceBookStore.getPageInfo(props)
     @setState(pageId: page.id)
     if page and not ExerciseStore.isLoaded([page.id])
-      ExerciseActions.load(@props.ecosystemId, [page.id], '')
+      ExerciseActions.loadForEcosystem(@props.ecosystemId, [page.id], '')
 
   renderSpyInfo: ->
     book = EcosystemsStore.getBook(@props.ecosystemId)
@@ -44,7 +44,7 @@ QAExercises = React.createClass
       Page: {@props.cnxId} :: Book: {book.uuid}@{book.version}
     </SpyMode.Content>
 
-  onSelectPoolType: (selection) ->
+  onSelectType: (selection) ->
     ignored = _.clone(@state.ignored)
     ignored[selection.id] = not ignored[selection.id]
     @setState({ignored})
@@ -52,15 +52,22 @@ QAExercises = React.createClass
   on2StepPreviewChange: (ev) ->
     @setState(isShowing2StepPreview: ev.target.checked)
 
+  onOnlySelection: (onlyType) ->
+    ignored =  {}
+    _.each ExerciseStore.getPageExerciseTypes(@state.pageId), (pt) ->
+      ignored[pt] = pt isnt onlyType
+    @setState({ignored})
+
   renderExerciseContent: (exercises) ->
     exercises = _.map exercises, (exercise) =>
-      hideAnswers = @state.isShowing2StepPreview and
-        ExerciseStore.hasQuestionWithFormat('free-response', {exercise})
       <ExerciseCard key={exercise.id}
         exercise={exercise}
-        hideAnswers={hideAnswers}
-        ignoredPoolTypes={@state.ignored} />
-    selections = _.map ExerciseStore.getPagePoolTypes(@state.pageId), (pt) =>
+        show2StepPreview={@state.isShowing2StepPreview}
+        ignoredTypes={@state.ignored}
+        {...@props}
+      />
+
+    selections = _.map ExerciseStore.getPageExerciseTypes(@state.pageId), (pt) =>
       id: pt, title: String.titleize(pt), selected: not @state.ignored[pt]
     classNames = classnames("exercises", {
       'show-2step': @state.isShowing2StepPreview
@@ -77,7 +84,8 @@ QAExercises = React.createClass
         <MultiSelect
           title='Exercise Types'
           selections={selections}
-          onSelect={@onSelectPoolType} />
+          onOnlySelection={@onOnlySelection}
+          onSelect={@onSelectType} />
 
       </div>
       {exercises}

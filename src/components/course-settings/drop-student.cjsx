@@ -1,7 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
-{RosterActions} = require '../../flux/roster'
+{RosterActions, RosterStore} = require '../../flux/roster'
 Icon = require '../icon'
 Name = require '../name'
 
@@ -9,14 +9,25 @@ module.exports = React.createClass
   displayName: 'DropStudentLink'
   propTypes:
     student: React.PropTypes.object.isRequired
+    id: React.PropTypes.string.isRequired
 
   performDeletion: ->
-    RosterActions.delete(@props.student.id)
+    if not @isDeleting()
+      RosterActions.delete(@props.student.id)
+
+  isDeleting: ->
+    RosterStore.isDeleting(@props.student.id)
 
   confirmPopOver: ->
-    title = <span>Drop <Name {...@props.student} />?</span>
+    title =
+      if @isDeleting()
+        <span>
+          <i className='fa fa-spinner fa-spin'/> Dropping...
+        </span>
+      else
+        <span>Drop <Name {...@props.student} />?</span>
     <BS.Popover title={title} {...@props}>
-      <BS.Button onClick={@performDeletion} bsStyle="danger">
+      <BS.Button className='-drop-student' onClick={@performDeletion} bsStyle="danger">
         <Icon type='ban' /> Drop
       </BS.Button>
     </BS.Popover>

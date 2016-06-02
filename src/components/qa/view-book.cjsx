@@ -28,17 +28,16 @@ QAViewBook = React.createClass
     if @state.isShowingBook
       teacherContent = <TeacherContentToggle isShowing={@state.isShowingTeacherContent}
         onChange={@setTeacherContent} />
+
     <BS.Nav navbar right>
-      <BS.NavItem>
-        {teacherContent}
-        <QAContentToggle isShowingBook={@state.isShowingBook} onChange={@setContentShowing}/>
-      </BS.NavItem>
-      <BS.DropdownButton title="Available Books" className="available-books">
+      {teacherContent}
+      <QAContentToggle isShowingBook={@state.isShowingBook} onChange={@setContentShowing}/>
+      <BS.NavDropdown title="Available Books" id='available-books' className="available-books">
         {for book in EcosystemsStore.allBooks()
           <li key={book.id} className={'active' if @props.ecosystemId is book.ecosystemId}>
             <BookLink book={book} />
           </li>}
-      </BS.DropdownButton>
+      </BS.NavDropdown>
       <UserActionsMenu />
     </BS.Nav>
 
@@ -51,20 +50,17 @@ QAViewBook = React.createClass
   renderBook: ->
     section = @props.section or ReferenceBookStore.getFirstSection(@props.ecosystemId).join('.')
     contentComponent = if @state.isShowingBook then QAContent else QAExercises
-    <SpyMode.Wrapper>
-      <div className="qa">
-        <ReferenceBook
-            pageNavRouterLinkTarget='QAViewBookSection'
-            menuRouterLinkTarget='QAViewBookSection'
-            navbarControls={@renderNavbarControls()}
-            section={section}
-            className={classnames('is-teacher')}
-            className={classnames('is-teacher': @state.isShowingTeacherContent)}
-            ecosystemId={@props.ecosystemId}
-            contentComponent={contentComponent}
-        />
-      </div>
-    </SpyMode.Wrapper>
+
+    <ReferenceBook
+      pageNavRouterLinkTarget='QAViewBookSection'
+      menuRouterLinkTarget='QAViewBookSection'
+      navbarControls={@renderNavbarControls()}
+      section={section}
+      className={classnames('qa', 'is-teacher': @state.isShowingTeacherContent)}
+      ecosystemId={@props.ecosystemId}
+      contentComponent={contentComponent}
+    />
+
 
   render: ->
     <LoadableItem

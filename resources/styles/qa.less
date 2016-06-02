@@ -1,6 +1,6 @@
-.qa{
+.qa {
   // qa mode has it's own links at the top and doesn't need to add top margin
-  .reference-book .content { margin-top: 0; }
+  &.reference-book .content { margin-top: 0; }
   .exercises {
     width: @reference-book-page-width;
     > .heading {
@@ -14,24 +14,25 @@
     .exercise {
       margin-bottom: @tutor-card-body-padding-vertical;
 
-      &.answers-hidden {
-        .answers-table {
-          height: 80px;
-          border: 1px solid @tutor-neutral-dark;
-          &:after{
-            content: "Enter your response";
-            #fonts > .sans(1.8rem, 3rem);
-            margin-left: 1rem;
-            font-style: italic;
-            color: lightgrey;
-          };
-        }
-      }
+      .exercise-free-response-preview {
+        height: 80px;
+        border: 1px solid @tutor-neutral-dark;
+        margin-bottom: 2rem;
 
+        &::after{
+          content: "Enter your response";
+          #fonts > .sans(1.8rem, 3rem);
+          margin-left: 1rem;
+          font-style: italic;
+          color: lightgrey;
+        };
+      }
       .panel-heading {
         position: inherit;
         display: block;
         padding: 0;
+        background-color: transparent;
+        border: none;
       }
       .exercise-identifier-link {
         float: left;
@@ -50,21 +51,23 @@
       }
 
     }
-    .pools {
+    .types {
       text-align: right;
       > span {
         font-size: 1.6rem;
         background-color: @tutor-quaternary;
+        color: black;
         margin-left: 0.5rem;
         padding: 0 5px;
         border-radius: @border-radius-base;
       }
-      .is-ignored { text-decoration: line-through; }
-      .reading_dynamic     { background-color: @reading-color;     }
-      .homework_dynamic    { background-color: @homework-color;    }
-      .practice_widget     { background-color: @qa-practice-color;    }
-      .reading_try_another { background-color: @qa-try-another-color; }
-      .homework_core       { background-color: @homework-color;    }
+      .is-ignored     { text-decoration: line-through;              }
+      .practice       { background-color: @reading-color;           }
+      .conceptual     { background-color: @homework-color;          }
+      .chapter-review { background-color: @qa-chapter-review-color; }
+      .grasp-check    { background-color: @qa-grasp-check-color     }
+      .test-prep      { background-color: @qa-test-prep-color       }
+      .conceptual-or-recall  {  background-color: lighten(@homework-color, 15%) }
     }
   }
   .navbar-nav {

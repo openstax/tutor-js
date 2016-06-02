@@ -51,7 +51,7 @@ CrudConfig = ->
       @_asyncStatus[id] = LOADING
       @emitChange()
 
-    loaded: (obj, id) ->
+    loaded: (obj, id, args...) ->
       # id = obj.id
       @_asyncStatus[id] = LOADED
       # HACK When working locally a step completion triggers a reload but the is_completed field on the TaskStep
@@ -66,7 +66,7 @@ CrudConfig = ->
 
       if obj
         # If the specific type needs to do something else to the object:
-        @_local[id] = @_loaded?(obj, id) or obj
+        @_local[id] = @_loaded?(obj, id, args...) or obj
 
       @emitChange()
 
@@ -75,12 +75,12 @@ CrudConfig = ->
       @_asyncStatus[id] = SAVING
       @emitChange()
 
-    saved: (result, id) ->
+    saved: (result, id, args...) ->
       # id = result.id
       @_asyncStatus[id] = LOADED # TODO: Maybe make this SAVED
 
       # If the specific type needs to do something else to the object:
-      obj = @_saved?(result, id)
+      obj = @_saved?(result, id, args...)
       result = obj if obj
 
       if result
@@ -102,12 +102,13 @@ CrudConfig = ->
       @_changed[localId] = attributes
       @_asyncStatus[localId] = LOADED
 
-    created: (result, localId) ->
+    created: (result, localId, args...) ->
       @_local[localId] = result # HACK: So react component can still manipulate the same object
       @_local[result.id] = result
       @_asyncStatus[localId] = LOADED
       @_asyncStatus[result.id] = LOADED
       @emitChange()
+      @_created?(result, localId, args...)
 
     _change: (id, obj) ->
       @_changed[id] ?= {}
@@ -120,10 +121,11 @@ CrudConfig = ->
     delete: (id) ->
       @_asyncStatus[id] = DELETING
 
-    deleted: (result, id) ->
+    deleted: (result, id, args...) ->
       @_asyncStatus[id] = DELETED
       delete @_local[id]
       @emitChange()
+      @_deleted?(result, id, args...)
 
     clearChanged: (id) ->
       delete @_changed[id]

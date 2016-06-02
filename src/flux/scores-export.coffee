@@ -3,9 +3,8 @@
 {JobListenerConfig} = require '../helpers/job'
 
 _ = require 'underscore'
-moment = require 'moment'
 
-ScoresExportConfig = {
+ScoresExportConfig =
   _loaded: (obj, id) ->
     @emit('loaded', id)
 
@@ -29,9 +28,7 @@ ScoresExportConfig = {
           perfExport.created_at
         ).last().value()
 
-}
-
-JobCrudConfig = extendConfig(new JobListenerConfig(), new CrudConfig())
+JobCrudConfig = extendConfig(new JobListenerConfig(null, 60 * 60), new CrudConfig())
 extendConfig(ScoresExportConfig, JobCrudConfig)
 
 ScoresExportConfig.exports.isExported = ScoresExportConfig.exports.isSucceeded
