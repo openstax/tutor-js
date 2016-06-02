@@ -31,7 +31,6 @@ describe 'Student Scores Latework Popover', ->
   afterEach ->
     ScoresActions.acceptLate.restore()
 
-
   it "displays title", ->
     for type, title in {
       homework: '1 questions worked after the due date'
@@ -55,3 +54,13 @@ describe 'Student Scores Latework Popover', ->
       Testing.actions.click(dom.querySelector('.late-button'))
       expect( ScoresActions.acceptLate ).to.have.been.calledWith(@props.task.id)
       expect(@props.hide).to.have.been.called
+
+  it 'displays re-approve messages for addtional work', ->
+    @props.task.is_late_work_accepted = true
+    @props.task.completed_accepted_late_step_count = 2
+    @props.task.completed_step_count = 7
+    Testing.renderComponent( LateWorkPopover, props: @props ).then ({dom}) ->
+      expect(dom.querySelector('.body').textContent).to.include(
+        'This student worked 6 questions'
+      )
+      expect(dom.querySelector('.popover-title').textContent).to.equal('Additional late work')
