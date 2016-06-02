@@ -39,6 +39,7 @@ ExerciseGroup = React.createClass
 
   propTypes:
     group: React.PropTypes.oneOf(_.keys(RULES)).isRequired
+    project: React.PropTypes.oneOf(['tutor', 'concept-coach']).isRequired
 
   getDefaultProps: ->
     group: 'default'
