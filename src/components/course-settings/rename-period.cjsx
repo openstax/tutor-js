@@ -41,6 +41,7 @@ module.exports = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     period: React.PropTypes.object.isRequired
+    periods:  React.PropTypes.array.isRequired
 
   mixins: [BindStoreMixin]
 
@@ -118,8 +119,8 @@ module.exports = React.createClass
     </BS.Modal>
 
   render: ->
-    <span className='-rename-period-link'>
-      <BS.Button onClick={@open} bsStyle='link' className='edit-period'>
+    <span className='control rename-period'>
+      <BS.Button onClick={@open} bsStyle='link'>
         <i className='fa fa-pencil' />
         Rename <CourseGroupingLabel courseId={@props.courseId}/>
       </BS.Button>

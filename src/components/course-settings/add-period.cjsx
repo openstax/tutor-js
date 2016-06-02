@@ -12,13 +12,11 @@ AddPeriodField = React.createClass
 
   displayName: 'AddPeriodField'
   propTypes:
-    courseId: React.PropTypes.string
     label: React.PropTypes.object.isRequired
     name:  React.PropTypes.string.isRequired
     default: React.PropTypes.string
     onChange:  React.PropTypes.func.isRequired
     autofocus: React.PropTypes.bool
-    validate: React.PropTypes.func.isRequired
 
   componentDidMount: ->
     @refs.input.focus() if @props.autofocus
@@ -35,11 +33,17 @@ AddPeriodField = React.createClass
       onChange={@onChange}
       validate={@props.validate} />
 
+  validate: (name) ->
+    error = PeriodStore.validatePeriodName(name, @props.periods)
+    @setState({invalid: error?})
+    error
+
 module.exports = React.createClass
   displayName: 'AddPeriodLink'
   propTypes:
     courseId: React.PropTypes.string.isRequired
-    periods: React.PropTypes.array.isRequired
+    periods:  React.PropTypes.array.isRequired
+
 
   getInitialState: ->
     period_name: ''
@@ -51,11 +55,6 @@ module.exports = React.createClass
 
   open: ->
     @setState({showModal: true})
-
-  validate: (name) ->
-    error = PeriodStore.validatePeriodName(name, @props.periods)
-    @setState({invalid: error?})
-    error
 
   performUpdate: ->
     if not @state.invalid
@@ -105,10 +104,10 @@ module.exports = React.createClass
     </BS.Modal>
 
   render: ->
-    <span className='-add-period-link'>
-      <BS.Button onClick={@open} bsStyle='link' className='edit-period'>
+    <li className='control add-period'>
+      <BS.Button onClick={@open} bsStyle='link'>
         <i className='fa fa-plus' />
         Add <CourseGroupingLabel courseId={@props.courseId} />
       </BS.Button>
       {@renderForm()}
-    </span>
+    </li>

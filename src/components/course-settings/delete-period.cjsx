@@ -96,8 +96,8 @@ module.exports = React.createClass
   render: ->
     return null if _.isEmpty @props.periods
 
-    <span className='-delete-period-link'>
-      <BS.Button onClick={@open} bsStyle='link' className='edit-period'>
+    <span className='control delete-period'>
+      <BS.Button onClick={@open} bsStyle='link'>
         <i className='fa fa-trash-o' />
         Delete <CourseGroupingLabel courseId={@props.courseId}/>
       </BS.Button>

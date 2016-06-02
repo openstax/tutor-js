@@ -41,18 +41,9 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    .edit-period {
-      color: @tutor-tertiary-light;
-      text-transform: capitalize;
-      margin-left: 10px;
-      &.btn {
-        padding: 0;
-      }
-    }
     .spacer { flex: 1; }
-    .edit-course,
-    .show-enrollment-code {
-      color: @tutor-tertiary-light;
+    .control {
+      button.btn-link { color: @tutor-tertiary-light; }
       text-transform: capitalize;
       margin-left: 10px;
       &.btn {
@@ -60,7 +51,7 @@
       }
     }
 
-    .enrollment-code-link {
+    .enrollment-code {
       padding: 0 0.5rem;
       border: 1px solid @tutor-neutral-light;
       color: @tutor-neutral;
@@ -72,14 +63,37 @@
   }
 
   .roster {
-    table-layout: fixed;
+//    table-layout: fixed;
     .actions {
-      a{
+      a {
         cursor: pointer;
         margin-right: 1rem;
         color: @tutor-tertiary-light;
       }
     }
+
+    .periods {
+      position: relative;
+
+      .control {
+
+        text-transform: capitalize;
+        margin-left: 10px;
+        .btn-link {
+          color: @tutor-tertiary-light;
+          padding: 0;
+        }
+
+        &.add-period {
+          background-color: white;
+          margin-bottom: inherit;
+        }
+
+      }
+
+    }
+
+
   }
 
   .roster-empty-info {
