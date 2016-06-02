@@ -78,10 +78,16 @@ describe 'scores store', ->
     expect(ALL_LATE_TASK_ID).to.have.changedScoreBy(from: 0, to: 0.25)
 
 
-  it 'adjusts assignment averages', ->
-    expect(courseData().data_headings[0].average_score).closeTo(0.1666, 0.0001)
+  it 'adjusts other averages', ->
+    expect(courseData().data_headings[0].average_score).to.be.closeTo(0.1666, 0.0001)
+    expect(courseData().students[2].average_score).to.be.closeTo(0.5, 0.001)
+    expect(courseData().overall_average_score).to.be.closeTo(0.16666, 0.001)
+
     ScoresActions.acceptLate(PARTIALLY_WORKED_LATE_TASK_ID)
-    expect(courseData().data_headings[0].average_score).closeTo(0.1944, 0.0001)
+
+    expect(courseData().data_headings[0].average_score).to.be.closeTo(0.1944, 0.0001)
+    expect(courseData().students[2].average_score).to.be.closeTo(0.625, 0.001)
+    expect(courseData().overall_average_score).to.be.closeTo(0.1944, 0.001)
 
   it 'adjusts overal course average', ->
     expect(courseData().overall_average_score).closeTo(0.1666, 0.0001)
