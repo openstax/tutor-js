@@ -5,6 +5,7 @@
 Cell = require '../../../src/components/scores/homework-cell'
 PieProgress = require '../../../src/components/scores/pie-progress'
 
+TH = require '../../../src/helpers/task'
 
 describe 'Student Scores Homework Cell', ->
 
@@ -19,45 +20,41 @@ describe 'Student Scores Homework Cell', ->
         type:            'homework'
         exercise_count: 17
         correct_exercise_count: 9
+        completed_step_count: 11
         correct_on_time_exercise_count: 3
         completed_exercise_count: 11
         completed_on_time_exercise_count: 11
-
-
+        completed_accepted_late_exercise_count: 0
+        correct_accepted_late_exercise_count: 0
 
   it 'renders score cell', ->
     Testing.renderComponent( Cell, props: @props ).then ({dom}) =>
       score = ((@props.task.correct_on_time_exercise_count / @props.task.exercise_count) * 100).toFixed(0) + '%'
-      expect(dom.querySelector('.score a').innerText).to.equal(score)
+      expect(dom.querySelector('.score a').textContent).to.equal(score)
       expect(dom.querySelector('.late-caret')).to.be.null
 
   it 'renders progress cell', ->
     @props.size = 24
     @props.value = 33
     Testing.renderComponent( PieProgress, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('g')).to.not.be.null
+      expect(dom.querySelector('g')).to.exist
 
   it 'renders as not started', ->
     @props.task.completed_exercise_count = 0
     @props.task.completed_on_time_exercise_count = 0
+    @props.task.correct_on_time_exercise_count = 0
+    expect(TH.getCompletedPercent(@props.task)).to.equal(0)
     Testing.renderComponent( Cell, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('.worked .not-started')).to.not.be.null
+      expect(dom.querySelector('.worked .not-started')).to.exist
 
   it 'displays late caret when worked late', ->
-    @props.task.completed_on_time_exercise_count = 3
+    @props.task.completed_on_time_step_count = 3
+    expect(TH.isLate(@props.task)).to.be.true
     Testing.renderComponent( Cell, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('.late-caret')).to.not.be.null
+      expect(dom.querySelector('.late-caret')).to.exist
 
   it 'displays accepted caret when accepted', ->
-    @props.task.completed_on_time_exercise_count = 3
+    @props.task.completed_on_time_step_count = 3
     @props.task.is_late_work_accepted = true
     Testing.renderComponent( Cell, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('.late-caret.accepted')).to.not.be.null
-
-
-
-
-
-
-
-
+      expect(dom.querySelector('.late-caret.accepted')).to.exist

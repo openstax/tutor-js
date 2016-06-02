@@ -99,7 +99,7 @@
         padding: 16px;
       }
       &.empty {
-        background: @tutor-neutral-lighter; 
+        background: @tutor-neutral-lighter;
       }
     }
   }
@@ -112,7 +112,7 @@
     &.bottom {
       .overall-border-bottom();
       height: @table-row-height - 1;
-    }  
+    }
   }
 
   .status-cell,
@@ -225,12 +225,12 @@
       &.wide {
         width: 100%;
       }
-      
+
       &:first-child {
         border-right: 1px solid @nav-tabs-border-color;
       }
     }
-    
+
   }
   .scores-cell {
     a.not-complete {
@@ -406,6 +406,9 @@
       }
     }
   }
+  &.additional {
+    height: 130px;
+  }
   .popover-title {
     text-align: center;
     font-weight: bold;
@@ -427,7 +430,11 @@
         float: left;
         font-weight: bold;
       }
-      
+
+      .body {
+        margin: 0 10px;
+      }
+
       .title {
         display: table-cell;
         vertical-align: middle;

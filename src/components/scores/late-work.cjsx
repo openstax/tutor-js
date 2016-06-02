@@ -1,113 +1,137 @@
-React  = require 'react'
-Router = require 'react-router'
-BS = require 'react-bootstrap'
-Time   = require '../time'
+React      = require 'react'
+BS         = require 'react-bootstrap'
+Time       = require '../time'
+classnames = require 'classnames'
 
-{ScoresStore, ScoresActions} = require '../../flux/scores'
+{ScoresActions} = require '../../flux/scores'
+
+TH = require '../../helpers/task'
+
+class LateWork
+  constructor: (@task) ->
+    @isAccepted = @task.is_late_work_accepted
+    @status = if @isAccepted
+      if TH.hasAdditionalLateWork(@task) then 'additional' else 'accepted'
+    else
+      'pending'
+
+  score: ->
+    if @state is 'accepted'
+      TH.getHumanUnacceptedScore(@task)
+    else
+      TH.getHumanScoreWithLateWork(@task)
+
+  lateExerciseCount: ->
+    @task.completed_exercise_count - @task.completed_on_time_exercise_count
+
+  lateDueDate: ->
+    if @status is 'accepted'
+      'due date'
+    else
+      <Time date={@task.last_worked_at} format='shortest' />
+
+  className: ->
+    classnames( 'late-work-info-popover', @keyword, @status, {
+      'is-accepted': @isAccepted
+    })
+
+  get: (type) ->
+    @[type]()?[@status] or ''
+
+class HomeworkContent extends LateWork
+
+  reportingOn:  'Score'
+  title: ->
+    additional: "Additional late work"
+    accepted:   "You accepted this student's late score."
+    pending:    "#{@lateExerciseCount()} questions worked after the due date"
+  button: ->
+    additional: 'Accept new late score'
+    accepted:   'Use this score'
+    pending:    'Accept late score'
+  body: ->
+    additional:
+      <div className="body">
+        This student worked {TH.lateStepCount(@task)} questions
+        after you accepted a late score
+        on <Time date={@task.accepted_late_at} format='shortest' />.
+      </div>
+
+
+class ReadingContent extends LateWork
+
+  reportingOn:  'Progress'
+  title: ->
+    additional: "Additional late work"
+    accepted:   "You accepted this student's late reading progress."
+    pending:    "Reading progress after the due date"
+  button: ->
+    additional: 'Accept new late score'
+    accepted:   'Use this score'
+    pending:    'Accept late score'
+
+LateWorkPopover = React.createClass
+
+  componentWillMount: ->
+    Content = if @props.task.type is 'homework' then HomeworkContent else ReadingContent
+    @setState(
+      content: new Content(@props.task)
+    )
+
+  onButtonClick: ->
+    if @state.content.isAccepted
+      ScoresActions.rejectLate(@state.content.task.id)
+    else
+      ScoresActions.acceptLate(@state.content.task.id)
+    @props.hide()
+
+  render: ->
+    {content} = @state
+
+    <BS.Popover
+      {...@props}
+      show={@state.isShown}
+      title={content.get('title')}
+      id="late-work-info-popover-#{content.task.id}"
+      className={content.className()}>
+        <div className='late-status'>
+          {content.get('body')}
+          <div className='description'>
+            <span className='title'>
+              {content.reportingOn} on {content.lateDueDate()}:
+            </span>
+            <span className='status'>{content.score()}</span>
+          </div>
+          <BS.Button className='late-button' onClick={@onButtonClick}>
+            {content.get('button')}
+          </BS.Button>
+        </div>
+    </BS.Popover>
+
+
 
 LateWork = React.createClass
   displayName: 'LateWork'
 
-  setLateStatus: ->
-    {task, courseId, period_id, columnIndex, isIncludedInAverages, currentValue, acceptValue} = @props
-    isAccepted = task.is_late_work_accepted
-    if not @isUpdatingLateStatus()
-      if isAccepted
-        ScoresActions.rejectLate(task.id, courseId)
-      else
-        ScoresActions.acceptLate(task.id, courseId)
+  getInitialState: ->
+    isShown: true
 
-      if isIncludedInAverages
-        updateAveragesParams = [
-          task,
-          courseId,
-          period_id,
-          columnIndex,
-          currentValue,
-          acceptValue
-        ]
-        ScoresActions.updateAverages(updateAveragesParams...)
-
+  hide: ->
     @refs.overlay.hide()
 
-
-  isUpdatingLateStatus: ->
-    ScoresStore.isUpdatingLateStatus(@props.task.id)
-
   render: ->
-    {task, acceptValue} = @props
-    isAccepted = task.is_late_work_accepted
-    lateQuestionCount =
-      task.completed_exercise_count - task.completed_on_time_exercise_count
-    titleProgress =
-      if task.type is 'homework'
-        if not isAccepted
-          "#{lateQuestionCount} questions worked after the due date"
-        else
-          'You accepted this student\'s late score.'
-      else
-        if not isAccepted
-          'Reading progress after the due date'
-        else
-          'You accepted this student\'s late reading progress.'
-    title =
-      if @isUpdatingLateStatus()
-        <span>
-          <i className='fa fa-spinner fa-spin'/> Updating...
-        </span>
-      else
-        <span>{titleProgress}</span>
-    buttonLabel =
-      if task.type is 'homework'
-        if not isAccepted
-          'Accept late score'
-        else
-          'Use this score'
-      else
-        if not isAccepted
-          'Accept late progress'
-        else
-          'Use due date progress'
-    acceptedClass = if isAccepted then 'accepted' else ''
-    keyword = if task.type is 'homework' then 'Score' else 'Progress'
-    time =
-      if isAccepted
-        'due date'
-      else
-        <Time date={task.last_worked_at} format='shortest'/>
-    popover =
-      <BS.Popover
-        title={title}
-        id="late-work-info-popover-#{task.id}"
-        className="late-work-info-popover #{acceptedClass}">
-          <div className='late-status'>
-            <div className='description'>
-              <span className='title'>
-                {"#{keyword} on "}
-                {time}:
-              </span>
-              <span className='status'>{"#{Math.round(acceptValue)}%"}</span>
-            </div>
-            <BS.Button className='late-button' onClick={@setLateStatus}>
-              {buttonLabel}
-            </BS.Button>
-          </div>
-
-      </BS.Popover>
-
-
+    caretClass = classnames('late-caret', {
+      accepted: @props.task.is_late_work_accepted
+    })
 
     <BS.OverlayTrigger
-    ref="overlay"
-    placement="top"
-    trigger="click"
-    rootClose={true}
-    overlay={popover}>
+      ref="overlay" placement="top" trigger="click" rootClose={true}
+      overlay={<LateWorkPopover task={@props.task} hide={@hide} />}
+    >
       <div className="late-caret-trigger">
-        <div className="late-caret #{acceptedClass}"></div>
+        <div className={caretClass}></div>
       </div>
     </BS.OverlayTrigger>
-   
 
 
-module.exports = LateWork
+module.exports = {LateWork, LateWorkPopover}
