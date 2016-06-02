@@ -439,13 +439,8 @@ TaskPlanConfig =
       due_at = @_getFirstTaskingByDueDate(id)?.due_at
 
     isEditable: (id) ->
-      plan = @_getPlan(id)
-      firstDueTasking = @_getFirstTaskingByDueDate(id)
-      isPublishedOrPublishing = !!plan?.published_at or !!plan?.is_publish_requested
-      isPastDue = moment(firstDueTasking?.due_at, ISO_DATE_FORMAT).isBefore(TimeStore.getNow())
-      # cannot be a publishing/published past due assignment, and
       # cannot be/being deleted
-      not ((isPublishedOrPublishing and isPastDue) or @_isDeleteRequested(id))
+      not @_isDeleteRequested(id)
 
     isPublishing: (id) ->
       @_changed[id]?.is_publish_requested or PlanPublishStore.isPublishing(id)

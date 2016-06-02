@@ -54,11 +54,9 @@ TaskingDateTime = React.createClass
       dateTime = "#{date} #{time}"
       @props.onChange(dateTime)
 
+
   canSetAsDefaultTime: ->
     _.isEmpty @refs.time?.refs.timeInput?.state?.errors
-
-  hasValidInputs: ->
-    _.isEmpty(@refs.date?.state?.errors) and _.isEmpty(@refs.time?.refs.timeInput?.state?.errors)
 
   setDefaultTime: ->
     {timeLabel, setDefaultTime} = @props
@@ -192,7 +190,8 @@ Tasking = React.createClass
       isVisibleToStudents,
       isEnabled,
       period,
-      togglePeriodEnabled
+      togglePeriodEnabled,
+      isEditable,
     } = @props
 
     taskingIdentifier = period?.id or 'common'
@@ -203,7 +202,7 @@ Tasking = React.createClass
           <BS.Col sm=4 md=3>
             <input
               id={"period-toggle-#{period.id}"}
-              disabled={isVisibleToStudents}
+              disabled={not isEditable}
               type='checkbox'
               onChange={_.partial(togglePeriodEnabled, period)}
               checked={true}/>
@@ -220,7 +219,7 @@ Tasking = React.createClass
             <input
               id={"period-toggle-#{period.id}"}
               type='checkbox'
-              disabled={isVisibleToStudents}
+              disabled={not isEditable}
               onChange={_.partial(togglePeriodEnabled, period)}
               checked={false}/>
             <label className="period" htmlFor={"period-toggle-#{period.id}"}>{period.name}</label>
@@ -475,8 +474,8 @@ module.exports = React.createClass
         </BS.Col>
       </BS.Row>
 
-      {@renderCommonChoice() unless @state.isVisibleToStudents and @state.showingPeriods}
-      {@renderPeriodsChoice() unless @state.isVisibleToStudents and not @state.showingPeriods}
+      {@renderCommonChoice() unless not @state.isEditable and @state.showingPeriods}
+      {@renderPeriodsChoice() unless not @state.isEditable and not @state.showingPeriods}
       { invalidPeriodsAlert }
     </div>
 
@@ -488,8 +487,7 @@ module.exports = React.createClass
       ref='allPeriodsRadio'
       type='radio'
       onChange={@setAllPeriods}
-      disabled={@state.isVisibleToStudents}
-      checked={not @state.showingPeriods}/> unless @state.isVisibleToStudents
+      checked={not @state.showingPeriods}/> if @state.isEditable
 
     <BS.Row className="common tutor-date-input">
       <BS.Col sm=4 md=3>
@@ -505,8 +503,7 @@ module.exports = React.createClass
       name='toggle-periods-radio'
       type='radio'
       onChange={@setIndividualPeriods}
-      disabled={@state.isVisibleToStudents}
-      checked={@state.showingPeriods}/> unless @state.isVisibleToStudents
+      checked={@state.showingPeriods}/> if @state.isEditable
 
     choiceLabel = <BS.Row key='tasking-individual-choice'>
       <BS.Col md=12>
@@ -546,7 +543,7 @@ module.exports = React.createClass
       isEditable={isEditable}
       isEnabled={isEnabled}
       currentLocale={currentLocale}
-      required={true}
+      required={showingPeriods}
       taskingOpensAt={taskingOpensAt}
       taskingDueAt={taskingDueAt}
       dueTime={dueTime}
