@@ -25,7 +25,7 @@ class LateWork
     @task.completed_exercise_count - @task.completed_on_time_exercise_count
 
   lateDueDate: ->
-    if @state is 'accepted'
+    if @status is 'accepted'
       'due date'
     else
       <Time date={@task.last_worked_at} format='shortest' />
