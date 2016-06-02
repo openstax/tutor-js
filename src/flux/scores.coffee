@@ -10,6 +10,7 @@ ACCEPTED = 'accepted'
 REJECTING = 'rejecting'
 REJECTED = 'rejected'
 
+TASK_ID_CACHE = {}
 
 allStudents = (scores) ->
   _.chain(scores)
@@ -17,14 +18,17 @@ allStudents = (scores) ->
     .flatten(true)
     .value()
 
-getTaskInfoById = (taskId, data) ->
-  taskId = parseInt(taskId, 10)
+computeTaskCache = (data) ->
   for courseId, period of data
     for period, periodIndex in data[courseId]
       for student, studentIndex in period.students
         for task in student.data
-          if task.id is taskId
-            return {task, courseId, period, periodIndex, studentIndex}
+          TASK_ID_CACHE[task.id] = {task, courseId, period, periodIndex, studentIndex}
+
+getTaskInfoById = (taskId, data) ->
+  taskId = parseInt(taskId, 10)
+  computeTaskCache(data) if _.isEmpty(TASK_ID_CACHE)
+  return TASK_ID_CACHE[taskId]
 
 
 adjustTaskAverages = (data, taskInfo) ->
@@ -65,6 +69,13 @@ adjustTaskAverages = (data, taskInfo) ->
 ScoresConfig = {
 
   _asyncStatus: {}
+
+  # clear the task id cache on load & reset
+  _loaded: (obj) ->
+    TASK_ID_CACHE = {}
+    obj
+  _reset: ->
+    TASK_ID_CACHE = {}
 
   ######################################################################
   ## The accept / reject methods mirror Tutor-Server logic.           ##
@@ -144,13 +155,12 @@ ScoresConfig = {
           task.completed_accepted_late_step_count
       )
 
+    # called by readings and homework UI to determine if there's late work
     hasLateWork: (task) ->
       ScoresConfig.exports.taskLateStepCount(task) > 0
-
     taskLateStepCount: (task) ->
       task.completed_step_count - task.completed_on_time_step_count +
         task.completed_accepted_late_step_count
-
 
     getHumanProgress: (task) ->
       complete = ScoresConfig.exports.getCompletedSteps(task)
