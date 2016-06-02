@@ -6,6 +6,7 @@ Router = require 'react-router'
 
 {StatsModalShell} = require '../plan-stats'
 {EventModalShell} = require '../plan-stats/event'
+{TaskPlanStore} = require '../../flux/task-plan'
 
 LoadableItem = require '../loadable-item'
 LmsInfo = require '../task-plan/lms-info'
@@ -70,7 +71,7 @@ CoursePlanDetails = React.createClass
     reviewButton = @renderReviewButton() if hasReview
 
     editLinkName = camelCase("edit-#{type}")
-    viewOrEdit = if plan.isEditable then 'Edit' else 'View'
+    viewOrEdit = if TaskPlanStore.isEditable(id) then 'Edit' else 'View'
     assignmentOrEvent = if type is 'event' then 'Event' else 'Assignment'
     editButton = <Router.Link
       className='btn btn-default -edit-assignment'
