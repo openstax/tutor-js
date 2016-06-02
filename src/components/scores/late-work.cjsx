@@ -14,7 +14,7 @@ class LateWork
       'pending'
 
   score: ->
-    if @isAccepted
+    if @state is 'accepted'
       ScoresStore.getHumanUnacceptedScore(@task)
     else
       ScoresStore.getHumanScoreWithLateWork(@task)
@@ -23,14 +23,14 @@ class LateWork
     @task.completed_exercise_count - @task.completed_on_time_exercise_count
 
   lateDueDate: ->
-    if @isAccepted
+    if @state is 'accepted'
       'the due date'
     else
       <Time date={@task.last_worked_at} format='shortest' />
 
   className: ->
-    classnames( 'late-work-info-popover', @keyword, {
-      accepted: @isAccepted
+    classnames( 'late-work-info-popover', @keyword, @status, {
+      'is-accepted': @isAccepted
     })
 
   get: (type) ->
@@ -49,11 +49,11 @@ class HomeworkContent extends LateWork
     pending:    'Accept late score'
   body: ->
     additional:
-      <span>
-        This student worked {ScoresStore.taskLateStepCount(@task)}
-        questions after you accepted a late score
+      <div className="body">
+        This student worked {ScoresStore.taskLateStepCount(@task)} questions
+        after you accepted a late score
         on <Time date={@task.accepted_late_at} format='shortest' />
-      </span>
+      </div>
 
 
 class ReadingContent extends LateWork
@@ -93,6 +93,7 @@ LateWorkPopover = React.createClass
       id="late-work-info-popover-#{content.task.id}"
       className={content.className()}>
         <div className='late-status'>
+          {content.get('body')}
           <div className='description'>
             <span className='title'>
               {content.reportingOn} on {content.lateDueDate()}:
