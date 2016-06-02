@@ -150,9 +150,8 @@ ScoresConfig = {
         score = task.correct_on_time_exercise_count + task.correct_accepted_late_exercise_count
         percent = Math.round( (score / task.exercise_count) * 100 )
       else
-        score = task.correct_on_time_step_count + task.correct_accepted_late_step_count
+        score = task.completed_on_time_step_count + task.completed_accepted_late_step_count
         percent = Math.round( (score / task.step_count) * 100 )
-
 
     hasAdditionalLateWork: (task) ->
       task.completed_accepted_late_step_count and (
