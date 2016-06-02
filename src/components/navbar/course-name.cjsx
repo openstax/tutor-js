@@ -26,12 +26,11 @@ CourseName = React.createClass
 
     routeName = CurrentUserStore.getDashboardRoute(course?.id)
 
-    courseNameTooltip =
-      <BS.Tooltip id="course-name-tooltip">
-        <div>{course.name}</div>
-      </BS.Tooltip>
-
     if course
+      courseNameTooltip =
+        <BS.Tooltip id="course-name-tooltip">
+          <div>{course.name}</div>
+        </BS.Tooltip>
       coursenameComponent = 
         <BS.OverlayTrigger
           placement='bottom'
