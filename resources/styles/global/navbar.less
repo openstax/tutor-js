@@ -16,8 +16,12 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-
+      padding-top: 1px;
     }
+  }
+
+  .navbar-toggle{
+    margin-top: 14px;
   }
 
   // same as above, override bootstrap material design media query for (max-width: 1199px)
@@ -53,8 +57,11 @@
     .tutor-background-image('rice-logo.png');
   }
   .book-links {
+
     a {
-      display: inline-block;
+      height: @tutor-navbar-height;
+      display: table-cell;
+      vertical-align: middle;
       padding-left: 1rem;
       padding-right: 1rem;
       border-left: 1px solid @tutor-neutral-light;
@@ -64,6 +71,7 @@
   .navbar-brand {
     font-size: 1.6rem;
     line-height: 2.7rem;
+    margin-top: 1px;
   }
 
   .dropdown-toggle {
