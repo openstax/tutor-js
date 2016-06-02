@@ -48,10 +48,11 @@ class Task extends TestHelper
   canContinue: => @el.enabledContinueButton().isPresent()
 
   getCurrentStep: =>
-    if @isReading()
-      @el.readingNextArrow().get().getAttribute('data-step')
-    else
-      @el.currentBreadcrumbStep().get().getAttribute('data-reactid')
+    @isReading().then (isPresent) =>
+      if (isPresent)
+        @el.readingNextArrow().get().getAttribute('data-step')
+      else
+        @el.currentBreadcrumbStep().get().getAttribute('data-reactid')
 
 
   continue: =>
@@ -69,10 +70,11 @@ class Task extends TestHelper
         selenium.until.elementIsEnabled(@el.continueButton().get())
 
   continueTask: =>
-    if @isReading()
-      @el.readingNextArrow().waitClick()
-    else
-      @el.enabledContinueButton().waitClick()
+    @isReading().then (isPresent) =>
+      if isPresent
+        @el.readingNextArrow().waitClick()
+      else
+        @el.enabledContinueButton().waitClick()
 
   goToHelpLink: =>
     @el.helpLink().waitClick()
