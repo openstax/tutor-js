@@ -3,9 +3,21 @@
 {CourseActions} = require './course'
 _ = require 'underscore'
 
+RESTORING = 'restoring'
+
 PeriodConfig = {
 
+
+
   create: (courseId, params) ->
+
+  # triggers api.coffee to restore
+  restore: (periodId, courseId) ->
+    @_asyncStatus[periodId] = RESTORING
+
+  restored: (periodData, periodId, courseId) ->
+    CourseActions.load(courseId)
+    delete @_asyncStatus[periodId]
 
   _created: (period, courseId) ->
     CourseActions.load(courseId)
@@ -16,11 +28,13 @@ PeriodConfig = {
     CourseActions.load(courseId)
     null
 
-  _deleted: (result, periodId, courseId) ->
+  _deleted: (periodData, periodId, courseId) ->
     CourseActions.load(courseId)
     @emit('deleted')
 
   exports:
+    isRestoring: (id) ->
+      @_asyncStatus[id] is RESTORING
 
     validatePeriodName: (name, periods, active) ->
       for period in periods
