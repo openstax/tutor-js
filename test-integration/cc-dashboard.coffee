@@ -46,3 +46,6 @@ describe 'Concept Coach Dashboard', ->
 
     @conceptCoach.getHelpLinkTarget().then (target) ->
       expect(target.toUpperCase().indexOf('_BLANK')).is.not.equal(-1)
+
+  @ccDashboardIt 'Can go to assignment links (readonly)', ->
+    @conceptCoach.clickViewAssignmentLinks()

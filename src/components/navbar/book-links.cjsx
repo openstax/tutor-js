@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+Router = require 'react-router'
 
 {CourseStore} = require '../../flux/course'
 
@@ -24,6 +25,11 @@ BookLinks = React.createClass
           Online Book <i className='fa fa-external-link' />
         </a>
       )
+    links.push(
+      <Router.Link
+        to='viewAssignmentLinks'
+        params={courseId: @props.courseId}>Assignment Links</Router.Link>
+    )
 
     <li className='book-links'>
       {links}

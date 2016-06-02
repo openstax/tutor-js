@@ -23,7 +23,7 @@ ReferenceBookConfig = {
 
   exports:
     getToc: (ecosystemId) ->
-      @_get(ecosystemId)['0']
+      @_get(ecosystemId)?['0']
 
     getFirstSection: (ecosystemId) ->
       toc = @_get(ecosystemId)?['0']
