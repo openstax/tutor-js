@@ -15,6 +15,9 @@ TaskStep = require '../task-step'
 Ends = require '../task-step/ends'
 Breadcrumbs = require './breadcrumbs'
 
+TaskProgress = require './progress'
+ProgressPanel = require './progress/panel'
+
 {StepPanel} = require '../../helpers/policies'
 
 {UnsavedStateMixin} = require '../unsaved-state'
@@ -249,6 +252,18 @@ module.exports = React.createClass
         id={id}
         goToStep={@goToStep}
         key="task-#{id}-breadcrumbs"/>
+
+    if TaskStore.hasProgress(id)
+      breadcrumbs = <TaskProgress taskId={id} stepKey={@state.currentStep} />
+      panel = <ProgressPanel
+        taskId={id}
+        stepId={crumb.data?.id}
+        goToStep={@goToStep}
+        isSpacer={crumb?.type is 'spacer'}
+        stepKey={@state.currentStep}
+      >
+        {panel}
+      </ProgressPanel>
 
     <PinnedHeaderFooterCard
       forceShy={true}

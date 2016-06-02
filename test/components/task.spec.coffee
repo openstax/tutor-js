@@ -12,8 +12,10 @@ _ = require 'underscore'
 COURSE_ID = '1'
 COURSE    = require '../../api/user/courses/1.json'
 TASK_ID = '4'
+HOMEWORK_ID = '5'
 
 VALID_MODEL = require '../../api/tasks/4.json'
+HOMEWORK_MODEL = require '../../api/tasks/5.json'
 VALID_RECOVERY_MODEL = require '../../api/tasks/4-recovered.json'
 VALID_RECOVERY_STEP = require '../../api/steps/step-id-4-2/recovery/PUT.json'
 
@@ -146,17 +148,25 @@ describe 'Task Widget, through routes', ->
         done()
       , done)
 
+
+
   it 'should be able to work through tasks and show progressing breadcrumbs', (done) ->
+    TaskActions.loaded(HOMEWORK_MODEL, HOMEWORK_ID)
+
+    # run a full step through and check each step
+    taskTests
+      .goToTask("/courses/#{COURSE_ID}/tasks/#{HOMEWORK_ID}", HOMEWORK_ID)
+      .then(taskChecks.checkHasReviewableBreadcrumbs)
+      .then( ->
+        done()
+      , done)
+
+  it 'should be able to work through tasks and show progress', (done) ->
     # run a full step through and check each step
 
     taskActions
       .clickContinue(@result)
-      .then(taskActions.completeThisStep)
-      .then(taskActions.advanceStep)
-      .then(taskChecks.checkHasReviewableBreadcrumbs)
-      .then(taskActions.completeThisStep)
-      .then(taskActions.advanceStep)
-      .then(taskChecks.checkHasReviewableBreadcrumbs)
+      .then(taskChecks.checkHasReadingProgressBar)
       .then( ->
         done()
       , done)

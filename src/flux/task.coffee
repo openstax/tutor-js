@@ -133,6 +133,14 @@ TaskConfig =
       steps = getSteps(@_steps[taskId])
       step = getCurrentStep(steps)
 
+    getProgress: (taskId, stepKey) ->
+      steps = getSteps(@_steps[taskId])
+
+      if steps.length
+        (stepKey + 1) / (steps.length + 1) * 100
+      else
+        0
+
     getIncompleteSteps: (taskId) ->
       allSteps = getSteps(@_steps[taskId])
       steps = getIncompleteSteps(allSteps)
@@ -184,7 +192,14 @@ TaskConfig =
       not incompleteStep
 
     hasCrumbs: (taskId) ->
-      not (@_steps[taskId].length is 1 and @_get(taskId).type is 'external')
+      not (
+        @_steps[taskId].length is 1 and
+        @_get(taskId).type is 'external' or
+        @_get(taskId).type is 'reading'
+      )
+
+    hasProgress: (taskId) ->
+      @_steps[taskId].length isnt 1 and @_get(taskId).type is 'reading'
 
     doesAllowSeeAhead: (taskId) ->
       allowed = [

@@ -8,6 +8,8 @@ React = require 'react/addons'
 {StepPanel} = require '../../../../src/helpers/policies'
 
 {BreadcrumbTaskDynamic} = require '../../../../src/components/breadcrumb'
+ProgressBar = require '../../../../src/components/task/progress'
+ProgressPanel = require '../../../../src/components/task/progress/panel'
 {ExerciseGroup} = require 'openstax-react-components'
 
 checks =
@@ -187,17 +189,22 @@ checks =
 
   _checkHasReviewableBreadcrumbs: ({div, component, stepId, taskId, state, router, history}) ->
     breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
+    progress = React.addons.TestUtils.scryRenderedComponentsWithType(component, ProgressBar)
     completedSteps = TaskStore.getCompletedSteps(taskId)
-    {type} = TaskStore.get(taskId)
+    steps = TaskStore.getSteps(taskId)
+    { type } = TaskStore.get(taskId)
 
-    expectedCrumbs = completedSteps.length + 1
-
-    if type is 'reading'
-      nonCoreIndex = TaskStore.getFirstNonCoreIndex(taskId)
-      if nonCoreIndex > -1 and completedSteps.length >= nonCoreIndex
-        expectedCrumbs = expectedCrumbs + 1
-
+    expectedCrumbs = steps.length + 1 if type is 'homework'
     expect(breadcrumbs.length).to.equal(expectedCrumbs)
+
+    {div, component, stepId, taskId, state, router, history}
+
+  _checkHasReadingProgressBar: ({div, component, stepId, taskId, state, router, history}) ->
+    progress = React.addons.TestUtils.scryRenderedComponentsWithType(component, ProgressBar)
+    progressPanel = React.addons.TestUtils.scryRenderedComponentsWithType(component, ProgressPanel)
+
+    expect(progress.length).to.equal(1)
+    expect(progressPanel.length).to.equal(1)
 
     {div, component, stepId, taskId, state, router, history}
 

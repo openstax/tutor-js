@@ -88,10 +88,11 @@ class User extends TestHelper
     @el.usernameLink(username).waitClick()
 
   logInDeployed: (username, password = 'password') =>
-    # Login as dev (using accounts)
-    @el.usernameInput().get().sendKeys(username)
-    @el.passwordInput().get().sendKeys(password)
-    @el.loginSubmit().click()
+    @test.utils.wait.giveTime (2 * 60 * 1000), =>
+      # Login as dev (using accounts)
+      @el.usernameInput().get().sendKeys(username)
+      @el.passwordInput().get().sendKeys(password)
+      @el.loginSubmit().click()
 
   login: (username, password = 'password') =>
     @el.loginLink().get().isDisplayed().then (isDisplayed) =>
