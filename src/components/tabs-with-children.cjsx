@@ -24,7 +24,7 @@ TabsWithChildren = React.createClass
 
   renderTab: (tab, index) ->
     isSelected = index is @state.tabIndex
-    <li tabIndex={index} className={classnames(active: isSelected)}>
+    <li key={index} tabIndex={index} className={classnames(active: isSelected)}>
       <a role="tab"
         href="" tabIndex="-1" onClick={_.partial(@onTabClick, index)}
         aria-selected={'true' if isSelected}
