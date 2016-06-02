@@ -6,7 +6,8 @@ Time = require '../time'
 CellStatusMixin = require './cell-status-mixin'
 PieProgress = require './pie-progress'
 {LateWork} = require './late-work'
-{ScoresStore} = require '../../flux/scores'
+
+TH = require '../../helpers/task'
 
 HomeworkCell = React.createClass
 
@@ -21,11 +22,11 @@ HomeworkCell = React.createClass
         className='scores-scores-tooltip-completed-info'>
         <div className='info'>
           <div className='row'>
-            <div>Completed {ScoresStore.getHumanCompletedPercent(task)}</div>
+            <div>Completed {TH.getHumanCompletedPercent(task)}</div>
           </div>
           <div className='row'>
             <div>
-              {ScoresStore.getHumanProgress(task)} questions
+              {TH.getHumanProgress(task)} questions
             </div>
           </div>
         </div>
@@ -38,7 +39,7 @@ HomeworkCell = React.createClass
         <Router.Link to='viewTaskStep'
           data-assignment-type="#{task.type}"
           params={courseId: courseId, id: task.id, stepIndex: 1}>
-            {ScoresStore.getHumanTaskStatus(task, {displayAs})}
+            {TH.getHumanStatus(task, {displayAs})}
         </Router.Link>
       </div>
 
@@ -58,14 +59,14 @@ HomeworkCell = React.createClass
             <PieProgress
               isConceptCoach={isConceptCoach}
               size={24}
-              value={ScoresStore.getCompletedPercent(task)}
-              isLate={ScoresStore.isTaskLate(task)}
+              value={TH.getCompletedPercent(task)}
+              isLate={TH.isLate(task)}
             />
           </span>
         </BS.OverlayTrigger>
       </div>
 
-      {<LateWork task={task} /> if ScoresStore.isTaskLate(task)}
+      {<LateWork task={task} /> if TH.isLate(task)}
 
     </div>
 

@@ -3,21 +3,23 @@ BS         = require 'react-bootstrap'
 Time       = require '../time'
 classnames = require 'classnames'
 
-{ScoresStore, ScoresActions} = require '../../flux/scores'
+{ScoresActions} = require '../../flux/scores'
+
+TH = require '../../helpers/task'
 
 class LateWork
   constructor: (@task) ->
     @isAccepted = @task.is_late_work_accepted
     @status = if @isAccepted
-      if ScoresStore.hasAdditionalLateWork(@task) then 'additional' else 'accepted'
+      if TH.hasAdditionalLateWork(@task) then 'additional' else 'accepted'
     else
       'pending'
 
   score: ->
     if @state is 'accepted'
-      ScoresStore.getHumanUnacceptedScore(@task)
+      TH.getHumanUnacceptedScore(@task)
     else
-      ScoresStore.getHumanScoreWithLateWork(@task)
+      TH.getHumanScoreWithLateWork(@task)
 
   lateExerciseCount: ->
     @task.completed_exercise_count - @task.completed_on_time_exercise_count
@@ -50,7 +52,7 @@ class HomeworkContent extends LateWork
   body: ->
     additional:
       <div className="body">
-        This student worked {ScoresStore.taskLateStepCount(@task)} questions
+        This student worked {TH.lateStepCount(@task)} questions
         after you accepted a late score
         on <Time date={@task.accepted_late_at} format='shortest' />
       </div>

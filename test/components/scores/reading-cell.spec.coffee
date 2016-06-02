@@ -5,7 +5,7 @@
 Cell = require '../../../src/components/scores/reading-cell'
 PieProgress = require '../../../src/components/scores/pie-progress'
 
-{ScoresStore, ScoresActions} = require '../../../src/flux/scores'
+TH = require '../../../src/helpers/task'
 
 describe 'Student Scores Report Reading Cell', ->
 
@@ -32,7 +32,7 @@ describe 'Student Scores Report Reading Cell', ->
   it 'renders as not started', ->
     @props.task.completed_step_count = 0
     @props.task.completed_on_time_step_count = 0
-    expect(ScoresStore.getCompletedPercent(@props.task)).to.equal(0)
+    expect(TH.getCompletedPercent(@props.task)).to.equal(0)
     Testing.renderComponent( Cell, props: @props ).then ({dom}) ->
       expect(dom.querySelector('.worked .not-started')).to.exist
 

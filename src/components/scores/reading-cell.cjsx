@@ -6,7 +6,8 @@ Time = require '../time'
 CellStatusMixin = require './cell-status-mixin'
 PieProgress = require './pie-progress'
 {LateWork} = require './late-work'
-{ScoresStore} = require '../../flux/scores'
+
+TH = require '../../helpers/task'
 
 ReadingCell = React.createClass
 
@@ -21,7 +22,7 @@ ReadingCell = React.createClass
         className='scores-scores-tooltip-completed-info'>
         <div className='info'>
           <div className='row'>
-            <div>Completed {ScoresStore.getHumanCompletedPercent(task)}</div>
+            <div>Completed {TH.getHumanCompletedPercent(task)}</div>
           </div>
         </div>
       </BS.Popover>
@@ -39,14 +40,14 @@ ReadingCell = React.createClass
             <PieProgress
               isConceptCoach={isConceptCoach}
               size={24}
-              value={ScoresStore.getCompletedPercent(task)}
-              isLate={ScoresStore.isTaskLate(task)}
+              value={TH.getCompletedPercent(task)}
+              isLate={TH.isLate(task)}
             />
           </span>
         </BS.OverlayTrigger>
       </div>
 
-      {<LateWork task={task} /> if ScoresStore.isTaskLate(task)}
+      {<LateWork task={task} /> if TH.isLate(task)}
 
     </div>
 

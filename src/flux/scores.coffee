@@ -130,65 +130,6 @@ ScoresConfig = {
 
   exports:
 
-    getHumanUnacceptedScore: (task) ->
-      score = Math.round((
-        task.correct_on_time_exercise_count / task.exercise_count
-        ) * 100 ) / 100
-      "#{score * 100}%"
-
-    getHumanScoreWithLateWork: (task) ->
-      score = Math.round((
-        task.correct_exercise_count / task.exercise_count
-        ) * 100) / 100
-      "#{score * 100}%"
-
-    getCompletedSteps: (task) ->
-      task.completed_on_time_step_count + task.completed_accepted_late_step_count
-
-    getCompletedPercent: (task) ->
-      if task.type is 'homework'
-        score = task.correct_on_time_exercise_count + task.correct_accepted_late_exercise_count
-        percent = Math.round( (score / task.exercise_count) * 100 )
-      else
-        score = task.completed_on_time_step_count + task.completed_accepted_late_step_count
-        percent = Math.round( (score / task.step_count) * 100 )
-
-    hasAdditionalLateWork: (task) ->
-      task.completed_accepted_late_step_count and (
-        task.completed_step_count >  task.completed_on_time_step_count +
-          task.completed_accepted_late_step_count
-      )
-
-    # called by readings and homework UI to determine if there's late work
-    hasLateWork: (task) ->
-      ScoresConfig.exports.taskLateStepCount(task) > 0
-    taskLateStepCount: (task) ->
-      if task.type is 'homework'
-        task.completed_exercise_count - task.completed_on_time_exercise_count +
-          task.completed_accepted_late_exercise_count
-      else
-        task.completed_step_count - task.completed_on_time_step_count +
-          task.completed_accepted_late_step_count
-
-    getHumanProgress: (task) ->
-      complete = ScoresConfig.exports.getCompletedSteps(task)
-      "#{complete} of #{task.step_count}"
-
-    getHumanDueDate: (task) ->
-      task.due_at
-
-    getHumanCompletedPercent: (task) ->
-      "#{ScoresConfig.exports.getCompletedPercent(task)}%"
-
-    getHumanTaskStatus: (task, options = {displayAs: 'number'}) ->
-      if options.displayAs is 'number'
-        ScoresConfig.exports.getHumanProgress(task)
-      else
-        ScoresConfig.exports.getHumanCompletedPercent(task)
-
-    isTaskLate: (task) ->
-      task.completed_on_time_step_count < task.completed_step_count
-
     getTaskInfoById: (taskId) ->
       getTaskInfoById(taskId, @_local)
 
