@@ -43,6 +43,7 @@
     flex-wrap: wrap;
     .spacer { flex: 1; }
     .control {
+      cursor: pointer;
       button.btn-link { color: @tutor-tertiary-light; }
 
       margin-left: 10px;
@@ -61,6 +62,7 @@
       }
     }
   }
+
 
   .roster {
 //    table-layout: fixed;
@@ -84,9 +86,13 @@
           padding: 0;
         }
 
-        &.add-period {
+        &.add-period, &.view-archived-periods {
           background-color: white;
           margin-bottom: inherit;
+        }
+        &.view-archived-periods {
+          position: absolute;
+          right: 0;
         }
 
       }
@@ -110,6 +116,13 @@
 .teacher-add-student-form {
   .tutor-input {
     margin-bottom: 10px;
+  }
+}
+
+.view-archived-periods-modal {
+  table { width: 100%; }
+  .control {
+    button.btn-link { color: @tutor-tertiary-light; }
   }
 }
 
@@ -169,6 +182,33 @@
 .teacher-remove.popover {
   .warning {
     width: 200px;
+  }
+}
+
+.archive-period.popover {
+  width: 350px;
+  max-width: 350px;
+  .message p {
+    #fonts > .sans(1.6rem, 1.6rem);
+    text-align: center;
+    border-bottom: 1px solid @tutor-neutral-bright;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+  // override material-design
+  .btn-default:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
+    background-color: @tutor-secondary;
+    color: @tutor-neutral-bright !important;
+    margin: auto;
+    display: block;
+    border-radius: 0;
+  }
+  .cancel {
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 1rem;
+    display: block;
+    text-align: center;
   }
 }
 

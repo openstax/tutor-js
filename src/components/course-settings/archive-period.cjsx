@@ -15,95 +15,56 @@ ArchivePeriodLink = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     period: React.PropTypes.object.isRequired
-    selectPreviousTab: React.PropTypes.func.isRequired
+    afterArchive: React.PropTypes.func.isRequired
 
   getInitialState: ->
     warning: ''
-    showModal: false
-    isDeleting: false
+    isArchiving: false
 
   close: ->
-    @setState({showModal: false, isDeleting: false})
+    @props.afterArchive()
+    @refs.overlay?.hide()
+    @setState(isArchiving: false)
 
-  open: ->
-    @setState({showModal: true})
 
-  performUpdate: ->
-    if @isPeriodEmpty()
-      # tab to be deleted cannot be activeTab unless first, so select previous or first
-      @props.selectPreviousTab()
-      id = @props.period.id
+  performArchive: ->
+    PeriodActions.delete(@props.period.id, @props.courseId)
+    PeriodStore.once 'deleted', @close
+    @setState(isArchiving: true)
 
-      @setState isDeleting: true
-      PeriodActions.delete(id, @props.courseId)
-      PeriodStore.once 'deleted', => @close()
-    else
-      @setState(warning: EMPTY_WARNING)
+  renderActivity: ->
+    <div className="message">
+      <p>
+        <Icon spin type='spinner' /> Archiving...
+      </p>
+    </div>
 
-  isPeriodEmpty: ->
-    id = @props.period.id
-    students = RosterStore.getActiveStudentsForPeriod(@props.courseId, id)
-    students.length is 0
-
-  renderForm: ->
-    if not @isPeriodEmpty()
-      @state.warning = EMPTY_WARNING
-    else
-      @state.warning = ''
-    deleteQuestion = "Delete '#{@props.period.name}'?"
-    deleteButton =
-      <AsyncButton
-        className='-edit-period-confirm'
-        onClick={@performUpdate}
-        isWaiting={@state.isDeleting}
-        waitingText="Deleting...">
-        Delete
-      </AsyncButton>
-    warning = if @state.warning is EMPTY_WARNING
-      <span>
-        Only <CourseGroupingLabel courseId={@props.courseId} lowercase/>s without
-         students enrolled can be deleted.
-      </span>
-    title =
-      <h4>Delete <CourseGroupingLabel courseId={@props.courseId}/></h4>
-
-    <BS.Modal
-      {...@props}
-      show={@state.showModal}
-      onHide={@close}
-      className="teacher-edit-period-modal">
-
-      <BS.Modal.Header closeButton>
-        <BS.Modal.Title>{title}</BS.Modal.Title>
-      </BS.Modal.Header>
-
-      <div className='modal-body teacher-edit-period-form'>
-
-        <div className='-delete-question'>
-          {deleteQuestion if @isPeriodEmpty()}
-        </div>
-        <div className='warning'>
-          {warning}
-        </div>
-
-      </div>
-
-      <div className='modal-footer'>
-        {deleteButton if @isPeriodEmpty()}
-      </div>
-
-    </BS.Modal>
+  renderMessage: ->
+    <div className="message">
+      <p>
+        Archiving means this <CourseGroupingLabel courseId={@props.courseId} /> will
+        not be visible on your dashboard, student scores or export.
+      </p>
+      <BS.Button className='archive-section' onClick={@performArchive}>
+        <Icon type='archive' /> Archive
+      </BS.Button>
+      <a className="cancel" onClick={@close}>Cancel</a>
+    </div>
 
   render: ->
     return null if _.isEmpty @props.periods
 
-    <span className='control delete-period'>
-      <BS.Button onClick={@open} bsStyle='link'>
-        <Icon type='archive' />
-        Archive <CourseGroupingLabel courseId={@props.courseId}/>
-      </BS.Button>
-      {@renderForm()}
-    </span>
+    <BS.OverlayTrigger rootClose={true} ref='overlay'
+      trigger='click' placement='bottom' overlay={
+        <BS.Popover id='delete-period' className="archive-period">
+          {if @state.isArchiving then @renderActivity() else @renderMessage()}
+        </BS.Popover>
+      }>
+        <a className="control">
+          <Icon type='archive' /> Archive <CourseGroupingLabel
+            courseId={@props.courseId} />
+        </a>
+    </BS.OverlayTrigger>
 
 
 module.exports = ArchivePeriodLink
