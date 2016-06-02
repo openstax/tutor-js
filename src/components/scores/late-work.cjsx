@@ -26,7 +26,7 @@ class LateWork
 
   lateDueDate: ->
     if @state is 'accepted'
-      'the due date'
+      'due date'
     else
       <Time date={@task.last_worked_at} format='shortest' />
 
@@ -54,7 +54,7 @@ class HomeworkContent extends LateWork
       <div className="body">
         This student worked {TH.lateStepCount(@task)} questions
         after you accepted a late score
-        on <Time date={@task.accepted_late_at} format='shortest' />
+        on <Time date={@task.accepted_late_at} format='shortest' />.
       </div>
 
 
