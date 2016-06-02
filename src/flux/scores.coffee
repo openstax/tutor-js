@@ -146,8 +146,13 @@ ScoresConfig = {
       task.completed_on_time_step_count + task.completed_accepted_late_step_count
 
     getCompletedPercent: (task) ->
-      score = task.correct_on_time_exercise_count + task.correct_accepted_late_exercise_count
-      percent = Math.round( (score / task.exercise_count) * 100 )
+      if task.type is 'homework'
+        score = task.correct_on_time_exercise_count + task.correct_accepted_late_exercise_count
+        percent = Math.round( (score / task.exercise_count) * 100 )
+      else
+        score = task.correct_on_time_step_count + task.correct_accepted_late_step_count
+        percent = Math.round( (score / task.step_count) * 100 )
+
 
     hasAdditionalLateWork: (task) ->
       task.completed_accepted_late_step_count and (
@@ -159,8 +164,12 @@ ScoresConfig = {
     hasLateWork: (task) ->
       ScoresConfig.exports.taskLateStepCount(task) > 0
     taskLateStepCount: (task) ->
-      task.completed_step_count - task.completed_on_time_step_count +
-        task.completed_accepted_late_step_count
+      if task.type is 'homework'
+        task.completed_exercise_count - task.completed_on_time_exercise_count +
+          task.completed_accepted_late_exercise_count
+      else
+        task.completed_step_count - task.completed_on_time_step_count +
+          task.completed_accepted_late_step_count
 
     getHumanProgress: (task) ->
       complete = ScoresConfig.exports.getCompletedSteps(task)
