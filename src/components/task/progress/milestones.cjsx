@@ -37,10 +37,9 @@ Milestone = React.createClass
     {title} = crumb.data
     title ?= StepTitleStore.get(crumb.data.id)
 
-    if title?
-      previewText = title
-      if crumb.type is 'end'
-        previewText = "#{previewText} Completed"
+    previewText = title
+    if crumb.type is 'end'
+      previewText = "#{previewText} Completed"
 
     if crumb.data.type is 'coach'
       previewText = 'Concept Coach'
@@ -83,51 +82,18 @@ MilestonesWrapper = React.createClass
 
   getInitialState: ->
     currentStep = TaskProgressStore.get(@props.id)
-
-    updateOnNext: true
-    currentStep: currentStep
-
-  componentWillMount: ->
-    listeners = @getMaxListeners()
-    # TaskStepStore listeners include:
-    #   One per step for the crumb status updates
-    #   Two additional listeners for step loading and completion
-    #     if there are placeholder steps.
-    #   One for step being viewed in the panel itself
-    #     this is the + 1 to the max listeners being returned
-    #
-    # Only update max listeners if it is greater than the default of 10
-    TaskStepStore.setMaxListeners(listeners + 1) if listeners? and (listeners + 1) > 10
-
-    # if a recovery step needs to be loaded, don't update breadcrumbs
-    TaskStore.on('task.beforeRecovery', @stopUpdate)
-    # until the recovery step has been loaded
-    TaskStore.on('task.afterRecovery', @update)
-
-    @startListeningForProgress()
     crumbs = @getCrumableCrumbs()
-    @setState {crumbs}
 
-    @switchCheckingClick()
+    currentStep: currentStep
+    crumbs: crumbs
 
   componentDidMount: ->
+    @switchCheckingClick()
     @switchTransitionListen()
 
   componentWillUnmount: ->
-    TaskStepStore.setMaxListeners(10)
-    TaskStore.off('task.beforeRecovery', @stopUpdate)
-    TaskStore.off('task.afterRecovery', @update)
-    @stopListeningForProgress()
-
     @switchCheckingClick(false)
     @switchTransitionListen(false)
-
-  componentWillReceiveProps: (nextProps) ->
-    if @props.id isnt nextProps.id
-      @stopListeningForProgress()
-      @startListeningForProgress(nextProps)
-    crumbs = @getCrumableCrumbs()
-    @setState({crumbs})
 
   componentDidEnter: (transitionEvent) ->
     @props.handleTransitions?(transitionEvent) if transitionEvent.propertyName is 'transform'
@@ -152,30 +118,6 @@ MilestonesWrapper = React.createClass
       focusEvent.preventDefault()
       focusEvent.stopImmediatePropagation()
       modal.focus()
-
-  stopListeningForProgress: (props) ->
-    props ?= @props
-    {id} = props
-
-    TaskProgressStore.off("update.#{id}", @setCurrentStep)
-
-  startListeningForProgress: (props) ->
-    props ?= @props
-    {id} = props
-
-    TaskProgressStore.on("update.#{id}", @setCurrentStep)
-
-  shouldComponentUpdate: (nextProps, nextState) ->
-    nextState.updateOnNext
-
-  update: ->
-    @setState(updateOnNext: true)
-
-  setCurrentStep: ({previous, current}) ->
-    @setState(currentStep: current)
-
-  stopUpdate: ->
-    @setState(updateOnNext: false)
 
   goToStep: (args...) ->
     if @props.goToStep(args...)
