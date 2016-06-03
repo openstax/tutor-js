@@ -123,7 +123,7 @@ ExerciseWithScroll = React.createClass
     </ScrollTracker>
 
   render: ->
-    {parts, footer} = @props
+    {parts, footer, pinned} = @props
 
     if @isSinglePart()
       return @renderSinglePart()
@@ -133,7 +133,7 @@ ExerciseWithScroll = React.createClass
     exerciseGroup = @renderGroup()
     footer ?= @renderFooter()
 
-    <CardBody footer={footer} className='openstax-multipart-exercise-card'>
+    <CardBody footer={footer} pinned={pinned} className='openstax-multipart-exercise-card'>
       <ExerciseBadges isMultipart={true}/>
       {exercisePartsWithScroll}
       {exerciseGroup}
@@ -144,7 +144,7 @@ Exercise = React.createClass
   displayName: 'Exercise'
   mixins: [ExerciseMixin]
   render: ->
-    {footer} = @props
+    {footer, pinned} = @props
 
     if @isSinglePart()
       return @renderSinglePart()
@@ -153,7 +153,7 @@ Exercise = React.createClass
     exerciseGroup = @renderGroup()
     footer ?= @renderFooter()
 
-    <CardBody footer={footer} className='openstax-multipart-exercise-card'>
+    <CardBody footer={footer} pinned={pinned} className='openstax-multipart-exercise-card'>
       <ExerciseBadges isMultipart={true}/>
       {exerciseParts}
       {exerciseGroup}
