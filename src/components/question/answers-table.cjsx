@@ -1,6 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
 
+keymaster = require 'keymaster'
 keysHelper = require '../../helpers/keys'
 
 KEYS =
@@ -45,7 +46,31 @@ AnswersTable = React.createClass
     keySet: 'multiple-choice'
 
   getInitialState: ->
+    originalKeyScope = @getOriginalKeyScope()
+
     answer_id: null
+    originalKeyScope: originalKeyScope
+
+  componentWillReceiveProps: (nextProps) ->
+    originalKeyScope = @getOriginalKeyScope(nextProps)
+    @setState({originalKeyScope}) if originalKeyScope?
+
+    @resetToOriginalKeyScope() if not _.isNull(@props.keySet) and _.isNull(nextProps.keySet)
+
+  componentWillUnmount: ->
+    @resetToOriginalKeyScope()
+
+  getOriginalKeyScope: (props) ->
+    props ?= @props
+
+    originalKeyScope = keymaster.getScope()
+    originalKeyScope if props.keySet isnt originalKeyScope and originalKeyScope isnt @state?.originalKeyScope
+
+  resetToOriginalKeyScope: ->
+    {originalKeyScope} = @state
+    keymaster.setScope(originalKeyScope) if originalKeyScope?
+
+    @setState(originalKeyScope: undefined)
 
   onChangeAnswer: (answer, changeEvent) ->
     if @props.onChange?
