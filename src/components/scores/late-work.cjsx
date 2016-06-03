@@ -91,6 +91,7 @@ LateWorkPopover = React.createClass
     <BS.Popover
       {...@props}
       show={@state.isShown}
+      arrowOffsetTop={95}
       title={content.get('title')}
       id="late-work-info-popover-#{content.task.id}"
       className={content.className()}>
