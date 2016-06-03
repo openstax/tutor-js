@@ -41,7 +41,7 @@ module.exports = React.createClass
     return false unless @context?.router
     {courseId, id, stepIndex} = @context.router.getCurrentParams()
     task = TaskStore.get(id)
-    return false unless task?
+    return false unless task? and task.type is 'reading'
     assignment = task.title
     due = moment(task.due_at).calendar()
 

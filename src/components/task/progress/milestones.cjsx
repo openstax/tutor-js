@@ -10,11 +10,22 @@ CrumbMixin = require '../crumb-mixin'
 {TaskStepActions, TaskStepStore} = require '../../../flux/task-step'
 {TaskProgressActions, TaskProgressStore} = require '../../../flux/task-progress'
 {TaskStore} = require '../../../flux/task'
+{StepTitleStore} = require '../../../flux/step-title'
 
 ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
 Milestone = React.createClass
   displayName: 'Milestone'
+  propTypes:
+    goToStep: React.PropTypes.func.isRequired
+    crumb: React.PropTypes.object.isRequired
+    currentStep: React.PropTypes.number.isRequired
+
+  handleKeyUp: (crumbKey, keyEvent) ->
+    if keyEvent.keyCode is 13 or keyEvent.keyCode is 32
+      @props.goToStep(crumbKey)
+      keyEvent.preventDefault()
+
   render: ->
     {goToStep, crumb, currentStep} = @props
 
@@ -23,43 +34,29 @@ Milestone = React.createClass
     classes = classnames 'milestone',
       'active': isCurrent
 
+    {title} = crumb.data
+    title ?= StepTitleStore.get(crumb.data.id)
 
-    if crumb.data.title?
-      previewText = crumb.data.title
+    if title?
+      previewText = title
       if crumb.type is 'end'
         previewText = "#{previewText} Completed"
 
-      preview = <div className='milestone-preview'>
-        <p>
-          {previewText}
-        </p>
-      </div>
-
     if crumb.data.type is 'coach'
-      preview = <div className='milestone-preview'>
-        <p>Concept Coach</p>
-      </div>
+      previewText = 'Concept Coach'
 
-    preview = <div className='milestone-preview'>
-      <p>
-        {crumb.data.related_content[0].title}
-      </p>
-    </div> if crumb.data.related_content?[0]?.title?
-
-    if crumb.data.content?.questions?
-      question = _.first(crumb.data.content.questions)
-      preview = <ArbitraryHtmlAndMath
-        block={true}
-        className='milestone-preview'
-        html={question.stem_html}/>
-
-    console.info(crumb) if crumb.data.related_content?[0]?.title? or crumb.type is 'end'
+    preview = <div id='milestone-preview' className='milestone-preview'>
+      <p>{previewText}</p>
+    </div>
 
     <BS.Col xs=3 lg=2 className='milestone-wrapper'>
       <div
         tabIndex='0'
         className={classes}
-        onClick={_.partial(goToStep, crumb.key)}>
+        role='button'
+        aria-label={previewText}
+        onClick={_.partial(goToStep, crumb.key)}
+        onKeyUp={_.partial(@handleKeyUp, crumb.key)}>
         {@props.children}
         {preview}
       </div>
@@ -101,7 +98,10 @@ MilestonesWrapper = React.createClass
     crumbs = @getCrumableCrumbs()
     @setState {crumbs}
 
-    @toggleCheckingClick()
+    @switchCheckingClick()
+
+  componentDidMount: ->
+    @switchTransitionListen()
 
   componentWillUnmount: ->
     TaskStepStore.setMaxListeners(10)
@@ -109,7 +109,8 @@ MilestonesWrapper = React.createClass
     TaskStore.off('task.afterRecovery', @update)
     @stopListeningForProgress()
 
-    @toggleCheckingClick(false)
+    @switchCheckingClick(false)
+    @switchTransitionListen(false)
 
   componentWillReceiveProps: (nextProps) ->
     if @props.id isnt nextProps.id
@@ -118,8 +119,18 @@ MilestonesWrapper = React.createClass
     crumbs = @getCrumableCrumbs()
     @setState({crumbs})
 
-  toggleCheckingClick: (toggleOn = true) ->
-    eventAction = if toggleOn then 'addEventListener' else 'removeEventListener'
+  componentDidEnter: (transitionEvent) ->
+    @props.handleTransitions?(transitionEvent) if transitionEvent.propertyName is 'transform'
+
+  switchTransitionListen: (switchOn = true) ->
+    eventAction = if switchOn then 'addEventListener' else 'removeEventListener'
+
+    milestones = @getDOMNode()
+    milestones[eventAction]('transitionend', @componentDidEnter)
+    milestones[eventAction]('webkitTransitionEnd', @componentDidEnter)
+
+  switchCheckingClick: (switchOn = true) ->
+    eventAction = if switchOn then 'addEventListener' else 'removeEventListener'
 
     document[eventAction]('click', @checkAllowed, true)
     document[eventAction]('focus', @checkAllowed, true)
@@ -157,7 +168,10 @@ MilestonesWrapper = React.createClass
     @setState(updateOnNext: false)
 
   goToStep: (args...) ->
-    @props.closeMilestones() unless @props.goToStep(args...)
+    if @props.goToStep(args...)
+      window.scrollTo(0, 0)
+    else
+      @props.closeMilestones()
 
   render: ->
     {crumbs, currentStep} = @state
@@ -188,12 +202,14 @@ MilestonesWrapper = React.createClass
 
 Milestones = React.createClass
   displayName: 'Milestones'
-  # propTypes:
-  #   taskId: React.PropTypes.string.isRequired
-  #   focus: React.PropTypes.bool.isRequired
+  propTypes:
+    showMilestones: React.PropTypes.bool.isRequired
+
   render: ->
 
-    milestones = <MilestonesWrapper {...@props} key='milestones'/> if @props.showMilestones
+    milestones = <MilestonesWrapper
+      {...@props}
+      ref='milestones'/> if @props.showMilestones
 
     <ReactCSSTransitionGroup
       transitionName='task-with-milestones'

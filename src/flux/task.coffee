@@ -8,6 +8,7 @@ Durations = require '../helpers/durations'
 {TaskStepStore} = require './task-step'
 
 {MediaActions} = require './media'
+{StepTitleActions} = require './step-title'
 
 getSteps = (steps) ->
   _.map steps, ({id}) ->
@@ -67,6 +68,7 @@ TaskConfig =
 
   _loaded: (obj, id) ->
     MediaActions.parse(@_grabHtml(obj))
+    StepTitleActions.parseSteps(obj.steps)
     # Populate all the TaskSteps when a Task is loaded
     @_steps ?= {}
     # Remove the steps so Components are forced to use `.getSteps()` to get

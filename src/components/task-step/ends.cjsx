@@ -164,11 +164,19 @@ HomeworkEnd = React.createClass
 TaskEnd = React.createClass
   displayName: 'TaskEnd'
   render: ->
+    {courseId} = @props
     <div className='task task-completed'>
       <CardBody className='-reading-completed'>
         <div className="completed-message">
           <h1>You are done.</h1>
           <h3>Great job completing all the steps</h3>
+          <Router.Link
+            to='viewStudentDashboard'
+            key='step-back'
+            params={{courseId}}
+            className='btn btn-primary'>
+              Back to Dashboard
+          </Router.Link>
         </div>
       </CardBody>
     </div>

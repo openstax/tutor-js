@@ -27,7 +27,7 @@ Reading = React.createClass
 
 Interactive = React.createClass
   displayName: 'Interactive'
-  mixins: [StepMixin, StepFooterMixin]
+  mixins: [StepMixin]
   isContinueEnabled: -> true
   onContinue: ->
     @props.onStepCompleted()
@@ -38,7 +38,7 @@ Interactive = React.createClass
 
 Video = React.createClass
   displayName: 'Video'
-  mixins: [StepMixin, StepFooterMixin]
+  mixins: [StepMixin]
   isContinueEnabled: -> true
   onContinue: ->
     @props.onStepCompleted()
@@ -100,7 +100,7 @@ ExternalUrl = React.createClass
     </div>
 
 Spacer = React.createClass
-  mixins: [StepMixin, StepFooterMixin]
+  mixins: [StepMixin]
   isContinueEnabled: -> true
   onContinue: ->
     @props.onNextStep()

@@ -59,6 +59,7 @@ module.exports = React.createClass
       refreshTo: false
       recoverForStepId: false
       recoveredStepId: false
+      milestonesEntered: false
     }
 
   hasUnsavedState: -> TaskStore.hasAnyStepChanged(@props.id)
@@ -183,6 +184,9 @@ module.exports = React.createClass
       @context.router.transitionTo('viewTaskStep', params)
       true
 
+  toggleMilestonesEntered: ->
+    @setState(milestonesEntered: not @state.milestonesEntered)
+
   closeMilestones: ->
     params = @context.router.getCurrentParams()
     @context.router.transitionTo('viewTaskStep', params)
@@ -249,6 +253,7 @@ module.exports = React.createClass
 
   render: ->
     {id} = @props
+    {milestonesEntered} = @state
     showMilestones = @context.router.getCurrentParams().milestones?
     task = TaskStore.get(id)
     return null unless task?
@@ -284,6 +289,7 @@ module.exports = React.createClass
         goToStep={@goToStep}
         closeMilestones={@closeMilestones}
         filterClick={@filterClickForMilestones}
+        handleTransitions={@toggleMilestonesEntered}
         showMilestones={showMilestones}/>
 
       panel = <ProgressPanel
@@ -300,6 +306,7 @@ module.exports = React.createClass
 
       taskClasses = classnames taskClasses, 'task-with-progress',
         'task-with-milestones': showMilestones
+        'task-with-milestones-entered': milestonesEntered and showMilestones
 
     <PinnedHeaderFooterCard
       className={taskClasses}
