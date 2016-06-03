@@ -1,40 +1,65 @@
 {
-  "title": "Local Test Course",
   "name": "Local Test Course",
-  "book_id": 123,
+  "book_id": "123",
   "ecosystem_id": "1",
   "periods": [{
-      "id": "2",
-      "name" : "2nd",
-      "enrollment_url": "http://test/period/2"
-    },{
-      "id": "3",
-      "name" : "3rd",
-      "enrollment_url": "http://test/period/3"
-    },{
-      "id": "1",
-      "name" : "1st",
-      "enrollment_url": "http://test/period/1"
-    },{
-      "id": "4",
-      "name" : "4th",
-      "enrollment_url": "http://test/period/4"
-    },{
-      "id": "5",
-      "name" : "5th",
-      "enrollment_url": "http://test/period/5"
-    },{
-      "id": "7",
-      "name" : "7th",
-      "enrollment_url": "http://test/period/7"
-    },{
-      "id": "6",
-      "name" : "6th",
-      "enrollment_url": "http://test/period/6"
-    },{
-      "id": "8",
-      "name" : "10th",
-      "enrollment_url": "http://test/period/8"
+    "id": "1",
+    "name" : "1st",
+    "enrollment_url": "http://test/period/1",
+    "default_open_time": "00:01",
+    "default_due_time": "07:00",
+    "is_archived": false
+  },{
+    "id": "2",
+    "name" : "2nd",
+    "enrollment_url": "http://test/period/2",
+    "default_open_time": "00:01",
+    "default_due_time": "07:00",
+    "is_archived": false
+  },{
+    "id": "3",
+    "name" : "3rd",
+    "enrollment_url": "http://test/period/3",
+    "default_open_time": "00:01",
+    "default_due_time": "07:00",
+    "is_archived": false
+  },{
+    "id": "4",
+    "name" : "4th",
+    "enrollment_url": "http://test/period/4",
+    "default_open_time": "00:01",
+    "default_due_time": "07:00",
+    "archived_at": "2016-06-03T01:10:10.125Z",
+    "is_archived": true
+  },{
+    "id": "5",
+    "name" : "5th",
+    "enrollment_url": "http://test/period/5",
+    "default_open_time": "00:01",
+    "default_due_time": "07:00",
+    "is_archived": false
+  },{
+    "id": "6",
+    "name" : "6th",
+    "enrollment_url": "http://test/period/6",
+    "default_open_time": "00:01",
+    "default_due_time": "07:00",
+    "is_archived": false
+  },{
+    "id": "7",
+    "name" : "7th",
+    "enrollment_url": "http://test/period/7",
+    "default_open_time": "00:01",
+    "default_due_time": "07:00",
+    "archived_at": "2016-06-03T01:10:10.125Z",
+    "is_archived": true
+  },{
+    "id": "8",
+    "name" : "10th",
+    "enrollment_url": "http://test/period/8",
+    "default_open_time": "00:01",
+    "default_due_time": "07:00",
+    "is_archived": false
   }],
   "time_zone": "Central Time (US & Canada)",
   "default_due_time": "",
