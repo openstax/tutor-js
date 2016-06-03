@@ -5,7 +5,7 @@ classnames = require 'classnames'
 
 CrumbMixin = require '../crumb-mixin'
 {ChapterSectionMixin, ArbitraryHtmlAndMath} = require 'openstax-react-components'
-{BreadcrumbTaskDynamic} = require '../../breadcrumb'
+{BreadcrumbStatic} = require '../../breadcrumb'
 
 {TaskStepActions, TaskStepStore} = require '../../../flux/task-step'
 {TaskProgressActions, TaskProgressStore} = require '../../../flux/task-progress'
@@ -61,7 +61,13 @@ Milestone = React.createClass
         aria-label={previewText}
         onClick={_.partial(goToStep, crumb.key)}
         onKeyUp={_.partial(@handleKeyUp, crumb.key)}>
-        {@props.children}
+        <BreadcrumbStatic
+          crumb={crumb}
+          data-label={crumb.label}
+          currentStep={currentStep}
+          goToStep={@goToStep}
+          key="breadcrumb-#{crumb.type}-#{crumb.key}"
+          ref="breadcrumb-#{crumb.type}-#{crumb.key}"/>
         {preview}
       </div>
     </BS.Col>
@@ -185,15 +191,7 @@ MilestonesWrapper = React.createClass
         key={"crumb-wrapper-#{crumbIndex}"}
         crumb={crumb}
         goToStep={@goToStep}
-        currentStep={currentStep}>
-        <BreadcrumbTaskDynamic
-          crumb={crumb}
-          data-label={crumb.label}
-          currentStep={currentStep}
-          goToStep={@goToStep}
-          key="breadcrumb-#{crumb.type}-#{crumb.key}"
-          ref="breadcrumb-#{crumb.type}-#{crumb.key}"/>
-      </Milestone>
+        currentStep={currentStep}/>
 
     classes = 'task-breadcrumbs'
 

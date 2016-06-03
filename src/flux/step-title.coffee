@@ -2,7 +2,7 @@ _ = require 'underscore'
 htmlparser = require 'htmlparser2'
 {makeSimpleStore} = require './helpers'
 
-TEXT_LENGTH_CHECK = 115
+TEXT_LENGTH_CHECK = 110
 TEXT_LENGTH = 125
 TEXT_CHECK_RANGE = TEXT_LENGTH - TEXT_LENGTH_CHECK
 
