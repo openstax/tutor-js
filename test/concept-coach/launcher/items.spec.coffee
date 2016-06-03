@@ -14,5 +14,4 @@ describe 'Launcher SVG items', ->
 
   it 'renders background and desk without errors', ->
     Testing.renderComponent( BackgroundAndDesk, props: @props ).then ({dom}) ->
-      expect(dom.tagName).equal('svg')
-      expect(dom.getAttribute('height')).equal('42px')
+      expect(dom.tagName.toLowerCase()).equal('div')
