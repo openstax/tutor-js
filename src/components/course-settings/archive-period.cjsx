@@ -26,7 +26,6 @@ ArchivePeriodLink = React.createClass
     @refs.overlay?.hide()
     @setState(isArchiving: false)
 
-
   performArchive: ->
     PeriodActions.delete(@props.period.id, @props.courseId)
     PeriodStore.once 'deleted', @close
@@ -60,7 +59,7 @@ ArchivePeriodLink = React.createClass
           {if @state.isArchiving then @renderActivity() else @renderMessage()}
         </BS.Popover>
       }>
-        <a className="control">
+        <a className="control archive-period">
           <Icon type='archive' /> Archive <CourseGroupingLabel
             courseId={@props.courseId} />
         </a>

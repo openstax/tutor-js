@@ -31,7 +31,7 @@ CourseName = React.createClass
         <BS.Tooltip id="course-name-tooltip">
           <div>{course.name}</div>
         </BS.Tooltip>
-      coursenameComponent = 
+      coursenameComponent =
         <BS.OverlayTrigger
           placement='bottom'
           delayShow={1000}
