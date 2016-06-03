@@ -45,9 +45,13 @@ Milestone = React.createClass
     if crumb.data.type is 'coach'
       previewText = 'Concept Coach'
 
-    preview = <div id='milestone-preview' className='milestone-preview'>
-      <p>{previewText}</p>
-    </div>
+    if crumb.data.type is 'exercise'
+      preview = <ArbitraryHtmlAndMath
+        block={true}
+        className='milestone-preview'
+        html={previewText}/>
+    else
+      preview = <div className='milestone-preview'>{previewText}</div>
 
     <BS.Col xs=3 lg=2 className='milestone-wrapper'>
       <div

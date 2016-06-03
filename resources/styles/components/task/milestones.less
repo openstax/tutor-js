@@ -9,8 +9,7 @@
 
     &.task-with-milestones-entered {
       .task-step {
-        overflow: hidden;
-        height: 0;
+        display: none;
       }
     }
   }
@@ -38,10 +37,10 @@
 }
 
 .milestones-wrapper {
-  .fixed-bar();
   position: absolute;
   z-index: 3;
   min-height: 100%;
+  left: 0;
   top: 0;
   margin-top: @openstax-navbar-height;
   padding: 5%;

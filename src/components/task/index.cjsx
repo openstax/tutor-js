@@ -192,8 +192,8 @@ module.exports = React.createClass
     @context.router.transitionTo('viewTaskStep', params)
 
   filterClickForMilestones: (focusEvent) ->
-    stepPanel = @refs.stepPanel.getDOMNode()
-    not stepPanel.contains(focusEvent.target)
+    stepPanel = @refs.stepPanel?.getDOMNode()
+    not stepPanel?.contains(focusEvent.target)
 
   getCrumb: (crumbKey) ->
     crumbs = @generateCrumbs()

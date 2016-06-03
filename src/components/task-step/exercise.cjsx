@@ -212,6 +212,7 @@ module.exports = React.createClass
     <ExerciseWithScroll
       {...@props}
       {...controlProps}
+      {...canContinueControlProps}
 
       footer={footer}
 

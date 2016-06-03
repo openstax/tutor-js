@@ -55,10 +55,10 @@ module.exports = React.createClass
             </Router.Link>
 
     <BS.Navbar toggleNavKey={0} fixedTop fluid>
+      <CenterControls courseId={courseId}/>
       <BS.NavBrand>
         {brand}
       </BS.NavBrand>
-      <CenterControls courseId={courseId}/>
       <BS.CollapsibleNav eventKey={0}>
         <BS.Nav navbar>
           <CourseName course={course}/>

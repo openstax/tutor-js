@@ -4,6 +4,7 @@ htmlparser = require 'htmlparser2'
 
 TEXT_LENGTH_CHECK = 115
 TEXT_LENGTH = 125
+TEXT_CHECK_RANGE = TEXT_LENGTH - TEXT_LENGTH_CHECK
 
 isLabel = (element) ->
   element.attribs['data-has-label'] is 'true'
@@ -14,12 +15,24 @@ grabLabel = (element) ->
 grabTitle = (element) ->
   element.children?[0]?.data?.trim?()
 
-grabTruncatedText = (text) ->
-  if text.length > TEXT_LENGTH
-    textEnd = TEXT_LENGTH_CHECK + text.substring(TEXT_LENGTH_CHECK, TEXT_LENGTH).indexOf(' ')
-    text = "#{text.substring(0, textEnd)}..."
+isMaths = (element) ->
+  element.attribs?['data-math']?
 
+grabTruncatedText = (text, start = TEXT_LENGTH_CHECK, range = TEXT_CHECK_RANGE) ->
+  end = start + range
+  if text.length >= end
+    textEnd = start + text.substring(start, end).indexOf(' ')
+    text = "#{text.substring(0, textEnd)}..."
   text
+
+keepMathsOnly = (element) ->
+  if isMaths(element)
+    return element
+  else
+    return htmlparser.DomUtils.getText(element)
+
+getLengthFromTextOrMaths = (element) ->
+  htmlparser.DomUtils.getText(element)?.length or 0
 
 StepTitleConfig =
 
@@ -29,41 +42,69 @@ StepTitleConfig =
     @_local[id] = title
     @emit("loaded.#{id}", title)
 
-  _parseHandler: (actions, id, error, dom) ->
-    text = grabTruncatedText(htmlparser.DomUtils.getText(dom))
-
+  _parseReading: (actions, id, error, dom) ->
     title = htmlparser.DomUtils.findOne(isTitle, dom, false)
-    textParts = []
 
     if title?
-      textParts.push(grabTitle(title))
+      text = grabTitle(title)
     else
       label = htmlparser.DomUtils.findOne(isLabel, dom, false)
-      textParts.push(grabLabel(label)) if label?
+      text = grabLabel(label) if label?
 
-    textParts = _.compact(textParts)
+    text ?= grabTruncatedText(htmlparser.DomUtils.getText(dom))
 
-    text = textParts.join(': ') unless _.isEmpty(textParts)
+    actions.loaded(id, text)
+
+  _parseExercise: (actions, id, error, dom) ->
+    text = grabTruncatedText(htmlparser.DomUtils.getText(dom))
+
+    maths = htmlparser.DomUtils.findOne(isMaths, dom, false)
+
+    unless maths?
+      text = grabTruncatedText(htmlparser.DomUtils.getText(dom))
+    else
+      simpleExercise = htmlparser.DomUtils.find(keepMathsOnly, dom, false)
+      exerciseLength = 0
+
+      truncatedExercise = _.filter simpleExercise, (part) ->
+        return false if exerciseLength > TEXT_LENGTH
+        exerciseLength += getLengthFromTextOrMaths(part)
+        return true
+
+      if exerciseLength >= TEXT_LENGTH
+        lastPart = _.last(truncatedExercise)
+
+        if lastPart.type is 'text'
+          start = Math.max(exerciseLength - TEXT_LENGTH, 0) if truncatedExercise.length > 1
+          lastPart.data = grabTruncatedText(lastPart.data, start)
+          truncatedExercise[truncatedExercise.length - 1] = lastPart
+        else
+          truncatedExercise.push({data: '...', type: 'text'})
+
+      text = htmlparser.DomUtils.getOuterHTML(truncatedExercise)
+
     actions.loaded(id, text)
 
   parseReading: (id, htmlString) ->
     unless @_get(id)?
-      parseHandler = new htmlparser.DomHandler _.partial(@_parseHandler, @, id)
+      parseHandler = new htmlparser.DomHandler _.partial(@_parseReading, @, id)
       titleParser = new htmlparser.Parser(parseHandler)
       titleParser.parseComplete(htmlString)
 
   parseExercise: (id, htmlString) ->
     unless @_get(id)?
-      parseHandler = new htmlparser.DomHandler _.partial(@_parseHandler, @, id)
+      parseHandler = new htmlparser.DomHandler _.partial(@_parseExercise, @, id)
       titleParser = new htmlparser.Parser(parseHandler)
       titleParser.parseComplete(htmlString)
 
+  parseStep: (step) ->
+    if step.type is 'reading'
+      @parseReading(step.id, step.content_html)
+    if step.type is 'exercise'
+      @parseExercise(step.id, _.first(step.content.questions).stem_html)
+
   parseSteps: (steps) ->
-    _.each steps, (step) =>
-      if step.type is 'reading'
-        @parseReading(step.id, step.content_html)
-      if step.type is 'exercise'
-        @parseExercise(step.id, _.first(step.content.questions).stem_html)
+    _.each steps, @parseStep, @
 
   _get: (id) ->
     @_local[id]
