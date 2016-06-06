@@ -24,7 +24,6 @@ describe 'Exercise Group Component', ->
       expect(dom.textContent).equal('')
 
   it 'renders the exercise uid when passed in', ->
-    EXERCISE_UID = '1@1'
-    @props.exercise_uid = EXERCISE_UID
-    Testing.renderComponent( Group, props: @props ).then ({dom, wrapper}) ->
-      expect(dom.textContent).include(EXERCISE_UID)
+    @props.group = 'spaced_practice'
+    Testing.renderComponent( Group, props: @props ).then ({dom, wrapper, root, element}) ->
+      expect(dom.querySelector('i[aria-describedby="instructions"]')).to.not.be.null

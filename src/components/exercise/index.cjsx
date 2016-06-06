@@ -6,6 +6,7 @@ ExercisePart = require './part'
 {CardBody} = require '../pinned-header-footer-card/sections'
 ExerciseGroup = require './group'
 ExerciseBadges = require '../exercise-badges'
+ExerciseIdentifierLink = require '../exercise-identifier-link'
 
 {ScrollListenerMixin} = require 'react-scroll-components'
 {ScrollTracker, ScrollTrackerParentMixin} = require '../scroll-tracker'
@@ -85,8 +86,8 @@ ExerciseMixin =
 
     <ExerciseGroup
       key='step-exercise-group'
+      project={@props.project}
       group={step.group}
-      exercise_uid={step.content?.uid}
       related_content={step.related_content}/>
 
   renderFooter: ->
@@ -99,7 +100,17 @@ ExerciseMixin =
         onContinue: _.partial onNextStep, currentStep: step.stepIndex
 
     footerProps = _.omit(@props, 'onContinue')
+
     <ExFooter {...canContinueControlProps} {...footerProps} panel='review'/>
+
+  renderIdLink: ->
+    {parts} = @props
+    step = _.last(parts)
+
+    if step.content?.uid
+      <ExerciseIdentifierLink key='exercise-uid'
+        exerciseId={step.content?.uid}
+        related_content={step.related_content}/>
 
 
 ExerciseWithScroll = React.createClass
@@ -135,8 +146,9 @@ ExerciseWithScroll = React.createClass
 
     <CardBody footer={footer} className='openstax-multipart-exercise-card'>
       <ExerciseBadges isMultipart={true}/>
-      {exercisePartsWithScroll}
       {exerciseGroup}
+      {exercisePartsWithScroll}
+      {@renderIdLink()}
     </CardBody>
 
 
@@ -147,7 +159,10 @@ Exercise = React.createClass
     {footer} = @props
 
     if @isSinglePart()
-      return @renderSinglePart()
+      return <CardBody footer={footer} className='openstax-multipart-exercise-card'>
+        { @renderSinglePart() }
+        { @renderIdLink() }
+      </CardBody>
 
     exerciseParts = @renderMultiParts()
     exerciseGroup = @renderGroup()
@@ -155,8 +170,9 @@ Exercise = React.createClass
 
     <CardBody footer={footer} className='openstax-multipart-exercise-card'>
       <ExerciseBadges isMultipart={true}/>
-      {exerciseParts}
       {exerciseGroup}
+      {exerciseParts}
+      {@renderIdLink()}
     </CardBody>
 
 module.exports = {Exercise, ExerciseWithScroll}
