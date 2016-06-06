@@ -9,7 +9,7 @@ Icon = require '../icon'
 PH   = require '../../helpers/period'
 Time = require '../time'
 BindStoreMixin      = require '../bind-store-mixin'
-
+CourseGroupingLabel = require '../course-grouping-label'
 
 ViewArchivedPeriods = React.createClass
 
@@ -53,7 +53,7 @@ ViewArchivedPeriods = React.createClass
 
     <li className='control view-archived-periods'>
       <BS.Button onClick={@open} bsStyle='link'>
-        View Archived Sections
+        View Archived <CourseGroupingLabel courseId={@props.courseId} />
       </BS.Button>
 
       <BS.Modal
@@ -62,15 +62,21 @@ ViewArchivedPeriods = React.createClass
         className='view-archived-periods-modal'>
 
         <BS.Modal.Header closeButton>
-          <BS.Modal.Title>Archived Sections</BS.Modal.Title>
+          <BS.Modal.Title>
+            Archived <CourseGroupingLabel courseId={@props.courseId} />
+          </BS.Modal.Title>
         </BS.Modal.Header>
 
         <BS.Modal.Body>
           <p>
-            The table below shows previously archived sections of this course.
+            The table below shows previously
+            archived <CourseGroupingLabel lowercase courseId={@props.courseId} /> of
+            this course.
           </p>
           <p>
-            You can "unarchive" a section to make it visible again.
+            You can "unarchive"
+            a <CourseGroupingLabel lowercase courseId={@props.courseId} /> to
+            make it visible again.
           </p>
           <table>
             <thead>
