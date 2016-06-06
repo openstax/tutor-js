@@ -38,10 +38,10 @@ module.exports = React.createClass
     @context.router.transitionTo(path, toParams)
 
   render: ->
-    return false unless @context?.router
-    {courseId, id, stepIndex} = @context.router.getCurrentParams()
+    return null unless @context?.router
+    {id} = @context.router.getCurrentParams()
     task = TaskStore.get(id)
-    return false unless task? and task.type is 'reading'
+    return null unless task? and task.type is 'reading'
     assignment = task.title
     due = moment(task.due_at).calendar()
 
