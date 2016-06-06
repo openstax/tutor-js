@@ -80,7 +80,7 @@ module.exports = React.createClass
   render: ->
     {activeSection, ecosystemId, query} = @props
     toc = ReferenceBookStore.getToc(ecosystemId)
-    return null unless toc?
+    return null if not toc?
 
     <div className="menu">
       { _.map toc.children, (child) =>
