@@ -16,7 +16,7 @@ class LateWork
       'pending'
 
   score: ->
-    if @state is 'accepted'
+    if @status is 'accepted'
       TH.getHumanUnacceptedScore(@task)
     else
       TH.getHumanScoreWithLateWork(@task)
