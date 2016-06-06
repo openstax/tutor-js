@@ -21,17 +21,7 @@ ProgressPanel = React.createClass
     step = TaskStepStore.get(@props.stepId)
 
     shouldShowLeft = @props.stepKey > 0
-    shouldShowRight = (
-      @props.stepKey < TaskStore.getTotalStepsCount(@props.taskId) - 1 and
-      StepPanel.canContinue(@props.stepId) and
-      step and
-      step.type isnt 'exercise' or (
-        step and
-        step.type is 'exercise' and
-        TaskStepStore.isAnswered(@props.stepId)
-      ) or
-      @props.isSpacer is true
-    )
+    shouldShowRight = StepPanel.canForward(@props.stepId)
 
     <div className="progress-panel">
       <Arrow {...@props} direction="left" shouldShow={shouldShowLeft} />
