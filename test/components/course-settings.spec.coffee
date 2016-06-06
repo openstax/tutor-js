@@ -46,3 +46,8 @@ describe 'Course Settings', ->
       ), 'textContent')
       expect(rendered_names)
         .to.deep.equal(names)
+
+
+  it 'renders input box to copy enrollment code from', ->
+    url = @state.div.querySelector('.enrollment-code-link input').value
+    expect(url).to.equal(COURSE.periods[0].enrollment_url)

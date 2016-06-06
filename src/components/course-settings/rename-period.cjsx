@@ -40,8 +40,7 @@ module.exports = React.createClass
   displayName: 'RenamePeriodLink'
   propTypes:
     courseId: React.PropTypes.string.isRequired
-    periods: React.PropTypes.array.isRequired
-    activeTab: React.PropTypes.object.isRequired
+    period: React.PropTypes.object.isRequired
 
   mixins: [BindStoreMixin]
 
@@ -49,12 +48,11 @@ module.exports = React.createClass
 
   bindUpdate: ->
     {courseId} = @props
-
     isSaving = PeriodStore.isSaving(courseId)
     @setState({isSaving}) if @state.isSaving isnt isSaving
 
   getInitialState: ->
-    period_name: @props.activeTab.name
+    period_name: @props.period.name
     showModal: false
     isSaving: false
 
@@ -65,13 +63,13 @@ module.exports = React.createClass
     @setState({showModal: true})
 
   validate: (name) ->
-    error = PeriodStore.validatePeriodName(name, @props.periods, @props.activeTab.name)
+    error = PeriodStore.validatePeriodName(name, @props.periods, @props.period.name)
     @setState({invalid: error?})
     error
 
   performUpdate: ->
     if not @state.invalid
-      id = @props.activeTab.id
+      id = @props.period.id
       PeriodActions.save(@props.courseId, id, name: @state.period_name)
       PeriodStore.once 'saved', =>
         @close()
@@ -100,7 +98,7 @@ module.exports = React.createClass
         <RenamePeriodField
         label={label}
         name='period-name'
-        default={@props.activeTab.name}
+        default={@props.period.name}
         onChange={(val) => @setState(period_name: val)}
         validate={@validate}
         autofocus />

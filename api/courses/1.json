@@ -5,28 +5,36 @@
   "ecosystem_id": "1",
   "periods": [{
       "id": "2",
-      "name" : "2nd"
+      "name" : "2nd",
+      "enrollment_url": "http://test/period/2"
     },{
       "id": "3",
-      "name" : "3rd"
+      "name" : "3rd",
+      "enrollment_url": "http://test/period/3"
     },{
       "id": "1",
-      "name" : "1st"
+      "name" : "1st",
+      "enrollment_url": "http://test/period/1"
     },{
       "id": "4",
-      "name" : "4th"
+      "name" : "4th",
+      "enrollment_url": "http://test/period/4"
     },{
       "id": "5",
-      "name" : "5th"
+      "name" : "5th",
+      "enrollment_url": "http://test/period/5"
     },{
       "id": "7",
-      "name" : "7th"
+      "name" : "7th",
+      "enrollment_url": "http://test/period/7"
     },{
       "id": "6",
-      "name" : "6th"
+      "name" : "6th",
+      "enrollment_url": "http://test/period/6"
     },{
       "id": "8",
-      "name" : "10th"
+      "name" : "10th",
+      "enrollment_url": "http://test/period/8"
   }],
   "time_zone": "Central Time (US & Canada)",
   "default_due_time": "",
