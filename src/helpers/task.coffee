@@ -71,6 +71,9 @@ module.exports = {
         task.completed_accepted_late_step_count
     )
 
+  isLateAccepted: (task) ->
+    task.is_late_work_accepted
+
   # called by readings and homework UI to determine if there's late work
   hasLateWork: (task) ->
     @lateStepCount(task) > 0
@@ -85,6 +88,14 @@ module.exports = {
   getHumanProgress: (task) ->
     complete = @getCompletedSteps(task)
     "#{complete} of #{task.step_count}"
+
+  getScoreAsNumber: (task, isAccepted) ->
+    score =
+      if isAccepted
+        task.correct_exercise_count
+      else
+        task.correct_on_time_exercise_count
+    "#{score} of #{task.step_count}"
 
   getHumanDueDate: (task) ->
     task.due_at

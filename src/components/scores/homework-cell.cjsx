@@ -34,12 +34,17 @@ HomeworkCell = React.createClass
 
     notStarted = task.completed_exercise_count <= 0
 
+    isAccepted = TH.isLateAccepted(task)
+
+    scorePercent = if isAccepted then TH.getHumanScoreWithLateWork(task) else TH.getHumanUnacceptedScore(task)
+    scoreNumber = TH.getScoreAsNumber(task, isAccepted)
+
     score =
       <div className="score">
         <Router.Link to='viewTaskStep'
           data-assignment-type="#{task.type}"
           params={courseId: courseId, id: task.id, stepIndex: 1}>
-            {TH.getHumanStatus(task, {displayAs})}
+            {if displayAs is 'number' then scoreNumber else scorePercent}
         </Router.Link>
       </div>
 
