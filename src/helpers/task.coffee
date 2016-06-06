@@ -33,14 +33,14 @@ module.exports = {
   getHumanUnacceptedScore: (task) ->
     score = Math.round((
       task.correct_on_time_exercise_count / task.exercise_count
-      ) * 100 ) / 100
-    "#{score * 100}%"
+      ) * 100 )
+    "#{score}%"
 
   getHumanScoreWithLateWork: (task) ->
     score = Math.round((
       task.correct_exercise_count / task.exercise_count
-      ) * 100) / 100
-    "#{score * 100}%"
+      ) * 100 )
+    "#{score}%"
 
   getCompletedSteps: (task) ->
     task.completed_on_time_step_count + task.completed_accepted_late_step_count
