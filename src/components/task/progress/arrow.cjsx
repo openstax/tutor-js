@@ -27,7 +27,7 @@ ProgressArrow = React.createClass
     keymaster(@props.direction,  KEYBINDING_SCOPE, @arrowClicked)
     keymaster.setScope(KEYBINDING_SCOPE)
 
-  disableKeys: =>
+  disableKeys: ->
     keymaster.deleteScope(KEYBINDING_SCOPE)
 
   transition: ->
