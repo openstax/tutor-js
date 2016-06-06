@@ -5,7 +5,7 @@ flux = require 'flux-react'
 
 Durations = require '../helpers/durations'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
-{TaskStepStore} = require './task-step'
+{TaskStepActions, TaskStepStore} = require './task-step'
 
 {MediaActions} = require './media'
 {StepTitleActions} = require './step-title'
@@ -76,7 +76,7 @@ TaskConfig =
     steps = obj.steps
     delete obj.steps
     @_steps[id] = steps
-    {TaskStepActions, TaskStepStore} = require './task-step'
+
     for step in steps
       #HACK: set the task_id so we have a link back to the task from the step
       step.task_id = id

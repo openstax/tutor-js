@@ -44,7 +44,6 @@ describe 'Task Widget, Reading Task', ->
     TaskActions.HACK_DO_NOT_RELOAD(false)
     TaskStepActions.HACK_DO_NOT_RELOAD(false)
 
-  # _.delay needed to prevent weird problems.
   it 'should render empty free response for unanswered exercise', (done) ->
     taskChecks
       .checkRenderFreeResponse(@result)

@@ -2,7 +2,6 @@
 _ = require 'underscore'
 camelCase = require 'camelcase'
 flux = require 'flux-react'
-Task = require './task'
 Durations = require '../helpers/durations'
 {StepTitleActions} = require './step-title'
 
