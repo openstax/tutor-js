@@ -21,6 +21,12 @@ class LateWork
     else
       TH.getHumanScoreWithLateWork(@task)
 
+  progress: ->
+    if @status is 'accepted'
+      TH.getHumanUnacceptedProgress(@task)
+    else
+      TH.getHumanProgressWithLateWork(@task)
+
   lateExerciseCount: ->
     @task.completed_exercise_count - @task.completed_on_time_exercise_count
 
@@ -88,6 +94,7 @@ LateWorkPopover = React.createClass
 
   render: ->
     {content} = @state
+    status = if @props.task.type is 'homework' then content.score() else content.progress()
 
     <BS.Popover
       {...@props}
@@ -102,7 +109,7 @@ LateWorkPopover = React.createClass
             <span className='title'>
               {content.reportingOn} on {content.lateDueDate()}:
             </span>
-            <span className='status'>{content.score()}</span>
+            <span className='status'>{status}</span>
           </div>
           <BS.Button className='late-button' onClick={@onButtonClick}>
             {content.get('button')}
