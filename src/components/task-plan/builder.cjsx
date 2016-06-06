@@ -54,6 +54,8 @@ TaskingDateTime = React.createClass
       dateTime = "#{date} #{time}"
       @props.onChange(dateTime)
 
+  hasValidInputs: ->
+    _.isEmpty(@refs.date?.state?.errors) and _.isEmpty(@refs.time?.refs.timeInput?.state?.errors)
 
   canSetAsDefaultTime: ->
     _.isEmpty @refs.time?.refs.timeInput?.state?.errors

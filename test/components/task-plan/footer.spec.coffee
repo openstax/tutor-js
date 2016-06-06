@@ -66,12 +66,12 @@ describe 'Task Plan Footer', ->
 
   it 'should have correct buttons when reading is visible', ->
     helper(VISIBLE_READING).then ({dom}) ->
-      expect(dom.querySelector('.delete-link')).to.be.null
+      expect(dom.querySelector('.delete-link')).to.not.be.null
       expect(dom.querySelector('.-save')).to.be.null
       expect(dom.querySelector('.-publish')).to.not.be.null
 
   it 'should have correct buttons when reading is past due', ->
     helper(PAST_DUE_PUBLISHED_READING).then ({dom}) ->
-      expect(dom.querySelector('.delete-link')).to.be.null
+      expect(dom.querySelector('.delete-link')).to.not.be.null
       expect(dom.querySelector('.-save')).to.be.null
-      expect(dom.querySelector('.-publish')).to.be.null
+      expect(dom.querySelector('.-publish')).to.not.be.null

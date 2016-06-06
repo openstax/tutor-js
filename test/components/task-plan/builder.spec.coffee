@@ -220,10 +220,10 @@ describe 'Task Plan Builder', ->
     helper(NEW_READING).then ({dom, element}) ->
       expect([undefined, CourseStore.getTimezone(courseId)]).to.contain(moment().tz())
 
-  it 'disables name and description fields when plan is past due', ->
+  it 'name and description fields are enabled when plan is past due', ->
     helper(PUBLISHED_MODEL).then ({dom}) ->
-      expect(dom.querySelector('#reading-title').disabled).to.be.true
-      expect(dom.querySelector('.assignment-description textarea').disabled).to.be.true
+      expect(dom.querySelector('#reading-title').disabled).to.be.false
+      expect(dom.querySelector('.assignment-description textarea').disabled).to.be.false
 
   it 'sets the default due date when based on query string', ->
     helper(NEW_READING, {due_at: getISODateString(dayAfter)} ).then ({dom, element}) ->
