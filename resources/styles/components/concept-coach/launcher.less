@@ -265,6 +265,36 @@
   position: relative;
   min-height: 388px;
   height: 100%;
+
+  button {
+    background-color: #F37440;
+    border: 1px solid transparent;
+    font-weight: bold;
+    padding: 20px;
+
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: darken(#F37440, 10%);
+      border-color: darken(#F37440, 15%);
+    }
+  }
+
+  .launcher-background {
+    background: #9dd4db url('/resources/images/bg-cc-launcher.png') repeat left top;
+    color: white;
+    height: 388px;
+    text-shadow: 2px 2px 3px rgba(150, 150, 150, 0.75);
+    width: 100%;
+
+    > h1 {
+      color: white;
+      font-size: 3rem;
+      font-weight: bold;
+      padding-top: 30px;
+      text-shadow: 2px 2px 3px rgba(150, 150, 150, 0.8);
+    }
+  }
 }
 
 .concept-coach-launcher {

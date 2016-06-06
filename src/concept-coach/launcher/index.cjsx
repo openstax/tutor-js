@@ -39,11 +39,9 @@ Launcher = React.createClass
 
     <div className='concept-coach-launcher-wrapper'>
       <div className={classes} onClick={@launch}>
-        <BackgroundAndDesk height={height}/>
         <LaptopAndMug height={defaultHeight}/>
-
         <BS.Button bsStyle='primary' bsSize='large'>Launch Concept Coach</BS.Button>
-
+        <BackgroundAndDesk height={height}/>
       </div>
     </div>
 

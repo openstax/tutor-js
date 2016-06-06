@@ -7,7 +7,7 @@ describe 'Launcher', ->
 
   it 'renders with launching status', ->
     Testing.renderComponent( Launcher, props: {isLaunching: true} ).then ({dom}) ->
-      expect(dom.textContent).equal('Launch Concept Coach')
+      expect(dom.textContent).equal('Launch Concept CoachStudy Smarter with OpenStax Concept Coach')
       expect(dom.querySelector('.concept-coach-launcher').classList.contains('launching')).to.be.true
 
   it 'emits launch action when clicked', ->
