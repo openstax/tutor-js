@@ -103,7 +103,8 @@ ScoresConfig = {
 
     task.accepted_late_at = TimeStore.getNow().toISOString()
 
-    adjustTaskAverages(@_local, taskInfo)
+    if task.is_included_in_averages
+      adjustTaskAverages(@_local, taskInfo)
 
     @emitChange()
 
@@ -121,7 +122,8 @@ ScoresConfig = {
     task.completed_accepted_late_step_count = 0
     delete task.accepted_late_at
 
-    adjustTaskAverages(@_local, taskInfo)
+    if task.is_included_in_averages
+      adjustTaskAverages(@_local, taskInfo)
 
     @emitChange()
 
