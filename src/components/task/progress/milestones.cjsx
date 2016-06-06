@@ -52,19 +52,21 @@ Milestone = React.createClass
     else
       preview = <div className='milestone-preview'>{previewText}</div>
 
+    goToStepForCrumb = _.partial(goToStep, crumb.key)
+
     <BS.Col xs=3 lg=2 className='milestone-wrapper'>
       <div
         tabIndex='0'
         className={classes}
         role='button'
         aria-label={previewText}
-        onClick={_.partial(goToStep, crumb.key)}
+        onClick={goToStepForCrumb}
         onKeyUp={_.partial(@handleKeyUp, crumb.key)}>
         <BreadcrumbStatic
           crumb={crumb}
           data-label={crumb.label}
           currentStep={currentStep}
-          goToStep={@goToStep}
+          goToStep={goToStepForCrumb}
           key="breadcrumb-#{crumb.type}-#{crumb.key}"
           ref="breadcrumb-#{crumb.type}-#{crumb.key}"/>
         {preview}
@@ -120,9 +122,7 @@ MilestonesWrapper = React.createClass
       modal.focus()
 
   goToStep: (args...) ->
-    if @props.goToStep(args...)
-      window.scrollTo(0, 0)
-    else
+    unless @props.goToStep(args...)
       @props.closeMilestones()
 
   render: ->

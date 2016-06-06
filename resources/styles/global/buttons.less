@@ -21,7 +21,8 @@
   border-radius: @btn-border-radius;
   transition: box-shadow 0.2s, background 0.2s;
 
-  &:hover {
+  &:hover,
+  &:focus {
     .btn-hover();
   }
 }
@@ -32,7 +33,8 @@
   background: @default-background;
   border: 1px solid @default-border !important; //!important to overide local styles in plan-details.less. we can remove after integration
 
-  &:hover {
+  &:hover,
+  &:focus {
     background: @default-background-hover;
   }
 }
@@ -44,7 +46,8 @@
   border: 1px solid @tutor-primary;
   background: @primary-background;
 
-  &:hover {
+  &:hover,
+  &:focus {
     background: @primary-background-hover;
   }
 
