@@ -39,7 +39,7 @@ TEACHER_MENU = [
   {
     name: 'viewQuestionsLibrary'
     params: {courseId: '2'}
-    label: 'Questions Library'
+    label: 'Question Library'
   }
   {
     name: 'viewScores'

@@ -1,5 +1,7 @@
-.exercise-summary {
-  text-align: center;
+.homework-plan .exercise-controls-bar {
+
+  flex-wrap: wrap;
+  background-color: white;
 
   &.navbar-fixed-top-lower {
     top: 51px;
@@ -8,76 +10,58 @@
     .tutor-shadow(1);
   }
 
-  h2 {
-    font-size: 4rem;
-    font-weight: normal;
-    margin: 0;
-    margin-top: 10px;
-    line-height: 3rem;
+  .indicators, .controls {
+    display: flex;
+    align-items: stretch;
   }
 
-  .row > div {
-    height: 60px;
-    border-right: 1px solid lightgray;
-
-    &:last-child {
-      border-right: none;
-    }
+  .sectionizer {
+    flex: inherit;
   }
 
-  .total {
+  .num, .tutor-added-later, .actions {
+    border-left: 1px solid @tutor-neutral-light;
+    margin-left: 10px;
+    padding-left: 10px;
+  }
+  .num {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     h2 {
-      line-height: 3rem;
-      color: @tutor-quaternary;
+      font-size: 4rem;
+      font-weight: normal;
+      margin: 0;
     }
+    span { font-size: 1.3rem; }
+    &.tutor {
+      .tutor-selections {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        h2 {
+          margin: 0 1rem;
+        }
+      }
+    }
+    &.total h2 { color: @tutor-quaternary; }
   }
-
-  .num-selected,
-  .num-tutor {
-   
-    span {
-      font-size: 1.3rem;
-    }
-
-    button.btn.btn-default {
-      .homework-circle-btn(25px);
-      padding: 0;
-      margin: -15px 0 0 0;
-      color: @tutor-neutral-darker;
-      background: white;
-      
-      &:first-child {
-        margin-right: 15px;
-      }
-
-      &:last-child {
-        margin-left: 15px;
-      }
-    }
-  }
-
-  .num-tutor {
-    h2 {
-      display: inline;
-      //Styles below make the tutor selection number stay in place when
-      //either the add or remove button is hidden
-      &:first-child {
-        margin-left: 40px;
-      }
-      &:last-child {
-        margin-right: 40px;
-      }
-    }
-
-    div.tutor-selections {
-      margin-top: 10px;
-      height: 30px;
-    }
-  }
-
   .tutor-added-later {
-    line-height: 1.8rem;
-    font-size: 1.3rem;
-    text-align: left;
+    color: @tutor-neutral;
+    width: 200px;
+    line-height: 14px;
+    font-style: italic;
+    display: flex;
+    align-items: center;
   }
+  .actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+
 }

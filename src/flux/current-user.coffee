@@ -40,7 +40,7 @@ ROUTES =
       student: 'viewPerformanceForecast'
       teacher: 'viewTeacherPerformanceForecast'
   questions:
-    label: 'Questions Library'
+    label: 'Question Library'
     roles:
       teacher: 'viewQuestionsLibrary'
   scores:

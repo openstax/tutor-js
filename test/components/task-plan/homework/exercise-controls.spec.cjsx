@@ -1,14 +1,16 @@
 {expect} = require 'chai'
 React = require 'react'
 _ = require 'underscore'
+{sinon} = require '../../helpers/component-testing'
+
 
 {TaskPlanActions, TaskPlanStore} = require '../../../../src/flux/task-plan'
-ExerciseSummary = require '../../../../src/components/task-plan/homework/exercise-summary'
+ExerciseControls = require '../../../../src/components/task-plan/homework/exercise-controls'
 
 VALID_MODEL = require '../../../../api/plans/2.json'
 
 helper = (props) ->
-  html = React.renderToString(<ExerciseSummary {...props} />)
+  html = React.renderToString(<ExerciseControls {...props} />)
   div = document.createElement('div')
   div.innerHTML = html
   div
@@ -19,9 +21,13 @@ newProps = defaultProps =
   canReview: true
   addClicked: React.PropTypes.func
   reviewClicked: React.PropTypes.func
+  sectionizerProps:
+    currentSection: '1.2'
+    onSectionClick: sinon.spy()
+    chapter_sections: ['1.1', '1.2', '3.1']
 
 
-describe 'Homework - Exercise Summary', ->
+describe 'Homework - Exercise Controls', ->
   beforeEach ->
     TaskPlanActions.loaded(VALID_MODEL, VALID_MODEL.id)
     newProps = _.mapObject(defaultProps)
@@ -37,7 +43,7 @@ describe 'Homework - Exercise Summary', ->
     total = selected + dynamic
 
     expect(node.querySelector('.total h2').innerHTML).to.be.equal(total.toString())
-    expect(node.querySelector('.num-selected h2').innerHTML).to.be.equal(selected.toString())
+    expect(node.querySelector('.num.mine h2').innerHTML).to.be.equal(selected.toString())
 
   it 'should show add button if prop.canAdd is true', ->
     newProps.canAdd = true

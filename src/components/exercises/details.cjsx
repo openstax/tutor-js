@@ -4,7 +4,6 @@ keymaster = require 'keymaster'
 
 {ExerciseStore}   = require '../../flux/exercise'
 {ExercisePreview} = require 'openstax-react-components'
-ExerciseHelpers   = require '../../helpers/exercise'
 NoExercisesFound  = require './no-exercises-found'
 Icon              = require '../icon'
 ScrollTo          = require '../scroll-to-mixin'
@@ -14,22 +13,30 @@ KEYBINDING_SCOPE  = 'exercise-details'
 ExerciseDetails = React.createClass
 
   propTypes:
-    selectedExercise: React.PropTypes.object.isRequired
-    selectedSection:  React.PropTypes.string
-    exercises: React.PropTypes.object.isRequired
-    onSectionChange: React.PropTypes.func.isRequired
-    onExerciseToggle: React.PropTypes.func.isRequired
-    onShowCardViewClick: React.PropTypes.func.isRequired
-    isExerciseIdSelected: React.PropTypes.func.isRequired
+    selectedExercise:      React.PropTypes.object.isRequired
+    selectedSection:       React.PropTypes.string
+    exercises:             React.PropTypes.object.isRequired
+    onSectionChange:       React.PropTypes.func
+    onExerciseToggle:      React.PropTypes.func.isRequired
+    onShowCardViewClick:   React.PropTypes.func.isRequired
+    topScrollOffset:       React.PropTypes.number
+    getExerciseActions:    React.PropTypes.func.isRequired
+    getExerciseIsSelected: React.PropTypes.func.isRequired
 
   mixins: [ScrollTo]
   scrollingTargetDOM: -> document
-  getScrollTopOffset: -> 40
+  getDefaultProps: ->
+    # leave this many pixels of space at top of component
+    # Is a prop because consumers may need to adjust the top
+    # position for various sized navbars
+    topScrollOffset: 40
+  getScrollTopOffset: ->
+    @props.topScrollOffset
 
   getInitialState: -> {}
 
   componentDidMount:   ->
-    @scrollToSelector('.questions-controls', {immediate: true})
+    @scrollToSelector('.exercise-controls-bar', {immediate: true})
 
   componentWillUnmount: ->
     keymaster.deleteScope(KEYBINDING_SCOPE)
@@ -91,7 +98,7 @@ ExerciseDetails = React.createClass
   moveTo: (index) ->
     exercise = @state.exercises[index]
     section = ExerciseStore.getChapterSectionOfExercise(exercise)
-    unless @state.currentSection is section
+    if @props.onSectionChange and @state.currentSection isnt section
       # defer is needed to allow setState to complete before callback is fired
       # otherwise component recieves props with the new section and doesn't know it's already on it
       # causing it to jump to the first exercise in section
@@ -102,31 +109,15 @@ ExerciseDetails = React.createClass
     prev: @state.currentIndex isnt 0
     next: @state.currentIndex isnt @state.exercises.length - 1
 
-  toggleFeedback: ->
-    @setState(displayFeedback: not @state.displayFeedback)
-
-  reportError: (ev, exercise) ->
-    window.open(ExerciseHelpers.troubleUrl(exerciseId: exercise.content.uid), '_blank')
-
   render: ->
+
     exercise = @state.exercises[@state.currentIndex] or _.first(@state.exercises)
     unless exercise
       return <NoExercisesFound />
 
     moves = @getValidMovements()
 
-    actions = ExerciseHelpers.buildPreviewActions(exercise, @props.onExerciseToggle)
-    if @state.displayFeedback
-      actions['feedback-off'] =
-        message: 'Hide Feedback'
-        handler: @toggleFeedback
-    else
-      actions['feedback-on'] =
-        message: 'Preview Feedback'
-        handler: @toggleFeedback
-    actions['report-error'] =
-        message: 'Report an error'
-        handler: @reportError
+    isExcluded = ExerciseStore.isExerciseExcluded(exercise.id)
 
     <div className="exercise-details">
 
@@ -145,11 +136,13 @@ ExerciseDetails = React.createClass
         <ExercisePreview
           className='exercise-card'
           isVerticallyTruncated={false}
-          isSelected={@props.isExerciseIdSelected(exercise.id)}
-          displayFeedback={@state.displayFeedback}
+          isSelected={@props.getExerciseIsSelected(exercise)}
+          overlayActions={@props.getExerciseActions(exercise)}
+          displayFeedback={@props.displayFeedback}
+
           exercise={exercise}
           actionsOnSide={true}
-          overlayActions={actions}
+
         />
       </div>
       {<div className="page-navigation next" onClick={@onNext}>

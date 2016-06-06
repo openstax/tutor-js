@@ -2,7 +2,6 @@ React = require 'react'
 BS = require 'react-bootstrap'
 {addons} = require 'react/addons'
 
-
 {TocStore} = require '../../flux/toc'
 {ExerciseActions, ExerciseStore} = require '../../flux/exercise'
 Dialog = require '../tutor-dialog'
@@ -20,10 +19,12 @@ SectionsExercises = React.createClass
   mixins: [addons.PureRenderMixin]
 
   propTypes:
-    exercises:   React.PropTypes.array.isRequired
-    chapter_section: React.PropTypes.string.isRequired
+    exercises:              React.PropTypes.array.isRequired
+    chapter_section:        React.PropTypes.string.isRequired
     onShowDetailsViewClick: React.PropTypes.func.isRequired
-    onExerciseToggle: React.PropTypes.func.isRequired
+    onExerciseToggle:       React.PropTypes.func.isRequired
+    getExerciseIsSelected:  React.PropTypes.func.isRequired
+    getExerciseActions:     React.PropTypes.func.isRequired
 
   renderMinimumExclusionWarning: ->
     [
@@ -40,21 +41,16 @@ SectionsExercises = React.createClass
     ]
 
   renderExercise: (exercise) ->
-    actions = ExerciseHelpers.buildPreviewActions(exercise, @props.onExerciseToggle, {
-      details:
-        message: 'Question details'
-        handler: @props.onShowDetailsViewClick
-    })
 
     <ExercisePreview
       key={exercise.id}
       className='exercise-card'
       isInteractive={false}
       isVerticallyTruncated={true}
-      isSelected={ExerciseStore.isExerciseExcluded(exercise.id)}
+      isSelected={@props.getExerciseIsSelected(exercise)}
       exercise={exercise}
       onOverlayClick={@onExerciseToggle}
-      overlayActions={actions}
+      overlayActions={@props.getExerciseActions(exercise)}
     />
 
   render: ->
@@ -74,17 +70,25 @@ SectionsExercises = React.createClass
 ExerciseCards = React.createClass
 
   propTypes:
-    exercises:  React.PropTypes.object.isRequired
+    exercises:              React.PropTypes.object.isRequired
+    scrollFast:             React.PropTypes.bool
+    onExerciseToggle:       React.PropTypes.func.isRequired
+    getExerciseIsSelected:  React.PropTypes.func.isRequired
+    getExerciseActions:     React.PropTypes.func.isRequired
     onShowDetailsViewClick: React.PropTypes.func.isRequired
-    scrollFast: React.PropTypes.bool
-    onExerciseToggle: React.PropTypes.func.isRequired
+    topScrollOffset:        React.PropTypes.number
 
   mixins: [ScrollTo, addons.PureRenderMixin]
+
+  getDefaultProps: ->
+    topScrollOffset: 110
 
   componentDidMount:   ->
     @scrollToSelector('.exercise-sections', {immediate: @props.scrollFast})
 
-  getScrollTopOffset: -> if @props.scrollFast then 110 else 150 # no idea why the difference, sorry :(
+  getScrollTopOffset: ->
+    # no idea why scrollspeed makes the difference, sorry :(
+    if @props.scrollFast then @props.topScrollOffset else @props.topScrollOffset + 40
 
   render: ->
     chapter_sections = _.keys @props.exercises.grouped

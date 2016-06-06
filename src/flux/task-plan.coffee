@@ -9,7 +9,7 @@ validator = require 'validator'
 {ExerciseStore} = require './exercise'
 {PlanPublishActions, PlanPublishStore} = require './plan-publish'
 {CourseActions, CourseStore} = require './course'
-TaskHelpers = require '../helpers/task'
+ContentHelpers = require '../helpers/content'
 TimeHelper = require '../helpers/time'
 
 ISO_DATE_FORMAT = 'YYYY-MM-DD'
@@ -31,7 +31,7 @@ PLAN_TYPES =
 sortTopics = (topics) ->
   _.sortBy(topics, (topicId) ->
     topic = TocStore.getSectionInfo(topicId)
-    TaskHelpers.chapterSectionToNumber(topic.chapter_section)
+    ContentHelpers.chapterSectionToNumber(topic.chapter_section)
   )
 
 
@@ -387,6 +387,10 @@ TaskPlanConfig =
     getExercises: (id) ->
       plan = @_getPlan(id)
       plan?.settings.exercise_ids
+
+    exerciseCount: (id) ->
+      plan = @_getPlan(id)
+      plan?.settings.exercise_ids.length
 
     getDescription: (id) ->
       plan = @_getPlan(id)

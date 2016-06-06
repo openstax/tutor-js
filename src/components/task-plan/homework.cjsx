@@ -1,85 +1,21 @@
-React = require 'react'
-_ = require 'underscore'
-BS = require 'react-bootstrap'
-Router = require 'react-router'
-PlanFooter = require './footer'
-SelectTopics = require './select-topics'
-ExerciseSummary = require './homework/exercise-summary'
-PlanMixin = require './plan-mixin'
-{PinnedHeaderFooterCard} = require 'openstax-react-components'
+React      = require 'react'
+_          = require 'underscore'
+BS         = require 'react-bootstrap'
+Router     = require 'react-router'
+classnames = require 'classnames'
+
+Icon            = require '../icon'
+PlanMixin       = require './plan-mixin'
+PlanFooter      = require './footer'
 TaskPlanBuilder = require './builder'
+ChooseExercises = require './homework/choose-exercises'
+ReviewExercises = require './homework/review-exercises'
 
 {TutorInput, TutorDateInput, TutorTextArea} = require '../tutor-input'
-{AddExercises, ReviewExercises, ExerciseTable} = require './homework/exercises'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 
-ChooseExercises = React.createClass
-  displayName: 'ChooseExercises'
-
-  propTypes:
-    planId: React.PropTypes.string.isRequired
-    courseId: React.PropTypes.string.isRequired
-    selected: React.PropTypes.array.isRequired
-    hide: React.PropTypes.func.isRequired
-    canEdit: React.PropTypes.bool
-
-  selectProblems: ->
-    @setState({
-      showProblems: true
-    })
-
-  render: ->
-    {courseId, planId, ecosystemId, selected, hide, cancel} = @props
-
-    header = <span>Add Problems</span>
-    selected = TaskPlanStore.getTopics(planId)
-    shouldShowExercises = @props.selected?.length and @state?.showProblems
-    classes = ['-show-problems']
-    classes.push('disabled') unless selected?.length
-    classes = classes.join(' ')
-
-    primary =
-      <BS.Button
-        className={classes}
-        bsStyle='primary'
-        onClick={@selectProblems}>Show Problems
-      </BS.Button>
-
-    if shouldShowExercises
-      exerciseSummary = <ExerciseSummary
-          canReview={true}
-          canEdit={@props.canEdit}
-          reviewClicked={hide}
-          onCancel={cancel}
-          planId={planId}/>
-
-      addExercises = <AddExercises
-          courseId={courseId}
-          planId={planId}
-          pageIds={selected}/>
-
-    <div className='homework-plan-exercise-select-topics'>
-      <SelectTopics
-        primary={primary}
-        header={header}
-        courseId={courseId}
-        ecosystemId={ecosystemId}
-        planId={planId}
-        selected={selected}
-        cancel={cancel}
-        hide={hide} />
-
-      <PinnedHeaderFooterCard
-        containerBuffer={50}
-        header={exerciseSummary}
-        cardType='homework-builder'>
-        {addExercises}
-      </PinnedHeaderFooterCard>
-    </div>
-
-
 HomeworkPlan = React.createClass
-  displayName: 'HomeworkPlan'
+
   mixins: [PlanMixin]
 
   setImmediateFeedback: (ev) ->
@@ -92,78 +28,25 @@ HomeworkPlan = React.createClass
 
     topics = TaskPlanStore.getTopics(id)
     hasExercises = TaskPlanStore.getExercises(id)?.length
-    shouldShowExercises = hasExercises and not @state?.showSectionTopics
 
-    footer = <PlanFooter id={id}
-      courseId={courseId}
-      onPublish={@publish}
-      onSave={@save}
-      onCancel={@cancel}
-      getBackToCalendarParams={@getBackToCalendarParams}
-      goBackToCalendar={@goBackToCalendar}
-      />
-
-    formClasses = ['edit-homework dialog']
-    if @state?.showSectionTopics then formClasses.push('hide')
-    if @state?.invalid then formClasses.push('is-invalid-form')
-
-    if @state.showSectionTopics
-      chooseExercises = <ChooseExercises
-        courseId={courseId}
-        planId={id}
-        ecosystemId={ecosystemId}
-        cancel={@cancelSelection}
-        hide={@hideSectionTopics}
-        canEdit={not @state.isVisibleToStudents}
-        selected={topics}/>
-
-    if shouldShowExercises
-      exerciseSummary = <ExerciseSummary
-        onCancel={@cancel}
-        onPublish={@publish}
-        canAdd={not @state.isVisibleToStudents}
-        addClicked={@showSectionTopics}
-        planId={id}/>
-
-      exerciseTable = <ExerciseTable
-        courseId={courseId}
-        pageIds={topics}
-        planId={id}/>
-
-      reviewExercises = <ReviewExercises
-        courseId={courseId}
-        pageIds={topics}
-        canEdit={not @state.isVisibleToStudents}
-        planId={id}/>
-
-      reviewExercisesSummary = <PinnedHeaderFooterCard
-        containerBuffer={50}
-        header={exerciseSummary}
-        cardType='homework-builder'>
-        {exerciseTable}
-        {reviewExercises}
-      </PinnedHeaderFooterCard>
-
-    header = @builderHeader('homework')
-
-    if not @state.isVisibleToStudents
-      addProblemsButton = <BS.Button id='problems-select'
-        className="-select-sections-btn"
-        onClick={@showSectionTopics}
-        bsStyle='default'>+ Select Problems
-      </BS.Button>
-
-    if (@state?.invalid and not hasExercises)
-      problemsRequired = <span className="problems-required">
-        Please add exercises to this assignment
-        <i className="fa fa-exclamation-circle"></i>
-      </span>
+    formClasses = classnames('edit-homework dialog', {
+      hide: @state.showSectionTopics
+      'is-invalid-form': @state.invalid
+    })
 
     <div className='homework-plan task-plan' data-assignment-type='homework'>
       <BS.Panel bsStyle='default'
-        header={header}
-        className={formClasses.join(' ')}
-        footer={footer}>
+        header={@builderHeader('homework')}
+        className={formClasses}
+        footer={<PlanFooter id={id}
+          courseId={courseId}
+          onPublish={@publish}
+          onSave={@save}
+          onCancel={@cancel}
+          getBackToCalendarParams={@getBackToCalendarParams}
+          goBackToCalendar={@goBackToCalendar}
+        />}
+      >
 
         <BS.Grid fluid>
           <TaskPlanBuilder courseId={courseId} id={id} />
@@ -188,15 +71,40 @@ HomeworkPlan = React.createClass
           </BS.Row>
           <BS.Row>
             <BS.Col xs=12 md=12>
-              {addProblemsButton}
-              {problemsRequired}
+              {<BS.Button id='problems-select'
+                className="-select-sections-btn"
+                onClick={@showSectionTopics}
+                bsStyle='default'>+ Select Problems
+              </BS.Button> unless @state.isVisibleToStudents}
+              {<span className="problems-required">
+                Please add exercises to this assignment
+                <Icon type='exclamation-circle' />
+              </span> if @state.invalid and not hasExercises}
             </BS.Col>
           </BS.Row>
         </BS.Grid>
 
       </BS.Panel>
-      {chooseExercises}
-      {reviewExercisesSummary}
+
+      {<ChooseExercises
+        courseId={courseId}
+        planId={id}
+        ecosystemId={ecosystemId}
+        cancel={@cancelSelection}
+        hide={@hideSectionTopics}
+        canEdit={not @state.isVisibleToStudents}
+        selected={topics}
+      /> if @state.showSectionTopics}
+
+      {<ReviewExercises
+        canAdd={not @state.isVisibleToStudents}
+        canEdit={not @state.isVisibleToStudents}
+        showSectionTopics={@showSectionTopics}
+        courseId={courseId}
+        sectionIds={topics}
+        planId={id}
+      /> if hasExercises and not @state.showSectionTopics}
+
     </div>
 
 

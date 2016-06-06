@@ -6,16 +6,25 @@
   height: @size;
   border-radius: 50%;
   border: 1px solid @tutor-neutral-lighter;
+  padding: 0;
+  margin: 0;
   i.fa { margin-right: 0; }
 }
 
 #homework-due-date {
-  .rw-select { 
+  .rw-select {
     margin: -10px -10px 0 0;
   }
 }
 
 .homework-builder-view {
+
+  button.btn-default.circle:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
+    .homework-circle-btn(25px);
+    margin: 0;
+    padding: 0;
+  }
+
   &.pinned-on {
     .pinned-header {
       background: @tutor-white;
@@ -35,7 +44,7 @@
 }
 
 .hw-loading-spinner {
-  position: absolute;
+  position: fixed;
   width: 20%;
   top: 35%;
   display: block;

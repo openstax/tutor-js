@@ -97,7 +97,7 @@ ChapterAccordion = React.createClass
         header={@renderHeader()}
         eventKey={chapter.id}>
       {for section in chapter.children
-        <SectionTopic key={section.id} {...@props} section={section} />}
+        <SectionTopic key={section.cnx_id} {...@props} section={section} />}
       </BS.Panel>
     </BS.Accordion>
 
