@@ -15,6 +15,9 @@ module.exports = React.createClass
   componentDidMount: ->
     TaskStore.on('change', @update)
 
+  componentWillUnmount: ->
+    TaskStore.off('change', @update)
+
   update: ->
     @setState(updateOnNext: true)
 
