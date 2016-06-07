@@ -27,7 +27,7 @@ actions =
     else
       routerStub.forceUpdate(component, args...)
 
-  clickContinue: commonActions.clickMatch('.continue')
+  clickContinue: commonActions.clickMatch('.arrow.right, .continue')
   clickTryAnother: commonActions.clickMatch('.-try-another')
 
   # Tricky, popovers use focus trigger for dismissable option
@@ -151,6 +151,7 @@ actions =
 
   _getActionsForTaskCompletion: (taskId) ->
     incompleteSteps = TaskStore.getIncompleteSteps(taskId)
+    console.info(_.pluck(incompleteSteps, 'type'))
     allSteps = TaskStore.getSteps(taskId)
 
     actionsToPlay = _.chain(incompleteSteps).map((step, index) ->
@@ -167,6 +168,7 @@ actions =
   completeSteps: (args...) ->
     {taskId} = args[0]
     actionsToPlay = actions._getActionsForTaskCompletion(taskId)
+    console.info('actions to play', actionsToPlay)
 
     actions._playThroughActions(actionsToPlay)(args...)
 
