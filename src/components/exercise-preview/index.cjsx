@@ -26,10 +26,7 @@ ExercisePreview = React.createClass
     onOverlayClick:  React.PropTypes.func
     isSelected:      React.PropTypes.bool
     isInteractive:   React.PropTypes.bool
-    overlayActions:  React.PropTypes.shape(
-      message: React.PropTypes.string.isRequired
-      handler: React.PropTypes.func.isRequired
-    )
+    overlayActions:  React.PropTypes.object
     exercise:        React.PropTypes.shape(
       content: React.PropTypes.object
       tags:    React.PropTypes.array

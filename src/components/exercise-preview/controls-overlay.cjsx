@@ -6,10 +6,7 @@ ControlsOverlay = React.createClass
 
   propTypes:
     onClick:  React.PropTypes.func
-    actions:  React.PropTypes.shape(
-      message: React.PropTypes.string.isRequired
-      handler: React.PropTypes.func.isRequired
-    )
+    actions:  React.PropTypes.object
     exercise: React.PropTypes.object.isRequired
 
   onClick: (ev) ->
