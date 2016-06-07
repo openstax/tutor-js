@@ -2,6 +2,7 @@ var steps = [{ "id": "step-id-9-1",
     "type": "exercise",
     "correct_answer_id": "id2",
     "is_in_multipart": true,
+    "context": "Mathematics is an old, broad, and deep discipline (field of study). People working to improve math education need to understand <b>\"What is Mathematics?\"</b>",
     "content": {
       "questions":[
         {

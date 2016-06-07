@@ -27,3 +27,8 @@ describe 'Question Component', ->
         expect(@props.onChange).to.have.been.called
         expect(answer.classList.contains('answer-checked')).to.be.true
         done()
+
+  it 'renders the context when given', ->
+    @props.context = STEP.context
+    Testing.renderComponent( Question, props: @props ).then ({dom}) ->
+      expect(dom.querySelector('.question-context').textContent).to.have.string('Water is very important for life')
