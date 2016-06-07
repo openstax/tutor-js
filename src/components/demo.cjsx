@@ -154,24 +154,16 @@ ExercisePreviewDemo = React.createClass
   getInitialState: ->
     isSelected: false
     toggles:
-      feedback: false
-      tags:     false
-      formats:  false
-      height:   false
+      feedback:    false
+      interactive: false
+      tags:        false
+      formats:     false
+      height:      false
 
   onToggle: (ev) ->
     toggles = @state.toggles
     toggles[ev.target.name] = ev.target.checked
     @setState({toggles})
-
-  toggleFeedbackDisplay: (ev) ->
-    @setState(displayFeedback: not @state.displayFeedback)
-
-  toggleFormatsDisplay: (ev) ->
-    @setState(displayFormats: not @state.displayFormats)
-
-  toggleTagsDisplay: (ev) ->
-    @setState(displayTags: not @state.TagsFormats)
 
   onSelection: ->
     @setState(isSelected: not @state.isSelected)
@@ -180,17 +172,23 @@ ExercisePreviewDemo = React.createClass
     console.warn "Exercise details was clicked"
 
   render: ->
-
-
     <ExercisePreview exercise={exercisePreviewStub}
       onSelection={@onSelection}
       onDetailsClick={@onDetailsClick}
       isSelected={@state.isSelected}
+      isInteractive={@state.toggles.interactive}
       displayFormats={@state.toggles.formats}
       displayAllTags={@state.toggles.tags}
       displayFeedback={@state.toggles.feedback}
       isVerticallyTruncated={@state.toggles.truncated}
     >
+      <label>
+        <input type="checkbox"
+          onChange={@onToggle} name='interactive'
+          checked={@state.toggles.interactive}
+        /> Interactive
+      </label>
+
       <label>
         <input type="checkbox"
           onChange={@onToggle} name='feedback'
