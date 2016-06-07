@@ -87,9 +87,9 @@ LateWorkPopover = React.createClass
 
   onButtonClick: ->
     if @state.content.isAccepted
-      ScoresActions.rejectLate(@state.content.task.id)
+      ScoresActions.rejectLate(@state.content.task.id, @props.columnIndex)
     else
-      ScoresActions.acceptLate(@state.content.task.id)
+      ScoresActions.acceptLate(@state.content.task.id, @props.columnIndex)
     @props.hide()
 
   render: ->
@@ -135,7 +135,7 @@ LateWork = React.createClass
 
     <BS.OverlayTrigger
       ref="overlay" placement="top" trigger="click" rootClose={true}
-      overlay={<LateWorkPopover task={@props.task} hide={@hide} />}
+      overlay={<LateWorkPopover task={@props.task} columnIndex={@props.columnIndex} hide={@hide} />}
     >
       <div className="late-caret-trigger">
         <div className={caretClass}></div>
