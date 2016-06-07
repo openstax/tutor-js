@@ -1,8 +1,8 @@
 {Testing, expect, sinon, _, ReactTestUtils} = require 'test/helpers'
 ld = require 'lodash'
-ExercisePreview = require 'components/exercise-preview'
+ExercisePreview = require 'src/components/exercise-preview'
 
-EXERCISE = require '../../../stubs/exercise/review'
+EXERCISE = require '../../../stubs/exercise-preview/data'
 ANSWERS  = EXERCISE.content.questions[0].answers
 
 describe 'Exercise Preview Component', ->
@@ -66,6 +66,6 @@ describe 'Exercise Preview Component', ->
 
   it 'renders placeholders', ->
     _.extend(@props, isInteractive: false)
-    @props.exercise.content.stimulus_html = 'watch this: <iframe src="youtube.com/embed/u030w90rawe"></iframe>'
+    expect(@props.exercise.preview).to.exist
     Testing.renderComponent( ExercisePreview, props: @props ).then ({dom}) ->
       expect(dom.querySelector('svg.placeholder.video')).to.exist
