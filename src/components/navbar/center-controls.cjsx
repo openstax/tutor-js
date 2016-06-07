@@ -40,13 +40,16 @@ module.exports = React.createClass
 
     @context.router.transitionTo(path, toParams)
 
+  reformatTaskDue: (due_at) ->
+    moment(due_at).calendar()
+
   render: ->
     return null unless @context?.router
     {id} = @context.router.getCurrentParams()
     task = TaskStore.get(id)
     return null unless task? and task.type is 'reading'
     assignment = task.title
-    due = moment(task.due_at).calendar()
+    due = @reformatTaskDue(task.due_at)
 
     milestonesToggleClasses = classnames 'milestones-toggle',
       'active': @hasMilestones()
