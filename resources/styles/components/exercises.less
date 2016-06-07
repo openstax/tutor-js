@@ -22,16 +22,32 @@
   }
   .exercise-card {
     width: 800px;
+    min-height: 600px;
+
     .controls-overlay {
-      display: none;
+      transition: none;
+      height: calc(~"100vh - 200px");
+      // .message {
+      //   // height: calc(~"100vh - 150px");
+      // }
+//      display: none;
     }
   }
 
   .page-navigation {
     .page-navigation-arrows(800px);
+
+    height: calc(~"100vh - 150px");
     position: absolute;
-    display: none; // toggled on at bottom of file when body has pinned navbar
+    top: 0px;
+
+
+    //display: none; // toggled on at bottom of file when body has pinned navbar
   }
+
+  // .pinned-view.pinned-on .exercise-details .exercise-card .controls-overlay {
+
+  // }
 
 }
 
@@ -40,11 +56,25 @@
 
   .exercise-details {
     .exercise-card {
-      .controls-overlay { display: flex; }
+      .controls-overlay {
+        height: calc(~"100vh - 150px");
+        position: fixed;
+        top: 150px;
+        left: calc(~"50% - " 400px );
+
+      }
     }
     .page-navigation {
       display: flex;
       cursor: pointer;
+
+      max-height: calc(~"100vh - 150px");
+      position: fixed;
+      top: 150px;
+      // .prev {
+      //   left: 0px;
+      // }
+
     }
   }
 
