@@ -113,7 +113,7 @@ module.exports = {
     "#{@getScorePercent(task)}%"
 
   getHumanScoreNumber: (task) ->
-    "#{@getScoreNumber(task)}} of #{task.step_count}"
+    "#{@getScoreNumber(task)} of #{task.step_count}"
 
   getHumanStatus: (task, options = {displayAs: 'number'}) ->
     if options.displayAs is 'number'

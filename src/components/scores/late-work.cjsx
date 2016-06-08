@@ -86,7 +86,7 @@ LateWorkPopover = React.createClass
     )
 
   onButtonClick: ->
-    if @state.content.isAccepted
+    if @state.content.isAccepted and not TH.hasAdditionalLateWork(@props.task)
       ScoresActions.rejectLate(@state.content.task.id, @props.columnIndex)
     else
       ScoresActions.acceptLate(@state.content.task.id, @props.columnIndex)
