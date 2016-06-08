@@ -46,12 +46,9 @@ adjustTaskAverages = (data, taskInfo, columnIndex) ->
   ) * 100 ) / 100
 
   # Student's course average
-  taskStudent =
-    _.find course.students, (student) ->
-      taskIds = _.pluck student.data, 'id'   
-      _.indexOf(taskIds, task.id) > -1
+  numTasksStudent = 0
+  numTasksStudent += 1 for studentTask in student.data when studentTask.is_included_in_averages
 
-  numTasksStudent = _.filter(taskStudent.data, {is_included_in_averages: true}).length
   student.average_score =
     ( student.average_score - ( oldScore / numTasksStudent ) ) +
       ( task.score / numTasksStudent )
