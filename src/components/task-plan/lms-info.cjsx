@@ -39,9 +39,15 @@ LmsInfo = React.createClass
       <p>Due: {moment(taskPlanDates.all.due_at).format(DUE_FORMAT)}</p>
     else
       course = CourseStore.get(@props.courseId)
-      for periodId, dates of taskPlanDates
-        period = _.findWhere(course.periods, id: periodId)
-        <p key={periodId}>{period.name} due: {moment(dates.due_at).format(DUE_FORMAT)}</p>
+      <div>
+        <p>Due:</p>
+        <ul>
+          {for periodId, dates of taskPlanDates
+            period = _.findWhere(course.periods, id: periodId)
+            <li key={periodId}>{period.name}: {moment(dates.due_at).format(DUE_FORMAT)}</li>}
+        </ul>
+      </div>
+
 
   renderPopOver: ->
     {title, description, shareable_url} = @props.plan
