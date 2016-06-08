@@ -3,6 +3,8 @@ BS = require 'react-bootstrap'
 Markdown = require '../markdown'
 BindStoreMixin = require '../bind-store-mixin'
 TaskPlanHelper = require '../../helpers/task-plan'
+Clipboard = require '../../helpers/clipboard'
+
 moment = require 'moment'
 Icon = require '../icon'
 {TeacherTaskPlanStore} = require '../../flux/teacher-task-plan'
@@ -25,6 +27,7 @@ LmsInfo = React.createClass
 
   focusInput: (ev) ->
     ev.currentTarget.querySelector('input').select()
+    Clipboard.copy()
 
   closePopOver: ->
     @refs.overlay.hide()
