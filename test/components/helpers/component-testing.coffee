@@ -25,7 +25,7 @@ beforeEach ->
   )
   ROUTER.match = sandbox.spy()
   ROUTER.getCurrentParams = sandbox.spy( -> CURRENT_ROUTER_PARAMS )
-  ROUTER.transitionTo = (path, params) ->
+  ROUTER.transitionTo = sandbox.spy (path, params) ->
     CURRENT_ROUTER_PARAMS = params
     CURRENT_ROUTER_PATH = path
 afterEach ->
