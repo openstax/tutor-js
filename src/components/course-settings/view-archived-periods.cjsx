@@ -11,6 +11,8 @@ Time = require '../time'
 BindStoreMixin      = require '../bind-store-mixin'
 CourseGroupingLabel = require '../course-grouping-label'
 
+{AsyncButton} = require 'openstax-react-components'
+
 ViewArchivedPeriods = React.createClass
 
   propTypes:
@@ -38,14 +40,6 @@ ViewArchivedPeriods = React.createClass
 
   restore: (period) ->
     PeriodActions.restore(period.id, @props.courseId)
-
-  renderRestoreLink: (period) ->
-    if PeriodStore.isRestoring(period.id)
-      <span><Icon spin type='spinner' /> UnArchiving...</span>
-    else
-      <BS.Button onClick={_.partial(@restore, period)} bsStyle='link'>
-        <Icon type="recycle" /> Unarchive
-      </BS.Button>
 
   render: ->
     archived = PH.archivedPeriods(CourseStore.get(@props.courseId))
@@ -91,7 +85,13 @@ ViewArchivedPeriods = React.createClass
                   <td><Time date={period.archived_at} /></td>
                   <td>
                     <span className='control restore-period'>
-                      {@renderRestoreLink(period)}
+                      <AsyncButton className='unarchive-section' bsStyle='link'
+                        onClick={_.partial(@restore, period)}
+                        isWaiting={PeriodStore.isRestoring(period.id)}
+                        isFailed={PeriodStore.isFailed(period.id)}
+                      >
+                        <Icon type="recycle" /> Unarchive
+                      </AsyncButton>
                     </span>
                   </td>
                 </tr>}

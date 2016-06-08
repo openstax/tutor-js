@@ -31,34 +31,32 @@ ArchivePeriodLink = React.createClass
     PeriodStore.once 'deleted', @close
     @setState(isArchiving: true)
 
-  renderActivity: ->
-    <div className="message">
-      <p>
-        <Icon spin type='spinner' /> Archiving...
-      </p>
-    </div>
-
-  renderMessage: ->
-    <div className="message">
-      <p>
+  renderPopover: ->
+    <BS.Popover id='archive-period' className="archive-period">
+      <p className="message">
         Archiving means this <CourseGroupingLabel courseId={@props.courseId} /> will
         not be visible on your dashboard, student scores or export.
       </p>
-      <BS.Button className='archive-section' onClick={@performArchive}>
-        <Icon type='archive' /> Archive
-      </BS.Button>
-      <a className="cancel" onClick={@close}>Cancel</a>
-    </div>
+      <div className="footer">
+        <AsyncButton className='archive-section' onClick={@performArchive}
+          isWaiting={PeriodStore.isDeleting(@props.period.id)}
+          isFailed={PeriodStore.isFailed(@props.period.id)}
+        >
+          <Icon type='archive' /> Archive
+        </AsyncButton>
+        <BS.Button bsStyle="link" className="cancel" onClick={@close}>
+          Cancel
+        </BS.Button>
+
+      </div>
+
+    </BS.Popover>
 
   render: ->
     return null if _.isEmpty @props.periods
 
     <BS.OverlayTrigger rootClose={true} ref='overlay'
-      trigger='click' placement='bottom' overlay={
-        <BS.Popover id='delete-period' className="archive-period">
-          {if @state.isArchiving then @renderActivity() else @renderMessage()}
-        </BS.Popover>
-      }>
+      trigger='click' placement='bottom' overlay={@renderPopover()}>
         <a className="control archive-period">
           <Icon type='archive' /> Archive <CourseGroupingLabel
             courseId={@props.courseId} />
