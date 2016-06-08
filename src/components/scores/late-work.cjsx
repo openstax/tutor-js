@@ -95,11 +95,12 @@ LateWorkPopover = React.createClass
   render: ->
     {content} = @state
     status = if @props.task.type is 'homework' then content.score() else content.progress()
+    arrowOffsetTop = if TH.hasAdditionalLateWork(@props.task) then 128 else 95
 
     <BS.Popover
       {...@props}
       show={@state.isShown}
-      arrowOffsetTop={95}
+      arrowOffsetTop={arrowOffsetTop}
       title={content.get('title')}
       id="late-work-info-popover-#{content.task.id}"
       className={content.className()}>
@@ -130,7 +131,7 @@ LateWork = React.createClass
 
   render: ->
     caretClass = classnames('late-caret', {
-      accepted: @props.task.is_late_work_accepted
+      accepted: @props.task.is_late_work_accepted and not TH.hasAdditionalLateWork(@props.task)
     })
 
     <BS.OverlayTrigger

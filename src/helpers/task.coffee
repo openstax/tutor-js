@@ -65,6 +65,20 @@ module.exports = {
       score = task.completed_on_time_step_count + task.completed_accepted_late_step_count
       percent = Math.round( (score / task.step_count) * 100 )
 
+  getScorePercent: (task) ->
+    if task.type is 'homework'
+      score = task.correct_on_time_exercise_count + task.correct_accepted_late_exercise_count
+      percent = Math.round( (score / task.exercise_count) * 100 )
+    else
+      score = task.correct_on_time_step_count + task.correct_accepted_late_step_count
+      percent = Math.round( (score / task.step_count) * 100 )
+
+  getScoreNumber: (task) ->
+    if task.type is 'homework'
+      score = task.correct_on_time_exercise_count + task.correct_accepted_late_exercise_count
+    else
+      score = task.correct_on_time_step_count + task.correct_accepted_late_step_count
+
   hasAdditionalLateWork: (task) ->
     task.completed_accepted_late_step_count and (
       task.completed_step_count >  task.completed_on_time_step_count +
@@ -89,19 +103,17 @@ module.exports = {
     complete = @getCompletedSteps(task)
     "#{complete} of #{task.step_count}"
 
-  getScoreAsNumber: (task, isAccepted) ->
-    score =
-      if isAccepted
-        task.correct_exercise_count
-      else
-        task.correct_on_time_exercise_count
-    "#{score} of #{task.step_count}"
-
   getHumanDueDate: (task) ->
     task.due_at
 
   getHumanCompletedPercent: (task) ->
     "#{@getCompletedPercent(task)}%"
+
+  getHumanScorePercent: (task) ->
+    "#{@getScorePercent(task)}%"
+
+  getHumanScoreNumber: (task) ->
+    "#{@getScoreNumber(task)}} of #{task.step_count}"
 
   getHumanStatus: (task, options = {displayAs: 'number'}) ->
     if options.displayAs is 'number'

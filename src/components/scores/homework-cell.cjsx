@@ -34,10 +34,8 @@ HomeworkCell = React.createClass
 
     notStarted = task.completed_exercise_count <= 0
 
-    isAccepted = TH.isLateAccepted(task)
-
-    scorePercent = if isAccepted then TH.getHumanScoreWithLateWork(task) else TH.getHumanUnacceptedScore(task)
-    scoreNumber = TH.getScoreAsNumber(task, isAccepted)
+    scorePercent = TH.getHumanScorePercent(task)
+    scoreNumber = TH.getHumanScoreNumber(task)
 
     score =
       <div className="score">
