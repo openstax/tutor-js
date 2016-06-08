@@ -216,27 +216,29 @@ module.exports = React.createClass
       ref='stepPanel'
     />
 
-  renderDefaultEndFooter: (data) ->
+  renderDefaultEndFooter: ->
     {id} = @props
     {courseId} = @context.router.getCurrentParams()
 
     taskFooterParams =
-      stepId: data.id
       taskId: id
       courseId: courseId
 
     @renderEndFooter(taskFooterParams)
 
   renderEnd: (data) ->
+    {id} = @props
     {courseId} = @context.router.getCurrentParams()
-    type = if data.type then data.type else 'task'
+    task = TaskStore.get(id)
+
+    type = if task.type then task.type else 'task'
     End = Ends.get(type)
 
-    footer = @renderDefaultEndFooter(data)
+    footer = @renderDefaultEndFooter()
 
     panel = <End
       courseId={courseId}
-      taskId={data.id}
+      taskId={id}
       reloadPractice={@reloadTask}
       footer={footer}
       ref='stepPanel'/>

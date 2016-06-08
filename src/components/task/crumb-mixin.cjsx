@@ -77,7 +77,7 @@ module.exports =
     crumbType = 'end'
     crumbs.push
       key: steps.length
-      data: task
+      data: _.pick(task, 'title', 'type')
       crumb: @_shouldStepCrumb(steps.length)
       type: crumbType
       listeners: @_getStepListeners(crumbType)

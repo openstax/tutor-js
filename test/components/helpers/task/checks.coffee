@@ -209,7 +209,7 @@ checks =
     {div, component, stepId, taskId, state, router, history}
 
   _checkHasExpectedGroupLabel: ({div, component, stepId, taskId, state, router, history}) ->
-    group = React.addons.TestUtils.findRenderedComponentWithType(component, ExerciseGroup)
+    group = React.addons.TestUtils.scryRenderedComponentsWithType(component, ExerciseGroup)[0]
     step = TaskStepStore.get(stepId)
 
     if step.group is 'personalized'

@@ -11,39 +11,27 @@ ProgressArrow = React.createClass
     stepKey: React.PropTypes.number
     goToStep: React.PropTypes.func
 
+  componentDidMount: ->
+    keymaster(@props.direction, KEYBINDING_SCOPE, @arrowClicked)
+
   componentWillUnmount: ->
-    @disableKeys() if @props.enableKeys
-
-  componentWillMount: ->
-    @enableKeys() if @props.enableKeys
-
-  componentWillReceiveProps: (nextProps) ->
-    if nextProps.enableKeys and not @props.enableKeys
-      @enableKeys()
-    else if not nextProps.enableKeys and @props.enableKeys
-      @disableKeys()
-
-  enableKeys: ->
-    keymaster(@props.direction,  KEYBINDING_SCOPE, @arrowClicked)
-    keymaster.setScope(KEYBINDING_SCOPE)
-
-  disableKeys: ->
-    keymaster.deleteScope(KEYBINDING_SCOPE)
+    keymaster.unbind(@props.direction, KEYBINDING_SCOPE)
 
   transition: ->
     { stepKey, goToStep } = @props
 
-    TaskStepStore.off('step.completed', @transition)
     goToStep(stepKey + @getIncrement())
 
-  arrowClicked: ->
+  arrowClicked: (clickEvent) ->
     { stepId, direction } = @props
 
     if (direction is 'right' and stepId and not TaskStepStore.get(stepId).is_completed)
-      TaskStepStore.on('step.completed', @transition)
+      TaskStepStore.once('step.completed', @transition)
       TaskStepActions.complete(stepId)
     else
       @transition()
+
+    clickEvent.preventDefault()
 
   getIncrement: ->
     { direction } = @props
@@ -52,9 +40,6 @@ ProgressArrow = React.createClass
     increment
 
   render: ->
-    if not @props.shouldShow
-      return null
-
     step = @props.stepKey + @getIncrement()
     <a onClick={@arrowClicked} className="arrow #{@props.direction}" data-step={step}>
       <i className="fa fa-angle-#{@props.direction}" />

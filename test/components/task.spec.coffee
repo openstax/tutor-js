@@ -125,7 +125,7 @@ describe 'Task Widget, through routes', ->
     TaskActions.HACK_DO_NOT_RELOAD(false)
     TaskStepActions.HACK_DO_NOT_RELOAD(false)
 
-  it 'should be render a spacer panel for the non-core step', (done) ->
+  it 'should render a spacer panel for the non-core step', (done) ->
     # run a full step through and check each step
 
     taskChecks
@@ -210,9 +210,7 @@ describe 'Task Widget, through routes', ->
     TaskActions.loaded(model, TASK_ID)
     expect(model.steps.length).to.equal(1)
 
-    taskActions
-      .clickContinue(@result)
-      .then(taskActions.completeSteps)
+    taskActions.completeSteps(@result)
       .then(taskChecks.checkIsCompletePage)
       .then( ->
         done()
