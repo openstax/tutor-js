@@ -84,6 +84,7 @@ LmsInfo = React.createClass
       <BS.OverlayTrigger trigger="click"
         placement="top"
         ref="overlay"
+        container={@}
         overlay={@renderPopOver()}
       >
         <a onClick={@togglePopover} className="get-link">Get assignment link</a>
