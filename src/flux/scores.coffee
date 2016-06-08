@@ -54,11 +54,16 @@ adjustTaskAverages = (data, taskInfo, columnIndex) ->
       ( task.score / numTasksStudent )
 
   # Assignment averages
-  studentCount = course.students.length
+  numStudentsTask = 0
+  for student in course.students
+    for studentTask, i in student.data
+      if i is columnIndex
+        numStudentsTask += 1 if studentTask.is_included_in_averages
+
   heading = course.data_headings[columnIndex]
   heading.average_score =
-    ( heading.average_score - ( oldScore / studentCount ) ) +
-      ( task.score / studentCount )
+    ( heading.average_score - ( oldScore / numStudentsTask ) ) +
+      ( task.score / numStudentsTask )
 
   # Overall course averages
   taskCount = 0
