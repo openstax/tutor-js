@@ -174,27 +174,31 @@
 .archive-period.popover {
   width: 350px;
   max-width: 350px;
-  .message p {
-    #fonts > .sans(1.6rem, 1.6rem);
+  .message {
+    #fonts > .sans(1.5rem, 1.5rem);
     text-align: center;
     border-bottom: 1px solid @tutor-neutral-bright;
-    padding-bottom: 1rem;
+    padding: 0.5rem 0.5rem 1rem 0.5rem;
     margin-bottom: 1rem;
   }
-  // override material-design
-  .btn-default:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
-    background-color: @tutor-secondary;
-    color: @tutor-neutral-bright !important;
-    margin: auto;
-    display: block;
-    border-radius: 0;
-  }
-  .cancel {
-    font-size: 12px;
-    cursor: pointer;
-    margin-top: 1rem;
-    display: block;
-    text-align: center;
+  .footer {
+    display: flex;
+    .btn {
+      text-transform: inherit;
+      margin: auto;
+      display: block;
+      border-radius: 0;
+
+    }
+    // override material-design
+    .btn-default:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
+      background-color: @tutor-secondary;
+      color: @tutor-neutral-bright !important;
+    }
+    .cancel {
+      color: @link-color;
+      cursor: pointer;
+    }
   }
 }
 
