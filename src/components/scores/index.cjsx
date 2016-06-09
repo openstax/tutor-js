@@ -100,6 +100,7 @@ Scores = React.createClass
       _.findWhere(data, {period_id})
     else
       _.first(data)
+    return [] unless scores?
 
     sortData = _.sortBy(scores.students, (d) =>
       if _.isNumber(sort.key)
@@ -164,7 +165,7 @@ Scores = React.createClass
 
     scoresTable =
       <ScoresTable
-      courseId={@props.courseId} 
+      courseId={@props.courseId}
       data={data}
       width={tableWidth}
       height={tableHeight}
