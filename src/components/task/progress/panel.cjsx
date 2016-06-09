@@ -40,7 +40,7 @@ ProgressPanel = React.createClass
     keymaster.setScope(KEYBINDING_SCOPE)
 
   disableKeys: ->
-    keymaster.deleteScope(KEYBINDING_SCOPE)
+    keymaster.setScope()
 
   getShouldShows: (props) ->
     props ?= @props
