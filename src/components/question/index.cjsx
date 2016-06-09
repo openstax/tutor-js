@@ -59,7 +59,7 @@ Question = React.createClass
     @hasAnswerCorrectness() and @doesArrayHaveProperty(collaborator_solutions, 'content_html')
 
   render: ->
-    {model, correct_answer_id, exercise_uid, className, questionNumber} = @props
+    {model, correct_answer_id, exercise_uid, className, questionNumber, context} = @props
     {stem_html, collaborator_solutions, formats, stimulus_html} = model
 
     hasCorrectAnswer = !! correct_answer_id
@@ -80,6 +80,7 @@ Question = React.createClass
         </div>
 
     <div className={classes} data-question-number={questionNumber}>
+      <QuestionHtml type='context' html={context} />
       <QuestionHtml type='stimulus' html={stimulus_html} />
       <QuestionHtml type='stem' html={stem_html} />
       {@props.children}

@@ -82,7 +82,7 @@ ExMode = React.createClass
 
     questionProperties = [
       'processHtmlAndMath', 'choicesEnabled', 'correct_answer_id',
-      'feedback_html', 'type', 'questionNumber', 'project'
+      'feedback_html', 'type', 'questionNumber', 'project', 'context'
     ]
 
     questionProps = _.pick(@props, questionProperties)
