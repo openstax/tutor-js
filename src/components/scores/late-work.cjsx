@@ -16,10 +16,16 @@ class LateWork
       'pending'
 
   score: ->
-    if @state is 'accepted'
+    if @status is 'accepted'
       TH.getHumanUnacceptedScore(@task)
     else
       TH.getHumanScoreWithLateWork(@task)
+
+  progress: ->
+    if @status is 'accepted'
+      TH.getHumanUnacceptedProgress(@task)
+    else
+      TH.getHumanProgressWithLateWork(@task)
 
   lateExerciseCount: ->
     @task.completed_exercise_count - @task.completed_on_time_exercise_count
@@ -69,6 +75,7 @@ class ReadingContent extends LateWork
     additional: 'Accept new late score'
     accepted:   'Use this score'
     pending:    'Accept late score'
+  body: ->
 
 LateWorkPopover = React.createClass
 
@@ -79,18 +86,21 @@ LateWorkPopover = React.createClass
     )
 
   onButtonClick: ->
-    if @state.content.isAccepted
-      ScoresActions.rejectLate(@state.content.task.id)
+    if @state.content.isAccepted and not TH.hasAdditionalLateWork(@props.task)
+      ScoresActions.rejectLate(@state.content.task.id, @props.columnIndex)
     else
-      ScoresActions.acceptLate(@state.content.task.id)
+      ScoresActions.acceptLate(@state.content.task.id, @props.columnIndex)
     @props.hide()
 
   render: ->
     {content} = @state
+    status = if @props.task.type is 'homework' then content.score() else content.progress()
+    arrowOffsetTop = if TH.hasAdditionalLateWork(@props.task) then 128 else 95
 
     <BS.Popover
       {...@props}
       show={@state.isShown}
+      arrowOffsetTop={arrowOffsetTop}
       title={content.get('title')}
       id="late-work-info-popover-#{content.task.id}"
       className={content.className()}>
@@ -100,7 +110,7 @@ LateWorkPopover = React.createClass
             <span className='title'>
               {content.reportingOn} on {content.lateDueDate()}:
             </span>
-            <span className='status'>{content.score()}</span>
+            <span className='status'>{status}</span>
           </div>
           <BS.Button className='late-button' onClick={@onButtonClick}>
             {content.get('button')}
@@ -121,12 +131,12 @@ LateWork = React.createClass
 
   render: ->
     caretClass = classnames('late-caret', {
-      accepted: @props.task.is_late_work_accepted
+      accepted: @props.task.is_late_work_accepted and not TH.hasAdditionalLateWork(@props.task)
     })
 
     <BS.OverlayTrigger
       ref="overlay" placement="top" trigger="click" rootClose={true}
-      overlay={<LateWorkPopover task={@props.task} hide={@hide} />}
+      overlay={<LateWorkPopover task={@props.task} columnIndex={@props.columnIndex} hide={@hide} />}
     >
       <div className="late-caret-trigger">
         <div className={caretClass}></div>

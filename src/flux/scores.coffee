@@ -33,7 +33,7 @@ getTaskInfoById = (taskId, data) ->
   return TASK_ID_CACHE[taskId]
 
 
-adjustTaskAverages = (data, taskInfo) ->
+adjustTaskAverages = (data, taskInfo, columnIndex) ->
   {task} = taskInfo
   oldScore = task.score
   course = data[taskInfo.courseId][0]
@@ -46,17 +46,24 @@ adjustTaskAverages = (data, taskInfo) ->
   ) * 100 ) / 100
 
   # Student's course average
-  assignmentCount = student.data.length
+  numTasksStudent = 0
+  numTasksStudent += 1 for studentTask in student.data when studentTask.is_included_in_averages
+
   student.average_score =
-    ( student.average_score - ( oldScore / assignmentCount ) ) +
-      ( task.score / assignmentCount )
+    ( student.average_score - ( oldScore / numTasksStudent ) ) +
+      ( task.score / numTasksStudent )
 
   # Assignment averages
-  studentCount = course.students.length
-  heading = course.data_headings[taskInfo.periodIndex]
+  numStudentsTask = 0
+  for student in course.students
+    for studentTask, i in student.data
+      if i is columnIndex
+        numStudentsTask += 1 if studentTask.is_included_in_averages
+
+  heading = course.data_headings[columnIndex]
   heading.average_score =
-    ( heading.average_score - ( oldScore / studentCount ) ) +
-      ( task.score / studentCount )
+    ( heading.average_score - ( oldScore / numStudentsTask ) ) +
+      ( task.score / numStudentsTask )
 
   # Overall course averages
   taskCount = 0
@@ -84,7 +91,7 @@ ScoresConfig = {
   ## See: app/subsystems/tasks/models/task.rb                         ##
   ######################################################################
 
-  acceptLate: (taskId) ->
+  acceptLate: (taskId, columnIndex) ->
     @_asyncStatus[taskId] = ACCEPTING
     taskInfo = getTaskInfoById(taskId, @_local)
     {task} = taskInfo
@@ -103,7 +110,8 @@ ScoresConfig = {
 
     task.accepted_late_at = TimeStore.getNow().toISOString()
 
-    adjustTaskAverages(@_local, taskInfo)
+    if task.is_included_in_averages
+      adjustTaskAverages(@_local, taskInfo, columnIndex)
 
     @emitChange()
 
@@ -111,7 +119,7 @@ ScoresConfig = {
     @_asyncStatus[taskId] = ACCEPTED
     @emitChange()
 
-  rejectLate: (taskId) ->
+  rejectLate: (taskId, columnIndex) ->
     @_asyncStatus[taskId] = REJECTING
     taskInfo = getTaskInfoById(taskId, @_local)
     {task} = taskInfo
@@ -121,7 +129,8 @@ ScoresConfig = {
     task.completed_accepted_late_step_count = 0
     delete task.accepted_late_at
 
-    adjustTaskAverages(@_local, taskInfo)
+    if task.is_included_in_averages
+      adjustTaskAverages(@_local, taskInfo, columnIndex)
 
     @emitChange()
 

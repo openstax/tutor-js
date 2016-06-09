@@ -34,12 +34,15 @@ HomeworkCell = React.createClass
 
     notStarted = task.completed_exercise_count <= 0
 
+    scorePercent = TH.getHumanScorePercent(task)
+    scoreNumber = TH.getHumanScoreNumber(task)
+
     score =
       <div className="score">
         <Router.Link to='viewTaskStep'
           data-assignment-type="#{task.type}"
           params={courseId: courseId, id: task.id, stepIndex: 1}>
-            {TH.getHumanStatus(task, {displayAs})}
+            {if displayAs is 'number' then scoreNumber else scorePercent}
         </Router.Link>
       </div>
 
@@ -66,7 +69,7 @@ HomeworkCell = React.createClass
         </BS.OverlayTrigger>
       </div>
 
-      {<LateWork task={task} /> if TH.isLate(task)}
+      {<LateWork task={task} columnIndex={columnIndex} /> if TH.isLate(task)}
 
     </div>
 
