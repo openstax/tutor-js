@@ -60,7 +60,7 @@
     "react-router": "0.13.4",
     "react-scroll-components": "0.2.2",
     "react-waypoint": "openstax/react-waypoint#b34b248947feb0b0ebf89fcef6f234f60f3e516c",
-    "recordo": "0.0.3",
+    "recordo": "0.0.5",
     "twix": "1.0.0",
     "ultimate-pagination": "0.7.0",
     "underscore": "1.8.3",
