@@ -36,7 +36,7 @@ ArchivePeriodLink = React.createClass
       <p className="message">
         Archiving means
         this <CourseGroupingLabel lowercase courseId={@props.courseId} /> will
-        not be visible on your dashboard, student scores or export.
+        not be visible on your dashboard, student scores, or export.
       </p>
       <div className="footer">
         <AsyncButton className='archive-section' onClick={@performArchive}
