@@ -107,9 +107,10 @@ CourseConfig =
     getName: (courseId) ->
       @_get(courseId)?.name or ""
 
-    getPeriods: (courseId) ->
-      periods = @_get(courseId).periods or []
-      sortedPeriods = PeriodHelper.sort(periods)
+    getPeriods: (courseId, options = {includeArchived: false}) ->
+      course = @_get(courseId)
+      periods = if options.includeArchived then course.periods else PeriodHelper.activePeriods(course)
+      sortedPeriods = if periods then PeriodHelper.sort(periods) else []
 
     getTimezone: (courseId) ->
       @_get(courseId)?.time_zone or DEFAULT_TIME_ZONE

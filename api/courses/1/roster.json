@@ -1,0 +1,95 @@
+{
+  "students": [
+    {
+      "is_active": true,
+      "deidentifier": "40ef9548",
+      "name": "Alyce Tromp",
+      "last_name": "Tromp",
+      "first_name": "Alyce",
+      "role_id": "3",
+      "period_id": "1",
+      "id": "2"
+    },
+    {
+      "is_active": true,
+      "deidentifier": "18b9c4ad",
+      "name": "Bettie Hackett",
+      "last_name": "Hackett",
+      "first_name": "Bettie",
+      "role_id": "4",
+      "period_id": "1",
+      "id": "3"
+    },
+    {
+      "is_active": true,
+      "deidentifier": "dfd65c49",
+      "name": "Giovanny Jaskolski",
+      "last_name": "Jaskolski",
+      "first_name": "Giovanny",
+      "role_id": "5",
+      "period_id": "1",
+      "id": "4"
+    },
+    {
+      "is_active": true,
+      "deidentifier": "bbd56c63",
+      "name": "Kevin Lowe",
+      "last_name": "Lowe",
+      "first_name": "Kevin",
+      "role_id": "6",
+      "period_id": "1",
+      "id": "5"
+    },
+    {
+      "is_active": true,
+      "deidentifier": "22b83e98",
+      "name": "Rabbit Angstrom",
+      "last_name": "Angstrom",
+      "first_name": "Rabbit",
+      "role_id": "9",
+      "period_id": "1",
+      "id": "8"
+    },
+    {
+      "is_active": true,
+      "deidentifier": "cc652f42",
+      "name": "Seymour Glass",
+      "last_name": "Glass",
+      "first_name": "Seymour",
+      "role_id": "10",
+      "period_id": "1",
+      "id": "9"
+    },
+    {
+      "is_active": false,
+      "deidentifier": "e14e523f",
+      "name": "Ignatius Reilly",
+      "last_name": "Reilly",
+      "first_name": "Ignatius",
+      "role_id": "7",
+      "period_id": "1",
+      "id": "6"
+    },
+    {
+      "is_active": true,
+      "deidentifier": "8d8eef3f",
+      "name": "Molly Bloom",
+      "last_name": "Bloom",
+      "first_name": "Molly",
+      "role_id": "8",
+      "period_id": "2",
+      "id": "7"
+    },
+    {
+      "is_active": false,
+      "deidentifier": "2191343d",
+      "name": "Albin Kirlin",
+      "last_name": "Kirlin",
+      "first_name": "Albin",
+      "role_id": "2",
+      "period_id": "2",
+      "id": "1"
+    }
+  ],
+  "teach_url": "http:\/\/localhost:3001\/teach\/6e14113731ddaddeadcf3d401ec38f3e\/DO_NOT_GIVE_TO_STUDENTS"
+}

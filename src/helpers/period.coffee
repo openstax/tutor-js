@@ -1,6 +1,10 @@
 S = require './string'
 _ = require 'underscore'
 
+# Used to filter periods by helper methods
+isArchivedCheckFn = (period) -> period.is_archived
+isActiveCheckFn   = (period) -> not period.is_archived
+
 PeriodHelper =
   getOrder: (period) ->
     S.getNumberAndStringOrder(period.name)
@@ -25,5 +29,11 @@ PeriodHelper =
           period.name
       )
       .value()
+
+  activePeriods: (course) ->
+    _.filter(course.periods, isActiveCheckFn)
+
+  archivedPeriods: (course) ->
+    _.filter(course.periods, isArchivedCheckFn)
 
 module.exports = PeriodHelper

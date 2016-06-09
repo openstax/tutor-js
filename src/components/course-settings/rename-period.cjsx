@@ -7,6 +7,7 @@ _ = require 'underscore'
 
 BindStoreMixin = require '../bind-store-mixin'
 CourseGroupingLabel = require '../course-grouping-label'
+Icon = require '../icon'
 
 RenamePeriodField = React.createClass
 
@@ -41,6 +42,7 @@ module.exports = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     period: React.PropTypes.object.isRequired
+    periods:  React.PropTypes.array.isRequired
 
   mixins: [BindStoreMixin]
 
@@ -118,10 +120,10 @@ module.exports = React.createClass
     </BS.Modal>
 
   render: ->
-    <span className='-rename-period-link'>
-      <BS.Button onClick={@open} bsStyle='link' className='edit-period'>
-        <i className='fa fa-pencil' />
-        Rename <CourseGroupingLabel courseId={@props.courseId}/>
+    <span className='control rename-period'>
+      <BS.Button onClick={@open} bsStyle='link'>
+        <Icon type='pencil' />
+        Rename
       </BS.Button>
       {@renderForm()}
     </span>

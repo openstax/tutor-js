@@ -253,6 +253,8 @@ start = (bootstrapData) ->
     url: "/api/periods/#{period}", payload: params
   apiHelper PeriodActions, PeriodActions.delete, PeriodActions.deleted, 'DELETE', (id) ->
     url: "/api/periods/#{id}"
+  apiHelper PeriodActions, PeriodActions.restore, PeriodActions.restored, 'PUT', (id) ->
+    url: "/api/periods/#{id}/restore"
 
   apiHelper TaskStepActions, TaskStepActions.load, TaskStepActions.loaded, 'GET', (id) ->
     throw new Error('BUG: Wrong type') unless typeof id is 'string' or typeof id is 'number'

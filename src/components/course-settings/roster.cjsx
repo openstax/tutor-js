@@ -5,106 +5,109 @@ classnames = require 'classnames'
 
 BindStoreMixin = require '../bind-store-mixin'
 NoPeriods = require '../no-periods'
+PH = require '../../helpers/period'
 
 {CourseStore, CourseActions} = require '../../flux/course'
 {RosterStore, RosterActions} = require '../../flux/roster'
 
 PeriodRoster = require './period-roster'
 DroppedRoster = require './dropped-roster'
-
+ViewArchivedPeriods = require './view-archived-periods'
 StudentEnrollment = require './student-enrollment'
 
 AddPeriodLink = require './add-period'
 RenamePeriodLink = require './rename-period'
-DeletePeriodLink = require './delete-period'
+ArchivePeriodLink = require './archive-period'
 
-module.exports = React.createClass
-  displayName: 'PeriodRoster'
+TabsWithChildren = require '../tabs-with-children'
+
+CourseRoster = React.createClass
+
   mixins: [BindStoreMixin]
   bindStore: RosterStore
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
   getInitialState: ->
-    key: 0
-    activePeriod: _.first CourseStore.get(@props.courseId)?.periods
+    tabIndex: 0
+    activePeriod: _.first PH.activePeriods(CourseStore.get(@props.courseId))
 
-  handleSelect: (key) ->
-    periods = CourseStore.get(@props.courseId)?.periods or []
-    activePeriod = periods[key] or _.first(periods)
-    @setState({key, activePeriod})
+  handleSelection: (ev, tabIndex) ->
+    periods = PH.activePeriods(CourseStore.get(@props.courseId))
+    activePeriod = periods[tabIndex] or _.first(periods)
+    @setState({tabIndex})
 
   selectPreviousTab: ->
-    if @state.key > 0
-      previous = @state.key - 1
+    if @state.tabIndex > 0
+      previous = @state.tabIndex - 1
     else
       previous = 0
-    @handleSelect(previous)
+    @handleSelection({}, previous)
 
-  renderPeriod: (period, index) ->
+  renderActivePeriod: (periods) ->
+    activePeriod = periods[@state.tabIndex]
 
-    className = classnames({'is-trouble': period.is_trouble})
-    tooltip =
-      <BS.Tooltip id="roster-periods-nav-tab-#{index}">
-        {period.name}
-      </BS.Tooltip>
-    name =
-      <BS.OverlayTrigger
-        placement='top'
-        delayShow={1000}
-        delayHide={0}
-        overlay={tooltip}
-      >
-        <span className='tab-item-period-name'>{period.name}</span>
-      </BS.OverlayTrigger>
+    <div className="active-period">
+      <div className='period-edit-controls'>
+        <StudentEnrollment
+          period={activePeriod}
+          courseId={@props.courseId}
+        />
+        <span className="spacer" />
 
-    <BS.Tab key={period.id} eventKey={index} title={name} tabClassName={className}>
+        <RenamePeriodLink
+          courseId={@props.courseId}
+          periods={periods}
+          period={activePeriod}
+        />
+
+        <ArchivePeriodLink
+          courseId={@props.courseId}
+          period={activePeriod}
+          periods={periods}
+          afterArchive={@selectPreviousTab}
+        />
+
+      </div>
 
       <PeriodRoster
-        period={period}
+        period={activePeriod}
         courseId={@props.courseId}
-        activeTab={@state.activePeriod}
+        activeTab={@state.tabIndex}
         isConceptCoach={CourseStore.isConceptCoach(@props.courseId)}
       />
 
       <DroppedRoster
-        period={period}
+        period={activePeriod}
         courseId={@props.courseId}
-        activeTab={@state.activePeriod} />
+      />
+    </div>
 
-    </BS.Tab>
-
+  renderEmpty: ->
+    <NoPeriods />
 
   render: ->
-    course = CourseStore.get(@props.courseId)
-    hasPeriods = not _.isEmpty course.periods
+    course  = CourseStore.get(@props.courseId)
+
+    periods = PH.activePeriods(course)
+
+    {tabIndex} = @state
 
     <div className="roster">
       <div className="settings-section periods">
-        <BS.Tabs activeKey={@state.key} onSelect={@handleSelect} animation={false}>
-          <div className='period-edit-controls'>
-            <StudentEnrollment
-              period={@state.activePeriod}
-              courseId={@props.courseId}
-            />
-            <span className="spacer" />
-            <AddPeriodLink courseId={@props.courseId} periods={course.periods} />
-            <RenamePeriodLink
-              courseId={@props.courseId}
-              period={@state.activePeriod}
-            />
-            <DeletePeriodLink
-              courseId={@props.courseId}
-              period={@state.activePeriod}
-              selectPreviousTab={@selectPreviousTab}
-            />
-          </div>
-          <div><span className='course-settings-subtitle tabbed'>Roster</span></div>
-          {<NoPeriods noPanel={true} /> unless hasPeriods}
-          {_.map course.periods, @renderPeriod}
-        </BS.Tabs>
+
+        <TabsWithChildren
+          tabs={_.pluck(periods, 'name')}
+          onClick={@handleSelection}
+        >
+          <AddPeriodLink courseId={@props.courseId} periods={periods} />
+          <ViewArchivedPeriods courseId={@props.courseId} />
+        </TabsWithChildren>
+
       </div>
+
+      {if periods[tabIndex] then @renderActivePeriod(periods) else @renderEmpty()}
 
     </div>
 
-      #  if hasPeriods and CourseStore.isConceptCoach(@props.courseId)
+module.exports = CourseRoster

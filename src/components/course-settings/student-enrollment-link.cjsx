@@ -23,7 +23,7 @@ StudentEnrollmentLink = React.createClass
       <span className="title">Student Enrollment URL:</span>
       <input type="text"
         ref='input'
-        style={width: @props.period.enrollment_url.length * CHAR_WIDTH}
+        style={width: (@props.period.enrollment_url?.length or 20) * CHAR_WIDTH}
         value={@props.period.enrollment_url}
         readOnly />
     </span>

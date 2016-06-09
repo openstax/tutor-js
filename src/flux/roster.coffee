@@ -56,9 +56,6 @@ RosterConfig = {
     @emitChange()
 
 
-
-
-
   exports:
 
     getActiveStudentsForPeriod: (courseId, periodId) ->
