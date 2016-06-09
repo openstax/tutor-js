@@ -1,33 +1,36 @@
 .task-view .task-reading .pinned-header {
-	padding: 0;
+  padding: 0;
 
-	.reading-task-progress {
-		height: 4px;
-		overflow: hidden;
-		margin-bottom: 0;
-	}
+  .reading-task-progress {
+    height: 4px;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
 }
 
-.arrow {
-	top: 40%;
-	cursor: pointer;
-	position: fixed;
-	z-index: 1;
 
-	&.left {
-		left: 1rem;
-	}
+.progress-panel {
+  .arrow {
+    top: 40%;
+    cursor: pointer;
+    position: fixed;
+    z-index: 1;
 
-	&.right {
-		right: 1rem;
-	}
+    &.left {
+      left: 1rem;
+    }
 
-	i.fa {
-		color: #e5e5e5;
-		font-size: 150px;
-	}
+    &.right {
+      right: 1rem;
+    }
 
-	&:hover i.fa{
-		color: #d5d5d5;
-	}
+    i.fa {
+      color: #e5e5e5;
+      font-size: 150px;
+    }
+
+    &:hover i.fa{
+      color: #d5d5d5;
+    }
+  }
 }

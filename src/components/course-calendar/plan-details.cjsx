@@ -85,7 +85,7 @@ CoursePlanDetails = React.createClass
           {reviewButton}
           {editButton}
         </div>
-        <LmsInfo plan={plan}/>
+        <LmsInfo plan={plan} courseId={@props.courseId} />
       </div>
 
       if type is 'event'

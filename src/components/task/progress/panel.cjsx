@@ -4,7 +4,7 @@ Arrow = require './arrow'
 {StepPanel} = require '../../../helpers/policies'
 {TaskStepStore} = require '../../../flux/task-step'
 
-module.exports = React.createClass
+ProgressPanel = React.createClass
   propTypes:
     taskId: React.PropTypes.string
     stepId: React.PropTypes.string
@@ -33,8 +33,10 @@ module.exports = React.createClass
       @props.isSpacer is true
     )
 
-    <div>
+    <div className="progress-panel">
       <Arrow {...@props} direction="left" shouldShow={shouldShowLeft} />
       {@props.children}
       <Arrow {...@props} direction="right" shouldShow={shouldShowRight} />
     </div>
+
+module.exports = ProgressPanel

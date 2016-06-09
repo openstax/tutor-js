@@ -11,6 +11,9 @@ TeacherTaskPlanConfig =
     @_local[id] = plans
 
   exports:
+    getPlanId: (courseId, planId) ->
+      _.findWhere(@_local[courseId], id: planId)
+
     getActiveCoursePlans: (id) ->
       plans = @_local[id] or []
       # don't return plans that are in the process of being deleted

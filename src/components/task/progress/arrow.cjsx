@@ -4,7 +4,7 @@ React = require 'react'
 keymaster = require 'keymaster'
 KEYBINDING_SCOPE  = 'reading-progress'
 
-module.exports = React.createClass
+ProgressArrow = React.createClass
   propTypes:
     taskId: React.PropTypes.string
     stepId: React.PropTypes.string
@@ -47,3 +47,5 @@ module.exports = React.createClass
     <a onClick={@arrowClicked} className="arrow #{@props.direction}" data-step={step}>
       <i className="fa fa-angle-#{@props.direction}" />
     </a>
+
+module.exports = ProgressArrow

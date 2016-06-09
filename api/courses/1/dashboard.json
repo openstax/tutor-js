@@ -181,7 +181,13 @@
         {
           "target_id": "1",
           "target_type": "period",
-          "opens_at": "2015-03-31T11:40:23.796Z",
+          "opens_at": "2015-02-31T11:40:23.796Z",
+          "due_at": "2015-04-05T10:00:00.000Z"
+        },
+        {
+          "target_id": "2",
+          "target_type": "period",
+          "opens_at": "2015-02-31T11:40:23.796Z",
           "due_at": "2015-04-05T10:00:00.000Z"
         }
       ]
@@ -194,7 +200,13 @@
         {
           "target_id": "1",
           "target_type": "period",
-          "opens_at": "2015-03-31T11:40:23.796Z",
+          "opens_at": "2015-01-31T11:40:23.796Z",
+          "due_at": "2015-04-05T10:00:00.000Z"
+        },
+        {
+          "target_id": "2",
+          "target_type": "period",
+          "opens_at": "2015-03-30T11:40:23.796Z",
           "due_at": "2015-04-05T10:00:00.000Z"
         }
       ]
