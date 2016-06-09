@@ -204,7 +204,7 @@ Tasking = React.createClass
           <BS.Col sm=4 md=3>
             <input
               id={"period-toggle-#{period.id}"}
-              disabled={not isEditable}
+              disabled={isVisibleToStudents}
               type='checkbox'
               onChange={_.partial(togglePeriodEnabled, period)}
               checked={true}/>
@@ -221,7 +221,7 @@ Tasking = React.createClass
             <input
               id={"period-toggle-#{period.id}"}
               type='checkbox'
-              disabled={not isEditable}
+              disabled={not isVisibleToStudents}
               onChange={_.partial(togglePeriodEnabled, period)}
               checked={false}/>
             <label className="period" htmlFor={"period-toggle-#{period.id}"}>{period.name}</label>
@@ -476,8 +476,8 @@ module.exports = React.createClass
         </BS.Col>
       </BS.Row>
 
-      {@renderCommonChoice() unless not @state.isEditable and @state.showingPeriods}
-      {@renderPeriodsChoice() unless not @state.isEditable and not @state.showingPeriods}
+      {@renderCommonChoice() unless @state.isVisibleToStudents and @state.showingPeriods}
+      {@renderPeriodsChoice() unless @state.isVisibleToStudents and not @state.showingPeriods}
       { invalidPeriodsAlert }
     </div>
 
@@ -488,8 +488,9 @@ module.exports = React.createClass
       name='toggle-periods-radio'
       ref='allPeriodsRadio'
       type='radio'
+      disabled={@state.isVisibleToStudents}
       onChange={@setAllPeriods}
-      checked={not @state.showingPeriods}/> if @state.isEditable
+      checked={not @state.showingPeriods}/> if not @state.isVisibleToStudents
 
     <BS.Row className="common tutor-date-input">
       <BS.Col sm=4 md=3>
@@ -504,8 +505,9 @@ module.exports = React.createClass
       id='show-periods-radio'
       name='toggle-periods-radio'
       type='radio'
+      disabled={@state.isVisibleToStudents}
       onChange={@setIndividualPeriods}
-      checked={@state.showingPeriods}/> if @state.isEditable
+      checked={@state.showingPeriods}/> if not @state.isVisibleToStudents
 
     choiceLabel = <BS.Row key='tasking-individual-choice'>
       <BS.Col md=12>
