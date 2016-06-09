@@ -1,7 +1,8 @@
-React = require 'react'
-BS = require 'react-bootstrap'
+React = require 'react/addons'
+Router = require 'react-router'
 moment = require 'moment'
 classnames = require 'classnames'
+_ = require 'underscore'
 
 Icon = require '../icon'
 {TaskStore} = require '../../flux/task'
@@ -12,59 +13,96 @@ module.exports = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
-  componentDidMount: ->
-    TaskStore.on('change', @update)
+  mixins: [React.addons.PureRenderMixin]
+
+  getInitialState: ->
+    params = @context.router.getCurrentParams()
+    taskInfo = @getTaskInfo(params)
+    controlInfo = @getControlInfo(params)
+
+    _.extend {}, taskInfo, controlInfo
+
+  componentWillMount: ->
+    location = @context.router.getLocation()
+    location.addChangeListener(@updateControls)
+    TaskStore.on('loaded', @updateTask)
 
   componentWillUnmount: ->
-    TaskStore.off('change', @update)
+    location = @context.router.getLocation()
+    location.removeChangeListener(@updateControls)
+    TaskStore.off('loaded', @updateTask)
 
-  update: ->
-    @setState(updateOnNext: true)
+  update: (getState, params) ->
+    params ?= @context.router.getCurrentParams()
 
-  handleClick: (event) ->
-    event.preventDefault()
-    @toggleMilestones()
+    state = getState(params)
+    @setState(state) if state?
 
-  hasMilestones: ->
-    @context.router.getCurrentParams().milestones?
+  updateControls: ({path}) ->
+    {params} = @context.router.match(path)
+    @update(@getControlInfo, params)
 
-  toggleMilestones: ->
+  updateTask: (taskId) ->
     params = @context.router.getCurrentParams()
+    @update(@getTaskInfo) if taskId is params.id
 
-    if @hasMilestones()
-      toParams = _.omit(params, 'milestones')
-      path = 'viewTaskStep'
-    else
-      toParams = _.extend({milestones: 'milestones'}, params)
-      path = 'viewTaskStepMilestones'
+  getTaskInfo: (params) ->
+    {id} = params
+    task = TaskStore.get(id)
 
-    @context.router.transitionTo(path, toParams)
+    return {show: false} unless task and task?.type is 'reading'
+
+    show: true
+    assignment: task.title
+    due: @reformatTaskDue(task.due_at)
+    isPastDue: TaskStore.isTaskPastDue(task.id)
 
   reformatTaskDue: (due_at) ->
     moment(due_at).calendar()
 
-  render: ->
-    return null unless @context?.router
-    {id} = @context.router.getCurrentParams()
-    task = TaskStore.get(id)
-    return null unless task? and task.type is 'reading'
-    assignment = task.title
-    due = @reformatTaskDue(task.due_at)
+  getControlInfo: (params) ->
+    hasMilestones = @hasMilestones(params)
+    linkParams = @getLinkProps(params, hasMilestones)
 
+    _.extend {}, linkParams, {hasMilestones}
+
+  hasMilestones: (params) ->
+    params.milestones?
+
+  getLinkProps: (params, hasMilestones) ->
+    return {show: false} unless params.id
+
+    if hasMilestones
+      params: _.omit(params, 'milestones')
+      to: 'viewTaskStep'
+    else
+      params: _.extend({milestones: 'milestones'}, params)
+      to: 'viewTaskStepMilestones'
+
+  render: ->
+    {show, assignment, due, isPastDue, hasMilestones} = @state
+    return null unless show
+
+    linkProps = _.pick @state, 'to', 'params'
+    calendarIconType = if isPastDue then 'calendar-times-o' else 'calendar-check-0'
     milestonesToggleClasses = classnames 'milestones-toggle',
-      'active': @hasMilestones()
+      'active': hasMilestones
 
     <div className='navbar-overlay'>
       <div className='center-control'>
-        {assignment}
-        <Icon type='calendar-check-o'
+        <span className='center-control-assignment'>
+          {assignment}
+        </span>
+
+        <Icon type={calendarIconType}
           tooltipProps={placement: 'bottom'}
           tooltip={due} />
-        <BS.Button
-          bsStyle='link'
-          onClick={@handleClick}
+        <Router.Link
+          {...linkProps}
+          ref='milestonesToggle'
+          activeClassName=''
           className={milestonesToggleClasses}>
-          <Icon type='th'/>
-        </BS.Button>
+          <Icon type='th' />
+        </Router.Link>
       </div>
     </div>

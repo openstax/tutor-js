@@ -1,4 +1,4 @@
-React = require 'react'
+React = require 'react/addons'
 keymaster = require 'keymaster'
 
 Arrow = require './arrow'
@@ -14,6 +14,8 @@ ProgressPanel = React.createClass
     stepId: React.PropTypes.string
     stepKey: React.PropTypes.number
     goToStep: React.PropTypes.func
+
+  mixins: [React.addons.PureRenderMixin]
 
   getInitialState: ->
     @getShouldShows()

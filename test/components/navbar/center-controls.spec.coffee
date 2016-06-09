@@ -13,6 +13,10 @@ VALID_MODEL = require '../../../api/tasks/4.json'
 ROUTER_PARAMS =
   id: TASK_ID
 
+MILESTONES_ROUTER_PARAMS =
+  id: TASK_ID
+  milestones: true
+
 describe 'Center Controls', ->
   before ->
     TaskActions.loaded(VALID_MODEL, TASK_ID)
@@ -27,19 +31,21 @@ describe 'Center Controls', ->
 
   it 'displays date on hover', ->
     Testing.renderComponent( CenterControls, routerParams: ROUTER_PARAMS ).then ({dom, element}) ->
-      iconEl = dom.querySelector('.tutor-icon[type="calendar-check-o"]')
+      iconEl = dom.querySelector('.tutor-icon[type^="calendar-"]')
       React.addons.TestUtils.Simulate.mouseOver(iconEl)
       tooltipEl = document.querySelector('div[role="tooltip"]')
       expect(tooltipEl).to.exist
       due = element.reformatTaskDue(VALID_MODEL.due_at)
       expect(tooltipEl.textContent).to.equal(due)
 
-  it 'toggles milestones via path', ->
+  it 'renders milestones link when not on milestones path', ->
     Testing.renderComponent( CenterControls, routerParams: ROUTER_PARAMS ).then ({dom, element}) ->
-      iconEl = dom.querySelector('.tutor-icon[type="th"]')
-      React.addons.TestUtils.Simulate.click(iconEl)
-      path = element.context.router.getCurrentPath()
-      expect(path).to.equal('viewTaskStepMilestones')
-      React.addons.TestUtils.Simulate.click(iconEl)
-      path = element.context.router.getCurrentPath()
-      expect(path).to.equal('viewTaskStep')
+      {to, className} = element.refs.milestonesToggle.props
+      expect(to).to.equal('viewTaskStepMilestones')
+      expect(className).to.not.contain('active')
+
+  it 'renders close milestones link when on milestones path', ->
+    Testing.renderComponent( CenterControls, routerParams: MILESTONES_ROUTER_PARAMS ).then ({dom, element}) ->
+      {to, className} = element.refs.milestonesToggle.props
+      expect(to).to.equal('viewTaskStep')
+      expect(className).to.contain('active')

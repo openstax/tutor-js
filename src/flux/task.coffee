@@ -67,6 +67,7 @@ TaskConfig =
     ).join('')
 
   _loaded: (obj, id) ->
+    @emit('loaded', id)
     MediaActions.parse(@_grabHtml(obj))
     StepTitleActions.parseSteps(obj.steps)
     # Populate all the TaskSteps when a Task is loaded
