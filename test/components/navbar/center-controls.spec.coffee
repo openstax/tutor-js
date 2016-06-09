@@ -12,10 +12,13 @@ VALID_MODEL = require '../../../api/tasks/4.json'
 
 ROUTER_PARAMS =
   id: TASK_ID
+  stepIndex: '1'
+  courseId: '1'
 
-MILESTONES_ROUTER_PARAMS =
-  id: TASK_ID
-  milestones: true
+MILESTONES_ROUTER_PARAMS = _.extend {milestones: true}, ROUTER_PARAMS
+
+PROPS =
+  shouldShow: true
 
 describe 'Center Controls', ->
   before ->
@@ -25,12 +28,12 @@ describe 'Center Controls', ->
     TaskActions.reset()
 
   it 'renders with task title', ->
-    Testing.renderComponent( CenterControls, routerParams: ROUTER_PARAMS ).then ({dom, element}) ->
+    Testing.renderComponent( CenterControls, {routerParams: ROUTER_PARAMS, props: PROPS} ).then ({dom, element}) ->
       {title} = VALID_MODEL
       expect(dom.querySelector('.center-control span').textContent).to.equal(title)
 
   it 'displays date on hover', ->
-    Testing.renderComponent( CenterControls, routerParams: ROUTER_PARAMS ).then ({dom, element}) ->
+    Testing.renderComponent( CenterControls, {routerParams: ROUTER_PARAMS, props: PROPS} ).then ({dom, element}) ->
       iconEl = dom.querySelector('.tutor-icon[type^="calendar-"]')
       React.addons.TestUtils.Simulate.mouseOver(iconEl)
       tooltipEl = document.querySelector('div[role="tooltip"]')
@@ -39,13 +42,13 @@ describe 'Center Controls', ->
       expect(tooltipEl.textContent).to.equal(due)
 
   it 'renders milestones link when not on milestones path', ->
-    Testing.renderComponent( CenterControls, routerParams: ROUTER_PARAMS ).then ({dom, element}) ->
+    Testing.renderComponent( CenterControls, {routerParams: ROUTER_PARAMS, props: PROPS} ).then ({dom, element}) ->
       {to, className} = element.refs.milestonesToggle.props
       expect(to).to.equal('viewTaskStepMilestones')
       expect(className).to.not.contain('active')
 
   it 'renders close milestones link when on milestones path', ->
-    Testing.renderComponent( CenterControls, routerParams: MILESTONES_ROUTER_PARAMS ).then ({dom, element}) ->
+    Testing.renderComponent( CenterControls, {routerParams: MILESTONES_ROUTER_PARAMS, props: PROPS} ).then ({dom, element}) ->
       {to, className} = element.refs.milestonesToggle.props
       expect(to).to.equal('viewTaskStep')
       expect(className).to.contain('active')

@@ -15,24 +15,43 @@ module.exports = React.createClass
 
   mixins: [React.addons.PureRenderMixin]
 
+  getDefaultProps: ->
+    shouldShow: false
+
   getInitialState: ->
-    params = @context.router.getCurrentParams()
+    params = @context.router?.getCurrentParams() or {}
     taskInfo = @getTaskInfo(params)
     controlInfo = @getControlInfo(params)
 
     _.extend {}, taskInfo, controlInfo
 
   componentWillMount: ->
-    location = @context.router.getLocation()
-    location.addChangeListener(@updateControls)
+    location = @context.router?.getLocation()
+    location.addChangeListener(@updateControls) if location
     TaskStore.on('loaded', @updateTask)
 
   componentWillUnmount: ->
-    location = @context.router.getLocation()
-    location.removeChangeListener(@updateControls)
+    location = @context.router?.getLocation()
+    location.removeChangeListener(@updateControls) if location
     TaskStore.off('loaded', @updateTask)
 
-  update: (getState, params) ->
+  shouldShow: (path) ->
+    {shouldShow} = @props
+    return true if shouldShow
+    return false unless @context.router?
+
+    path ?= @context.router.getCurrentPath()
+    matchedPath = @context.router.match(path)
+    return false unless matchedPath?.routes
+
+    'viewTaskStep' in _.pluck(matchedPath.routes, 'name')
+
+  update: (getState, params, path) ->
+    show = @shouldShow(path)
+    unless show
+      @setState({show})
+      return false
+
     params ?= @context.router.getCurrentParams()
 
     state = getState(params)
@@ -40,7 +59,7 @@ module.exports = React.createClass
 
   updateControls: ({path}) ->
     {params} = @context.router.match(path)
-    @update(@getControlInfo, params)
+    @update(@getControlInfo, params, path)
 
   updateTask: (taskId) ->
     params = @context.router.getCurrentParams()
@@ -70,7 +89,7 @@ module.exports = React.createClass
     params.milestones?
 
   getLinkProps: (params, hasMilestones) ->
-    return {show: false} unless params.id
+    return {show: false} unless params.id and params.stepIndex and params.courseId
 
     if hasMilestones
       params: _.omit(params, 'milestones')

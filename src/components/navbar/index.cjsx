@@ -55,7 +55,7 @@ module.exports = React.createClass
             </Router.Link>
 
     <BS.Navbar toggleNavKey={0} fixedTop fluid>
-      <CenterControls courseId={courseId}/>
+      <CenterControls/>
       <BS.NavBrand>
         {brand}
       </BS.NavBrand>
