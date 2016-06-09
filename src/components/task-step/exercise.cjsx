@@ -179,10 +179,10 @@ module.exports = React.createClass
     @setCurrentStep(stepIndex)
 
   render: ->
-    {id, taskId, courseId, onNextStep, onStepCompleted, goToStep} = @props
+    {id, taskId, courseId, onNextStep, onStepCompleted, goToStep, pinned} = @props
     {parts, lastPartId, isSinglePartExercise, task, currentStep} = @state
     part = _.last(parts)
-
+    console.info('currentStep', currentStep, 'pinned', pinned)
     controlProps =
       panel: 'review'
       controlText: 'Continue' if task.type is 'reading'
