@@ -137,7 +137,6 @@ module.exports = React.createClass
       unless @state.currentStep is nextState.currentStep
         nextStep = TaskStore.getStepByIndex(id, nextState.currentStep)
         TaskStepActions.load(nextStep.id)
-      return false
 
     # if we reach this point, assume that we should go ahead and do a normal component update
     true
