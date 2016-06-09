@@ -2,6 +2,8 @@
   "name": "Local Test Course",
   "book_id": "123",
   "ecosystem_id": "1",
+  "is_concept_coach": false,
+  "is_college": false,
   "periods": [{
       "id": "1",
       "name" : "1st",
