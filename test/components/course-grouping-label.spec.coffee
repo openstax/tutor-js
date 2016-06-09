@@ -4,15 +4,16 @@ CourseGroupingLabel = require '../../src/components/course-grouping-label'
 
 COURSE_ID = '1'
 COURSE    = require '../../api/user/courses/1.json'
-{CourseActions} = require '../../src/flux/course'
+{CourseActions, CourseStore} = require '../../src/flux/course'
 
 describe 'CourseGroupingLabel', ->
 
-  describe 'A non concept coach course', ->
+  describe 'A non college coach course', ->
     beforeEach ->
       CourseActions.loaded(COURSE, COURSE_ID)
 
     it 'renders as period', ->
+      expect(CourseStore.isCollege(COURSE_ID)).to.be.false
       Testing.renderComponent( CourseGroupingLabel, props: {courseId: COURSE_ID} ).then ({element, dom}) ->
         expect(dom.innerText).to.equal('Period')
 
@@ -29,11 +30,12 @@ describe 'CourseGroupingLabel', ->
         .then ({element, dom}) ->
           expect(dom.innerText).to.equal('periods')
 
-  describe 'A concept coach course', ->
+  describe 'A college course', ->
     beforeEach ->
-      CourseActions.loaded(_.extend(COURSE, is_concept_coach: true), COURSE_ID)
+      CourseActions.loaded(_.extend(COURSE, is_college: true), COURSE_ID)
 
     it 'renders as section', ->
+      expect(CourseStore.isCollege(COURSE_ID)).to.be.true
       Testing.renderComponent( CourseGroupingLabel, props: {courseId: COURSE_ID} ).then ({element, dom}) ->
         expect(dom.innerText).to.equal('Section')
 

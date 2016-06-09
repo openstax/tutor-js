@@ -16,8 +16,7 @@ CourseGroupingLabel = React.createClass
     if @props.lowercase then 'period' else 'Period'
 
   render: ->
-    {is_concept_coach} = CourseStore.get(@props.courseId)
-    name = if is_concept_coach then @section() else @period()
+    name = if CourseStore.isCollege(@props.courseId) then @section() else @period()
     if @props.plural then name += 's'
     <span>{name}</span>
 
