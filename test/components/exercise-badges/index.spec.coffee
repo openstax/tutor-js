@@ -2,8 +2,7 @@
 ld = require 'lodash'
 Badges = require 'components/exercise-badges'
 
-
-EXERCISE = require '../../../stubs/exercise/review'
+EXERCISE = require '../../../stubs/exercise-preview/data'
 
 describe 'Exercise Preview Component', ->
 
@@ -13,24 +12,23 @@ describe 'Exercise Preview Component', ->
     }
 
   it 'doesnt render if no items were found', ->
-    @props.exercise.content.stimulus_html = 'this is a prelude to the exercise without any video or such, but it has
-    some words that look videoy like youtube without the .com'
+    @props.exercise.has_interactive = false
+    @props.exercise.has_video = false
+    @props.exercise.content.questions = [ @props.exercise.content.questions[0] ]
     Testing.renderComponent( Badges, props: @props ).then ({dom}) ->
       expect(dom).not.to.exist
 
-  it 'renders for youtube video embed', ->
-    @props.exercise.content.stimulus_html = 'watch this: <iframe src="youtube.com/embed/u030w90rawe"></iframe>'
+  it 'renders interactive embed', ->
+    @props.exercise.has_interactive = true
     Testing.renderComponent( Badges, props: @props ).then ({dom}) ->
-      expect(dom).to.exist
-      expect(dom.textContent).to.include('Video')
+      expect( dom.querySelector('.interactive') ).to.exist
 
-  it 'renders for khanacadamy link', ->
-    @props.exercise.content.stimulus_html = 'watch this: khanacademy.org'
+  it 'renders for video', ->
+    @props.exercise.has_video = true
     Testing.renderComponent( Badges, props: @props ).then ({dom}) ->
-      expect(dom).to.exist
-      expect(dom.textContent).to.include('Video')
+      expect( dom.querySelector('.video') ).to.exist
 
   it 'renders for MPQs', ->
     @props.exercise.content.questions.push(ld.cloneDeep(@props.exercise.content.questions[0]))
     Testing.renderComponent( Badges, props: @props ).then ({dom}) ->
-      expect(dom.textContent).to.include('Multi-part question')
+      expect( dom.querySelector('.mpq') ).to.exist

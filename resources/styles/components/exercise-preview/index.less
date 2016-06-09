@@ -20,17 +20,10 @@
   }
 
   &.non-interactive {
-    .stimulus {
-      .frame-wrapper, iframe { display: none; }
-    }
-    .placeholders {
+    .placeholder {
       height: 200px;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      .placeholder {
-        flex: 1;
-      }
+      margin: 0 auto;
+      display: block;
     }
   }
 
@@ -45,7 +38,6 @@
 
 
   &.has-actions {
-
     .panel-body {
       &:hover {
         .controls-overlay {
@@ -267,6 +259,10 @@
   &.is-displaying-feedback {
     .panel-body .answers-table .question-feedback-content { display: table; }
     .detailed-solution{ display: block; }
+  }
+
+  .stimulus {
+    margin-bottom: 1rem;
   }
 
   // use absolute positioning for the identifer so it's link is clickable through the overlay

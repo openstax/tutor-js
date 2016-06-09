@@ -11,6 +11,7 @@ InteractivePlaceholder = require './interactive-placeholder'
 ExerciseBadges = require '../exercise-badges'
 ControlsOverlay = require './controls-overlay'
 Exercise = require '../../model/exercise'
+ContentWithPlaceholders = require './content-with-placeholders'
 
 ExercisePreview = React.createClass
 
@@ -26,10 +27,7 @@ ExercisePreview = React.createClass
     onOverlayClick:  React.PropTypes.func
     isSelected:      React.PropTypes.bool
     isInteractive:   React.PropTypes.bool
-    overlayActions:  React.PropTypes.shape(
-      message: React.PropTypes.string.isRequired
-      handler: React.PropTypes.func.isRequired
-    )
+    overlayActions:  React.PropTypes.object
     exercise:        React.PropTypes.shape(
       content: React.PropTypes.object
       tags:    React.PropTypes.array
@@ -60,15 +58,12 @@ ExercisePreview = React.createClass
       {@props.children}
     </div>
 
-  renderPlaceholders: ->
-    return null if @props.isInteractive isnt false
-    placeholders = []
-    placeholders.push(<VideoPlaceholder key='video'/>) if Exercise.hasVideo(@props.exercise)
-    placeholders.push(<InteractivePlaceholder key='interactive'/>) if Exercise.hasInteractive(@props.exercise)
-    if placeholders.length
-      <div className="placeholders">{placeholders}</div>
+  renderStimulus: ->
+    if @props.isInteractive or not @props.exercise.preview
+      <ArbitraryHtmlAndMath className='stimulus' block={true}
+        html={@props.exercise.content.stimulus_html} />
     else
-      null
+      <ContentWithPlaceholders content={@props.exercise.preview} className='stimulus' />
 
   render: ->
     content = @props.exercise.content
@@ -117,8 +112,8 @@ ExercisePreview = React.createClass
 
       <ExerciseBadges exercise={@props.exercise} />
 
-      <ArbitraryHtmlAndMath className='stimulus' block={true} html={content.stimulus_html} />
-      {@renderPlaceholders()}
+      {@renderStimulus()}
+
       {questions}
       <div className='exercise-uid'>Exercise ID: {@props.exercise.content.uid}</div>
       <div className='exercise-tags'>{renderedTags}</div>

@@ -1,3 +1,5 @@
+_ = require 'underscore'
+
 BOOK_UID_XREF =
   '27275f49-f212-4506-b3b1-a4d5e3598b99': 'Tutor Physics'
   'd52e93f4-8653-4273-86da-3850001c0786': 'Tutor Biology'
@@ -8,6 +10,10 @@ BOOK_UID_XREF =
   'd2fbadca-e4f3-4432-a074-2438c216b62a': 'Principles of Economics with Concept Coach'
   '99e127f8-f722-4907-a6b3-2d62fca135d6': 'Anatomy & Physiology with Concept Coach'
 
+PLACEHOLDER_COMPONENTS = {
+  video:       require '../components/exercise-preview/video-placeholder'
+  interactive: require '../components/exercise-preview/interactive-placeholder'
+}
 Exercises =
 
   troubleUrl: (options = {}) ->
@@ -20,10 +26,6 @@ Exercises =
       url += "&entry.1091629000=#{BOOK_UID_XREF[options.bookUUID]}"
     url
 
-
-  getStimulus: (exercise) ->
-    exercise.content?.stimulus_html or ''
-
   getParts: (exercise) ->
     exercise.content?.questions or []
 
@@ -31,10 +33,15 @@ Exercises =
     @getParts(exercise).length > 1
 
   hasInteractive: (exercise) ->
-    !!@getStimulus(exercise).match(/iframe.*(cnx.org|phet.colorado.edu)/)
+    exercise.has_interactive
 
   hasVideo: (exercise) ->
-    !!@getStimulus(exercise).match(/(youtube.com\/(v|embed)\/|khanacademy.org)/)
+    exercise.has_video
+
+  replacePlaceholders: (content) ->
+    return [] unless content
+    _.map content.split(/<div class="preview (\w+)">\w+<\/div>/), (part) ->
+      PLACEHOLDER_COMPONENTS[part] or part
 
 
 module.exports = Exercises
