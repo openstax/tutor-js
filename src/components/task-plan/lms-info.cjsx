@@ -65,7 +65,6 @@ LmsInfo = React.createClass
       id={_.uniqueId('sharable-link-popover')}
     >
       <div className='body' onClick={@focusInput}>
-
         <input ref='input' value={url} readOnly={true} />
         -
         <p>Summary</p>
@@ -94,8 +93,3 @@ LmsInfo = React.createClass
 
 
 module.exports = LmsInfo
-
-# end-dates
-# close button
-# blue highlight
-# arrow misplaced
