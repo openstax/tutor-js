@@ -7,7 +7,7 @@ module.exports = React.createClass
   findTypeFromColumn: ->
     {refs, columnIndex} = @props
     type = _.findWhere(_.keys(refs), columnIndex)
-    type.split('-').pop()
+    type?.split('-').pop()
 
   render: ->
     columnType = @findTypeFromColumn()

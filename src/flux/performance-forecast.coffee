@@ -7,6 +7,7 @@ _ = require 'underscore'
 
 # Common helper method to find all the sections contained in a learning guide response
 findAllSections = (section) ->
+  return [] unless section
   sections = []
   if section.chapter_section?.length > 1
     sections.push(section)

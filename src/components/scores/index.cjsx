@@ -101,6 +101,12 @@ Scores = React.createClass
     else
       _.first(data)
 
+    return {
+      overall_average_score: 0
+      headings: []
+      rows: []
+    } unless scores?
+
     sortData = _.sortBy(scores.students, (d) =>
       if _.isNumber(sort.key)
         index = sort.key - firstDataColumn
@@ -164,7 +170,7 @@ Scores = React.createClass
 
     scoresTable =
       <ScoresTable
-      courseId={@props.courseId} 
+      courseId={@props.courseId}
       data={data}
       width={tableWidth}
       height={tableHeight}
