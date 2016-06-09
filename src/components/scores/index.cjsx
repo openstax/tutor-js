@@ -100,7 +100,12 @@ Scores = React.createClass
       _.findWhere(data, {period_id})
     else
       _.first(data)
-    return [] unless scores?
+
+    return {
+      overall_average_score: 0
+      headings: []
+      rows: []
+    } unless scores?
 
     sortData = _.sortBy(scores.students, (d) =>
       if _.isNumber(sort.key)
