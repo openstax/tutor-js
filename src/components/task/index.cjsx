@@ -11,6 +11,8 @@ classnames = require 'classnames'
 
 CrumbMixin = require './crumb-mixin'
 StepFooterMixin = require '../task-step/step-footer-mixin'
+ScrollToMixin = require '../scroll-to-mixin'
+
 TaskStep = require '../task-step'
 {Spacer} = require '../task-step/all-steps'
 Ends = require '../task-step/ends'
@@ -32,7 +34,7 @@ module.exports = React.createClass
 
   displayName: 'Task'
 
-  mixins: [StepFooterMixin, CrumbMixin, UnsavedStateMixin]
+  mixins: [StepFooterMixin, CrumbMixin, UnsavedStateMixin, ScrollToMixin]
 
   contextTypes:
     router: React.PropTypes.func
@@ -137,6 +139,8 @@ module.exports = React.createClass
       unless @state.currentStep is nextState.currentStep
         nextStep = TaskStore.getStepByIndex(id, nextState.currentStep)
         TaskStepActions.load(nextStep.id)
+        unless nextState.stepEntered is nextState.currentStep
+          @scrollToSelector("#exercise-part-with-scroll-#{nextState.currentStep}", {updateHistory: false})
 
     # if we reach this point, assume that we should go ahead and do a normal component update
     true
@@ -183,6 +187,33 @@ module.exports = React.createClass
       @context.router.transitionTo('viewTaskStep', params)
       true
 
+  onPartEnter: (stepKey, scrollInfo) ->
+    {previousPosition} = scrollInfo
+    return unless previousPosition is 'below'
+
+    stepKey = parseInt(stepKey)
+    params = _.clone(@context.router.getCurrentParams())
+    params.stepIndex = stepKey + 1
+    params.id = @props.id # if we were rendered directly, the router might not have the id
+
+    return unless TaskStore.isSameStep(@props.id, @state.currentStep, stepKey)
+
+    @setState(stepEntered: stepKey)
+    @context.router.transitionTo('viewTaskStep', params)
+
+  onPartLeave: (stepKey, scrollInfo) ->
+    {currentPosition} = scrollInfo
+    return unless currentPosition is 'below'
+
+    stepKey = parseInt(stepKey)
+    params = _.clone(@context.router.getCurrentParams())
+    params.stepIndex = stepKey
+    params.id = @props.id # if we were rendered directly, the router might not have the id
+    return unless TaskStore.isSameStep(@props.id, @state.currentStep, stepKey - 1)
+
+    @setState(stepEntered: stepKey - 1)
+    @context.router.transitionTo('viewTaskStep', params)
+
   toggleMilestonesEntered: ->
     @setState(milestonesEntered: not @state.milestonesEntered)
 
@@ -208,6 +239,8 @@ module.exports = React.createClass
       taskId={@props.id}
       courseId={courseId}
       goToStep={@goToStep}
+      onPartEnter={@onPartEnter}
+      onPartLeave={@onPartLeave}
       onNextStep={@onNextStep}
       refreshStep={@refreshStep}
       recoverFor={@recoverFor}
