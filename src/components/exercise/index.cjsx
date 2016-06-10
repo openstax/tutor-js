@@ -1,4 +1,5 @@
 React = require 'react'
+Waypoint = require 'react-waypoint'
 _ = require 'underscore'
 
 ExercisePart = require './part'
@@ -38,8 +39,8 @@ ExerciseMixin =
     props = _.omit(@props, 'part', 'canOnlyContinue', 'footer', 'setScrollState', 'goToStep')
 
     <ExercisePart
-      {...partProps}
       {...props}
+      {...partProps}
       step={part}
       id={part.id}
       taskId={part.task_id}/>
@@ -104,7 +105,7 @@ ExerciseMixin =
 
 ExerciseWithScroll = React.createClass
   displayName: 'ExerciseWithScroll'
-  mixins: [ScrollListenerMixin, ScrollTrackerParentMixin, ExerciseMixin]
+  mixins: [ExerciseMixin]
   wrapPartWithScroll: (parts, exercisePart, index) ->
     part = parts[index]
 
@@ -114,13 +115,14 @@ ExerciseWithScroll = React.createClass
       id: part.id
       index: index
 
-    <ScrollTracker
+    marker = <Waypoint
       key="exercise-part-with-scroll-#{index}"
-      scrollState={scrollState}
-      setScrollPoint={@setScrollPoint}
-      unsetScrollPoint={@unsetScrollPoint}>
-      {exercisePart}
-    </ScrollTracker>
+      onEnter={_.partial(@props.goToStep, part.stepIndex)}/>
+
+    [
+      marker,
+      exercisePart
+    ]
 
   render: ->
     {parts, footer, pinned} = @props
@@ -129,7 +131,10 @@ ExerciseWithScroll = React.createClass
       return @renderSinglePart()
 
     exerciseParts = @renderMultiParts()
-    exercisePartsWithScroll = _.map exerciseParts, _.partial @wrapPartWithScroll, parts
+    exercisePartsWithScroll = _.chain(exerciseParts)
+      .map _.partial(@wrapPartWithScroll, parts)
+      .flatten()
+      .value()
     exerciseGroup = @renderGroup()
     footer ?= @renderFooter()
 
