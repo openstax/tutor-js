@@ -2,7 +2,9 @@ _ = require 'underscore'
 expect = chai.expect
 React = require 'react'
 ReactAddons    = require('react/addons')
+ReactContext   = require('react/lib/ReactContext')
 ReactTestUtils = React.addons.TestUtils
+
 {Promise}      = require 'es6-promise'
 {commonActions} = require './utilities'
 sandbox = null
@@ -71,6 +73,15 @@ Testing = {
 
   actions: commonActions
 
+  shallowRender: (component) ->
+    context = router: ROUTER
+    ReactContext.current = context
+    renderer = ReactTestUtils.createRenderer()
+    renderer.render(component, context)
+    output = renderer.getRenderOutput()
+    ReactContext.current = {}
+
+    output
 }
 
 # Hide the router behind a defined property so it can access the ROUTER variable that's set in the beforeEach

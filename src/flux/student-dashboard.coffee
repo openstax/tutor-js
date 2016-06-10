@@ -10,6 +10,14 @@ arrayToSentence = (arry) ->
     arry[0]
 
 StudentDashboardConfig = {
+  _asyncStatusStats: {}
+
+  hide:(taskId) ->
+    @_asyncStatusStats[taskId] = 'hiding'
+
+  hidden:(taskId) ->
+    @_asyncStatusStats[taskId] = 'hidden'
+    @emit("hidden", taskId)
 
   exports:
 
@@ -35,6 +43,7 @@ StudentDashboardConfig = {
     canWorkTask: (event) ->
       return new Date(event.opens_at) < TimeStore.getNow()
 
+    isDeleted: (event) -> event.is_deleted
 
     # Returns events who's due date has not passed
     upcomingEvents: (courseId, now = TimeStore.getNow()) ->

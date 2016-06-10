@@ -1,10 +1,10 @@
 React  = require 'react'
 BS     = require 'react-bootstrap'
-
 Time   = require '../time'
-{StudentDashboardStore} = require '../../flux/student-dashboard'
+{StudentDashboardStore, StudentDashboardActions} = require '../../flux/student-dashboard'
 EventInfoIcon = require './event-info-icon'
 {Instructions} = require '../task/details'
+classnames = require 'classnames'
 
 module.exports = React.createClass
   displayName: 'EventRow'
@@ -18,18 +18,40 @@ module.exports = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
+  getInitialState: -> hidden: false
+
   onClick: ->
     @context.router.transitionTo 'viewTaskStep',
       # url is 1 based so it matches the breadcrumb button numbers. 1==first step
       {courseId:@props.courseId, id: @props.event.id, stepIndex: 1}
 
+  hideTask: ->
+    StudentDashboardActions.hide(@props.event.id)
+    StudentDashboardStore.on('hidden', @hidden)
+
+  hidden: -> @setState({hidden: true})
+
   render: ->
+    if @state.hidden then return null
+
     {workable} = @props
     workable ?= StudentDashboardStore.canWorkTask(@props.event)
-    # FIXME - use classnames lib when available
-    classnames = "task row #{@props.className}"
-    classnames += ' workable' if workable
-    <div className={classnames} onClick={@onClick if workable}
+    deleted = StudentDashboardStore.isDeleted(@props.event)
+    classes = classnames("task row #{@props.className}", {workable, deleted})
+
+    if deleted
+      hideButton = <BS.Button className="-hide-button" onClick={@hideTask}>
+        <i className="fa fa-close"/>
+      </BS.Button>
+      feedback = <span>Withdrawn</span>
+    else
+      time = <Time date={@props.event.due_at} />
+      feedback = [
+        <span>{@props.feedback}</span>
+        <EventInfoIcon event={@props.event} />
+      ]
+
+    <div className={classes} onClick={@onClick if workable and not deleted}
       data-event-id={@props.event.id}>
       <BS.Col xs={2}  sm={1} className={"column-icon"}>
         <i className={"icon icon-lg icon-#{@props.className}"}/>
@@ -41,9 +63,10 @@ module.exports = React.createClass
           popverClassName='student-dashboard-instructions-popover'/>
       </BS.Col>
       <BS.Col xs={5}  sm={3} className='feedback'>
-        <span>{@props.feedback}</span><EventInfoIcon event={@props.event} />
+        {feedback}
       </BS.Col>
       <BS.Col xs={5}  sm={2} className='due-at'>
-        <Time date={@props.event.due_at} />
+        {time}
+        {hideButton}
       </BS.Col>
     </div>
