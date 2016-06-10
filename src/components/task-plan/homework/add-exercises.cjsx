@@ -79,6 +79,9 @@ AddExercises = React.createClass
   getExerciseIsSelected: (exercise) ->
     TaskPlanStore.hasExercise(@props.planId, exercise.id)
 
+  setCurrentSection: (currentSection) ->
+    @setState({currentSection})
+
   render: ->
     return @renderLoading() if @exercisesAreLoading()
 
@@ -95,6 +98,8 @@ AddExercises = React.createClass
         <ExerciseDetails
           {...sharedProps}
           selectedExercise={@state.selectedExercise}
+          onSectionChange={@setCurrentSection}
+          selectedSection={@state.currentSection}
           displayFeedback={@state.displayFeedback}
           onShowCardViewClick={@onShowCardViewClick}
         />
