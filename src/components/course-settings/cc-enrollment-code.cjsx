@@ -40,7 +40,7 @@ module.exports = React.createClass
 
        2. Click on section 1.1 in the book. Scroll to the bottom of the section and click on the Concept Coach button.
 
-       3. On the right side of the screen, enter your two-word enrollment code:
+       3. On the right side of the screen, enter your enrollment code:
        #{code}
 
        4. On the next screen, click “Click to begin login.” Then click “Sign up” and follow the prompts to create your free account.
@@ -50,10 +50,10 @@ module.exports = React.createClass
     <div>
 
       <div className='summary'>
-        <p>The two-word enrollment code for this section is:</p>
+        <p>The enrollment code for this section is:</p>
         <p className='code'>{code}</p>
         <p>Each section of your course will have a
-         different two-word enrollment code.</p>
+         different enrollment code.</p>
       </div>
 
       <div className='callout'>
