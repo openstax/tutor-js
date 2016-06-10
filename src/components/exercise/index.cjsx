@@ -144,7 +144,7 @@ ExerciseWithScroll = React.createClass
       .flatten()
       .value()
     exerciseGroup = @renderGroup()
-    footer ?= @renderFooter()
+    footer ?= @renderFooter() if pinned
 
     <CardBody footer={footer} pinned={pinned} className='openstax-multipart-exercise-card'>
       <ExerciseBadges isMultipart={true}/>
