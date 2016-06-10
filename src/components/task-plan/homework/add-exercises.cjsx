@@ -97,6 +97,7 @@ AddExercises = React.createClass
       when 'details'
         <ExerciseDetails
           {...sharedProps}
+          topScrollOffset={60}
           selectedExercise={@state.selectedExercise}
           onSectionChange={@setCurrentSection}
           selectedSection={@state.currentSection}
@@ -106,7 +107,7 @@ AddExercises = React.createClass
       else
         <ExerciseCards
           {...sharedProps}
-          topScrollOffset={150}
+          topScrollOffset={120}
           onShowDetailsViewClick={@onShowDetailsViewClick}
         />
 

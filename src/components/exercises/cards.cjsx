@@ -71,7 +71,6 @@ ExerciseCards = React.createClass
 
   propTypes:
     exercises:              React.PropTypes.object.isRequired
-    scrollFast:             React.PropTypes.bool
     onExerciseToggle:       React.PropTypes.func.isRequired
     getExerciseIsSelected:  React.PropTypes.func.isRequired
     getExerciseActions:     React.PropTypes.func.isRequired
@@ -84,7 +83,7 @@ ExerciseCards = React.createClass
     topScrollOffset: 110
 
   componentDidMount:   ->
-    @scrollToSelector('.exercise-sections', {immediate: @props.scrollFast})
+    @scrollToSelector('.exercise-sections')
 
   getScrollTopOffset: ->
     # no idea why scrollspeed makes the difference, sorry :(

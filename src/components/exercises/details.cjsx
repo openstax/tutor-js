@@ -36,7 +36,7 @@ ExerciseDetails = React.createClass
   getInitialState: -> {}
 
   componentDidMount:   ->
-    @scrollToSelector('.exercise-controls-bar', {immediate: true})
+    @scrollToSelector('.exercise-controls-bar')
 
   componentWillUnmount: ->
     keymaster.deleteScope(KEYBINDING_SCOPE)

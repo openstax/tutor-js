@@ -168,7 +168,6 @@ ExercisesDisplay = React.createClass
     else
       <ExerciseCards
         {...sharedProps}
-        scrollFast={@state.showingCardsFromDetailsView}
         onExerciseToggle={@onExerciseToggle}
         onShowDetailsViewClick={@onShowDetailsViewClick} />
 
