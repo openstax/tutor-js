@@ -48,7 +48,7 @@ ROUTES =
     roles:
       teacher: 'viewScores'
   course:
-    label: 'Course Roster'
+    label: 'Course Settings and Roster'
     roles:
       teacher: 'courseSettings'
 
