@@ -120,10 +120,12 @@ ExerciseWithScroll = React.createClass
     onPartEnter = _.partial(onPartEnter, part.stepIndex) if onPartEnter and _.isFunction(onPartEnter)
     onPartLeave = _.partial(onPartLeave, part.stepIndex) if onPartLeave and _.isFunction(onPartLeave)
 
-    marker = <div id="exercise-part-with-scroll-#{index}"><Waypoint
-      key="exercise-part-with-scroll-#{index}"
-      onEnter={onPartEnter}
-      onLeave={onPartLeave}/></div>
+    marker = <div id="exercise-part-with-scroll-#{part.stepIndex}">
+      <Waypoint
+        key="exercise-part-with-scroll-#{part.stepIndex}"
+        onEnter={onPartEnter}
+        onLeave={onPartLeave}/>
+    </div>
 
     [
       marker,
