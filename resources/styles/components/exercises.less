@@ -1,5 +1,8 @@
+@exercise-details-body-height: calc(~"100vh - 150px");
+
 .exercise-details {
-  min-height: calc(~"100vh - 150px");
+
+  min-height: @exercise-details-body-height;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -16,6 +19,7 @@
   .controls {
     display: flex;
     justify-content: flex-end;
+    z-index: 1; // above details forward/back nav when scrolling up
     .show-cards {
       cursor: pointer;
     }
@@ -26,38 +30,27 @@
 
     .controls-overlay {
       transition: none;
-      height: calc(~"100vh - 200px");
-      // .message {
-      //   // height: calc(~"100vh - 150px");
-      // }
-//      display: none;
+      height: @exercise-details-body-height;
     }
   }
 
   .page-navigation {
     .page-navigation-arrows(800px);
 
-    height: calc(~"100vh - 150px");
+    height: @exercise-details-body-height;
     position: absolute;
-    top: 0px;
-
-
-    //display: none; // toggled on at bottom of file when body has pinned navbar
+    top: 0;
   }
-
-  // .pinned-view.pinned-on .exercise-details .exercise-card .controls-overlay {
-
-  // }
 
 }
 
-// re-enable hidden controls when nav is pinned
+// switch controls to fixed when not scrolling up
 .pinned-view.pinned-on {
 
   .exercise-details {
     .exercise-card {
       .controls-overlay {
-        height: calc(~"100vh - 150px");
+        height: @exercise-details-body-height;
         position: fixed;
         top: 150px;
         left: calc(~"50% - " 400px );
@@ -68,14 +61,15 @@
       display: flex;
       cursor: pointer;
 
-      max-height: calc(~"100vh - 150px");
+      max-height: @exercise-details-body-height;
       position: fixed;
-      top: 150px;
-      // .prev {
-      //   left: 0px;
-      // }
+      top: 200px;
 
+      &.prev {
+        left: 0;
+      }
     }
+
   }
 
 }
