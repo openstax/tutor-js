@@ -188,6 +188,7 @@ module.exports = React.createClass
       true
 
   onPartEnter: (stepKey, scrollInfo) ->
+    return if @context.router.getCurrentParams().milestones?
     {previousPosition} = scrollInfo
     return unless previousPosition is 'below'
 
@@ -202,6 +203,7 @@ module.exports = React.createClass
     @context.router.transitionTo('viewTaskStep', params)
 
   onPartLeave: (stepKey, scrollInfo) ->
+    return if @context.router.getCurrentParams().milestones?
     {currentPosition} = scrollInfo
     return unless currentPosition is 'below'
 
