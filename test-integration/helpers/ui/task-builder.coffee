@@ -120,6 +120,11 @@ COMMON_SELECT_READING_ELEMENTS =
   chapterHeading: (section) ->
     css: "#{OPENED_PANEL_SELECTOR} [data-chapter-section='#{section.split('.')[0]}'] > a"
 
+COMMON_DELETE_CONFIRM_ELEMENTS =
+  confirm:
+    css: '.btn.btn-primary'
+  cancel:
+    css: '.btn.btn-default'
 
 COMMON_UNSAVED_DIALOG_ELEMENTS =
   loadingState:
@@ -148,6 +153,22 @@ class SelectReadingsList extends TestHelper
 
         @el.sectionItem(section).waitClick()
 
+class DeleteConfirmPopover extends TestHelper
+  constructor: (test, testElementLocator) ->
+    testElementLocator ?= css: '.popover.openstax-surety-guard'
+    super test, testElementLocator, COMMON_DELETE_CONFIRM_ELEMENTS
+
+  confirm: =>
+    @el.self().isPresent().then (popoverIsOpen) =>
+      return unless popoverIsOpen
+      @waitUntilLoaded()
+      @el.confirm().click()
+      @waitUntilClose()
+
+  waitUntilClose: =>
+    @test.driver.wait =>
+      @el.self().isPresent().then (isPresent) -> not isPresent
+
 
 # TODO could probably make this a general dialog/modal helper to extend from.
 class UnsavedDialog extends TestHelper
@@ -167,7 +188,6 @@ class UnsavedDialog extends TestHelper
       @el.dismissButton().click()
       @waitUntilClose()
 
-
 # Helper methods for dealing with the Reading Assignment Builder
 # TODO this could probably be made into a BuilderHelper that extends the TestHelper
 # and then the TaskBuilder and HomeworkBuilder can extend the BuilderHelper
@@ -178,6 +198,7 @@ class TaskBuilder extends TestHelper
     super test, testElementLocator, COMMON_ELEMENTS
     # todo look at making these accessible as functions as well
     @setCommonHelper('selectReadingsList', new SelectReadingsList(@test))
+    @setCommonHelper('deleteConfirmation', new DeleteConfirmPopover(@test))
     @setCommonHelper('unsavedDialog', new UnsavedDialog(@test))
     @setCommonHelper('exerciseSelector', new ExerciseSelector(@test))
 
@@ -285,9 +306,8 @@ class TaskBuilder extends TestHelper
     # Wait up to 2min for delete to complete
     @el.deleteButton().waitClick(2 * 60 * 1000)
     # Accept the browser confirm dialog
-    @test.driver.wait(selenium.until.alertIsPresent()).then (alert) ->
-      alert.accept()
-
+    @el.deleteConfirmation.waitUntilLoaded()
+    @el.deleteConfirmation.confirm()
     Calendar.verify(@test, 2 * 60 * 100)
 
 
