@@ -107,6 +107,8 @@ ExerciseWithScroll = React.createClass
   displayName: 'ExerciseWithScroll'
   mixins: [ExerciseMixin]
   wrapPartWithScroll: (parts, exercisePart, index) ->
+    {onPartEnter} = @props
+
     part = parts[index]
 
     scrollState =
@@ -115,9 +117,11 @@ ExerciseWithScroll = React.createClass
       id: part.id
       index: index
 
+    onPartEnter = _.partial(onPartEnter, part.stepIndex) if onPartEnter and _.isFunction(onPartEnter)
+
     marker = <Waypoint
       key="exercise-part-with-scroll-#{index}"
-      onEnter={_.partial(@props.goToStep, part.stepIndex)}/>
+      onEnter={onPartEnter}/>
 
     [
       marker,
