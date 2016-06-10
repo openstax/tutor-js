@@ -122,6 +122,7 @@ ExerciseWithScroll = React.createClass
 
     marker = <Waypoint
       key="exercise-part-with-scroll-#{index}"
+      id="exercise-part-with-scroll-#{index}"
       onEnter={onPartEnter}
       onLeave={onPartLeave}/>
 
