@@ -27,7 +27,7 @@ module.exports = React.createClass
 
   render: ->
     {courseId, store} = @props
-    teachers = store.get(courseId).course.teachers or []
+    teachers = store.get(courseId).teachers or []
     <div className="teachers-table">
       <div><span className='course-settings-subtitle'>Instructors</span></div>
       <BS.Table striped bordered condensed hover className="roster">
