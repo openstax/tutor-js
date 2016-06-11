@@ -10,12 +10,12 @@ CnxModTag = React.createClass
     actions: React.PropTypes.object.isRequired
 
   validateInput: (value) ->
-    'Must match CNX module ID with feature ID' unless value.match(
-      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}#[\w\-]+$/i
+    'Must match feature ID' unless value.match(
+      /^[\w\-]+$/i
     )
 
   cleanInput: (val) ->
-    val.replace(/[^\w\-#]/g, '')
+    val.replace(/[^\w\-]/g, '')
 
   render: ->
     <MultiInput
@@ -23,7 +23,7 @@ CnxModTag = React.createClass
       label='CNX Feature'
       prefix='context-cnxfeature'
       cleanInput={@cleanInput}
-      placeholder='#########-####-###-####-############feature-id'
+      placeholder='feature-id'
       validateInput={@validateInput}
     />
 
