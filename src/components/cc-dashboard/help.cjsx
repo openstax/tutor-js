@@ -8,15 +8,21 @@ CourseGroupingLabel = require '../course-grouping-label'
 Icon = require '../icon'
 classnames = require 'classnames'
 
-BlankCourse = React.createClass
+CCDashboardHelp = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string
     inPeriod: React.PropTypes.bool
 
+  contextTypes:
+    router: React.PropTypes.func
+
   render: ->
-    glprops = {lowercase:true, courseId: @props.courseId}
-    classes = classnames 'blank-course', 'in-period': @props.inPeriod
+    courseId = @props.courseId or @context.router.getCurrentParams().courseId
+
+    glprops = {lowercase:true, courseId: courseId}
+    classes = classnames 'cc-dashboard-help-page', 'in-period': @props.inPeriod
+
     <div className="#{classes}">
       <h3 className="title">
         Welcome to your OpenStax Concept Coach™ Dashboard
@@ -57,7 +63,7 @@ BlankCourse = React.createClass
               </li>
             </ol>
             <Router.Link className='settings btn btn-default btn-large'
-              to='courseSettings' params={courseId: @props.courseId}
+              to='courseSettings' params={{courseId}}
             >
               <Icon type='plus' /> Add
               a <CourseGroupingLabel {...glprops} /> to your course
@@ -66,7 +72,7 @@ BlankCourse = React.createClass
           </div>
           <div className='graphic'>
             <div className='svg-container'>
-              <DesktopImage courseId={@props.courseId} />
+              <DesktopImage courseId={courseId} />
             </div>
           </div>
         </div>
@@ -75,4 +81,4 @@ BlankCourse = React.createClass
     </div>
 
 
-module.exports = BlankCourse
+module.exports = CCDashboardHelp
