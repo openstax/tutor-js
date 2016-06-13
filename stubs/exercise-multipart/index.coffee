@@ -19,16 +19,16 @@ commonContent =
   stem_html: 'This stem should only show up once.'
   uid: '120@1'
 
-assignStepToTask = (step, questionNumber) ->
+assignStepToTask = (step, stepIndex) ->
   step.content = _.extend {}, commonContent, step.content
-  _.extend {questionNumber}, commonInfo, step
+  _.extend {questionNumber: (stepIndex + 1)}, {stepIndex: stepIndex}, commonInfo, step
 
 
-_.forEach steps, (step) ->
+_.forEach steps, (step, stepIndex) ->
   stepStubs =
-    'free-response': assignStepToTask _.omit(step, 'correct_answer_id', 'feedback_html'), 1
-    'multiple-choice': assignStepToTask _.omit(step, 'correct_answer_id', 'feedback_html'), 2
-    'review': assignStepToTask _.clone(step), 3
+    'free-response': assignStepToTask _.omit(step, 'correct_answer_id', 'feedback_html'), stepIndex
+    'multiple-choice': assignStepToTask _.omit(step, 'correct_answer_id', 'feedback_html'), stepIndex
+    'review': assignStepToTask _.clone(step), stepIndex
 
   stepsStubs[step.id] = stepStubs
 

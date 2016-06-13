@@ -1,4 +1,5 @@
 React = require 'react'
+Waypoint = require 'react-waypoint'
 _ = require 'underscore'
 
 ExercisePart = require './part'
@@ -39,8 +40,8 @@ ExerciseMixin =
     props = _.omit(@props, 'part', 'canOnlyContinue', 'footer', 'setScrollState', 'goToStep')
 
     <ExercisePart
-      {...partProps}
       {...props}
+      {...partProps}
       step={part}
       id={part.id}
       taskId={part.task_id}/>
@@ -115,8 +116,10 @@ ExerciseMixin =
 
 ExerciseWithScroll = React.createClass
   displayName: 'ExerciseWithScroll'
-  mixins: [ScrollListenerMixin, ScrollTrackerParentMixin, ExerciseMixin]
+  mixins: [ExerciseMixin]
   wrapPartWithScroll: (parts, exercisePart, index) ->
+    {onPartEnter, onPartLeave} = @props
+
     part = parts[index]
 
     scrollState =
@@ -125,26 +128,36 @@ ExerciseWithScroll = React.createClass
       id: part.id
       index: index
 
-    <ScrollTracker
-      key="exercise-part-with-scroll-#{index}"
-      scrollState={scrollState}
-      setScrollPoint={@setScrollPoint}
-      unsetScrollPoint={@unsetScrollPoint}>
-      {exercisePart}
-    </ScrollTracker>
+    onPartEnter = _.partial(onPartEnter, part.stepIndex) if onPartEnter and _.isFunction(onPartEnter)
+    onPartLeave = _.partial(onPartLeave, part.stepIndex) if onPartLeave and _.isFunction(onPartLeave)
+
+    marker = <div id="exercise-part-with-scroll-#{part.stepIndex}">
+      <Waypoint
+        key="exercise-part-with-scroll-#{part.stepIndex}"
+        onEnter={onPartEnter}
+        onLeave={onPartLeave}/>
+    </div>
+
+    [
+      marker,
+      exercisePart
+    ]
 
   render: ->
-    {parts, footer} = @props
+    {parts, footer, pinned} = @props
 
     if @isSinglePart()
       return @renderSinglePart()
 
     exerciseParts = @renderMultiParts()
-    exercisePartsWithScroll = _.map exerciseParts, _.partial @wrapPartWithScroll, parts
+    exercisePartsWithScroll = _.chain(exerciseParts)
+      .map _.partial(@wrapPartWithScroll, parts)
+      .flatten()
+      .value()
     exerciseGroup = @renderGroup()
-    footer ?= @renderFooter()
+    footer ?= @renderFooter() if pinned
 
-    <CardBody footer={footer} className='openstax-multipart-exercise-card'>
+    <CardBody footer={footer} pinned={pinned} className='openstax-multipart-exercise-card'>
       <ExerciseBadges isMultipart={true}/>
       {exerciseGroup}
       {exercisePartsWithScroll}
@@ -156,7 +169,7 @@ Exercise = React.createClass
   displayName: 'Exercise'
   mixins: [ExerciseMixin]
   render: ->
-    {footer} = @props
+    {footer, pinned} = @props
 
     if @isSinglePart()
       return <CardBody footer={footer} className='openstax-multipart-exercise-card'>
@@ -168,7 +181,7 @@ Exercise = React.createClass
     exerciseGroup = @renderGroup()
     footer ?= @renderFooter()
 
-    <CardBody footer={footer} className='openstax-multipart-exercise-card'>
+    <CardBody footer={footer} pinned={pinned} className='openstax-multipart-exercise-card'>
       <ExerciseBadges isMultipart={true}/>
       {exerciseGroup}
       {exerciseParts}
