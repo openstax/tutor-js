@@ -20,11 +20,9 @@ module.exports = React.createClass
       <td>{student.last_name}</td>
       <td className="actions">
         <ChangePeriodLink
-        id="change-period-popover-#{student.id}"
         courseId={@props.courseId}
         student={student} />
         <DropStudentLink
-        id="drop-student-popover-#{student.id}"
         student={student} />
       </td>
     </tr>
