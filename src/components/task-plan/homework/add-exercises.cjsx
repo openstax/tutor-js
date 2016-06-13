@@ -107,7 +107,7 @@ AddExercises = React.createClass
       else
         <ExerciseCards
           {...sharedProps}
-          topScrollOffset={120}
+          topScrollOffset={110}
           onShowDetailsViewClick={@onShowDetailsViewClick}
         />
 
