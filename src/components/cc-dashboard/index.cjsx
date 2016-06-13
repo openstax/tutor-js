@@ -4,7 +4,7 @@ BS = require 'react-bootstrap'
 {CCDashboardStore, CCDashboardActions} = require '../../flux/cc-dashboard'
 LoadableItem = require '../loadable-item'
 CCDashboard = require './dashboard'
-BlankCourse = require './blank-course'
+CCDashboardHelp = require './help'
 classnames = require 'classnames'
 
 
@@ -15,19 +15,17 @@ DashboardShell = React.createClass
   onLoadComplete: ->
     {courseId} = @context.router.getCurrentParams()
     if CCDashboardStore.isBlank(courseId)
-      <BlankCourse courseId={courseId}/>
+      <CCDashboardHelp courseId={courseId}/>
     else
       <CCDashboard key={courseId} courseId={courseId} />
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
-    <div className="cc-dashboard">
-      <LoadableItem
-        store={CCDashboardStore}
-        actions={CCDashboardActions}
-        id={courseId}
-        renderItem={@onLoadComplete}
-      />
-    </div>
+    <LoadableItem
+      store={CCDashboardStore}
+      actions={CCDashboardActions}
+      id={courseId}
+      renderItem={@onLoadComplete}
+    />
 
 module.exports = DashboardShell
