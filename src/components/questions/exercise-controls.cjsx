@@ -39,33 +39,6 @@ QuestionsControls = React.createClass
     if filter is @props.filter then filter = ''
     @props.onFilterChange( filter )
 
-  saveExclusions: ->
-    @setState(hasSaved: true)
-    ExerciseActions.saveExclusions(@props.courseId)
-
-  resetExclusions: ->
-    return unless ExerciseStore.hasUnsavedExclusions()
-
-    showDialog('Are you sure you want to cancel?').then ->
-      ExerciseActions.resetUnsavedExclusions()
-
-  renderSaveCancelButtons: ->
-    return null unless ExerciseStore.hasUnsavedExclusions() or @state.hasSaved
-    saveButtonText = if ExerciseStore.hasUnsavedExclusions() then 'Save' else 'Saved'
-    disabled = not ExerciseStore.hasUnsavedExclusions()
-    [
-        <AsyncButton key='save' bsStyle='primary' className="save"
-          onClick={@saveExclusions}
-          disabled={disabled}
-          waitingText='Saving...'
-          isWaiting={ExerciseStore.isSavingExclusions()}
-        >{saveButtonText}</AsyncButton>
-        <BS.Button key='cancel' className="cancel"
-          disabled={disabled}
-          onClick={@resetExclusions}
-        >Cancel</BS.Button>
-    ]
-
   render: ->
     sections = @getSections()
 
@@ -95,9 +68,6 @@ QuestionsControls = React.createClass
 
       {@props.children}
 
-      <div className="save-cancel">
-        {@renderSaveCancelButtons()}
-      </div>
     </div>
 
 

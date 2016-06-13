@@ -94,10 +94,6 @@ ExerciseConfig =
         @_exerciseCache[exercise.id] = exercise
     @emitChange()
 
-  saveExclusions: (courseId) -> # Used to trigger save by API
-    @_exclusionsAsyncStatus = SAVING
-    @emitChange()
-
   updateExercises: (updatedExercises) ->
     for updatedExercise in updatedExercises
       for pageIds, storedExercises of @_exercises
@@ -110,7 +106,8 @@ ExerciseConfig =
     delete @_exclusionsAsyncStatus
     @updateExercises(exercises)
 
-  setExerciseExclusion: (exerciseId, isExcluded) ->
+  saveExerciseExclusion: (courseId, exerciseId, isExcluded) ->
+    @_exclusionsAsyncStatus = SAVING
     @_unsavedExclusions[exerciseId] = isExcluded
     @emitChange()
 

@@ -90,7 +90,7 @@ ExercisesDisplay = React.createClass
         buttons: [
           <BS.Button key='exclude'
             onClick={->
-              ExerciseActions.setExerciseExclusion(exercise.id, isSelected)
+              ExerciseActions.saveExerciseExclusion(@props.courseId, exercise.id, isSelected)
               Dialog.hide()
             }>Exclude</BS.Button>
 
@@ -99,7 +99,7 @@ ExercisesDisplay = React.createClass
         ]
       )
     else
-      ExerciseActions.setExerciseExclusion(exercise.id, isSelected)
+      ExerciseActions.saveExerciseExclusion(@props.courseId, exercise.id, isSelected)
     @forceUpdate()
 
   getExerciseActions: (exercise) ->

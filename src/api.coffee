@@ -174,7 +174,7 @@ start = (bootstrapData) ->
     ExerciseActions.loadedForCourse, 'GET', (courseId, page_ids, requestType = 'homework_core') ->
       url: "/api/courses/#{courseId}/exercises/#{requestType}?#{toParams({page_ids})}"
 
-  apiHelper ExerciseActions, ExerciseActions.saveExclusions,
+  apiHelper ExerciseActions, ExerciseActions.saveExerciseExclusion,
     ExerciseActions.exclusionsSaved, 'PUT', (courseId) ->
       url: "/api/courses/#{courseId}/exercises"
       payload: _.map ExerciseStore.getUnsavedExclusions(), (is_excluded, id) -> {id, is_excluded}
