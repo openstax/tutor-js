@@ -368,7 +368,7 @@ module.exports = React.createClass
 
     #enable all periods
     periods = _.map CourseStore.getPeriods(@props.courseId), (period) -> id: period.id
-    TaskPlanActions.setPeriods(@props.id, courseId, periods)
+    TaskPlanActions.setPeriods(@props.id, courseId, periods, false)
 
     #set dates for all periods
     taskingDueAt = TaskPlanStore.getDueAt(@props.id) or @getQueriedDueAt()
