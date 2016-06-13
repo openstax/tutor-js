@@ -93,22 +93,8 @@ QuestionsControls = React.createClass
         </BS.Button>
       </BS.ButtonGroup>
 
-      <BS.ButtonGroup className="display-types">
-        <BS.Button onClick={@props.onShowCardViewClick}
-          className={if @props.currentView is 'cards' then 'cards active' else 'cards'}
-        >
-          <Icon type="th-large" />
-        </BS.Button>
+      {@props.children}
 
-        <BS.Button onClick={@props.onShowDetailsViewClick}
-          className={if @props.currentView is 'details' then 'details active' else 'details'}
-        >
-          <Icon type="mobile" />
-        </BS.Button>
-      </BS.ButtonGroup>
-
-
-        {@props.children}
       <div className="save-cancel">
         {@renderSaveCancelButtons()}
       </div>
