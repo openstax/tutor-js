@@ -48,6 +48,7 @@
     "moment": "2.13.0",
     "moment-timezone": "0.5.4",
     "openstax-react-components": "openstax/react-components#d-20160613.a",
+    "react-waypoint": "openstax/react-waypoint#b34b248947feb0b0ebf89fcef6f234f60f3e516c",
     "pluralize": "1.2.1",
     "promise-loader": "1.0.0",
     "qs": "6.1.0",
