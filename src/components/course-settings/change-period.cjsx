@@ -5,8 +5,7 @@ CourseGroupingLabel = require '../course-grouping-label'
 {RosterActions, RosterStore} = require '../../flux/roster'
 {CourseStore} = require '../../flux/course'
 
-module.exports = React.createClass
-  displayName: 'ChangePeriodLink'
+ChangePeriodLink = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     student: React.PropTypes.object.isRequired
@@ -55,3 +54,5 @@ module.exports = React.createClass
             courseId={@props.courseId} />
         </a>
     </BS.OverlayTrigger>
+
+module.exports = ChangePeriodLink
