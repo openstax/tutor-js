@@ -28,13 +28,13 @@ describe 'Concept Coach Dashboard Shell', ->
     CCDashboardActions.loaded(BaseModel, IDS.BASE)
     CourseActions.loaded(CourseObj, IDS.BLANK)
     CourseActions.loaded(CourseObj, IDS.BASE)
-    
-  it 'loads a blank course when there are no periods', ->
+
+  it 'displays the help page when there are no periods', ->
     RenderHelper(IDS.BLANK).then ({dom}) ->
-      expect(dom.querySelector('.blank-course')).to.not.be.null
+      expect(dom).to.exist
+      expect(dom.classList.contains('cc-dashboard-help-page')).to.be.true
 
-  it 'loads a course dashboard when there are periods', ->
+  it 'renders dashboard when there are periods', (done) ->
     RenderHelper(IDS.BASE).then ({dom}) ->
-      expect(dom.querySelector('.dashboard')).to.not.be.null
-
-
+      expect(dom.classList.contains('dashboard')).to.be.true
+      done()

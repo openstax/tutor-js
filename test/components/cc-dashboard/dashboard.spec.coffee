@@ -38,11 +38,11 @@ describe 'Concept Coach', ->
     CourseActions.loaded(CourseObj, COURSE_ID)
 
   describe 'Dashboard', ->
-    it 'shows blank period graphic for blank periods', ->
+    it 'shows the help page for blank periods', ->
       periodId = BaseModel.course.periods[BLANK_PERIOD].id
       RenderHelper(Dashboard, COURSE_ID, BLANK_PERIOD).then ({dom}) ->
-        expect(dom.querySelector('.blank-course')).to.not.be.null
-        
+        expect(dom.querySelector('.cc-dashboard-help-page')).to.not.be.null
+
     it 'show the right amount of chapters for non-empty periods', ->
       periodId = BaseModel.course.periods[activePeriod].id
       numChapters = CCDashboardStore.chaptersForDisplay(COURSE_ID, periodId).length
@@ -131,5 +131,3 @@ describe 'Concept Coach', ->
       Testing.renderComponent(SectionPerformance, options).then ({dom}) ->
         expect(dom.querySelector('.progress-bar-incorrect span span').innerHTML).to.be.equal('100% incorrect')
         expect(dom.querySelector('.progress-bar-correct')).to.be.null
-
-
