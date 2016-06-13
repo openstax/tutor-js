@@ -5,12 +5,10 @@ CourseGroupingLabel = require '../course-grouping-label'
 {RosterActions, RosterStore} = require '../../flux/roster'
 {CourseStore} = require '../../flux/course'
 
-module.exports = React.createClass
-  displayName: 'ChangePeriodLink'
+ChangePeriodLink = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     student: React.PropTypes.object.isRequired
-    id: React.PropTypes.string.isRequired
 
   updatePeriod: (periodId) ->
     if not @isSaving()
@@ -25,7 +23,9 @@ module.exports = React.createClass
     </BS.NavItem>
 
   selectNewPeriod: ->
-    course = CourseStore.get(@props.courseId)
+    periods = CourseStore.getPeriods(@props.courseId)
+    return null if periods.length is 1
+
     title =
       if @isSaving()
         <span>
@@ -37,20 +37,22 @@ module.exports = React.createClass
         </span>
     <BS.Popover className='change-period' title={title} {...@props}>
       <BS.Nav stacked bsStyle='pills' onSelect={@updatePeriod}>
-        {for period in course.periods
+        {for period in periods
           @renderPeriod(period) unless period.id is @props.student.period_id }
       </BS.Nav>
     </BS.Popover>
 
   render: ->
     # if we have only 1 period, it's imposible to move a student
-    course = CourseStore.get(@props.courseId)
-    return null if course.periods.length is 1
+    periods = CourseStore.getPeriods(@props.courseId)
+    return null if periods.length is 1
 
     <BS.OverlayTrigger rootClose={true} trigger='click' placement='left'
       overlay={@selectNewPeriod()}>
         <a>
-          <i className='fa fa-clock-o' /> Change <CourseGroupingLabel 
+          <i className='fa fa-clock-o' /> Change <CourseGroupingLabel
             courseId={@props.courseId} />
         </a>
     </BS.OverlayTrigger>
+
+module.exports = ChangePeriodLink
