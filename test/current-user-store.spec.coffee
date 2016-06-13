@@ -48,7 +48,7 @@ TEACHER_MENU = [
   }
   {
     name: 'courseSettings'
-    label: 'Course Roster'
+    label: 'Course Settings and Roster'
     params: {courseId: '2'}
   }
 ]
