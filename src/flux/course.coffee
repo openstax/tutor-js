@@ -70,7 +70,8 @@ CourseConfig =
     getGuide: (courseId) ->
       @_guides[courseId] or throw new Error('BUG: Not loaded yet')
 
-    isConceptCoach: (courseId) -> !! @_practices[courseId]?.is_concept_coach
+    isConceptCoach: (courseId) -> !! @_local[courseId]?.is_concept_coach
+    isCollege: (courseId) -> !! @_local[courseId]?.is_college
 
     isGuideLoading: (courseId) -> @_asyncStatusGuides[courseId] is 'loading'
     isGuideLoaded: (courseId) -> !! @_guides[courseId]
