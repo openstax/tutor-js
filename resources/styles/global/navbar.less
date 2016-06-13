@@ -35,7 +35,9 @@
   // override the bootstrap defaults with tutor defaults
   &.navbar.navbar{
     border-bottom: 1px solid @border-color;
-    background-color: @tutor-white;
+    &, .navbar-collapse{
+      background-color: @tutor-white;
+    }
   }
 
   .container-fluid { padding: 0 @tutor-navbar-padding-horizontal; }
