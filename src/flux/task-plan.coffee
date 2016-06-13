@@ -134,7 +134,7 @@ TaskPlanConfig =
 
     periodTimes
 
-  setPeriods: (id, courseId, periods) ->
+  setPeriods: (id, courseId, periods, isDefault = false) ->
     plan = @_getPlan(id)
     course = CourseStore.get(courseId)
 
@@ -155,7 +155,7 @@ TaskPlanConfig =
 
     @_change(id, {tasking_plans})
 
-    @_setInitialPlan(id)
+    @_setInitialPlan(id) if isDefault
 
   replaceTaskings: (id, taskings) ->
     @_change(id, {tasking_plans: taskings})
