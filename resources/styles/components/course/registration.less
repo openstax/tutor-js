@@ -28,11 +28,14 @@
     }
 
     &.login {
-      width: 400px;
-      height: 140px;
       &.is-closed {
-        background-color: @openstax-neutral-light;
-        border: 1px solid @openstax-neutral-darker;
+        margin-top: 50px;
+        width: 200px;
+        height: 80px;
+      }
+      &.is-open {
+        width: 400px;
+        height: 140px;
       }
     }
 
@@ -42,6 +45,11 @@
       display: inline;
       &.is-closed {
         color: @link-color;
+
+        &:hover,
+        &:focus {
+          color: @openstax-info;
+        }
       }
       &.is-open {
         display: block;
@@ -59,4 +67,23 @@
   h3 { font-size: 2rem; }
 
 
+  .enroll-instructors-interest {
+    margin-top: 50px;
+  }
+
+  .enroll-instructors-interest-learn-more {
+    font-weight: 600;
+    text-align: center;
+    display: block;
+  }
+}
+
+.concept-coach-view {
+  .enroll-or-login {
+    .enroll-instructors-interest-learn-more {
+      color: @link-color;
+      text-decoration: none;
+      border-bottom: none;
+    }
+  }
 }
