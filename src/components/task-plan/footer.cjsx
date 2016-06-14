@@ -59,11 +59,7 @@ PlanFooter = React.createClass
 
   onPublish: ->
     @setState({publishing: true, saving: false, isEditable: TaskPlanStore.isEditable(@props.id)})
-
-    if TaskPlanStore.isPublished(@props.id)
-      @props.onPublish()
-    else
-      @props.onSave()
+    @props.onPublish()
 
   onViewStats: ->
     {id, courseId} = @props
@@ -95,17 +91,26 @@ PlanFooter = React.createClass
     </BS.Popover>
 
     if isEditable
-      publishButton =
-        <AsyncButton
-          bsStyle='primary'
-          className='-publish'
+
+      publishButtonProps =
+        bsStyle:  'primary'
+        className:  '-publish'
+        isFailed: isFailed
+        disabled: isWaiting
+
+      if TaskPlanStore.isPublished(id)
+        saveButton = <AsyncButton {...publishButtonProps}
+          onClick={@onSave}
+          isWaiting={isWaiting and @state.saving}
+          waitingText='Saving…'>
+          Save
+        </AsyncButton>
+      else
+        publishButton = <AsyncButton {...publishButtonProps}
           onClick={@onPublish}
           isWaiting={isWaiting and @state.publishing}
-          isFailed={isFailed}
           waitingText='Publishing…'
-          disabled={isWaiting}
-          isJob={true}
-        >
+          isJob={true}>
           Publish
         </AsyncButton>
 
@@ -159,21 +164,8 @@ PlanFooter = React.createClass
             {'Save as Draft'}
           </AsyncButton>
 
-    if TaskPlanStore.isPublished(id) and isEditable
-      publishButton = <AsyncButton
-        bsStyle='primary'
-        className='-publish'
-        onClick={@onSave}
-        isWaiting={isWaiting and @state.saving}
-        isFailed={isFailed}
-        waitingText='Saving…'
-        disabled={isWaiting}
-        >
-        Save
-      </AsyncButton>
-
-
     <div className='footer-buttons'>
+      {saveButton}
       {publishButton}
       {cancelButton}
       {backButton}
