@@ -46,7 +46,7 @@ EnrollmentCodeInput = React.createClass
       <hr/>
       <ErrorList course={@props.course} />
       <div className="code-wrapper col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
-        <BS.Input type="text" ref="input" label="Enter the two-word enrollment code"
+        <BS.Input type="text" ref="input" label="Enter the enrollment code"
           placeholder="enrollment code" autoFocus
           onKeyPress={@onKeyPress}
           buttonAfter={button} />

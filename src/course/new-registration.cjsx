@@ -63,9 +63,7 @@ NewCourseRegistration = React.createClass
       title = if @isTeacher() then '' else @props.title
       <EnrollmentCodeInput course={course} currentCourses={User.registeredCourses()} title={title} />
     else if course.isPending()
-      <ConfirmJoin
-        title={"Would you like to join #{@state.course.description()}?"}
-        course={course} />
+      <ConfirmJoin course={course} />
     else
       @renderComplete(course)
 
