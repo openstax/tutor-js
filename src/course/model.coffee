@@ -54,17 +54,18 @@ class Course
 
   describeMovePart: (part) ->
     return '' unless part
-    "#{part.course.name} (#{part.period.name}) by #{@teacherNames(part)}"
+    "#{part.course.name} (section #{part.period.name})"
 
-  teacherNames: (part) ->
+  teacherNames: (part = @to) ->
+
     teachers = part.course.teachers
     names = _.map teachers, (teacher) ->
       teacher.name or "#{teacher.first_name} #{teacher.last_name}"
     # convert array to sentence
     if names.length > 1
-      names.slice(0, names.length - 1).join(', ') + " and " + names.slice(-1)
+      "Instructors: " + names.slice(0, names.length - 1).join(', ') + " and " + names.slice(-1)
     else
-      _.first(names)
+      "Instructor: " + _.first(names)
 
   getStudentIdentifier: ->
     @getStudentRecord()?.student_identifier
@@ -106,7 +107,7 @@ class Course
   # Submits pending course change for confirmation
   confirm: (studentId) ->
     payload = { id: @id }
-    payload.student_identifier = studentId unless _.isEmpty(studentId)
+    payload.student_identifier = studentId
     @isBusy = true
     api.channel.once "course.#{@id}.receive.confirmation.*", @_onConfirmed
     api.channel.emit("course.#{@id}.send.confirmation", data: payload)
@@ -159,6 +160,7 @@ class Course
   _onRegistered: (response) ->
     throw new Error("response is empty in onRegistered") if _.isEmpty(response)
     {data} = response
+    console.log data, response
     _.extend(@, data) if data
     @errors = data?.errors
     # a freshly registered course doesn't contain the is_concept_coach flag
