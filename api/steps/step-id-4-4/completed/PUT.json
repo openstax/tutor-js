@@ -4,6 +4,7 @@
   "title": "The Moving Man",
   "group": "core",
   "has_recovery": false,
+  "is_completed": true,
   "related_content": [
     {
     "title": "Acceleration",

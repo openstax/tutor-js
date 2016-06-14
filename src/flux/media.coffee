@@ -30,7 +30,7 @@ MediaConfig =
     @_local[id] = mediaDOM
     @emit("loaded.#{id}", mediaDOM)
 
-  _parseAndLoad: (link) ->
+  _parseAndLoad: (actions, dom, link) ->
     if link.attribs.href.search('#') is 0
       id = link.attribs.href.replace('#', '')
       idDOM = htmlparser.DomUtils.getElementById(id, dom)
@@ -41,23 +41,11 @@ MediaConfig =
           name: idDOM.name
           html: idHTML
 
-        @loaded(id, mediaDOM)
+        actions.loaded(id, mediaDOM)
 
   _parseHandler: (actions, error, dom) ->
     links = htmlparser.DomUtils.getElementsByTagName('a', dom)
-    _.each(links, (link) ->
-      if link.attribs.href.search('#') is 0
-        id = link.attribs.href.replace('#', '')
-        idDOM = htmlparser.DomUtils.getElementById(id, dom)
-        if idDOM
-          idHTML = htmlparser.DomUtils.getOuterHTML(idDOM)
-
-          mediaDOM =
-            name: idDOM.name
-            html: idHTML
-
-          actions.loaded(id, mediaDOM)
-    )
+    _.each links, _.partial actions._parseAndLoad, actions, dom
 
   parse: (htmlString) ->
     @parseHandler ?= new htmlparser.DomHandler _.partial(@_parseHandler, @)

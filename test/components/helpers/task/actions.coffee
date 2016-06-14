@@ -27,7 +27,16 @@ actions =
     else
       routerStub.forceUpdate(component, args...)
 
-  clickContinue: commonActions.clickMatch('.continue')
+  clickContinue: (args...) ->
+    {div, stepId} = args[0]
+
+    if div.querySelectorAll('.arrow.right').length isnt 0
+      # to work around asynchronous transition on arrow next
+      # click on it twice
+      commonActions.clickMatch('.arrow.right')(args...)
+
+    commonActions.clickMatch('.arrow.right, .continue')(args...)
+
   clickTryAnother: commonActions.clickMatch('.-try-another')
 
   # Tricky, popovers use focus trigger for dismissable option
@@ -93,12 +102,17 @@ actions =
     actions.forceUpdate({div, component, stepId: newStepId, taskId, state, router, history})
 
   _advanceStep: ({div, component, stepId, taskId, state, router, history}) ->
+    # step = TaskStepStore.get(stepId)
+    # step.is_completed = true
+    # TaskStepActions.completed(step, stepId)
+
     stepIndex = TaskStore.getCurrentStepIndex(taskId)
     steps = TaskStore.getStepsIds(taskId)
 
     # advance step
+    oldStepId = stepId
     stepId = steps[stepIndex].id
-    actions.updateStep(stepId, {div, component, stepId, taskId, state, router, history})
+    actions.updateStep(stepId, {div, component, oldStepId, taskId, state, router, history})
 
   advanceStep: (args...) ->
     Promise.resolve(actions._advanceStep(args...))

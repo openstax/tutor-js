@@ -1,0 +1,118 @@
+@milestone-scale: 1.6;
+@milestone-active-indicator-height: 8px;
+
+.task-view {
+  .task-with-progress {
+    .task-step {
+      margin-top: 40px;
+    }
+
+    &.task-with-milestones-entered {
+      .task-step {
+        display: none;
+      }
+    }
+  }
+}
+
+.task-with-milestones-enter, .task-with-milestones-appear {
+  .transform-origin(0 bottom);
+  .translate(0, -90%);
+
+  &.task-with-milestones-enter-active,
+  &.task-with-milestones-appear-active {
+    .transition(transform 0.5s ease-out);
+    .translate(0, 0);
+  }
+}
+
+.task-with-milestones-leave {
+  .transform-origin(0 bottom);
+  .translate(0, 0);
+
+  &.task-with-milestones-leave-active {
+    .transition(transform 0.3s ease-in);
+    .translate(0, -90%);
+  }
+}
+
+.milestones-wrapper {
+  position: absolute;
+  z-index: 3;
+  min-height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  margin-top: @openstax-navbar-height;
+  padding: 5%;
+  background: @tutor-neutral-light;
+  .transition(margin-top 0.2s ease-out);
+}
+
+.milestone {
+  position: relative;
+  display: block;
+  padding: 0;
+  background: @tutor-white;
+  height: 200px;
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 5rem;
+  .tutor-shadow(1);
+
+  .openstax-breadcrumbs-step {
+    .scale(@milestone-scale);
+    display: block;
+    margin: -0.8rem auto 1.5rem;
+
+    &:hover,
+    &.active {
+      .scale(@milestone-scale);
+      box-shadow: none;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:hover,
+  &:focus {
+    .tutor-shadow(2);
+  }
+
+  &.active {
+    height: 200px + @milestone-active-indicator-height;
+    margin-bottom: 50px - @milestone-active-indicator-height;
+
+    &::after {
+      position: absolute;
+      bottom: 0;
+      display: block;
+      height: @milestone-active-indicator-height;
+      background: @tutor-success;
+      width: 100%;
+      content: '';
+    }
+  }
+}
+
+.milestone-preview {
+  padding: 1.25rem;
+  display: block;
+  max-height: 125px;
+  overflow: hidden;
+  line-height: 1.5em;
+  font-weight: 600;
+  hyphens: auto;
+}
+
+body.pinned-shy {
+  &.task-view {
+    .task-with-progress {
+      .milestones-wrapper {
+        margin-top: 0;
+      }
+    }
+  }
+}

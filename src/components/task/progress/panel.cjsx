@@ -1,8 +1,12 @@
-React = require 'react'
+React = require 'react/addons'
+keymaster = require 'keymaster'
+
 Arrow = require './arrow'
 {TaskStore} = require '../../../flux/task'
 {StepPanel} = require '../../../helpers/policies'
 {TaskStepStore} = require '../../../flux/task-step'
+
+KEYBINDING_SCOPE  = 'reading-progress'
 
 ProgressPanel = React.createClass
   propTypes:
@@ -11,32 +15,50 @@ ProgressPanel = React.createClass
     stepKey: React.PropTypes.number
     goToStep: React.PropTypes.func
 
-  componentWillMount: -> TaskStepStore.on('step.completed', @update)
-  removeListeners: -> TaskStepStore.off('step.completed', @update)
-  componentWillUnmount: -> @removeListeners()
+  mixins: [React.addons.PureRenderMixin]
 
-  update: -> @setState({})
+  getInitialState: ->
+    @getShouldShows()
+
+  componentWillUnmount: ->
+    TaskStepStore.off('step.completed', @updateShouldShows)
+    @disableKeys() if @props.enableKeys
+
+  componentWillMount: ->
+    TaskStepStore.on('step.completed', @updateShouldShows)
+    @enableKeys() if @props.enableKeys
+
+  componentWillReceiveProps: (nextProps) ->
+    @setState(@getShouldShows(nextProps))
+
+    if nextProps.enableKeys and not @props.enableKeys
+      @enableKeys()
+    else if not nextProps.enableKeys and @props.enableKeys
+      @disableKeys()
+
+  enableKeys: ->
+    keymaster.setScope(KEYBINDING_SCOPE)
+
+  disableKeys: ->
+    keymaster.setScope()
+
+  getShouldShows: (props) ->
+    props ?= @props
+    {stepKey, stepId, isSpacer} = props
+
+    shouldShowLeft: stepKey > 0
+    shouldShowRight: isSpacer or (stepId? and StepPanel.canForward(stepId))
+
+  updateShouldShows: ->
+    @setState(@getShouldShows())
 
   render: ->
-    step = TaskStepStore.get(@props.stepId)
-
-    shouldShowLeft = @props.stepKey > 0
-    shouldShowRight = (
-      @props.stepKey < TaskStore.getTotalStepsCount(@props.taskId) - 1 and
-      StepPanel.canContinue(@props.stepId) and
-      step and
-      step.type isnt 'exercise' or (
-        step and
-        step.type is 'exercise' and
-        TaskStepStore.isAnswered(@props.stepId)
-      ) or
-      @props.isSpacer is true
-    )
+    {shouldShowLeft, shouldShowRight} = @state
 
     <div className="progress-panel">
-      <Arrow {...@props} direction="left" shouldShow={shouldShowLeft} />
+      {<Arrow {...@props} direction="left"/> if shouldShowLeft}
       {@props.children}
-      <Arrow {...@props} direction="right" shouldShow={shouldShowRight} />
+      {<Arrow {...@props} direction="right"/> if shouldShowRight}
     </div>
 
 module.exports = ProgressPanel

@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 Router = require 'react-router'
 _ = require 'underscore'
 camelCase = require 'camelcase'
+classnames = require 'classnames'
 
 {TaskActions, TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
@@ -10,6 +11,8 @@ camelCase = require 'camelcase'
 
 CrumbMixin = require './crumb-mixin'
 StepFooterMixin = require '../task-step/step-footer-mixin'
+ScrollToMixin = require '../scroll-to-mixin'
+
 TaskStep = require '../task-step'
 {Spacer} = require '../task-step/all-steps'
 Ends = require '../task-step/ends'
@@ -17,12 +20,13 @@ Breadcrumbs = require './breadcrumbs'
 
 TaskProgress = require './progress'
 ProgressPanel = require './progress/panel'
+{Milestones, Milestone} = require './progress/milestones'
 
 {StepPanel} = require '../../helpers/policies'
 
 {UnsavedStateMixin} = require '../unsaved-state'
 
-{PinnedHeaderFooterCard} = require 'openstax-react-components'
+{PinnedHeaderFooterCard, PinnedHeader} = require 'openstax-react-components'
 
 module.exports = React.createClass
   propTypes:
@@ -30,7 +34,7 @@ module.exports = React.createClass
 
   displayName: 'Task'
 
-  mixins: [StepFooterMixin, CrumbMixin, UnsavedStateMixin]
+  mixins: [StepFooterMixin, CrumbMixin, UnsavedStateMixin, ScrollToMixin]
 
   contextTypes:
     router: React.PropTypes.func
@@ -57,6 +61,7 @@ module.exports = React.createClass
       refreshTo: false
       recoverForStepId: false
       recoveredStepId: false
+      milestonesEntered: false
     }
 
   hasUnsavedState: -> TaskStore.hasAnyStepChanged(@props.id)
@@ -134,7 +139,8 @@ module.exports = React.createClass
       unless @state.currentStep is nextState.currentStep
         nextStep = TaskStore.getStepByIndex(id, nextState.currentStep)
         TaskStepActions.load(nextStep.id)
-      return false
+        unless nextState.stepEntered is nextState.currentStep
+          @scrollToSelector("#exercise-part-with-scroll-#{nextState.currentStep}", {updateHistory: false})
 
     # if we reach this point, assume that we should go ahead and do a normal component update
     true
@@ -169,15 +175,57 @@ module.exports = React.createClass
   goToStep: (stepKey, silent = false) ->
     stepKey = parseInt(stepKey)
     params = _.clone(@context.router.getCurrentParams())
-    return if @areKeysSame(params.stepIndex, stepKey + 1)
+    return false if @areKeysSame(params.stepIndex, stepKey + 1)
     # url is 1 based so it matches the breadcrumb button numbers
     params.stepIndex = stepKey + 1
     params.id = @props.id # if we were rendered directly, the router might not have the id
 
     if silent
       @context.router.replaceWith('viewTaskStep', params)
+      true
     else
       @context.router.transitionTo('viewTaskStep', params)
+      true
+
+  onPartEnter: (stepKey, scrollInfo) ->
+    return if @context.router.getCurrentParams().milestones?
+    {previousPosition} = scrollInfo
+    return unless previousPosition is 'below'
+
+    stepKey = parseInt(stepKey)
+    params = _.clone(@context.router.getCurrentParams())
+    params.stepIndex = stepKey + 1
+    params.id = @props.id # if we were rendered directly, the router might not have the id
+
+    return unless TaskStore.isSameStep(@props.id, @state.currentStep, stepKey)
+
+    @setState(stepEntered: stepKey)
+    @context.router.transitionTo('viewTaskStep', params)
+
+  onPartLeave: (stepKey, scrollInfo) ->
+    return if @context.router.getCurrentParams().milestones?
+    {currentPosition} = scrollInfo
+    return unless currentPosition is 'below'
+
+    stepKey = parseInt(stepKey)
+    params = _.clone(@context.router.getCurrentParams())
+    params.stepIndex = stepKey
+    params.id = @props.id # if we were rendered directly, the router might not have the id
+    return unless TaskStore.isSameStep(@props.id, @state.currentStep, stepKey - 1)
+
+    @setState(stepEntered: stepKey - 1)
+    @context.router.transitionTo('viewTaskStep', params)
+
+  toggleMilestonesEntered: ->
+    @setState(milestonesEntered: not @state.milestonesEntered)
+
+  closeMilestones: ->
+    params = @context.router.getCurrentParams()
+    @context.router.transitionTo('viewTaskStep', params)
+
+  filterClickForMilestones: (focusEvent) ->
+    stepPanel = @refs.stepPanel?.getDOMNode()
+    not stepPanel?.contains(focusEvent.target)
 
   getCrumb: (crumbKey) ->
     crumbs = @generateCrumbs()
@@ -185,49 +233,64 @@ module.exports = React.createClass
 
   renderStep: (data) ->
     {courseId} = @context.router.getCurrentParams()
+    {id} = @props
+    pinned = if TaskStore.hasCrumbs(id) then true else false
 
     <TaskStep
       id={data.id}
       taskId={@props.id}
       courseId={courseId}
       goToStep={@goToStep}
+      onPartEnter={@onPartEnter}
+      onPartLeave={@onPartLeave}
       onNextStep={@onNextStep}
       refreshStep={@refreshStep}
       recoverFor={@recoverFor}
+      pinned={pinned}
+      ref='stepPanel'
     />
 
-  renderDefaultEndFooter: (data) ->
+  renderDefaultEndFooter: ->
     {id} = @props
     {courseId} = @context.router.getCurrentParams()
 
     taskFooterParams =
-      stepId: data.id
       taskId: id
       courseId: courseId
 
     @renderEndFooter(taskFooterParams)
 
   renderEnd: (data) ->
+    {id} = @props
     {courseId} = @context.router.getCurrentParams()
-    type = if data.type then data.type else 'task'
+    task = TaskStore.get(id)
+
+    type = if task.type then task.type else 'task'
     End = Ends.get(type)
 
-    footer = @renderDefaultEndFooter(data)
+    footer = @renderDefaultEndFooter()
 
     panel = <End
       courseId={courseId}
-      taskId={data.id}
+      taskId={id}
       reloadPractice={@reloadTask}
-      footer={footer} />
+      footer={footer}
+      ref='stepPanel'/>
 
   renderSpacer: (data) ->
     {courseId} = @context.router.getCurrentParams()
-    <Spacer onNextStep={@onNextStep} taskId={@props.id} courseId={courseId}/>
+    <Spacer
+      onNextStep={@onNextStep}
+      taskId={@props.id}
+      courseId={courseId}
+      ref='stepPanel'/>
 
   # add render methods for different panel types as needed here
 
   render: ->
     {id} = @props
+    {milestonesEntered} = @state
+    showMilestones = @context.router.getCurrentParams().milestones?
     task = TaskStore.get(id)
     return null unless task?
 
@@ -243,33 +306,48 @@ module.exports = React.createClass
     panelData = _.extend({}, crumb.data, {panelType})
     panel = @[renderPanelMethod]?(panelData)
 
-    taskClasses = "task task-#{task.type}"
-    taskClasses += " task-#{panelType}" if panelType?
-    taskClasses += ' task-completed' if TaskStore.isTaskCompleted(id)
+    taskClasses = classnames 'task', "task-#{task.type}",
+      "task-#{panelType}": panelType?
+      'task-completed': TaskStore.isTaskCompleted(id)
 
     if TaskStore.hasCrumbs(id)
       breadcrumbs = <Breadcrumbs
         id={id}
         goToStep={@goToStep}
         key="task-#{id}-breadcrumbs"/>
+      header = breadcrumbs
 
     if TaskStore.hasProgress(id)
-      breadcrumbs = <TaskProgress taskId={id} stepKey={@state.currentStep} />
+
+      header = <TaskProgress taskId={id} stepKey={@state.currentStep} key='task-progress'/>
+      milestones = <Milestones
+        id={id}
+        goToStep={@goToStep}
+        closeMilestones={@closeMilestones}
+        filterClick={@filterClickForMilestones}
+        handleTransitions={@toggleMilestonesEntered}
+        showMilestones={showMilestones}/>
+
       panel = <ProgressPanel
         taskId={id}
         stepId={crumb.data?.id}
         goToStep={@goToStep}
         isSpacer={crumb?.type is 'spacer'}
         stepKey={@state.currentStep}
+        enableKeys={not showMilestones}
       >
+        {milestones}
         {panel}
       </ProgressPanel>
 
+      taskClasses = classnames taskClasses, 'task-with-progress',
+        'task-with-milestones': showMilestones
+        'task-with-milestones-entered': milestonesEntered and showMilestones
+
     <PinnedHeaderFooterCard
-      forceShy={true}
       className={taskClasses}
       fixedOffset={0}
-      header={breadcrumbs}
+      header={header}
       cardType='task'>
       {panel}
     </PinnedHeaderFooterCard>

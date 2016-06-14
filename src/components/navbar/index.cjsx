@@ -7,6 +7,7 @@ CourseName = require './course-name'
 ServerErrorMonitoring = require './server-error-monitoring'
 UserActionsMenu = require './user-actions-menu'
 BookLinks = require './book-links'
+CenterControls = require './center-controls'
 {NotificationsBar} = require 'openstax-react-components'
 
 {CurrentUserActions} = require '../../flux/current-user'
@@ -54,6 +55,7 @@ module.exports = React.createClass
             </Router.Link>
 
     <BS.Navbar toggleNavKey={0} fixedTop fluid>
+      <CenterControls/>
       <BS.NavBrand>
         {brand}
       </BS.NavBrand>

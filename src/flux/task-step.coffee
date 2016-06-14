@@ -2,8 +2,8 @@
 _ = require 'underscore'
 camelCase = require 'camelcase'
 flux = require 'flux-react'
-Task = require './task'
 Durations = require '../helpers/durations'
+{StepTitleActions} = require './step-title'
 
 RECOVERY = 'recovery'
 
@@ -18,6 +18,7 @@ TaskStepConfig =
       obj.task_id = @_local[id]?.task_id
     @emit("step.loaded", id)
     _.each(@_recoveryTarget, _.partial(@_updateRecoveredFor, id), @)
+    StepTitleActions.parseStep(obj)
 
     obj
 

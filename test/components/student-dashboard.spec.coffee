@@ -64,7 +64,9 @@ describe 'Student Dashboard Component', ->
         ])
       feedback = state.div.querySelectorAll('.-upcoming .task .feedback span')
       expect(_.pluck(feedback, 'textContent'))
-        .to.have.deep.equal(['6/7 correct', '7/8 correct', '6/6 answered', '7/3 answered', 'Not started'])
+        .to.have.deep.equal([
+          '6/7 correct', '7/8 correct', '6/6 answered', '7/3 answered', 'Not started', 'Not started'
+        ])
 
   it 'renders events to week panel', ->
     TimeActions.setNow(new Date('2015-04-24T11:15:58.856Z'))
@@ -74,7 +76,7 @@ describe 'Student Dashboard Component', ->
     renderDashBoard().then (state) ->
       tasks = state.div.querySelectorAll('.-upcoming .task .title')
       expect(_.pluck(tasks, 'textContent'))
-        .to.have.deep.equal(['Homework #3', 'Homework #4 (final)', 'Chapter 10 and Chapter 11 Reading, multi-part'])
+        .to.have.deep.equal(['Homework #3', 'Homework #4 (final)', 'Chapter 5 and Chapter 6 Reading', 'Chapter 10 and Chapter 11 Reading, multi-part'])
 
   it 'does not work unopened tasks', ->
     TimeActions.setNow(NOW)
@@ -83,4 +85,4 @@ describe 'Student Dashboard Component', ->
         _.without(el.classList, 'task', 'row', 'homework', 'reading')
       )
       expect(classes)
-        .to.have.deep.equal([['workable'], ['workable'], [], [], []])
+        .to.have.deep.equal([['workable'], ['workable'], [], [], [], []])

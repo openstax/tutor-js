@@ -179,7 +179,7 @@ module.exports = React.createClass
     @setCurrentStep(stepIndex)
 
   render: ->
-    {id, taskId, courseId, onNextStep, onStepCompleted, goToStep} = @props
+    {id, taskId, courseId, onNextStep, onStepCompleted, goToStep, pinned} = @props
     {parts, lastPartId, isSinglePartExercise, task, currentStep} = @state
     part = _.last(parts)
 
@@ -201,16 +201,20 @@ module.exports = React.createClass
       {...canContinueControlProps}
       key='step-control-buttons'/>
 
-    footer = <StepFooter
-      id={id}
-      key='step-footer'
-      taskId={taskId}
-      courseId={courseId}
-      controlButtons={controlButtons}/>
+    unless TaskStore.hasProgress(taskId)
+      footer = <StepFooter
+        id={id}
+        key='step-footer'
+        taskId={taskId}
+        courseId={courseId}
+        controlButtons={controlButtons}/>
 
     <ExerciseWithScroll
       {...@props}
       {...controlProps}
+      {...canContinueControlProps}
+
+      footer={footer}
 
       project='tutor'
       setScrollState={@setScrollState}
@@ -219,7 +223,6 @@ module.exports = React.createClass
 
       getCurrentPanel={getCurrentPanel}
       task={task}
-      footer={footer}
       parts={parts}
       helpLink={@renderHelpLink(part.related_content)}
 

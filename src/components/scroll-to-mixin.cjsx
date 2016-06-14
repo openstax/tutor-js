@@ -32,6 +32,8 @@ ScrollToMixin =
 
   scrollToSelector: (selector, options) ->
     return if _.isEmpty(selector)
+    options = _.extend({updateHistory: true}, options)
+
     el = @_scrollingTargetDOM().querySelector(selector)
     @scrollToElement(el, options) if el
 
@@ -39,10 +41,10 @@ ScrollToMixin =
     el.classList.add('target-scroll')
     @onBeforeScroll?(el)
 
-  _onAfterScroll: (el) ->
+  _onAfterScroll: (el, options) ->
     if el?.classList?.contains('target-scroll')
       _.delay(el.classList.remove.bind(el.classList, 'target-scroll'), 150)
-    @props.windowImpl.history.pushState(null, null, "##{el.id}")
+    @props.windowImpl.history.pushState(null, null, "##{el.id}") if options.updateHistory
     @onAfterScroll?(el)
 
   _onScrollStep: (el, options) ->
@@ -52,7 +54,7 @@ ScrollToMixin =
     if options.attemptNumber < MAXIMUM_SCROLL_ATTEMPTS and @props.windowImpl.pageYOffset isnt @_desiredTopPosition(el)
       @scrollToElement(el, options.attemptNumber + 1)
     else
-      @_onAfterScroll(el)
+      @_onAfterScroll(el, options)
 
   _desiredTopPosition: (el) ->
     GetPositionMixin.getTopPosition(el) - _.result(@, 'getScrollTopOffset', DEFAULT_TOP_OFFSET)

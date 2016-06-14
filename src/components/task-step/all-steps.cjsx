@@ -1,5 +1,4 @@
 React = require 'react'
-_ = require 'underscore'
 
 {TaskStepStore} = require '../../flux/task-step'
 {TaskStore} = require '../../flux/task'
@@ -8,20 +7,13 @@ Exercise = require './exercise'
 Markdown = require '../markdown'
 StepMixin = require './step-mixin'
 StepFooterMixin = require './step-footer-mixin'
-{BookContentMixin, LinkContentMixin} = require '../book-content-mixin'
 CourseDataMixin = require '../course-data-mixin'
 
 {StepPanel} = require '../../helpers/policies'
 
-# React swallows thrown errors so log them first
-err = (msgs...) ->
-  console.error(msgs...)
-  throw new Error(JSON.stringify(msgs...))
-
-
 Reading = React.createClass
   displayName: 'Reading'
-  mixins: [StepMixin, StepFooterMixin, CourseDataMixin]
+  mixins: [StepMixin, CourseDataMixin]
   contextTypes:
     router: React.PropTypes.func
   isContinueEnabled: -> true
@@ -33,10 +25,9 @@ Reading = React.createClass
     courseDataProps = @getCourseDataProps()
     <ReadingStepContent id={id} stepType='reading' courseDataProps={courseDataProps}/>
 
-
 Interactive = React.createClass
   displayName: 'Interactive'
-  mixins: [StepMixin, StepFooterMixin]
+  mixins: [StepMixin]
   isContinueEnabled: -> true
   onContinue: ->
     @props.onStepCompleted()
@@ -47,7 +38,7 @@ Interactive = React.createClass
 
 Video = React.createClass
   displayName: 'Video'
-  mixins: [StepMixin, StepFooterMixin]
+  mixins: [StepMixin]
   isContinueEnabled: -> true
   onContinue: ->
     @props.onStepCompleted()
@@ -109,7 +100,7 @@ ExternalUrl = React.createClass
     </div>
 
 Spacer = React.createClass
-  mixins: [StepMixin, StepFooterMixin]
+  mixins: [StepMixin]
   isContinueEnabled: -> true
   onContinue: ->
     @props.onNextStep()

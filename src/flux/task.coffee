@@ -5,9 +5,10 @@ flux = require 'flux-react'
 
 Durations = require '../helpers/durations'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
-{TaskStepStore} = require './task-step'
+{TaskStepActions, TaskStepStore} = require './task-step'
 
 {MediaActions} = require './media'
+{StepTitleActions} = require './step-title'
 
 getSteps = (steps) ->
   _.map steps, ({id}) ->
@@ -66,7 +67,9 @@ TaskConfig =
     ).join('')
 
   _loaded: (obj, id) ->
+    @emit('loaded', id)
     MediaActions.parse(@_grabHtml(obj))
+    StepTitleActions.parseSteps(obj.steps)
     # Populate all the TaskSteps when a Task is loaded
     @_steps ?= {}
     # Remove the steps so Components are forced to use `.getSteps()` to get
@@ -74,7 +77,7 @@ TaskConfig =
     steps = obj.steps
     delete obj.steps
     @_steps[id] = steps
-    {TaskStepActions, TaskStepStore} = require './task-step'
+
     for step in steps
       #HACK: set the task_id so we have a link back to the task from the step
       step.task_id = id

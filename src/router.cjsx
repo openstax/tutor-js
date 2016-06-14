@@ -40,7 +40,12 @@ routes = (
         <Route path='tasks/:id/steps/:stepIndex/?'
           name='viewTaskStep'
           handler={SingleTask}
-          ignoreScrollBehavior/>
+          ignoreScrollBehavior>
+          <Route
+            path=':milestones/?'
+            name='viewTaskStepMilestones'
+            ignoreScrollBehavior/>
+        </Route>
 
         <Route path='practice/?' name='viewPractice' handler={SinglePractice} />
         <Route

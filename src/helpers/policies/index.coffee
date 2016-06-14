@@ -65,6 +65,9 @@ StepPanel =
     {panels} = getTaskStepPanels stepId
     utils._canWrite panels
 
+  canForward: (stepId) ->
+    StepPanel.canContinue(stepId) and _.isEqual(StepPanel.getRemainingActions(stepId), ['clickContinue'])
+
   canContinue: (stepId) ->
     step = TaskStepStore.get stepId
     # if step is falsy, this step is a placeholder step and

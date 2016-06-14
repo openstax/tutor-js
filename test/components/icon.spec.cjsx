@@ -1,11 +1,11 @@
 {Testing, expect, sinon, _, ReactTestUtils} = require './helpers/component-testing'
-
+React = require 'react/addons'
 Icon = require '../../src/components/icon'
 
 describe 'Icon Component', ->
 
   beforeEach ->
-    @props = { type: 'test' }
+    @props = {type: 'test'}
 
   it 'renders', ->
     Testing.renderComponent( Icon, props: @props ).then ({dom}) ->
@@ -13,8 +13,9 @@ describe 'Icon Component', ->
       expect(_.toArray(dom.classList)).to.include('fa-test', 'fa')
 
   it 'renders with a tooltip', ->
+    @props.tooltipProps = {placement: 'bottom'}
     @props.tooltip = 'a testing tooltip'
-    Testing.renderComponent( Icon, props: @props ).then ({dom}) ->
-      # Can't figure out how to find the actual DOM element that's rendered by the tooltip
-      expect(dom.tagName).to.equal('I')
-      expect(_.toArray(dom.classList)).to.include('fa-test', 'fa')
+    Testing.renderComponent( Icon, props: @props ).then ({dom}) =>
+      React.addons.TestUtils.Simulate.mouseOver(dom)
+      tooltipEl = document.querySelector('div[role="tooltip"]')
+      expect(tooltipEl.textContent).to.equal(@props.tooltip)
