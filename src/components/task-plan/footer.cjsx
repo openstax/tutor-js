@@ -92,30 +92,27 @@ PlanFooter = React.createClass
 
     if isEditable
 
+      publishButtonProps =
+        bsStyle:  'primary'
+        className:  '-publish'
+        isFailed: isFailed
+        disabled: isWaiting
+
       if TaskPlanStore.isPublished(id)
-        publishButton = <AsyncButton
-          bsStyle='primary'
-          className='-publish'
+        saveButton = <AsyncButton {...publishButtonProps}
           onClick={@onSave}
           isWaiting={isWaiting and @state.saving}
-          isFailed={isFailed}
-          waitingText='Saving…'
-          disabled={isWaiting}>
+          waitingText='Saving…'>
           Save
         </AsyncButton>
       else
-        publishButton =
-          <AsyncButton
-            bsStyle='primary'
-            className='-publish'
-            onClick={@onPublish}
-            isWaiting={isWaiting and @state.publishing}
-            isFailed={isFailed}
-            waitingText='Publishing…'
-            disabled={isWaiting}
-            isJob={true}>
-            Publish
-          </AsyncButton>
+        publishButton = <AsyncButton {...publishButtonProps}
+          onClick={@onPublish}
+          isWaiting={isWaiting and @state.publishing}
+          waitingText='Publishing…'
+          isJob={true}>
+          Publish
+        </AsyncButton>
 
       cancelButton =
         <BS.Button aria-role='close' disabled={isWaiting} onClick={onCancel}>Cancel</BS.Button>
@@ -168,6 +165,7 @@ PlanFooter = React.createClass
           </AsyncButton>
 
     <div className='footer-buttons'>
+      {saveButton}
       {publishButton}
       {cancelButton}
       {backButton}
