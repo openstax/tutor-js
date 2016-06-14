@@ -10,21 +10,13 @@ describe 'ConfirmJoin Component', ->
 
   beforeEach ->
     @props =
-      title: 'Join my Course'
       course: new Course(COURSE)
 
-  it 'sets title from props', ->
-    Testing.renderComponent( ConfirmJoin, props: @props ).then ({dom}) =>
-      expect(dom.querySelector('h3').textContent).equal(@props.title)
-
-      expect(dom.querySelector('label').textContent)
-        .equal('Enter your school issued ID:')
-
-  it 'changes instructions if optionalStudentId is true', ->
-    @props.optionalStudentId = true
+  it 'sets title with coure', ->
     Testing.renderComponent( ConfirmJoin, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('label').textContent)
-        .equal('Update school issued ID(leave blank to leave unchanged):')
+      title = dom.querySelector('h3.title').textContent
+      expect(title).to.include("You are joining")
+      expect(title).to.include("Biology I")
 
   it 'confirms model when submit is clicked', ->
     sinon.stub(@props.course, 'confirm')
