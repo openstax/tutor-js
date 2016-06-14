@@ -56,8 +56,9 @@ class Course
     return '' unless part
     "#{part.course.name} (section #{part.period.name})"
 
-  teacherNames: (part = @to) ->
-
+  teacherNames: ->
+    part = @to or @
+    return '' unless part.course?.teachers
     teachers = part.course.teachers
     names = _.map teachers, (teacher) ->
       teacher.name or "#{teacher.first_name} #{teacher.last_name}"
