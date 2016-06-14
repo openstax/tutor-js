@@ -26,7 +26,7 @@ CCDashboardHelp = React.createClass
       <CourseGroupingLabel lowercase {...glprops} />
     <div className="#{classes}">
       <h3 className="title">
-        Welcome to your OpenStax Concept Coach™ Dashboard
+        Welcome to Concept Coach™
       </h3>
       <div className="body">
         <h3>Getting Started</h3>
