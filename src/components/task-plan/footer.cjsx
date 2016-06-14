@@ -59,11 +59,7 @@ PlanFooter = React.createClass
 
   onPublish: ->
     @setState({publishing: true, saving: false, isEditable: TaskPlanStore.isEditable(@props.id)})
-
-    if TaskPlanStore.isPublished(@props.id)
-      @props.onPublish()
-    else
-      @props.onSave()
+    @props.onPublish()
 
   onViewStats: ->
     {id, courseId} = @props
@@ -95,19 +91,31 @@ PlanFooter = React.createClass
     </BS.Popover>
 
     if isEditable
-      publishButton =
-        <AsyncButton
+
+      if TaskPlanStore.isPublished(id)
+        publishButton = <AsyncButton
           bsStyle='primary'
           className='-publish'
-          onClick={@onPublish}
-          isWaiting={isWaiting and @state.publishing}
+          onClick={@onSave}
+          isWaiting={isWaiting and @state.saving}
           isFailed={isFailed}
-          waitingText='Publishing…'
-          disabled={isWaiting}
-          isJob={true}
-        >
-          Publish
+          waitingText='Saving…'
+          disabled={isWaiting}>
+          Save
         </AsyncButton>
+      else
+        publishButton =
+          <AsyncButton
+            bsStyle='primary'
+            className='-publish'
+            onClick={@onPublish}
+            isWaiting={isWaiting and @state.publishing}
+            isFailed={isFailed}
+            waitingText='Publishing…'
+            disabled={isWaiting}
+            isJob={true}>
+            Publish
+          </AsyncButton>
 
       cancelButton =
         <BS.Button aria-role='close' disabled={isWaiting} onClick={onCancel}>Cancel</BS.Button>
@@ -158,20 +166,6 @@ PlanFooter = React.createClass
             >
             {'Save as Draft'}
           </AsyncButton>
-
-    if TaskPlanStore.isPublished(id) and isEditable
-      publishButton = <AsyncButton
-        bsStyle='primary'
-        className='-publish'
-        onClick={@onSave}
-        isWaiting={isWaiting and @state.saving}
-        isFailed={isFailed}
-        waitingText='Saving…'
-        disabled={isWaiting}
-        >
-        Save
-      </AsyncButton>
-
 
     <div className='footer-buttons'>
       {publishButton}

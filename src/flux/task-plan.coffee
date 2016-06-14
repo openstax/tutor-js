@@ -409,7 +409,7 @@ TaskPlanConfig =
         _.each plan.tasking_plans, (tasking) ->
           unless tasking.due_at and tasking.opens_at
             flag = false
-        flag and plan.tasking_plans?.length
+        flag and plan.tasking_plans?.length?
 
       if (plan.type is 'reading')
         return plan.title and isValidDates() and plan.settings?.page_ids?.length > 0
