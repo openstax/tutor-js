@@ -84,15 +84,6 @@ TaskConfig =
     # explicit return obj to load onto @_local
     obj
 
-  loadUserTasks: (courseId) -> # Used by API
-  loadedUserTasks: (obj) ->
-    tasks = obj.items
-    # Used by API
-    for task in tasks
-      @loaded(task, task.id)
-
-    @emitChange()
-
   exports:
     getSteps: (id) ->
       throw new Error('BUG: Steps not loaded') unless @_steps[id]
