@@ -74,7 +74,6 @@ module.exports = React.createClass
     show: true
     assignment: task.title
     due: @reformatTaskDue(task.due_at)
-    isPastDue: TaskStore.isTaskPastDue(task.id)
 
   reformatTaskDue: (due_at) ->
     moment(due_at).calendar()
@@ -99,11 +98,11 @@ module.exports = React.createClass
       to: 'viewTaskStepMilestones'
 
   render: ->
-    {show, assignment, due, isPastDue, hasMilestones} = @state
+    {show, assignment, due, hasMilestones} = @state
     return null unless show
 
     linkProps = _.pick @state, 'to', 'params'
-    calendarIconType = if isPastDue then 'calendar-times-o' else 'calendar-check-0'
+
     milestonesToggleClasses = classnames 'milestones-toggle',
       'active': hasMilestones
 
@@ -113,7 +112,7 @@ module.exports = React.createClass
           {assignment}
         </span>
 
-        <Icon type={calendarIconType}
+        <Icon type='calendar-check-o'
           tooltipProps={placement: 'bottom'}
           tooltip={due} />
         <Router.Link
