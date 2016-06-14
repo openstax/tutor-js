@@ -12,6 +12,7 @@ LoginGateway = React.createClass
     window: React.PropTypes.shape(
       open: React.PropTypes.func
     )
+    onToggle: React.PropTypes.func
 
   getDefaultProps: ->
     window: window
@@ -31,6 +32,7 @@ LoginGateway = React.createClass
       "left="  + (window.screen.width - width)   / 2].join()
     loginWindow = @props.window.open(@urlForLogin(), 'oxlogin', options)
     @setState({loginWindow})
+    @props.onToggle?(loginWindow)
     _.delay(@windowClosedCheck, SECOND)
 
   parseAndDispatchMessage: (msg) ->
