@@ -33,8 +33,14 @@ EnrollOrLogin = React.createClass
         </p>
       </div>
       <div className='enroll-instructors-interest'>
-        <p><strong>Instructors - Are you interested in using Concept Coach in your course?</strong></p>
-        <a className='enroll-instructors-interest-learn-more' href='http://cc.openstax.org/'>Learn More &gt;</a>
+        <p>
+          <strong>
+            Instructors - Are you interested in using Concept Coach in your course?
+          </strong>
+        </p>
+        <a
+          className='enroll-instructors-interest-learn-more'
+          href='http://cc.openstax.org/'>Learn More &gt;</a>
       </div>
     </div>
 
