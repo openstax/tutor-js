@@ -22,7 +22,8 @@ CCDashboardHelp = React.createClass
 
     glprops = {lowercase:true, courseId: courseId}
     classes = classnames 'cc-dashboard-help-page', 'in-period': @props.inPeriod
-
+    section =
+      <CourseGroupingLabel lowercase {...glprops} />
     <div className="#{classes}">
       <h3 className="title">
         Welcome to your OpenStax Concept Coach™ Dashboard
@@ -33,40 +34,31 @@ CCDashboardHelp = React.createClass
           <div className="help">
             <ol>
               <li>
-                Add <CourseGroupingLabel plural {...glprops} /> to
-                your course by clicking on your name in the top
-                right corner and selecting "Course Settings and Roster."
+                <b>
+                  Add <CourseGroupingLabel plural {...glprops} /> to your course.
+                </b>
+                Click your name in the top right corner and select Course Settings and Roster
+                On the Course Settings and Roster, click Add Section.
+                If you have more than one section, repeat this step as needed.
               </li>
               <li>
-                Generate a student enrollment code for
-                each <CourseGroupingLabel {...glprops} /> you
-                create.
+                <b>Get student enrollment code and send to
+                your students.</b> While still on the Course Settings and Roster page, select your
+                first {section}.
+                Under the section name, click Get Student Enrollment Code. Copy the example message,
+                and send it to your students. If you have more than
+                one {section}, repeat
+                this step for <i>each</i> {section}.
+                Each {section} has a different enrollment code.
               </li>
               <li>
-                Distribute the enrollment codes for
-                each <CourseGroupingLabel {...glprops} /> and
-                textbook URL (which is the same for
-                each <CourseGroupingLabel {...glprops} />) to
-                your students.
-              </li>
-              <li>
-                Encourage your students to login to Concept Coach as part of their
-                first reading assignment.
-              </li>
-              <li>
-                As your students begin using Concept Coach, you will be able to
-                track their performance and see their scores in your dashboard.
-                <p>
-                  Performance metrics will appear when at least 10% of students
-                  have completed a Concept Coach reading
-                </p>
+                As your students begin using Concept Coach, you will be able to track their performance in your dashboard.
               </li>
             </ol>
             <Router.Link className='settings btn btn-default btn-large'
               to='courseSettings' params={{courseId}}
             >
-              <Icon type='plus' /> Add
-              a <CourseGroupingLabel {...glprops} /> to your course
+              <Icon type='plus' /> Add a {section} to your course
             </Router.Link>
 
           </div>
