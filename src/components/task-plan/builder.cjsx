@@ -54,11 +54,11 @@ TaskingDateTime = React.createClass
       dateTime = "#{date} #{time}"
       @props.onChange(dateTime)
 
-  canSetAsDefaultTime: ->
-    _.isEmpty @refs.time?.refs.timeInput?.state?.errors
-
   hasValidInputs: ->
     _.isEmpty(@refs.date?.state?.errors) and _.isEmpty(@refs.time?.refs.timeInput?.state?.errors)
+
+  canSetAsDefaultTime: ->
+    _.isEmpty @refs.time?.refs.timeInput?.state?.errors
 
   setDefaultTime: ->
     {timeLabel, setDefaultTime} = @props
@@ -192,7 +192,8 @@ Tasking = React.createClass
       isVisibleToStudents,
       isEnabled,
       period,
-      togglePeriodEnabled
+      togglePeriodEnabled,
+      isEditable,
     } = @props
 
     taskingIdentifier = period?.id or 'common'
@@ -220,7 +221,7 @@ Tasking = React.createClass
             <input
               id={"period-toggle-#{period.id}"}
               type='checkbox'
-              disabled={isVisibleToStudents}
+              disabled={not isVisibleToStudents}
               onChange={_.partial(togglePeriodEnabled, period)}
               checked={false}/>
             <label className="period" htmlFor={"period-toggle-#{period.id}"}>{period.name}</label>
@@ -367,7 +368,7 @@ module.exports = React.createClass
 
     #enable all periods
     periods = _.map CourseStore.getPeriods(@props.courseId), (period) -> id: period.id
-    TaskPlanActions.setPeriods(@props.id, courseId, periods)
+    TaskPlanActions.setPeriods(@props.id, courseId, periods, false)
 
     #set dates for all periods
     taskingDueAt = TaskPlanStore.getDueAt(@props.id) or @getQueriedDueAt()
@@ -487,9 +488,9 @@ module.exports = React.createClass
       name='toggle-periods-radio'
       ref='allPeriodsRadio'
       type='radio'
-      onChange={@setAllPeriods}
       disabled={@state.isVisibleToStudents}
-      checked={not @state.showingPeriods}/> unless @state.isVisibleToStudents
+      onChange={@setAllPeriods}
+      checked={not @state.showingPeriods}/> if not @state.isVisibleToStudents
 
     <BS.Row className="common tutor-date-input">
       <BS.Col sm=4 md=3>
@@ -504,9 +505,9 @@ module.exports = React.createClass
       id='show-periods-radio'
       name='toggle-periods-radio'
       type='radio'
-      onChange={@setIndividualPeriods}
       disabled={@state.isVisibleToStudents}
-      checked={@state.showingPeriods}/> unless @state.isVisibleToStudents
+      onChange={@setIndividualPeriods}
+      checked={@state.showingPeriods}/> if not @state.isVisibleToStudents
 
     choiceLabel = <BS.Row key='tasking-individual-choice'>
       <BS.Col md=12>
@@ -546,7 +547,7 @@ module.exports = React.createClass
       isEditable={isEditable}
       isEnabled={isEnabled}
       currentLocale={currentLocale}
-      required={true}
+      required={isEnabled}
       taskingOpensAt={taskingOpensAt}
       taskingDueAt={taskingDueAt}
       dueTime={dueTime}

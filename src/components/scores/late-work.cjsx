@@ -76,6 +76,7 @@ class ReadingContent extends LateWork
     accepted:   'Use this score'
     pending:    'Accept late score'
   body: ->
+    null
 
 LateWorkPopover = React.createClass
 

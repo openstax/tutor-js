@@ -112,5 +112,4 @@ module.exports = {
 
   isLate: (task) ->
     task.completed_on_time_step_count < task.completed_step_count
-
 }

@@ -10,6 +10,7 @@ PlanFooter      = require './footer'
 TaskPlanBuilder = require './builder'
 ChooseExercises = require './homework/choose-exercises'
 ReviewExercises = require './homework/review-exercises'
+FeedbackSetting = require './feedback'
 
 {TutorInput, TutorDateInput, TutorTextArea} = require '../tutor-input'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
@@ -17,9 +18,6 @@ ReviewExercises = require './homework/review-exercises'
 HomeworkPlan = React.createClass
 
   mixins: [PlanMixin]
-
-  setImmediateFeedback: (ev) ->
-    TaskPlanActions.setImmediateFeedback( @props.id, ev.target.value is 'immediate' )
 
   render: ->
     {id, courseId} = @props
@@ -52,21 +50,7 @@ HomeworkPlan = React.createClass
           <TaskPlanBuilder courseId={courseId} id={id} />
           <BS.Row>
             <BS.Col xs=8>
-              <div className="form-group">
-                <label htmlFor="feedback-select">Show feedback</label>
-                <select
-                  onChange={@setImmediateFeedback}
-                  value={if TaskPlanStore.isFeedbackImmediate(id) then 'immediate' else 'due_at'}
-                  id="feedback-select" className="form-control"
-                >
-                  <option value="immediate">
-                    instantly after the student answers each question
-                  </option>
-                  <option value="due_at">
-                    only after due date/time passes
-                  </option>
-                </select>
-              </div>
+              <FeedbackSetting id={id} showPopup={@state.isVisibleToStudents}/>
             </BS.Col>
           </BS.Row>
           <BS.Row>

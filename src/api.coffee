@@ -219,6 +219,9 @@ start = (bootstrapData) ->
     url: "/api/tasks/#{id}/accept_late_work"
   apiHelper ScoresActions, ScoresActions.rejectLate, ScoresActions.rejectedLate, 'PUT', (id) ->
     url: "/api/tasks/#{id}/reject_late_work"
+  apiHelper StudentDashboardActions, StudentDashboardActions.hide, StudentDashboardActions.hidden, 'DELETE', (id) ->
+    url: "/api/tasks/#{id}"
+
 
   apiHelper ScoresExportActions, ScoresExportActions.load, ScoresExportActions.loaded, 'GET', (id) ->
     url: "/api/courses/#{id}/performance/exports"
