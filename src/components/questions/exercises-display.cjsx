@@ -11,6 +11,7 @@ ScrollSpy        = require '../scroll-spy'
 Sectionizer      = require '../exercises/sectionizer'
 NoExercisesFound = require './no-exercises-found'
 ExerciseHelpers  = require '../../helpers/exercise'
+Dialog           = require '../tutor-dialog'
 
 ExercisesDisplay = React.createClass
 
@@ -81,6 +82,20 @@ ExercisesDisplay = React.createClass
     @setState({currentView: 'cards', showingCardsFromDetailsView: true})
     @props.onShowCardViewClick(ev, exercise)
 
+  renderMinimumExclusionWarning: ->
+    [
+      <Icon key="icon" type="exclamation" />
+      <div key="message" className="message">
+        <p>
+          Tutor needs at least 5 questions for this topic to be
+          included in spaced practice and personalized learning.
+        </p>
+        <p>
+          If you exclude too many, your students will not get to practice on this topic.
+        </p>
+      </div>
+    ]
+
   onExerciseToggle: (ev, exercise) ->
     isSelected = not ExerciseStore.isExerciseExcluded(exercise.id)
     if isSelected and ExerciseStore.isExcludedAtMinimum(ExerciseStore.get(@props.sectionIds))
@@ -89,7 +104,7 @@ ExercisesDisplay = React.createClass
         title: '', body: @renderMinimumExclusionWarning()
         buttons: [
           <BS.Button key='exclude'
-            onClick={->
+            onClick={=>
               ExerciseActions.saveExerciseExclusion(@props.courseId, exercise.id, isSelected)
               Dialog.hide()
             }>Exclude</BS.Button>

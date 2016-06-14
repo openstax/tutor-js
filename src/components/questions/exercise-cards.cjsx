@@ -25,20 +25,6 @@ SectionsExercises = React.createClass
     onShowDetailsViewClick: React.PropTypes.func.isRequired
     onExerciseToggle: React.PropTypes.func.isRequired
 
-  renderMinimumExclusionWarning: ->
-    [
-      <Icon key="icon" type="exclamation" />
-      <div key="message" className="message">
-        <p>
-          Tutor needs at least 5 questions for this topic to be
-          included in spaced practice and personalized learning.
-        </p>
-        <p>
-          If you exclude too many, your students will not get to practice on this topic.
-        </p>
-      </div>
-    ]
-
   renderExercise: (exercise) ->
     actions = ExerciseHelpers.buildPreviewActions(exercise, @props.onExerciseToggle, {
       details:
