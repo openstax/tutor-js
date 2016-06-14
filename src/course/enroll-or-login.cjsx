@@ -25,7 +25,7 @@ EnrollOrLogin = React.createClass
       <div className="enroll">
         <h3>
           {newToConceptCoach}  <LoginGateway className="sign-up">
-            Sign up with enrollment code
+            Sign up with your enrollment code
           </LoginGateway>
         </h3>
         <p className="hint">
