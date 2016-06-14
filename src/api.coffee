@@ -279,9 +279,6 @@ start = (bootstrapData) ->
     url: "/api/steps/#{id}"
     payload: {answer_id}
 
-  apiHelper TaskActions, TaskActions.loadUserTasks, TaskActions.loadedUserTasks, 'GET', (courseId) ->
-    url: "/api/courses/#{courseId}/tasks"
-
   apiHelper TaskTeacherReviewActions, TaskTeacherReviewActions.load, TaskTeacherReviewActions.loaded, 'GET', (id) ->
     url: "/api/plans/#{id}/review"
 
