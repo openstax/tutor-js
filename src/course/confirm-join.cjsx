@@ -10,7 +10,6 @@ ErrorList = require './error-list'
 ConfirmJoin = React.createClass
 
   propTypes:
-    title: React.PropTypes.element.isRequired
     course: React.PropTypes.instanceOf(Course).isRequired
     optionalStudentId: React.PropTypes.bool
 
