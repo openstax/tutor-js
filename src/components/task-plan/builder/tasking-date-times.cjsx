@@ -5,9 +5,9 @@ _     = require 'underscore'
 
 {TimeStore} = require '../../../flux/time'
 TimeHelper  = require '../../../helpers/time'
-{PeriodActions, PeriodStore}     = require '../../flux/period'
-{TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
-{CourseStore, CourseActions}     = require '../../flux/course'
+{PeriodActions, PeriodStore}     = require '../../../flux/period'
+{TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
+{CourseStore, CourseActions}     = require '../../../flux/course'
 
 DateTime = require './date-time'
 

@@ -5,7 +5,7 @@ moment = require 'moment-timezone'
 BS = require 'react-bootstrap'
 
 TimeHelper = require '../../../helpers/time'
-TaskingDateTime = require './date-time'
+TaskingDateTimes = require './tasking-date-times'
 
 Tasking = React.createClass
   render: ->
