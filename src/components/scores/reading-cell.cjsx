@@ -34,11 +34,11 @@ ReadingCell = React.createClass
           </div>
           <div className='row'>
             <div>
-            <Router.Link to='viewTaskStep'
-              data-assignment-type="#{task.type}"
-              params={courseId: courseId, id: task.id, stepIndex: 1}>
-                Review
-            </Router.Link>
+              <Router.Link to='viewTaskStep'
+                data-assignment-type="#{task.type}"
+                params={courseId: courseId, id: task.id, stepIndex: 1}>
+                  Review
+              </Router.Link>
             </div>
           </div>
         </div>
