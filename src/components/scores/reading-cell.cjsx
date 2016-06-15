@@ -13,15 +13,10 @@ ReadingCell = React.createClass
 
   mixins: [CellStatusMixin] # prop validation
 
-  getInitialState: ->
-    show: false
-
   show: ->
-    @setState(show: true)
     @refs.trigger.show()
 
   hide: ->
-    @setState(show: false)
     @refs.trigger.hide()
 
   render: ->
@@ -38,7 +33,13 @@ ReadingCell = React.createClass
             <div>Completed {TH.getHumanCompletedPercent(task)}</div>
           </div>
           <div className='row'>
-            <div>link</div>
+            <div>
+            <Router.Link to='viewTaskStep'
+              data-assignment-type="#{task.type}"
+              params={courseId: courseId, id: task.id, stepIndex: 1}>
+                Review
+            </Router.Link>
+            </div>
           </div>
         </div>
       </BS.Popover>
