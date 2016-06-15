@@ -16,10 +16,10 @@ TaskingDateTimes = React.createClass
     id:                  React.PropTypes.string.isRequired
     isEditable:          React.PropTypes.bool.isRequired
     taskingOpensAt:      React.PropTypes.string.isRequired
-    taskingDueAt:        React.PropTypes.string.isRequired
+    taskingDueAt:        React.PropTypes.string
     setDueAt:            React.PropTypes.func.isRequired
     setOpensAt:          React.PropTypes.func.isRequired
-    dueTime:             React.PropTypes.string.isRequired
+    dueTime:             React.PropTypes.string
     openTime:            React.PropTypes.string.isRequired
     defaultDueTime:      React.PropTypes.string.isRequired
     defaultOpenTime:     React.PropTypes.string.isRequired

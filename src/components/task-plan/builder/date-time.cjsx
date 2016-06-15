@@ -10,7 +10,7 @@ TimeHelper    = require '../../../helpers/time'
 DateTime = React.createClass
 
   propTypes:
-    value:          React.PropTypes.string.isRequired
+    value:          React.PropTypes.string
     defaultValue:   React.PropTypes.string.isRequired
     isSetting:      React.PropTypes.func.isRequired
     timeLabel:      React.PropTypes.string.isRequired
