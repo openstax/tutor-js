@@ -10,7 +10,6 @@ ErrorList = require './error-list'
 ConfirmJoin = React.createClass
 
   propTypes:
-    title: React.PropTypes.element.isRequired
     course: React.PropTypes.instanceOf(Course).isRequired
     optionalStudentId: React.PropTypes.bool
 
@@ -22,7 +21,7 @@ ConfirmJoin = React.createClass
 
   onCancel: (ev) ->
     ev.preventDefault()
-    @props.course.confirm('')
+    @props.course.confirm()
 
   onSubmit: ->
     @props.course.confirm(@refs.input.getValue())

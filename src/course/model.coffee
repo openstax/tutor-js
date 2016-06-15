@@ -108,7 +108,7 @@ class Course
   # Submits pending course change for confirmation
   confirm: (studentId) ->
     payload = { id: @id }
-    payload.student_identifier = studentId
+    payload.student_identifier = studentId if studentId
     @isBusy = true
     api.channel.once "course.#{@id}.receive.confirmation.*", @_onConfirmed
     api.channel.emit("course.#{@id}.send.confirmation", data: payload)
