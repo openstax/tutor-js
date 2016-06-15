@@ -8,6 +8,14 @@ TimeHelper = require '../../../helpers/time'
 TaskingDateTimes = require './tasking-date-times'
 
 Tasking = React.createClass
+
+  propTypes:
+    period:              React.PropTypes.object
+    isEditable:          React.PropTypes.bool.isRequired
+    isEnabled:           React.PropTypes.bool.isRequired
+    togglePeriodEnabled: React.PropTypes.func.isRequired
+    isVisibleToStudents: React.PropTypes.bool.isRequired
+
   render: ->
     {
       isVisibleToStudents,

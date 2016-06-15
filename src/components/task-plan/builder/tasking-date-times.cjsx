@@ -12,6 +12,20 @@ TimeHelper  = require '../../../helpers/time'
 DateTime = require './date-time'
 
 TaskingDateTimes = React.createClass
+  propTypes:
+    id:                  React.PropTypes.string.isRequired
+    isEditable:          React.PropTypes.bool.isRequired
+    taskingOpensAt:      React.PropTypes.string.isRequired
+    taskingDueAt:        React.PropTypes.string.isRequired
+    setDueAt:            React.PropTypes.func.isRequired
+    setOpensAt:          React.PropTypes.func.isRequired
+    dueTime:             React.PropTypes.string.isRequired
+    openTime:            React.PropTypes.string.isRequired
+    defaultDueTime:      React.PropTypes.string.isRequired
+    defaultOpenTime:     React.PropTypes.string.isRequired
+    isVisibleToStudents: React.PropTypes.bool
+    period:              React.PropTypes.object
+
   isTimeDefault: (time, defaultTime) ->
     return true if _.isUndefined(time)
     TimeHelper.makeMoment(time, 'HH:mm').isSame(TimeHelper.makeMoment(defaultTime, 'HH:mm'), 'minute')

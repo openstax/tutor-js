@@ -8,6 +8,14 @@ TimeHelper    = require '../../../helpers/time'
 {AsyncButton} = require 'openstax-react-components'
 
 DateTime = React.createClass
+
+  propTypes:
+    value:          React.PropTypes.string.isRequired
+    defaultValue:   React.PropTypes.string.isRequired
+    isSetting:      React.PropTypes.func.isRequired
+    timeLabel:      React.PropTypes.string.isRequired
+    setDefaultTime: React.PropTypes.func.isRequired
+
   getInitialState: ->
     @getStateFromProps()
 
