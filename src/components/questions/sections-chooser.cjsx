@@ -23,7 +23,7 @@ QLSectionsChooser = React.createClass
   getInitialState: -> {}
 
   showQuestions: ->
-    ExerciseActions.loadForCourse( @props.courseId, @state.sectionIds, '' )
+    ExerciseActions.loadForCourse( @props.courseId, @state.sectionIds, null, '' )
     @props.onSelectionsChange(@state.sectionIds)
 
   clearQuestions: ->
