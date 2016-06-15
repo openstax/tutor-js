@@ -11,10 +11,6 @@ TimeHelper  = require '../../../helpers/time'
 
 DateTime = require './date-time'
 
-ISO_DATE_FORMAT = 'YYYY-MM-DD'
-
-DateTime = requre './builder/date-time'
-
 TaskingDateTimes = React.createClass
   isTimeDefault: (time, defaultTime) ->
     return true if _.isUndefined(time)

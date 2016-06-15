@@ -20,6 +20,8 @@ TIME_LINKS =
   'Canada/Atlantic': 'Atlantic Time (Canada)'
 
 TimeHelper =
+  ISO_DATE_FORMAT: 'YYYY-MM-DD'
+  ISO_TIME_FORMAT: 'HH:mm'
 
   linkZoneNames: ->
     # uses moment-timezone-utils to alias loaded timezone data to timezone names in Rails

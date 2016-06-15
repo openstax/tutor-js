@@ -3,11 +3,9 @@ moment = require 'moment-timezone'
 BS     = require 'react-bootstrap'
 _      = require 'underscore'
 
-{TutorDateInput, TutorTimeInput} = require '../tutor-input'
+{TutorDateInput, TutorTimeInput} = require '../../tutor-input'
 TimeHelper    = require '../../../helpers/time'
 {AsyncButton} = require 'openstax-react-components'
-
-ISO_DATE_FORMAT = 'YYYY-MM-DD'
 
 DateTime = React.createClass
   getInitialState: ->
@@ -17,7 +15,7 @@ DateTime = React.createClass
     props ?= @props
     {value, defaultValue, isSetting} = props
 
-    date = moment(value).format(ISO_DATE_FORMAT) if value?
+    date = moment(value).format(TimeHelper.ISO_DATE_FORMAT) if value?
 
     date: date
     time: defaultValue
@@ -27,7 +25,7 @@ DateTime = React.createClass
     @setState({time})
 
   onDateChange: (date) ->
-    date = date.format(ISO_DATE_FORMAT) if moment.isMoment(date)
+    date = date.format(TimeHelper.ISO_DATE_FORMAT) if moment.isMoment(date)
     @setState({date})
 
   componentWillReceiveProps: (nextProps) ->

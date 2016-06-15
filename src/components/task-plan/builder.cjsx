@@ -57,7 +57,7 @@ TaskPlanBuilder = React.createClass
       tasking
 
   getOpensAtDefault: ->
-    moment(TimeStore.getNow()).add(1, 'day').format(ISO_DATE_FORMAT)
+    moment(TimeStore.getNow()).add(1, 'day').format(TimeHelper.ISO_DATE_FORMAT)
 
   getQueriedOpensAt: ->
     {opens_at} = @context?.router?.getCurrentQuery() # attempt to read the open date from query params
@@ -74,16 +74,16 @@ TaskPlanBuilder = React.createClass
       dueAtMoment = TimeHelper.getMomentPreserveDate(dueAt)
       # there's a corner case is certain timezones where isAfter doesn't quite cut it
       # and we need to check that the ISO strings don't match
-      unless (dueAtMoment.isAfter(opensAt, 'day') and dueAtMoment.format(ISO_DATE_FORMAT) isnt opensAt)
+      unless (dueAtMoment.isAfter(opensAt, 'day') and dueAtMoment.format(TimeHelper.ISO_DATE_FORMAT) isnt opensAt)
         # make open date today if default due date is tomorrow
-        opensAt = moment(TimeStore.getNow()).format(ISO_DATE_FORMAT)
+        opensAt = moment(TimeStore.getNow()).format(TimeHelper.ISO_DATE_FORMAT)
 
     opensAt
 
   getQueriedDueAt: ->
     {due_at} = @context?.router?.getCurrentQuery() # attempt to read the due date from query params
     isNewPlan = TaskPlanStore.isNew(@props.id)
-    dueAt = if due_at and isNewPlan then TimeHelper.getMomentPreserveDate(due_at).format(ISO_DATE_FORMAT)
+    dueAt = if due_at and isNewPlan then TimeHelper.getMomentPreserveDate(due_at).format(TimeHelper.ISO_DATE_FORMAT)
 
   # Copies the available periods from the course store and sets
   # them to open at the default start date
@@ -136,12 +136,12 @@ TaskPlanBuilder = React.createClass
 
   setOpensAt: (value, period) ->
     {id} = @props
-    value = value.format(ISO_DATE_FORMAT) if moment.isMoment(value)
+    value = value.format(TimeHelper.ISO_DATE_FORMAT) if moment.isMoment(value)
     TaskPlanActions.updateOpensAt(id, value, period?.id)
 
   setDueAt: (value, period) ->
     {id} = @props
-    value = value.format(ISO_DATE_FORMAT) if moment.isMoment(value)
+    value = value.format(TimeHelper.ISO_DATE_FORMAT) if moment.isMoment(value)
     TaskPlanActions.updateDueAt(id, value, period?.id)
 
   setAllPeriods: ->
@@ -153,7 +153,7 @@ TaskPlanBuilder = React.createClass
       @setState(showingPeriods: false, savedTaskings: saveTaskings)
 
     #get opens at and due at
-    taskingOpensAt = TaskPlanStore.getOpensAt(@props.id) or TimeHelper.makeMoment(TimeStore.getNow()).format(ISO_DATE_FORMAT)
+    taskingOpensAt = TaskPlanStore.getOpensAt(@props.id) or TimeHelper.makeMoment(TimeStore.getNow()).format(TimeHelper.ISO_DATE_FORMAT)
     @setOpensAt(taskingOpensAt)
 
     #enable all periods
