@@ -150,8 +150,10 @@ ExerciseConfig =
       includedExercises = _.reject exercises, 'is_excluded'
       _.groupBy(includedExercises, getChapterSection)
 
-    groupBySectionsAndTypes: (pageIds) ->
+    groupBySectionsAndTypes: (pageIds, options = {withExcluded: false}) ->
       all = @_exercises[pageIds.toString()] or []
+      unless options.withExcluded is true
+        all = _.filter( all, (ex) -> ex.is_excluded isnt true )
       results = {
         all:
           count: all.length
