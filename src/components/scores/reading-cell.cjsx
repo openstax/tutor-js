@@ -13,16 +13,32 @@ ReadingCell = React.createClass
 
   mixins: [CellStatusMixin] # prop validation
 
+  getInitialState: ->
+    show: false
+
+  show: ->
+    @setState(show: true)
+    @refs.trigger.show()
+
+  hide: ->
+    @setState(show: false)
+    @refs.trigger.hide()
+
   render: ->
     {task, courseId, displayAs, isConceptCoach, rowIndex, columnIndex, period_id} = @props
 
     tooltip =
       <BS.Popover
+        onMouseOver={@show}
+        onMouseLeave={@hide}
         id="scores-cell-info-popover-#{task.id}"
         className='scores-scores-tooltip-completed-info'>
         <div className='info'>
           <div className='row'>
             <div>Completed {TH.getHumanCompletedPercent(task)}</div>
+          </div>
+          <div className='row'>
+            <div>link</div>
           </div>
         </div>
       </BS.Popover>
@@ -32,11 +48,15 @@ ReadingCell = React.createClass
 
       <div className="worked wide">
         <BS.OverlayTrigger
+        ref='trigger'
         placement="left"
         delayShow={1000}
         delayHide={0}
         overlay={tooltip}>
-          <span className='trigger-wrap'>
+          <span
+            className='trigger-wrap'
+            onMouseOver={@show}
+            onMouseLeave={@hide}>
             <PieProgress
               isConceptCoach={isConceptCoach}
               size={24}
