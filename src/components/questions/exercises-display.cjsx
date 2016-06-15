@@ -189,7 +189,7 @@ ExercisesDisplay = React.createClass
   render: ->
     return null if ExerciseStore.isLoading() or _.isEmpty(@props.sectionIds)
 
-    exercises = ExerciseStore.groupBySectionsAndTypes(@props.sectionIds)
+    exercises = ExerciseStore.groupBySectionsAndTypes(@props.sectionIds, withExcluded: true)
 
     <div className="exercises-display">
       <div className="instructions">
