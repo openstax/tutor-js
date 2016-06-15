@@ -30,7 +30,7 @@ SelectTopics = React.createClass
     ecosystemId = CourseStore.get(courseId).ecosystem_id
 
     <Dialog
-      className='select-reading-dialog'
+      className='select-topics'
       header={header}
       primary={primary}
       confirmMsg='You will lose unsaved changes if you continue.'
@@ -38,7 +38,7 @@ SelectTopics = React.createClass
       isChanged={_.constant(@hasChanged())}
       onCancel={cancel}>
 
-      <div className='select-reading-chapters'>
+      <div className='select-chapters'>
         <SectionsChooser
           ecosystemId={ecosystemId}
           chapters={TocStore.get(ecosystemId)}
