@@ -1,8 +1,6 @@
 React = require 'react'
-Router = require 'react-router'
-_ = require 'underscore'
-moment = require 'moment-timezone'
-BS = require 'react-bootstrap'
+_     = require 'underscore'
+BS    = require 'react-bootstrap'
 
 TimeHelper = require '../../../helpers/time'
 TaskingDateTimes = require './tasking-date-times'
