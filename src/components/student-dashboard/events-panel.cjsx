@@ -48,7 +48,7 @@ module.exports = React.createClass
         <BS.Col xs={5} xsOffset={2} smOffset={0} sm={3} className='progress-label'>
           Progress
         </BS.Col>
-        <BS.Col xs={5} sm={2} className='due-at-label'>Due (7:00am)</BS.Col>
+        <BS.Col xs={5} sm={2} className='due-at-label'>Due</BS.Col>
       </div>
       {_.map(@props.events, @renderEvent)}
     </BS.Panel>
