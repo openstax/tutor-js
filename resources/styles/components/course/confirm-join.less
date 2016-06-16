@@ -1,8 +1,16 @@
 .confirm-join {
-
+  text-align: center;
+  .label { font-size: 1.6rem; }
   .controls {
     width: 400px;
     margin: auto;
+    .form-control {
+      display: inline;
+      width: calc(~"100% - 150px")
+    }
+    .btn.continue {
+      margin-left: 1rem;
+    }
     .or, .skip {
       display: block;
       display: block;
@@ -29,8 +37,12 @@
   }
 
   .title {
-    color: black;
     font-size: 24px;
+    border-bottom: 2px solid grey;
+    display: inline-block;
+    padding: 20px 50px; // extend border past sides of text
+    margin: 20px auto;
+    border-bottom: 2px solid @openstax-neutral-light;
     .course, .teacher {
       display: block;
     }
