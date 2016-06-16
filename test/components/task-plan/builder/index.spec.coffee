@@ -1,16 +1,16 @@
 _ = require 'underscore'
 moment = require 'moment-timezone'
 
-Builder = require '../../../src/components/task-plan/builder'
-{TaskPlanActions, TaskPlanStore} = require '../../../src/flux/task-plan'
-{Testing, sinon, expect, _, React} = require '../helpers/component-testing'
-{ExtendBasePlan, PlanRenderHelper} = require '../helpers/task-plan'
+Builder = require '../../../../src/components/task-plan/builder'
+{TaskPlanActions, TaskPlanStore} = require '../../../../src/flux/task-plan'
+{Testing, sinon, expect, _, React} = require '../../helpers/component-testing'
+{ExtendBasePlan, PlanRenderHelper} = require '../../helpers/task-plan'
 
-{CourseListingActions, CourseListingStore} = require '../../../src/flux/course-listing'
-{CourseStore} = require '../../../src/flux/course'
+{CourseListingActions, CourseListingStore} = require '../../../../src/flux/course-listing'
+{CourseStore} = require '../../../../src/flux/course'
 
-{TimeStore} = require '../../../src/flux/time'
-TimeHelper = require '../../../src/helpers/time'
+{TimeStore} = require '../../../../src/flux/time'
+TimeHelper = require '../../../../src/helpers/time'
 TutorDateFormat = TimeStore.getFormat()
 ISO_DATE_FORMAT = 'YYYY-MM-DD'
 
@@ -22,7 +22,7 @@ dayAfter = moment(TimeStore.getNow()).add(2, 'day').format(ISO_DATE_FORMAT)
 getDateString = (value) -> TimeHelper.getMomentPreserveDate(value).format(TutorDateFormat)
 getISODateString = (value) -> TimeHelper.getMomentPreserveDate(value).format(ISO_DATE_FORMAT)
 
-COURSES = require '../../../api/user/courses.json'
+COURSES = require '../../../../api/user/courses.json'
 NEW_READING = ExtendBasePlan({id: "_CREATING_1", settings: {page_ids: []}}, false, false)
 PUBLISHED_MODEL = ExtendBasePlan({
   id: '1'

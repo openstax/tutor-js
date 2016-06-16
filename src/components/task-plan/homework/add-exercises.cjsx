@@ -16,6 +16,7 @@ AddExercises = React.createClass
   propTypes:
     planId:     React.PropTypes.string.isRequired
     courseId:   React.PropTypes.string.isRequired
+    onAddClick: React.PropTypes.func.isRequired
     sectionIds: React.PropTypes.array
 
   getInitialState: ->
@@ -118,6 +119,7 @@ AddExercises = React.createClass
         canAdd={@props.canEdit}
         reviewClicked={@props.hide}
         onCancel={@props.cancel}
+        addClicked={@props.onAddClick}
         planId={@props.planId}
         onShowCardViewClick={@onShowCardViewClick}
         onShowDetailsViewClick={@onShowDetailsViewClick}

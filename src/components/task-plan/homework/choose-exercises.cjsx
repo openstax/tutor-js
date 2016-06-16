@@ -8,32 +8,39 @@ classnames = require 'classnames'
 AddExercises    = require './add-exercises'
 ReviewExercises = require './review-exercises'
 SelectTopics    = require '../select-topics'
+ScrollTo        = require '../../scroll-to-mixin'
+
+{ExerciseActions} = require '../../../flux/exercise'
 
 ChooseExercises = React.createClass
 
   propTypes:
     planId: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired
-    selected: React.PropTypes.array.isRequired
     hide: React.PropTypes.func.isRequired
     canEdit: React.PropTypes.bool
+
+  mixins: [ScrollTo]
 
   getInitialState: ->
     showProblems: false
 
   selectProblems: ->
+    ExerciseActions.loadForCourse(@props.courseId, TaskPlanStore.getTopics(@props.planId) )
     @setState(showProblems: true)
 
+  onAddClick: ->
+    @setState(showProblems: false)
+    @scrollToSelector('.select-topics')
+
   render: ->
-    {courseId, planId, ecosystemId, selected, hide, cancel} = @props
+    {courseId, planId, ecosystemId, hide, cancel} = @props
 
     selected = TaskPlanStore.getTopics(planId)
-    classes  = classnames('-show-problems', { disabled: _.isEmpty(selected) })
 
     primaryBtn =
       <BS.Button
-        key='pb'
-        className={classes}
+        className={classnames('-show-problems', { disabled: _.isEmpty(selected) })}
         bsStyle='primary'
         onClick={@selectProblems}
       >Show Problems</BS.Button>
@@ -55,6 +62,7 @@ ChooseExercises = React.createClass
         cancel={cancel}
         canEdit={true}
         canAdd={true}
+        onAddClick={@onAddClick}
         courseId={courseId}
         planId={planId}
         sectionIds={selected}

@@ -111,7 +111,7 @@ ReviewExercises = React.createClass
         planId={planId}/>
 
     exercise_ids = TaskPlanStore.getExercises(planId)
-    exercises = _.map(exercise_ids, ExerciseStore.getExerciseById)
+    exercises = _.compact _.map(exercise_ids, ExerciseStore.getExerciseById)
 
     <PinnedHeaderFooterCard
       containerBuffer={50}
