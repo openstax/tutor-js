@@ -234,7 +234,7 @@ module.exports = React.createClass
   renderStep: (data) ->
     {courseId} = @context.router.getCurrentParams()
     {id} = @props
-    pinned = if TaskStore.hasCrumbs(id) then true else false
+    pinned = not TaskStore.hasProgress(id)
 
     <TaskStep
       id={data.id}
