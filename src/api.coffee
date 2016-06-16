@@ -171,8 +171,10 @@ start = (bootstrapData) ->
       url: "/api/ecosystems/#{ecosystemId}/exercises/#{requestType}?#{toParams({page_ids})}"
   # And this one loads using a courseId
   apiHelper ExerciseActions, ExerciseActions.loadForCourse,
-    ExerciseActions.loadedForCourse, 'GET', (courseId, page_ids, requestType = 'homework_core') ->
-      url: "/api/courses/#{courseId}/exercises/#{requestType}?#{toParams({page_ids})}"
+    ExerciseActions.loadedForCourse, 'GET', (courseId, pageIds, ecosystemId = null, requestType = 'homework_core') ->
+      params = { page_ids: pageIds }
+      params['ecosystem_id'] = ecosystemId if ecosystemId?
+      url: "/api/courses/#{courseId}/exercises/#{requestType}?#{toParams(params)}"
 
   apiHelper ExerciseActions, ExerciseActions.saveExerciseExclusion,
     ExerciseActions.exclusionsSaved, 'PUT', (courseId) ->

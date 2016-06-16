@@ -11,7 +11,7 @@ LoadingExercisesMixin =
   componentWillUnmount: -> ExerciseStore.removeChangeListener(@exerciseLoadListenerOnUpdate)
 
   requestExerciseLoad: ->
-    ExerciseActions.loadForCourse(@props.courseId, @props.sectionIds)
+    ExerciseActions.loadForCourse(@props.courseId, @props.sectionIds, @props.ecosystemId)
 
   exercisesNeedLoading: ->
     not _.isEmpty(@props.sectionIds) and

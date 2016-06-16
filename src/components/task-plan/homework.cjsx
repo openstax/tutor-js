@@ -86,6 +86,7 @@ HomeworkPlan = React.createClass
         showSectionTopics={@showSectionTopics}
         courseId={courseId}
         sectionIds={topics}
+        ecosystemId={ecosystemId}
         planId={id}
       /> if hasExercises and not @state.showSectionTopics}
 
