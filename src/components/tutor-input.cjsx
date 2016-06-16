@@ -151,16 +151,6 @@ TutorDateInput = React.createClass
   getValue: ->
     @props.value or @state.value
 
-  onToggle: (open) ->
-    @setState({expandCalendar: open})
-
-  clickHandler: (event) ->
-    if (event.target.tagName is "INPUT" and not @state.expandCalendar)
-      @setState({expandCalendar: true})
-
-  onBlur: (event) ->
-    @setState({hasFocus: false})
-
   render: ->
     classes = classnames 'form-control',
       empty: (not @props.value and not @state.hasFocus)
@@ -189,7 +179,6 @@ TutorDateInput = React.createClass
           maxDate={max}
           onFocus={@expandCalendar}
           dateFormat={TutorDateFormat}
-          onBlur={@onBlur}
           key={@props.id}
           ref="picker"
           className={classes}
