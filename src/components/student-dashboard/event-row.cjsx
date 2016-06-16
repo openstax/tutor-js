@@ -45,7 +45,7 @@ module.exports = React.createClass
       </BS.Button>
       feedback = <span>Withdrawn</span>
     else
-      time = <Time date={@props.event.due_at} />
+      time = <Time date={@props.event.due_at} format='concise'/>
       feedback = [
         <span>{@props.feedback}</span>
         <EventInfoIcon event={@props.event} />
