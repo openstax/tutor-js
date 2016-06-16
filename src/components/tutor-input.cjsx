@@ -185,6 +185,7 @@ TutorDateInput = React.createClass
 
     if not @props.disabled
       dateElem = <DatePicker
+          readOnly={true}
           minDate={min}
           maxDate={max}
           onFocus={@expandCalendar}
@@ -202,7 +203,7 @@ TutorDateInput = React.createClass
       displayValue = value.format(TutorDateFormat)
 
     <div className={wrapperClasses}>
-      <input type='text' disabled className={classes} value={displayValue}/>
+      <input type='text' disabled readonly className={classes} value={displayValue}/>
       <div className="floating-label">{@props.label}</div>
       <div className="hint required-hint">
         Required Field <i className="fa fa-exclamation-circle"></i>
