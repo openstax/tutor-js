@@ -259,9 +259,7 @@ TaskPlanBuilder = React.createClass
       <BS.Row>
         <BS.Col sm=12>
           <div className="instructions">
-            Open time is 12:01am.
-            Set date to today to open immediately.
-            Due time is 7:00am.
+            Set date and time to now to open immediately.
             {cannotEditNote}
           </div>
         </BS.Col>
