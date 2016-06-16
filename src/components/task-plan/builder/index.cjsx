@@ -4,22 +4,22 @@ _ = require 'underscore'
 moment = require 'moment-timezone'
 BS = require 'react-bootstrap'
 
-{UnsavedStateMixin} = require '../unsaved-state'
-CourseGroupingLabel = require '../course-grouping-label'
-PlanMixin           = require './plan-mixin'
-BindStoreMixin      = require '../bind-store-mixin'
+{UnsavedStateMixin} = require '../../unsaved-state'
+CourseGroupingLabel = require '../../course-grouping-label'
+PlanMixin           = require '../plan-mixin'
+BindStoreMixin      = require '../../bind-store-mixin'
 
-{TimeStore} = require '../../flux/time'
+{TimeStore} = require '../../../flux/time'
 TutorDateFormat = TimeStore.getFormat()
-TimeHelper = require '../../helpers/time'
-{PeriodActions, PeriodStore} = require '../../flux/period'
+TimeHelper = require '../../../helpers/time'
+{PeriodActions, PeriodStore} = require '../../../flux/period'
 
-{TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
-{TutorInput, TutorDateInput, TutorTimeInput, TutorDateFormat, TutorTextArea} = require '../tutor-input'
-{CourseStore, CourseActions}   = require '../../flux/course'
+{TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
+{TutorInput, TutorDateInput, TutorTimeInput, TutorDateFormat, TutorTextArea} = require '../../tutor-input'
+{CourseStore, CourseActions}   = require '../../../flux/course'
 {AsyncButton} = require 'openstax-react-components'
 
-Tasking = require './builder/tasking'
+Tasking = require './tasking'
 
 TaskPlanBuilder = React.createClass
 
@@ -153,7 +153,8 @@ TaskPlanBuilder = React.createClass
       @setState(showingPeriods: false, savedTaskings: saveTaskings)
 
     #get opens at and due at
-    taskingOpensAt = TaskPlanStore.getOpensAt(@props.id) or TimeHelper.makeMoment(TimeStore.getNow()).format(TimeHelper.ISO_DATE_FORMAT)
+    taskingOpensAt = TaskPlanStore.getOpensAt(@props.id) or
+      TimeHelper.makeMoment(TimeStore.getNow()).format(TimeHelper.ISO_DATE_FORMAT)
     @setOpensAt(taskingOpensAt)
 
     #enable all periods
