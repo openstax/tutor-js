@@ -53,7 +53,6 @@ ExerciseMixin =
 
     partProps =
       footer: footer
-      pinned: true
       focus: true
       includeGroup: true
 
