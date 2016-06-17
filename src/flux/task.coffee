@@ -301,6 +301,8 @@ TaskConfig =
     getStepByIndex: (taskId, stepIndex) ->
       @_steps[taskId][stepIndex]
 
+    isFeedbackImmediate: (taskId) -> @_local[taskId].is_feedback_available
+
     isSameStep: (taskId, stepIndices...) ->
       contentUrls = _.chain(stepIndices)
         .map (stepIndex) =>
