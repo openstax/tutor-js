@@ -34,9 +34,9 @@ ConfirmJoin = React.createClass
       <div className="confirm-join form-group">
 
         <h3 className="title text-center">
-          You are joining
-          <span className="course">{@props.course.description()}</span>
-          <span className="teacher">{@props.course.teacherNames()}</span>
+          <div className="join">You are joining</div>
+          <div className="course">{@props.course.description()}</div>
+          <div className="teacher">{@props.course.teacherNames()}</div>
         </h3>
 
         <ErrorList course={@props.course} />
