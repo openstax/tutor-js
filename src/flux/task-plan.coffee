@@ -396,6 +396,16 @@ TaskPlanConfig =
       plan = @_getPlan(id)
       plan?.description
 
+    getChangedCleanedTaskings: (id) ->
+      serverPlan = @_getOriginal(id)
+      changes = @exports.getChanged.call(@, id)
+      return changes unless serverPlan?
+
+      if _.isEqual(changes.tasking_plans, serverPlan.tasking_plans)
+        changes = _.omit(changes, 'tasking_plans')
+
+      changes
+
     isHomework: (id) ->
       plan = @_getPlan(id)
       plan.type is PLAN_TYPES.HOMEWORK
