@@ -6,6 +6,7 @@
 # `TaskActions.loaded` or `TaskActions.FAILED`
 
 axios = require 'axios'
+{Promise} = require 'es6-promise'
 _ = require 'underscore'
 QS = require 'qs'
 
@@ -96,7 +97,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
         setNow(response.headers)
         statusCode = response.status
         statusMessage = response.statusText
-        AppActions.setServerError(statusCode, statusMessage, {url, opts})
+
         if statusCode is 400
           CurrentUserActions.logout()
         else if statusMessage is 'parsererror' and statusCode is 200 and IS_LOCAL
@@ -115,6 +116,22 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
           catch e
             msg = statusMessage
           Actions.FAILED(statusCode, msg, args...)
+
+      axios.interceptors.request.use (requestConfig) ->
+        AppActions.queRequest(requestConfig)
+        requestConfig
+
+      axios.interceptors.response.use (response) ->
+        {status, statusText} = response
+        AppActions.setServerSuccess(status, statusText, {url, opts})
+
+        response
+      , (errorResponse) ->
+        {status, statusText} = errorResponse
+        AppActions.setServerError(status, statusText, {url, opts})
+
+        Promise.reject(errorResponse)
+
       axios(url, opts)
         .then(resolved, rejected)
 
