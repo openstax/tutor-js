@@ -24,7 +24,7 @@ renderStatusMessage = (completeSteps, totalSteps) ->
   if completeSteps is totalSteps
     <span>
       <h1>You are done.</h1>
-      <h3>Great job answering all the questions</h3>
+      <h3>Great job answering all the questions.</h3>
     </span>
   else
     <h3>You have answered {completeSteps} of {totalSteps} questions.</h3>
