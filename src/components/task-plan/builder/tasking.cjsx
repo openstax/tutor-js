@@ -43,12 +43,13 @@ Tasking = React.createClass
         <TaskingDateTimes {...@props} taskingIdentifier={taskingIdentifier}/>
     else
       if period?
+        # if isVisibleToStudents, we cannot re-enable this task for the period.
         <BS.Row key="tasking-disabled-#{period.id}" className="tasking-plan disabled">
           <BS.Col sm=12>
             <input
               id={"period-toggle-#{period.id}"}
               type='checkbox'
-              disabled={not isVisibleToStudents}
+              disabled={isVisibleToStudents}
               onChange={_.partial(togglePeriodEnabled, period)}
               checked={false}/>
             <label className="period" htmlFor={"period-toggle-#{period.id}"}>{period.name}</label>
