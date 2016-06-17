@@ -1,5 +1,6 @@
 # coffeelint: disable=no_empty_functions
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
+{CourseListingActions} = require './course-listing'
 _ = require 'underscore'
 
 LOADED  = 'loaded'
@@ -9,6 +10,7 @@ DELETED = 'deleted'
 
 UNDROPPING = 'undropping'
 UNDROPPED = 'undropped'
+
 
 RosterConfig = {
 
@@ -42,6 +44,20 @@ RosterConfig = {
       student?.is_active = false
     @emitChange()
 
+  teacherDelete: (teacherId, courseId, isCurrent) ->
+    @_asyncStatus[teacherId] = DELETING
+    for courseId, roster of @_local
+      teachers = roster.teachers
+      teacherIndex = _.findIndex(teachers, id: teacherId)
+    roster.teachers?.splice(teacherIndex, 1)
+    if isCurrent
+      CourseListingActions.delete(courseId)
+    @emitChange()
+
+  teacherDeleted: (unused, teacherId) ->
+    @_asyncStatus[teacherId] = DELETED
+    @emitChange()
+
   undrop: (studentId) ->
     @_asyncStatus[studentId] = UNDROPPING
     @emitChange()
@@ -56,6 +72,9 @@ RosterConfig = {
     @emitChange()
 
 
+
+
+
   exports:
 
     getActiveStudentsForPeriod: (courseId, periodId) ->
@@ -65,6 +84,8 @@ RosterConfig = {
       _.where(@_get(courseId)?.students, period_id: periodId, is_active: false)
 
     isDeleting: (studentId) -> @_asyncStatus[studentId] is DELETING
+
+    isTeacherDeleting: (teacherId) -> @_asyncStatus[teacherId] is DELETING
 
     isUnDropping: (studentId) -> @_asyncStatus[studentId] is UNDROPPING
 

@@ -2,12 +2,14 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _  = require 'underscore'
 Icon = require '../icon'
-
-{TeacherRosterStore, TeacherRosterActions} = require '../../flux/teacher-roster'
+BindStoreMixin = require '../bind-store-mixin'
 RemoveTeacherLink = require './remove-teacher'
+{RosterStore, RosterActions} = require '../../flux/roster'
 
 module.exports = React.createClass
   displayName: 'TeacherRoster'
+  mixins: [BindStoreMixin]
+  bindStore: RosterStore
   propTypes:
     courseId: React.PropTypes.string.isRequired
     courseRoles: React.PropTypes.array.isRequired

@@ -1,9 +1,9 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 _  = require 'underscore'
-
-{TeacherRosterStore, TeacherRosterActions} = require '../../flux/teacher-roster'
+BindStoreMixin = require '../bind-store-mixin'
 {CourseStore, CourseActions} = require '../../flux/course'
+{RosterStore, RosterActions} = require '../../flux/roster'
 Icon = require '../icon'
 Name = require '../name'
 {AsyncButton} = require 'openstax-react-components'
@@ -12,6 +12,8 @@ WARN_REMOVE_CURRENT = 'If you remove yourself from the course you will be redire
 
 module.exports = React.createClass
   displayName: 'RemoveTeacherLink'
+  mixins: [BindStoreMixin]
+  bindStore: RosterStore
   propTypes:
     teacher: React.PropTypes.object.isRequired
     courseRoles: React.PropTypes.array.isRequired
@@ -26,21 +28,20 @@ module.exports = React.createClass
       .value()
 
   goToDashboard: ->
-    TeacherRosterStore.once 'deleted', =>
-      @context.router.transitionTo('dashboard')
-
+    RosterActions.once 'deleted', @context.router.transitionTo('dashboard')
+      
   performDeletion: ->
-    {courseId} = @props
-    TeacherRosterActions.delete(@props.teacher.id, courseId)
-    if @isRemovalCurrentTeacher() then @goToDashboard() else CourseActions.load(courseId)
+    {courseId, teacher, courseRoles} = @props
+    RosterActions.teacherDelete(teacher.id, courseId, @isRemovalCurrentTeacher())
+    if @isRemovalCurrentTeacher() then @goToDashboard()
 
   confirmPopOver: ->
     removeButton =
       <AsyncButton
         bsStyle='danger'
         onClick={@performDeletion}
-        isWaiting={TeacherRosterStore.isDeleting(@props.courseId)}
-        waitingText='Removing Instructor…'>
+        isWaiting={RosterStore.isTeacherDeleting(@props.teacher.id)}
+        waitingText='Removing...'>
         <Icon type='ban' /> Remove
       </AsyncButton>
 
