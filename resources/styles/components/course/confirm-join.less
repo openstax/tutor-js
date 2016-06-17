@@ -1,8 +1,9 @@
 .confirm-join {
+  @content-width: 400px;
   text-align: center;
   .label { font-size: 1.6rem; }
   .controls {
-    width: 400px;
+    width: @content-width;
     margin: auto;
     .form-control {
       display: inline;
@@ -31,7 +32,7 @@
   .help-text {
     color: @openstax-neutral;
     font-size: 11px;
-    width: 300px;
+    width: @content-width;
     margin: 30px auto 0 auto;
     text-align: center;
   }
