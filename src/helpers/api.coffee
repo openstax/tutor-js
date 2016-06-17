@@ -25,14 +25,36 @@ setNow = (headers) ->
   date = headers['X-App-Date'] or headers['Date']
   TimeActions.setFromString(date)
 
+makeLocalRequest = (requestConfig) ->
+  {url} = requestConfig
+
+  [uri, params] = url.split('?')
+  if requestConfig.method is 'GET'
+    url_parts = ["#{uri}.json", params]
+  else
+    url_parts = ["#{uri}/#{requestConfig.method}.json", params]
+    requestConfig.method = 'GET'
+
+  requestConfig.url = _.compact(url_parts).join('?')
+
+makeLocalResponse = (response) ->
+  payload = if response.config.data then JSON.parse(response.config.data) else {}
+  response.data = _.extend({}, response.data, payload)
+
 setUpXHRInterceptors = ->
   axios.interceptors.request.use (requestConfig) ->
     AppActions.queRequest(requestConfig)
+
+    makeLocalRequest(requestConfig) if IS_LOCAL
+
     requestConfig
 
   axios.interceptors.response.use (response) ->
     {status, statusText, config} = response
     AppActions.setServerSuccess(status, statusText, config)
+
+    makeLocalResponse(response) if IS_LOCAL
+
     response
 
   , (errorResponse) ->
@@ -69,19 +91,10 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
 
       opts = _.extend({}, opts, options)
 
-      if IS_LOCAL
-        [uri, params] = url.split("?")
-        if opts.method is 'GET'
-          url = "#{uri}.json?#{params}"
-        else
-          url = "#{uri}/#{opts.method}.json?#{params}"
-          opts.method = 'GET'
-
       resolved = ({headers, data}) ->
         setNow(headers)
-        if IS_LOCAL
-          data = _.extend({}, data, payload)
         successAction(data, args...) # Include listenAction for faking
+
       rejected = (response) ->
         # jqXhr, statusMessage, err
         statusCode = response.status
@@ -94,6 +107,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
 
         if statusCode is 400
           CurrentUserActions.logout()
+        # TODO eventually pull this out to the interceptors as well or remove if no longer needed
         else if statusMessage is 'parsererror' and statusCode is 200 and IS_LOCAL
           if httpMethod is 'PUT' or httpMethod is 'PATCH'
             # HACK for PUT
