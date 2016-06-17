@@ -8,48 +8,52 @@ AppConfig =
   _statuses: []
   _pending: []
 
-  _getBareOpts: (opts) ->
-    _.pick(opts, 'method', 'data')
+  _getRequestOpts: (opts) ->
+    opts = _.pick(opts, 'method', 'data', 'url')
+    opts = _.omit(opts, 'data') unless opts.data
+    opts
 
   _getDuration: (request) ->
     moment().diff(request.sendMoment)
 
   _getServerStatus: (statusCode, message, requestDetails) ->
-    {url, opts} = requestDetails
-    sparseOpts = @_getBareOpts(opts)
-    request = {url, opts: sparseOpts}
+    request = @_getRequestOpts(requestDetails)
 
     {statusCode, message, request}
 
+  _findPendingIndex: (request) ->
+    sparseRequest = @_getRequestOpts(request)
+    _.findLastIndex @_pending, (pending) =>
+      _.isEqual @_getRequestOpts(pending), sparseRequest
+
   _getRequestInfo: (requestConfig) ->
-    sparseOpts = @_getBareOpts(requestConfig)
+    sparseOpts = @_getRequestOpts(requestConfig)
 
-    requestIndex = _.findLastIndex(@_pending, sparseOpts)
+    requestIndex = @_findPendingIndex(sparseOpts)
 
-    return null unless requestIndex
+    return null unless requestIndex > -1
 
     request: @_pending[requestIndex]
     requestIndex: requestIndex
 
   queRequest: (requestConfig) ->
-    sparseOpts = @_getBareOpts(requestConfig)
-    sparseOpts.sendMoment = moment()
-    @_pending.push(sparseOpts)
+    request = @_getRequestOpts(requestConfig)
+    request.sendMoment = moment()
+    @_pending.push(request)
 
   _unqueRequestAtIndex: (requestIndex) ->
     @_pending.splice(requestIndex, 1)
 
   unqueRequest: (request) ->
-    requestIndex = _.findLastIndex(@_pending, request)
+    requestIndex = @_findPendingIndex(request)
     @_unqueRequestAtIndex(requestIndex)
 
   updateForResponse: (statusCode, message, requestDetails) ->
-    {opts} = requestDetails
-
     status = AppConfig._getServerStatus statusCode, message, requestDetails
 
     # try to get request from pending info, remove from pending, and calc response time
-    requestInfo = @_getRequestInfo(opts)
+    requestInfo = @_getRequestInfo(requestDetails)
+
     if requestInfo
       {request, requestIndex} = requestInfo
       @_unqueRequestAtIndex(requestIndex)
@@ -59,12 +63,11 @@ AppConfig =
     status
 
   setServerError: (statusCode, message, requestDetails) ->
-    {opts} = requestDetails
-    return unless opts.displayError
-
     status = @updateForResponse statusCode, message, requestDetails
-    @_currentServerError = status
 
+    {displayError} = requestDetails
+    return unless displayError
+    @_currentServerError = status
     @emit('server-error', statusCode, message)
 
   setServerSuccess: (statusCode, message, requestDetails) ->
