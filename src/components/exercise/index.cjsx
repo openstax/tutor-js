@@ -53,7 +53,6 @@ ExerciseMixin =
 
     partProps =
       footer: footer
-      pinned: true
       focus: true
       includeGroup: true
 
@@ -104,14 +103,16 @@ ExerciseMixin =
 
     <ExFooter {...canContinueControlProps} {...footerProps} panel='review'/>
 
-  renderIdLink: ->
+  renderIdLink: (related = true) ->
     {parts} = @props
     step = _.last(parts)
+
+    related_content = step.related_content if related
 
     if step.content?.uid
       <ExerciseIdentifierLink key='exercise-uid'
         exerciseId={step.content?.uid}
-        related_content={step.related_content}/>
+        related_content={related_content}/>
 
 
 ExerciseWithScroll = React.createClass
@@ -161,7 +162,7 @@ ExerciseWithScroll = React.createClass
       <ExerciseBadges isMultipart={true}/>
       {exerciseGroup}
       {exercisePartsWithScroll}
-      {@renderIdLink()}
+      {@renderIdLink(false)}
     </CardBody>
 
 
@@ -185,7 +186,7 @@ Exercise = React.createClass
       <ExerciseBadges isMultipart={true}/>
       {exerciseGroup}
       {exerciseParts}
-      {@renderIdLink()}
+      {@renderIdLink(false)}
     </CardBody>
 
 module.exports = {Exercise, ExerciseWithScroll}
