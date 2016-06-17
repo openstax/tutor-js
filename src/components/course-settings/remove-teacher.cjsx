@@ -28,9 +28,8 @@ module.exports = React.createClass
       .value()
 
   goToDashboard: ->
-    @context.router.transitionTo('dashboard')
+    RosterActions.once 'deleted', @context.router.transitionTo('dashboard')
       
-
   performDeletion: ->
     {courseId, teacher, courseRoles} = @props
     RosterActions.teacherDelete(teacher.id, courseId, @isRemovalCurrentTeacher())
