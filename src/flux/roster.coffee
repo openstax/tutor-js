@@ -49,7 +49,7 @@ RosterConfig = {
     for courseId, roster of @_local
       teachers = roster.teachers
       teacherIndex = _.findIndex(teachers, id: teacherId)
-    roster.teachers.splice(teacherIndex, 1)
+    roster.teachers?.splice(teacherIndex, 1)
     if isCurrent
       CourseListingActions.delete(courseId)
     @emitChange()
