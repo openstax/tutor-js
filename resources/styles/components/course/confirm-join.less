@@ -1,8 +1,17 @@
 .confirm-join {
-
+  @content-width: 400px;
+  text-align: center;
+  .label { font-size: 1.6rem; }
   .controls {
-    width: 400px;
+    width: @content-width;
     margin: auto;
+    .form-control {
+      display: inline;
+      width: calc(~"100% - 150px")
+    }
+    .btn.continue {
+      margin-left: 1rem;
+    }
     .or, .skip {
       display: block;
       display: block;
@@ -23,17 +32,19 @@
   .help-text {
     color: @openstax-neutral;
     font-size: 11px;
-    width: 300px;
+    width: @content-width;
     margin: 30px auto 0 auto;
     text-align: center;
   }
 
   .title {
-    color: black;
     font-size: 24px;
-    .course, .teacher {
-      display: block;
-    }
+    border-bottom: 2px solid grey;
+    display: inline-block;
+    padding: 20px 50px; // extend border past sides of text
+    margin: 20px auto;
+    border-bottom: 2px solid @openstax-neutral-light;
+    .join { font-size: 26px; }
   }
 
 }

@@ -14,7 +14,7 @@ ConfirmJoin = React.createClass
     optionalStudentId: React.PropTypes.bool
 
   startConfirmation: ->
-    @props.course.confirm(@refs.input.getValue())
+    @props.course.confirm(@getSchoolId())
 
   onKeyPress: (ev) ->
     @onSubmit() if ev.key is ENTER
@@ -24,37 +24,41 @@ ConfirmJoin = React.createClass
     @props.course.confirm()
 
   onSubmit: ->
-    @props.course.confirm(@refs.input.getValue())
+    @props.course.confirm(@getSchoolId())
+
+  getSchoolId: -> @refs.input.getDOMNode().value
 
   render: ->
-    button =
-      <AsyncButton
-        className="btn btn-success"
-        isWaiting={!!@props.course.isBusy}
-        waitingText={'Confirming…'}
-        onClick={@onSubmit}
-      >
-        Continue
-      </AsyncButton>
 
     <BS.Row>
       <div className="confirm-join form-group">
 
         <h3 className="title text-center">
-          You are joining
-          <span className="course">{@props.course.description()}</span>
-          <span className="teacher">{@props.course.teacherNames()}</span>
+          <div className="join">You are joining</div>
+          <div className="course">{@props.course.description()}</div>
+          <div className="teacher">{@props.course.teacherNames()}</div>
         </h3>
 
         <ErrorList course={@props.course} />
+        <p className="label">Enter your school-issued ID</p>
         <div className='controls'>
           <div className='field'>
-            <BS.Input type="text" ref="input" label={@props.label}
-              placeholder="School issued ID" autoFocus
+
+            <input type="text" className="form-control" ref="input"
+              autoFocus
               defaultValue={@props.course.getStudentIdentifier()}
               onKeyPress={@onKeyPress}
-              buttonAfter={button}
             />
+
+            <AsyncButton
+              className="btn btn-success continue"
+              isWaiting={!!@props.course.isBusy}
+              waitingText={'Confirming…'}
+              onClick={@onSubmit}
+            >
+              Continue
+            </AsyncButton>
+
           </div>
           <span className="or">or</span>
           <a href='#' className="skip" onClick={@onCancel}>
