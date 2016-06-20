@@ -374,7 +374,6 @@ TaskPlanConfig =
 
     isFeedbackImmediate: (id) ->
       plan = @_getPlan(id)
-      console.info('is fb immediate',  plan?.is_feedback_immediate)
       plan?.is_feedback_immediate
 
     getEcosystemId: (id, courseId) ->
