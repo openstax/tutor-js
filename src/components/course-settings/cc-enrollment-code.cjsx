@@ -7,7 +7,7 @@ _ = require 'underscore'
 {TutorInput} = require '../tutor-input'
 CourseGroupingLabel = require '../course-grouping-label'
 Icon = require '../icon'
-TITLE = 'Get Student Enrollment Code'
+TITLE = 'Get Student Enrollment Code for this section'
 
 module.exports = React.createClass
   displayName: 'PeriodEnrollmentCode'
