@@ -51,7 +51,7 @@ module.exports = React.createClass
     isCreating: false
 
   close: ->
-    @setState({showModal: false, isCreating: false})
+    @setState({showModal: false, isCreating: false, period_name: ''})
 
   open: ->
     @setState({showModal: true})
