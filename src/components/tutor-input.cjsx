@@ -272,7 +272,12 @@ TutorTimeInput = React.createClass
     {selection} = @getMask()
     selection = _.clone(selection)
 
-    if cursorChange > 0
+    if /^(_+[2-9])/.test(timeValue)
+      timeValue = S.removeAt(timeValue, 0)
+      selection.start = 2
+      selection.end = 2
+
+    else if cursorChange > 0
       timeValue = S.insertAt(timeValue, 1, @getMask()?.placeholderChar)
       selection.start = 1
       selection.end = 1
@@ -306,21 +311,22 @@ TutorTimeInput = React.createClass
     @getMask()?.setValue(@state.timeValue) if @state.timeValue isnt prevState.timeValue
     if @state.selection? and not _.isEqual(@getMask()?.selection, @state.selection)
       # update cursor to expected time, doesnt quite work for some reason for expanding mask
-      @getMask()?.setSelection(@state.selection)
-      @getInput()?._updateInputSelection()
+      _.defer =>
+        @getMask()?.setSelection(@state.selection)
+        @getInput()?._updateInputSelection()
 
     @refs.timeInput.validate(@state.timeValue)
 
   getPatternFromValue: (value, changeEvent) ->
-    if /^[2-9]/.test(value)
+    if /^([2-9])/.test(value) or /^(_+[2-9])/.test(value)
       patten = 'h:Mm P'
     else if /^1:/.test(value)
       if changeEvent? and not @shouldShrinkMask(changeEvent)
-        pattern = 'hi:Mm P'
+        pattern = 'hh:Mm P'
       else
         pattern = 'h:Mm P'
     else
-      pattern = 'hi:Mm P'
+      pattern = 'hh:Mm P'
 
   isValidTime: (value) ->
     not /_/.test(value)
