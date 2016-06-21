@@ -32,7 +32,7 @@ TutorInput = React.createClass
     errors: errors or []
 
   componentDidUpdate: (prevProps, prevState) ->
-    @props.onUpdated?(@state) if not _.isEqual(prevState, @state)
+    @props.onUpdated?(@state) unless _.isEqual(prevState, @state)
 
   onChange: (event) ->
     # TODO make this more intuitive to parent elements

@@ -15,9 +15,13 @@ DateTime = React.createClass
     isSetting:      React.PropTypes.func.isRequired
     timeLabel:      React.PropTypes.string.isRequired
     setDefaultTime: React.PropTypes.func.isRequired
+    messageTime:    React.PropTypes.number
 
   getInitialState: ->
     @getStateFromProps()
+
+  getDefaultProps: ->
+    messageTime: 2000
 
   getStateFromProps: (props) ->
     props ?= @props
@@ -27,6 +31,7 @@ DateTime = React.createClass
 
     date: date
     time: defaultValue
+    justSet: false
     isSetting: isSetting()
     isTimeValid: @isTimeValid()
 
@@ -41,7 +46,18 @@ DateTime = React.createClass
     nextState = @getStateFromProps(nextProps)
     @setState(nextState)
 
-  onUpdated: ->
+  componentDidUpdate: (prevProps, prevState) ->
+    @onTimeUpdated() unless _.isEqual(_.pick(prevState, 'date', 'time'), _.pick(@state, 'date', 'time'))
+
+    if @isJustSet(prevProps, prevState)
+      {messageTime} = @props
+
+      @setState(justSet: true)
+      _.delay =>
+        @setState(justSet: false)
+      , messageTime
+
+  onTimeUpdated: ->
     {date, time} = @state
 
     if @hasValidInputs()
@@ -52,6 +68,12 @@ DateTime = React.createClass
 
   hasValidInputs: ->
     @isDateValid() and @isTimeValid()
+
+  isJustSet: (prevProps, prevState) ->
+    prevState.isSetting and
+      not @state.isSetting and
+      not prevProps.isTimeDefault and
+      @props.isTimeDefault
 
   isDateValid: ->
     _.isEmpty(@refs?.date?.state?.errors)
@@ -70,7 +92,7 @@ DateTime = React.createClass
 
   render: ->
     {isTimeDefault, label, taskingIdentifier} = @props
-    {isSetting, isTimeValid} = @state
+    {isSetting, isTimeValid, justSet} = @state
 
     type = label.toLowerCase()
 
@@ -85,17 +107,22 @@ DateTime = React.createClass
         {label} times for assignments created from now on will have this time set as the default.
       </BS.Popover>
 
-      setAsDefault = <AsyncButton
+      setAsDefaultOption = <AsyncButton
         className='tasking-time-default'
         bsStyle='link'
         waitingText='Saving…'
         isWaiting={isSetting}
         onClick=@setDefaultTime>
-        Set as default
-        <BS.OverlayTrigger placement='top' overlay={setAsDefaultExplanation}>
-          <i className="fa fa-info-circle"></i>
-        </BS.OverlayTrigger>
+          Set as default
+          <BS.OverlayTrigger placement='top' overlay={setAsDefaultExplanation}>
+            <i className='fa fa-info-circle'></i>
+          </BS.OverlayTrigger>
       </AsyncButton>
+    else if justSet
+      setAsDefaultOption = <span className='tasking-time-default tasking-time-default-set'>
+        Default set.
+      </span>
+
 
     <BS.Col xs=12 md=6>
       <BS.Row>
@@ -103,8 +130,8 @@ DateTime = React.createClass
           <TutorDateInput {...dateProps} onChange={@onDateChange} ref='date'/>
         </BS.Col>
         <BS.Col xs=4 md=5 className="tasking-time -assignment-#{type}-time">
-          <TutorTimeInput {...timeProps} onChange={@onTimeChange} onUpdated={@onUpdated} ref='time'/>
-          {setAsDefault}
+          <TutorTimeInput {...timeProps} onChange={@onTimeChange} onUpdated={@onTimeUpdated} ref='time'/>
+          {setAsDefaultOption}
         </BS.Col>
       </BS.Row>
     </BS.Col>
