@@ -55,12 +55,6 @@ CCDashboardHelp = React.createClass
                 As your students begin using Concept Coach, you will be able to track their performance in your dashboard.
               </li>
             </ol>
-            <Router.Link className='settings btn btn-default btn-large'
-              to='courseSettings' params={{courseId}}
-            >
-              <Icon type='plus' /> Add a {section} to your course
-            </Router.Link>
-
           </div>
           <div className='graphic'>
             <div className='svg-container'>
