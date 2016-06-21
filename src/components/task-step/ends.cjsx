@@ -24,7 +24,7 @@ renderStatusMessage = (completeSteps, totalSteps) ->
   if completeSteps is totalSteps
     <span>
       <h1>You are done.</h1>
-      <h3>Great job answering all the questions</h3>
+      <h3>Great job answering all the questions.</h3>
     </span>
   else
     <h3>You have answered {completeSteps} of {totalSteps} questions.</h3>
@@ -102,7 +102,7 @@ HomeworkEnd = React.createClass
       </div>
 
   renderAfterDue: (taskId) ->
-    {footer} = @props
+    {footer, courseId} = @props
 
     completedSteps = TaskStore.getCompletedSteps taskId
     incompleteSteps = TaskStore.getIncompleteSteps taskId
@@ -136,18 +136,26 @@ HomeworkEnd = React.createClass
     </div>
 
   renderBeforeDue: (taskId) ->
-    {footer} = @props
+    {footer, courseId} = @props
     completedStepsCount = TaskStore.getCompletedStepsCount(taskId)
     totalStepsCount = TaskStore.getTotalStepsCount(taskId)
+
+    if not TaskStore.isFeedbackImmediate(taskId)
+      feedback = <ul>
+        <li>You can still review and update your answers until the due date.</li>
+        <li>Your homework will be automatically turned in on the due date.</li>
+      </ul>
 
     <div className='task task-completed'>
       <CardBody footer={footer} className='-homework-completed'>
         <div className='completed-message'>
           {renderStatusMessage(completedStepsCount, totalStepsCount)}
-          <ul>
-            <li>You can still review and update your answers until the due date.</li>
-            <li>Your homework will be automatically turned in on the due date.</li>
-          </ul>
+          {feedback}
+          <p className="link-to-forecast">
+            <Router.Link to="viewPerformanceForecast" params={{courseId}}>
+              View your Performance Forcast
+            </Router.Link> to see your progress in the course and get more practice.
+          </p>
         </div>
       </CardBody>
     </div>
@@ -169,7 +177,7 @@ TaskEnd = React.createClass
       <CardBody className='-reading-completed'>
         <div className="completed-message">
           <h1>You are done.</h1>
-          <h3>Great job completing all the steps</h3>
+          <h3>Great job completing all the steps.</h3>
           <Router.Link
             to='viewStudentDashboard'
             key='step-back'
