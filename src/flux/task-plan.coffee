@@ -35,7 +35,7 @@ sortTopics = (topics) ->
 
 
 isSameOrBeforeNow = (time) ->
-  moment(time).isSame(TimeStore.getNow()) or moment(time).isBefore(TimeStore.getNow())
+  moment(time).isSameOrBefore(TimeStore.getNow())
 
 isDateStringOnly = (timeString) ->
   ISO_DATE_ONLY_REGEX.test(timeString)

@@ -24,6 +24,12 @@
       color: lighten(@tutor-neutral, 14%);
     }
 
+    &.-tutor-date-input{
+      input[disabled] ~ .date-wrapper {
+        cursor: not-allowed;
+      }
+    }
+
     .form-control {
 
       &:focus,

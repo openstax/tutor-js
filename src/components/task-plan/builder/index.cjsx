@@ -52,7 +52,7 @@ TaskPlanBuilder = React.createClass
       if not TaskPlanStore.hasTasking(planId, period.id) and not isNewPlan
         tasking = id: period.id
       else
-        tasking = id: period.id, due_at: dueAt, opens_at: opensAt
+        tasking = id: period.id
 
       tasking
 

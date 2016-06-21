@@ -6,7 +6,7 @@ _     = require 'underscore'
 {TimeStore} = require '../../../flux/time'
 TimeHelper  = require '../../../helpers/time'
 {PeriodActions, PeriodStore}     = require '../../../flux/period'
-{TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
+{TaskPlanStore} = require '../../../flux/task-plan'
 {CourseStore, CourseActions}     = require '../../../flux/course'
 
 DateTime = require './date-time'
@@ -29,6 +29,9 @@ TaskingDateTimes = React.createClass
   isTimeDefault: (time, defaultTime) ->
     return true if _.isUndefined(time)
     TimeHelper.makeMoment(time, 'HH:mm').isSame(TimeHelper.makeMoment(defaultTime, 'HH:mm'), 'minute')
+
+  isPastDue: (date, time) ->
+    TimeHelper.makeMoment("#{date} #{time}").isBefore(TimeHelper.makeMoment())
 
   setDefaultTime: (timeChange) ->
     {courseId, period} = @props
@@ -87,7 +90,7 @@ TaskingDateTimes = React.createClass
         isSetting={@isSetting} />
       <DateTime
         {...commonDateTimesProps}
-        disabled={not isEditable}
+        disabled={@isPastDue(taskingDueAt, dueTime) or not isEditable}
         label="Due"
         ref="due"
         min={minDueAt}

@@ -194,7 +194,7 @@ TutorDateInput = React.createClass
       displayValue = value.format(TutorDateFormat)
 
     <div className={wrapperClasses}>
-      <input type='text' disabled readonly className={classes} value={displayValue}/>
+      <input type='text' disabled readOnly className={classes} value={displayValue}/>
       <div className="floating-label">{@props.label}</div>
       <div className="hint required-hint">
         Required Field <i className="fa fa-exclamation-circle"></i>
