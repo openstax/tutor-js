@@ -79,7 +79,7 @@ ExerciseCards = React.createClass
   getDefaultProps: ->
     topScrollOffset: 110
 
-  # Important! - as an optimization, this component will only update if exercises has changed.
+  # Important! - as an optimization, this component will only update if props have changed.
   # This is necessary because there can be a very large number of exercise previews displaying at once
   shouldComponentUpdate: (nextProps) ->
     not _.isEqual(nextProps, @props)
