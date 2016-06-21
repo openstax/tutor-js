@@ -52,7 +52,7 @@ SectionsExercises = React.createClass
 
   render: ->
     title = TocStore.getSectionLabel(@props.chapter_section)?.title
-
+    # IMPORTANT: the 'data-section' attribute is used as a scroll-to target and must be present
     <div className='exercise-sections' data-section={@props.chapter_section}>
       <label className='exercises-section-label'>
         <ChapterSection section={@props.chapter_section}/> {title}
