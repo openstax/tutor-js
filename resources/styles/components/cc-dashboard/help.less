@@ -1,4 +1,4 @@
-.cc-dashboard-help-page {
+.cc-dashboard-help {
   .fine-print {
     font-style: italic;
     font-size: 1.4rem;
@@ -16,20 +16,10 @@
     padding-left: 50px;
 
   }
-  &.in-period .title {
-    position: relative;
-    margin-top: 20px;
-  }
   .body {
     padding-top: @cc-dashboard-banner-height + @jumbotron-padding;
     width: @tutor-task-width;
     margin: 0 auto;
-  }
-  &.in-period .body {
-    padding-top: (@cc-dashboard-banner-height / 2);
-  }
-  .side-by-side {
-
   }
   .help {
     float: left;
@@ -71,5 +61,10 @@
       .apply-svg-image-styling(@code, "openstax-book-@{code}-fg", "openstax-book-@{code}-bg");
     }
 
+  }
+
+  &.empty-period {
+    margin: 20px;
+    display: flex; // display side by side
   }
 }

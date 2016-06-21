@@ -8,7 +8,7 @@ Router = require 'react-router'
 Icon = require '../icon'
 CourseDataMixin = require '../course-data-mixin'
 DashboardChapter = require './chapter'
-Help = require './help'
+EmptyPeriod = require './empty-period'
 
 TOOLTIPS =
   complete: '''
@@ -58,7 +58,7 @@ CCDashboard = React.createClass
     courseDataProps = @getCourseDataProps(courseId)
     course = CourseStore.get(courseId)
     emptyPeriod = chapters.length is 0
-    emptyGraphic = <Help courseId={courseId} inPeriod={emptyPeriod} />
+    emptyGraphic = <EmptyPeriod courseId={courseId} />
 
     dashboardResults =
       <div>
@@ -91,7 +91,7 @@ CCDashboard = React.createClass
         </BS.Row>
       </div>
 
-    <div className="dashboard" data-period={@state.activePeriodId}>
+    <div className="cc-dashboard" data-period={@state.activePeriodId}>
       <div {...courseDataProps} className='tutor-booksplash-background' />
       <BS.Panel>
         <h2>

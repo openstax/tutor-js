@@ -19,12 +19,10 @@ CCDashboardHelp = React.createClass
 
   render: ->
     courseId = @props.courseId or @context.router.getCurrentParams().courseId
-
     glprops = {lowercase:true, courseId: courseId}
-    classes = classnames 'cc-dashboard-help-page', 'in-period': @props.inPeriod
     section =
       <CourseGroupingLabel lowercase {...glprops} />
-    <div className="#{classes}">
+    <div className='cc-dashboard-help'>
       <h3 className="title">
         Welcome to Concept Coach™
       </h3>
