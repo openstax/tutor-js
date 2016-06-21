@@ -30,31 +30,51 @@ CCDashboardHelp = React.createClass
       </h3>
       <div className="body">
         <h3>Getting Started</h3>
+        <p className="fine-print">This guide is always accessible from your main menu.</p>
         <div className="side-by-side">
           <div className="help">
+            <b>
+              Add <CourseGroupingLabel plural {...glprops} /> to your course.
+            </b>
             <ol>
               <li>
-                <b>
-                  Add <CourseGroupingLabel plural {...glprops} /> to your course.
-                </b>
-                Click your name in the top right corner and select Course Settings and Roster
-                On the Course Settings and Roster, click Add Section.
+                Click your name in the top right corner and select “Course Settings and Roster”
+              </li>
+              <li>
+                Click the blue “Add Section” link and follow the prompts to create your section.
                 If you have more than one section, repeat this step as needed.
               </li>
+            </ol>
+            <b>Get student enrollment code and send to your students.</b>
+            <ol>
               <li>
-                <b>Get student enrollment code and send to
-                your students.</b> While still on the Course Settings and Roster page, select your
-                first {section}.
-                Under the section name, click Get Student Enrollment Code. Copy the example message,
-                and send it to your students. If you have more than
-                one {section}, repeat
-                this step for <i>each</i> {section}.
-                Each {section} has a different enrollment code.
+                Select your first section and click the blue “Get Student Enrollment Code” link.
               </li>
               <li>
-                As your students begin using Concept Coach, you will be able to track their performance in your dashboard.
+                Copy the example message and share this message with your students in that section.
+              </li>
+              <li>
+                Repeat this step for each section of your course (every section has a different enrollment code).
               </li>
             </ol>
+            <b>Assign Concept Coach.</b>
+            <ol>
+              <li>
+                On the top menu, click “Get Assignment Links.” Follow the instructions to assign Concept Coach question sets.
+              </li>
+              <li>
+                View your students’ progress.
+              </li>
+              <li>
+                As your students begin using Concept Coach, you will be able to track
+                their performance in your dashboard.
+              </li>
+            </ol>
+            <div className="tip">
+              <b>Tip</b>:
+              To view all Concept Coach questions, click your name in the top right corner of your dashboard
+              and select “Question Library.”
+            </div>
           </div>
           <div className='graphic'>
             <div className='svg-container'>
