@@ -31,6 +31,9 @@ TutorInput = React.createClass
     errors = @props.validate(@props.default)
     errors: errors or []
 
+  componentDidUpdate: (prevProps, prevState) ->
+    @props.onUpdated?(@state) if not _.isEqual(prevState, @state)
+
   onChange: (event) ->
     # TODO make this more intuitive to parent elements
     @props.onChange(event.target?.value, event.target, event)
@@ -39,7 +42,6 @@ TutorInput = React.createClass
   validate: (inputValue) ->
     errors = @props.validate(inputValue)
     errors ?= []
-
     @setState({errors})
 
   focus: ->

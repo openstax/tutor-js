@@ -28,6 +28,7 @@ DateTime = React.createClass
     date: date
     time: defaultValue
     isSetting: isSetting()
+    isTimeValid: @isTimeValid()
 
   onTimeChange: (time) ->
     @setState({time})
@@ -40,18 +41,23 @@ DateTime = React.createClass
     nextState = @getStateFromProps(nextProps)
     @setState(nextState)
 
-  componentDidUpdate: (prevProps, prevState) ->
+  onUpdated: ->
     {date, time} = @state
 
-    if @hasValidInputs() and not _.isEqual(prevState, @state)
+    if @hasValidInputs()
       dateTime = "#{date} #{time}"
       @props.onChange(dateTime)
+    else
+      @setState(isTimeValid: @isTimeValid())
 
   hasValidInputs: ->
-    _.isEmpty(@refs.date?.state?.errors) and _.isEmpty(@refs.time?.refs.timeInput?.state?.errors)
+    @isDateValid() and @isTimeValid()
 
-  canSetAsDefaultTime: ->
-    _.isEmpty @refs.time?.refs.timeInput?.state?.errors
+  isDateValid: ->
+    _.isEmpty(@refs?.date?.state?.errors)
+
+  isTimeValid: ->
+    _.isEmpty @refs?.time?.refs?.timeInput?.state?.errors
 
   setDefaultTime: ->
     {timeLabel, setDefaultTime} = @props
@@ -64,7 +70,7 @@ DateTime = React.createClass
 
   render: ->
     {isTimeDefault, label, taskingIdentifier} = @props
-    {isSetting} = @state
+    {isSetting, isTimeValid} = @state
 
     type = label.toLowerCase()
 
@@ -74,7 +80,7 @@ DateTime = React.createClass
     timeProps.label = "#{label} Time"
     dateProps.label = "#{label} Date"
 
-    if not isTimeDefault and @canSetAsDefaultTime()
+    if not isTimeDefault and isTimeValid
       setAsDefaultExplanation = <BS.Popover id="tasking-datetime-default-tip-#{label}-#{taskingIdentifier}">
         {label} times for assignments created from now on will have this time set as the default.
       </BS.Popover>
@@ -97,7 +103,7 @@ DateTime = React.createClass
           <TutorDateInput {...dateProps} onChange={@onDateChange} ref='date'/>
         </BS.Col>
         <BS.Col xs=4 md=5 className="tasking-time -assignment-#{type}-time">
-          <TutorTimeInput {...timeProps} onChange={@onTimeChange} ref='time'/>
+          <TutorTimeInput {...timeProps} onChange={@onTimeChange} onUpdated={@onUpdated} ref='time'/>
           {setAsDefault}
         </BS.Col>
       </BS.Row>
