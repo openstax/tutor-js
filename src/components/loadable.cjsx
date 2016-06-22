@@ -21,24 +21,15 @@ module.exports = React.createClass
     isFailed: React.PropTypes.func.isRequired
     renderLoading: React.PropTypes.func.isRequired
     renderError: React.PropTypes.func.isRequired
-    isLong: React.PropTypes.bool
 
   getDefaultProps: ->
 
     # Enables a renderStatus prop function with a component other than a div
-    renderLoading: (refreshButton, isLong = false) ->
-      loadableClasses = 'loadable is-loading'
-      loadableClasses += ' is-long' if isLong
+    renderLoading: ->
+      <div className='loadable is-loading'>Loading... </div>
 
-      <div className={loadableClasses}>Loading... {refreshButton}</div>
-
-    renderError: (refreshButton, isLong = false) ->
-      loadableClasses = 'loadable is-error'
-      loadableClasses += ' is-long' if isLong
-
-      <div className={loadableClasses}>Error Loading. {refreshButton}</div>
-
-    isLong: false
+    renderError: (refreshButton) ->
+      <div className='loadable is-error'>Error Loading. {refreshButton}</div>
 
   mixins: [BindStoreMixin]
 
@@ -48,16 +39,16 @@ module.exports = React.createClass
   bindUpdate: -> @props.update?() or @setState({})
 
   render: ->
-    {isLoading, isLoaded, isFailed, render, renderLoading, renderError, isLong} = @props
+    {isLoading, isLoaded, isFailed, render, renderLoading, renderError} = @props
 
     refreshButton = <RefreshButton />
 
     if isLoading()
-      renderLoading(refreshButton, isLong)
+      renderLoading()
     else if isLoaded()
       render()
     else if isFailed()
-      renderError(refreshButton, isLong)
+      renderError(refreshButton)
 
     else
       render()

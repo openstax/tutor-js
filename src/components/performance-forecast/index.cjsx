@@ -20,7 +20,6 @@ Student = React.createClass
       store={PerformanceForecast.Student.store}
       actions={PerformanceForecast.Student.actions}
       renderItem={-> <StudentComponent courseId={courseId} />}
-      isLong={true}
     />
 
 
@@ -39,7 +38,6 @@ TeacherStudent = React.createClass
       store={ScoresStore}
       actions={ScoresActions}
       renderItem={-> <TeacherStudentComponent courseId={courseId} roleId={roleId}/>}
-      isLong={true}
     />
 
 
@@ -55,7 +53,6 @@ Teacher = React.createClass
       store={PerformanceForecast.Teacher.store}
       actions={PerformanceForecast.Teacher.actions}
       renderItem={-> <TeacherComponent courseId={courseId} />}
-      isLong={true}
     />
 
 module.exports = {Teacher, TeacherStudent, Student}

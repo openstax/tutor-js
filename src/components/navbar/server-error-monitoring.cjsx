@@ -33,14 +33,14 @@ ServerErrorMessage = React.createClass
   render: ->
     {statusCode, message, request, supportLink, debug} = @props
     dataMessage =  <span>
-      with <pre>{request.opts.data}</pre>
-    </span> if request.opts.data?
+      with <pre>{request.data}</pre>
+    </span> if request.data?
 
     debugInfo = [
-      <p>Additional error messages returned from the server is:</p>
-      <pre className='response'>{message or 'No response was received'}</pre>
-      <div className='request'>
-        <kbd>{request.opts.method}</kbd> on {request.url} {dataMessage}
+      <p key='error-note'>Additional error messages returned from the server is:</p>
+      <pre key='error-response' className='response'>{message or 'No response was received'}</pre>
+      <div key='error-request' className='request'>
+        <kbd>{request.method}</kbd> on {request.url} {dataMessage}
       </div>
     ] if debug
 
