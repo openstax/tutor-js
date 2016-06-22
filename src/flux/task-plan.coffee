@@ -438,6 +438,19 @@ TaskPlanConfig =
     getFirstDueDate: (id) ->
       due_at = @_getFirstTaskingByDueDate(id)?.due_at
 
+    areDefaultsCommon: (courseId) ->
+      course = CourseStore.get(courseId)
+
+      areOpenTimesSame = _.every course.periods, (period) ->
+        {default_open_time} = period
+        default_open_time is _.first(course.periods).default_open_time
+
+      areDueTimesSame = _.every course.periods, (period) ->
+        {default_due_time} = period
+        default_due_time is _.first(course.periods).default_due_time
+
+      areOpenTimesSame and areDueTimesSame
+
     isEditable: (id) ->
       # cannot be/being deleted
       not @_isDeleteRequested(id)

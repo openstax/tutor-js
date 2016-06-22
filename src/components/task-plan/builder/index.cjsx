@@ -31,9 +31,11 @@ TaskPlanBuilder = React.createClass
     label: React.PropTypes.string
 
   getInitialState: ->
-    isNewPlan = TaskPlanStore.isNew(@props.id)
+    {courseId, id} = @props
 
-    showingPeriods: not isNewPlan
+    isNewPlan = TaskPlanStore.isNew(id)
+
+    showingPeriods: not isNewPlan or (isNewPlan and not TaskPlanStore.areDefaultsCommon(courseId))
     currentLocale: TimeHelper.getCurrentLocales()
 
   getDefaultProps: ->
