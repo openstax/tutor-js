@@ -9,6 +9,7 @@ PlanHelper =
     isPublishing = (plan.is_publish_requested? and plan.is_publish_requested) or plan.publish_last_requested_at?
 
     if plan.published_at and plan.publish_job?.status?
+      # TODO could add publish job from plan to PlanPublishStore if we really want to.
       isPublishing = plan.publish_job.status isnt 'succeeded'
     else if plan.published_at? and plan.publish_last_requested_at?
       # is the last requested publishing after the last successful publish?
