@@ -2,56 +2,37 @@
   .controls-overlay {
     .message {
       .action {
-
+        width: 140px;
+        height: 130px;
+        &:before {
+          content: "";
+          background-repeat: no-repeat;
+          background-size: 100%;
+        }
         &.include {
           background-color: @light-blue;
-          &:before {
-            color: @light-blue;
-            content: @fa-var-plus;
-          }
+          &:before { background-image: url("../../images/icons/exercise-include-action.svg"); }
         }
-
         &.exclude {
           background-color: @openstax-primary;
-          &:before {
-            color: @openstax-primary;
-            content: @fa-var-minus;
-          }
+          &:before { background-image: url("../../images/icons/exercise-exclude-action.svg"); }
         }
-
         &.details {
           background-color: @openstax-neutral-dark;
-          &:before {
-            color: @openstax-neutral-dark;
-            content: @fa-var-ellipsis-h;
-          }
+          &:before { background-image: url("../../images/icons/exercise-details-action.svg"); }
         }
-
         &.feedback-on {
           background-color: @openstax-neutral-dark;
-          &:before {
-            color: @openstax-neutral-dark;
-            content: @fa-var-eye;
-          }
+          &:before { background-image: url("../../images/icons/exercise-feedback-on-action.svg"); }
         }
-
         &.feedback-off {
           background-color: @openstax-neutral-dark;
-          &:before {
-            color: @openstax-neutral-dark;
-            content: @fa-var-eye-slash;
-          }
+          &:before { background-image: url("../../images/icons/exercise-feedback-off-action.svg"); }
         }
-
         &.report-error {
           background-color: @openstax-quaternary;
-          &:before {
-            background-color: @openstax-quaternary;
-            font-size: 90px;
-            content: @fa-var-exclamation-circle;
-          }
+          &:before { background-image: url("../../images/icons/exercise-report-error-action.svg"); }
         }
-
       }
     }
   }
