@@ -1,6 +1,5 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-{addons} = require 'react/addons'
 
 {TocStore} = require '../../flux/toc'
 {ExerciseActions, ExerciseStore} = require '../../flux/exercise'
@@ -15,8 +14,6 @@ ChapterSection = require '../task-plan/chapter-section'
 Icon = require '../icon'
 
 SectionsExercises = React.createClass
-
-  mixins: [addons.PureRenderMixin]
 
   propTypes:
     exercises:              React.PropTypes.array.isRequired
@@ -55,7 +52,7 @@ SectionsExercises = React.createClass
 
   render: ->
     title = TocStore.getSectionLabel(@props.chapter_section)?.title
-
+    # IMPORTANT: the 'data-section' attribute is used as a scroll-to target and must be present
     <div className='exercise-sections' data-section={@props.chapter_section}>
       <label className='exercises-section-label'>
         <ChapterSection section={@props.chapter_section}/> {title}
@@ -77,10 +74,15 @@ ExerciseCards = React.createClass
     onShowDetailsViewClick: React.PropTypes.func.isRequired
     topScrollOffset:        React.PropTypes.number
 
-  mixins: [ScrollTo, addons.PureRenderMixin]
+  mixins: [ScrollTo]
 
   getDefaultProps: ->
     topScrollOffset: 110
+
+  # Important! - as an optimization, this component will only update if props have changed.
+  # This is necessary because there can be a very large number of exercise previews displaying at once
+  shouldComponentUpdate: (nextProps) ->
+    not _.isEqual(nextProps, @props)
 
   componentDidMount:   ->
     @scrollToSelector('.exercise-sections')

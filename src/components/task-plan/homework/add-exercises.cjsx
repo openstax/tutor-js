@@ -10,6 +10,7 @@ ExerciseHelpers  = require '../../../helpers/exercise'
 ExerciseControls = require './exercise-controls'
 ExerciseDetails  = require '../../exercises/details'
 ExerciseCards    = require '../../exercises/cards'
+ScrollTo         = require '../../scroll-to-mixin'
 
 AddExercises = React.createClass
 
@@ -22,7 +23,7 @@ AddExercises = React.createClass
   getInitialState: ->
     { currentView: 'cards' }
 
-  mixins: [LoadingExercises]
+  mixins: [ScrollTo, LoadingExercises]
 
   onShowDetailsViewClick: -> @setState(currentView: 'details')
   onShowCardViewClick:    -> @setState(currentView: 'cards')
@@ -81,7 +82,9 @@ AddExercises = React.createClass
     TaskPlanStore.hasExercise(@props.planId, exercise.id)
 
   setCurrentSection: (currentSection) ->
+    @scrollToSelector("[data-section='#{currentSection}']")
     @setState({currentSection})
+
 
   render: ->
     return @renderLoading() if @exercisesAreLoading()
