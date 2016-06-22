@@ -122,19 +122,33 @@ TaskPlanConfig =
     plan = @_getPlan(id)
     @_change(id, settings: _.extend({}, plan.settings, attributes))
 
-  setDefaultTimes: (course, period) ->
+  setDefaultTimes: (course, period, useCourseDefault) ->
     periodTimes = _.pick(period, 'opens_at', 'due_at')
     {default_open_time, default_due_time} = course
 
-    periodSettings = _.findWhere course.periods, id: period.id
-    {default_open_time, default_due_time} = periodSettings
+    unless useCourseDefault
+      console.warn('changeintlasjdflkj')
+      periodSettings = _.findWhere course.periods, id: period.id
+      {default_open_time, default_due_time} = periodSettings
 
     periodTimes.opens_at += " #{default_open_time}" if isDateStringOnly(periodTimes.opens_at)
     periodTimes.due_at += " #{default_due_time}" if isDateStringOnly(periodTimes.due_at)
 
     periodTimes
 
-  setPeriods: (id, courseId, periods, isDefault = false) ->
+  setDefaultTimesForPeriods: (id, courseId, periods) ->
+    course = CourseStore.get(courseId)
+
+    tasking_plans = _.map periods, (period) =>
+      tasking = target_id: period.id, target_type:'period'
+
+      periodTimes = @setDefaultTimes(course, period, false)
+
+      _.extend(periodTimes, tasking)
+
+    @_change(id, {tasking_plans})
+
+  setPeriods: (id, courseId, periods, isDefault = false, useCourseDefault = true) ->
     plan = @_getPlan(id)
     course = CourseStore.get(courseId)
 
@@ -146,7 +160,7 @@ TaskPlanConfig =
       if not tasking
         tasking = target_id: period.id, target_type:'period'
 
-      periodTimes = @setDefaultTimes(course, period)
+      periodTimes = @setDefaultTimes(course, period, useCourseDefault)
 
       _.extend(periodTimes, tasking)
 

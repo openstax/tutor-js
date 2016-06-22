@@ -54,7 +54,7 @@ TaskPlanBuilder = React.createClass
       if not TaskPlanStore.hasTasking(planId, period.id) and not isNewPlan
         tasking = id: period.id
       else
-        tasking = id: period.id
+        tasking = id: period.id, due_at: dueAt, opens_at: opensAt
 
       tasking
 
@@ -90,24 +90,24 @@ TaskPlanBuilder = React.createClass
   # Copies the available periods from the course store and sets
   # them to open at the default start date
   setPeriodDefaults: ->
-    planId = @props.id
-    isNewPlan = TaskPlanStore.isNew(@props.id)
-    {courseId} = @props
+    {courseId, id} = @props
+    {showingPeriods} = @state
+
+    isNewPlan = TaskPlanStore.isNew(id)
 
     # check for common open/due dates, remember it now before we set defaults
-    dueAt = TaskPlanStore.getDueAt(@props.id)
-    commonDates = dueAt and TaskPlanStore.getOpensAt(@props.id)
+    dueAt = TaskPlanStore.getDueAt(id)
+    commonDates = dueAt and TaskPlanStore.getOpensAt(id)
 
     #map tasking plans
     periods = @mapPeriods(@getQueriedOpensAt(), dueAt or @getQueriedDueAt())
 
     #check to see if all tasking plans are there
-    hasAllTaskings = _.reduce(periods, (memo, period) ->
-      memo and TaskPlanStore.hasTasking(planId, period.id)
-    , true)
+    hasAllTaskings = _.every periods, (period) ->
+      TaskPlanStore.hasTasking(id, period.id)
 
     # Inform the store of the available periods
-    TaskPlanActions.setPeriods(planId, courseId, periods)
+    TaskPlanActions.setPeriods(id, courseId, periods)
 
     unless isNewPlan
       @setState({showingPeriods: not (commonDates and hasAllTaskings)})
@@ -148,9 +148,10 @@ TaskPlanBuilder = React.createClass
 
   setAllPeriods: ->
     {courseId} = @props
+    {showingPeriods} = @state
 
     #save current taskings
-    if @state.showingPeriods
+    if showingPeriods
       saveTaskings = TaskPlanStore.getEnabledTaskings(@props.id)
       @setState(showingPeriods: false, savedTaskings: saveTaskings)
 
@@ -161,7 +162,7 @@ TaskPlanBuilder = React.createClass
 
     #enable all periods
     periods = _.map CourseStore.getPeriods(@props.courseId), (period) -> id: period.id
-    TaskPlanActions.setPeriods(@props.id, courseId, periods, false)
+    TaskPlanActions.setPeriods(@props.id, courseId, periods)
 
     #set dates for all periods
     taskingDueAt = TaskPlanStore.getDueAt(@props.id) or @getQueriedDueAt()
@@ -174,7 +175,11 @@ TaskPlanBuilder = React.createClass
 
   setIndividualPeriods: ->
     # if taskings exist in state, then load them
-    if (@state.savedTaskings) then TaskPlanActions.replaceTaskings(@props.id, @state.savedTaskings)
+    if (@state.savedTaskings)
+      TaskPlanActions.replaceTaskings(@props.id, @state.savedTaskings)
+    else
+      periods = _.map CourseStore.getPeriods(@props.courseId), (period) -> id: period.id
+      TaskPlanActions.setDefaultTimesForPeriods(@props.id, @props.courseId, periods)
 
     #clear saved taskings
     @setState(
