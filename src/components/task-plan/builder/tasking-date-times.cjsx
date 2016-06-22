@@ -26,11 +26,8 @@ TaskingDateTimes = React.createClass
     isVisibleToStudents: React.PropTypes.bool
     period:              React.PropTypes.object
 
-  isTimeDefault: (time, defaultTime) ->
-    return true if _.isUndefined(time)
-    TimeHelper.makeMoment(time, 'HH:mm').isSame(TimeHelper.makeMoment(defaultTime, 'HH:mm'), 'minute')
-
   isPastDue: (date, time) ->
+    return false unless date?
     TimeHelper.makeMoment("#{date} #{time}").isBefore(TimeHelper.makeMoment())
 
   setDefaultTime: (timeChange) ->
@@ -67,9 +64,6 @@ TaskingDateTimes = React.createClass
 
     commonDateTimesProps = _.pick @props, 'required', 'currentLocale', 'taskingIdentifier'
 
-    isDueTimeDefault = @isTimeDefault dueTime, defaultDueTime
-    isOpenTimeDefault = @isTimeDefault openTime, defaultOpenTime
-
     maxOpensAt = TaskPlanStore.getMaxDueAt(id, period?.id)
     minDueAt = TaskPlanStore.getMinDueAt(id, period?.id)
 
@@ -84,9 +78,9 @@ TaskingDateTimes = React.createClass
         onChange={_.partial(setOpensAt, _, period)}
         value={ taskingOpensAt }
         defaultValue={openTime or defaultOpenTime}
+        defaultTime={defaultOpenTime}
         setDefaultTime={@setDefaultTime}
         timeLabel='default_open_time'
-        isTimeDefault={isOpenTimeDefault}
         isSetting={@isSetting} />
       <DateTime
         {...commonDateTimesProps}
@@ -97,9 +91,9 @@ TaskingDateTimes = React.createClass
         onChange={_.partial(setDueAt, _, period)}
         value={taskingDueAt}
         defaultValue={dueTime or defaultDueTime}
+        defaultTime={defaultDueTime}
         setDefaultTime={@setDefaultTime}
         timeLabel='default_due_time'
-        isTimeDefault={isDueTimeDefault}
         isSetting={@isSetting} />
     </BS.Col>
 

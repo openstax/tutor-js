@@ -34,6 +34,7 @@ DateTime = React.createClass
     justSet: false
     isSetting: isSetting()
     isTimeValid: @isTimeValid()
+    isTimeDefault: @isTimeDefault()
 
   onTimeChange: (time) ->
     @setState({time})
@@ -64,7 +65,7 @@ DateTime = React.createClass
       dateTime = "#{date} #{time}"
       @props.onChange(dateTime)
     else
-      @setState(isTimeValid: @isTimeValid())
+      @setState(isTimeValid: @isTimeValid(), isTimeDefault: @isTimeDefault())
 
   hasValidInputs: ->
     @isDateValid() and @isTimeValid()
@@ -76,10 +77,15 @@ DateTime = React.createClass
       @props.isTimeDefault
 
   isDateValid: ->
-    _.isEmpty(@refs?.date?.state?.errors)
+    @state?.date? and _.isEmpty(@refs?.date?.state?.errors)
 
   isTimeValid: ->
-    _.isEmpty @refs?.time?.refs?.timeInput?.state?.errors
+    @state?.time? and _.isEmpty @refs?.time?.refs?.timeInput?.state?.errors
+
+  isTimeDefault: ->
+    return true if _.isUndefined(@state?.time)
+    {defaultTime} = @props
+    TimeHelper.makeMoment(@state.time, 'HH:mm').isSame(TimeHelper.makeMoment(defaultTime, 'HH:mm'), 'minute')
 
   setDefaultTime: ->
     {timeLabel, setDefaultTime} = @props
@@ -92,8 +98,8 @@ DateTime = React.createClass
     setDefaultTime(timeChange)
 
   render: ->
-    {isTimeDefault, label, taskingIdentifier} = @props
-    {isSetting, isTimeValid, justSet, setClicked} = @state
+    {label, taskingIdentifier} = @props
+    {isSetting, isTimeValid, justSet, setClicked, isTimeDefault} = @state
 
     type = label.toLowerCase()
 
