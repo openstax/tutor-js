@@ -12,8 +12,9 @@ TITLE = 'Get Student Enrollment Code'
 module.exports = React.createClass
   displayName: 'PeriodEnrollmentCode'
   propTypes:
-    period: React.PropTypes.object.isRequired
-    bookUrl: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.string.isRequired
+    period:   React.PropTypes.object.isRequired
+    bookUrl:  React.PropTypes.string.isRequired
     bookName: React.PropTypes.string.isRequired
 
   getInitialState: ->
@@ -29,7 +30,7 @@ module.exports = React.createClass
     {bookUrl, bookName} = @props
     # appends :3 to skip book intro
     url = bookUrl + ':3'
-
+    section = <CourseGroupingLabel lowercase courseId={@props.courseId} />
     msg = """
        As you read your OpenStax textbook online, you will come across embedded Concept Coach question sets to help you understand and retain what you’ve read.
 
@@ -50,9 +51,9 @@ module.exports = React.createClass
     <div>
 
       <div className='summary'>
-        <p>The enrollment code for this section is:</p>
+        <p>The enrollment code for this {section} is:</p>
         <p className='code'>{code}</p>
-        <p>Each section of your course will have a
+        <p>Each {section} of your course will have a
          different enrollment code.</p>
       </div>
 

@@ -18,6 +18,7 @@ StudentEnrollment = React.createClass
     course = CourseStore.get(@props.courseId)
     if CourseStore.isConceptCoach(@props.courseId)
       <CCEnrollmentCode
+        courseId={@props.courseId}
         period={@props.period}
         bookUrl={course.webview_url}
         bookName={course.salesforce_book_name}
