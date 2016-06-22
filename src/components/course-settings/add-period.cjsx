@@ -33,10 +33,7 @@ AddPeriodField = React.createClass
       onChange={@onChange}
       validate={@props.validate} />
 
-  validate: (name) ->
-    error = PeriodStore.validatePeriodName(name, @props.periods)
-    @setState({invalid: error?})
-    error
+
 
 module.exports = React.createClass
   displayName: 'AddPeriodLink'
@@ -49,14 +46,21 @@ module.exports = React.createClass
     period_name: ''
     showModal: false
     isCreating: false
+    submitted: false
 
   close: ->
-    @setState({showModal: false, isCreating: false})
+    @setState({showModal: false, isCreating: false, period_name: '', submitted: false})
 
   open: ->
     @setState({showModal: true})
 
+  validate: (name) ->
+    error = PeriodStore.validatePeriodName(name, @props.periods)
+    @setState({invalid: error?})
+    error
+
   performUpdate: ->
+    @setState({submitted: true})
     if not @state.invalid
       @setState(isCreating: true)
       PeriodActions.create(@props.courseId, name: @state.period_name)
@@ -64,7 +68,7 @@ module.exports = React.createClass
 
   renderForm: ->
     formClasses = ['modal-body', 'teacher-edit-period-form']
-    if @state?.invalid
+    if @state?.invalid and @state.submitted
       formClasses.push('is-invalid-form')
       disabled = true
     title = <h4>Add <CourseGroupingLabel courseId={@props.courseId} /></h4>
