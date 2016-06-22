@@ -12,12 +12,16 @@ PROJECT_NAME_AND_FEEDBACK =
 
 Instructions = React.createClass
   displayName: 'Instructions'
+
   propTypes:
     project: React.PropTypes.oneOf _.keys(PROJECT_NAME_AND_FEEDBACK)
-  render: ->
-    {project, projectName, feedbackType, hasIncorrectAnswer } = @props
+    hasIncorrectAnswer: React.PropTypes.bool
+    hasFeedback: React.PropTypes.bool
 
-    if (hasIncorrectAnswer)
+  render: ->
+    {project, projectName, feedbackType, hasFeedback, hasIncorrectAnswer} = @props
+
+    if (hasIncorrectAnswer and hasFeedback)
       return <p className="instructions">
         Incorrect. Please review your feedback.
       </p>

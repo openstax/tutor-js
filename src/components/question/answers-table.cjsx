@@ -81,8 +81,14 @@ AnswersTable = React.createClass
       @props.onChangeAttempt?(answer)
 
   shouldInstructionsShow: ->
-    {type, model, hasCorrectAnswer} = @props
-    model.formats.length > 1 and not (hasCorrectAnswer or type in ['teacher-preview', 'teacher-review'])
+    {type, model, answer_id, correct_answer_id} = @props
+    (
+      model.formats.length > 1 and
+      not (
+        answer_id is correct_answer_id or
+        type in ['teacher-preview', 'teacher-review']
+      )
+    )
 
   hasIncorrectAnswer: ->
     {answer_id, correct_answer_id, choicesEnabled} = @props
@@ -125,6 +131,7 @@ AnswersTable = React.createClass
 
     instructions = <Instructions
       project={project}
+      hasFeedback={feedback_html?}
       hasIncorrectAnswer={@hasIncorrectAnswer()}
     /> if @shouldInstructionsShow()
 
