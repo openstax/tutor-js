@@ -127,7 +127,6 @@ TaskPlanConfig =
     {default_open_time, default_due_time} = course
 
     unless useCourseDefault
-      console.warn('changeintlasjdflkj')
       periodSettings = _.findWhere course.periods, id: period.id
       {default_open_time, default_due_time} = periodSettings
 
@@ -136,16 +135,30 @@ TaskPlanConfig =
 
     periodTimes
 
-  setDefaultTimesForPeriods: (id, courseId, periods) ->
+  _getDefaultTaskingTimes: (id, courseId, periods, useCourseDefault = true) ->
+    plan = @_getPlan(id)
     course = CourseStore.get(courseId)
 
-    tasking_plans = _.map periods, (period) =>
-      tasking = target_id: period.id, target_type:'period'
+    curTaskings = plan?.tasking_plans
+    findTasking = @_findTasking
 
-      periodTimes = @setDefaultTimes(course, period, false)
+    _.map periods, (period) =>
+      tasking = findTasking(curTaskings, period.id)
+      tasking ?= target_id: period.id, target_type:'period'
 
-      _.extend(periodTimes, tasking)
+      period.opens_at = TimeHelper.makeMoment(period.opens_at or tasking.opens_at).format(TimeHelper.ISO_DATE_FORMAT)
+      period.due_at = TimeHelper.makeMoment(period.due_at or tasking.due_at).format(TimeHelper.ISO_DATE_FORMAT)
 
+      periodTimes = @setDefaultTimes(course, period, useCourseDefault)
+
+      _.extend({}, tasking, periodTimes)
+
+  setDefaultTimesForPeriods: (id, courseId, periods) ->
+    tasking_plans = @_getDefaultTaskingTimes(id, courseId, periods, false)
+    @_change(id, {tasking_plans})
+
+  setDefaultTimesForCourse: (id, courseId, periods) ->
+    tasking_plans = @_getDefaultTaskingTimes(id, courseId, periods)
     @_change(id, {tasking_plans})
 
   setPeriods: (id, courseId, periods, isDefault = false, useCourseDefault = true) ->
@@ -157,17 +170,15 @@ TaskPlanConfig =
 
     tasking_plans = _.map periods, (period) =>
       tasking = findTasking(curTaskings, period.id)
-      if not tasking
-        tasking = target_id: period.id, target_type:'period'
+      tasking ?= target_id: period.id, target_type:'period'
 
       periodTimes = @setDefaultTimes(course, period, useCourseDefault)
-
       _.extend(periodTimes, tasking)
 
     if not @exports.isNew(id)
       tasking_plans = @_removeEmptyTaskings(tasking_plans)
 
-    @_change(id, {tasking_plans})
+    @_change(id, {tasking_plans}) unless _.isEqual(curTaskings, tasking_plans)
 
     @_setInitialPlan(id) if isDefault
 
@@ -565,7 +576,8 @@ TaskPlanConfig =
 
     isStatsFailed: (id) -> !! @_stats[id]
 
-    hasChanged: (id) -> not _.isEqual(@exports.getChanged.call(@, id), @_local[id].defaultPlan)
+    hasChanged: (id) ->
+      not _.isEqual(@exports.getChanged.call(@, id), (@_local[id].defaultPlan or {}))
 
 extendConfig(TaskPlanConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskPlanConfig)

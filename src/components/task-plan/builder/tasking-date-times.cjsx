@@ -45,7 +45,7 @@ TaskingDateTimes = React.createClass
     {courseId, period} = @props
 
     if period?
-      PeriodStore.isSaving(courseId)
+      CourseStore.isLoading(courseId)
     else
       CourseStore.isSaving(courseId)
 

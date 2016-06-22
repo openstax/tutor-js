@@ -101,7 +101,8 @@ PlanFooter = React.createClass
       if TaskPlanStore.isPublished(id)
         saveButton = <AsyncButton {...publishButtonProps}
           onClick={@onSave}
-          isWaiting={isWaiting and @state.saving}
+          isJob={true}
+          isWaiting={isWaiting and (@state.saving or @state.publishing)}
           waitingText='Saving…'>
           Save
         </AsyncButton>

@@ -54,7 +54,7 @@ DateTime = React.createClass
 
       @setState(justSet: true)
       _.delay =>
-        @setState(justSet: false)
+        @setState(justSet: false, setClicked: null)
       , messageTime
 
   onTimeUpdated: ->
@@ -87,12 +87,13 @@ DateTime = React.createClass
 
     timeChange = {}
     timeChange[timeLabel] = time
+    @setState(setClicked: true)
 
     setDefaultTime(timeChange)
 
   render: ->
     {isTimeDefault, label, taskingIdentifier} = @props
-    {isSetting, isTimeValid, justSet} = @state
+    {isSetting, isTimeValid, justSet, setClicked} = @state
 
     type = label.toLowerCase()
 
@@ -111,7 +112,7 @@ DateTime = React.createClass
         className='tasking-time-default'
         bsStyle='link'
         waitingText='Saving…'
-        isWaiting={isSetting}
+        isWaiting={isSetting and setClicked}
         onClick=@setDefaultTime>
           Set as default
           <BS.OverlayTrigger placement='top' overlay={setAsDefaultExplanation}>
