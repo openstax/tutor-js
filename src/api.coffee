@@ -6,8 +6,7 @@
 # `TaskActions.loaded` or `TaskActions.FAILED`
 _ = require 'underscore'
 
-{apiHelper, IS_LOCAL} = require './helpers/api'
-
+{apiHelper, IS_LOCAL, toParams} = require './helpers/api'
 
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {CourseActions} = require './flux/course'
@@ -43,6 +42,7 @@ BOOTSTRAPED_STORES = {
   user:   CurrentUserActions.loaded
   courses: CourseListingActions.loaded
 }
+
 
 start = (bootstrapData) ->
   for storeId, action of BOOTSTRAPED_STORES
