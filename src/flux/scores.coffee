@@ -47,7 +47,7 @@ adjustTaskAverages = (data, taskInfo, columnIndex) ->
 
   # Student's course average
   numTasksStudent = 0
-  numTasksStudent += 1 for studentTask in student.data when studentTask.is_included_in_averages
+  numTasksStudent += 1 for studentTask in student.data when studentTask?.is_included_in_averages
 
   student.average_score =
     ( student.average_score - ( oldScore / numTasksStudent ) ) +
@@ -56,7 +56,7 @@ adjustTaskAverages = (data, taskInfo, columnIndex) ->
   # Assignment averages
   numStudentsTask = 0
   for student in course.students
-    for studentTask, i in student.data
+    for studentTask, i in student.data when studentTask
       if i is columnIndex
         numStudentsTask += 1 if studentTask.is_included_in_averages
 
@@ -68,7 +68,7 @@ adjustTaskAverages = (data, taskInfo, columnIndex) ->
   # Overall course averages
   taskCount = 0
   for student in course.students
-    taskCount += 1 for studentTask in student.data when studentTask.is_included_in_averages
+    taskCount += 1 for studentTask in student.data when studentTask?.is_included_in_averages
 
   course.overall_average_score =
     (course.overall_average_score - ( oldScore / taskCount ) ) +
