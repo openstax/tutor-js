@@ -35,7 +35,7 @@ sortTopics = (topics) ->
 
 
 isSameOrBeforeNow = (time) ->
-  moment(time).isSame(TimeStore.getNow()) or moment(time).isBefore(TimeStore.getNow())
+  moment(time).isSameOrBefore(TimeStore.getNow())
 
 isDateStringOnly = (timeString) ->
   ISO_DATE_ONLY_REGEX.test(timeString)
@@ -122,19 +122,49 @@ TaskPlanConfig =
     plan = @_getPlan(id)
     @_change(id, settings: _.extend({}, plan.settings, attributes))
 
-  setDefaultTimes: (course, period) ->
+  setDefaultTimes: (course, period, useCourseDefault) ->
     periodTimes = _.pick(period, 'opens_at', 'due_at')
     {default_open_time, default_due_time} = course
 
-    periodSettings = _.findWhere course.periods, id: period.id
-    {default_open_time, default_due_time} = periodSettings
+    unless useCourseDefault
+      periodSettings = _.findWhere course.periods, id: period.id
+      {default_open_time, default_due_time} = periodSettings
 
     periodTimes.opens_at += " #{default_open_time}" if isDateStringOnly(periodTimes.opens_at)
     periodTimes.due_at += " #{default_due_time}" if isDateStringOnly(periodTimes.due_at)
 
     periodTimes
 
-  setPeriods: (id, courseId, periods, isDefault = false) ->
+  _getDefaultTaskingTimes: (id, courseId, periods, useCourseDefault = true) ->
+    plan = @_getPlan(id)
+    course = CourseStore.get(courseId)
+
+    curTaskings = plan?.tasking_plans
+    findTasking = @_findTasking
+
+    _.map periods, (period) =>
+      tasking = findTasking(curTaskings, period.id)
+      tasking ?= target_id: period.id, target_type:'period'
+
+      opens_at = period.opens_at or tasking.opens_at
+      due_at = period.due_at or tasking.due_at
+
+      period.opens_at = TimeHelper.makeMoment(opens_at).format(TimeHelper.ISO_DATE_FORMAT) if opens_at?
+      period.due_at = TimeHelper.makeMoment(due_at).format(TimeHelper.ISO_DATE_FORMAT) if due_at?
+
+      periodTimes = @setDefaultTimes(course, period, useCourseDefault) if opens_at? or due_at?
+
+      _.extend({}, tasking, periodTimes)
+
+  setDefaultTimesForPeriods: (id, courseId, periods) ->
+    tasking_plans = @_getDefaultTaskingTimes(id, courseId, periods, false)
+    @_change(id, {tasking_plans})
+
+  setDefaultTimesForCourse: (id, courseId, periods) ->
+    tasking_plans = @_getDefaultTaskingTimes(id, courseId, periods)
+    @_change(id, {tasking_plans})
+
+  setPeriods: (id, courseId, periods, isDefault = false, useCourseDefault = true) ->
     plan = @_getPlan(id)
     course = CourseStore.get(courseId)
 
@@ -143,17 +173,15 @@ TaskPlanConfig =
 
     tasking_plans = _.map periods, (period) =>
       tasking = findTasking(curTaskings, period.id)
-      if not tasking
-        tasking = target_id: period.id, target_type:'period'
+      tasking ?= target_id: period.id, target_type:'period'
 
-      periodTimes = @setDefaultTimes(course, period)
-
+      periodTimes = @setDefaultTimes(course, period, useCourseDefault)
       _.extend(periodTimes, tasking)
 
     if not @exports.isNew(id)
       tasking_plans = @_removeEmptyTaskings(tasking_plans)
 
-    @_change(id, {tasking_plans})
+    @_change(id, {tasking_plans}) unless _.isEqual(curTaskings, tasking_plans)
 
     @_setInitialPlan(id) if isDefault
 
@@ -448,6 +476,19 @@ TaskPlanConfig =
     getFirstDueDate: (id) ->
       due_at = @_getFirstTaskingByDueDate(id)?.due_at
 
+    areDefaultsCommon: (courseId) ->
+      course = CourseStore.get(courseId)
+
+      areOpenTimesSame = _.every course.periods, (period) ->
+        {default_open_time} = period
+        default_open_time is _.first(course.periods).default_open_time
+
+      areDueTimesSame = _.every course.periods, (period) ->
+        {default_due_time} = period
+        default_due_time is _.first(course.periods).default_due_time
+
+      areOpenTimesSame and areDueTimesSame
+
     isEditable: (id) ->
       # cannot be/being deleted
       not @_isDeleteRequested(id)
@@ -548,7 +589,8 @@ TaskPlanConfig =
 
     isStatsFailed: (id) -> !! @_stats[id]
 
-    hasChanged: (id) -> not _.isEqual(@exports.getChanged.call(@, id), @_local[id].defaultPlan)
+    hasChanged: (id) ->
+      not _.isEqual(@exports.getChanged.call(@, id), (@_local[id].defaultPlan or {}))
 
 extendConfig(TaskPlanConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskPlanConfig)

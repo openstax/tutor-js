@@ -6,7 +6,7 @@ _     = require 'underscore'
 {TimeStore} = require '../../../flux/time'
 TimeHelper  = require '../../../helpers/time'
 {PeriodActions, PeriodStore}     = require '../../../flux/period'
-{TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
+{TaskPlanStore} = require '../../../flux/task-plan'
 {CourseStore, CourseActions}     = require '../../../flux/course'
 
 DateTime = require './date-time'
@@ -26,9 +26,9 @@ TaskingDateTimes = React.createClass
     isVisibleToStudents: React.PropTypes.bool
     period:              React.PropTypes.object
 
-  isTimeDefault: (time, defaultTime) ->
-    return true if _.isUndefined(time)
-    TimeHelper.makeMoment(time, 'HH:mm').isSame(TimeHelper.makeMoment(defaultTime, 'HH:mm'), 'minute')
+  isPastDue: (date, time) ->
+    return false unless date?
+    TimeHelper.makeMoment("#{date} #{time}").isBefore(TimeHelper.makeMoment())
 
   setDefaultTime: (timeChange) ->
     {courseId, period} = @props
@@ -42,7 +42,7 @@ TaskingDateTimes = React.createClass
     {courseId, period} = @props
 
     if period?
-      PeriodStore.isSaving(courseId)
+      CourseStore.isLoading(courseId)
     else
       CourseStore.isSaving(courseId)
 
@@ -64,9 +64,6 @@ TaskingDateTimes = React.createClass
 
     commonDateTimesProps = _.pick @props, 'required', 'currentLocale', 'taskingIdentifier'
 
-    isDueTimeDefault = @isTimeDefault dueTime, defaultDueTime
-    isOpenTimeDefault = @isTimeDefault openTime, defaultOpenTime
-
     maxOpensAt = TaskPlanStore.getMaxDueAt(id, period?.id)
     minDueAt = TaskPlanStore.getMinDueAt(id, period?.id)
 
@@ -81,22 +78,22 @@ TaskingDateTimes = React.createClass
         onChange={_.partial(setOpensAt, _, period)}
         value={ taskingOpensAt }
         defaultValue={openTime or defaultOpenTime}
+        defaultTime={defaultOpenTime}
         setDefaultTime={@setDefaultTime}
         timeLabel='default_open_time'
-        isTimeDefault={isOpenTimeDefault}
         isSetting={@isSetting} />
       <DateTime
         {...commonDateTimesProps}
-        disabled={not isEditable}
+        disabled={@isPastDue(taskingDueAt, dueTime) or not isEditable}
         label="Due"
         ref="due"
         min={minDueAt}
         onChange={_.partial(setDueAt, _, period)}
         value={taskingDueAt}
         defaultValue={dueTime or defaultDueTime}
+        defaultTime={defaultDueTime}
         setDefaultTime={@setDefaultTime}
         timeLabel='default_due_time'
-        isTimeDefault={isDueTimeDefault}
         isSetting={@isSetting} />
     </BS.Col>
 
