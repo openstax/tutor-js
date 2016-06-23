@@ -63,7 +63,7 @@ QLSectionsChooser = React.createClass
         />
       </div>
 
-      <div className='section-controls'>
+      <div className='section-controls panel-footer'>
         <div className='wrapper'>
           <BS.Button bsStyle='primary'
             disabled={_.isEmpty(@state.sectionIds)}
