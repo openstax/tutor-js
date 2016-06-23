@@ -35,7 +35,7 @@ QLSectionsChooser = React.createClass
   render: ->
     help = Help.forCourseId(@props.courseId)
 
-    <div className="sections-chooser">
+    <div className="sections-chooser panel">
 
       <div className="header">
         <div className="wrapper">
