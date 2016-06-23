@@ -22,6 +22,7 @@ TIME_LINKS =
 TimeHelper =
   ISO_DATE_FORMAT: 'YYYY-MM-DD'
   ISO_TIME_FORMAT: 'HH:mm'
+  HUMAN_TIME_FORMAT: 'h:mm a'
 
   linkZoneNames: ->
     # uses moment-timezone-utils to alias loaded timezone data to timezone names in Rails

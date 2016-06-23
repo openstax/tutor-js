@@ -158,7 +158,7 @@ TaskPlanBuilder = React.createClass
     if savedAllTaskings
       TaskPlanActions.replaceTaskings(@props.id, savedAllTaskings)
     else
-      periods = _.map CourseStore.getPeriods(@props.courseId), (period) -> id: period.id
+      periods = _.pluck(CourseStore.getPeriods(@props.courseId), 'id')
       TaskPlanActions.setDefaultTimesForCourse(@props.id, courseId, periods)
 
     @setState(

@@ -21,6 +21,7 @@ TutorInput = React.createClass
     type: React.PropTypes.string
     onChange: React.PropTypes.func
     validate: React.PropTypes.func
+    onUpdated: React.PropTypes.func
 
   getDefaultProps: ->
     validate: (inputValue) ->
@@ -213,8 +214,8 @@ TutorDateInput = React.createClass
 
 TutorTimeInput = React.createClass
   getDefaultProps: ->
-    fromMomentFormat: 'HH:mm'
-    toMomentFormat: 'h:mm a'
+    fromMomentFormat: TimeHelper.ISO_TIME_FORMAT
+    toMomentFormat: TimeHelper.HUMAN_TIME_FORMAT
     formatCharacters:
       i: validate: (char) -> /([0-2]|:)/.test(char)
       h: validate: (char) -> /[0-9]/.test(char)

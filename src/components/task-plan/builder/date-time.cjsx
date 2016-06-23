@@ -80,7 +80,7 @@ DateTime = React.createClass
     @state?.date? and _.isEmpty(@refs?.date?.state?.errors)
 
   isTimeValid: ->
-    @state?.time? and _.isEmpty @refs?.time?.refs?.timeInput?.state?.errors
+    @state?.time? and _.isEmpty(@refs?.time?.refs?.timeInput?.state?.errors)
 
   isTimeDefault: ->
     return true if _.isUndefined(@state?.time)
