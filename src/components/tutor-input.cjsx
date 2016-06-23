@@ -150,6 +150,9 @@ TutorDateInput = React.createClass
     @props.onChange(value)
     @setState({expandCalendar: false, valid, value, errors})
 
+  onBlur: ->
+    @setState({hasFocus: false})
+
   getValue: ->
     @props.value or @state.value
 
@@ -186,6 +189,7 @@ TutorDateInput = React.createClass
           ref="picker"
           className={classes}
           onChange={@dateSelected}
+          onBlur={@onBlur}
           disabled={@props.disabled}
           selected={value}
           weekStart={"#{@props.currentLocale.week.dow}"}
