@@ -146,10 +146,13 @@ TaskPlanConfig =
       tasking = findTasking(curTaskings, period.id)
       tasking ?= target_id: period.id, target_type:'period'
 
-      period.opens_at = TimeHelper.makeMoment(period.opens_at or tasking.opens_at).format(TimeHelper.ISO_DATE_FORMAT)
-      period.due_at = TimeHelper.makeMoment(period.due_at or tasking.due_at).format(TimeHelper.ISO_DATE_FORMAT)
+      opens_at = period.opens_at or tasking.opens_at
+      due_at = period.due_at or tasking.due_at
 
-      periodTimes = @setDefaultTimes(course, period, useCourseDefault)
+      period.opens_at = TimeHelper.makeMoment(opens_at).format(TimeHelper.ISO_DATE_FORMAT) if opens_at?
+      period.due_at = TimeHelper.makeMoment(due_at).format(TimeHelper.ISO_DATE_FORMAT) if due_at?
+
+      periodTimes = @setDefaultTimes(course, period, useCourseDefault) if opens_at? or due_at?
 
       _.extend({}, tasking, periodTimes)
 

@@ -153,14 +153,7 @@ TaskPlanBuilder = React.createClass
     {showingPeriods, savedAllTaskings} = @state
 
     #save current taskings
-    if showingPeriods
-      saveTaskings = TaskPlanStore.getEnabledTaskings(@props.id)
-      @setState(showingPeriods: false, savedIndividualTaskings: saveTaskings, savedAllTaskings: null)
-
-    # #get opens at and due at
-    # taskingOpensAt = TaskPlanStore.getOpensAt(@props.id) or
-    #   TimeHelper.makeMoment(TimeStore.getNow()).format(TimeHelper.ISO_DATE_FORMAT)
-    # @setOpensAt(taskingOpensAt)
+    saveTaskings = TaskPlanStore.getEnabledTaskings(@props.id)
 
     if savedAllTaskings
       TaskPlanActions.replaceTaskings(@props.id, savedAllTaskings)
@@ -168,13 +161,11 @@ TaskPlanBuilder = React.createClass
       periods = _.map CourseStore.getPeriods(@props.courseId), (period) -> id: period.id
       TaskPlanActions.setDefaultTimesForCourse(@props.id, courseId, periods)
 
-    # #set dates for all periods
-    # taskingDueAt = TaskPlanStore.getDueAt(@props.id) or @getQueriedDueAt()
-
-    # if taskingDueAt
-    #   @setDueAt(taskingDueAt)
-    # else
-    #   TaskPlanActions.clearDueAt(@props.id)
+    @setState(
+      showingPeriods: false
+      savedIndividualTaskings: saveTaskings
+      savedAllTaskings: null
+    )
 
   setIndividualPeriods: ->
     savedAllTaskings = TaskPlanStore.getEnabledTaskings(@props.id)
