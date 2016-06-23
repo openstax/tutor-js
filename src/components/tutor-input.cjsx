@@ -276,7 +276,7 @@ TutorTimeInput = React.createClass
     {selection} = @getMask()
     selection = _.clone(selection)
 
-    if /^(_+[2-9])/.test(timeValue)
+    if /^(_+[1-9])/.test(timeValue)
       timeValue = S.removeAt(timeValue, 0)
       selection.start = 2
       selection.end = 2
@@ -322,7 +322,7 @@ TutorTimeInput = React.createClass
     @refs.timeInput.validate(@state.timeValue)
 
   getPatternFromValue: (value, changeEvent) ->
-    if /^([2-9])/.test(value) or /^(_+[2-9])/.test(value)
+    if /^([2-9])/.test(value) or /^(_+[1-9])/.test(value)
       patten = 'h:Mm P'
     else if /^1:/.test(value)
       if changeEvent? and not @shouldShrinkMask(changeEvent)
@@ -330,7 +330,7 @@ TutorTimeInput = React.createClass
       else
         pattern = 'h:Mm P'
     else
-      pattern = 'hh:Mm P'
+      pattern = 'hi:Mm P'
 
   isValidTime: (value) ->
     not /_/.test(value)
