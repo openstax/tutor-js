@@ -131,4 +131,4 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
 
 setUpXHRInterceptors()
 
-module.exports = {apiHelper, IS_LOCAL}
+module.exports = {apiHelper, IS_LOCAL, toParams}
