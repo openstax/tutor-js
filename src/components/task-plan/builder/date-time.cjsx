@@ -18,12 +18,12 @@ DateTime = React.createClass
     messageTime:    React.PropTypes.number
 
   getInitialState: ->
-    @getStateFromProps()
+    @getStateFromProps(@props, @props.defaultValue)
 
   getDefaultProps: ->
     messageTime: 2000
 
-  getStateFromProps: (props) ->
+  getStateFromProps: (props, time) ->
     props ?= @props
     {value, defaultValue, isSetting} = props
 
@@ -33,8 +33,8 @@ DateTime = React.createClass
     time: defaultValue
     justSet: false
     isSetting: isSetting()
-    isTimeValid: @isTimeValid()
-    isTimeDefault: @isTimeDefault()
+    isTimeValid: @isTimeValid(time)
+    isTimeDefault: @isTimeDefault(time)
 
   onTimeChange: (time) ->
     @setState({time})
@@ -79,13 +79,16 @@ DateTime = React.createClass
   isDateValid: ->
     @state?.date? and _.isEmpty(@refs?.date?.state?.errors)
 
-  isTimeValid: ->
-    @state?.time? and _.isEmpty(@refs?.time?.refs?.timeInput?.state?.errors)
+  isTimeValid: (time) ->
+    time ?= @state?.time
 
-  isTimeDefault: ->
-    return true if _.isUndefined(@state?.time)
+    time? and _.isEmpty(@refs?.time?.refs?.timeInput?.state?.errors)
+
+  isTimeDefault: (time) ->
+    time ?= @state?.time
+    return true if _.isUndefined(time)
     {defaultTime} = @props
-    TimeHelper.makeMoment(@state.time, 'HH:mm').isSame(TimeHelper.makeMoment(defaultTime, 'HH:mm'), 'minute')
+    TimeHelper.makeMoment(time, 'HH:mm').isSame(TimeHelper.makeMoment(defaultTime, 'HH:mm'), 'minute')
 
   setDefaultTime: ->
     {timeLabel, setDefaultTime} = @props
