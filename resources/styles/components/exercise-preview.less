@@ -1,57 +1,50 @@
-.openstax-exercise-preview {
-  .controls-overlay {
-    .message {
-      .action {
-
-        &.include {
-          background-color: @light-blue;
-          &:before {
-            color: @light-blue;
-            content: @fa-var-plus;
+.openstax-exercise-preview.has-actions {
+  .panel-body,
+  .panel-body:hover {
+    .controls-overlay {
+      .message {
+        .action {
+          &.include {
+            background-color: #009acc; // blue
+            &:before { background-image: url("../../images/icons/exercise-include-action.svg"); }
+          }
+          &.exclude {
+            background-color: @openstax-primary;
+            &:before { background-image: url("../../images/icons/exercise-exclude-card-view-action.svg"); }
+          }
+          &.details {
+            background-color: @openstax-neutral-dark;
+            &:before { background-image: url("../../images/icons/exercise-details-action.svg"); }
+          }
+          &.feedback-on {
+            background-color: @openstax-neutral-dark;
+            &:before { background-image: url("../../images/icons/exercise-feedback-on-action.svg"); }
+          }
+          &.feedback-off {
+            background-color: @openstax-neutral-dark;
+            &:before { background-image: url("../../images/icons/exercise-feedback-off-action.svg"); }
+          }
+          &.report-error {
+            background-color: #fdbd3e; // yellow
+            &:before { background-image: url("../../images/icons/exercise-report-error-action.svg"); }
           }
         }
+      }
+    }
+  }
 
-        &.exclude {
-          background-color: @openstax-primary;
-          &:before {
-            color: @openstax-primary;
-            content: @fa-var-minus;
+  &.actions-on-side {
+    .panel-body,
+    .panel-body:hover {
+      .controls-overlay {
+        .message {
+          .action {
+            &.exclude {
+              background-color: @openstax-primary;
+              &:before { background-image: url("../../images/icons/exercise-exclude-details-view-action.svg"); }
+            }
           }
         }
-
-        &.details {
-          background-color: @openstax-neutral-dark;
-          &:before {
-            color: @openstax-neutral-dark;
-            content: @fa-var-ellipsis-h;
-          }
-        }
-
-        &.feedback-on {
-          background-color: @openstax-neutral-dark;
-          &:before {
-            color: @openstax-neutral-dark;
-            content: @fa-var-eye;
-          }
-        }
-
-        &.feedback-off {
-          background-color: @openstax-neutral-dark;
-          &:before {
-            color: @openstax-neutral-dark;
-            content: @fa-var-eye-slash;
-          }
-        }
-
-        &.report-error {
-          background-color: @openstax-quaternary;
-          &:before {
-            background-color: @openstax-quaternary;
-            font-size: 90px;
-            content: @fa-var-exclamation-circle;
-          }
-        }
-
       }
     }
   }

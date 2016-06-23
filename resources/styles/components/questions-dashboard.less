@@ -7,11 +7,12 @@
   }
 
   .sections-chooser {
+
     .header {
-      margin-top: @tutor-panel-padding-vertical;
       background-color: @tutor-white;
       padding: 0 @padding+5px;
       .wrapper {
+        height: 95px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -29,7 +30,7 @@
     font-weight: 700;
     font-style: italic;
     margin: 0;
-    padding: @padding - 5px;
+    padding: @padding - 8px;
 
     .tutor-icon {
       position: relative;
@@ -43,7 +44,6 @@
     color: @tutor-neutral;
   }
   .sections-list {
-    margin-top: @tutor-panel-padding-vertical;
     padding: @padding;
     background-color: @tutor-white;
   }
@@ -52,11 +52,9 @@
     background-color: @tutor-white;
   }
 
-  .section-controls {
-    background-color: @tutor-neutral-bright;
-    border: 1px solid @tutor-neutral-light;
-    // important to override material-design styles
-    button.btn { margin-right: 1rem !important; }
+  .sectionizer {
+    flex: 1;
+    justify-content: center;
   }
 
   .loading {

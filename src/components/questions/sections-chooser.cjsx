@@ -35,7 +35,7 @@ QLSectionsChooser = React.createClass
   render: ->
     help = Help.forCourseId(@props.courseId)
 
-    <div className="sections-chooser">
+    <div className="sections-chooser panel">
 
       <div className="header">
         <div className="wrapper">
@@ -63,7 +63,7 @@ QLSectionsChooser = React.createClass
         />
       </div>
 
-      <div className='section-controls'>
+      <div className='section-controls panel-footer'>
         <div className='wrapper'>
           <BS.Button bsStyle='primary'
             disabled={_.isEmpty(@state.sectionIds)}

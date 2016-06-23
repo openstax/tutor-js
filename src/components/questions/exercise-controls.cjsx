@@ -6,10 +6,13 @@ cn = require 'classnames'
 {AsyncButton} = require 'openstax-react-components'
 showDialog = require './unsaved-dialog'
 
+ScrollTo = require '../scroll-to-mixin'
 Icon = require '../icon'
 
 QuestionsControls = React.createClass
 
+  mixins: [ScrollTo]
+  scrollingTargetDOM: -> @props.windowImpl.document
   propTypes:
     exercises: React.PropTypes.shape(
       all: React.PropTypes.object
@@ -67,6 +70,10 @@ QuestionsControls = React.createClass
       </BS.ButtonGroup>
 
       {@props.children}
+
+      <BS.Button onClick={@scrollToTop}>
+        Select more sections
+      </BS.Button>
 
     </div>
 
