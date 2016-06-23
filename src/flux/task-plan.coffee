@@ -579,6 +579,14 @@ TaskPlanConfig =
       plan = @_getPlan(id)
       !!plan?.tasking_plans
 
+    hasAllTaskings: (id, courseId) ->
+      {tasking_plans} = @_getOriginal(id)
+      course = CourseStore.get(courseId)
+
+      {periods} = course
+      _.every periods, (period) =>
+        @exports.hasTasking.call(@, id, period.id)
+
     getEnabledTaskings: (id) ->
       plan = @_getPlan(id)
       plan?.tasking_plans

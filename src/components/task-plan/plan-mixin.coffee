@@ -14,15 +14,20 @@ PlanMixin =
     router: React.PropTypes.func
 
   getInitialState: ->
-    isSavedPlanVisibleToStudent = TaskPlanStore.isVisibleToStudents(@props.id or @props.planId)
+    @getStates()
 
-    isVisibleToStudents: isSavedPlanVisibleToStudent
-    isEditable: TaskPlanStore.isEditable(@props.id or @props.planId)
+  getStates: ->
+    id = @props.id or @props.planId
+    {courseId} = @props
+
+    isVisibleToStudents = TaskPlanStore.isVisibleToStudents(id)
+    isEditable = TaskPlanStore.isEditable(id)
+    isSwitchable = not isVisibleToStudents or TaskPlanStore.hasAllTaskings(id, courseId)
+
+    {isVisibleToStudents, isEditable, isSwitchable}
 
   updateIsVisibleAndIsEditable: ->
-    isVisibleToStudents = TaskPlanStore.isVisibleToStudents(@props.id or @props.planId)
-    isEditable = TaskPlanStore.isEditable(@props.id or @props.planId)
-    @setState({isVisibleToStudents, isEditable})
+    @setState(@getStates())
 
   componentWillMount: ->
     TaskPlanStore.on('publish-queued', @updateIsVisibleAndIsEditable)
