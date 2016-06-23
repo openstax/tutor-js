@@ -598,7 +598,12 @@ TaskPlanConfig =
     isStatsFailed: (id) -> !! @_stats[id]
 
     hasChanged: (id) ->
-      not _.isEqual(@exports.getChanged.call(@, id), (@_local[id].defaultPlan or {}))
+      defaultPlan = @_local[id].defaultPlan
+      defaultPlan = @_getOriginal(id) if _.isEmpty(defaultPlan)
+      changed = @exports.getChanged.call(@, id)
+      return false if _.isEmpty(changed)
+
+      not _.isEqual(changed, _.pick(defaultPlan, _.keys(changed)))
 
 extendConfig(TaskPlanConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(TaskPlanConfig)

@@ -176,8 +176,9 @@ TaskPlanBuilder = React.createClass
     else
       # check for common open/due dates, remember it now before we set defaults
       dueAt = TaskPlanStore.getDueAt(@props.id)
+      opensAt = TaskPlanStore.getOpensAt(@props.id)
       #map tasking plans
-      periods = @mapPeriods(@getQueriedOpensAt(), dueAt or @getQueriedDueAt())
+      periods = @mapPeriods(opensAt or @getQueriedOpensAt(), dueAt or @getQueriedDueAt())
 
       TaskPlanActions.setDefaultTimesForPeriods(@props.id, @props.courseId, periods)
 
