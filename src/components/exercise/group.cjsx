@@ -10,7 +10,7 @@ DEFAULT_GROUP =
   show: false
 REVIEW_GROUP =
   show: true
-  label: 'Review'
+  label: 'Spaced Practice'
   tooltip:
     'concept-coach':
       '''Did you know? Research shows you can strengthen your memory —
@@ -62,14 +62,22 @@ ExerciseGroup = React.createClass
     if RULES[group].show
       className = group.replace(' ', '_')
       labels = @getGroupLabel(group, related_content)
+      isSpacedPractice = className is 'spaced_practice'
+      if isSpacedPractice
+        icon = <i className="fa fa-history" />
+      else
+        icon = <i className="icon-sm icon-#{className}" key='group-icon'></i>
+
+      spacedPracticeHeading = <p><b>What is spaced practice?</b></p>
 
       groupDOM = [
-        <i className="icon-sm icon-#{className}" key='group-icon'></i>
+        icon
         <span className='openstax-step-group-label' key='group-label'>{labels}</span>
       ]
 
     if RULES[group].show and RULES[group].tooltip
       popover = <BS.Popover id="instructions" ref="popover" className="openstax instructions">
+        {spacedPracticeHeading if isSpacedPractice}
         {RULES[group].tooltip[project]}
       </BS.Popover>
       groupDOM.push  <BS.OverlayTrigger placement="bottom" overlay={popover}>
