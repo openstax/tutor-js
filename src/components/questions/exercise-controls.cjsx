@@ -72,7 +72,7 @@ QuestionsControls = React.createClass
       {@props.children}
 
       <BS.Button onClick={@scrollToTop}>
-        add more sections
+        Select more sections
       </BS.Button>
 
     </div>
