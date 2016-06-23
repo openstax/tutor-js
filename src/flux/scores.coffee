@@ -24,7 +24,7 @@ computeTaskCache = (data) ->
   for courseId, period of data
     for period, periodIndex in data[courseId]
       for student, studentIndex in period.students
-        for task in student.data
+        for task in student.data when task?
           TASK_ID_CACHE[task.id] = {task, courseId, period, periodIndex, studentIndex}
 
 getTaskInfoById = (taskId, data) ->
