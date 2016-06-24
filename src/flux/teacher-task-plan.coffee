@@ -10,13 +10,17 @@ TeacherTaskPlanConfig =
     {plans} = obj
 
     @_local[id] ?= []
-    newPlanIds = _.pluck(plans, 'id')
+    existingPlanIds = _.pluck(@_local[id], 'id')
 
-    uniqueOldPlans = _.reject(@_local[id], (plan) ->
-      _.contains(newPlanIds, plan.id)
-    )
+    _.each plans, (plan) =>
+      planIndex = _.indexOf(existingPlanIds, plan.id)
 
-    _.union(uniqueOldPlans, plans)
+      if planIndex > -1
+        @_local[id][planIndex] = plan
+      else
+        @_local[id].push(plan)
+
+    @_local[id]
 
   exports:
     getPlanId: (courseId, planId) ->
