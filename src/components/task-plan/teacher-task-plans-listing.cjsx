@@ -11,8 +11,6 @@ LoadableItem = require '../loadable-item'
 {TimeStore} = require '../../flux/time'
 TimeHelper = require '../../helpers/time'
 
-DATE_FORMAT = 'YYYY-MM-DD'
-
 CourseCalendar = require '../course-calendar'
 CourseDataMixin = require '../course-data-mixin'
 
@@ -62,7 +60,7 @@ TeacherTaskPlanListing = React.createClass
     dateFormat: React.PropTypes.string
 
   getDefaultProps: ->
-    dateFormat: DATE_FORMAT
+    dateFormat: TimeHelper.ISO_DATE_FORMAT
 
   getInitialState: ->
     startingState =
