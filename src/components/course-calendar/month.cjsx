@@ -8,7 +8,6 @@ BS = require 'react-bootstrap'
 
 {Calendar, Month, Week, Day} = require 'react-calendar'
 {TimeStore} = require '../../flux/time'
-{TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
 TimeHelper = require '../../helpers/time'
 
 CourseCalendarHeader = require './header'
@@ -26,7 +25,6 @@ CourseMonth = React.createClass
     router: React.PropTypes.func
 
   propTypes:
-    onDisplayRangeUpdate: React.PropTypes.func.isRequired
     plansList: React.PropTypes.array
     date: TimeHelper.PropTypes.moment
 
@@ -52,8 +50,6 @@ CourseMonth = React.createClass
   setDate: (date) ->
     unless moment(date).isSame(@props.date, 'month')
       @setDateParams(date)
-      # sync local copy with server again when we change date in view.
-      TeacherTaskPlanActions.load(@props.courseId)
 
   componentDidUpdate: ->
     @setDayHeight(@refs.courseDurations.state.ranges) if @refs.courseDurations?
@@ -159,8 +155,7 @@ CourseMonth = React.createClass
 
     <BS.Grid className={calendarClassName} fluid>
       <CourseAdd ref='addOnDay'/>
-      <CourseCalendarHeader onDisplayRangeUpdate={@props.onDisplayRangeUpdate}
-        duration='month' date={date} setDate={@setDate} ref='calendarHeader'/>
+      <CourseCalendarHeader duration='month' date={date} setDate={@setDate} ref='calendarHeader'/>
 
       <BS.Row className='calendar-body'>
         <BS.Col xs={12}>

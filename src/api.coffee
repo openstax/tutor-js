@@ -208,11 +208,9 @@ start = (bootstrapData) ->
   apiHelper TaskTeacherReviewActions, TaskTeacherReviewActions.load, TaskTeacherReviewActions.loaded, 'GET', (id) ->
     url: "/api/plans/#{id}/review"
 
-  apiHelper TeacherTaskPlanActions, TeacherTaskPlanActions.load,
-    TeacherTaskPlanActions.loaded, 'GET', (courseId, start_at, end_at) ->
-      # momentjs has errors?
-      # params = toParams(start_at: TimeHelper.toISO(start_at), end_at: TimeHelper.toISO(end_at))
-      params = toParams(start_at: start_at.toString(), end_at: end_at.toString())
+  apiHelper TeacherTaskPlanActions, TeacherTaskPlanActions.load, TeacherTaskPlanActions.loaded, 'GET',
+    (courseId, start_at, end_at) ->
+      params = toParams({start_at, end_at})
 
       url: "/api/courses/#{courseId}/dashboard?#{params}"
 

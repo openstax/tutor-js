@@ -45,7 +45,6 @@ CourseCalendarHeader = React.createClass
   handleNavigate: (subtractOrAdd, clickEvent) ->
     {duration, setDate} = @props
     date = @state.date.clone()[subtractOrAdd](1, duration)
-    @props.onDisplayRangeUpdate( date.clone().startOf(@props.duration), date.clone().endOf(@props.duration) )
     clickEvent.preventDefault()
     @setState({date})
 
