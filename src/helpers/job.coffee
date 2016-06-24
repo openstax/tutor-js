@@ -88,7 +88,8 @@ JobListenerConfig = (checkIntervals, checkRepeats) ->
       _.last(@_getJobs(id))
 
     exports:
-      getAsyncStatus: (id) -> @_asyncStatus[id]
+      getAsyncStatus: (id) ->
+        @_asyncStatus[id]
 
       isProgressing: (id) ->
         jobbingStates = [

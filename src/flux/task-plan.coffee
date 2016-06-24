@@ -460,7 +460,7 @@ TaskPlanConfig =
 
     isPublished: (id) ->
       plan = @_getPlan(id)
-      !!plan?.published_at
+      !!plan?.is_published
 
     isDeleteRequested: (id) -> @_isDeleteRequested(id)
 
@@ -494,7 +494,7 @@ TaskPlanConfig =
       not @_isDeleteRequested(id)
 
     isPublishing: (id) ->
-      @_changed[id]?.is_publish_requested or PlanPublishStore.isPublishing(id)
+      @_changed[id]?.is_publishing or PlanPublishStore.isPublishing(id)
 
     canDecreaseTutorExercises: (id) ->
       plan = @_getPlan(id)

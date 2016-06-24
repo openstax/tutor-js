@@ -61,10 +61,10 @@ CoursePlan = React.createClass
     publishStatus = PlanPublishStore.getAsyncStatus(plan.id)
 
     isViewingStats: @_doesPlanMatchesRoute()
-    publishStatus: PlanPublishStore.getAsyncStatus(plan.id)
+    publishStatus: publishStatus
     isPublishing: PlanPublishStore.isPublishing(plan.id)
     isHovered: false
-    isPublished: @_isPublished(plan.isPublished, publishStatus)
+    isPublished: @_isPublished(plan.is_published, publishStatus)
 
   # utility functions for functions called in lifecycle methods
   _doesPlanMatchesRoute: ->
