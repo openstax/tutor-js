@@ -19,15 +19,10 @@ CourseDuration = React.createClass
     groupingDurations: React.PropTypes.arrayOf(React.PropTypes.instanceOf(twix)).isRequired
     referenceDate: TimeHelper.PropTypes.moment
     children: React.PropTypes.element
-    recentTolerance: React.PropTypes.number
 
   getInitialState: ->
     ranges: []
     durationsByStartDate: []
-
-  getDefaultProps: ->
-    # check publishings from within the last hour by default
-    recentTolerance: 3600000
 
   updateGroupedDurations: (props) ->
     {durations, viewingDuration, groupingDurations} = props
@@ -158,7 +153,7 @@ CourseDuration = React.createClass
     plan.duration = @_getDurationRange(plan)
 
   isPlanPublishing: (plan) ->
-    PlanHelper.isPublishing(plan, @props.recentTolerance)
+    PlanHelper.isPublishing(plan)
 
   setDurationDay: (plan) ->
     {referenceDate} = @props
@@ -171,7 +166,7 @@ CourseDuration = React.createClass
     openRange = @_getDurationRange(plan)
 
     plan.isOpen = openRange.start().isBefore(referenceDate)
-    plan.isPublished = (plan.published_at? and plan.published_at)
+    plan.isPublished = plan.is_published
     plan.isPublishing = @isPlanPublishing(plan)
     plan.isTrouble = plan.is_trouble
     plan.isEditable = plan.duration.start().isAfter(referenceDate)
