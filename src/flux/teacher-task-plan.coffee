@@ -2,6 +2,8 @@ _ = require 'underscore'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {TaskPlanStore} = require './task-plan'
 
+LOADING = 'loading'
+
 TeacherTaskPlanConfig =
 
   # The load returns a JSON containing `{total_count: 0, items: [...]}`.
@@ -9,6 +11,12 @@ TeacherTaskPlanConfig =
   _loaded: (obj, id) ->
     {plans} = obj
     @_local[id] = plans
+
+  # used by api
+  load: (id) ->
+    @_asyncStatus = LOADING
+    @emit('load')
+
 
   exports:
     getPlanId: (courseId, planId) ->

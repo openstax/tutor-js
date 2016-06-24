@@ -7,7 +7,7 @@
 _ = require 'underscore'
 
 {apiHelper, IS_LOCAL, toParams} = require './helpers/api'
-
+TimeHelper = require './helpers/time'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {CourseActions} = require './flux/course'
 {JobActions} = require './flux/job'
@@ -208,8 +208,13 @@ start = (bootstrapData) ->
   apiHelper TaskTeacherReviewActions, TaskTeacherReviewActions.load, TaskTeacherReviewActions.loaded, 'GET', (id) ->
     url: "/api/plans/#{id}/review"
 
-  apiHelper TeacherTaskPlanActions, TeacherTaskPlanActions.load, TeacherTaskPlanActions.loaded, 'GET', (courseId) ->
-    url: "/api/courses/#{courseId}/dashboard"
+  apiHelper TeacherTaskPlanActions, TeacherTaskPlanActions.load,
+    TeacherTaskPlanActions.loaded, 'GET', (courseId, start_at, end_at) ->
+      # momentjs has errors?
+      # params = toParams(start_at: TimeHelper.toISO(start_at), end_at: TimeHelper.toISO(end_at))
+      params = toParams(start_at: start_at.toString(), end_at: end_at.toString())
+
+      url: "/api/courses/#{courseId}/dashboard?#{params}"
 
   apiHelper CurrentUserActions, CurrentUserActions.load, CurrentUserActions.loaded, 'GET', ->
     url: '/api/user'

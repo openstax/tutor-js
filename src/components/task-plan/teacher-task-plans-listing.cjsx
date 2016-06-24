@@ -106,9 +106,9 @@ TeacherTaskPlanListing = React.createClass
 
     date = @getDateFromParams()
 
-    loadPlansList = _.partial(TeacherTaskPlanStore.getActiveCoursePlans, courseId)
-
-    loadedCalendarProps = {loadPlansList, courseId, date}
+    loadPlansList = _.partial(TeacherTaskPlanActions.load, courseId)
+    isLoading = TeacherTaskPlanStore.isLoading()
+    calendarProps = {loadPlansList, courseId, date}
 
     <div {...courseDataProps} className="tutor-booksplash-background">
 
@@ -116,13 +116,7 @@ TeacherTaskPlanListing = React.createClass
           className='list-courses'
           bsStyle='primary'>
 
-        <LoadableItem
-          store={TeacherTaskPlanStore}
-          actions={TeacherTaskPlanActions}
-          id={courseId}
-          renderItem={-> <CourseCalendar {...loadedCalendarProps}/>}
-          renderLoading={-> <CourseCalendar className='calendar-loading'/>}
-        />
+        <CourseCalendar {...calendarProps}/>
 
       </BS.Panel>
     </div>

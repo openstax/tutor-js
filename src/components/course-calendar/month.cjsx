@@ -26,6 +26,7 @@ CourseMonth = React.createClass
     router: React.PropTypes.func
 
   propTypes:
+    onDisplayRangeUpdate: React.PropTypes.func.isRequired
     plansList: React.PropTypes.array
     date: TimeHelper.PropTypes.moment
 
@@ -158,7 +159,8 @@ CourseMonth = React.createClass
 
     <BS.Grid className={calendarClassName} fluid>
       <CourseAdd ref='addOnDay'/>
-      <CourseCalendarHeader duration='month' date={date} setDate={@setDate} ref='calendarHeader'/>
+      <CourseCalendarHeader onDisplayRangeUpdate={@props.onDisplayRangeUpdate}
+        duration='month' date={date} setDate={@setDate} ref='calendarHeader'/>
 
       <BS.Row className='calendar-body'>
         <BS.Col xs={12}>
