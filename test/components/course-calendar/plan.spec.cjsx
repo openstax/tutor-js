@@ -50,9 +50,11 @@ fakePublishing = (plan) ->
   publishingPlan = _.clone(plan)
   publishingPlan.publish_last_requested_at = moment(TimeStore.getNow())
   publishingPlan.publish_job = {id: JOB_UUID, status: 'queued'}
-
+  publishingPlan.is_publishing = true
   if publishingPlan.published_at and moment(publishingPlan.published_at).isAfter(publishingPlan.publish_last_requested_at)
     publishingPlan.published_at = moment(publishingPlan.publish_last_requested_at).subtract(2, 'days')
+    publishingPlan.is_published = true
+  else
 
   publishingPlan
 
@@ -294,7 +296,8 @@ describe 'Plan on Course Calendar', ->
   it 'should show as published when plan is done publishing', ->
     item = _.clone(ITEM_DRAFT_ONE_DAY)
     item.plan = fakePublishing(item.plan)
-
+    item.plan.is_publishing = false
+    item.plan.is_published = true
     succeededProgress =
       for: item.plan.id
       id: JOB_UUID
@@ -343,7 +346,8 @@ describe 'Plan on Course Calendar', ->
   it 'should show full modal if re-publishing', ->
     item = _.clone(ITEM_PUBLISHED_THREE_DAYS)
     item.plan = fakePublishing(item.plan)
-
+    item.plan.is_published = true
+    item.plan.is_publishing = false
     Testing
       .renderComponent( ContainedPlan, props: {courseId: PLAN_COURSE_ID, item} )
       .then ({dom, element, root}) ->
