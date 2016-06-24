@@ -12,6 +12,10 @@ ExerciseDetails  = require '../../exercises/details'
 ExerciseCards    = require '../../exercises/cards'
 ScrollTo         = require '../../scroll-to-mixin'
 
+# SELECT_COUNT is a simple incrementing counter that is passed
+# to the ExerciseCards view and incremented to force it to re-render when needed
+SELECT_COUNT = 0
+
 AddExercises = React.createClass
 
   propTypes:
@@ -29,6 +33,7 @@ AddExercises = React.createClass
   onShowCardViewClick:    -> @setState(currentView: 'cards')
 
   onExerciseToggle: (ev, exercise) ->
+    SELECT_COUNT += 1
     if @getExerciseIsSelected(exercise)
       TaskPlanActions.removeExercise(@props.planId, exercise)
     else
@@ -111,6 +116,7 @@ AddExercises = React.createClass
       else
         <ExerciseCards
           {...sharedProps}
+          selectCount={SELECT_COUNT} # re-render flag
           topScrollOffset={110}
           onShowDetailsViewClick={@onShowDetailsViewClick}
         />
