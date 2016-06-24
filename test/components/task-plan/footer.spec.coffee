@@ -16,18 +16,25 @@ tomorrow = moment(TimeStore.getNow()).add(1, 'day').format(ISO_DATE_FORMAT)
 dayAfter = moment(TimeStore.getNow()).add(2, 'day').format(ISO_DATE_FORMAT)
 
 NEW_READING = ExtendBasePlan({type: 'reading', id: "_CREATING_1"})
-UNPUBLISHED_READING = ExtendBasePlan({type: 'reading'})
-PUBLISHED_READING = ExtendBasePlan({type: 'reading', published_at: yesterday})
+UNPUBLISHED_READING = ExtendBasePlan({type: 'reading', is_published: false, is_publishing: false})
+PUBLISHED_READING = ExtendBasePlan({type: 'reading', published_at: yesterday, is_published: true, is_publishing: false})
 PAST_DUE_PUBLISHED_READING = ExtendBasePlan(
-  {type: 'reading', published_at: twoDaysBefore},
+  {type: 'reading', published_at: twoDaysBefore, is_published: true, is_publishing: false},
   {opens_at: twoDaysBefore, due_at: yesterday}
 )
-VISIBLE_READING = ExtendBasePlan({type: 'reading', published_at: yesterday}, {opens_at: yesterday})
-VISIBLE_HW = ExtendBasePlan({type: 'homework', published_at: yesterday}, {opens_at: yesterday})
+VISIBLE_READING = ExtendBasePlan(
+  {type: 'reading', is_published: true, is_publishing: false, published_at: yesterday},
+  {opens_at: yesterday}
+)
+VISIBLE_HW = ExtendBasePlan(
+  {type: 'homework', is_published: true, is_publishing: false, published_at: yesterday},
+  {opens_at: yesterday}
+)
 
 NEW_HW = ExtendBasePlan({type: 'homework', id: "_CREATING_1"})
 HW_WITH_EXERCISES = ({
   type: 'homework',
+  is_published: true, is_publishing: false,
   settings: {
     exercise_ids: ['1']
   }
