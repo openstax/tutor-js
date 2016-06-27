@@ -1,16 +1,41 @@
 @import '~openstax-react-components/resources/styles/mixins/flexbox';
 
+.concept-coach-view-registration {
+  overflow: hidden;
+  position: relative;
+}
+
 .enroll-or-login {
-  min-height: 500px;
+  min-height: 280px;
+
   .flex-display();
   .flex-direction(column);
   .align-items(center);
+
+  .laptop-and-mug {
+    position: absolute;
+    top: -50px;
+    left: -450px;
+
+    width: 800px;
+    .launcher-coffee-steam path {
+      fill: @openstax-neutral-light;
+    }
+  }
+
+  .body {
+    margin-left: 300px;
+    text-align: center;
+  }
 
   .title {
     margin-top: 5rem;
     margin-bottom: 3rem;
   }
-
+  .code-required {
+    font-weight: 700;
+    color: @openstax-neutral;
+  }
   .login-gateway {
     .flex-display();
     .align-items(center);
@@ -27,11 +52,11 @@
         cursor: pointer;
     }
 
-    &.login {
+    &.sign-up {
       &.is-closed {
-        margin: 50px 0;
-        width: 200px;
-        height: 80px;
+        margin: 50px auto 10px auto;
+        display: inline-block;
+        font-weight: 300;
       }
       &.is-open {
         width: 400px;
@@ -39,9 +64,8 @@
       }
     }
 
-    &.sign-up {
-      font-size: 2rem;
-      margin-top: 1rem;
+    &.login {
+      font-size: 1.6rem;
       display: inline;
       &.is-closed {
         color: @link-color;
@@ -57,33 +81,4 @@
     }
   }
 
-  .enroll {
-    text-align: center;
-  }
-
-  h2 {
-    font-size: 2.6rem;
-  }
-  h3 { font-size: 2rem; }
-
-
-  .enroll-instructors-interest {
-    margin-top: 50px;
-  }
-
-  .enroll-instructors-interest-learn-more {
-    font-weight: 600;
-    text-align: center;
-    display: block;
-  }
-}
-
-.concept-coach-view {
-  .enroll-or-login {
-    .enroll-instructors-interest-learn-more {
-      color: @link-color;
-      text-decoration: none;
-      border-bottom: none;
-    }
-  }
 }

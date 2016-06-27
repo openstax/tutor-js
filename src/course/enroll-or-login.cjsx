@@ -4,6 +4,7 @@ classnames = require 'classnames'
 NewCourseRegistration = require './new-registration'
 Course = require './model'
 LoginGateway = require '../user/login-gateway'
+LaptopAndMug = require '../concept-coach/laptop-and-mug'
 
 EnrollOrLogin = React.createClass
   getInitialState: ->
@@ -15,32 +16,22 @@ EnrollOrLogin = React.createClass
   render: ->
     {isOpen} = @state
 
-    signInClasses = classnames 'login',
+    signUpClasses = classnames 'sign-up',
       'btn btn-primary btn-lg': not isOpen
 
-    newToConceptCoach = 'I\'m new to Concept Coach.'
-
     <div className="enroll-or-login">
-      <LoginGateway className={signInClasses} onToggle={@toggleOpen}>Sign in</LoginGateway>
-      <div className="enroll">
-        <h3>
-          {newToConceptCoach}  <LoginGateway className="sign-up">
-            Sign up with your enrollment code
-          </LoginGateway>
-        </h3>
-        <p className="hint">
-          If you don’t have an enrollment code, contact your instructor.
+      <LaptopAndMug height=400 />
+      <div className="body">
+        <LoginGateway className={signUpClasses} onToggle={@toggleOpen}>Sign up for Concept Coach</LoginGateway>
+        <p className="code-required">
+          Enrollment code required
         </p>
-      </div>
-      <div className='enroll-instructors-interest'>
-        <p>
-          <strong>
-            Instructors - Are you interested in using Concept Coach in your course?
-          </strong>
+        <p className="contact">
+          No enrollment code? Contact your instructor.
         </p>
-        <a
-          className='enroll-instructors-interest-learn-more'
-          href='http://cc.openstax.org/'>Learn More &gt;</a>
+        <div className="login">
+          Already have an account? <LoginGateway className="login">Sign in</LoginGateway>
+        </div>
       </div>
     </div>
 
