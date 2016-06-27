@@ -83,6 +83,23 @@ figure {
   img { width: 100%; }
 }
 
+.multiple-choice {
+  [data-type="exercise"] {
+    [data-type="problem"] {
+      ol {
+        counter-reset: upperAlpha;
+        list-style: none;
+      }
+      ol li {
+        counter-increment: upperAlpha;
+      }
+      ol li::before {
+        content: counter(upperAlpha, upper-alpha) ". ";
+      }
+    }
+  }
+}
+
 [data-type="footnote-refs"] {
   ol {
     padding-left: 0;
