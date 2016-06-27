@@ -1,0 +1,22 @@
+.keyframes(launcher-steam; {
+            0% { opacity: 1; .translate(0; 10px); }
+            100% { opacity: 0; .translate(0; -40px); }
+          });
+
+.laptop-and-mug {
+
+  .launcher-coffee-steam {
+    path {
+      &:nth-child(1){
+        .animation-duration(3s);
+      }
+      &:nth-child(2){
+        .animation-duration(4s);
+      }
+      .animation(launcher-steam ease-in);
+      .animation-iteration-count(infinite);
+    }
+  }
+
+
+}

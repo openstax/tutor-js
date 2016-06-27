@@ -3,7 +3,8 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 classnames = require 'classnames'
 
-{BackgroundAndDesk, LaptopAndMug} = require './items'
+BackgroundAndDesk = require './background-and-desk'
+LaptopAndMug = require '../laptop-and-mug'
 
 {channel} = require '../model'
 
