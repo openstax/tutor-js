@@ -2,12 +2,13 @@
 React = require 'react'
 
 LaptopAndMug = React.createClass
-  displayName: 'LaptopAndMug'
+
   propTypes:
     height: React.PropTypes.number.isRequired
+
   render: ->
     {height} = @props
-    <svg x="0px" y="0px" width="100%" height={"#{height}px"} viewBox="-100 0 1140 388"
+    <svg x="0px" y="0px" width="100%" height={"#{height}px"} viewBox="-100 0 1140 388" className="laptop-and-mug"
       preserveAspectRatio="xMidYMin slice" version="1.1" xmlns="http://www.w3.org/2000/svg">
 
       <g className='launcher-laptop'>
@@ -107,13 +108,4 @@ LaptopAndMug = React.createClass
 
     </svg>
 
-BackgroundAndDesk = React.createClass
-  displayName: 'BackgroundAndDesk'
-  propTypes:
-    height: React.PropTypes.number.isRequired
-  render: ->
-    <div className='launcher-background'>
-      <h1>Study Smarter with OpenStax Concept Coach</h1>
-    </div>
-
-module.exports = {LaptopAndMug, BackgroundAndDesk}
+module.exports = LaptopAndMug

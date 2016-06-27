@@ -10,9 +10,8 @@ describe 'EnrollOrLogin Component', ->
 
   it 'renders actions', ->
     Testing.renderComponent( EnrollOrLogin, props: {} ).then ({dom}) ->
-      expect(dom.textContent).to.include 'Sign in'
-      expect(dom.textContent).to.include 'Sign up with your enrollment code'
-
+      expect(dom.textContent).to.include 'Sign up for Concept Coach'
+      expect(dom.textContent).to.include 'No enrollment code? Contact your instructor'
 
   it 'updates text when log in is clicked', ->
     Testing.renderComponent( EnrollOrLogin, props: {} ).then ({dom}) ->
