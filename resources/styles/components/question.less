@@ -101,14 +101,14 @@
 .answer(){
   color: @answer-label-color;
   .answer-letter {
-    .answer-bubble();  
+    .answer-bubble();
   }
 }
 
 .answer(hover){
   color: @answer-label-color-hover;
   .answer-letter {
-    .answer-bubble(hover);  
+    .answer-bubble(hover);
   }
 }
 
@@ -189,16 +189,23 @@
     margin-bottom: 20px;
   }
 
-	.instructions {
-		font-size: 1.4rem;
-		font-style: italic;
-		margin-top: 10px;
+  .instructions {
+    font-size: 1.4rem;
+    font-style: italic;
+    margin-top: 10px;
 
-		i {
-			margin-left: 5px;
-		}
+    i {
+      margin-left: 5px;
+    }
 
-	}
+    .text-info{
+      color: @light-blue;
+      padding-left: 5px;
+      cursor: pointer;
+      font-style: normal;
+    }
+
+  }
 
   .multiple-choice-prompt {
     font-weight: 600;
@@ -331,7 +338,7 @@
 
       }
       &.bottom {
-        margin-top: -5px;      
+        margin-top: -5px;
       }
       &.top {
         margin-bottom: -5px;
