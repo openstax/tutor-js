@@ -158,7 +158,7 @@ TaskPlanBuilder = React.createClass
     if savedAllTaskings
       TaskPlanActions.replaceTaskings(@props.id, savedAllTaskings)
     else
-      periods = _.map CourseStore.getPeriods(@props.courseId), (period) -> id: period.id
+      periods = _.pluck(CourseStore.getPeriods(@props.courseId), 'id')
       TaskPlanActions.setDefaultTimesForCourse(@props.id, courseId, periods)
 
     @setState(
@@ -176,8 +176,9 @@ TaskPlanBuilder = React.createClass
     else
       # check for common open/due dates, remember it now before we set defaults
       dueAt = TaskPlanStore.getDueAt(@props.id)
+      opensAt = TaskPlanStore.getOpensAt(@props.id)
       #map tasking plans
-      periods = @mapPeriods(@getQueriedOpensAt(), dueAt or @getQueriedDueAt())
+      periods = @mapPeriods(opensAt or @getQueriedOpensAt(), dueAt or @getQueriedDueAt())
 
       TaskPlanActions.setDefaultTimesForPeriods(@props.id, @props.courseId, periods)
 
@@ -273,8 +274,8 @@ TaskPlanBuilder = React.createClass
         </BS.Col>
       </BS.Row>
 
-      {@renderCommonChoice() unless @state.isVisibleToStudents and @state.showingPeriods}
-      {@renderPeriodsChoice() unless @state.isVisibleToStudents and not @state.showingPeriods}
+      {@renderCommonChoice() unless not @state.isSwitchable and @state.showingPeriods}
+      {@renderPeriodsChoice() unless not @state.isSwitchable and not @state.showingPeriods}
       { invalidPeriodsAlert }
     </div>
 
@@ -285,9 +286,9 @@ TaskPlanBuilder = React.createClass
       name='toggle-periods-radio'
       ref='allPeriodsRadio'
       type='radio'
-      disabled={@state.isVisibleToStudents}
+      disabled={not @state.isSwitchable}
       onChange={@setAllPeriods}
-      checked={not @state.showingPeriods}/> if not @state.isVisibleToStudents
+      checked={not @state.showingPeriods}/> if @state.isSwitchable
 
     <BS.Row className="common tutor-date-input">
       <BS.Col sm=4 md=3>
@@ -302,9 +303,9 @@ TaskPlanBuilder = React.createClass
       id='show-periods-radio'
       name='toggle-periods-radio'
       type='radio'
-      disabled={@state.isVisibleToStudents}
+      disabled={not @state.isSwitchable}
       onChange={@setIndividualPeriods}
-      checked={@state.showingPeriods}/> if not @state.isVisibleToStudents
+      checked={@state.showingPeriods}/> if @state.isSwitchable
 
     choiceLabel = <BS.Row key='tasking-individual-choice'>
       <BS.Col md=12>
@@ -323,7 +324,7 @@ TaskPlanBuilder = React.createClass
   renderTaskPlanRow: (period) ->
     {id, courseId} = @props
     {taskingOpensAt, taskingDueAt} = @getDefaultPlanDates(period?.id)
-    {isEditable, showingPeriods, currentLocale, isVisibleToStudents} = @state
+    {isEditable, showingPeriods, currentLocale, isVisibleToStudents, isSwitchable} = @state
 
     openTime = TaskPlanStore.getOpensAtTime(id, period?.id)
     dueTime = TaskPlanStore.getDueAtTime(id, period?.id)

@@ -84,7 +84,7 @@ TaskingDateTimes = React.createClass
         isSetting={@isSetting} />
       <DateTime
         {...commonDateTimesProps}
-        disabled={@isPastDue(taskingDueAt, dueTime) or not isEditable}
+        disabled={not isEditable}
         label="Due"
         ref="due"
         min={minDueAt}

@@ -21,6 +21,7 @@ TutorInput = React.createClass
     type: React.PropTypes.string
     onChange: React.PropTypes.func
     validate: React.PropTypes.func
+    onUpdated: React.PropTypes.func
 
   getDefaultProps: ->
     validate: (inputValue) ->
@@ -150,6 +151,10 @@ TutorDateInput = React.createClass
     @props.onChange(value)
     @setState({expandCalendar: false, valid, value, errors})
 
+  # TODO There's a bug in our version of datepicker where onBlur fires when
+  #   changing months.  Put this onBlur back as a prop for Datepicker when
+  #   we upgrade so that label and invalid date errors can display properly
+  #   on blur.
   onBlur: ->
     @setState({hasFocus: false})
 
@@ -189,7 +194,6 @@ TutorDateInput = React.createClass
           ref="picker"
           className={classes}
           onChange={@dateSelected}
-          onBlur={@onBlur}
           disabled={@props.disabled}
           selected={value}
           weekStart={"#{@props.currentLocale.week.dow}"}
@@ -213,8 +217,8 @@ TutorDateInput = React.createClass
 
 TutorTimeInput = React.createClass
   getDefaultProps: ->
-    fromMomentFormat: 'HH:mm'
-    toMomentFormat: 'h:mm a'
+    fromMomentFormat: TimeHelper.ISO_TIME_FORMAT
+    toMomentFormat: TimeHelper.HUMAN_TIME_FORMAT
     formatCharacters:
       i: validate: (char) -> /([0-2]|:)/.test(char)
       h: validate: (char) -> /[0-9]/.test(char)
