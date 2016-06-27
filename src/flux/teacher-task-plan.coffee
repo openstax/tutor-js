@@ -8,7 +8,19 @@ TeacherTaskPlanConfig =
   # Unwrap the JSON and store the items.
   _loaded: (obj, id) ->
     {plans} = obj
-    @_local[id] = plans
+
+    @_local[id] ?= []
+    existingPlanIds = _.pluck(@_local[id], 'id')
+
+    _.each plans, (plan) =>
+      planIndex = _.indexOf(existingPlanIds, plan.id)
+
+      if planIndex > -1
+        @_local[id][planIndex] = plan
+      else
+        @_local[id].push(plan)
+
+    @_local[id]
 
   exports:
     getPlanId: (courseId, planId) ->

@@ -11,11 +11,8 @@ CourseCalendar = React.createClass
   propTypes:
     loadPlansList: React.PropTypes.func
 
-  getInitialState: ->
-    displayAs: 'month'
-
   render: ->
-    Handler = displayAs[@state.displayAs]
+    Handler = displayAs[@props.displayAs]
     {loadPlansList} = @props
     plansList = loadPlansList?()
 

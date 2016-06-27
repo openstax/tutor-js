@@ -12,6 +12,7 @@ camelCase = require 'camelcase'
 
 {TimeActions, TimeStore} = require '../../../src/flux/time'
 {PlanPublishStore, PlanPublishActions} = require '../../../src/flux/plan-publish'
+{JobStore, JobActions} = require '../../../src/flux/job'
 
 Plan = require '../../../src/components/course-calendar/plan'
 
@@ -50,11 +51,18 @@ fakePublishing = (plan) ->
   publishingPlan = _.clone(plan)
   publishingPlan.publish_last_requested_at = moment(TimeStore.getNow())
   publishingPlan.publish_job = {id: JOB_UUID, status: 'queued'}
-
-  if publishingPlan.published_at and moment(publishingPlan.published_at).isAfter(publishingPlan.publish_last_requested_at)
-    publishingPlan.published_at = moment(publishingPlan.publish_last_requested_at).subtract(2, 'days')
+  publishingPlan.is_publishing = true
 
   publishingPlan
+
+fakePublished = (plan) ->
+  succeededProgress =
+    for: plan.id
+    id: JOB_UUID
+    status: 'succeeded'
+
+  JobActions.loaded(succeededProgress, succeededProgress.id)
+  JobStore.emit("job.#{succeededProgress.id}.final", succeededProgress)
 
 checkChildrenComponents = (planComponent, item, checks) ->
   {plan, displays} = item
@@ -295,11 +303,6 @@ describe 'Plan on Course Calendar', ->
     item = _.clone(ITEM_DRAFT_ONE_DAY)
     item.plan = fakePublishing(item.plan)
 
-    succeededProgress =
-      for: item.plan.id
-      id: JOB_UUID
-      status: 'succeeded'
-
     Testing
       .renderComponent( ContainedPlan, props: {courseId: PLAN_COURSE_ID, item} )
       .then ({dom, element}) ->
@@ -312,14 +315,15 @@ describe 'Plan on Course Calendar', ->
 
         checkChildrenComponents(element.refs.plan, item, checks)
 
-        PlanPublishStore.emit("progress.#{plan.id}.#{succeededProgress.status}", succeededProgress)
-
         checksIsPublished =
           display: (components, {display}) ->
             displayNode = components.displayComponent.getDOMNode()
             expect(displayNode.classList.contains('is-published')).to.be.true
 
-        checkChildrenComponents(element.refs.plan, item, checksIsPublished)
+        checker = _.partial(checkChildrenComponents, element.refs.plan, item, checksIsPublished)
+
+        PlanPublishStore.on("progress.#{plan.id}.*", checker)
+        fakePublished(plan)
 
   it 'should show as publishing when re-publishing', ->
     item = _.clone(ITEM_PUBLISHED_THREE_DAYS)
@@ -343,7 +347,6 @@ describe 'Plan on Course Calendar', ->
   it 'should show full modal if re-publishing', ->
     item = _.clone(ITEM_PUBLISHED_THREE_DAYS)
     item.plan = fakePublishing(item.plan)
-
     Testing
       .renderComponent( ContainedPlan, props: {courseId: PLAN_COURSE_ID, item} )
       .then ({dom, element, root}) ->
@@ -372,11 +375,6 @@ describe 'Plan on Course Calendar', ->
     item = _.clone(ITEM_DRAFT_ONE_DAY)
     item.plan = fakePublishing(item.plan)
 
-    succeededProgress =
-      for: item.plan.id
-      id: JOB_UUID
-      status: 'succeeded'
-
     Testing
       .renderComponent( ContainedPlan, props: {courseId: PLAN_COURSE_ID, item: ITEM_PUBLISHED_THREE_DAYS} )
       .then ({dom, element}) ->
@@ -400,25 +398,20 @@ describe 'Plan on Course Calendar', ->
 
         checkChildrenComponents(element.refs.plan, item, checksForIsPublishing)
 
-        PlanPublishStore.emit("progress.#{item.plan.id}.#{succeededProgress.status}", succeededProgress)
-
         checksIsPublished =
           display: (components, {display}) ->
             displayNode = components.displayComponent.getDOMNode()
             expect(displayNode.classList.contains('is-published')).to.be.true
 
-        checkChildrenComponents(element.refs.plan, item, checksIsPublished)
-
+        checker = _.partial(checkChildrenComponents, element.refs.plan, item, checksIsPublished)
+        PlanPublishStore.on("progress.#{item.plan.id}.*", checker)
+  
+        fakePublished(item.plan)
 
   it 'should check for publishing subscribe if plan isPublishing props update', ->
     item = _.clone(ITEM_DRAFT_ONE_DAY)
     item.plan = fakePublishing(item.plan)
     item.plan.isPublishing = true
-
-    succeededProgress =
-      for: item.plan.id
-      id: JOB_UUID
-      status: 'succeeded'
 
     Testing
       .renderComponent( ContainedPlan, props: {courseId: PLAN_COURSE_ID, item: ITEM_DRAFT_ONE_DAY} )

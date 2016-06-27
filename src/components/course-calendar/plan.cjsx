@@ -61,10 +61,10 @@ CoursePlan = React.createClass
     publishStatus = PlanPublishStore.getAsyncStatus(plan.id)
 
     isViewingStats: @_doesPlanMatchesRoute()
-    publishStatus: PlanPublishStore.getAsyncStatus(plan.id)
+    publishStatus: publishStatus
     isPublishing: PlanPublishStore.isPublishing(plan.id)
     isHovered: false
-    isPublished: @_isPublished(plan.isPublished, publishStatus)
+    isPublished: plan.is_published
 
   # utility functions for functions called in lifecycle methods
   _doesPlanMatchesRoute: ->
@@ -103,16 +103,14 @@ CoursePlan = React.createClass
     @_updateRoute(isViewingStats)
     @setState({isViewingStats})
 
-  _isPublished: (previous, status) ->
-    previous or status is 'succeeded'
-
   checkPublishingStatus: (published) ->
-    planId = @props.item.plan.id
+    {plan} = @props.item
+    planId = plan.id
     if published.for is planId
       planStatus =
         publishStatus: published.status
         isPublishing: PlanPublishStore.isPublishing(planId)
-        isPublished: @_isPublished(@state.isPublished, published.status)
+        isPublished: plan.is_published or PlanPublishStore.isSucceeded(planId)
 
       @setState(planStatus)
       PlanPublishStore.removeAllListeners("progress.#{planId}.*", @checkPublishingStatus) if PlanPublishStore.isDone(planId)

@@ -4,9 +4,12 @@ Markdown = require '../markdown'
 BindStoreMixin = require '../bind-store-mixin'
 TaskPlanHelper = require '../../helpers/task-plan'
 Clipboard = require '../../helpers/clipboard'
+LoadableItem = require '../loadable-item'
 
 moment = require 'moment'
 Icon = require '../icon'
+{TaskPlanStatsStore, TaskPlanStatsActions} = require '../../flux/task-plan-stats'
+
 {TeacherTaskPlanStore} = require '../../flux/teacher-task-plan'
 {CourseStore} = require '../../flux/course'
 
@@ -50,7 +53,8 @@ LmsInfo = React.createClass
 
 
   renderPopOver: ->
-    {title, description, shareable_url} = @props.plan
+    {title, description} = @props.plan
+    shareable_url = @getStats().shareable_url
     l = window.location
     url = "#{l.protocol}//#{l.host}#{shareable_url}"
 
@@ -76,9 +80,11 @@ LmsInfo = React.createClass
       </div>
     </BS.Popover>
 
-  render: ->
-    return null unless @props.plan.shareable_url
+  getStats: ->
+    TaskPlanStatsStore.get(this.props.plan.id) or {}
 
+  renderLink: ->
+    return null unless @getStats().shareable_url
     <div className="lms-info">
       <BS.OverlayTrigger trigger="click"
         placement="top"
@@ -90,6 +96,18 @@ LmsInfo = React.createClass
       </BS.OverlayTrigger>
 
     </div>
+
+
+  render: ->
+  #  return null unless @props.plan.shareable_url
+    <LoadableItem
+      id={@props.plan.id}
+      store={TaskPlanStatsStore}
+      actions={TaskPlanStatsActions}
+      renderItem={@renderLink}
+    />
+
+
 
 
 module.exports = LmsInfo
