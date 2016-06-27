@@ -35,7 +35,7 @@ ChangePeriodLink = React.createClass
         <span>
           Move to <CourseGroupingLabel courseId={@props.courseId} lowercase/>:
         </span>
-    <BS.Popover className='change-period' title={title} {...@props}>
+    <BS.Popover id='change-period' className='change-period' title={title} {...@props}>
       <BS.Nav stacked bsStyle='pills' onSelect={@updatePeriod}>
         {for period in periods
           @renderPeriod(period) unless period.id is @props.student.period_id }

@@ -6,6 +6,7 @@ Icon = require '../icon'
 {RosterStore, RosterActions} = require '../../flux/roster'
 ChangePeriodLink  = require './change-period'
 DropStudentLink = require './drop-student'
+CourseGroupingLabel = require '../course-grouping-label'
 
 module.exports = React.createClass
   displayName: 'PeriodRoster'
@@ -34,6 +35,8 @@ module.exports = React.createClass
 
   render: ->
     students = RosterStore.getActiveStudentsForPeriod(@props.courseId, @props.period.id)
+    cgl = {courseId: @props.courseId}
+
     studentsTable =
       <BS.Table striped bordered condensed hover className="roster">
         <thead>
@@ -50,9 +53,12 @@ module.exports = React.createClass
       </BS.Table>
     emptyInfo =
       <div className='roster-empty-info'>
-        Use the "Get Student Enrollment Code" link above to get the code for this section of your course.
+        Use the "Get Student Enrollment Code" link above to get the code for
+        this <CourseGroupingLabel lowercase {...cgl} /> of your course.
         As your students login to Concept Coach, they will start appearing here.
-        You will be able to drop students or change their sections from this page.
+        You will be able to drop students or change
+        their <CourseGroupingLabel lowercase plural {...cgl} /> from
+        this page.
       </div>
 
     <div className="period">

@@ -25,7 +25,7 @@ module.exports = React.createClass
         </span>
       else
         <span>Drop <Name {...@props.student} />?</span>
-    <BS.Popover title={title} {...@props}>
+    <BS.Popover id='drop-student' title={title} {...@props}>
       <BS.Button className='-drop-student' onClick={@performDeletion} bsStyle="danger">
         <Icon type='ban' /> Drop
       </BS.Button>
