@@ -64,7 +64,7 @@ CoursePlan = React.createClass
     publishStatus: publishStatus
     isPublishing: PlanPublishStore.isPublishing(plan.id)
     isHovered: false
-    isPublished: plan.is_published and not plan.is_publishing
+    isPublished: plan.is_published
 
   # utility functions for functions called in lifecycle methods
   _doesPlanMatchesRoute: ->
@@ -104,12 +104,13 @@ CoursePlan = React.createClass
     @setState({isViewingStats})
 
   checkPublishingStatus: (published) ->
-    planId = @props.item.plan.id
+    {plan} = @props.item
+    planId = plan.id
     if published.for is planId
       planStatus =
         publishStatus: published.status
         isPublishing: PlanPublishStore.isPublishing(planId)
-        isPublished: @state.isPublished
+        isPublished: plan.is_published or PlanPublishStore.isSucceeded(planId)
 
       @setState(planStatus)
       PlanPublishStore.removeAllListeners("progress.#{planId}.*", @checkPublishingStatus) if PlanPublishStore.isDone(planId)
