@@ -48,7 +48,8 @@ TaskPlanConfig =
   _server_copy: {}
 
   _loaded: (obj, planId) ->
-    @_server_copy[planId] = JSON.stringify(obj or {})
+    @_server_copy[planId] = JSON.stringify(obj) if _.isObject(obj)
+
     obj
 
   # Somewhere, the local copy gets taken apart and rebuilt.
