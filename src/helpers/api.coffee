@@ -33,7 +33,9 @@ makeLocalRequest = (requestConfig) ->
     url_parts = ["#{uri}.json", params]
   else
     url_parts = ["#{uri}/#{requestConfig.method}.json", params]
+    requestConfig.mockMethod = requestConfig.method
     requestConfig.method = 'GET'
+
 
   requestConfig.url = _.compact(url_parts).join('?')
 
@@ -41,33 +43,89 @@ makeLocalResponse = (response) ->
   payload = if response.config.data then JSON.parse(response.config.data) else {}
   response.data = _.extend({}, response.data, payload)
 
-setUpXHRInterceptors = ->
-  axios.interceptors.request.use (requestConfig) ->
+
+interceptors =
+  queRequest: (requestConfig) ->
     AppActions.queRequest(requestConfig)
-
-    makeLocalRequest(requestConfig) if IS_LOCAL
-
     requestConfig
 
-  axios.interceptors.response.use (response) ->
-    {status, statusText, config} = response
-    AppActions.setServerSuccess(status, statusText, config)
+  makeLocalRequest: (requestConfig) ->
+    makeLocalRequest(requestConfig)
+    requestConfig
 
-    makeLocalResponse(response) if IS_LOCAL
+  setResponse: (response) ->
+    {status, statusText, config, headers} = response
+
+    AppActions.setServerSuccess(status, statusText, config)
+    setNow(headers)
 
     response
 
-  , (errorResponse) ->
-
+  handleError: (errorResponse) ->
     if _.isError(errorResponse)
       errorResponse =
         status: 1
         statusText: "#{errorResponse.name}: #{errorResponse.message}"
-    else
-      {status, statusText, config} = errorResponse
-      AppActions.setServerError(status, statusText, config)
+    else if errorResponse.headers
+      setNow(errorResponse.headers)
+
+    Promise.reject(_.extend({handled: false}, errorResponse))
+
+  makeLocalResponse: (response) ->
+    makeLocalResponse(response)
+    response
+
+  handleMalformedRequest: (errorResponse) ->
+    if errorResponse.status is 400
+      CurrentUserActions.logout()
+      errorResponse.handled = true
 
     Promise.reject(errorResponse)
+
+  handleNotFound: (errorResponse) ->
+    if errorResponse.status is 404
+      errorResponse.statusText = 'ERROR_NOTFOUND'
+
+    Promise.reject(errorResponse)
+
+  handleLocalErrors: (errorResponse) ->
+    {status, statusText, config} = errorResponse
+    {method, mockMethod} = config
+
+    mockMethods = ['PUT', 'PATCH']
+
+    # Hack for local testing, fake successful PUT and PATCH
+    if _.contains(mockMethods, mockMethod or method)
+      data = JSON.parse(errorResponse.config.data)
+      return Promise.resolve({data})
+
+    # Hack for local testing. Webserver returns 200 + HTML for 404's
+    if statusText is 'parsererror' and status is 200
+      errorResponse.status = 404
+      errorResponse.statusText = 'Error Parsing the JSON or a 404'
+
+    Promise.reject(errorResponse)
+
+  handleErrorMessage: (errorResponse) ->
+    {statusText} = errorResponse
+
+    try
+      msg = JSON.parse(statusText)
+    catch e
+      msg = statusText
+
+    errorResponse.statusMessage = msg
+    Promise.reject(errorResponse)
+
+setUpXHRInterceptors = ->
+  axios.interceptors.request.use(interceptors.queRequest)
+  axios.interceptors.request.use(interceptors.makeLocalRequest) if IS_LOCAL
+
+  axios.interceptors.response.use(interceptors.setResponse, interceptors.handleError)
+  axios.interceptors.response.use(null, interceptors.handleMalformedRequest)
+  axios.interceptors.response.use(null, interceptors.handleNotFound)
+  axios.interceptors.response.use(interceptors.makeLocalResponse, interceptors.handleLocalErrors) if IS_LOCAL
+  axios.interceptors.response.use(null, interceptors.handleErrorMessage)
 
 apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, options) ->
   listenAction.addListener 'trigger', (args...) ->
@@ -92,40 +150,16 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
       requestConfig = _.extend({url}, opts, options)
       return if AppStore.isPending(requestConfig)
 
-      resolved = ({headers, data}) ->
-        setNow(headers)
-        successAction(data, args...) # Include listenAction for faking
+      resolved = ({data}) ->
+        successAction(data, args...)
 
       rejected = (response) ->
-        # jqXhr, statusMessage, err
-        statusCode = response.status
-        statusMessage = response.statusText
+        {status, statusText, statusMessage, handled} = response
 
-        if response.headers
-          setNow(response.headers)
-        else
-          AppActions.setServerError(statusCode, statusMessage, _.extend({url}, opts))
+        AppActions.setServerError(status, statusText, requestConfig)
+        return if handled
 
-        if statusCode is 400
-          CurrentUserActions.logout()
-        # TODO eventually pull this out to the interceptors as well or remove if no longer needed
-        else if statusMessage is 'parsererror' and statusCode is 200 and IS_LOCAL
-          if httpMethod is 'PUT' or httpMethod is 'PATCH'
-            # HACK for PUT
-            successAction(null, args...)
-          else
-            # Hack for local testing. Webserver returns 200 + HTML for 404's
-            Actions.FAILED(404, 'Error Parsing the JSON or a 404', args...)
-        else if statusCode is 404
-          Actions.FAILED(statusCode, 'ERROR_NOTFOUND', args...)
-        else
-          # Parse the error message and fail
-          try
-            msg = JSON.parse(statusMessage)
-          catch e
-            msg = statusMessage
-
-          Actions.FAILED(statusCode, msg, args...)
+        Actions.FAILED(status, statusMessage, args...)
 
       axios(requestConfig)
         .then(resolved, rejected)
