@@ -40,7 +40,7 @@ module.exports = React.createClass
 
     load ?= actions.load
     isLoading ?= store.isLoading
-    unless store.isNew(id, options) or isLoading(id, options)
+    unless store.isNew(id, options) and not isLoading?(id, options)
       load(id, options)
 
   render: ->
