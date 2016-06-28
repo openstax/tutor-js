@@ -23,20 +23,6 @@ SectionsExercises = React.createClass
     getExerciseIsSelected:  React.PropTypes.func.isRequired
     getExerciseActions:     React.PropTypes.func.isRequired
 
-  renderMinimumExclusionWarning: ->
-    [
-      <Icon key="icon" type="exclamation" />
-      <div key="message" className="message">
-        <p>
-          Tutor needs at least 5 questions for this topic to be
-          included in spaced practice and personalized learning.
-        </p>
-        <p>
-          If you exclude too many, your students will not get to practice on this topic.
-        </p>
-      </div>
-    ]
-
   render: ->
     title = TocStore.getSectionLabel(@props.chapter_section)?.title
     # IMPORTANT: the 'data-section' attribute is used as a scroll-to target and must be present
