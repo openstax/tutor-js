@@ -31,7 +31,7 @@ module.exports = React.createClass
   componentDidUpdate: (oldProps) -> @reload(oldProps)
 
   reload: (oldProps) ->
-    {id, store, load, actions, options} = @props
+    {id, store, load, actions, options, isLoading} = @props
     return unless id?
 
     # Skip reloading if all the props are the same (the case in the Calendar for some reason)
@@ -39,7 +39,8 @@ module.exports = React.createClass
       oldProps.load is load and _.isEqual(oldProps.options, options)
 
     load ?= actions.load
-    unless store.isNew(id, options)
+    isLoading ?= store.isLoading
+    unless store.isNew(id, options) or isLoading(id, options)
       load(id, options)
 
   render: ->
