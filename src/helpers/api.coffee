@@ -89,7 +89,8 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
         # For now, the backend is expecting JSON and cannot accept url-encoded forms
         opts.contentType = 'application/json'
 
-      opts = _.extend({}, opts, options)
+      requestConfig = _.extend({url}, opts, options)
+      return if AppStore.isPending(requestConfig)
 
       resolved = ({headers, data}) ->
         setNow(headers)
@@ -126,7 +127,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
 
           Actions.FAILED(statusCode, msg, args...)
 
-      axios(url, opts)
+      axios(requestConfig)
         .then(resolved, rejected)
 
 setUpXHRInterceptors()
