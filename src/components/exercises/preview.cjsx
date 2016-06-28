@@ -13,8 +13,8 @@ ExercisePreviewWrapper = React.createClass
     onExerciseToggle:       React.PropTypes.func.isRequired
     getExerciseIsSelected:  React.PropTypes.func.isRequired
     getExerciseActions:     React.PropTypes.func.isRequired
-    watchStore:             React.PropTypes.func
-    watchEvent:             React.PropTypes.string
+    watchStore:             React.PropTypes.object.isRequired
+    watchEvent:             React.PropTypes.string.isRequired
 
   mixins: [BindStoreMixin]
   bindStore: -> @props.watchStore
