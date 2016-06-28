@@ -67,9 +67,12 @@ PlanMixin =
     saveable = TaskPlanStore.isValid(id)
     # The logic here is this way because we need to be able to add an invalid
     # state to the form.  Blame @fredasaurus
-    if (saveable)
-      TaskPlanActions.saved.addListener(@saved)
-      TaskPlanActions.save(id)
+    if saveable
+      if TaskPlanStore.hasChanged(id)
+        TaskPlanActions.saved.addListener(@saved)
+        TaskPlanActions.save(id)
+      else
+        @saved()
     else
       @setState({invalid: true})
 
