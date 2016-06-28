@@ -7,7 +7,7 @@ _ = require 'underscore'
 {TutorInput} = require '../tutor-input'
 CourseGroupingLabel = require '../course-grouping-label'
 Icon = require '../icon'
-TITLE = 'Get Student Enrollment Code for this section'
+TITLE = 'Your student enrollment code'
 
 module.exports = React.createClass
   displayName: 'PeriodEnrollmentCode'
@@ -30,37 +30,41 @@ module.exports = React.createClass
     {bookUrl, bookName} = @props
     # appends :3 to skip book intro
     url = bookUrl + ':3'
-    section = <CourseGroupingLabel lowercase courseId={@props.courseId} />
+    section =
+      <CourseGroupingLabel lowercase courseId={@props.courseId} />
+
     msg = """
-       As you read your OpenStax textbook online, you will come across embedded Concept Coach question sets to help you understand and retain what you’ve read.
+      Concept Coach is a free learning tool embedded in your online book. After reading a section of the book, launch Concept Coach to complete practice questions and give your learning a boost.
 
-       Follow the steps below to register for Concept Coach:
+      To register for Concept Coach:
 
-       1. Paste this link in your web browser to visit the class textbook:
-       #{url}
+      1. Paste this link in your web browser to visit the class textbook:
+      #{url}
 
-       2. Click on section 1.1 in the book. Scroll to the bottom of the section and click on the Concept Coach button.
+      1. In the browser, click the orange “Jump to Concept Coach” button to jump to to the Concept Coach widget at the end of the section. Click “Launch Concept Coach” to open your Concept Coach log-in window.
 
-       3. On the right side of the screen, enter your enrollment code:
-       #{code}
+      2. If you’re new to Concept Coach, click “Sign up for Concept Coach” and follow the prompts to create your free account. If you’ve used Concept Coach before, click “Sign In” to sign in.
 
-       4. On the next screen, click “Click to begin login.” Then click “Sign up” and follow the prompts to create your free account.
+      3. After signing in, enter your enrollment code for this course. Your enrollment code is:
+      #{code}
 
-       5. Continue to your Concept Coach questions!
+      4. On the enrollment confirmation screen, input your school-issued ID number so your instructor can identify you.
+
+      5. Continue to your Concept Coach questions!
     """
     <div>
 
       <div className='summary'>
         <p>The enrollment code for this {section} is:</p>
         <p className='code'>{code}</p>
-        <p>Each {section} of your course will have a
-         different enrollment code.</p>
+        <p>Each {section} of your course will have a different enrollment code.</p>
       </div>
 
       <div className='callout'>
         <p>
-          <span className='emphasis'>Copy the example message below </span>
-          to post in your Learning Management System or to email your students:
+          <span className='emphasis'>
+            Send the following enrollment instructions to students in this section of your course:
+          </span>
         </p>
       </div>
 
