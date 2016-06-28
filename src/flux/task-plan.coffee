@@ -317,12 +317,14 @@ TaskPlanConfig =
     unless exercise_ids.indexOf(exercise.id) >= 0
       exercise_ids.push(exercise.id)
     @_changeSettings(id, {exercise_ids})
+    @emit("change-exercise-#{exercise?.id}")
 
   removeExercise: (id, exercise) ->
     {exercise_ids} = @_getClonedSettings(id, 'exercise_ids')
     index = exercise_ids?.indexOf(exercise.id)
     exercise_ids?.splice(index, 1)
     @_changeSettings(id, {exercise_ids})
+    @emit("change-exercise-#{exercise?.id}")
 
   updateExercises: (id, exercise_ids) ->
     @_changeSettings(id, {exercise_ids})
