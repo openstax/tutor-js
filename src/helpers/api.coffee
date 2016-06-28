@@ -95,9 +95,9 @@ interceptors =
     mockMethods = ['PUT', 'PATCH']
 
     # Hack for local testing, fake successful PUT and PATCH
-    if _.contains(mockMethods, mockMethod or method)
-      data = JSON.parse(errorResponse.config.data)
-      return Promise.resolve({data})
+    if _.contains(mockMethods, mockMethod or method) and status is 404
+      errorResponse.statusText = """No mock data found at #{config.url}.
+      This error only happens locally."""
 
     # Hack for local testing. Webserver returns 200 + HTML for 404's
     if statusText is 'parsererror' and status is 200
