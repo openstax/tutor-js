@@ -19,7 +19,7 @@ ExercisePreviewWrapper = React.createClass
   mixins: [BindStoreMixin]
   bindStore: -> @props.watchStore
   bindEvent: ->
-    { watchStore, watchEvent, exercise } = @props
+    { watchEvent, exercise } = @props
     "#{watchEvent}#{exercise.id}"
 
   render: ->
