@@ -183,6 +183,8 @@ ExercisesDisplay = React.createClass
     else
       <ExerciseCards
         {...sharedProps}
+        watchStore={ExerciseStore}
+        watchEvent='change-exercise-'
         onExerciseToggle={@onExerciseToggle}
         onShowDetailsViewClick={@onShowDetailsViewClick} />
 
