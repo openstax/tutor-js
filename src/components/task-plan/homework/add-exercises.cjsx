@@ -98,6 +98,8 @@ AddExercises = React.createClass
 
     sharedProps =
         exercises: exercises.all
+        watchStore: TaskPlanStore
+        watchEvent: 'change-exercise-'
         onExerciseToggle: @onExerciseToggle
         getExerciseActions: @getExerciseActions
         getExerciseIsSelected: @getExerciseIsSelected
