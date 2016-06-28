@@ -98,8 +98,6 @@ AddExercises = React.createClass
 
     sharedProps =
         exercises: exercises.all
-        watchStore: TaskPlanStore
-        watchEvent: 'change-exercise-'
         onExerciseToggle: @onExerciseToggle
         getExerciseActions: @getExerciseActions
         getExerciseIsSelected: @getExerciseIsSelected
@@ -118,7 +116,8 @@ AddExercises = React.createClass
       else
         <ExerciseCards
           {...sharedProps}
-          selectCount={SELECT_COUNT} # re-render flag
+          watchStore: TaskPlanStore
+          watchEvent: 'change-exercise-'
           topScrollOffset={110}
           onShowDetailsViewClick={@onShowDetailsViewClick}
         />
