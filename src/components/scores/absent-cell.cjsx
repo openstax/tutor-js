@@ -5,9 +5,8 @@ module.exports = React.createClass
   displayName: 'AbsentCell'
 
   findTypeFromColumn: ->
-    {refs, columnIndex} = @props
-    type = _.findWhere(_.keys(refs), columnIndex)
-    type?.split('-').pop()
+    {headings, columnIndex} = @props
+    headings[columnIndex]?.type
 
   render: ->
     columnType = @findTypeFromColumn()

@@ -205,7 +205,6 @@ module.exports = React.createClass
         <span className="group-header">
           <div
           data-assignment-type="#{heading.type}"
-          ref="#{i}-#{heading.type}"
           className="header-cell group title #{groupHeaderClass}">
             {heading.title}
           </div>
@@ -264,7 +263,7 @@ module.exports = React.createClass
       props.task = task
       props.columnIndex = columnIndex
       columns.push switch task?.type or 'null'
-        when 'null'     then <AbsentCell   key='absent' refs={@refs}   {...props} />
+        when 'null'     then <AbsentCell   key='absent' headings={data.headings} {...props} />
         when 'external' then <ExternalCell key='extern'   {...props} />
         when 'reading'  then <ReadingCell  key='reading'  {...props} />
         when 'homework' then <HomeworkCell key='homework'  {...props} />
