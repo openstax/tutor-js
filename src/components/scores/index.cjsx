@@ -154,7 +154,7 @@ Scores = React.createClass
         (d.last_name or d.name).toLowerCase()
     )
     {
-      overall_average_score: scores.overall_average_score,
+      overall_average_score: scores.overall_average_score or 0,
       headings: scores.data_headings,
       rows: if sort.asc then sortData else sortData.reverse()
     }
