@@ -111,8 +111,8 @@ AddExercises = React.createClass
       else
         <ExerciseCards
           {...sharedProps}
-          watchStore: TaskPlanStore
-          watchEvent: 'change-exercise-'
+          watchStore={TaskPlanStore}
+          watchEvent='change-exercise-'
           topScrollOffset={110}
           onShowDetailsViewClick={@onShowDetailsViewClick}
         />
