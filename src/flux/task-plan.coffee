@@ -48,13 +48,17 @@ TaskPlanConfig =
   _server_copy: {}
 
   _loaded: (obj, planId) ->
-    @_server_copy[planId] = JSON.stringify(obj)
+    @_server_copy[planId] = JSON.stringify(obj) if _.isObject(obj)
+
     obj
 
   # Somewhere, the local copy gets taken apart and rebuilt.
   # Keep a copy of what was served.
   _getOriginal: (planId) ->
-    JSON.parse(@_server_copy[planId])
+    if _.isString(@_server_copy[planId])
+      JSON.parse(@_server_copy[planId])
+    else
+      {}
 
   _getPlan: (planId) ->
     @_local[planId] ?= {}
@@ -377,7 +381,7 @@ TaskPlanConfig =
     obj
 
   resetPlan: (id) ->
-    @_local[id] = _.clone(@_server_copy[id])
+    @_local[id] = _.clone(@_getOriginal(id))
     @clearChanged(id)
 
 
