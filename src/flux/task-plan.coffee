@@ -605,7 +605,6 @@ TaskPlanConfig =
 
     getEnabledTaskings: (id) ->
       plan = @_getPlan(id)
-      console.log "Get Enabled", plan
       plan?.tasking_plans
 
     isStatsLoading: (id) -> @_asyncStatusStats[id] is 'loading'
