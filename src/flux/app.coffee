@@ -89,6 +89,9 @@ AppConfig =
       pending: @_pending
       statuses: @_statuses
 
+    isPending: (requestConfig) ->
+      @_getRequestInfo(requestConfig)?
+
     errorNavigation: ->
       return {} unless @_currentServerError
       {statusCode, request} = @_currentServerError
