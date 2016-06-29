@@ -2,9 +2,8 @@ React = require 'react'
 BS = require 'react-bootstrap'
 
 {TocStore} = require '../../flux/toc'
-{ExerciseActions, ExerciseStore} = require '../../flux/exercise'
+
 Dialog = require '../tutor-dialog'
-{ExercisePreview} = require 'openstax-react-components'
 
 ExerciseHelpers = require '../../helpers/exercise'
 
@@ -12,39 +11,7 @@ ScrollTo = require '../scroll-to-mixin'
 
 ChapterSection = require '../task-plan/chapter-section'
 Icon = require '../icon'
-
-PreviewWrapper = React.createClass
-
-  propTypes:
-    exercise:               React.PropTypes.object.isRequired
-    onShowDetailsViewClick: React.PropTypes.func.isRequired
-    onExerciseToggle:       React.PropTypes.func.isRequired
-    getExerciseIsSelected:  React.PropTypes.func.isRequired
-    getExerciseActions:     React.PropTypes.func.isRequired
-    watchStore:             React.PropTypes.func
-    watchEvent:             React.PropTypes.string
-
-  componentWillMount: ->
-    { watchStore, watchEvent, exercise } = @props
-    watchStore?.on("#{watchEvent}#{exercise.id}", @update)
-  componentWillUnmount: ->
-    { watchStore, watchEvent, exercise } = @props
-    watchStore?.off("#{watchEvent}#{exercise.id}", @update)
-
-  update: -> @setState({})
-
-  render: ->
-    { exercise } = @props
-    <ExercisePreview
-      key={exercise.id}
-      className='exercise-card'
-      isInteractive={false}
-      isVerticallyTruncated={true}
-      isSelected={@props.getExerciseIsSelected(exercise)}
-      exercise={exercise}
-      onOverlayClick={@onExerciseToggle}
-      overlayActions={@props.getExerciseActions(exercise)}
-    />
+ExercisePreview = require './preview'
 
 SectionsExercises = React.createClass
 
@@ -56,23 +23,6 @@ SectionsExercises = React.createClass
     getExerciseIsSelected:  React.PropTypes.func.isRequired
     getExerciseActions:     React.PropTypes.func.isRequired
 
-  renderMinimumExclusionWarning: ->
-    [
-      <Icon key="icon" type="exclamation" />
-      <div key="message" className="message">
-        <p>
-          Tutor needs at least 5 questions for this topic to be
-          included in spaced practice and personalized learning.
-        </p>
-        <p>
-          If you exclude too many, your students will not get to practice on this topic.
-        </p>
-      </div>
-    ]
-
-  renderExercise: (exercise) ->
-    <PreviewWrapper {...@props} exercise={exercise} />
-
   render: ->
     title = TocStore.getSectionLabel(@props.chapter_section)?.title
     # IMPORTANT: the 'data-section' attribute is used as a scroll-to target and must be present
@@ -81,7 +31,8 @@ SectionsExercises = React.createClass
         <ChapterSection section={@props.chapter_section}/> {title}
       </label>
       <div className="exercises">
-        {@renderExercise(exercise) for exercise in @props.exercises}
+        {for exercise in @props.exercises
+          <ExercisePreview {...@props} exercise={exercise} />}
       </div>
     </div>
 

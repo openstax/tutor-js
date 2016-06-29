@@ -109,7 +109,7 @@ ExerciseConfig =
   saveExerciseExclusion: (courseId, exerciseId, isExcluded) ->
     @_exclusionsAsyncStatus = SAVING
     @_unsavedExclusions[exerciseId] = isExcluded
-    @emitChange()
+    @emit("change-exercise-#{exerciseId}")
 
   resetUnsavedExclusions: ->
     @_unsavedExclusions = {}
