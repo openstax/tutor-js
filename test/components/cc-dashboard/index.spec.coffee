@@ -21,20 +21,20 @@ RenderHelper = (courseId) ->
   Testing.renderComponent(DashboardShell, optionsWithParams)
 
 describe 'Concept Coach Dashboard Shell', ->
-  beforeEach ->
+  beforeEach (done) ->
     CourseObj = _.extend {}, _.pick(BlankCourse.course, 'name', 'teachers'), {is_concept_coach: true}
-
     CCDashboardActions.loaded(BlankCourse, IDS.BLANK)
     CCDashboardActions.loaded(BaseModel, IDS.BASE)
     CourseActions.loaded(CourseObj, IDS.BLANK)
     CourseActions.loaded(CourseObj, IDS.BASE)
-    
-  it 'loads a blank course when there are no periods', ->
+    _.defer(done)
+
+  it 'displays the help page when there are no periods', ->
     RenderHelper(IDS.BLANK).then ({dom}) ->
-      expect(dom.querySelector('.blank-course')).to.not.be.null
+      expect(dom).to.exist
+      expect(dom.classList.contains('cc-dashboard-help')).to.be.true
 
-  it 'loads a course dashboard when there are periods', ->
+  it 'renders dashboard when there are periods', ->
     RenderHelper(IDS.BASE).then ({dom}) ->
-      expect(dom.querySelector('.dashboard')).to.not.be.null
-
-
+      expect(dom).to.exist
+      expect(dom.classList.contains('cc-dashboard')).to.exist

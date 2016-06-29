@@ -51,6 +51,11 @@ ROUTES =
     label: 'Course Settings and Roster'
     roles:
       teacher: 'courseSettings'
+  get_started:
+    label: 'Getting Started'
+    allowedForCourse: (course) -> course?.is_concept_coach is true
+    roles:
+      teacher: 'ccDashboardHelp'
 
 CurrentUserActions = flux.createActions [
   'setToken'  # (token) ->

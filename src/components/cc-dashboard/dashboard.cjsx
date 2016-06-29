@@ -8,7 +8,7 @@ Router = require 'react-router'
 Icon = require '../icon'
 CourseDataMixin = require '../course-data-mixin'
 DashboardChapter = require './chapter'
-BlankCourse = require './blank-course'
+EmptyPeriod = require './empty-period'
 
 TOOLTIPS =
   complete: '''
@@ -58,10 +58,10 @@ CCDashboard = React.createClass
     courseDataProps = @getCourseDataProps(courseId)
     course = CourseStore.get(courseId)
     emptyPeriod = chapters.length is 0
-    emptyGraphic = <BlankCourse courseId={courseId} inPeriod={emptyPeriod} />
+    emptyGraphic = <EmptyPeriod courseId={courseId} />
 
     dashboardResults =
-      <div>
+      <div className="results">
         <BS.Row className="column-legend">
           <BS.Col xs={2} xsOffset={6}>
             Complete
@@ -86,12 +86,12 @@ CCDashboard = React.createClass
           <DashboardChapter chapter={chapter} key={index} />}
         <BS.Row>
           <BS.Col className="hide-section-legend" xs={12}>
-            Chapters and sections that are less than 10% complete are hidden
+            Chapters and sections that have not been worked are hidden
           </BS.Col>
         </BS.Row>
       </div>
 
-    <div className="dashboard" data-period={@state.activePeriodId}>
+    <div className="cc-dashboard" data-period={@state.activePeriodId}>
       <div {...courseDataProps} className='tutor-booksplash-background' />
       <BS.Panel>
         <h2>

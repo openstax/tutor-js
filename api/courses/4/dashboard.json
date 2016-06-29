@@ -1,0 +1,187 @@
+{
+  "course": {
+    "periods": [
+      {
+        "chapters": [
+          {
+            "pages": [
+              {
+                "spaced_practice_performance": 1.0,
+                "original_performance": 0.25,
+                "not_started": 2,
+                "in_progress": 0,
+                "completed": 8,
+                "chapter_section": [
+                  2,
+                  2
+                ],
+                "version": "12",
+                "uuid": "be8818d0-2dba-4bf3-859a-737c25fb2c99",
+                "title": "Atoms, Isotopes, Ions, and Molecules: The Building Blocks",
+                "id": "209"
+              },
+              {
+                "spaced_practice_performance": 0.0,
+                "original_performance": 0.5416666666666666,
+                "not_started": 2,
+                "in_progress": 0,
+                "completed": 8,
+                "chapter_section": [
+                  2,
+                  1
+                ],
+                "version": "2",
+                "uuid": "7636a3bf-eb80-4898-8b2c-e81c1711b99f",
+                "title": "Sample module 2",
+                "id": "208"
+              }
+            ],
+            "chapter_section": [
+              2
+            ],
+            "title": "The Chemical Foundation of Life",
+            "id": "40"
+          },
+          {
+            "pages": [
+              {
+                "spaced_practice_performance": 0.5,
+                "original_performance": 0.5,
+                "not_started": 6,
+                "in_progress": 0,
+                "completed": 4,
+                "chapter_section": [
+                  1,
+                  2
+                ],
+                "version": "12",
+                "uuid": "6a0568d8-23d7-439b-9a01-16e4e73886b3",
+                "title": "The Science of Biology",
+                "id": "207"
+              },
+              {
+                "spaced_practice_performance": 0.0,
+                "original_performance": 0.3333333333333333,
+                "not_started": 2,
+                "in_progress": 0,
+                "completed": 8,
+                "chapter_section": [
+                  1,
+                  1
+                ],
+                "version": "2",
+                "uuid": "ad9b9d37-a5cf-4a0d-b8c1-083fcc4d3b0c",
+                "title": "Sample module 1",
+                "id": "206"
+              }
+            ],
+            "chapter_section": [
+              1
+            ],
+            "title": "The Study of Life",
+            "id": "39"
+          }
+        ],
+        "name": "1st",
+        "id": "4"
+      },
+      {
+        "chapters": [
+          {
+            "pages": [
+              {
+                "original_performance": 0.6,
+                "not_started": 5,
+                "in_progress": 0,
+                "completed": 5,
+                "chapter_section": [
+                  2,
+                  2
+                ],
+                "version": "12",
+                "uuid": "be8818d0-2dba-4bf3-859a-737c25fb2c99",
+                "title": "Atoms, Isotopes, Ions, and Molecules: The Building Blocks",
+                "id": "209"
+              },
+              {
+                "spaced_practice_performance": 1.0,
+                "original_performance": 0.5416666666666666,
+                "not_started": 2,
+                "in_progress": 0,
+                "completed": 8,
+                "chapter_section": [
+                  2,
+                  1
+                ],
+                "version": "2",
+                "uuid": "7636a3bf-eb80-4898-8b2c-e81c1711b99f",
+                "title": "Sample module 2",
+                "id": "208"
+              }
+            ],
+            "chapter_section": [
+              2
+            ],
+            "title": "The Chemical Foundation of Life",
+            "id": "40"
+          },
+          {
+            "pages": [
+              {
+                "spaced_practice_performance": 0.6666666666666666,
+                "original_performance": 0.4166666666666667,
+                "not_started": 2,
+                "in_progress": 0,
+                "completed": 8,
+                "chapter_section": [
+                  1,
+                  2
+                ],
+                "version": "12",
+                "uuid": "6a0568d8-23d7-439b-9a01-16e4e73886b3",
+                "title": "The Science of Biology",
+                "id": "207"
+              },
+              {
+                "spaced_practice_performance": 0.0,
+                "original_performance": 0.5416666666666666,
+                "not_started": 2,
+                "in_progress": 0,
+                "completed": 8,
+                "chapter_section": [
+                  1,
+                  1
+                ],
+                "version": "2",
+                "uuid": "ad9b9d37-a5cf-4a0d-b8c1-083fcc4d3b0c",
+                "title": "Sample module 1",
+                "id": "206"
+              }
+            ],
+            "chapter_section": [
+              1
+            ],
+            "title": "The Study of Life",
+            "id": "39"
+          }
+        ],
+        "name": "2st",
+        "id": "5"
+      }
+    ],
+    "teachers": [
+      {
+        "last_name": "Morris",
+        "first_name": "Charles",
+        "role_id": "11",
+        "id": "2"
+      }
+    ],
+    "name": "Concept Coach"
+  },
+  "role": {
+    "type": "teacher",
+    "id": "11"
+  },
+  "tasks": []
+}

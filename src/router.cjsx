@@ -19,6 +19,7 @@ TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
 
 {StatsShell} = require './components/plan-stats'
 CCDashboard = require './components/cc-dashboard'
+CCDashboardHelp = require './components/cc-dashboard/help'
 
 CourseSettings = require './components/course-settings'
 Sandbox = require './sandbox'
@@ -76,7 +77,13 @@ routes = (
             </Route>
           </Route>
           <Route path='questions' name='viewQuestionsLibrary' handler={QuestionsLibrary} />
-          <Route path='cc-dashboard/?' name='cc-dashboard' handler={CCDashboard} />
+
+          <Route path='cc-dashboard/?' name='cc-dashboard'>
+            <Router.DefaultRoute handler={CCDashboard} />
+            <Route path='help/?' name='ccDashboardHelp' handler={CCDashboardHelp} />
+            <Route path='guide/?' name='ccDashboardGuide' handler={CCDashboard} />
+          </Route>
+
           <Route path='homeworks/new/?' name='createHomework' handler={HomeworkShell} />
           <Route path='homeworks/:id/?' name='editHomework' handler={HomeworkShell} />
           <Route path='readings/new/?' name='createReading' handler={ReadingShell} />
