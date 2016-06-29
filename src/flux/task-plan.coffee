@@ -172,12 +172,6 @@ TaskPlanConfig =
     tasking_plans = @_getDefaultTaskingTimes(id, courseId, periods)
     @_change(id, {tasking_plans})
 
-  # set taskings that lack an opens_at to the default
-  setBlankOpensAtDateForCourse: (id, courseId, opensAtDate) ->
-    opensAt = "#{opensAtDate} #{CourseStore.get(courseId)?.default_open_time}"
-    _.each @_getPlan(id)?.tasking_plans, (tasking) ->
-      tasking.opens_at ?= opensAt
-
   setPeriods: (id, courseId, periods, isDefault = false, useCourseDefault = true) ->
     plan = @_getPlan(id)
     course = CourseStore.get(courseId)
