@@ -83,18 +83,27 @@ figure {
   img { width: 100%; }
 }
 
-.multiple-choice {
+.multiple-choice, .free-response {
+  counter-reset: exerciseCount;
   [data-type="exercise"] {
     [data-type="problem"] {
+      p:first-of-type {
+        counter-increment: exerciseCount;
+        &::before {
+          content: counter(exerciseCount) ". ";
+          font-weight: bold;
+          font-size: 2.5rem;
+        }
+      }
       ol {
-        counter-reset: upperAlpha;
+        counter-reset: lowerAlpha;
         list-style: none;
       }
       ol li {
-        counter-increment: upperAlpha;
+        counter-increment: lowerAlpha;
       }
       ol li::before {
-        content: counter(upperAlpha, upper-alpha) ". ";
+        content: counter(lowerAlpha, lower-alpha) ") ";
       }
     }
   }
