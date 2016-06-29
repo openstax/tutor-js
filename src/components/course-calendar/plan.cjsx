@@ -55,21 +55,31 @@ CoursePlan = React.createClass
     activeHeight: 35
 
   getInitialState: ->
-    {item} = @props
+    @getStateByProps()
+
+  getStateByProps: (props) ->
+    props ?= @props
+
+    {item} = props
     {plan} = item
 
     publishStatus = PlanPublishStore.getAsyncStatus(plan.id)
 
-    isViewingStats: @_doesPlanMatchesRoute()
+    isViewingStats: @_doesPlanMatchesRoute(props)
     publishStatus: publishStatus
     isPublishing: PlanPublishStore.isPublishing(plan.id)
     isHovered: false
     isPublished: plan.is_published
 
   # utility functions for functions called in lifecycle methods
-  _doesPlanMatchesRoute: ->
+  _doesPlanMatchesRoute: (props) ->
+    props ?= @props
+
+    {item} = props
+    {plan} = item
+
     {planId} = @context.router.getCurrentParams()
-    planId is @props.item.plan.id
+    planId is plan.id
 
   _getExpectedRoute: (isViewingStats) ->
     closedRouteName = 'calendarByDate'
@@ -120,15 +130,22 @@ CoursePlan = React.createClass
     @setState(publishState)
 
   componentWillMount: ->
-    @subscribeToPublishing(@props.item.plan)
-    @syncRoute()
+    {plan} = @props.item
+    publishState = PlanHelper.subscribeToPublishing(plan, @checkPublishingStatus)
+    isViewingStats = @_doesPlanMatchesRoute()
+
+    state = _.extend({isViewingStats}, publishState)
+    @setState(state)
+
     location = @context.router.getLocation()
     location.addChangeListener(@syncRoute)
 
   componentWillReceiveProps: (nextProps) ->
     if @props.item.plan.id isnt nextProps.item.plan.id
-      @subscribeToPublishing(nextProps.item.plan)
+      publishState = PlanHelper.subscribeToPublishing(nextProps.item.plan, @checkPublishingStatus)
       @stopCheckingPlan(@props.item.plan)
+      state = _.extend(@getStateByProps(nextProps), publishState)
+      @setState(state)
     else if nextProps.item.plan.isPublishing and not @props.item.plan.isPublishing
       @subscribeToPublishing(nextProps.item.plan)
 
@@ -160,12 +177,13 @@ CoursePlan = React.createClass
     isPublished and plan.isOpen and plan.type isnt 'event'
 
   buildPlanClasses: (plan, publishStatus, isPublishing, isPublished, isActive) ->
-    planClasses = classnames 'plan-label-long', "course-plan-#{plan.id}", "is-#{publishStatus}",
+    planClasses = classnames 'plan-label-long', "course-plan-#{plan.id}",
       'is-published'  : isPublished
       'is-publishing' : isPublishing
       'is-open'       : plan.isOpen
       'is-trouble'    : plan.isTrouble
-      'active'        : isActive
+      'active'        : isActive,
+      "is-#{publishStatus}": publishStatus
 
   renderDisplay: (hasQuickLook, hasReview, planClasses, display) ->
     {rangeDuration, offset, offsetFromPlanStart, index} = display
