@@ -148,6 +148,12 @@ TaskPlanBuilder = React.createClass
     value = value.format(TimeHelper.ISO_DATE_FORMAT) if moment.isMoment(value)
     TaskPlanActions.updateDueAt(id, value, period?.id)
 
+  setTaskingsToDefaults: ->
+    dueAt = TaskPlanStore.getDueAt(@props.id)
+    opensAt = TaskPlanStore.getOpensAt(@props.id)
+    periods = @mapPeriods(opensAt or @getQueriedOpensAt(), dueAt or @getQueriedDueAt())
+    TaskPlanActions.setDefaultTimesForPeriods(@props.id, @props.courseId, periods)
+
   setAllPeriods: ->
     {courseId} = @props
     {showingPeriods, savedAllTaskings} = @state
@@ -158,8 +164,7 @@ TaskPlanBuilder = React.createClass
     if savedAllTaskings
       TaskPlanActions.replaceTaskings(@props.id, savedAllTaskings)
     else
-      periods = _.pluck(CourseStore.getPeriods(@props.courseId), 'id')
-      TaskPlanActions.setDefaultTimesForCourse(@props.id, courseId, periods)
+      @setTaskingsToDefaults()
 
     @setState(
       showingPeriods: false
@@ -174,13 +179,7 @@ TaskPlanBuilder = React.createClass
     if (@state.savedIndividualTaskings)
       TaskPlanActions.replaceTaskings(@props.id, @state.savedIndividualTaskings)
     else
-      # check for common open/due dates, remember it now before we set defaults
-      dueAt = TaskPlanStore.getDueAt(@props.id)
-      opensAt = TaskPlanStore.getOpensAt(@props.id)
-      #map tasking plans
-      periods = @mapPeriods(opensAt or @getQueriedOpensAt(), dueAt or @getQueriedDueAt())
-
-      TaskPlanActions.setDefaultTimesForPeriods(@props.id, @props.courseId, periods)
+      @setTaskingsToDefaults()
 
     #clear saved taskings
     @setState(
