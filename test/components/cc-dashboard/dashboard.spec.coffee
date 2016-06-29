@@ -41,15 +41,15 @@ describe 'Concept Coach', ->
     it 'shows the help page for blank periods', ->
       periodId = BaseModel.course.periods[BLANK_PERIOD].id
       RenderHelper(Dashboard, COURSE_ID, BLANK_PERIOD).then ({dom}) ->
-        expect(dom.querySelector('.cc-dashboard-help-page')).to.not.be.null
+        expect(dom.querySelector('.empty-period.cc-dashboard-help')).to.exist
 
     it 'show the right amount of chapters for non-empty periods', ->
       periodId = BaseModel.course.periods[activePeriod].id
       numChapters = CCDashboardStore.chaptersForDisplay(COURSE_ID, periodId).length
       RenderHelper(Dashboard, COURSE_ID, activePeriod).then ({dom}) ->
         if (numChapters)
-          expect(dom.querySelector('.blank-course')).to.be.null
-        expect(dom.querySelectorAll('.dashboard .chapter').length).to.equal(numChapters)
+          expect(dom.querySelector('.empty-period.cc-dashboard-help')).not.to.exist
+        expect(dom.querySelectorAll('.chapter').length).to.equal(numChapters)
 
   describe 'Chapter', ->
     it 'shows the right amount of sections for chapters', ->
