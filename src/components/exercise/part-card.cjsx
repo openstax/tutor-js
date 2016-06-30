@@ -113,7 +113,8 @@ ExerciseStepCard = React.createClass
       waitingText,
       className,
       includeFooter,
-      includeGroup
+      includeGroup,
+      idLink
     } = @props
 
     {group, related_content} = step
@@ -151,6 +152,7 @@ ExerciseStepCard = React.createClass
           mode={panel}/>
       </div>
       {helpLink}
+      {idLink}
     </CardBody>
 
 module.exports = ExerciseStepCard

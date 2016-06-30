@@ -53,6 +53,7 @@ ExerciseMixin =
 
     partProps =
       footer: footer
+      idLink: @renderIdLink()
       focus: true
       includeGroup: true
 
@@ -175,7 +176,6 @@ Exercise = React.createClass
     if @isSinglePart()
       return <CardBody footer={footer} className='openstax-multipart-exercise-card'>
         { @renderSinglePart() }
-        { @renderIdLink() }
       </CardBody>
 
     exerciseParts = @renderMultiParts()

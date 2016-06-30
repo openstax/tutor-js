@@ -23,8 +23,5 @@ ExerciseIdentifierLink = React.createClass
       <span className='exercise-identifier-link'>
         ID# {@props.exerciseId} | <a target="_blank" href={url}>Report an error</a>
       </span>
-      <p>
-        { _.map(@props.related_content, @buildLabel) }
-      </p>
     </div>
 module.exports = ExerciseIdentifierLink
