@@ -9,6 +9,11 @@
     display: inline-block;
     margin: @book-content-note-with-background-margin;
   }
+  // hide note title if data-label attribute is blank or missing
+  &[data-label=""],
+  &:not([data-label]) {
+    &:before{ display: none; }
+  }
 
   :last-child {
     padding-bottom: 0;
