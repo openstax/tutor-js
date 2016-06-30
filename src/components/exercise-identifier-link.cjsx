@@ -11,11 +11,6 @@ ExerciseIdentifierLink = React.createClass
     bookUUID: React.PropTypes.string
     exerciseId: React.PropTypes.string.isRequired
     project: React.PropTypes.oneOf(['concept-coach', 'tutor'])
-    related_content: React.PropTypes.array.isRequired
-
-  buildLabel: (related) ->
-    chapterSection = @sectionFormat(related.chapter_section, @props.sectionSeparator)
-    "Comes from #{chapterSection} - #{related.title}"
 
   render: ->
     url = Exercise.troubleUrl(@props)
