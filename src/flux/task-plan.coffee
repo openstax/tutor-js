@@ -145,6 +145,7 @@ TaskPlanConfig =
 
     curTaskings = plan?.tasking_plans
     findTasking = @_findTasking
+    {default_open_time, default_due_time} = course
 
     _.map periods, (period) =>
       tasking = findTasking(curTaskings, period.id)
@@ -152,6 +153,9 @@ TaskPlanConfig =
 
       opens_at = period.opens_at or tasking.opens_at
       due_at = period.due_at or tasking.due_at
+      if useCourseDefault
+        opens_at ?= default_open_time
+        due_at   ?= default_due_time
 
       period.opens_at = TimeHelper.makeMoment(opens_at).format(TimeHelper.ISO_DATE_FORMAT) if opens_at?
       period.due_at = TimeHelper.makeMoment(due_at).format(TimeHelper.ISO_DATE_FORMAT) if due_at?
