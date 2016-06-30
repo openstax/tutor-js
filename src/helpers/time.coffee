@@ -19,6 +19,17 @@ TIME_LINKS =
   'US/East-Indiana': 'Indiana (East)'
   'Canada/Atlantic': 'Atlantic Time (Canada)'
 
+ISO_DATE_REGEX = /\d{4}[\/\-](0[1-9]|1[012])[\/\-](0[1-9]|[12][0-9]|3[01])/
+ISO_TIME_REGEX = /([01][0-9]|2[0-3]):[0-5]\d/
+
+START = '^'
+END = '$'
+SEPARATOR = ' '
+
+ISO_DATE_ONLY_REGEX = new RegExp(START + ISO_DATE_REGEX.source + END)
+ISO_DATETIME_REGEX = new RegExp(START + ISO_DATE_REGEX.source + SEPARATOR + ISO_TIME_REGEX.source + END)
+ISO_TIME_ONLY_REGEX = new RegExp(START + ISO_TIME_REGEX.source + END)
+
 TimeHelper =
   ISO_DATE_FORMAT: 'YYYY-MM-DD'
   ISO_TIME_FORMAT: 'HH:mm'
@@ -26,6 +37,21 @@ TimeHelper =
 
   toISO: (datething) ->
     moment(datething).format(@ISO_DATE_FORMAT)
+
+  isDateStringOnly: (stringToCheck) ->
+    ISO_DATE_ONLY_REGEX.test(stringToCheck)
+
+  isDateTimeString: (stringToCheck) ->
+    ISO_DATETIME_REGEX.test(stringToCheck)
+
+  isTimeStringOnly: (stringToCheck) ->
+    ISO_TIME_ONLY_REGEX.test(stringToCheck)
+
+  getTimeOnly: (stringToCheck) ->
+    _.first(stringToCheck.match(ISO_TIME_REGEX))
+
+  getDateOnly: (stringToCheck) ->
+    _.first(stringToCheck.match(ISO_DATE_REGEX))
 
   linkZoneNames: ->
     # uses moment-timezone-utils to alias loaded timezone data to timezone names in Rails
