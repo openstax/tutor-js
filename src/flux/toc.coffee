@@ -6,6 +6,7 @@ _ = require 'underscore'
 
 TocConfig =
   _sections: {}
+  _ecosystems: {}
 
   FAILED: -> console.error('BUG: could not load readings')
 
@@ -14,14 +15,19 @@ TocConfig =
 
   _loaded: (obj, id) ->
     chapters = obj[0].children
+    @_ecosystems[id] = {}
     # Load all the section id's for easy lookup later.
     # They are globally unique so we do not have to worry about the ecosystemId.
     for chap in chapters
       for section in chap.children
+        @_ecosystems[id][section.uuid] = section
         @_sections[section.id] = section
     chapters
 
   exports:
+    findWhere: (ecosystemId, query) ->
+      _.findWhere(@_ecosystems[ecosystemId], query)
+
     getChapterSection: (sectionId) ->
       @_sections[sectionId]?.chapter_section or throw new Error('BUG: Invalid section')
 
