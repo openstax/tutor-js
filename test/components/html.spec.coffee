@@ -25,13 +25,6 @@ describe 'Arbitrary Html Component', ->
       processHtmlAndMath: sinon.spy()
       block: true
 
-    @simsFrameProps =
-      className: 'html'
-      html: """<iframe width="560" height="315" src="https://archive.cnx.org/specials/e2ca52af-8c6b-450e-ac2f-9300b38e8739/moving-man/"
-      frameborder="0" allowfullscreen></iframe>"""
-      processHtmlAndMath: sinon.spy()
-      block: true
-
   it 'renders html', ->
     Testing.renderComponent( Html, props: @props ).then ({dom}) ->
       expect(dom.tagName).equal('DIV')
@@ -53,7 +46,3 @@ describe 'Arbitrary Html Component', ->
   it 'wraps nested iframes with embed classes', ->
     Testing.renderComponent( Html, props: @nestedFrameProps ).then ({dom}) ->
       expect(dom.getElementsByClassName('embed-responsive').length).equal(1)
-
-  it 'ignores iframes with sim link', ->
-    Testing.renderComponent( Html, props: @simsFrameProps ).then ({dom}) ->
-      expect(dom.getElementsByClassName('embed-responsive').length).equal(0)

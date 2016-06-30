@@ -14,8 +14,7 @@ module.exports = React.createClass
     processHtmlAndMath: React.PropTypes.func
   getDefaultProps: ->
     block: false
-    shouldExcludeFrame: (frame) ->
-      /cnx.org\/specials\//.test(frame.src)
+    shouldExcludeFrame: (frame) -> false
 
   render: ->
     {className, block} = @props
