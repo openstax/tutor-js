@@ -1,7 +1,7 @@
 .tutor-book-note-style() {
   // add a title pseudo element if a data-label attribute is present
   &[data-label]:not([data-label=""]) {
-    &:before {
+    &::before {
       position: absolute;
       content: attr(data-label);
       #fonts > .sans(@tutor-book-ui-top-height - 18px, @tutor-book-ui-top-height);
