@@ -1,13 +1,16 @@
 .tutor-book-note-style() {
-  &:before {
-    position: absolute;
-    content: attr(data-label);
-    #fonts > .sans(@tutor-book-ui-top-height - 18px, @tutor-book-ui-top-height);
-    font-weight: 900;
-    padding: 0 40px;
-    height: @tutor-book-ui-top-height;
-    display: inline-block;
-    margin: @book-content-note-with-background-margin;
+  // add a title pseudo element if a data-label attribute is present
+  &[data-label]:not([data-label=""]) {
+    &::before {
+      position: absolute;
+      content: attr(data-label);
+      #fonts > .sans(@tutor-book-ui-top-height - 18px, @tutor-book-ui-top-height);
+      font-weight: 900;
+      padding: 0 40px;
+      height: @tutor-book-ui-top-height;
+      display: inline-block;
+      margin: @book-content-note-with-background-margin;
+    }
   }
 
   :last-child {
