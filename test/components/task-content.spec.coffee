@@ -6,7 +6,7 @@
 
 {Testing, expect, sinon, _} = require './helpers/component-testing'
 
-{StepContent} = '../../src/components/task-step/step-with-reading-content'
+{StepContent} = require '../../src/components/task-step/step-with-reading-content'
 
 {TaskActions, TaskStore} = require '../../src/flux/task'
 {TaskStepActions, TaskStepStore} = require '../../src/flux/task-step'
@@ -14,18 +14,19 @@
 
 courseId = '1'
 course = require '../../api/user/courses/1.json'
-interactiveStep = require '../../api/steps/step-id-4-4.json'
-interactiveStepId = '4'
+step = require '../../api/steps/step-id-4-4.json'
+stepId = '4'
 
 describe 'Task Widget, rendering content', ->
   beforeEach ->
     CourseActions.loaded(course, courseId)
-    TaskStepActions.loaded(interactiveStep, interactiveStepId)
 
   it 'should render no frame for interactives', ->
+    TaskStepActions.loaded(step, stepId)
+
     # render the step and then make sure it doesn't have a frame around it
     props = {
-      id: interactiveStepId
+      id: stepId
       stepType: 'interactive'
     }
 
@@ -33,10 +34,12 @@ describe 'Task Widget, rendering content', ->
       expect(dom.querySelector('.frame-wrapper')).to.be.null
 
   it 'should render a frame for non-interactives', ->
+    TaskStepActions.loaded(step, stepId)
+
     # render the step and then make sure it doesn't have a frame around it
     props = {
-      id: interactiveStepId
-      stepType: 'interactive'
+      id: stepId
+      stepType: 'reading'
     }
 
     Testing.renderComponent(StepContent, props: props).then ({dom}) ->
