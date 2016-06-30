@@ -43,7 +43,7 @@ StepContent = React.createClass
     TaskStepStore.getCnxId(@props.id)
 
   shouldExcludeFrame: ->
-    (@props.stepType == 'interactive')
+    @props.stepType is 'interactive'
 
   render: ->
     {id, stepType} = @props
