@@ -76,6 +76,7 @@
 }
 
 .tutor-book-theme-tables(@table-accent-color) {
+  @table-accent-style: solid 4px @table-accent-color;
   table {
       caption {
         caption-side: top;
@@ -90,7 +91,15 @@
             background: @tutor-white;
             font-weight: 800;
           }
-          border-bottom: solid 4px @table-accent-color;
+          border-bottom: @table-accent-style;
+        }
+      }
+      caption + tbody, thead + tbody, tbody:only-child, colgroup + tbody {
+        border-top: @table-accent-style;
+        tr {
+          td:first-child{
+            font-weight: 400;
+          }
         }
       }
     thead {
@@ -99,6 +108,7 @@
         th {
           font-weight: 400;
           border-bottom: none;
+          background: @tutor-white;
         }
       }
       tr:nth-child(2) {
@@ -106,7 +116,7 @@
           background: @tutor-white;
           font-weight: 800;
         }
-        border-bottom: solid 4px @table-accent-color;
+        border-bottom: @table-accent-style;
       }
     }
     tbody{
