@@ -6,6 +6,14 @@ TimeHelper = require '../helpers/time'
 
 TASKING_IDENTIFIERS = ['target_id', 'target_type']
 
+getIndexFromForTasking = (fromCollection, tasking) ->
+  _.findIndex(fromCollection, (fromItem) ->
+    _.isEqual(
+      _.pick(tasking, TASKING_IDENTIFIERS),
+      _.pick(fromItem, TASKING_IDENTIFIERS)
+    )
+  )
+
 getFromForTasking = (fromCollection, tasking) ->
   _.findWhere(fromCollection, _.pick(tasking, TASKING_IDENTIFIERS))
 
@@ -61,6 +69,21 @@ maskToTasking = (tasking) ->
 #   "due_time": "11:00"
 # }...]
 
+toIndexer = (courseId, tasking) ->
+  identifiers = ["course#{courseId}"]
+
+  unless _.isUndefined(tasking)
+    if _.isString(tasking)
+      # assume tasking is taskId
+      tasking =
+        target_id: tasking
+        target_type: 'period'
+
+    identifiers.push("#{tasking.target_type}#{tasking.target_id}")
+
+  identifiers.join('.')
+
+
 TaskingConfig =
   _defaults: {}
   _taskings: {}
@@ -74,11 +97,13 @@ TaskingConfig =
     @_taskings[taskId] = {taskings, courseId}
     @emit("taskingsLoaded.#{taskId}")
 
-  updateDateTime: () ->
+  updateTime: (taskId, tasking) ->
 
   updateDate: () ->
 
-  updateTime: () ->
+  updateTasking: (taskId, tasking) ->
+    taskingIndex = getIndexFromForTasking(@_taskings[taskId].taskings, tasking)
+    @_taskings[taskId].taskings[taskingIndex] = transformTasking(tasking)
 
   exports:
     getDefaults: (courseId) ->
