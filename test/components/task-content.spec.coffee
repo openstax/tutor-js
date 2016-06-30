@@ -1,9 +1,5 @@
 # Tests for homework specific tasks
 
-# -----------------------------------------------------------------------------------------------------
-# TODO: For some reason the StepContent is undefined in the test, and therefore this code doesn't work.
-# -----------------------------------------------------------------------------------------------------
-
 {Testing, expect, sinon, _} = require './helpers/component-testing'
 
 {StepContent} = require '../../src/components/task-step/step-with-reading-content'
