@@ -74,3 +74,36 @@
   .tutor-book-theme-learning-objectives(@@book-theme-primary);
   .tutor-book-theme-note(@@book-theme-primary; @@book-theme-secondary);
 }
+
+.tutor-book-theme-tables(@table-accent-color) {
+  // inherits .tutor-tables()
+  table {
+    thead {
+      tr:first-child {
+        font-style: italic;
+        th {
+          font-weight: 400;
+          border-bottom: none;
+        }
+      }
+      tr:nth-child(2) {
+        th {
+          background: @tutor-white;
+          font-weight: 800;
+        }
+        border-bottom: solid 4px @table-accent-color;
+      }
+    }
+    tbody{
+      border-bottom: none;
+      tr{
+        td:first-child{
+          font-weight: 800;
+        }
+      }
+      ul{
+        list-style-type: circle;
+      }
+    }
+  }
+}
