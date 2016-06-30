@@ -41,6 +41,8 @@ module.exports = React.createClass
       1. Paste this link in your web browser to visit the class textbook:
       #{url}
 
+      You can also find your Concept Coach book by visiting cc.openstax.org and clicking “Student Portal.”
+
       1. In the browser, click the orange “Jump to Concept Coach” button to jump to to the Concept Coach widget at the end of the section. Click “Launch Concept Coach” to open your Concept Coach log-in window.
 
       2. If you’re new to Concept Coach, click “Sign up for Concept Coach” and follow the prompts to create your free account. If you’ve used Concept Coach before, click “Sign In” to sign in.
