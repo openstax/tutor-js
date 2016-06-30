@@ -42,11 +42,14 @@ StepContent = React.createClass
   getCnxId: ->
     TaskStepStore.getCnxId(@props.id)
 
+  shouldExcludeFrame: ->
+    @props.stepType is 'interactive'
+
   render: ->
     {id, stepType} = @props
     {content_html} = TaskStepStore.get(id)
     <div className={"#{stepType}-step"}>
-      <ArbitraryHtmlAndMath className={"#{stepType}-content"} html={content_html} />
+      <ArbitraryHtmlAndMath className={"#{stepType}-content"} html={content_html} shouldExcludeFrame={@shouldExcludeFrame} />
     </div>
 
 
