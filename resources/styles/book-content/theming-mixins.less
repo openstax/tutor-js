@@ -76,31 +76,6 @@
 }
 
 .tutor-book-theme-tables(@table-accent-color) {
-  // inherits .tutor-tables()
-  // .section-summary {
-  //   table {
-  //       caption {
-  //         caption-side: top;
-  //         font-style: italic;
-  //         font-weight: 400;
-  //         font-size: inherit;
-  //         th {
-  //           font-weight: 400;
-  //           border-bottom: none;
-  //         }
-  //       }
-  //     thead {
-  //       tr:first-child {
-  //         font-style: normal;
-  //         th {
-  //           background: @tutor-white;
-  //           font-weight: 800;
-  //         }
-  //         border-bottom: solid 4px @table-accent-color;
-  //       }
-  //     }
-  //   }
-  // }
   table {
       caption {
         caption-side: top;
@@ -110,6 +85,7 @@
       }
       caption + thead {
         tr:first-child {
+          font-style: normal;
           th {
             background: @tutor-white;
             font-weight: 800;
