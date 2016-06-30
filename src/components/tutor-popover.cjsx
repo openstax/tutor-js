@@ -68,7 +68,6 @@ TutorPopover = React.createClass
     # @refs.popper.updateOverlayPosition = =>
 
     viewer = @refs.popover.getDOMNode()
-    images = @getImages()
     {height, width} = viewer.getBoundingClientRect()
 
     scrollable = false
