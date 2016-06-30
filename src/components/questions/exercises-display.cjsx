@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 
 {PinnedHeaderFooterCard} = require 'openstax-react-components'
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
+
 Icon = require '../icon'
 ExerciseControls = require './exercise-controls'
 ExerciseDetails  = require '../exercises/details'
@@ -16,9 +17,10 @@ Dialog           = require '../tutor-dialog'
 ExercisesDisplay = React.createClass
 
   propTypes:
-    courseId:        React.PropTypes.string.isRequired
-    helpTooltip:     React.PropTypes.string.isRequired
-    sectionIds:      React.PropTypes.array
+    courseId:    React.PropTypes.string.isRequired
+    sectionIds:  React.PropTypes.array
+    ecosystemId: React.PropTypes.string.isRequired
+    helpTooltip: React.PropTypes.string.isRequired
 
   getInitialState: -> {
     filter: ''
@@ -71,7 +73,7 @@ ExercisesDisplay = React.createClass
     @setState(
       selectedExercise: exercise,
       currentView: 'details'
-      currentSection: ExerciseStore.getChapterSectionOfExercise(exercise)
+      currentSection: ExerciseStore.getChapterSectionOfExercise(@props.ecosystemId, exercise)
     )
     @props.onShowDetailsViewClick(ev, exercise)
 
@@ -170,6 +172,7 @@ ExercisesDisplay = React.createClass
         onExerciseToggle: @onExerciseToggle
         getExerciseActions: @getExerciseActions
         getExerciseIsSelected: @getExerciseIsSelected
+        ecosystemId: @props.ecosystemId
 
     if @props.showingDetails
       <ExerciseDetails
@@ -191,7 +194,7 @@ ExercisesDisplay = React.createClass
   render: ->
     return null if ExerciseStore.isLoading() or _.isEmpty(@props.sectionIds)
 
-    exercises = ExerciseStore.groupBySectionsAndTypes(@props.sectionIds, withExcluded: true)
+    exercises = ExerciseStore.groupBySectionsAndTypes(@props.ecosystemId, @props.sectionIds, withExcluded: true)
 
     <div className="exercises-display">
       <div className="instructions">

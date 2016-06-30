@@ -13,6 +13,7 @@ KEYBINDING_SCOPE  = 'exercise-details'
 ExerciseDetails = React.createClass
 
   propTypes:
+    ecosystemId:           React.PropTypes.string.isRequired
     selectedExercise:      React.PropTypes.object.isRequired
     selectedSection:       React.PropTypes.string
     exercises:             React.PropTypes.object.isRequired
@@ -52,7 +53,7 @@ ExerciseDetails = React.createClass
     for exercise, index in exercises
       if selectedExercise?.id is exercise.id
         currentIndex = index
-        currentSection = ExerciseStore.getChapterSectionOfExercise(exercise)
+        currentSection = ExerciseStore.getChapterSectionOfExercise(@props.ecosystemId, exercise)
         break
     @setState({exercises, currentIndex, currentSection})
 
@@ -62,7 +63,7 @@ ExerciseDetails = React.createClass
     nextState = {exercises}
     if selectedSection and selectedSection isnt @state.currentSection
       for exercise, index in exercises
-        section = ExerciseStore.getChapterSectionOfExercise(exercise)
+        section = ExerciseStore.getChapterSectionOfExercise(@props.ecosystemId, exercise)
         if selectedSection is section
           nextState.currentSection = selectedSection
           nextState.currentIndex = index
@@ -97,7 +98,7 @@ ExerciseDetails = React.createClass
 
   moveTo: (index) ->
     exercise = @state.exercises[index]
-    section = ExerciseStore.getChapterSectionOfExercise(exercise)
+    section = ExerciseStore.getChapterSectionOfExercise(@props.exerciseId, exercise)
     if @props.onSectionChange and @state.currentSection isnt section
       # defer is needed to allow setState to complete before callback is fired
       # otherwise component recieves props with the new section and doesn't know it's already on it

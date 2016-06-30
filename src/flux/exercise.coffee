@@ -14,11 +14,10 @@ EXERCISE_TAGS =
   LO: ['lo', 'aplo']
   GENERIC: ['blooms', 'dok', 'length']
 
-getChapterSection = (exercise) ->
-  tag = _.find(exercise.tags, (t) ->
-    _.include(EXERCISE_TAGS.LO, t.type)
-  )
-  tag?.chapter_section.join('.')
+getChapterSection = (ecosystemId, exercise) ->
+  for tag in exercise.tags when tag.type is 'cnxmod'
+    section = TocStore.findWhere(ecosystemId, uuid: tag.data)
+    return section.chapter_section.join('.') if section?
 
 getTagName = (tag) ->
   name = _.compact([tag.name, tag.description]).join(' ')
@@ -32,9 +31,12 @@ EXERCISE_TYPE_MAPPING =
 filterForPoolType = (exercises, pool_type) ->
   _.filter exercises, (exercise) -> -1 isnt exercise.pool_types.indexOf(pool_type)
 
-groupBySortedSections = ( exercises ) ->
+
+groupBySortedSections = ( ecosystemId, exercises ) ->
   sections = {}
-  grouped = _.groupBy(exercises, getChapterSection)
+  grouped = _.groupBy(exercises, (exercise) ->
+    getChapterSection(ecosystemId, exercise)
+  )
   for section in _.sortBy( _.keys(grouped), ContentHelpers.chapterSectionToNumber)
     sections[section] = grouped[section]
   sections
@@ -142,28 +144,23 @@ ExerciseConfig =
       else
         @_exerciseCache[exerciseId]?.is_excluded
 
-    getChapterSectionOfExercise: (exercise) ->
-      getChapterSection(exercise)
+    getChapterSectionOfExercise: (ecosystemId, exercise) ->
+      getChapterSection(ecosystemId, exercise)
 
-    getGroupedIncludedExercises: (pageIds) ->
-      exercises = @_exercises[pageIds.toString()]
-      includedExercises = _.reject exercises, 'is_excluded'
-      _.groupBy(includedExercises, getChapterSection)
-
-    groupBySectionsAndTypes: (pageIds, options = {withExcluded: false}) ->
+    groupBySectionsAndTypes: (ecosystemId, pageIds, options = {withExcluded: false}) ->
       all = @_exercises[pageIds.toString()] or []
       unless options.withExcluded is true
         all = _.filter( all, (ex) -> ex.is_excluded isnt true )
       results = {
         all:
           count: all.length
-          grouped: groupBySortedSections(all)
+          grouped: groupBySortedSections(ecosystemId, all)
       }
       for name, pool_type of EXERCISE_TYPE_MAPPING
         exercises = filterForPoolType(all, pool_type)
         results[name] = {
           count: exercises.length
-          grouped: groupBySortedSections(exercises)
+          grouped: groupBySortedSections(ecosystemId, exercises)
         }
       results
 
@@ -218,9 +215,6 @@ ExerciseConfig =
 
     getPageExerciseTypes: (pageId) ->
       _.unique _.flatten _.map @_exercises[pageId], @exports.getExerciseTypes
-
-    # poolTypes: (exercise) ->
-    #   _.without( exercise.pool_types, 'all_exercises')
 
     allForPage: (pageId) ->
       @_exercises[pageId] or []
