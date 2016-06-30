@@ -3,7 +3,7 @@ _ = require 'underscore'
 
 LoadingExercises = require './loading-exercises-mixin'
 {PinnedHeaderFooterCard} = require 'openstax-react-components'
-
+{CourseStore} = require '../../../flux/course'
 {ExerciseStore, ExerciseActions} = require '../../../flux/exercise'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 ExerciseHelpers  = require '../../../helpers/exercise'
@@ -88,9 +88,9 @@ AddExercises = React.createClass
 
   render: ->
     return @renderLoading() if @exercisesAreLoading()
-
-    exercises = ExerciseStore.groupBySectionsAndTypes(@props.sectionIds)
-
+    exercises = ExerciseStore.groupBySectionsAndTypes(
+      CourseStore.get(@props.courseId)?.ecosystem_id, @props.sectionIds
+    )
     sharedProps =
         exercises: exercises.all
         onExerciseToggle: @onExerciseToggle
