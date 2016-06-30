@@ -216,7 +216,7 @@ checks =
       expect(group.getDOMNode().innerText).to.contain('Personalized')
     # TODO deprecate spaced practice when BE is updated
     else if step.group is 'spaced_practice' or step.group is 'spaced practice'
-      expect(group.getDOMNode().innerText).to.contain('Review')
+      expect(group.getDOMNode().innerText).to.contain('Spaced Practice')
 
     {div, component, stepId, taskId, state, router, history}
 

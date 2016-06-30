@@ -170,9 +170,7 @@ describe 'Task Widget, through routes', ->
         done()
       , done)
 
-  # TODO: investigate why failure occurs. Probably related to:
-  # https://github.com/openstax/react-components/pull/84/files
-  xit 'should show spaced practice label for a spaced practice group step', (done) ->
+  it 'should show spaced practice label for a spaced practice group step', (done) ->
     # run a full step through and check each step
 
     taskActions
