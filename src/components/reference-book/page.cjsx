@@ -6,10 +6,11 @@ classnames = require 'classnames'
 
 {BookContentMixin} = require '../book-content-mixin'
 {ArbitraryHtmlAndMath, GetPositionMixin} = require 'openstax-react-components'
+LoadableItem = require '../loadable-item'
 
 {ReferenceBookExerciseShell} = require './exercise'
 
-{ReferenceBookPageStore} = require '../../flux/reference-book-page'
+{ReferenceBookPageActions, ReferenceBookPageStore} = require '../../flux/reference-book-page'
 {ReferenceBookStore} = require '../../flux/reference-book'
 {ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
 
@@ -52,7 +53,7 @@ module.exports = React.createClass
     exerciseNode = link.parentNode.parentNode
     React.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl}/>, exerciseNode) if exerciseNode?
 
-  render: ->
+  renderPage: ->
     {courseId, cnxId, ecosystemId} = @props
     # read the id from props, or failing that the url
     page = ReferenceBookPageStore.get(cnxId)
@@ -74,3 +75,12 @@ module.exports = React.createClass
       </SpyMode.Content>
 
     </div>
+
+  render: ->
+    {cnxId} = @props
+
+    <LoadableItem
+      id={cnxId}
+      store={ReferenceBookPageStore}
+      actions={ReferenceBookPageActions}
+      renderItem={@renderPage} />
