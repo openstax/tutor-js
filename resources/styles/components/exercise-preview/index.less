@@ -20,6 +20,7 @@
   }
 
   &.non-interactive {
+
     .placeholder {
       height: 200px;
       margin: 0 auto;
@@ -257,6 +258,17 @@
 
   .stimulus {
     margin-bottom: 1rem;
+    .preview {
+      width: 200px;
+      height: 200px;
+      margin: auto;
+      overflow: hidden;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      text-indent: 400px; // move text out of the frame so only background image shows up
+      &.video       { background-image: url("../../../images/exercise-video-placeholder.svg");       }
+      &.interactive { background-image: url("../../../images/exercise-interactive-placeholder.svg"); }
+    }
   }
 
   // use absolute positioning for the identifer so it's link is clickable through the overlay
