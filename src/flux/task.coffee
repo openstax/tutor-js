@@ -40,6 +40,14 @@ getChangedSteps = (steps) ->
   _.filter steps, (step) ->
     step? and TaskStepStore.isChanged(step.id)
 
+# HACK When working locally a step completion triggers a reload but the is_completed field on the TaskStep
+# is discarded. so, if is_completed is set on the local object but not on the returned JSON
+# Tack on a dummy correct_answer_id
+hackLocalStepCompletion = (step) ->
+  if step.is_completed and step.content?.questions?[0]?.answers[0]? and not step.correct_answer_id
+    step.correct_answer_id = step.content.questions[0].answers[0].id
+    step.feedback_html = 'Some <em>FAKE</em> feedback'
+
 TaskConfig =
   _steps: {}
 
@@ -79,6 +87,7 @@ TaskConfig =
     @_steps[id] = steps
 
     for step in steps
+      hackLocalStepCompletion(step) if obj.HACK_LOCAL_STEP_COMPLETION
       #HACK: set the task_id so we have a link back to the task from the step
       step.task_id = id
       TaskStepActions.loaded(step, step.id)
