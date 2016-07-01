@@ -1,7 +1,6 @@
 {Testing, expect, sinon, _} = require 'test/helpers'
 
 Exercise = require 'model/exercise'
-VideoPlaceholder = require 'components/exercise-preview/video-placeholder'
 
 EXERCISE = require 'stubs/exercise-preview/data'
 
