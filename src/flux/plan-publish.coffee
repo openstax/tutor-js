@@ -13,7 +13,7 @@ PlanPublishConfig =
   exports:
     _getIds: getIds
 
-extendConfig(PlanPublishConfig, new JobListenerConfig(2000, 100))
+extendConfig(PlanPublishConfig, new JobListenerConfig(2000, 200))
 
 PlanPublishConfig.exports.isPublishing = PlanPublishConfig.exports.isProgressing
 PlanPublishConfig.exports.isPublished = PlanPublishConfig.exports.isSucceeded

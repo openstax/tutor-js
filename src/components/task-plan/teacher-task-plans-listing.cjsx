@@ -66,15 +66,21 @@ TeacherTaskPlanListing = React.createClass
     startingState =
       displayAs: 'month'
 
+  getDateStates: (state) ->
+    date = @getDateFromParams()
+
+    bounds = @getBoundsForDate(date, state)
+    _.extend({date}, bounds)
+
   getBoundsForDate: (date, state) ->
     state ?= @state
 
     {displayAs} = state
 
-    start_at = TimeHelper.toISO(date.clone().startOf(displayAs).subtract(1, 'day'))
-    end_at = TimeHelper.toISO(date.clone().endOf(displayAs).add(1, 'day'))
+    startAt = TimeHelper.toISO(date.clone().startOf(displayAs).subtract(1, 'day'))
+    endAt = TimeHelper.toISO(date.clone().endOf(displayAs).add(1, 'day'))
 
-    {start_at, end_at}
+    {startAt, endAt}
 
   mixins: [CourseDataMixin]
 
@@ -112,22 +118,27 @@ TeacherTaskPlanListing = React.createClass
       date = TimeHelper.getMomentPreserveDate(date, @props.dateFormat)
     date
 
-  loadRange: (date) ->
-    date = TimeHelper.getMomentPreserveDate(date)
-    {start_at, end_at} = @getBoundsForDate(date)
+  isLoadingOrLoad: ->
     {courseId} = @context.router.getCurrentParams()
+    {startAt, endAt} = @getDateStates()
 
-    TeacherTaskPlanActions.load(courseId, start_at, end_at)
+    TeacherTaskPlanStore.isLoadingRange(courseId, startAt, endAt)
+
+  loadRange: ->
+    {courseId} = @context.router.getCurrentParams()
+    {startAt, endAt} = @getDateStates()
+
+    TeacherTaskPlanActions.load(courseId, startAt, endAt)
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
     courseDataProps = @getCourseDataProps(courseId)
     {displayAs} = @state
+    {date, startAt, endAt} = @getDateStates()
 
-    date = @getDateFromParams()
     loadPlansList = _.partial(TeacherTaskPlanStore.getActiveCoursePlans, courseId)
     loadedCalendarProps = {loadPlansList, courseId, date, displayAs}
-    loadingCalendarProps = {displayAs, className: 'calendar-loading'}
+    loadingCalendarProps = {loadPlansList, courseId, date, displayAs, className: 'calendar-loading'}
 
     <div {...courseDataProps} className="tutor-booksplash-background">
 
@@ -138,8 +149,10 @@ TeacherTaskPlanListing = React.createClass
         <LoadableItem
           store={TeacherTaskPlanStore}
           actions={TeacherTaskPlanActions}
-          load={_.partial(@loadRange, date)}
+          load={@loadRange}
+          options={{startAt, endAt}}
           id={courseId}
+          isLoadingOrLoad={@isLoadingOrLoad}
           renderItem={-> <CourseCalendar {...loadedCalendarProps}/>}
           renderLoading={-> <CourseCalendar {...loadingCalendarProps}/>}
         />

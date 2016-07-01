@@ -17,6 +17,7 @@ module.exports = React.createClass
     store: React.PropTypes.object.isRequired
     actions: React.PropTypes.object.isRequired
     renderItem: React.PropTypes.func.isRequired
+    isLoadingOrLoad: React.PropTypes.func
     saved: React.PropTypes.func
     load: React.PropTypes.func
     renderLoading: React.PropTypes.func
@@ -43,14 +44,14 @@ module.exports = React.createClass
       load(id, options)
 
   render: ->
-    { id, store, actions, load, isLoaded, isLoading, renderItem,
+    { id, store, actions, load, isLoaded, isLoading, isLoadingOrLoad, renderItem,
       saved, renderLoading, renderError, renderBug, update, options, bindEvent} = @props
 
     load ?= actions.load
     isLoaded ?= store.isLoaded
     isLoading ?= store.isLoading
 
-    isLoadingOrLoad = ->
+    isLoadingOrLoad ?= ->
       # if id is undefined, render as loading. loadableItem is waiting for id to be retrieved.
       return true unless id?
 
