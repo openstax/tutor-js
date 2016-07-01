@@ -1,3 +1,4 @@
+_ = require 'lodash'
 React = require 'react'
 BS = require 'react-bootstrap'
 
@@ -68,12 +69,20 @@ ExerciseCards = React.createClass
   render: ->
     chapter_sections = _.keys @props.exercises.grouped
 
+    sections = _.map(chapter_sections, (cs) =>
+      <SectionsExercises key={cs}
+        {...@props}
+        chapter_section={cs}
+        exercises={@props.exercises.grouped[cs]}
+      />
+    )
+
+    sections = <p className="no-exercises-found">
+      No exercises found in the selected sections.
+    </p> if not chapter_sections.length
+
     <div className="exercise-cards">
-      {for cs in chapter_sections
-        <SectionsExercises key={cs}
-          {...@props}
-          chapter_section={cs}
-          exercises={@props.exercises.grouped[cs]} />}
+      {sections}
     </div>
 
 module.exports = ExerciseCards
