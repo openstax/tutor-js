@@ -57,14 +57,6 @@ TutorPopover = React.createClass
 
     @setState(imagesLoading: currentImageStatus)
 
-  setMaxImageWidth: (image, maxWidth) ->
-    # unfortunately, css max-width does not work in firefox inside display: table elements
-    # https://bugzilla.mozilla.org/show_bug.cgi?id=975632
-    # See https://github.com/openstax/tutor-js/issues/977 for full details.
-    return unless image?
-    {width} = image.getBoundingClientRect?()
-    image.width = maxWidth if width > maxWidth
-
   areImagesLoading: ->
     _.compact(@state.imagesLoading).length isnt 0
 
@@ -76,9 +68,7 @@ TutorPopover = React.createClass
     # @refs.popper.updateOverlayPosition = =>
 
     viewer = @refs.popover.getDOMNode()
-    images = @getImages()
     {height, width} = viewer.getBoundingClientRect()
-    _.each(images, _.partial(@setMaxImageWidth, _, width - 30)) if width > 0
 
     scrollable = false
 
