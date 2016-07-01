@@ -6,11 +6,10 @@ classnames = require 'classnames'
 
 {BookContentMixin} = require '../book-content-mixin'
 {ArbitraryHtmlAndMath, GetPositionMixin} = require 'openstax-react-components'
-LoadableItem = require '../loadable-item'
 
 {ReferenceBookExerciseShell} = require './exercise'
 
-{ReferenceBookPageActions, ReferenceBookPageStore} = require '../../flux/reference-book-page'
+{ReferenceBookPageStore} = require '../../flux/reference-book-page'
 {ReferenceBookStore} = require '../../flux/reference-book'
 {ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
 
@@ -53,12 +52,12 @@ module.exports = React.createClass
     exerciseNode = link.parentNode.parentNode
     React.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl}/>, exerciseNode) if exerciseNode?
 
-  renderPage: ->
+  render: ->
     {courseId, cnxId, ecosystemId} = @props
     # read the id from props, or failing that the url
     page = ReferenceBookPageStore.get(cnxId)
 
-    html = page.content_html
+    html = page?.content_html or ''
     # FIXME the BE sends HTML with head and body
     # Fixing it with nasty regex for now
     html = html
@@ -71,16 +70,7 @@ module.exports = React.createClass
       <ArbitraryHtmlAndMath className='page center-panel' block html={html} />
 
       <SpyMode.Content className="ecosystem-info">
-        PageId: {@props.cnxId}, Ecosystem: {page.spy}
+        PageId: {@props.cnxId}, Ecosystem: {page?.spy}
       </SpyMode.Content>
 
     </div>
-
-  render: ->
-    {cnxId} = @props
-
-    <LoadableItem
-      id={cnxId}
-      store={ReferenceBookPageStore}
-      actions={ReferenceBookPageActions}
-      renderItem={@renderPage} />
