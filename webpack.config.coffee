@@ -20,7 +20,7 @@ else
 module.exports =
   cache: true
 
-  devtool: 'source-map' # Always include source maps!
+  devtool: '#inline-source-map' # Always include source maps!
 
   entry:
     tutor: [
