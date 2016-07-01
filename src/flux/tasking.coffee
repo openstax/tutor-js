@@ -4,18 +4,10 @@ moment = require 'moment-timezone'
 {makeSimpleStore, extendConfig} = require './helpers'
 TimeHelper = require '../helpers/time'
 
-TASKING_IDENTIFIERS = ['target_id', 'target_type']
-
-getIndexFromForTasking = (fromCollection, tasking) ->
-  _.findIndex(fromCollection, (fromItem) ->
-    _.isEqual(
-      _.pick(tasking, TASKING_IDENTIFIERS),
-      _.pick(fromItem, TASKING_IDENTIFIERS)
-    )
-  )
-
 getFromForTasking = (fromCollection, tasking) ->
-  _.findWhere(fromCollection, _.pick(tasking, TASKING_IDENTIFIERS))
+  return fromCollection if _.isEmpty(tasking)
+
+  fromCollection[toTaskingIndex(tasking)]
 
 transformDefaultPeriod = (period) ->
   target_id: period.id
@@ -24,16 +16,19 @@ transformDefaultPeriod = (period) ->
   due_time: period.default_due_time
 
 transformCourseToDefaults = (course) ->
-  {periods} = course
+  {periods, id} = course
 
-  courseDefaults =
-    open_time: course.default_open_time
-    due_time: course.default_due_time
+  courseDefaults = _.chain(periods)
+    .indexBy((period) ->
+      "period#{period.id}"
+    )
+    .mapObject(transformDefaultPeriod)
+    .value()
 
-  defaults = _.map periods, transformDefaultPeriod
-  defaults.push(courseDefaults)
-  
-  defaults
+  courseDefaults.open_time = course.default_open_time
+  courseDefaults.due_time = course.default_due_time
+
+  courseDefaults
 
 transformTasking = (tasking) ->
   transformed = _.pick(tasking, TASKING_IDENTIFIERS)
@@ -47,8 +42,10 @@ transformTasking = (tasking) ->
   transformed
 
 transformTaskings = (taskings) ->
-  _.map(taskings, transformTasking)
-
+  _.chain(taskings)
+    .indexBy(toTaskingIndex)
+    .mapObject(transformTasking)
+    .value()
 
 maskToTasking = (tasking) ->
   masked = _.pick(tasking, TASKING_IDENTIFIERS)
@@ -58,90 +55,185 @@ maskToTasking = (tasking) ->
 
   masked
 
+isTaskingValid = (tasking) ->
+  TimeHelper.isDateTimeString(tasking.opens_at) and TimeHelper.isDateTimeString(tasking.due_at)
+
+toTaskingIndex = (tasking) ->
+  "#{tasking.target_type}#{tasking.target_id}"
+
 # sample defaults
-# "#{courseId}": [{
+# "#{courseId}": {
 #   "open_time": "00:01"
-#   "due_time": "22:00"
-# }, {
-#   "target_id": "#{periodId}"
-#   "target_type": "period"
-#   "open_time": "00:01"
-#   "due_time": "11:00"
-# }...]
-
-toIndexer = (courseId, tasking) ->
-  identifiers = ["course#{courseId}"]
-
-  unless _.isUndefined(tasking)
-    if _.isString(tasking)
-      # assume tasking is taskId
-      tasking =
-        target_id: tasking
-        target_type: 'period'
-
-    identifiers.push("#{tasking.target_type}#{tasking.target_id}")
-
-  identifiers.join('.')
-
+#   "due_time": "22:00",
+#   "#{target_type}#{target_id}": {
+#     "open_time": "00:01"
+#     "due_time": "11:00"
+#   },
+#   "#{target_type}#{target_id}": {
+#     "open_time": "00:01"
+#     "due_time": "11:00"
+#   }
+# }
 
 TaskingConfig =
   _defaults: {}
   _taskings: {}
+  _tasksToCourse: {}
 
   loadDefaults: (courseId, course) ->
     @_defaults[courseId] = transformCourseToDefaults(course)
-    @emit("defaultsLoaded.#{courseId}")
+    @emit("defaults.#{courseId}.loaded")
+    true
 
   loadTaskings: (taskId, courseId, taskings) ->
-    taskings = transformTaskings(taskings)
-    @_taskings[taskId] = {taskings, courseId}
-    @emit("taskingsLoaded.#{taskId}")
+    @_taskings[taskId] = transformTaskings(taskings)
+    @_tasksToCourse[taskId] = courseId
+    @emit("taskings.#{taskId}.all.loaded")
+    true
 
-  updateTime: (taskId, tasking) ->
+  updateTime: (taskId, tasking, timeString, type) ->
+    taskingIndex = toTaskingIndex(tasking)
+    timeString = TimeHelper.getTimeOnly(timeString)
+    return false unless @_taskings[taskId][taskingIndex]? and timeString?
 
-  updateDate: () ->
+    @_taskings[taskId][taskingIndex]["#{type}_time"] = timeString
+    true
+
+  updateDate: (taskId, tasking, dateString, type) ->
+    taskingIndex = toTaskingIndex(tasking)
+    dateString = TimeHelper.getDateOnly(dateString)
+    return false unless @_taskings[taskId][taskingIndex]? and dateString?
+
+    @_taskings[taskId][taskingIndex]["#{type}_date"] = dateString
+    true
 
   updateTasking: (taskId, tasking) ->
-    taskingIndex = getIndexFromForTasking(@_taskings[taskId].taskings, tasking)
-    @_taskings[taskId].taskings[taskingIndex] = transformTasking(tasking)
+    taskingIndex = toTaskingIndex(tasking)
+    return false unless @_taskings[taskId][taskingIndex]?
+
+    @_taskings[taskId][taskingIndex] = transformTasking(tasking)
+    true
+
+  updateAllDates: (taskId, timeString, type) ->
+    dateString = TimeHelper.getDateOnly(dateString)
+    return false unless @_taskings[taskId]? and dateString?
+
+    _.each @_taskings[taskId], (tasking) ->
+      tasking["#{type}_date"] = dateString
+    true
+
+  updateAllTimes: (taskId, timeString, type) ->
+    timeString = TimeHelper.getTimeOnly(timeString)
+    return false unless @_taskings[taskId]? and timeString?
+
+    _.each @_taskings[taskId], (tasking) ->
+      tasking["#{type}_time"] = timeString
+    true
+
+  updateAllTaskings: (taskId, tasking) ->
+    return false unless @_taskings[taskId]?
+
+    _.each @_taskings[taskId], (prevTasking, taskingIndex) =>
+      @_taskings[taskId][taskingIndex] = tasking
+    true
+
+  initializeTaskingsToDefaultTimes: (taskId, dates = {open_date: '', due_date: ''}) ->
+    courseId = @exports.getCourseIdForTask.call(@, taskId)
+    taskings = @exports.getTaskingDefaults.call(@, courseId)
+
+    defaultToCourse = @exports.areDefaultTaskingTimesSame.call(@, courseId)
+
+    default = @exports.getDefaultsFor.call(@, courseId) if defaultToCourse
+    @_taskings[taskId] ?= {}
+
+    _.each taskings, (tasking) =>
+      default = @exports.getDefaultsFor.call(@, courseId, tasking) unless defaultToCourse
+      taskingIndex = toTaskingIndex(tasking)
+
+      @_taskings[taskId][taskingIndex] = _.extend({}, dates, default)
+
+    true
 
   exports:
     getDefaults: (courseId) ->
       @_defaults[courseId]
 
+    getTaskingDefaults: (courseId) ->
+      defaults = @exports.getDefaults.call(@, courseId)
+      _.omit(defaults, 'open_time', 'due_time')
+
     getDefaultsFor: (courseId, tasking) ->
       defaults = @exports.getDefaults.call(@, courseId)
-      getFromForTasking(defaults, tasking)
+      default = getFromForTasking(defaults, tasking)
+      _.pick(default, 'open_time', 'due_time')
+
+    areDefaultTaskingTimesSame: (courseId) ->
+      defaults = @exports.getTaskingDefaults.call(@, courseId)
+      firstDefault = _.chain(defaults)
+        .values()
+        .first()
+        .pick('open_time', 'due_time')
+        .value()
+
+      _.every defaults, (default) ->
+        _.isEqual(firstDefault, _.pick(default, 'opens_time', 'due_time'))
 
     _getTaskings: (taskId) ->
-      @_taskings[taskId].taskings
+      @_taskings[taskId]
 
     getTaskings: (taskId) ->
       storedTaskings = @exports._getTaskings.call(@, taskId)
 
       taskings = _.map storedTaskings, maskToTasking
 
-    getTaskingFor: (taskId, tasking) ->
+    _getTaskingFor: (taskId, tasking) ->
       storedTaskings = @exports._getTaskings.call(@, taskId)
       tasking = getFromForTasking(storedTaskings, tasking)
 
+    getTaskingFor: (taskId, tasking) ->
+      tasking = @exports._getTaskingFor.call(@, taskId, tasking)
       maskToTasking(tasking)
+
+    getCourseIdForTask: (taskId) ->
+      @_tasksToCourse[taskId]
 
     areTaskingsValid: (taskId) ->
       storedTaskings = @exports._getTaskings.call(@, taskId)
-      _.every storedTaskings, _.partial(@exports.isTaskingValid.bind(@), taskId)
+      _.every storedTaskings, isTaskingValid
 
     isTaskingValid: (taskId, tasking) ->
       tasking = @exports.getTaskingFor.call(@, taskId, tasking)
-      TimeHelper.isDateTimeString(tasking.opens_at) and TimeHelper.isDateTimeString(tasking.due_at)
+      isTaskingValid(tasking)
 
     isTaskingDefaultTime: (taskId, tasking, type = 'open') ->
-      {courseId, taskings} = @_taskings[taskId]
+      courseId = @exports.getCourseIdForTask.call(@, taskId)
 
-      tasking = getFromForTasking(taskings, tasking)
+      tasking = @exports.getTaskingFor.call(@, taskId, tasking)
       defaults = @exports.getDefaultsFor.call(@, courseId, tasking)
 
       tasking["#{type}_time"] is defaults["#{type}_time"]
 
+    hasTasking: (taskId, tasking) ->
+    hasAllTaskings: (taskId, tasking) ->
+    hasAnyTasking: (taskId, tasking) ->
+    getCommonDateTime: (taskId) ->
+      taskings = @exports.getTaskings(taskId)
+      firstTasking = _.chain(taskings)
+        .values()
+        .first()
+        .pick('opens_at', 'due_at')
+        .value()
 
+      hasCommon = _.every taskings, (tasking) ->
+        _.isEqual(firstTasking, _.pick(tasking, 'opens_at', 'due_at'))
 
+      return firstTasking if hasCommon
+      return false
+
+    getTaskingDate: (taskId, tasking, type = 'open') ->
+      tasking = @exports._getTaskingFor.call(@, taskId, tasking)
+      tasking["#{type}_date"]
+
+    getTaskingTime: (taskId, tasking, type = 'open') ->
+      tasking = @exports._getTaskingFor.call(@, taskId, tasking)
+      tasking["#{type}_time"]
