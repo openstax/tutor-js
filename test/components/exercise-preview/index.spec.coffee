@@ -63,9 +63,3 @@ describe 'Exercise Preview Component', ->
       Testing.actions.click(action)
       expect(actions.include.handler).to.have.been.called
       expect(onSelect.callCount).to.equal(1)
-
-  it 'renders placeholders', ->
-    _.extend(@props, isInteractive: false)
-    expect(@props.exercise.preview).to.exist
-    Testing.renderComponent( ExercisePreview, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('svg.placeholder.video')).to.exist

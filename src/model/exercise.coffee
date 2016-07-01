@@ -10,10 +10,6 @@ BOOK_UID_XREF =
   'd2fbadca-e4f3-4432-a074-2438c216b62a': 'Principles of Economics with Concept Coach'
   '99e127f8-f722-4907-a6b3-2d62fca135d6': 'Anatomy & Physiology with Concept Coach'
 
-PLACEHOLDER_COMPONENTS = {
-  video:       require '../components/exercise-preview/video-placeholder'
-  interactive: require '../components/exercise-preview/interactive-placeholder'
-}
 Exercises =
 
   troubleUrl: (options = {}) ->
@@ -37,11 +33,6 @@ Exercises =
 
   hasVideo: (exercise) ->
     exercise.has_video
-
-  replacePlaceholders: (content) ->
-    return [] unless content
-    _.map content.split(/<div class="preview (\w+)">\w+<\/div>/), (part) ->
-      PLACEHOLDER_COMPONENTS[part] or part
 
 
 module.exports = Exercises

@@ -6,12 +6,9 @@ BS = require 'react-bootstrap'
 ArbitraryHtmlAndMath = require '../html'
 ExerciseIdentifierLink = require '../exercise-identifier-link'
 Question = require '../question'
-VideoPlaceholder = require './video-placeholder'
-InteractivePlaceholder = require './interactive-placeholder'
 ExerciseBadges = require '../exercise-badges'
 ControlsOverlay = require './controls-overlay'
 Exercise = require '../../model/exercise'
-ContentWithPlaceholders = require './content-with-placeholders'
 
 ExercisePreview = React.createClass
 
@@ -63,7 +60,8 @@ ExercisePreview = React.createClass
       <ArbitraryHtmlAndMath className='stimulus' block={true}
         html={@props.exercise.content.stimulus_html} />
     else
-      <ContentWithPlaceholders content={@props.exercise.preview} className='stimulus' />
+      <ArbitraryHtmlAndMath className='stimulus' block={true}
+        html={@props.exercise.preview} />
 
   render: ->
     content = @props.exercise.content
