@@ -134,13 +134,18 @@ PlanFooter = React.createClass
 
 
     if deleteable
+      if TaskPlanStore.isPublished(id)
+        message = 'Some students may have started work on this assignment. Are you sure you want to delete?'
+      else
+        message = 'Are you sure you want to delete this draft?'
+
       deleteLink =
         <SuretyGuard
           onConfirm={@publishExercise}
           onConfirm={@onDelete}
           okButtonLabel='Yes'
           placement='top'
-          message="Some students may have started work on this assignment. Are you sure you want to delete?"
+          message={message}
         >
           <AsyncButton
             className='delete-link pull-right'
