@@ -231,3 +231,12 @@ describe 'Task Plan Builder', ->
       expect(getISODateString(dueAt)).to.be.equal(getISODateString(dayAfter))
       expect(dom.querySelector('.-assignment-due-date .datepicker__input-container input').value)
         .to.be.equal(getDateString(dayAfter))
+
+  it 'shows a message when due date is before open date', ->
+    firstPeriod = COURSES[0].periods[0]
+    extendedReading =
+      due_at: getISODateString(yesterday)
+      opens_at: getISODateString(dayAfter)
+
+    helper(NEW_READING, extendedReading).then ({dom, element}) ->
+      expect(dom.querySelector('.due-before-open')).to.not.be.null

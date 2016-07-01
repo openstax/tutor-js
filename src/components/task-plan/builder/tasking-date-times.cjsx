@@ -9,6 +9,7 @@ TimeHelper  = require '../../../helpers/time'
 {TaskPlanStore} = require '../../../flux/task-plan'
 {CourseStore, CourseActions}     = require '../../../flux/course'
 
+Icon = require '../../icon'
 DateTime = require './date-time'
 
 TaskingDateTimes = React.createClass
@@ -46,6 +47,14 @@ TaskingDateTimes = React.createClass
     else
       CourseStore.isSaving(courseId)
 
+  dueDateBeforeOpenDate: ->
+    {
+      taskingOpensAt,
+      taskingDueAt,
+    } = @props
+
+    taskingDueAt and taskingDueAt <= taskingOpensAt
+
   render: ->
     {
       isVisibleToStudents,
@@ -67,6 +76,15 @@ TaskingDateTimes = React.createClass
     maxOpensAt = TaskPlanStore.getMaxDueAt(id, period?.id)
     minDueAt = TaskPlanStore.getMinDueAt(id, period?.id)
 
+    dueBeforeOpen = <BS.Row>
+      <BS.Col xs=12 md=6 mdOffset=6>
+        <p className="due-before-open">
+          Due date cannot be before open date
+          <Icon type='exclamation-circle' />
+        </p>
+      </BS.Col>
+    </BS.Row> if @dueDateBeforeOpenDate()
+
     <BS.Col sm=8 md=9>
       <DateTime
         {...commonDateTimesProps}
@@ -81,7 +99,8 @@ TaskingDateTimes = React.createClass
         defaultTime={defaultOpenTime}
         setDefaultTime={@setDefaultTime}
         timeLabel='default_open_time'
-        isSetting={@isSetting} />
+        isSetting={@isSetting}
+      />
       <DateTime
         {...commonDateTimesProps}
         disabled={not isEditable}
@@ -94,7 +113,10 @@ TaskingDateTimes = React.createClass
         defaultTime={defaultDueTime}
         setDefaultTime={@setDefaultTime}
         timeLabel='default_due_time'
-        isSetting={@isSetting} />
+        isSetting={@isSetting}
+      />
+
+      { dueBeforeOpen }
     </BS.Col>
 
 module.exports = TaskingDateTimes

@@ -455,7 +455,11 @@ TaskPlanConfig =
         flag = true
         # TODO: check that all periods are filled in
         _.each plan.tasking_plans, (tasking) ->
-          unless tasking.due_at and tasking.opens_at
+          unless (
+            tasking.due_at and
+            tasking.opens_at and
+            tasking.opens_at < tasking.due_at
+          )
             flag = false
         flag and plan.tasking_plans?.length?
 
@@ -578,7 +582,7 @@ TaskPlanConfig =
       if opensAt.isBefore(TimeStore.getNow())
         opensAt = moment(TimeStore.getNow())
 
-      opensAt.startOf('day').add(1, 'day').format(TimeHelper.ISO_DATE_FORMAT)
+      opensAt.startOf('day').add(1, 'minute').format(TimeHelper.ISO_DATE_FORMAT)
 
     hasTasking: (id, periodId) ->
       plan = @_getPlan(id)
