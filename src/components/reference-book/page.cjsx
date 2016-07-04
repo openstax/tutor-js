@@ -57,7 +57,7 @@ module.exports = React.createClass
     # read the id from props, or failing that the url
     page = ReferenceBookPageStore.get(cnxId)
 
-    html = page.content_html
+    html = page?.content_html or ''
     # FIXME the BE sends HTML with head and body
     # Fixing it with nasty regex for now
     html = html
@@ -70,7 +70,7 @@ module.exports = React.createClass
       <ArbitraryHtmlAndMath className='page center-panel' block html={html} />
 
       <SpyMode.Content className="ecosystem-info">
-        PageId: {@props.cnxId}, Ecosystem: {page.spy}
+        PageId: {@props.cnxId}, Ecosystem: {page?.spy}
       </SpyMode.Content>
 
     </div>

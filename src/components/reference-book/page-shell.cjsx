@@ -12,19 +12,13 @@ ReferenceBookPageShell = React.createClass
   propTypes:
     cnxId: React.PropTypes.string.isRequired
 
-  getDefaultState: ->
-    previousPageProps: null
+  isAnotherPage: (currentProps) ->
+    @lastLoadedProps? and @lastLoadedProps.cnxId? and @lastLoadedProps.cnxId != currentProps.cnxId
 
-  componentWillReceiveProps: (nextProps) ->
-    @setState(previousPageProps: @props)
-
-  isAnotherPage: (previousPageProps, currentProps) ->
-    previousPageProps? and previousPageProps.cnxId? and not _.isEqual(previousPageProps, currentProps)
-
-  renderLoading: (previousPageProps, currentProps, refreshButton) ->
-    if @isAnotherPage(previousPageProps, currentProps)
+  renderLoading: (currentProps, refreshButton) ->
+    if @isAnotherPage(currentProps)
       loading = <ReferenceBookPage
-        {...previousPageProps}
+        {...@lastLoadedProps}
         className='page-loading loadable is-loading'>
         {refreshButton}
       </ReferenceBookPage>
@@ -34,6 +28,8 @@ ReferenceBookPageShell = React.createClass
     loading
 
   renderLoaded: ->
+    # Keep track of the last page that is actually loaded because we'll render it under the loading overlay
+    @lastLoadedProps = @props
     <ReferenceBookPage {...@props}/>
 
   render: ->
@@ -42,7 +38,7 @@ ReferenceBookPageShell = React.createClass
         id={@props.cnxId}
         store={ReferenceBookPageStore}
         actions={ReferenceBookPageActions}
-        renderLoading={_.partial(@renderLoading, @state?.previousPageProps, @props)}
+        renderLoading={_.partial(@renderLoading, @props)}
         renderItem={@renderLoaded}
       />
     else
