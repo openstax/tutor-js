@@ -69,17 +69,18 @@ ExerciseCards = React.createClass
   render: ->
     chapter_sections = _.keys @props.exercises.grouped
 
-    sections = _.map(chapter_sections, (cs) =>
-      <SectionsExercises key={cs}
-        {...@props}
-        chapter_section={cs}
-        exercises={@props.exercises.grouped[cs]}
-      />
-    )
-
-    sections = <p className="no-exercises-found">
-      No exercises found in the selected sections.
-    </p> if not chapter_sections.length
+    if chapter_sections?.length
+      sections = _.map(chapter_sections, (cs) =>
+        <SectionsExercises key={cs}
+          {...@props}
+          chapter_section={cs}
+          exercises={@props.exercises.grouped[cs]}
+        />
+      )
+    else
+      sections = <p className="no-exercises-found">
+        No exercises found in the selected sections.
+      </p>
 
     <div className="exercise-cards">
       {sections}
