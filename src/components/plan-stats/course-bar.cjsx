@@ -2,6 +2,8 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 
+Icon = require '../icon'
+
 CourseBar = React.createClass
   displayName: 'CourseBar'
   propTypes:
@@ -10,6 +12,22 @@ CourseBar = React.createClass
     totalCols: React.PropTypes.number
   getDefaultProps: ->
     totalCols: 12
+
+  getCorrectLabel: (data) ->
+    tooltipMsg = '''
+      Percent correct out of total attempted.
+      This score does not take unanswered questions into account,
+      so it may differ from the average you see in Student Scores.
+    '''
+    icon =
+      <Icon type='info-circle' tooltip={tooltipMsg}
+        tooltipProps={placement: 'top', trigger: 'click'}
+      />
+    label =
+      <span>
+        Percent Correct {icon}
+      </span>
+    { label, type: 'average', value: "#{data.mean_grade_percent}%" }
 
   getStats: ->
     {data, type} = @props
@@ -47,16 +65,12 @@ CourseBar = React.createClass
       }]
 
     if type is 'homework' and data.mean_grade_percent
-      stats.unshift(
-        type: 'average'
-        label: 'Average'
-        value: "#{data.mean_grade_percent}%"
-      )
+      stats.unshift(@getCorrectLabel(data))
 
     stats
 
   renderCourseStat: (stat, cols = 4) ->
-    key = "reading-stats-#{stat.type}"
+    key = "stat #{stat.type}"
     <BS.Col xs={cols} className={key} key={key}>
       <label>{stat.label}</label>
       <div className = "data-container-value text-#{stat.type}">
@@ -72,7 +86,7 @@ CourseBar = React.createClass
     statsColumns = _.map stats, _.partial(@renderCourseStat, _, cols)
 
     <BS.Grid className='data-container' key='course-bar'>
-      <BS.Row>
+      <BS.Row className='stats'>
         {statsColumns}
       </BS.Row>
     </BS.Grid>
