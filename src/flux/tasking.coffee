@@ -42,8 +42,8 @@ transformTasking = (tasking) ->
   transformed.open_time = TimeHelper.getTimeOnly(tasking.opens_at)
   transformed.due_time = TimeHelper.getTimeOnly(tasking.due_at)
 
-  transformed.open_date = TimeHelper.getTimeOnly(tasking.opens_at)
-  transformed.due_date = TimeHelper.getTimeOnly(tasking.due_at)
+  transformed.open_date = TimeHelper.getDateOnly(tasking.opens_at)
+  transformed.due_date = TimeHelper.getDateOnly(tasking.due_at)
 
   transformed
 
@@ -149,9 +149,12 @@ TaskingConfig =
     @emit("defaults.#{courseId}.loaded")
     true
 
-  loadTaskings: (taskId, courseId, taskings) ->
+  loadTaskToCourse: (taskId, courseId) ->
+    @_tasksToCourse[taskId] = courseId
+
+  loadTaskings: (taskId, taskings) ->
     commonTasking = getCommonTasking(taskings)
-    isAll = commonTasking isnt false
+    isAll = commonTasking?
 
     @updateTaskingsIsAll(taskId, isAll)
 
@@ -162,7 +165,6 @@ TaskingConfig =
     else
       @resetTasking(taskId)
 
-    @_tasksToCourse[taskId] = courseId
     @emit("taskings.#{taskId}.all.loaded")
     true
 
@@ -194,7 +196,8 @@ TaskingConfig =
     true
 
   resetTasking: (taskId, tasking, dates = {}) ->
-    defaults = @exports.getDefaultsFor.call(@, taskId, tasking)
+    courseId = @exports.getCourseIdForTask.call(@, taskId)
+    defaults = @exports.getDefaultsFor.call(@, courseId, tasking)
     taskingIndex = toTaskingIndex(tasking)
     currentTasking = @_taskings[taskId][taskingIndex] or {}
     updatedTasking = _.extend({disabled: false}, currentTasking, dates, defaults)
@@ -326,11 +329,13 @@ TaskingConfig =
         _.each taskings, (tasking) ->
           _.extend(tasking, courseTasking)
       else
-        taskings = @exports.getTaskings.call(@, taskId)
-        taskings = _.chain(taskings)
+        storedTaskings = @exports._getTaskings.call(@, taskId)
+        taskings = _.chain(storedTaskings)
           .omit(toTaskingIndex())
+          .values()
           .reject (tasking) ->
             tasking.disabled
+          .map maskToTasking
           .value()
 
       taskings

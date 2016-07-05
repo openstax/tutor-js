@@ -15,6 +15,7 @@ TimeHelper = require '../../../helpers/time'
 {PeriodActions, PeriodStore} = require '../../../flux/period'
 
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
+{TaskingStore, TaskingActions} = require '../../../flux/tasking'
 {TutorInput, TutorDateInput, TutorTimeInput, TutorDateFormat, TutorTextArea} = require '../../tutor-input'
 {CourseStore, CourseActions}   = require '../../../flux/course'
 {AsyncButton} = require 'openstax-react-components'
@@ -101,6 +102,12 @@ TaskPlanBuilder = React.createClass
 
     isNewPlan = TaskPlanStore.isNew(id)
 
+    if isNewPlan
+      TaskingActions.create(id)
+    else
+      {tasking_plans} = TaskPlanStore.get(id)
+      TaskingActions.loadTaskings(id, tasking_plans)
+
     # check for common open/due dates, remember it now before we set defaults
     dueAt = TaskPlanStore.getDueAt(id)
     commonDates = dueAt and TaskPlanStore.getOpensAt(id)
@@ -132,9 +139,10 @@ TaskPlanBuilder = React.createClass
     {taskingOpensAt, taskingDueAt}
 
   componentWillMount: ->
-    {courseId} = @props
+    {id, courseId} = @props
     courseTimezone = CourseStore.getTimezone(courseId)
     TimeHelper.syncCourseTimezone(courseTimezone)
+    TaskingActions.loadTaskToCourse(id, courseId)
     #set the periods defaults only after the timezone has been synced
     @setPeriodDefaults()
 
