@@ -2,10 +2,6 @@ moment = require 'moment-timezone'
 require 'moment-timezone/moment-timezone-utils'
 _ = require 'underscore'
 
-{TimeStore} = require '../flux/time'
-{CourseStore} = require '../flux/course'
-
-
 # Map http://www.iana.org/time-zones names to timezone names in Rails
 # https://github.com/openstax/tutor-server/pull/1057#issuecomment-212678167
 TIME_LINKS =
@@ -81,9 +77,8 @@ TimeHelper =
     week: currentLocale._week
     weekdaysMin: currentLocale._weekdaysMin
 
-  syncCourseTimezone: (courseId) ->
-    return if @isCourseTimezone(courseId)
-    courseTimezone = CourseStore.getTimezone(courseId)
+  syncCourseTimezone: (courseTimezone) ->
+    return if @isCourseTimezone(courseTimezone)
     @_local ?= @getLocalTimezone()
     zonedMoment = moment.tz.setDefault(courseTimezone)
     zonedMoment
@@ -127,8 +122,7 @@ TimeHelper =
   isTimezoneValid: (timezone) ->
     timezone in _.values(TimeHelper.getTimezones())
 
-  isCourseTimezone: (courseId) ->
-    courseTimezone = CourseStore.getTimezone(courseId)
+  isCourseTimezone: (courseTimezone) ->
     return false unless courseTimezone?
 
     {offsets} = moment()._z or moment.tz(TimeHelper.getLocalTimezone())._z

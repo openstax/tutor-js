@@ -1,5 +1,6 @@
 # coffeelint: disable=no_empty_functions
 _ = require 'underscore'
+{cloneDeep} = require 'lodash'
 moment = require 'moment-timezone'
 validator = require 'validator'
 
@@ -9,8 +10,11 @@ validator = require 'validator'
 {ExerciseStore} = require './exercise'
 {PlanPublishActions, PlanPublishStore} = require './plan-publish'
 {CourseActions, CourseStore} = require './course'
+{TaskingActions, TaskingStore} = require './tasking'
 ContentHelpers = require '../helpers/content'
 TimeHelper = require '../helpers/time'
+
+planCrudConfig = new CrudConfig()
 
 ISO_DATE_ONLY_REGEX = /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/
 
@@ -41,6 +45,34 @@ isDateStringOnly = (timeString) ->
   ISO_DATE_ONLY_REGEX.test(timeString)
 
 
+BASE_PLANS =
+  homework:
+    is_feedback_immediate: false
+    settings:
+      page_ids: []
+      exercise_ids: []
+      exercises_count_dynamic: TUTOR_SELECTIONS.default
+  reading:
+    settings:
+      page_ids: []
+  external:
+    settings:
+      external_url: ''
+  events:
+    settings: {}
+
+newTaskPlan = (attributes) ->
+  if BASE_PLANS[attributes.type]?
+    _.extend({}, attributes, cloneDeep(BASE_PLANS[attributes.type]))
+  else
+    {}
+
+validateSettings = (taskPlan) ->
+  expectedSettings = _.keys(BASE_PLANS[taskPlan.type].settings)
+  taskPlan.settings = _.pick(taskPlan.settings, expectedSettings)
+
+  taskPlan
+
 TaskPlanConfig =
 
   _stats: {}
@@ -60,34 +92,21 @@ TaskPlanConfig =
     else
       {}
 
+  create: (localId, attributes = {}) ->
+    attributes = newTaskPlan(attributes)
+    planCrudConfig.create.call(@, localId, attributes)
+
   _getPlan: (planId) ->
-    console.info('_getPlan', planId)
-    @_local[planId] ?= {}
-    @_local[planId].settings ?= {}
-    @_local[planId].settings.page_ids ?= []
+    obj = @_get(planId)
 
-    if @_local[planId]?.type is PLAN_TYPES.HOMEWORK or @_changed[planId]?.type is PLAN_TYPES.HOMEWORK
-      @_changed[planId] ?= {}
-      # need to default final posting json's is feedback immediate to false
-      @_changed[planId].is_feedback_immediate ?= false unless @_local[planId].is_feedback_immediate?
-      @_local[planId].settings.exercise_ids ?= []
-      @_local[planId].settings.exercises_count_dynamic ?= TUTOR_SELECTIONS.default
-
-    if @_local[planId]?.tasking_plans?
-      _.each @_local[planId]?.tasking_plans, (tasking) ->
+    if obj?.tasking_plans?
+      _.each obj?.tasking_plans, (tasking) ->
         tasking.due_at = TimeHelper.makeMoment(tasking.due_at)
           .format("#{TimeHelper.ISO_DATE_FORMAT} #{TimeHelper.ISO_TIME_FORMAT}")
         tasking.opens_at = TimeHelper.makeMoment(tasking.opens_at)
           .format("#{TimeHelper.ISO_DATE_FORMAT} #{TimeHelper.ISO_TIME_FORMAT}")
 
-    #TODO take out once TaskPlan api is in place
-    obj = _.extend({}, @_local[planId], @_changed[planId])
-
-    # iReadings should not contain exercise_ids and will cause a silent 422 on publish
-    if obj.type is PLAN_TYPES.READING
-      delete obj.settings.exercise_ids
-      delete obj.settings.exercises_count_dynamic
-
+    obj = validateSettings(obj)
     obj
 
   FAILED: -> # used by API
@@ -620,6 +639,6 @@ TaskPlanConfig =
 
       not _.isEqual(changed, _.pick(defaultPlan, _.keys(changed)))
 
-extendConfig(TaskPlanConfig, new CrudConfig())
+extendConfig(TaskPlanConfig, planCrudConfig)
 {actions, store} = makeSimpleStore(TaskPlanConfig)
 module.exports = {TaskPlanActions:actions, TaskPlanStore:store}

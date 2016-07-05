@@ -35,8 +35,6 @@ CourseMonth = React.createClass
     date: @props.date
 
   getInitialState: ->
-    # check isCourseTimezone should we need to show a notice
-    isCourseTimezone: TimeHelper.isCourseTimezone()
     activeAddDate: null
 
   getDefaultProps: ->

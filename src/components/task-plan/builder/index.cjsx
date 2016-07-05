@@ -133,13 +133,13 @@ TaskPlanBuilder = React.createClass
 
   componentWillMount: ->
     {courseId} = @props
-    TimeHelper.syncCourseTimezone(courseId)
+    courseTimezone = CourseStore.getTimezone(courseId)
+    TimeHelper.syncCourseTimezone(courseTimezone)
     #set the periods defaults only after the timezone has been synced
     @setPeriodDefaults()
 
   componentWillUnmount: ->
-    {courseId} = @props
-    TimeHelper.unsyncCourseTimezone(courseId)
+    TimeHelper.unsyncCourseTimezone()
 
   setOpensAt: (value, period) ->
     {id} = @props
