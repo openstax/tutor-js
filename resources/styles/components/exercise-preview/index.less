@@ -173,6 +173,7 @@
       .answers-answer {
         padding-left: 15px;
         counter-increment: answer;
+        display: table;
 
         &.answer-correct {
           color: @openstax-secondary;
@@ -180,30 +181,29 @@
 
           &:before {
             .fa-icon();
-            float: left;
-            margin-top: 0.15em;
-            margin-right: .125em;
+            padding-top: 0.15em;
+            padding-right: .125em;
             content: @fa-var-check;
+            display: table-cell;
           }
         }
 
         .answer-label {
           font-weight: 400;
-          display: table;
+          display: table-cell;
         }
 
         .answer-letter {
-          margin-right: 1rem;
-          float: left;
-
+          padding-right: 1rem;
+          display: table-cell;
           &:after {
             content: counter(answer, lower-latin) ')';
           }
         }
 
         .answer-answer {
-          display: table;
-          margin-bottom: 5px;
+          display: table-cell;
+          padding-bottom: 5px;
         }
       }
 
