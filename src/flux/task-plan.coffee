@@ -61,6 +61,7 @@ TaskPlanConfig =
       {}
 
   _getPlan: (planId) ->
+    console.info('_getPlan', planId)
     @_local[planId] ?= {}
     @_local[planId].settings ?= {}
     @_local[planId].settings.page_ids ?= []

@@ -55,11 +55,45 @@ maskToTasking = (tasking) ->
 
   masked
 
-isTaskingValid = (tasking) ->
-  TimeHelper.isDateTimeString(tasking.opens_at) and TimeHelper.isDateTimeString(tasking.due_at)
-
 toTaskingIndex = (tasking) ->
   "#{tasking.target_type}#{tasking.target_id}"
+
+isTaskingValidTime = (tasking) ->
+  TimeHelper.hasTimeString(tasking.opens_at) and TimeHelper.hasTimeString(tasking.due_at)
+
+isTaskingValidDate = (tasking) ->
+  TimeHelper.hasDateString(tasking.opens_at) and TimeHelper.hasDateString(tasking.due_at)
+
+isProperRange = (tasking) ->
+  moment(tasking.due_at).isAfter(tasking.opens_at)
+
+ERRORS =
+  'INVALID_DATE': 'Please pick a date.'
+  'INVALID_TIME': 'Please type a time.'
+  'DUE_BEFORE_OPEN': 'Due time cannot be before open time.'
+
+VALIDITY_CHECKS = [{
+  check: isTaskingValidTime,
+  errorType: 'INVALID_TIME'
+}, {
+  check: isTaskingValidDate,
+  errorType: 'INVALID_DATE'
+}, {
+  check: isProperRange,
+  errorType: 'DUE_BEFORE_OPEN'
+}]
+
+getErrorsForTasking = (tasking, {check, errorType}) ->
+  ERRORS[errorType] unless check(tasking)
+
+getTaskingErrors = (tasking) ->
+  errors = _.chain(VALIDITY_CHECKS)
+    .map _.partial(getErrorsForTasking, tasking)
+    .compact()
+    .value()
+
+isTaskingValid = (tasking) ->
+  _.isEmpty(getTaskingErrors(tasking))
 
 # sample defaults
 # "#{courseId}": {
@@ -91,30 +125,31 @@ TaskingConfig =
     @emit("taskings.#{taskId}.all.loaded")
     true
 
-  updateTime: (taskId, tasking, timeString, type) ->
+  updateTime: (taskId, tasking, type, timeString) ->
     taskingIndex = toTaskingIndex(tasking)
     timeString = TimeHelper.getTimeOnly(timeString)
-    return false unless @_taskings[taskId][taskingIndex]? and timeString?
+    return false unless timeString?
 
+    @_taskings[taskId][taskingIndex] ?= {}
     @_taskings[taskId][taskingIndex]["#{type}_time"] = timeString
     true
 
-  updateDate: (taskId, tasking, dateString, type) ->
+  updateDate: (taskId, tasking, type, dateString) ->
     taskingIndex = toTaskingIndex(tasking)
     dateString = TimeHelper.getDateOnly(dateString)
-    return false unless @_taskings[taskId][taskingIndex]? and dateString?
+    return false unless dateString?
 
+    @_taskings[taskId][taskingIndex] ?= {}
     @_taskings[taskId][taskingIndex]["#{type}_date"] = dateString
     true
 
   updateTasking: (taskId, tasking) ->
     taskingIndex = toTaskingIndex(tasking)
-    return false unless @_taskings[taskId][taskingIndex]?
 
     @_taskings[taskId][taskingIndex] = transformTasking(tasking)
     true
 
-  updateAllDates: (taskId, timeString, type) ->
+  updateAllDates: (taskId, type, timeString) ->
     dateString = TimeHelper.getDateOnly(dateString)
     return false unless @_taskings[taskId]? and dateString?
 
@@ -122,7 +157,7 @@ TaskingConfig =
       tasking["#{type}_date"] = dateString
     true
 
-  updateAllTimes: (taskId, timeString, type) ->
+  updateAllTimes: (taskId, type, timeString) ->
     timeString = TimeHelper.getTimeOnly(timeString)
     return false unless @_taskings[taskId]? and timeString?
 
@@ -152,6 +187,24 @@ TaskingConfig =
 
       @_taskings[taskId][taskingIndex] = _.extend({}, dates, default)
 
+    true
+
+  enableTasking: (taskId, tasking, dates = {open_date: '', due_date: ''}) ->
+    courseId = @exports.getCourseIdForTask.call(@, taskId)
+    taskingIndex = toTaskingIndex(tasking)
+
+    defaultToCourse = @exports.areDefaultTaskingTimesSame.call(@, courseId)
+
+    default = if defaultToCourse then
+      @exports.getDefaultsFor.call(@, courseId)
+    else
+      @exports.getDefaultsFor.call(@, courseId, tasking
+
+    @_taskings[taskId][taskingIndex] = _.extend({}, dates, default)
+
+  disableTasking: (taskId, tasking) ->
+    taskingIndex = toTaskingIndex(tasking)
+    delete @_taskings[taskId][taskingIndex]
     true
 
   exports:
@@ -205,6 +258,10 @@ TaskingConfig =
       tasking = @exports.getTaskingFor.call(@, taskId, tasking)
       isTaskingValid(tasking)
 
+    getTaskingErrors: (taskId, tasking) ->
+      tasking = @exports.getTaskingFor.call(@, taskId, tasking)
+      getTaskingErrors(tasking)
+
     isTaskingDefaultTime: (taskId, tasking, type = 'open') ->
       courseId = @exports.getCourseIdForTask.call(@, taskId)
 
@@ -213,9 +270,9 @@ TaskingConfig =
 
       tasking["#{type}_time"] is defaults["#{type}_time"]
 
-    hasTasking: (taskId, tasking) ->
-    hasAllTaskings: (taskId, tasking) ->
-    hasAnyTasking: (taskId, tasking) ->
+    # hasTasking: (taskId, tasking) ->
+    # hasAllTaskings: (taskId, tasking) ->
+    # hasAnyTasking: (taskId, tasking) ->
     getCommonDateTime: (taskId) ->
       taskings = @exports.getTaskings(taskId)
       firstTasking = _.chain(taskings)

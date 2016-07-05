@@ -21,6 +21,9 @@ TimeHelper = require '../../../helpers/time'
 
 Tasking = require './tasking'
 
+window.TaskPlanStore = TaskPlanStore
+window.TaskPlanActions = TaskPlanActions
+
 TaskPlanBuilder = React.createClass
 
   mixins: [PlanMixin, BindStoreMixin, UnsavedStateMixin]

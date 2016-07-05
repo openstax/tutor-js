@@ -47,6 +47,12 @@ TimeHelper =
   isTimeStringOnly: (stringToCheck) ->
     ISO_TIME_ONLY_REGEX.test(stringToCheck)
 
+  hasTimeString: (stringToCheck) ->
+    ISO_TIME_REGEX.test(stringToCheck)
+
+  hasDateString: (stringToCheck) ->
+    ISO_DATE_REGEX.test(stringToCheck)
+
   getTimeOnly: (stringToCheck) ->
     _.first(stringToCheck.match(ISO_TIME_REGEX))
 
