@@ -69,13 +69,3 @@ describe 'Exercise Preview Component', ->
     expect(@props.exercise.preview).to.exist
     Testing.renderComponent( ExercisePreview, props: @props ).then ({dom}) ->
       expect(dom.querySelector('svg.placeholder.video')).to.exist
-
-
-  it 'renders context if given', ->
-    Testing.renderComponent( ExercisePreview, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('div.context')).to.exist
-
-  it 'hides context if missing', ->
-    _.extend(@props.exercise, context: '')
-    Testing.renderComponent( ExercisePreview, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('div.context')).not.to.exist
