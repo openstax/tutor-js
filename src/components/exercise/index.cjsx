@@ -10,7 +10,7 @@ ExerciseBadges = require '../exercise-badges'
 ExerciseIdentifierLink = require '../exercise-identifier-link'
 
 {ScrollListenerMixin} = require 'react-scroll-components'
-{ScrollTracker, ScrollTrackerParentMixin} = require '../scroll-tracker'
+# {ScrollTracker, ScrollTrackerParentMixin} = require '../scroll-tracker'
 
 ExerciseMixin =
   getLastPartId: ->
@@ -152,17 +152,17 @@ ExerciseWithScroll = React.createClass
       return @renderSinglePart()
 
     exerciseParts = @renderMultiParts()
-    exercisePartsWithScroll = _.chain(exerciseParts)
-      .map _.partial(@wrapPartWithScroll, parts)
-      .flatten()
-      .value()
+    # exercisePartsWithScroll = _.chain(exerciseParts)
+    #   .map _.partial(@wrapPartWithScroll, parts)
+    #   .flatten()
+    #   .value()
     exerciseGroup = @renderGroup()
     footer ?= @renderFooter() if pinned
 
     <CardBody footer={footer} pinned={pinned} className='openstax-multipart-exercise-card'>
       <ExerciseBadges isMultipart={true}/>
       {exerciseGroup}
-      {exercisePartsWithScroll}
+      {exerciseParts}
       {@renderIdLink(false)}
     </CardBody>
 
