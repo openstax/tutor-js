@@ -79,7 +79,7 @@ TaskingDateTimes = React.createClass
     dueBeforeOpen = <BS.Row>
       <BS.Col xs=12 md=6 mdOffset=6>
         <p className="due-before-open">
-          Due date cannot be before open date
+          Due time cannot be before open time
           <Icon type='exclamation-circle' />
         </p>
       </BS.Col>
