@@ -13,9 +13,12 @@ getRatioClass = (frame) ->
 isEmbedded = (frame) ->
   frame.parentNode?.classList.contains('embed-responsive')
 
+isInteractive = (frame) ->
+  frame.classList.contains('interactive')
+
 wrapFrames = (dom, shouldExcludeFrame) ->
   _.each(dom.getElementsByTagName('iframe'), (frame) ->
-    return null if isEmbedded(frame) or shouldExcludeFrame?(frame)
+    return null if isEmbedded(frame) or isInteractive(frame) or shouldExcludeFrame?(frame)
 
     wrapper = document.createElement("div")
     wrapper.className = "frame-wrapper embed-responsive #{getRatioClass(frame)}"
