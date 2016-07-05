@@ -2,20 +2,12 @@
   // add a title pseudo element if a data-label attribute is present
   &[data-label]:not([data-label=""]) {
     &::before {
-      position: absolute;
       content: attr(data-label);
-      #fonts > .sans(@tutor-book-ui-top-height - 18px, @tutor-book-ui-top-height);
-      font-weight: 900;
-      padding: 0 40px;
-      height: @tutor-book-ui-top-height;
-      display: inline-block;
-      margin: @book-content-note-with-background-margin;
+      .tutor-book-label-style();
     }
   }
 
-
-  // padding-bottom breaks embed responsive rules
-  :last-child:not(.embed-responsive){
+  :last-child:not(.embed-responsive) {
     padding-bottom: 0;
   }
 
@@ -48,8 +40,22 @@
   }
 }
 
+.tutor-book-label-style() {
+  position: absolute;
+  #fonts > .sans(@tutor-book-ui-top-height - 18px, @tutor-book-ui-top-height);
+  font-weight: 900;
+  padding: 0 40px;
+  height: @tutor-book-ui-top-height;
+  display: inline-block;
+  margin: @book-content-note-with-background-margin;
+}
+
 > .note,
+> .example,
+> [data-element-type="check-understanding"],
+section > [data-element-type="check-understanding"],
 > section > .note:not(.learning-objectives),
+section > .example,
 section > section > .note {
   background: @tutor-neutral-lightest;
   margin: 38px 0 32px 0;
@@ -63,4 +69,53 @@ section > section > .note {
   &:not(.os-teacher) {
     display: inline-block;
   }
+}
+
+.tutor-book-reading-note() {
+  > .note,
+  > .example,
+  > [data-element-type="check-understanding"],
+  > section > .note:not(.learning-objectives):not(.tips-for-success),
+  section > section > .note {
+    background: none;
+    &:before {
+      margin: @book-content-note-without-background-margin;
+    }
+  }
+  > .example,
+  > [data-element-type="check-understanding"],
+   {
+    padding: 20px 0;
+    .embed-responsive {
+      iframe {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.tutor-book-reading-titles(){
+  section > h1 {
+    clear: both;
+  }
+}
+
+
+// .example, check-understanding content currently lacks a data-label attribute
+> .example,
+section > .example {
+  &::before {
+    content: "Worked Example";
+    .tutor-book-label-style();
+  }
+}
+
+
+> [data-element-type="check-understanding"],
+section > [data-element-type="check-understanding"] {
+    &::before {
+    content: "Check Your Understanding";
+    .tutor-book-label-style();
+  }
+  [data-type="title"] {display: none;}
 }
