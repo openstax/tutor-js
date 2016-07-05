@@ -110,6 +110,9 @@ ExercisePreview = React.createClass
 
       <ExerciseBadges exercise={@props.exercise} />
 
+      {<ArbitraryHtmlAndMath className='context' block={true}
+        html={@props.exercise.context} /> unless _.isEmpty(@props.exercise.context)}
+
       {@renderStimulus()}
 
       {questions}

@@ -1,10 +1,14 @@
 {
+  "id": "20",
+  "url": "https:\/\/exercises-dev.openstax.org\/exercises\/20@2",
+  "preview": "Read the above content and then watch this video about DNA:\n<div class=\"preview video\">Video<\/div>\n\nAfter watching it, keep it's important lessions in mind while you answer the following questions",
   "has_video": true,
   "has_interactive": false,
   "is_excluded": false,
   "pool_types": [
     "homework_core"
   ],
+  "context": "<div data-type=\"note\" data-has-label=\"true\" id=\"mcbp_04_01\" class=\"note sociology-real-world\" data-label=\"about socieities\">\n<div data-type=\"title\" class=\"title\">Where Societies Meet—The Worst and the Best</div>\n<p id=\"import-auto-id1169034204797\">When cultures meet, technology can help, hinder, and even destroy.</p> </div>",
   "tags": [
     {
       "data": "cb7cf05b-7e16-4a53-a498-003b01ec3d7f",
@@ -206,7 +210,7 @@
         "id": 6404
       }
     ],
-    "stimulus_html": "Watch this video about DNA:\n<iframe width=\"1280\" height=\"720\" src=\"https:\/\/www.youtube.com\/embed\/dQw4w9WgXcQ\" frameborder=\"0\" allowfullscreen=\"\"><\/iframe>\n\nAfter watching it, keep it's important lessions in mind while you answer the following questions",
+    "stimulus_html": "Read the above content and then watch this video about DNA:\n<iframe width=\"1280\" height=\"720\" src=\"https:\/\/www.youtube.com\/embed\/dQw4w9WgXcQ\" frameborder=\"0\" allowfullscreen=\"\"><\/iframe>\n\nAfter watching it, keep it's important lessions in mind while you answer the following questions",
     "is_vocab": false,
     "derived_from": [],
     "copyright_holders": [
@@ -248,8 +252,5 @@
       "filter-type:import:hs"
     ],
     "attachments": []
-  },
-  "preview": "\nWatch this video about DNA:\n<div class=\"preview video\">Video<\/div>\n\nAfter watching it, keep it's important lessions in mind while you answer the following questions",
-  "url": "https:\/\/exercises-dev.openstax.org\/exercises\/20@2",
-  "id": "20"
+  }
 }
