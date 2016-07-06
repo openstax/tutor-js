@@ -122,15 +122,15 @@ isTaskingValid = (tasking) ->
 isTaskingOpened = (tasking) ->
   moment(tasking.opens_at).isBefore(TimeStore.getNow())
 
-getCommonTasking = (taskings) ->
+getCommonTasking = (taskings, commonBy = TASKING_MASKED) ->
   firstTasking = _.chain(taskings)
     .values()
     .first()
-    .pick(TASKING_MASKED)
+    .pick(commonBy)
     .value()
 
   hasCommon = _.every taskings, (tasking) ->
-    _.isEqual(firstTasking, _.pick(tasking, TASKING_MASKED))
+    _.isEqual(firstTasking, _.pick(tasking, commonBy))
 
   return firstTasking if hasCommon
 
@@ -164,22 +164,6 @@ TaskingConfig =
   loadTaskToCourse: (taskId, courseId) ->
     @_tasksToCourse[taskId] = courseId
 
-  loadTaskings: (taskId, taskings) ->
-    commonTasking = getCommonTasking(taskings)
-    isAll = commonTasking?
-
-    @updateTaskingsIsAll(taskId, isAll)
-
-    @_taskings[taskId] = transformTaskings(taskings)
-
-    if isAll
-      @_taskings[taskId][toTaskingIndex()] = transformTasking(commonTasking)
-    else
-      @resetTasking(taskId)
-
-    @emit("taskings.#{taskId}.all.loaded")
-    true
-
   updateTime: (taskId, tasking, type, timeString) ->
     taskingIndex = toTaskingIndex(tasking)
     timeString = TimeHelper.getTimeOnly(timeString)
@@ -200,15 +184,15 @@ TaskingConfig =
     @emit("taskings.#{taskId}.#{taskingIndex}.changed")
     true
 
-  resetTasking: (taskId, tasking, dates = {}) ->
+  resetTasking: (taskId, tasking, setTasking) ->
     courseId = @exports.getCourseIdForTask.call(@, taskId)
     defaults = @exports.getDefaultsFor.call(@, courseId, tasking)
     taskingIndex = toTaskingIndex(tasking)
     currentTasking = @_taskings[taskId][taskingIndex] or _.pick(tasking, TASKING_IDENTIFIERS)
-    updatedTasking = _.extend({disabled: false}, currentTasking, dates, defaults)
+    updatedTasking = _.extend({disabled: false}, defaults, currentTasking, setTasking)
 
     @_taskings[taskId][taskingIndex] = _.pick(updatedTasking, TASKING_WORKING_PROPERTIES)
-    @emit("taskings.#{taskId}.#{taskingIndex}.changed")
+    @emit("taskings.#{taskId}.#{taskingIndex}.reset")
     true
 
   updateTaskingsIsAll: (taskId, isAll) ->
@@ -216,18 +200,44 @@ TaskingConfig =
     @emit("taskings.#{taskId}.isAll.changed")
     true
 
+  loadTaskings: (taskId, taskings) ->
+    blankTaskings = @exports._getBlankTaskings.call(@, taskId)
+
+    commonTasking = getCommonTasking(taskings)
+    isAll = commonTasking?
+    @updateTaskingsIsAll(taskId, isAll)
+
+    taskingsToLoad = transformTaskings(taskings)
+
+    commonOpenDate = getCommonTasking(taskingsToLoad, 'open_date')
+    commonDueDate = getCommonTasking(taskingsToLoad, 'due_date')
+
+    baseTaskingToLoad = _.extend({}, commonOpenDate, commonDueDate)
+    disabledBaseTasking = _.extend({disabled: true}, baseTaskingToLoad)
+
+    taskingToLoad = transformTasking(commonTasking) if isAll
+
+    @_taskings[taskId] = {}
+    @resetTasking(taskId, {}, taskingToLoad or baseTaskingToLoad)
+
+    _.each blankTaskings, (tasking) =>
+      taskingToLoad = getFromForTasking(taskingsToLoad, tasking)
+      @resetTasking(taskId, tasking, taskingToLoad or disabledBaseTasking)
+
+    @emit("taskings.#{taskId}.all.loaded")
+    true
+
   create: (taskId, dates = {open_date: '', due_date: ''}) ->
     courseId = @exports.getCourseIdForTask.call(@, taskId)
-    taskings = @exports._getBlankTaskings.call(@, taskId)
+    blankTaskings = @exports._getBlankTaskings.call(@, taskId)
 
     isAll = @exports.areDefaultTaskingTimesSame.call(@, courseId)
     @updateTaskingsIsAll(taskId, isAll)
 
-    @_taskings[taskId] ?= {}
-
+    @_taskings[taskId] = {}
     @resetTasking(taskId, {}, dates)
 
-    _.each taskings, (tasking) =>
+    _.each blankTaskings, (tasking) =>
       @resetTasking(taskId, tasking, dates)
 
     @emit("taskings.#{taskId}.all.changed")
@@ -285,15 +295,9 @@ TaskingConfig =
 
     areDefaultTaskingTimesSame: (courseId) ->
       defaults = @exports.getTaskingDefaults.call(@, courseId)
-      firstDefault = _.chain(defaults)
-        .omit(toTaskingIndex())
-        .values()
-        .first()
-        .pick(TASKING_TIMES)
-        .value()
+      taskingDefaults = _.omit(defaults, toTaskingIndex())
 
-      _.every defaults, (taskingDefault) ->
-        _.isEqual(firstDefault, _.pick(taskingDefault, TASKING_TIMES))
+      getCommonTasking(taskingDefaults, TASKING_TIMES)
 
     getTaskings: (taskId) ->
       storedTaskings = @exports._getTaskings.call(@, taskId)
@@ -348,13 +352,23 @@ TaskingConfig =
         storedTaskings = @exports._getTaskings.call(@, taskId)
         taskings = _.chain(storedTaskings)
           .omit(toTaskingIndex())
-          .values()
           .reject (tasking) ->
             tasking.disabled
           .map maskToTasking
           .value()
 
       taskings
+
+    hasAllTaskings: (taskId) ->
+      isTaskingsAll = @exports.getTaskingsIsAll.call(@, taskId)
+      return true if isTaskingsAll
+
+      storedTaskings = @exports._getTaskings.call(@, taskId)
+      hasAllTaskings = _.chain(storedTaskings)
+        .omit(toTaskingIndex())
+        .every (tasking) ->
+          not tasking.disabled
+        .value()
 
     isTaskingOpened: (taskId, tasking) ->
       tasking = @exports.getTaskingFor.call(@, taskId, tasking)

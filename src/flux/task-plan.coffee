@@ -17,7 +17,7 @@ TimeHelper = require '../helpers/time'
 planCrudConfig = new CrudConfig()
 
 ISO_DATE_ONLY_REGEX = /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/
-
+ISO_DATETIME_REGEX = /\d{4}-[01]\d-[0-3]\d [0-2]\d:[0-5]\d/
 
 TUTOR_SELECTIONS =
   default: 3
@@ -36,14 +36,14 @@ sortTopics = (topics) ->
     ContentHelpers.chapterSectionToNumber(topic.chapter_section)
   )
 
-
-
 isSameOrBeforeNow = (time) ->
   moment(time).isSameOrBefore(TimeStore.getNow())
 
 isDateStringOnly = (timeString) ->
   ISO_DATE_ONLY_REGEX.test(timeString)
 
+isDateTimeString = (timeString) ->
+  ISO_DATETIME_REGEX.test(timeString)
 
 BASE_PLANS =
   homework:
@@ -119,44 +119,6 @@ TaskPlanConfig =
   replaceTaskings: (id, taskings) ->
     @_change(id, {tasking_plans: taskings})
 
-  _findTasking: (tasking_plans, periodId) ->
-    _.findWhere(tasking_plans, {target_id:periodId, target_type:'period'})
-
-  _getPeriodDates: (id, periodId) ->
-    throw new Error('BUG: Period is required arg') unless periodId
-    plan = @_getPlan(id)
-    {tasking_plans} = plan
-    if tasking_plans
-      @_findTasking(tasking_plans, periodId)
-    else
-      undefined
-
-  # detects if all taskings are set to the same due_at/opens_at date
-  # if so the date is returned, else undefined
-  _getTaskingsCommonDate: (id, attr) ->
-    {tasking_plans} = @_getPlan(id)
-    # do all the tasking_plans have the same date?
-    taskingDates = _.map(tasking_plans, (plan) ->
-      date = TimeHelper.makeMoment(plan[attr]) if plan[attr]?
-    )
-
-    commonDate = _.reduce taskingDates, (previous, current) ->
-      if not _.isUndefined(previous) and current?.isSame?(previous)
-        current
-      else
-        undefined
-
-  _getFirstTaskingByOpenDate: (id) ->
-    {tasking_plans} = @_getPlan(id)
-    sortedTaskings = _.sortBy(tasking_plans, 'opens_at')
-    if sortedTaskings?.length
-      sortedTaskings[0]
-
-  _getFirstTaskingByDueDate: (id) ->
-    tasking_plans = @_getPlan(id)?.tasking_plans or @_changed[id]?.tasking_plans or @_getOriginal(id)?.tasking_plans
-    sortedTaskings = _.sortBy(tasking_plans, 'due_at')
-    sortedTaskings[0] if sortedTaskings?.length
-
   updateTutorSelection: (id, direction) ->
     {exercises_count_dynamic} = @_getClonedSettings(id, 'exercises_count_dynamic')
 
@@ -172,44 +134,6 @@ TaskPlanConfig =
   updateDescription:(id, description) ->
     plan = @_getPlan(id)
     @_change(id, {description: description})
-
-  # updates due_at/opens_at dates for taskings
-  # If a periodId is given, only that tasking is updated.
-  # If not, all taskings are set to that date
-  updateDateAttribute: (id, attr, date, periodId) ->
-    plan = @_getPlan(id)
-    {tasking_plans} = plan
-    tasking_plans ?= []
-    tasking_plans = tasking_plans[..] # Clone it
-    throw new Error('id is required') unless id
-    throw new Error("#{attr} is required") unless date
-
-    # assumes that date is an ISO format date string.
-    if periodId
-      tasking = @_findTasking(tasking_plans, periodId)
-      tasking[attr] = date
-    else
-      for tasking in tasking_plans
-        tasking[attr] = date
-
-    @_change(id, {tasking_plans})
-
-  clearDueAt: (id) ->
-    plan = @_getPlan(id)
-    {tasking_plans} = plan
-    tasking_plans ?= []
-    tasking_plans = tasking_plans[..] # Clone it
-
-    for tasking in tasking_plans
-      tasking['due_at'] = undefined
-
-    @_change(id, {tasking_plans})
-
-  updateOpensAt: (id, opens_at, periodId) ->
-    @updateDateAttribute(id, 'opens_at', opens_at, periodId)
-
-  updateDueAt: (id, due_at, periodId) ->
-    @updateDateAttribute(id, 'due_at', due_at, periodId)
 
   updateUrl: (id, external_url) ->
     @_change(id, {settings: {external_url}})
@@ -360,10 +284,11 @@ TaskPlanConfig =
     getChangedCleanedTaskings: (id) ->
       serverPlan = @_getOriginal(id)
       changes = @exports.getChanged.call(@, id)
-      return changes unless serverPlan?
+      # console.info(changes)
+      # return changes unless serverPlan?
 
-      if _.isEqual(changes.tasking_plans, serverPlan.tasking_plans)
-        changes = _.omit(changes, 'tasking_plans')
+      # if _.isEqual(changes.tasking_plans, serverPlan.tasking_plans)
+      #   changes = _.omit(changes, 'tasking_plans')
 
       changes
 
@@ -375,15 +300,10 @@ TaskPlanConfig =
       plan = @_getPlan(id)
 
       isValidDates = ->
-        flag = true
         # TODO: check that all periods are filled in
-        _.each plan.tasking_plans, (tasking) ->
-          unless (
-            tasking.due_at and
-            tasking.opens_at and
-            tasking.opens_at < tasking.due_at
-          )
-            flag = false
+        flag = _.every plan.tasking_plans, (tasking) ->
+          isDateTimeString(tasking.due_at) and isDateTimeString(tasking.opens_at)
+
         flag and plan.tasking_plans?.length?
 
       if (plan.type is 'reading')
@@ -401,30 +321,28 @@ TaskPlanConfig =
 
     isDeleteRequested: (id) -> @_isDeleteRequested(id)
 
+    _getFirstTaskingByOpenDate: (id) ->
+      {tasking_plans} = @_getPlan(id)
+      sortedTaskings = _.sortBy(tasking_plans, 'opens_at')
+      if sortedTaskings?.length
+        sortedTaskings[0]
+
+    _getFirstTaskingByDueDate: (id) ->
+      tasking_plans = @_getPlan(id)?.tasking_plans or @_changed[id]?.tasking_plans or @_getOriginal(id)?.tasking_plans
+      sortedTaskings = _.sortBy(tasking_plans, 'due_at')
+      sortedTaskings[0] if sortedTaskings?.length
+
     isOpened: (id) ->
-      firstTasking = @_getFirstTaskingByOpenDate(id)
+      firstTasking = @exports._getFirstTaskingByOpenDate.call(@, id)
       isSameOrBeforeNow(firstTasking?.opens_at)
 
     isVisibleToStudents: (id) ->
       plan = @_getPlan(id)
-      firstTasking = @_getFirstTaskingByOpenDate(id)
+      firstTasking = @exports._getFirstTaskingByOpenDate.call(@, id)
       (!!plan?.published_at or !!plan?.is_publish_requested) and isSameOrBeforeNow(firstTasking?.opens_at)
 
     getFirstDueDate: (id) ->
-      due_at = @_getFirstTaskingByDueDate(id)?.due_at
-
-    areDefaultsCommon: (courseId) ->
-      course = CourseStore.get(courseId)
-
-      areOpenTimesSame = _.every course.periods, (period) ->
-        {default_open_time} = period
-        default_open_time is _.first(course.periods).default_open_time
-
-      areDueTimesSame = _.every course.periods, (period) ->
-        {default_due_time} = period
-        default_due_time is _.first(course.periods).default_due_time
-
-      areOpenTimesSame and areDueTimesSame
+      due_at = @exports._getFirstTaskingByDueDate.call(@, id)?.due_at
 
     isEditable: (id) ->
       # cannot be/being deleted
@@ -448,65 +366,6 @@ TaskPlanConfig =
     getStats: (id) ->
       @_getStats(id)
 
-    _getAt: (id, periodId, attr = 'opens_at') ->
-      if periodId?
-        tasking = @_getPeriodDates(id, periodId)
-        if tasking?[attr]?
-          at = tasking?[attr]
-          at = TimeHelper.makeMoment(at)
-      else
-        # default opens_at to 1 day from now
-        at = @_getTaskingsCommonDate(id, attr)
-      at
-
-    _getOpensAt: (id, periodId) ->
-      opensAt = @exports._getAt.call(@, id, periodId, 'opens_at')
-
-    getOpensAtDate: (id, periodId) ->
-      opensAt = @exports._getOpensAt.call(@, id, periodId)
-      opensAt?.format?(TimeHelper.ISO_DATE_FORMAT) or opensAt
-
-    getOpensAtTime: (id, periodId) ->
-      opensAt = @exports._getOpensAt.call(@, id, periodId)
-      return undefined if isDateStringOnly opensAt?.creationData?().input
-
-      opensAt?.format?(TimeHelper.ISO_TIME_FORMAT)
-
-    getOpensAt: (id, periodId) ->
-      opensAt = @exports._getOpensAt.call(@, id, periodId)
-      opensAt?.format?("#{TimeHelper.ISO_DATE_FORMAT} #{TimeHelper.ISO_TIME_FORMAT}") or opensAt
-
-    _getDueAt: (id, periodId) ->
-      dueAt = @exports._getAt.call(@, id, periodId, 'due_at')
-
-    getDueAtDate: (id, periodId) ->
-      dueAt = @exports._getDueAt.call(@, id, periodId)
-      dueAt?.format?(TimeHelper.ISO_DATE_FORMAT) or dueAt
-
-    getDueAtTime: (id, periodId) ->
-      dueAt = @exports._getDueAt.call(@, id, periodId)
-      return undefined if isDateStringOnly dueAt?.creationData?().input
-
-      dueAt?.format?(TimeHelper.ISO_TIME_FORMAT)
-
-    getDueAt: (id, periodId) ->
-      dueAt = @exports._getDueAt.call(@, id, periodId)
-      dueAt?.format?("#{TimeHelper.ISO_DATE_FORMAT} #{TimeHelper.ISO_TIME_FORMAT}") or dueAt
-
-    getMaxDueAt: (id, periodId) ->
-      dueAt = @exports.getDueAt.call(@, id, periodId)
-      return dueAt unless dueAt?
-
-      dueAt = TimeHelper.makeMoment(@exports.getDueAt.call(@, id, periodId))
-      dueAt.startOf('day').subtract(1, 'day').format(TimeHelper.ISO_DATE_FORMAT)
-
-    getMinDueAt: (id, periodId) ->
-      opensAt = TimeHelper.makeMoment(@exports.getOpensAt.call(@, id, periodId))
-      if opensAt.isBefore(TimeStore.getNow())
-        opensAt = moment(TimeStore.getNow())
-
-      opensAt.startOf('day').add(1, 'minute').format(TimeHelper.ISO_DATE_FORMAT)
-
     hasTasking: (id, periodId) ->
       plan = @_getPlan(id)
       {tasking_plans} = plan
@@ -523,10 +382,6 @@ TaskPlanConfig =
       {periods} = course
       _.every periods, (period) =>
         @exports.hasTasking.call(@, id, period.id)
-
-    getEnabledTaskings: (id) ->
-      plan = @_getPlan(id)
-      plan?.tasking_plans
 
     isStatsLoading: (id) -> @_asyncStatusStats[id] is 'loading'
 

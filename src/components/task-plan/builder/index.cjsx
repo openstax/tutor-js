@@ -45,7 +45,7 @@ TaskPlanBuilder = React.createClass
 
     isNewPlan = TaskPlanStore.isNew(id)
 
-    showingPeriods: not isNewPlan or (isNewPlan and not TaskPlanStore.areDefaultsCommon(courseId))
+    showingPeriods: not TaskingStore.getTaskingsIsAll(id)
     currentLocale: TimeHelper.getCurrentLocales()
     isInitialized: false
     savedIndividualTaskings: null
