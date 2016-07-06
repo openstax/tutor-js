@@ -13,6 +13,8 @@
   @pie-color-hover: #0DC0DC;
   @finished-icon-size: 24px;
   @group-header-title-height: 60px;
+  @table-outer-border-width: 2px;
+  @table-outer-border-color: @student-header-bg-color;
 
   .nav.nav-tabs {
     clear: both;
@@ -26,6 +28,7 @@
     text-overflow: ellipsis;
     width: 100%;
     position: relative;
+    border-right: 1px solid @nav-tabs-border-color;
 
     &.sortable {
       font-size: 1.2rem;
@@ -70,6 +73,7 @@
       font-size: 1.2rem;
       font-style: italic;
       color: lighten(@tutor-neutral, 10%);
+      border-right: 1px solid @nav-tabs-border-color;
     }
   }
 
@@ -79,17 +83,17 @@
   }
 
   .overall-border-top() {
-    border-width: 2px 3px 0px 2px;
+    border-width: 2px 2px 0px 2px;
     .overall-border-style();
   }
 
   .overall-border-middle() {
-    border-width: 0px 3px 0px 2px;
+    border-width: 0px 2px 0px 2px;
     .overall-border-style();
   }
 
   .overall-border-bottom() {
-    border-width: 0px 3px 2px 2px;
+    border-width: 0px 2px 2px 2px;
     .overall-border-style();
   }
 
@@ -107,9 +111,16 @@
 
     .average {
       height: @average-header-row-height;
+
       span {
         .align-center();
       }
+
+      &:first-child {
+        border-top: @table-outer-border-width solid @table-outer-border-color;
+        margin-bottom: 2px;
+      }
+
       &.empty {
         background: @student-header-bg-color;
       }
@@ -148,12 +159,41 @@
     .tutor-late-icon();
     padding-left:8px;
   }
+
   .public_fixedDataTable_header,
   .public_fixedDataTable_header .public_fixedDataTableCell_main {
     background: @tutor-white;
   }
+
+  .public_fixedDataTable_header,
+  .public_fixedDataTable_hasBottomBorder {
+    border: none;
+  }
+
+  .public_fixedDataTableCell_main {
+    border: none;
+  }
+
+  .public_fixedDataTableRow_fixedColumnsDivider {
+    border: none;
+  }
+
+  .public_fixedDataTable_hasBottomBorder {
+    border-bottom: @table-outer-border-width solid @table-outer-border-color;
+  }
+
+  .public_fixedDataTableCell_main:last-child {
+    .group-header > *,
+    .assignment-header-cell .average-cell,
+    .assignment-header-cell .scores-cell > *:last-child,
+    .scores-cell > *:last-child {
+      border-right: @table-outer-border-width solid @table-outer-border-color;
+    }
+  }
+
   .assignment-header-cell {
     padding: 0;
+    border-top: @table-outer-border-width solid @table-outer-border-color;
 
     > div {
       display: block;
@@ -172,6 +212,9 @@
     }
 
     .average-label {
+      border-left: @table-outer-border-width solid @table-outer-border-color;
+      text-align: center;
+
       .help {
         font-style: italic;
         font-size: 1.2rem;
@@ -187,6 +230,7 @@
     .average-cell {
       padding: 0;
       font-weight: normal;
+      border-right: 1px solid @nav-tabs-border-color;
 
       > span {
         line-height: @average-header-row-height;
@@ -223,6 +267,17 @@
       .student-name {
         text-align: left;
         padding-left: @left-column-padding;
+        border-left: @table-outer-border-width solid @table-outer-border-color;
+      }
+    }
+
+    .scores-cell {
+      & > * {
+        line-height: @student-header-row-height;
+        color: @student-header-fg-color;
+        font-style: italic;
+        font-weight: normal;
+        border-right: none;
       }
     }
   }
@@ -233,31 +288,23 @@
     text-align: center;
   }
 
-  // includes split cells
   .scores-cell {
+    // includes split cells
     & > * {
-      line-height: @student-header-row-height;
+      line-height: @table-row-height;
       display: inline-block;
       width: 50%;
       text-align: center;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      color: @student-header-fg-color;
-      font-style: italic;
-      font-weight: normal;
+      border-right: 1px solid @nav-tabs-border-color;
 
       &.wide {
         width: 100%;
       }
-
-      &:first-child {
-        border-right: 1px solid @nav-tabs-border-color;
-      }
     }
 
-  }
-  .scores-cell {
     a.not-complete {
       text-decoration: none;
     }
@@ -330,6 +377,14 @@
     }
   }
   .name-cell {
+    border-left: @table-outer-border-width solid @table-outer-border-color;
+    line-height: @table-row-height;
+
+    .student-name {
+      padding: 0;
+      padding-left: @left-column-padding;
+    }
+
     .name {
       text-align: left;
       padding-left: @left-column-padding;
