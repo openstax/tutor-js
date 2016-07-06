@@ -1,4 +1,6 @@
 .scores-report {
+  @nav-tab-height: 50px;
+  @display-as-btn-height: 40px;
 
   // negates bottom padding on body to eliminate scrollbar
   margin-bottom: -50px;
@@ -9,49 +11,119 @@
     padding: 0;
   }
 
-  .nav-tabs {
-    .tutor-nav-tabs();
-    border-bottom: none;
+  .course-nav-container {
+    margin-top: 20px;
+    .clearfix();
 
-    li {
-      border-bottom: 1px solid @nav-tabs-border-color;
+    nav {
+      float: left;
+    }
 
-      &.active {
-        position: relative;
-        border: 1px solid @nav-tabs-border-color;
-        border-bottom: none;
+    .nav.nav-tabs {
+      .tutor-nav-tabs();
+      border-bottom: none;
+      clear: both;
+
+      > li {
+        border-bottom: 1px solid @nav-tabs-border-color;
+
+        &.active {
+          position: relative;
+          border: 1px solid @nav-tabs-border-color;
+          border-bottom: none;
+        }
+
+        > a {
+          line-height: @nav-tab-height;
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+      }
+    }
+
+    .filter-row {
+      height: @display-as-btn-height;
+      float: right;
+
+      div {
+        float: left;
+      }
+      div + div {
+        margin-left: 10px;
+      }
+
+      .filter-label {
+        line-height: @display-as-btn-height;
+      }
+
+      .filter-group {
+        box-shadow: none;
+        border-radius: 0;
+        margin: 0 0 0 20px;
+
+        button {
+          height: @display-as-btn-height;
+          border-radius: 0px;
+          width: 90px;
+          margin-right: 0;
+          margin-left: -1px;
+
+          &:first-child {
+            margin-left: 0;
+          }
+
+          &.selected {
+            border: #ddd;
+            background: #f2f2f2;
+            color: #424242;
+            font-weight: normal;
+            z-index: 10;
+
+            &:hover {
+              background: #f2f2f2;
+            }
+          }
+        }
       }
     }
   }
+
   &.panel {
     max-width: 100%;
   }
+  
   .course-scores-wrap {
     position: relative;
   }
+
   .course-scores-container {
     padding: 15px;
     border: 1px solid @nav-tabs-border-color;
   }
+
   .course-scores-title {
     font-size: 3rem;
     padding-bottom: 20px;
     display: inline-block;
   }
+
   .course-scores-notice {
     font-size: 2.3rem;
     margin-top: 40px;
     display: inline-block;
   }
+
   .course-scores-note {
     font-style: italic;
     font-size: 1.2rem;
     color: @tutor-neutral;
+
     &.tab {
       margin-left: 25px;
-      line-height: 40px;
+      line-height: @nav-tab-height;
     }
   }
+
   .course-scores-container {
     overflow: hidden;
     max-width: 100%;
