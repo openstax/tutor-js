@@ -135,7 +135,7 @@ TaskPlanBuilder = React.createClass
   changeTaskPlan: ->
     {id} = @props
 
-    taskings = TaskingStore.get(id)
+    taskings = TaskingStore.getChanged(id)
     TaskPlanActions.replaceTaskings(id, taskings)
 
   setAllPeriods: ->

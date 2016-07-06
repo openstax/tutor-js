@@ -1,15 +1,13 @@
 # coffeelint: disable=no_empty_functions
 _ = require 'underscore'
 {cloneDeep} = require 'lodash'
-moment = require 'moment-timezone'
 validator = require 'validator'
 
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {TocStore} = require './toc'
-{TimeStore} = require './time'
 {ExerciseStore} = require './exercise'
 {PlanPublishActions, PlanPublishStore} = require './plan-publish'
-{CourseActions, CourseStore} = require './course'
+{CourseStore} = require './course'
 ContentHelpers = require '../helpers/content'
 
 planCrudConfig = new CrudConfig()
@@ -103,7 +101,10 @@ TaskPlanConfig =
     @_change(id, settings: _.extend({}, plan.settings, attributes))
 
   replaceTaskings: (id, taskings) ->
-    @_change(id, {tasking_plans: taskings})
+    if taskings?
+      @_change(id, {tasking_plans: taskings})
+    else if @_changed[id]?.tasking_plans?
+      delete @_changed[id].tasking_plans
 
   updateTutorSelection: (id, direction) ->
     {exercises_count_dynamic} = @_getClonedSettings(id, 'exercises_count_dynamic')
@@ -231,9 +232,6 @@ TaskPlanConfig =
     ]
     deleteStates.indexOf(@_asyncStatus[id]) > -1
 
-  _setInitialPlan: (id) ->
-    @_local[id].defaultPlan = _.extend({}, @exports.getChanged.call(@, id))
-
   exports:
     hasTopic: (id, topicId) ->
       plan = @_getPlan(id)
@@ -266,17 +264,6 @@ TaskPlanConfig =
     getDescription: (id) ->
       plan = @_getPlan(id)
       plan?.description
-
-    getChangedCleanedTaskings: (id) ->
-      serverPlan = @_getOriginal(id)
-      changes = @exports.getChanged.call(@, id)
-      # console.info(changes)
-      # return changes unless serverPlan?
-
-      # if _.isEqual(changes.tasking_plans, serverPlan.tasking_plans)
-      #   changes = _.omit(changes, 'tasking_plans')
-
-      changes
 
     isHomework: (id) ->
       plan = @_getPlan(id)
@@ -329,12 +316,8 @@ TaskPlanConfig =
     isStatsFailed: (id) -> !! @_stats[id]
 
     hasChanged: (id) ->
-      defaultPlan = @_local[id].defaultPlan
-      defaultPlan = @_getOriginal(id) if _.isEmpty(defaultPlan)
       changed = @exports.getChanged.call(@, id)
-      return false if _.isEmpty(changed)
-
-      not _.isEqual(changed, _.pick(defaultPlan, _.keys(changed)))
+      not _.isEmpty(changed)
 
 extendConfig(TaskPlanConfig, planCrudConfig)
 {actions, store} = makeSimpleStore(TaskPlanConfig)

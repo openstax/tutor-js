@@ -155,6 +155,7 @@ TaskingConfig =
   _taskings: {}
   _tasksToCourse: {}
   _taskingsIsAll: {}
+  _originalTaskings: {}
 
   loadDefaults: (courseId, course) ->
     @_defaults[courseId] = transformCourseToDefaults(course)
@@ -202,6 +203,7 @@ TaskingConfig =
     true
 
   loadTaskings: (taskId, taskings) ->
+    @_originalTaskings[taskId] = taskings
     blankTaskings = @exports._getBlankTaskings.call(@, taskId)
 
     commonTasking = getCommonTasking(taskings)
@@ -313,6 +315,12 @@ TaskingConfig =
 
       taskings = _.map storedTaskings, maskToTasking
 
+    _getOriginalTaskings: (taskId) ->
+      transformTaskings(@_originalTaskings[taskId])
+
+    getOriginalTaskings: (taskId) ->
+      _.map(@exports._getOriginalTaskings.call(@, taskId), maskToTasking)
+
     _getTaskingFor: (taskId, tasking) ->
       storedTaskings = @exports._getTaskings.call(@, taskId)
       tasking = getFromForTasking(storedTaskings, tasking)
@@ -411,6 +419,19 @@ TaskingConfig =
     getTaskingTime: (taskId, tasking, type = 'open') ->
       tasking = @exports._getTaskingFor.call(@, taskId, tasking)
       tasking["#{type}_time"]
+
+    isTaskSame: (taskId) ->
+      serverTaskings = @exports.getOriginalTaskings.call(@, taskId)
+      currentTaskings = @exports.get.call(@, taskId)
+
+      _.isEqual(
+        _.sortBy(serverTaskings, toTaskingIndex),
+        _.sortBy(currentTaskings, toTaskingIndex)
+      )
+
+    getChanged: (taskId) ->
+      @exports.get.call(@, taskId) unless @exports.isTaskSame.call(@, taskId)
+
 
 {actions, store} = makeSimpleStore(TaskingConfig)
 
