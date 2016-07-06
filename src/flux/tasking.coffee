@@ -7,9 +7,15 @@ TimeHelper = require '../helpers/time'
 
 TASKING_IDENTIFIERS = ['target_type', 'target_id']
 
-TASKING_DATETIME = ['open_time', 'open_date', 'due_time', 'due_date']
+TASKING_TIMES = ['open_time', 'due_time']
 
-TASKING_WORKING_PROPERTIES = TASKING_IDENTIFIERS.concat(TASKING_DATETIME).concat(['disabled'])
+TASKING_DATES = ['open_date', 'due_date']
+
+TASKING_DATETIMES = TASKING_TIMES.concat(TASKING_DATES)
+
+TASKING_WORKING_PROPERTIES = TASKING_IDENTIFIERS.concat(TASKING_DATETIMES).concat(['disabled'])
+
+TASKING_MASKED = ['opens_at', 'due_at']
 
 getFromForTasking = (fromCollection, tasking) ->
   fromCollection[toTaskingIndex(tasking)]
@@ -66,7 +72,10 @@ maskToTasking = (tasking) ->
 
 toTaskingIndex = (tasking) ->
   if tasking? and not _.isEmpty(tasking)
-    "#{tasking.target_type}#{tasking.target_id}"
+    if tasking.id? and tasking.name?
+      "period#{tasking.id}"
+    else
+      "#{tasking.target_type}#{tasking.target_id}"
   else
     'all'
 
@@ -114,11 +123,11 @@ getCommonTasking = (taskings) ->
   firstTasking = _.chain(taskings)
     .values()
     .first()
-    .pick('opens_at', 'due_at')
+    .pick(TASKING_MASKED)
     .value()
 
   hasCommon = _.every taskings, (tasking) ->
-    _.isEqual(firstTasking, _.pick(tasking, 'opens_at', 'due_at'))
+    _.isEqual(firstTasking, _.pick(tasking, TASKING_MASKED))
 
   return firstTasking if hasCommon
 
@@ -199,7 +208,7 @@ TaskingConfig =
     courseId = @exports.getCourseIdForTask.call(@, taskId)
     defaults = @exports.getDefaultsFor.call(@, courseId, tasking)
     taskingIndex = toTaskingIndex(tasking)
-    currentTasking = @_taskings[taskId][taskingIndex] or {}
+    currentTasking = @_taskings[taskId][taskingIndex] or _.pick(tasking, TASKING_IDENTIFIERS)
     updatedTasking = _.extend({disabled: false}, currentTasking, dates, defaults)
 
     @_taskings[taskId][taskingIndex] = _.pick(updatedTasking, TASKING_WORKING_PROPERTIES)
@@ -249,12 +258,11 @@ TaskingConfig =
 
     _getBlankTaskings: (taskId) ->
       courseId = @exports.getCourseIdForTask.call(@, taskId)
-      defaults = @exports.getDefaults(courseId)
-
+      defaults = @exports.getDefaults.call(@, courseId)
       blankTaskings = _.chain(defaults)
         .omit(toTaskingIndex())
         .map (tasking) ->
-          _.pick(taskings, TASKING_IDENTIFIERS)
+          _.pick(tasking, TASKING_IDENTIFIERS)
         .value()
 
     getCourseIdForTask: (taskId) ->
@@ -270,18 +278,19 @@ TaskingConfig =
     getDefaultsFor: (courseId, tasking) ->
       defaults = @exports.getDefaults.call(@, courseId)
       taskingDefault = getFromForTasking(defaults, tasking)
-      _.pick(taskingDefault, 'open_time', 'due_time')
+      _.pick(taskingDefault, TASKING_TIMES)
 
     areDefaultTaskingTimesSame: (courseId) ->
       defaults = @exports.getTaskingDefaults.call(@, courseId)
       firstDefault = _.chain(defaults)
+        .omit(toTaskingIndex())
         .values()
         .first()
-        .pick('open_time', 'due_time')
+        .pick(TASKING_TIMES)
         .value()
 
       _.every defaults, (taskingDefault) ->
-        _.isEqual(firstDefault, _.pick(taskingDefault, 'opens_time', 'due_time'))
+        _.isEqual(firstDefault, _.pick(taskingDefault, TASKING_TIMES))
 
     getTaskings: (taskId) ->
       storedTaskings = @exports._getTaskings.call(@, taskId)
