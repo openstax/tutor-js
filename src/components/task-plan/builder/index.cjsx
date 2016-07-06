@@ -117,8 +117,8 @@ TaskPlanBuilder = React.createClass
     {taskingOpensAt, taskingDueAt}
 
   updateForCourse: ->
-    {id, courseId} = @props
-    TaskingActions.loadDefaults(id, CourseStore.get(courseId))
+    {courseId} = @props
+    TaskingActions.loadDefaults(courseId, CourseStore.get(courseId))
     @forceUpdate()
 
   componentWillMount: ->
