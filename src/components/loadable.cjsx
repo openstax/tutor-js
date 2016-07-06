@@ -14,7 +14,6 @@ module.exports = React.createClass
   displayName: 'Loadable'
   propTypes:
     render: React.PropTypes.func.isRequired
-    saved: React.PropTypes.func
     store: React.PropTypes.object.isRequired
     isLoading: React.PropTypes.func.isRequired
     isLoaded: React.PropTypes.func.isRequired

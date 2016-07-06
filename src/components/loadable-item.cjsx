@@ -18,7 +18,6 @@ module.exports = React.createClass
     actions: React.PropTypes.object.isRequired
     renderItem: React.PropTypes.func.isRequired
     isLoadingOrLoad: React.PropTypes.func
-    saved: React.PropTypes.func
     load: React.PropTypes.func
     renderLoading: React.PropTypes.func
     renderError: React.PropTypes.func
@@ -38,11 +37,8 @@ module.exports = React.createClass
   arePropsSame: (prevProps, nextProps) ->
     {id, store, load, actions, options} = nextProps
 
-    prevProps.id is id and
-      prevProps.store is store and
-      prevProps.actions is actions and
-      prevProps.load is load and
-      _.isEqual(prevProps.options, options)
+    propsToCheck = ['id', 'store', 'load', 'actions', 'options']
+    _.isEqual(_.pick(prevProps, propsToCheck), _.pick(nextProps, propsToCheck))
 
   reload: (prevProps, nextProps) ->
     {id, store, load, actions, options} = nextProps
@@ -67,35 +63,34 @@ module.exports = React.createClass
     isLoading ?= store.isLoading
     isLoading(args...)
 
-  isLoadingOrLoad: ->
-    {id, options, saved, store} = @props
-
+  _isLoadingOrLoad: ->
+    {id, options, store} = @props
     # if id is undefined, render as loading. loadableItem is waiting for id to be retrieved.
     return true unless id?
 
-    if store.get(id, options)
-      false
-    else if @isLoading(id, options)
-      true
-    else if @isLoaded(id, options)
-      false
-    else if store.isUnknown(id, options) or store.reload(id, options)
-      true
-    else if store.isNew(id, options) and store.get(id, options).id and saved
-      # If this store was just created, then call the onSaved prop
-      saved()
-    else
-      false
+    switch
+      when _.isEmpty(id)            then true
+      when store.get(id, options)   then false
+      when @isLoading(id, options)  then true
+      when @isLoaded(id, options)   then false
+      when (store.isUnknown(id, options) or store.reload(id, options)) then true
+      else
+        false
+
+  isLoadingOrLoad: (args...) ->
+    {id, options, store, isLoadingOrLoad} = @props
+
+    isLoadingOrLoad ?= @_isLoadingOrLoad
+    isLoadingOrLoad(args...)
 
   render: ->
-    { id, isLoadingOrLoad, renderItem, store} = @props
+    { id, renderItem, store} = @props
 
     propsForLoadable = _.pick(@props, 'store', 'update', 'bindEvent', 'renderLoading', 'renderError')
-    isLoadingOrLoad ?= @isLoadingOrLoad
 
     <Loadable
       {...propsForLoadable}
-      isLoading={isLoadingOrLoad}
+      isLoading={@isLoadingOrLoad}
       isLoaded={_.partial(@isLoaded, id)}
       isFailed={_.partial(store.isFailed, id)}
       render={renderItem}
