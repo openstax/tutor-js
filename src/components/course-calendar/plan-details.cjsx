@@ -8,7 +8,6 @@ Router = require 'react-router'
 {EventModalShell} = require '../plan-stats/event'
 {TaskPlanStore} = require '../../flux/task-plan'
 
-LoadableItem = require '../loadable-item'
 LmsInfo = require '../task-plan/lms-info'
 
 # TODO drag and drop, and resize behavior

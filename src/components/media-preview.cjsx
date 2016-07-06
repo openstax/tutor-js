@@ -1,5 +1,4 @@
 React = require 'react'
-LoadableItem = require './loadable-item'
 TutorPopover = require './tutor-popover'
 {ArbitraryHtmlAndMath} = require 'openstax-react-components'
 

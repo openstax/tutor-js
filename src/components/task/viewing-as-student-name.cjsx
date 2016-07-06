@@ -1,5 +1,4 @@
 React = require 'react'
-LoadableItem = require '../loadable-item'
 Name = require '../name'
 {ScoresStore, ScoresActions} = require '../../flux/scores'
 

@@ -2,7 +2,6 @@ React = require 'react'
 {RouteHandler} = require 'react-router'
 
 {EcosystemsStore, EcosystemsActions} = require '../../flux/ecosystems'
-LoadableItem = require '../loadable-item'
 
 BindStore = require '../bind-store-mixin'
 BookLink  = require './book-link'

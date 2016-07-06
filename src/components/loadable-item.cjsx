@@ -18,7 +18,6 @@ module.exports = React.createClass
     actions: React.PropTypes.object.isRequired
     renderItem: React.PropTypes.func.isRequired
     isLoadingOrLoad: React.PropTypes.func
-    saved: React.PropTypes.func
     load: React.PropTypes.func
     renderLoading: React.PropTypes.func
     renderError: React.PropTypes.func
@@ -28,57 +27,71 @@ module.exports = React.createClass
   getDefaultProps: ->
     bindEvent: 'change'
 
-  componentDidMount: -> @reload({})
-  componentDidUpdate: (oldProps) -> @reload(oldProps)
+  componentWillMount: ->
+    {id, store, options} = @props
+    @load(id, options) if id? and not store.isNew(id, options)
 
-  reload: (oldProps) ->
-    {id, store, load, actions, options} = @props
+  componentWillReceiveProps: (nextProps) ->
+    @reload(@props, nextProps)
+
+  arePropsSame: (prevProps, nextProps) ->
+    {id, store, load, actions, options} = nextProps
+
+    propsToCheck = ['id', 'store', 'load', 'actions', 'options']
+    _.isEqual(_.pick(prevProps, propsToCheck), _.pick(nextProps, propsToCheck))
+
+  reload: (prevProps, nextProps) ->
+    {id, store, load, actions, options} = nextProps
     return unless id?
 
     # Skip reloading if all the props are the same (the case in the Calendar for some reason)
-    return if oldProps.id is id and oldProps.store is store and oldProps.actions is actions and
-      oldProps.load is load and _.isEqual(oldProps.options, options)
+    return if @arePropsSame(prevProps, nextProps)
+    @load(id, options) unless store.isNew(id, options)
 
+  load: (args...) ->
+    {load, actions} = @props
     load ?= actions.load
-    unless store.isNew(id, options)
-      load(id, options)
+    load(args...)
 
-  render: ->
-    { id, store, actions, load, isLoaded, isLoading, isLoadingOrLoad, renderItem,
-      saved, renderLoading, renderError, renderBug, update, options, bindEvent} = @props
-
-    load ?= actions.load
+  isLoaded: (args...) ->
+    {isLoaded, store} = @props
     isLoaded ?= store.isLoaded
+    isLoaded(args...)
+
+  isLoading: (args...) ->
+    {isLoading, store} = @props
     isLoading ?= store.isLoading
+    isLoading(args...)
 
-    isLoadingOrLoad ?= ->
-      # if id is undefined, render as loading. loadableItem is waiting for id to be retrieved.
-      return true unless id?
+  _isLoadingOrLoad: ->
+    {id, options, store} = @props
+    # if id is undefined, render as loading. loadableItem is waiting for id to be retrieved.
+    return true unless id?
 
-      if store.get(id, options)
-        false
-      else if isLoading(id, options)
-        true
-      else if isLoaded(id, options)
-        false
-      else if store.isUnknown(id, options) or store.reload(id, options)
-        true
-      else if store.isNew(id, options) and store.get(id, options).id and saved
-        # If this store was just created, then call the onSaved prop
-        saved()
+    switch
+      when _.isEmpty(id)            then true
+      when store.get(id, options)   then false
+      when @isLoading(id, options)  then true
+      when @isLoaded(id, options)   then false
+      when (store.isUnknown(id, options) or store.reload(id, options)) then true
       else
         false
 
-    renderModes = {renderLoading, renderError, renderBug}
+  isLoadingOrLoad: (args...) ->
+    {id, options, store, isLoadingOrLoad} = @props
+
+    isLoadingOrLoad ?= @_isLoadingOrLoad
+    isLoadingOrLoad(args...)
+
+  render: ->
+    { id, renderItem, store} = @props
+
+    propsForLoadable = _.pick(@props, 'store', 'update', 'bindEvent', 'renderLoading', 'renderError')
 
     <Loadable
-      store={store}
-      isLoading={isLoadingOrLoad}
-      isLoaded={-> isLoaded(id)}
-      isFailed={-> store.isFailed(id)}
+      {...propsForLoadable}
+      isLoading={@isLoadingOrLoad}
+      isLoaded={_.partial(@isLoaded, id)}
+      isFailed={_.partial(store.isFailed, id)}
       render={renderItem}
-      renderLoading={renderLoading}
-      update={update}
-      bindEvent={bindEvent}
-      {renderModes}
     />
