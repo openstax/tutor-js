@@ -2,8 +2,6 @@
   position: relative;
   @action-square-size: 150px;
   @action-icon-circle-size: 80px;
-  @images-path: '../../../images';
-
   .sans(@size: 1.5rem, @line-height: 3rem) {
     font-family: 'Lato', Helvetica, sans-serif;
     font-weight: 400;
@@ -267,8 +265,8 @@
       background-repeat: no-repeat;
       background-size: 100% 100%;
       text-indent: 400px; // move text out of the frame so only background image shows up
-      &.video       { background-image: url("@{images-path}/exercise-video-placeholder.svg");       }
-      &.interactive { background-image: url("@{images-path}/exercise-interactive-placeholder.svg"); }
+      &.video       { .x-icon-bg("video-placeholder");       }
+      &.interactive { .x-icon-bg("interactive-placeholder"); }
     }
   }
 
