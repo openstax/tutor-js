@@ -15,10 +15,74 @@
   @group-header-title-height: 60px;
   @table-outer-border-width: 2px;
   @table-outer-border-color: @student-header-bg-color;
+  @nav-tab-height: 50px;
+  @display-as-btn-height: 40px;
 
-  .nav.nav-tabs {
-    clear: both;
+  .course-nav-container {
+    margin-top: 20px;
+    .clearfix();
+
+    nav {
+      float: left;
+    }
+
+    .nav.nav-tabs {
+      clear: both;
+
+      > li > a {
+        line-height: @nav-tab-height;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+
+    .filter-row {
+      height: @display-as-btn-height;
+      float: right;
+
+      div {
+        float: left;
+      }
+      div + div {
+        margin-left: 10px;
+      }
+
+      .filter-label {
+        line-height: @display-as-btn-height;
+      }
+
+      .filter-group {
+        box-shadow: none;
+        border-radius: 0;
+        margin: 0 0 0 20px;
+
+        button {
+          height: @display-as-btn-height;
+          border-radius: 0px;
+          width: 90px;
+          margin-right: 0;
+          margin-left: -1px;
+
+          &:first-child {
+            margin-left: 0;
+          }
+
+          &.selected {
+            border: #ddd;
+            background: #f2f2f2;
+            color: #424242;
+            font-weight: normal;
+            z-index: 10;
+
+            &:hover {
+              background: #f2f2f2;
+            }
+          }
+        }
+      }
+    }
   }
+
 
   .header-cell {
     .no-select();
@@ -108,6 +172,7 @@
   .overall-average-cell {
     .overall-border-middle();
     padding: 0;
+    font-weight: normal;
 
     .average {
       height: @average-header-row-height;
@@ -390,49 +455,6 @@
       padding-left: @left-column-padding;
     }
   }
-
-
-
-  .filter-row {
-    width: 100%;
-    height: 70px;
-    display: block;
-    div {
-      float: left;
-    }
-    div + div {
-      margin-left: 10px;
-    }
-    .filter-group {
-      box-shadow: none;
-      button {
-        &.btn-default {
-          border-radius: 0px;
-        }
-        &.btn-primary {
-          border-radius: 0px;
-          border: @tutor-tertiary-light;
-          background: @tutor-tertiary-light;
-          height: 32px;
-          &:hover {
-            background: @tutor-tertiary-light;
-          }
-        }
-      }
-    }
-    .filter-item {
-      &:first-child {
-        width: 250px;
-      }
-      float: left;
-      display: flex;
-      align-items: center;
-      .filter-label {
-        font-size: 1.4rem;
-      }
-    }
-  }
-
 }
 
 .scores-scores-tooltip-completed-info {

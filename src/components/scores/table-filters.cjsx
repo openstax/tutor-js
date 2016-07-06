@@ -14,16 +14,17 @@ module.exports = React.createClass
 
   activeButton: (state, option) ->
     if state is option
-      style = 'primary'
+      'selected'
     else
-      style = 'default'
+      ''
 
   renderButtons: (method, state, options) ->
     for option, i in options
       <BS.Button
       onClick={method.bind(@, option)}
-      bsStyle={@activeButton(state, option)}
+      bsStyle="default"
       bsSize="small"
+      className={@activeButton(state, option)}
       key={i}>{option}</BS.Button>
 
 

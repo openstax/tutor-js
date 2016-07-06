@@ -185,6 +185,13 @@ Scores = React.createClass
       dataType={@state.sort.dataType}
       isConceptCoach={isConceptCoach}
         />
+
+    tableFilters =
+      <TableFilters
+      displayAs={@state.displayAs}
+      changeDisplayAs={@changeDisplayAs}
+      />
+
     afterTabsItem = ->
       if isConceptCoach
         <span className='course-scores-note tab'>
@@ -198,11 +205,6 @@ Scores = React.createClass
           &nbsp
           To accept late work, click the orange triangle.
         </span>
-    tableFilters =
-      <TableFilters
-      displayAs={@state.displayAs}
-      changeDisplayAs={@changeDisplayAs}
-      />
 
     periodNav =
       <CoursePeriodsNavShell
@@ -219,8 +221,10 @@ Scores = React.createClass
     <div className='course-scores-wrap' ref='scoresWrap'>
         <span className='course-scores-title'>Student Scores</span>
         {scoresExport if students}
-        {tableFilters}
-        {periodNav}
+        <div className='course-nav-container'>
+          {periodNav}
+          {tableFilters}
+        </div>
         <div className='course-scores-container' ref='tableContainer'>
           {if students then scoresTable else noAssignments}
         </div>
