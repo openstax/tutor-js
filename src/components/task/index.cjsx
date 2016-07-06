@@ -39,6 +39,8 @@ module.exports = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
+  scrollingTargetDOM: -> window.document
+
   setStepKey: ->
     {stepIndex} = @context.router.getCurrentParams()
     # url is 1 based so it matches the breadcrumb button numbers
@@ -184,6 +186,7 @@ module.exports = React.createClass
       @context.router.replaceWith('viewTaskStep', params)
       true
     else
+      @scrollToTop()
       @context.router.transitionTo('viewTaskStep', params)
       true
 
