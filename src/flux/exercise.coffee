@@ -18,6 +18,7 @@ getChapterSection = (ecosystemId, exercise) ->
   for tag in exercise.tags when tag.type is 'cnxmod'
     section = TocStore.findWhere(ecosystemId, uuid: tag.data)
     return section.chapter_section.join('.') if section?
+  '' # return empty string if section wasn't found
 
 getTagName = (tag) ->
   name = _.compact([tag.name, tag.description]).join(' ')
