@@ -6,7 +6,7 @@ module.exports =
   _defaultEvent: 'change'
 
   _defaultUpdate: ->
-    @setState({})
+    @forceUpdate()
 
   _addListener: (bind) ->
     bind.store.on(bind.listenTo or @_defaultEvent, bind.callback or @_defaultUpdate)
