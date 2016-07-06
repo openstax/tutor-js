@@ -90,6 +90,7 @@
   align-items: center;
   padding: 0 @padding;
   .sectionizer {
+    @size: 40px;
     flex-wrap: nowrap;
     display: flex;
     align-items: center;
@@ -99,12 +100,12 @@
       cursor: pointer;
       display: inline-block;
       font-size: 12px;
-      width: 40px;
-      line-height: 40px;
+      width: @size;
+      line-height: @size;
 
       &.section {
         border: 1px solid @tutor-neutral-light;
-        min-height: 40px;
+        min-height: @size;
         &+.section {
           border-left: 0;
         }
