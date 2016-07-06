@@ -8,13 +8,10 @@ MATH_DATA_SELECTOR = "[data-math]:not(.#{MATH_RENDERED_CLASS})"
 MATH_ML_SELECTOR   = "math:not(.#{MATH_RENDERED_CLASS})"
 COMBINED_MATH_SELECTOR = "#{MATH_DATA_SELECTOR}, #{MATH_ML_SELECTOR}"
 
-setAsRendered = (node, type = 'mathjax') ->
-  node.classList.add("#{type}-rendered")
-  node.classList.add(MATH_RENDERED_CLASS)
-
 # Search document for math and [data-math] elements and then typeset them
 typesetDocument = ->
   allNodes = []
+
   for node in document.querySelectorAll(MATH_DATA_SELECTOR)
     formula = node.getAttribute('data-math')
     # divs should be rendered as a block, others inline
@@ -23,19 +20,23 @@ typesetDocument = ->
     else
       node.textContent = "#{MATH_MARKER_INLINE}#{formula}#{MATH_MARKER_INLINE}"
     allNodes.push(node)
-  # Mathjax doesn't typeset a element when it's passed one directly
-  # It will only render child elements
-  allNodes = allNodes.concat(
-    _.pluck(document.querySelectorAll(MATH_ML_SELECTOR), 'parentNode')
-  )
-  window.MathJax.Hub.Typeset( allNodes )
+
+  mathMLNodes = _.toArray(document.querySelectorAll(MATH_ML_SELECTOR))
+  hasMathML = not _.isEmpty(mathMLNodes)
+  allNodes = allNodes.concat(mathMLNodes)
+
+  # MathJax sometimes fails to set the height/width properly when processing individual mathml elements
+  # If we have any of those nodes then mark the entire document for processing
+  window.MathJax.Hub.Typeset( if hasMathML then document.body else allNodes )
   window.MathJax.Hub.Queue ->
+    # Queue a call to mark the found nodes as rendered so
+    # they can be ignored if typesetting is called repeatedly
     for node in allNodes
-      setAsRendered(node)
+      node.classList.add(MATH_RENDERED_CLASS)
 
 # Install a debounce around typesetting function so that it will only run once
-# every 10ms even if called multiple calls times in that period
-typesetDocument = _.debounce( typesetDocument, 10)
+# every 10ms even if called multiple times in that period
+typesetDocument = _.debounce( typesetDocument, 100)
 
 
 # typesetMath is the main exported function.
