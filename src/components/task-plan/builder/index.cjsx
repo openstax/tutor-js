@@ -32,6 +32,7 @@ TaskPlanBuilder = React.createClass
       callback: @changeTaskPlan
     course:
       store: CourseStore
+      callback: @updateForCourse
 
   mixins: [PlanMixin, BindStoresMixin, UnsavedStateMixin]
 
@@ -41,15 +42,10 @@ TaskPlanBuilder = React.createClass
     label: React.PropTypes.string
 
   getInitialState: ->
-    {courseId, id} = @props
-
-    isNewPlan = TaskPlanStore.isNew(id)
+    {id} = @props
 
     showingPeriods: not TaskingStore.getTaskingsIsAll(id)
     currentLocale: TimeHelper.getCurrentLocales()
-    isInitialized: false
-    savedIndividualTaskings: null
-    savedAllTaskings: null
 
   getDefaultProps: ->
     label: 'Assignment'
@@ -92,7 +88,7 @@ TaskPlanBuilder = React.createClass
   # them to open at the default start date
   setPeriodDefaults: ->
     {courseId, id} = @props
-    {showingPeriods, isInitialized} = @state
+    {showingPeriods} = @state
 
     isNewPlan = TaskPlanStore.isNew(id)
 
@@ -103,7 +99,6 @@ TaskPlanBuilder = React.createClass
       TaskingActions.loadTaskings(id, tasking_plans)
 
     nextState = {}
-    nextState.isInitialized = true unless isInitialized
     nextState.showingPeriods = not TaskingStore.getTaskingsIsAll(id)
 
     @setState(nextState) unless _.isEmpty(nextState)
@@ -117,11 +112,17 @@ TaskPlanBuilder = React.createClass
 
     {taskingOpensAt, taskingDueAt}
 
+  updateForCourse: ->
+    {courseId} = @props
+    TaskingActions.loadDefaults(id, CourseStore.get(courseId))
+    @forceUpdate()
+
   componentWillMount: ->
     {id, courseId} = @props
     courseTimezone = CourseStore.getTimezone(courseId)
     TimeHelper.syncCourseTimezone(courseTimezone)
     TaskingActions.loadTaskToCourse(id, courseId)
+    TaskingActions.loadDefaults(courseId, CourseStore.get(courseId))
 
     #set the periods defaults only after the timezone has been synced
     @setPeriodDefaults()

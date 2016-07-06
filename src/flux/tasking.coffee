@@ -6,16 +6,16 @@ TimeHelper = require '../helpers/time'
 {TimeStore} = require './time'
 
 TASKING_IDENTIFIERS = ['target_type', 'target_id']
-
 TASKING_TIMES = ['open_time', 'due_time']
-
 TASKING_DATES = ['open_date', 'due_date']
-
 TASKING_DATETIMES = TASKING_TIMES.concat(TASKING_DATES)
-
 TASKING_WORKING_PROPERTIES = TASKING_IDENTIFIERS.concat(TASKING_DATETIMES).concat(['disabled'])
 
-TASKING_MASKED = ['opens_at', 'due_at']
+TASKING_MASKS =
+  open: 'opens_at'
+  due: 'due_at'
+
+TASKING_MASKED = _.values(TASKING_MASKS)
 
 getFromForTasking = (fromCollection, tasking) ->
   fromCollection[toTaskingIndex(tasking)]
@@ -188,8 +188,9 @@ TaskingConfig =
     courseId = @exports.getCourseIdForTask.call(@, taskId)
     defaults = @exports.getDefaultsFor.call(@, courseId, tasking)
     taskingIndex = toTaskingIndex(tasking)
-    currentTasking = @_taskings[taskId][taskingIndex] or _.pick(tasking, TASKING_IDENTIFIERS)
-    updatedTasking = _.extend({disabled: false}, defaults, currentTasking, setTasking)
+    # currentTasking = @_taskings[taskId][taskingIndex] or _.pick(tasking, TASKING_IDENTIFIERS)
+    currentTasking = _.pick(tasking, TASKING_IDENTIFIERS)
+    updatedTasking = _.extend({disabled: false}, currentTasking, defaults, setTasking)
 
     @_taskings[taskId][taskingIndex] = _.pick(updatedTasking, TASKING_WORKING_PROPERTIES)
     @emit("taskings.#{taskId}.#{taskingIndex}.reset")
@@ -215,13 +216,21 @@ TaskingConfig =
     baseTaskingToLoad = _.extend({}, commonOpenDate, commonDueDate)
     disabledBaseTasking = _.extend({disabled: true}, baseTaskingToLoad)
 
-    taskingToLoad = transformTasking(commonTasking) if isAll
+    if isAll
+      taskingToLoad = transformTasking(commonTasking)
+    else
+      taskingToLoad = baseTaskingToLoad
 
     @_taskings[taskId] = {}
-    @resetTasking(taskId, {}, taskingToLoad or baseTaskingToLoad)
+    @resetTasking(taskId, {}, taskingToLoad)
 
     _.each blankTaskings, (tasking) =>
       taskingToLoad = getFromForTasking(taskingsToLoad, tasking)
+
+      if taskingToLoad and isAll
+        # explicitly default to period times
+        taskingToLoad = _.omit(taskingToLoad, TASKING_TIMES)
+
       @resetTasking(taskId, tasking, taskingToLoad or disabledBaseTasking)
 
     @emit("taskings.#{taskId}.all.loaded")
@@ -316,7 +325,7 @@ TaskingConfig =
       tasking = @exports._getTaskingFor.call(@, taskId, tasking)
       maskToTasking(tasking)
 
-    areTaskingsValid: (taskId) ->
+    isTaskValid: (taskId) ->
       taskings = @exports.get.call(@, taskId)
       _.every taskings, isTaskingValid
 
@@ -354,7 +363,7 @@ TaskingConfig =
           .omit(toTaskingIndex())
           .reject (tasking) ->
             tasking.disabled
-          .map maskToTasking
+          .map(maskToTasking)
           .value()
 
       taskings
@@ -374,14 +383,26 @@ TaskingConfig =
       tasking = @exports.getTaskingFor.call(@, taskId, tasking)
       isTaskingOpened(tasking)
 
-    _getTaskingsSortedByOpenDate: (taskId) ->
+    _getTaskingsSortedByDate: (taskId, type) ->
       taskings = @exports.get.call(@, taskId)
+      attribute = TASKING_MASKS[type]
+
       sortedTaskings = _.sortBy taskings, (tasking) ->
-        moment(tasking.opens_at).valueOf()
+        moment(tasking[attribute]).valueOf()
+
+    _getTaskingsSortedByOpenDate: (taskId) ->
+      @exports._getTaskingsSortedByDate.call(@, taskId, 'open')
+
+    _getTaskingsSortedByDueDate: (taskId) ->
+      @exports._getTaskingsSortedByDate.call(@, taskId, 'due')
 
     isTaskOpened: (taskId) ->
       firstTasking = _.first(@exports._getTaskingsSortedByOpenDate.call(@, taskId))
       isTaskingOpened(firstTasking)
+
+    getFirstDueDate: (taskId) ->
+      firstTasking = _.first(@exports._getTaskingsSortedByDueDate.call(@, taskId))
+      transformTasking(firstTasking).due_date
 
     getTaskingDate: (taskId, tasking, type = 'open') ->
       tasking = @exports._getTaskingFor.call(@, taskId, tasking)

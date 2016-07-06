@@ -1,5 +1,6 @@
 React = require 'react'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
+{TaskingStore, TaskingActions} = require '../../flux/tasking'
 {TimeStore} = require '../../flux/time'
 {CloseButton} = require 'openstax-react-components'
 TutorDialog = require '../tutor-dialog'
@@ -20,9 +21,11 @@ PlanMixin =
     id = @props.id or @props.planId
     {courseId} = @props
 
-    isVisibleToStudents = TaskPlanStore.isVisibleToStudents(id)
+    isVisibleToStudents = TaskPlanStore.isPublished(id) and
+      TaskPlanStore.isPublishing(id) and
+      TaskingStore.isTaskOpened(id)
     isEditable = TaskPlanStore.isEditable(id)
-    isSwitchable = not isVisibleToStudents or TaskPlanStore.hasAllTaskings(id, courseId)
+    isSwitchable = not isVisibleToStudents or TaskingStore.hasAllTaskings(id)
 
     {isVisibleToStudents, isEditable, isSwitchable}
 
@@ -58,13 +61,13 @@ PlanMixin =
 
   publish: ->
     {id} = @props
-    saveable = TaskPlanStore.isValid(id)
+    saveable = TaskPlanStore.isValid(id) and TaskingStore.isTaskValid(id)
     TaskPlanActions.publish(id) if saveable
     @save()
 
   save: ->
     {id} = @props
-    saveable = TaskPlanStore.isValid(id)
+    saveable = TaskPlanStore.isValid(id) and TaskingStore.isTaskValid(id)
     # The logic here is this way because we need to be able to add an invalid
     # state to the form.  Blame @fredasaurus
     if saveable
@@ -104,7 +107,7 @@ PlanMixin =
   getBackToCalendarParams: ->
     {id, courseId} = @props
     calendarRoute = 'calendarByDate'
-    dueAt = TaskPlanStore.getFirstDueDate(id) or @context.router.getCurrentQuery().due_at
+    dueAt = TaskingStore.getFirstDueDate(id) or @context.router.getCurrentQuery().due_at
     if dueAt?
       date = dueAt
     else

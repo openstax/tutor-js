@@ -10,14 +10,9 @@ validator = require 'validator'
 {ExerciseStore} = require './exercise'
 {PlanPublishActions, PlanPublishStore} = require './plan-publish'
 {CourseActions, CourseStore} = require './course'
-{TaskingActions, TaskingStore} = require './tasking'
 ContentHelpers = require '../helpers/content'
-TimeHelper = require '../helpers/time'
 
 planCrudConfig = new CrudConfig()
-
-ISO_DATE_ONLY_REGEX = /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/
-ISO_DATETIME_REGEX = /\d{4}-[01]\d-[0-3]\d [0-2]\d:[0-5]\d/
 
 TUTOR_SELECTIONS =
   default: 3
@@ -35,15 +30,6 @@ sortTopics = (topics) ->
     topic = TocStore.getSectionInfo(topicId)
     ContentHelpers.chapterSectionToNumber(topic.chapter_section)
   )
-
-isSameOrBeforeNow = (time) ->
-  moment(time).isSameOrBefore(TimeStore.getNow())
-
-isDateStringOnly = (timeString) ->
-  ISO_DATE_ONLY_REGEX.test(timeString)
-
-isDateTimeString = (timeString) ->
-  ISO_DATETIME_REGEX.test(timeString)
 
 BASE_PLANS =
   homework:
@@ -299,50 +285,20 @@ TaskPlanConfig =
     isValid: (id) ->
       plan = @_getPlan(id)
 
-      isValidDates = ->
-        # TODO: check that all periods are filled in
-        flag = _.every plan.tasking_plans, (tasking) ->
-          isDateTimeString(tasking.due_at) and isDateTimeString(tasking.opens_at)
-
-        flag and plan.tasking_plans?.length?
-
       if (plan.type is 'reading')
-        return plan.title and isValidDates() and plan.settings?.page_ids?.length > 0
+        return plan.title and plan.settings?.page_ids?.length > 0
       else if (plan.type is 'homework')
-        return plan.title and isValidDates() and plan.settings?.exercise_ids?.length > 0
+        return plan.title and plan.settings?.exercise_ids?.length > 0
       else if (plan.type is 'external')
-        return plan.title and isValidDates() and validator.isURL(plan.settings?.external_url)
+        return plan.title and validator.isURL(plan.settings?.external_url)
       else if (plan.type is 'event')
-        return plan.title and isValidDates()
+        return plan.title
 
     isPublished: (id) ->
       plan = @_getPlan(id)
       !!plan?.is_published
 
     isDeleteRequested: (id) -> @_isDeleteRequested(id)
-
-    _getFirstTaskingByOpenDate: (id) ->
-      {tasking_plans} = @_getPlan(id)
-      sortedTaskings = _.sortBy(tasking_plans, 'opens_at')
-      if sortedTaskings?.length
-        sortedTaskings[0]
-
-    _getFirstTaskingByDueDate: (id) ->
-      tasking_plans = @_getPlan(id)?.tasking_plans or @_changed[id]?.tasking_plans or @_getOriginal(id)?.tasking_plans
-      sortedTaskings = _.sortBy(tasking_plans, 'due_at')
-      sortedTaskings[0] if sortedTaskings?.length
-
-    isOpened: (id) ->
-      firstTasking = @exports._getFirstTaskingByOpenDate.call(@, id)
-      isSameOrBeforeNow(firstTasking?.opens_at)
-
-    isVisibleToStudents: (id) ->
-      plan = @_getPlan(id)
-      firstTasking = @exports._getFirstTaskingByOpenDate.call(@, id)
-      (!!plan?.published_at or !!plan?.is_publish_requested) and isSameOrBeforeNow(firstTasking?.opens_at)
-
-    getFirstDueDate: (id) ->
-      due_at = @exports._getFirstTaskingByDueDate.call(@, id)?.due_at
 
     isEditable: (id) ->
       # cannot be/being deleted
@@ -365,23 +321,6 @@ TaskPlanConfig =
 
     getStats: (id) ->
       @_getStats(id)
-
-    hasTasking: (id, periodId) ->
-      plan = @_getPlan(id)
-      {tasking_plans} = plan
-      !!@_findTasking(tasking_plans, periodId)
-
-    hasAnyTasking: (id) ->
-      plan = @_getPlan(id)
-      !!plan?.tasking_plans
-
-    hasAllTaskings: (id, courseId) ->
-      {tasking_plans} = @_getOriginal(id)
-      course = CourseStore.get(courseId)
-
-      {periods} = course
-      _.every periods, (period) =>
-        @exports.hasTasking.call(@, id, period.id)
 
     isStatsLoading: (id) -> @_asyncStatusStats[id] is 'loading'
 

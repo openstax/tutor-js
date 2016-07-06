@@ -2,7 +2,6 @@
 _ = require 'underscore'
 
 {TaskActions, TaskStore} = require './task'
-{TaskingActions, TaskingStore} = require './tasking'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 PeriodHelper = require '../helpers/period'
 
@@ -53,7 +52,6 @@ CourseConfig =
     @emit('practice.loaded', obj.id)
 
   _loaded: (obj, id) ->
-    TaskingActions.loadDefaults(id, obj)
     @emit('course.loaded', obj.id)
 
   _reset: ->
