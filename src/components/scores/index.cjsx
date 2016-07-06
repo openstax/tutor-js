@@ -55,12 +55,13 @@ Scores = React.createClass
 
   tableWidth: ->
     windowEl = @_getWindowSize()
-    table = React.findDOMNode(@refs.tableContainer)
-    # tableHorzSpacing is body width - table container width
-    wrap = React.findDOMNode(@refs.scoresWrap)
-    tableHorzSpacing = document.body.clientWidth - wrap.clientWidth
+    tableContainer = React.findDOMNode(@refs.tableContainer) #.course-scores-container
+    style = tableContainer.currentStyle || window.getComputedStyle(tableContainer)
+    padding = parseInt(style.paddingLeft) + parseInt(style.paddingRight)
+    tableContainerWidth = tableContainer.clientWidth - padding
+    tableHorzSpacing = document.body.clientWidth - tableContainerWidth
     # since table.clientWidth returns 0 on initial load in IE, include windowEl as a fallback
-    Math.max(windowEl.width - tableHorzSpacing, table.clientWidth)
+    Math.max(windowEl.width - tableHorzSpacing, tableContainerWidth)
 
   tableHeight: ->
     windowEl = @_getWindowSize()
