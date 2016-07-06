@@ -38,10 +38,12 @@ DateTime = React.createClass
 
   onTimeChange: (time) ->
     @setState({time})
+    @props.setTime?(time)
 
   onDateChange: (date) ->
     date = date.format(TimeHelper.ISO_DATE_FORMAT) if moment.isMoment(date)
     @setState({date})
+    @props.setDate?(date)
 
   componentWillReceiveProps: (nextProps) ->
     nextState = @getStateFromProps(nextProps)
@@ -61,11 +63,11 @@ DateTime = React.createClass
   onTimeUpdated: ->
     {date, time} = @state
 
-    if @hasValidInputs()
-      dateTime = "#{date} #{time}"
-      @props.onChange(dateTime)
-    else
-      @setState(isTimeValid: @isTimeValid(), isTimeDefault: @isTimeDefault())
+    # if @hasValidInputs()
+    #   dateTime = "#{date} #{time}"
+    #   @props.onChange(dateTime)
+    # else
+    @setState(isTimeValid: @isTimeValid(), isTimeDefault: @isTimeDefault())
 
   hasValidInputs: ->
     @isDateValid() and @isTimeValid()

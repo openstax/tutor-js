@@ -22,9 +22,6 @@ TimeHelper = require '../../../helpers/time'
 
 Tasking = require './tasking'
 
-window.TaskPlanStore = TaskPlanStore
-window.TaskPlanActions = TaskPlanActions
-
 TaskPlanBuilder = React.createClass
 
   mixins: [PlanMixin, BindStoreMixin, UnsavedStateMixin]
@@ -116,21 +113,22 @@ TaskPlanBuilder = React.createClass
     courseTimezone = CourseStore.getTimezone(courseId)
     TimeHelper.syncCourseTimezone(courseTimezone)
     TaskingActions.loadTaskToCourse(id, courseId)
+
+    TaskingStore.on("taskings.#{id}.*.changed", @changeTaskPlan)
     #set the periods defaults only after the timezone has been synced
     @setPeriodDefaults()
 
   componentWillUnmount: ->
+    {id, courseId} = @props
+
     TimeHelper.unsyncCourseTimezone()
+    TaskingStore.off("taskings.#{id}.*.changed", @changeTaskPlan)
 
-  setOpensAt: (value, period) ->
+  changeTaskPlan: ->
     {id} = @props
-    value = value.format(TimeHelper.ISO_DATE_FORMAT) if moment.isMoment(value)
-    TaskingActions.updateDate(id, period, 'open', value) 
 
-  setDueAt: (value, period) ->
-    {id} = @props
-    value = value.format(TimeHelper.ISO_DATE_FORMAT) if moment.isMoment(value)
-    TaskingActions.updateDate(id, period, 'due', value) 
+    taskings = TaskingStore.get(id)
+    TaskPlanActions.replaceTaskings(id, taskings)
 
   setAllPeriods: ->
     {id} = @props
@@ -144,18 +142,6 @@ TaskPlanBuilder = React.createClass
 
     #clear saved taskings
     @setState(showingPeriods: true)
-
-  getSavedTaskingFor: (periodId) ->
-    _.findWhere(@state.savedIndividualTaskings, {id: periodId.toString()})
-
-  togglePeriodEnabled: (period, ev) ->
-    {id} = @props
-
-    if ev.target.checked
-      TaskingActions.enableTasking(id, period)
-    else
-      TaskingActions.disableTasking(id, period)
-
 
   setDescription:(desc, descNode) ->
     {id} = @props
@@ -272,32 +258,15 @@ TaskPlanBuilder = React.createClass
     {id, courseId} = @props
     {isEditable, showingPeriods, currentLocale, isVisibleToStudents, isSwitchable} = @state
 
-    taskingPlan = TaskingStore._getTaskingFor(id, period)
-
-    {open_time, due_time, open_date, due_date, disabled} = taskingPlan
-    {default_due_time, default_open_time} = CourseStore.getDefaultTimes(courseId, period?.id)
-
-    isEnabled = if period?
-      not disabled
-    else
-      not showingPeriods
+    isEnabled = TaskingStore.isTaskingEnabled(id, period)
+    isEnabled = false if showingPeriods and not period?
 
     <Tasking
       {...@props}
+      isEnabled={isEnabled}
       period={period}
-      setDueAt={@setDueAt}
-      setOpensAt={@setOpensAt}
-      togglePeriodEnabled={@togglePeriodEnabled}
       isVisibleToStudents={isVisibleToStudents}
       isEditable={isEditable}
-      isEnabled={isEnabled}
-      currentLocale={currentLocale}
-      required={isEnabled}
-      taskingOpensAt={open_date}
-      taskingDueAt={due_date}
-      dueTime={due_time}
-      openTime={open_time}
-      defaultDueTime={default_due_time}
-      defaultOpenTime={default_open_time} />
+      currentLocale={currentLocale} />
 
 module.exports = TaskPlanBuilder

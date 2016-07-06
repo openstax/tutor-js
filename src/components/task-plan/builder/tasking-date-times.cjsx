@@ -1,29 +1,20 @@
 React = require 'react'
 BS    = require 'react-bootstrap'
 _     = require 'underscore'
-
+moment = require 'moment-timezone'
 
 {TimeStore} = require '../../../flux/time'
 TimeHelper  = require '../../../helpers/time'
 {PeriodActions, PeriodStore}     = require '../../../flux/period'
-{TaskPlanStore} = require '../../../flux/task-plan'
 {CourseStore, CourseActions}     = require '../../../flux/course'
+{TaskingActions, TaskingStore} = require '../../../flux/tasking'
 
-Icon = require '../../icon'
 DateTime = require './date-time'
 
 TaskingDateTimes = React.createClass
   propTypes:
     id:                  React.PropTypes.string.isRequired
     isEditable:          React.PropTypes.bool.isRequired
-    taskingOpensAt:      React.PropTypes.string.isRequired
-    taskingDueAt:        React.PropTypes.string
-    setDueAt:            React.PropTypes.func.isRequired
-    setOpensAt:          React.PropTypes.func.isRequired
-    dueTime:             React.PropTypes.string
-    openTime:            React.PropTypes.string.isRequired
-    defaultDueTime:      React.PropTypes.string.isRequired
-    defaultOpenTime:     React.PropTypes.string.isRequired
     isVisibleToStudents: React.PropTypes.bool
     period:              React.PropTypes.object
 
@@ -47,43 +38,31 @@ TaskingDateTimes = React.createClass
     else
       CourseStore.isSaving(courseId)
 
-  dueDateBeforeOpenDate: ->
-    {
-      taskingOpensAt,
-      taskingDueAt,
-    } = @props
+  setDate: (type, value) ->
+    {id, period} = @props
+    value = value.format(TimeHelper.ISO_DATE_FORMAT) if moment.isMoment(value)
+    TaskingActions.updateDate(id, period, type, value) 
 
-    taskingDueAt and taskingDueAt <= taskingOpensAt
+  setTime: (type, value) ->
+    {id, period} = @props
+    value = value.format(TimeHelper.ISO_DATE_FORMAT) if moment.isMoment(value)
+    TaskingActions.updateTime(id, period, type, value) 
 
   render: ->
     {
       isVisibleToStudents,
       isEditable,
       period,
-      id,
-      taskingOpensAt,
-      taskingDueAt,
-      setDueAt,
-      setOpensAt,
-      dueTime,
-      openTime,
-      defaultDueTime,
-      defaultOpenTime
+      id
     } = @props
 
     commonDateTimesProps = _.pick @props, 'required', 'currentLocale', 'taskingIdentifier'
 
-    maxOpensAt = TaskPlanStore.getMaxDueAt(id, period?.id)
-    minDueAt = TaskPlanStore.getMinDueAt(id, period?.id)
+    defaults = TaskingStore.getDefaultsForTasking(id, period)
+    {open_time, open_date, due_time, due_date} = TaskingStore._getTaskingFor(id, period)
 
-    dueBeforeOpen = <BS.Row>
-      <BS.Col xs=12 md=6 mdOffset=6>
-        <p className="due-before-open">
-          Due time cannot be before open time
-          <Icon type='exclamation-circle' />
-        </p>
-      </BS.Col>
-    </BS.Row> if @dueDateBeforeOpenDate()
+    maxOpensAt = due_date
+    minDueAt = open_date
 
     <BS.Col sm=8 md=9>
       <DateTime
@@ -93,30 +72,28 @@ TaskingDateTimes = React.createClass
         ref="open"
         min={TimeStore.getNow()}
         max={maxOpensAt}
-        onChange={_.partial(setOpensAt, _, period)}
-        value={ taskingOpensAt }
-        defaultValue={openTime or defaultOpenTime}
-        defaultTime={defaultOpenTime}
+        setDate={_.partial(@setDate, 'open')}
+        setTime={_.partial(@setTime, 'open')}
+        value={ open_date }
+        defaultValue={open_time or defaults.open_time}
+        defaultTime={defaults.open_time}
         setDefaultTime={@setDefaultTime}
         timeLabel='default_open_time'
-        isSetting={@isSetting}
-      />
+        isSetting={@isSetting} />
       <DateTime
         {...commonDateTimesProps}
         disabled={not isEditable}
         label="Due"
         ref="due"
         min={minDueAt}
-        onChange={_.partial(setDueAt, _, period)}
-        value={taskingDueAt}
-        defaultValue={dueTime or defaultDueTime}
-        defaultTime={defaultDueTime}
+        setDate={_.partial(@setDate, 'due')}
+        setTime={_.partial(@setTime, 'due')}
+        value={due_date}
+        defaultValue={due_time or defaults.due_time}
+        defaultTime={defaults.due_time}
         setDefaultTime={@setDefaultTime}
         timeLabel='default_due_time'
-        isSetting={@isSetting}
-      />
-
-      { dueBeforeOpen }
+        isSetting={@isSetting} />
     </BS.Col>
 
 module.exports = TaskingDateTimes

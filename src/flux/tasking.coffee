@@ -184,7 +184,7 @@ TaskingConfig =
 
     @_taskings[taskId][taskingIndex] ?= {}
     @_taskings[taskId][taskingIndex]["#{type}_time"] = timeString
-    @emit("taskings.#{taskId}.#{taskingIndex}.timeUpdated")
+    @emit("taskings.#{taskId}.#{taskingIndex}.changed")
     true
 
   updateDate: (taskId, tasking, type, dateString) ->
@@ -194,14 +194,14 @@ TaskingConfig =
 
     @_taskings[taskId][taskingIndex] ?= {}
     @_taskings[taskId][taskingIndex]["#{type}_date"] = dateString
-    @emit("taskings.#{taskId}.#{taskingIndex}.dateUpdated")
+    @emit("taskings.#{taskId}.#{taskingIndex}.changed")
     true
 
   updateTasking: (taskId, tasking) ->
     taskingIndex = toTaskingIndex(tasking)
 
     @_taskings[taskId][taskingIndex] = transformTasking(tasking)
-    @emit("taskings.#{taskId}.#{taskingIndex}.updated")
+    @emit("taskings.#{taskId}.#{taskingIndex}.changed")
     true
 
   resetTasking: (taskId, tasking, dates = {}) ->
@@ -212,12 +212,12 @@ TaskingConfig =
     updatedTasking = _.extend({disabled: false}, currentTasking, dates, defaults)
 
     @_taskings[taskId][taskingIndex] = _.pick(updatedTasking, TASKING_WORKING_PROPERTIES)
-    @emit("taskings.#{taskId}.#{taskingIndex}.reset")
+    @emit("taskings.#{taskId}.#{taskingIndex}.changed")
     true
 
   updateTaskingsIsAll: (taskId, isAll) ->
     @_taskingsIsAll[taskId] = isAll
-    @emit("taskingsIsAll.#{taskId}.updated")
+    @emit("taskings.#{taskId}.isAll.changed")
     true
 
   create: (taskId, dates = {open_date: '', due_date: ''}) ->
@@ -234,22 +234,25 @@ TaskingConfig =
     _.each taskings, (tasking) =>
       @resetTasking(taskId, tasking, dates)
 
-    @emit("taskings.#{taskId}.created")
+    @emit("taskings.#{taskId}.all.changed")
     true
 
   enableTasking: (taskId, tasking) ->
     taskingIndex = toTaskingIndex(tasking)
     @_taskings[taskId][taskingIndex].disabled = false
-    @emit("taskings.#{taskId}.#{taskingIndex}.updated")
+    @emit("taskings.#{taskId}.#{taskingIndex}.changed")
     true
 
   disableTasking: (taskId, tasking) ->
     taskingIndex = toTaskingIndex(tasking)
     @_taskings[taskId][taskingIndex].disabled = true
-    @emit("taskings.#{taskId}.#{taskingIndex}.updated")
+    @emit("taskings.#{taskId}.#{taskingIndex}.changed")
     true
 
   exports:
+    getTaskingIndex: (tasking) ->
+      toTaskingIndex(tasking)
+
     getDefaults: (courseId) ->
       @_defaults[courseId]
 
@@ -280,6 +283,10 @@ TaskingConfig =
       taskingDefault = getFromForTasking(defaults, tasking)
       _.pick(taskingDefault, TASKING_TIMES)
 
+    getDefaultsForTasking: (taskId, tasking) ->
+      courseId = @exports.getCourseIdForTask.call(@, taskId)
+      defaults = @exports.getDefaultsFor.call(@, courseId, tasking)
+
     areDefaultTaskingTimesSame: (courseId) ->
       defaults = @exports.getTaskingDefaults.call(@, courseId)
       firstDefault = _.chain(defaults)
@@ -300,6 +307,10 @@ TaskingConfig =
     _getTaskingFor: (taskId, tasking) ->
       storedTaskings = @exports._getTaskings.call(@, taskId)
       tasking = getFromForTasking(storedTaskings, tasking)
+
+    isTaskingEnabled: (taskId, tasking) ->
+      tasking = @exports._getTaskingFor.call(@, taskId, tasking)
+      not tasking.disabled is true
 
     getTaskingFor: (taskId, tasking) ->
       tasking = @exports._getTaskingFor.call(@, taskId, tasking)
