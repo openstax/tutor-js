@@ -62,9 +62,9 @@ require './step-panel-policy.spec'
 require './time.spec'
 require './current-user-store.spec'
 require './course-listing-store.spec'
-require './exercise-store.spec'
 require './flux/plan-publish.spec'
 require './flux/media.spec'
+require './flux/exercise.spec'
 
 # Helpers
 require './task-helpers.spec'
