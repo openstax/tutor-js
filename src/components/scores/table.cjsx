@@ -50,7 +50,9 @@ module.exports = React.createClass
     averageLabel =
       <div>
         Class Average &nbsp
-        <AverageInfo isConceptCoach={isConceptCoach} />
+        <sup>
+          <AverageInfo isConceptCoach={isConceptCoach} />
+        </sup>
       </div>
     studentHeader =
       <div className='scores-cell'>
@@ -277,15 +279,15 @@ module.exports = React.createClass
     rowGetter = (rowIndex) =>
       @renderStudentRow(data.rows[rowIndex], rowIndex)
 
-    groupHeaderHeight = if isConceptCoach then 50 else 100
+    groupHeaderHeight = if isConceptCoach then 50 else 85
 
     <Table
-      rowHeight={60}
+      rowHeight={50}
       rowGetter={rowGetter}
       rowsCount={data.rows.length}
       width={width}
       height={height}
-      headerHeight={120}
+      headerHeight={55}
       groupHeaderHeight={groupHeaderHeight}>
 
       {@renderNameHeader()}

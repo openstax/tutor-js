@@ -1,7 +1,13 @@
 @pie-color-late: #268FBE;
 
 .scores-report {
-  @table-row-height: 60px;
+  @table-row-height: 50px;
+  @due-row-height: 25px;
+  @average-header-row-height: 30px;
+  @student-header-row-height: 25px;
+  @student-header-bg-color: #ccccce;
+  @student-header-fg-color: #f2f2f2;
+  @left-column-padding: 8px;
   @pie-color: lighten(@tutor-neutral,10%);
   @pie-bg-color: lighten(@tutor-neutral,40%);
   @pie-color-hover: #0DC0DC;
@@ -20,9 +26,11 @@
     text-overflow: ellipsis;
     width: 100%;
     position: relative;
+
     &.sortable {
-      font-size: 1.42rem;
+      font-size: 1.2rem;
     }
+
     &.is-ascending,
     &.is-descending {
       &:after {
@@ -49,15 +57,19 @@
       }
     }
     &.sortable:hover {
-      background: @tutor-neutral-lightest;
+      background: lighten(@student-header-bg-color, 4%);
       .transition(background 0.2s);
     }
   }
 
   .group-header {
     .due {
-      line-height: 40px;
+      line-height: @due-row-height;
       text-align: center;
+      font-weight: normal;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: lighten(@tutor-neutral, 10%);
     }
   }
 
@@ -92,14 +104,14 @@
   .overall-average-cell {
     .overall-border-middle();
     padding: 0;
+
     .average {
-      height: @table-row-height;
+      height: @average-header-row-height;
       span {
         .align-center();
-        padding: 16px;
       }
       &.empty {
-        background: @tutor-neutral-lighter;
+        background: @student-header-bg-color;
       }
     }
   }
@@ -146,22 +158,28 @@
     > div {
       display: block;
       width: 100%;
-      height: @table-row-height;
-      padding: 16px;
+      height: @average-header-row-height;
+      padding-left: @left-column-padding;
     }
 
-    > div:nth-child(even) {
-      background-color: @tutor-neutral-lighter;
+    > div:nth-child(2) {
+      height: @student-header-row-height;
+      background-color: @student-header-bg-color;
     }
 
     &[data-assignment-type] {
       font-weight: 400;
     }
+
     .average-label {
       .help {
         font-style: italic;
         font-size: 1.2rem;
         color: @tutor-neutral;
+      }
+
+      .tutor-icon {
+        color: @link-color;
       }
     }
 
@@ -169,30 +187,34 @@
     .average-cell {
       padding: 0;
       font-weight: normal;
+
       > span {
-        line-height: @table-row-height;
+        line-height: @average-header-row-height;
         display: inline-block;
         width: 50%;
         text-align: center;
       }
-    .average {
-      font-weight: 600;
-      border-right: 1px solid @nav-tabs-border-color;
-      &.wide {
-        width: 100%;
+
+      .average {
+        font-weight: 600;
+        border-right: 1px solid @nav-tabs-border-color;
+        &.wide {
+          width: 100%;
+        }
       }
-    }
-    .review-link {
-      &.wide {
-        width: 100%;
+
+      .review-link {
+        &.wide {
+          width: 100%;
+        }
       }
     }
 
-    }
     .label-cell {
       padding: 0px;
-      font-weight: 600;
+      font-weight: normal;
     }
+
     .student-header {
       .header-cell {
         width: 100%;
@@ -200,7 +222,7 @@
       padding: 0px;
       .student-name {
         text-align: left;
-        padding-left: 8px;
+        padding-left: @left-column-padding;
       }
     }
   }
@@ -214,13 +236,16 @@
   // includes split cells
   .scores-cell {
     & > * {
-      line-height: @table-row-height;
+      line-height: @student-header-row-height;
       display: inline-block;
       width: 50%;
       text-align: center;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      color: @student-header-fg-color;
+      font-style: italic;
+      font-weight: normal;
 
       &.wide {
         width: 100%;
@@ -307,7 +332,7 @@
   .name-cell {
     .name {
       text-align: left;
-      padding-left: 8px;
+      padding-left: @left-column-padding;
     }
   }
 
