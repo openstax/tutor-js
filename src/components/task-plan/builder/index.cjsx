@@ -7,7 +7,7 @@ BS = require 'react-bootstrap'
 {UnsavedStateMixin} = require '../../unsaved-state'
 CourseGroupingLabel = require '../../course-grouping-label'
 PlanMixin           = require '../plan-mixin'
-BindStoreMixin      = require '../../bind-store-mixin'
+BindStoresMixin      = require '../../bind-stores-mixin'
 
 {TimeStore} = require '../../../flux/time'
 TutorDateFormat = TimeStore.getFormat()
@@ -23,9 +23,18 @@ TimeHelper = require '../../../helpers/time'
 Tasking = require './tasking'
 
 TaskPlanBuilder = React.createClass
+  _getBindEvents: ->
+    {id} = @props
 
-  mixins: [PlanMixin, BindStoreMixin, UnsavedStateMixin]
-  bindStore: CourseStore
+    tasking:
+      store: TaskingStore
+      listenTo: "taskings.#{id}.*.changed"
+      callback: @changeTaskPlan
+    course:
+      store: CourseStore
+
+  mixins: [PlanMixin, BindStoresMixin, UnsavedStateMixin]
+
   propTypes:
     id: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired
@@ -114,7 +123,6 @@ TaskPlanBuilder = React.createClass
     TimeHelper.syncCourseTimezone(courseTimezone)
     TaskingActions.loadTaskToCourse(id, courseId)
 
-    TaskingStore.on("taskings.#{id}.*.changed", @changeTaskPlan)
     #set the periods defaults only after the timezone has been synced
     @setPeriodDefaults()
 
@@ -122,7 +130,6 @@ TaskPlanBuilder = React.createClass
     {id, courseId} = @props
 
     TimeHelper.unsyncCourseTimezone()
-    TaskingStore.off("taskings.#{id}.*.changed", @changeTaskPlan)
 
   changeTaskPlan: ->
     {id} = @props
