@@ -408,7 +408,7 @@ TaskingConfig =
 
     isTaskOpened: (taskId) ->
       firstTasking = _.first(@exports._getTaskingsSortedByOpenDate.call(@, taskId))
-      isTaskingOpened(firstTasking)
+      isTaskingOpened(firstTasking) if firstTasking?
 
     getFirstDueDate: (taskId) ->
       firstTasking = _.first(@exports._getTaskingsSortedByDueDate.call(@, taskId))

@@ -26,10 +26,14 @@ TaskPlanBuilder = React.createClass
   _getBindEvents: ->
     {id} = @props
 
-    tasking:
+    taskingChanged:
       store: TaskingStore
       listenTo: "taskings.#{id}.*.changed"
       callback: @changeTaskPlan
+    taskingLoaded:
+      store: TaskingStore
+      listenTo: "taskings.#{id}.*.loaded"
+      callback: @updateIsVisibleAndIsEditable
     course:
       store: CourseStore
       callback: @updateForCourse

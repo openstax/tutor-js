@@ -21,9 +21,9 @@ PlanMixin =
     id = @props.id or @props.planId
     {courseId} = @props
 
-    isVisibleToStudents = TaskPlanStore.isPublished(id) and
-      TaskPlanStore.isPublishing(id) and
-      TaskingStore.isTaskOpened(id)
+    isPublishedOrPublishing = TaskPlanStore.isPublished(id) or TaskPlanStore.isPublishing(id)
+
+    isVisibleToStudents = isPublishedOrPublishing and TaskingStore.isTaskOpened(id)
     isEditable = TaskPlanStore.isEditable(id)
     isSwitchable = not isVisibleToStudents or TaskingStore.hasAllTaskings(id)
 

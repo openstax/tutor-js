@@ -61,8 +61,10 @@ TaskingDateTimes = React.createClass
     defaults = TaskingStore.getDefaultsForTasking(id, period)
     {open_time, open_date, due_time, due_date} = TaskingStore._getTaskingFor(id, period)
 
+    now = TimeHelper.getMomentPreserveDate(TimeStore.getNow()).format(TimeHelper.ISO_DATE_FORMAT)
+
     maxOpensAt = due_date
-    minDueAt = open_date
+    minDueAt = if TaskingStore.isTaskOpened(id) then now else open_date
 
     <BS.Col sm=8 md=9>
       <DateTime
@@ -70,7 +72,7 @@ TaskingDateTimes = React.createClass
         disabled={isVisibleToStudents or not isEditable}
         label="Open"
         ref="open"
-        min={TimeStore.getNow()}
+        min={now}
         max={maxOpensAt}
         setDate={_.partial(@setDate, 'open')}
         setTime={_.partial(@setTime, 'open')}
