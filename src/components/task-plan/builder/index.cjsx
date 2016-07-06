@@ -113,7 +113,7 @@ TaskPlanBuilder = React.createClass
     {taskingOpensAt, taskingDueAt}
 
   updateForCourse: ->
-    {courseId} = @props
+    {id, courseId} = @props
     TaskingActions.loadDefaults(id, CourseStore.get(courseId))
     @forceUpdate()
 
@@ -122,7 +122,9 @@ TaskPlanBuilder = React.createClass
     courseTimezone = CourseStore.getTimezone(courseId)
     TimeHelper.syncCourseTimezone(courseTimezone)
     TaskingActions.loadTaskToCourse(id, courseId)
-    TaskingActions.loadDefaults(courseId, CourseStore.get(courseId))
+
+    course = CourseStore.get(courseId)
+    TaskingActions.loadDefaults(courseId, course) if course?
 
     #set the periods defaults only after the timezone has been synced
     @setPeriodDefaults()

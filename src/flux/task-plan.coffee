@@ -105,6 +105,7 @@ TaskPlanConfig =
       @_change(id, {tasking_plans: taskings})
     else if @_changed[id]?.tasking_plans?
       delete @_changed[id].tasking_plans
+      @emitChange()
 
   updateTutorSelection: (id, direction) ->
     {exercises_count_dynamic} = @_getClonedSettings(id, 'exercises_count_dynamic')
@@ -317,6 +318,13 @@ TaskPlanConfig =
 
     hasChanged: (id) ->
       changed = @exports.getChanged.call(@, id)
+
+      if @exports.isNew.call(@, id)
+        # omit tasking plan changes if new plan, only check for changes in other fields
+        changed = _.omit(changed, 'tasking_plans') 
+        defaultTaskPlan = newTaskPlan({type: changed.type})
+        return not _.isEqual(changed, defaultTaskPlan)
+
       not _.isEmpty(changed)
 
 extendConfig(TaskPlanConfig, planCrudConfig)

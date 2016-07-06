@@ -56,14 +56,9 @@ start = (bootstrapData) ->
   #   url: "/api/tasks/#{id}"
   #   payload: obj
 
-  saveHelper = (id) ->
+  saveHelper = (id, courseId) ->
     obj = TaskPlanStore.getChanged(id)
     if TaskPlanStore.isNew(id)
-      # HACK: to make the JSON valid
-      obj.type ?= 'reading'
-      courseId = obj._HACK_courseId
-      delete obj._HACK_courseId
-
       url: "/api/courses/#{courseId}/plans"
       httpMethod: 'POST'
       payload: obj

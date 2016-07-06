@@ -67,10 +67,8 @@ PlanShell = React.createClass
 
     if not id
       id = TaskPlanStore.freshLocalId()
-      TaskPlanActions.create(id, {
-        _HACK_courseId: courseId
-        type: type
-      })
+      TaskPlanActions.create(id, {type})
+
     {id}
 
   getId: -> @context.router.getCurrentParams().id or @state.id

@@ -66,14 +66,14 @@ PlanMixin =
     @save()
 
   save: ->
-    {id} = @props
+    {id, courseId} = @props
     saveable = TaskPlanStore.isValid(id) and TaskingStore.isTaskValid(id)
     # The logic here is this way because we need to be able to add an invalid
     # state to the form.  Blame @fredasaurus
     if saveable
       if TaskPlanStore.hasChanged(id)
         TaskPlanActions.saved.addListener(@saved)
-        TaskPlanActions.save(id)
+        TaskPlanActions.save(id, courseId)
       else
         @saved()
     else

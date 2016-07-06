@@ -202,8 +202,10 @@ TaskingConfig =
     @emit("taskings.#{taskId}.isAll.changed")
     true
 
-  loadTaskings: (taskId, taskings) ->
+  setOriginalTaskings: (taskId, taskings) ->
     @_originalTaskings[taskId] = taskings
+
+  loadTaskings: (taskId, taskings) ->
     blankTaskings = @exports._getBlankTaskings.call(@, taskId)
 
     commonTasking = getCommonTasking(taskings)
@@ -235,10 +237,12 @@ TaskingConfig =
 
       @resetTasking(taskId, tasking, taskingToLoad or disabledBaseTasking)
 
+    @setOriginalTaskings(taskId, @exports.get.call(@, taskId))
     @emit("taskings.#{taskId}.all.loaded")
     true
 
   create: (taskId, dates = {open_date: '', due_date: ''}) ->
+
     courseId = @exports.getCourseIdForTask.call(@, taskId)
     blankTaskings = @exports._getBlankTaskings.call(@, taskId)
 
@@ -251,6 +255,7 @@ TaskingConfig =
     _.each blankTaskings, (tasking) =>
       @resetTasking(taskId, tasking, dates)
 
+    @setOriginalTaskings(taskId, [])
     @emit("taskings.#{taskId}.all.changed")
     true
 
@@ -315,11 +320,8 @@ TaskingConfig =
 
       taskings = _.map storedTaskings, maskToTasking
 
-    _getOriginalTaskings: (taskId) ->
-      transformTaskings(@_originalTaskings[taskId])
-
     getOriginalTaskings: (taskId) ->
-      _.map(@exports._getOriginalTaskings.call(@, taskId), maskToTasking)
+      @_originalTaskings[taskId]
 
     _getTaskingFor: (taskId, tasking) ->
       storedTaskings = @exports._getTaskings.call(@, taskId)
@@ -421,11 +423,11 @@ TaskingConfig =
       tasking["#{type}_time"]
 
     isTaskSame: (taskId) ->
-      serverTaskings = @exports.getOriginalTaskings.call(@, taskId)
+      original = @exports.getOriginalTaskings.call(@, taskId)
       currentTaskings = @exports.get.call(@, taskId)
 
       _.isEqual(
-        _.sortBy(serverTaskings, toTaskingIndex),
+        _.sortBy(original, toTaskingIndex),
         _.sortBy(currentTaskings, toTaskingIndex)
       )
 
