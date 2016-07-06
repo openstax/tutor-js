@@ -98,40 +98,10 @@ TaskPlanConfig =
 
   _getPlan: (planId) ->
     obj = @_get(planId)
-
-    if obj?.tasking_plans?
-      _.each obj?.tasking_plans, (tasking) ->
-        tasking.due_at = TimeHelper.makeMoment(tasking.due_at)
-          .format("#{TimeHelper.ISO_DATE_FORMAT} #{TimeHelper.ISO_TIME_FORMAT}")
-        tasking.opens_at = TimeHelper.makeMoment(tasking.opens_at)
-          .format("#{TimeHelper.ISO_DATE_FORMAT} #{TimeHelper.ISO_TIME_FORMAT}")
-
     obj = validateSettings(obj)
     obj
 
   FAILED: -> # used by API
-
-
-  enableTasking: (id, target_id, opens_at, due_at) ->
-    plan = @_getPlan(id)
-    {tasking_plans} = plan
-    unless @_findTasking(tasking_plans, target_id)
-      tasking_plans = _.clone(tasking_plans)
-      tasking_plans.push(
-        {target_type: 'period', target_id, opens_at, due_at}
-      )
-      @_change(id, {tasking_plans})
-
-  disableTasking: (id, target_id) ->
-    plan = @_getPlan(id)
-    {tasking_plans} = plan
-    tasking_plans = _.reject tasking_plans, (plan) ->
-      plan.target_id is target_id
-    @_change(id, {tasking_plans})
-
-  _removeEmptyTaskings: (tasking_plans) ->
-    _.reject tasking_plans, (tasking) ->
-      not (tasking.due_at and tasking.opens_at)
 
   # Returns copies of the given property names from settings
   # Copies are returned so that the store can be reset
@@ -145,73 +115,6 @@ TaskPlanConfig =
   _changeSettings: (id, attributes) ->
     plan = @_getPlan(id)
     @_change(id, settings: _.extend({}, plan.settings, attributes))
-
-  setDefaultTimes: (course, period, useCourseDefault) ->
-    periodTimes = _.pick(period, 'opens_at', 'due_at')
-    {default_open_time, default_due_time} = course
-
-    unless useCourseDefault
-      periodSettings = _.findWhere course.periods, id: period.id
-      {default_open_time, default_due_time} = periodSettings
-
-    periodTimes.opens_at += " #{default_open_time}" if isDateStringOnly(periodTimes.opens_at)
-    periodTimes.due_at += " #{default_due_time}" if isDateStringOnly(periodTimes.due_at)
-
-    periodTimes
-
-  _getDefaultTaskingTimes: (id, courseId, periods, useCourseDefault = true) ->
-    plan = @_getPlan(id)
-    course = CourseStore.get(courseId)
-
-    curTaskings = plan?.tasking_plans
-    findTasking = @_findTasking
-    {default_open_time, default_due_time} = course
-
-    _.map periods, (period) =>
-      tasking = findTasking(curTaskings, period.id)
-      tasking ?= target_id: period.id, target_type:'period'
-
-      opens_at = period.opens_at or tasking.opens_at
-      due_at = period.due_at or tasking.due_at
-      if useCourseDefault
-        opens_at ?= default_open_time
-        due_at   ?= default_due_time
-
-      period.opens_at = TimeHelper.makeMoment(opens_at).format(TimeHelper.ISO_DATE_FORMAT) if opens_at?
-      period.due_at = TimeHelper.makeMoment(due_at).format(TimeHelper.ISO_DATE_FORMAT) if due_at?
-
-      periodTimes = @setDefaultTimes(course, period, useCourseDefault) if opens_at? or due_at?
-
-      _.extend({}, tasking, periodTimes)
-
-  setDefaultTimesForPeriods: (id, courseId, periods) ->
-    tasking_plans = @_getDefaultTaskingTimes(id, courseId, periods, false)
-    @_change(id, {tasking_plans})
-
-  setDefaultTimesForCourse: (id, courseId, periods) ->
-    tasking_plans = @_getDefaultTaskingTimes(id, courseId, periods)
-    @_change(id, {tasking_plans})
-
-  setPeriods: (id, courseId, periods, isDefault = false, useCourseDefault = true) ->
-    plan = @_getPlan(id)
-    course = CourseStore.get(courseId)
-
-    curTaskings = plan?.tasking_plans
-    findTasking = @_findTasking
-
-    tasking_plans = _.map periods, (period) =>
-      tasking = findTasking(curTaskings, period.id)
-      tasking ?= target_id: period.id, target_type:'period'
-
-      periodTimes = @setDefaultTimes(course, period, useCourseDefault)
-      _.extend(periodTimes, tasking)
-
-    if not @exports.isNew(id)
-      tasking_plans = @_removeEmptyTaskings(tasking_plans)
-
-    @_change(id, {tasking_plans}) unless _.isEqual(curTaskings, tasking_plans)
-
-    @_setInitialPlan(id) if isDefault
 
   replaceTaskings: (id, taskings) ->
     @_change(id, {tasking_plans: taskings})

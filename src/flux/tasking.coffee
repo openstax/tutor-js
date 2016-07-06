@@ -45,11 +45,14 @@ transformCourseToDefaults = (course) ->
 transformTasking = (tasking) ->
   transformed = _.pick(tasking, TASKING_IDENTIFIERS)
 
-  transformed.open_time = TimeHelper.getTimeOnly(tasking.opens_at)
-  transformed.due_time = TimeHelper.getTimeOnly(tasking.due_at)
+  due_at = TimeHelper.makeMoment(tasking.due_at).format("#{TimeHelper.ISO_DATE_FORMAT} #{TimeHelper.ISO_TIME_FORMAT}")
+  opens_at = TimeHelper.makeMoment(tasking.opens_at).format("#{TimeHelper.ISO_DATE_FORMAT} #{TimeHelper.ISO_TIME_FORMAT}")
 
-  transformed.open_date = TimeHelper.getDateOnly(tasking.opens_at)
-  transformed.due_date = TimeHelper.getDateOnly(tasking.due_at)
+  transformed.open_time = TimeHelper.getTimeOnly(opens_at)
+  transformed.due_time = TimeHelper.getTimeOnly(due_at)
+
+  transformed.open_date = TimeHelper.getDateOnly(opens_at)
+  transformed.due_date = TimeHelper.getDateOnly(due_at)
 
   transformed
 
@@ -170,7 +173,7 @@ TaskingConfig =
     @_taskings[taskId] = transformTaskings(taskings)
 
     if isAll
-      @_taskings[taskId][toTaskingIndex()] = commonTasking
+      @_taskings[taskId][toTaskingIndex()] = transformTasking(commonTasking)
     else
       @resetTasking(taskId)
 
@@ -194,13 +197,6 @@ TaskingConfig =
 
     @_taskings[taskId][taskingIndex] ?= {}
     @_taskings[taskId][taskingIndex]["#{type}_date"] = dateString
-    @emit("taskings.#{taskId}.#{taskingIndex}.changed")
-    true
-
-  updateTasking: (taskId, tasking) ->
-    taskingIndex = toTaskingIndex(tasking)
-
-    @_taskings[taskId][taskingIndex] = transformTasking(tasking)
     @emit("taskings.#{taskId}.#{taskingIndex}.changed")
     true
 
@@ -372,14 +368,6 @@ TaskingConfig =
     isTaskOpened: (taskId) ->
       firstTasking = _.first(@exports._getTaskingsSortedByOpenDate.call(@, taskId))
       isTaskingOpened(firstTasking)
-
-    # getTasking
-
-    # getCommonDateTime: (taskId) ->
-    #   taskings = @exports.get(taskId)
-    #   commonTasking = getCommonTasking(taskings)
-
-    #   return commonTasking or false
 
     getTaskingDate: (taskId, tasking, type = 'open') ->
       tasking = @exports._getTaskingFor.call(@, taskId, tasking)
