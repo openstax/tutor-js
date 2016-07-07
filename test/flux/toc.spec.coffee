@@ -16,7 +16,7 @@ describe 'TOC store', ->
     done()
 
   it 'can find by querying things', ->
-    expect(TocStore.findWhere(ECOSYSTEM_ID, cnx_id: '0e58aa87-2e09-40a7-8bf3-269b2fa16509').id).to.equal('234')
+    expect(TocStore.findWhere(ECOSYSTEM_ID, cnx_id: '0e58aa87-2e09-40a7-8bf3-269b2fa16510').id).to.equal('235')
     expect(TocStore.findWhere(ECOSYSTEM_ID, {"title": "Kinematics in 2 dim"}).id).to.equal('235')
 
   it 'can find by uuid', ->
