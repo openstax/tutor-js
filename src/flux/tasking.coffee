@@ -134,7 +134,13 @@ getCommonTasking = (taskings, commonBy = TASKING_MASKED) ->
 
   return firstTasking if hasCommon
 
-# sample defaults
+getCommonDates = (taskings) ->
+  commonOpenDate = getCommonTasking(taskings, 'open_date')
+  commonDueDate = getCommonTasking(taskings, 'due_date')
+
+  _.extend(commonOpenDate, commonDueDate)
+
+# sample _defaults
 # "#{courseId}": {
 #   "all": {
 #     "open_time": "00:01"
@@ -147,6 +153,34 @@ getCommonTasking = (taskings, commonBy = TASKING_MASKED) ->
 #   "#{target_type}#{target_id}": {
 #     "open_time": "00:01"
 #     "due_time": "11:00"
+#   }
+# }
+
+# sample _taskings
+# "#{courseId}": {
+#   "all": {
+#     "open_time": "00:01"
+#     "due_time": "22:00"
+#     "open_date": "2016-06-25"
+#     "due_date": "2016-08-25"
+#   },
+#   "#{target_type}#{target_id}": {
+#     "open_time": "00:01"
+#     "due_time": "11:00"
+#     "open_date": "2016-06-25"
+#     "due_date": "2016-08-25"
+#     "target_type": "#{target_type}"
+#     "target_id": "#{target_id}"
+#     disabled: true
+#   },
+#   "#{target_type}#{target_id}": {
+#     "open_time": "00:01"
+#     "due_time": "11:00"
+#     "open_date": "2016-06-25"
+#     "due_date": "2016-08-25"
+#     "target_type": "#{target_type}"
+#     "target_id": "#{target_id}"
+#     "disabled": false
 #   }
 # }
 
@@ -189,7 +223,7 @@ TaskingConfig =
     courseId = @exports.getCourseIdForTask.call(@, taskId)
     defaults = @exports.getDefaultsFor.call(@, courseId, tasking)
     taskingIndex = toTaskingIndex(tasking)
-    # currentTasking = @_taskings[taskId][taskingIndex] or _.pick(tasking, TASKING_IDENTIFIERS)
+
     currentTasking = _.pick(tasking, TASKING_IDENTIFIERS)
     updatedTasking = _.extend({disabled: false}, currentTasking, defaults, setTasking)
 
@@ -206,26 +240,20 @@ TaskingConfig =
     @_originalTaskings[taskId] = taskings
 
   loadTaskings: (taskId, taskings) ->
-    blankTaskings = @exports._getBlankTaskings.call(@, taskId)
 
+    blankTaskings = @exports._getBlankTaskings.call(@, taskId)
     commonTasking = getCommonTasking(taskings)
+
     isAll = commonTasking?
     @updateTaskingsIsAll(taskId, isAll)
 
     taskingsToLoad = transformTaskings(taskings)
 
-    commonOpenDate = getCommonTasking(taskingsToLoad, 'open_date')
-    commonDueDate = getCommonTasking(taskingsToLoad, 'due_date')
-
-    baseTaskingToLoad = _.extend({}, commonOpenDate, commonDueDate)
+    baseTaskingToLoad = getCommonDates(taskingsToLoad)
     disabledBaseTasking = _.extend({disabled: true}, baseTaskingToLoad)
 
-    if isAll
-      taskingToLoad = transformTasking(commonTasking)
-    else
-      taskingToLoad = baseTaskingToLoad
-
     @_taskings[taskId] = {}
+    taskingToLoad = if isAll then transformTasking(commonTasking) else baseTaskingToLoad
     @resetTasking(taskId, {}, taskingToLoad)
 
     _.each blankTaskings, (tasking) =>
@@ -436,8 +464,5 @@ TaskingConfig =
 
 
 {actions, store} = makeSimpleStore(TaskingConfig)
-
-window.TaskingActions = actions
-window.TaskingStore = store
 
 module.exports = {TaskingActions:actions, TaskingStore:store}

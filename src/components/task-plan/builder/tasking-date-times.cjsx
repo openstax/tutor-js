@@ -9,6 +9,7 @@ TimeHelper  = require '../../../helpers/time'
 {CourseStore, CourseActions}     = require '../../../flux/course'
 {TaskingActions, TaskingStore} = require '../../../flux/tasking'
 
+Icon = require '../../icon'
 DateTime = require './date-time'
 
 TaskingDateTimes = React.createClass
@@ -18,9 +19,12 @@ TaskingDateTimes = React.createClass
     isVisibleToStudents: React.PropTypes.bool
     period:              React.PropTypes.object
 
-  isPastDue: (date, time) ->
-    return false unless date?
-    TimeHelper.makeMoment("#{date} #{time}").isBefore(TimeHelper.makeMoment())
+  getError: ->
+    {id, period} = @props
+
+    false if TaskingStore.isTaskingValid(id, period)
+
+    _.first(TaskingStore.getTaskingErrors(id, period))
 
   setDefaultTime: (timeChange) ->
     {courseId, period} = @props
@@ -49,12 +53,7 @@ TaskingDateTimes = React.createClass
     TaskingActions.updateTime(id, period, type, value) 
 
   render: ->
-    {
-      isVisibleToStudents,
-      isEditable,
-      period,
-      id
-    } = @props
+    {isVisibleToStudents, isEditable, period, id} = @props
 
     commonDateTimesProps = _.pick @props, 'required', 'currentLocale', 'taskingIdentifier'
 
@@ -65,6 +64,16 @@ TaskingDateTimes = React.createClass
 
     maxOpensAt = due_date
     minDueAt = if TaskingStore.isTaskOpened(id) then now else open_date
+
+    error = @getError()
+
+    extraError = <BS.Col xs=12 md=6 mdOffset=6>
+      <p className="due-before-open">
+        {error}
+        <Icon type='exclamation-circle' />
+      </p>
+    </BS.Col> if error
+
 
     <BS.Col sm=8 md=9>
       <DateTime
@@ -81,7 +90,8 @@ TaskingDateTimes = React.createClass
         defaultTime={defaults.open_time}
         setDefaultTime={@setDefaultTime}
         timeLabel='default_open_time'
-        isSetting={@isSetting} />
+        isSetting={@isSetting}
+      />
       <DateTime
         {...commonDateTimesProps}
         disabled={not isEditable}
@@ -95,7 +105,9 @@ TaskingDateTimes = React.createClass
         defaultTime={defaults.due_time}
         setDefaultTime={@setDefaultTime}
         timeLabel='default_due_time'
-        isSetting={@isSetting} />
+        isSetting={@isSetting}
+      />
+      {extraError}
     </BS.Col>
 
 module.exports = TaskingDateTimes
