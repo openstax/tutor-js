@@ -60,7 +60,7 @@ ReadingCell = React.createClass
             onMouseLeave={@hide}>
             <PieProgress
               isConceptCoach={isConceptCoach}
-              size={24}
+              size={20}
               value={TH.getCompletedPercent(task)}
               isLate={TH.isLate(task)}
             />

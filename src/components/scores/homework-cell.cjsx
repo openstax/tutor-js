@@ -36,13 +36,20 @@ HomeworkCell = React.createClass
 
     scorePercent = TH.getHumanScorePercent(task)
     scoreNumber = TH.getHumanScoreNumber(task)
+    completed = task.completed_exercise_count is task.exercise_count
+    scoreText = '---'
+    if completed
+      if displayAs is 'number'
+        scoreText = scoreNumber
+      else
+        scoreText = scorePercent
 
     score =
       <div className="score">
         <Router.Link to='viewTaskStep'
           data-assignment-type="#{task.type}"
           params={courseId: courseId, id: task.id, stepIndex: 1}>
-            {if displayAs is 'number' then scoreNumber else scorePercent}
+            {scoreText}
         </Router.Link>
       </div>
 
@@ -61,7 +68,7 @@ HomeworkCell = React.createClass
           <span className='trigger-wrap'>
             <PieProgress
               isConceptCoach={isConceptCoach}
-              size={24}
+              size={20}
               value={TH.getCompletedPercent(task)}
               isLate={TH.isLate(task)}
             />
