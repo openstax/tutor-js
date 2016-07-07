@@ -37,7 +37,7 @@ typesetDocument = ->
       node.classList.add(MATH_RENDERED_CLASS)
 
 # Install a debounce around typesetting function so that it will only run once
-# every 10ms even if called multiple times in that period
+# every Xms even if called multiple times in that period
 typesetDocument = _.debounce( typesetDocument, 100)
 
 
