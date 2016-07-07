@@ -1,5 +1,4 @@
 React = require 'react'
-Waypoint = require 'react-waypoint'
 _ = require 'underscore'
 
 ExercisePart = require './part'
