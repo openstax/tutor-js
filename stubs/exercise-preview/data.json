@@ -1,10 +1,14 @@
 {
+  "id": "20",
+  "url": "https:\/\/exercises-dev.openstax.org\/exercises\/20@2",
+  "preview": "Read the above content and then watch this video about DNA:\n<div class=\"preview video\">Video<\/div>\n\nAfter watching it, keep it's important lessions in mind while you answer the following questions",
   "has_video": true,
   "has_interactive": false,
   "is_excluded": false,
   "pool_types": [
     "homework_core"
   ],
+  "context": "<div data-type=\"note\" data-has-label=\"true\" id=\"mcbp_04_01\" class=\"note sociology-real-world\" data-label=\"about socieities\">\n<div data-type=\"title\" class=\"title\">Where Societies Meet—The Worst and the Best</div>\n<p id=\"import-auto-id1169034204797\">When cultures meet, technology can help, hinder, and even destroy. The Exxon Valdez oil spillage in Alaska nearly destroyed the local inhabitant’s entire way of life. Oil spills in the Nigerian Delta have forced many of the Ogoni tribe from their land and forced removal has meant that over 100,000 Ogoni have sought refuge in the country of Benin (University of Michigan, n.d.). And the massive Deepwater Horizon oil spill of 2006 drew great attention as it occurred in what is the most developed country, the United States. Environmental disasters continue as Western technology and its need for energy expands into less developed (peripheral) regions of the globe. </p>\n<p id=\"import-auto-id1169034181979\">Of course not all technology is bad. We take electric light for granted in the United States, Europe, and the rest of the developed world. Such light extends the day and allows us to work, read, and travel at night. It makes us safer and more productive. But regions in India, Africa, and elsewhere are not so fortunate. Meeting the challenge, one particular organization, Barefoot College, located in District Ajmer, Rajasthan, India, works with numerous less developed nations to bring solar electricity, water solutions, and education. The focus for the solar projects is the village elders. The elders agree to select two grandmothers to be trained as solar engineers and choose a village committee composed of men and women to help operate the solar program.\n</p>\n<p id=\"eip-85\">The program has brought light to over 450,000 people in 1,015 villages. The environmental rewards include a large reduction in the use of kerosene and in carbon dioxide emissions. The fact that the villagers are operating the projects themselves helps minimize their sense of dependence. \n</p>\n<figure id=\"import-auto-id1169034200522\"><figcaption>Otherwise skeptic or hesitant villagers are more easily convinced of the value of the solar project when they realize that the “solar engineers” are their local grandmothers. (Photo courtesy of \nAbri le Roux/flickr)</figcaption><span data-type=\"media\" id=\"import-auto-id1169034191733\" data-alt=\"Alt text: A photo of a family of villagers in Africa in front of a solar panel on top of a roof\">\n                            <img src=\"https://archive.cnx.org/resources/4c1a3d523a90faf20c8b77d981c6991737e2633d/CNX_Soc2e_Figure_04_01_003.jpg\" data-media-type=\"image/png\" alt=\"Alt text: A photo of a family of villagers in Africa in front of a solar panel on top of a roof\" width=\"275\">\n                        </span>\n                            </figure>\n</div>",
   "tags": [
     {
       "data": "cb7cf05b-7e16-4a53-a498-003b01ec3d7f",
@@ -206,7 +210,7 @@
         "id": 6404
       }
     ],
-    "stimulus_html": "Watch this video about DNA:\n<iframe width=\"1280\" height=\"720\" src=\"https:\/\/www.youtube.com\/embed\/dQw4w9WgXcQ\" frameborder=\"0\" allowfullscreen=\"\"><\/iframe>\n\nAfter watching it, keep it's important lessions in mind while you answer the following questions",
+    "stimulus_html": "Read the above content and then watch this video about DNA:\n<iframe width=\"1280\" height=\"720\" src=\"https:\/\/www.youtube.com\/embed\/dQw4w9WgXcQ\" frameborder=\"0\" allowfullscreen=\"\"><\/iframe>\n\nAfter watching it, keep it's important lessions in mind while you answer the following questions",
     "is_vocab": false,
     "derived_from": [],
     "copyright_holders": [
@@ -248,8 +252,5 @@
       "filter-type:import:hs"
     ],
     "attachments": []
-  },
-  "preview": "\nWatch this video about DNA:\n<div class=\"preview video\">Video<\/div>\n\nAfter watching it, keep it's important lessions in mind while you answer the following questions",
-  "url": "https:\/\/exercises-dev.openstax.org\/exercises\/20@2",
-  "id": "20"
+  }
 }
