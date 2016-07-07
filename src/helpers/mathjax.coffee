@@ -8,13 +8,10 @@ MATH_DATA_SELECTOR = "[data-math]:not(.#{MATH_RENDERED_CLASS})"
 MATH_ML_SELECTOR   = "math:not(.#{MATH_RENDERED_CLASS})"
 COMBINED_MATH_SELECTOR = "#{MATH_DATA_SELECTOR}, #{MATH_ML_SELECTOR}"
 
-setAsRendered = (node, type = 'mathjax') ->
-  node.classList.add("#{type}-rendered")
-  node.classList.add(MATH_RENDERED_CLASS)
-
 # Search document for math and [data-math] elements and then typeset them
 typesetDocument = ->
-  allNodes = []
+  latexNodes = []
+
   for node in document.querySelectorAll(MATH_DATA_SELECTOR)
     formula = node.getAttribute('data-math')
     # divs should be rendered as a block, others inline
@@ -22,20 +19,26 @@ typesetDocument = ->
       node.textContent = "#{MATH_MARKER_BLOCK}#{formula}#{MATH_MARKER_BLOCK}"
     else
       node.textContent = "#{MATH_MARKER_INLINE}#{formula}#{MATH_MARKER_INLINE}"
-    allNodes.push(node)
-  # Mathjax doesn't typeset a element when it's passed one directly
-  # It will only render child elements
-  allNodes = allNodes.concat(
-    _.pluck(document.querySelectorAll(MATH_ML_SELECTOR), 'parentNode')
-  )
-  window.MathJax.Hub.Typeset( allNodes )
+    latexNodes.push(node)
+
+  unless _.isEmpty(latexNodes)
+    window.MathJax.Hub.Typeset(latexNodes)
+
+  mathMLNodes = _.toArray(document.querySelectorAll(MATH_ML_SELECTOR))
+  unless _.isEmpty(mathMLNodes)
+    # ugg - mathjax seems to need at least a bit of other content around the element to style
+    # If it just styles a parent element that has no other text then it doesn't know what size the text should be
+    parents = _.unique( _.map( mathMLNodes, (el) -> el.parentElement.parentElement ) )
+    window.MathJax.Hub.Typeset( parents )
+
   window.MathJax.Hub.Queue ->
-    for node in allNodes
-      setAsRendered(node)
+    # Queue a call to mark the found nodes as rendered so are ignored if typesetting is called repeatedly
+    for node in latexNodes.concat(mathMLNodes)
+      node.classList.add(MATH_RENDERED_CLASS)
 
 # Install a debounce around typesetting function so that it will only run once
-# every 10ms even if called multiple calls times in that period
-typesetDocument = _.debounce( typesetDocument, 10)
+# every Xms even if called multiple times in that period
+typesetDocument = _.debounce( typesetDocument, 100)
 
 
 # typesetMath is the main exported function.
