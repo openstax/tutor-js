@@ -45,7 +45,9 @@ BASE_PLANS =
   events:
     settings: {}
 
-newTaskPlan = (attributes) ->
+newTaskPlan = (attributes = {}) ->
+  attributes.type ?= 'reading'
+
   if BASE_PLANS[attributes.type]?
     _.extend({}, attributes, cloneDeep(BASE_PLANS[attributes.type]))
   else
