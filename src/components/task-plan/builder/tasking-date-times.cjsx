@@ -20,9 +20,11 @@ TaskingDateTimes = React.createClass
     period:              React.PropTypes.object
 
   getError: ->
+    return false unless @refs?.due?.hasValidInputs() and @refs?.open?.hasValidInputs()
+
     {id, period} = @props
 
-    false if TaskingStore.isTaskingValid(id, period)
+    return false if TaskingStore.isTaskingValid(id, period)
 
     _.first(TaskingStore.getTaskingErrors(id, period))
 

@@ -11,7 +11,7 @@ _ = require 'underscore'
 
 yesterday = (new Date(Date.now() - 1000 * 3600 * 24)).toString()
 
-VISIBLE_HW = ExtendBasePlan({type: 'homework', published_at: yesterday, exercise_ids: [1]}, {opens_at: yesterday})
+VISIBLE_HW = ExtendBasePlan({type: 'homework', is_published: true, exercise_ids: [1]}, {opens_at: yesterday})
 UNPUBLISHED_HW = ExtendBasePlan({type: 'homework', exercise_ids: [1]})
 NEW_HW = ExtendBasePlan({type: 'homework', id: "_CREATING_1"})
 

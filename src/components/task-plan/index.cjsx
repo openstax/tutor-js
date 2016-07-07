@@ -77,10 +77,6 @@ PlanShell = React.createClass
     typeName = @props.type
     getPlanType(typeName)
 
-  getFlux: ->
-    store: TaskPlanStore
-    actions: TaskPlanActions
-
   render: ->
     Type = @getType()
     {courseId} = @context.router.getCurrentParams()

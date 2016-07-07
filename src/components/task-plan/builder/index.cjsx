@@ -36,6 +36,9 @@ TaskPlanBuilder = React.createClass
 
   mixins: [BindStoresMixin, UnsavedStateMixin]
 
+  contextTypes:
+    router: React.PropTypes.func
+
   propTypes:
     id: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired
@@ -84,8 +87,7 @@ TaskPlanBuilder = React.createClass
 
   getQueriedDueAt: ->
     {due_at} = @context?.router?.getCurrentQuery() # attempt to read the due date from query params
-    isNewPlan = TaskPlanStore.isNew(@props.id)
-    dueAt = if due_at and isNewPlan then TimeHelper.getMomentPreserveDate(due_at).format(TimeHelper.ISO_DATE_FORMAT)
+    dueAt = if due_at then TimeHelper.getMomentPreserveDate(due_at).format(TimeHelper.ISO_DATE_FORMAT)
 
   # Copies the available periods from the course store and sets
   # them to open at the default start date

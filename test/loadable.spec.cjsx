@@ -10,9 +10,6 @@ CrudConfig = CrudConfig()
 
 TestClass = React.createClass
   getId: -> @props.id
-  getFlux: ->
-    store: CrudStore
-    actions: CrudActions
 
   render: ->
     {id} = @props
