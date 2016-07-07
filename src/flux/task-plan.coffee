@@ -23,6 +23,8 @@ PLAN_TYPES =
   EXTERNAL: 'external'
   EVENT: 'event'
 
+DEFAULT_TYPE = PLAN_TYPES.READING
+
 sortTopics = (topics) ->
   _.sortBy(topics, (topicId) ->
     topic = TocStore.getSectionInfo(topicId)
@@ -46,14 +48,16 @@ BASE_PLANS =
     settings: {}
 
 newTaskPlan = (attributes = {}) ->
-  attributes.type ?= 'reading'
+  attributes.type ?= DEFAULT_TYPE
 
   if BASE_PLANS[attributes.type]?
     _.extend({}, attributes, cloneDeep(BASE_PLANS[attributes.type]))
   else
     {}
 
-validateSettings = (taskPlan) ->
+validateSettings = (taskPlan = {}) ->
+  taskPlan.type ?= DEFAULT_TYPE
+
   expectedSettings = _.keys(BASE_PLANS[taskPlan.type].settings)
   taskPlan.settings = _.pick(taskPlan.settings, expectedSettings)
 
