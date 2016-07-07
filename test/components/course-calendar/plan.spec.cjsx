@@ -405,7 +405,7 @@ describe 'Plan on Course Calendar', ->
 
         checker = _.partial(checkChildrenComponents, element.refs.plan, item, checksIsPublished)
         PlanPublishStore.on("progress.#{item.plan.id}.*", checker)
-  
+
         fakePublished(item.plan)
 
   it 'should check for publishing subscribe if plan isPublishing props update', ->

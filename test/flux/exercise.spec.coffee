@@ -57,8 +57,6 @@ describe 'exercises store', ->
 
   it 'can get teks tag name', ->
     exercise = EXERCISES.items[0]
-
     teksTag = findTagByType(exercise, 'teks')
     teks = ExerciseStore.getTeksString(exercise.id)
-
     expect(teksTag.name.indexOf(teks)).to.not.equal(-1)

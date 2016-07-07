@@ -88,8 +88,9 @@ AddExercises = React.createClass
 
   render: ->
     return @renderLoading() if @exercisesAreLoading()
+    ecosystemId = CourseStore.get(@props.courseId)?.ecosystem_id
     exercises = ExerciseStore.groupBySectionsAndTypes(
-      CourseStore.get(@props.courseId)?.ecosystem_id, @props.sectionIds
+      ecosystemId, @props.sectionIds
     )
     sharedProps =
         exercises: exercises.all
@@ -111,6 +112,7 @@ AddExercises = React.createClass
       else
         <ExerciseCards
           {...sharedProps}
+          ecosystemId={ecosystemId}
           watchStore={TaskPlanStore}
           watchEvent='change-exercise-'
           topScrollOffset={110}
