@@ -23,4 +23,11 @@ module.exports = {
       <LateIcon {...@props}/>
     </Router.Link>
 
+  getInitialState: ->
+    showingLateOverlay: false
+
+  lateOverlayStateChanged: (status) ->
+    @props.task.showingLateOverlay = status
+    @forceUpdate()
+
 }

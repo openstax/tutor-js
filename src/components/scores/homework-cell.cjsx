@@ -1,6 +1,7 @@
 React  = require 'react'
 Router = require 'react-router'
 BS = require 'react-bootstrap'
+classNames = require 'classnames'
 
 Time = require '../time'
 CellStatusMixin = require './cell-status-mixin'
@@ -55,7 +56,7 @@ HomeworkCell = React.createClass
 
     scoreNotStarted = <div className="score not-started">---</div>
 
-    <div className="scores-cell">
+    <div className="scores-cell #{classNames(highlighted: @props.task.showingLateOverlay)}">
 
       {if notStarted then scoreNotStarted else score }
 
@@ -76,7 +77,7 @@ HomeworkCell = React.createClass
         </BS.OverlayTrigger>
       </div>
 
-      {<LateWork task={task} columnIndex={columnIndex} /> if TH.isLate(task)}
+      {<LateWork task={task} columnIndex={columnIndex} onOverlayStateChanged={@lateOverlayStateChanged} /> if TH.isLate(task)}
 
     </div>
 

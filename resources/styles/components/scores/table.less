@@ -269,7 +269,7 @@
     }
 
     .scores-cell {
-      & > * {
+      & > *:not(.late-caret-trigger) {
         line-height: @student-header-row-height;
         color: @student-header-fg-color;
         font-style: italic;
@@ -285,9 +285,35 @@
     text-align: center;
   }
 
+  .external-cell {
+    height: @table-row-height;
+    border-right: 1px solid @nav-tabs-border-color;
+  }
+
   .scores-cell {
+    height: @table-row-height;
+    position: relative;
+
+    &.highlighted {
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        border: 2px solid @nav-tabs-border-color;
+        border-left-width: 1px;
+      }
+
+      > .late-caret-trigger {
+        z-index: 1;
+      }
+    }
+
     // includes split cells
-    & > * {
+    & > *:not(.late-caret-trigger) {
       line-height: @table-row-height;
       display: inline-block;
       width: 50%;

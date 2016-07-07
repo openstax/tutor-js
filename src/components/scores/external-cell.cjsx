@@ -11,4 +11,6 @@ module.exports = React.createClass
   mixins: [CellStatusMixin]
 
   render: ->
-    @renderLink( message: STATUS[@props.task.status] )
+    <div className="external-cell">
+      {@renderLink( message: STATUS[@props.task.status] )}
+    </div>
