@@ -28,14 +28,19 @@
 
     &.sortable {
       font-size: 1.2rem;
+
+      &:not(.is-descending):not(.is-ascending):hover::after { content: @fa-var-sort-desc; }
+      &.is-descending:hover::after { content: @fa-var-sort-asc;  }
+      &.is-ascending:hover::after  { content: @fa-var-sort-desc; }
     }
 
     &.is-ascending,
-    &.is-descending {
+    &.is-descending,
+    &.sortable:hover {
       &:after {
         position: absolute;
-        right: 2px;
-        top: 23px;
+        right: 6px;
+        top: 6px;
         .fa-icon();
       }
     }
@@ -270,6 +275,7 @@
 
     .scores-cell {
       & > *:not(.late-caret-trigger) {
+        height: @student-header-row-height;
         line-height: @student-header-row-height;
         color: @student-header-fg-color;
         font-style: italic;
@@ -295,7 +301,7 @@
     position: relative;
 
     &.highlighted {
-      &:after {
+      &::after {
         content: '';
         position: absolute;
         top: 0;
