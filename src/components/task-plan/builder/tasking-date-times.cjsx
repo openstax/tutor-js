@@ -45,12 +45,12 @@ TaskingDateTimes = React.createClass
   setDate: (type, value) ->
     {id, period} = @props
     value = value.format(TimeHelper.ISO_DATE_FORMAT) if moment.isMoment(value)
-    TaskingActions.updateDate(id, period, type, value) 
+    TaskingActions.updateDate(id, period, type, value)
 
   setTime: (type, value) ->
     {id, period} = @props
     value = value.format(TimeHelper.ISO_DATE_FORMAT) if moment.isMoment(value)
-    TaskingActions.updateTime(id, period, type, value) 
+    TaskingActions.updateTime(id, period, type, value)
 
   render: ->
     {isVisibleToStudents, isEditable, period, id} = @props

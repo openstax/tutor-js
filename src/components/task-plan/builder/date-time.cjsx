@@ -134,7 +134,12 @@ DateTime = React.createClass
           <TutorDateInput {...dateProps} onChange={@onDateChange} ref='date'/>
         </BS.Col>
         <BS.Col xs=4 md=5 className="tasking-time -assignment-#{type}-time">
-          <TutorTimeInput {...timeProps} onChange={@onTimeChange} onUpdated={@onTimeUpdated} ref='time'/>
+          <TutorTimeInput
+            {...timeProps}
+            onChange={@onTimeChange}
+            onUpdated={@onTimeUpdated}
+            ref='time'
+          />
           {setAsDefaultOption}
         </BS.Col>
       </BS.Row>

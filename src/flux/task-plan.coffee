@@ -327,7 +327,7 @@ TaskPlanConfig =
 
       if @exports.isNew.call(@, id)
         # omit tasking plan changes if new plan, only check for changes in other fields
-        changed = _.omit(changed, 'tasking_plans') 
+        changed = _.omit(changed, 'tasking_plans')
         defaultTaskPlan = newTaskPlan({type: changed.type})
         return not _.isEqual(changed, defaultTaskPlan)
 

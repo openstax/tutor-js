@@ -13,7 +13,7 @@ ReferenceBookPageShell = React.createClass
     cnxId: React.PropTypes.string.isRequired
 
   isAnotherPage: (currentProps) ->
-    @lastLoadedProps? and @lastLoadedProps.cnxId? and @lastLoadedProps.cnxId != currentProps.cnxId
+    @lastLoadedProps? and @lastLoadedProps.cnxId? and @lastLoadedProps.cnxId isnt currentProps.cnxId
 
   renderLoading: (currentProps, refreshButton) ->
     if @isAnotherPage(currentProps)

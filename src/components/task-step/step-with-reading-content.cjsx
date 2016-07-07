@@ -49,7 +49,10 @@ StepContent = React.createClass
     {id, stepType} = @props
     {content_html} = TaskStepStore.get(id)
     <div className={"#{stepType}-step"}>
-      <ArbitraryHtmlAndMath className={"#{stepType}-content"} html={content_html} shouldExcludeFrame={@shouldExcludeFrame} />
+      <ArbitraryHtmlAndMath
+        className={"#{stepType}-content"}
+        html={content_html}
+        shouldExcludeFrame={@shouldExcludeFrame} />
     </div>
 
 

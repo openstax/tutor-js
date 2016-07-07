@@ -201,8 +201,15 @@ TutorDateInput = React.createClass
     else if isDatePickerDisabled
       displayValue = value.format(TutorDateFormat)
 
+    displayOnlyProps =
+      type: 'text'
+      disabled: true
+      readOnly: true
+      className: classes
+      value: displayValue
+
     <div className={wrapperClasses}>
-      <input type='text' disabled readOnly className={classes} value={displayValue}/>
+      <input {...displayOnlyProps}/>
       <div className="floating-label">{@props.label}</div>
       <div className="hint required-hint">
         Required Field <i className="fa fa-exclamation-circle"></i>
