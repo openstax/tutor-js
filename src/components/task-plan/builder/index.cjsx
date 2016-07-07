@@ -42,7 +42,7 @@ TaskPlanBuilder = React.createClass
     label: React.PropTypes.string
     isVisibleToStudents: React.PropTypes.bool.isRequired
     isEditable: React.PropTypes.bool.isRequired
-    isSwitchable: React.PropTypes.bool.isRequired 
+    isSwitchable: React.PropTypes.bool.isRequired
 
   getInitialState: ->
     {id} = @props
