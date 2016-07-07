@@ -9,9 +9,6 @@ ExerciseGroup = require './group'
 ExerciseBadges = require '../exercise-badges'
 ExerciseIdentifierLink = require '../exercise-identifier-link'
 
-{ScrollListenerMixin} = require 'react-scroll-components'
-{ScrollTracker, ScrollTrackerParentMixin} = require '../scroll-tracker'
-
 ExerciseMixin =
   getLastPartId: ->
     {parts} = @props
@@ -119,31 +116,6 @@ ExerciseMixin =
 ExerciseWithScroll = React.createClass
   displayName: 'ExerciseWithScroll'
   mixins: [ExerciseMixin]
-  wrapPartWithScroll: (parts, exercisePart, index) ->
-    {onPartEnter, onPartLeave} = @props
-
-    part = parts[index]
-
-    scrollState =
-      key: part.stepIndex
-      questionNumber: part.questionNumber
-      id: part.id
-      index: index
-
-    onPartEnter = _.partial(onPartEnter, part.stepIndex) if onPartEnter and _.isFunction(onPartEnter)
-    onPartLeave = _.partial(onPartLeave, part.stepIndex) if onPartLeave and _.isFunction(onPartLeave)
-
-    marker = <div id="exercise-part-with-scroll-#{part.stepIndex}">
-      <Waypoint
-        key="exercise-part-with-scroll-#{part.stepIndex}"
-        onEnter={onPartEnter}
-        onLeave={onPartLeave}/>
-    </div>
-
-    [
-      marker,
-      exercisePart
-    ]
 
   render: ->
     {parts, footer, pinned} = @props
@@ -152,17 +124,14 @@ ExerciseWithScroll = React.createClass
       return @renderSinglePart()
 
     exerciseParts = @renderMultiParts()
-    exercisePartsWithScroll = _.chain(exerciseParts)
-      .map _.partial(@wrapPartWithScroll, parts)
-      .flatten()
-      .value()
+
     exerciseGroup = @renderGroup()
     footer ?= @renderFooter() if pinned
 
     <CardBody footer={footer} pinned={pinned} className='openstax-multipart-exercise-card'>
       <ExerciseBadges isMultipart={true}/>
       {exerciseGroup}
-      {exercisePartsWithScroll}
+      {exerciseParts}
       {@renderIdLink(false)}
     </CardBody>
 
