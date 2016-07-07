@@ -29,7 +29,7 @@ module.exports = React.createClass
     </tr>
 
   isPeriodEmpty: ->
-    id = @props.activeTab.id
+    id = @props.period.id
     students = RosterStore.getActiveStudentsForPeriod(@props.courseId, id)
     students.length is 0
 
