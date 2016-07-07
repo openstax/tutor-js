@@ -147,6 +147,10 @@ TaskPlanBuilder = React.createClass
     #clear saved taskings
     @setState(showingPeriods: true)
 
+  setTitle: (title) ->
+    {id} = @props
+    TaskPlanActions.updateTitle(id, title)
+
   setDescription:(desc, descNode) ->
     {id} = @props
     TaskPlanActions.updateDescription(id, desc)

@@ -44,10 +44,6 @@ PlanMixin =
     TaskPlanStore.off('publish-queued', @updateIsVisibleAndIsEditable)
     TaskingStore.off("taskings.#{id}.*.loaded", @updateIsVisibleAndIsEditable)
 
-  setTitle: (title) ->
-    {id} = @props
-    TaskPlanActions.updateTitle(id, title)
-
   showSectionTopics: ->
     @setState({
       showSectionTopics: true,
