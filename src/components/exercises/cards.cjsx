@@ -17,6 +17,7 @@ ExercisePreview = require './preview'
 SectionsExercises = React.createClass
 
   propTypes:
+    ecosystemId:            React.PropTypes.string.isRequired
     exercises:              React.PropTypes.array.isRequired
     chapter_section:        React.PropTypes.string.isRequired
     onShowDetailsViewClick: React.PropTypes.func.isRequired
@@ -25,7 +26,8 @@ SectionsExercises = React.createClass
     getExerciseActions:     React.PropTypes.func.isRequired
 
   render: ->
-    title = TocStore.getSectionLabel(@props.chapter_section)?.title
+    title = TocStore.findChapterSection(@props.ecosystemId, @props.chapter_section)?.title
+
     # IMPORTANT: the 'data-section' attribute is used as a scroll-to target and must be present
     <div className='exercise-sections' data-section={@props.chapter_section}>
       <label className='exercises-section-label'>
@@ -33,7 +35,7 @@ SectionsExercises = React.createClass
       </label>
       <div className="exercises">
         {for exercise in @props.exercises
-          <ExercisePreview {...@props} exercise={exercise} />}
+          <ExercisePreview key={exercise.id} {...@props} exercise={exercise} />}
       </div>
     </div>
 
@@ -42,6 +44,7 @@ SectionsExercises = React.createClass
 ExerciseCards = React.createClass
 
   propTypes:
+    ecosystemId:            React.PropTypes.string.isRequired
     exercises:              React.PropTypes.object.isRequired
     onExerciseToggle:       React.PropTypes.func.isRequired
     getExerciseIsSelected:  React.PropTypes.func.isRequired
