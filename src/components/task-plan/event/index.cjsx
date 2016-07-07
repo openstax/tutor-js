@@ -19,6 +19,8 @@ EventPlan = React.createClass
 
   render: ->
     {id, courseId} = @props
+    builderProps = _.pick(@state, 'isVisibleToStudents', 'isEditable', 'isSwitchable')
+
     plan = TaskPlanStore.get(id)
 
     formClasses = ['edit-event', 'dialog']
@@ -42,7 +44,7 @@ EventPlan = React.createClass
         header={header}>
 
         <BS.Grid fluid>
-          <TaskPlanBuilder courseId={courseId} id={id} label='Event'/>
+          <TaskPlanBuilder courseId={courseId} id={id} label='Event' {...builderProps}/>
         </BS.Grid>
       </BS.Panel>
     </div>

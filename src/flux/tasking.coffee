@@ -9,6 +9,7 @@ TASKING_IDENTIFIERS = ['target_type', 'target_id']
 TASKING_TIMES = ['open_time', 'due_time']
 TASKING_DATES = ['open_date', 'due_date']
 TASKING_DATETIMES = TASKING_TIMES.concat(TASKING_DATES)
+TASKING_UPDATABLES = TASKING_DATETIMES.concat(['disabled'])
 TASKING_WORKING_PROPERTIES = TASKING_IDENTIFIERS.concat(TASKING_DATETIMES).concat(['disabled'])
 
 TASKING_MASKS =
@@ -218,6 +219,10 @@ TaskingConfig =
     @_taskings[taskId][taskingIndex]["#{type}_date"] = dateString
     @emit("taskings.#{taskId}.#{taskingIndex}.changed")
     true
+
+  updateAllTaskings: (taskId, taskingUpdate) ->
+    taskingUpdate = _.pick(taskingUpdate, TASKING_UPDATABLES)
+    _.each(@_taskings[taskId], _.partial(_.extend(_, taskingUpdate)))
 
   resetTasking: (taskId, tasking, setTasking) ->
     courseId = @exports.getCourseIdForTask.call(@, taskId)

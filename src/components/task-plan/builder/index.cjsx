@@ -30,20 +30,19 @@ TaskPlanBuilder = React.createClass
       store: TaskingStore
       listenTo: "taskings.#{id}.*.changed"
       callback: @changeTaskPlan
-    taskingLoaded:
-      store: TaskingStore
-      listenTo: "taskings.#{id}.*.loaded"
-      callback: @updateIsVisibleAndIsEditable
     course:
       store: CourseStore
       callback: @updateForCourse
 
-  mixins: [PlanMixin, BindStoresMixin, UnsavedStateMixin]
+  mixins: [BindStoresMixin, UnsavedStateMixin]
 
   propTypes:
     id: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired
     label: React.PropTypes.string
+    isVisibleToStudents: React.PropTypes.bool.isRequired
+    isEditable: React.PropTypes.bool.isRequired
+    isSwitchable: React.PropTypes.bool.isRequired 
 
   getInitialState: ->
     {id} = @props
@@ -94,9 +93,7 @@ TaskPlanBuilder = React.createClass
     {courseId, id} = @props
     {showingPeriods} = @state
 
-    isNewPlan = TaskPlanStore.isNew(id)
-
-    if isNewPlan
+    if TaskPlanStore.isNew(id)
       TaskingActions.create(id, {open_date: @getQueriedOpensAt(), due_date: @getQueriedDueAt()})
     else
       {tasking_plans} = TaskPlanStore.get(id)
@@ -106,15 +103,6 @@ TaskPlanBuilder = React.createClass
     nextState.showingPeriods = not TaskingStore.getTaskingsIsAll(id)
 
     @setState(nextState) unless _.isEmpty(nextState)
-
-  getDefaultPlanDates: (periodId) ->
-    taskingOpensAt = TaskPlanStore.getOpensAt(@props.id, periodId)
-    taskingOpensAt ?= @getQueriedOpensAt()
-
-    taskingDueAt = TaskPlanStore.getDueAt(@props.id, periodId)
-    taskingDueAt ?= @getQueriedDueAt()
-
-    {taskingOpensAt, taskingDueAt}
 
   updateForCourse: ->
     {courseId} = @props
@@ -173,7 +161,7 @@ TaskPlanBuilder = React.createClass
         </BS.Col>
       </BS.Row>
 
-    cannotEditNote = '  Open times cannot be edited after assignment is visible to students.' if @state.isVisibleToStudents
+    cannotEditNote = '  Open times cannot be edited after assignment is visible to students.' if @props.isVisibleToStudents
 
     assignmentNameLabel = [
       <span key='assignment-label'>{"#{@props.label} name"}</span>
@@ -191,7 +179,7 @@ TaskPlanBuilder = React.createClass
             id='reading-title'
             default={plan.title}
             required={true}
-            disabled={not @state.isEditable}
+            disabled={not @props.isEditable}
             onChange={@setTitle} />
         </BS.Col>
       </BS.Row>
@@ -202,7 +190,7 @@ TaskPlanBuilder = React.createClass
             className='assignment-description'
             id='assignment-description'
             default={TaskPlanStore.getDescription(@props.id)}
-            disabled={not @state.isEditable}
+            disabled={not @props.isEditable}
             onChange={@setDescription} />
         </BS.Col>
       </BS.Row>
@@ -221,8 +209,8 @@ TaskPlanBuilder = React.createClass
         </BS.Col>
       </BS.Row>
 
-      {@renderCommonChoice() unless not @state.isSwitchable and @state.showingPeriods}
-      {@renderPeriodsChoice() unless not @state.isSwitchable and not @state.showingPeriods}
+      {@renderCommonChoice() unless not @props.isSwitchable and @state.showingPeriods}
+      {@renderPeriodsChoice() unless not @props.isSwitchable and not @state.showingPeriods}
       { invalidPeriodsAlert }
     </div>
 
@@ -233,9 +221,9 @@ TaskPlanBuilder = React.createClass
       name='toggle-periods-radio'
       ref='allPeriodsRadio'
       type='radio'
-      disabled={not @state.isSwitchable}
+      disabled={not @props.isSwitchable}
       onChange={@setAllPeriods}
-      checked={not @state.showingPeriods}/> if @state.isSwitchable
+      checked={not @state.showingPeriods}/> if @props.isSwitchable
 
     <BS.Row className="common tutor-date-input">
       <BS.Col sm=4 md=3>
@@ -250,9 +238,9 @@ TaskPlanBuilder = React.createClass
       id='show-periods-radio'
       name='toggle-periods-radio'
       type='radio'
-      disabled={not @state.isSwitchable}
+      disabled={not @props.isSwitchable}
       onChange={@setIndividualPeriods}
-      checked={@state.showingPeriods}/> if @state.isSwitchable
+      checked={@state.showingPeriods}/> if @props.isSwitchable
 
     choiceLabel = <BS.Row key='tasking-individual-choice'>
       <BS.Col md=12>
@@ -269,8 +257,8 @@ TaskPlanBuilder = React.createClass
     periodsChoice
 
   renderTaskPlanRow: (period) ->
-    {id, courseId} = @props
-    {isEditable, showingPeriods, currentLocale, isVisibleToStudents, isSwitchable} = @state
+    {id, courseId, isVisibleToStudents, isEditable, isSwitchable} = @props
+    {showingPeriods, currentLocale} = @state
 
     isEnabled = TaskingStore.isTaskingEnabled(id, period)
     isEnabled = false if showingPeriods and not period?

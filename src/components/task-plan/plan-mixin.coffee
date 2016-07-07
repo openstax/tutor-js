@@ -33,10 +33,16 @@ PlanMixin =
     @setState(@getStates())
 
   componentWillMount: ->
+    {id} = @props
+
     TaskPlanStore.on('publish-queued', @updateIsVisibleAndIsEditable)
+    TaskingStore.on("taskings.#{id}.*.loaded", @updateIsVisibleAndIsEditable)
 
   componentWillUnmount: ->
+    {id} = @props
+
     TaskPlanStore.off('publish-queued', @updateIsVisibleAndIsEditable)
+    TaskingStore.off("taskings.#{id}.*.loaded", @updateIsVisibleAndIsEditable)
 
   setTitle: (title) ->
     {id} = @props
