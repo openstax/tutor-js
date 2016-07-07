@@ -11,7 +11,7 @@ _ = require 'underscore'
 
 yesterday = (new Date(Date.now() - 1000 * 3600 * 24)).toString()
 
-VISIBLE_READING = ExtendBasePlan({published_at: yesterday}, {opens_at: yesterday})
+VISIBLE_READING = ExtendBasePlan({is_published: true}, {opens_at: yesterday})
 UNPUBLISHED_READING = ExtendBasePlan({page_ids: [1]})
 NEW_READING = ExtendBasePlan({id: "_CREATING_1", settings: {page_ids: []}})
 
