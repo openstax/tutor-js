@@ -141,6 +141,11 @@ getCommonDates = (taskings) ->
 
   _.extend(commonOpenDate, commonDueDate)
 
+hasTaskings = (taskings, compareTaskings) ->
+  _.every taskings, (tasking) ->
+    taskingIndex = toTaskingIndex(tasking)
+    compareTaskings[taskingIndex]?
+
 # sample _defaults
 # "#{courseId}": {
 #   "all": {
@@ -247,12 +252,16 @@ TaskingConfig =
   loadTaskings: (taskId, taskings) ->
 
     blankTaskings = @exports._getBlankTaskings.call(@, taskId)
-    commonTasking = getCommonTasking(taskings)
-
-    isAll = commonTasking?
-    @updateTaskingsIsAll(taskId, isAll)
+    isAll = false
 
     taskingsToLoad = transformTaskings(taskings)
+    hasAllTaskings = hasTaskings(blankTaskings, taskingsToLoad)
+
+    if hasAllTaskings
+      commonTasking = getCommonTasking(taskings)
+      isAll = commonTasking?
+
+    @updateTaskingsIsAll(taskId, isAll)
 
     baseTaskingToLoad = getCommonDates(taskingsToLoad)
     disabledBaseTasking = _.extend({disabled: true}, baseTaskingToLoad)
