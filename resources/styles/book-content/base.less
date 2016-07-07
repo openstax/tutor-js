@@ -42,7 +42,8 @@ ul {
   }
 }
 
-section h1 + p:first-of-type,
+// References should not get drop-cap styling
+section:not(.references) h1 + p:first-of-type,
 div[data-type="document-title"] ~ p:first-of-type {
   .tutor-reading-first-letter();
 }
