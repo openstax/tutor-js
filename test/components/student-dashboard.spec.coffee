@@ -108,4 +108,4 @@ describe 'Student Dashboard Component', ->
       expect(
         ReactTestUtils.findRenderedComponentWithType(result.component, CountdownRedirect)
       ).to.exist
-      expect(result.div.textContent).to.include('redirected to tyour Concept Coach textbook')
+      expect(result.div.textContent).to.include('redirected to your Concept Coach textbook')
