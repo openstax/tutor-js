@@ -92,12 +92,19 @@ isTaskingValidDate = (tasking) ->
 isProperRange = (tasking) ->
   moment(tasking.due_at).isAfter(tasking.opens_at)
 
+hasAtLeastOneTasking = (taskings) ->
+  not _.chain(taskings)
+    .compact()
+    .isEmpty()
+    .value()
+
 ERRORS =
   'INVALID_DATE': 'Please pick a date.'
   'INVALID_TIME': 'Please type a time.'
   'DUE_BEFORE_OPEN': 'Due time cannot be before open time.'
+  'MISSING_TASKING': 'Please select at least one period'
 
-VALIDITY_CHECKS = [{
+TASKING_VALIDITY_CHECKS = [{
   check: isTaskingValidTime,
   errorType: 'INVALID_TIME'
 }, {
@@ -108,17 +115,31 @@ VALIDITY_CHECKS = [{
   errorType: 'DUE_BEFORE_OPEN'
 }]
 
-getErrorsForTasking = (tasking, {check, errorType}) ->
-  ERRORS[errorType] unless check(tasking)
+TASK_VALIDITY_CHECKS = [{
+  check: hasAtLeastOneTasking
+  errorType: 'MISSING_TASKING'  
+}]
+
+getErrorsFor = (thingToCheck, {check, errorType}) ->
+  ERRORS[errorType] unless check(thingToCheck)
 
 getTaskingErrors = (tasking) ->
-  errors = _.chain(VALIDITY_CHECKS)
-    .map _.partial(getErrorsForTasking, tasking)
+  errors = _.chain(TASKING_VALIDITY_CHECKS)
+    .map _.partial(getErrorsFor, tasking)
+    .compact()
+    .value()
+
+getTaskErrors = (taskings) ->
+  errors = _.chain(TASK_VALIDITY_CHECKS)
+    .map _.partial(getErrorsFor, taskings)
     .compact()
     .value()
 
 isTaskingValid = (tasking) ->
   _.isEmpty(getTaskingErrors(tasking))
+
+isTaskValid = (taskings) ->
+  _.isEmpty(getTaskErrors(taskings))
 
 isTaskingOpened = (tasking) ->
   moment(tasking.opens_at).isBefore(TimeStore.getNow())
@@ -396,7 +417,10 @@ TaskingConfig =
 
     isTaskValid: (taskId) ->
       taskings = @exports.get.call(@, taskId)
-      _.every taskings, isTaskingValid
+      isThisTaskValid = isTaskValid(taskings)
+      return false unless isThisTaskValid
+
+      _.every(taskings, isTaskingValid)
 
     isTaskingValid: (taskId, tasking) ->
       tasking = @exports.getTaskingFor.call(@, taskId, tasking)
