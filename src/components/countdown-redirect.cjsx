@@ -9,6 +9,7 @@ CountdownRedirect = React.createClass
     secondsDelay: 10
     message: "Redirecting"
     windowImpl: window
+    redirectType: 'replace'
 
   getInitialState: ->
     secondsRemaining: @props.secondsDelay
@@ -17,9 +18,7 @@ CountdownRedirect = React.createClass
     delay: React.PropTypes.number
     className: React.PropTypes.string
     destinationUrl: React.PropTypes.string.isRequired
-    preamble: React.PropTypes.oneOfType([
-      React.PropTypes.string, React.PropTypes.element
-    ])
+    redirectType: React.PropTypes.oneOf(['replace', 'assign'])
     message: React.PropTypes.oneOfType([
       React.PropTypes.string, React.PropTypes.element
     ])
@@ -27,7 +26,7 @@ CountdownRedirect = React.createClass
   onCounterTick: ->
     secondsRemaining = @state.secondsRemaining - 1
     if secondsRemaining <= 0
-      @props.windowImpl.location.replace(@props.destinationUrl)
+      @props.windowImpl.location[@props.redirectType](@props.destinationUrl)
     else
       @setState({secondsRemaining})
 
