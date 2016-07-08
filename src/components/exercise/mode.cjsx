@@ -24,6 +24,14 @@ ExMode = React.createClass
     freeResponse: free_response
     answerId: answer_id
 
+  componentDidMount: ->
+    {mode} = @props
+    @focusBox() if mode is 'free-response'
+
+  componentDidUpdate: (nextProps, nextState) ->
+    {mode} = nextProps
+    @focusBox() if mode is 'free-response'
+
   componentWillReceiveProps: (nextProps) ->
     {free_response, answer_id, cachedFreeResponse} = nextProps
 
@@ -34,6 +42,10 @@ ExMode = React.createClass
     nextAnswers.answerId = answer_id if @state.answerId isnt answer_id
 
     @setState(nextAnswers) unless _.isEmpty(nextAnswers)
+
+  focusBox: ->
+    {focus, mode} = @props
+    @refs.freeResponse?.getDOMNode?().focus?() if focus and mode is 'free-response'
 
   onFreeResponseChange: ->
     freeResponse = @refs.freeResponse?.getDOMNode()?.value
