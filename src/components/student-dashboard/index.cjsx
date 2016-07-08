@@ -12,12 +12,15 @@ StudentDashboardShell = React.createClass
   contextTypes:
     router: React.PropTypes.func
 
-  componentWillMount: ->
-    {courseId} = @context.router.getCurrentParams()
-    {is_concept_coach, webview_url} = CourseStore.get(courseId)
-
-    if is_concept_coach and webview_url
-      WindowHelpers.replaceBrowserLocation(webview_url)
+  statics:
+    # Called before the router mounts and renders the component
+    # Will display the redirect screen if course is a concept coach one
+    willTransitionTo: (transition, params, query, callback) ->
+      {courseId} = params
+      {is_concept_coach, webview_url} = CourseStore.get(courseId)
+      if is_concept_coach and webview_url
+        transition.redirect('viewStudentCCRedirect', {courseId})
+      callback()
 
   render: ->
     {courseId} = @context.router.getCurrentParams()
