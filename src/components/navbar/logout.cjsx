@@ -8,6 +8,12 @@ CSRF_Token = CurrentUserStore.getCSRFToken()
 
 LogoutLink = React.createClass
 
+  propTypes:
+    label: React.PropTypes.string
+
+  getDefaultProps: ->
+    label: 'Log Out'
+
   onLinkClick: (ev) ->
     ev.currentTarget.querySelector('form').submit()
 
@@ -24,7 +30,7 @@ LogoutLink = React.createClass
           method='post'>
           <input type='hidden' name='_method' value='delete'/>
           <input type='hidden' name='authenticity_token' value={CSRF_Token}/>
-          <input type='submit' aria-label="Log Out" value='Log Out' />
+          <input type='submit' aria-label={@props.label} value={@props.label} />
         </form>
       </a>
     </li>

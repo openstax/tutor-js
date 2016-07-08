@@ -12,6 +12,7 @@ PerformanceForecastShell = require './components/performance-forecast'
 {ScoresShell} = require './components/scores'
 {ReadingShell, HomeworkShell, ExternalShell, EventShell} = require './components/task-plan'
 {StudentDashboardShell} = require './components/student-dashboard'
+CCStudentRedirect = require './components/cc-student-redirect'
 TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
 {TaskTeacherReviewShell} = require './components/task-teacher-review'
 {ReferenceBookShell, ReferenceBookPageShell, ReferenceBookFirstPage} =
@@ -32,8 +33,10 @@ routes = (
     <Route path='/' handler={App} name='app'>
       <Redirect from='/' to='dashboard' />
       <Route path='dashboard/?' name='dashboard' handler={CourseListing} />
+
       <Route path='courses/:courseId/?'>
         <Router.DefaultRoute handler={TeacherTaskPlans}/>
+        <Route path='cc-student-redirect/?' name='viewStudentCCRedirect' handler={CCStudentRedirect} />
 
         <Route path='assignment-links/?' name='viewAssignmentLinks' handler={AssignmentLinks} />
         <Route path='list/?' name='viewStudentDashboard' handler={StudentDashboardShell} />
