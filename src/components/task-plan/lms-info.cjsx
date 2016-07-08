@@ -70,8 +70,6 @@ LmsInfo = React.createClass
     >
       <div className='body' onClick={@focusInput}>
         <input ref='input' value={url} readOnly={true} />
-        -
-        <p>Summary</p>
         <a href={url}>{title}</a>
         {@renderDueDates()}
         {<p>
