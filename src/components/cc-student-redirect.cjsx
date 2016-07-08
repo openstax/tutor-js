@@ -18,7 +18,7 @@ CCStudentRedirect = React.createClass
     <BS.Panel className="cc-student-redirect">
       <p>You’re logged in as a student account {CurrentUserStore.getName()}.</p>
       <div className="countdown">
-        <CountdownRedirect
+        <CountdownRedirect redirectType='assign'
           message = "You’re being redirect to your Concept Coach textbook"
           destinationUrl={course.webview_url}
         /> <a className="go-now" href={course.webview_url}>Go Now ❱</a>
