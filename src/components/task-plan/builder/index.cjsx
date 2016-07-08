@@ -22,7 +22,7 @@ TimeHelper = require '../../../helpers/time'
 Tasking = require './tasking'
 
 TaskPlanBuilder = React.createClass
-  _getBindEvents: ->
+  getBindEvents: ->
     {id} = @props
 
     taskingChanged:

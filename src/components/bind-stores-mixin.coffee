@@ -8,19 +8,19 @@ module.exports =
   _defaultUpdate: ->
     @forceUpdate()
 
-  _addListener: (bind) ->
-    bind.store.on(bind.listenTo or @_defaultEvent, bind.callback or @_defaultUpdate)
+  _addListener: ({store, listenTo, callback}) ->
+    store.on(listenTo or @_defaultEvent, callback or @_defaultUpdate)
 
-  _removeListener:  (bind) ->
-    bind.store.off(bind.listenTo or @_defaultEvent, bind.callback or @_defaultUpdate)
+  _removeListener:  ({store, listenTo, callback}) ->
+    store.off(listenTo or @_defaultEvent, callback or @_defaultUpdate)
 
   _addListeners: ->
-    bindEvents = @_getBindEvents?()
+    bindEvents = @getBindEvents?()
     return if _.isEmpty(bindEvents)
     _.each bindEvents, @_addListener
 
   _removeListeners: ->
-    bindEvents = @_getBindEvents?()
+    bindEvents = @getBindEvents?()
     return if _.isEmpty(bindEvents)
     _.each bindEvents, @_removeListener
 
