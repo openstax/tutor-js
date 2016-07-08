@@ -22,8 +22,8 @@ yesterday = moment(TimeStore.getNow()).subtract(1, 'day').format(ISO_DATE_FORMAT
 tomorrow = moment(TimeStore.getNow()).add(1, 'day').format(ISO_DATE_FORMAT)
 dayAfter = moment(TimeStore.getNow()).add(2, 'day').format(ISO_DATE_FORMAT)
 
-getDateString = (value) -> TimeHelper.getMomentPreserveDate(value).format(TutorDateFormat)
-getISODateString = (value) -> TimeHelper.getMomentPreserveDate(value).format(ISO_DATE_FORMAT)
+getDateString = (value) -> TimeHelper.getZonedMoment(value).format(TutorDateFormat)
+getISODateString = (value) -> TimeHelper.getZonedMoment(value).format(ISO_DATE_FORMAT)
 
 COURSES = require '../../../../api/user/courses.json'
 NEW_READING = ExtendBasePlan({id: "_CREATING_1", settings: {page_ids: []}}, false, false)
