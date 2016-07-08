@@ -372,7 +372,7 @@ TaskingConfig =
       defaults = @exports.getTaskingDefaults.call(@, courseId)
       taskingDefaults = _.omit(defaults, toTaskingIndex())
 
-      getCommonTasking(taskingDefaults, TASKING_TIMES)
+      getCommonTasking(taskingDefaults, TASKING_TIMES)?
 
     getTaskings: (taskId) ->
       storedTaskings = @exports._getTaskings.call(@, taskId)

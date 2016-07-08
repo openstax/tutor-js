@@ -65,6 +65,7 @@ require './course-listing-store.spec'
 require './flux/plan-publish.spec'
 require './flux/media.spec'
 require './flux/exercise.spec'
+require './flux/tasking.spec'
 
 # Helpers
 require './task-helpers.spec'

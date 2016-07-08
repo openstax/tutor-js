@@ -1,8 +1,32 @@
 {expect, utils, Assertion} = require 'chai'
 
 _ = require 'underscore'
+moment = require 'moment-timezone'
 
 {TaskingActions, TaskingStore} = require '../../src/flux/tasking'
+
+{TimeStore} = require '../../src/flux/time'
+TimeHelper = require '../../src/helpers/time'
+
+TIME_NOW = moment(TimeStore.getNow())
+YESTERDAY = TIME_NOW.clone().subtract(1, 'day')
+TODAY = TIME_NOW.clone()
+TOMORROW = TIME_NOW.clone().add(1, 'day')
+
+DATETIMES_SERVER =
+  YESTERDAY: YESTERDAY.utc().format()
+  TODAY: TODAY.utc().format()
+  TOMORROW: TOMORROW.utc().format()
+
+DATES =
+  YESTERDAY: YESTERDAY.format(TimeHelper.ISO_DATE_FORMAT)
+  TODAY: TODAY.format(TimeHelper.ISO_DATE_FORMAT)
+  TOMORROW: TOMORROW.format(TimeHelper.ISO_DATE_FORMAT)
+
+DATETIMES =
+  YESTERDAY: YESTERDAY.format("#{TimeHelper.ISO_DATE_FORMAT} #{TimeHelper.ISO_TIME_FORMAT}")
+  TODAY: TODAY.format("#{TimeHelper.ISO_DATE_FORMAT} #{TimeHelper.ISO_TIME_FORMAT}")
+  TOMORROW: TOMORROW.format("#{TimeHelper.ISO_DATE_FORMAT} #{TimeHelper.ISO_TIME_FORMAT}")
 
 COURSE =
   id: '1'
@@ -18,6 +42,14 @@ DEFAULT_TIMES =
   default_due_time: '00:01'
 
 PERIOD_DEFAULT_TIMES = _.map(COURSE.periods, -> DEFAULT_TIMES)
+PERIOD_DEFAULT_TIMES_DIFFERENT = _.map COURSE.periods, (period, index) ->
+  openTime = moment(DEFAULT_TIMES.default_open_time, TimeHelper.ISO_TIME_FORMAT)
+    .add(index, 'hour')
+    .format(TimeHelper.ISO_TIME_FORMAT)
+
+  default_open_time: openTime
+  default_due_time: DEFAULT_TIMES.default_due_time
+
 
 BASE_TASKING =
   target_type: 'period'
@@ -42,14 +74,32 @@ makeIndexedDefaults = (courseDefaults = DEFAULT_TIMES, periodDefaults = PERIOD_D
 
 
 makeTaskings = (numberOfTaskings, taskings) ->
-  (makeTasking(id) for id in [1..numberOfTaskings])
+  taskingsRange = _.range(1, numberOfTaskings + 1)
 
+  unless _.isArray(taskings)
+    taskings = _.map(taskingsRange, -> taskings)
 
-# NEW_TASK_ID = 'hello'
-# EXISTING_TASK =
-#   id: 'bye'
-#   tasking_plans: 
+  _.map taskingsRange, (taskingId, index) ->
+    makeTasking(taskingId, taskings[index])
 
+TASKING_DEFAULT =
+  due_at: DATETIMES_SERVER.TOMORROW
+  opens_at: DATETIMES_SERVER.YESTERDAY
+
+NEW_TASK_ID = 'hello'
+EXISTING_TASK_ALL =
+  id: 'bye'
+  tasking_plans: makeTaskings(4, TASKING_DEFAULT)
+# EXISTING_TASK_DIFFERENT
+# EXISTING_TASK_DISABLE_ONE
+# EXISTING_TASK_DISABLE_ALL_BUT_ONE
+
+matchTasking = (taskingToMatch) ->
+  tasking = @_obj
+  _.every tasking, (value, key) ->
+    value is taskingToMatch[key]
+
+Assertion.addMethod('matchTasking', matchTasking)
 
 
 describe 'Tasking Flux', ->
@@ -62,7 +112,11 @@ describe 'Tasking Flux', ->
     indexedDefaults = makeIndexedDefaults()
 
     TaskingActions.loadDefaults(course.id, course)
-    expect(TaskingStore.getDefaults('1')).to.deep.equal(indexedDefaults)
+
+    _.each TaskingStore.getDefaults('1'), (tasking, taskingKey) ->
+      expect(tasking).to.matchTasking(indexedDefaults[taskingKey])
+
+    expect(TaskingStore.getDefaults('1')).to.have.all.keys(indexedDefaults)
 
   it 'should set all to true for creating when defaults are same', ->
 
@@ -72,6 +126,15 @@ describe 'Tasking Flux', ->
     TaskingActions.loadTaskToCourse(NEW_TASK_ID, course.id)
     TaskingActions.create(NEW_TASK_ID)
 
+    expect(TaskingStore.getTaskingsIsAll(NEW_TASK_ID)).to.be.true
 
-  # it 'should set all to false for creating when defaults are different', ->
+  it 'should set all to false for creating when defaults are different', ->
+
+    course = makeCourse(DEFAULT_TIMES, PERIOD_DEFAULT_TIMES_DIFFERENT)
+    TaskingActions.loadDefaults(course.id, course)
+
+    TaskingActions.loadTaskToCourse(NEW_TASK_ID, course.id)
+    TaskingActions.create(NEW_TASK_ID)
+
+    expect(TaskingStore.getTaskingsIsAll(NEW_TASK_ID)).to.be.false
 
