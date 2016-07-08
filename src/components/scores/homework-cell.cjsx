@@ -77,7 +77,10 @@ HomeworkCell = React.createClass
         </BS.OverlayTrigger>
       </div>
 
-      {<LateWork task={task} columnIndex={columnIndex} onOverlayStateChanged={@lateOverlayStateChanged} /> if TH.isLate(task)}
+      {<LateWork
+      task={task}
+      columnIndex={columnIndex}
+      onOverlayStateChanged={@lateOverlayStateChanged} /> if TH.isLate(task)}
 
     </div>
 

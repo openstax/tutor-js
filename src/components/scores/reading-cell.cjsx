@@ -69,7 +69,11 @@ ReadingCell = React.createClass
         </BS.OverlayTrigger>
       </div>
 
-      {<LateWork task={task} columnIndex={columnIndex} ref='lateWork' onOverlayStateChanged={@lateOverlayStateChanged} /> if TH.isLate(task)}
+      {<LateWork
+      task={task}
+      columnIndex={columnIndex}
+      ref='lateWork'
+      onOverlayStateChanged={@lateOverlayStateChanged} /> if TH.isLate(task)}
 
     </div>
 
