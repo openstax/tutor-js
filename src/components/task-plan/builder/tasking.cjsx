@@ -37,6 +37,7 @@ Tasking = React.createClass
     taskingDateTimesProps =
       taskingIdentifier: taskingIdentifier
       required: isEnabled
+      ref: 'date-times'
 
     if isEnabled
       if period?

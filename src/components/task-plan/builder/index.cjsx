@@ -10,13 +10,12 @@ PlanMixin           = require '../plan-mixin'
 BindStoresMixin      = require '../../bind-stores-mixin'
 
 {TimeStore} = require '../../../flux/time'
-TutorDateFormat = TimeStore.getFormat()
 TimeHelper = require '../../../helpers/time'
 {PeriodActions, PeriodStore} = require '../../../flux/period'
 
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 {TaskingStore, TaskingActions} = require '../../../flux/tasking'
-{TutorInput, TutorDateInput, TutorTimeInput, TutorDateFormat, TutorTextArea} = require '../../tutor-input'
+{TutorInput, TutorDateInput, TutorTimeInput, TutorTextArea} = require '../../tutor-input'
 {CourseStore, CourseActions}   = require '../../../flux/course'
 {AsyncButton} = require 'openstax-react-components'
 
@@ -266,12 +265,14 @@ TaskPlanBuilder = React.createClass
     {id, courseId, isVisibleToStudents, isEditable, isSwitchable} = @props
     {showingPeriods, currentLocale} = @state
 
+    taskingIdentifier = TaskingStore.getTaskingIndex(period)
     isEnabled = TaskingStore.isTaskingEnabled(id, period)
     isEnabled = false if showingPeriods and not period?
 
     <Tasking
       {...@props}
       isEnabled={isEnabled}
+      ref={"tasking-#{taskingIdentifier}"}
       period={period}
       isVisibleToStudents={isVisibleToStudents}
       isEditable={isEditable}
