@@ -29,6 +29,15 @@
     }
   }
 
+  .task-step {
+    :not(.interactive-step) {
+      iframe.interactive {
+        margin-left: -120px; // The rest of the card has a lot of padding, and it won't fit unless we shift it over so it's centered
+      }
+    }
+
+  }
+
   .openstax-exercise-card {
     padding: @tutor-panel-padding-vertical @tutor-card-body-padding-horizontal;
 
