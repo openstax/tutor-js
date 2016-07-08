@@ -32,7 +32,7 @@ Sectionizer = React.createClass
 
   # the below properties are read by the ScrollTo mixin
   scrollingTargetDOM: -> window.document
-  getScrollTopOffset: -> 80 # 70px high control bar and a bit of padding
+  getScrollTopOffset: -> 160 # 70px high control bar and a bit of padding
 
   componentDidMount: ->
     @calculateAvailableSpace(@state.windowEl or @_getWindowSize())
