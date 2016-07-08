@@ -6,18 +6,26 @@ React          = require 'react'
 ReactAddons    = require 'react/addons'
 ReactTestUtils = React.addons.TestUtils
 {routerStub}   = require './helpers/utilities'
+{sinon}        = require './helpers/component-testing'
+WindowHelpers  = require '../../src/helpers/window'
 
 {StudentDashboardShell} = require '../../src/components/student-dashboard'
 {StudentDashboardStore, StudentDashboardActions} = require '../../src/flux/student-dashboard'
+{CourseListingActions, CourseListingStore} = require '../../src/flux/course-listing'
+
 COURSE = require '../../api/user/courses/1.json'
 {CourseActions, CourseStore} = require '../../src/flux/course'
+
+{
+  STUDENT_COURSE_ONE_MODEL
+} = require '../courses-test-data'
 
 COURSE_ID = '1'
 DATA = require '../../api/courses/1/dashboard.json'
 NOW  = new Date('2015-04-13T14:15:58.856Z')
-renderDashBoard = ->
+renderDashBoard = (courseId = COURSE_ID) ->
   new Promise (resolve, reject) ->
-    routerStub.goTo("/courses/#{COURSE_ID}/list").then (result) ->
+    routerStub.goTo("/courses/#{courseId}/list").then (result) ->
       resolve(_.extend({
         dashboard: ReactTestUtils.findRenderedComponentWithType(result.component, StudentDashboardShell)
       }, result))
@@ -75,8 +83,12 @@ describe 'Student Dashboard Component', ->
 
     renderDashBoard().then (state) ->
       tasks = state.div.querySelectorAll('.-upcoming .task .title')
-      expect(_.pluck(tasks, 'textContent'))
-        .to.have.deep.equal(['Homework #3', 'Homework #4 (final)', 'Chapter 5 and Chapter 6 Reading', 'Chapter 10 and Chapter 11 Reading, multi-part'])
+      expect(_.pluck(tasks, 'textContent')).to.have.deep.equal([
+        'Homework #3',
+        'Homework #4 (final)',
+        'Chapter 5 and Chapter 6 Reading',
+        'Chapter 10 and Chapter 11 Reading, multi-part'
+      ])
 
   it 'does not work unopened tasks', ->
     TimeActions.setNow(NOW)
@@ -86,3 +98,14 @@ describe 'Student Dashboard Component', ->
       )
       expect(classes)
         .to.have.deep.equal([['workable'], ['workable'], [], [], [], []])
+
+  it 'redirects when a CC course', ->
+    sinon.stub(WindowHelpers, 'replaceBrowserLocation')
+    @course = _.clone(STUDENT_COURSE_ONE_MODEL)
+    @course.is_concept_coach = true
+    @course.webview_url = 'http://test.com/cc'
+    CourseListingActions.loaded([@course])
+
+    renderDashBoard(STUDENT_COURSE_ONE_MODEL.id).then (state) =>
+      expect(WindowHelpers.replaceBrowserLocation.calledWith(@course.webview_url)).to.be.true
+      WindowHelpers.replaceBrowserLocation.restore()
