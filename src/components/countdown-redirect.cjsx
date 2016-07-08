@@ -27,7 +27,7 @@ CountdownRedirect = React.createClass
   onCounterTick: ->
     secondsRemaining = @state.secondsRemaining - 1
     if secondsRemaining <= 0
-      # @props.windowImpl.location.replace(@props.destinationUrl)
+      @props.windowImpl.location.replace(@props.destinationUrl)
     else
       @setState({secondsRemaining})
 
