@@ -25,7 +25,7 @@ ProgressPanel = require './progress/panel'
 
 {UnsavedStateMixin} = require '../unsaved-state'
 
-{PinnedHeaderFooterCard, PinnedHeader} = require 'openstax-react-components'
+{PinnedHeaderFooterCard, PinnedHeader, ScrollToMixin} = require 'openstax-react-components'
 
 module.exports = React.createClass
   propTypes:
@@ -33,7 +33,7 @@ module.exports = React.createClass
 
   displayName: 'Task'
 
-  mixins: [StepFooterMixin, CrumbMixin, UnsavedStateMixin]
+  mixins: [StepFooterMixin, CrumbMixin, UnsavedStateMixin, ScrollToMixin]
 
   contextTypes:
     router: React.PropTypes.func
