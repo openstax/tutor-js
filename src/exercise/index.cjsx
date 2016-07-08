@@ -15,7 +15,7 @@ ExerciseBase = React.createClass
 
   getStepState: (props) ->
     props ?= @props
-    {item} = @props
+    {item} = props
 
     step: _.last(item)
     parts: item
