@@ -7,11 +7,11 @@ ReactAddons    = require 'react/addons'
 ReactTestUtils = React.addons.TestUtils
 {routerStub}   = require './helpers/utilities'
 {sinon}        = require './helpers/component-testing'
-WindowHelpers  = require '../../src/helpers/window'
 
 {StudentDashboardShell} = require '../../src/components/student-dashboard'
 {StudentDashboardStore, StudentDashboardActions} = require '../../src/flux/student-dashboard'
 {CourseListingActions, CourseListingStore} = require '../../src/flux/course-listing'
+CountdownRedirect = require '../../src/components/countdown-redirect'
 
 COURSE = require '../../api/user/courses/1.json'
 {CourseActions, CourseStore} = require '../../src/flux/course'
@@ -99,13 +99,13 @@ describe 'Student Dashboard Component', ->
       expect(classes)
         .to.have.deep.equal([['workable'], ['workable'], [], [], [], []])
 
-  it 'redirects when a CC course', ->
-    sinon.stub(WindowHelpers, 'replaceBrowserLocation')
+  it 'displays redirect when a CC course', ->
     @course = _.clone(STUDENT_COURSE_ONE_MODEL)
     @course.is_concept_coach = true
     @course.webview_url = 'http://test.com/cc'
     CourseListingActions.loaded([@course])
-
-    renderDashBoard(STUDENT_COURSE_ONE_MODEL.id).then (state) =>
-      expect(WindowHelpers.replaceBrowserLocation.calledWith(@course.webview_url)).to.be.true
-      WindowHelpers.replaceBrowserLocation.restore()
+    routerStub.goTo("/courses/#{STUDENT_COURSE_ONE_MODEL.id}/list").then (result) ->
+      expect(
+        ReactTestUtils.findRenderedComponentWithType(result.component, CountdownRedirect)
+      ).to.exist
+      expect(result.div.textContent).to.include('redirected to tyour Concept Coach textbook')
