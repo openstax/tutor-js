@@ -3,10 +3,9 @@ BS = require 'react-bootstrap'
 cn = require 'classnames'
 
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
-{AsyncButton} = require 'openstax-react-components'
+{AsyncButton, ScrollToMixin} = require 'openstax-react-components'
 showDialog = require './unsaved-dialog'
 
-ScrollToMixin = require 'openstax-react-components/src/components/scroll-to-mixin'
 Icon = require '../icon'
 
 QuestionsControls = React.createClass

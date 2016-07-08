@@ -8,7 +8,7 @@ Dialog = require '../tutor-dialog'
 
 ExerciseHelpers = require '../../helpers/exercise'
 
-ScrollToMixin = require 'openstax-react-components/src/components/scroll-to-mixin'
+{ScrollToMixin} = require 'openstax-react-components'
 
 ChapterSection = require '../task-plan/chapter-section'
 Icon = require '../icon'

@@ -1,6 +1,6 @@
 React = require 'react'
 
-ScrollToMixin = require 'openstax-react-components/src/components/scroll-to-mixin'
+{ScrollToMixin} = require 'openstax-react-components'
 
 # This mixin extends the scroll-to-mixin to handle
 # scrolling to a link when it's clicked

@@ -1,11 +1,10 @@
 React = require 'react'
 _ = require 'underscore'
 cn = require 'classnames'
-ScrollToMixin = require 'openstax-react-components/src/components/scroll-to-mixin'
 classnames = require 'classnames'
 Pagination = require('ultimate-pagination')
 
-{ResizeListenerMixin} = require 'openstax-react-components'
+{ResizeListenerMixin, ScrollToMixin} = require 'openstax-react-components'
 
 Sectionizer = React.createClass
 

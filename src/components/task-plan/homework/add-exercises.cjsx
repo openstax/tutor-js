@@ -2,7 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 
 LoadingExercises = require './loading-exercises-mixin'
-{PinnedHeaderFooterCard} = require 'openstax-react-components'
+{PinnedHeaderFooterCard, ScrollToMixin} = require 'openstax-react-components'
 {CourseStore} = require '../../../flux/course'
 {ExerciseStore, ExerciseActions} = require '../../../flux/exercise'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
@@ -10,7 +10,6 @@ ExerciseHelpers  = require '../../../helpers/exercise'
 ExerciseControls = require './exercise-controls'
 ExerciseDetails  = require '../../exercises/details'
 ExerciseCards    = require '../../exercises/cards'
-ScrollToMixin         = require 'openstax-react-components/src/components/scroll-to-mixin'
 
 AddExercises = React.createClass
 

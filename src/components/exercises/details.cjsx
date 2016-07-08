@@ -3,10 +3,9 @@ BS        = require 'react-bootstrap'
 keymaster = require 'keymaster'
 
 {ExerciseStore}   = require '../../flux/exercise'
-{ExercisePreview} = require 'openstax-react-components'
+{ExercisePreview, ScrollToMixin} = require 'openstax-react-components'
 NoExercisesFound  = require './no-exercises-found'
 Icon              = require '../icon'
-ScrollToMixin          = require 'openstax-react-components/src/components/scroll-to-mixin'
 
 KEYBINDING_SCOPE  = 'exercise-details'
 

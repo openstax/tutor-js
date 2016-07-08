@@ -12,8 +12,6 @@ classnames = require 'classnames'
 CrumbMixin = require './crumb-mixin'
 StepFooterMixin = require '../task-step/step-footer-mixin'
 
-ScrollToMixin = require 'openstax-react-components/src/components/scroll-to-mixin'
-
 TaskStep = require '../task-step'
 {Spacer} = require '../task-step/all-steps'
 Ends = require '../task-step/ends'
@@ -27,7 +25,7 @@ ProgressPanel = require './progress/panel'
 
 {UnsavedStateMixin} = require '../unsaved-state'
 
-{PinnedHeaderFooterCard, PinnedHeader} = require 'openstax-react-components'
+{PinnedHeaderFooterCard, PinnedHeader, ScrollToMixin} = require 'openstax-react-components'
 
 module.exports = React.createClass
   propTypes:
