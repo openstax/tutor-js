@@ -7,6 +7,7 @@ ExercisePart = require './part'
 ExerciseGroup = require './group'
 ExerciseBadges = require '../exercise-badges'
 ExerciseIdentifierLink = require '../exercise-identifier-link'
+ScrollTo = require '../scroll-to-mixin'
 
 ExerciseMixin =
   getLastPartId: ->
@@ -68,6 +69,7 @@ ExerciseMixin =
         includeGroup: false
         includeFooter: @shouldControl(part.id)
         keySet: keySet
+        stepPartIndex: index
         key: "exercise-part-#{index}"
 
       # stim and stem are the same for different steps currently.
@@ -97,7 +99,6 @@ ExerciseMixin =
         onContinue: _.partial onNextStep, currentStep: step.stepIndex
 
     footerProps = _.omit(@props, 'onContinue')
-
     <ExFooter {...canContinueControlProps} {...footerProps} panel='review'/>
 
   renderIdLink: (related = true) ->
@@ -114,25 +115,31 @@ ExerciseMixin =
 
 ExerciseWithScroll = React.createClass
   displayName: 'ExerciseWithScroll'
-  mixins: [ExerciseMixin]
+  mixins: [ExerciseMixin, ScrollTo]
+
+  componentDidMount: ->
+    {currentStep} = @props
+    if currentStep?
+      @scrollToSelector("[data-step='#{currentStep}']")
+
+  componentWillReceiveProps: (nextProps) ->
+    if nextProps.currentStep isnt @props.currentStep
+      @scrollToSelector("[data-step='#{nextProps.currentStep}']")
+
 
   render: ->
     {parts, footer, pinned} = @props
 
     if @isSinglePart()
-      return @renderSinglePart()
-
-    exerciseParts = @renderMultiParts()
-
-    exerciseGroup = @renderGroup()
-    footer ?= @renderFooter() if pinned
-
-    <CardBody footer={footer} pinned={pinned} className='openstax-multipart-exercise-card'>
-      <ExerciseBadges isMultipart={true}/>
-      {exerciseGroup}
-      {exerciseParts}
-      {@renderIdLink(false)}
-    </CardBody>
+      @renderSinglePart()
+    else
+      footer ?= @renderFooter() if pinned
+      <CardBody footer={footer} pinned={pinned} className='openstax-multipart-exercise-card'>
+        <ExerciseBadges isMultipart={true}/>
+        {@renderGroup()}
+        {@renderMultiParts()}
+        {@renderIdLink(false)}
+      </CardBody>
 
 
 Exercise = React.createClass
@@ -142,19 +149,18 @@ Exercise = React.createClass
     {footer, pinned} = @props
 
     if @isSinglePart()
-      return <CardBody footer={footer} className='openstax-multipart-exercise-card'>
+      <CardBody footer={footer} className='openstax-multipart-exercise-card'>
         { @renderSinglePart() }
       </CardBody>
-
-    exerciseParts = @renderMultiParts()
-    exerciseGroup = @renderGroup()
-    footer ?= @renderFooter()
-
-    <CardBody footer={footer} pinned={pinned} className='openstax-multipart-exercise-card'>
-      <ExerciseBadges isMultipart={true}/>
-      {exerciseGroup}
-      {exerciseParts}
-      {@renderIdLink(false)}
-    </CardBody>
+    else
+      <CardBody pinned={pinned}
+        footer={footer or @renderFooter()}
+        className='openstax-multipart-exercise-card'
+      >
+        <ExerciseBadges isMultipart={true}/>
+        {@renderGroup()}
+        {@renderMultiParts()}
+        {@renderIdLink(false)}
+      </CardBody>
 
 module.exports = {Exercise, ExerciseWithScroll}
