@@ -144,7 +144,7 @@ ExerciseStepCard = React.createClass
     cardClasses = classnames 'task-step', 'openstax-exercise-card', className
 
     <CardBody className={cardClasses} pinned={pinned} footer={footer}>
-      <div className="exercise-#{panel}">
+      <div className="exercise-#{panel}" data-step={@props.stepPartIndex}>
         {exerciseGroup}
         <ExMode
           {...step}
