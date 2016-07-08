@@ -8,7 +8,7 @@ classnames = require 'classnames'
 AddExercises    = require './add-exercises'
 ReviewExercises = require './review-exercises'
 SelectTopics    = require '../select-topics'
-ScrollTo        = require '../../scroll-to-mixin'
+{ScrollToMixin} = require 'openstax-react-components'
 
 {ExerciseActions} = require '../../../flux/exercise'
 
@@ -20,7 +20,7 @@ ChooseExercises = React.createClass
     hide: React.PropTypes.func.isRequired
     canEdit: React.PropTypes.bool
 
-  mixins: [ScrollTo]
+  mixins: [ScrollToMixin]
 
   getInitialState: ->
     showProblems: false

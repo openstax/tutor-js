@@ -3,15 +3,14 @@ BS = require 'react-bootstrap'
 cn = require 'classnames'
 
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
-{AsyncButton} = require 'openstax-react-components'
+{AsyncButton, ScrollToMixin} = require 'openstax-react-components'
 showDialog = require './unsaved-dialog'
 
-ScrollTo = require '../scroll-to-mixin'
 Icon = require '../icon'
 
 QuestionsControls = React.createClass
 
-  mixins: [ScrollTo]
+  mixins: [ScrollToMixin]
   scrollingTargetDOM: -> @props.windowImpl.document
   propTypes:
     exercises: React.PropTypes.shape(

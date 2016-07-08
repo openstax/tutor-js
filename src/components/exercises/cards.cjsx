@@ -8,7 +8,7 @@ Dialog = require '../tutor-dialog'
 
 ExerciseHelpers = require '../../helpers/exercise'
 
-ScrollTo = require '../scroll-to-mixin'
+{ScrollToMixin} = require 'openstax-react-components'
 
 ChapterSection = require '../task-plan/chapter-section'
 Icon = require '../icon'
@@ -52,7 +52,7 @@ ExerciseCards = React.createClass
     onShowDetailsViewClick: React.PropTypes.func.isRequired
     topScrollOffset:        React.PropTypes.number
 
-  mixins: [ScrollTo]
+  mixins: [ScrollToMixin]
 
   getDefaultProps: ->
     topScrollOffset: 110
