@@ -138,3 +138,54 @@ describe 'Tasking Flux', ->
 
     expect(TaskingStore.getTaskingsIsAll(NEW_TASK_ID)).to.be.false
 
+  it 'should not have dates for creating regardless of defaults', ->
+
+    course = makeCourse()
+    courseDifferent = makeCourse(DEFAULT_TIMES, PERIOD_DEFAULT_TIMES_DIFFERENT)
+    courseDifferent.id = '2'
+
+    TaskingActions.loadDefaults(course.id, course)
+    TaskingActions.loadTaskToCourse(NEW_TASK_ID, course.id)
+    TaskingActions.create(NEW_TASK_ID)
+
+    TaskingActions.loadDefaults(courseDifferent.id, courseDifferent)
+    TaskingActions.loadTaskToCourse('different', courseDifferent.id)
+    TaskingActions.create('different')
+
+    newTaskings = TaskingStore.get(NEW_TASK_ID)
+    newTaskingsDifferent = TaskingStore.get('different')
+
+    _.each newTaskings, (tasking) ->
+      expect(TimeHelper.isDateTimeString(tasking.opens_at)).to.be.false
+      expect(TimeHelper.isDateTimeString(tasking.due_at)).to.be.false
+
+    _.each newTaskingsDifferent, (tasking) ->
+      expect(TimeHelper.isDateTimeString(tasking.opens_at)).to.be.false
+      expect(TimeHelper.isDateTimeString(tasking.due_at)).to.be.false
+
+  it 'should have dates for creating with dates set regardless of defaults', ->
+
+    course = makeCourse()
+    courseDifferent = makeCourse(DEFAULT_TIMES, PERIOD_DEFAULT_TIMES_DIFFERENT)
+    courseDifferent.id = '2'
+
+    TaskingActions.loadDefaults(course.id, course)
+    TaskingActions.loadTaskToCourse(NEW_TASK_ID, course.id)
+    TaskingActions.create(NEW_TASK_ID, {open_date: DATES.YESTERDAY, due_date: DATES.TOMORROW})
+
+    TaskingActions.loadDefaults(courseDifferent.id, courseDifferent)
+    TaskingActions.loadTaskToCourse('different', courseDifferent.id)
+    TaskingActions.create('different', {open_date: DATES.YESTERDAY, due_date: DATES.TOMORROW})
+
+    newTaskings = TaskingStore.get(NEW_TASK_ID)
+    newTaskingsDifferent = TaskingStore.get('different')
+
+    _.each newTaskings, (tasking) ->
+      expect(TimeHelper.isDateTimeString(tasking.opens_at)).to.be.true
+      expect(TimeHelper.isDateTimeString(tasking.due_at)).to.be.true
+
+    _.each newTaskingsDifferent, (tasking) ->
+      expect(TimeHelper.isDateTimeString(tasking.opens_at)).to.be.true
+      expect(TimeHelper.isDateTimeString(tasking.due_at)).to.be.true
+
+
