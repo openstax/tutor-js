@@ -11,7 +11,8 @@ classnames = require 'classnames'
 
 CrumbMixin = require './crumb-mixin'
 StepFooterMixin = require '../task-step/step-footer-mixin'
-ScrollToMixin = require '../scroll-to-mixin'
+
+ScrollTo = require 'openstax-react-components/src/components/scroll-to-mixin'
 
 TaskStep = require '../task-step'
 {Spacer} = require '../task-step/all-steps'
@@ -34,7 +35,7 @@ module.exports = React.createClass
 
   displayName: 'Task'
 
-  mixins: [StepFooterMixin, CrumbMixin, UnsavedStateMixin, ScrollToMixin]
+  mixins: [StepFooterMixin, CrumbMixin, UnsavedStateMixin, ScrollTo]
 
   contextTypes:
     router: React.PropTypes.func

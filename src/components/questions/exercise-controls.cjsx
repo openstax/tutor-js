@@ -6,7 +6,7 @@ cn = require 'classnames'
 {AsyncButton} = require 'openstax-react-components'
 showDialog = require './unsaved-dialog'
 
-ScrollTo = require '../scroll-to-mixin'
+ScrollTo = require 'openstax-react-components/src/components/scroll-to-mixin'
 Icon = require '../icon'
 
 QuestionsControls = React.createClass

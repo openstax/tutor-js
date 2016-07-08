@@ -8,7 +8,7 @@ dom = require '../helpers/dom'
 {TaskStepStore} = require '../flux/task-step'
 {MediaStore} = require '../flux/media'
 {CourseStore} = require '../flux/course'
-ScrollTo = require './scroll-to'
+ScrollTo = require 'openstax-react-components/src/components/scroll-to-mixin'
 
 # According to the tagging legend exercises with a link should have `a.os-embed`
 # but in the content they are just a vanilla link.

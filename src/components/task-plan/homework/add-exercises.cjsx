@@ -10,7 +10,7 @@ ExerciseHelpers  = require '../../../helpers/exercise'
 ExerciseControls = require './exercise-controls'
 ExerciseDetails  = require '../../exercises/details'
 ExerciseCards    = require '../../exercises/cards'
-ScrollTo         = require '../../scroll-to-mixin'
+ScrollTo         = require 'openstax-react-components/src/components/scroll-to-mixin'
 
 AddExercises = React.createClass
 

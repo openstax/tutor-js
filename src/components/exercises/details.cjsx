@@ -6,7 +6,7 @@ keymaster = require 'keymaster'
 {ExercisePreview} = require 'openstax-react-components'
 NoExercisesFound  = require './no-exercises-found'
 Icon              = require '../icon'
-ScrollTo          = require '../scroll-to-mixin'
+ScrollTo          = require 'openstax-react-components/src/components/scroll-to-mixin'
 
 KEYBINDING_SCOPE  = 'exercise-details'
 
