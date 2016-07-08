@@ -142,11 +142,11 @@ TutorDateInput = React.createClass
     valid = @isValid(value)
 
     unless valid
-      value = moment(@props.min) or null
+      value = TimeHelper.getMomentPreserveDate(@props.min) or null
       errors = ['Invalid date']
 
 
-    value = TimeHelper.getZonedMoment(value)
+    value = TimeHelper.getMomentPreserveDate(value)
 
     @props.onChange(value)
     @setState({expandCalendar: false, valid, value, errors})
@@ -201,8 +201,15 @@ TutorDateInput = React.createClass
     else if isDatePickerDisabled
       displayValue = value.format(TutorDateFormat)
 
+    displayOnlyProps =
+      type: 'text'
+      disabled: true
+      readOnly: true
+      className: classes
+      value: displayValue
+
     <div className={wrapperClasses}>
-      <input type='text' disabled readOnly className={classes} value={displayValue}/>
+      <input {...displayOnlyProps}/>
       <div className="floating-label">{@props.label}</div>
       <div className="hint required-hint">
         Required Field <i className="fa fa-exclamation-circle"></i>

@@ -31,7 +31,8 @@ describe 'Time Helpers', ->
 
 
   it 'will set the default timezone', ->
-    TimeHelper.syncCourseTimezone(COURSE_ID)
+    courseTimezone = CourseStore.getTimezone(COURSE_ID)
+    TimeHelper.syncCourseTimezone(courseTimezone)
     expect(moment()._z).to.have.property('name').and.to.equal(TEST_TIMEZONE)
     expect(moment().startOf('day').format()).to.not.equal(TODAY_IN_CURRENT_ZONE)
 
@@ -44,11 +45,12 @@ describe 'Time Helpers', ->
 
 
   it 'can check the default timezone', ->
+    courseTimezone = CourseStore.getTimezone(COURSE_ID)
 
-    isCourseTimezone = TimeHelper.isCourseTimezone(COURSE_ID)
+    isCourseTimezone = TimeHelper.isCourseTimezone(courseTimezone)
     expect(isCourseTimezone).to.be.false
 
-    TimeHelper.syncCourseTimezone(COURSE_ID)
-    isCourseTimezone = TimeHelper.isCourseTimezone(COURSE_ID)
+    TimeHelper.syncCourseTimezone(courseTimezone)
+    isCourseTimezone = TimeHelper.isCourseTimezone(courseTimezone)
     expect(isCourseTimezone).to.be.true
     TimeHelper.unsyncCourseTimezone()

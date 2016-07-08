@@ -27,29 +27,26 @@ DateTime = React.createClass
     props ?= @props
     {value, defaultValue, isSetting} = props
 
-    date = moment(value).format(TimeHelper.ISO_DATE_FORMAT) if value?
-
-    date: date
+    date: value
     time: defaultValue
     justSet: false
     isSetting: isSetting()
     isTimeValid: @isTimeValid(time)
-    isTimeDefault: @isTimeDefault(time)
+    isTimeDefault: @isTimeDefault(time, props)
 
   onTimeChange: (time) ->
     @setState({time})
+    @props.setTime?(time)
 
   onDateChange: (date) ->
-    date = date.format(TimeHelper.ISO_DATE_FORMAT) if moment.isMoment(date)
     @setState({date})
+    @props.setDate?(date)
 
   componentWillReceiveProps: (nextProps) ->
     nextState = @getStateFromProps(nextProps)
     @setState(nextState)
 
   componentDidUpdate: (prevProps, prevState) ->
-    @onTimeUpdated() unless _.isEqual(_.pick(prevState, 'date', 'time'), _.pick(@state, 'date', 'time'))
-
     if @isJustSet(prevProps, prevState)
       {messageTime} = @props
 
@@ -60,12 +57,7 @@ DateTime = React.createClass
 
   onTimeUpdated: ->
     {date, time} = @state
-
-    if @hasValidInputs()
-      dateTime = "#{date} #{time}"
-      @props.onChange(dateTime)
-    else
-      @setState(isTimeValid: @isTimeValid(), isTimeDefault: @isTimeDefault())
+    @setState(isTimeValid: @isTimeValid(), isTimeDefault: @isTimeDefault())
 
   hasValidInputs: ->
     @isDateValid() and @isTimeValid()
@@ -73,8 +65,8 @@ DateTime = React.createClass
   isJustSet: (prevProps, prevState) ->
     prevState.isSetting and
       not @state.isSetting and
-      not prevProps.isTimeDefault and
-      @props.isTimeDefault
+      not prevState.isTimeDefault and
+      @state.isTimeDefault
 
   isDateValid: ->
     @state?.date? and _.isEmpty(@refs?.date?.state?.errors)
@@ -84,11 +76,13 @@ DateTime = React.createClass
 
     time? and _.isEmpty(@refs?.time?.refs?.timeInput?.state?.errors)
 
-  isTimeDefault: (time) ->
+  isTimeDefault: (time, props) ->
     time ?= @state?.time
     return true if _.isUndefined(time)
-    {defaultTime} = @props
-    TimeHelper.makeMoment(time, 'HH:mm').isSame(TimeHelper.makeMoment(defaultTime, 'HH:mm'), 'minute')
+
+    props ?= @props
+    {defaultTime} = props
+    time is defaultTime
 
   setDefaultTime: ->
     {timeLabel, setDefaultTime} = @props
@@ -140,7 +134,12 @@ DateTime = React.createClass
           <TutorDateInput {...dateProps} onChange={@onDateChange} ref='date'/>
         </BS.Col>
         <BS.Col xs=4 md=5 className="tasking-time -assignment-#{type}-time">
-          <TutorTimeInput {...timeProps} onChange={@onTimeChange} onUpdated={@onTimeUpdated} ref='time'/>
+          <TutorTimeInput
+            {...timeProps}
+            onChange={@onTimeChange}
+            onUpdated={@onTimeUpdated}
+            ref='time'
+          />
           {setAsDefaultOption}
         </BS.Col>
       </BS.Row>

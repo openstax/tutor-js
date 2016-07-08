@@ -25,6 +25,8 @@ ExternalPlan = React.createClass
 
   render: ->
     {id, courseId} = @props
+    builderProps = _.pick(@state, 'isVisibleToStudents', 'isEditable', 'isSwitchable')
+
     plan = TaskPlanStore.get(id)
     externalUrl = plan?.settings?.external_url
 
@@ -53,7 +55,7 @@ ExternalPlan = React.createClass
         header={header}>
 
         <BS.Grid fluid>
-          <TaskPlanBuilder courseId={courseId} id={id} />
+          <TaskPlanBuilder courseId={courseId} id={id} {...builderProps}/>
 
           <BS.Row>
             <BS.Col xs={12} md={12}>

@@ -1,23 +1,28 @@
 _ = require 'underscore'
+moment = require 'moment-timezone'
 
 {TaskPlanActions, TaskPlanStore} = require '../../../src/flux/task-plan'
 {CourseActions, CourseStore} = require '../../../src/flux/course'
 {TocActions, TocStore} = require '../../../src/flux/toc'
+{TimeStore} = require '../../../src/flux/time'
+TimeHelper = require '../../../src/helpers/time'
 
 {ReadingPlan} = require '../../../src/components/task-plan/reading'
 
 {Testing, sinon, expect, _, React} = require '../helpers/component-testing'
 {ExtendBasePlan, PlanRenderHelper} = require '../helpers/task-plan'
 
-yesterday = (new Date(Date.now() - 1000 * 3600 * 24)).toString()
-
-VISIBLE_READING = ExtendBasePlan({published_at: yesterday}, {opens_at: yesterday})
-UNPUBLISHED_READING = ExtendBasePlan({page_ids: [1]})
-NEW_READING = ExtendBasePlan({id: "_CREATING_1", settings: {page_ids: []}})
+yesterday = moment(TimeStore.getNow()).subtract(1, 'day').format(TimeHelper.ISO_DATE_FORMAT)
+tomorrow = moment(TimeStore.getNow()).add(1, 'day').format(TimeHelper.ISO_DATE_FORMAT)
 
 COURSE_ID = '1'
 COURSE = require '../../../api/user/courses/1.json'
 COURSE_ECOSYSTEM_ID = COURSE.ecosystem_id
+
+VISIBLE_READING = ExtendBasePlan({is_published: true},
+  {opens_at: yesterday, due_at: tomorrow, target_id: COURSE.periods[0].id})
+UNPUBLISHED_READING = ExtendBasePlan({page_ids: [1]})
+NEW_READING = ExtendBasePlan({id: "_CREATING_1", settings: {page_ids: []}})
 
 ECO_READING = require '../../../api/plans/1.json'
 ECO_READING_ECOSYSTEM_ID = ECO_READING.ecosystem_id

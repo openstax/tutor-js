@@ -21,6 +21,8 @@ HomeworkPlan = React.createClass
 
   render: ->
     {id, courseId} = @props
+    builderProps = _.pick(@state, 'isVisibleToStudents', 'isEditable', 'isSwitchable')
+
     plan = TaskPlanStore.get(id)
     ecosystemId = TaskPlanStore.getEcosystemId(id, courseId)
 
@@ -47,7 +49,7 @@ HomeworkPlan = React.createClass
       >
 
         <BS.Grid fluid>
-          <TaskPlanBuilder courseId={courseId} id={id} />
+          <TaskPlanBuilder courseId={courseId} id={id} {...builderProps}/>
           <BS.Row>
             <BS.Col xs=8>
               <FeedbackSetting id={id} showPopup={@state.isVisibleToStudents}/>

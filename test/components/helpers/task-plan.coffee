@@ -8,6 +8,7 @@ dayAfter = (new Date(tomorrow + 1000 * 3600 * 24)).toString()
 ExtendBasePlan = (props, taskingProps = {}, extendTasking = true) ->
   baseModel =
     id: '111'
+    type: 'reading'
     title: 'Test Title'
     settings:
       page_ids: ['1']

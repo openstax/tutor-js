@@ -4,6 +4,7 @@ BS    = require 'react-bootstrap'
 
 TimeHelper = require '../../../helpers/time'
 TaskingDateTimes = require './tasking-date-times'
+{TaskingActions, TaskingStore} = require '../../../flux/tasking'
 
 Tasking = React.createClass
 
@@ -11,48 +12,61 @@ Tasking = React.createClass
     period:              React.PropTypes.object
     isEditable:          React.PropTypes.bool.isRequired
     isEnabled:           React.PropTypes.bool.isRequired
-    togglePeriodEnabled: React.PropTypes.func.isRequired
     isVisibleToStudents: React.PropTypes.bool.isRequired
+
+  togglePeriodEnabled: (toggleEvent) ->
+    {id, period} = @props
+
+    if toggleEvent.target.checked
+      TaskingActions.enableTasking(id, period)
+    else
+      TaskingActions.disableTasking(id, period)
 
   render: ->
     {
       isVisibleToStudents,
-      isEnabled,
       period,
-      togglePeriodEnabled,
       isEditable,
+      isEnabled,
+      id
     } = @props
 
-    taskingIdentifier = period?.id or 'common'
+    {open_time, due_time} = TaskingStore.getDefaultsForTasking(id, period)
+    taskingIdentifier = TaskingStore.getTaskingIndex(period)
+
+    taskingDateTimesProps =
+      taskingIdentifier: taskingIdentifier
+      required: isEnabled
+      ref: 'date-times'
 
     if isEnabled
       if period?
         <BS.Row key="tasking-enabled-#{taskingIdentifier}" className="tasking-plan tutor-date-input">
           <BS.Col sm=4 md=3>
             <input
-              id={"period-toggle-#{period.id}"}
+              id={"period-toggle-#{taskingIdentifier}"}
               disabled={isVisibleToStudents}
               type='checkbox'
-              onChange={_.partial(togglePeriodEnabled, period)}
+              onChange={@togglePeriodEnabled}
               checked={true}/>
-            <label className="period" htmlFor={"period-toggle-#{period.id}"}>{period.name}</label>
+            <label className="period" htmlFor={"period-toggle-#{taskingIdentifier}"}>{period.name}</label>
           </BS.Col>
-          <TaskingDateTimes {...@props} taskingIdentifier={taskingIdentifier}/>
+          <TaskingDateTimes {...@props} {...taskingDateTimesProps}/>
         </BS.Row>
       else
-        <TaskingDateTimes {...@props} taskingIdentifier={taskingIdentifier}/>
+        <TaskingDateTimes {...@props} {...taskingDateTimesProps}/>
     else
       if period?
         # if isVisibleToStudents, we cannot re-enable this task for the period.
-        <BS.Row key="tasking-disabled-#{period.id}" className="tasking-plan disabled">
+        <BS.Row key="tasking-disabled-#{taskingIdentifier}" className="tasking-plan disabled">
           <BS.Col sm=12>
             <input
-              id={"period-toggle-#{period.id}"}
+              id={"period-toggle-#{taskingIdentifier}"}
               type='checkbox'
               disabled={isVisibleToStudents}
-              onChange={_.partial(togglePeriodEnabled, period)}
+              onChange={@togglePeriodEnabled}
               checked={false}/>
-            <label className="period" htmlFor={"period-toggle-#{period.id}"}>{period.name}</label>
+            <label className="period" htmlFor={"period-toggle-#{taskingIdentifier}"}>{period.name}</label>
           </BS.Col>
         </BS.Row>
       else

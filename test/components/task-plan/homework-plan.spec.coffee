@@ -1,23 +1,28 @@
 _ = require 'underscore'
+moment = require 'moment-timezone'
 
 {TaskPlanActions, TaskPlanStore} = require '../../../src/flux/task-plan'
 {CourseActions, CourseStore} = require '../../../src/flux/course'
 {TocActions, TocStore} = require '../../../src/flux/toc'
+{TimeStore} = require '../../../src/flux/time'
+TimeHelper = require '../../../src/helpers/time'
 
 {HomeworkPlan} = require '../../../src/components/task-plan/homework'
 
 {Testing, sinon, expect, _, React, ReactTestUtils} = require '../helpers/component-testing'
 {ExtendBasePlan, PlanRenderHelper} = require '../helpers/task-plan'
 
-yesterday = (new Date(Date.now() - 1000 * 3600 * 24)).toString()
-
-VISIBLE_HW = ExtendBasePlan({type: 'homework', published_at: yesterday, exercise_ids: [1]}, {opens_at: yesterday})
-UNPUBLISHED_HW = ExtendBasePlan({type: 'homework', exercise_ids: [1]})
-NEW_HW = ExtendBasePlan({type: 'homework', id: "_CREATING_1"})
+yesterday = moment(TimeStore.getNow()).subtract(1, 'day').format(TimeHelper.ISO_DATE_FORMAT)
+tomorrow = moment(TimeStore.getNow()).add(1, 'day').format(TimeHelper.ISO_DATE_FORMAT)
 
 COURSE_ID = '1'
 COURSE = require '../../../api/user/courses/1.json'
 COURSE_ECOSYSTEM_ID = COURSE.ecosystem_id
+
+VISIBLE_HW = ExtendBasePlan({type: 'homework', is_published: true, exercise_ids: [1]},
+  {opens_at: yesterday, due_at: tomorrow, target_id: COURSE.periods[0].id})
+UNPUBLISHED_HW = ExtendBasePlan({type: 'homework', exercise_ids: [1]})
+NEW_HW = ExtendBasePlan({type: 'homework', id: "_CREATING_1"})
 
 ECO_HOMEWORK = require '../../../api/plans/2.json'
 ECO_HOMEWORK_ECOSYSTEM_ID = ECO_HOMEWORK.ecosystem_id

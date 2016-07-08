@@ -106,11 +106,11 @@ TeacherTaskPlanListing = React.createClass
 
   componentWillMount: ->
     {courseId} = @context.router.getCurrentParams()
-    TimeHelper.syncCourseTimezone(courseId)
+    courseTimezone = CourseStore.getTimezone(courseId)
+    TimeHelper.syncCourseTimezone(courseTimezone)
 
   componentWillUnmount: ->
-    {courseId} = @context.router.getCurrentParams()
-    TimeHelper.unsyncCourseTimezone(courseId)
+    TimeHelper.unsyncCourseTimezone()
 
   getDateFromParams: ->
     {date} = @context.router.getCurrentParams()
