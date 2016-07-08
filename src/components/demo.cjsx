@@ -103,10 +103,6 @@ ExerciseDemo = React.createClass
   getInitialState: ->
     exerciseProps: getProps(SINGLEPART_STEP_IDS)
   getDefaultProps: ->
-    setScrollState: ->
-      console.info('scrolling', arguments)
-      {key} = scrollState
-      @setState(currentStep: key)
     goToStep: ->
       console.info('goToStep', arguments)
   update: ->
@@ -126,10 +122,6 @@ MultipartExerciseDemo = React.createClass
   getDefaultProps: ->
     goToStep: ->
       console.info('goToStep', arguments)
-    onPartLeave: ->
-      console.info('leaving', arguments)
-    onPartEnter: ->
-      console.info('entering', arguments)
   update: ->
     @setState(exerciseProps: getProps(MULTIPART_STEP_IDS))
   componentWillMount: ->
@@ -144,8 +136,6 @@ MultipartExerciseDemo = React.createClass
       {...exerciseProps}
       project='concept-coach'
       goToStep={goToStep}
-      onPartLeave={onPartLeave}
-      onPartEnter={onPartEnter}
       currentStep={currentStep}
       pinned={false}
     />

@@ -7,7 +7,7 @@ ExercisePart = require './part'
 ExerciseGroup = require './group'
 ExerciseBadges = require '../exercise-badges'
 ExerciseIdentifierLink = require '../exercise-identifier-link'
-ScrollTo = require '../scroll-to-mixin'
+ScrollToMixin = require '../scroll-to-mixin'
 
 ExerciseMixin =
   getLastPartId: ->
@@ -116,7 +116,7 @@ ExerciseMixin =
 
 ExerciseWithScroll = React.createClass
   displayName: 'ExerciseWithScroll'
-  mixins: [ExerciseMixin, ScrollTo]
+  mixins: [ExerciseMixin, ScrollToMixin]
 
   componentDidMount: ->
     {currentStep} = @props
