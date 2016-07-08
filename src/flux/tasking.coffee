@@ -197,6 +197,23 @@ TaskingConfig =
   _taskingsIsAll: {}
   _originalTaskings: {}
 
+  reset: ->
+    @_defaults = {}
+    @_taskings = {}
+    @_tasksToCourse = {}
+    @_taskingsIsAll = {}
+    @_originalTaskings = {}
+
+  resetFor: (taskId) ->
+    courseId = @_tasksToCourse[taskId]
+
+    delete @_taskings[taskId]
+    delete @_tasksToCourse[taskId]
+    delete @_taskingsIsAll[taskId]
+    delete @_originalTaskings[taskId]
+
+    delete @_defaults[courseId] unless courseId in _.values(@_tasksToCourse)
+
   loadDefaults: (courseId, course) ->
     @_defaults[courseId] = transformCourseToDefaults(course)
     @emit("defaults.#{courseId}.loaded")
