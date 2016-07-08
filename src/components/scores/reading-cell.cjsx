@@ -56,15 +56,14 @@ ReadingCell = React.createClass
         delayHide={0}
         overlay={tooltip}>
           <span
-            className='trigger-wrap'
-            onMouseOver={@show}
-            onMouseLeave={@hide}>
+          className='trigger-wrap'
+          onMouseOver={@show}
+          onMouseLeave={@hide}>
             <PieProgress
-              isConceptCoach={isConceptCoach}
-              size={20}
-              value={TH.getCompletedPercent(task)}
-              isLate={TH.isLate(task)}
-            />
+            isConceptCoach={isConceptCoach}
+            size={20}
+            value={TH.getCompletedPercent(task)}
+            isLate={TH.isLate(task)} />
           </span>
         </BS.OverlayTrigger>
       </div>

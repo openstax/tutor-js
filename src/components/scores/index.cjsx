@@ -56,7 +56,7 @@ Scores = React.createClass
   tableWidth: ->
     windowEl = @_getWindowSize()
     tableContainer = React.findDOMNode(@refs.tableContainer) #.course-scores-container
-    style = tableContainer.currentStyle || window.getComputedStyle(tableContainer)
+    style = tableContainer.currentStyle or window.getComputedStyle(tableContainer)
     padding = parseInt(style.paddingLeft) + parseInt(style.paddingRight)
     tableContainerWidth = tableContainer.clientWidth - padding
     tableHorzSpacing = document.body.clientWidth - tableContainerWidth
