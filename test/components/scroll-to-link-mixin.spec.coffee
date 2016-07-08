@@ -1,9 +1,9 @@
 {React, Testing, expect, _, sinon} = require './helpers/component-testing'
 
-ScrollTo = require '../../src/components/scroll-to'
+ScrollToLinkMixin = require '../../src/components/scroll-to-link-mixin'
 
 TestComponent = React.createClass
-  mixins: [ScrollTo]
+  mixins: [ScrollToLinkMixin]
 
   render: ->
     React.createElement('div', {}, [
@@ -15,7 +15,7 @@ TestComponent = React.createClass
   getScrollTopOffset: 0
   getScrollDuration: 2 # speedy scroll for tests
 
-describe 'ScrollTo Mixin', ->
+describe 'ScrollToLinkMixin', ->
 
   beforeEach ->
     # TODO clean up location and window stubs to include in `helpers/component-testing`

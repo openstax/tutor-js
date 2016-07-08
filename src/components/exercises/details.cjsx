@@ -6,7 +6,7 @@ keymaster = require 'keymaster'
 {ExercisePreview} = require 'openstax-react-components'
 NoExercisesFound  = require './no-exercises-found'
 Icon              = require '../icon'
-ScrollTo          = require 'openstax-react-components/src/components/scroll-to-mixin'
+ScrollToMixin          = require 'openstax-react-components/src/components/scroll-to-mixin'
 
 KEYBINDING_SCOPE  = 'exercise-details'
 
@@ -24,7 +24,7 @@ ExerciseDetails = React.createClass
     getExerciseActions:    React.PropTypes.func.isRequired
     getExerciseIsSelected: React.PropTypes.func.isRequired
 
-  mixins: [ScrollTo]
+  mixins: [ScrollToMixin]
   scrollingTargetDOM: -> document
   getDefaultProps: ->
     # leave this many pixels of space at top of component

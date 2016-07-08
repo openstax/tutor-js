@@ -47,7 +47,7 @@
     "mime-types": "2.1.7",
     "moment": "2.13.0",
     "moment-timezone": "0.5.4",
-    "openstax-react-components": "openstax/react-components#ef1c095f6e6e6d46133242b610833e6009d0f805",
+    "openstax-react-components": "openstax/react-components#d176a27b887f0adcb781ccc7fc624716b79913c3",
     "pluralize": "1.2.1",
     "promise-loader": "1.0.0",
     "qs": "6.1.0",

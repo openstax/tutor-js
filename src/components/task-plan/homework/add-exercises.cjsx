@@ -10,7 +10,7 @@ ExerciseHelpers  = require '../../../helpers/exercise'
 ExerciseControls = require './exercise-controls'
 ExerciseDetails  = require '../../exercises/details'
 ExerciseCards    = require '../../exercises/cards'
-ScrollTo         = require 'openstax-react-components/src/components/scroll-to-mixin'
+ScrollToMixin         = require 'openstax-react-components/src/components/scroll-to-mixin'
 
 AddExercises = React.createClass
 
@@ -23,7 +23,7 @@ AddExercises = React.createClass
   getInitialState: ->
     { currentView: 'cards' }
 
-  mixins: [ScrollTo, LoadingExercises]
+  mixins: [ScrollToMixin, LoadingExercises]
 
   onShowDetailsViewClick: -> @setState(currentView: 'details')
   onShowCardViewClick:    -> @setState(currentView: 'cards')

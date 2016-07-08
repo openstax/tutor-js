@@ -6,12 +6,12 @@ cn = require 'classnames'
 {AsyncButton} = require 'openstax-react-components'
 showDialog = require './unsaved-dialog'
 
-ScrollTo = require 'openstax-react-components/src/components/scroll-to-mixin'
+ScrollToMixin = require 'openstax-react-components/src/components/scroll-to-mixin'
 Icon = require '../icon'
 
 QuestionsControls = React.createClass
 
-  mixins: [ScrollTo]
+  mixins: [ScrollToMixin]
   scrollingTargetDOM: -> @props.windowImpl.document
   propTypes:
     exercises: React.PropTypes.shape(

@@ -1,7 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
 cn = require 'classnames'
-ScrollTo = require 'openstax-react-components/src/components/scroll-to-mixin'
+ScrollToMixin = require 'openstax-react-components/src/components/scroll-to-mixin'
 classnames = require 'classnames'
 Pagination = require('ultimate-pagination')
 
@@ -9,7 +9,7 @@ Pagination = require('ultimate-pagination')
 
 Sectionizer = React.createClass
 
-  mixins: [ScrollTo, ResizeListenerMixin]
+  mixins: [ScrollToMixin, ResizeListenerMixin]
 
   propTypes:
     chapter_sections:  React.PropTypes.array.isRequired
