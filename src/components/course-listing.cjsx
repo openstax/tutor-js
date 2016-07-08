@@ -14,17 +14,14 @@ CourseDataMixin = require './course-data-mixin'
 DisplayOrRedirect = (transition, callback) ->
   courses = CourseListingStore.allCourses() or []
   [course] = courses
-  if courses.length is 1 and course.roles?.length is 1
+  if courses.length is 1
     roleType = courses[0].roles[0].type
     conceptCoach = courses[0].is_concept_coach
 
-    if roleType is 'student'
-      if conceptCoach and course.webview_url
-        WindowHelpers.replaceBrowserLocation(course.webview_url)
-      else
-        view = 'viewStudentDashboard'
-    else if roleType is 'teacher'
+    if roleType is 'teacher'
       view = if conceptCoach then 'cc-dashboard' else 'taskplans'
+    else if roleType is 'student'
+      view = 'viewStudentDashboard'
     else
       throw new Error("BUG: Unrecognized role type #{roleType}")
 

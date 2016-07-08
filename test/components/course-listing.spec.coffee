@@ -61,18 +61,18 @@ describe 'Course Listing Component', ->
     renderListing().then (state) ->
       expect(state.div.querySelector(".refresh-button")).not.to.be.null
 
-  it 'redirects to student dashboard', ->
-    CourseListingActions.loaded([STUDENT_COURSE_ONE_MODEL])
-    renderListing().then (state) ->
-      expect(state.listing).to.be.undefined # Won't have rendered the listing
-      expect(ReactTestUtils.scryRenderedComponentsWithType(state.component, StudentDashboardShell))
-        .to.have.length(1)
-
   it 'redirects to teacher calendar', ->
     CourseListingActions.loaded([TEACHER_COURSE_TWO_MODEL])
     renderListing().then (state) ->
       expect(state.listing).to.be.undefined # Won't have rendered the listing
       expect(ReactTestUtils.scryRenderedComponentsWithType(state.component, CourseCalendar))
+        .to.have.length(1)
+
+  it 'redirects to student dashboard', ->
+    CourseListingActions.loaded([STUDENT_COURSE_ONE_MODEL])
+    renderListing().then (state) ->
+      expect(state.listing).to.be.undefined # Won't have rendered the listing
+      expect(ReactTestUtils.scryRenderedComponentsWithType(state.component, StudentDashboardShell))
         .to.have.length(1)
 
   it 'renders a "no membership" page when not a member of any courses', ->
@@ -82,22 +82,4 @@ describe 'Course Listing Component', ->
     renderListing().then (state) ->
       expect(state.div.textContent).to.include('We cannot find an OpenStax course associated with your account')
 
-  describe 'redirecting to CC', ->
-    beforeEach ->
-      sinon.stub(WindowHelpers, 'replaceBrowserLocation')
-      @course = _.clone(STUDENT_COURSE_ONE_MODEL)
-      @course.is_concept_coach = true
-      @course.webview_url = 'http://test.com/cc'
 
-    afterEach ->
-      WindowHelpers.replaceBrowserLocation.restore()
-
-    it 'redirects when a member of a single CC course', ->
-      CourseListingActions.loaded([@course])
-      renderListing().then (state) =>
-        expect(WindowHelpers.replaceBrowserLocation.calledWith(@course.webview_url)).to.be.true
-
-    it 'does not redirect if a member of multiple course', ->
-      CourseListingActions.loaded([@course, TEACHER_COURSE_TWO_MODEL])
-      renderListing().then (state) ->
-        expect(WindowHelpers.replaceBrowserLocation.callCount).equal(0)
