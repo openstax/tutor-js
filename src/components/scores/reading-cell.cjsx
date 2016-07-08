@@ -1,6 +1,7 @@
 React  = require 'react'
 Router = require 'react-router'
 BS = require 'react-bootstrap'
+classNames = require 'classnames'
 
 Time = require '../time'
 CellStatusMixin = require './cell-status-mixin'
@@ -45,7 +46,7 @@ ReadingCell = React.createClass
       </BS.Popover>
 
 
-    <div className="scores-cell">
+    <div className="scores-cell #{classNames(highlighted: @props.task.showingLateOverlay)}">
 
       <div className="worked wide">
         <BS.OverlayTrigger
@@ -55,20 +56,23 @@ ReadingCell = React.createClass
         delayHide={0}
         overlay={tooltip}>
           <span
-            className='trigger-wrap'
-            onMouseOver={@show}
-            onMouseLeave={@hide}>
+          className='trigger-wrap'
+          onMouseOver={@show}
+          onMouseLeave={@hide}>
             <PieProgress
-              isConceptCoach={isConceptCoach}
-              size={24}
-              value={TH.getCompletedPercent(task)}
-              isLate={TH.isLate(task)}
-            />
+            isConceptCoach={isConceptCoach}
+            size={20}
+            value={TH.getCompletedPercent(task)}
+            isLate={TH.isLate(task)} />
           </span>
         </BS.OverlayTrigger>
       </div>
 
-      {<LateWork task={task} columnIndex={columnIndex} /> if TH.isLate(task)}
+      {<LateWork
+      task={task}
+      columnIndex={columnIndex}
+      ref='lateWork'
+      onOverlayStateChanged={@lateOverlayStateChanged} /> if TH.isLate(task)}
 
     </div>
 

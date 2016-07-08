@@ -55,12 +55,13 @@ Scores = React.createClass
 
   tableWidth: ->
     windowEl = @_getWindowSize()
-    table = React.findDOMNode(@refs.tableContainer)
-    # tableHorzSpacing is body width - table container width
-    wrap = React.findDOMNode(@refs.scoresWrap)
-    tableHorzSpacing = document.body.clientWidth - wrap.clientWidth
+    tableContainer = React.findDOMNode(@refs.tableContainer) #.course-scores-container
+    style = tableContainer.currentStyle or window.getComputedStyle(tableContainer)
+    padding = parseInt(style.paddingLeft) + parseInt(style.paddingRight)
+    tableContainerWidth = tableContainer.clientWidth - padding
+    tableHorzSpacing = document.body.clientWidth - tableContainerWidth
     # since table.clientWidth returns 0 on initial load in IE, include windowEl as a fallback
-    Math.max(windowEl.width - tableHorzSpacing, table.clientWidth)
+    Math.max(windowEl.width - tableHorzSpacing, tableContainerWidth)
 
   tableHeight: ->
     windowEl = @_getWindowSize()
@@ -184,6 +185,13 @@ Scores = React.createClass
       dataType={@state.sort.dataType}
       isConceptCoach={isConceptCoach}
         />
+
+    tableFilters =
+      <TableFilters
+      displayAs={@state.displayAs}
+      changeDisplayAs={@changeDisplayAs}
+      />
+
     afterTabsItem = ->
       if isConceptCoach
         <span className='course-scores-note tab'>
@@ -197,11 +205,6 @@ Scores = React.createClass
           &nbsp
           To accept late work, click the orange triangle.
         </span>
-    tableFilters =
-      <TableFilters
-      displayAs={@state.displayAs}
-      changeDisplayAs={@changeDisplayAs}
-      />
 
     periodNav =
       <CoursePeriodsNavShell
@@ -218,8 +221,10 @@ Scores = React.createClass
     <div className='course-scores-wrap' ref='scoresWrap'>
         <span className='course-scores-title'>Student Scores</span>
         {scoresExport if students}
-        {tableFilters}
-        {periodNav}
+        <div className='course-nav-container'>
+          {periodNav}
+          {tableFilters}
+        </div>
         <div className='course-scores-container' ref='tableContainer'>
           {if students then scoresTable else noAssignments}
         </div>

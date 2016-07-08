@@ -28,7 +28,16 @@ describe 'Student Scores Homework Cell', ->
         correct_accepted_late_exercise_count: 0
 
   it 'renders score cell', ->
-    Testing.renderComponent( Cell, props: @props ).then ({dom}) =>
+    completedProps = _.extend({}, @props)
+    completedProps.task.completed_on_time_exercise_count = @props.task.exercise_count
+    completedProps.task.completed_exercise_count = @props.task.exercise_count
+
+    Testing.renderComponent( Cell, props: @props ).then ({dom}) ->
+      score = '---'
+      expect(dom.querySelector('.score a').textContent).to.equal(score)
+      expect(dom.querySelector('.late-caret')).to.be.null
+
+    Testing.renderComponent( Cell, props: completedProps ).then ({dom}) =>
       score = ((@props.task.correct_on_time_exercise_count / @props.task.exercise_count) * 100).toFixed(0) + '%'
       expect(dom.querySelector('.score a').textContent).to.equal(score)
       expect(dom.querySelector('.late-caret')).to.be.null

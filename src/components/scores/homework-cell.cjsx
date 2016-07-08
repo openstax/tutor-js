@@ -1,6 +1,7 @@
 React  = require 'react'
 Router = require 'react-router'
 BS = require 'react-bootstrap'
+classNames = require 'classnames'
 
 Time = require '../time'
 CellStatusMixin = require './cell-status-mixin'
@@ -36,19 +37,26 @@ HomeworkCell = React.createClass
 
     scorePercent = TH.getHumanScorePercent(task)
     scoreNumber = TH.getHumanScoreNumber(task)
+    completed = task.completed_exercise_count is task.exercise_count
+    scoreText = '---'
+    if completed
+      if displayAs is 'number'
+        scoreText = scoreNumber
+      else
+        scoreText = scorePercent
 
     score =
       <div className="score">
         <Router.Link to='viewTaskStep'
           data-assignment-type="#{task.type}"
           params={courseId: courseId, id: task.id, stepIndex: 1}>
-            {if displayAs is 'number' then scoreNumber else scorePercent}
+            {scoreText}
         </Router.Link>
       </div>
 
     scoreNotStarted = <div className="score not-started">---</div>
 
-    <div className="scores-cell">
+    <div className="scores-cell #{classNames(highlighted: @props.task.showingLateOverlay)}">
 
       {if notStarted then scoreNotStarted else score }
 
@@ -61,7 +69,7 @@ HomeworkCell = React.createClass
           <span className='trigger-wrap'>
             <PieProgress
               isConceptCoach={isConceptCoach}
-              size={24}
+              size={20}
               value={TH.getCompletedPercent(task)}
               isLate={TH.isLate(task)}
             />
@@ -69,7 +77,10 @@ HomeworkCell = React.createClass
         </BS.OverlayTrigger>
       </div>
 
-      {<LateWork task={task} columnIndex={columnIndex} /> if TH.isLate(task)}
+      {<LateWork
+      task={task}
+      columnIndex={columnIndex}
+      onOverlayStateChanged={@lateOverlayStateChanged} /> if TH.isLate(task)}
 
     </div>
 

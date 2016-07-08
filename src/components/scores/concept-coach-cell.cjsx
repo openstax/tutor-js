@@ -77,7 +77,7 @@ ConceptCoachCell = React.createClass
           <span className='trigger-wrap'>
             <PieProgress
             isConceptCoach={isConceptCoach}
-            size={24}
+            size={20}
             value={pieValue} />
           </span>
         </BS.OverlayTrigger>
