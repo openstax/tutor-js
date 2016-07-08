@@ -142,11 +142,11 @@ TutorDateInput = React.createClass
     valid = @isValid(value)
 
     unless valid
-      value = moment(@props.min) or null
+      value = TimeHelper.getMomentPreserveDate(@props.min) or null
       errors = ['Invalid date']
 
 
-    value = TimeHelper.getZonedMoment(value)
+    value = TimeHelper.getMomentPreserveDate(value)
 
     @props.onChange(value)
     @setState({expandCalendar: false, valid, value, errors})
