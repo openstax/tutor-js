@@ -154,6 +154,11 @@ module.exports = React.createClass
       if heading.type is 'homework'
         average =
           <span className="average">---</span>
+      else if heading.type is 'external'
+        average =
+          <span className="click-rate">
+            {(heading.completion_rate * 100).toFixed(0)}% have clicked link
+          </span>
 
     if heading.type is 'reading' or heading.type is 'external'
       label =
