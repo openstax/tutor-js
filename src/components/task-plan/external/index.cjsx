@@ -3,9 +3,11 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 validator = require 'validator'
+classnames = require 'classnames'
 
 {TutorInput, TutorDateInput, TutorTextArea} = require '../../tutor-input'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
+{TaskingStore, TaskingActions} = require '../../../flux/tasking'
 
 PlanFooter = require '../footer'
 PlanMixin = require '../plan-mixin'
@@ -43,14 +45,17 @@ ExternalPlan = React.createClass
 
     header = @builderHeader('external')
     label = 'Assignment URL'
-    if @state?.invalid then formClasses.push('is-invalid-form')
 
-    isURLLocked = TaskPlanStore.isOpened(id) and TaskPlanStore.isPublished(id)
+    isURLLocked = TaskingStore.isTaskOpened(id) and TaskPlanStore.isPublished(id)
     label = "#{label} (Cannot be changed once assignment is opened and published)" if isURLLocked
+
+    formClasses = classnames('edit-external', 'dialog', {
+      'is-invalid-form': @state.invalid
+    })
 
     <div className='external-plan task-plan' data-assignment-type='external'>
       <BS.Panel bsStyle='primary'
-        className={formClasses.join(' ')}
+        className={formClasses}
         footer={footer}
         header={header}>
 
