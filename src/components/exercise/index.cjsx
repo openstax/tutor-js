@@ -70,7 +70,7 @@ ExerciseMixin =
         includeGroup: false
         includeFooter: @shouldControl(part.id)
         keySet: keySet
-        stepPartIndex: index
+        stepPartIndex: part.stepIndex
         key: "exercise-part-#{index}"
 
       # stim and stem are the same for different steps currently.
