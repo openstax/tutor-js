@@ -12,11 +12,6 @@ TaskPlanBuilder = require '../builder'
 EventPlan = React.createClass
   displayName: 'EventPlan'
   mixins: [PlanMixin]
-
-  componentWillMount: ->
-    {id} = @props
-    TaskPlanActions.setEvent(id)
-
   render: ->
     {id, courseId} = @props
     builderProps = _.pick(@state, 'isVisibleToStudents', 'isEditable', 'isSwitchable')

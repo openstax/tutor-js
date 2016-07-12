@@ -44,7 +44,7 @@ BASE_PLANS =
   external:
     settings:
       external_url: ''
-  events:
+  event:
     settings: {}
 
 newTaskPlan = (attributes = {}) ->
