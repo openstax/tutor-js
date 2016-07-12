@@ -27,13 +27,8 @@ transformDefaultPeriod = (period) ->
   open_time: period.default_open_time
   due_time: period.default_due_time
 
-transformCourseToDefaults = (course) ->
-  {periods, id} = course
-
+transformCourseToDefaults = (course, periods) ->
   courseDefaults = _.chain(periods)
-    .reject((period) ->
-      period.is_archived
-    )
     .indexBy((period) ->
       "period#{period.id}"
     )
@@ -238,8 +233,8 @@ TaskingConfig =
 
     delete @_defaults[courseId] unless courseId in _.values(@_tasksToCourse)
 
-  loadDefaults: (courseId, course) ->
-    @_defaults[courseId] = transformCourseToDefaults(course)
+  loadDefaults: (courseId, course, periods) ->
+    @_defaults[courseId] = transformCourseToDefaults(course, periods)
     @emit("defaults.#{courseId}.loaded")
     true
 
