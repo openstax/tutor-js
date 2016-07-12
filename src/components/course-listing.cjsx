@@ -5,6 +5,7 @@ Router = require 'react-router'
 WindowHelpers = require '../helpers/window'
 
 {CourseListingActions, CourseListingStore} = require '../flux/course-listing'
+{CourseStore} = require '../flux/course'
 {RefreshButton} = require 'openstax-react-components'
 EmptyCourses    = require './course-listing/empty'
 CourseDataMixin = require './course-data-mixin'
@@ -15,14 +16,15 @@ DisplayOrRedirect = (transition, callback) ->
   courses = CourseListingStore.allCourses() or []
   [course] = courses
   if courses.length is 1
-    roleType = courses[0].roles[0].type
+    courseId = courses[0].id
     conceptCoach = courses[0].is_concept_coach
 
-    if roleType is 'teacher'
+    if CourseStore.isTeacher(courseId)
       view = if conceptCoach then 'cc-dashboard' else 'taskplans'
-    else if roleType is 'student'
+    else if CourseStore.isStudent(courseId)
       view = 'viewStudentDashboard'
     else
+      roleType = courses[0].roles[0].type
       throw new Error("BUG: Unrecognized role type #{roleType}")
 
     transition.redirect(view, {courseId: _.first(courses).id}) if view
