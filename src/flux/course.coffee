@@ -129,6 +129,9 @@ CourseConfig =
     isTeacher: (courseId) ->
       !!_.findWhere(@_get(courseId)?.roles, type: 'teacher')
 
+    isStudent: (courseId) ->
+      !!_.findWhere(@_get(courseId)?.roles, type: 'student')
+
     getByEcosystemId: (ecosystemId) ->
       _.findWhere(@_local, ecosystem_id: ecosystemId)
 

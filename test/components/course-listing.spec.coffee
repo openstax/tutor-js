@@ -61,6 +61,14 @@ describe 'Course Listing Component', ->
     renderListing().then (state) ->
       expect(state.div.querySelector(".refresh-button")).not.to.be.null
 
+  it 'redirects to teacher calendar with multiple course roles', ->
+    CourseListingActions.loaded([TEACHER_AND_STUDENT_COURSE_THREE_MODEL])
+    renderListing().then (state) ->
+      expect(state.listing).to.be.undefined # Won't have rendered the listing
+      expect(ReactTestUtils.scryRenderedComponentsWithType(state.component, CourseCalendar))
+        .to.have.length(1)
+
+
   it 'redirects to teacher calendar', ->
     CourseListingActions.loaded([TEACHER_COURSE_TWO_MODEL])
     renderListing().then (state) ->
