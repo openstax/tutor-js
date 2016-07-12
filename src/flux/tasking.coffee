@@ -31,6 +31,9 @@ transformCourseToDefaults = (course) ->
   {periods, id} = course
 
   courseDefaults = _.chain(periods)
+    .reject((period) ->
+      period.is_archived
+    )
     .indexBy((period) ->
       "period#{period.id}"
     )
