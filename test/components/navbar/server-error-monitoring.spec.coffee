@@ -7,7 +7,7 @@ Dialog = require '../../../src/components/tutor-dialog'
 ErrorMonitor = require '../../../src/components/navbar/server-error-monitoring'
 
 
-describe 'Account Link', ->
+describe 'Server Error Monitoring', ->
 
   beforeEach ->
     sinon.spy(Dialog, 'show')

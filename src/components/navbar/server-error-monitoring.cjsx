@@ -79,13 +79,12 @@ ERROR_HANDLERS =
     onCancel: hideDialog
 
   default: (error, message, router) ->
-    if router?
+    if router? and not error.supportLink?
       {courseId} = router.getCurrentParams()
-      props =
-        supportLink: "#{CurrentUserStore.getHelpLink(courseId)}&cu=1&fs=ContactUs&q=begin"
+      error.supportLink = "#{CurrentUserStore.getHelpLink(courseId)}&cu=1&fs=ContactUs&q=begin"
     dialog:
       title: 'Server Error'
-      body: <ServerErrorMessage {...props} {...error}/>
+      body: <ServerErrorMessage {...error}/>
       buttons: [
         <BS.Button key='ok' onClick={-> Dialog.hide()} bsStyle='primary'>OK</BS.Button>
       ]
