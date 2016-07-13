@@ -113,18 +113,11 @@ CourseConfig =
       periods = if options.includeArchived then course.periods else PeriodHelper.activePeriods(course)
       sortedPeriods = if periods then PeriodHelper.sort(periods) else []
 
+    getTimeDefaults: (courseId) ->
+      _.pick(@_get(courseId), 'default_due_time', 'default_open_time')
+
     getTimezone: (courseId) ->
       @_get(courseId)?.time_zone or DEFAULT_TIME_ZONE
-
-    getDefaultTimes: (courseId, periodId) ->
-      course = @_get(courseId)
-
-      if periodId?
-        tasking = _.findWhere(course.periods, id: periodId)
-      else
-        tasking = course
-
-      _.pick tasking, 'default_open_time', 'default_due_time'
 
     isTeacher: (courseId) ->
       !!_.findWhere(@_get(courseId)?.roles, type: 'teacher')

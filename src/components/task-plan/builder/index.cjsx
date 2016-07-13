@@ -105,9 +105,17 @@ TaskPlanBuilder = React.createClass
 
     @setState(nextState) unless _.isEmpty(nextState)
 
-  updateForCourse: ->
+  loadCourseDefaults: ->
     {courseId} = @props
-    TaskingActions.loadDefaults(courseId, CourseStore.get(courseId))
+    courseDefaults = CourseStore.getTimeDefaults(courseId)
+
+    return unless courseDefaults?
+
+    periods = CourseStore.getPeriods(courseId)
+    TaskingActions.loadDefaults(courseId, courseDefaults, periods)
+
+  updateForCourse: ->
+    @loadCourseDefaults()
     @forceUpdate()
 
   componentWillMount: ->
@@ -116,8 +124,7 @@ TaskPlanBuilder = React.createClass
     TimeHelper.syncCourseTimezone(courseTimezone)
     TaskingActions.loadTaskToCourse(id, courseId)
 
-    course = CourseStore.get(courseId)
-    TaskingActions.loadDefaults(courseId, course) if course?
+    @loadCourseDefaults()
 
     #set the periods defaults only after the timezone has been synced
     @setPeriodDefaults()
