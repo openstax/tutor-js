@@ -13,7 +13,7 @@ CourseDataMixin = require './course-data-mixin'
 # Called once the store is loaded
 # checks the course and roles and will redirect if there is only a single course and role
 DisplayOrRedirect = (transition, callback) ->
-  courses = CourseListingStore.allCoursesWithRoles() or []
+  courses = CourseListingStore.allCoursesWithRoles()
   [course] = courses
   if courses.length is 1
     courseId = courses[0].id
@@ -94,7 +94,7 @@ CourseListing = React.createClass
       </BS.Row>
 
   render: ->
-    courses = CourseListingStore.allCoursesWithRoles() or []
+    courses = CourseListingStore.allCoursesWithRoles()
     body = if courses.length
       <div className='-course-list'>{@renderCourses(courses)}</div>
     else
