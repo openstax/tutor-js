@@ -47,7 +47,7 @@ ModifyCourseRegistration = React.createClass
     if course.isIncomplete()
       <EnrollmentCodeInput
         course={course}
-        title={"Leave #{original.description()} for new course/period"} />
+        title={"Leave #{original.description()} for new section"} />
     else if course.isPending()
       <ConfirmJoin
         course={course}
