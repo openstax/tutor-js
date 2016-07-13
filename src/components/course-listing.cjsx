@@ -94,7 +94,7 @@ CourseListing = React.createClass
       </BS.Row>
 
   render: ->
-    courses = CourseListingStore.allCourses() or []
+    courses = CourseListingStore.allCoursesWithRoles() or []
     body = if courses.length
       <div className='-course-list'>{@renderCourses(courses)}</div>
     else
