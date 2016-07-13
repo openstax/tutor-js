@@ -40,9 +40,14 @@ MASTER_COURSES_LIST = [
   TEACHER_AND_STUDENT_COURSE_THREE_MODEL
 ]
 
+TUTOR_HELP = 'http://openstax.force.com/support?l=en_US&c=Products%3ATutor'
+CONCEPT_COACH_HELP = 'http://openstax.force.com/support?l=en_US&c=Products%3AConcept_Coach'
+
 module.exports = {
   STUDENT_COURSE_ONE_MODEL,
   TEACHER_COURSE_TWO_MODEL
   TEACHER_AND_STUDENT_COURSE_THREE_MODEL,
-  MASTER_COURSES_LIST
+  MASTER_COURSES_LIST,
+  TUTOR_HELP,
+  CONCEPT_COACH_HELP
 }

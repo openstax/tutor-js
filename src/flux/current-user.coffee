@@ -65,8 +65,8 @@ CurrentUserActions = flux.createActions [
   'reset'
 ]
 
-TUTOR_HELP = 'https://openstaxtutor.zendesk.com'
-CONCEPT_COACH_HELP = 'https://openstaxcc.zendesk.com/hc/en-us'
+TUTOR_HELP = 'http://openstax.force.com/support?l=en_US&c=Products%3ATutor'
+CONCEPT_COACH_HELP = 'http://openstax.force.com/support?l=en_US&c=Products%3AConcept_Coach'
 
 CurrentUserStore = flux.createStore
   actions: [
