@@ -31,10 +31,10 @@ DATETIMES =
 COURSE =
   id: '1'
   periods: [
-    {id: '1', name: '1st'},
-    {id: '2', name: '2nd'},
-    {id: '3', name: '3rd'},
-    {id: '4', name: '4th'}
+    {id: '1', name: '1st', is_archived: false},
+    {id: '2', name: '2nd', is_archived: false},
+    {id: '3', name: '3rd', is_archived: false},
+    {id: '4', name: '4th', is_archived: false}
   ]
 
 DEFAULT_TIMES =
@@ -111,7 +111,7 @@ describe 'Tasking Flux', ->
     course = makeCourse()
     indexedDefaults = makeIndexedDefaults()
 
-    TaskingActions.loadDefaults(course.id, course)
+    TaskingActions.loadDefaults(course.id, course, course.periods)
 
     _.each TaskingStore.getDefaults('1'), (tasking, taskingKey) ->
       expect(tasking).to.matchTasking(indexedDefaults[taskingKey])
@@ -121,7 +121,7 @@ describe 'Tasking Flux', ->
   it 'should set all to true for creating when defaults are same', ->
 
     course = makeCourse()
-    TaskingActions.loadDefaults(course.id, course)
+    TaskingActions.loadDefaults(course.id, course, course.periods)
 
     TaskingActions.loadTaskToCourse(NEW_TASK_ID, course.id)
     TaskingActions.create(NEW_TASK_ID)
@@ -131,7 +131,7 @@ describe 'Tasking Flux', ->
   it 'should set all to false for creating when defaults are different', ->
 
     course = makeCourse(DEFAULT_TIMES, PERIOD_DEFAULT_TIMES_DIFFERENT)
-    TaskingActions.loadDefaults(course.id, course)
+    TaskingActions.loadDefaults(course.id, course, course.periods)
 
     TaskingActions.loadTaskToCourse(NEW_TASK_ID, course.id)
     TaskingActions.create(NEW_TASK_ID)
@@ -144,7 +144,7 @@ describe 'Tasking Flux', ->
     courseDifferent = makeCourse(DEFAULT_TIMES, PERIOD_DEFAULT_TIMES_DIFFERENT)
     courseDifferent.id = '2'
 
-    TaskingActions.loadDefaults(course.id, course)
+    TaskingActions.loadDefaults(course.id, course, course.periods)
     TaskingActions.loadTaskToCourse(NEW_TASK_ID, course.id)
     TaskingActions.create(NEW_TASK_ID)
 
@@ -169,7 +169,7 @@ describe 'Tasking Flux', ->
     courseDifferent = makeCourse(DEFAULT_TIMES, PERIOD_DEFAULT_TIMES_DIFFERENT)
     courseDifferent.id = '2'
 
-    TaskingActions.loadDefaults(course.id, course)
+    TaskingActions.loadDefaults(course.id, course, course.periods)
     TaskingActions.loadTaskToCourse(NEW_TASK_ID, course.id)
     TaskingActions.create(NEW_TASK_ID, {open_date: DATES.YESTERDAY, due_date: DATES.TOMORROW})
 
