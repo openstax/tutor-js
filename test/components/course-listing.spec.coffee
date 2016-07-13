@@ -52,6 +52,11 @@ describe 'Course Listing Component', ->
       # no refresh button when load succeeds
       expect(state.div.querySelector(".refresh-button")).to.be.null
 
+  it 'renders empty courses if course list only contains arhived course', ->
+    CourseListingActions.loaded([STUDENT_ARCHIVED_COURSE])
+    renderListing().then (state) ->
+      expect(state.div.querySelector('.-course-list-empty')).not.to.be.null
+
   it 'renders course appropriate help', ->
     CourseListingActions.loaded(MASTER_COURSES_LIST)
     renderListing().then (state) ->
