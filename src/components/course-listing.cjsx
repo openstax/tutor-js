@@ -13,7 +13,7 @@ CourseDataMixin = require './course-data-mixin'
 # Called once the store is loaded
 # checks the course and roles and will redirect if there is only a single course and role
 DisplayOrRedirect = (transition, callback) ->
-  courses = CourseListingStore.allCourses() or []
+  courses = CourseListingStore.allCoursesWithRoles() or []
   [course] = courses
   if courses.length is 1
     courseId = courses[0].id
