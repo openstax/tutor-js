@@ -5,7 +5,7 @@ moment = require 'moment-timezone'
 
 {TaskingActions, TaskingStore} = require '../../src/flux/tasking'
 
-{TimeStore} = require '../../src/flux/time'
+{TimeStore, TimeActions} = require '../../src/flux/time'
 TimeHelper = require '../../src/helpers/time'
 
 TIME_NOW = moment(TimeStore.getNow())
@@ -101,8 +101,17 @@ matchTasking = (taskingToMatch) ->
 
 Assertion.addMethod('matchTasking', matchTasking)
 
+ERRORS =
+  'INVALID_DATE': 'Please pick a date.'
+  'INVALID_TIME': 'Please type a time.'
+  'DUE_BEFORE_OPEN': 'Due time cannot be before open time.'
+  'MISSING_TASKING': 'Please select at least one period'
+  'DUE_AFTER_NOW': 'Due time has already passed'
 
 describe 'Tasking Flux', ->
+  beforeEach ->
+    TimeActions.setNow(new Date())
+
   afterEach ->
     TaskingActions.reset()
 
@@ -189,3 +198,32 @@ describe 'Tasking Flux', ->
       expect(TimeHelper.isDateTimeString(tasking.due_at)).to.be.true
 
 
+  it 'should validate due at is past', ->
+    course = makeCourse()
+    period = _.first(course.periods)
+    TaskingActions.loadDefaults(course.id, course, course.periods)
+    TaskingActions.loadTaskToCourse(NEW_TASK_ID, course.id)
+    TaskingActions.create(NEW_TASK_ID, {open_date: DATES.YESTERDAY, due_date: DATES.TOMORROW})
+
+    TaskingActions.updateDate(NEW_TASK_ID, period, 'due', DATES.YESTERDAY)
+    TaskingActions.updateTime(NEW_TASK_ID, period, 'due', '09:00')
+
+    tasking = TaskingStore._getTaskingFor(NEW_TASK_ID, period)
+    errors = TaskingStore.getTaskingErrors(NEW_TASK_ID, tasking)
+    expect(_.indexOf(errors, ERRORS.DUE_AFTER_NOW)).to.not.equal(-1)
+
+  it 'should validate due time before open time', ->
+    course = makeCourse()
+    period = _.first(course.periods)
+    TaskingActions.loadDefaults(course.id, course, course.periods)
+    TaskingActions.loadTaskToCourse(NEW_TASK_ID, course.id)
+    TaskingActions.create(NEW_TASK_ID, {open_date: DATES.YESTERDAY, due_date: DATES.TOMORROW})
+
+    TaskingActions.updateDate(NEW_TASK_ID, period, 'open', DATES.TOMORROW)
+    TaskingActions.updateTime(NEW_TASK_ID, period, 'open', '09:00')
+    TaskingActions.updateDate(NEW_TASK_ID, period, 'due', DATES.TOMORROW)
+    TaskingActions.updateTime(NEW_TASK_ID, period, 'due', '07:00')
+
+    tasking = TaskingStore._getTaskingFor(NEW_TASK_ID, period)
+    errors = TaskingStore.getTaskingErrors(NEW_TASK_ID, tasking)
+    expect(_.indexOf(errors, ERRORS.DUE_BEFORE_OPEN)).to.not.equal(-1)
