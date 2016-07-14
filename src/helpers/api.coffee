@@ -156,7 +156,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
       rejected = (response) ->
         {status, statusText, statusMessage, handled} = response
 
-        AppActions.setServerError(status, statusText, requestConfig)
+        AppActions.setServerError(status, response.data, requestConfig)
         return if handled
 
         Actions.FAILED(status, statusMessage, args...)
