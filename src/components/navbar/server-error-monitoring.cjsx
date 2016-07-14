@@ -135,11 +135,9 @@ module.exports = React.createClass
     return unless error and -1 is window.location.search.indexOf('reloaded')
     message = {}
     handler = 'default'
-    if error.message
-      try
-        message = JSON.parse(error.message)
-      catch e
 
+    if _.isObject(error.message)
+      {message} = error
       if message.errors?.length is 1 and ERROR_HANDLERS[message.errors[0].code]
         handler = message.errors[0].code
 
