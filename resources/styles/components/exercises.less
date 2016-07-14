@@ -1,7 +1,6 @@
 @exercise-details-body-height: calc(~"100vh - 150px");
 
 .exercise-details {
-
   min-height: @exercise-details-body-height;
   position: relative;
   display: flex;
@@ -26,10 +25,13 @@
       cursor: pointer;
     }
   }
+
   .exercise-card {
     width: 800px;
+
     .panel-body {
       min-height: 600px;
+      padding: 70px 70px 70px 100px !important;
     }
 
     .controls-overlay {
