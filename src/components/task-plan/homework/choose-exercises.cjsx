@@ -49,7 +49,7 @@ ChooseExercises = React.createClass
 
       <SelectTopics
         primary={primaryBtn}
-        header={<span key='hd'>Add Problems</span>}
+        header={<span key='hd'>Add Questions</span>}
         courseId={courseId}
         ecosystemId={ecosystemId}
         planId={planId}

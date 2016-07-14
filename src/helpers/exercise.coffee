@@ -9,11 +9,11 @@ TutorHelpers = {
     actions = {}
     if isExcluded
       actions.include =
-        message: 'ReInclude question'
+        message: 'Re-Add question'
         handler: handler
     else
       actions.exclude =
-        message: 'Exclude question'
+        message: 'Remove question'
         handler: handler
     _.extend( actions, additionalActions)
 
