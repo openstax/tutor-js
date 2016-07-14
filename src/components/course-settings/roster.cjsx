@@ -84,7 +84,7 @@ CourseRoster = React.createClass
     </div>
 
   renderEmpty: ->
-    <NoPeriods />
+    <NoPeriods courseId={@props.courseId} />
 
   render: ->
     course  = CourseStore.get(@props.courseId)
