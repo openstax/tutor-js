@@ -16,7 +16,7 @@ describe 'Server Error Monitoring', ->
 
   it 'renders error dialog', ->
     AppActions.setServerError(500, 'an error happens',
-      {url: '/test', opts: {displayError: true}})
+      {url: '/test', displayError: true})
     Testing.renderComponent( ErrorMonitor ).then ({dom}) ->
       expect(Dialog.show).to.have.been.calledWith(sinon.match(
         title: 'Server Error'
@@ -26,7 +26,7 @@ describe 'Server Error Monitoring', ->
     AppActions.setServerError(422,
       '{"status":422,"errors":[{"code":"no_exercises","message":' +
       '"No exercises were found to build the Practice Widget.","data":null}]}'
-      , {url: '/test', opts: {displayError: true}})
+      , {url: '/test', displayError: true})
     Testing.renderComponent( ErrorMonitor ).then ({dom}) ->
       expect(Dialog.show).to.have.been.calledWith(sinon.match(
         title: 'Unable to practice topic'
