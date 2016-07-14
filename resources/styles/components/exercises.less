@@ -83,12 +83,13 @@
 }
 
 .exercise-controls-bar {
-  @padding: 20px;
+  @padding-horizontal: 16px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 @padding;
+  padding: 0 @padding-horizontal;
+
   .sectionizer {
     @size: 40px;
     flex-wrap: nowrap;
@@ -104,14 +105,19 @@
       line-height: @size;
 
       &.section {
-        border: 1px solid @tutor-neutral-light;
-        min-height: @size;
-        &+.section {
-          border-left: 0;
+        border: 1px solid @default-border;
+        height: @size;
+        position: relative;
+        margin-right: 0;
+        margin-left: -1px;
+
+        &:first-child {
+          margin-left: 0;
         }
       }
       &.active {
         background-color: @tutor-neutral-light;
+        z-index: 10;
       }
       &.disabled {
         cursor: default;
@@ -119,6 +125,7 @@
       }
     }
   }
+
   .btn-group {
     box-shadow: none;
     button:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
@@ -130,8 +137,14 @@
       border: 1px solid @tutor-neutral;
       height: 40px;
       margin-right: 0;
+      margin-left: -1px;
+
+      &:first-child {
+        margin-left: 0;
+      }
       &.active {
         background-color: @tutor-neutral-light;
+        z-index: 10;
       }
       .tutor-icon {
         margin: 0;
