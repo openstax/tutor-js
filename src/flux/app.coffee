@@ -68,6 +68,10 @@ AppConfig =
     {displayError} = requestDetails
     return unless displayError
     @_currentServerError = status
+    unless _.isObject(message)
+      try
+        message = JSON.parse(message)
+      catch e
     @emit('server-error', statusCode, message)
 
   setServerSuccess: (statusCode, message, requestDetails) ->
