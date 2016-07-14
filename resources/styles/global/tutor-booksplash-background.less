@@ -12,12 +12,29 @@
     top: 60px;
     left: 0px;
     right: 0px;
-    height: 23rem;
-    line-height: 20rem;
+
+    height: 9rem;
+    line-height: 9rem;
+    font-size: 12rem;
+    @media (min-width: @screen-sm-min) {
+      height: 11rem;
+      line-height: 11rem;
+      font-size: 14rem;
+    }
+    @media (min-width: @screen-md-min) {
+      height: 14rem;
+      line-height: 13rem;
+      font-size: 18rem;
+    }
+    @media (min-width: @screen-lg-min) {
+      height: 16rem;
+      line-height: 15rem;
+      font-size: 21rem;
+    }
+
     overflow: hidden;
     color: @tutor-secondary;
     text-align: center;
-    font-size: 21rem;
     letter-spacing: -6px;
     #fonts > .book-cover();
     z-index: -1;
