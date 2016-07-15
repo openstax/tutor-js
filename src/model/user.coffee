@@ -28,7 +28,7 @@ class Email extends EventEmitter2
 
 
   sendConfirmation: ->
-    @makeRequest('resend_confirmation').then (resp) =>
+    @makeRequest('resend_confirmation', {send_pin: true}).then (resp) =>
       @verifyInProgress = (resp.status is 204)
       @emit('change')
 
