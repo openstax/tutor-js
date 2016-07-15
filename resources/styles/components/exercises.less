@@ -5,6 +5,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+
   .content {
     flex: 1;
     display: flex;
@@ -15,11 +16,24 @@
     height: 100%;
     justify-content: flex-start;
   }
+
   .controls {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    margin-left: 450px;
     z-index: 1; // above details forward/back nav when scrolling up
+
+    .pinned-on & {
+      position: fixed;
+      top: 190px;
+    }
+
+    .pinned-shy & {
+      top: 130px;
+      .transition(~'top 0.2s ease-out');
+    }
+
     .show-cards {
       color: @tutor-neutral;
       cursor: pointer;
