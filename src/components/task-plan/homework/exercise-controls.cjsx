@@ -120,10 +120,10 @@ ExerciseControls = React.createClass
 
         {@renderExplanation()}
 
-        <div className="actions">
-          {@renderActionButtons()}
-        </div>
+      </div>
 
+      <div className="actions">
+        {@renderActionButtons()}
       </div>
     </div>
 

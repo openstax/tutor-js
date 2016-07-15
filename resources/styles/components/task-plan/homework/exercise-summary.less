@@ -23,11 +23,19 @@
     flex: inherit;
   }
 
-  .num, .tutor-added-later, .actions {
+  .num, .tutor-added-later {
+    @padding: 25px;
+
     border-left: 1px solid @tutor-neutral-light;
-    margin-left: 20px;
-    padding-left: 20px;
+    margin-left: @padding;
+    padding-left: @padding;
+
+    &:last-child {
+      border-right: 1px solid @tutor-neutral-light;
+      padding-right: @padding;
+    }
   }
+
   .num {
     display: flex;
     flex-direction: column;
@@ -53,14 +61,17 @@
     }
     &.total h2 { color: @tutor-quaternary; }
   }
+
   .tutor-added-later {
-    color: @tutor-neutral;
-    width: 200px;
+    color: #999999;
+    width: 232px;
     line-height: 14px;
     font-style: italic;
+    font-size: 1.3rem;
     display: flex;
     align-items: center;
   }
+
   .actions {
     display: flex;
     justify-content: center;
