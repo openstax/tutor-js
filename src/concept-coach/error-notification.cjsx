@@ -7,7 +7,7 @@ api = require '../api'
 BASE_CONTACT_LINK = 'http://openstax.force.com/support?l=en_US&c=Products%3AConcept_Coach&cu=1&fs=ContactUs&q='
 
 makeContactMessage = (errors, userAgent, location) ->
-  template = "Hello!  I ran into a problem while using Concept Coach on #{userAgent} at #{location}.
+  template = "Hello!\nI ran into a problem while using Concept Coach on #{userAgent} at #{location}.
     These are the error messages: #{errors.join()}."
 
 makeContactURL = (errors, windowContext) ->
