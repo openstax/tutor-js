@@ -14,6 +14,7 @@ SelectTopics = React.createClass
   propTypes:
     planId: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired
+    onSectionChange: React.PropTypes.func.isRequired
     hide: React.PropTypes.func.isRequired
     selected: React.PropTypes.array
 
@@ -24,6 +25,7 @@ SelectTopics = React.createClass
 
   onSectionChange: (sectionIds) ->
     TaskPlanActions.updateTopics(@props.planId, sectionIds)
+    @props.onSectionChange?(sectionIds)
 
   renderDialog: ->
     {courseId, planId, selected, hide, header, primary, cancel} = @props
