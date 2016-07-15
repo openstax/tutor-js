@@ -7,6 +7,25 @@ _  = require 'underscore'
 {CurrentUserStore, CurrentUserActions} = require '../../flux/current-user'
 Dialog = require '../tutor-dialog'
 
+SUPPORT_LINK_PARAMS = '&cu=1&fs=ContactUs&q='
+
+makeContactMessage = (statusCode, message, request) ->
+  userAgent = window.navigator.userAgent
+  location = window.location.href
+
+  errorInfo = "#{statusCode} with #{message} for #{request.method} on #{request.url}"
+
+  if request.data?
+    errorInfo += " with #{request.data}"
+
+  template = "Hello!\nI ran into a problem on #{userAgent} at #{location}.
+    Here is some additional info: #{errorInfo}."
+
+makeContactURL = (supportLinkBase, statusCode, message, request) ->
+  q = encodeURIComponent(makeContactMessage(statusCode, message, request))
+
+  "#{supportLinkBase}#{SUPPORT_LINK_PARAMS}#{q}"
+
 reloadOnce = ->
   navigation = AppStore.errorNavigation()
   return if _.isEmpty navigation
@@ -24,22 +43,26 @@ ServerErrorMessage = React.createClass
     statusCode: React.PropTypes.number.isRequired
     message: React.PropTypes.string.isRequired
     request: React.PropTypes.object.isRequired
-    supportLink: React.PropTypes.string
+    supportLinkBase: React.PropTypes.string
     debug: React.PropTypes.bool
 
   getDefaultProps: ->
-    supportLink: "#{CurrentUserStore.getHelpLink()}&cu=1&fs=ContactUs&q=begin"
+    supportLinkBase: CurrentUserStore.getHelpLink()
     debug: true
 
   render: ->
-    {statusCode, message, request, supportLink, debug} = @props
+    {statusCode, message, request, supportLinkBase, debug} = @props
+    message ?= 'No response was received'
+
+    q = makeContactMessage(statusCode, message, request)
+
     dataMessage =  <span>
       with <pre>{request.data}</pre>
     </span> if request.data?
 
     debugInfo = [
       <p key='error-note'>Additional error messages returned from the server is:</p>
-      <pre key='error-response' className='response'>{message or 'No response was received'}</pre>
+      <pre key='error-response' className='response'>{message}</pre>
       <div key='error-request' className='request'>
         <kbd>{request.method}</kbd> on {request.url} {dataMessage}
       </div>
@@ -49,7 +72,8 @@ ServerErrorMessage = React.createClass
       <div className='server-error'>
         <h3>An error with code {statusCode} has occured</h3>
         <p>Please visit <a target='_blank'
-          href={supportLink}>our support page</a> to file a bug report.
+          href={makeContactURL(supportLinkBase, statusCode, message, request)}
+        >our support page</a> to file a bug report.
         </p>
         {debugInfo}
       </div>
@@ -79,9 +103,9 @@ ERROR_HANDLERS =
     onCancel: hideDialog
 
   default: (error, message, router) ->
-    if router? and not error.supportLink?
+    if router? and not error.supportLinkBase?
       {courseId} = router.getCurrentParams()
-      error.supportLink = "#{CurrentUserStore.getHelpLink(courseId)}&cu=1&fs=ContactUs&q=begin"
+      error.supportLinkBase = CurrentUserStore.getHelpLink(courseId)
     dialog:
       title: 'Server Error'
       body: <ServerErrorMessage {...error}/>
