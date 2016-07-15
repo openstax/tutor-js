@@ -172,18 +172,20 @@ module.exports = React.createClass
     key is keyToCompare or parseInt(key) is parseInt(keyToCompare)
 
   goToStep: (stepKey, silent = false) ->
+    {id} = @props
+
     stepKey = parseInt(stepKey)
     params = _.clone(@context.router.getCurrentParams())
     return false if @areKeysSame(params.stepIndex, stepKey + 1)
     # url is 1 based so it matches the breadcrumb button numbers
     params.stepIndex = stepKey + 1
-    params.id = @props.id # if we were rendered directly, the router might not have the id
+    params.id = id # if we were rendered directly, the router might not have the id
 
     if silent
       @context.router.replaceWith('viewTaskStep', params)
       true
     else
-      @scrollToTop()
+      @scrollToTop() unless @_isSameStep({id}, {currentStep: stepKey})
       @context.router.transitionTo('viewTaskStep', params)
       true
 
