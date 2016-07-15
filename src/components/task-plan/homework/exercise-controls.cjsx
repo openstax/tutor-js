@@ -68,7 +68,7 @@ ExerciseControls = React.createClass
     else if @props.canAdd
       <BS.Button bsStyle="default"
         className="-add-exercises"
-        onClick={@props.addClicked}>Add More...</BS.Button>
+        onClick={@props.addClicked}>+ Add More Sections</BS.Button>
     else
       null
 
