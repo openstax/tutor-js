@@ -16,10 +16,14 @@ makeContactMessage = (statusCode, message, request) ->
   errorInfo = "#{statusCode} with #{message} for #{request.method} on #{request.url}"
 
   if request.data?
-    errorInfo += " with #{request.data}"
+    errorInfo += " with\n#{request.data}"
 
-  template = "Hello!\nI ran into a problem on #{userAgent} at #{location}.
-    Here is some additional info: #{errorInfo}."
+  template = """Hello!
+    I ran into a problem on
+    #{userAgent} at #{location}.
+
+    Here is some additional info:
+    #{errorInfo}."""
 
 makeContactURL = (supportLinkBase, statusCode, message, request) ->
   q = encodeURIComponent(makeContactMessage(statusCode, message, request))
