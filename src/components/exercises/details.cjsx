@@ -130,7 +130,7 @@ ExerciseDetails = React.createClass
       <div className="content">
 
         {<div className="page-navigation prev" onClick={@onPrev}>
-          <div className='triangle' />
+          <Icon type='angle-left' />
          </div> if moves.prev}
 
         <ExercisePreview
@@ -146,7 +146,7 @@ ExerciseDetails = React.createClass
         />
       </div>
       {<div className="page-navigation next" onClick={@onNext}>
-        <div className='triangle' />
+        <Icon type='angle-right' />
        </div> if moves.next}
 
     </div>

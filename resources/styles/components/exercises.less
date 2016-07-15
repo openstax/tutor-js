@@ -55,11 +55,42 @@
   }
 
   .page-navigation {
-    .page-navigation-arrows(800px);
+    // .page-navigation-arrows(800px);
 
-    height: @exercise-details-body-height;
     position: absolute;
-    top: 0;
+    top: 20%;
+    z-index: 1;
+    cursor: pointer;
+
+    &.prev {
+      left: 0;
+    }
+
+    &.next {
+      right: 0;
+    }
+
+    .pinned-on & {
+      top: 40%;
+      position: fixed;
+
+      &.prev {
+        left: 40px;
+      }
+
+      &.next {
+        right: 40px;
+      }
+    }
+
+    i.fa {
+      color: #e5e5e5;
+      font-size: 150px;
+    }
+
+    &:hover i.fa{
+      color: #d5d5d5;
+    }
   }
 
 }
@@ -74,22 +105,8 @@
         position: fixed;
         top: 0px;
         left: calc(~"50% - " 400px );
-
       }
     }
-    .page-navigation {
-      display: flex;
-      cursor: pointer;
-
-      height: 100%;
-      position: fixed;
-      top: 0px;
-
-      &.prev {
-        left: 0;
-      }
-    }
-
   }
 
 }
