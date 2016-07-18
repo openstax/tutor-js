@@ -86,7 +86,7 @@ ServerErrorMessage = React.createClass
 NoExercisesMessage = React.createClass
   render: ->
     <div className="no-exercises">
-      <p className="lead">There are no practice problems available for this topic.</p>
+      <p className="lead">There are no problems to show for this topic.</p>
     </div>
 
 
