@@ -173,13 +173,14 @@ TaskEnd = React.createClass
   displayName: 'TaskEnd'
   render: ->
     {courseId} = @props
+    console.log(CourseStore.isTeacher(courseId))
     <div className='task task-completed'>
       <CardBody className='-reading-completed'>
         <div className="completed-message">
           <h1>You are done.</h1>
           <h3>Great job completing all the steps.</h3>
           <Router.Link
-            to='viewStudentDashboard'
+            to={if not CourseStore.isTeacher(courseId) then 'viewStudentDashboard' else 'viewTeacherDashBoard'}
             key='step-back'
             params={{courseId}}
             className='btn btn-primary'>
