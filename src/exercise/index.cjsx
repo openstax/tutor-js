@@ -40,6 +40,7 @@ ExerciseBase = React.createClass
     return null if _.isEmpty(step)
 
     exerciseProps =
+      project: 'concept-coach'
       taskId: step.task_id
       parts: [step]
       getCurrentPanel: getCurrentPanel
