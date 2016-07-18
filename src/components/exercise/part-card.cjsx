@@ -130,7 +130,8 @@ ExerciseStepCard = React.createClass
       onContinue: @onContinue
 
     if includeFooter
-      footer = <ExFooter {...@props} {...controlProps} idLink={idLink} />
+      {footer} = @props
+      footer ?= <ExFooter {...@props} {...controlProps} idLink={idLink}/>
 
     if includeGroup
       exerciseGroup =

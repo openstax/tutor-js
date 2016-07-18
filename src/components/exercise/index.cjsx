@@ -10,17 +10,9 @@ ExerciseIdentifierLink = require '../exercise-identifier-link'
 ScrollToMixin = require '../scroll-to-mixin'
 
 ExerciseMixin =
-  getLastPartId: ->
-    {parts} = @props
-    _.last(parts).id
-
   isSinglePart: ->
     {parts} = @props
     parts.length is 1
-
-  isLastPart: (id) ->
-    lastPartId = @getLastPartId()
-    lastPartId is id
 
   canAllContinue: ->
     {parts, canOnlyContinue} = @props
@@ -29,9 +21,7 @@ ExerciseMixin =
       canOnlyContinue(part.id)
 
   shouldControl: (id) ->
-    {canOnlyContinue} = @props
-
-    not (@isLastPart(id) and canOnlyContinue(id))
+    not @props.canOnlyContinue(id)
 
   renderPart: (part, partProps) ->
     props = _.omit(@props, 'part', 'canOnlyContinue', 'footer', 'setScrollState', 'goToStep')
@@ -45,15 +35,16 @@ ExerciseMixin =
       taskId={part.task_id}/>
 
   renderSinglePart: ->
-    {parts, footer} = @props
+    {parts, footer, canOnlyContinue} = @props
 
     part = _.first(parts)
 
     partProps =
-      footer: footer
       idLink: @renderIdLink()
       focus: true
       includeGroup: true
+
+    partProps.footer = footer if canOnlyContinue(part.id)
 
     @renderPart(part, partProps)
 
