@@ -98,6 +98,7 @@ CourseRoster = React.createClass
 
         <TabsWithChildren
           tabs={_.pluck(periods, 'name')}
+          tabIndex={tabIndex}
           onClick={@handleSelection}
         >
           <AddPeriodLink courseId={@props.courseId} periods={periods} />
