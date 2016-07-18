@@ -6,8 +6,14 @@ classnames = require 'classnames'
 SectionProgress = React.createClass
 
   render: ->
-    percent = Math.round(@props.section.completed_percentage * 100)
-    if (percent > 100) then percent = 100
+    p = @props.section.completed_percentage
+
+    percent = switch
+      when (p < 1 and p > 0.99) then 99 # Don't round to 100% when it's not 100%!
+      when (p > 0 and p < 0.01) then 1  # Don't round to 0% when it's not 0%!
+      when (p > 1) then 100             # Don't let it go over 100%!
+      else Math.round(p * 100)
+
     completedLabel = "#{percent}%"
     completedLabel = if percent is 100 then "#{completedLabel} completed" else completedLabel
 
