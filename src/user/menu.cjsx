@@ -9,6 +9,9 @@ Course = require '../course/model'
 
 api = require '../api'
 
+# TODO combine this with link in error notification
+GET_HELP_LINK = 'http://openstax.force.com/support?l=en_US&c=Products%3AConcept_Coach'
+
 getWaitingText = (status) ->
   "#{status}…"
 
@@ -67,6 +70,14 @@ UserMenu = React.createClass
       {@renderCourseOption()}
       <BS.MenuItem onClick={@showProfile}>Account Profile</BS.MenuItem>
       {@renderStudentIdOption()}
+      <BS.MenuItem divider key='dropdown-item-divider'/>
+      <BS.MenuItem
+        key='nav-help-link'
+        className='-help-link'
+        target='_blank'
+        href={GET_HELP_LINK}>
+          Get Help
+      </BS.MenuItem>
       <BS.MenuItem onClick={@logoutUser}>Logout</BS.MenuItem>
     </BS.DropdownButton>
 
