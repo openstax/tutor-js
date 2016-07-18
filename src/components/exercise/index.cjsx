@@ -122,12 +122,13 @@ ExerciseWithScroll = React.createClass
 
   componentDidMount: ->
     {currentStep} = @props
-    if currentStep?
-      @scrollToSelector("[data-step='#{currentStep}']")
+    @scrollToStep(currentStep) if currentStep?
 
   componentWillReceiveProps: (nextProps) ->
-    if nextProps.currentStep isnt @props.currentStep
-      @scrollToSelector("[data-step='#{nextProps.currentStep}']")
+    @scrollToStep(nextProps.currentStep) if nextProps.currentStep isnt @props.currentStep
+
+  scrollToStep: (currentStep) ->
+    @scrollToSelector("[data-step='#{currentStep}']", updateHistory: false)
 
   onAfterScroll: ->
     textArea = @_scrollingTargetDOM().querySelector("[data-step='#{@props.currentStep}'] textarea")
