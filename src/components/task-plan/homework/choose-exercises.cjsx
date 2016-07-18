@@ -15,10 +15,12 @@ SelectTopics    = require '../select-topics'
 ChooseExercises = React.createClass
 
   propTypes:
-    planId: React.PropTypes.string.isRequired
-    courseId: React.PropTypes.string.isRequired
-    hide: React.PropTypes.func.isRequired
-    canEdit: React.PropTypes.bool
+    ecosystemId: React.PropTypes.string.isRequired
+    planId:      React.PropTypes.string.isRequired
+    courseId:    React.PropTypes.string.isRequired
+    hide:        React.PropTypes.func.isRequired
+    cancel:      React.PropTypes.func.isRequired
+    canEdit:     React.PropTypes.bool
 
   mixins: [ScrollToMixin]
 
@@ -32,6 +34,9 @@ ChooseExercises = React.createClass
   onAddClick: ->
     @setState(showProblems: false)
     @scrollToSelector('.select-topics')
+
+  onSectionChange: ->
+    @setState(showProblems: false)
 
   render: ->
     {courseId, planId, ecosystemId, hide, cancel} = @props
@@ -49,6 +54,7 @@ ChooseExercises = React.createClass
 
       <SelectTopics
         primary={primaryBtn}
+        onSectionChange={@onSectionChange}
         header={<span key='hd'>Add Problems</span>}
         courseId={courseId}
         ecosystemId={ecosystemId}
