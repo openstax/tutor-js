@@ -136,11 +136,6 @@ module.exports = React.createClass
       @continueAfterRefreshStep()
       return false
 
-    if @_isSameStep(nextProps, nextState)
-      unless @state.currentStep is nextState.currentStep
-        nextStep = TaskStore.getStepByIndex(id, nextState.currentStep)
-        TaskStepActions.load(nextStep.id)
-
     # if we reach this point, assume that we should go ahead and do a normal component update
     true
 
