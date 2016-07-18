@@ -4,6 +4,25 @@ _  = require 'underscore'
 api = require '../api'
 
 
+BASE_CONTACT_LINK = 'http://openstax.force.com/support?l=en_US&c=Products%3AConcept_Coach&cu=1&fs=ContactUs&q='
+
+makeContactMessage = (errors, userAgent, location) ->
+  template = """Hello!
+    I ran into a problem while using Concept Coach on
+    #{userAgent} at #{location}.
+
+    Here is some additional info:
+    #{errors.join()}."""
+
+makeContactURL = (errors, windowContext) ->
+  userAgent = windowContext.navigator.userAgent
+  location = windowContext.location.href
+
+  q = encodeURIComponent(makeContactMessage(errors, userAgent, location))
+
+  "#{BASE_CONTACT_LINK}#{q}"
+
+
 ErrorNotification = React.createClass
 
   getInitialState: ->
@@ -55,7 +74,7 @@ ErrorNotification = React.createClass
         <p>
           An unexpected error has occured.  Please
           visit <a target="_blank"
-            href="https://openstaxcc.zendesk.com/hc/en-us"
+            href={makeContactURL(@state.errors, window)}
           > our support site </a> so we can help to diagnose and correct the issue.
         </p>
         <p>
