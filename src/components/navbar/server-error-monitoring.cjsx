@@ -98,7 +98,7 @@ ERROR_HANDLERS =
       router.transitionTo('viewStudentDashboard', {courseId})
       Dialog.hide()
     dialog:
-      title: 'Unable to practice topic'
+      title: 'No exercises are available'
       body: <NoExercisesMessage />
       buttons: [
         <BS.Button key='ok' onClick={hideDialog} bsStyle='primary'>OK</BS.Button>
