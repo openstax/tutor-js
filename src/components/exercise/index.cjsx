@@ -27,9 +27,9 @@ ExerciseMixin =
     props = _.omit(@props, 'part', 'canOnlyContinue', 'footer', 'setScrollState', 'goToStep')
 
     <ExercisePart
+      focus={@isSinglePart()}
       {...props}
       {...partProps}
-      focus={@isSinglePart()}
       step={part}
       id={part.id}
       taskId={part.task_id}/>
@@ -57,7 +57,7 @@ ExerciseMixin =
 
       partProps =
         pinned: false
-        focus: index is currentStep
+        focus: part.stepIndex is currentStep
         includeGroup: false
         includeFooter: @shouldControl(part.id)
         keySet: keySet
@@ -120,10 +120,6 @@ ExerciseWithScroll = React.createClass
 
   scrollToStep: (currentStep) ->
     @scrollToSelector("[data-step='#{currentStep}']", updateHistory: false)
-
-  onAfterScroll: ->
-    textArea = @_scrollingTargetDOM().querySelector("[data-step='#{@props.currentStep}'] textarea")
-    textArea?.focus()
 
   render: ->
     {parts, footer, pinned} = @props

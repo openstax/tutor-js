@@ -45,7 +45,11 @@ ExMode = React.createClass
 
   focusBox: ->
     {focus, mode} = @props
-    @refs.freeResponse?.getDOMNode?().focus?() if focus and mode is 'free-response'
+    if mode is 'free-response'
+      if focus
+        @refs.freeResponse?.getDOMNode?().focus?()
+      else
+        @refs.freeResponse?.getDOMNode?().blur?()
 
   onFreeResponseChange: ->
     freeResponse = @refs.freeResponse?.getDOMNode()?.value
