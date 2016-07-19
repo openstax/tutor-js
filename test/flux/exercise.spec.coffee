@@ -19,6 +19,7 @@ describe 'exercises store', ->
 
   beforeEach (done) ->
     @exercise = ld.cloneDeep(EXERCISE)
+    ExerciseActions.reset()
     @tags = _.clone @exercise.tags
     ExerciseActions.loadedForCourse(EXERCISES, COURSE_ID, PAGE_IDS)
     TocActions.loaded(READINGS, ECOSYSTEM_ID)
@@ -66,6 +67,21 @@ describe 'exercises store', ->
     exercise = exercises[0]
     expect(exercises).to.have.lengthOf(5)
     expect(ExerciseStore.isExcludedAtMinimum(exercise)).to.be.true
-    ExerciseActions.updateExercises([_.extend(exercise, is_excluded: true)])
+    ExerciseActions.updateExercises([_.extend({}, exercise, is_excluded: true)])
     # it should not warn when the count is below minimum
+    expect(ExerciseStore.isExcludedAtMinimum(exercise)).to.be.false
+
+  it 'warns immediatly if exercise count is less than 5', ->
+    ExerciseActions.reset()
+    exercises = EXERCISES.items[0..2]
+    ExerciseActions.loadedForCourse(
+      {total_count: 2, items: exercises},
+      COURSE_ID, PAGE_IDS
+    )
+    exercises = ExerciseStore.forCnxModuleUuid('0e58aa87-2e09-40a7-8bf3-269b2fa16509')
+    expect(exercises).to.have.lengthOf(3)
+    exercise = exercises[0]
+    expect(ExerciseStore.isExcludedAtMinimum(exercise)).to.be.true
+    ExerciseActions.updateExercises([_.extend({}, exercise, is_excluded: true)])
+    # now that there is exclusions, it shouldn't warn
     expect(ExerciseStore.isExcludedAtMinimum(exercise)).to.be.false
