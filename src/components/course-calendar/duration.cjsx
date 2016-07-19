@@ -255,10 +255,13 @@ CourseDuration = React.createClass
         plansOnDay.length
       ).length
 
-      # set day height to fit the number of overlapping durations
-      dayHeight = @_calcDayHeight(rangeData.maxPlansOnDay)
-      rangeData.dayHeight = dayHeight if dayHeight > rangeData.dayHeight
+      # set day height to the best-guess for this range based on how many plans it has.
+      # It'll be fine-tuned later across all ranges
+      rangeData.dayHeight = Math.max(
+        @_calcDayHeight(rangeData.maxPlansOnDay), rangeData.dayHeight
+      )
       rangeData
+
 
   renderChildren: (item) ->
     {courseId} = @props
