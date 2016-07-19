@@ -14,9 +14,12 @@ EXERCISE_TAGS =
   LO: ['lo', 'aplo']
   GENERIC: ['blooms', 'dok', 'length']
 
+getExerciseCnxModUuids = (exercise) ->
+  tag.data for tag in exercise.tags when tag.type is 'cnxmod'
+
 getChapterSection = (ecosystemId, exercise) ->
-  for tag in exercise.tags when tag.type is 'cnxmod'
-    section = TocStore.getByUuid(ecosystemId, tag.data)
+  for uuid in getExerciseCnxModUuids(exercise)
+    section = TocStore.getByUuid(ecosystemId, uuid)
     return section.chapter_section.join('.') if section?
   '' # return empty string if section wasn't found
 
@@ -129,10 +132,22 @@ ExerciseConfig =
     get: (pageIds) ->
       @_exercises[pageIds.toString()] or throw new Error('BUG: Invalid page ids')
 
-    isExcludedAtMinimum: (exercises) ->
-      excluded = _.filter _.pluck(exercises, 'id'),
-        _.bind(@.exports.isExerciseExcluded, @)
-      (exercises.length - excluded.length) is 5
+    isExcludedAtMinimum: (exercise) ->
+      isExcluded = _.bind(@.exports.isExerciseExcluded, @)
+
+      for uuid in getExerciseCnxModUuids(exercise)
+        exercises = @exports.forCnxModuleUuid.call(@, uuid)
+        excluded = _.filter _.pluck(exercises, 'id'),
+          _.bind(@.exports.isExerciseExcluded, @)
+        if (exercises.length - excluded.length) is 5
+          return true
+      false
+
+      # @exports.forCnxModuleUuid
+      # ExerciseStore.get(@props.sectionIds)
+      # excluded = _.filter _.pluck(exercises, 'id'),
+      #   _.bind(@.exports.isExerciseExcluded, @)
+      # (exercises.length - excluded.length) is 5
 
     hasUnsavedExclusions: ->
       not _.isEmpty @_unsavedExclusions
@@ -144,6 +159,15 @@ ExerciseConfig =
         @_unsavedExclusions[exerciseId]
       else
         @_exerciseCache[exerciseId]?.is_excluded
+
+    forCnxModuleUuid: (uuid) ->
+      exercises = []
+      for pageIds, exercises of @_exercises
+        for exercise in exercises
+          for exerciseUuid in getExerciseCnxModUuids(exercise)
+            if uuid is exerciseUuid and not _.include(exercises, exercise)
+              exercises.push(exercise)
+      exercises
 
     getChapterSectionOfExercise: (ecosystemId, exercise) ->
       getChapterSection(ecosystemId, exercise)

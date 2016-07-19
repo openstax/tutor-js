@@ -60,3 +60,12 @@ describe 'exercises store', ->
     teksTag = findTagByType(exercise, 'teks')
     teks = ExerciseStore.getTeksString(exercise.id)
     expect(teksTag.name.indexOf(teks)).to.not.equal(-1)
+
+  it 'calulates exclusion minimum threshold', ->
+    exercises = ExerciseStore.forCnxModuleUuid('0e58aa87-2e09-40a7-8bf3-269b2fa16509')
+    exercise = exercises[0]
+    expect(exercises).to.have.lengthOf(5)
+    expect(ExerciseStore.isExcludedAtMinimum(exercise)).to.be.true
+    ExerciseActions.updateExercises([_.extend(exercise, is_excluded: true)])
+    # it should not warn when the count is below minimum
+    expect(ExerciseStore.isExcludedAtMinimum(exercise)).to.be.false
