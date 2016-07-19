@@ -4,6 +4,7 @@ BS = require 'react-bootstrap'
 _  = require 'underscore'
 
 {AppStore, AppActions} = require '../../flux/app'
+{CurrentUserStore, CurrentUserActions} = require '../../flux/current-user'
 Dialog = require '../tutor-dialog'
 
 reloadOnce = ->
@@ -27,7 +28,7 @@ ServerErrorMessage = React.createClass
     debug: React.PropTypes.bool
 
   getDefaultProps: ->
-    supportLink: 'https://openstaxtutor.zendesk.com/hc/en-us/requests/new'
+    supportLink: "#{CurrentUserStore.getHelpLink()}&cu=1&fs=ContactUs&q=begin"
     debug: true
 
   render: ->
@@ -78,6 +79,9 @@ ERROR_HANDLERS =
     onCancel: hideDialog
 
   default: (error, message, router) ->
+    if router? and not error.supportLink?
+      {courseId} = router.getCurrentParams()
+      error.supportLink = "#{CurrentUserStore.getHelpLink(courseId)}&cu=1&fs=ContactUs&q=begin"
     dialog:
       title: 'Server Error'
       body: <ServerErrorMessage {...error}/>

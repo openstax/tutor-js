@@ -10,7 +10,7 @@ Helpers = require './helpers'
 
 # set constants
 TEACHER_USERNAME = 'teacher01'
-CC_HELP_LINK = 'openstaxcc.zendesk.com/hc/en-us'
+CC_HELP_LINK = 'http://openstax.force.com/support?l=en_US&c=Products%3AConcept_Coach'
 
 # use loaded describe to run specs
 describe 'Concept Coach Dashboard', ->

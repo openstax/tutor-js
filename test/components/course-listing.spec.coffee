@@ -17,7 +17,9 @@ WindowHelpers  = require '../../src/helpers/window'
   STUDENT_COURSE_ONE_MODEL
   TEACHER_COURSE_TWO_MODEL
   TEACHER_AND_STUDENT_COURSE_THREE_MODEL
-  MASTER_COURSES_LIST
+  MASTER_COURSES_LIST,
+  TUTOR_HELP,
+  CONCEPT_COACH_HELP
 } = require '../courses-test-data'
 
 
@@ -44,7 +46,7 @@ describe 'Course Listing Component', ->
     renderListing().then (state) ->
       # no courses are CC, so link should be tutor
       expect(state.div.querySelector('.-help-link a').getAttribute('href'))
-        .equal('https://openstaxtutor.zendesk.com')
+        .equal(TUTOR_HELP)
 
     courses = _.clone(MASTER_COURSES_LIST)
     courses[0] = _.clone(MASTER_COURSES_LIST[0])
@@ -53,7 +55,7 @@ describe 'Course Listing Component', ->
     renderListing().then (state) ->
       # has at least one CC course, so link should be to CC
       expect(state.div.querySelector('.-help-link a').getAttribute('href'))
-        .equal('https://openstaxcc.zendesk.com/hc/en-us')
+        .equal(CONCEPT_COACH_HELP)
 
   it 'displays refresh button when loading fails', ->
     CourseListingActions.FAILED()

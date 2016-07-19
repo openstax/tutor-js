@@ -90,6 +90,9 @@ isTaskingValidDate = (tasking) ->
 isProperRange = (tasking) ->
   moment(tasking.due_at).isAfter(tasking.opens_at)
 
+isDueAfterNow = (tasking) ->
+  moment(tasking.due_at).isAfter(TimeStore.getNow())
+
 hasAtLeastOneTasking = (taskings) ->
   not _.chain(taskings)
     .compact()
@@ -101,6 +104,7 @@ ERRORS =
   'INVALID_TIME': 'Please type a time.'
   'DUE_BEFORE_OPEN': 'Due time cannot be before open time.'
   'MISSING_TASKING': 'Please select at least one period'
+  'DUE_AFTER_NOW': 'Due time has already passed'
 
 TASKING_VALIDITY_CHECKS = [{
   check: isTaskingValidTime,
@@ -111,11 +115,14 @@ TASKING_VALIDITY_CHECKS = [{
 }, {
   check: isProperRange,
   errorType: 'DUE_BEFORE_OPEN'
+}, {
+  check: isDueAfterNow,
+  errorType: 'DUE_AFTER_NOW'
 }]
 
 TASK_VALIDITY_CHECKS = [{
   check: hasAtLeastOneTasking
-  errorType: 'MISSING_TASKING'  
+  errorType: 'MISSING_TASKING'
 }]
 
 getErrorsFor = (thingToCheck, {check, errorType}) ->
