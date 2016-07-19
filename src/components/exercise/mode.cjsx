@@ -28,7 +28,7 @@ ExMode = React.createClass
     {mode} = @props
     @focusBox() if mode is 'free-response'
 
-  componentDidUpdate: (prevProps, prevState) ->
+  componentDidUpdate: (prevProps) ->
     {mode, focus} = prevProps
     @focusBox() if mode is 'free-response' and focus isnt @props.focus
 
