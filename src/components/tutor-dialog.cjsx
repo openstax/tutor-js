@@ -5,13 +5,15 @@ _ = require 'underscore'
 
 
 DialogProperties =
-  title:     React.PropTypes.string.isRequired
-  onOk:      React.PropTypes.func.isRequired
-  onCancel:  React.PropTypes.func.isRequired
-  body:      React.PropTypes.element.isRequired
-  show:      React.PropTypes.bool
-  buttons:   React.PropTypes.arrayOf( React.PropTypes.element )
-  className: React.PropTypes.string
+  title:         React.PropTypes.string.isRequired
+  onOk:          React.PropTypes.func.isRequired
+  onCancel:      React.PropTypes.func.isRequired
+  body:          React.PropTypes.element.isRequired
+  show:          React.PropTypes.bool
+  buttons:       React.PropTypes.arrayOf( React.PropTypes.element )
+  okBtnText:     React.PropTypes.string
+  cancelBtnText: React.PropTypes.string
+  className:     React.PropTypes.string
 
 # This is the "real" dialog component. It's rendered to a div under document.body
 DetachedTutorDialog = React.createClass
@@ -37,9 +39,9 @@ DetachedTutorDialog = React.createClass
     return null unless @state.show
     buttons = @props.buttons or [
         <BS.Button key='ok'     className='ok'
-          onClick={_.compose(@props.onOk, @_hide)} bsStyle='primary'>OK</BS.Button>
+          onClick={_.compose(@props.onOk, @_hide)} bsStyle='primary'>{@props.okBtnText or 'OK'}</BS.Button>
         <BS.Button key='cancel' className='cancel'
-          onClick={_.compose(@props.onCancel,  @_hide)}>Cancel</BS.Button>
+          onClick={_.compose(@props.onCancel,  @_hide)}>{@props.cancelBtnText or 'Cancel'}</BS.Button>
     ]
     classes = ['tutor-dialog']
     classes.push @props.className if @props.className
