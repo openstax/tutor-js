@@ -100,7 +100,9 @@ ExerciseMixin =
         onContinue: _.partial onNextStep, currentStep: step.stepIndex
 
     footerProps = _.omit(@props, 'onContinue')
-    <ExFooter {...canContinueControlProps} {...footerProps} idLink={@renderIdLink(false)} panel='review'></ExFooter>
+    <ExFooter {...canContinueControlProps} {...footerProps}
+      idLink={@renderIdLink(false)}
+      panel='review' />
 
   renderIdLink: (related = true) ->
     {parts} = @props
