@@ -1,5 +1,5 @@
 {Testing, expect, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
-
+ld = require 'lodash'
 Roster = require '../../../src/components/course-settings/roster'
 
 COURSE = require '../../../api/user/courses/1.json'
@@ -16,7 +16,13 @@ describe 'Course Settings', ->
   beforeEach ->
     CourseActions.loaded(COURSE, COURSE_ID)
     RosterActions.loaded(ROSTER, COURSE_ID)
-    sinon.stub(PeriodActions, 'delete').returns(null)
+    sinon.stub(PeriodActions, 'delete', (periodId) ->
+      PeriodActions._deleted(arguments...)
+      course = ld.cloneDeep(COURSE)
+      period = _.findWhere(course.periods, id: periodId)
+      period.is_archived = true
+      CourseActions.loaded(course, COURSE_ID)
+    )
     sinon.stub(PeriodActions, 'restore').returns(null)
     @props =
       courseId: COURSE_ID
@@ -39,7 +45,6 @@ describe 'Course Settings', ->
         ['Angstrom', 'Glass', 'Hackett', 'Jaskolski', 'Lowe', 'Tromp', 'Reilly']
       )
 
-
   it 'switches roster when tab is clicked', (done) ->
     Testing.renderComponent( Roster, props: @props ).then ({dom, element}) ->
       Testing.actions.click(dom.querySelector('.periods .nav-tabs li:nth-child(2) a'))
@@ -51,12 +56,17 @@ describe 'Course Settings', ->
         done()
 
   it 'can archive periods', (done) ->
-    Testing.renderComponent( Roster, props: @props ).then ({dom}) ->
+    Testing.renderComponent( Roster, props: @props, unmountAfter: 30 ).then ({dom}) ->
       Testing.actions.click(dom.querySelector('.control.archive-period'))
+      expect(dom.querySelector('.nav-tabs .active').textContent).to.equal('1st')
+      expect(dom.querySelector('.roster tbody td').textContent).to.equal('Rabbit')
       _.defer ->
         Testing.actions.click(document.querySelector('button.archive-section'))
         expect(PeriodActions.delete).to.have.been.called
-        done()
+        _.defer ->
+          expect(dom.querySelector('.nav-tabs .active').textContent).to.equal('2nd')
+          expect(dom.querySelector('.roster tbody td').textContent).to.equal('Molly')
+          done()
 
   it 'can view and unarchive periods', (done) ->
     Testing.renderComponent( Roster, props: @props ).then ({dom}) ->
