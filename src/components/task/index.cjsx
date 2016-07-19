@@ -168,7 +168,7 @@ module.exports = React.createClass
 
   goToStep: (stepKey, silent = false) ->
     {id} = @props
-
+    console.info('trying to step key', stepKey)
     stepKey = parseInt(stepKey)
     params = _.clone(@context.router.getCurrentParams())
     return false if @areKeysSame(params.stepIndex, stepKey + 1)

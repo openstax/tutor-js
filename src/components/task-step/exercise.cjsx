@@ -161,21 +161,23 @@ module.exports = React.createClass
     canTryAnother: TaskStepStore.canTryAnother(lastPartId, task, not @allCorrect())
     isRecovering: TaskStepStore.isRecovering(lastPartId)
 
-  setScrollState: (scrollState) ->
-    return unless scrollState?
-    {key} = scrollState
-    @setCurrentStep(key)
-
   setCurrentStepFromProgress: ({current}) ->
     @setCurrentStep(current)
 
   setCurrentStep: (currentStep) ->
     @setState({currentStep})
+    @props.goToStep(currentStep)
 
   onFreeResponseChange: (id, tempFreeResponse) ->
     {taskId} = @props
     stepIndex = TaskStore.getStepIndex(taskId, id)
     TaskStepActions.updateTempFreeResponse(id, tempFreeResponse)
+    @setCurrentStep(stepIndex)
+
+  onChoiceChange: (id, answerId) ->
+    {taskId} = @props
+    stepIndex = TaskStore.getStepIndex(taskId, id)
+    TaskStepActions.setAnswerId(id, answerId)
     @setCurrentStep(stepIndex)
 
   render: ->
@@ -217,7 +219,6 @@ module.exports = React.createClass
       footer={footer}
 
       project='tutor'
-      setScrollState={@setScrollState}
       goToStep={_.partial(goToStep, _, true)}
       currentStep={currentStep}
 
@@ -239,4 +240,4 @@ module.exports = React.createClass
       getReadingForStep={getReadingForStep}
       setFreeResponseAnswer={TaskStepActions.setFreeResponseAnswer}
       onFreeResponseChange={@onFreeResponseChange}
-      setAnswerId={TaskStepActions.setAnswerId}/>
+      setAnswerId={@onChoiceChange}/>
