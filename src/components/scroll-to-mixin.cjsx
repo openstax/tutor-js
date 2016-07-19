@@ -31,11 +31,23 @@ ScrollToMixin =
   _scrollingTargetDOM: -> @scrollingTargetDOM?() or React.findDOMNode(@)
 
   scrollToSelector: (selector, options) ->
-    return if _.isEmpty(selector)
     options = _.extend({updateHistory: true}, options)
 
-    el = @_scrollingTargetDOM().querySelector(selector)
+    el = @getElement(selector)
     @scrollToElement(el, options) if el
+
+  isSelectorInView: (selector) ->
+    el = @getElement(selector)
+    return false unless el
+
+    {top, bottom, height} = el.getBoundingClientRect()
+    visibleHeight = Math.min(window.innerHeight, bottom) - Math.max(0, top)
+
+    visibleHeight > height / 2
+
+  getElement: (selector) ->
+    return if _.isEmpty(selector)
+    @_scrollingTargetDOM().querySelector(selector)
 
   _onBeforeScroll: (el) ->
     el.classList.add('target-scroll')
