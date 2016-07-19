@@ -171,7 +171,6 @@ module.exports = React.createClass
 
   goToStep: (stepKey, silent = false) ->
     {id} = @props
-    console.info('trying to step key', stepKey)
     stepKey = parseInt(stepKey)
     params = _.clone(@context.router.getCurrentParams())
     return false if @areKeysSame(params.stepIndex, stepKey + 1)
@@ -179,13 +178,14 @@ module.exports = React.createClass
     params.stepIndex = stepKey + 1
     params.id = id # if we were rendered directly, the router might not have the id
 
+    @scrollToTop() unless @_isSameStep({id}, {currentStep: stepKey})
+
     if silent
       @context.router.replaceWith('viewTaskStep', params)
-      true
     else
-      @scrollToTop() unless @_isSameStep({id}, {currentStep: stepKey})
       @context.router.transitionTo('viewTaskStep', params)
-      true
+
+    true
 
   toggleMilestonesEntered: ->
     @setState(milestonesEntered: not @state.milestonesEntered)
