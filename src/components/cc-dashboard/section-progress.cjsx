@@ -18,15 +18,19 @@ SectionProgress = React.createClass
       'none-completed': percent is 0
 
     if percent > 0
-      completedLabel = if percent is 100 then "#{completedLabel} completed" else "#{percent}%"
+      completedLabel = "#{percent}%"
+      if percent is 100
+        completedLabel = "#{completedLabel} completed"
 
-      # The threshold under which the filled-in part of the progress bar is too small
-      # to fit the percentage text on top, forcing us to add a css class that will
-      # make it more legible
+      # The threshold under which the filled-in part of the progress bar is too
+      # smallto fit the percentage text on top, forcing us to add a css class
+      # that will make it more legible
       maxSmallPercent = 10
 
       completed = <BS.ProgressBar
-        className={classnames "reading-progress-bar", { 'small-percentage': percent <= maxSmallPercent }}
+        className={classnames "reading-progress-bar",
+          { 'small-percentage': percent <= maxSmallPercent }
+        }
         bsStyle="info"
         label={completedLabel}
         now={percent}
