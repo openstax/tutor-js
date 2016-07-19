@@ -136,6 +136,9 @@ module.exports = React.createClass
       @continueAfterRefreshStep()
       return false
 
+    if @state.currentStep isnt nextState.currentStep and @_isSameStep(nextProps, nextState)
+      return false
+
     # if we reach this point, assume that we should go ahead and do a normal component update
     true
 

@@ -22,8 +22,8 @@ canOnlyContinue = (id) ->
 
 getWaitingText = (id) ->
   switch
-    when TaskStepStore.isLoading(id) then "Loading…"
-    when TaskStepStore.isSaving(id)  then "Saving…"
+    when TaskStepStore.isSaving(id)  then 'Saving…'
+    when TaskStepStore.isLoading(id) then 'Loading…'
     else null
 
 getReadingForStep = (id, taskId) ->
@@ -180,6 +180,15 @@ module.exports = React.createClass
     TaskStepActions.setAnswerId(id, answerId)
     @setCurrentStep(stepIndex)
 
+  isAnyCompletedPartSaving: ->
+    {parts} = @state
+
+    _.some parts, (part) ->
+      part.is_completed and TaskStepStore.isSaving(part.id)
+
+  getFooterWaitingText: ->
+    'Saving…' if @isAnyCompletedPartSaving()
+
   render: ->
     {id, taskId, courseId, onNextStep, onStepCompleted, goToStep, pinned} = @props
     {parts, lastPartId, isSinglePartExercise, task, currentStep} = @state
@@ -201,6 +210,7 @@ module.exports = React.createClass
     controlButtons = <ExControlButtons
       {...controlProps}
       {...canContinueControlProps}
+      waitingText={@getFooterWaitingText()}
       key='step-control-buttons'/>
 
     unless TaskStore.hasProgress(taskId)
