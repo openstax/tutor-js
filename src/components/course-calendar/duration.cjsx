@@ -77,7 +77,20 @@ CourseDuration = React.createClass
     groupedDurations = _.chain(groupingDurations)
       .map(@groupByRanges(durationsInView))
       .tap(@calcTopOffset)
+      .tap( (ranges) => _.each( ranges, @setWeeksHeight) )
       .value()
+
+  setWeeksHeight: (range) ->
+    height = 1 + _.reduce(range.plansByDays, (maxOrder, plansOnDay) ->
+      durationMax = _.max(plansOnDay, (plan) -> plan.order + 1 ).order or 0
+      Math.max(durationMax, maxOrder)
+    , 0)
+
+    calculatedHeight = @_calcDayHeight(height)
+    if calculatedHeight > range.dayHeight
+      range.dayHeight = calculatedHeight
+    range
+
 
   calcTopOffset: (ranges) ->
     dayHeights = _.pluck(ranges, 'dayHeight')
