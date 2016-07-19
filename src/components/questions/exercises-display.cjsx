@@ -100,7 +100,7 @@ ExercisesDisplay = React.createClass
 
   onExerciseToggle: (ev, exercise) ->
     isSelected = not ExerciseStore.isExerciseExcluded(exercise.id)
-    if isSelected and ExerciseStore.isExcludedAtMinimum(ExerciseStore.get(@props.sectionIds))
+    if isSelected and ExerciseStore.isExcludedAtMinimum(exercise)
       Dialog.show(
         className: 'question-library-min-exercise-exclusions'
         title: '', body: @renderMinimumExclusionWarning()
