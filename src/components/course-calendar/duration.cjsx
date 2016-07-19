@@ -197,15 +197,6 @@ CourseDuration = React.createClass
   _calcDayHeight: (plans) ->
     plans * 3.6 + 1
 
-  _setDayHeightToMaxOverlaps: (currentOverlap, rangeData) ->
-    # calculate day height based on the number of durations that overlap
-    calcedHeight = @_calcDayHeight(currentOverlap.length)
-
-    # if the day height is more than previously calculated day height,
-    # update with the larger day height
-    if calcedHeight > rangeData.dayHeight
-      rangeData.dayHeight = calcedHeight
-
   _getSimplePlan: (plan) ->
     # Make a simple plan that omits duration/time related information
     # and adds back in only the relevant time information needed by the
