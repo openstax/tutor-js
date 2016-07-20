@@ -85,13 +85,13 @@ ExercisesDisplay = React.createClass
     @setState({currentView: 'cards', showingCardsFromDetailsView: true})
     @props.onShowCardViewClick(ev, exercise)
 
-  renderMinimumExclusionWarning: ->
+  renderMinimumExclusionWarning: (minExerciseCount) ->
     section = <CourseGroupingLabel courseId={@props.courseId} lowercase />
     [
       <Icon key="icon" type="exclamation" />
       <div key="message" className="message">
         <p>
-          Tutor needs at least 5 questions for this {section} to be
+          Tutor needs at least {minExerciseCount} questions for this {section} to be
           included in spaced practice and personalized learning.
         </p>
         <p>
@@ -103,10 +103,11 @@ ExercisesDisplay = React.createClass
 
   onExerciseToggle: (ev, exercise) ->
     isSelected = not ExerciseStore.isExerciseExcluded(exercise.id)
-    if isSelected and ExerciseStore.isExcludedAtMinimum(exercise)
+    minExerciseCount = ExerciseStore.excludedAtMinimum(exercise)
+    if isSelected and minExerciseCount isnt false
       Dialog.show(
         className: 'question-library-min-exercise-exclusions'
-        title: '', body: @renderMinimumExclusionWarning()
+        title: '', body: @renderMinimumExclusionWarning(minExerciseCount)
         buttons: [
           <BS.Button key='exclude'
             onClick={=>
