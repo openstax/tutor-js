@@ -13,6 +13,7 @@ Sectionizer      = require '../exercises/sectionizer'
 NoExercisesFound = require './no-exercises-found'
 ExerciseHelpers  = require '../../helpers/exercise'
 Dialog           = require '../tutor-dialog'
+CourseGroupingLabel = require '../course-grouping-label'
 
 ExercisesDisplay = React.createClass
 
@@ -85,15 +86,17 @@ ExercisesDisplay = React.createClass
     @props.onShowCardViewClick(ev, exercise)
 
   renderMinimumExclusionWarning: ->
+    section = <CourseGroupingLabel courseId={@props.courseId} lowercase />
     [
       <Icon key="icon" type="exclamation" />
       <div key="message" className="message">
         <p>
-          Tutor needs at least 5 questions for this topic to be
+          Tutor needs at least 5 questions for this {section} to be
           included in spaced practice and personalized learning.
         </p>
         <p>
-          If you exclude too many, your students will not get to practice on this topic.
+          If you exclude too many, your students will not get
+          to practice on topics in this {section}.
         </p>
       </div>
     ]
