@@ -1,6 +1,8 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
+# NOTE: this selector must be kept in sync with CNX as well as
+# the style in components/reference-book/page.less
 TEACHER_CONTENT_SELECTOR = '.os-teacher'
 
 TeacherContentToggle = React.createClass
