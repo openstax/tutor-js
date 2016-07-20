@@ -6,7 +6,7 @@ LoadableItem = require '../loadable-item'
 
 CrumbMixin = require './crumb-mixin'
 {ScrollListenerMixin} = require 'react-scroll-components'
-{ChapterSectionMixin} = require 'openstax-react-components'
+{ChapterSectionMixin, ScrollToMixin} = require 'openstax-react-components'
 {ScrollTrackerMixin, ScrollTrackerParentMixin} = require 'openstax-react-components/src/components/scroll-tracker'
 
 {TaskTeacherReviewActions, TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
@@ -27,16 +27,15 @@ ReviewHeadingTracker = React.createClass
 
 Review = React.createClass
   displayName: 'Review'
-  mixins: [ScrollListenerMixin, ScrollTrackerParentMixin]
+  mixins: [ScrollListenerMixin, ScrollTrackerParentMixin, ScrollToMixin]
   render: ->
-    contentProps = _.pick(@props, 'id', 'focus', 'period', 'currentStep')
-    shouldUpdate = (@state.isScrolling is @state.scrollingToKey) and @shouldCheckForScrollingState()
+    contentProps = _.pick(@props, 'id', 'focus', 'period', 'currentStep', 'review', 'panel')
 
     <ReviewContent
       {...contentProps}
       setScrollPoint={@setScrollPoint}
       unsetScrollPoint={@unsetScrollPoint}
-      shouldUpdate={shouldUpdate}
+      shouldUpdate={not @state.isScrolling}
     />
 
 ReviewContent = React.createClass
