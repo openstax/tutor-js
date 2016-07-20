@@ -128,12 +128,15 @@ ExFooter = React.createClass
     footer: <ExerciseDefaultFooter/>
 
   render: ->
-    {footer} = @props
+    {footer, idLink} = @props
 
     footerProps = _.pick(@props, props.StepFooter)
     footerProps.controlButtons = <ExControlButtons {...@props}/>
 
-    React.addons.cloneWithProps(footer, footerProps)
+    <div>
+      {React.addons.cloneWithProps(footer, footerProps)}
+      {idLink}
+    </div>
 
 
 module.exports = {ExContinueButton, ExReviewControls, ExControlButtons, ExFooter}

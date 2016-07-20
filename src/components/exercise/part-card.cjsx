@@ -130,7 +130,7 @@ ExerciseStepCard = React.createClass
       onContinue: @onContinue
 
     if includeFooter
-      footer = <ExFooter {...@props} {...controlProps}/>
+      footer = <ExFooter {...@props} {...controlProps} idLink={idLink} />
 
     if includeGroup
       exerciseGroup =
@@ -152,7 +152,6 @@ ExerciseStepCard = React.createClass
           mode={panel}/>
       </div>
       {helpLink}
-      {idLink}
     </CardBody>
 
 module.exports = ExerciseStepCard

@@ -100,7 +100,9 @@ ExerciseMixin =
         onContinue: _.partial onNextStep, currentStep: step.stepIndex
 
     footerProps = _.omit(@props, 'onContinue')
-    <ExFooter {...canContinueControlProps} {...footerProps} panel='review'/>
+    <ExFooter {...canContinueControlProps} {...footerProps}
+      idLink={@renderIdLink(false)}
+      panel='review' />
 
   renderIdLink: (related = true) ->
     {parts} = @props
@@ -142,7 +144,6 @@ ExerciseWithScroll = React.createClass
         <ExerciseBadges isMultipart={true}/>
         {@renderGroup()}
         {@renderMultiParts()}
-        {@renderIdLink(false)}
       </CardBody>
 
 
@@ -164,7 +165,6 @@ Exercise = React.createClass
         <ExerciseBadges isMultipart={true}/>
         {@renderGroup()}
         {@renderMultiParts()}
-        {@renderIdLink(false)}
       </CardBody>
 
 module.exports = {Exercise, ExerciseWithScroll}
