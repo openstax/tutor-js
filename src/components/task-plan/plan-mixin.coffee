@@ -95,8 +95,10 @@ PlanMixin =
       @reset()
     else
       TutorDialog.show(
-        title: 'Unsaved Changes'
-        body: 'You will lose unsaved changes if you continue.'
+        title: 'Unsaved Changes - Confirm'
+        body: 'You will lose unsaved changes if you continue.  Do you really want to cancel?',
+        okBtnText: 'Yes'
+        cancelBtnText: 'No'
       ).then( =>
         @reset()
       )
