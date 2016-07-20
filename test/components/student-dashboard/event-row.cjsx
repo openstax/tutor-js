@@ -25,15 +25,35 @@ DELETED_EVENT =
   "exercise_count": 3,
   "complete_exercise_count": 3
 
+DELETED_NOT_STARTED_EVENT =
+  "id": "118",
+  "title": "Read Chapter 1",
+  "opens_at": "2016-05-16T05:01:00.000Z",
+  "due_at": "2016-05-19T12:00:00.000Z",
+  "last_worked_at": "2016-05-19T11:59:00.000Z",
+  "type": "reading",
+  "complete": true,
+  "is_deleted": true,
+  "exercise_count": 3,
+  "complete_exercise_count": 0
+
 regularRow = null
 deletedRow = null
+deletedNotStartedRow = null
 
 describe 'Event Row', ->
   beforeEach ->
     regular = <EventRow className="testing" event={EVENT} courseId="3" feedback="" />
     deleted = <EventRow className="" event={DELETED_EVENT} courseId="3" feedback="" />
+    deletedNotStarted = <EventRow
+      className=""
+      event={DELETED_NOT_STARTED_EVENT}
+      courseId="3"
+      feedback=""
+    />
     regularRow = Testing.shallowRender(regular)
     deletedRow = Testing.shallowRender(deleted)
+    deletedNotStartedRow = Testing.shallowRender(deleted)
 
   it 'passes classnames to containing div', ->
     expect(regularRow.props.className.indexOf("testing")).is.not.equal(-1)
@@ -54,6 +74,10 @@ describe 'Event Row', ->
     feedback = feedbackColumn.props.children
     expect(feedback.props.children).to.equal("Withdrawn")
 
-  it 'disallows onclick for event row if deletable', ->
-    expect(deletedRow.props.onClick).to.be.falsy
+  it 'allows onclick for event row if deleted', ->
+    expect(deletedRow.props.onClick).to.not.be.falsy
+    expect(regularRow.props.onClick).to.not.be.falsy
+
+  it 'disallows onclick for event row if deleted and not started', ->
+    expect(deletedNotStartedRow.props.onClick).to.be.falsy
     expect(regularRow.props.onClick).to.not.be.falsy

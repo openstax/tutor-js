@@ -37,6 +37,8 @@ module.exports = React.createClass
     {workable} = @props
     workable ?= StudentDashboardStore.canWorkTask(@props.event)
     deleted = StudentDashboardStore.isDeleted(@props.event)
+    started = StudentDashboardStore.hasStarted(@props.event)
+    clickable = workable and not (deleted and not started)
     classes = classnames("task row #{@props.className}", {workable, deleted})
 
     if deleted
@@ -51,7 +53,7 @@ module.exports = React.createClass
         <EventInfoIcon event={@props.event} />
       ]
 
-    <div className={classes} onClick={@onClick if workable and not deleted}
+    <div className={classes} onClick={@onClick if clickable}
       data-event-id={@props.event.id}>
       <BS.Col xs={2}  sm={1} className={"column-icon"}>
         <i className={"icon icon-lg icon-#{@props.className}"}/>

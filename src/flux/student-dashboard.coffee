@@ -45,6 +45,8 @@ StudentDashboardConfig = {
 
     isDeleted: (event) -> event.is_deleted
 
+    hasStarted: (event) -> event.complete_exercise_count isnt 0
+
     # Returns events who's due date has not passed
     upcomingEvents: (courseId, now = TimeStore.getNow()) ->
       _.chain(@_get(courseId)?.tasks or [])
