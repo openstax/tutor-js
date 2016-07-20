@@ -13,6 +13,7 @@ Sectionizer      = require '../exercises/sectionizer'
 NoExercisesFound = require './no-exercises-found'
 ExerciseHelpers  = require '../../helpers/exercise'
 Dialog           = require '../tutor-dialog'
+CourseGroupingLabel = require '../course-grouping-label'
 
 ExercisesDisplay = React.createClass
 
@@ -84,26 +85,29 @@ ExercisesDisplay = React.createClass
     @setState({currentView: 'cards', showingCardsFromDetailsView: true})
     @props.onShowCardViewClick(ev, exercise)
 
-  renderMinimumExclusionWarning: ->
+  renderMinimumExclusionWarning: (minExerciseCount) ->
+    section = <CourseGroupingLabel courseId={@props.courseId} lowercase />
     [
       <Icon key="icon" type="exclamation" />
       <div key="message" className="message">
         <p>
-          Tutor needs at least 5 questions for this topic to be
+          Tutor needs at least {minExerciseCount} questions for this {section} to be
           included in spaced practice and personalized learning.
         </p>
         <p>
-          If you exclude too many, your students will not get to practice on this topic.
+          If you exclude too many, your students will not get
+          to practice on topics in this {section}.
         </p>
       </div>
     ]
 
   onExerciseToggle: (ev, exercise) ->
     isSelected = not ExerciseStore.isExerciseExcluded(exercise.id)
-    if isSelected and ExerciseStore.isExcludedAtMinimum(ExerciseStore.get(@props.sectionIds))
+    minExerciseCount = ExerciseStore.excludedAtMinimum(exercise)
+    if isSelected and minExerciseCount isnt false
       Dialog.show(
         className: 'question-library-min-exercise-exclusions'
-        title: '', body: @renderMinimumExclusionWarning()
+        title: '', body: @renderMinimumExclusionWarning(minExerciseCount)
         buttons: [
           <BS.Button key='exclude'
             onClick={=>
