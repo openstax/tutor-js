@@ -16,7 +16,8 @@ CourseGroupingLabel = require '../course-grouping-label'
 ViewArchivedPeriods = React.createClass
 
   propTypes:
-    courseId: React.PropTypes.string.isRequired
+    courseId:     React.PropTypes.string.isRequired
+    afterRestore: React.PropTypes.func.isRequired
 
   mixins: [BindStoreMixin]
 
@@ -40,6 +41,7 @@ ViewArchivedPeriods = React.createClass
 
   restore: (period) ->
     PeriodActions.restore(period.id, @props.courseId)
+    PeriodStore.once 'restore', @props.afterRestore
 
   render: ->
     archived = PH.archivedPeriods(CourseStore.get(@props.courseId))

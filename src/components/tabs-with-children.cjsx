@@ -10,12 +10,17 @@ TabsWithChildren = React.createClass
 
   propTypes:
     onClick: React.PropTypes.func.isRequired
+    tabIndex: React.PropTypes.number
     tabs: React.PropTypes.arrayOf(
       React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.element ])
     ).isRequired
 
   getInitialState: ->
     tabIndex: 0
+
+  componentWillReceiveProps: (nextProps) ->
+    if _.isNumber(nextProps.tabIndex) # ignore null/undefined, allow 0
+      @setState(tabIndex: nextProps.tabIndex)
 
   onTabClick: (tabIndex, ev) ->
     ev.preventDefault()

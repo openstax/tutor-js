@@ -17,6 +17,7 @@ PeriodConfig = {
 
   restored: (periodData, periodId, courseId) ->
     CourseActions.load(courseId)
+    @emit('restored')
     delete @_asyncStatus[periodId]
 
   _created: (period, courseId) ->
