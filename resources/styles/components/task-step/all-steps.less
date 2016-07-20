@@ -1,4 +1,5 @@
 @import '~openstax-react-components/resources/styles/components/breadcrumbs/coach';
+@import '../../book-content/note';
 
 .task {
   iframe {
@@ -43,6 +44,17 @@
 
     .openstax-exercise {
       font-size: 2rem;
+
+      .question-context {
+        // Copied from styles/book-content/note.less
+        background: @tutor-neutral-lightest;
+        border-top: solid 8px @tutor-neutral-lighter;
+        border-bottom: solid 8px @tutor-neutral-lighter;
+        padding: 20px 40px;
+        width: 100%;
+
+        .tutor-book-note-style();
+      }
     }
 
     .exercise-uid {
