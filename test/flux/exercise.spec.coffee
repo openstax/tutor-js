@@ -66,10 +66,10 @@ describe 'exercises store', ->
     exercises = ExerciseStore.forCnxModuleUuid('0e58aa87-2e09-40a7-8bf3-269b2fa16509')
     exercise = exercises[0]
     expect(exercises).to.have.lengthOf(5)
-    expect(ExerciseStore.isExcludedAtMinimum(exercise)).to.be.true
+    expect(ExerciseStore.excludedAtMinimum(exercise)).to.equal(5)
     ExerciseActions.updateExercises([_.extend({}, exercise, is_excluded: true)])
     # it should not warn when the count is below minimum
-    expect(ExerciseStore.isExcludedAtMinimum(exercise)).to.be.false
+    expect(ExerciseStore.excludedAtMinimum(exercise)).to.be.false
 
   it 'warns immediatly if exercise count is less than 5', ->
     ExerciseActions.reset()
@@ -81,7 +81,7 @@ describe 'exercises store', ->
     exercises = ExerciseStore.forCnxModuleUuid('0e58aa87-2e09-40a7-8bf3-269b2fa16509')
     expect(exercises).to.have.lengthOf(3)
     exercise = exercises[0]
-    expect(ExerciseStore.isExcludedAtMinimum(exercise)).to.be.true
+    expect(ExerciseStore.excludedAtMinimum(exercise)).to.equal(3)
     ExerciseActions.updateExercises([_.extend({}, exercise, is_excluded: true)])
     # now that there is exclusions, it shouldn't warn
-    expect(ExerciseStore.isExcludedAtMinimum(exercise)).to.be.false
+    expect(ExerciseStore.excludedAtMinimum(exercise)).to.be.false
