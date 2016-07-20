@@ -179,7 +179,7 @@ TaskEnd = React.createClass
           <h1>You are done.</h1>
           <h3>Great job completing all the steps.</h3>
           <Router.Link
-            to='viewStudentDashboard'
+            to={if not CourseStore.isTeacher(courseId) then 'viewStudentDashboard' else 'viewTeacherDashBoard'}
             key='step-back'
             params={{courseId}}
             className='btn btn-primary'>
