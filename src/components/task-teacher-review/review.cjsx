@@ -27,12 +27,29 @@ ReviewHeadingTracker = React.createClass
 
 Review = React.createClass
   displayName: 'Review'
-  mixins: [ChapterSectionMixin, CrumbMixin, ScrollListenerMixin, ScrollTrackerParentMixin]
+  mixins: [ScrollListenerMixin, ScrollTrackerParentMixin]
+  render: ->
+    contentProps = _.pick(@props, 'id', 'focus', 'period', 'currentStep')
+    shouldUpdate = (@state.isScrolling is @state.scrollingToKey) and @shouldCheckForScrollingState()
+
+    <ReviewContent
+      {...contentProps}
+      setScrollPoint={@setScrollPoint}
+      unsetScrollPoint={@unsetScrollPoint}
+      shouldUpdate={shouldUpdate}
+    />
+
+ReviewContent = React.createClass
+  displayName: 'ReviewContent'
+  mixins: [ChapterSectionMixin, CrumbMixin]
   propTypes:
     id: React.PropTypes.string.isRequired
     focus: React.PropTypes.bool.isRequired
     period: React.PropTypes.object.isRequired
     currentStep: React.PropTypes.number
+
+  shouldComponentUpdate: ->
+    @props.shouldUpdate
 
   getDefaultProps: ->
     focus: false
@@ -63,8 +80,8 @@ Review = React.createClass
       item = <Tracker
         {...stepProps}
         scrollState={scrollState}
-        setScrollPoint={@setScrollPoint}
-        unsetScrollPoint={@unsetScrollPoint}
+        setScrollPoint={@props.setScrollPoint}
+        unsetScrollPoint={@props.unsetScrollPoint}
       />
 
     <div>
