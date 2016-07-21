@@ -1,3 +1,4 @@
+# NOTE: These must be kept in sync with the styles in variables/colors.less
 module.exports =
     physics:              'Physics'
     biology:              'Biology'
