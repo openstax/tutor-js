@@ -131,21 +131,6 @@ module.exports = React.createClass
     _.every parts, (part) ->
       canOnlyContinue(part.id)
 
-  getAllIndexes: (props, state) ->
-    props ?= @props
-    state ?= @state
-
-    {taskId} = props
-    {parts} = state
-
-    _.map parts, (part) ->
-      TaskStore.getStepIndex(taskId, part.id)
-
-  isIndexInPart: (stepIndex) ->
-    index = stepIndex - 1
-    partsIndexes = @getAllIndexes()
-    _.contains(partsIndexes, index)
-
   allCorrect: ->
     {parts} = @state
 
@@ -165,20 +150,27 @@ module.exports = React.createClass
     @setCurrentStep(current)
 
   setCurrentStep: (currentStep) ->
+    return unless currentStep isnt @state.currentStep
+
     @setState({currentStep})
     @props.goToStep(currentStep)
 
-  onFreeResponseChange: (id, tempFreeResponse) ->
+  setCurrentStepByStepId: (id) ->
     {taskId} = @props
-    stepIndex = TaskStore.getStepIndex(taskId, id)
+    stepNavIndex = TaskStore.getStepNavIndex(taskId, id)
+    @setCurrentStep(stepNavIndex)
+
+  onFreeResponseChange: (id, tempFreeResponse) ->
     TaskStepActions.updateTempFreeResponse(id, tempFreeResponse)
-    @setCurrentStep(stepIndex)
+
+    # set part to be active if part of multipart
+    @setCurrentStepByStepId(id) unless @isSinglePart(@state.parts)
 
   onChoiceChange: (id, answerId) ->
-    {taskId} = @props
-    stepIndex = TaskStore.getStepIndex(taskId, id)
     TaskStepActions.setAnswerId(id, answerId)
-    @setCurrentStep(stepIndex)
+
+    # set part to be active if part of multipart
+    @setCurrentStepByStepId(id) unless @isSinglePart(@state.parts)
 
   isAnyCompletedPartSaving: ->
     {parts} = @state
