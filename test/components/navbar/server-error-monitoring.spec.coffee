@@ -7,27 +7,30 @@ Dialog = require '../../../src/components/tutor-dialog'
 ErrorMonitor = require '../../../src/components/navbar/server-error-monitoring'
 
 
-describe 'Error display messages', ->
+describe 'Server Error Monitoring', ->
 
   beforeEach ->
     sinon.spy(Dialog, 'show')
   afterEach ->
     Dialog.show.restore()
+    AppActions.resetServerErrors()
 
   it 'renders error dialog', ->
+    AppActions.setServerError(500, 'an error happens',
+      {url: '/test', displayError: true})
     Testing.renderComponent( ErrorMonitor ).then ({dom}) ->
       expect(Dialog.show).to.have.been.calledWith(sinon.match(
         title: 'Server Error'
       ))
-    AppActions.setServerError(500, 'an error happens',
-      {url: '/test', opts: {displayError: true}})
 
-  it 'renders a no_exercises message', ->
+  it 'renders a no_exercises message', (done) ->
     Testing.renderComponent( ErrorMonitor ).then ({dom}) ->
-      expect(Dialog.show).to.have.been.calledWith(sinon.match(
-        title: 'No exercises are available'
-      ))
+      _.defer ->
+        expect(Dialog.show).to.have.been.calledWith(sinon.match(
+          title: 'No exercises are available'
+        ))
+        done()
     AppActions.setServerError(422,
       '{"status":422,"errors":[{"code":"no_exercises","message":' +
       '"No exercises were found to build the Practice Widget.","data":null}]}'
-      , {url: '/test', opts: {displayError: true}})
+      , {url: '/test', displayError: true})
