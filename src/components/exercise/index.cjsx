@@ -10,6 +10,12 @@ ExerciseIdentifierLink = require '../exercise-identifier-link'
 ScrollToMixin = require '../scroll-to-mixin'
 
 ExerciseMixin =
+
+  propTypes:
+    parts: React.PropTypes.array.isRequired
+    canOnlyContinue: React.PropTypes.func.isRequired
+    currentStep: React.PropTypes.number.isRequired
+
   isSinglePart: ->
     {parts} = @props
     parts.length is 1
