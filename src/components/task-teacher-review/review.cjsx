@@ -11,35 +11,35 @@ CrumbMixin = require './crumb-mixin'
 
 {TaskTeacherReviewActions, TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
 
-
 ReviewHeadingTracker = React.createClass
   displayName: 'ReviewHeadingTracker'
-  mixins: [ScrollTrackerMixin]
+  # mixins: [ScrollTrackerMixin]
   render: ->
-    {sectionLabel, title} = @props
+    {sectionLabel, title, scrollState} = @props
 
-    <h2>
+    <h2 data-section={scrollState.key}>
       <span className='text-success'>
         {sectionLabel}
       </span> {title}
     </h2>
 
 
+# Review = React.createClass
+#   displayName: 'Review'
+#   # mixins: [ScrollListenerMixin, ScrollTrackerParentMixin, ScrollToMixin]
+#   render: ->
+#     contentProps = _.pick(@props, 'id', 'focus', 'period', 'currentStep', 'review', 'panel')
+#         # shouldUpdate={not @state.isScrolling}
+
+#       <ReviewContent
+#         {...contentProps}
+#         setScrollPoint={@setScrollPoint}
+#         unsetScrollPoint={@unsetScrollPoint}
+#       />
+#     </ScrollSpy>
+
 Review = React.createClass
   displayName: 'Review'
-  mixins: [ScrollListenerMixin, ScrollTrackerParentMixin, ScrollToMixin]
-  render: ->
-    contentProps = _.pick(@props, 'id', 'focus', 'period', 'currentStep', 'review', 'panel')
-
-    <ReviewContent
-      {...contentProps}
-      setScrollPoint={@setScrollPoint}
-      unsetScrollPoint={@unsetScrollPoint}
-      shouldUpdate={not @state.isScrolling}
-    />
-
-ReviewContent = React.createClass
-  displayName: 'ReviewContent'
   mixins: [ChapterSectionMixin, CrumbMixin]
   propTypes:
     id: React.PropTypes.string.isRequired
@@ -47,8 +47,8 @@ ReviewContent = React.createClass
     period: React.PropTypes.object.isRequired
     currentStep: React.PropTypes.number
 
-  shouldComponentUpdate: ->
-    @props.shouldUpdate
+  # shouldComponentUpdate: ->
+  #   @props.shouldUpdate
 
   getDefaultProps: ->
     focus: false

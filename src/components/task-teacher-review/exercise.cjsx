@@ -83,10 +83,14 @@ TaskTeacherReviewQuestion = React.createClass
 
 TaskTeacherReviewQuestionTracker = React.createClass
   displayName: 'TaskTeacherReviewQuestionTracker'
-  mixins: [ScrollTrackerMixin]
+  # mixins: [ScrollTrackerMixin]
   render: ->
+    {scrollState} = @props
+
     questionProps = _.pick(@props, 'question', 'questionStats')
-    <TaskTeacherReviewQuestion {...questionProps}/>
+    <div data-section={scrollState.key}>
+      <TaskTeacherReviewQuestion {...questionProps}/>
+    </div>
 
 
 TaskTeacherReviewExercise = React.createClass

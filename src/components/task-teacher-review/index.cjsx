@@ -11,6 +11,7 @@ _ = require 'underscore'
 camelCase = require 'camelcase'
 
 {TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
+ScrollSpy = require '../scroll-spy'
 
 
 TaskTeacherReview = React.createClass
@@ -50,8 +51,16 @@ TaskTeacherReview = React.createClass
     @setStepKey()
     TaskTeacherReviewStore.on('review.loaded', @setIsReviewLoaded)
 
-  componentWillReceiveProps: ->
-    @setStepKey()
+  componentWillReceiveProps: (nextProps) ->
+    key = _.first(nextProps.onScreenElements)
+    if key?
+      @goToStep(parseInt(key))
+      @setState(currentStep: parseInt(key))
+    console.info(key)
+    # @setStepKey()
+
+  shouldComponentUpdate: (nextProps) ->
+    nextProps.shouldUpdate
 
   goToStep: (stepKey) ->
     params = _.clone(@context.router.getCurrentParams())
@@ -85,13 +94,13 @@ TaskTeacherReview = React.createClass
   render: ->
     {id, courseId} = @props
     periodIndex = @getPeriodIndex()
+          # setScrollState={@setScrollState}
 
     panel = <ReviewShell
           id={id}
           review='teacher'
           panel='teacher-review'
           goToStep={@goToStep}
-          setScrollState={@setScrollState}
           currentStep={@state.currentStep}
           period={@state.period} />
 
@@ -139,6 +148,8 @@ TaskTeacherReviewShell = React.createClass
     router: React.PropTypes.func
   render: ->
     {id, courseId} = @context.router.getCurrentParams()
-    <TaskTeacherReview key={id} id={id} courseId={courseId}/>
+    <ScrollSpy dataSelector='data-section'>
+      <TaskTeacherReview key={id} id={id} courseId={courseId}/>
+    </ScrollSpy>
 
 module.exports = {TaskTeacherReview, TaskTeacherReviewShell}

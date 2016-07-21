@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 
 CrumbMixin = require './crumb-mixin'
-{ChapterSectionMixin} = require 'openstax-react-components'
+{ChapterSectionMixin, ScrollToMixin} = require 'openstax-react-components'
 {BreadcrumbStatic} = require '../breadcrumb'
 
 BackButton = require '../buttons/back-button'
@@ -11,7 +11,7 @@ BackButton = require '../buttons/back-button'
 module.exports = React.createClass
   displayName: 'Breadcrumbs'
 
-  mixins: [ChapterSectionMixin, CrumbMixin]
+  mixins: [ChapterSectionMixin, CrumbMixin, ScrollToMixin]
 
   propTypes:
     id: React.PropTypes.string.isRequired
@@ -23,15 +23,21 @@ module.exports = React.createClass
   getInitialState: ->
     crumbs: @getCrumableCrumbs()
 
+  goToStep: (key) ->
+    stepSelector = "[data-section='#{key}']"
+    console.info(stepSelector, @isSelectorInView(stepSelector))
+    # @scrollToSelector(stepSelector, updateHistory: false) unless @isSelectorInView(stepSelector)
+    @props.goToStep(key)
+
   render: ->
     {crumbs} = @state
-    {currentStep, goToStep, title, courseId} = @props
+    {currentStep, title, courseId} = @props
 
-    stepButtons = _.map crumbs, (crumb) ->
+    stepButtons = _.map crumbs, (crumb) =>
       <BreadcrumbStatic
         crumb={crumb}
         currentStep={currentStep}
-        goToStep={goToStep}
+        goToStep={@goToStep}
         key="breadcrumb-#{crumb.type}-#{crumb.key}"/>
 
 
