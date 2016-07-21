@@ -19,7 +19,8 @@ WindowHelpers  = require '../../src/helpers/window'
   TEACHER_AND_STUDENT_COURSE_THREE_MODEL
   MASTER_COURSES_LIST,
   TUTOR_HELP,
-  CONCEPT_COACH_HELP
+  CONCEPT_COACH_HELP,
+  STUDENT_ARCHIVED_COURSE
 } = require '../courses-test-data'
 
 
@@ -40,6 +41,21 @@ describe 'Course Listing Component', ->
         expect(MASTER_COURSES_LIST[i].name).to.contain(renderDataset[i].title)
       # no refresh button when load succeeds
       expect(state.div.querySelector(".refresh-button")).to.be.null
+
+  it 'renders the listing without archived courses', ->
+    courseList = _.flatten([MASTER_COURSES_LIST, STUDENT_ARCHIVED_COURSE])
+    CourseListingActions.loaded(courseList)
+    renderListing().then (state) ->
+      renderDataset = _.pluck(state.div.querySelectorAll('.tutor-booksplash-course-item'), 'dataset')
+      for course, i in MASTER_COURSES_LIST
+        expect(MASTER_COURSES_LIST[i].name).to.contain(renderDataset[i].title)
+      # no refresh button when load succeeds
+      expect(state.div.querySelector(".refresh-button")).to.be.null
+
+  it 'renders empty courses if course list only contains arhived course', ->
+    CourseListingActions.loaded([STUDENT_ARCHIVED_COURSE])
+    renderListing().then (state) ->
+      expect(state.div.querySelector('.-course-list-empty')).not.to.be.null
 
   it 'renders course appropriate help', ->
     CourseListingActions.loaded(MASTER_COURSES_LIST)
@@ -80,6 +96,13 @@ describe 'Course Listing Component', ->
 
   it 'redirects to student dashboard', ->
     CourseListingActions.loaded([STUDENT_COURSE_ONE_MODEL])
+    renderListing().then (state) ->
+      expect(state.listing).to.be.undefined # Won't have rendered the listing
+      expect(ReactTestUtils.scryRenderedComponentsWithType(state.component, StudentDashboardShell))
+        .to.have.length(1)
+
+  it 'redirects to student dashboard if student has two courses but one is archived', ->
+    CourseListingActions.loaded([STUDENT_COURSE_ONE_MODEL, STUDENT_ARCHIVED_COURSE])
     renderListing().then (state) ->
       expect(state.listing).to.be.undefined # Won't have rendered the listing
       expect(ReactTestUtils.scryRenderedComponentsWithType(state.component, StudentDashboardShell))

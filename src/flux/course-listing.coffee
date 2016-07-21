@@ -70,4 +70,9 @@ CourseListingStore = flux.createStore
     allCourses: ->
       return _.compact _.map @_course_ids, CourseStore.get
 
+    allCoursesWithRoles: ->
+      return _.compact _.map @_course_ids, (id) ->
+        course = CourseStore.get(id)
+        course if not _.isEmpty(course?.roles)
+
 module.exports = {CourseListingActions, CourseListingStore}
