@@ -11,6 +11,7 @@ BindStoreMixin = require '../bind-store-mixin'
 LogOut = require './logout'
 
 {CurrentUserStore} = require '../../flux/current-user'
+{CourseStore} = require '../../flux/course'
 
 UserActionsMenu = React.createClass
 
@@ -75,9 +76,11 @@ UserActionsMenu = React.createClass
 
 
   render: ->
+    course = CourseStore.get(@props.courseId)
+
     <BS.NavDropdown
       eventKey={1}
-      className='-hamburger-menu'
+      className={classnames('-hamburger-menu', 'is-concept-coach': course?.is_concept_coach)}
       id='navbar-dropdown'
       title={<UserName/>}
       ref='navDropDown'>

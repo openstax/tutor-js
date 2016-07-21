@@ -6,7 +6,7 @@
 @grid-float-breakpoint: @screen-md-min;
 
 .navbar-fixed-top {
-	height: @tutor-navbar-height;
+  height: @tutor-navbar-height;
   // override bootstrap material design media query for (max-width: 1199px)
   .navbar-brand {
     height: 60px;
@@ -59,6 +59,7 @@
     .tutor-background-image('rice-logo.png');
   }
   .book-links {
+    border-right: 1px solid @tutor-neutral-light;
 
     a {
       height: @tutor-navbar-height;
@@ -68,12 +69,76 @@
       padding-right: 1rem;
       border-left: 1px solid @tutor-neutral-light;
     }
-    border-right: 1px solid @tutor-neutral-light;
   }
   .navbar-brand {
     font-size: 1.6rem;
     line-height: 2.7rem;
     margin-top: 1px;
+  }
+
+  @media screen and (max-width: (@screen-md - 1px)) {
+    .navbar-collapse {
+      max-width: 230px;
+      max-height: 350px;
+      float: right;
+      .tutor-shadow(1);
+      border-top: none;
+    }
+
+
+
+    .navbar-nav .navbar-brand {
+      display: none;
+    }
+
+    .navbar-nav > li > a,
+    .navbar-nav > li.book-links > a,
+    .navbar-nav > li.dropdown > ul.dropdown-menu > li > a {
+      height: initial;
+      display: block;
+      padding: 3px 20px;
+      border: none;
+      clear: both;
+      float: none;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 1.42857143;
+      color: @tutor-neutral;
+      white-space: nowrap;
+
+      &:hover {
+        background-color: @tutor-neutral-bright;
+      }
+    }
+
+    .book-links {
+      border: none;
+    }
+
+    .dropdown {
+      > .dropdown-toggle {
+        display: none;
+      }
+
+      > .dropdown-menu {
+        position: relative;
+        float: none;
+        width: auto;
+        margin-top: -7.5px;
+        padding-top: 0;
+        background-color: transparent;
+        box-shadow: none;
+        display: block;
+      }
+
+      &.is-concept-coach {
+        > .dropdown-menu {
+          border-top: 1px solid @tutor-neutral-light;
+          padding-top: 8px;
+          margin-top: 0;
+        }
+      }
+    }
   }
 
   .navbar-overlay {
@@ -129,8 +194,8 @@
   .center-control-assignment {
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;    
-    
+    text-overflow: ellipsis;
+
     min-width: 0;
   }
 

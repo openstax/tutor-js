@@ -2,6 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 _ = require 'underscore'
+classnames = require 'classnames'
 
 CourseName = require './course-name'
 ServerErrorMonitoring = require './server-error-monitoring'
