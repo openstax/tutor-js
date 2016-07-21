@@ -2,7 +2,13 @@
   margin-top: @tutor-panel-padding-vertical;
 
   .exercise-sections {
-    margin-top: @tutor-panel-padding-vertical;
+    padding-top: @tutor-panel-padding-vertical;
+
+    &:first-child {
+      // These fix the scrollTo position when there's a fixed nav in the way
+      margin-top: -@tutor-panel-padding-vertical;
+      padding-top: @tutor-panel-padding-vertical * 2;
+    }
   }
 
   .exercises {
