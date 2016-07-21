@@ -61,8 +61,8 @@ legend {
   .variations(~" li a:hover", background-color, @tutor-neutral-bright);
 
   // Active state
-  .variations(~" > .active > a", color, @tutor-neutral-darker);
-  .variations(~" > .active > a", background-color, @tutor-neutral-light);
+  .variations(~" > .active > a", color, ~"@{tutor-neutral-darker} !important");
+  .variations(~" > .active > a", background-color, ~"@{tutor-neutral-light} !important");
   .variations(~" > .active > a:hover", background-color, @tutor-neutral-light);
   .variations(~" > .active > a:hover", color, @tutor-neutral-darker);
   .variations(~" > .active > a:hover", cursor, default);
