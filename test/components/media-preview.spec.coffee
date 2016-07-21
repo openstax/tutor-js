@@ -65,7 +65,7 @@ describe 'Media Preview', ->
         expect(dom).to.have.property('classList')
         expect(dom.classList.contains('media-preview-link')).to.be.true
 
-  it 'should render inner text as media\'s name when [link] is passed in', ->
+  it 'should render inner text as "See " + media\'s name when [link] is passed in', ->
 
     TaskActions.loaded(TASK_DATA)
     mediaIds = MediaStore.getMediaIds()
@@ -74,7 +74,7 @@ describe 'Media Preview', ->
     Testing
       .renderComponent( MediaPreview, props: {mediaId: mediaIds[0], children: '[link]'} )
       .then ({dom, element}) ->
-        expect(dom).to.have.property('innerText').and.equal(S.capitalize(media.name))
+        expect(dom).to.have.property('innerText').and.equal("See " + S.capitalize(media.name))
 
   it 'should render inner text as passed in string when not [link]', ->
 

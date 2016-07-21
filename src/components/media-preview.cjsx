@@ -161,10 +161,10 @@ MediaPreview = React.createClass
       allProps = {content, overlayProps, popoverProps, windowImpl}
 
       linkText = children unless children is '[link]'
-      linkText ?= S.capitalize(media.name)
+      linkText ?= "See " + S.capitalize(media.name)
 
       <TutorPopover {...allProps} ref='overlay'>
-        <a {...linkProps}>See {linkText}</a>
+        <a {...linkProps}>{linkText}</a>
       </TutorPopover>
     else
       linkProps = _.omit(linkProps, 'onMouseEnter', 'onMouseLeave')
