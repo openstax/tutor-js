@@ -55,8 +55,6 @@
   }
 
   .page-navigation {
-    // .page-navigation-arrows(800px);
-
     position: absolute;
     top: 20%;
     z-index: 1;
@@ -83,13 +81,13 @@
       }
     }
 
-    i.fa {
-      color: #e5e5e5;
+    .tutor-icon {
+      color: @tutor-neutral-light;
       font-size: 150px;
     }
 
-    &:hover i.fa{
-      color: #d5d5d5;
+    &:hover .tutor-icon{
+      color: darken(@tutor-neutral-light, 7%);
     }
   }
 
