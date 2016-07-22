@@ -9,6 +9,7 @@ CourseGroupingLabel = require '../../course-grouping-label'
 PlanMixin           = require '../plan-mixin'
 BindStoresMixin     = require '../../bind-stores-mixin'
 CourseGroupingLabel = require '../../course-grouping-label'
+TimeZoneSettings    = require './time-zone-settings-link'
 
 {TimeStore} = require '../../../flux/time'
 TimeHelper = require '../../../helpers/time'
@@ -175,8 +176,6 @@ TaskPlanBuilder = React.createClass
         </BS.Col>
       </BS.Row>
 
-    cannotEditNote = '  Open times cannot be edited after assignment is visible to students.' if @props.isVisibleToStudents
-
     assignmentNameLabel = [
       <span key='assignment-label'>{"#{@props.label} name"}</span>
       <span
@@ -217,8 +216,14 @@ TaskPlanBuilder = React.createClass
       <BS.Row>
         <BS.Col sm=12>
           <div className="instructions">
-            Set date and time to now to open immediately.
-            {cannotEditNote}
+            <p>
+              Set date and time to now to open
+              immediately. Course time
+              zone: <TimeZoneSettings courseId={@props.courseId} />
+            </p>
+            {<p>
+              Open times cannot be edited after assignment is visible to students.
+            </p> if @props.isVisibleToStudents}
           </div>
         </BS.Col>
       </BS.Row>
