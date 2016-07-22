@@ -8,6 +8,18 @@
   }
   .exercise-cards {
     .exercise-cards-column-layout();
+
+    // Override .exercise-cards-column-layout() styles to fix scrollTo position
+    // when there's a fixed nav in the way
+    .exercise-sections {
+      margin-top: 0;
+      padding-top: @tutor-panel-padding-vertical;
+
+      .homework-plan-exercise-select-topics &:first-child {
+        margin-top: -@tutor-panel-padding-vertical;
+        padding-top: @tutor-panel-padding-vertical * 2;
+      }
+    }
   }
   .exercise-card {
     .selected-mask {
