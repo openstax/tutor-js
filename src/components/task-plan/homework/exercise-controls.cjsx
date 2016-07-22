@@ -89,7 +89,7 @@ ExerciseControls = React.createClass
         <Icon type='chevron-down' />
       </BS.Button>
     else
-      <span className="circle-btn-placeholder"></span>
+      <span className="circle-btn-placeholder" />
 
   render: ->
     numSelected = TaskPlanStore.exerciseCount(@props.planId)

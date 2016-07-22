@@ -108,7 +108,7 @@ TaskTeacherReview = React.createClass
         title={task.title}
         courseId={courseId}
         key="task-#{id}-breadcrumbs"/>
-    
+
     <PinnedHeaderFooterCard
       className={taskClasses}
       fixedOffset={0}
