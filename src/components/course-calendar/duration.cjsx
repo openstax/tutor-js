@@ -77,7 +77,15 @@ CourseDuration = React.createClass
     groupedDurations = _.chain(groupingDurations)
       .map(@groupByRanges(durationsInView))
       .tap(@calcTopOffset)
+      .each(@setWeeksHeight)
       .value()
+
+  setWeeksHeight: (range) ->
+    height = 1 + _.reduce(range.plansByDays, (maxOrder, plansOnDay) ->
+      durationMax = _.max(plansOnDay, (plan) -> plan.order + 1 ).order or 0
+      Math.max(durationMax, maxOrder)
+    , 0)
+    range.dayHeight = Math.max(@_calcDayHeight(height), range.dayHeight)
 
   calcTopOffset: (ranges) ->
     dayHeights = _.pluck(ranges, 'dayHeight')
@@ -189,15 +197,6 @@ CourseDuration = React.createClass
   _calcDayHeight: (plans) ->
     plans * 3.6 + 1
 
-  _setDayHeightToMaxOverlaps: (currentOverlap, rangeData) ->
-    # calculate day height based on the number of durations that overlap
-    calcedHeight = @_calcDayHeight(currentOverlap.length)
-
-    # if the day height is more than previously calculated day height,
-    # update with the larger day height
-    if calcedHeight > rangeData.dayHeight
-      rangeData.dayHeight = calcedHeight
-
   _getSimplePlan: (plan) ->
     # Make a simple plan that omits duration/time related information
     # and adds back in only the relevant time information needed by the
@@ -256,10 +255,13 @@ CourseDuration = React.createClass
         plansOnDay.length
       ).length
 
-      # set day height to fit the number of overlapping durations
-      dayHeight = @_calcDayHeight(rangeData.maxPlansOnDay)
-      rangeData.dayHeight = dayHeight if dayHeight > rangeData.dayHeight
+      # set day height to the best-guess for this range based on how many plans it has.
+      # It'll be fine-tuned later across all ranges
+      rangeData.dayHeight = Math.max(
+        @_calcDayHeight(rangeData.maxPlansOnDay), rangeData.dayHeight
+      )
       rangeData
+
 
   renderChildren: (item) ->
     {courseId} = @props

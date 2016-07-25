@@ -1,11 +1,12 @@
 @import '~openstax-react-components/resources/styles/components/breadcrumbs/coach';
+@import '../../book-content/note';
 
 .task {
   iframe {
     width: 960px;
     height: 500px;
     border: none;
-    margin: auto;
+    margin: 20px auto;
   }
   .embed-responsive > iframe {
     width: 100%;
@@ -30,12 +31,22 @@
   }
 
   .task-step {
+    // The number of pixels the iframe will be inset from the task in the end
+    @desired-iframe-inset: (@tutor-task-width - 960px) / 2;
+
     :not(.interactive-step) {
       iframe.interactive {
-        margin-left: -120px; // The rest of the card has a lot of padding, and it won't fit unless we shift it over so it's centered
+        // The rest of the card has a lot of padding, and it won't fit unless we shift it over so it's centered
+        margin-left: -(@tutor-card-body-padding-horizontal - @desired-iframe-inset);
       }
     }
 
+    .interactive-content > .note {
+      iframe.interactive {
+        // The rest of the card has a lot of padding, and it won't fit unless we shift it over so it's centered
+        margin-left: -(@tutor-card-body-padding-horizontal + @tutor-note-padding-horizontal - @desired-iframe-inset);
+      }
+    }
   }
 
   .openstax-exercise-card {
@@ -43,6 +54,17 @@
 
     .openstax-exercise {
       font-size: 2rem;
+
+      .question-context {
+        // Copied from styles/book-content/note.less
+        background: @tutor-neutral-lightest;
+        border-top: solid 8px @tutor-neutral-lighter;
+        border-bottom: solid 8px @tutor-neutral-lighter;
+        padding: 20px 40px;
+        width: 100%;
+
+        .tutor-book-note-style();
+      }
     }
 
     .exercise-uid {

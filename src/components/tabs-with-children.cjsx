@@ -10,20 +10,22 @@ TabsWithChildren = React.createClass
 
   propTypes:
     onClick: React.PropTypes.func.isRequired
+    tabIndex: React.PropTypes.number
     tabs: React.PropTypes.arrayOf(
       React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.element ])
     ).isRequired
+    tabIndex: React.PropTypes.number
 
-  getInitialState: ->
-    tabIndex: 0
+  componentWillReceiveProps: (nextProps) ->
+    if _.isNumber(nextProps.tabIndex) # ignore null/undefined, allow 0
+      @setState(tabIndex: nextProps.tabIndex)
 
   onTabClick: (tabIndex, ev) ->
     ev.preventDefault()
-    @setState({tabIndex})
     @props.onClick(ev, tabIndex)
 
   renderTab: (tab, index) ->
-    isSelected = index is @state.tabIndex
+    isSelected = index is @props.tabIndex
     <li key={index} tabIndex={index} className={classnames(active: isSelected)}>
       <a role="tab"
         href="" tabIndex="-1" onClick={_.partial(@onTabClick, index)}

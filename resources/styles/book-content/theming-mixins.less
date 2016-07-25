@@ -42,7 +42,8 @@
 }
 
 .tutor-book-theme-first-letter(@letter-color: @tutor-book-secondary) {
- section h1 + p:first-of-type,
+  // References should not get drop-cap styling or color
+  section:not(.references) h1 + p:first-of-type,
   div[data-type="document-title"] ~ p:first-of-type {
     &::first-letter {
       color: @letter-color;

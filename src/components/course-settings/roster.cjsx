@@ -30,11 +30,10 @@ CourseRoster = React.createClass
 
   getInitialState: ->
     tabIndex: 0
-    activePeriod: _.first PH.activePeriods(CourseStore.get(@props.courseId))
 
   handleSelection: (ev, tabIndex) ->
-    periods = PH.activePeriods(CourseStore.get(@props.courseId))
-    activePeriod = periods[tabIndex] or _.first(periods)
+    unless PH.activePeriods(CourseStore.get(@props.courseId))[tabIndex]
+      tabIndex = 0
     @setState({tabIndex})
 
   selectPreviousTab: ->
@@ -84,7 +83,7 @@ CourseRoster = React.createClass
     </div>
 
   renderEmpty: ->
-    <NoPeriods />
+    <NoPeriods courseId={@props.courseId} />
 
   render: ->
     course  = CourseStore.get(@props.courseId)
@@ -98,10 +97,12 @@ CourseRoster = React.createClass
 
         <TabsWithChildren
           tabs={_.pluck(periods, 'name')}
+          tabIndex={tabIndex}
           onClick={@handleSelection}
         >
           <AddPeriodLink courseId={@props.courseId} periods={periods} />
-          <ViewArchivedPeriods courseId={@props.courseId} />
+          <ViewArchivedPeriods courseId={@props.courseId}
+            afterRestore={@selectPreviousTab} />
         </TabsWithChildren>
 
       </div>

@@ -7,7 +7,8 @@ BS = require 'react-bootstrap'
 {UnsavedStateMixin} = require '../../unsaved-state'
 CourseGroupingLabel = require '../../course-grouping-label'
 PlanMixin           = require '../plan-mixin'
-BindStoresMixin      = require '../../bind-stores-mixin'
+BindStoresMixin     = require '../../bind-stores-mixin'
+CourseGroupingLabel = require '../../course-grouping-label'
 
 {TimeStore} = require '../../../flux/time'
 TimeHelper = require '../../../helpers/time'
@@ -168,7 +169,8 @@ TaskPlanBuilder = React.createClass
     if (@state.showingPeriods and not taskings.length)
       invalidPeriodsAlert = <BS.Row>
         <BS.Col className="periods-invalid" sm=12>
-          Please select at least one period
+          Please select at least
+          one <CourseGroupingLabel lowercase courseId={@props.courseId} />
           <i className="fa fa-exclamation-circle"></i>
         </BS.Col>
       </BS.Row>

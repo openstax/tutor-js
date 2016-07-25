@@ -2,20 +2,27 @@ _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
 
-NO_PERIODS_TEXT = 'Please add at least one period to the course.'
+CourseGroupingLabel = require './course-grouping-label'
 
 NoPeriods = React.createClass
 
   propTypes:
-    noPanel:   React.PropTypes.bool
+    courseId: React.PropTypes.string.isRequired
+    noPanel:  React.PropTypes.bool
 
   render: ->
-    text = <span className='-no-periods-text'>{NO_PERIODS_TEXT}</span>
+    message =
+      <span className='-no-periods-text'>
+        Please add at least
+        one <CourseGroupingLabel lowercase courseId={@props.courseId} /> to
+        the course.
+      </span>
+
     if @props.noPanel
-      text
+      message
     else
       <BS.Panel>
-        {text}
+        {message}
       </BS.Panel>
 
 module.exports = NoPeriods

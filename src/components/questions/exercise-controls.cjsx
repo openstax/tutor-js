@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 cn = require 'classnames'
 
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
+{CourseStore} = require '../../flux/course'
 {AsyncButton, ScrollToMixin} = require 'openstax-react-components'
 showDialog = require './unsaved-dialog'
 
@@ -46,9 +47,10 @@ QuestionsControls = React.createClass
 
     selected = @props.selectedSection or _.first(sections)
 
-    <div className="exercise-controls-bar">
-      <BS.ButtonGroup className="filters">
+    isConceptCoach = CourseStore.isConceptCoach(@props.courseId)
 
+    filters =
+      <BS.ButtonGroup className="filters">
         <BS.Button data-filter='all' onClick={@onFilterClick}
           className={if _.isEmpty(@props.filter) then 'all active' else 'all'}
         >
@@ -67,6 +69,11 @@ QuestionsControls = React.createClass
           Practice
         </BS.Button>
       </BS.ButtonGroup>
+
+    <div className="exercise-controls-bar">
+      <div className="filters-wrapper">
+        {if not isConceptCoach then filters}
+      </div>
 
       {@props.children}
 

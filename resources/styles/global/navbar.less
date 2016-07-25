@@ -35,7 +35,8 @@
   // override the bootstrap defaults with tutor defaults
   &.navbar.navbar{
     border-bottom: 1px solid @border-color;
-    &, .navbar-collapse{
+
+    &, .navbar-collapse.collapsing, .navbar-collapse.in {
       background-color: @tutor-white;
     }
   }
@@ -129,8 +130,7 @@
   .center-control-assignment {
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;    
-    
+    text-overflow: ellipsis;
     min-width: 0;
   }
 

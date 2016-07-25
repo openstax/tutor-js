@@ -4,6 +4,8 @@ _ = require 'underscore'
 {TaskActions, TaskStore} = require './task'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 PeriodHelper = require '../helpers/period'
+AppearanceCodes = require './course-appearance-codes'
+
 
 DEFAULT_TIME_ZONE = 'Central Time (US & Canada)'
 
@@ -67,6 +69,10 @@ CourseConfig =
     _.extend {}, @_local[id], result
 
   exports:
+    getBookName: (courseId) ->
+      {appearance_code} = @_local[courseId]
+      AppearanceCodes[appearance_code]
+
     getGuide: (courseId) ->
       @_guides[courseId] or throw new Error('BUG: Not loaded yet')
 

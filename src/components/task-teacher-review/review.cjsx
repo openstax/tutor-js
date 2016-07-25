@@ -50,7 +50,7 @@ Review = React.createClass
         return null unless step.content
         step.content = JSON.parse(step.content)
         stepProps = _.extend({}, stepsProps, step)
-        stepProps.key = "task-review-question-#{step.question_stats[0].question_id}-#{index}"
+        stepProps.key = "task-review-question-#{step.question_stats[0].question_id}-#{step.stepIndex}"
         stepProps.focus = focus and index is 0
 
         Tracker = TaskTeacherReviewExercise
