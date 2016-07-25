@@ -73,17 +73,7 @@
   .navbar-nav {
     // clip so that a long title doesn't push the menus below the navbar
     .section-title {
-      span { display: inline-block; }
-      .chapter-section {
-        float: left;
-        &+span {
-          max-width: 250px;
-          overflow: hidden;
-          display: inline-block;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-        }
-      }
+      max-width: calc(~"100% - 500px");
     }
     .available-books ul.dropdown-menu {
       max-height: 350px;
