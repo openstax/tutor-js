@@ -50,7 +50,7 @@ ExerciseMixin =
       focus: true
       includeGroup: true
 
-    partProps.footer = footer if canOnlyContinue(part.id)
+    partProps.footer = footer
 
     @renderPart(part, partProps)
 
