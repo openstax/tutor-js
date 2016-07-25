@@ -30,7 +30,7 @@ ExerciseMixin =
     not @props.canOnlyContinue(id)
 
   renderPart: (part, partProps) ->
-    props = _.omit(@props, 'part', 'canOnlyContinue', 'footer', 'setScrollState', 'goToStep')
+    props = _.omit(@props, 'parts', 'canOnlyContinue', 'footer', 'goToStep', 'controlButtons')
 
     <ExercisePart
       focus={@isSinglePart()}
@@ -41,7 +41,7 @@ ExerciseMixin =
       taskId={part.task_id}/>
 
   renderSinglePart: ->
-    {parts, footer, canOnlyContinue} = @props
+    {parts, footer, canOnlyContinue, controlButtons} = @props
 
     part = _.first(parts)
 
@@ -50,6 +50,7 @@ ExerciseMixin =
       focus: true
       includeGroup: true
       footer: footer
+      controlButtons: controlButtons
 
     @renderPart(part, partProps)
 
@@ -87,7 +88,7 @@ ExerciseMixin =
       related_content={step.related_content}/>
 
   renderFooter: ->
-    {parts, onNextStep, currentStep} = @props
+    {parts, onNextStep, currentStep, pinned} = @props
     step = _.last(parts)
 
     if @canAllContinue()
@@ -96,8 +97,9 @@ ExerciseMixin =
         onContinue: _.partial onNextStep, currentStep: step.stepIndex
 
     footerProps = _.omit(@props, 'onContinue')
+    footerProps.idLink = @renderIdLink(false) unless pinned
+
     <ExFooter {...canContinueControlProps} {...footerProps}
-      idLink={@renderIdLink(false)}
       panel='review' />
 
   renderIdLink: (related = true) ->
@@ -138,6 +140,7 @@ ExerciseWithScroll = React.createClass
         <ExerciseBadges isMultipart={true}/>
         {@renderGroup()}
         {@renderMultiParts()}
+        {@renderIdLink() if pinned}
       </CardBody>
 
 
@@ -159,6 +162,7 @@ Exercise = React.createClass
         <ExerciseBadges isMultipart={true}/>
         {@renderGroup()}
         {@renderMultiParts()}
+        {@renderIdLink() if pinned}
       </CardBody>
 
 module.exports = {Exercise, ExerciseWithScroll}

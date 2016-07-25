@@ -59,7 +59,7 @@ EXERCISE_STEP_CARD_PROP_TYPES.onFreeResponseChange = React.PropTypes.func
 EXERCISE_STEP_CARD_PROP_TYPES.onChangeAnswerAttempt = React.PropTypes.func
 
 CONTROL_PROPS = _.union(_.keys(CONTINUE_PROP_TYPES), _.keys(REVIEW_CONTROL_PROP_TYPES))
-FOOTER_PROPS = ['pinned', 'courseId', 'id', 'taskId', 'review', 'panel']
+FOOTER_PROPS = ['pinned', 'courseId', 'id', 'taskId', 'review', 'panel', 'controlButtons', 'idLink']
 NOT_PANEL_PROPS = _.union(
   CONTROL_PROPS,
   FOOTER_PROPS,
@@ -76,7 +76,7 @@ propTypes =
   ExerciseStepCard: extendPropTypes(EXERCISE_STEP_CARD_PROP_TYPES, PANEL_PROPS_TYPES)
 
 props = _.mapObject(propTypes, _.keys)
-props.StepFooter = ['pinned', 'courseId', 'id', 'taskId', 'review', 'panel', 'controlButtons']
+props.StepFooter = FOOTER_PROPS
 props.notPanel = _.union(props.ExReviewControls, props.StepFooter, ['step'])
 
 module.exports = {propTypes, props}
