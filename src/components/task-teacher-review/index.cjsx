@@ -52,12 +52,11 @@ TaskTeacherReview = React.createClass
     TaskTeacherReviewStore.on('review.loaded', @setIsReviewLoaded)
 
   componentWillReceiveProps: (nextProps) ->
-    key = _.first(nextProps.onScreenElements)
-    if key?
-      @goToStep(parseInt(key))
-      @setState(currentStep: parseInt(key))
-    console.info(key)
-    # @setStepKey()
+    if nextProps.shouldUpdate
+      key = _.first(nextProps.onScreenElements)
+      if key? and parseInt(key) isnt @state.currentStep
+        @goToStep(parseInt(key))
+        @setState(currentStep: parseInt(key))
 
   shouldComponentUpdate: (nextProps) ->
     {shouldUpdate} = nextProps

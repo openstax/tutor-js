@@ -78,10 +78,7 @@ Review = React.createClass
 
       item = <Tracker
         {...stepProps}
-        scrollState={scrollState}
-        setScrollPoint={@props.setScrollPoint}
-        unsetScrollPoint={@props.unsetScrollPoint}
-      />
+        scrollState={scrollState}/>
 
     <div>
       {stepsList}

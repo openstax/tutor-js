@@ -23,17 +23,20 @@ module.exports = React.createClass
   getInitialState: ->
     crumbs: @getCrumableCrumbs()
 
+  scrollingTargetDOM: -> window.document
+
   goToStep: (key) ->
     stepSelector = "[data-section='#{key}']"
-    console.info(stepSelector, @isSelectorInView(stepSelector))
-    # @scrollToSelector(stepSelector, updateHistory: false) unless @isSelectorInView(stepSelector)
     @props.goToStep(key)
+    @scrollToSelector(stepSelector, updateHistory: false) unless @isSelectorInView(stepSelector)
 
   render: ->
     {crumbs} = @state
     {currentStep, title, courseId} = @props
 
     stepButtons = _.map crumbs, (crumb) =>
+      stepSelector = "[data-section='#{crumb.key}']"
+
       <BreadcrumbStatic
         crumb={crumb}
         currentStep={currentStep}
