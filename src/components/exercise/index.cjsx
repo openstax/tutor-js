@@ -49,8 +49,7 @@ ExerciseMixin =
       idLink: @renderIdLink()
       focus: true
       includeGroup: true
-
-    partProps.footer = footer
+      footer: footer
 
     @renderPart(part, partProps)
 

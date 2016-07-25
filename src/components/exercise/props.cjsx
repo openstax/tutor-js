@@ -76,7 +76,7 @@ propTypes =
   ExerciseStepCard: extendPropTypes(EXERCISE_STEP_CARD_PROP_TYPES, PANEL_PROPS_TYPES)
 
 props = _.mapObject(propTypes, _.keys)
-props.StepFooter = ['pinned', 'courseId', 'id', 'taskId', 'review', 'panel']
+props.StepFooter = ['pinned', 'courseId', 'id', 'taskId', 'review', 'panel', 'controlButtons']
 props.notPanel = _.union(props.ExReviewControls, props.StepFooter, ['step'])
 
 module.exports = {propTypes, props}
