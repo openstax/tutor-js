@@ -60,7 +60,10 @@ TaskTeacherReview = React.createClass
     # @setStepKey()
 
   shouldComponentUpdate: (nextProps) ->
-    nextProps.shouldUpdate
+    {shouldUpdate} = nextProps
+    shouldUpdate ?= true
+
+    shouldUpdate
 
   goToStep: (stepKey) ->
     params = _.clone(@context.router.getCurrentParams())
