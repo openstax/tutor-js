@@ -228,7 +228,6 @@ module.exports = React.createClass
 
       canReview={StepPanel.canReview(part.id)}
       disabled={TaskStepStore.isSaving(part.id)}
-      isContinueEnabled={StepPanel.canContinue(part.id)}
 
       canOnlyContinue={canOnlyContinue}
       getWaitingText={getWaitingText}
