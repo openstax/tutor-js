@@ -186,24 +186,21 @@ module.exports = React.createClass
     {parts, lastPartId, isSinglePartExercise, task, currentStep} = @state
     part = _.last(parts)
 
-    controlProps =
-      panel: 'review'
-      controlText: 'Continue' if task.type is 'reading'
-
     if @canAllContinue()
       reviewProps = @getReviewProps()
 
       canContinueControlProps =
+        panel: 'review'
         isContinueEnabled: true
         onContinue: _.partial onNextStep, currentStep: part.stepIndex
 
       canContinueControlProps = _.extend({}, canContinueControlProps, reviewProps)
+      canContinueControlProps.controlText = 'Continue' if task.type is 'reading'
 
-    controlButtons = <ExControlButtons
-      {...controlProps}
-      {...canContinueControlProps}
-      waitingText={@getFooterWaitingText()}
-      key='step-control-buttons'/>
+      controlButtons = <ExControlButtons
+        {...canContinueControlProps}
+        waitingText={@getFooterWaitingText()}
+        key='step-control-buttons'/>
 
     unless TaskStore.hasProgress(taskId)
       footer = <StepFooter
@@ -215,7 +212,6 @@ module.exports = React.createClass
 
     <ExerciseWithScroll
       {...@props}
-      {...controlProps}
       {...canContinueControlProps}
 
       footer={footer}

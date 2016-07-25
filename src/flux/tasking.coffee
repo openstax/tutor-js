@@ -425,9 +425,16 @@ TaskingConfig =
       isThisTaskValid = isTaskValid(taskings)
       return false unless isThisTaskValid
 
+      # dont check tasking validity if taskings are same as default/loaded
+      return true if @exports.isTaskSame.call(@, taskId)
+
       _.every(taskings, isTaskingValid)
 
     isTaskingValid: (taskId, tasking) ->
+
+      # dont check tasking validity if taskings are same as default/loaded
+      return true if @exports.isTaskSame.call(@, taskId)
+
       tasking = @exports.getTaskingFor.call(@, taskId, tasking)
       isTaskingValid(tasking)
 
