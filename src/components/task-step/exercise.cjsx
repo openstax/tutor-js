@@ -186,12 +186,12 @@ module.exports = React.createClass
     {parts, lastPartId, isSinglePartExercise, task, currentStep} = @state
     part = _.last(parts)
 
-    if @canAllContinue()
+    if @canAllContinue() or not @isSinglePart(parts)
       reviewProps = @getReviewProps()
 
       canContinueControlProps =
         panel: 'review'
-        isContinueEnabled: true
+        isContinueEnabled: @canAllContinue()
         onContinue: _.partial onNextStep, currentStep: part.stepIndex
 
       canContinueControlProps = _.extend({}, canContinueControlProps, reviewProps)
@@ -212,7 +212,6 @@ module.exports = React.createClass
 
     <ExerciseWithScroll
       {...@props}
-      {...canContinueControlProps}
 
       footer={footer}
 
@@ -220,7 +219,6 @@ module.exports = React.createClass
       goToStep={_.partial(goToStep, _, true)}
       currentStep={currentStep}
 
-      getCurrentPanel={getCurrentPanel}
       task={task}
       parts={parts}
       helpLink={@renderHelpLink(part.related_content)}
