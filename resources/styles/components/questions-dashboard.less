@@ -23,6 +23,11 @@
     }
   }
 
+  .exercises-display {
+    max-width: @tutor-max-panel-width;
+    margin: 0 auto;
+  }
+
   .instructions {
     background-color: @tutor-secondary;
     color: @tutor-white;
@@ -48,8 +53,17 @@
     background-color: @tutor-white;
   }
 
+  .pinned-header {
+    .tutor-shadow(1);
+
+    .panel {
+      .box-shadow(none);
+    }
+  }
+
   .exercise-controls-bar {
     background-color: @tutor-white;
+    height: 60px;
   }
 
   .sectionizer {
@@ -72,8 +86,7 @@
 
   .exercise-card.is-selected {
     .selected-mask {
-      opacity: 0.66;
-      background-color: #aeaeae;
+      background-color: @tutor-highlight;
     }
   }
 

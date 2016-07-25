@@ -77,11 +77,9 @@ QuestionsControls = React.createClass
 
       {@props.children}
 
-      <div className="actions-wrapper">
-        <BS.Button onClick={@scrollToTop}>
-          Select more sections
-        </BS.Button>
-      </div>
+      <BS.Button onClick={@scrollToTop}>
+        + Select more sections
+      </BS.Button>
 
     </div>
 

@@ -1,5 +1,5 @@
 .homework-plan .exercise-controls-bar {
-
+  height: 90px;
   flex-wrap: wrap;
   background-color: white;
 
@@ -15,15 +15,27 @@
     align-items: stretch;
   }
 
+  .indicators {
+    max-height: 56px;
+  }
+
   .sectionizer {
     flex: inherit;
   }
 
-  .num, .tutor-added-later, .actions {
+  .num, .tutor-added-later {
+    @padding: 25px;
+
     border-left: 1px solid @tutor-neutral-light;
-    margin-left: 10px;
-    padding-left: 10px;
+    margin-left: @padding;
+    padding-left: @padding;
+
+    &:last-child {
+      border-right: 1px solid @tutor-neutral-light;
+      padding-right: @padding;
+    }
   }
+
   .num {
     display: flex;
     flex-direction: column;
@@ -31,8 +43,9 @@
     justify-content: center;
     text-align: center;
     h2 {
-      font-size: 4rem;
+      font-size: 3rem;
       font-weight: normal;
+      line-height: 3rem;
       margin: 0;
     }
     span { font-size: 1.3rem; }
@@ -48,14 +61,17 @@
     }
     &.total h2 { color: @tutor-quaternary; }
   }
+
   .tutor-added-later {
-    color: @tutor-neutral;
-    width: 200px;
+    color: #999999;
+    width: 232px;
     line-height: 14px;
     font-style: italic;
+    font-size: 1.3rem;
     display: flex;
     align-items: center;
   }
+
   .actions {
     display: flex;
     justify-content: center;

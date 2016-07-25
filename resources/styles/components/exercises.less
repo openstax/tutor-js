@@ -1,11 +1,11 @@
 @exercise-details-body-height: calc(~"100vh - 150px");
 
 .exercise-details {
-
   min-height: @exercise-details-body-height;
   position: relative;
   display: flex;
   flex-direction: column;
+
   .content {
     flex: 1;
     display: flex;
@@ -16,20 +16,36 @@
     height: 100%;
     justify-content: flex-start;
   }
+
   .controls {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    margin-left: 450px;
     z-index: 1; // above details forward/back nav when scrolling up
+
+    .pinned-on & {
+      position: fixed;
+      top: 190px;
+    }
+
+    .pinned-shy & {
+      top: 130px;
+      .transition(~'top 0.2s ease-out');
+    }
+
     .show-cards {
       color: @tutor-neutral;
       cursor: pointer;
     }
   }
+
   .exercise-card {
     width: 800px;
+
     .panel-body {
       min-height: 600px;
+      padding: 70px 70px 70px 100px !important;
     }
 
     .controls-overlay {
@@ -39,11 +55,40 @@
   }
 
   .page-navigation {
-    .page-navigation-arrows(800px);
-
-    height: @exercise-details-body-height;
     position: absolute;
-    top: 0;
+    top: 20%;
+    z-index: 1;
+    cursor: pointer;
+
+    &.prev {
+      left: 0;
+    }
+
+    &.next {
+      right: 0;
+    }
+
+    .pinned-on & {
+      top: 40%;
+      position: fixed;
+
+      &.prev {
+        left: 40px;
+      }
+
+      &.next {
+        right: 40px;
+      }
+    }
+
+    .tutor-icon {
+      color: @tutor-neutral-light;
+      font-size: 150px;
+    }
+
+    &:hover .tutor-icon{
+      color: darken(@tutor-neutral-light, 7%);
+    }
   }
 
 }
@@ -58,22 +103,8 @@
         position: fixed;
         top: 0px;
         left: calc(~"50% - " 400px );
-
       }
     }
-    .page-navigation {
-      display: flex;
-      cursor: pointer;
-
-      height: 100%;
-      position: fixed;
-      top: 0px;
-
-      &.prev {
-        left: 0;
-      }
-    }
-
   }
 
 }
@@ -83,21 +114,12 @@
 }
 
 .exercise-controls-bar {
-  @padding: 20px;
+  @padding-horizontal: 16px;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 @padding;
-
-  .filters-wrapper,
-  .actions-wrapper {
-    width: 300px;
-  }
-
-  .actions-wrapper {
-    text-align: right;
-  }
+  padding: 0 @padding-horizontal;
 
   .sectionizer {
     @size: 40px;
@@ -114,14 +136,19 @@
       line-height: @size;
 
       &.section {
-        border: 1px solid @tutor-neutral-light;
-        min-height: @size;
-        &+.section {
-          border-left: 0;
+        border: 1px solid @default-border;
+        height: @size;
+        position: relative;
+        margin-right: 0;
+        margin-left: -1px;
+
+        &:first-child {
+          margin-left: 0;
         }
       }
       &.active {
         background-color: @tutor-neutral-light;
+        z-index: 10;
       }
       &.disabled {
         cursor: default;
@@ -129,6 +156,7 @@
       }
     }
   }
+
   .btn-group {
     box-shadow: none;
     button:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
@@ -140,8 +168,14 @@
       border: 1px solid @tutor-neutral;
       height: 40px;
       margin-right: 0;
+      margin-left: -1px;
+
+      &:first-child {
+        margin-left: 0;
+      }
       &.active {
         background-color: @tutor-neutral-light;
+        z-index: 10;
       }
       .tutor-icon {
         margin: 0;
