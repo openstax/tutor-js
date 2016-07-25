@@ -26,10 +26,8 @@ typesetDocument = ->
 
   mathMLNodes = _.toArray(document.querySelectorAll(MATH_ML_SELECTOR))
   unless _.isEmpty(mathMLNodes)
-    # ugg - mathjax seems to need at least a bit of other content around the element to style
-    # If it just styles a parent element that has no other text then it doesn't know what size the text should be
-    parents = _.unique( _.map( mathMLNodes, (el) -> el.parentElement.parentElement ) )
-    window.MathJax.Hub.Typeset( parents )
+    # style the entire document because mathjax is unable to style individual math elements
+    window.MathJax.Hub.Typeset( window.document )
 
   window.MathJax.Hub.Queue ->
     # Queue a call to mark the found nodes as rendered so are ignored if typesetting is called repeatedly
