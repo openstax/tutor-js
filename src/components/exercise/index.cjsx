@@ -140,7 +140,7 @@ ExerciseWithScroll = React.createClass
         <ExerciseBadges isMultipart={true}/>
         {@renderGroup()}
         {@renderMultiParts()}
-        {@renderIdLink() if pinned}
+        {@renderIdLink(false) if pinned}
       </CardBody>
 
 
@@ -162,7 +162,7 @@ Exercise = React.createClass
         <ExerciseBadges isMultipart={true}/>
         {@renderGroup()}
         {@renderMultiParts()}
-        {@renderIdLink() if pinned}
+        {@renderIdLink(false) if pinned}
       </CardBody>
 
 module.exports = {Exercise, ExerciseWithScroll}
