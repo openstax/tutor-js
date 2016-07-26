@@ -301,3 +301,12 @@ describe 'Task Plan Builder', ->
 
     helper(NEW_READING, extendedReading).then ({dom, element}) ->
       expect(dom.querySelector('.due-before-open')).to.not.be.null
+
+  it 'displays default timezone as a links to settings', ->
+    helper(NEW_READING).then ({dom}) ->
+      tz = dom.querySelector('.course-time-zone')
+      expect(tz).to.exist
+      expect(tz.textContent).to.include('Central Time')
+      Testing.actions.click(tz, button: 0)
+      expect(Testing.router.transitionTo).to.have.been
+        .calledWith('courseSettings', {courseId: '1'})
