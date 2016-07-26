@@ -83,7 +83,6 @@ TaskTeacherReviewQuestion = React.createClass
 
 TaskTeacherReviewQuestionTracker = React.createClass
   displayName: 'TaskTeacherReviewQuestionTracker'
-  # mixins: [ScrollTrackerMixin]
   render: ->
     {scrollState} = @props
 
@@ -106,7 +105,7 @@ TaskTeacherReviewExercise = React.createClass
 
   renderQuestion: (question, index) ->
     questionStats = @getQuestionStatsById(question.id)
-    {setScrollPoint, unsetScrollPoint, scrollState} = @props
+    {scrollState} = @props
     {key} = scrollState
     scrollState = _.extend {}, scrollState, {key: key + index}
 
@@ -114,9 +113,7 @@ TaskTeacherReviewExercise = React.createClass
       key={"task-review-question-#{question.id}"}
       question={question}
       questionStats={questionStats}
-      scrollState={scrollState}
-      setScrollPoint={setScrollPoint}
-      unsetScrollPoint={unsetScrollPoint}/>
+      scrollState={scrollState}/>
 
   render: ->
     {content} = @props

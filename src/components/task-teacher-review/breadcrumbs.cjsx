@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 
 CrumbMixin = require './crumb-mixin'
-{ChapterSectionMixin, ScrollToMixin} = require 'openstax-react-components'
+{ChapterSectionMixin} = require 'openstax-react-components'
 {BreadcrumbStatic} = require '../breadcrumb'
 
 BackButton = require '../buttons/back-button'
@@ -11,7 +11,7 @@ BackButton = require '../buttons/back-button'
 module.exports = React.createClass
   displayName: 'Breadcrumbs'
 
-  mixins: [ChapterSectionMixin, CrumbMixin, ScrollToMixin]
+  mixins: [ChapterSectionMixin, CrumbMixin]
 
   propTypes:
     id: React.PropTypes.string.isRequired
@@ -23,12 +23,8 @@ module.exports = React.createClass
   getInitialState: ->
     crumbs: @getCrumableCrumbs()
 
-  scrollingTargetDOM: -> window.document
-
   goToStep: (key) ->
-    stepSelector = "[data-section='#{key}']"
     @props.goToStep(key)
-    @scrollToSelector(stepSelector, updateHistory: false) unless @isSelectorInView(stepSelector)
 
   render: ->
     {crumbs} = @state

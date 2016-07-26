@@ -13,7 +13,6 @@ CrumbMixin = require './crumb-mixin'
 
 ReviewHeadingTracker = React.createClass
   displayName: 'ReviewHeadingTracker'
-  # mixins: [ScrollTrackerMixin]
   render: ->
     {sectionLabel, title, scrollState} = @props
 
@@ -24,20 +23,6 @@ ReviewHeadingTracker = React.createClass
     </h2>
 
 
-# Review = React.createClass
-#   displayName: 'Review'
-#   # mixins: [ScrollListenerMixin, ScrollTrackerParentMixin, ScrollToMixin]
-#   render: ->
-#     contentProps = _.pick(@props, 'id', 'focus', 'period', 'currentStep', 'review', 'panel')
-#         # shouldUpdate={not @state.isScrolling}
-
-#       <ReviewContent
-#         {...contentProps}
-#         setScrollPoint={@setScrollPoint}
-#         unsetScrollPoint={@unsetScrollPoint}
-#       />
-#     </ScrollSpy>
-
 Review = React.createClass
   displayName: 'Review'
   mixins: [ChapterSectionMixin, CrumbMixin]
@@ -46,9 +31,6 @@ Review = React.createClass
     focus: React.PropTypes.bool.isRequired
     period: React.PropTypes.object.isRequired
     currentStep: React.PropTypes.number
-
-  # shouldComponentUpdate: ->
-  #   @props.shouldUpdate
 
   getDefaultProps: ->
     focus: false
