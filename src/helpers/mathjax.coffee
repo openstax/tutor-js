@@ -9,10 +9,9 @@ MATH_ML_SELECTOR   = "math:not(.#{MATH_RENDERED_CLASS})"
 COMBINED_MATH_SELECTOR = "#{MATH_DATA_SELECTOR}, #{MATH_ML_SELECTOR}"
 
 # Search document for math and [data-math] elements and then typeset them
-typesetDocument = ->
+typesetDocument = (windowImpl) ->
   latexNodes = []
-
-  for node in document.querySelectorAll(MATH_DATA_SELECTOR)
+  for node in windowImpl.document.querySelectorAll(MATH_DATA_SELECTOR)
     formula = node.getAttribute('data-math')
     # divs should be rendered as a block, others inline
     if node.tagName.toLowerCase() is 'div'
@@ -22,16 +21,14 @@ typesetDocument = ->
     latexNodes.push(node)
 
   unless _.isEmpty(latexNodes)
-    window.MathJax.Hub.Typeset(latexNodes)
+    windowImpl.MathJax.Hub.Typeset(latexNodes)
 
-  mathMLNodes = _.toArray(document.querySelectorAll(MATH_ML_SELECTOR))
+  mathMLNodes = _.toArray(windowImpl.document.querySelectorAll(MATH_ML_SELECTOR))
   unless _.isEmpty(mathMLNodes)
-    # ugg - mathjax seems to need at least a bit of other content around the element to style
-    # If it just styles a parent element that has no other text then it doesn't know what size the text should be
-    parents = _.unique( _.map( mathMLNodes, (el) -> el.parentElement.parentElement ) )
-    window.MathJax.Hub.Typeset( parents )
+    # style the entire document because mathjax is unable to style individual math elements
+    windowImpl.MathJax.Hub.Typeset( windowImpl.document )
 
-  window.MathJax.Hub.Queue ->
+  windowImpl.MathJax.Hub.Queue ->
     # Queue a call to mark the found nodes as rendered so are ignored if typesetting is called repeatedly
     for node in latexNodes.concat(mathMLNodes)
       node.classList.add(MATH_RENDERED_CLASS)
@@ -40,13 +37,12 @@ typesetDocument = ->
 # every Xms even if called multiple times in that period
 typesetDocument = _.debounce( typesetDocument, 100)
 
-
 # typesetMath is the main exported function.
 # It's called by components like HTML after they're rendered
-typesetMath = (root) ->
+typesetMath = (root, windowImpl = window) ->
   # schedule a Mathjax pass if there is at least one [data-math] or <math> element present
-  if window.MathJax?.Hub?.Queue? and root.querySelector(COMBINED_MATH_SELECTOR)
-    typesetDocument()
+  if windowImpl.MathJax?.Hub?.Queue? and root.querySelector(COMBINED_MATH_SELECTOR)
+    typesetDocument(windowImpl)
 
 
 # The following should be called once and configures MathJax.
