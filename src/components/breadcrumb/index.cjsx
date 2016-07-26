@@ -8,6 +8,15 @@ React = require 'react'
 
 BreadcrumbStatic = React.createClass
   displayName: 'BreadcrumbStatic'
+  propTypes:
+    crumb: React.PropTypes.shape(
+      type: React.PropTypes.string.isRequired
+      data: React.PropTypes.shape(
+        id: React.PropTypes.string.isRequired
+        task_id: React.PropTypes.string.isRequired
+      ).isRequired
+    ).isRequired
+
   componentWillMount: ->
     @setStep(@props)
 
@@ -30,6 +39,16 @@ BreadcrumbStatic = React.createClass
       step={step}/>
 
 BreadcrumbTaskDynamic = React.createClass
+  propTypes:
+    crumb: React.PropTypes.shape(
+      type: React.PropTypes.string.isRequired
+      data: React.PropTypes.shape(
+        id: React.PropTypes.number.isRequired
+        task_id: React.PropTypes.number.isRequired
+      ).isRequired
+    ).isRequired
+    onMount: React.PropTypes.func
+
   displayName: 'BreadcrumbTaskDynamic'
   componentWillMount: ->
     {crumb} = @props

@@ -1,11 +1,12 @@
 React = require 'react'
+classnames = require 'classnames'
 
 {HistoryLocation, History, RouteHandler} = require 'react-router'
 
 Navbar = require './navbar'
 Analytics = require '../helpers/analytics'
 {SpyMode} = require 'openstax-react-components'
-
+{CourseStore} = require '../flux/course'
 {TransitionActions, TransitionStore} = require '../flux/transition'
 
 module.exports = React.createClass
@@ -29,7 +30,12 @@ module.exports = React.createClass
     TransitionActions.load(locationChangeEvent, @context.router)
 
   render: ->
-    <div className='tutor-app openstax-wrapper'>
+    {courseId} = @context.router.getCurrentParams()
+    classNames = classnames('tutor-app', 'openstax-wrapper', {
+      'is-college':     courseId? and CourseStore.isCollege(courseId)
+      'is-high-school': courseId? and CourseStore.isHighSchool(courseId)
+    })
+    <div className={classNames}>
       <SpyMode.Wrapper>
         <Navbar />
         <RouteHandler/>

@@ -78,6 +78,7 @@ CourseConfig =
 
     isConceptCoach: (courseId) -> !! @_local[courseId]?.is_concept_coach
     isCollege: (courseId) -> !! @_local[courseId]?.is_college
+    isHighSchool: (courseId) -> not @_local[courseId]?.is_college
 
     isGuideLoading: (courseId) -> @_asyncStatusGuides[courseId] is 'loading'
     isGuideLoaded: (courseId) -> !! @_guides[courseId]
