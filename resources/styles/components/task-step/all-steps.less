@@ -32,7 +32,7 @@
 
   .task-step {
     // The number of pixels the iframe will be inset from the task in the end
-    @desired-iframe-inset: (@tutor-task-width - 960px) / 2;
+    @desired-iframe-inset: (@tutor-task-width - @tutor-interactive-iframe-width) / 2;
 
     :not(.interactive-step) {
       iframe.interactive {
