@@ -118,19 +118,11 @@ TaskTeacherReview = React.createClass
 
     TaskTeacherReviewStore.off('change', @setIsReviewLoaded)
 
-    steps = @getSteps()
+    steps = @getContents()
     @setState({isReviewLoaded: true, steps})
 
     params = _.clone(@context.router.getCurrentParams())
     @syncStep(params)
-
-  getSteps: ->
-    steps = @getContents()
-    stepsList = _.map steps, (step, index) =>
-      stepInfo = _.pick(step, 'key', 'sectionLabel')
-      stepInfo.index = index
-
-      stepInfo
 
   getActiveStep: ->
     {steps, currentStep} = @state
@@ -138,6 +130,7 @@ TaskTeacherReview = React.createClass
 
   render: ->
     {id, courseId} = @props
+    {steps} = @state
     periodIndex = @getPeriodIndex()
 
     panel = <ReviewShell
@@ -145,6 +138,7 @@ TaskTeacherReview = React.createClass
           review='teacher'
           panel='teacher-review'
           goToStep={@goToStep}
+          steps={steps}
           currentStep={@state.currentStep}
           period={@state.period} />
 

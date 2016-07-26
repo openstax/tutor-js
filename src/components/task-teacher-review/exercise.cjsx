@@ -84,10 +84,10 @@ TaskTeacherReviewQuestion = React.createClass
 TaskTeacherReviewQuestionTracker = React.createClass
   displayName: 'TaskTeacherReviewQuestionTracker'
   render: ->
-    {scrollState} = @props
+    {sectionKey} = @props
 
     questionProps = _.pick(@props, 'question', 'questionStats')
-    <div data-section={scrollState.key}>
+    <div data-section={sectionKey}>
       <TaskTeacherReviewQuestion {...questionProps}/>
     </div>
 
@@ -105,15 +105,13 @@ TaskTeacherReviewExercise = React.createClass
 
   renderQuestion: (question, index) ->
     questionStats = @getQuestionStatsById(question.id)
-    {scrollState} = @props
-    {key} = scrollState
-    scrollState = _.extend {}, scrollState, {key: key + index}
+    {sectionKey} = @props
 
     <TaskTeacherReviewQuestionTracker
       key={"task-review-question-#{question.id}"}
       question={question}
       questionStats={questionStats}
-      scrollState={scrollState}/>
+      sectionKey={sectionKey}/>
 
   render: ->
     {content} = @props

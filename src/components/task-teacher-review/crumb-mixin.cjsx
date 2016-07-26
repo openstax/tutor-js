@@ -51,10 +51,12 @@ module.exports =
 
       _.each crumb.data, (data) ->
         data.sectionLabel = crumb.sectionLabel
+        data.content = JSON.parse(data.content)
 
     else
       crumb.sectionLabel = @_buildSectionLabel(data.chapter_section)
       crumb.data.sectionLabel = crumb.sectionLabel
+      crumb.data.content = JSON.parse(crumb.data.content)
 
     crumb
 
@@ -73,9 +75,9 @@ module.exports =
     exercises = @_getExercisesFromStats(stats)
     crumbs = _.chain(exercises)
       .map((data) =>
-        {questions} = JSON.parse(data.content)
         stepCrumbs = []
         mainCrumb = @_makeCrumb(data)
+        {questions} = mainCrumb.data.content
         stepCrumbs.push(mainCrumb)
         _.chain(questions).rest(1).each((question) =>
           stepCrumbs.push(@_makeCrumb(_.pick(data, 'chapter_section', 'average_step_number', 'question_stats')))
