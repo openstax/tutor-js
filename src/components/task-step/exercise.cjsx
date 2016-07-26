@@ -186,6 +186,13 @@ module.exports = React.createClass
     {parts, lastPartId, isSinglePartExercise, task, currentStep} = @state
     part = _.last(parts)
 
+    if TaskStore.isDeleted(taskId)
+      setFreeResponse = _.noop
+      setAnswerId = _.noop
+    else
+      setFreeResponse = TaskStepActions.setFreeResponseAnswer
+      setAnswerId = @onChoiceChange
+
     if @canAllContinue() or not @isSinglePart(parts)
       reviewProps = @getReviewProps()
 
@@ -233,6 +240,6 @@ module.exports = React.createClass
       getWaitingText={getWaitingText}
       getCurrentPanel={getCurrentPanel}
       getReadingForStep={getReadingForStep}
-      setFreeResponseAnswer={TaskStepActions.setFreeResponseAnswer}
+      setFreeResponseAnswer={setFreeResponse}
       onFreeResponseChange={@onFreeResponseChange}
-      setAnswerId={@onChoiceChange}/>
+      setAnswerId={setAnswerId}/>
