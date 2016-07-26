@@ -127,7 +127,7 @@ ExerciseWithScroll = React.createClass
 
   scrollToStep: (currentStep) ->
     stepSelector = "[data-step='#{currentStep}']"
-    @scrollToSelector(stepSelector, updateHistory: false) unless @isSelectorInView(stepSelector)
+    @scrollToSelector(stepSelector, {updateHistory: false, unlessInView: true})
 
   render: ->
     {parts, footer, pinned} = @props
