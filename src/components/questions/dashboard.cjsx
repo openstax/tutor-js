@@ -8,8 +8,6 @@ classnames = require 'classnames'
 SectionsChooser = require './sections-chooser'
 ExercisesDisplay = require './exercises-display'
 
-Help = require './help'
-
 Icon = require '../icon'
 LoadingDisplay = require './loading-display'
 
@@ -41,7 +39,6 @@ QuestionsDashboard = React.createClass
         onSelectionsChange={@onSelectionsChange} />
 
       <ExercisesDisplay
-        helpTooltip={Help.forCourseId(@props.courseId).primary}
         {...@props}
         showingDetails={@state.showingDetails}
         onShowCardViewClick={@onShowCardViewClick}
