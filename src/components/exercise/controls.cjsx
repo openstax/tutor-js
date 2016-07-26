@@ -131,7 +131,7 @@ ExFooter = React.createClass
     {footer, idLink} = @props
 
     footerProps = _.pick(@props, props.StepFooter)
-    footerProps.controlButtons = <ExControlButtons {...@props}/>
+    footerProps.controlButtons ?= <ExControlButtons {...@props}/>
 
     <div>
       {React.addons.cloneWithProps(footer, footerProps)}

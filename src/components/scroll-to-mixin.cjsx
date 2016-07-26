@@ -31,11 +31,28 @@ ScrollToMixin =
   _scrollingTargetDOM: -> @scrollingTargetDOM?() or React.findDOMNode(@)
 
   scrollToSelector: (selector, options) ->
-    return if _.isEmpty(selector)
-    options = _.extend({updateHistory: true}, options)
+    options = _.extend({updateHistory: true, unlessInView: false}, options)
 
-    el = @_scrollingTargetDOM().querySelector(selector)
-    @scrollToElement(el, options) if el
+    el = @getElement(selector)
+    return false unless el
+
+    @scrollToElement(el, options) unless (options.unlessInView and @isElementInView(el))
+
+  isSelectorInView: (selector) ->
+    el = @getElement(selector)
+    return false unless el
+
+    @isElementInView(el)
+
+  isElementInView: (el) ->
+    {top, bottom, height} = el.getBoundingClientRect()
+    visibleHeight = Math.min(window.innerHeight, bottom) - Math.max(0, top)
+
+    visibleHeight > height / 2
+
+  getElement: (selector) ->
+    return if _.isEmpty(selector)
+    @_scrollingTargetDOM().querySelector(selector)
 
   _onBeforeScroll: (el) ->
     el.classList.add('target-scroll')
@@ -60,7 +77,7 @@ ScrollToMixin =
     GetPositionMixin.getTopPosition(el) - _.result(@, 'getScrollTopOffset', DEFAULT_TOP_OFFSET)
 
   scrollToTop: ->
-    @scrollToSelector('#react-root-container')
+    @scrollToSelector('#react-root-container', updateHistory: false)
 
   scrollToElement: (el, options = {} ) ->
     win       = @props.windowImpl

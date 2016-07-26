@@ -130,7 +130,9 @@ ExerciseStepCard = React.createClass
       onContinue: @onContinue
 
     if includeFooter
-      footer = <ExFooter {...@props} {...controlProps} idLink={idLink} />
+      footerProps = @props
+      footerProps = _.omit(footerProps, 'idLink') if pinned
+      footer = <ExFooter {...footerProps} {...controlProps}/>
 
     if includeGroup
       exerciseGroup =
@@ -150,6 +152,7 @@ ExerciseStepCard = React.createClass
           {...step}
           {...panelProps}
           mode={panel}/>
+        {idLink if pinned}
       </div>
       {helpLink}
     </CardBody>

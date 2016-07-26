@@ -10,17 +10,15 @@ ExerciseIdentifierLink = require '../exercise-identifier-link'
 ScrollToMixin = require '../scroll-to-mixin'
 
 ExerciseMixin =
-  getLastPartId: ->
-    {parts} = @props
-    _.last(parts).id
+
+  propTypes:
+    parts: React.PropTypes.array.isRequired
+    canOnlyContinue: React.PropTypes.func.isRequired
+    currentStep: React.PropTypes.number.isRequired
 
   isSinglePart: ->
     {parts} = @props
     parts.length is 1
-
-  isLastPart: (id) ->
-    lastPartId = @getLastPartId()
-    lastPartId is id
 
   canAllContinue: ->
     {parts, canOnlyContinue} = @props
@@ -29,31 +27,30 @@ ExerciseMixin =
       canOnlyContinue(part.id)
 
   shouldControl: (id) ->
-    {canOnlyContinue} = @props
-
-    not (@isLastPart(id) and canOnlyContinue(id))
+    not @props.canOnlyContinue(id)
 
   renderPart: (part, partProps) ->
-    props = _.omit(@props, 'part', 'canOnlyContinue', 'footer', 'setScrollState', 'goToStep')
+    props = _.omit(@props, 'parts', 'canOnlyContinue', 'footer', 'goToStep', 'controlButtons')
 
     <ExercisePart
+      focus={@isSinglePart()}
       {...props}
       {...partProps}
-      focus={@isSinglePart()}
       step={part}
       id={part.id}
       taskId={part.task_id}/>
 
   renderSinglePart: ->
-    {parts, footer} = @props
+    {parts, footer, canOnlyContinue, controlButtons} = @props
 
     part = _.first(parts)
 
     partProps =
-      footer: footer
       idLink: @renderIdLink()
       focus: true
       includeGroup: true
+      footer: footer
+      controlButtons: controlButtons
 
     @renderPart(part, partProps)
 
@@ -66,7 +63,7 @@ ExerciseMixin =
 
       partProps =
         pinned: false
-        focus: index is currentStep
+        focus: part.stepIndex is currentStep
         includeGroup: false
         includeFooter: @shouldControl(part.id)
         keySet: keySet
@@ -91,7 +88,7 @@ ExerciseMixin =
       related_content={step.related_content}/>
 
   renderFooter: ->
-    {parts, onNextStep, currentStep} = @props
+    {parts, onNextStep, currentStep, pinned} = @props
     step = _.last(parts)
 
     if @canAllContinue()
@@ -100,8 +97,9 @@ ExerciseMixin =
         onContinue: _.partial onNextStep, currentStep: step.stepIndex
 
     footerProps = _.omit(@props, 'onContinue')
+    footerProps.idLink = @renderIdLink(false) unless pinned
+
     <ExFooter {...canContinueControlProps} {...footerProps}
-      idLink={@renderIdLink(false)}
       panel='review' />
 
   renderIdLink: (related = true) ->
@@ -122,16 +120,14 @@ ExerciseWithScroll = React.createClass
 
   componentDidMount: ->
     {currentStep} = @props
-    if currentStep?
-      @scrollToSelector("[data-step='#{currentStep}']")
+    @scrollToStep(currentStep) if currentStep?
 
   componentWillReceiveProps: (nextProps) ->
-    if nextProps.currentStep isnt @props.currentStep
-      @scrollToSelector("[data-step='#{nextProps.currentStep}']")
+    @scrollToStep(nextProps.currentStep) if nextProps.currentStep isnt @props.currentStep
 
-  onAfterScroll: ->
-    textArea = @_scrollingTargetDOM().querySelector("[data-step='#{@props.currentStep}'] textarea")
-    textArea?.focus()
+  scrollToStep: (currentStep) ->
+    stepSelector = "[data-step='#{currentStep}']"
+    @scrollToSelector(stepSelector, {updateHistory: false, unlessInView: true})
 
   render: ->
     {parts, footer, pinned} = @props
@@ -144,6 +140,7 @@ ExerciseWithScroll = React.createClass
         <ExerciseBadges isMultipart={true}/>
         {@renderGroup()}
         {@renderMultiParts()}
+        {@renderIdLink(false) if pinned}
       </CardBody>
 
 
@@ -165,6 +162,7 @@ Exercise = React.createClass
         <ExerciseBadges isMultipart={true}/>
         {@renderGroup()}
         {@renderMultiParts()}
+        {@renderIdLink(false) if pinned}
       </CardBody>
 
 module.exports = {Exercise, ExerciseWithScroll}

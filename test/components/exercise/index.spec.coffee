@@ -7,6 +7,9 @@ CHOICES = STEP.content.questions[0].answers
 step = null
 props = null
 
+canOnlyContinue = (partId) ->
+  false
+
 FREE_RESPONSE_PROPS =
   taskId: '1'
   onStepCompleted: sinon.spy()
@@ -30,6 +33,7 @@ FREE_RESPONSE_PROPS =
   getReadingForStep: sinon.spy()
   refreshStep: sinon.spy()
   recoverFor: sinon.spy()
+  canOnlyContinue: sinon.spy(canOnlyContinue)
 
   review: ''
   focus: false
