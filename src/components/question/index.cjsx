@@ -11,7 +11,6 @@ QuestionHtml = React.createClass
   propTypes:
     html: React.PropTypes.string
     type: React.PropTypes.string
-    questionNumber: React.PropTypes.number
   getDefaultProps: ->
     html: ''
     type: ''
@@ -29,7 +28,6 @@ QuestionHtml = React.createClass
       className="question-#{type}"
       block={true}
       html={html}
-      data-question-number={@props.questionNumber}
     />
 
 Question = React.createClass
@@ -61,12 +59,12 @@ Question = React.createClass
     @hasAnswerCorrectness() and @doesArrayHaveProperty(collaborator_solutions, 'content_html')
 
   render: ->
-    {model, correct_answer_id, exercise_uid, className, questionNumber, context} = @props
+    {model, correct_answer_id, exercise_uid, className, questionNumber, context, task} = @props
     {stem_html, collaborator_solutions, formats, stimulus_html} = model
 
     hasCorrectAnswer = !! correct_answer_id
     classes = classnames 'openstax-question', className,
-      'has-correct-answer': hasCorrectAnswer
+      'has-correct-answer': hasCorrectAnswer and not task.is_deleted
 
     htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
 
@@ -84,7 +82,7 @@ Question = React.createClass
     <div className={classes} data-question-number={questionNumber}>
       <QuestionHtml type='context' html={context} />
       <QuestionHtml type='stimulus' html={stimulus_html} />
-      <QuestionHtml type='stem' html={stem_html} questionNumber={questionNumber} />
+      <QuestionHtml type='stem' html={stem_html} />
       {@props.children}
       <AnswersTable {...@props} hasCorrectAnswer={hasCorrectAnswer}/>
       {<FormatsListing formats={formats} /> if @props.displayFormats}

@@ -33,6 +33,20 @@
     font-size: 1.2rem;
     line-height: 1.2rem;
   }
+
+	&.deleted-reading,
+	&.deleted-homework {
+		.btn {
+			display: none;
+		}
+	}
+	&.deleted-homework {
+		.openstax-question:not(.openstax-question-preview) {
+			.question-feedback {
+				display: none;
+			}
+		}
+	}
 }
 
 &-multipart-exercise-card {

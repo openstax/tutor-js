@@ -84,7 +84,7 @@ ExMode = React.createClass
     answerKeySet = null unless choicesEnabled
 
     questionProperties = [
-      'processHtmlAndMath', 'choicesEnabled', 'correct_answer_id',
+      'processHtmlAndMath', 'choicesEnabled', 'correct_answer_id', 'task',
       'feedback_html', 'type', 'questionNumber', 'project', 'context'
     ]
 

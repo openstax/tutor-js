@@ -143,7 +143,11 @@ ExerciseStepCard = React.createClass
           exercise_uid={step.content?.uid}
           related_content={related_content}/>
 
-    cardClasses = classnames 'task-step', 'openstax-exercise-card', className
+    cardClasses = classnames 'task-step', 'openstax-exercise-card', className, {
+      "deleted-homework": @props.task.type is 'homework' and @props.task.is_deleted
+      "deleted-reading": @props.task.type is 'reading' and @props.task.is_deleted
+    }
+
 
     <CardBody className={cardClasses} pinned={pinned} footer={footer}>
       <div className="exercise-#{panel}" data-step={@props.stepPartIndex}>
