@@ -7,17 +7,34 @@
   &[data-appearance]:before {
     color: @openstax-book-default-fg;
     background-color: @openstax-book-default-bg;
-    content: attr(data-title);
+    content: attr(data-book-title);
     position: fixed;
     top: 60px;
     left: 0px;
     right: 0px;
-    height: 24rem;
-    line-height: 24rem;
+
+    height: 9rem;
+    line-height: 9rem;
+    font-size: 12rem;
+    @media (min-width: @screen-sm-min) {
+      height: 11rem;
+      line-height: 11rem;
+      font-size: 14rem;
+    }
+    @media (min-width: @screen-md-min) {
+      height: 14rem;
+      line-height: 13rem;
+      font-size: 18rem;
+    }
+    @media (min-width: @screen-lg-min) {
+      height: 16rem;
+      line-height: 15rem;
+      font-size: 21rem;
+    }
+
     overflow: hidden;
     color: @tutor-secondary;
     text-align: center;
-    font-size: 35rem;
     letter-spacing: -6px;
     #fonts > .book-cover();
     z-index: -1;
