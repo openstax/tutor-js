@@ -155,9 +155,15 @@ module.exports = React.createClass
         average =
           <span className="average">---</span>
       else if heading.type is 'external'
+        p = heading.completion_rate
+        percent = switch
+          when (p < 1 and p > 0.99) then 99 # Don't round to 100% when it's not 100%!
+          when (p > 0 and p < 0.01) then 1  # Don't round to 0% when it's not 0%!
+          when (p > 1) then 100             # Don't let it go over 100%!
+          else Math.round(p * 100)
         average =
           <span className="click-rate">
-            {(heading.completion_rate * 100).toFixed(0)}% have clicked link
+            {percent}% have clicked link
           </span>
 
     if heading.type is 'reading' or heading.type is 'external'
