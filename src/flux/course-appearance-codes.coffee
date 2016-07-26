@@ -1,11 +1,16 @@
-# NOTE: These must be kept in sync with the styles in variables/colors.less
+# NOTE:
+#  * The 'biology' and 'physics' codes are deprecated, but are retained for older courses that may have them
+#  * These codes must be kept in sync with the styles in variables/colors.less
 module.exports =
-    physics:              'Physics'
-    biology:              'Biology'
-    macro_economics:      'Macro Economics'
-    college_physics:      'College Physics'
-    micro_economics:      'Micro Economics'
-    concepts_biology:     'Concepts of Biology'
-    intro_sociology:      'Intro to Sociology'
-    anatomy_physiology:   'Anatomy and Physiology'
-    principles_economics: 'Principles of Economics'
+  physics:              'Physics'
+  hs_physics:           'High School Physics'
+  college_physics:      'College Physics'
+  biology:              'Biology'
+  ap_biology:           'Biology for AP® Courses'
+  concepts_biology:     'Concepts of Biology'
+  college_biology:      'College Biology'
+  principles_economics: 'Principles of Economics'
+  macro_economics:      'Macroeconomics'
+  micro_economics:      'Microeconomics'
+  intro_sociology:      'Introduction to Sociology'
+  anatomy_physiology:   'Anatomy & Physiology'
