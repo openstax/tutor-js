@@ -3,7 +3,6 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 
 {ArbitraryHtmlAndMath, Question, CardBody, FreeResponse, ExerciseGroup} = require 'openstax-react-components'
-{ScrollTrackerMixin} = require 'openstax-react-components/src/components/scroll-tracker'
 {ExerciseStore} = require '../../flux/exercise'
 
 TaskTeacherReviewQuestion = React.createClass

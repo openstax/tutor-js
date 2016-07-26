@@ -119,7 +119,8 @@ TaskTeacherReview = React.createClass
     TaskTeacherReviewStore.off('change', @setIsReviewLoaded)
 
     steps = @getContents()
-    @setState({isReviewLoaded: true, steps})
+    crumbs = @getCrumableCrumbs()
+    @setState({isReviewLoaded: true, steps, crumbs})
 
     params = _.clone(@context.router.getCurrentParams())
     @syncStep(params)
@@ -130,7 +131,7 @@ TaskTeacherReview = React.createClass
 
   render: ->
     {id, courseId} = @props
-    {steps} = @state
+    {steps, crumbs} = @state
     periodIndex = @getPeriodIndex()
 
     panel = <ReviewShell
@@ -150,12 +151,13 @@ TaskTeacherReview = React.createClass
 
       breadcrumbs = <Breadcrumbs
         id={id}
+        crumbs={crumbs}
         goToStep={@goToStep}
         scrollToStep={@scrollToStep}
         currentStep={@state.currentStep}
         title={task.title}
         courseId={courseId}
-        key="task-#{id}-breadcrumbs"/>
+        key="task-#{id}-breadcrumbs" />
 
     <PinnedHeaderFooterCard
       className={taskClasses}

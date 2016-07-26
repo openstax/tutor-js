@@ -4,11 +4,6 @@ _ = require 'underscore'
 TaskTeacherReviewExercise = require './exercise'
 LoadableItem = require '../loadable-item'
 
-CrumbMixin = require './crumb-mixin'
-{ScrollListenerMixin} = require 'react-scroll-components'
-{ChapterSectionMixin, ScrollToMixin} = require 'openstax-react-components'
-{ScrollTrackerMixin, ScrollTrackerParentMixin} = require 'openstax-react-components/src/components/scroll-tracker'
-
 {TaskTeacherReviewActions, TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
 
 ReviewHeadingTracker = React.createClass
@@ -30,6 +25,7 @@ Review = React.createClass
     focus: React.PropTypes.bool.isRequired
     period: React.PropTypes.object.isRequired
     currentStep: React.PropTypes.number
+    steps: React.PropTypes.array.isRequired
 
   getDefaultProps: ->
     focus: false
@@ -39,9 +35,6 @@ Review = React.createClass
     stepsProps = _.omit(@props, 'focus')
 
     stepsList = _.map steps, (step, index) =>
-
-      # scrollState = _.pick(step, 'key', 'sectionLabel')
-
       if step.question_stats?
         return null unless step.content
         stepProps = _.extend({}, stepsProps, step)
