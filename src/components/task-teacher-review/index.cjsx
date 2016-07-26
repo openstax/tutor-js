@@ -73,6 +73,9 @@ TaskTeacherReview = React.createClass
 
   syncRoute: ({path}) ->
     {params} = @context.router.match(path)
+    @syncStep(params)
+
+  syncStep: (params) ->
     {sectionIndex} = params
     currentStep = sectionIndex - 1
     @setState({currentStep})
@@ -116,6 +119,9 @@ TaskTeacherReview = React.createClass
 
     steps = @getSteps()
     @setState({isReviewLoaded: true, steps})
+
+    params = _.clone(@context.router.getCurrentParams())
+    @syncStep(params)
 
   getSteps: ->
     steps = @getContents()
