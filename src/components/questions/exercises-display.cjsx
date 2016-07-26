@@ -4,6 +4,7 @@ BS = require 'react-bootstrap'
 {PinnedHeaderFooterCard} = require 'openstax-react-components'
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
 
+Help = require './help'
 Icon = require '../icon'
 ExerciseControls = require './exercise-controls'
 ExerciseDetails  = require '../exercises/details'
@@ -15,13 +16,13 @@ ExerciseHelpers  = require '../../helpers/exercise'
 Dialog           = require '../tutor-dialog'
 CourseGroupingLabel = require '../course-grouping-label'
 
+
 ExercisesDisplay = React.createClass
 
   propTypes:
     courseId:    React.PropTypes.string.isRequired
     sectionIds:  React.PropTypes.array
     ecosystemId: React.PropTypes.string.isRequired
-    helpTooltip: React.PropTypes.string.isRequired
 
   getInitialState: -> {
     filter: ''
@@ -169,6 +170,7 @@ ExercisesDisplay = React.createClass
     ExerciseStore.isExerciseExcluded(exercise.id)
 
   renderExercises: (exercises) ->
+
     return <NoExercisesFound /> unless exercises.count
 
     sharedProps =
@@ -177,6 +179,7 @@ ExercisesDisplay = React.createClass
         getExerciseActions: @getExerciseActions
         getExerciseIsSelected: @getExerciseIsSelected
         ecosystemId: @props.ecosystemId
+        topScrollOffset: 190
 
     if @props.showingDetails
       <ExerciseDetails
@@ -199,15 +202,7 @@ ExercisesDisplay = React.createClass
     return null if ExerciseStore.isLoading() or _.isEmpty(@props.sectionIds)
 
     exercises = ExerciseStore.groupBySectionsAndTypes(@props.ecosystemId, @props.sectionIds, withExcluded: true)
-
     <div className="exercises-display">
-      <div className="instructions">
-        <div className="wrapper">
-          Click each question that you would like to exclude from
-          all aspects of your students’ Tutor experience.
-          <Icon type='info-circle' tooltip={@props.helpTooltip} />
-        </div>
-      </div>
 
       <PinnedHeaderFooterCard
         ref='controls'
@@ -215,6 +210,12 @@ ExercisesDisplay = React.createClass
         header={@renderControls(exercises)}
         cardType='sections-questions'
       >
+
+      <div className="instructions">
+        <div className="wrapper">
+          {Help.forCourseId(@props.courseId).second.bar}
+        </div>
+      </div>
 
       {@renderExercises(
         if @state.filter then exercises[@state.filter] else exercises.all
