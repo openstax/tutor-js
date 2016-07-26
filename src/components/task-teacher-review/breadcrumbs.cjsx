@@ -26,14 +26,11 @@ module.exports = React.createClass
     {currentStep, title, courseId, crumbs} = @props
 
     stepButtons = _.map crumbs, (crumb) =>
-      stepSelector = "[data-section='#{crumb.key}']"
-
       <BreadcrumbStatic
         crumb={crumb}
         currentStep={currentStep}
         goToStep={@goToStep}
         key="breadcrumb-#{crumb.type}-#{crumb.key}"/>
-
 
     fallbackLink =
       to: 'taskplans'
