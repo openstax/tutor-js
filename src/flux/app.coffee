@@ -8,6 +8,9 @@ AppConfig =
   _statuses: []
   _pending: []
 
+  resetServerErrors: ->
+    delete @_currentServerError
+
   _getRequestOpts: (opts) ->
     opts = _.pick(opts, 'method', 'data', 'url')
     opts = _.omit(opts, 'data') unless opts.data
@@ -64,11 +67,13 @@ AppConfig =
 
   setServerError: (statusCode, message, requestDetails) ->
     status = @updateForResponse statusCode, message, requestDetails
-
-    {displayError} = requestDetails
-    return unless displayError
+    return unless requestDetails
     @_currentServerError = status
-    @emit('server-error', statusCode, message)
+    unless _.isObject(message)
+      try
+        @_currentServerError.message = JSON.parse(message)
+      catch e
+    @emit('server-error', statusCode, @_currentServerError.message)
 
   setServerSuccess: (statusCode, message, requestDetails) ->
     status = @updateForResponse statusCode, message, requestDetails

@@ -86,7 +86,7 @@ ServerErrorMessage = React.createClass
 NoExercisesMessage = React.createClass
   render: ->
     <div className="no-exercises">
-      <p className="lead">There are no practice problems available for this topic.</p>
+      <p className="lead">There are no problems to show for this topic.</p>
     </div>
 
 
@@ -98,7 +98,7 @@ ERROR_HANDLERS =
       router.transitionTo('viewStudentDashboard', {courseId})
       Dialog.hide()
     dialog:
-      title: 'Unable to practice topic'
+      title: 'No exercises are available'
       body: <NoExercisesMessage />
       buttons: [
         <BS.Button key='ok' onClick={hideDialog} bsStyle='primary'>OK</BS.Button>
@@ -135,11 +135,9 @@ module.exports = React.createClass
     return unless error and -1 is window.location.search.indexOf('reloaded')
     message = {}
     handler = 'default'
-    if error.message
-      try
-        message = JSON.parse(error.message)
-      catch e
 
+    if _.isObject(error.message)
+      {message} = error
       if message.errors?.length is 1 and ERROR_HANDLERS[message.errors[0].code]
         handler = message.errors[0].code
 
