@@ -14,6 +14,7 @@
 
   .tutor-booksplash-course-item {
     position: relative;
+    overflow: hidden;
     .tutor-course-item {
       height: @course-listing-item-height;
       width: 100%;
@@ -33,18 +34,24 @@
         float: left;
         overflow: hidden;
         .transition(margin .1s ease-in);
+        font-size: 4rem;
+        padding: @course-listing-buffer/2 0 0 @course-listing-buffer/2;
+        margin-left: -@course-listing-item-offset;
+        margin-top: 0;
       }
       &:hover {
-        background-position-y: 30px;
+        background-position: 200px 30px;
+          &::before {
+            margin-left: 0;
+          }
       }
     }
 
     .tutor-course-alt-link {
       text-decoration: none;
       display: inline-block;
-      padding: 10px 20px;
+      padding: 0px 20px;
       float: right;
-      margin-top: -50px;
 
       &:hover {
         font-style: italic;
@@ -66,9 +73,12 @@
 
     .apply-course-listing-book-styling(@code; @fg; @bg) {
       &[data-appearance=@{code}] {
-        .tutor-course-item {
+        .tutor-course-item, .course-type-flag {
           color: @@fg;
           background-color: @@bg;
+        }
+        .course-type-flag {
+          border: 3px solid @@fg;
         }
       }
     }
@@ -76,29 +86,20 @@
       .apply-course-listing-book-styling(@code, "openstax-book-@{code}-fg", "openstax-book-@{code}-bg");
     }
 
-  }
-}
-
-@media (min-width: @screen-xs-min) {
-  .course-listing {
-    .tutor-booksplash-course-item {
-      .tutor-course-item {
-        &::before {
-          font-size: 4rem;
-          width: @course-listing-item-offset;
-          padding: @course-listing-buffer/2 0 0 @course-listing-buffer/2;
-          margin-left: -@course-listing-item-offset;
-          margin-top: 0;
-        }
-
-        &:hover {
-          background-position: 200px 0;
-          &::before {
-            margin-left: 0;
-          }
-        }
-      }
-
+    .course-type-flag {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin-top: 8px;
+      margin-right: (@course-listing-buffer/2) + 3;
+      padding: 8px;
+      font-size: 3rem;
+      font-weight: 600;
+      pointer-events: none;
     }
+
   }
 }
+
+
+
