@@ -2,15 +2,17 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 
+CrumbMixin = require './crumb-mixin'
 Breadcrumbs = require './breadcrumbs'
 {ReviewShell} = require './review'
 {StatsModalShell} = require '../plan-stats'
-{PinnedHeaderFooterCard} = require 'openstax-react-components'
+{PinnedHeaderFooterCard, ChapterSectionMixin, ScrollToMixin} = require 'openstax-react-components'
 
 _ = require 'underscore'
 camelCase = require 'camelcase'
 
 {TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
+ScrollSpy = require '../scroll-spy'
 
 
 TaskTeacherReview = React.createClass
@@ -18,6 +20,10 @@ TaskTeacherReview = React.createClass
     id: React.PropTypes.string
 
   displayName: 'TaskTeacherReview'
+
+  mixins: [ChapterSectionMixin, CrumbMixin, ScrollToMixin]
+
+  scrollingTargetDOM: -> window.document
 
   contextTypes:
     router: React.PropTypes.func
@@ -50,8 +56,38 @@ TaskTeacherReview = React.createClass
     @setStepKey()
     TaskTeacherReviewStore.on('review.loaded', @setIsReviewLoaded)
 
-  componentWillReceiveProps: ->
-    @setStepKey()
+    location = @context.router.getLocation()
+    location.addChangeListener(@syncRoute)
+
+  componentWillUnmount: ->
+    TaskTeacherReviewStore.off('review.loaded', @setIsReviewLoaded)
+
+    location = @context.router.getLocation()
+    location.removeChangeListener(@syncRoute)
+
+  componentWillReceiveProps: (nextProps) ->
+    if nextProps.shouldUpdate
+      key = _.first(nextProps.onScreenElements)
+      if key? and parseInt(key) isnt @state.currentStep
+        @goToStep(parseInt(key))
+
+  syncRoute: ({path}) ->
+    {params} = @context.router.match(path)
+    @syncStep(params)
+
+  syncStep: (params) ->
+    {sectionIndex} = params
+    currentStep = sectionIndex - 1
+    @setState({currentStep})
+
+    stepSelector = "[data-section='#{currentStep}']"
+    @scrollToSelector(stepSelector, updateHistory: false) unless @isSelectorInView(stepSelector)
+
+  shouldComponentUpdate: (nextProps) ->
+    {shouldUpdate} = nextProps
+    shouldUpdate ?= true
+
+    shouldUpdate
 
   goToStep: (stepKey) ->
     params = _.clone(@context.router.getCurrentParams())
@@ -80,7 +116,24 @@ TaskTeacherReview = React.createClass
     return null unless id is @props.id
 
     TaskTeacherReviewStore.off('change', @setIsReviewLoaded)
-    @setState({isReviewLoaded: true})
+
+    steps = @getSteps()
+    @setState({isReviewLoaded: true, steps})
+
+    params = _.clone(@context.router.getCurrentParams())
+    @syncStep(params)
+
+  getSteps: ->
+    steps = @getContents()
+    stepsList = _.map steps, (step, index) =>
+      stepInfo = _.pick(step, 'key', 'sectionLabel')
+      stepInfo.index = index
+
+      stepInfo
+
+  getActiveStep: ->
+    {steps, currentStep} = @state
+    activeStep = _.find(steps, {key: currentStep})
 
   render: ->
     {id, courseId} = @props
@@ -91,7 +144,6 @@ TaskTeacherReview = React.createClass
           review='teacher'
           panel='teacher-review'
           goToStep={@goToStep}
-          setScrollState={@setScrollState}
           currentStep={@state.currentStep}
           period={@state.period} />
 
@@ -125,7 +177,7 @@ TaskTeacherReview = React.createClass
                 courseId={courseId}
                 initialActivePeriod={periodIndex}
                 shouldOverflowData={true}
-                activeSection={@state.scrollState?.sectionLabel}
+                activeSection={@getActiveStep()?.sectionLabel}
                 handlePeriodSelect={@setPeriod}
                 handlePeriodKeyUpdate={@setPeriodIndex}/>
             </BS.Col>
@@ -139,6 +191,8 @@ TaskTeacherReviewShell = React.createClass
     router: React.PropTypes.func
   render: ->
     {id, courseId} = @context.router.getCurrentParams()
-    <TaskTeacherReview key={id} id={id} courseId={courseId}/>
+    <ScrollSpy dataSelector='data-section'>
+      <TaskTeacherReview key={id} id={id} courseId={courseId}/>
+    </ScrollSpy>
 
 module.exports = {TaskTeacherReview, TaskTeacherReviewShell}

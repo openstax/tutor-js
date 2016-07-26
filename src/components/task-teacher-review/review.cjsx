@@ -6,19 +6,17 @@ LoadableItem = require '../loadable-item'
 
 CrumbMixin = require './crumb-mixin'
 {ScrollListenerMixin} = require 'react-scroll-components'
-{ChapterSectionMixin} = require 'openstax-react-components'
+{ChapterSectionMixin, ScrollToMixin} = require 'openstax-react-components'
 {ScrollTrackerMixin, ScrollTrackerParentMixin} = require 'openstax-react-components/src/components/scroll-tracker'
 
 {TaskTeacherReviewActions, TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
 
-
 ReviewHeadingTracker = React.createClass
   displayName: 'ReviewHeadingTracker'
-  mixins: [ScrollTrackerMixin]
   render: ->
-    {sectionLabel, title} = @props
+    {sectionLabel, title, scrollState} = @props
 
-    <h2>
+    <h2 data-section={scrollState.key}>
       <span className='text-success'>
         {sectionLabel}
       </span> {title}
@@ -27,7 +25,7 @@ ReviewHeadingTracker = React.createClass
 
 Review = React.createClass
   displayName: 'Review'
-  mixins: [ChapterSectionMixin, CrumbMixin, ScrollListenerMixin, ScrollTrackerParentMixin]
+  mixins: [ChapterSectionMixin, CrumbMixin]
   propTypes:
     id: React.PropTypes.string.isRequired
     focus: React.PropTypes.bool.isRequired
@@ -62,10 +60,7 @@ Review = React.createClass
 
       item = <Tracker
         {...stepProps}
-        scrollState={scrollState}
-        setScrollPoint={@setScrollPoint}
-        unsetScrollPoint={@unsetScrollPoint}
-      />
+        scrollState={scrollState}/>
 
     <div>
       {stepsList}

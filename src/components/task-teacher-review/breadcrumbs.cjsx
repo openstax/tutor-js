@@ -23,15 +23,20 @@ module.exports = React.createClass
   getInitialState: ->
     crumbs: @getCrumableCrumbs()
 
+  goToStep: (key) ->
+    @props.goToStep(key)
+
   render: ->
     {crumbs} = @state
-    {currentStep, goToStep, title, courseId} = @props
+    {currentStep, title, courseId} = @props
 
-    stepButtons = _.map crumbs, (crumb) ->
+    stepButtons = _.map crumbs, (crumb) =>
+      stepSelector = "[data-section='#{crumb.key}']"
+
       <BreadcrumbStatic
         crumb={crumb}
         currentStep={currentStep}
-        goToStep={goToStep}
+        goToStep={@goToStep}
         key="breadcrumb-#{crumb.type}-#{crumb.key}"/>
 
 

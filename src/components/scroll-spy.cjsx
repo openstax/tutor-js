@@ -55,6 +55,6 @@ ScrollSpy = React.createClass
     )
 
   render: ->
-    React.cloneElement @props.children, onScreenElements: @state.onScreen
+    React.cloneElement @props.children, {onScreenElements: @state.onScreen, shouldUpdate: not @state.isScrolling}
 
 module.exports = ScrollSpy
