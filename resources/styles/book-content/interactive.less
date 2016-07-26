@@ -1,0 +1,9 @@
+// The number of pixels the iframe will be inset from the task in the end
+@desired-iframe-inset: (@reference-book-page-width - @tutor-interactive-iframe-width) / 2;
+
+iframe.interactive {
+  // The rest of the card has a lot of padding, and it won't fit unless we shift it over so it's centered
+  margin: 20px auto;
+  margin-left: -(@tutor-book-padding-horizontal - @desired-iframe-inset);
+  border: none;
+}
