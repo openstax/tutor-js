@@ -23,11 +23,6 @@
     }
   }
 
-  .exercises-display {
-    max-width: @tutor-max-panel-width;
-    margin: 0 auto;
-  }
-
   .instructions {
     background-color: @tutor-secondary;
     color: @tutor-white;
@@ -43,6 +38,13 @@
       top: -0.5rem;
     }
   }
+
+  .exercises-display {
+    max-width: @tutor-max-panel-width;
+    margin: 0 auto;
+    .instructions { margin-top: @padding; }
+  }
+
   .instructions-addon {
     margin: 0 @padding;
     font-size: 1.4rem;
