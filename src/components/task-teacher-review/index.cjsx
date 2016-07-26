@@ -80,6 +80,7 @@ TaskTeacherReview = React.createClass
     currentStep = sectionIndex - 1
     @setState({currentStep})
 
+  scrollToStep: (currentStep) ->
     stepSelector = "[data-section='#{currentStep}']"
     @scrollToSelector(stepSelector, updateHistory: false) unless @isSelectorInView(stepSelector)
 
@@ -156,6 +157,7 @@ TaskTeacherReview = React.createClass
       breadcrumbs = <Breadcrumbs
         id={id}
         goToStep={@goToStep}
+        scrollToStep={@scrollToStep}
         currentStep={@state.currentStep}
         title={task.title}
         courseId={courseId}

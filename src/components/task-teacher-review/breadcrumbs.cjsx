@@ -25,6 +25,7 @@ module.exports = React.createClass
 
   goToStep: (key) ->
     @props.goToStep(key)
+    @props.scrollToStep(key)
 
   render: ->
     {crumbs} = @state
