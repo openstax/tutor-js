@@ -22,8 +22,8 @@ canOnlyContinue = (id) ->
 
 getWaitingText = (id) ->
   switch
-    when TaskStepStore.isLoading(id) then "Loading…"
-    when TaskStepStore.isSaving(id)  then "Saving…"
+    when TaskStepStore.isSaving(id)  then 'Saving…'
+    when TaskStepStore.isLoading(id) then 'Loading…'
     else null
 
 getReadingForStep = (id, taskId) ->
@@ -131,21 +131,6 @@ module.exports = React.createClass
     _.every parts, (part) ->
       canOnlyContinue(part.id)
 
-  getAllIndexes: (props, state) ->
-    props ?= @props
-    state ?= @state
-
-    {taskId} = props
-    {parts} = state
-
-    _.map parts, (part) ->
-      TaskStore.getStepIndex(taskId, part.id)
-
-  isIndexInPart: (stepIndex) ->
-    index = stepIndex - 1
-    partsIndexes = @getAllIndexes()
-    _.contains(partsIndexes, index)
-
   allCorrect: ->
     {parts} = @state
 
@@ -161,45 +146,61 @@ module.exports = React.createClass
     canTryAnother: TaskStepStore.canTryAnother(lastPartId, task, not @allCorrect())
     isRecovering: TaskStepStore.isRecovering(lastPartId)
 
-  setScrollState: (scrollState) ->
-    return unless scrollState?
-    {key} = scrollState
-    @setCurrentStep(key)
-
   setCurrentStepFromProgress: ({current}) ->
     @setCurrentStep(current)
 
   setCurrentStep: (currentStep) ->
+    return unless currentStep isnt @state.currentStep
+
     @setState({currentStep})
+    @props.goToStep(currentStep)
+
+  setCurrentStepByStepId: (id) ->
+    {taskId} = @props
+    stepNavIndex = TaskStore.getStepNavIndex(taskId, id)
+    @setCurrentStep(stepNavIndex)
 
   onFreeResponseChange: (id, tempFreeResponse) ->
-    {taskId} = @props
-    stepIndex = TaskStore.getStepIndex(taskId, id)
     TaskStepActions.updateTempFreeResponse(id, tempFreeResponse)
-    @setCurrentStep(stepIndex)
+
+    # set part to be active if part of multipart
+    @setCurrentStepByStepId(id) unless @isSinglePart(@state.parts)
+
+  onChoiceChange: (id, answerId) ->
+    TaskStepActions.setAnswerId(id, answerId)
+
+    # set part to be active if part of multipart
+    @setCurrentStepByStepId(id) unless @isSinglePart(@state.parts)
+
+  isAnyCompletedPartSaving: ->
+    {parts} = @state
+
+    _.some parts, (part) ->
+      part.is_completed and TaskStepStore.isSaving(part.id)
+
+  getFooterWaitingText: ->
+    'Saving…' if @isAnyCompletedPartSaving()
 
   render: ->
     {id, taskId, courseId, onNextStep, onStepCompleted, goToStep, pinned} = @props
     {parts, lastPartId, isSinglePartExercise, task, currentStep} = @state
     part = _.last(parts)
 
-    controlProps =
-      panel: 'review'
-      controlText: 'Continue' if task.type is 'reading'
-
-    if @canAllContinue()
+    if @canAllContinue() or not @isSinglePart(parts)
       reviewProps = @getReviewProps()
 
       canContinueControlProps =
-        isContinueEnabled: true
+        panel: 'review'
+        isContinueEnabled: @canAllContinue()
         onContinue: _.partial onNextStep, currentStep: part.stepIndex
 
       canContinueControlProps = _.extend({}, canContinueControlProps, reviewProps)
+      canContinueControlProps.controlText = 'Continue' if task.type is 'reading'
 
-    controlButtons = <ExControlButtons
-      {...controlProps}
-      {...canContinueControlProps}
-      key='step-control-buttons'/>
+      controlButtons = <ExControlButtons
+        {...canContinueControlProps}
+        waitingText={@getFooterWaitingText()}
+        key='step-control-buttons'/>
 
     unless TaskStore.hasProgress(taskId)
       footer = <StepFooter
@@ -211,17 +212,13 @@ module.exports = React.createClass
 
     <ExerciseWithScroll
       {...@props}
-      {...controlProps}
-      {...canContinueControlProps}
 
       footer={footer}
 
       project='tutor'
-      setScrollState={@setScrollState}
       goToStep={_.partial(goToStep, _, true)}
       currentStep={currentStep}
 
-      getCurrentPanel={getCurrentPanel}
       task={task}
       parts={parts}
       helpLink={@renderHelpLink(part.related_content)}
@@ -231,7 +228,6 @@ module.exports = React.createClass
 
       canReview={StepPanel.canReview(part.id)}
       disabled={TaskStepStore.isSaving(part.id)}
-      isContinueEnabled={StepPanel.canContinue(part.id)}
 
       canOnlyContinue={canOnlyContinue}
       getWaitingText={getWaitingText}
@@ -239,4 +235,4 @@ module.exports = React.createClass
       getReadingForStep={getReadingForStep}
       setFreeResponseAnswer={TaskStepActions.setFreeResponseAnswer}
       onFreeResponseChange={@onFreeResponseChange}
-      setAnswerId={TaskStepActions.setAnswerId}/>
+      setAnswerId={@onChoiceChange}/>

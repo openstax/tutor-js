@@ -73,7 +73,7 @@ describe 'Student Dashboard Component', ->
       feedback = state.div.querySelectorAll('.-upcoming .task .feedback span')
       expect(_.pluck(feedback, 'textContent'))
         .to.have.deep.equal([
-          '6/7 correct', '7/8 correct', '6/6 answered', '7/3 answered', 'Not started', 'Not started'
+          '6/7 correct', '7/8 correct', '6/6 answered', '7/3 answered', '0/2 answered', 'Not started', 'Not started'
         ])
 
   it 'renders events to week panel', ->
@@ -86,6 +86,7 @@ describe 'Student Dashboard Component', ->
       expect(_.pluck(tasks, 'textContent')).to.have.deep.equal([
         'Homework #3',
         'Homework #4 (final)',
+        'Chapter 6 Homework Before Due, no feedback',
         'Chapter 5 and Chapter 6 Reading',
         'Chapter 10 and Chapter 11 Reading, multi-part'
       ])
@@ -97,7 +98,7 @@ describe 'Student Dashboard Component', ->
         _.without(el.classList, 'task', 'row', 'homework', 'reading')
       )
       expect(classes)
-        .to.have.deep.equal([['workable'], ['workable'], [], [], [], []])
+        .to.have.deep.equal([['workable'], ['workable'], [], [], [], [], []])
 
   it 'displays redirect when a CC course', ->
     @course = _.clone(STUDENT_COURSE_ONE_MODEL)

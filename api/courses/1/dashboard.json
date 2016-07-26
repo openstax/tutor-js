@@ -1,6 +1,16 @@
 {
   "tasks": [
     {
+      "id": "6",
+      "title": "Chapter 6 Homework Before Due, no feedback",
+      "opens_at": "2016-04-02T14:15:58.856Z",
+      "due_at": "2016-04-25T00:45:20.967Z",
+      "type": "homework",
+      "complete": false,
+      "exercise_count": 2,
+      "complete_exercise_count": 0
+    },
+    {
       "id": "4",
       "title": "Chapter 5 and Chapter 6 Reading",
       "opens_at": "2016-04-02T14:15:58.856Z",

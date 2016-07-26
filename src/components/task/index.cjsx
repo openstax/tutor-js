@@ -136,10 +136,8 @@ module.exports = React.createClass
       @continueAfterRefreshStep()
       return false
 
-    if @_isSameStep(nextProps, nextState)
-      unless @state.currentStep is nextState.currentStep
-        nextStep = TaskStore.getStepByIndex(id, nextState.currentStep)
-        TaskStepActions.load(nextStep.id)
+    if @state.currentStep isnt nextState.currentStep and @_isSameStep(nextProps, nextState)
+      return false
 
     # if we reach this point, assume that we should go ahead and do a normal component update
     true
@@ -172,20 +170,22 @@ module.exports = React.createClass
     key is keyToCompare or parseInt(key) is parseInt(keyToCompare)
 
   goToStep: (stepKey, silent = false) ->
+    {id} = @props
     stepKey = parseInt(stepKey)
     params = _.clone(@context.router.getCurrentParams())
     return false if @areKeysSame(params.stepIndex, stepKey + 1)
     # url is 1 based so it matches the breadcrumb button numbers
     params.stepIndex = stepKey + 1
-    params.id = @props.id # if we were rendered directly, the router might not have the id
+    params.id = id # if we were rendered directly, the router might not have the id
+
+    @scrollToTop() unless @_isSameStep({id}, {currentStep: stepKey})
 
     if silent
       @context.router.replaceWith('viewTaskStep', params)
-      true
     else
-      @scrollToTop()
       @context.router.transitionTo('viewTaskStep', params)
-      true
+
+    true
 
   toggleMilestonesEntered: ->
     @setState(milestonesEntered: not @state.milestonesEntered)
