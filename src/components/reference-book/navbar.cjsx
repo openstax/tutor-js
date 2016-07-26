@@ -23,12 +23,17 @@ module.exports = React.createClass
     {section, ecosystemId} = @props
     title = ReferenceBookStore.getPageTitle({section, ecosystemId})
 
-    <BS.Nav navbar>
-      <div className="section-title">
+    <ul className="nav navbar-nav section-title">
+      <li>
         <ChapterSection section={section} />
+      </li>
+      <li className="title">
         {title}
-      </div>
-    </BS.Nav>
+      </li>
+    </ul>
+
+  wrapControl: (element, i) ->
+    <li key={i}>{element}</li>
 
   render: ->
     <BS.Navbar fixedTop fluid>
@@ -44,9 +49,9 @@ module.exports = React.createClass
       </BS.Nav>
       {@renderSectionTitle()}
       <BS.Nav className='full-width-only' navbar right>
+        {React.Children.map(@props.extraControls, @wrapControl)}
         <li>
           <i className='ui-rice-logo' />
         </li>
       </BS.Nav>
-      {@props.extraControls}
     </BS.Navbar>

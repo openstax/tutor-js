@@ -19,7 +19,8 @@ TeacherContentToggle = React.createClass
   getInitialState: ->
     hasTeacherContent: false
 
-  onClick: ->
+  onClick: (ev) ->
+    ev.preventDefault()
     @props.onChange(not @props.isShowing) if @state.hasTeacherContent is true
 
   componentDidMount:      -> @scheduleCheckForTeacherContent()
