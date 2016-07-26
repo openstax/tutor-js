@@ -29,8 +29,16 @@ getRankByRole = (roleType) ->
 ROUTES =
   dashboard:
     label: 'Dashboard'
+    allowedForCourse: (course) -> not course?.is_concept_coach is true
     roles:
       teacher: 'taskplans'
+      student: 'viewStudentDashboard'
+      default: 'app'
+  cc_dashboard:
+    label: 'Dashboard'
+    allowedForCourse: (course) -> course?.is_concept_coach is true
+    roles:
+      teacher: 'cc-dashboard'
       student: 'viewStudentDashboard'
       default: 'app'
   guide:
@@ -152,7 +160,11 @@ CurrentUserStore = flux.createStore
 
     getDashboardRoute: (courseId, silent = true) ->
       menuRole = @_getCourseRole(courseId, silent)
-      @_getRouteByRole('dashboard', menuRole)
+      course = CourseStore.get(courseId)
+      if course?.is_concept_coach
+        @_getRouteByRole('cc_dashboard', menuRole)
+      else
+        @_getRouteByRole('dashboard', menuRole)
 
     getHelpLink: (courseId) ->
       course = CourseStore.get(courseId)
