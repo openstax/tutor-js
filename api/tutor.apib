@@ -192,13 +192,36 @@ _TODO:_ Figure out what this is
 + tags: `book:stax-apbio`, `filter-type:import:hs` (array[string])
 + uid: `30@1` (string, required)
 + version: `1` (number, required)
++ collaborator_solutions (array[Exercise Solution], required)
++ community_solutions (array[Exercise Solution], required)
++ hints (array, required)
++ formats: `free-response`, `multiple-choice` (array[enum], required)
++ combo_choices (array, required)
+
+### Exercise Solution (object)
++ attachments (array)
++ solution_type: `detailed` (enum, required)
++ content_html: `A hypothesis is a proposed explanation for an occurance or event based on previous observations that can be tested.` (string, required)
+
+
 
 ### Exercise User (object)
 + name: `OpenStax` (string, required)
 + user_id': `1` (string, required)
 
 ### Exercise Question (object)
-_TODO:_ Fill in the JSON schema for a question
++ id: `26945` (number, required)
++ is_answer_order_important: `true` (boolean, required)
++ stimulus_html (string)
++ stem_html: `What is a suggested and testable explanation for an event called?` (string, required)
++ answers (array[Exercise Question Answer], required)
+
+### Exercise Question Answer (object)
++ id: `107149` (number, required)
++ content_html: `discovery` (string, required)
++ correctness: `0.0` (string, required) - But it's a float. _TODO:_ make this a number again
++ feedback_html: `A hypothesis is a suggested and testable explanation for an event.` (string, required)
+
 
 
 ## Current User (object)
@@ -257,8 +280,35 @@ Placeholder for the time format `00:00`
 + deidentifier: `d34db33f` (string, required)
 + is_active: `true` (boolean, required)
 
+## Exercise List (object)
++ total_count: `1` (number, required)
++ items (array[Tutor Exercise], required)
 
-# Teacher Course Routes [/api/courses/{courseId}]
+### Tutor Exercise (object)
++ id: `3` (string, required)
++ url: `https://exercises.openstax.org/exercises/3@2` (URL, required)
++ content (Task Step Exercise Content, required)
++ tags (array[Tutor Exercise Tag], required)
+
+### Tutor Exercise Tag (object)
++ id: `apbio-ch01-s01-lo02` (string, required)
++ type: `lo`, `generic`, `cnxmod` (enum, required)
++ is_visible: `true` (boolean, required)
++ description: `What are the steps of the scientific method?` (string, required)
++ chapter_section (Chapter Section, required)
+
+
+# Get Teacher Plan [/api/plans/{planId}]
+
+## Get the Teacher Plan [GET /api/plans/{planId}]
++ Parameters
+    + planId: `69` (number, required)
+
++ Response 200 (application/json)
+    + Attributes (Teacher Plan)
+
+
+# Teacher Plan Statistics [/api/plans/{planId}/stats]
 
 ## Get Teacher Assignment Statistics [GET /api/plans/{planId}/stats]
 
@@ -324,3 +374,15 @@ Placeholder for the time format `00:00`
 
 + Response 200 (application/json)
   + Attributes (array[My Course List Item])
+
+
+# Available Exercises [/api/courses/1/exercises/homework_core{?page_ids%5B%5D,ecosystem_id}]
+
+# Get Available Exercises [GET /api/courses/1/exercises/homework_core{?page_ids%5B%5D,ecosystem_id}]
+
++ Parameters
+    + page_ids%5B%5D: `314` (number, required) - This actually needs to have square brackets at then end `...ids[]`
+    + ecosystem_id: `4` (number, required)
+
++ Response 200 (application/json)
+  + Attributes (Exercise List)
