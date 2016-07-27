@@ -61,24 +61,14 @@ CourseListing = React.createClass
       isTeacher = _.find roles, (role) -> role.type is 'teacher'
 
       courseType = if isConceptCoach then 'Concept Coach' else 'Tutor'
-
-      if courselink?
-        courseTypeFlag = "(#{courseType})"
-      else
-        courseTypeFlag = <div className='course-type-flag'>{courseType}</div>
+      courseTypeFlag = <div className='course-type-flag'>{courseType}</div>
 
       if isTeacher
-        if courseLink?
-          altLink = <Router.Link
-            className='tutor-course-alt-link'
-            to='taskplans'
-            params={{courseId}}>View <b>{course.name}</b> as Teacher</Router.Link>
-        else
-          to = if isConceptCoach then 'cc-dashboard' else 'taskplans'
-          courseLink = <Router.Link
-            className='tutor-course-item'
-            to={to}
-            params={{courseId}}>{course.name}</Router.Link>
+        to = if isConceptCoach then 'cc-dashboard' else 'taskplans'
+        courseLink = <Router.Link
+          className='tutor-course-item'
+          to={to}
+          params={{courseId}}>{course.name}</Router.Link>
       else if isStudent
         if isConceptCoach
           courseLink = <a className='tutor-course-item' href={course.webview_url}>
@@ -96,7 +86,6 @@ CourseListing = React.createClass
       <BS.Row key="course-#{courseId}">
         <BS.Col {...courseDataProps} className='tutor-booksplash-course-item' xs={12}>
           {courseLink}
-          {altLink}
           {courseTypeFlag}
         </BS.Col>
       </BS.Row>
