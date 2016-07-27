@@ -1,5 +1,8 @@
 @course-listing-buffer: 40px;
+
 @course-listing-item-height: 200px;
+@course-listing-item-tablet-height: 139px;
+
 @course-listing-item-offset: 140px;
 
 .course-listing {
@@ -63,8 +66,16 @@
       .tutor-course-item {
         .flex(1);
         #fonts > .book-cover();
-        font-size: 18rem;
-        line-height: 18rem;
+
+        font-size: 12rem;
+        line-height: 13rem;
+        height: @course-listing-item-tablet-height;
+        @media (min-width: @screen-md-min) {
+          font-size: 18rem;
+          line-height: 18rem;
+          height: @course-listing-item-height;
+        }
+
         text-overflow: ellipsis;
         white-space: nowrap;
         font-weight: 800;
@@ -96,6 +107,13 @@
       font-size: 3rem;
       font-weight: 600;
       pointer-events: none;
+
+      @media (max-width: @screen-md-min) {
+        & {
+          padding: 3px;
+          font-size: 2rem;
+        }
+      }
     }
 
   }
