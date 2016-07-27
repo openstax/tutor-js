@@ -1,6 +1,5 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
 
 CrumbMixin = require './crumb-mixin'
 Breadcrumbs = require './breadcrumbs'
@@ -9,7 +8,6 @@ Breadcrumbs = require './breadcrumbs'
 {PinnedHeaderFooterCard, ChapterSectionMixin, ScrollToMixin} = require 'openstax-react-components'
 
 _ = require 'underscore'
-camelCase = require 'camelcase'
 
 {TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
 ScrollSpy = require '../scroll-spy'
