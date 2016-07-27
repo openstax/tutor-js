@@ -9,7 +9,9 @@ module.exports = React.createClass
     type: React.PropTypes.string.isRequired
     spin: React.PropTypes.bool
     className: React.PropTypes.string
-    tooltip: React.PropTypes.string
+    tooltip: React.PropTypes.oneOf([
+      React.PropTypes.string, React.PropTypes.element
+    ])
     tooltipProps: React.PropTypes.object
 
   componentWillMount: ->

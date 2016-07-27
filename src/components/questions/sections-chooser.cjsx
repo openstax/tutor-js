@@ -33,7 +33,7 @@ QLSectionsChooser = React.createClass
   onSectionChange: (sectionIds) -> @setState({sectionIds})
 
   render: ->
-    help = Help.forCourseId(@props.courseId)
+    helpText = Help.forCourseId(@props.courseId).first
 
     <div className="sections-chooser panel">
 
@@ -48,12 +48,12 @@ QLSectionsChooser = React.createClass
 
       <div className="instructions">
         <div className="wrapper">
-          Select sections below to review and exclude questions from your
-           students’ experience.
-          <Icon type='info-circle' tooltip={help.primary} />
+          {helpText.bar}
         </div>
       </div>
-      {help.secondary}
+
+     <div className='instructions-addon'>{helpText.addon}</div>
+
       <div className="sections-list">
         <Chooser
           onSelectionChange={@onSectionChange}

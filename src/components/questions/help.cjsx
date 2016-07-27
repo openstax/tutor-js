@@ -1,36 +1,78 @@
 React = require 'react'
 
 {CourseStore} = require '../../flux/course'
+Icon = require '../icon'
 
-CC_HELP = '''
-By default, Concept Coach will use all questions in the Library
-to deliver practice questions to your students.
-The Library gives you the option to exclude questions from your
-students' experiences. However, please note that you will
-not be able to exclude questions from assignments or
-scores once your students start using Concept Coach.
-'''
+TUT_TT1 =
+  <span>
+    Tutor uses these questions for your assignments, spaced practice, personalization,
+    and Performance Forecast practice.
+  </span>
 
-TUTOR_HELP = '''
-    Tutor uses these questions for your assignments,
-    spaced practice, personalization, and Performance Forecast practice.
-'''
-
-
-CC_SECONDARY_HELP = <div className="secondary-help">
-  <b>Best Practice:</b>
-  Exclude questions <u>before</u> giving students access to Concept Coach.
-</div>
+TUT_TT2 =
+  <span>
+    If you want to exclude any questions from a particular section,
+    be sure to do so before you assign those sections for reading or homework.
+  </span>
 
 
+TUTOR_HELP =
+  first:
+    bar:
+      <span>
+        Select the sections you plan to assign below to review all possible
+        questions. <Icon tooltip={TUT_TT1} type="info-circle" />
+      </span>
+    addon:
+      <span>
+        You can skip any sections you won’t be covering in your
+        course.  Students will never see questions from sections you don’t
+        assign. <Icon tooltip={TUT_TT2} type="info-circle" />
+      </span>
+
+  second:
+    bar:
+      <span>
+        If you want to exclude any questions, be sure to do so before
+        you assign those sections for reading or homework.
+      </span>
+
+CC_TT1 =
+  <span>
+    Concept Coach uses these questions to give students practice.
+    After reading a section, students will get questions
+    reinforcing that section and <i>and</i> review questions
+    reinforcing previously read sections.
+  </span>
+
+CC_TT2 =
+  <span>
+   If you want to exclude any questions, be sure to do so before your students start reading those sections.
+  </span>
+
+CC_HELP =
+  first:
+    bar:
+      <span>
+        Select the sections you plan to assign below to review all possible questions.
+        <Icon tooltip={CC_TT1} type="info-circle" />
+      </span>
+    addon:
+      <span>
+        You can skip any sections you won’t be covering in your course.
+        Students will only see questions from sections they work on in Concept Coach.
+      </span>
+  second:
+    bar:
+      <span>
+        If you want to exclude any questions, be sure to do so before your
+        students start reading those sections.
+      </span>
 
 Help =
 
   forCourseId: (courseId) ->
     course = CourseStore.get(courseId)
-    primary = if course.is_concept_coach then CC_HELP else TUTOR_HELP
-    secondary = if course.is_concept_coach then CC_SECONDARY_HELP else null
-
-    {primary, secondary}
+    if course.is_concept_coach then CC_HELP else TUTOR_HELP
 
 module.exports = Help
