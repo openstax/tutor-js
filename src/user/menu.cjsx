@@ -53,9 +53,9 @@ UserMenu = React.createClass
 
   renderCourseOption: ->
     if @props.course?.isRegistered()
-      courseChangeText = 'Change Course'
+      courseChangeText = 'Change Section'
     else
-      courseChangeText = 'Register for Course'
+      courseChangeText = 'Register for Section'
     <BS.MenuItem onClick={@modifyCourse}>{courseChangeText}</BS.MenuItem>
 
   renderStudentIdOption: ->
