@@ -21,10 +21,10 @@ describe 'User menu component', ->
     it 'renders for registration when course is not registered', ->
       sinon.stub(@props.course, 'isRegistered').returns(false)
       Testing.renderComponent( Menu, props: @props ).then ({dom}) ->
-        expect(dom.textContent).to.match(/Register for Course/)
+        expect(dom.textContent).to.match(/Register for Section/)
 
     it 'renders modification when registered', ->
       sinon.stub(@props.course, 'isRegistered').returns(true)
       Testing.renderComponent( Menu, props: @props ).then ({dom}) ->
-        expect(dom.textContent).to.match(/Change Course/)
+        expect(dom.textContent).to.match(/Change Section/)
         expect(dom.textContent).to.match(/Change student ID/)
