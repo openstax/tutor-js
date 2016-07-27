@@ -6,7 +6,7 @@
     width: 960px;
     height: 500px;
     border: none;
-    margin: 20px auto;
+    margin: 0 auto;
   }
   .embed-responsive > iframe {
     width: 100%;
@@ -33,6 +33,10 @@
   .task-step {
     // The number of pixels the iframe will be inset from the task in the end
     @desired-iframe-inset: (@tutor-task-width - @tutor-interactive-iframe-width) / 2;
+
+    iframe.interactive {
+      margin: 20px auto;
+    }
 
     :not(.interactive-step) {
       iframe.interactive {
