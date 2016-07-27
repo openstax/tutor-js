@@ -1,6 +1,5 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
 
 CrumbMixin = require './crumb-mixin'
 Breadcrumbs = require './breadcrumbs'
@@ -9,7 +8,6 @@ Breadcrumbs = require './breadcrumbs'
 {PinnedHeaderFooterCard, ChapterSectionMixin, ScrollToMixin} = require 'openstax-react-components'
 
 _ = require 'underscore'
-camelCase = require 'camelcase'
 
 {TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
 ScrollSpy = require '../scroll-spy'
@@ -80,8 +78,9 @@ TaskTeacherReview = React.createClass
     currentStep = sectionIndex - 1
     @setState({currentStep})
 
+  scrollToStep: (currentStep) ->
     stepSelector = "[data-section='#{currentStep}']"
-    @scrollToSelector(stepSelector, updateHistory: false) unless @isSelectorInView(stepSelector)
+    @scrollToSelector(stepSelector, {updateHistory: false, unlessInView: true})
 
   shouldComponentUpdate: (nextProps) ->
     {shouldUpdate} = nextProps
@@ -100,7 +99,12 @@ TaskTeacherReview = React.createClass
     @context.router.replaceWith('reviewTaskStep', params)
 
   setPeriod: (period) ->
-    @setState({period})
+    return unless @state.isReviewLoaded
+
+    contentState = @getReviewContents(period)
+    contentState.period = period
+
+    @setState(contentState)
 
   setPeriodIndex: (key) ->
     periodKey = key + 1
@@ -115,21 +119,21 @@ TaskTeacherReview = React.createClass
   setIsReviewLoaded: (id) ->
     return null unless id is @props.id
 
-    TaskTeacherReviewStore.off('change', @setIsReviewLoaded)
-
-    steps = @getSteps()
-    @setState({isReviewLoaded: true, steps})
+    TaskTeacherReviewStore.off('review.loaded', @setIsReviewLoaded)
 
     params = _.clone(@context.router.getCurrentParams())
     @syncStep(params)
 
-  getSteps: ->
-    steps = @getContents()
-    stepsList = _.map steps, (step, index) =>
-      stepInfo = _.pick(step, 'key', 'sectionLabel')
-      stepInfo.index = index
+    contentState = @getReviewContents()
+    contentState.isReviewLoaded = true
 
-      stepInfo
+    @setState(contentState)
+
+  getReviewContents: (period) ->
+    steps = @getContents(period)
+    crumbs = @getCrumableCrumbs(period)
+
+    {steps, crumbs}
 
   getActiveStep: ->
     {steps, currentStep} = @state
@@ -137,6 +141,7 @@ TaskTeacherReview = React.createClass
 
   render: ->
     {id, courseId} = @props
+    {steps, crumbs} = @state
     periodIndex = @getPeriodIndex()
 
     panel = <ReviewShell
@@ -144,6 +149,7 @@ TaskTeacherReview = React.createClass
           review='teacher'
           panel='teacher-review'
           goToStep={@goToStep}
+          steps={steps}
           currentStep={@state.currentStep}
           period={@state.period} />
 
@@ -155,11 +161,13 @@ TaskTeacherReview = React.createClass
 
       breadcrumbs = <Breadcrumbs
         id={id}
+        crumbs={crumbs}
         goToStep={@goToStep}
+        scrollToStep={@scrollToStep}
         currentStep={@state.currentStep}
         title={task.title}
         courseId={courseId}
-        key="task-#{id}-breadcrumbs"/>
+        key="task-#{id}-breadcrumbs" />
 
     <PinnedHeaderFooterCard
       className={taskClasses}

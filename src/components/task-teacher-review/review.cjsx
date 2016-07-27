@@ -4,19 +4,14 @@ _ = require 'underscore'
 TaskTeacherReviewExercise = require './exercise'
 LoadableItem = require '../loadable-item'
 
-CrumbMixin = require './crumb-mixin'
-{ScrollListenerMixin} = require 'react-scroll-components'
-{ChapterSectionMixin, ScrollToMixin} = require 'openstax-react-components'
-{ScrollTrackerMixin, ScrollTrackerParentMixin} = require 'openstax-react-components/src/components/scroll-tracker'
-
 {TaskTeacherReviewActions, TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
 
 ReviewHeadingTracker = React.createClass
   displayName: 'ReviewHeadingTracker'
   render: ->
-    {sectionLabel, title, scrollState} = @props
+    {sectionLabel, title, sectionKey} = @props
 
-    <h2 data-section={scrollState.key}>
+    <h2 data-section={sectionKey}>
       <span className='text-success'>
         {sectionLabel}
       </span> {title}
@@ -25,30 +20,25 @@ ReviewHeadingTracker = React.createClass
 
 Review = React.createClass
   displayName: 'Review'
-  mixins: [ChapterSectionMixin, CrumbMixin]
   propTypes:
     id: React.PropTypes.string.isRequired
     focus: React.PropTypes.bool.isRequired
     period: React.PropTypes.object.isRequired
     currentStep: React.PropTypes.number
+    steps: React.PropTypes.array.isRequired
 
   getDefaultProps: ->
     focus: false
 
   render: ->
-    {id, focus} = @props
-    steps = @getContents()
+    {id, focus, steps} = @props
     stepsProps = _.omit(@props, 'focus')
 
     stepsList = _.map steps, (step, index) =>
-
-      scrollState = _.pick(step, 'key', 'sectionLabel')
-
       if step.question_stats?
         return null unless step.content
-        step.content = JSON.parse(step.content)
         stepProps = _.extend({}, stepsProps, step)
-        stepProps.key = "task-review-question-#{step.question_stats[0].question_id}-#{step.stepIndex}"
+        stepProps.key = "task-review-question-#{step.question_stats[0].question_id}-#{index}"
         stepProps.focus = focus and index is 0
 
         Tracker = TaskTeacherReviewExercise
@@ -60,7 +50,7 @@ Review = React.createClass
 
       item = <Tracker
         {...stepProps}
-        scrollState={scrollState}/>
+        sectionKey={step.key}/>
 
     <div>
       {stepsList}
