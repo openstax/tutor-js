@@ -34,6 +34,7 @@ Question = React.createClass
   displayName: 'Question'
   propTypes:
     model: React.PropTypes.object.isRequired
+    task: React.PropTypes.object
     correct_answer_id: React.PropTypes.string
     exercise_uid: React.PropTypes.string
     displayFormats:  React.PropTypes.bool
@@ -64,7 +65,7 @@ Question = React.createClass
 
     hasCorrectAnswer = !! correct_answer_id
     classes = classnames 'openstax-question', className,
-      'has-correct-answer': hasCorrectAnswer and not task.is_deleted
+      'has-correct-answer': hasCorrectAnswer and not (task?.is_deleted and task?.type is 'homework')
 
     htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
 
