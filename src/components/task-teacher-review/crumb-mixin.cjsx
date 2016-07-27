@@ -51,12 +51,12 @@ module.exports =
 
       _.each crumb.data, (data) ->
         data.sectionLabel = crumb.sectionLabel
-        data.content = JSON.parse(data.content)
+        data.content = JSON.parse(data.content) if _.isString(data.content)
 
     else
       crumb.sectionLabel = @_buildSectionLabel(data.chapter_section)
       crumb.data.sectionLabel = crumb.sectionLabel
-      crumb.data.content = JSON.parse(crumb.data.content)
+      crumb.data.content = JSON.parse(crumb.data.content) if _.isString(crumb.data.content)
 
     crumb
 
@@ -153,15 +153,19 @@ module.exports =
 
     crumbs = @_generateCrumbsFromStats(stats, review.type)
 
-  generateCrumbs: ->
-    {id, period} = @props
+  generateCrumbs: (period) ->
+    {id} = @props
+    period ?= @state.period
+
     periodCrumbs = @_generateCrumbs id, period
     _.sortBy(periodCrumbs, (crumb) ->
       crumb.data.average_step_number
     )
 
-  getContents: ->
-    {id, period} = @props
+  getContents: (period) ->
+    {id} = @props
+    period ?= @state.period
+
     review = TaskTeacherReviewStore.get(id)
 
     allCrumbs = @generateCrumbs()

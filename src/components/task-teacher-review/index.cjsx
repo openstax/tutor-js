@@ -99,7 +99,12 @@ TaskTeacherReview = React.createClass
     @context.router.replaceWith('reviewTaskStep', params)
 
   setPeriod: (period) ->
-    @setState({period})
+    return unless @state.isReviewLoaded
+
+    contentState = @getReviewContents(period)
+    contentState.period = period
+
+    @setState(contentState)
 
   setPeriodIndex: (key) ->
     periodKey = key + 1
@@ -114,14 +119,21 @@ TaskTeacherReview = React.createClass
   setIsReviewLoaded: (id) ->
     return null unless id is @props.id
 
-    TaskTeacherReviewStore.off('change', @setIsReviewLoaded)
-
-    steps = @getContents()
-    crumbs = @getCrumableCrumbs()
-    @setState({isReviewLoaded: true, steps, crumbs})
+    TaskTeacherReviewStore.off('review.loaded', @setIsReviewLoaded)
 
     params = _.clone(@context.router.getCurrentParams())
     @syncStep(params)
+
+    contentState = @getReviewContents()
+    contentState.isReviewLoaded = true
+
+    @setState(contentState)
+
+  getReviewContents: (period) ->
+    steps = @getContents(period)
+    crumbs = @getCrumableCrumbs(period)
+
+    {steps, crumbs}
 
   getActiveStep: ->
     {steps, currentStep} = @state

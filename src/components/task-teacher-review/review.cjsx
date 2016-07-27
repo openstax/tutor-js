@@ -38,7 +38,7 @@ Review = React.createClass
       if step.question_stats?
         return null unless step.content
         stepProps = _.extend({}, stepsProps, step)
-        stepProps.key = "task-review-question-#{step.question_stats[0].question_id}-#{step.stepIndex}"
+        stepProps.key = "task-review-question-#{step.question_stats[0].question_id}-#{index}"
         stepProps.focus = focus and index is 0
 
         Tracker = TaskTeacherReviewExercise
