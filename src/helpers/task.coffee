@@ -38,9 +38,12 @@ module.exports = {
     "#{progress}%"
 
   getHumanProgressWithLateWork: (task) ->
-    progress = Math.round((
-      task.completed_exercise_count / task.exercise_count
-      ) * 100 )
+    percent =
+      if task.type is 'homework'
+        task.completed_exercise_count / task.exercise_count
+      else
+        task.completed_step_count / task.step_count
+    progress = Math.round(percent * 100)
     "#{progress}%"
 
   getCompletedSteps: (task) ->
