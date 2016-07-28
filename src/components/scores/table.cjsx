@@ -49,7 +49,7 @@ module.exports = React.createClass
     emptyCell = <div className='blank' />
     averageLabel =
       <div>
-        Class Average &nbsp
+        Class Performance &nbsp
         <sup>
           <AverageInfo isConceptCoach={isConceptCoach} />
         </sup>
