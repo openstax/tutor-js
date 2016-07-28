@@ -63,7 +63,7 @@ ReadingCell = React.createClass
             isConceptCoach={isConceptCoach}
             size={20}
             value={TH.getCompletedPercent(task)}
-            isLate={TH.isLate(task)} />
+            isLate={TH.isDue(task)} />
           </span>
         </BS.OverlayTrigger>
       </div>
