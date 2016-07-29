@@ -71,7 +71,7 @@ ExerciseConfig =
 
   reset: ->
     @_exercises = []
-    @_exerciseCache = []
+    @_exerciseCache = {}
     @_unsavedExclusions = {}
 
   loadForCourse: (courseId, pageIds) -> # Used by API
@@ -137,7 +137,7 @@ ExerciseConfig =
       isExcluded = _.bind(@.exports.isExerciseExcluded, @)
       for uuid in getExerciseCnxModUuids(exercise)
         exercises = @exports.forCnxModuleUuid.call(@, uuid)
-        excluded = _.filter _.pluck(exercises, 'id'), isExcluded
+        excluded = _.filter(_.pluck(exercises, 'id'), isExcluded)
         availableCount = exercises.length - excluded.length
         if (availableCount is 5) or (excluded.length is 0 and exercises.length <= 5)
           return availableCount
@@ -155,13 +155,11 @@ ExerciseConfig =
         @_exerciseCache[exerciseId]?.is_excluded
 
     forCnxModuleUuid: (uuid) ->
-      exercises = []
-      for pageIds, exercises of @_exercises
-        for exercise in exercises
-          for exerciseUuid in getExerciseCnxModUuids(exercise)
-            if uuid is exerciseUuid and not _.include(exercises, exercise)
-              exercises.push(exercise)
-      exercises
+      exercises = {}
+      for id, exercise of @_exerciseCache when not exercises[id]
+        for exerciseUuid in getExerciseCnxModUuids(exercise)
+          exercises[id] = exercise if uuid is exerciseUuid
+      _.values exercises
 
     getChapterSectionOfExercise: (ecosystemId, exercise) ->
       getChapterSection(ecosystemId, exercise)
