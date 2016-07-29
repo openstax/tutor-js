@@ -37,6 +37,16 @@ module.exports = React.createClass
       unless _.isEqual(course, @state.course)
         @setState({course})
 
+  collapseNav: ->
+    navBar = this.refs.navBar.getDOMNode();
+    collapsibleNav = navBar.querySelector('div.navbar-collapse');
+    toggleBtn = navBar.querySelector('button.navbar-toggle');
+
+    if collapsibleNav.classList.contains('in')
+      toggleBtn.click();
+
+    return null
+
   componentDidUpdate: ->
     @handleCourseChanges()
 
@@ -54,7 +64,7 @@ module.exports = React.createClass
               <i className='ui-brand-logo'></i>
             </Router.Link>
 
-    <BS.Navbar toggleNavKey={0} fixedTop fluid>
+    <BS.Navbar toggleNavKey={0} fixedTop fluid ref="navBar">
       <CenterControls/>
       <BS.NavBrand>
         {brand}
@@ -62,10 +72,10 @@ module.exports = React.createClass
       <BS.CollapsibleNav eventKey={0}>
         <BS.Nav navbar>
           <CourseName course={course}/>
-          <BookLinks courseId={courseId} />
+          <BookLinks courseId={courseId} onItemClick={@collapseNav} />
         </BS.Nav>
         <BS.Nav right navbar>
-          <UserActionsMenu courseId={courseId} course={@getCourseFromParams()} />
+          <UserActionsMenu courseId={courseId} course={@getCourseFromParams()} onItemClick={@collapseNav} />
         </BS.Nav>
       </BS.CollapsibleNav>
       <ServerErrorMonitoring />

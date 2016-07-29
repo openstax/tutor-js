@@ -12,6 +12,9 @@ BookLinks = React.createClass
   render: ->
     course = CourseStore.get(@props.courseId)
     return null unless course?.is_concept_coach
+
+    {onItemClick} = @props
+
     links = []
     if course.book_pdf_url
       links.push(
@@ -28,7 +31,8 @@ BookLinks = React.createClass
     links.push(
       <Router.Link
         to='viewAssignmentLinks'
-        params={courseId: @props.courseId}>Assignment Links</Router.Link>
+        params={courseId: @props.courseId}
+        onClick={onItemClick}>Assignment Links</Router.Link>
     )
 
     <li className='book-links'>

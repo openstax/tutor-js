@@ -36,9 +36,13 @@ UserActionsMenu = React.createClass
 
     menuGoProps = if route.href
       href: route.href
+      onSelect: @props.onItemClick
     else
-      onSelect: _.partial(@transitionToMenuItem, route.name, route.params)
       href: @context.router.makeHref(route.name, route.params)
+      onSelect: (event) =>
+        @transitionToMenuItem(route.name, route.params, event)
+        @props.onItemClick()
+        return null
 
     key = if route.key then "dropdown-item-#{route.key}" else "dropdown-item-#{index}"
 
