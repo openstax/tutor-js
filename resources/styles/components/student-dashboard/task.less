@@ -10,9 +10,10 @@
       height: @student-dashboard-row-height;
       padding: 0;
     }
-		&.deleted {
-			opacity: 0.5;
-		}
+    &:not(.clickable) {
+      opacity: 0.5;
+      background-color: @tutor-neutral-lightest;
+    }
     .icon {
       background-position: center;
       // * 10 on icon-size-lg because less doesn't automatically convert icon-size-lg to px

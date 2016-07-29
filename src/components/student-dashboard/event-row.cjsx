@@ -39,7 +39,7 @@ module.exports = React.createClass
     deleted = StudentDashboardStore.isDeleted(@props.event)
     started = StudentDashboardStore.hasStarted(@props.event)
     clickable = workable and not (deleted and not started)
-    classes = classnames("task row #{@props.className}", {workable, deleted})
+    classes = classnames("task row #{@props.className}", {workable, clickable})
 
     if deleted
       hideButton = <BS.Button className="-hide-button" onClick={@hideTask}>
