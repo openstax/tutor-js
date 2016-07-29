@@ -133,7 +133,7 @@ ExerciseWithScroll = React.createClass
   render: ->
     {parts, footer, pinned} = @props
     classes = classnames('openstax-multipart-exercise-card', {
-      "deleted-homework": @props.task.type is 'homework' and @props.task.is_deleted
+      "deleted-homework": @props.task?.type is 'homework' and @props.task?.is_deleted
     })
 
     if @isSinglePart()
@@ -153,15 +153,19 @@ Exercise = React.createClass
   mixins: [ExerciseMixin]
   render: ->
     {footer, pinned} = @props
+    classes = classnames('openstax-multipart-exercise-card', {
+      "deleted-homework": @props.task?.type is 'homework' and @props.task?.is_deleted
+    })
 
     if @isSinglePart()
-      <CardBody footer={footer} className='openstax-multipart-exercise-card'>
+      <CardBody footer={footer}
+        className={classes}>
         { @renderSinglePart() }
       </CardBody>
     else
       <CardBody pinned={pinned}
         footer={footer or @renderFooter()}
-        className='openstax-multipart-exercise-card'
+        className={classes}
       >
         <ExerciseBadges isMultipart={true}/>
         {@renderGroup()}

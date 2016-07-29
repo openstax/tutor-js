@@ -144,8 +144,8 @@ ExerciseStepCard = React.createClass
           related_content={related_content}/>
 
     cardClasses = classnames 'task-step', 'openstax-exercise-card', className, {
-      "deleted-homework": @props.task.type is 'homework' and @props.task.is_deleted
-      "deleted-reading": @props.task.type is 'reading' and @props.task.is_deleted
+      "deleted-homework": @props.task?.type is 'homework' and @props.task?.is_deleted
+      "deleted-reading": @props.task?.type is 'reading' and @props.task?.is_deleted
     }
 
 
