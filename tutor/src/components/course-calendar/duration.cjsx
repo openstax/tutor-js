@@ -109,15 +109,16 @@ CourseDuration = React.createClass
 
   # set plan order, makes sure that order is not already taken on this day
   setPlanOrder: ({current, existingOrdered, weekTopOffset, maxPlansOnDay}) ->
-    (plan, order) =>
-      unless plan.order?
+    (duration, order) =>
+      unless duration.order?
         current.order = order
         @_calcOrder({existingOrdered, current, maxPlansOnDay})
-        plan.order = current.order
-        plan.weekTopOffset = weekTopOffset
+        duration.order = current.order
+        duration.weekTopOffset = weekTopOffset
 
   _calcOrder: ({existingOrdered, current, maxPlansOnDay}) ->
     # find an order that is not already occupied by any overlapping plans
+
     while existingOrdered.indexOf(maxPlansOnDay - (current.order + current.adder)) > -1
       current.adder = current.adder + 1
 
