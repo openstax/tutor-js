@@ -332,6 +332,10 @@ TaskConfig =
       {is_feedback_available} = @_get(taskId)
       is_feedback_available
 
+    isDeleted: (taskId) ->
+      {is_deleted} = @_get(taskId)
+      is_deleted
+
     isSameStep: (taskId, stepIndices...) ->
       contentUrls = _.chain(stepIndices)
         .map (stepIndex) =>

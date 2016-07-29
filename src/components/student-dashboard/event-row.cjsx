@@ -51,7 +51,7 @@ module.exports = React.createClass
         <EventInfoIcon event={@props.event} />
       ]
 
-    <div className={classes} onClick={@onClick if workable and not deleted}
+    <div className={classes} onClick={@onClick if workable}
       data-event-id={@props.event.id}>
       <BS.Col xs={2}  sm={1} className={"column-icon"}>
         <i className={"icon icon-lg icon-#{@props.className}"}/>
