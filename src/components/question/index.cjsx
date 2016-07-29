@@ -11,6 +11,7 @@ QuestionHtml = React.createClass
   propTypes:
     html: React.PropTypes.string
     type: React.PropTypes.string
+    questionNumber: React.PropTypes.number
   getDefaultProps: ->
     html: ''
     type: ''
@@ -28,6 +29,7 @@ QuestionHtml = React.createClass
       className="question-#{type}"
       block={true}
       html={html}
+      data-question-number={@props.questionNumber}
     />
 
 Question = React.createClass
@@ -83,7 +85,7 @@ Question = React.createClass
     <div className={classes} data-question-number={questionNumber}>
       <QuestionHtml type='context' html={context} />
       <QuestionHtml type='stimulus' html={stimulus_html} />
-      <QuestionHtml type='stem' html={stem_html} />
+      <QuestionHtml type='stem' html={stem_html} questionNumber={questionNumber} />
       {@props.children}
       <AnswersTable {...@props} hasCorrectAnswer={hasCorrectAnswer}/>
       {<FormatsListing formats={formats} /> if @props.displayFormats}
