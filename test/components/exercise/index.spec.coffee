@@ -41,6 +41,7 @@ FREE_RESPONSE_PROPS =
   canTryAnother: false
   canReview: true
   disabled: false
+  task: STEP
 
 resetProps = ->
   step = _.clone(STEP)

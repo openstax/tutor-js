@@ -36,6 +36,7 @@ Question = React.createClass
   displayName: 'Question'
   propTypes:
     model: React.PropTypes.object.isRequired
+    task: React.PropTypes.object
     correct_answer_id: React.PropTypes.string
     exercise_uid: React.PropTypes.string
     displayFormats:  React.PropTypes.bool
@@ -61,12 +62,12 @@ Question = React.createClass
     @hasAnswerCorrectness() and @doesArrayHaveProperty(collaborator_solutions, 'content_html')
 
   render: ->
-    {model, correct_answer_id, exercise_uid, className, questionNumber, context} = @props
+    {model, correct_answer_id, exercise_uid, className, questionNumber, context, task} = @props
     {stem_html, collaborator_solutions, formats, stimulus_html} = model
 
     hasCorrectAnswer = !! correct_answer_id
     classes = classnames 'openstax-question', className,
-      'has-correct-answer': hasCorrectAnswer
+      'has-correct-answer': hasCorrectAnswer and not (task?.is_deleted and task?.type is 'homework')
 
     htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
 

@@ -19,6 +19,7 @@ STEP_PROP_TYPES =
   free_response: React.PropTypes.string
   group: React.PropTypes.string
   related_content: React.PropTypes.array
+  task: React.PropTypes.object
 
 CONTINUE_PROP_TYPES =
   isContinueEnabled: React.PropTypes.bool
