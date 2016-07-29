@@ -10,8 +10,9 @@
       height: @student-dashboard-row-height;
       padding: 0;
     }
-    &:not(.clickable) {
+    &:not(.workable) {
       opacity: 0.5;
+      cursor: default;
       background-color: @tutor-neutral-lightest;
     }
     .icon {
@@ -61,6 +62,11 @@
         background-color: @tutor-neutral-lightest;
         .icon { .tutor-icon-active(1.2); }
       }
+    }
+    &.deleted {
+      color: @tutor-neutral;
+      filter: grayscale(100%);
+      -webkit-filter: grayscale(100%);
     }
     transition: all 0.1s ease-in;
 

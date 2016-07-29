@@ -41,11 +41,15 @@ StudentDashboardConfig = {
       events[moment(day).startOf('isoweek').format('YYYYww')] or []
 
     canWorkTask: (event) ->
-      return new Date(event.opens_at) < TimeStore.getNow()
+      (
+        new Date(event.opens_at) < TimeStore.getNow() and
+        not (
+          event.is_deleted and
+          event.complete_exercise_count is 0
+        )
+      )
 
     isDeleted: (event) -> event.is_deleted
-
-    hasStarted: (event) -> event.complete_exercise_count isnt 0
 
     # Returns events who's due date has not passed
     upcomingEvents: (courseId, now = TimeStore.getNow()) ->

@@ -98,7 +98,7 @@ describe 'Student Dashboard Component', ->
         _.without(el.classList, 'task', 'row', 'homework', 'reading')
       )
       expect(classes)
-        .to.have.deep.equal([['workable', 'clickable'], ['workable', 'clickable'], [], [], [], [], []])
+        .to.have.deep.equal([['workable'], ['workable'], [], [], [], [], []])
 
   it 'displays redirect when a CC course', ->
     @course = _.clone(STUDENT_COURSE_ONE_MODEL)
