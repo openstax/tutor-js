@@ -39,7 +39,7 @@ HomeworkCell = React.createClass
     scoreNumber = TH.getHumanScoreNumber(task)
     completed = task.completed_exercise_count is task.exercise_count
     scoreText = '---'
-    if completed
+    if completed or TH.isDue(task)
       if displayAs is 'number'
         scoreText = scoreNumber
       else
@@ -71,7 +71,7 @@ HomeworkCell = React.createClass
               isConceptCoach={isConceptCoach}
               size={20}
               value={TH.getCompletedPercent(task)}
-              isLate={TH.isLate(task)}
+              isLate={TH.isDue(task)}
             />
           </span>
         </BS.OverlayTrigger>
