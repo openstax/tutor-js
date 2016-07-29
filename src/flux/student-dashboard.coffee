@@ -41,6 +41,7 @@ StudentDashboardConfig = {
       events[moment(day).startOf('isoweek').format('YYYYww')] or []
 
     canWorkTask: (event) ->
+      #students cannot work or view a task if it has been deleted and they haven't started it
       (
         new Date(event.opens_at) < TimeStore.getNow() and
         not (
