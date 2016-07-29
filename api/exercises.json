@@ -213,6 +213,11 @@
             "type": "teks",
             "name": "(2A)",
             "description": "Know the definition of science and understand that it has limitations, as specified in subsection (b)(2) of this section."
+        },{
+            "id": "context-cnxmod:0e58aa87-2e09-40a7-8bf3-269b2fa16509",
+            "type": "cnxmod",
+            "is_visible": false,
+            "data": "0e58aa87-2e09-40a7-8bf3-269b2fa16509"
         }]
     }, {
         "id": "1618",
@@ -310,6 +315,11 @@
             "type": "teks",
             "name": "(3A)",
             "description": "In all fields of science, analyze, evaluate, and critique scientific explanations by using empirical evidence, logical reasoning, and experimental and observational testing, including examining all sides of scientific evidence of those scientific explanations, so as to encourage critical thinking by the student."
+        },{
+            "id": "context-cnxmod:0e58aa87-2e09-40a7-8bf3-269b2fa16509",
+            "type": "cnxmod",
+            "is_visible": false,
+            "data": "0e58aa87-2e09-40a7-8bf3-269b2fa16509"
         }]
     }, {
         "id": "1619",
@@ -405,6 +415,11 @@
         }, {
             "id": "teks-112-39-c-3d",
             "type": "teks"
+        },{
+            "id": "context-cnxmod:0e58aa87-2e09-40a7-8bf3-269b2fa16509",
+            "type": "cnxmod",
+            "is_visible": false,
+            "data": "0e58aa87-2e09-40a7-8bf3-269b2fa16509"
         }]
     }, {
         "id": "1620",
@@ -502,6 +517,16 @@
             "type": "teks",
             "name": "(2A)",
             "description": "Know the definition of science and understand that it has limitations, as specified in subsection (b)(2) of this section."
+        },{
+            "id": "context-cnxmod:0e58aa87-2e09-40a7-8bf3-269b2fa16509",
+            "type": "cnxmod",
+            "is_visible": false,
+            "data": "0e58aa87-2e09-40a7-8bf3-269b2fa16509"
+        },{
+            "id": "context-cnxmod:185cbf87-c72e-48f5-b51e-f14f21b5eabd",
+            "type": "cnxmod",
+            "is_visible": false,
+            "data": "185cbf87-c72e-48f5-b51e-f14f21b5eabd"
         }]
     }]
 }
