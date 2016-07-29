@@ -108,7 +108,7 @@ CourseDuration = React.createClass
 
         _.chain(plans)
           .sortBy((plan) ->
-            -1 * plan.rangeDuration.start.valueOf()
+            plan.rangeDuration.count('days')
           )
           .each(@setPlanOrder({current, existingOrdered, weekTopOffset, maxPlansOnDay}))
           .value()
