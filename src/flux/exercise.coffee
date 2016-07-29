@@ -157,8 +157,8 @@ ExerciseConfig =
     forCnxModuleUuid: (uuid) ->
       exercises = {}
       for id, exercise of @_exerciseCache when not exercises[id]
-        for exerciseUuid in getExerciseCnxModUuids(exercise)
-          exercises[id] = exercise if uuid is exerciseUuid
+        if _.includes( getExerciseCnxModUuids(exercise), uuid )
+          exercises[id] = exercise
       _.values exercises
 
     getChapterSectionOfExercise: (ecosystemId, exercise) ->

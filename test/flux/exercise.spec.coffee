@@ -27,7 +27,7 @@ describe 'exercises store', ->
 
   it 'groups exercises by chapter/section', ->
     expect(_.keys(ExerciseStore.groupBySectionsAndTypes(ECOSYSTEM_ID, PAGE_IDS).all.grouped))
-      .to.deep.equal(['', '1.1'])
+      .to.deep.equal(['1.1'])
 
   it 'ommits excluded exercises from groups', ->
     exercise = _.extend({}, EXERCISE, is_excluded: true)
