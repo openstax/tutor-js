@@ -1,1 +1,17 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#e5e5e5;}.cls-3{fill:#434343;}</style></defs><title>icon-fa-homework</title><path class="cls-1" d="M20.16,39.83a19.5,19.5,0,1,1,19.5-19.5A19.52,19.52,0,0,1,20.16,39.83Z" transform="translate(-0.16 -0.33)"/><path class="cls-2" d="M20.16,1.33a19,19,0,1,1-19,19,19,19,0,0,1,19-19m0-1a20,20,0,1,0,20,20,20,20,0,0,0-20-20h0Z" transform="translate(-0.16 -0.33)"/><path class="cls-1" d="M20.16,39.83a19.5,19.5,0,1,1,19.5-19.5A19.52,19.52,0,0,1,20.16,39.83Z" transform="translate(-0.16 -0.33)"/><path class="cls-2" d="M20.16,1.33a19,19,0,1,1-19,19,19,19,0,0,1,19-19m0-1a20,20,0,1,0,20,20,20,20,0,0,0-20-20h0Z" transform="translate(-0.16 -0.33)"/><path class="cls-3" d="M26,19.44L16.1,29.33H11.16V24.39L21,14.5Zm-9.43,7.28-2.79-2.79L12.68,25v1.27H14.2v1.52h1.27Zm4.87-10.21a0.28,0.28,0,0,0-.2.08L14.78,23a0.28,0.28,0,0,0-.08.2,0.25,0.25,0,0,0,.26.26,0.28,0.28,0,0,0,.2-0.08L21.6,17a0.28,0.28,0,0,0,.08-0.2A0.25,0.25,0,0,0,21.43,16.52Zm7.3,0.19-2,2-4.94-4.94,2-2a1.49,1.49,0,0,1,1.07-.45,1.54,1.54,0,0,1,1.08.45l2.79,2.78a1.58,1.58,0,0,1,.44,1.08A1.53,1.53,0,0,1,28.72,16.71Z" transform="translate(-0.16 -0.33)"/></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="40px" height="40px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">
+<g>
+	<circle fill="#00C1DE" cx="20" cy="20" r="20"/>
+	<g>
+		<path fill="#F89646" d="M20.317,19.683L30.986,9.014c-2.309-2.309-5.043-3.929-7.949-4.873l-9.131,9.13L20.317,19.683z"/>
+		<path fill="#F47642" d="M20.317,19.683l6.411,6.412l9.131-9.131c-0.943-2.906-2.564-5.641-4.873-7.95L20.317,19.683z"/>
+		<g>
+			<polygon fill="#F4CF1A" points="26.726,26.098 13.903,13.275 9.281,27.284 12.452,30.454 			"/>
+			<polygon fill="#3B3B3B" points="12.452,30.454 9.281,27.284 7.763,31.886 			"/>
+		</g>
+	</g>
+</g>
+</svg>
