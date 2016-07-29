@@ -63,10 +63,7 @@ ExerciseGroup = React.createClass
       className = group.replace(' ', '_')
       labels = @getGroupLabel(group, related_content)
       isSpacedPractice = className is 'spaced_practice'
-      if isSpacedPractice
-        icon = <i className="fa fa-history" />
-      else
-        icon = <i className="icon-sm icon-#{className}" key='group-icon'></i>
+      icon = <i className="icon-sm icon-#{className}" key='group-icon'></i>
 
       spacedPracticeHeading = <p><b>What is spaced practice?</b></p>
 
