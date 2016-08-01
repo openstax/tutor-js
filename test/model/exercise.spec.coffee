@@ -2,7 +2,7 @@
 
 Exercise = require 'model/exercise'
 
-EXERCISE = require 'stubs/exercise-preview/data'
+EXERCISE = require 'api/exercise-preview/data'
 
 describe 'Exercise Model Helpers', ->
 

@@ -2,7 +2,7 @@
 ld = require 'lodash'
 ExercisePreview = require 'src/components/exercise-preview'
 
-EXERCISE = require '../../../stubs/exercise-preview/data'
+EXERCISE = require '../../../api/exercise-preview/data'
 ANSWERS  = EXERCISE.content.questions[0].answers
 
 describe 'Exercise Preview Component', ->
