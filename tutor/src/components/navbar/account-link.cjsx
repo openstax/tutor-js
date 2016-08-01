@@ -9,5 +9,5 @@ module.exports = React.createClass
   render: ->
     return null unless CurrentUserStore.getProfileUrl()
     <li>
-      <a href={CurrentUserStore.getProfileUrl()} target='_blank'>My Account</a>
+      <a href={CurrentUserStore.getProfileUrl()} target='_blank' onClick={if @props.onClick then @props.onClick}>My Account</a>
     </li>
