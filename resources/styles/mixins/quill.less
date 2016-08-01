@@ -1,0 +1,99 @@
+@import './generic';
+
+.x-quill() {
+  // Style the question-stem/exercise-background differently from other quill instances
+  > .quill-wrapper {
+    // Make the main editable area visibly different so you know you can edit
+    border-radius: 5px;
+    padding: 1rem;
+
+    .ql-editor {
+      padding: 1rem;
+      // for a nice box shadow
+      // from GitHub
+      border-color: #aaa;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.075),0 0 5px rgba(167,167,167,0.5);
+
+      &:focus,
+      &.ql-has-active-popup {
+        // from GitHub
+        border-color: #51a7e8;
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.075),0 0 5px rgba(81,167,232,0.5);
+      }
+    }
+  }
+
+
+  .quill-wrapper {
+    padding: .3rem;
+
+    .ql-editor {
+      // Ensure enough space below for the math popup so it does not get overflow-hidden
+      transition: padding-bottom .3s ease-in;
+
+      // .ql-is-active is a hack for the math popup because the editor loses focus
+      &:focus,
+      &.ql-has-active-popup {
+        padding-bottom: 12rem;
+      }
+      // If it is not focused then change the cursor so the user knows to click in it
+      &:not(:focus):not(.ql-has-active-popup) {
+        cursor: pointer;
+      }
+
+      // Make sure all math in the editor has a gray background
+      [data-math] {
+        .x-user-select(all);
+        .katex-inner {
+          // use .katex-inner to get the whole bounding box
+          background-color: #efefef;
+          outline: 1px solid #9e9e9e;
+          cursor: pointer;
+        }
+      }
+    }
+
+
+    // Style the tooltip and buttons
+    .ql-math-tooltip {
+      // .z-depth-3
+      box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+      border-radius: 10px;
+      padding: 5px;
+      border: 1px solid #999;
+      width: 25rem;
+      overflow-x: hidden;
+      .x-user-select(none);
+
+      .title {
+        color: #9e9e9e;
+        margin-right: 1rem;
+      }
+      .math-input {
+        border: 1px solid black;
+        width: 17rem;
+        height: 2rem;
+        padding-left: .5rem;
+      }
+      .preview {
+        color: #616161;
+        margin: 5px auto;
+        width: 20rem;
+        text-align: center;
+        cursor: default;
+      }
+      .ql-btn-group {
+        border-top: 1px solid rgba(160,160,160,0.2); // from card-action-top
+
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: .5rem;
+
+        button {
+          .x-btn-dialog();
+        }
+      }
+    }
+  }
+}

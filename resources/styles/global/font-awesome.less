@@ -1,0 +1,27 @@
+// Import font awesome by individually requiring it's less files
+// This is needed to work around a bug with less variable interpolating url()
+// http://stackoverflow.com/questions/7025031/less-css-url-variable-always-shows-server-base-url-before-variable-output
+@fa-path: '../../../node_modules/font-awesome';
+
+@import "@{fa-path}/less/variables.less";
+@import "@{fa-path}/less/mixins.less";
+// path.less is ommited and our own font-face declaration is used
+// our declaration contains a valid path to the files, and ommits
+// legacy font definitions.
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('./@{fa-path}/fonts/fontawesome-webfont.eot?v=@{fa-version}');
+  src: url('./@{fa-path}/fonts/fontawesome-webfont.woff?v=@{fa-version}'),
+       url('./@{fa-path}/fonts/fontawesome-webfont.woff2?v=@{fa-version}') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@import "@{fa-path}/less/core.less";
+@import "@{fa-path}/less/larger.less";
+@import "@{fa-path}/less/fixed-width.less";
+@import "@{fa-path}/less/list.less";
+@import "@{fa-path}/less/bordered-pulled.less";
+@import "@{fa-path}/less/animated.less";
+@import "@{fa-path}/less/rotated-flipped.less";
+@import "@{fa-path}/less/stacked.less";
+@import "@{fa-path}/less/icons.less";

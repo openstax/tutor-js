@@ -1,0 +1,122 @@
+@import "@{material-path}/_variables";
+@import "@{material-path}/_colors";
+@import "@{material-path}/_mixins";
+
+@import "@{material-path}/_icons-material-design";
+@import "@{material-path}/_shadows";
+
+body {
+  background-color: #EEEEEE;
+  &.inverse {
+    background: #333333;
+    &, .form-control {
+      color: @darkbg-text;
+    }
+  }
+}
+
+// Well and Jumbotrons
+@import "@{material-path}/_welljumbo";
+
+// Buttons
+@import "@{material-path}/_buttons";
+
+// Checkboxes
+@import "@{material-path}/_checkboxes";
+
+// Toggle buttons
+@import "@{material-path}/_togglebutton";
+
+// Radios
+@import "@{material-path}/_radios";
+
+// Text inputs
+@import "@{material-path}/_inputs";
+
+legend {
+  border-bottom: 0;
+}
+
+// Lists
+@import "@{material-path}/_lists";
+
+// Navbar
+@import "@{material-path}/_navbar";
+
+.navbar.navbar .dropdown-menu,
+.navbar-default.navbar .dropdown-menu,
+.dropdown-menu {
+  border: 0; 
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  .divider {
+    background-color: @tutor-neutral-light;
+  }
+  li {
+    overflow: hidden;
+    position: relative;
+  }
+  .variations(~" li a:hover", color, @tutor-neutral-darker);
+  .variations(~" li a:hover", background-color, @tutor-neutral-bright);
+
+  // Active state
+  .variations(~" > .active > a", color, @tutor-neutral-darker);
+  .variations(~" > .active > a", background-color, @tutor-neutral-light);
+  .variations(~" > .active > a:hover", background-color, @tutor-neutral-light);
+  .variations(~" > .active > a:hover", color, @tutor-neutral-darker);
+  .variations(~" > .active > a:hover", cursor, default);
+}
+
+// Alerts
+@import "@{material-path}/_alerts";
+
+// Progress bar
+@import "@{material-path}/_progress";
+
+// Typography
+.text-warning {
+  color: @btn-warning;
+}
+.text-primary {
+  color: @btn-primary;
+}
+.text-danger {
+  color: @btn-danger;
+}
+.text-success {
+  color: @btn-success;
+}
+.text-info {
+  color: @btn-info;
+}
+
+@import "@{material-path}/_tabs";
+
+@import "@{material-path}/_popups";
+
+@import "@{material-path}/_icons";
+
+@import "@{material-path}/_cards";
+
+@import "@{material-path}/_dialogs";
+
+@import "@{material-path}/_labels";
+
+@import "@{material-path}/_panels";
+
+@import "@{material-path}/_dividers";
+
+// Prevent highlight on mobile
+* {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  -webkit-tap-highlight-color: transparent;
+  &:focus {
+    outline: 0;
+  }
+}
+
+
+// // External plugins
+// @import "@{material-path}/_plugin-snackbarjs";
+// @import "@{material-path}/_plugin-nouislider";
+// @import "@{material-path}/_plugin-selectize";
+// @import "@{material-path}/_plugin-dropdownjs";
