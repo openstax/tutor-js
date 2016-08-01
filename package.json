@@ -8,6 +8,7 @@
     "test": "npm run coverage",
     "precoverage": "npm run validate",
     "coverage": "gulp coverage",
+    "serve": "scripts/serve",
     "build": "gulp build",
     "build-archive": "gulp build-archive",
     "debug-integration": "echo 'This may require you to kill the mocha process (search for 5858)' && node-debug --hidden 'node_modules/' ./scripts/run-integration-mocha.js --bail ./test-integration/index",

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+PRODUCT=$1
+
+export PRODUCT=$1
+
+echo serving $PRODUCT
+
+webpack
