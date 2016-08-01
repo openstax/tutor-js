@@ -1,6 +1,6 @@
 React = require 'react'
 _ = require 'underscore'
-{Exercise} = require 'openstax-react-components'
+{Exercise, ChapterSectionMixin} = require 'openstax-react-components'
 
 {channel, getCurrentPanel} = exercises = require './collection'
 tasks = require '../task/collection'
@@ -12,6 +12,8 @@ ExerciseBase = React.createClass
   displayName: 'ExerciseBase'
   getInitialState: ->
     @getStepState()
+
+  mixins: [ ChapterSectionMixin ]
 
   getStepState: (props) ->
     props ?= @props
@@ -34,6 +36,14 @@ ExerciseBase = React.createClass
   contextTypes:
     processHtmlAndMath: React.PropTypes.func
 
+  renderHelpLink: (sections) ->
+    if not sections?.length then return
+
+    section = _.first(sections)
+    <div key='task-help-links' className='task-help-links'>
+      Comes from {@sectionFormat(section.chapter_section)} - {section.title}
+    </div>
+
   render: ->
     {step} = @state
     {taskId} = @props
@@ -46,6 +56,7 @@ ExerciseBase = React.createClass
       getCurrentPanel: getCurrentPanel
       canReview: true
       freeResponseValue: step.cachedFreeResponse
+      helpLink: @renderHelpLink(step.related_content)
 
       setAnswerId: (id, answerId) ->
         step.answer_id = answerId
