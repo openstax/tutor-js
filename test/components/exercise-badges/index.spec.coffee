@@ -2,7 +2,7 @@
 ld = require 'lodash'
 Badges = require 'components/exercise-badges'
 
-EXERCISE = require '../../../stubs/exercise-preview/data'
+EXERCISE = require '../../../api/exercise-preview/data'
 
 describe 'Exercise Preview Component', ->
 

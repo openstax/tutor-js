@@ -9,8 +9,8 @@ Notifications = require '../model/notifications'
 URLs = require '../model/urls'
 NotificationBar = require './notifications/bar'
 SuretyGuard = require './surety-guard'
-exerciseStub = require '../../stubs/exercise'
-multipartExerciseStub = require '../../stubs/exercise-multipart'
+exerciseStub = require '../../api/exercise'
+multipartExerciseStub = require '../../api/exercise-multipart'
 exerciseEvents = new EventEmitter2(wildcard: true)
 STEP_ID = exerciseStub['free-response'].id
 MULTIPART_STEP_IDS = _.keys(multipartExerciseStub)
@@ -27,13 +27,13 @@ stubForExercise[STEP_ID] = exerciseStub
 stubsForExercises = _.extend {}, multipartExerciseStub, stubForExercise
 
 ExercisePreview = require './exercise-preview'
-exercisePreviewStub = require '../../stubs/exercise-preview/data'
+exercisePreviewStub = require '../../api/exercise-preview/data'
 
 Breadcrumb = require './breadcrumb'
-breadcrumbStub = require '../../stubs/breadcrumbs/steps'
+breadcrumbStub = require '../../api/breadcrumbs/steps'
 
 ArbitraryHtmlAndMath = require './html'
-HTMLStub = require '../../stubs/html/data'
+HTMLStub = require '../../api/html/data'
 
 getCurrentPanel = (stepId) ->
   step = steps[stepId]

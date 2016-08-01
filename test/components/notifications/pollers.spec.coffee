@@ -4,7 +4,7 @@ moment = require 'moment'
 
 Poller = require 'model/notifications/pollers'
 FakeWindow = require 'test/helpers/fake-window'
-TEST_NOTICES = require 'stubs/notifications'
+TEST_NOTICES = require 'api/notifications'
 
 describe 'Notification Pollers', ->
   beforeEach ->
