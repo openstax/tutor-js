@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1 Tiny//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-tiny.dtd">
+<svg version="1.1" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 x="0px" y="0px" width="40px" height="40px" viewBox="0 0 40 40" xml:space="preserve">
+<circle fill="#73B451" cx="20" cy="20" r="20"/>
+<g>
+	<path fill="#E6E7E8" d="M24.797,35.637c-0.475,0.993-1.675,1.417-2.668,0.943L5.761,28.756c-0.993-0.474-1.417-1.674-0.942-2.666
+		L15.204,4.363c0.474-0.993,1.674-1.417,2.667-0.942l16.368,7.823c0.993,0.474,1.417,1.674,0.943,2.667L24.797,35.637z"/>
+	
+		<rect x="13.868" y="8.366" transform="matrix(0.9022 0.4312 -0.4312 0.9022 7.9547 -8.743)" fill="#232E66" width="18.788" height="9.616"/>
+	<g>
+		
+			<rect x="11.032" y="15.733" transform="matrix(0.9023 0.4312 -0.4312 0.9023 8.916 -4.1794)" fill="#5F6062" width="5.292" height="3.691"/>
+		
+			<rect x="17.12" y="18.644" transform="matrix(0.9022 0.4313 -0.4313 0.9022 10.7714 -6.5218)" fill="#5F6062" width="5.292" height="3.69"/>
+		
+			<rect x="23.208" y="21.554" transform="matrix(0.9022 0.4313 -0.4313 0.9022 12.6191 -8.862)" fill="#5F6062" width="5.292" height="3.69"/>
+	</g>
+	<g>
+		
+			<rect x="8.829" y="20.342" transform="matrix(0.9022 0.4314 -0.4314 0.9022 10.6937 -2.7798)" fill="#5F6062" width="5.293" height="3.69"/>
+		
+			<rect x="14.918" y="23.251" transform="matrix(0.9022 0.4314 -0.4314 0.9022 12.5433 -5.1215)" fill="#5F6062" width="5.293" height="3.691"/>
+		
+			<rect x="21.006" y="26.16" transform="matrix(0.9023 0.4312 -0.4312 0.9023 14.388 -7.4615)" fill="#5F6062" width="5.293" height="3.691"/>
+	</g>
+	<g>
+		
+			<rect x="6.627" y="24.949" transform="matrix(0.9022 0.4314 -0.4314 0.9022 12.4647 -1.3793)" fill="#5F6062" width="5.293" height="3.69"/>
+		
+			<rect x="12.716" y="27.858" transform="matrix(0.9023 0.4312 -0.4312 0.9023 14.3096 -3.7209)" fill="#5F6062" width="5.293" height="3.691"/>
+		
+			<rect x="18.804" y="30.767" transform="matrix(0.9023 0.4311 -0.4311 0.9023 16.1544 -6.061)" fill="#F47642" width="5.292" height="3.691"/>
+	</g>
+	<text transform="matrix(0.526 0.2514 -0.2514 0.526 16.876 12.5044)" fill="#00C1DE" font-family="'Lato-Black'" font-size="12">x+y</text>
+</g>
+</svg>

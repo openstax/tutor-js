@@ -1,0 +1,256 @@
+{
+  "id": "20",
+  "url": "https:\/\/exercises-dev.openstax.org\/exercises\/20@2",
+  "preview": "Read the above content and then watch this video about DNA:\n<div class=\"preview video\">Video<\/div>\n\nAfter watching it, keep it's important lessions in mind while you answer the following questions",
+  "has_video": true,
+  "has_interactive": false,
+  "is_excluded": false,
+  "pool_types": [
+    "homework_core"
+  ],
+  "context": "<div data-type=\"note\" data-has-label=\"true\" id=\"mcbp_04_01\" class=\"note sociology-real-world\" data-label=\"about socieities\">\n<div data-type=\"title\" class=\"title\">Where Societies Meet—The Worst and the Best</div>\n<p id=\"import-auto-id1169034204797\">When cultures meet, technology can help, hinder, and even destroy. The Exxon Valdez oil spillage in Alaska nearly destroyed the local inhabitant’s entire way of life. Oil spills in the Nigerian Delta have forced many of the Ogoni tribe from their land and forced removal has meant that over 100,000 Ogoni have sought refuge in the country of Benin (University of Michigan, n.d.). And the massive Deepwater Horizon oil spill of 2006 drew great attention as it occurred in what is the most developed country, the United States. Environmental disasters continue as Western technology and its need for energy expands into less developed (peripheral) regions of the globe. </p>\n<p id=\"import-auto-id1169034181979\">Of course not all technology is bad. We take electric light for granted in the United States, Europe, and the rest of the developed world. Such light extends the day and allows us to work, read, and travel at night. It makes us safer and more productive. But regions in India, Africa, and elsewhere are not so fortunate. Meeting the challenge, one particular organization, Barefoot College, located in District Ajmer, Rajasthan, India, works with numerous less developed nations to bring solar electricity, water solutions, and education. The focus for the solar projects is the village elders. The elders agree to select two grandmothers to be trained as solar engineers and choose a village committee composed of men and women to help operate the solar program.\n</p>\n<p id=\"eip-85\">The program has brought light to over 450,000 people in 1,015 villages. The environmental rewards include a large reduction in the use of kerosene and in carbon dioxide emissions. The fact that the villagers are operating the projects themselves helps minimize their sense of dependence. \n</p>\n<figure id=\"import-auto-id1169034200522\"><figcaption>Otherwise skeptic or hesitant villagers are more easily convinced of the value of the solar project when they realize that the “solar engineers” are their local grandmothers. (Photo courtesy of \nAbri le Roux/flickr)</figcaption><span data-type=\"media\" id=\"import-auto-id1169034191733\" data-alt=\"Alt text: A photo of a family of villagers in Africa in front of a solar panel on top of a roof\">\n                            <img src=\"https://archive.cnx.org/resources/4c1a3d523a90faf20c8b77d981c6991737e2633d/CNX_Soc2e_Figure_04_01_003.jpg\" data-media-type=\"image/png\" alt=\"Alt text: A photo of a family of villagers in Africa in front of a solar panel on top of a roof\" width=\"275\">\n                        </span>\n                            </figure>\n</div>",
+  "tags": [
+    {
+      "data": "cb7cf05b-7e16-4a53-a498-003b01ec3d7f",
+      "is_visible": false,
+      "type": "cnxmod",
+      "id": "context-cnxmod:cb7cf05b-7e16-4a53-a498-003b01ec3d7f"
+    },
+    {
+      "is_visible": true,
+      "chapter_section": [
+        1,
+        2
+      ],
+      "description": "Recognize and interpret a phylogenetic tree",
+      "type": "lo",
+      "id": "apbio-ch01-s02-lo03"
+    },
+    {
+      "is_visible": false,
+      "type": "generic",
+      "id": "apbio"
+    },
+    {
+      "is_visible": false,
+      "type": "generic",
+      "id": "apbio-ch01"
+    },
+    {
+      "data": "4",
+      "is_visible": true,
+      "name": "Blooms: 4",
+      "type": "blooms",
+      "id": "blooms-4"
+    },
+    {
+      "is_visible": false,
+      "type": "generic",
+      "id": "book:stax-bio"
+    },
+    {
+      "data": "4",
+      "is_visible": true,
+      "name": "Blooms: 4",
+      "type": "blooms",
+      "id": "blooms:4"
+    },
+    {
+      "is_visible": false,
+      "type": "generic",
+      "id": "type:practice"
+    },
+    {
+      "is_visible": false,
+      "type": "generic",
+      "id": "book:stax-apbio"
+    },
+    {
+      "is_visible": false,
+      "type": "generic",
+      "id": "filter-type:import:hs"
+    },
+    {
+      "is_visible": false,
+      "type": "generic",
+      "id": "ost-chapter-review"
+    },
+    {
+      "data": "long",
+      "is_visible": true,
+      "name": "Length: L",
+      "type": "length",
+      "id": "time-long"
+    },
+    {
+      "data": "long",
+      "is_visible": true,
+      "name": "Length: L",
+      "type": "length",
+      "id": "time:long"
+    },
+    {
+      "is_visible": false,
+      "type": "generic",
+      "id": "critical-thinking"
+    },
+    {
+      "data": "4",
+      "is_visible": true,
+      "name": "DOK: 4",
+      "type": "dok",
+      "id": "dok4"
+    },
+    {
+      "data": "4",
+      "is_visible": true,
+      "name": "DOK: 4",
+      "type": "dok",
+      "id": "dok:4"
+    },
+    {
+      "is_visible": false,
+      "chapter_section": [
+        1,
+        2
+      ],
+      "type": "generic",
+      "id": "apbio-ch01-s02"
+    },
+    {
+      "is_visible": false,
+      "type": "generic",
+      "id": "apbio-ch01-ex020"
+    },
+    {
+      "is_visible": false,
+      "type": "generic",
+      "id": "exid:apbio-ch01-ex020"
+    }
+  ],
+  "content": {
+    "questions": [
+      {
+        "combo_choices": [],
+        "formats": [
+          "free-response",
+          "multiple-choice"
+        ],
+        "hints": [],
+        "community_solutions": [],
+        "collaborator_solutions": [
+          {
+            "content_html": "Woese mainly used the sequence of ribosomal RNA subunits.",
+            "solution_type": "detailed",
+            "attachments": []
+          }
+        ],
+        "answers": [
+          {
+            "feedback_html": "Woese did not use a sequence of DNA. He used a sequence of rRNA.",
+            "correctness": "0.0",
+            "content_html": "a sequence of DNA",
+            "id": 24949
+          },
+          {
+            "feedback_html": "Woese used a sequence of rRNA as evidence to determine that there should be a separate domain for Archaea.",
+            "correctness": "1.0",
+            "content_html": "a sequence of rRNA",
+            "id": 24950
+          },
+          {
+            "feedback_html": "A sequence of rRNA, not mRNA, was used.",
+            "correctness": "0.0",
+            "content_html": "a sequence of mRNA.",
+            "id": 24951
+          },
+          {
+            "feedback_html": "rRNA was used as a scientific evidence by Carl Woese.",
+            "correctness": "0.0",
+            "content_html": "a sequence of tRNA.",
+            "id": 24952
+          }
+        ],
+        "stem_html": "What scientific evidence was used by Carl Woese to determine there should be a separate domain for Archaea?",
+        "stimulus_html": "",
+        "is_answer_order_important": true,
+        "id": 6403
+      },
+      {
+        "combo_choices": [],
+        "formats": [
+          "true-false"
+        ],
+        "hints": [],
+        "community_solutions": [],
+        "collaborator_solutions": [
+          {
+            "content_html": "Based on the above do you still think so?",
+            "solution_type": "detailed",
+            "attachments": []
+          }
+        ],
+        "answers": [
+          {
+            "feedback_html": "Really?",
+            "correctness": "1.0",
+            "content_html": "YES",
+            "id": 24953
+          },
+          {
+            "feedback_html": "I thought so.",
+            "correctness": "0.0",
+            "content_html": "NO",
+            "id": 24954
+          }
+        ],
+        "stem_html": "Do you think the video was helpful?",
+        "stimulus_html": "",
+        "is_answer_order_important": false,
+        "id": 6404
+      }
+    ],
+    "stimulus_html": "Read the above content and then watch this video about DNA:\n<iframe width=\"1280\" height=\"720\" src=\"https:\/\/www.youtube.com\/embed\/dQw4w9WgXcQ\" frameborder=\"0\" allowfullscreen=\"\"><\/iframe>\n\nAfter watching it, keep it's important lessions in mind while you answer the following questions",
+    "is_vocab": false,
+    "derived_from": [],
+    "copyright_holders": [
+      {
+        "name": "Rice University",
+        "user_id": 2
+      }
+    ],
+    "authors": [
+      {
+        "name": "OpenStax",
+        "user_id": 1
+      }
+    ],
+    "editors": [],
+    "published_at": "2016-05-19T14:05:58.336Z",
+    "version": 2,
+    "number": 20,
+    "uid": "20@2",
+    "tags": [
+      "apbio",
+      "apbio-ch01",
+      "blooms-4",
+      "ost-chapter-review",
+      "time-long",
+      "critical-thinking",
+      "dok4",
+      "apbio-ch01-s02",
+      "apbio-ch01-s02-lo03",
+      "apbio-ch01-ex020",
+      "book:stax-bio",
+      "time:long",
+      "blooms:4",
+      "dok:4",
+      "context-cnxmod:cb7cf05b-7e16-4a53-a498-003b01ec3d7f",
+      "type:practice",
+      "book:stax-apbio",
+      "exid:apbio-ch01-ex020",
+      "filter-type:import:hs"
+    ],
+    "attachments": []
+  }
+}
