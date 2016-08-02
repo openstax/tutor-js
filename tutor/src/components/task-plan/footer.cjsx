@@ -176,7 +176,7 @@ PlanFooter = React.createClass
       {cancelButton}
       {backButton}
       {saveLink}
-      {helpInfo}
+      {helpInfo unless TaskPlanStore.isPublished(id)}
       {deleteLink}
     </div>
 
