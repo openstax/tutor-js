@@ -108,10 +108,11 @@ makeProductionBase = (projectConfig) ->
 
 makeProductionWithCoverageBase = (projectConfig) ->
   productionBase = makeProductionBase(projectConfig)
-  productionBase.postLoaders = [
+  postLoaders = [
     { test: /\.coffee$/, loaders: ["istanbul-instrumenter"] }
     { test: /\.cjsx$/, loaders: ["istanbul-instrumenter"] }
   ]
+  mergeWebpackConfigs(productionBase, {postLoaders})
 
 makeDevelopmentBase = (projectConfig) ->
   host = projectConfig.host or 'localhost'
@@ -162,18 +163,30 @@ makeDevelopmentBase = (projectConfig) ->
 
   developmentBase
 
+makeEnvironmentBase =
+  debug: makeDebugBase
+  production: makeProductionBase
+  productionWithCoverage: makeProductionWithCoverageBase
+  development: makeDevelopmentBase
+
+ENVIRONMENTS = _.keys(makeEnvironmentBase)
+
+getEnvironmentName = (environmentName) ->
+  if _.includes(ENVIRONMENTS, environmentName)
+    environmentName
+  else
+    'development'
+
 makeBaseForEnvironment = (environmentName) ->
-  environments =
-    debug: makeDebugBase
-    production: makeProductionBase
-    productionWithCoverage: makeProductionWithCoverageBase
-    development: makeDevelopmentBase
+  environmentName = getEnvironmentName(environmentName)
+  makeEnvironmentBase[environmentName]
 
-  environmentName = 'development' unless _.includes(_.keys(environments), environmentName)
-
-  environments[environmentName]
+ENVIRONMENT_ALIASES =
+  productionWithCoverage: 'production'
 
 module.exports =
   mergeWebpackConfigs: mergeWebpackConfigs
   BASE_CONFIG: BASE_CONFIG
   makeBaseForEnvironment: makeBaseForEnvironment
+  getEnvironmentName: getEnvironmentName
+  ENVIRONMENT_ALIASES: ENVIRONMENT_ALIASES
