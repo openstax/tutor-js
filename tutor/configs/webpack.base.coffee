@@ -1,11 +1,18 @@
 baseConfig = require './base'
+path = require 'path'
 
 module.exports =
   entry:
     tutor: [
-      "#{baseConfig.basePath}/index.coffee",
-      "#{baseConfig.basePath}/resources/styles/tutor.less"
+      "index.coffee",
+      "resources/styles/tutor.less"
     ]
     qa: [
-      "#{baseConfig.basePath}/src/qa.coffee"
+      "src/qa.coffee"
+    ]
+  resolve:
+    root: [
+      path.resolve(__dirname, '../')
+      path.resolve(__dirname, '../src')
+      path.resolve(__dirname, '../api')
     ]
