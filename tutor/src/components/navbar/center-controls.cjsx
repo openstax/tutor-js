@@ -114,7 +114,8 @@ module.exports = React.createClass
 
         <Icon type='calendar-check-o'
           tooltipProps={placement: 'bottom'}
-          tooltip={due} />
+          tooltip={due}
+          fixedTooltip={true} />
         <Router.Link
           {...linkProps}
           ref='milestonesToggle'

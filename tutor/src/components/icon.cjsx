@@ -13,6 +13,7 @@ module.exports = React.createClass
       React.PropTypes.string, React.PropTypes.element
     ])
     tooltipProps: React.PropTypes.object
+    fixedTooltip: React.PropTypes.bool
 
   componentWillMount: ->
     uniqueId = _.uniqueId('icon-tooltip-')
@@ -32,7 +33,7 @@ module.exports = React.createClass
     icon = <i {...@props} className={classNames} />
 
     if @props.tooltip
-      tooltip = <BS.Tooltip id={@state.uniqueId}>{@props.tooltip}</BS.Tooltip>
+      tooltip = <BS.Tooltip id={@state.uniqueId} className={if @props.fixedTooltip then 'fixed-tooltip'}>{@props.tooltip}</BS.Tooltip>
       <BS.OverlayTrigger {...@props.tooltipProps} overlay={tooltip}>{icon}</BS.OverlayTrigger>
     else
       icon
