@@ -1,5 +1,3 @@
-baseConfig = require './base'
-
 module.exports =
   entry:
     tutor: [

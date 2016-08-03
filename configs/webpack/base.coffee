@@ -58,6 +58,13 @@ mergeWebpackConfigs = ->
   mergeArgs = _.chain(arguments).toArray().unshift({}).push(mergeArrays).value()
   _.mergeWith.apply(null, mergeArgs)
 
+# TODO handle if project doesn't exist
+loadProjectBaseConfig = (projectName) ->
+  projectBaseConfig = require "../../#{projectName}/configs/base"
+
+  _.extend({basePath: projectName}, projectBaseConfig)
+
+
 makeBuildOutputs = (projectConfig) ->
   path: "dist"
   publicPath: "/assets/"
@@ -92,14 +99,6 @@ makeDebugBase = (projectConfig) ->
     module:
       loaders: BASE_BUILD_LOADERS
     plugins: makeBuildPlugins(projectConfig)
-
-    # likely don't need.
-    # .concat([
-    #   new webpack.DefinePlugin(
-    #     'process.env':
-    #       NODE_ENV: JSON.stringify('development')
-    #   )
-    # ])
 
 makeProductionBase = (projectConfig) ->
 
@@ -149,9 +148,9 @@ makeDevelopmentBase = (projectConfig) ->
       new webpack.HotModuleReplacementPlugin()
     ]
     devServer:
-      # contentBase: "./#{projectConfig.basePath}/"
-      # outputPath: outputPath
-      # publicPath: publicPath
+      contentBase: "#{projectConfig.basePath}/"
+      outputPath: outputPath
+      publicPath: publicPath
       historyApiFallback: true
       inline: true
       port: projectConfig.devPort
@@ -173,13 +172,6 @@ makeDevelopmentBase = (projectConfig) ->
         timings: false,
         chunks: false,
         chunkModules: false
-
-  # if projectConfig.devEntry
-  #   developmentBase.entry =
-  #     "#{projectConfig.devEntry}": [
-  #       "./node_modules/webpack-dev-server/client/index.js?#{servePath}"
-  #       'webpack/hot/dev-server'
-  #     ]
 
   developmentBase
 
@@ -207,6 +199,7 @@ ENVIRONMENT_ALIASES =
 module.exports =
   mergeWebpackConfigs: mergeWebpackConfigs
   BASE_CONFIG: BASE_CONFIG
+  loadProjectBaseConfig: loadProjectBaseConfig
   makePathsBase: makePathsBase
   makeBaseForEnvironment: makeBaseForEnvironment
   getEnvironmentName: getEnvironmentName

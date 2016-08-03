@@ -3,7 +3,7 @@ webpackUMDExternal = require 'webpack-umd-external'
 
 module.exports =
   entry:
-    main: './coach/index'
+    main: 'index'
   output:
     filename: 'main.min.js'
   plugins: [

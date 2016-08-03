@@ -1,5 +1,6 @@
 {
   BASE_CONFIG,
+  loadProjectBaseConfig,
   mergeWebpackConfigs,
   makePathsBase,
   makeBaseForEnvironment,
@@ -20,7 +21,8 @@ makeConfig = (projectName, environmentName) ->
   else
     environmentName
 
-  projectBaseConfig = require "../../#{projectName}/configs/base"
+  projectBaseConfig = loadProjectBaseConfig(projectName)
+
   projectWebpackBaseConfig =
     conditionalRequire("../../#{projectName}/configs/webpack.base")
   projectWebpackEnvironmentConfig =
