@@ -1,11 +1,8 @@
 #!/bin/bash
 
 set -e
-if [ $# -eq 0 ]; then
-    echo "No project to serve was given. usage:"
-    echo "$0 <tutor|exercises|coach>"
-    exit 1
-fi
+
+bin/checkinputs "$@"
 
 export OX_PROJECT=$1
 echo Serving: $OX_PROJECT

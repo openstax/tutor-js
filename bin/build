@@ -2,11 +2,7 @@
 
 set -e
 
-if [ $# -eq 0 ]; then
-    echo "No project to build was given. usage:"
-    echo "$0 <tutor|exercises|coach>"
-    exit 1
-fi
+bin/checkinputs "$@"
 
 export OX_PROJECT=$1
 echo Building: $OX_PROJECT
