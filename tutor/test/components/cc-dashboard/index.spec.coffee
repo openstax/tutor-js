@@ -29,7 +29,7 @@ describe 'Concept Coach Dashboard Shell', ->
     CourseActions.loaded(CourseObj, IDS.BASE)
     _.defer(done)
 
-  xit 'displays the help page when there are no periods', (done) ->
+  it 'displays the help page when there are no periods', (done) ->
     RenderHelper(IDS.BLANK).then ({dom}) ->
       expect(dom).to.exist
       expect(dom.classList.contains('cc-dashboard-help')).to.be.true
