@@ -57,10 +57,13 @@ describe 'Student Scores Latework Popover', ->
 
   it 'displays re-approve messages for addtional work', ->
     @props.task.is_late_work_accepted = true
+    @props.task.completed_exercise_count = 7
+    @props.task.completed_on_time_step_count = 0
+    @props.task.completed_accepted_late_exercise_count = 2
     @props.task.completed_accepted_late_step_count = 2
     @props.task.completed_step_count = 7
     Testing.renderComponent( LateWorkPopover, props: @props ).then ({dom}) ->
       expect(dom.querySelector('.body').textContent).to.include(
-        'This student worked 6 questions'
+        "This student worked 3 questions\nafter you accepted a late score"
       )
       expect(dom.querySelector('.popover-title').textContent).to.equal('Additional late work')
