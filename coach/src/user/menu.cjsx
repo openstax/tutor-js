@@ -1,7 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 EventEmitter2 = require 'eventemitter2'
-{CloseButton} = require 'openstax-react-components'
+{CloseButton} = require 'shared'
 
 Status = require './status-mixin'
 

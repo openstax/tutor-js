@@ -4,7 +4,7 @@ cn = require 'classnames'
 
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
 {CourseStore} = require '../../flux/course'
-{AsyncButton, ScrollToMixin} = require 'openstax-react-components'
+{AsyncButton, ScrollToMixin} = require 'shared'
 showDialog = require './unsaved-dialog'
 
 Icon = require '../icon'

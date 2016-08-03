@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 
 {TaskStore} = require '../../flux/task'
-{CardBody, PinnableFooter, ChapterSectionMixin} = require 'openstax-react-components'
+{CardBody, PinnableFooter, ChapterSectionMixin} = require 'shared'
 Review = require '../task/review'
 
 ConceptCoachEnd = React.createClass

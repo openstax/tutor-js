@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _} = require 'openstax-react-components/test/helpers'
+{Testing, expect, sinon, _} = require 'shared/test/helpers'
 
 {loader, isPending} = require 'api/loader'
 REAL_LOADER = loader

@@ -4,7 +4,7 @@ BS = require 'react-bootstrap'
 classnames = require 'classnames'
 
 CrumbMixin = require '../crumb-mixin'
-{ChapterSectionMixin, ArbitraryHtmlAndMath} = require 'openstax-react-components'
+{ChapterSectionMixin, ArbitraryHtmlAndMath} = require 'shared'
 {BreadcrumbStatic} = require '../../breadcrumb'
 
 {TaskStepActions, TaskStepStore} = require '../../../flux/task-step'

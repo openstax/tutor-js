@@ -10,7 +10,7 @@ React = require 'react/addons'
 {BreadcrumbTaskDynamic} = require '../../../../src/components/breadcrumb'
 ProgressBar = require '../../../../src/components/task/progress'
 ProgressPanel = require '../../../../src/components/task/progress/panel'
-{ExerciseGroup} = require 'openstax-react-components'
+{ExerciseGroup} = require 'shared'
 
 checks =
   _checkAllowContinue: ({div, component, state, router, history}) ->

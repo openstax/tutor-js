@@ -1,6 +1,6 @@
 React = require 'react'
 classnames = require 'classnames'
-{Breadcrumb} = require 'openstax-react-components'
+{Breadcrumb} = require 'shared'
 _ = require 'underscore'
 
 tasks = require '../task/collection'

@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _} = require 'openstax-react-components/test/helpers'
+{Testing, expect, sinon, _} = require 'shared/test/helpers'
 
 {Task} = require 'task'
 Collection = require 'task/collection'

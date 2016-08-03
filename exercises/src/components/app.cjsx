@@ -6,7 +6,7 @@ Location = require 'stores/location'
 
 ErrorModal = require './error-modal'
 UserActionsMenu = require 'components/user-actions-menu'
-{SuretyGuard} = require 'openstax-react-components'
+{SuretyGuard} = require 'shared'
 NetworkActivity = require './network-activity-spinner'
 {VocabularyStore, VocabularyActions} = require 'stores/vocabulary'
 

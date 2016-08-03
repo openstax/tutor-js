@@ -1,5 +1,5 @@
 React = require 'react'
-{Testing, expect, sinon, _, ReactTestUtils} = require 'openstax-react-components/test/helpers'
+{Testing, expect, sinon, _, ReactTestUtils} = require 'shared/test/helpers'
 
 {Navigation} = require 'navigation'
 Course = require 'course/model'

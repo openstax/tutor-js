@@ -4,7 +4,7 @@ cn = require 'classnames'
 classnames = require 'classnames'
 Pagination = require('ultimate-pagination')
 
-{ResizeListenerMixin, ScrollToMixin} = require 'openstax-react-components'
+{ResizeListenerMixin, ScrollToMixin} = require 'shared'
 
 Sectionizer = React.createClass
 

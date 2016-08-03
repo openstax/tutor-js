@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 tasks = require './collection'
 
-{ChapterSectionMixin} = require 'openstax-react-components'
+{ChapterSectionMixin} = require 'shared'
 {ExerciseStep} = require '../exercise'
 {ExerciseButton, ContinueToBookButton, ReturnToBookButton} = require '../buttons'
 

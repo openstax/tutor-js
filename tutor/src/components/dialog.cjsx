@@ -2,7 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 TutorDialog = require './tutor-dialog'
 
-{CloseButton} = require 'openstax-react-components'
+{CloseButton} = require 'shared'
 
 ###
 <Dialog

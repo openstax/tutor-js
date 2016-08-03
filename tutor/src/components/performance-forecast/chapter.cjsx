@@ -2,7 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 
-{ChapterSectionMixin} = require 'openstax-react-components'
+{ChapterSectionMixin} = require 'shared'
 
 ChapterSectionType = require './chapter-section-type'
 ProgressBar = require './progress-bar'

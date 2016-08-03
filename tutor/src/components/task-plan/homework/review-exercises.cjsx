@@ -7,7 +7,7 @@ LoadingExercises = require './loading-exercises-mixin'
 
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 {ExerciseStore} = require '../../../flux/exercise'
-{ExercisePreview, SuretyGuard, PinnedHeaderFooterCard} = require 'openstax-react-components'
+{ExercisePreview, SuretyGuard, PinnedHeaderFooterCard} = require 'shared'
 
 ExerciseControls = require './exercise-controls'
 ExerciseTable    = require './exercises-table'

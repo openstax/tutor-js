@@ -8,7 +8,7 @@ classnames = require 'classnames'
 AddExercises    = require './add-exercises'
 ReviewExercises = require './review-exercises'
 SelectTopics    = require '../select-topics'
-{ScrollToMixin} = require 'openstax-react-components'
+{ScrollToMixin} = require 'shared'
 
 {ExerciseActions} = require '../../../flux/exercise'
 

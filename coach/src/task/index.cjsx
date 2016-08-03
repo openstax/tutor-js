@@ -2,7 +2,7 @@ React = require 'react'
 EventEmitter2 = require 'eventemitter2'
 _ = require 'underscore'
 classnames = require 'classnames'
-{SpyMode} = require 'openstax-react-components'
+{SpyMode} = require 'shared'
 
 {channel} = tasks = require './collection'
 api = require '../api'

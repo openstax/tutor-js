@@ -1,6 +1,6 @@
 # coffeelint: disable=max_line_length, spacing_after_comma
 
-{Testing, expect, sinon, _} = require 'openstax-react-components/test/helpers'
+{Testing, expect, sinon, _} = require 'shared/test/helpers'
 User = require 'user/model'
 LoginGateway = require 'user/login-gateway'
 

@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 {StepPanel} = require '../../helpers/policies'
 
-{AsyncButton, CardBody} = require 'openstax-react-components'
+{AsyncButton, CardBody} = require 'shared'
 
 StepCard = React.createClass
   displayName: 'StepCard'

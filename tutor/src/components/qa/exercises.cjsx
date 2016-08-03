@@ -2,7 +2,7 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 React = require 'react'
 classnames = require 'classnames'
-{SpyMode} = require 'openstax-react-components'
+{SpyMode} = require 'shared'
 
 {ReferenceBookStore} = require '../../flux/reference-book'
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'

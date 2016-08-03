@@ -13,7 +13,7 @@ Router = require 'react-router'
 LoadableItem = require '../loadable-item'
 ScoresExport = require './export'
 {CoursePeriodsNavShell} = require '../course-periods-nav'
-{ResizeListenerMixin} = require 'openstax-react-components'
+{ResizeListenerMixin} = require 'shared'
 
 Scores = React.createClass
   displayName: 'Scores'

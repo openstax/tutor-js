@@ -1,7 +1,7 @@
 _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
-{AsyncButton} = require 'openstax-react-components'
+{AsyncButton} = require 'shared'
 ENTER = 'Enter'
 
 Course = require './model'

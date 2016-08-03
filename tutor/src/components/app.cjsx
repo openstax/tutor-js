@@ -5,7 +5,7 @@ classnames = require 'classnames'
 
 Navbar = require './navbar'
 Analytics = require '../helpers/analytics'
-{SpyMode} = require 'openstax-react-components'
+{SpyMode} = require 'shared'
 {CourseStore} = require '../flux/course'
 {TransitionActions, TransitionStore} = require '../flux/transition'
 

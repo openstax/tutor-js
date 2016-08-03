@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _, React} = require 'openstax-react-components/test/helpers'
+{Testing, expect, sinon, _, React} = require 'shared/test/helpers'
 
 {CCModal} = require 'concept-coach/modal'
 api = require 'api'

@@ -4,7 +4,7 @@ React = require 'react'
 {QuestionActions, QuestionStore} = require './stores/answer'
 {ExerciseActions, ExerciseStore} = require './stores/exercise'
 
-MathJaxHelper =  require 'openstax-react-components/src/helpers/mathjax'
+MathJaxHelper =  require 'shared/src/helpers/mathjax'
 Exercise = require './components/exercise'
 App = require './components/app'
 api = require './api'

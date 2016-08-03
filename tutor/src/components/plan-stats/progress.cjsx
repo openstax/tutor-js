@@ -3,7 +3,7 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
 
-{ChapterSectionMixin} = require 'openstax-react-components'
+{ChapterSectionMixin} = require 'shared'
 
 Progress = React.createClass
   displayName: 'Progress'

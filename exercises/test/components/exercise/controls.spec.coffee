@@ -1,5 +1,5 @@
-{Testing, expect, sinon, _, ReactTestUtils} = require 'openstax-react-components/test/helpers'
-{ExercisePreview} = require 'openstax-react-components'
+{Testing, expect, sinon, _, ReactTestUtils} = require 'shared/test/helpers'
+{ExercisePreview} = require 'shared'
 
 ExerciseControls = require 'components/exercise/controls'
 Exercise = require 'components/exercise'

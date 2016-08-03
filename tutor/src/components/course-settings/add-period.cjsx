@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 {PeriodActions, PeriodStore} = require '../../flux/period'
 {TutorInput} = require '../tutor-input'
-{AsyncButton} = require 'openstax-react-components'
+{AsyncButton} = require 'shared'
 
 CourseGroupingLabel = require '../course-grouping-label'
 

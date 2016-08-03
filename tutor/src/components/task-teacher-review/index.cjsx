@@ -5,7 +5,7 @@ CrumbMixin = require './crumb-mixin'
 Breadcrumbs = require './breadcrumbs'
 {ReviewShell} = require './review'
 {StatsModalShell} = require '../plan-stats'
-{PinnedHeaderFooterCard, ChapterSectionMixin, ScrollToMixin} = require 'openstax-react-components'
+{PinnedHeaderFooterCard, ChapterSectionMixin, ScrollToMixin} = require 'shared'
 
 _ = require 'underscore'
 

@@ -4,7 +4,7 @@ moment = require 'moment-timezone'
 
 _ = require 'underscore'
 {CourseStore, CourseActions} = require '../../flux/course'
-{AsyncButton} = require 'openstax-react-components'
+{AsyncButton} = require 'shared'
 {TutorRadio} = require '../tutor-input'
 classnames = require 'classnames'
 

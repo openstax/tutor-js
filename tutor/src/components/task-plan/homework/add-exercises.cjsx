@@ -2,7 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 
 LoadingExercises = require './loading-exercises-mixin'
-{PinnedHeaderFooterCard, ScrollToMixin} = require 'openstax-react-components'
+{PinnedHeaderFooterCard, ScrollToMixin} = require 'shared'
 {CourseStore} = require '../../../flux/course'
 {ExerciseStore, ExerciseActions} = require '../../../flux/exercise'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'

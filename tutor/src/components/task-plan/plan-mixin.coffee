@@ -2,7 +2,7 @@ React = require 'react'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TaskingStore, TaskingActions} = require '../../flux/tasking'
 {TimeStore} = require '../../flux/time'
-{CloseButton} = require 'openstax-react-components'
+{CloseButton} = require 'shared'
 TutorDialog = require '../tutor-dialog'
 S = require '../../helpers/string'
 

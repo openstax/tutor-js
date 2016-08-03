@@ -8,7 +8,7 @@ ServerErrorMonitoring = require './server-error-monitoring'
 UserActionsMenu = require './user-actions-menu'
 BookLinks = require './book-links'
 CenterControls = require './center-controls'
-{NotificationsBar} = require 'openstax-react-components'
+{NotificationsBar} = require 'shared'
 
 {CurrentUserActions} = require '../../flux/current-user'
 {CourseStore} = require '../../flux/course'

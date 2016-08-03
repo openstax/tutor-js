@@ -4,7 +4,7 @@ _     = require 'underscore'
 {TaskPlanStore}        = require '../../../flux/task-plan'
 {ExerciseStore}        = require '../../../flux/exercise'
 
-{ArbitraryHtmlAndMath} = require 'openstax-react-components'
+{ArbitraryHtmlAndMath} = require 'shared'
 
 LoadingExercises       = require './loading-exercises-mixin'
 ChapterSection         = require '../chapter-section'

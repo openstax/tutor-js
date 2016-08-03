@@ -1,11 +1,11 @@
 React = require 'react'
-{SpyMode} = require 'openstax-react-components'
+{SpyMode} = require 'shared'
 
 _  = require 'underscore'
 classnames = require 'classnames'
 
 {BookContentMixin} = require '../book-content-mixin'
-{ArbitraryHtmlAndMath, GetPositionMixin} = require 'openstax-react-components'
+{ArbitraryHtmlAndMath, GetPositionMixin} = require 'shared'
 
 {ReferenceBookExerciseShell} = require './exercise'
 

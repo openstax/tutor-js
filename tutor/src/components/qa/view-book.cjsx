@@ -1,7 +1,7 @@
 React = require 'react'
 classnames = require 'classnames'
 BS = require 'react-bootstrap'
-{SpyMode} = require 'openstax-react-components'
+{SpyMode} = require 'shared'
 
 {EcosystemsStore} = require '../../flux/ecosystems'
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'

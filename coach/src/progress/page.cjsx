@@ -4,7 +4,7 @@ dateFormat = require 'dateformat'
 classnames = require 'classnames'
 EventEmitter2 = require 'eventemitter2'
 
-{ChapterSectionMixin, ResizeListenerMixin} = require 'openstax-react-components'
+{ChapterSectionMixin, ResizeListenerMixin} = require 'shared'
 {ExerciseProgress} = require './exercise'
 
 PageProgress = React.createClass

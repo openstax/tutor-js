@@ -16,3 +16,5 @@ module.exports =
       path.resolve(__dirname, '../src')
       path.resolve(__dirname, '../api')
     ]
+    alias:
+      'shared': path.resolve(__dirname, '../../shared')

@@ -3,7 +3,7 @@ BS        = require 'react-bootstrap'
 keymaster = require 'keymaster'
 
 {ExerciseStore}   = require '../../flux/exercise'
-{ExercisePreview, ScrollToMixin} = require 'openstax-react-components'
+{ExercisePreview, ScrollToMixin} = require 'shared'
 NoExercisesFound  = require './no-exercises-found'
 Icon              = require '../icon'
 

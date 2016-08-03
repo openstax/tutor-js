@@ -25,7 +25,7 @@ ProgressPanel = require './progress/panel'
 
 {UnsavedStateMixin} = require '../unsaved-state'
 
-{PinnedHeaderFooterCard, PinnedHeader, ScrollToMixin} = require 'openstax-react-components'
+{PinnedHeaderFooterCard, PinnedHeader, ScrollToMixin} = require 'shared'
 
 module.exports = React.createClass
   propTypes:

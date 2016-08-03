@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-{SpyMode} = require 'openstax-react-components'
+{SpyMode} = require 'shared'
 
 LoadableItem = require '../loadable-item'
 _ = require 'underscore'
@@ -8,7 +8,7 @@ S = require '../../helpers/string'
 
 PerformanceForecast = require '../../flux/performance-forecast'
 ChapterSection = require '../task-plan/chapter-section'
-{ChapterSectionMixin} = require 'openstax-react-components'
+{ChapterSectionMixin} = require 'shared'
 PerformanceForecastSection = require '../performance-forecast/section'
 PerformanceForecastColorKey = require '../performance-forecast/color-key'
 PracticeButton = require '../performance-forecast/practice-button'

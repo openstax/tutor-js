@@ -5,7 +5,7 @@ classnames = require 'classnames'
 _ = require 'underscore'
 {StepPanel} = require '../../helpers/policies'
 
-{AsyncButton, CardBody} = require 'openstax-react-components'
+{AsyncButton, CardBody} = require 'shared'
 {TaskStore} = require '../../flux/task'
 
 {TaskStepStore} = require '../../flux/task-step'

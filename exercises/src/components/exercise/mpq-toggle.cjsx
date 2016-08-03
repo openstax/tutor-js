@@ -4,7 +4,7 @@ BS = require 'react-bootstrap'
 
 {ExerciseActions, ExerciseStore} = require 'stores/exercise'
 
-{SuretyGuard} = require 'openstax-react-components'
+{SuretyGuard} = require 'shared'
 
 MPQToggle = React.createClass
 

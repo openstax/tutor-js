@@ -3,7 +3,7 @@ React = require 'react'
 EventEmitter2 = require 'eventemitter2'
 Course = require '../course/model'
 api = require '../api'
-{BootrapURLs, NotificationActions}  = require 'openstax-react-components'
+{BootrapURLs, NotificationActions}  = require 'shared'
 
 BLANK_USER =
   is_admin: false

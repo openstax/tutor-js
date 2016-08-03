@@ -1,6 +1,6 @@
 React = require 'react'
 TutorPopover = require './tutor-popover'
-{ArbitraryHtmlAndMath} = require 'openstax-react-components'
+{ArbitraryHtmlAndMath} = require 'shared'
 
 _ = require 'underscore'
 S = require '../helpers/string'

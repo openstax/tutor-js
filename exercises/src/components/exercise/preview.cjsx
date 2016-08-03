@@ -3,7 +3,7 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
 
-{ExercisePreview} = require 'openstax-react-components'
+{ExercisePreview} = require 'shared'
 
 {ExerciseActions, ExerciseStore} = require 'stores/exercise'
 

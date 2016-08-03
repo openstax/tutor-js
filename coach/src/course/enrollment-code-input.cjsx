@@ -5,7 +5,7 @@ ENTER = 'Enter'
 {CourseListing} = require './listing'
 ErrorList = require './error-list'
 Course = require './model'
-{AsyncButton} = require 'openstax-react-components'
+{AsyncButton} = require 'shared'
 User = require '../user/model'
 
 EnrollmentCodeInput = React.createClass

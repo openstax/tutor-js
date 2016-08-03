@@ -8,7 +8,7 @@ classnames = require 'classnames'
 BrowseTheBook = require '../buttons/browse-the-book'
 LateIcon = require '../late-icon'
 
-{ChapterSectionMixin} = require 'openstax-react-components'
+{ChapterSectionMixin} = require 'shared'
 
 {TaskStore} = require '../../flux/task'
 {ViewingAsStudentName} = require '../task/viewing-as-student-name'
