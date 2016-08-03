@@ -39,7 +39,7 @@ BASE_BUILD_LOADERS =
 
 DEV_LOADERS = ['react-hot', 'webpack-module-hot-accept']
 
-BASE_DEV_LOADERS = 
+BASE_DEV_LOADERS =
   [
     { test: /\.coffee$/, loaders: DEV_LOADERS.concat('coffee-loader')}
     { test: /\.cjsx$/,   loaders: DEV_LOADERS.concat('coffee-jsx-loader')}
@@ -56,8 +56,8 @@ mergeWebpackConfigs = ->
   _.mergeWith.apply(null, mergeArgs)
 
 makeBuildOutputs = (projectConfig) ->
-  path: "#{projectConfig.basePath}/dist/"
-  publicPath: "#{projectConfig.basePath}/assets/"
+  path: "dist"
+  publicPath: "/assets/"
 
 makeBuildPlugins = (projectConfig) ->
   {styleFilename} = projectConfig
@@ -117,12 +117,12 @@ makeProductionWithCoverageBase = (projectConfig) ->
 makeDevelopmentBase = (projectConfig) ->
   host = projectConfig.host or 'localhost'
   servePath = "http://#{host}:#{projectConfig.devPort}"
-  publicPath = "#{servePath}/assets/"
+  publicPath = "#{servePath}/dist/"
   outputPath = "#{projectConfig.basePath}/"
 
   developmentBase =
     output:
-      path: outputPath
+      path: 'dist'
       publicPath: publicPath
     module:
       loaders: BASE_DEV_LOADERS
@@ -130,14 +130,15 @@ makeDevelopmentBase = (projectConfig) ->
       new webpack.HotModuleReplacementPlugin()
     ]
     devServer:
-      contentBase: "./#{projectConfig.basePath}/"
-      outputPath: outputPath
-      publicPath: publicPath
+      # contentBase: "./#{projectConfig.basePath}/"
+      # outputPath: outputPath
+      # publicPath: publicPath
       historyApiFallback: true
       inline: true
       port: projectConfig.devPort
       # It suppress error shown in console, so it has to be set to false.
-      quiet: false,
+      quiet: false
+      progress: true
       # It suppress everything except error, so it has to be set to false as well
       # to see success build.
       noInfo: false
@@ -154,12 +155,12 @@ makeDevelopmentBase = (projectConfig) ->
         chunks: false,
         chunkModules: false
 
-  if projectConfig.devEntry
-    developmentBase.entry =
-      "#{projectConfig.devEntry}": [
-        "./node_modules/webpack-dev-server/client/index.js?#{servePath}"
-        'webpack/hot/dev-server'
-      ]
+  # if projectConfig.devEntry
+  #   developmentBase.entry =
+  #     "#{projectConfig.devEntry}": [
+  #       "./node_modules/webpack-dev-server/client/index.js?#{servePath}"
+  #       'webpack/hot/dev-server'
+  #     ]
 
   developmentBase
 
