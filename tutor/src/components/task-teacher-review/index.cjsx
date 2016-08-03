@@ -9,6 +9,7 @@ Breadcrumbs = require './breadcrumbs'
 
 _ = require 'underscore'
 
+{TaskPlanStatsStore} = require '../../flux/task-plan-stats'
 {TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
 ScrollSpy = require '../scroll-spy'
 
@@ -34,10 +35,15 @@ TaskTeacherReview = React.createClass
     @setState(currentStep: crumbKey)
 
   getPeriodIndex: ->
-    {periodIndex} = @context.router.getCurrentParams()
-    periodIndex ?= 1
+    {id, periodId} = @context.router.getCurrentParams()
 
-    parseInt(periodIndex) - 1
+    if @state.isReviewLoaded
+      plan = TaskPlanStatsStore.get(id)
+      index =
+        _.findIndex(plan.stats, (stat) -> stat.period_id is periodId)
+
+    if index is -1 then 0 else index
+
 
   setScrollState: (scrollState) ->
     @setState({scrollState})
@@ -93,8 +99,6 @@ TaskTeacherReview = React.createClass
     # url is 1 based so it matches the breadcrumb button numbers
     params.sectionIndex = stepKey + 1
     params.id = @props.id # if we were rendered directly, the router might not have the id
-
-    params.periodIndex ?= 1
 
     @context.router.replaceWith('reviewTaskStep', params)
 

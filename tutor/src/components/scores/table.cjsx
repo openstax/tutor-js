@@ -114,7 +114,7 @@ module.exports = React.createClass
 
 
   renderHeadingCell: (heading, i) ->
-    {firstDataColumn, isConceptCoach, periodIndex, courseId, sort, onSort, dataType, colSetWidth} = @props
+    {firstDataColumn, isConceptCoach, periodIndex, period_id, courseId, sort, onSort, dataType, colSetWidth} = @props
 
     i += firstDataColumn # for the first/last name columns
 
@@ -130,7 +130,7 @@ module.exports = React.createClass
     if heading.plan_id?
       linkParams =
         id: heading.plan_id
-        periodIndex: periodIndex
+        periodId: period_id
         courseId: courseId
 
       review =
