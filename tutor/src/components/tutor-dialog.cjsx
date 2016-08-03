@@ -8,7 +8,7 @@ DialogProperties =
   title:         React.PropTypes.string.isRequired
   onOk:          React.PropTypes.func.isRequired
   onCancel:      React.PropTypes.func.isRequired
-  body:          React.PropTypes.element.isRequired
+  body:          React.PropTypes.any.isRequired
   show:          React.PropTypes.bool
   buttons:       React.PropTypes.arrayOf( React.PropTypes.element )
   okBtnText:     React.PropTypes.string
