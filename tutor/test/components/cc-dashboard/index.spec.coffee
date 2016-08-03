@@ -8,7 +8,7 @@ DashboardShell = require '../../../src/components/cc-dashboard'
 BaseModel = require '../../../api/courses/1/cc/dashboard.json'
 ExtendBaseStore = (props) -> _.extend({}, BaseModel, props)
 
-BlankCourse = ExtendBaseStore(course: periods: [])
+BlankCourse = ExtendBaseStore(course: periods: [], name:'Blank!')
 
 IDS =
   BLANK: '0'
