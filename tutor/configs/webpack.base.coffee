@@ -1,5 +1,4 @@
 baseConfig = require './base'
-path = require 'path'
 
 module.exports =
   entry:
@@ -10,11 +9,3 @@ module.exports =
     qa: [
       "src/qa.coffee"
     ]
-  resolve:
-    root: [
-      path.resolve(__dirname, '../')
-      path.resolve(__dirname, '../src')
-      path.resolve(__dirname, '../api')
-    ]
-    alias:
-      'shared': path.resolve(__dirname, '../../shared')

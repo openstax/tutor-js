@@ -1,6 +1,9 @@
+path = require 'path'
+
 webpack = require 'webpack'
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 webpackUMDExternal = require 'webpack-umd-external'
+
 _ = require 'lodash'
 
 
@@ -65,6 +68,22 @@ makeBuildPlugins = (projectConfig) ->
   styleFilename ?= '[name].css'
 
   [new ExtractTextPlugin(styleFilename)]
+
+
+makePathsBase = (projectConfig) ->
+  {basePath} = projectConfig
+
+  pathConfigs =
+    resolve:
+      root: [
+        path.resolve(basePath)
+        path.resolve(basePath, 'src')
+        path.resolve(basePath, 'api')
+      ]
+      alias:
+        'shared': path.resolve('shared')
+
+  pathConfigs
 
 makeDebugBase = (projectConfig) ->
   # omits minification and using production build of react.
@@ -188,6 +207,7 @@ ENVIRONMENT_ALIASES =
 module.exports =
   mergeWebpackConfigs: mergeWebpackConfigs
   BASE_CONFIG: BASE_CONFIG
+  makePathsBase: makePathsBase
   makeBaseForEnvironment: makeBaseForEnvironment
   getEnvironmentName: getEnvironmentName
   ENVIRONMENT_ALIASES: ENVIRONMENT_ALIASES

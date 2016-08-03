@@ -1,6 +1,7 @@
 {
   BASE_CONFIG,
   mergeWebpackConfigs,
+  makePathsBase,
   makeBaseForEnvironment,
   getEnvironmentName,
   ENVIRONMENT_ALIASES
@@ -29,6 +30,7 @@ makeConfig = (projectName, environmentName) ->
 
   mergeWebpackConfigs(
     BASE_CONFIG,
+    makePathsBase(projectBaseConfig),
     makeBaseForEnvironment(environmentName)(projectBaseConfig),
     projectWebpackBaseConfig,
     projectWebpackEnvironmentConfig
