@@ -9,7 +9,7 @@
     "precoverage": "npm run validate",
     "coverage": "gulp coverage",
     "serve": "scripts/serve",
-    "build": "scripts/serve",
+    "build": "scripts/build",
     "debug-integration": "echo 'This may require you to kill the mocha process (search for 5858)' && node-debug --hidden 'node_modules/' ./scripts/run-integration-mocha.js --bail ./test-integration/index",
     "test-integration:only": "mocha --bail -R spec ./test-integration/index",
     "pretest-integration": "if [ -z ${SERVER_URL} ]; then NODE_COVERAGE=true npm run build; fi",
