@@ -15,18 +15,7 @@ Icon = require '../icon'
 
 DUE_FORMAT = 'M/D/YYYY [at] h:mma'
 
-LmsInfo = React.createClass
-
-  propTypes:
-    courseId: React.PropTypes.string.isRequired
-    plan: React.PropTypes.shape(
-      id: React.PropTypes.string.isRequired
-      title: React.PropTypes.string.isRequired
-      shareable_url: React.PropTypes.string
-    ).isRequired
-
-  mixins: [BindStoreMixin]
-  bindStore: TeacherTaskPlanStore
+LmsInfoLink = React.createClass
 
   focusInput: (ev) ->
     ev.currentTarget.querySelector('input').select()
@@ -50,7 +39,6 @@ LmsInfo = React.createClass
             <li key={periodId}>{period.name}: {moment(dates.due_at).format(DUE_FORMAT)}</li>}
         </ul>
       </div>
-
 
   renderPopOver: ->
     {title, description} = @props.plan
@@ -81,7 +69,7 @@ LmsInfo = React.createClass
   getStats: ->
     TaskPlanStatsStore.get(this.props.plan.id) or {}
 
-  renderLink: ->
+  render: ->
     return null unless @getStats().shareable_url
     <div className="lms-info">
       <BS.OverlayTrigger trigger="click"
@@ -92,9 +80,24 @@ LmsInfo = React.createClass
       >
         <a onClick={@togglePopover} className="get-link">Get assignment link</a>
       </BS.OverlayTrigger>
-
     </div>
 
+
+LmsInfo = React.createClass
+
+  propTypes:
+    courseId: React.PropTypes.string.isRequired
+    plan: React.PropTypes.shape(
+      id: React.PropTypes.string.isRequired
+      title: React.PropTypes.string.isRequired
+      shareable_url: React.PropTypes.string
+    ).isRequired
+
+  mixins: [BindStoreMixin]
+  bindStore: TeacherTaskPlanStore
+
+  renderLink: ->
+    <LmsInfoLink {...@props} />
 
   render: ->
   #  return null unless @props.plan.shareable_url
@@ -104,8 +107,6 @@ LmsInfo = React.createClass
       actions={TaskPlanStatsActions}
       renderItem={@renderLink}
     />
-
-
 
 
 module.exports = LmsInfo
