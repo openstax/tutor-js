@@ -4,8 +4,9 @@
   "description": "Frontend Code for OpenStax",
   "main": "index.js",
   "scripts": {
-    "ci": "npm run test",
+    "ci": "bin/test-ci",
     "test": "bin/test",
+    "tdd":  "bin/tdd",
     "precoverage": "npm run validate",
     "coverage": "gulp coverage",
     "serve": "bin/serve",

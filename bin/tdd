@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+karma start test/karma.config.js --auto-watch  --no-single-run "$@"

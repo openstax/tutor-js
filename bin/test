@@ -2,4 +2,4 @@
 
 set -e
 
-karma start test/karma.config.js
+karma start test/karma.config.js "$@"
