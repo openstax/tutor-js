@@ -43,12 +43,3 @@ describe 'QL exercises display', ->
         document.querySelector('.question-library-min-exercise-exclusions .btn-default')
       )
       expect( ExerciseActions.saveExerciseExclusion ).to.have.been.called
-
-  it 'saves exercise exclusions immediately when not at minimum', ->
-    ex = ld.cloneDeep(EXERCISES)
-    ex.items = ex.items.slice(0, 3)
-    ExerciseActions.loadedForCourse(ex, COURSE_ID, SECTION_IDS)
-    Testing.renderComponent( ExercisesDisplay, props: @props ).then ({dom}) ->
-      Testing.actions.click(dom.querySelector('.openstax-exercise-preview .action.exclude'))
-      expect( ExerciseActions.saveExerciseExclusion ).to.have.been
-        .calledWith(COURSE_ID, ex.items[0].id, true)
