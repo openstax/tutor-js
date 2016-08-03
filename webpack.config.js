@@ -1,2 +1,17 @@
 require('coffee-script/register');
-module.exports = require("./configs/webpack/makeConfig.coffee");
+
+makeConfig = require("./configs/webpack/makeConfig");
+if (!process.env.OX_PROJECT){
+  console.warn("OX_PROJECT env var is not defined");
+  process.exit(1);
+}
+
+var mode = process.env.NODE_ENV || 'development';
+console.log("mode: ", mode);
+config = makeConfig(process.env.OX_PROJECT, mode);
+
+//config = require("./configs/webpack/testing-tutor.config.coffee");
+// testing debug - rm before mergeing
+// console.dir(config);
+
+module.exports = config
