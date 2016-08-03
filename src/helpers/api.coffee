@@ -29,13 +29,8 @@ makeLocalRequest = (requestConfig) ->
   {url} = requestConfig
 
   [uri, params] = url.split('?')
-  if requestConfig.method is 'GET'
-    url_parts = ["#{uri}.json", params]
-  else
-    url_parts = ["#{uri}/#{requestConfig.method}.json", params]
-    requestConfig.mockMethod = requestConfig.method
-    requestConfig.method = 'GET'
-
+  uri = "http://localhost:3000#{uri}" # TODO: Pass this in as an ENV setting
+  url_parts = [uri, params]
 
   requestConfig.url = _.compact(url_parts).join('?')
 
@@ -136,10 +131,13 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
       opts =
         method: httpMethod or httpMethodOverride
         dataType: 'json'
-        headers:
+        displayError: true
+
+      # drakov (the API mock server) does not seem to like these headers. CORS complains
+      unless IS_LOCAL
+        opts.headers =
           'X-CSRF-Token': CurrentUserStore.getCSRFToken(),
           token: CurrentUserStore.getToken()
-        displayError: true
 
       if payload?
         opts.data = JSON.stringify(payload)

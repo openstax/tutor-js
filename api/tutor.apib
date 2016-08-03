@@ -1,0 +1,326 @@
+FORMAT: 1A
+HOST: https://tutor-dev.openstax.org/
+
+# tutor
+
+_TODO:_
+- Use `title` or `name` more consistently
+
+# Data Structures
+
+## URL (string)
+A fully qualified URL
+
+## Date (string)
+An ISO date (no time or timezone information)
+
+## Timestamp (Date)
+An ISO date with time and timezone information
+
+## Href (string)
+Marker for a partial URL
+
+## Chapter Section (array[number, number])
+Array of `[chapter, section]`
+
+## Teacher Plan Page Stats (object)
++ id: `314` (string, required)
++ title: `Themes and Concepts of Biology` (string, required)
++ is_trouble: `false` (boolean, required)
++ correct_count: `2` (number, required)
++ incorrect_count: `2` (number, required)
++ student_count: `1` (number, required)
++ chapter_section (Chapter Section, required)
+
+## Teacher Plan Period Stats (object)
++ name: `2nd Period` (string, required)
++ period_id: `2` (string, required)
++ is_trouble: `false` (boolean, required)
++ mean_grade_percent: `50` (number, required)
++ current_pages (array[Teacher Plan Page Stats], required)
++ spaced_pages (array[Teacher Plan Page Stats], required)
++ complete_count: `1` (number, required)
++ partially_complete_count: `1` (number, required)
++ total_count: `10` (number, required)
+
+## Teacher Plan Stats (object)
++ id: `69` (string, required)
++ type: homework, reading, event (enum, required)
++ title: `3 part MPQ` (string, required)
++ stats (array[Teacher Plan Period Stats], required)
++ shareable_url: `/@/kEyX0d/3-part-mpq` (Href, required)
+
+## Teacher Plan Homework Settings (object)
++ page_ids: `314` (array[string], required)
++ exercise_ids: `2994` (array[string], required)
++ exercises_count_dynamic: `3` (number, required)
+
+## Tasking Plan (object)
+- target_id: `1` (string, required)
+- target_type: period (enum, required)
+- opens_at: `2016-07-06T05:01:00.000Z` (Timestamp, required)
+- due_at: `2016-07-15T12:00:00.000Z` (Timestamp, required)
+
+
+## Teacher Plan (object)
++ id: `69` (string, required)
++ title: `3 part MPQ` (string, required)
++ type: homework, reading, event (enum, required)
++ ecosystem_id: `4` (string, required)
++ is_feedback_immediate: `false` (boolean, required)
++ is_draft: `false` (boolean, required)
++ is_publishing: `false` (boolean, required)
++ is_published: `true` (boolean, required)
++ is_trouble: `false` (boolean, required)
++ first_published_at: `2016-07-06T19:30:59.515Z` (Timestamp, required)
++ last_published_at: `2016-07-06T19:30:59.515Z` (Timestamp, required)
++ publish_last_requested_at: `2016-07-06T19:30:58.399Z` (Timestamp, required)
++ publish_job_url: `/api/jobs/af8f9add-cb30-4973-be4c-42295287bd60` (Href, required)
++ settings (Teacher Plan Homework Settings, required)
++ tasking_plans' (array[Tasking Plan], required)
+
+
+## Tutor User (object)
++ id: `1` (string, required)
++ role_id: `1` (string, required)
++ first_name: `Charles` (string, required)
++ last_name: `Morris` (string, required)
+
+## User Role (object)
++ id: `1` (string, required)
++ type: teacher, student (enum, required)
+
+## Course Blurb (object)
++ name: `Biology I` (string, required)
++ teachers (array[Tutor User], required)
+
+## Teacher Dashboard (object)
++ plans (array[Teacher Plan], required)
++ tasks (array, required)
++ role (User Role, required)
++ course (Course Blurb, required)
+
+## Teacher Student Scores Period Data Heading (object)
++ title: `3 part MPQ` (string, required)
++ plan_id: `69` (number, required)
++ type: homework, reading (enum, required)
++ due_at: `2016-07-15T12:00:00.000Z` (Timestamp, required)
++ average_score': `0.0277777777777778` (number, required)
+
+## Teacher Student Scores User Data (object)
++ type: `homework` (string, required)
++ id: `1362` (number, required)
++ status: `not_started` (string, required)
++ step_count: `4` (number, required)
++ completed_step_count: `0` (number, required)
++ completed_on_time_step_count: `0` (number, required)
++ completed_accepted_late_step_count: `0` (number, required)
++ exercise_count: `4` (number, required)
++ completed_exercise_count: `0` (number, required)
++ completed_on_time_exercise_count: `0` (number, required)
++ completed_accepted_late_exercise_count: `0` (number, required)
++ correct_exercise_count: `0` (number, required)
++ correct_on_time_exercise_count: `0` (number, required)
++ correct_accepted_late_exercise_count: `0` (number, required)
++ score: `0.9` (number, required)
++ recovered_exercise_count: `0` (number, required)
++ due_at: `2016-07-15T12:00:00.000Z` (Timestamp, required)
++ is_late_work_accepted: `false` (boolean, required)
++ is_included_in_averages: `true` (boolean, required)
+
+
+## Teacher Student Scores User (object)
++ name: `Rabbit Angstrom` (string, required)
++ first_name: `Rabbit` (string, required)
++ last_name: `Angstrom` (string, required)
++ role: 9 (number, required) - _TODO:_ Use `role_id` and make it a string
++ student_identifier: `JQMVOWU2PA` (string, required)
++ average_score: `0.9` (number, required)
++ data (array[Teacher Student Scores User Data], required) - This has to match the length of the Data Headings
+
+
+## Teacher Student Scores Period (object)
++ period_id: `1` (string, required)
++ overall_average_score: `0.0222` (number, required)
++ data_headings (array[Teacher Student Scores Period Data Heading], required)
++ students (array[Teacher Student Scores User], required)
+
+
+## Assignment Task (object)
++ id: `2014` (string, required)
++ is_feedback_available: `true` (boolean, required)
++ is_shared: `false` (boolean, required)
++ spy (Task Spy Data, required)
++ steps (array[Assignment Task Step], required)
++ title: `Practice` (string, required)
++ type: `page_practice` (string, required)
+
+### Task Spy Data (object)
+_TODO:_ Unknown what this contains
+
+### Assignment Task Step (object)
++ id: `11322` (string, required)
++ type: exercise (enum, required)
++ group: default (enum, required)
++ task_id: `2014` (string, required)
++ has_recovery: `false` (boolean, required)
++ is_completed: `false` (boolean, required)
++ is_in_multipart: `false` (boolean, required)
++ labels (array[Task Step Label], required)
++ question_id: `30` (string, required)
++ related_content' (array[Page Details], required)
++ content (Task Step Exercise Content, required)
++ content_url: `https://exercises-dev.openstax.org/exercises/30@1` (URL, required)
+
+### Page Details (object)
++ title: `The Science of Biology` (string, required)
++ chapter_section (Chapter Section, required)
+
+### Task Step Label (object)
+_TODO:_ Figure out what this is
+
+### Task Step Exercise Content (object)
++ authors (array[Exercise User], required)
++ copyright_holders (array[Exercise User], required)
++ derived_from (array) - _TODO_ Not sure what the format of this is. Also, should it be an Array or a nullable field?
++ editors (array[Exercise User], required)
++ is_vocab: `false` (boolean, required)
++ number: `30` (number, required) - _TODO_ should this be `count`? It is unclear what the number is
++ published_at: `2015-09-16T20:13:33.142Z` (Timestamp, required)
++ questions (array[Exercise Question], required)
++ stimulus_html: `To answer the following questions you need to know the formula for Force` (string, required)
++ tags: `book:stax-apbio`, `filter-type:import:hs` (array[string])
++ uid: `30@1` (string, required)
++ version: `1` (number, required)
+
+### Exercise User (object)
++ name: `OpenStax` (string, required)
++ user_id': `1` (string, required)
+
+### Exercise Question (object)
+_TODO:_ Fill in the JSON schema for a question
+
+
+## Current User (object)
++ id: `2` (number, required) - _TODO_ Should probably be a string
++ username: `student1234` (string, required)
++ first_name: `Bob` (string, required)
++ last_name: `Smith` (string, required)
++ full_name: `Robert Smith` (string, required)
++ title: `Mr.` (string)
++ contact_infos (array[User Contact Info], required)
+
+### User Contact Info (object)
++ id: `147` (number, required)
++ type: EmailAddress (enum, required)
++ value: `email@example.com` (enum, required)
++ is_verified: `false` (boolean, required)
++ num_pin_verification_attempts_remaining: `5` (number) - This is only available when `is_verified` is `false`
+
+## My Course List Item (object)
++ id: `1` (string, required)
++ name: `Biology for AP Courses` (string, required)
++ time_zone: `Eastern Time (US & Canada)` (string, required) - Actually, it is an enum
++ default_open_time: `00:01` (Time, required)
++ default_due_time: `07:00` (Time, required)
++ salesforce_book_name: `AP Bio` (enum, required) - Actually, it is an enum
++ appearance_code: `biology` (enum, required)
++ ecosystem_id: `1` (string, required)
++ book_pdf_url: `https://archive-staging-tutor.cnx.org/exports/d52e93f4-8653-4273-86da-3850001c0786.pdf` (URL, required)
++ webview_url: `https://staging-tutor.cnx.org/contents/d52e93f4-8653-4273-86da-3850001c0786` (URL, required)
++ is_concept_coach: `false` (boolean, required)
++ is_college: `false` (boolean, required)
++ roles (array[User Role], required)
++ periods (array[Course Period], required)
+
+### Time (string)
+Placeholder for the time format `00:00`
+
+### Course Period (object)
++ id: `1` (string, required)
++ name: `1st` (string, required)
++ enrollment_code: `123456` (string, required)
++ enrollment_url: `https://tutor-qa.openstax.org/enroll/123456` (string, required)
++ default_open_time: `00:01` (Time, required)
++ default_due_time: `07:00` (Time, required)
++ is_archived: `false` (boolean, required)
++ students (array[Course Student], required)
+
+### Course Student (object)
++ id: `466` (string, required)
++ period_id: `6` (string, required)
++ role_id: `123` (string, required)
++ first_name: `Johnny` (string, required)
++ last_name: `Smith` (string, required)
++ name: `John Smith` (string, required) - _TODO_ rename to `full_name`
++ student_identifier: `123` (string, required)
++ deidentifier: `d34db33f` (string, required)
++ is_active: `true` (boolean, required)
+
+
+# Teacher Course Routes [/api/courses/{courseId}]
+
+## Get Teacher Assignment Statistics [GET /api/plans/{planId}/stats]
+
++ Parameters
+    + planId: `69` (number, required)
+
++ Response 200 (application/json)
+    + Attributes (Teacher Plan Stats)
+
+
+# Teacher Course Dashboard [/api/courses/{courseId}/dashboard]
+
+## Get Events for a date range [GET /api/courses/{courseId}/dashboard{?start_at,end_at}]
+
++ Parameters
+    + courseId: `1` (number, required)
+    + start_at: `2016-06-30` (Date)
+    + end_at: `2016-08-01` (Date)
+
++ Response 200 (application/json)
+  + Attributes (Teacher Dashboard)
+
+
+## Get Matrix of Student Scores [GET /api/courses/{courseId}/performance]
+
++ Parameters
+    + courseId: `1` (number, required)
+
++ Response 200 (application/json)
+  + Attributes (array[Teacher Student Scores Period])
+
+
+# Task Routes [/tasks/{taskId}]
+
+## Get a single Task [GET /api/tasks/{taskId}]
+
++ Parameters
+    + taskId: `2014` (number, required)
+
++ Response 200 (application/json)
+  + Attributes (Assignment Task)
+
+
+## Get a single Task Step [GET /api/steps/{stepId}]
+
++ Parameters
+    + stepId: `11322` (number, required)
+
++ Response 200 (application/json)
+  + Attributes (Assignment Task Step)
+
+# User Route [/api/user]
+
+## Get the Current User [GET /api/user]
+
++ Response 200 (application/json)
+  + Attributes (Current User)
+
+
+# User Courses Route [/api/user/courses]
+
+## List the courses available to the Current User [GET /api/user/courses]
+
++ Response 200 (application/json)
+  + Attributes (array[My Course List Item])
