@@ -1,5 +1,6 @@
 .student-dashboard {
   .due-at, .due-at-label { padding-left: 0; }
+
   .task {
     background: @tutor-white;
     border-top: thin dotted @tutor-neutral-light;
@@ -38,6 +39,15 @@
       &.late::before {
         content: @fa-var-clock-o;
         color: @tutor-danger;
+      }
+    }
+    .btn.-hide-button {
+      padding-left: 15px;
+      padding-right: 15px;
+      margin-left: 30px;
+
+      .fa {
+        margin: 0;
       }
     }
 
