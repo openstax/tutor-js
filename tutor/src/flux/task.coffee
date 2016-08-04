@@ -202,7 +202,7 @@ TaskConfig =
       )
 
     hasProgress: (taskId) ->
-      @_steps[taskId].length isnt 1 and @_get(taskId).type is 'reading'
+      @_steps[taskId].length >= 1 and @_get(taskId).type is 'reading'
 
     doesAllowSeeAhead: (taskId) ->
       allowed = [
