@@ -30,12 +30,21 @@ makeConfig = (projectName, environmentName) ->
       "../../#{projectName}/configs/webpack.#{environmentFilename}"
     )
 
-  mergeWebpackConfigs(
-    BASE_CONFIG,
-    makePathsBase(projectBaseConfig),
-    makeBaseForEnvironment(environmentName)(projectBaseConfig),
-    projectWebpackBaseConfig,
-    projectWebpackEnvironmentConfig
-  )
+  if environmentName is 'karma'
+    configs = [
+      makePathsBase(projectBaseConfig),
+      makeBaseForEnvironment(environmentName)(projectBaseConfig),
+      projectWebpackEnvironmentConfig
+    ]
+  else
+    configs = [
+      BASE_CONFIG,
+      makePathsBase(projectBaseConfig),
+      makeBaseForEnvironment(environmentName)(projectBaseConfig),
+      projectWebpackBaseConfig,
+      projectWebpackEnvironmentConfig
+    ]
+
+  mergeWebpackConfigs.apply(null, configs)
 
 module.exports = makeConfig

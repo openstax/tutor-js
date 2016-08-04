@@ -1,5 +1,5 @@
 _ = require 'underscore'
-path = require 'path'
+makeWebpackConfig = require '../configs/webpack/makeConfig'
 
 KarmaConfig =
 
@@ -8,38 +8,17 @@ KarmaConfig =
   browsers: ['PhantomJS']
   reporters: ['mocha']
   singleRun: true
+  # Ideally, would be able to use patterns instead...
   files: [
-    'test/all-tests.coffee'
     'test/all-source-files.coffee'
+    'test/all-tests.coffee'
   ]
 
   preprocessors:
     'src/**/*.{coffee,cjsx}': ['webpack', 'sourcemap']
     'test/**/*':  ['webpack', 'sourcemap']
 
-  webpack:
-    devtool: 'eval-source-map'
-    node:
-      fs: "empty"
-    resolve:
-      extensions: ['', '.js', '.json', '.coffee', '.cjsx']
-      alias:
-        'shared': path.resolve(__dirname, '../shared')
-
-    module:
-      noParse: [
-        /\/sinon\.js/
-      ]
-      loaders: [
-        { test: /\.coffee$/, loader: "coffee-loader"     }
-        { test: /\.json$/,   loader: "json-loader"       }
-        { test: /\.cjsx$/,   loader: "coffee-jsx-loader" }
-      ]
-      preLoaders: [{
-        test: /\.(cjsx|coffee)$/
-        loader: "coffeelint-loader"
-        exclude: /(node_modules|resources|bower_components)/
-      }]
+  webpack: makeWebpackConfig(process.env.OX_PROJECT, 'karma')
 
   webpackMiddleware:
     # True will suppress error shown in console, so it has to be set to false.

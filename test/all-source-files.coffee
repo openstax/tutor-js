@@ -1,2 +1,2 @@
-testsContext = require.context("../tutor/src", true, /\.(cjsx|coffee)$/)
-testsContext.keys().forEach(testsContext)
+sourceFiles = require.context("src", true, /\.(cjsx|coffee)$/)
+sourceFiles.keys().forEach(sourceFiles)

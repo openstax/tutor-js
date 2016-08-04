@@ -31,6 +31,27 @@ BASE_CONFIG =
     new webpack.optimize.DedupePlugin()
   ]
 
+KARMA_BASE_CONFIG =
+  devtool: 'eval-source-map'
+  node:
+    fs: "empty"
+  resolve:
+    extensions: ['', '.js', '.json', '.coffee', '.cjsx']
+  module:
+    noParse: [
+      /\/sinon\.js/
+    ]
+    loaders: [
+      { test: /\.coffee$/, loader: "coffee-loader"     }
+      { test: /\.json$/,   loader: "json-loader"       }
+      { test: /\.cjsx$/,   loader: "coffee-jsx-loader" }
+    ]
+    preLoaders: [{
+      test: /\.(cjsx|coffee)$/
+      loader: "coffeelint-loader"
+      exclude: /(node_modules|resources|bower_components)/
+    }]
+
 BASE_BUILD_LOADERS =
   [
     # less, coffee, and cjsx will have ["react-hot", "webpack-module-hot-accept"]
@@ -180,6 +201,8 @@ makeEnvironmentBase =
   production: makeProductionBase
   productionWithCoverage: makeProductionWithCoverageBase
   development: makeDevelopmentBase
+  karma: ->
+    KARMA_BASE_CONFIG
 
 ENVIRONMENTS = _.keys(makeEnvironmentBase)
 
