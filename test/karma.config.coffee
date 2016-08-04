@@ -7,7 +7,7 @@ KarmaConfig =
   frameworks: ['mocha', 'chai', 'chai-sinon', 'phantomjs-shim']
   browsers: ['PhantomJS']
   reporters: ['mocha']
-  singleRun: true
+
   # Ideally, would be able to use patterns instead...
   files: [
     'test/all-source-files.coffee'
@@ -42,7 +42,6 @@ KarmaConfig =
     require('karma-mocha')
     require('karma-webpack')
     require('karma-mocha-reporter')
-    require('karma-nyan-reporter')
     require('karma-phantomjs-launcher')
     require('karma-chrome-launcher')
     require('karma-chai')
