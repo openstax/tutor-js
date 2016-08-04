@@ -2,4 +2,6 @@
 
 set -e
 
+export OX_PROJECT='tutor'
+
 karma start test/karma.config.js --single-run
