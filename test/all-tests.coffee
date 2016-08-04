@@ -2,4 +2,4 @@
 # testsContext = require.context("../tutor/test", true, /\.spec\.(cjsx|coffee)$/)
 # testsContext.keys().forEach(testsContext)
 
-require '../tutor/test/all-tests'
+require 'test/all-tests'
