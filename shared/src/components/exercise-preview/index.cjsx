@@ -39,6 +39,17 @@ ExercisePreview = React.createClass
       content = _.compact([tag.name, tag.description]).join(' ') or tag.id
       isLO = _.include(['lo', 'aplo'], tag.type)
       {content, isLO}
+    sortTags: (tags, extractTag) ->
+      tags = _.sortBy(tags, 'name')
+      idTag = _.findWhere(tags, type: 'id')
+      loTag = _.find(tags, (tag) ->
+        {isLO} = extractTag(tag)
+        isLO
+      )
+      if idTag then tags.splice(_.indexOf(tags, idTag), 1)
+      if loTag then tags.splice(_.indexOf(tags, loTag), 0, idTag)
+      else tags.push(idTag)
+      tags
 
   renderTag: (tag) ->
     {content, isLO} = @props.extractTag(tag)
@@ -63,13 +74,16 @@ ExercisePreview = React.createClass
       <ArbitraryHtmlAndMath className='stimulus' block={true}
         html={@props.exercise.preview} />
 
+
+
   render: ->
     content = @props.exercise.content
 
     tags = _.clone @props.exercise.tags
     unless @props.displayAllTags
       tags = _.where tags, is_visible: true
-    renderedTags = _.map(_.sortBy(tags, 'name'), @renderTag)
+    tags.push(name: "ID: #{@props.exercise.content.uid}", type: 'id')
+    renderedTags = _.map(@props.sortTags(tags, @props.extractTag), @renderTag)
     classes = classnames( 'openstax-exercise-preview', @props.className, {
       'answers-hidden':   @props.hideAnswers
       'has-actions':      not _.isEmpty(@props.overlayActions)
@@ -103,20 +117,21 @@ ExercisePreview = React.createClass
       header={@props.header}
       footer={@renderFooter() if @props.children}
     >
-      {<div className='selected-mask' /> if @props.isSelected}
-
       <ControlsOverlay exercise={@props.exercise}
         actions={@props.overlayActions} onClick={@props.onOverlayClick} />
 
-      <ExerciseBadges exercise={@props.exercise} />
+      <div className="exercise-body">
+        {<div className='selected-mask' /> if @props.isSelected}
 
-      {<ArbitraryHtmlAndMath className='context' block={true}
-        html={@props.exercise.context} /> unless _.isEmpty(@props.exercise.context)}
+        <ExerciseBadges exercise={@props.exercise} />
 
-      {@renderStimulus()}
+        {<ArbitraryHtmlAndMath className='context' block={true}
+          html={@props.exercise.context} /> unless _.isEmpty(@props.exercise.context)}
 
-      {questions}
-      <div className='exercise-uid'>Exercise ID: {@props.exercise.content.uid}</div>
+        {@renderStimulus()}
+
+        {questions}
+      </div>
       <div className='exercise-tags'>{renderedTags}</div>
     </BS.Panel>
 
