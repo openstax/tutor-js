@@ -1,0 +1,73 @@
+&-notifications-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background-color: @openstax-primary;
+
+  .notification {
+    .flex-display();
+    .flex-direction(row);
+    .justify-content(flex-start);
+    .align-items(center);
+    color: @openstax-neutral-lighter;
+    padding: 15px;
+    font-size: 2rem;
+    line-height: 2rem;
+
+    .body, .error {
+      .flex-display();
+      .flex-direction(row);
+      .justify-content(center);
+      .align-items(center);
+      .message {
+        text-align: right;
+      }
+    }
+    .body {
+      .flex(1);
+    }
+
+    & + .notification {
+      border-top: 1px solid darken(@openstax-primary, 5%);
+    }
+
+    .icon {
+      margin-right: 1rem;
+      font-size: 3rem;
+    }
+    .dismiss, .action {
+      color: @openstax-neutral-lighter;
+      cursor: pointer;
+      text-decoration: none;
+      margin-left: 1rem;
+      &:hover {
+        text-decoration: underline;
+        color: @openstax-neutral-light;
+        border-color: @openstax-neutral-light;
+      }
+    }
+    .dismiss {
+      font-size: 1.5rem;
+    }
+    .action {
+      font-size: 1.8rem;
+    }
+    &.email {
+
+
+      input {
+        width: 10rem;
+        margin-left: 1rem;
+        color: @openstax-neutral-darker;
+      }
+      .form-group { margin: 0; }
+      .pin-check {
+        border: 2px solid @openstax-neutral-lighter;
+        border-radius: 20px;
+        padding: 4px;
+        width: 60px;
+        text-align: center;
+      }
+    }
+  }
+}

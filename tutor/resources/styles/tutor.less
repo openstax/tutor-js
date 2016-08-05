@@ -1,0 +1,72 @@
+// External Libraries
+@import './variables/paths';
+@import './global/externals';
+@import (inline) '~recordo/recordo.css';
+
+// Variables and Mixins
+@import './variables';
+@import './mixins';
+@import './variables/tutor-bootstrap';
+@import './variables/tutor-material';
+
+// shared openstax components
+@import '~shared/resources/styles/main';
+
+// App Global Styling
+@import './global/scaffold';
+@import './global/typography';
+@import './global/navbar';
+@import './global/notifications-bar';
+@import './global/forms';
+@import './global/maths';
+@import './global/panel';
+@import './global/buttons';
+@import './global/progress-bars';
+@import './global/tutor-booksplash-background';
+@import './global/popover';
+@import './global/tooltip';
+@import './global/menus';
+
+// qa view
+@import './qa.less';
+
+// Component Styling
+@import './components/html';
+@import './components/pinned-header-footer-card/sections';
+@import './components/course-calendar/index';
+@import './components/cc-dashboard/index';
+@import './components/dialog';
+@import './components/tutor-input';
+@import './components/media-preview';
+@import './components/performance-forecast/index';
+@import './components/course-listings';
+@import './components/tutor-dialog';
+@import './components/task/index';
+@import './components/task-step/index';
+@import './components/task-teacher-review/index';
+@import './components/task-step/step-footer-mixin';
+@import './components/task-step/all-steps';
+@import './components/task-step/reading';
+@import './components/task-plan/index';
+@import './components/course-settings';
+@import './components/student-dashboard';
+@import './components/multi-select';
+@import './components/sections-chooser';
+@import './components/scores/index';
+@import './components/scores/table';
+@import './components/scores/export';
+@import './components/exercises';
+@import './components/questions-dashboard';
+@import './components/tutor-input';
+@import './components/reference-book/index';
+@import './components/tri-state-checkbox';
+@import './components/exercise-preview';
+@import './components/assignment-links';
+@import './components/icon';
+@import './components/cc-student-redirect';
+
+body[data-js-error]::before {
+  content: attr(data-js-error);
+  font-size: 100px;
+  color: red;
+}

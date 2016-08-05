@@ -1,0 +1,52 @@
+@icon-path: '../../images/icons';
+@icon-size-xs: 1rem;
+@icon-size-sm: @icon-size-xs * 1.6;
+@icon-size-md: @icon-size-xs * 2;
+@icon-size-lg: @icon-size-xs * 4;
+@icon-size-xlg: @icon-size-xs * 6;
+
+.x-icon-size(@size) {
+  display: inline-block;
+  width: @size;
+  height: @size;
+  background-size: @size @size;
+  background-repeat: no-repeat;
+  background-position: center;
+  .transition(~"transform .1s ease-in-out, margin .3s ease-in-out");
+}
+
+.x-course-icon-bg(@name; @selector: @name) {
+  // default to high-school icons
+  .icon-@{selector} { background-image: url("@{icon-path}/@{name}-hs-icon.svg"); }
+  &.is-high-school {
+    .icon-@{selector} { background-image: url("@{icon-path}/@{name}-hs-icon.svg"); }
+  }
+  &.is-college {
+    .icon-@{selector} { background-image: url("@{icon-path}/@{name}-cl-icon.svg"); }
+  }
+}
+
+// x-icon-bg defaults to hs icons
+.x-icon-bg(@name; @course_type: 'hs') {
+  background-image: url("@{icon-path}/@{name}-@{course_type}-icon.svg");
+}
+
+.openstax-icon-active(@scale: 1.4; @shadow: 0.12) {
+  .scale(@scale);
+  .box-shadow(0 1px 6px rgba(0, 0, 0, @shadow));
+  border-radius: 50%;
+}
+
+.crumb-circle(@radius){
+  font-size: @radius;
+  border-radius: 2 * @radius;
+  line-height: 2 * @radius;
+  min-width: 2 * @radius;
+}
+
+.crumb-text(){
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  left: 0;
+}

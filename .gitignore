@@ -7,7 +7,7 @@
 /coverage
 /coverage-selenium.json
 /docs*
-
+archive.tar.gz
+/*/dist
 *.cjsx.js
-
 /phantomjsdriver.log

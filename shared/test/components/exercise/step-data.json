@@ -1,0 +1,87 @@
+{
+  "id": "621836",
+  "task_id": "24639",
+  "type": "exercise",
+  "group": "core",
+  "is_completed": false,
+  "related_content": [
+    {
+      "title": "Temperature and Thermal Energy",
+      "chapter_section": [
+        11,
+        1
+      ]
+    }
+  ],
+  "labels": [],
+  "content_url": "https://exercises-qa.openstax.org/exercises/6690@1",
+  "context": "Water is very important for life. We need water to drink, to wash our hands, to cook, to water plants and many other things.",
+  "content": {
+    "uid": "6690@1",
+    "number": 6690,
+    "version": 1,
+    "published_at": "2015-12-17T22:11:24.761Z",
+    "editors": [],
+    "authors": [
+      {
+        "user_id": "1",
+        "name": "OpenStax"
+      }
+    ],
+    "copyright_holders": [
+      {
+        "user_id": "2",
+        "name": "Rice University"
+      }
+    ],
+    "derived_from": [],
+    "attachments": [],
+    "tags": [
+      "inbook-yes",
+      "display-free-response",
+      "display-rec-sensitive",
+      "dok2",
+      "ost-chapter-review",
+      "time-short",
+      "blooms-2",
+      "k12phys",
+      "concept",
+      "k12phys-ch11",
+      "k12phys-ch11-s01",
+      "k12phys-ch11-s01-lo02",
+      "k12phys-ch11-ex008"
+    ],
+    "stimulus_html": "",
+    "questions": [
+      {
+        "id": "10069",
+        "stimulus_html": "",
+        "stem_html": "A glass of water has a temperature of <span data-math=\"31\">31</span> degrees Celsius. What state of matter is it in?",
+        "answers": [
+          {
+            "id": "40641",
+            "content_html": "solid"
+          },
+          {
+            "id": "40642",
+            "content_html": "liquid"
+          },
+          {
+            "id": "40643",
+            "content_html": "gas"
+          },
+          {
+            "id": "40644",
+            "content_html": "plasma"
+          }
+        ],
+        "hints": [],
+        "formats": [
+          "free-response",
+          "multiple-choice"
+        ],
+        "combo_choices": []
+      }
+    ]
+  }
+}

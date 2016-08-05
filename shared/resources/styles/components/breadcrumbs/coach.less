@@ -1,0 +1,141 @@
+@concept-coach-breadcrumb-background: @openstax-white;
+@concept-coach-breadcrumb-color: @openstax-neutral;
+@concept-coach-breadcrumb-border-radius: 0;
+
+.make-breadcrumb-clickable() {
+  &.active {
+    color: @openstax-white;
+    background: @openstax-info;
+    border-color: @openstax-info;
+    cursor: default;
+    font-weight: 400;
+  }
+
+  &:hover,
+  &:focus {
+    border-color: @openstax-info;
+    outline: none;
+  }
+}
+
+.concept-coach-breadcrumbs() {
+  .task-breadcrumbs {
+    margin: 1rem 0;
+  }
+
+  .openstax-breadcrumbs-step {
+    border-width: 2px;
+    border-style: solid;
+    border-radius: @concept-coach-breadcrumb-border-radius;
+    background: @concept-coach-breadcrumb-background;
+    border-color: @concept-coach-breadcrumb-background;
+    color: @concept-coach-breadcrumb-color;
+    margin-right: 1rem;
+    font-size: 2.5rem;
+    line-height: 3.8rem;
+    width: auto;
+    position: relative;
+
+    &:hover,
+    &.active {
+      box-shadow: none;
+      border-radius: @concept-coach-breadcrumb-border-radius;
+      .scale(1);
+    }
+
+    .transition(~'background 0.1s ease-in-out, border-color 0.1s ease-in-out');
+    .make-breadcrumb-clickable();
+
+    &::before {
+      font-weight: 300;
+      position: relative;
+    }
+
+    &.disabled {
+      background: transparent;
+      border-color: transparent;
+      color: lighten(@concept-coach-breadcrumb-color, 25%);
+      cursor: default;
+
+      &:hover {
+        border-color: transparent;
+      }
+    }
+
+    &.end:not(.disabled) {
+      background: @openstax-white;
+      border-color: @openstax-white;
+      color: @concept-coach-breadcrumb-color;
+      cursor: pointer;
+    }
+
+    &:not(.active) {      
+      &.status-incorrect,
+      &.status-correct {
+        background: @concept-coach-breadcrumb-background;
+      }
+      &.status-incorrect {
+        color: @openstax-incorrect-color;
+      }
+
+      &.status-correct {
+        color: @openstax-correct-color;
+      }
+    }
+
+
+    &.breadcrumb-end[data-label] {
+      top: -0.5em;
+
+      &::before {
+        text-align: center;
+        width: 100%;
+        padding: 0 1rem;
+        font-style: italic;
+        text-transform: capitalize;
+        content: attr(data-label);
+      }
+    }
+  }
+
+  .icon-end {
+    display: none;
+  }
+
+  .icon-stack {
+    > .icon-sm,
+    > .icon-lg {
+      top: -1.5rem;
+      left: 2.2rem;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 3px solid @openstax-neutral-light;
+    }
+  }
+
+
+  .icon-incorrect,
+  .icon-correct {
+    .fa-icon();
+    font-size: 2.4rem;
+    line-height: 1.8rem;
+    background: @openstax-white;
+  }
+
+  .icon-incorrect {
+    color: @openstax-incorrect-color;
+
+    &::after {    
+      content: @fa-var-times-circle;
+    }
+  }
+
+  .icon-correct {
+    color: @openstax-correct-color;
+
+    &::after {
+      content: @fa-var-check-circle;    
+    }
+  }
+}
