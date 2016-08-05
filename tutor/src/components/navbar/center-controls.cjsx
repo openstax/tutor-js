@@ -112,9 +112,10 @@ module.exports = React.createClass
           {assignment}
         </span>
 
-        <Icon type='calendar-check-o'
+        <Icon type='calendar-check-o' onNavbar
           tooltipProps={placement: 'bottom'}
           tooltip={due} />
+
         <Router.Link
           {...linkProps}
           ref='milestonesToggle'

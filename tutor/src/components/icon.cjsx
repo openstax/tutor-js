@@ -13,6 +13,7 @@ module.exports = React.createClass
       React.PropTypes.string, React.PropTypes.element
     ])
     tooltipProps: React.PropTypes.object
+    onNavbar: React.PropTypes.bool
 
   componentWillMount: ->
     uniqueId = _.uniqueId('icon-tooltip-')
@@ -32,7 +33,10 @@ module.exports = React.createClass
     icon = <i {...@props} className={classNames} />
 
     if @props.tooltip
-      tooltip = <BS.Tooltip id={@state.uniqueId}>{@props.tooltip}</BS.Tooltip>
+      classNames =
+      tooltip = <BS.Tooltip id={@state.uniqueId}
+        className={classnames({'on-navbar': @props.onNavbar})}
+        >{@props.tooltip}</BS.Tooltip>
       <BS.OverlayTrigger {...@props.tooltipProps} overlay={tooltip}>{icon}</BS.OverlayTrigger>
     else
       icon
