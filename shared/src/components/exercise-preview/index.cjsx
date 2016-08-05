@@ -42,13 +42,11 @@ ExercisePreview = React.createClass
 
   renderTag: (tag) ->
     {content, isLO} = @props.extractTag(tag)
-    classes = if isLO
-      content = "LO: #{content}" if isLO
-      'lo-tag'
+    key = tag.id or tag.name
+    if isLO
+      <div key={key} className='lo-tag'>LO: {content}</div>
     else
-      'exercise-tag'
-    <span key={tag.id or tag.name} className={classes}>{content}</span>
-
+      <span key={key} className='exercise-tag'>{content}</span>
 
   renderFooter: ->
     <div className="controls">
