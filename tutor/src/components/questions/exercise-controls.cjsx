@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-cn = require 'classnames'
+classNames = require 'classnames'
 
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
 {CourseStore} = require '../../flux/course'
@@ -48,23 +48,22 @@ QuestionsControls = React.createClass
     selected = @props.selectedSection or _.first(sections)
 
     isConceptCoach = CourseStore.isConceptCoach(@props.courseId)
-
     filters =
       <BS.ButtonGroup className="filters">
         <BS.Button data-filter='all' onClick={@onFilterClick}
-          className={if _.isEmpty(@props.filter) then 'all active' else 'all'}
+          className={classNames 'all', 'active': _.isEmpty(@props.filter) or @props.filter is 'all'}
         >
           All
         </BS.Button>
 
         <BS.Button data-filter='reading' onClick={@onFilterClick}
-          className={if @props.filter is 'reading' then 'reading active' else 'reading'}
+          className={classNames 'reading', 'active': @props.filter is 'reading'}
         >
           Reading
         </BS.Button>
 
         <BS.Button data-filter='homework' onClick={@onFilterClick}
-          className={if @props.filter is 'homework' then 'homework active' else 'homework'}
+          className={classNames 'homework', 'active': @props.filter is 'homework'}
         >
           Practice
         </BS.Button>
