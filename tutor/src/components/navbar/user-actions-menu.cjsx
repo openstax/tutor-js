@@ -20,6 +20,7 @@ UserActionsMenu = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string
+    onItemClick: React.PropTypes.func.isRequired
 
   contextTypes:
     router: React.PropTypes.func
@@ -30,6 +31,9 @@ UserActionsMenu = React.createClass
 
   componentWillMount: ->
     CurrentUserStore.ensureLoaded()
+
+  externalLinkClicked: ->
+    @props.onItemClick()
 
   renderMenuItem: (route, index) ->
     isActive = @context.router.isActive(route.name) if route.name?
@@ -89,12 +93,13 @@ UserActionsMenu = React.createClass
       title={<UserName/>}
       ref='navDropDown'>
       {@renderMenuItems()}
-      <AccountLink key='accounts-link' />
+      <AccountLink key='accounts-link' onClick={@externalLinkClicked} />
       <BS.MenuItem
         key='nav-help-link'
         className='-help-link'
         target='_blank'
-        href={CurrentUserStore.getHelpLink(@props.courseId)}>
+        href={CurrentUserStore.getHelpLink(@props.courseId)}
+        onSelect={@externalLinkClicked}>
           Get Help
       </BS.MenuItem>
       <LogOut isConceptCoach={@props.course?.is_concept_coach} />
