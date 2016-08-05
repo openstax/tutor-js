@@ -67,7 +67,7 @@ describe 'Event Row', ->
     hideButton = _.last(lastColumn.props.children)
 
     expect(dueDate).to.be.falsy
-    expect(hideButton.props.className.indexOf('-hide-button')).is.not.equal(-1)
+    expect(hideButton.props.className).to.include('hide-task')
 
   it 'shows withdrawn feedback when showing deleted tasks', ->
     feedbackColumn = deletedRow.props.children[2]
