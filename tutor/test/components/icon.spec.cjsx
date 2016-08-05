@@ -19,3 +19,13 @@ describe 'Icon Component', ->
       React.addons.TestUtils.Simulate.mouseOver(dom)
       tooltipEl = document.querySelector('div[role="tooltip"]')
       expect(tooltipEl.textContent).to.equal(@props.tooltip)
+
+
+  it 'sets on-navbar css class', ->
+    @props.onNavbar = true
+    @props.tooltipProps = {placement: 'bottom'}
+    @props.tooltip = 'a testing tooltip'
+    Testing.renderComponent( Icon, props: @props ).then ({dom}) ->
+      React.addons.TestUtils.Simulate.mouseOver(dom)
+      tooltipEl = document.querySelector('div[role="tooltip"]')
+      expect(_.toArray(tooltipEl.classList)).to.include('on-navbar')
