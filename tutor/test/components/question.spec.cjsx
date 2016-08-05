@@ -1,6 +1,6 @@
 {Testing, expect, sinon, _, ReactTestUtils} = require './helpers/component-testing'
 
-{Question} = require 'openstax-react-components'
+{Question} = require 'shared'
 
 STEP = (require '../../api/tasks/4.json').steps[0]
 MODEL = STEP.content.questions[0]

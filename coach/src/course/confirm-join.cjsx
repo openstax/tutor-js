@@ -5,7 +5,7 @@ RequestStudentId = require './request-student-id'
 
 Course = require './model'
 ErrorList = require './error-list'
-{AsyncButton} = require 'openstax-react-components'
+{AsyncButton} = require 'shared'
 
 ConfirmJoin = React.createClass
 

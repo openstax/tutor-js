@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -ev
+
+# travis should be setting the OX_PROJECT variable
+# export OX_PROJECT='tutor'
+
+karma start test/karma.config.js --single-run

@@ -1,6 +1,6 @@
 _ = require 'underscore'
 {ExerciseStore} = require '../flux/exercise'
-{ExerciseHelpers} = require 'openstax-react-components'
+{ExerciseHelpers} = require 'shared'
 
 TutorHelpers = {
 

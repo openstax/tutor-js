@@ -8,8 +8,8 @@ _ = require 'underscore'
 
 BrowseTheBook = require '../buttons/browse-the-book'
 
-{ChapterSectionMixin, CardBody, ExerciseWithScroll} = require 'openstax-react-components'
-{ExControlButtons} = require 'openstax-react-components/src/components/exercise/controls'
+{ChapterSectionMixin, CardBody, ExerciseWithScroll} = require 'shared'
+{ExControlButtons} = require 'shared/src/components/exercise/controls'
 
 ScrollSpy = require '../scroll-spy'
 StepFooter = require './step-footer'

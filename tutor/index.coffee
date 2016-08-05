@@ -3,13 +3,13 @@ Recordo = require('recordo')
 Recordo.initialize()
 # Recordo.start()
 
-{BootrapURLs}  = require 'openstax-react-components'
+{BootrapURLs}  = require 'shared'
 
 api = require './src/api'
 router = require './src/router'
 Notices = require './src/helpers/notifications'
 dom = require './src/helpers/dom'
-{startMathJax} = require 'openstax-react-components/src/helpers/mathjax'
+{startMathJax} = require 'shared/src/helpers/mathjax'
 {TransitionAssistant} = require './src/components/unsaved-state'
 
 window._STORES =

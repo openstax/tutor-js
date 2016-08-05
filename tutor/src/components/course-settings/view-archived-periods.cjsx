@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 {PeriodActions, PeriodStore} = require '../../flux/period'
 {TutorInput}  = require '../tutor-input'
-{AsyncButton} = require 'openstax-react-components'
+{AsyncButton} = require 'shared'
 {CourseStore} = require '../../flux/course'
 Icon = require '../icon'
 PH   = require '../../helpers/period'
@@ -11,7 +11,7 @@ Time = require '../time'
 BindStoreMixin      = require '../bind-store-mixin'
 CourseGroupingLabel = require '../course-grouping-label'
 
-{AsyncButton} = require 'openstax-react-components'
+{AsyncButton} = require 'shared'
 
 ViewArchivedPeriods = React.createClass
 

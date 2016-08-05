@@ -1,4 +1,4 @@
-{NotificationActions} = require 'openstax-react-components'
+{NotificationActions} = require 'shared'
 
 
 module.exports =

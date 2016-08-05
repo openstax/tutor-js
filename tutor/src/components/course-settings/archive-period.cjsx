@@ -4,7 +4,7 @@ _ = require 'underscore'
 {PeriodActions, PeriodStore} = require '../../flux/period'
 {RosterActions, RosterStore} = require '../../flux/roster'
 {TutorInput} = require '../tutor-input'
-{AsyncButton} = require 'openstax-react-components'
+{AsyncButton} = require 'shared'
 
 Icon = require '../icon'
 CourseGroupingLabel = require '../course-grouping-label'

@@ -3,7 +3,7 @@ _ = require 'underscore'
 classnames = require 'classnames'
 tasks = require './collection'
 
-{ChapterSectionMixin} = require 'openstax-react-components'
+{ChapterSectionMixin} = require 'shared'
 {GoToBookLink} = require '../buttons'
 
 TaskTitle = React.createClass

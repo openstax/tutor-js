@@ -9,7 +9,7 @@ React = require 'react/addons'
 
 TaskStep = require '../../../../src/components/task-step'
 {BreadcrumbTaskDynamic} = require '../../../../src/components/breadcrumb'
-{Exercise} = require 'openstax-react-components'
+{Exercise} = require 'shared'
 
 {routerStub, commonActions} = require '../utilities'
 

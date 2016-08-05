@@ -19,7 +19,7 @@ TimeHelper = require '../../../helpers/time'
 {TaskingStore, TaskingActions} = require '../../../flux/tasking'
 {TutorInput, TutorDateInput, TutorTimeInput, TutorTextArea} = require '../../tutor-input'
 {CourseStore, CourseActions}   = require '../../../flux/course'
-{AsyncButton} = require 'openstax-react-components'
+{AsyncButton} = require 'shared'
 
 Tasking = require './tasking'
 

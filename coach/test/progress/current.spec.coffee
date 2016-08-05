@@ -1,5 +1,5 @@
 React = require 'react'
-{Testing, expect, sinon, _} = require 'openstax-react-components/test/helpers'
+{Testing, expect, sinon, _} = require 'shared/test/helpers'
 
 Collection = require 'task/collection'
 {CurrentProgress} = require 'progress/current'
@@ -24,7 +24,7 @@ describe 'CurrentProgress Component', ->
       collectionUUID: 'C_UUID'
     Collection.load("#{@props.collectionUUID}/#{@props.moduleUUID}", _.extend({}, TASK, @props))
 
-  # Needs update to 'openstax-react-components/resize-listener
+  # Needs update to 'shared/resize-listener
   # Currently it calls getDomNode inside a _.defer.
   # When a complete spec run is ongoing, the component is unmounted when it's called
   xit 'renders status', ->

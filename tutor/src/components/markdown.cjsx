@@ -1,6 +1,6 @@
 React = require 'react'
 Markdown = require 'markdown-it'
-{ArbitraryHtmlAndMath} = require 'openstax-react-components'
+{ArbitraryHtmlAndMath} = require 'shared'
 _ = require 'underscore'
 
 md = new Markdown()

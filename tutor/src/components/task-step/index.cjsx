@@ -1,5 +1,5 @@
 React = require 'react'
-{SpyMode} = require 'openstax-react-components'
+{SpyMode} = require 'shared'
 
 {TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'

@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+
+on_termination() {
+  echo killing webpack $WEBPACK_PID
+  kill -TERM $WEBPACK_PID 2>/dev/null
+}
+
+bin/checkinputs "$@"
+
+trap on_termination SIGTERM SIGINT
+
+export OX_PROJECT=$1
+echo TDD: $OX_PROJECT
+
+
+webpack-dev-server --config webpack.config.js &
+WEBPACK_PID=$!
+echo webpack started pid: $WEBPACK_PID
+
+
+karma start test/karma.config.js --auto-watch --no-single-run

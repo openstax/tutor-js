@@ -3,7 +3,7 @@ React = require 'react'
 {ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
 
 LoadableItem = require '../loadable-item'
-{ArbitraryHtmlAndMath, Question} = require 'openstax-react-components'
+{ArbitraryHtmlAndMath, Question} = require 'shared'
 
 ReferenceBookMissingExercise = React.createClass
   displayName: 'ReferenceBookMissingExercise'

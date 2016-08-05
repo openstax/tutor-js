@@ -5,7 +5,7 @@ Router = require 'react-router'
 
 {TaskPlanStatsStore, TaskPlanStatsActions} = require '../../flux/task-plan-stats'
 LoadableItem = require '../loadable-item'
-{SmartOverflow} = require 'openstax-react-components'
+{SmartOverflow} = require 'shared'
 {CoursePeriodsNav} = require '../course-periods-nav'
 
 CourseBar = require './course-bar'

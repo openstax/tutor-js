@@ -27,5 +27,5 @@ describe 'Questions Dashboard Component', ->
     CourseActions.loaded(course, COURSE_ID)
     Testing.renderComponent( Dashboard, props: @props ).then ({dom}) ->
       expect(dom.textContent).to.contain(
-        'Exclude desired questions before giving students access to Concept Coach'
+        'Students will only see questions from sections they work on in Concept Coach'
       )

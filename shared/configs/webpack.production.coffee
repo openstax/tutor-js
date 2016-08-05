@@ -5,7 +5,7 @@ webpackUMDExternal = require 'webpack-umd-external'
 # we won't be building shared separately anymore.
 module.exports =
   entry:
-    main: './shared/index'
+    main: 'index'
   output:
     filename: 'main.min.js'
   externals: webpackUMDExternal(

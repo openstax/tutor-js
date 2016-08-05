@@ -14,7 +14,7 @@ TaskStep = require './index'
 {CourseStore} = require '../../flux/course'
 {TaskStore} = require '../../flux/task'
 {TaskStepStore} = require '../../flux/task-step'
-{CardBody, PinnableFooter} = require 'openstax-react-components'
+{CardBody, PinnableFooter} = require 'shared'
 Review = require '../task/review'
 {ConceptCoachEnd} = require './concept-coach-end'
 

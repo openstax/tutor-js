@@ -1,6 +1,9 @@
+path = require 'path'
+
 webpack = require 'webpack'
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 webpackUMDExternal = require 'webpack-umd-external'
+
 _ = require 'lodash'
 
 
@@ -28,6 +31,27 @@ BASE_CONFIG =
     new webpack.optimize.DedupePlugin()
   ]
 
+KARMA_BASE_CONFIG =
+  devtool: 'eval-source-map'
+  node:
+    fs: "empty"
+  resolve:
+    extensions: ['', '.js', '.json', '.coffee', '.cjsx']
+  module:
+    noParse: [
+      /\/sinon\.js/
+    ]
+    loaders: [
+      { test: /\.coffee$/, loader: "coffee-loader"     }
+      { test: /\.json$/,   loader: "json-loader"       }
+      { test: /\.cjsx$/,   loader: "coffee-jsx-loader" }
+    ]
+    preLoaders: [{
+      test: /\.(cjsx|coffee)$/
+      loader: "coffeelint-loader"
+      exclude: /(node_modules|resources|bower_components)/
+    }]
+
 BASE_BUILD_LOADERS =
   [
     # less, coffee, and cjsx will have ["react-hot", "webpack-module-hot-accept"]
@@ -39,7 +63,7 @@ BASE_BUILD_LOADERS =
 
 DEV_LOADERS = ['react-hot', 'webpack-module-hot-accept']
 
-BASE_DEV_LOADERS = 
+BASE_DEV_LOADERS =
   [
     { test: /\.coffee$/, loaders: DEV_LOADERS.concat('coffee-loader')}
     { test: /\.cjsx$/,   loaders: DEV_LOADERS.concat('coffee-jsx-loader')}
@@ -55,9 +79,16 @@ mergeWebpackConfigs = ->
   mergeArgs = _.chain(arguments).toArray().unshift({}).push(mergeArrays).value()
   _.mergeWith.apply(null, mergeArgs)
 
+# TODO handle if project doesn't exist
+loadProjectBaseConfig = (projectName) ->
+  projectBaseConfig = require "../../#{projectName}/configs/base"
+
+  _.extend({basePath: projectName}, projectBaseConfig)
+
+
 makeBuildOutputs = (projectConfig) ->
-  path: "#{projectConfig.basePath}/dist/"
-  publicPath: "#{projectConfig.basePath}/assets/"
+  path: "dist"
+  publicPath: "/assets/"
 
 makeBuildPlugins = (projectConfig) ->
   {styleFilename} = projectConfig
@@ -65,6 +96,22 @@ makeBuildPlugins = (projectConfig) ->
   styleFilename ?= '[name].css'
 
   [new ExtractTextPlugin(styleFilename)]
+
+
+makePathsBase = (projectConfig) ->
+  {basePath} = projectConfig
+
+  pathConfigs =
+    resolve:
+      root: [
+        path.resolve(basePath)
+        path.resolve(basePath, 'src')
+        path.resolve(basePath, 'api')
+      ]
+      alias:
+        'shared': path.resolve('shared')
+
+  pathConfigs
 
 makeDebugBase = (projectConfig) ->
   # omits minification and using production build of react.
@@ -74,20 +121,13 @@ makeDebugBase = (projectConfig) ->
       loaders: BASE_BUILD_LOADERS
     plugins: makeBuildPlugins(projectConfig)
 
-    # likely don't need.
-    # .concat([
-    #   new webpack.DefinePlugin(
-    #     'process.env':
-    #       NODE_ENV: JSON.stringify('development')
-    #   )
-    # ])
-
 makeProductionBase = (projectConfig) ->
 
   output = makeBuildOutputs(projectConfig)
 
   # rename to minified
   output.filename = '[name].min.js'
+  output.path = "#{projectConfig.basePath}/dist"
   {styleFilename} = projectConfig
   styleFilename ?= '[name].min.css'
 
@@ -117,12 +157,12 @@ makeProductionWithCoverageBase = (projectConfig) ->
 makeDevelopmentBase = (projectConfig) ->
   host = projectConfig.host or 'localhost'
   servePath = "http://#{host}:#{projectConfig.devPort}"
-  publicPath = "#{servePath}/assets/"
+  publicPath = "#{servePath}/dist/"
   outputPath = "#{projectConfig.basePath}/"
 
   developmentBase =
     output:
-      path: outputPath
+      path: 'dist'
       publicPath: publicPath
     module:
       loaders: BASE_DEV_LOADERS
@@ -130,14 +170,15 @@ makeDevelopmentBase = (projectConfig) ->
       new webpack.HotModuleReplacementPlugin()
     ]
     devServer:
-      contentBase: "./#{projectConfig.basePath}/"
+      contentBase: "#{projectConfig.basePath}/"
       outputPath: outputPath
       publicPath: publicPath
       historyApiFallback: true
       inline: true
       port: projectConfig.devPort
       # It suppress error shown in console, so it has to be set to false.
-      quiet: false,
+      quiet: false
+      progress: true
       # It suppress everything except error, so it has to be set to false as well
       # to see success build.
       noInfo: false
@@ -154,13 +195,6 @@ makeDevelopmentBase = (projectConfig) ->
         chunks: false,
         chunkModules: false
 
-  if projectConfig.devEntry
-    developmentBase.entry =
-      "#{projectConfig.devEntry}": [
-        "./node_modules/webpack-dev-server/client/index.js?#{servePath}"
-        'webpack/hot/dev-server'
-      ]
-
   developmentBase
 
 makeEnvironmentBase =
@@ -168,6 +202,8 @@ makeEnvironmentBase =
   production: makeProductionBase
   productionWithCoverage: makeProductionWithCoverageBase
   development: makeDevelopmentBase
+  karma: ->
+    KARMA_BASE_CONFIG
 
 ENVIRONMENTS = _.keys(makeEnvironmentBase)
 
@@ -187,6 +223,8 @@ ENVIRONMENT_ALIASES =
 module.exports =
   mergeWebpackConfigs: mergeWebpackConfigs
   BASE_CONFIG: BASE_CONFIG
+  loadProjectBaseConfig: loadProjectBaseConfig
+  makePathsBase: makePathsBase
   makeBaseForEnvironment: makeBaseForEnvironment
   getEnvironmentName: getEnvironmentName
   ENVIRONMENT_ALIASES: ENVIRONMENT_ALIASES

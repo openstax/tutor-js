@@ -1,7 +1,7 @@
 {Testing, sinon, expect, _, React} = require './helpers/component-testing'
 
 TutorPopover = require '../../src/components/tutor-popover'
-{ArbitraryHtmlAndMath} = require 'openstax-react-components'
+{ArbitraryHtmlAndMath} = require 'shared'
 
 TEST_LINK_TEXT = 'This is the link text.'
 TEST_HTML = '<p>This is the test HTML</p>

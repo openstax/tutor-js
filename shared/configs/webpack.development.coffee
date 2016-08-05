@@ -1,6 +1,6 @@
 module.exports =
   entry:
     demo: [
-      './shared/demo'
-      './shared/resources/styles/demo.less'
+      'demo'
+      'resources/styles/demo.less'
     ]

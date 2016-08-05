@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -e
+
+bin/checkinputs "$@"
+
+export OX_PROJECT=$1
+echo Building: $OX_PROJECT
+export NODE_ENV=production
+
+[ -d $OX_PROJECT/dist ] && rm -r $OX_PROJECT/dist
+
+webpack --progress --config webpack.config.js
+
+if [ $2 == "archive" ]; then
+    cd $OX_PROJECT
+   # credit/blame to: http://stackoverflow.com/questions/8201729/rename-files-to-md5-sum-extension-bash
+   for F in dist/*.min.*; do
+       mv $F `md5sum $F | perl -MFile::Basename -ne '($m, $f) = split(/\s+/,$_); $f=basename($f); $f =~ m/(.*?)\.(.*)/; print "dist/$1-$m.$2"'`
+   done
+   tar -czf ../archive.tar.gz dist/*
+fi

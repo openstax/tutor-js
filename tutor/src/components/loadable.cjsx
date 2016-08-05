@@ -2,7 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 
 BindStoreMixin = require './bind-store-mixin'
-{RefreshButton} = require 'openstax-react-components'
+{RefreshButton} = require 'shared'
 
 # This component is useful for viewing something that needs to be loaded.
 #

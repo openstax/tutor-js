@@ -4,7 +4,7 @@ _ = require 'underscore'
 classnames = require 'classnames'
 EventEmitter2 = require 'eventemitter2'
 
-{SmartOverflow, SpyMode} = require 'openstax-react-components'
+{SmartOverflow, SpyMode} = require 'shared'
 
 {Task} = require '../task'
 navigation = {Navigation} = require '../navigation'

@@ -2,7 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 _ = require 'underscore'
-{SpyMode} = require 'openstax-react-components'
+{SpyMode} = require 'shared'
 
 {CurrentUserStore} = require '../../flux/current-user'
 

@@ -1,5 +1,5 @@
 React = require 'react'
-{Breadcrumb} = require 'openstax-react-components'
+{Breadcrumb} = require 'shared'
 
 {StepPanel} = require '../../helpers/policies'
 

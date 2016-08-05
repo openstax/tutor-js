@@ -6,7 +6,7 @@ WindowHelpers = require '../helpers/window'
 
 {CourseListingActions, CourseListingStore} = require '../flux/course-listing'
 {CourseStore} = require '../flux/course'
-{RefreshButton} = require 'openstax-react-components'
+{RefreshButton} = require 'shared'
 EmptyCourses    = require './course-listing/empty'
 CourseDataMixin = require './course-data-mixin'
 

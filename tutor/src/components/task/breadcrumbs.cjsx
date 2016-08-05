@@ -6,7 +6,7 @@ React = require 'react'
 _ = require 'underscore'
 
 CrumbMixin = require './crumb-mixin'
-{ChapterSectionMixin, ResizeListenerMixin} = require 'openstax-react-components'
+{ChapterSectionMixin, ResizeListenerMixin} = require 'shared'
 {BreadcrumbTaskDynamic} = require '../breadcrumb'
 
 module.exports = React.createClass

@@ -4,7 +4,7 @@ mime = require 'mime-types'
 classnames = require 'classnames'
 
 BindStoreMixin = require '../bind-store-mixin'
-{AsyncButton} = require 'openstax-react-components'
+{AsyncButton} = require 'shared'
 TimeDifference = require '../time-difference'
 
 {ScoresExportStore, ScoresExportActions} = require '../../flux/scores-export'

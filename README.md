@@ -4,7 +4,7 @@
 [![dependency status][dependency-image]][dependency-url]
 [![dev dependency status][dev-dependency-image]][dev-dependency-url]
 
-The JavaScript client for openstax Tutor.
+The Front-end code for Openstax Tutor related projects
 
 ## Install
 
@@ -14,16 +14,16 @@ The JavaScript client for openstax Tutor.
   - If you don’t have `git` installed you can install homebrew and then `brew install git`
 1. `cd tutor-js` move into the checked out directory
 1. `npm install`
-1. `npm start`
+1. `npm run serve <project>` *(where <project is one of tutor|coach|exercises)*
 1. Point your browser to <http://localhost:8000> to use the mock data in `/api`
 
 
 ## Development
 
-- `npm start` starts up a local development webserver which rebuilds files when changed
-- `npm test` runs unit tests
+- `npm run serve <project>` starts up a local development webserver which rebuilds files when changed
+- `npm test` runs unit tests for all projects
 - `npm run coverage` generates a code coverage report
-- `gulp prod` builds minified files for production
+- `npm run build <project> archive` builds minified files for production
 
 Use `PORT=8000 npm start` to change the default webserver port.
 

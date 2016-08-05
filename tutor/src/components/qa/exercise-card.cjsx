@@ -3,7 +3,7 @@ React = require 'react'
 classnames = require 'classnames'
 {ExerciseStore} = require '../../flux/exercise'
 String = require '../../helpers/string'
-{ExercisePreview} = require 'openstax-react-components'
+{ExercisePreview} = require 'shared'
 exerciseDataFilter = require '../../flux/qa-exercise-data-filter'
 Exercise = React.createClass
 

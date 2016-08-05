@@ -1,13 +1,13 @@
 React = require 'react'
 _  = require 'underscore'
 classnames = require 'classnames'
-{SpyMode} = require 'openstax-react-components'
+{SpyMode} = require 'shared'
 
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
 
 NavBar = require './navbar'
 Menu = require './slide-out-menu'
-{ChapterSectionMixin, ResizeListenerMixin} = require 'openstax-react-components'
+{ChapterSectionMixin, ResizeListenerMixin} = require 'shared'
 PageShell = require './page-shell'
 PageNavigation = require './page-navigation'
 

@@ -5,7 +5,7 @@ _      = require 'underscore'
 
 {TutorDateInput, TutorTimeInput} = require '../../tutor-input'
 TimeHelper    = require '../../../helpers/time'
-{AsyncButton} = require 'openstax-react-components'
+{AsyncButton} = require 'shared'
 
 DateTime = React.createClass
 

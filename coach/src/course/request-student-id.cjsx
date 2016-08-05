@@ -5,7 +5,7 @@ ENTER = 'Enter'
 User = require '../user/model'
 Course = require './model'
 ErrorList = require './error-list'
-{AsyncButton} = require 'openstax-react-components'
+{AsyncButton} = require 'shared'
 
 RequestStudentId = React.createClass
 

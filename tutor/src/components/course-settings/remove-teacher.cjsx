@@ -6,7 +6,7 @@ BindStoreMixin = require '../bind-store-mixin'
 {RosterStore, RosterActions} = require '../../flux/roster'
 Icon = require '../icon'
 Name = require '../name'
-{AsyncButton} = require 'openstax-react-components'
+{AsyncButton} = require 'shared'
 
 WARN_REMOVE_CURRENT = 'If you remove yourself from the course you will be redirected to the dashboard.'
 

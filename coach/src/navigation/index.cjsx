@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-{CloseButton} = require 'openstax-react-components'
+{CloseButton} = require 'shared'
 {CourseNameBase} = require './course-name'
 
 Course = require '../course/model'
@@ -8,7 +8,7 @@ user = require '../user/model'
 {channel} = require './model'
 api = require '../api'
 UserMenu = require '../user/menu'
-{NotificationsBar} = require 'openstax-react-components'
+{NotificationsBar} = require 'shared'
 
 Navigation = React.createClass
   displayName: 'Navigation'

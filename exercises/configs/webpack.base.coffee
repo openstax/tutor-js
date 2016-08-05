@@ -1,6 +1,6 @@
 module.exports =
   entry:
     exercises: [
-      './exercises/src/index.coffee',
-      './exercises/resources/styles/app.less'
+      'src/index.coffee',
+      'resources/styles/app.less'
     ]

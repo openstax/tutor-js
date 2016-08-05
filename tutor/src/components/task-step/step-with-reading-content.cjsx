@@ -1,7 +1,7 @@
 React = require 'react'
 
 {TaskStepStore} = require '../../flux/task-step'
-{ArbitraryHtmlAndMath, ChapterSectionMixin} = require 'openstax-react-components'
+{ArbitraryHtmlAndMath, ChapterSectionMixin} = require 'shared'
 {BookContentMixin, LinkContentMixin} = require '../book-content-mixin'
 
 # TODO: will combine with below, after BookContentMixin clean up

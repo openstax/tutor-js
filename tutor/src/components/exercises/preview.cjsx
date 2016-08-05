@@ -1,6 +1,6 @@
 React = require 'react'
 
-{ExercisePreview} = require 'openstax-react-components'
+{ExercisePreview} = require 'shared'
 BindStoreMixin = require '../bind-store-mixin'
 
 # Wraps the ExercisePreview component so it will re-render in

@@ -1,6 +1,6 @@
 React = require 'react'
 _ = require 'underscore'
-{Exercise, ChapterSectionMixin} = require 'openstax-react-components'
+{Exercise, ChapterSectionMixin} = require 'shared'
 
 {channel, getCurrentPanel} = exercises = require './collection'
 tasks = require '../task/collection'

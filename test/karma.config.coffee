@@ -1,38 +1,24 @@
 _ = require 'underscore'
+makeWebpackConfig = require '../configs/webpack/makeConfig'
 
-module.exports =
-  basePath: '../../'
+KarmaConfig =
+
+  basePath: '../'
   frameworks: ['mocha', 'chai', 'chai-sinon', 'phantomjs-shim']
   browsers: ['PhantomJS']
   reporters: ['mocha']
 
+  # Ideally, would be able to use patterns instead...
   files: [
-    'test/all-tests.coffee'
     'test/all-source-files.coffee'
+    'test/all-tests.coffee'
   ]
 
   preprocessors:
     'src/**/*.{coffee,cjsx}': ['webpack', 'sourcemap']
     'test/**/*':  ['webpack', 'sourcemap']
 
-  webpack:
-    devtool: 'eval-source-map'
-    resolve:
-      extensions: ['', '.js', '.json', '.coffee', '.cjsx']
-    module:
-      noParse: [
-        /\/sinon\.js/
-      ]
-      loaders: [
-        { test: /\.coffee$/, loader: "coffee-loader"     }
-        { test: /\.json$/,   loader: "json-loader"       }
-        { test: /\.cjsx$/,   loader: "coffee-jsx-loader" }
-      ]
-      preLoaders: [{
-        test: /\.(cjsx|coffee)$/
-        loader: "coffeelint-loader"
-        exclude: /(node_modules|resources|bower_components)/
-      }]
+  webpack: makeWebpackConfig(process.env.OX_PROJECT, 'karma')
 
   webpackMiddleware:
     # True will suppress error shown in console, so it has to be set to false.
@@ -56,10 +42,12 @@ module.exports =
     require('karma-mocha')
     require('karma-webpack')
     require('karma-mocha-reporter')
-    require('karma-nyan-reporter')
     require('karma-phantomjs-launcher')
     require('karma-chrome-launcher')
     require('karma-chai')
     require('karma-chai-sinon')
     require('karma-sourcemap-loader')
   ]
+
+module.exports = (config) ->
+  config.set(KarmaConfig)

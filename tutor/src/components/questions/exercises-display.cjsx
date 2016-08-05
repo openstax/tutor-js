@@ -1,7 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
-{PinnedHeaderFooterCard} = require 'openstax-react-components'
+{PinnedHeaderFooterCard} = require 'shared'
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
 
 Help = require './help'

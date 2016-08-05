@@ -1,6 +1,8 @@
 {
   BASE_CONFIG,
+  loadProjectBaseConfig,
   mergeWebpackConfigs,
+  makePathsBase,
   makeBaseForEnvironment,
   getEnvironmentName,
   ENVIRONMENT_ALIASES
@@ -19,15 +21,30 @@ makeConfig = (projectName, environmentName) ->
   else
     environmentName
 
-  projectBaseConfig = require "../../#{projectName}/configs/base"
-  projectWebpackBaseConfig = conditionalRequire "../../#{projectName}/configs/webpack.base"
-  projectWebpackEnvironmentConfig = conditionalRequire "../../#{projectName}/configs/webpack.#{environmentFilename}"
+  projectBaseConfig = loadProjectBaseConfig(projectName)
 
-  mergeWebpackConfigs(
-    BASE_CONFIG,
-    makeBaseForEnvironment(environmentName)(projectBaseConfig),
-    projectWebpackBaseConfig,
-    projectWebpackEnvironmentConfig
-  )
+  projectWebpackBaseConfig =
+    conditionalRequire("../../#{projectName}/configs/webpack.base")
+  projectWebpackEnvironmentConfig =
+    conditionalRequire(
+      "../../#{projectName}/configs/webpack.#{environmentFilename}"
+    )
+
+  if environmentName is 'karma'
+    configs = [
+      makePathsBase(projectBaseConfig),
+      makeBaseForEnvironment(environmentName)(projectBaseConfig),
+      projectWebpackEnvironmentConfig
+    ]
+  else
+    configs = [
+      BASE_CONFIG,
+      makePathsBase(projectBaseConfig),
+      makeBaseForEnvironment(environmentName)(projectBaseConfig),
+      projectWebpackBaseConfig,
+      projectWebpackEnvironmentConfig
+    ]
+
+  mergeWebpackConfigs.apply(null, configs)
 
 module.exports = makeConfig

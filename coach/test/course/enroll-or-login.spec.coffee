@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _, ReactTestUtils} = require 'openstax-react-components/test/helpers'
+{Testing, expect, sinon, _, ReactTestUtils} = require 'shared/test/helpers'
 
 Course = require 'course/model'
 NewCourseRegistration = require 'course/new-registration'

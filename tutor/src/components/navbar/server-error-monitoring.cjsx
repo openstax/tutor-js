@@ -26,8 +26,9 @@ makeContactMessage = (statusCode, message, request) ->
     #{errorInfo}."""
 
 makeContactURL = (supportLinkBase, statusCode, message, request) ->
+  console.info('lkajsdflkjs')
   q = encodeURIComponent(makeContactMessage(statusCode, message, request))
-
+  console.info('makeContactURL', q)
   "#{supportLinkBase}#{SUPPORT_LINK_PARAMS}#{q}"
 
 reloadOnce = ->

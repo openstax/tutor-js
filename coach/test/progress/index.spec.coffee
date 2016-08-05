@@ -1,5 +1,5 @@
 React = require 'react'
-{Testing, expect, sinon, _} = require 'openstax-react-components/test/helpers'
+{Testing, expect, sinon, _} = require 'shared/test/helpers'
 
 Collection = require 'task/collection'
 {Progress} = require 'progress'
