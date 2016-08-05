@@ -25,6 +25,23 @@
     li {
       #fonts .sans(2.4rem, 2.4rem);
       width: 210px;
+      background: @tutor-neutral-lighter;
+      border: none;
+      padding: 0;
+
+      &:hover {
+        background: @tutor-neutral-lightest;
+
+        a {
+          color: @tutor-neutral !important;
+        }
+      }
+
+      &.active {
+        background: @tutor-white;
+        border: none;
+        padding: 0;
+      }
     }
   }
 
