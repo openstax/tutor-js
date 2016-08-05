@@ -26,7 +26,7 @@ makeContactURL = (errors, windowContext) ->
 ErrorNotification = React.createClass
 
   getInitialState: ->
-    error: false, isShowingDetails: false
+    errors: false, isShowingDetails: false
 
   componentWillMount: ->
     api.channel.on 'error', @onError
@@ -69,7 +69,19 @@ ErrorNotification = React.createClass
 
   render: ->
     return null unless @state.errors
-    <BS.Modal className='errors' onRequestHide={@onHide} title="Error encountered">
+
+    modalProps = _.pick(@props, 'container')
+
+    <BS.Modal
+      {...modalProps}
+      className='errors'
+      show={not _.isEmpty(@state.errors)}
+      onHide={@onHide}>
+
+      <BS.Modal.Header closeButton>
+        <BS.Modal.Title>Error encountered</BS.Modal.Title>
+      </BS.Modal.Header>
+
       <div className='modal-body'>
         <p>
           An unexpected error has occured.  Please
