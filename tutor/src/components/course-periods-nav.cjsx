@@ -55,9 +55,9 @@ CoursePeriodsNav = React.createClass
       throw new Error("BUG: #{key} period does not exist for course #{courseId}. There are only #{periods.length}.")
       return
 
+    @setState(active: key)
     handleSelect?(period)
     handleKeyUpdate?(key)
-    @setState(active: key)
 
   renderPeriod: (period, key) ->
     className = classnames({'is-trouble': period.is_trouble})
