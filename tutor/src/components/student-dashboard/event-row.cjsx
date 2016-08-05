@@ -41,7 +41,7 @@ module.exports = React.createClass
     classes = classnames("task row #{@props.className}", {workable, deleted})
 
     if deleted
-      hideButton = <BS.Button className="-hide-button" onClick={@hideTask}>
+      hideButton = <BS.Button className="hide-task" onClick={@hideTask}>
         <i className="fa fa-close"/>
       </BS.Button>
       feedback = <span>Withdrawn</span>
