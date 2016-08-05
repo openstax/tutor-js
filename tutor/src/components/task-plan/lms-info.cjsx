@@ -100,7 +100,6 @@ LmsInfo = React.createClass
     <LmsInfoLink {...@props} />
 
   render: ->
-  #  return null unless @props.plan.shareable_url
     <LoadableItem
       id={@props.plan.id}
       store={TaskPlanStatsStore}
