@@ -3,6 +3,11 @@ sudo: false
 language: node_js
 node_js:
   - "0.12.10"
+env:
+  - OX_PROJECT=tutor
+  - OX_PROJECT=coach
+  - OX_PROJECT=exercises
+  - OX_PROJECT=shared
 script:
   - npm run ci
 after_failure:
