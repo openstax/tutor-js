@@ -6,6 +6,8 @@ env:
   - OX_PROJECT=coach
   - OX_PROJECT=exercises
   - OX_PROJECT=shared
+before_install:
+  - "npm install -g npm@^3"
 script:
   - npm run ci
 after_failure:
