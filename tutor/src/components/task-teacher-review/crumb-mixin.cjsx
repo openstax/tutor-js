@@ -168,7 +168,7 @@ module.exports =
 
     review = TaskTeacherReviewStore.get(id)
 
-    allCrumbs = @generateCrumbs()
+    allCrumbs = @generateCrumbs(period)
     getContents = camelCase("get-contents-for-#{review.type}")
 
     contents = @["_#{getContents}"](allCrumbs)

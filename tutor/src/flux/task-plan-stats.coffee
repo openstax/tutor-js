@@ -8,14 +8,17 @@ TaskPlanStatsConfig = {
     getPeriods: (id) ->
       plan = @_get(id)
       periods = _.chain(plan.stats)
-        .map((stat) ->
+        # filter out deleted periods
+        .filter (stat) -> stat.period_id?
+        .map (stat) ->
           id: stat.period_id
           name: stat.name
           is_trouble: stat.is_trouble
-
-        )
-        .tap(PeriodHelper.sort)
         .value()
+
+      # tapping into the sort wasn't actually returning sorted
+      # periods for some reason
+      PeriodHelper.sort(periods)
 
 }
 

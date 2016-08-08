@@ -17,47 +17,60 @@ Stats = React.createClass
   propTypes:
     id: React.PropTypes.string.isRequired
     activeSection: React.PropTypes.string
-    initialActivePeriod: React.PropTypes.number.isRequired
+    initialActivePeriodInfo: React.PropTypes.object
     handlePeriodKeyUpdate: React.PropTypes.func
     handlePeriodSelect: React.PropTypes.func
     shouldOverflowData: React.PropTypes.bool
 
   getDefaultProps: ->
-    initialActivePeriod: 0
+    initialActivePeriodInfo: {}
     shouldOverflowData: false
 
   getInitialState: ->
-    periodIndex = @props.initialActivePeriod
-    stats = @getStatsForPeriodByIndex(periodIndex)
+    {initialActivePeriodInfo, handlePeriodSelect} = @props
 
+    stats = @getStatsForPeriod(initialActivePeriodInfo)
     stats: stats
 
-  getStatsForPeriodByIndex: (periodIndex) ->
+  componentWillMount: ->
+    {id, initialActivePeriodInfo, handlePeriodSelect} = @props
+
+    periods = TaskPlanStatsStore.getPeriods(id)
+    period = _.findWhere(periods, {id: initialActivePeriodInfo.id})
+
+    handlePeriodSelect?(period)
+
+  getInitialPeriodIndex: ->
+    {id, initialActivePeriodInfo} = @props
+
+    periods = TaskPlanStatsStore.getPeriods(id)
+    periodIndex = _.findIndex(periods, {id: initialActivePeriodInfo.id})
+
+    # return 0 if period not found.  otherwise, will return period index.
+    Math.max(0, periodIndex)
+
+  getStatsForPeriod: (periodInfo) ->
     {id} = @props
     plan = TaskPlanStatsStore.get(id)
 
-    orderedStats = PeriodHelper.sort(plan.stats)
-    periodStats = orderedStats[periodIndex]
+    periodStats = _.findWhere(plan.stats, {period_id: periodInfo.id})
+
+    # if there's no period matching id, return first of sorted periods
+    periodStats or _.first(PeriodHelper.sort(plan.stats))
 
   handlePeriodSelect: (period) ->
-    {id, handlePeriodSelect} = @props
-    plan = TaskPlanStatsStore.get(id)
+    {handlePeriodSelect} = @props
 
-    periodStats = _.findWhere(plan.stats, {period_id: period.id})
+    periodStats = @getStatsForPeriod(period)
     @setState(stats: periodStats)
 
     handlePeriodSelect?(period)
 
-  componentDidMount: ->
-    {id, handlePeriodSelect} = @props
-    periods = TaskPlanStatsStore.getPeriods(id)
-
-    initialPeriod = periods[@props.initialActivePeriod]
-    handlePeriodSelect?(initialPeriod)
-
   render: ->
     {id, courseId, shouldOverflowData, activeSection} = @props
     {stats} = @state
+
+    initialActivePeriodIndex = @getInitialPeriodIndex()
 
     plan = TaskPlanStatsStore.get(id)
     periods = TaskPlanStatsStore.getPeriods(id)
@@ -96,7 +109,7 @@ Stats = React.createClass
       <CoursePeriodsNav
         handleSelect={@handlePeriodSelect}
         handleKeyUpdate={@props.handlePeriodKeyUpdate}
-        initialActive={@props.initialActivePeriod}
+        initialActive={initialActivePeriodIndex}
         periods={periods}
         courseId={courseId} />
       {dataComponent}

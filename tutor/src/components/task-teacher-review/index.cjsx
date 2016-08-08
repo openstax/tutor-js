@@ -9,6 +9,7 @@ Breadcrumbs = require './breadcrumbs'
 
 _ = require 'underscore'
 
+{TaskPlanStatsStore} = require '../../flux/task-plan-stats'
 {TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
 ScrollSpy = require '../scroll-spy'
 
@@ -33,21 +34,16 @@ TaskTeacherReview = React.createClass
     crumbKey = if sectionIndex then parseInt(sectionIndex) - 1 else defaultKey
     @setState(currentStep: crumbKey)
 
-  getPeriodIndex: ->
-    {periodIndex} = @context.router.getCurrentParams()
-    periodIndex ?= 1
-
-    parseInt(periodIndex) - 1
-
   setScrollState: (scrollState) ->
     @setState({scrollState})
 
   getInitialState: ->
     {id} = @props
+    {periodId} = @context.router.getCurrentParams()
 
     currentStep: null
     scrollState: {}
-    period: {}
+    period: {id: periodId}
     isReviewLoaded: TaskTeacherReviewStore.get(id)?
 
   componentWillMount: ->
@@ -94,27 +90,24 @@ TaskTeacherReview = React.createClass
     params.sectionIndex = stepKey + 1
     params.id = @props.id # if we were rendered directly, the router might not have the id
 
-    params.periodIndex ?= 1
-
     @context.router.replaceWith('reviewTaskStep', params)
 
   setPeriod: (period) ->
     return unless @state.isReviewLoaded
 
+    params = _.clone(@context.router.getCurrentParams())
     contentState = @getReviewContents(period)
     contentState.period = period
 
     @setState(contentState)
 
-  setPeriodIndex: (key) ->
-    periodKey = key + 1
-    params = _.clone(@context.router.getCurrentParams())
-    params.periodIndex = periodKey
+    if period.id isnt params.periodId
+      params.periodId = period.id
 
-    if params.sectionIndex
-      @context.router.replaceWith('reviewTaskStep', params)
-    else
-      @context.router.replaceWith('reviewTaskPeriod', params)
+      if params.sectionIndex
+        @context.router.replaceWith('reviewTaskStep', params)
+      else
+        @context.router.replaceWith('reviewTaskPeriod', params)
 
   setIsReviewLoaded: (id) ->
     return null unless id is @props.id
@@ -141,8 +134,7 @@ TaskTeacherReview = React.createClass
 
   render: ->
     {id, courseId} = @props
-    {steps, crumbs} = @state
-    periodIndex = @getPeriodIndex()
+    {steps, crumbs, period} = @state
 
     panel = <ReviewShell
           id={id}
@@ -151,7 +143,7 @@ TaskTeacherReview = React.createClass
           goToStep={@goToStep}
           steps={steps}
           currentStep={@state.currentStep}
-          period={@state.period} />
+          period={period} />
 
     taskClasses = 'task-teacher-review'
 
@@ -183,11 +175,10 @@ TaskTeacherReview = React.createClass
               <StatsModalShell
                 id={id}
                 courseId={courseId}
-                initialActivePeriod={periodIndex}
+                initialActivePeriodInfo={period}
                 shouldOverflowData={true}
                 activeSection={@getActiveStep()?.sectionLabel}
-                handlePeriodSelect={@setPeriod}
-                handlePeriodKeyUpdate={@setPeriodIndex}/>
+                handlePeriodSelect={@setPeriod}/>
             </BS.Col>
           </BS.Row>
         </BS.Grid>
