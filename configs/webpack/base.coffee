@@ -10,7 +10,7 @@ _ = require 'lodash'
 # base config, true for all builds no matter what conditions
 BASE_CONFIG =
   cache: true
-  devtool: 'source-map'
+  devtool: 'cheap-module-eval-source-map'
   output:
     filename: '[name].js'
     # path: defined in project/environment specific
@@ -32,7 +32,7 @@ BASE_CONFIG =
   ]
 
 KARMA_BASE_CONFIG =
-  devtool: 'eval-source-map'
+  devtool: 'cheap-module-eval-source-map'
   node:
     fs: "empty"
   resolve:
@@ -54,18 +54,18 @@ KARMA_BASE_CONFIG =
 
 BASE_BUILD_LOADERS =
   [
-    # less, coffee, and cjsx will have ["react-hot", "webpack-module-hot-accept"]
+    # less, coffee, and cjsx will have ["react-hot"]
     # added in dev config.
     { test: /\.less$/,   loader: ExtractTextPlugin.extract('css!less') }
     { test: /\.coffee$/, loader: 'coffee-loader' }
     { test: /\.cjsx$/,   loader: 'coffee-jsx-loader' }
   ]
 
-DEV_LOADERS = ['react-hot', 'webpack-module-hot-accept']
+DEV_LOADERS = ['react-hot'] #, 'webpack-module-hot-accept']
 
 BASE_DEV_LOADERS =
   [
-    { test: /\.coffee$/, loaders: DEV_LOADERS.concat('coffee-loader')}
+    { test: /\.coffee$/, loaders: DEV_LOADERS.concat('coffee')}
     { test: /\.cjsx$/,   loaders: DEV_LOADERS.concat('coffee-jsx-loader')}
     { test: /\.less$/,   loaders: DEV_LOADERS.concat('style-loader', 'css-loader', 'less-loader') }
   ]
@@ -133,6 +133,7 @@ makeProductionBase = (projectConfig) ->
 
   productionBase =
     output: output
+    devtool: 'source-map'
     module:
       loaders: BASE_BUILD_LOADERS
     plugins: makeBuildPlugins({styleFilename}).concat([
