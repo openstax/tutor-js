@@ -141,7 +141,6 @@ PlanFooter = React.createClass
 
       deleteLink =
         <SuretyGuard
-          onConfirm={@publishExercise}
           onConfirm={@onDelete}
           okButtonLabel='Yes'
           placement='top'
