@@ -11,6 +11,8 @@ MEDIA_LINK_EXCLUDES = [
   '[data-type=footnote-number]'
   '[data-type=footnote-ref]'
   '[data-targeted=media]'
+  '[href*=\'/\']'
+  '[href=\'#\']'
 ]
 
 buildAllowed = (linksBegin, linksContain) ->

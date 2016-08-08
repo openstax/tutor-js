@@ -12,7 +12,10 @@ ScrollToLinkMixin = require './scroll-to-link-mixin'
 
 # According to the tagging legend exercises with a link should have `a.os-embed`
 # but in the content they are just a vanilla link.
-EXERCISE_LINK_SELECTOR = '.os-exercise > [data-type="problem"] > p > a[href]'
+EXERCISE_LINK_SELECTOR = [
+  '.os-exercise > [data-type="problem"] > p > a[href]'
+  '.ost-exercise > [data-type="problem"] > p > a[href]'
+].join(', ')
 
 LinkContentMixin =
   componentDidMount:  ->
@@ -53,7 +56,10 @@ LinkContentMixin =
     referenceBookLink
 
   isMediaLink: (link) ->
-    (link.hash.length > 0 and link.hash.search('/') is -1) or link.href isnt link.getAttribute('href')
+    # TODO it's likely that this is no longer needed since the links being
+    # passed into this are now much stricter and exclude where `href="#"` and
+    # where `href` contains any `/`
+    (link.hash.length > 0 or link.href isnt link.getAttribute('href')) and (link.hash.search('/') is -1)
 
   hasCNXId: (link) ->
     trueHref = link.getAttribute('href')
@@ -61,7 +67,13 @@ LinkContentMixin =
 
   getMedia: (mediaId) ->
     root = @getDOMNode()
-    root.querySelector("##{mediaId}")
+    try
+      root.querySelector("##{mediaId}")
+    catch error
+      # silently handle error in case selector is
+      # still invalid.
+      console.warn(error)
+      false
 
   cleanUpLinks: ->
     root = @getDOMNode()
@@ -74,6 +86,11 @@ LinkContentMixin =
   linkPreview: (link) ->
     mediaId = link.hash.replace('#', '')
     mediaDOM = @getMedia(mediaId) if mediaId
+
+    # no need to set up media preview if
+    # media id is invalid.
+    return link if mediaDOM is false
+
     mediaCNXId = @getCnxIdOfHref(link.getAttribute('href')) or @props.cnxId or @getCnxId?()
     previewNode = document.createElement('span')
     previewNode.classList.add('media-preview-wrapper')
@@ -92,11 +109,11 @@ LinkContentMixin =
       </MediaPreview>
 
     React.render(mediaPreview, previewNode)
+    return null
 
   processLink: (link) ->
     if @isMediaLink(link)
       @linkPreview(link)
-      return null
     else
       return link
 
