@@ -4,6 +4,7 @@ Time   = require '../time'
 {StudentDashboardStore, StudentDashboardActions} = require '../../flux/student-dashboard'
 EventInfoIcon = require './event-info-icon'
 {Instructions} = require '../task/details'
+{SuretyGuard} = require 'shared'
 classnames = require 'classnames'
 
 module.exports = React.createClass
@@ -26,9 +27,11 @@ module.exports = React.createClass
       {courseId:@props.courseId, id: @props.event.id, stepIndex: 1}
 
   hideTask: (event) ->
-    event.stopPropagation()
     StudentDashboardActions.hide(@props.event.id)
     StudentDashboardStore.on('hidden', @hidden)
+
+  stopEventPropagation: (event) ->
+    event.stopPropagation()
 
   hidden: -> @setState({hidden: true})
 
@@ -41,9 +44,25 @@ module.exports = React.createClass
     classes = classnames("task row #{@props.className}", {workable, deleted})
 
     if deleted
-      hideButton = <BS.Button className="hide-task" onClick={@hideTask}>
-        <i className="fa fa-close"/>
-      </BS.Button>
+      message = <div>
+        <p>
+          If you remove this assignment, you will lose any progress or feedback you have received.
+        </p>
+        <p>Do you wish to continue?</p>
+      </div>
+
+      hideButton =
+        <SuretyGuard
+          onConfirm={@hideTask}
+          okButtonLabel='Yes'
+          placement='top'
+          message={message}
+        >
+          <BS.Button className="hide-task" onClick={@stopEventPropagation}>
+            <i className="fa fa-close"/>
+          </BS.Button>
+        </SuretyGuard>
+
       feedback = <span>Withdrawn</span>
     else
       time = <Time date={@props.event.due_at} format='concise'/>

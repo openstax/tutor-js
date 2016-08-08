@@ -5,7 +5,9 @@ SuretyGuard = React.createClass
 
   propTypes:
     onConfirm:  React.PropTypes.func.isRequired
-    message:    React.PropTypes.string.isRequired
+    message:    React.PropTypes.oneOfType([
+      React.PropTypes.string, React.PropTypes.element
+    ]).isRequired
     placement:  React.PropTypes.string
     okButtonLabel: React.PropTypes.string
     cancelButtonLabel: React.PropTypes.string
