@@ -61,7 +61,7 @@ BASE_BUILD_LOADERS =
     { test: /\.cjsx$/,   loader: 'coffee-jsx' }
   ]
 
-DEV_LOADERS = ['react-hot'] #, 'webpack-module-hot-accept']
+DEV_LOADERS = ['react-hot']
 
 BASE_DEV_LOADERS =
   [
