@@ -122,7 +122,7 @@
     "karma-mocha-reporter": "1.0.4",
     "karma-nyan-reporter": "0.2.2",
     "karma-phantomjs-launcher": "0.2.1",
-    "karma-phantomjs-shim": "1.1.1",
+    "karma-phantomjs-shim": "1.4.0",
     "karma-sourcemap-loader": "0.3.6",
     "karma-webpack": "1.7.0",
     "less": "2.5.3",
