@@ -18,4 +18,7 @@ module.exports = {
     else
       {}
 
+  escapeSelector: (selector) ->
+    selector.replace( /(:|\.|\[|\]|,|\/)/g, "\\$1" )
+
 }

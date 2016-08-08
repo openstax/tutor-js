@@ -42,3 +42,6 @@ describe 'DOM Helpers', ->
 
   it 'can read bootstrap data', ->
     expect(DOM.readBootstrapData(@root)).to.deep.equal({"user":{"name":"Atticus Finch"}})
+
+  it 'escapes css selectors', ->
+    expect(DOM.escapeSelector("/foo.bar,k12phys-ch11-ex064")).to.equal('\\/foo\\.bar\\,k12phys-ch11-ex064')

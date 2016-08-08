@@ -61,7 +61,7 @@ LinkContentMixin =
 
   getMedia: (mediaId) ->
     root = @getDOMNode()
-    root.querySelector("##{mediaId}")
+    root.querySelector("##{dom.escapeSelector(mediaId)}")
 
   cleanUpLinks: ->
     root = @getDOMNode()
