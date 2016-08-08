@@ -67,7 +67,13 @@ LinkContentMixin =
 
   getMedia: (mediaId) ->
     root = @getDOMNode()
-    root.querySelector("##{mediaId}")
+    try
+      root.querySelector("##{mediaId}")
+    catch error
+      # silently handle error in case selector is
+      # still invalid.
+      console.warn(error)
+      false
 
   cleanUpLinks: ->
     root = @getDOMNode()
@@ -80,6 +86,11 @@ LinkContentMixin =
   linkPreview: (link) ->
     mediaId = link.hash.replace('#', '')
     mediaDOM = @getMedia(mediaId) if mediaId
+
+    # no need to set up media preview if
+    # media id is invalid.
+    return link if mediaDOM is false
+
     mediaCNXId = @getCnxIdOfHref(link.getAttribute('href')) or @props.cnxId or @getCnxId?()
     previewNode = document.createElement('span')
     previewNode.classList.add('media-preview-wrapper')
@@ -98,11 +109,11 @@ LinkContentMixin =
       </MediaPreview>
 
     React.render(mediaPreview, previewNode)
+    return null
 
   processLink: (link) ->
     if @isMediaLink(link)
       @linkPreview(link)
-      return null
     else
       return link
 
