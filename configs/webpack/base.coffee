@@ -42,13 +42,13 @@ KARMA_BASE_CONFIG =
       /\/sinon\.js/
     ]
     loaders: [
-      { test: /\.coffee$/, loader: "coffee-loader"     }
-      { test: /\.json$/,   loader: "json-loader"       }
-      { test: /\.cjsx$/,   loader: "coffee-jsx-loader" }
+      { test: /\.coffee$/, loader: "coffee"     }
+      { test: /\.json$/,   loader: "json"       }
+      { test: /\.cjsx$/,   loader: "coffee-jsx" }
     ]
     preLoaders: [{
       test: /\.(cjsx|coffee)$/
-      loader: "coffeelint-loader"
+      loader: "coffeelint"
       exclude: /(node_modules|resources|bower_components)/
     }]
 
@@ -57,8 +57,8 @@ BASE_BUILD_LOADERS =
     # less, coffee, and cjsx will have ["react-hot"]
     # added in dev config.
     { test: /\.less$/,   loader: ExtractTextPlugin.extract('css!less') }
-    { test: /\.coffee$/, loader: 'coffee-loader' }
-    { test: /\.cjsx$/,   loader: 'coffee-jsx-loader' }
+    { test: /\.coffee$/, loader: 'coffee' }
+    { test: /\.cjsx$/,   loader: 'coffee-jsx' }
   ]
 
 DEV_LOADERS = ['react-hot'] #, 'webpack-module-hot-accept']
@@ -66,8 +66,8 @@ DEV_LOADERS = ['react-hot'] #, 'webpack-module-hot-accept']
 BASE_DEV_LOADERS =
   [
     { test: /\.coffee$/, loaders: DEV_LOADERS.concat('coffee')}
-    { test: /\.cjsx$/,   loaders: DEV_LOADERS.concat('coffee-jsx-loader')}
-    { test: /\.less$/,   loaders: DEV_LOADERS.concat('style-loader', 'css-loader', 'less-loader') }
+    { test: /\.cjsx$/,   loaders: DEV_LOADERS.concat('coffee-jsx')}
+    { test: /\.less$/,   loaders: DEV_LOADERS.concat('style', 'css', 'less') }
   ]
 
 mergeWebpackConfigs = ->
