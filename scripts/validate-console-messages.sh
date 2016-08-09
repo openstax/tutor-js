@@ -18,6 +18,5 @@ COUNT=$(echo ${MESSAGES} | wc -w)
 if [ "${COUNT}" -gt 0 ];
 then
   echo "${MESSAGES}"
-  # echo "Words found: $(echo ${MESSAGES} | wc -w)"
-  exit 1
+  # exit 1
 fi
