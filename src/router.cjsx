@@ -24,7 +24,7 @@ CCDashboardHelp = require './components/cc-dashboard/help'
 
 CourseSettings = require './components/course-settings'
 Sandbox = require './sandbox'
-Handler = require './helpers/conditional-rendering'
+CourseHandler = require './helpers/conditional-rendering'
 
 QALoader = require 'promise?global!./qa'
 
@@ -60,11 +60,11 @@ routes = (
         <Route path='t/' name='viewTeacherDashBoard'>
           <Router.DefaultRoute handler={TeacherTaskPlans} />
           <Route path='scores/?' name='viewScores'
-            handler={Handler(ScoresShell, requireRole: 'teacher', requirePeriods: true)} />
+            handler={CourseHandler(ScoresShell, requireRole: 'teacher', requirePeriods: true)} />
           <Route path='guide' name='viewTeacherPerformanceForecast'
-            handler={Handler(PerformanceForecastShell.Teacher, requireRole: 'teacher', requirePeriods: true)} />
+            handler={CourseHandler(PerformanceForecastShell.Teacher, requireRole: 'teacher', requirePeriods: true)} />
           <Route path='guide/student/:roleId?' name='viewStudentTeacherPerformanceForecast'
-            handler={Handler(PerformanceForecastShell.TeacherStudent, requireRole: 'teacher', requirePeriods: true)}/>
+            handler={CourseHandler(PerformanceForecastShell.TeacherStudent, requireRole: 'teacher', requirePeriods: true)}/>
 
           <Route path='calendar/?' name='taskplans'>
             <Router.DefaultRoute handler={TeacherTaskPlans} />

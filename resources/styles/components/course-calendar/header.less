@@ -2,16 +2,9 @@
 
 .list-courses {
 
-  .calendar-actions {
-    border-bottom: 1px solid @tutor-neutral-light;
-    text-align: right;
-  }
-
   .panel-body { padding: 0; }
 
   .calendar-header {
-    text-align: center;
-    font-size: 3rem;
     border-bottom: 1px solid @tutor-neutral-light;
 
     #add-assignment {
@@ -33,6 +26,25 @@
         border-top-right-radius: 0;
       }
     }
+
+    .-no-periods-text {
+      display: inline-block;
+      margin: 16px 0;
+    }
+
+    &-actions {
+      border-bottom: 1px solid @tutor-neutral-light;
+
+      &-buttons {
+        float: right;
+      }
+    }
+
+    &-navigation {
+      text-align: center;
+      font-size: 3rem;
+    }
+
     &-label {
       font-weight: stronger;
       padding: @calendar-header-padding 0;

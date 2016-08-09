@@ -20,5 +20,5 @@ module.exports = (component, options = {}) ->
         NoPeriods
       else
         component
-    )
+    , {courseId})
   return RouteHandler
