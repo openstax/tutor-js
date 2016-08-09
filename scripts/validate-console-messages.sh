@@ -2,23 +2,19 @@
 
 # Check that there are no added console.log messages
 
-MESSAGES=""
-MESSAGES="${MESSAGES}$(grep 'console\.log' -R ./tutor/src/)"
-MESSAGES="${MESSAGES}$(grep 'console\.info' -R ./tutor/src/)"
-# MESSAGES="${MESSAGES}$(grep 'console\.warn' -R ./tutor/src/)"
-# MESSAGES="${MESSAGES}$(grep 'alert' -R ./tutor/src/)"
+# If OX_PROJECT is set then only check that project
+if [ -n "${OX_PROJECT}" ];
+then
+  SOURCE_PATH=${OX_PROJECT}
+else
+  SOURCE_PATH="**"
+fi
 
-MESSAGES="${MESSAGES}$(grep 'console\.log' -R ./exercises/src/)"
-MESSAGES="${MESSAGES}$(grep 'console\.info' -R ./exercises/src/)"
-MESSAGES="${MESSAGES}$(grep 'console\.warn' -R ./exercises/src/)"
-MESSAGES="${MESSAGES}$(grep 'alert' -R ./exercises/src/)"
+MESSAGES=$(grep -r -E 'console.(warn|log|info|dir)' ./${SOURCE_PATH}/src/)
+ALERTS=$(grep -r -E 'alert' ./${SOURCE_PATH}/src/)
 
-MESSAGES="${MESSAGES}$(grep 'console\.log' -R ./shared/src/)"
-MESSAGES="${MESSAGES}$(grep 'console\.info' -R ./shared/src/)"
-MESSAGES="${MESSAGES}$(grep 'console\.warn' -R ./shared/src/)"
-MESSAGES="${MESSAGES}$(grep 'alert' -R ./shared/src/)"
-
-if [ "$(echo ${MESSAGES} | wc -w)" -gt 0 ];
+COUNT=$(echo ${MESSAGES} | wc -w)
+if [ "${COUNT}" -gt 0 ];
 then
   echo "${MESSAGES}"
   # echo "Words found: $(echo ${MESSAGES} | wc -w)"
