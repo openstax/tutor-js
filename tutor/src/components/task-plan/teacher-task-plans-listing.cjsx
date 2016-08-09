@@ -143,7 +143,14 @@ TeacherTaskPlanListing = React.createClass
     loadPlansList = _.partial(TeacherTaskPlanStore.getActiveCoursePlans, courseId)
     loadedCalendarProps = {loadPlansList, courseId, date, displayAs, hasPeriods}
     loadingCalendarProps = if hasPeriods
-      {loadPlansList, courseId, date, displayAs, className: 'calendar-loading'}
+      {
+        loadPlansList,
+        courseId,
+        date,
+        displayAs,
+        hasPeriods,
+        className: 'calendar-loading'
+      }
     else
       loadedCalendarProps
 
