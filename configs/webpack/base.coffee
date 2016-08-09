@@ -155,7 +155,7 @@ makeProductionWithCoverageBase = (projectConfig) ->
   mergeWebpackConfigs(productionBase, {postLoaders})
 
 makeDevelopmentBase = (projectConfig) ->
-  host = projectConfig.host or '0.0.0.0'
+  host = process.env.OX_PROJECT_HOST or projectConfig.host or 'localhost'
   servePath = "http://#{host}:#{projectConfig.devPort}"
   publicPath = "#{servePath}/dist/"
   outputPath = "#{projectConfig.basePath}/"
