@@ -23,12 +23,12 @@ Notifications = {
 
   startPolling: (@windowImpl = window) ->
     @_startPolling(
-      'accounts', URLs.construct('base_accounts', 'api', 'user')
-    ) if URLs.get('base_accounts')
+      'accounts', URLs.construct('accounts_api', 'api', 'user')
+    ) if URLs.get('accounts_api')
 
     @_startPolling(
-      'tutor', URLs.get('tutor_notices')
-    ) if URLs.get('tutor_notices')
+      'tutor', URLs.construct('tutor_api', 'notifications')
+    ) if URLs.get('tutor_api')
 
 
   acknowledge: (notice) ->

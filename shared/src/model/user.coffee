@@ -40,8 +40,8 @@ class Email extends EventEmitter2
       @emit('change')
       resp
     axios(
-      method: 'PUT', baseURL: URLs.get('base_accounts')
-      url: "/api/contact_infos/#{@id}/#{type}.json"
+      method: 'PUT',
+      url: URLs.construct('accounts_api', "contact_infos", @id, "{type}.json")
       withCredentials: true
       data: data
     ).catch(afterRequest).then(afterRequest)
