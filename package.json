@@ -21,7 +21,7 @@
     "test-integration": "./scripts/run-test-integration.sh",
     "posttest-integration": "istanbul report --include ./coverage-selenium.json json --dir ./coverage/ lcov",
     "lint-cjsx": "./scripts/lint-cjsx-files.sh",
-    "validate": "node ./scripts/validate-package-json.js",
+    "validate": "node ./scripts/validate-package-json.js && ./scripts/validate-console-messages.sh",
     "prestart": "npm run validate",
     "start": "gulp dev",
     "test-docs": "csdoc --template dependency <test-integration/helpers/ui/test-element.coffee >docs-dependency.json; csdoc --template html --dep ../../../docs-dependency test-integration/helpers/ui/"
