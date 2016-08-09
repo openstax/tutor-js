@@ -61,6 +61,9 @@ CourseCalendarHeader = React.createClass
     {date} = @state
     {format, duration, hasPeriods} = @props
     {courseId} = @context.router.getCurrentParams()
+
+    addAssignmentBSStyle = if hasPeriods then 'primary' else 'default'
+
     <div className='calendar-header'>
       <BS.Row className='calendar-header-actions'>
         {<NoPeriods
@@ -86,7 +89,7 @@ CourseCalendarHeader = React.createClass
             id='add-assignment'
             className='add-assignment'
             title='Add Assignment'
-            bsStyle='primary'>
+            bsStyle={addAssignmentBSStyle}>
             {@renderAddActions()}
             </BS.DropdownButton>
         </BS.Col>
