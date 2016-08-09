@@ -127,6 +127,9 @@ setUpXHRInterceptors = ->
   axios.interceptors.response.use(interceptors.makeLocalResponse, interceptors.handleLocalErrors) if IS_LOCAL
   axios.interceptors.response.use(null, interceptors.handleErrorMessage)
 
+onRequestError = (response, requestConfig) ->
+  AppActions.setServerError(response.status, response.data, requestConfig)
+
 apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, options) ->
   listenAction.addListener 'trigger', (args...) ->
     # Make sure API calls occur **after** all local Action listeners complete
@@ -155,8 +158,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
 
       rejected = (response) ->
         {status, statusText, statusMessage, handled} = response
-
-        AppActions.setServerError(status, response.data, requestConfig)
+        onRequestError(response, requestConfig)
         return if handled
 
         Actions.FAILED(status, statusMessage, args...)
@@ -166,4 +168,4 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
 
 setUpXHRInterceptors()
 
-module.exports = {apiHelper, IS_LOCAL, toParams}
+module.exports = {apiHelper, IS_LOCAL, toParams, onRequestError}
