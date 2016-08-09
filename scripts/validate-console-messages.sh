@@ -10,7 +10,8 @@ else
   SOURCE_PATH="**"
 fi
 
-MESSAGES=$(grep -r -E 'console.(warn|log|info|dir)' ./${SOURCE_PATH}/src/)
+# MESSAGES=$(grep -r -E 'console.(warn|log|info|dir)' ./${SOURCE_PATH}/src/)
+MESSAGES=$(grep -r -E 'console.(log|info|dir)' ./${SOURCE_PATH}/src/)
 ALERTS=$(grep -r -E 'alert' ./${SOURCE_PATH}/src/)
 
 COUNT=$(echo ${MESSAGES} | wc -w)
