@@ -20,3 +20,15 @@ then
   echo "${MESSAGES}"
   # exit 1
 fi
+
+
+
+# Check for it.only and describe.only in the test files
+TEST_ONLYS=$(grep -r -E '(describe|test)\.only' ./${SOURCE_PATH}/test/)
+
+COUNT=$(echo ${TEST_ONLYS} | wc -w)
+if [ "${COUNT}" -gt 0 ];
+then
+  echo "${TEST_ONLYS}"
+  exit 1
+fi
