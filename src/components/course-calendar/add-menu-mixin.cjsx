@@ -81,6 +81,7 @@ CourseAddMenuMixin =
         to: 'courseSettings'
         params:
           courseId: courseId
+        type: 'none'
       }]
 
     _.map(links, (link) =>
