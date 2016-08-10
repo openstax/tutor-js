@@ -1,0 +1,10 @@
+{
+  "name": "Local Test Course",
+  "book_id": "123",
+  "ecosystem_id": "1",
+  "is_concept_coach": false,
+  "is_college": false,
+  "time_zone": "Central Time (US & Canada)",
+  "default_due_time": "",
+  "default_open_time": ""
+}

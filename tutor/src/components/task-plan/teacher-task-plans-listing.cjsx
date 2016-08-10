@@ -138,7 +138,7 @@ TeacherTaskPlanListing = React.createClass
     {date, startAt, endAt} = @getDateStates()
 
     course  = CourseStore.get(courseId)
-    hasPeriods = not _.isEmpty(PH.activePeriods(course))
+    hasPeriods = PH.hasPeriods(course)
 
     loadPlansList = _.partial(TeacherTaskPlanStore.getActiveCoursePlans, courseId)
     loadedCalendarProps = {loadPlansList, courseId, date, displayAs, hasPeriods}
