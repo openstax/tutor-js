@@ -1,4 +1,5 @@
 {Testing, expect, sinon, _} = require 'shared/test/helpers'
+{UiSettings} = require 'shared'
 
 {Task} = require 'task'
 Collection = require 'task/collection'
@@ -8,6 +9,7 @@ TASK = require 'cc/tasks/C_UUID/m_uuid/GET'
 describe 'Task Component', ->
 
   beforeEach ->
+    UiSettings.initialize({'has-viewed-two-step-help': true})
     @props =
       moduleUUID: 'm_uuid'
       collectionUUID: 'C_UUID'
@@ -15,6 +17,9 @@ describe 'Task Component', ->
     @props.taskId = "#{@props.collectionUUID}/#{@props.moduleUUID}"
     @task = _.extend({}, TASK, @props)
     Collection.load(@props.taskId, @task)
+
+  afterEach ->
+    UiSettings._reset()
 
   it 'renders the first step task', ->
     _.each @task.steps, (step) -> step.is_completed = false

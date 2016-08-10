@@ -110,7 +110,7 @@ exerciseActionsAndChecks =
 describe 'Exercise Component', ->
 
   beforeEach ->
-    UiSettings.set('has-viewed-two-step-help', true)
+    UiSettings.initialize({'has-viewed-two-step-help': true})
     resetProps()
   afterEach ->
     UiSettings._reset()
