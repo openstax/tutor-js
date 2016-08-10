@@ -16,7 +16,7 @@ TaskTeacherReviewQuestion = React.createClass
 
   onChangeAnswerAttempt: (answer) ->
     # TODO show cannot change answer message here
-    alert('You cannot change an answer on a problem you\'ve reviewed.')
+    return null
 
   toggleAnswers: ->
     {showAnswers} = @state
