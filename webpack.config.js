@@ -1,4 +1,5 @@
 require('coffee-script/register');
+require('es6-promise').polyfill();
 
 makeConfig = require("./configs/webpack/makeConfig");
 if (!process.env.OX_PROJECT){
