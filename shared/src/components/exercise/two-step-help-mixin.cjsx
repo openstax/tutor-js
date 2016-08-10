@@ -37,8 +37,8 @@ module.exports = {
   hasTwoStepHelp: ->
     firstpart = _.first @props.parts
     return (
-      firstpart.type is 'exercise' and
-        _.include(_.first(firstpart.content.questions).formats, 'free-response') and
+      firstpart?.type is 'exercise' and
+        _.include(_.first(firstpart?.content.questions).formats, 'free-response') and
         not UiSettings.get(SETTINGS_KEY)
     )
 
