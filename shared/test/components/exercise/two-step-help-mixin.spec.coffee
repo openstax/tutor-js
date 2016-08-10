@@ -2,7 +2,7 @@
 
 TwoStepHelpMixin = require 'components/exercise/two-step-help-mixin'
 Networking = require 'model/networking'
-
+UiSettings = require 'model/ui-settings'
 
 TestComponent = React.createClass
   mixins: [TwoStepHelpMixin]

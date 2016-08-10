@@ -1,5 +1,5 @@
 {Testing, expect, sinon, _, ReactTestUtils} = require 'test/helpers'
-
+UiSettings = require 'model/ui-settings'
 {Exercise} = require 'components/exercise'
 STEP = require './step-data'
 CHOICES = STEP.content.questions[0].answers
