@@ -17,9 +17,12 @@ NoPeriods = React.createClass
 
   getMessage: ->
     [
-      'Please add at least one '
-      <CourseGroupingLabel lowercase courseId={@props.courseId} />
-      ' to the course.'
+      <span key='no-periods-start'>Please add at least one </span>
+      <CourseGroupingLabel
+        key='no-periods-label'
+        lowercase
+        courseId={@props.courseId} />
+      <span key='no-periods-end'> to the course.</span>
     ]
 
   render: ->
@@ -28,14 +31,14 @@ NoPeriods = React.createClass
     if link
       message =
         <Router.Link
-          className='-no-periods-text'
+          className='no-periods-text'
           to='courseSettings'
           params={{courseId}}>
           {@getMessage()}
         </Router.Link>
     else
       message =
-        <span className='-no-periods-text'>
+        <span className='no-periods-text'>
           {@getMessage()}
         </span>
 

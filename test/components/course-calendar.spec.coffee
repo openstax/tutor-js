@@ -200,7 +200,7 @@ describe 'Course Calendar, no periods/sections', ->
 
   it 'should have a message about no periods/section', ->
     {div} = @result
-    expect(div.querySelector('.-no-periods-text')).to.not.be.null
+    expect(div.querySelector('.no-periods-text')).to.not.be.null
 
   it 'should prevent adding assignments from day without periods/sections', (done) ->
     calendarActions
