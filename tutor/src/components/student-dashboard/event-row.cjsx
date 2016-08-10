@@ -51,7 +51,8 @@ module.exports = React.createClass
         <p>Do you wish to continue?</p>
       </div>
 
-      hideButton =
+      hideButton = <span>
+        Withdrawn
         <SuretyGuard
           onConfirm={@hideTask}
           okButtonLabel='Yes'
@@ -59,11 +60,11 @@ module.exports = React.createClass
           message={message}
         >
           <BS.Button className="hide-task" onClick={@stopEventPropagation}>
-            <i className="fa fa-close"/>
+            <i className="fa fa-close" />
           </BS.Button>
         </SuretyGuard>
+      </span>
 
-      feedback = <span>Withdrawn</span>
     else
       time = <Time date={@props.event.due_at} format='concise'/>
       feedback = [
