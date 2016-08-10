@@ -33,6 +33,9 @@ PeriodHelper =
   activePeriods: (course) ->
     _.filter(course.periods, isActiveCheckFn)
 
+  hasPeriods: (course) ->
+    not _.isEmpty(@activePeriods(course))
+
   archivedPeriods: (course) ->
     _.filter(course.periods, isArchivedCheckFn)
 

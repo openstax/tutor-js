@@ -10,6 +10,7 @@ LoadableItem = require '../loadable-item'
 {CourseStore} = require '../../flux/course'
 {TimeStore} = require '../../flux/time'
 TimeHelper = require '../../helpers/time'
+PH = require '../../helpers/period'
 
 CourseCalendar = require '../course-calendar'
 CourseDataMixin = require '../course-data-mixin'
@@ -136,9 +137,22 @@ TeacherTaskPlanListing = React.createClass
     {displayAs} = @state
     {date, startAt, endAt} = @getDateStates()
 
+    course  = CourseStore.get(courseId)
+    hasPeriods = PH.hasPeriods(course)
+
     loadPlansList = _.partial(TeacherTaskPlanStore.getActiveCoursePlans, courseId)
-    loadedCalendarProps = {loadPlansList, courseId, date, displayAs}
-    loadingCalendarProps = {loadPlansList, courseId, date, displayAs, className: 'calendar-loading'}
+    loadedCalendarProps = {loadPlansList, courseId, date, displayAs, hasPeriods}
+    loadingCalendarProps = if hasPeriods
+      {
+        loadPlansList,
+        courseId,
+        date,
+        displayAs,
+        hasPeriods,
+        className: 'calendar-loading'
+      }
+    else
+      loadedCalendarProps
 
     <div {...courseDataProps} className="tutor-booksplash-background">
 

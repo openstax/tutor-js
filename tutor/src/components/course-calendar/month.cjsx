@@ -27,6 +27,7 @@ CourseMonth = React.createClass
   propTypes:
     plansList: React.PropTypes.array
     date: TimeHelper.PropTypes.moment
+    hasPeriods: React.PropTypes.bool.isRequired
 
   childContextTypes:
     date: TimeHelper.PropTypes.moment
@@ -133,7 +134,7 @@ CourseMonth = React.createClass
     days
 
   render: ->
-    {plansList, courseId, className, date} = @props
+    {plansList, courseId, className, date, hasPeriods} = @props
     {calendarDuration, calendarWeeks} = @getDurationInfo(date)
 
     days = @renderDays(calendarDuration)
@@ -152,8 +153,15 @@ CourseMonth = React.createClass
       </CourseDuration>
 
     <BS.Grid className={calendarClassName} fluid>
-      <CourseAdd ref='addOnDay'/>
-      <CourseCalendarHeader duration='month' date={date} setDate={@setDate} ref='calendarHeader'/>
+      <CourseAdd
+        hasPeriods={hasPeriods}
+        ref='addOnDay'/>
+      <CourseCalendarHeader
+        duration='month'
+        date={date}
+        setDate={@setDate}
+        hasPeriods={hasPeriods}
+        ref='calendarHeader'/>
 
       <BS.Row className='calendar-body'>
         <BS.Col xs={12}>
