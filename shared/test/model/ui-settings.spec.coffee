@@ -3,7 +3,7 @@
 UiSettings = require 'model/ui-settings'
 Networking = require 'model/networking'
 
-describe.only 'UiSettings', ->
+describe 'UiSettings', ->
 
   beforeEach ->
     sinon.stub(Networking, 'perform')
