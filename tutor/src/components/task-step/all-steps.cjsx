@@ -66,8 +66,9 @@ ExternalUrl = React.createClass
   mixins: [StepMixin, StepFooterMixin]
   hideContinueButton: -> true
   onContinue: ->
-    {id, onStepCompleted} = @props
-    onStepCompleted() if StepPanel.canContinue(id)
+    {id, taskId, onStepCompleted} = @props
+    onStepCompleted() if StepPanel.canContinue(id) and not TaskStore.isDeleted(taskId)
+
   getUrl: ->
     {id} = @props
     {external_url} = TaskStepStore.get(id)
