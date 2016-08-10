@@ -27,6 +27,9 @@ UiSettings = {
     _.extend(SETTINGS, attrs)
     saveSettings()
 
+  # for use by specs to reset
+  _reset: ->
+    SETTINGS = {}
 }
 
 
