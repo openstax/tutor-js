@@ -67,13 +67,19 @@ CourseAddMenuMixin =
 
     else
       linkText = [
-        'Please add a '
-        <CourseGroupingLabel lowercase courseId={@props.courseId}/>
-        ' in '
-        <br/>
-        'Course Settings before'
-        <br/>
-        'adding assignments.'
+        <span key='no-periods-link-1'>Please add a </span>
+        <CourseGroupingLabel
+          key='no-periods-link-2'
+          lowercase
+          courseId={@props.courseId}/>
+        <span key='no-periods-link-3'> in </span>
+        <br key='no-periods-link-4'/>
+        <span
+          className='no-periods-course-settings-link'
+          key='no-periods-link-5'>Course Settings</span>
+        <span key='no-periods-link-6'> before</span>
+        <br key='no-periods-link-7'/>
+        <span key='no-periods-link-8'>adding assignments.</span>
       ]
 
       links = [{
