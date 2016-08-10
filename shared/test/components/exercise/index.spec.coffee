@@ -72,7 +72,7 @@ exerciseActionsAndChecks =
 
   pickMultipleChoice: ({dom, wrapper}) ->
     choicesDOMs = dom.querySelectorAll('.answer-input-box')
-    
+
     FIRST_CHOICE_INDEX = 0
     SECOND_CHOICE_INDEX = 1
 
@@ -110,7 +110,10 @@ exerciseActionsAndChecks =
 describe 'Exercise Component', ->
 
   beforeEach ->
+    UiSettings.set('has-viewed-two-step-help', true)
     resetProps()
+  afterEach ->
+    UiSettings._reset()
 
   it 'renders with css classes', ->
     Testing.renderComponent( Exercise, props: props ).then ({dom}) ->
