@@ -42,7 +42,7 @@ Milestone = React.createClass
       previewText = "#{previewText} Completed"
 
     if crumb.data.type is 'coach'
-      previewText = 'Concept Coach'
+      previewText = 'Reading Review'
 
     if crumb.data.type is 'exercise'
       preview = <ArbitraryHtmlAndMath
