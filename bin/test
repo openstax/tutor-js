@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+bin/checkinputs "$@"
+
+export OX_PROJECT=$1
+echo Test: $OX_PROJECT
+
+karma start test/karma.config.js --single-run

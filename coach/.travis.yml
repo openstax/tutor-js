@@ -1,0 +1,7 @@
+# `sudo:false` for faster builds.
+sudo: false
+language: node_js
+node_js:
+  - "0.10"
+after_failure:
+  - npm list

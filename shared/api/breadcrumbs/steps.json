@@ -1,0 +1,15 @@
+{
+  "steps": [{
+    "is_completed": true,
+    "answer_id": "3",
+    "type": "exercise"
+  }, {
+    "is_completed": true,
+    "is_correct": true,
+    "type": "exercise"
+  }, {
+    "type": "exercise"
+  }, {
+    "type": "reading"  
+  }]
+}

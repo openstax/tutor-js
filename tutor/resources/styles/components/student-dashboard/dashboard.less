@@ -1,0 +1,80 @@
+.student-dashboard {
+  @small-height-breakpoint: 600px;
+  .container {
+    .tutor-booksplash-adjust-top-margin();
+  }
+
+  .actions-box {
+    .panel();
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 15px;
+    &:first-child {
+      margin-top: 55px;
+      @media screen and ( max-height: @small-height-breakpoint ){ margin-top: 0px; }
+    }
+    button, a {
+      // override bootstrap styling
+      &.btn-primary { padding: 12px 0 !important; }
+    }
+  }
+
+  .nav-tabs {
+    .tutor-nav-tabs();
+
+    li {
+      #fonts .sans(2.4rem, 2.4rem);
+      width: 210px;
+      background: @tutor-neutral-lighter;
+      border: none;
+      padding: 0;
+
+      &:hover {
+        background: @tutor-neutral-lightest;
+
+        a {
+          color: @tutor-neutral !important;
+        }
+      }
+
+      &.active {
+        background: @tutor-white;
+        border: none;
+        padding: 0;
+      }
+    }
+  }
+
+  a.view-reference-guide {
+    height: 80px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    div {
+      margin: 10px 0 0 80px;
+      text-align: left; // override center specified for actions-box
+      #fonts > .sans(2.5rem, 3rem);
+      font-weight: 900;
+      color: @tutor-black;  // override link color
+    }
+    &:hover { text-decoration: initial; }
+  }
+  [data-appearance] .view-reference-guide {
+    background-size: auto 80px;
+  }
+  [data-appearance=intro_sociology] {
+    .view-reference-guide { .tutor-background-image("courses/sociology-book-thumbnail.png"); }
+  }
+  [data-appearance=physics],
+  [data-appearance=hs_physics] {
+    .view-reference-guide { .tutor-background-image("courses/hs_physics-book-thumbnail.png"); }
+  }
+  [data-appearance=college_physics] {
+    .view-reference-guide { .tutor-background-image("courses/college_physics-book-thumbnail.png"); }
+  }
+  [data-appearance=biology],
+  [data-appearance=ap_biology],
+  [data-appearance=college_biology] {
+    .view-reference-guide { .tutor-background-image("courses/biology-book-thumbnail.png"); }
+  }
+
+}

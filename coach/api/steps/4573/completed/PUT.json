@@ -1,0 +1,33 @@
+{
+    "id": "4573",
+    "task_id": "265",
+    "type": "exercise",
+    "group": "default",
+    "is_completed": false,
+    "related_content": [],
+    "labels": [],
+    "content_url": "https://exercises-dev.openstax.org/exercises/-3@1",
+    "content": {
+        "uid": "-3@1",
+        "tags": [],
+        "stimulus_html": "This is fake exercise -3. <span data-math='\\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'></span>",
+        "questions": [{
+            "id": "-7",
+            "formats": [
+                "multiple-choice",
+                "free-response"
+            ],
+            "stem_html": "Select 10 N.",
+            "answers": [{
+                "id": "-8",
+                "content_html": "10 N"
+            }, {
+                "id": "-9",
+                "content_html": "1 N"
+            }]
+        }]
+    },
+    "feedback_html": "The original hypothesis is incorrect because when the coffee maker was plugged in it worked. Therefore, it is incorrect to hypothesize that there is something wrong with the outlet. Alternative hypothesis includes that the toaster wasn’t turned on.",
+    "correct_answer_id": "-9",
+    "is_correct": false
+}

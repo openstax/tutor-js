@@ -1,0 +1,36 @@
+@tutor-primary: rgb(244, 118, 65); // orange
+@tutor-secondary: rgb(119, 175, 65); // green
+@tutor-tertiary: rgb(35, 48, 102); // dark blue
+@tutor-quaternary: rgb(244, 208, 25); // yellow
+@tutor-highlight: rgb(255, 255, 187); // pale yellow
+
+@tutor-secondary-light: rgb(139, 199, 83); // light green
+@tutor-tertiary-light: rgb(0, 193, 222); // light blue
+
+@tutor-success: @tutor-secondary;
+@tutor-info: @tutor-tertiary-light;
+@tutor-info-bg: lighten(@tutor-info, 53%); // even lighter blue
+@tutor-warning: @tutor-quaternary;
+@tutor-danger: rgb(194, 0, 47); // red
+
+@tutor-white: white;
+@tutor-neutral-lightest: rgb(249, 249, 249); // nearly white
+@tutor-neutral-bright: rgb(245, 245, 245); // bright gray
+@tutor-neutral-lighter: rgb(241, 241, 241); // light gray
+@tutor-neutral-light: rgb(229, 229, 229); // light gray
+@tutor-neutral: rgb(129, 129, 129); // gray
+@tutor-neutral-dark: rgb(95, 97, 99); // dark gray
+@tutor-neutral-darker: rgb(66, 66, 66); // very dark gray
+@tutor-black: black;
+
+@page-background: @tutor-neutral-lighter;
+@footer-background: @tutor-neutral-bright;
+@border-color: @tutor-neutral-light;
+
+@form-error-color: #E35C3B;
+
+@link-color: darken(@tutor-info, 5%);
+@exercise-question-uid-color: lighten(@tutor-neutral,20%);
+
+// NOTE: Make borders and input background colors one of the above grays with a high opacity so it works on
+//       multiple backgrounds.

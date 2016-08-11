@@ -1,0 +1,13 @@
+<svg className="placeholder video"
+  version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+  viewBox="0 0 400 348">
+  <path fill="#5E6062"
+    d="M374.81,280A25.17,25.17,0,0,0,400,254.83V25.19A25.2,25.2,0,0,0,374.8,0H25.2A25.19,25.19,0,0,0,0,25.19V254.83A25.18,25.18,0,0,0,25.2,280H374.81Z"
+    transform="translate(0 0)"
+  />
+  <rect fill="#fff" x="15" y="17" width="370" height="246" rx="12" ry="12"/>
+  <path fill="#5E6062"
+    d="M262.37,133c6.68,3.86,6.68,10.17,0,14l-93.55,54c-6.68,3.86-12.15.7-12.15-7V86c0-7.72,5.47-10.87,12.15-7Z"
+    transform="translate(0 0)"
+  />
+</svg>

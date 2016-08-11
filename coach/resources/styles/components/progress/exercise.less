@@ -1,0 +1,46 @@
+@progress-size: 3rem;
+@progress-margin: 0.5rem;
+@progress-content-size: .7 * @progress-size;
+
+.concept-coach-progress-exercise {
+  display: inline-block;
+  width: @progress-size;
+  height: @progress-size;
+  border-radius: 50%;
+  line-height: @progress-size;
+  position: relative;
+  background: @openstax-neutral-light;
+  text-align: center;
+  font-size: @progress-content-size;
+
+  &:not(:last-child) {
+    margin-right: @progress-margin;
+  }
+
+  &::before {
+    content: '--';
+    display: block;
+    width: 100%;
+    color: @openstax-neutral;
+  }
+
+  &.is-completed {
+    background: @openstax-incorrect-color;
+
+    &::before {
+      .fa-icon();
+      color: @openstax-white;
+      content: @fa-var-close;
+    }
+  }
+
+  &.is-completed.is-correct {
+    background: @openstax-correct-color;
+
+    &::before {
+      .fa-icon();
+      color: @openstax-white;
+      content: @fa-var-check;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+bin/checkinputs "$@"
+
+export OX_PROJECT=$1
+echo Serving: $OX_PROJECT
+
+webpack-dev-server --progress --config webpack.config.js

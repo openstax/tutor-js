@@ -1,0 +1,27 @@
+// this file holds small components that have minimal style requirements
+// if the styles get much larger, they should be extracted into their own file
+
+.error-modal {
+  .response {
+    max-height: 300px;
+    overflow: scroll;
+    border: 1px solid lightgrey;
+    padding: 1rem;
+    .html {
+      .hidden { dispay: none; }
+    }
+  }
+}
+
+
+.network-activity {
+  display: flex;
+  justify-content: center;
+  .spinner{
+    display: flex;
+    align-items: center;
+    .message {
+      font-size: 4rem;
+    }
+  }
+}

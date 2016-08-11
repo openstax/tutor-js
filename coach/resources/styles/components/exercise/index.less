@@ -1,0 +1,33 @@
+.exercise-wrapper[data-step-number] {
+  &::before {
+    content: attr(data-step-number) ")";
+    position: absolute;
+    z-index: 2;
+    left: @concept-coach-base-y-padding - 27px;
+    top: @concept-coach-base-x-padding;
+
+    .exercise-typography();
+  }
+}
+
+.exercise-wrapper {
+  .task-help-links {
+    position: absolute;
+    bottom: 1rem;
+  }
+
+  .card-footer {
+    margin-bottom: 2rem;
+  }
+}
+
+.exercise-identifier-link {
+  position: absolute;
+  right: @concept-coach-base-x-padding;
+  bottom: @concept-coach-base-x-padding;
+  color: @openstax-neutral-dark;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+  // override CC global 1px blue border
+  a:not(.btn) { border-bottom: 0px; }
+}
