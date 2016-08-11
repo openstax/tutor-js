@@ -76,8 +76,36 @@ CourseDuration = React.createClass
 
     groupedDurations = _.chain(groupingDurations)
       .map(@groupByRanges(durationsInView))
+      .each(@calcDurationHeight)
       .tap(@calcTopOffset)
       .value()
+
+  calcDurationHeight: (rangeData) ->
+    planGroups = _.reduce(rangeData.plansByDays, (groups, plansByDay) ->
+
+      planIds = _.map(plansByDay, (planInfo) -> planInfo.plan.id)
+
+      # if plans don't group together on adjacent days,
+      if _.isEmpty(_.intersection(_.last(groups), planIds))
+        # push as new group
+        groups.push(planIds)
+      else
+        # else, plans share adjacent days, group together.
+        groups[groups.length - 1] = _.union(_.last(groups), planIds)
+
+      groups
+
+    , [[]])
+
+    rangeData.maxPlansOnDay = _.max(planGroups, (plansInGroup) ->
+      plansInGroup.length
+    ).length
+
+    # set day height to the best-guess for this range based on how many plans it has.
+    # It'll be fine-tuned later across all ranges
+    rangeData.dayHeight = Math.max(
+      @_calcDayHeight(rangeData.maxPlansOnDay), rangeData.dayHeight
+    )
 
   calcTopOffset: (ranges) ->
     dayHeights = _.pluck(ranges, 'dayHeight')
@@ -100,7 +128,7 @@ CourseDuration = React.createClass
 
         _.chain(plans)
           .sortBy((plan) ->
-            plan.rangeDuration.count('days')
+            -1 * plan.rangeDuration.start.valueOf()
           )
           .each(@setPlanOrder({current, existingOrdered, weekTopOffset, maxPlansOnDay}))
           .value()
@@ -244,15 +272,6 @@ CourseDuration = React.createClass
         )
         rangeData.plansByDays.push(plansOnDay)
 
-      rangeData.maxPlansOnDay = _.max(rangeData.plansByDays, (plansOnDay) ->
-        plansOnDay.length
-      ).length
-
-      # set day height to the best-guess for this range based on how many plans it has.
-      # It'll be fine-tuned later across all ranges
-      rangeData.dayHeight = Math.max(
-        @_calcDayHeight(rangeData.maxPlansOnDay), rangeData.dayHeight
-      )
       rangeData
 
 
