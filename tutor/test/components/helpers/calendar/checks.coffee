@@ -149,6 +149,24 @@ checks =
 
     {div, component, state, router, history, courseId}
 
+  _checkNoPeriodsWarning: ({div, component, state, router, history, courseId}) ->
+    addDropdown = React.addons.TestUtils.findRenderedComponentWithType(component, Add).getDOMNode()
+
+    expect(addDropdown.style.display).to.not.equal('none')
+    expect(addDropdown.innerText).to.contain('Please add')
+      .and.to.contain('in \nCourse Settings before\nadding assignments.')
+
+    {div, component, state, router, history, courseId}
+
+  _checkNoPeriodsOnAddAssignmentWarning: ({div, component, state, router, history, courseId}) ->
+    addDropdown = div.querySelector('.add-assignment .dropdown-menu')
+
+    expect(addDropdown.style.display).to.not.equal('none')
+    expect(addDropdown.innerText).to.contain('Please add')
+      .and.to.contain('in \nCourse Settings before\nadding assignments.')
+
+    {div, component, state, router, history, courseId}
+
   _checkIsTodayClickable: ({div, component, state, router, history, courseId}) ->
     currents = React.addons.TestUtils.scryRenderedDOMComponentsWithClass(component, 'rc-Day--current')
     shouldBeToday = _.first(currents)

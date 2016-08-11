@@ -9,6 +9,7 @@ Router = require 'react-router'
 CourseAddMenuMixin = require './add-menu-mixin'
 PracticeButton = require '../buttons/practice-button'
 BrowseTheBook = require '../buttons/browse-the-book'
+NoPeriods = require '../no-periods'
 
 {TimeStore} = require '../../flux/time'
 TimeHelper = require '../../helpers/time'
@@ -21,6 +22,7 @@ CourseCalendarHeader = React.createClass
     setDate: React.PropTypes.func
     date: TimeHelper.PropTypes.moment
     format: React.PropTypes.string.isRequired
+    hasPeriods: React.PropTypes.bool.isRequired
 
   mixins: [ CourseAddMenuMixin ]
 
@@ -57,28 +59,38 @@ CourseCalendarHeader = React.createClass
 
   render: ->
     {date} = @state
-    {format, duration} = @props
+    {format, duration, hasPeriods} = @props
     {courseId} = @context.router.getCurrentParams()
+
+    addAssignmentBSStyle = if hasPeriods then 'primary' else 'default'
+
     <div className='calendar-header'>
-      <BS.Row className='calendar-actions'>
-        <BrowseTheBook bsStyle='default' courseId={courseId} />
-        <Router.Link
-          className='btn btn-default'
-          to='viewTeacherPerformanceForecast'
-          params={{courseId}}>
-          Performance Forecast
-        </Router.Link>
-        <Router.Link className='btn btn-default' to='viewScores' params={{courseId}}>
-          Student Scores
-        </Router.Link>
+      <BS.Row className='calendar-header-actions'>
+        {<NoPeriods
+          courseId={courseId}
+          noPanel={true}/> unless hasPeriods}
+
+        <div className='calendar-header-actions-buttons'>
+          <BrowseTheBook bsStyle='default' courseId={courseId} />
+          <Router.Link
+            className='btn btn-default'
+            to='viewTeacherPerformanceForecast'
+            params={{courseId}}>
+            Performance Forecast
+          </Router.Link>
+          <Router.Link className='btn btn-default' to='viewScores' params={{courseId}}>
+            Student Scores
+          </Router.Link>
+        </div>
       </BS.Row>
-      <BS.Row>
+      <BS.Row className='calendar-header-navigation'>
         <BS.Col xs={4}>
           <BS.DropdownButton
+            ref='addAssignmentButton'
             id='add-assignment'
             className='add-assignment'
             title='Add Assignment'
-            bsStyle='primary'>
+            bsStyle={addAssignmentBSStyle}>
             {@renderAddActions()}
             </BS.DropdownButton>
         </BS.Col>

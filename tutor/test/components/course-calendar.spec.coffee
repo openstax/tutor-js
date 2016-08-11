@@ -12,6 +12,7 @@ moment = require 'moment'
 React = require 'react/addons'
 CourseCalendar = require '../../src/components/course-calendar'
 COURSE = require '../../api/user/courses/1.json'
+NO_PERIODS_COURSE = require '../../api/user/courses/no-periods.json'
 {CourseActions} = require '../../src/flux/course'
 
 planId = '1'
@@ -29,10 +30,10 @@ _.each VALID_MODEL.plans[1].tasking_plans, (tasking) ->
 
 VALID_PLAN_MODEL = require '../../api/plans/1/stats.json'
 
-describe 'Course Calendar', ->
-  beforeEach (done) ->
+setupCourse = (courseInfo) ->
+  (done) ->
     TeacherTaskPlanActions.HACK_DO_NOT_RELOAD(true)
-    CourseActions.loaded(COURSE, courseId)
+    CourseActions.loaded(courseInfo, courseId)
     TeacherTaskPlanActions.loaded(VALID_MODEL, courseId)
     plan = TaskPlanStatsStore.get(planId)
     draftPlan = TaskPlanStatsStore.get(draftPlanId)
@@ -47,6 +48,9 @@ describe 'Course Calendar', ->
         @result = result
         done()
       , done)
+
+describe 'Course Calendar', ->
+  beforeEach setupCourse(COURSE)
 
   afterEach ->
     calendarTests.unmount()
@@ -183,3 +187,33 @@ describe 'Course Calendar', ->
   #     .then( ->
   #       done()
   #      , done)
+
+describe 'Course Calendar, no periods/sections', ->
+  beforeEach setupCourse(NO_PERIODS_COURSE)
+
+  it 'should render calendar', (done) ->
+    calendarChecks
+      .checkIsCalendarRendered(@result)
+      .then( ->
+        done()
+      , done)
+
+  it 'should have a message about no periods/section', ->
+    {div} = @result
+    expect(div.querySelector('.no-periods-text')).to.not.be.null
+
+  it 'should prevent adding assignments from day without periods/sections', (done) ->
+    calendarActions
+      .clickTomorrow(@result)
+      .then(calendarChecks.checkNoPeriodsWarning)
+      .then( ->
+        done()
+      , done)
+
+  it 'should prevent adding assignments without periods/sections', (done) ->
+    calendarActions
+      .clickAddAssignment(@result)
+      .then(calendarChecks.checkNoPeriodsOnAddAssignmentWarning)
+      .then( ->
+        done()
+      , done)

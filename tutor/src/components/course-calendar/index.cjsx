@@ -2,7 +2,7 @@ React = require 'react'
 
 CourseMonth = require './month'
 
-displayAs =
+displayAsHandler =
   month: CourseMonth
 
 CourseCalendar = React.createClass
@@ -10,11 +10,13 @@ CourseCalendar = React.createClass
 
   propTypes:
     loadPlansList: React.PropTypes.func
+    hasPeriods: React.PropTypes.bool.isRequired
 
   render: ->
-    Handler = displayAs[@props.displayAs]
-    {loadPlansList} = @props
-    plansList = loadPlansList?()
+    {hasPeriods, displayAs, loadPlansList} = @props
+    Handler = displayAsHandler[displayAs]
+
+    plansList = if hasPeriods then loadPlansList?() else []
 
     <Handler {...@props} plansList={plansList} ref='calendarHandler'/>
 

@@ -49,6 +49,10 @@ actions =
     addOnDayDropdown = React.addons.TestUtils.findRenderedComponentWithType(component, Add)
     commonActions.clickDOMNode(addOnDayDropdown.refs.homeworkLink.getDOMNode().childNodes[0])(args[0])
     args[0]
+  clickAddAssignment: (args...) ->
+    {div} = args[0]
+    addAssignmentButton = div.querySelector('#add-assignment')
+    commonActions.clickDOMNode(addAssignmentButton)(args[0])
 
   _getMomentWithPlans: (courseId) ->
     plansList = TeacherTaskPlanStore.getActiveCoursePlans(courseId)
