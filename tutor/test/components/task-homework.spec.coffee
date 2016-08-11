@@ -22,7 +22,7 @@ homework_personalize_model = require '../../api/steps/step-id-6-4-full.json'
 describe 'Task Widget, homework specific things, due in the future', ->
 
   beforeEach (done) ->
-    UiSettings.set('has-viewed-two-step-help', true)
+    UiSettings.initialize({'has-viewed-two-step-help': true})
     TaskActions.HACK_DO_NOT_RELOAD(true)
     TaskStepActions.HACK_DO_NOT_RELOAD(true)
 

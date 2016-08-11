@@ -3,7 +3,7 @@ Recordo = require('recordo')
 Recordo.initialize()
 # Recordo.start()
 
-{BootrapURLs, UiSettings}  = require 'shared'
+{BootstrapURLs, UiSettings}  = require 'shared'
 
 api = require './src/api'
 router = require './src/router'
@@ -35,7 +35,7 @@ loadApp = ->
 
   bootstrapData = dom.readBootstrapData()
   api.start(bootstrapData)
-  BootrapURLs.update(bootstrapData)
+  BootstrapURLs.update(bootstrapData)
 
   UiSettings.initialize(bootstrapData.ui_settings)
   Notices.start(bootstrapData)
