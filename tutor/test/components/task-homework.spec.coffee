@@ -5,6 +5,7 @@ _ = require 'underscore'
 moment = require 'moment'
 
 {taskActions, taskTests, taskChecks} = require './helpers/task'
+{UiSettings} = require 'shared'
 
 {TimeActions, TimeStore} = require '../../src/flux/time'
 {TaskActions, TaskStore} = require '../../src/flux/task'
@@ -19,7 +20,9 @@ homework_model.due_at = moment(TimeStore.getNow()).add(1, 'year').toDate()
 homework_personalize_model = require '../../api/steps/step-id-6-4-full.json'
 
 describe 'Task Widget, homework specific things, due in the future', ->
+
   beforeEach (done) ->
+    UiSettings.set('has-viewed-two-step-help', true)
     TaskActions.HACK_DO_NOT_RELOAD(true)
     TaskStepActions.HACK_DO_NOT_RELOAD(true)
 
@@ -33,6 +36,7 @@ describe 'Task Widget, homework specific things, due in the future', ->
       , done)
 
   afterEach ->
+    UiSettings._reset()
     taskTests.unmount()
 
     TaskActions.reset()

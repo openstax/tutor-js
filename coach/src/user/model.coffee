@@ -3,7 +3,7 @@ React = require 'react'
 EventEmitter2 = require 'eventemitter2'
 Course = require '../course/model'
 api = require '../api'
-{BootrapURLs, NotificationActions}  = require 'shared'
+{BootrapURLs, NotificationActions, UiSettings}  = require 'shared'
 
 BLANK_USER =
   is_admin: false
@@ -88,6 +88,7 @@ User =
       if data.user
         BootrapURLs.update(data)
         NotificationActions.startPolling()
+        UiSettings.initialize(data.ui_settings)
         User.update(data)
       else
         _.extend(this, BLANK_USER)

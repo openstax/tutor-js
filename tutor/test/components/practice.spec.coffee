@@ -3,7 +3,7 @@ _ = require 'underscore'
 
 {taskActions, taskTests, taskChecks} = require './helpers/task'
 {routerStub} = require './helpers/utilities'
-
+{UiSettings} = require 'shared'
 {CourseActions, CourseStore} = require '../../src/flux/course'
 {TaskActions, TaskStore} = require '../../src/flux/task'
 {TaskStepActions, TaskStepStore} = require '../../src/flux/task-step'
@@ -16,6 +16,7 @@ courseId = '1'
 
 describe 'Practice Widget', ->
   beforeEach (done) ->
+    UiSettings.initialize({'has-viewed-two-step-help': true})
     TaskActions.HACK_DO_NOT_RELOAD(true)
     TaskStepActions.HACK_DO_NOT_RELOAD(true)
     CourseActions.HACK_DO_NOT_RELOAD(true)
@@ -31,6 +32,7 @@ describe 'Practice Widget', ->
       , done)
 
   afterEach ->
+    UiSettings._reset()
     taskTests.unmount()
 
     CourseActions.reset()
@@ -84,6 +86,7 @@ describe 'Practice Widget', ->
 describe 'Practice Widget, through route', ->
 
   beforeEach (done) ->
+    UiSettings.initialize({'has-viewed-two-step-help': true})
     TaskActions.HACK_DO_NOT_RELOAD(true)
     TaskStepActions.HACK_DO_NOT_RELOAD(true)
     CourseActions.HACK_DO_NOT_RELOAD(true)
@@ -99,6 +102,7 @@ describe 'Practice Widget, through route', ->
       , done)
 
   afterEach ->
+    UiSettings._reset()
     taskTests.unmount()
 
     CourseActions.reset()

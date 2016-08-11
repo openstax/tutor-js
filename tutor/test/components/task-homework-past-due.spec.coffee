@@ -2,6 +2,7 @@
 
 {expect} = require 'chai'
 _ = require 'underscore'
+{UiSettings} = require 'shared'
 
 {taskActions, taskTests, taskChecks} = require './helpers/task'
 
@@ -15,6 +16,7 @@ homework_model = require '../../api/tasks/5.json'
 
 describe 'Task Widget, homework specific things, past due date', ->
   beforeEach (done) ->
+    UiSettings.initialize({'has-viewed-two-step-help': true})
     TaskActions.HACK_DO_NOT_RELOAD(true)
     TaskStepActions.HACK_DO_NOT_RELOAD(true)
 
@@ -28,6 +30,7 @@ describe 'Task Widget, homework specific things, past due date', ->
       , done)
 
   afterEach ->
+    UiSettings._reset()
     taskTests.unmount()
 
     TaskActions.reset()

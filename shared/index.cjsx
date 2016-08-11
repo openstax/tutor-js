@@ -5,6 +5,8 @@ module.exports = {
   ArbitraryHtmlAndMath:   require './src/components/html'
   AsyncButton:            require './src/components/buttons/async-button'
   BootrapURLs:            require './src/model/urls'
+  UiSettings:             require './src/model/ui-settings'
+  Networking:             require './src/model/networking'
   Breadcrumb:             require './src/components/breadcrumb'
   CardBody,
   ChapterSectionMixin:    require './src/components/chapter-section-mixin'

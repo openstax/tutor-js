@@ -2,7 +2,7 @@
 _ = require 'underscore'
 
 {taskActions, taskTests, taskChecks} = require './helpers/task'
-
+{UiSettings} = require 'shared'
 {CourseActions, CourseStore} = require '../../src/flux/course'
 {TaskActions, TaskStore} = require '../../src/flux/task'
 {TaskStepActions, TaskStepStore} = require '../../src/flux/task-step'
@@ -21,6 +21,7 @@ VALID_RECOVERY_STEP = require '../../api/steps/step-id-4-2/recovery/PUT.json'
 
 describe 'Task Widget, Reading Task', ->
   beforeEach (done) ->
+    UiSettings.initialize({'has-viewed-two-step-help': true})
     TaskActions.HACK_DO_NOT_RELOAD(true)
     TaskStepActions.HACK_DO_NOT_RELOAD(true)
     CourseActions.loaded(COURSE, COURSE_ID)
@@ -35,6 +36,7 @@ describe 'Task Widget, Reading Task', ->
       , done)
 
   afterEach ->
+    UiSettings._reset()
     taskTests.unmount()
 
     CourseActions.reset()
@@ -103,6 +105,7 @@ describe 'Task Widget, Reading Task', ->
 
 describe 'Task Widget, through routes', ->
   beforeEach (done) ->
+    UiSettings.initialize({'has-viewed-two-step-help': true})
     CourseActions.loaded(COURSE, COURSE_ID)
 
     TaskActions.HACK_DO_NOT_RELOAD(true)
@@ -116,6 +119,7 @@ describe 'Task Widget, through routes', ->
       , done)
 
   afterEach ->
+    UiSettings._reset()
     taskTests.unmount()
 
     CourseActions.reset()

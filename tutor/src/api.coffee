@@ -6,7 +6,7 @@
 # `TaskActions.loaded` or `TaskActions.FAILED`
 _ = require 'underscore'
 
-{apiHelper, IS_LOCAL, toParams} = require './helpers/api'
+{apiHelper, IS_LOCAL, toParams, onRequestError} = require './helpers/api'
 TimeHelper = require './helpers/time'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {CourseActions} = require './flux/course'
@@ -38,6 +38,8 @@ PerformanceForecast = require './flux/performance-forecast'
 
 {NotificationActions, NotificationStore} = require './flux/notifications'
 
+SharedNetworking = require 'shared/src/model/networking'
+
 BOOTSTRAPED_STORES = {
   user:   CurrentUserActions.loaded
   courses: CourseListingActions.loaded
@@ -48,6 +50,8 @@ start = (bootstrapData) ->
   for storeId, action of BOOTSTRAPED_STORES
     data = bootstrapData[storeId]
     action(data) if data
+
+  SharedNetworking.onError(onRequestError)
 
   apiHelper TaskActions, TaskActions.load, TaskActions.loaded, 'GET', (id) ->
     url: "/api/tasks/#{id}"
@@ -239,7 +243,6 @@ start = (bootstrapData) ->
   apiHelper NotificationActions, NotificationActions.loadUpdates, NotificationActions.loadedUpdates, 'GET', ->
     url: "/api/notifications"
   , displayError: false
-
 
   CurrentUserActions.logout.addListener 'trigger', ->
     # Logging out programatically needs to be done via a form submission or follow redirects

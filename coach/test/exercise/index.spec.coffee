@@ -1,4 +1,5 @@
 {Testing, expect, sinon, _, ReactTestUtils} = require 'shared/test/helpers'
+{UiSettings} = require 'shared'
 
 {ExerciseStep} = require 'exercise'
 Collection = require 'exercise/collection'
@@ -18,12 +19,15 @@ saveFreeResponse = (dom, answer) ->
 describe 'Exercise Step', ->
 
   beforeEach ->
+    UiSettings.initialize({'has-viewed-two-step-help': true})
     @props =
       id: '4573'
       item: _.clone(step)
 
     Collection.quickLoad(@props.id, @props.item)
 
+  afterEach ->
+    UiSettings._reset()
 
   it 'renders given exercise', ->
     Testing.renderComponent( ExerciseStep, props: @props ).then ({dom}) ->
