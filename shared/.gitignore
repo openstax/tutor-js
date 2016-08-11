@@ -1,6 +1,0 @@
-/node_modules
-*.orig
-/.tmp
-/dist
-/assets
-/test-failed-*.png
