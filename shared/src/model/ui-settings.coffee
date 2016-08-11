@@ -3,6 +3,7 @@ URLs = require './urls'
 Networking = require './networking'
 
 SETTINGS = {}
+PREVIOUS_SETTINGS = {}
 
 saveSettings = _.debounce( ->
   Networking.perform(
@@ -10,6 +11,7 @@ saveSettings = _.debounce( ->
     url: URLs.construct('tutor_api', 'users', 'ui_settings')
     withCredentials: true
     data:
+      previous_ui_settings: PREVIOUS_SETTINGS
       ui_settings: SETTINGS
   )
 )
@@ -24,6 +26,7 @@ UiSettings = {
 
   set: (key, value) ->
     attrs = if _.isObject(key) then key else {"#{key}": value}
+    PREVIOUS_SETTINGS = _.clone SETTINGS
     _.extend(SETTINGS, attrs)
     saveSettings()
 
@@ -32,5 +35,7 @@ UiSettings = {
     SETTINGS = {}
 }
 
+# FIXME - REMOVE BEFORE COMMIT - IF YOU SEE THIS LAUGH AT ME
+window.UiSettings = UiSettings
 
 module.exports = UiSettings

@@ -18,10 +18,12 @@ describe 'UiSettings', ->
     expect(UiSettings.get('two')).to.equal('II')
 
   it 'saves when set', (done) ->
-    UiSettings.initialize('one': 1, 'two':'II')
+    initialSetting = {'one': 1, 'two':'II'}
+    UiSettings.initialize(initialSetting)
     UiSettings.set(one: 'five')
     _.delay( ->
       expect(Networking.perform).to.have.been.called
+      expect(Networking.perform.lastCall.args[0].data?.previous_ui_settings).to.eql(initialSetting)
       expect(Networking.perform.lastCall.args[0].data?.ui_settings).to.eql(
         one: 'five', two: 'II'
       )
