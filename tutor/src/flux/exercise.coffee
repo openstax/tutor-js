@@ -133,9 +133,9 @@ ExerciseConfig =
       @_exercises[pageIds.toString()] or throw new Error('BUG: Invalid page ids')
 
     # returns the available count if at minimum or `false` if not at minimum amount
-    excludedAtMinimum: (exercise) ->
+    excludedAtMinimum: (exercise, validCnxUuids) ->
       isExcluded = _.bind(@.exports.isExerciseExcluded, @)
-      for uuid in getExerciseCnxModUuids(exercise)
+      for uuid in getExerciseCnxModUuids(exercise) when _.include(validCnxUuids, uuid)
         exercises = @exports.forCnxModuleUuid.call(@, uuid)
         excluded = _.filter(_.pluck(exercises, 'id'), isExcluded)
         availableCount = exercises.length - excluded.length

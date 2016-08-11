@@ -118,8 +118,9 @@ ExercisePreview = React.createClass
       <ControlsOverlay exercise={@props.exercise}
         actions={@props.overlayActions} onClick={@props.onOverlayClick} />
 
+      {<div className='selected-mask' /> if @props.isSelected}
+
       <div className="exercise-body">
-        {<div className='selected-mask' /> if @props.isSelected}
 
         <ExerciseBadges exercise={@props.exercise} />
 

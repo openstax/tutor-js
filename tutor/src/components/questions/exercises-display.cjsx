@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 
 {PinnedHeaderFooterCard} = require 'shared'
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
+{TocStore} = require '../../flux/toc'
 
 Help = require './help'
 Icon = require '../icon'
@@ -104,7 +105,9 @@ ExercisesDisplay = React.createClass
 
   onExerciseToggle: (ev, exercise) ->
     isSelected = not ExerciseStore.isExerciseExcluded(exercise.id)
-    minExerciseCount = ExerciseStore.excludedAtMinimum(exercise)
+    if isSelected
+      validUids = _.pluck(_.map(@props.sectionIds, TocStore.getSectionInfo), 'uuid')
+      minExerciseCount = ExerciseStore.excludedAtMinimum(exercise, validUids)
     if isSelected and minExerciseCount isnt false
       Dialog.show(
         className: 'question-library-min-exercise-exclusions'

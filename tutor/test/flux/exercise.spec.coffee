@@ -12,6 +12,7 @@ EXERCISE  = _.first(EXERCISES.items)
 COURSE_ID = 1
 PAGE_IDS  = [1, 2]
 ECOSYSTEM_ID = 1
+VALID_UUIDS = ['0e58aa87-2e09-40a7-8bf3-269b2fa16509']
 
 findTagByType = (exercise, tagType) -> _.findWhere(exercise.tags, {type: tagType})
 
@@ -63,13 +64,13 @@ describe 'exercises store', ->
     expect(teksTag.name.indexOf(teks)).to.not.equal(-1)
 
   it 'calulates exclusion minimum threshold', ->
-    exercises = ExerciseStore.forCnxModuleUuid('0e58aa87-2e09-40a7-8bf3-269b2fa16509')
+    exercises = ExerciseStore.forCnxModuleUuid(VALID_UUIDS[0])
     exercise = exercises[0]
     expect(exercises).to.have.lengthOf(5)
-    expect(ExerciseStore.excludedAtMinimum(exercise)).to.equal(5)
+    expect(ExerciseStore.excludedAtMinimum(exercise, VALID_UUIDS)).to.equal(5)
     ExerciseActions.updateExercises([_.extend({}, exercise, is_excluded: true)])
     # it should not warn when the count is below minimum
-    expect(ExerciseStore.excludedAtMinimum(exercise)).to.be.false
+    expect(ExerciseStore.excludedAtMinimum(exercise, VALID_UUIDS)).to.be.false
 
   it 'warns immediatly if exercise count is less than 5', ->
     ExerciseActions.reset()
@@ -78,10 +79,10 @@ describe 'exercises store', ->
       {total_count: 2, items: exercises},
       COURSE_ID, PAGE_IDS
     )
-    exercises = ExerciseStore.forCnxModuleUuid('0e58aa87-2e09-40a7-8bf3-269b2fa16509')
+    exercises = ExerciseStore.forCnxModuleUuid(VALID_UUIDS[0])
     expect(exercises).to.have.lengthOf(3)
     exercise = exercises[0]
-    expect(ExerciseStore.excludedAtMinimum(exercise)).to.equal(3)
+    expect(ExerciseStore.excludedAtMinimum(exercise, VALID_UUIDS)).to.equal(3)
     ExerciseActions.updateExercises([_.extend({}, exercise, is_excluded: true)])
     # now that there is exclusions, it shouldn't warn
-    expect(ExerciseStore.excludedAtMinimum(exercise)).to.be.false
+    expect(ExerciseStore.excludedAtMinimum(exercise, VALID_UUIDS)).to.be.false
