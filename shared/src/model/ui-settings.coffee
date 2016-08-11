@@ -35,7 +35,4 @@ UiSettings = {
     SETTINGS = {}
 }
 
-# FIXME - REMOVE BEFORE COMMIT - IF YOU SEE THIS LAUGH AT ME
-window.UiSettings = UiSettings
-
 module.exports = UiSettings
