@@ -76,16 +76,36 @@ CourseDuration = React.createClass
 
     groupedDurations = _.chain(groupingDurations)
       .map(@groupByRanges(durationsInView))
+      .each(@calcDurationHeight)
       .tap(@calcTopOffset)
-      .each(@setWeeksHeight)
       .value()
 
-  setWeeksHeight: (range) ->
-    height = 1 + _.reduce(range.plansByDays, (maxOrder, plansOnDay) ->
-      durationMax = _.max(plansOnDay, (plan) -> plan.order + 1 ).order or 0
-      Math.max(durationMax, maxOrder)
-    , 0)
-    range.dayHeight = Math.max(@_calcDayHeight(height), range.dayHeight)
+  calcDurationHeight: (rangeData) ->
+    planGroups = _.reduce(rangeData.plansByDays, (groups, plansByDay) ->
+
+      planIds = _.map(plansByDay, (planInfo) -> planInfo.plan.id)
+
+      # if plans don't group together on adjacent days,
+      if _.isEmpty(_.intersection(_.last(groups), planIds))
+        # push as new group
+        groups.push(planIds)
+      else
+        # else, plans share adjacent days, group together.
+        groups[groups.length - 1] = _.union(_.last(groups), planIds)
+
+      groups
+
+    , [[]])
+
+    rangeData.maxPlansOnDay = _.max(planGroups, (plansInGroup) ->
+      plansInGroup.length
+    ).length
+
+    # set day height to the best-guess for this range based on how many plans it has.
+    # It'll be fine-tuned later across all ranges
+    rangeData.dayHeight = Math.max(
+      @_calcDayHeight(rangeData.maxPlansOnDay), rangeData.dayHeight
+    )
 
   calcTopOffset: (ranges) ->
     dayHeights = _.pluck(ranges, 'dayHeight')
@@ -117,15 +137,16 @@ CourseDuration = React.createClass
 
   # set plan order, makes sure that order is not already taken on this day
   setPlanOrder: ({current, existingOrdered, weekTopOffset, maxPlansOnDay}) ->
-    (plan, order) =>
-      unless plan.order?
+    (duration, order) =>
+      unless duration.order?
         current.order = order
         @_calcOrder({existingOrdered, current, maxPlansOnDay})
-        plan.order = current.order
-        plan.weekTopOffset = weekTopOffset
+        duration.order = current.order
+        duration.weekTopOffset = weekTopOffset
 
   _calcOrder: ({existingOrdered, current, maxPlansOnDay}) ->
     # find an order that is not already occupied by any overlapping plans
+
     while existingOrdered.indexOf(maxPlansOnDay - (current.order + current.adder)) > -1
       current.adder = current.adder + 1
 
@@ -251,15 +272,6 @@ CourseDuration = React.createClass
         )
         rangeData.plansByDays.push(plansOnDay)
 
-      rangeData.maxPlansOnDay = _.max(rangeData.plansByDays, (plansOnDay) ->
-        plansOnDay.length
-      ).length
-
-      # set day height to the best-guess for this range based on how many plans it has.
-      # It'll be fine-tuned later across all ranges
-      rangeData.dayHeight = Math.max(
-        @_calcDayHeight(rangeData.maxPlansOnDay), rangeData.dayHeight
-      )
       rangeData
 
 
