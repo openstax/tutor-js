@@ -37,12 +37,14 @@ PlanMixin =
     {id} = @props
 
     TaskPlanStore.on('publish-queued', @updateIsVisibleAndIsEditable)
+    TaskPlanStore.on("loaded.#{id}", @updateIsVisibleAndIsEditable)
     TaskingStore.on("taskings.#{id}.*.loaded", @updateIsVisibleAndIsEditable)
 
   componentWillUnmount: ->
     {id} = @props
 
     TaskPlanStore.off('publish-queued', @updateIsVisibleAndIsEditable)
+    TaskPlanStore.off("loaded.#{id}", @updateIsVisibleAndIsEditable)
     TaskingStore.off("taskings.#{id}.*.loaded", @updateIsVisibleAndIsEditable)
 
   showSectionTopics: ->
