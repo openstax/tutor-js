@@ -11,12 +11,13 @@ if [ `git branch --list $project_release_branch `]
 then
   git checkout $project_release_branch
   git pull origin $project_release_branch
-  echo "Branch name $project_release_branch already exists."
+  echo 'Branch $project_release_branch already exists.'
 else
   git checkout -b $project_release_branch
   sed -i '' '/dist/d' .gitignore
   git add .gitignore
-  git commit -m "allow dist files"
+  git commit -m 'allow dist files'
+  echo 'Branch $project_release_branch created.'
 fi
 
 git merge master -m 'merge master in prep for release'
@@ -27,12 +28,12 @@ bin/build "$@"
 
 git add $project_release_subdirectory
 
-echo "Please enter a commit message."
+echo 'Please enter a commit message.'
 read commit_message
 git commit -m $commit_message
 git subtree push --prefix $project_release_subdirectory origin $project_release_branch
 
-echo "Please enter a tag name."
+echo 'Please enter a tag name.'
 read release_tag_name
 git tag -a $release_tag_name -m $commit_message
 git subtree push --prefix $project_release_subdirectory origin $release_tag_name
