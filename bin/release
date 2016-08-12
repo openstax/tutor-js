@@ -2,7 +2,7 @@
 
 set -e
 
-project_release_branch="release-$1"
+project_release_branch="release/$1"
 project_release_subdirectory="$1/dist"
 
 current_branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
@@ -28,14 +28,12 @@ bin/build "$@"
 
 git add $project_release_subdirectory
 
-echo 'Please enter a commit message.'
-read commit_message
-git commit -m $commit_message
+read -p 'Please enter a commit message: ' commit_message
+git commit -m "$commit_message"
 git subtree push --prefix $project_release_subdirectory origin $project_release_branch
 
-echo 'Please enter a tag name.'
-read release_tag_name
-git tag -a $release_tag_name -m $commit_message
+read -p 'Please enter a tag name:' release_tag_name
+git tag -a $release_tag_name -m "$commit_message"
 git subtree push --prefix $project_release_subdirectory origin $release_tag_name
 
 git checkout $current_branch
