@@ -18,11 +18,11 @@ describe 'Notifications', ->
     URLs.reset()
 
   it 'polls when URL is set', ->
-    URLs.update(accounts_api_url: 'http://localhost:2999')
+    URLs.update(accounts_api_url: 'http://localhost:2999/api')
     Notifications.startPolling(@windowImpl)
     expect(Poller::poll).to.have.callCount(1)
     expect(Poller::setUrl.lastCall.args).to.deep.equal(['http://localhost:2999/api/user'])
-    URLs.update(tutor_api_url: 'http://localhost:3001/api/notifications')
+    URLs.update(tutor_api_url: 'http://localhost:3001/api')
     Notifications.startPolling(@windowImpl)
     expect(Poller::poll).to.have.callCount(2)
 
