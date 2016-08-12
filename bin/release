@@ -36,7 +36,7 @@ echo "${PURPLE}Updating and building.${NO_COLOR}"
 npm install
 bin/build "$@"
 
-if git diff-files --quiet --ignore-submodules --; then
+if [ `git diff-files --quiet --ignore-submodules --` ]; then
   echo "${PURPLE}Changes detected in build.${NO_COLOR}"
 
   git add $project_release_subdirectory
