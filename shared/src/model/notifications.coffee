@@ -23,7 +23,7 @@ Notifications = {
 
   startPolling: (@windowImpl = window) ->
     @_startPolling(
-      'accounts', URLs.construct('accounts_api', 'api', 'user')
+      'accounts', URLs.construct('accounts_api', 'user')
     ) if URLs.get('accounts_api')
 
     @_startPolling(
