@@ -20,7 +20,7 @@ else
   echo 'Branch $project_release_branch created.'
 fi
 
-git merge master -m 'merge master in prep for release'
+git merge $current_branch -m "merge $current_branch in prep for release"
 
 npm install
 
