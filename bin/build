@@ -14,12 +14,15 @@ webpack --progress --config webpack.config.js
 if [ "$2" = "archive" ]; then
   cd $OX_PROJECT/dist
   echo "{" > ./rev-manifest.json
-
   # credit/blame to: http://stackoverflow.com/questions/8201729/rename-files-to-md5-sum-extension-bash
+  LAST_FILE=""
   for F in *.min.*; do
     MD5=`md5sum $F | perl -MFile::Basename -ne '($m, $f) = split(/\s+/,$_); $f=basename($f); $f =~ m/(.*?)\.(.*)/; print "$1-$m.$2"'`
-    echo $MD5
-    echo '  "'$F'": "'$MD5'",' >> ./rev-manifest.json
+    if [ "$LAST_FILE" ]; then
+        echo -n "," >> ./rev-manifest.json
+    fi
+    echo -n '  "'$F'": "'$MD5'"' >> ./rev-manifest.json
+    LAST_FILE=$F
     mv $F $MD5
   done
   echo "}" >> ./rev-manifest.json
