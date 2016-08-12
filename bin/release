@@ -2,6 +2,9 @@
 
 set -e
 
+PURPLE='\033[0;35m'
+NC='\033[0m' # No Color
+
 project_release_branch="release/$1"
 project_release_subdirectory="$1/dist"
 
@@ -19,25 +22,25 @@ else
   echo "Branch $project_release_branch created."
 fi
 
-echo "Merging in latest updates from $current_branch."
+echo -e "${PURPLE}Merging in latest updates from $current_branch."
 git merge $current_branch -m "merge $current_branch in prep for release"
 
-echo "Updating and building."
+echo -e "${PURPLE}Updating and building."
 npm install
 bin/build "$@"
 
 if git diff-files --quiet --ignore-submodules --; then
-  echo "Changes detected in build."
+  echo -e "${PURPLE}Changes detected in build."
 
   git add $project_release_subdirectory
 
-  read -p 'Please enter a commit message: ' commit_message
+  read -p "${PURPLE}Please enter a commit message: " commit_message
   git commit -m "$commit_message"
   git subtree push --prefix $project_release_subdirectory origin $project_release_branch
 fi
 
-echo "Done with build, $project_release_branch is up to date."
-echo "Please draft a release off of $project_release_branch on GitHub to complete release."
+echo -e "${PURPLE}Done with build, $project_release_branch is up to date."
+echo -e "${PURPLE}Please draft a release off of $project_release_branch on GitHub to complete release."
 
 git checkout $current_branch
 
