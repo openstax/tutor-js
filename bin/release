@@ -7,13 +7,14 @@ NO_COLOR=$'\e[0m'
 
 project_release_branch="release/$1"
 project_release_subdirectory="$1/dist"
+project_origin_subtree="--squash --prefix=$project_release_subdirectory origin $project_release_branch"
 
 current_branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
 if [ `git branch --list $project_release_branch` ]; then
   git checkout $project_release_branch
   if [ -d "$project_release_subdirectory" ]; then
-    git subtree pull --prefix $project_release_subdirectory origin $project_release_branch
+    git subtree pull $project_origin_subtree
   fi
   echo "${PURPLE}Branch $project_release_branch already exists.${NO_COLOR}"
 else
@@ -26,6 +27,7 @@ else
   } || {
     echo "${PURPLE}.gitignore is ready.${NO_COLOR}"
   }
+  git subtree add $project_origin_subtree
   echo "${PURPLE}Branch $project_release_branch created.${NO_COLOR}"
 fi
 
@@ -43,7 +45,7 @@ if [[ `git status --porcelain` ]]; then
 
   read -p "${PURPLE}Please enter a commit message: ${NO_COLOR}" commit_message
   git commit -m "$commit_message"
-  git subtree push --prefix $project_release_subdirectory origin $project_release_branch
+  git subtree push $project_origin_subtree
 fi
 
 echo "${PURPLE}Done with build, $project_release_branch is up to date.${NO_COLOR}"
