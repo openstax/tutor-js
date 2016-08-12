@@ -2,8 +2,8 @@
 
 set -e
 
-project_release_branch = "release-$1"
-project_release_subdirectory = "$1/dist"
+project_release_branch="release-$1"
+project_release_subdirectory="$1/dist"
 
 current_branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
