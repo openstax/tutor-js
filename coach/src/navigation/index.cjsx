@@ -57,13 +57,13 @@ Navigation = React.createClass
       </BS.NavBrand>
       <BS.CollapsibleNav eventKey={0} collapsible={true}>
         <BS.Nav right navbar activeKey={view} onSelect={@handleSelect}>
-          <UserMenu course={@props.course} />
           {courseItems}
           <BS.NavItem
             onClick={@close}
             className='concept-coach-dashboard-nav'>
             <BS.Button className='btn-plain -coach-close'>Close</BS.Button>
           </BS.NavItem>
+          <UserMenu course={@props.course} />
         </BS.Nav>
       </BS.CollapsibleNav>
       <NotificationsBar />
