@@ -10,7 +10,8 @@ ERROR_MAP = {
   invalid_enrollment_code: 'The provided enrollment code is not valid. Please verify the enrollment code and try again.'
   enrollment_code_does_not_match_book: 'The provided enrollment code matches a course but not for the current book. ' +
                                        'Please verify the enrollment code and try again.'
-  already_enrolled: 'You are already enrolled in this course. Please log in.'
+  already_enrolled: 'You are already enrolled in this course.  ' +
+                                       'Please verify the enrollment code and try again.'
   multiple_roles: 'We currently do not support teacher accounts with multiple associated student enrollments.'
   dropped_student: 'You have been dropped from this course. Please speak to your instructor to rejoin.'
   already_processed: 'Your enrollment in this course has been processed. Please reload the page.'
