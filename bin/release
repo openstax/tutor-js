@@ -36,14 +36,14 @@ echo "${PURPLE}Updating and building.${NO_COLOR}"
 npm install
 bin/build "$@"
 
-if git diff-files --ignore-submodules --; then
+if [[ `git status --porcelain` ]]; then
   echo "${PURPLE}Changes detected in build.${NO_COLOR}"
 
-  # git add $project_release_subdirectory
+  git add $project_release_subdirectory
 
-  # read -p "${PURPLE}Please enter a commit message: ${NO_COLOR}" commit_message
-  # git commit -m "$commit_message"
-  # git subtree push --prefix $project_release_subdirectory origin $project_release_branch
+  read -p "${PURPLE}Please enter a commit message: ${NO_COLOR}" commit_message
+  git commit -m "$commit_message"
+  git subtree push --prefix $project_release_subdirectory origin $project_release_branch
 fi
 
 echo "${PURPLE}Done with build, $project_release_branch is up to date.${NO_COLOR}"
