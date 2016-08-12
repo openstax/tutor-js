@@ -18,9 +18,14 @@ if [ `git branch --list $project_release_branch` ]; then
   echo "${PURPLE}Branch $project_release_branch already exists.${NO_COLOR}"
 else
   git checkout -b $project_release_branch
-  sed -i '' '/dist/d' .gitignore
-  git add .gitignore
-  git commit -m 'allow dist files'
+  {
+    sed -i '' '/dist/d' .gitignore
+    git add .gitignore
+    git commit -m 'allow dist files'
+    echo "${PURPLE}Updating .gitignore.${NO_COLOR}"
+  } || {
+    echo "${PURPLE}.gitignore is ready.${NO_COLOR}"
+  }
   echo "${PURPLE}Branch $project_release_branch created.${NO_COLOR}"
 fi
 
