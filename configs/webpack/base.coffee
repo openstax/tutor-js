@@ -133,7 +133,6 @@ makeProductionBase = (projectConfig) ->
 
   productionBase =
     output: output
-    devtool: 'source-map'
     module:
       loaders: BASE_BUILD_LOADERS
     plugins: makeBuildPlugins({styleFilename}).concat([
