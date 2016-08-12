@@ -25,7 +25,7 @@ npm install
 
 bin/build "$@"
 
-if ! git diff-files --quiet --ignore-submodules --
+if git diff-files --quiet --ignore-submodules --; then
   git add $project_release_subdirectory
 
   read -p 'Please enter a commit message: ' commit_message
