@@ -47,7 +47,7 @@ if [[ `git status --porcelain` ]]; then
 
   read -p "${PURPLE}Please enter a commit message: ${NO_COLOR}" commit_message
   git commit -m "$commit_message"
-  git subtree push $project_remote_subtree -q
+  git subtree push $project_remote_subtree
 fi
 
 echo "${PURPLE}Done with build, $project_release_branch is up to date.${NO_COLOR}"
