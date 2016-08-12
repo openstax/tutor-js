@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 
 {PinnedHeaderFooterCard} = require 'shared'
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
+{TocStore} = require '../../flux/toc'
 
 Help = require './help'
 Icon = require '../icon'
@@ -87,24 +88,25 @@ ExercisesDisplay = React.createClass
     @props.onShowCardViewClick(ev, exercise)
 
   renderMinimumExclusionWarning: (minExerciseCount) ->
-    section = <CourseGroupingLabel courseId={@props.courseId} lowercase />
     [
       <Icon key="icon" type="exclamation" />
       <div key="message" className="message">
         <p>
-          Tutor needs at least {minExerciseCount} questions for this {section} to be
+          Tutor needs at least {minExerciseCount} questions for this section to be
           included in spaced practice and personalized learning.
         </p>
         <p>
           If you exclude too many, your students will not get
-          to practice on topics in this {section}.
+          to practice on topics in this section.
         </p>
       </div>
     ]
 
   onExerciseToggle: (ev, exercise) ->
     isSelected = not ExerciseStore.isExerciseExcluded(exercise.id)
-    minExerciseCount = ExerciseStore.excludedAtMinimum(exercise)
+    if isSelected
+      validUids = _.pluck(_.map(@props.sectionIds, TocStore.getSectionInfo), 'uuid')
+      minExerciseCount = ExerciseStore.excludedAtMinimum(exercise, validUids)
     if isSelected and minExerciseCount isnt false
       Dialog.show(
         className: 'question-library-min-exercise-exclusions'
