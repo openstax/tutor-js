@@ -15,34 +15,34 @@ if [ `git branch --list $project_release_branch` ]; then
   if [ -d "$project_release_subdirectory" ]; then
     git subtree pull --prefix $project_release_subdirectory origin $project_release_branch
   fi
-  echo "${PURPLE}Branch $project_release_branch already exists.${NC}"
+  echo "${PURPLE}Branch $project_release_branch already exists.${NO_COLOR}"
 else
   git checkout -b $project_release_branch
   sed -i '' '/dist/d' .gitignore
   git add .gitignore
   git commit -m 'allow dist files'
-  echo "${PURPLE}Branch $project_release_branch created.${NC}"
+  echo "${PURPLE}Branch $project_release_branch created.${NO_COLOR}"
 fi
 
-echo "${PURPLE}Merging in latest updates from $current_branch.${NC}"
+echo "${PURPLE}Merging in latest updates from $current_branch.${NO_COLOR}"
 git merge $current_branch -m "merge $current_branch in prep for release"
 
-echo "${PURPLE}Updating and building.${NC}"
+echo "${PURPLE}Updating and building.${NO_COLOR}"
 npm install
 bin/build "$@"
 
 if git diff-files --quiet --ignore-submodules --; then
-  echo "${PURPLE}Changes detected in build.${NC}"
+  echo "${PURPLE}Changes detected in build.${NO_COLOR}"
 
   git add $project_release_subdirectory
 
-  read -p "${PURPLE}Please enter a commit message: ${NC}" commit_message
+  read -p "${PURPLE}Please enter a commit message: ${NO_COLOR}" commit_message
   git commit -m "$commit_message"
   git subtree push --prefix $project_release_subdirectory origin $project_release_branch
 fi
 
-echo "${PURPLE}Done with build, $project_release_branch is up to date.${NC}"
-echo "${PURPLE}Please draft a release off of $project_release_branch on GitHub to complete release.${NC}"
+echo "${PURPLE}Done with build, $project_release_branch is up to date.${NO_COLOR}"
+echo "${PURPLE}Please draft a release off of $project_release_branch on GitHub to complete release.${NO_COLOR}"
 
 git checkout $current_branch
 
