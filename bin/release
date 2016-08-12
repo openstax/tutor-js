@@ -10,7 +10,7 @@ current_branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 if [ `git branch --list $project_release_branch `]
 then
   git checkout $project_release_branch
-  git pull origin $project_release_branch
+  git subtree pull --prefix $project_release_subdirectory origin $project_release_branch
   echo 'Branch $project_release_branch already exists.'
 else
   git checkout -b $project_release_branch
