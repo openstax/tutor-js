@@ -46,9 +46,9 @@ class CourseSelect extends TestHelper
 
     switch category
       when 'BIOLOGY'
-        course = @el.courseByAppearance({appearance: 'biology'}, roles).findElement()
+        course = @el.courseByAppearance({appearance: 'college_biology'}, roles).findElement()
       when 'PHYSICS'
-        course = @el.courseByAppearance({appearance: 'physics'}, roles).findElement()
+        course = @el.courseByAppearance({appearance: 'hs_physics'}, roles).findElement()
       when 'CONCEPT_COACH'
         course = @el.courseByAppearance({isCoach: true}, roles).findElement()
       else

@@ -3,9 +3,10 @@ webpackUMDExternal = require 'webpack-umd-external'
 
 module.exports =
   entry:
-    main: 'index'
+    main: ['resources/styles/main.less']
+    'full-build': ['full-build']
   output:
-    filename: 'main.min.js'
+    filename: '[name].min.js'
   plugins: [
     new webpack.ProvidePlugin({
       React: 'react/addons'
