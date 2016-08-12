@@ -10,32 +10,34 @@ current_branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 if [ `git branch --list $project_release_branch` ]; then
   git checkout $project_release_branch
   git subtree pull --prefix $project_release_subdirectory origin $project_release_branch
-  echo 'Branch $project_release_branch already exists.'
+  echo "Branch $project_release_branch already exists."
 else
   git checkout -b $project_release_branch
   sed -i '' '/dist/d' .gitignore
   git add .gitignore
   git commit -m 'allow dist files'
-  echo 'Branch $project_release_branch created.'
+  echo "Branch $project_release_branch created."
 fi
 
+echo "Merging in latest updates from $current_branch."
 git merge $current_branch -m "merge $current_branch in prep for release"
 
+echo "Updating and building."
 npm install
-
 bin/build "$@"
 
 if git diff-files --quiet --ignore-submodules --; then
+  echo "Changes detected in build."
+
   git add $project_release_subdirectory
 
   read -p 'Please enter a commit message: ' commit_message
   git commit -m "$commit_message"
   git subtree push --prefix $project_release_subdirectory origin $project_release_branch
-
-  read -p 'Please enter a tag name:' release_tag_name
-  git tag -a $release_tag_name -m "$commit_message"
-  git subtree push --prefix $project_release_subdirectory origin $release_tag_name
 fi
+
+echo "Done with build, $project_release_branch is up to date."
+echo "Please draft a release off of $project_release_branch on GitHub to complete release."
 
 git checkout $current_branch
 

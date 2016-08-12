@@ -4,7 +4,7 @@ webpackUMDExternal = require 'webpack-umd-external'
 module.exports =
   entry:
     main: ['resources/styles/main.less']
-    fullBuild: ['full-build']
+    'full-build': ['full-build']
   output:
     filename: '[name].min.js'
   plugins: [
