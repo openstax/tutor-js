@@ -171,8 +171,6 @@ ConceptCoach = React.createClass
         <CourseRegistration {...@props} />
       when 'student_id'
         <UpdateStudentIdentifier {...@props} course={course} />
-      when 'testing-something'
-        <div>hello</div>
       else
         <h3 className="error">bad internal state, no view is set</h3>
 
