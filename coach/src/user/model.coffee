@@ -3,7 +3,7 @@ React = require 'react'
 EventEmitter2 = require 'eventemitter2'
 Course = require '../course/model'
 api = require '../api'
-{BootrapURLs, NotificationActions, UiSettings}  = require 'shared'
+{BootstrapURLs, NotificationActions, UiSettings}  = require 'shared'
 
 BLANK_USER =
   is_admin: false
@@ -86,7 +86,7 @@ User =
         api.channel.emit('set.access_token', data.access_token)
       User.endpoints = data.endpoints
       if data.user
-        BootrapURLs.update(data)
+        BootstrapURLs.update(data)
         NotificationActions.startPolling()
         UiSettings.initialize(data.ui_settings)
         User.update(data)

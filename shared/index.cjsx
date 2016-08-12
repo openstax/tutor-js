@@ -4,7 +4,7 @@
 module.exports = {
   ArbitraryHtmlAndMath:   require './src/components/html'
   AsyncButton:            require './src/components/buttons/async-button'
-  BootrapURLs:            require './src/model/urls'
+  BootstrapURLs:            require './src/model/urls'
   UiSettings:             require './src/model/ui-settings'
   Networking:             require './src/model/networking'
   Breadcrumb:             require './src/components/breadcrumb'
