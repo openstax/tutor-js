@@ -34,7 +34,7 @@ if git diff-files --quiet --ignore-submodules --; then
 
   git add $project_release_subdirectory
 
-  read -p "${PURPLE}Please enter a commit message: ${NC}" commit_message
+  read -p $"${PURPLE}Please enter a commit message: ${NC}" commit_message
   git commit -m "$commit_message"
   git subtree push --prefix $project_release_subdirectory origin $project_release_branch
 fi
