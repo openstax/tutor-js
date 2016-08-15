@@ -21,12 +21,13 @@ BASE_CONFIG =
     ]
     loaders:   [
       { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader', query: { presets: ['stage-3']}}
+      { test: /\.jsx$/, loader: 'babel-loader', query: { presets: ['stage-3']}}
       { test: /\.json$/,   loader: 'json-loader' }
       { test: /\.(png|jpg|svg|gif)/, loader: 'file-loader?name=[name].[ext]'}
       { test: /\.(woff|woff2|eot|ttf)/, loader: 'url-loader?limit=30000&name=[name]-[hash].[ext]' }
     ]
   resolve:
-    extensions: ['', '.js', '.json', '.coffee', '.cjsx']
+    extensions: ['', '.js', '.jsx', '.json', '.coffee', '.cjsx']
   plugins: [
     new webpack.optimize.DedupePlugin()
   ]
