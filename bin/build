@@ -27,6 +27,6 @@ if [ "$2" = "archive" ]; then
   done
   echo "}" >> ./rev-manifest.json
   cd ..
-  tar -czf ../archive.tar.gz dist/*
+  tar -czf ../archive.tar.gz -C ./dist .
   mv ../archive.tar.gz ./dist/
 fi
