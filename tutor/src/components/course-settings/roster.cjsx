@@ -28,10 +28,25 @@ CourseRoster = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
+  contextTypes:
+    router: React.PropTypes.func
+
   getInitialState: ->
-    tabIndex: 0
+    {tab} = @context.router.getCurrentParams()
+    tabIndex: if _.isUndefined(tab) then 0 else parseInt(tab, 10)
+
+  componentWillReceiveProps: (nextProps) ->
+    {tab} = @context.router.getCurrentParams()
+    unless _.isUndefined(tab)
+      tabIndex = parseInt(tab, 10)
+      if tabIndex isnt @state.tabIndex
+        @setState({tabIndex})
 
   handleSelection: (ev, tabIndex) ->
+    params = @context.router.getCurrentParams()
+    params.tab = tabIndex
+    @context.router.transitionTo('courseSettings', params)
+
     unless PH.activePeriods(CourseStore.get(@props.courseId))[tabIndex]
       tabIndex = 0
     @setState({tabIndex})

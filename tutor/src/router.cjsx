@@ -96,7 +96,7 @@ routes = (
           <Route path='externals/:id/?' name='editExternal' handler={ExternalShell} />
           <Route path='events/new/?' name='createEvent' handler={EventShell} />
           <Route path='events/:id/?' name='editEvent' handler={EventShell} />
-          <Route path='settings' name='courseSettings' handler={CourseSettings} />
+          <Route path='settings/?:tab?' name='courseSettings' handler={CourseSettings} />
           <Route path='plans/:id/?'>
             <Router.DefaultRoute handler={StatsShell}/>
             <Route path='stats/?' name='viewStats' handler={StatsShell} />
