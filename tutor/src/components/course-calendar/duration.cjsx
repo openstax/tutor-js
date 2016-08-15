@@ -81,24 +81,28 @@ CourseDuration = React.createClass
       .value()
 
   calcDurationHeight: (rangeData) ->
-    planGroups = _.reduce(rangeData.plansByDays, (groups, plansByDay) ->
+    overlappingPlans = []
+    planStacks = []
+
+    _.each(rangeData.plansByDays, (plansByDay) =>
+      @setPlanRelativeOrder(plansByDay)
 
       planIds = _.map(plansByDay, (planInfo) -> planInfo.plan.id)
+      planOrder = _.map(plansByDay, (planInfo) -> planInfo.relativeOrder)
 
       # if plans don't group together on adjacent days,
-      if _.isEmpty(_.intersection(_.last(groups), planIds))
+      if _.isEmpty(_.intersection(_.last(overlappingPlans), planIds))
         # push as new group
-        groups.push(planIds)
+        overlappingPlans.push(planIds)
+        planStacks.push(planOrder)
       else
         # else, plans share adjacent days, group together.
-        groups[groups.length - 1] = _.union(_.last(groups), planIds)
+        overlappingPlans[overlappingPlans.length - 1] = _.union(_.last(overlappingPlans), planIds)
+        planStacks[planStacks.length - 1] = _.union(_.last(planStacks), planOrder)
+    )
 
-      groups
-
-    , [[]])
-
-    rangeData.maxPlansOnDay = _.max(planGroups, (plansInGroup) ->
-      plansInGroup.length
+    rangeData.maxPlansOnDay = _.max(planStacks, (plansInStack) ->
+      plansInStack.length
     ).length
 
     # set day height to the best-guess for this range based on how many plans it has.
@@ -116,41 +120,34 @@ CourseDuration = React.createClass
       ).value()
 
       {maxPlansOnDay, plansByDays} = range
-      _.each(plansByDays, (plans) =>
-        current =
-          adder: 0
-
-        # grab all existing orders in the day
-        existingOrdered = _.chain(plans)
-          .pluck('order')
-          .compact()
-          .value()
-
-        _.chain(plans)
-          .sortBy((plan) ->
-            -1 * plan.rangeDuration.start.valueOf()
-          )
-          .each(@setPlanOrder({current, existingOrdered, weekTopOffset, maxPlansOnDay}))
-          .value()
+      _.each(plansByDays, (plans) ->
+        _.each(plans, (duration) ->
+          duration.weekTopOffset = weekTopOffset
+          duration.order = maxPlansOnDay + duration.relativeOrder
+        )
       )
     )
 
+  setPlanRelativeOrder: (plans) ->
+    current =
+      adder: 0
+
+    # grab all existing orders in the day
+    existingOrdered = _.chain(plans).pluck('relativeOrder').compact().value()
+
+    _.each(plans, @_setPlanOrder({current, existingOrdered}))
+
   # set plan order, makes sure that order is not already taken on this day
-  setPlanOrder: ({current, existingOrdered, weekTopOffset, maxPlansOnDay}) ->
+  _setPlanOrder: ({current, existingOrdered}) ->
     (duration, order) =>
-      unless duration.order?
-        current.order = order
-        @_calcOrder({existingOrdered, current, maxPlansOnDay})
-        duration.order = current.order
-        duration.weekTopOffset = weekTopOffset
+      duration.relativeOrder ?= @_calcOrder({existingOrdered, current, order})
 
-  _calcOrder: ({existingOrdered, current, maxPlansOnDay}) ->
+  _calcOrder: ({existingOrdered, current, order}) ->
     # find an order that is not already occupied by any overlapping plans
-
-    while existingOrdered.indexOf(maxPlansOnDay - (current.order + current.adder)) > -1
+    while existingOrdered.indexOf(- (order + current.adder)) > -1
       current.adder = current.adder + 1
 
-    current.order = maxPlansOnDay - (current.order + current.adder)
+    - (order + current.adder)
 
   _getDay: (oneMoment) ->
     moment(oneMoment).startOf('day').twix(moment(oneMoment).endOf('day'), {allDay: true})
