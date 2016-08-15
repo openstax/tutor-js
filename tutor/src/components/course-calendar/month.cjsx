@@ -93,6 +93,9 @@ CourseMonth = React.createClass
       activeAddDate: null
     })
 
+  getFullMonthName: ->
+    @props.date?.format?('MMMM')
+
 
   # render days based on whether they are past or upcoming
   # past days do not allow adding of plans
@@ -164,7 +167,7 @@ CourseMonth = React.createClass
         ref='calendarHeader'/>
 
       <BS.Row className='calendar-body'>
-        <BS.Col xs={12}>
+        <BS.Col xs={12} data-duration-name={@getFullMonthName()}>
 
           <Month date={date} monthNames={false} weekdayFormat='ddd' ref='calendar'>
             {days}
