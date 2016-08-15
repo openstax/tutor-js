@@ -15,6 +15,15 @@ PH = require '../../helpers/period'
 CourseCalendar = require '../course-calendar'
 CourseDataMixin = require '../course-data-mixin'
 
+getDisplayBounds =
+  month: (date) ->
+    startAt: TimeHelper.toISO(
+      date.clone().startOf('month').startOf('week').subtract(1, 'day')
+    )
+    endAt: TimeHelper.toISO(
+      date.clone().endOf('month').endOf('week').add(1, 'day')
+    )
+
 TeacherTaskPlans = React.createClass
 
   contextTypes:
@@ -78,10 +87,7 @@ TeacherTaskPlanListing = React.createClass
 
     {displayAs} = state
 
-    startAt = TimeHelper.toISO(date.clone().startOf(displayAs).subtract(1, 'day'))
-    endAt = TimeHelper.toISO(date.clone().endOf(displayAs).add(1, 'day'))
-
-    {startAt, endAt}
+    getDisplayBounds[displayAs](date)
 
   mixins: [CourseDataMixin]
 
