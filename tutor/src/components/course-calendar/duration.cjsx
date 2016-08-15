@@ -81,29 +81,17 @@ CourseDuration = React.createClass
       .value()
 
   calcDurationHeight: (rangeData) ->
-    overlappingPlans = []
-    planStacks = []
-
-    _.each(rangeData.plansByDays, (plansByDay) =>
-      @setPlanRelativeOrder(plansByDay)
-
-      planIds = _.map(plansByDay, (planInfo) -> planInfo.plan.id)
-      planOrder = _.map(plansByDay, (planInfo) -> planInfo.relativeOrder)
-
-      # if plans don't group together on adjacent days,
-      if _.isEmpty(_.intersection(_.last(overlappingPlans), planIds))
-        # push as new group
-        overlappingPlans.push(planIds)
-        planStacks.push(planOrder)
-      else
-        # else, plans share adjacent days, group together.
-        overlappingPlans[overlappingPlans.length - 1] = _.union(_.last(overlappingPlans), planIds)
-        planStacks[planStacks.length - 1] = _.union(_.last(planStacks), planOrder)
-    )
-
-    rangeData.maxPlansOnDay = _.max(planStacks, (plansInStack) ->
-      plansInStack.length
-    ).length
+    rangeData.maxPlansOnDay = _.chain(rangeData.plansByDays)
+      .map (plansByDay) =>
+        @_setPlanRelativeOrder(plansByDay)
+        # use plan relative order to calculate plan "height"
+        _.map(plansByDay, (plan) -> -1 * plan.relativeOrder + 1)
+      # flatten for all heights in week
+      .flatten()
+      # union with a 0 height, for durations with no plans
+      .union([0])
+      .max()
+      .value()
 
     # set day height to the best-guess for this range based on how many plans it has.
     # It'll be fine-tuned later across all ranges
@@ -128,7 +116,7 @@ CourseDuration = React.createClass
       )
     )
 
-  setPlanRelativeOrder: (plans) ->
+  _setPlanRelativeOrder: (plans) ->
     current =
       adder: 0
 
