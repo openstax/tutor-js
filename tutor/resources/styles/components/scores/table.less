@@ -387,12 +387,12 @@
       position: relative;
     }
     .late-caret-trigger {
-        position: absolute;
-        cursor: pointer;
-        top: 0px;
-        right: 0px;
-        width: 25px;
-        height: @table-row-height;
+      position: absolute;
+      cursor: pointer;
+      top: 0px;
+      right: 0px;
+      width: 50%;
+      height: @table-row-height;
       .late-caret {
         position: absolute;
         cursor: pointer;
@@ -403,12 +403,19 @@
         border-style: solid;
         border-width: 0 10px 10px 0;
         border-color: transparent @tutor-primary transparent transparent;
+        transition: border-width 0.5s ease-in-out;
         &.accepted {
           border-color: transparent lighten(@tutor-neutral, 25%) transparent transparent;
         }
       }
+      &:hover {
+        .late-caret {
+          border-width: 0 30px 30px 0;
+        }
+      }
     }
   }
+
   .name-cell {
     border-left: @table-outer-border-width solid @table-outer-border-color;
     line-height: @table-row-height;
