@@ -63,14 +63,13 @@ CourseDuration = React.createClass
       # TODO these parts actually seem like they should be in flux
       .each(@setDuration(viewingDuration))
       .filter(@isInDuration(viewingDuration))
-      .sortBy((plan) ->
-        moment(plan.published_at).valueOf()
-      )
-      .sortBy((plan) ->
-        plan.duration.end().valueOf()
-      )
-      .sortBy((plan) ->
-        plan.duration.start().valueOf()
+      .sortBy((plan) =>
+        [
+          plan.duration.start().valueOf()
+          plan.duration.end().valueOf()
+          @_getEarliestOpensAt(plan).valueOf()
+          moment(plan.last_published_at).valueOf()
+        ].join()
       )
       .value()
 
