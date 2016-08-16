@@ -1,4 +1,5 @@
 React = require 'react'
+classnames = require 'classnames'
 
 {TaskStepStore} = require '../../flux/task-step'
 {TaskStore} = require '../../flux/task'
@@ -58,8 +59,21 @@ Placeholder = React.createClass
   onContinue: ->
     @props.onNextStep()
   renderBody: ->
-    <p>This is a personalized question that will become available
-      to you after you answer more homework problems in this assignment.</p>
+    {id, taskId} = @props
+
+    step = TaskStepStore.get(id)
+    {type} = TaskStore.get(taskId)
+
+    message = if step.exists is false
+      "Looks like we don't have a personalized question this time. If you've answered all the other questions, you're done!"
+    else
+      "Unlock this personalized question by answering more #{type} problems for this assignment."
+
+    classes = classnames 'task-step-personalized',
+      'task-step-personalized-missing': step.exists is false
+
+    <p className={classes}>{message}</p>
+
 
 ExternalUrl = React.createClass
   displayName: 'ExternalUrl'

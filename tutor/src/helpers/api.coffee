@@ -62,6 +62,8 @@ interceptors =
     response
 
   handleError: (errorResponse) ->
+    {config} = errorResponse
+
     if _.isError(errorResponse)
       errorResponse =
         status: 1
@@ -69,7 +71,7 @@ interceptors =
     else if errorResponse.headers
       setNow(errorResponse.headers)
 
-    Promise.reject(_.extend({handled: false}, errorResponse))
+    Promise.reject(_.extend({handled: config.handleError?}, errorResponse))
 
   makeLocalResponse: (response) ->
     makeLocalResponse(response)
@@ -159,6 +161,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
       rejected = (response) ->
         {status, statusText, statusMessage, handled} = response
         onRequestError(response, requestConfig)
+        requestConfig.handleError?(response, args...)
         return if handled
 
         Actions.FAILED(status, statusMessage, args...)

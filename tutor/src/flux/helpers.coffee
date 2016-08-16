@@ -8,6 +8,14 @@ SAVING  = 'saving'
 DELETING = 'deleting'
 DELETED = 'deleted'
 
+STATES =
+  LOADING : LOADING
+  LOADED  : LOADED
+  FAILED  : FAILED
+  SAVING  : SAVING
+  DELETING: DELETING
+  DELETED : DELETED
+
 idCounter = 0
 CREATE_KEY = -> "_CREATING_#{idCounter++}"
 
@@ -169,4 +177,4 @@ extendConfig = (newConfig, origConfig) ->
   newConfig
 
 
-module.exports = {CrudConfig, makeSimpleStore, extendConfig}
+module.exports = {CrudConfig, makeSimpleStore, extendConfig, STATES}
