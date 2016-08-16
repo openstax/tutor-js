@@ -40,7 +40,7 @@ routes = (
         <Route path='cc-student-redirect/?' name='viewStudentCCRedirect' handler={CCStudentRedirect} />
 
         <Route path='assignment-links/?' name='viewAssignmentLinks' handler={AssignmentLinks} />
-        <Route path='list/?' name='viewStudentDashboard' handler={StudentDashboardShell} />
+        <Route path='list/?:tab?' name='viewStudentDashboard' handler={StudentDashboardShell} />
         <Route path='tasks/:id/?' name='viewTask' handler={SingleTask} ignoreScrollBehavior/>
         <Route path='tasks/:id/steps/:stepIndex/?'
           name='viewTaskStep'

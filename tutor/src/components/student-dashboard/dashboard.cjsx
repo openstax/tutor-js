@@ -28,9 +28,20 @@ module.exports = React.createClass
     router: React.PropTypes.func
 
   getInitialState: ->
-    selectedTabIndex: 1
+    {tab} = @context.router.getCurrentParams()
+    selectedTabIndex: if _.isUndefined(tab) then 1 else parseInt(tab, 10)
+
+  componentWillReceiveProps: (nextProps) ->
+    {tab} = @context.router.getCurrentParams()
+    unless _.isUndefined(tab)
+      selectedTabIndex = parseInt(tab, 10)
+      if selectedTabIndex isnt @state.selectedTabIndex
+        @setState({selectedTabIndex})
 
   selectTab: (index) ->
+    params = _.extend({}, @context.router.getCurrentParams(), tab: index)
+    @context.router.transitionTo('viewStudentDashboard', params)
+
     @setState(selectedTabIndex:index)
 
   render: ->
