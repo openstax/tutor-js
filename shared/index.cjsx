@@ -1,6 +1,8 @@
 {PinnedHeader, CardBody, PinnableFooter} = require './src/components/pinned-header-footer-card/sections'
 {Exercise, ExerciseWithScroll} = require './src/components/exercise'
 
+require './src/helpers/polyfills'
+
 module.exports = {
   ArbitraryHtmlAndMath:   require './src/components/html'
   AsyncButton:            require './src/components/buttons/async-button'

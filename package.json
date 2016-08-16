@@ -45,6 +45,7 @@
     "camelcase": "1.2.1",
     "classnames": "2.1.5",
     "dateformat": "1.0.12",
+    "es6-object-assign": "1.0.2",
     "es6-promise": "2.3.0",
     "eventemitter2": "0.4.14",
     "flux-react": "2.6.6",
