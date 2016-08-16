@@ -43,8 +43,7 @@ CourseRoster = React.createClass
         @setState({tabIndex})
 
   handleSelection: (ev, tabIndex) ->
-    params = @context.router.getCurrentParams()
-    params.tab = tabIndex
+    params = _.extend({}, @context.router.getCurrentParams(), tab: tabIndex)
     @context.router.transitionTo('courseSettings', params)
 
     unless PH.activePeriods(CourseStore.get(@props.courseId))[tabIndex]
