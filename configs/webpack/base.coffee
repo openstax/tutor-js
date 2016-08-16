@@ -1,16 +1,66 @@
 path = require 'path'
 
+_ = require 'lodash'
 webpack = require 'webpack'
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
-webpackUMDExternal = require 'webpack-umd-external'
 
-_ = require 'lodash'
+LOADERS =
+  babel: 'babel'
+  json: 'json'
+  file: 'file?name=[name].[ext]'
+  url: 'url?limit=30000&name=[name]-[hash].[ext]'
+  coffee: 'coffee'
+  cjsx: 'coffee-jsx'
+  lessCompiled: ExtractTextPlugin.extract('css!less')
+  style: 'style'
+  css: 'css'
+  less: 'less'
 
+RESOLVABLES =
+  js: { test: /\.js$/, exclude: /node_modules/, loader: LOADERS.babel}
+  json: { test: /\.json$/,   loader: LOADERS.json }
+  jsx: { test: /\.jsx$/, loader: LOADERS.babel}
+  coffee: { test: /\.coffee$/,  loader: LOADERS.coffee }
+  cjsx: { test: /\.cjsx$/,    loader: LOADERS.cjsx }
+
+STATICS =
+  json: RESOLVABLES.json
+  image: { test: /\.(png|jpg|svg|gif)/, loader: LOADERS.file }
+  font: { test: /\.(woff|woff2|eot|ttf)/, loader: LOADERS.url }
+
+BASE_BUILD =
+  # TODO
+  #   Loading .js through babel is not yet working.
+  #   It doesn't seem to exclude node_modules,
+  #   will need to eventually for ES6 support.
+  # js: RESOLVABLES.js
+  jsx: RESOLVABLES.jsx
+  coffee: RESOLVABLES.coffee
+  cjsx: RESOLVABLES.cjsx
+  less: { test: /\.less$/,    loader: LOADERS.lessCompiled }
+
+DEV_LOADERS = ['react-hot']
+
+BASE_DEV_LOADERS = _.map(BASE_BUILD, (loaderConfig, type) ->
+  config = _.pick(loaderConfig, 'test')
+  if type is 'less'
+    config.loaders = DEV_LOADERS.concat(LOADERS.style, LOADERS.css, LOADERS.less)
+  else
+    config.loaders = DEV_LOADERS.concat(loaderConfig.loader)
+
+  config
+)
+
+BASE_BUILD_LOADERS = _.values(BASE_BUILD)
+
+RESOLVABLE_EXTENSIONS = _.union([''], _.chain(RESOLVABLES).keys().map((ext) -> ".#{ext}").value())
 
 # base config, true for all builds no matter what conditions
 BASE_CONFIG =
   cache: true
   devtool: 'cheap-module-eval-source-map'
+  resolve:
+    extensions: RESOLVABLE_EXTENSIONS
   output:
     filename: '[name].js'
     # path: defined in project/environment specific
@@ -19,57 +69,27 @@ BASE_CONFIG =
     noParse: [
       /\/sinon\.js/
     ]
-    loaders:   [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader', query: { presets: ['stage-3']}}
-      { test: /\.jsx$/, loader: 'babel-loader', query: { presets: ['stage-3']}}
-      { test: /\.json$/,   loader: 'json-loader' }
-      { test: /\.(png|jpg|svg|gif)/, loader: 'file-loader?name=[name].[ext]'}
-      { test: /\.(woff|woff2|eot|ttf)/, loader: 'url-loader?limit=30000&name=[name]-[hash].[ext]' }
-    ]
-  resolve:
-    extensions: ['', '.js', '.jsx', '.json', '.coffee', '.cjsx']
+    loaders: _.values(STATICS)
   plugins: [
     new webpack.optimize.DedupePlugin()
   ]
 
 KARMA_BASE_CONFIG =
   devtool: 'cheap-module-eval-source-map'
-  node:
-    fs: "empty"
   resolve:
-    extensions: ['', '.js', '.json', '.coffee', '.cjsx']
+    extensions: RESOLVABLE_EXTENSIONS
+  node:
+    fs: 'empty'
   module:
     noParse: [
       /\/sinon\.js/
     ]
-    loaders: [
-      { test: /\.coffee$/, loader: "coffee"     }
-      { test: /\.json$/,   loader: "json"       }
-      { test: /\.cjsx$/,   loader: "coffee-jsx" }
-    ]
+    loaders: _.values(RESOLVABLES)
     preLoaders: [{
       test: /\.(cjsx|coffee)$/
-      loader: "coffeelint"
-      exclude: /(node_modules|resources|bower_components)/
+      loader: 'coffeelint'
+      exclude: /(node_modules|resources)/
     }]
-
-BASE_BUILD_LOADERS =
-  [
-    # less, coffee, and cjsx will have ["react-hot"]
-    # added in dev config.
-    { test: /\.less$/,   loader: ExtractTextPlugin.extract('css!less') }
-    { test: /\.coffee$/, loader: 'coffee' }
-    { test: /\.cjsx$/,   loader: 'coffee-jsx' }
-  ]
-
-DEV_LOADERS = ['react-hot']
-
-BASE_DEV_LOADERS =
-  [
-    { test: /\.coffee$/, loaders: DEV_LOADERS.concat('coffee')}
-    { test: /\.cjsx$/,   loaders: DEV_LOADERS.concat('coffee-jsx')}
-    { test: /\.less$/,   loaders: DEV_LOADERS.concat('style', 'css', 'less') }
-  ]
 
 mergeWebpackConfigs = ->
 
