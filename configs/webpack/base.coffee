@@ -4,6 +4,9 @@ _ = require 'lodash'
 webpack = require 'webpack'
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 
+Dashboard = require 'webpack-dashboard'
+DashboardPlugin = require 'webpack-dashboard/plugin'
+
 LOADERS =
   babel: 'babel'
   json: 'json'
@@ -181,6 +184,9 @@ makeDevelopmentBase = (projectConfig) ->
   publicPath = "#{servePath}/dist/"
   outputPath = "#{projectConfig.basePath}/"
 
+  dashboard = new Dashboard()
+
+
   developmentBase =
     output:
       path: 'dist'
@@ -189,6 +195,7 @@ makeDevelopmentBase = (projectConfig) ->
       loaders: BASE_DEV_LOADERS
     plugins: [
       new webpack.HotModuleReplacementPlugin()
+      new DashboardPlugin(dashboard.setData)
     ]
     devServer:
       contentBase: "#{projectConfig.basePath}/"
@@ -198,7 +205,7 @@ makeDevelopmentBase = (projectConfig) ->
       inline: true
       port: projectConfig.devPort
       # It suppress error shown in console, so it has to be set to false.
-      quiet: false
+      quiet: true
       progress: true
       # It suppress everything except error, so it has to be set to false as well
       # to see success build.
