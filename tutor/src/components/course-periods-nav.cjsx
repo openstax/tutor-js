@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+Router = require 'react-router'
 LoadableItem = require './loadable-item'
 _ = require 'underscore'
 camelCase = require 'camelcase'
@@ -18,13 +19,16 @@ CoursePeriodsNav = React.createClass
     periods: React.PropTypes.array.isRequired
     afterTabsItem: React.PropTypes.element
 
+  contextTypes:
+    router: React.PropTypes.func
 
   getDefaultProps: ->
     initialActive: 0
     sortedPeriods: []
 
   getInitialState: ->
-    active: @props.initialActive
+    {tab} = @context.router.getCurrentQuery()
+    active: if _.isUndefined(tab) then @props.initialActive else parseInt(tab, 10)
 
   componentWillMount: ->
     @setSortedPeriods(@props.periods)
@@ -34,6 +38,10 @@ CoursePeriodsNav = React.createClass
     CourseStore.off('course.loaded', @selectPeriod)
 
   componentWillReceiveProps: (nextProps) ->
+    {tab} = @context.router.getCurrentQuery()
+    unless _.isUndefined(tab)
+      tab = parseInt(tab, 10)
+      @updateTabSelectionState(tab)
     @setSortedPeriods(nextProps.periods)
 
   setSortedPeriods: (periods) ->
@@ -43,19 +51,25 @@ CoursePeriodsNav = React.createClass
 
   selectPeriod: (courseId) ->
     if courseId is @props.courseId
-      @onSelect(@state.active)
+      @onTabSelection(@state.active)
 
-  onSelect: (key) ->
-    {courseId, handleSelect} = @props
+  onTabSelection: (key) ->
     {sortedPeriods} = @state
+    @context.router.transitionTo(@context.router.getCurrentPathname(), {}, {tab: key})
+    @updateTabSelectionState(key)
 
-    period = sortedPeriods?[key]
+  updateTabSelectionState: (active) ->
+    return if @state.active is active
+
+    {courseId, handleSelect, handleKeyUpdate} = @props
+
+    period = @state.sortedPeriods[active]
     unless period?
       throw new Error("BUG: #{key} period does not exist for course #{courseId}. There are only #{periods.length}.")
       return
 
-    @setState(active: key)
-    handleSelect?(period, key)
+    @setState({active})
+    handleSelect?(period)
 
   renderPeriod: (period, key) ->
     className = classnames({'is-trouble': period.is_trouble})
@@ -82,7 +96,7 @@ CoursePeriodsNav = React.createClass
     {afterTabsItem} = @props
     periodsItems = _.map(sortedPeriods, @renderPeriod)
 
-    <BS.Nav bsStyle='tabs' activeKey={active} onSelect={@onSelect}>
+    <BS.Nav bsStyle='tabs' activeKey={active} onSelect={@onTabSelection}>
       {periodsItems}
       {afterTabsItem?()}
     </BS.Nav>
