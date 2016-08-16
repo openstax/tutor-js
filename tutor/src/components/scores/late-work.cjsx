@@ -125,7 +125,8 @@ LateWork = React.createClass
   displayName: 'LateWork'
 
   propTypes:
-    onOverlayStateChanged: React.PropTypes.func.isRequired
+    onMouseOver:  React.PropTypes.func.isRequired
+    onMouseLeave: React.PropTypes.func.isRequired
 
   getInitialState: ->
     isShown: true
@@ -140,11 +141,14 @@ LateWork = React.createClass
 
     <BS.OverlayTrigger
       ref="overlay" placement="top" trigger="click" rootClose={true}
-      onEnter={_.partial(@props.onOverlayStateChanged, true)}
-      onExit ={_.partial(@props.onOverlayStateChanged, false)}
+
+
       overlay={<LateWorkPopover task={@props.task} columnIndex={@props.columnIndex} hide={@hide} />}
     >
-      <div className="late-caret-trigger">
+      <div className="late-caret-trigger"
+        onMouseOver={@props.onMouseOver}
+        onMouseLeave={@props.onMouseLeave}
+      >
         <div className={caretClass}></div>
       </div>
     </BS.OverlayTrigger>
