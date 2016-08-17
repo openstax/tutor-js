@@ -1,5 +1,5 @@
 _ = require 'underscore'
-deepMerge = require 'lodash.merge'
+deepMerge = require 'lodash/merge'
 $ = require 'jquery'
 interpolate = require 'interpolate'
 

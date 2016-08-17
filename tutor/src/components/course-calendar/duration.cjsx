@@ -2,6 +2,7 @@ moment = require 'moment-timezone'
 twix = require 'twix'
 _ = require 'underscore'
 camelCase = require 'camelcase'
+padStart = require 'lodash/padStart'
 
 React = require 'react/addons'
 CoursePlan = require './plan'
@@ -64,12 +65,23 @@ CourseDuration = React.createClass
       .each(@setDuration(viewingDuration))
       .filter(@isInDuration(viewingDuration))
       .sortBy((plan) =>
-        [
+        expectedLength = 13
+        # Sort by the following conditions, in decreasing priority.
+        # A sorter here should be unix timestamp in ms.
+        # See http://momentjs.com/docs/#/displaying/unix-timestamp-milliseconds/.
+        sorters = [
           plan.duration.start().valueOf()
           plan.duration.end().valueOf()
           @_getEarliestOpensAt(plan).valueOf()
           moment(plan.last_published_at).valueOf()
-        ].join()
+        ]
+
+        # Left pad the ms to ensure that pre 1X10^12 millseconds (~2001/09/08)
+        # become 0_ _ _ _ _ _ _ _ _ _ _ _ where _ is some digit.
+        # This ensures that all sorters, regardless of time until 1X10^13 millseconds,
+        # will sort with their respective priorities, as each sorter will take up
+        # the same amount of space in the resulting sortBy string.
+        _.map(sorters, _.partial(padStart, _, expectedLength, '0')).join()
       )
       .value()
 
