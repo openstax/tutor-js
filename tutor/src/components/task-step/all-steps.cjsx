@@ -60,17 +60,16 @@ Placeholder = React.createClass
     @props.onNextStep()
   renderBody: ->
     {id, taskId} = @props
-
-    step = TaskStepStore.get(id)
     {type} = TaskStore.get(taskId)
+    exists = TaskStepStore.shouldExist(id)
 
-    message = if step.exists is false
-      "Looks like we don't have a personalized question this time. If you've answered all the other questions, you're done!"
-    else
+    message = if exists
       "Unlock this personalized question by answering more #{type} problems for this assignment."
+    else
+      "Looks like we don't have a personalized question this time. If you've answered all the other questions, you're done!"
 
     classes = classnames 'task-step-personalized',
-      'task-step-personalized-missing': step.exists is false
+      'task-step-personalized-missing': not exists
 
     <p className={classes}>{message}</p>
 

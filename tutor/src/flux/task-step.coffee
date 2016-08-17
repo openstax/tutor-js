@@ -113,6 +113,9 @@ TaskStepConfig =
       step = @_get(id)
       step?.type is 'placeholder'
 
+    shouldExist: (id) ->
+      @_get(id)?.exists isnt false
+
     getTaskId: (id) ->
       step = @_get(id)
       step.task_id

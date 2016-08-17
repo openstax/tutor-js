@@ -63,10 +63,12 @@ module.exports = React.createClass
 
   render: ->
     {id} = @props
-
-    <LoadableItem
-      id={id}
-      store={TaskStepStore}
-      actions={TaskStepActions}
-      renderItem={=> <TaskStepLoaded {...@props} onStepCompleted={@onStepCompleted}/>}
-    />
+    unless TaskStepStore.isPlaceholder(id) and not TaskStepStore.shouldExist(id)
+      <LoadableItem
+        id={id}
+        store={TaskStepStore}
+        actions={TaskStepActions}
+        renderItem={=> <TaskStepLoaded {...@props} onStepCompleted={@onStepCompleted}/>}
+      />
+    else
+      <TaskStepLoaded {...@props} onStepCompleted={@onStepCompleted}/>
