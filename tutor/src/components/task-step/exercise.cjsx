@@ -8,10 +8,8 @@ _ = require 'underscore'
 
 BrowseTheBook = require '../buttons/browse-the-book'
 
-{ChapterSectionMixin, CardBody, ExerciseWithScroll} = require 'shared'
-{ExControlButtons} = require 'shared/src/components/exercise/controls'
+{ChapterSectionMixin, CardBody, ExerciseWithScroll, ExControlButtons} = require 'shared'
 
-ScrollSpy = require '../scroll-spy'
 StepFooter = require './step-footer'
 
 canOnlyContinue = (id) ->

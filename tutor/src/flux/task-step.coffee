@@ -19,7 +19,7 @@ TaskStepConfig =
   _loaded: (obj, id) ->
     if not obj.task_id
       obj.task_id = @_local[id]?.task_id
-    @emit("step.loaded", id)
+    @emit('step.loaded', id)
     _.each(@_recoveryTarget, _.partial(@_updateRecoveredFor, id), @)
     StepTitleActions.parseStep(obj)
 
@@ -39,6 +39,7 @@ TaskStepConfig =
     if isMissingExercises(data) and @exports.isPlaceholder.call(@, id)
       @setNoPersonalized(id)
       @emitChange()
+      @emit('step.loaded', id)
     else
       @FAILED(status, statusMessage, id)
 
@@ -49,8 +50,9 @@ TaskStepConfig =
       placeholder_for: 'exercise'
       exists: false
       id: id
+      is_completed: true
 
-    @_local[id] = _.extend({}, fakeEmptyPersonalized, @_get(id))
+    @_local[id] = _.extend({}, @_get(id), fakeEmptyPersonalized)
 
   forceReload: (id) ->
     @_reload[id] = true
