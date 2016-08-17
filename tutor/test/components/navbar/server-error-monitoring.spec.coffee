@@ -34,3 +34,12 @@ describe 'Server Error Monitoring', ->
       '{"status":422,"errors":[{"code":"no_exercises","message":' +
       '"No exercises were found to build the Practice Widget.","data":null}]}'
       , {url: '/test', displayError: true})
+
+  it 'renders no error dialog when displayError is set to false', ->
+    AppActions.setServerError(500, 'an error happens',
+      {url: '/test', displayError: false})
+    Testing.renderComponent( ErrorMonitor ).then ->
+      expect(Dialog.show).to.have.not.been.calledWith(sinon.match(
+        title: 'Server Error'
+      ))
+

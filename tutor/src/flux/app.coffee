@@ -67,7 +67,7 @@ AppConfig =
 
   setServerError: (statusCode, message, requestDetails) ->
     status = @updateForResponse statusCode, message, requestDetails
-    return unless requestDetails
+    return unless requestDetails.displayError
     @_currentServerError = status
     unless _.isObject(message)
       try

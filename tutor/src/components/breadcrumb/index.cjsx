@@ -87,7 +87,7 @@ BreadcrumbTaskDynamic = React.createClass
   checkPlaceholder: ->
     {task_id, id} = @props.crumb.data
     unless TaskStore.hasIncompleteCoreStepsIndexes(task_id)
-      TaskStepActions.load(id)
+      TaskStepActions.loadPersonalized(id)
 
   update: (id) ->
     {crumb} = @props

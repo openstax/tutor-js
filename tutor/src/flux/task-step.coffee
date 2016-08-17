@@ -7,7 +7,10 @@ Durations = require '../helpers/durations'
 
 RECOVERY = 'recovery'
 
-{CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
+{CrudConfig, makeSimpleStore, extendConfig, STATES} = require './helpers'
+
+isMissingExercises = (response) ->
+  response.errors? and _.findWhere(response.errors, {code: 'no_exercises'})
 
 TaskStepConfig =
   _asyncStatus: {}
@@ -25,6 +28,29 @@ TaskStepConfig =
   _saved: (obj, id) ->
     obj.task_id = @_local[id]?.task_id
     obj
+
+  loadPersonalized: (id) ->
+    @load(id)
+
+  loadedNoPersonalized: (obj, id) ->
+    {data, status, statusMessage} = obj
+    @_asyncStatus[id] = STATES.LOADED
+
+    if isMissingExercises(data) and @exports.isPlaceholder.call(@, id)
+      @setNoPersonalized(id)
+      @emitChange()
+    else
+      @FAILED(status, statusMessage, id)
+
+  setNoPersonalized: (id) ->
+    fakeEmptyPersonalized =
+      type: 'placeholder'
+      group: 'personalized'
+      placeholder_for: 'exercise'
+      exists: false
+      id: id
+
+    @_local[id] = _.extend({}, fakeEmptyPersonalized, @_get(id))
 
   forceReload: (id) ->
     @_reload[id] = true
@@ -85,7 +111,10 @@ TaskStepConfig =
 
     isPlaceholder: (id) ->
       step = @_get(id)
-      step.type is 'placeholder'
+      step?.type is 'placeholder'
+
+    shouldExist: (id) ->
+      @_get(id)?.exists isnt false
 
     getTaskId: (id) ->
       step = @_get(id)

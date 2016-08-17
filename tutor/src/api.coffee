@@ -185,6 +185,12 @@ start = (bootstrapData) ->
     throw new Error('BUG: Wrong type') unless typeof id is 'string' or typeof id is 'number'
     url: "/api/steps/#{id}"
 
+  # Loading personalized step should fail without should server error modal.
+  apiHelper TaskStepActions, TaskStepActions.loadPersonalized, TaskStepActions.loaded, 'GET', (id) ->
+    throw new Error('BUG: Wrong type') unless typeof id is 'string' or typeof id is 'number'
+    url: "/api/steps/#{id}"
+  , displayError: false, handleError: TaskStepActions.loadedNoPersonalized
+
   # # Go from complete to load so we fetch the new JSON
   # apiHelper TaskStepActions, TaskStepActions.complete, TaskStepActions.loaded, 'PUT', (id) ->
   #   url: "/api/steps/#{id}/completed"
