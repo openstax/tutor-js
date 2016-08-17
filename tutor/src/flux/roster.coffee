@@ -29,6 +29,7 @@ RosterConfig = {
       students = roster.students
       student = _.findWhere(students, id: studentId)
       _.extend(student, newProps) if student
+    @emit("saved:#{studentId}")
     @emitChange()
 
   delete: (studentId) ->
