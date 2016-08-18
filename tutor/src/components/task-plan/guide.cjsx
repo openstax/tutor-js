@@ -3,7 +3,7 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
 
-{CourseStore, CourseActions} = require '../../flux/course'
+{CourseGuideStore, CourseGuideActions} = require '../../flux/guide'
 LoadableItem = require '../loadable-item'
 PracticeButton = require '../buttons/practice-button'
 
@@ -31,7 +31,7 @@ Guide = React.createClass
   render: ->
     {id} = @props
 
-    guide = CourseStore.getGuide(id)
+    guide = CourseGuideStore.get(id)
     table = _.map(guide.fields, @renderCrudeTable)
 
     <BS.Panel className='-course-guide-container'>
@@ -68,11 +68,8 @@ GuideShell = React.createClass
     {courseId} = @context.router.getCurrentParams()
 
     <LoadableItem
-      store={CourseStore}
-      actions={CourseActions}
-      load={CourseActions.loadGuide}
-      isLoaded={CourseStore.isGuideLoaded}
-      isLoading={CourseStore.isGuideLoading}
+      store={CourseGuideStore}
+      actions={CourseGuideActions}
       id={courseId}
       renderItem={-> <Guide key={courseId} id={courseId} />}
     />
