@@ -44,6 +44,9 @@ CrudConfig = ->
       @_reset?()
       @emitChange()
 
+    dontReload: (id) ->
+      @_asyncStatus[id] is LOADED and @_HACK_DO_NOT_RELOAD
+
     FAILED: (status, msg, id) ->
       @_asyncStatus[id] = FAILED
       @_errors[id] = msg
@@ -54,7 +57,7 @@ CrudConfig = ->
 
     load: (id) ->
       # Add a shortcut for unit testing
-      return if @_asyncStatus[id] is LOADED and @_HACK_DO_NOT_RELOAD
+      return if @dontReload(id)
       @_reload[id] = false
       @_asyncStatus[id] = LOADING
       @emitChange()

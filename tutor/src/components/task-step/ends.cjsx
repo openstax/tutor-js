@@ -12,6 +12,7 @@ StepFooterMixin = require './step-footer-mixin'
 
 TaskStep = require './index'
 {CourseStore} = require '../../flux/course'
+{CoursePracticeStore} = require '../../flux/practice'
 {TaskStore} = require '../../flux/task'
 {TaskStepStore} = require '../../flux/task-step'
 {CardBody, PinnableFooter} = require 'shared'
@@ -41,7 +42,7 @@ PracticeEnd = React.createClass
     {courseId, taskId, reloadPractice} = @props
     {type} = TaskStore.get(taskId)
 
-    pageIds = CourseStore.getPracticePageIds(courseId)
+    pageIds = CoursePracticeStore.getCurrentTopics(courseId)
 
     fallbackLink =
       to: 'viewPerformanceForecast'
