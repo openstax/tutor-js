@@ -11,11 +11,11 @@ StepFooter = require './step-footer'
 
 Placeholder = React.createClass
   displayName: 'Placeholder'
-  getDefaultProps: ->
-    className: 'placeholder-step'
-  isContinueEnabled: ->
-    {review} = @props
-    not review?.length
+  propTypes:
+    id: React.PropTypes.string.isRequired
+    taskId: React.PropTypes.string.isRequired
+    courseId: React.PropTypes.string.isRequired
+    onNextStep: React.PropTypes.func.isRequired
   onContinue: ->
     @props.onNextStep()
   render: ->
@@ -23,7 +23,6 @@ Placeholder = React.createClass
     {type} = TaskStore.get(taskId)
     step = TaskStepStore.get(id)
     exists = TaskStepStore.shouldExist(id)
-    console.info(step)
 
     message = if exists
       "Unlock this personalized question by answering more #{type} problems for this assignment."

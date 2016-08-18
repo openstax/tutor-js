@@ -68,7 +68,8 @@
       "related_content": [{
           "title": "Physics is cool, yo",
           "chapter_section": "6.4"
-      }]
+      }],
+      "exists": false
     }
   ]
 }
