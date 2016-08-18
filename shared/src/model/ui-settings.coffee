@@ -19,7 +19,7 @@ saveSettings = _.debounce( ->
 UiSettings = {
 
   initialize: (settings) ->
-    SETTINGS = _.clone(settings)
+    SETTINGS = _.clone(settings) or {}
 
   get: (key) ->
     SETTINGS[key]

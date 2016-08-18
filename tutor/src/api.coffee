@@ -10,6 +10,7 @@ _ = require 'underscore'
 TimeHelper = require './helpers/time'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {CourseActions} = require './flux/course'
+{CoursePracticeActions} = require './flux/practice'
 {JobActions} = require './flux/job'
 {EcosystemsActions} = require './flux/ecosystems'
 PerformanceForecast = require './flux/performance-forecast'
@@ -104,9 +105,6 @@ start = (bootstrapData) ->
   apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', (ecosystemId) ->
     url: "/api/ecosystems/#{ecosystemId}/readings"
 
-  apiHelper CourseActions, CourseActions.loadPractice, CourseActions.loadedPractice, 'GET', (courseId) ->
-    url: "/api/courses/#{courseId}/practice"
-
   apiHelper CourseActions, CourseActions.loadGuide, CourseActions.loadedGuide, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/guide"
 
@@ -117,10 +115,12 @@ start = (bootstrapData) ->
   apiHelper CCDashboardActions, CCDashboardActions.load, CCDashboardActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/cc/dashboard"
 
-  createMethod = if IS_LOCAL then 'GET' else 'POST' # Hack to get back a full practice on create when on local
-  apiHelper CourseActions, CourseActions.createPractice, CourseActions.createdPractice, createMethod, (courseId, params) ->
+  apiHelper CoursePracticeActions, CoursePracticeActions.create, CoursePracticeActions.created, 'POST', (courseId, params) ->
     url: "/api/courses/#{courseId}/practice"
     payload: params
+
+  apiHelper CoursePracticeActions, CoursePracticeActions.load, CoursePracticeActions.loaded, 'GET', (courseId) ->
+    url: "/api/courses/#{courseId}/practice"
 
   apiHelper CourseActions, CourseActions.load, CourseActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}"
@@ -167,12 +167,12 @@ start = (bootstrapData) ->
     url: "/api/students/#{id}", payload: params
   apiHelper RosterActions, RosterActions.undrop, RosterActions.undropped, 'PUT', (id) ->
     url: "/api/students/#{id}/undrop"
-  apiHelper RosterActions, RosterActions.create, RosterActions.created, createMethod, (courseId, params) ->
+  apiHelper RosterActions, RosterActions.create, RosterActions.created, 'POST', (courseId, params) ->
     url: "/api/courses/#{courseId}/roster", payload: params
   apiHelper RosterActions, RosterActions.load, RosterActions.loaded, 'GET', (id) ->
     url: "/api/courses/#{id}/roster"
 
-  apiHelper PeriodActions, PeriodActions.create, PeriodActions.created, createMethod, (courseId, params) ->
+  apiHelper PeriodActions, PeriodActions.create, PeriodActions.created, 'POST', (courseId, params) ->
     url: "/api/courses/#{courseId}/periods", payload: params
   apiHelper PeriodActions, PeriodActions.save, PeriodActions.saved, 'PATCH', (id, period, params) ->
     url: "/api/periods/#{period}", payload: params

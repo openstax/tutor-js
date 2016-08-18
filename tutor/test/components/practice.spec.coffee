@@ -4,7 +4,7 @@ _ = require 'underscore'
 {taskActions, taskTests, taskChecks} = require './helpers/task'
 {routerStub} = require './helpers/utilities'
 {UiSettings} = require 'shared'
-{CourseActions, CourseStore} = require '../../src/flux/course'
+{CoursePracticeActions, CoursePracticeStore} = require '../../src/flux/practice'
 {TaskActions, TaskStore} = require '../../src/flux/task'
 {TaskStepActions, TaskStepStore} = require '../../src/flux/task-step'
 
@@ -19,10 +19,10 @@ describe 'Practice Widget', ->
     UiSettings.initialize({'has-viewed-two-step-help': true})
     TaskActions.HACK_DO_NOT_RELOAD(true)
     TaskStepActions.HACK_DO_NOT_RELOAD(true)
-    CourseActions.HACK_DO_NOT_RELOAD(true)
+    CoursePracticeActions.HACK_DO_NOT_RELOAD(true)
 
-    CourseActions.loadedPractice(VALID_MODEL, courseId)
-    taskId = CourseStore.getPracticeId(courseId)
+    CoursePracticeActions.loaded(VALID_MODEL, courseId)
+    taskId = CoursePracticeStore.getTaskId(courseId)
 
     taskTests
       .renderStep(taskId)
@@ -35,13 +35,13 @@ describe 'Practice Widget', ->
     UiSettings._reset()
     taskTests.unmount()
 
-    CourseActions.reset()
+    CoursePracticeActions.reset()
     TaskActions.reset()
     TaskStepActions.reset()
 
     TaskActions.HACK_DO_NOT_RELOAD(false)
     TaskStepActions.HACK_DO_NOT_RELOAD(false)
-    CourseActions.HACK_DO_NOT_RELOAD(false)
+    CoursePracticeActions.HACK_DO_NOT_RELOAD(false)
 
   it 'should render empty free response for unanswered exercise', (done) ->
     taskChecks
@@ -89,10 +89,10 @@ describe 'Practice Widget, through route', ->
     UiSettings.initialize({'has-viewed-two-step-help': true})
     TaskActions.HACK_DO_NOT_RELOAD(true)
     TaskStepActions.HACK_DO_NOT_RELOAD(true)
-    CourseActions.HACK_DO_NOT_RELOAD(true)
+    CoursePracticeActions.HACK_DO_NOT_RELOAD(true)
 
-    CourseActions.loadedPractice(VALID_MODEL, courseId)
-    taskId = CourseStore.getPracticeId(courseId)
+    CoursePracticeActions.loaded(VALID_MODEL, courseId)
+    taskId = CoursePracticeStore.getTaskId(courseId)
 
     taskTests
       .goToTask("/courses/#{courseId}/practice", taskId)
@@ -105,13 +105,13 @@ describe 'Practice Widget, through route', ->
     UiSettings._reset()
     taskTests.unmount()
 
-    CourseActions.reset()
+    CoursePracticeActions.reset()
     TaskActions.reset()
     TaskStepActions.reset()
 
     TaskActions.HACK_DO_NOT_RELOAD(false)
     TaskStepActions.HACK_DO_NOT_RELOAD(false)
-    CourseActions.HACK_DO_NOT_RELOAD(false)
+    CoursePracticeActions.HACK_DO_NOT_RELOAD(false)
 
   it 'should load expected practice at the practice url', ->
     tests = ({div}) ->

@@ -5,6 +5,7 @@ classnames = require 'classnames'
 {TaskStore} = require '../../flux/task'
 {StepContent, ReadingStepContent} = require './step-with-reading-content'
 Exercise = require './exercise'
+Placeholder = require './placeholder'
 Markdown = require '../markdown'
 StepMixin = require './step-mixin'
 StepFooterMixin = require './step-footer-mixin'
@@ -47,32 +48,6 @@ Video = React.createClass
   renderBody: ->
     {id} = @props
     <StepContent id={id} stepType='video'/>
-
-Placeholder = React.createClass
-  displayName: 'Placeholder'
-  getDefaultProps: ->
-    className: 'placeholder-step'
-  mixins: [StepMixin, StepFooterMixin]
-  isContinueEnabled: ->
-    {review} = @props
-    not review?.length
-  onContinue: ->
-    @props.onNextStep()
-  renderBody: ->
-    {id, taskId} = @props
-    {type} = TaskStore.get(taskId)
-    exists = TaskStepStore.shouldExist(id)
-
-    message = if exists
-      "Unlock this personalized question by answering more #{type} problems for this assignment."
-    else
-      "Looks like we don't have a personalized question this time. If you've answered all the other questions, you're done!"
-
-    classes = classnames 'task-step-personalized',
-      'task-step-personalized-missing': not exists
-
-    <p className={classes}>{message}</p>
-
 
 ExternalUrl = React.createClass
   displayName: 'ExternalUrl'

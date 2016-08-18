@@ -46,6 +46,25 @@
     }
   }
 
+  .task-step-personalized {
+    .exercise-typography();
+    padding-top: @tutor-card-body-padding-horizontal/2;
+    padding-bottom: @tutor-card-body-padding-horizontal/2;
+
+    &:not(.task-step-personalized-missing) {
+      display: flex;
+      align-items: center;
+
+      &::before {
+        .fa-icon();
+        content: @fa-var-lock;
+        font-size: 6rem;
+        color: @tutor-neutral;
+        padding-right: 2rem;
+      }
+    }
+  }
+
   .openstax-exercise-card {
     padding: @tutor-panel-padding-vertical @tutor-card-body-padding-horizontal;
 

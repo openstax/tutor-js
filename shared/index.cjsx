@@ -1,5 +1,6 @@
 {PinnedHeader, CardBody, PinnableFooter} = require './src/components/pinned-header-footer-card/sections'
 {Exercise, ExerciseWithScroll} = require './src/components/exercise'
+{ExControlButtons} = require './src/components/exercise/controls'
 
 require './src/helpers/polyfills'
 
@@ -15,6 +16,7 @@ module.exports = {
   CloseButton:            require './src/components/buttons/close-button'
 
   Exercise,
+  ExControlButtons,
   ExerciseGroup:          require './src/components/exercise/group'
   ExerciseIdentifierLink: require './src/components/exercise-identifier-link'
   ExerciseHelpers:        require './src/model/exercise'

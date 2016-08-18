@@ -253,7 +253,7 @@ checks._checkIsPendingStep = (stepIndex, {div, component, stepId, taskId, state,
   placeholderBreadcrumbDOM = placeholderBreadcrumb.getDOMNode()
 
   expect(placeholderBreadcrumbDOM.className).to.contain('placeholder')
-  expect(div.querySelector('.placeholder-step')).to.not.be.null
+  expect(div.querySelector('.task-step-personalized')).to.not.be.null
 
   {div, component, stepId, taskId, state, router, history}
 

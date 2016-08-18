@@ -8,7 +8,7 @@ App = require './app'
 Task = require './task'
 LoadableItem = require './loadable-item'
 {TaskActions, TaskStore} = require '../flux/task'
-{CourseActions, CourseStore} = require '../flux/course'
+{CoursePracticeActions, CoursePracticeStore} = require '../flux/practice'
 {CurrentUserActions, CurrentUserStore} = require '../flux/current-user'
 
 
@@ -38,15 +38,15 @@ SinglePractice = React.createClass
     router: React.PropTypes.func
 
   componentWillMount: ->
+    CoursePracticeStore.on("loaded.#{@getId()}", @update)
     @createPractice(@getId())
-    CourseStore.on('practice.loaded', @update)
 
   componentWillUnmount: ->
-    CourseStore.off('practice.loaded', @update)
+    CoursePracticeStore.off("loaded.#{@getId()}", @update)
 
   createPractice: (courseId) ->
     query = @context?.router?.getCurrentQuery()
-    CourseActions.createPractice(courseId, query)
+    CoursePracticeActions.create(courseId, query)
 
   getInitialState: ->
     # force a new practice each time
@@ -58,7 +58,7 @@ SinglePractice = React.createClass
 
   update: ->
     @setState({
-      taskId:  CourseStore.getPracticeId(@getId())
+      taskId:  CoursePracticeStore.getTaskId(@getId())
     })
 
   render: ->
