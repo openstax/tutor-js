@@ -4,6 +4,7 @@ _ = require 'underscore'
 
 ChapterSectionType = require './chapter-section-type'
 PerformanceForecast = require '../../flux/performance-forecast'
+{CoursePracticeStore} = require '../../flux/practice'
 
 module.exports = React.createClass
   displayName: 'PerformanceForecastProgressBar'
@@ -19,7 +20,8 @@ module.exports = React.createClass
     @setState({uniqueId: uniqueId})
 
   render: ->
-    {section, onPractice} = @props
+    {section, onPractice, courseId} = @props
+    {page_ids} = section
 
     bar = if PerformanceForecast.Helpers.canDisplayForecast(section.clue, @props.sampleSizeThreshold)
       percent = Math.round((section.clue.value / 1) * 100)
@@ -30,7 +32,7 @@ module.exports = React.createClass
         {if onPractice then 'Practice more to get forecast' else 'Not enough exercises completed'}
       </span>
 
-    if onPractice
+    if onPractice and not CoursePracticeStore.isDisabled(courseId, {page_ids})
       tooltip = <BS.Tooltip id={@state.uniqueId}>Click to practice</BS.Tooltip>
       <BS.OverlayTrigger placement='bottom' overlay={tooltip}>
         <BS.Button onClick={-> onPractice(section)} block>{bar}</BS.Button>

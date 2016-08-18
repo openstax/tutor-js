@@ -1,8 +1,10 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
+classnames = require 'classnames'
 
 PerformanceForecast = require '../../flux/performance-forecast'
+{CoursePracticeStore} = require '../../flux/practice'
 ChapterSectionType = require './chapter-section-type'
 
 module.exports = React.createClass
@@ -22,17 +24,20 @@ module.exports = React.createClass
   onClick: ->
     {courseId, sections} = @props
     page_ids = PerformanceForecast.Helpers.pagesForSections(sections)
-    unless _.isEmpty(page_ids)
+    unless @isDisabled()
       @context.router.transitionTo('viewPractice', {courseId}, {page_ids})
 
-  render: ->
-    {sections} = @props
+  isDisabled: ->
+    {sections, courseId} = @props
     page_ids = PerformanceForecast.Helpers.pagesForSections(sections)
-    classNames = ['practice', @props.practiceType]
-    isDisabled = _.isEmpty(page_ids)
-    classNames.push 'disabled' if isDisabled
+    _.isEmpty(page_ids) or CoursePracticeStore.isDisabled(courseId, {page_ids})
 
-    button = <BS.Button className={classNames.join(' ')} onClick={@onClick}>
+  render: ->
+    isDisabled = @isDisabled()
+    classes = classnames 'practice', @props.practiceType,
+      disabled: isDisabled
+
+    button = <BS.Button className={classes} onClick={@onClick}>
       {@props.title}
       <i />
     </BS.Button>
