@@ -1,11 +1,11 @@
 _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
-{AsyncButton} = require 'shared'
+{ ChangeStudentIdForm } = require 'shared'
 ENTER = 'Enter'
 
 Course = require './model'
-RequestStudentId = require './request-student-id'
+ErrorList = require './error-list'
 Navigation = require '../navigation/model'
 
 UpdateStudentIdentifer = React.createClass
@@ -30,18 +30,6 @@ UpdateStudentIdentifer = React.createClass
   propTypes:
     course: React.PropTypes.instanceOf(Course).isRequired
 
-  startConfirmation: ->
-    @props.course.confirm(@refs.input.getValue())
-
-  onKeyPress: (ev) ->
-    @startConfirmation() if ev.key is ENTER
-
-  onConfirmKeyPress: (ev) ->
-    @startConfirmation() if ev.key is ENTER
-
-  cancelConfirmation: ->
-    @props.course.resetToBlankState()
-
   onSubmit: (studentId) ->
     @props.course.updateStudentIdentifier(studentId)
 
@@ -57,15 +45,18 @@ UpdateStudentIdentifer = React.createClass
     return @renderComplete() if @state.requestSuccess
 
     <BS.Row>
-      <RequestStudentId
+      <ChangeStudentIdForm
         label="Enter your school issued ID:"
         title="Change your student ID"
         onCancel={@onCancel}
         onSubmit={@onSubmit}
         saveButtonLabel="Save"
-        canCancel={true}
-        {...@props}
-      />
+
+        isBusy={@props.course.isBusy}
+        studentId={@props.course.getStudentIdentifier()}
+      >
+        <ErrorList course={@props.course} />
+      </ChangeStudentIdForm>
     </BS.Row>
 
 module.exports = UpdateStudentIdentifer

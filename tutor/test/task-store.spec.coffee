@@ -67,7 +67,7 @@ describe 'Task Store', ->
     expect(TaskStore.isLoading(id)).to.be.true
     expect(TaskStore.isFailed(id)).to.be.false
 
-    TaskActions.FAILED(404, {err:'message'}, id)
+    TaskActions.FAILED(404, {err:'message'}, null, id)
 
     expect(TaskStore.isUnknown(id)).to.be.false
     expect(TaskStore.isLoaded(id)).to.be.false

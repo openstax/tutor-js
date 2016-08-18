@@ -14,7 +14,7 @@ describe 'UpdateStudentIdentifier Component', ->
     sinon.stub(@props.course, 'updateStudent')
     Testing.renderComponent( UpdateStudentIdentifier, props: @props ).then ({dom}) =>
       dom.querySelector('input').value = 'test value'
-      Testing.actions.click(dom.querySelector('.btn-default'))
+      Testing.actions.click(dom.querySelector('.btn'))
       expect(@props.course.updateStudent).to.have.been.calledWith(student_identifier: 'test value')
 
   it 'updates when a successful response is recieved',  (done) ->
@@ -23,7 +23,7 @@ describe 'UpdateStudentIdentifier Component', ->
     )
     Testing.renderComponent( UpdateStudentIdentifier, props: @props ).then ({element, dom}) ->
       dom.querySelector('input').value = 'new id'
-      Testing.actions.click(dom.querySelector('.btn-default'))
+      Testing.actions.click(dom.querySelector('.btn'))
       _.defer ->
         expect(element.getDOMNode().textContent).to.match(/You have successfully updated your student identifier/)
         done()

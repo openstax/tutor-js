@@ -1,7 +1,6 @@
 moment = require 'moment-timezone'
 require 'moment-timezone/moment-timezone-utils'
 _ = require 'underscore'
-
 # Map http://www.iana.org/time-zones names to timezone names in Rails
 # https://github.com/openstax/tutor-server/pull/1057#issuecomment-212678167
 TIME_LINKS =
@@ -14,6 +13,7 @@ TIME_LINKS =
   'US/Eastern': 'Eastern Time (US & Canada)'
   'US/East-Indiana': 'Indiana (East)'
   'Canada/Atlantic': 'Atlantic Time (Canada)'
+  'Asia/Shanghai': 'Shanghai'
 
 ISO_DATE_REGEX = /\d{4}[\/\-](0[1-9]|1[012])[\/\-](0[1-9]|[12][0-9]|3[01])/
 ISO_TIME_REGEX = /([01][0-9]|2[0-3]):[0-5]\d/

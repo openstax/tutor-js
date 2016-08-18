@@ -47,10 +47,10 @@ CrudConfig = ->
     dontReload: (id) ->
       @_asyncStatus[id] is LOADED and @_HACK_DO_NOT_RELOAD
 
-    FAILED: (status, msg, id) ->
+    FAILED: (status, msg, data, id) ->
       @_asyncStatus[id] = FAILED
       @_errors[id] = msg
-      @_failed?({status, msg}, id)
+      @_failed?({status, msg, data}, id)
       unless status is 0 # indicates network failure
         delete @_local[id]
         @emitChange()

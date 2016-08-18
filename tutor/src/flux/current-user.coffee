@@ -64,6 +64,11 @@ ROUTES =
     allowedForCourse: (course) -> course?.is_concept_coach is true
     roles:
       teacher: 'ccDashboardHelp'
+  changeId:
+    label: 'Change Student ID'
+    allowedForCourse: (course) -> true
+    roles:
+      student: 'changeStudentId'
 
 CurrentUserActions = flux.createActions [
   'setToken'  # (token) ->
@@ -142,6 +147,7 @@ CurrentUserStore = flux.createStore
     getCSRFToken: -> CSRF_Token
     getName: -> @_user.name
     isAdmin: -> @_user.is_admin
+    get: -> @_user
     isContentAnalyst: -> @_user.is_content_analyst
     isCustomerService: -> @_user.is_customer_service
     getProfileUrl: -> @_user.profile_url

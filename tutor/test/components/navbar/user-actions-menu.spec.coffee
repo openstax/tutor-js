@@ -20,7 +20,9 @@ testWithRole = (roleType) ->
         roleItems = Array.prototype.slice.call(dropdownItems, 0, -4)
         labels = _.pluck(@roleTestParams.menu, 'label')
         labels.push 'Browse the Book'
-        expect(_.pluck(roleItems, 'innerText')).to.deep.equal(labels)
+        roleItemLabels = _.pluck(roleItems, 'innerText')
+
+        expect(roleItemLabels).to.deep.equal(labels)
         done()
 
     it 'should have link to browse the book', (done) ->

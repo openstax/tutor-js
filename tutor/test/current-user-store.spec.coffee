@@ -23,6 +23,11 @@ STUDENT_MENU = [
     params: {courseId: '1'}
     label: 'Performance Forecast'
   }
+  {
+    name: 'changeStudentId'
+    params: {courseId: '1'}
+    label: 'Change Student ID'
+  }
 ]
 
 TEACHER_MENU = [

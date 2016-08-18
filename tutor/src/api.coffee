@@ -19,6 +19,7 @@ PerformanceForecast = require './flux/performance-forecast'
 {ScoresActions} = require './flux/scores'
 {ScoresExportActions} = require './flux/scores-export'
 {RosterActions} = require './flux/roster'
+{StudentIdActions} = require './flux/student-id'
 {PeriodActions} = require './flux/period'
 
 {TaskActions} = require './flux/task'
@@ -172,6 +173,11 @@ start = (bootstrapData) ->
     url: "/api/courses/#{courseId}/roster", payload: params
   apiHelper RosterActions, RosterActions.load, RosterActions.loaded, 'GET', (id) ->
     url: "/api/courses/#{id}/roster"
+
+  apiHelper StudentIdActions, StudentIdActions.load, StudentIdActions.loaded, 'GET', (courseId) ->
+    url: "/auth/status"
+  apiHelper StudentIdActions, StudentIdActions.save, StudentIdActions.saved, 'PATCH', (courseId, params) ->
+    url: "/api/user/courses/#{courseId}/student", payload: params
 
   apiHelper PeriodActions, PeriodActions.create, PeriodActions.created, 'POST', (courseId, params) ->
     url: "/api/courses/#{courseId}/periods", payload: params
