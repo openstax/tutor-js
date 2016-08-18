@@ -23,7 +23,7 @@ if [ "$2" = "archive" ]; then
     fi
     echo -n '  "'$F'": "'$MD5'"' >> ./rev-manifest.json
     LAST_FILE=$F
-    mv $F $MD5
+    cp $F $MD5
   done
   echo "}" >> ./rev-manifest.json
   cd ..
