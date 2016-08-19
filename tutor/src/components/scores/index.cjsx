@@ -6,7 +6,7 @@ ScoresTable = require './table'
 TableFilters = require './table-filters'
 
 Router = require 'react-router'
-
+merge = require 'lodash/merge'
 {CourseStore} = require '../../flux/course'
 {ScoresStore, ScoresActions} = require '../../flux/scores'
 {ScoresExportStore, ScoresExportActions} = require '../../flux/scores-export'
@@ -43,7 +43,8 @@ Scores = React.createClass
   changeDisplayAs:(mode) -> @updateStudentData({displayAs: mode})
 
   updateStudentData: (nextState) ->
-    state = _.extend({}, @state, nextState)
+    state = merge({}, @state, nextState)
+
     scores = ScoresStore.getEnrolledScoresForPeriod(@props.courseId, state.period_id)
     if scores?
       @setState(_.extend(state, {

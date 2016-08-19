@@ -55,11 +55,11 @@ getSortValue = (student, key, dataType, displayAs) ->
 
 
 
-StudentDataSorter = ({sort, dataType, displayAs}) ->
+StudentDataSorter = ({sort, displayAs}) ->
 
   return (a, b) ->
-    a = getSortValue(a, sort.key, dataType, displayAs)
-    b = getSortValue(b, sort.key, dataType, displayAs)
+    a = getSortValue(a, sort.key, sort.dataType, displayAs)
+    b = getSortValue(b, sort.key, sort.dataType, displayAs)
     cmp = if a < b then -1 else if a > b then 1 else 0
     return if sort.asc then cmp else (cmp * -1)
 

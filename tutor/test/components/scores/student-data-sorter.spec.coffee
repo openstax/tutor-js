@@ -14,7 +14,7 @@ describe 'Student Scores Data Sorter', ->
       sort:
         key: 'name'
         asc: true
-      dataType: 'score'
+        dataType: 'score'
       displayAs: 'percentage'
 
   it "defaults to sorting by name", ->
