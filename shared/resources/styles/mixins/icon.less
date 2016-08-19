@@ -15,20 +15,8 @@
   .transition(~"transform .1s ease-in-out, margin .3s ease-in-out");
 }
 
-.x-course-icon-bg(@name; @selector: @name) {
-  // default to high-school icons
-  .icon-@{selector} { background-image: url("@{icon-path}/@{name}-hs-icon.svg"); }
-  &.is-high-school {
-    .icon-@{selector} { background-image: url("@{icon-path}/@{name}-hs-icon.svg"); }
-  }
-  &.is-college {
-    .icon-@{selector} { background-image: url("@{icon-path}/@{name}-cl-icon.svg"); }
-  }
-}
-
-// x-icon-bg defaults to hs icons
-.x-icon-bg(@name; @course_type: 'hs') {
-  background-image: url("@{icon-path}/@{name}-@{course_type}-icon.svg");
+.x-icon-bg(@name) {
+  background-image: url("@{icon-path}/@{name}-icon.svg");
 }
 
 .openstax-icon-active(@scale: 1.4; @shadow: 0.12) {
