@@ -28,34 +28,24 @@ Scores = React.createClass
 
   getInitialState: ->
     sortedPeriods = CourseStore.getPeriods(@props.courseId)
-
     period_id: _.first(sortedPeriods).id
     periodIndex: 1
     sortIndex: 0
-    colDefaultWidth: 160
-    colSetWidth: 160
-    colResizeWidth: 160
-    colResizeKey: 0
     sort: { key: 'name', asc: true, dataType: 'score' }
     displayAs: 'percentage'
 
-  componentWillMount: ->
-    @updateStudentData()
-
+  componentWillMount:  -> @updateStudentData()
   changeSortingOrder: (key, dataType) ->
     asc = if @state.sort.key is key then (not @state.sort.asc) else false
     @updateStudentData({sort: {key, asc, dataType}})
-
   selectPeriod: (period) -> @updateStudentData({period_id: period.id})
-  setPeriodIndex: (key) -> @updateStudentData({periodIndex: key + 1})
-  changeDisplayAs: (mode) -> @updateStudentData({displayAs: mode})
+  setPeriodIndex:  (key) -> @updateStudentData({periodIndex: key + 1})
+  changeDisplayAs:(mode) -> @updateStudentData({displayAs: mode})
 
   updateStudentData: (nextState) ->
     state = _.extend({}, @state, nextState)
     scores = ScoresStore.getEnrolledScoresForPeriod(@props.courseId, state.period_id)
     if scores?
-      #sortData = _.sortBy(scores.students, StudentDataSorter(state) )
-        # if state.sort.asc then sortData else sortData.reverse()
       @setState(_.extend(state, {
         overall_average_score: scores.overall_average_score or 0,
         headings: scores.data_headings,

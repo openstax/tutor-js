@@ -25,6 +25,7 @@ ColumnGroup = FixedDataTable.ColumnGroup
 Router = require 'react-router'
 
 FIRST_DATA_COLUMN = 2
+COLUMN_WIDTH = 160
 
 module.exports = React.createClass
   displayName: 'ScoresTable'
@@ -39,10 +40,8 @@ module.exports = React.createClass
     rows: React.PropTypes.array.isRequired
     headings: React.PropTypes.array.isRequired
     overall_average_score: React.PropTypes.number.isRequired
-
     sort: React.PropTypes.object.isRequired
     onSort: React.PropTypes.func.isRequired
-    colSetWidth: React.PropTypes.number.isRequired
     period_id: React.PropTypes.string
     periodIndex: React.PropTypes.number.isRequired
     displayAs: React.PropTypes.string.isRequired
@@ -76,7 +75,7 @@ module.exports = React.createClass
     windowEl.height - table.offsetTop - bottomMargin
 
   renderNameHeader: ->
-    {sort, onSort, colSetWidth, isConceptCoach} = @props
+    {sort, onSort, isConceptCoach} = @props
 
     emptyCell = <div className='blank' />
     averageLabel =
@@ -109,7 +108,7 @@ module.exports = React.createClass
     nameColumns = 1
     <ColumnGroup fixed={true} groupHeaderRenderer={-> emptyCell}>
       <Column
-        width={colSetWidth * nameColumns}
+        width={COLUMN_WIDTH * nameColumns}
         flexGrow={0}
         allowCellsRecycling={true}
         isResizable=false
@@ -120,7 +119,7 @@ module.exports = React.createClass
     </ColumnGroup>
 
   renderOverallHeader: ->
-    {colSetWidth, data} = @props
+    {data} = @props
 
     overallTitle = <div className='overall-header-cell'>Overall</div>
     customHeader =
@@ -134,7 +133,7 @@ module.exports = React.createClass
       </div>
     <ColumnGroup fixed={true} groupHeaderRenderer={-> overallTitle}>
       <Column
-        width={colSetWidth / 2}
+        width={COLUMN_WIDTH / 2}
         flexGrow={0}
         allowCellsRecycling={true}
         isResizable=false
@@ -146,7 +145,7 @@ module.exports = React.createClass
 
 
   renderHeadingCell: (heading, i) ->
-    {isConceptCoach, periodIndex, period_id, courseId, sort, onSort, dataType, colSetWidth} = @props
+    {isConceptCoach, periodIndex, period_id, courseId, sort, onSort, dataType} = @props
 
     i += FIRST_DATA_COLUMN # for the first/last name columns
 
@@ -273,7 +272,7 @@ module.exports = React.createClass
         label={heading.title}
         headerRenderer={-> customHeader}
         cellRenderer={-> @cellData}
-        width={colSetWidth}
+        width={COLUMN_WIDTH}
         flexGrow={1}
         allowCellsRecycling={true}
         isResizable=false
@@ -281,7 +280,9 @@ module.exports = React.createClass
     </ColumnGroup>
 
 
-  renderStudentRow: (student_data, rowIndex) ->
+  renderStudentRow: (rowIndex) ->
+    student_data = @props.rows[rowIndex]
+
     {courseId, displayAs, isConceptCoach, period_id, rows, headings} = @props
 
     props =
@@ -315,22 +316,22 @@ module.exports = React.createClass
         else <ConceptCoachCell key='concept_coach'  {...props} />
     columns
 
+  renderNoAssignments: ->
+    <div className='course-scores-container' ref='tableContainer'>
+      <span className='course-scores-notice'>No Assignments Yet</span>
+    </div>
 
   render: ->
     {rows, headings, isConceptCoach} = @props
-#     noAssignments = <span className='course-scores-notice'>No Assignments Yet</span>
 
-#          {if students then scoresTable else noAssignments}
-
-    rowGetter = (rowIndex) =>
-      @renderStudentRow(rows[rowIndex], rowIndex)
+    return @renderNoAssignments() if _.isEmpty(@props.rows)
 
     groupHeaderHeight = if isConceptCoach then 50 else 85
     <div className='course-scores-container' ref='tableContainer'>
 
       <Table
         rowHeight={50}
-        rowGetter={rowGetter}
+        rowGetter={@renderStudentRow}
         rowsCount={rows.length}
         width={@state.tableWidth}
         height={@state.tableHeight}
