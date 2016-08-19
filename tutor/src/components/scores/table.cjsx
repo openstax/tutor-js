@@ -2,6 +2,8 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
+{ResizeListenerMixin} = require 'shared'
+
 FixedDataTable = require 'fixed-data-table'
 Time   = require '../time'
 Icon = require '../icon'
@@ -22,26 +24,56 @@ ColumnGroup = FixedDataTable.ColumnGroup
 
 Router = require 'react-router'
 
+FIRST_DATA_COLUMN = 2
+
 module.exports = React.createClass
   displayName: 'ScoresTable'
 
   contextTypes:
     router: React.PropTypes.func
 
+  mixins: [ResizeListenerMixin]
+
   propTypes:
     courseId: React.PropTypes.string.isRequired
-    data: React.PropTypes.object.isRequired
-    width: React.PropTypes.number.isRequired
-    height: React.PropTypes.number.isRequired
+    rows: React.PropTypes.array.isRequired
+    headings: React.PropTypes.array.isRequired
+    overall_average_score: React.PropTypes.number.isRequired
+
     sort: React.PropTypes.object.isRequired
     onSort: React.PropTypes.func.isRequired
     colSetWidth: React.PropTypes.number.isRequired
     period_id: React.PropTypes.string
     periodIndex: React.PropTypes.number.isRequired
-    firstDataColumn: React.PropTypes.number.isRequired
     displayAs: React.PropTypes.string.isRequired
     dataType: React.PropTypes.string
     isConceptCoach: React.PropTypes.bool.isRequired
+
+
+  getInitialState: ->
+    tableWidth: 0
+    tableHeight: 0
+
+  componentDidMount: -> @sizeTable()
+  _resizeListener:   -> @sizeTable()
+  sizeTable: ->
+    @setState({tableWidth: @tableWidth(), tableHeight: @tableHeight()})
+
+  tableWidth: ->
+    windowEl = @_getWindowSize()
+    tableContainer = React.findDOMNode(@refs.tableContainer) #.course-scores-container
+    style = tableContainer.currentStyle or window.getComputedStyle(tableContainer)
+    padding = parseInt(style.paddingLeft) + parseInt(style.paddingRight)
+    tableContainerWidth = tableContainer.clientWidth - padding
+    tableHorzSpacing = document.body.clientWidth - tableContainerWidth
+    # since table.clientWidth returns 0 on initial load in IE, include windowEl as a fallback
+    Math.max(windowEl.width - tableHorzSpacing, tableContainerWidth)
+
+  tableHeight: ->
+    windowEl = @_getWindowSize()
+    table = React.findDOMNode(@refs.tableContainer)
+    bottomMargin = 140
+    windowEl.height - table.offsetTop - bottomMargin
 
   renderNameHeader: ->
     {sort, onSort, colSetWidth, isConceptCoach} = @props
@@ -95,7 +127,7 @@ module.exports = React.createClass
       <div className='overall-average-cell'>
         <div className='average'>
           <span>
-            {"#{(data.overall_average_score * 100).toFixed(0)}%"}
+            {"#{(@props.overall_average_score * 100).toFixed(0)}%"}
           </span>
         </div>
         <div className='average empty'></div>
@@ -114,9 +146,9 @@ module.exports = React.createClass
 
 
   renderHeadingCell: (heading, i) ->
-    {firstDataColumn, isConceptCoach, periodIndex, period_id, courseId, sort, onSort, dataType, colSetWidth} = @props
+    {isConceptCoach, periodIndex, period_id, courseId, sort, onSort, dataType, colSetWidth} = @props
 
-    i += firstDataColumn # for the first/last name columns
+    i += FIRST_DATA_COLUMN # for the first/last name columns
 
     getAverageCellWidth =
       if isConceptCoach
@@ -250,7 +282,7 @@ module.exports = React.createClass
 
 
   renderStudentRow: (student_data, rowIndex) ->
-    {courseId, displayAs, isConceptCoach, period_id, data} = @props
+    {courseId, displayAs, isConceptCoach, period_id, rows, headings} = @props
 
     props =
       {
@@ -262,13 +294,13 @@ module.exports = React.createClass
         rowIndex: rowIndex,
         period_id: period_id
       }
-    isBottom = if data.rows.length is rowIndex + 1 then 'bottom' else ''
-    studentAverage = "#{(data.rows[rowIndex].average_score * 100).toFixed(0)}%"
+    isBottom = if rows.length is rowIndex + 1 then 'bottom' else ''
+    studentAverage = "#{(rows[rowIndex].average_score * 100).toFixed(0)}%"
 
     columns = [
       <NameCell key='name' {...props} />,
       <div className="overall-cell #{isBottom}">
-        {if data.rows[rowIndex].average_score? then studentAverage}
+        {if rows[rowIndex].average_score? then studentAverage}
       </div>
     ]
 
@@ -276,7 +308,7 @@ module.exports = React.createClass
       props.task = task
       props.columnIndex = columnIndex
       columns.push switch task?.type or 'null'
-        when 'null'     then <AbsentCell   key='absent' headings={data.headings} {...props} />
+        when 'null'     then <AbsentCell   key='absent' headings={headings} {...props} />
         when 'external' then <ExternalCell key='extern'   {...props} />
         when 'reading'  then <ReadingCell  key='reading'  {...props} />
         when 'homework' then <HomeworkCell key='homework'  {...props} />
@@ -285,24 +317,29 @@ module.exports = React.createClass
 
 
   render: ->
-    {data, width, height, isConceptCoach} = @props
+    {rows, headings, isConceptCoach} = @props
+#     noAssignments = <span className='course-scores-notice'>No Assignments Yet</span>
+
+#          {if students then scoresTable else noAssignments}
 
     rowGetter = (rowIndex) =>
-      @renderStudentRow(data.rows[rowIndex], rowIndex)
+      @renderStudentRow(rows[rowIndex], rowIndex)
 
     groupHeaderHeight = if isConceptCoach then 50 else 85
+    <div className='course-scores-container' ref='tableContainer'>
 
-    <Table
-      rowHeight={50}
-      rowGetter={rowGetter}
-      rowsCount={data.rows.length}
-      width={width}
-      height={height}
-      headerHeight={55}
-      groupHeaderHeight={groupHeaderHeight}>
+      <Table
+        rowHeight={50}
+        rowGetter={rowGetter}
+        rowsCount={rows.length}
+        width={@state.tableWidth}
+        height={@state.tableHeight}
+        headerHeight={55}
+        groupHeaderHeight={groupHeaderHeight}>
 
-      {@renderNameHeader()}
-      {@renderOverallHeader()}
-      {_.map(data.headings, @renderHeadingCell)}
+        {@renderNameHeader()}
+        {@renderOverallHeader()}
+        {_.map(headings, @renderHeadingCell)}
 
-    </Table>
+      </Table>
+    </div>
