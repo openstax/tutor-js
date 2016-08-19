@@ -5,12 +5,14 @@ ExercisesDisplay = require '../../../src/components/questions/exercises-display'
 
 COURSE  = require '../../../api/courses/1.json'
 EXERCISES = require '../../../api/exercises'
-SECTION_IDS  = [1, 2]
+READINGS  = require '../../../api/ecosystems/1/readings.json'
+SECTION_IDS  = [234..242]
 COURSE_ID = '1'
+ECOSYSTEM_ID = '1'
 
 {ExerciseActions} = require '../../../src/flux/exercise'
 {CourseActions} = require '../../../src/flux/course'
-
+{TocActions, TocStore} = require '../../../src/flux/toc'
 
 describe 'QL exercises display', ->
 
@@ -22,6 +24,7 @@ describe 'QL exercises display', ->
       sectionIds: SECTION_IDS
     CourseActions.loaded(COURSE, COURSE_ID)
     ExerciseActions.loadedForCourse(EXERCISES, COURSE_ID, SECTION_IDS)
+    TocActions.loaded(READINGS, ECOSYSTEM_ID)
     sinon.stub(ExerciseActions, 'saveExerciseExclusion').returns(null)
 
   afterEach ->
@@ -29,6 +32,7 @@ describe 'QL exercises display', ->
 
   it 'renders cards', (done) ->
     Testing.renderComponent( ExercisesDisplay, props: @props, unmountAfter: 20 ).then ({dom}) ->
+
       expect( dom.querySelectorAll('.openstax-exercise-preview').length ).to
         .equal(EXERCISES.items.length)
       done()
