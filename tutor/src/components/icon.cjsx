@@ -9,7 +9,7 @@ module.exports = React.createClass
     type: React.PropTypes.string.isRequired
     spin: React.PropTypes.bool
     className: React.PropTypes.string
-    tooltip: React.PropTypes.oneOf([
+    tooltip: React.PropTypes.oneOfType([
       React.PropTypes.string, React.PropTypes.element
     ])
     tooltipProps: React.PropTypes.object
