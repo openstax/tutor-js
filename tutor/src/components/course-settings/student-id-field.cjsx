@@ -29,22 +29,15 @@ StudentIdField = React.createClass
     @setState(isEditing: not @state.isEditing)
 
   onEditBlur: (ev) ->
-    # If blur was triggered by clicking on the editTrigger,
-    # let the onClick of the editTrigger toggle the isEditing state.
-    isEditing = ev.relatedTarget is @refs.editTrigger.getDOMNode()
-    # Only save if changes were made to the student identifier.
-    isSaving = @state.student_identifier isnt @props.student.student_identifier
-
-    stateUpdates = {}
-    stateUpdates.isEditing = isEditing if @state.isEditing isnt isEditing
-    stateUpdates.isSaving = isSaving if @state.isSaving isnt isSaving
-
-    if isSaving
+    if @state.student_identifier isnt @props.student.student_identifier
+      @setState(isSaving: true)
       RosterActions.save(@props.student.id, student_identifier: @state.student_identifier)
       RosterStore.once "saved:#{@props.student.id}", =>
         @setState(isSaving: false) if @isMounted()
 
-    @setState(stateUpdates) unless _.isEmpty(stateUpdates)
+    # If blur was triggered by clicking on the editTrigger,
+    # let the onClick of the editTrigger toggle the isEditing state.
+    @setState(isEditing: false) unless ev.relatedTarget is @refs.editTrigger.getDOMNode()
 
   renderInput: ->
     <input type="text" ref="input"
