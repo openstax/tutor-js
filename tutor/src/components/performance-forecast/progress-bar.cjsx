@@ -2,9 +2,10 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
-ChapterSectionType = require './chapter-section-type'
 PerformanceForecast = require '../../flux/performance-forecast'
-{CoursePracticeStore} = require '../../flux/practice'
+
+ButtonWithTip = require '../buttons/button-with-tip'
+Practice = require './practice'
 
 module.exports = React.createClass
   displayName: 'PerformanceForecastProgressBar'
@@ -15,12 +16,14 @@ module.exports = React.createClass
     courseId:    React.PropTypes.string.isRequired
     sampleSizeThreshold: React.PropTypes.number.isRequired
 
-  componentWillMount: ->
-    uniqueId = _.uniqueId('progress-bar-tooltip-')
-    @setState({uniqueId: uniqueId})
+  getDefaultProps: ->
+    id: _.uniqueId('progress-bar-tooltip-')
+
+  getTip: (props) ->
+    'Click to practice' unless props.isDisabled
 
   render: ->
-    {section, onPractice, courseId} = @props
+    {section, onPractice, courseId, id} = @props
     {page_ids} = section
 
     bar = if PerformanceForecast.Helpers.canDisplayForecast(section.clue, @props.sampleSizeThreshold)
@@ -32,10 +35,10 @@ module.exports = React.createClass
         {if onPractice then 'Practice more to get forecast' else 'Not enough exercises completed'}
       </span>
 
-    if onPractice and not CoursePracticeStore.isDisabled(courseId, {page_ids})
-      tooltip = <BS.Tooltip id={@state.uniqueId}>Click to practice</BS.Tooltip>
-      <BS.OverlayTrigger placement='bottom' overlay={tooltip}>
-        <BS.Button onClick={-> onPractice(section)} block>{bar}</BS.Button>
-      </BS.OverlayTrigger>
-    else
-      bar
+    <Practice
+      courseId={courseId}
+      page_ids={page_ids}>
+      <ButtonWithTip id={id} block getTip={@getTip}>
+        {bar}
+      </ButtonWithTip>
+    </Practice>
