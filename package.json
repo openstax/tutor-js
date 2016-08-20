@@ -55,7 +55,7 @@
     "interpolate": "0.1.0",
     "jquery": "2.1.4",
     "keymaster": "1.6.2",
-    "lodash": "4.14.1",
+    "lodash": "3.10.1",
     "markdown-it": "4.4.0",
     "mime-types": "2.1.7",
     "moment": "2.13.0",
