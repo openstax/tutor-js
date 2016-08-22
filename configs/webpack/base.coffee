@@ -4,7 +4,6 @@ _ = require 'lodash'
 webpack = require 'webpack'
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 
-Dashboard = require 'webpack-dashboard'
 DashboardPlugin = require 'webpack-dashboard/plugin'
 
 LOADERS =
@@ -184,8 +183,11 @@ makeDevelopmentBase = (projectConfig) ->
   publicPath = "#{servePath}/dist/"
   outputPath = "#{projectConfig.basePath}/"
 
-  dashboard = new Dashboard()
+  if projectConfig.webpackDashboardSocketPort?
+    dashboardConfig =
+      port: projectConfig.webpackDashboardSocketPort
 
+  console.info("HALLO", dashboardConfig)
 
   developmentBase =
     output:
@@ -195,7 +197,7 @@ makeDevelopmentBase = (projectConfig) ->
       loaders: BASE_DEV_LOADERS
     plugins: [
       new webpack.HotModuleReplacementPlugin()
-      new DashboardPlugin(dashboard.setData)
+      new DashboardPlugin(dashboardConfig)
     ]
     devServer:
       contentBase: "#{projectConfig.basePath}/"
