@@ -31,6 +31,8 @@ else
   git commit -m 'allow dist files'
   echo "${PURPLE}Updating .gitignore.${NO_COLOR}"
 
+  [ -d $project_release_subdirectory ] && rm -r $project_release_subdirectory
+
   git subtree add $project_remote_subtree
   echo "${PURPLE}Branch $project_release_branch created.${NO_COLOR}"
 fi
