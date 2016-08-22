@@ -23,7 +23,7 @@
 .task-reading {
   .openstax-breadcrumbs-step[data-chapter] {
 
-    background: @reading-color;
+    background: @openstax-tangerine;
     color: @openstax-white;
 
     &.active,
@@ -41,19 +41,6 @@
   }
 }
 
-&.is-college {
-  .task-reading {
-    .openstax-breadcrumbs-step[data-chapter] {
-      background: @openstax-white;
-      color: @openstax-neutral;
-      border: 1px solid @openstax-neutral-lighter;
-    }
-    &.active,
-    &.completed {
-      color: @openstax-neutral;
-    }
-  }
-}
 
 .task-breadcrumbs {
   margin-left: -2px;
