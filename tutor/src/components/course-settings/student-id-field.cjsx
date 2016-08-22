@@ -15,32 +15,29 @@ StudentIdField = React.createClass
     isEditing: false
     student_identifier: @props.student.student_identifier
 
+  componentDidUpdate: (prevProps, prevState) ->
+    if @state.isEditing and not prevState.isEditing
+      el = @refs.input.getDOMNode()
+      el.select()
+      el.focus()
+
   onUpdateId: (ev) ->
     @setState(student_identifier: ev.target.value)
 
   onEditId: (ev) ->
     ev.preventDefault()
-    return if @state.isBlurring
-    unless @state.isEditing
-      _.defer =>
-        el = @refs.input.getDOMNode()
-        el.select()
-        el.focus()
-    @setState(isEditing: not @state.isEditing, isBlurring: false)
+    @setState(isEditing: not @state.isEditing)
 
-  onEditBlur: ->
+  onEditBlur: (ev) ->
     if @state.student_identifier isnt @props.student.student_identifier
       @setState(isSaving: true)
       RosterActions.save(@props.student.id, student_identifier: @state.student_identifier)
       RosterStore.once "saved:#{@props.student.id}", =>
         @setState(isSaving: false) if @isMounted()
 
-    @setState(isEditing: false, isBlurring: true)
-    # set "isBlurring" so we don't immediatly start editing again
-    # when the blur is because the edit icon was clicked.  After a bit we reset it
-    _.delay =>
-      @setState(isBlurring: false)
-    , 100
+    # If blur was triggered by clicking on the editTrigger,
+    # let the onClick of the editTrigger toggle the isEditing state.
+    @setState(isEditing: false) unless ev.relatedTarget is @refs.editTrigger.getDOMNode()
 
   renderInput: ->
     <input type="text" ref="input"
@@ -60,6 +57,7 @@ StudentIdField = React.createClass
       <a href="#"
         tabIndex={ if @state.isEditing then -1 else 0 }
         onClick={@onEditId}
+        ref='editTrigger'
       >
         <Icon
           type={if @state.isSaving then "spinner" else "edit"}
