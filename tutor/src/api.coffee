@@ -19,11 +19,11 @@ PerformanceForecast = require './flux/performance-forecast'
 {ScoresActions} = require './flux/scores'
 {ScoresExportActions} = require './flux/scores-export'
 {RosterActions} = require './flux/roster'
-{StudentIdActions} = require './flux/student-id'
 {PeriodActions} = require './flux/period'
 
 {TaskActions} = require './flux/task'
 {TaskStepActions} = require './flux/task-step'
+{ StudentIdStore, StudentIdActions } = require './flux/student-id'
 {TaskPlanActions, TaskPlanStore} = require './flux/task-plan'
 {TaskTeacherReviewActions, TaskTeacherReviewStore} = require './flux/task-teacher-review'
 {TaskPlanStatsActions, TaskPlanStatsStore} = require './flux/task-plan-stats'
@@ -174,10 +174,8 @@ start = (bootstrapData) ->
   apiHelper RosterActions, RosterActions.load, RosterActions.loaded, 'GET', (id) ->
     url: "/api/courses/#{id}/roster"
 
-  apiHelper StudentIdActions, StudentIdActions.load, StudentIdActions.loaded, 'GET', (courseId) ->
-    url: "/auth/status"
   apiHelper StudentIdActions, StudentIdActions.save, StudentIdActions.saved, 'PATCH', (courseId, params) ->
-    url: "/api/user/courses/#{courseId}/student", payload: params
+    url: "/api/user/courses/#{courseId}/student", payload: params, displayError: false
 
   apiHelper PeriodActions, PeriodActions.create, PeriodActions.created, 'POST', (courseId, params) ->
     url: "/api/courses/#{courseId}/periods", payload: params

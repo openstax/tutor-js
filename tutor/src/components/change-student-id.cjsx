@@ -5,6 +5,7 @@ BS = require 'react-bootstrap'
 LoadableItem = require './loadable-item'
 { ChangeStudentIdForm } = require 'shared'
 { TransitionActions, TransitionStore } = require '../flux/transition'
+{ CourseStore, CourseActions } = require '../flux/course'
 { StudentIdStore, StudentIdActions } = require '../flux/student-id'
 
 ERROR_MAP = {
@@ -16,14 +17,16 @@ ERROR_MAP = {
 }
 
 module.exports = React.createClass
-  componentWillMount: ->
-    {courseId} = @context.router.getCurrentParams()
-    StudentIdActions.load(courseId)
-
   contextTypes:
     router: React.PropTypes.func
 
   onCancel: -> @goBack()
+
+  componentWillUnmount: ->
+    StudentIdStore.off('student-id-saved', @saved)
+    StudentIdStore.off('student-id-error', @update)
+
+  update: -> @setState({})
 
   goBack: ->
     historyInfo = TransitionStore.getPrevious(@context.router)
@@ -39,6 +42,7 @@ module.exports = React.createClass
       return
 
     StudentIdStore.on('student-id-saved', @saved)
+    StudentIdStore.on('student-id-error', @update)
     StudentIdActions.save(courseId, {
       student_identifier: newStudentId,
       id: courseId,
@@ -54,7 +58,7 @@ module.exports = React.createClass
     if errors?.length is 0 then return null
 
     errorLi = _.map errors, (error) ->
-      <li>{ERROR_MAP[error.code]}</li>
+      <li key={error.code}>{ERROR_MAP[error.code]}</li>
 
     <div className="alert alert-danger">
       <ul className="errors">
@@ -70,7 +74,7 @@ module.exports = React.createClass
       </a>
     </BS.Panel>
 
-  renderPanel: ->
+  render: ->
     {courseId} = @context.router.getCurrentParams()
     if (@state?.success) then return @renderSuccess()
 
@@ -83,20 +87,10 @@ module.exports = React.createClass
           onSubmit={@onSubmit}
           saveButtonLabel="Save"
 
-          isBusy={false}
-          studentId={StudentIdStore.getId(courseId)}
+          isBusy={StudentIdStore.isSaving()}
+          studentId={CourseStore.getStudentId(courseId)}
         >
           {@renderErrors()}
         </ChangeStudentIdForm>
       </BS.Row>
     </BS.Panel>
-
-  render: ->
-    {courseId} = @context.router.getCurrentParams()
-    <LoadableItem
-      id={courseId}
-      store={StudentIdStore}
-      actions={StudentIdActions}
-      renderItem={=> @renderPanel() }
-      renderError={=> @renderPanel() }
-    />
