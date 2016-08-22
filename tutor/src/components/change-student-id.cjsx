@@ -22,11 +22,17 @@ module.exports = React.createClass
 
   onCancel: -> @goBack()
 
+  componentWillMount: ->
+    {courseId} = @context.router.getCurrentParams()
+    CourseStore.on('course.loaded', @update)
+    CourseActions.load(courseId)
+
   componentWillUnmount: ->
     StudentIdStore.off('student-id-saved', @saved)
     StudentIdStore.off('student-id-error', @update)
 
-  update: -> @setState({})
+  update: ->
+    @setState({})
 
   goBack: ->
     historyInfo = TransitionStore.getPrevious(@context.router)
@@ -78,6 +84,8 @@ module.exports = React.createClass
     {courseId} = @context.router.getCurrentParams()
     if (@state?.success) then return @renderSuccess()
 
+    studentId = CourseStore.getStudentId(courseId)
+
     <BS.Panel bsStyle='primary' className="change-id-panel">
       <BS.Row>
         <ChangeStudentIdForm
@@ -88,7 +96,7 @@ module.exports = React.createClass
           saveButtonLabel="Save"
 
           isBusy={StudentIdStore.isSaving()}
-          studentId={CourseStore.getStudentId(courseId)}
+          studentId={studentId}
         >
           {@renderErrors()}
         </ChangeStudentIdForm>
