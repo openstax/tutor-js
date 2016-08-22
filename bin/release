@@ -24,7 +24,7 @@ sedi=$sediGNU
 
 if $darwin; then
   {
-    sedVersion=$(sed -version | grep 'GNU')
+    sedVersion=$(sed --version | grep 'GNU')
   } || {
     sedVersion=''
   }
