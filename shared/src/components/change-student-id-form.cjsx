@@ -15,6 +15,14 @@ module.exports = React.createClass
     saveButtonLabel: React.PropTypes.string.isRequired
     title: React.PropTypes.string.isRequired
 
+  getInitialState: -> { studentId: @props.studentId }
+
+  componentWillReceiveProps: (newProps) ->
+    @setState({ studentId: newProps.studentId })
+
+  handleChange: ->
+    @setState({studentId: @refs.input.getValue()})
+
   onKeyPress: (ev) ->
     @onSubmit() if ev.key is ENTER
 
@@ -44,7 +52,8 @@ module.exports = React.createClass
         <div className='field'>
           <BS.Input type="text" ref="input" label={@props.label}
             placeholder="School issued ID" autoFocus
-            defaultValue={@props.studentId}
+            value={@state.studentId}
+            onChange={@handleChange}
             onKeyPress={@onKeyPress}
             buttonAfter={button} />
         </div>
