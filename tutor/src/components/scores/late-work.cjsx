@@ -125,29 +125,39 @@ LateWork = React.createClass
   displayName: 'LateWork'
 
   propTypes:
-    onOverlayStateChanged: React.PropTypes.func.isRequired
+    onMouseOver:  React.PropTypes.func.isRequired
+    onMouseLeave: React.PropTypes.func.isRequired
 
   getInitialState: ->
-    isShown: true
+    isShown: false
 
-  hide: ->
-    @refs.overlay.hide()
+  onHide: ->
+    @setState(isShown: false)
+
+  getTarget: ->
+    this.refs.caret.getDOMNode()
 
   render: ->
     caretClass = classnames('late-caret', {
       accepted: @props.task.is_late_work_accepted and not TH.hasAdditionalLateWork(@props.task)
     })
 
-    <BS.OverlayTrigger
-      ref="overlay" placement="top" trigger="click" rootClose={true}
-      onEnter={_.partial(@props.onOverlayStateChanged, true)}
-      onExit ={_.partial(@props.onOverlayStateChanged, false)}
-      overlay={<LateWorkPopover task={@props.task} columnIndex={@props.columnIndex} hide={@hide} />}
+    <div className="late-caret-trigger"
+      onMouseOver={@props.onMouseOver}
+      onClick={=> @setState(isShown: true)}
+      onMouseLeave={@props.onMouseLeave}
     >
-      <div className="late-caret-trigger">
-        <div className={caretClass}></div>
-      </div>
-    </BS.OverlayTrigger>
+      <BS.Overlay
+        ref="overlay" placement="top" trigger="click" rootClose={true}
+        onHide={@onHide}
+        show={@state.isShown}
+        target={@getTarget}
+      >
+        <LateWorkPopover task={@props.task} columnIndex={@props.columnIndex} hide={@onHide} />
+      </BS.Overlay>
+      <div ref="caret" className={caretClass}></div>
+    </div>
+
 
 
 module.exports = {LateWork, LateWorkPopover}

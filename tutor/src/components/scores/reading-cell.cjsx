@@ -14,19 +14,14 @@ ReadingCell = React.createClass
 
   mixins: [CellStatusMixin] # prop validation
 
-  show: ->
-    @refs.trigger.show()
-
-  hide: ->
-    @refs.trigger.hide()
+  show: -> @refs.trigger.show()
+  hide: -> @refs.trigger.hide()
 
   render: ->
     {task, courseId, displayAs, isConceptCoach, rowIndex, columnIndex, period_id} = @props
 
     tooltip =
       <BS.Popover
-        onMouseOver={@show}
-        onMouseLeave={@hide}
         id="scores-cell-info-popover-#{task.id}"
         className='scores-scores-tooltip-completed-info'>
         <div className='info'>
@@ -46,7 +41,7 @@ ReadingCell = React.createClass
       </BS.Popover>
 
 
-    <div className="scores-cell #{classNames(highlighted: @props.task.showingLateOverlay)}">
+    <div className="scores-cell">
 
       <div className="worked wide">
         <BS.OverlayTrigger
@@ -69,10 +64,10 @@ ReadingCell = React.createClass
       </div>
 
       {<LateWork
-      task={task}
-      columnIndex={columnIndex}
-      ref='lateWork'
-      onOverlayStateChanged={@lateOverlayStateChanged} /> if TH.isLate(task)}
+        task={task}
+        onMouseOver={@show}
+        onMouseLeave={@hide}
+        columnIndex={columnIndex} /> if TH.isLate(task)}
 
     </div>
 

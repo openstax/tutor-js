@@ -14,6 +14,9 @@ HomeworkCell = React.createClass
 
   mixins: [CellStatusMixin] # prop validation
 
+  show: -> @refs.trigger.show()
+  hide: -> @refs.trigger.hide()
+
   render: ->
     {task, courseId, displayAs, isConceptCoach, rowIndex, columnIndex, period_id} = @props
 
@@ -62,11 +65,14 @@ HomeworkCell = React.createClass
 
       <div className="worked">
         <BS.OverlayTrigger
+        ref="trigger"
         placement="left"
         delayShow={1000}
         delayHide={0}
         overlay={tooltip}>
-          <span className='trigger-wrap'>
+          <span className='trigger-wrap'
+          onMouseOver={@show}
+          onMouseLeave={@hide}>
             <PieProgress
               isConceptCoach={isConceptCoach}
               size={20}
@@ -78,9 +84,10 @@ HomeworkCell = React.createClass
       </div>
 
       {<LateWork
-      task={task}
-      columnIndex={columnIndex}
-      onOverlayStateChanged={@lateOverlayStateChanged} /> if TH.isLate(task)}
+        onMouseOver={@show}
+        onMouseLeave={@hide}
+        task={task}
+        columnIndex={columnIndex} /> if TH.isLate(task)}
 
     </div>
 
