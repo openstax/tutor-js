@@ -8,6 +8,21 @@ export OX_PROJECT=$1
 echo Building: $OX_PROJECT
 export NODE_ENV=production
 
+# check that dependencies in package.json are installed correctly
+# will output the errors and exit with status 1 if not,
+# which will also kill this script via the set -e
+node ./bin/check-dependencies.js
+
+# http://stackoverflow.com/questions/16989598/bash-comparing-version-numbers
+function version { echo "$@" | awk -F. '{ printf("%d%03d%03d%03d\n", $1,$2,$3,$4); }'; }
+
+npm_version=`npm --version`
+required_version=3.0
+if [ "$(version "$npm_version")" -lt "$(version "$required_version")" ]; then
+    echo "npm version $required_version is required, you seem to have $npm_version installed"
+    exit 1
+fi
+
 [ -d $OX_PROJECT/dist ] && rm -r $OX_PROJECT/dist
 webpack --progress --config webpack.config.js
 
