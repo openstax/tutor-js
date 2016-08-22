@@ -1,5 +1,6 @@
-React = require 'react'
+_ = require 'underscore'
 BS = require 'react-bootstrap'
+React = require 'react'
 
 {PinnedHeaderFooterCard} = require 'shared'
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
