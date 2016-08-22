@@ -27,7 +27,7 @@ module.exports = React.createClass
   render: ->
     classNames = classnames('tutor-icon', 'fa', "fa-#{@props.type}", @props.className, {
       'fa-spin': @props.spin
-      'clickable': @props.tooltip and @props.tooltipProps.trigger is 'click'
+      'clickable': @props.onClick or (@props.tooltip and @props.tooltipProps.trigger is 'click')
     })
 
     icon = <i {...@props} className={classNames} />

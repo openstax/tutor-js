@@ -7,6 +7,7 @@ Icon = require '../icon'
 ChangePeriodLink  = require './change-period'
 DropStudentLink = require './drop-student'
 CourseGroupingLabel = require '../course-grouping-label'
+StudentIdField = require './student-id-field'
 
 module.exports = React.createClass
   displayName: 'PeriodRoster'
@@ -19,6 +20,7 @@ module.exports = React.createClass
     <tr key={student.id}>
       <td>{student.first_name}</td>
       <td>{student.last_name}</td>
+      <td><StudentIdField student={student} courseId={@props.courseId} /></td>
       <td className="actions">
         <ChangePeriodLink
         courseId={@props.courseId}
@@ -43,6 +45,7 @@ module.exports = React.createClass
           <tr>
             <th>First Name</th>
             <th>Last Name</th>
+            <th className="student-id">Student ID</th>
             <th>Actions</th>
           </tr>
         </thead>
