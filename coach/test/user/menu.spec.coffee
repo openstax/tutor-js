@@ -23,8 +23,7 @@ describe 'User menu component', ->
       Testing.renderComponent( Menu, props: @props ).then ({dom}) ->
         expect(dom.textContent).to.match(/Register for Section/)
 
-    it 'renders modification when registered', ->
+    it 'renders change student id when registered', ->
       sinon.stub(@props.course, 'isRegistered').returns(true)
       Testing.renderComponent( Menu, props: @props ).then ({dom}) ->
-        expect(dom.textContent).to.match(/Change Section/)
         expect(dom.textContent).to.match(/Change student ID/)
