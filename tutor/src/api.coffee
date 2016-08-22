@@ -11,6 +11,7 @@ TimeHelper = require './helpers/time'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {CourseActions} = require './flux/course'
 {CoursePracticeActions} = require './flux/practice'
+{CourseGuideActions} = require './flux/guide'
 {JobActions} = require './flux/job'
 {EcosystemsActions} = require './flux/ecosystems'
 PerformanceForecast = require './flux/performance-forecast'
@@ -105,7 +106,7 @@ start = (bootstrapData) ->
   apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', (ecosystemId) ->
     url: "/api/ecosystems/#{ecosystemId}/readings"
 
-  apiHelper CourseActions, CourseActions.loadGuide, CourseActions.loadedGuide, 'GET', (courseId) ->
+  apiHelper CourseGuideActions, CourseGuideActions.load, CourseGuideActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/guide"
 
   apiHelper CourseActions, CourseActions.save, CourseActions.saved, 'PATCH', (courseId, params) ->
