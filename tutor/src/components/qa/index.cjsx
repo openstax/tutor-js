@@ -1,3 +1,4 @@
+_     = require 'underscore'
 React = require 'react'
 {RouteHandler} = require 'react-router'
 

@@ -1,5 +1,5 @@
-_ = require 'underscore'
-BS = require 'react-bootstrap'
+_     = require 'underscore'
+BS    = require 'react-bootstrap'
 React = require 'react'
 
 {PinnedHeaderFooterCard} = require 'shared'

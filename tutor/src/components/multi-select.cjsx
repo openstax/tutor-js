@@ -1,5 +1,6 @@
+_     = require 'underscore'
 React = require 'react'
-BS = require 'react-bootstrap'
+BS    = require 'react-bootstrap'
 classnames = require 'classnames'
 
 Icon = require './icon'

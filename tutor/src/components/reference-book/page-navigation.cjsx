@@ -1,5 +1,7 @@
+_     = require 'underscore'
+BS    = require 'react-bootstrap'
 React = require 'react'
-BS = require 'react-bootstrap'
+
 classnames = require 'classnames'
 Router = require 'react-router'
 

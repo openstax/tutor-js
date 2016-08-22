@@ -1,3 +1,5 @@
+_ = require 'underscore'
+
 {makeSimpleStore} = require './helpers'
 
 TaskProgressConfig =

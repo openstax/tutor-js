@@ -1,5 +1,6 @@
+_     = require 'underscore'
+BS    = require 'react-bootstrap'
 React = require 'react'
-BS = require 'react-bootstrap'
 
 # NOTE: this selector must be kept in sync with CNX as well as
 # the style in components/reference-book/page.less
