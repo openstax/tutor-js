@@ -13,6 +13,26 @@ project_remote_subtree="--squash --prefix=$project_release_subdirectory $REMOTE 
 
 current_branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
+darwin=false
+case "`uname`" in
+  Darwin*) darwin=true ;;
+esac
+
+sediGNU="sed -i"
+sediMac="sed -i ''"
+sedi=$sediGNU
+
+if $darwin; then
+  {
+    sedVersion=$(sed -version | grep 'GNU')
+  } || {
+    sedVersion=''
+  }
+  if [ ${#sedVersion} -eq 0 ]; then
+    sedi=$sediMac
+  fi
+fi
+
 if [ `git branch --list $project_release_branch` ]; then
   git checkout $project_release_branch
   if [ -d "$project_release_subdirectory" ]; then
@@ -21,14 +41,11 @@ if [ `git branch --list $project_release_branch` ]; then
   echo "${PURPLE}Branch $project_release_branch already exists.${NO_COLOR}"
 else
   git checkout -b $project_release_branch
-  {
-    sed -i '' '/dist/d' .gitignore
-    git add .gitignore
-    git commit -m 'allow dist files'
-    echo "${PURPLE}Updating .gitignore.${NO_COLOR}"
-  } || {
-    echo "${PURPLE}.gitignore is ready.${NO_COLOR}"
-  }
+  $sedi '/dist/d' .gitignore
+  git add .gitignore
+  git commit -m 'allow dist files'
+  echo "${PURPLE}Updating .gitignore.${NO_COLOR}"
+
   git subtree add $project_remote_subtree
   echo "${PURPLE}Branch $project_release_branch created.${NO_COLOR}"
 fi
