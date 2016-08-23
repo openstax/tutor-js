@@ -6,15 +6,8 @@ LoadableItem = require './loadable-item'
 { ChangeStudentIdForm } = require 'shared'
 { TransitionActions, TransitionStore } = require '../flux/transition'
 { CourseStore, CourseActions } = require '../flux/course'
-{ StudentIdStore, StudentIdActions } = require '../flux/student-id'
-
-ERROR_MAP = {
-  student_identifier_has_already_been_taken:
-    'The provided student ID has already been used in this course. ' +
-    'Please try again or contact your instructor.'
-  blank_student_identifer:
-    'The student ID field cannot be left blank. Please enter your student ID.'
-}
+{ StudentIdStore, StudentIdActions, ERROR_MAP } = require '../flux/student-id'
+Icon = require './icon'
 
 module.exports = React.createClass
   contextTypes:
@@ -24,7 +17,7 @@ module.exports = React.createClass
 
   componentWillMount: ->
     {courseId} = @context.router.getCurrentParams()
-    CourseStore.on('course.loaded', @update)
+    CourseStore.once('course.loaded', @update)
     CourseActions.load(courseId)
 
   componentWillUnmount: ->
@@ -42,8 +35,9 @@ module.exports = React.createClass
   onSubmit: (newStudentId) ->
     {courseId} = @context.router.getCurrentParams()
 
-    if not newStudentId
-      StudentIdActions.addError(courseId, code:'blank_student_identifer')
+    StudentIdActions.validate(courseId, newStudentId)
+
+    if StudentIdStore.getErrors(courseId).length
       @setState({})
       return
 
@@ -53,6 +47,7 @@ module.exports = React.createClass
       student_identifier: newStudentId,
       id: courseId,
     })
+
 
   saved: ->
     @setState({success: true})
@@ -76,7 +71,7 @@ module.exports = React.createClass
     <BS.Panel bsStyle='primary' className="change-id-panel">
       <h3>You have successfully updated your student identifier.</h3>
       <a className="btn btn-default">
-        <i className="fa fa-angle-left" /> Go Back
+        <Icon type="angle-left" /> Go Back
       </a>
     </BS.Panel>
 
