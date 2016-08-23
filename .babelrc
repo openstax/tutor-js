@@ -1,4 +1,4 @@
 {
-  "plugins": ["transform-react-jsx"],
+  "plugins": ["transform-react-jsx", "lodash"],
   "presets": ["es2015", "stage-3"]
 }
