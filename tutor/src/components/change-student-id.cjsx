@@ -21,6 +21,7 @@ module.exports = React.createClass
     CourseActions.load(courseId)
 
   componentWillUnmount: ->
+    CourseStore.off('course.loaded', @update)
     StudentIdStore.off('student-id-saved', @saved)
     StudentIdStore.off('student-id-error', @update)
 
@@ -41,8 +42,8 @@ module.exports = React.createClass
       @setState({})
       return
 
-    StudentIdStore.on('student-id-saved', @saved)
-    StudentIdStore.on('student-id-error', @update)
+    StudentIdStore.once('student-id-saved', @saved)
+    StudentIdStore.once('student-id-error', @update)
     StudentIdActions.save(courseId, {
       student_identifier: newStudentId,
       id: courseId,
