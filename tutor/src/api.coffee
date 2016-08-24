@@ -6,7 +6,7 @@
 # `TaskActions.loaded` or `TaskActions.FAILED`
 _ = require 'underscore'
 
-{apiHelper, IS_LOCAL, toParams, onRequestError} = require './helpers/api'
+{apiHelper, IS_LOCAL, toParams, onRequestError, route} = require './helpers/api'
 TimeHelper = require './helpers/time'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {CourseActions} = require './flux/course'
@@ -165,10 +165,16 @@ start = (bootstrapData) ->
 
   apiHelper RosterActions, RosterActions.delete, RosterActions.deleted, 'DELETE', (id) ->
     url: "/api/students/#{id}"
+
   apiHelper RosterActions, RosterActions.save, RosterActions.saved, 'PATCH', (id, params) ->
     url: "/api/students/#{id}", payload: params
-  apiHelper RosterActions, RosterActions.undrop, RosterActions.undropped, 'PUT', (id) ->
-    url: "/api/students/#{id}/undrop"
+
+
+  route 'PUT', "/api/students/{studentId}/undrop",
+    actions: RosterActions, trigger: 'undrop', onSuccess: 'undropped'
+    errorHandlers:
+      already_active: 'onUndropAlreadyActive'
+
   apiHelper RosterActions, RosterActions.create, RosterActions.created, 'POST', (courseId, params) ->
     url: "/api/courses/#{courseId}/roster", payload: params
   apiHelper RosterActions, RosterActions.load, RosterActions.loaded, 'GET', (id) ->
