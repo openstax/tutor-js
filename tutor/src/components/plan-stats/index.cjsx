@@ -18,7 +18,6 @@ Stats = React.createClass
     id: React.PropTypes.string.isRequired
     activeSection: React.PropTypes.string
     initialActivePeriodInfo: React.PropTypes.object
-    handlePeriodKeyUpdate: React.PropTypes.func
     handlePeriodSelect: React.PropTypes.func
     shouldOverflowData: React.PropTypes.bool
 
@@ -108,7 +107,6 @@ Stats = React.createClass
     <BS.Panel className='reading-stats'>
       <CoursePeriodsNav
         handleSelect={@handlePeriodSelect}
-        handleKeyUpdate={@props.handlePeriodKeyUpdate}
         initialActive={initialActivePeriodIndex}
         periods={periods}
         courseId={courseId} />

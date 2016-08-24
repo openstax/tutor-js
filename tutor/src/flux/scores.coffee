@@ -23,7 +23,7 @@ allStudents = (scores) ->
 computeTaskCache = (data) ->
   for courseId, period of data
     for period, periodIndex in data[courseId]
-      for student, studentIndex in period.students
+      for student, studentIndex in period.students when student.is_dropped isnt true
         for task in student.data when task?
           TASK_ID_CACHE[task.id] = {task, courseId, period, periodIndex, studentIndex}
 
@@ -141,6 +141,12 @@ ScoresConfig = {
 
 
   exports:
+    getEnrolledScoresForPeriod: (courseId, periodId) ->
+      data = @_get(courseId)
+      scores = if periodId? then _.findWhere(data, period_id: periodId) else _.first(data)
+      if scores?
+        scores.students = _.reject(scores.students, 'is_dropped')
+      scores
 
     getTaskInfoById: (taskId) ->
       getTaskInfoById(taskId, @_local)

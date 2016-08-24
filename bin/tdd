@@ -20,4 +20,4 @@ WEBPACK_PID=$!
 echo webpack started pid: $WEBPACK_PID
 
 
-karma start test/karma.config.js --auto-watch --no-single-run
+bin/karma "$@"

@@ -41,7 +41,7 @@ TocConfig =
       )
 
     getSectionInfo: (sectionId) ->
-      @_sections[sectionId] or throw new Error('BUG: Invalid section')
+      @_sections[sectionId] or throw new Error("BUG: Invalid section id #{sectionId}")
 
 
 extendConfig(TocConfig, new CrudConfig())

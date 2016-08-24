@@ -14,10 +14,9 @@ CoursePeriodsNav = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     handleSelect: React.PropTypes.func
-    handleKeyUpdate: React.PropTypes.func
     initialActive: React.PropTypes.number.isRequired
     periods: React.PropTypes.array.isRequired
-    afterTabsItem: React.PropTypes.func
+    afterTabsItem: React.PropTypes.element
 
 
   getDefaultProps: ->
@@ -47,7 +46,7 @@ CoursePeriodsNav = React.createClass
       @onSelect(@state.active)
 
   onSelect: (key) ->
-    {courseId, handleSelect, handleKeyUpdate} = @props
+    {courseId, handleSelect} = @props
     {sortedPeriods} = @state
 
     period = sortedPeriods?[key]
@@ -56,8 +55,7 @@ CoursePeriodsNav = React.createClass
       return
 
     @setState(active: key)
-    handleSelect?(period)
-    handleKeyUpdate?(key)
+    handleSelect?(period, key)
 
   renderPeriod: (period, key) ->
     className = classnames({'is-trouble': period.is_trouble})
