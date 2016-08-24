@@ -80,7 +80,7 @@ describe 'CRUD Store', ->
     expect(CrudStore.isLoading(id)).to.be.true
     expect(CrudStore.isFailed(id)).to.be.false
 
-    CrudActions.FAILED(404, {err:'message'}, null, id)
+    CrudActions.FAILED(404, {err:'message'}, id)
 
     expect(CrudStore.isUnknown(id)).to.be.false
     expect(CrudStore.isLoaded(id)).to.be.false

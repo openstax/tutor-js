@@ -72,7 +72,7 @@ describe 'Loadable Mixin', ->
       delay ->
         # Verify 'Loading...' is in the DOM
         expect(DIV.querySelector('.loadable.is-loading')).to.not.be.null
-        CrudActions.FAILED(400, {msg:'Some error message'}, null, myId)
+        CrudActions.FAILED(400, {msg:'Some error message'}, myId)
 
     CrudActions.FAILED.once 'trigger', (obj, myId) ->
       delay ->
