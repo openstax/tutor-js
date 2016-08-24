@@ -41,7 +41,7 @@ Scores = React.createClass
   selectPeriod: (period, key) ->
     @updateStudentData({period_id: period.id, periodIndex: key + 1})
 
-  changeDisplayAs:(mode) -> @updateStudentData({displayAs: mode})
+  changeDisplayAs: (mode) -> @updateStudentData({displayAs: mode})
 
   updateStudentData: (nextState) ->
     state = merge({}, @state, nextState)
@@ -52,7 +52,7 @@ Scores = React.createClass
       @setState(_.extend(state, {
         overall_average_score: scores.overall_average_score or 0,
         headings: scores.data_headings,
-        rows: if state.sort.desc then rows.reverse() else rows
+        rows: if state.sort.asc then rows else rows.reverse()
       }))
     else
       @setState(_.extend(state, {overall_average_score: 0, headings: [], rows: [] }))
