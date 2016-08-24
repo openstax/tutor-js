@@ -79,11 +79,11 @@ Tabs = React.createClass
     </li>
 
   render: ->
-    <ul role="tablist"
-      className={classnames('nav', 'nav-tabs', @props.className)}>
-      {_.map @props.tabs, @renderTab}
+    <nav className={classnames('tutor-tabs', @props.className)}>
+      <ul role="tablist" className="nav nav-tabs">
+        {_.map @props.tabs, @renderTab}
+      </ul>
       {@props.children}
-    </ul>
-
+    </nav>
 
 module.exports = Tabs
