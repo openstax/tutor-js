@@ -1,20 +1,29 @@
 {Testing, expect, sinon, _} = require '../helpers/component-testing'
 
 Bar = require '../../../src/components/performance-forecast/progress-bar'
+COURSE_ID = '1'
+
+didRouterGoToPractice = ->
+  expect(Testing.router.transitionTo).to.have.been.calledWith( 'viewPractice',
+    { courseId: COURSE_ID }, { page_ids: ['2', '3'] }
+  )
 
 describe 'Learning Guide Progress Bar', ->
 
   beforeEach ->
     @props = {
-      onPractice: sinon.spy()
+      courseId: COURSE_ID
+      canPractice: true
       sampleSizeThreshold: 10
-      section: { clue: { value: 0.82, sample_size: 2, sample_size_interpretation: 'high', magic: true } }
+      section:
+        page_ids: ['2', '3']
+        clue: { value: 0.82, sample_size: 2, sample_size_interpretation: 'high', magic: true }
     }
 
   it 'calls practice callback', ->
     Testing.renderComponent( Bar, props: @props ).then ({dom}) =>
       Testing.actions.click(dom)
-      expect(@props.onPractice).to.have.been.calledWith(@props.section)
+      didRouterGoToPractice()
 
   it 'renders the progress bar with correct level', ->
     Testing.renderComponent( Bar, props: @props ).then ({dom}) ->
@@ -36,7 +45,7 @@ describe 'Learning Guide Progress Bar', ->
         Testing.renderComponent( Bar, props: @props).then ({dom}) =>
           expect(dom.querySelector('.progress-bar')).not.to.be.null
           Testing.actions.click(dom)
-          expect(@props.onPractice).to.have.been.calledWith(@props.section)
+          didRouterGoToPractice()
 
       it 'renders if sample threshold is equal', ->
         @props.section.clue.sample_size_interpretation = 'below'
@@ -45,4 +54,4 @@ describe 'Learning Guide Progress Bar', ->
         Testing.renderComponent( Bar, props: @props).then ({dom}) =>
           expect(dom.querySelector('.progress-bar')).not.to.be.null
           Testing.actions.click(dom)
-          expect(@props.onPractice).to.have.been.calledWith(@props.section)
+          didRouterGoToPractice()

@@ -34,4 +34,4 @@ describe 'Learning Guide Practice Button', ->
     Testing.renderComponent( Button,
       props: { courseId: COURSE_ID, title: 'title' }
     ).then ({dom, element}) ->
-      expect(_.toArray dom.classList).to.include('disabled')
+      expect(dom.disabled).to.be.true
