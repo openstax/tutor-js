@@ -175,7 +175,10 @@ start = (bootstrapData) ->
     url: "/api/courses/#{id}/roster"
 
   apiHelper StudentIdActions, StudentIdActions.save, StudentIdActions.saved, 'PATCH', (courseId, params) ->
-    url: "/api/user/courses/#{courseId}/student", payload: params, displayError: false
+    url: "/api/user/courses/#{courseId}/student",
+    payload: params,
+
+  , displayError: false, handleError: StudentIdActions.errored
 
   apiHelper PeriodActions, PeriodActions.create, PeriodActions.created, 'POST', (courseId, params) ->
     url: "/api/courses/#{courseId}/periods", payload: params
