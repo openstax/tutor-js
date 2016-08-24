@@ -1,7 +1,15 @@
 {Testing, expect, sinon, _} = require '../helpers/component-testing'
 
+{CoursePracticeActions, CoursePracticeStore} = require '../../../src/flux/practice'
 Bar = require '../../../src/components/performance-forecast/progress-bar'
 COURSE_ID = '1'
+
+failToCreatePractice = (pageIds) ->
+  params =
+    page_ids: pageIds
+
+  CoursePracticeActions.create(COURSE_ID, params)
+  CoursePracticeActions._failed({}, COURSE_ID, params)
 
 didRouterGoToPractice = ->
   expect(Testing.router.transitionTo).to.have.been.calledWith( 'viewPractice',
@@ -20,6 +28,9 @@ describe 'Learning Guide Progress Bar', ->
         clue: { value: 0.82, sample_size: 2, sample_size_interpretation: 'high', magic: true }
     }
 
+  afterEach ->
+    CoursePracticeActions.reset()
+
   it 'calls practice callback', ->
     Testing.renderComponent( Bar, props: @props ).then ({dom}) =>
       Testing.actions.click(dom)
@@ -28,6 +39,12 @@ describe 'Learning Guide Progress Bar', ->
   it 'renders the progress bar with correct level', ->
     Testing.renderComponent( Bar, props: @props ).then ({dom}) ->
       expect(dom.querySelector('.progress-bar').style.width).to.equal('82%')
+
+  it 'is disabled if page ids exists and practice has previously failed to create', ->
+    failToCreatePractice(['2', '3'])
+
+    Testing.renderComponent( Bar, props: @props ).then ({dom}) ->
+      expect(dom.disabled).to.be.true
 
   describe 'when sample_size_interpretation is below', ->
 

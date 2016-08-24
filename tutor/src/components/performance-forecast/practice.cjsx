@@ -9,7 +9,8 @@ module.exports = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
-    page_ids:    React.PropTypes.array.isRequired
+    page_ids: React.PropTypes.array.isRequired
+    children: React.PropTypes.element.isRequired
 
   contextTypes:
     router: React.PropTypes.func
