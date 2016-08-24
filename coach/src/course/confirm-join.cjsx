@@ -1,7 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 ENTER = 'Enter'
-RequestStudentId = require './request-student-id'
 
 Course = require './model'
 ErrorList = require './error-list'

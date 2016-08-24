@@ -2,10 +2,9 @@
 _ = require 'underscore'
 
 {TaskActions, TaskStore} = require './task'
-{CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
+{CrudConfig, makeSimpleStore, extendConfig, STATES} = require './helpers'
 PeriodHelper = require '../helpers/period'
 AppearanceCodes = require './course-appearance-codes'
-
 
 DEFAULT_TIME_ZONE = 'Central Time (US & Canada)'
 
@@ -63,6 +62,10 @@ CourseConfig =
     getByEcosystemId: (ecosystemId) ->
       _.findWhere(@_local, ecosystem_id: ecosystemId)
 
+    getStudentId: (courseId) ->
+      course = @_get(courseId)
+      role = _.findWhere(course?.roles, type: 'student')
+      if role then _.findWhere(course.students, role_id: role.id).student_identifier else null
 
 extendConfig(CourseConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(CourseConfig)

@@ -19,6 +19,7 @@ ERROR_MAP = {
   already_rejected: 'Your request to enroll in this course has been rejected for an unknown reason. Please contact OpenStax support.'
   taken: 'The provided student ID has already been used in this course. Please try again or contact your instructor.'
   blank_student_identifer: 'The student ID field cannot be left blank. Please enter your student ID.'
+  no_change: 'You have not changed the student ID.  Please enter your new student ID and try again.'
 }
 
 
@@ -150,6 +151,9 @@ class Course
   updateStudentIdentifier: ( newIdentifier ) ->
     if _.isEmpty(newIdentifier)
       @errors = [{code: 'blank_student_identifer'}]
+      @channel.emit('change')
+    else if newIdentifier is @getStudentIdentifier()
+      @errors = [{code: 'no_change'}]
       @channel.emit('change')
     else
       @updateStudent(student_identifier: newIdentifier)

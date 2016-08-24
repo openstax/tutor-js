@@ -159,7 +159,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
         successAction(data, args...)
 
       rejected = (response) ->
-        {status, statusText, statusMessage, handled} = response
+        {status, statusText, statusMessage, handled, data} = response
         onRequestError(response, requestConfig)
         requestConfig.handleError?(response, args...)
         return if handled
