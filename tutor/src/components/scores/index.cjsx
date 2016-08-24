@@ -41,7 +41,7 @@ Scores = React.createClass
   selectPeriod: (period, key) ->
     @updateStudentData({period_id: period.id, periodIndex: key + 1})
 
-  changeDisplayAs:(mode) -> @updateStudentData({displayAs: mode})
+  changeDisplayAs: (mode) -> @updateStudentData({displayAs: mode})
 
   updateStudentData: (nextState) ->
     state = merge({}, @state, nextState)
