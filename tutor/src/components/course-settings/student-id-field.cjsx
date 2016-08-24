@@ -1,19 +1,21 @@
 React = require 'react'
 Icon = require '../icon'
+BS = require 'react-bootstrap'
 _ = require 'underscore'
+classnames = require 'classnames'
+
 {RosterActions, RosterStore} = require '../../flux/roster'
+
+DUPLICATE_CODE = 'student_identifier_has_already_been_taken'
 
 StudentIdField = React.createClass
 
   propTypes:
-    student: React.PropTypes.shape(
-      id: React.PropTypes.string
-      student_identifier: React.PropTypes.string
-    )
+    studentId: React.PropTypes.string.isRequired
+    courseId:  React.PropTypes.string.isRequired
 
   getInitialState: ->
     isEditing: false
-    student_identifier: @props.student.student_identifier
 
   componentDidUpdate: (prevProps, prevState) ->
     if @state.isEditing and not prevState.isEditing
@@ -22,48 +24,61 @@ StudentIdField = React.createClass
       el.focus()
 
   onUpdateId: (ev) ->
-    @setState(student_identifier: ev.target.value)
+    RosterActions.setStudentIdentifier(@props.courseId, @props.studentId, ev.target.value)
 
   onEditId: (ev) ->
     ev.preventDefault()
     @setState(isEditing: not @state.isEditing)
 
   onEditBlur: (ev) ->
-    if @state.student_identifier isnt @props.student.student_identifier
-      @setState(isSaving: true)
-      RosterActions.save(@props.student.id, student_identifier: @state.student_identifier)
-      RosterStore.once "saved:#{@props.student.id}", =>
-        @setState(isSaving: false) if @isMounted()
+    if RosterStore.hasChangedStudentIdentifier(@props.studentId)
+      RosterActions.saveStudentIdentifier(@props.courseId, @props.studentId)
 
     # If blur was triggered by clicking on the editTrigger,
     # let the onClick of the editTrigger toggle the isEditing state.
     @setState(isEditing: false) unless ev.relatedTarget is @refs.editTrigger.getDOMNode()
 
-  renderInput: ->
+  renderInput: (identifier) ->
     <input type="text" ref="input"
-      value={@state.student_identifier}
+      value={identifier}
       onChange={@onUpdateId}
       onBlur={@onEditBlur}
     />
 
-  renderId: ->
+  renderId: (identifier) ->
     <div className="identifier" onClick={@onEditId}>
-      {@state.student_identifier}
+      {identifier}
     </div>
 
+  renderIcon: (hasError) ->
+    if hasError
+      <Icon type="exclamation-triangle" tooltip="Student ID is already in use" tooltipProps={
+        placement: 'top'
+        trigger: ['hover', 'focus']
+      } />
+    else
+      <Icon
+          type={if RosterStore.isSaving(@props.studentId) then "spinner" else "edit"}
+          spin={@state.isSaving}
+        />
+
   render: ->
-    <div className="student-id">
-      {if @state.isEditing then @renderInput() else @renderId()}
+    id = RosterStore.getStudentIdentifier(@props.courseId, @props.studentId)
+    hasError = RosterStore.getError(@props.studentId)?.code is DUPLICATE_CODE
+    classes = classnames('student-id', {'with-error': hasError})
+
+    <div className={classes}>
+      {if @state.isEditing then @renderInput(id) else @renderId(id)}
+
       <a href="#"
         tabIndex={ if @state.isEditing then -1 else 0 }
         onClick={@onEditId}
         ref='editTrigger'
       >
-        <Icon
-          type={if @state.isSaving then "spinner" else "edit"}
-          spin={@state.isSaving}
-        />
+        {@renderIcon(hasError)}
       </a>
+
+
     </div>
 
 
