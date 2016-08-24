@@ -12,18 +12,19 @@ module.exports = React.createClass
 
   propTypes:
     section:  React.PropTypes.object.isRequired
-    onPractice: React.PropTypes.func
+    canPractice: React.PropTypes.bool
     courseId:    React.PropTypes.string.isRequired
     sampleSizeThreshold: React.PropTypes.number.isRequired
 
   getDefaultProps: ->
     id: _.uniqueId('progress-bar-tooltip-')
+    canPractice: false
 
   getTip: (props) ->
     'Click to practice' unless props.isDisabled
 
   render: ->
-    {section, onPractice, courseId, id} = @props
+    {section, canPractice, courseId, id} = @props
     {page_ids} = section
 
     bar = if PerformanceForecast.Helpers.canDisplayForecast(section.clue, @props.sampleSizeThreshold)
@@ -32,13 +33,16 @@ module.exports = React.createClass
       <BS.ProgressBar className={section.clue.value_interpretation} now={Math.max(percent, 5)} />
     else
       <span className="no-data">
-        {if onPractice then 'Practice more to get forecast' else 'Not enough exercises completed'}
+        {if canPractice then 'Practice more to get forecast' else 'Not enough exercises completed'}
       </span>
 
-    <Practice
-      courseId={courseId}
-      page_ids={page_ids}>
-      <ButtonWithTip id={id} block getTip={@getTip}>
-        {bar}
-      </ButtonWithTip>
-    </Practice>
+    if canPractice
+      <Practice
+        courseId={courseId}
+        page_ids={page_ids}>
+        <ButtonWithTip id={id} block getTip={@getTip}>
+          {bar}
+        </ButtonWithTip>
+      </Practice>
+    else
+      bar

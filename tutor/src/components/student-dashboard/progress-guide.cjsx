@@ -28,9 +28,6 @@ ProgressGuide = React.createClass
     courseId: React.PropTypes.string.isRequired
     sampleSizeThreshold: React.PropTypes.number.isRequired
 
-  onPractice: (section) ->
-    @context.router.transitionTo('viewPractice', {courseId: @props.courseId}, {page_ids: section.page_ids})
-
   render: ->
     courseId = @props.courseId
     guide = PerformanceForecast.Student.store.get(courseId)
@@ -44,7 +41,7 @@ ProgressGuide = React.createClass
       <div className='guide-group'>
         <div className='chapter-panel'>
           {for section, i in sections
-            <Section key={i} section={section} onPractice={@onPractice}
+            <Section key={i} section={section} canPractice={true}
               {...@props} sampleSizeThreshold={3} />}
         </div>
       </div>

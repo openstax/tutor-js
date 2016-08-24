@@ -17,9 +17,6 @@ module.exports = React.createClass
   propTypes:
     courseId:  React.PropTypes.string.isRequired
 
-  onPractice: (section) ->
-    @context.router.transitionTo('viewPractice', {courseId: @props.courseId}, {page_ids: section.page_ids})
-
   returnToDashboard: ->
     @context.router.transitionTo('viewStudentDashboard', {courseId: @props.courseId})
 
@@ -58,7 +55,7 @@ module.exports = React.createClass
     {courseId} = @props
     <BS.Panel className='performance-forecast student'>
       <Guide
-        onPractice={@onPractice}
+        canPractice={true}
         courseId={courseId}
         weakerTitle="My Weaker Areas"
         weakerExplanation={@renderWeakerExplanation()}
