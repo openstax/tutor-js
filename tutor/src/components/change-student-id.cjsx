@@ -18,7 +18,6 @@ module.exports = React.createClass
   componentWillMount: ->
     {courseId} = @context.router.getCurrentParams()
     CourseStore.once('course.loaded', @update)
-    CourseActions.load(courseId)
 
   componentWillUnmount: ->
     CourseStore.off('course.loaded', @update)
@@ -29,6 +28,8 @@ module.exports = React.createClass
     @setState({})
 
   goBack: ->
+    {courseId} = @context.router.getCurrentParams()
+
     historyInfo = TransitionStore.getPrevious(@context.router)
     url = historyInfo.path or 'dashboard'
     @context.router.transitionTo(url)
@@ -39,9 +40,10 @@ module.exports = React.createClass
     StudentIdActions.validate(courseId, newStudentId)
 
     if StudentIdStore.getErrors(courseId).length
-      @setState({})
+      @update()
       return
 
+    @setState({curId: newStudentId})
     StudentIdStore.once('student-id-saved', @saved)
     StudentIdStore.once('student-id-error', @update)
     StudentIdActions.save(courseId, {
@@ -51,6 +53,9 @@ module.exports = React.createClass
 
 
   saved: ->
+    {courseId} = @context.router.getCurrentParams()
+    CourseActions.load(courseId)
+
     @setState({success: true})
     _.delay(@goBack, 1500)
 
@@ -77,10 +82,10 @@ module.exports = React.createClass
     </BS.Panel>
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
     if (@state?.success) then return @renderSuccess()
 
-    studentId = CourseStore.getStudentId(courseId)
+    {courseId} = @context.router.getCurrentParams()
+    studentId = @state?.curId or CourseStore.getStudentId(courseId)
 
     <BS.Panel bsStyle='primary' className="change-id-panel">
       <BS.Row>
@@ -91,7 +96,7 @@ module.exports = React.createClass
           onSubmit={@onSubmit}
           saveButtonLabel="Save"
 
-          isBusy={StudentIdStore.isSaving()}
+          isBusy={StudentIdStore.isSaving(courseId)}
           studentId={studentId}
         >
           {@renderErrors()}
