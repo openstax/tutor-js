@@ -5,7 +5,7 @@ StudentDataSorter = require '../../../src/components/scores/student-data-sorter'
 DATA = require '../../../api/courses/1/performance'
 
 
-describe.only 'Student Scores Data Sorter', ->
+describe 'Student Scores Data Sorter', ->
 
   beforeEach ->
     @students = _.shuffle(DATA[0].students)
