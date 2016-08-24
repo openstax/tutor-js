@@ -52,7 +52,7 @@ Scores = React.createClass
       @setState(_.extend(state, {
         overall_average_score: scores.overall_average_score or 0,
         headings: scores.data_headings,
-        rows: if state.sort.desc then rows.reverse() else rows
+        rows: if state.sort.asc then rows else rows.reverse()
       }))
     else
       @setState(_.extend(state, {overall_average_score: 0, headings: [], rows: [] }))
