@@ -59,22 +59,22 @@ RosterConfig = {
     @_asyncStatus[teacherId] = DELETED
     @emitChange()
 
-  undrop: (studentId) ->
+  undrop: ({studentId}) ->
     @_asyncStatus[studentId] = UNDROPPING
     @emitChange()
 
-  undropped: (unused, studentId) ->
+  undropped: (updatedStudent, {studentId}) ->
     @_asyncStatus[studentId] = UNDROPPED
     # set active
     for courseId, roster of @_local
       students = roster.students
-      student = _.findWhere(students, id: studentId)
-      student?.is_active = true
+      oldStudent = _.findWhere(students, id: studentId)
+      _.extend(oldStudent, updatedStudent)
     @emitChange()
 
 
-
-
+  onUndropAlreadyActive: ({studentId}, error, request) ->
+    @undropped({is_active: true}, {studentId})
 
   exports:
 
