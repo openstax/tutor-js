@@ -40,7 +40,7 @@ routes = (
         <Route path='cc-student-redirect/?' name='viewStudentCCRedirect' handler={CCStudentRedirect} />
 
         <Route path='assignment-links/?' name='viewAssignmentLinks' handler={AssignmentLinks} />
-        <Route path='list/?:tab?' name='viewStudentDashboard' handler={StudentDashboardShell} />
+        <Route path='list/?' name='viewStudentDashboard' handler={StudentDashboardShell} />
         <Route path='tasks/:id/?' name='viewTask' handler={SingleTask} ignoreScrollBehavior/>
         <Route path='tasks/:id/steps/:stepIndex/?'
           name='viewTaskStep'
@@ -96,20 +96,15 @@ routes = (
           <Route path='externals/:id/?' name='editExternal' handler={ExternalShell} />
           <Route path='events/new/?' name='createEvent' handler={EventShell} />
           <Route path='events/:id/?' name='editEvent' handler={EventShell} />
-          <Route path='settings/?:tab?' name='courseSettings' handler={CourseSettings} />
+          <Route path='settings' name='courseSettings' handler={CourseSettings} />
           <Route path='plans/:id/?'>
             <Router.DefaultRoute handler={StatsShell}/>
             <Route path='stats/?' name='viewStats' handler={StatsShell} />
             <Route path='summary/?' name='reviewTask' handler={TaskTeacherReviewShell}>
               <Route
-                path='periods/:periodId/?'
-                name='reviewTaskPeriod'
-                ignoreScrollBehavior >
-                <Route
-                  path='sections/:sectionIndex/?'
-                  name='reviewTaskStep'
-                  ignoreScrollBehavior />
-              </Route>
+                path='sections/:sectionIndex/?'
+                name='reviewTaskStep'
+                ignoreScrollBehavior />
             </Route>
           </Route>
         </Route>

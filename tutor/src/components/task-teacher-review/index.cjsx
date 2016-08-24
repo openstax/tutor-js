@@ -101,14 +101,6 @@ TaskTeacherReview = React.createClass
 
     @setState(contentState)
 
-    if period.id isnt params.periodId
-      params.periodId = period.id
-
-      if params.sectionIndex
-        @context.router.replaceWith('reviewTaskStep', params)
-      else
-        @context.router.replaceWith('reviewTaskPeriod', params)
-
   setIsReviewLoaded: (id) ->
     return null unless id is @props.id
 
