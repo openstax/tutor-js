@@ -121,6 +121,11 @@
         display: inline-block;
         width: 175px;
       }
+      &.with-error {
+        color: @form-error-color;
+        border-bottom: 1px dashed @form-error-color;
+        .tutor-icon { color: @form-error-color; }
+      }
       .identifer { cursor: pointer; }
       .tutor-icon { margin-left: 0.5rem; }
     }
