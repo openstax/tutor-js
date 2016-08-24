@@ -18,7 +18,7 @@ PerformanceForecast = require './flux/performance-forecast'
 
 {ScoresActions} = require './flux/scores'
 {ScoresExportActions} = require './flux/scores-export'
-{RosterActions} = require './flux/roster'
+{RosterActions, RosterStore} = require './flux/roster'
 {PeriodActions} = require './flux/period'
 
 {TaskActions} = require './flux/task'
@@ -174,6 +174,12 @@ start = (bootstrapData) ->
     actions: RosterActions, trigger: 'undrop', onSuccess: 'undropped'
     errorHandlers:
       already_active: 'onUndropAlreadyActive'
+
+  apiHelper RosterActions, RosterActions.saveStudentIdentifier,
+    RosterActions.savedStudentIdentifier, 'PATCH', (courseId, studentId) ->
+      student_identifier = RosterStore.getStudentIdentifier(courseId, studentId)
+      url: "/api/students/#{studentId}", payload: {student_identifier}
+  , displayError: false, handleError: RosterActions.recordStudentIdError
 
   apiHelper RosterActions, RosterActions.create, RosterActions.created, 'POST', (courseId, params) ->
     url: "/api/courses/#{courseId}/roster", payload: params
