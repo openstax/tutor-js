@@ -38,8 +38,9 @@ Scores = React.createClass
   changeSortingOrder: (key, dataType) ->
     asc = if @state.sort.key is key then (not @state.sort.asc) else false
     @updateStudentData({sort: {key, asc, dataType}})
-  selectPeriod: (period) -> @updateStudentData({period_id: period.id})
-  setPeriodIndex:  (key) -> @updateStudentData({periodIndex: key + 1})
+  selectPeriod: (period, key) ->
+    @updateStudentData({period_id: period.id, periodIndex: key + 1})
+
   changeDisplayAs:(mode) -> @updateStudentData({displayAs: mode})
 
   updateStudentData: (nextState) ->
@@ -79,7 +80,6 @@ Scores = React.createClass
         <div className='course-nav-container'>
           <CoursePeriodsNavShell
             handleSelect={@selectPeriod}
-            handleKeyUpdate={@setPeriodIndex}
             intialActive={period_id}
             courseId={courseId}
             afterTabsItem={@renderAfterTabsItem()}
