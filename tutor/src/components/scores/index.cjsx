@@ -47,11 +47,12 @@ Scores = React.createClass
     state = merge({}, @state, nextState)
 
     scores = ScoresStore.getEnrolledScoresForPeriod(@props.courseId, state.period_id)
+    rows = _.sortBy( scores.students, StudentDataSorter(state) )
     if scores?
       @setState(_.extend(state, {
         overall_average_score: scores.overall_average_score or 0,
         headings: scores.data_headings,
-        rows: scores.students.sort( StudentDataSorter(state) )
+        rows: if state.sort.desc then rows.reverse() else rows
       }))
     else
       @setState(_.extend(state, {overall_average_score: 0, headings: [], rows: [] }))
