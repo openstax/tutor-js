@@ -19,7 +19,7 @@ AddPeriodLink = require './add-period'
 RenamePeriodLink = require './rename-period'
 ArchivePeriodLink = require './archive-period'
 
-TabsWithChildren = require '../tabs-with-children'
+Tabs = require '../tabs'
 
 CourseRoster = React.createClass
 
@@ -28,37 +28,25 @@ CourseRoster = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
-  contextTypes:
-    router: React.PropTypes.func
-
   getInitialState: ->
-    {tab} = @context.router.getCurrentParams()
-    tabIndex: if _.isUndefined(tab) then 0 else parseInt(tab, 10)
+    periodIndex: 0
 
-  componentWillReceiveProps: (nextProps) ->
-    {tab} = @context.router.getCurrentParams()
-    unless _.isUndefined(tab)
-      tabIndex = parseInt(tab, 10)
-      if tabIndex isnt @state.tabIndex
-        @setState({tabIndex})
-
-  handleSelection: (ev, tabIndex) ->
-    params = _.extend({}, @context.router.getCurrentParams(), tab: tabIndex)
-    @context.router.transitionTo('courseSettings', params)
-
-    unless PH.activePeriods(CourseStore.get(@props.courseId))[tabIndex]
-      tabIndex = 0
-    @setState({tabIndex})
-
-  selectPreviousTab: ->
-    if @state.tabIndex > 0
-      previous = @state.tabIndex - 1
+  onTabSelection: (periodIndex, ev) ->
+    if PH.activePeriods(CourseStore.get(@props.courseId))[periodIndex]
+      @setState({periodIndex})
     else
-      previous = 0
-    @handleSelection({}, previous)
+      ev.preventDefault()
+
+  selectPreviousPeriod: ->
+    if @state.periodIndex > 0
+      periodIndex = @state.periodIndex - 1
+    else
+      periodIndex = 0
+    @setState({periodIndex})
+    @refs.tabs.selectTabIndex(periodIndex)
 
   renderActivePeriod: (periods) ->
-    activePeriod = periods[@state.tabIndex]
+    activePeriod = periods[@state.periodIndex]
 
     <div className="active-period">
       <div className='period-edit-controls'>
@@ -78,7 +66,7 @@ CourseRoster = React.createClass
           courseId={@props.courseId}
           period={activePeriod}
           periods={periods}
-          afterArchive={@selectPreviousTab}
+          afterArchive={@selectPreviousPeriod}
         />
 
       </div>
@@ -86,7 +74,7 @@ CourseRoster = React.createClass
       <PeriodRoster
         period={activePeriod}
         courseId={@props.courseId}
-        activeTab={@state.tabIndex}
+        activeTab={@state.periodIndex}
         isConceptCoach={CourseStore.isConceptCoach(@props.courseId)}
       />
 
@@ -104,24 +92,24 @@ CourseRoster = React.createClass
 
     periods = PH.activePeriods(course)
 
-    {tabIndex} = @state
+    {periodIndex} = @state
 
     <div className="roster">
       <div className="settings-section periods">
 
-        <TabsWithChildren
+        <Tabs
+          ref="tabs"
           tabs={_.pluck(periods, 'name')}
-          tabIndex={tabIndex}
-          onClick={@handleSelection}
+          onSelect={@onTabSelection}
         >
           <AddPeriodLink courseId={@props.courseId} periods={periods} />
           <ViewArchivedPeriods courseId={@props.courseId}
-            afterRestore={@selectPreviousTab} />
-        </TabsWithChildren>
+            afterRestore={@selectPreviousPeriod} />
+        </Tabs>
 
       </div>
 
-      {if periods[tabIndex] then @renderActivePeriod(periods) else @renderEmpty()}
+      {if periods[periodIndex] then @renderActivePeriod(periods) else @renderEmpty()}
 
     </div>
 

@@ -15,6 +15,7 @@ CourseDataMixin = require '../course-data-mixin'
 
 {StudentDashboardStore} = require '../../flux/student-dashboard'
 {CourseStore} = require '../../flux/course'
+Tabs = require '../tabs'
 
 module.exports = React.createClass
   displayName: 'StudentDashboard'
@@ -24,33 +25,33 @@ module.exports = React.createClass
 
   mixins: [CourseDataMixin]
 
-  contextTypes:
-    router: React.PropTypes.func
-
   getInitialState: ->
-    {tab} = @context.router.getCurrentParams()
-    selectedTabIndex: if _.isUndefined(tab) then 1 else parseInt(tab, 10)
+    tabIndex: 0
 
-  componentWillReceiveProps: (nextProps) ->
-    {tab} = @context.router.getCurrentParams()
-    unless _.isUndefined(tab)
-      selectedTabIndex = parseInt(tab, 10)
-      if selectedTabIndex isnt @state.selectedTabIndex
-        @setState({selectedTabIndex})
+  onTabSelection: (tabIndex, ev) ->
+    if _.include([0, 1], tabIndex)
+      @setState({tabIndex})
+    else
+      ev.preventDefault()
 
-  selectTab: (index) ->
-    params = _.extend({}, @context.router.getCurrentParams(), tab: index)
-    @context.router.transitionTo('viewStudentDashboard', params)
+  renderPastWork: (courseId) ->
+    <div className="tab-pane active">
+      <AllEventsByWeek courseId={courseId}/>
+    </div>
 
-    @setState(selectedTabIndex:index)
+
+  renderThisWeek: (courseId) ->
+    <div className="tab-pane active">
+      <ThisWeekPanel courseId={courseId}/>
+      <UpcomingPanel courseId={courseId}/>
+    </div>
+
 
   render: ->
     courseId = @props.courseId
     courseDataProps = @getCourseDataProps(courseId)
 
     info = StudentDashboardStore.get(courseId)
-    # The large background image is currently set via CSS based on
-    # the short title of the course, which will be something like 'Physics'
     <div {...courseDataProps} className="tutor-booksplash-background">
 
       <div className='container'>
@@ -58,18 +59,13 @@ module.exports = React.createClass
         <BS.Row>
 
           <BS.Col xs=12 md=8 lg=9>
-            <BS.Tabs
-              activeKey = {@state.selectedTabIndex}
-              onSelect  = {@selectTab}
-              animation = {false}>
-              <BS.Tab eventKey={1} title='This Week'>
-                <ThisWeekPanel courseId={courseId}/>
-                <UpcomingPanel courseId={courseId}/>
-              </BS.Tab>
-              <BS.Tab eventKey={2} title='All Past Work'>
-                <AllEventsByWeek courseId={courseId}/>
-              </BS.Tab>
-            </BS.Tabs>
+            <Tabs
+              onSelect={@onTabSelection}
+              tabs={['This Week', 'All Past Work']}
+            />
+
+            {if @state.tabIndex is 0 then @renderThisWeek(courseId) else @renderPastWork(courseId)}
+
           </BS.Col>
 
           <BS.Col xs=12 md=4 lg=3>
