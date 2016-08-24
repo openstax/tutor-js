@@ -164,7 +164,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
         requestConfig.handleError?(response, args...)
         return if handled
 
-        Actions.FAILED(status, statusMessage, data, args...)
+        Actions.FAILED(status, statusMessage, args...)
 
       axios(requestConfig)
         .then(resolved, rejected)
