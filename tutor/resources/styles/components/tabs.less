@@ -1,6 +1,66 @@
 .tutor-tabs {
   display: flex;
+  border-bottom: 1px solid @nav-tabs-border-color;
   > .nav-tabs {
-    .tutor-nav-tabs();
+    flex: 1;
+    background: none;
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: none;
+    li {
+      text-align: center;
+      background: transparent;
+      border: none;
+      padding: 1px;
+      padding-bottom: 0;
+      .transition(background 0.2s);
+
+      a {
+        font-weight: 400;
+        color: @tutor-neutral !important;
+        outline: none;
+        span.tab-item-period-name {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: block;
+          white-space: nowrap;
+          font-size: 1.3rem;
+          max-width: 100px;
+        }
+      }
+
+      &:hover a {
+        color: lighten(@tutor-neutral, 14%) !important;
+      }
+
+      &.active {
+        background: @tutor-white;
+        border: 1px solid @nav-tabs-border-color;
+        border-bottom: none;
+        padding: 0;
+        padding-bottom: 1px;
+
+        a {
+          font-weight: 900;
+          color: @tutor-neutral-darker !important;
+        }
+      }
+
+      &.is-trouble {
+        a {
+          display: inline-block;
+          padding: 10px;
+          height: 20px;
+          min-width: 55px;
+          &:before {
+            .is-trouble();
+            margin: 2px 5px 0px 0px;
+            float: left;
+          }
+        }
+      }
+
+    }
+
   }
 }
