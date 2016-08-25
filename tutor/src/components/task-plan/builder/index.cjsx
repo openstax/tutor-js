@@ -247,7 +247,9 @@ TaskPlanBuilder = React.createClass
     <BS.Row className="common tutor-date-input">
       <BS.Col sm=4 md=3>
         {radio}
-        <label className="period" htmlFor='hide-periods-radio'>All Periods</label>
+        <label className="period" htmlFor='hide-periods-radio'>
+          All <CourseGroupingLabel courseId={@props.courseId} plural />
+        </label>
       </BS.Col>
       {@renderTaskPlanRow()}
     </BS.Row>
