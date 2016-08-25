@@ -80,25 +80,20 @@ RosterConfig = {
   onUndropAlreadyActive: ({studentId}, error, request) ->
     @undropped({is_active: true}, {studentId})
 
-  saveStudentIdentifier: (courseId, studentId) ->
+  saveStudentIdentifier: ({courseId, studentId}) ->
     @_asyncStatus[studentId] = STATES.SAVING
 
-  savedStudentIdentifier: (response, courseId, studentId) ->
+  savedStudentIdentifier: (updatedStudent, {courseId, studentId}) ->
     id = @_changedStudentIds[studentId]
     delete @_changedStudentIds[studentId]
     delete @_asyncStatus[studentId]
-    student = _.findWhere(@_get(courseId)?.students, {id: studentId})
-    student.student_identifier = id
+    oldStudent = _.findWhere(@_get(courseId)?.students, {id: studentId})
+    _.extend(oldStudent, updatedStudent) if oldStudent
     @emitChange()
 
-  recordStudentIdError: (request, courseId, studentId) ->
-    if request.status is 422 and _.isObject(request.data) and not _.isEmpty(request.data.errors)
-      request.handled = true
-      error = _.first(request.data.errors)
-      @_errors[studentId] = error
-      @emitChange()
-    else
-      request.handled = false
+  recordDuplicateStudentIdError: ({courseId, studentId}, error, request) ->
+    @_errors[studentId] = error
+    @emitChange()
 
   exports:
 
