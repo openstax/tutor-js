@@ -18,6 +18,10 @@ allStudents = (scores) ->
   _.chain(scores)
     .pluck('students')
     .flatten(true)
+    .each((student) ->
+      # TODO remove when BE fixes role to be string
+      student.role = "#{student.role}"
+    )
     .value()
 
 computeTaskCache = (data) ->
@@ -153,8 +157,7 @@ ScoresConfig = {
 
     getStudent: (courseId, roleId) ->
       students = allStudents @_get(courseId)
-      # TODO remove parseInt when BE fixes role to be string
-      _.findWhere(allStudents(@_get(courseId)), role: parseInt(roleId))
+      _.findWhere(allStudents(@_get(courseId)), role: roleId)
 
     getAllStudents: (courseId) ->
       allStudents @_get(courseId)

@@ -74,6 +74,7 @@ require './flux/plan-publish.spec'
 require './flux/media.spec'
 require './flux/exercise.spec'
 require './flux/tasking.spec'
+require './flux/practice.spec'
 
 # Helpers
 require './task-helpers.spec'

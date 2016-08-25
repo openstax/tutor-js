@@ -42,7 +42,7 @@ PracticeEnd = React.createClass
     {courseId, taskId, reloadPractice} = @props
     {type} = TaskStore.get(taskId)
 
-    pageIds = CoursePracticeStore.getCurrentTopics(courseId)
+    pageIds = CoursePracticeStore.getCurrentTopics(courseId, taskId)
 
     fallbackLink =
       to: 'viewPerformanceForecast'

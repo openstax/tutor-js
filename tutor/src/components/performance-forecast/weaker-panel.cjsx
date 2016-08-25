@@ -14,7 +14,7 @@ WeakerPanel = React.createClass
     weakerTitle:         React.PropTypes.string.isRequired
     weakerExplanation:   React.PropTypes.element.isRequired
     weakerEmptyMessage:  React.PropTypes.string.isRequired
-    onPractice:          React.PropTypes.func
+    canPractice:         React.PropTypes.bool
     sectionCount:        React.PropTypes.number
     sampleSizeThreshold: React.PropTypes.number.isRequired
 
@@ -22,7 +22,7 @@ WeakerPanel = React.createClass
     # Do not render if we have no sections
     return null if @props.sections.length is 0
     # Only show the practice button if practice is allowed and weakest sections exit
-    if @props.onPractice and PerformanceForecast.Helpers.canDisplayWeakest(@props) then practiceBtn =
+    if @props.canPractice and PerformanceForecast.Helpers.canDisplayWeakest(@props) then practiceBtn =
       <PracticeButton title='Practice All'
         sections=PerformanceForecast.Helpers.weakestSections(@props.sections)
         courseId={@props.courseId} />
