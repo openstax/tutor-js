@@ -52,7 +52,7 @@ CoursePeriodsNav = React.createClass
     period = @state.sortedPeriods[tabIndex]
     if period?
       @setState({tabIndex})
-      handleSelect?(period)
+      handleSelect?(period, tabIndex)
     else
       ev.preventDefault()
 
