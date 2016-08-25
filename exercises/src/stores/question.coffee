@@ -111,7 +111,6 @@ QuestionConfig = {
       formats: ['multiple-choice', 'free-response']
       stem_html:"",
       stimulus_html:"",
-      collaborator_solutions: [{"content_html": "", "solution_type": "detailed"}],
       answers:[_.extend({}, AnswerStore.getTemplate(), {id: answerId})],
       is_answer_order_important: false
 
@@ -119,8 +118,6 @@ QuestionConfig = {
       question = @_get(id)
       if (not question.stem_html)
         return valid: false, part: 'Question Stem'
-      if _.isEmpty(question.collaborator_solutions) or not _.first(question.collaborator_solutions)?.content_html
-        return valid: false, part: 'Detailed Solution'
 
       _.reduce @_get(id).answers, (memo, answer) ->
         validity = AnswerStore.validate(answer.id)
