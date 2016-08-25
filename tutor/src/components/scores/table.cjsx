@@ -161,13 +161,13 @@ module.exports = React.createClass
     if heading.plan_id?
       linkParams =
         id: heading.plan_id
-        periodId: period_id
         courseId: courseId
 
       review =
         <span className="review-link #{getAverageCellWidth}">
           <Router.Link
-            to='reviewTaskPeriod'
+            to='reviewTask'
+            query={tab: @props.periodIndex}
             params={linkParams}>
             Review
           </Router.Link>
