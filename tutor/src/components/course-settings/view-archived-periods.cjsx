@@ -47,7 +47,7 @@ ViewArchivedPeriods = React.createClass
     archived = PH.archivedPeriods(CourseStore.get(@props.courseId))
     return null if _.isEmpty(archived)
 
-    <li className='control view-archived-periods'>
+    <div className='control view-archived-periods'>
       <BS.Button onClick={@open} bsStyle='link'>
         View Archived <CourseGroupingLabel courseId={@props.courseId} />
       </BS.Button>
@@ -103,6 +103,6 @@ ViewArchivedPeriods = React.createClass
 
       </BS.Modal>
 
-    </li>
+    </div>
 
 module.exports = ViewArchivedPeriods

@@ -102,14 +102,9 @@ routes = (
             <Route path='stats/?' name='viewStats' handler={StatsShell} />
             <Route path='summary/?' name='reviewTask' handler={TaskTeacherReviewShell}>
               <Route
-                path='periods/:periodId/?'
-                name='reviewTaskPeriod'
-                ignoreScrollBehavior >
-                <Route
-                  path='sections/:sectionIndex/?'
-                  name='reviewTaskStep'
-                  ignoreScrollBehavior />
-              </Route>
+                path='sections/:sectionIndex/?'
+                name='reviewTaskStep'
+                ignoreScrollBehavior />
             </Route>
           </Route>
         </Route>

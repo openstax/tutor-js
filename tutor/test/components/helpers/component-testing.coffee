@@ -21,6 +21,7 @@ beforeEach ->
   ROUTER.transitionTo = sandbox.spy()
   ROUTER.getCurrentPath = sandbox.spy( -> CURRENT_ROUTER_PATH )
   ROUTER.getCurrentQuery = sandbox.spy( -> CURRENT_ROUTER_QUERY )
+  ROUTER.getCurrentPathname = sandbox.spy( -> '/testing' )
   ROUTER.getLocation = sandbox.spy( ->
     addChangeListener: sandbox.spy()
     removeChangeListener: sandbox.spy()

@@ -29,7 +29,7 @@ Scores = React.createClass
   getInitialState: ->
     sortedPeriods = CourseStore.getPeriods(@props.courseId)
     period_id: _.first(sortedPeriods).id
-    periodIndex: 1
+    periodIndex: 0
     sortIndex: 0
     sort: { key: 'name', asc: true, dataType: 'score' }
     displayAs: 'percentage'
@@ -38,8 +38,9 @@ Scores = React.createClass
   changeSortingOrder: (key, dataType) ->
     asc = if @state.sort.key is key then (not @state.sort.asc) else false
     @updateStudentData({sort: {key, asc, dataType}})
+
   selectPeriod: (period, key) ->
-    @updateStudentData({period_id: period.id, periodIndex: key + 1})
+    @updateStudentData({period_id: period.id, periodIndex: key})
 
   changeDisplayAs: (mode) -> @updateStudentData({displayAs: mode})
 

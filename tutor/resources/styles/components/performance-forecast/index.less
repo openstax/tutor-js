@@ -14,9 +14,13 @@
 
 .performance-forecast {
 
-  .nav-tabs {
-    .tutor-nav-tabs(@page-background);
+  .tutor-tabs {
     margin-bottom: 20px;
+    .nav-tabs {
+      li.active {
+        background: @page-background;
+      }
+    }
   }
 
   background: none;

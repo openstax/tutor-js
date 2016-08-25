@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+Router = require 'react-router'
 LoadableItem = require './loadable-item'
 _ = require 'underscore'
 camelCase = require 'camelcase'
@@ -7,6 +8,7 @@ classnames = require 'classnames'
 
 {CourseActions, CourseStore} = require '../flux/course'
 PeriodHelper = require '../helpers/period'
+Tabs = require './tabs'
 
 CoursePeriodsNav = React.createClass
   displayName: 'CoursePeriodsNav'
@@ -18,20 +20,21 @@ CoursePeriodsNav = React.createClass
     periods: React.PropTypes.array.isRequired
     afterTabsItem: React.PropTypes.element
 
-
   getDefaultProps: ->
     initialActive: 0
     sortedPeriods: []
 
   getInitialState: ->
-    active: @props.initialActive
+    tabIndex: 0
 
   componentWillMount: ->
     @setSortedPeriods(@props.periods)
-    CourseStore.on('course.loaded', @selectPeriod)
+    CourseStore.on('course.loaded', @update)
 
   componentWillUnmount: ->
-    CourseStore.off('course.loaded', @selectPeriod)
+    CourseStore.off('course.loaded', @update)
+
+  update: -> @forceUpdate()
 
   componentWillReceiveProps: (nextProps) ->
     @setSortedPeriods(nextProps.periods)
@@ -41,21 +44,18 @@ CoursePeriodsNav = React.createClass
     sortedPeriods = PeriodHelper.sort(periods)
     @setState(sortedPeriods: sortedPeriods)
 
-  selectPeriod: (courseId) ->
-    if courseId is @props.courseId
-      @onSelect(@state.active)
 
-  onSelect: (key) ->
+  onTabSelection: (tabIndex, ev) ->
+    return if @state.tabIndex is tabIndex
+
     {courseId, handleSelect} = @props
-    {sortedPeriods} = @state
+    period = @state.sortedPeriods[tabIndex]
+    if period?
+      @setState({tabIndex})
+      handleSelect?(period, tabIndex)
+    else
+      ev.preventDefault()
 
-    period = sortedPeriods?[key]
-    unless period?
-      throw new Error("BUG: #{key} period does not exist for course #{courseId}. There are only #{periods.length}.")
-      return
-
-    @setState(active: key)
-    handleSelect?(period, key)
 
   renderPeriod: (period, key) ->
     className = classnames({'is-trouble': period.is_trouble})
@@ -63,10 +63,8 @@ CoursePeriodsNav = React.createClass
       <BS.Tooltip id="course-periods-nav-tab-#{key}">
         {period.name}
       </BS.Tooltip>
-    <BS.NavItem
-      className={className}
-      eventKey={key}
-      key="period-nav-#{period.id}">
+
+    <div className={className}>
         <BS.OverlayTrigger
         placement='top'
         delayShow={1000}
@@ -74,18 +72,17 @@ CoursePeriodsNav = React.createClass
         overlay={tooltip}>
           <span className='tab-item-period-name'>{period.name}</span>
         </BS.OverlayTrigger>
-    </BS.NavItem>
+    </div>
 
 
   render: ->
-    {active, sortedPeriods} = @state
-    {afterTabsItem} = @props
-    periodsItems = _.map(sortedPeriods, @renderPeriod)
-
-    <BS.Nav bsStyle='tabs' activeKey={active} onSelect={@onSelect}>
-      {periodsItems}
-      {afterTabsItem?()}
-    </BS.Nav>
+    <Tabs
+      ref="tabs"
+      tabs={_.map @state.sortedPeriods, @renderPeriod}
+      onSelect={@onTabSelection}
+    >
+      {@props.afterTabsItem}
+    </Tabs>
 
 
 CoursePeriodsNavShell = React.createClass
