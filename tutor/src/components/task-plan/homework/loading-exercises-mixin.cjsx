@@ -1,3 +1,4 @@
+_     = require 'underscore'
 React = require 'react'
 
 {ExerciseStore, ExerciseActions} = require '../../../flux/exercise'

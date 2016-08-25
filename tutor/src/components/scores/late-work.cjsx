@@ -1,6 +1,7 @@
-React      = require 'react'
-BS         = require 'react-bootstrap'
-Time       = require '../time'
+_     = require 'underscore'
+BS    = require 'react-bootstrap'
+React = require 'react'
+Time  = require '../time'
 classnames = require 'classnames'
 
 {ScoresActions} = require '../../flux/scores'

@@ -1,3 +1,4 @@
+_     = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
 Markdown = require '../markdown'
