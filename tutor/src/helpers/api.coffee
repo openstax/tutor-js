@@ -161,9 +161,9 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
 
       rejected = (response) ->
         {status, statusText, statusMessage, data} = response
-        onRequestError(response, requestConfig)
         requestConfig.handleError?(response, args...)
         unless response.handled is true
+          onRequestError(response, requestConfig)
           Actions.FAILED(status, statusMessage, args...)
 
       axios(requestConfig)
@@ -174,17 +174,22 @@ setUpXHRInterceptors()
 route = (method, interpolatedUrl, options) ->
   pathMaker = (actionArguments) ->
     url = interpolate(interpolatedUrl, actionArguments)
-    payload = _.result(options, payload)
+    payload = if _.isFunction(options.payload)
+      options.payload.call(options, actionArguments)
+    else
+      options.payload
     {url, payload}
 
   if options.errorHandlers
     options.handleError = (request, args...) ->
       return unless _.isObject(request.data) and _.isArray(request.data.errors)
-      request.handled = true
+      handled_count = 0
       for error in request.data.errors
-        options.actions[ options.errorHandlers[error.code] ]?(
-          args..., error, request
-        )
+        handler = options.actions[ options.errorHandlers[error.code] ]
+        if handler
+          handler(args..., error, request)
+          handled_count += 1
+      request.handled = (handled_count is request.data.errors.length)
 
   apiHelper(
     options.actions, options.actions[options.trigger], options.actions[options.onSuccess],
