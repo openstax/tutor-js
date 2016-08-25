@@ -41,10 +41,14 @@ CoursePractice =
 
   _failed: (result, courseId, topicParams) ->
     @_cacheError(result, courseId, topicParams)
+    @emit('change', courseId, topicParams)
 
   create: (courseId, topicParams) ->
     @_local[courseId] = {} unless @dontReload(courseId)
     @_asyncStatus[courseId] = STATES.LOADED
+
+  createSilent: (courseId, topicParams) ->
+    @create(courseId, topicParams)
 
   created: (result, courseId, topicParams) ->
     # this will use the base config's loaded, which will
@@ -52,7 +56,7 @@ CoursePractice =
     @loaded(result, courseId, topicParams)
 
   _loaded: (result, courseId, topicParams = {}) ->
-    @emit("#{STATES.LOADED}.#{courseId}", courseId)
+    @emit('change', courseId, topicParams)
     TaskActions.loaded(result, result.id)
 
     @_recordTopics(result.id, courseId, topicParams)

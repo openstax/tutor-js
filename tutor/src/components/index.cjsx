@@ -46,7 +46,11 @@ SinglePractice = React.createClass
 
   createPractice: (courseId) ->
     query = @context?.router?.getCurrentQuery()
-    CoursePracticeActions.create(courseId, query)
+    if query.taskId? and query.taskId is CoursePracticeStore.getTaskId(courseId)
+      @update()
+    else
+      practiceQuery = _.omit(query, 'taskId')
+      CoursePracticeActions.create(courseId, practiceQuery)
 
   getInitialState: ->
     # force a new practice each time
