@@ -3,6 +3,7 @@ BS       = require 'react-bootstrap'
 S = require '../../helpers/string'
 {TimeStore} = require '../../flux/time'
 moment   = require 'moment'
+TH = require '../../helpers/task'
 
 module.exports = React.createClass
   displayName: 'EventInfoIcon'
@@ -14,9 +15,7 @@ module.exports = React.createClass
     due = moment(@props.event.due_at)
     now = TimeStore.getNow()
 
-    return null if @props.event.type isnt 'homework' or
-      @props.event.complete_exercise_count is @props.event.exercise_count or
-      due.isAfter(now, 'd')
+    return null if due.isAfter(now, 'd') and TH.hasLateWork(@props.event)
 
     # use 'day' granularity for checking if the due date is today or after today
     status = if due.isSame(now, 'd') then 'incomplete' else 'late'
