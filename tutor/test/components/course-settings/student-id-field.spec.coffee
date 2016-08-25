@@ -37,4 +37,4 @@ describe 'Course Settings update student id', ->
       ReactTestUtils.Simulate.change(input, {target: {value: 'ONEWORLDID'}})
       ReactTestUtils.Simulate.blur(input, {})
       expect(RosterActions.saveStudentIdentifier).to.have.been
-        .calledWith(COURSE_ID, STUDENT.id)
+        .calledWith({courseId: COURSE_ID, studentId: STUDENT.id})
