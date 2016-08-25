@@ -104,6 +104,7 @@ TaskTeacherReviewExercise = React.createClass
 
   renderQuestion: (question, index) ->
     questionStats = @getQuestionStatsById(question.id)
+    return null unless questionStats
     {sectionKey} = @props
 
     <TaskTeacherReviewQuestionTracker
