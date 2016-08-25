@@ -1,9 +1,12 @@
 React = require 'react'
-BS = require 'react-bootstrap'
 _ = require 'underscore'
+classnames = require 'classnames'
 
 PerformanceForecast = require '../../flux/performance-forecast'
 ChapterSectionType = require './chapter-section-type'
+
+ButtonWithTip = require '../buttons/button-with-tip'
+Practice = require './practice'
 
 module.exports = React.createClass
   displayName: 'PracticeButton'
@@ -12,35 +15,25 @@ module.exports = React.createClass
     courseId: React.PropTypes.string.isRequired
     title:    React.PropTypes.string.isRequired
     sections: React.PropTypes.arrayOf(ChapterSectionType)
+
   contextTypes:
     router: React.PropTypes.func
 
-  componentWillMount: ->
-    uniqueId = _.uniqueId('practice-button-tooltip-')
-    @setState({uniqueId: uniqueId})
+  getDefaultProps: ->
+    id: _.uniqueId('practice-button-tooltip-')
 
-  onClick: ->
-    {courseId, sections} = @props
-    page_ids = PerformanceForecast.Helpers.pagesForSections(sections)
-    unless _.isEmpty(page_ids)
-      @context.router.transitionTo('viewPractice', {courseId}, {page_ids})
+  getTip: (props) ->
+    'No problems are available for practicing' if props.isDisabled
 
   render: ->
-    {sections} = @props
+    {sections, courseId, id} = @props
     page_ids = PerformanceForecast.Helpers.pagesForSections(sections)
-    classNames = ['practice', @props.practiceType]
-    isDisabled = _.isEmpty(page_ids)
-    classNames.push 'disabled' if isDisabled
+    classes = classnames 'practice', @props.practiceType
 
-    button = <BS.Button className={classNames.join(' ')} onClick={@onClick}>
-      {@props.title}
-      <i />
-    </BS.Button>
-
-    if isDisabled
-      tooltip = <BS.Tooltip id={@state.uniqueId}>No problems are available for practicing</BS.Tooltip>
-      <BS.OverlayTrigger placement='top' overlay={tooltip}>
-        {button}
-      </BS.OverlayTrigger>
-    else
-      button
+    <Practice
+      courseId={courseId}
+      page_ids={page_ids}>
+      <ButtonWithTip id={id} className={classes} getTip={@getTip} placement='top'>
+        {@props.title}<i />
+      </ButtonWithTip>
+    </Practice>

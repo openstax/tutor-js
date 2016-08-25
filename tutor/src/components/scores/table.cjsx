@@ -2,6 +2,8 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
+{ResizeListenerMixin} = require 'shared'
+
 FixedDataTable = require 'fixed-data-table'
 Time   = require '../time'
 Icon = require '../icon'
@@ -22,29 +24,58 @@ ColumnGroup = FixedDataTable.ColumnGroup
 
 Router = require 'react-router'
 
+FIRST_DATA_COLUMN = 2
+COLUMN_WIDTH = 160
+
 module.exports = React.createClass
   displayName: 'ScoresTable'
 
   contextTypes:
     router: React.PropTypes.func
 
+  mixins: [ResizeListenerMixin]
+
   propTypes:
     courseId: React.PropTypes.string.isRequired
-    data: React.PropTypes.object.isRequired
-    width: React.PropTypes.number.isRequired
-    height: React.PropTypes.number.isRequired
+    rows: React.PropTypes.array.isRequired
+    headings: React.PropTypes.array.isRequired
+    overall_average_score: React.PropTypes.number.isRequired
     sort: React.PropTypes.object.isRequired
     onSort: React.PropTypes.func.isRequired
-    colSetWidth: React.PropTypes.number.isRequired
     period_id: React.PropTypes.string
     periodIndex: React.PropTypes.number.isRequired
-    firstDataColumn: React.PropTypes.number.isRequired
     displayAs: React.PropTypes.string.isRequired
     dataType: React.PropTypes.string
     isConceptCoach: React.PropTypes.bool.isRequired
 
+
+  getInitialState: ->
+    tableWidth: 0
+    tableHeight: 0
+
+  componentDidMount: -> @sizeTable()
+  _resizeListener:   -> @sizeTable()
+  sizeTable: ->
+    @setState({tableWidth: @tableWidth(), tableHeight: @tableHeight()})
+
+  tableWidth: ->
+    windowEl = @_getWindowSize()
+    tableContainer = React.findDOMNode(@refs.tableContainer) #.course-scores-container
+    style = tableContainer.currentStyle or window.getComputedStyle(tableContainer)
+    padding = parseInt(style.paddingLeft) + parseInt(style.paddingRight)
+    tableContainerWidth = tableContainer.clientWidth - padding
+    tableHorzSpacing = document.body.clientWidth - tableContainerWidth
+    # since table.clientWidth returns 0 on initial load in IE, include windowEl as a fallback
+    Math.max(windowEl.width - tableHorzSpacing, tableContainerWidth)
+
+  tableHeight: ->
+    windowEl = @_getWindowSize()
+    table = React.findDOMNode(@refs.tableContainer)
+    bottomMargin = 140
+    windowEl.height - table.offsetTop - bottomMargin
+
   renderNameHeader: ->
-    {sort, onSort, colSetWidth, isConceptCoach} = @props
+    {sort, onSort, isConceptCoach} = @props
 
     emptyCell = <div className='blank' />
     averageLabel =
@@ -77,7 +108,7 @@ module.exports = React.createClass
     nameColumns = 1
     <ColumnGroup fixed={true} groupHeaderRenderer={-> emptyCell}>
       <Column
-        width={colSetWidth * nameColumns}
+        width={COLUMN_WIDTH * nameColumns}
         flexGrow={0}
         allowCellsRecycling={true}
         isResizable=false
@@ -88,21 +119,21 @@ module.exports = React.createClass
     </ColumnGroup>
 
   renderOverallHeader: ->
-    {colSetWidth, data} = @props
+    {data} = @props
 
     overallTitle = <div className='overall-header-cell'>Overall</div>
     customHeader =
       <div className='overall-average-cell'>
         <div className='average'>
           <span>
-            {"#{(data.overall_average_score * 100).toFixed(0)}%"}
+            {"#{(@props.overall_average_score * 100).toFixed(0)}%"}
           </span>
         </div>
         <div className='average empty'></div>
       </div>
     <ColumnGroup fixed={true} groupHeaderRenderer={-> overallTitle}>
       <Column
-        width={colSetWidth / 2}
+        width={COLUMN_WIDTH / 2}
         flexGrow={0}
         allowCellsRecycling={true}
         isResizable=false
@@ -114,9 +145,9 @@ module.exports = React.createClass
 
 
   renderHeadingCell: (heading, i) ->
-    {firstDataColumn, isConceptCoach, periodIndex, period_id, courseId, sort, onSort, dataType, colSetWidth} = @props
+    {isConceptCoach, periodIndex, period_id, courseId, sort, onSort, dataType} = @props
 
-    i += firstDataColumn # for the first/last name columns
+    i += FIRST_DATA_COLUMN # for the first/last name columns
 
     getAverageCellWidth =
       if isConceptCoach
@@ -130,13 +161,13 @@ module.exports = React.createClass
     if heading.plan_id?
       linkParams =
         id: heading.plan_id
-        periodId: period_id
         courseId: courseId
 
       review =
         <span className="review-link #{getAverageCellWidth}">
           <Router.Link
-            to='reviewTaskPeriod'
+            to='reviewTask'
+            query={tab: @props.periodIndex}
             params={linkParams}>
             Review
           </Router.Link>
@@ -241,7 +272,7 @@ module.exports = React.createClass
         label={heading.title}
         headerRenderer={-> customHeader}
         cellRenderer={-> @cellData}
-        width={colSetWidth}
+        width={COLUMN_WIDTH}
         flexGrow={1}
         allowCellsRecycling={true}
         isResizable=false
@@ -249,8 +280,10 @@ module.exports = React.createClass
     </ColumnGroup>
 
 
-  renderStudentRow: (student_data, rowIndex) ->
-    {courseId, displayAs, isConceptCoach, period_id, data} = @props
+  renderStudentRow: (rowIndex) ->
+    student_data = @props.rows[rowIndex]
+
+    {courseId, displayAs, isConceptCoach, period_id, rows, headings} = @props
 
     props =
       {
@@ -262,13 +295,13 @@ module.exports = React.createClass
         rowIndex: rowIndex,
         period_id: period_id
       }
-    isBottom = if data.rows.length is rowIndex + 1 then 'bottom' else ''
-    studentAverage = "#{(data.rows[rowIndex].average_score * 100).toFixed(0)}%"
+    isBottom = if rows.length is rowIndex + 1 then 'bottom' else ''
+    studentAverage = "#{(rows[rowIndex].average_score * 100).toFixed(0)}%"
 
     columns = [
       <NameCell key='name' {...props} />,
       <div className="overall-cell #{isBottom}">
-        {if data.rows[rowIndex].average_score? then studentAverage}
+        {if rows[rowIndex].average_score? then studentAverage}
       </div>
     ]
 
@@ -276,33 +309,38 @@ module.exports = React.createClass
       props.task = task
       props.columnIndex = columnIndex
       columns.push switch task?.type or 'null'
-        when 'null'     then <AbsentCell   key='absent' headings={data.headings} {...props} />
+        when 'null'     then <AbsentCell   key='absent' headings={headings} {...props} />
         when 'external' then <ExternalCell key='extern'   {...props} />
         when 'reading'  then <ReadingCell  key='reading'  {...props} />
         when 'homework' then <HomeworkCell key='homework'  {...props} />
         else <ConceptCoachCell key='concept_coach'  {...props} />
     columns
 
+  renderNoAssignments: ->
+    <div className='course-scores-container' ref='tableContainer'>
+      <span className='course-scores-notice'>No Assignments Yet</span>
+    </div>
 
   render: ->
-    {data, width, height, isConceptCoach} = @props
+    {rows, headings, isConceptCoach} = @props
 
-    rowGetter = (rowIndex) =>
-      @renderStudentRow(data.rows[rowIndex], rowIndex)
+    return @renderNoAssignments() if _.isEmpty(@props.rows)
 
     groupHeaderHeight = if isConceptCoach then 50 else 85
+    <div className='course-scores-container' ref='tableContainer'>
 
-    <Table
-      rowHeight={50}
-      rowGetter={rowGetter}
-      rowsCount={data.rows.length}
-      width={width}
-      height={height}
-      headerHeight={55}
-      groupHeaderHeight={groupHeaderHeight}>
+      <Table
+        rowHeight={50}
+        rowGetter={@renderStudentRow}
+        rowsCount={rows.length}
+        width={@state.tableWidth}
+        height={@state.tableHeight}
+        headerHeight={55}
+        groupHeaderHeight={groupHeaderHeight}>
 
-      {@renderNameHeader()}
-      {@renderOverallHeader()}
-      {_.map(data.headings, @renderHeadingCell)}
+        {@renderNameHeader()}
+        {@renderOverallHeader()}
+        {_.map(headings, @renderHeadingCell)}
 
-    </Table>
+      </Table>
+    </div>

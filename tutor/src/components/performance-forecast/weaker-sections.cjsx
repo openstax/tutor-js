@@ -3,7 +3,6 @@ BS = require 'react-bootstrap'
 Router = require 'react-router'
 _ = require 'underscore'
 
-PracticeButton = require './practice-button'
 PerformanceForecast = require '../../flux/performance-forecast'
 Section = require './section'
 

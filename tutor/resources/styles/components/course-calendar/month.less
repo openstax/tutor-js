@@ -36,18 +36,19 @@
     padding-bottom: @tutor-card-body-padding-vertical;
   }
 
-  .calendar-body {
-    [class^="col-"] {
-      overflow-x: hidden;
-      overflow-y: visible;
-      padding-bottom: 20px;
-    }
+  .calendar-body [class^="col-"] {
+    overflow-x: hidden;
+    overflow-y: visible;
+    padding-bottom: 20px;
+
+    .tutor-subtle-load(will-load; 'Loading ' attr(data-duration-name) '...');
   }
 
   .calendar-loading {
-    .rc-Month {
+    .calendar-body [class^="col-"] {
       .tutor-subtle-load(loading);
     }
+
     .plan {
       opacity: 0.1;
     }
@@ -67,7 +68,6 @@
       display: inline-block;
       vertical-align: top;
       position: relative;
-      .tutor-subtle-load(will-load; 'Loading Calendar...');
 
       &-weekdays {
         width: 100%;

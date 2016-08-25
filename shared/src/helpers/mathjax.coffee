@@ -30,8 +30,9 @@ typesetDocument = (windowImpl) ->
 
   windowImpl.MathJax.Hub.Queue ->
     # Queue a call to mark the found nodes as rendered so are ignored if typesetting is called repeatedly
+    # uses className += instead of classList because IE
     for node in latexNodes.concat(mathMLNodes)
-      node.classList.add(MATH_RENDERED_CLASS)
+      node.className += " #{MATH_RENDERED_CLASS}"
 
 # Install a debounce around typesetting function so that it will only run once
 # every Xms even if called multiple times in that period

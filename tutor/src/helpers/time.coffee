@@ -1,7 +1,6 @@
 moment = require 'moment-timezone'
 require 'moment-timezone/moment-timezone-utils'
 _ = require 'underscore'
-
 # Map http://www.iana.org/time-zones names to timezone names in Rails
 # https://github.com/openstax/tutor-server/pull/1057#issuecomment-212678167
 TIME_LINKS =

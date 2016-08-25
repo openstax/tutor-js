@@ -2,34 +2,16 @@
 _ = require 'underscore'
 
 {TaskActions, TaskStore} = require './task'
-{CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
+{CrudConfig, makeSimpleStore, extendConfig, STATES} = require './helpers'
 PeriodHelper = require '../helpers/period'
 AppearanceCodes = require './course-appearance-codes'
-
 
 DEFAULT_TIME_ZONE = 'Central Time (US & Canada)'
 
 CourseConfig =
 
-  _guides: {}
-  _asyncStatusGuides: {}
-
-  loadGuide: (courseId) ->
-    delete @_guides[courseId]
-    @_asyncStatusGuides[courseId] = 'loading'
-    @emitChange()
-
-  loadedGuide: (obj, courseId) ->
-    @_guides[courseId] = obj
-    @_asyncStatusGuides[courseId] = 'loaded'
-    @emitChange()
-
   _loaded: (obj, id) ->
     @emit('course.loaded', obj.id)
-
-  _reset: ->
-    @_guides = {}
-    @_asyncStatusGuides = {}
 
   _saved: (result, id) ->
     @emit('saved')
@@ -42,15 +24,9 @@ CourseConfig =
       {appearance_code} = @_local[courseId]
       AppearanceCodes[appearance_code]
 
-    getGuide: (courseId) ->
-      @_guides[courseId] or throw new Error('BUG: Not loaded yet')
-
     isConceptCoach: (courseId) -> !! @_local[courseId]?.is_concept_coach
     isCollege: (courseId) -> !! @_local[courseId]?.is_college
     isHighSchool: (courseId) -> not @_local[courseId]?.is_college
-
-    isGuideLoading: (courseId) -> @_asyncStatusGuides[courseId] is 'loading'
-    isGuideLoaded: (courseId) -> !! @_guides[courseId]
 
     validateCourseName: (name, courses, active) ->
       for course in courses
@@ -86,6 +62,10 @@ CourseConfig =
     getByEcosystemId: (ecosystemId) ->
       _.findWhere(@_local, ecosystem_id: ecosystemId)
 
+    getStudentId: (courseId) ->
+      course = @_get(courseId)
+      role = _.findWhere(course?.roles, type: 'student')
+      if role then _.findWhere(course.students, role_id: role.id).student_identifier else null
 
 extendConfig(CourseConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(CourseConfig)

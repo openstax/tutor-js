@@ -2,6 +2,7 @@ moment = require 'moment-timezone'
 twix = require 'twix'
 _ = require 'underscore'
 camelCase = require 'camelcase'
+padStart = require 'lodash/padStart'
 
 React = require 'react/addons'
 CoursePlan = require './plan'
@@ -63,14 +64,24 @@ CourseDuration = React.createClass
       # TODO these parts actually seem like they should be in flux
       .each(@setDuration(viewingDuration))
       .filter(@isInDuration(viewingDuration))
-      .sortBy((plan) ->
-        moment(plan.published_at).valueOf()
-      )
-      .sortBy((plan) ->
-        plan.duration.end().valueOf()
-      )
-      .sortBy((plan) ->
-        plan.duration.start().valueOf()
+      .sortBy((plan) =>
+        expectedLength = 13
+        # Sort by the following conditions, in decreasing priority.
+        # A sorter here should be unix timestamp in ms.
+        # See http://momentjs.com/docs/#/displaying/unix-timestamp-milliseconds/.
+        sorters = [
+          plan.duration.start().valueOf()
+          plan.duration.end().valueOf()
+          @_getEarliestOpensAt(plan).valueOf()
+          moment(plan.last_published_at).valueOf()
+        ]
+
+        # Left pad the ms to ensure that pre 1X10^12 millseconds (~2001/09/08)
+        # become 0_ _ _ _ _ _ _ _ _ _ _ _ where _ is some digit.
+        # This ensures that all sorters, regardless of time until 1X10^13 millseconds,
+        # will sort with their respective priorities, as each sorter will take up
+        # the same amount of space in the resulting sortBy string.
+        _.map(sorters, _.partial(padStart, _, expectedLength, '0')).join()
       )
       .value()
 
@@ -81,25 +92,17 @@ CourseDuration = React.createClass
       .value()
 
   calcDurationHeight: (rangeData) ->
-    planGroups = _.reduce(rangeData.plansByDays, (groups, plansByDay) ->
-
-      planIds = _.map(plansByDay, (planInfo) -> planInfo.plan.id)
-
-      # if plans don't group together on adjacent days,
-      if _.isEmpty(_.intersection(_.last(groups), planIds))
-        # push as new group
-        groups.push(planIds)
-      else
-        # else, plans share adjacent days, group together.
-        groups[groups.length - 1] = _.union(_.last(groups), planIds)
-
-      groups
-
-    , [[]])
-
-    rangeData.maxPlansOnDay = _.max(planGroups, (plansInGroup) ->
-      plansInGroup.length
-    ).length
+    rangeData.maxPlansOnDay = _.chain(rangeData.plansByDays)
+      .map (plansByDay) =>
+        @_setPlanRelativeOrder(plansByDay)
+        # use plan relative order to calculate plan "height"
+        _.map(plansByDay, (plan) -> -1 * plan.relativeOrder + 1)
+      # flatten for all heights in week
+      .flatten()
+      # union with a 0 height, for durations with no plans
+      .union([0])
+      .max()
+      .value()
 
     # set day height to the best-guess for this range based on how many plans it has.
     # It'll be fine-tuned later across all ranges
@@ -116,41 +119,34 @@ CourseDuration = React.createClass
       ).value()
 
       {maxPlansOnDay, plansByDays} = range
-      _.each(plansByDays, (plans) =>
-        current =
-          adder: 0
-
-        # grab all existing orders in the day
-        existingOrdered = _.chain(plans)
-          .pluck('order')
-          .compact()
-          .value()
-
-        _.chain(plans)
-          .sortBy((plan) ->
-            -1 * plan.rangeDuration.start.valueOf()
-          )
-          .each(@setPlanOrder({current, existingOrdered, weekTopOffset, maxPlansOnDay}))
-          .value()
+      _.each(plansByDays, (plans) ->
+        _.each(plans, (duration) ->
+          duration.weekTopOffset = weekTopOffset
+          duration.order = maxPlansOnDay + duration.relativeOrder
+        )
       )
     )
 
+  _setPlanRelativeOrder: (plans) ->
+    current =
+      adder: 0
+
+    # grab all existing orders in the day
+    existingOrdered = _.chain(plans).pluck('relativeOrder').compact().value()
+
+    _.each(plans, @_setPlanOrder({current, existingOrdered}))
+
   # set plan order, makes sure that order is not already taken on this day
-  setPlanOrder: ({current, existingOrdered, weekTopOffset, maxPlansOnDay}) ->
+  _setPlanOrder: ({current, existingOrdered}) ->
     (duration, order) =>
-      unless duration.order?
-        current.order = order
-        @_calcOrder({existingOrdered, current, maxPlansOnDay})
-        duration.order = current.order
-        duration.weekTopOffset = weekTopOffset
+      duration.relativeOrder ?= @_calcOrder({existingOrdered, current, order})
 
-  _calcOrder: ({existingOrdered, current, maxPlansOnDay}) ->
+  _calcOrder: ({existingOrdered, current, order}) ->
     # find an order that is not already occupied by any overlapping plans
-
-    while existingOrdered.indexOf(maxPlansOnDay - (current.order + current.adder)) > -1
+    while existingOrdered.indexOf(- (order + current.adder)) > -1
       current.adder = current.adder + 1
 
-    current.order = maxPlansOnDay - (current.order + current.adder)
+    - (order + current.adder)
 
   _getDay: (oneMoment) ->
     moment(oneMoment).startOf('day').twix(moment(oneMoment).endOf('day'), {allDay: true})

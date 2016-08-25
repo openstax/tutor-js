@@ -110,7 +110,7 @@ describe 'Course Listing Component', ->
 
   it 'renders a "no membership" page when not a member of any courses', ->
     # clear all course stores
-    CourseActions._reset()
+    CourseActions.reset()
     CourseListingActions.loaded([])
     renderListing().then (state) ->
       expect(state.div.textContent).to.include('We cannot find an OpenStax course associated with your account')

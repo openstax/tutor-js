@@ -29,12 +29,6 @@ describe 'Registration Component', ->
       ).not.to.be.empty
 
 
-  it 'renders modify if course is already registered', ->
-    Testing.renderComponent( Registration, props: @props ).then ({element}) ->
-      expect(
-        ReactTestUtils.scryRenderedComponentsWithType(element, ModifyCourseRegistration)
-      ).not.to.be.empty
-
   it 'asks to enroll or login if user doesnt have course and isnt logged in', ->
     User.getCourse.restore()
     User.isLoggedIn.restore()

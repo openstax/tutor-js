@@ -2,6 +2,7 @@ axios = require 'axios'
 {Promise} = require 'es6-promise'
 _ = require 'underscore'
 QS = require 'qs'
+interpolate = require 'interpolate'
 
 {AppActions, AppStore} = require '../flux/app'
 {TimeActions} = require '../flux/time'
@@ -159,16 +160,36 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
         successAction(data, args...)
 
       rejected = (response) ->
-        {status, statusText, statusMessage, handled} = response
+        {status, statusText, statusMessage, data} = response
         onRequestError(response, requestConfig)
         requestConfig.handleError?(response, args...)
-        return if handled
-
-        Actions.FAILED(status, statusMessage, args...)
+        unless response.handled is true
+          Actions.FAILED(status, statusMessage, args...)
 
       axios(requestConfig)
         .then(resolved, rejected)
 
 setUpXHRInterceptors()
 
-module.exports = {apiHelper, IS_LOCAL, toParams, onRequestError}
+route = (method, interpolatedUrl, options) ->
+  pathMaker = (actionArguments) ->
+    url = interpolate(interpolatedUrl, actionArguments)
+    payload = _.result(options, payload)
+    {url, payload}
+
+  if options.errorHandlers
+    options.handleError = (request, args...) ->
+      return unless _.isObject(request.data) and _.isArray(request.data.errors)
+      request.handled = true
+      for error in request.data.errors
+        options.actions[ options.errorHandlers[error.code] ]?(
+          args..., error, request
+        )
+
+  apiHelper(
+    options.actions, options.actions[options.trigger], options.actions[options.onSuccess],
+    method, pathMaker, options
+  )
+
+
+module.exports = {apiHelper, IS_LOCAL, toParams, onRequestError, route}

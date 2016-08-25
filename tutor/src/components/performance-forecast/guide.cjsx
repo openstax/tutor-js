@@ -22,7 +22,7 @@ module.exports = React.createClass
     allSections: React.PropTypes.array.isRequired
     chapters:    React.PropTypes.arrayOf(ChapterSectionType)
     heading:     React.PropTypes.element
-    onPractice:  React.PropTypes.func
+    canPractice:  React.PropTypes.bool
     onReturn:    React.PropTypes.func.isRequired
     weakerTitle: React.PropTypes.string.isRequired
     weakerExplanation: React.PropTypes.element

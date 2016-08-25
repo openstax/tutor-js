@@ -8,6 +8,7 @@ async = require './helpers/webpack-async-loader'
 {CourseListing} = require './components/course-listing'
 {AssignmentLinks} = require './components/assignment-links'
 QuestionsLibrary = require './components/questions'
+ChangeStudentId = require './components/change-student-id'
 PerformanceForecastShell = require './components/performance-forecast'
 {ScoresShell} = require './components/scores'
 {ReadingShell, HomeworkShell, ExternalShell, EventShell} = require './components/task-plan'
@@ -17,7 +18,6 @@ TeacherTaskPlans = require './components/task-plan/teacher-task-plans-listing'
 {TaskTeacherReviewShell} = require './components/task-teacher-review'
 {ReferenceBookShell, ReferenceBookPageShell, ReferenceBookFirstPage} =
   require './components/reference-book'
-
 {StatsShell} = require './components/plan-stats'
 CCDashboard = require './components/cc-dashboard'
 CCDashboardHelp = require './components/cc-dashboard/help'
@@ -35,6 +35,7 @@ routes = (
       <Route path='dashboard/?' name='dashboard' handler={CourseListing} />
 
       <Route path='courses/:courseId/?'>
+        <Route path='change-student-id' name='changeStudentId' handler={ChangeStudentId} />
         <Router.DefaultRoute handler={TeacherTaskPlans}/>
         <Route path='cc-student-redirect/?' name='viewStudentCCRedirect' handler={CCStudentRedirect} />
 
@@ -101,14 +102,9 @@ routes = (
             <Route path='stats/?' name='viewStats' handler={StatsShell} />
             <Route path='summary/?' name='reviewTask' handler={TaskTeacherReviewShell}>
               <Route
-                path='periods/:periodId/?'
-                name='reviewTaskPeriod'
-                ignoreScrollBehavior >
-                <Route
-                  path='sections/:sectionIndex/?'
-                  name='reviewTaskStep'
-                  ignoreScrollBehavior />
-              </Route>
+                path='sections/:sectionIndex/?'
+                name='reviewTaskStep'
+                ignoreScrollBehavior />
             </Route>
           </Route>
         </Route>
@@ -121,7 +117,6 @@ routes = (
       <Route path='section/:section' name='viewReferenceBookSection' handler={ReferenceBookShell} />
       <Route path='page/:cnxId' name='viewReferenceBookPage' handler={ReferenceBookPageShell}/>
     </Route> # end of /books route
-
 
     <Route path='/qa' name='QADashboard' handler={async(QALoader, 'QADashboard')} >
       <Router.DefaultRoute name="QAViewFirstBook" handler={async(QALoader, 'QABook')}/>

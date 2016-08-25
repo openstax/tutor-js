@@ -79,5 +79,5 @@ describe 'Plan Publish flux', ->
 
     PlanPublishActions.queued(PLAN, PLAN.id)
     PlanPublishActions.startChecking(PLAN.id)
-    JobActions.FAILED(JOB_NOT_FOUND_RESPONSE.status, JOB_NOT_FOUND_RESPONSE.msg, JOB_DATA_ID)
+    JobActions.FAILED(JOB_NOT_FOUND_RESPONSE.status, JOB_NOT_FOUND_RESPONSE.msg, null, JOB_DATA_ID)
     expect(JobStore.emit).to.have.been.called

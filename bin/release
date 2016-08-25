@@ -5,27 +5,35 @@ set -e
 PURPLE=$'\e[35m'
 NO_COLOR=$'\e[0m'
 
+REMOTE='origin'
+
 project_release_branch="release/$1"
 project_release_subdirectory="$1/dist"
+project_remote_subtree="--squash --prefix=$project_release_subdirectory $REMOTE $project_release_branch"
 
 current_branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+
+# http://stackoverflow.com/questions/2320564/variations-of-sed-between-osx-and-gnu-linux#38595160
+sedi () {
+  sed --version >/dev/null 2>&1 && sed -i -- "$@" || sed -i "" "$@"
+}
 
 if [ `git branch --list $project_release_branch` ]; then
   git checkout $project_release_branch
   if [ -d "$project_release_subdirectory" ]; then
-    git subtree pull --prefix $project_release_subdirectory origin $project_release_branch
+    git subtree pull $project_remote_subtree
   fi
   echo "${PURPLE}Branch $project_release_branch already exists.${NO_COLOR}"
 else
   git checkout -b $project_release_branch
-  {
-    sed -i '' '/dist/d' .gitignore
-    git add .gitignore
-    git commit -m 'allow dist files'
-    echo "${PURPLE}Updating .gitignore.${NO_COLOR}"
-  } || {
-    echo "${PURPLE}.gitignore is ready.${NO_COLOR}"
-  }
+  sedi '/dist/d' .gitignore
+  git add .gitignore
+  git commit -m 'allow dist files'
+  echo "${PURPLE}Updating .gitignore.${NO_COLOR}"
+
+  [ -d $project_release_subdirectory ] && rm -r $project_release_subdirectory
+
+  git subtree add $project_remote_subtree
   echo "${PURPLE}Branch $project_release_branch created.${NO_COLOR}"
 fi
 
@@ -36,14 +44,14 @@ echo "${PURPLE}Updating and building.${NO_COLOR}"
 npm install
 bin/build "$@"
 
-if git diff-files --quiet --ignore-submodules --; then
+if [[ `git status --porcelain` ]]; then
   echo "${PURPLE}Changes detected in build.${NO_COLOR}"
 
   git add $project_release_subdirectory
 
   read -p "${PURPLE}Please enter a commit message: ${NO_COLOR}" commit_message
   git commit -m "$commit_message"
-  git subtree push --prefix $project_release_subdirectory origin $project_release_branch
+  git subtree push $project_remote_subtree
 fi
 
 echo "${PURPLE}Done with build, $project_release_branch is up to date.${NO_COLOR}"

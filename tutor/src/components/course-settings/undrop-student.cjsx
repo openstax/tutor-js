@@ -13,7 +13,7 @@ module.exports = React.createClass
 
   performDeletion: ->
     if not @isUnDropping()
-      RosterActions.undrop(@props.student.id)
+      RosterActions.undrop(studentId: @props.student.id)
 
   isUnDropping: ->
     RosterStore.isUnDropping(@props.student.id)

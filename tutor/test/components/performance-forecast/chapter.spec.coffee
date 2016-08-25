@@ -13,7 +13,6 @@ describe 'Learning Guide Chapter Panel', ->
     @props = {
       chapter: GUIDE.children[0]
       courseId: '1'
-      onPractice: sinon.spy()
     }
 
   it 'reports how many problems were worked', ->

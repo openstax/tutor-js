@@ -13,7 +13,6 @@ describe 'Learning Guide Section Panel', ->
     @props = {
       section: GUIDE.children[0].children[0]
       courseId: '1'
-      onPractice: sinon.spy()
     }
 
   it 'displays the title', ->

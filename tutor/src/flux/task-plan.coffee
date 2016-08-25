@@ -148,10 +148,11 @@ TaskPlanConfig =
     @_change(id, {is_feedback_immediate})
 
   removeTopic: (id, topicId) ->
-    {page_ids, exercise_ids} = @_getClonedSettings(id, 'page_ids', 'exercise_ids')
+    {page_ids, type, exercise_ids} = @_getClonedSettings(id, 'page_ids', 'exercise_ids')
     index = page_ids?.indexOf(topicId)
     page_ids?.splice(index, 1)
-    exercise_ids = ExerciseStore.removeTopicExercises(exercise_ids, topicId)
+    if (type is PLAN_TYPES.HOMEWORK)
+      exercise_ids = ExerciseStore.removeTopicExercises(exercise_ids, topicId)
     @_changeSettings(id, {page_ids, exercise_ids })
 
   updateTopics: (id, page_ids) ->

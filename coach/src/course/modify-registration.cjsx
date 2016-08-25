@@ -2,8 +2,6 @@ React = require 'react'
 _ = require 'underscore'
 
 EnrollmentCodeInput = require './enrollment-code-input'
-RequestStudentId = require './request-student-id'
-
 ConfirmJoin = require './confirm-join'
 User = require '../user/model'
 Course = require './model'

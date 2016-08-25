@@ -7,7 +7,6 @@ BS = require 'react-bootstrap'
 Router = require 'react-router'
 
 CourseAddMenuMixin = require './add-menu-mixin'
-PracticeButton = require '../buttons/practice-button'
 BrowseTheBook = require '../buttons/browse-the-book'
 NoPeriods = require '../no-periods'
 

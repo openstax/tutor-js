@@ -6,11 +6,12 @@
 # `TaskActions.loaded` or `TaskActions.FAILED`
 _ = require 'underscore'
 
-{apiHelper, IS_LOCAL, toParams, onRequestError} = require './helpers/api'
+{apiHelper, IS_LOCAL, toParams, onRequestError, route} = require './helpers/api'
 TimeHelper = require './helpers/time'
 {CurrentUserActions, CurrentUserStore} = require './flux/current-user'
 {CourseActions} = require './flux/course'
 {CoursePracticeActions} = require './flux/practice'
+{CourseGuideActions} = require './flux/guide'
 {JobActions} = require './flux/job'
 {EcosystemsActions} = require './flux/ecosystems'
 PerformanceForecast = require './flux/performance-forecast'
@@ -22,6 +23,7 @@ PerformanceForecast = require './flux/performance-forecast'
 
 {TaskActions} = require './flux/task'
 {TaskStepActions} = require './flux/task-step'
+{ StudentIdStore, StudentIdActions } = require './flux/student-id'
 {TaskPlanActions, TaskPlanStore} = require './flux/task-plan'
 {TaskTeacherReviewActions, TaskTeacherReviewStore} = require './flux/task-teacher-review'
 {TaskPlanStatsActions, TaskPlanStatsStore} = require './flux/task-plan-stats'
@@ -105,7 +107,7 @@ start = (bootstrapData) ->
   apiHelper TocActions, TocActions.load, TocActions.loaded, 'GET', (ecosystemId) ->
     url: "/api/ecosystems/#{ecosystemId}/readings"
 
-  apiHelper CourseActions, CourseActions.loadGuide, CourseActions.loadedGuide, 'GET', (courseId) ->
+  apiHelper CourseGuideActions, CourseGuideActions.load, CourseGuideActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/guide"
 
   apiHelper CourseActions, CourseActions.save, CourseActions.saved, 'PATCH', (courseId, params) ->
@@ -163,14 +165,26 @@ start = (bootstrapData) ->
 
   apiHelper RosterActions, RosterActions.delete, RosterActions.deleted, 'DELETE', (id) ->
     url: "/api/students/#{id}"
+
   apiHelper RosterActions, RosterActions.save, RosterActions.saved, 'PATCH', (id, params) ->
     url: "/api/students/#{id}", payload: params
-  apiHelper RosterActions, RosterActions.undrop, RosterActions.undropped, 'PUT', (id) ->
-    url: "/api/students/#{id}/undrop"
+
+
+  route 'PUT', "/api/students/{studentId}/undrop",
+    actions: RosterActions, trigger: 'undrop', onSuccess: 'undropped'
+    errorHandlers:
+      already_active: 'onUndropAlreadyActive'
+
   apiHelper RosterActions, RosterActions.create, RosterActions.created, 'POST', (courseId, params) ->
     url: "/api/courses/#{courseId}/roster", payload: params
   apiHelper RosterActions, RosterActions.load, RosterActions.loaded, 'GET', (id) ->
     url: "/api/courses/#{id}/roster"
+
+  apiHelper StudentIdActions, StudentIdActions.save, StudentIdActions.saved, 'PATCH', (courseId, params) ->
+    url: "/api/user/courses/#{courseId}/student",
+    payload: params,
+
+  , displayError: false, handleError: StudentIdActions.errored
 
   apiHelper PeriodActions, PeriodActions.create, PeriodActions.created, 'POST', (courseId, params) ->
     url: "/api/courses/#{courseId}/periods", payload: params
