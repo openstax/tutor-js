@@ -19,7 +19,8 @@ module.exports = React.createClass
     pastDue      = event.type is 'homework' and dueAt.isBefore(now, 'd')
     workedLate   = moment(event.last_worked_at).isAfter(dueAt)
 
-    return null unless workedLate or (pastDue and isIncomplete)
+    if @props.event.type isnt 'homework' or ( workedLate or (pastDue and isIncomplete) )
+      return null
 
     # use 'day' granularity for checking if the due date is today or after today
     status = if dueAt.isSame(now, 'd') then 'incomplete' else 'late'
