@@ -54,12 +54,25 @@ interceptors =
     makeLocalRequest(requestConfig)
     requestConfig
 
-  setResponse: (response) ->
+  setResponseReceived: (response) ->
+    {status, statusText, config, headers} = response
+
+    AppActions.updateForResponse(status, statusText, config)
+    setNow(headers) if headers
+    response
+
+  setErrorReceived: (errorResponse) ->
+    {status, statusText, config, headers} = errorResponse
+
+    AppActions.updateForResponse(status, statusText, config) if config
+    setNow(headers) if headers
+    Promise.reject(errorResponse)
+
+  setResponseSuccess: (response) ->
+    return response unless response?
     {status, statusText, config, headers} = response
 
     AppActions.setServerSuccess(status, statusText, config)
-    setNow(headers)
-
     response
 
   handleError: (errorResponse) ->
@@ -69,10 +82,8 @@ interceptors =
       errorResponse =
         status: 1
         statusText: "#{errorResponse.name}: #{errorResponse.message}"
-    else if errorResponse.headers
-      setNow(errorResponse.headers)
 
-    Promise.reject(_.extend({handled: config.handleError?}, errorResponse))
+    Promise.reject(_.extend({handled: config?.handleError?}, errorResponse))
 
   makeLocalResponse: (response) ->
     makeLocalResponse(response)
@@ -110,7 +121,7 @@ interceptors =
     Promise.reject(errorResponse)
 
   handleErrorMessage: (errorResponse) ->
-    {statusText} = errorResponse
+    {statusText, data} = errorResponse
 
     try
       msg = JSON.parse(statusText)
@@ -118,19 +129,28 @@ interceptors =
       msg = statusText
 
     errorResponse.statusMessage = msg
+
+    unless _.isObject(data)
+      try
+        errorResponse.data = JSON.parse(data)
+      catch e
+
     Promise.reject(errorResponse)
 
 setUpXHRInterceptors = ->
   axios.interceptors.request.use(interceptors.queRequest)
   axios.interceptors.request.use(interceptors.makeLocalRequest) if IS_LOCAL
 
-  axios.interceptors.response.use(interceptors.setResponse, interceptors.handleError)
+  axios.interceptors.response.use(null, interceptors.handleError)
   axios.interceptors.response.use(null, interceptors.handleMalformedRequest)
   axios.interceptors.response.use(null, interceptors.handleNotFound)
-  axios.interceptors.response.use(interceptors.makeLocalResponse, interceptors.handleLocalErrors) if IS_LOCAL
   axios.interceptors.response.use(null, interceptors.handleErrorMessage)
+  axios.interceptors.response.use(interceptors.setResponseReceived, interceptors.setErrorReceived)
+  axios.interceptors.response.use(interceptors.setResponseSuccess, null)
+  axios.interceptors.response.use(interceptors.makeLocalResponse, interceptors.handleLocalErrors) if IS_LOCAL
 
 onRequestError = (response, requestConfig) ->
+  AppActions.updateForResponse(response.status, response.data, requestConfig)
   AppActions.setServerError(response.status, response.data, requestConfig)
 
 apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, options) ->
@@ -166,11 +186,8 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
         # is present (in the Promise.reject with _.extend above)
         # The handleError function may explicitly set `response.handled = false`
         # to indicate that normal error handling should occur
-        if response.handled is true
-          # the error has been handled by the store itself, notify AppActions the request has completed
-          AppActions.updateForResponse(status, response.data, requestConfig)
-        else
-          onRequestError(response, requestConfig)
+        unless response.handled is true
+          AppActions.setServerError(response.status, response.data, requestConfig)
           Actions.FAILED(status, statusMessage, args...)
 
       axios(requestConfig)
