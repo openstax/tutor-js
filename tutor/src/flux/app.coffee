@@ -36,8 +36,8 @@ AppConfig =
     _.last(@_cache[requestHashKey])
 
   _getPendingHashKey: (requestConfig) ->
-    sparseRequest = @_getRequestOpts(requestConfig)
-    getRequestHash(sparseRequest)
+    request = @_getRequestOpts(requestConfig)
+    getRequestHash(request)
 
   _getPendingInfo: (requestConfig) ->
     requestHashKey = @_getPendingHashKey(requestConfig)
@@ -100,7 +100,6 @@ AppConfig =
     get: ->
       pending: @_pending
       statuses: @_statuses
-      current: @_cache
 
     isPending: (requestConfig) ->
       @_getPendingInfo(requestConfig)?
