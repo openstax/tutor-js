@@ -162,7 +162,14 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
       rejected = (response) ->
         {status, statusText, statusMessage, data} = response
         requestConfig.handleError?(response, args...)
-        unless response.handled is true
+        # response.handled defaults to true if requestConfig.handleError
+        # is present (in the Promise.reject with _.extend above)
+        # The handleError function may explicitly set `response.handled = false`
+        # to indicate that normal error handling should occur
+        if response.handled is true
+          # the error has been handled by the store itself, notify AppActions the request has completed
+          AppActions.updateForResponse(status, response.data, requestConfig)
+        else
           onRequestError(response, requestConfig)
           Actions.FAILED(status, statusMessage, args...)
 
