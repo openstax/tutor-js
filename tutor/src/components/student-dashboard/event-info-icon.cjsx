@@ -25,8 +25,7 @@ module.exports = React.createClass
     status = if dueAt.isSame(now, 'd') then 'incomplete' else 'late'
 
     tooltip =
-      <BS.Tooltip
-        id="event-info-icon-#{event.id}">
+      <BS.Tooltip id="event-info-icon-#{event.id}">
         <b>{S.capitalize(status)}</b>
       </BS.Tooltip>
 

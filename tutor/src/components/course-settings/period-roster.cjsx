@@ -20,7 +20,7 @@ module.exports = React.createClass
     <tr key={student.id}>
       <td>{student.first_name}</td>
       <td>{student.last_name}</td>
-      <td><StudentIdField student={student} courseId={@props.courseId} /></td>
+      <td><StudentIdField studentId={student.id} courseId={@props.courseId} /></td>
       <td className="actions">
         <ChangePeriodLink
         courseId={@props.courseId}

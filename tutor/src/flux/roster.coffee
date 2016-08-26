@@ -1,5 +1,5 @@
 # coffeelint: disable=no_empty_functions
-{CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
+{CrudConfig, makeSimpleStore, extendConfig, STATES} = require './helpers'
 {CourseListingActions} = require './course-listing'
 _ = require 'underscore'
 
@@ -13,7 +13,7 @@ UNDROPPED = 'undropped'
 
 
 RosterConfig = {
-
+  _changedStudentIds: {}
   _asyncStatus: {}
 
   create: (courseId, params) ->
@@ -72,11 +72,38 @@ RosterConfig = {
       _.extend(oldStudent, updatedStudent)
     @emitChange()
 
+  setStudentIdentifier: (courseId, studentId, identifier) ->
+    @_changedStudentIds[studentId] = identifier
+    delete @_errors[studentId]
+    @emitChange()
 
   onUndropAlreadyActive: ({studentId}, error, request) ->
     @undropped({is_active: true}, {studentId})
 
+  saveStudentIdentifier: ({courseId, studentId}) ->
+    @_asyncStatus[studentId] = STATES.SAVING
+
+  savedStudentIdentifier: (updatedStudent, {courseId, studentId}) ->
+    id = @_changedStudentIds[studentId]
+    delete @_changedStudentIds[studentId]
+    delete @_asyncStatus[studentId]
+    oldStudent = _.findWhere(@_get(courseId)?.students, {id: studentId})
+    _.extend(oldStudent, updatedStudent) if oldStudent
+    @emitChange()
+
+  recordDuplicateStudentIdError: ({courseId, studentId}, error, request) ->
+    @_errors[studentId] = error
+    @emitChange()
+
   exports:
+
+    getStudentIdentifier: (courseId, studentId) ->
+      changed = @_changedStudentIds[studentId]
+      if changed? then changed else
+        _.findWhere(@_get(courseId)?.students, id: studentId)?.student_identifier
+
+    hasChangedStudentIdentifier: (studentId) ->
+      !!@_changedStudentIds[studentId]
 
     getActiveStudentsForPeriod: (courseId, periodId) ->
       _.where(@_get(courseId)?.students, period_id: periodId, is_active: true)

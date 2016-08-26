@@ -11,12 +11,13 @@ describe 'Course Settings update student id', ->
 
   beforeEach ->
     RosterActions.loaded(ROSTER, COURSE_ID)
-    sinon.stub(RosterActions, 'save')
+    sinon.stub(RosterActions, 'saveStudentIdentifier')
     @props =
-      student: STUDENT
+      studentId: STUDENT.id
+      courseId: COURSE_ID
 
   afterEach ->
-    RosterActions.save.restore()
+    RosterActions.saveStudentIdentifier.restore()
 
   it "renders student id by default", ->
     Testing.renderComponent( StudentIdField, props: @props ).then ({dom}) ->
@@ -35,5 +36,5 @@ describe 'Course Settings update student id', ->
       input = dom.querySelector('input')
       ReactTestUtils.Simulate.change(input, {target: {value: 'ONEWORLDID'}})
       ReactTestUtils.Simulate.blur(input, {})
-      expect(RosterActions.save).to.have.been.calledWith(STUDENT.id, {student_identifier: 'ONEWORLDID'})
-      expect(_.toArray(dom.querySelector('.tutor-icon').classList)).to.include('fa-spin')
+      expect(RosterActions.saveStudentIdentifier).to.have.been
+        .calledWith({courseId: COURSE_ID, studentId: STUDENT.id})

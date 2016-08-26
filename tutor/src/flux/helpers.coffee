@@ -51,6 +51,7 @@ CrudConfig = ->
       @_asyncStatus[id] = FAILED
       @_errors[id] = msg
       @_failed?({status, msg}, id, args...)
+
       unless status is 0 # indicates network failure
         delete @_local[id]
         @emitChange()
@@ -158,6 +159,8 @@ CrudConfig = ->
       freshLocalId: -> CREATE_KEY()
       isNew: (id) -> isNew(id)
       reload: (id) -> @_reload[id]
+      getError: (id) -> @_errors[id]
+
   }
 
 # Helper for creating a simple store for actions

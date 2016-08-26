@@ -18,7 +18,7 @@ PerformanceForecast = require './flux/performance-forecast'
 
 {ScoresActions} = require './flux/scores'
 {ScoresExportActions} = require './flux/scores-export'
-{RosterActions} = require './flux/roster'
+{RosterActions, RosterStore} = require './flux/roster'
 {PeriodActions} = require './flux/period'
 
 {TaskActions} = require './flux/task'
@@ -169,11 +169,17 @@ start = (bootstrapData) ->
   apiHelper RosterActions, RosterActions.save, RosterActions.saved, 'PATCH', (id, params) ->
     url: "/api/students/#{id}", payload: params
 
-
   route 'PUT', "/api/students/{studentId}/undrop",
     actions: RosterActions, trigger: 'undrop', onSuccess: 'undropped'
     errorHandlers:
       already_active: 'onUndropAlreadyActive'
+
+  route 'PATCH', '/api/students/{studentId}',
+    actions: RosterActions, trigger: 'saveStudentIdentifier', onSuccess: 'savedStudentIdentifier',
+    payload: ({courseId, studentId}) ->
+      student_identifier: RosterStore.getStudentIdentifier(courseId, studentId)
+    errorHandlers:
+      student_identifier_has_already_been_taken: 'recordDuplicateStudentIdError'
 
   apiHelper RosterActions, RosterActions.create, RosterActions.created, 'POST', (courseId, params) ->
     url: "/api/courses/#{courseId}/roster", payload: params
