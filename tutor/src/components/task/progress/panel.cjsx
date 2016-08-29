@@ -1,12 +1,13 @@
 React = require 'react/addons'
+
+
 keymaster = require 'keymaster'
 
-Arrow = require './arrow'
+PagingNavigation  = require '../../paging-navigation'
+
 {TaskStore} = require '../../../flux/task'
 {StepPanel} = require '../../../helpers/policies'
-{TaskStepStore} = require '../../../flux/task-step'
-
-KEYBINDING_SCOPE  = 'reading-progress'
+{TaskStepStore, TaskStepActions} = require '../../../flux/task-step'
 
 ProgressPanel = React.createClass
   propTypes:
@@ -22,43 +23,46 @@ ProgressPanel = React.createClass
 
   componentWillUnmount: ->
     TaskStepStore.off('step.completed', @updateShouldShows)
-    @disableKeys() if @props.enableKeys
 
   componentWillMount: ->
     TaskStepStore.on('step.completed', @updateShouldShows)
-    @enableKeys() if @props.enableKeys
 
   componentWillReceiveProps: (nextProps) ->
     @setState(@getShouldShows(nextProps))
 
-    if nextProps.enableKeys and not @props.enableKeys
-      @enableKeys()
-    else if not nextProps.enableKeys and @props.enableKeys
-      @disableKeys()
-
-  enableKeys: ->
-    keymaster.setScope(KEYBINDING_SCOPE)
-
-  disableKeys: ->
-    keymaster.setScope()
-
-  getShouldShows: (props) ->
-    props ?= @props
+  getShouldShows: (props = @props) ->
     {stepKey, stepId, isSpacer} = props
-
     shouldShowLeft: stepKey > 0
     shouldShowRight: isSpacer or (stepId? and StepPanel.canForward(stepId))
 
   updateShouldShows: ->
     @setState(@getShouldShows())
 
-  render: ->
-    {shouldShowLeft, shouldShowRight} = @state
+  goForward: ->
+    { stepId } = @props
+    if stepId and TaskStepStore.get(stepId).is_completed
+      @props.goToStep(@props.stepKey + 1)
+    else
+      TaskStepStore.once('step.completed', =>
+        @props.goToStep(@props.stepKey + 1)
+      )
+      TaskStepActions.complete(stepId)
+    undefined # silence React return value warning
 
-    <div className="progress-panel">
-      {<Arrow {...@props} direction="left"/> if shouldShowLeft}
+  goBackward: ->
+    @props.goToStep(@props.stepKey - 1)
+    undefined # silence React return value warning
+
+  render: ->
+    <PagingNavigation
+      className="progress-panel"
+      enableKeys={@props.enableKeys}
+      isForwardEnabled={@state.shouldShowRight}
+      isBackwardEnabled={@state.shouldShowLeft}
+      onForwardNavigation={@goForward}
+      onBackwardNavigation={@goBackward}
+    >
       {@props.children}
-      {<Arrow {...@props} direction="right"/> if shouldShowRight}
-    </div>
+    </PagingNavigation>
 
 module.exports = ProgressPanel
