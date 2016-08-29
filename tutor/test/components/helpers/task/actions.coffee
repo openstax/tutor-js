@@ -30,12 +30,12 @@ actions =
   clickContinue: (args...) ->
     {div, stepId} = args[0]
 
-    if div.querySelectorAll('.arrow.right').length isnt 0
+    if div.querySelectorAll('.paging-control.next').length isnt 0
       # to work around asynchronous transition on arrow next
       # click on it twice
-      commonActions.clickMatch('.arrow.right')(args...)
+      commonActions.clickMatch('.paging-control.next')(args...)
 
-    commonActions.clickMatch('.arrow.right, .continue')(args...)
+    commonActions.clickMatch('.paging-control.next, .continue')(args...)
 
   clickTryAnother: commonActions.clickMatch('.-try-another')
 
