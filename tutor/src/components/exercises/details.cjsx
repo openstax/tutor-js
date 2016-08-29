@@ -1,14 +1,12 @@
 _         = require 'underscore'
 React     = require 'react'
 BS        = require 'react-bootstrap'
-keymaster = require 'keymaster'
 
 {ExerciseStore}   = require '../../flux/exercise'
 {ExercisePreview, ScrollToMixin} = require 'shared'
+PagingNavigation  = require '../paging-navigation'
 NoExercisesFound  = require './no-exercises-found'
 Icon              = require '../icon'
-
-KEYBINDING_SCOPE  = 'exercise-details'
 
 ExerciseDetails = React.createClass
 
@@ -39,14 +37,7 @@ ExerciseDetails = React.createClass
   componentDidMount:   ->
     @scrollToSelector('.exercise-controls-bar')
 
-  componentWillUnmount: ->
-    keymaster.deleteScope(KEYBINDING_SCOPE)
-
   componentWillMount: ->
-    keymaster('left',  KEYBINDING_SCOPE, @keyOnPrev)
-    keymaster('right', KEYBINDING_SCOPE, @keyOnNext)
-    keymaster.setScope(KEYBINDING_SCOPE)
-
     {selectedExercise} = @props
     exercises = @flattenExercises(@props)
     currentIndex = currentSection = 0
@@ -78,21 +69,6 @@ ExerciseDetails = React.createClass
         exercises.push exercise
     return exercises
 
-  toggleNavHighlight: (type) ->
-    nav = @getDOMNode().querySelector(".page-navigation.#{type}")
-    nav.classList.add('active')
-    _.delay ->
-      nav.classList.remove('active')
-    , 300
-
-  keyOnPrev: ->
-    return unless @getValidMovements().prev
-    @toggleNavHighlight('prev')
-    @onPrev()
-  keyOnNext: ->
-    return unless @getValidMovements().next
-    @toggleNavHighlight('next')
-    @onNext()
   onPrev: -> @moveTo(@state.currentIndex - 1)
   onNext: -> @moveTo(@state.currentIndex + 1)
 
@@ -129,26 +105,24 @@ ExerciseDetails = React.createClass
       </div>
 
       <div className="content">
+        <PagingNavigation
+          isForwardEnabled={moves.next}
+          isBackwardEnabled={moves.prev}
+          onForwardNavigation={@onNext}
+          onBackwardNavigation={@onPrev}
+        >
+          <ExercisePreview
+            className='exercise-card'
+            isVerticallyTruncated={false}
+            isSelected={@props.getExerciseIsSelected(exercise)}
+            overlayActions={@props.getExerciseActions(exercise)}
+            displayFeedback={@props.displayFeedback}
 
-        {<div className="page-navigation prev" onClick={@onPrev}>
-          <Icon type='angle-left' />
-         </div> if moves.prev}
-
-        <ExercisePreview
-          className='exercise-card'
-          isVerticallyTruncated={false}
-          isSelected={@props.getExerciseIsSelected(exercise)}
-          overlayActions={@props.getExerciseActions(exercise)}
-          displayFeedback={@props.displayFeedback}
-
-          exercise={exercise}
-          actionsOnSide={true}
-
-        />
+            exercise={exercise}
+            actionsOnSide={true}
+          />
+        </PagingNavigation>
       </div>
-      {<div className="page-navigation next" onClick={@onNext}>
-        <Icon type='angle-right' />
-       </div> if moves.next}
 
     </div>
 
