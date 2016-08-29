@@ -29,17 +29,20 @@ RefenceViewPageNavigation = React.createClass
 
   render: ->
 
-    pageInfo = ReferenceBookStore.getPageInfo(@props)
+    pageInfo = ReferenceBookStore.getPageInfo(@props) or {}
     params = _.extend({ecosystemId: @props.ecosystemId}, @context.router.getCurrentParams())
 
     if pageInfo.next
-      nextUrl = @context.router.makeHref @props.pageNavRouterLinkTarget,
+      nextUrl = @context.router.makeHref( @props.pageNavRouterLinkTarget,
         _.extend({}, params, section: @sectionFormat(pageInfo.next.chapter_section))
+        @context.router.getCurrentQuery()
+      )
 
     if pageInfo.prev
-      prevUrl = @context.router.makeHref @props.pageNavRouterLinkTarget,
-        _.extend({}, params, section: @sectionFormat(pageInfo.prev.chapter_section))
-
+      prevUrl = @context.router.makeHref( @props.pageNavRouterLinkTarget,
+        _.extend({}, params, section: @sectionFormat(pageInfo.prev.chapter_section)),
+        @context.router.getCurrentQuery()
+      )
 
     <PagingNavigation
       className="reference-book-page"
