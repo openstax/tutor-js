@@ -14,6 +14,8 @@ PageNavigation = React.createClass
     onBackwardNavigation: React.PropTypes.func.isRequired
     isForwardEnabled:     React.PropTypes.bool.isRequired
     isBackwardEnabled:    React.PropTypes.bool.isRequired
+    forwardHref:          React.PropTypes.string
+    backwardHref:         React.PropTypes.string
     enableKeys:           React.PropTypes.bool
 
   getDefaultProps: ->
