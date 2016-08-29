@@ -34,6 +34,6 @@ module.exports = React.createClass
       courseId={courseId}
       page_ids={page_ids}>
       <ButtonWithTip id={id} className={classes} getTip={@getTip} placement='top'>
-        {@props.title}<i />
+        {@props.title}
       </ButtonWithTip>
     </Practice>

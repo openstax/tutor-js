@@ -62,7 +62,10 @@ module.exports = React.createClass
       isDisabled: true
       isWaiting: false
     disabledPractice = React.addons.cloneWithProps(@props.children, disabledProps)
-    props.waitingText = disabledPractice
+    props.waitingText = <div>
+      <span className='practice-waiting-text'>Loading</span>
+      {@props.children.props.children}
+    </div>
     props.failedState = disabledPractice
 
     React.addons.cloneWithProps(@props.children, props)
