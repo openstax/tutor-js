@@ -55,16 +55,16 @@ interceptors =
     requestConfig
 
   setResponseReceived: (response) ->
-    {status, statusText, config, headers} = response
+    {status, data, config, headers} = response
 
-    AppActions.updateForResponse(status, statusText, config)
+    AppActions.updateForResponse(status, data, config)
     setNow(headers) if headers
     response
 
   setErrorReceived: (errorResponse) ->
-    {status, statusText, config, headers} = errorResponse
+    {status, data, config, headers} = errorResponse
 
-    AppActions.updateForResponse(status, statusText, config) if config
+    AppActions.updateForResponse(status, data, config) if config
     setNow(headers) if headers
     Promise.reject(errorResponse)
 

@@ -22,7 +22,7 @@ AppConfig =
   _getDuration: (request) ->
     moment().diff(request.sendMoment)
 
-  _getServerStatus: (statusCode, message, requestDetails) ->
+  _formatServerResponse: (statusCode, message, requestDetails) ->
     request = @_getRequestOpts(requestDetails)
 
     {statusCode, message, request}
@@ -62,7 +62,7 @@ AppConfig =
     @_unqueRequestAtHashKey(requestHashKey)
 
   updateForResponse: (statusCode, message, requestDetails) ->
-    status = @_getServerStatus statusCode, message, requestDetails
+    status = @_formatServerResponse statusCode, message, requestDetails
 
     # try to get request from pending info, remove from pending, and calc response time
     requestInfo = @_getPendingInfo(requestDetails)
