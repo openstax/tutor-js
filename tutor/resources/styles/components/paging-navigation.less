@@ -1,0 +1,31 @@
+.tutor-paging-navigation {
+  .flex-display();
+  .justify-content(center);
+  .paging-control {
+    .flex(1);
+    .flex-display();
+    .justify-content(center);
+    .align-items(center);
+    min-height: calc(~"100vh - 150px");
+    .tutor-icon {
+      z-index: 1; //appear above content when page is extremely narrow
+      position: fixed;
+      top: 50vh;
+      color: @tutor-neutral-light;
+      font-size: 150px;
+      .transition(color 150ms linear);
+    }
+    &[disabled] {
+      cursor: not-allowed;
+      .tutor-icon{ display: none; }
+    }
+    &:not([disabled]) {
+      &.active,
+      &:hover {
+        text-decoration: none;
+        .tutor-icon { color: @tutor-neutral-lite; }
+      }
+      &:focus { text-decoration: none; }
+    }
+  }
+}
