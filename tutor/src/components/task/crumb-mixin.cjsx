@@ -107,7 +107,7 @@ module.exports =
         _.find crumbs, (crumb) ->
           (crumb.type is 'step') and not TaskStepStore.isCore(crumb.data.id)
       else
-        crumbs[lastCoreIndex]
+        crumbs[lastCoreIndex + 1]
       if notCore?
         crumbType = 'spacer'
         spacerCrumb =
