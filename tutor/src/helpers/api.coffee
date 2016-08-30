@@ -85,10 +85,6 @@ interceptors =
 
     Promise.reject(_.extend({handled: config?.handleError?}, errorResponse))
 
-  makeLocalResponse: (response) ->
-    makeLocalResponse(response)
-    response
-
   handleMalformedRequest: (errorResponse) ->
     if errorResponse.status is 400
       CurrentUserActions.logout()
@@ -99,24 +95,6 @@ interceptors =
   handleNotFound: (errorResponse) ->
     if errorResponse.status is 404
       errorResponse.statusText = 'ERROR_NOTFOUND'
-
-    Promise.reject(errorResponse)
-
-  handleLocalErrors: (errorResponse) ->
-    {status, statusText, config} = errorResponse
-    {method, mockMethod} = config
-
-    mockMethods = ['PUT', 'PATCH']
-
-    # Hack for local testing, fake successful PUT and PATCH
-    if _.contains(mockMethods, mockMethod or method) and status is 404
-      errorResponse.statusText = """No mock data found at #{config.url}.
-      This error only happens locally."""
-
-    # Hack for local testing. Webserver returns 200 + HTML for 404's
-    if statusText is 'parsererror' and status is 200
-      errorResponse.status = 404
-      errorResponse.statusText = 'Error Parsing the JSON or a 404'
 
     Promise.reject(errorResponse)
 
@@ -137,16 +115,51 @@ interceptors =
 
     Promise.reject(errorResponse)
 
+  makeLocalResponse: (response) ->
+    makeLocalResponse(response)
+    response
+
+  handleLocalErrors: (errorResponse) ->
+    {status, statusText, config} = errorResponse
+    {method, mockMethod} = config
+
+    mockMethods = ['PUT', 'PATCH']
+
+    # Hack for local testing, fake successful PUT and PATCH
+    if _.contains(mockMethods, mockMethod or method) and status is 404
+      errorResponse.statusText = """No mock data found at #{config.url}.
+      This error only happens locally."""
+
+    # Hack for local testing. Webserver returns 200 + HTML for 404's
+    if statusText is 'parsererror' and status is 200
+      errorResponse.status = 404
+      errorResponse.statusText = 'Error Parsing the JSON or a 404'
+
+    Promise.reject(errorResponse)
+
 setUpXHRInterceptors = ->
+  # tell app that a request is pending.
   axios.interceptors.request.use(interceptors.queRequest)
+
+  # modify request to use local stubs
   axios.interceptors.request.use(interceptors.makeLocalRequest) if IS_LOCAL
 
+  # on response, transform error as needed
   axios.interceptors.response.use(null, interceptors.handleError)
   axios.interceptors.response.use(null, interceptors.handleMalformedRequest)
   axios.interceptors.response.use(null, interceptors.handleNotFound)
   axios.interceptors.response.use(null, interceptors.handleErrorMessage)
+
+  # make sure app knows a response has been returned for a pending request,
+  # for both successes and errors
   axios.interceptors.response.use(interceptors.setResponseReceived, interceptors.setErrorReceived)
+
+  # set request status as a success and notify app
+  # the error will be handle within the api handler catch as it may be customized
+  # by the handler.
   axios.interceptors.response.use(interceptors.setResponseSuccess, null)
+
+  # modify response when using the local api stubs.
   axios.interceptors.response.use(interceptors.makeLocalResponse, interceptors.handleLocalErrors) if IS_LOCAL
 
 onRequestError = (response, requestConfig) ->
@@ -170,10 +183,12 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
       if payload?
         opts.data = JSON.stringify(payload)
         opts.processData = false
-        # For now, the backend is expecting JSON and cannot accept url-encoded forms
         opts.contentType = 'application/json'
 
       requestConfig = _.extend({url}, opts, options)
+
+      # Do not make another request with a config with the same url, methods, and data
+      # if a previous one has not received a response.  Prevents duplicate requests.
       return if AppStore.isPending(requestConfig)
 
       resolved = ({data}) ->

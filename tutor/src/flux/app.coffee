@@ -17,7 +17,7 @@ AppConfig =
 
   _getRequestOpts: (opts) ->
     opts = _.pick(opts, 'method', 'data', 'url')
-    opts = _.omit(opts, 'data') unless opts.data
+    opts = _.omit(opts, 'data') if _.isEmpty(opts.data)
     opts
 
   _getDuration: (status) ->
