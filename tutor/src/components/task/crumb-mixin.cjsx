@@ -100,14 +100,14 @@ module.exports =
     # insert spacer panel/crumb for reading task that have spaced practices or personalized problems
     if task.type is 'reading'
 
-      notCoreIndex = _.findLastIndex crumbs, (crumb) ->
+      lastCoreIndex = _.findLastIndex crumbs, (crumb) ->
         (crumb.type is 'step') and TaskStepStore.isCore(crumb.data.id)
 
-      notCore = if notCoreIndex is -1
+      notCore = if lastCoreIndex is -1
         _.find crumbs, (crumb) ->
           (crumb.type is 'step') and not TaskStepStore.isCore(crumb.data.id)
       else
-        crumbs[notCoreIndex]
+        crumbs[lastCoreIndex]
       if notCore?
         crumbType = 'spacer'
         spacerCrumb =
