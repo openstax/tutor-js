@@ -131,9 +131,14 @@ describe 'Task Widget, through routes', ->
 
   it 'should render a spacer panel for the non-core step', (done) ->
     # run a full step through and check each step
-
-    taskChecks
-      .checkIsSpacerPanel(@result)
+    taskActions
+      .clickContinue(@result)
+      .then(taskActions.completeThisStep)
+      .then(taskActions.advanceStep)
+      .then(taskActions.completeThisStep)
+      .then(taskActions.advanceStep)
+      .then(taskActions.clickContinue)
+      .then(taskChecks.checkIsSpacerPanel)
       .then( ->
         done()
       , done)
@@ -179,13 +184,11 @@ describe 'Task Widget, through routes', ->
 
     taskActions
       .clickContinue(@result)
-      .then(taskChecks.checkHasExpectedGroupLabel)
       .then(taskActions.completeThisStep)
       .then(taskActions.advanceStep)
       .then(taskActions.completeThisStep)
       .then(taskActions.advanceStep)
-      .then(taskActions.completeThisStep)
-      .then(taskActions.advanceStep)
+      .then(taskActions.clickContinue)
       .then(taskChecks.checkHasExpectedGroupLabel)
       .then( ->
         done()
