@@ -123,13 +123,16 @@ class ConceptCoachAPI extends EventEmitter2
       componentModel.channel.emit('close.clicked')
 
     @close = props.close
+
+    # Needs to be added on initialize since opening from a coach path calls
+    # initialize, and not open.  On will handle multiple logging in and out.
+    # 
+    # Wait until our logout request has been received and the close
+    User.channel.on('logout.received', @close)
+
     @component = coachWrapped.render(mountNode, props)
 
   open: (props) ->
-    # wait until our logout request has been received and the close
-    User.channel.once 'logout.received', =>
-      @close()
-
     openProps = _.extend({}, props, open: true)
     openProps.triggeredFrom = _.pick(props, 'moduleUUID', 'collectionUUID')
 
