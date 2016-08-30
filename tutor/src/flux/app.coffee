@@ -3,8 +3,9 @@ _ = require 'underscore'
 hash = require 'object-hash'
 moment = require 'moment-timezone'
 
-getRequestHash = _.partial(hash, _, {unorderedArrays: true})
 {makeSimpleStore} = require './helpers'
+
+getRequestHash = _.partial(hash, _, {unorderedArrays: true})
 
 AppConfig =
   _statuses: []
@@ -19,17 +20,22 @@ AppConfig =
     opts = _.omit(opts, 'data') unless opts.data
     opts
 
-  _getDuration: (request) ->
-    moment().diff(request.sendMoment)
+  _getDuration: (status) ->
+    moment().diff(status.sendMoment)
 
-  _formatServerResponse: (statusCode, message, requestDetails) ->
-    request = @_getRequestOpts(requestDetails)
+  _formatServerResponse: (statusCode, message, requestConfig) ->
+    request = @_getRequestOpts(requestConfig)
+
+    unless _.isObject(message)
+      try
+        message = JSON.parse(message)
+      catch e
 
     {statusCode, message, request}
 
-  _cacheByKey: (requestHashKey, request) ->
+  _cacheByKey: (requestHashKey, status) ->
     @_cache[requestHashKey] ?= []
-    @_cache[requestHashKey].push(request)
+    @_cache[requestHashKey].push(status)
 
   getRequestStatus: (requestConfig) ->
     requestHashKey = @_getPendingHashKey(requestConfig)
@@ -57,34 +63,36 @@ AppConfig =
   _unqueRequestAtHashKey: (requestHashKey) ->
     delete @_pending[requestHashKey]
 
-  unqueRequest: (request) ->
-    requestHashKey = @_getPendingHashKey(request)
+  unqueRequest: (requestConfig) ->
+    requestHashKey = @_getPendingHashKey(requestConfig)
     @_unqueRequestAtHashKey(requestHashKey)
 
-  updateForResponse: (statusCode, message, requestDetails) ->
-    status = @_formatServerResponse statusCode, message, requestDetails
+  updateForResponse: (statusCode, message, requestConfig) ->
+    status = @_formatServerResponse statusCode, message, requestConfig
 
     # try to get request from pending info, remove from pending, and calc response time
-    requestInfo = @_getPendingInfo(requestDetails)
+    requestInfo = @_getPendingInfo(requestConfig)
 
     if requestInfo
       {request, requestHashKey} = requestInfo
       status.responseTime = @_getDuration(request)
 
-      @_cacheByKey(requestHashKey, status)
       @_unqueRequestAtHashKey(requestHashKey)
+    else
+      requestHashKey = @_getPendingHashKey(requestConfig)
 
+    @_cacheByKey(requestHashKey, status)
     @_statuses.push(status)
     status
 
-  setServerError: (statusCode, message, requestDetails) ->
-    return unless requestDetails.displayError
+  setServerError: (statusCode, message, requestConfig) ->
+    return unless requestConfig.displayError
 
-    @_currentServerError = @getRequestStatus requestDetails
+    @_currentServerError = @getRequestStatus requestConfig
     @emit('server-error', statusCode, message)
 
-  setServerSuccess: (statusCode, message, requestDetails) ->
-    @_currentServerSuccess = @getRequestStatus requestDetails
+  setServerSuccess: (statusCode, message, requestConfig) ->
+    @_currentServerSuccess = @getRequestStatus requestConfig
     @emit('server-success', statusCode, message)
 
   reset: ->

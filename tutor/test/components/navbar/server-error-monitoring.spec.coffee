@@ -6,6 +6,10 @@ _ = require 'underscore'
 Dialog = require '../../../src/components/tutor-dialog'
 ErrorMonitor = require '../../../src/components/navbar/server-error-monitoring'
 
+updateAndSetError = (statusCode, message, requestDetails) ->
+  # normally, updateForResponse would be called within the axios interceptor.
+  AppActions.updateForResponse(statusCode, message, requestDetails)
+  AppActions.setServerError(statusCode, message, requestDetails)
 
 describe 'Server Error Monitoring', ->
 
@@ -16,7 +20,7 @@ describe 'Server Error Monitoring', ->
     AppActions.resetServerErrors()
 
   it 'renders error dialog', ->
-    AppActions.setServerError(500, 'an error happens',
+    updateAndSetError(500, 'an error happens',
       {url: '/test', displayError: true})
     Testing.renderComponent( ErrorMonitor ).then ({dom}) ->
       expect(Dialog.show).to.have.been.calledWith(sinon.match(
@@ -30,13 +34,13 @@ describe 'Server Error Monitoring', ->
           title: 'No exercises are available'
         ))
         done()
-    AppActions.setServerError(422,
+    updateAndSetError(422,
       '{"status":422,"errors":[{"code":"no_exercises","message":' +
       '"No exercises were found to build the Practice Widget.","data":null}]}'
       , {url: '/test', displayError: true})
 
   it 'renders no error dialog when displayError is set to false', ->
-    AppActions.setServerError(500, 'an error happens',
+    updateAndSetError(500, 'an error happens',
       {url: '/test', displayError: false})
     Testing.renderComponent( ErrorMonitor ).then ->
       expect(Dialog.show).to.have.not.been.calledWith(sinon.match(
