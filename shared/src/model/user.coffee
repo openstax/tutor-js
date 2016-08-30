@@ -1,5 +1,5 @@
 _ = require 'underscore'
-axios = require 'axios'
+Networking = require './networking'
 URLs = require './urls'
 EventEmitter2 = require 'eventemitter2'
 
@@ -39,7 +39,7 @@ class Email extends EventEmitter2
       @requestInProgress = false
       @emit('change')
       resp
-    axios(
+    Networking.perform(
       method: 'PUT',
       url: URLs.construct('accounts_api', "contact_infos", @id, "#{type}.json")
       withCredentials: true
