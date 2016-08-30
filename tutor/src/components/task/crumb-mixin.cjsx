@@ -99,7 +99,7 @@ module.exports =
 
     # insert spacer panel/crumb for reading task that have spaced practices or personalized problems
     if task.type is 'reading'
-      notCore = _.find crumbs, (crumb) ->
+      notCore = _.last _.filter crumbs, (crumb) ->
         (crumb.type is 'step') and not TaskStepStore.isCore(crumb.data.id)
 
       if notCore?
