@@ -95,8 +95,17 @@ Spacer = React.createClass
     @props.onNextStep()
   renderBody: ->
     <div className='spacer-step'>
-      <h1>Spaced Practice</h1>
-      <p>Reinforce what you have learned in this reading and prior readings.</p>
+      <h1>Reading Review</h1>
+      <p>
+        <b>Did you know?</b> Research shows you can strengthen your
+        memory&mdash;<b>and spend less time studying</b>&mdash;if
+        you revisit material over multiple study sessions.
+      </p>
+      <p>
+        OpenStax Tutor will include <b>spaced practice</b> questions&mdash;like the
+        following ones&mdash;from prior sections to give your learning a boost.
+        You may occasionally see questions you've seen before.
+      </p>
     </div>
 
 module.exports = {Reading, Interactive, Video, Exercise, Placeholder, Spacer, ExternalUrl}
