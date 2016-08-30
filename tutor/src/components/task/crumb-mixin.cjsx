@@ -102,8 +102,12 @@ module.exports =
 
       notCoreIndex = _.findLastIndex crumbs, (crumb) ->
         (crumb.type is 'step') and TaskStepStore.isCore(crumb.data.id)
-      if notCoreIndex isnt -1
-        notCore = crumbs[notCoreIndex]
+
+      notCore = if notCoreIndex is -1
+        _.find crumbs, (crumb) ->
+          (crumb.type is 'step') and not TaskStepStore.isCore(crumb.data.id)
+      else
+        crumbs[notCoreIndex]
       if notCore?
         crumbType = 'spacer'
         spacerCrumb =
