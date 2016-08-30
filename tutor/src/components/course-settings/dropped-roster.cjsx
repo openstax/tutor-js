@@ -5,6 +5,7 @@ Icon = require '../icon'
 
 {RosterStore, RosterActions} = require '../../flux/roster'
 UnDropStudentLink = require './undrop-student'
+StudentIdField = require './student-id-field'
 
 DroppedRoster = React.createClass
 
@@ -16,6 +17,7 @@ DroppedRoster = React.createClass
     <tr key={student.id}>
       <td>{student.first_name}</td>
       <td>{student.last_name}</td>
+      <td><StudentIdField studentId={student.id} courseId={@props.courseId} /></td>
       <td className="actions">
         <UnDropStudentLink
         id="drop-student-popover-#{student.id}"
@@ -37,6 +39,7 @@ DroppedRoster = React.createClass
           <tr>
             <th>First Name</th>
             <th>Last Name</th>
+            <th className="student-id">Student ID</th>
             <th>Actions</th>
           </tr>
         </thead>
