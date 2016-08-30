@@ -41,7 +41,7 @@ class Email extends EventEmitter2
       resp
     axios(
       method: 'PUT',
-      url: URLs.construct('accounts_api', "contact_infos", @id, "{type}.json")
+      url: URLs.construct('accounts_api', "contact_infos", @id, "#{type}.json")
       withCredentials: true
       data: data
     ).catch(afterRequest).then(afterRequest)
