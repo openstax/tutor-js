@@ -173,6 +173,7 @@ start = (bootstrapData) ->
     actions: RosterActions, trigger: 'undrop', onSuccess: 'undropped'
     errorHandlers:
       already_active: 'onUndropAlreadyActive'
+      student_identifier_has_already_been_taken: 'recordDuplicateStudentIdError'
 
   route 'PATCH', '/api/students/{studentId}',
     actions: RosterActions, trigger: 'saveStudentIdentifier', onSuccess: 'savedStudentIdentifier',
