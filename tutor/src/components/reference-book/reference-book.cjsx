@@ -9,7 +9,7 @@ NavBar = require './navbar'
 Menu = require './slide-out-menu'
 {ResizeListenerMixin} = require 'shared'
 PageShell = require './page-shell'
-PageNavigation = require './page-navigation'
+ReferenceViewPageNavigation = require './page-navigation'
 
 # menu width (300) + page width (1000) + 50 px padding
 # corresponds to @reference-book-page-width and @reference-book-menu-width in variables.less
@@ -91,12 +91,12 @@ module.exports = React.createClass
             onMenuSelection={@onMenuClick}
           />
 
-          <PageNavigation
+          <ReferenceViewPageNavigation
             {...pageProps}
             pageNavRouterLinkTarget={@props.pageNavRouterLinkTarget}
           >
             <@props.contentComponent {...pageProps} />
-          </PageNavigation>
+          </ReferenceViewPageNavigation>
 
         </div>
 
