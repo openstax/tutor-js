@@ -9,7 +9,7 @@ PagingNavigation = require '../paging-navigation'
 {ReferenceBookStore} = require '../../flux/reference-book'
 {ChapterSectionMixin} = require 'shared'
 
-RefenceViewPageNavigation = React.createClass
+ReferenceViewPageNavigation = React.createClass
 
   propTypes:
     pageNavRouterLinkTarget: React.PropTypes.string.isRequired
@@ -56,4 +56,4 @@ RefenceViewPageNavigation = React.createClass
       {@props.children}
     </PagingNavigation>
 
-module.exports = RefenceViewPageNavigation
+module.exports = ReferenceViewPageNavigation
