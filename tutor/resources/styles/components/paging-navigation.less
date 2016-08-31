@@ -1,19 +1,31 @@
 .tutor-paging-navigation {
+  @arrow-height: 150px;
   .flex-display();
   .justify-content(center);
   .paging-control {
     .flex(1);
     .flex-display();
-    .justify-content(center);
     .align-items(center);
     min-height: calc(~"100vh - 150px");
-    .tutor-icon {
-      z-index: 1; //appear above content when page is extremely narrow
-      position: fixed;
-      top: 50vh;
-      color: @tutor-neutral-light;
-      font-size: 150px;
-      .transition(color 150ms linear);
+    .arrow-wrapper {
+      .flex(1);
+      .flex-display();
+      max-width: @arrow-height;  // keep left edge of icons no more than 60px from edge
+      .tutor-icon {
+        .transition(color 150ms linear);
+        z-index: 1; //appear above content when page is extremely narrow
+        position: fixed;
+        top: calc(~"50vh - "@arrow-height);
+        color: @tutor-neutral-light;
+        font-size: @arrow-height;
+      }
+    }
+    &.next {
+      .arrow-wrapper{ .justify-content(flex-end); }
+    }
+    &.prev {
+      .justify-content(flex-end);
+      .arrow-wrapper{ .justify-content(flex-start); }
     }
     &[disabled] {
       .tutor-icon{ display: none; }

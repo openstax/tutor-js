@@ -74,7 +74,9 @@ PageNavigation = React.createClass
       onClick={_.partial(@clickHandler, cb, @props.backwardHref)}
       className={classnames('paging-control', 'prev', active: @state.activeNav is 'prev')}
     >
-      <Icon type="angle-left" />
+      <div className="arrow-wrapper">
+        <Icon type="angle-left" />
+      </div>
     </a>
 
   renderNext: ->
@@ -84,7 +86,9 @@ PageNavigation = React.createClass
       onClick={_.partial(@clickHandler, cb, @props.forwardHref)}
       className={classnames('paging-control', 'next', active: @state.activeNav is 'next')}
     >
-      <Icon type="angle-right" />
+      <div className="arrow-wrapper">
+        <Icon type="angle-right" />
+      </div>
     </a>
 
   render: ->
