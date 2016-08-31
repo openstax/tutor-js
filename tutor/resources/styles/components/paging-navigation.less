@@ -11,13 +11,15 @@
       .flex(1);
       .flex-display();
       max-width: @arrow-height;  // keep left edge of icons no more than 60px from edge
-      .tutor-icon {
-        .transition(color 150ms linear);
+      .icon {
         z-index: 1; //appear above content when page is extremely narrow
         position: fixed;
         top: calc(~"50vh - "@arrow-height);
-        color: @tutor-neutral-light;
-        font-size: @arrow-height;
+        path {
+          .transition(fill 150ms linear);
+          fill: @tutor-neutral-light;
+        }
+        height: @arrow-height;
       }
     }
     &.next {
@@ -28,13 +30,14 @@
       .arrow-wrapper{ .justify-content(flex-start); }
     }
     &[disabled] {
-      .tutor-icon{ display: none; }
+      cursor: default; // otherwise it's "pointer" since it's an a tag
+      .icon{ display: none; }
     }
     &:not([disabled]) {
       &.active,
       &:hover {
         text-decoration: none;
-        .tutor-icon { color: @tutor-neutral-lite; }
+        .icon path { fill: @tutor-neutral-lite; }
       }
       &:focus { text-decoration: none; }
     }
