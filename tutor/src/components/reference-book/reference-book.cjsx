@@ -7,7 +7,7 @@ classnames = require 'classnames'
 
 NavBar = require './navbar'
 Menu = require './slide-out-menu'
-{ResizeListenerMixin} = require 'shared'
+{ResizeListenerMixin, ChapterSectionMixin} = require 'shared'
 PageShell = require './page-shell'
 ReferenceViewPageNavigation = require './page-navigation'
 
