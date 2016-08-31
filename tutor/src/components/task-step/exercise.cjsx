@@ -86,31 +86,6 @@ module.exports = React.createClass
     else
       @setState(@getPartsInfo(nextProps))
 
-  # renderHelpLink: (sections) ->
-  #   return null unless sections? and not _.isEmpty(sections)
-  #   {courseId} = @props
-
-  #   sectionsLinks = _.chain sections
-  #     .map (section) =>
-  #       combined = @sectionFormat(section.chapter_section)
-  #       <BrowseTheBook
-  #         unstyled
-  #         key={combined}
-  #         section={combined}
-  #         courseId={courseId}
-  #         onlyShowBrowsable={false}>
-  #         {combined} {section.title} <i className='fa fa-external-link' />
-  #       </BrowseTheBook>
-  #     .compact()
-  #     .value()
-
-  #   helpLink =
-  #     <div key='task-help-links' className='task-help-links'>
-  #       Comes from&nbsp&nbsp{sectionsLinks}
-  #     </div>
-
-  #   if sectionsLinks.length > 0 then helpLink
-
   stopListeningForProgress: (props) ->
     props ?= @props
     {taskId} = props
