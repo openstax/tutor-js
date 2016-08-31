@@ -7,10 +7,12 @@ bin/checkinputs "$@"
 export OX_PROJECT=$1
 echo Serving: $OX_PROJECT
 
-dashboardSocket=$(grep 'webpackDashboardSocketPort' $OX_PROJECT/configs/base.coffee | sed 's|.*: \(.*\)|\1|')
+source $OX_PROJECT/.env
 
-if [ ${#dashboardSocket} -eq 4 ]; then
-  options="-p ${dashboardSocket}"
+is_port='^[0-9]{4}$'
+
+if [[ $OX_DASHBOARD_SOCKET =~ $is_port ]]; then
+  options="-p ${OX_DASHBOARD_SOCKET}"
 fi
 
 webpack-dashboard $options -- webpack-dev-server --config webpack.config.js

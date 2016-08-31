@@ -1,6 +1,5 @@
 {
   BASE_CONFIG,
-  loadProjectBaseConfig,
   mergeWebpackConfigs,
   makePathsBase,
   makeBaseForEnvironment,
@@ -21,8 +20,6 @@ makeConfig = (projectName, environmentName) ->
   else
     environmentName
 
-  projectBaseConfig = loadProjectBaseConfig(projectName)
-
   projectWebpackBaseConfig =
     conditionalRequire("../../#{projectName}/configs/webpack.base")
   projectWebpackEnvironmentConfig =
@@ -32,15 +29,15 @@ makeConfig = (projectName, environmentName) ->
 
   if environmentName is 'karma'
     configs = [
-      makePathsBase(projectBaseConfig),
-      makeBaseForEnvironment(environmentName)(projectBaseConfig),
+      makePathsBase(),
+      makeBaseForEnvironment(environmentName),
       projectWebpackEnvironmentConfig
     ]
   else
     configs = [
       BASE_CONFIG,
-      makePathsBase(projectBaseConfig),
-      makeBaseForEnvironment(environmentName)(projectBaseConfig),
+      makePathsBase(),
+      makeBaseForEnvironment(environmentName),
       projectWebpackBaseConfig,
       projectWebpackEnvironmentConfig
     ]
