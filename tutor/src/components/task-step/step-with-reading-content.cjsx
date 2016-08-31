@@ -3,6 +3,7 @@ React = require 'react'
 {TaskStepStore} = require '../../flux/task-step'
 {ArbitraryHtmlAndMath, ChapterSectionMixin} = require 'shared'
 {BookContentMixin, LinkContentMixin} = require '../book-content-mixin'
+RelatedContentLink = require '../related-content-link'
 
 # TODO: will combine with below, after BookContentMixin clean up
 ReadingStepContent = React.createClass
@@ -22,13 +23,13 @@ ReadingStepContent = React.createClass
   shouldOpenNewTab: -> true
   render: ->
     {id, courseDataProps, stepType} = @props
-    {content_html} = TaskStepStore.get(id)
-
-    <ArbitraryHtmlAndMath
-      {...courseDataProps}
-      className={"#{stepType}-step"}
-      html={content_html} />
-
+    {content_html, related_content} = TaskStepStore.get(id)
+    <div className="#{stepType}-step">
+      <ArbitraryHtmlAndMath
+        {...courseDataProps}
+        html={content_html} />
+      <RelatedContentLink courseId={@props.courseId} content={related_content} />
+    </div>
 
 StepContent = React.createClass
   displayName: 'StepContent'
