@@ -4,6 +4,8 @@ _ = require 'lodash'
 webpack = require 'webpack'
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 
+DashboardPlugin = require 'webpack-dashboard/plugin'
+
 LOADERS =
   babel: 'babel'
   json: 'json'
@@ -100,27 +102,12 @@ mergeWebpackConfigs = ->
   mergeArgs = _.chain(arguments).toArray().unshift({}).push(mergeArrays).value()
   _.mergeWith.apply(null, mergeArgs)
 
-# TODO handle if project doesn't exist
-loadProjectBaseConfig = (projectName) ->
-  projectBaseConfig = require "../../#{projectName}/configs/base"
+BUILD_OUTPUTS =
+  path: 'dist'
+  publicPath: '/assets/'
 
-  _.extend({basePath: projectName}, projectBaseConfig)
-
-
-makeBuildOutputs = (projectConfig) ->
-  path: "dist"
-  publicPath: "/assets/"
-
-makeBuildPlugins = (projectConfig) ->
-  {styleFilename} = projectConfig
-
-  styleFilename ?= '[name].css'
-
-  [new ExtractTextPlugin(styleFilename)]
-
-
-makePathsBase = (projectConfig) ->
-  {basePath} = projectConfig
+makePathsBase = ->
+  basePath = process.env.OX_PROJECT
 
   pathConfigs =
     resolve:
@@ -134,29 +121,31 @@ makePathsBase = (projectConfig) ->
 
   pathConfigs
 
-makeDebugBase = (projectConfig) ->
+makeDebugBase = ->
   # omits minification and using production build of react.
   debugBase =
-    output: makeBuildOutputs(projectConfig)
+    output: BUILD_OUTPUTS
     module:
       loaders: BASE_BUILD_LOADERS
-    plugins: makeBuildPlugins(projectConfig)
+    plugins: [
+      new ExtractTextPlugin('[name].css')
+    ]
 
-makeProductionBase = (projectConfig) ->
+makeProductionBase = ->
 
-  output = makeBuildOutputs(projectConfig)
+  output = BUILD_OUTPUTS
 
   # rename to minified
   output.filename = '[name].min.js'
-  output.path = "#{projectConfig.basePath}/dist"
-  {styleFilename} = projectConfig
-  styleFilename ?= '[name].min.css'
+  output.path = "#{process.env.OX_PROJECT}/dist"
 
   productionBase =
     output: output
     module:
       loaders: BASE_BUILD_LOADERS
-    plugins: makeBuildPlugins({styleFilename}).concat([
+    plugins: [
+      new ExtractTextPlugin('[name].min.css')
+
       # Minify
       new webpack.optimize.UglifyJsPlugin(minimize: true)
 
@@ -165,21 +154,25 @@ makeProductionBase = (projectConfig) ->
         'process.env':
           NODE_ENV: JSON.stringify('production')
       )
-    ])
+    ]
 
-makeProductionWithCoverageBase = (projectConfig) ->
-  productionBase = makeProductionBase(projectConfig)
+makeProductionWithCoverageBase = ->
+  productionBase = makeProductionBase()
   postLoaders = [
     { test: /\.coffee$/, loaders: ["istanbul-instrumenter"] }
     { test: /\.cjsx$/, loaders: ["istanbul-instrumenter"] }
   ]
   mergeWebpackConfigs(productionBase, {postLoaders})
 
-makeDevelopmentBase = (projectConfig) ->
-  host = process.env.OX_PROJECT_HOST or projectConfig.host or 'localhost'
-  servePath = "http://#{host}:#{projectConfig.devPort}"
+makeDevelopmentBase = ->
+  host = process.env.OX_PROJECT_HOST or 'localhost'
+  servePath = "http://#{host}:#{process.env.OX_DEV_PORT}"
   publicPath = "#{servePath}/dist/"
-  outputPath = "#{projectConfig.basePath}/"
+  outputPath = "#{process.env.OX_PROJECT}/"
+
+  if process.env.OX_DASHBOARD_SOCKET?
+    dashboardConfig =
+      port: process.env.OX_DASHBOARD_SOCKET
 
   developmentBase =
     output:
@@ -189,16 +182,17 @@ makeDevelopmentBase = (projectConfig) ->
       loaders: BASE_DEV_LOADERS
     plugins: [
       new webpack.HotModuleReplacementPlugin()
+      new DashboardPlugin(dashboardConfig)
     ]
     devServer:
-      contentBase: "#{projectConfig.basePath}/"
+      contentBase: "#{process.env.OX_PROJECT}/"
       outputPath: outputPath
       publicPath: publicPath
       historyApiFallback: true
       inline: true
-      port: projectConfig.devPort
+      port: process.env.OX_DEV_PORT
       # It suppress error shown in console, so it has to be set to false.
-      quiet: false
+      quiet: true
       progress: true
       # It suppress everything except error, so it has to be set to false as well
       # to see success build.
@@ -236,7 +230,7 @@ getEnvironmentName = (environmentName) ->
 
 makeBaseForEnvironment = (environmentName) ->
   environmentName = getEnvironmentName(environmentName)
-  makeEnvironmentBase[environmentName]
+  makeEnvironmentBase[environmentName]()
 
 ENVIRONMENT_ALIASES =
   productionWithCoverage: 'production'
@@ -244,7 +238,6 @@ ENVIRONMENT_ALIASES =
 module.exports =
   mergeWebpackConfigs: mergeWebpackConfigs
   BASE_CONFIG: BASE_CONFIG
-  loadProjectBaseConfig: loadProjectBaseConfig
   makePathsBase: makePathsBase
   makeBaseForEnvironment: makeBaseForEnvironment
   getEnvironmentName: getEnvironmentName

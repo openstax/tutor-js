@@ -7,4 +7,12 @@ bin/checkinputs "$@"
 export OX_PROJECT=$1
 echo Serving: $OX_PROJECT
 
-webpack-dev-server --progress --config webpack.config.js
+source $OX_PROJECT/.env
+
+is_port='^[0-9]{4}$'
+
+if [[ $OX_DASHBOARD_SOCKET =~ $is_port ]]; then
+  options="-p ${OX_DASHBOARD_SOCKET}"
+fi
+
+webpack-dashboard $options -- webpack-dev-server --config webpack.config.js

@@ -14,6 +14,7 @@ trap on_termination SIGTERM SIGINT
 export OX_PROJECT=$1
 echo TDD: $OX_PROJECT
 
+source $OX_PROJECT/.env
 
 webpack-dev-server --config webpack.config.js &
 WEBPACK_PID=$!
