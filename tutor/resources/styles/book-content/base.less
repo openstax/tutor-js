@@ -127,7 +127,11 @@ section {
   align-items: center;
   justify-content: space-around;
   margin: 1rem 0;
-  ul { margin: 0; padding: 0; }
+  ul {
+    margin: 0;
+    padding: 0;
+    li:before{ display: none; } // disable the custom li bullets setup above
+  }
   background-color: @tutor-neutral-bright;
   &:before {
     content: "Abstract:";
