@@ -1,9 +1,5 @@
-// This file is part of the book-content mixin and should not be included directly
-// Hide titles, abstracts and CNX Processing instructions
-.section-opener,
-.summary,
-[data-type=abstract] {
-}
+
+
 [data-type=term]{
   font-weight: bold;
   font-style: italic;
@@ -14,7 +10,6 @@
   .tutor-tables(@tutor-white, @tutor-white);
 }
 div[data-type="document-title"],
-div[data-type=abstract],
 cnx-pi{
   display: none;
 }
@@ -124,5 +119,19 @@ section {
         display:inline;
       }
     }
+  }
+}
+
+[data-type=abstract] {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 1rem 0;
+  ul { margin: 0; padding: 0; }
+  background-color: @tutor-neutral-bright;
+  &:before {
+    content: "Abstract:";
+    .book-content-subtitle();
+    margin: 0 1rem;
   }
 }
