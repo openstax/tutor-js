@@ -18,7 +18,7 @@ MENU_VISIBLE_BREAKPOINT = 1350
 module.exports = React.createClass
   displayName: 'ReferenceBook'
 
-  mixins: [ResizeListenerMixin]
+  mixins: [ResizeListenerMixin, ChapterSectionMixin]
 
   propTypes:
     navbarControls: React.PropTypes.element
