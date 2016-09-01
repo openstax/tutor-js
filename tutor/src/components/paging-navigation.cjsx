@@ -3,8 +3,7 @@ React = require 'react'
 classnames = require 'classnames'
 keymaster = require 'keymaster'
 Icon = require './icon'
-LeftArrow = require './icons/left-arrow'
-RightArrow = require './icons/right-arrow'
+Arrow = require './icons/arrow'
 
 KEYBINDING_SCOPE  = 'page-navigation'
 
@@ -77,7 +76,7 @@ PageNavigation = React.createClass
       className={classnames('paging-control', 'prev', active: @state.activeNav is 'prev')}
     >
       <div className="arrow-wrapper">
-        <LeftArrow />
+        <Arrow direction="left" />
       </div>
     </a>
 
@@ -89,7 +88,7 @@ PageNavigation = React.createClass
       className={classnames('paging-control', 'next', active: @state.activeNav is 'next')}
     >
       <div className="arrow-wrapper">
-        <RightArrow />
+        <Arrow direction="right" />
       </div>
     </a>
 
