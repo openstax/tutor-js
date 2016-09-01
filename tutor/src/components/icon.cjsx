@@ -30,10 +30,11 @@ module.exports = React.createClass
       'clickable': @props.onClick or (@props.tooltip and @props.tooltipProps.trigger is 'click')
     })
 
-    if not @props.tooltip
+    unless @props.tooltip
       return <i {...@props} className={classNames} />
 
     icon = <button {...@props} className={classNames} />
+    classNames =
     tooltip = <BS.Tooltip id={@state.uniqueId}
       className={classnames({'on-navbar': @props.onNavbar})}
       >{@props.tooltip}</BS.Tooltip>

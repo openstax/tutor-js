@@ -5,9 +5,7 @@
 # TODO figure out why.
 #
 # Components
-require './components/icon.spec'
 
-###
 require './components/course-listing.spec'
 require './components/cc-dashboard/index.spec'
 require './components/cc-dashboard/dashboard.spec'
@@ -87,4 +85,3 @@ require './helpers/period.spec'
 require './helpers/job.spec'
 require './helpers/time.spec'
 require './helpers/analytics.spec'
-###
