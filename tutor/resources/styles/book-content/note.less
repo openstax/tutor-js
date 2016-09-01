@@ -1,10 +1,9 @@
+@has-data-label-selector: ~'[data-label]:not([data-label=""])';
+
 .tutor-book-note-style() {
   // add a title pseudo element if a data-label attribute is present
-  &[data-label]:not([data-label=""]) {
-    &::before {
-      content: attr(data-label);
-      .tutor-book-label-style();
-    }
+  &@{has-data-label-selector} {
+    .tutor-book-label();
   }
 
   :last-child:not(.embed-responsive) {
@@ -33,31 +32,52 @@
   .solution,
   .commentary {
     clear: both;
-    [data-type=title]{
+
+    [data-type=title] {
       #fonts > .sans(1.8rem, 1.75em);
       font-weight: bold;
     }
   }
 }
 
-.tutor-book-label-style() {
-  position: absolute;
-  #fonts > .sans(@tutor-book-ui-top-height - 18px, @tutor-book-ui-top-height);
-  font-weight: 900;
-  padding: 0 40px;
-  height: @tutor-book-ui-top-height;
-  display: inline-block;
-  margin: @book-content-note-with-background-margin;
+.tutor-book-label(@content: attr(data-label)) {
+  &::before {
+    content: @content;
+
+    position: absolute;
+    #fonts > .sans(@tutor-book-ui-top-height - 18px, @tutor-book-ui-top-height);
+    font-weight: 900;
+    padding: 0 40px;
+    height: @tutor-book-ui-top-height;
+    display: inline-block;
+    margin: @book-content-note-with-background-margin;
+  }
+}
+
+@tutor-empty-rules: {};
+
+.tutor-style-note-variants(@all-note-rules: @tutor-empty-rules; @except-teacher-rules: @tutor-empty-rules) {
+  > .note,
+  section > section > .note,
+  > section > .note:not(.learning-objectives),
+
+  .grasp-check,
+
+  > [data-element-type="check-understanding"],
+  section > [data-element-type="check-understanding"],
+
+  > .example,
+  section > .example {
+    @all-note-rules();
+
+    &:not(.os-teacher) {
+      @except-teacher-rules();
+    }
+  }
 }
 
 .tutor-make-notes() {
-  > .note,
-  > .example,
-  > [data-element-type="check-understanding"],
-  section > [data-element-type="check-understanding"],
-  > section > .note:not(.learning-objectives),
-  section > .example,
-  section > section > .note {
+  .tutor-style-note-variants(@all-note-rules: {
     background: @tutor-neutral-lightest;
     margin: 38px 0 32px 0;
     clear: both;
@@ -65,53 +85,75 @@
     border-bottom: solid 8px @tutor-neutral-lighter;
     padding: @tutor-note-padding;
     width: 100%;
+
     .tutor-book-note-style();
 
-    &:not(.os-teacher) {
+  }; @except-teacher-rules: {
       display: inline-block;
+  });
+
+  // .grasp-check specific styles
+  .grasp-check {
+    margin: 68px 0 32px 0;
+    padding: @tutor-note-padding-vertical 0;
+    border-top: solid 8px @tutor-secondary;
+    border-bottom: none;
+
+    &@{has-data-label-selector}::before {
+      margin: @book-content-note-without-background-margin;
     }
   }
 
   // .example, check-understanding content currently lacks a data-label attribute
   > .example,
   section > .example {
-    &::before {
-      content: "Worked Example";
-      .tutor-book-label-style();
-    }
+    .tutor-book-label("Worked Example");
   }
-
 
   > [data-element-type="check-understanding"],
   section > [data-element-type="check-understanding"] {
-      &::before {
-      content: "Check Your Understanding";
-      .tutor-book-label-style();
-    }
+    .tutor-book-label("Check Your Understanding");
     [data-type="title"] {display: none;}
   }
+
+  // Any other notes missing `[data-label]` should have their content defined here.
+  //
+  // Also, their selectors should be appended to the selectors in
+  // `.tutor-style-note-variants` so that all places where notes are being styled,
+  // the non-`[data-label]`led notes will also be affected like a fully featured note.
 }
 
 .tutor-book-reading-note() {
+  // tutor-book-reading specific modifications
+  // unsure as to why they do no have all the same selectors
+  // as main notes section currently.  will check, but would like to just use
+  // `.tutor-style-note-variants` for all modifications.
   > .note,
-  > .example,
-  > [data-element-type="check-understanding"],
+  section > section > .note,
   > section > .note:not(.learning-objectives):not(.tips-for-success),
-  section > section > .note {
+
+  > [data-element-type="check-understanding"],
+
+  > .example {
+
     background: none;
-    &:before {
+    &::before {
       margin: @book-content-note-without-background-margin;
     }
+
   }
-  > .example,
+
   > [data-element-type="check-understanding"],
-   {
+
+  > .example {
+
     padding: 20px 0;
     .embed-responsive {
       iframe {
         width: 100%;
       }
     }
+
   }
 }
 
