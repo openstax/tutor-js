@@ -11,6 +11,7 @@
     "precoverage": "npm run validate",
     "coverage": "gulp coverage",
     "serve": "./bin/serve",
+    "debug": "./bin/debug",
     "build": "./bin/build",
     "release": "./bin/release",
     "release-coach": "./bin/release coach",

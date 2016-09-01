@@ -108,7 +108,7 @@ loadProjectBaseConfig = (projectName) ->
 
 
 makeBuildOutputs = (projectConfig) ->
-  path: "dist"
+  path: "#{projectConfig.basePath}/dist"
   publicPath: "/assets/"
 
 makeBuildPlugins = (projectConfig) ->
@@ -148,7 +148,7 @@ makeProductionBase = (projectConfig) ->
 
   # rename to minified
   output.filename = '[name].min.js'
-  output.path = "#{projectConfig.basePath}/dist"
+  # output.path = "#{projectConfig.basePath}/dist"
   {styleFilename} = projectConfig
   styleFilename ?= '[name].min.css'
 
