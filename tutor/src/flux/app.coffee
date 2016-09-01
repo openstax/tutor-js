@@ -1,89 +1,104 @@
 # Store for api requests and responses
 _ = require 'underscore'
+hash = require 'object-hash'
 moment = require 'moment-timezone'
 
 {makeSimpleStore} = require './helpers'
 
+getRequestHash = _.partial(hash, _, {unorderedArrays: true})
+
 AppConfig =
   _statuses: []
-  _pending: []
+  _pending: {}
+  _cache: {}
 
   resetServerErrors: ->
     delete @_currentServerError
 
   _getRequestOpts: (opts) ->
     opts = _.pick(opts, 'method', 'data', 'url')
-    opts = _.omit(opts, 'data') unless opts.data
+    opts = _.omit(opts, 'data') if _.isEmpty(opts.data)
     opts
 
-  _getDuration: (request) ->
-    moment().diff(request.sendMoment)
+  _getDuration: (status) ->
+    moment().diff(status.sendMoment)
 
-  _getServerStatus: (statusCode, message, requestDetails) ->
-    request = @_getRequestOpts(requestDetails)
+  _formatServerResponse: (statusCode, message, requestConfig) ->
+    request = @_getRequestOpts(requestConfig)
+
+    unless _.isObject(message)
+      try
+        message = JSON.parse(message)
+      catch e
 
     {statusCode, message, request}
 
-  _findPendingIndex: (request) ->
-    sparseRequest = @_getRequestOpts(request)
-    _.findLastIndex @_pending, (pending) =>
-      _.isEqual @_getRequestOpts(pending), sparseRequest
+  _cacheByKey: (requestHashKey, status) ->
+    @_cache[requestHashKey] ?= []
+    @_cache[requestHashKey].push(status)
 
-  _getRequestInfo: (requestConfig) ->
-    sparseOpts = @_getRequestOpts(requestConfig)
+  getRequestStatus: (requestConfig) ->
+    requestHashKey = @_getPendingHashKey(requestConfig)
+    _.last(@_cache[requestHashKey])
 
-    requestIndex = @_findPendingIndex(sparseOpts)
+  _getPendingHashKey: (requestConfig) ->
+    request = @_getRequestOpts(requestConfig)
+    getRequestHash(request)
 
-    return null unless requestIndex > -1
+  _getPendingInfo: (requestConfig) ->
+    requestHashKey = @_getPendingHashKey(requestConfig)
+    return null unless @_pending[requestHashKey]?
 
-    request: @_pending[requestIndex]
-    requestIndex: requestIndex
+    request: @_pending[requestHashKey]
+    requestHashKey: requestHashKey
 
   queRequest: (requestConfig) ->
     request = @_getRequestOpts(requestConfig)
+    requestHashKey = getRequestHash(request)
+
     request.sendMoment = moment()
-    @_pending.push(request)
+    @_cacheByKey(requestHashKey, request)
+    @_pending[requestHashKey] = request
 
-  _unqueRequestAtIndex: (requestIndex) ->
-    @_pending.splice(requestIndex, 1)
+  _unqueRequestAtHashKey: (requestHashKey) ->
+    delete @_pending[requestHashKey]
 
-  unqueRequest: (request) ->
-    requestIndex = @_findPendingIndex(request)
-    @_unqueRequestAtIndex(requestIndex)
+  unqueRequest: (requestConfig) ->
+    requestHashKey = @_getPendingHashKey(requestConfig)
+    @_unqueRequestAtHashKey(requestHashKey)
 
-  updateForResponse: (statusCode, message, requestDetails) ->
-    status = AppConfig._getServerStatus statusCode, message, requestDetails
+  updateForResponse: (statusCode, message, requestConfig) ->
+    status = @_formatServerResponse statusCode, message, requestConfig
 
     # try to get request from pending info, remove from pending, and calc response time
-    requestInfo = @_getRequestInfo(requestDetails)
+    requestInfo = @_getPendingInfo(requestConfig)
 
     if requestInfo
-      {request, requestIndex} = requestInfo
-      @_unqueRequestAtIndex(requestIndex)
+      {request, requestHashKey} = requestInfo
       status.responseTime = @_getDuration(request)
 
+      @_unqueRequestAtHashKey(requestHashKey)
+    else
+      requestHashKey = @_getPendingHashKey(requestConfig)
+
+    @_cacheByKey(requestHashKey, status)
     @_statuses.push(status)
     status
 
-  setServerError: (statusCode, message, requestDetails) ->
-    status = @updateForResponse statusCode, message, requestDetails
-    return unless requestDetails.displayError
-    @_currentServerError = status
-    unless _.isObject(message)
-      try
-        @_currentServerError.message = JSON.parse(message)
-      catch e
-    @emit('server-error', statusCode, @_currentServerError.message)
+  setServerError: (statusCode, message, requestConfig) ->
+    return unless requestConfig.displayError
 
-  setServerSuccess: (statusCode, message, requestDetails) ->
-    status = @updateForResponse statusCode, message, requestDetails
-    @_currentServerSuccess = status
+    @_currentServerError = @getRequestStatus requestConfig
+    @emit('server-error', statusCode, message)
 
+  setServerSuccess: (statusCode, message, requestConfig) ->
+    @_currentServerSuccess = @getRequestStatus requestConfig
     @emit('server-success', statusCode, message)
 
   reset: ->
     @_statuses = []
-    @_pending = []
+    @_pending = {}
+    @_cache = {}
     @_currentServerSuccess = {}
     @_currentServerError = {}
 
@@ -95,7 +110,7 @@ AppConfig =
       statuses: @_statuses
 
     isPending: (requestConfig) ->
-      @_getRequestInfo(requestConfig)?
+      @_getPendingInfo(requestConfig)?
 
     errorNavigation: ->
       return {} unless @_currentServerError

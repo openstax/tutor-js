@@ -54,12 +54,25 @@ interceptors =
     makeLocalRequest(requestConfig)
     requestConfig
 
-  setResponse: (response) ->
+  setResponseReceived: (response) ->
+    {status, data, config, headers} = response
+
+    AppActions.updateForResponse(status, data, config)
+    setNow(headers) if headers
+    response
+
+  setErrorReceived: (errorResponse) ->
+    {status, data, config, headers} = errorResponse
+
+    AppActions.updateForResponse(status, data, config) if config
+    setNow(headers) if headers
+    Promise.reject(errorResponse)
+
+  setResponseSuccess: (response) ->
+    return response unless response?
     {status, statusText, config, headers} = response
 
     AppActions.setServerSuccess(status, statusText, config)
-    setNow(headers)
-
     response
 
   handleError: (errorResponse) ->
@@ -69,14 +82,8 @@ interceptors =
       errorResponse =
         status: 1
         statusText: "#{errorResponse.name}: #{errorResponse.message}"
-    else if errorResponse.headers
-      setNow(errorResponse.headers)
 
-    Promise.reject(_.extend({handled: config.handleError?}, errorResponse))
-
-  makeLocalResponse: (response) ->
-    makeLocalResponse(response)
-    response
+    Promise.reject(_.extend({handled: config?.handleError?}, errorResponse))
 
   handleMalformedRequest: (errorResponse) ->
     if errorResponse.status is 400
@@ -90,6 +97,27 @@ interceptors =
       errorResponse.statusText = 'ERROR_NOTFOUND'
 
     Promise.reject(errorResponse)
+
+  handleErrorMessage: (errorResponse) ->
+    {statusText, data} = errorResponse
+
+    try
+      msg = JSON.parse(statusText)
+    catch e
+      msg = statusText
+
+    errorResponse.statusMessage = msg
+
+    unless _.isObject(data)
+      try
+        errorResponse.data = JSON.parse(data)
+      catch e
+
+    Promise.reject(errorResponse)
+
+  makeLocalResponse: (response) ->
+    makeLocalResponse(response)
+    response
 
   handleLocalErrors: (errorResponse) ->
     {status, statusText, config} = errorResponse
@@ -109,28 +137,33 @@ interceptors =
 
     Promise.reject(errorResponse)
 
-  handleErrorMessage: (errorResponse) ->
-    {statusText} = errorResponse
-
-    try
-      msg = JSON.parse(statusText)
-    catch e
-      msg = statusText
-
-    errorResponse.statusMessage = msg
-    Promise.reject(errorResponse)
-
 setUpXHRInterceptors = ->
+  # tell app that a request is pending.
   axios.interceptors.request.use(interceptors.queRequest)
+
+  # modify request to use local stubs
   axios.interceptors.request.use(interceptors.makeLocalRequest) if IS_LOCAL
 
-  axios.interceptors.response.use(interceptors.setResponse, interceptors.handleError)
+  # on response, transform error as needed
+  axios.interceptors.response.use(null, interceptors.handleError)
   axios.interceptors.response.use(null, interceptors.handleMalformedRequest)
   axios.interceptors.response.use(null, interceptors.handleNotFound)
-  axios.interceptors.response.use(interceptors.makeLocalResponse, interceptors.handleLocalErrors) if IS_LOCAL
   axios.interceptors.response.use(null, interceptors.handleErrorMessage)
 
+  # make sure app knows a response has been returned for a pending request,
+  # for both successes and errors
+  axios.interceptors.response.use(interceptors.setResponseReceived, interceptors.setErrorReceived)
+
+  # set request status as a success and notify app
+  # the error will be handle within the api handler catch as it may be customized
+  # by the handler.
+  axios.interceptors.response.use(interceptors.setResponseSuccess, null)
+
+  # modify response when using the local api stubs.
+  axios.interceptors.response.use(interceptors.makeLocalResponse, interceptors.handleLocalErrors) if IS_LOCAL
+
 onRequestError = (response, requestConfig) ->
+  AppActions.updateForResponse(response.status, response.data, requestConfig)
   AppActions.setServerError(response.status, response.data, requestConfig)
 
 apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, options) ->
@@ -150,10 +183,12 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
       if payload?
         opts.data = JSON.stringify(payload)
         opts.processData = false
-        # For now, the backend is expecting JSON and cannot accept url-encoded forms
         opts.contentType = 'application/json'
 
       requestConfig = _.extend({url}, opts, options)
+
+      # Do not make another request with a config with the same url, methods, and data
+      # if a previous one has not received a response.  Prevents duplicate requests.
       return if AppStore.isPending(requestConfig)
 
       resolved = ({data}) ->
@@ -166,11 +201,8 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
         # is present (in the Promise.reject with _.extend above)
         # The handleError function may explicitly set `response.handled = false`
         # to indicate that normal error handling should occur
-        if response.handled is true
-          # the error has been handled by the store itself, notify AppActions the request has completed
-          AppActions.updateForResponse(status, response.data, requestConfig)
-        else
-          onRequestError(response, requestConfig)
+        unless response.handled is true
+          AppActions.setServerError(response.status, response.data, requestConfig)
           Actions.FAILED(status, statusMessage, args...)
 
       axios(requestConfig)
