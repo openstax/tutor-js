@@ -50,24 +50,45 @@
   margin: @book-content-note-with-background-margin;
 }
 
-> .note,
-> .example,
-> [data-element-type="check-understanding"],
-section > [data-element-type="check-understanding"],
-> section > .note:not(.learning-objectives),
-section > .example,
-section > section > .note {
-  background: @tutor-neutral-lightest;
-  margin: 38px 0 32px 0;
-  clear: both;
-  border-top: solid 8px @tutor-neutral-lighter;
-  border-bottom: solid 8px @tutor-neutral-lighter;
-  padding: @tutor-note-padding;
-  width: 100%;
-  .tutor-book-note-style();
+.tutor-make-notes() {
+  > .note,
+  > .example,
+  > [data-element-type="check-understanding"],
+  section > [data-element-type="check-understanding"],
+  > section > .note:not(.learning-objectives),
+  section > .example,
+  section > section > .note {
+    background: @tutor-neutral-lightest;
+    margin: 38px 0 32px 0;
+    clear: both;
+    border-top: solid 8px @tutor-neutral-lighter;
+    border-bottom: solid 8px @tutor-neutral-lighter;
+    padding: @tutor-note-padding;
+    width: 100%;
+    .tutor-book-note-style();
 
-  &:not(.os-teacher) {
-    display: inline-block;
+    &:not(.os-teacher) {
+      display: inline-block;
+    }
+  }
+
+  // .example, check-understanding content currently lacks a data-label attribute
+  > .example,
+  section > .example {
+    &::before {
+      content: "Worked Example";
+      .tutor-book-label-style();
+    }
+  }
+
+
+  > [data-element-type="check-understanding"],
+  section > [data-element-type="check-understanding"] {
+      &::before {
+      content: "Check Your Understanding";
+      .tutor-book-label-style();
+    }
+    [data-type="title"] {display: none;}
   }
 }
 
@@ -98,24 +119,4 @@ section > section > .note {
   section > h1 {
     clear: both;
   }
-}
-
-
-// .example, check-understanding content currently lacks a data-label attribute
-> .example,
-section > .example {
-  &::before {
-    content: "Worked Example";
-    .tutor-book-label-style();
-  }
-}
-
-
-> [data-element-type="check-understanding"],
-section > [data-element-type="check-understanding"] {
-    &::before {
-    content: "Check Your Understanding";
-    .tutor-book-label-style();
-  }
-  [data-type="title"] {display: none;}
 }
