@@ -12,7 +12,7 @@ COURSE_ID = '1'
 {PeriodActions} = require '../../../src/flux/period'
 {RosterActions} = require '../../../src/flux/roster'
 
-describe 'Course Settings', ->
+describe 'Course Settings, change period', ->
 
   beforeEach ->
     CourseActions.loaded(COURSE, COURSE_ID)
