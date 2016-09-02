@@ -5,7 +5,7 @@ section {
 .openstax-question {
   .tutor-tables(@tutor-white, @tutor-white);
 
-  &:before {
+  &::before {
     counter-increment: question;
     content: counter(question) ". ";
     display: block;
@@ -16,6 +16,10 @@ section {
     float: left;
     width: 96%;
     img { display: block; }
+
+    p::before {
+      display: none;
+    }
   }
 
   .answers-answer {

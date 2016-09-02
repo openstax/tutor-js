@@ -14,11 +14,9 @@
 }
 
 .tutor-book-theme-note(@label-background: @tutor-book-primary; @label-text: @tutor-book-text-on-dark-labels) {
-  .tutor-style-note-variants(@except-teacher-rules: {
-    &::before {
-      color: @label-text;
-      background: @label-background;
-    }
+  .tutor-style-note-variants(@except-teacher-title-rules: {
+    color: @label-text;
+    background: @label-background;
   });
 }
 

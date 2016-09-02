@@ -1,11 +1,8 @@
 @has-data-label-selector: ~'[data-label]:not([data-label=""])';
+@feature-title-is-element: ~'[data-has-label=true][data-label=""]';
+@tutor-note-title-element: ~'.title[data-type=title]:first-child';
 
 .tutor-book-note-style() {
-  // add a title pseudo element if a data-label attribute is present
-  &@{has-data-label-selector} {
-    .tutor-book-label();
-  }
-
   .openstax-question {
     &::before {
       display: none;
@@ -46,23 +43,50 @@
   }
 }
 
-.tutor-book-label(@content: attr(data-label)) {
+@tutor-book-label-style: {
+  position: absolute;
+  #fonts > .sans(@tutor-book-ui-top-height - 18px, @tutor-book-ui-top-height);
+  font-weight: 900;
+  padding: 0 40px;
+  height: @tutor-book-ui-top-height;
+  display: inline-block;
+  margin: @book-content-note-with-background-margin;
+};
+
+.tutor-book-before-manual-label(@content: attr(data-label)) {
   &::before {
     content: @content;
+    @tutor-book-label-style();
+  }
 
-    position: absolute;
-    #fonts > .sans(@tutor-book-ui-top-height - 18px, @tutor-book-ui-top-height);
-    font-weight: 900;
-    padding: 0 40px;
-    height: @tutor-book-ui-top-height;
-    display: inline-block;
-    margin: @book-content-note-with-background-margin;
+  @{feature-title-is-element}& {
+    // undo auto title.
+    > @{tutor-note-title-element} {
+      display: none;
+    }
   }
 }
 
 @tutor-empty-rules: {};
 
-.tutor-style-note-variants(@all-note-rules: @tutor-empty-rules; @except-teacher-rules: @tutor-empty-rules) {
+.tutor-style-note-title-variants(@tutor-title-rules: @tutor-empty-rules){
+  // add a title pseudo element if a data-label attribute is present
+  &@{has-data-label-selector}::before,
+  &@{feature-title-is-element} > @{tutor-note-title-element} {
+    @tutor-title-rules();
+  }
+
+  &@{has-data-label-selector}::before {
+    content: attr(data-label);
+  }
+}
+
+.tutor-style-note-variants(
+  @all-note-rules: @tutor-empty-rules;
+  @title-rules: @tutor-empty-rules;
+  @except-teacher-rules: @tutor-empty-rules;
+  @except-teacher-title-rules: @tutor-empty-rules
+) {
   > .note,
   section > section > .note,
   > section > .note:not(.learning-objectives),
@@ -76,27 +100,33 @@
   section > .example {
     @all-note-rules();
 
+    .tutor-style-note-title-variants(@title-rules);
+
     &:not(.os-teacher) {
       @except-teacher-rules();
+
+      .tutor-style-note-title-variants(@except-teacher-title-rules);
     }
   }
 }
 
 .tutor-make-notes() {
   .tutor-style-note-variants(@all-note-rules: {
-    background: @tutor-neutral-lightest;
-    margin: 38px 0 32px 0;
-    clear: both;
-    border-top: solid 8px @tutor-neutral-lighter;
-    border-bottom: solid 8px @tutor-neutral-lighter;
-    padding: @tutor-note-padding;
-    width: 100%;
+      background: @tutor-neutral-lightest;
+      margin: 38px 0 32px 0;
+      clear: both;
+      border-top: solid 8px @tutor-neutral-lighter;
+      border-bottom: solid 8px @tutor-neutral-lighter;
+      padding: @tutor-note-padding;
+      width: 100%;
 
-    .tutor-book-note-style();
-
-  }; @except-teacher-rules: {
+      .tutor-book-note-style();
+    };
+    @title-rules: @tutor-book-label-style;
+    @except-teacher-rules: {
       display: inline-block;
-  });
+    }
+  );
 
   // .grasp-check specific styles
   .grasp-check {
@@ -113,16 +143,18 @@
   // .example, check-understanding content currently lacks a data-label attribute
   > .example,
   section > .example {
-    .tutor-book-label("Worked Example");
+    .tutor-book-before-manual-label("Worked Example");
   }
 
   > [data-element-type="check-understanding"],
   section > [data-element-type="check-understanding"] {
-    .tutor-book-label("Check Your Understanding");
-    [data-type="title"] {display: none;}
+    .tutor-book-before-manual-label("Check Your Understanding");
   }
 
-  // Any other notes missing `[data-label]` should have their content defined here.
+  // Any other notes missing
+  //  * `data-label` value and
+  //  * `.title[data-type=title]:first-child`
+  // should have their content defined manually here.
   //
   // Also, their selectors should be appended to the selectors in
   // `.tutor-style-note-variants` so that all places where notes are being styled,
