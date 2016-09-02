@@ -13,6 +13,7 @@ merge = require 'lodash/merge'
 LoadableItem = require '../loadable-item'
 ScoresExport = require './export'
 {CoursePeriodsNavShell} = require '../course-periods-nav'
+BindStoreMixin = require '../bind-store-mixin'
 
 StudentDataSorter = require './student-data-sorter'
 
@@ -21,6 +22,10 @@ Scores = React.createClass
 
   contextTypes:
     router: React.PropTypes.func
+
+  mixins: [BindStoreMixin]
+  bindStore: ScoresStore
+  bindUpdate: -> @updateStudentData()
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
