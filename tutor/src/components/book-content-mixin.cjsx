@@ -183,7 +183,7 @@ sizeImage = ->
 
   if @naturalWidth > @naturalHeight or figure.parentNode.dataset.orient is 'horizontal'
     figure.classList.add('tutor-ui-horizontal-img')
-    if @naturalWidth > 450 and figure.parentNode.nodeName isnt 'FIGURE'
+    if @naturalWidth > 450 and figure.parentNode?.nodeName isnt 'FIGURE'
       figure.classList.add('full-width')
   else
     figure.classList.add('tutor-ui-vertical-img')

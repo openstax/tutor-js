@@ -60,6 +60,7 @@ require './components/scroll-to-link-mixin.spec'
 require './components/media-preview.spec'
 require './components/tutor-popover.spec'
 require './components/course-grouping-label.spec'
+require './components/paging-navigation.spec'
 
 # Flux your muscle
 require './crud-store.spec'

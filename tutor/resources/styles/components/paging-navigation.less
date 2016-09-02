@@ -1,0 +1,51 @@
+.tutor-paging-navigation {
+  @arrow-height: 150px;
+  .flex-display();
+  .justify-content(center);
+
+  .paging-control {
+    .flex(1);
+    .arrow-wrapper {
+      width: 100%;
+      height: 100%;
+      max-width: @arrow-height;  // keep left edge of icons no more than 60px from edge
+      .icon {
+        z-index: 1; //appear above content when page is extremely narrow
+        position: fixed;
+        top: calc(~"55vh - "@arrow-height);
+        path {
+          .transition(fill 150ms linear);
+          fill: @tutor-neutral-light;
+        }
+        height: @arrow-height;
+        width: @arrow-height / 2;
+      }
+    }
+    &.next {
+      .arrow-wrapper {
+        .flex-display();
+        .justify-content(flex-end);
+        .icon {
+          // work around IE flexbox bug where the icon is placed outside it's container
+          // this shifts it back into position
+          @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) { margin-left: -75px; }
+        }
+      }
+    }
+    &.prev {
+      .arrow-wrapper { float: right; }
+    }
+    &[disabled] {
+      cursor: default; // otherwise it's "pointer" since it's an a tag
+      .icon{ display: none; }
+    }
+    &:not([disabled]) {
+      &.active,
+      &:hover {
+        text-decoration: none;
+        .icon path { fill: @tutor-neutral-lite; }
+      }
+      &:focus { text-decoration: none; }
+    }
+  }
+}

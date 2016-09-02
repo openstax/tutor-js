@@ -7,9 +7,9 @@ classnames = require 'classnames'
 
 NavBar = require './navbar'
 Menu = require './slide-out-menu'
-{ChapterSectionMixin, ResizeListenerMixin} = require 'shared'
+{ResizeListenerMixin, ChapterSectionMixin} = require 'shared'
 PageShell = require './page-shell'
-PageNavigation = require './page-navigation'
+ReferenceViewPageNavigation = require './page-navigation'
 
 # menu width (300) + page width (1000) + 50 px padding
 # corresponds to @reference-book-page-width and @reference-book-menu-width in variables.less
@@ -30,6 +30,7 @@ module.exports = React.createClass
     contentComponent: React.PropTypes.func
     menuRouterLinkTarget: React.PropTypes.string
     onSectionSelection: React.PropTypes.func
+    pageNavRouterLinkTarget: React.PropTypes.string.isRequired
 
   getDefaultProps: ->
     contentComponent: PageShell
@@ -65,14 +66,14 @@ module.exports = React.createClass
     className = classnames 'reference-book', @props.className,
       'menu-open': @state.isMenuVisible
 
-    pageInfo = ReferenceBookStore.getPageInfo(@state)
-
-    nav = _.defaults({}, @props.navigation, {
-      next: !!pageInfo.next, prev: !!pageInfo.prev
-    })
+    pageProps =
+      cnxId: @state.cnxId
+      section: @state.section
+      ecosystemId: @props.ecosystemId
 
     <div {...@props.dataProps} className={className}>
       <SpyMode.Wrapper>
+
         <NavBar
           ecosystemId={@props.ecosystemId}
           section={@state.section}
@@ -90,17 +91,13 @@ module.exports = React.createClass
             onMenuSelection={@onMenuClick}
           />
 
-          <PageNavigation direction='prev' {...@props} enabled={nav.prev}
-            section={@sectionFormat(pageInfo.prev?.chapter_section)} />
+          <ReferenceViewPageNavigation
+            {...pageProps}
+            pageNavRouterLinkTarget={@props.pageNavRouterLinkTarget}
+          >
+            <@props.contentComponent {...pageProps} />
+          </ReferenceViewPageNavigation>
 
-          <@props.contentComponent
-            cnxId={@state.cnxId}
-            section={@state.section}
-            ecosystemId={@props.ecosystemId}
-          />
-
-          <PageNavigation direction='next' {...@props} enabled={nav.next}
-            section={@sectionFormat(pageInfo.next?.chapter_section)} />
         </div>
 
       </SpyMode.Wrapper>

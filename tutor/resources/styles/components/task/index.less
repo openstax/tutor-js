@@ -3,8 +3,21 @@
 @import './milestones';
 
 .task {
+
   max-width: @tutor-task-width;
   margin: 0 auto;
+  &.task-reading {
+    max-width: inherit;
+    .paged-content {
+      width: @tutor-task-width;
+    }
+    // small screens
+    @media screen and (max-width: (@tutor-task-width + 200px)){
+      .paged-content { width: @tutor-task-width - 200px; }
+      .icon.arrow.left  { margin-left: -30px; }
+      .icon.arrow.right { margin-left: 30px; }
+    }
+  }
 
   .step-footer-mixin();
 

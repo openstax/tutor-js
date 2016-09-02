@@ -5,33 +5,55 @@ React = require 'react'
 classnames = require 'classnames'
 Router = require 'react-router'
 
-PageNavigation = React.createClass
+PagingNavigation = require '../paging-navigation'
+{ReferenceBookStore} = require '../../flux/reference-book'
+{ChapterSectionMixin} = require 'shared'
+
+ReferenceViewPageNavigation = React.createClass
 
   propTypes:
-    ecosystemId: React.PropTypes.string.isRequired
-    onPageNavigationClick: React.PropTypes.func
-    direction: React.PropTypes.string.isRequired
     pageNavRouterLinkTarget: React.PropTypes.string.isRequired
-    enabled: React.PropTypes.bool.isRequired
+    ecosystemId: React.PropTypes.string.isRequired
     section: React.PropTypes.string
+    cnxId: React.PropTypes.string
+    onPageNavigationClick: React.PropTypes.func
+
+  mixins: [ChapterSectionMixin]
 
   contextTypes:
     router: React.PropTypes.func
 
-  onClick: (ev) ->
-    @props.onPageNavigationClick?(@props.section, ev)
+  onNavigation: (info, href) ->
+    @props.onPageNavigationClick?(info.chapter_section, ev)
+    @context.router.transitionTo(href)
 
   render: ->
-    return null unless @props.enabled and @props.section
 
-    params = _.extend({ecosystemId: @props.ecosystemId}, @context.router.getCurrentParams(), section: @props.section)
+    pageInfo = ReferenceBookStore.getPageInfo(@props) or {}
+    params = _.extend({ecosystemId: @props.ecosystemId}, @context.router.getCurrentParams())
 
-    <Router.Link className={classnames('page-navigation', @props.direction)}
-      to={@props.pageNavRouterLinkTarget}
-      query={@context.router.getCurrentQuery()}
-      onClick={@onClick}
-      params={params}>
-      <div className='triangle' />
-    </Router.Link>
+    if pageInfo.next
+      nextUrl = @context.router.makeHref( @props.pageNavRouterLinkTarget,
+        _.extend({}, params, section: @sectionFormat(pageInfo.next.chapter_section))
+        @context.router.getCurrentQuery()
+      )
 
-module.exports = PageNavigation
+    if pageInfo.prev
+      prevUrl = @context.router.makeHref( @props.pageNavRouterLinkTarget,
+        _.extend({}, params, section: @sectionFormat(pageInfo.prev.chapter_section)),
+        @context.router.getCurrentQuery()
+      )
+
+    <PagingNavigation
+      className="reference-book-page"
+      onForwardNavigation={_.partial(@onNavigation, pageInfo.next)}
+      onBackwardNavigation={_.partial(@onNavigation, pageInfo.prev)}
+      isForwardEnabled={nextUrl?}
+      forwardHref={nextUrl}
+      isBackwardEnabled={prevUrl?}
+      backwardHref={prevUrl}
+    >
+      {@props.children}
+    </PagingNavigation>
+
+module.exports = ReferenceViewPageNavigation
