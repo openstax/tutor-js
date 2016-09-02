@@ -37,19 +37,26 @@
   #fonts > .sans(1.8rem, 2.4rem);
 
   .answers-answer {
-
     &::before {
       .answer-label();
       .answer-icon-label();
       text-align: center;
       width: 80px;
       font-size: 2rem;
+      @media (max-width: @tutor-card-padding-collapse-breakpoint) {
+        width: 50px;
+        margin-left: -90px;
+      }
       line-height: 2.4rem;
     }
 
     .selected-count {
       display: inline-block;
       width: 60px;
+
+      @media (max-width: @tutor-card-padding-collapse-breakpoint) {
+        width: 40px;
+      }
 
       &::before {
         content: attr(data-count);
