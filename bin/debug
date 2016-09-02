@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+bin/checkinputs "$@"
+
+export OX_PROJECT=$1
+echo Building: $OX_PROJECT
+export NODE_ENV=debug
+
+[ -d $OX_PROJECT/dist ] && rm -r $OX_PROJECT/dist
+webpack --progress --config webpack.config.js

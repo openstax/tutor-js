@@ -2,7 +2,7 @@
 
 {Testing, expect, sinon, _} = require './helpers/component-testing'
 
-{StepContent} = require '../../src/components/task-step/step-with-reading-content'
+{ReadingStepContent} = require '../../src/components/task-step/step-with-reading-content'
 
 {TaskActions, TaskStore} = require '../../src/flux/task'
 {TaskStepActions, TaskStepStore} = require '../../src/flux/task-step'
@@ -26,7 +26,7 @@ describe 'Task Widget, rendering content', ->
       stepType: 'interactive'
     }
 
-    Testing.renderComponent(StepContent, props: props).then ({dom}) ->
+    Testing.renderComponent(ReadingStepContent, props: props).then ({dom}) ->
       expect(dom.querySelector('.frame-wrapper')).to.be.null
 
   it 'should render a frame for non-interactives', ->
@@ -38,5 +38,5 @@ describe 'Task Widget, rendering content', ->
       stepType: 'reading'
     }
 
-    Testing.renderComponent(StepContent, props: props).then ({dom}) ->
+    Testing.renderComponent(ReadingStepContent, props: props).then ({dom}) ->
       expect(dom.querySelector('.frame-wrapper')).to.not.be.null
