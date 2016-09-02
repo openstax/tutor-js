@@ -64,22 +64,22 @@ CCDashboard = React.createClass
       <div className="results">
         <BS.Row className="column-legend">
           <BS.Col xs={2} xsOffset={6}>
+            <span className="title">Complete
             <Icon type='info-circle'
               tooltipProps={placement: 'top'}
-              tooltip={TOOLTIPS.complete} />
-            Complete
+              tooltip={TOOLTIPS.complete} /></span>
           </BS.Col>
           <BS.Col xs={2}>
+            <span className="title">Original
             <Icon type='info-circle'
               tooltipProps={placement: 'top'}
-              tooltip={TOOLTIPS.original} />
-            Original Performance
+              tooltip={TOOLTIPS.original} /></span>
           </BS.Col>
           <BS.Col xs={2}>
+            <span className="title">Spaced Practice
             <Icon type='info-circle'
               tooltipProps={placement: 'top'}
-              tooltip={TOOLTIPS.spaced} />
-            Spaced Practice Performance
+              tooltip={TOOLTIPS.spaced} /></span>
           </BS.Col>
         </BS.Row>
         {for chapter, index in chapters
