@@ -43,11 +43,10 @@ adjustTaskAverages = (data, taskInfo, columnIndex) ->
   course = data[taskInfo.courseId][0]
   student = course.students[taskInfo.studentIndex]
 
-  # Calculate score for the task
-  task.score = Math.round((
+  # Update score for the task without rounding so the calculations below will use it's full precision
+  task.score =
     (task.correct_on_time_exercise_count + task.correct_accepted_late_exercise_count ) /
       task.exercise_count
-  ) * 100 ) / 100
 
   # Student's course average
   numTasksStudent = 0
@@ -78,6 +77,10 @@ adjustTaskAverages = (data, taskInfo, columnIndex) ->
   course.overall_average_score =
     (course.overall_average_score - ( oldScore / taskCount ) ) +
       ( task.score / taskCount )
+
+  # Now round the score
+  task.score = Math.round(task.score * 100 ) / 100
+
 
 
 ScoresConfig = {
