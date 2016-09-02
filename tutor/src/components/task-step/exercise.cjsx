@@ -7,7 +7,7 @@ _ = require 'underscore'
 {StepPanel} = require '../../helpers/policies'
 
 BrowseTheBook = require '../buttons/browse-the-book'
-
+RelatedContentLink = require '../related-content-link'
 {ChapterSectionMixin, CardBody, ExerciseWithScroll, ExControlButtons} = require 'shared'
 
 StepFooter = require './step-footer'
@@ -85,31 +85,6 @@ module.exports = React.createClass
       @startListeningForProgress(nextProps)
     else
       @setState(@getPartsInfo(nextProps))
-
-  renderHelpLink: (sections) ->
-    return null unless sections? and not _.isEmpty(sections)
-    {courseId} = @props
-
-    sectionsLinks = _.chain sections
-      .map (section) =>
-        combined = @sectionFormat(section.chapter_section)
-        <BrowseTheBook
-          unstyled
-          key={combined}
-          section={combined}
-          courseId={courseId}
-          onlyShowBrowsable={false}>
-          {combined} {section.title} <i className='fa fa-external-link' />
-        </BrowseTheBook>
-      .compact()
-      .value()
-
-    helpLink =
-      <div key='task-help-links' className='task-help-links'>
-        Comes from&nbsp&nbsp{sectionsLinks}
-      </div>
-
-    if sectionsLinks.length > 0 then helpLink
 
   stopListeningForProgress: (props) ->
     props ?= @props
@@ -226,8 +201,9 @@ module.exports = React.createClass
 
       task={task}
       parts={parts}
-      helpLink={@renderHelpLink(part.related_content)}
-
+      helpLink={
+        <RelatedContentLink courseId={courseId} content={part.related_content} />
+      }
       onStepCompleted={onStepCompleted}
       controlButtons={controlButtons}
 
