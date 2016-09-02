@@ -193,28 +193,9 @@
 
 .tutor-book-reading-note() {
   // tutor-book-reading specific modifications
-  // unsure as to why they do no have all the same selectors
-  // as main notes section currently.  will check, but would like to just use
-  // `.tutor-style-note-variants` for all modifications.
-  > .note,
-  section > section > .note,
-  > section > .note:not(.learning-objectives):not(.tips-for-success),
-
-  > [data-element-type="check-understanding"],
-
-  > .example {
+  .tutor-style-note-variants(@all-note-rules: {
 
     background: none;
-    &::before {
-      margin: @book-content-note-without-background-margin;
-    }
-
-  }
-
-  > [data-element-type="check-understanding"],
-
-  > .example {
-
     padding: 20px 0;
     .embed-responsive {
       iframe {
@@ -222,7 +203,9 @@
       }
     }
 
-  }
+  }, @title-rules: {
+    margin: @book-content-note-without-background-margin;
+  });
 }
 
 .tutor-book-reading-titles(){
