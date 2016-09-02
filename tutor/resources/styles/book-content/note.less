@@ -2,6 +2,8 @@
 @feature-title-is-element: ~'[data-has-label=true][data-label=""]:not([class*="sociolog"])';
 @tutor-note-title-element: ~'[data-type=title]:first-child';
 
+@tutor-note-margin-horizontal: 38px;
+
 .tutor-book-note-style() {
   .openstax-question {
     &::before {
@@ -85,7 +87,7 @@
   &@{feature-title-is-element},
   &[data-element-type="check-understanding"] {
     > @{tutor-note-title-element} {
-      @tutor-title-rules();      
+      @tutor-title-rules();
     }
   }
 
@@ -130,12 +132,16 @@
 .tutor-make-notes() {
   .tutor-style-note-variants(@all-note-rules: {
       background: @tutor-neutral-lightest;
-      margin: 38px 0 32px 0;
+      margin: @tutor-note-margin-horizontal 0 32px 0;
       clear: both;
       border-top: solid 8px @tutor-neutral-lighter;
       border-bottom: solid 8px @tutor-neutral-lighter;
       padding: @tutor-note-padding;
       width: 100%;
+
+      iframe.interactive {
+        margin-left: -(@tutor-book-padding-horizontal - @desired-iframe-inset + @tutor-note-margin-horizontal);
+      }
 
       .tutor-book-note-style();
     };
@@ -201,6 +207,10 @@
       iframe {
         width: 100%;
       }
+    }
+
+    iframe.interactive {
+      margin-left: -(@tutor-book-padding-horizontal - @desired-iframe-inset);
     }
 
   }, @title-rules: {

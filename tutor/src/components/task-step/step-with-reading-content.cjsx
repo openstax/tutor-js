@@ -20,6 +20,10 @@ ReadingStepContent = React.createClass
     TaskStepStore.get(@props.id)?.title or ''
   getCnxId: ->
     TaskStepStore.getCnxId(@props.id)
+
+  shouldExcludeFrame: ->
+    @props.stepType is 'interactive'
+
   shouldOpenNewTab: -> true
   render: ->
     {id, courseDataProps, stepType} = @props
@@ -27,6 +31,8 @@ ReadingStepContent = React.createClass
     <div className="#{stepType}-step">
       <ArbitraryHtmlAndMath
         {...courseDataProps}
+        className="#{stepType}-content"
+        shouldExcludeFrame={@shouldExcludeFrame}
         html={content_html} />
       <RelatedContentLink courseId={@props.courseId} content={related_content} />
     </div>
@@ -42,9 +48,6 @@ StepContent = React.createClass
   # used by LinkContentMixin
   getCnxId: ->
     TaskStepStore.getCnxId(@props.id)
-
-  shouldExcludeFrame: ->
-    @props.stepType is 'interactive'
 
   render: ->
     {id, stepType} = @props

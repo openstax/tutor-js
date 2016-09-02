@@ -29,25 +29,31 @@ Reading = React.createClass
 
 Interactive = React.createClass
   displayName: 'Interactive'
-  mixins: [StepMixin]
+  mixins: [StepMixin, CourseDataMixin]
+  contextTypes:
+    router: React.PropTypes.func
   isContinueEnabled: -> true
   onContinue: ->
     @props.onStepCompleted()
     @props.onNextStep()
   renderBody: ->
     {id} = @props
-    <StepContent id={id} stepType='interactive'/>
+    courseDataProps = @getCourseDataProps()
+    <ReadingStepContent id={id} stepType='interactive' courseDataProps={courseDataProps}/>
 
 Video = React.createClass
   displayName: 'Video'
-  mixins: [StepMixin]
+  mixins: [StepMixin, CourseDataMixin]
+  contextTypes:
+    router: React.PropTypes.func
   isContinueEnabled: -> true
   onContinue: ->
     @props.onStepCompleted()
     @props.onNextStep()
   renderBody: ->
     {id} = @props
-    <StepContent id={id} stepType='video'/>
+    courseDataProps = @getCourseDataProps()
+    <ReadingStepContent id={id} stepType='video' courseDataProps={courseDataProps}/>
 
 ExternalUrl = React.createClass
   displayName: 'ExternalUrl'
