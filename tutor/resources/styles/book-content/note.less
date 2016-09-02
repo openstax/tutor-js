@@ -169,27 +169,11 @@
     .tutor-book-before-manual-label("Worked Example");
   }
 
-  > .note,
-  section > section > .note,
-  > section > .note:not(.learning-objectives) {
-    &.sociology-policy-debate {
-      .tutor-book-before-manual-label("Policy Debate");
-    }
-    &.sociology-real-world {
-      .tutor-book-before-manual-label("Real World Sociology");
-    }
-    &.sociology-big-picture {
-      .tutor-book-before-manual-label("The Big Picture");
-    }
-    &.sociological-research {
-      .tutor-book-before-manual-label("Sociological Research");
-    }
-  }
-
   // Any other notes missing
   //  * `data-label` value and
   //  * `.title[data-type=title]:first-child`
-  // should have their content defined manually here.
+  // should have their content defined manually here
+  // or in subject specific themes.
   //
   // Also, their selectors should be appended to the selectors in
   // `.tutor-style-note-variants` and `.tutor-style-note-title-variants`
