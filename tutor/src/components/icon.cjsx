@@ -30,13 +30,14 @@ module.exports = React.createClass
       'clickable': @props.onClick or (@props.tooltip and @props.tooltipProps.trigger is 'click')
     })
 
-    icon = <i {...@props} className={classNames} />
+    unless @props.tooltip
+      return <i {...@props} className={classNames} />
 
-    if @props.tooltip
-      classNames =
-      tooltip = <BS.Tooltip id={@state.uniqueId}
-        className={classnames({'on-navbar': @props.onNavbar})}
-        >{@props.tooltip}</BS.Tooltip>
-      <BS.OverlayTrigger {...@props.tooltipProps} overlay={tooltip}>{icon}</BS.OverlayTrigger>
-    else
-      icon
+    icon = <button {...@props} className={classNames} />
+    classNames =
+    tooltip = <BS.Tooltip id={@state.uniqueId}
+      className={classnames({'on-navbar': @props.onNavbar})}
+      >{@props.tooltip}</BS.Tooltip>
+
+    <BS.OverlayTrigger {...@props.tooltipProps} overlay={tooltip}>{icon}</BS.OverlayTrigger>
+

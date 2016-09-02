@@ -16,6 +16,9 @@ describe 'Icon Component', ->
     @props.tooltipProps = {placement: 'bottom'}
     @props.tooltip = 'a testing tooltip'
     Testing.renderComponent( Icon, props: @props ).then ({dom}) =>
+      #icon should be a button so it's easy to tap and click when tooltip prop is defined
+      expect(dom.tagName).to.equal('BUTTON')
+
       React.addons.TestUtils.Simulate.mouseOver(dom)
       tooltipEl = document.querySelector('div[role="tooltip"]')
       expect(tooltipEl.textContent).to.equal(@props.tooltip)

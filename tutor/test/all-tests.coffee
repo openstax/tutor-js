@@ -5,6 +5,7 @@
 # TODO figure out why.
 #
 # Components
+
 require './components/course-listing.spec'
 require './components/cc-dashboard/index.spec'
 require './components/cc-dashboard/dashboard.spec'
