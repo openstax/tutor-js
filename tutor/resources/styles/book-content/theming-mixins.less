@@ -2,12 +2,20 @@
   .learning-objectives {
     background: @theme-primary;
     color: @text-color;
-
     p {
       color: fade(@text-color, 75%);
     }
 
     ul {
+      border-left-color: fade(@text-color, 40%);
+    }
+  }
+
+  [data-type=abstract] {
+    background: @theme-primary;
+    color: fade(@text-color, 75%);
+    ul {
+      color: @text-color;
       border-left-color: fade(@text-color, 40%);
     }
   }
