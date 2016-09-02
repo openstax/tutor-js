@@ -1,5 +1,5 @@
 @has-data-label-selector: ~'[data-label]:not([data-label=""])';
-@feature-title-is-element: ~'[data-has-label=true][data-label=""]:not([class*="sociolog"])';
+@feature-title-is-element: ~'[data-has-label=true][data-label=""]';
 @tutor-note-title-element: ~'[data-type=title]:first-child';
 
 @tutor-note-margin-horizontal: 38px;
@@ -62,7 +62,7 @@
   }
 
   &@{feature-title-is-element} {
-    // undo auto title.
+    // undo auto title. todo
     > @{tutor-note-title-element} {
       display: none;
     }
@@ -75,9 +75,7 @@
 
   &@{has-data-label-selector},
 
-  &.example,
-
-  &[class*="sociolog"] {
+  &.example {
 
     &::before {
       @tutor-title-rules();
@@ -112,11 +110,7 @@
   section > [data-element-type="check-understanding"],
 
   > .example,
-  section > .example,
-
-  > .note[class*="sociolog"],
-  section > section > .note[class*="sociolog"],
-  > section > .note:not(.learning-objectives)[class*="sociolog"] {
+  section > .example {
     @all-note-rules();
 
     .tutor-style-note-title-variants(@title-rules);
