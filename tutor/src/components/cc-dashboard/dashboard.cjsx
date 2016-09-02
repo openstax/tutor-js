@@ -64,22 +64,22 @@ CCDashboard = React.createClass
       <div className="results">
         <BS.Row className="column-legend">
           <BS.Col xs={2} xsOffset={6}>
-            Complete
+            <span className="title">Complete
             <Icon type='info-circle'
               tooltipProps={placement: 'top'}
-              tooltip={TOOLTIPS.complete} />
+              tooltip={TOOLTIPS.complete} /></span>
           </BS.Col>
           <BS.Col xs={2}>
-            Original Performance
+            <span className="title">Original
             <Icon type='info-circle'
               tooltipProps={placement: 'top'}
-              tooltip={TOOLTIPS.original} />
+              tooltip={TOOLTIPS.original} /></span>
           </BS.Col>
           <BS.Col xs={2}>
-            Spaced Practice Performance
+            <span className="title">Spaced Practice
             <Icon type='info-circle'
               tooltipProps={placement: 'top'}
-              tooltip={TOOLTIPS.spaced} />
+              tooltip={TOOLTIPS.spaced} /></span>
           </BS.Col>
         </BS.Row>
         {for chapter, index in chapters
@@ -102,13 +102,13 @@ CCDashboard = React.createClass
       <BS.Panel>
         <h2>
           Class Dashboard
+          {detailedScoresLink}
         </h2>
         <CoursePeriodsNav
           handleSelect={@handlePeriodSelect}
           initialActive={@props.initialActivePeriod}
           periods={periods}
           courseId={courseId}
-          afterTabsItem={detailedScoresLink}
         />
           {if emptyPeriod then emptyGraphic else dashboardResults}
       </BS.Panel>

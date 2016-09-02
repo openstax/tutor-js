@@ -3,8 +3,15 @@
     span {
       color: @tutor-neutral;
       #fonts .sans(1.2rem, 1.2rem);
-      font-weight: 300;
+      font-weight: 400;
       font-style: italic;
+      &.title {
+        white-space: nowrap;
+      }
+      .tutor-icon {
+        font-size: 1.4rem;
+        color: @tutor-neutral-darker;
+      }
     }
     button {
       border: 0;
@@ -22,6 +29,7 @@
 
   a.detailed-scores{
     margin: 0 0 0.2rem 0;
+    float: right;
   }
   .hide-section-legend {
     font-size: 0.9rem;
