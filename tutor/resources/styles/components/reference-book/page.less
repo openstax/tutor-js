@@ -53,7 +53,8 @@
     }
   }
 
-  &[data-appearance=hs_physics]{
+  &[data-appearance=hs_physics],
+  &[data-appearance=college_physics] {
     .content {
       .page {
         .tutor-book-content-theme-physics();
@@ -61,10 +62,19 @@
     }
   }
 
-  &[data-appearance=biology]{
+  &[data-appearance=ap_biology],
+  &[data-appearance=college_biology] {
     .content {
       .page {
         .tutor-book-content-theme-biology();
+      }
+    }
+  }
+
+  &[data-appearance=intro_sociology] {
+    .content {
+      .page {
+        .tutor-book-content-theme-sociology();
       }
     }
   }

@@ -1,5 +1,5 @@
 @import '~shared/resources/styles/components/breadcrumbs/coach';
-@import '../../book-content/note';
+@import (reference) '../../book-content/note';
 
 .task {
   iframe {
@@ -21,12 +21,22 @@
     .tutor-book-reading-note();
     .tutor-book-reading-titles();
 
-    &[data-appearance=physics]{
+    &[data-appearance=hs_physics],
+    &[data-appearance=college_physics] {
       .tutor-book-content-theme-physics();
     }
 
-    &[data-appearance=biology]{
+    &[data-appearance=ap_biology],
+    &[data-appearance=college_biology] {
       .tutor-book-content-theme-biology();
+    }
+
+    &[data-appearance=intro_sociology] {
+      .tutor-book-content-theme-sociology();
+    }
+
+    .splash {
+      margin-top: -20px;      
     }
   }
 
