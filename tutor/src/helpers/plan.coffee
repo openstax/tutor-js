@@ -2,7 +2,7 @@ moment = require 'moment'
 _ = require 'underscore'
 
 {PlanPublishStore, PlanPublishActions} = require '../flux/plan-publish'
-{TimeStore, TimeActions} = require '../flux/time'
+{TimeStore} = require '../flux/time'
 
 PlanHelper =
   isPublishing: (plan) ->
@@ -25,6 +25,14 @@ PlanHelper =
       PlanPublishStore.on("progress.#{id}.*", callback) if callback? and _.isFunction(callback)
 
     {isPublishing, publishStatus}
+
+
+  isPlanOpen: (plan) ->
+    now = moment(TimeStore.getNow())
+    for tasking in plan.tasking_plans
+      if moment(tasking.opens_at).isBefore(now)
+        return true # at least one tasking is opened
+    false
 
 
 module.exports = PlanHelper
