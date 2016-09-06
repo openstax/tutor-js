@@ -1,5 +1,22 @@
 
 
+// This file is part of the book-content mixin and should not be included directly
+// Hide titles, abstracts and CNX Processing instructions
+
+// Default font for text content
+p,
+ul,
+ol,
+div {
+  #fonts > .serif(1.75rem, 190%);
+}
+
+p,
+ul,
+ol {
+  margin: 0 0 2.4rem 0;
+}
+
 [data-type=term]{
   font-weight: bold;
   font-style: italic;
@@ -10,14 +27,6 @@
 div[data-type="document-title"],
 cnx-pi{
   display: none;
-}
-
-// Default font for text content
-p,
-ul,
-ol {
-  #fonts > .serif(1.75rem, 190%);
-  margin: 0 0 2.4rem 0;
 }
 
 ul {
@@ -78,17 +87,17 @@ figure {
 }
 
 section {
-  counter-reset: exerciseCount;
+  // counter-reset: exerciseCount;
   [data-type="exercise"] {
     [data-type="problem"],
     [data-type="solution"] {
       p:first-of-type {
-        counter-increment: exerciseCount;
-        &::before {
-          content: counter(exerciseCount) ". ";
-          font-weight: bold;
-          font-size: 2.5rem;
-        }
+        // counter-increment: exerciseCount;
+        // &::before {
+        //   content: counter(exerciseCount) ". ";
+        //   font-weight: bold;
+        //   font-size: 2.5rem;
+        // }
       }
       ol {
         counter-reset: lowerAlpha;

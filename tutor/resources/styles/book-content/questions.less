@@ -2,6 +2,20 @@ section {
   counter-reset: question;
 }
 
+.exercise[data-type=exercise] {
+  >[data-type=problem] {
+    > p[id^='import-auto-'] {
+      &::before {
+        counter-increment: question;
+        content: counter(question) ". ";
+        display: block;
+        float: left;
+        width: 4%;
+      }
+    }
+  }
+}
+
 .openstax-question {
   .tutor-tables(@tutor-white, @tutor-white);
 
