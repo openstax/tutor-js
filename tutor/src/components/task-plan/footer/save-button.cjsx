@@ -17,6 +17,7 @@ TaskSaveButton = React.createClass
 
   propTypes:
     onSave: React.PropTypes.func.isRequired
+    onPublish: React.PropTypes.func.isRequired
     isEditable:   React.PropTypes.bool.isRequired
     isSaving:     React.PropTypes.bool.isRequired
     isWaiting:    React.PropTypes.bool.isRequired
@@ -36,15 +37,14 @@ TaskSaveButton = React.createClass
     Text = if isPublished then MESSAGES.save else MESSAGES.publish
 
     <AsyncButton
+        isJob={true}
         bsStyle='primary'
         className='-publish'
+        onClick={if isPublished then @props.onSave else @props.onPublish}
+        waitingText={Text.waiting}
         isFailed={@props.isFailed}
         disabled={@props.isWaiting}
-
-        onClick={@props.onSave}
-        isJob={true}
         isWaiting={@props.isWaiting}
-        waitingText={Text.waiting}
       >
           {Text.action}
     </AsyncButton>

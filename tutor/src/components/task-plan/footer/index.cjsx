@@ -10,6 +10,7 @@ BackButton = require '../../buttons/back-button'
 
 HelpTooltip = require './help-tooltip'
 SaveButton  = require './save-button'
+CancelButton  = require './cancel-button'
 
 PlanFooter = React.createClass
   displayName: 'PlanFooter'
@@ -69,7 +70,7 @@ PlanFooter = React.createClass
     @context.router.transitionTo('viewStats', {courseId, id})
 
   render: ->
-    {id, courseId, clickedSelectProblem, onPublish, onSave, onCancel, getBackToCalendarParams} = @props
+    {id, courseId, clickedSelectProblem, onPublish, getBackToCalendarParams} = @props
     {isEditable} = @state
 
     plan = TaskPlanStore.get(id)
@@ -79,12 +80,7 @@ PlanFooter = React.createClass
     deleteable = not TaskPlanStore.isNew(id) and not isWaiting
     isFailed = TaskPlanStore.isFailed(id)
 
-    if isEditable
-
-      cancelButton =
-        <BS.Button aria-role='close' disabled={isWaiting} onClick={onCancel}>Cancel</BS.Button>
-
-    else
+    unless isEditable
       backToCalendarParams = getBackToCalendarParams()
       backButton = <Router.Link
         {...backToCalendarParams}
@@ -131,14 +127,20 @@ PlanFooter = React.createClass
 
     <div className='footer-buttons'>
       <SaveButton
-        isSaving={@state.isSaving}
-        isWaiting={isWaiting}
-        isEditable={@state.isEditable}
-        isPublished={TaskPlanStore.isPublished(id)}
-        isPublishing={@state.publishing}
         onSave={@onSave}
+        onPublish={@onPublish}
+        isWaiting={isWaiting}
+        isSaving={@state.saving}
+        isSaving={@state.isSaving}
+        isEditable={@state.isEditable}
+        isPublishing={@state.publishing}
+        isPublished={TaskPlanStore.isPublished(id)}
       />
-      {cancelButton}
+      <CancelButton
+        isWaiting={isWaiting}
+        onClick={@props.onCancel}
+        isEditable={@state.isEditable}
+      />
       {backButton}
       {saveLink}
       <HelpTooltip isEditable={@state.isEditable} isPublished={TaskPlanStore.isPublished(id)} />
