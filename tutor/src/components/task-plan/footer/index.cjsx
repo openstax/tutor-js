@@ -1,16 +1,18 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+
+
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 {PlanPublishStore, PlanPublishActions} = require '../../../flux/plan-publish'
 PlanHelper = require '../../../helpers/plan'
 {AsyncButton, SuretyGuard} = require 'shared'
 TutorDialog = require '../../tutor-dialog'
-BackButton = require '../../buttons/back-button'
 
-HelpTooltip = require './help-tooltip'
-SaveButton  = require './save-button'
-CancelButton  = require './cancel-button'
+
+HelpTooltip  = require './help-tooltip'
+SaveButton   = require './save-button'
+CancelButton = require './cancel-button'
+BackButton   = require './back-button'
 
 PlanFooter = React.createClass
   displayName: 'PlanFooter'
@@ -70,7 +72,7 @@ PlanFooter = React.createClass
     @context.router.transitionTo('viewStats', {courseId, id})
 
   render: ->
-    {id, courseId, clickedSelectProblem, onPublish, getBackToCalendarParams} = @props
+    {id, courseId, clickedSelectProblem, onPublish} = @props
     {isEditable} = @state
 
     plan = TaskPlanStore.get(id)
@@ -79,15 +81,6 @@ PlanFooter = React.createClass
     isWaiting = TaskPlanStore.isSaving(id) or TaskPlanStore.isPublishing(id) or TaskPlanStore.isDeleteRequested(id)
     deleteable = not TaskPlanStore.isNew(id) and not isWaiting
     isFailed = TaskPlanStore.isFailed(id)
-
-    unless isEditable
-      backToCalendarParams = getBackToCalendarParams()
-      backButton = <Router.Link
-        {...backToCalendarParams}
-        className='btn btn-default'>
-          Back to Calendar
-      </Router.Link>
-
 
     if deleteable
       if TaskPlanStore.isPublished(id)
@@ -141,7 +134,8 @@ PlanFooter = React.createClass
         onClick={@props.onCancel}
         isEditable={@state.isEditable}
       />
-      {backButton}
+      <BackButton getBackToCalendarParams={@props.getBackToCalendarParams} />
+
       {saveLink}
       <HelpTooltip isEditable={@state.isEditable} isPublished={TaskPlanStore.isPublished(id)} />
       {deleteLink}
