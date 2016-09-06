@@ -9,6 +9,7 @@ TutorDialog = require '../../tutor-dialog'
 BackButton = require '../../buttons/back-button'
 
 HelpTooltip = require './help-tooltip'
+SaveButton  = require './save-button'
 
 PlanFooter = React.createClass
   displayName: 'PlanFooter'
@@ -80,29 +81,6 @@ PlanFooter = React.createClass
 
     if isEditable
 
-      publishButtonProps =
-        bsStyle:  'primary'
-        className:  '-publish'
-        isFailed: isFailed
-        disabled: isWaiting
-
-      if TaskPlanStore.isPublished(id)
-        saveButton = <AsyncButton {...publishButtonProps}
-          onClick={@onSave}
-          isJob={true}
-          isWaiting={isWaiting and (@state.saving or @state.publishing)}
-          waitingText='Saving…'>
-          Save
-        </AsyncButton>
-      else
-        publishButton = <AsyncButton {...publishButtonProps}
-          onClick={@onPublish}
-          isWaiting={isWaiting and @state.publishing}
-          waitingText='Publishing…'
-          isJob={true}>
-          Publish
-        </AsyncButton>
-
       cancelButton =
         <BS.Button aria-role='close' disabled={isWaiting} onClick={onCancel}>Cancel</BS.Button>
 
@@ -152,12 +130,18 @@ PlanFooter = React.createClass
           </AsyncButton>
 
     <div className='footer-buttons'>
-      {saveButton}
-      {publishButton}
+      <SaveButton
+        isSaving={@state.isSaving}
+        isWaiting={isWaiting}
+        isEditable={@state.isEditable}
+        isPublished={TaskPlanStore.isPublished(id)}
+        isPublishing={@state.publishing}
+        onSave={@onSave}
+      />
       {cancelButton}
       {backButton}
       {saveLink}
-      <HelpTooltip isEditable={@state.isEditable} />
+      <HelpTooltip isEditable={@state.isEditable} isPublished={TaskPlanStore.isPublished(id)} />
       {deleteLink}
     </div>
 
