@@ -29,10 +29,7 @@ PlanHelper =
 
   isPlanOpen: (plan) ->
     now = moment(TimeStore.getNow())
-    for tasking in plan.tasking_plans
-      if moment(tasking.opens_at).isBefore(now)
-        return true # at least one tasking is opened
-    false
+    !! _.find plan?.tasking_plans, (tasking) -> moment(tasking.opens_at).isBefore(now)
 
 
 module.exports = PlanHelper
