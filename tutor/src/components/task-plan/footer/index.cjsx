@@ -1,12 +1,12 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
-{TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
-{PlanPublishStore, PlanPublishActions} = require '../../flux/plan-publish'
-PlanHelper = require '../../helpers/plan'
+{TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
+{PlanPublishStore, PlanPublishActions} = require '../../../flux/plan-publish'
+PlanHelper = require '../../../helpers/plan'
 {AsyncButton, SuretyGuard} = require 'shared'
-TutorDialog = require '../tutor-dialog'
-BackButton = require '../buttons/back-button'
+TutorDialog = require '../../tutor-dialog'
+BackButton = require '../../buttons/back-button'
 
 PlanFooter = React.createClass
   displayName: 'PlanFooter'
