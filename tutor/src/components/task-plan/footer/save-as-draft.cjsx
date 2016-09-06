@@ -1,7 +1,7 @@
 React = require 'react'
 {AsyncButton} = require 'shared'
 
-SaveLink = React.createClass
+SaveAsDraft = React.createClass
 
   propTypes:
     onClick:   React.PropTypes.func.isRequired
@@ -19,8 +19,8 @@ SaveLink = React.createClass
       waitingText='Saving…'
       disabled={@props.isWaiting}
     >
-      'Save as Draft'
+      Save as Draft
     </AsyncButton>
 
 
-module.exports = SaveLink
+module.exports = SaveAsDraft

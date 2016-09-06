@@ -9,7 +9,7 @@ HelpTooltip  = require './help-tooltip'
 SaveButton   = require './save-button'
 CancelButton = require './cancel-button'
 BackButton   = require './back-button'
-SaveLink     = require './save-link'
+DraftButton  = require './save-as-draft'
 DeleteLink   = require './delete-link'
 
 PlanFooter = React.createClass
@@ -71,7 +71,7 @@ PlanFooter = React.createClass
   render: ->
     {id} = @props
 
-    saveable    = not (TaskPlanStore.isPublished(id) or TaskPlanStore.isPublishing(id))
+    isSaveable  = not (TaskPlanStore.isPublished(id) or TaskPlanStore.isPublishing(id))
     isWaiting   = TaskPlanStore.isSaving(id) or TaskPlanStore.isPublishing(id) or TaskPlanStore.isDeleteRequested(id)
     isFailed    = TaskPlanStore.isFailed(id)
     isPublished = TaskPlanStore.isPublished(id)
@@ -95,7 +95,8 @@ PlanFooter = React.createClass
         isEditable={@state.isEditable}
         getBackToCalendarParams={@props.getBackToCalendarParams}
       />
-      <SaveLink
+      <DraftButton
+        isSavable={isSaveable}
         onClick={@onSave}
         isWaiting={isWaiting and @state.saving}
         isFailed={isFailed}
