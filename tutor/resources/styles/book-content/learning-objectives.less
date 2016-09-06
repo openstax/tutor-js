@@ -16,6 +16,8 @@
   > div[data-type=title] {
     display: none;
   }
+  // move .splash elements up to fit directly under the heading
+  & + .splash { margin-top: -40px; }
   p {
     #fonts > .sans(1.4rem, 1.8em);
     width: 220px; // keep line length consistent
@@ -54,6 +56,7 @@
   }
   .printer-safe(inline-flex, inherit, inherit, 10px)
 }
+
 
 
 [data-type=abstract] {
