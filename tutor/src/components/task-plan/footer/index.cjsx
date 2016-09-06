@@ -1,12 +1,9 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
-
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
-{PlanPublishStore, PlanPublishActions} = require '../../../flux/plan-publish'
+{PlanPublishStore} = require '../../../flux/plan-publish'
 PlanHelper = require '../../../helpers/plan'
-{AsyncButton, SuretyGuard} = require 'shared'
-TutorDialog = require '../../tutor-dialog'
 
 HelpTooltip  = require './help-tooltip'
 SaveButton   = require './save-button'
@@ -47,7 +44,6 @@ PlanFooter = React.createClass
   componentWillMount: ->
     plan = TaskPlanStore.get(@props.id)
     publishState = PlanHelper.subscribeToPublishing(plan, @checkPublishingStatus)
-
     @setState(publishing: publishState.isPublishing)
 
   saved: ->
@@ -73,20 +69,17 @@ PlanFooter = React.createClass
     @context.router.transitionTo('viewStats', {courseId, id})
 
   render: ->
-    {id, courseId, clickedSelectProblem, onPublish} = @props
-    {isEditable} = @state
+    {id} = @props
 
-    plan = TaskPlanStore.get(id)
-
-    saveable = not (TaskPlanStore.isPublished(id) or TaskPlanStore.isPublishing(id))
-    isWaiting = TaskPlanStore.isSaving(id) or TaskPlanStore.isPublishing(id) or TaskPlanStore.isDeleteRequested(id)
-    isFailed = TaskPlanStore.isFailed(id)
+    saveable    = not (TaskPlanStore.isPublished(id) or TaskPlanStore.isPublishing(id))
+    isWaiting   = TaskPlanStore.isSaving(id) or TaskPlanStore.isPublishing(id) or TaskPlanStore.isDeleteRequested(id)
+    isFailed    = TaskPlanStore.isFailed(id)
     isPublished = TaskPlanStore.isPublished(id)
 
     <div className='footer-buttons'>
       <SaveButton
         onSave={@onSave}
-        onPublish={@onPublish}
+        onPublish={@props.onPublish}
         isWaiting={isWaiting}
         isSaving={@state.saving}
         isEditable={@state.isEditable}
