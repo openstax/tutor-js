@@ -23,9 +23,9 @@ HelpTooltip = React.createClass
     isEditable: React.PropTypes.bool.isRequired
 
   render: ->
-    return null unless @props.isEditable and TaskPlanStore.isPublished(id)
+    return null unless @props.isEditable and @props.isPublished
 
-    <BS.OverlayTrigger trigger='click' placement='top' overlay={tips} rootClose={true}>
+    <BS.OverlayTrigger trigger='click' placement='top' overlay={Tooltip} rootClose={true}>
       <BS.Button className="footer-instructions" bsStyle="link">
         <i className="fa fa-info-circle"></i>
       </BS.Button>
