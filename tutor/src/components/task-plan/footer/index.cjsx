@@ -13,6 +13,7 @@ HelpTooltip  = require './help-tooltip'
 SaveButton   = require './save-button'
 CancelButton = require './cancel-button'
 BackButton   = require './back-button'
+SaveLink     = require './save-link'
 
 PlanFooter = React.createClass
   displayName: 'PlanFooter'
@@ -105,26 +106,12 @@ PlanFooter = React.createClass
           </AsyncButton>
         </SuretyGuard>
 
-    if saveable
-      saveLink =
-          <AsyncButton
-            className='-save'
-            onClick={@onSave}
-            isWaiting={isWaiting and @state.saving}
-            isFailed={isFailed}
-            waitingText='Saving…'
-            disabled={isWaiting}
-            >
-            {'Save as Draft'}
-          </AsyncButton>
-
     <div className='footer-buttons'>
       <SaveButton
         onSave={@onSave}
         onPublish={@onPublish}
         isWaiting={isWaiting}
         isSaving={@state.saving}
-        isSaving={@state.isSaving}
         isEditable={@state.isEditable}
         isPublishing={@state.publishing}
         isPublished={TaskPlanStore.isPublished(id)}
@@ -134,10 +121,19 @@ PlanFooter = React.createClass
         onClick={@props.onCancel}
         isEditable={@state.isEditable}
       />
-      <BackButton getBackToCalendarParams={@props.getBackToCalendarParams} />
-
-      {saveLink}
-      <HelpTooltip isEditable={@state.isEditable} isPublished={TaskPlanStore.isPublished(id)} />
+      <BackButton
+        isEditable={@state.isEditable}
+        getBackToCalendarParams={@props.getBackToCalendarParams}
+      />
+      <SaveLink
+        onClick={@onSave}
+        isWaiting={isWaiting and @state.saving}
+        isFailed={isFailed}
+      />
+      <HelpTooltip
+        isEditable={@state.isEditable}
+        isPublished={TaskPlanStore.isPublished(id)}
+      />
       {deleteLink}
     </div>
 
