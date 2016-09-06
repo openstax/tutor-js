@@ -7,3 +7,10 @@ iframe.interactive {
   margin-left: -(@tutor-book-padding-horizontal - @desired-iframe-inset);
   border: none;
 }
+
+@media (max-width: 1020px) {
+  .phet-explorations-embedded iframe.interactive {
+    width: 100%;
+    margin-left: 0px;
+  }
+}
