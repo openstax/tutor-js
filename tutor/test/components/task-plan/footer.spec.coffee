@@ -47,7 +47,8 @@ getBackToCalendarParams = ->
   params:
     date: moment(TimeStore.getNow()).format('YYYY-MM-DD')
 
-helper = (model) -> PlanRenderHelper(model, PlanFooter, {getBackToCalendarParams})
+
+helper = (model) -> PlanRenderHelper(model, PlanFooter, {getBackToCalendarParams, onCancel: sinon.spy(), onPublish: sinon.spy()})
 
 describe 'Task Plan Footer', ->
   beforeEach ->
@@ -58,6 +59,7 @@ describe 'Task Plan Footer', ->
       expect(dom.querySelector('.delete-link')).to.be.null
       expect(dom.querySelector('.-save')).to.not.be.null
       expect(dom.querySelector('.-publish')).to.not.be.null
+      expect(dom.querySelector('.-publish').textContent).to.equal('Publish')
 
   it 'should have correct buttons when reading is unpublished', ->
     helper(UNPUBLISHED_READING).then ({dom}) ->
@@ -70,6 +72,7 @@ describe 'Task Plan Footer', ->
       expect(dom.querySelector('.delete-link')).to.not.be.null
       expect(dom.querySelector('.-save')).to.be.null
       expect(dom.querySelector('.-publish')).to.not.be.null
+      expect(dom.querySelector('.-publish').textContent).to.equal('Save')
 
   it 'should have correct buttons when reading is visible', ->
     helper(VISIBLE_READING).then ({dom}) ->
