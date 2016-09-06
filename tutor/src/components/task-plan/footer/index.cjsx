@@ -8,6 +8,8 @@ PlanHelper = require '../../../helpers/plan'
 TutorDialog = require '../../tutor-dialog'
 BackButton = require '../../buttons/back-button'
 
+HelpTooltip = require './help-tooltip'
+
 PlanFooter = React.createClass
   displayName: 'PlanFooter'
   contextTypes:
@@ -76,20 +78,6 @@ PlanFooter = React.createClass
     deleteable = not TaskPlanStore.isNew(id) and not isWaiting
     isFailed = TaskPlanStore.isFailed(id)
 
-    tips = <BS.Popover id='plan-footer-popover'>
-      <p>
-        <strong>Publish</strong> will make the assignment visible to students on the open date.
-        If open date is today, it will be available immediately.
-      </p>
-      <p>
-        <strong>Cancel</strong> will discard all changes and return to the calendar.
-      </p>
-      <p>
-        <strong>Save as draft</strong> will add the assignment to the teacher calendar only.
-        It will not be visible to students, even if the open date has passed.
-      </p>
-    </BS.Popover>
-
     if isEditable
 
       publishButtonProps =
@@ -118,12 +106,6 @@ PlanFooter = React.createClass
       cancelButton =
         <BS.Button aria-role='close' disabled={isWaiting} onClick={onCancel}>Cancel</BS.Button>
 
-      helpInfo =
-        <BS.OverlayTrigger trigger='click' placement='top' overlay={tips} rootClose={true}>
-          <BS.Button className="footer-instructions" bsStyle="link">
-            <i className="fa fa-info-circle"></i>
-          </BS.Button>
-        </BS.OverlayTrigger>
     else
       backToCalendarParams = getBackToCalendarParams()
       backButton = <Router.Link
@@ -175,7 +157,7 @@ PlanFooter = React.createClass
       {cancelButton}
       {backButton}
       {saveLink}
-      {helpInfo unless TaskPlanStore.isPublished(id)}
+      <HelpTooltip isEditable={@state.isEditable} />
       {deleteLink}
     </div>
 
