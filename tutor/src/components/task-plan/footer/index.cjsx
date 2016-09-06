@@ -8,12 +8,12 @@ PlanHelper = require '../../../helpers/plan'
 {AsyncButton, SuretyGuard} = require 'shared'
 TutorDialog = require '../../tutor-dialog'
 
-
 HelpTooltip  = require './help-tooltip'
 SaveButton   = require './save-button'
 CancelButton = require './cancel-button'
 BackButton   = require './back-button'
 SaveLink     = require './save-link'
+DeleteLink   = require './delete-link'
 
 PlanFooter = React.createClass
   displayName: 'PlanFooter'
@@ -80,31 +80,8 @@ PlanFooter = React.createClass
 
     saveable = not (TaskPlanStore.isPublished(id) or TaskPlanStore.isPublishing(id))
     isWaiting = TaskPlanStore.isSaving(id) or TaskPlanStore.isPublishing(id) or TaskPlanStore.isDeleteRequested(id)
-    deleteable = not TaskPlanStore.isNew(id) and not isWaiting
     isFailed = TaskPlanStore.isFailed(id)
-
-    if deleteable
-      if TaskPlanStore.isPublished(id)
-        message = 'Some students may have started work on this assignment. Are you sure you want to delete?'
-      else
-        message = 'Are you sure you want to delete this draft?'
-
-      deleteLink =
-        <SuretyGuard
-          onConfirm={@onDelete}
-          okButtonLabel='Yes'
-          placement='top'
-          message={message}
-        >
-          <AsyncButton
-            className='delete-link pull-right'
-            isWaiting={TaskPlanStore.isDeleting(id)}
-            isFailed={isFailed}
-            waitingText='Deleting…'
-          >
-            <i className="fa fa-trash"></i> Delete Assignment
-          </AsyncButton>
-        </SuretyGuard>
+    isPublished = TaskPlanStore.isPublished(id)
 
     <div className='footer-buttons'>
       <SaveButton
@@ -114,7 +91,7 @@ PlanFooter = React.createClass
         isSaving={@state.saving}
         isEditable={@state.isEditable}
         isPublishing={@state.publishing}
-        isPublished={TaskPlanStore.isPublished(id)}
+        isPublished={isPublished}
       />
       <CancelButton
         isWaiting={isWaiting}
@@ -134,7 +111,13 @@ PlanFooter = React.createClass
         isEditable={@state.isEditable}
         isPublished={TaskPlanStore.isPublished(id)}
       />
-      {deleteLink}
+      <DeleteLink
+        isNew={TaskPlanStore.isNew(id)}
+        onClick={@onDelete}
+        isFailed={isFailed}
+        isWaiting={TaskPlanStore.isDeleting(id)}
+        isPublished={isPublished}
+      />
     </div>
 
 module.exports = PlanFooter
