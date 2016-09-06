@@ -13,17 +13,17 @@ module.exports = React.createClass
   render: ->
     {event} = @props
 
-    now   = TimeStore.getNow()
+    # TODO this is naive and not timezone aware.  As a hotfix, this should suffice.
+    now   = moment(TimeStore.getNow())
     dueAt = moment(event.due_at)
     isIncomplete = event.complete_exercise_count isnt event.exercise_count
-    pastDue      = event.type is 'homework' and dueAt.isBefore(now, 'd')
-    workedLate   = moment(event.last_worked_at).isAfter(dueAt)
+    pastDue      = event.type is 'homework' and dueAt.isBefore(now)
+    isDueToday   = now.isBetween(dueAt.clone().subtract(1, 'day'), dueAt)
 
-    if @props.event.type isnt 'homework' or ( workedLate or (pastDue and isIncomplete) )
+    unless @props.event.type is 'homework' and ( pastDue or (isIncomplete and isDueToday))
       return null
 
-    # use 'day' granularity for checking if the due date is today or after today
-    status = if dueAt.isSame(now, 'd') then 'incomplete' else 'late'
+    status = if isDueToday then 'incomplete' else 'late'
 
     tooltip =
       <BS.Tooltip id="event-info-icon-#{event.id}">
