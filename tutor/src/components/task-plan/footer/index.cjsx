@@ -70,7 +70,7 @@ PlanFooter = React.createClass
 
   render: ->
     {id} = @props
-
+    plan = TaskPlanStore.get(id)
     isSaveable  = not (TaskPlanStore.isPublished(id) or TaskPlanStore.isPublishing(id))
     isWaiting   = TaskPlanStore.isSaving(id) or TaskPlanStore.isPublishing(id) or TaskPlanStore.isDeleteRequested(id)
     isFailed    = TaskPlanStore.isFailed(id)
@@ -109,6 +109,7 @@ PlanFooter = React.createClass
         isNew={TaskPlanStore.isNew(id)}
         onClick={@onDelete}
         isFailed={isFailed}
+        isOpened={PlanHelper.isPlanOpen(plan)}
         isWaiting={TaskPlanStore.isDeleting(id)}
         isPublished={isPublished}
       />

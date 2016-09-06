@@ -9,15 +9,16 @@ DeleteLink = React.createClass
     isWaiting:   React.PropTypes.bool.isRequired
     isFailed:    React.PropTypes.bool.isRequired
     isNew:       React.PropTypes.bool.isRequired
+    isOpened:    React.PropTypes.bool.isRequired
     isPublished: React.PropTypes.bool.isRequired
 
   render: ->
     return null if @props.isNew and not @props.isWaiting
 
-    message = if @props.isPublished
-      message = 'Some students may have started work on this assignment. Are you sure you want to delete?'
-    else
-      message = 'Are you sure you want to delete this draft?'
+    message = 'Are you sure you want to delete this assignment?'
+
+    if @props.isPublished and @props.isOpened
+      message = "Some students may have started work on this assignment. #{message}"
 
     <SuretyGuard
       onConfirm={@props.onClick}
@@ -33,6 +34,7 @@ DeleteLink = React.createClass
       >
         <Icon type="trash" /> Delete Assignment
       </AsyncButton>
+
     </SuretyGuard>
 
 
