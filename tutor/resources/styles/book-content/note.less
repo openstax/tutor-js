@@ -94,6 +94,14 @@
   }
 }
 
+.tutor-style-note(
+  @note-rules: @tutor-empty-rules;
+  @title-rules: @tutor-empty-rules;
+) {
+  @note-rules();
+  .tutor-style-note-title-variants(@title-rules);
+}
+
 .tutor-style-note-variants(
   @all-note-rules: @tutor-empty-rules;
   @title-rules: @tutor-empty-rules;
@@ -111,14 +119,10 @@
 
   > .example,
   section > .example {
-    @all-note-rules();
-
-    .tutor-style-note-title-variants(@title-rules);
+    .tutor-style-note(@all-note-rules; @title-rules);
 
     &:not(.os-teacher) {
-      @except-teacher-rules();
-
-      .tutor-style-note-title-variants(@except-teacher-title-rules);
+      .tutor-style-note(@except-teacher-rules; @except-teacher-title-rules);
     }
   }
 }
@@ -180,26 +184,33 @@
   // the non-`[data-label]`led notes will also be affected like a fully featured note.
 }
 
+@tutor-note-plain-style: {
+  @desired-iframe-inset: (@reference-book-page-width - @tutor-interactive-iframe-width) / 2;
+
+  background: none;
+  padding: 20px 0;
+  .embed-responsive {
+    iframe {
+      width: 100%;
+    }
+  }
+
+  iframe.interactive {
+    margin-left: -(@tutor-book-padding-horizontal - @desired-iframe-inset);
+  }
+};
+
+@tutor-note-plain-title-style: {
+  margin: @book-content-note-without-background-margin;
+};
+
 .tutor-book-step-note() {
+  .tutor-style-note(@tutor-note-plain-style; @tutor-note-plain-title-style);
+}
+
+.tutor-book-step-notes() {
   // tutor-book-step specific modifications
-  .tutor-style-note-variants(@all-note-rules: {
-    @desired-iframe-inset: (@reference-book-page-width - @tutor-interactive-iframe-width) / 2;
-
-    background: none;
-    padding: 20px 0;
-    .embed-responsive {
-      iframe {
-        width: 100%;
-      }
-    }
-
-    iframe.interactive {
-      margin-left: -(@tutor-book-padding-horizontal - @desired-iframe-inset);
-    }
-
-  }, @title-rules: {
-    margin: @book-content-note-without-background-margin;
-  });
+  .tutor-style-note-variants(@tutor-note-plain-style; @tutor-note-plain-title-style);
 }
 
 .tutor-book-reading-titles(){

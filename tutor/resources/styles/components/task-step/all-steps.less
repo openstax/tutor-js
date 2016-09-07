@@ -33,7 +33,13 @@
 
   .video-content,
   .interactive-content {
-    .tutor-book-step-note();
+    .tutor-book-step-notes();
+  }
+
+  .reading-content {
+    > .note:first-child {
+      .tutor-book-step-note();
+    }
   }
 
   .task-step-personalized {
