@@ -24,16 +24,16 @@ HomeworkScore = React.createClass
       else
         scoreText = scorePercent
 
-    unless TH.isHomeworkTaskStarted(@props.task)
-      return <div className="score not-started">---</div>
-
-    <div className="score">
-      <Router.Link to='viewTaskStep'
-        data-assignment-type="#{task.type}"
-        params={courseId: courseId, id: task.id, stepIndex: 1}>
-          {scoreText}
-      </Router.Link>
-    </div>
+    if TH.isHomeworkTaskStarted(@props.task)
+      <div className="score">
+        <Router.Link to='viewTaskStep'
+          data-assignment-type="#{task.type}"
+          params={courseId: courseId, id: task.id, stepIndex: 1}>
+            {scoreText}
+        </Router.Link>
+      </div>
+    else
+      <div className="score not-started">---</div>
 
 
 HomeworkCell = React.createClass
