@@ -1,8 +1,10 @@
 .tutor-book-theme-learning-objectives(@theme-primary: @tutor-book-primary; @text-color: @tutor-book-text-on-dark-labels) {
-  .learning-objectives {
+  .learning-objectives,
+  [data-type=abstract] {
     background: @theme-primary;
     color: @text-color;
-    p {
+
+    &::before {
       color: fade(@text-color, 75%);
     }
 
@@ -11,14 +13,6 @@
     }
   }
 
-  [data-type=abstract] {
-    background: @theme-primary;
-    color: fade(@text-color, 75%);
-    ul {
-      color: @text-color;
-      border-left-color: fade(@text-color, 40%);
-    }
-  }
 }
 
 .tutor-book-theme-note(@label-background: @tutor-book-primary; @label-text: @tutor-book-text-on-dark-labels) {
