@@ -1,9 +1,5 @@
-// This file is part of the book-content mixin and should not be included directly
-// Hide titles, abstracts and CNX Processing instructions
-.section-opener,
-.summary,
-[data-type=abstract] {
-}
+
+
 [data-type=term]{
   font-weight: bold;
   font-style: italic;
@@ -12,7 +8,6 @@
 .tutor-tables(@tutor-neutral-light, @tutor-neutral-light);
 
 div[data-type="document-title"],
-div[data-type=abstract],
 cnx-pi{
   display: none;
 }
