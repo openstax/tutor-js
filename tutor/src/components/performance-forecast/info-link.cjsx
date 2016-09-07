@@ -37,5 +37,5 @@ module.exports = React.createClass
     </BS.Tooltip>
 
     <BS.OverlayTrigger placement='right' overlay={tooltip}>
-      <span className='info-link'></span>
+      <button className='info-link'></button>
     </BS.OverlayTrigger>
