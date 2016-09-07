@@ -88,11 +88,11 @@ HomeworkCell = React.createClass
 
       </div>
 
-      {<LateWork
+      <LateWork
         onMouseOver={@show}
         onMouseLeave={@hide}
         task={task}
-        columnIndex={columnIndex} /> if TH.isLate(task)}
+        columnIndex={columnIndex} />
 
     </div>
 

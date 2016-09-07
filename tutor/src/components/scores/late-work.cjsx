@@ -128,6 +128,7 @@ LateWork = React.createClass
   propTypes:
     onMouseOver:  React.PropTypes.func.isRequired
     onMouseLeave: React.PropTypes.func.isRequired
+    task: React.PropTypes.object.isRequired
 
   getInitialState: ->
     isShown: false
@@ -139,6 +140,8 @@ LateWork = React.createClass
     this.refs.caret.getDOMNode()
 
   render: ->
+    return null unless TH.isLate(@props.task)
+
     caretClass = classnames('late-caret', {
       accepted: @props.task.is_late_work_accepted and not TH.hasAdditionalLateWork(@props.task)
     })

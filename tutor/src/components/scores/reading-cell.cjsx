@@ -71,11 +71,11 @@ ReadingCell = React.createClass
 
       </div>
 
-      {<LateWork
+      <LateWork
         task={task}
         onMouseOver={@show}
         onMouseLeave={@hide}
-        columnIndex={columnIndex} /> if TH.isLate(task)}
+        columnIndex={columnIndex} />
 
     </div>
 
