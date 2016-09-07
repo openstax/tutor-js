@@ -10,23 +10,9 @@ PieProgress = require './pie-progress'
 
 TH = require '../../helpers/task'
 
-HomeworkCell = React.createClass
-
-  mixins: [CellStatusMixin] # prop validation
-
-  getInitialState: ->
-    isShowingPopover: false
-
-  show: -> @setState(isShowingPopover: true)
-  hide: -> @setState(isShowingPopover: false)
-
-  getPieChartTarget: ->
-    @refs.pieChart.getDOMNode()
-
+HomeworkScore = React.createClass
   render: ->
-    {task, courseId, displayAs, isConceptCoach, rowIndex, columnIndex, period_id} = @props
-
-    notStarted = task.completed_exercise_count <= 0
+    {task, displayAs, courseId} = @props
 
     scorePercent = TH.getHumanScorePercent(task)
     scoreNumber = TH.getHumanScoreNumber(task)
@@ -38,20 +24,39 @@ HomeworkCell = React.createClass
       else
         scoreText = scorePercent
 
-    score =
-      <div className="score">
-        <Router.Link to='viewTaskStep'
-          data-assignment-type="#{task.type}"
-          params={courseId: courseId, id: task.id, stepIndex: 1}>
-            {scoreText}
-        </Router.Link>
-      </div>
+    unless TH.isHomeworkTaskStarted(@props.task)
+      return <div className="score not-started">---</div>
 
-    scoreNotStarted = <div className="score not-started">---</div>
+    <div className="score">
+      <Router.Link to='viewTaskStep'
+        data-assignment-type="#{task.type}"
+        params={courseId: courseId, id: task.id, stepIndex: 1}>
+          {scoreText}
+      </Router.Link>
+    </div>
+
+
+HomeworkCell = React.createClass
+
+  mixins: [CellStatusMixin] # prop validation
+
+  getInitialState: ->
+    isShowingPopover: false
+
+  show: ->
+    @setState(isShowingPopover: true)
+
+  hide: -> @setState(isShowingPopover: false)
+
+  getPieChartTarget: ->
+    @refs.pieChart.getDOMNode()
+
+  render: ->
+    {task, courseId, displayAs, isConceptCoach, rowIndex, columnIndex, period_id} = @props
 
     <div className='scores-cell'>
 
-      {if notStarted then scoreNotStarted else score }
+      <HomeworkScore {...@props} />
 
       <div className="worked" onMouseOver={@show} onMouseLeave={@hide}>
         <BS.Overlay
