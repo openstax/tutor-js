@@ -80,33 +80,6 @@ figure {
   img { width: 100%; }
 }
 
-section {
-  // counter-reset: exerciseCount;
-  [data-type="exercise"] {
-    [data-type="problem"],
-    [data-type="solution"] {
-      p:first-of-type {
-        // counter-increment: exerciseCount;
-        // &::before {
-        //   content: counter(exerciseCount) ". ";
-        //   font-weight: bold;
-        //   font-size: 2.5rem;
-        // }
-      }
-      ol {
-        counter-reset: lowerAlpha;
-        list-style: none;
-      }
-      ol li {
-        counter-increment: lowerAlpha;
-      }
-      ol li::before {
-        content: counter(lowerAlpha, lower-alpha) ") ";
-      }
-    }
-  }
-}
-
 [data-type="footnote-refs"] {
   ol {
     padding-left: 0;
