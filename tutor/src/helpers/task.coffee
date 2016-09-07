@@ -80,6 +80,9 @@ module.exports = {
   isLateAccepted: (task) ->
     task.is_late_work_accepted
 
+  isHomeworkTaskStarted: (task) ->
+    !!task.completed_exercise_count
+
   # called by readings and homework UI to determine if there's late work
   hasLateWork: (task) ->
     @lateStepCount(task) > 0
