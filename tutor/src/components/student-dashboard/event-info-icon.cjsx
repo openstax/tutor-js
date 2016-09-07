@@ -19,11 +19,12 @@ module.exports = React.createClass
     isIncomplete = event.complete_exercise_count isnt event.exercise_count
     pastDue      = event.type is 'homework' and dueAt.isBefore(now)
     isDueToday   = now.isBetween(dueAt.clone().subtract(1, 'day'), dueAt)
+    workedLate   = moment(event.last_worked_at).isAfter(dueAt)
 
-    unless @props.event.type is 'homework' and ( pastDue or (isIncomplete and isDueToday))
+    unless @props.event.type is 'homework' and ( (isIncomplete or workedLate) and (pastDue or isDueToday ))
       return null
 
-    status = if isDueToday then 'incomplete' else 'late'
+    status = if (workedLate or pastDue) then 'late' else 'incomplete'
 
     tooltip =
       <BS.Tooltip id="event-info-icon-#{event.id}">
