@@ -14,27 +14,17 @@ HomeworkCell = React.createClass
 
   mixins: [CellStatusMixin] # prop validation
 
-  show: -> @refs.trigger.show()
-  hide: -> @refs.trigger.hide()
+  getInitialState: ->
+    isShowingPopover: false
+
+  show: -> @setState(isShowingPopover: true)
+  hide: -> @setState(isShowingPopover: false)
+
+  getPieChartTarget: ->
+    @refs.pieChart.getDOMNode()
 
   render: ->
     {task, courseId, displayAs, isConceptCoach, rowIndex, columnIndex, period_id} = @props
-
-    tooltip =
-      <BS.Popover
-        id="scores-cell-info-popover-#{task.id}"
-        className='scores-scores-tooltip-completed-info'>
-        <div className='info'>
-          <div className='row'>
-            <div>Completed {TH.getHumanCompletedPercent(task)}</div>
-          </div>
-          <div className='row'>
-            <div>
-              {TH.getHumanProgress(task)} questions
-            </div>
-          </div>
-        </div>
-      </BS.Popover>
 
     notStarted = task.completed_exercise_count <= 0
 
@@ -59,28 +49,43 @@ HomeworkCell = React.createClass
 
     scoreNotStarted = <div className="score not-started">---</div>
 
-    <div className="scores-cell #{classNames(highlighted: @props.task.showingLateOverlay)}">
+    <div className='scores-cell'>
 
       {if notStarted then scoreNotStarted else score }
 
-      <div className="worked">
-        <BS.OverlayTrigger
-        ref="trigger"
-        placement="left"
-        delayShow={1000}
-        delayHide={0}
-        overlay={tooltip}>
-          <span className='trigger-wrap'
-          onMouseOver={@show}
-          onMouseLeave={@hide}>
-            <PieProgress
-              isConceptCoach={isConceptCoach}
-              size={20}
-              value={TH.getCompletedPercent(task)}
-              isLate={TH.isDue(task)}
-            />
-          </span>
-        </BS.OverlayTrigger>
+      <div className="worked" onMouseOver={@show} onMouseLeave={@hide}>
+        <BS.Overlay
+          target={@getPieChartTarget}
+          show={@state.isShowingPopover}
+          onHide={@hide}
+          placement="left"
+        >
+          <BS.Popover
+            onMouseOver={@show}
+            onMouseLeave={@hide}
+            id="scores-cell-info-popover-#{task.id}"
+            className='scores-scores-tooltip-completed-info'>
+            <div className='info'>
+              <div className='row'>
+                <div>Completed {TH.getHumanCompletedPercent(task)}</div>
+              </div>
+              <div className='row'>
+                <div>
+                  {TH.getHumanProgress(task)} questions
+                </div>
+              </div>
+            </div>
+          </BS.Popover>
+        </BS.Overlay>
+
+        <PieProgress
+          ref="pieChart"
+          isConceptCoach={isConceptCoach}
+          size={20}
+          value={TH.getCompletedPercent(task)}
+          isLate={TH.isDue(task)}
+        />
+
       </div>
 
       {<LateWork
