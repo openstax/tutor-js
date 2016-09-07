@@ -132,6 +132,7 @@ ReadingPlan = React.createClass
 
     footer = <PlanFooter
       id={id}
+      isVisibleToStudents={@state.isVisibleToStudents}
       courseId={courseId}
       onPublish={@publish}
       onSave={@save}

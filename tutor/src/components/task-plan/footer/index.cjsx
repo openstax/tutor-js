@@ -20,6 +20,7 @@ PlanFooter = React.createClass
     id: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired
     goBackToCalendar: React.PropTypes.func
+    isVisibleToStudents: React.PropTypes.bool.isRequired
 
   getDefaultProps: ->
     goBackToCalendar: =>
@@ -109,7 +110,7 @@ PlanFooter = React.createClass
         isNew={TaskPlanStore.isNew(id)}
         onClick={@onDelete}
         isFailed={isFailed}
-        isOpened={PlanHelper.isPlanOpen(plan)}
+        isVisibleToStudents={@props.isVisibleToStudents}
         isWaiting={TaskPlanStore.isDeleting(id)}
         isPublished={isPublished}
       />

@@ -39,6 +39,7 @@ HomeworkPlan = React.createClass
         header={@builderHeader('homework')}
         className={formClasses}
         footer={<PlanFooter id={id}
+          isVisibleToStudents={@state.isVisibleToStudents}
           courseId={courseId}
           onPublish={@publish}
           onSave={@save}
