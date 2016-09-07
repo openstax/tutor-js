@@ -183,14 +183,14 @@ ReadingContentMixin =
       # leave the list alone -- this is the main content
       continue if not abstractChild? or abstractChild.tagName is 'UL'
 
-      text = abstractChild.textContent.trim()
+      text = (abstractChild.textContent or '').trim()
 
       # grab text if relevant and set as preamble
       if abstractChild.dataset?.type isnt 'title' and text
         abstract.dataset.preamble = text
 
       # remove all non-lists children to prevent extra text in preamble
-      abstractChild.remove()
+      abstractChild.remove?()
 
     abstract.dataset.isIntro = root.querySelector(IS_INTRO_SELECTORS)?
 
