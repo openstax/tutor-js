@@ -34,7 +34,7 @@ module.exports = React.createClass
   render: ->
     <Icon
       className="info-link"
-      tooltipProps={placement: 'right', className: "info-link"}
+      tooltipProps={placement: 'right'}
       tooltip={MESSAGES[@props.type]}
     />
 
