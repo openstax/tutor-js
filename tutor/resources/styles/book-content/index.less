@@ -5,12 +5,16 @@
 
 .tutor-book-content() {
 
-  padding: 0 @tutor-book-padding-horizontal @tutor-book-padding-vertical @tutor-book-padding-horizontal;
-  @media screen and ( max-width: @book-content-collapse-breakpoint ){
-    padding-left:  @book-content-narrow-horizontal-padding;
-    padding-right: @book-content-narrow-horizontal-padding;
-  }
   display: block;
+  padding-left:  @book-content-narrow-horizontal-padding;
+  padding-right: @book-content-narrow-horizontal-padding;
+  width: 100%;
+
+  @media screen and ( min-width: @book-content-collapse-breakpoint ){
+    padding: 0 @tutor-book-padding-horizontal @tutor-book-padding-vertical @tutor-book-padding-horizontal;
+    width: @reference-book-page-width;
+  }
+
 
   @import './base';
   @import './typography';
