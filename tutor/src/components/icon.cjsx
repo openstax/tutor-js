@@ -34,7 +34,7 @@ module.exports = React.createClass
       return <i {...@props} className={classNames} />
 
     icon = <button {...@props} className={classNames} />
-    classNames =
+
     tooltip = <BS.Tooltip id={@state.uniqueId}
       className={classnames({'on-navbar': @props.onNavbar})}
       >{@props.tooltip}</BS.Tooltip>
