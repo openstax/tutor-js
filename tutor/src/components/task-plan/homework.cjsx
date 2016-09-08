@@ -39,11 +39,11 @@ HomeworkPlan = React.createClass
         header={@builderHeader('homework')}
         className={formClasses}
         footer={<PlanFooter id={id}
-          isVisibleToStudents={@state.isVisibleToStudents}
           courseId={courseId}
           onPublish={@publish}
           onSave={@save}
           onCancel={@cancel}
+          isVisibleToStudents={@state.isVisibleToStudents}
           getBackToCalendarParams={@getBackToCalendarParams}
           goBackToCalendar={@goBackToCalendar}
         />}

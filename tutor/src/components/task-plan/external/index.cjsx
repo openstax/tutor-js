@@ -40,6 +40,7 @@ ExternalPlan = React.createClass
       onPublish={@publish}
       onSave={@save}
       onCancel={@cancel}
+      isVisibleToStudents={@state.isVisibleToStudents}
       getBackToCalendarParams={@getBackToCalendarParams}
       goBackToCalendar={@goBackToCalendar}/>
 
@@ -75,7 +76,7 @@ ExternalPlan = React.createClass
                 onChange={@setUrl} />
             </BS.Col>
           </BS.Row>
-          
+
         </BS.Grid>
       </BS.Panel>
     </div>
