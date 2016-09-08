@@ -17,6 +17,10 @@ EXERCISE_LINK_SELECTOR = [
   '.ost-exercise > [data-type="problem"] > p > a[href]'
 ].join(', ')
 
+
+LEARNING_OBJECTIVE_SELECTORS = '.learning-objectives, [data-type=abstract]'
+IS_INTRO_SELECTORS = '.splash img, [data-type="cnx.flag.introduction"]'
+
 LinkContentMixin =
   componentDidMount:  ->
     @processLinks()
@@ -142,12 +146,14 @@ ReadingContentMixin =
   componentDidMount:  ->
     @insertOverlays()
     @detectImgAspectRatio()
+    @cleanUpAbstracts()
     @processLinks()
 
 
   componentDidUpdate: ->
     @insertOverlays()
     @detectImgAspectRatio()
+    @cleanUpAbstracts()
     @processLinks()
 
   contextTypes:
@@ -166,6 +172,27 @@ ReadingContentMixin =
       overlay.className = 'tutor-ui-overlay'
       overlay.innerHTML = title
       img.parentElement.appendChild(overlay)
+
+  cleanUpAbstracts: ->
+    root = @getDOMNode()
+    abstract = root.querySelector(LEARNING_OBJECTIVE_SELECTORS)
+    # dont clean up if abstract does not exist or if it has already been cleaned up
+    return if not abstract? or abstract.dataset.isIntro?
+
+    for abstractChild in abstract.childNodes
+      # leave the list alone -- this is the main content
+      continue if not abstractChild? or abstractChild.tagName is 'UL'
+
+      text = (abstractChild.textContent or '').trim()
+
+      # grab text if relevant and set as preamble
+      if abstractChild.dataset?.type isnt 'title' and text
+        abstract.dataset.preamble = text
+
+      # remove all non-lists children to prevent extra text in preamble
+      abstractChild.remove?()
+
+    abstract.dataset.isIntro = root.querySelector(IS_INTRO_SELECTORS)?
 
   detectImgAspectRatio: ->
     root = @getDOMNode()

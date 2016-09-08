@@ -2,24 +2,14 @@
 @import (reference) '../../book-content/note';
 
 .task {
-  iframe {
-    width: @tutor-interactive-iframe-width;
-    height: 500px;
-    border: none;
-    margin: 0 auto;
-  }
-  .embed-responsive > iframe {
-    width: 100%;
-    height: 100%;
-  }
   .spacer-step {
     padding: @tutor-card-body-padding;
   }
+
   .video-content,
   .interactive-content,
   .reading-content {
     .tutor-book-content();
-    .tutor-book-reading-note();
     .tutor-book-reading-titles();
 
     &[data-appearance=hs_physics],
@@ -41,19 +31,14 @@
     }
   }
 
-  .task-step {
-    // The number of pixels the iframe will be inset from the task in the end
-    @desired-iframe-inset: (@tutor-task-width - @tutor-interactive-iframe-width) / 2;
+  .video-content,
+  .interactive-content {
+    .tutor-book-step-notes();
+  }
 
-    iframe.interactive {
-      margin: 20px auto;
-    }
-
-    :not(.interactive-step) {
-      iframe.interactive {
-        // The rest of the card has a lot of padding, and it won't fit unless we shift it over so it's centered
-        margin-left: -(@tutor-card-body-padding-horizontal - @desired-iframe-inset);
-      }
+  .reading-content {
+    > .note:first-child {
+      .tutor-book-step-note();
     }
   }
 
