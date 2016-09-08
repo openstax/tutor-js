@@ -2,7 +2,7 @@ moment = require 'moment'
 _ = require 'underscore'
 
 {PlanPublishStore, PlanPublishActions} = require '../flux/plan-publish'
-{TimeStore, TimeActions} = require '../flux/time'
+{TimeStore} = require '../flux/time'
 
 PlanHelper =
   isPublishing: (plan) ->

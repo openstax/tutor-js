@@ -26,6 +26,7 @@ EventPlan = React.createClass
       onPublish={@publish}
       onSave={@save}
       onCancel={@cancel}
+      isVisibleToStudents={@state.isVisibleToStudents}
       getBackToCalendarParams={@getBackToCalendarParams}
       goBackToCalendar={@goBackToCalendar}/>
 
