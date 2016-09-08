@@ -207,18 +207,18 @@ ExercisesDisplay = React.createClass
     exercises = ExerciseStore.groupBySectionsAndTypes(@props.ecosystemId, @props.sectionIds, withExcluded: true)
     <div className="exercises-display">
 
+      <div className="instructions">
+        <div className="wrapper">
+          {Help.forCourseId(@props.courseId).second.bar}
+        </div>
+      </div>
+
       <PinnedHeaderFooterCard
         ref='controls'
         containerBuffer={50}
         header={@renderControls(exercises)}
         cardType='sections-questions'
       >
-
-      <div className="instructions">
-        <div className="wrapper">
-          {Help.forCourseId(@props.courseId).second.bar}
-        </div>
-      </div>
 
       {@renderExercises(
         if @state.filter then exercises[@state.filter] else exercises.all
