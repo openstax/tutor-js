@@ -1,6 +1,7 @@
 // Mixins used internally by the book-content mixin
 
 // TODO: refactor internally to replace the "tutor-reading-" prefix with "book-content-"
+@tutor-empty-rules: {};
 
 .tutor-reading-step-banner-icon(@img){
   background: @tutor-tertiary url(@img);
@@ -59,5 +60,23 @@
   @media screen and ( max-width: @book-content-collapse-breakpoint ){
     margin-left: -@book-content-narrow-horizontal-padding;
     width: calc(~"100% + "@book-content-narrow-horizontal-padding*2);
+  }
+}
+
+.book-content-interactives(
+  @base-rules: @tutor-empty-rules;
+  @tight-width-rules: @tutor-empty-rules;
+  @full-width-rules: @tutor-empty-rules;
+){
+  iframe.interactive {
+    @base-rules();
+
+    @media (min-width: @tutor-interactive-iframe-width) {
+      @tight-width-rules();
+    }
+
+    @media (min-width: @book-content-collapse-breakpoint) {
+      @full-width-rules();
+    }
   }
 }

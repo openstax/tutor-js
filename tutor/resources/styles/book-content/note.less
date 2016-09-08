@@ -69,8 +69,6 @@
   }
 }
 
-@tutor-empty-rules: {};
-
 .tutor-style-note-title-variants(@tutor-title-rules: @tutor-empty-rules){
 
   &@{has-data-label-selector},
@@ -138,9 +136,16 @@
       width: 100%;
       position: relative;
 
-      iframe.interactive {
-        margin-left: -(@tutor-book-padding-horizontal - @desired-iframe-inset + @tutor-note-margin-horizontal);
-      }
+      .book-content-interactives(
+        @tight-width-rules: {
+          // move left of note padding to get more room for sim
+          margin-left: -@tutor-note-padding-horizontal;
+        };
+        @full-width-rules: {
+          // padding pushes the sim over, compensate for the padding by pulling sim left
+          margin-left: -(@tutor-book-padding-horizontal - @desired-iframe-inset + @tutor-note-margin-horizontal);
+        };
+      );
 
       .exercise[data-type=exercise] .solution {
         // undo general hiding of solutions
@@ -190,15 +195,20 @@
 
   background: none;
   padding: 20px 0;
-  .embed-responsive {
-    iframe {
-      width: 100%;
-    }
-  }
+  border-bottom: none;
 
-  iframe.interactive {
-    margin-left: -(@tutor-book-padding-horizontal - @desired-iframe-inset);
-  }
+  .book-content-interactives(
+    @tight-width-rules: {
+      // undo note padding finnagling -- theses notes have no left padding,
+      // so the margin here can be auto
+      margin-left: auto;
+    };
+    @full-width-rules: {
+      // compensate for regular padding and offset, omit calculating with note padding.
+      margin-left: -(@tutor-book-padding-horizontal - @desired-iframe-inset);
+    };
+  );
+
 };
 
 @tutor-note-plain-title-style: {

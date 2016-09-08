@@ -7,6 +7,9 @@
 .interactive-step {
   .related-content-link {
     text-align: right;
-    margin: 0 @tutor-book-padding-horizontal;
+    margin: 0 20px;
+    @media (min-width: @book-content-collapse-breakpoint) {
+      margin: 0 @tutor-card-body-padding-horizontal;
+    }
   }
 }

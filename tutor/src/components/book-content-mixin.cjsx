@@ -208,7 +208,10 @@ sizeImage = ->
   figure = dom.closest(@, 'figure')
   return unless figure
 
-  if @naturalWidth > @naturalHeight or figure.parentNode.dataset.orient is 'horizontal'
+  aspectRatio = @naturalWidth / @naturalHeight
+
+  # let wide, square, and almost square figures be natural.
+  if aspectRatio > 0.9 or figure.parentNode.dataset.orient is 'horizontal'
     figure.classList.add('tutor-ui-horizontal-img')
     if @naturalWidth > 450 and figure.parentNode?.nodeName isnt 'FIGURE'
       figure.classList.add('full-width')
