@@ -140,6 +140,7 @@
         @tight-width-rules: {
           // move left of note padding to get more room for sim
           margin-left: -@tutor-note-padding-horizontal;
+          margin-left: calc(~"50% - " @tutor-interactive-iframe-width / 2);
         };
         @full-width-rules: {
           // padding pushes the sim over, compensate for the padding by pulling sim left
