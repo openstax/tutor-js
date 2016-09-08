@@ -27,9 +27,4 @@ PlanHelper =
     {isPublishing, publishStatus}
 
 
-  isPlanOpen: (plan) ->
-    now = moment(TimeStore.getNow())
-    !! _.find plan?.tasking_plans, (tasking) -> moment(tasking.opens_at).isBefore(now)
-
-
 module.exports = PlanHelper
