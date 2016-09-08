@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+Icon = require '../icon'
 
 MESSAGES = {
   student: [
@@ -31,11 +32,9 @@ module.exports = React.createClass
   type: React.PropTypes.oneOf(['student', 'teacher', 'teacher_student']).isRequired
 
   render: ->
-    tooltip =
-    <BS.Tooltip id='info-link-tooltip' className='info-link-tooltip' html='true'>
-      {MESSAGES[@props.type]}
-    </BS.Tooltip>
+    <Icon
+      className="info-link"
+      tooltipProps={placement: 'right', className: "info-link"}
+      tooltip={MESSAGES[@props.type]}
+    />
 
-    <BS.OverlayTrigger placement='right' overlay={tooltip}>
-      <button className='info-link'></button>
-    </BS.OverlayTrigger>
