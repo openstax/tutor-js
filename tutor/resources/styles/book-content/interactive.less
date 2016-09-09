@@ -14,10 +14,6 @@
   @tight-width-rules: {
     // for any screen with > than sim width, be sim width
     width: @tutor-interactive-iframe-width;
-  };
-  @full-width-rules: {
-    // even wider screens will have crazy padding.  pull left of padding so that
-    // the sim, which is wider than the rest of the content, centers.
-    margin-left: -(@tutor-book-padding-horizontal - @desired-iframe-inset);
+    margin-left: calc(~"50% - " @tutor-interactive-iframe-width / 2);
   };
 );

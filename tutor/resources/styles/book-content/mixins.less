@@ -63,6 +63,16 @@
   }
 }
 
+.book-paged-content(){
+  .paged-content {
+    width: 100%;
+
+    @media screen and ( min-width: @book-content-collapse-breakpoint ){
+      width: @reference-book-page-width;
+    }
+  }
+}
+
 .book-content-interactives(
   @base-rules: @tutor-empty-rules;
   @tight-width-rules: @tutor-empty-rules;

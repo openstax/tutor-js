@@ -136,18 +136,6 @@
       width: 100%;
       position: relative;
 
-      .book-content-interactives(
-        @tight-width-rules: {
-          // move left of note padding to get more room for sim
-          margin-left: -@tutor-note-padding-horizontal;
-          margin-left: calc(~"50% - " @tutor-interactive-iframe-width / 2);
-        };
-        @full-width-rules: {
-          // padding pushes the sim over, compensate for the padding by pulling sim left
-          margin-left: -(@tutor-book-padding-horizontal - @desired-iframe-inset + @tutor-note-margin-horizontal);
-        };
-      );
-
       .exercise[data-type=exercise] .solution {
         // undo general hiding of solutions
         display: block;
@@ -197,18 +185,6 @@
   background: none;
   padding: 20px 0;
   border-bottom: none;
-
-  .book-content-interactives(
-    @tight-width-rules: {
-      // undo note padding finnagling -- theses notes have no left padding,
-      // so the margin here can be auto
-      margin-left: auto;
-    };
-    @full-width-rules: {
-      // compensate for regular padding and offset, omit calculating with note padding.
-      margin-left: -(@tutor-book-padding-horizontal - @desired-iframe-inset);
-    };
-  );
 
 };
 
