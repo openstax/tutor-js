@@ -5,6 +5,7 @@ LoadableItem = require '../loadable-item'
 isStepComplete = (step) -> step.is_completed
 StudentDashboard = require './dashboard'
 WindowHelpers = require '../../helpers/window'
+{NotificationActions} = require 'shared'
 
 StudentDashboardShell = React.createClass
   displayName: 'StudentDashboardShell'
@@ -17,9 +18,14 @@ StudentDashboardShell = React.createClass
     # Will display the redirect screen if course is a concept coach one
     willTransitionTo: (transition, params, query, callback) ->
       {courseId} = params
-      {is_concept_coach, webview_url} = CourseStore.get(courseId)
-      if is_concept_coach and webview_url
-        transition.redirect('viewStudentCCRedirect', {courseId})
+      course = CourseStore.get(courseId)
+      if course
+        {is_concept_coach, webview_url} = course
+        if is_concept_coach and webview_url
+          transition.redirect('viewStudentCCRedirect', {courseId})
+      else
+        NotificationActions.display(message: 'That is not a valid course', icon: 'exclamation-circle')
+        transition.redirect('dashboard')
       callback()
 
   render: ->
