@@ -10,11 +10,8 @@ BOOKS =
   'stax-cbio'    : 'Concepts of Biology'
   'stax-econ'    : 'Economics'
   'stax-anp'     : 'Anatomy and Physiology'
-
-
-# Temporarily removed from list until books are ready
-#  'stax-macro'   : 'Macro Economics'
-#  'stax-micro'   : 'Micro Economics'
+  'stax-macro'   : 'Macro Economics'
+  'stax-micro'   : 'Micro Economics'
 
 BookSelection = React.createClass
 
