@@ -23,6 +23,8 @@ section {
     }
 
     // make fully imported questions imitate embedded exercises
+    // If the list follows something else in the problem,
+    // kinda assume it is most likely multiple-choices.
     > ol:not(:first-child) {
       counter-reset: lowerAlpha;
       list-style: none;
