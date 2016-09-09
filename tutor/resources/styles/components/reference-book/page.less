@@ -5,14 +5,13 @@
     margin-right: -40px;
 
     .center-panel {
-      width: @reference-book-page-width;
       margin: 0 auto;
-      @media screen and ( max-width: @book-content-collapse-breakpoint ){
-        width: @reference-book-collapse-width;
-      }
+
       // always wrap around elements by extending bootstrap's clearfix
       &:extend(.clearfix all);
     }
+
+    .book-paged-content();
 
     .page {
       counter-reset: question;

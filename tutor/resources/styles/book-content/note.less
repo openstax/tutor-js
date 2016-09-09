@@ -69,8 +69,6 @@
   }
 }
 
-@tutor-empty-rules: {};
-
 .tutor-style-note-title-variants(@tutor-title-rules: @tutor-empty-rules){
 
   &@{has-data-label-selector},
@@ -138,10 +136,6 @@
       width: 100%;
       position: relative;
 
-      iframe.interactive {
-        margin-left: -(@tutor-book-padding-horizontal - @desired-iframe-inset + @tutor-note-margin-horizontal);
-      }
-
       .exercise[data-type=exercise] .solution {
         // undo general hiding of solutions
         display: block;
@@ -190,15 +184,8 @@
 
   background: none;
   padding: 20px 0;
-  .embed-responsive {
-    iframe {
-      width: 100%;
-    }
-  }
+  border-bottom: none;
 
-  iframe.interactive {
-    margin-left: -(@tutor-book-padding-horizontal - @desired-iframe-inset);
-  }
 };
 
 @tutor-note-plain-title-style: {

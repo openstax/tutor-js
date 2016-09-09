@@ -1,16 +1,19 @@
 // The number of pixels the iframe will be inset from the task in the end
 @desired-iframe-inset: (@reference-book-page-width - @tutor-interactive-iframe-width) / 2;
 
-iframe.interactive {
-  // The rest of the card has a lot of padding, and it won't fit unless we shift it over so it's centered
-  margin: 20px auto;
-  margin-left: -(@tutor-book-padding-horizontal - @desired-iframe-inset);
-  border: none;
-}
-
-@media (max-width: 1020px) {
-  .phet-explorations-embedded iframe.interactive {
+.book-content-interactives(
+  @base-rules: {
+    // when < than sim width, go responsive.
+    // this is a temporary solution for sims on small devices.
     width: 100%;
-    margin-left: 0px;
-  }
-}
+    height: @tutor-interactive-iframe-height;
+
+    margin: 20px auto;
+    border: none;
+  };
+  @tight-width-rules: {
+    // for any screen with > than sim width, be sim width
+    width: @tutor-interactive-iframe-width;
+    margin-left: calc(~"50% - " @tutor-interactive-iframe-width / 2);
+  };
+);
