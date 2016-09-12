@@ -6,3 +6,8 @@ set -ev
 # export OX_PROJECT='tutor'
 
 karma start test/karma.config.js --single-run
+
+# add build check for all projects except tutor, because karma by itself already takes too long"
+if [ "$OX_PROJECT" != "tutor" ]; then
+  bin/build "$OX_PROJECT"
+fi
