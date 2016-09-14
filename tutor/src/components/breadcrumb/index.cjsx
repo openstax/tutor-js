@@ -3,6 +3,7 @@ React = require 'react'
 {Breadcrumb} = require 'shared'
 
 {StepPanel} = require '../../helpers/policies'
+window.StepPanel = StepPanel
 
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 {TaskStore} = require '../../flux/task'

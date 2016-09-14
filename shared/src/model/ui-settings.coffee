@@ -1,4 +1,6 @@
 _ = require 'underscore'
+deepMerge = require 'lodash/merge'
+cloneDeep = require 'lodash/cloneDeep'
 URLs = require './urls'
 Networking = require './networking'
 
@@ -19,15 +21,15 @@ saveSettings = _.debounce( ->
 UiSettings = {
 
   initialize: (settings) ->
-    SETTINGS = _.clone(settings) or {}
+    SETTINGS = cloneDeep(settings) or {}
 
   get: (key) ->
     SETTINGS[key]
 
   set: (key, value) ->
     attrs = if _.isObject(key) then key else {"#{key}": value}
-    PREVIOUS_SETTINGS = _.clone SETTINGS
-    _.extend(SETTINGS, attrs)
+    PREVIOUS_SETTINGS = cloneDeep SETTINGS
+    deepMerge(SETTINGS, attrs)
     saveSettings()
 
   # for use by specs to reset
