@@ -12,7 +12,6 @@ ONE_TIME_CARD_DEFAULTS =
   placement:
     taskId: ''
     stepId: ''
-  is_completed: false
 
 # old key, keep backwards compatibility
 TWO_STEP_VIEWED_KEY = 'has-viewed-two-step-help'
@@ -28,7 +27,7 @@ makeStep = (task, step = {}, stepIndex) ->
 
   panels = StepPanel.getPanelsWithStatus(stepId)
 
-  _.extend({panels}, _.pick(step, 'id', 'type', 'is_completed'))
+  _.extend({panels}, _.pick(step, 'id', 'type'))
 
 makeUiSettings = (initial) ->
   deepMerge({}, ONE_TIME_CARD_DEFAULTS, initial)
@@ -44,7 +43,6 @@ hasBeenPlaced = (settingKey) ->
 stepMapOneTimeCard = (condition, type, settingKey, task, step, stepIndex) ->
   if hasBeenPlaced(settingKey)
     if isPlacedHere(settingKey, step)
-      console.info(settingKey)
       makeStep(task, {type}, stepIndex)
   else if condition(task, step, stepIndex)
     placement =
