@@ -274,23 +274,6 @@ TaskConfig =
       _.findIndex(@_steps[taskId], id: stepId)
 
 
-    # like getStepIndex, but takes into consideration CC spacer step
-    #
-    # TODO clean up by moving this, and stuff within crumb-mixin to a
-    # helper or flux of it's own.
-    getStepNavIndex: (taskId, stepId) ->
-      coachStart = _.findIndex @_steps[taskId], (step) ->
-        not TaskStepStore.isCore(step.id)
-
-      stepIndex = @exports.getStepIndex.call(@, taskId, stepId)
-
-      navIndex = stepIndex
-
-      if coachStart > -1 and stepIndex >= coachStart
-        navIndex = stepIndex + 1
-
-      navIndex
-
     getStepLateness: (taskId, stepId) ->
       result =
         late: false
