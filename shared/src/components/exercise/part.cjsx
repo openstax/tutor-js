@@ -82,7 +82,7 @@ ExercisePart = React.createClass
 
   onMultipleChoiceAnswerChanged: (answer) ->
     {id} = @props
-    @props.setAnswerId(id, answer.id)
+    @props.setAnswerId(id, answer.id, @props.stepPartIndex)
 
   getReviewProps: ->
     reviewProps = _.omit(@props, NOT_REVIEW_PROPS)
