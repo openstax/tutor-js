@@ -25,6 +25,9 @@ makeContactURL = (errors, windowContext) ->
 
 ErrorNotification = React.createClass
 
+  propTypes:
+    container: React.PropTypes.object.isRequired
+
   getInitialState: ->
     errors: false, isShowingDetails: false
 
@@ -74,6 +77,7 @@ ErrorNotification = React.createClass
 
     <BS.Modal
       {...modalProps}
+      container={@props.container}
       className='errors'
       show={not _.isEmpty(@state.errors)}
       onHide={@onHide}>
