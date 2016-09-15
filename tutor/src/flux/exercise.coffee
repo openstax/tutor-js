@@ -64,7 +64,7 @@ getImportantTags = (tags) ->
 ExerciseConfig =
   _exercises: []
   _asyncStatus: null
-  _exerciseCache: []
+  _exerciseCache: {}
   _unsavedExclusions: {}
 
   FAILED: -> console.error('BUG: could not load exercises')
@@ -185,14 +185,14 @@ ExerciseConfig =
       @_exerciseCache[exercise_id]
 
     getTeksString: (exercise_id) ->
-      tags = @_exerciseCache[exercise_id].tags
+      tags = @_exerciseCache[exercise_id]?.tags or []
       teksTags = _.where(tags, {type: EXERCISE_TAGS.TEKS})
       _.map(teksTags, (tag) ->
         tag.name?.replace(/[()]/g, '')
       ).join(" / ")
 
     getContent: (exercise_id) ->
-      @_exerciseCache[exercise_id].content.questions[0].stem_html
+      @_exerciseCache[exercise_id]?.content.questions[0]?.stem_html
 
     getTagContent: (tag) ->
       content = getTagName(tag) or tag.id
@@ -200,7 +200,7 @@ ExerciseConfig =
       {content, isLO}
 
     getTagStrings: (exercise_id) ->
-      tags = @_exerciseCache[exercise_id].tags
+      tags = @_exerciseCache[exercise_id]?.tags or []
       getImportantTags(tags)
 
     removeTopicExercises: (exercise_ids, topic_id) ->
@@ -208,6 +208,7 @@ ExerciseConfig =
       topic_chapter_section = TocStore.getChapterSection(topic_id)
       _.reject(exercise_ids, (exercise_id) ->
         exercise = cache[exercise_id]
+        return true unless cache
         {section} = getImportantTags(exercise.tags)
         section.toString() is topic_chapter_section.toString()
       )
