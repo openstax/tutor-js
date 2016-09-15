@@ -44,9 +44,9 @@ module.exports = React.createClass
     {className, header, footer, primary, cancel, isChanged} = @props
 
     if cancel
-      cancelBtn = <BS.Button aria-role='close' onClick={@onCancel}>{cancel}</BS.Button>
+      cancelBtn = <BS.Button aria-role='close' key="cancel" onClick={@onCancel}>{cancel}</BS.Button>
 
-    closeBtn = <CloseButton onClick={@onCancel}/>
+    closeBtn = <CloseButton key="close" onClick={@onCancel}/>
     header = [header, closeBtn]
     footer = [primary, cancelBtn, footer] if footer or primary or cancelBtn
 
