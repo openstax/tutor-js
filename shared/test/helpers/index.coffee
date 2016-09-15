@@ -18,7 +18,7 @@ Testing = {
 
   renderComponent: (component, options = {}) ->
     options.props ||= {}
-    unmountAfter = options.unmountAfter or 1
+    unmountAfter = options.unmountAfter or 5
     root = document.createElement('div')
     promise = new Promise( (resolve, reject) ->
       props = _.clone(options.props)
