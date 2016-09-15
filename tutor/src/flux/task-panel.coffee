@@ -6,12 +6,14 @@ deepMerge = require 'lodash/merge'
 
 {StepPanel} = require '../helpers/policies'
 {TaskStepStore} = require '../flux/task-step'
+{TaskStore} = require '../flux/task'
 {UiSettings} = require 'shared'
 
 ONE_TIME_CARD_DEFAULTS =
   placement:
     taskId: ''
     stepId: ''
+  is_completed: true
 
 # old key, keep backwards compatibility
 TWO_STEP_VIEWED_KEY = 'has-viewed-two-step-help'
@@ -27,7 +29,7 @@ makeStep = (task, step = {}, stepIndex) ->
 
   panels = StepPanel.getPanelsWithStatus(stepId)
 
-  _.extend({panels}, _.pick(step, 'id', 'type'))
+  _.extend({panels}, _.pick(step, 'id', 'type', 'is_completed', 'related_content', 'group'))
 
 makeUiSettings = (initial) ->
   deepMerge({}, ONE_TIME_CARD_DEFAULTS, initial)
@@ -49,7 +51,9 @@ stepMapOneTimeCard = (condition, type, settingKey, task, step, stepIndex) ->
       stepId: step.id
       taskId: task.id
 
-    settings = makeUiSettings({placement})
+    is_completed = true
+
+    settings = makeUiSettings({placement, is_completed})
     UiSettings.set(settingKey, settings)
 
     makeStep(task, {type}, stepIndex)
@@ -72,7 +76,7 @@ befores =
 
   'two-step': (task, step, stepIndex) ->
     isTwoStep = (task, step, stepIndex) ->
-      return false unless step?.content?.questions?
+      return false if UiSettings.get(TWO_STEP_VIEWED_KEY) or not step?.content?.questions?
       _.any(step.content.questions, (question) ->
         _.contains(question.formats, 'free-response') and
           _.contains(question.formats, 'multiple-choice')
@@ -80,12 +84,22 @@ befores =
 
     stepMapOneTimeCard(isTwoStep, 'two-step-intro', TWO_STEP_KEY, arguments...)
 
+makeAvailableStep = (task, step, stepIndex) ->
+  if TaskStore.doesAllowSeeAhead(task.id)
+    makeStep(task, step, stepIndex)
+  else
+    incompleteIndex = _.findIndex(task.steps, (taskStep) ->
+      taskStep.is_completed is false
+    )
+
+    if incompleteIndex is -1 or stepIndex <= incompleteIndex
+      makeStep(task, step, stepIndex)
 
 afters = {}
 
 stepMappers = _.flatten([
   _.values(befores)
-  makeStep
+  makeAvailableStep
   _.values(afters)
 ])
 
