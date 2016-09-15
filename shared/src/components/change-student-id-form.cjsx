@@ -43,7 +43,7 @@ module.exports = React.createClass
         onClick={@onSubmit}
       >{@props.saveButtonLabel}</AsyncButton>
 
-    <div className="change-student-id-form form-group">
+    <div className="openstax-change-student-id-form form-group">
       <h3 className="text-center">
         {@props.title}
       </h3>
