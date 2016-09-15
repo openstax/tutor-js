@@ -28,8 +28,10 @@ makeStep = (task, step = {}, stepIndex) ->
   stepId = step.id or 'default'
 
   panels = StepPanel.getPanelsWithStatus(stepId)
+  step = _.pick(step, 'id', 'type', 'is_completed', 'related_content', 'group')
+  task = _.pick(task, 'title', 'type', 'due_at', 'description')
 
-  _.extend({panels}, _.pick(step, 'id', 'type', 'is_completed', 'related_content', 'group'))
+  _.extend({panels, task}, step)
 
 makeUiSettings = (initial) ->
   deepMerge({}, ONE_TIME_CARD_DEFAULTS, initial)
@@ -95,7 +97,9 @@ makeAvailableStep = (task, step, stepIndex) ->
     if incompleteIndex is -1 or stepIndex <= incompleteIndex
       makeStep(task, step, stepIndex)
 
-afters = {}
+afters =
+  'end': (task, step, stepIndex) ->
+    makeAvailableStep(task, {type: 'end'}, stepIndex)
 
 stepMappers = _.flatten([
   _.values(befores)
@@ -122,6 +126,8 @@ TaskPanel =
 
   exports:
     get: (id) -> @_get(id)
+    getStep: (id, stepIndex) -> @_get(id)[stepIndex]
+    getStepByKey: (id, stepKey) -> @exports.getStep.call(@, id, stepKey - 1)
 
 
 {actions, store} = makeSimpleStore(TaskPanel)
