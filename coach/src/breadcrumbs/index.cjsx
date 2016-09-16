@@ -61,13 +61,16 @@ Breadcrumbs = React.createClass
     moduleInfo: tasks.getModuleInfo(taskId)
 
   makeCrumbEnd: (label, enabled) ->
-    {moduleInfo} = @state
+    {moduleInfo, task} = @state
 
     reviewEnd =
       type: 'end'
-      data:
-        id: "#{label}"
+      # data:
+      #   id: "#{label}"
+      #   title: moduleInfo.title
+      task:
         title: moduleInfo.title
+        id: task.id
       label: label
       disabled: not enabled
 
@@ -76,10 +79,11 @@ Breadcrumbs = React.createClass
     {currentStep, canReview} = @props
     return null if _.isEmpty(task.steps)
 
-    crumbs = _.map task.steps, (crumbStep, index) ->
-      data: crumbStep
-      crumb: true
-      type: 'step'
+    crumbs = _.map task.steps, (step, index) ->
+      _.pick(step, 
+        'id', 'type', 'is_completed', 'related_content', 'group',
+        'is_correct', 'answer_id', 'correct_answer_id'
+      )
 
     reviewEnd = @makeCrumbEnd('summary', canReview)
 
@@ -88,14 +92,14 @@ Breadcrumbs = React.createClass
     breadcrumbs = _.map crumbs, (crumb, index) =>
       {disabled} = crumb
       classes = classnames({disabled})
-      crumb.key = index
 
       <BreadcrumbDynamic
         className={classes}
         data-label={crumb.label}
-        key={crumb.data.id}
+        key={crumb.id}
         crumb={crumb}
-        step={crumb.data or {}}
+        stepIndex={index}
+        step={crumb or {}}
         currentStep={currentStep}
         goToStep={@props.goToStep}/>
 

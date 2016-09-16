@@ -8,7 +8,7 @@ ExerciseGroup = require './group'
 ExerciseBadges = require '../exercise-badges'
 ExerciseIdentifierLink = require '../exercise-identifier-link'
 ScrollToMixin = require '../scroll-to-mixin'
-TwoStepHelpMixin = require './two-step-help-mixin'
+{TwoStepHelpMixin} = require './two-step-help-mixin'
 
 ExerciseMixin =
 

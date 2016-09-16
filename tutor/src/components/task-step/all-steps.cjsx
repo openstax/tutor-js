@@ -13,6 +13,8 @@ CourseDataMixin = require '../course-data-mixin'
 
 {StepPanel} = require '../../helpers/policies'
 
+{TwoStepHelp} = require 'shared'
+
 Reading = React.createClass
   displayName: 'Reading'
   mixins: [StepMixin, CourseDataMixin]
@@ -110,8 +112,49 @@ Spacer = React.createClass
       <p>
         OpenStax Tutor will include <b>spaced practice</b> questions&mdash;like the
         following ones&mdash;from prior sections to give your learning a boost.
-        You may occasionally see questions you've seen before.
+        You may occasionally see questions you&#39;ve seen before.
       </p>
     </div>
 
-module.exports = {Reading, Interactive, Video, Exercise, Placeholder, Spacer, ExternalUrl}
+SpacedPracticeIntro = React.createClass
+  mixins: [StepMixin, StepFooterMixin]
+  isContinueEnabled: -> true
+  onContinue: ->
+    @props.onNextStep()
+  renderBody: ->
+    <div className='spaced-practice-intro-step'>
+      <h1>Reading Review</h1>
+      <p>
+        <b>Did you know?</b> Research shows you can strengthen your
+        memory&mdash;<b>and spend less time studying</b>&mdash;if
+        you revisit material over multiple study sessions.
+      </p>
+      <p>
+        OpenStax Tutor will include <b>spaced practice</b> questions&mdash;like the
+        following ones&mdash;from prior sections to give your learning a boost.
+        You may occasionally see questions you&#39;ve seen before.
+      </p>
+    </div>
+
+PersonalizedIntro = React.createClass
+  mixins: [StepMixin, StepFooterMixin]
+  isContinueEnabled: -> true
+  onContinue: ->
+    @props.onNextStep()
+  renderBody: ->
+    <div className='personalized-intro-step'>
+      <h1>Personalized questions</h1>
+      <p>
+        Personalized questions&mdash;like this next one&mdash;are chosen specifically
+        for you by OpenStax Tutor based on your learning history.
+      </p>
+    </div>
+
+TwoStepIntro = TwoStepHelp
+
+statics =
+  'spaced-practice-intro' : SpacedPracticeIntro
+  'personalized-intro'    : PersonalizedIntro
+  'two-step-intro'        : TwoStepIntro
+
+module.exports = {Reading, Interactive, Video, Exercise, Placeholder, Spacer, ExternalUrl, statics}

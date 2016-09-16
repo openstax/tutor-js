@@ -39,7 +39,7 @@ ExercisePart = React.createClass
     canReview: React.PropTypes.bool
     disabled: React.PropTypes.bool
 
-    idLink: React.PropTypes.func
+    idLink: React.PropTypes.element
 
   getInitialState: ->
     {id} = @props

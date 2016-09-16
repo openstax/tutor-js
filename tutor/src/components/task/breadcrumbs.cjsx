@@ -1,25 +1,27 @@
 React = require 'react'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 {TaskProgressActions, TaskProgressStore} = require '../../flux/task-progress'
+{TaskPanelActions, TaskPanelStore} = require '../../flux/task-panel'
 {TaskStore} = require '../../flux/task'
 
 _ = require 'underscore'
 
-CrumbMixin = require './crumb-mixin'
 {ChapterSectionMixin, ResizeListenerMixin} = require 'shared'
 {BreadcrumbTaskDynamic} = require '../breadcrumb'
 
 module.exports = React.createClass
   displayName: 'Breadcrumbs'
 
-  mixins: [ChapterSectionMixin, CrumbMixin, ResizeListenerMixin]
+  mixins: [ChapterSectionMixin, ResizeListenerMixin]
 
   propTypes:
     id: React.PropTypes.string.isRequired
     goToStep: React.PropTypes.func.isRequired
 
   getInitialState: ->
-    currentStep = TaskProgressStore.get(@props.id)
+    currentStepKey = TaskProgressStore.get(@props.id)
+    currentStep = currentStepKey - 1
+    console.info('currentStep', currentStep)
 
     updateOnNext: true
     hoverCrumb: currentStep
@@ -28,16 +30,16 @@ module.exports = React.createClass
     currentStep: currentStep
 
   componentWillMount: ->
-    listeners = @getMaxListeners()
-    # TaskStepStore listeners include:
-    #   One per step for the crumb status updates
-    #   Two additional listeners for step loading and completion
-    #     if there are placeholder steps.
-    #   One for step being viewed in the panel itself
-    #     this is the + 1 to the max listeners being returned
-    #
-    # Only update max listeners if it is greater than the default of 10
-    TaskStepStore.setMaxListeners(listeners + 1) if listeners? and (listeners + 1) > 10
+    # listeners = @getMaxListeners()
+    # # TaskStepStore listeners include:
+    # #   One per step for the crumb status updates
+    # #   Two additional listeners for step loading and completion
+    # #     if there are placeholder steps.
+    # #   One for step being viewed in the panel itself
+    # #     this is the + 1 to the max listeners being returned
+    # #
+    # # Only update max listeners if it is greater than the default of 10
+    # TaskStepStore.setMaxListeners(listeners + 1) if listeners? and (listeners + 1) > 10
 
     # if a recovery step needs to be loaded, don't update breadcrumbs
     TaskStore.on('task.beforeRecovery', @stopUpdate)
@@ -50,6 +52,9 @@ module.exports = React.createClass
 
   componentDidMount: ->
     @calculateCrumbsWidth()
+
+  getCrumableCrumbs: ->
+    TaskPanelStore.get(@props.id)
 
   calculateCrumbsWidth: (crumbDOM) ->
     if @isMounted()
@@ -111,7 +116,8 @@ module.exports = React.createClass
     @setState(updateOnNext: true)
 
   setCurrentStep: ({previous, current}) ->
-    @setState(currentStep: current)
+    console.info('current', current)
+    @setState(currentStep: current - 1)
 
   stopUpdate: ->
     @setState(updateOnNext: false)
@@ -122,6 +128,7 @@ module.exports = React.createClass
   render: ->
     {crumbs, currentStep} = @state
     {goToStep, wrapper} = @props
+    console.info(currentStep, crumbs)
 
     stepButtons = _.map crumbs, (crumb, crumbIndex) =>
       crumbStyle =
@@ -136,8 +143,9 @@ module.exports = React.createClass
         data-label={crumb.label}
         currentStep={currentStep}
         goToStep={goToStep}
-        key="breadcrumb-#{crumb.type}-#{crumb.key}"
-        ref="breadcrumb-#{crumb.type}-#{crumb.key}"/>
+        stepIndex={crumbIndex}
+        key="breadcrumb-#{crumb.type}-#{crumbIndex}"
+        ref="breadcrumb-#{crumb.type}-#{crumbIndex}"/>
 
     if wrapper?
       Wrapper = wrapper

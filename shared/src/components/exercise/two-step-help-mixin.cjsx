@@ -32,7 +32,7 @@ TwoStepHelp = React.createClass
 
 
 # Object is mixed into the exercise
-module.exports = {
+TwoStepHelpMixin =
 
   hasTwoStepHelp: ->
     firstpart = _.first @props.parts
@@ -49,4 +49,4 @@ module.exports = {
     UiSettings.set(SETTINGS_KEY, true)
     @forceUpdate()
 
-}
+module.exports = { TwoStepHelp, TwoStepHelpMixin }

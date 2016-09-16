@@ -3,12 +3,12 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
 
-CrumbMixin = require '../crumb-mixin'
 {ChapterSectionMixin, ArbitraryHtmlAndMath} = require 'shared'
 {BreadcrumbStatic} = require '../../breadcrumb'
 
 {TaskStepActions, TaskStepStore} = require '../../../flux/task-step'
 {TaskProgressActions, TaskProgressStore} = require '../../../flux/task-progress'
+{TaskPanelActions, TaskPanelStore} = require '../../../flux/task-panel'
 {TaskStore} = require '../../../flux/task'
 {StepTitleStore} = require '../../../flux/step-title'
 
@@ -27,24 +27,32 @@ Milestone = React.createClass
       keyEvent.preventDefault()
 
   render: ->
-    {goToStep, crumb, currentStep} = @props
+    {goToStep, crumb, currentStep, stepIndex} = @props
 
-    isCurrent = crumb.key is currentStep
+    isCurrent = stepIndex is currentStep
 
-    classes = classnames 'milestone',
+    classes = classnames 'milestone', "milestone-#{crumb.type}",
       'active': isCurrent
 
-    {title} = crumb.data
-    title ?= StepTitleStore.get(crumb.data.id)
+    previewText = StepTitleStore.get(crumb.id) if crumb.id?
 
-    previewText = title
-    if crumb.type is 'end'
-      previewText = "#{previewText} Completed"
+    switch crumb.type
+      when 'end'
+        previewText = "#{crumb.task.title} Completed"
 
-    if crumb.data.type is 'coach'
-      previewText = 'Spaced Practice'
+      when 'coach'
+        previewText = 'Spaced Practice'
 
-    if crumb.data.type is 'exercise'
+      when 'spaced-practice-intro'
+        previewText = 'Spaced Practice'
+
+      when 'personalized-intro'
+        previewText = 'Personalized questions'
+
+      when 'two-step-intro'
+        previewText = 'Two-tep questions'
+
+    if crumb.type is 'exercise'
       preview = <ArbitraryHtmlAndMath
         block={true}
         className='milestone-preview'
@@ -52,7 +60,7 @@ Milestone = React.createClass
     else
       preview = <div className='milestone-preview'>{previewText}</div>
 
-    goToStepForCrumb = _.partial(goToStep, crumb.key)
+    goToStepForCrumb = _.partial(goToStep, stepIndex)
 
     <BS.Col xs=3 lg=2 className='milestone-wrapper'>
       <div
@@ -61,14 +69,14 @@ Milestone = React.createClass
         role='button'
         aria-label={previewText}
         onClick={goToStepForCrumb}
-        onKeyUp={_.partial(@handleKeyUp, crumb.key)}>
+        onKeyUp={_.partial(@handleKeyUp, stepIndex)}>
         <BreadcrumbStatic
           crumb={crumb}
           data-label={crumb.label}
           currentStep={currentStep}
           goToStep={goToStepForCrumb}
-          key="breadcrumb-#{crumb.type}-#{crumb.key}"
-          ref="breadcrumb-#{crumb.type}-#{crumb.key}"/>
+          key="breadcrumb-#{crumb.type}-#{stepIndex}"
+          ref="breadcrumb-#{crumb.type}-#{stepIndex}"/>
         {preview}
       </div>
     </BS.Col>
@@ -76,17 +84,17 @@ Milestone = React.createClass
 MilestonesWrapper = React.createClass
   displayName: 'MilestonesWrapper'
 
-  mixins: [ChapterSectionMixin, CrumbMixin]
+  mixins: [ChapterSectionMixin]
 
   propTypes:
     id: React.PropTypes.string.isRequired
     goToStep: React.PropTypes.func.isRequired
 
   getInitialState: ->
-    currentStep = TaskProgressStore.get(@props.id)
-    crumbs = @getCrumableCrumbs()
+    currentStepKey = TaskProgressStore.get(@props.id)
+    crumbs = TaskPanelStore.get(@props.id)
 
-    currentStep: currentStep
+    currentStep: currentStepKey - 1
     crumbs: crumbs
 
   componentDidMount: ->
@@ -133,6 +141,7 @@ MilestonesWrapper = React.createClass
         key={"crumb-wrapper-#{crumbIndex}"}
         crumb={crumb}
         goToStep={@goToStep}
+        stepIndex={crumbIndex}
         currentStep={currentStep}/>
 
     classes = 'task-breadcrumbs'

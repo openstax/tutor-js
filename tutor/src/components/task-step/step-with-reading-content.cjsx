@@ -28,13 +28,15 @@ ReadingStepContent = React.createClass
   render: ->
     {id, courseDataProps, stepType} = @props
     {content_html, related_content} = TaskStepStore.get(id)
+    {courseId} = @context.router.getCurrentParams()
+
     <div className="#{stepType}-step">
       <ArbitraryHtmlAndMath
         {...courseDataProps}
         className="#{stepType}-content"
         shouldExcludeFrame={@shouldExcludeFrame}
         html={content_html} />
-      <RelatedContentLink courseId={@props.courseId} content={related_content} />
+      <RelatedContentLink courseId={courseId} content={related_content} />
     </div>
 
 StepContent = React.createClass

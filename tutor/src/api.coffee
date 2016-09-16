@@ -49,10 +49,6 @@ BOOTSTRAPED_STORES = {
   courses: CourseListingActions.loaded
 }
 
-window.TaskPanelActions = TaskPanelActions
-window.TaskPanelStore = TaskPanelStore
-
-
 start = (bootstrapData) ->
   for storeId, action of BOOTSTRAPED_STORES
     data = bootstrapData[storeId]

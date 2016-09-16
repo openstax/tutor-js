@@ -60,10 +60,21 @@
   margin-bottom: 5rem;
   .tutor-shadow(1);
 
+  &.milestone-two-step-intro {
+    background: @openstax-secondary;
+    color: @tutor-white;
+  }
+
+  &.milestone-personalized-intro {
+    background: @openstax-primary;
+    color: @tutor-white;
+  }
+
   .openstax-breadcrumbs-step {
     .scale(@milestone-scale);
     display: block;
     margin: -0.8rem auto 1.5rem;
+    background: transparent;
 
     &:hover,
     &.active {

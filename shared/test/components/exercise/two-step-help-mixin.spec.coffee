@@ -1,6 +1,6 @@
 {Testing, expect, sinon, _, React} = require 'test/helpers'
 
-TwoStepHelpMixin = require 'components/exercise/two-step-help-mixin'
+{TwoStepHelpMixin} = require 'components/exercise/two-step-help-mixin'
 Networking = require 'model/networking'
 UiSettings = require 'model/ui-settings'
 

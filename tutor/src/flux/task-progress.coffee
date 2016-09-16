@@ -9,14 +9,14 @@ TaskProgressConfig =
     previousStep = @_local[taskId]
     @_local[taskId] = currentStep
 
-    @emit("update.#{taskId}", previous: previousStep, current: currentStep)
+    @emit("update.#{taskId}", previous: previousStep - 1, current: currentStep - 1)
 
   reset: (taskId) ->
     return unless taskId?
     previousStep = @_local[taskId]
     @_local[taskId] = null
 
-    @emit("reset.#{taskId}", previous: previousStep)
+    @emit("reset.#{taskId}", previous: previousStep - 1)
 
   resetAll: ->
     _.each @_local, (progress, taskId) =>

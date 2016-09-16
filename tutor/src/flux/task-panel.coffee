@@ -4,7 +4,7 @@ deepMerge = require 'lodash/merge'
 
 {makeSimpleStore, STATES} = require './helpers'
 
-{StepPanel} = require '../helpers/policies'
+{StepPanel, utils} = require '../helpers/policies'
 {TaskStepStore} = require '../flux/task-step'
 {TaskStore} = require '../flux/task'
 {UiSettings} = require 'shared'
@@ -28,7 +28,10 @@ makeStep = (task, step = {}, stepIndex) ->
   stepId = step.id or 'default'
 
   panels = StepPanel.getPanelsWithStatus(stepId)
-  step = _.pick(step, 'id', 'type', 'is_completed', 'related_content', 'group')
+  step = _.pick(step,
+    'id', 'type', 'is_completed', 'related_content', 'group',
+    'is_correct', 'answer_id', 'correct_answer_id'
+  )
   task = _.pick(task, 'title', 'type', 'due_at', 'description')
 
   _.extend({panels, task}, step)
@@ -90,44 +93,64 @@ makeAvailableStep = (task, step, stepIndex) ->
   if TaskStore.doesAllowSeeAhead(task.id)
     makeStep(task, step, stepIndex)
   else
-    incompleteIndex = _.findIndex(task.steps, (taskStep) ->
-      taskStep.is_completed is false
-    )
+    lastComplete = _.findLastIndex(task.steps, {is_completed: true})
+    firstIncomplete = lastComplete + 1
 
-    if incompleteIndex is -1 or stepIndex <= incompleteIndex
+    if stepIndex <= firstIncomplete
       makeStep(task, step, stepIndex)
 
 afters =
   'end': (task, step, stepIndex) ->
-    makeAvailableStep(task, {type: 'end'}, stepIndex)
+    makeStep(task, {type: 'end'}, stepIndex) if stepIndex is task.steps.length - 1
 
 stepMappers = _.flatten([
   _.values(befores)
-  makeAvailableStep
+  makeStep
   _.values(afters)
 ])
 
-
 TaskPanel =
-  _local: {}
+  _steps: {}
+  _crumbs: {}
 
   loaded: (task, taskId) ->
-    panels = _.map(task.steps, (step, stepIndex) ->
+    panels = _.map task.steps, (step, stepIndex) ->
       _.chain(stepMappers)
         .map (stepMapper) ->
-          stepMapper(task, step, stepIndex)
+
+          if TaskStore.doesAllowSeeAhead(task.id)
+            stepMapper(task, step, stepIndex)
+          else
+            incompleteIndex = _.findIndex(task.steps, {is_completed: false})
+            if incompleteIndex is -1 or stepIndex <= incompleteIndex
+              stepMapper(task, step, stepIndex)
+
         .compact()
         .value()
-    )
-    @_local[taskId] = _.flatten(panels)
+
+    @_steps[taskId] = _.flatten(panels)
+
 
   _get: (taskId) ->
-    @_local[taskId]
+    @_steps[taskId]
 
   exports:
     get: (id) -> @_get(id)
+
     getStep: (id, stepIndex) -> @_get(id)[stepIndex]
+
     getStepByKey: (id, stepKey) -> @exports.getStep.call(@, id, stepKey - 1)
+
+    getStepKey: (id, stepInfo) ->
+      steps = @_get(id)
+      stepIndex = _.findIndex(steps, stepInfo)
+      return null if stepIndex is -1
+      stepIndex + 1
+
+    getStepPanel: (id, stepIndex) ->
+      step = @exports.getStep.call(@, id, stepIndex)
+      panel = utils._getPanel step.panels
+      panel.names
 
 
 {actions, store} = makeSimpleStore(TaskPanel)

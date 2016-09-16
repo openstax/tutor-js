@@ -82,4 +82,4 @@ StepPanel =
     # then you cannot continue.
     @canWrite(stepId) or not isMostCurrentStep
 
-module.exports = {StepPanel}
+module.exports = {StepPanel, utils}

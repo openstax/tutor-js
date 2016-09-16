@@ -7,13 +7,13 @@ classnames = require 'classnames'
 
 {TaskActions, TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
+{TaskPanelActions, TaskPanelStore} = require '../../flux/task-panel'
 {TaskProgressActions, TaskProgressStore} = require '../../flux/task-progress'
 
-CrumbMixin = require './crumb-mixin'
 StepFooterMixin = require '../task-step/step-footer-mixin'
 
 TaskStep = require '../task-step'
-{Spacer} = require '../task-step/all-steps'
+{Spacer, statics} = require '../task-step/all-steps'
 Ends = require '../task-step/ends'
 Breadcrumbs = require './breadcrumbs'
 
@@ -27,30 +27,39 @@ ProgressPanel = require './progress/panel'
 
 {PinnedHeaderFooterCard, PinnedHeader, ScrollToMixin} = require 'shared'
 
+window.TaskPanelActions = TaskPanelActions
+window.TaskPanelStore = TaskPanelStore
+
 module.exports = React.createClass
   propTypes:
     id: React.PropTypes.string
 
   displayName: 'Task'
 
-  mixins: [StepFooterMixin, CrumbMixin, UnsavedStateMixin, ScrollToMixin]
+  mixins: [StepFooterMixin, UnsavedStateMixin, ScrollToMixin]
 
   contextTypes:
     router: React.PropTypes.func
 
   scrollingTargetDOM: -> window.document
 
+  getDefaultCurrentStep: ->
+    TaskPanelStore.getStepKey(@props.id, {is_completed: false})
+
   setStepKey: ->
-    {stepIndex} = @context.router.getCurrentParams()
+    params = @context.router.getCurrentParams()
+
     # url is 1 based so it matches the breadcrumb button numbers
     defaultKey = @getDefaultCurrentStep()
-    crumbKey = if stepIndex then parseInt(stepIndex) - 1 else defaultKey
-    crumb = @getCrumb(crumbKey)
-    TaskProgressActions.update(@props.id, crumbKey)
+    stepKey = if params.stepIndex then parseInt(params.stepIndex) else defaultKey
+    stepIndex = stepKey - 1
+
+    step = TaskPanelStore.getStep(@props.id, stepIndex)
+    TaskProgressActions.update(@props.id, stepKey)
 
     # go ahead and render this step only if this step is accessible
-    if crumb?.crumb
-      @setState(currentStep: crumbKey)
+    if step?
+      @setState(currentStep: stepIndex)
     # otherwise, redirect to the latest accessible step
     else
       @goToStep(defaultKey, true)
@@ -173,7 +182,8 @@ module.exports = React.createClass
     {id} = @props
     stepKey = parseInt(stepKey)
     params = _.clone(@context.router.getCurrentParams())
-    return false if @areKeysSame(params.stepIndex, stepKey + 1)
+    console.info('gooooo', @state.currentStep, stepKey)
+    return false if @areKeysSame(@state.currentStep, stepKey)
     # url is 1 based so it matches the breadcrumb button numbers
     params.stepIndex = stepKey + 1
     params.id = id # if we were rendered directly, the router might not have the id
@@ -198,9 +208,8 @@ module.exports = React.createClass
     stepPanel = @refs.stepPanel?.getDOMNode()
     not stepPanel?.contains(focusEvent.target)
 
-  getCrumb: (crumbKey) ->
-    crumbs = @generateCrumbs()
-    _.findWhere crumbs, {key: crumbKey}
+  getStep: (stepIndex) ->
+    TaskPanelStore.getStep(@props.id, stepIndex)
 
   renderStep: (data) ->
     {courseId} = @context.router.getCurrentParams()
@@ -254,6 +263,20 @@ module.exports = React.createClass
       courseId={courseId}
       ref='stepPanel'/>
 
+  renderStatics: (data) ->
+    {courseId} = @context.router.getCurrentParams()
+    pinned = not TaskStore.hasProgress(@props.id)
+
+    Panel = statics[data.type]
+    <Panel
+      project='tutor'
+      pinned={pinned}
+      onNextStep={@onNextStep}
+      onContinue={@onNextStep}
+      taskId={@props.id}
+      className={data.type}
+      courseId={courseId}/>
+
   # add render methods for different panel types as needed here
 
   render: ->
@@ -264,16 +287,15 @@ module.exports = React.createClass
     return null unless task?
 
     # get the crumb that matches the current state
-    crumb = @getCrumb(@state.currentStep)
-    panelType = StepPanel.getPanel(crumb.data?.id)
+    step = @getStep(@state.currentStep)
+    panelType = TaskPanelStore.getStepPanel(@props.id, @state.currentStep)
 
-    # crumb.type is one of ['intro', 'step', 'end']
-    renderPanelMethod = camelCase "render-#{crumb.type}"
-
-    throw new Error("BUG: panel #{crumb.type} for #{task.type} does not have a render method") unless @[renderPanelMethod]?
-
-    panelData = _.extend({}, crumb.data, {panelType})
-    panel = @[renderPanelMethod]?(panelData)
+    if step.id
+      panel = @renderStep(step)
+    else if step.type is 'end'
+      panel = @renderEnd(step)
+    else
+      panel = @renderStatics(step)
 
     taskClasses = classnames 'task', "task-#{task.type}",
       "task-#{panelType}": panelType?
@@ -299,9 +321,9 @@ module.exports = React.createClass
 
       panel = <ProgressPanel
         taskId={id}
-        stepId={crumb.data?.id}
+        stepId={step?.id}
         goToStep={@goToStep}
-        isSpacer={crumb?.type is 'spacer'}
+        isSpacer={not step.id?}
         stepKey={@state.currentStep}
         enableKeys={not showMilestones}
       >
