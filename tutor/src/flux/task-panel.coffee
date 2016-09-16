@@ -7,7 +7,9 @@ deepMerge = require 'lodash/merge'
 {StepPanel, utils} = require '../helpers/policies'
 {TaskStepStore} = require '../flux/task-step'
 {TaskStore} = require '../flux/task'
-{UiSettings} = require 'shared'
+
+{UiSettings, ChapterSectionMixin} = require 'shared'
+{_sectionFormat} = ChapterSectionMixin
 
 ONE_TIME_CARD_DEFAULTS =
   placement:
@@ -27,12 +29,20 @@ PERSONALIZED_KEY = 'personalized-info'
 makeStep = (task, step = {}, stepIndex) ->
   stepId = step.id or 'default'
 
+  if step.chapter_section?
+    sectionLabel = _sectionFormat(step.chapter_section)
+    firstSectionStep = _.findIndex(task.steps, (compareStep) ->
+      _sectionFormat(compareStep.chapter_section) is sectionLabel
+    )
+    step.sectionLabel = _sectionFormat(step.chapter_section) if stepIndex is firstSectionStep
+
   panels = StepPanel.getPanelsWithStatus(stepId)
   step = _.pick(step,
-    'id', 'type', 'is_completed', 'related_content', 'group',
-    'is_correct', 'answer_id', 'correct_answer_id'
+    'id', 'type', 'is_completed', 'related_content', 'group', 'chapter_section'
+    'is_correct', 'answer_id', 'correct_answer_id', 'label', 'sectionLabel'
   )
   task = _.pick(task, 'title', 'type', 'due_at', 'description')
+
 
   _.extend({panels, task}, step)
 
@@ -47,11 +57,11 @@ hasBeenPlaced = (settingKey) ->
   settings = UiSettings.get(settingKey)
   settings?.placement?
 
-stepMapOneTimeCard = (condition, type, settingKey, task, step, stepIndex) ->
+stepMapOneTimeCard = (condition, type, settingKey, isAvailable, task, step, stepIndex) ->
   if hasBeenPlaced(settingKey)
     if isPlacedHere(settingKey, step)
       makeStep(task, {type}, stepIndex)
-  else if condition(task, step, stepIndex)
+  else if isAvailable and condition(task, step, stepIndex)
     placement =
       stepId: step.id
       taskId: task.id
@@ -72,14 +82,20 @@ befores =
     if firstSpacedPractice? and firstSpacedPractice.id is step.id
       makeStep(task, {type: 'spaced-practice-intro'}, stepIndex)
 
-  'personalized': (task, step, stepIndex) ->
+  'personalized': (task, step, stepIndex, isAvailable) ->
     isPersonalized = (task, step, stepIndex) ->
       firstPersonalized = _.findWhere(task.steps, {group: 'personalized'}).id
       firstPersonalized? and firstPersonalized.id is step.id
 
-    stepMapOneTimeCard(isPersonalized, 'personalized-intro', PERSONALIZED_KEY, arguments...)
+    stepMapOneTimeCard(
+      isPersonalized,
+      'personalized-intro',
+      PERSONALIZED_KEY,
+      isAvailable,
+      arguments...
+    )
 
-  'two-step': (task, step, stepIndex) ->
+  'two-step': (task, step, stepIndex, isAvailable) ->
     isTwoStep = (task, step, stepIndex) ->
       return false if UiSettings.get(TWO_STEP_VIEWED_KEY) or not step?.content?.questions?
       _.any(step.content.questions, (question) ->
@@ -87,11 +103,17 @@ befores =
           _.contains(question.formats, 'multiple-choice')
       )
 
-    stepMapOneTimeCard(isTwoStep, 'two-step-intro', TWO_STEP_KEY, arguments...)
+    stepMapOneTimeCard(
+      isTwoStep,
+      'two-step-intro',
+      TWO_STEP_KEY,
+      isAvailable,
+      arguments...
+    )
 
 afters =
   'end': (task, step, stepIndex) ->
-    makeStep(task, {type: 'end'}, stepIndex) if stepIndex is task.steps.length - 1
+    makeStep(task, {type: 'end', label: 'summary'}, stepIndex) if stepIndex is task.steps.length - 1
 
 stepMappers = _.flatten([
   _.values(befores)
@@ -106,13 +128,12 @@ TaskPanel =
     panels = _.map task.steps, (step, stepIndex) ->
       _.chain(stepMappers)
         .map (stepMapper) ->
-          stepInfo = stepMapper(task, step, stepIndex)
-          incompleteIndex = _.findIndex(task.steps, {is_completed: false})
+          lastComplete = _.findLastIndex(task.steps, {is_completed: true})
+          latestIncomplete = lastComplete + 1
 
-          isAvailable = TaskStore.doesAllowSeeAhead(task.id) or
-            incompleteIndex is -1 or
-            stepIndex <= incompleteIndex
+          isAvailable = TaskStore.doesAllowSeeAhead(task.id) or stepIndex <= latestIncomplete
 
+          stepInfo = stepMapper(task, step, stepIndex, isAvailable)
           _.extend(stepInfo, {isAvailable}) if stepInfo
 
           stepInfo

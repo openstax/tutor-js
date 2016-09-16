@@ -1,13 +1,16 @@
 _ = require 'underscore'
 
+defaultProps = 
+  sectionSeparator: '.'
+  skipZeros: true
+  inputStringSeparator: '.'
+
 module.exports =
   getDefaultProps: ->
-    sectionSeparator: '.'
-    skipZeros: true
-    inputStringSeparator: '.'
+    defaultProps
 
-  sectionFormat: (section, separator) ->
-    {inputStringSeparator, skipZeros, sectionSeparator} = @props
+  _sectionFormat: (section, separator, settings = defaultProps) ->
+    {inputStringSeparator, skipZeros, sectionSeparator} = settings
 
     if _.isString(section)
       sectionArray = section.split(inputStringSeparator)
@@ -22,3 +25,6 @@ module.exports =
       sectionArray.join(separator or sectionSeparator)
     else
       section
+
+  sectionFormat: (section, separator) ->
+    @_sectionFormat(section, separator, @props)

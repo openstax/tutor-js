@@ -6,13 +6,13 @@ React = require 'react'
 
 _ = require 'underscore'
 
-{ChapterSectionMixin, ResizeListenerMixin} = require 'shared'
+{ResizeListenerMixin} = require 'shared'
 {BreadcrumbTaskDynamic} = require '../breadcrumb'
 
 module.exports = React.createClass
   displayName: 'Breadcrumbs'
 
-  mixins: [ChapterSectionMixin, ResizeListenerMixin]
+  mixins: [ResizeListenerMixin]
 
   propTypes:
     id: React.PropTypes.string.isRequired
