@@ -56,11 +56,7 @@ start = (bootstrapData) ->
 
   SharedNetworking.onError(onRequestError)
 
-  taskLoaded = ->
-    TaskActions.loaded(arguments...)
-    TaskPanelActions.loaded(arguments...)
-
-  apiHelper TaskActions, TaskActions.load, taskLoaded, 'GET', (id) ->
+  apiHelper TaskActions, TaskActions.load, TaskActions.loaded, 'GET', (id) ->
     url: "/api/tasks/#{id}"
 
   # apiHelper TaskActions, TaskActions.save, TaskActions.saved, 'PATCH', (id, obj) ->

@@ -5,7 +5,6 @@ deepMerge = require 'lodash/merge'
 {makeSimpleStore, STATES} = require './helpers'
 
 {StepPanel, utils} = require '../helpers/policies'
-{TaskStepStore} = require '../flux/task-step'
 {TaskStore} = require '../flux/task'
 
 {UiSettings, ChapterSectionMixin} = require 'shared'
@@ -121,28 +120,36 @@ stepMappers = _.flatten([
   _.values(afters)
 ])
 
+mapPanels = (task) ->
+  _.chain(task.steps)
+    .map (step, stepIndex) ->
+      _.map stepMappers, (stepMapper) ->
+        lastComplete = _.findLastIndex(task.steps, {is_completed: true})
+        latestIncomplete = lastComplete + 1
+
+        isAvailable = TaskStore.doesAllowSeeAhead(task.id) or stepIndex <= latestIncomplete
+
+        stepInfo = stepMapper(task, step, stepIndex, isAvailable)
+        _.extend(stepInfo, {isAvailable}) if stepInfo
+
+        stepInfo
+    .flatten()
+    .compact()
+    .value()
+
+
 TaskPanel =
   _steps: {}
+  # _tasks: {}
 
   loaded: (task, taskId) ->
-    panels = _.map task.steps, (step, stepIndex) ->
-      _.chain(stepMappers)
-        .map (stepMapper) ->
-          lastComplete = _.findLastIndex(task.steps, {is_completed: true})
-          latestIncomplete = lastComplete + 1
+    # @_tasks[taskId] = task
+    @_steps[taskId] = mapPanels(task)
 
-          isAvailable = TaskStore.doesAllowSeeAhead(task.id) or stepIndex <= latestIncomplete
-
-          stepInfo = stepMapper(task, step, stepIndex, isAvailable)
-          _.extend(stepInfo, {isAvailable}) if stepInfo
-
-          stepInfo
-
-        .compact()
-        .value()
-
-    @_steps[taskId] = _.flatten(panels)
-
+  sync: (taskId) ->
+    task = TaskStore.get(taskId)
+    task.steps = TaskStore.getSteps(taskId)
+    @loaded(task, taskId)
 
   _get: (taskId) ->
     _.where(@_steps[taskId], {isAvailable: true})

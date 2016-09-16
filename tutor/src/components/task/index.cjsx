@@ -13,7 +13,7 @@ classnames = require 'classnames'
 StepFooterMixin = require '../task-step/step-footer-mixin'
 
 TaskStep = require '../task-step'
-{Spacer, statics} = require '../task-step/all-steps'
+{statics} = require '../task-step/all-steps'
 Ends = require '../task-step/ends'
 Breadcrumbs = require './breadcrumbs'
 
@@ -26,9 +26,6 @@ ProgressPanel = require './progress/panel'
 {UnsavedStateMixin} = require '../unsaved-state'
 
 {PinnedHeaderFooterCard, PinnedHeader, ScrollToMixin} = require 'shared'
-
-window.TaskPanelActions = TaskPanelActions
-window.TaskPanelStore = TaskPanelStore
 
 module.exports = React.createClass
   propTypes:
@@ -78,14 +75,25 @@ module.exports = React.createClass
   unsavedStateMessages: -> 'The assignment has unsaved changes'
 
   componentWillMount: ->
+    @updateSteps()
     @setStepKey()
     TaskStepStore.on('step.recovered', @prepareToRecover)
+    TaskStepStore.on('step.completed', @updateSteps)
+    TaskStore.on('loaded', @updateTask)
 
   componentWillUnmount: ->
     TaskStepStore.off('step.recovered', @prepareToRecover)
+    TaskStepStore.off('step.completed', @updateSteps)
+    TaskStore.off('loaded', @updateTask)
 
   componentWillReceiveProps: ->
     @setStepKey()
+
+  updateSteps: ->
+    TaskPanelActions.sync(@props.id)
+
+  updateTask: (id) ->
+    @updateSteps() if id is @props.id
 
   _stepRecoveryQueued: (nextState) ->
     not @state.recoverForStepId and nextState.recoverForStepId
@@ -182,7 +190,6 @@ module.exports = React.createClass
     {id} = @props
     stepKey = parseInt(stepKey)
     params = _.clone(@context.router.getCurrentParams())
-    console.info('gooooo', @state.currentStep, stepKey)
     return false if @areKeysSame(@state.currentStep, stepKey)
     # url is 1 based so it matches the breadcrumb button numbers
     params.stepIndex = stepKey + 1
@@ -253,14 +260,6 @@ module.exports = React.createClass
       taskId={id}
       reloadPractice={@reloadTask}
       footer={footer}
-      ref='stepPanel'/>
-
-  renderSpacer: (data) ->
-    {courseId} = @context.router.getCurrentParams()
-    <Spacer
-      onNextStep={@onNextStep}
-      taskId={@props.id}
-      courseId={courseId}
       ref='stepPanel'/>
 
   renderStatics: (data) ->
