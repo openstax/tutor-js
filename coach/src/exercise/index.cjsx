@@ -28,7 +28,6 @@ ExerciseBase = React.createClass
     isWaiting: isWaiting
 
   componentWillReceiveProps: (nextProps) ->
-    console.info(nextProps)
     nextState = @getStepState(nextProps)
 
     @setState(nextState)
