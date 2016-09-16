@@ -287,7 +287,7 @@ module.exports = React.createClass
 
     # get the crumb that matches the current state
     step = @getStep(@state.currentStep)
-    panelType = TaskPanelStore.getStepPanel(@props.id, @state.currentStep)
+    panelType = StepPanel.getPanel(@state.currentStep)
 
     if step.id
       panel = @renderStep(step)

@@ -25,6 +25,9 @@ module.exports = {
   ExerciseHelpers:        require './src/model/exercise'
   ExercisePreview:        require './src/components/exercise-preview'
   ExerciseWithScroll,
+  TaskHelper:             require './src/helpers/task'
+  ExerciseStatics:        require './src/components/exercise/statics'
+
 
   FreeResponse:           require './src/components/exercise/free-response'
   GetPositionMixin:       require './src/components/get-position-mixin'

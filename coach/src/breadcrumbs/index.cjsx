@@ -1,6 +1,6 @@
 React = require 'react'
 classnames = require 'classnames'
-{Breadcrumb} = require 'shared'
+{Breadcrumb, TaskHelper} = require 'shared'
 _ = require 'underscore'
 
 tasks = require '../task/collection'
@@ -33,6 +33,9 @@ BreadcrumbDynamic = React.createClass
 
   render: ->
     {step} = @state
+    {crumb} = @props
+
+    step.title ?= crumb?.task?.title
     crumbProps = _.omit(@props, 'step')
 
     <Breadcrumb
@@ -60,34 +63,15 @@ Breadcrumbs = React.createClass
     task: tasks.get(taskId)
     moduleInfo: tasks.getModuleInfo(taskId)
 
-  makeCrumbEnd: (label, enabled) ->
-    {moduleInfo, task} = @state
-
-    reviewEnd =
-      type: 'end'
-      # data:
-      #   id: "#{label}"
-      #   title: moduleInfo.title
-      task:
-        title: moduleInfo.title
-        id: task.id
-      label: label
-      disabled: not enabled
-
   render: ->
     {task, moduleInfo} = @state
     {currentStep, canReview} = @props
     return null if _.isEmpty(task.steps)
 
-    crumbs = _.map task.steps, (step, index) ->
-      _.pick(step, 
-        'id', 'type', 'is_completed', 'related_content', 'group',
-        'is_correct', 'answer_id', 'correct_answer_id'
-      )
+    task.title = moduleInfo.title
 
-    reviewEnd = @makeCrumbEnd('summary', canReview)
-
-    crumbs.push(reviewEnd)
+    crumbs = TaskHelper.mapSteps(task)
+    crumbs[crumbs.length - 1].disabled = not canReview
 
     breadcrumbs = _.map crumbs, (crumb, index) =>
       {disabled} = crumb

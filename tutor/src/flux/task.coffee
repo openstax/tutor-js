@@ -196,17 +196,6 @@ TaskConfig =
     hasProgress: (taskId) ->
       @_steps[taskId].length >= 1 and @_get(taskId).type is 'reading'
 
-    doesAllowSeeAhead: (taskId) ->
-      allowed = [
-        'concept_coach'
-        'homework'
-        'practice'
-        'chapter_practice',
-        'page_practice'
-      ]
-
-      if allowed.indexOf(@_get(taskId).type) > -1 then true else false
-
     getRelatedSections: (taskId) ->
       _.chain(getSteps(@_steps[taskId]))
         .pluck('chapter_section')

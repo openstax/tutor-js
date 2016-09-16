@@ -12,7 +12,7 @@ ScrollToMixin = require '../scroll-to-mixin'
 
 ExerciseMixin =
 
-  mixins: [TwoStepHelpMixin]
+  # mixins: [TwoStepHelpMixin]
 
   propTypes:
     parts: React.PropTypes.array.isRequired
@@ -29,9 +29,9 @@ ExerciseMixin =
     _.every parts, (part) ->
       canOnlyContinue(part.id)
 
-  # In the far off misty future, we may want to check multiple mixins and render different types
-  stepHasHelp: ->     @hasTwoStepHelp()
-  renderStepHelp: ->  @renderTwoStepHelp()
+  # # In the far off misty future, we may want to check multiple mixins and render different types
+  # stepHasHelp: ->     @hasTwoStepHelp()
+  # renderStepHelp: ->  @renderTwoStepHelp()
 
   shouldControl: (id) ->
     not @props.canOnlyContinue(id)
@@ -137,7 +137,7 @@ ExerciseWithScroll = React.createClass
     @scrollToSelector(stepSelector, {updateHistory: false, unlessInView: true})
 
   render: ->
-    return @renderStepHelp() if @stepHasHelp()
+    # return @renderStepHelp() if @stepHasHelp()
 
     {parts, footer, pinned} = @props
     classes = classnames('openstax-multipart-exercise-card', {
@@ -160,7 +160,7 @@ Exercise = React.createClass
   displayName: 'Exercise'
   mixins: [ExerciseMixin]
   render: ->
-    return @renderStepHelp() if @stepHasHelp()
+    # return @renderStepHelp() if @stepHasHelp()
 
     {footer, pinned} = @props
     classes = classnames('openstax-multipart-exercise-card', {
