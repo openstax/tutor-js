@@ -19,9 +19,7 @@ module.exports = React.createClass
     goToStep: React.PropTypes.func.isRequired
 
   getInitialState: ->
-    currentStepKey = TaskProgressStore.get(@props.id)
-    currentStep = currentStepKey - 1
-    console.info('currentStep', currentStep)
+    currentStep = TaskProgressStore.get(@props.id)
 
     updateOnNext: true
     hoverCrumb: currentStep
@@ -30,16 +28,7 @@ module.exports = React.createClass
     currentStep: currentStep
 
   componentWillMount: ->
-    # listeners = @getMaxListeners()
-    # # TaskStepStore listeners include:
-    # #   One per step for the crumb status updates
-    # #   Two additional listeners for step loading and completion
-    # #     if there are placeholder steps.
-    # #   One for step being viewed in the panel itself
-    # #     this is the + 1 to the max listeners being returned
-    # #
-    # # Only update max listeners if it is greater than the default of 10
-    # TaskStepStore.setMaxListeners(listeners + 1) if listeners? and (listeners + 1) > 10
+    crumbs = @getCrumbs()
 
     # if a recovery step needs to be loaded, don't update breadcrumbs
     TaskStore.on('task.beforeRecovery', @stopUpdate)
@@ -47,13 +36,32 @@ module.exports = React.createClass
     TaskStore.on('task.afterRecovery', @update)
 
     @startListeningForProgress()
-    crumbs = @getCrumableCrumbs()
+
+    @updateListeners(crumbs)
     @setState {crumbs}
 
   componentDidMount: ->
     @calculateCrumbsWidth()
 
-  getCrumableCrumbs: ->
+  updateListeners: (crumbs) ->
+    listeners = @getMaxListeners(crumbs)
+    # TaskStepStore listeners include:
+    #   One per step for the crumb status updates
+    #   Two additional listeners for step loading and completion
+    #     if there are placeholder steps.
+    #   One for step being viewed in the panel itself
+    #     this is the + 1 to the max listeners being returned
+    #
+    # Only update max listeners if it is greater than the default of 10
+    TaskStepStore.setMaxListeners(listeners + 1) if listeners? and (listeners + 1) > 10
+
+  getMaxListeners: (crumbs) ->
+    listeners = _.reduce crumbs, (memo, crumb) ->
+      crumbListeners = if crumb.type is 'placeholder' then 3 else 1
+      memo + crumbListeners
+    , 0
+
+  getCrumbs: ->
     TaskPanelStore.get(@props.id)
 
   calculateCrumbsWidth: (crumbDOM) ->
@@ -84,7 +92,8 @@ module.exports = React.createClass
     if @props.id isnt nextProps.id
       @stopListeningForProgress()
       @startListeningForProgress(nextProps)
-    crumbs = @getCrumableCrumbs()
+    crumbs = @getCrumbs()
+    @updateListeners(crumbs)
     @setState({hoverCrumb: nextProps.currentStep, crumbs})
 
   stopListeningForProgress: (props) ->
@@ -116,8 +125,7 @@ module.exports = React.createClass
     @setState(updateOnNext: true)
 
   setCurrentStep: ({previous, current}) ->
-    console.info('current', current)
-    @setState(currentStep: current - 1)
+    @setState(currentStep: current)
 
   stopUpdate: ->
     @setState(updateOnNext: false)
@@ -128,7 +136,6 @@ module.exports = React.createClass
   render: ->
     {crumbs, currentStep} = @state
     {goToStep, wrapper} = @props
-    console.info(currentStep, crumbs)
 
     stepButtons = _.map crumbs, (crumb, crumbIndex) =>
       crumbStyle =

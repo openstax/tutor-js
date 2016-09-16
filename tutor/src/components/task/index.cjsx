@@ -55,7 +55,7 @@ module.exports = React.createClass
     stepIndex = stepKey - 1
 
     step = TaskPanelStore.getStep(@props.id, stepIndex)
-    TaskProgressActions.update(@props.id, stepKey)
+    TaskProgressActions.update(@props.id, stepIndex)
 
     # go ahead and render this step only if this step is accessible
     if step?
@@ -310,7 +310,7 @@ module.exports = React.createClass
 
     if TaskStore.hasProgress(id)
 
-      header = <TaskProgress taskId={id} stepKey={@state.currentStep} key='task-progress'/>
+      header = <TaskProgress taskId={id} stepIndex={@state.currentStep} key='task-progress'/>
       milestones = <Milestones
         id={id}
         goToStep={@goToStep}

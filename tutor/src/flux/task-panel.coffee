@@ -89,16 +89,6 @@ befores =
 
     stepMapOneTimeCard(isTwoStep, 'two-step-intro', TWO_STEP_KEY, arguments...)
 
-makeAvailableStep = (task, step, stepIndex) ->
-  if TaskStore.doesAllowSeeAhead(task.id)
-    makeStep(task, step, stepIndex)
-  else
-    lastComplete = _.findLastIndex(task.steps, {is_completed: true})
-    firstIncomplete = lastComplete + 1
-
-    if stepIndex <= firstIncomplete
-      makeStep(task, step, stepIndex)
-
 afters =
   'end': (task, step, stepIndex) ->
     makeStep(task, {type: 'end'}, stepIndex) if stepIndex is task.steps.length - 1
@@ -111,19 +101,21 @@ stepMappers = _.flatten([
 
 TaskPanel =
   _steps: {}
-  _crumbs: {}
 
   loaded: (task, taskId) ->
     panels = _.map task.steps, (step, stepIndex) ->
       _.chain(stepMappers)
         .map (stepMapper) ->
+          stepInfo = stepMapper(task, step, stepIndex)
+          incompleteIndex = _.findIndex(task.steps, {is_completed: false})
 
-          if TaskStore.doesAllowSeeAhead(task.id)
-            stepMapper(task, step, stepIndex)
-          else
-            incompleteIndex = _.findIndex(task.steps, {is_completed: false})
-            if incompleteIndex is -1 or stepIndex <= incompleteIndex
-              stepMapper(task, step, stepIndex)
+          isAvailable = TaskStore.doesAllowSeeAhead(task.id) or
+            incompleteIndex is -1 or
+            stepIndex <= incompleteIndex
+
+          _.extend(stepInfo, {isAvailable}) if stepInfo
+
+          stepInfo
 
         .compact()
         .value()
@@ -132,7 +124,7 @@ TaskPanel =
 
 
   _get: (taskId) ->
-    @_steps[taskId]
+    _.where(@_steps[taskId], {isAvailable: true})
 
   exports:
     get: (id) -> @_get(id)
@@ -151,6 +143,14 @@ TaskPanel =
       step = @exports.getStep.call(@, id, stepIndex)
       panel = utils._getPanel step.panels
       panel.names
+
+    getProgress: (id, stepIndex) ->
+      steps = @_steps[id]
+
+      if steps.length
+        (stepIndex + 1) / (steps.length) * 100
+      else
+        0
 
 
 {actions, store} = makeSimpleStore(TaskPanel)

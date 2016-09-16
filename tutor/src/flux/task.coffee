@@ -136,14 +136,6 @@ TaskConfig =
       steps = getSteps(@_steps[taskId])
       step = getCurrentStep(steps)
 
-    getProgress: (taskId, stepKey) ->
-      steps = getSteps(@_steps[taskId])
-
-      if steps.length
-        (stepKey + 1) / (steps.length + 1) * 100
-      else
-        0
-
     getIncompleteSteps: (taskId) ->
       allSteps = getSteps(@_steps[taskId])
       steps = getIncompleteSteps(allSteps)

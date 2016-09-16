@@ -91,10 +91,10 @@ MilestonesWrapper = React.createClass
     goToStep: React.PropTypes.func.isRequired
 
   getInitialState: ->
-    currentStepKey = TaskProgressStore.get(@props.id)
+    currentStep = TaskProgressStore.get(@props.id)
     crumbs = TaskPanelStore.get(@props.id)
 
-    currentStep: currentStepKey - 1
+    currentStep: currentStep
     crumbs: crumbs
 
   componentDidMount: ->
