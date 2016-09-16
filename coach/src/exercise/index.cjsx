@@ -8,6 +8,8 @@ api = require '../api'
 {Reactive} = require '../reactive'
 apiChannelName = 'exercise'
 
+WAIT_STATES = ['loading', 'saving']
+
 ExerciseBase = React.createClass
   displayName: 'ExerciseBase'
   getInitialState: ->
@@ -17,12 +19,16 @@ ExerciseBase = React.createClass
 
   getStepState: (props) ->
     props ?= @props
-    {item} = props
+    {item, status} = props
+
+    isWaiting = _.contains(WAIT_STATES, status)
 
     step: _.last(item)
     parts: item
+    isWaiting: isWaiting
 
   componentWillReceiveProps: (nextProps) ->
+    console.info(nextProps)
     nextState = @getStepState(nextProps)
 
     @setState(nextState)
@@ -45,7 +51,7 @@ ExerciseBase = React.createClass
     </div>
 
   render: ->
-    {step} = @state
+    {step, isWaiting} = @state
     {taskId} = @props
     return null if _.isEmpty(step)
 
@@ -86,6 +92,8 @@ ExerciseBase = React.createClass
 
       onNextStep: ->
         channel.emit("leave.#{step.id}")
+
+      waitingText: (isWaiting and ' Saving…') or ''
 
     if taskId?
       wrapperProps =
