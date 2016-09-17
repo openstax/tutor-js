@@ -4,6 +4,7 @@ _ = require 'underscore'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 {TaskProgressActions, TaskProgressStore} = require '../../flux/task-progress'
 {TaskStore} = require '../../flux/task'
+{TaskPanelStore} = require '../../flux/task-panel'
 {StepPanel} = require '../../helpers/policies'
 
 BrowseTheBook = require '../buttons/browse-the-book'
@@ -130,7 +131,7 @@ module.exports = React.createClass
 
   setCurrentStepByStepId: (id) ->
     {taskId} = @props
-    stepNavIndex = TaskStore.getStepNavIndex(taskId, id)
+    stepNavIndex = TaskPanelStore.getStepIndex(taskId, {id})
     @setCurrentStep(stepNavIndex)
 
   onFreeResponseChange: (id, tempFreeResponse) ->

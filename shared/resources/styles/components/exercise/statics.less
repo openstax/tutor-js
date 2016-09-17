@@ -1,30 +1,41 @@
 &-two-step-intro,
 &-personalized-intro,
 &-spaced-practice-intro {
+
+  h1 {
+    display: flex;
+    align-items: center;
+
+    &::before {
+      padding-right: 1rem;
+    }
+  }
+
   &.card-body { // overide normal card-body styles
     padding: 60px 140px;
   }
+
   .heading {
-    background-image: url("../../../images/openstax-white-books.png");
-    background-size: auto 50px;
-    background-repeat: no-repeat;
-    line-height: 50px;
-    text-indent: 100px;
-    font-size: 18px;
     text-transform: uppercase;
+    display: none;
   }
-  h1 {
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: 3rem;
-  }
+
   p {
     font-size: 18px;
     line-height: 24px;
   }
+
+  button:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
+    font-weight: 600;
+  }
 }
 
 &-two-step-intro {
+
+  h1::before {
+    content: url("../@{icon-path}/icon-two-step-intro-heading.svg");
+  }
+
   &.card-body {
     color: @openstax-white;
     background: @openstax-secondary;
@@ -36,6 +47,11 @@
 }
 
 &-personalized-intro {
+
+  h1::before {
+    content: url("../@{icon-path}/icon-personalized-intro-heading.svg");
+  }
+
   &.card-body {
     color: @openstax-white;
     background: @openstax-primary;
@@ -44,4 +60,12 @@
     background-color: @openstax-white;
     color: @openstax-primary !important;
   }
+}
+
+&-spaced-practice-intro {
+
+  h1::before {
+    content: url("../@{icon-path}/icon-spaced-practice-intro-heading.svg");
+  }
+
 }

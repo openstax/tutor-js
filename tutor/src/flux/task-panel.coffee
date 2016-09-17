@@ -26,11 +26,14 @@ TaskPanel =
 
     getStepByKey: (id, stepKey) -> @exports.getStep.call(@, id, stepKey - 1)
 
-    getStepKey: (id, stepInfo) ->
+    getStepIndex: (id, stepInfo) ->
       steps = @_get(id)
       stepIndex = _.findIndex(steps, stepInfo)
       return null if stepIndex is -1
-      stepIndex + 1
+      stepIndex
+
+    getStepKey: (id, stepInfo) ->
+      @exports.getStepIndex.call(@, id, stepInfo) + 1
 
     getProgress: (id, stepIndex) ->
       steps = @_steps[id]
