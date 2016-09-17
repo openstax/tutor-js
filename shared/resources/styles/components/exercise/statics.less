@@ -1,0 +1,47 @@
+&-two-step-intro,
+&-personalized-intro,
+&-spaced-practice-intro {
+  &.card-body { // overide normal card-body styles
+    padding: 60px 140px;
+  }
+  .heading {
+    background-image: url("../../../images/openstax-white-books.png");
+    background-size: auto 50px;
+    background-repeat: no-repeat;
+    line-height: 50px;
+    text-indent: 100px;
+    font-size: 18px;
+    text-transform: uppercase;
+  }
+  h1 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 3rem;
+  }
+  p {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
+
+&-two-step-intro {
+  &.card-body {
+    color: @openstax-white;
+    background: @openstax-secondary;
+  }
+  button:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
+    background-color: @openstax-white;
+    color: @openstax-secondary !important;
+  }
+}
+
+&-personalized-intro {
+  &.card-body {
+    color: @openstax-white;
+    background: @openstax-primary;
+  }
+  button:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
+    background-color: @openstax-white;
+    color: @openstax-primary !important;
+  }
+}

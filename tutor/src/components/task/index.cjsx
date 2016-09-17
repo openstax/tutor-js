@@ -13,7 +13,6 @@ classnames = require 'classnames'
 StepFooterMixin = require '../task-step/step-footer-mixin'
 
 TaskStep = require '../task-step'
-{statics} = require '../task-step/all-steps'
 Ends = require '../task-step/ends'
 Breadcrumbs = require './breadcrumbs'
 
@@ -25,7 +24,7 @@ ProgressPanel = require './progress/panel'
 
 {UnsavedStateMixin} = require '../unsaved-state'
 
-{PinnedHeaderFooterCard, PinnedHeader, ScrollToMixin} = require 'shared'
+{PinnedHeaderFooterCard, PinnedHeader, ScrollToMixin, ExerciseStatics} = require 'shared'
 
 module.exports = React.createClass
   propTypes:
@@ -266,7 +265,7 @@ module.exports = React.createClass
     {courseId} = @context.router.getCurrentParams()
     pinned = not TaskStore.hasProgress(@props.id)
 
-    Panel = statics[data.type]
+    Panel = ExerciseStatics[data.type]
     <Panel
       project='tutor'
       pinned={pinned}

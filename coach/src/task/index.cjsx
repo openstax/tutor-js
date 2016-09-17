@@ -146,7 +146,7 @@ TaskBase = React.createClass
       {type} = crumbs[currentStep]
       Static = ExerciseStatics[type]
 
-      panel = <Static project='concept-coach'/>
+      panel = <Static project='concept-coach' onContinue={@nextStep}/>
 
     taskClasses = classnames 'concept-coach-task',
       'card-body': noExercises

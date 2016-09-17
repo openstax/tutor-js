@@ -4,7 +4,7 @@ React = require 'react'
 {TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 LoadableItem = require '../loadable-item'
-{Reading, Interactive, Video, Exercise, Placeholder, Spacer, ExternalUrl} = require './all-steps'
+{Reading, Interactive, Video, Exercise, Placeholder, ExternalUrl} = require './all-steps'
 
 {StepPanel} = require '../../helpers/policies'
 
@@ -19,7 +19,6 @@ STEP_TYPES =
   video       : Video
   exercise    : Exercise
   placeholder : Placeholder
-  spacer : Spacer
   external_url: ExternalUrl
 
 getStepType = (typeName) ->

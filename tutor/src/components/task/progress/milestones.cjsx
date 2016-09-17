@@ -50,7 +50,7 @@ Milestone = React.createClass
         previewText = 'Personalized questions'
 
       when 'two-step-intro'
-        previewText = 'Two-tep questions'
+        previewText = 'Two-step questions'
 
     if crumb.type is 'exercise'
       preview = <ArbitraryHtmlAndMath
