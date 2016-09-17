@@ -56,7 +56,7 @@ SpacedPracticeIntro = React.createClass
         <span>Reading Review</span>
       </h1>
       <p>{introText}</p>
-      <BS.Button onClick={@props.onContinue}>Continue</BS.Button>
+      <BS.Button bsStyle='primary' onClick={@props.onContinue}>Continue</BS.Button>
     </CardBody>
 
 
