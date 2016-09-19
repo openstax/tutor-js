@@ -3,6 +3,7 @@ deepMerge = require 'lodash/merge'
 
 UiSettings = require '../model/ui-settings'
 {_sectionFormat} = require '../components/chapter-section-mixin'
+{PERSONALIZED_GROUP, SPACED_PRACTICE_GROUP} = require './step-helps'
 
 ONE_TIME_CARD_DEFAULTS =
   placement:
@@ -71,17 +72,17 @@ stepMapOneTimeCard = (condition, type, settingKey, isAvailable, task, step, step
     makeStep(task, {type}, stepIndex)
 
 befores =
-  # TODO for future implementation of instructions card.
-  'intro': -> null
+  # # TODO for future implementation of instructions card.
+  # 'intro': -> null
 
-  'spaced-practice': (task, step, stepIndex) ->
-    firstSpacedPractice = _.findWhere(task.steps, {group: 'spaced practice'})
+  'spaced practice': (task, step, stepIndex) ->
+    firstSpacedPractice = _.findWhere(task.steps, {group: SPACED_PRACTICE_GROUP})
     if firstSpacedPractice? and firstSpacedPractice.id is step.id
       makeStep(task, {type: 'spaced-practice-intro'}, stepIndex)
 
   'personalized': (task, step, stepIndex, isAvailable) ->
     isPersonalized = (task, step, stepIndex) ->
-      firstPersonalized = _.findWhere(task.steps, {group: 'personalized'})
+      firstPersonalized = _.findWhere(task.steps, {group: PERSONALIZED_GROUP})
       firstPersonalized? and firstPersonalized.id is step.id
 
     stepMapOneTimeCard(
