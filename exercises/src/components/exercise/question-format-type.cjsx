@@ -17,7 +17,7 @@ TYPES =
 QuestionFormatType = React.createClass
 
   propTypes:
-    questionId: React.PropTypes.number.isRequired
+    questionId: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]).isRequired
     sync: React.PropTypes.func.isRequired
 
   update: -> @forceUpdate()

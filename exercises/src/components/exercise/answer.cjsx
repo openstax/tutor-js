@@ -8,7 +8,7 @@ module.exports = React.createClass
   getInitialState: -> {}
 
   propTypes:
-    id: React.PropTypes.number.isRequired
+    id: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]).isRequired
     sync: React.PropTypes.func.isRequired
 
   updateContent: (event) ->
