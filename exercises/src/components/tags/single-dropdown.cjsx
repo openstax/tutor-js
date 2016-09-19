@@ -19,12 +19,13 @@ SingleDropdown = React.createClass
     )
 
   render: ->
-    tag = _.first @props.store.getTagsWithPrefix(@props.id, @props.prefix)
+    tag = _.first(@props.store.getTagsWithPrefix(@props.id, @props.prefix)) or ''
+
     <Wrapper label={@props.label} singleTag={true}>
       <div className="tag">
         <select className='form-control' onChange={@updateTag} value={tag}>
           {unless tag # a tag cannot be blank once it's set
-            <option key='blank' value={''}>{name}</option>}
+            <option key='blank' value=''>{name}</option>}
           {for tag, name of @props.choices
             <option key={tag} value={tag}>{name}</option>}
         </select>

@@ -92,18 +92,18 @@ QuestionConfig = {
 
     getAnswers: (id) -> @_get(id)?.answers or []
 
-    getStem: (id) -> @_get(id)?.stem_html
+    getStem: (id) -> @_get(id)?.stem_html or ''
 
-    getStimulus: (id) -> @_get(id)?.stimulus_html
+    getStimulus: (id) -> @_get(id)?.stimulus_html or ''
 
     getSolution: (id) ->
-      _.first(@_get(id).collaborator_solutions)?.content_html
+      _.first(@_get(id).collaborator_solutions)?.content_html or ''
 
     getCorrectAnswer: (id) ->
       _.find @_get(id)?.answers, (answer) -> AnswerStore.isCorrect(answer.id)
 
     isOrderPreserved: (id) ->
-      @_get(id).is_answer_order_important
+      @_get(id).is_answer_order_important or false
 
     getTemplate: ->
       answerId = AnswerStore.freshLocalId()

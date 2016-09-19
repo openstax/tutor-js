@@ -53,6 +53,7 @@ QuestionFormatType = React.createClass
           name={"#{@props.questionId}-formats"}
           label={name}
           value={id}
+          onChange={@update}
           onClick={@updateFormat}
           checked={@isFormatChecked(id)}
         />}

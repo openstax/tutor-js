@@ -17,7 +17,7 @@ RequiresContextTag = React.createClass
     @props.actions.setPrefixedTag(@props.id, prefix: PREFIX, tag: tag, replaceOthers:true)
 
   render: ->
-    tag = _.first @props.store.getTagsWithPrefix(@props.id, PREFIX)
+    tag = _.first(@props.store.getTagsWithPrefix(@props.id, PREFIX)) or 'false'
 
     <Wrapper label="Requires Context">
       <div className="tag">
