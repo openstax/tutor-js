@@ -5,6 +5,10 @@
 Collection = require 'exercise/collection'
 step = require '../../api/steps/4573/GET'
 
+props =
+  id: '4573'
+  item: step
+  status: 'loaded'
 
 setFreeResponse = (dom, answer) ->
   ta = dom.querySelector('textarea')
@@ -16,25 +20,33 @@ saveFreeResponse = (dom, answer) ->
   setFreeResponse(dom, answer)
   Testing.actions.click(dom.querySelector('button.continue'))
 
+ensureExerciseLoaded = ->
+  Collection.channel.emit("load.#{props.id}", {status: 'loaded', data: step})
+
 describe 'Exercise Step', ->
 
-  beforeEach ->
-    UiSettings.initialize({'has-viewed-two-step-help': true})
-    @props =
-      id: '4573'
-      item: _.clone(step)
+  updatedStep = null
 
-    Collection.quickLoad(@props.id, @props.item)
+  beforeEach ->
+    updatedStep = _.clone(props.item)
+
+    UiSettings.initialize({'has-viewed-two-step-help': true})
+    Collection.quickLoad(props.id, updatedStep)
 
   afterEach ->
     UiSettings._reset()
+    updatedStep = null
 
   it 'renders given exercise', ->
-    Testing.renderComponent( ExerciseStep, props: @props ).then ({dom}) ->
+    Testing.renderComponent( ExerciseStep, {props} ).then ({dom}) ->
+      ensureExerciseLoaded()
+
       expect(dom.querySelector('.openstax-exercise')).not.to.be.null
 
   it 'caches free response', ->
-    Testing.renderComponent( ExerciseStep, props: @props ).then ({dom}) ->
+    Testing.renderComponent( ExerciseStep, {props} ).then ({dom}) ->
+      ensureExerciseLoaded()
+
       setFreeResponse(dom, 'My Partial Answer')
       expect(dom.querySelector('textarea').value).equal('My Partial Answer')
       expect(dom.querySelector('.free-response')).to.be.null
@@ -45,13 +57,17 @@ describe 'Exercise Step', ->
 
 
   it 'saves free response', ->
-    Testing.renderComponent( ExerciseStep, props: @props ).then ({dom}) ->
+    Testing.renderComponent( ExerciseStep, {props} ).then ({dom}) ->
+      ensureExerciseLoaded()
+
       saveFreeResponse(dom, 'My Answer')
       expect(dom.querySelector('textarea')).to.be.null
       expect(dom.querySelector('.free-response').innerText).equal('My Answer')
 
   it 'renders answer choices after free response', ->
-    Testing.renderComponent( ExerciseStep, props: @props ).then ({dom}) ->
+    Testing.renderComponent( ExerciseStep, {props} ).then ({dom}) ->
+      ensureExerciseLoaded()
+
       saveFreeResponse(dom, 'My Second Answer')
       expect(dom.querySelector('.free-response').textContent).equal('My Second Answer')
       answers = _.pluck dom.querySelectorAll('.answer-content'), 'textContent'
@@ -60,11 +76,13 @@ describe 'Exercise Step', ->
       )
 
   it 'sets answer id after selection', ->
-    Testing.renderComponent( ExerciseStep, props: @props ).then ({dom}) =>
+    Testing.renderComponent( ExerciseStep, {props} ).then ({dom}) =>
+      ensureExerciseLoaded()
+
       saveFreeResponse(dom, 'My Second Answer')
       answer = dom.querySelectorAll('.answers-answer')[0]
       input = answer.querySelector('input')
       ReactTestUtils.Simulate.change(input, target:{checked: true})
       Testing.actions.click(input)
-      selectedAnswer = _.find(step.content.questions[0].answers, id: @props.item.answer_id)
+      selectedAnswer = _.find(Collection.get(props.id).content.questions[0].answers, id: updatedStep.answer_id)
       expect(selectedAnswer.content_html).equal(answer.innerText)
