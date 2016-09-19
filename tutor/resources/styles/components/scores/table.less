@@ -141,8 +141,7 @@
   }
 
   .status-cell,
-  .assignment-header-cell,
-  .student-name {
+  .assignment-header-cell {
     width: 100%;
     height: 100%;
     display: block;
@@ -418,16 +417,19 @@
 
   .name-cell {
     border-left: @table-outer-border-width solid @table-outer-border-color;
-    line-height: @table-row-height;
-
+    height: @table-row-height;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 0 0 @left-column-padding;
+    .student-name, .student-id { line-height: normal; }
     .student-name {
-      padding: 0;
-      padding-left: @left-column-padding;
+      color: @tutor-neutral-dark;
     }
-
-    .name {
-      text-align: left;
-      padding-left: @left-column-padding;
+    .student-id {
+      margin-top: 0.5rem;
+      font-size: 1.1rem;
+      color: @tutor-neutral;
     }
   }
 }
