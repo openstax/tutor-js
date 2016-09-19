@@ -3,7 +3,13 @@ React = require 'react'
 _ = require 'underscore'
 
 {CardBody} = require '../pinned-header-footer-card/sections'
-{PERSONALIZED_GROUP, SPACED_PRACTICE_GROUP, makeHelpText} = require '../../helpers/step-helps'
+{
+  PERSONALIZED_GROUP,
+  SPACED_PRACTICE_GROUP,
+  TWO_STEP_ALIAS,
+  LABELS,
+  getHelpText
+} = require '../../helpers/step-helps'
 
 
 PROJECT_NAME =
@@ -17,13 +23,14 @@ TwoStepIntro = React.createClass
     project: React.PropTypes.string.isRequired
 
   render: ->
+    groupLabel = LABELS[TWO_STEP_ALIAS]
 
     <CardBody className="task-step openstax-two-step-intro #{@props.project}">
       <div className="heading">{PROJECT_NAME[@props.project]}</div>
       <h1>
-        <span>Two-step questions</span>
+        <span>{groupLabel} questions</span>
       </h1>
-      <p>{makeHelpText['two-step'](@props.project)}</p>
+      <p>{getHelpText['two-step'](@props.project)}</p>
       <BS.Button onClick={@props.onContinue}>Continue</BS.Button>
     </CardBody>
 
@@ -35,13 +42,14 @@ SpacedPracticeIntro = React.createClass
     project: React.PropTypes.string.isRequired
 
   render: ->
+    groupLabel = LABELS[SPACED_PRACTICE_GROUP]
 
     <CardBody className="task-step openstax-spaced-practice-intro #{@props.project}">
       <div className="heading">{PROJECT_NAME[@props.project]}</div>
       <h1>
-        <span>Reading Review</span>
+        <span>{groupLabel}</span>
       </h1>
-      <p>{makeHelpText[SPACED_PRACTICE_GROUP](@props.project)}</p>
+      <p>{getHelpText[SPACED_PRACTICE_GROUP](@props.project)}</p>
       <BS.Button bsStyle='primary' onClick={@props.onContinue}>Continue</BS.Button>
     </CardBody>
 
@@ -53,13 +61,14 @@ PersonalizedIntro = React.createClass
     project: React.PropTypes.string.isRequired
 
   render: ->
+    groupLabel = LABELS[PERSONALIZED_GROUP]
 
     <CardBody className="task-step openstax-personalized-intro #{@props.project}">
       <div className="heading">{PROJECT_NAME[@props.project]}</div>
       <h1>
-        <span>Personalized questions</span>
+        <span>{groupLabel} questions</span>
       </h1>
-      <p>{makeHelpText[PERSONALIZED_GROUP](@props.project)}</p>
+      <p>{getHelpText[PERSONALIZED_GROUP](@props.project)}</p>
       <BS.Button onClick={@props.onContinue}>Continue</BS.Button>
     </CardBody>
 

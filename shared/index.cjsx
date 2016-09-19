@@ -24,6 +24,7 @@ module.exports = {
   ExercisePreview:        require './src/components/exercise-preview'
   ExerciseWithScroll,
   TaskHelper:             require './src/helpers/task'
+  StepHelpsHelper:        require './src/helpers/step-helps'
   ExerciseStatics:        require './src/components/exercise/statics'
 
 

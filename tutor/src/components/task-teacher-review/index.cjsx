@@ -45,6 +45,8 @@ TaskTeacherReview = React.createClass
     scrollState: {}
     period: {id: periodId}
     isReviewLoaded: TaskTeacherReviewStore.get(id)?
+    steps: []
+    crumbs: []
 
   componentWillMount: ->
     @setStepKey()
@@ -116,13 +118,14 @@ TaskTeacherReview = React.createClass
 
   getReviewContents: (period) ->
     steps = @getContents(period)
-    crumbs = @getCrumableCrumbs(period)
+    crumbs = @generateCrumbs(period)
 
     {steps, crumbs}
 
   getActiveStep: ->
     {steps, currentStep} = @state
-    activeStep = _.find(steps, {key: currentStep})
+    # activeStep = _.find(steps, {key: currentStep})
+    activeStep = steps[currentStep]
 
   render: ->
     {id, courseId} = @props

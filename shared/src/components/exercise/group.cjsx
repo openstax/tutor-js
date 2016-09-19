@@ -6,19 +6,19 @@ camelCase = require 'camelcase'
 ChapterSectionMixin = require '../chapter-section-mixin'
 ExerciseIdentifierLink = require '../exercise-identifier-link'
 
-{PERSONALIZED_GROUP, SPACED_PRACTICE_GROUP, makeHelpText} = require '../../helpers/step-helps'
+{PERSONALIZED_GROUP, SPACED_PRACTICE_GROUP, LABELS, getHelpText} = require '../../helpers/step-helps'
 
 DEFAULT_GROUP =
   show: false
 REVIEW_GROUP =
   show: true
-  label: 'Spaced Practice'
-  makeToolTipText: _.partial(makeHelpText[SPACED_PRACTICE_GROUP], _, false)
+  label: LABELS[SPACED_PRACTICE_GROUP]
+  makeToolTipText: _.partial(getHelpText[SPACED_PRACTICE_GROUP], _, false)
 
 PERSONALIZED_GROUP =
   show: true
-  label: 'Personalized'
-  makeToolTipText: _.partial(makeHelpText[PERSONALIZED_GROUP], _, false)
+  label: LABELS[PERSONALIZED_GROUP]
+  makeToolTipText: _.partial(getHelpText[PERSONALIZED_GROUP], _, false)
 
 RULES =
   default: DEFAULT_GROUP
@@ -55,10 +55,12 @@ ExerciseGroup = React.createClass
     if RULES[group].show
       className = group.replace(' ', '_')
       labels = @getGroupLabel(group, related_content)
-      isSpacedPractice = className is 'spaced_practice'
+      isSpacedPractice = group is SPACED_PRACTICE_GROUP
       icon = <i className="icon-sm icon-#{className}" key='group-icon'></i>
 
-      spacedPracticeHeading = <p><b>What is spaced practice?</b></p>
+      spacedPracticeHeading = <p>
+        <b>What is {LABELS[SPACED_PRACTICE_GROUP].toLowerCase()}?</b>
+      </p>
 
       groupDOM = [
         icon

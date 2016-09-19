@@ -3,7 +3,7 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
 
-{ChapterSectionMixin, ArbitraryHtmlAndMath} = require 'shared'
+{ChapterSectionMixin, ArbitraryHtmlAndMath, StepHelpsHelper} = require 'shared'
 {BreadcrumbStatic} = require '../../breadcrumb'
 
 {TaskStepActions, TaskStepStore} = require '../../../flux/task-step'
@@ -11,6 +11,13 @@ classnames = require 'classnames'
 {TaskPanelActions, TaskPanelStore} = require '../../../flux/task-panel'
 {TaskStore} = require '../../../flux/task'
 {StepTitleStore} = require '../../../flux/step-title'
+
+{
+  PERSONALIZED_GROUP,
+  SPACED_PRACTICE_GROUP,
+  TWO_STEP_ALIAS,
+  LABELS
+} = StepHelpsHelper
 
 ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
@@ -41,16 +48,16 @@ Milestone = React.createClass
         previewText = "#{crumb.task.title} Completed"
 
       when 'coach'
-        previewText = 'Spaced Practice'
+        previewText = LABELS[SPACED_PRACTICE_GROUP]
 
       when 'spaced-practice-intro'
-        previewText = 'Spaced Practice'
+        previewText = LABELS[SPACED_PRACTICE_GROUP]
 
       when 'personalized-intro'
-        previewText = 'Personalized questions'
+        previewText = "#{LABELS[PERSONALIZED_GROUP]} questions"
 
       when 'two-step-intro'
-        previewText = 'Two-step questions'
+        previewText = "#{LABELS[TWO_STEP_ALIAS]} questions"
 
     if crumb.type is 'exercise'
       preview = <ArbitraryHtmlAndMath
