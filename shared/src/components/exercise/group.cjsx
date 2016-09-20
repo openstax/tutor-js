@@ -6,7 +6,13 @@ camelCase = require 'camelcase'
 ChapterSectionMixin = require '../chapter-section-mixin'
 ExerciseIdentifierLink = require '../exercise-identifier-link'
 
-{PERSONALIZED_GROUP, SPACED_PRACTICE_GROUP, LABELS, getHelpText} = require '../../helpers/step-helps'
+{
+  PERSONALIZED_GROUP,
+  SPACED_PRACTICE_GROUP,
+  ALIASES,
+  LABELS,
+  getHelpText
+} = require '../../helpers/step-helps'
 Markdown = require '../markdown'
 
 DEFAULT_GROUP =
@@ -52,7 +58,7 @@ ExerciseGroup = React.createClass
     groupDOM = []
 
     if RULES[group].show
-      className = group.replace(' ', '_')
+      className = ALIASES[group] or group
       labels = @getGroupLabel(group, related_content)
       isSpacedPractice = group is SPACED_PRACTICE_GROUP
       icon = <i className="icon-sm icon-#{className}" key='group-icon'></i>

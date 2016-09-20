@@ -47,6 +47,7 @@ resetProps = ->
   step = _.clone(STEP)
   props = _.clone(FREE_RESPONSE_PROPS)
   props.parts = [step]
+  props.project = 'tutor'
 
 exerciseActionsAndChecks =
   enterFreeResponse: ({dom, wrapper, element}, freeResponse = 'HELLO') ->

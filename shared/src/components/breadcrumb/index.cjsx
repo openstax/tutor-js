@@ -31,7 +31,7 @@ Breadcrumb = React.createClass
     isCurrent = stepIndex is currentStep
     isCompleted = step?.is_completed
     isEnd = crumb.type is 'end'
-    # crumbType = if isEnd then crumb.type else step?.type
+
     {type} = crumb
     crumbType = type
 
