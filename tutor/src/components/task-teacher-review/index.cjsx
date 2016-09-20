@@ -124,8 +124,7 @@ TaskTeacherReview = React.createClass
 
   getActiveStep: ->
     {steps, currentStep} = @state
-    # activeStep = _.find(steps, {key: currentStep})
-    activeStep = steps[currentStep]
+    activeStep = _.find(steps, {key: currentStep})
 
   render: ->
     {id, courseId} = @props

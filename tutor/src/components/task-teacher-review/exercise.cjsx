@@ -129,8 +129,9 @@ TaskTeacherReviewExercise = React.createClass
       {stimulus}
       {exercise}
       <ExerciseGroup
-          key='step-exercise-group'
-          exercise_uid={uid}/>
+        project='tutor'
+        key='step-exercise-group'
+        exercise_uid={uid}/>
     </CardBody>
 
 module.exports = TaskTeacherReviewExercise

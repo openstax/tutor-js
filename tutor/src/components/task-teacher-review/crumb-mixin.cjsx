@@ -43,7 +43,7 @@ module.exports =
   _makeCrumb: (data) ->
     crumb =
       data: data
-      type: 'step'
+      type: 'exercise'
       listeners: @_getStepListeners('exercise')
 
     if data.length
