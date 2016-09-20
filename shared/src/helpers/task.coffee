@@ -2,7 +2,7 @@ _ = require 'underscore'
 deepMerge = require 'lodash/merge'
 
 UiSettings = require '../model/ui-settings'
-{_sectionFormat} = require '../components/chapter-section-mixin'
+{formatSection} = require '../helpers/step-content'
 {
   PERSONALIZED_GROUP,
   SPACED_PRACTICE_GROUP,
@@ -36,11 +36,11 @@ makeStep = (task, step = {}, stepIndex) ->
   stepId = step.id or 'default'
 
   if step.chapter_section?
-    sectionLabel = _sectionFormat(step.chapter_section)
+    sectionLabel = formatSection(step.chapter_section)
     firstSectionStep = _.findIndex(task.steps, (compareStep) ->
-      _sectionFormat(compareStep.chapter_section) is sectionLabel
+      formatSection(compareStep.chapter_section) is sectionLabel
     )
-    step.sectionLabel = _sectionFormat(step.chapter_section) if stepIndex is firstSectionStep
+    step.sectionLabel = formatSection(step.chapter_section) if stepIndex is firstSectionStep
 
   step = _.pick(step,
     'id', 'type', 'is_completed', 'related_content', 'group', 'chapter_section'
