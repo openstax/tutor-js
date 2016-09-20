@@ -3,7 +3,13 @@ deepMerge = require 'lodash/merge'
 
 UiSettings = require '../model/ui-settings'
 {_sectionFormat} = require '../components/chapter-section-mixin'
-{PERSONALIZED_GROUP, SPACED_PRACTICE_GROUP} = require './step-helps'
+{
+  PERSONALIZED_GROUP,
+  SPACED_PRACTICE_GROUP,
+  TWO_STEP_ALIAS,
+  INTRO_ALIASES,
+  makeAliases
+} = require './step-helps'
 
 ONE_TIME_CARD_DEFAULTS =
   placement:
@@ -14,8 +20,11 @@ ONE_TIME_CARD_DEFAULTS =
 # old key, keep backwards compatibility
 TWO_STEP_VIEWED_KEY = 'has-viewed-two-step-help'
 
-TWO_STEP_KEY = 'two-step-info'
-PERSONALIZED_KEY = 'personalized-info'
+# Settings keys are:
+# 'two-step-info'
+# 'personalized-info'
+# 'spaced-practice-info'
+SETTING_KEYS = makeAliases('info')
 
 SEE_AHEAD_ALLOWED = [
   'concept_coach'
@@ -56,8 +65,10 @@ hasBeenPlaced = (settingKey) ->
   settings?.placement?
 
 stepMapOneTimeCard = (condition, type, settingKey, isAvailable, task, step, stepIndex) ->
-  if hasBeenPlaced(settingKey)
-    if isPlacedHere(settingKey, step)
+  settingKeyForTaskType = "#{settingKey}-#{task.type}"
+
+  if hasBeenPlaced(settingKeyForTaskType)
+    if isPlacedHere(settingKeyForTaskType, step)
       makeStep(task, {type}, stepIndex)
   else if isAvailable and condition(task, step, stepIndex)
     placement =
@@ -67,47 +78,66 @@ stepMapOneTimeCard = (condition, type, settingKey, isAvailable, task, step, step
     is_completed = true
 
     settings = makeUiSettings({placement, is_completed})
-    UiSettings.set(settingKey, settings)
+    UiSettings.set(settingKeyForTaskType, settings)
 
     makeStep(task, {type}, stepIndex)
 
-befores =
-  # # TODO for future implementation of instructions card.
-  # 'intro': -> null
+stepMapOneTimeCardForGroup = (condition, isAvailable, task, step, stepIndex) ->
 
-  'spaced practice': (task, step, stepIndex) ->
+  type = INTRO_ALIASES[step.group]
+  settingKey = SETTING_KEYS[step.group]
+  return if _.any([type, settingKey, step.group], _.isUndefined)
+
+  stepMapOneTimeCard(condition, type, settingKey, isAvailable, task, step, stepIndex)
+
+
+befores = {}
+
+# TODO for future implementation of instructions card.
+# befores['intro'] = (task, step, stepIndex) ->
+#   makeStep(task, {type: 'task-intro'}, stepIndex)
+
+befores[SPACED_PRACTICE_GROUP] = (task, step, stepIndex, isAvailable) ->
+  isSpacedPractice = (task, step, stepIndex) ->
+    # TODO check if should be first or last
     firstSpacedPractice = _.findWhere(task.steps, {group: SPACED_PRACTICE_GROUP})
-    if firstSpacedPractice? and firstSpacedPractice.id is step.id
-      makeStep(task, {type: 'spaced-practice-intro'}, stepIndex)
+    firstSpacedPractice? and firstSpacedPractice.id is step.id
 
-  'personalized': (task, step, stepIndex, isAvailable) ->
-    isPersonalized = (task, step, stepIndex) ->
-      firstPersonalized = _.findWhere(task.steps, {group: PERSONALIZED_GROUP})
-      firstPersonalized? and firstPersonalized.id is step.id
-
-    stepMapOneTimeCard(
-      isPersonalized,
-      'personalized-intro',
-      PERSONALIZED_KEY,
+  if task.type is 'reading' and isSpacedPractice(task, step, stepIndex)
+    makeStep(task, {type: INTRO_ALIASES[SPACED_PRACTICE_GROUP]}, stepIndex)
+  else
+    stepMapOneTimeCardForGroup(
+      isSpacedPractice,
       isAvailable,
       arguments...
     )
 
-  'two-step': (task, step, stepIndex, isAvailable) ->
-    isTwoStep = (task, step, stepIndex) ->
-      return false if UiSettings.get(TWO_STEP_VIEWED_KEY) or not step?.content?.questions?
-      _.any(step.content.questions, (question) ->
-        _.contains(question.formats, 'free-response') and
-          _.contains(question.formats, 'multiple-choice')
-      )
+befores[PERSONALIZED_GROUP] = (task, step, stepIndex, isAvailable) ->
+  isPersonalized = (task, step, stepIndex) ->
+    firstPersonalized = _.findWhere(task.steps, {group: PERSONALIZED_GROUP})
+    firstPersonalized? and firstPersonalized.id is step.id
 
-    stepMapOneTimeCard(
-      isTwoStep,
-      'two-step-intro',
-      TWO_STEP_KEY,
-      isAvailable,
-      arguments...
+  stepMapOneTimeCardForGroup(
+    isPersonalized,
+    isAvailable,
+    arguments...
+  )
+
+befores[TWO_STEP_ALIAS] = (task, step, stepIndex, isAvailable) ->
+  isTwoStep = (task, step, stepIndex) ->
+    return false if UiSettings.get(TWO_STEP_VIEWED_KEY) or not step?.content?.questions?
+    _.any(step.content.questions, (question) ->
+      _.contains(question.formats, 'free-response') and
+        _.contains(question.formats, 'multiple-choice')
     )
+
+  stepMapOneTimeCard(
+    isTwoStep,
+    INTRO_ALIASES[TWO_STEP_ALIAS],
+    SETTING_KEYS[TWO_STEP_ALIAS],
+    isAvailable,
+    arguments...
+  )
 
 afters =
   'end': (task, step, stepIndex) ->

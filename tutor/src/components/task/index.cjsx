@@ -24,7 +24,7 @@ ProgressPanel = require './progress/panel'
 
 {UnsavedStateMixin} = require '../unsaved-state'
 
-{PinnedHeaderFooterCard, PinnedHeader, ScrollToMixin, ExerciseStatics} = require 'shared'
+{PinnedHeaderFooterCard, PinnedHeader, ScrollToMixin, ExerciseIntro} = require 'shared'
 
 module.exports = React.createClass
   propTypes:
@@ -265,10 +265,10 @@ module.exports = React.createClass
     {courseId} = @context.router.getCurrentParams()
     pinned = not TaskStore.hasProgress(@props.id)
 
-    Panel = ExerciseStatics[data.type]
-    <Panel
+    <ExerciseIntro
       project='tutor'
       pinned={pinned}
+      stepIntroType={data.type}
       onNextStep={@onNextStep}
       onContinue={@onNextStep}
       taskId={@props.id}

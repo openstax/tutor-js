@@ -2,6 +2,9 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
+Markdown = require '../markdown'
+{TWO_STEP_ALIAS, getHelpText} = require '../../helpers/step-helps'
+
 PROJECT_NAME_AND_FEEDBACK =
   'concept-coach':
     name: 'Concept Coach'
@@ -26,18 +29,8 @@ Instructions = React.createClass
         Incorrect. Please review your feedback.
       </p>
 
-    if project?
-      projectName ?= PROJECT_NAME_AND_FEEDBACK[project].name
-      feedbackType ?= PROJECT_NAME_AND_FEEDBACK[project].feedbackType
-
     popover = <BS.Popover ref="popover" className="openstax instructions">
-      <p><b>Why do you ask me to answer twice?</b></p>
-      <p>
-        We ask for your own response first because recalling an answer from
-        memory helps your learning last longer.
-        Then, we give you multiple-choice options so you can
-        get immediate <span className="feedback-type">{feedbackType}</span>.
-      </p>
+      <Markdown text={getHelpText[TWO_STEP_ALIAS](project)} />
     </BS.Popover>
 
     <p className="instructions">

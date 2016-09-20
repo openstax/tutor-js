@@ -2,7 +2,7 @@ React = require 'react'
 EventEmitter2 = require 'eventemitter2'
 _ = require 'underscore'
 classnames = require 'classnames'
-{SpyMode, TaskHelper, ExerciseStatics} = require 'shared'
+{SpyMode, TaskHelper, ExerciseIntro} = require 'shared'
 
 {channel} = tasks = require './collection'
 api = require '../api'
@@ -144,9 +144,11 @@ TaskBase = React.createClass
       panel = null
     else if @isStaticStep(currentStep)
       {type} = crumbs[currentStep]
-      Static = ExerciseStatics[type]
 
-      panel = <Static project='concept-coach' onContinue={@nextStep}/>
+      panel = <ExerciseIntro
+        stepIntroType={type}
+        project='concept-coach'
+        onContinue={@nextStep}/>
 
     taskClasses = classnames 'concept-coach-task',
       'card-body': noExercises

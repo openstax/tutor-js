@@ -7,18 +7,17 @@ ChapterSectionMixin = require '../chapter-section-mixin'
 ExerciseIdentifierLink = require '../exercise-identifier-link'
 
 {PERSONALIZED_GROUP, SPACED_PRACTICE_GROUP, LABELS, getHelpText} = require '../../helpers/step-helps'
+Markdown = require '../markdown'
 
 DEFAULT_GROUP =
   show: false
 REVIEW_GROUP =
   show: true
   label: LABELS[SPACED_PRACTICE_GROUP]
-  makeToolTipText: _.partial(getHelpText[SPACED_PRACTICE_GROUP], _, false)
 
 PERSONALIZED_GROUP =
   show: true
   label: LABELS[PERSONALIZED_GROUP]
-  makeToolTipText: _.partial(getHelpText[PERSONALIZED_GROUP], _, false)
 
 RULES =
   default: DEFAULT_GROUP
@@ -58,19 +57,14 @@ ExerciseGroup = React.createClass
       isSpacedPractice = group is SPACED_PRACTICE_GROUP
       icon = <i className="icon-sm icon-#{className}" key='group-icon'></i>
 
-      spacedPracticeHeading = <p>
-        <b>What is {LABELS[SPACED_PRACTICE_GROUP].toLowerCase()}?</b>
-      </p>
-
       groupDOM = [
         icon
         <span className='openstax-step-group-label' key='group-label'>{labels}</span>
       ]
 
-    if RULES[group].show and RULES[group].makeToolTipText
+    if RULES[group].show
       popover = <BS.Popover id="instructions" ref="popover" className="openstax instructions">
-        {spacedPracticeHeading if isSpacedPractice}
-        {RULES[group].makeToolTipText(project)}
+        <Markdown text={getHelpText[group](project)} />
       </BS.Popover>
       groupDOM.push  <BS.OverlayTrigger placement="bottom" overlay={popover}>
         <i className="fa fa-info-circle" />

@@ -1,7 +1,8 @@
 _     = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
-Markdown = require '../markdown'
+{Markdown} = require 'shared'
+
 BindStoreMixin = require '../bind-store-mixin'
 TaskPlanHelper = require '../../helpers/task-plan'
 Clipboard = require '../../helpers/clipboard'

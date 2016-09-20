@@ -5,7 +5,7 @@ Router = require 'react-router'
 
 {TaskPlanStatsStore, TaskPlanStatsActions} = require '../../flux/task-plan-stats'
 LoadableItem = require '../loadable-item'
-Markdown = require '../markdown'
+{Markdown} = require 'shared'
 
 Event = React.createClass
   propTypes:

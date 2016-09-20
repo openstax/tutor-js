@@ -16,7 +16,8 @@ classnames = require 'classnames'
   PERSONALIZED_GROUP,
   SPACED_PRACTICE_GROUP,
   TWO_STEP_ALIAS,
-  LABELS
+  INTRO_ALIASES,
+  TITLES
 } = StepHelpsHelper
 
 ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
@@ -48,16 +49,16 @@ Milestone = React.createClass
         previewText = "#{crumb.task.title} Completed"
 
       when 'coach'
-        previewText = LABELS[SPACED_PRACTICE_GROUP]
+        previewText = TITLES[SPACED_PRACTICE_GROUP]
 
-      when 'spaced-practice-intro'
-        previewText = LABELS[SPACED_PRACTICE_GROUP]
+      when INTRO_ALIASES[SPACED_PRACTICE_GROUP]
+        previewText = TITLES[SPACED_PRACTICE_GROUP]
 
-      when 'personalized-intro'
-        previewText = "#{LABELS[PERSONALIZED_GROUP]} questions"
+      when INTRO_ALIASES[PERSONALIZED_GROUP]
+        previewText = TITLES[PERSONALIZED_GROUP]
 
-      when 'two-step-intro'
-        previewText = "#{LABELS[TWO_STEP_ALIAS]} questions"
+      when INTRO_ALIASES[TWO_STEP_ALIAS]
+        previewText = TITLES[TWO_STEP_ALIAS]
 
     if crumb.type is 'exercise'
       preview = <ArbitraryHtmlAndMath
