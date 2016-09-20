@@ -70,7 +70,7 @@ ExerciseGroup = React.createClass
 
     if RULES[group].show
       popover = <BS.Popover id="instructions" ref="popover" className="openstax instructions">
-        <Markdown text={getHelpText[group](project)} />
+        {getHelpText[group](project)}
       </BS.Popover>
       groupDOM.push  <BS.OverlayTrigger placement="bottom" overlay={popover}>
         <i className="fa fa-info-circle" />

@@ -1,3 +1,4 @@
+React = require 'react'
 _ = require 'underscore'
 
 PERSONALIZED_GROUP = 'personalized'
@@ -44,55 +45,56 @@ getIntroText = {}
 getIntroText[PERSONALIZED_GROUP] = (project, locate = true) ->
   locationText = if locate then '—like this next one—' else ' '
 
-  "
-    Personalized questions#{locationText}are chosen specifically
-    for you by #{getProject(project).name} based on your learning history.
-  "
+  <p>
+    Personalized questions{locationText}are chosen specifically
+    for you by {getProject(project).name} based on your learning history.
+  </p>
 
 getIntroText[SPACED_PRACTICE_GROUP] = (project, locate = true) ->
   locationText = if locate then '—like this next one—' else ' '
 
-  "
-    Did you know?  Research shows you can strengthen your
-    memory—**and spend less time studying**—if
-    you revisit material over multiple study sessions.
-    \n\n
-    #{getProject(project).name} will include **spaced practice** questions
-    #{locationText}from prior sections to give your learning a boost.
-      You may occasionally see questions you've seen before.
-  "
+  [
+    <p>
+      Did you know?  Research shows you can strengthen your
+      memory—<strong>and spend less time studying</strong>—if
+      you revisit material over multiple study sessions.
+    </p>
+    <p>
+      {getProject(project).name} will include <strong>spaced practice</strong> questions
+      {locationText}from prior sections to give your learning a boost.
+        You may occasionally see questions you&#39;ve seen before.
+    </p>
+  ]
 
 getIntroText[TWO_STEP_ALIAS] = (project) ->
-  "
+  <p>
     Research shows that a great way to boost your learning is to quiz
     yourself.  For maximum benefit, read the text and then answer the
     free response question in your own words.  Then, select the best
-    multiple choice answer so #{getProject(project).name} can give you
-    #{getProject(project).feedbackType}.  Both you and your instructor
+    multiple choice answer so {getProject(project).name} can give you
+    {getProject(project).feedbackType}.  Both you and your instructor
     can review your answers later.
-  "
+  </p>
 
 getHelpText = _.mapObject(getIntroText, (getIntro) ->
   _.partial(getIntro, _, false)
 )
 
 getHelpText[TWO_STEP_ALIAS] = (project) ->
-  "
-    **Why do you ask me to answer twice?**
-    \n\n
-    Research shows that recalling the answer to a question from memory
-    helps your learning last longer.  So, #{getProject(project).name}
-    asks for your own answer first, then gives multiple-choice options
-    so you can get #{getProject(project).feedbackType}.  Both you and your
-    instructor can review your work later.
-  "
+  [
+    <p><strong>Why do you ask me to answer twice?</strong></p>
+    <p>Research shows that recalling the answer to a question from memory
+    helps your learning last longer.  So, {getProject(project).name}
+     asks for your own answer first, then gives multiple-choice options
+    so you can get {getProject(project).feedbackType}.  Both you and your
+    instructor can review your work later.</p>
+  ]
 
 getHelpText[SPACED_PRACTICE_GROUP] = (project) ->
-  "
-    **What is spaced practice?**
-    \n\n
-    #{getIntroText[SPACED_PRACTICE_GROUP](project, false)}
-  "
+  [
+    <p><strong>What is spaced practice?</strong></p>
+    getIntroText[SPACED_PRACTICE_GROUP](project, false)
+  ]
 
 getHelpInfo = (group) ->
   return unless _.contains(_.keys(ALIASES), group)

@@ -17,9 +17,6 @@ ONE_TIME_CARD_DEFAULTS =
     stepId: ''
   is_completed: true
 
-# old key, keep backwards compatibility
-TWO_STEP_VIEWED_KEY = 'has-viewed-two-step-help'
-
 # Settings keys are:
 # 'two-step-info'
 # 'personalized-info'
@@ -100,8 +97,7 @@ befores = {}
 befores[SPACED_PRACTICE_GROUP] = (task, step, stepIndex, isAvailable) ->
   isSpacedPractice = (task, step, stepIndex) ->
     # TODO check if should be first or last
-    firstSpacedPractice = _.findWhere(task.steps, {group: SPACED_PRACTICE_GROUP})
-    firstSpacedPractice? and firstSpacedPractice.id is step.id
+    _.findWhere(task.steps, {group: SPACED_PRACTICE_GROUP})?.id is step.id
 
   if task.type is 'reading' and isSpacedPractice(task, step, stepIndex)
     makeStep(task, {type: INTRO_ALIASES[SPACED_PRACTICE_GROUP]}, stepIndex)
@@ -114,8 +110,7 @@ befores[SPACED_PRACTICE_GROUP] = (task, step, stepIndex, isAvailable) ->
 
 befores[PERSONALIZED_GROUP] = (task, step, stepIndex, isAvailable) ->
   isPersonalized = (task, step, stepIndex) ->
-    firstPersonalized = _.findWhere(task.steps, {group: PERSONALIZED_GROUP})
-    firstPersonalized? and firstPersonalized.id is step.id
+    _.findWhere(task.steps, {group: PERSONALIZED_GROUP})?.id is step.id
 
   stepMapOneTimeCardForGroup(
     isPersonalized,
@@ -125,7 +120,7 @@ befores[PERSONALIZED_GROUP] = (task, step, stepIndex, isAvailable) ->
 
 befores[TWO_STEP_ALIAS] = (task, step, stepIndex, isAvailable) ->
   isTwoStep = (task, step, stepIndex) ->
-    return false if UiSettings.get(TWO_STEP_VIEWED_KEY) or not step?.content?.questions?
+    return unless step?.content?.questions?
     _.any(step.content.questions, (question) ->
       _.contains(question.formats, 'free-response') and
         _.contains(question.formats, 'multiple-choice')

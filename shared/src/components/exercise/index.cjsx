@@ -130,8 +130,6 @@ ExerciseWithScroll = React.createClass
     @scrollToSelector(stepSelector, {updateHistory: false, unlessInView: true})
 
   render: ->
-    # return @renderStepHelp() if @stepHasHelp()
-
     {parts, footer, pinned} = @props
     classes = classnames('openstax-multipart-exercise-card', {
       "deleted-homework": @props.task?.type is 'homework' and @props.task?.is_deleted
@@ -153,8 +151,6 @@ Exercise = React.createClass
   displayName: 'Exercise'
   mixins: [ExerciseMixin]
   render: ->
-    # return @renderStepHelp() if @stepHasHelp()
-
     {footer, pinned} = @props
     classes = classnames('openstax-multipart-exercise-card', {
       "deleted-homework": @props.task?.type is 'homework' and @props.task?.is_deleted

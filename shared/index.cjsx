@@ -26,7 +26,7 @@ module.exports = {
   ExerciseWithScroll,
   TaskHelper:             require './src/helpers/task'
   StepHelpsHelper:        require './src/helpers/step-helps'
-  ExerciseIntro:        require './src/components/exercise/intro'
+  ExerciseIntro:          require './src/components/exercise/intro'
 
 
   FreeResponse:           require './src/components/exercise/free-response'

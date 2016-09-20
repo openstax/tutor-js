@@ -34,7 +34,7 @@ ExerciseIntro =  React.createClass
       <h1>
         <span>{groupLabel}</span>
       </h1>
-      <Markdown text={getIntroText[stepType](project)} />
+      {getIntroText[stepType](project)}
       <BS.Button onClick={onContinue}>Continue</BS.Button>
     </CardBody>
 

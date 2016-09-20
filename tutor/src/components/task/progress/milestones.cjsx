@@ -42,23 +42,25 @@ Milestone = React.createClass
     classes = classnames 'milestone', "milestone-#{crumb.type}",
       'active': isCurrent
 
-    previewText = StepTitleStore.get(crumb.id) if crumb.id?
+    previewText =
+      if crumb.id?
+        StepTitleStore.get(crumb.id)
+      else
+        switch crumb.type
+          when 'end'
+            "#{crumb.task.title} Completed"
 
-    switch crumb.type
-      when 'end'
-        previewText = "#{crumb.task.title} Completed"
+          when 'coach'
+            TITLES[SPACED_PRACTICE_GROUP]
 
-      when 'coach'
-        previewText = TITLES[SPACED_PRACTICE_GROUP]
+          when INTRO_ALIASES[SPACED_PRACTICE_GROUP]
+            TITLES[SPACED_PRACTICE_GROUP]
 
-      when INTRO_ALIASES[SPACED_PRACTICE_GROUP]
-        previewText = TITLES[SPACED_PRACTICE_GROUP]
+          when INTRO_ALIASES[PERSONALIZED_GROUP]
+            TITLES[PERSONALIZED_GROUP]
 
-      when INTRO_ALIASES[PERSONALIZED_GROUP]
-        previewText = TITLES[PERSONALIZED_GROUP]
-
-      when INTRO_ALIASES[TWO_STEP_ALIAS]
-        previewText = TITLES[TWO_STEP_ALIAS]
+          when INTRO_ALIASES[TWO_STEP_ALIAS]
+            TITLES[TWO_STEP_ALIAS]
 
     if crumb.type is 'exercise'
       preview = <ArbitraryHtmlAndMath
@@ -83,6 +85,7 @@ Milestone = React.createClass
           data-label={crumb.label}
           currentStep={currentStep}
           goToStep={goToStepForCrumb}
+          stepIndex={stepIndex}
           key="breadcrumb-#{crumb.type}-#{stepIndex}"
           ref="breadcrumb-#{crumb.type}-#{stepIndex}"/>
         {preview}

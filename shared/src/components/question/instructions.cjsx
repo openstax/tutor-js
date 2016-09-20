@@ -30,7 +30,7 @@ Instructions = React.createClass
       </p>
 
     popover = <BS.Popover ref="popover" className="openstax instructions">
-      <Markdown text={getHelpText[TWO_STEP_ALIAS](project)} />
+      {getHelpText[TWO_STEP_ALIAS](project)}
     </BS.Popover>
 
     <p className="instructions">
