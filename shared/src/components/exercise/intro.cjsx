@@ -11,6 +11,8 @@ Markdown = require '../markdown'
   getIntroText
 } = require '../../helpers/step-helps'
 
+GROUP_BY_INTRO_ALIAS = _.invert(INTRO_ALIASES)
+
 PROJECT_NAME =
   tutor: 'OpenStax Tutor'
   'concept-coach': 'OpenStax Concept Coach'
@@ -24,17 +26,15 @@ ExerciseIntro =  React.createClass
   render: ->
     {stepIntroType, project, onContinue} = @props
 
-    stepType = _.invert(INTRO_ALIASES)[stepIntroType]
+    stepGroup = GROUP_BY_INTRO_ALIAS[stepIntroType]
 
-    groupLabel = TITLES[stepType]
-    classes = classnames 'task-step', "openstax-#{ALIASES[stepType]}-intro", project
+    classes = classnames 'task-step', "openstax-#{ALIASES[stepGroup]}-intro", project
 
     <CardBody className={classes}>
-      <div className="heading">{PROJECT_NAME[project]}</div>
       <h1>
-        <span>{groupLabel}</span>
+        <span>{TITLES[stepGroup]}</span>
       </h1>
-      {getIntroText[stepType](project)}
+      {getIntroText[stepGroup](project)}
       <BS.Button onClick={onContinue}>Continue</BS.Button>
     </CardBody>
 
