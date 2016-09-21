@@ -19,9 +19,29 @@ HOMEWORK_MODEL = require '../../api/tasks/5.json'
 VALID_RECOVERY_MODEL = require '../../api/tasks/4-recovered.json'
 VALID_RECOVERY_STEP = require '../../api/steps/step-id-4-2/recovery/PUT.json'
 
+avoidIntroCards = ->
+  FAKE_PLACEMENT =
+    placement:
+      taskId: 'test'
+      stepId: 'test'
+
+  UiSettings.initialize(
+    'two-step-info-reading': FAKE_PLACEMENT
+    'spaced-practice-info-reading': FAKE_PLACEMENT
+    'personalized-info-reading': FAKE_PLACEMENT
+    'two-step-info-homework': FAKE_PLACEMENT
+    'spaced-practice-info-homework': FAKE_PLACEMENT
+    'personalized-info-homework': FAKE_PLACEMENT
+  )
+
 describe 'Task Widget, Reading Task', ->
   beforeEach (done) ->
-    UiSettings.initialize({'has-viewed-two-step-help': true})
+    UiSettings.initialize(
+      'two-step-info-concept_coach':
+        placement:
+          taskId: 'test'
+          stepId: 'test'
+    )
     TaskActions.HACK_DO_NOT_RELOAD(true)
     TaskStepActions.HACK_DO_NOT_RELOAD(true)
     CourseActions.loaded(COURSE, COURSE_ID)
@@ -105,7 +125,7 @@ describe 'Task Widget, Reading Task', ->
 
 describe 'Task Widget, through routes', ->
   beforeEach (done) ->
-    UiSettings.initialize({'has-viewed-two-step-help': true})
+    avoidIntroCards()
     CourseActions.loaded(COURSE, COURSE_ID)
 
     TaskActions.HACK_DO_NOT_RELOAD(true)
@@ -129,19 +149,7 @@ describe 'Task Widget, through routes', ->
     TaskActions.HACK_DO_NOT_RELOAD(false)
     TaskStepActions.HACK_DO_NOT_RELOAD(false)
 
-  it 'should render a spacer panel for the non-core step', (done) ->
-    # run a full step through and check each step
-    taskActions
-      .clickContinue(@result)
-      .then(taskActions.completeThisStep)
-      .then(taskActions.advanceStep)
-      .then(taskActions.completeThisStep)
-      .then(taskActions.advanceStep)
-      .then(taskActions.clickContinue)
-      .then(taskChecks.checkIsSpacerPanel)
-      .then( ->
-        done()
-      , done)
+  # Tests for the "spacer" panels are moving to shared.
 
   it 'should be able to work through a task and load next step from a route', (done) ->
     # run a full step through and check each step

@@ -56,6 +56,7 @@ ExerciseGroup = React.createClass
   render: ->
     {group, related_content, exercise_uid, project} = @props
     groupDOM = []
+    return null unless RULES[group]?
 
     if RULES[group].show
       className = ALIASES[group] or group
