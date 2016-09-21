@@ -166,7 +166,6 @@ class Course
   _onRegistered: (response) ->
     throw new Error("response is empty in onRegistered") if _.isEmpty(response)
     {data} = response
-    console.log data, response
     _.extend(@, data) if data
     @errors = data?.errors
     # a freshly registered course doesn't contain the is_concept_coach flag
