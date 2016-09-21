@@ -25,3 +25,5 @@ stepContentHelper =
       sectionArray.join(separator or sectionSeparator)
     else
       section
+
+module.exports = stepContentHelper
