@@ -1,6 +1,4 @@
 {Testing, expect, sinon, _, ReactTestUtils} = require 'shared/test/helpers'
-{UiSettings} = require 'shared'
-
 {ExerciseStep} = require 'exercise'
 Collection = require 'exercise/collection'
 step = require '../../api/steps/4573/GET'

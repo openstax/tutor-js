@@ -1,5 +1,4 @@
 {Testing, expect, sinon, _} = require 'shared/test/helpers'
-{UiSettings} = require 'shared'
 
 {TaskReview} = require 'task/review'
 Collection = require 'task/collection'
