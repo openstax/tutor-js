@@ -37,7 +37,7 @@ Store =
     getTagsWithPrefix: (id, prefix) ->
       prefix += ':'
       tags = _.select @_get(id).tags, (tag) -> 0 is tag.indexOf(prefix)
-      _.map( tags, (tag) -> tag.replace(prefix, '') ).sort()
+      _.map( tags, (tag) -> tag.replace(prefix, '') ).sort() or []
 
 
 Extend =
