@@ -59,7 +59,7 @@ isPlacedHere = (settingKey, step) ->
 
 hasBeenPlaced = (settingKey) ->
   settings = UiSettings.get(settingKey)
-  settings?.placement?
+  !!settings?.placement?
 
 stepMapOneTimeCard = (condition, type, settingKey, isAvailable, task, step, stepIndex) ->
   settingKeyForTaskType = "#{settingKey}-#{task.type}"
