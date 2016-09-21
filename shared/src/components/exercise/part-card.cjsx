@@ -82,7 +82,7 @@ ExerciseStepCard = React.createClass
     {id} = @props
 
     @setState {freeResponse}
-    @props.onFreeResponseChange?(id, freeResponse)
+    @props.onFreeResponseChange?(id, freeResponse, @props.stepPartIndex)
 
   onChangeAnswerAttempt: (answer) ->
     {id} = @props
