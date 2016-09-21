@@ -111,10 +111,7 @@ exerciseActionsAndChecks =
 describe 'Exercise Component', ->
 
   beforeEach ->
-    UiSettings.initialize({'has-viewed-two-step-help': true})
     resetProps()
-  afterEach ->
-    UiSettings._reset()
 
   it 'renders with css classes', ->
     Testing.renderComponent( Exercise, props: props ).then ({dom}) ->

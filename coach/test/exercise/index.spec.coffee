@@ -29,12 +29,11 @@ describe 'Exercise Step', ->
 
   beforeEach ->
     updatedStep = _.clone(props.item)
-
-    UiSettings.initialize({'has-viewed-two-step-help': true})
-    Collection.quickLoad(props.id, updatedStep)
+    @props =
+      id: '4573'
+      item: _.clone(step)
 
   afterEach ->
-    UiSettings._reset()
     updatedStep = null
 
   it 'renders given exercise', ->
