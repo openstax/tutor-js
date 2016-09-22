@@ -2,7 +2,7 @@ _ = require 'underscore'
 deepMerge = require 'lodash/merge'
 
 UiSettings = require '../model/ui-settings'
-{formatSection} = require '../helpers/step-content'
+{formatSection} = require './step-content'
 {
   PERSONALIZED_GROUP,
   SPACED_PRACTICE_GROUP,
@@ -25,7 +25,7 @@ SETTING_KEYS = makeAliases('info')
 
 PRACTICES = [
   'practice'
-  'chapter_practice',
+  'chapter_practice'
   'page_practice'
 ]
 
@@ -35,7 +35,6 @@ SEE_AHEAD_ALLOWED = [
 ].concat(PRACTICES)
 
 makeStep = (task, step = {}, stepIndex) ->
-  stepId = step.id or 'default'
 
   if step.chapter_section?
     sectionLabel = formatSection(step.chapter_section)
@@ -105,8 +104,9 @@ befores[SPACED_PRACTICE_GROUP] = (task, step, stepIndex, isAvailable) ->
 
   return if isPractice(task)
 
-  if task.type is 'reading' and isSpacedPractice(task, step, stepIndex)
-    makeStep(task, {type: INTRO_ALIASES[SPACED_PRACTICE_GROUP]}, stepIndex)
+  if task.type is 'reading'
+    if isSpacedPractice(task, step, stepIndex)
+      makeStep(task, {type: INTRO_ALIASES[SPACED_PRACTICE_GROUP]}, stepIndex)
   else
     stepMapOneTimeCardForGroup(
       isSpacedPractice,
@@ -131,7 +131,9 @@ befores[TWO_STEP_ALIAS] = (task, step, stepIndex, isAvailable) ->
     return unless step?.content?.questions?
     _.any(step.content.questions, (question) ->
       _.contains(question.formats, 'free-response') and
-        _.contains(question.formats, 'multiple-choice')
+        not _.isEmpty(
+          _.intersection(question.formats, ['multiple-choice', 'true-false', 'fill-in-the-blank'])
+        )
     )
 
   stepMapOneTimeCard(

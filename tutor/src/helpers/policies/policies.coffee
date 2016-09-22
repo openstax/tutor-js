@@ -9,7 +9,7 @@ freeResponse =
 
 multipleChoice =
   name: 'multiple-choice'
-  aliases: ['true-false']
+  aliases: ['true-false', 'fill-in-the-blank']
   optional: 'checkQuestionFormat'
   passCheck: ['answer_id', 'is_completed']
   actions: [
