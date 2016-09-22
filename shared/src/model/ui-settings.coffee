@@ -15,20 +15,22 @@ saveSettings = _.debounce( ->
     data:
       previous_ui_settings: PREVIOUS_SETTINGS
       ui_settings: SETTINGS
+  ).then( ->
+    PREVIOUS_SETTINGS = cloneDeep SETTINGS
   )
-)
+, 10)
 
 UiSettings = {
 
   initialize: (settings) ->
     SETTINGS = cloneDeep(settings) or {}
+    PREVIOUS_SETTINGS = cloneDeep SETTINGS
 
   get: (key) ->
     SETTINGS[key]
 
   set: (key, value) ->
     attrs = if _.isObject(key) then key else {"#{key}": value}
-    PREVIOUS_SETTINGS = cloneDeep SETTINGS
     deepMerge(SETTINGS, attrs)
     saveSettings()
 
