@@ -6,10 +6,28 @@ TEXT_LENGTH_CHECK = 110
 TEXT_LENGTH = 125
 TEXT_CHECK_RANGE = TEXT_LENGTH - TEXT_LENGTH_CHECK
 
+isLearningObjective = (element) ->
+  element?.attribs?['class']? and element.attribs['class'].search(/learning-objectives/) > -1
+
+isNote = (element) ->
+  return unless element?.attribs?['class']? or element.attribs['data-element-type']?
+
+  classes = element.attribs['class'].split(' ')
+  not _.isEmpty(_.intersection(classes, ['note', 'example', 'grasp-check'])) or
+    element.attribs['data-element-type'] is 'check-understanding'
+
+isTyped = (element) ->
+  element?.attribs?['data-element-type']?
+
 isLabel = (element) ->
   element.attribs['data-has-label'] is 'true'
 isTitle = (element) ->
-  element.attribs['data-type'] is 'title'
+  element.attribs['data-type'] is 'title' and
+    not isTyped(element.parent) and
+    not isLearningObjective(element.parent)
+isDocumentTitle = (element) ->
+  element.attribs['data-type'] is 'document-title'
+
 grabLabel = (element) ->
   element.attribs['data-label']?.trim?()
 grabTitle = (element) ->
@@ -50,8 +68,6 @@ StepTitleConfig =
     else
       label = htmlparser.DomUtils.findOne(isLabel, dom, false)
       text = grabLabel(label) if label?
-
-    text ?= grabTruncatedText(htmlparser.DomUtils.getText(dom))
 
     actions.loaded(id, text)
 
