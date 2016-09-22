@@ -1,6 +1,7 @@
-React = require 'react/addons'
+React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
+
 
 TutorPopover = React.createClass
   displayName: 'TutorPopover'
@@ -118,7 +119,7 @@ TutorPopover = React.createClass
     if @areImagesLoading()
       contentClassName = 'image-loading'
 
-    content = React.addons.cloneWithProps(content, className: contentClassName)
+    content = React.cloneElement(content, className: contentClassName)
 
     popoverId = if id then "tutor-popover-#{id}" else "tutor-popover-#{@_reactInternalInstance._rootNodeID}"
 

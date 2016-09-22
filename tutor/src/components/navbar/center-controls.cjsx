@@ -1,5 +1,7 @@
-React = require 'react/addons'
-Router = require 'react-router'
+React = require 'react'
+
+PureRenderMixin = require 'react-addons-pure-render-mixin'
+
 moment = require 'moment'
 classnames = require 'classnames'
 _ = require 'underscore'
@@ -10,24 +12,22 @@ Icon = require '../icon'
 
 module.exports = React.createClass
   displayName: 'CenterControls'
-  contextTypes:
-    router: React.PropTypes.func
 
-  mixins: [React.addons.PureRenderMixin]
+  mixins: [PureRenderMixin]
 
   getDefaultProps: ->
     shouldShow: false
 
   getInitialState: ->
-    params = @context.router?.getCurrentParams() or {}
+    params = @props.params or {}
     taskInfo = @getTaskInfo(params)
     controlInfo = @getControlInfo(params)
 
     _.extend {}, taskInfo, controlInfo
 
   componentWillMount: ->
-    location = @context.router?.getLocation()
-    location.addChangeListener(@updateControls) if location
+    # location = @props.pathname
+    # location.addChangeListener(@updateControls) if location
     TaskStore.on('loaded', @updateTask)
 
   componentWillUnmount: ->
@@ -38,11 +38,10 @@ module.exports = React.createClass
   shouldShow: (path) ->
     {shouldShow} = @props
     return true if shouldShow
-    return false unless @context.router?
 
-    path ?= @context.router.getCurrentPath()
-    matchedPath = @context.router.match(path)
-    return false unless matchedPath?.routes
+    path ?= @props.pathname
+    # matchedPath = @context.router.match(path)
+    # return false unless matchedPath?.routes
 
     'viewTaskStep' in _.pluck(matchedPath.routes, 'name')
 
@@ -52,7 +51,7 @@ module.exports = React.createClass
       @setState({show})
       return false
 
-    params ?= @context.router.getCurrentParams()
+    params ?= @props.params
 
     state = getState(params)
     @setState(state) if state?

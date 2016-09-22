@@ -91,10 +91,10 @@ NoExercisesMessage = React.createClass
 
 ERROR_HANDLERS =
 
-  no_exercises: (error, message, router) ->
+  no_exercises: (error, message, context) ->
     hideDialog = ->
-      {courseId} = router.getCurrentParams()
-      router.transitionTo('viewStudentDashboard', {courseId})
+      {courseId} = context
+      context.router.transitionTo('viewStudentDashboard', {courseId})
       Dialog.hide()
     dialog:
       title: 'No exercises are available'
@@ -105,9 +105,9 @@ ERROR_HANDLERS =
     onOk: hideDialog
     onCancel: hideDialog
 
-  default: (error, message, router) ->
-    if router? and not error.supportLinkBase?
-      {courseId} = router.getCurrentParams()
+  default: (error, message, context) ->
+    unless error.supportLinkBase?
+      {courseId} = context
       error.supportLinkBase = CurrentUserStore.getHelpLink(courseId)
     dialog:
       title: 'Server Error'
@@ -126,7 +126,7 @@ module.exports = React.createClass
   bindEvent: 'server-error'
 
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
 
   bindUpdate: ->
     error = AppStore.getError()
@@ -140,7 +140,7 @@ module.exports = React.createClass
       if message.errors?.length is 1 and ERROR_HANDLERS[message.errors[0].code]
         handler = message.errors[0].code
 
-    attrs = ERROR_HANDLERS[handler](error, message, @context.router)
+    attrs = ERROR_HANDLERS[handler](error, message, @context)
 
     Dialog.show( attrs.dialog ).then(attrs.onOk, attrs.onCancel)
 

@@ -7,7 +7,7 @@ module.exports = React.createClass
   displayName: 'BrowseTheBook'
 
   contextTypes:
-    router: React.PropTypes.func
+    courseId: React.PropTypes.string
 
   getDefaultProps: ->
     bsStyle: 'primary'
@@ -30,10 +30,11 @@ module.exports = React.createClass
     linkProps.className += " #{@props.className}" if @props.className
     linkProps.className += " btn btn-#{@props.bsStyle}" unless @props.unstyled
 
-    omitProps = _.chain(@propTypes)
+    omitProps = _.chain(@constructor.propTypes)
       .keys()
       .union(['children', 'className', 'unstyled'])
       .value()
+
     # most props should transfer, such as onClick
     transferProps = _.omit(@props, omitProps)
 
@@ -58,7 +59,7 @@ module.exports = React.createClass
       query: queryParams
 
   getCourseId: ->
-    @props.courseId or @context.router?.getCurrentParams().courseId
+    @props.courseId or @context.courseId
 
   canBrowse: (courseId) ->
     courseId? and not CourseStore.get(courseId)?.is_concept_coach

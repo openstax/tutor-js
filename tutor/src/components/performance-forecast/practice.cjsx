@@ -13,11 +13,13 @@ module.exports = React.createClass
     children: React.PropTypes.element.isRequired
 
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
 
   onClick: ->
     {courseId, page_ids} = @props
-    @context.router.transitionTo('viewPractice', {courseId}, {page_ids})
+    @context.router.transitionTo(
+      pathname: "/courses/#{courseId}/practice", query: {page_ids}
+    )
 
   isDisabled: ->
     {page_ids, courseId} = @props
@@ -27,4 +29,4 @@ module.exports = React.createClass
     isDisabled = @isDisabled()
     props = {isDisabled, onClick: @onClick}
 
-    React.addons.cloneWithProps(@props.children, props)
+    React.cloneElement(@props.children, props)
