@@ -1,10 +1,9 @@
 React = require 'react'
 classnames = require 'classnames'
 
-{HistoryLocation, History, RouteHandler} = require 'react-router'
-
-Navbar = require './navbar'
+RoutingHelper = require '../helpers/routing'
 Analytics = require '../helpers/analytics'
+Navbar = require './navbar'
 {SpyMode} = require 'shared'
 {CourseStore} = require '../flux/course'
 {TransitionActions, TransitionStore} = require '../flux/transition'
@@ -12,32 +11,35 @@ Analytics = require '../helpers/analytics'
 module.exports = React.createClass
   displayName: 'App'
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
+
+  getChildContext: ->
+    courseId: @props.params?.courseId
+
+  childContextTypes:
+    courseId: React.PropTypes.string
 
   componentDidMount: ->
-    @storeInitial()
+    @storeHistory()
     Analytics.setTracker(window.ga)
-    HistoryLocation.addChangeListener(@storeHistory)
 
-  componentWillUnmount: ->
-    HistoryLocation.removeChangeListener(@storeHistory)
+  componentDidUpdate: ->
+    @storeHistory()
 
-  storeInitial: ->
-    @storeHistory(path: @context.router.getCurrentPath())
-
-  storeHistory: (locationChangeEvent) ->
-    Analytics.onNavigation(locationChangeEvent, @context.router)
-    TransitionActions.load(locationChangeEvent, @context.router)
+  storeHistory:  ->
+    Analytics.onNavigation(@props.location.pathname)
+    TransitionActions.load(@props.location.pathname)
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @props.params or {}
     classNames = classnames('tutor-app', 'openstax-wrapper', {
       'is-college':     courseId? and CourseStore.isCollege(courseId)
       'is-high-school': courseId? and CourseStore.isHighSchool(courseId)
     })
     <div className={classNames}>
       <SpyMode.Wrapper>
-        <Navbar />
-        <RouteHandler/>
+        <Navbar {...@props} />
+
+        {RoutingHelper.subroutes(@props.routes)}
       </SpyMode.Wrapper>
     </div>
