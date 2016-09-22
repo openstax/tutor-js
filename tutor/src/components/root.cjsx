@@ -1,10 +1,20 @@
 React = require 'react'
-Router = require 'react-router'
+{BrowserRouter, Match, Miss} = require 'react-router'
 
-module.exports = React.createClass
-  displayName: 'Root'
+App = require './app'
+
+InvalidPage = require './invalid-page'
+
+TutorRoot = React.createClass
 
   render: ->
-    <div>
-      <Router.RouteHandler/>
-    </div>
+    <BrowserRouter>
+      <div className="tutor-root">
+        <Match pattern="/" render={ (props) ->
+          <App {...props} />
+        } />
+        <Miss component={InvalidPage} />
+      </div>
+    </BrowserRouter>
+
+module.exports = TutorRoot

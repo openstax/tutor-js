@@ -14,7 +14,7 @@ Notices = require './src/helpers/notifications'
 dom = require './src/helpers/dom'
 {startMathJax} = require 'shared/src/helpers/mathjax'
 {TransitionAssistant} = require './src/components/unsaved-state'
-Root = require './src/router'
+Root = require './src/components/root'
 
 window._STORES =
   APP: require './src/flux/app'

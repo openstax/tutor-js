@@ -1,24 +1,43 @@
-React = require 'react'
+# order matters.
+# Since this file needs to know about quite a few components and those components will also query the router
+# it needs to export it's accessor methods first so they're available
+# in case the other components also require this file
+module.exports =
+  getRoutes: -> ROUTES
+  pathToEntry: (path) -> findRoutePattern(path, ROUTES)
+  getQuery: (windowImpl = window) ->
+    qs.parse(windowImpl?.location.search.slice(1))
 
-{BrowserRouter, Match, Miss} = require 'react-router'
 
-{App, Invalid} = require './components'
 
-Routes = require './routes'
+qs = require 'qs'
+matchPattern = require('react-router/matchPattern').default
 
-Router = React.createClass
+RouteHandlers = require './helpers/route-handlers'
 
-  render: ->
-    <BrowserRouter>
-      <div className="tutor-root">
-        <Match pattern="/" render={ (props) ->
-          <App {...props} routes={Routes.root} />
-        } />
-        <Miss component={Invalid} />
-      </div>
-    </BrowserRouter>
+{CourseListing}         = require './components/course-listing'
+{StudentDashboardShell} = require './components/student-dashboard'
+TeacherTaskPlans        = require './components/task-plan/teacher-task-plans-listing'
 
-module.exports = Router
+ROUTES = [
+  { pattern: '/dashboard', name: 'listing', component: CourseListing }
+  {
+    pattern: '/courses/:courseId', name: 'dashboard', render: RouteHandlers.dashboard
+    routes: [
+      { pattern: '/list', component: StudentDashboardShell }
+
+    ]
+  }
+]
+
+findRoutePattern = (pathname, parentRoutes) ->
+  for entry in parentRoutes
+    {pattern, routes} = entry
+    if (match = matchPattern(pattern, {pathname}, false))
+      return {entry, match}
+    else if routes
+      if (result = findRoutePattern(pathname, pattern, routes))
+        return result
 
 
 ## Below is pre router upgrade config

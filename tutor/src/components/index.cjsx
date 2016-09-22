@@ -115,11 +115,4 @@ TaskResult = React.createClass
     @context.router.transitionTo('viewTask', {courseId, id})
 
 
-Invalid = React.createClass
-  render: ->
-    <div>
-      <h1>Woops, this is an invalid page {@props.location.pathname}</h1>
-      <Router.Link to='dashboard'>Home</Router.Link>
-    </div>
-
 module.exports = {App, SingleTask, SinglePractice, Invalid}

@@ -1,6 +1,6 @@
 React = require 'react'
 classnames = require 'classnames'
-
+Router = require '../router'
 RoutingHelper = require '../helpers/routing'
 Analytics = require '../helpers/analytics'
 Navbar = require './navbar'
@@ -39,7 +39,6 @@ module.exports = React.createClass
     <div className={classNames}>
       <SpyMode.Wrapper>
         <Navbar {...@props} />
-
-        {RoutingHelper.subroutes(@props.routes)}
+        <RoutingHelper.component routes={Router.getRoutes()} />
       </SpyMode.Wrapper>
     </div>

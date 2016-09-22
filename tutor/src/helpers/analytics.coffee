@@ -1,6 +1,6 @@
 _ = require 'underscore'
 
-Routes = require '../routes'
+Router = require '../router'
 
 {CurrentUserStore} = require '../flux/current-user'
 
@@ -60,7 +60,7 @@ Analytics =
   onNavigation: (path) ->
     return unless GA
 
-    route = Routes.pathToEntry(path)
+    route = Router.pathToEntry(path)
 
     return @sendPageView("/not-found/#{change.path}") unless route
 
