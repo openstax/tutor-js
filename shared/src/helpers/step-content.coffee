@@ -1,6 +1,6 @@
 _ = require 'underscore'
 
-defaultSettings = 
+defaultSettings =
   sectionSeparator: '.'
   skipZeros: true
   inputStringSeparator: '.'

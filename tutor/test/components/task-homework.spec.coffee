@@ -11,25 +11,34 @@ moment = require 'moment'
 {TaskActions, TaskStore} = require '../../src/flux/task'
 {TaskStepActions, TaskStepStore} = require '../../src/flux/task-step'
 
-courseId = '1'
-homeworkTaskId = '6'
-targetStepIndex = 1
-homework_model = require '../../api/tasks/6.json'
-homework_model.due_at = moment(TimeStore.getNow()).add(1, 'year').toDate()
+COURSE_ID = '1'
+HOMEWORK_TASK_ID = '6'
+TARGET_STEP_INDEX = 1
+HOMEWORK_MODEL = require '../../api/tasks/6.json'
+HOMEWORK_MODEL.due_at = moment(TimeStore.getNow()).add(1, 'year').toDate()
 
-homework_personalize_model = require '../../api/steps/step-id-6-4-full.json'
+HOMEWORK_PERSONALIZED_MODEL = require '../../api/steps/step-id-6-4-full.json'
+
+FAKE_PLACEMENT =
+  placement:
+    taskId: 'test'
+    stepId: 'test'
 
 describe 'Task Widget, homework specific things, due in the future', ->
 
   beforeEach (done) ->
-    UiSettings.initialize({'has-viewed-two-step-help': true})
+    UiSettings.initialize(
+      "two-step-info-#{HOMEWORK_MODEL.type}": FAKE_PLACEMENT
+      "spaced-practice-info-#{HOMEWORK_MODEL.type}": FAKE_PLACEMENT
+      "personalized-info-#{HOMEWORK_MODEL.type}": FAKE_PLACEMENT
+    )
     TaskActions.HACK_DO_NOT_RELOAD(true)
     TaskStepActions.HACK_DO_NOT_RELOAD(true)
 
-    TaskActions.loaded(homework_model, homeworkTaskId)
+    TaskActions.loaded(HOMEWORK_MODEL, HOMEWORK_TASK_ID)
 
     taskTests
-      .goToTask("/courses/#{courseId}/tasks/#{homeworkTaskId}", homeworkTaskId)
+      .goToTask("/courses/#{COURSE_ID}/tasks/#{HOMEWORK_TASK_ID}", HOMEWORK_TASK_ID)
       .then((result) =>
         @result = result
         done()
@@ -48,7 +57,7 @@ describe 'Task Widget, homework specific things, due in the future', ->
   it 'should be able to work through a step in homework', (done) ->
     # run a full step through and check each step
     taskTests
-      .renderStep(homeworkTaskId)
+      .renderStep(HOMEWORK_TASK_ID)
       .then(taskTests.workExerciseAndCheck)
       .then( ->
         done()
@@ -84,8 +93,8 @@ describe 'Task Widget, homework specific things, due in the future', ->
 
   it 'should allow viewing any step with breadcrumbs', (done) ->
     taskActions
-      .clickBreadcrumb(targetStepIndex)(@result)
-      .then(taskChecks.checkIsMatchStep(targetStepIndex))
+      .clickBreadcrumb(TARGET_STEP_INDEX)(@result)
+      .then(taskChecks.checkIsMatchStep(TARGET_STEP_INDEX))
       .then(taskChecks.checkIsNotCompletePage)
       .then( ->
         done()
@@ -107,7 +116,7 @@ describe 'Task Widget, homework specific things, due in the future', ->
       , done)
 
   it 'should show last core step when last core problem is clicked', (done) ->
-    incompleteCore = TaskStore.getIncompleteCoreStepsIndexes(homeworkTaskId)
+    incompleteCore = TaskStore.getIncompleteCoreStepsIndexes(HOMEWORK_TASK_ID)
     lastStepIndex = _.last(incompleteCore)
 
     taskActions
@@ -118,7 +127,7 @@ describe 'Task Widget, homework specific things, due in the future', ->
       , done)
 
   it 'should show pending personalized step when pending clicked', (done) ->
-    incompleteCore = TaskStore.getIncompleteCoreStepsIndexes(homeworkTaskId)
+    incompleteCore = TaskStore.getIncompleteCoreStepsIndexes(HOMEWORK_TASK_ID)
     lastStepIndex = _.last(incompleteCore) + 1
 
     taskActions
@@ -131,10 +140,10 @@ describe 'Task Widget, homework specific things, due in the future', ->
 
   # TODO figure how to test this better.
   # it 'should update pending personalized step when core completed', (done) ->
-  #   incompleteCore = TaskStore.getIncompleteCoreStepsIndexes(homeworkTaskId)
+  #   incompleteCore = TaskStore.getIncompleteCoreStepsIndexes(HOMEWORK_TASK_ID)
   #   lastStepIndex = _.last(incompleteCore) + 1
 
-  #   placeholder = TaskStore.getPlaceholder(homeworkTaskId)
+  #   placeholder = TaskStore.getPlaceholder(HOMEWORK_TASK_ID)
 
   #   taskActions
   #     .completeThisStep(@result)
@@ -142,7 +151,7 @@ describe 'Task Widget, homework specific things, due in the future', ->
   #     .then(taskActions.completeThisStep)
   #     .then(taskActions.advanceStep)
   #     .then(taskActions.completeThisStep)
-  #     .then(taskActions.loadStep(placeholder.id, homework_personalize_model))
+  #     .then(taskActions.loadStep(placeholder.id, HOMEWORK_PERSONALIZED_MODEL))
   #     .then(taskActions.advanceStep)
   #     .then(taskActions.forceUpdate)
   #     .then(taskChecks.checkIsNotPendingStep(lastStepIndex))
@@ -151,7 +160,7 @@ describe 'Task Widget, homework specific things, due in the future', ->
   #     , done)
 
   it 'should show complete page when complete page is clicked', (done) ->
-    steps = TaskStore.getStepsIds(homeworkTaskId)
+    steps = TaskStore.getStepsIds(HOMEWORK_TASK_ID)
     completeStepIndex = steps.length
 
     taskActions

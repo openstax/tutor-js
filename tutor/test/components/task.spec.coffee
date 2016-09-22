@@ -19,28 +19,17 @@ HOMEWORK_MODEL = require '../../api/tasks/5.json'
 VALID_RECOVERY_MODEL = require '../../api/tasks/4-recovered.json'
 VALID_RECOVERY_STEP = require '../../api/steps/step-id-4-2/recovery/PUT.json'
 
-avoidIntroCards = ->
-  FAKE_PLACEMENT =
-    placement:
-      taskId: 'test'
-      stepId: 'test'
-
-  UiSettings.initialize(
-    'two-step-info-reading': FAKE_PLACEMENT
-    'spaced-practice-info-reading': FAKE_PLACEMENT
-    'personalized-info-reading': FAKE_PLACEMENT
-    'two-step-info-homework': FAKE_PLACEMENT
-    'spaced-practice-info-homework': FAKE_PLACEMENT
-    'personalized-info-homework': FAKE_PLACEMENT
-  )
+FAKE_PLACEMENT =
+  placement:
+    taskId: 'test'
+    stepId: 'test'
 
 describe 'Task Widget, Reading Task', ->
   beforeEach (done) ->
     UiSettings.initialize(
-      'two-step-info-concept_coach':
-        placement:
-          taskId: 'test'
-          stepId: 'test'
+      "two-step-info-#{VALID_MODEL.type}": FAKE_PLACEMENT
+      "spaced-practice-info-#{VALID_MODEL.type}": FAKE_PLACEMENT
+      "personalized-info-#{VALID_MODEL.type}": FAKE_PLACEMENT
     )
     TaskActions.HACK_DO_NOT_RELOAD(true)
     TaskStepActions.HACK_DO_NOT_RELOAD(true)
@@ -125,7 +114,15 @@ describe 'Task Widget, Reading Task', ->
 
 describe 'Task Widget, through routes', ->
   beforeEach (done) ->
-    avoidIntroCards()
+    UiSettings.initialize(
+      "two-step-info-#{VALID_MODEL.type}": FAKE_PLACEMENT
+      "spaced-practice-info-#{VALID_MODEL.type}": FAKE_PLACEMENT
+      "personalized-info-#{VALID_MODEL.type}": FAKE_PLACEMENT
+      "two-step-info-#{HOMEWORK_MODEL.type}": FAKE_PLACEMENT
+      "spaced-practice-info-#{HOMEWORK_MODEL.type}": FAKE_PLACEMENT
+      "personalized-info-#{HOMEWORK_MODEL.type}": FAKE_PLACEMENT
+    )
+
     CourseActions.loaded(COURSE, COURSE_ID)
 
     TaskActions.HACK_DO_NOT_RELOAD(true)

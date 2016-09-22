@@ -23,14 +23,16 @@ ONE_TIME_CARD_DEFAULTS =
 # 'spaced-practice-info'
 SETTING_KEYS = makeAliases('info')
 
-SEE_AHEAD_ALLOWED = [
-  'concept_coach'
-  'homework'
+PRACTICES = [
   'practice'
   'chapter_practice',
   'page_practice'
 ]
 
+SEE_AHEAD_ALLOWED = [
+  'concept_coach'
+  'homework'
+].concat(PRACTICES)
 
 makeStep = (task, step = {}, stepIndex) ->
   stepId = step.id or 'default'
@@ -61,6 +63,9 @@ hasBeenPlaced = (settingKey) ->
   settings = UiSettings.get(settingKey)
   !!settings?.placement?
 
+isPractice = (task) ->
+  _.contains(PRACTICES, task.type)
+
 stepMapOneTimeCard = (condition, type, settingKey, isAvailable, task, step, stepIndex) ->
   settingKeyForTaskType = "#{settingKey}-#{task.type}"
 
@@ -80,7 +85,6 @@ stepMapOneTimeCard = (condition, type, settingKey, isAvailable, task, step, step
     makeStep(task, {type}, stepIndex)
 
 stepMapOneTimeCardForGroup = (condition, isAvailable, task, step, stepIndex) ->
-
   type = INTRO_ALIASES[step.group]
   settingKey = SETTING_KEYS[step.group]
   return if _.any([type, settingKey, step.group], _.isUndefined)
@@ -99,6 +103,8 @@ befores[SPACED_PRACTICE_GROUP] = (task, step, stepIndex, isAvailable) ->
     # TODO check if should be first or last
     _.findWhere(task.steps, {group: SPACED_PRACTICE_GROUP})?.id is step.id
 
+  return if isPractice(task)
+
   if task.type is 'reading' and isSpacedPractice(task, step, stepIndex)
     makeStep(task, {type: INTRO_ALIASES[SPACED_PRACTICE_GROUP]}, stepIndex)
   else
@@ -111,6 +117,8 @@ befores[SPACED_PRACTICE_GROUP] = (task, step, stepIndex, isAvailable) ->
 befores[PERSONALIZED_GROUP] = (task, step, stepIndex, isAvailable) ->
   isPersonalized = (task, step, stepIndex) ->
     _.findWhere(task.steps, {group: PERSONALIZED_GROUP})?.id is step.id
+
+  return if isPractice(task)
 
   stepMapOneTimeCardForGroup(
     isPersonalized,
