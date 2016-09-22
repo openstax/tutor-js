@@ -10,8 +10,9 @@ WindowHelpers = require '../../helpers/window'
 StudentDashboardShell = React.createClass
   displayName: 'StudentDashboardShell'
 
-  contextTypes:
-    router: React.PropTypes.func
+  propTypes:
+    courseId: React.PropTypes.string.isRequired
+    params: React.PropTypes.object.isRequired
 
   statics:
     # Called before the router mounts and renders the component
@@ -29,13 +30,13 @@ StudentDashboardShell = React.createClass
       callback()
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId, params} = @props
     <div className='student-dashboard '>
       <LoadableItem
         id={courseId}
         store={StudentDashboardStore}
         actions={StudentDashboardActions}
-        renderItem={ -> <StudentDashboard courseId={courseId}/> }
+        renderItem={ -> <StudentDashboard params={params} courseId={courseId}/> }
       />
     </div>
 

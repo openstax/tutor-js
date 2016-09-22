@@ -1,8 +1,9 @@
 _ = require 'underscore'
-Router = require 'react-router'
+
+Routes = require '../routes'
 
 {CurrentUserStore} = require '../flux/current-user'
-{HistoryLocation}  = require 'react-router'
+
 DestinationHelper  = require '../helpers/routes-and-destinations'
 
 # generate custom event data for routes
@@ -56,21 +57,22 @@ Analytics =
   sendPageView: (url) ->
     GA?('send', 'pageview', url)
 
-  onNavigation: (change, router) ->
+  onNavigation: (path) ->
     return unless GA
-    route  = DestinationHelper.routeFromPath(change.path, router.match)
+
+    route = Routes.pathToEntry(path)
+
     return @sendPageView("/not-found/#{change.path}") unless route
 
-    params = router.getCurrentParams()
-    path   = Translators[route.name]?( params ) or change.path
+    path = Translators[route.entry.name]?( route.match.params ) or route.match.pathname
 
     # if we're also going to send custom events then we set the page
-    if Events[route.name]
+    if Events[route.entry.name]
       GA('set', 'page', path)
-      Events[route.name]( params )
+      Events[route.entry.name]( route.match.params )
       @sendPageView() # url's not needed since it was set before events
     else
-      @sendPageView(path)
+      @sendPageView(route.match.pathname)
 
   sendEvent: (category, action, attrs) ->
     return unless GA

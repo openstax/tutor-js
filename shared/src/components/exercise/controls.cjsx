@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
@@ -134,7 +134,7 @@ ExFooter = React.createClass
     footerProps.controlButtons ?= <ExControlButtons {...@props}/>
 
     <div>
-      {React.addons.cloneWithProps(footer, footerProps)}
+      {React.cloneElement(footer, footerProps)}
       {idLink}
     </div>
 

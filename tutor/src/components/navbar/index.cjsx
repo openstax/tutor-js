@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+{Link} = require 'react-router'
 _ = require 'underscore'
 
 CourseName = require './course-name'
@@ -18,7 +18,7 @@ module.exports = React.createClass
   displayName: 'Navigation'
 
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
 
   componentWillMount: ->
     CourseListingStore.ensureLoaded()
@@ -28,7 +28,7 @@ module.exports = React.createClass
     {course}
 
   getCourseFromParams: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @props.params or {}
     CourseStore.get(courseId) if courseId?
 
   handleCourseChanges: ->
@@ -58,26 +58,27 @@ module.exports = React.createClass
 
   render: ->
     {course} = @state
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @props.params or {}
 
-    brand = <Router.Link to='dashboard' className='navbar-brand'>
+    brand = <Link to='/dashboard' className='navbar-brand'>
               <i className='ui-brand-logo'></i>
-            </Router.Link>
+            </Link>
 
-    <BS.Navbar toggleNavKey={0} fixedTop fluid ref="navBar">
-      <CenterControls/>
-      <BS.NavBrand>
+    <BS.Navbar fixedTop fluid ref="navBar">
+      <CenterControls />
+      <BS.Navbar.Brand>
         {brand}
-      </BS.NavBrand>
-      <BS.CollapsibleNav eventKey={0}>
-        <BS.Nav navbar>
+      </BS.Navbar.Brand>
+      <BS.Navbar.Collapse>
+        <BS.Nav>
           <CourseName course={course}/>
           <BookLinks courseId={courseId} onItemClick={@collapseNav} />
         </BS.Nav>
-        <BS.Nav right navbar>
-          <UserActionsMenu courseId={courseId} course={@getCourseFromParams()} onItemClick={@collapseNav} />
+        <BS.Nav pullRight>
+          <UserActionsMenu courseId={courseId} location={@props.location}
+            course={@getCourseFromParams()} onItemClick={@collapseNav} />
         </BS.Nav>
-      </BS.CollapsibleNav>
+      </BS.Navbar.Collapse>
       <ServerErrorMonitoring />
       <NotificationsBar />
     </BS.Navbar>

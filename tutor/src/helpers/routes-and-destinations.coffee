@@ -1,4 +1,6 @@
 _ = require 'underscore'
+Routes = require '../routes'
+
 COURSE_SETTINGS = 'Course Settings'
 COURSES = 'Courses'
 DASHBOARD = 'Dashboard'
@@ -39,9 +41,10 @@ destinationHelpers =
     _.last(matchedRoute.routes) if matchedRoute?.routes?.length
 
   destinationFromPath: (path, matchRoutes) ->
-    @getDestinationName( @routeFromPath(arguments...)?.name )
+    route = Routes.pathToEntry(path)
+    @getDestinationName(route.entry.name)
 
-  shouldRememberRoute: (routeName, router) ->
-    !!@destinationFromPath(routeName.path, router.match)
+  shouldRememberRoute: (path) ->
+    Routes.pathToEntry(path)
 
 module.exports = destinationHelpers

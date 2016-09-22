@@ -16,9 +16,6 @@ module.exports = React.createClass
     title:    React.PropTypes.string.isRequired
     sections: React.PropTypes.arrayOf(ChapterSectionType)
 
-  contextTypes:
-    router: React.PropTypes.func
-
   getDefaultProps: ->
     id: _.uniqueId('practice-button-tooltip-')
 

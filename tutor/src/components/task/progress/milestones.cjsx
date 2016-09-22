@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
@@ -12,7 +12,7 @@ CrumbMixin = require '../crumb-mixin'
 {TaskStore} = require '../../../flux/task'
 {StepTitleStore} = require '../../../flux/step-title'
 
-ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
+ReactCSSTransitionGroup = require 'react-addons-css-transition-group'
 
 Milestone = React.createClass
   displayName: 'Milestone'
