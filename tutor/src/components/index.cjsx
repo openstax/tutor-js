@@ -118,7 +118,7 @@ TaskResult = React.createClass
 Invalid = React.createClass
   render: ->
     <div>
-      <h1>Woops, this is an invalid page {@props.path}</h1>
+      <h1>Woops, this is an invalid page {@props.location.pathname}</h1>
       <Router.Link to='dashboard'>Home</Router.Link>
     </div>
 

@@ -1,6 +1,8 @@
 React  = require 'react'
 BS     = require 'react-bootstrap'
 
+includes = require 'lodash/includes'
+
 DontForgetPanel = require './dont-forget-panel'
 EmptyPanel      = require './empty-panel'
 UpcomingPanel   = require './upcoming-panel'
@@ -21,6 +23,7 @@ module.exports = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
+    params: React.PropTypes.object.isRequired
 
   mixins: [CourseDataMixin]
 
@@ -28,7 +31,7 @@ module.exports = React.createClass
     tabIndex: 0
 
   onTabSelection: (tabIndex, ev) ->
-    if _.include([0, 1], tabIndex)
+    if includes([0, 1], tabIndex)
       @setState({tabIndex})
     else
       ev.preventDefault()
@@ -59,6 +62,7 @@ module.exports = React.createClass
 
           <BS.Col xs=12 md=8 lg=9>
             <Tabs
+              params={@props.params}
               onSelect={@onTabSelection}
               tabs={['This Week', 'All Past Work']}
             />

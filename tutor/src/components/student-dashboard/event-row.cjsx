@@ -17,15 +17,14 @@ module.exports = React.createClass
     feedback:  React.PropTypes.string.isRequired
 
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
 
   getInitialState: -> hidden: false
 
   onClick: (ev) ->
     ev.preventDefault()
-    @context.router.transitionTo 'viewTaskStep',
-      # url is 1 based so it matches the breadcrumb button numbers. 1==first step
-      {courseId:@props.courseId, id: @props.event.id, stepIndex: 1}
+    # url is 1 based so it matches the breadcrumb button numbers. 1==first step
+    @context.router.transitionTo "/courses/#{courseId}/tasks/#{@props.event.id}/steps/1"
 
   hideTask: (event) ->
     StudentDashboardActions.hide(@props.event.id)
@@ -71,8 +70,8 @@ module.exports = React.createClass
     else
       time = <Time date={@props.event.due_at} format='concise'/>
       feedback = [
-        <span>{@props.feedback}</span>
-        <EventInfoIcon event={@props.event} />
+        <span key="feedback">{@props.feedback}</span>
+        <EventInfoIcon key="icon" event={@props.event} />
       ]
 
     <a

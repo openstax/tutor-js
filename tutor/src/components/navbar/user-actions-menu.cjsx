@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+
 _ = require 'underscore'
 classnames = require 'classnames'
 
@@ -23,7 +23,7 @@ UserActionsMenu = React.createClass
     onItemClick: React.PropTypes.func.isRequired
 
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
 
   transitionToMenuItem: (routeName, params, mouseEvent) ->
     mouseEvent.preventDefault()
@@ -36,13 +36,12 @@ UserActionsMenu = React.createClass
     @props.onItemClick()
 
   renderMenuItem: (route, index) ->
-    isActive = @context.router.isActive(route.name) if route.name?
-
+    isActive = true
     menuGoProps = if route.href
       href: route.href
       onSelect: @props.onItemClick
     else
-      href: @context.router.makeHref(route.name, route.params)
+      href: @context.router.createHref(route.name, route.params)
       onSelect: (event) =>
         @transitionToMenuItem(route.name, route.params, event)
         @props.onItemClick()
@@ -65,9 +64,9 @@ UserActionsMenu = React.createClass
 
     menu = _.map CurrentUserStore.getCourseMenuRoutes(courseId), @renderMenuItem
 
-    menu.push <li key='nav-browse-the-book'>
+    menu.push <BS.MenuItem key='nav-browse-the-book'>
       <BrowseTheBook unstyled={true} courseId={courseId} />
-    </li>
+    </BS.MenuItem>
 
     if CurrentUserStore.isAdmin()
       menu.push @renderMenuItem({label: 'Admin', href: '/admin', key: 'admin'}, menu.length )

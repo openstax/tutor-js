@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
@@ -12,6 +12,7 @@ classnames = require 'classnames'
 {TaskStore} = require '../../../flux/task'
 {StepTitleStore} = require '../../../flux/step-title'
 
+
 {
   PERSONALIZED_GROUP,
   SPACED_PRACTICE_GROUP,
@@ -20,7 +21,7 @@ classnames = require 'classnames'
   TITLES
 } = StepHelpsHelper
 
-ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
+ReactCSSTransitionGroup = require 'react-addons-css-transition-group'
 
 Milestone = React.createClass
   displayName: 'Milestone'

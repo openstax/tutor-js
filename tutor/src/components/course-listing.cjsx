@@ -35,7 +35,7 @@ CourseListing = React.createClass
   displayName: 'CourseListing'
 
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
 
   mixins: [CourseDataMixin]
 
@@ -77,8 +77,7 @@ CourseListing = React.createClass
         else
           courseLink = <Router.Link
             className='tutor-course-item'
-            to='viewStudentDashboard'
-            params={{courseId}}>{course.name}</Router.Link>
+            to="/courses/#{courseId}">{course.name}</Router.Link>
       else
         console.warn?("BUG: User is not a teacher or a student on course id: #{course.id}")
         return null
