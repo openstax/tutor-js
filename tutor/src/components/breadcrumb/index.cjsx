@@ -12,10 +12,10 @@ BreadcrumbStatic = React.createClass
   propTypes:
     crumb: React.PropTypes.shape(
       type: React.PropTypes.string.isRequired
-      data: React.PropTypes.shape(
-        id: React.PropTypes.string.isRequired
-        task_id: React.PropTypes.string.isRequired
-      ).isRequired
+      # data: React.PropTypes.shape(
+      #   id: React.PropTypes.string.isRequired
+      #   task_id: React.PropTypes.string.isRequired
+      # ).isRequired
     ).isRequired
 
   componentWillMount: ->
@@ -23,12 +23,7 @@ BreadcrumbStatic = React.createClass
 
   setStep: (props) ->
     {crumb} = props
-
-    step = crumb.data
-    if crumb.type is 'step'
-      step = crumb.data
-
-    @setState({step})
+    @setState({step: crumb})
 
   render: ->
     {step} = @state
@@ -43,10 +38,10 @@ BreadcrumbTaskDynamic = React.createClass
   propTypes:
     crumb: React.PropTypes.shape(
       type: React.PropTypes.string.isRequired
-      data: React.PropTypes.shape(
-        id: React.PropTypes.number.isRequired
-        task_id: React.PropTypes.number.isRequired
-      ).isRequired
+      # data: React.PropTypes.shape(
+      #   id: React.PropTypes.number.isRequired
+      #   task_id: React.PropTypes.number.isRequired
+      # ).isRequired
     ).isRequired
     onMount: React.PropTypes.func
 
@@ -58,7 +53,7 @@ BreadcrumbTaskDynamic = React.createClass
 
     TaskStepStore.on('step.completed', @update)
 
-    if crumb.type is 'step' and TaskStepStore.isPlaceholder(crumb.data.id)
+    if TaskStepStore.isPlaceholder(crumb.id)
       TaskStepStore.on('step.completed', @checkPlaceholder)
       TaskStepStore.on('step.loaded', @update)
 
@@ -76,24 +71,27 @@ BreadcrumbTaskDynamic = React.createClass
   setStep: (props) ->
     {crumb} = props
 
-    step = crumb.data
-    if crumb.type is 'step'
+    step = crumb
+    if crumb.id?
       # get the freshest version of the step
-      step = TaskStepStore.get(crumb.data.id)
+      step = TaskStepStore.get(crumb.id)
 
-    canReview = StepPanel.canReview(step.id) if crumb.type is 'step' and step?
+    canReview = StepPanel.canReview(step.id) if crumb.id? and step?
 
     @setState({step, canReview})
 
   checkPlaceholder: ->
-    {task_id, id} = @props.crumb.data
-    unless TaskStore.hasIncompleteCoreStepsIndexes(task_id)
-      TaskStepActions.loadPersonalized(id)
+    {crumb} = @props
+    stepId = crumb.id
+    taskId = crumb.task.id
+
+    unless TaskStore.hasIncompleteCoreStepsIndexes(taskId)
+      TaskStepActions.loadPersonalized(stepId)
 
   update: (id) ->
     {crumb} = @props
 
-    if (crumb.data.id is id)
+    if (crumb.id is id)
       @setStep(@props)
 
   render: ->

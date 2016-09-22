@@ -1,11 +1,13 @@
 React = require 'react'
-Markdown = require 'markdown-it'
-{ArbitraryHtmlAndMath} = require 'shared'
 _ = require 'underscore'
+Markdown = require 'markdown-it'
+
+ArbitraryHtmlAndMath = require './html'
 
 md = new Markdown()
 
 module.exports = React.createClass
+  displayName: 'Markdown'
   render: ->
     {text} = @props
     htmlProps = _.pick(@props, 'block', 'className')

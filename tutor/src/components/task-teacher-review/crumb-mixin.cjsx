@@ -43,7 +43,7 @@ module.exports =
   _makeCrumb: (data) ->
     crumb =
       data: data
-      type: 'step'
+      type: 'exercise'
       listeners: @_getStepListeners('exercise')
 
     if data.length
@@ -62,7 +62,6 @@ module.exports =
 
   _indexCrumb: (crumb, index) ->
     crumb.key = index
-    crumb.crumb = @_shouldStepCrumb(index)
 
     if crumb.data.length
       _.each crumb.data, (data) ->
@@ -127,9 +126,6 @@ module.exports =
   _getContentsForExternal: ->
     []
 
-  _shouldStepCrumb: ->
-    true
-
   _getStepListeners: (stepType) ->
     #   One per step for the crumb status updates
     #   Two additional listeners for step loading and completion
@@ -173,17 +169,9 @@ module.exports =
 
     contents = @["_#{getContents}"](allCrumbs)
 
-  getCrumableCrumbs: ->
-    # only return crumbables for breadcrumbs to render through
-    allCrumbs = @generateCrumbs()
-    crumbableCrumbs = _.where allCrumbs,
-      crumb: true
-
   getMaxListeners: ->
     crumbs = @generateCrumbs()
     listeners = _.reduce crumbs, (memo, crumb) ->
       memo + crumb.listeners
     , 0
 
-  getDefaultCurrentStep: ->
-    0

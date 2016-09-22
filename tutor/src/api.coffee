@@ -22,6 +22,7 @@ PerformanceForecast = require './flux/performance-forecast'
 {PeriodActions} = require './flux/period'
 
 {TaskActions} = require './flux/task'
+{TaskPanelActions, TaskPanelStore} = require './flux/task-panel'
 {TaskStepActions} = require './flux/task-step'
 { StudentIdStore, StudentIdActions } = require './flux/student-id'
 {TaskPlanActions, TaskPlanStore} = require './flux/task-plan'
@@ -47,7 +48,6 @@ BOOTSTRAPED_STORES = {
   user:   CurrentUserActions.loaded
   courses: CourseListingActions.loaded
 }
-
 
 start = (bootstrapData) ->
   for storeId, action of BOOTSTRAPED_STORES

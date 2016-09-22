@@ -6,6 +6,7 @@ Breadcrumb = React.createClass
   displayName: 'Breadcrumb'
   propTypes:
     crumb: React.PropTypes.object.isRequired
+    stepIndex: React.PropTypes.number.isRequired
     goToStep: React.PropTypes.func.isRequired
     step: React.PropTypes.object.isRequired
     canReview: React.PropTypes.bool
@@ -24,13 +25,15 @@ Breadcrumb = React.createClass
     nextState = @getState(nextProps)
     @setState(nextState)
 
-  getState: ({crumb, currentStep, step, canReview}) ->
+  getState: ({crumb, stepIndex, currentStep, step, canReview}) ->
     isCorrect = false
     isIncorrect = false
-    isCurrent = crumb.key is currentStep
+    isCurrent = stepIndex is currentStep
     isCompleted = step?.is_completed
     isEnd = crumb.type is 'end'
-    crumbType = if isEnd then crumb.type else step?.type
+
+    {type} = crumb
+    crumbType = type
 
     if isCompleted
       if canReview and step.correct_answer_id?
@@ -42,7 +45,7 @@ Breadcrumb = React.createClass
     {isCorrect, isIncorrect, isCurrent, isCompleted, isEnd, crumbType}
 
   render: ->
-    {step, crumb, goToStep, className} = @props
+    {step, crumb, goToStep, className, stepIndex} = @props
     {isCorrect, isIncorrect, isCurrent, isCompleted, isEnd, crumbType} = @state
 
     propsToPassOn = _.omit(@props, 'onClick', 'title', 'className', 'data-chapter', 'key', 'step')
@@ -70,14 +73,14 @@ Breadcrumb = React.createClass
       'status-incorrect': isIncorrect
 
     # build list of icon classes from the crumb type and the step labels
-    crumbClasses = _.map(crumb.data.labels, (label) -> "icon-#{label}") if crumb.data.labels?
+    crumbClasses = _.map(crumb.labels, (label) -> "icon-#{label}") if crumb.labels?
     iconClasses = classnames "icon-#{crumbType}", crumbClasses
 
     <span
       {...propsToPassOn}
       className={classes}
       title={title}
-      onClick={_.partial(goToStep, crumb.key)}
+      onClick={_.partial(goToStep, stepIndex)}
       data-chapter={crumb.sectionLabel}
       key="step-#{crumb.key}">
       <i className="icon-lg #{iconClasses}"></i>

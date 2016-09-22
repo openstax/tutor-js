@@ -98,10 +98,10 @@ StepTitleConfig =
       titleParser.parseComplete(htmlString)
 
   parseStep: (step) ->
-    if step.type is 'reading'
-      @parseReading(step.id, step.content_html)
     if step.type is 'exercise'
       @parseExercise(step.id, _.first(step.content.questions).stem_html)
+    else
+      @parseReading(step.id, step.content_html)
 
   parseSteps: (steps) ->
     _.each steps, @parseStep, @

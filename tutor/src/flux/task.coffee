@@ -136,14 +136,6 @@ TaskConfig =
       steps = getSteps(@_steps[taskId])
       step = getCurrentStep(steps)
 
-    getProgress: (taskId, stepKey) ->
-      steps = getSteps(@_steps[taskId])
-
-      if steps.length
-        (stepKey + 1) / (steps.length + 1) * 100
-      else
-        0
-
     getIncompleteSteps: (taskId) ->
       allSteps = getSteps(@_steps[taskId])
       steps = getIncompleteSteps(allSteps)
@@ -204,17 +196,6 @@ TaskConfig =
     hasProgress: (taskId) ->
       @_steps[taskId].length >= 1 and @_get(taskId).type is 'reading'
 
-    doesAllowSeeAhead: (taskId) ->
-      allowed = [
-        'concept_coach'
-        'homework'
-        'practice'
-        'chapter_practice',
-        'page_practice'
-      ]
-
-      if allowed.indexOf(@_get(taskId).type) > -1 then true else false
-
     getRelatedSections: (taskId) ->
       _.chain(getSteps(@_steps[taskId]))
         .pluck('chapter_section')
@@ -272,24 +253,6 @@ TaskConfig =
 
     getStepIndex: (taskId, stepId) ->
       _.findIndex(@_steps[taskId], id: stepId)
-
-
-    # like getStepIndex, but takes into consideration CC spacer step
-    #
-    # TODO clean up by moving this, and stuff within crumb-mixin to a
-    # helper or flux of it's own.
-    getStepNavIndex: (taskId, stepId) ->
-      coachStart = _.findIndex @_steps[taskId], (step) ->
-        not TaskStepStore.isCore(step.id)
-
-      stepIndex = @exports.getStepIndex.call(@, taskId, stepId)
-
-      navIndex = stepIndex
-
-      if coachStart > -1 and stepIndex >= coachStart
-        navIndex = stepIndex + 1
-
-      navIndex
 
     getStepLateness: (taskId, stepId) ->
       result =

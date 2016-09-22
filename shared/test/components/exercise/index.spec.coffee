@@ -1,5 +1,4 @@
 {Testing, expect, sinon, _, ReactTestUtils} = require 'test/helpers'
-UiSettings = require 'model/ui-settings'
 {Exercise} = require 'components/exercise'
 STEP = require './step-data'
 CHOICES = STEP.content.questions[0].answers
@@ -47,6 +46,7 @@ resetProps = ->
   step = _.clone(STEP)
   props = _.clone(FREE_RESPONSE_PROPS)
   props.parts = [step]
+  props.project = 'tutor'
 
 exerciseActionsAndChecks =
   enterFreeResponse: ({dom, wrapper, element}, freeResponse = 'HELLO') ->
@@ -110,10 +110,7 @@ exerciseActionsAndChecks =
 describe 'Exercise Component', ->
 
   beforeEach ->
-    UiSettings.initialize({'has-viewed-two-step-help': true})
     resetProps()
-  afterEach ->
-    UiSettings._reset()
 
   it 'renders with css classes', ->
     Testing.renderComponent( Exercise, props: props ).then ({dom}) ->

@@ -2,7 +2,7 @@ React = require 'react'
 EventEmitter2 = require 'eventemitter2'
 _ = require 'underscore'
 classnames = require 'classnames'
-{SpyMode} = require 'shared'
+{SpyMode, TaskHelper, ExerciseIntro} = require 'shared'
 
 {channel} = tasks = require './collection'
 api = require '../api'
@@ -20,18 +20,27 @@ TaskBase = React.createClass
   displayName: 'TaskBase'
   getInitialState: ->
     {item} = @props
+    initialState = @getState()
 
-    task: item
-    currentStep: 0
-    steps: @setupSteps(item)
+    _.extend({currentStep: 0}, initialState)
 
   contextTypes:
     close: React.PropTypes.func
     navigator: React.PropTypes.instanceOf(EventEmitter2)
 
+  getState: (props) ->
+    props ?= @props
+    {item} = props
+
+    return {steps: [], task: item} unless item
+
+    crumbs = TaskHelper.mapSteps(item)
+    steps = @setupSteps({steps: crumbs})
+
+    {crumbs, steps, task: item}
+
   setupSteps: (task) ->
     steps = _.keys(task?.steps)
-    steps.push('summary')
     steps.push('continue')
 
     steps
@@ -50,12 +59,13 @@ TaskBase = React.createClass
 
   isStepAllowed: (stepIndex) ->
     @isExerciseStep(stepIndex) or
+      @isStaticStep(stepIndex) or
       (@isReviewStep(stepIndex) and @canReview()) or
       (@isContinueStep(stepIndex) and @shouldContinue())
 
   isExerciseStep: (stepIndex) ->
-    {task} = @state
-    stepIndex < task.steps.length
+    {crumbs} = @state
+    crumbs[stepIndex]?.id?
 
   canReview: ->
     {taskId} = @props
@@ -65,9 +75,13 @@ TaskBase = React.createClass
     {taskId} = @props
     _.isEmpty tasks.getIncompleteSteps(taskId)
 
+  isStaticStep: (stepIndex) ->
+    {crumbs} = @state
+    not crumbs[stepIndex].id?
+
   isReviewStep: (stepIndex) ->
-    {steps} = @state
-    steps[stepIndex] is 'summary'
+    {crumbs} = @state
+    crumbs[stepIndex].type is 'end'
 
   isContinueStep: (stepIndex) ->
     {steps} = @state
@@ -85,9 +99,7 @@ TaskBase = React.createClass
     exercises.channel.off('leave.*', @nextStep)
 
   componentWillReceiveProps: (nextProps) ->
-    nextState =
-      task: nextProps.item
-      steps: @setupSteps(nextProps.item)
+    nextState = @getState(nextProps)
 
     if (_.isEmpty(@props.item) and not _.isEmpty(nextProps.item)) or
       (@props.taskId isnt nextProps.taskId)
@@ -106,7 +118,7 @@ TaskBase = React.createClass
     close() if @isContinueStep(currentStep)
 
   render: ->
-    {task, currentStep} = @state
+    {task, currentStep, crumbs} = @state
     {taskId} = @props
     return null unless task?
 
@@ -121,15 +133,22 @@ TaskBase = React.createClass
 
     if noExercises
       panel = <NoExercises/>
-    else if task.steps[currentStep]?
+    else if @isExerciseStep(currentStep)
       panel = <ExerciseStep
         className='concept-coach-task-body'
-        id={task.steps[currentStep].id}
+        id={crumbs[currentStep].id}
         pinned={false}/>
     else if @isReviewStep(currentStep)
       panel = <TaskReview {...@props} goToStep={@goToFirstIncomplete}/>
     else if @isContinueStep(currentStep)
       panel = null
+    else if @isStaticStep(currentStep)
+      {type} = crumbs[currentStep]
+
+      panel = <ExerciseIntro
+        stepIntroType={type}
+        project='concept-coach'
+        onContinue={@nextStep}/>
 
     taskClasses = classnames 'concept-coach-task',
       'card-body': noExercises

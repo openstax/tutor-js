@@ -6,6 +6,7 @@ describe 'Exercise Group Component', ->
 
   beforeEach ->
     @props =
+      project: 'tutor'
       group: 'personalized'
       related_content: [
         {title: 'Test', chapter_section: [1, 2]}
@@ -24,6 +25,6 @@ describe 'Exercise Group Component', ->
       expect(dom.textContent).equal('')
 
   it 'renders the exercise uid when passed in', ->
-    @props.group = 'spaced_practice'
+    @props.group = 'spaced practice'
     Testing.renderComponent( Group, props: @props ).then ({dom, wrapper, root, element}) ->
       expect(dom.querySelector('i[aria-describedby="instructions"]')).to.not.be.null

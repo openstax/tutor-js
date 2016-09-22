@@ -1,24 +1,8 @@
-_ = require 'underscore'
+{formatSection, defaults} = require '../helpers/step-content'
 
 module.exports =
   getDefaultProps: ->
-    sectionSeparator: '.'
-    skipZeros: true
-    inputStringSeparator: '.'
+    defaults
 
   sectionFormat: (section, separator) ->
-    {inputStringSeparator, skipZeros, sectionSeparator} = @props
-
-    if _.isString(section)
-      sectionArray = section.split(inputStringSeparator)
-
-    sectionArray = section if _.isArray(section)
-    # prevent mutation
-    sectionArray = _.clone(sectionArray)
-    # ignore 0 in chapter sections
-    sectionArray.pop() if skipZeros and _.last(sectionArray) is 0
-
-    if sectionArray instanceof Array
-      sectionArray.join(separator or sectionSeparator)
-    else
-      section
+    formatSection(section, separator, @props)

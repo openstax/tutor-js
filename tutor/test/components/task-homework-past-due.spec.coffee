@@ -9,21 +9,30 @@ _ = require 'underscore'
 {TaskActions, TaskStore} = require '../../src/flux/task'
 {TaskStepActions, TaskStepStore} = require '../../src/flux/task-step'
 
-courseId = '1'
-homeworkTaskId = '5'
+COURSE_ID = '1'
+HOMEWORK_TASK_ID = '5'
 
-homework_model = require '../../api/tasks/5.json'
+HOMEWORK_MODEL = require '../../api/tasks/5.json'
+
+FAKE_PLACEMENT =
+  placement:
+    taskId: 'test'
+    stepId: 'test'
 
 describe 'Task Widget, homework specific things, past due date', ->
   beforeEach (done) ->
-    UiSettings.initialize({'has-viewed-two-step-help': true})
+    UiSettings.initialize(
+      "two-step-info-#{HOMEWORK_MODEL.type}": FAKE_PLACEMENT
+      "spaced-practice-info-#{HOMEWORK_MODEL.type}": FAKE_PLACEMENT
+      "personalized-info-#{HOMEWORK_MODEL.type}": FAKE_PLACEMENT
+    )
     TaskActions.HACK_DO_NOT_RELOAD(true)
     TaskStepActions.HACK_DO_NOT_RELOAD(true)
 
-    TaskActions.loaded(homework_model, homeworkTaskId)
+    TaskActions.loaded(HOMEWORK_MODEL, HOMEWORK_TASK_ID)
 
     taskTests
-      .goToTask("/courses/#{courseId}/tasks/#{homeworkTaskId}", homeworkTaskId)
+      .goToTask("/courses/#{COURSE_ID}/tasks/#{HOMEWORK_TASK_ID}", HOMEWORK_TASK_ID)
       .then((result) =>
         @result = result
         done()
@@ -53,7 +62,7 @@ describe 'Task Widget, homework specific things, past due date', ->
       , done)
 
   it 'should be able to go to review page after completing a step', (done) ->
-    steps = TaskStore.getStepsIds(homeworkTaskId)
+    steps = TaskStore.getStepsIds(HOMEWORK_TASK_ID)
     completeStepIndex = steps.length
 
     taskActions

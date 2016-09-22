@@ -10,14 +10,15 @@ describe 'Breadcrumb Component', ->
       step: {type: 'reading', is_completed: true, title: 'My Assignment', correct_answer_id: 1}
       canReview: true
       currentStep: 1
+      stepIndex: 2
       crumb:
-        key: 2,
-        data:
-          labels: ['hot']
+        type: 'reading'
+        labels: ['hot']
 
   describe 'Title', ->
     it 'indicates current step', ->
-      @props.crumb.key = 1
+      @props.stepIndex = 1
+      @props.step.is_completed = false
       Testing.renderComponent( BC, props: @props ).then ({dom}) ->
         expect(dom.getAttribute('title')).equal('Current Step (reading)')
     it 'indicates completed', ->

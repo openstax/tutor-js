@@ -6,6 +6,7 @@ require './src/helpers/polyfills'
 
 module.exports = {
   ArbitraryHtmlAndMath:   require './src/components/html'
+  Markdown:               require './src/components/markdown'
   AsyncButton:            require './src/components/buttons/async-button'
   BootstrapURLs:          require './src/model/urls'
   ChangeStudentIdForm:    require './src/components/change-student-id-form'
@@ -23,6 +24,10 @@ module.exports = {
   ExerciseHelpers:        require './src/model/exercise'
   ExercisePreview:        require './src/components/exercise-preview'
   ExerciseWithScroll,
+  TaskHelper:             require './src/helpers/task'
+  StepHelpsHelper:        require './src/helpers/step-helps'
+  ExerciseIntro:          require './src/components/exercise/intro'
+
 
   FreeResponse:           require './src/components/exercise/free-response'
   GetPositionMixin:       require './src/components/get-position-mixin'

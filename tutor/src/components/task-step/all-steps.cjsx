@@ -6,7 +6,8 @@ classnames = require 'classnames'
 {StepContent, ReadingStepContent} = require './step-with-reading-content'
 Exercise = require './exercise'
 Placeholder = require './placeholder'
-Markdown = require '../markdown'
+{Markdown} = require 'shared'
+
 StepMixin = require './step-mixin'
 StepFooterMixin = require './step-footer-mixin'
 CourseDataMixin = require '../course-data-mixin'
@@ -94,24 +95,4 @@ ExternalUrl = React.createClass
       {descriptionHTML}
     </div>
 
-Spacer = React.createClass
-  mixins: [StepMixin]
-  isContinueEnabled: -> true
-  onContinue: ->
-    @props.onNextStep()
-  renderBody: ->
-    <div className='spacer-step'>
-      <h1>Reading Review</h1>
-      <p>
-        <b>Did you know?</b> Research shows you can strengthen your
-        memory&mdash;<b>and spend less time studying</b>&mdash;if
-        you revisit material over multiple study sessions.
-      </p>
-      <p>
-        OpenStax Tutor will include <b>spaced practice</b> questions&mdash;like the
-        following ones&mdash;from prior sections to give your learning a boost.
-        You may occasionally see questions you've seen before.
-      </p>
-    </div>
-
-module.exports = {Reading, Interactive, Video, Exercise, Placeholder, Spacer, ExternalUrl}
+module.exports = {Reading, Interactive, Video, Exercise, Placeholder, ExternalUrl}

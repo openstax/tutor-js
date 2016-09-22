@@ -9,7 +9,12 @@ TASK = require 'cc/tasks/C_UUID/m_uuid/GET'
 describe 'Task Component', ->
 
   beforeEach ->
-    UiSettings.initialize({'has-viewed-two-step-help': true})
+    UiSettings.initialize(
+      'two-step-info-concept_coach':
+        placement:
+          taskId: 'test'
+          stepId: 'test'
+    )
     @props =
       moduleUUID: 'm_uuid'
       collectionUUID: 'C_UUID'

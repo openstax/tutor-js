@@ -1,18 +1,18 @@
 React = require 'react'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 {TaskProgressActions, TaskProgressStore} = require '../../flux/task-progress'
+{TaskPanelActions, TaskPanelStore} = require '../../flux/task-panel'
 {TaskStore} = require '../../flux/task'
 
 _ = require 'underscore'
 
-CrumbMixin = require './crumb-mixin'
-{ChapterSectionMixin, ResizeListenerMixin} = require 'shared'
+{ResizeListenerMixin} = require 'shared'
 {BreadcrumbTaskDynamic} = require '../breadcrumb'
 
 module.exports = React.createClass
   displayName: 'Breadcrumbs'
 
-  mixins: [ChapterSectionMixin, CrumbMixin, ResizeListenerMixin]
+  mixins: [ResizeListenerMixin]
 
   propTypes:
     id: React.PropTypes.string.isRequired
@@ -28,7 +28,23 @@ module.exports = React.createClass
     currentStep: currentStep
 
   componentWillMount: ->
-    listeners = @getMaxListeners()
+    crumbs = @getCrumbs()
+
+    # if a recovery step needs to be loaded, don't update breadcrumbs
+    TaskStore.on('task.beforeRecovery', @stopUpdate)
+    # until the recovery step has been loaded
+    TaskStore.on('task.afterRecovery', @update)
+
+    @startListeningForProgress()
+
+    @updateListeners(crumbs)
+    @setState {crumbs}
+
+  componentDidMount: ->
+    @calculateCrumbsWidth()
+
+  updateListeners: (crumbs) ->
+    listeners = @getMaxListeners(crumbs)
     # TaskStepStore listeners include:
     #   One per step for the crumb status updates
     #   Two additional listeners for step loading and completion
@@ -39,17 +55,14 @@ module.exports = React.createClass
     # Only update max listeners if it is greater than the default of 10
     TaskStepStore.setMaxListeners(listeners + 1) if listeners? and (listeners + 1) > 10
 
-    # if a recovery step needs to be loaded, don't update breadcrumbs
-    TaskStore.on('task.beforeRecovery', @stopUpdate)
-    # until the recovery step has been loaded
-    TaskStore.on('task.afterRecovery', @update)
+  getMaxListeners: (crumbs) ->
+    listeners = _.reduce crumbs, (memo, crumb) ->
+      crumbListeners = if crumb.type is 'placeholder' then 3 else 1
+      memo + crumbListeners
+    , 0
 
-    @startListeningForProgress()
-    crumbs = @getCrumableCrumbs()
-    @setState {crumbs}
-
-  componentDidMount: ->
-    @calculateCrumbsWidth()
+  getCrumbs: ->
+    TaskPanelStore.get(@props.id)
 
   calculateCrumbsWidth: (crumbDOM) ->
     if @isMounted()
@@ -79,7 +92,8 @@ module.exports = React.createClass
     if @props.id isnt nextProps.id
       @stopListeningForProgress()
       @startListeningForProgress(nextProps)
-    crumbs = @getCrumableCrumbs()
+    crumbs = @getCrumbs()
+    @updateListeners(crumbs)
     @setState({hoverCrumb: nextProps.currentStep, crumbs})
 
   stopListeningForProgress: (props) ->
@@ -136,8 +150,9 @@ module.exports = React.createClass
         data-label={crumb.label}
         currentStep={currentStep}
         goToStep={goToStep}
-        key="breadcrumb-#{crumb.type}-#{crumb.key}"
-        ref="breadcrumb-#{crumb.type}-#{crumb.key}"/>
+        stepIndex={crumbIndex}
+        key="breadcrumb-#{crumb.type}-#{crumbIndex}"
+        ref="breadcrumb-#{crumb.type}-#{crumbIndex}"/>
 
     if wrapper?
       Wrapper = wrapper

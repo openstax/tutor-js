@@ -14,9 +14,19 @@ VALID_MODEL = require '../../api/courses/1/practice.json'
 
 courseId = '1'
 
+avoidIntroCards = ->
+  FAKE_PLACEMENT =
+    placement:
+      taskId: 'test'
+      stepId: 'test'
+
+  UiSettings.initialize(
+    'two-step-info-practice': FAKE_PLACEMENT
+  )
+
 describe 'Practice Widget', ->
   beforeEach (done) ->
-    UiSettings.initialize({'has-viewed-two-step-help': true})
+    avoidIntroCards()
     TaskActions.HACK_DO_NOT_RELOAD(true)
     TaskStepActions.HACK_DO_NOT_RELOAD(true)
     CoursePracticeActions.HACK_DO_NOT_RELOAD(true)
@@ -86,7 +96,7 @@ describe 'Practice Widget', ->
 describe 'Practice Widget, through route', ->
 
   beforeEach (done) ->
-    UiSettings.initialize({'has-viewed-two-step-help': true})
+    avoidIntroCards()
     TaskActions.HACK_DO_NOT_RELOAD(true)
     TaskStepActions.HACK_DO_NOT_RELOAD(true)
     CoursePracticeActions.HACK_DO_NOT_RELOAD(true)

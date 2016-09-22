@@ -1,6 +1,4 @@
 {Testing, expect, sinon, _, ReactTestUtils} = require 'shared/test/helpers'
-{UiSettings} = require 'shared'
-
 {ExerciseStep} = require 'exercise'
 Collection = require 'exercise/collection'
 step = require '../../api/steps/4573/GET'
@@ -29,12 +27,9 @@ describe 'Exercise Step', ->
 
   beforeEach ->
     updatedStep = _.clone(props.item)
-
-    UiSettings.initialize({'has-viewed-two-step-help': true})
     Collection.quickLoad(props.id, updatedStep)
 
   afterEach ->
-    UiSettings._reset()
     updatedStep = null
 
   it 'renders given exercise', ->

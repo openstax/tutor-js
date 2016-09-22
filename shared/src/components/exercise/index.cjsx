@@ -8,11 +8,8 @@ ExerciseGroup = require './group'
 ExerciseBadges = require '../exercise-badges'
 ExerciseIdentifierLink = require '../exercise-identifier-link'
 ScrollToMixin = require '../scroll-to-mixin'
-TwoStepHelpMixin = require './two-step-help-mixin'
 
 ExerciseMixin =
-
-  mixins: [TwoStepHelpMixin]
 
   propTypes:
     parts: React.PropTypes.array.isRequired
@@ -28,10 +25,6 @@ ExerciseMixin =
 
     _.every parts, (part) ->
       canOnlyContinue(part.id)
-
-  # In the far off misty future, we may want to check multiple mixins and render different types
-  stepHasHelp: ->     @hasTwoStepHelp()
-  renderStepHelp: ->  @renderTwoStepHelp()
 
   shouldControl: (id) ->
     not @props.canOnlyContinue(id)
@@ -137,8 +130,6 @@ ExerciseWithScroll = React.createClass
     @scrollToSelector(stepSelector, {updateHistory: false, unlessInView: true})
 
   render: ->
-    return @renderStepHelp() if @stepHasHelp()
-
     {parts, footer, pinned} = @props
     classes = classnames('openstax-multipart-exercise-card', {
       "deleted-homework": @props.task?.type is 'homework' and @props.task?.is_deleted
@@ -160,8 +151,6 @@ Exercise = React.createClass
   displayName: 'Exercise'
   mixins: [ExerciseMixin]
   render: ->
-    return @renderStepHelp() if @stepHasHelp()
-
     {footer, pinned} = @props
     classes = classnames('openstax-multipart-exercise-card', {
       "deleted-homework": @props.task?.type is 'homework' and @props.task?.is_deleted

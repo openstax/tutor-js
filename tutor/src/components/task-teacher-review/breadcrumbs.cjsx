@@ -28,6 +28,7 @@ module.exports = React.createClass
     stepButtons = _.map crumbs, (crumb) =>
       <BreadcrumbStatic
         crumb={crumb}
+        stepIndex={crumb.key}
         currentStep={currentStep}
         goToStep={@goToStep}
         key="breadcrumb-#{crumb.type}-#{crumb.key}"/>

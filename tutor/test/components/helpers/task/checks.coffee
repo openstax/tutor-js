@@ -220,10 +220,6 @@ checks =
 
     {div, component, stepId, taskId, state, router, history}
 
-  _checkIsSpacerPanel: ({div, component, stepId, taskId, state, router, history}) ->
-    expect(div.querySelector('.spacer-step')).to.not.be.null
-
-    {div, component, stepId, taskId, state, router, history}
 
 # promisify for chainability in specs
 _.each(checks, (check, checkName) ->

@@ -7,14 +7,22 @@
   .task-breadcrumbs {
     counter-reset: step;
   }
-  .openstax-breadcrumbs-step:not(.breadcrumb-end) {
-    &:before {
-      counter-increment: step;
-      content: counter(step);
-      .crumb-text();
+  .openstax-breadcrumbs-step {
+    &.breadcrumb-placeholder,
+    &.breadcrumb-exercise {
+      &:before {
+        counter-increment: step;
+        content: counter(step);
+        .crumb-text();
+      }
+
+      i:not(.icon-incorrect):not(.icon-correct) {
+        display: none;
+      }
     }
-    i:not(.icon-incorrect):not(.icon-correct) {
-      display: none;
+
+    &.breadcrumb-personalized-intro {
+      background: @openstax-primary;
     }
   }
 }
