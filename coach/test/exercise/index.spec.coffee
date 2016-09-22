@@ -27,9 +27,7 @@ describe 'Exercise Step', ->
 
   beforeEach ->
     updatedStep = _.clone(props.item)
-    @props =
-      id: '4573'
-      item: _.clone(step)
+    Collection.quickLoad(props.id, updatedStep)
 
   afterEach ->
     updatedStep = null
