@@ -1,3 +1,6 @@
+React = require 'react'
+ReactDOM = require 'react-dom'
+
 # Only load recordo for dev code for now
 Recordo = require('recordo')
 Recordo.initialize()
@@ -11,6 +14,7 @@ Notices = require './src/helpers/notifications'
 dom = require './src/helpers/dom'
 {startMathJax} = require 'shared/src/helpers/mathjax'
 {TransitionAssistant} = require './src/components/unsaved-state'
+Root = require './src/router'
 
 window._STORES =
   APP: require './src/flux/app'
@@ -48,7 +52,10 @@ loadApp = ->
   mainDiv = document.createElement('div')
   mainDiv.id = 'react-root-container'
   document.body.appendChild(mainDiv)
-  router.start(mainDiv)
+
+  ReactDOM.render(React.createElement(Root), mainDiv)
+
+
   true
 
 loadApp() or document.addEventListener('readystatechange', loadApp)
