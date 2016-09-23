@@ -86,6 +86,7 @@ module.exports = React.createClass
 
           <Menu
             {...@props}
+            isOpen={@state.isMenuVisible}
             ecosystemId={@props.ecosystemId}
             activeSection={@state.section}
             onMenuSelection={@onMenuClick}
