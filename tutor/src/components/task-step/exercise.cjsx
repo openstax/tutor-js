@@ -55,6 +55,13 @@ module.exports = React.createClass
     {id, taskId, courseId, onNextStep} = props
     parts = TaskStore.getStepParts(taskId, id)
 
+    parts = _.map(parts, (part) ->
+      stepIndex = TaskPanelStore.getStepIndex(taskId, {id: part.id})
+      questionNumber = TaskStore.getStepIndex(taskId, part.id) + 1
+
+      _.extend({}, part, {stepIndex, questionNumber})
+    )
+
     lastPartId = _.last(parts).id
     isSinglePartExercise = @isSinglePart(parts)
 

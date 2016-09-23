@@ -283,11 +283,6 @@ TaskConfig =
 
       parts = getSteps(parts)
 
-      _.map parts, (part) =>
-        part.stepIndex = @exports.getStepIndex.call(@, taskId, part.id)
-        part.questionNumber = part.stepIndex + 1
-        part
-
     getStepByIndex: (taskId, stepIndex) ->
       @_steps[taskId][stepIndex]
 
@@ -299,10 +294,10 @@ TaskConfig =
       {is_deleted} = @_get(taskId)
       is_deleted
 
-    isSameStep: (taskId, stepIndices...) ->
-      contentUrls = _.chain(stepIndices)
-        .map (stepIndex) =>
-          step = @exports.getStepByIndex.call(@, taskId, stepIndex)
+    isSameStep: (taskId, stepIds...) ->
+      contentUrls = _.chain(stepIds)
+        .map (stepId) =>
+          step = @_getStep(taskId, stepId)
 
           if step?.is_in_multipart
             step.content_url

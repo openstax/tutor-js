@@ -108,7 +108,9 @@ module.exports = React.createClass
 
   _isSameStep: (nextProps, nextState) ->
     return false unless nextProps.id is @props.id
-    TaskStore.isSameStep(@props.id, @state.currentStep, nextState.currentStep)
+    step = @getStep(@state.currentStep)
+    nextStep = @getStep(nextState.currentStep)
+    TaskStore.isSameStep(@props.id, step.id, nextStep.id)
 
   # After a step is recovered, the task needs to load itself in order to store the new step
   # at the proper index.  prepareToRecover handles this.
