@@ -4,6 +4,7 @@ _ = require 'underscore'
 classnames = require 'classnames'
 
 React = require 'react'
+ReactDOM = require 'react-dom'
 BS = require 'react-bootstrap'
 
 {Calendar, Month, Week, Day} = require 'react-calendar'
@@ -22,12 +23,13 @@ CourseMonth = React.createClass
   mixins: [CourseAddMenuMixin]
 
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
 
   propTypes:
     plansList: React.PropTypes.array
     date: TimeHelper.PropTypes.moment
     hasPeriods: React.PropTypes.bool.isRequired
+    courseId: React.PropTypes.string.isRequired
 
   childContextTypes:
     date: TimeHelper.PropTypes.moment
@@ -42,9 +44,12 @@ CourseMonth = React.createClass
     date: moment(TimeStore.getNow())
 
   setDateParams: (date) ->
-    params = @context.router.getCurrentParams()
-    params.date = date.format(@props.dateFormat)
-    @context.router.transitionTo('calendarByDate', params)
+    date = date.format(@props.dateFormat)
+    @context.router.transitionTo("/course/#{@props.courseId}/t/month/#{date}")
+
+    # pathname: @props.windowImpl.location.pathname, query: query)
+    # @context.router.transitionTo(@context.router.getCurrentPathname(), {},
+    # @context.router.transitionTo('calendarByDate', params)
 
   setDate: (date) ->
     unless moment(date).isSame(@props.date, 'month')
@@ -54,7 +59,7 @@ CourseMonth = React.createClass
     @setDayHeight(@refs.courseDurations.state.ranges) if @refs.courseDurations?
 
   setDayHeight: (ranges) ->
-    calendar = React.findDOMNode(@refs.calendar)
+    calendar =  ReactDOM.findDOMNode(@)
     nodesWithHeights = calendar.querySelectorAll('.rc-Week')
 
     # Adjust calendar height for each week to accomodate the number of plans shown on this week
@@ -162,6 +167,7 @@ CourseMonth = React.createClass
       <CourseCalendarHeader
         duration='month'
         date={date}
+        courseId={@props.courseId}
         setDate={@setDate}
         hasPeriods={hasPeriods}
         ref='calendarHeader'/>
@@ -169,7 +175,7 @@ CourseMonth = React.createClass
       <BS.Row className='calendar-body'>
         <BS.Col xs={12} data-duration-name={@getFullMonthName()}>
 
-          <Month date={date} monthNames={false} weekdayFormat='ddd' ref='calendar'>
+          <Month date={date} monthNames={false} weekdayFormat='ddd'>
             {days}
           </Month>
 

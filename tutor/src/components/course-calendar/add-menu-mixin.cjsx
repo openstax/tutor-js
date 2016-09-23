@@ -7,7 +7,7 @@ CourseGroupingLabel = require '../course-grouping-label'
 
 CourseAddMenuMixin =
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object.isRequired
 
   propTypes:
     dateFormat: React.PropTypes.string
@@ -25,40 +25,32 @@ CourseAddMenuMixin =
       @context.router.transitionTo(link.to, link.params, link.query)
 
   renderAddActions: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @props
     {dateFormat, hasPeriods} = @props
-
+    link = "/course/#{courseId}"
     if hasPeriods
       links = [
         {
           text: 'Add Reading'
-          to: 'createReading'
-          params:
-            courseId: courseId
+          to: "#{link}/readings/new"
           type: 'reading'
           query:
             due_at: @state.addDate?.format(dateFormat)
         }, {
           text: 'Add Homework'
-          to: 'createHomework'
-          params:
-            courseId: courseId
+          to: "#{link}/homework/new"
           type: 'homework'
           query:
             due_at: @state.addDate?.format(dateFormat)
         }, {
           text: 'Add External Assignment'
-          to: 'createExternal'
-          params:
-            courseId: courseId
+          to: "#{link}/externals/new"
           type: 'external'
           query:
             due_at: @state.addDate?.format(dateFormat)
         }, {
           text: 'Add Event'
-          to: 'createEvent'
-          params:
-            courseId: courseId
+          to: "#{link}/events/new"
           type: 'event'
           query:
             due_at: @state.addDate?.format(dateFormat)
@@ -84,14 +76,12 @@ CourseAddMenuMixin =
 
       links = [{
         text: linkText
-        to: 'courseSettings'
-        params:
-          courseId: courseId
+        to: "/course/#{courseId}/settings"
         type: 'none'
       }]
 
-    _.map(links, (link) =>
-      href = @context.router.makeHref(link.to, link.params, link.query)
+    for link in links
+      href = @context.router.createHref(link.to)
       <li
         key={link.type}
         data-assignment-type={link.type}
@@ -100,6 +90,6 @@ CourseAddMenuMixin =
           {link.text}
         </a>
       </li>
-    )
+
 
 module.exports = CourseAddMenuMixin

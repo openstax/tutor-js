@@ -25,8 +25,6 @@ CourseCalendarHeader = React.createClass
 
   mixins: [ CourseAddMenuMixin ]
 
-  contextTypes:
-    router: React.PropTypes.func
 
   getDefaultProps: ->
     duration: 'month'
@@ -58,8 +56,7 @@ CourseCalendarHeader = React.createClass
 
   render: ->
     {date} = @state
-    {format, duration, hasPeriods} = @props
-    {courseId} = @context.router.getCurrentParams()
+    {courseId, format, duration, hasPeriods} = @props
 
     addAssignmentBSStyle = if hasPeriods then 'primary' else 'default'
 
@@ -73,11 +70,13 @@ CourseCalendarHeader = React.createClass
           <BrowseTheBook bsStyle='default' courseId={courseId} />
           <Router.Link
             className='btn btn-default'
-            to='viewTeacherPerformanceForecast'
-            params={{courseId}}>
+            to="/courses/#{courseId}/forecast"
+          >
             Performance Forecast
           </Router.Link>
-          <Router.Link className='btn btn-default' to='viewScores' params={{courseId}}>
+          <Router.Link className='btn btn-default'
+            to="/courses/#{courseId}/scores"
+          >
             Student Scores
           </Router.Link>
         </div>

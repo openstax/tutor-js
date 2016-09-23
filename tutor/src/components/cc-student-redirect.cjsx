@@ -9,10 +9,10 @@ CountdownRedirect  = require './countdown-redirect'
 
 CCStudentRedirect = React.createClass
   contextTypes:
-    router: React.PropTypes.func
+    courseId: React.PropTypes.string.isRequired
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @props
     course = CourseStore.get(courseId)
 
     <BS.Panel className="cc-student-redirect">

@@ -2,7 +2,7 @@ _ = require 'underscore'
 twix = require 'twix'
 
 React = require 'react'
-Router = require 'react-router'
+
 camelCase = require 'camelcase'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
@@ -18,9 +18,6 @@ PlanHelper = require '../../helpers/plan'
 # TODO drag and drop, and resize behavior
 CoursePlan = React.createClass
   displayName: 'CoursePlan'
-
-  contextTypes:
-    router: React.PropTypes.func
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
@@ -78,7 +75,7 @@ CoursePlan = React.createClass
     {item} = props
     {plan} = item
 
-    {planId} = @context.router.getCurrentParams()
+    {planId} = @props.crrentPlan or {} #context.router.getCurrentParams()
     planId is plan.id
 
   _getExpectedRoute: (isViewingStats) ->
@@ -137,8 +134,8 @@ CoursePlan = React.createClass
     state = _.extend({isViewingStats}, publishState)
     @setState(state)
 
-    location = @context.router.getLocation()
-    location.addChangeListener(@syncRoute)
+    # location = @context.router.getLocation()
+    # location.addChangeListener(@syncRoute)
 
   componentWillReceiveProps: (nextProps) ->
     if @props.item.plan.id isnt nextProps.item.plan.id
@@ -151,8 +148,8 @@ CoursePlan = React.createClass
 
   componentWillUnmount: ->
     @stopCheckingPlan(@props.item.plan)
-    location = @context.router.getLocation()
-    location.removeChangeListener(@syncRoute)
+    # location = @context.router.getLocation()
+    # location.removeChangeListener(@syncRoute)
 
   stopCheckingPlan: (plan) ->
     PlanPublishActions.stopChecking(plan.id) if @state.isPublishing
