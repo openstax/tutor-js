@@ -168,7 +168,7 @@ describe 'Task Helper', ->
       expect(_.where(steps, isAvailable: true).length)
         .to.equal(1)
 
-    xit 'for homework task', ->
+    it 'for homework task', ->
 
       homeworkTask = makeTask(TASK_HOMEWORK_TYPE, numberOfSteps, stepModifications)
       steps = TaskHelper.mapSteps(homeworkTask)
@@ -177,7 +177,7 @@ describe 'Task Helper', ->
       expect(_.where(steps, isAvailable: true).length)
         .to.equal(homeworkTask.steps.length + 2)
 
-    xit 'for coach task', ->
+    it 'for coach task', ->
 
       coachTask = makeTask(TASK_CONCEPT_COACH_TYPE, numberOfSteps, stepModifications)
       steps = TaskHelper.mapSteps(coachTask)
