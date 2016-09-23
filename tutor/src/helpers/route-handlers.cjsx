@@ -8,8 +8,9 @@ TeacherTaskPlans        = require '../components/task-plan/teacher-task-plans-li
 CCStudentRedirect       = require '../components/cc-student-redirect'
 {StudentDashboardShell} = require '../components/student-dashboard'
 
-
 {CourseStore} = require '../flux/course'
+
+RoutingHelper = require './routing'
 
 module.exports =
   studentOrTeacher: (StudentComponent, TeacherComponent, defaultProps = {} ) ->
@@ -26,9 +27,10 @@ module.exports =
     {courseId} = props.params
     extend(props, {courseId})
     course = CourseStore.get(courseId)
-
     unless course
       return <InvalidPage message="course was not found" />
+    unless props.isExact
+      return <RoutingHelper.component {...props} />
 
     if CourseStore.isTeacher(courseId)
       if CourseStore.isConceptCoach(courseId)

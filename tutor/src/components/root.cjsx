@@ -3,8 +3,6 @@ React = require 'react'
 
 App = require './app'
 
-InvalidPage = require './invalid-page'
-
 TutorRoot = React.createClass
 
   render: ->
@@ -13,7 +11,6 @@ TutorRoot = React.createClass
         <Match pattern="/" render={ (props) ->
           <App {...props} />
         } />
-        <Miss component={InvalidPage} />
       </div>
     </BrowserRouter>
 

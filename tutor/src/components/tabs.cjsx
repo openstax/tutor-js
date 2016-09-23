@@ -62,7 +62,7 @@ Tabs = React.createClass
   # callable from the parent component via a ref
   selectTabIndex: (activeIndex) ->
     query = _.extend(Router.getQuery(@props.windowImpl), tab: activeIndex)
-    @context.router.transitionTo(pathname: location.pathname, query: query)
+    @context.router.transitionTo(pathname: @props.windowImpl.location.pathname, query: query)
     @setState({activeIndex})
 
   onTabClick: (activeIndex, ev) ->

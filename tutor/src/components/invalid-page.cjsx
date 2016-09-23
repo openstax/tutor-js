@@ -1,3 +1,4 @@
+React  = require 'react'
 {Link} = require 'react-router'
 
 InvalidPage = (props) ->

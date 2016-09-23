@@ -8,11 +8,9 @@ module.exports =
   getQuery: (windowImpl = window) ->
     qs.parse(windowImpl?.location.search.slice(1))
 
-
-
 qs = require 'qs'
-matchPattern = require('react-router/matchPattern').default
 
+matchPattern = require('react-router/matchPattern').default
 RouteHandlers = require './helpers/route-handlers'
 
 {CourseListing}         = require './components/course-listing'
@@ -22,10 +20,10 @@ TeacherTaskPlans        = require './components/task-plan/teacher-task-plans-lis
 ROUTES = [
   { pattern: '/dashboard', name: 'listing', component: CourseListing }
   {
-    pattern: '/courses/:courseId', name: 'dashboard', render: RouteHandlers.dashboard
+    pattern: '/course/:courseId',  name: 'dashboard', render: RouteHandlers.dashboard
     routes: [
-      { pattern: '/list', component: StudentDashboardShell }
-
+      { pattern: '/list',          name: 'viewStudentDashboard', component: StudentDashboardShell }
+      { pattern: 't/month/:date', name: 'calendarByDate',       component: TeacherTaskPlans      }
     ]
   }
 ]
@@ -36,7 +34,7 @@ findRoutePattern = (pathname, parentRoutes) ->
     if (match = matchPattern(pattern, {pathname}, false))
       return {entry, match}
     else if routes
-      if (result = findRoutePattern(pathname, pattern, routes))
+      if (result = findRoutePattern(pathname, routes))
         return result
 
 
