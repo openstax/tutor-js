@@ -18,6 +18,15 @@
   }
 }
 
+.make-icon-tag() {
+  top: -1.5rem;
+  left: 2.2rem;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 3px solid @openstax-neutral-light;
+}
+
 .concept-coach-breadcrumbs() {
   .task-breadcrumbs {
     margin: 1rem 0;
@@ -105,12 +114,10 @@
   .icon-stack {
     > .icon-sm,
     > .icon-lg {
-      top: -1.5rem;
-      left: 2.2rem;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      border: 3px solid @openstax-neutral-light;
+      &.icon-incorrect,
+      &.icon-correct {
+        .make-icon-tag();
+      }
     }
   }
 
@@ -136,6 +143,34 @@
 
     &::after {
       content: @fa-var-check-circle;    
+    }
+  }
+
+  .icon-spaced-practice-intro,
+  .icon-two-step-intro,
+  .icon-personalized-intro {
+    background-size: 3rem 3rem;
+    background-position: 3px 3px;
+  }
+
+  .icon-spaced-practice-intro {
+    .x-icon-bg(spaced-practice);
+  }
+  .icon-two-step-intro {
+    .x-icon-bg(two-step);
+  }
+  .icon-personalized-intro {
+    .x-icon-bg(personalized);
+  }
+  .active {
+    .icon-personalized-intro {
+      .x-icon-bg(personalized-light);
+    }
+    .icon-spaced-practice-intro {
+      .x-icon-bg(spaced-practice-light);
+    }
+    .icon-two-step-intro {
+      .x-icon-bg(two-step-intro-heading);
     }
   }
 }
