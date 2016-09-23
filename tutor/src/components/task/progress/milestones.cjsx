@@ -44,7 +44,13 @@ Milestone = React.createClass
 
     previewText =
       if crumb.id?
-        StepTitleStore.get(crumb.id)
+        title = StepTitleStore.get(crumb.id)
+        if not title and
+          crumb.type is 'reading' and
+          crumb.related_content?[0]?.title?
+            crumb.related_content?[0]?.title
+        else
+          title
       else
         switch crumb.type
           when 'end'
