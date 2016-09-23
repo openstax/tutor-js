@@ -60,7 +60,7 @@ ExerciseMixin =
     _.map parts, (part, index) =>
       # disable keyStep if this is not the current step
       keySet = null if part.stepIndex isnt currentStep
-
+      console.info("exercise-part-#{index}")
       partProps =
         pinned: false
         focus: part.stepIndex is currentStep

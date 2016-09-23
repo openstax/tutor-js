@@ -12,10 +12,8 @@ UiSettings = require '../model/ui-settings'
 } = require './step-helps'
 
 ONE_TIME_CARD_DEFAULTS =
-  placement:
-    taskId: ''
-    stepId: ''
-  is_completed: true
+  taskId: ''
+  stepId: ''
 
 # Settings keys are:
 # 'two-step-info'
@@ -55,12 +53,13 @@ makeUiSettings = (initial) ->
   deepMerge({}, ONE_TIME_CARD_DEFAULTS, initial)
 
 isPlacedHere = (settingKey, step) ->
-  {placement} = UiSettings.get(settingKey)
-  step.task_id is placement.taskId and step.id is placement.stepId
+  settings = UiSettings.get(settingKey)
+  settings = settings.placement or settings
+  step.task_id is settings.taskId and step.id is settings.stepId
 
 hasBeenPlaced = (settingKey) ->
   settings = UiSettings.get(settingKey)
-  !!settings?.placement?
+  not _.isEmpty(settings)
 
 isPractice = (task) ->
   _.contains(PRACTICES, task.type)
@@ -72,13 +71,11 @@ stepMapOneTimeCard = (condition, type, settingKey, isAvailable, task, step, step
     if isPlacedHere(settingKeyForTaskType, step)
       makeStep(task, {type}, stepIndex)
   else if isAvailable and condition(task, step, stepIndex)
-    placement =
+    settings =
       stepId: step.id
       taskId: task.id
 
-    is_completed = true
-
-    settings = makeUiSettings({placement, is_completed})
+    settings = makeUiSettings(settings)
     UiSettings.set(settingKeyForTaskType, settings)
 
     makeStep(task, {type}, stepIndex)

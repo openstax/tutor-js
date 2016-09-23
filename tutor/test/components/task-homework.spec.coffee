@@ -20,9 +20,8 @@ HOMEWORK_MODEL.due_at = moment(TimeStore.getNow()).add(1, 'year').toDate()
 HOMEWORK_PERSONALIZED_MODEL = require '../../api/steps/step-id-6-4-full.json'
 
 FAKE_PLACEMENT =
-  placement:
-    taskId: 'test'
-    stepId: 'test'
+  taskId: 'test'
+  stepId: 'test'
 
 describe 'Task Widget, homework specific things, due in the future', ->
 
