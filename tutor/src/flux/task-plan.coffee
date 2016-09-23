@@ -1,6 +1,6 @@
 # coffeelint: disable=no_empty_functions
 _ = require 'underscore'
-{cloneDeep} = require 'lodash'
+cloneDeep = require 'lodash/cloneDeep'
 validator = require 'validator'
 
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'

@@ -3,6 +3,7 @@ path = require 'path'
 _ = require 'lodash'
 webpack = require 'webpack'
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
+LodashModuleReplacementPlugin = require 'lodash-webpack-plugin'
 
 LOADERS =
   babel: 'babel'
@@ -72,6 +73,8 @@ BASE_CONFIG =
     loaders: _.values(STATICS)
   plugins: [
     new webpack.optimize.DedupePlugin()
+    new LodashModuleReplacementPlugin()
+    new webpack.optimize.OccurrenceOrderPlugin()
   ]
 
 KARMA_BASE_CONFIG =

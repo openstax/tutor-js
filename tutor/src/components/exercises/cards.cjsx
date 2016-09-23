@@ -1,4 +1,5 @@
-_ = require 'lodash'
+_ = require 'underscore'
+isEqual = require 'lodash/isEqual'
 React = require 'react'
 BS = require 'react-bootstrap'
 
@@ -60,7 +61,7 @@ ExerciseCards = React.createClass
   # Important! - as an optimization, this component will only update if props have changed.
   # This is necessary because there can be a very large number of exercise previews displaying at once
   shouldComponentUpdate: (nextProps) ->
-    not _.isEqual(nextProps, @props)
+    not isEqual(nextProps, @props)
 
   componentDidMount:   ->
     @scrollToSelector('.exercise-sections')
