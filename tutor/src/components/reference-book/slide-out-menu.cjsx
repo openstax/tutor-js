@@ -9,6 +9,7 @@ Section = React.createClass
   displayName: 'ReferenceBookTocSection'
   mixins: [ChapterSectionMixin]
   propTypes:
+    isOpen: React.PropTypes.bool.isRequired
     ecosystemId: React.PropTypes.string.isRequired
     section: React.PropTypes.object.isRequired
     activeSection: React.PropTypes.string.isRequired
@@ -31,6 +32,7 @@ Section = React.createClass
     <ul className="section" data-depth={@props.section.chapter_section.length}>
       <li data-section={section}>
         <Router.Link
+          tabIndex={if @props.isOpen then 0 else -1}
           params={params}
           className={className}
           onClick={_.partial(@props.onMenuSelection, section)}
@@ -57,6 +59,7 @@ module.exports = React.createClass
   propTypes:
     onMenuSelection: React.PropTypes.func.isRequired
     activeSection:   React.PropTypes.string.isRequired
+    isOpen:          React.PropTypes.bool.isRequired
 
   componentWillMount: ->
     @setState(skipZeros: false)

@@ -13,7 +13,7 @@ SlideOutMenuToggle = React.createClass
   render: ->
     # The css also sets the transistion,
     # but it must also be specified in the SVG because IE doesn't support animations
-    transform = if @props.isVisible
+    transform = if @props.isMenuVisible
       {triangle: "translate(0 0)",   line: "scale(1 1) translate(0 0)"}
     else
       {triangle: "translate(-30 0)", line: "scale(2 1) translate(-50 0)"}

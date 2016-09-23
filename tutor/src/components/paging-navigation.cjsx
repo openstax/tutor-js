@@ -71,6 +71,8 @@ PageNavigation = React.createClass
   renderPrev: ->
     cb = if @props.isBackwardEnabled then @props.onBackwardNavigation else null
     <a href={@props.backwardHref} target="_blank"
+      aria-label="Go Backward"
+      tabIndex={if @props.isBackwardEnabled then -1 else 0}
       disabled={not cb?}
       onClick={_.partial(@clickHandler, cb, @props.backwardHref)}
       className={classnames('paging-control', 'prev', active: @state.activeNav is 'prev')}
@@ -83,6 +85,8 @@ PageNavigation = React.createClass
   renderNext: ->
     cb = if @props.isForwardEnabled then @props.onForwardNavigation else null
     <a href={@props.forwardHref}
+      tabIndex={if @props.isForwardEnabled then -1 else 0}
+      aria-label="Go Forward"
       disabled={not cb?}
       onClick={_.partial(@clickHandler, cb, @props.forwardHref)}
       className={classnames('paging-control', 'next', active: @state.activeNav is 'next')}

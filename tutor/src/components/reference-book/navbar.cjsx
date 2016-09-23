@@ -38,7 +38,9 @@ module.exports = React.createClass
   render: ->
     <BS.Navbar fixedTop fluid>
       <BS.Nav navbar>
-        <BS.NavItem className="menu-toggle" onClick={@props.toggleTocMenu}>
+        <BS.NavItem className="menu-toggle" onClick={@props.toggleTocMenu} tabIndex=0
+          aria-label={if @props.isMenuVisible then "Close Sections Menu" else "Open Sections Menu"}
+        >
           <SlideOutMenuToggle isMenuVisible={@props.isMenuVisible} />
         </BS.NavItem>
       </BS.Nav>
