@@ -97,7 +97,8 @@ AnswersTable = React.createClass
   render: ->
     {
       model, type, answered_count, choicesEnabled, correct_answer_id,
-      answer_id, feedback_html, show_all_feedback, keySet, project, hasCorrectAnswer
+      answer_id, feedback_html, show_all_feedback, keySet, project, hasCorrectAnswer,
+      focus
     } = @props
 
     {answers, id} = model
@@ -119,7 +120,8 @@ AnswersTable = React.createClass
 
     answersHtml = _.chain(answers)
       .map (answer, i) ->
-        additionalProps = {answer, iter: i, key: "#{questionAnswerProps.qid}-option-#{i}", keyControl: KEYS[keySet]?[i]}
+        additionalProps = {answer, iter: i, key: "#{questionAnswerProps.qid}-option-#{i}"}
+        additionalProps.keyControl = KEYS[keySet]?[i] if focus
         answerProps = _.extend({}, additionalProps, questionAnswerProps)
         checkedAnswerIndex = i if isAnswerChecked(answer, chosenAnswer)
 
