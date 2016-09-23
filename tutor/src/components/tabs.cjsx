@@ -1,6 +1,7 @@
 React = require 'react'
 classnames = require 'classnames'
-qs = require 'qs'
+
+Router = require '../router'
 
 # Used to cancel router transitions the same way an onClick event is
 class FakeEvent
@@ -21,15 +22,17 @@ Tabs = React.createClass
     tabs: React.PropTypes.arrayOf(
       React.PropTypes.oneOfType([ React.PropTypes.string, React.PropTypes.element ])
     ).isRequired
+    windowImpl: React.PropTypes.object
 
   getDefaultProps: ->
+    windowImpl: window
     initialActive: 0
 
   contextTypes:
     router: React.PropTypes.object
 
   getInitialState: ->
-    {tab} = qs.parse(location.search.slice(1))
+    {tab} = Router.getQuery(@props.windowImpl)
     activeIndex: if _.isUndefined(tab) then @props.initialActive else parseInt(tab, 10)
 
   componentWillMount: ->
@@ -58,7 +61,8 @@ Tabs = React.createClass
 
   # callable from the parent component via a ref
   selectTabIndex: (activeIndex) ->
-    @context.router.transitionTo(pathname: location.pathname, query: {tab: activeIndex})
+    query = _.extend(Router.getQuery(@props.windowImpl), tab: activeIndex)
+    @context.router.transitionTo(pathname: location.pathname, query: query)
     @setState({activeIndex})
 
   onTabClick: (activeIndex, ev) ->
