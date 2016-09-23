@@ -110,6 +110,7 @@ module.exports = React.createClass
     return false unless nextProps.id is @props.id
     step = @getStep(@state.currentStep)
     nextStep = @getStep(nextState.currentStep)
+    return false if _.isEmpty(step) or _.isEmpty(nextStep)
     TaskStore.isSameStep(@props.id, step.id, nextStep.id)
 
   # After a step is recovered, the task needs to load itself in order to store the new step
