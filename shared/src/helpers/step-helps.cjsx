@@ -72,7 +72,7 @@ getIntroText[TWO_STEP_ALIAS] = (project) ->
     yourself.  For maximum benefit, read the text and then answer the
     free response question in your own words.  Then, select the best
     multiple choice answer so {getProject(project).name} can give you
-    {getProject(project).feedbackType}.  Both you and your instructor
+     {getProject(project).feedbackType}.  Both you and your instructor
     can review your answers later.
   </p>
 

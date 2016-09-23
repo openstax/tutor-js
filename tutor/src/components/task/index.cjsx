@@ -321,7 +321,7 @@ module.exports = React.createClass
         taskId={id}
         stepId={step?.id}
         goToStep={@goToStep}
-        isSpacer={not step.id?}
+        isSpacer={not step.id? and step.type isnt 'end'}
         stepKey={@state.currentStep}
         enableKeys={not showMilestones}
       >
