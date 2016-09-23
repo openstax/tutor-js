@@ -83,10 +83,10 @@ stepMapOneTimeCard = (condition, type, settingKey, isAvailable, task, step, step
 
     makeStep(task, {type}, stepIndex)
 
-stepMapOneTimeCardForGroup = (condition, isAvailable, task, step, stepIndex) ->
-  type = INTRO_ALIASES[step.group]
-  settingKey = SETTING_KEYS[step.group]
-  return if _.any([type, settingKey, step.group], _.isUndefined)
+stepMapOneTimeCardForGroup = (group, condition, isAvailable, task, step, stepIndex) ->
+  type = INTRO_ALIASES[group]
+  settingKey = SETTING_KEYS[group]
+  return if _.any([type, settingKey, group], _.isUndefined)
 
   stepMapOneTimeCard(condition, type, settingKey, isAvailable, task, step, stepIndex)
 
@@ -109,6 +109,7 @@ befores[SPACED_PRACTICE_GROUP] = (task, step, stepIndex, isAvailable) ->
       makeStep(task, {type: INTRO_ALIASES[SPACED_PRACTICE_GROUP]}, stepIndex)
   else
     stepMapOneTimeCardForGroup(
+      SPACED_PRACTICE_GROUP,
       isSpacedPractice,
       isAvailable,
       arguments...
@@ -121,15 +122,35 @@ befores[PERSONALIZED_GROUP] = (task, step, stepIndex, isAvailable) ->
   return if isPractice(task)
 
   stepMapOneTimeCardForGroup(
+    PERSONALIZED_GROUP,
     isPersonalized,
     isAvailable,
     arguments...
   )
 
+# to gather for multiparts to have one intro two-step card before the full
+# multipart.
+gatherFollowingParts = (task, step, stepIndex) ->
+  {content_url} = step
+  parts = [step.content.questions]
+  return _.flatten(parts) unless step.is_in_multipart
+
+  _.each(task.steps, (stepCheck, checkIndex) ->
+    if checkIndex > stepIndex and
+      stepCheck.is_in_multipart and
+      stepCheck.content_url is content_url
+        parts.push(stepCheck.content.questions)
+  )
+
+  _.flatten(parts)
+
 befores[TWO_STEP_ALIAS] = (task, step, stepIndex, isAvailable) ->
   isTwoStep = (task, step, stepIndex) ->
     return unless step?.content?.questions?
-    _.any(step.content.questions, (question) ->
+
+    stepQuestions = gatherFollowingParts(task, step, stepIndex)
+
+    _.any(stepQuestions, (question) ->
       _.contains(question.formats, 'free-response') and
         not _.isEmpty(
           _.intersection(question.formats, ['multiple-choice', 'true-false', 'fill-in-the-blank'])
