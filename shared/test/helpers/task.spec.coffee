@@ -75,7 +75,7 @@ describe 'Task Helper', ->
     testForTwoStep = (task, steps) ->
       expect(steps.length).to.equal(task.steps.length + 2)
       expect(steps[1].type).to.equal('two-step-intro')
-      expect(UiSettings.get("two-step-info-#{task.type}").placement.stepId).to.equal('1')
+      expect(UiSettings.get("two-step-info-#{task.type}").stepId).to.equal('1')
 
     beforeEach ->
       stepModifications = _.object(twoStepPositions, times(twoStepPositions.length, makeTwoStep))
@@ -129,10 +129,8 @@ describe 'Task Helper', ->
     it 'does not place intro card if placed elsewhere', ->
       UiSettings.initialize(
         'two-step-info-homework':
-          placement:
-            stepId: 'test'
-            taskId: 'test'
-          is_completed: true
+          stepId: 'test'
+          taskId: 'test'
       )
 
       homeworkTask = makeTask(TASK_HOMEWORK_TYPE, numberOfSteps, stepModifications)
@@ -149,7 +147,7 @@ describe 'Task Helper', ->
     testForSpacedPractice = (task, steps) ->
       expect(steps.length).to.equal(task.steps.length + 2)
       expect(steps[12].type).to.equal('spaced-practice-intro')
-      expect(UiSettings.get("spaced-practice-info-#{task.type}").placement.stepId).to.equal('12')
+      expect(UiSettings.get("spaced-practice-info-#{task.type}").stepId).to.equal('12')
 
     beforeEach ->
       stepModifications =
@@ -196,10 +194,8 @@ describe 'Task Helper', ->
     it 'does not place intro card if placed elsewhere', ->
       UiSettings.initialize(
         'spaced-practice-info-homework':
-          placement:
-            stepId: 'test'
-            taskId: 'test'
-          is_completed: true
+          stepId: 'test'
+          taskId: 'test'
       )
 
       homeworkTask = makeTask(TASK_HOMEWORK_TYPE, numberOfSteps, stepModifications)
@@ -217,7 +213,7 @@ describe 'Task Helper', ->
     testForPersonalized = (task, steps) ->
       expect(steps.length).to.equal(task.steps.length + 2)
       expect(steps[12].type).to.equal('personalized-intro')
-      expect(UiSettings.get("personalized-info-#{task.type}").placement.stepId).to.equal('12')
+      expect(UiSettings.get("personalized-info-#{task.type}").stepId).to.equal('12')
 
     beforeEach ->
       stepModifications =
@@ -274,10 +270,8 @@ describe 'Task Helper', ->
     it 'does not place intro card if placed elsewhere', ->
       UiSettings.initialize(
         'personalized-info-homework':
-          placement:
-            stepId: 'test'
-            taskId: 'test'
-          is_completed: true
+          stepId: 'test'
+          taskId: 'test'
       )
 
       homeworkTask = makeTask(TASK_HOMEWORK_TYPE, numberOfSteps, stepModifications)

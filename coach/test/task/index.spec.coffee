@@ -11,9 +11,8 @@ describe 'Task Component', ->
   beforeEach ->
     UiSettings.initialize(
       'two-step-info-concept_coach':
-        placement:
-          taskId: 'test'
-          stepId: 'test'
+        taskId: 'test'
+        stepId: 'test'
     )
     @props =
       moduleUUID: 'm_uuid'

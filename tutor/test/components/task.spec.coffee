@@ -20,9 +20,8 @@ VALID_RECOVERY_MODEL = require '../../api/tasks/4-recovered.json'
 VALID_RECOVERY_STEP = require '../../api/steps/step-id-4-2/recovery/PUT.json'
 
 FAKE_PLACEMENT =
-  placement:
-    taskId: 'test'
-    stepId: 'test'
+  taskId: 'test'
+  stepId: 'test'
 
 describe 'Task Widget, Reading Task', ->
   beforeEach (done) ->

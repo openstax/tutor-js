@@ -15,9 +15,8 @@ HOMEWORK_TASK_ID = '5'
 HOMEWORK_MODEL = require '../../api/tasks/5.json'
 
 FAKE_PLACEMENT =
-  placement:
-    taskId: 'test'
-    stepId: 'test'
+  taskId: 'test'
+  stepId: 'test'
 
 describe 'Task Widget, homework specific things, past due date', ->
   beforeEach (done) ->
