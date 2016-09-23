@@ -32,3 +32,5 @@ describe 'Paging Navigation component', ->
     Testing.renderComponent( PagingNavigation, props: @props ).then ({dom}) ->
       expect(dom.querySelector('.next[disabled]')).to.exist
       expect(dom.querySelector('.prev[disabled]')).not.to.exist
+      expect(dom.querySelector('.next').tabIndex).to.eq(-1)
+      expect(dom.querySelector('.prev').tabIndex).to.eq(0)
