@@ -68,6 +68,7 @@ ExMode = React.createClass
 
     if mode is 'free-response'
       <textarea
+        aria-labelledby="question response text box"
         disabled={disabled}
         ref='freeResponse'
         placeholder='Enter your response'
