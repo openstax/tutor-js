@@ -27,6 +27,6 @@ module.exports = React.createClass
     # accessed it.
     # For now we assume if the event's compete and it's not on the current week it can be recovered
     recoverable = event.complete and moment(event.due_at).startOf('isoweek').add(1, 'week').isBefore(TimeStore.getNow())
-    <EventRow {...@props} feedback={feedback} className='homework'>
+    <EventRow {...@props} feedback={feedback} eventType='homework'>
       {event.title}
     </EventRow>

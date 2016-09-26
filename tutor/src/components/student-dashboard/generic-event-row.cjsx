@@ -13,6 +13,6 @@ module.exports = React.createClass
     courseId: React.PropTypes.string.isRequired
 
   render: ->
-    <EventRow feedback='' {...@props} className='generic'>
+    <EventRow feedback='' {...@props} eventType='generic'>
         {@props.event.title}
     </EventRow>
