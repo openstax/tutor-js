@@ -127,6 +127,7 @@ Answer = React.createClass
         {selectedCount}
         {radioBox}
         <label
+          tabIndex=0
           htmlFor="#{qid}-option-#{iter}"
           className='answer-label'>
           <div className='answer-letter' />
