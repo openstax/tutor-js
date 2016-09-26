@@ -97,11 +97,11 @@
         background-color: @tutor-neutral-light;
       }
     }
-    &.has-actions .controls-overlay .message .action { width: 160px; }
   }
-
   .exercise-cards {
     .exercise-cards-column-layout();
+    // specificity to match exercise preview nesting
+    .exercise-card.has-actions .controls-overlay .message .action { width: 160px; }
   }
 }
 
