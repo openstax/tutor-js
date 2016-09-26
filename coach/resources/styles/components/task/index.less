@@ -1,8 +1,11 @@
 .concept-coach-view-task {
   .card-body {
-    background: @openstax-white;
     padding: @concept-coach-base-x-padding @concept-coach-base-y-padding;
     margin-bottom: 2rem;
+
+    &:not([class*=-intro]) {
+      background: @openstax-white;
+    }
   }
 }
 

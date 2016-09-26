@@ -71,8 +71,8 @@ getIntroText[TWO_STEP_ALIAS] = (project) ->
     Research shows that a great way to boost your learning is to quiz
     yourself.  For maximum benefit, read the text and then answer the
     free response question in your own words.  Then, select the best
-    multiple choice answer so {getProject(project).name} can give you
-     {getProject(project).feedbackType}.  Both you and your instructor
+    multiple choice answer so {getProject(project).name} can give
+    you {getProject(project).feedbackType}.  Both you and your instructor
     can review your answers later.
   </p>
 
@@ -84,8 +84,8 @@ getHelpText[TWO_STEP_ALIAS] = (project) ->
   [
     <p><strong>Why do you ask me to answer twice?</strong></p>
     <p>Research shows that recalling the answer to a question from memory
-    helps your learning last longer.  So, {getProject(project).name}
-     asks for your own answer first, then gives multiple-choice options
+    helps your learning last longer.  So, {getProject(project).name} asks
+    for your own answer first, then gives multiple-choice options
     so you can get {getProject(project).feedbackType}.  Both you and your
     instructor can review your work later.</p>
   ]

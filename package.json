@@ -128,7 +128,7 @@
     "karma-sourcemap-loader": "0.3.6",
     "karma-webpack": "1.7.0",
     "less": "2.7.1",
-    "less-loader": "2.2.1",
+    "less-loader": "2.2.2",
     "mocha": "2.2.5",
     "node-inspector": "0.12.6",
     "parallelshell": "2.0.0",

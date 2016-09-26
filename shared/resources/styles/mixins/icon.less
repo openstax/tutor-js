@@ -19,6 +19,10 @@
   background-image: url("@{icon-path}/icon-@{name}.svg");
 }
 
+.x-icon-portable(@name) {
+  background-image: data-uri('image/svg+xml;charset=UTF-8', "@{icon-path}/icon-@{name}.svg");
+}
+
 .openstax-icon-active(@scale: 1.4; @shadow: 0.12) {
   .scale(@scale);
   .box-shadow(0 1px 6px rgba(0, 0, 0, @shadow));
