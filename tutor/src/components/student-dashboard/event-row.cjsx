@@ -11,7 +11,7 @@ module.exports = React.createClass
   displayName: 'EventRow'
 
   propTypes:
-    className: React.PropTypes.string.isRequired
+    eventType: React.PropTypes.string.isRequired
     event:     React.PropTypes.object.isRequired
     courseId:  React.PropTypes.string.isRequired
     feedback:  React.PropTypes.string.isRequired
@@ -42,7 +42,7 @@ module.exports = React.createClass
     {workable} = @props
     workable ?= StudentDashboardStore.canWorkTask(@props.event)
     deleted = StudentDashboardStore.isDeleted(@props.event)
-    classes = classnames("task row #{@props.className}", {workable, deleted})
+    classes = classnames("task row #{@props.eventType}", {workable, deleted})
 
     if deleted
       message = <div>
@@ -78,14 +78,17 @@ module.exports = React.createClass
     <a
       className={classes}
       href='#'
+      aria-labelledby={"Work on #{@props.eventType}: #{@props.event.title}"}
       tabIndex={if workable then 0 else -1}
       onClick={@onClick if workable}
       onKeyDown={@onKey if workable}
       data-event-id={@props.event.id}
-
     >
       <BS.Col xs={2}  sm={1} className={"column-icon"}>
-        <i className={"icon icon-lg icon-#{@props.className}"}/>
+        <i
+          aria-label={"#{@props.eventType} icon"}
+          className={"icon icon-lg icon-#{@props.eventType}"}
+        />
       </BS.Col>
       <BS.Col xs={10} sm={6} className='title'>
         {@props.children}
