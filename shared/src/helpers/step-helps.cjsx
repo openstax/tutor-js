@@ -67,14 +67,23 @@ getIntroText[SPACED_PRACTICE_GROUP] = (project, locate = true) ->
   ]
 
 getIntroText[TWO_STEP_ALIAS] = (project) ->
-  <p>
-    Research shows that a great way to boost your learning is to quiz
-    yourself.  For maximum benefit, read the text and then answer the
-    free response question in your own words.  Then, select the best
-    multiple choice answer so {getProject(project).name} can give
-    you {getProject(project).feedbackType}.  Both you and your instructor
-    can review your answers later.
-  </p>
+  [
+    <p>Research shows quizzing yourself is a great way to boost learning.</p>
+    <h4>Step 1: Free response</h4>
+    <p>
+      Read the question, then construct an answer in the
+      free response box. Recalling knowledge from memory (rather than looking up
+      the answer or recognizing it in a list) helps your learning last longer.
+    </p>
+    <h4>Step 2: Multiple choice</h4>
+    <p>
+      Then select the best multiple choice answer so
+      {getProject(project).name} can give you {getProject(project).feedbackType}.
+    </p>
+    <p>
+      Both you and your instructor can review your answers later.
+    </p>
+  ]
 
 getHelpText = _.mapObject(getIntroText, (getIntro) ->
   _.partial(getIntro, _, false)
