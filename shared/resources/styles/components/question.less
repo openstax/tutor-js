@@ -224,11 +224,7 @@
 
 
   &:not(.openstax-question-preview) {
-    // answers
-    counter-reset: answer 0;
-
     .answers-answer {
-      counter-increment: answer 1;
       width: initial;
     }
 
@@ -241,9 +237,7 @@
 
     .answer-letter {
       .answer-left-block();
-      &::after {
-        content: counter(answer, lower-latin);
-      }
+      text-align: center;
     }
 
     .answer-label {
@@ -251,7 +245,7 @@
       width: 100%;
       padding: @answer-vertical-spacing 0 0 0;
       margin: 0;
-
+      &:focus{ .tab-focus(); }
       .transition(~'color @{answer-transition}');
       .answer();
     }

@@ -7,6 +7,8 @@ keysHelper = require '../../helpers/keys'
 ArbitraryHtmlAndMath = require '../html'
 {SimpleFeedback} = require './feedback'
 
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
 idCounter = 0
 
 isAnswerCorrect = (answer, correctAnswerId) ->
@@ -129,8 +131,14 @@ Answer = React.createClass
         <label
           tabIndex=0
           htmlFor="#{qid}-option-#{iter}"
-          className='answer-label'>
-          <div className='answer-letter' />
+          className='answer-label'
+        >
+          <div
+            className='answer-letter'
+            aria-labelledby={"Answer choice: #{ALPHABET[iter]}"}
+          >
+            {ALPHABET[iter]}
+          </div>
           <div className='answer-answer'>
             <ArbitraryHtmlAndMath
               {...htmlAndMathProps}
