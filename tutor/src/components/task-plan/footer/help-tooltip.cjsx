@@ -20,10 +20,10 @@ Tooltip =
 HelpTooltip = React.createClass
 
   propTypes:
-    isEditable: React.PropTypes.bool.isRequired
+    isPublished: React.PropTypes.bool.isRequired
 
   render: ->
-    return null unless @props.isEditable and @props.isPublished
+    return null if @props.isPublished
 
     <BS.OverlayTrigger trigger='click' placement='top' overlay={Tooltip} rootClose={true}>
       <BS.Button className="footer-instructions" bsStyle="link">

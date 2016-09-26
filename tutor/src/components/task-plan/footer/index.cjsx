@@ -103,8 +103,7 @@ PlanFooter = React.createClass
         isFailed={isFailed}
       />
       <HelpTooltip
-        isEditable={@state.isEditable}
-        isPublished={TaskPlanStore.isPublished(id)}
+        isPublished={isPublished}
       />
       <DeleteLink
         isNew={TaskPlanStore.isNew(id)}
