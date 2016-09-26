@@ -21,7 +21,8 @@ module.exports = React.createClass
 
   getInitialState: -> hidden: false
 
-  onClick: ->
+  onClick: (ev) ->
+    ev.preventDefault()
     @context.router.transitionTo 'viewTaskStep',
       # url is 1 based so it matches the breadcrumb button numbers. 1==first step
       {courseId:@props.courseId, id: @props.event.id, stepIndex: 1}
@@ -59,7 +60,9 @@ module.exports = React.createClass
           placement='top'
           message={message}
         >
-          <BS.Button className="hide-task" onClick={@stopEventPropagation}>
+          <BS.Button className="hide-task"
+            onClick={@stopEventPropagation}
+          >
             <i className="fa fa-close" />
           </BS.Button>
         </SuretyGuard>
@@ -72,8 +75,15 @@ module.exports = React.createClass
         <EventInfoIcon event={@props.event} />
       ]
 
-    <div className={classes} onClick={@onClick if workable}
-      data-event-id={@props.event.id}>
+    <a
+      className={classes}
+      href='#'
+      tabIndex={if workable then 0 else -1}
+      onClick={@onClick if workable}
+      onKeyDown={@onKey if workable}
+      data-event-id={@props.event.id}
+
+    >
       <BS.Col xs={2}  sm={1} className={"column-icon"}>
         <i className={"icon icon-lg icon-#{@props.className}"}/>
       </BS.Col>
@@ -90,4 +100,4 @@ module.exports = React.createClass
         {time}
         {hideButton}
       </BS.Col>
-    </div>
+    </a>
