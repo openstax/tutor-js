@@ -75,8 +75,8 @@ describe 'Exercise Step', ->
       ensureExerciseLoaded()
 
       saveFreeResponse(dom, 'My Second Answer')
-      answer = dom.querySelectorAll('.answers-answer')[0]
-      input = answer.querySelector('input')
+      answer = dom.querySelector('.answers-answer .answer-content')
+      input = dom.querySelector('input')
       ReactTestUtils.Simulate.change(input, target:{checked: true})
       Testing.actions.click(input)
       selectedAnswer = _.find(Collection.get(props.id).content.questions[0].answers, id: updatedStep.answer_id)

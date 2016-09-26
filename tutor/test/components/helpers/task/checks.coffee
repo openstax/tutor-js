@@ -84,12 +84,12 @@ checks =
     canReview = StepPanel.canReview(stepId)
 
     if canReview
-      expect(div.querySelector('.answer-correct').innerText).to.equal(correct_answer.content_html)
-      expect(div.querySelector('.answer-correct').innerHTML).to.not.equal(div.querySelector('.answer-checked').innerHTML)
+      expect(div.querySelector('.answer-correct .answer-answer').innerText).to.equal(correct_answer.content_html)
+      expect(div.querySelector('.answer-correct .answer-answer').innerHTML).to.not.equal(div.querySelector('.answer-checked').innerHTML)
 
       expect(div.querySelector('.question-feedback-content').innerHTML).to.equal(feedback_html)
     else
-      expect(div.querySelector('.answer-correct')).to.be.null
+      expect(div.querySelector('.answer-correct .answer-answer')).to.be.null
 
     {div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}
 
