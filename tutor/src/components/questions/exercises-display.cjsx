@@ -131,11 +131,11 @@ ExercisesDisplay = React.createClass
     actions = {}
     if @getExerciseIsSelected(exercise)
       actions.include =
-        message: 'Re-Add question'
+        message: 'Re-Include question'
         handler: @onExerciseToggle
     else
       actions.exclude =
-        message: 'Remove question'
+        message: 'Exclude question'
         handler: @onExerciseToggle
     if @state.currentView is 'details'
       @addDetailsActions(actions, exercise)

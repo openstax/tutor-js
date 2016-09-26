@@ -91,12 +91,14 @@
     #fonts >.sans(3rem, 200px);
   }
 
-  .exercise-card.is-selected {
-    .selected-mask {
-      background-color: @tutor-highlight;
+  .exercise-card {
+    &.is-selected {
+      .selected-mask {
+        background-color: @tutor-highlight;
+      }
     }
+    &.has-actions .controls-overlay .message .action { width: 160px; }
   }
-
 
   .exercise-cards {
     .exercise-cards-column-layout();
@@ -127,4 +129,5 @@
       border: 1px solid darken(@tutor-tertiary-light, 10%) !important;
     }
   }
+
 }
