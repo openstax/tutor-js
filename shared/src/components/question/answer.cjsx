@@ -41,7 +41,6 @@ Answer = React.createClass
     type: React.PropTypes.string.isRequired
     hasCorrectAnswer: React.PropTypes.bool.isRequired
     onChangeAnswer: React.PropTypes.func.isRequired
-
     disabled: React.PropTypes.bool
     chosenAnswer: React.PropTypes.array
     correctAnswerId: React.PropTypes.string
@@ -90,7 +89,7 @@ Answer = React.createClass
     processHtmlAndMath: React.PropTypes.func
 
   onKeyPress: (ev, answer) ->
-    @props.onChangeAnswer(answer) if ev.key is 'Enter'
+    @props.onChangeAnswer(answer) if ev.key is 'Enter' and @props.disabled isnt true
     null # silence react event return value warning
 
 
@@ -102,6 +101,7 @@ Answer = React.createClass
     isCorrect = isAnswerCorrect(answer, correctAnswerId)
 
     classes = classnames 'answers-answer',
+      'disabled': disabled
       'answer-checked': isChecked
       'answer-correct': isCorrect
 
@@ -134,7 +134,7 @@ Answer = React.createClass
         {selectedCount}
         {radioBox}
         <label
-          tabIndex=0
+          tabIndex={if @props.disabled then -1 else 0}
           onKeyPress={_.partial(@onKeyPress, _, answer)}
           htmlFor="#{qid}-option-#{iter}"
           className='answer-label'

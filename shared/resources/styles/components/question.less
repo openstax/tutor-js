@@ -227,6 +227,11 @@
   &:not(.openstax-question-preview) {
     .answers-answer {
       width: initial;
+      &:not(.disabled){
+        .answer-label:focus{
+          background-color: @tutor-neutral-lightest;
+        }
+      }
     }
 
     .answer-content {
@@ -241,12 +246,13 @@
       text-align: center;
     }
 
+
     .answer-label {
       font-weight: normal;
       width: 100%;
       padding: @answer-vertical-spacing 0 0 0;
       margin: 0;
-      &:focus{ .tab-focus(); }
+
       .transition(~'color @{answer-transition}');
       .answer();
     }
