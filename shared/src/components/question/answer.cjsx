@@ -89,6 +89,11 @@ Answer = React.createClass
   contextTypes:
     processHtmlAndMath: React.PropTypes.func
 
+  onKeyPress: (ev, answer) ->
+    @props.onChangeAnswer(answer) if ev.key is 'Enter'
+    null # silence react event return value warning
+
+
   render: ->
     {answer, iter, qid, type, correctAnswerId, answered_count, hasCorrectAnswer, chosenAnswer, onChangeAnswer, disabled} = @props
     qid ?= "auto-#{idCounter++}"
@@ -130,6 +135,7 @@ Answer = React.createClass
         {radioBox}
         <label
           tabIndex=0
+          onKeyPress={_.partial(@onKeyPress, _, answer)}
           htmlFor="#{qid}-option-#{iter}"
           className='answer-label'
         >
