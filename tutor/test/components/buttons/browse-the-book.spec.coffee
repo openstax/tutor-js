@@ -31,9 +31,15 @@ describe 'Browse the book button', ->
     Testing.renderComponent( BTB, props: @props ).then ({dom}) ->
       expect(dom.tagName).to.equal('A')
 
-  it 'has a link that opens in a new tab', ->
+  it 'has a link that opens in a new tab and has tabIndex', ->
     Testing.renderComponent( BTB, props: @props ).then ({dom}) ->
       expect(dom.getAttribute('target')).to.equal('_blank')
+      expect(dom.getAttribute('tabindex')).to.equal('0')
+
+  it 'can set the tabIndex', ->
+    @props.tabIndex = 101
+    Testing.renderComponent( BTB, props: @props ).then ({dom}) ->
+      expect(dom.getAttribute('tabindex')).to.equal('101')
 
   it 'can link to a page', ->
     @props.page = '123@2'
