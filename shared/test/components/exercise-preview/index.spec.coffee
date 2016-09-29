@@ -72,3 +72,12 @@ describe 'Exercise Preview Component', ->
     _.extend(@props.exercise, context: '')
     Testing.renderComponent( ExercisePreview, props: @props ).then ({dom}) ->
       expect(dom.querySelector('div.context')).not.to.exist
+
+  it 'renders answer choices', ->
+    Testing.renderComponent( ExercisePreview, props: @props ).then ({dom}) ->
+      answers = _.pluck dom.querySelectorAll('.openstax-answer .answer-label'), 'textContent'
+      expect(answers).to.deep.equal([
+        "aa sequence of DNA", "ba sequence of rRNA",
+        "ca sequence of mRNA.", "da sequence of tRNA.",
+        "aYES", "bNO"
+      ])
