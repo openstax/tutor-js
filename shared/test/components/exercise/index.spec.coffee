@@ -77,11 +77,13 @@ exerciseActionsAndChecks =
     SECOND_CHOICE_INDEX = 1
 
     Testing.actions._changeDOMNode(choicesDOMs[FIRST_CHOICE_INDEX])
-    expect(_.pluck(dom.querySelectorAll('.answer-checked'), 'textContent')).to.deep.equal([CHOICES[FIRST_CHOICE_INDEX].content_html])
+    expect(_.pluck(dom.querySelectorAll('.answer-checked .answer-content'), 'textContent'))
+      .to.deep.equal([CHOICES[FIRST_CHOICE_INDEX].content_html])
     expect(props.setAnswerId).to.have.been.calledWith(step.id, CHOICES[FIRST_CHOICE_INDEX].id)
 
     Testing.actions._changeDOMNode(choicesDOMs[SECOND_CHOICE_INDEX])
-    expect(_.pluck(dom.querySelectorAll('.answer-checked'), 'textContent')).to.deep.equal([CHOICES[SECOND_CHOICE_INDEX].content_html])
+    expect(_.pluck(dom.querySelectorAll('.answer-checked .answer-content'), 'textContent'))
+      .to.deep.equal([CHOICES[SECOND_CHOICE_INDEX].content_html])
     expect(props.setAnswerId).to.have.been.calledWith(step.id, CHOICES[SECOND_CHOICE_INDEX].id)
 
   setCorrectAnswerAndFeedback: (renderedData, choiceIndex = 0) ->
@@ -99,7 +101,7 @@ exerciseActionsAndChecks =
     )).not.to.be.null
 
     expect(dom.querySelector('.question-feedback').textContent).equals(step.feedback_html)
-    expect(dom.querySelector('.answer-correct').textContent).equals(CHOICES[choiceIndex].content_html)
+    expect(dom.querySelector('.answer-correct .answer-content').textContent).equals(CHOICES[choiceIndex].content_html)
     expect(dom.querySelectorAll('.answer-input-box')).to.have.length(0)
     expect(dom.querySelector('button.continue').textContent).equals('Next Question')
 
@@ -204,7 +206,7 @@ describe 'Exercise Component', ->
     step.answer_id = CHOICES[0].id
 
     Testing.renderComponent( Exercise, props: props ).then ({dom}) ->
-      expect(dom.querySelector('.answer-checked').textContent).equals(CHOICES[0].content_html)
+      expect(dom.querySelector('.answer-checked .answer-content').textContent).equals(CHOICES[0].content_html)
 
   it 'updates chosen answer when passed in updates', ->
     step.answer_id = CHOICES[0].id
@@ -213,4 +215,4 @@ describe 'Exercise Component', ->
       step.answer_id = CHOICES[2].id
       # something weird is happening, the new property seems to force the component to notice it's receiving new props.
       wrapper.setProps({step, hack: ''})
-      expect(dom.querySelector('.answer-checked').textContent).equals(CHOICES[2].content_html)
+      expect(dom.querySelector('.answer-checked .answer-content').textContent).equals(CHOICES[2].content_html)

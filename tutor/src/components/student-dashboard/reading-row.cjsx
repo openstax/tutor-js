@@ -17,6 +17,6 @@ module.exports = React.createClass
       when @props.event.complete then 'Complete'
       when @props.event.complete_exercise_count > 0 then 'In progress'
       else 'Not started'
-    <EventRow {...@props} feedback={feedback} className='reading'>
+    <EventRow {...@props} feedback={feedback} eventType='reading'>
       { @props.event.title}
     </EventRow>

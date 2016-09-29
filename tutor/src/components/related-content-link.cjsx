@@ -27,7 +27,7 @@ RelatedContentLink = React.createClass
       {for content in @props.content
         section = @sectionFormat(content.chapter_section)
         <BrowseTheBook key={section} unstyled section={section}
-          courseId={@props.courseId} onlyShowBrowsable={false}
+          courseId={@props.courseId} onlyShowBrowsable={false} tabIndex={-1}
         >
           <span className="part">
             <span className="section">{section} </span>

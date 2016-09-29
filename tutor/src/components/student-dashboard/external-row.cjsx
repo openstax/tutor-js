@@ -18,6 +18,6 @@ module.exports = React.createClass
     feedback = switch
       when @props.event.complete then 'Clicked'
       else 'Not started'
-    <EventRow {...@props} feedback={feedback} className='external'>
+    <EventRow {...@props} feedback={feedback} eventType='external'>
       {event.title}
     </EventRow>

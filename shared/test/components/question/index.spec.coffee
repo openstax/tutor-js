@@ -13,7 +13,7 @@ describe 'Question Component', ->
 
   it 'renders answers', ->
     Testing.renderComponent( Question, props: @props ).then ({dom}) ->
-      answers = _.pluck dom.querySelectorAll('.answers-answer'), 'textContent'
+      answers = _.pluck dom.querySelectorAll('.answers-answer .answer-content'), 'textContent'
       expect(answers).to.deep.equal(['solid', 'liquid', 'gas', 'plasma'])
 
   it 'highlights when answer is clicked', (done) ->

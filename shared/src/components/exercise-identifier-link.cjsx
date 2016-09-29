@@ -16,7 +16,9 @@ ExerciseIdentifierLink = React.createClass
     url = Exercise.troubleUrl(@props)
     <div>
       <span className='exercise-identifier-link'>
-        ID# {@props.exerciseId} | <a target="_blank" href={url}>Report an error</a>
+        ID&pound; {@props.exerciseId} | <a
+          target="_blank" tabIndex={-1} href={url}
+        >Report an error</a>
       </span>
     </div>
 module.exports = ExerciseIdentifierLink

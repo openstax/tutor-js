@@ -12,6 +12,7 @@ module.exports = React.createClass
   getDefaultProps: ->
     bsStyle: 'primary'
     onlyShowBrowsable: true
+    tabIndex: 0
 
   propTypes:
     courseId:  React.PropTypes.string
@@ -20,6 +21,7 @@ module.exports = React.createClass
     sectionId: React.PropTypes.number
     page:      React.PropTypes.string
     unstyled:  React.PropTypes.bool
+    tabIndex:  React.PropTypes.number
     onlyShowBrowsable:  React.PropTypes.bool
     bsStyle:   React.PropTypes.string
 

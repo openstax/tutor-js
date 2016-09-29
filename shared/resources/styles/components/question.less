@@ -28,6 +28,7 @@
 
   width: @diameter;
   height: @diameter;
+  line-height: @diameter * .90;
   border-radius: @diameter / 2;
   border-width: @border-size;
   border-style: solid;
@@ -224,12 +225,13 @@
 
 
   &:not(.openstax-question-preview) {
-    // answers
-    counter-reset: answer 0;
-
     .answers-answer {
-      counter-increment: answer 1;
       width: initial;
+      &:not(.disabled){
+        .answer-label:focus{
+          background-color: @openstax-neutral-lightest;
+        }
+      }
     }
 
     .answer-content {
@@ -241,10 +243,9 @@
 
     .answer-letter {
       .answer-left-block();
-      &::after {
-        content: counter(answer, lower-latin);
-      }
+      text-align: center;
     }
+
 
     .answer-label {
       font-weight: normal;

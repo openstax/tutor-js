@@ -7,6 +7,8 @@ keysHelper = require '../../helpers/keys'
 ArbitraryHtmlAndMath = require '../html'
 {SimpleFeedback} = require './feedback'
 
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
 idCounter = 0
 
 isAnswerCorrect = (answer, correctAnswerId) ->
@@ -39,7 +41,6 @@ Answer = React.createClass
     type: React.PropTypes.string.isRequired
     hasCorrectAnswer: React.PropTypes.bool.isRequired
     onChangeAnswer: React.PropTypes.func.isRequired
-
     disabled: React.PropTypes.bool
     chosenAnswer: React.PropTypes.array
     correctAnswerId: React.PropTypes.string
@@ -87,6 +88,11 @@ Answer = React.createClass
   contextTypes:
     processHtmlAndMath: React.PropTypes.func
 
+  onKeyPress: (ev, answer) ->
+    @props.onChangeAnswer(answer) if ev.key is 'Enter' and @props.disabled isnt true
+    null # silence react event return value warning
+
+
   render: ->
     {answer, iter, qid, type, correctAnswerId, answered_count, hasCorrectAnswer, chosenAnswer, onChangeAnswer, disabled} = @props
     qid ?= "auto-#{idCounter++}"
@@ -95,6 +101,7 @@ Answer = React.createClass
     isCorrect = isAnswerCorrect(answer, correctAnswerId)
 
     classes = classnames 'answers-answer',
+      'disabled': disabled
       'answer-checked': isChecked
       'answer-correct': isCorrect
 
@@ -127,9 +134,17 @@ Answer = React.createClass
         {selectedCount}
         {radioBox}
         <label
+          tabIndex={if @props.disabled then -1 else 0}
+          onKeyPress={_.partial(@onKeyPress, _, answer)}
           htmlFor="#{qid}-option-#{iter}"
-          className='answer-label'>
-          <div className='answer-letter' />
+          className='answer-label'
+        >
+          <div
+            className='answer-letter'
+            aria-labelledby={"Answer choice: #{ALPHABET[iter]}"}
+          >
+            {ALPHABET[iter]}
+          </div>
           <div className='answer-answer'>
             <ArbitraryHtmlAndMath
               {...htmlAndMathProps}

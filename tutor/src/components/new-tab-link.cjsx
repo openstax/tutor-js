@@ -9,13 +9,15 @@ NewTabLink = React.createClass
 
   getDefaultProps: ->
     target: '_blank'
+    tabIndex: 0
 
   propTypes:
-    to: React.PropTypes.string.isRequired
+    to:       React.PropTypes.string.isRequired
     children: React.PropTypes.node.isRequired
-    params: React.PropTypes.object
-    query: React.PropTypes.object
-    target: React.PropTypes.string
+    params:   React.PropTypes.object
+    query:    React.PropTypes.object
+    target:   React.PropTypes.string
+    tabIndex: React.PropTypes.number
 
   getLinkProps: (link) ->
     linkProps =

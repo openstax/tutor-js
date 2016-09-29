@@ -71,7 +71,9 @@ Tabs = React.createClass
 
     <li key={index} tabIndex={index} className={classnames(active: isSelected)}>
       <a role="tab"
-        href="" tabIndex="-1" onClick={_.partial(@onTabClick, index)}
+        href="#"
+          tabIndex={if isSelected then -1 else 0}
+        onClick={_.partial(@onTabClick, index)}
         aria-selected={'true' if isSelected}
       >
         {tab}

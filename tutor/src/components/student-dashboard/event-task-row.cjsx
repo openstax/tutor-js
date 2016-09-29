@@ -14,6 +14,6 @@ module.exports = React.createClass
 
   render: ->
     event = @props.event
-    <EventRow feedback='' {...@props} workable={false} className='event'>
+    <EventRow feedback='' {...@props} workable={false} eventType='event'>
       {event.title}
     </EventRow>
