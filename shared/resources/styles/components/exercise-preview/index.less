@@ -168,14 +168,12 @@
     }
 
     .answers-table {
-      counter-reset: answer;
       font-size: 1.4rem;
       line-height: 1.4em;
       margin-bottom: 2rem;
 
       .answers-answer {
         padding-left: 15px;
-        counter-increment: answer;
         display: table;
 
         &.answer-correct {
@@ -200,7 +198,7 @@
           padding-right: 1rem;
           display: table-cell;
           &:after {
-            content: counter(answer, lower-latin) ')';
+            content: ')';
           }
         }
 
