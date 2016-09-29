@@ -1,5 +1,6 @@
 React = require 'react'
 _ = require 'underscore'
+capitalize = require 'lodash/capitalize'
 
 PERSONALIZED_GROUP = 'personalized'
 SPACED_PRACTICE_GROUP = 'spaced practice'
@@ -68,17 +69,15 @@ getIntroText[SPACED_PRACTICE_GROUP] = (project, locate = true) ->
 
 getIntroText[TWO_STEP_ALIAS] = (project) ->
   [
-    <p>Research shows quizzing yourself is a great way to boost learning.</p>
-    <h4>Step 1: Free response</h4>
+    <p>Research shows a great way to boost learning is to try recalling what you have learned.</p>
+    <h4>Step 1: Free response for longer lasting learning</h4>
     <p>
-      Read the question, then construct an answer in the
-      free response box. Recalling knowledge from memory (rather than looking up
-      the answer or recognizing it in a list) helps your learning last longer.
+      Help your learning last longer by constructing an answer in the free response box from memory.
+      For greatest benefit, try not to refer to notes or text.
     </p>
-    <h4>Step 2: Multiple choice</h4>
+    <h4>Step 2: {capitalize(getProject(project).feedbackType)} with multiple choice</h4>
     <p>
-      Then select the best multiple choice answer so
-      {getProject(project).name} can give you {getProject(project).feedbackType}.
+      Receive {getProject(project).feedbackType} by selecting the best multiple-choice option.
     </p>
     <p>
       Both you and your instructor can review your answers later.
