@@ -41,7 +41,7 @@ TaskBase = React.createClass
 
   setupSteps: (task) ->
     steps = _.keys(task?.steps)
-    steps.push('continue')
+    steps.push('continue') unless _.isEmpty(steps)
 
     steps
 
