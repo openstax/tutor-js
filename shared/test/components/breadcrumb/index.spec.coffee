@@ -7,7 +7,9 @@ describe 'Breadcrumb Component', ->
   beforeEach ->
     @props =
       goToStep: sinon.spy()
-      step: {type: 'reading', is_completed: true, title: 'My Assignment', correct_answer_id: 1}
+      step:
+        type: 'reading', is_completed: true, correct_answer_id: 1
+        task: {title: 'My Assignment'}
       canReview: true
       currentStep: 1
       stepIndex: 2
