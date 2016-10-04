@@ -24,6 +24,8 @@ SectionsExercises = React.createClass
     onExerciseToggle:       React.PropTypes.func.isRequired
     getExerciseIsSelected:  React.PropTypes.func.isRequired
     getExerciseActions:     React.PropTypes.func.isRequired
+    watchStore:             React.PropTypes.object.isRequired
+    watchEvent:             React.PropTypes.string.isRequired
 
   render: ->
     title = TocStore.findChapterSection(@props.ecosystemId, @props.chapter_section)?.title
@@ -52,6 +54,8 @@ ExerciseCards = React.createClass
     onShowDetailsViewClick: React.PropTypes.func.isRequired
     focusedExerciseId:      React.PropTypes.string
     topScrollOffset:        React.PropTypes.number
+    watchStore:             React.PropTypes.object.isRequired
+    watchEvent:             React.PropTypes.string.isRequired
 
   mixins: [ScrollToMixin]
 
