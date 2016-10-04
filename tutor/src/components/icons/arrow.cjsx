@@ -11,7 +11,7 @@ class Arrow extends React.Component
 
   shouldComponentUpdate: (nextProps) -> nextProps.direction isnt @props.direction
 
-  propTypes:
+  @propTypes:
     direction: React.PropTypes.oneOf(['left', 'right', 'up', 'down'])
 
   render: ->
