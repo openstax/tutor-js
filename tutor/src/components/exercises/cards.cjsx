@@ -50,6 +50,7 @@ ExerciseCards = React.createClass
     getExerciseIsSelected:  React.PropTypes.func.isRequired
     getExerciseActions:     React.PropTypes.func.isRequired
     onShowDetailsViewClick: React.PropTypes.func.isRequired
+    focusedExerciseId:      React.PropTypes.string
     topScrollOffset:        React.PropTypes.number
 
   mixins: [ScrollToMixin]
@@ -63,7 +64,8 @@ ExerciseCards = React.createClass
     not _.isEqual(nextProps, @props)
 
   componentDidMount:   ->
-    @scrollToSelector('.exercise-sections')
+    selector = if @props.focusedExerciseId then "[data-exercise-id='#{@props.focusedExerciseId}']" else '.exercise-sections'
+    @scrollToSelector(selector)
 
   getScrollTopOffset: ->
     # no idea why scrollspeed makes the difference, sorry :(

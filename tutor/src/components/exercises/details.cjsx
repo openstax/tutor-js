@@ -34,7 +34,7 @@ ExerciseDetails = React.createClass
 
   getInitialState: -> {}
 
-  componentDidMount:   ->
+  componentDidMount: ->
     @scrollToSelector('.exercise-controls-bar')
 
   componentWillMount: ->
@@ -87,7 +87,6 @@ ExerciseDetails = React.createClass
     next: @state.currentIndex isnt @state.exercises.length - 1
 
   render: ->
-
     exercise = @state.exercises[@state.currentIndex] or _.first(@state.exercises)
     unless exercise
       return <NoExercisesFound />
@@ -99,7 +98,7 @@ ExerciseDetails = React.createClass
     <div className="exercise-details">
 
       <div className="controls">
-        <a className="show-cards" onClick={@props.onShowCardViewClick}>
+        <a className="show-cards" onClick={_.partial(@props.onShowCardViewClick, _, exercise)}>
           <Icon type="th-large" /> Back to Card View
         </a>
       </div>

@@ -120,7 +120,7 @@ ExercisePreview = React.createClass
       <ControlsOverlay exercise={@props.exercise}
         actions={@props.overlayActions} onClick={@props.onOverlayClick} />
 
-      <div className="exercise-body">
+      <div className="exercise-body" data-exercise-id={@props.exercise.id}>
 
         <ExerciseBadges exercise={@props.exercise} />
 

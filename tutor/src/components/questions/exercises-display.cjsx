@@ -28,7 +28,6 @@ ExercisesDisplay = React.createClass
 
   getInitialState: -> {
     filter: ''
-    currentView: 'cards'
     showingCardsFromDetailsView: false
   }
   componentWillMount:   -> ExerciseStore.on('change',  @update)
@@ -51,7 +50,7 @@ ExercisesDisplay = React.createClass
     <ExerciseControls
       filter={@state.filter}
       courseId={@props.courseId}
-      currentView={@state.currentView}
+      showingDetails={@props.showingDetails}
       onFilterChange={@onFilterChange}
       onSectionSelect={@scrollToSection}
       onShowCardViewClick={@onShowCardViewClick}
@@ -76,7 +75,6 @@ ExercisesDisplay = React.createClass
     exercise ||= _.first ExerciseStore.get(@props.sectionIds)
     @setState(
       selectedExercise: exercise,
-      currentView: 'details'
       currentSection: ExerciseStore.getChapterSectionOfExercise(@props.ecosystemId, exercise)
     )
     @props.onShowDetailsViewClick(ev, exercise)
@@ -85,7 +83,7 @@ ExercisesDisplay = React.createClass
     # The pinned header doesn't notice when the elements above it are unhidden
     # and will never unstick by itself.
     @refs.controls.unPin()
-    @setState({currentView: 'cards', showingCardsFromDetailsView: true})
+    @setState({fromDetailsExercise: exercise})
     @props.onShowCardViewClick(ev, exercise)
 
   renderMinimumExclusionWarning: (minExerciseCount) ->
@@ -137,7 +135,7 @@ ExercisesDisplay = React.createClass
       actions.exclude =
         message: 'Exclude question'
         handler: @onExerciseToggle
-    if @state.currentView is 'details'
+    if @props.showingDetails
       @addDetailsActions(actions, exercise)
     else
       @addCardActions(actions, exercise)
@@ -199,6 +197,7 @@ ExercisesDisplay = React.createClass
         watchStore={ExerciseStore}
         watchEvent='change-exercise-'
         onExerciseToggle={@onExerciseToggle}
+        focusedExerciseId={@state.fromDetailsExercise?.id}
         onShowDetailsViewClick={@onShowDetailsViewClick} />
 
   render: ->
