@@ -71,6 +71,9 @@ ExerciseCards = React.createClass
     selector = if @props.focusedExerciseId then "[data-exercise-id='#{@props.focusedExerciseId}']" else '.exercise-sections'
     @scrollToSelector(selector)
 
+  onAfterScroll: (el) ->
+    el.focus() if @props.focusedExerciseId
+
   getScrollTopOffset: ->
     # no idea why scrollspeed makes the difference, sorry :(
     if @props.scrollFast then @props.topScrollOffset else @props.topScrollOffset + 40
