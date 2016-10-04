@@ -8,6 +8,13 @@ class FakeWindow
   setInterval: -> Math.random()
   document:
     hidden: false
+  pageYOffset: 0
+  pageXOffset: 0
+  scroll: (x, y) ->
+    @pageXOffset = x
+    @pageYOffset = y
+  requestAnimationFrame: (cb) -> _.defer cb
+  querySelector: (sb) -> null
 
   constructor: ->
     for method in _.functions(@)
@@ -15,5 +22,8 @@ class FakeWindow
     @localStorage =
       getItem: sinon.stub().returns('[]')
       setItem: sinon.stub()
+    @history =
+      pushState: sinon.spy()
+
 
 module.exports = FakeWindow
