@@ -24,8 +24,10 @@ AddExercises = React.createClass
 
   mixins: [ScrollToMixin, LoadingExercises]
 
-  onShowDetailsViewClick: -> @setState(currentView: 'details')
-  onShowCardViewClick:    -> @setState(currentView: 'cards')
+  onShowDetailsViewClick: ->
+    @setState(currentView: 'details')
+  onShowCardViewClick:    (ev, exercise) ->
+    @setState(currentView: 'cards', focusedExerciseId: exercise.id)
 
   onExerciseToggle: (ev, exercise) ->
     if @getExerciseIsSelected(exercise)
@@ -92,10 +94,11 @@ AddExercises = React.createClass
       ecosystemId, @props.sectionIds
     )
     sharedProps =
-        exercises: exercises.all
-        onExerciseToggle: @onExerciseToggle
-        getExerciseActions: @getExerciseActions
-        getExerciseIsSelected: @getExerciseIsSelected
+      ecosystemId: ecosystemId
+      exercises: exercises.all
+      onExerciseToggle: @onExerciseToggle
+      getExerciseActions: @getExerciseActions
+      getExerciseIsSelected: @getExerciseIsSelected
 
     body = switch @state.currentView
       when 'details'
@@ -115,6 +118,7 @@ AddExercises = React.createClass
           watchStore={TaskPlanStore}
           watchEvent='change-exercise-'
           topScrollOffset={110}
+          focusedExerciseId={@state.focusedExerciseId}
           onShowDetailsViewClick={@onShowDetailsViewClick}
         />
 
