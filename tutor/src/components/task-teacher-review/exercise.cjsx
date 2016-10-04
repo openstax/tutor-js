@@ -2,7 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 
-{ArbitraryHtmlAndMath, Question, CardBody, FreeResponse, ExerciseGroup} = require 'shared'
+{ArbitraryHtmlAndMath, Question, CardBody, FreeResponse, ExerciseGroup, ExerciseIdentifierLink} = require 'shared'
 {ExerciseStore} = require '../../flux/exercise'
 
 TaskTeacherReviewQuestion = React.createClass
@@ -132,6 +132,7 @@ TaskTeacherReviewExercise = React.createClass
         project='tutor'
         key='step-exercise-group'
         exercise_uid={uid}/>
+      <ExerciseIdentifierLink exerciseId={@props.content.uid} project='tutor' />
     </CardBody>
 
 module.exports = TaskTeacherReviewExercise
