@@ -68,8 +68,10 @@ ExerciseCards = React.createClass
     not _.isEqual(nextProps, @props)
 
   componentDidMount:   ->
-    selector = if @props.focusedExerciseId then "[data-exercise-id='#{@props.focusedExerciseId}']" else '.exercise-sections'
-    @scrollToSelector(selector)
+    if @props.focusedExerciseId
+      @scrollToSelector("[data-exercise-id='#{@props.focusedExerciseId}']", immediate: true)
+    else
+      @scrollToSelector('.exercise-sections')
 
   onAfterScroll: (el) ->
     el.focus() if @props.focusedExerciseId
