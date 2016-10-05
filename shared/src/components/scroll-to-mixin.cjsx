@@ -85,6 +85,7 @@ ScrollToMixin =
 
     if options.immediate is true
       win.scroll(0, endPos)
+      @_onAfterScroll(el, options)
       return
 
     startPos  = win.pageYOffset
