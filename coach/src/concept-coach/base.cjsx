@@ -187,8 +187,8 @@ ConceptCoach = React.createClass
 
       <SpyMode.Wrapper>
         <Navigation key='user-status' close={@props.close} course={course}/>
+        <SafariWarning />
         <div className={className}>
-          <SafariWarning />
           {@childComponent(course)}
         </div>
       </SpyMode.Wrapper>
