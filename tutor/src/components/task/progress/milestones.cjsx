@@ -39,9 +39,10 @@ Milestone = React.createClass
 
     title = StepTitleStore.get(crumb.id)
 
-    if not title and
-      crumb.type is 'reading' and
-      crumb.related_content?[0]?.title?
+    if crumb.type is 'reading' and crumb.related_content?[0]?.title?
+      if title is 'Summary'
+        title = "#{title} of #{crumb.related_content?[0]?.title}"
+      else if not title
         title = crumb.related_content?[0]?.title
 
     title
