@@ -24,6 +24,8 @@ SectionsExercises = React.createClass
     onExerciseToggle:       React.PropTypes.func.isRequired
     getExerciseIsSelected:  React.PropTypes.func.isRequired
     getExerciseActions:     React.PropTypes.func.isRequired
+    watchStore:             React.PropTypes.object.isRequired
+    watchEvent:             React.PropTypes.string.isRequired
 
   render: ->
     title = TocStore.findChapterSection(@props.ecosystemId, @props.chapter_section)?.title
@@ -50,7 +52,10 @@ ExerciseCards = React.createClass
     getExerciseIsSelected:  React.PropTypes.func.isRequired
     getExerciseActions:     React.PropTypes.func.isRequired
     onShowDetailsViewClick: React.PropTypes.func.isRequired
+    focusedExerciseId:      React.PropTypes.string
     topScrollOffset:        React.PropTypes.number
+    watchStore:             React.PropTypes.object.isRequired
+    watchEvent:             React.PropTypes.string.isRequired
 
   mixins: [ScrollToMixin]
 
@@ -63,7 +68,13 @@ ExerciseCards = React.createClass
     not _.isEqual(nextProps, @props)
 
   componentDidMount:   ->
-    @scrollToSelector('.exercise-sections')
+    if @props.focusedExerciseId
+      @scrollToSelector("[data-exercise-id='#{@props.focusedExerciseId}']", immediate: true)
+    else
+      @scrollToSelector('.exercise-sections')
+
+  onAfterScroll: (el) ->
+    el.focus() if @props.focusedExerciseId
 
   getScrollTopOffset: ->
     # no idea why scrollspeed makes the difference, sorry :(
