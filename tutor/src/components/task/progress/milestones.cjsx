@@ -34,6 +34,38 @@ Milestone = React.createClass
       @props.goToStep(crumbKey)
       keyEvent.preventDefault()
 
+  getStepTitle: (crumb) ->
+    {goToStep, crumb, currentStep, stepIndex} = @props
+
+    title = StepTitleStore.get(crumb.id)
+
+    if not title and
+      crumb.type is 'reading' and
+      crumb.related_content?[0]?.title?
+        title = crumb.related_content?[0]?.title
+
+    title
+
+  getPreviewText: (crumb) ->
+    if crumb.id?
+      @getStepTitle(crumb)
+    else
+      switch crumb.type
+        when 'end'
+          "#{crumb.task.title} Completed"
+
+        when 'coach'
+          TITLES[SPACED_PRACTICE_GROUP]
+
+        when INTRO_ALIASES[SPACED_PRACTICE_GROUP]
+          TITLES[SPACED_PRACTICE_GROUP]
+
+        when INTRO_ALIASES[PERSONALIZED_GROUP]
+          TITLES[PERSONALIZED_GROUP]
+
+        when INTRO_ALIASES[TWO_STEP_ALIAS]
+          TITLES[TWO_STEP_ALIAS]
+
   render: ->
     {goToStep, crumb, currentStep, stepIndex} = @props
 
@@ -42,31 +74,7 @@ Milestone = React.createClass
     classes = classnames 'milestone', "milestone-#{crumb.type}",
       'active': isCurrent
 
-    previewText =
-      if crumb.id?
-        title = StepTitleStore.get(crumb.id)
-        if not title and
-          crumb.type is 'reading' and
-          crumb.related_content?[0]?.title?
-            crumb.related_content?[0]?.title
-        else
-          title
-      else
-        switch crumb.type
-          when 'end'
-            "#{crumb.task.title} Completed"
-
-          when 'coach'
-            TITLES[SPACED_PRACTICE_GROUP]
-
-          when INTRO_ALIASES[SPACED_PRACTICE_GROUP]
-            TITLES[SPACED_PRACTICE_GROUP]
-
-          when INTRO_ALIASES[PERSONALIZED_GROUP]
-            TITLES[PERSONALIZED_GROUP]
-
-          when INTRO_ALIASES[TWO_STEP_ALIAS]
-            TITLES[TWO_STEP_ALIAS]
+    previewText = @getPreviewText(crumb)
 
     if crumb.type is 'exercise'
       preview = <ArbitraryHtmlAndMath
