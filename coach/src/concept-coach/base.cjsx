@@ -10,6 +10,7 @@ EventEmitter2 = require 'eventemitter2'
 navigation = {Navigation} = require '../navigation'
 CourseRegistration = require '../course/registration'
 ErrorNotification = require './error-notification'
+SafariWarning = require './safari-warning'
 AccountsIframe = require '../user/accounts-iframe'
 UpdateStudentIdentifier = require '../course/update-student-identifier'
 LoginGateway = require '../user/login-gateway'
@@ -186,6 +187,7 @@ ConceptCoach = React.createClass
 
       <SpyMode.Wrapper>
         <Navigation key='user-status' close={@props.close} course={course}/>
+        <SafariWarning />
         <div className={className}>
           {@childComponent(course)}
         </div>
