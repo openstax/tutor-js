@@ -47,13 +47,14 @@ RenameCourse = React.createClass
       </BS.Modal.Header>
 
       <div className={formClasses} >
-        <RenameCourseField
-        label='Course Name'
-        name='course-name'
-        default={@props.course.name}
-        onChange={(val) => @setState(course_name: val)}
-        validate={@validate}
-        autofocus />
+        <TutorInput
+          label='Course Name'
+          name='course-name'
+          default={@props.course.name}
+          onChange={(val) => @setState(course_name: val)}
+          validate={@validate}
+          autofocus
+        />
       </div>
 
       <div className='modal-footer'>
