@@ -341,6 +341,7 @@ module.exports = React.createClass
       fixedOffset={0}
       header={header}
       cardType='task'>
+      <p>Viewing as apples</p>
       {panel}
     </PinnedHeaderFooterCard>
 
