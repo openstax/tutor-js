@@ -1,4 +1,6 @@
 React = require 'react'
+classnames = require 'classnames'
+
 Name = require '../name'
 {ScoresStore, ScoresActions} = require '../../flux/scores'
 
@@ -36,7 +38,7 @@ ViewingAsStudentName = React.createClass
     {className} = @props
     studentName = null
 
-    className += ' task-student'
+    className = classnames className, 'task-student'
     {student} = @state
 
     studentName = <div className={className}>

@@ -19,6 +19,7 @@ Breadcrumbs = require './breadcrumbs'
 TaskProgress = require './progress'
 ProgressPanel = require './progress/panel'
 {Milestones, Milestone} = require './progress/milestones'
+TeacherReviewControls = require './teacher-review-controls'
 
 {StepPanel} = require '../../helpers/policies'
 
@@ -220,6 +221,11 @@ module.exports = React.createClass
   getStep: (stepIndex) ->
     TaskPanelStore.getStep(@props.id, stepIndex)
 
+  shouldShowTeacherReviewControls: (panelType) ->
+    {id} = @props
+
+    panelType is 'teacher-read-only' and TaskStore.hasProgress(id)
+
   renderStep: (data) ->
     {courseId} = @context.router.getCurrentParams()
     {id} = @props
@@ -283,6 +289,7 @@ module.exports = React.createClass
   render: ->
     {id} = @props
     {milestonesEntered} = @state
+    {courseId} = @context.router.getCurrentParams()
     showMilestones = @context.router.getCurrentParams().milestones?
     task = TaskStore.get(id)
     return null unless task?
@@ -341,7 +348,10 @@ module.exports = React.createClass
       fixedOffset={0}
       header={header}
       cardType='task'>
-      <p>Viewing as apples</p>
+      {<TeacherReviewControls
+        taskId={id}
+        courseId={courseId}
+      /> if @shouldShowTeacherReviewControls(panelType)}
       {panel}
     </PinnedHeaderFooterCard>
 
