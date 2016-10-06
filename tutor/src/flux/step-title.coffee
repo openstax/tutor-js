@@ -1,4 +1,5 @@
 _ = require 'underscore'
+unescape = require 'lodash/unescape'
 htmlparser = require 'htmlparser2'
 {makeSimpleStore} = require './helpers'
 
@@ -6,8 +7,15 @@ TEXT_LENGTH_CHECK = 110
 TEXT_LENGTH = 125
 TEXT_CHECK_RANGE = TEXT_LENGTH - TEXT_LENGTH_CHECK
 
-isLearningObjective = (element) ->
-  element?.attribs?['class']? and element.attribs['class'].search(/learning-objectives/) > -1
+isTypedClass = (element) ->
+  element?.attribs?['class']? and
+    element.attribs['class'].search(/learning-objectives|references|ap-connection/) > -1
+
+isTipsForSuccess = (element) ->
+  element?.attribs?['class']? and element.attribs['class'].search(/tips-for-success/) > -1
+
+isCaption = (element) ->
+  element.name is 'caption'
 
 isNote = (element) ->
   return unless element?.attribs?['class']? or element.attribs['data-element-type']?
@@ -20,11 +28,15 @@ isTyped = (element) ->
   element?.attribs?['data-element-type']?
 
 isLabel = (element) ->
-  element.attribs['data-has-label'] is 'true'
+  element.attribs['data-has-label'] is 'true' and
+    not isTipsForSuccess(element)
+
 isTitle = (element) ->
   element.attribs['data-type'] is 'title' and
     not isTyped(element.parent) and
-    not isLearningObjective(element.parent)
+    not isTypedClass(element.parent) and
+    not isCaption(element.parent)
+
 isDocumentTitle = (element) ->
   element.attribs['data-type'] is 'document-title'
 
@@ -69,7 +81,7 @@ StepTitleConfig =
       label = htmlparser.DomUtils.findOne(isLabel, dom, false)
       text = grabLabel(label) if label?
 
-    actions.loaded(id, text)
+    actions.loaded(id, unescape(text))
 
   _parseExercise: (actions, id, error, dom) ->
     text = grabTruncatedText(htmlparser.DomUtils.getText(dom))
