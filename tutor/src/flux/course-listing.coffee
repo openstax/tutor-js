@@ -17,6 +17,8 @@ CourseListingActions = flux.createActions [
   'FAILED'
   'delete'
   'deleted'
+  'clone'
+  'cloned'
 ]
 
 CourseListingStore = flux.createStore
@@ -36,6 +38,12 @@ CourseListingStore = flux.createStore
   FAILED: ->
     @_asyncStatus = FAILED
     @emit('failed')
+
+  clone: ->
+  cloned: (newCourse, {courseId}) ->
+    @_course_ids.push(newCourse.id)
+    CourseActions.loaded(newCourse, newCourse.id)
+    @emit('cloned', newCourse)
 
   loaded: (courses) ->
     @_course_ids = _.map courses, (course) ->

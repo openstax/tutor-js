@@ -246,9 +246,12 @@ start = (bootstrapData) ->
   apiHelper CourseListingActions, CourseListingActions.load, CourseListingActions.loaded, 'GET', ->
     url: '/api/user/courses'
 
+  route 'POST', "/api/courses/{courseId}/clone",
+    actions: CourseListingActions, trigger: 'clone', onSuccess: 'cloned'
+    payload: ({courseId, name}) -> {name}
+
   apiHelper ReferenceBookActions, ReferenceBookActions.load, ReferenceBookActions.loaded, 'GET', (ecosystemId) ->
     url: "/api/ecosystems/#{ecosystemId}/readings"
-
 
   apiHelper ReferenceBookPageActions, ReferenceBookPageActions.load, ReferenceBookPageActions.loaded, 'GET', (cnxId) ->
     url: "/api/pages/#{cnxId}"
