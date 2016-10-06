@@ -6,6 +6,7 @@ _ = require 'underscore'
 
 Icon = require '../icon'
 {TaskStore} = require '../../flux/task'
+{TaskPanelStore} = require '../../flux/task-panel'
 
 
 module.exports = React.createClass
@@ -20,6 +21,8 @@ module.exports = React.createClass
 
   getInitialState: ->
     params = @context.router?.getCurrentParams() or {}
+    params.stepIndex ?= TaskPanelStore.getStepKey(params.id, {is_completed: false})
+
     taskInfo = @getTaskInfo(params)
     controlInfo = @getControlInfo(params)
 
@@ -44,7 +47,7 @@ module.exports = React.createClass
     matchedPath = @context.router.match(path)
     return false unless matchedPath?.routes
 
-    'viewTaskStep' in _.pluck(matchedPath.routes, 'name')
+    'viewTask' in _.pluck(matchedPath.routes, 'name')
 
   update: (getState, params, path) ->
     show = @shouldShow(path)
@@ -53,6 +56,7 @@ module.exports = React.createClass
       return false
 
     params ?= @context.router.getCurrentParams()
+    params.stepIndex ?= TaskPanelStore.getStepKey(params.id, {is_completed: false})
 
     state = getState(params)
     @setState(state) if state?
@@ -74,9 +78,13 @@ module.exports = React.createClass
     show: true
     assignment: task.title
     due: @reformatTaskDue(task.due_at)
+    date: @getDate(task.due_at)
 
   reformatTaskDue: (due_at) ->
-    moment(due_at).calendar()
+    "Due #{moment(due_at).calendar()}"
+
+  getDate: (due_at) ->
+    "#{moment(due_at).date()}"
 
   getControlInfo: (params) ->
     hasMilestones = @hasMilestones(params)
@@ -88,7 +96,7 @@ module.exports = React.createClass
     params.milestones?
 
   getLinkProps: (params, hasMilestones) ->
-    return {show: false} unless params.id and params.stepIndex and params.courseId
+    return {show: false} unless params.id and params.courseId
 
     if hasMilestones
       params: _.omit(params, 'milestones')
@@ -98,7 +106,7 @@ module.exports = React.createClass
       to: 'viewTaskStepMilestones'
 
   render: ->
-    {show, assignment, due, hasMilestones} = @state
+    {show, assignment, due, date, hasMilestones} = @state
     return null unless show
 
     linkProps = _.pick @state, 'to', 'params'
@@ -112,9 +120,13 @@ module.exports = React.createClass
           {assignment}
         </span>
 
-        <Icon type='calendar-check-o' onNavbar
-          tooltipProps={placement: 'bottom'}
-          tooltip={due} />
+        <span className='fa-stack'>
+          <Icon type='calendar-o' onNavbar
+            className='fa-stack-2x'
+            tooltipProps={placement: 'bottom'}
+            tooltip={due} />
+          <strong className='fa-stack-1x calendar-text'>{date}</strong>
+        </span> 
 
         <Router.Link
           {...linkProps}

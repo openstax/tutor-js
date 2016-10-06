@@ -41,15 +41,16 @@ routes = (
 
         <Route path='assignment-links/?' name='viewAssignmentLinks' handler={AssignmentLinks} />
         <Route path='list/?' name='viewStudentDashboard' handler={StudentDashboardShell} />
-        <Route path='tasks/:id/?' name='viewTask' handler={SingleTask} ignoreScrollBehavior/>
-        <Route path='tasks/:id/steps/:stepIndex/?'
-          name='viewTaskStep'
-          handler={SingleTask}
-          ignoreScrollBehavior>
-          <Route
-            path=':milestones/?'
-            name='viewTaskStepMilestones'
-            ignoreScrollBehavior/>
+        <Route path='tasks/:id/?' name='viewTask' handler={SingleTask} ignoreScrollBehavior>
+          <Route path='steps/:stepIndex/?'
+            name='viewTaskStep'
+            handler={SingleTask}
+            ignoreScrollBehavior>
+            <Route
+              path=':milestones/?'
+              name='viewTaskStepMilestones'
+              ignoreScrollBehavior/>
+          </Route>
         </Route>
 
         <Route path='practice/?' name='viewPractice' handler={SinglePractice} />
