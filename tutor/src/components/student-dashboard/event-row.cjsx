@@ -45,28 +45,28 @@ module.exports = React.createClass
     classes = classnames("task row #{@props.eventType}", {workable, deleted})
 
     if deleted
-      message = <div>
-        <p>
-          If you remove this assignment, you will lose any progress or feedback you have received.
-        </p>
-        <p>Do you wish to continue?</p>
-      </div>
-
-      hideButton = <span>
-        Withdrawn
-        <SuretyGuard
-          onConfirm={@hideTask}
-          okButtonLabel='Yes'
-          placement='top'
-          message={message}
-        >
-          <BS.Button className="hide-task"
-            onClick={@stopEventPropagation}
-          >
-            <i className="fa fa-close" />
-          </BS.Button>
-        </SuretyGuard>
-      </span>
+      guardProps = {
+        okButtonLabel: 'Yes'
+        onConfirm: @hideTask
+        placement: 'top'
+        message:
+          <div>
+            <p>
+              If you remove this assignment, you will lose any progress or
+              feedback you have received.
+            </p>
+            <p>Do you wish to continue?</p>
+          </div>
+      }
+      hideButton =
+        <span>
+          Withdrawn
+          <SuretyGuard {...guardProps}>
+            <BS.Button className="hide-task" onClick={@stopEventPropagation}>
+              <i className="fa fa-close" />
+            </BS.Button>
+          </SuretyGuard>
+        </span>
 
     else
       time = <Time date={@props.event.due_at} format='concise'/>

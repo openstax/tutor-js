@@ -19,18 +19,14 @@ describe 'Exercise controls component', ->
       location: new Location
     ExerciseActions.loaded(EXERCISE, @props.id)
 
-  it 'does not enable the save draft on blank exercises', (done) ->
+  it 'does not enable the save draft on blank exercises', ->
     Testing.renderComponent( ExerciseControls, props: @blankProps ).then ({dom}) ->
       draftBtn = dom.querySelector('.btn.draft')
       expect( draftBtn.hasAttribute('disabled') ).to.be.true
-      done()
 
-  it 'does enables the save draft when not blank and valid and changed', (done) ->
+  it 'does enables the save draft when not blank and valid and changed', ->
     #trigger a change
     ExerciseActions.sync(1)
     Testing.renderComponent( ExerciseControls, props: @props ).then ({dom}) ->
       draftBtn = dom.querySelector('.btn.draft')
       expect( draftBtn.hasAttribute('disabled') ).to.be.false
-      done()
-
-

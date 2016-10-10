@@ -11,7 +11,7 @@ Location = require 'stores/location'
 ExerciseControls = React.createClass
 
   propTypes:
-    id:   React.PropTypes.string.isRequired
+    id:   React.PropTypes.string
     location: React.PropTypes.object
 
   componentWillMount: ->
@@ -34,7 +34,7 @@ ExerciseControls = React.createClass
       ExerciseActions.save(@props.id)
 
    publishExercise: ->
-    ExerciseActions.publish(@props.id)
+     ExerciseActions.publish(@props.id)
 
   render: ->
     {id} = @props

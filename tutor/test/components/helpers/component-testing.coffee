@@ -1,8 +1,10 @@
 _ = require 'underscore'
 expect = chai.expect
 React = require 'react'
+ReactDOM = require 'react-dom'
 ReactTestUtils  = require 'react-addons-test-utils'
-ReactContext   = require('react/lib/ReactContext')
+# No longer exists, needs further investigation if we're using it
+# ReactContext   = require('react/lib/ReactContext')
 
 {Promise}      = require 'es6-promise'
 {commonActions} = require './utilities'
@@ -56,12 +58,12 @@ Testing = {
     promise = new Promise( (resolve, reject) ->
       props = _.clone(options.props)
       props._wrapped_component = component
-      wrapper = React.render( React.createElement(Wrapper, props), root )
+      wrapper = ReactDOM.render( React.createElement(Wrapper, props), root )
       resolve({
         root,
         wrapper,
         element: wrapper.refs.element,
-        dom: React.findDOMNode(wrapper.refs.element)
+        dom: ReactDOM.findDOMNode(wrapper.refs.element)
       })
     )
     # defer adding the then callback so it'll be called after whatever is attached after the return
@@ -78,7 +80,7 @@ Testing = {
 
   shallowRender: (component) ->
     context = router: ROUTER
-    ReactContext.current = context
+#    ReactContext.current = context
     renderer = ReactTestUtils.createRenderer()
     renderer.render(component, context)
     output = renderer.getRenderOutput()

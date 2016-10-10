@@ -34,7 +34,7 @@ Review = React.createClass
     {id, focus, steps} = @props
     stepsProps = _.omit(@props, 'focus')
 
-    stepsList = _.map steps, (step, index) =>
+    stepsList = _.map steps, (step, index) ->
       if step.question_stats?
         return null unless step.content
         stepProps = _.extend({}, stepsProps, step)

@@ -1,11 +1,12 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 _ = require 'underscore'
 
 helpers =
 
   wrapComponent: (component) ->
     render: (DOMNode, props = {}) ->
-      React.render React.createElement(component, props), DOMNode
-    unmountFrom: React.unmountComponentAtNode
+      ReactDOM.render React.createElement(component, props), DOMNode
+    unmountFrom: ReactDOM.unmountComponentAtNode
 
 module.exports = helpers

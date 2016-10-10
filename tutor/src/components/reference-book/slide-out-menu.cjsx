@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 Router = require 'react-router'
 _  = require 'underscore'
 
@@ -70,7 +71,7 @@ module.exports = React.createClass
     return unless section
     section = @sectionFormat(section)
 
-    root = React.findDOMNode(@)
+    root = ReactDOM.findDOMNode(@)
     li = root.querySelector("[data-section='#{section}']")
     return unless li
 

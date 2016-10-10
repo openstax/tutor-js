@@ -30,5 +30,5 @@ describe 'Icon Component', ->
     @props.tooltip = 'a testing tooltip'
     Testing.renderComponent( Icon, props: @props ).then ({dom}) ->
       ReactTestUtils.Simulate.mouseOver(dom)
-      tooltipEl = document.querySelector('div[role="tooltip"]')
+      tooltipEl = _.last document.querySelectorAll('div[role="tooltip"]')
       expect(_.toArray(tooltipEl.classList)).to.include('on-navbar')

@@ -6,7 +6,7 @@
 #
 # Components
 
-require './components/course-listing.spec'
+# require './components/course-listing.spec'
 # require './components/cc-dashboard/index.spec'
 # require './components/cc-dashboard/dashboard.spec'
 # require './components/cc-dashboard/index.spec'
@@ -14,7 +14,7 @@ require './components/course-listing.spec'
 # # Something about this spec causes multiple failures in task-step tests
 # # require './components/questions/exercises-display.spec'
 # require './components/navbar/index.spec'
-# require './components/navbar/account-link.spec'
+require './components/navbar/account-link.spec'
 # require './components/navbar/user-actions-menu.spec'
 # require './components/navbar/center-controls.spec'
 # require './components/navbar/server-error-monitoring.spec'
@@ -45,7 +45,7 @@ require './components/course-listing.spec'
 # require './components/course-settings/roster.spec'
 # require './components/course-settings/student-id-field.spec'
 # require './components/course-settings/undrop-student.spec'
-# require './components/icon.spec'
+require './components/icon.spec'
 # require './components/tutor-input.spec'
 # require './components/tutor-dialog.spec'
 # require './components/unsaved-state.spec'

@@ -9,7 +9,7 @@ BS = require 'react-bootstrap'
 MPQToggle = React.createClass
 
   propTypes:
-    exerciseId: React.PropTypes.string.isRequired
+    exerciseId: React.PropTypes.string
 
   onConfirm: ->
     ExerciseActions.toggleMultiPart(@props.exerciseId)
@@ -24,8 +24,16 @@ MPQToggle = React.createClass
   render: ->
     showMPQ = ExerciseStore.isMultiPart(@props.exerciseId)
 
-    checkbox = <BS.Input type="checkbox" label="Exercise contains multiple parts"
-      checked={showMPQ} wrapperClassName="mpq-toggle" onChange={@onToggleMPQ} />
+    checkbox =
+      <BS.FormGroup className="mpq-toggle">
+        <BS.ControlLabel>Exercise contains multiple parts</BS.ControlLabel>
+        <BS.FormControl autoFocus
+          type="checkbox"
+          ref="input"
+          checked={showMPQ}
+          onChange={@onToggleMPQ}
+        />
+      </BS.FormGroup>
 
     if showMPQ
       <SuretyGuard

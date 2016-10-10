@@ -17,8 +17,6 @@ CourseDataMixin = require '../course-data-mixin'
 
 getDisplayBounds =
   month: (date) ->
-    unless date
-      debugger
     startAt: TimeHelper.toISO(
       date.clone().startOf('month').startOf('week').subtract(1, 'day')
     )

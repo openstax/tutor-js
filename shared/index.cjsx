@@ -26,6 +26,7 @@ module.exports = {
   ExerciseWithScroll,
   TaskHelper:             require './src/helpers/task'
   StepHelpsHelper:        require './src/helpers/step-helps'
+  propHelpers:            require './src/helpers/props'
   ExerciseIntro:          require './src/components/exercise/intro'
 
 
@@ -44,4 +45,5 @@ module.exports = {
   SmartOverflow:          require './src/components/smart-overflow'
   SpyMode:                require './src/components/spy-mode'
   SuretyGuard:            require './src/components/surety-guard'
+
 }

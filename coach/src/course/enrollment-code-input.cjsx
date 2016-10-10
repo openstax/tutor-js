@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 BS = require 'react-bootstrap'
 ENTER = 'Enter'
 
@@ -16,7 +17,7 @@ EnrollmentCodeInput = React.createClass
     currentCourses: React.PropTypes.arrayOf(React.PropTypes.instanceOf(Course))
 
   startRegistration: ->
-    @props.course.register(@refs.input.getValue(), User)
+    @props.course.register(ReactDOM.findDOMNode(this.refs.input).value, User)
 
   onKeyPress: (ev) ->
     return if @props.course.isBusy # double enter
@@ -30,15 +31,6 @@ EnrollmentCodeInput = React.createClass
     </div>
 
   render: ->
-    button =
-      <AsyncButton
-        className='enroll'
-        isWaiting={!!@props.course.isBusy}
-        waitingText={'Registering…'}
-        onClick={@startRegistration}
-      >
-        Enroll
-      </AsyncButton>
 
     <div className="enrollment-code form-group">
       {@renderCurrentCourses() if @props.currentCourses?.length}
@@ -46,10 +38,27 @@ EnrollmentCodeInput = React.createClass
       <hr/>
       <ErrorList course={@props.course} />
       <div className="code-wrapper col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
-        <BS.Input type="text" ref="input" label="Enter the enrollment code"
-          placeholder="enrollment code" autoFocus
-          onKeyPress={@onKeyPress}
-          buttonAfter={button} />
+        <BS.FormGroup controlId="enrollment-code">
+          <BS.ControlLabel>Enter the enrollment code</BS.ControlLabel>
+          <BS.InputGroup>
+            <BS.FormControl autoFocus
+              type="text"
+              ref="input"
+              placeholder="enrollment code"
+              onKeyPress={@onKeyPress}
+            />
+            <BS.InputGroup.Addon>
+              <AsyncButton
+                className='enroll'
+                isWaiting={!!@props.course.isBusy}
+                waitingText={'Registering…'}
+                onClick={@startRegistration}
+              >
+                Enroll
+              </AsyncButton>
+            </BS.InputGroup.Addon>
+          </BS.InputGroup>
+        </BS.FormGroup>
       </div>
     </div>
 

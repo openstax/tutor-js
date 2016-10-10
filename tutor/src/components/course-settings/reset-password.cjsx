@@ -4,7 +4,7 @@ BS = require 'react-bootstrap'
 
 PasswordResetField = React.createClass
   displayName: 'ResetStudentPasswordField'
-  mixins: [React.addons.LinkedStateMixin]
+
 
   getInitialState: ->
     password: ''
@@ -12,11 +12,12 @@ PasswordResetField = React.createClass
   getValue: -> @state.password
 
   componentDidMount: ->
-    React.findDOMNode(@refs.input).focus()
-
+    ReactDOM.findDOMNode(@refs.input).focus()
+  set: (ev) ->
+    @setState(val: ev.target.value)
   render: ->
-    <input autofocus ref='input' valueLink={@linkState('password')}
-      type='password' className='form-control'/>
+    <input autofocus ref='input' value={@state.val}
+      type='password' className='form-control' onChange={@set} />
 
 module.exports = React.createClass
   displayName: 'ResetPasswordLink'

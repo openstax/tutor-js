@@ -1,5 +1,5 @@
 React = require 'react'
-
+ReactDOM = require 'react-dom'
 {AnswerActions, AnswerStore} = require './stores/answer'
 {QuestionActions, QuestionStore} = require './stores/answer'
 {ExerciseActions, ExerciseStore} = require './stores/exercise'
@@ -30,6 +30,6 @@ loadApp = ->
   data = JSON.parse(
     document.getElementById('exercises-boostrap-data')?.innerHTML or '{}'
   )
-  window.React.render(window.App({data}), root)
+  ReactDOM.render(window.App({data}), root)
 
 document.addEventListener('DOMContentLoaded', loadApp)

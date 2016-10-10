@@ -50,13 +50,15 @@ Navigation = React.createClass
       </BS.NavItem>
     ] if course?.isRegistered()
 
-    <BS.Navbar toggleNavKey={0} fixedTop fluid>
-      <BS.NavBrand>
-        <span key='app' className='navbar-logo'><strong>Concept</strong> Coach</span>
+    <BS.Navbar fixedTop fluid>
+      <BS.Navbar.Brand>
+        <span key='app' className='navbar-logo'>
+          <strong>Concept</strong> Coach
+        </span>
         <CourseNameBase key = 'course-name' className='hidden-sm hidden-xs' course={course}/>
-      </BS.NavBrand>
-      <BS.CollapsibleNav eventKey={0} collapsible={true}>
-        <BS.Nav right navbar activeKey={view} onSelect={@handleSelect}>
+      </BS.Navbar.Brand>
+      <BS.Navbar.Collapse>
+        <BS.Nav pullRight navbar activeKey={view} onSelect={@handleSelect}>
           {courseItems}
           <BS.NavItem
             onClick={@close}
@@ -65,7 +67,7 @@ Navigation = React.createClass
           </BS.NavItem>
           <UserMenu course={@props.course} />
         </BS.Nav>
-      </BS.CollapsibleNav>
+      </BS.Navbar.Collapse>
       <NotificationsBar />
     </BS.Navbar>
 

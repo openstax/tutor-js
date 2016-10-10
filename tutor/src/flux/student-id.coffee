@@ -32,7 +32,7 @@ StudentIdConfig = {
   addError: (id, error) ->
     @_errors[id] = [error]
 
-  _saved: () ->
+  _saved: ->
     @emit('student-id-saved')
     @emitChange()
 

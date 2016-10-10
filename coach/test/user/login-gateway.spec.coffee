@@ -1,6 +1,6 @@
 # coffeelint: disable=max_line_length, spacing_after_comma
 
-{Testing, expect, sinon, _} = require 'shared/test/helpers'
+{Testing, expect, sinon, _, ReactDOM} = require 'shared/test/helpers'
 User = require 'user/model'
 LoginGateway = require 'user/login-gateway'
 
@@ -24,4 +24,4 @@ describe 'User login gateway component', ->
         sinon.match(/test-login\?parent=http%3A%2F%2Flocalhost%3A\d+%2Fcontext.html/), 'oxlogin',
         sinon.match(/toolbar=no,location=yes,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=\d+,height=\d+,top=\d+,left=\d+/)
       )
-      expect( element.getDOMNode().textContent ).to.include('Click to reopen window')
+      expect( ReactDOM.findDOMNode(element).textContent ).to.include('Click to reopen window')

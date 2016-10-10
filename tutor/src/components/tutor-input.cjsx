@@ -1,4 +1,5 @@
-React = require 'react/addons'
+React = require 'react'
+ReactDOM = require 'react-dom'
 BS = require 'react-bootstrap'
 moment = require 'moment-timezone'
 _ = require 'underscore'
@@ -46,10 +47,10 @@ TutorInput = React.createClass
     @setState({errors})
 
   focus: ->
-    React.findDOMNode(@refs.input)?.focus()
+    ReactDOM.findDOMNode(@refs.input)?.focus()
 
   cursorToEnd: ->
-    input = React.findDOMNode(@refs.input)
+    input = ReactDOM.findDOMNode(@refs.input)
     input.selectionStart = input.selectionEnd = input.value.length
 
   # The label has style "pointer-events: none" set.  Unfortunantly IE 10
@@ -80,7 +81,7 @@ TutorInput = React.createClass
     inputProps.defaultValue ?= @props.default if @props.default?
 
     if children?
-      inputBox = React.addons.cloneWithProps(children, inputProps)
+      inputBox = React.cloneELement(children, inputProps)
     else
       inputBox = <input {...inputProps}/>
 
@@ -385,7 +386,7 @@ TutorTextArea = React.createClass
     @props.onChange(event.target?.value, event.target)
 
   focus: ->
-    React.findDOMNode(@refs.textarea)?.focus()
+    ReactDOM.findDOMNode(@refs.textarea)?.focus()
 
   # Forward clicks on for IE10.  see comments on TutorInput
   forwardLabelClick: -> @focus()

@@ -47,21 +47,24 @@ QuestionFormatType = React.createClass
   render: ->
     <div className="format-type">
       {for id, name of TYPES
-        <BS.Input
-          key={id}
-          type="radio"
-          name={"#{@props.questionId}-formats"}
-          label={name}
-          value={id}
-          onChange={@update}
-          onClick={@updateFormat}
-          checked={@isFormatChecked(id)}
-        />}
+        <BS.FormGroup key={id}>
+          <BS.ControlLabel>{name}</BS.ControlLabel>
+          <BS.FormControl autoFocus
+            type="radio"
+            ref="input"
+            name={"#{@props.questionId}-formats"}
+            value={id}
+            onChange={@update}
+            onClick={@updateFormat}
+            checked={@isFormatChecked(id)}
+          />
+        </BS.FormGroup>}
 
-      {<BS.Input type="checkbox" label="Requires Choices"
-        onChange={@setChoiceRequired}
-        checked={@doesRequireChoices()}
-      /> if QuestionStore.hasFormat(@props.questionId, 'multiple-choice')}
+      {<BS.FormGroup className="requires-choices">
+        <BS.ControlLabel>Requires Choices</BS.ControlLabel>
+        <BS.FormControl type="checkbox"
+          checked={@doesRequireChoices()} onChange={@setChoiceRequired} />
+      </BS.FormGroup> if QuestionStore.hasFormat(@props.questionId, 'multiple-choice')}
     </div>
 
 

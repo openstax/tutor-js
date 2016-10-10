@@ -1,5 +1,5 @@
 React = require 'react'
-
+ReactDOM = require 'react-dom'
 _ = require 'underscore'
 classnames = require 'classnames'
 EventEmitter2 = require 'eventemitter2'
@@ -129,7 +129,7 @@ ConceptCoach = React.createClass
   getMountData: (action) ->
     {moduleUUID, collectionUUID} = @props
     {view} = @state
-    el = @getDOMNode()
+    el = ReactDOM.findDOMNode @
 
     coach: {el, action, view, moduleUUID, collectionUUID}
 

@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _, ReactTestUtils} = require 'shared/test/helpers'
+{Testing, expect, sinon, _, ReactTestUtils, ReactDOM} = require 'shared/test/helpers'
 
 Course = require 'course/model'
 
@@ -21,9 +21,9 @@ describe 'UpdateStudentIdentifier Component', ->
     sinon.stub(@props.course, 'updateStudent', (id) ->
       @_onStudentUpdated({data: {student_identifier: id}})
     )
-    Testing.renderComponent( UpdateStudentIdentifier, props: @props ).then ({element, dom}) ->
-      dom.querySelector('input').value = 'new id'
-      Testing.actions.click(dom.querySelector('.btn'))
+    Testing.renderComponent( UpdateStudentIdentifier, props: @props ).then (result) ->
+      result.dom.querySelector('input').value = 'new id'
+      Testing.actions.click(result.dom.querySelector('.btn'))
       _.defer ->
-        expect(element.getDOMNode().textContent).to.match(/You have successfully updated your student identifier/)
+        expect( result.dom.textContent).to.match(/You have successfully updated your student identifier/)
         done()

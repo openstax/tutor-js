@@ -85,7 +85,7 @@ CourseMonth = React.createClass
     })
 
   checkAddOnDay: (componentName, dayMoment, mouseEvent) ->
-    unless mouseEvent.relatedTarget is React.findDOMNode(@refs.addOnDay)
+    unless mouseEvent.relatedTarget is ReactDOM.findDOMNode(@refs.addOnDay)
       @hideAddOnDay(componentName, dayMoment, mouseEvent)
 
   undoActives: (componentName, dayMoment, mouseEvent) ->

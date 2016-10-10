@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
@@ -60,7 +61,7 @@ module.exports = React.createClass
 
   tableWidth: ->
     windowEl = @_getWindowSize()
-    tableContainer = React.findDOMNode(@refs.tableContainer) #.course-scores-container
+    tableContainer = ReactDOM.findDOMNode(@refs.tableContainer) #.course-scores-container
     style = tableContainer.currentStyle or window.getComputedStyle(tableContainer)
     padding = parseInt(style.paddingLeft) + parseInt(style.paddingRight)
     tableContainerWidth = tableContainer.clientWidth - padding
@@ -70,7 +71,7 @@ module.exports = React.createClass
 
   tableHeight: ->
     windowEl = @_getWindowSize()
-    table = React.findDOMNode(@refs.tableContainer)
+    table = ReactDOM.findDOMNode(@refs.tableContainer)
     bottomMargin = 140
     windowEl.height - table.offsetTop - bottomMargin
 

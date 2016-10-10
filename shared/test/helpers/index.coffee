@@ -26,17 +26,19 @@ Testing = {
       props._wrapped_component = component
 
       wrapper = ReactDOM.render( React.createElement(Wrapper, props), root )
-      resolve({
+      renderResult = {
         root,
         wrapper,
-        element: wrapper.refs.element,
+        getDom: -> ReactDOM.findDOMNode(wrapper.refs.element)
         dom: ReactDOM.findDOMNode(wrapper.refs.element)
-      })
+        element: wrapper.refs.element
+      }
+      resolve(renderResult)
     )
     # defer adding the then callback so it'll be called after whatever is attached after the return
     _.defer -> promise.then ->
       _.delay( ->
-        React.unmountComponentAtNode(root)
+        ReactDOM.unmountComponentAtNode(root)
       , unmountAfter )
       return arguments
     promise
@@ -45,4 +47,4 @@ Testing = {
 
 }
 
-module.exports = {Testing, expect, sinon, React, _, ReactTestUtils}
+module.exports = {Testing, expect, sinon, React, _, ReactTestUtils, ReactDOM}

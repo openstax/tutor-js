@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 EventEmitter2 = require 'eventemitter2'
@@ -32,7 +32,7 @@ BookLinkBase = React.createClass
     {children} = @props
     return null unless children?
 
-    React.addons.cloneWithProps(children, onClick: @broadcastNav)
+    React.cloneElement(children, onClick: @broadcastNav)
 
 BookLink = React.createClass
   displayName: 'BookLink'

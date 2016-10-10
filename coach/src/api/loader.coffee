@@ -1,6 +1,7 @@
 _ = require 'underscore'
+axios = require 'axios'
 deepMerge = require 'lodash/merge'
-$ = require 'jquery'
+
 interpolate = require 'interpolate'
 
 METHODS_WITH_DATA = ['PUT', 'PATCH', 'POST']
@@ -56,7 +57,7 @@ handleAPIEvent = (apiEventChannel, baseUrl, setting, requestEvent = {}) ->
     LOADING[apiSetting.url] = true
 
   _.delay ->
-    $.ajax(apiSetting)
+    axios(apiSetting)
       .done((responseData) ->
         delete LOADING[apiSetting.url]
         try

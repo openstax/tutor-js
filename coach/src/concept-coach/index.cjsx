@@ -1,5 +1,5 @@
 _ = require 'underscore'
-$ = require 'jquery'
+
 EventEmitter2 = require 'eventemitter2'
 helpers = require '../helpers'
 
@@ -126,7 +126,7 @@ class ConceptCoachAPI extends EventEmitter2
 
     # Needs to be added on initialize since opening from a coach path calls
     # initialize, and not open.  On will handle multiple logging in and out.
-    # 
+    #
     # Wait until our logout request has been received and the close
     User.channel.on('logout.received', @close)
 
@@ -135,7 +135,8 @@ class ConceptCoachAPI extends EventEmitter2
   open: (props) ->
     openProps = _.extend({}, props, open: true)
     openProps.triggeredFrom = _.pick(props, 'moduleUUID', 'collectionUUID')
-
+  # NEEDS FIXED:
+  # https://facebook.github.io/react/blog/2015/10/07/react-v0.14.html#new-deprecations-introduced-with-a-warning
     @component.setProps(openProps)
 
   openByRoute: (props, route) ->
