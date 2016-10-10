@@ -8,15 +8,11 @@ InvalidPage = require '../components/invalid-page'
 
 matchProps = (props, parentParams) ->
   extend({}, props, render: (renderedProps) ->
-    componentProps = extend({}, omit(props, 'component', 'render'), renderedProps)
+    componentProps = extend({}, omit(props, 'render'), renderedProps)
     params = extend({}, componentProps.params, parentParams)
     console.log componentProps, params
-    if props.render
-      <props.render {...componentProps} params={params} />
-    else
-      <props.component {...componentProps} params={params} />
+    <props.render {...componentProps} params={params} />
   )
-
 
 RoutingHelper =
 

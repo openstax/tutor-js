@@ -11,7 +11,6 @@ StudentDashboardShell = React.createClass
   displayName: 'StudentDashboardShell'
 
   propTypes:
-    courseId: React.PropTypes.string.isRequired
     params: React.PropTypes.object.isRequired
 
   statics:
@@ -30,7 +29,9 @@ StudentDashboardShell = React.createClass
       callback()
 
   render: ->
-    {courseId, params} = @props
+    {params} = @props
+    {courseId} = params
+
     <div className='student-dashboard '>
       <LoadableItem
         id={courseId}

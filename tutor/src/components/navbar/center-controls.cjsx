@@ -63,7 +63,7 @@ module.exports = React.createClass
     @update(@getControlInfo, params, path)
 
   updateTask: (taskId) ->
-    params = @context.router.getCurrentParams()
+    {params} = @props
     @update(@getTaskInfo) if taskId is params.id
 
   getTaskInfo: (params) ->

@@ -30,14 +30,23 @@ RouteHandlers  = require './helpers/route-handlers'
 {CourseListing}         = require './components/course-listing'
 {StudentDashboardShell} = require './components/student-dashboard'
 TeacherTaskPlans        = require './components/task-plan/teacher-task-plans-listing'
+{TaskShell}             = require './components/task'
 
 ROUTES = [
-  { pattern: '/dashboard', name: 'listing', component: CourseListing }
+  { pattern: '/dashboard', name: 'listing', render: CourseListing }
   {
-    pattern: '/course/:courseId',  name: 'dashboard', render: RouteHandlers.dashboard
+    pattern: '/courses/:courseId',  name: 'dashboard', render: RouteHandlers.dashboard
     routes: [
-      { pattern: '/list',         name: 'viewStudentDashboard', component: StudentDashboardShell }
-      { pattern: 't/month/:date', name: 'calendarByDate',       component: TeacherTaskPlans      }
+      { pattern: 'list',          name: 'viewStudentDashboard', render: StudentDashboardShell }
+      { pattern: 't/month/:date', name: 'calendarByDate',       render: TeacherTaskPlans      }
+      { pattern: 'tasks/:id',     name: 'viewTask',             render: TaskShell
+        # routes: [{
+        #   pattern: 'steps/:stepIndex', name: 'viewTaskStep',        render: TaskShell
+        #   routes: [{
+        #     pattern: ':milestones', name: 'viewTaskStepMilestones', render: TaskShell
+        #   }]
+        # }]
+      }
     ]
   }
 ]

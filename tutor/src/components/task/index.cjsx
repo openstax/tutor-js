@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+
 _ = require 'underscore'
 camelCase = require 'camelcase'
 classnames = require 'classnames'
@@ -11,7 +11,7 @@ classnames = require 'classnames'
 {TaskProgressActions, TaskProgressStore} = require '../../flux/task-progress'
 
 StepFooterMixin = require '../task-step/step-footer-mixin'
-
+Router = require '../../router'
 TaskStep = require '../task-step'
 Ends = require '../task-step/ends'
 Breadcrumbs = require './breadcrumbs'
@@ -24,10 +24,11 @@ TeacherReviewControls = require './teacher-review-controls'
 {StepPanel} = require '../../helpers/policies'
 
 {UnsavedStateMixin} = require '../unsaved-state'
+LoadableItem = require '../loadable-item'
 
 {PinnedHeaderFooterCard, PinnedHeader, ScrollToMixin, ExerciseIntro} = require 'shared'
 
-module.exports = React.createClass
+Task = React.createClass
   propTypes:
     id: React.PropTypes.string
 
@@ -35,16 +36,13 @@ module.exports = React.createClass
 
   mixins: [StepFooterMixin, UnsavedStateMixin, ScrollToMixin]
 
-  contextTypes:
-    router: React.PropTypes.func
-
   scrollingTargetDOM: -> window.document
 
   getDefaultCurrentStep: ->
     TaskPanelStore.getStepKey(@props.id, {is_completed: false})
 
   setStepKey: ->
-    params = @context.router.getCurrentParams()
+    params = Router.currentParams()
 
     # url is 1 based so it matches the breadcrumb button numbers
     defaultKey = @getDefaultCurrentStep()
@@ -192,7 +190,7 @@ module.exports = React.createClass
   goToStep: (stepKey, silent = false) ->
     {id} = @props
     stepKey = parseInt(stepKey)
-    params = _.clone(@context.router.getCurrentParams())
+    params = _.clone(Router.currentParams())
     return false if @areKeysSame(@state.currentStep, stepKey)
     # url is 1 based so it matches the breadcrumb button numbers
     params.stepIndex = stepKey + 1
@@ -211,7 +209,7 @@ module.exports = React.createClass
     @setState(milestonesEntered: not @state.milestonesEntered)
 
   closeMilestones: ->
-    params = @context.router.getCurrentParams()
+    params = Router.currentParams()
     @context.router.transitionTo('viewTaskStep', params)
 
   filterClickForMilestones: (focusEvent) ->
@@ -227,7 +225,7 @@ module.exports = React.createClass
     panelType is 'teacher-read-only' and TaskStore.hasProgress(id)
 
   renderStep: (data) ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
     {id} = @props
     pinned = not TaskStore.hasProgress(id)
 
@@ -245,7 +243,7 @@ module.exports = React.createClass
 
   renderDefaultEndFooter: ->
     {id} = @props
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
 
     taskFooterParams =
       taskId: id
@@ -255,7 +253,7 @@ module.exports = React.createClass
 
   renderEnd: (data) ->
     {id} = @props
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
     task = TaskStore.get(id)
 
     type = if task.type then task.type else 'task'
@@ -271,7 +269,7 @@ module.exports = React.createClass
       ref='stepPanel'/>
 
   renderStatics: (data) ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
     pinned = not TaskStore.hasProgress(@props.id)
 
     <ExerciseIntro
@@ -289,8 +287,8 @@ module.exports = React.createClass
   render: ->
     {id} = @props
     {milestonesEntered} = @state
-    {courseId} = @context.router.getCurrentParams()
-    showMilestones = @context.router.getCurrentParams().milestones?
+    {courseId} = Router.currentParams()
+    showMilestones = Router.currentParams().milestones?
     task = TaskStore.get(id)
     return null unless task?
 
@@ -362,3 +360,17 @@ module.exports = React.createClass
     {currentStep} = state?
     currentStep ?= @state.currentStep
     @goToStep(currentStep + 1)
+
+
+TaskShell = React.createClass
+  displayName: 'TaskShell'
+  render: ->
+    {id} = @props.params
+    <LoadableItem
+      id={id}
+      store={TaskStore}
+      actions={TaskActions}
+      renderItem={-> <Task key={id} id={id} />}
+    />
+
+module.exports = {Task, TaskShell}

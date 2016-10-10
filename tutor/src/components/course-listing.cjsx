@@ -17,7 +17,7 @@ CourseLink = ({course}) ->
     <BS.Col {...props} className='tutor-booksplash-course-item' xs={12}>
       <Router.Link
           className='tutor-course-item'
-          to="/course/#{course.id}"
+          to="/courses/#{course.id}"
       >
         {course.name}
       </Router.Link>

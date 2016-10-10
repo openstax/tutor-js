@@ -17,20 +17,6 @@ err = (msgs...) ->
   console.error(msgs...)
   throw new Error(JSON.stringify(msgs...))
 
-SingleTask = React.createClass
-  displayName: 'SingleTask'
-  contextTypes:
-    router: React.PropTypes.func
-
-  render: ->
-    {id} = @context.router.getCurrentParams()
-    <LoadableItem
-      id={id}
-      store={TaskStore}
-      actions={TaskActions}
-      renderItem={-> <Task key={id} id={id} />}
-    />
-
 
 SinglePractice = React.createClass
   displayName: 'SinglePractice'
@@ -115,4 +101,4 @@ TaskResult = React.createClass
     @context.router.transitionTo('viewTask', {courseId, id})
 
 
-module.exports = {App, SingleTask, SinglePractice, Invalid}
+module.exports = {App, SinglePractice}

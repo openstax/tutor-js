@@ -57,14 +57,15 @@ module.exports = React.createClass
 
   render: ->
     {course} = @state
-    {courseId} = Router.currentParams()
+    params = Router.currentParams()
+    {courseId} = params
 
     brand = <Link to='/dashboard' className='navbar-brand'>
               <i className='ui-brand-logo'></i>
             </Link>
 
     <BS.Navbar fixedTop fluid ref="navBar">
-      <CenterControls />
+      <CenterControls params={params} />
       <BS.Navbar.Brand>
         {brand}
       </BS.Navbar.Brand>

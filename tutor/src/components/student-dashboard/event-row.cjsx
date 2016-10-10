@@ -22,9 +22,10 @@ module.exports = React.createClass
   getInitialState: -> hidden: false
 
   onClick: (ev) ->
+    {courseId, event} = @props
     ev.preventDefault()
     # url is 1 based so it matches the breadcrumb button numbers. 1==first step
-    @context.router.transitionTo "/courses/#{courseId}/tasks/#{@props.event.id}/steps/1"
+    @context.router.transitionTo "/courses/#{courseId}/tasks/#{event.id}/steps/1"
 
   hideTask: (event) ->
     StudentDashboardActions.hide(@props.event.id)
