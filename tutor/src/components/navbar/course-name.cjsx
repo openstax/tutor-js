@@ -24,8 +24,6 @@ CourseName = React.createClass
 
     coursenameComponent = null
 
-    routeName = CurrentUserStore.getDashboardRoute(course?.id)
-
     if course
       courseNameTooltip =
         <BS.Tooltip id="course-name-tooltip">
@@ -38,8 +36,7 @@ CourseName = React.createClass
           delayHide={0}
           overlay={courseNameTooltip}>
             <Router.Link
-              to={routeName}
-              params={{courseId: course.id}}
+              to="/courses/#{course.id}"
               className='navbar-brand'>
               <div className="course-name">{course.name}</div>
             </Router.Link>

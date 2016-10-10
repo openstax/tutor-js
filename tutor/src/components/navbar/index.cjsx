@@ -30,7 +30,7 @@ module.exports = React.createClass
     {course}
 
   getCourseFromParams: ->
-    {courseId} = @props.params or {}
+    {courseId} = Router.currentParams()
     CourseStore.get(courseId) if courseId?
 
   handleCourseChanges: ->

@@ -6,7 +6,7 @@
 
 module.exports =
   getRoutes: -> ROUTES
-  pathToEntry: (path = window.location.pathname) -> findRoutePattern(path, ROUTES)
+  pathToEntry: (path = window.location.pathname) -> findRoutePatternMemoed(path, ROUTES)
   getQuery: (windowImpl = window) ->
     qs.parse(windowImpl?.location.search.slice(1))
   currentParams: (windowImpl = window) ->
@@ -23,6 +23,7 @@ module.exports =
 
 qs = require 'qs'
 merge = require 'lodash/merge'
+memoize = require 'lodash/memoize'
 interpolateUrl = require 'interpolate-url'
 matchPattern   = require('react-router/matchPattern').default
 RouteHandlers  = require './helpers/route-handlers'
@@ -69,6 +70,8 @@ findRoutePattern = (pathname, parentRoutes) ->
     else if routes
       if (result = findRoutePattern(pathname, routes))
         return result
+
+findRoutePatternMemoed = memoize(findRoutePattern)
 
 
 ## Below is pre router upgrade config

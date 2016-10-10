@@ -31,14 +31,17 @@ module.exports = React.createClass
     TransitionActions.load(@props.location.pathname)
 
   render: ->
-    {courseId} = @props.params or {}
+    params = Router.currentParams()
+    {courseId} = params
+
     classNames = classnames('tutor-app', 'openstax-wrapper', {
       'is-college':     courseId? and CourseStore.isCollege(courseId)
       'is-high-school': courseId? and CourseStore.isHighSchool(courseId)
     })
+
     <div className={classNames}>
       <SpyMode.Wrapper>
-        <Navbar {...@props} />
+        <Navbar {...@props}/>
         <RoutingHelper.component routes={Router.getRoutes()} />
       </SpyMode.Wrapper>
     </div>
