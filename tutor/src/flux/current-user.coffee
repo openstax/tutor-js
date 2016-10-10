@@ -31,8 +31,8 @@ ROUTES =
     label: 'Dashboard'
     allowedForCourse: (course) -> not course?.is_concept_coach is true
     roles:
-      teacher: 'taskplans'
-      student: 'viewStudentDashboard'
+      teacher: 'dashboard'
+      student: 'dashboard'
       default: 'app'
   cc_dashboard:
     label: 'Dashboard'
@@ -96,6 +96,7 @@ CurrentUserStore = flux.createStore
 
   _getRouteByRole: (routeType, menuRole) ->
     ROUTES[routeType].roles[menuRole] or ROUTES[routeType].roles.default
+
   _getParamsForRoute: (courseId, routeType, menuRole) ->
     if _.isFunction(ROUTES[routeType].params)
       ROUTES[routeType].params(courseId, menuRole)
@@ -197,6 +198,7 @@ CurrentUserStore = flux.createStore
       _.chain(routes)
         .map((routeType) =>
           routeName = @_getRouteByRole(routeType, menuRole)
+
           if routeName?
             name: routeName
             params: @_getParamsForRoute(courseId, routeType, menuRole)
