@@ -45,7 +45,7 @@ UserActionsMenu = React.createClass
       onSelect: @props.onItemClick
     else
       href: Router.makePathname(route.name, route.params)
-      onSelect: (event) =>
+      onSelect: (eventKey, event) =>
         @transitionToMenuItem(route.name, route.params, event)
         @props.onItemClick()
         return null
