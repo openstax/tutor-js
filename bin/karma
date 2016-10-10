@@ -7,4 +7,4 @@ bin/checkinputs "$@"
 export OX_PROJECT=$1
 echo Karma: $OX_PROJECT
 
-karma start test/karma.config.js --auto-watch --no-single-run
+karma start configs/test/karma.config.js --auto-watch --no-single-run
