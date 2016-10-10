@@ -1,4 +1,4 @@
-{React, Testing, expect, _, sinon} = require './helpers/component-testing'
+{React, Testing, expect, _, sinon, ReactTestUtils} = require './helpers/component-testing'
 
 ScrollSpy = require '../../src/components/scroll-spy'
 
@@ -36,14 +36,14 @@ describe 'ScrollSpy Component', ->
   it 'sets visible elements on mount', ->
     @stubbedElements = [ new FakeElement('el1', 10, 200) ]
     Testing.renderComponent( RootComponent, props: @props ).then  ({element}) ->
-      nested = React.addons.TestUtils.findRenderedComponentWithType(element, NestedComponent)
+      nested = ReactTestUtils.findRenderedComponentWithType(element, NestedComponent)
       expect(nested.props.onScreenElements).to.deep.equal(['el1'])
 
   it 'relays visible elements on scroll', ->
     @stubbedElements = [ new FakeElement('el1', 10, 200) ]
     Testing.renderComponent( RootComponent, props: @props ).then  ({element}) =>
       @stubbedElements.push( new FakeElement('el2', 200, 800) )
-      nested = React.addons.TestUtils.findRenderedComponentWithType(element, NestedComponent)
+      nested = ReactTestUtils.findRenderedComponentWithType(element, NestedComponent)
       fn() for evName, fn in @windowListeners when evName is 'scroll'
       _.delay ->
         expect(nested.props.onScreenElements).to.deep.equal(['el2', 'el1'])
@@ -56,5 +56,5 @@ describe 'ScrollSpy Component', ->
       new FakeElement('el31', 1100, 1200)
     ]
     Testing.renderComponent( RootComponent, props: @props ).then  ({element}) ->
-      nested = React.addons.TestUtils.findRenderedComponentWithType(element, NestedComponent)
+      nested = ReactTestUtils.findRenderedComponentWithType(element, NestedComponent)
       expect(nested.props.onScreenElements).to.deep.equal(['el2'])

@@ -1,8 +1,9 @@
 _ = require 'underscore'
 expect = chai.expect
-React = require 'react/addons'
-ReactTestUtils = React.addons.TestUtils
-{Promise}      = require 'es6-promise'
+React = require 'react'
+ReactDOM = require 'react-dom'
+ReactTestUtils  = require 'react-addons-test-utils'
+{Promise}       = require 'es6-promise'
 {commonActions} = require './utilities'
 sandbox = null
 
@@ -23,12 +24,13 @@ Testing = {
     promise = new Promise( (resolve, reject) ->
       props = _.clone(options.props)
       props._wrapped_component = component
-      wrapper = React.render( React.createElement(Wrapper, props), root )
+
+      wrapper = ReactDOM.render( React.createElement(Wrapper, props), root )
       resolve({
         root,
         wrapper,
         element: wrapper.refs.element,
-        dom: React.findDOMNode(wrapper.refs.element)
+        dom: ReactDOM.findDOMNode(wrapper.refs.element)
       })
     )
     # defer adding the then callback so it'll be called after whatever is attached after the return

@@ -1,4 +1,5 @@
-React = require 'react/addons'
+React = require 'react'
+ReactTestUtils = require 'react-addons-test-utils'
 
 {Promise} = require 'es6-promise'
 _ = require 'underscore'
@@ -55,20 +56,20 @@ commonActions =
     button = div.querySelector(selector)
 
   click: (clickElementNode, eventData = {}) ->
-    React.addons.TestUtils.Simulate.click(clickElementNode, eventData)
+    ReactTestUtils.Simulate.click(clickElementNode, eventData)
 
   # http://stackoverflow.com/questions/24140773/could-not-simulate-mouseenter-event-using-react-test-utils
   mouseEnter: (clickElementNode, eventData = {}) ->
-    React.addons.TestUtils.SimulateNative.mouseOver(clickElementNode, eventData)
+    ReactTestUtils.SimulateNative.mouseOver(clickElementNode, eventData)
 
   mouseLeave: (clickElementNode, eventData = {}) ->
-    React.addons.TestUtils.SimulateNative.mouseOut(clickElementNode, eventData)
+    ReactTestUtils.SimulateNative.mouseOut(clickElementNode, eventData)
 
   blur: (clickElementNode, eventData = {}) ->
-    React.addons.TestUtils.Simulate.blur(clickElementNode, eventData)
+    ReactTestUtils.Simulate.blur(clickElementNode, eventData)
 
   select: (selectElementNode) ->
-    React.addons.TestUtils.Simulate.select(selectElementNode)
+    ReactTestUtils.Simulate.select(selectElementNode)
 
   _clickMatch: (selector, args...) ->
     {div} = args[0]
@@ -86,7 +87,7 @@ commonActions =
 
   _clickComponentOfType: (targetComponent, args...) ->
     {div, component} = args[0]
-    target = React.addons.TestUtils.findRenderedComponentWithType(component, targetComponent)
+    target = ReactTestUtils.findRenderedComponentWithType(component, targetComponent)
     commonActions._clickComponent(target)
 
   clickComponentOfType: (targetComponent) ->
@@ -108,7 +109,7 @@ commonActions =
   _focusMatch: (selector, args...) ->
     {div} = args[0]
     elementNode = div.querySelector(selector)
-    React.addons.TestUtils.Simulate.focus(elementNode)
+    ReactTestUtils.Simulate.focus(elementNode)
     args[0]
 
   focusMatch: (selector) ->
@@ -116,7 +117,7 @@ commonActions =
       Promise.resolve(commonActions._focusMatch(selector, args...))
 
   _changeDOMNode: (targetNode, eventData, args...) ->
-    React.addons.TestUtils.Simulate.change(targetNode, eventData)
+    ReactTestUtils.Simulate.change(targetNode, eventData)
     args[0]
 
   _changeMatch: (selector, eventData, args...) ->
@@ -132,7 +133,7 @@ commonActions =
   _hoverMatch: (selector, args...) ->
     {div} = args[0]
     elementNode = div.querySelector(selector)
-    React.addons.TestUtils.Simulate.mouseOver(elementNode)
+    ReactTestUtils.Simulate.mouseOver(elementNode)
     args[0]
 
   hoverMatch: (selector) ->
@@ -146,9 +147,9 @@ commonActions =
 
     textarea = div.querySelector(selector)
     textarea.value = response
-    React.addons.TestUtils.Simulate.focus(textarea)
-    React.addons.TestUtils.Simulate.keyDown(textarea, {key: 'Enter'})
-    React.addons.TestUtils.Simulate.change(textarea)
+    ReactTestUtils.Simulate.focus(textarea)
+    ReactTestUtils.Simulate.keyDown(textarea, {key: 'Enter'})
+    ReactTestUtils.Simulate.change(textarea)
 
     _.defaults(args[0], {textarea})
 

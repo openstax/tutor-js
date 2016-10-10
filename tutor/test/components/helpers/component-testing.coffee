@@ -1,9 +1,8 @@
 _ = require 'underscore'
 expect = chai.expect
 React = require 'react'
-ReactAddons    = require('react/addons')
+ReactTestUtils  = require 'react-addons-test-utils'
 ReactContext   = require('react/lib/ReactContext')
-ReactTestUtils = React.addons.TestUtils
 
 {Promise}      = require 'es6-promise'
 {commonActions} = require './utilities'

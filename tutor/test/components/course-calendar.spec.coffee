@@ -9,7 +9,8 @@ moment = require 'moment'
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../src/flux/teacher-task-plan'
 {TaskPlanStatsStore, TaskPlanStatsActions} = require '../../src/flux/task-plan-stats'
 
-React = require 'react/addons'
+React = require 'react'
+ReactTestUtils = require 'react-addons-test-utils'
 CourseCalendar = require '../../src/components/course-calendar'
 COURSE = require '../../api/user/courses/1.json'
 NO_PERIODS_COURSE = require '../../api/user/courses/no-periods.json'
@@ -41,7 +42,7 @@ setupCourse = (courseInfo) ->
     calendarTests
       .goToCalendar("/courses/#{courseId}/t/calendar", courseId)
       .then((result) =>
-        calendarComponent = React.addons.TestUtils.findRenderedComponentWithType(result.component, CourseCalendar)
+        calendarComponent = ReactTestUtils.findRenderedComponentWithType(result.component, CourseCalendar)
         result.component = calendarComponent
         result.div = React.findDOMNode(calendarComponent)
 

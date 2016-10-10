@@ -1,6 +1,7 @@
 _ = require 'underscore'
 
-React = require 'react/addons'
+React = require 'react'
+ReactTestUtils = require 'react-addons-test-utils'
 {Promise} = require 'es6-promise'
 
 {TaskStepActions, TaskStepStore} = require '../../../../src/flux/task-step'
@@ -16,8 +17,8 @@ TaskStep = require '../../../../src/components/task-step'
 actions =
   forceUpdate: (args...) ->
     {component, div} = args[0]
-    taskStep = React.addons.TestUtils.scryRenderedComponentsWithType(component, TaskStep)
-    breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
+    taskStep = ReactTestUtils.scryRenderedComponentsWithType(component, TaskStep)
+    breadcrumbs = ReactTestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
 
     if breadcrumbs.length is 1
       routerStub.forceUpdate(breadcrumbs[0], args...)
@@ -75,7 +76,7 @@ actions =
     answer = step.content.questions[0].answers[0]
     answerElement = div.querySelector('.answer-input-box')
 
-    React.addons.TestUtils.Simulate.change(answerElement, answer)
+    ReactTestUtils.Simulate.change(answerElement, answer)
     step.answer_id = answer.id
     TaskStepActions.saved(step, stepId)
 
@@ -153,7 +154,7 @@ actions =
 
   forceRecovery: (args...) ->
     {component} = args[0]
-    exerciseReview = React.addons.TestUtils.findRenderedComponentWithType(component, Exercise)
+    exerciseReview = ReactTestUtils.findRenderedComponentWithType(component, Exercise)
     exerciseReview.props.onNextStep()
 
     actions.forceUpdate(args[0])
