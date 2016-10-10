@@ -2,7 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 {Link} = require 'react-router'
 _ = require 'underscore'
-
+Router = require '../../router'
 CourseName = require './course-name'
 ServerErrorMonitoring = require './server-error-monitoring'
 UserActionsMenu = require './user-actions-menu'
@@ -58,7 +58,7 @@ module.exports = React.createClass
 
   render: ->
     {course} = @state
-    {courseId} = @props.params or {}
+    {courseId} = Router.currentParams()
 
     brand = <Link to='/dashboard' className='navbar-brand'>
               <i className='ui-brand-logo'></i>
