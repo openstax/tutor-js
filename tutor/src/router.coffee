@@ -2,16 +2,30 @@
 # Since this file needs to know about quite a few components and those components will also query the router
 # it needs to export it's accessor methods first so they're available
 # in case the other components also require this file
+
+
 module.exports =
   getRoutes: -> ROUTES
-  pathToEntry: (path) -> findRoutePattern(path, ROUTES)
+  pathToEntry: (path = window.location.pathname) -> findRoutePattern(path, ROUTES)
   getQuery: (windowImpl = window) ->
     qs.parse(windowImpl?.location.search.slice(1))
+  currentParams: (windowImpl = window) ->
+    @pathToEntry(windowImpl.location.pathname)?.match.params or {}
+  makePathname: (name, params) ->
+    route = ROUTES_MAP[name]
+    if route
+      interpolateUrl(route.pattern, merge(@currentParams(), params))
+  isActive: (name, params) ->
+    route = ROUTES_MAP[name]
+    route and window.location.pathname is @makePathname(name, params)
+
+
 
 qs = require 'qs'
-
-matchPattern = require('react-router/matchPattern').default
-RouteHandlers = require './helpers/route-handlers'
+merge = require 'lodash/merge'
+interpolateUrl = require 'interpolate-url'
+matchPattern   = require('react-router/matchPattern').default
+RouteHandlers  = require './helpers/route-handlers'
 
 {CourseListing}         = require './components/course-listing'
 {StudentDashboardShell} = require './components/student-dashboard'
@@ -22,11 +36,21 @@ ROUTES = [
   {
     pattern: '/course/:courseId',  name: 'dashboard', render: RouteHandlers.dashboard
     routes: [
-      { pattern: '/list',          name: 'viewStudentDashboard', component: StudentDashboardShell }
+      { pattern: '/list',         name: 'viewStudentDashboard', component: StudentDashboardShell }
       { pattern: 't/month/:date', name: 'calendarByDate',       component: TeacherTaskPlans      }
     ]
   }
 ]
+
+descendRoutes = (routes) ->
+  map = {}
+  for route in routes
+    map[route.name] = route
+    for name, child of descendRoutes(route.routes or [])
+      map[name] = child
+  map
+
+ROUTES_MAP = descendRoutes(ROUTES)
 
 findRoutePattern = (pathname, parentRoutes) ->
   for entry in parentRoutes
