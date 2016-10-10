@@ -1,8 +1,10 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 BS = require 'react-bootstrap'
 {Link} = require 'react-router'
 _ = require 'underscore'
 Router = require '../../router'
+
 CourseName = require './course-name'
 ServerErrorMonitoring = require './server-error-monitoring'
 UserActionsMenu = require './user-actions-menu'
@@ -38,13 +40,10 @@ module.exports = React.createClass
         @setState({course})
 
   collapseNav: ->
-    navBar = this.refs.navBar.getDOMNode();
-    collapsibleNav = navBar.querySelector('div.navbar-collapse');
-    toggleBtn = navBar.querySelector('button.navbar-toggle');
-
-    if collapsibleNav.classList.contains('in')
-      toggleBtn.click();
-
+    navBar = ReactDOM.findDOMNode(@refs.navBar)
+    collapsibleNav = navBar.querySelector('div.navbar-collapse')
+    toggleBtn = navBar.querySelector('button.navbar-toggle')
+    toggleBtn.click() if collapsibleNav.classList.contains('in')
     return null
 
   componentDidUpdate: ->
