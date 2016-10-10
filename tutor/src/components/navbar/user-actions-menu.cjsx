@@ -1,9 +1,11 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
+
 _ = require 'underscore'
 classnames = require 'classnames'
 
+Router = require '../../router'
 UserName = require './username'
 AccountLink = require './account-link'
 BrowseTheBook = require '../buttons/browse-the-book'
@@ -36,12 +38,13 @@ UserActionsMenu = React.createClass
     @props.onItemClick()
 
   renderMenuItem: (route, index) ->
-    isActive = true
+    isActive = route.name and Router.isActive(route.name, route.params)
+
     menuGoProps = if route.href
       href: route.href
       onSelect: @props.onItemClick
     else
-      href: @context.router.createHref(route.name, route.params)
+      href: Router.makePathname(route.name, route.params)
       onSelect: (event) =>
         @transitionToMenuItem(route.name, route.params, event)
         @props.onItemClick()
@@ -55,7 +58,8 @@ UserActionsMenu = React.createClass
       className={classnames(route.name, 'active': isActive)}
       key={key}
       data-name={route.name}
-      eventKey={index + 2}>
+      eventKey={index + 2}
+    >
         {route.label}
     </BS.MenuItem>
 
