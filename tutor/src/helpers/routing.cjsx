@@ -10,7 +10,7 @@ matchProps = (props, parentParams) ->
   extend({}, props, render: (renderedProps) ->
     componentProps = extend({}, omit(props, 'render'), renderedProps)
     params = extend({}, componentProps.params, parentParams)
-    console.log componentProps, params
+
     <props.render {...componentProps} params={params} />
   )
 

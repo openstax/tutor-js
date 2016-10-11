@@ -29,18 +29,9 @@ getRankByRole = (roleType) ->
 ROUTES =
   dashboard:
     label: 'Dashboard'
-    allowedForCourse: (course) -> not course?.is_concept_coach is true
+    allowedForCourse: (course) -> !!course
     roles:
-      teacher: 'dashboard'
-      student: 'dashboard'
-      default: 'app'
-  cc_dashboard:
-    label: 'Dashboard'
-    allowedForCourse: (course) -> course?.is_concept_coach is true
-    roles:
-      teacher: 'cc-dashboard'
-      student: 'viewStudentDashboard'
-      default: 'app'
+      default: 'dashboard'
   guide:
     label: 'Performance Forecast' # a bit hard to read, but we only want to reject the === true case
     allowedForCourse: (course) -> not course?.is_concept_coach is true

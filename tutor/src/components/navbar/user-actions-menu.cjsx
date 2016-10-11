@@ -34,9 +34,10 @@ UserActionsMenu = React.createClass
   contextTypes:
     router: React.PropTypes.object
 
-  transitionToMenuItem: (routeName, params, mouseEvent) ->
-    mouseEvent.preventDefault()
-    @context.router.transitionTo(routeName, params)
+  transitionToMenuItem: (href, evKey, clickEvent) ->
+    clickEvent.preventDefault()
+    @context.router.transitionTo(href)
+    @props.onItemClick()
 
   componentWillMount: ->
     CurrentUserStore.ensureLoaded()
@@ -47,21 +48,18 @@ UserActionsMenu = React.createClass
   renderMenuItem: (route, index) ->
     isActive = route.name and Router.isActive(route.name, route.params, window: @props.windowImpl)
 
-    menuGoProps = if route.href
+    props = if route.href
       href: route.href
       onSelect: @props.onItemClick
     else
-      href: Router.makePathname(route.name, route.params)
-      onSelect: (eventKey, event) =>
-        @transitionToMenuItem(route.name, route.params, event)
-        @props.onItemClick()
-        return null
+      href = Router.makePathname(route.name, route.params)
+      { href, onSelect: _.partial(@transitionToMenuItem, href) }
 
     key = if route.key then "dropdown-item-#{route.key}" else "dropdown-item-#{index}"
 
     # MenuItem doesn't pass on props to the li currently, so using className instead for route.name visual control.
     <BS.MenuItem
-      {...menuGoProps}
+      {...props}
       className={classnames(route.name, 'active': isActive)}
       key={key}
       data-name={route.name}

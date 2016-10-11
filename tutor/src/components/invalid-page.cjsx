@@ -5,7 +5,7 @@ InvalidPage = (props) ->
   <div>
     <h1>
       Woops, this is an invalid page
-      {props.message or props.location.pathname}
+      {props.message or props.location?.pathname}
     </h1>
     <Link to='dashboard'>Home</Link>
   </div>
