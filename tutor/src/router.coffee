@@ -12,9 +12,8 @@ module.exports =
   currentParams: (options = {}) ->
     @pathToEntry( (options.window or window).location.pathname)?.match.params or {}
   makePathname: (name, params, options = {}) ->
-    route = ROUTES_MAP[name]
-    if route
-      interpolateUrl(route.pattern, merge(@currentParams(options), params))
+    ROUTES_MAP[name]?.toPath(params)
+
   isActive: (name, params, options = {}) ->
     route = ROUTES_MAP[name]
     route and (options.window or window).location.pathname is @makePathname(name, params, options)
@@ -24,7 +23,7 @@ module.exports =
 qs = require 'qs'
 merge = require 'lodash/merge'
 memoize = require 'lodash/memoize'
-interpolateUrl = require 'interpolate-url'
+pathToRegexp = require 'path-to-regexp'
 matchPattern   = require('react-router/matchPattern').default
 RouteHandlers  = require './helpers/route-handlers'
 
@@ -61,6 +60,8 @@ descendRoutes = (routes) ->
   map
 
 ROUTES_MAP = descendRoutes(ROUTES)
+for name, route of ROUTES_MAP
+  route.toPath = pathToRegexp.compile(route.pattern)
 
 findRoutePattern = (pathname, parentRoutes) ->
   for entry in parentRoutes
