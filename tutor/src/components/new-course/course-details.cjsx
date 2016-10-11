@@ -56,7 +56,7 @@ SelectCourse = React.createClass
   Footer: ->
     <div className="controls">
       <BS.Button onClick={@props.onCancel}>Cancel</BS.Button>
-      <BS.Button onClick={@onContinue} disabled={not @state.selected}
+      <BS.Button onClick={@onContinue} disabled={isEmpty(@state.course_name)}
         bsStyle="primary">Continue</BS.Button>
     </div>
 
