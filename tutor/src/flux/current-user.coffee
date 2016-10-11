@@ -56,9 +56,16 @@ ROUTES =
       teacher: 'ccDashboardHelp'
   changeId:
     label: 'Change Student ID'
-    allowedForCourse: (course) -> true
     roles:
       student: 'changeStudentId'
+  cloneCourse:
+    label: 'Add New Course'
+    allowedForCourse: (course) -> true # FIXME: This needs to check if current is a verified instructor
+    params: (courseId, role) ->
+      if courseId and role is 'teacher'
+        offeringId: CourseStore.get(courseId)?.offering_id
+    roles:
+      default: 'createNewCourse' # use default role since we ensured it was a teacher in allowedForCourse
 
 CurrentUserActions = flux.createActions [
   'setToken'  # (token) ->
@@ -148,7 +155,6 @@ CurrentUserStore = flux.createStore
     ensureLoaded: ->
       CurrentUserActions.load() unless @_loaded or @_loading
 
-
     getCourseRole: (courseId, silent = true) ->
       @_getCourseRole(courseId, silent)
 
@@ -182,7 +188,6 @@ CurrentUserStore = flux.createStore
       menuRole = @_getCourseRole(courseId, silent)
       validRoutes = _.pick ROUTES, (route) ->
         false isnt route.allowedForCourse?(course)
-
       routes = _.keys(validRoutes)
 
       _.chain(routes)
