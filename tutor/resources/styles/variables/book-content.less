@@ -1,0 +1,63 @@
+// NOTE:
+//  * The 'biology' and 'physics' codes are deprecated, but are retained for older courses that may have them
+//  * These must be kept in sync with the books in src/flux/book-appearance-codes.coffee
+@openstax-book-appearance-codes: default physics hs_physics college_physics biology ap_biology concepts_biology college_biology principles_economics macro_economics micro_economics intro_sociology anatomy_physiology;
+
+// books that we have thumbnails for.  Some appearance codes share thumbnails
+@openstax-book-thumbnails: intro_sociology physics hs_physics college_physics biology ap_biology college_biology;
+
+.book-content-thumbnail(intro_sociology) { .tutor-background-image("courses/sociology-book-thumbnail.png");       }
+.book-content-thumbnail(physics)         { .tutor-background-image("courses/hs_physics-book-thumbnail.png");      }
+.book-content-thumbnail(hs_physics)      { .tutor-background-image("courses/hs_physics-book-thumbnail.png");      }
+.book-content-thumbnail(college_physics) { .tutor-background-image("courses/college_physics-book-thumbnail.png"); }
+.book-content-thumbnail(biology)         { .tutor-background-image("courses/biology-book-thumbnail.png");         }
+.book-content-thumbnail(ap_biology)      { .tutor-background-image("courses/biology-book-thumbnail.png");         }
+.book-content-thumbnail(college_biology) { .tutor-background-image("courses/biology-book-thumbnail.png");         }
+
+@openstax-book-white: rgb(255, 255, 255);
+@openstax-book-gray: rgb(94, 96, 98);
+@openstax-book-brighter-green: rgb(119, 175, 66);
+@openstax-book-green: @tutor-secondary;
+@openstax-book-blue: @tutor-tertiary;
+@openstax-book-yellow: @tutor-quaternary;
+@openstax-book-orange: @tutor-primary;
+@openstax-book-warmer-blue: rgb(0, 36, 106);
+
+
+@openstax-book-default-fg: @openstax-book-brighter-green;
+@openstax-book-default-bg: @openstax-book-gray;
+
+// Physics
+@openstax-book-physics-fg: @openstax-book-green;
+@openstax-book-physics-bg: @openstax-book-blue;
+@openstax-book-hs_physics-fg: @openstax-book-green;
+@openstax-book-hs_physics-bg: @openstax-book-blue;
+@openstax-book-college_physics-fg: @openstax-book-green;
+@openstax-book-college_physics-bg: @openstax-book-blue;
+
+// Biology
+@openstax-book-biology-fg: @openstax-book-gray;
+@openstax-book-biology-bg: @openstax-book-brighter-green;
+@openstax-book-ap_biology-fg: @openstax-book-gray;
+@openstax-book-ap_biology-bg: @openstax-book-brighter-green;
+@openstax-book-college_biology-fg: @openstax-book-gray;
+@openstax-book-college_biology-bg: @openstax-book-brighter-green;
+
+@openstax-book-concepts_biology-fg: @openstax-book-yellow;
+@openstax-book-concepts_biology-bg: @openstax-book-orange;
+
+// Social Sciences
+@openstax-book-principles_economics-fg: @openstax-book-gray;
+@openstax-book-principles_economics-bg: @openstax-book-white;
+
+@openstax-book-macro_economics-fg: @openstax-book-brighter-green;
+@openstax-book-macro_economics-bg: @openstax-book-gray;
+
+@openstax-book-micro_economics-fg: @openstax-book-yellow;
+@openstax-book-micro_economics-bg: @openstax-book-gray;
+
+@openstax-book-intro_sociology-fg: @openstax-book-warmer-blue;
+@openstax-book-intro_sociology-bg: @openstax-book-yellow;
+
+@openstax-book-anatomy_physiology-fg: @openstax-book-orange;
+@openstax-book-anatomy_physiology-bg: @openstax-book-gray;
