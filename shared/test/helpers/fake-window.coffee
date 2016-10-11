@@ -1,5 +1,7 @@
 defer = require 'lodash/defer'
 merge = require 'lodash/merge'
+isFunction = require 'lodash/isFunction'
+
 
 EmptyFn = ->
   return undefined
@@ -19,14 +21,15 @@ class FakeWindow
   location:
     pathname: '/'
     search: ''
+
   constructor: (attrs = {}) ->
-    for method in _.functions(@)
-      sinon.spy(@, method)
+    merge(@, attrs)
+    for name, method of @ when isFunction(method)
+      sinon.spy(@, name)
     @localStorage =
       getItem: sinon.stub().returns('[]')
       setItem: sinon.stub()
     @history =
       pushState: sinon.spy()
-    merge(@, attrs)
 
 module.exports = FakeWindow
