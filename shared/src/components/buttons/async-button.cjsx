@@ -12,8 +12,7 @@ module.exports = React.createClass
     isDone: React.PropTypes.bool
     isFailed: React.PropTypes.bool
     waitingText: React.PropTypes.node # TODO: This should be a Component or array
-    failedState: React.PropTypes.func
-    failedProps: React.PropTypes.object
+    failedState: React.PropTypes.element
     doneText: React.PropTypes.node
     isJob: React.PropTypes.bool
     timeoutLength: React.PropTypes.number
@@ -48,25 +47,21 @@ module.exports = React.createClass
     isDone: false
     isFailed: false
     waitingText: 'Loading…'
-    failedState: RefreshButton
-    failedProps:
-      beforeText: 'There was a problem.  '
+    failedState: <RefreshButton beforeText='There was a problem.  '/>
     doneText: ''
     isJob: false
 
   render: ->
     {className, disabled} = @props
     {isWaiting, isDone, isFailed} = @props
-    {children, waitingText, failedProps, doneText} = @props
+    {children, waitingText, failedState, doneText} = @props
     {isTimedout} = @state
-    # needs to be capitalized so JSX will transpile as a variable, not element
-    FailedState = @props.failedState
 
     buttonTypeClass = 'async-button'
 
     if isFailed or isTimedout
       stateClass = 'is-failed'
-      return <FailedState {...failedProps} />
+      return failedState
     else if isWaiting
       stateClass = 'is-waiting'
       text = waitingText

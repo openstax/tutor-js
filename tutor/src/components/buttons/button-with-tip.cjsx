@@ -2,6 +2,8 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
+{AsyncButton} = require 'shared'
+
 module.exports = React.createClass
   displayName: 'ButtonWithTip'
 
@@ -21,15 +23,16 @@ module.exports = React.createClass
     {isDisabled, onClick, id, placement, children, className, getTip, disabledState} = @props
 
     tip = getTip(@props)
+    asyncPropKeys = _.keys(AsyncButton.propTypes)
 
-    buttonProps = _.pick(@props, 'className', 'bsStyle', 'block')
+    buttonProps = _.pick(@props, 'className', 'bsStyle', 'block', asyncPropKeys...)
     buttonProps.disabled = isDisabled
     buttonProps.onClick = onClick unless isDisabled
 
     if disabledState? and isDisabled
       button = disabledState
     else
-      button = <BS.Button {...buttonProps}>{children}</BS.Button>
+      button = <AsyncButton {...buttonProps}>{children}</AsyncButton>
 
     if tip
       tooltip = <BS.Tooltip id={id}>{tip}</BS.Tooltip>

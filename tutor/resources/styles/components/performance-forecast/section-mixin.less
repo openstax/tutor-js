@@ -32,6 +32,33 @@
   .progress-bar-button {
     margin-top: 0px;
     width: 100%;
+
+    &.is-waiting {
+      .fa-spinner, .practice-waiting-text {
+        position: absolute;
+      }
+
+      .fa-spinner {
+        top: 0.25em;
+        left: calc(~"50% - 2.5em");
+      }
+
+      .practice-waiting-text {
+        left: calc(~"50% - 1em");
+        top: 0;
+      }
+    }
+
+    &[disabled]:not(.is-waiting) {
+      &::before {
+        position: absolute;
+        content: 'No problems available for practice.';
+        right: 1em;
+        top: 0.5em;
+        font-size: 0.75em;
+      }
+    }
+
   }
   .amount-worked {
     .flex-display();

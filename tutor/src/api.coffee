@@ -121,6 +121,11 @@ start = (bootstrapData) ->
     url: "/api/courses/#{courseId}/practice"
     payload: params
 
+  apiHelper CoursePracticeActions, CoursePracticeActions.createSilent, CoursePracticeActions.created, 'POST', (courseId, params) ->
+    url: "/api/courses/#{courseId}/practice"
+    payload: params
+  , displayError: false
+
   apiHelper CoursePracticeActions, CoursePracticeActions.load, CoursePracticeActions.loaded, 'GET', (courseId) ->
     url: "/api/courses/#{courseId}/practice"
 
