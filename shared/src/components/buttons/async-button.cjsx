@@ -80,7 +80,8 @@ module.exports = React.createClass
       stateClass = null
       text = children
     buttonProps = omit(@props,
-      'isWaiting', 'waitingText', 'isDone', 'isFailed', 'failedState', 'failedProps', 'doneText', 'isJob'
+      'isWaiting', 'waitingText', 'isDone', 'isFailed', 'failedState', 'failedProps',
+      'doneText', 'isJob', 'timeoutLength'
     )
     <BS.Button {...buttonProps}
       className={[buttonTypeClass, stateClass, className]}
