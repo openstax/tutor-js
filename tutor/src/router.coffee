@@ -7,17 +7,17 @@
 module.exports =
   getRoutes: -> ROUTES
   pathToEntry: (path = window.location.pathname) -> findRoutePatternMemoed(path, ROUTES)
-  getQuery: (windowImpl = window) ->
-    qs.parse(windowImpl?.location.search.slice(1))
-  currentParams: (windowImpl = window) ->
-    @pathToEntry(windowImpl.location.pathname)?.match.params or {}
-  makePathname: (name, params) ->
+  getQuery: (options = {}) ->
+    qs.parse((options.window or window).location.search.slice(1))
+  currentParams: (options = {}) ->
+    @pathToEntry( (options.window or window).location.pathname)?.match.params or {}
+  makePathname: (name, params, options = {}) ->
     route = ROUTES_MAP[name]
     if route
-      interpolateUrl(route.pattern, merge(@currentParams(), params))
-  isActive: (name, params) ->
+      interpolateUrl(route.pattern, merge(@currentParams(options), params))
+  isActive: (name, params, options = {}) ->
     route = ROUTES_MAP[name]
-    route and window.location.pathname is @makePathname(name, params)
+    route and (options.window or window).location.pathname is @makePathname(name, params, options)
 
 
 
