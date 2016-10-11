@@ -1,0 +1,49 @@
+.new-course {
+  max-width: 400px;
+  margin: 0 auto;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    .tutor-background-image('ost-hero.jpg');
+    opacity: .4;
+    content: "";
+    z-index: -1;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .offerings {
+    tr {
+      cursor: pointer;
+    }
+    .apply-course-listing-book-styling(@code; @fg; @bg) {
+      tr[data-appearance=@{code}] {
+        color: @@fg;
+      }
+    }
+    td {
+      vertical-align: middle;
+      font-size: 1.4rem;
+    }
+    td:first-child {
+      height: 60px;
+      width: 45px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .for(@openstax-book-thumbnails); .-each(@code) {
+      tr[data-appearance=@{code}] {
+        td:first-child {
+          .book-content-thumbnail(@code);
+        }
+      }
+    }
+
+  }
+}
