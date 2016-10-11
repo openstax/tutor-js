@@ -2,38 +2,36 @@ React = require 'react'
 BS = require 'react-bootstrap'
 
 classnames = require 'classnames'
+assign = require 'lodash/assign'
 
-COURSES =
-  college_physics:      'College Physics'
-  college_biology:      'College Biology'
-  principles_economics: 'Principles of Economics'
-  macro_economics:      'Macroeconomics'
-  micro_economics:      'Microeconomics'
-  intro_sociology:      'Introduction to Sociology'
-  anatomy_physiology:   'Anatomy & Physiology'
 
+STAGES = [
+  require './select-type'
+  require './select-dates'
+  require './course-details'
+]
 
 NewCourse = React.createClass
 
-  Footer: ->
-    <div className="controls">
-      <BS.Button>Cancel</BS.Button>
-      <BS.Button bsStyle="primary">Continue</BS.Button>
-    </div>
+  getInitialState: ->
+    currentStage: 0
+
+  contextTypes:
+    router: React.PropTypes.object
+
+  onContinue: (attrs) ->
+    currentStage = @state.currentStage + 1
+    @setState(assign({currentStage}, attrs))
+  onCancel: ->  @context.router.transitionTo('/dashboard')
 
   render: ->
+    Component = STAGES[@state.currentStage]
     <div className="new-course">
-      <BS.Panel header="Choose your Tutor course" footer={<@Footer />}>
-        <BS.Table className="offerings" striped bordered >
-          <tbody>
-            {for appearance, name of COURSES
-              <tr data-appearance={appearance} key={appearance}>
-                <td></td>
-                <td>{name}</td>
-              </tr>}
-          </tbody>
-        </BS.Table>
-      </BS.Panel>
+      <Component
+        onContinue={@onContinue}
+        onCancel={@onCancel}
+        {...@state}
+      />
     </div>
 
 

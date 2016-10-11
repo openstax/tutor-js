@@ -15,16 +15,31 @@
     background-repeat: no-repeat;
     background-size: cover;
   }
-
-  .offerings {
-    tr {
-      cursor: pointer;
-    }
-    .apply-course-listing-book-styling(@code; @fg; @bg) {
-      tr[data-appearance=@{code}] {
-        color: @@fg;
+  caption {
+    color: @tutor-neutral-darker;
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+  tbody tr {
+    cursor: pointer;
+    &.selected {
+      background-color: @tutor-neutral-light;
+      td:last-child {
+        position: relative;
+        &:after {
+          .fa-icon();
+          content: @fa-var-check;
+          color: @tutor-primary;
+          position: absolute;
+          top: calc(~"50% - 0.8rem");
+          font-size: 1.8rem;
+          right: 5px;
+        }
       }
     }
+  }
+
+  .offerings {
     td {
       vertical-align: middle;
       font-size: 1.4rem;
