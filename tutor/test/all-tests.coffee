@@ -15,7 +15,7 @@
 # # require './components/questions/exercises-display.spec'
 # require './components/navbar/index.spec'
 require './components/navbar/account-link.spec'
-# require './components/navbar/user-actions-menu.spec'
+require './components/navbar/user-actions-menu.spec'
 # require './components/navbar/center-controls.spec'
 # require './components/navbar/server-error-monitoring.spec'
 # require './components/task-plan/reading-plan.spec'

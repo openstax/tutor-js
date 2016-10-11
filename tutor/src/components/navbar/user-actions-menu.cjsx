@@ -15,6 +15,9 @@ LogOut = require './logout'
 {CurrentUserStore} = require '../../flux/current-user'
 {CourseStore} = require '../../flux/course'
 
+BrowseBookMenuOption = (props) ->
+  <li><BrowseTheBook unstyled={true} courseId={props.courseId} /></li>
+
 UserActionsMenu = React.createClass
 
   mixins: [BindStoreMixin]
@@ -23,6 +26,10 @@ UserActionsMenu = React.createClass
   propTypes:
     courseId: React.PropTypes.string
     onItemClick: React.PropTypes.func.isRequired
+    windowImpl: React.PropTypes.object
+
+  getDefaultProps: ->
+    windowImpl: window
 
   contextTypes:
     router: React.PropTypes.object
@@ -38,7 +45,7 @@ UserActionsMenu = React.createClass
     @props.onItemClick()
 
   renderMenuItem: (route, index) ->
-    isActive = route.name and Router.isActive(route.name, route.params)
+    isActive = route.name and Router.isActive(route.name, route.params, window: @props.windowImpl)
 
     menuGoProps = if route.href
       href: route.href
@@ -63,14 +70,13 @@ UserActionsMenu = React.createClass
         {route.label}
     </BS.MenuItem>
 
+
   renderMenuItems: ->
     {courseId} = @props
 
     menu = _.map CurrentUserStore.getCourseMenuRoutes(courseId), @renderMenuItem
 
-    menu.push <BS.MenuItem key='nav-browse-the-book'>
-      <BrowseTheBook unstyled={true} courseId={courseId} />
-    </BS.MenuItem>
+    menu.push <BrowseBookMenuOption key="browse-book" courseId={courseId} />
 
     if CurrentUserStore.isAdmin()
       menu.push @renderMenuItem({label: 'Admin', href: '/admin', key: 'admin'}, menu.length )
