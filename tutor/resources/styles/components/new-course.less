@@ -15,10 +15,19 @@
     background-repeat: no-repeat;
     background-size: cover;
   }
-  caption {
-    color: @tutor-neutral-darker;
-    font-size: 1.6rem;
-    font-weight: 500;
+
+  .panel {
+    .panel-heading,
+    .panel-footer {
+      color: @tutor-neutral-dark;
+      background-color: white;
+      border: 0;
+    }
+    .panel-heading {
+      font-size: 1.8rem;
+      margin-top: 1.8rem;
+      padding-bottom: 0;
+    }
   }
   tbody tr {
     cursor: pointer;
@@ -59,7 +68,32 @@
         }
       }
     }
+  }
 
+  .course-details {
+    .nav-pills {
+      border: 1px solid @tutor-neutral-light;
+      li {
+        a {
+          border-radius: 0;
+          border: 0;
+          color: @tutor-neutral-dark;
+          padding: 5px;
+        }
+        &.active a {
+          background-color: @tutor-neutral-light;
+        }
+      }
+    }
+    .section-count {
+      input {
+        width: 50px;
+        margin-left: 0.5rem;
+      }
+    }
+    .source-course {
+      margin-top: 10px;
+    }
   }
 
   .other-courses {
