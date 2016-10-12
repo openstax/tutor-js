@@ -91,6 +91,7 @@ KARMA_BASE_CONFIG =
       exclude: /(node_modules|resources)/
     }]
   externals:
+    'sinon': true
     'react/addons': true
     'react/lib/ExecutionEnvironment': true
     'react/lib/ReactContext': true
