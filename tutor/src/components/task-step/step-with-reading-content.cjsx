@@ -5,6 +5,8 @@ React = require 'react'
 {BookContentMixin, LinkContentMixin} = require '../book-content-mixin'
 RelatedContentLink = require '../related-content-link'
 
+Router = require '../../router'
+
 # TODO: will combine with below, after BookContentMixin clean up
 ReadingStepContent = React.createClass
   displayName: 'ReadingStepContent'
@@ -28,7 +30,7 @@ ReadingStepContent = React.createClass
   render: ->
     {id, courseDataProps, stepType} = @props
     {content_html, related_content} = TaskStepStore.get(id)
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
 
     <div className="#{stepType}-step">
       <ArbitraryHtmlAndMath

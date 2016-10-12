@@ -193,6 +193,8 @@ Milestones = React.createClass
 
     <ReactCSSTransitionGroup
       transitionName='task-with-milestones'
+      transitionEnterTimeout={300}
+      transitionLeaveTimeout={300}
       transitionAppearTimeout={0}
       transitionAppear={true}>
       {milestones}

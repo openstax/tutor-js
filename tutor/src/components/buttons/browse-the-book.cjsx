@@ -19,6 +19,7 @@ module.exports = React.createClass
     ecosystemId:  React.PropTypes.string
     chapterId: React.PropTypes.number
     sectionId: React.PropTypes.number
+    section:   React.PropTypes.string
     page:      React.PropTypes.string
     unstyled:  React.PropTypes.bool
     tabIndex:  React.PropTypes.number
@@ -57,7 +58,7 @@ module.exports = React.createClass
 
     routeProps =
       to: linkType
-      params: {courseId, cnxId: @props.page, section:@props.section}
+      params: {courseId, cnxId: @props.page, section: @props.section}
       query: queryParams
 
   getCourseId: ->

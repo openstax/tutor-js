@@ -34,6 +34,9 @@ Task = React.createClass
 
   displayName: 'Task'
 
+  contextTypes:
+    router: React.PropTypes.object
+
   mixins: [StepFooterMixin, UnsavedStateMixin, ScrollToMixin]
 
   scrollingTargetDOM: -> window.document

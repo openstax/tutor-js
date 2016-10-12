@@ -1,7 +1,10 @@
 _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+{Link} = require 'react-router'
+
+Router = require '../router'
+
 WindowHelpers = require '../helpers/window'
 
 {CourseListingActions, CourseListingStore} = require '../flux/course-listing'
@@ -15,12 +18,12 @@ CourseLink = ({course}) ->
   props = CourseData.getCourseDataProps(course.id)
   <BS.Row key="course-#{course.id}">
     <BS.Col {...props} className='tutor-booksplash-course-item' xs={12}>
-      <Router.Link
+      <Link
           className='tutor-course-item'
-          to="/courses/#{course.id}"
+          to={Router.makePathname('dashboard', {courseId: course.id})}
       >
         {course.name}
-      </Router.Link>
+      </Link>
       <div className='course-type-flag'>
         {if course.is_concept_coach then'Concept Coach' else 'Tutor'}
       </div>

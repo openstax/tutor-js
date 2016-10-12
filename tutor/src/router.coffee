@@ -31,6 +31,11 @@ RouteHandlers  = require './helpers/route-handlers'
 {StudentDashboardShell} = require './components/student-dashboard'
 TeacherTaskPlans        = require './components/task-plan/teacher-task-plans-listing'
 {TaskShell}             = require './components/task'
+{
+  ReferenceBookShell,
+  ReferenceBookPageShell,
+  ReferenceBookFirstPage
+} = require './components/reference-book'
 
 ROUTES = [
   { pattern: '/dashboard', name: 'listing', render: CourseListing }
@@ -47,6 +52,13 @@ ROUTES = [
         #   }]
         # }]
       }
+    ]
+  }
+  {
+    pattern: '/books/:courseId', name: 'viewReferenceBook', render: ReferenceBookShell
+    routes: [
+      { pattern: 'section/:section', name: 'viewReferenceBookSection', render: ReferenceBookShell}
+      { pattern: 'page/:cnxId', name: 'viewReferenceBookPage', render: ReferenceBookPageShell}
     ]
   }
 ]
