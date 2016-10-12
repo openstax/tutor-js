@@ -83,7 +83,19 @@ SelectCourse = React.createClass
 
   onSelect: (source_course_id) ->
     source_course_id = null if source_course_id is @state.source_course_id
-    @setState({source_course_id})
+    course_name = @state.course_name
+    newCourse = find(@state.teachingCourses, id: source_course_id)
+
+    if newCourse
+      # is the current name blank or the same as the previous course?
+      if isEmpty(course_name) or (
+        @state.source_course_id and find(@state.teachingCourses, id: @state.source_course_id).name is course_name
+      )
+        course_name = newCourse.name
+    else
+      course_name = ''
+
+    @setState({course_name, source_course_id})
 
 
   updateName: (ev) ->
