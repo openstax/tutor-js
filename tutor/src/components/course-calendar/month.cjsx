@@ -6,6 +6,7 @@ classnames = require 'classnames'
 React = require 'react'
 ReactDOM = require 'react-dom'
 BS = require 'react-bootstrap'
+Joyride = require('react-joyride').default
 
 {Calendar, Month, Week, Day} = require 'react-calendar'
 {TimeStore} = require '../../flux/time'
@@ -16,6 +17,34 @@ CourseDuration = require './duration'
 CoursePlan = require './plan'
 CourseAdd = require './add'
 CourseAddMenuMixin = require './add-menu-mixin'
+
+STEPS = [
+  {
+     position: 'right', selector: '.calendar-header-navigation #add-assignment'
+     title: 'Add Assignment'
+     text: 'Add an assignment by clicking here or calendar'
+  }, {
+    position: 'top', selector: '.plan[data-assignment-type="homework"]'
+    title: 'Homework'
+    text:
+      <p>
+        Homework assignments are <span className="homework-color-bg">light blue</span>.
+        You can click them to review how well students are doing
+      </p>
+  }, {
+    position: 'top', selector: '.plan[data-assignment-type="reading"]'
+    title: 'Reading'
+    text:
+      <p>
+        Homework assignments are <span className="reading-color-bg">light yellow</span>.
+        You can click them to review how well students are doing
+      </p>
+  }, {
+    position: 'bottom', selector: '.view-reference-guide'
+    title: 'View reference book'
+    text: "Views the complete online version of the book that this course uses"
+  }
+]
 
 CourseMonth = React.createClass
   displayName: 'CourseMonth'
@@ -56,6 +85,7 @@ CourseMonth = React.createClass
       @setDateParams(date)
 
   componentDidUpdate: ->
+    @refs.joyride.start()
     @setDayHeight(@refs.courseDurations.state.ranges) if @refs.courseDurations?
 
   setDayHeight: (ranges) ->
@@ -161,6 +191,10 @@ CourseMonth = React.createClass
       </CourseDuration>
 
     <BS.Grid className={calendarClassName} fluid>
+      <Joyride ref="joyride"
+        debug={true}
+        steps={STEPS} type='continuous'
+        showStepsProgress={true} />
       <CourseAdd
         hasPeriods={hasPeriods}
         ref='addOnDay'/>
