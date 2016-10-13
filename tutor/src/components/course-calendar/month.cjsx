@@ -17,6 +17,7 @@ CourseAddMenuMixin   = require './add-menu-mixin'
 CourseDuration       = require './duration'
 CoursePlan           = require './plan'
 CourseAdd            = require './add'
+Sidebar              = require './sidebar'
 
 
 CourseMonth = React.createClass
@@ -42,6 +43,7 @@ CourseMonth = React.createClass
     dateFormatted: @props.date.format(@props.dateFormat)
 
   getInitialState: ->
+    showingSideBar: false
     activeAddDate: null
 
   getDefaultProps: ->
@@ -110,6 +112,9 @@ CourseMonth = React.createClass
     day = ev.target.textContent
 
 
+  onToggleSidebar: ->
+    @setState(showingSideBar: not @state.showingSideBar)
+
   render: ->
     {plansList, courseId, className, date, hasPeriods} = @props
     {calendarDuration, calendarWeeks} = @getDurationInfo(date)
@@ -129,7 +134,13 @@ CourseMonth = React.createClass
 
     <BS.Grid className={calendarClassName} fluid>
 
+<<<<<<< b23d134fbcc6c277139899def70457978162f5a4
       <CourseAdd ref='addOnDay' hasPeriods={hasPeriods} courseId={@props.courseId} />
+=======
+      <Sidebar isOpen={@state.showingSideBar} onHide={@onToggleSidebar} courseId={courseId} />
+
+      <CourseAdd ref='addOnDay' hasPeriods={hasPeriods} />
+>>>>>>> Add sidebar to calendar
 
       <CourseCalendarHeader
         duration='month'
@@ -138,6 +149,10 @@ CourseMonth = React.createClass
         setDate={@setDate}
         hasPeriods={hasPeriods}
         ref='calendarHeader'
+<<<<<<< b23d134fbcc6c277139899def70457978162f5a4
+=======
+        onCopyPreviousAssignment={@onToggleSidebar}
+>>>>>>> Add sidebar to calendar
       />
 
       <BS.Row className='calendar-body'>
