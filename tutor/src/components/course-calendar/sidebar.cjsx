@@ -2,7 +2,10 @@ React = require 'react'
 BS    = require 'react-bootstrap'
 cn    = require 'classnames'
 
+{ Draggable, Droppable } = require 'react-drag-and-drop'
+
 isEmpty = require 'lodash/isEmpty'
+
 
 {TeacherTaskPlanStore} = require '../../flux/teacher-task-plan'
 BindStoreMixin = require '../bind-store-mixin'
@@ -14,9 +17,11 @@ EmptyWarning = (props) ->
   </div>
 
 Plan = ({plan}) ->
-  <div data-assignment-type={plan.type} className='task-plan'>
-    <label>{plan.title}</label>
-  </div>
+  <Draggable type="task" data={plan.id}>
+    <div data-assignment-type={plan.type} className='task-plan'>
+      <label>{plan.title}</label>
+    </div>
+  </Draggable>
 
 CalendarSidebar = React.createClass
 

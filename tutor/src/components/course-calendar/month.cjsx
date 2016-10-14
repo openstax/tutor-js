@@ -6,8 +6,9 @@ classnames = require 'classnames'
 React = require 'react'
 ReactDOM = require 'react-dom'
 BS = require 'react-bootstrap'
-
+{Droppable} = require 'react-drag-and-drop'
 {Calendar, Month, Week, Day} = require 'react-calendar'
+{TeacherTaskPlanStore} = require '../../flux/teacher-task-plan'
 {TimeStore} = require '../../flux/time'
 TimeHelper = require '../../helpers/time'
 Router = require '../../helpers/router'
@@ -84,7 +85,6 @@ CourseMonth = React.createClass
     {calendarDuration, calendarWeeks}
 
   handleClick: (dayMoment, mouseEvent) ->
-
     @refs.addOnDay.updateState(dayMoment, mouseEvent.pageX, mouseEvent.pageY)
     @setState({
       activeAddDate: dayMoment
@@ -111,6 +111,10 @@ CourseMonth = React.createClass
     plan = TeacherTaskPlanStore.get(planId)
     day = ev.target.textContent
 
+  onTaskDrop: (planId, ev) ->
+    plan = TeacherTaskPlanStore.get(planId)
+    day = ev.target.textContent
+
 
   onToggleSidebar: ->
     @setState(showingSideBar: not @state.showingSideBar)
@@ -120,6 +124,15 @@ CourseMonth = React.createClass
     {calendarDuration, calendarWeeks} = @getDurationInfo(date)
 
     calendarClassName = classnames 'calendar-container', className
+
+    mods = [
+      {
+        component: [ 'day' ],
+        events:
+          onClick: @handleClick
+
+      }
+    ]
 
     if plansList?
       plans = <CourseDuration
@@ -134,13 +147,10 @@ CourseMonth = React.createClass
 
     <BS.Grid className={calendarClassName} fluid>
 
-<<<<<<< b23d134fbcc6c277139899def70457978162f5a4
+
       <CourseAdd ref='addOnDay' hasPeriods={hasPeriods} courseId={@props.courseId} />
-=======
       <Sidebar isOpen={@state.showingSideBar} onHide={@onToggleSidebar} courseId={courseId} />
 
-      <CourseAdd ref='addOnDay' hasPeriods={hasPeriods} />
->>>>>>> Add sidebar to calendar
 
       <CourseCalendarHeader
         duration='month'
@@ -149,20 +159,20 @@ CourseMonth = React.createClass
         setDate={@setDate}
         hasPeriods={hasPeriods}
         ref='calendarHeader'
-<<<<<<< b23d134fbcc6c277139899def70457978162f5a4
-=======
         onCopyPreviousAssignment={@onToggleSidebar}
->>>>>>> Add sidebar to calendar
       />
 
       <BS.Row className='calendar-body'>
         <BS.Col xs={12} data-duration-name={@getFullMonthName()}>
-
-          <Month date={date} monthNames={false} weekdayFormat='ddd' mods={[{
-            component: [ 'day' ],
-            events:
-              onClick: @handleClick
-          }]} />
+          <Droppable
+            types={['task']} onDrop={@onTaskDrop}
+          >
+            <Month date={date} monthNames={false} weekdayFormat='ddd'
+              mods={mods}
+            >
+              {days}
+            </Month>
+          </Droppable>
 
           {plans}
 
