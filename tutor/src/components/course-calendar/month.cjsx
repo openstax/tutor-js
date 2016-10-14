@@ -12,10 +12,11 @@ BS = require 'react-bootstrap'
 TimeHelper = require '../../helpers/time'
 
 CourseCalendarHeader = require './header'
-CourseDuration = require './duration'
-CoursePlan = require './plan'
-CourseAdd = require './add'
-CourseAddMenuMixin = require './add-menu-mixin'
+CourseAddMenuMixin   = require './add-menu-mixin'
+CourseDuration       = require './duration'
+CoursePlan           = require './plan'
+CourseAdd            = require './add'
+
 
 CourseMonth = React.createClass
   displayName: 'CourseMonth'
@@ -78,7 +79,8 @@ CourseMonth = React.createClass
     calendarWeeks = calendarDuration.split(1, 'week')
     {calendarDuration, calendarWeeks}
 
-  handleClick: (componentName, dayMoment, mouseEvent) ->
+  handleClick: (dayMoment, mouseEvent) ->
+
     @refs.addOnDay.updateState(dayMoment, mouseEvent.pageX, mouseEvent.pageY)
     @setState({
       activeAddDate: dayMoment
@@ -101,51 +103,14 @@ CourseMonth = React.createClass
   getFullMonthName: ->
     @props.date?.format?('MMMM')
 
+  onTaskDrop: (planId, ev) ->
+    plan = TeacherTaskPlanStore.get(planId)
+    day = ev.target.textContent
 
-  # render days based on whether they are past or upcoming
-  # past days do not allow adding of plans
-  renderDays: (calendarDuration, referenceDate) ->
-    referenceDate ?= moment(TimeStore.getNow())
-
-    durationDays = calendarDuration.iterateInner('days')
-    days = []
-    hasActiveAddDate =  @state.activeAddDate?
-
-    while durationDays.hasNext()
-      dayIter = durationDays.next()
-      modifiers = {}
-
-      if dayIter.isBefore(referenceDate, 'day')
-        modifiers.past = true
-      else if dayIter.isSame(referenceDate, 'day')
-        modifiers.current = true
-      else
-        modifiers.upcoming = true
-
-      otherProps =
-        onClick: @handleClick
-
-      if hasActiveAddDate
-        # Only attach hover event check when there is an active date.
-        # Otherwise, we would be re-rendering way too often.
-        otherProps.onMouseLeave = @checkAddOnDay
-        otherProps.onMouseEnter = @undoActives
-
-        if @state.activeAddDate.isSame(dayIter, 'day')
-          otherProps.classes =
-            active: true
-
-      key = "day-#{dayIter.format(@props.dateFormat)}"
-      day = <Day date={dayIter} modifiers={modifiers} key={key} {...otherProps}/>
-      days.push(day)
-
-    days
 
   render: ->
     {plansList, courseId, className, date, hasPeriods} = @props
     {calendarDuration, calendarWeeks} = @getDurationInfo(date)
-
-    days = @renderDays(calendarDuration)
 
     calendarClassName = classnames 'calendar-container', className
 
@@ -161,23 +126,26 @@ CourseMonth = React.createClass
       </CourseDuration>
 
     <BS.Grid className={calendarClassName} fluid>
-      <CourseAdd
-        hasPeriods={hasPeriods}
-        ref='addOnDay'/>
+
+      <CourseAdd ref='addOnDay' hasPeriods={hasPeriods} />
+
       <CourseCalendarHeader
         duration='month'
         date={date}
         courseId={@props.courseId}
         setDate={@setDate}
         hasPeriods={hasPeriods}
-        ref='calendarHeader'/>
+        ref='calendarHeader'
+      />
 
       <BS.Row className='calendar-body'>
         <BS.Col xs={12} data-duration-name={@getFullMonthName()}>
 
-          <Month date={date} monthNames={false} weekdayFormat='ddd'>
-            {days}
-          </Month>
+          <Month date={date} monthNames={false} weekdayFormat='ddd' mods={[{
+            component: [ 'day' ],
+            events:
+              onClick: @handleClick
+          }]} />
 
           {plans}
 
