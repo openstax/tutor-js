@@ -21,11 +21,11 @@ class OXRouter
   pathToEntry: (path = window.location.pathname) =>
     findRoutePatternMemoed(path, @getRoutesMap())
 
-  getQuery: (options = {}) =>
+  getQuery: (options = {}) ->
     qs.parse((options.window or window).location.search.slice(1))
 
   currentParams: (options = {}) =>
-    @pathToEntry( (options.window or window).location.pathname)?.match.params or {}
+    @pathToEntry( (options.window or window).location.pathname)?.match?.params or {}
 
   makePathname: (name, params, options = {}) =>
     @getRoutesMap()[name]?.toPath(params)
