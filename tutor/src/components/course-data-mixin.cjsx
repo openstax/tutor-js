@@ -1,5 +1,5 @@
 {CourseStore} = require '../flux/course'
-Router = require '../router'
+Router = require '../helpers/router'
 
 module.exports =
   getCourseDataProps: (courseId) ->

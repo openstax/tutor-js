@@ -1,90 +1,49 @@
-# order matters.
-# Since this file needs to know about quite a few components and those components will also query the router
-# it needs to export it's accessor methods first so they're available
-# in case the other components also require this file
-
-
-module.exports =
-  getRoutes: -> ROUTES
-  pathToEntry: (path = window.location.pathname) -> findRoutePatternMemoed(path, ROUTES)
-  getQuery: (options = {}) ->
-    qs.parse((options.window or window).location.search.slice(1))
-  currentParams: (options = {}) ->
-    @pathToEntry( (options.window or window).location.pathname)?.match.params or {}
-  makePathname: (name, params, options = {}) ->
-    ROUTES_MAP[name]?.toPath(params)
-
-  isActive: (name, params, options = {}) ->
-    route = ROUTES_MAP[name]
-    route and (options.window or window).location.pathname is @makePathname(name, params, options)
-
-
-
-qs = require 'qs'
-merge = require 'lodash/merge'
-memoize = require 'lodash/memoize'
-pathToRegexp = require 'path-to-regexp'
-matchPattern   = require('react-router/matchPattern').default
 RouteHandlers  = require './helpers/route-handlers'
 
 {CourseListing}         = require './components/course-listing'
 {StudentDashboardShell} = require './components/student-dashboard'
 TeacherTaskPlans        = require './components/task-plan/teacher-task-plans-listing'
 {TaskShell}             = require './components/task'
-{
-  ReferenceBookShell,
-  ReferenceBookPageShell,
-  ReferenceBookFirstPage
-} = require './components/reference-book'
+{ReferenceBookShell, ReferenceBookPageShell} = require './components/reference-book'
 
-ROUTES = [
-  { pattern: '/dashboard', name: 'listing', render: CourseListing }
-  {
-    pattern: '/courses/:courseId',  name: 'dashboard', render: RouteHandlers.dashboard
-    routes: [
-      { pattern: 'list',          name: 'viewStudentDashboard', render: StudentDashboardShell }
-      { pattern: 't/month/:date', name: 'calendarByDate',       render: TeacherTaskPlans      }
-      { pattern: 'tasks/:id',     name: 'viewTask',             render: TaskShell
-        # routes: [{
-        #   pattern: 'steps/:stepIndex', name: 'viewTaskStep',        render: TaskShell
-        #   routes: [{
-        #     pattern: ':milestones', name: 'viewTaskStepMilestones', render: TaskShell
-        #   }]
-        # }]
-      }
-    ]
-  }
-  {
-    pattern: '/books/:courseId', name: 'viewReferenceBook', render: ReferenceBookShell
-    routes: [
-      { pattern: 'section/:section', name: 'viewReferenceBookSection', render: ReferenceBookShell}
-      { pattern: 'page/:cnxId', name: 'viewReferenceBookPage', render: ReferenceBookPageShell}
-    ]
-  }
-]
+module.exports = 
+  listing: CourseListing
+  dashboard: RouteHandlers.dashboard
+  viewStudentDashboard: StudentDashboardShell
+  calendarByDate: TeacherTaskPlans
+  viewTask: TaskShell
+  viewTaskStep: TaskShell
+  viewTaskStepMilestones: TaskShell
+  viewReferenceBook: ReferenceBookShell
+  viewReferenceBookSection: ReferenceBookShell
+  viewReferenceBookPage: ReferenceBookPageShell
 
-descendRoutes = (routes) ->
-  map = {}
-  for route in routes
-    map[route.name] = route
-    for name, child of descendRoutes(route.routes or [])
-      map[name] = child
-  map
-
-ROUTES_MAP = descendRoutes(ROUTES)
-for name, route of ROUTES_MAP
-  route.toPath = pathToRegexp.compile(route.pattern)
-
-findRoutePattern = (pathname, parentRoutes) ->
-  for entry in parentRoutes
-    {pattern, routes} = entry
-    if (match = matchPattern(pattern, {pathname}, false))
-      return {entry, match}
-    else if routes
-      if (result = findRoutePattern(pathname, routes))
-        return result
-
-findRoutePatternMemoed = memoize(findRoutePattern)
+# TODO see how to put this in the same file
+# ROUTES = [
+#   { pattern: '/dashboard', name: 'listing', render: CourseListing }
+#   {
+#     pattern: '/courses/:courseId',  name: 'dashboard', render: RouteHandlers.dashboard
+#     routes: [
+#       { pattern: 'list',          name: 'viewStudentDashboard', render: StudentDashboardShell }
+#       { pattern: 't/month/:date', name: 'calendarByDate',       render: TeacherTaskPlans      }
+#       { pattern: 'tasks/:id',     name: 'viewTask',             render: TaskShell
+#         # routes: [{
+#         #   pattern: 'steps/:stepIndex', name: 'viewTaskStep',        render: TaskShell
+#         #   routes: [{
+#         #     pattern: ':milestones', name: 'viewTaskStepMilestones', render: TaskShell
+#         #   }]
+#         # }]
+#       }
+#     ]
+#   }
+#   {
+#     pattern: '/books/:courseId', name: 'viewReferenceBook', render: ReferenceBookShell
+#     routes: [
+#       { pattern: 'section/:section', name: 'viewReferenceBookSection', render: ReferenceBookShell}
+#       { pattern: 'page/:cnxId', name: 'viewReferenceBookPage', render: ReferenceBookPageShell}
+#     ]
+#   }
+# ]
 
 
 ## Below is pre router upgrade config

@@ -1,5 +1,5 @@
 _ = require 'underscore'
-Router = require '../router'
+Router = require '../helpers/router'
 
 COURSE_SETTINGS = 'Course Settings'
 COURSES = 'Courses'

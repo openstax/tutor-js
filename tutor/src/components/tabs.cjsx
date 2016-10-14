@@ -1,7 +1,7 @@
 React = require 'react'
 classnames = require 'classnames'
 
-Router = require '../router'
+Router = require '../helpers/router'
 
 # Used to cancel router transitions the same way an onClick event is
 class FakeEvent

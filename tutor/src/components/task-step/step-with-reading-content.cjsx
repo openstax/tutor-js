@@ -5,7 +5,7 @@ React = require 'react'
 {BookContentMixin, LinkContentMixin} = require '../book-content-mixin'
 RelatedContentLink = require '../related-content-link'
 
-Router = require '../../router'
+Router = require '../../helpers/router'
 
 # TODO: will combine with below, after BookContentMixin clean up
 ReadingStepContent = React.createClass

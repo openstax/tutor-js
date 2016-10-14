@@ -11,7 +11,7 @@ Placeholder = require './placeholder'
 StepMixin = require './step-mixin'
 StepFooterMixin = require './step-footer-mixin'
 CourseDataMixin = require '../course-data-mixin'
-Router = require '../../router'
+Router = require '../../helpers/router'
 
 {StepPanel} = require '../../helpers/policies'
 

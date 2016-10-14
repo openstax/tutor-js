@@ -5,7 +5,7 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 classnames = require 'classnames'
 
-Router = require '../../router'
+Router = require '../../helpers/router'
 UserName = require './username'
 AccountLink = require './account-link'
 BrowseTheBook = require '../buttons/browse-the-book'

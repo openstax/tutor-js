@@ -1,6 +1,6 @@
 _ = require 'underscore'
 
-Router = require '../router'
+Router = require '../helpers/router'
 
 {CurrentUserStore} = require '../flux/current-user'
 

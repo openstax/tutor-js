@@ -3,7 +3,7 @@ ReactDOM = require 'react-dom'
 BS = require 'react-bootstrap'
 {Link} = require 'react-router'
 _ = require 'underscore'
-Router = require '../../router'
+Router = require '../../helpers/router'
 
 CourseName = require './course-name'
 ServerErrorMonitoring = require './server-error-monitoring'
@@ -18,9 +18,6 @@ CenterControls = require './center-controls'
 
 module.exports = React.createClass
   displayName: 'Navigation'
-
-  contextTypes:
-    router: React.PropTypes.object
 
   componentWillMount: ->
     CourseListingStore.ensureLoaded()

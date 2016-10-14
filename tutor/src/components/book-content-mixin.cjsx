@@ -11,7 +11,7 @@ dom = require '../helpers/dom'
 {CourseStore} = require '../flux/course'
 ScrollToLinkMixin = require './scroll-to-link-mixin'
 
-Router = require '../router'
+Router = require '../helpers/router'
 
 # According to the tagging legend exercises with a link should have `a.os-embed`
 # but in the content they are just a vanilla link.

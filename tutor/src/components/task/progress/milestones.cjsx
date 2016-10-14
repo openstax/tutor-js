@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
@@ -138,7 +139,7 @@ MilestonesWrapper = React.createClass
   switchTransitionListen: (switchOn = true) ->
     eventAction = if switchOn then 'addEventListener' else 'removeEventListener'
 
-    milestones = @getDOMNode()
+    milestones = ReactDOM.findDOMNode(@)
     milestones[eventAction]('transitionend', @componentDidEnter)
     milestones[eventAction]('webkitTransitionEnd', @componentDidEnter)
 
@@ -149,7 +150,7 @@ MilestonesWrapper = React.createClass
     document[eventAction]('focus', @checkAllowed, true)
 
   checkAllowed: (focusEvent) ->
-    modal = @getDOMNode()
+    modal = ReactDOM.findDOMNode(@)
 
     unless modal.contains(focusEvent.target) or @props.filterClick?(focusEvent)
       focusEvent.preventDefault()

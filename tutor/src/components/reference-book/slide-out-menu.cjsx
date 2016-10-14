@@ -1,6 +1,6 @@
 React = require 'react'
 ReactDOM = require 'react-dom'
-Router = require 'react-router'
+{Link} = require 'react-router'
 _  = require 'underscore'
 
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
@@ -32,7 +32,7 @@ Section = React.createClass
 
     <ul className="section" data-depth={@props.section.chapter_section.length}>
       <li data-section={section}>
-        <Router.Link
+        <Link
           tabIndex={if @props.isOpen then 0 else -1}
           params={params}
           className={className}
@@ -42,7 +42,7 @@ Section = React.createClass
 
           <span className="section-number">{section}</span>
           {@props.section.title}
-        </Router.Link>
+        </Link>
       </li>
       { _.map @props.section.children, (child) =>
         <li key={child.id} data-section={@sectionFormat(child.chapter_section)}>

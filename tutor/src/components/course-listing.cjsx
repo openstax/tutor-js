@@ -3,7 +3,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 {Link} = require 'react-router'
 
-Router = require '../router'
+Router = require '../helpers/router'
 
 WindowHelpers = require '../helpers/window'
 

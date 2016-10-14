@@ -1,5 +1,4 @@
 React = require 'react'
-
 PureRenderMixin = require 'react-addons-pure-render-mixin'
 
 moment = require 'moment'
@@ -10,6 +9,8 @@ Icon = require '../icon'
 {TaskStore} = require '../../flux/task'
 {TaskPanelStore} = require '../../flux/task-panel'
 
+TutorRouter = require '../../helpers/router'
+TutorLink = require '../link'
 
 module.exports = React.createClass
   displayName: 'CenterControls'
@@ -28,24 +29,23 @@ module.exports = React.createClass
     _.extend {}, taskInfo, controlInfo
 
   componentWillMount: ->
-    # location = @props.pathname
-    # location.addChangeListener(@updateControls) if location
     TaskStore.on('loaded', @updateTask)
 
   componentWillUnmount: ->
-    location = @context.router?.getLocation()
-    location.removeChangeListener(@updateControls) if location
     TaskStore.off('loaded', @updateTask)
+
+  componentWillReceiveProps: (nextProps) ->
+    @updateControls(nextProps.params, window.location.pathname)
 
   shouldShow: (path) ->
     {shouldShow} = @props
     return true if shouldShow
 
     path ?= @props.pathname
-    # matchedPath = @context.router.match(path)
-    # return false unless matchedPath?.routes
+    matchedPath = TutorRouter.pathToEntry(path)
+    return false unless matchedPath?.entry?.paths
 
-    'viewTask' in _.pluck(matchedPath.routes, 'name')
+    'viewTask' in matchedPath.entry.paths
 
   update: (getState, params, path) ->
     show = @shouldShow(path)
@@ -58,8 +58,7 @@ module.exports = React.createClass
     state = getState(params)
     @setState(state) if state?
 
-  updateControls: ({path}) ->
-    {params} = @context.router.match(path)
+  updateControls: (params, {path}) ->
     @update(@getControlInfo, params, path)
 
   updateTask: (taskId) ->
@@ -125,12 +124,12 @@ module.exports = React.createClass
           <strong className='fa-stack-1x calendar-text'>{date}</strong>
         </span>
 
-        <Router.Link
+        <TutorLink
           {...linkProps}
           ref='milestonesToggle'
           activeClassName=''
           className={milestonesToggleClasses}>
           <Icon type='th' />
-        </Router.Link>
+        </TutorLink>
       </div>
     </div>

@@ -3,7 +3,6 @@ BS    = require 'react-bootstrap'
 React = require 'react'
 
 classnames = require 'classnames'
-Router = require 'react-router'
 
 PagingNavigation = require '../paging-navigation'
 {ReferenceBookStore} = require '../../flux/reference-book'

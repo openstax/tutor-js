@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 BS = require 'react-bootstrap'
 
 _ = require 'underscore'
@@ -11,7 +12,7 @@ classnames = require 'classnames'
 {TaskProgressActions, TaskProgressStore} = require '../../flux/task-progress'
 
 StepFooterMixin = require '../task-step/step-footer-mixin'
-Router = require '../../router'
+Router = require '../../helpers/router'
 TaskStep = require '../task-step'
 Ends = require '../task-step/ends'
 Breadcrumbs = require './breadcrumbs'
@@ -202,9 +203,9 @@ Task = React.createClass
     @scrollToTop() unless @_isSameStep({id}, {currentStep: stepKey})
 
     if silent
-      @context.router.replaceWith('viewTaskStep', params)
+      @context.router.replaceWith(Router.makePathname('viewTaskStep', params))
     else
-      @context.router.transitionTo('viewTaskStep', params)
+      @context.router.transitionTo(Router.makePathname('viewTaskStep', params))
 
     true
 
@@ -216,7 +217,7 @@ Task = React.createClass
     @context.router.transitionTo('viewTaskStep', params)
 
   filterClickForMilestones: (focusEvent) ->
-    stepPanel = @refs.stepPanel?.getDOMNode()
+    stepPanel = ReactDOM.findDOMNode(@refs.stepPanel)
     not stepPanel?.contains(focusEvent.target)
 
   getStep: (stepIndex) ->
