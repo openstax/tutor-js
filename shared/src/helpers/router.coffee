@@ -15,10 +15,8 @@ matchPattern   = require('react-router/matchPattern').default
 class OXRouter
 
   constructor: (routes) ->
-    routesMap = mapRoutes(routes)
-
     @getRoutes = -> routes
-    @getRoutesMap = -> routesMap
+    @getRoutesMap = -> mapRoutes(routes)
 
   pathToEntry: (path = window.location.pathname) =>
     findRoutePatternMemoed(path, @getRoutesMap())
@@ -38,7 +36,7 @@ class OXRouter
 
   getRenderableRoutes: (renderers) =>
     routes = @getRoutes()
-    window.renderers = renderers
+
     traverseRoutes(routes, (route) ->
       return null unless renderers[route.name]?
       route.render = renderers[route.name]
