@@ -127,7 +127,7 @@ CourseMonth = React.createClass
 
     <BS.Grid className={calendarClassName} fluid>
 
-      <CourseAdd ref='addOnDay' hasPeriods={hasPeriods} />
+      <CourseAdd ref='addOnDay' hasPeriods={hasPeriods} courseId={@props.courseId} />
 
       <CourseCalendarHeader
         duration='month'
