@@ -1,8 +1,8 @@
 _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
 
+Router = require '../../helpers/router'
 DesktopImage = require './desktop-image'
 CourseGroupingLabel = require '../course-grouping-label'
 Icon = require '../icon'
@@ -14,11 +14,8 @@ CCDashboardHelp = React.createClass
     courseId: React.PropTypes.string
     inPeriod: React.PropTypes.bool
 
-  contextTypes:
-    router: React.PropTypes.func
-
   render: ->
-    courseId = @props.courseId or @context.router.getCurrentParams().courseId
+    courseId = @props.courseId or Router.currentParams().courseId
     glprops = {lowercase:true, courseId: courseId}
     section =
       <CourseGroupingLabel lowercase {...glprops} />

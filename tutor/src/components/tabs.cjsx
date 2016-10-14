@@ -32,7 +32,7 @@ Tabs = React.createClass
     router: React.PropTypes.object
 
   getInitialState: ->
-    {tab} = Router.getQuery(@props.windowImpl)
+    {tab} = Router.currentQuery(@props.windowImpl)
     activeIndex: if _.isUndefined(tab) then @props.initialActive else parseInt(tab, 10)
 
   componentWillMount: ->
@@ -61,7 +61,7 @@ Tabs = React.createClass
 
   # callable from the parent component via a ref
   selectTabIndex: (activeIndex) ->
-    query = _.extend(Router.getQuery(@props.windowImpl), tab: activeIndex)
+    query = _.extend(Router.currentQuery(@props.windowImpl), tab: activeIndex)
     @context.router.transitionTo(pathname: @props.windowImpl.location.pathname, query: query)
     @setState({activeIndex})
 

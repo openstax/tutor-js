@@ -3,6 +3,8 @@ BS = require 'react-bootstrap'
 Router = require 'react-router'
 _ = require 'underscore'
 
+Router = require '../../helpers/router'
+{Link} = require 'react-router'
 Name = require '../name'
 BindStoreMixin = require '../bind-store-mixin'
 PerformanceForecast = require '../../flux/performance-forecast'
@@ -14,7 +16,7 @@ InfoLink = require './info-link'
 module.exports = React.createClass
   displayName: 'PerformanceForecastTeacherStudentDisplay'
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
 
   mixins: [BindStoreMixin]
 
@@ -58,11 +60,11 @@ module.exports = React.createClass
         </BS.DropdownButton>
         <InfoLink type='teacher_student'/>
       </div>
-      <Router.Link activeClassName='' to='viewScores'
+      <Link activeClassName='' to='viewScores'
         className='btn btn-default back'
         params={courseId: @props.courseId}>
         Return to Scores
-      </Router.Link>
+      </Link>
     </div>
 
   renderWeakerExplanation: ->

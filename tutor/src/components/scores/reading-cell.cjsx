@@ -1,5 +1,5 @@
 React  = require 'react'
-Router = require 'react-router'
+{Link} = require 'react-router'
 BS = require 'react-bootstrap'
 classNames = require 'classnames'
 
@@ -50,11 +50,11 @@ ReadingCell = React.createClass
               </div>
               <div className='row'>
                 <div>
-                  <Router.Link to='viewTaskStep'
+                  <Link to='viewTaskStep'
                     data-assignment-type="#{task.type}"
                     params={courseId: courseId, id: task.id, stepIndex: 1}>
                       Review
-                  </Router.Link>
+                  </Link>
                 </div>
               </div>
             </div>

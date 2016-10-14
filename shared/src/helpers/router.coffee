@@ -1,16 +1,16 @@
-qs = require 'qs'
-forEach = require 'lodash/forEach'
-map = require 'lodash/map'
-last = require 'lodash/last'
-cloneDeep = require 'lodash/cloneDeep'
-omit = require 'lodash/omit'
-compact = require 'lodash/compact'
-remove = require 'lodash/remove'
-isEmpty = require 'lodash/isEmpty'
-merge = require 'lodash/merge'
-memoize = require 'lodash/memoize'
+qs           = require 'qs'
+map          = require 'lodash/map'
+last         = require 'lodash/last'
+omit         = require 'lodash/omit'
+merge        = require 'lodash/merge'
+remove       = require 'lodash/remove'
+memoize      = require 'lodash/memoize'
+compact      = require 'lodash/compact'
+isEmpty      = require 'lodash/isEmpty'
+forEach      = require 'lodash/forEach'
+cloneDeep    = require 'lodash/cloneDeep'
 pathToRegexp = require 'path-to-regexp'
-matchPattern   = require('react-router/matchPattern').default
+matchPattern = require('react-router/matchPattern').default
 
 class OXRouter
 
@@ -21,7 +21,7 @@ class OXRouter
   pathToEntry: (path = window.location.pathname) =>
     findRoutePatternMemoed(path, @getRoutesMap())
 
-  getQuery: (options = {}) ->
+  currentQuery: (options = {}) ->
     qs.parse((options.window or window).location.search.slice(1))
 
   currentParams: (options = {}) =>

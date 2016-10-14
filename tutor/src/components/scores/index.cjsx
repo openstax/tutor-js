@@ -2,10 +2,10 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
+Router = require '../../helpers/router'
 ScoresTable = require './table'
 TableFilters = require './table-filters'
 
-Router = require 'react-router'
 merge = require 'lodash/merge'
 {CourseStore} = require '../../flux/course'
 {ScoresStore, ScoresActions} = require '../../flux/scores'
@@ -19,9 +19,6 @@ StudentDataSorter = require './student-data-sorter'
 
 Scores = React.createClass
   displayName: 'Scores'
-
-  contextTypes:
-    router: React.PropTypes.func
 
   mixins: [BindStoreMixin]
   bindStore: ScoresStore
@@ -115,11 +112,9 @@ Scores = React.createClass
 
 
 ScoresShell = React.createClass
-  contextTypes:
-    router: React.PropTypes.func
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
     course = CourseStore.get(courseId)
     <BS.Panel className="scores-report">
       <LoadableItem

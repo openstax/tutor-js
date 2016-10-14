@@ -42,9 +42,6 @@ ChapterAccordion = React.createClass
       children: React.PropTypes.array
     ).isRequired
 
-  contextTypes:
-    router: React.PropTypes.func
-
   getInitialState: ->
     {expanded: @isAnySelected() or 1 is _.first @props.chapter.chapter_section}
   browseBook: (ev)              -> ev.stopPropagation() # stop click from toggling the accordian

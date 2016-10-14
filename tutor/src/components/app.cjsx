@@ -5,6 +5,7 @@ renderers = require '../router'
 RoutingHelper = require '../helpers/routing'
 Analytics = require '../helpers/analytics'
 Navbar = require './navbar'
+merge = require 'lodash/merge'
 {SpyMode} = require 'shared'
 {CourseStore} = require '../flux/course'
 {TransitionActions, TransitionStore} = require '../flux/transition'
@@ -14,8 +15,10 @@ module.exports = React.createClass
   contextTypes:
     router: React.PropTypes.object
 
-  getChildContext: ->
-    courseId: @props.params?.courseId
+#   getChildContext: ->
+#     debugger
+#     router: merge(@context.router, getCurrentParams: Router.getCurrentParams)
+# #    courseId: @props.params?.courseId
 
   childContextTypes:
     courseId: React.PropTypes.string

@@ -1,5 +1,4 @@
 React = require 'react'
-Router = require 'react-router'
 _ = require 'underscore'
 moment = require 'moment-timezone'
 BS = require 'react-bootstrap'
@@ -10,6 +9,7 @@ PlanMixin           = require '../plan-mixin'
 BindStoresMixin     = require '../../bind-stores-mixin'
 CourseGroupingLabel = require '../../course-grouping-label'
 TimeZoneSettings    = require './time-zone-settings-link'
+Router              = require '../../../helpers/router'
 
 {TimeStore} = require '../../../flux/time'
 TimeHelper = require '../../../helpers/time'
@@ -37,9 +37,6 @@ TaskPlanBuilder = React.createClass
 
   mixins: [BindStoresMixin, UnsavedStateMixin]
 
-  contextTypes:
-    router: React.PropTypes.func
-
   propTypes:
     id: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired
@@ -66,7 +63,7 @@ TaskPlanBuilder = React.createClass
     moment(TimeStore.getNow()).add(1, 'day').format(TimeHelper.ISO_DATE_FORMAT)
 
   getQueriedOpensAt: ->
-    {opens_at} = @context?.router?.getCurrentQuery() # attempt to read the open date from query params
+    {opens_at} = Router.currentQuery() # attempt to read the open date from query params
     isNewPlan = TaskPlanStore.isNew(@props.id)
     opensAt = if opens_at and isNewPlan then TimeHelper.getMomentPreserveDate(opens_at)
     if not opensAt
@@ -87,7 +84,7 @@ TaskPlanBuilder = React.createClass
     opensAt
 
   getQueriedDueAt: ->
-    {due_at} = @context?.router?.getCurrentQuery() # attempt to read the due date from query params
+    {due_at} = Router.currentQuery() # attempt to read the due date from query params
     dueAt = if due_at then TimeHelper.getMomentPreserveDate(due_at).format(TimeHelper.ISO_DATE_FORMAT)
 
   # Copies the available periods from the course store and sets

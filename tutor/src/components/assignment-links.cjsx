@@ -1,8 +1,8 @@
 _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
 
+Router = require '../helpers/router'
 BindStoreMixin = require './bind-store-mixin'
 {ReferenceBookActions, ReferenceBookStore} = require '../flux/reference-book'
 {CourseStore} = require '../flux/course'
@@ -12,11 +12,8 @@ AssignmentLinks = React.createClass
   mixins: [BindStoreMixin]
   bindStore: ReferenceBookStore
 
-  contextTypes:
-    router: React.PropTypes.func
-
   componentWillMount: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
     course = CourseStore.get(courseId)
     @ecosystem_id = course.ecosystem_id
     ReferenceBookActions.load(course.ecosystem_id)
@@ -72,4 +69,3 @@ AssignmentLinks = React.createClass
     </BS.Panel>
 
 module.exports = {AssignmentLinks}
-

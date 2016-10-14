@@ -6,6 +6,7 @@ React = require 'react'
 
 BindStore = require '../bind-store-mixin'
 BookLink  = require './book-link'
+Router = require '../../helpers/router'
 
 QADashboard = React.createClass
 
@@ -16,12 +17,9 @@ QADashboard = React.createClass
   componentWillMount: ->
     EcosystemsActions.load() unless EcosystemsStore.isLoading()
 
-  contextTypes:
-    router: React.PropTypes.func
-
   render: ->
     if EcosystemsStore.isLoaded()
-      params = _.clone @context.router.getCurrentParams()
+      params = Router.currentParams()
       params.ecosystemId ?= "#{EcosystemsStore.first().id}"
       <RouteHandler {...params} />
     else

@@ -1,6 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+
+{Link} = require 'react-router'
 _ = require 'underscore'
 
 PerformanceForecast = require '../../flux/performance-forecast'
@@ -12,7 +13,7 @@ InfoLink    = require './info-link'
 module.exports = React.createClass
   displayName: 'PerformanceForecastStudentDisplay'
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
 
   propTypes:
     courseId:  React.PropTypes.string.isRequired
@@ -34,10 +35,10 @@ module.exports = React.createClass
           <ColorKey />
         </div>
 
-        <Router.Link to='viewStudentDashboard' className='btn btn-default back'
+        <Link to='viewStudentDashboard' className='btn btn-default back'
         params={courseId: @props.courseId}>
         Return to Dashboard
-        </Router.Link>
+        </Link>
 
       </div>
     </div>

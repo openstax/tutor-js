@@ -5,8 +5,9 @@ RouteHandlers  = require './helpers/route-handlers'
 TeacherTaskPlans        = require './components/task-plan/teacher-task-plans-listing'
 {TaskShell}             = require './components/task'
 {ReferenceBookShell, ReferenceBookPageShell} = require './components/reference-book'
+{ReadingShell, HomeworkShell, ExternalShell, EventShell} = require './components/task-plan'
 
-module.exports = 
+module.exports =
   listing: CourseListing
   dashboard: RouteHandlers.dashboard
   viewStudentDashboard: StudentDashboardShell
@@ -17,6 +18,8 @@ module.exports =
   viewReferenceBook: ReferenceBookShell
   viewReferenceBookSection: ReferenceBookShell
   viewReferenceBookPage: ReferenceBookPageShell
+  editHomework: HomeworkShell
+
 
 # TODO see how to put this in the same file
 # ROUTES = [

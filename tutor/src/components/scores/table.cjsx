@@ -31,9 +31,6 @@ COLUMN_WIDTH = 160
 module.exports = React.createClass
   displayName: 'ScoresTable'
 
-  contextTypes:
-    router: React.PropTypes.func
-
   mixins: [ResizeListenerMixin]
 
   propTypes:

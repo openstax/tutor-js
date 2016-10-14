@@ -41,7 +41,7 @@ module.exports = React.createClass
   mixins: [ ChapterSectionMixin ]
 
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
 
   getInitialState: ->
     partsInfo = @getPartsInfo()

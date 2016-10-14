@@ -1,6 +1,7 @@
 React = require 'react'
 Router = require 'react-router'
 
+Router = require '../../helpers/router'
 DesktopImage = require './desktop-image'
 {CourseStore}  = require '../../flux/course'
 
@@ -9,11 +10,8 @@ CCDashboardEmptyPeriod = React.createClass
   propTypes:
     courseId: React.PropTypes.string
 
-  contextTypes:
-    router: React.PropTypes.func
-
   render: ->
-    courseId = @props.courseId or @context.router.getCurrentParams().courseId
+    courseId = @props.courseId or Router.currentParams().courseId
     course =  CourseStore.get(courseId)
     <div className="empty-period cc-dashboard-help">
       <h3>

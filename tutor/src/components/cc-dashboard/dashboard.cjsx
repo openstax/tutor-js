@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+{Link} = require 'react-router'
 
 {CCDashboardStore} = require '../../flux/cc-dashboard'
 {CoursePeriodsNav} = require '../course-periods-nav'
@@ -36,8 +36,6 @@ TOOLTIPS =
 
 CCDashboard = React.createClass
   mixins: [CourseDataMixin]
-  contextTypes:
-    router: React.PropTypes.func
   propTypes:
     courseId: React.PropTypes.string
 
@@ -92,10 +90,10 @@ CCDashboard = React.createClass
       </div>
 
     detailedScoresLink =
-      <Router.Link
+      <Link
         className='detailed-scores btn btn-default'
         to='viewScores' params={courseId: courseId}
-      >View Detailed Scores</Router.Link>
+      >View Detailed Scores</Link>
 
     <div className="cc-dashboard" data-period={@state.activePeriodId}>
       <div {...courseDataProps} className='tutor-booksplash-background' />

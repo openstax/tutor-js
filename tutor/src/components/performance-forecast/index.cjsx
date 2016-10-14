@@ -1,5 +1,6 @@
 React = require 'react'
 
+Router = require '../../helpers/router'
 PerformanceForecast = require '../../flux/performance-forecast'
 LoadableItem = require '../loadable-item'
 TeacherComponent = require './teacher'
@@ -10,11 +11,9 @@ TeacherStudentComponent = require './teacher-student'
 Student = React.createClass
   displayName: 'PerformanceForecastStudentShell'
 
-  contextTypes:
-    router: React.PropTypes.func
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
     <LoadableItem
       id={courseId}
       store={PerformanceForecast.Student.store}
@@ -32,7 +31,7 @@ TeacherStudent = React.createClass
     router: React.PropTypes.func
 
   render: ->
-    {courseId, roleId} = @context.router.getCurrentParams()
+    {courseId, roleId} = Router.currentParams()
     <LoadableItem
       id={courseId}
       store={ScoresStore}
@@ -43,11 +42,9 @@ TeacherStudent = React.createClass
 
 Teacher = React.createClass
   displayName: 'PerformanceForecastTeacherShell'
-  contextTypes:
-    router: React.PropTypes.func
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
     <LoadableItem
       id={courseId}
       store={PerformanceForecast.Teacher.store}

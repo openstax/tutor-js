@@ -8,7 +8,7 @@ TaskPlan = React.createClass
     courseId: React.PropTypes.string.isRequired
 
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
 
   onEditPlan: ->
     {courseId} = @props

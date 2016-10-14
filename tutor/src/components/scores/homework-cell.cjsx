@@ -1,5 +1,5 @@
 React  = require 'react'
-Router = require 'react-router'
+{Link} = require 'react-router'
 BS = require 'react-bootstrap'
 classNames = require 'classnames'
 
@@ -26,11 +26,11 @@ HomeworkScore = React.createClass
 
     if TH.isHomeworkTaskStarted(@props.task)
       <div className="score">
-        <Router.Link to='viewTaskStep'
+        <Link to='viewTaskStep'
           data-assignment-type="#{task.type}"
           params={courseId: courseId, id: task.id, stepIndex: 1}>
             {scoreText}
-        </Router.Link>
+        </Link>
       </div>
     else
       <div className="score not-started">---</div>

@@ -1,8 +1,8 @@
 _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
-
+{Link} = require 'react-router'
+Router = require '../../helpers/router'
 Root = require './root'
 App = require './app'
 Task = require './task'
@@ -20,8 +20,6 @@ err = (msgs...) ->
 
 SinglePractice = React.createClass
   displayName: 'SinglePractice'
-  contextTypes:
-    router: React.PropTypes.func
 
   componentWillMount: ->
     CoursePracticeStore.on("loaded.#{@getId()}", @update)
@@ -31,7 +29,7 @@ SinglePractice = React.createClass
     CoursePracticeStore.off("loaded.#{@getId()}", @update)
 
   createPractice: (courseId) ->
-    query = @context?.router?.getCurrentQuery()
+    query = Router.currentQuery()
     CoursePracticeActions.create(courseId, query)
 
   getInitialState: ->
@@ -39,7 +37,7 @@ SinglePractice = React.createClass
     taskId: null
 
   getId: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
     courseId
 
   update: ->
@@ -58,8 +56,10 @@ SinglePractice = React.createClass
 
 TaskResult = React.createClass
   displayName: 'TaskResult'
+
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
+
   propTypes:
     courseId: React.PropTypes.string.isRequired
     id: React.PropTypes.string.isRequired
@@ -79,20 +79,20 @@ TaskResult = React.createClass
       stepsInfo = <small className='details'>({steps.length} steps)</small>
 
     <BS.Panel bsStyle='default' onClick={@onClick}>
-      <Router.Link
+      <Link
         to='viewTask'
         params={{courseId, id}}>
         <i className="fa fa-fw #{mainType}"></i>
         {title}
-      </Router.Link>
+      </Link>
       {stepsInfo}
       <span className='pull-right'>
-        <Router.Link
+        <Link
           to='viewTask'
           params={{courseId, id}}
           className='ui-action btn btn-primary btn-sm'>
           {actionTitle}
-        </Router.Link>
+        </Link>
       </span>
     </BS.Panel>
 

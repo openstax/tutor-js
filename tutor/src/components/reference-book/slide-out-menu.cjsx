@@ -3,6 +3,8 @@ ReactDOM = require 'react-dom'
 {Link} = require 'react-router'
 _  = require 'underscore'
 
+Router = require '../../helpers/router'
+
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
 {ChapterSectionMixin} = require 'shared'
 
@@ -16,9 +18,6 @@ Section = React.createClass
     activeSection: React.PropTypes.string.isRequired
     onMenuSelection: React.PropTypes.func.isRequired
     menuRouterLinkTarget: React.PropTypes.string.isRequired
-
-  contextTypes:
-    router: React.PropTypes.func
 
   componentWillMount: ->
     @setState(skipZeros: false)
@@ -38,7 +37,7 @@ Section = React.createClass
           className={className}
           onClick={_.partial(@props.onMenuSelection, section)}
           to={@props.menuRouterLinkTarget}
-          query={@context.router.getCurrentQuery()} >
+          query={Router.currentQuery()} >
 
           <span className="section-number">{section}</span>
           {@props.section.title}

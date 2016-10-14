@@ -19,7 +19,7 @@ module.exports = React.createClass
     courseRoles: React.PropTypes.array.isRequired
     courseId: React.PropTypes.string.isRequired
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
 
   isRemovalCurrentTeacher: ->
     role = _.chain(@props.courseRoles)
@@ -29,7 +29,7 @@ module.exports = React.createClass
 
   goToDashboard: ->
     RosterActions.once 'deleted', @context.router.transitionTo('dashboard')
-      
+
   performDeletion: ->
     {courseId, teacher, courseRoles} = @props
     RosterActions.teacherDelete(teacher.id, courseId, @isRemovalCurrentTeacher())

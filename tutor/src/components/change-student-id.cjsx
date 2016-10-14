@@ -2,6 +2,7 @@ _ = require 'lodash'
 React = require 'react'
 BS = require 'react-bootstrap'
 
+Router = require '../helpers/router'
 LoadableItem = require './loadable-item'
 { ChangeStudentIdForm } = require 'shared'
 { TransitionActions, TransitionStore } = require '../flux/transition'
@@ -10,8 +11,6 @@ LoadableItem = require './loadable-item'
 Icon = require './icon'
 
 module.exports = React.createClass
-  contextTypes:
-    router: React.PropTypes.func
 
   onCancel: -> @goBack()
 
@@ -28,14 +27,15 @@ module.exports = React.createClass
     @setState({})
 
   goBack: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
 
-    historyInfo = TransitionStore.getPrevious(@context.router)
-    url = historyInfo.path or 'dashboard'
-    @context.router.transitionTo(url)
+    # TODO: Figuoure out how to do this
+    # historyInfo = TransitionStore.getPrevious(@context.router)
+    # url = historyInfo.path or 'dashboard'
+    # @context.router.transitionTo(url)
 
   onSubmit: (newStudentId) ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
 
     StudentIdActions.validate(courseId, newStudentId)
 
@@ -53,14 +53,14 @@ module.exports = React.createClass
 
 
   saved: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
     CourseActions.load(courseId)
 
     @setState({success: true})
     _.delay(@goBack, 1500)
 
   renderErrors: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
     errors = StudentIdStore.getErrors(courseId)
     if errors?.length is 0 then return null
 
@@ -84,7 +84,7 @@ module.exports = React.createClass
   render: ->
     if (@state?.success) then return @renderSuccess()
 
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
     studentId = @state?.curId or CourseStore.getStudentId(courseId)
 
     <BS.Panel bsStyle='primary' className="change-id-panel">

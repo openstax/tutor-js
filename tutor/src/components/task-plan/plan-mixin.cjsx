@@ -12,7 +12,7 @@ CALENDAR_DATE_FORMAT = 'YYYY-MM-DD'
 
 PlanMixin =
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
 
   getInitialState: ->
     @getStates()

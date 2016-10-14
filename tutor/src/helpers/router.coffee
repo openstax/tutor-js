@@ -3,7 +3,7 @@
 ROUTES = [
   { pattern: '/dashboard', name: 'listing' }
   {
-    pattern: '/courses/:courseId',  name: 'dashboard'
+    pattern: '/course/:courseId',  name: 'dashboard'
     routes: [
       { pattern: 'list',          name: 'viewStudentDashboard'  }
       { pattern: 't/month/:date', name: 'calendarByDate'        }
@@ -16,7 +16,9 @@ ROUTES = [
           }]
         }]
       }
+      { pattern: 'homework/:id', name: 'editHomework' }
     ]
+
   }
   {
     pattern: '/books/:courseId', name: 'viewReferenceBook'

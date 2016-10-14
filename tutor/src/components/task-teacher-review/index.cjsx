@@ -25,7 +25,7 @@ TaskTeacherReview = React.createClass
   scrollingTargetDOM: -> window.document
 
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
 
   setStepKey: ->
     {sectionIndex} = @context.router.getCurrentParams()
@@ -181,7 +181,7 @@ TaskTeacherReview = React.createClass
 
 TaskTeacherReviewShell = React.createClass
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
   render: ->
     {id, courseId} = @context.router.getCurrentParams()
     <ScrollSpy dataSelector='data-section'>

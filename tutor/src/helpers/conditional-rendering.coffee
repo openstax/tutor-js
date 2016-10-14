@@ -9,7 +9,7 @@ NoPeriods = require '../components/no-periods'
 module.exports = (component, options = {}) ->
 
   RouteHandler = ->
-  RouteHandler.contextTypes = { router: React.PropTypes.func }
+  RouteHandler.contextTypes = { router: React.PropTypes.object }
   RouteHandler::render = ->
     {courseId} = @context.router.getCurrentParams()
     course = CourseStore.get(courseId)

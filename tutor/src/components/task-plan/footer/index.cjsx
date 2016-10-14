@@ -15,7 +15,7 @@ DeleteLink   = require './delete-link'
 PlanFooter = React.createClass
   displayName: 'PlanFooter'
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
   propTypes:
     id: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired

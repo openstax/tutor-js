@@ -4,6 +4,7 @@ React = require 'react'
 
 classnames = require 'classnames'
 
+Router = require '../../helpers/router'
 PagingNavigation = require '../paging-navigation'
 {ReferenceBookStore} = require '../../flux/reference-book'
 {ChapterSectionMixin} = require 'shared'
@@ -20,7 +21,7 @@ ReferenceViewPageNavigation = React.createClass
   mixins: [ChapterSectionMixin]
 
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
 
   onNavigation: (info, href) ->
     @props.onPageNavigationClick?(info.chapter_section, ev)
@@ -29,18 +30,18 @@ ReferenceViewPageNavigation = React.createClass
   render: ->
 
     pageInfo = ReferenceBookStore.getPageInfo(@props) or {}
-    params = _.extend({ecosystemId: @props.ecosystemId}, @context.router.getCurrentParams())
+    params = _.extend({ecosystemId: @props.ecosystemId}, Router.currentParams())
 
     if pageInfo.next
-      nextUrl = @context.router.makeHref( @props.pageNavRouterLinkTarget,
+      nextUrl = Router.makeHref( @props.pageNavRouterLinkTarget,
         _.extend({}, params, section: @sectionFormat(pageInfo.next.chapter_section))
-        @context.router.getCurrentQuery()
+        Router.currentQuery()
       )
 
     if pageInfo.prev
-      prevUrl = @context.router.makeHref( @props.pageNavRouterLinkTarget,
+      prevUrl = Router.makeHref( @props.pageNavRouterLinkTarget,
         _.extend({}, params, section: @sectionFormat(pageInfo.prev.chapter_section)),
-        @context.router.getCurrentQuery()
+        Router.currentQuery()
       )
 
     <PagingNavigation
