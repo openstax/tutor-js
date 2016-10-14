@@ -3,6 +3,7 @@ BS    = require 'react-bootstrap'
 React = require 'react'
 Time  = require '../time'
 classnames = require 'classnames'
+ReactDOM   = require 'react-dom'
 
 {ScoresActions} = require '../../flux/scores'
 
@@ -137,7 +138,7 @@ LateWork = React.createClass
     @setState(isShown: false)
 
   getTarget: ->
-    this.refs.caret.getDOMNode()
+    ReactDOM.findDOMNode(@refs.caret)
 
   render: ->
     return null unless TH.isLate(@props.task)

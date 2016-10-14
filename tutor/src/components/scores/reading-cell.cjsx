@@ -1,4 +1,5 @@
 React  = require 'react'
+ReactDOM = require 'react-dom'
 {Link} = require 'react-router'
 BS = require 'react-bootstrap'
 classNames = require 'classnames'
@@ -21,7 +22,7 @@ ReadingCell = React.createClass
   hide: -> @setState(isShowingPopover: false)
 
   getPieChartTarget: ->
-    @refs.pieChart.getDOMNode()
+    ReactDOM.findDOMNode(@refs.pieChart)
 
   render: ->
     {task, courseId, displayAs, isConceptCoach, rowIndex, columnIndex, period_id} = @props

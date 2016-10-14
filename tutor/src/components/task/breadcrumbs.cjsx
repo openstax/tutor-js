@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 {TaskProgressActions, TaskProgressStore} = require '../../flux/task-progress'
 {TaskPanelActions, TaskPanelStore} = require '../../flux/task-panel'
@@ -68,7 +69,7 @@ module.exports = React.createClass
     if @isMounted()
       currentCrumbWidth = 0
       crumbsWidth = _.reduce(@refs, (memo, ref) ->
-        refDOM = ref.getDOMNode()
+        refDOM = ReactDOM.findDOMNode(ref)
         computedStyle = window.getComputedStyle(refDOM)
         refDOMBox = refDOM.getBoundingClientRect()
         currentCrumbWidth = refDOMBox.width + parseInt(computedStyle.marginRight) + parseInt(computedStyle.marginLeft)

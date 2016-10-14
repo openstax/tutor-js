@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 _ = require 'underscore'
 
 {GetPositionMixin} = require 'shared'
@@ -16,7 +17,7 @@ ScrollTracker =
   setScrollPoint: ->
     {setScrollPoint, scrollState} = @props
 
-    scrollPoint = @getTopPosition(@getDOMNode())
+    scrollPoint = @getTopPosition(ReactDOM.findDOMNode(@))
     @setState({scrollPoint})
 
     setScrollPoint(scrollPoint, scrollState)
@@ -39,7 +40,7 @@ ScrollTrackerParentMixin =
     scrollTopBuffer: 0
 
   setScrollTopBuffer: ->
-    scrollTopBuffer = GetPositionMixin.getTopPosition(@getDOMNode())
+    scrollTopBuffer = GetPositionMixin.getTopPosition(ReactDOM.findDOMNode(@))
     @setState({scrollTopBuffer})
 
   setScrollPoint: (scrollPoint, scrollState) ->

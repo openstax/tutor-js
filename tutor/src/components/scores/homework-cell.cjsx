@@ -1,7 +1,8 @@
-React  = require 'react'
-{Link} = require 'react-router'
-BS = require 'react-bootstrap'
+React      = require 'react'
+ReactDOM   = require 'react-dom'
+{Link}     = require 'react-router'
 classNames = require 'classnames'
+BS = require 'react-bootstrap'
 
 Time = require '../time'
 CellStatusMixin = require './cell-status-mixin'
@@ -49,7 +50,7 @@ HomeworkCell = React.createClass
   hide: -> @setState(isShowingPopover: false)
 
   getPieChartTarget: ->
-    @refs.pieChart.getDOMNode()
+    ReactDOM.findDOMNode(@refs.pieChart)
 
   render: ->
     {task, courseId, displayAs, isConceptCoach, rowIndex, columnIndex, period_id} = @props

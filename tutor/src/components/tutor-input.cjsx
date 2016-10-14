@@ -81,7 +81,7 @@ TutorInput = React.createClass
     inputProps.defaultValue ?= @props.default if @props.default?
 
     if children?
-      inputBox = React.cloneELement(children, inputProps)
+      inputBox = React.cloneElement(children, inputProps)
     else
       inputBox = <input {...inputProps}/>
 
@@ -375,9 +375,7 @@ TutorTextArea = React.createClass
     onChange: React.PropTypes.func
 
   resize: (event) ->
-    textarea = @refs.textarea.getDOMNode()
-    textarea.style.height = ''
-    textarea.style.height = "#{textarea.scrollHeight}px"
+    @refs.textarea.style.height = "#{textarea.scrollHeight}px"
 
   componentDidMount: ->
     @resize() if @props.default?.length > 0
@@ -429,7 +427,7 @@ TutorRadio = React.createClass
     disabled: React.PropTypes.bool
 
   isChecked: ->
-    @refs.radio.getDOMNode().checked
+    @refs.radio.checked
 
   handleChange: (changeEvent) ->
     {value} = @props
