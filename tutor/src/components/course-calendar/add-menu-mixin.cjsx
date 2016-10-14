@@ -12,6 +12,7 @@ CourseAddMenuMixin =
   propTypes:
     dateFormat: React.PropTypes.string
     hasPeriods: React.PropTypes.bool.isRequired
+    courseId:   React.PropTypes.string.isRequired
 
   getInitialState: ->
     addDate: null
