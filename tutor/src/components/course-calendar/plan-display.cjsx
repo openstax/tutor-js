@@ -1,8 +1,9 @@
 React = require 'react'
-Router = require 'react-router'
 camelCase = require 'camelcase'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
+
+TutorLink = require '../link'
 
 DisplayProperties =
   plan: React.PropTypes.shape(
@@ -89,11 +90,11 @@ CoursePlanDisplayEdit = React.createClass
       onMouseEnter={_.partial(setHover, true)}
       onMouseLeave={_.partial(setHover, false)}
       ref='plan'>
-      <Router.Link
+      <TutorLink
         to={linkTo}
         params={params}>
           {label}
-      </Router.Link>
+      </TutorLink>
     </div>
 
 
