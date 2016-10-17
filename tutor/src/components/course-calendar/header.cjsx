@@ -5,6 +5,7 @@ _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
+TutorLink = require '../link'
 
 CourseAddMenuMixin = require './add-menu-mixin'
 BrowseTheBook = require '../buttons/browse-the-book'
@@ -68,17 +69,19 @@ CourseCalendarHeader = React.createClass
 
         <div className='calendar-header-actions-buttons'>
           <BrowseTheBook bsStyle='default' courseId={courseId} />
-          <Router.Link
+          <TutorLink
             className='btn btn-default'
-            to="/courses/#{courseId}/forecast"
+            to='viewTeacherPerformanceForecast'
+            params={{courseId}}
           >
             Performance Forecast
-          </Router.Link>
-          <Router.Link className='btn btn-default'
-            to="/courses/#{courseId}/scores"
+          </TutorLink>
+          <TutorLink className='btn btn-default'
+            to='viewScores'
+            params={{courseId}}
           >
             Student Scores
-          </Router.Link>
+          </TutorLink>
         </div>
       </BS.Row>
       <BS.Row className='calendar-header-navigation'>

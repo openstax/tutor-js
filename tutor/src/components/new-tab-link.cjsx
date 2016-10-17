@@ -1,6 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
-{Link} = require 'react-router'
+TutorLink = require './link'
+
 NewTabLink = React.createClass
   displayName: 'NewTabLink'
 
@@ -19,19 +20,11 @@ NewTabLink = React.createClass
     target:   React.PropTypes.string
     tabIndex: React.PropTypes.number
 
-  getLinkProps: (link) ->
-    linkProps =
-      href: link
-
-    # most props should transfer, such as onClick, className, etc.
-    transferProps = _.omit(@props, ['to', 'params', 'query', 'children', 'bsStyle'])
-    _.extend({}, transferProps, linkProps)
-
   render: ->
-    {to, params, query, children} = @props
+    {children} = @props
 
-    linkProps = @getLinkProps(to)
+    linkProps = _.omit(@props, 'children')
 
-    <Link to={to} {...linkProps}>{children}</Link>
+    <TutorLink {...linkProps}>{children}</TutorLink>
 
 module.exports = NewTabLink

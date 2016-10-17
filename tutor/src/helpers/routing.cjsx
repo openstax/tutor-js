@@ -5,11 +5,16 @@ extend   = require 'lodash/extend'
 {Match, Miss}  = require 'react-router'
 
 InvalidPage = require '../components/invalid-page'
+Router      = require '../helpers/router'
 
 matchProps = (props, parentParams) ->
   extend({}, props, render: (renderedProps) ->
-    componentProps = extend({}, omit(props, 'render'), renderedProps)
-    params = extend({}, componentProps.params, parentParams)
+    componentProps = extend({}, omit(props, 'render', 'getParamsForPath'), renderedProps)
+
+    # ideally this would just be checking against the relevant path based on
+    # path-specifc getParamsForPath, but the matching doesn't seem to match
+    # to deepest match as expected, so get params based on all available paths for now.
+    params = Router.currentParams()
 
     <props.render {...componentProps} params={params} />
   )

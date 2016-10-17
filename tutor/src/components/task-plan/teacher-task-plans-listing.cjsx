@@ -1,7 +1,6 @@
 React = require 'react'
 moment = require 'moment-timezone'
 BS = require 'react-bootstrap'
-Router = require '../../router'
 _ = require 'underscore'
 
 LoadableItem = require '../loadable-item'
@@ -72,7 +71,6 @@ TeacherTaskPlans = React.createClass
 TeacherTaskPlanListing = React.createClass
 
   displayName: 'TeacherTaskPlanListing'
-
 
   propTypes:
     dateFormat: React.PropTypes.string
@@ -145,7 +143,9 @@ TeacherTaskPlanListing = React.createClass
     TeacherTaskPlanActions.load(courseId, startAt, endAt)
 
   render: ->
-    courseId = @props.params.courseId
+    {params} = @props
+
+    {courseId} = params
     courseDataProps = @getCourseDataProps(courseId)
     {displayAs} = @state
     {date, startAt, endAt} = @getDateStates()
@@ -154,7 +154,7 @@ TeacherTaskPlanListing = React.createClass
     hasPeriods = PH.hasPeriods(course)
 
     loadPlansList = _.partial(TeacherTaskPlanStore.getActiveCoursePlans, courseId)
-    loadedCalendarProps = {loadPlansList, courseId, date, displayAs, hasPeriods}
+    loadedCalendarProps = {loadPlansList, courseId, date, displayAs, hasPeriods, params}
     loadingCalendarProps = if hasPeriods
       {
         loadPlansList,
@@ -162,6 +162,7 @@ TeacherTaskPlanListing = React.createClass
         date,
         displayAs,
         hasPeriods,
+        params,
         className: 'calendar-loading'
       }
     else

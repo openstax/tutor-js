@@ -11,7 +11,10 @@ module.exports =
   listing: CourseListing
   dashboard: RouteHandlers.dashboard
   viewStudentDashboard: StudentDashboardShell
+  viewTeacherDashboard: TeacherTaskPlans
+  taskplans: TeacherTaskPlans
   calendarByDate: TeacherTaskPlans
+  calendarViewPlanStats: TeacherTaskPlans
   viewTask: TaskShell
   viewTaskStep: TaskShell
   viewTaskStepMilestones: TaskShell

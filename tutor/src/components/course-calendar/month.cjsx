@@ -10,6 +10,7 @@ BS = require 'react-bootstrap'
 {Calendar, Month, Week, Day} = require 'react-calendar'
 {TimeStore} = require '../../flux/time'
 TimeHelper = require '../../helpers/time'
+Router = require '../../helpers/router'
 
 CourseCalendarHeader = require './header'
 CourseAddMenuMixin   = require './add-menu-mixin'
@@ -45,12 +46,11 @@ CourseMonth = React.createClass
     date: moment(TimeStore.getNow())
 
   setDateParams: (date) ->
-    date = date.format(@props.dateFormat)
-    @context.router.transitionTo("/course/#{@props.courseId}/t/month/#{date}")
+    {params} = @props
+    params.date = date.format(@props.dateFormat)
 
-    # pathname: @props.windowImpl.location.pathname, query: query)
-    # @context.router.transitionTo(@context.router.getCurrentPathname(), {},
-    # @context.router.transitionTo('calendarByDate', params)
+    date = date.format(@props.dateFormat)
+    @context.router.transitionTo(Router.makePathname('calendarByDate', params))
 
   setDate: (date) ->
     unless moment(date).isSame(@props.date, 'month')

@@ -2,6 +2,7 @@ qs           = require 'qs'
 map          = require 'lodash/map'
 last         = require 'lodash/last'
 omit         = require 'lodash/omit'
+partial      = require 'lodash/partial'
 merge        = require 'lodash/merge'
 remove       = require 'lodash/remove'
 memoize      = require 'lodash/memoize'
@@ -15,11 +16,14 @@ matchPattern = require('react-router/matchPattern').default
 class OXRouter
 
   constructor: (routes) ->
+    routes = cloneDeep(routes)
+    mappedRoutes = cloneDeep(mapRoutes(routes))
+
     @getRoutes = -> routes
-    @getRoutesMap = -> mapRoutes(routes)
+    @getRoutesMap = -> mappedRoutes
 
   pathToEntry: (path = window.location.pathname) =>
-    findRoutePatternMemoed(path, @getRoutesMap())
+    cloneDeep(findRoutePatternMemoed(path, @getRoutesMap()))
 
   currentQuery: (options = {}) ->
     qs.parse((options.window or window).location.search.slice(1))
@@ -28,7 +32,7 @@ class OXRouter
     @pathToEntry( (options.window or window).location.pathname)?.match?.params or {}
 
   makePathname: (name, params, options = {}) =>
-    @getRoutesMap()[name]?.toPath(params)
+    @getRoutesMap()[name]?.toPath?(params)
 
   isActive: (name, params, options = {}) =>
     route = @getRoutesMap()[name]
@@ -36,12 +40,19 @@ class OXRouter
 
   getRenderableRoutes: (renderers) =>
     routes = @getRoutes()
+    routesMap = @getRoutesMap()
 
     traverseRoutes(routes, (route) ->
       return null unless renderers[route.name]?
+
       route.render = renderers[route.name]
+      route.getParamsForPath = partial(getParamsByPattern, routesMap[route.name].pattern)
       route
     )
+
+getParamsByPattern = (pattern, pathname = window.location.pathname) ->
+  match = matchPattern(pattern, {pathname}, false)
+  match?.params
 
 traverseRoutes = (routes, transformRoute) ->
   modifiedRoutes = compact(map(routes, (route) ->

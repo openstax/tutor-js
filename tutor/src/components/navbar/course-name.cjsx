@@ -1,9 +1,9 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
 _ = require 'underscore'
 
 BindStoreMixin = require '../bind-store-mixin'
+TutorLink = require '../link'
 
 {CurrentUserActions, CurrentUserStore} = require '../../flux/current-user'
 {CourseStore} = require '../../flux/course'
@@ -35,11 +35,12 @@ CourseName = React.createClass
           delayShow={1000}
           delayHide={0}
           overlay={courseNameTooltip}>
-            <Router.Link
-              to="/courses/#{course.id}"
+            <TutorLink
+              to='dashboard'
+              params={courseId: course.id}
               className='navbar-brand'>
               <div className="course-name">{course.name}</div>
-            </Router.Link>
+            </TutorLink>
         </BS.OverlayTrigger>
 
     coursenameComponent

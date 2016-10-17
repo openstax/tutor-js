@@ -6,8 +6,9 @@ isObject = require 'lodash/isObject'
 pick = require 'lodash/pick'
 
 PASSABLE_PROPS = [
-  'className', 'id', 'children', 'activeOnlyWhenExact',
-  'activeStyle', 'activeClassName', 'isActive', 'location', 'ref'
+  'className', 'id', 'children', 'target', 'activeOnlyWhenExact',
+  'activeStyle', 'activeClassName', 'isActive', 'location', 'ref',
+  'tabIndex', 'alt', 'title'
 ]
 
 makeLink = (router, name = 'OpenStax') ->
@@ -20,19 +21,17 @@ makeLink = (router, name = 'OpenStax') ->
 
       forEach(@props, (prop, name) ->
         if indexOf(name, 'data-') is 0 or
+          indexOf(name, 'aria-') is 0 or
           indexOf(name, 'on') is 0 or
           indexOf(PASSABLE_PROPS, name) > -1
             linkProps[name] = prop
       )
 
-      if params?
-        pathname = to.pathname or to
-        toPathname = router.makePathname(pathname, params)
+      pathname = router.makePathname(to, params)
 
-        if isObject(to)
-          to.pathname = toPathname
-        else
-          to = toPathname
+      to =
+        pathname: pathname or to
+        query: query
 
       # TODO see about isActive
       <Link to={to} {...linkProps} />
