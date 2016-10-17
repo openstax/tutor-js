@@ -1,7 +1,6 @@
 React = require 'react'
 ReactDOM = require 'react-dom'
 BS = require 'react-bootstrap'
-{Link} = require 'react-router'
 _ = require 'underscore'
 Router = require '../../helpers/router'
 
@@ -10,6 +9,8 @@ ServerErrorMonitoring = require './server-error-monitoring'
 UserActionsMenu = require './user-actions-menu'
 BookLinks = require './book-links'
 CenterControls = require './center-controls'
+TutorLink = require '../link'
+
 {NotificationsBar} = require 'shared'
 
 {CurrentUserActions} = require '../../flux/current-user'
@@ -57,9 +58,9 @@ module.exports = React.createClass
     params = Router.currentParams()
     {courseId} = params
 
-    brand = <Link to='/dashboard' className='navbar-brand'>
+    brand = <TutorLink to='listing' className='navbar-brand'>
               <i className='ui-brand-logo'></i>
-            </Link>
+            </TutorLink>
 
     <BS.Navbar fixedTop fluid ref="navBar">
       <CenterControls params={params} />

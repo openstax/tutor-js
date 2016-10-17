@@ -17,7 +17,7 @@ TimeHelper = require '../../../helpers/time'
 
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 {TaskingStore, TaskingActions} = require '../../../flux/tasking'
-{TutorInput, TutorDateInput, TutorTimeInput, TutorTextArea} = require '../../tutor-input'
+{TutorInput, TutorTextArea} = require '../../tutor-input'
 {CourseStore, CourseActions}   = require '../../../flux/course'
 {AsyncButton} = require 'shared'
 

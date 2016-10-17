@@ -74,15 +74,19 @@ TutorInput = React.createClass
       <ErrorWarning key={error}/>
     )
 
-    inputProps = _.omit(@props, 'label', 'className', 'onChange', 'validate', 'default', 'children', 'ref')
-    inputProps.ref = 'input'
-    inputProps.className = classes
-    inputProps.onChange = @onChange
+    inputProps =
+      ref:'input'
+      className: classes
+      onChange: @onChange
+
     inputProps.defaultValue ?= @props.default if @props.default?
 
     if children?
       inputBox = React.cloneElement(children, inputProps)
     else
+      props = _.omit(@props, 'label', 'className', 'onChange', 'validate', 'default', 'children', 'ref')
+      inputProps = _.extend({}, inputProps, props)
+
       inputBox = <input {...inputProps}/>
 
 
@@ -355,16 +359,15 @@ TutorTimeInput = React.createClass
 
     <TutorInput
       {...maskedProps}
-      value={timeValue}
-      defaultValue={timeValue}
       onChange={@onChange}
       validate={@validate}
-      ref="timeInput"
-      mask={timePattern}
-      formatCharacters={formatCharacters}
-      size='8'
-      name='time'>
-      <MaskedInput/>
+      ref="timeInput">
+      <MaskedInput
+        value={timeValue}
+        name='time'
+        size='8'
+        mask={timePattern}
+        formatCharacters={formatCharacters}/>
     </TutorInput>
 
 TutorTextArea = React.createClass

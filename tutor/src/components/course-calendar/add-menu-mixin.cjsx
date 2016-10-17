@@ -3,6 +3,8 @@ _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
 
+Router = require '../../helpers/router'
+
 CourseGroupingLabel = require '../course-grouping-label'
 
 CourseAddMenuMixin =
@@ -23,35 +25,43 @@ CourseAddMenuMixin =
   goToBuilder: (link) ->
     (clickEvent) =>
       clickEvent.preventDefault()
-      @context.router.transitionTo(link.to, link.params, link.query)
+      @context.router.transitionTo(link)
 
   renderAddActions: ->
     {courseId} = @props
     {dateFormat, hasPeriods} = @props
-    link = "/course/#{courseId}"
+
     if hasPeriods
       links = [
         {
           text: 'Add Reading'
-          to: "#{link}/readings/new"
+          to: 'createReading'
+          params:
+            courseId: courseId
           type: 'reading'
           query:
             due_at: @state.addDate?.format(dateFormat)
         }, {
           text: 'Add Homework'
-          to: "#{link}/homework/new"
+          to: 'createHomework'
+          params:
+            courseId: courseId
           type: 'homework'
           query:
             due_at: @state.addDate?.format(dateFormat)
         }, {
           text: 'Add External Assignment'
-          to: "#{link}/externals/new"
+          to: 'createExternal'
+          params:
+            courseId: courseId
           type: 'external'
           query:
             due_at: @state.addDate?.format(dateFormat)
         }, {
           text: 'Add Event'
-          to: "#{link}/events/new"
+          to: 'createEvent'
+          params:
+            courseId: courseId
           type: 'event'
           query:
             due_at: @state.addDate?.format(dateFormat)
@@ -82,12 +92,13 @@ CourseAddMenuMixin =
       }]
 
     for link in links
-      href = @context.router.createHref(link.to)
+      link.pathname = Router.makePathname(link.to, link.params)
+
       <li
         key={link.type}
         data-assignment-type={link.type}
         ref="#{link.type}Link">
-        <a href={href} onClick={@goToBuilder(link)} >
+        <a href={link.pathname} onClick={@goToBuilder(link)} >
           {link.text}
         </a>
       </li>

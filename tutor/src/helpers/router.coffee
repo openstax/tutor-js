@@ -31,7 +31,14 @@ ROUTES = [
           }]
         }]
       }
+      { pattern: 'homework/new', name: 'createHomework' }
       { pattern: 'homework/:id', name: 'editHomework' }
+      { pattern: 'reading/new', name: 'createReading' }
+      { pattern: 'reading/:id', name: 'editReading' }
+      { pattern: 'external/new', name: 'createExternal' }
+      { pattern: 'external/:id', name: 'editExternal' }
+      { pattern: 'event/new', name: 'createEvent' }
+      { pattern: 'event/:id', name: 'editEvent' }
     ]
 
   }

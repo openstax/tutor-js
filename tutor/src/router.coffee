@@ -22,6 +22,9 @@ module.exports =
   viewReferenceBookSection: ReferenceBookShell
   viewReferenceBookPage: ReferenceBookPageShell
   editHomework: HomeworkShell
+  editReading: ReadingShell
+  editExternal: ExternalShell
+  editEvent: EventShell
 
 
 # TODO see how to put this in the same file
