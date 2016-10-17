@@ -45,7 +45,7 @@ Tabs = React.createClass
 
   # called when the router has transistioned, validate the new tabindex
   componentWillReceiveProps: (nextProps) ->
-    {tab} = @props.params
+    tab = @props.params?.tab
     return if _.isUndefined(tab)
 
     activeIndex = parseInt(tab, 10)

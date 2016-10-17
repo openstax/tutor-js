@@ -32,7 +32,7 @@ module.exports = React.createClass
     })
 
     unless @props.tooltip
-      iconProps = _.omit(@props, 'tooltipProps')
+      iconProps = _.omit(@props, 'tooltipProps', 'spin')
       return <i {...iconProps} className={classNames} />
     buttonProps = propHelpers.removeDefined(@)
     icon = <button {...buttonProps} className={classNames} />

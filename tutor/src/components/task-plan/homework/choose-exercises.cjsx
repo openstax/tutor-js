@@ -48,6 +48,7 @@ ChooseExercises = React.createClass
         className={classnames('-show-problems', { disabled: _.isEmpty(selected) })}
         bsStyle='primary'
         onClick={@selectProblems}
+        key='hello'
       >Show Problems</BS.Button>
 
     <div className='homework-plan-exercise-select-topics'>
