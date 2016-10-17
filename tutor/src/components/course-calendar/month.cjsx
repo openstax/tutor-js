@@ -35,9 +35,11 @@ CourseMonth = React.createClass
 
   childContextTypes:
     date: TimeHelper.PropTypes.moment
+    dateFormatted: React.PropTypes.string
 
   getChildContext: ->
     date: @props.date
+    dateFormatted: @props.date.format(@props.dateFormat)
 
   getInitialState: ->
     activeAddDate: null

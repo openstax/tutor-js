@@ -378,7 +378,7 @@ TutorTextArea = React.createClass
     onChange: React.PropTypes.func
 
   resize: (event) ->
-    @refs.textarea.style.height = "#{textarea.scrollHeight}px"
+    @refs.textarea.style.height = "#{@refs.textarea.scrollHeight}px"
 
   componentDidMount: ->
     @resize() if @props.default?.length > 0
