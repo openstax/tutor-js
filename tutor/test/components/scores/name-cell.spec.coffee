@@ -14,7 +14,7 @@ describe 'Student Scores Name Cell', ->
       student:
         first_name: 'Molly'
         last_name: 'Bloom'
-        role: 'student'
+        role: 1
         student_identifier: '123456'
 
   it 'renders with name and id', ->
