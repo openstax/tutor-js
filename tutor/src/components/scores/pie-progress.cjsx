@@ -27,9 +27,9 @@ PieProgress = React.createClass
           <path className="slice #{lateClass}"
             d="M12.334,11.582h12l0,0c0-6.628-5.371-12-12-12V11.582z"/>
         </g>
-        <line fill="none" stroke="#FFFFFF" stroke-miterlimit="10"
+        <line fill="none" stroke="#FFFFFF" strokeMiterlimit="10"
           x1="12.334" y1="-0.417" x2="12.334" y2="23.582"/>
-        <line fill="none" stroke="#FFFFFF" stroke-miterlimit="10"
+        <line fill="none" stroke="#FFFFFF" strokeMiterlimit="10"
           x1="0.334" y1="11.583" x2="24.334" y2="11.583"/>
       </g>
     q2 =
@@ -40,10 +40,10 @@ PieProgress = React.createClass
             d="M11.566-0.417v24c6.629,0,12-5.371,12-12C23.566,4.955,18.195-0.417,11.566-0.417z"
           />
         </g>
-        <line fill="none" stroke="#FFFFFF" stroke-miterlimit="10"
+        <line fill="none" stroke="#FFFFFF" strokeMiterlimit="10"
           x1="11.566" y1="-0.417" x2="11.566" y2="23.582"
         />
-        <line fill="none" stroke="#FFFFFF" stroke-miterlimit="10"
+        <line fill="none" stroke="#FFFFFF" strokeMiterlimit="10"
           x1="-0.434" y1="11.583" x2="23.566" y2="11.583"
         />
       </g>
@@ -58,10 +58,10 @@ PieProgress = React.createClass
           </g>
         </g>
         <g>
-          <line fill="none" stroke="#FFFFFF" stroke-miterlimit="10"
+          <line fill="none" stroke="#FFFFFF" strokeMiterlimit="10"
             x1="11.798" y1="-0.417" x2="11.798" y2="23.582"
           />
-          <line fill="none" stroke="#FFFFFF" stroke-miterlimit="10"
+          <line fill="none" stroke="#FFFFFF" strokeMiterlimit="10"
             x1="-0.202" y1="11.583" x2="23.799" y2="11.583"
           />
         </g>
@@ -71,9 +71,9 @@ PieProgress = React.createClass
         <circle className="slice #{lateClass}" cx="12.03" cy="11.583" r="12"/>
         <g>
           <line fill="none" stroke="#FFFFFF"
-            stroke-miterlimit="10" x1="12.03" y1="-0.418" x2="12.03" y2="23.582"/>
+            strokeMiterlimit="10" x1="12.03" y1="-0.418" x2="12.03" y2="23.582"/>
           <line fill="none" stroke="#FFFFFF"
-            stroke-miterlimit="10" x1="0.03" y1="11.582" x2="24.03" y2="11.582"/>
+            strokeMiterlimit="10" x1="0.03" y1="11.582" x2="24.03" y2="11.582"/>
         </g>
       </g>
     pieCircle =

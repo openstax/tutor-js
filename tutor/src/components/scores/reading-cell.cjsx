@@ -1,6 +1,6 @@
 React  = require 'react'
 ReactDOM = require 'react-dom'
-{Link} = require 'react-router'
+TutorLink = require '../link'
 BS = require 'react-bootstrap'
 classNames = require 'classnames'
 
@@ -51,11 +51,11 @@ ReadingCell = React.createClass
               </div>
               <div className='row'>
                 <div>
-                  <Link to='viewTaskStep'
+                  <TutorLink to='viewTaskStep'
                     data-assignment-type="#{task.type}"
                     params={courseId: courseId, id: task.id, stepIndex: 1}>
                       Review
-                  </Link>
+                  </TutorLink>
                 </div>
               </div>
             </div>

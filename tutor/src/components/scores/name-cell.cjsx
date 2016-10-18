@@ -2,7 +2,7 @@ React    = require 'react'
 Router = require 'react-router'
 Name = require '../name'
 classnames = require 'classnames'
-
+TutorLink = require '../link'
 TOOLTIP_OPTIONS = enable: true, placement: 'top', delayShow: 1500, delayHide: 150
 
 module.exports = React.createClass
@@ -14,6 +14,7 @@ module.exports = React.createClass
     student: React.PropTypes.shape(
       first_name: React.PropTypes.string
       last_name: React.PropTypes.string
+      role: React.PropTypes.number
       student_identifier: React.PropTypes.string
     ).isRequired
 
@@ -30,9 +31,10 @@ module.exports = React.createClass
         {children}
       </div>
     else
-      <Router.Link
+      <TutorLink
         className={classname}
         to='viewStudentTeacherPerformanceForecast'
-        params={roleId: @props.roleId, courseId: @props.courseId}>
+        params={roleId: @props.student.role, courseId: @props.courseId}
+      >
          {children}
-      </Router.Link>
+      </TutorLink>

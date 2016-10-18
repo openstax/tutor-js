@@ -6,7 +6,9 @@ TeacherTaskPlans        = require './components/task-plan/teacher-task-plans-lis
 {TaskShell}             = require './components/task'
 {ReferenceBookShell, ReferenceBookPageShell} = require './components/reference-book'
 {ReadingShell, HomeworkShell, ExternalShell, EventShell} = require './components/task-plan'
+{ScoresShell} = require './components/scores'
 
+# These route names are mapped to a routing tree in src/helpers/router.coffee
 module.exports =
   listing: CourseListing
   dashboard: RouteHandlers.dashboard
@@ -25,6 +27,7 @@ module.exports =
   editReading: ReadingShell
   editExternal: ExternalShell
   editEvent: EventShell
+  viewScores: ScoresShell
 
 
 # TODO see how to put this in the same file
