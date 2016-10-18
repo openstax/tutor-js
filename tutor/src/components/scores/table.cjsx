@@ -135,28 +135,23 @@ module.exports = React.createClass
         width={@state.tableWidth}
         headerHeight={150}
         rowsCount={rows.length}
-        groupHeaderHeight={groupHeaderHeight}
       >
         <ColumnGroup fixed={true}>
-
           <Column
             fixed={true}
             width={COLUMN_WIDTH}
             flexGrow={0}
             allowCellsRecycling={true}
             isResizable=false
-            fixed={true}
             cell={<@NameCell data={@props.rows} />}
             header={<@NameHeader />}
           />
-
           <Column
             fixed={true}
             width={COLUMN_WIDTH / 2}
             flexGrow={0}
             allowCellsRecycling={true}
             isResizable=false
-            fixed={true}
             cell={<@OverallCell data={@props.rows} />}
             header={<@OverallHeader />}
           />
@@ -167,10 +162,8 @@ module.exports = React.createClass
             <Column
               key={columnIndex}
               width={COLUMN_WIDTH}
-              flexGrow={1}
+              flexGrow={0}
               allowCellsRecycling={true}
-              isResizable=false
-              fixed={true}
               cell={
                 <AssignmentCell {...@props}
                   width={COLUMN_WIDTH}
