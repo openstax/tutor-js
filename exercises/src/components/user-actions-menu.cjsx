@@ -12,6 +12,9 @@ UserActionsMenu = React.createClass
     @crsfToken =
       document.querySelector('meta[name=csrf-token]')?.getAttribute('content')
 
+  onLogoutClick: ->
+    @refs.logoutForm.submit()
+
   render: ->
     name = @props.user?.full_name or
       [@props.user?.first_name, @props.user?.last_name].join(' ')
@@ -22,8 +25,9 @@ UserActionsMenu = React.createClass
         id='navbar-dropdown'
         title={name}
         ref='navDropDown'>
-        <BS.MenuItem className='logout' onClick={@onLinkClick}>
+        <BS.MenuItem className='logout'>
           <form
+            ref='logoutForm'
             acceptCharset='UTF-8'
             action={'/accounts/logout'}
             className='-logout-form'
@@ -31,7 +35,7 @@ UserActionsMenu = React.createClass
           >
             <input type='hidden' name='_method' value='delete'/>
             <input type='hidden' name='authenticity_token' value={@crsfToken}/>
-            <input type='submit' aria-label="Log Out" value='Log Out' />
+            <input type='submit' aria-label="Log Out" value='Log Out' onClick={@onLogoutClick} />
           </form>
         </BS.MenuItem>
 
