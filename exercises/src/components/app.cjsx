@@ -66,8 +66,7 @@ App = React.createClass
 
     return newId
 
-  onReset: (ev) ->
-    ev.preventDefault()
+  onSearch: ->
     @props.location.visitSearch()
 
   render: ->
@@ -80,8 +79,9 @@ App = React.createClass
     Body = NetworkActivity if store?.isLoading(id)
 
     guardProps =
-      onlyPromptIf: ->
+      onlyPromptIf: (ev) ->
         id and store?.isChanged(id)
+
       placement: 'right'
       message: "You will lose all unsaved changes"
 
@@ -100,10 +100,10 @@ App = React.createClass
             <BS.ButtonToolbar className="navbar-btn">
               {if view
                 <SuretyGuard
-                  onConfirm={@onReset}
+                  onConfirm={@onSearch}
                   {...guardProps}
                 >
-                  <a href="/exercises" className="btn btn-danger back">Back</a>
+                  <BS.Button className="btn btn-danger back">Search</BS.Button>
                 </SuretyGuard>}
 
               <SuretyGuard
