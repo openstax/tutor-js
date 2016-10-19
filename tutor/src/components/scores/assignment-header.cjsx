@@ -92,7 +92,7 @@ AssignmentHeader = (props) ->
 
   cellWidth = getCellWidth({isConceptCoach, heading})
 
-  <div className='assignment-header-cell'>
+  <div className='header-cell-wrapper assignment-header-cell'>
     <BS.OverlayTrigger
       placement='top'
       delayShow={1000}

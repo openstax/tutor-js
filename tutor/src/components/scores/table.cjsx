@@ -72,7 +72,7 @@ module.exports = React.createClass
 
 
   OverallHeader: ->
-    <div className='overall-average-cell'>
+    <div className='header-cell-wrapper overall-average-cell'>
       <div className='overall-header-cell'>Overall</div>
       <div className='average'>
         <span>
@@ -99,22 +99,24 @@ module.exports = React.createClass
 
   NameHeader: (props) ->
     {sort, onSort, isConceptCoach} = @props
-    <div className='assignment-header-cell'>
-      <div className='average-label'>
-        Class Performance &nbsp
-        <sup>
-          <AverageInfo isConceptCoach={isConceptCoach} />
-        </sup>
-      </div>
-      <div className='student-header'>
-        <div className='scores-cell'>
-          <SortingHeader
-            sortKey='name'
-            sortState={sort}
-            onSort={onSort}
-          >
-              <div className='student-name'>Name and Student ID</div>
-          </SortingHeader>
+    <div className='header-cell-wrapper'>
+      <div className='assignment-header-cell'>
+        <div className='average-label'>
+          Class Performance &nbsp
+          <sup>
+            <AverageInfo isConceptCoach={isConceptCoach} />
+          </sup>
+        </div>
+        <div className='student-header'>
+          <div className='scores-cell'>
+            <SortingHeader
+              sortKey='name'
+              sortState={sort}
+              onSort={onSort}
+            >
+                <div className='student-name'>Name and Student ID</div>
+            </SortingHeader>
+          </div>
         </div>
       </div>
     </div>
