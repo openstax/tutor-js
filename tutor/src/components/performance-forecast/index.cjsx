@@ -7,6 +7,7 @@ TeacherComponent = require './teacher'
 StudentComponent = require './student'
 TeacherStudentComponent = require './teacher-student'
 {ScoresStore, ScoresActions} = require '../../flux/scores'
+{CourseStore} = require '../../flux/course'
 
 Student = React.createClass
   displayName: 'PerformanceForecastStudentShell'
@@ -26,9 +27,6 @@ Student = React.createClass
 # scores report store as well as the teacher student learning guide
 TeacherStudent = React.createClass
   displayName: 'PerformanceForecastTeacherStudentShell'
-
-  contextTypes:
-    router: React.PropTypes.func
 
   render: ->
     {courseId, roleId} = Router.currentParams()
@@ -52,4 +50,18 @@ Teacher = React.createClass
       renderItem={-> <TeacherComponent courseId={courseId} />}
     />
 
-module.exports = {Teacher, TeacherStudent, Student}
+Guide = React.createClass
+  displayName: 'PerformanceForecastGuide'
+
+  render: ->
+    {courseId, roleId} = Router.currentParams()
+    isTeacher = CourseStore.isTeacher(courseId)
+    if roleId? and isTeacher
+      <TeacherStudent />
+    else if isTeacher
+      <Teacher />
+    else
+      <Student />
+
+
+module.exports = {Teacher, TeacherStudent, Student, Guide}

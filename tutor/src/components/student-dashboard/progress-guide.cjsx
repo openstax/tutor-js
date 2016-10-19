@@ -1,7 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 {SpyMode} = require 'shared'
-
+Router = require '../../helpers/router'
 LoadableItem = require '../loadable-item'
 _ = require 'underscore'
 S = require '../../helpers/string'
@@ -56,7 +56,9 @@ ProgressGuidePanels = React.createClass
 
   mixins: [ChapterSectionMixin]
   viewPerformanceForecast: ->
-    @context.router.transitionTo("/courses/#{@props.courseId}/guide")
+    @context.router.transitionTo(
+      Router.makePathname('viewPerformanceGuide', @props)
+    )
 
   renderEmpty: (sections) ->
     <div className='progress-guide empty'>

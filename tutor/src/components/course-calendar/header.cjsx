@@ -71,7 +71,7 @@ CourseCalendarHeader = React.createClass
           <BrowseTheBook bsStyle='default' courseId={courseId} />
           <TutorLink
             className='btn btn-default'
-            to='viewTeacherPerformanceForecast'
+            to='viewPerformanceGuide'
             params={{courseId}}
           >
             Performance Forecast

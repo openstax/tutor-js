@@ -7,12 +7,12 @@ ROUTES = [
     pattern: '/course/:courseId', name: 'dashboard'
     routes: [
       { pattern: 'scores',        name: 'viewScores'     }
+      { pattern: 'guide/:roleId?',         name: 'viewPerformanceGuide' }
       { pattern: 'list',          name: 'viewStudentDashboard'  }
       {
         pattern: 't', name: 'viewTeacherDashboard'
         routes: [
           {
-
             pattern: 'guide', name: 'viewTeacherPerformanceForecast'
             routes: [{
               pattern: 'student/:roleId', name: 'viewStudentTeacherPerformanceForecast'

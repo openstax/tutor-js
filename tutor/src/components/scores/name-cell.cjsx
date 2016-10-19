@@ -32,8 +32,7 @@ module.exports = React.createClass
       </div>
     else
       <TutorLink
-        className={classname}
-        to='viewStudentTeacherPerformanceForecast'
+        to='viewPerformanceGuide' className={classname}
         params={roleId: @props.student.role, courseId: @props.courseId}
       >
          {children}

@@ -1,7 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
-{Link} = require 'react-router'
+TutorLink = require '../link'
 _ = require 'underscore'
 
 PerformanceForecast = require '../../flux/performance-forecast'
@@ -35,10 +35,11 @@ module.exports = React.createClass
           <ColorKey />
         </div>
 
-        <Link to='viewStudentDashboard' className='btn btn-default back'
-        params={courseId: @props.courseId}>
-        Return to Dashboard
-        </Link>
+        <TutorLink to='dashboard' className='btn btn-default back'
+          params={courseId: @props.courseId}
+        >
+          Return to Dashboard
+        </TutorLink>
 
       </div>
     </div>

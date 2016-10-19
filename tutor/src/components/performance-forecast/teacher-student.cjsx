@@ -1,10 +1,10 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+
 _ = require 'underscore'
 
 Router = require '../../helpers/router'
-{Link} = require 'react-router'
+TutorLink = require '../link'
 Name = require '../name'
 BindStoreMixin = require '../bind-store-mixin'
 PerformanceForecast = require '../../flux/performance-forecast'
@@ -32,11 +32,13 @@ module.exports = React.createClass
 
   bindStore: PerformanceForecast.TeacherStudent.store
 
-  onSelectStudent: (ev, roleId) ->
+  onSelectStudent: (roleId, ev) ->
     {courseId} = @props
     PerformanceForecast.TeacherStudent.actions.load(courseId, {roleId})
     @setState({roleId})
-    @context.router.transitionTo('viewStudentTeacherPerformanceForecast', {courseId, roleId})
+    @context.router.transitionTo(
+      Router.makePathname('viewPerformanceGuide', {courseId, roleId})
+    )
 
   renderHeading: ->
     students = ScoresStore.getAllStudents(@props.courseId)
@@ -47,7 +49,6 @@ module.exports = React.createClass
       <div className='guide-group-title'>
         <span className='preamble'>Performance Forecast for:</span>
         <BS.DropdownButton
-          bzSize='large'
           id='student-selection'
           className='student-selection'
           title={name}
@@ -60,11 +61,11 @@ module.exports = React.createClass
         </BS.DropdownButton>
         <InfoLink type='teacher_student'/>
       </div>
-      <Link activeClassName='' to='viewScores'
+      <TutorLink activeClassName='' to='viewScores'
         className='btn btn-default back'
         params={courseId: @props.courseId}>
         Return to Scores
-      </Link>
+      </TutorLink>
     </div>
 
   renderWeakerExplanation: ->
