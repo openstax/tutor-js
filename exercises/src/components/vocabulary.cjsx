@@ -10,6 +10,7 @@ Tags = require 'components/vocabulary/tags'
 ExercisePreview = require 'components/exercise/preview'
 NetworkActivity = require 'components/network-activity-spinner'
 RecordNotFound  = require 'components/record-not-found'
+{BSFieldGroup} = require 'shared'
 
 Vocabulary = React.createClass
   propTypes:
@@ -58,11 +59,18 @@ Vocabulary = React.createClass
 
         <BS.Row>
           <BS.Col sm=6>
-
-            <BS.Input type="text" label="Key Term" onChange={@setTerm} value={vocabTerm.term} />
-
-            <BS.Input type="textarea" label="Key Term Definition"
-              onChange={@setDefinition} value={vocabTerm.definition} />
+            <BSFieldGroup
+              id="key-term"
+              type="text"
+              label="Key Term"
+              onChange={@setTerm} value={vocabTerm.term}
+            />
+            <BSFieldGroup
+              id="key-term-def"
+              type="textarea"
+              label="Key Term Definition"
+              onChange={@setDefinition} value={vocabTerm.definition}
+            />
 
           </BS.Col>
           <BS.Col sm=6>
