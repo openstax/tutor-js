@@ -42,8 +42,8 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
           url = "#{uri}/#{opts.method}.json?#{params}"
           opts.method = 'GET'
 
-      resolved = (results, statusStr, jqXhr) ->
-        successAction(results, args...) # Include listenAction for faking
+      resolved = ({data}) ->
+        successAction(data, args...) # Include listenAction for faking
       rejected = (jqXhr, statusMessage, err) ->
         statusCode = jqXhr.status
 

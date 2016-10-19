@@ -1,4 +1,5 @@
 React = require 'react'
+
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 
@@ -27,11 +28,11 @@ Search = React.createClass
     ExerciseActions.load(exerciseId)
 
   onFindExercise: ->
-    @loadExercise(this.refs.exerciseId.getDOMNode().value)
+    @loadExercise(this.refs.exerciseId.value)
 
   onExerciseKeyPress: (ev) ->
     return unless ev.key is 'Enter'
-    @loadExercise(this.refs.exerciseId.getDOMNode().value)
+    @loadExercise(this.refs.exerciseId.value)
     ev.preventDefault()
 
   render: ->

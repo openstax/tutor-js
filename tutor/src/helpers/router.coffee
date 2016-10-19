@@ -6,18 +6,12 @@ ROUTES = [
   {
     pattern: '/course/:courseId', name: 'dashboard'
     routes: [
-      { pattern: 'scores',        name: 'viewScores'     }
-      { pattern: 'guide/:roleId?',         name: 'viewPerformanceGuide' }
-      { pattern: 'list',          name: 'viewStudentDashboard'  }
+      { pattern: 'scores', name: 'viewScores' }
+      { pattern: 'guide/:roleId?', name: 'viewPerformanceGuide' }
       {
         pattern: 't', name: 'viewTeacherDashboard'
         routes: [
           {
-            pattern: 'guide', name: 'viewTeacherPerformanceForecast'
-            routes: [{
-              pattern: 'student/:roleId', name: 'viewStudentTeacherPerformanceForecast'
-            }]
-          }, {
             pattern: 'month/:date', name: 'calendarByDate'
             routes: [{
               pattern: 'plan/:planId', name: 'calendarViewPlanStats'

@@ -60,7 +60,6 @@ module.exports = React.createClass
 
   multipleChoiceClicked: (event) -> QuestionActions.toggleMultipleChoiceFormat(@props.id)
   freeResponseClicked: (event) -> QuestionActions.toggleFreeResponseFormat(@props.id)
-  preserveOrderClicked: (event) -> QuestionActions.togglePreserveOrder(@props.id)
 
   render: ->
     { id, removeQuestion, moveQuestion, canMoveLeft, canMoveRight } = @props
@@ -107,11 +106,6 @@ module.exports = React.createClass
 
       <QuestionFormatType sync={@props.sync} questionId={id} />
 
-      {<BS.FormGroup className="order-matters">
-        <BS.ControlLabel>Order Matters</BS.ControlLabel>
-        <BS.FormControl type="checkbox"
-          checked={QuestionStore.isOrderPreserved(id)} onChange={@preserveOrderClicked} />
-      </BS.FormGroup> if QuestionStore.hasFormat(id, 'multiple-choice')}
 
       <div>
         <label>Question Stem</label>

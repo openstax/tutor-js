@@ -25,14 +25,17 @@ MPQToggle = React.createClass
     showMPQ = ExerciseStore.isMultiPart(@props.exerciseId)
 
     checkbox =
-      <BS.FormGroup className="mpq-toggle">
-        <BS.ControlLabel>Exercise contains multiple parts</BS.ControlLabel>
-        <BS.FormControl autoFocus
+      <BS.FormGroup controlId="mpq-toggle" className="mpq-toggle">
+        <BS.FormControl
           type="checkbox"
           ref="input"
+
           checked={showMPQ}
           onChange={@onToggleMPQ}
         />
+        <BS.ControlLabel>
+          Exercise contains multiple parts
+        </BS.ControlLabel>
       </BS.FormGroup>
 
     if showMPQ
