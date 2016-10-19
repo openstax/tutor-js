@@ -36,6 +36,9 @@ ExerciseControls = React.createClass
    publishExercise: ->
      ExerciseActions.publish(@props.id)
 
+  onPreview: ->
+    @props.location.visitPreview(@props.id)
+
   render: ->
     {id} = @props
 
@@ -78,6 +81,7 @@ ExerciseControls = React.createClass
             </AsyncButton>
           </SuretyGuard>
         }
+        <BS.Button bsStyle='info' onClick={@onPreview}>Preview Only</BS.Button>
       </BS.ButtonToolbar>
       <div className="right-side">
         <MPQToggle exerciseId={@props.id} />
