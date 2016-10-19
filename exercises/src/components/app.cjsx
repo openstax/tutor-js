@@ -20,7 +20,7 @@ App = React.createClass
     location: new Location
 
   componentWillMount: ->
-    @props.location.startListening(@onHistoryChange)
+    @props.location.startListening(@onHistoryChange, @props.data.user)
     {view, id} = @props.location.getCurrentUrlParts()
     if id is 'new'
       @setState(newId: @createNewRecord(view))

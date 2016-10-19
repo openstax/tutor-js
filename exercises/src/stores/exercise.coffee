@@ -1,4 +1,6 @@
 _ = require 'underscore'
+find = require 'lodash/find'
+map = require 'lodash/map'
 flux = require 'flux-react'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {QuestionActions, QuestionStore} = require './question'
@@ -23,7 +25,7 @@ ExerciseConfig = {
   updateStimulus: (id, stimulus_html) -> @_change(id, {stimulus_html})
 
   sync: (id) ->
-    questions = _.map @_local[id].questions, (question) ->
+    questions = map @_local[id].questions, (question) ->
       QuestionActions.syncAnswers(question.id)
       QuestionStore.get(question.id)
     @_change(id, {questions})
@@ -167,6 +169,10 @@ ExerciseConfig = {
       tags: []
       stimulus_html:"",
       questions:[_.extend({}, QuestionStore.getTemplate(), {id: questionId})]
+
+    canEdit: (id, user) ->
+      exercise = @_get(id)
+      !!find( exercise.authors, user_id: user.id )
 
     validate: (id) ->
       return {valid: false, part: 'exercise'} unless @_local[id]
