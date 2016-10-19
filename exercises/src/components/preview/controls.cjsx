@@ -20,10 +20,9 @@ PreviewControls = React.createClass
     return null unless exercise?
 
     versions = _.sortBy(exercise.versions, parseInt)
-    # find the first version that's less than current
+
     nextVersion = _.find(versions, (version) -> version > exercise.version)
     prevVersion = _.find(versions.reverse(), (version) -> version < exercise.version)
-    console.log prevVersion, nextVersion, versions
 
     <div className="preview-navbar-controls">
 
