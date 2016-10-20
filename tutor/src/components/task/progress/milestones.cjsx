@@ -40,10 +40,12 @@ Milestone = React.createClass
     title = StepTitleStore.get(crumb.id)
 
     if crumb.type is 'reading' and crumb.related_content?[0]?.title?
+      relatedTitle = crumb.related_content[0].title
+
       if title is 'Summary'
-        title = "#{title} of #{crumb.related_content?[0]?.title}"
+        title = "#{title} of #{relatedTitle}"
       else if not title
-        title = crumb.related_content?[0]?.title
+        title = relatedTitle
 
     title
 
@@ -161,6 +163,7 @@ MilestonesWrapper = React.createClass
 
   render: ->
     {crumbs, currentStep} = @state
+    console.info(crumbs)
 
     stepButtons = _.map crumbs, (crumb, crumbIndex) =>
       <Milestone
