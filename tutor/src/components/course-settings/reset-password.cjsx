@@ -30,7 +30,7 @@ module.exports = React.createClass
     @refs.overlay.hide()
 
   resetPassword: ->
-    <BS.Popover title={'Update password:'} {...@props}>
+    <BS.Popover title={'Update password:'}>
       <PasswordResetField ref='password' />
 
       <BS.Button block onClick={@performUpdate}>

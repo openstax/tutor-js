@@ -50,7 +50,7 @@ module.exports = React.createClass
       id="teacher-remove-popover-#{@props.teacher.id}"
       className='teacher-remove'
       title={title}
-      {...@props}>
+    >
       {removeButton}
       <div className='warning'>
         {WARN_REMOVE_CURRENT if @isRemovalCurrentTeacher()}

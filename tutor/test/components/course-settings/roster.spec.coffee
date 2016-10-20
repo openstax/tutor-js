@@ -46,14 +46,15 @@ describe 'Course Settings', ->
       )
 
   it 'switches roster when tab is clicked', (done) ->
-    Testing.renderComponent( Roster, props: @props ).then ({dom, element}) ->
-      Testing.actions.click(dom.querySelector('.periods .nav-tabs li:nth-child(2) a'))
+    Testing.renderComponent( Roster, props: @props ).then (result) ->
+      Testing.actions.click(result.dom.querySelector('.periods .nav-tabs li:nth-child(2) a'))
       _.defer ->
-        names = _.pluck(element.getDOMNode().querySelectorAll("table.roster tr td:nth-child(2)"), 'textContent')
+        names = _.pluck(result.dom.querySelectorAll("table.roster tr td:nth-child(2)"), 'textContent')
         expect(names).to.deep.equal(
           ['Bloom', 'Kirlin']
         )
         done()
+    true
 
   it 'can archive periods', (done) ->
     Testing.renderComponent( Roster, props: @props, unmountAfter: 30 ).then ({dom}) ->
@@ -67,6 +68,7 @@ describe 'Course Settings', ->
           expect(dom.querySelector('.nav-tabs .active').textContent).to.equal('2nd')
           expect(dom.querySelector('.roster tbody td').textContent).to.equal('Molly')
           done()
+    true
 
   it 'can view and unarchive periods', (done) ->
     Testing.renderComponent( Roster, props: @props ).then ({dom}) ->
@@ -83,3 +85,4 @@ describe 'Course Settings', ->
         )
         expect(PeriodActions.restore).to.have.been.calledWith('4', '1')
         done()
+    true

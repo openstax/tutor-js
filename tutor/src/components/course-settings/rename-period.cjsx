@@ -81,29 +81,28 @@ module.exports = React.createClass
     if @state?.invalid
       formClasses.push('is-invalid-form')
       disabled = true
-    title =
-      <h4>Rename <CourseGroupingLabel courseId={@props.courseId}/></h4>
-    label =
-      <span><CourseGroupingLabel courseId={@props.courseId}/> Name</span>
 
     <BS.Modal
-      {...@props}
       show={@state.showModal}
       onHide={@close}
       className='teacher-edit-period-modal'>
 
       <BS.Modal.Header closeButton>
-        <BS.Modal.Title>{title}</BS.Modal.Title>
+        <BS.Modal.Title>
+          Rename <CourseGroupingLabel courseId={@props.courseId}/>
+        </BS.Modal.Title>
       </BS.Modal.Header>
 
       <div className={formClasses.join(' ')}>
         <RenamePeriodField
-        label={label}
-        name='period-name'
-        default={@props.period.name}
-        onChange={(val) => @setState(period_name: val)}
-        validate={@validate}
-        autofocus />
+          label={
+            <span><CourseGroupingLabel courseId={@props.courseId}/> Name</span>
+          }
+          name='period-name'
+          default={@props.period.name}
+          onChange={(val) => @setState(period_name: val)}
+          validate={@validate}
+          autofocus />
       </div>
 
       <div className='modal-footer'>

@@ -36,6 +36,7 @@ ROUTES = [
       { pattern: 'external/:id', name: 'editExternal'   }
       { pattern: 'event/new',    name: 'createEvent'    }
       { pattern: 'event/:id',    name: 'editEvent'      }
+      { pattern: 'settings',     name: 'courseSettings' }
     ]
 
   }
