@@ -7,7 +7,7 @@ InvalidPage = require '../components/invalid-page'
 TeacherTaskPlans        = require '../components/task-plan/teacher-task-plans-listing'
 CCStudentRedirect       = require '../components/cc-student-redirect'
 {StudentDashboardShell} = require '../components/student-dashboard'
-
+CCDashboard = require '../components/cc-dashboard'
 {CourseStore} = require '../flux/course'
 
 RoutingHelper = require './routing'
@@ -34,7 +34,7 @@ module.exports =
 
     if CourseStore.isTeacher(courseId)
       if CourseStore.isConceptCoach(courseId)
-        <TeacherComponent courseId={courseId} {...props} />
+        <CCDashboard  courseId={courseId} {...props} />
       else
         <TeacherTaskPlans {...props} />
     else
