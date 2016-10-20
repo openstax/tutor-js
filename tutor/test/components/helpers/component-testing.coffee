@@ -6,7 +6,7 @@ ReactTestUtils  = require 'react-addons-test-utils'
 # No longer exists, needs further investigation if we're using it
 # ReactContext   = require('react/lib/ReactContext')
 
-{LocationBroadcast} = require 'react-router/locationBroadcast'
+{LocationBroadcast} = require 'react-router/Broadcasts'
 {createRouterLocation} = require 'react-router/LocationUtils'
 {Promise}      = require 'es6-promise'
 {commonActions} = require './utilities'
