@@ -1,6 +1,6 @@
 React = require 'react'
 ReactDOM = require 'react-dom'
-{Link} = require 'react-router'
+TutorLink = require '../link'
 _  = require 'underscore'
 
 Router = require '../../helpers/router'
@@ -27,11 +27,11 @@ Section = React.createClass
     section = @sectionFormat(@props.section.chapter_section)
 
     className = if section is activeSection then 'active' else ''
-    params = _.extend({ecosystemId: @props.ecosystemId}, @context.router.getCurrentParams(), {section: section})
+    params = _.extend({ecosystemId: @props.ecosystemId}, Router.currentParams(), {section: section})
 
     <ul className="section" data-depth={@props.section.chapter_section.length}>
       <li data-section={section}>
-        <Link
+        <TutorLink
           tabIndex={if @props.isOpen then 0 else -1}
           params={params}
           className={className}
@@ -41,7 +41,7 @@ Section = React.createClass
 
           <span className="section-number">{section}</span>
           {@props.section.title}
-        </Link>
+        </TutorLink>
       </li>
       { _.map @props.section.children, (child) =>
         <li key={child.id} data-section={@sectionFormat(child.chapter_section)}>

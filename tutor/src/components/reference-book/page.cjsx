@@ -71,7 +71,7 @@ module.exports = React.createClass
       <ArbitraryHtmlAndMath className='page center-panel' block html={html} />
 
       <SpyMode.Content className="ecosystem-info">
-        PageId: {@props.cnxId}, Ecosystem: {page?.spy}
+        PageId: {@props.cnxId}, Ecosystem: {JSON.stringify(page?.spy)}
       </SpyMode.Content>
 
     </div>

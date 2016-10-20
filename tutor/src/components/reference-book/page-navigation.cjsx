@@ -33,13 +33,14 @@ ReferenceViewPageNavigation = React.createClass
     params = _.extend({ecosystemId: @props.ecosystemId}, Router.currentParams())
 
     if pageInfo.next
-      nextUrl = Router.makeHref( @props.pageNavRouterLinkTarget,
+
+      nextUrl = Router.makePathname( @props.pageNavRouterLinkTarget,
         _.extend({}, params, section: @sectionFormat(pageInfo.next.chapter_section))
         Router.currentQuery()
       )
 
     if pageInfo.prev
-      prevUrl = Router.makeHref( @props.pageNavRouterLinkTarget,
+      prevUrl = Router.makePathname( @props.pageNavRouterLinkTarget,
         _.extend({}, params, section: @sectionFormat(pageInfo.prev.chapter_section)),
         Router.currentQuery()
       )
