@@ -97,7 +97,6 @@ ExerciseMixin =
 
     footerProps = _.omit(@props, 'onContinue')
     footerProps.idLink = @renderIdLink(false) unless pinned
-
     <ExFooter {...canContinueControlProps} {...footerProps}
       panel='review' />
 

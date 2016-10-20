@@ -55,12 +55,12 @@ getIntroText[SPACED_PRACTICE_GROUP] = (project, locate = true) ->
   locationText = if locate then '—like this next one—' else ' '
 
   [
-    <p>
+    <p key="did-you-know">
       Did you know?  Research shows you can strengthen your
       memory—<strong>and spend less time studying</strong>—if
       you revisit material over multiple study sessions.
     </p>
-    <p>
+    <p key="sp-desc">
       {getProject(project).name} will include <strong>spaced practice</strong> questions
       {locationText}from prior sections to give your learning a boost.
         You may occasionally see questions you&#39;ve seen before.
@@ -69,17 +69,18 @@ getIntroText[SPACED_PRACTICE_GROUP] = (project, locate = true) ->
 
 getIntroText[TWO_STEP_ALIAS] = (project) ->
   [
-    <p>Research shows a great way to boost learning is to try recalling what you have learned.</p>
-    <h4>Step 1: Free response for longer lasting learning</h4>
-    <p>
+    <p key="research">
+      Research shows a great way to boost learning is to try recalling what you have learned.</p>
+    <h4 key="step-1">Step 1: Free response for longer lasting learning</h4>
+    <p key="help-learn">
       Help your learning last longer by constructing an answer in the free response box from memory.
       For greatest benefit, try not to refer to notes or text.
     </p>
-    <h4>Step 2: {capitalize(getProject(project).feedbackType)} with multiple choice</h4>
-    <p>
+    <h4 key="step-2">Step 2: {capitalize(getProject(project).feedbackType)} with multiple choice</h4>
+    <p key="select-best">
       Receive {getProject(project).feedbackType} by selecting the best multiple-choice option.
     </p>
-    <p>
+    <p key="can-review">
       Both you and your instructor can review your answers later.
     </p>
   ]
@@ -90,8 +91,8 @@ getHelpText = _.mapObject(getIntroText, (getIntro) ->
 
 getHelpText[TWO_STEP_ALIAS] = (project) ->
   [
-    <p><strong>Why do you ask me to answer twice?</strong></p>
-    <p>Research shows that recalling the answer to a question from memory
+    <p key="why"><strong>Why do you ask me to answer twice?</strong></p>
+    <p key="research-shows">Research shows that recalling the answer to a question from memory
     helps your learning last longer.  So, {getProject(project).name} asks
     for your own answer first, then gives multiple-choice options
     so you can get {getProject(project).feedbackType}.  Both you and your
@@ -100,7 +101,7 @@ getHelpText[TWO_STEP_ALIAS] = (project) ->
 
 getHelpText[SPACED_PRACTICE_GROUP] = (project) ->
   [
-    <p><strong>What is spaced practice?</strong></p>
+    <p key="what-is-sp"><strong>What is spaced practice?</strong></p>
     getIntroText[SPACED_PRACTICE_GROUP](project, false)
   ]
 
