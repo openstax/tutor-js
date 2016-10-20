@@ -27,7 +27,7 @@ AverageLabel = (props) ->
     if props.heading.type is 'homework'
       <span className="average">---</span>
     else if props.heading.type is 'external'
-      p = heading.completion_rate
+      p = props.heading.completion_rate
       percent = switch
         when (p < 1 and p > 0.99) then 99 # Don't round to 100% when it's not 100%!
         when (p > 0 and p < 0.01) then 1  # Don't round to 0% when it's not 0%!

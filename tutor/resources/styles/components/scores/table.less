@@ -139,9 +139,6 @@
   }
 
   .overall-cell {
-    height: @table-row-height;
-    padding-top: 15px;
-    .align-center();
     .overall-border-middle();
     &.bottom {
       .overall-border-bottom();
@@ -301,9 +298,12 @@
     text-align: center;
   }
 
-  .external-cell {
+  .external-cell,   .overall-cell {
     height: @table-row-height;
     border-right: 1px solid @nav-tabs-border-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .scores-cell {
