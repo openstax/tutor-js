@@ -13,7 +13,7 @@ section {
 };
 
 .exercise[data-type=exercise]:not(.unnumbered) {
-  >[data-type=problem] {
+  > [data-type=problem] {
     > p {
       margin: 0;
 
@@ -46,6 +46,12 @@ section {
       }
     }
 
+  }
+
+  &[data-element-type$=quiz] {
+    > [data-type=problem] + [data-type=solution] {
+      display: none;
+    }    
   }
 }
 

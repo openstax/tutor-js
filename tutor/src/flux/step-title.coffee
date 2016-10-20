@@ -14,7 +14,7 @@ isLearningObjectives = (element) ->
 
 isTypedClass = (element) ->
   element?.attribs?['class']? and
-    element.attribs['class'].search(/learning-objectives|references|ap-connection/) > -1
+    element.attribs['class'].search(/learning-objectives|references|ap-connection|solution/) > -1
 
 isTipsForSuccess = (element) ->
   element?.attribs?['class']? and element.attribs['class'].search(/tips-for-success/) > -1
