@@ -29,9 +29,12 @@ TutorInput = React.createClass
       return ['required'] unless (inputValue? and inputValue.length > 0)
     type: 'text'
 
-  getInitialState: ->
+  componentDidMount: ->
     errors = @props.validate(@props.default)
-    errors: errors or []
+    @setState({errors}) unless _.isEmpty(errors)
+
+  getInitialState: ->
+    errors: []
 
   componentDidUpdate: (prevProps, prevState) ->
     @props.onUpdated?(@state) unless _.isEqual(prevState, @state)
