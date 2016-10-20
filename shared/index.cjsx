@@ -32,7 +32,6 @@ module.exports = {
   StepHelpsHelper:        require './src/helpers/step-helps'
   propHelpers:            require './src/helpers/props'
   ExerciseIntro:          require './src/components/exercise/intro'
-  BSFieldGroup:           require './src/components/bs-field-group'
 
   FreeResponse:           require './src/components/exercise/free-response'
   GetPositionMixin:       require './src/components/get-position-mixin'
