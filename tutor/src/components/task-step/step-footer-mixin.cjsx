@@ -141,17 +141,12 @@ module.exports =
 
   renderFooter: ({stepId, taskId, courseId, review}) ->
     className = @getFooterClasses({stepId, taskId, courseId, review})
-
-    buttons = @renderButtons({stepId, taskId, courseId, review})
-
-    taskDetails = <div className={className} key='step-footer'>
-      {@renderTaskDetails({stepId, taskId, courseId, review})}
+    <div>
+      {@renderButtons({stepId, taskId, courseId, review})}
+      <div className={className} key='step-footer'>
+        {@renderTaskDetails({stepId, taskId, courseId, review})}
+      </div>
     </div>
-
-    [
-      React.cloneElement(buttons, { key: "buttons" })
-      taskDetails
-    ]
 
   renderEndFooter: ({stepId, taskId, courseId, review}) ->
     panel = StepPanel.getPanel(stepId)
