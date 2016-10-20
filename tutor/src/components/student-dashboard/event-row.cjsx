@@ -1,6 +1,8 @@
 React  = require 'react'
 BS     = require 'react-bootstrap'
+
 Time   = require '../time'
+Router = require '../../helpers/router'
 {StudentDashboardStore, StudentDashboardActions} = require '../../flux/student-dashboard'
 EventInfoIcon = require './event-info-icon'
 {Instructions} = require '../task/details'
@@ -24,8 +26,7 @@ module.exports = React.createClass
   onClick: (ev) ->
     {courseId, event} = @props
     ev.preventDefault()
-    # url is 1 based so it matches the breadcrumb button numbers. 1==first step
-    @context.router.transitionTo "/courses/#{courseId}/tasks/#{event.id}/steps/1"
+    @context.router.transitionTo Router.makePathname('viewTask', {courseId, id: event.id})
 
   hideTask: (event) ->
     StudentDashboardActions.hide(@props.event.id)
