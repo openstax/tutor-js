@@ -37,6 +37,7 @@ ROUTES = [
       { pattern: 'event/new',    name: 'createEvent'    }
       { pattern: 'event/:id',    name: 'editEvent'      }
       { pattern: 'settings',     name: 'courseSettings' }
+      { pattern: 'practice',     name: 'practiceTopics' }
     ]
 
   }

@@ -9,6 +9,7 @@ TeacherTaskPlans        = require './components/task-plan/teacher-task-plans-lis
 {ScoresShell} = require './components/scores'
 PerformanceForecast = require './components/performance-forecast'
 CourseSettings = require './components/course-settings'
+Practice = require './components/task/practice'
 
 # These route names are mapped to a routing tree in src/helpers/router.coffee
 module.exports =
@@ -32,6 +33,8 @@ module.exports =
   viewScores: ScoresShell
   viewPerformanceGuide: PerformanceForecast.Guide
   courseSettings: CourseSettings
+  practiceTopics: Practice
+
 
 # TODO see how to put this in the same file
 # ROUTES = [

@@ -32,7 +32,11 @@ class OXRouter
     @pathToEntry( (options.window or window).location.pathname)?.match?.params or {}
 
   makePathname: (name, params, options = {}) =>
-    @getRoutesMap()[name]?.toPath?(params)
+    route = @getRoutesMap()[name]?.toPath?(params)
+    if options.query
+      route + '?' + qs.stringify(options.query)
+    else
+      route
 
   isActive: (name, params, options = {}) =>
     route = @getRoutesMap()[name]

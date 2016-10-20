@@ -1,7 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
 classnames = require 'classnames'
-
+Router = require '../../helpers/router'
 {CoursePracticeStore} = require '../../flux/practice'
 
 module.exports = React.createClass
@@ -17,9 +17,9 @@ module.exports = React.createClass
 
   onClick: ->
     {courseId, page_ids} = @props
-    @context.router.transitionTo(
-      pathname: "/courses/#{courseId}/practice", query: {page_ids}
-    )
+    route = Router.makePathname('practiceTopics', {courseId}, query: {page_ids})
+    console.log route
+    @context.router.transitionTo( route )
 
   isDisabled: ->
     {page_ids, courseId} = @props
