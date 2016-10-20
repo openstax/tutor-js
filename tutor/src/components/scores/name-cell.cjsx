@@ -14,7 +14,9 @@ module.exports = React.createClass
     student: React.PropTypes.shape(
       first_name: React.PropTypes.string
       last_name: React.PropTypes.string
-      role: React.PropTypes.number
+      role: React.PropTypes.oneOfType([
+        React.PropTypes.number, React.PropTypes.string
+      ])
       student_identifier: React.PropTypes.string
     ).isRequired
 
