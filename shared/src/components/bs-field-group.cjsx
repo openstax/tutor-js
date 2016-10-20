@@ -1,5 +1,6 @@
-BS = require 'react-bootstrap'
-omit = require 'lodash/omit'
+React = require 'react'
+BS    = require 'react-bootstrap'
+omit  = require 'lodash/omit'
 
 BSFieldGroup = (props) ->
   { id, label, help } = props
