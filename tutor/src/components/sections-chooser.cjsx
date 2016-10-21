@@ -18,13 +18,13 @@ SectionTopic = React.createClass
     selections: React.PropTypes.object.isRequired
     onChange: React.PropTypes.func.isRequired
 
-  isSelected:    -> @props.selections[@props.section.id]
+  isSelected:    -> !!@props.selections[@props.section.id]
   toggleSection: -> @props.onChange({"#{@props.section.id}": not @isSelected()})
   render: ->
     classNames = classnames 'section', {selected: @isSelected()}
     <div key={@props.section.id} className={classNames} onClick={@toggleSection}>
       <span className='section-checkbox'>
-        <input type='checkbox' readOnly checked={'checked' if @isSelected()} />
+        <input type='checkbox' readOnly checked={@isSelected()} />
       </span>
       <ChapterSection section={@props.section.chapter_section}/>
       <span className='-section-title'> {@props.section.title}</span>
