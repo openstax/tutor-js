@@ -4,6 +4,7 @@ PureRenderMixin = require 'react-addons-pure-render-mixin'
 moment = require 'moment'
 classnames = require 'classnames'
 _ = require 'underscore'
+cloneDeep = require 'lodash/cloneDeep'
 
 Icon = require '../icon'
 {TaskStore} = require '../../flux/task'
@@ -21,18 +22,27 @@ module.exports = React.createClass
     shouldShow: false
 
   getInitialState: ->
-    params = @props.params or {}
-    params.stepIndex ?= TaskPanelStore.getStepKey(params.id, {is_completed: false})
+    params = @getParams()
     taskInfo = @getTaskInfo(params)
     controlInfo = @getControlInfo(params)
 
     _.extend {}, taskInfo, controlInfo
 
+  getParams: (params) ->
+    params ?= @props.params
+
+    params = cloneDeep(params) or {}
+    params.stepIndex ?= TaskPanelStore.getStepKey(params.id, {is_completed: false})
+
+    params
+
   componentWillMount: ->
     TaskStore.on('loaded', @updateTask)
+    TaskPanelStore.on('loaded', @updateControls)
 
   componentWillUnmount: ->
     TaskStore.off('loaded', @updateTask)
+    TaskPanelStore.off('loaded', @updateControls)
 
   componentWillReceiveProps: (nextProps) ->
     @updateControls(nextProps.params, window.location.pathname)
@@ -53,12 +63,11 @@ module.exports = React.createClass
       @setState({show})
       return false
 
-    params ?= @props.params
-    params.stepIndex ?= TaskPanelStore.getStepKey(params.id, {is_completed: false})
+    params = @getParams(params)
     state = getState(params)
     @setState(state) if state?
 
-  updateControls: (params, {path}) ->
+  updateControls: (params, path) ->
     @update(@getControlInfo, params, path)
 
   updateTask: (taskId) ->
