@@ -65,7 +65,7 @@ ChapterAccordion = React.createClass
 
     classNames = classnames 'chapter-heading', 'empty-chapter': _.isEmpty(chapter.children)
 
-    <h2 className={classNames} data-chapter-section={chapter.chapter_section[0]}>
+    <div className={classNames} data-chapter-section={chapter.chapter_section[0]}>
       <span className='chapter-checkbox'>
         <TriStateCheckbox type={checkBoxType} onClick={@toggleSectionSelections} />
       </span>
@@ -73,12 +73,15 @@ ChapterAccordion = React.createClass
         Chapter <ChapterSection section={chapter.chapter_section}/> -
       </span>
       <span className='chapter-title'> {chapter.title}</span>
-      <BrowseTheBook ecosystemId={ecosystemId} unstyled={true}
-        onClick={@browseBook} className='browse-book' section={chapter.chapter_section.join('.')}
+
+      <BrowseTheBook
+        ecosystemId={ecosystemId} unstyled={true}
+        onClick={@browseBook} className='browse-book'
+        section={chapter.chapter_section.join('.')}
       >
           Browse this Chapter
       </BrowseTheBook>
-    </h2>
+    </div>
 
   onAccordianToggle: ->
     @setState(expanded: not @state.expanded)
