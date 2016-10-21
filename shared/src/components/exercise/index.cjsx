@@ -13,8 +13,8 @@ ExerciseMixin =
 
   propTypes:
     parts: React.PropTypes.array.isRequired
-    canOnlyContinue: React.PropTypes.func.isRequired
-    currentStep: React.PropTypes.number.isRequired
+    canOnlyContinue: React.PropTypes.func
+    currentStep: React.PropTypes.number
 
   isSinglePart: ->
     {parts} = @props
@@ -41,7 +41,7 @@ ExerciseMixin =
       taskId={part.task_id}/>
 
   renderSinglePart: ->
-    {parts, footer, canOnlyContinue, controlButtons} = @props
+    {parts, footer, controlButtons} = @props
 
     part = _.first(parts)
 

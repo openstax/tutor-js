@@ -4,6 +4,8 @@ _ = require 'underscore'
 EventEmitter2 = require 'eventemitter2'
 classnames = require 'classnames'
 
+{OXLink} = require 'shared'
+
 BookLinkBase = React.createClass
   displayName: 'BookLinkBase'
   propTypes:
@@ -59,7 +61,7 @@ BookButton = React.createClass
     classes = classnames 'concept-coach-book-link', className
 
     <BookLinkBase {...linkProps}>
-      <BS.Button className={classes} {...linkProps}>
+      <BS.Button className={classes} {...OXLink.filterProps(linkProps, prefixes: 'bs')}>
         {children}
       </BS.Button>
     </BookLinkBase>

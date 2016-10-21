@@ -65,7 +65,7 @@ UserMenu = React.createClass
     user = @getUser()
     return null unless user.isLoggedIn()
 
-    <BS.NavDropdown className='concept-coach-user' title={user.name}>
+    <BS.NavDropdown className='concept-coach-user' id='concept-coach-user-menu' title={user.name}>
       {@renderCourseOption()}
       <BS.MenuItem onSelect={@showProfile}>Account Profile</BS.MenuItem>
       {@renderStudentIdOption()}

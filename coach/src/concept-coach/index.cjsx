@@ -119,7 +119,7 @@ class ConceptCoachAPI extends EventEmitter2
     )
 
     props.close = =>
-      @component.setProps(open: false)
+      coachWrapped.update(open: false)
       componentModel.channel.emit('close.clicked')
 
     @close = props.close
@@ -137,7 +137,7 @@ class ConceptCoachAPI extends EventEmitter2
     openProps.triggeredFrom = _.pick(props, 'moduleUUID', 'collectionUUID')
   # NEEDS FIXED:
   # https://facebook.github.io/react/blog/2015/10/07/react-v0.14.html#new-deprecations-introduced-with-a-warning
-    @component.setProps(openProps)
+    coachWrapped.update(openProps)
 
   openByRoute: (props, route) ->
     props = _.clone(props)
@@ -164,7 +164,7 @@ class ConceptCoachAPI extends EventEmitter2
   update: (nextProps) ->
     return unless @component?
     props = _.extend({}, _.pick(nextProps, PROPS))
-    @component.setProps(props)
+    coachWrapped.update(props)
 
   handleOpened: (eventData, body = document.body) ->
     body.classList.add('cc-opened')

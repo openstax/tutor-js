@@ -1,4 +1,4 @@
-{OXMakeLink} = require 'shared'
+{OXLink} = require 'shared'
 TutorRouter = require '../helpers/router'
 
-module.exports = OXMakeLink(TutorRouter, 'Tutor')
+module.exports = OXLink.make(TutorRouter, 'Tutor')

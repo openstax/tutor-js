@@ -7,7 +7,7 @@ require './src/helpers/polyfills'
 module.exports = {
 
   OXRouter:               require './src/helpers/router'
-  OXMakeLink:             require './src/factories/link'
+  OXLink:                 require './src/factories/link'
 
   ArbitraryHtmlAndMath:   require './src/components/html'
   Markdown:               require './src/components/markdown'

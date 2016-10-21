@@ -1,31 +1,32 @@
 React = require 'react'
 {Link} = require 'react-router'
-forEach = require 'lodash/forEach'
+
 indexOf = require 'lodash/indexOf'
-isObject = require 'lodash/isObject'
-pick = require 'lodash/pick'
+pickBy  = require 'lodash/pickBy'
+concat  = require 'lodash/concat'
+some    = require 'lodash/some'
 
 PASSABLE_PROPS = [
   'className', 'id', 'children', 'target', 'activeOnlyWhenExact',
   'activeStyle', 'activeClassName', 'isActive', 'location', 'ref',
-  'tabIndex', 'alt', 'title', 'onClick'
+  'tabIndex', 'alt', 'title', 'role'
 ]
 
-makeLink = (router, name = 'OpenStax') ->
+PASSABLE_PREFIXES = ['data-', 'aria-', 'on']
+
+filterProps = (props, options = {}) ->
+  pickBy props, (prop, name) ->
+
+    indexOf(concat(PASSABLE_PROPS, options.props or []), name) > -1 or
+      some(concat(PASSABLE_PREFIXES, options.prefixes or []), (prefix) ->
+        name.indexOf(prefix) is 0
+      )
+
+make = (router, name = 'OpenStax') ->
   React.createClass
     displayName: "#{name}Link"
     render: ->
       {to, params, query} = @props
-
-      linkProps = {}
-
-      forEach(@props, (prop, name) ->
-        if indexOf(name, 'data-') is 0 or
-          indexOf(name, 'aria-') is 0 or
-          indexOf(name, 'on') is 0 or
-          indexOf(PASSABLE_PROPS, name) > -1
-            linkProps[name] = prop
-      )
 
       pathname = router.makePathname(to, params)
 
@@ -34,6 +35,6 @@ makeLink = (router, name = 'OpenStax') ->
         query: query
 
       # TODO see about isActive
-      <Link to={to} {...linkProps} />
+      <Link to={to} {...filterProps(@props)} />
 
-module.exports = makeLink
+module.exports = {make, filterProps}
