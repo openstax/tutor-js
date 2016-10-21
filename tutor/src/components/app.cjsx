@@ -9,6 +9,11 @@ merge = require 'lodash/merge'
 {SpyMode} = require 'shared'
 {CourseStore} = require '../flux/course'
 {TransitionActions, TransitionStore} = require '../flux/transition'
+{ LocationSubscriber } = require 'react-router/Broadcasts'
+
+RouteChange = (props) ->
+  TransitionActions.load(props.pathname)
+  <span />
 
 module.exports = React.createClass
   displayName: 'App'
@@ -44,6 +49,8 @@ module.exports = React.createClass
     })
 
     <div className={classNames}>
+      <LocationSubscriber>{RouteChange}</LocationSubscriber>
+
       <SpyMode.Wrapper>
         <Navbar {...@props}/>
         <RoutingHelper.component routes={Router.getRenderableRoutes(renderers)} />
