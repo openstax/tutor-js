@@ -8,7 +8,7 @@ pick = require 'lodash/pick'
 PASSABLE_PROPS = [
   'className', 'id', 'children', 'target', 'activeOnlyWhenExact',
   'activeStyle', 'activeClassName', 'isActive', 'location', 'ref',
-  'tabIndex', 'alt', 'title'
+  'tabIndex', 'alt', 'title', 'onClick'
 ]
 
 makeLink = (router, name = 'OpenStax') ->
