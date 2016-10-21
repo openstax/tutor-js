@@ -5,39 +5,63 @@ Router = require '../../helpers/router'
 LoadableItem = require '../loadable-item'
 {TaskActions, TaskStore} = require '../../flux/task'
 {CoursePracticeActions, CoursePracticeStore} = require '../../flux/practice'
+InvalidPage = require '../invalid-page'
+Icon = require '../icon'
 
 PracticeTask = React.createClass
 
-  componentWillMount: ->
-    CoursePracticeStore.on("loaded.#{@getId()}", @update)
-    @createPractice(@getId())
-
-  componentWillUnmount: ->
-    CoursePracticeStore.off("loaded.#{@getId()}", @update)
-
-  createPractice: (courseId) ->
-    query = Router.currentQuery()
-    CoursePracticeActions.create(courseId, query)
-
-  getInitialState: ->
-    # force a new practice each time
-    taskId: null
-
-  getId: ->
-    {courseId} = Router.currentParams()
-    courseId
-
-  update: ->
-    @setState({
-      taskId:  CoursePracticeStore.getTaskId(@getId())
-    })
+  propTypes:
+    courseId: React.PropTypes.string.isRequired
+    taskId:   React.PropTypes.string.isRequired
 
   render: ->
     <LoadableItem
-      id={@state.taskId}
+      id={@props.taskId}
       store={TaskStore}
       actions={TaskActions}
-      renderItem={=> <Task key={@state.taskId} id={@state.taskId} />}
+      renderItem={=> <Task id={@props.taskId} />}
     />
 
-module.exports = PracticeTask
+
+
+
+LoadPractice = React.createClass
+
+  propTypes:
+    courseId: React.PropTypes.string.isRequired
+
+  contextTypes:
+    router: React.PropTypes.object
+
+  componentDidMount: ->
+    CoursePracticeStore.on("loaded.#{@props.courseId}", @update)
+    CoursePracticeActions.create(@props.courseId, Router.currentQuery())
+
+
+  componentWillUnmount: ->
+    CoursePracticeStore.off("loaded.#{@props.courseId}", @update)
+
+  update: ->
+    @context.router.transitionTo(
+      Router.makePathname('practiceTopics',
+        courseId: @props.courseId
+        taskId: CoursePracticeStore.getTaskId(@props.courseId)
+      )
+    )
+
+  render: ->
+    <h1><Icon type='spinner' spin /> Retrieving practice exercises…</h1>
+
+
+PracticeTaskShell = React.createClass
+
+  render: ->
+    {params, query} = Router.currentState()
+    if query.page_ids
+      <LoadPractice courseId={params.courseId} sectionIds={query.page_ids} />
+    else if params.taskId
+      <PracticeTask courseId={params.courseId} taskId={params.taskId} />
+    else
+      <InvalidPage />
+
+module.exports = PracticeTaskShell

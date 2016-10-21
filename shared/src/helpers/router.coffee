@@ -31,6 +31,10 @@ class OXRouter
   currentParams: (options = {}) =>
     @pathToEntry( (options.window or window).location.pathname)?.match?.params or {}
 
+  currentState: (options = {}) =>
+    params: @currentParams(options)
+    query:  @currentQuery(options)
+
   makePathname: (name, params, options = {}) =>
     route = @getRoutesMap()[name]?.toPath?(params)
     if options.query

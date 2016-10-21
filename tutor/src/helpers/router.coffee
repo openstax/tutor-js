@@ -28,16 +28,16 @@ ROUTES = [
           }]
         }]
       }
-      { pattern: 'homework/new', name: 'createHomework' }
-      { pattern: 'homework/:id', name: 'editHomework'   }
-      { pattern: 'reading/new',  name: 'createReading'  }
-      { pattern: 'reading/:id',  name: 'editReading'    }
-      { pattern: 'external/new', name: 'createExternal' }
-      { pattern: 'external/:id', name: 'editExternal'   }
-      { pattern: 'event/new',    name: 'createEvent'    }
-      { pattern: 'event/:id',    name: 'editEvent'      }
-      { pattern: 'settings',     name: 'courseSettings' }
-      { pattern: 'practice',     name: 'practiceTopics' }
+      { pattern: 'practice/:taskId?', name: 'practiceTopics' }
+      { pattern: 'homework/new',      name: 'createHomework' }
+      { pattern: 'homework/:id',      name: 'editHomework'   }
+      { pattern: 'reading/new',       name: 'createReading'  }
+      { pattern: 'reading/:id',       name: 'editReading'    }
+      { pattern: 'external/new',      name: 'createExternal' }
+      { pattern: 'external/:id',      name: 'editExternal'   }
+      { pattern: 'event/new',         name: 'createEvent'    }
+      { pattern: 'event/:id',         name: 'editEvent'      }
+      { pattern: 'settings',          name: 'courseSettings' }
     ]
 
   }
