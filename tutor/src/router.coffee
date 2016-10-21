@@ -10,6 +10,7 @@ TeacherTaskPlans        = require './components/task-plan/teacher-task-plans-lis
 PerformanceForecast = require './components/performance-forecast'
 CourseSettings = require './components/course-settings'
 Practice = require './components/task/practice'
+QuestionsLibrary = require './components/questions'
 
 # These route names are mapped to a routing tree in src/helpers/router.coffee
 module.exports =
@@ -26,6 +27,7 @@ module.exports =
   viewReferenceBook: ReferenceBookShell
   viewReferenceBookSection: ReferenceBookShell
   viewReferenceBookPage: ReferenceBookPageShell
+  viewQuestionsLibrary: QuestionsLibrary
   editHomework: HomeworkShell
   editReading: ReadingShell
   editExternal: ExternalShell
@@ -34,6 +36,7 @@ module.exports =
   viewPerformanceGuide: PerformanceForecast.Guide
   courseSettings: CourseSettings
   practiceTopics: Practice
+
 
 
 # TODO see how to put this in the same file
