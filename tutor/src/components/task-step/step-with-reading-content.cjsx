@@ -39,7 +39,8 @@ ReadingStepContent = React.createClass
         <ArbitraryHtmlAndMath
           className='book-content'
           shouldExcludeFrame={@shouldExcludeFrame}
-          html={content_html} />
+          html={content_html}
+        />
       </div>
     </div>
 
@@ -62,7 +63,8 @@ StepContent = React.createClass
       <ArbitraryHtmlAndMath
         className={"#{stepType}-content"}
         html={content_html}
-        shouldExcludeFrame={@shouldExcludeFrame} />
+        shouldExcludeFrame={@shouldExcludeFrame}
+      />
     </div>
 
 

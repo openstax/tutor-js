@@ -10,7 +10,10 @@ RelatedContent = React.createClass
   propTypes:
     contentId: React.PropTypes.string.isRequired
     title: React.PropTypes.string.isRequired
-    chapter_section: React.PropTypes.array.isRequired
+    chapter_section: React.PropTypes.oneOfType([
+      React.PropTypes.array
+      React.PropTypes.string
+    ]).isRequired
 
   mixins: [ChapterSectionMixin]
 
@@ -30,7 +33,8 @@ RelatedContent = React.createClass
 
     <h4
       className='related-content'
-      data-has-learning-objectives={StepTitleStore.hasLearningObjectives(contentId)}>
+      data-has-learning-objectives={StepTitleStore.hasLearningObjectives(contentId)}
+    >
       <span className="part">
         <span className="section">{section} </span>
         <span className="title">{title}</span>
