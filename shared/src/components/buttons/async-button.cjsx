@@ -1,7 +1,8 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 delay = require 'lodash/delay'
-omit  = require 'lodash/omit'
+
+OXLink = require '../../factories/link'
 
 RefreshButton = require './refresh-button'
 
@@ -79,11 +80,8 @@ module.exports = React.createClass
     else
       stateClass = null
       text = children
-    buttonProps = omit(@props,
-      'isWaiting', 'waitingText', 'isDone', 'isFailed', 'failedState', 'failedProps',
-      'doneText', 'isJob', 'timeoutLength'
-    )
-    <BS.Button {...buttonProps}
+
+    <BS.Button {...OXLink.filterProps(@props, prefixes: 'bs')}
       className={[buttonTypeClass, stateClass, className]}
       disabled={disabled}
       >

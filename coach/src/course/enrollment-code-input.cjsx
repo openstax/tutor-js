@@ -47,7 +47,7 @@ EnrollmentCodeInput = React.createClass
               placeholder="enrollment code"
               onKeyPress={@onKeyPress}
             />
-            <BS.InputGroup.Addon>
+            <BS.InputGroup.Button>
               <AsyncButton
                 className='enroll'
                 isWaiting={!!@props.course.isBusy}
@@ -56,7 +56,7 @@ EnrollmentCodeInput = React.createClass
               >
                 Enroll
               </AsyncButton>
-            </BS.InputGroup.Addon>
+            </BS.InputGroup.Button>
           </BS.InputGroup>
         </BS.FormGroup>
       </div>

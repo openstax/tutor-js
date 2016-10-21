@@ -129,12 +129,16 @@ Answer = React.createClass
 
     htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
 
+    unless @props.disabled
+      accessbilityProps =
+        tabIndex: 0
+
     <div className='openstax-answer'>
       <div className={classes}>
         {selectedCount}
         {radioBox}
         <label
-          tabIndex={if @props.disabled then -1 else 0}
+          {...accessbilityProps}
           onKeyPress={_.partial(@onKeyPress, _, answer)}
           htmlFor="#{qid}-option-#{iter}"
           className='answer-label'

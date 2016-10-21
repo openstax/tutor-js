@@ -55,7 +55,6 @@
     "history": "4.3.0",
     "htmlparser2": "3.9.1",
     "interpolate": "0.1.0",
-    "jquery": "^3.1.1",
     "keymaster": "1.6.2",
     "lodash": "4.16.1",
     "markdown-it": "8.0.0",

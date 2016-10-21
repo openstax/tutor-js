@@ -12,10 +12,8 @@ module.exports =
       React: 'react/addons'
       _: 'underscore'
       BS: 'react-bootstrap'
-      $: 'jquery'
     })
   ]
   externals: webpackUMDExternal(
     underscore: '_'
-    jquery: '$'
   )

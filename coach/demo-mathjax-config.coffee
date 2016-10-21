@@ -1,4 +1,4 @@
-$ = require 'jquery'
+forEach = require 'lodash/forEach'
 
 # ripped from webview
 MATHJAX_CONFIG =
@@ -40,22 +40,22 @@ MATHJAX_CONFIG =
   }
 
 typesetMath = (node) ->
+  return unless MathJax?.Hub?
   # straight up copy of webview's mathjax fn
-  $mathElements = $(node).find('[data-math]:not(.math-rendered)')
+  mathElements = node.querySelectorAll('[data-math]:not(.math-rendered)')
 
-  $mathElements.each (iter, element) ->
+  forEach mathElements, (element) ->
 
-    $element = $(element)
-    formula = $element.data('math')
+    formula = element.dataset.math
 
     mathTex = "[TEX_START]#{formula}[TEX_END]"
-    $element.text(mathTex)
+    element.innerText = mathTex
 
     # Moved adding to MathJax queue here. Means the queue gets pushed onto more (once per math element),
     # but what it trys to parse for matching math is WAY less than the whole page.
-    MathJax.Hub.Queue(['Typeset', MathJax.Hub], $element[0])
+    MathJax.Hub.Queue(['Typeset', MathJax.Hub], element)
     MathJax.Hub.Queue( ->
-      $element[0].classList.add('math-rendered')
+      element.classList.add('math-rendered')
     )
 
 
@@ -64,7 +64,7 @@ startMathJax = ->
   configuredCallback = ->
     window.MathJax.Hub.Configured()
 
-  if window.MathJax?.Hub
+  if window.MathJax?.Hub?
     window.MathJax.Hub.Config(MATHJAX_CONFIG)
     # Does not seem to work when passed to Config
     window.MathJax.Hub.processSectionDelay = 0
