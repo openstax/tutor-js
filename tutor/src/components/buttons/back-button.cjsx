@@ -33,7 +33,7 @@ BackButton = React.createClass
     to =  historyInfo?.path or Router.makePathname(
       @props.fallbackLink.to, @props.fallbackLink.params
     )
-    console.log historyInfo, to
+
     <TutorLink className={"btn btn-#{@props.bsStyle}"} to={to}>
       {backText}
     </TutorLink>

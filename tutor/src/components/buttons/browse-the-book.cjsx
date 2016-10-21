@@ -53,22 +53,24 @@ module.exports = React.createClass
         queryParams = {ecosystemId}
 
     # the router is smart enough to figure out which props are present and return the best route
-    linkType = if @props.page then 'viewReferenceBookPage' else
+    to = if @props.page then 'viewReferenceBookPage' else
       if @props.section then 'viewReferenceBookSection' else 'viewReferenceBook'
 
-    routeProps =
-      to: linkType
+    return {
+      to,
       params: {courseId, cnxId: @props.page, section: @props.section}
       query: queryParams
+    }
 
   getCourseId: ->
-    @props.courseId or @context.courseId
+    @props.courseId or @context.courseId or CourseStore.getByEcosystemId(@props.ecosystemId)?.id
 
   canBrowse: (courseId) ->
     courseId? and not CourseStore.get(courseId)?.is_concept_coach
 
   render: ->
     courseId = @getCourseId()
+
     text = @props.children or 'Browse the Book'
     linkProps = @getLinkProps()
 
