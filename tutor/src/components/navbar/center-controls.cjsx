@@ -42,10 +42,10 @@ module.exports = React.createClass
     return true if shouldShow
 
     path ?= @props.pathname
-    matchedPath = TutorRouter.pathToEntry(path)
-    return false unless matchedPath?.entry?.paths
+    match = TutorRouter.currentMatch(path)
+    return false unless match?.entry.paths
 
-    'viewTask' in matchedPath.entry.paths
+    'viewTask' in match.entry.paths
 
   update: (getState, params, path) ->
     show = @shouldShow(path)

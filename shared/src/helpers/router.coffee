@@ -5,6 +5,7 @@ omit         = require 'lodash/omit'
 partial      = require 'lodash/partial'
 merge        = require 'lodash/merge'
 remove       = require 'lodash/remove'
+extend       = require 'lodash/extend'
 memoize      = require 'lodash/memoize'
 compact      = require 'lodash/compact'
 isEmpty      = require 'lodash/isEmpty'
@@ -22,14 +23,14 @@ class OXRouter
     @getRoutes = -> routes
     @getRoutesMap = -> mappedRoutes
 
-  pathToEntry: (path = window.location.pathname) =>
+  currentMatch: (path = window.location.pathname) =>
     cloneDeep(findRoutePatternMemoed(path, @getRoutesMap()))
 
   currentQuery: (options = {}) ->
     qs.parse((options.window or window).location.search.slice(1))
 
   currentParams: (options = {}) =>
-    @pathToEntry( (options.window or window).location.pathname)?.match?.params or {}
+    @currentMatch( (options.window or window).location.pathname)?.params or {}
 
   currentState: (options = {}) =>
     params: @currentParams(options)
@@ -110,11 +111,14 @@ findRoutePattern = (pathname, mappedPaths) ->
     match
   ))
 
-  # return deepest match
-  match = last(matchedPaths)
-  entry = last(matchedEntrys)
+  if matchedPaths.length
+      # return deepest matches
+    extend({}, last(matchedPaths), {
+      entry: last(matchedEntrys)
+    })
+  else
+    null
 
-  {match, entry}
 
 findRoutePatternMemoed = memoize(findRoutePattern)
 

@@ -60,16 +60,16 @@ Analytics =
   onNavigation: (path) ->
     return unless GA
 
-    route = Router.pathToEntry(path)
+    route = Router.currentMatch(path)
 
     return @sendPageView("/not-found/#{change.path}") unless route
 
-    path = Translators[route.entry.name]?( route.match.params ) or route.match.pathname
+    path = Translators[route.entry.name]?( route.params ) or route.pathname
 
     # if we're also going to send custom events then we set the page
     if Events[route.entry.name]
       GA('set', 'page', path)
-      Events[route.entry.name]( route.match.params )
+      Events[route.entry.name]( route.params )
       @sendPageView() # url's not needed since it was set before events
     else
       @sendPageView(route.match.pathname)
