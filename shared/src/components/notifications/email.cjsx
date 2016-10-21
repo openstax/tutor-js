@@ -63,7 +63,7 @@ EmailNotification = React.createClass
       <span className="message">
         Check your email inbox. Enter the 6-digit verification code:
       </span>
-      <BS.Input autofocus ref='verifyInput' onKeyPress={@onVerifyKey} type="text" />
+      <BS.FormControl autofocus ref='verifyInput' onKeyPress={@onVerifyKey} type="text" />
       <a className='pin-check action' onClick={@onPinCheck}>Go</a>
     </span>
 

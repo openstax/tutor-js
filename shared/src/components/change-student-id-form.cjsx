@@ -3,8 +3,8 @@ BS = require 'react-bootstrap'
 AsyncButton = require './buttons/async-button'
 ENTER = 'Enter'
 
-module.exports = React.createClass
-
+ChangeStudentIdForm = React.createClass
+  displayName: 'ChangeStudentIdForm'
   propTypes:
     onCancel: React.PropTypes.func.isRequired
     onSubmit: React.PropTypes.func.isRequired
@@ -43,22 +43,33 @@ module.exports = React.createClass
         onClick={@onSubmit}
       >{@props.saveButtonLabel}</AsyncButton>
 
-    <div className="openstax-change-student-id-form form-group">
-      <h3 className="text-center">
+    <BS.FormGroup className='openstax-change-student-id-form'>
+      <h3 className='text-center'>
         {@props.title}
       </h3>
       {@props.children}
-      <div className='panels'>
-        <div className='field'>
-          <BS.Input type="text" ref="input" label={@props.label}
-            placeholder="School issued ID" autoFocus
+      <BS.Col sm={9}>
+        <BS.ControlLabel>{@props.label}</BS.ControlLabel>
+        <BS.InputGroup>
+          <BS.FormControl
+            type='text'
+            ref='input'
+            autoFocus
+            placeholder='School issued ID'
             value={@state.studentId}
             onChange={@handleChange}
             onKeyPress={@onKeyPress}
-            buttonAfter={button} />
-        </div>
-        <div className="cancel">
+          />
+          <BS.InputGroup.Button>
+            {button}
+          </BS.InputGroup.Button>
+        </BS.InputGroup>
+      </BS.Col>
+      <BS.Col sm={3}>
+        <div className='cancel'>
           <a href='#' onClick={@onCancel}>Cancel</a>
         </div>
-      </div>
-    </div>
+      </BS.Col>
+    </BS.FormGroup>
+
+module.exports = ChangeStudentIdForm

@@ -101,7 +101,7 @@ class ConceptCoachAPI extends EventEmitter2
     @removeAllListeners()
 
   remove: ->
-    coachWrapped.unmountFrom(componentModel.mounter) if @component?.isMounted()
+    coachWrapped.unmount() if @component?.isMounted()
 
   setOptions: (options) ->
     isSame = _.isEqual(_.pick(options, PROPS), _.pick(componentModel, PROPS))
@@ -135,8 +135,7 @@ class ConceptCoachAPI extends EventEmitter2
   open: (props) ->
     openProps = _.extend({}, props, open: true)
     openProps.triggeredFrom = _.pick(props, 'moduleUUID', 'collectionUUID')
-  # NEEDS FIXED:
-  # https://facebook.github.io/react/blog/2015/10/07/react-v0.14.html#new-deprecations-introduced-with-a-warning
+
     coachWrapped.update(openProps)
 
   openByRoute: (props, route) ->
