@@ -20,9 +20,9 @@ ROUTES = [
         ]
       }
       {
-        pattern: 'tasks/:id',     name: 'viewTask'
+        pattern: 'task/:id',     name: 'viewTask'
         routes: [{
-          pattern: 'steps/:stepIndex', name: 'viewTaskStep'
+          pattern: 'step/:stepIndex', name: 'viewTaskStep'
           routes: [{
             pattern: ':milestones', name: 'viewTaskStepMilestones'
           }]
