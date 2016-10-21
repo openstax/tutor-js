@@ -11,6 +11,7 @@ PerformanceForecast = require './components/performance-forecast'
 CourseSettings = require './components/course-settings'
 Practice = require './components/task/practice'
 QuestionsLibrary = require './components/questions'
+ChangeStudentId = require './components/change-student-id'
 
 # These route names are mapped to a routing tree in src/helpers/router.coffee
 module.exports =
@@ -36,6 +37,7 @@ module.exports =
   viewPerformanceGuide: PerformanceForecast.Guide
   courseSettings: CourseSettings
   practiceTopics: Practice
+  changeStudentId: ChangeStudentId
 
 
 

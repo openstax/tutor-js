@@ -39,6 +39,7 @@ ROUTES = [
       { pattern: 'event/:id',         name: 'editEvent'            }
       { pattern: 'settings',          name: 'courseSettings'       }
       { pattern: 'questions',         name: 'viewQuestionsLibrary' }
+      { pattern: 'change-student-id', name: 'changeStudentId'      }
     ]
 
   }

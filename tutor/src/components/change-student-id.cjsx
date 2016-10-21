@@ -10,12 +10,15 @@ LoadableItem = require './loadable-item'
 { StudentIdStore, StudentIdActions, ERROR_MAP } = require '../flux/student-id'
 Icon = require './icon'
 
-module.exports = React.createClass
+ChangeStudentId = React.createClass
 
   onCancel: -> @goBack()
 
+  contextTypes:
+    router: React.PropTypes.object
+
   componentWillMount: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
     CourseStore.once('course.loaded', @update)
 
   componentWillUnmount: ->
@@ -28,11 +31,10 @@ module.exports = React.createClass
 
   goBack: ->
     {courseId} = Router.currentParams()
-
-    # TODO: Figuoure out how to do this
-    # historyInfo = TransitionStore.getPrevious(@context.router)
-    # url = historyInfo.path or 'dashboard'
-    # @context.router.transitionTo(url)
+    historyInfo = TransitionStore.getPrevious()
+    @context.router.transitionTo( historyInfo?.path or
+      Router.makePathname( 'dashboard', Router.currentParams() )
+    )
 
   onSubmit: (newStudentId) ->
     {courseId} = Router.currentParams()
@@ -103,3 +105,5 @@ module.exports = React.createClass
         </ChangeStudentIdForm>
       </BS.Row>
     </BS.Panel>
+
+module.exports = ChangeStudentId

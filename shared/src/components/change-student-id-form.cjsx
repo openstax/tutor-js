@@ -4,7 +4,7 @@ AsyncButton = require './buttons/async-button'
 ENTER = 'Enter'
 
 ChangeStudentIdForm = React.createClass
-  displayName: 'ChangeStudentIdForm'
+
   propTypes:
     onCancel: React.PropTypes.func.isRequired
     onSubmit: React.PropTypes.func.isRequired
@@ -20,8 +20,8 @@ ChangeStudentIdForm = React.createClass
   componentWillReceiveProps: (newProps) ->
     @setState({ studentId: newProps.studentId })
 
-  handleChange: ->
-    @setState({studentId: @refs.input.getValue()})
+  handleChange: (ev) ->
+    @setState({studentId: ev.target.value})
 
   onKeyPress: (ev) ->
     @onSubmit() if ev.key is ENTER
@@ -31,10 +31,10 @@ ChangeStudentIdForm = React.createClass
     @props.onCancel()
 
   onSubmit: ->
-    @props.onSubmit(@refs.input.getValue())
+    @props.onSubmit(@state.studentId)
 
-  render: ->
-    button =
+  SubmitButton: ->
+    <BS.InputGroup.Button>
       <AsyncButton
         bsStyle="primary"
         className="btn btn-success"
@@ -42,7 +42,9 @@ ChangeStudentIdForm = React.createClass
         waitingText={'Confirming…'}
         onClick={@onSubmit}
       >{@props.saveButtonLabel}</AsyncButton>
+    </BS.InputGroup.Button>
 
+  render: ->
     <BS.FormGroup className='openstax-change-student-id-form'>
       <h3 className='text-center'>
         {@props.title}
@@ -61,7 +63,7 @@ ChangeStudentIdForm = React.createClass
             onKeyPress={@onKeyPress}
           />
           <BS.InputGroup.Button>
-            {button}
+            <@SubmitButton />
           </BS.InputGroup.Button>
         </BS.InputGroup>
       </BS.Col>
