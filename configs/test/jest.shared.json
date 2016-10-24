@@ -1,0 +1,4 @@
+{
+  "rootDir": "../../shared",
+  "preset": "../configs/test/jest.config.json"
+}

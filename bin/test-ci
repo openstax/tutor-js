@@ -5,7 +5,9 @@ set -ev
 # travis should be setting the OX_PROJECT variable
 # export OX_PROJECT='tutor'
 
-karma start configs/test/karma.config.js --single-run
+node ./node_modules/jest/bin/jest.js --config ./configs/test/jest.$OX_PROJECT.json
+
+#karma start configs/test/karma.config.js --single-run
 
 # add build check for all projects except tutor, because karma by itself already takes too long"
 if [ "$OX_PROJECT" != "tutor" ]; then
