@@ -4,9 +4,9 @@ getCourseListing = ->
   {CourseListing} = require './components/course-listing'
   CourseListing
 
-getRouteHandlersDashboard = ->
-  RouteHandlers = require './helpers/route-handlers'
-  RouteHandlers.dashboard
+getDashboard = ->
+  ConditionalHandlers = require './helpers/conditional-handlers'
+  ConditionalHandlers.dashboard
 
 getStudentDashboardShell = ->
   {StudentDashboardShell} = require './components/student-dashboard'
@@ -74,7 +74,7 @@ getQABook = ->
 ROUTES = [
   { pattern: '/dashboard',              name: 'listing',                  renderer: getCourseListing     }
   {
-    pattern: '/course/:courseId',       name: 'dashboard',                renderer: getRouteHandlersDashboard
+    pattern: '/course/:courseId',       name: 'dashboard',                renderer: getDashboard
     routes: [
       { pattern: 'scores',              name: 'viewScores',               renderer: getScoresShell          }
       { pattern: 'guide/:roleId?',      name: 'viewPerformanceGuide',     renderer: getPerformanceForecastGuide }
