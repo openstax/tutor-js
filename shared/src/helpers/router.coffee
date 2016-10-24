@@ -19,8 +19,7 @@ class OXRouter
 
   constructor: (routes) ->
     {routeSettings, renderers} = OXRouter.separateRendersFromRoutes(routes)
-    # routes = cloneDeep(routes)
-    mappedRoutes = cloneDeep(mapRoutes(routeSettings))
+    mappedRoutes = mapRoutes(routeSettings)
 
     @getRenderers = -> renderers
     @getRoutes = -> routeSettings

@@ -115,61 +115,6 @@ ROUTES = [
 ]
 
 module.exports = ROUTES
-# # These route names are mapped to a routing tree in src/helpers/router.coffee
-# module.exports =
-#   listing: CourseListing
-#   dashboard: RouteHandlers.dashboard
-#   viewStudentDashboard: StudentDashboardShell
-#   viewTeacherDashboard: TeacherTaskPlans
-#   taskplans: TeacherTaskPlans
-#   calendarByDate: TeacherTaskPlans
-#   calendarViewPlanStats: TeacherTaskPlans
-#   viewTask: TaskShell
-#   viewTaskStep: TaskShell
-#   viewTaskStepMilestones: TaskShell
-#   viewReferenceBook: ReferenceBookShell
-#   viewReferenceBookSection: ReferenceBookShell
-#   viewReferenceBookPage: ReferenceBookPageShell
-#   viewQuestionsLibrary: QuestionsLibrary
-#   editHomework: HomeworkShell
-#   editReading: ReadingShell
-#   editExternal: ExternalShell
-#   editEvent: EventShell
-#   viewScores: ScoresShell
-#   viewPerformanceGuide: PerformanceForecast.Guide
-#   courseSettings: CourseSettings
-#   practiceTopics: Practice
-#   changeStudentId: ChangeStudentId
-
-
-
-# TODO see how to put this in the same file
-# ROUTES = [
-#   { pattern: '/dashboard', name: 'listing', render: CourseListing }
-#   {
-#     pattern: '/courses/:courseId',  name: 'dashboard', render: RouteHandlers.dashboard
-#     routes: [
-#       { pattern: 'list',          name: 'viewStudentDashboard', render: StudentDashboardShell }
-#       { pattern: 't/month/:date', name: 'calendarByDate',       render: TeacherTaskPlans      }
-#       { pattern: 'tasks/:id',     name: 'viewTask',             render: TaskShell
-#         # routes: [{
-#         #   pattern: 'steps/:stepIndex', name: 'viewTaskStep',        render: TaskShell
-#         #   routes: [{
-#         #     pattern: ':milestones', name: 'viewTaskStepMilestones', render: TaskShell
-#         #   }]
-#         # }]
-#       }
-#     ]
-#   }
-#   {
-#     pattern: '/books/:courseId', name: 'viewReferenceBook', render: ReferenceBookShell
-#     routes: [
-#       { pattern: 'section/:section', name: 'viewReferenceBookSection', render: ReferenceBookShell}
-#       { pattern: 'page/:cnxId', name: 'viewReferenceBookPage', render: ReferenceBookPageShell}
-#     ]
-#   }
-# ]
-
 
 ## Below is pre router upgrade config
 
