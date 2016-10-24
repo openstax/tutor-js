@@ -1,9 +1,11 @@
 React = require 'react'
 classnames = require 'classnames'
+
 Router = require '../helpers/router'
-RoutingHelper = require '../helpers/routing'
 Analytics = require '../helpers/analytics'
 Navbar = require './navbar'
+MatchForTutor = require './match-for-tutor'
+
 merge = require 'lodash/merge'
 {SpyMode} = require 'shared'
 {CourseStore} = require '../flux/course'
@@ -52,6 +54,6 @@ module.exports = React.createClass
 
       <SpyMode.Wrapper>
         <Navbar {...@props}/>
-        <RoutingHelper.component routes={Router.getRenderableRoutes()} />
+        <MatchForTutor routes={Router.getRenderableRoutes()} />
       </SpyMode.Wrapper>
     </div>

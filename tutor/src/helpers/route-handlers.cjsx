@@ -10,7 +10,7 @@ CCStudentRedirect       = require '../components/cc-student-redirect'
 CCDashboard = require '../components/cc-dashboard'
 {CourseStore} = require '../flux/course'
 
-RoutingHelper = require './routing'
+MatchForTutor = require '../components/match-for-tutor'
 
 module.exports =
   studentOrTeacher: (StudentComponent, TeacherComponent, defaultProps = {} ) ->
@@ -30,7 +30,7 @@ module.exports =
     unless course
       return <InvalidPage message="course was not found" />
     unless props.isExact
-      return <RoutingHelper.component {...props} />
+      return <MatchForTutor {...props} />
 
     if CourseStore.isTeacher(courseId)
       if CourseStore.isConceptCoach(courseId)

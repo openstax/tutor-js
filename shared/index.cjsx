@@ -8,6 +8,7 @@ module.exports = {
 
   OXRouter:               require './src/helpers/router'
   OXLink:                 require './src/factories/link'
+  OXMatchByRouter:        require './src/helpers/match-by-router'
 
   ArbitraryHtmlAndMath:   require './src/components/html'
   Markdown:               require './src/components/markdown'
