@@ -19,7 +19,6 @@ class OXRouter
 
   constructor: (routes) ->
     {routeSettings, renderers} = OXRouter.separateRendersFromRoutes(routes)
-    console.info('routeSettings', routeSettings)
     # routes = cloneDeep(routes)
     mappedRoutes = cloneDeep(mapRoutes(routeSettings))
 
@@ -59,19 +58,17 @@ class OXRouter
     traverseRoutes(routes, (route) ->
       return null unless renderers[route.name]?
 
-      route.render = renderers[route.name]
+      route.render = renderers[route.name]()
       route.getParamsForPath = partial(getParamsByPattern, routesMap[route.name].pattern)
       route
     )
 
 OXRouter.separateRendersFromRoutes = (routes) ->
   renderers = {}
-  console.info('is this being caleld?', routes)
 
   routeSettings = traverseRoutes(routes, (route) ->
-    renderers[route.name] = route.render if route.render?
-    console.info(pick(route, 'pattern', 'name'), 'hello?')
-    pick(route, 'pattern', 'name')
+    renderers[route.name] = route.renderer if route.renderer?
+    pick(route, 'pattern', 'name', 'routes')
   )
 
   {renderers, routeSettings}

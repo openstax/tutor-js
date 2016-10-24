@@ -1,7 +1,7 @@
 React = require 'react'
 {BrowserRouter, Match, Miss} = require 'react-router'
 
-{App} = require './app'
+App = require './app'
 
 TutorRoot = React.createClass
 

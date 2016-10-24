@@ -1,11 +1,6 @@
 React = require 'react'
 classnames = require 'classnames'
-
-{OXRouter} = require 'shared'
-ROUTES = require '../router'
-
-# Router = require '../helpers/router'
-# renderers = require '../router'
+Router = require '../helpers/router'
 RoutingHelper = require '../helpers/routing'
 Analytics = require '../helpers/analytics'
 Navbar = require './navbar'
@@ -15,13 +10,11 @@ merge = require 'lodash/merge'
 {TransitionActions, TransitionStore} = require '../flux/transition'
 { LocationSubscriber } = require 'react-router/Broadcasts'
 
-TutorRouter = new OXRouter(ROUTES)
-
 RouteChange = (props) ->
   TransitionActions.load(props.pathname)
   <span />
 
-App = React.createClass
+module.exports = React.createClass
   displayName: 'App'
   contextTypes:
     router: React.PropTypes.object
@@ -33,10 +26,6 @@ App = React.createClass
 
   childContextTypes:
     courseId: React.PropTypes.string
-    tutorRouter: React.PropTypes.object
-
-  getChildContext: ->
-    {tutorRouter: TutorRouter}
 
   componentDidMount: ->
     @storeHistory()
@@ -50,7 +39,7 @@ App = React.createClass
     TransitionActions.load(@props.location.pathname)
 
   render: ->
-    params = TutorRouter.currentParams()
+    params = Router.currentParams()
     {courseId} = params
 
     classNames = classnames('tutor-app', 'openstax-wrapper', {
@@ -59,11 +48,10 @@ App = React.createClass
     })
 
     <div className={classNames}>
+      <LocationSubscriber>{RouteChange}</LocationSubscriber>
 
       <SpyMode.Wrapper>
         <Navbar {...@props}/>
-        <RoutingHelper.component routes={TutorRouter.getRenderableRoutes()} />
+        <RoutingHelper.component routes={Router.getRenderableRoutes()} />
       </SpyMode.Wrapper>
     </div>
-
-module.exports = {App, TutorRouter}
