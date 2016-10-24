@@ -2,7 +2,7 @@
 
 React = require 'react'
 {CurrentUserStore}   = require '../flux/current-user'
-{Invalid} = require '../components'
+Invalid = require '../components/invalid-page'
 NoPeriods = require '../components/no-periods'
 {CourseStore} = require '../flux/course'
 
