@@ -7,9 +7,14 @@ TEXT_LENGTH_CHECK = 110
 TEXT_LENGTH = 125
 TEXT_CHECK_RANGE = TEXT_LENGTH - TEXT_LENGTH_CHECK
 
+isLearningObjectives = (element) ->
+  (element?.attribs?['class']? and
+    element.attribs['class'].search(/learning-objectives/) > -1) or
+    element.attribs['data-type'] is 'abstract'
+
 isTypedClass = (element) ->
   element?.attribs?['class']? and
-    element.attribs['class'].search(/learning-objectives|references|ap-connection/) > -1
+    element.attribs['class'].search(/learning-objectives|references|ap-connection|solution/) > -1
 
 isTipsForSuccess = (element) ->
   element?.attribs?['class']? and element.attribs['class'].search(/tips-for-success/) > -1
@@ -67,13 +72,29 @@ getLengthFromTextOrMaths = (element) ->
 StepTitleConfig =
 
   _local: {}
+  _meta: {}
 
   loaded: (id, title) ->
     @_local[id] = title
     @emit("loaded.#{id}", title)
 
+  loadedMetaData: (contentId, metaData = {}) ->
+    metaData = _.extend({
+      hasLearningObjectives: false
+    }, metaData)
+
+    @_meta[contentId] = metaData
+
+  _parseMeta: (actions, contentId, error, dom) ->
+    learningObjectives = htmlparser.DomUtils.findOne(isLearningObjectives, dom, false)
+    meta =
+      hasLearningObjectives: learningObjectives?
+
+    actions.loadedMetaData(contentId, meta)
+
   _parseReading: (actions, id, error, dom) ->
     title = htmlparser.DomUtils.findOne(isTitle, dom, false)
+    meta = actions._parseMeta(actions, id, error, dom)
 
     if title?
       text = grabTitle(title)
@@ -112,6 +133,7 @@ StepTitleConfig =
       text = htmlparser.DomUtils.getOuterHTML(truncatedExercise)
 
     actions.loaded(id, text)
+    actions.loadedMetaData(id)
 
   parseReading: (id, htmlString) ->
     unless @_get(id)?
@@ -134,15 +156,25 @@ StepTitleConfig =
   parseSteps: (steps) ->
     _.each steps, @parseStep, @
 
+  parseMetaOnly: (contentId, htmlString) ->
+    unless @_meta[contentId]?
+      parseHandler = new htmlparser.DomHandler _.partial(@_parseMeta, @, contentId)
+      metaParser = new htmlparser.Parser(parseHandler)
+      metaParser.parseComplete(htmlString)
+
   _get: (id) ->
     @_local[id]
 
   reset: ->
     @_local = {}
+    @_meta = {}
 
   exports:
     get: (id) -> @_get(id)
     isLoaded: (id) -> @_get(id)?
+
+    hasLearningObjectives: (contentId) -> @_meta[contentId]?.hasLearningObjectives
+
 
 {actions, store} = makeSimpleStore(StepTitleConfig)
 module.exports = {StepTitleActions:actions, StepTitleStore:store}

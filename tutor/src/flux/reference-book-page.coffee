@@ -2,11 +2,13 @@
 _ = require 'underscore'
 
 {MediaActions} = require './media'
+{StepTitleActions} = require './step-title'
 
 ReferenceBookPageConfig = {
 
   _loaded: (obj, id) ->
     MediaActions.parse(obj.content_html)
+    StepTitleActions.parseMetaOnly(id, obj.content_html)
     obj
 
   loadSilent: (id) ->

@@ -40,10 +40,12 @@ Milestone = React.createClass
     title = StepTitleStore.get(crumb.id)
 
     if crumb.type is 'reading' and crumb.related_content?[0]?.title?
+      relatedTitle = crumb.related_content[0].title
+
       if title is 'Summary'
-        title = "#{title} of #{crumb.related_content?[0]?.title}"
+        title = "#{title} of #{relatedTitle}"
       else if not title
-        title = crumb.related_content?[0]?.title
+        title = relatedTitle
 
     title
 
@@ -94,7 +96,8 @@ Milestone = React.createClass
         role='button'
         aria-label={previewText}
         onClick={goToStepForCrumb}
-        onKeyUp={_.partial(@handleKeyUp, stepIndex)}>
+        onKeyUp={_.partial(@handleKeyUp, stepIndex)}
+      >
         <BreadcrumbStatic
           crumb={crumb}
           data-label={crumb.label}
@@ -102,7 +105,8 @@ Milestone = React.createClass
           goToStep={goToStepForCrumb}
           stepIndex={stepIndex}
           key="breadcrumb-#{crumb.type}-#{stepIndex}"
-          ref="breadcrumb-#{crumb.type}-#{stepIndex}"/>
+          ref="breadcrumb-#{crumb.type}-#{stepIndex}"
+        />
         {preview}
       </div>
     </BS.Col>
@@ -168,7 +172,8 @@ MilestonesWrapper = React.createClass
         crumb={crumb}
         goToStep={@goToStep}
         stepIndex={crumbIndex}
-        currentStep={currentStep}/>
+        currentStep={currentStep}
+      />
 
     classes = 'task-breadcrumbs'
 
@@ -193,7 +198,8 @@ Milestones = React.createClass
     <ReactCSSTransitionGroup
       transitionName='task-with-milestones'
       transitionAppearTimeout={0}
-      transitionAppear={true}>
+      transitionAppear={true}
+    >
       {milestones}
     </ReactCSSTransitionGroup>
 

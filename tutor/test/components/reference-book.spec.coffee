@@ -73,7 +73,7 @@ describe 'Reference Book Component', ->
       .to.match(/1\.1/)
 
   it 'renders page html', ->
-    expect(@state.div.querySelector('.page').textContent)
+    expect(@state.div.querySelector('.book-content').textContent)
       .to.equal('A bunch of html')
 
   it 'toggles menu when navbar control is clicked', ->

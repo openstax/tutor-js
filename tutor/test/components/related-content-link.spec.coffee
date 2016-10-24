@@ -2,7 +2,7 @@
 React = require 'react/addons'
 RelatedContentLink = require '../../src/components/related-content-link'
 
-describe 'Relalated Content Link Component', ->
+describe 'Related Content Link Component', ->
 
   beforeEach ->
     @props =

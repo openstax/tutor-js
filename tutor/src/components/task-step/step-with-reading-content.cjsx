@@ -3,7 +3,7 @@ React = require 'react'
 {TaskStepStore} = require '../../flux/task-step'
 {ArbitraryHtmlAndMath, ChapterSectionMixin} = require 'shared'
 {BookContentMixin, LinkContentMixin} = require '../book-content-mixin'
-RelatedContentLink = require '../related-content-link'
+RelatedContent = require '../related-content'
 
 # TODO: will combine with below, after BookContentMixin clean up
 ReadingStepContent = React.createClass
@@ -27,16 +27,21 @@ ReadingStepContent = React.createClass
   shouldOpenNewTab: -> true
   render: ->
     {id, courseDataProps, stepType} = @props
+
     {content_html, related_content} = TaskStepStore.get(id)
     {courseId} = @context.router.getCurrentParams()
 
     <div className="#{stepType}-step">
-      <ArbitraryHtmlAndMath
-        {...courseDataProps}
+      <div
         className="#{stepType}-content"
-        shouldExcludeFrame={@shouldExcludeFrame}
-        html={content_html} />
-      <RelatedContentLink courseId={courseId} content={related_content} />
+        {...courseDataProps}>
+        <RelatedContent contentId={id} {...related_content?[0]} />
+        <ArbitraryHtmlAndMath
+          className='book-content'
+          shouldExcludeFrame={@shouldExcludeFrame}
+          html={content_html}
+        />
+      </div>
     </div>
 
 StepContent = React.createClass
@@ -58,7 +63,8 @@ StepContent = React.createClass
       <ArbitraryHtmlAndMath
         className={"#{stepType}-content"}
         html={content_html}
-        shouldExcludeFrame={@shouldExcludeFrame} />
+        shouldExcludeFrame={@shouldExcludeFrame}
+      />
     </div>
 
 

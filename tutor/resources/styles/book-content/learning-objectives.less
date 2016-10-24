@@ -13,7 +13,7 @@
   .book-content-full-width();
   .flex-display(inline-flex);
   margin-top: -@tutor-card-body-padding-vertical;
-  padding: 10px 20px;
+  padding: @tutor-book-padding-vertical;
   border: none;
 
   &::before {
@@ -42,6 +42,7 @@
 
   &[data-is-intro=false] {
     margin-bottom: 3rem;
+    margin-top: -1rem;
   }
 
 
