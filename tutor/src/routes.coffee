@@ -1,3 +1,4 @@
+async = require './helpers/webpack-async-loader'
 
 getCourseListing = ->
   {CourseListing} = require './components/course-listing'
@@ -62,6 +63,13 @@ getQuestionsLibrary = ->
 getChangeStudentId = ->
   require './components/change-student-id'
 
+getQADashboard = ->
+  QALoader = require 'promise?global!./qa'
+  async(QALoader, 'QADashboard')
+
+getQABook = ->
+  QALoader = require 'promise?global!./qa'
+  async(QALoader, 'QABook')
 
 ROUTES = [
   { pattern: '/dashboard',              name: 'listing',                  renderer: getCourseListing     }
@@ -110,6 +118,17 @@ ROUTES = [
     routes: [
       { pattern: 'section/:section',    name: 'viewReferenceBookSection', renderer: getReferenceBookShell  }
       { pattern: 'page/:cnxId',         name: 'viewReferenceBookPage',    renderer: getReferenceBookPageShell  }
+    ]
+  }
+  {
+    pattern: '/qa',                     name: 'QADashboard',              renderer: getQADashboard
+    routes: [
+      {
+        pattern: ':ecosystemId',        name: 'QAViewBook',               renderer: getQABook
+        routes: [{
+          pattern: 'section/:section',  name: 'QAViewBookSection',        renderer: getQABook
+        }]
+      }
     ]
   }
 ]

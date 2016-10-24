@@ -1,5 +1,5 @@
 {OXRouter} = require 'shared'
-routes = require '../router'
+routes = require '../routes'
 TutorRouter = new OXRouter(routes)
 
 module.exports = TutorRouter
