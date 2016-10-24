@@ -1,6 +1,8 @@
-React = require 'react/addons'
+React = require 'react'
+ReactDOM = require 'react-dom'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
+
 
 TutorPopover = React.createClass
   displayName: 'TutorPopover'
@@ -45,7 +47,7 @@ TutorPopover = React.createClass
       @setState(imagesLoading: imagesLoading, firstShow: false)
 
   getImages: ->
-    content = @refs.popcontent.getDOMNode()
+    content = @refs.popcontent
     content.querySelectorAll('img')
 
   imageLoaded: (iter) ->
@@ -67,7 +69,7 @@ TutorPopover = React.createClass
     # can inherit the height for scrolling content
     # @refs.popper.updateOverlayPosition = =>
 
-    viewer = @refs.popover.getDOMNode()
+    viewer = ReactDOM.findDOMNode(@refs.popover)
     {height, width} = viewer.getBoundingClientRect()
 
     scrollable = false
@@ -92,8 +94,9 @@ TutorPopover = React.createClass
     @setState({placement}) unless @state.placement is placement
 
   guessPlacement: ->
+    window.refs = @refs
     {windowImpl} = @props
-    trigger = @refs.popper.getDOMNode().getBoundingClientRect().left
+    trigger = ReactDOM.findDOMNode(@refs.popper).getBoundingClientRect().left
     midWindow = windowImpl.innerWidth / 2
     if trigger > midWindow then 'left' else 'right'
 
@@ -118,7 +121,7 @@ TutorPopover = React.createClass
     if @areImagesLoading()
       contentClassName = 'image-loading'
 
-    content = React.addons.cloneWithProps(content, className: contentClassName)
+    content = React.cloneElement(content, className: contentClassName)
 
     popoverId = if id then "tutor-popover-#{id}" else "tutor-popover-#{@_reactInternalInstance._rootNodeID}"
 

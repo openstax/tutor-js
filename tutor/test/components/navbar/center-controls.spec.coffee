@@ -1,8 +1,8 @@
-{Testing, expect, sinon, _} = require '../helpers/component-testing'
+{Testing, expect, sinon, ReactTestUtils, _} = require '../helpers/component-testing'
 
 CenterControls = require '../../../src/components/navbar/center-controls'
 {TaskActions, TaskStore} = require '../../../src/flux/task'
-React = require 'react/addons'
+React = require 'react'
 moment = require 'moment'
 {commonActions} = require '../helpers/utilities'
 
@@ -35,7 +35,7 @@ describe 'Center Controls', ->
   it 'displays date on hover', ->
     Testing.renderComponent( CenterControls, {routerParams: ROUTER_PARAMS, props: PROPS} ).then ({dom, element}) ->
       iconEl = dom.querySelector('.tutor-icon[type^="calendar-"]')
-      React.addons.TestUtils.Simulate.mouseOver(iconEl)
+      ReactTestUtils.Simulate.mouseOver(iconEl)
       tooltipEl = document.querySelector('div[role="tooltip"]')
       expect(tooltipEl).to.exist
       due = element.reformatTaskDue(VALID_MODEL.due_at)

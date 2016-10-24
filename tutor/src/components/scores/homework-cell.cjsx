@@ -1,7 +1,8 @@
-React  = require 'react'
-Router = require 'react-router'
-BS = require 'react-bootstrap'
+React      = require 'react'
+ReactDOM   = require 'react-dom'
+TutorLink  = require '../link'
 classNames = require 'classnames'
+BS = require 'react-bootstrap'
 
 Time = require '../time'
 CellStatusMixin = require './cell-status-mixin'
@@ -26,11 +27,11 @@ HomeworkScore = React.createClass
 
     if TH.isHomeworkTaskStarted(@props.task)
       <div className="score">
-        <Router.Link to='viewTaskStep'
+        <TutorLink to='viewTaskStep'
           data-assignment-type="#{task.type}"
           params={courseId: courseId, id: task.id, stepIndex: 1}>
             {scoreText}
-        </Router.Link>
+        </TutorLink>
       </div>
     else
       <div className="score not-started">---</div>
@@ -49,7 +50,7 @@ HomeworkCell = React.createClass
   hide: -> @setState(isShowingPopover: false)
 
   getPieChartTarget: ->
-    @refs.pieChart.getDOMNode()
+    ReactDOM.findDOMNode(@refs.pieChart)
 
   render: ->
     {task, courseId, displayAs, isConceptCoach, rowIndex, columnIndex, period_id} = @props

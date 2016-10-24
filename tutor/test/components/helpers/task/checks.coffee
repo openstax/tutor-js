@@ -1,7 +1,8 @@
 {expect} = require 'chai'
 {Promise} = require 'es6-promise'
 _ = require 'underscore'
-React = require 'react/addons'
+React = require 'react'
+ReactTestUtils = require 'react-addons-test-utils'
 
 {TaskStepActions, TaskStepStore} = require '../../../../src/flux/task-step'
 {TaskActions, TaskStore} = require '../../../../src/flux/task'
@@ -180,7 +181,7 @@ checks =
     {div, component, stepId, taskId, state, router, history}
 
   _checkHasAllBreadcrumbs: ({div, component, stepId, taskId, state, router, history}) ->
-    breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
+    breadcrumbs = ReactTestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
     steps = TaskStore.getStepsIds(taskId)
 
     expect(breadcrumbs.length).to.equal(steps.length + 1)
@@ -188,8 +189,8 @@ checks =
     {div, component, stepId, taskId, state, router, history}
 
   _checkHasReviewableBreadcrumbs: ({div, component, stepId, taskId, state, router, history}) ->
-    breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
-    progress = React.addons.TestUtils.scryRenderedComponentsWithType(component, ProgressBar)
+    breadcrumbs = ReactTestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
+    progress = ReactTestUtils.scryRenderedComponentsWithType(component, ProgressBar)
     completedSteps = TaskStore.getCompletedSteps(taskId)
     steps = TaskStore.getSteps(taskId)
     { type } = TaskStore.get(taskId)
@@ -200,8 +201,8 @@ checks =
     {div, component, stepId, taskId, state, router, history}
 
   _checkHasReadingProgressBar: ({div, component, stepId, taskId, state, router, history}) ->
-    progress = React.addons.TestUtils.scryRenderedComponentsWithType(component, ProgressBar)
-    progressPanel = React.addons.TestUtils.scryRenderedComponentsWithType(component, ProgressPanel)
+    progress = ReactTestUtils.scryRenderedComponentsWithType(component, ProgressBar)
+    progressPanel = ReactTestUtils.scryRenderedComponentsWithType(component, ProgressPanel)
 
     expect(progress.length).to.equal(1)
     expect(progressPanel.length).to.equal(1)
@@ -209,7 +210,7 @@ checks =
     {div, component, stepId, taskId, state, router, history}
 
   _checkHasExpectedGroupLabel: ({div, component, stepId, taskId, state, router, history}) ->
-    group = React.addons.TestUtils.scryRenderedComponentsWithType(component, ExerciseGroup)[0]
+    group = ReactTestUtils.scryRenderedComponentsWithType(component, ExerciseGroup)[0]
     step = TaskStepStore.get(stepId)
 
     if step.group is 'personalized'
@@ -243,7 +244,7 @@ checks.checkIsMatchStep = (matchStepIndex) ->
     Promise.resolve(checks._checkIsMatchStep(matchStepIndex, args...))
 
 checks._checkIsPendingStep = (stepIndex, {div, component, stepId, taskId, state, router, history}) ->
-  breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
+  breadcrumbs = ReactTestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
   placeholderBreadcrumb = breadcrumbs[stepIndex]
 
   placeholderBreadcrumbDOM = placeholderBreadcrumb.getDOMNode()
@@ -260,8 +261,8 @@ checks.checkIsPendingStep = (matchStepIndex) ->
 
 checks._checkIsNotPendingStep = (stepIndex, args...) ->
   {component} = args[0]
-  breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
-  breadcrumbs = React.addons.TestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
+  breadcrumbs = ReactTestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
+  breadcrumbs = ReactTestUtils.scryRenderedComponentsWithType(component, BreadcrumbTaskDynamic)
   placeholderBreadcrumb = breadcrumbs[stepIndex]
 
   placeholderBreadcrumbDOM = placeholderBreadcrumb.getDOMNode()

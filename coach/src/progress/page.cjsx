@@ -28,6 +28,7 @@ PageProgress = React.createClass
 
     exercisesProgressWidth = maxLength * progressWidth + (maxLength - 1) * progressMargin
     titleWidth = componentEl.width - exercisesProgressWidth - dateBuffer
+    style = if _.isNaN(titleWidth) then {} else {width: titleWidth}
 
     classes = classnames 'concept-coach-progress-page', className
     section = @sectionFormat(page.chapter_section)
@@ -43,7 +44,7 @@ PageProgress = React.createClass
         key={"progress-exercise-#{exercise.id}"}/>
 
     <li className={classes} onClick={_.partial(@switchModule, {moduleUUID: page.uuid})}>
-      <h4 className='concept-coach-progress-page-title' style={width: titleWidth}>
+      <h4 className='concept-coach-progress-page-title' style={style}>
         <div {...sectionProps}>
           {page.title}
         </div>

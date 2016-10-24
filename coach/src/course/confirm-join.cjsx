@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 BS = require 'react-bootstrap'
 ENTER = 'Enter'
 
@@ -25,7 +26,7 @@ ConfirmJoin = React.createClass
   onSubmit: ->
     @props.course.confirm(@getSchoolId())
 
-  getSchoolId: -> @refs.input.getDOMNode().value
+  getSchoolId: -> ReactDOM.findDOMNode(@refs.input).value
 
   render: ->
 

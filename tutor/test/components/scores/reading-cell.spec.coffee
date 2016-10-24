@@ -14,7 +14,7 @@ describe 'Student Scores Report Reading Cell', ->
       courseId: '1'
       student:
         name: 'Molly Bloom'
-        role: 'student'
+        role: 1
       task:
         status:          'in_progress'
         type:            'reading'

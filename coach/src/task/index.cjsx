@@ -131,24 +131,27 @@ TaskBase = React.createClass
 
     noExercises = not task.steps? or _.isEmpty(task.steps)
 
-    if noExercises
-      panel = <NoExercises/>
+    panel = if noExercises
+      <NoExercises/>
     else if @isExerciseStep(currentStep)
-      panel = <ExerciseStep
+      <ExerciseStep
         className='concept-coach-task-body'
+        currentStep={currentStep}
         id={crumbs[currentStep].id}
-        pinned={false}/>
+        pinned={false}
+      />
     else if @isReviewStep(currentStep)
-      panel = <TaskReview {...@props} goToStep={@goToFirstIncomplete}/>
+      <TaskReview {...@props} goToStep={@goToFirstIncomplete}/>
     else if @isContinueStep(currentStep)
-      panel = null
+      null
     else if @isStaticStep(currentStep)
       {type} = crumbs[currentStep]
 
-      panel = <ExerciseIntro
+      <ExerciseIntro
         stepIntroType={type}
         project='concept-coach'
-        onContinue={@nextStep}/>
+        onContinue={@nextStep}
+      />
 
     taskClasses = classnames 'concept-coach-task',
       'card-body': noExercises

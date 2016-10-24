@@ -3,15 +3,18 @@ _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
 
+Router = require '../../helpers/router'
+
 CourseGroupingLabel = require '../course-grouping-label'
 
 CourseAddMenuMixin =
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object.isRequired
 
   propTypes:
     dateFormat: React.PropTypes.string
     hasPeriods: React.PropTypes.bool.isRequired
+    courseId:   React.PropTypes.string.isRequired
 
   getInitialState: ->
     addDate: null
@@ -22,10 +25,10 @@ CourseAddMenuMixin =
   goToBuilder: (link) ->
     (clickEvent) =>
       clickEvent.preventDefault()
-      @context.router.transitionTo(link.to, link.params, link.query)
+      @context.router.transitionTo(link)
 
   renderAddActions: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = @props
     {dateFormat, hasPeriods} = @props
 
     if hasPeriods
@@ -84,22 +87,21 @@ CourseAddMenuMixin =
 
       links = [{
         text: linkText
-        to: 'courseSettings'
-        params:
-          courseId: courseId
+        to: "/course/#{courseId}/settings"
         type: 'none'
       }]
 
-    _.map(links, (link) =>
-      href = @context.router.makeHref(link.to, link.params, link.query)
+    for link in links
+      link.pathname = Router.makePathname(link.to, link.params)
+
       <li
         key={link.type}
         data-assignment-type={link.type}
         ref="#{link.type}Link">
-        <a href={href} onClick={@goToBuilder(link)} >
+        <a href={link.pathname} onClick={@goToBuilder(link)} >
           {link.text}
         </a>
       </li>
-    )
+
 
 module.exports = CourseAddMenuMixin

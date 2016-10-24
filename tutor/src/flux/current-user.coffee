@@ -29,18 +29,9 @@ getRankByRole = (roleType) ->
 ROUTES =
   dashboard:
     label: 'Dashboard'
-    allowedForCourse: (course) -> not course?.is_concept_coach is true
+    allowedForCourse: (course) -> !!course
     roles:
-      teacher: 'taskplans'
-      student: 'viewStudentDashboard'
-      default: 'app'
-  cc_dashboard:
-    label: 'Dashboard'
-    allowedForCourse: (course) -> course?.is_concept_coach is true
-    roles:
-      teacher: 'cc-dashboard'
-      student: 'viewStudentDashboard'
-      default: 'app'
+      default: 'dashboard'
   guide:
     label: 'Performance Forecast' # a bit hard to read, but we only want to reject the === true case
     allowedForCourse: (course) -> not course?.is_concept_coach is true
@@ -96,6 +87,7 @@ CurrentUserStore = flux.createStore
 
   _getRouteByRole: (routeType, menuRole) ->
     ROUTES[routeType].roles[menuRole] or ROUTES[routeType].roles.default
+
   _getParamsForRoute: (courseId, routeType, menuRole) ->
     if _.isFunction(ROUTES[routeType].params)
       ROUTES[routeType].params(courseId, menuRole)
@@ -197,6 +189,7 @@ CurrentUserStore = flux.createStore
       _.chain(routes)
         .map((routeType) =>
           routeName = @_getRouteByRole(routeType, menuRole)
+
           if routeName?
             name: routeName
             params: @_getParamsForRoute(courseId, routeType, menuRole)

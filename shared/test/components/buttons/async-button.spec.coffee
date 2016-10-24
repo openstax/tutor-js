@@ -42,3 +42,4 @@ describe 'Async Button Component', ->
         expect(element.state.isTimedout).equal(true)
         done()
       , 3
+    true #

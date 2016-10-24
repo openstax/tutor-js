@@ -1,7 +1,6 @@
 React = require 'react'
 moment = require 'moment-timezone'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
 _ = require 'underscore'
 
 LoadableItem = require '../loadable-item'
@@ -27,20 +26,30 @@ getDisplayBounds =
 TeacherTaskPlans = React.createClass
 
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
+
+  propTypes:
+    params: React.PropTypes.shape(
+      courseId: React.PropTypes.string.isRequired
+      date:     React.PropTypes.string
+    ).isRequired
 
   onEditPlan: ->
-    {courseId, plan} = @props
+    courseId = @props.params.courseId
+    {plan} = @props
     {id, type} = plan
     if type is 'reading'
-      @context.router.transitionTo('editReading', {courseId, id})
+      @context.router.transitionTo("/courses/#{courseId}/editReading")
     else if type is 'homework'
       @context.router.transitionTo('editHomework', {courseId, id})
 
   onViewStats: ->
-    {courseId, plan} = @props
+    courseId = @props.params.courseId
+    {plan} = @props
     {id} = @props.plan
+
     @context.router.transitionTo('viewStats', {courseId, id})
+
 
   render: ->
     {plan} = @props
@@ -63,11 +72,9 @@ TeacherTaskPlanListing = React.createClass
 
   displayName: 'TeacherTaskPlanListing'
 
-  contextTypes:
-    router: React.PropTypes.func
-
   propTypes:
     dateFormat: React.PropTypes.string
+    date: React.PropTypes.string
 
   getDefaultProps: ->
     dateFormat: TimeHelper.ISO_DATE_FORMAT
@@ -91,28 +98,28 @@ TeacherTaskPlanListing = React.createClass
 
   mixins: [CourseDataMixin]
 
-  statics:
-    willTransitionTo: (transition, params, query, callback) ->
-      {date, planId, courseId} = params
-      course = CourseStore.get(courseId)
-      if course.is_concept_coach
-        transition.redirect('cc-dashboard', {courseId})
-        return callback()
+  # statics:
+  #   willTransitionTo: (transition, params, query, callback) ->
+  #     {date, planId, courseId} = params
+  #     course = CourseStore.get(courseId)
+  #     if course.is_concept_coach
+  #       transition.redirect('cc-dashboard', {courseId})
+  #       return callback()
 
-      unless date? and moment(date, TimeHelper.ISO_DATE_FORMAT).isValid()
-        date = moment(TimeStore.getNow())
-        params.date = date.format(TimeHelper.ISO_DATE_FORMAT)
-        transition.redirect('calendarByDate', params)
-        return callback()
+  #     unless date? and moment(date, TimeHelper.ISO_DATE_FORMAT).isValid()
+  #       date = moment(TimeStore.getNow())
+  #       params.date = date.format(TimeHelper.ISO_DATE_FORMAT)
+  #       transition.redirect('calendarByDate', params)
+  #       return callback()
 
-      if planId? and TaskPlanStore.isDeleteRequested(planId)
-        transition.redirect('calendarByDate', _.omit(params, 'planId'))
-        return callback()
+  #     if planId? and TaskPlanStore.isDeleteRequested(planId)
+  #       transition.redirect('calendarByDate', _.omit(params, 'planId'))
+  #       return callback()
 
-      callback()
+  #     callback()
 
   componentWillMount: ->
-    {courseId} = @context.router.getCurrentParams()
+    courseId = @props.params.courseId
     courseTimezone = CourseStore.getTimezone(courseId)
     TimeHelper.syncCourseTimezone(courseTimezone)
 
@@ -120,25 +127,25 @@ TeacherTaskPlanListing = React.createClass
     TimeHelper.unsyncCourseTimezone()
 
   getDateFromParams: ->
-    {date} = @context.router.getCurrentParams()
-    if date?
-      date = TimeHelper.getMomentPreserveDate(date, @props.dateFormat)
-    date
+    {date} = @props.params
+    TimeHelper.getMomentPreserveDate(date or new Date, @props.dateFormat)
 
   isLoadingOrLoad: ->
-    {courseId} = @context.router.getCurrentParams()
+    courseId = @props.params.courseId
     {startAt, endAt} = @getDateStates()
 
     TeacherTaskPlanStore.isLoadingRange(courseId, startAt, endAt)
 
   loadRange: ->
-    {courseId} = @context.router.getCurrentParams()
+    courseId = @props.params.courseId
     {startAt, endAt} = @getDateStates()
 
     TeacherTaskPlanActions.load(courseId, startAt, endAt)
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {params} = @props
+
+    {courseId} = params
     courseDataProps = @getCourseDataProps(courseId)
     {displayAs} = @state
     {date, startAt, endAt} = @getDateStates()
@@ -147,7 +154,7 @@ TeacherTaskPlanListing = React.createClass
     hasPeriods = PH.hasPeriods(course)
 
     loadPlansList = _.partial(TeacherTaskPlanStore.getActiveCoursePlans, courseId)
-    loadedCalendarProps = {loadPlansList, courseId, date, displayAs, hasPeriods}
+    loadedCalendarProps = {loadPlansList, courseId, date, displayAs, hasPeriods, params}
     loadingCalendarProps = if hasPeriods
       {
         loadPlansList,
@@ -155,6 +162,7 @@ TeacherTaskPlanListing = React.createClass
         date,
         displayAs,
         hasPeriods,
+        params,
         className: 'calendar-loading'
       }
     else

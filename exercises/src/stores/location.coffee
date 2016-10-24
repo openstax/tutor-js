@@ -29,7 +29,7 @@ class Location
     @_createHistory()
 
   _createHistory: ->
-    @history = history.createHistory()
+    @history = history.createBrowserHistory()
 
   startListening: (cb) ->
     @historyUnlisten = @history.listen(cb)

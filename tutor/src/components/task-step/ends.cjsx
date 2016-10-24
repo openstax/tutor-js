@@ -2,7 +2,8 @@
 
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+
+TutorLink = require '../link'
 _ = require 'underscore'
 
 PracticeButton = require '../buttons/practice-button'
@@ -45,7 +46,7 @@ PracticeEnd = React.createClass
     pageIds = CoursePracticeStore.getCurrentTopics(courseId, taskId)
 
     fallbackLink =
-      to: 'viewPerformanceForecast'
+      to: 'viewPerformanceGuide'
       params: {courseId}
       text: 'Back to Performance Forecast'
 
@@ -153,9 +154,9 @@ HomeworkEnd = React.createClass
           {renderStatusMessage(completedStepsCount, totalStepsCount)}
           {feedback}
           <p className="link-to-forecast">
-            <Router.Link to="viewPerformanceForecast" params={{courseId}}>
+            <TutorLink to="viewPerformanceGuide" params={{courseId}}>
               View your Performance Forcast
-            </Router.Link> to see your progress in the course and get more practice.
+            </TutorLink> to see your progress in the course and get more practice.
           </p>
         </div>
       </CardBody>
@@ -179,13 +180,13 @@ TaskEnd = React.createClass
         <div className="completed-message">
           <h1>You are done.</h1>
           <h3>Great job completing all the steps.</h3>
-          <Router.Link
-            to={if not CourseStore.isTeacher(courseId) then 'viewStudentDashboard' else 'viewTeacherDashBoard'}
-            key='step-back'
+          <TutorLink
+            to='dashboard'
+            key='step-end-back'
             params={{courseId}}
             className='btn btn-primary'>
               Back to Dashboard
-          </Router.Link>
+          </TutorLink>
         </div>
       </CardBody>
     </div>

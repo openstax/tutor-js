@@ -1,4 +1,5 @@
-React = require 'react/addons'
+React = require 'react'
+ReactDOM = require 'react-dom'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
@@ -12,6 +13,7 @@ classnames = require 'classnames'
 {TaskStore} = require '../../../flux/task'
 {StepTitleStore} = require '../../../flux/step-title'
 
+
 {
   PERSONALIZED_GROUP,
   SPACED_PRACTICE_GROUP,
@@ -20,7 +22,7 @@ classnames = require 'classnames'
   TITLES
 } = StepHelpsHelper
 
-ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
+ReactCSSTransitionGroup = require 'react-addons-css-transition-group'
 
 Milestone = React.createClass
   displayName: 'Milestone'
@@ -141,7 +143,7 @@ MilestonesWrapper = React.createClass
   switchTransitionListen: (switchOn = true) ->
     eventAction = if switchOn then 'addEventListener' else 'removeEventListener'
 
-    milestones = @getDOMNode()
+    milestones = ReactDOM.findDOMNode(@)
     milestones[eventAction]('transitionend', @componentDidEnter)
     milestones[eventAction]('webkitTransitionEnd', @componentDidEnter)
 
@@ -152,7 +154,7 @@ MilestonesWrapper = React.createClass
     document[eventAction]('focus', @checkAllowed, true)
 
   checkAllowed: (focusEvent) ->
-    modal = @getDOMNode()
+    modal = ReactDOM.findDOMNode(@)
 
     unless modal.contains(focusEvent.target) or @props.filterClick?(focusEvent)
       focusEvent.preventDefault()
@@ -197,6 +199,8 @@ Milestones = React.createClass
 
     <ReactCSSTransitionGroup
       transitionName='task-with-milestones'
+      transitionEnterTimeout={300}
+      transitionLeaveTimeout={300}
       transitionAppearTimeout={0}
       transitionAppear={true}
     >

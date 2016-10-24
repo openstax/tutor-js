@@ -1,9 +1,11 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+
+
 _ = require 'underscore'
 classnames = require 'classnames'
 
+Router = require '../../helpers/router'
 UserName = require './username'
 AccountLink = require './account-link'
 BrowseTheBook = require '../buttons/browse-the-book'
@@ -13,6 +15,9 @@ LogOut = require './logout'
 {CurrentUserStore} = require '../../flux/current-user'
 {CourseStore} = require '../../flux/course'
 
+BrowseBookMenuOption = (props) ->
+  <li><BrowseTheBook unstyled={true} courseId={props.courseId} /></li>
+
 UserActionsMenu = React.createClass
 
   mixins: [BindStoreMixin]
@@ -21,13 +26,18 @@ UserActionsMenu = React.createClass
   propTypes:
     courseId: React.PropTypes.string
     onItemClick: React.PropTypes.func.isRequired
+    windowImpl: React.PropTypes.object
+
+  getDefaultProps: ->
+    windowImpl: window
 
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
 
-  transitionToMenuItem: (routeName, params, mouseEvent) ->
-    mouseEvent.preventDefault()
-    @context.router.transitionTo(routeName, params)
+  transitionToMenuItem: (href, evKey, clickEvent) ->
+    clickEvent.preventDefault()
+    @context.router.transitionTo(href)
+    @props.onItemClick()
 
   componentWillMount: ->
     CurrentUserStore.ensureLoaded()
@@ -36,38 +46,35 @@ UserActionsMenu = React.createClass
     @props.onItemClick()
 
   renderMenuItem: (route, index) ->
-    isActive = @context.router.isActive(route.name) if route.name?
+    isActive = route.name and Router.isActive(route.name, route.params, window: @props.windowImpl)
 
-    menuGoProps = if route.href
+    props = if route.href
       href: route.href
       onSelect: @props.onItemClick
     else
-      href: @context.router.makeHref(route.name, route.params)
-      onSelect: (event) =>
-        @transitionToMenuItem(route.name, route.params, event)
-        @props.onItemClick()
-        return null
+      href = Router.makePathname(route.name, route.params)
+      { href, onSelect: _.partial(@transitionToMenuItem, href) }
 
     key = if route.key then "dropdown-item-#{route.key}" else "dropdown-item-#{index}"
 
     # MenuItem doesn't pass on props to the li currently, so using className instead for route.name visual control.
     <BS.MenuItem
-      {...menuGoProps}
+      {...props}
       className={classnames(route.name, 'active': isActive)}
       key={key}
       data-name={route.name}
-      eventKey={index + 2}>
+      eventKey={index + 2}
+    >
         {route.label}
     </BS.MenuItem>
+
 
   renderMenuItems: ->
     {courseId} = @props
 
     menu = _.map CurrentUserStore.getCourseMenuRoutes(courseId), @renderMenuItem
 
-    menu.push <li key='nav-browse-the-book'>
-      <BrowseTheBook unstyled={true} courseId={courseId} />
-    </li>
+    menu.push <BrowseBookMenuOption key="browse-book" courseId={courseId} />
 
     if CurrentUserStore.isAdmin()
       menu.push @renderMenuItem({label: 'Admin', href: '/admin', key: 'admin'}, menu.length )

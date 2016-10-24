@@ -75,7 +75,6 @@ module.exports = React.createClass
     label = <span><CourseGroupingLabel courseId={@props.courseId} /> Name</span>
 
     <BS.Modal
-      {...@props}
       show={@state.showModal}
       onHide={@close}
       className='teacher-edit-period-modal'>

@@ -5,6 +5,7 @@ React = require 'react'
 {CloseButton} = require 'shared'
 TutorDialog = require '../tutor-dialog'
 S = require '../../helpers/string'
+Router = require '../../helpers/router'
 
 moment = require 'moment'
 # we should gather things somewhere nice.
@@ -12,7 +13,7 @@ CALENDAR_DATE_FORMAT = 'YYYY-MM-DD'
 
 PlanMixin =
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
 
   getInitialState: ->
     @getStates()
@@ -131,7 +132,7 @@ PlanMixin =
 
   goBackToCalendar: ->
     {to, params} = @getBackToCalendarParams()
-    @context.router.transitionTo(to, params)
+    @context.router.transitionTo(Router.makePathname(to, params))
 
   builderHeader: (type, label = 'Assignment') ->
     {id} = @props

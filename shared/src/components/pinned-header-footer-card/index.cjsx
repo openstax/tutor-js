@@ -1,7 +1,8 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 _ = require 'underscore'
 
-{ScrollListenerMixin} = require 'react-scroll-components'
+ScrollListenerMixin = require 'react-scroll-components/ScrollListenerMixin'
 ResizeListenerMixin = require '../resize-listener-mixin'
 GetPositionMixin = require '../get-position-mixin'
 
@@ -46,7 +47,7 @@ module.exports = React.createClass
     if @props.fixedOffset?
       offset = @props.fixedOffset
     else if @refs.header?
-      offset = @getTopPosition(@refs.header.getDOMNode())
+      offset = @getTopPosition(ReactDOM.findDOMNode(@refs.header))
 
     offset
 
@@ -119,18 +120,18 @@ module.exports = React.createClass
     @setState(shouldBeShy: true)
 
   getHeaderHeight: ->
-    header = @refs.header?.getDOMNode()
+    header = ReactDOM.findDOMNode(@refs.header)
     headerHeight = header?.offsetHeight or 0
 
   setOriginalContainerMargin: ->
-    container = @refs.container?.getDOMNode()
+    container = ReactDOM.findDOMNode(@refs.container)
     return unless container
 
     @setState(containerMarginTop: window.getComputedStyle(container).marginTop) if window.getComputedStyle?
 
   setContainerMargin: ->
     headerHeight = @getHeaderHeight()
-    container = @refs.container?.getDOMNode()
+    container = ReactDOM.findDOMNode(@refs.container)
     return unless container
 
     @setState(headerHeight: headerHeight)

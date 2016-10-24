@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+
 _ = require 'underscore'
 classnames = require 'classnames'
 
@@ -13,8 +13,6 @@ ChapterSectionType = require './chapter-section-type'
 
 module.exports = React.createClass
   displayName: 'PerformanceForecast'
-  contextTypes:
-    router: React.PropTypes.func
 
   propTypes:
     courseId:    React.PropTypes.string.isRequired

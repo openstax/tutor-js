@@ -53,7 +53,7 @@ module.exports = React.createClass
     else
       @popOverMessage()
 
-    <BS.Popover title={title} {...@props} className='undrop-student'>
+    <BS.Popover title={title} className='undrop-student'>
       {body}
     </BS.Popover>
 

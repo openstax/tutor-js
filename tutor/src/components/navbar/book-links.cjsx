@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+TutorLink = require '../link'
 
 {CourseStore} = require '../../flux/course'
 
@@ -29,10 +29,11 @@ BookLinks = React.createClass
         </a>
       )
     links.push(
-      <Router.Link
+      <TutorLink
+        key='assignment'
         to='viewAssignmentLinks'
         params={courseId: @props.courseId}
-        onClick={onItemClick}>Assignment Links</Router.Link>
+        onClick={onItemClick}>Assignment Links</TutorLink>
     )
 
     <li className='book-links'>

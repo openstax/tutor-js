@@ -1,6 +1,8 @@
 React  = require 'react'
 BS     = require 'react-bootstrap'
+
 Time   = require '../time'
+Router = require '../../helpers/router'
 {StudentDashboardStore, StudentDashboardActions} = require '../../flux/student-dashboard'
 EventInfoIcon = require './event-info-icon'
 {Instructions} = require '../task/details'
@@ -17,15 +19,14 @@ module.exports = React.createClass
     feedback:  React.PropTypes.string.isRequired
 
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
 
   getInitialState: -> hidden: false
 
   onClick: (ev) ->
+    {courseId, event} = @props
     ev.preventDefault()
-    @context.router.transitionTo 'viewTaskStep',
-      # url is 1 based so it matches the breadcrumb button numbers. 1==first step
-      {courseId:@props.courseId, id: @props.event.id, stepIndex: 1}
+    @context.router.transitionTo Router.makePathname('viewTask', {courseId, id: event.id})
 
   hideTask: (event) ->
     StudentDashboardActions.hide(@props.event.id)
@@ -45,34 +46,34 @@ module.exports = React.createClass
     classes = classnames("task row #{@props.eventType}", {workable, deleted})
 
     if deleted
-      message = <div>
-        <p>
-          If you remove this assignment, you will lose any progress or feedback you have received.
-        </p>
-        <p>Do you wish to continue?</p>
-      </div>
-
-      hideButton = <span>
-        Withdrawn
-        <SuretyGuard
-          onConfirm={@hideTask}
-          okButtonLabel='Yes'
-          placement='top'
-          message={message}
-        >
-          <BS.Button className="hide-task"
-            onClick={@stopEventPropagation}
-          >
-            <i className="fa fa-close" />
-          </BS.Button>
-        </SuretyGuard>
-      </span>
+      guardProps = {
+        okButtonLabel: 'Yes'
+        onConfirm: @hideTask
+        placement: 'top'
+        message:
+          <div>
+            <p>
+              If you remove this assignment, you will lose any progress or
+              feedback you have received.
+            </p>
+            <p>Do you wish to continue?</p>
+          </div>
+      }
+      hideButton =
+        <span>
+          Withdrawn
+          <SuretyGuard {...guardProps}>
+            <BS.Button className="hide-task" onClick={@stopEventPropagation}>
+              <i className="fa fa-close" />
+            </BS.Button>
+          </SuretyGuard>
+        </span>
 
     else
       time = <Time date={@props.event.due_at} format='concise'/>
       feedback = [
-        <span>{@props.feedback}</span>
-        <EventInfoIcon event={@props.event} />
+        <span key="feedback">{@props.feedback}</span>
+        <EventInfoIcon key="icon" event={@props.event} />
       ]
 
     <a

@@ -10,6 +10,7 @@ TaskPanel =
 
   loaded: (task, taskId) ->
     @_steps[taskId] = TaskHelper.mapSteps(task)
+    @emit('loaded')
 
   sync: (taskId) ->
     task = TaskStore.get(taskId)

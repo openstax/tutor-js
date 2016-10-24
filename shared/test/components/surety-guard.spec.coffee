@@ -28,3 +28,4 @@ describe 'SuretyGuard', ->
         expect(guard).to.exist
         expect(guard.textContent).to.include('Yo!')
         done()
+    true

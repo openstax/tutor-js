@@ -1,17 +1,15 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-
+Router = require '../../helpers/router'
 {CourseStore, CourseActions} = require '../../flux/course'
 Settings = require './settings'
 LoadableItem = require '../loadable-item'
 
 module.exports = React.createClass
   displayName: 'CourseSettingsShell'
-  contextTypes:
-    router: React.PropTypes.func
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
     <LoadableItem
       id={courseId}
       store={CourseStore}

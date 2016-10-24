@@ -5,6 +5,7 @@ _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
+TutorLink = require '../link'
 
 CourseAddMenuMixin = require './add-menu-mixin'
 BrowseTheBook = require '../buttons/browse-the-book'
@@ -25,8 +26,6 @@ CourseCalendarHeader = React.createClass
 
   mixins: [ CourseAddMenuMixin ]
 
-  contextTypes:
-    router: React.PropTypes.func
 
   getDefaultProps: ->
     duration: 'month'
@@ -58,8 +57,7 @@ CourseCalendarHeader = React.createClass
 
   render: ->
     {date} = @state
-    {format, duration, hasPeriods} = @props
-    {courseId} = @context.router.getCurrentParams()
+    {courseId, format, duration, hasPeriods} = @props
 
     addAssignmentBSStyle = if hasPeriods then 'primary' else 'default'
 
@@ -71,15 +69,19 @@ CourseCalendarHeader = React.createClass
 
         <div className='calendar-header-actions-buttons'>
           <BrowseTheBook bsStyle='default' courseId={courseId} />
-          <Router.Link
+          <TutorLink
             className='btn btn-default'
-            to='viewTeacherPerformanceForecast'
-            params={{courseId}}>
+            to='viewPerformanceGuide'
+            params={{courseId}}
+          >
             Performance Forecast
-          </Router.Link>
-          <Router.Link className='btn btn-default' to='viewScores' params={{courseId}}>
+          </TutorLink>
+          <TutorLink className='btn btn-default'
+            to='viewScores'
+            params={{courseId}}
+          >
             Student Scores
-          </Router.Link>
+          </TutorLink>
         </div>
       </BS.Row>
       <BS.Row className='calendar-header-navigation'>

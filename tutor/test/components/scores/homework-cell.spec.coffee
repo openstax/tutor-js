@@ -14,10 +14,11 @@ describe 'Student Scores Homework Cell', ->
       courseId: '1'
       student:
         name: 'Molly Bloom'
-        role: 'student'
+        role: 1
       task:
-        status:          'in_progress'
-        type:            'homework'
+        id: 1
+        status: 'in_progress'
+        type: 'homework'
         exercise_count: 17
         correct_exercise_count: 9
         completed_step_count: 11

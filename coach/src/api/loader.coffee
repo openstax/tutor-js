@@ -1,6 +1,7 @@
 _ = require 'underscore'
+axios = require 'axios'
 deepMerge = require 'lodash/merge'
-$ = require 'jquery'
+
 interpolate = require 'interpolate'
 
 METHODS_WITH_DATA = ['PUT', 'PATCH', 'POST']
@@ -14,19 +15,16 @@ getAjaxSettingsByEnv = (isLocal, baseUrl, setting, eventData) ->
 
   {data, change} = eventData
   apiSetting = _.pick(setting, 'url', 'method')
-  apiSetting.dataType = 'json'
-  apiSetting.contentType = 'application/json;charset=UTF-8'
 
   if _.includes(METHODS_WITH_DATA, apiSetting.method)
-    apiSetting.data = JSON.stringify(change or data)
+    apiSetting.data = change or data
 
   if isLocal
     apiSetting.url = "#{interpolate(apiSetting.url, data)}/#{apiSetting.method}.json"
     apiSetting.method = 'GET'
   else
     if setting.useCredentials
-      apiSetting.xhrFields =
-        withCredentials: true
+      apiSetting.withCredentials = true
     else if API_ACCESS_TOKEN
       apiSetting.headers =
         Authorization: "Bearer #{API_ACCESS_TOKEN}"
@@ -34,13 +32,13 @@ getAjaxSettingsByEnv = (isLocal, baseUrl, setting, eventData) ->
 
   apiSetting
 
-getResponseDataByEnv = (isLocal, requestEvent, data) ->
+getResponseDataByEnv = (isLocal, requestEvent, response) ->
   if isLocal
-    datasToMerge = [{}, {data, query: requestEvent.query}]
+    datasToMerge = [{}, {data: response.data, query: requestEvent.query}]
     if requestEvent.change?
       datasToMerge.push(data: requestEvent.change)
   else
-    datasToMerge = [{}, requestEvent, {data}]
+    datasToMerge = [{}, requestEvent, {data: response.data}]
   deepMerge.apply {}, datasToMerge
 
 
@@ -55,31 +53,34 @@ handleAPIEvent = (apiEventChannel, baseUrl, setting, requestEvent = {}) ->
     return if LOADING[apiSetting.url]
     LOADING[apiSetting.url] = true
 
+  sendApiEventComplete = ->
+    apiEventChannel.emit('completed')
+
   _.delay ->
-    $.ajax(apiSetting)
-      .done((responseData) ->
+    axios(apiSetting)
+      .then((response) ->
         delete LOADING[apiSetting.url]
         try
           completedEvent = interpolate(setting.completedEvent, requestEvent.data)
-          completedData = getResponseDataByEnv(isLocal, requestEvent, responseData)
+          completedData = getResponseDataByEnv(isLocal, requestEvent, response)
           apiEventChannel.emit(completedEvent, completedData)
         catch error
-          apiEventChannel.emit('error', {apiSetting, response: responseData, failedData: completedData, exception: error})
-      ).fail((response) ->
+          apiEventChannel.emit('error', {apiSetting, response, failedData: completedData, exception: error})
+
+        response
+      ).catch(({response}) ->
         delete LOADING[apiSetting.url]
 
-        {responseJSON} = response
-
-        failedData = getResponseDataByEnv(isLocal, requestEvent, responseJSON)
+        failedData = getResponseDataByEnv(isLocal, requestEvent, response)
         if _.isString(setting.failedEvent)
           failedEvent = interpolate(setting.failedEvent, requestEvent.data)
           apiEventChannel.emit(failedEvent, failedData)
 
         defaultFail(response)
         apiEventChannel.emit('error', {response, apiSetting, failedData})
-      ).always((response) ->
-        apiEventChannel.emit('completed')
-      )
+
+        response
+      ).then(sendApiEventComplete, sendApiEventComplete)
   , delay
 
 isPending = ->

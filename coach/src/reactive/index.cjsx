@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 classnames = require 'classnames'
 api = require '../api'
 _ = require 'underscore'
@@ -107,7 +107,7 @@ Reactive = React.createClass
     propsForChildren = _.pick(@state, 'status', 'item', 'errors')
 
     reactiveItems = React.Children.map(@props.children, (child) ->
-      React.addons.cloneWithProps(child, propsForChildren)
+      React.cloneElement(child, propsForChildren)
     )
 
     <div className={classes}>

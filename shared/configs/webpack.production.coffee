@@ -10,7 +10,6 @@ module.exports =
     filename: 'main.min.js'
   externals: webpackUMDExternal(
     react: 'React'
-    'react/addons': 'React.addons'
     'react-bootstrap': 'ReactBootstrap'
     'react-scroll-components': 'ReactScrollComponents'
     underscore: '_'

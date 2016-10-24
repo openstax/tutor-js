@@ -6,8 +6,7 @@ Location = require 'stores/location'
 {VocabularyActions, VocabularyStore} = require 'stores/vocabulary'
 {ExerciseActions} = require 'stores/exercise'
 
-AsyncButton = require 'shared/src/components/buttons/async-button.cjsx'
-{SuretyGuard} = require 'shared'
+{AsyncButton, SuretyGuard} = require 'shared'
 
 VocabularyControls = React.createClass
 

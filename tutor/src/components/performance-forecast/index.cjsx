@@ -1,20 +1,20 @@
 React = require 'react'
 
+Router = require '../../helpers/router'
 PerformanceForecast = require '../../flux/performance-forecast'
 LoadableItem = require '../loadable-item'
 TeacherComponent = require './teacher'
 StudentComponent = require './student'
 TeacherStudentComponent = require './teacher-student'
 {ScoresStore, ScoresActions} = require '../../flux/scores'
+{CourseStore} = require '../../flux/course'
 
 Student = React.createClass
   displayName: 'PerformanceForecastStudentShell'
 
-  contextTypes:
-    router: React.PropTypes.func
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
     <LoadableItem
       id={courseId}
       store={PerformanceForecast.Student.store}
@@ -28,11 +28,8 @@ Student = React.createClass
 TeacherStudent = React.createClass
   displayName: 'PerformanceForecastTeacherStudentShell'
 
-  contextTypes:
-    router: React.PropTypes.func
-
   render: ->
-    {courseId, roleId} = @context.router.getCurrentParams()
+    {courseId, roleId} = Router.currentParams()
     <LoadableItem
       id={courseId}
       store={ScoresStore}
@@ -43,11 +40,9 @@ TeacherStudent = React.createClass
 
 Teacher = React.createClass
   displayName: 'PerformanceForecastTeacherShell'
-  contextTypes:
-    router: React.PropTypes.func
 
   render: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
     <LoadableItem
       id={courseId}
       store={PerformanceForecast.Teacher.store}
@@ -55,4 +50,18 @@ Teacher = React.createClass
       renderItem={-> <TeacherComponent courseId={courseId} />}
     />
 
-module.exports = {Teacher, TeacherStudent, Student}
+Guide = React.createClass
+  displayName: 'PerformanceForecastGuide'
+
+  render: ->
+    {courseId, roleId} = Router.currentParams()
+    isTeacher = CourseStore.isTeacher(courseId)
+    if roleId? and isTeacher
+      <TeacherStudent />
+    else if isTeacher
+      <Teacher />
+    else
+      <Student />
+
+
+module.exports = {Teacher, TeacherStudent, Student, Guide}

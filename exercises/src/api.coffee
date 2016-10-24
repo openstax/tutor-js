@@ -1,5 +1,5 @@
-$ = require 'jquery'
-_ = require 'underscore'
+axios = require 'axios'
+extend = require 'lodash/extend'
 {ExerciseActions, ExerciseStore} = require './stores/exercise'
 {VocabularyActions, VocabularyStore} = require './stores/vocabulary'
 {ErrorsActions} = require './stores/errors'
@@ -42,8 +42,8 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
           url = "#{uri}/#{opts.method}.json?#{params}"
           opts.method = 'GET'
 
-      resolved = (results, statusStr, jqXhr) ->
-        successAction(results, args...) # Include listenAction for faking
+      resolved = ({data}) ->
+        successAction(data, args...) # Include listenAction for faking
       rejected = (jqXhr, statusMessage, err) ->
         statusCode = jqXhr.status
 
@@ -65,7 +65,7 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker) ->
           ErrorsActions.setServerError(statusCode, jqXhr.responseText, {url, opts})
           Actions.FAILED(statusCode, msg, args...)
 
-      $.ajax(url, opts)
+      axios(extend({url}, opts))
       .then(resolved, rejected)
 
 start = ->

@@ -44,24 +44,38 @@ QuestionFormatType = React.createClass
   doesRequireChoices: ->
     not @isFormatChecked('free-response')
 
+  preserveOrderClicked: (event) ->
+    QuestionActions.togglePreserveOrder(@props.questionId)
+    @props.sync()
+
   render: ->
     <div className="format-type">
       {for id, name of TYPES
-        <BS.Input
-          key={id}
-          type="radio"
-          name={"#{@props.questionId}-formats"}
-          label={name}
-          value={id}
-          onChange={@update}
-          onClick={@updateFormat}
-          checked={@isFormatChecked(id)}
-        />}
+        <div key={id}>
+          <input
+            type="radio"
+            id={"input-#{id}"}
+            name={"#{@props.questionId}-formats"}
+            value={id}
+            onChange={@update}
+            onClick={@updateFormat}
+            checked={@isFormatChecked(id)}
+          />
+          <label htmlFor={"input-#{id}"}>{name}</label>
+        </div>}
 
-      {<BS.Input type="checkbox" label="Requires Choices"
-        onChange={@setChoiceRequired}
-        checked={@doesRequireChoices()}
-      /> if QuestionStore.hasFormat(@props.questionId, 'multiple-choice')}
+      {<div className="requires-choices">
+        <input type="checkbox" id="input-rq"
+          checked={@doesRequireChoices()} onChange={@setChoiceRequired} />
+        <label htmlFor="input-rq">Requires Choices</label>
+      </div> if QuestionStore.hasFormat(@props.questionId, 'multiple-choice')}
+
+      {<div className="order-matters">
+        <input type="checkbox" id="input-om"
+          checked={QuestionStore.isOrderPreserved(@props.questionId)} onChange={@preserveOrderClicked} />
+        <label htmlFor="input-om">Order Matters</label>
+      </div> if QuestionStore.hasFormat(@props.questionId, 'multiple-choice')}
+
     </div>
 
 

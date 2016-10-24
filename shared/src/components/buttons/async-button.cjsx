@@ -1,6 +1,8 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-_ = require 'underscore'
+delay = require 'lodash/delay'
+
+OXLink = require '../../factories/link'
 
 RefreshButton = require './refresh-button'
 
@@ -33,7 +35,7 @@ module.exports = React.createClass
 
     if not delayTimeout and isWaiting and not isTimedout
       timeout = @props.timeoutLength or if isJob then 600000 else 30000
-      delayTimeout = _.delay @checkForTimeout, timeout
+      delayTimeout = delay @checkForTimeout, timeout
       @setState({delayTimeout})
 
   checkForTimeout: ->
@@ -79,7 +81,7 @@ module.exports = React.createClass
       stateClass = null
       text = children
 
-    <BS.Button {...@props}
+    <BS.Button {...OXLink.filterProps(@props, prefixes: 'bs')}
       className={[buttonTypeClass, stateClass, className]}
       disabled={disabled}
       >

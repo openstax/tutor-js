@@ -19,7 +19,8 @@ displayPopover = (props) ->
     Testing.renderComponent( UndropStudent, props: props ).then ({dom}) ->
       expect(dom.textContent).to.include("Add Back")
       Testing.actions.click(dom)
-      resolve(document.querySelector('.popover.undrop-student'))
+      _.defer ->
+        resolve(document.querySelector('.popover.undrop-student'))
   )
 
 describe 'Course Settings, undrop student', ->
@@ -52,6 +53,7 @@ describe 'Course Settings, undrop student', ->
       code: 'student_identifier_has_already_been_taken'
     )
     displayPopover(@props).then (dom) ->
+
       expect(dom.querySelector('.popover-title').textContent).to.include("Student ID is in use")
       expect(dom.querySelector('.popover-content').textContent).to.include('another student is using the same student ID')
       RosterStore.getError.restore()

@@ -38,10 +38,10 @@ LoginGateway = React.createClass
   parseAndDispatchMessage: (msg) ->
     return unless @isMounted()
     try
+      @setState(loginWindow: false) # cancel checking for close
       data = JSON.parse(msg.data)
       if data.user
         api.channel.emit 'user.status.receive.fetch', data: data
-      @setState(loginWindow: false) # cancel checking for close
     catch error
       console.warn(error)
   componentWillUnmount: ->

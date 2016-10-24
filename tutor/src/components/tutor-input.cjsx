@@ -1,4 +1,5 @@
-React = require 'react/addons'
+React = require 'react'
+ReactDOM = require 'react-dom'
 BS = require 'react-bootstrap'
 moment = require 'moment-timezone'
 _ = require 'underscore'
@@ -28,9 +29,12 @@ TutorInput = React.createClass
       return ['required'] unless (inputValue? and inputValue.length > 0)
     type: 'text'
 
-  getInitialState: ->
+  componentDidMount: ->
     errors = @props.validate(@props.default)
-    errors: errors or []
+    @setState({errors}) unless _.isEmpty(errors)
+
+  getInitialState: ->
+    errors: []
 
   componentDidUpdate: (prevProps, prevState) ->
     @props.onUpdated?(@state) unless _.isEqual(prevState, @state)
@@ -46,10 +50,10 @@ TutorInput = React.createClass
     @setState({errors})
 
   focus: ->
-    React.findDOMNode(@refs.input)?.focus()
+    ReactDOM.findDOMNode(@refs.input)?.focus()
 
   cursorToEnd: ->
-    input = React.findDOMNode(@refs.input)
+    input = ReactDOM.findDOMNode(@refs.input)
     input.selectionStart = input.selectionEnd = input.value.length
 
   # The label has style "pointer-events: none" set.  Unfortunantly IE 10
@@ -73,15 +77,19 @@ TutorInput = React.createClass
       <ErrorWarning key={error}/>
     )
 
-    inputProps = _.omit(@props, 'label', 'className', 'onChange', 'validate', 'default', 'children', 'ref')
-    inputProps.ref = 'input'
-    inputProps.className = classes
-    inputProps.onChange = @onChange
+    inputProps =
+      ref:'input'
+      className: classes
+      onChange: @onChange
+
     inputProps.defaultValue ?= @props.default if @props.default?
 
     if children?
-      inputBox = React.addons.cloneWithProps(children, inputProps)
+      inputBox = React.cloneElement(children, inputProps)
     else
+      props = _.omit(@props, 'label', 'className', 'onChange', 'validate', 'default', 'children', 'ref')
+      inputProps = _.extend({}, inputProps, props)
+
       inputBox = <input {...inputProps}/>
 
 
@@ -354,16 +362,15 @@ TutorTimeInput = React.createClass
 
     <TutorInput
       {...maskedProps}
-      value={timeValue}
-      defaultValue={timeValue}
       onChange={@onChange}
       validate={@validate}
-      ref="timeInput"
-      mask={timePattern}
-      formatCharacters={formatCharacters}
-      size='8'
-      name='time'>
-      <MaskedInput/>
+      ref="timeInput">
+      <MaskedInput
+        value={timeValue}
+        name='time'
+        size='8'
+        mask={timePattern}
+        formatCharacters={formatCharacters}/>
     </TutorInput>
 
 TutorTextArea = React.createClass
@@ -374,9 +381,7 @@ TutorTextArea = React.createClass
     onChange: React.PropTypes.func
 
   resize: (event) ->
-    textarea = @refs.textarea.getDOMNode()
-    textarea.style.height = ''
-    textarea.style.height = "#{textarea.scrollHeight}px"
+    @refs.textarea.style.height = "#{@refs.textarea.scrollHeight}px"
 
   componentDidMount: ->
     @resize() if @props.default?.length > 0
@@ -385,7 +390,7 @@ TutorTextArea = React.createClass
     @props.onChange(event.target?.value, event.target)
 
   focus: ->
-    React.findDOMNode(@refs.textarea)?.focus()
+    ReactDOM.findDOMNode(@refs.textarea)?.focus()
 
   # Forward clicks on for IE10.  see comments on TutorInput
   forwardLabelClick: -> @focus()
@@ -428,7 +433,7 @@ TutorRadio = React.createClass
     disabled: React.PropTypes.bool
 
   isChecked: ->
-    @refs.radio.getDOMNode().checked
+    @refs.radio.checked
 
   handleChange: (changeEvent) ->
     {value} = @props

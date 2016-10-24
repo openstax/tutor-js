@@ -1,13 +1,19 @@
 _ = require 'underscore'
 expect = chai.expect
 React = require 'react'
-ReactAddons    = require('react/addons')
-ReactContext   = require('react/lib/ReactContext')
-ReactTestUtils = React.addons.TestUtils
+ReactDOM = require 'react-dom'
+ReactTestUtils  = require 'react-addons-test-utils'
+# No longer exists, needs further investigation if we're using it
+# ReactContext   = require('react/lib/ReactContext')
 
+{LocationBroadcast} = require 'react-router/Broadcasts'
+{createRouterLocation} = require 'react-router/LocationUtils'
 {Promise}      = require 'es6-promise'
 {commonActions} = require './utilities'
 sandbox = null
+Sinon = {}
+
+
 ROUTER = null
 CURRENT_ROUTER_PARAMS = null
 CURRENT_ROUTER_PATH   = null
@@ -15,34 +21,27 @@ CURRENT_ROUTER_QUERY = null
 # Mock a router for the context
 beforeEach ->
   sandbox = sinon.sandbox.create()
-  ROUTER  = sandbox.spy()
-  ROUTER.makeHref = sandbox.spy()
-  ROUTER.isActive = sandbox.spy()
-  ROUTER.transitionTo = sandbox.spy()
-  ROUTER.getCurrentPath = sandbox.spy( -> CURRENT_ROUTER_PATH )
-  ROUTER.getCurrentQuery = sandbox.spy( -> CURRENT_ROUTER_QUERY )
-  ROUTER.getCurrentPathname = sandbox.spy( -> '/testing' )
-  ROUTER.getLocation = sandbox.spy( ->
-    addChangeListener: sandbox.spy()
-    removeChangeListener: sandbox.spy()
-  )
-  ROUTER.match = sandbox.spy()
-  ROUTER.getCurrentParams = sandbox.spy( -> CURRENT_ROUTER_PARAMS )
-  ROUTER.transitionTo = sandbox.spy (path, params) ->
-    CURRENT_ROUTER_PARAMS = params
-    CURRENT_ROUTER_PATH = path
+  ROUTER  = {
+    transitionTo:     sandbox.spy()
+    replaceWith:      sandbox.spy()
+    blockTransitions: sandbox.spy()
+    createHref: sandbox.spy( -> '/' )
+  }
 afterEach ->
   sandbox.restore()
 
 # A wrapper component to setup the router context
 Wrapper = React.createClass
   childContextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
   getChildContext: ->
     router: ROUTER
   render: ->
-    React.createElement(@props._wrapped_component,
-      _.extend(_.omit(@props, '_wrapped_component'), ref: 'element')
+    location = createRouterLocation('/')
+    React.createElement(LocationBroadcast, value: location,
+      React.createElement(@props._wrapped_component,
+        _.extend(_.omit(@props, '_wrapped_component'), ref: 'element')
+      )
     )
 
 Testing = {
@@ -57,18 +56,18 @@ Testing = {
     promise = new Promise( (resolve, reject) ->
       props = _.clone(options.props)
       props._wrapped_component = component
-      wrapper = React.render( React.createElement(Wrapper, props), root )
+      wrapper = ReactDOM.render( React.createElement(Wrapper, props), root )
       resolve({
         root,
         wrapper,
         element: wrapper.refs.element,
-        dom: React.findDOMNode(wrapper.refs.element)
+        dom: ReactDOM.findDOMNode(wrapper.refs.element)
       })
     )
     # defer adding the then callback so it'll be called after whatever is attached after the return
     _.defer -> promise.then ->
       _.delay( ->
-        React.unmountComponentAtNode(root)
+        ReactDOM.unmountComponentAtNode(root)
         CURRENT_ROUTER_PATH   = '/'
         CURRENT_ROUTER_PARAMS = {}
       , unmountAfter )
@@ -79,7 +78,7 @@ Testing = {
 
   shallowRender: (component) ->
     context = router: ROUTER
-    ReactContext.current = context
+#    ReactContext.current = context
     renderer = ReactTestUtils.createRenderer()
     renderer.render(component, context)
     output = renderer.getRenderOutput()
@@ -92,5 +91,10 @@ Testing = {
 Object.defineProperty(Testing, 'router', {
   get: -> ROUTER
 })
+
+# Object.defineProperties(Sinon, {
+#   spy:
+#     get
+# })
 
 module.exports = {Testing, expect, sinon, React, _, ReactTestUtils}

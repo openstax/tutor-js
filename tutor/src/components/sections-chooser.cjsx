@@ -18,13 +18,13 @@ SectionTopic = React.createClass
     selections: React.PropTypes.object.isRequired
     onChange: React.PropTypes.func.isRequired
 
-  isSelected:    -> @props.selections[@props.section.id]
+  isSelected:    -> !!@props.selections[@props.section.id]
   toggleSection: -> @props.onChange({"#{@props.section.id}": not @isSelected()})
   render: ->
     classNames = classnames 'section', {selected: @isSelected()}
     <div key={@props.section.id} className={classNames} onClick={@toggleSection}>
       <span className='section-checkbox'>
-        <input type='checkbox' readOnly checked={'checked' if @isSelected()} />
+        <input type='checkbox' readOnly checked={@isSelected()} />
       </span>
       <ChapterSection section={@props.section.chapter_section}/>
       <span className='-section-title'> {@props.section.title}</span>
@@ -41,9 +41,6 @@ ChapterAccordion = React.createClass
       chapter_section: React.PropTypes.array
       children: React.PropTypes.array
     ).isRequired
-
-  contextTypes:
-    router: React.PropTypes.func
 
   getInitialState: ->
     {expanded: @isAnySelected() or 1 is _.first @props.chapter.chapter_section}
@@ -68,7 +65,7 @@ ChapterAccordion = React.createClass
 
     classNames = classnames 'chapter-heading', 'empty-chapter': _.isEmpty(chapter.children)
 
-    <h2 className={classNames} data-chapter-section={chapter.chapter_section[0]}>
+    <div className={classNames} data-chapter-section={chapter.chapter_section[0]}>
       <span className='chapter-checkbox'>
         <TriStateCheckbox type={checkBoxType} onClick={@toggleSectionSelections} />
       </span>
@@ -76,12 +73,15 @@ ChapterAccordion = React.createClass
         Chapter <ChapterSection section={chapter.chapter_section}/> -
       </span>
       <span className='chapter-title'> {chapter.title}</span>
-      <BrowseTheBook ecosystemId={ecosystemId} unstyled={true}
-        onClick={@browseBook} className='browse-book' section={chapter.chapter_section.join('.')}
+
+      <BrowseTheBook
+        ecosystemId={ecosystemId} unstyled={true}
+        onClick={@browseBook} className='browse-book'
+        section={chapter.chapter_section.join('.')}
       >
           Browse this Chapter
       </BrowseTheBook>
-    </h2>
+    </div>
 
   onAccordianToggle: ->
     @setState(expanded: not @state.expanded)

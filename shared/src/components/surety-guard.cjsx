@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-
+defer = require 'lodash/defer'
 SuretyGuard = React.createClass
 
   propTypes:
@@ -45,7 +45,9 @@ SuretyGuard = React.createClass
 
   maybeShow: (ev) ->
     ev.preventDefault()
-    @onConfirm(ev) if @props.onlyPromptIf and not @props.onlyPromptIf()
+    if @props.onlyPromptIf and not @props.onlyPromptIf()
+      defer => @refs.overlay.hide()
+      @onConfirm(ev)
 
   render: ->
     <BS.OverlayTrigger

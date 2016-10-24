@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM  = require 'react-dom'
 {SpyMode} = require 'shared'
 
 _  = require 'underscore'
@@ -28,7 +29,7 @@ module.exports = React.createClass
   shouldOpenNewTab: -> true
 
   waitToScrollToSelector: (hash) ->
-    images = @getDOMNode().querySelectorAll('img')
+    images = ReactDOM.findDOMNode(@).querySelectorAll('img')
     imagesToLoad = images.length
     onImageLoad = =>
       imagesToLoad -= 1
@@ -78,7 +79,7 @@ module.exports = React.createClass
       </div>
 
       <SpyMode.Content className="ecosystem-info">
-        PageId: {@props.cnxId}, Ecosystem: {page?.spy}
+        PageId: {@props.cnxId}, Ecosystem: {JSON.stringify(page?.spy)}
       </SpyMode.Content>
 
     </div>

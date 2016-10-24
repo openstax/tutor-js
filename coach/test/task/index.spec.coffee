@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _} = require 'shared/test/helpers'
+{Testing, expect, sinon, _, ReactDOM} = require 'shared/test/helpers'
 {UiSettings} = require 'shared'
 
 {Task} = require 'task'
@@ -37,7 +37,7 @@ describe 'Task Component', ->
   # TODO: make an update to shared testing component to take in context as an option
   xit 'renders different step when breadcrumb is clicked', ->
     Testing.renderComponent(Task, props: @props, context: navigator: channel).then ({element}) =>
-      crumbs = element.getDOMNode().querySelectorAll('.openstax-breadcrumbs-step')
+      crumbs = ReactDOM.findDOMNode(element).querySelectorAll('.openstax-breadcrumbs-step')
       Testing.actions.click crumbs[1]
-      question = element.getDOMNode().querySelector('.openstax-exercise .question-stem').textContent
+      question = ReactDOM.findDOMNode(element).querySelector('.openstax-exercise .question-stem').textContent
       expect(question).to.equal(@task.steps[1].content.questions[0].stem_html)

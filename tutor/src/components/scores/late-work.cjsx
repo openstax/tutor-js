@@ -3,7 +3,8 @@ BS    = require 'react-bootstrap'
 React = require 'react'
 Time  = require '../time'
 classnames = require 'classnames'
-
+ReactDOM   = require 'react-dom'
+omit = require 'lodash/omit'
 {ScoresActions} = require '../../flux/scores'
 
 TH = require '../../helpers/task'
@@ -98,14 +99,14 @@ LateWorkPopover = React.createClass
     {content} = @state
     status = if @props.task.type is 'homework' then content.score() else content.progress()
     arrowOffsetTop = if TH.hasAdditionalLateWork(@props.task) then 128 else 95
-
+    popoverProps = omit(@props, 'hide', 'task', 'show')
     <BS.Popover
-      {...@props}
-      show={@state.isShown}
+      {...popoverProps}
       arrowOffsetTop={arrowOffsetTop}
       title={content.get('title')}
       id="late-work-info-popover-#{content.task.id}"
-      className={content.className()}>
+      className={content.className()}
+    >
         <div className='late-status'>
           {content.get('body')}
           <div className='description'>
@@ -137,7 +138,7 @@ LateWork = React.createClass
     @setState(isShown: false)
 
   getTarget: ->
-    this.refs.caret.getDOMNode()
+    ReactDOM.findDOMNode(@refs.caret)
 
   render: ->
     return null unless TH.isLate(@props.task)

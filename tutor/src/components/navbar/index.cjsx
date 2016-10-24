@@ -1,13 +1,16 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
 _ = require 'underscore'
+Router = require '../../helpers/router'
 
 CourseName = require './course-name'
 ServerErrorMonitoring = require './server-error-monitoring'
 UserActionsMenu = require './user-actions-menu'
 BookLinks = require './book-links'
 CenterControls = require './center-controls'
+TutorLink = require '../link'
+
 {NotificationsBar} = require 'shared'
 
 {CurrentUserActions} = require '../../flux/current-user'
@@ -17,9 +20,6 @@ CenterControls = require './center-controls'
 module.exports = React.createClass
   displayName: 'Navigation'
 
-  contextTypes:
-    router: React.PropTypes.func
-
   componentWillMount: ->
     CourseListingStore.ensureLoaded()
 
@@ -28,7 +28,7 @@ module.exports = React.createClass
     {course}
 
   getCourseFromParams: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
     CourseStore.get(courseId) if courseId?
 
   handleCourseChanges: ->
@@ -38,13 +38,10 @@ module.exports = React.createClass
         @setState({course})
 
   collapseNav: ->
-    navBar = this.refs.navBar.getDOMNode();
-    collapsibleNav = navBar.querySelector('div.navbar-collapse');
-    toggleBtn = navBar.querySelector('button.navbar-toggle');
-
-    if collapsibleNav.classList.contains('in')
-      toggleBtn.click();
-
+    navBar = ReactDOM.findDOMNode(@refs.navBar)
+    collapsibleNav = navBar.querySelector('div.navbar-collapse')
+    toggleBtn = navBar.querySelector('button.navbar-toggle')
+    toggleBtn.click() if collapsibleNav.classList.contains('in')
     return null
 
   componentDidUpdate: ->
@@ -58,26 +55,28 @@ module.exports = React.createClass
 
   render: ->
     {course} = @state
-    {courseId} = @context.router.getCurrentParams()
+    params = Router.currentParams()
+    {courseId} = params
 
-    brand = <Router.Link to='dashboard' className='navbar-brand'>
+    brand = <TutorLink to='listing' className='navbar-brand'>
               <i className='ui-brand-logo'></i>
-            </Router.Link>
+            </TutorLink>
 
-    <BS.Navbar toggleNavKey={0} fixedTop fluid ref="navBar">
-      <CenterControls/>
-      <BS.NavBrand>
+    <BS.Navbar fixedTop fluid ref="navBar">
+      <CenterControls params={params} />
+      <BS.Navbar.Brand>
         {brand}
-      </BS.NavBrand>
-      <BS.CollapsibleNav eventKey={0}>
-        <BS.Nav navbar>
+      </BS.Navbar.Brand>
+      <BS.Navbar.Collapse>
+        <BS.Nav>
           <CourseName course={course}/>
           <BookLinks courseId={courseId} onItemClick={@collapseNav} />
         </BS.Nav>
-        <BS.Nav right navbar>
-          <UserActionsMenu courseId={courseId} course={@getCourseFromParams()} onItemClick={@collapseNav} />
+        <BS.Nav pullRight>
+          <UserActionsMenu courseId={courseId} location={@props.location}
+            course={@getCourseFromParams()} onItemClick={@collapseNav} />
         </BS.Nav>
-      </BS.CollapsibleNav>
+      </BS.Navbar.Collapse>
       <ServerErrorMonitoring />
       <NotificationsBar />
     </BS.Navbar>

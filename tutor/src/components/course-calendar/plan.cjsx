@@ -2,7 +2,7 @@ _ = require 'underscore'
 twix = require 'twix'
 
 React = require 'react'
-Router = require 'react-router'
+
 camelCase = require 'camelcase'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
@@ -13,14 +13,12 @@ CoursePlanLabel = require './plan-label'
 
 {PlanPublishStore, PlanPublishActions} = require '../../flux/plan-publish'
 PlanHelper = require '../../helpers/plan'
+Router = require '../../helpers/router'
 
 
 # TODO drag and drop, and resize behavior
 CoursePlan = React.createClass
   displayName: 'CoursePlan'
-
-  contextTypes:
-    router: React.PropTypes.func
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
@@ -50,6 +48,10 @@ CoursePlan = React.createClass
     )
     activeHeight: React.PropTypes.number
 
+  contextTypes:
+    router: React.PropTypes.object.isRequired
+    dateFormatted: React.PropTypes.string.isRequired
+
   getDefaultProps: ->
     # CALENDAR_EVENT_LABEL_ACTIVE_STATIC_HEIGHT
     activeHeight: 35
@@ -78,7 +80,7 @@ CoursePlan = React.createClass
     {item} = props
     {plan} = item
 
-    {planId} = @context.router.getCurrentParams()
+    {planId} = @props.currentPlan or Router.currentParams()
     planId is plan.id
 
   _getExpectedRoute: (isViewingStats) ->
@@ -90,7 +92,7 @@ CoursePlan = React.createClass
   _getExpectedParams: (isViewingStats) ->
     planId = @props.item.plan.id
 
-    params = @context.router.getCurrentParams()
+    params = Router.currentParams()
     closedParams = _.omit(params, 'planId')
     openedParams = _.extend({}, params, {planId})
 
@@ -99,8 +101,10 @@ CoursePlan = React.createClass
   _updateRoute: (isViewingStats) ->
     expectedRoute = @_getExpectedRoute(isViewingStats)
     expectedParams = @_getExpectedParams(isViewingStats)
-    currentParams = @context.router.getCurrentParams()
-    @context.router.transitionTo(expectedRoute, expectedParams) unless _.isEqual(currentParams, expectedParams)
+    currentParams = Router.currentParams()
+    unless _.isEqual(currentParams, expectedParams)
+      expectedParams.date ?= @context.dateFormatted
+      @context.router.transitionTo(Router.makePathname(expectedRoute, expectedParams))
 
   # handles when route changes and modal show/hide needs to sync
   # i.e. when using back or forward on browser
@@ -137,9 +141,6 @@ CoursePlan = React.createClass
     state = _.extend({isViewingStats}, publishState)
     @setState(state)
 
-    location = @context.router.getLocation()
-    location.addChangeListener(@syncRoute)
-
   componentWillReceiveProps: (nextProps) ->
     if @props.item.plan.id isnt nextProps.item.plan.id
       publishState = PlanHelper.subscribeToPublishing(nextProps.item.plan, @checkPublishingStatus)
@@ -148,11 +149,11 @@ CoursePlan = React.createClass
       @setState(state)
     else if nextProps.item.plan.isPublishing and not @props.item.plan.isPublishing
       @subscribeToPublishing(nextProps.item.plan)
+    else
+      @syncRoute()
 
   componentWillUnmount: ->
     @stopCheckingPlan(@props.item.plan)
-    location = @context.router.getLocation()
-    location.removeChangeListener(@syncRoute)
 
   stopCheckingPlan: (plan) ->
     PlanPublishActions.stopChecking(plan.id) if @state.isPublishing

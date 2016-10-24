@@ -1,9 +1,10 @@
 {CourseStore} = require '../flux/course'
+Router = require '../helpers/router'
 
 module.exports =
   getCourseDataProps: (courseId) ->
     unless courseId?
-      {courseId} = @context.router.getCurrentParams()
+      {courseId} = Router.currentParams()
 
     dataProps =
       'data-title': CourseStore.getName(courseId)

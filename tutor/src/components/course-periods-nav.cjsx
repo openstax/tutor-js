@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+Router = require '../helpers/router'
 LoadableItem = require './loadable-item'
 _ = require 'underscore'
 camelCase = require 'camelcase'
@@ -87,15 +87,12 @@ CoursePeriodsNav = React.createClass
 
 CoursePeriodsNavShell = React.createClass
 
-  contextTypes:
-    router: React.PropTypes.func
-
   propTypes:
     courseId: React.PropTypes.string
 
   getCourseId: ->
     {courseId} = @props
-    {courseId} = @context.router.getCurrentParams() unless courseId?
+    {courseId} = Router.currentParams() unless courseId?
 
     courseId
 

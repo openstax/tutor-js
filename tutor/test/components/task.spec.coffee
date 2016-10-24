@@ -7,8 +7,6 @@ _ = require 'underscore'
 {TaskActions, TaskStore} = require '../../src/flux/task'
 {TaskStepActions, TaskStepStore} = require '../../src/flux/task-step'
 
-{SinglePractice, Tasks} = require '../../src/components'
-
 COURSE_ID = '1'
 COURSE    = require '../../api/user/courses/1.json'
 TASK_ID = '4'

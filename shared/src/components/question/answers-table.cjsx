@@ -92,7 +92,7 @@ AnswersTable = React.createClass
 
   hasIncorrectAnswer: ->
     {answer_id, correct_answer_id, choicesEnabled} = @props
-    answer_id and not choicesEnabled and answer_id isnt correct_answer_id
+    !!(answer_id and not choicesEnabled and answer_id isnt correct_answer_id)
 
   render: ->
     {

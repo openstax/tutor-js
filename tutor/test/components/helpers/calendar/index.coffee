@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 {Promise} = require 'es6-promise'
 
 actions = require './actions'

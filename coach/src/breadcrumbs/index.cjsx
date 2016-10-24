@@ -78,9 +78,9 @@ Breadcrumbs = React.createClass
       classes = classnames({disabled})
 
       <BreadcrumbDynamic
+        key={index}
         className={classes}
         data-label={crumb.label}
-        key={crumb.id}
         crumb={crumb}
         stepIndex={index}
         step={crumb or {}}

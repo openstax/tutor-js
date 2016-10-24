@@ -13,6 +13,9 @@ CourseAddMenuMixin = require './add-menu-mixin'
 CourseAdd = React.createClass
   displayName: 'CourseAdd'
 
+  propTypes:
+    courseId: React.PropTypes.string.isRequired
+
   mixins: [CourseAddMenuMixin]
 
   getInitialState: ->

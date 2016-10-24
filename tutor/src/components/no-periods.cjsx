@@ -1,7 +1,7 @@
 _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+TutorLink = require './link'
 
 CourseGroupingLabel = require './course-grouping-label'
 
@@ -30,12 +30,12 @@ NoPeriods = React.createClass
 
     if link
       message =
-        <Router.Link
+        <TutorLink
           className='no-periods-text'
           to='courseSettings'
           params={{courseId}}>
           {@getMessage()}
-        </Router.Link>
+        </TutorLink>
     else
       message =
         <span className='no-periods-text'>

@@ -1,5 +1,5 @@
 _ = require 'underscore'
-makeWebpackConfig = require '../configs/webpack/makeConfig'
+makeWebpackConfig = require '../webpack/makeConfig'
 
 KarmaConfig =
 

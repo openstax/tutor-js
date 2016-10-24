@@ -53,7 +53,8 @@ module.exports = React.createClass
 
   renderForm: ->
     <BS.Popover className='teacher-add-student-form'
-      title={'Student Information:'} {...@props}>
+      title={'Student Information:'}
+    >
 
       <Field label='First Name' name='first_name' default={@state.first_name}
         onChange={(val) => @setState(first_name: val)} autofocus />

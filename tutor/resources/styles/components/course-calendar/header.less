@@ -16,12 +16,12 @@
       .pull-left;
       .caret { margin-left: 0.5rem; }
 
-      @{btn-preselector}.btn {
+      .btn {
         margin-right: 0;
         width: 200px;
       }
-      .dropdown-menu { 
-        margin-top: -1px; 
+      .dropdown-menu {
+        margin-top: -1px;
         border-top-left-radius: 0;
         border-top-right-radius: 0;
       }
@@ -34,7 +34,8 @@
 
     &-actions {
       border-bottom: 1px solid @tutor-neutral-light;
-
+      padding-top: 1rem;
+      padding-bottom: 1rem;
       &-buttons {
         float: right;
       }
@@ -43,11 +44,13 @@
     &-navigation {
       text-align: center;
       font-size: 3rem;
+      padding: @calendar-header-padding 0;
+      display: flex;
+      align-items: center;
     }
 
     &-label {
       font-weight: stronger;
-      padding: @calendar-header-padding 0;
     }
 
     &-control {

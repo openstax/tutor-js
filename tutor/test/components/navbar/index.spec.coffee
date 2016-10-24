@@ -1,9 +1,9 @@
 {expect} = require 'chai'
 _ = require 'underscore'
-
+ReactTestUtils = require 'react-addons-test-utils'
 {Promise} = require 'es6-promise'
 {routerStub}   = require '../helpers/utilities'
-React = require 'react/addons'
+React = require 'react'
 Navbar = require '../../../src/components/navbar'
 
 {testParams, setupStores, resetStores, userModel, courseModel} = require './spec-test-params'
@@ -18,7 +18,7 @@ testWithRole = (roleType) ->
       routerStub
         .goTo('/dashboard')
         .then((result) =>
-          navbarComponent = React.addons.TestUtils.findRenderedComponentWithType(result.component, Navbar)
+          navbarComponent = ReactTestUtils.findRenderedComponentWithType(result.component, Navbar)
           navbarDOMNode = navbarComponent.getDOMNode()
           @result = _.extend({navbarComponent, navbarDOMNode}, result)
 
@@ -38,7 +38,7 @@ testWithRole = (roleType) ->
 
     it 'should have a navbar', (done) ->
       {navbarComponent} = @result
-      expect(React.addons.TestUtils.isCompositeComponent(navbarComponent)).to.be.true
+      expect(ReactTestUtils.isCompositeComponent(navbarComponent)).to.be.true
       done()
 
     it 'should have expected course name', (done) ->

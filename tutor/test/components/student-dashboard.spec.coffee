@@ -3,8 +3,7 @@ _              = require 'underscore'
 React          = require 'react'
 {Promise}      = require 'es6-promise'
 {TimeActions}  = require '../../src/flux/time'
-ReactAddons    = require 'react/addons'
-ReactTestUtils = React.addons.TestUtils
+ReactTestUtils  = require 'react-addons-test-utils'
 {routerStub}   = require './helpers/utilities'
 {sinon}        = require './helpers/component-testing'
 

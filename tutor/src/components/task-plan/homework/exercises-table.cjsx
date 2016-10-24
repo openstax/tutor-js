@@ -33,7 +33,7 @@ ExerciseTable = React.createClass
 
       teks = <td>{teksString}</td>
 
-    <tr>
+    <tr key="exercise-row-#{index}">
       <td className="exercise-number">{index + 1}</td>
       <td>
         <ChapterSection section={section}/>
@@ -53,7 +53,7 @@ ExerciseTable = React.createClass
     numSelected = TaskPlanStore.getExercises(@props.planId).length
     number = index + numSelected + 1
 
-    <tr>
+    <tr key="exercise-row-tutor-#{index}">
       <td className="exercise-number">{number}</td>
       <td>-</td>
       <td>Tutor Selection</td>

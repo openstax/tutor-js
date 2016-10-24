@@ -1,6 +1,7 @@
 React    = require 'react'
 BS       = require 'react-bootstrap'
 classnames = require 'classnames'
+{propHelpers} = require 'shared'
 _ = require 'underscore'
 
 module.exports = React.createClass
@@ -31,13 +32,13 @@ module.exports = React.createClass
     })
 
     unless @props.tooltip
-      return <i {...@props} className={classNames} />
-
-    icon = <button {...@props} className={classNames} />
-
-    tooltip = <BS.Tooltip id={@state.uniqueId}
-      className={classnames({'on-navbar': @props.onNavbar})}
+      iconProps = _.omit(@props, 'tooltipProps', 'spin')
+      return <i {...iconProps} className={classNames} />
+    buttonProps = propHelpers.removeDefined(@)
+    icon = <button {...buttonProps} className={classNames} />
+    tooltip =
+      <BS.Tooltip id={@state.uniqueId}
+        className={classnames('foo', {'on-navbar': @props.onNavbar})}
       >{@props.tooltip}</BS.Tooltip>
 
     <BS.OverlayTrigger {...@props.tooltipProps} overlay={tooltip}>{icon}</BS.OverlayTrigger>
-

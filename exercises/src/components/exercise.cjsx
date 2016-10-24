@@ -14,7 +14,7 @@ Attachments     = require 'components/exercise/attachments'
 
 Exercise = React.createClass
   propTypes:
-    id:   React.PropTypes.string.isRequired
+    id:   React.PropTypes.string
     location: React.PropTypes.object
 
   getInitialState: -> {}
@@ -49,7 +49,9 @@ Exercise = React.createClass
   renderMpqTabs: ->
     {questions} = ExerciseStore.get(@props.id)
     for question, i in questions
-      <BS.Tab key={question.id} eventKey={"question-#{i}"} title={"Question #{i+1}"}>
+      <BS.Tab
+        key={question.id} eventKey={"question-#{i}"} title={"Question #{i+1}"}
+      >
         <Question id={question.id}
           sync={@sync}
           canMoveLeft={i isnt 0}
@@ -100,8 +102,9 @@ Exercise = React.createClass
          <BS.Button onClick={@addQuestion} className="add-mpq"
            bsStyle="primary">Add Question</BS.Button>}
 
-        <BS.Tabs defaultActiveKey='question-0' animation={false}
-          activeKey={tab} onSelect={@selectTab}
+        <BS.Tabs
+          id="exercise-parts" activeKey={tab} onSelect={@selectTab}
+          defaultActiveKey='question-0' animation={false}
         >
           {if showMPQ then @renderIntroTab()}
           {if showMPQ then @renderMpqTabs() else @renderSingleQuestionTab()}

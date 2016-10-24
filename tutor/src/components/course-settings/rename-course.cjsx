@@ -66,7 +66,6 @@ RenameCourse = React.createClass
       disabled = true
 
     <BS.Modal
-      {...@props}
       show={@state.showModal}
       onHide={@close}
       className='teacher-edit-course-modal'>

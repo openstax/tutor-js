@@ -1,4 +1,4 @@
-{Testing, sinon, expect, _, React} = require './helpers/component-testing'
+{Testing, sinon, expect, _, React, ReactDOM} = require './helpers/component-testing'
 
 TutorPopover = require '../../src/components/tutor-popover'
 {ArbitraryHtmlAndMath} = require 'shared'
@@ -12,8 +12,8 @@ FAKE_WINDOW =
   innerWidth: 800
 
 checkDoesOverlayHTMLMatch = (overlay, html) ->
-  popcontentDOM = overlay.refs.popcontent.getDOMNode()
-  overlayDOM = overlay.refs.popover.getDOMNode()
+  popcontentDOM = ReactDOM.findDOMNode(overlay)
+  overlayDOM = ReactDOM.findDOMNode(overlay.refs.popover)
 
   expect(popcontentDOM.innerHTML).to.contain(html)
   expect(overlayDOM.innerHTML).to.contain(html)
@@ -22,8 +22,8 @@ checkDoesOverlayHTMLMatch = (overlay, html) ->
 fakeOverflow = (popperElement, overlay, getOverlayDimensions) ->
   calledOnce = false
 
-  getOverlayDOMNode = overlay.refs.popover.getDOMNode
-  overlay.refs.popover.getDOMNode = ->
+  getOverlayDOMNode = _.partial(ReactDOM.findDOMNode, overlay.refs.popover)
+  overlay.refs.popover.findDOMNode = ->
     overlayDOM = getOverlayDOMNode()
     overlayDOM.getBoundingClientRect = ->
       rect = getOverlayDimensions(calledOnce)
@@ -33,8 +33,8 @@ fakeOverflow = (popperElement, overlay, getOverlayDimensions) ->
 
 fakePopover =
   right: (popper) ->
-    getPopperDOMNode = popper.getDOMNode
-    popper.getDOMNode = ->
+    getPopperDOMNode = _.partial ReactDOM.findDOMNode, popper
+    popper.findDOMNode = ->
       popperDOMNode = getPopperDOMNode()
       popperDOMNode.getBoundingClientRect = ->
         left: 100
@@ -42,8 +42,8 @@ fakePopover =
       popperDOMNode
 
   left: (popper) ->
-    getPopperDOMNode = popper.getDOMNode
-    popper.getDOMNode = ->
+    getPopperDOMNode = _.partial ReactDOM.findDOMNode, popper
+    popper.findDOMNode = ->
       popperDOMNode = getPopperDOMNode()
       popperDOMNode.getBoundingClientRect = ->
         left: 600
@@ -111,7 +111,7 @@ describe 'Tutor Popover', ->
     Testing
       .renderComponent( PopoverWrapper )
       .then ({element}) ->
-        linkDOM = element.refs.overlay.getDOMNode()
+        linkDOM = ReactDOM.findDOMNode element.refs.overlay
         expect(linkDOM).to.have.property('tagName').and.equal('A')
         expect(linkDOM).to.have.property('innerText').and.equal(TEST_LINK_TEXT)
 
@@ -120,7 +120,7 @@ describe 'Tutor Popover', ->
       .renderComponent( PopoverWrapper )
       .then ({element}) ->
         {overlay} = element.refs
-        linkDOM = element.refs.overlay.getDOMNode()
+        linkDOM = ReactDOM.findDOMNode element.refs.overlay
 
         expect(overlay.refs.popcontent).to.not.be.ok
         expect(overlay.state.show).to.be.false
@@ -134,7 +134,7 @@ describe 'Tutor Popover', ->
       .renderComponent( PopoverWrapper )
       .then ({element}) ->
         {overlay} = element.refs
-        linkDOM = element.refs.overlay.getDOMNode()
+        linkDOM = ReactDOM.findDOMNode element.refs.overlay
 
         Testing.actions.click(linkDOM)
         Testing.actions.blur(linkDOM)
@@ -149,11 +149,11 @@ describe 'Tutor Popover', ->
       .then ({element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        linkDOM = element.refs.overlay.getDOMNode()
+        linkDOM = ReactDOM.findDOMNode element.refs.overlay
 
         fakePopoverShould('right', linkDOM, popper, overlay)
         Testing.actions.click(linkDOM)
-        overlayDOM = overlay.refs.popover.getDOMNode()
+        overlayDOM = ReactDOM.findDOMNode overlay.refs.popover
 
         expect(overlay.state.placement).to.equal('right')
         expect(overlayDOM.classList.contains('right')).to.be.true
@@ -166,11 +166,11 @@ describe 'Tutor Popover', ->
       .then ({element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        linkDOM = element.refs.overlay.getDOMNode()
+        linkDOM = ReactDOM.findDOMNode element.refs.overlay
 
         fakePopoverShould('left', linkDOM, popper, overlay)
         Testing.actions.click(linkDOM)
-        overlayDOM = overlay.refs.popover.getDOMNode()
+        overlayDOM = ReactDOM.findDOMNode overlay.refs.popover
 
         expect(overlay.state.placement).to.equal('left')
         expect(overlayDOM.classList.contains('left')).to.be.true
@@ -181,10 +181,10 @@ describe 'Tutor Popover', ->
       .then ({element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        linkDOM = element.refs.overlay.getDOMNode()
+        linkDOM = ReactDOM.findDOMNode element.refs.overlay
 
         Testing.actions.click(linkDOM)
-        overlayDOM = overlay.refs.popover.getDOMNode()
+        overlayDOM = ReactDOM.findDOMNode overlay.refs.popover
 
         expect(overlayDOM.querySelector('.image-loading')).to.be.ok
         expect(overlay.state.firstShow).to.be.false
@@ -201,10 +201,10 @@ describe 'Tutor Popover', ->
       .then ({element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        linkDOM = element.refs.overlay.getDOMNode()
+        linkDOM = ReactDOM.findDOMNode element.refs.overlay
 
         Testing.actions.click(linkDOM)
-        overlayDOM = overlay.refs.popover.getDOMNode()
+        overlayDOM = ReactDOM.findDOMNode overlay.refs.popover
         images = overlayDOM.getElementsByTagName('img')
         fakeImageLoad(images, overlay, 0)
         fakeImageLoad(images, overlay, 1)
@@ -218,10 +218,10 @@ describe 'Tutor Popover', ->
     Testing
       .renderComponent( PopoverWrapper )
       .then ({element}) ->
-        linkDOM = element.refs.overlay.getDOMNode()
+        linkDOM = ReactDOM.findDOMNode element.refs.overlay
 
         Testing.actions.click(linkDOM)
-        overlayDOM = element.refs.overlay.refs.popover.getDOMNode()
+        overlayDOM = ReactDOM.findDOMNode element.refs.overlay.refs.popover
         expect(overlayDOM.style.cssText).to.not.contain('height')
         expect(overlayDOM.style.cssText).to.not.contain('width')
 
@@ -233,11 +233,11 @@ describe 'Tutor Popover', ->
       .then ({element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        linkDOM = element.refs.overlay.getDOMNode()
+        linkDOM = ReactDOM.findDOMNode element.refs.overlay
 
         fakePopoverShould('scrollHeight', linkDOM, popper, overlay)
         Testing.actions.click(linkDOM)
-        overlayDOM = overlay.refs.popover.getDOMNode()
+        overlayDOM = ReactDOM.findDOMNode overlay.refs.popover
 
         expect(overlayDOM.style.cssText).to.contain('height')
         expect(parseInt(overlayDOM.style.height) < windowImpl.innerHeight).to.be.true
@@ -252,11 +252,11 @@ describe 'Tutor Popover', ->
       .then ({element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        linkDOM = element.refs.overlay.getDOMNode()
+        linkDOM = ReactDOM.findDOMNode element.refs.overlay
 
         fakePopoverShould('scrollWidth', linkDOM, popper, overlay)
         Testing.actions.click(linkDOM)
-        overlayDOM = overlay.refs.popover.getDOMNode()
+        overlayDOM = ReactDOM.findDOMNode overlay.refs.popover
 
         expect(overlayDOM.style.cssText).to.contain('width')
         expect(parseInt(overlayDOM.style.width) < windowImpl.innerWidth).to.be.true
@@ -271,11 +271,11 @@ describe 'Tutor Popover', ->
       .then ({element}) ->
         {overlay} = element.refs
         {popper} = overlay.refs
-        linkDOM = element.refs.overlay.getDOMNode()
+        linkDOM = ReactDOM.findDOMNode element.refs.overlay
 
         fakePopoverShould('scrollBoth', linkDOM, popper, overlay)
         Testing.actions.click(linkDOM)
-        overlayDOM = overlay.refs.popover.getDOMNode()
+        overlayDOM = ReactDOM.findDOMNode overlay.refs.popover
 
         expect(overlayDOM.style.cssText).to.contain('width')
         expect(overlayDOM.style.cssText).to.contain('height')

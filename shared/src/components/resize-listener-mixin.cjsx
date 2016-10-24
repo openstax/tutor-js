@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 _ = require 'underscore'
 
 module.exports =
@@ -41,7 +42,7 @@ module.exports =
 
   _getComponentSize: ->
     return {height: 0, width: 0} unless @isMounted()
-    componentNode = @getDOMNode()
+    componentNode = ReactDOM.findDOMNode(@)
     width: componentNode.offsetWidth
     height: componentNode.offsetHeight
 

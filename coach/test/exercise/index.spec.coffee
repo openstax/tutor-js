@@ -71,7 +71,7 @@ describe 'Exercise Step', ->
       )
 
   it 'sets answer id after selection', ->
-    Testing.renderComponent( ExerciseStep, {props} ).then ({dom}) =>
+    Testing.renderComponent( ExerciseStep, {props} ).then ({dom}) ->
       ensureExerciseLoaded()
 
       saveFreeResponse(dom, 'My Second Answer')

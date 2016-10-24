@@ -1,7 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+Router = require '../../helpers/router'
 
 {TaskPlanStatsStore, TaskPlanStatsActions} = require '../../flux/task-plan-stats'
 LoadableItem = require '../loadable-item'
@@ -114,10 +114,8 @@ Stats = React.createClass
     </BS.Panel>
 
 StatsShell = React.createClass
-  contextTypes:
-    router: React.PropTypes.func
 
-  getId: -> @context.router.getCurrentParams().id
+  getId: -> RoutercurrentParams().id
 
   render: ->
     id = @getId()

@@ -1,4 +1,7 @@
-_ = require 'underscore'
+defer = require 'lodash/defer'
+merge = require 'lodash/merge'
+isFunction = require 'lodash/isFunction'
+
 
 EmptyFn = ->
   return undefined
@@ -13,17 +16,20 @@ class FakeWindow
   scroll: (x, y) ->
     @pageXOffset = x
     @pageYOffset = y
-  requestAnimationFrame: (cb) -> _.defer cb
+  requestAnimationFrame: (cb) -> defer(cb)
   querySelector: (sb) -> null
+  location:
+    pathname: '/'
+    search: ''
 
-  constructor: ->
-    for method in _.functions(@)
-      sinon.spy(@, method)
+  constructor: (attrs = {}) ->
+    merge(@, attrs)
+    for name, method of @ when isFunction(method)
+      sinon.spy(@, name)
     @localStorage =
       getItem: sinon.stub().returns('[]')
       setItem: sinon.stub()
     @history =
       pushState: sinon.spy()
-
 
 module.exports = FakeWindow

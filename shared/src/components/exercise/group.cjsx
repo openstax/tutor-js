@@ -62,10 +62,9 @@ ExerciseGroup = React.createClass
       className = ALIASES[group] or group
       labels = @getGroupLabel(group, related_content)
       isSpacedPractice = group is SPACED_PRACTICE_GROUP
-      icon = <i className="icon-sm icon-#{className}" key='group-icon'></i>
 
       groupDOM = [
-        icon
+        <i className="icon-sm icon-#{className}" key='group-icon'></i>
         <span className='openstax-step-group-label' key='group-label'>{labels}</span>
       ]
 
@@ -73,10 +72,11 @@ ExerciseGroup = React.createClass
       popover = <BS.Popover id="instructions" ref="popover" className="openstax instructions">
         {getHelpText[group](project)}
       </BS.Popover>
-      groupDOM.push  <BS.OverlayTrigger placement="bottom" overlay={popover}>
-        <i className="fa fa-info-circle" />
-      </BS.OverlayTrigger>
-
+      groupDOM.push(
+        <BS.OverlayTrigger key="info" placement="bottom" overlay={popover}>
+          <i className="fa fa-info-circle" />
+        </BS.OverlayTrigger>
+      )
     <div className='openstax-step-group'>
       {groupDOM}
     </div>

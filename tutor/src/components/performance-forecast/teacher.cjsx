@@ -1,6 +1,8 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+
+TutorLink = require '../link'
+
 _ = require 'underscore'
 
 {CoursePeriodsNavShell} = require '../course-periods-nav'
@@ -14,7 +16,7 @@ InfoLink    = require './info-link'
 module.exports = React.createClass
   displayName: 'PerformanceForecastTeacherDisplay'
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
 
   propTypes:
     courseId:  React.PropTypes.string.isRequired
@@ -37,11 +39,11 @@ module.exports = React.createClass
           <div className='guide-group-key teacher'>
             <ColorKey />
           </div>
-          <Router.Link activeClassName='' to='viewTeacherDashBoard'
+          <TutorLink activeClassName='' to='dashboard'
             className='btn btn-default back'
             params={courseId: @props.courseId}>
             Return to Dashboard
-          </Router.Link>
+          </TutorLink>
         </div>
       </div>
       <CoursePeriodsNavShell

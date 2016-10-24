@@ -1,5 +1,6 @@
 React = require 'react'
-Router = require 'react-router'
+
+TutorLink = require '../link'
 LateIcon = require '../late-icon'
 TaskHelper = require '../../helpers/task'
 
@@ -16,12 +17,12 @@ module.exports = {
     ).isRequired
 
   renderLink: ({message}) ->
-    <Router.Link className={"task-result status-cell #{@props.className}"} to='viewTaskStep'
+    <TutorLink className={"task-result status-cell #{@props.className}"} to='viewTask'
       data-assignment-type="#{@props.task.type}"
-      params={courseId: @props.courseId, id: @props.task.id, stepIndex: 1}>
+      params={courseId: @props.courseId, id: @props.task.id}>
       <span>{message}</span>
       <LateIcon {...@props}/>
-    </Router.Link>
+    </TutorLink>
 
   getInitialState: ->
     showingLateOverlay: false

@@ -4,7 +4,7 @@ _  = require 'underscore'
 LoadableItem = require '../loadable-item'
 ReferenceBookPage = require './page'
 
-{Invalid} = require '../index'
+InvalidPage = require '../invalid-page'
 {ReferenceBookPageActions, ReferenceBookPageStore} = require '../../flux/reference-book-page'
 
 ReferenceBookPageShell = React.createClass
@@ -42,7 +42,7 @@ ReferenceBookPageShell = React.createClass
         renderItem={@renderLoaded}
       />
     else
-      <Invalid />
+      <InvalidPage />
 
 
 module.exports = ReferenceBookPageShell

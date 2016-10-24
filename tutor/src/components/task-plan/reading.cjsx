@@ -68,7 +68,8 @@ ReviewReadings = React.createClass
       topicId={topicId}
       planId={@props.planId}
       canEdit={@props.canEdit}
-      index={index}/>
+      index={index}
+      key="review-reading-#{index}"/>
 
   renderSelected: ->
     if @props.selected.length
