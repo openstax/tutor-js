@@ -9,7 +9,6 @@ Recordo.initialize()
 {BootstrapURLs, UiSettings}  = require 'shared'
 
 api = require './src/api'
-router = require './src/router'
 Notices = require './src/helpers/notifications'
 dom = require './src/helpers/dom'
 {startMathJax} = require 'shared/src/helpers/mathjax'

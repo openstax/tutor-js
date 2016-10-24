@@ -13,31 +13,83 @@ Practice = require './components/task/practice'
 QuestionsLibrary = require './components/questions'
 ChangeStudentId = require './components/change-student-id'
 
-# These route names are mapped to a routing tree in src/helpers/router.coffee
-module.exports =
-  listing: CourseListing
-  dashboard: RouteHandlers.dashboard
-  viewStudentDashboard: StudentDashboardShell
-  viewTeacherDashboard: TeacherTaskPlans
-  taskplans: TeacherTaskPlans
-  calendarByDate: TeacherTaskPlans
-  calendarViewPlanStats: TeacherTaskPlans
-  viewTask: TaskShell
-  viewTaskStep: TaskShell
-  viewTaskStepMilestones: TaskShell
-  viewReferenceBook: ReferenceBookShell
-  viewReferenceBookSection: ReferenceBookShell
-  viewReferenceBookPage: ReferenceBookPageShell
-  viewQuestionsLibrary: QuestionsLibrary
-  editHomework: HomeworkShell
-  editReading: ReadingShell
-  editExternal: ExternalShell
-  editEvent: EventShell
-  viewScores: ScoresShell
-  viewPerformanceGuide: PerformanceForecast.Guide
-  courseSettings: CourseSettings
-  practiceTopics: Practice
-  changeStudentId: ChangeStudentId
+ROUTES = [
+  { pattern: '/dashboard',              name: 'listing',                  render: CourseListing       }
+  {
+    pattern: '/course/:courseId',       name: 'dashboard',                render: RouteHandlers.dashboard
+    routes: [
+      { pattern: 'scores',              name: 'viewScores',               render: ScoresShell         }
+      { pattern: 'guide/:roleId?',      name: 'viewPerformanceGuide',     render: PerformanceForecast.Guide }
+      {
+        pattern: 't',                   name: 'viewTeacherDashboard',     render: TeacherTaskPlans
+        routes: [
+          {
+            pattern: 'month/:date',     name: 'calendarByDate',           render: TeacherTaskPlans
+            routes: [{
+              pattern: 'plan/:planId',  name: 'calendarViewPlanStats',    render: TeacherTaskPlans
+            }]
+          }
+        ]
+      }
+      {
+        pattern: 'task/:id',            name: 'viewTask',                 render: TaskShell
+        routes: [{
+          pattern: 'step/:stepIndex',   name: 'viewTaskStep',             render: TaskShell
+          routes: [{
+            pattern: ':milestones',     name: 'viewTaskStepMilestones',   render: TaskShell
+          }]
+        }]
+      }
+      { pattern: 'practice/:taskId?',   name: 'practiceTopics',           render: Practice            }
+      { pattern: 'homework/new',        name: 'createHomework'                                        }
+      { pattern: 'homework/:id',        name: 'editHomework',             render: HomeworkShell       }
+      { pattern: 'reading/new',         name: 'createReading'                                         }
+      { pattern: 'reading/:id',         name: 'editReading',              render: ReadingShell        }
+      { pattern: 'external/new',        name: 'createExternal'                                        }
+      { pattern: 'external/:id',        name: 'editExternal',             render: ExternalShell       }
+      { pattern: 'event/new',           name: 'createEvent'                                           }
+      { pattern: 'event/:id',           name: 'editEvent',                render: EventShell          }
+      { pattern: 'settings',            name: 'courseSettings',           render: CourseSettings      }
+      { pattern: 'questions',           name: 'viewQuestionsLibrary',     render: QuestionsLibrary    }
+      { pattern: 'change-student-id',   name: 'changeStudentId',          render: ChangeStudentId     }
+    ]
+
+  }
+  {
+    pattern: '/books/:courseId',        name: 'viewReferenceBook',        render: ReferenceBookShell
+    routes: [
+      { pattern: 'section/:section',    name: 'viewReferenceBookSection', render: ReferenceBookShell  }
+      { pattern: 'page/:cnxId',         name: 'viewReferenceBookPage',    render: ReferenceBookShell  }
+    ]
+  }
+]
+
+module.exports = ROUTES
+# # These route names are mapped to a routing tree in src/helpers/router.coffee
+# module.exports =
+#   listing: CourseListing
+#   dashboard: RouteHandlers.dashboard
+#   viewStudentDashboard: StudentDashboardShell
+#   viewTeacherDashboard: TeacherTaskPlans
+#   taskplans: TeacherTaskPlans
+#   calendarByDate: TeacherTaskPlans
+#   calendarViewPlanStats: TeacherTaskPlans
+#   viewTask: TaskShell
+#   viewTaskStep: TaskShell
+#   viewTaskStepMilestones: TaskShell
+#   viewReferenceBook: ReferenceBookShell
+#   viewReferenceBookSection: ReferenceBookShell
+#   viewReferenceBookPage: ReferenceBookPageShell
+#   viewQuestionsLibrary: QuestionsLibrary
+#   editHomework: HomeworkShell
+#   editReading: ReadingShell
+#   editExternal: ExternalShell
+#   editEvent: EventShell
+#   viewScores: ScoresShell
+#   viewPerformanceGuide: PerformanceForecast.Guide
+#   courseSettings: CourseSettings
+#   practiceTopics: Practice
+#   changeStudentId: ChangeStudentId
 
 
 

@@ -2,6 +2,7 @@ qs           = require 'qs'
 map          = require 'lodash/map'
 last         = require 'lodash/last'
 omit         = require 'lodash/omit'
+pick         = require 'lodash/pick'
 partial      = require 'lodash/partial'
 merge        = require 'lodash/merge'
 remove       = require 'lodash/remove'
@@ -17,10 +18,13 @@ matchPattern = require('react-router/matchPattern').default
 class OXRouter
 
   constructor: (routes) ->
-    routes = cloneDeep(routes)
-    mappedRoutes = cloneDeep(mapRoutes(routes))
+    {routeSettings, renderers} = OXRouter.separateRendersFromRoutes(routes)
+    console.info('routeSettings', routeSettings)
+    # routes = cloneDeep(routes)
+    mappedRoutes = cloneDeep(mapRoutes(routeSettings))
 
-    @getRoutes = -> routes
+    @getRenderers = -> renderers
+    @getRoutes = -> routeSettings
     @getRoutesMap = -> mappedRoutes
 
   currentMatch: (path = window.location.pathname) =>
@@ -47,7 +51,8 @@ class OXRouter
     route = @getRoutesMap()[name]
     route and (options.window or window).location.pathname is @makePathname(name, params, options)
 
-  getRenderableRoutes: (renderers) =>
+  getRenderableRoutes: =>
+    renderers = @getRenderers()
     routes = @getRoutes()
     routesMap = @getRoutesMap()
 
@@ -58,6 +63,19 @@ class OXRouter
       route.getParamsForPath = partial(getParamsByPattern, routesMap[route.name].pattern)
       route
     )
+
+OXRouter.separateRendersFromRoutes = (routes) ->
+  renderers = {}
+  console.info('is this being caleld?', routes)
+
+  routeSettings = traverseRoutes(routes, (route) ->
+    renderers[route.name] = route.render if route.render?
+    console.info(pick(route, 'pattern', 'name'), 'hello?')
+    pick(route, 'pattern', 'name')
+  )
+
+  {renderers, routeSettings}
+
 
 getParamsByPattern = (pattern, pathname = window.location.pathname) ->
   match = matchPattern(pattern, {pathname}, false)
