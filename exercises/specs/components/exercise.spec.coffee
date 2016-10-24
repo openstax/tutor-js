@@ -3,8 +3,8 @@
 ExercisePreview = require 'components/exercise/preview'
 Exercise = require 'components/exercise'
 {ExerciseActions} = require 'stores/exercise'
-EXERCISE = require 'exercises/1.json'
-Location = require 'stores/location'
+EXERCISE = require '../../api/exercises/1.json'
+Location = require '../../src/stores/location'
 
 describe 'Exercises component', ->
   beforeEach ->
