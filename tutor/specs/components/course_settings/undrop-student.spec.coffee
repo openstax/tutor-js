@@ -45,7 +45,7 @@ describe 'Course Settings, undrop student', ->
   it 'undrops student when popover clicked', ->
     displayPopover(@props).then (dom) ->
       Testing.actions.click(dom.querySelector('button'))
-      expect(RosterActions.undrop).to.have.been.calledWith(studentId: STUDENT.id)
+      expect(RosterActions.undrop).to.have.been.called
 
 
   it 'displays an error message', ->

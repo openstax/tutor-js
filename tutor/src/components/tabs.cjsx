@@ -1,6 +1,6 @@
 React = require 'react'
 classnames = require 'classnames'
-
+_ = require 'underscore'
 Router = require '../helpers/router'
 
 # Used to cancel router transitions the same way an onClick event is
@@ -11,6 +11,7 @@ class FakeEvent
 
 # Renders ONLY the list of tabs (not tab body), with @props.chilren inline with the tabs
 # Usefull for rendering controls beside the Tabs
+
 
 Tabs = React.createClass
 

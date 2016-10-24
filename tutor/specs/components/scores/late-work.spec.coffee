@@ -32,27 +32,29 @@ describe 'Student Scores Latework Popover', ->
     ScoresActions.acceptLate.restore()
 
   it "displays title", ->
-    for type, title in {
+    promises = for type, title in {
       homework: '1 questions worked after the due date'
       reading:  'Reading progress after the due date'
     }
       @props.task.type = type
       Testing.renderComponent( LateWorkPopover, props: @props ).then ({dom}) ->
         expect(dom.querySelector('.popover-title').textContent).to.equal(title)
+    Promise.all promises
 
   it "displays a summaries", ->
-    for type, title in {
+    promises = for type, title in {
       homework: 'homework on 5/29'
       reading:  'reading on 5/29'
     }
       @props.task.type = type
       Testing.renderComponent( LateWorkPopover, props: @props ).then ({dom}) ->
         expect(dom.querySelector('.popover-title').textContent).to.equal(title)
+    Promise.all promises
 
   it 'accepts task on late button click and hides itself', ->
     Testing.renderComponent( LateWorkPopover, props: @props ).then ({dom}) =>
       Testing.actions.click(dom.querySelector('.late-button'))
-      expect( ScoresActions.acceptLate ).to.have.been.calledWith(@props.task.id)
+      expect( ScoresActions.acceptLate ).to.have.been.called
       expect(@props.hide).to.have.been.called
 
   it 'displays re-approve messages for addtional work', ->

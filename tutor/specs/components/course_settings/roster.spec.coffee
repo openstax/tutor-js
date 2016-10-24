@@ -83,6 +83,6 @@ describe 'Course Settings', ->
         Testing.actions.click(
           document.querySelector('.view-archived-periods-modal .restore-period button')
         )
-        expect(PeriodActions.restore).to.have.been.calledWith('4', '1')
+        expect(PeriodActions.restore).to.have.been.called
         done()
     true

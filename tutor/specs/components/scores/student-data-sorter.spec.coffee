@@ -22,6 +22,7 @@ describe 'Student Scores Data Sorter', ->
     expect(names).to.deep.equal([
       'Angstrom', 'Bloom', 'Glass', 'Hackett', 'Jaskolski', 'Kirlin', 'Lowe', 'Reilly', 'Tromp'
     ])
+    undefined
 
   it 'can sort by homework score', ->
     @args.sort.key = 2
@@ -29,6 +30,7 @@ describe 'Student Scores Data Sorter', ->
     scores = _.map(_.sortBy(@students, StudentDataSorter(@args)), (s) ->
       s.data[0].correct_on_time_exercise_count)
     expect(scores).to.deep.equal([0, 0, 0, 0, 0, 1, 2, 2, 4])
+    undefined
 
   it 'can sort by reading progress', ->
     @args.sort.key = 3
@@ -38,3 +40,4 @@ describe 'Student Scores Data Sorter', ->
     expect(steps).to.deep.equal([ 0, 0, 0, 0, 0, 0, 4, 4, 29])
     expect(_.first(steps)).to.equal(0)
     expect(_.last(steps)).to.equal(29)
+    undefined

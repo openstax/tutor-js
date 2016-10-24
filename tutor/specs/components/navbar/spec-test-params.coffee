@@ -1,3 +1,4 @@
+_ = require 'underscore'
 {TeacherTaskPlanActions, TeacherTaskPlanStore} = require '../../../src/flux/teacher-task-plan'
 {StudentDashboardActions, StudentDashboardStore} = require '../../../src/flux/student-dashboard'
 {CourseActions, CourseStore} = require '../../../src/flux/course'

@@ -1,4 +1,5 @@
 _ = require 'underscore'
+chai = require('chai')
 expect = chai.expect
 React = require 'react'
 ReactDOM = require 'react-dom'
