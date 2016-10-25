@@ -21,7 +21,6 @@ NewCourse = React.createClass
     router: React.PropTypes.object
 
   onContinue: (attrs) ->
-    console.log attrs
     currentStage = @state.currentStage + 1
     @setState(assign({currentStage}, attrs))
 

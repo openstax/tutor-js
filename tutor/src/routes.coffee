@@ -71,8 +71,12 @@ getQABook = ->
   QALoader = require 'promise?global!./qa'
   async(QALoader, 'QABook')
 
+getCreateCourse = ->
+  require './components/new-course'
+
 ROUTES = [
-  { pattern: '/dashboard',              name: 'listing',                  renderer: getCourseListing     }
+  { pattern: '/dashboard',              name: 'listing',                  renderer: getCourseListing }
+  { pattern: '/course/new',             name: 'createNewCourse',          renderer: getCreateCourse  }
   {
     pattern: '/course/:courseId',       name: 'dashboard',                renderer: getDashboard
     routes: [
