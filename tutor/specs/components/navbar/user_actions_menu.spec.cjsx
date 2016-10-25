@@ -6,7 +6,7 @@ UserActionsMenu = require '../../../src/components/navbar/user-actions-menu'
 {CourseActions, CourseStore} = require '../../../src/flux/course'
 {testParams, setupStores, resetStores, userModel, courseModel} = require './spec-test-params'
 
-FakeWindow = require 'shared/test/helpers/fake-window'
+FakeWindow = require 'shared/specs/helpers/fake-window'
 
 testWithRole = (roleType) ->
 
