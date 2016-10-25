@@ -1,6 +1,6 @@
 _     = require 'underscore'
 React = require 'react'
-{RouteHandler} = require 'react-router'
+MatchForTutor = require '../match-for-tutor'
 
 {EcosystemsStore, EcosystemsActions} = require '../../flux/ecosystems'
 
@@ -21,7 +21,7 @@ QADashboard = React.createClass
     if EcosystemsStore.isLoaded()
       params = Router.currentParams()
       params.ecosystemId ?= "#{EcosystemsStore.first().id}"
-      <RouteHandler {...params} />
+      <MatchForTutor {...@props} />
     else
       <h3>Loading ...</h3>
 

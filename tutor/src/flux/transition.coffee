@@ -2,8 +2,6 @@ _ = require 'underscore'
 flux = require 'flux-react'
 DestinationHelper = require '../helpers/routes-and-destinations'
 
-Router = require '../helpers/router'
-
 TransitionActions = flux.createActions [
   'load'
   'reset'

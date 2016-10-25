@@ -1,73 +1,139 @@
-RouteHandlers  = require './helpers/route-handlers'
+async = require './helpers/webpack-async-loader'
 
-{CourseListing}         = require './components/course-listing'
-{StudentDashboardShell} = require './components/student-dashboard'
-TeacherTaskPlans        = require './components/task-plan/teacher-task-plans-listing'
-{TaskShell}             = require './components/task'
-{ReferenceBookShell, ReferenceBookPageShell} = require './components/reference-book'
-{ReadingShell, HomeworkShell, ExternalShell, EventShell} = require './components/task-plan'
-{ScoresShell} = require './components/scores'
-PerformanceForecast = require './components/performance-forecast'
-CourseSettings = require './components/course-settings'
-Practice = require './components/task/practice'
-QuestionsLibrary = require './components/questions'
-ChangeStudentId = require './components/change-student-id'
+getCourseListing = ->
+  {CourseListing} = require './components/course-listing'
+  CourseListing
 
-# These route names are mapped to a routing tree in src/helpers/router.coffee
-module.exports =
-  listing: CourseListing
-  dashboard: RouteHandlers.dashboard
-  viewStudentDashboard: StudentDashboardShell
-  viewTeacherDashboard: TeacherTaskPlans
-  taskplans: TeacherTaskPlans
-  calendarByDate: TeacherTaskPlans
-  calendarViewPlanStats: TeacherTaskPlans
-  viewTask: TaskShell
-  viewTaskStep: TaskShell
-  viewTaskStepMilestones: TaskShell
-  viewReferenceBook: ReferenceBookShell
-  viewReferenceBookSection: ReferenceBookShell
-  viewReferenceBookPage: ReferenceBookPageShell
-  viewQuestionsLibrary: QuestionsLibrary
-  editHomework: HomeworkShell
-  editReading: ReadingShell
-  editExternal: ExternalShell
-  editEvent: EventShell
-  viewScores: ScoresShell
-  viewPerformanceGuide: PerformanceForecast.Guide
-  courseSettings: CourseSettings
-  practiceTopics: Practice
-  changeStudentId: ChangeStudentId
+getDashboard = ->
+  ConditionalHandlers = require './helpers/conditional-handlers'
+  ConditionalHandlers.dashboard
 
+getStudentDashboardShell = ->
+  {StudentDashboardShell} = require './components/student-dashboard'
+  StudentDashboardShell
 
+getTeacherTaskPlans = ->
+  require './components/task-plan/teacher-task-plans-listing'
 
-# TODO see how to put this in the same file
-# ROUTES = [
-#   { pattern: '/dashboard', name: 'listing', render: CourseListing }
-#   {
-#     pattern: '/courses/:courseId',  name: 'dashboard', render: RouteHandlers.dashboard
-#     routes: [
-#       { pattern: 'list',          name: 'viewStudentDashboard', render: StudentDashboardShell }
-#       { pattern: 't/month/:date', name: 'calendarByDate',       render: TeacherTaskPlans      }
-#       { pattern: 'tasks/:id',     name: 'viewTask',             render: TaskShell
-#         # routes: [{
-#         #   pattern: 'steps/:stepIndex', name: 'viewTaskStep',        render: TaskShell
-#         #   routes: [{
-#         #     pattern: ':milestones', name: 'viewTaskStepMilestones', render: TaskShell
-#         #   }]
-#         # }]
-#       }
-#     ]
-#   }
-#   {
-#     pattern: '/books/:courseId', name: 'viewReferenceBook', render: ReferenceBookShell
-#     routes: [
-#       { pattern: 'section/:section', name: 'viewReferenceBookSection', render: ReferenceBookShell}
-#       { pattern: 'page/:cnxId', name: 'viewReferenceBookPage', render: ReferenceBookPageShell}
-#     ]
-#   }
-# ]
+getTaskShell = ->
+  {TaskShell} = require './components/task'
+  TaskShell
 
+getReferenceBookShell = ->
+  {ReferenceBookShell} = require './components/reference-book'
+  ReferenceBookShell
+
+getReferenceBookPageShell = ->
+  {ReferenceBookPageShell} = require './components/reference-book'
+  ReferenceBookPageShell
+
+getReadingShell = ->
+  {ReadingShell} = require './components/task-plan'
+  ReadingShell
+
+getHomeworkShell = ->
+  {HomeworkShell} = require './components/task-plan'
+  HomeworkShell
+
+getExternalShell = ->
+  {ExternalShell} = require './components/task-plan'
+  ExternalShell
+
+getEventShell = ->
+  {EventShell} = require './components/task-plan'
+  EventShell
+
+getScoresShell = ->
+  {ScoresShell} = require './components/scores'
+  ScoresShell
+
+getPerformanceForecastGuide = ->
+  PerformanceForecast = require './components/performance-forecast'
+  PerformanceForecast.Guide
+
+getCourseSettings = ->
+  require './components/course-settings'
+
+getPractice = ->
+  require './components/task/practice'
+
+getQuestionsLibrary = ->
+  require './components/questions'
+
+getChangeStudentId = ->
+  require './components/change-student-id'
+
+getQADashboard = ->
+  QALoader = require 'promise?global!./qa'
+  async(QALoader, 'QADashboard')
+
+getQABook = ->
+  QALoader = require 'promise?global!./qa'
+  async(QALoader, 'QABook')
+
+ROUTES = [
+  { pattern: '/dashboard',              name: 'listing',                  renderer: getCourseListing     }
+  {
+    pattern: '/course/:courseId',       name: 'dashboard',                renderer: getDashboard
+    routes: [
+      { pattern: 'scores',              name: 'viewScores',               renderer: getScoresShell          }
+      { pattern: 'guide/:roleId?',      name: 'viewPerformanceGuide',     renderer: getPerformanceForecastGuide }
+      {
+        pattern: 't',                   name: 'viewTeacherDashboard',     renderer: getTeacherTaskPlans
+        routes: [
+          {
+            pattern: 'month/:date',     name: 'calendarByDate',           renderer: getTeacherTaskPlans
+            routes: [{
+              pattern: 'plan/:planId',  name: 'calendarViewPlanStats',    renderer: getTeacherTaskPlans
+            }]
+          }
+        ]
+      }
+      {
+        pattern: 'task/:id',            name: 'viewTask',                 renderer: getTaskShell
+        routes: [{
+          pattern: 'step/:stepIndex',   name: 'viewTaskStep',             renderer: getTaskShell
+          routes: [{
+            pattern: ':milestones',     name: 'viewTaskStepMilestones',   renderer: getTaskShell
+          }]
+        }]
+      }
+      { pattern: 'practice/:taskId?',   name: 'practiceTopics',           renderer: getPractice            }
+      { pattern: 'homework/new',        name: 'createHomework'                                        }
+      { pattern: 'homework/:id',        name: 'editHomework',             renderer: getHomeworkShell       }
+      { pattern: 'reading/new',         name: 'createReading'                                         }
+      { pattern: 'reading/:id',         name: 'editReading',              renderer: getReadingShell        }
+      { pattern: 'external/new',        name: 'createExternal'                                        }
+      { pattern: 'external/:id',        name: 'editExternal',             renderer: getExternalShell       }
+      { pattern: 'event/new',           name: 'createEvent'                                           }
+      { pattern: 'event/:id',           name: 'editEvent',                renderer: getEventShell          }
+      { pattern: 'settings',            name: 'courseSettings',           renderer: getCourseSettings      }
+      { pattern: 'questions',           name: 'viewQuestionsLibrary',     renderer: getQuestionsLibrary    }
+      { pattern: 'change-student-id',   name: 'changeStudentId',          renderer: getChangeStudentId     }
+    ]
+
+  }
+  {
+    pattern: '/books/:courseId',        name: 'viewReferenceBook',        renderer: getReferenceBookShell
+    routes: [
+      { pattern: 'section/:section',    name: 'viewReferenceBookSection', renderer: getReferenceBookShell  }
+      { pattern: 'page/:cnxId',         name: 'viewReferenceBookPage',    renderer: getReferenceBookPageShell  }
+    ]
+  }
+  {
+    pattern: '/qa',                     name: 'QADashboard',              renderer: getQADashboard
+    routes: [
+      {
+        pattern: ':ecosystemId',        name: 'QAViewBook',               renderer: getQABook
+        routes: [{
+          pattern: 'section/:section',  name: 'QAViewBookSection',        renderer: getQABook
+        }]
+      }
+    ]
+  }
+]
+
+module.exports = ROUTES
 
 ## Below is pre router upgrade config
 

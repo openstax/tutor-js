@@ -4,8 +4,6 @@ Router = require '../helpers/router'
 
 {CurrentUserStore} = require '../flux/current-user'
 
-DestinationHelper  = require '../helpers/routes-and-destinations'
-
 # generate custom event data for routes
 Events =
   viewTaskStep: ({courseId}) ->

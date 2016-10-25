@@ -33,7 +33,7 @@ StudentIdField = React.createClass
 
   onEditBlur: (ev) ->
     if RosterStore.hasChangedStudentIdentifier(@props.studentId)
-      RosterActions.saveStudentIdentifier(@props)
+      RosterActions.saveStudentIdentifier(_.pick(@props, 'studentId', 'courseId'))
 
     # If blur was triggered by clicking on the editTrigger,
     # let the onClick of the editTrigger toggle the isEditing state.

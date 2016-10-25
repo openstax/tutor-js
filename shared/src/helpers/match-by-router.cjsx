@@ -4,10 +4,7 @@ omit     = require 'lodash/omit'
 extend   = require 'lodash/extend'
 {Match, Miss}  = require 'react-router'
 
-InvalidPage = require '../components/invalid-page'
-Router      = require '../helpers/router'
-
-matchProps = (props, parentParams) ->
+matchProps = (Router, props, parentParams) ->
   extend({}, props, render: (renderedProps) ->
     componentProps = extend({}, omit(props, 'render', 'getParamsForPath'), renderedProps)
 
@@ -19,15 +16,14 @@ matchProps = (props, parentParams) ->
     <props.render {...componentProps} params={params} />
   )
 
-RoutingHelper =
-
-  component: (props) ->
+matchByRouter = (Router, InvalidPage) ->
+  (props) ->
     return null unless props.routes
 
     <span>
       {for route, i in props.routes
-        <Match key={i} {...matchProps(route, props.params)} />}
+        <Match key={i} {...matchProps(Router, route, props.params)} />}
       <Miss component={InvalidPage} />
     </span>
 
-module.exports = RoutingHelper
+module.exports = matchByRouter

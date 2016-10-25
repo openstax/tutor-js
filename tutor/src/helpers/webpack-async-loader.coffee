@@ -1,6 +1,4 @@
 React = require 'react'
-{RouteHandler} = require 'react-router'
-
 
 # idea from https://gist.github.com/gaearon/fbd581089255cd529e62
 
@@ -19,7 +17,7 @@ createAsyncHandler = (getHandlerAsync, exportedObjectName) ->
       if @state?.component
         React.createElement(@state.component, @props)
       else
-        React.createElement('h1', 'Loading...' )
+        React.createElement('h1', children: 'Loading...' )
 
 
 module.exports = createAsyncHandler
