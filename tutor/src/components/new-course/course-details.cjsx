@@ -6,14 +6,17 @@ isEmpty = require 'lodash/isEmpty'
 
 classnames = require 'classnames'
 
-{CourseListingStore} = require '../../flux/course-listing'
+{NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 
+{CourseListingStore} = require '../../flux/course-listing'
 
 PastCourses = React.createClass
   getInitialState: ->
     activeTab: 1
 
   handleTabSelect: (activeTab) ->
+    if activeTab is 1
+      NewCourseActions.set(source_course_id: null)
     @setState({activeTab})
 
   SourcePicker: ->
@@ -62,65 +65,53 @@ SelectCourse = React.createClass
     source_course_id: null
     copy_ql: true
     section_count: 1
-    teachingCourses: filter(CourseListingStore.allCourses(), (course) =>
-      course.appearance_code is @props.course_code and find(course.roles, type: 'teacher')
+    teachingCourses: filter(CourseListingStore.allCourses(), (course) ->
+      course.appearance_code is NewCourseStore.get('course_code') and find(course.roles, type: 'teacher')
     )
-
-  propTypes:
-    onContinue: React.PropTypes.func.isRequired
-    onCancel: React.PropTypes.func.isRequired
-    course_code: React.PropTypes.string.isRequired
-
-  Footer: ->
-    <div className="controls">
-      <BS.Button onClick={@props.onCancel}>Cancel</BS.Button>
-      <BS.Button onClick={@onContinue} disabled={isEmpty(@state.course_name)}
-        bsStyle="primary">Continue</BS.Button>
-    </div>
 
   onContinue: ->
     @props.onContinue(quarter: @state.selected)
 
   onSelect: (source_course_id) ->
-    source_course_id = null if source_course_id is @state.source_course_id
+    prev_selected_id = NewCourseStore.get('source_course_id')
+    source_course_id = null if source_course_id is prev_selected_id
     course_name = @state.course_name
     newCourse = find(@state.teachingCourses, id: source_course_id)
 
     if newCourse
       # is the current name blank or the same as the previous course?
       if isEmpty(course_name) or (
-        @state.source_course_id and find(@state.teachingCourses, id: @state.source_course_id).name is course_name
+        prev_selected_id and find(@state.teachingCourses, id: prev_selected_id).name is course_name
       )
         course_name = newCourse.name
     else
       course_name = ''
 
-    @setState({course_name, source_course_id})
-
+    NewCourseActions.set({course_name, source_course_id})
 
   updateName: (ev) ->
-    @setState(course_name: ev.target.value)
+    NewCourseActions.set({course_name: ev.target.value})
 
   setQL: (ev) ->
-    @setState(copy_ql: ev.target.checked)
+    NewCourseActions.set({should_copy_question_library: ev.target.checked})
 
-  updateSectionCount: ->
-    @setState(section_count: ev.target.value)
+  updateSectionCount: (ev) ->
+    NewCourseActions.set({number_of_sections: parseInt(ev.target.value, 10)})
 
   render: ->
-    <BS.Panel className="course-details" footer={<@Footer />}>
+    <div className="course-details" >
 
       <PastCourses courses={@state.teachingCourses}
         onSelect={@onSelect}
-        copy_ql={@state.copy_ql}
+        copy_ql={NewCourseStore.get('should_copy_question_library')}
         setQL={@setQL}
-        selected={@state.source_course_id} />
+        selected={NewCourseStore.get('source_course_id')} />
 
       <BS.FormGroup>
         <BS.ControlLabel>Name of new course:</BS.ControlLabel>
         <BS.FormControl autoFocus
           type="text"
-          value={@state.course_name}
+          value={NewCourseStore.get('course_name')}
           onChange={@updateName}
         />
       </BS.FormGroup>
@@ -129,13 +120,13 @@ SelectCourse = React.createClass
           <BS.ControlLabel>Number of sections</BS.ControlLabel>
           <BS.FormControl autoFocus
             type="text"
-            value={@state.section_count}
+            value={NewCourseStore.get('section_count')}
             onChange={@updateSectionCount}
           />
         </BS.FormGroup>
       </BS.Form>
 
-    </BS.Panel>
+    </div>
 
 
 

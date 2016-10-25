@@ -1,7 +1,10 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
+partial = require 'lodash/partial'
 classnames = require 'classnames'
+
+{NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 
 COURSES =
   college_physics:      'College Physics'
@@ -12,42 +15,29 @@ COURSES =
   intro_sociology:      'Introduction to Sociology'
   anatomy_physiology:   'Anatomy & Physiology'
 
+KEY = "course_code"
+
 SelectCourse = React.createClass
+  statics:
+    title: "Choose your Tutor course"
 
-  getInitialState: ->
-    selected: null
-
-  propTypes:
-    onContinue: React.PropTypes.func.isRequired
-    onCancel: React.PropTypes.func.isRequired
-
-  Footer: ->
-    <div className="controls">
-      <BS.Button onClick={@props.onCancel}>Cancel</BS.Button>
-      <BS.Button onClick={@onContinue} disabled={not @state.selected}
-        bsStyle="primary">Continue</BS.Button>
-    </div>
-
-  onContinue: ->
-    @props.onContinue(course_code: @state.selected)
-
-  onSelect: (selected) -> @setState({selected})
+  onSelect: (type) ->
+    NewCourseActions.set({"#{KEY}": type})
 
   render: ->
-    <BS.Panel header="Choose your Tutor course" footer={<@Footer />}>
-      <BS.Table className="offerings" striped bordered >
-        <tbody>
-          {for appearance, name of COURSES
-            <tr data-appearance={appearance} key={appearance}
-              className={classnames(selected: @state.selected is appearance)}
-              onClick={_.partial(@onSelect, appearance)}
-            >
-              <td></td>
-              <td>{name}</td>
-            </tr>}
-        </tbody>
-      </BS.Table>
-    </BS.Panel>
+    <BS.Table className="offerings" striped bordered >
+      <tbody>
+        {for code, name of COURSES
+          <tr data-appearance={code} key={code}
+            className={classnames(selected: NewCourseStore.get(KEY) is code)}
+            onClick={partial(@onSelect, code)}
+          >
+            <td></td>
+            <td>{name}</td>
+          </tr>}
+      </tbody>
+    </BS.Table>
+
 
 
 
