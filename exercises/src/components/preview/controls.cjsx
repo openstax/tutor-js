@@ -30,14 +30,14 @@ PreviewControls = React.createClass
         <BS.Button href="#"
           onClick={_.partial(@goToVersion, prevVersion)}
           disabled={not prevVersion}
-        >⇦</BS.Button>
+        >{if prevVersion then '⇦' else 'X' }</BS.Button>
 
         <span>Viewing exercise {exercise?.uid}</span>
 
         <BS.Button href="#"
           onClick={_.partial(@goToVersion, nextVersion)}
           disabled={not nextVersion}
-        >⇨</BS.Button>
+        >{if nextVersion then '⇨' else 'X'}</BS.Button>
       </BS.ButtonGroup>
 
     </div>
