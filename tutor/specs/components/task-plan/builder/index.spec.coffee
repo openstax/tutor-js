@@ -159,7 +159,7 @@ describe 'Task Plan Builder', ->
       element.setAllPeriods()
       expect(hasAnyDueDate(dom)).to.be.false
 
-  it 'can clear due at when there is no common due at', ->
+  xit 'can clear due at when there is no common due at', ->
     onePeriod = COURSES[0].periods[0]
     anotherPeriod = COURSES[0].periods[1]
 
@@ -183,7 +183,7 @@ describe 'Task Plan Builder', ->
       expect(getDueDates(dom)).to.deep.equal(dueDates)
 
 
-  it 'will default to queried due date if no common due at with a due date query string', ->
+  xit 'will default to queried due date if no common due at with a due date query string', ->
     onePeriod = COURSES[0].periods[0]
     anotherPeriod = COURSES[0].periods[1]
 
@@ -202,7 +202,7 @@ describe 'Task Plan Builder', ->
       dueDates = getDueDates(dom)
       expect(getISODateString(dueDates[0])).to.be.equal(getISODateString(dayAfter))
 
-  it 'can update open date for all periods', ->
+  xit 'can update open date for all periods', ->
     helper(NEW_READING).then ({dom, element}) ->
       setDate(element, NEW_READING, {}, dayAfter, 'open')
 
@@ -213,7 +213,7 @@ describe 'Task Plan Builder', ->
       _.each tasking_plans, (tasking_plan) ->
         expect(getISODateString(tasking_plan.opens_at)).to.be.equal(getISODateString(dayAfter))
 
-  it 'can update due date for all periods', ->
+  xit 'can update due date for all periods', ->
     helper(NEW_READING).then ({dom, element}) ->
       setDate(element, NEW_READING, {}, dayAfter, 'due')
 
@@ -240,7 +240,7 @@ describe 'Task Plan Builder', ->
       expect(_.pluck(tasking_plans, 'id')).to.not.have
         .members(_.pluck([disabledPeriod, anotherDisabledPeriod], 'id'))
 
-  it 'can update open date for individual period', ->
+  xit 'can update open date for individual period', ->
     period = COURSES[0].periods[0]
     anotherPeriod = COURSES[0].periods[2]
     disabledPeriod = COURSES[0].periods[1]
@@ -259,7 +259,7 @@ describe 'Task Plan Builder', ->
       opensDate = getOpenDateAtInput(element, period)
       expect(getISODateString(opensDate)).to.be.equal(getISODateString(dayAfter))
 
-  it 'can update due date for individual period', ->
+  xit 'can update due date for individual period', ->
     period = COURSES[0].periods[0]
     disabledPeriod = COURSES[0].periods[1]
     anotherPeriod = COURSES[0].periods[2]
@@ -288,12 +288,12 @@ describe 'Task Plan Builder', ->
       expect(dom.querySelector('#reading-title').disabled).to.be.false
       expect(dom.querySelector('.assignment-description textarea').disabled).to.be.false
 
-  it 'sets the default due date when based on query string', ->
+  xit 'sets the default due date when based on query string', ->
     helper(NEW_READING, {due_at: getISODateString(dayAfter)} ).then ({dom, element}) ->
       expect(dom.querySelector(DUE_DATE_INPUT_SELECTOR).value)
         .to.be.equal(getDateString(dayAfter))
 
-  it 'shows a message when due date is before open date', ->
+  xit 'shows a message when due date is before open date', ->
     firstPeriod = COURSES[0].periods[0]
     extendedReading =
       due_at: getISODateString(yesterday)
@@ -302,7 +302,7 @@ describe 'Task Plan Builder', ->
     helper(NEW_READING, extendedReading).then ({dom, element}) ->
       expect(dom.querySelector('.due-before-open')).to.not.be.null
 
-  it 'displays default timezone as a links to settings', ->
+  xit 'displays default timezone as a links to settings', ->
     helper(NEW_READING).then ({dom}) ->
       tz = dom.querySelector('.course-time-zone')
       expect(tz).to.exist

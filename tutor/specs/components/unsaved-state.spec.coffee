@@ -23,16 +23,16 @@ describe 'Unsaved State Mixin', ->
   it 'checks component to see if it has unsaved data', ->
     expect(TransitionAssistant.canTransition()).to.be.true
 
-    Testing.renderComponent( DirtyComponent, {} ).then =>
+    Testing.renderComponent( DirtyComponent, {} ).then ({element}) =>
       expect(@dirtyCheck).not.to.have.been.called
       expect(TransitionAssistant.canTransition()).to.be.false
       expect(@dirtyCheck).to.have.been.called
+      element.componentWillUnmount() # force cleanup
 
   it 'checks that a clean component transistions', ->
     Testing.renderComponent( CleanComponent, {} ).then =>
       expect(TransitionAssistant.canTransition()).to.be.true
       expect(@cleanCheck).to.have.been.called
-
 
   it 'generates an appropriate message', ->
     Testing.renderComponent( DirtyComponent, {} ).then ->

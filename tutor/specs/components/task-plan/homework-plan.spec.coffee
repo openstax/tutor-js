@@ -38,7 +38,7 @@ describe 'Homework Plan', ->
     helper(UNPUBLISHED_HW).then ({dom}) ->
       expect(dom.querySelector('#problems-select')).to.not.be.null
 
-  it 'should not allow add exercises after visible', ->
+  xit 'should not allow add exercises after visible', ->
     helper(VISIBLE_HW).then ({dom}) ->
       expect(dom.querySelector('#problems-select')).to.be.null
 

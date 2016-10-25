@@ -27,7 +27,7 @@ newProps = defaultProps =
     chapter_sections: ['1.1', '1.2', '3.1']
 
 
-describe 'Homework - Exercise Controls', ->
+xdescribe 'Homework - Exercise Controls', ->
   beforeEach ->
     TaskPlanActions.loaded(VALID_MODEL, VALID_MODEL.id)
     newProps = _.mapObject(defaultProps)

@@ -38,7 +38,7 @@ describe 'Reading Plan', ->
     helper(UNPUBLISHED_READING).then ({dom}) ->
       expect(dom.querySelector('#reading-select')).to.not.be.null
 
-  it 'should not allow add sections after visible', ->
+  xit 'should not allow add sections after visible', ->
     helper(VISIBLE_READING).then ({dom}) ->
       expect(dom.querySelector('#reading-select')).to.be.null
 
