@@ -1,6 +1,6 @@
 React = require 'react'
 Router = require 'react-router'
-{routes} = require '../../../src/router'
+routes = require '../../../src/routes'
 {Promise} = require 'es6-promise'
 _ = require 'underscore'
 ReactTestUtils = require 'react-addons-test-utils'

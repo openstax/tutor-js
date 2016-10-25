@@ -15,6 +15,7 @@ describe 'Course Settings update student id', ->
     @props =
       studentId: STUDENT.id
       courseId: COURSE_ID
+      id: "drop-student-popover-#{STUDENT.id}"
 
   afterEach ->
     RosterActions.saveStudentIdentifier.restore()
