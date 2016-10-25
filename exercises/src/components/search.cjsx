@@ -34,7 +34,6 @@ Search = React.createClass
     @updateLoading(exerciseId)
     ExerciseStore.once 'loaded', =>
       @props.location.onRecordLoad('exercises', exerciseId, ExerciseStore) if ExerciseStore.get(exerciseId)
-
     ExerciseActions.load(exerciseId)
 
   onFindExercise: ->
@@ -51,10 +50,23 @@ Search = React.createClass
       else
         @updateLoading(@refs.exerciseId.value)
 
+  clearError: ->
+    @setState(error: null)
+
+  Errors: ->
+    return null unless @state.error
+    <BS.Alert bsStyle="danger" onDismiss={@clearError}>
+      <p>{@state.error}</p>
+    </BS.Alert>
+
   render: ->
     <div className="search">
       {<NetworkActivity /> if ExerciseStore.isLoading(@state.loading) }
+<<<<<<< f35db2e2cf11c149bad08a15edd7b829c0d1d706
       {<h3>Search is empty, please type an exercise ID into the input.</h3> if @state.showEmptyWarning}
+=======
+      <@Errors />
+>>>>>>> display error message when exercise id is blank
       {<RecordNotFound
         recordType="Exercise" id={@state.loading}
         /> if ExerciseStore.isFailed(@state.loading)}
