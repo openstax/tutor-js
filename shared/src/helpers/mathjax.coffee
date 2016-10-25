@@ -11,6 +11,7 @@ COMBINED_MATH_SELECTOR = "#{MATH_DATA_SELECTOR}, #{MATH_ML_SELECTOR}"
 # Search document for math and [data-math] elements and then typeset them
 typesetDocument = (windowImpl) ->
   latexNodes = []
+  console.log 'typesetting', windowImpl.document.querySelectorAll(MATH_DATA_SELECTOR)
   for node in windowImpl.document.querySelectorAll(MATH_DATA_SELECTOR)
     formula = node.getAttribute('data-math')
     # divs should be rendered as a block, others inline
@@ -24,6 +25,7 @@ typesetDocument = (windowImpl) ->
     windowImpl.MathJax.Hub.Typeset(latexNodes)
 
   mathMLNodes = _.toArray(windowImpl.document.querySelectorAll(MATH_ML_SELECTOR))
+  console.log "MATML", mathMLNodes, windowImpl.document.innerHTML
   unless _.isEmpty(mathMLNodes)
     # style the entire document because mathjax is unable to style individual math elements
     windowImpl.MathJax.Hub.Typeset( windowImpl.document )
@@ -42,6 +44,9 @@ typesetDocument = _.debounce( typesetDocument, 100)
 # It's called by components like HTML after they're rendered
 typesetMath = (root, windowImpl = window) ->
   # schedule a Mathjax pass if there is at least one [data-math] or <math> element present
+  console.log 'render math', root.innerHTML, root.querySelector('math:not(.hild)')
+  debugger
+
   if windowImpl.MathJax?.Hub?.Queue? and root.querySelector(COMBINED_MATH_SELECTOR)
     typesetDocument(windowImpl)
 

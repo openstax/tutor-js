@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
 _ = require 'underscore'
@@ -34,7 +35,7 @@ EmailNotification = React.createClass
     @props.notice.sendConfirmation()
 
   onPinCheck: ->
-    @props.notice.sendVerification( @refs.verifyInput.getValue(), @onSuccess)
+    @props.notice.sendVerification( ReactDOM.findDOMNode(@refs.verifyInput).value, @onSuccess)
 
   renderSpinner: ->
     <span className="body">

@@ -18,7 +18,7 @@ isAnswerCorrect = (answer, correctAnswerId) ->
   isCorrect
 
 isAnswerChecked = (answer, chosenAnswer) ->
-  isChecked = answer.id in chosenAnswer
+  isChecked = answer.id in (chosenAnswer or [])
 
 Answer = React.createClass
   displayName: 'Answer'
