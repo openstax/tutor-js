@@ -35,8 +35,8 @@ ROUTES =
     label: 'Performance Forecast' # a bit hard to read, but we only want to reject the === true case
     allowedForCourse: (course) -> not course?.is_concept_coach is true
     roles:
-      student: 'viewPerformanceForecast'
-      teacher: 'viewTeacherPerformanceForecast'
+      student: 'viewPerformanceGuide'
+      teacher: 'viewPerformanceGuide'
   questions:
     label: 'Question Library'
     roles:
