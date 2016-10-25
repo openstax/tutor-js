@@ -1,6 +1,7 @@
 chai = require('chai')
 sinon = require('sinon')
 sinonChai = require('sinon-chai')
+chai.use(sinonChai)
 
 # https://github.com/facebook/jest/issues/1730
 
