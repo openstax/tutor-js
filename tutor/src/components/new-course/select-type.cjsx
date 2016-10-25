@@ -1,16 +1,8 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
+partial = require 'lodash/partial'
 classnames = require 'classnames'
-
-COURSES =
-  college_physics:      'College Physics'
-  college_biology:      'College Biology'
-  principles_economics: 'Principles of Economics'
-  macro_economics:      'Macroeconomics'
-  micro_economics:      'Microeconomics'
-  intro_sociology:      'Introduction to Sociology'
-  anatomy_physiology:   'Anatomy & Physiology'
 
 SelectType = React.createClass
 
@@ -28,27 +20,33 @@ SelectType = React.createClass
         bsStyle="primary">Continue</BS.Button>
     </div>
 
-  onContinue: ->
-    @props.onContinue(course_code: @state.selected)
+  onSelectType: (type) ->
+    @setState(selected: type)
 
-  onSelect: (selected) -> @setState({selected})
+  onContinue: ->
+    @props.onContinue(course_type: @state.selected)
+
+  Choice: (props) ->
+    <div
+      onClick={partial(@onSelectType, props.type)}
+      className={classnames('type', props.type, active: @state.selected is props.type)}
+    >
+      <i />
+      <span>{props.title}</span>
+    </div>
+
 
   render: ->
-    <BS.Panel header="Choose your Tutor course" footer={<@Footer />}>
-      <BS.Table className="offerings" striped bordered >
-        <tbody>
-          {for appearance, name of COURSES
-            <tr data-appearance={appearance} key={appearance}
-              className={classnames(selected: @state.selected is appearance)}
-              onClick={_.partial(@onSelect, appearance)}
-            >
-              <td></td>
-              <td>{name}</td>
-            </tr>}
-        </tbody>
-      </BS.Table>
+    <BS.Panel
+      className="select-type"
+      header="Choose what you'd like to use in your course"
+      footer={<@Footer />}
+    >
+      <div className="chooser">
+        <@Choice type='cc' title='Concept Coach' />
+        <@Choice type='tutor' title='Tutor' />
+      </div>
     </BS.Panel>
-
 
 
 module.exports = SelectType

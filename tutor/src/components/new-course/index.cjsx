@@ -7,6 +7,7 @@ assign = require 'lodash/assign'
 
 STAGES = [
   require './select-type'
+  require './select-course'
   require './select-dates'
   require './course-details'
   require './build-course'
@@ -23,6 +24,7 @@ NewCourse = React.createClass
   onContinue: (attrs) ->
     currentStage = @state.currentStage + 1
     @setState(assign({currentStage}, attrs))
+
 
   onCancel: ->  @context.router.transitionTo('/dashboard')
 

@@ -22,6 +22,7 @@
       color: @tutor-neutral-dark;
       background-color: white;
       border: 0;
+      button + button { margin-left: 0.5rem; }
     }
     .panel-heading {
       font-size: 1.8rem;
@@ -43,6 +44,44 @@
           top: calc(~"50% - 0.8rem");
           font-size: 1.8rem;
           right: 5px;
+        }
+      }
+    }
+  }
+
+  .select-type {
+    .chooser {
+      display: flex;
+      border: 1px solid @tutor-neutral-light;
+
+      .type {
+        display: flex;
+        flex-direction: column;
+        height: 140px;
+        width: 50%;
+        padding: 10px;
+        cursor: pointer;
+        & + .type {
+          border-left: 1px solid @tutor-neutral-light;
+        }
+        &.active { background-color: @tutor-neutral-light; }
+        i {
+          background-image: url("../../images/openstax-logo-vertical.svg");
+          background-repeat: no-repeat;
+          display: block;
+          width: 100%;
+          height: 100px;
+        }
+        span {
+          font-size: 1.7rem;
+          align-self: flex-end;
+        }
+
+        &.cc span {
+          color: @tutor-primary;
+        }
+        &.tutor span {
+          color: @tutor-tertiary;
         }
       }
     }
