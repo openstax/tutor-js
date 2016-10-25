@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _, ReactTestUtils} = require 'shared/test/helpers'
+{Testing, expect, sinon, _, ReactTestUtils} = require 'shared/specs/helpers'
 
 ExercisePreview = require 'components/exercise/preview'
 Exercise = require 'components/exercise'
