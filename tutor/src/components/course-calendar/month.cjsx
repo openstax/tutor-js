@@ -164,18 +164,10 @@ CourseMonth = React.createClass
 
       <BS.Row className='calendar-body'>
         <BS.Col xs={12} data-duration-name={@getFullMonthName()}>
-          <Droppable
-            types={['task']} onDrop={@onTaskDrop}
-          >
-            <Month date={date} monthNames={false} weekdayFormat='ddd'
-              mods={mods}
-            >
-              {days}
-            </Month>
+          <Droppable types={['task']} onDrop={@onTaskDrop}>
+            <Month date={date} monthNames={false} weekdayFormat='ddd' mods={mods} />
           </Droppable>
-
           {plans}
-
         </BS.Col>
       </BS.Row>
     </BS.Grid>
