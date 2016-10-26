@@ -1,20 +1,23 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 Icon = require '../icon'
+
+{NewCourseActions, NewCourseStore} = require '../../flux/new-course'
+
+
 BuildCourse = React.createClass
 
-  propTypes:
-    onContinue: React.PropTypes.func.isRequired
-    onCancel: React.PropTypes.func.isRequired
+  componentDidMount: ->
+    NewCourseActions.save()
 
   render: ->
-    <BS.Panel>
+    <div>
       <h4>We’re building your Tutor course…</h4>
       <p>Should take about 10 seconds</p>
       <div className="text-center">
-        <Icon type='spinner' spin className="fa-5x" />
+        <Icon type='refresh' spin className="fa-5x" />
       </div>
-    </BS.Panel>
+    </div>
 
 
 module.exports = BuildCourse
