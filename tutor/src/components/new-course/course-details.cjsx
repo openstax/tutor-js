@@ -67,10 +67,6 @@ PastCourses = React.createClass
 CourseDetails = React.createClass
 
   getInitialState: ->
-    course_name: ''
-    source_course_id: null
-    copy_ql: true
-    section_count: 1
     teachingCourses: filter(CourseListingStore.allCourses(), (course) ->
       course.appearance_code is NewCourseStore.get('course_code') and find(course.roles, type: 'teacher')
     )
@@ -81,22 +77,24 @@ CourseDetails = React.createClass
   onSelect: (source_course_id) ->
     prev_selected_id = NewCourseStore.get('source_course_id')
     source_course_id = null if source_course_id is prev_selected_id
-    course_name = @state.course_name
+    name = NewCourseStore.get('name')
     newCourse = find(@state.teachingCourses, id: source_course_id)
 
     if newCourse
       # is the current name blank or the same as the previous course?
-      if isEmpty(course_name) or (
-        prev_selected_id and find(@state.teachingCourses, id: prev_selected_id).name is course_name
+      if isEmpty(name) or (
+        prev_selected_id and find(@state.teachingCourses, id: prev_selected_id).name is name
       )
-        course_name = newCourse.name
+        name = newCourse.name
+        number_of_sections = newCourse.periods.length
     else
-      course_name = ''
+      number_of_sections = NewCourseActions.get('number_of_sections')
+      name = ''
 
-    NewCourseActions.set({course_name, source_course_id})
+    NewCourseActions.set({name, source_course_id, number_of_sections})
 
   updateName: (ev) ->
-    NewCourseActions.set({course_name: ev.target.value})
+    NewCourseActions.set({name: ev.target.value})
 
   updateSectionCount: (ev) ->
     NewCourseActions.set({number_of_sections: parseInt(ev.target.value, 10)})
@@ -113,7 +111,7 @@ CourseDetails = React.createClass
         <BS.ControlLabel>Name of new course:</BS.ControlLabel>
         <BS.FormControl autoFocus
           type="text"
-          value={NewCourseStore.get('course_name') or ''}
+          value={NewCourseStore.get('name') or ''}
           onChange={@updateName}
         />
       </BS.FormGroup>
