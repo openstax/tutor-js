@@ -2,6 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 
 classnames = require 'classnames'
+partial = require 'lodash/partial'
 
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 
@@ -27,7 +28,7 @@ SelectDates = React.createClass
         {for code, name of QUARTERS
           <tr key={code}
             className={classnames(selected: NewCourseStore.get(KEY) is code)}
-            onClick={_.partial(@onSelect, code)}
+            onClick={partial(@onSelect, code)}
           >
             <td>{name}</td>
           </tr>}

@@ -98,13 +98,15 @@ Object.defineProperty(Testing, 'router', {
   get: -> ROUTER
 })
 
-# Object.defineProperties(Sinon, {
-#   spy:
-#     get
-# })
+pause = (scope) ->
+  new Promise (resolve) ->
+    _.defer ->
+      resolve(scope)
+
 
 module.exports = {
   Testing, expect, sinon, React, _, ReactTestUtils,
   spyOnComponentMethod, stubComponentMethod,
-  shallow: enzyme.shallow, mount: enzyme.mount
+  shallow: enzyme.shallow, mount: enzyme.mount,
+  pause
 }

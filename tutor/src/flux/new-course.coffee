@@ -1,10 +1,10 @@
 {makeStandardStore} = require './helpers'
-
+extend = require 'lodash/extend'
 
 module.exports = makeStandardStore('NewCourse', {
 
   set: (attrs) ->
-    _.extend(@_local, attrs)
+    extend(@_local, attrs)
     @emitChange()
 
   exports:

@@ -25,11 +25,11 @@ SelectCourse = React.createClass
     NewCourseActions.set({"#{KEY}": type})
 
   render: ->
-    <BS.Table className="offerings" striped bordered >
+    <BS.Table className="offerings" striped bordered>
       <tbody>
         {for code, name of COURSES
           <tr data-appearance={code} key={code}
-            className={classnames(selected: NewCourseStore.get(KEY) is code)}
+            className={classnames({selected: NewCourseStore.get(KEY) is code})}
             onClick={partial(@onSelect, code)}
           >
             <td></td>
@@ -37,8 +37,6 @@ SelectCourse = React.createClass
           </tr>}
       </tbody>
     </BS.Table>
-
-
 
 
 module.exports = SelectCourse
