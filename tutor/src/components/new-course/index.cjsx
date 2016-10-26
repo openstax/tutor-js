@@ -36,6 +36,12 @@ NewCourse = React.createClass
 
   Footer: ->
     <div className="controls">
+      <BS.Button
+        onClick={@onCancel} className="cancel"
+      >
+        Cancel
+      </BS.Button>
+
       <BS.Button onClick={@onBack}
         bsStyle='success' className="back"
         disabled={@state.currentStage is 0}
@@ -52,11 +58,6 @@ NewCourse = React.createClass
         Continue
       </BS.Button>
 
-      <BS.Button
-        onClick={@onCancel} className="cancel"
-      >
-        Cancel
-      </BS.Button>
     </div>
 
   onCancel: ->
