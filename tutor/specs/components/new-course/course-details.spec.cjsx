@@ -25,3 +25,14 @@ describe 'CreateCourse: entering details', ->
     wrapper.find('.nav').find('a').last().simulate('click')
     expect(wrapper.text()).to.include('Local Test Course Two')
     undefined
+
+  it 'sets flux values', ->
+    wrapper = mount(<CourseDetails />)
+    wrapper.find('.course-name .form-control')
+      .simulate('change', target: value: 'My Course')
+    wrapper.find('.section-count .form-control')
+      .simulate('change', target: value: 12)
+
+    expect(NewCourseStore.get('course_name')).to.equal('My Course')
+    expect(NewCourseStore.get('number_of_sections')).to.equal(12)
+    undefined

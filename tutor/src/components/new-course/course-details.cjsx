@@ -20,6 +20,9 @@ PastCourses = React.createClass
       NewCourseActions.set(source_course_id: null)
     @setState({activeTab})
 
+  setQL: (ev) ->
+    NewCourseActions.set({should_copy_question_library: ev.target.checked})
+
   SourcePicker: ->
     return null unless @state.activeTab is 2
     <div className="source-course">
@@ -38,12 +41,14 @@ PastCourses = React.createClass
            <BS.FormControl
              type="checkbox"
              disabled={not @props.selected}
-             checked={@props.copy_ql}
-             onChange={@props.setQL}
+             checked={!!NewCourseStore.get('should_copy_question_library')}
+             onChange={@setQL}
            /> <BS.ControlLabel>Keep Question Library exclusions</BS.ControlLabel>
         </BS.FormGroup>
       </BS.Form>
     </div>
+
+
 
   render: ->
     return null if isEmpty(@props.courses)
@@ -93,9 +98,6 @@ CourseDetails = React.createClass
   updateName: (ev) ->
     NewCourseActions.set({course_name: ev.target.value})
 
-  setQL: (ev) ->
-    NewCourseActions.set({should_copy_question_library: ev.target.checked})
-
   updateSectionCount: (ev) ->
     NewCourseActions.set({number_of_sections: parseInt(ev.target.value, 10)})
 
@@ -105,15 +107,13 @@ CourseDetails = React.createClass
 
       <PastCourses courses={@state.teachingCourses}
         onSelect={@onSelect}
-        copy_ql={NewCourseStore.get('should_copy_question_library')}
-        setQL={@setQL}
         selected={NewCourseStore.get('source_course_id')} />
 
-      <BS.FormGroup>
+      <BS.FormGroup className='course-name'>
         <BS.ControlLabel>Name of new course:</BS.ControlLabel>
         <BS.FormControl autoFocus
           type="text"
-          value={NewCourseStore.get('course_name')}
+          value={NewCourseStore.get('course_name') or ''}
           onChange={@updateName}
         />
       </BS.FormGroup>
@@ -122,7 +122,7 @@ CourseDetails = React.createClass
           <BS.ControlLabel>Number of sections</BS.ControlLabel>
           <BS.FormControl autoFocus
             type="text"
-            value={NewCourseStore.get('section_count')}
+            value={NewCourseStore.get('number_of_sections') or ''}
             onChange={@updateSectionCount}
           />
         </BS.FormGroup>
