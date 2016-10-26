@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 find = require 'lodash/find'
 filter = require 'lodash/filter'
 isEmpty = require 'lodash/isEmpty'
+partial = require 'lodash/partial'
 
 classnames = require 'classnames'
 
@@ -27,7 +28,7 @@ PastCourses = React.createClass
           {for course in @props.courses
             <tr key={course.id}
               className={classnames(selected: @props.selected is course.id)}
-              onClick={_.partial(@props.onSelect, course.id)}>
+              onClick={partial(@props.onSelect, course.id)}>
               <td>{course.name}</td>
             </tr>}
         </tbody>
@@ -58,7 +59,7 @@ PastCourses = React.createClass
       <@SourcePicker />
     </div>
 
-SelectCourse = React.createClass
+CourseDetails = React.createClass
 
   getInitialState: ->
     course_name: ''
@@ -99,6 +100,7 @@ SelectCourse = React.createClass
     NewCourseActions.set({number_of_sections: parseInt(ev.target.value, 10)})
 
   render: ->
+
     <div className="course-details" >
 
       <PastCourses courses={@state.teachingCourses}
@@ -130,4 +132,4 @@ SelectCourse = React.createClass
 
 
 
-module.exports = SelectCourse
+module.exports = CourseDetails
