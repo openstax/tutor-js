@@ -503,7 +503,7 @@ TaskingConfig =
 
     isTaskOpened: (taskId) ->
       firstTasking = _.first(@exports._getTaskingsSortedByOpenDate.call(@, taskId))
-      isTaskingOpened(firstTasking) if firstTasking?
+      !!(firstTasking and isTaskingOpened(firstTasking))
 
     getFirstDueDate: (taskId) ->
       firstTasking = _.first(@exports._getTaskingsSortedByDueDate.call(@, taskId))

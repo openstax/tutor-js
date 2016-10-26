@@ -42,6 +42,7 @@ typesetDocument = _.debounce( typesetDocument, 100)
 # It's called by components like HTML after they're rendered
 typesetMath = (root, windowImpl = window) ->
   # schedule a Mathjax pass if there is at least one [data-math] or <math> element present
+
   if windowImpl.MathJax?.Hub?.Queue? and root.querySelector(COMBINED_MATH_SELECTOR)
     typesetDocument(windowImpl)
 

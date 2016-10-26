@@ -7,7 +7,6 @@ flux = require 'flux-react'
 # Read the CSRF token from document's meta tag.  If not found, log a warning but proceed
 # on the assumption that the server knows what it's doing.
 CSRF_Token = document.head.querySelector('meta[name=csrf-token]')?.getAttribute("content")
-console?.warn?("CSRF token was not found, proceeding without CSRF protection") unless CSRF_Token
 
 
 # TODO consider putting this with policies?  especially when this same data could be used for other
@@ -36,8 +35,8 @@ ROUTES =
     label: 'Performance Forecast' # a bit hard to read, but we only want to reject the === true case
     allowedForCourse: (course) -> not course?.is_concept_coach is true
     roles:
-      student: 'viewPerformanceForecast'
-      teacher: 'viewTeacherPerformanceForecast'
+      student: 'viewPerformanceGuide'
+      teacher: 'viewPerformanceGuide'
   questions:
     label: 'Question Library'
     roles:

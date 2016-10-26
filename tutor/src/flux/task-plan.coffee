@@ -279,13 +279,12 @@ TaskPlanConfig =
 
     isValid: (id) ->
       plan = @_getPlan(id)
-
       if (plan.type is 'reading')
         return plan.title and plan.settings?.page_ids?.length > 0
       else if (plan.type is 'homework')
         return plan.title and plan.settings?.exercise_ids?.length > 0
       else if (plan.type is 'external')
-        return plan.title and validator.isURL(plan.settings?.external_url)
+        return plan.title and plan.settings?.external_url and validator.isURL(plan.settings.external_url)
       else if (plan.type is 'event')
         return plan.title
 
