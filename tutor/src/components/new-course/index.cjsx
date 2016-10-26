@@ -29,18 +29,33 @@ NewCourse = React.createClass
   bindStore: NewCourseStore
 
   onContinue: ->
-    currentStage = @state.currentStage + 1
-    @setState({currentStage})
+    @setState({currentStage: @state.currentStage + 1})
+
+  onBack: ->
+    @setState({currentStage: @state.currentStage - 1})
 
   Footer: ->
     <div className="controls">
-      <BS.Button onClick={@onCancel}>Cancel</BS.Button>
-      <BS.Button onClick={@onContinue} bsStyle="primary"
+      <BS.Button onClick={@onBack}
+        bsStyle='success' className="back"
+        disabled={@state.currentStage is 0}
+      >
+        Back
+      </BS.Button>
+
+      <BS.Button onClick={@onContinue}
+        bsStyle='success' className="next"
         disabled={
           not NewCourseStore.isValid( STAGE_KEYS[@state.currentStage] )
         }
       >
         Continue
+      </BS.Button>
+
+      <BS.Button
+        onClick={@onCancel} className="cancel"
+      >
+        Cancel
       </BS.Button>
     </div>
 

@@ -22,10 +22,18 @@ describe 'Creating a course', ->
     wrapper = mount(<NewCourse {...@props} />)
     wrapper.find('.type.tutor').simulate('click')
     pause().then ->
-      wrapper.find('.btn-primary').simulate('click')
+      wrapper.find('.btn.next').simulate('click')
       expect(spy.calledOnce).to.be.true
       expect(wrapper.find(SelectCourse)).to.have.length(1)
 
+  it 'can go backwards', ->
+    wrapper = mount(<NewCourse {...@props} />)
+    backBtn = wrapper.find('.btn.back')
+    expect(backBtn.is('[disabled]')).to.be.true
+    wrapper.find('.type.tutor').simulate('click')
+    pause().then ->
+      wrapper.find('.btn.next').simulate('click')
+      expect(backBtn.render().is('[disabled]')).to.be.false
 
   # snapshots currently do not work because of bug with React 15.3.x.
   # is fixed in 15.4 https://github.com/facebook/react/issues/7386
