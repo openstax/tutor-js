@@ -118,7 +118,7 @@ CourseDetails = React.createClass
       <BS.Form inline>
         <BS.FormGroup className="section-count">
           <BS.ControlLabel>Number of sections</BS.ControlLabel>
-          <BS.FormControl autoFocus
+          <BS.FormControl
             type="text"
             value={NewCourseStore.get('number_of_sections') or ''}
             onChange={@updateSectionCount}

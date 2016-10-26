@@ -33,6 +33,6 @@ describe 'CreateCourse: entering details', ->
     wrapper.find('.section-count .form-control')
       .simulate('change', target: value: 12)
 
-    expect(NewCourseStore.get('course_name')).to.equal('My Course')
+    expect(NewCourseStore.get('name')).to.equal('My Course')
     expect(NewCourseStore.get('number_of_sections')).to.equal(12)
     undefined

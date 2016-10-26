@@ -12,7 +12,7 @@ STAGES = {
   'course_code': require './select-course'
   'period':      require './select-dates'
   'details':     require './course-details'
-  'all':         require './build-course'
+  'build':       require './build-course'
 }
 
 STAGE_KEYS = keys(STAGES)
@@ -65,12 +65,11 @@ NewCourse = React.createClass
 
   render: ->
     Component = STAGES[ STAGE_KEYS[ @state.currentStage ] ]
-
     <div className="new-course">
       <BS.Panel
         header={Component.title}
         className={@state.currentStage}
-        footer={<@Footer />}
+        footer={<@Footer /> unless Component.shouldHideControls}
       >
           <Component
             onContinue={@onContinue}

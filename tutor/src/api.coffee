@@ -39,7 +39,7 @@ PerformanceForecast = require './flux/performance-forecast'
 {ReferenceBookActions, ReferenceBookStore} = require './flux/reference-book'
 {ReferenceBookPageActions, ReferenceBookPageStore} = require './flux/reference-book-page'
 {ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require './flux/reference-book-exercise'
-
+{NewCourseActions, NewCourseStore} = require './flux/new-course'
 {NotificationActions, NotificationStore} = require './flux/notifications'
 
 SharedNetworking = require 'shared/src/model/networking'
@@ -247,8 +247,12 @@ start = (bootstrapData) ->
     url: '/api/user/courses'
 
   route 'POST', "/api/courses/{courseId}/clone",
-    actions: CourseListingActions, trigger: 'clone', onSuccess: 'cloned'
-    payload: ({courseId, name}) -> {name}
+    actions: NewCourseActions, trigger: 'clone', onSuccess: 'created'
+    payload: NewCourseStore.requestPayload
+
+  route 'POST', "/api/courses",
+    actions: NewCourseActions, trigger: 'create', onSuccess: 'created'
+    payload: NewCourseStore.requestPayload
 
   apiHelper ReferenceBookActions, ReferenceBookActions.load, ReferenceBookActions.loaded, 'GET', (ecosystemId) ->
     url: "/api/ecosystems/#{ecosystemId}/readings"

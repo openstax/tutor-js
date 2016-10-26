@@ -1,16 +1,25 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 Icon = require '../icon'
-
+TutorLink = require '../link'
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 
-
 BuildCourse = React.createClass
+  statics:
+    shouldHideControls: true
 
-  componentDidMount: ->
+  componentWillMount: ->
     NewCourseActions.save()
 
-  render: ->
+  renderSaved: (newCourse) ->
+    <div>
+      <h4>Your new course is ready!</h4>
+      Click <TutorLink
+        to='dashboard' params={courseId: newCourse.id}
+      > here to start using it.</TutorLink>
+    </div>
+
+  renderPending: ->
     <div>
       <h4>We’re building your Tutor course…</h4>
       <p>Should take about 10 seconds</p>
@@ -18,6 +27,13 @@ BuildCourse = React.createClass
         <Icon type='refresh' spin className="fa-5x" />
       </div>
     </div>
+
+  render: ->
+    newCourse = NewCourseStore.newCourse()
+    if newCourse
+      @renderSaved(newCourse)
+    else
+      @renderPending()
 
 
 module.exports = BuildCourse
