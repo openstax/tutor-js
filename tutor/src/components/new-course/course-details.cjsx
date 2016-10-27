@@ -20,9 +20,6 @@ PastCourses = React.createClass
       NewCourseActions.set(source_course_id: null)
     @setState({activeTab})
 
-  setQL: (ev) ->
-    NewCourseActions.set({should_copy_question_library: ev.target.checked})
-
   SourcePicker: ->
     return null unless @state.activeTab is 2
     <div className="source-course">
@@ -36,16 +33,6 @@ PastCourses = React.createClass
             </tr>}
         </tbody>
       </BS.Table>
-      <BS.Form inline>
-        <BS.FormGroup controlId='ql'>
-           <BS.FormControl
-             type="checkbox"
-             disabled={not @props.selected}
-             checked={!!NewCourseStore.get('should_copy_question_library')}
-             onChange={@setQL}
-           /> <BS.ControlLabel>Keep Question Library exclusions</BS.ControlLabel>
-        </BS.FormGroup>
-      </BS.Form>
     </div>
 
 

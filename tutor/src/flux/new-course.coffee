@@ -1,9 +1,14 @@
 {makeStandardStore} = require './helpers'
 extend = require 'lodash/extend'
+clone  = require 'lodash/clone'
 
 {CourseListingActions} = require './course-listing'
 
+DEFAULTS =
+  copy_ql: 'copy'
+
 StoreDefinition = makeStandardStore('NewCourse', {
+  _local: clone(DEFAULTS)
 
   save: ->
     actions = StoreDefinition.NewCourseActions
@@ -22,6 +27,9 @@ StoreDefinition = makeStandardStore('NewCourse', {
     @reset()
     @_local['newlyCreatedCourse'] = newCourse
     @emit('created', newCourse)
+
+  _reset: ->
+    @_local = clone(DEFAULTS)
 
   set: (attrs) ->
     extend(@_local, attrs)
