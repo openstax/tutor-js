@@ -46,7 +46,7 @@ describe 'External Homework Plan', ->
         dom.querySelector('#external-url').getAttribute('disabled')
       ).to.exist
 
-  it 'should show url required message when saving and no assignment URL', ->
+  xit 'should show url required message when saving and no assignment URL', ->
     helper(NEW_EXTERNAL).then ({dom}) ->
       Testing.actions.click(dom.querySelector('.-save'))
       expect(dom.querySelector('.external-url.is-required.has-error')).to.not.be.null
