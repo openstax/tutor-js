@@ -22,6 +22,7 @@ class Interceptors
   constructor: (hooks = {}, apiHandler) ->
     @_apiHandler = apiHandler
     @hookIntercepts(hooks)
+    @
 
   hookIntercepts: (hooks) ->
     _.forEach hooks, (hook, hookName) =>
@@ -91,6 +92,7 @@ class Interceptors
     # if errorResponse.status is 400
       # CurrentUserActions.logout()
 
+    # error has been officially handled.
     Promise.reject(null)
 
   handleNotFound: (errorResponse) ->

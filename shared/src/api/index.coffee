@@ -140,5 +140,6 @@ class APIHandler
 
     , requestDelay
 
+# include and export cascading error handler for convenience/custom error handling.
 
 module.exports = {APIHandler}
