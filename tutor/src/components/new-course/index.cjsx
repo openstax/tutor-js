@@ -12,10 +12,14 @@ STAGES = {
   'course_code': require './select-course'
   'period':      require './select-dates'
   'details':     require './course-details'
+  'copy_ql':     require './copy-ql'
   'build':       require './build-course'
 }
 
 STAGE_KEYS = keys(STAGES)
+
+componentFor = (index) ->
+  STAGES[ STAGE_KEYS[ index ] ]
 
 NewCourse = React.createClass
 
@@ -28,11 +32,13 @@ NewCourse = React.createClass
   mixins: [BindStore]
   bindStore: NewCourseStore
 
-  onContinue: ->
-    @setState({currentStage: @state.currentStage + 1})
-
-  onBack: ->
-    @setState({currentStage: @state.currentStage - 1})
+  onContinue: -> @go(1)
+  onBack: -> @go(-1)
+  go: (amt) ->
+    stage = @state.currentStage
+    while componentFor(stage + amt)?.shouldSkip?()
+      stage += amt
+    @setState({currentStage: stage + amt})
 
   Footer: ->
     <div className="controls">
@@ -64,7 +70,7 @@ NewCourse = React.createClass
     @context.router.transitionTo('/dashboard')
 
   render: ->
-    Component = STAGES[ STAGE_KEYS[ @state.currentStage ] ]
+    Component = componentFor(@state.currentStage)
     <div className="new-course">
       <BS.Panel
         header={Component.title}
