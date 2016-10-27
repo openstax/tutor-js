@@ -174,16 +174,13 @@ apiHelper = (Actions, listenAction, successAction, httpMethod, pathMaker, option
 
       opts =
         method: httpMethod or httpMethodOverride
-        dataType: 'json'
         headers:
           'X-CSRF-Token': CurrentUserStore.getCSRFToken(),
           token: CurrentUserStore.getToken()
         displayError: true
 
       if payload?
-        opts.data = JSON.stringify(payload)
-        opts.processData = false
-        opts.contentType = 'application/json'
+        opts.data = payload
 
       requestConfig = _.extend({url}, opts, options)
 
