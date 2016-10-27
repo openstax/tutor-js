@@ -3,7 +3,10 @@ _ = require 'lodash'
 axios = require 'axios'
 
 interpolate = require 'interpolate'
-extractValues = require 'extract-values'
+
+# this is pretty terrible.
+require 'extract-values'
+
 EventEmitter2 = require 'eventemitter2'
 
 {Routes, XHRRecords, utils} = require './collections'
@@ -16,16 +19,21 @@ API_DEFAULTS =
     delay: 0
   xhr:
     dataType: 'json'
-  events:
+  eventOptions:
     pattern: '{subject}.{topic}.{action}'
     send: 'send'
     receive: 'receive.{status}'
     statuses:
       success: 'success'
       failure: 'failure'
+  events: []
   handlers:
-    onSuccess: console.log
-    onFail: console.warn
+    onSuccess: (response, args...) ->
+      console.log(response, args...)
+      response
+    onFail: (response, args...) ->
+      console.warn(response, args...)
+      Promise.reject(response)
   isLocal: false
 
 setUpXHRInterceptors = (xhrInstance, interceptors, isLocal) ->
@@ -67,10 +75,12 @@ class APIHandler
     @setOptions(options)
 
     @initializeRoutes(routes)
-    @initializeXHR(@getOptions().xhr, new Interceptors(@getOptions().hooks, @), @getOptions().isLocal)
+    @initializeRecords()
+    @initializeEventOptions(@getOptions().eventOptions, @getOptions().events)
     @initializeEvents(@getOptions().events)
+    @initializeXHR(@getOptions().xhr, new Interceptors(@getOptions().hooks, @), @getOptions().isLocal)
 
-  destroy: ->
+  destroy: =>
     @_channel.removeAllListeners()
 
   initializeRecords: =>
@@ -85,16 +95,19 @@ class APIHandler
 
     @_xhr = xhr
 
-  initializeEvents: (eventOptions) ->
-    @_channel = new EventEmitter2 wildcard: true
+  updateXHR: (xhrOptions) =>
+    # notice that this is not deep -- for example, passings header through xhrOptions
+    #   will override existing headers, not merge recursively.
+    _.assign(@_xhr.defaults, xhrOptions)
 
+  initializeEventOptions: (eventOptions, events) =>
     {pattern, send, receive, statuses} = eventOptions
 
     # {subject}.{topic}.{action}.send||(receive.(failure||success))
     patterns =
       base: pattern
-      send: [pattern, send].join()
-      receive: [pattern, receive].join()
+      send: [pattern, send].join('.')
+      receive: [pattern, receive].join('.')
 
     allEvents =
       subject: '*'
@@ -102,16 +115,18 @@ class APIHandler
       action: '*'
 
     sendRequest = @sendRequest
+    @_patterns = patterns
+    @_statuses = statuses
 
     handleSend = (args...) ->
       requestInfo = extractValues(@event, patterns.send)
-      requestInfo.events =
-        success: interpolate(patterns.receive, _.merge({status: statuses.success}, requestInfo))
-        failure: interpolate(patterns.receive, _.merge({status: statuses.failure}, requestInfo))
-
       sendRequest(requestInfo, args...)
 
-    @_channel.on(interpolate(patterns.send, allEvents), handleSend)
+    events.push([interpolate(patterns.send, allEvents), handleSend])
+
+  initializeEvents: (events) =>
+    @_channel = new EventEmitter2 wildcard: true
+    _.forEach(events, _.spread(@_channel.on.bind(@_channel)))
 
   setOptions: (options) =>
     previousOptions = @getOptions?() or {}
@@ -119,14 +134,19 @@ class APIHandler
 
     @getOptions = -> options
 
-  sendRequest: (request, routeData, postData, args...) ->
-    routeOptions = @_routes.get(request)
+  sendRequest: (requestInfo, routeData, postData, args...) =>
+    routeOptions = @_routes.get(requestInfo)
     requestConfig = makeRequestConfig(routeOptions, routeData, postData)
+
     return if @_records.isPending(requestConfig)
+
+    requestConfig.events =
+      success: interpolate(@_patterns.receive, _.merge({status: @_statuses.success}, requestInfo))
+      failure: interpolate(@_patterns.receive, _.merge({status: @_statuses.failure}, requestInfo))
 
     requestDelay = routeOptions.delay or @getOptions().request.delay
 
-    _.delay ->
+    _.delay =>
       {handlers} = @getOptions()
       {onSuccess, onFail} = routeOptions
 

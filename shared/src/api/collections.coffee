@@ -23,16 +23,16 @@ class Collection
   constructor: (makeItem, lookup) ->
     constructCollection(@, makeItem, lookup)
 
-  set: (args...) ->
+  set: (args...) =>
     @_cache[@lookup(args...)] = @make(args...)
 
-  load: (items) ->
+  load: (items) =>
     _.forEach items, @set
 
-  get: (args...) ->
+  get: (args...) =>
     _.cloneDeep(@_cache[@lookup(args...)])
 
-  delete: (args...) ->
+  delete: (args...) =>
     delete @_cache[@lookup(args...)]
     true
 
@@ -41,26 +41,26 @@ class CollectionCached
   constructor: (makeItem, lookup) ->
     constructCollection(@, makeItem, lookup)
 
-  update: (args...) ->
+  update: (args...) =>
     @_cache[@lookup(args...)] ?= []
     @_cache[@lookup(args...)].push(@make(args...))
 
-  get: (args...) ->
+  get: (args...) =>
     _.flow(_.last, _.cloneDeep)(@_cache[@lookup(args...)])
 
-  getAll: (args...) ->
+  getAll: (args...) =>
     _.cloneDeep(@_cache[@lookup(args...)])
 
-  getSize: (args...) ->
+  getSize: (args...) =>
     _.size(@_cache[@lookup(args...)]) or 0
 
-  reset: (args...) ->
+  reset: (args...) =>
     delete @_cache[@lookup(args...)]
     true
 
 
 # the combination of these should be unique
-ROUTE_UNIQUES = ['subject', 'topic', 'action']
+ROUTE_UNIQUES = ['subject', 'action']
 
 # options will be stored by hash of ROUTE_UNIQUES
 #
@@ -119,16 +119,16 @@ class XHRRecords
     @_responses = new CollectionCached(makeTime, hashRequestConfig)
     @
 
-  queRequest: (requestConfig) ->
+  queRequest: (requestConfig) =>
     @_requests.update(requestConfig)
 
-  recordResponse: ({config}) ->
+  recordResponse: ({config}) =>
     @_responses.update(config)
 
-  isPending: (requestConfig) ->
-    @_requests.getSize(requestConfig) is @_responses.getSize(requestConfig)
+  isPending: (requestConfig) =>
+    @_requests.getSize(requestConfig) > @_responses.getSize(requestConfig)
 
-  getResponseTime: (requestConfig) ->
+  getResponseTime: (requestConfig) =>
     @_requests.get(requestConfig).diff(@_responses.get(requestConfig))
 
 

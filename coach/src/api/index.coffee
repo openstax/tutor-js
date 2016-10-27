@@ -1,6 +1,8 @@
 EventEmitter2 = require 'eventemitter2'
 
 {loader, isPending} = require './loader'
+createHandler = require './create-handler'
+routes = require './routes'
 settings = require './settings'
 
 channel = new EventEmitter2 wildcard: true
@@ -11,6 +13,8 @@ channel = new EventEmitter2 wildcard: true
 IS_INITIALIZED = false
 
 initialize = (baseUrl) ->
+  coachAPIHandler = createHandler(baseUrl, routes)
+
   settings.baseUrl ?= baseUrl
   loader(channel, settings) unless IS_INITIALIZED
   IS_INITIALIZED = true

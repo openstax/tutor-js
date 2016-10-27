@@ -24,7 +24,7 @@ class Interceptors
     @hookIntercepts(hooks)
     @
 
-  hookIntercepts: (hooks) ->
+  hookIntercepts: (hooks) =>
     _.forEach hooks, (hook, hookName) =>
       originalIntercept = @[hookName]
 
@@ -32,37 +32,37 @@ class Interceptors
         hook(args...)
         originalIntercept(args...)
 
-  queRequest: (requestConfig) ->
+  queRequest: (requestConfig) =>
     @_apiHandler._records.queRequest(requestConfig)
     requestConfig
 
-  makeLocalRequest: (requestConfig) ->
+  makeLocalRequest: (requestConfig) =>
     makeLocalRequest(requestConfig)
     requestConfig
 
-  setResponseReceived: (response) ->
+  setResponseReceived: (response) =>
     @_apiHandler._records.recordResponse(response)
     response
 
-  setErrorReceived: (response) ->
+  setErrorReceived: (response) =>
     @_apiHandler._records.recordResponse(response)
     Promise.reject(response)
 
-  broadcastSuccess: (response) ->
+  broadcastSuccess: (response) =>
     {config} = response
     @_apiHandler._channel.emit(config.events.success, response)
     response
 
-  broadcastError: (response) ->
+  broadcastError: (response) =>
     {config} = response
     @_apiHandler._channel.emit(config.events.failure, response)
     Promise.reject(response)
 
-  makeLocalResponse: (response) ->
+  makeLocalResponse: (response) =>
     makeLocalResponse(response)
     response
 
-  handleLocalErrors: (errorResponse) ->
+  handleLocalErrors: (errorResponse) =>
     {status, statusText, config} = errorResponse
     {method, mockMethod} = config
 
@@ -80,7 +80,7 @@ class Interceptors
 
     Promise.reject(errorResponse)
 
-  handleError: (errorResponse) ->
+  handleError: (errorResponse) =>
     if _.isError(errorResponse)
       errorResponse =
         status: 1
@@ -88,20 +88,22 @@ class Interceptors
 
     Promise.reject(errorResponse)
 
-  handleMalformedRequest: (errorResponse) ->
-    # if errorResponse.status is 400
+  handleMalformedRequest: (errorResponse) =>
+    if errorResponse.status is 400
       # CurrentUserActions.logout()
 
-    # error has been officially handled.
-    Promise.reject(null)
+      # error has been officially handled.
+      Promise.reject()
+    else
+      Promise.reject(errorResponse)
 
-  handleNotFound: (errorResponse) ->
+  handleNotFound: (errorResponse) =>
     if errorResponse.status is 404
       errorResponse.statusText ?= 'ERROR_NOTFOUND'
 
     Promise.reject(errorResponse)
 
-  handleErrorMessage: (errorResponse) ->
+  handleErrorMessage: (errorResponse) =>
     {statusText, data} = errorResponse
 
     try
