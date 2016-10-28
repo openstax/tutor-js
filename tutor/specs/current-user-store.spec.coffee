@@ -28,6 +28,11 @@ STUDENT_MENU = [
     params: {courseId: '1'}
     label: 'Change Student ID'
   }
+  {
+    name: 'createNewCourse'
+    params: undefined
+    label: 'Add New Course'
+  }
 ]
 
 TEACHER_MENU = [
@@ -55,6 +60,11 @@ TEACHER_MENU = [
     name: 'courseSettings'
     label: 'Course Settings and Roster'
     params: {courseId: '2'}
+  }
+  {
+    name: 'createNewCourse'
+    params: { offeringId: 1 }
+    label: 'Add New Course'
   }
 ]
 

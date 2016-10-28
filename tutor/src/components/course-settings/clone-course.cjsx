@@ -2,39 +2,19 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 {CourseStore, CourseActions} = require '../../flux/course'
+{CourseListingStore, CourseListingActions} = require '../../flux/course-listing'
 {AsyncButton} = require 'shared'
 {TutorInput} = require '../tutor-input'
+Icon = require '../icon'
 classnames = require 'classnames'
 
-# RenameCourseField = React.createClass
 
-#   displayName: 'RenameCourseField'
-#   propTypes:
-#     courseId: React.PropTypes.string
-#     label: React.PropTypes.string.isRequired
-#     name: React.PropTypes.string.isRequired
-#     default: React.PropTypes.string.isRequired
-#     onChange: React.PropTypes.func.isRequired
-#     autofocus: React.PropTypes.bool
-#     validate: React.PropTypes.func.isRequired
-
-
-#   onChange: (value) ->
-#     @props.onChange(value)
-
-#   render: ->
-#     <TutorInput
-#       ref='input'
-#       label={@props.label}
-#       default={@props.default}
-#       required={true}
-#       onChange={@onChange}
-#       validate={@props.validate}
-#       />
-
-RenameCourse = React.createClass
+CloneCourse = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
+
+  contextTypes:
+    router: React.PropTypes.func
 
   getInitialState: ->
     course_name: @props.course.name
@@ -53,9 +33,11 @@ RenameCourse = React.createClass
 
   performUpdate: ->
     unless @state.invalid
-      CourseActions.save(@props.courseId, name: @state.course_name)
-      CourseStore.once 'saved', =>
+      CourseListingActions.clone({courseId: @props.courseId, name: @state.course_name})
+      CourseListingStore.once 'cloned', (newCourse) =>
         @close()
+        @context.router.transitionTo("/courses/#{newCourse.id}/t/settings")
+
 
   renderForm: ->
     formClasses = classnames 'modal-body', 'teacher-edit-course-form', 'is-invalid-form': @state?.invalid
@@ -63,17 +45,18 @@ RenameCourse = React.createClass
       disabled = true
 
     <BS.Modal
+      {...@props}
       show={@state.showModal}
       onHide={@close}
       className='teacher-edit-course-modal'>
 
       <BS.Modal.Header closeButton>
-        <BS.Modal.Title>Rename Course</BS.Modal.Title>
+        <BS.Modal.Title>Clone Course</BS.Modal.Title>
       </BS.Modal.Header>
 
       <div className={formClasses} >
         <TutorInput
-          label='Course Name'
+          label='Name of new course'
           name='course-name'
           default={@props.course.name}
           onChange={(val) => @setState(course_name: val)}
@@ -87,19 +70,19 @@ RenameCourse = React.createClass
           className='-edit-course-confirm'
           onClick={@performUpdate}
           isWaiting={CourseStore.isSaving(@props.courseId)}
-          waitingText="Saving..."
+          waitingText="Copying..."
           disabled={disabled}>
-        Rename
+        Clone
         </AsyncButton>
       </div>
     </BS.Modal>
 
   render: ->
-    <span className='-rename-course-link'>
+    <span className='-clone-course-link'>
       <BS.Button onClick={@open} bsStyle='link' className='edit-course'>
-        <i className='fa fa-pencil' /> Rename Course
+        <Icon type="clone" /> Clone Course
       </BS.Button>
       {@renderForm()}
     </span>
 
-module.exports = RenameCourse
+module.exports = CloneCourse

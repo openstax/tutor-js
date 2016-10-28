@@ -17,11 +17,13 @@ CourseListingActions = flux.createActions [
   'FAILED'
   'delete'
   'deleted'
+  'addCourse'
 ]
 
 CourseListingStore = flux.createStore
   actions: _.values(CourseListingActions)
   _asyncStatus: null
+  _course_ids: []
 
   load: -> # Used by API
     @_asyncStatus = LOADING
@@ -36,6 +38,10 @@ CourseListingStore = flux.createStore
   FAILED: ->
     @_asyncStatus = FAILED
     @emit('failed')
+
+  addCourse: (newCourse) ->
+    @_course_ids.push(newCourse.id)
+    CourseActions.loaded(newCourse, newCourse.id)
 
   loaded: (courses) ->
     @_course_ids = _.map courses, (course) ->

@@ -2,6 +2,7 @@ chai = require('chai')
 sinon = require('sinon')
 sinonChai = require('sinon-chai')
 chai.use(sinonChai)
+isFunction = require('lodash/isFunction')
 
 # https://github.com/facebook/jest/issues/1730
 

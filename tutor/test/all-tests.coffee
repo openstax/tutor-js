@@ -62,6 +62,9 @@ require './components/name.spec'
 # require './components/tutor-popover.spec'
 # require './components/course-grouping-label.spec'
 # require './components/paging-navigation.spec'
+require './components/new-course/index.spec'
+require './components/new-course/select-type.spec'
+require './components/new-course/select-dates.spec'
 
 # # Flux your muscle
 # require './crud-store.spec'

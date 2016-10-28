@@ -23,6 +23,7 @@ TutorInput = React.createClass
     onChange: React.PropTypes.func
     validate: React.PropTypes.func
     onUpdated: React.PropTypes.func
+    autofocus: React.PropTypes.bool
 
   getDefaultProps: ->
     validate: (inputValue) ->
@@ -35,6 +36,9 @@ TutorInput = React.createClass
 
   getInitialState: ->
     errors: []
+
+  componentDidMount: ->
+    @focus().cursorToEnd() if @props.autofocus
 
   componentDidUpdate: (prevProps, prevState) ->
     @props.onUpdated?(@state) unless _.isEqual(prevState, @state)
@@ -51,10 +55,12 @@ TutorInput = React.createClass
 
   focus: ->
     ReactDOM.findDOMNode(@refs.input)?.focus()
+    return @ # support chaining
 
   cursorToEnd: ->
     input = ReactDOM.findDOMNode(@refs.input)
     input.selectionStart = input.selectionEnd = input.value.length
+    return @ # support chaining
 
   # The label has style "pointer-events: none" set.  Unfortunantly IE 10
   # doesn't support that and refuses to pass the click through the label into the input

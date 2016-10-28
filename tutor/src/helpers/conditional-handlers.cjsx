@@ -25,6 +25,8 @@ module.exports =
 
   dashboard: (props) ->
     {courseId} = props.params
+    return null if courseId is 'new' # new course id handled by different route entry
+
     extend(props, {courseId})
     course = CourseStore.get(courseId)
     unless course

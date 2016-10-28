@@ -23,6 +23,7 @@ CourseCalendarHeader = React.createClass
     date: TimeHelper.PropTypes.moment
     format: React.PropTypes.string.isRequired
     hasPeriods: React.PropTypes.bool.isRequired
+    onCopyPreviousAssignment: React.PropTypes.func.isRequired
 
   mixins: [ CourseAddMenuMixin ]
 
@@ -91,9 +92,17 @@ CourseCalendarHeader = React.createClass
             id='add-assignment'
             className='add-assignment'
             title='Add Assignment'
-            bsStyle={addAssignmentBSStyle}>
+            bsStyle={addAssignmentBSStyle}
+          >
             {@renderAddActions()}
-            </BS.DropdownButton>
+
+            <BS.MenuItem divider />
+
+            <BS.MenuItem onClick={@props.onCopyPreviousAssignment}>
+              Copy previous Assignment
+            </BS.MenuItem>
+
+          </BS.DropdownButton>
         </BS.Col>
         <BS.Col xs={4} className='calendar-header-label'>
           <a href='#' className='calendar-header-control previous' onClick={@handlePrevious}>

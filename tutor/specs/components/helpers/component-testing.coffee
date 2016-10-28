@@ -4,6 +4,11 @@ expect = chai.expect
 React = require 'react'
 ReactDOM = require 'react-dom'
 ReactTestUtils  = require 'react-addons-test-utils'
+{ spyOnComponentMethod, stubComponentMethod } = require 'sinon-spy-react'
+enzyme = require 'enzyme'
+chaiEnzyme = require('chai-enzyme')
+chai.use(chaiEnzyme())
+
 # No longer exists, needs further investigation if we're using it
 # ReactContext   = require('react/lib/ReactContext')
 
@@ -93,9 +98,15 @@ Object.defineProperty(Testing, 'router', {
   get: -> ROUTER
 })
 
-# Object.defineProperties(Sinon, {
-#   spy:
-#     get
-# })
+pause = (scope) ->
+  new Promise (resolve) ->
+    _.defer ->
+      resolve(scope)
 
-module.exports = {Testing, expect, sinon, React, _, ReactTestUtils}
+
+module.exports = {
+  Testing, expect, sinon, React, _, ReactTestUtils,
+  spyOnComponentMethod, stubComponentMethod,
+  shallow: enzyme.shallow, mount: enzyme.mount,
+  pause
+}
