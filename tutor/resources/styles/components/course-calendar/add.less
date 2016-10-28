@@ -1,15 +1,17 @@
-.course-add-dropdown, .add-assignment {
+.calendar-header-actions .dropdown-menu,
+.course-add-dropdown {
+  padding: 0;
+
   &.no-add {
     background: @tutor-neutral-light;
-  }
-
-  .no-add-text {
-    display: block;
-    padding: 3px 20px;
+    .no-add-text {
+      display: block;
+      padding: 3px 20px;
+    }
   }
 
   li {
-    .tutor-plan-set(add, ' a');
+    .tutor-plan-set(add);
   }
 
   .dropdown-menu > li > a,
