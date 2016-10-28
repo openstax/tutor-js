@@ -1,6 +1,5 @@
 React = require 'react'
 _ = require 'underscore'
-moment = require 'moment-timezone'
 BS = require 'react-bootstrap'
 
 {UnsavedStateMixin} = require '../../unsaved-state'
@@ -9,7 +8,8 @@ PlanMixin           = require '../plan-mixin'
 BindStoresMixin     = require '../../bind-stores-mixin'
 CourseGroupingLabel = require '../../course-grouping-label'
 TimeZoneSettings    = require './time-zone-settings-link'
-Router              = require '../../../helpers/router'
+
+taskPlanEditingInitialize = require '../initialize-editing'
 
 {TimeStore} = require '../../../flux/time'
 TimeHelper = require '../../../helpers/time'
@@ -58,75 +58,14 @@ TaskPlanBuilder = React.createClass
   # This logic could be improved, all it checks is if a title is set on a new task plan
   hasUnsavedState: -> TaskPlanStore.hasChanged(@props.id)
   unsavedStateMessages: -> 'The assignment has unsaved changes'
-
-  getOpensAtDefault: ->
-    moment(TimeStore.getNow()).add(1, 'day').format(TimeHelper.ISO_DATE_FORMAT)
-
-  getQueriedOpensAt: ->
-    {opens_at} = Router.currentQuery() # attempt to read the open date from query params
-    isNewPlan = TaskPlanStore.isNew(@props.id)
-    opensAt = if opens_at and isNewPlan then TimeHelper.getMomentPreserveDate(opens_at)
-    if not opensAt
-      # default open date is tomorrow
-      opensAt = @getOpensAtDefault()
-
-    # if there is a queried due date, make sure it's not the same as the open date
-    dueAt = @getQueriedDueAt()
-
-    if dueAt?
-      dueAtMoment = TimeHelper.getMomentPreserveDate(dueAt)
-      # there's a corner case is certain timezones where isAfter doesn't quite cut it
-      # and we need to check that the ISO strings don't match
-      unless (dueAtMoment.isAfter(opensAt, 'day') and dueAtMoment.format(TimeHelper.ISO_DATE_FORMAT) isnt opensAt)
-        # make open date today if default due date is tomorrow
-        opensAt = moment(TimeStore.getNow()).format(TimeHelper.ISO_DATE_FORMAT)
-
-    opensAt
-
-  getQueriedDueAt: ->
-    {due_at} = Router.currentQuery() # attempt to read the due date from query params
-    dueAt = if due_at then TimeHelper.getMomentPreserveDate(due_at).format(TimeHelper.ISO_DATE_FORMAT)
-
-  # Copies the available periods from the course store and sets
-  # them to open at the default start date
-  setPeriodDefaults: ->
-    {courseId, id} = @props
-    {showingPeriods} = @state
-
-    if TaskPlanStore.isNew(id)
-      TaskingActions.create(id, {open_date: @getQueriedOpensAt(), due_date: @getQueriedDueAt()})
-    else
-      {tasking_plans} = TaskPlanStore.get(id)
-      TaskingActions.loadTaskings(id, tasking_plans)
-
-    nextState = {}
-    nextState.showingPeriods = not TaskingStore.getTaskingsIsAll(id)
-
-    @setState(nextState) unless _.isEmpty(nextState)
-
-  loadCourseDefaults: ->
-    {courseId} = @props
-    courseDefaults = CourseStore.getTimeDefaults(courseId)
-
-    return unless courseDefaults?
-
-    periods = CourseStore.getPeriods(courseId)
-    TaskingActions.loadDefaults(courseId, courseDefaults, periods)
-
   updateForCourse: ->
     @loadCourseDefaults()
     @forceUpdate()
 
   componentWillMount: ->
     {id, courseId} = @props
-    courseTimezone = CourseStore.getTimezone(courseId)
-    TimeHelper.syncCourseTimezone(courseTimezone)
-    TaskingActions.loadTaskToCourse(id, courseId)
-
-    @loadCourseDefaults()
-
-    #set the periods defaults only after the timezone has been synced
-    @setPeriodDefaults()
+    nextState = taskPlanEditingInitialize(id, courseId)
+    @setState(nextState)
 
   componentWillUnmount: ->
     {id, courseId} = @props
