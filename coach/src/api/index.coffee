@@ -1,12 +1,9 @@
 EventEmitter2 = require 'eventemitter2'
 
-{loader, isPending} = require './loader'
 createHandler = require './create-handler'
 routes = require './routes'
-settings = require './settings'
 
 coachAPIHandler = null
-channel = new EventEmitter2 wildcard: true
 
 # HACK - WORKAROUND
 # MediaBodyView.prototype.initializeConceptCoach calls this multiple times
@@ -14,11 +11,15 @@ channel = new EventEmitter2 wildcard: true
 IS_INITIALIZED = false
 
 initialize = (baseUrl) ->
-  coachAPIHandler = createHandler(baseUrl, routes, channel) unless IS_INITIALIZED
+  coachAPIHandler = createHandler(baseUrl, routes) unless IS_INITIALIZED
   IS_INITIALIZED = true
+
+  # export coach api handler things for each access
+  module.exports.isPending = coachAPIHandler._records.isPending
+  module.exports.channel = coachAPIHandler._channel
 
 destroy = ->
   coachAPIHandler.destroy()
   IS_INITIALIZED = false
 
-module.exports = {loader, isPending, settings, initialize, destroy, channel}
+module.exports = {initialize, destroy}

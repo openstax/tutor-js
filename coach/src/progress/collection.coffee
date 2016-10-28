@@ -41,6 +41,6 @@ getFilteredChapters = (id, uuids = []) ->
     .value()
 
 init = ->
-  api.channel.on("#{apiChannelName}.*.*.receive.*", update)
+  api.channel.on("#{apiChannelName}.*.*.receive.success", update)
 
 module.exports = {fetch, get, getFilteredChapters, init, channel}

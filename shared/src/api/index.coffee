@@ -41,6 +41,9 @@ setUpXHRInterceptors = (xhrInstance, interceptors, isLocal) ->
   # modify request to use local stubs
   xhrInstance.interceptors.request.use(interceptors.makeLocalRequest) if isLocal
 
+  # modify response when using the local api stubs.
+  xhrInstance.interceptors.response.use(interceptors.makeLocalResponse, interceptors.handleLocalErrors) if isLocal
+
   # make sure app knows a response has been returned for a pending request,
   # for both successes and errors
   xhrInstance.interceptors.response.use(interceptors.setResponseReceived, interceptors.setErrorReceived)
@@ -48,14 +51,12 @@ setUpXHRInterceptors = (xhrInstance, interceptors, isLocal) ->
   # broadcast response status
   xhrInstance.interceptors.response.use(interceptors.broadcastSuccess, interceptors.broadcastError)
 
-  # modify response when using the local api stubs.
-  xhrInstance.interceptors.response.use(interceptors.makeLocalResponse, interceptors.handleLocalErrors) if isLocal
-
   # on response, transform error as needed
-  xhrInstance.interceptors.response.use(null, interceptors.handleError)
   xhrInstance.interceptors.response.use(null, interceptors.handleMalformedRequest)
   xhrInstance.interceptors.response.use(null, interceptors.handleNotFound)
   xhrInstance.interceptors.response.use(null, interceptors.handleErrorMessage)
+
+  xhrInstance.interceptors.response.use(null, interceptors.filterErrors)
 
 makeRequestConfig = (routeOptions, routeData, postData) ->
   {pattern} = routeOptions

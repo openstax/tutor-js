@@ -18,6 +18,11 @@ makeLocalResponse = (response) ->
   payload = if response.config.data then JSON.parse(response.config.data) else {}
   response.data = _.extend({}, response.data, payload)
 
+
+areAllErrorsHandled = (handledErrors, errors) ->
+  _.every errors, (error) ->
+    _.indexOf(handledErrors, error.code) > -1
+
 class Interceptors
   constructor: (hooks = {}, apiHandler) ->
     @_apiHandler = apiHandler
@@ -62,62 +67,63 @@ class Interceptors
     makeLocalResponse(response)
     response
 
-  handleLocalErrors: (errorResponse) =>
-    {status, statusText, config} = errorResponse
+  handleLocalErrors: (error) =>
+    {response, config} = error
+    {status, statusText} = response
     {method, mockMethod} = config
 
     mockMethods = ['PUT', 'PATCH']
 
     # Hack for local testing, fake successful PUT and PATCH
     if _.contains(mockMethods, mockMethod or method) and status is 404
-      errorResponse.statusText = """No mock data found at #{config.url}.
+      response.statusText = """No mock data found at #{config.url}.
       This error only happens locally."""
 
     # Hack for local testing. Webserver returns 200 + HTML for 404's
     if statusText is 'parsererror' and status is 200
-      errorResponse.status = 404
-      errorResponse.statusText = 'Error Parsing the JSON or a 404'
+      response.status = 404
+      response.statusText = 'Error Parsing the JSON or a 404'
 
-    Promise.reject(errorResponse)
+    Promise.reject(error)
 
-  handleError: (errorResponse) =>
-    if _.isError(errorResponse)
-      errorResponse =
-        status: 1
-        statusText: "#{errorResponse.name}: #{errorResponse.message}"
-
-    Promise.reject(errorResponse)
-
-  handleMalformedRequest: (errorResponse) =>
-    if errorResponse.status is 400
+  handleMalformedRequest: (error) =>
+    if error.response.status is 400
       # CurrentUserActions.logout()
 
       # error has been officially handled.
       Promise.reject()
     else
-      Promise.reject(errorResponse)
+      Promise.reject(error)
 
-  handleNotFound: (errorResponse) =>
-    if errorResponse.status is 404
-      errorResponse.statusText ?= 'ERROR_NOTFOUND'
+  handleNotFound: (error) =>
+    if error.response.status is 404
+      error.response.statusText ?= 'ERROR_NOTFOUND'
 
-    Promise.reject(errorResponse)
+    Promise.reject(error)
 
-  handleErrorMessage: (errorResponse) =>
-    {statusText, data} = errorResponse
+  handleErrorMessage: (error) =>
+    {statusText, data} = error.response
 
     try
       msg = JSON.parse(statusText)
     catch e
       msg = statusText
 
-    errorResponse.statusMessage = msg
+    error.response.statusMessage = msg
 
     unless _.isObject(data)
       try
-        errorResponse.data = JSON.parse(data)
+        error.response.data = JSON.parse(data)
       catch e
 
-    Promise.reject(errorResponse)
+    Promise.reject(error)
+
+  filterErrors: (error) =>
+    {response, config} = error
+    {data} = response
+
+    if (_.isEmpty(config.handledErrors) or _.isEmpty(data.errors)) or
+      not areAllErrorsHandled(config.handledErrors, data.errors)
+        Promise.reject(error)
 
 module.exports = {Interceptors}

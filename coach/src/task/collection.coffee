@@ -10,20 +10,6 @@ user = require '../user/model'
 
 channel = new EventEmitter2 wildcard: true
 
-ERRORS_TO_SILENCE = ['page_has_no_exercises']
-
-getUnhandledErrors = (errors) ->
-  otherErrors = _.reject errors, (error) ->
-    _.indexOf(ERRORS_TO_SILENCE, error.code) > -1
-
-handledAllErrors = (otherErrors) ->
-  _.isEmpty otherErrors
-
-checkFailure = (response) ->
-  if response.data?.errors
-    response.data.errors = getUnhandledErrors(response.data.errors)
-    response.stopErrorDisplay = handledAllErrors(response.data.errors)
-
 load = (taskId, data) ->
   tasks[taskId] = data
 
@@ -36,8 +22,8 @@ load = (taskId, data) ->
 
 update = (eventData) ->
   return unless eventData?
-  {data, config} = eventData
-  load(config.topic, data)
+  {data, config, response} = eventData
+  load(config.topic, data or response.data)
 
 fetch = (taskId) ->
   eventData = {data: {id: taskId}, status: 'loading'}
@@ -100,7 +86,6 @@ init = ->
   user.channel.on 'logout.received', ->
     tasks = {}
   api.channel.on('task.*.*.receive.*', update)
-  api.channel.on('task.*.*.receive.failure', checkFailure)
 
 module.exports = {
   init,

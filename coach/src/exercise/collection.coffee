@@ -89,6 +89,6 @@ init = ->
   user.channel.on 'logout.received', ->
     steps = {}
 
-  api.channel.on("exercise.*.*.receive.*", update)
+  api.channel.on("exercise.*.*.receive.success", update)
 
 module.exports = {fetch, getCurrentPanel, get, getAllParts, init, channel, quickLoad, cacheFreeResponse}

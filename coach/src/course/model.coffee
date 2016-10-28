@@ -6,21 +6,7 @@ EventEmitter2 = require 'eventemitter2'
 
 api  = require '../api'
 
-ERROR_MAP = {
-  invalid_enrollment_code: 'The provided enrollment code is not valid. Please verify the enrollment code and try again.'
-  enrollment_code_does_not_match_book: 'The provided enrollment code matches a course but not for the current book. ' +
-                                       'Please verify the enrollment code and try again.'
-  already_enrolled: 'You are already enrolled in this course.  ' +
-                                       'Please verify the enrollment code and try again.'
-  multiple_roles: 'We currently do not support teacher accounts with multiple associated student enrollments.'
-  dropped_student: 'You have been dropped from this course. Please speak to your instructor to rejoin.'
-  already_processed: 'Your enrollment in this course has been processed. Please reload the page.'
-  already_approved: 'Your enrollment in this course has been approved. Please reload the page.'
-  already_rejected: 'Your request to enroll in this course has been rejected for an unknown reason. Please contact OpenStax support.'
-  taken: 'The provided student ID has already been used in this course. Please try again or contact your instructor.'
-  blank_student_identifer: 'The student ID field cannot be left blank. Please enter your student ID.'
-  no_change: 'You have not changed the student ID.  Please enter your new student ID and try again.'
-}
+ERROR_MAP = require './handled-errors'
 
 
 class Course
@@ -99,11 +85,13 @@ class Course
     other.periods = [ @to?.period ]
     user.onCourseUpdate(other)
 
+  _checkForFailure: (error) ->
+    @errors = error.response?.data?.errors
+
   _onValidated: (response) ->
+    @_checkForFailure(response)
     {data} = response
     delete @isBusy
-    @errors = data?.errors
-    response.stopErrorDisplay = true if @errors
     @status = 'validated' if data?.response is true
     @channel.emit('change')
 
@@ -118,13 +106,15 @@ class Course
 
   _onConfirmed:  (response) ->
     throw new Error("response is empty in onConfirmed") if _.isEmpty(response)
+    @_checkForFailure(response)
+
     {data} = response
     if data?.to
       _.extend(@, data.to.course)
       @periods = [ data.to.period ]
-    @errors = data?.errors
+
     @getStudentRecord().student_identifier = response.data.student_identifier
-    response.stopErrorDisplay = true if @errors
+
     delete @status unless @hasErrors() # blank status indicates good to go
     delete @isBusy
     @channel.emit('change')
@@ -133,14 +123,15 @@ class Course
   # the registration will be saved, otherwise it will only be vaidated
   register: (enrollment_code, user) ->
     @enrollment_code = enrollment_code
-    data = {enrollment_code, book_uuid: @ecosystem_book_uuid}
+    book_uuid = @ecosystem_book_uuid
+    data = {enrollment_code, book_uuid}
     @isBusy = true
     if user.isLoggedIn()
       api.channel.once "course.#{@ecosystem_book_uuid}.registration.receive.*", @_onRegistered
-      api.channel.emit("course.#{@ecosystem_book_uuid}.registration.send", data, data)
+      api.channel.emit("course.#{@ecosystem_book_uuid}.registration.send", {book_uuid}, data)
     else
       api.channel.once "course.#{@ecosystem_book_uuid}.prevalidation.receive.*", @_onValidated
-      api.channel.emit("course.#{@ecosystem_book_uuid}.prevalidation.send", data, data)
+      api.channel.emit("course.#{@ecosystem_book_uuid}.prevalidation.send", {book_uuid}, data)
     @channel.emit('change')
 
   _onStudentUpdated: (response) ->
@@ -165,12 +156,12 @@ class Course
 
   _onRegistered: (response) ->
     throw new Error("response is empty in onRegistered") if _.isEmpty(response)
+    @_checkForFailure(response)
+
     {data} = response
     _.extend(@, data) if data
-    @errors = data?.errors
     # a freshly registered course doesn't contain the is_concept_coach flag
     @is_concept_coach = true
-    response.stopErrorDisplay = true if @errors
     delete @isBusy
     @channel.emit('change')
 

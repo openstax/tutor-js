@@ -1,3 +1,8 @@
+keys = require 'lodash/keys'
+
+handledCourseErrorsMap = require '../course/handled-errors'
+handledCourseErrors = keys(handledCourseErrorsMap)
+
 routes = [{
     subject: 'exericise'
     action: 'save'
@@ -23,6 +28,7 @@ routes = [{
     action: 'fetchByModule'
     method: 'GET'
     pattern: 'api/cc/tasks/{collectionUUID}/{moduleUUID}'
+    handledErrors: ['page_has_no_exercises']
   }, {
     subject: 'user'
     topic: 'status'
@@ -40,21 +46,25 @@ routes = [{
     action: 'prevalidation'
     method: 'POST'
     pattern: 'api/enrollment_changes/prevalidate'
+    handledErrors: handledCourseErrors
   }, {
     subject: 'course'
     action: 'registration'
     method: 'POST'
     pattern: 'api/enrollment_changes'
+    handledErrors: handledCourseErrors
   }, {
     subject: 'course'
     action: 'confirmation'
     method: 'PUT'
     pattern: 'api/enrollment_changes/{id}/approve'
+    handledErrors: handledCourseErrors
   }, {
     subject: 'course'
     action: 'studentUpdate'
     method: 'PATCH'
     pattern: 'api/user/courses/{id}/student'
+    handledErrors: handledCourseErrors
 }]
 
 module.exports = routes

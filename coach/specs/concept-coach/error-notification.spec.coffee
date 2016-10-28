@@ -33,7 +33,7 @@ describe 'CC Error Notification Component', ->
 
   it 'renders when errors are present', (done) ->
     Render(@props).then ({element, dom, getDom}) ->
-      api.channel.emit('*.*.*.receive.failure', ERROR)
+      api.channel.emit('error', ERROR)
       _.defer ->
         dom = getModal(dom)
         expect(dom).to.exist
@@ -45,7 +45,7 @@ describe 'CC Error Notification Component', ->
 
   it 'can show error details', (done) ->
     Render(@props).then ({element, dom}) ->
-      api.channel.emit('*.*.*.receive.failure', ERROR)
+      api.channel.emit('error', ERROR)
       _.defer ->
         dom = getModal(dom)
         Testing.actions.click(dom.querySelector('.-display-errors'))

@@ -32,10 +32,10 @@ ErrorNotification = React.createClass
     errors: false, isShowingDetails: false
 
   componentWillMount: ->
-    api.channel.on '*.*.*.receive.failure', @onError
+    api.channel.on 'error', @onError
 
   componentWillUnmount: ->
-    api.channel.off '*.*.*.receive.failure', @onError
+    api.channel.off 'error', @onError
 
   onError: (exception) ->
     {config, response} = exception

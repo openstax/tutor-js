@@ -126,7 +126,11 @@ class XHRRecords
     @_responses.update(config)
 
   isPending: (requestConfig) =>
-    @_requests.getSize(requestConfig) > @_responses.getSize(requestConfig)
+    if requestConfig
+      @_requests.getSize(requestConfig) > @_responses.getSize(requestConfig)
+    else
+      _.some @_requests._cache, (cachedRequests, requestKey) =>
+        _.size(cachedRequests) > _.size(@_responses._cache[requestKey])
 
   getResponseTime: (requestConfig) =>
     @_requests.get(requestConfig).diff(@_responses.get(requestConfig))
