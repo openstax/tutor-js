@@ -10,7 +10,7 @@ updateHeadersWithToken = (token) ->
 
 handleFailure = (args...) ->
   # broadcast out error for final error handling by notification modal
-  coachAPIHandler?._channel.emit('error', args...)
+  coachAPIHandler?.channel.emit('error', args...)
 
 createHandler = (baseURL, routes, channel) ->
   coachAPIOptions =

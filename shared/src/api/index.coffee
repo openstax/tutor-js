@@ -81,10 +81,10 @@ class APIHandler
     @initializeXHR(@getOptions().xhr, new Interceptors(@getOptions().hooks, @), @getOptions().isLocal)
 
   destroy: =>
-    @_channel.removeAllListeners()
+    @channel.removeAllListeners()
 
   initializeRecords: =>
-    @_records = new XHRRecords()
+    @records = new XHRRecords()
 
   initializeRoutes: (routes) =>
     @_routes = new Routes(routes)
@@ -125,8 +125,8 @@ class APIHandler
     events.push([interpolate(patterns.send, allEvents), handleSend])
 
   initializeEvents: (events, channel) =>
-    @_channel = channel or new EventEmitter2 wildcard: true
-    _.forEach(events, _.spread(@_channel.on.bind(@_channel)))
+    @channel = channel or new EventEmitter2 wildcard: true
+    _.forEach(events, _.spread(@channel.on.bind(@channel)))
 
   setOptions: (options) =>
     previousOptions = @getOptions?() or {}
@@ -139,7 +139,7 @@ class APIHandler
     return unless routeOptions?
 
     requestConfig = makeRequestConfig(routeOptions, routeData, postData)
-    return if @_records.isPending(requestConfig)
+    return if @records.isPending(requestConfig)
 
     requestConfig.topic = requestInfo.topic
     requestConfig.events =

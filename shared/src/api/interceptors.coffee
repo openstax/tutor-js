@@ -43,7 +43,7 @@ class Interceptors
         originalIntercept(args...)
 
   queRequest: (requestConfig) =>
-    @_apiHandler._records.queRequest(requestConfig)
+    @_apiHandler.records.queRequest(requestConfig)
     requestConfig
 
   makeLocalRequest: (requestConfig) =>
@@ -51,21 +51,21 @@ class Interceptors
     requestConfig
 
   setResponseReceived: (response) =>
-    @_apiHandler._records.recordResponse(response)
+    @_apiHandler.records.recordResponse(response)
     response
 
   setErrorReceived: (response) =>
-    @_apiHandler._records.recordResponse(response)
+    @_apiHandler.records.recordResponse(response)
     Promise.reject(response)
 
   broadcastSuccess: (response) =>
     {config} = response
-    @_apiHandler._channel.emit(config.events.success, response)
+    @_apiHandler.channel.emit(config.events.success, response)
     response
 
   broadcastError: (response) =>
     {config} = response
-    @_apiHandler._channel.emit(config.events.failure, response)
+    @_apiHandler.channel.emit(config.events.failure, response)
     Promise.reject(response)
 
   makeLocalResponse: (response) =>
