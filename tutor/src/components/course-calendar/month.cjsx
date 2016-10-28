@@ -6,7 +6,7 @@ twix = require 'twix'
 _ = require 'underscore'
 classnames = require 'classnames'
 qs = require 'qs'
-
+extend = require 'lodash/extend'
 {DropTarget} = require 'react-dnd'
 {Calendar, Month, Week, Day} = require 'react-calendar'
 {TeacherTaskPlanStore} = require '../../flux/teacher-task-plan'
@@ -16,12 +16,13 @@ Router = require '../../helpers/router'
 
 {ItemTypes, TaskDrop, DropInjector} = require './task-dnd'
 
+TaskPlanMiniEditor   = require '../task-plan/mini-editor'
+PlanClonePlaceholder = require './plan-clone-placeholder'
 CourseCalendarHeader = require './header'
 CourseAddMenuMixin   = require './add-menu-mixin'
 CourseDuration       = require './duration'
 CoursePlan           = require './plan'
 CourseAdd            = require './add'
-
 
 CourseMonth = React.createClass
   displayName: 'CourseMonth'
@@ -109,10 +110,6 @@ CourseMonth = React.createClass
   getFullMonthName: ->
     @props.date?.format?('MMMM')
 
-  onTaskDrop: -> #(planId, ev) ->
-    plan = TeacherTaskPlanStore.get(planId)
-    day = ev.target.textContent
-
   onDrop: (item, offset) ->
     return unless @state.hoveredDay
     if item.pathname # is a link to create an assignment
@@ -121,13 +118,27 @@ CourseMonth = React.createClass
       })
       @context.router.transitionTo(url)
     else # is a task plan to clone
-      debugger
+      @setState(
+        cloningPlan: extend({}, item,
+          due_at: @state.hoveredDay
+          position: offset
+        )
+      )
+
+  onCloneLoaded: (newPlanId) ->
+    _.defer => # give flux store time to update
+      @setState(editingPlanId: newPlanId, cloningPlan: undefined)
+
+  getEditingPlanEl: ->
+    return null unless @state.editingPlanId
+    ReactDOM.findDOMNode(@).querySelector(
+      ".course-plan-#{@state.editingPlanId}"
+    )
 
   onHover: (day) ->
     @setState(hoveredDay: day)
 
   onSidebarToggle: (isOpen) ->
-    console.log isOpen
     @setState(showingSideBar: isOpen)
 
   render: ->
@@ -184,15 +195,23 @@ CourseMonth = React.createClass
           )}
         </BS.Col>
       </BS.Row>
+      {<PlanClonePlaceholder
+        planId={@state.cloningPlan.id}
+        planType={@state.cloningPlan.type}
+        position={@state.cloningPlan.position}
+        onLoad={@onCloneLoaded}
+        courseId={@props.courseId}
+        due_at={@state.cloningPlan.due_at}
+        onLoad={@onCloneLoaded}
+      /> if @state.cloningPlan?}
+      {<TaskPlanMiniEditor
+        planId={@state.editingPlanId}
+        courseId={@props.courseId}
+        findPopOverTarget={@getEditingPlanEl}
+      /> if @state.editingPlanId}
+
     </BS.Grid>
 
 
 
 module.exports = DropTarget([ItemTypes.NewTask, ItemTypes.CloneTask], TaskDrop, DropInjector)(CourseMonth)
-##
-#  (props) ->
-
-
-# )
-
-# module.exports =
