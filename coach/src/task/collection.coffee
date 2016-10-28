@@ -23,7 +23,7 @@ load = (taskId, data) ->
 update = (eventData) ->
   return unless eventData?
   {data, config, response} = eventData
-  load(config.topic, data or response.data)
+  load(config.topic, data or response?.data)
 
 fetch = (taskId) ->
   eventData = {data: {id: taskId}, status: 'loading'}

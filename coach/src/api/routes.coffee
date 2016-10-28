@@ -4,17 +4,17 @@ handledCourseErrorsMap = require '../course/handled-errors'
 handledCourseErrors = keys(handledCourseErrorsMap)
 
 routes = [{
-    subject: 'exericise'
+    subject: 'exercise'
     action: 'save'
     method: 'PATCH'
     pattern: 'api/steps/{id}'
   }, {
-    subject: 'exericise'
+    subject: 'exercise'
     action: 'complete'
     method: 'PUT'
     pattern: 'api/steps/{id}/completed'
   }, {
-    subject: 'exericise'
+    subject: 'exercise'
     action: 'fetch'
     method: 'GET'
     pattern: 'api/steps/{id}'

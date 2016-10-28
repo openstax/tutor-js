@@ -136,9 +136,11 @@ class APIHandler
 
   sendRequest: (requestInfo, routeData, postData, args...) =>
     routeOptions = @_routes.get(requestInfo)
+    # TODO throw error somewheres.
     return unless routeOptions?
 
     requestConfig = makeRequestConfig(routeOptions, routeData, postData)
+    # TODO throw error somewheres.
     return if @records.isPending(requestConfig)
 
     requestConfig.topic = requestInfo.topic

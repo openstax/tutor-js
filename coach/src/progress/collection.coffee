@@ -12,8 +12,8 @@ load = (id, data) ->
   channel.emit("load.#{id}", {data})
 
 update = (eventData) ->
-  {data, config} = eventData
-  load(config.topic, data)
+  {data, config, response} = eventData
+  load(config.topic, data or response.data)
 
 fetch = (id) ->
   eventData = {data: {id: id}, status: 'loading'}
