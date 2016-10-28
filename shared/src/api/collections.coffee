@@ -81,6 +81,7 @@ METHODS_TO_ACTIONS =
   GET: 'read'
   PATCH: 'update'
   DELETE: 'delete'
+  PUT: 'modify'
 
 makeRoute = (options = {}) ->
   # TODO throw errors
@@ -93,6 +94,7 @@ makeRoute = (options = {}) ->
 
   route = _.merge({}, DEFAULT_ROUTE_OPTIONS, options)
   route?.action = METHODS_TO_ACTIONS[route.method]
+  route?.handledErrors = _.keys(route.errorHandlers) if route.errorHandlers
   route
 
 class Routes extends Collection
