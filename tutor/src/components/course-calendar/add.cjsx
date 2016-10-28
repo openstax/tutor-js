@@ -55,6 +55,7 @@ CourseAdd = React.createClass
     # only allow add if addDate is on or after reference date
     if addDate?.isAfter(referenceDate, 'day')
       dropdownContent = @renderAddActions()
+      console.log dropdownContent
     else
       dayType = if addDate?.isSame(referenceDate, 'day') then 'today' else 'past day'
       dropdownContent = <li>

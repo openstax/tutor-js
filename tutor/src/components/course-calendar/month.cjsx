@@ -1,17 +1,20 @@
+React = require 'react'
+ReactDOM = require 'react-dom'
+BS = require 'react-bootstrap'
 moment = require 'moment-timezone'
 twix = require 'twix'
 _ = require 'underscore'
 classnames = require 'classnames'
+qs = require 'qs'
 
-React = require 'react'
-ReactDOM = require 'react-dom'
-BS = require 'react-bootstrap'
-{Droppable} = require 'react-drag-and-drop'
+{DropTarget} = require 'react-dnd'
 {Calendar, Month, Week, Day} = require 'react-calendar'
 {TeacherTaskPlanStore} = require '../../flux/teacher-task-plan'
 {TimeStore} = require '../../flux/time'
 TimeHelper = require '../../helpers/time'
 Router = require '../../helpers/router'
+
+{ItemTypes, TaskDrop, DropInjector} = require './task-dnd'
 
 CourseCalendarHeader = require './header'
 CourseAddMenuMixin   = require './add-menu-mixin'
@@ -107,17 +110,22 @@ CourseMonth = React.createClass
   getFullMonthName: ->
     @props.date?.format?('MMMM')
 
-  onTaskDrop: (planId, ev) ->
+  onTaskDrop: -> #(planId, ev) ->
     plan = TeacherTaskPlanStore.get(planId)
     day = ev.target.textContent
-
-  onTaskDrop: (planId, ev) ->
-    plan = TeacherTaskPlanStore.get(planId)
-    day = ev.target.textContent
-
 
   onToggleSidebar: ->
     @setState(showingSideBar: not @state.showingSideBar)
+
+  onDrop: (item, offset) ->
+    return unless @state.hoveredDay
+    url = item.pathname + "?" + qs.stringify({
+      due_at: @state.hoveredDay.format(@props.dateFormat)
+    })
+    @context.router.transitionTo(url)
+
+  onHover: (day) ->
+    @setState(hoveredDay: day)
 
   render: ->
     {plansList, courseId, className, date, hasPeriods} = @props
@@ -130,7 +138,7 @@ CourseMonth = React.createClass
         component: [ 'day' ],
         events:
           onClick: @handleClick
-
+          onDragEnter: @onHover
       }
     ]
 
@@ -151,7 +159,6 @@ CourseMonth = React.createClass
       <CourseAdd ref='addOnDay' hasPeriods={hasPeriods} courseId={@props.courseId} />
       <Sidebar isOpen={@state.showingSideBar} onHide={@onToggleSidebar} courseId={courseId} />
 
-
       <CourseCalendarHeader
         duration='month'
         date={date}
@@ -164,12 +171,26 @@ CourseMonth = React.createClass
 
       <BS.Row className='calendar-body'>
         <BS.Col xs={12} data-duration-name={@getFullMonthName()}>
-          <Droppable types={['task']} onDrop={@onTaskDrop}>
-            <Month date={date} monthNames={false} weekdayFormat='ddd' mods={mods} />
-          </Droppable>
-          {plans}
+          {@props.connectDropTarget(
+            <div>
+              <Month date={date} monthNames={false}
+                weekdayFormat='ddd' mods={mods} />
+              {plans}
+            </div>
+          )}
         </BS.Col>
       </BS.Row>
     </BS.Grid>
 
-module.exports = CourseMonth
+
+
+module.exports = DropTarget(ItemTypes.NewTask, TaskDrop, DropInjector)(
+  CourseMonth
+)
+##
+#  (props) ->
+
+
+# )
+
+# module.exports =

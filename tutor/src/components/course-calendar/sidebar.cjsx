@@ -34,7 +34,7 @@ CalendarSidebar = React.createClass
 
   render: ->
     plans = TeacherTaskPlanStore.get(@props.courseId) or []
-    console.log plans
+
     <div className={cn('sidebar', {'is-open': @props.isOpen})}>
       <BS.Button className="hide-btn" bsStyle="primary" onClick={@props.onHide}>
         << Hide

@@ -1,18 +1,34 @@
+React = require 'react'
+BS = require 'react-bootstrap'
 moment = require 'moment'
 twix = require 'twix'
 _ = require 'underscore'
+{DragSource} = require 'react-dnd'
 
-React = require 'react'
-BS = require 'react-bootstrap'
-Router = require 'react-router'
+{TimeStore} = require '../../flux/time'
+{ItemTypes, NewTaskDrag, DragInjector} = require './task-dnd'
+TimeHelper = require '../../helpers/time'
+
 TutorLink = require '../link'
-
 CourseAddMenuMixin = require './add-menu-mixin'
 BrowseTheBook = require '../buttons/browse-the-book'
 NoPeriods = require '../no-periods'
 
-{TimeStore} = require '../../flux/time'
-TimeHelper = require '../../helpers/time'
+MenuLink = (props) ->
+  <li
+    data-assignment-type={props.link.type}
+  >
+    {props.connectDragSource(
+      <a
+
+        href={props.link.pathname}
+        onClick={_.partial(props.goToBuilder, props.link)} >
+        {props.link.text}
+      </a>
+    )}
+  </li>
+
+DnDMenuLink = DragSource(ItemTypes.NewTask, NewTaskDrag, DragInjector)(MenuLink)
 
 CourseCalendarHeader = React.createClass
   displayName: 'CourseCalendarHeader'
@@ -56,6 +72,9 @@ CourseCalendarHeader = React.createClass
   handlePrevious: (clickEvent) ->
     @handleNavigate('subtract', clickEvent)
 
+  renderMenuLink: (link) ->
+    <DnDMenuLink key={link.type} link=link goToBuilder={@goToBuilder} />
+
   render: ->
     {date} = @state
     {courseId, format, duration, hasPeriods} = @props
@@ -66,9 +85,22 @@ CourseCalendarHeader = React.createClass
       <BS.Row className='calendar-header-actions'>
         {<NoPeriods
           courseId={courseId}
-          noPanel={true}/> unless hasPeriods}
+          noPanel={true}
+        /> unless hasPeriods}
+
+          <BS.DropdownButton
+            ref='addAssignmentButton'
+            id='add-assignment'
+            className='add-assignment'
+            title='Add Assignment'
+            bsStyle={addAssignmentBSStyle}
+          >
+            {@renderAddActions()}
+
+          </BS.DropdownButton>
 
         <div className='calendar-header-actions-buttons'>
+
           <BrowseTheBook bsStyle='default' courseId={courseId} />
           <TutorLink
             className='btn btn-default'
@@ -86,25 +118,7 @@ CourseCalendarHeader = React.createClass
         </div>
       </BS.Row>
       <BS.Row className='calendar-header-navigation'>
-        <BS.Col xs={4}>
-          <BS.DropdownButton
-            ref='addAssignmentButton'
-            id='add-assignment'
-            className='add-assignment'
-            title='Add Assignment'
-            bsStyle={addAssignmentBSStyle}
-          >
-            {@renderAddActions()}
-
-            <BS.MenuItem divider />
-
-            <BS.MenuItem onClick={@props.onCopyPreviousAssignment}>
-              Copy previous Assignment
-            </BS.MenuItem>
-
-          </BS.DropdownButton>
-        </BS.Col>
-        <BS.Col xs={4} className='calendar-header-label'>
+        <BS.Col xs={6} xsOffset={3} className='calendar-header-label'>
           <a href='#' className='calendar-header-control previous' onClick={@handlePrevious}>
             <i className='fa fa-caret-left'></i>
           </a>
