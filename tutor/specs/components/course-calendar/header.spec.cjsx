@@ -13,7 +13,6 @@ describe 'CourseCalendar Header', ->
       date: moment()
       format: 'MMMM YYYY'
       hasPeriods: true
-      onCopyPreviousAssignment: sinon.spy()
       onSidebarToggle: sinon.spy()
 
   it 'renders with links', ->

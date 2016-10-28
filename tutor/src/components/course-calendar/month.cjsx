@@ -21,7 +21,6 @@ CourseAddMenuMixin   = require './add-menu-mixin'
 CourseDuration       = require './duration'
 CoursePlan           = require './plan'
 CourseAdd            = require './add'
-Sidebar              = require './sidebar'
 
 
 CourseMonth = React.createClass
@@ -114,21 +113,22 @@ CourseMonth = React.createClass
     plan = TeacherTaskPlanStore.get(planId)
     day = ev.target.textContent
 
-  onToggleSidebar: ->
-    @setState(showingSideBar: not @state.showingSideBar)
-
   onDrop: (item, offset) ->
     return unless @state.hoveredDay
-    url = item.pathname + "?" + qs.stringify({
-      due_at: @state.hoveredDay.format(@props.dateFormat)
-    })
-    @context.router.transitionTo(url)
+    if item.pathname # is a link to create an assignment
+      url = item.pathname + "?" + qs.stringify({
+        due_at: @state.hoveredDay.format(@props.dateFormat)
+      })
+      @context.router.transitionTo(url)
+    else # is a task plan to clone
+      debugger
 
   onHover: (day) ->
     @setState(hoveredDay: day)
 
   onSidebarToggle: (isOpen) ->
-    @setState(sidebarState: isOpen)
+    console.log isOpen
+    @setState(showingSideBar: isOpen)
 
   render: ->
     {plansList, courseId, className, date, hasPeriods} = @props
@@ -160,7 +160,6 @@ CourseMonth = React.createClass
 
 
       <CourseAdd ref='addOnDay' hasPeriods={hasPeriods} courseId={@props.courseId} />
-      <Sidebar isOpen={@state.showingSideBar} onHide={@onToggleSidebar} courseId={courseId} />
 
       <CourseCalendarHeader
         duration='month'
@@ -170,10 +169,11 @@ CourseMonth = React.createClass
         setDate={@setDate}
         hasPeriods={hasPeriods}
         ref='calendarHeader'
-        onCopyPreviousAssignment={@onToggleSidebar}
       />
 
-      <BS.Row className='calendar-body'>
+      <BS.Row className={classnames('calendar-body', {
+        'with-sidebar-open': @state.showingSideBar
+      })}>
         <BS.Col xs={12} data-duration-name={@getFullMonthName()}>
           {@props.connectDropTarget(
             <div>
@@ -188,9 +188,7 @@ CourseMonth = React.createClass
 
 
 
-module.exports = DropTarget(ItemTypes.NewTask, TaskDrop, DropInjector)(
-  CourseMonth
-)
+module.exports = DropTarget([ItemTypes.NewTask, ItemTypes.CloneTask], TaskDrop, DropInjector)(CourseMonth)
 ##
 #  (props) ->
 

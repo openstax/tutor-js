@@ -29,20 +29,28 @@
 .list-courses.panel {
   // background-color: transparent;
   .tutor-booksplash-adjust-top-margin(120px);
-  
+
   .calendar-container{
     background-color: @tutor-white;
     .bootstrap-column-padding-override();
     padding-bottom: @tutor-card-body-padding-vertical;
   }
 
-  .calendar-body [class^="col-"] {
-    overflow-x: hidden;
-    overflow-y: visible;
-    padding-bottom: 20px;
+  .calendar-body {
+    transition: margin-left 0.5s;
 
-    .tutor-subtle-load(will-load; 'Loading ' attr(data-duration-name) '...');
+    &.with-sidebar-open {
+      margin-left: 200px;
+    }
+    [class^="col-"] {
+      overflow-x: hidden;
+      overflow-y: visible;
+      padding-bottom: 20px;
+
+      .tutor-subtle-load(will-load; 'Loading ' attr(data-duration-name) '...');
+    }
   }
+
 
   .calendar-loading {
     .calendar-body [class^="col-"] {

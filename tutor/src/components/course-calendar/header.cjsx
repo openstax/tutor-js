@@ -21,7 +21,6 @@ CourseCalendarHeader = React.createClass
     date: TimeHelper.PropTypes.moment
     format: React.PropTypes.string.isRequired
     hasPeriods: React.PropTypes.bool.isRequired
-    onCopyPreviousAssignment: React.PropTypes.func.isRequired
     courseId: React.PropTypes.string.isRequired
     onSidebarToggle: React.PropTypes.func.isRequired
 
