@@ -1,10 +1,14 @@
 React = require 'react'
 classnames = require 'classnames'
+HTML5Backend = require 'react-dnd-html5-backend'
+DragDropContext = require('react-dnd').DragDropContext
 
 Router = require '../helpers/router'
 Analytics = require '../helpers/analytics'
 Navbar = require './navbar'
 MatchForTutor = require './match-for-tutor'
+
+
 
 merge = require 'lodash/merge'
 {SpyMode} = require 'shared'
@@ -16,7 +20,7 @@ RouteChange = (props) ->
   TransitionActions.load(props.pathname)
   <span />
 
-module.exports = React.createClass
+App = React.createClass
   displayName: 'App'
   contextTypes:
     router: React.PropTypes.object
@@ -57,3 +61,6 @@ module.exports = React.createClass
         <MatchForTutor routes={Router.getRenderableRoutes()} />
       </SpyMode.Wrapper>
     </div>
+
+
+module.exports = DragDropContext(HTML5Backend)(App)
