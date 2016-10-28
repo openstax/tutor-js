@@ -1,6 +1,7 @@
 React = require 'react'
 
 {DragSource} = require 'react-dnd'
+{TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 
 NewTaskDrag =
   beginDrag: ({link}) ->
@@ -14,6 +15,9 @@ NewTaskDrag =
 
 CloneTaskDrag =
   beginDrag: ({plan}) ->
+    # start loading task plan details as soon as it starts to drag
+    # hopefully the load will have completed by the time it's dropped
+    TaskPlanActions.load(plan.id)
     plan
 
   endDrag: (props, monitor) ->
