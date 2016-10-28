@@ -1,4 +1,5 @@
 _ = require 'lodash'
+minimatch = require 'minimatch'
 {Promise} = require 'es6-promise'
 
 makeLocalRequest = (requestConfig) ->
@@ -18,10 +19,14 @@ makeLocalResponse = (response) ->
   payload = if response.config.data then JSON.parse(response.config.data) else {}
   response.data = _.extend({}, response.data, payload)
 
+doesErrorMatch = (handledErrors, errorName) ->
+  _.indexOf(handledErrors, errorName) > -1 or
+    _.some(handledErrors, _.partial(minimatch, errorName))
 
-areAllErrorsHandled = (handledErrors, errors) ->
-  _.every errors, (error) ->
-    _.indexOf(handledErrors, error.code) > -1
+areAllErrorsHandled = (handledErrors, errors, errorNameProperty) ->
+  isErrorHandled = _.partial(doesErrorMatch, handledErrors)
+  _.every errors, _.flow(_.property(errorNameProperty), isErrorHandled)
+
 
 class Interceptors
   constructor: (hooks = {}, apiHandler) ->
@@ -123,7 +128,7 @@ class Interceptors
     {data} = response
 
     if (_.isEmpty(config.handledErrors) or _.isEmpty(data.errors)) or
-      not areAllErrorsHandled(config.handledErrors, data.errors)
+      not areAllErrorsHandled(config.handledErrors, data.errors, @_apiHandler.getOptions().errorNameProperty)
         Promise.reject(error)
 
 module.exports = {Interceptors}

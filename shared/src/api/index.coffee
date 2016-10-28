@@ -33,6 +33,7 @@ API_DEFAULTS =
     onFail: (response, args...) ->
       Promise.reject(response)
   isLocal: false
+  errorNameProperty: 'code'
 
 setUpXHRInterceptors = (xhrInstance, interceptors, isLocal) ->
   # tell app that a request is pending.

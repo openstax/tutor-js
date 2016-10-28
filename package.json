@@ -59,6 +59,7 @@
     "lodash": "4.16.1",
     "markdown-it": "8.0.0",
     "mime-types": "2.1.12",
+    "minimatch": "^3.0.3",
     "moment": "2.15.1",
     "moment-timezone": "0.5.5",
     "object-hash": "1.1.4",
