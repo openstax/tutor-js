@@ -68,13 +68,13 @@ ExerciseBase = React.createClass
         eventData = change: step, data: step, status: 'saving'
 
         channel.emit("change.#{step.id}", eventData)
-        api.channel.emit("exercise.#{step.id}.send.save", eventData)
+        api.channel.emit("exercise.#{step.id}.save.send", id: step.id, step)
 
       setFreeResponseAnswer: (id, freeResponse) ->
         step.free_response = freeResponse
         eventData = change: step, data: step, status: 'saving'
         channel.emit("change.#{step.id}", eventData)
-        api.channel.emit("exercise.#{step.id}.send.save", eventData)
+        api.channel.emit("exercise.#{step.id}.save.send", id: step.id, step)
 
       onFreeResponseChange: (id, freeResponse) ->
         exercises.cacheFreeResponse(id, freeResponse)
@@ -84,7 +84,7 @@ ExerciseBase = React.createClass
         eventData = change: step, data: step, status: 'loading'
 
         channel.emit("change.#{step.id}", eventData)
-        api.channel.emit("exercise.#{step.id}.send.complete", eventData)
+        api.channel.emit("exercise.#{step.id}.complete.send", id: step.id, step)
 
       onStepCompleted: ->
         channel.emit("completed.#{step.id}")

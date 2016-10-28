@@ -36,22 +36,22 @@ load = (taskId, data) ->
 
 update = (eventData) ->
   return unless eventData?
-  {data, query} = eventData
-  load(query, data)
+  {data, config} = eventData
+  load(config.topic, data)
 
 fetch = (taskId) ->
   eventData = {data: {id: taskId}, status: 'loading'}
-  eventData.query = taskId
+  eventData.topic = taskId
 
   channel.emit("fetch.#{taskId}", eventData)
-  api.channel.emit("task.#{taskId}.send.fetch", eventData)
+  api.channel.emit("task.#{taskId}.fetch.send", {id: taskId})
 
 fetchByModule = ({collectionUUID, moduleUUID}) ->
   eventData = {data: {collectionUUID, moduleUUID}, status: 'loading'}
-  eventData.query = "#{collectionUUID}/#{moduleUUID}"
+  eventData.topic = "#{collectionUUID}/#{moduleUUID}"
 
   channel.emit("fetch.#{collectionUUID}/#{moduleUUID}", eventData)
-  api.channel.emit("task.#{collectionUUID}/#{moduleUUID}.send.fetchByModule", eventData)
+  api.channel.emit("task.#{collectionUUID}/#{moduleUUID}.fetchByModule.send", {collectionUUID, moduleUUID})
 
 get = (taskId) ->
   tasks[taskId]
@@ -99,8 +99,8 @@ getAsPage = (taskId) ->
 init = ->
   user.channel.on 'logout.received', ->
     tasks = {}
-  api.channel.on("task.*.receive.*", update)
-  api.channel.on('task.*.receive.failure', checkFailure)
+  api.channel.on('task.*.*.receive.*', update)
+  api.channel.on('task.*.*.receive.failure', checkFailure)
 
 module.exports = {
   init,

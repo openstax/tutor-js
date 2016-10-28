@@ -91,11 +91,11 @@ TaskBase = React.createClass
     tasks.fetchByModule(@props)
 
   componentWillMount: ->
-    api.channel.on('exercise.*.receive.complete', @fetchTask)
+    api.channel.on('exercise.*.*.receive.complete', @fetchTask)
     exercises.channel.on('leave.*', @nextStep)
 
   componentWillUnmount: ->
-    api.channel.off('exercise.*.receive.complete', @fetchTask)
+    api.channel.off('exercise.*.*.receive.complete', @fetchTask)
     exercises.channel.off('leave.*', @nextStep)
 
   componentWillReceiveProps: (nextProps) ->

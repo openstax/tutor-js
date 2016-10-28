@@ -19,7 +19,7 @@ CCModal = React.createClass
 
     # only wait to set loaded if there is a pending api call
     if api.isPending()
-      api.channel.once('completed', @setLoaded)
+      api.channel.once('*.*.*.receive.*', @setLoaded)
     else
       @setLoaded()
 

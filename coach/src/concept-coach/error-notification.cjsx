@@ -32,22 +32,25 @@ ErrorNotification = React.createClass
     errors: false, isShowingDetails: false
 
   componentWillMount: ->
-    api.channel.on 'error', @onError
+    api.channel.on '*.*.*.receive.failure', @onError
 
   componentWillUnmount: ->
-    api.channel.off 'error', @onError
+    api.channel.off '*.*.*.receive.failure', @onError
 
-  onError: ({response, failedData, exception}) ->
-    return if failedData?.stopErrorDisplay # someone else is handling displaying the error
+  onError: (exception) ->
+    {config, response} = exception
+
+    # return if failedData?.stopErrorDisplay # someone else is handling displaying the error
     if exception?
       errors = [exception.toString()]
-    else if response.status is 0 # either no response, or the response lacked CORS headers and the browser rejected it
+
+    if response.status is 0 # either no response, or the response lacked CORS headers and the browser rejected it
       errors = ["Unknown response received from server"]
     else
       errors = ["#{response.status}: #{response.statusText}"]
-      if _.isArray(failedData.data?.errors) # we have something from server to display
+      if _.isArray(response.data?.errors) # we have something from server to display
         errors = errors.concat(
-          _.flatten _.map failedData.data.errors, (error) ->
+          _.flatten _.map response.data.errors, (error) ->
             # All 422 errors from BE *should* have a "code" property.  If not, show whatever it is
             if error.code then error.code else JSON.stringify(error)
           )

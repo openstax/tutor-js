@@ -5,6 +5,7 @@ createHandler = require './create-handler'
 routes = require './routes'
 settings = require './settings'
 
+coachAPIHandler = null
 channel = new EventEmitter2 wildcard: true
 
 # HACK - WORKAROUND
@@ -13,14 +14,11 @@ channel = new EventEmitter2 wildcard: true
 IS_INITIALIZED = false
 
 initialize = (baseUrl) ->
-  coachAPIHandler = createHandler(baseUrl, routes)
-
-  settings.baseUrl ?= baseUrl
-  loader(channel, settings) unless IS_INITIALIZED
+  coachAPIHandler = createHandler(baseUrl, routes, channel) unless IS_INITIALIZED
   IS_INITIALIZED = true
 
 destroy = ->
-  channel.removeAllListeners()
+  coachAPIHandler.destroy()
   IS_INITIALIZED = false
 
 module.exports = {loader, isPending, settings, initialize, destroy, channel}

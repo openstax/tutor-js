@@ -29,10 +29,8 @@ API_DEFAULTS =
   events: []
   handlers:
     onSuccess: (response, args...) ->
-      console.log(response, args...)
       response
     onFail: (response, args...) ->
-      console.warn(response, args...)
       Promise.reject(response)
   isLocal: false
 
@@ -71,13 +69,13 @@ DEFAULT_SUCCESS = (response) -> response
 DEFAULT_FAIL = (response) -> Promise.reject(response)
 
 class APIHandler
-  constructor: (options, routes) ->
+  constructor: (options, routes, channel) ->
     @setOptions(options)
 
     @initializeRoutes(routes)
     @initializeRecords()
     @initializeEventOptions(@getOptions().eventOptions, @getOptions().events)
-    @initializeEvents(@getOptions().events)
+    @initializeEvents(@getOptions().events, channel)
     @initializeXHR(@getOptions().xhr, new Interceptors(@getOptions().hooks, @), @getOptions().isLocal)
 
   destroy: =>
@@ -124,8 +122,8 @@ class APIHandler
 
     events.push([interpolate(patterns.send, allEvents), handleSend])
 
-  initializeEvents: (events) =>
-    @_channel = new EventEmitter2 wildcard: true
+  initializeEvents: (events, channel) =>
+    @_channel = channel or new EventEmitter2 wildcard: true
     _.forEach(events, _.spread(@_channel.on.bind(@_channel)))
 
   setOptions: (options) =>
@@ -136,10 +134,12 @@ class APIHandler
 
   sendRequest: (requestInfo, routeData, postData, args...) =>
     routeOptions = @_routes.get(requestInfo)
-    requestConfig = makeRequestConfig(routeOptions, routeData, postData)
+    return unless routeOptions?
 
+    requestConfig = makeRequestConfig(routeOptions, routeData, postData)
     return if @_records.isPending(requestConfig)
 
+    requestConfig.topic = requestInfo.topic
     requestConfig.events =
       success: interpolate(@_patterns.receive, _.merge({status: @_statuses.success}, requestInfo))
       failure: interpolate(@_patterns.receive, _.merge({status: @_statuses.failure}, requestInfo))
