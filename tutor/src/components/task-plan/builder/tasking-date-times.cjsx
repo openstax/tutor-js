@@ -15,8 +15,10 @@ DateTime = require './date-time'
 TaskingDateTimes = React.createClass
   propTypes:
     id:                  React.PropTypes.string.isRequired
+    courseId:            React.PropTypes.string.isRequired
     isEditable:          React.PropTypes.bool.isRequired
     isVisibleToStudents: React.PropTypes.bool
+    taskingIdentifier:   React.PropTypes.string.isRequired
     period:              React.PropTypes.object
 
   getError: ->
