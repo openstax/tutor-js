@@ -3,32 +3,14 @@ BS = require 'react-bootstrap'
 moment = require 'moment'
 twix = require 'twix'
 _ = require 'underscore'
-{DragSource} = require 'react-dnd'
 
 {TimeStore} = require '../../flux/time'
-{ItemTypes, NewTaskDrag, DragInjector} = require './task-dnd'
 TimeHelper = require '../../helpers/time'
 
-TutorLink = require '../link'
-CourseAddMenuMixin = require './add-menu-mixin'
+TutorLink     = require '../link'
 BrowseTheBook = require '../buttons/browse-the-book'
-NoPeriods = require '../no-periods'
-
-MenuLink = (props) ->
-  <li
-    data-assignment-type={props.link.type}
-  >
-    {props.connectDragSource(
-      <a
-
-        href={props.link.pathname}
-        onClick={_.partial(props.goToBuilder, props.link)} >
-        {props.link.text}
-      </a>
-    )}
-  </li>
-
-DnDMenuLink = DragSource(ItemTypes.NewTask, NewTaskDrag, DragInjector)(MenuLink)
+NoPeriods     = require '../no-periods'
+AddAssignment = require './add-assignment-menu'
 
 CourseCalendarHeader = React.createClass
   displayName: 'CourseCalendarHeader'
@@ -40,9 +22,8 @@ CourseCalendarHeader = React.createClass
     format: React.PropTypes.string.isRequired
     hasPeriods: React.PropTypes.bool.isRequired
     onCopyPreviousAssignment: React.PropTypes.func.isRequired
-
-  mixins: [ CourseAddMenuMixin ]
-
+    courseId: React.PropTypes.string.isRequired
+    onSidebarToggle: React.PropTypes.func.isRequired
 
   getDefaultProps: ->
     duration: 'month'
@@ -72,14 +53,9 @@ CourseCalendarHeader = React.createClass
   handlePrevious: (clickEvent) ->
     @handleNavigate('subtract', clickEvent)
 
-  renderMenuLink: (link) ->
-    <DnDMenuLink key={link.type} link=link goToBuilder={@goToBuilder} />
-
   render: ->
     {date} = @state
     {courseId, format, duration, hasPeriods} = @props
-
-    addAssignmentBSStyle = if hasPeriods then 'primary' else 'default'
 
     <div className='calendar-header'>
       <BS.Row className='calendar-header-actions'>
@@ -88,16 +64,11 @@ CourseCalendarHeader = React.createClass
           noPanel={true}
         /> unless hasPeriods}
 
-          <BS.DropdownButton
-            ref='addAssignmentButton'
-            id='add-assignment'
-            className='add-assignment'
-            title='Add Assignment'
-            bsStyle={addAssignmentBSStyle}
-          >
-            {@renderAddActions()}
 
-          </BS.DropdownButton>
+        <AddAssignment
+          onSidebarToggle={@props.onSidebarToggle}
+          courseId={@props.courseId}
+          hasPeriods={@props.hasPeriods} />
 
         <div className='calendar-header-actions-buttons'>
 

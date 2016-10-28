@@ -127,6 +127,9 @@ CourseMonth = React.createClass
   onHover: (day) ->
     @setState(hoveredDay: day)
 
+  onSidebarToggle: (isOpen) ->
+    @setState(sidebarState: isOpen)
+
   render: ->
     {plansList, courseId, className, date, hasPeriods} = @props
     {calendarDuration, calendarWeeks} = @getDurationInfo(date)
@@ -162,6 +165,7 @@ CourseMonth = React.createClass
       <CourseCalendarHeader
         duration='month'
         date={date}
+        onSidebarToggle={@onSidebarToggle}
         courseId={@props.courseId}
         setDate={@setDate}
         hasPeriods={hasPeriods}
