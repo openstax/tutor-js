@@ -59,12 +59,18 @@ setUpXHRInterceptors = (xhrInstance, interceptors, isLocal) ->
 
   xhrInstance.interceptors.response.use(null, interceptors.filterErrors)
 
-makeRequestConfig = (routeOptions, routeData, postData) ->
+makeRequestConfig = (routeOptions, routeData, requestData) ->
   {pattern} = routeOptions
 
   requestConfig = _.omit(routeOptions, 'subject', 'topic', 'pattern', 'action', 'delay', 'onSuccess', 'onFail')
   requestConfig.url = interpolate(pattern, routeData)
-  requestConfig.data = postData unless _.isEmpty(postData)
+
+  unless _.isEmpty(requestData)
+    if requestData.data or request.params
+      _.merge(requestConfig, _.pick(requestData, 'data', 'params'))
+    else
+      requestConfig.data = requestData
+
   requestConfig
 
 DEFAULT_SUCCESS = (response) -> response
@@ -77,7 +83,7 @@ class APIHandler
     @initializeRoutes(routes)
     @initializeRecords()
     @initializeEventOptions(@getOptions().eventOptions, @getOptions().events)
-    @initializeEvents(@getOptions().events, channel)
+    @initializeEvents(@getOptions().events, routes.length, channel)
     @initializeXHR(@getOptions().xhr, new Interceptors(@getOptions().hooks, @), @getOptions().isLocal)
 
   destroy: =>
@@ -124,8 +130,8 @@ class APIHandler
 
     events.push([interpolate(patterns.send, allEvents), handleSend])
 
-  initializeEvents: (events, channel) =>
-    @channel = channel or new EventEmitter2 wildcard: true
+  initializeEvents: (events, numberOfRoutes, channel) =>
+    @channel = channel or new EventEmitter2 wildcard: true, maxListeners: numberOfRoutes * 2
     _.forEach(events, _.spread(@channel.on.bind(@channel)))
 
   setOptions: (options) =>
@@ -134,16 +140,17 @@ class APIHandler
 
     @getOptions = -> options
 
-  sendRequest: (requestInfo, routeData, postData, args...) =>
+  sendRequest: (requestInfo, routeData, requestData, args...) =>
     routeOptions = @_routes.get(requestInfo)
     # TODO throw error somewheres.
     return unless routeOptions?
 
-    requestConfig = makeRequestConfig(routeOptions, routeData, postData)
+    requestConfig = makeRequestConfig(routeOptions, routeData, requestData)
     # TODO throw error somewheres.
     return if @records.isPending(requestConfig)
 
     requestConfig.topic = requestInfo.topic
+    requestConfig.params = requestInfo.params
     requestConfig.events =
       success: interpolate(@_patterns.receive, _.merge({status: @_statuses.success}, requestInfo))
       failure: interpolate(@_patterns.receive, _.merge({status: @_statuses.failure}, requestInfo))

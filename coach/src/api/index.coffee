@@ -1,5 +1,3 @@
-EventEmitter2 = require 'eventemitter2'
-
 {APIHandler} = require 'shared'
 routes = require './routes'
 
