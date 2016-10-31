@@ -1,4 +1,5 @@
 _ = require 'underscore'
+cloneDeep = require 'lodash/cloneDeep'
 Collection = require 'exercise/collection'
 step = require '../../api/steps/4571/GET'
 
@@ -6,7 +7,7 @@ describe 'Exercise Collection', ->
 
   beforeEach ->
     @stepId = 4571
-    @step = _.clone(step)
+    @step = cloneDeep(step)
     Collection.quickLoad(@stepId, @step)
 
   describe 'getCurrentPanel', ->
@@ -22,6 +23,12 @@ describe 'Exercise Collection', ->
       @step.free_response = 'my best guess'
       Collection.quickLoad(@stepId, @step)
       expect(Collection.getCurrentPanel(@stepId)).equal('multiple-choice')
+
+    it 'returns multiple-choice for true-false format', ->
+      @step.content.questions[0].formats = ['true-false']
+      Collection.quickLoad(@stepId, @step)
+      expect(Collection.getCurrentPanel(@stepId)).equal('multiple-choice')
+
 
   describe 'free response caching', ->
     it 'get returns cached free response if free response has been cached', ->
@@ -46,4 +53,3 @@ describe 'Exercise Collection', ->
       Collection.quickLoad(@stepId, savedStep)
       expect(Collection.get(@stepId).cachedFreeResponse).to.be.falsy
       expect(Collection.get(@stepId).free_response).to.equal(SAVED_RESPONSE)
-

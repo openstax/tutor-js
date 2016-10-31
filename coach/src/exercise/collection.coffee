@@ -13,6 +13,8 @@ STEP_TYPES =
   'free-response': ['free_response']
   'multiple-choice': ['answer_id', 'is_completed']
 
+STEP_TYPE_ALIAS =
+  'multiple-choice': ['true-false']
 
 getStepsByTaskId = (taskId) ->
   _.where steps, {task_id: taskId}
@@ -51,7 +53,9 @@ getCurrentPanel = (stepId) ->
   {formats} = question
 
   _.find STEP_TYPES, (stepChecks, format) ->
-    return false unless format in formats
+    return false unless format in formats or (
+      STEP_TYPE_ALIAS[format]? and not _.isEmpty( _.intersection(formats, STEP_TYPE_ALIAS[format]) )
+    )
     isStepCompleted = _.reduce stepChecks, (isOtherCompleted, currentCheck) ->
       step[currentCheck]? and step[currentCheck] and isOtherCompleted
     , true
