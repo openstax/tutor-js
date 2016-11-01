@@ -20,6 +20,10 @@ TaskingDateTimes = React.createClass
     isVisibleToStudents: React.PropTypes.bool
     taskingIdentifier:   React.PropTypes.string.isRequired
     period:              React.PropTypes.object
+    BSSizes:             React.PropTypes.object
+
+  getDefaultProps: ->
+    bSSizes: { sm: 8, md: 9 }
 
   getError: ->
     return false unless @refs?.due?.hasValidInputs() and @refs?.open?.hasValidInputs()
@@ -79,7 +83,7 @@ TaskingDateTimes = React.createClass
     </BS.Col> if error
 
 
-    <BS.Col sm=8 md=9>
+    <BS.Col {...@props.bSSizes} className="tasking-date-times">
       <DateTime
         {...commonDateTimesProps}
         disabled={isVisibleToStudents or not isEditable}
