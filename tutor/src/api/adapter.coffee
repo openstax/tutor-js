@@ -39,8 +39,8 @@ setUpAPIHandler = ->
 
   tutorAPIHandler
 
-connectToAPIHandler = (Actions, actions, requestInfo, makeRouteData, makeRequestData) ->
-  {trigger, onSuccess, onFail} = actions
+updateRequestHandlers = (Actions, actions, requestInfo) ->
+  {onSuccess, onFail} = actions
   onFail ?= 'FAILED'
 
   handlers =
@@ -83,12 +83,84 @@ connectToAPIHandler = (Actions, actions, requestInfo, makeRouteData, makeRequest
   requestInfo = _.merge(handlers, requestInfo)
   tutorAPIHandler.routes.update(requestInfo)
 
+connectTrigger = (Actions, actions, prepareRequest) ->
+  {trigger} = actions
+
   Actions[trigger].addListener 'trigger', (args...) ->
-    topic = _.first(args)
+    {requestInfo, routeData, requestData} = prepareRequest(args...)
+    tutorAPIHandler.sendRequest(requestInfo, routeData, requestData, args...)
+
+connectToAPIHandler = (Actions, actions, requestInfo, makeRouteData, makeRequestData) ->
+  updateRequestHandlers(Actions, actions, requestInfo)
+  connectTrigger(Actions, actions, (args...) ->
+    topic = _.first(args) or 'topic'
 
     requestInfo = _.merge({topic}, requestInfo)
     routeData = makeRouteData?(args...) or {}
     requestData = makeRequestData?(args...) or {}
-    tutorAPIHandler.sendRequest(requestInfo, routeData, requestData, args...)
 
-module.exports = {setUpAPIHandler, connectToAPIHandler}
+    {requestInfo, routeData, requestData}
+  )
+
+# convenient aliases
+makeIdRouteData = (id) -> {id} if id?
+makeDefaultRequestData = (id, data) -> {data} if data?
+
+createActions =
+  trigger: 'create'
+  onSuccess: 'created'
+
+readActions =
+  trigger: 'load'
+  onSuccess: 'loaded'
+
+updateActions =
+  trigger: 'save'
+  onSuccess: 'saved'
+
+deleteActions =
+  trigger: 'delete'
+  onSuccess: 'deleted'
+
+actions =
+  create: createActions
+  read: readActions
+  update: updateActions
+  'delete': deleteActions
+
+actionFrom = (action, subject) ->
+  {subject, action}
+
+createFrom = _.partial(actionFrom, 'create')
+readFrom = _.partial(actionFrom, 'read')
+updateFrom = _.partial(actionFrom, 'update')
+deleteFrom = _.partial(actionFrom, 'delete')
+
+connectAsAction = (action, Actions, subject) ->
+  handlerOptions = [Actions, actions[action], actionFrom(action, subject), makeIdRouteData]
+  handlerOptions.push(makeDefaultRequestData) if action is 'update' or action is 'create'
+
+  connectToAPIHandler(handlerOptions...)
+
+module.exports = {
+  setUpAPIHandler,
+  updateRequestHandlers,
+  connectTrigger,
+  connectToAPIHandler,
+
+  makeIdRouteData,
+  makeDefaultRequestData,
+
+  createActions,
+  readActions,
+  updateActions,
+  deleteActions,
+
+  actionFrom,
+  createFrom,
+  readFrom,
+  updateFrom,
+  deleteFrom,
+
+  connectAsAction
+}

@@ -1,4 +1,6 @@
-{setUpAPIHandler, connectToAPIHandler} = require './adapter'
+{setUpAPIHandler, connectToAPIHandler, updateRequestHandlers, makeIdRouteData, makeDefaultRequestData,
+  createActions, readActions, updateActions, deleteActions, actionFrom, createFrom, readFrom, updateFrom,
+  deleteFrom, connectAsAction, connectTrigger} = require './adapter'
 
 {CurrentUserActions} = require '../flux/current-user'
 {CourseActions} = require '../flux/course'
@@ -34,44 +36,6 @@ PerformanceForecast = require '../flux/performance-forecast'
 {NewCourseActions, NewCourseStore} = require '../flux/new-course'
 {NotificationActions} = require '../flux/notifications'
 
-makeIdRouteData = (id) -> {id} if id?
-makeDefaultRequestData = (id, data) -> {data} if data?
-
-createActions =
-  trigger: 'create'
-  onSuccess: 'created'
-
-readActions =
-  trigger: 'load'
-  onSuccess: 'loaded'
-
-updateActions =
-  trigger: 'save'
-  onSuccess: 'saved'
-
-deleteActions =
-  trigger: 'delete'
-  onSuccess: 'deleted'
-
-actions =
-  create: createActions
-  read: readActions
-  update: updateActions
-  'delete': deleteActions
-
-actionFrom = (action, subject) ->
-  {subject, action}
-
-createFrom = _.partial(actionFrom, 'create')
-readFrom = _.partial(actionFrom, 'read')
-updateFrom = _.partial(actionFrom, 'update')
-deleteFrom = _.partial(actionFrom, 'delete')
-
-connectAsAction = (action, Actions, subject) ->
-  handlerOptions = [Actions, actions[action], actionFrom(action, subject), makeIdRouteData]
-  handlerOptions.push(makeDefaultRequestData) if action is 'update' or action is 'create'
-
-  connectToAPIHandler(handlerOptions...)
 
 startAPI = ->
   setUpAPIHandler()
@@ -80,7 +44,26 @@ startAPI = ->
   connectAsAction('delete', TaskActions, 'task')
   connectAsAction('read', TaskPlanActions, 'task-plan')
   connectAsAction('delete', TaskPlanActions, 'task-plan')
-  # TODO task plan save or create.
+
+  updateRequestHandlers(TaskPlanActions, onSuccess: 'saved', createFrom('task-plan'))
+  updateRequestHandlers(TaskPlanActions, onSuccess: 'saved', updateFrom('task-plan'))
+  connectTrigger(TaskPlanActions, trigger: 'save', (id, courseId) ->
+    subject = 'task-plan'
+    requestData = TaskPlanStore.getChanged(id)
+    routeData = {id, courseId}
+
+    requestInfo = if TaskPlanStore.isNew(id)
+      subject: subject
+      topic: courseId
+      action: 'create'
+    else
+      subject: subject
+      topic: id
+      action: 'update'
+
+    {requestInfo, routeData, requestData}
+  )
+
   connectAsAction('read', TaskPlanStatsActions, 'task-plan-stats')
   connectAsAction('read', TaskTeacherReviewActions, 'task-plan-review')
 
