@@ -9,7 +9,7 @@ on_termination() {
 
 bin/checkinputs "$@"
 
-trap on_termination SIGTERM SIGINT
+trap on_termination EXIT
 
 export OX_PROJECT=$1
 echo TDD: $OX_PROJECT
