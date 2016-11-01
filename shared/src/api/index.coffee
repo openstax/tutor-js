@@ -66,7 +66,7 @@ makeRequestConfig = (routeOptions, routeData, requestData) ->
   requestConfig.url = interpolate(pattern, routeData)
 
   unless _.isEmpty(requestData)
-    if requestData.data or request.params
+    if requestData.data or requestData.params
       _.merge(requestConfig, _.pick(requestData, 'data', 'params'))
     else
       requestConfig.data = requestData
@@ -93,7 +93,7 @@ class APIHandler
     @records = new XHRRecords()
 
   initializeRoutes: (routes) =>
-    @_routes = new Routes(routes)
+    @routes = new Routes(routes)
 
   initializeXHR: (xhrOptions, interceptors) =>
     xhr = axios.create(xhrOptions)
@@ -141,7 +141,7 @@ class APIHandler
     @getOptions = -> options
 
   sendRequest: (requestInfo, routeData, requestData, args...) =>
-    routeOptions = @_routes.get(requestInfo)
+    routeOptions = @routes.get(requestInfo)
     # TODO throw error somewheres.
     return unless routeOptions?
 

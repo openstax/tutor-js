@@ -4,16 +4,6 @@ ROUTES = [{
   pattern: 'tasks/{id}'
 }, {
   subject: 'task'
-  method: 'PUT'
-  action: 'accept-late-work'
-  pattern: 'tasks/{id}/accept_late_work'
-}, {
-  subject: 'task'
-  method: 'PUT'
-  action: 'reject-late-work'
-  pattern: 'tasks/{id}/reject_late_work'
-}, {
-  subject: 'task'
   method: 'DELETE'
   pattern: 'tasks/{id}'
 }, {
@@ -21,9 +11,9 @@ ROUTES = [{
   method: 'GET'
   pattern: 'plans/{id}'
 }, {
-  subject: 'task-plan-review'
-  method: 'GET'
-  pattern: 'plans/{id}/review'
+  subject: 'task-plan'
+  method: 'DELETE'
+  pattern: 'plans/{id}'
 }, {
   subject: 'task-plan'
   method: 'POST'
@@ -32,6 +22,10 @@ ROUTES = [{
   subject: 'task-plan'
   method: 'PATCH'
   pattern: 'plans/{id}'
+}, {
+  subject: 'task-plan-review'
+  method: 'GET'
+  pattern: 'plans/{id}/review'
 }, {
   subject: 'task-plan-stats'
   method: 'GET'
@@ -103,6 +97,16 @@ ROUTES = [{
   method: 'POST'
   pattern: 'courses/{id}/performance/export'
 }, {
+  subject: 'task-scores'
+  method: 'PUT'
+  action: 'accept-late-work'
+  pattern: 'tasks/{id}/accept_late_work'
+}, {
+  subject: 'task-scores'
+  method: 'PUT'
+  action: 'reject-late-work'
+  pattern: 'tasks/{id}/reject_late_work'
+}, {
   subject: 'course-dashboard-teacher'
   method: 'GET'
   pattern: 'courses/{id}/dashboard'
@@ -127,6 +131,11 @@ ROUTES = [{
   subject: 'student'
   method: 'PATCH'
   pattern: 'students/{id}'
+}, {
+  subject: 'student'
+  method: 'PATCH'
+  pattern: 'students/{id}'
+  action: 'save-student-identifier'
   handledErrors: ['student_identifier_has_already_been_taken']
 }, {
   subject: 'student'
@@ -208,12 +217,12 @@ ROUTES = [{
 }, {
   subject: 'book-page'
   method: 'GET'
-  pattern: 'pages/{cnxId}'
+  pattern: 'pages/{id}'
 }, {
   subject: 'book-page'
   method: 'GET'
   action: 'read-silent'
-  pattern: 'pages/{cnxId}'
+  pattern: 'pages/{id}'
   handledErrors: ['*']
 }, {
   subject: 'book-exercise'

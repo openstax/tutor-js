@@ -2,7 +2,7 @@ _ = require 'lodash'
 hash = require 'object-hash'
 moment = require 'moment-timezone'
 
-validateOptions = (requiredProperties) ->
+validateOptions = (requiredProperties...) ->
   (options) ->
     _.every(requiredProperties, _.partial(_.has, options))
 
@@ -25,6 +25,9 @@ class Collection
 
   set: (args...) =>
     @_cache[@lookup(args...)] = @make(args...)
+
+  update: (args...) =>
+    _.merge(@_cache[@lookup(args...)], args...)
 
   load: (items) =>
     _.forEach items, @set
@@ -93,8 +96,9 @@ makeRoute = (options = {}) ->
     topic: '*'
 
   route = _.merge({}, DEFAULT_ROUTE_OPTIONS, options)
-  route?.action = METHODS_TO_ACTIONS[route.method]
-  route?.handledErrors = _.keys(route.errorHandlers) if route.errorHandlers
+  route.action ?= METHODS_TO_ACTIONS[route.method]
+  route.handledErrors ?= _.keys(route.errorHandlers) if route.errorHandlers
+
   route
 
 class Routes extends Collection
