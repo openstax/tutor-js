@@ -87,7 +87,7 @@ CourseMonth = React.createClass
     calendarWeeks = calendarDuration.split(1, 'week')
     {calendarDuration, calendarWeeks}
 
-  handleClick: (dayMoment, mouseEvent) ->
+  handleDayClick: (dayMoment, mouseEvent) ->
     @refs.addOnDay.updateState(dayMoment, mouseEvent.pageX, mouseEvent.pageY)
     @setState({
       activeAddDate: dayMoment
@@ -135,7 +135,7 @@ CourseMonth = React.createClass
       ".course-plan-#{@state.editingPlanId}"
     )
 
-  onHover: (day) ->
+  onDragHover: (day) ->
     @setState(hoveredDay: day)
 
   onSidebarToggle: (isOpen) ->
@@ -151,8 +151,8 @@ CourseMonth = React.createClass
       {
         component: [ 'day' ],
         events:
-          onClick: @handleClick
-          onDragEnter: @onHover
+          onClick: @handleDayClick
+          onDragEnter: @onDragHover
       }
     ]
 
