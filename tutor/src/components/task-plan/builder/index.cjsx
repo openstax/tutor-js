@@ -31,9 +31,6 @@ TaskPlanBuilder = React.createClass
       store: TaskingStore
       listenTo: "taskings.#{id}.*.changed"
       callback: @changeTaskPlan
-    course:
-      store: CourseStore
-      callback: @updateForCourse
 
   mixins: [BindStoresMixin, UnsavedStateMixin]
 
@@ -58,9 +55,6 @@ TaskPlanBuilder = React.createClass
   # This logic could be improved, all it checks is if a title is set on a new task plan
   hasUnsavedState: -> TaskPlanStore.hasChanged(@props.id)
   unsavedStateMessages: -> 'The assignment has unsaved changes'
-  updateForCourse: ->
-    @loadCourseDefaults()
-    @forceUpdate()
 
   componentWillMount: ->
     {id, courseId} = @props
