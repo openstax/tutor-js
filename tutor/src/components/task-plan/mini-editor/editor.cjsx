@@ -47,31 +47,37 @@ TaskPlanMiniEditor = React.createClass
 
     <div className="task-plan-mini-editor">
       <div className="row">
-        <TutorInput
-          label="Title"
-          className='assignment-name'
-          id='reading-title'
-          value={plan.title or ''}
-          required={true}
-          onChange={@setTitle} />
+        <BS.Col xs=12>
+          <TutorInput
+            label="Title"
+            className='assignment-name'
+            id='reading-title'
+            value={plan.title or ''}
+            required={true}
+            onChange={@setTitle} />
+        </BS.Col>
       </div>
-      <div className="row">
-
+      <div className="row times">
         <TaskingDateTimes
+          bSSizes={xs: 12}
           id={plan.id} isEditable={true} courseId={@props.courseId}
           taskingIdentifier='all'
         />
       </div>
       <div className="row">
-        <p>Assigned to all sections</p>
-        <TutorLink
-          to={camelCase("edit-#{plan.type}")}
-          params={id: plan.id, courseId: @props.courseId}
-        >
-            Edit other assignment details
-        </TutorLink>
-
+        <BS.Col xs=6>
+          Assigned to all sections
+        </BS.Col>
+        <BS.Col xs=6>
+          <TutorLink
+            to={camelCase("edit-#{plan.type}")}
+            params={id: plan.id, courseId: @props.courseId}
+          >
+              Edit other assignment details
+          </TutorLink>
+        </BS.Col>
       </div>
+
       <div className="controls">
         <PublishButton
           onSave={@onSave}
