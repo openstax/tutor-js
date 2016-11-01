@@ -31,16 +31,8 @@ areAllErrorsHandled = (handledErrors, errors, errorNameProperty) ->
 class Interceptors
   constructor: (hooks = {}, apiHandler) ->
     @_apiHandler = apiHandler
-    @hookIntercepts(hooks)
+    @_hooks = hooks
     @
-
-  hookIntercepts: (hooks) =>
-    _.forEach hooks, (hook, hookName) =>
-      originalIntercept = @[hookName]
-
-      @[hookName] = (args...) =>
-        hook(args...)
-        originalIntercept(args...)
 
   queRequest: (requestConfig) =>
     @_apiHandler.records.queRequest(requestConfig)
@@ -92,19 +84,16 @@ class Interceptors
     Promise.reject(error)
 
   handleMalformedRequest: (error) =>
-    if error.response.status is 400
-      # CurrentUserActions.logout()
+    error = @_hooks.handleMalformedRequest?(error) if error.response.status is 400
 
-      # error has been officially handled.
-      Promise.reject()
-    else
-      Promise.reject(error)
+    Promise.reject(error) if _.isError(error)
 
   handleNotFound: (error) =>
     if error.response.status is 404
       error.response.statusText ?= 'ERROR_NOTFOUND'
+      error = @_hooks.handleNotFound?(error)
 
-    Promise.reject(error)
+    Promise.reject(error) if _.isError(error)
 
   handleErrorMessage: (error) =>
     {statusText, data} = error.response

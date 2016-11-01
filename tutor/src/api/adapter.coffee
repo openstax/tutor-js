@@ -20,8 +20,12 @@ createAPIHandler = ->
       baseURL: "#{window.location.origin}/api"
     handlers:
       onFail: (error, args...) ->
-        {response, config} = error
-        AppActions.setServerError(response, config)
+        {response} = error
+        AppActions.setServerError(response)
+    hooks:
+      handleMalformedRequest: ->
+        CurrentUserActions.logout()
+        null
 
   new APIHandler(options, routes)
 

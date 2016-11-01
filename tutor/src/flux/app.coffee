@@ -8,9 +8,9 @@ AppConfig =
   resetServerErrors: ->
     delete @_currentServerError
 
-  setServerError: (errorResponse, request) ->
+  setServerError: (errorResponse) ->
     {status, data} = errorResponse
-    @_currentServerError = _.extend({request}, errorResponse)
+    @_currentServerError = errorResponse
     @emit('server-error', status, data)
 
   exports:
