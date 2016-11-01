@@ -9,7 +9,10 @@ classnames = require 'classnames'
 
 CoursePlanDetails = require './plan-details'
 CoursePlanLabel = require './plan-label'
-{CoursePlanDisplayEdit, CoursePlanDisplayQuickLook} = require './plan-display'
+
+{ CoursePlanDisplayEdit,
+  CoursePlanDisplayQuickLook,
+  CoursePlanDisplayMiniEditor} = require './plan-display'
 
 {PlanPublishStore, PlanPublishActions} = require '../../flux/plan-publish'
 PlanHelper = require '../../helpers/plan'
@@ -194,8 +197,12 @@ CoursePlan = React.createClass
     labelProps = {rangeDuration, plan, index, offset, offsetFromPlanStart}
     label = <CoursePlanLabel {...labelProps} ref="label#{index}"/>
 
-    DisplayComponent = CoursePlanDisplayEdit
-    DisplayComponent = CoursePlanDisplayQuickLook if hasQuickLook
+    DisplayComponent = if plan.is_draft
+      CoursePlanDisplayMiniEditor
+    else if hasQuickLook
+      CoursePlanDisplayQuickLook
+    else
+      CoursePlanDisplayEdit
 
     displayComponentProps = {
       plan,

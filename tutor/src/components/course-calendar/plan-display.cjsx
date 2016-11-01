@@ -1,9 +1,11 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 camelCase = require 'camelcase'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
 TutorLink = require '../link'
+TaskPlanMiniEditor = require '../task-plan/mini-editor'
 
 DisplayProperties =
   plan: React.PropTypes.shape(
@@ -71,7 +73,6 @@ CoursePlanDisplayMixin =
 
     @adjustPlanSpacing(planStyle)
 
-
 CoursePlanDisplayEdit = React.createClass
   displayName: 'CoursePlanDisplayEdit'
   mixins: [CoursePlanDisplayMixin]
@@ -97,6 +98,50 @@ CoursePlanDisplayEdit = React.createClass
       </TutorLink>
     </div>
 
+CoursePlanDisplayMiniEditor = React.createClass
+  mixins: [CoursePlanDisplayMixin]
+
+  getInitialState: ->
+    isShowingEditor: false
+
+  getElement: ->
+    ReactDOM.findDOMNode(@)
+
+  showEditor: ->
+    @setState(isShowingEditor: true)
+  onEditorHide: ->
+    @setState(isShowingEditor: false)
+
+  render: ->
+    {plan, planClasses, label, courseId, setHover} = @props
+
+    linkTo = camelCase("edit-#{plan.type}")
+    params = {id: plan.id, courseId}
+
+    planStyle = @buildPlanStyles()
+
+    <div
+      style={planStyle}
+      className={planClasses}
+      data-assignment-type={plan.type}
+      onMouseEnter={_.partial(setHover, true)}
+      onMouseLeave={_.partial(setHover, false)}
+      ref='plan'
+    >
+
+      {<TaskPlanMiniEditor
+        planId={plan.id}
+        courseId={@props.courseId}
+        onHide={@onEditorHide}
+        findPopOverTarget={@getElement}
+      /> if @state.isShowingEditor}
+
+      <div onClick={@showEditor}>
+          {label}
+      </div>
+    </div>
+
+
 
 CoursePlanDisplayQuickLook = React.createClass
   displayName: 'CoursePlanDisplayQuickLook'
@@ -120,4 +165,4 @@ CoursePlanDisplayQuickLook = React.createClass
     </div>
 
 
-module.exports = {CoursePlanDisplayEdit, CoursePlanDisplayQuickLook}
+module.exports = {CoursePlanDisplayEdit, CoursePlanDisplayQuickLook, CoursePlanDisplayMiniEditor}
