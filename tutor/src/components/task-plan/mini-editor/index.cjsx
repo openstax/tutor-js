@@ -2,64 +2,52 @@ React = require 'react'
 
 BS = require 'react-bootstrap'
 
+LoadableItem = require '../../loadable-item'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
+Editor = require './editor'
 
-Icon = require '../../icon'
-Loading = require './loading'
-TaskingDateTimes = require '../builder/tasking-date-times'
-{TutorInput, TutorTextArea} = require '../../tutor-input'
-
-taskPlanEditingInitialize = require '../initialize-editing'
-
-TaskPlanMiniEditor = React.createClass
+TaskPlanMiniEditorShell = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
     planId:   React.PropTypes.string.isRequired
+    onHide: React.PropTypes.func.isRequired
     findPopOverTarget: React.PropTypes.func.isRequired
 
-  onHide: ->
+  getInitialState: ->
+    isVisible: true
 
-
-  setTitle: (title) ->
-    {id} = @props
-    TaskPlanActions.updateTitle(id, title)
-
-
-  componentWillMount: ->
-    {planId, courseId} = @props
-    taskPlanEditingInitialize(planId, courseId)
+  renderEditor: ->
+    <Editor
+      id={@props.planId}
+      onHide={@props.onHide}
+      courseId={@props.courseId}
+    />
 
   render: ->
-    plan = TaskPlanStore.get(@props.planId)
+    {planId, courseId} = @props
 
     <div className="task-plan-mini-editor">
 
       <BS.Overlay
-        show={true}
+        show={@state.isVisible}
         onHide={@onHide}
         placement='left'
-
+        ref='overlay'
         target={@props.findPopOverTarget}
       >
-        <BS.Popover id='mini-task-editor' title="Adding Past Assignment">
-          <div className="row">
-            <TutorInput
-              label="Title"
-              className='assignment-name'
-              id='reading-title'
-              default={plan.title}
-              required={true}
-              onChange={@setTitle} />
-          </div>
-          <div className="row">
 
-            <TaskingDateTimes
-              id={plan.id} isEditable={true} courseId={@props.courseId}
-              taskingIdentifier='all'
+        <BS.Popover id='mini-task-editor-popover'
+          className="mini-task-editor-popover"
+        >
 
-            />
-          </div>
+          <LoadableItem
+            id={planId}
+            store={TaskPlanStore}
+            actions={TaskPlanActions}
+            renderItem={@renderEditor}
+          />
+
         </BS.Popover>
 
       </BS.Overlay>
@@ -67,4 +55,4 @@ TaskPlanMiniEditor = React.createClass
 
 
 
-module.exports = TaskPlanMiniEditor
+module.exports = TaskPlanMiniEditorShell
