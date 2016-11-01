@@ -14,8 +14,8 @@ describe 'CourseCalendar AddAssignmentMenu', ->
 
   it 'renders with style for periods', ->
     wrapper = shallow(<AddAssignmentMenu {...@props} />, {context: @context})
-    expect(wrapper.is('[bsStyle="primary"]')).to.be.true
+    expect(wrapper.find('DropdownButton').is('[bsStyle="primary"]')).to.be.true
     wrapper.setProps(hasPeriods: false)
-    expect(wrapper.is('[bsStyle="primary"]')).to.be.false
-    expect(wrapper.is('[bsStyle="default"]')).to.be.true
+    expect(wrapper.find('DropdownButton').is('[bsStyle="primary"]')).to.be.false
+    expect(wrapper.find('DropdownButton').is('[bsStyle="default"]')).to.be.true
     undefined
