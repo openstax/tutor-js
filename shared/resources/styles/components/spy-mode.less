@@ -6,11 +6,13 @@
     }
     .visible-when-debugging {
       display: block;
-      border: 1px solid;
-      padding: 5px;
-      border-radius: 4px;
-      margin: 5px 0;
-     }
+      &:not(.unstyled){
+        border: 1px solid;
+        padding: 5px;
+        border-radius: 4px;
+        margin: 5px 0;
+      }
+    }
   }
 
   .visible-when-debugging {

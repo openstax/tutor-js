@@ -26,9 +26,10 @@ SpyModeContent = React.createClass
 
   propTypes:
     className: React.PropTypes.string
+    unstyled:  React.PropTypes.bool
 
   render: ->
-    <div className={classnames('visible-when-debugging', @props.className)}>
+    <div className={classnames('visible-when-debugging', @props.className, unstyled: @props.unstyled)}>
       {@props.children}
     </div>
 
