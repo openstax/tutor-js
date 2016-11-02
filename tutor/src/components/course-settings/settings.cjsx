@@ -9,8 +9,8 @@ LoadableItem = require '../loadable-item'
 Roster = require './roster'
 TeacherRoster = require './teacher-roster'
 
-RenameCourse = require './rename-course'
-SetTimezone = require './set-timezone'
+RenameCourse  = require './rename-course'
+SetTimezone   = require './set-timezone'
 
 module.exports = React.createClass
   displayName: 'CourseSettings'
