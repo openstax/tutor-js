@@ -64,6 +64,17 @@ class Interceptors
     makeLocalResponse(response)
     response
 
+  handleNonAPIErrors: (error) =>
+    unless error.response
+      status = 1
+      statusText = "#{error.name} #{error.message}"
+      data = error.stack
+
+      # spoof response error
+      error.response = {status, statusText, data}
+
+    Promise.reject(error)
+
   handleLocalErrors: (error) =>
     {response, config} = error
     {status, statusText} = response
@@ -72,26 +83,26 @@ class Interceptors
     mockMethods = ['PUT', 'PATCH']
 
     # Hack for local testing, fake successful PUT and PATCH
-    if _.contains(mockMethods, mockMethod or method) and status is 404
-      response.statusText = """No mock data found at #{config.url}.
+    if status is 404
+      response.data = """No mock data found at #{config.url}.
       This error only happens locally."""
 
     # Hack for local testing. Webserver returns 200 + HTML for 404's
     if statusText is 'parsererror' and status is 200
       response.status = 404
-      response.statusText = 'Error Parsing the JSON or a 404'
+      response.data = 'Error Parsing the JSON or a 404'
 
     Promise.reject(error)
 
   handleMalformedRequest: (error) =>
-    error = @_hooks.handleMalformedRequest?(error) if error.response.status is 400
+    error = @_hooks.handleMalformedRequest(error) if error.response.status is 400 and @_hooks.handleMalformedRequest?
 
     Promise.reject(error) if _.isError(error)
 
   handleNotFound: (error) =>
     if error.response.status is 404
       error.response.statusText ?= 'ERROR_NOTFOUND'
-      error = @_hooks.handleNotFound?(error)
+      error = @_hooks.handleNotFound(error) if @_hooks.handleNotFound?
 
     Promise.reject(error) if _.isError(error)
 

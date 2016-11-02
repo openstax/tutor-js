@@ -53,7 +53,6 @@ ErrorModal = React.createClass
       show={true}
       backdrop={false}
       animation={false}
-      onRequestHide={@onHide}
       title={"An error with code #{statusCode} has occured"}
       onHide={@onHide}>
 

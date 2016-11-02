@@ -53,6 +53,7 @@ setUpXHRInterceptors = (xhrInstance, interceptors, isLocal) ->
   xhrInstance.interceptors.response.use(interceptors.broadcastSuccess, interceptors.broadcastError)
 
   # on response, transform error as needed
+  xhrInstance.interceptors.response.use(null, interceptors.handleNonAPIErrors)
   xhrInstance.interceptors.response.use(null, interceptors.handleMalformedRequest)
   xhrInstance.interceptors.response.use(null, interceptors.handleNotFound)
   xhrInstance.interceptors.response.use(null, interceptors.handleErrorMessage)
@@ -95,9 +96,9 @@ class APIHandler
   initializeRoutes: (routes) =>
     @routes = new Routes(routes)
 
-  initializeXHR: (xhrOptions, interceptors) =>
+  initializeXHR: (xhrOptions, interceptors, isLocal) =>
     xhr = axios.create(xhrOptions)
-    setUpXHRInterceptors(xhr, interceptors)
+    setUpXHRInterceptors(xhr, interceptors, isLocal)
 
     @_xhr = xhr
 

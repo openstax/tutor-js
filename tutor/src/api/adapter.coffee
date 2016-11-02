@@ -1,13 +1,14 @@
+_ = require 'lodash'
 {APIHandler} = require 'shared'
 {APIActionAdapter} = require 'shared'
-
-{Promise} = require 'es6-promise'
-_ = require 'lodash'
 
 routes = require './routes'
 
 {TimeActions} = require '../flux/time'
 {AppActions} = require '../flux/app'
+{CurrentUserStore} = require '../flux/current-user'
+
+IS_LOCAL = window.location.port is '8000' or window.__karma__
 
 setNow = (headers) ->
   # X-App-Date with fallback to nginx date
@@ -18,6 +19,9 @@ createAPIHandler = ->
   options =
     xhr:
       baseURL: "#{window.location.origin}/api"
+      headers:
+        'X-CSRF-Token': CurrentUserStore.getCSRFToken()
+        token: CurrentUserStore.getToken()
     handlers:
       onFail: (error, args...) ->
         {response} = error
@@ -26,6 +30,7 @@ createAPIHandler = ->
       handleMalformedRequest: ->
         CurrentUserActions.logout()
         null
+    isLocal: IS_LOCAL
 
   new APIHandler(options, routes)
 

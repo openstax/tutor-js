@@ -24,6 +24,7 @@ getAPIOptions = (baseURL) ->
       onFail: (args...) ->
         # broadcast out error for final error handling by notification modal
         coachAPIHandler?.channel.emit('error', args...)
+    isLocal: window.__karma__
 
 initialize = (baseUrl) ->
   coachAPIHandler = new APIHandler(getAPIOptions(baseUrl), routes) unless IS_INITIALIZED
