@@ -6,6 +6,8 @@ ScoresTable = require './table'
 TableFilters = require './table-filters'
 
 Router = require 'react-router'
+NoPeriods = require '../no-periods'
+
 merge = require 'lodash/merge'
 {CourseStore} = require '../../flux/course'
 {ScoresStore, ScoresActions} = require '../../flux/scores'
@@ -33,7 +35,7 @@ Scores = React.createClass
 
   getInitialState: ->
     sortedPeriods = CourseStore.getPeriods(@props.courseId)
-    period_id: _.first(sortedPeriods).id
+    period_id: _.first(sortedPeriods).id unless _.isEmpty(sortedPeriods)
     periodIndex: 0
     sortIndex: 0
     sort: { key: 'name', asc: true, dataType: 'score' }
@@ -53,7 +55,7 @@ Scores = React.createClass
     state = merge({}, @state, nextState)
 
     scores = ScoresStore.getEnrolledScoresForPeriod(@props.courseId, state.period_id)
-    rows = _.sortBy( scores.students, StudentDataSorter(state) )
+    rows = if scores then _.sortBy( scores.students, StudentDataSorter(state) ) else null
     if scores?
       @setState(_.extend(state, {
         overall_average_score: scores.overall_average_score or 0,
@@ -80,6 +82,7 @@ Scores = React.createClass
   render: ->
     {courseId} = @props
     {period_id} = @state
+    return <NoPeriods courseId={@props.courseId} link={false} /> unless period_id?
 
     <div className='course-scores-wrap' ref='scoresWrap'>
         <span className='course-scores-title'>Student Scores</span>

@@ -46,8 +46,9 @@ CourseRoster = React.createClass
     @setState({periodIndex})
     @refs.tabs.selectTabIndex(periodIndex)
 
-  renderActivePeriod: (periods) ->
+  ActivePeriod: ({periods}) ->
     activePeriod = periods[@state.periodIndex]
+    {periodIndex} = @state
 
     <div className="active-period">
       <div className='period-edit-controls'>
@@ -88,12 +89,7 @@ CourseRoster = React.createClass
   renderEmpty: ->
     <NoPeriods courseId={@props.courseId} link={false}/>
 
-  render: ->
-    course  = CourseStore.get(@props.courseId)
-
-    periods = PH.activePeriods(course)
-
-    {periodIndex} = @state
+  renderRoster: (course, periods) ->
 
     <div className="roster">
       <div className="settings-section periods">
@@ -109,10 +105,17 @@ CourseRoster = React.createClass
           <NoArchiveHelp courseId={@props.courseId} />
         </Tabs>
 
+        <@ActivePeriod periods={periods} />
       </div>
 
-      {if periods[periodIndex] then @renderActivePeriod(periods) else @renderEmpty()}
 
     </div>
+
+  render: ->
+    course  = CourseStore.get(@props.courseId)
+    periods = PH.activePeriods(course)
+
+    if periods.length then @renderRoster(course, periods) else @renderEmpty()
+
 
 module.exports = CourseRoster
