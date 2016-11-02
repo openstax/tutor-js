@@ -4,6 +4,7 @@ BS = require 'react-bootstrap'
 TutorLink = require './link'
 
 CourseGroupingLabel = require './course-grouping-label'
+NoArchiveHelp = require './course-settings/no-archive-help'
 
 NoPeriods = React.createClass
 
@@ -17,12 +18,13 @@ NoPeriods = React.createClass
 
   getMessage: ->
     [
-      <span key='no-periods-start'>Please add at least one </span>
+      <span key='no-periods-start'>You have no </span>
       <CourseGroupingLabel
         key='no-periods-label'
         lowercase
         courseId={@props.courseId} />
-      <span key='no-periods-end'> to the course.</span>
+      <span key='no-periods-end'> in this course.</span>
+      <NoArchiveHelp key='no-archive' courseId={@props.courseId} />
     ]
 
   render: ->
