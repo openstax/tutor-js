@@ -8,7 +8,6 @@ LoadableItem = require '../loadable-item'
 
 Roster = require './roster'
 TeacherRoster = require './teacher-roster'
-CloneCourse   = require './clone-course'
 RenameCourse  = require './rename-course'
 SetTimezone   = require './set-timezone'
 
@@ -24,7 +23,6 @@ module.exports = React.createClass
 
       <div className='course-settings-title'>{course.name}
         <RenameCourse courseId={@props.courseId}  course={course}/>
-        <CloneCourse courseId={@props.courseId} course={course} />
       </div>
 
       <div className='course-settings-timezone'>{CourseStore.getTimezone(@props.courseId)}
