@@ -1,6 +1,17 @@
-{setUpAPIHandler, connectToAPIHandler, updateRequestHandlers, makeIdRouteData, makeDefaultRequestData,
-  createActions, readActions, updateActions, deleteActions, actionFrom, createFrom, readFrom, updateFrom,
-  deleteFrom, connectAsAction, connectTrigger} = require './adapter'
+# This file manages all async state transitions.
+#
+# These attach to actions to help state changes along.
+#
+# For example, `TaskActions.load` everntually yields either
+# `TaskActions.loaded` or `TaskActions.FAILED`
+{APIActionAdapter} = require 'shared'
+
+{ makeIdRouteData, makeDefaultRequestData,
+  createActions, readActions, updateActions, deleteActions,
+  actionFrom, createFrom, readFrom, updateFrom, deleteFrom
+} = APIActionAdapter
+
+{setUpAPIHandler} = require './adapter'
 
 {CurrentUserActions} = require '../flux/current-user'
 {CourseActions} = require '../flux/course'
@@ -36,9 +47,13 @@ PerformanceForecast = require '../flux/performance-forecast'
 {NewCourseActions, NewCourseStore} = require '../flux/new-course'
 {NotificationActions} = require '../flux/notifications'
 
+BOOTSTRAPED_STORES = {
+  user:   CurrentUserActions.loaded
+  courses: CourseListingActions.loaded
+}
 
 startAPI = ->
-  setUpAPIHandler()
+  {updateRequestHandlers, connectTrigger, connectToAPIHandler, connectAsAction} = setUpAPIHandler()
 
   connectAsAction('read', TaskActions, 'task')
   connectAsAction('delete', TaskActions, 'task')
@@ -301,4 +316,15 @@ startAPI = ->
     readFrom('notifications')
   )
 
-module.exports = {startAPI}
+# SharedNetworking = require 'shared/src/model/networking'
+
+start = (bootstrapData) ->
+  for storeId, action of BOOTSTRAPED_STORES
+    data = bootstrapData[storeId]
+    action(data) if data
+
+  # SharedNetworking.onError(onRequestError)
+
+  startAPI()
+
+module.exports = {startAPI, start}

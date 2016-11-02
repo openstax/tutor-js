@@ -12,6 +12,7 @@ module.exports = {
   OXMatchByRouter:        require './src/helpers/match-by-router'
   OXMatchByRouter:        require './src/helpers/match-by-router'
   APIHandler,
+  APIActionAdapter:       require './src/api/action-adapter'
 
   ArbitraryHtmlAndMath:   require './src/components/html'
   Markdown:               require './src/components/markdown'
