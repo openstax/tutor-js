@@ -31,7 +31,7 @@ describe 'Exercise Collection', ->
       @step.content.questions[0].formats = ['true-false']
       Collection.quickLoad(@stepId, @step)
       expect(Collection.getCurrentPanel(@stepId)).equal('multiple-choice')
-
+      undefined
 
   describe 'free response caching', ->
     it 'get returns cached free response if free response has been cached', ->
