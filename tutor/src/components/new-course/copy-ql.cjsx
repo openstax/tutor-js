@@ -20,13 +20,13 @@ MESSAGES =
     reflect errata corrections and new questions added by OpenStax.
   '''
 
-KEY = 'copy_ql'
+KEY = 'copy_question_library'
 
 CopyQL = React.createClass
   statics:
     title: "Choose whether to copy the Question Library"
     shouldSkip: -> # nothing to copy if no source course
-      !NewCourseStore.get('source_course_id')
+      not NewCourseStore.get('cloned_from_id')
 
   onSelect: (value) ->
     NewCourseActions.set({"#{KEY}": value})

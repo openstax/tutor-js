@@ -12,8 +12,8 @@ StoreDefinition = makeStandardStore('NewCourse', {
 
   save: ->
     actions = StoreDefinition.NewCourseActions
-    if @_local.source_course_id
-      actions.cloneDeep({courseId: @_local.source_course_id})
+    if @_local.cloned_from_id
+      actions.clone({courseId: @_local.cloned_from_id})
     else
       actions.create()
 
@@ -51,6 +51,8 @@ StoreDefinition = makeStandardStore('NewCourse', {
       payload = cloneDeep(@_local)
       extend(payload, payload.term)
       payload.is_college = 'true'
+      if payload.cloned_from_id
+        delete payload.catalog_offering_id
       payload
 
 })

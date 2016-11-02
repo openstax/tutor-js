@@ -8,7 +8,7 @@ describe 'CreateCourse: choosing to copy QL', ->
 
   it 'it does not display unless cloning', ->
     expect(CopyQL.shouldSkip()).to.be.true
-    NewCourseActions.set(source_course_id: 22)
+    NewCourseActions.set(cloned_from_id: 22)
     expect(CopyQL.shouldSkip()).to.be.false
     undefined
 
