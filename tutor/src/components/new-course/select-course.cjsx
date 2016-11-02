@@ -19,9 +19,12 @@ SelectCourse = React.createClass
     NewCourseActions.set({"#{KEY}": id})
 
   render: ->
+    offerings =
+      OfferingsStore.filter(is_concept_coach: NewCourseStore.get('course_type') is 'cc')
+
     <BS.Table className="offerings" striped bordered>
       <tbody>
-        {for offering in OfferingsStore.all()
+        {for offering in offerings
           <tr key={offering.id} data-appearance={offering.appearance_code}
             className={classnames({selected: NewCourseStore.get(KEY) is offering.id})}
             onClick={partial(@onSelect, offering.id)}

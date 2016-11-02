@@ -8,8 +8,13 @@ describe 'Offerings Store', ->
   beforeEach ->
     OfferingsActions.loaded(OFFERINGS, 'all')
 
-  it 'can get all offerings', ->
-    expect(OfferingsStore.all()).to.deep.equal(OFFERINGS.items)
+  it 'can get a filtered list of offerings', ->
+    expect(OfferingsStore.filter(is_concept_coach: true)).to.deep.equal(
+      [ _.last(OFFERINGS.items) ]
+    )
+    expect(OfferingsStore.filter(is_concept_coach: false)).to.deep.equal(
+      OFFERINGS.items[0...OFFERINGS.items.length - 1]
+    )
     undefined
 
   it 'can get offering title', ->

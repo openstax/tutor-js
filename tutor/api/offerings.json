@@ -99,7 +99,7 @@
     },
     {
       "id": "5",
-      "is_concept_coach": false,
+      "is_concept_coach": true,
       "is_tutor": true,
       "appearance_code": "hs_physics",
       "active_term_years": [

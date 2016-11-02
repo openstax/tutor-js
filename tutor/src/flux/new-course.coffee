@@ -23,7 +23,6 @@ StoreDefinition = makeStandardStore('NewCourse', {
   create: ->
 # coffeelint: enable=no_empty_functions
   created: (newCourse) ->
-    CourseListingActions.addCourse(newCourse)
     @reset()
     @_local['newlyCreatedCourse'] = newCourse
     @emit('created', newCourse)

@@ -1,7 +1,6 @@
 {makeStandardStore} = require './helpers'
 cloneDeep = require 'lodash/cloneDeep'
-
-BLANK = []
+filter = require 'lodash/filter'
 
 CourseAppearanceCodes = require './course-appearance-codes'
 
@@ -17,8 +16,8 @@ StoreDefinition = makeStandardStore('Offerings', {
     false
 
   exports:
-    all: ->
-      @_all
+    filter: (conditions) ->
+      filter(@_all, conditions)
 
     getTitle: (id) ->
       CourseAppearanceCodes[ @_get(id).appearance_code ]
