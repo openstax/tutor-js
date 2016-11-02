@@ -2,14 +2,14 @@
 
 React = require 'react'
 {CurrentUserStore}   = require '../flux/current-user'
-{Invalid} = require '../components'
+Invalid = require '../components/invalid-page'
 NoPeriods = require '../components/no-periods'
 {CourseStore} = require '../flux/course'
 
 module.exports = (component, options = {}) ->
 
   RouteHandler = ->
-  RouteHandler.contextTypes = { router: React.PropTypes.func }
+  RouteHandler.contextTypes = { router: React.PropTypes.object }
   RouteHandler::render = ->
     {courseId} = @context.router.getCurrentParams()
     course = CourseStore.get(courseId)

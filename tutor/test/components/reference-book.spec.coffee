@@ -3,8 +3,7 @@ _              = require 'underscore'
 React          = require 'react'
 {Promise}      = require 'es6-promise'
 {TimeActions}  = require '../../src/flux/time'
-ReactAddons    = require 'react/addons'
-ReactTestUtils = React.addons.TestUtils
+ReactTestUtils = require 'react-addons-test-utils'
 {routerStub, commonActions} = require './helpers/utilities'
 
 {CourseActions, CourseStore} = require '../../src/flux/course'
@@ -73,7 +72,7 @@ describe 'Reference Book Component', ->
       .to.match(/1\.1/)
 
   it 'renders page html', ->
-    expect(@state.div.querySelector('.page').textContent)
+    expect(@state.div.querySelector('.book-content').textContent)
       .to.equal('A bunch of html')
 
   it 'toggles menu when navbar control is clicked', ->

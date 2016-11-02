@@ -3,7 +3,7 @@
 .scores-report {
   @table-row-height: 50px;
   @due-row-height: 25px;
-  @average-header-row-height: 30px;
+  @average-header-row-height: 25px;
   @student-header-row-height: 25px;
   @student-header-bg-color: #ccccce;
   @student-header-fg-color: #f2f2f2;
@@ -12,9 +12,16 @@
   @pie-bg-color: lighten(@tutor-neutral,40%);
   @pie-color-hover: #0DC0DC;
   @finished-icon-size: 24px;
-  @group-header-title-height: 60px;
+//  @group-header-title-height: 60px;
   @table-outer-border-width: 2px;
   @table-outer-border-color: @student-header-bg-color;
+  @thick-grey-border: 2px solid @nav-tabs-border-color;
+  .header-cell-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+  }
 
   .header-cell {
     .no-select();
@@ -28,7 +35,7 @@
 
     &.sortable {
       font-size: 1.2rem;
-
+      background-color: @student-header-bg-color;
       &:not(.is-descending):not(.is-ascending):hover::after { content: @fa-var-sort-desc; }
       &.is-descending:hover::after { content: @fa-var-sort-asc;  }
       &.is-ascending:hover::after  { content: @fa-var-sort-desc; }
@@ -56,9 +63,6 @@
       padding: 8px;
       cursor: default;
       text-align: center;
-      &.hs {
-        height: @group-header-title-height;
-      }
     }
     &.sortable:hover {
       background: lighten(@student-header-bg-color, 4%);
@@ -67,13 +71,16 @@
   }
 
   .group-header {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     .due {
-      line-height: @due-row-height;
       text-align: center;
       font-weight: normal;
       font-size: 1.2rem;
       font-style: italic;
       color: lighten(@tutor-neutral, 10%);
+
       border-right: 1px solid @nav-tabs-border-color;
     }
   }
@@ -99,20 +106,23 @@
   }
 
   .overall-header-cell {
+    flex: 1;
     text-align: center;
     background: @tutor-info-bg;
-    height: 100%;
     padding-top: 11px;
     .overall-border-top();
   }
 
   .overall-average-cell {
-    .overall-border-middle();
     padding: 0;
     font-weight: normal;
 
     .average {
-      height: @average-header-row-height;
+      height: @average-header-row-height+1;
+      .overall-border-style();
+      border-width: 2px;
+      border-top: @thick-grey-border;
+      border-bottom: 0;
 
       span {
         .align-center();
@@ -125,15 +135,14 @@
 
       &.empty {
         background: @student-header-bg-color;
+        border-top: 0;
       }
     }
   }
 
   .overall-cell {
-    height: @table-row-height;
-    padding-top: 15px;
-    .align-center();
     .overall-border-middle();
+
     &.bottom {
       .overall-border-bottom();
       height: @table-row-height - 1;
@@ -143,8 +152,6 @@
   .status-cell,
   .assignment-header-cell {
     width: 100%;
-    height: 100%;
-    display: block;
   }
 
 
@@ -183,29 +190,13 @@
     border-bottom: @table-outer-border-width solid @table-outer-border-color;
   }
 
-  .public_fixedDataTableCell_main:last-child {
-    .group-header > *,
-    .assignment-header-cell .average-cell,
-    .assignment-header-cell .scores-cell > *:last-child,
-    .scores-cell > *:last-child {
-      border-right: @table-outer-border-width solid @table-outer-border-color;
-    }
-  }
-
   .assignment-header-cell {
     padding: 0;
-    border-top: @table-outer-border-width solid @table-outer-border-color;
-
     > div {
       display: block;
       width: 100%;
       height: @average-header-row-height;
       padding-left: @left-column-padding;
-    }
-
-    > div:nth-child(2) {
-      height: @student-header-row-height;
-      background-color: @student-header-bg-color;
     }
 
     &[data-assignment-type] {
@@ -231,14 +222,17 @@
     .average-cell {
       padding: 0;
       font-weight: normal;
-      border-right: 1px solid @nav-tabs-border-color;
-
+      background-color: white;
+      border-top: @thick-grey-border;
+      display: flex;
+      flex-basis: 27px;
+      align-items: stretch;
       > span {
         line-height: @average-header-row-height;
         display: inline-block;
         width: 50%;
         text-align: center;
-
+        border-right: 1px solid @nav-tabs-border-color;
         &.click-rate {
           width: 100%;
         }
@@ -246,7 +240,7 @@
 
       .average {
         font-weight: 600;
-        border-right: 1px solid @nav-tabs-border-color;
+//        border-right: 1px solid @nav-tabs-border-color;
         &.wide {
           width: 100%;
         }
@@ -294,11 +288,16 @@
     text-align: center;
   }
 
-  .external-cell {
+  .external-cell,   .overall-cell {
     height: @table-row-height;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .external-cell {
     border-right: 1px solid @nav-tabs-border-color;
   }
-
   .scores-cell {
     height: @table-row-height;
     position: relative;
@@ -312,7 +311,7 @@
         width: 100%;
         height: 100%;
         pointer-events: none;
-        border: 2px solid @nav-tabs-border-color;
+        border: @thick-grey-border;
         border-left-width: 1px;
       }
 

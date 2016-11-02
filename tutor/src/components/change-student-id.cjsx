@@ -2,6 +2,7 @@ _ = require 'lodash'
 React = require 'react'
 BS = require 'react-bootstrap'
 
+Router = require '../helpers/router'
 LoadableItem = require './loadable-item'
 { ChangeStudentIdForm } = require 'shared'
 { TransitionActions, TransitionStore } = require '../flux/transition'
@@ -9,14 +10,15 @@ LoadableItem = require './loadable-item'
 { StudentIdStore, StudentIdActions, ERROR_MAP } = require '../flux/student-id'
 Icon = require './icon'
 
-module.exports = React.createClass
-  contextTypes:
-    router: React.PropTypes.func
+ChangeStudentId = React.createClass
 
   onCancel: -> @goBack()
 
+  contextTypes:
+    router: React.PropTypes.object
+
   componentWillMount: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
     CourseStore.once('course.loaded', @update)
 
   componentWillUnmount: ->
@@ -28,14 +30,14 @@ module.exports = React.createClass
     @setState({})
 
   goBack: ->
-    {courseId} = @context.router.getCurrentParams()
-
-    historyInfo = TransitionStore.getPrevious(@context.router)
-    url = historyInfo.path or 'dashboard'
-    @context.router.transitionTo(url)
+    {courseId} = Router.currentParams()
+    historyInfo = TransitionStore.getPrevious()
+    @context.router.transitionTo( historyInfo?.path or
+      Router.makePathname( 'dashboard', Router.currentParams() )
+    )
 
   onSubmit: (newStudentId) ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
 
     StudentIdActions.validate(courseId, newStudentId)
 
@@ -53,14 +55,14 @@ module.exports = React.createClass
 
 
   saved: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
     CourseActions.load(courseId)
 
     @setState({success: true})
     _.delay(@goBack, 1500)
 
   renderErrors: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
     errors = StudentIdStore.getErrors(courseId)
     if errors?.length is 0 then return null
 
@@ -84,7 +86,7 @@ module.exports = React.createClass
   render: ->
     if (@state?.success) then return @renderSuccess()
 
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
     studentId = @state?.curId or CourseStore.getStudentId(courseId)
 
     <BS.Panel bsStyle='primary' className="change-id-panel">
@@ -103,3 +105,5 @@ module.exports = React.createClass
         </ChangeStudentIdForm>
       </BS.Row>
     </BS.Panel>
+
+module.exports = ChangeStudentId

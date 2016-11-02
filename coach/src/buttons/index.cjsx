@@ -1,8 +1,10 @@
-React = require 'react/addons'
+React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 EventEmitter2 = require 'eventemitter2'
 classnames = require 'classnames'
+
+{OXLink} = require 'shared'
 
 BookLinkBase = React.createClass
   displayName: 'BookLinkBase'
@@ -32,7 +34,7 @@ BookLinkBase = React.createClass
     {children} = @props
     return null unless children?
 
-    React.addons.cloneWithProps(children, onClick: @broadcastNav)
+    React.cloneElement(children, onClick: @broadcastNav)
 
 BookLink = React.createClass
   displayName: 'BookLink'
@@ -59,7 +61,7 @@ BookButton = React.createClass
     classes = classnames 'concept-coach-book-link', className
 
     <BookLinkBase {...linkProps}>
-      <BS.Button className={classes} {...linkProps}>
+      <BS.Button className={classes} {...OXLink.filterProps(linkProps, prefixes: 'bs')}>
         {children}
       </BS.Button>
     </BookLinkBase>

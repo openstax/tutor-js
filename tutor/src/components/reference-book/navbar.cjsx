@@ -33,7 +33,7 @@ module.exports = React.createClass
     </ul>
 
   wrapControl: (element, i) ->
-    <li key={i}>{element}</li>
+    <BS.NavItem key={i}>{element}</BS.NavItem>
 
   render: ->
     <BS.Navbar fixedTop fluid>
@@ -44,16 +44,14 @@ module.exports = React.createClass
           <SlideOutMenuToggle isMenuVisible={@props.isMenuVisible} />
         </BS.NavItem>
       </BS.Nav>
-      <BS.Nav className='full-width-only' navbar>
-        <li>
-          <i className='ui-brand-logo' />
-        </li>
+      <BS.Nav className='full-width-only'>
+
+        <BS.NavItem><i className='ui-brand-logo' /></BS.NavItem>
+
       </BS.Nav>
       {@renderSectionTitle()}
-      <BS.Nav className='full-width-only' navbar right>
+      <BS.Nav className='full-width-only' pullRight>
         {React.Children.map(@props.extraControls, @wrapControl)}
-        <li>
-          <i className='ui-rice-logo' />
-        </li>
+        <BS.NavItem><i className='ui-brand-logo' /></BS.NavItem>
       </BS.Nav>
     </BS.Navbar>

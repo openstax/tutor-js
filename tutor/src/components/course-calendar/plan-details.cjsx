@@ -2,13 +2,13 @@ camelCase = require 'camelcase'
 classnames = require 'classnames'
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
 
 {StatsModalShell} = require '../plan-stats'
 {EventModalShell} = require '../plan-stats/event'
 {TaskPlanStore} = require '../../flux/task-plan'
 
 LmsInfo = require '../task-plan/lms-info'
+TutorLink = require '../link'
 
 # TODO drag and drop, and resize behavior
 CoursePlanDetails = React.createClass
@@ -35,20 +35,20 @@ CoursePlanDetails = React.createClass
     {type, id} = plan
     linkParams = {courseId, id}
 
-    reviewButton = <Router.Link
+    reviewButton = <TutorLink
       className='btn btn-default'
       to='reviewTask'
       params={linkParams}>
       Review Metrics
-    </Router.Link>
+    </TutorLink>
 
     if type is 'external'
-      reviewButton = <Router.Link
+      reviewButton = <TutorLink
         className='btn btn-default -view-scores'
         to='viewScores'
         params={linkParams}>
         View Scores
-      </Router.Link>
+      </TutorLink>
 
     reviewButton
 
@@ -61,7 +61,7 @@ CoursePlanDetails = React.createClass
     @setState(keepVisible: true)
 
   render: ->
-    {plan, courseId, className, isPublishing, isPublished, hasReview} = @props
+    {plan, courseId, className, isPublishing, isPublished, hasReview, onHide} = @props
     {title, type, id} = plan
     linkParams = {courseId, id}
     {keepVisible} = @state
@@ -72,12 +72,12 @@ CoursePlanDetails = React.createClass
     editLinkName = camelCase("edit-#{type}")
     viewOrEdit = if TaskPlanStore.isEditable(id) then 'Edit' else 'View'
     assignmentOrEvent = if type is 'event' then 'Event' else 'Assignment'
-    editButton = <Router.Link
+    editButton = <TutorLink
       className='btn btn-default -edit-assignment'
       to={editLinkName}
       params={linkParams}>
       {viewOrEdit} {assignmentOrEvent}
-    </Router.Link>
+    </TutorLink>
 
     body = if isPublished
       footer =  <div className='modal-footer'>
@@ -100,7 +100,7 @@ CoursePlanDetails = React.createClass
       'in': keepVisible
 
     <BS.Modal
-      {...@props}
+      onHide={onHide}
       show={true}
       data-assignment-type={type}
       className={classes}>

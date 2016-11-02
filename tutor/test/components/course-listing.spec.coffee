@@ -2,8 +2,7 @@ _              = require 'underscore'
 {expect}       = require 'chai'
 React          = require 'react'
 {Promise}      = require 'es6-promise'
-ReactAddons    = require 'react/addons'
-ReactTestUtils = React.addons.TestUtils
+ReactTestUtils = require 'react-addons-test-utils'
 {routerStub}   = require './helpers/utilities'
 {sinon}        = require './helpers/component-testing'
 {CourseListing} = require '../../src/components/course-listing'
@@ -114,5 +113,3 @@ describe 'Course Listing Component', ->
     CourseListingActions.loaded([])
     renderListing().then (state) ->
       expect(state.div.textContent).to.include('We cannot find an OpenStax course associated with your account')
-
-

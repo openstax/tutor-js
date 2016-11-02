@@ -19,6 +19,7 @@ CourseConfig =
     # make sure all of course remains loaded after course gets saved to
     _.extend {}, @_local[id], result
 
+
   exports:
     getBookName: (courseId) ->
       {appearance_code} = @_local[courseId]
@@ -34,6 +35,7 @@ CourseConfig =
           return['courseNameExists'] unless name is active
         if not name? or name is ''
           return ['required']
+
 
     # Returns the configured appearance code for a course
     getAppearanceCode: (courseId) ->
@@ -60,7 +62,7 @@ CourseConfig =
       !!_.findWhere(@_get(courseId)?.roles, type: 'student')
 
     getByEcosystemId: (ecosystemId) ->
-      _.findWhere(@_local, ecosystem_id: ecosystemId)
+      _.findWhere(_.values(@_local), ecosystem_id: ecosystemId)
 
     getStudentId: (courseId) ->
       course = @_get(courseId)

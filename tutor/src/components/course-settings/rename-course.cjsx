@@ -6,34 +6,31 @@ _ = require 'underscore'
 {TutorInput} = require '../tutor-input'
 classnames = require 'classnames'
 
-RenameCourseField = React.createClass
+# RenameCourseField = React.createClass
 
-  displayName: 'RenameCourseField'
-  propTypes:
-    courseId: React.PropTypes.string
-    label: React.PropTypes.string.isRequired
-    name: React.PropTypes.string.isRequired
-    default: React.PropTypes.string.isRequired
-    onChange: React.PropTypes.func.isRequired
-    autofocus: React.PropTypes.bool
-    validate: React.PropTypes.func.isRequired
+#   displayName: 'RenameCourseField'
+#   propTypes:
+#     courseId: React.PropTypes.string
+#     label: React.PropTypes.string.isRequired
+#     name: React.PropTypes.string.isRequired
+#     default: React.PropTypes.string.isRequired
+#     onChange: React.PropTypes.func.isRequired
+#     autofocus: React.PropTypes.bool
+#     validate: React.PropTypes.func.isRequired
 
-  componentDidMount: ->
-    @refs.input.focus() if @props.autofocus
-    @refs.input.cursorToEnd() if @props.autofocus
 
-  onChange: (value) ->
-    @props.onChange(value)
+#   onChange: (value) ->
+#     @props.onChange(value)
 
-  render: ->
-    <TutorInput
-      ref='input'
-      label={@props.label}
-      default={@props.default}
-      required={true}
-      onChange={@onChange}
-      validate={@props.validate}
-      />
+#   render: ->
+#     <TutorInput
+#       ref='input'
+#       label={@props.label}
+#       default={@props.default}
+#       required={true}
+#       onChange={@onChange}
+#       validate={@props.validate}
+#       />
 
 RenameCourse = React.createClass
   propTypes:
@@ -66,7 +63,6 @@ RenameCourse = React.createClass
       disabled = true
 
     <BS.Modal
-      {...@props}
       show={@state.showModal}
       onHide={@close}
       className='teacher-edit-course-modal'>
@@ -76,13 +72,14 @@ RenameCourse = React.createClass
       </BS.Modal.Header>
 
       <div className={formClasses} >
-        <RenameCourseField
-        label='Course Name'
-        name='course-name'
-        default={@props.course.name}
-        onChange={(val) => @setState(course_name: val)}
-        validate={@validate}
-        autofocus />
+        <TutorInput
+          label='Course Name'
+          name='course-name'
+          default={@props.course.name}
+          onChange={(val) => @setState(course_name: val)}
+          validate={@validate}
+          autofocus
+        />
       </div>
 
       <div className='modal-footer'>

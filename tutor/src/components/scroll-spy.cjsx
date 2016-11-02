@@ -1,7 +1,6 @@
-React = require 'react/addons'
+React = require 'react'
 _ = require 'underscore'
-
-{ScrollListenerMixin} = require 'react-scroll-components'
+ScrollListenerMixin = require 'react-scroll-components/ScrollListenerMixin'
 
 # A component that accepts a dom selector that matches portions of the document
 #

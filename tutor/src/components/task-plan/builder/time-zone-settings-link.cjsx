@@ -1,6 +1,7 @@
 React  = require 'react'
-Router = require 'react-router'
 BS     = require 'react-bootstrap'
+
+TutorLink = require '../../link'
 
 {CourseStore} = require '../../../flux/course'
 
@@ -10,14 +11,14 @@ TimeZoneSettingsLink = React.createClass
     courseId: React.PropTypes.string.isRequired
 
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
 
   render: ->
     tooltip =
       <BS.Tooltip id='change-course-time'>
         Click to change course time zone
       </BS.Tooltip>
-    <Router.Link
+    <TutorLink
       className='course-time-zone'
       to='courseSettings'
       params={courseId: @props.courseId}
@@ -25,7 +26,7 @@ TimeZoneSettingsLink = React.createClass
       <BS.OverlayTrigger placement='top' overlay={tooltip}>
         <span>{CourseStore.getTimezone(@props.courseId)}</span>
       </BS.OverlayTrigger>
-    </Router.Link>
+    </TutorLink>
 
 
 

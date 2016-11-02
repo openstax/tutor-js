@@ -183,4 +183,10 @@ extendConfig = (newConfig, origConfig) ->
   newConfig
 
 
-module.exports = {CrudConfig, makeSimpleStore, extendConfig, STATES}
+makeStandardStore = (name, storeConfig) ->
+  extendConfig(storeConfig, new CrudConfig())
+  {actions, store} = makeSimpleStore(storeConfig)
+  {"#{name}Actions":actions, "#{name}Store":store}
+
+
+module.exports = {CrudConfig, makeSimpleStore, extendConfig, makeStandardStore, STATES}

@@ -1,6 +1,9 @@
 React = require 'react'
-Router = require 'react-router'
+ReactDOM = require 'react-dom'
+TutorLink = require '../link'
 _  = require 'underscore'
+
+Router = require '../../helpers/router'
 
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
 {ChapterSectionMixin} = require 'shared'
@@ -16,9 +19,6 @@ Section = React.createClass
     onMenuSelection: React.PropTypes.func.isRequired
     menuRouterLinkTarget: React.PropTypes.string.isRequired
 
-  contextTypes:
-    router: React.PropTypes.func
-
   componentWillMount: ->
     @setState(skipZeros: false)
 
@@ -27,21 +27,21 @@ Section = React.createClass
     section = @sectionFormat(@props.section.chapter_section)
 
     className = if section is activeSection then 'active' else ''
-    params = _.extend({ecosystemId: @props.ecosystemId}, @context.router.getCurrentParams(), {section: section})
+    params = _.extend({ecosystemId: @props.ecosystemId}, Router.currentParams(), {section: section})
 
     <ul className="section" data-depth={@props.section.chapter_section.length}>
       <li data-section={section}>
-        <Router.Link
+        <TutorLink
           tabIndex={if @props.isOpen then 0 else -1}
           params={params}
           className={className}
           onClick={_.partial(@props.onMenuSelection, section)}
           to={@props.menuRouterLinkTarget}
-          query={@context.router.getCurrentQuery()} >
+          query={Router.currentQuery()} >
 
           <span className="section-number">{section}</span>
           {@props.section.title}
-        </Router.Link>
+        </TutorLink>
       </li>
       { _.map @props.section.children, (child) =>
         <li key={child.id} data-section={@sectionFormat(child.chapter_section)}>
@@ -70,7 +70,7 @@ module.exports = React.createClass
     return unless section
     section = @sectionFormat(section)
 
-    root = React.findDOMNode(@)
+    root = ReactDOM.findDOMNode(@)
     li = root.querySelector("[data-section='#{section}']")
     return unless li
 

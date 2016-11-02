@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 
 {ScrollToMixin} = require 'shared'
 
@@ -8,7 +9,7 @@ ScrollToLinkMixin =
   mixins: [ScrollToMixin]
 
   componentDidMount:  ->
-    React.findDOMNode(@)
+    ReactDOM.findDOMNode(@)
       .addEventListener('click', @_onScrollClick, false)
 
     # if a hash is present and it can be scrolled to
@@ -22,7 +23,7 @@ ScrollToLinkMixin =
     @props.windowImpl.addEventListener('hashchange', @_onHashChange, false)
 
   componentWillUnmount: ->
-    React.findDOMNode(@).removeEventListener('click', @_onScrollClick, false)
+    ReactDOM.findDOMNode(@).removeEventListener('click', @_onScrollClick, false)
     @props.windowImpl.removeEventListener('hashchange', @_onHashChange, false)
 
   _onHashChange: ->

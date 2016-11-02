@@ -1,0 +1,4 @@
+{
+  "rootDir": "../../tutor",
+  "preset": "../configs/test/jest.config.json"
+}

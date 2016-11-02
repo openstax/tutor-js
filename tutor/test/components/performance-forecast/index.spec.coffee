@@ -2,8 +2,8 @@
 _ = require 'underscore'
 
 React = require 'react'
-ReactAddons    = require('react/addons')
-ReactTestUtils = React.addons.TestUtils
+
+ReactTestUtils = require 'react-addons-test-utils'
 {Promise}      = require 'es6-promise'
 {routerStub, commonActions} = require '../helpers/utilities'
 

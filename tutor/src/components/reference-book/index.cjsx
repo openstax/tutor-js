@@ -1,9 +1,8 @@
 React = require 'react'
-Router = require 'react-router'
 BS = require 'react-bootstrap'
 _  = require 'underscore'
 classnames = require 'classnames'
-
+Router = require '../../helpers/router'
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
 {CourseActions, CourseStore} = require '../../flux/course'
 ReferenceBookPageShell = require './page-shell'
@@ -18,13 +17,11 @@ ReferenceBookShell = React.createClass
 
   mixins: [CourseDataMixin]
 
-  contextTypes:
-    router: React.PropTypes.func
   getInitialState: ->
     @getIds()
 
   componentWillMount: ->
-    {courseId} = @context.router.getCurrentParams()
+    {courseId} = Router.currentParams()
     @setIds()
 
     unless CourseStore.isLoaded(courseId)
@@ -35,8 +32,8 @@ ReferenceBookShell = React.createClass
     @setIds()
 
   getIds: ->
-    {courseId, section} = @context.router.getCurrentParams()
-    {ecosystemId} = @context.router.getCurrentQuery()
+    {courseId, section} = Router.currentParams()
+    {ecosystemId} = Router.currentQuery()
     ecosystemId ?= CourseStore.get(courseId)?.ecosystem_id
     {courseId, section, ecosystemId}
 

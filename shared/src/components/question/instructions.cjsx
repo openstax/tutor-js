@@ -29,9 +29,12 @@ Instructions = React.createClass
         Incorrect. Please review your feedback.
       </p>
 
-    popover = <BS.Popover ref="popover" className="openstax instructions">
-      {getHelpText[TWO_STEP_ALIAS](project)}
-    </BS.Popover>
+    popover =
+      <BS.Popover ref="popover"
+        id="instructions-help"
+        className="openstax instructions">
+        {getHelpText[TWO_STEP_ALIAS](project)}
+      </BS.Popover>
 
     <p className="instructions">
       Now choose from one of the following options

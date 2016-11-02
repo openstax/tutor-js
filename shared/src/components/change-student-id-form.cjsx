@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 AsyncButton = require './buttons/async-button'
 ENTER = 'Enter'
 
-module.exports = React.createClass
+ChangeStudentIdForm = React.createClass
 
   propTypes:
     onCancel: React.PropTypes.func.isRequired
@@ -20,8 +20,8 @@ module.exports = React.createClass
   componentWillReceiveProps: (newProps) ->
     @setState({ studentId: newProps.studentId })
 
-  handleChange: ->
-    @setState({studentId: @refs.input.getValue()})
+  handleChange: (ev) ->
+    @setState({studentId: ev.target.value})
 
   onKeyPress: (ev) ->
     @onSubmit() if ev.key is ENTER
@@ -31,10 +31,10 @@ module.exports = React.createClass
     @props.onCancel()
 
   onSubmit: ->
-    @props.onSubmit(@refs.input.getValue())
+    @props.onSubmit(@state.studentId)
 
-  render: ->
-    button =
+  SubmitButton: ->
+    <BS.InputGroup.Button>
       <AsyncButton
         bsStyle="primary"
         className="btn btn-success"
@@ -42,23 +42,36 @@ module.exports = React.createClass
         waitingText={'Confirming…'}
         onClick={@onSubmit}
       >{@props.saveButtonLabel}</AsyncButton>
+    </BS.InputGroup.Button>
 
-    <div className="openstax-change-student-id-form form-group">
-      <h3 className="text-center">
+  render: ->
+    <BS.FormGroup className='openstax-change-student-id-form'>
+      <h3 className='text-center'>
         {@props.title}
       </h3>
       {@props.children}
-      <div className='panels'>
-        <div className='field'>
-          <BS.Input type="text" ref="input" label={@props.label}
-            placeholder="School issued ID" autoFocus
+      <BS.Col sm={9}>
+        <BS.ControlLabel>{@props.label}</BS.ControlLabel>
+        <BS.InputGroup>
+          <BS.FormControl
+            type='text'
+            ref='input'
+            autoFocus
+            placeholder='School issued ID'
             value={@state.studentId}
             onChange={@handleChange}
             onKeyPress={@onKeyPress}
-            buttonAfter={button} />
-        </div>
-        <div className="cancel">
+          />
+          <BS.InputGroup.Button>
+            <@SubmitButton />
+          </BS.InputGroup.Button>
+        </BS.InputGroup>
+      </BS.Col>
+      <BS.Col sm={3}>
+        <div className='cancel'>
           <a href='#' onClick={@onCancel}>Cancel</a>
         </div>
-      </div>
-    </div>
+      </BS.Col>
+    </BS.FormGroup>
+
+module.exports = ChangeStudentIdForm

@@ -28,27 +28,22 @@ UserMenu = React.createClass
   componentWillMount: ->
     @getUser().ensureStatusLoaded()
 
-  logoutUser: (clickEvent) ->
-    clickEvent.preventDefault()
+  logoutUser: ->
     @context.navigator.emit('show.logout', view: 'logout')
 
-  showProfile: (clickEvent) ->
-    clickEvent.preventDefault()
+  showProfile: ->
     @context.navigator.emit('show.profile', view: 'profile')
 
-  updateStudentId: (clickEvent) ->
-    clickEvent.preventDefault()
+  updateStudentId: ->
     @context.navigator.emit('show.student_id', view: 'student_id')
 
   update: ->
     @forceUpdate() if @isMounted()
 
-  close: (clickEvent) ->
-    clickEvent.preventDefault()
+  close: ->
     @context.close?()
 
-  modifyCourse: (clickEvent) ->
-    clickEvent.preventDefault()
+  modifyCourse: ->
     @context.navigator.emit('show.registration', view: 'registration')
 
   renderCourseOption: ->
@@ -65,7 +60,7 @@ UserMenu = React.createClass
     user = @getUser()
     return null unless user.isLoggedIn()
 
-    <BS.NavDropdown className='concept-coach-user' title={user.name}>
+    <BS.NavDropdown className='concept-coach-user' id='concept-coach-user-menu' title={user.name}>
       {@renderCourseOption()}
       <BS.MenuItem onSelect={@showProfile}>Account Profile</BS.MenuItem>
       {@renderStudentIdOption()}

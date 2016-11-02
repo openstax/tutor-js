@@ -1,5 +1,6 @@
 React = require 'react'
-_ = require 'underscore'
+ReactDOM = require 'react-dom'
+omit = require 'lodash/omit'
 classnames = require 'classnames'
 
 { typesetMath } = require '../helpers/mathjax'
@@ -21,7 +22,7 @@ module.exports = React.createClass
 
     classes = classnames 'openstax-has-html', className
 
-    otherProps = _.omit(@props, 'className', 'block', 'html')
+    otherProps = omit(@props, 'className', 'block', 'html', 'shouldExcludeFrame', 'processHtmlAndMath')
 
     if block
       <div
@@ -53,9 +54,9 @@ module.exports = React.createClass
   # Perform manipulation on HTML contained inside the components node.
   updateDOMNode: ->
     # External links should open in a new window
-    root = @getDOMNode()
+    root = ReactDOM.findDOMNode(@)
     links = root.querySelectorAll('a')
-    _.each links, (link) ->
+    for link in links
       link.setAttribute('target', '_blank') unless link.getAttribute('href')?[0] is '#'
     @props.processHtmlAndMath?(root) or typesetMath(root)
     wrapFrames(root, @props.shouldExcludeFrame)

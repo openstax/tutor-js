@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 TutorPopover = require './tutor-popover'
 {ArbitraryHtmlAndMath} = require 'shared'
 
@@ -101,8 +102,8 @@ MediaPreview = React.createClass
   # check that mouse has exited both the link and the overlay
   isMouseExited: (mouseEvent) ->
     return true unless mouseEvent.relatedTarget?.nodeType? and @refs.overlay.refs.popover?
-    linkDOM = @refs.overlay.refs.popper.getDOMNode()
-    popoverDOM = @refs.overlay.refs.popover.getDOMNode()
+    linkDOM = ReactDOM.findDOMNode(@refs.overlay.refs.popper)
+    popoverDOM = ReactDOM.findDOMNode(@refs.overlay.refs.popover)
     not (popoverDOM.contains(mouseEvent.relatedTarget) or linkDOM.isEqualNode(mouseEvent.relatedTarget))
 
   getOverlayProps: ->
@@ -115,6 +116,7 @@ MediaPreview = React.createClass
     otherPropTypes = _.chain(otherProps)
       .keys()
       .union(['mediaId', 'children', 'mediaDOMOnParent', 'buffer'])
+      .union(_.keys(@constructor.propTypes))
       .value()
 
     # most props should pass on
@@ -154,7 +156,6 @@ MediaPreview = React.createClass
         'data-content-type': media.name
         className: 'media-preview'
         ref: 'popover'
-        mediaId: mediaId
         onMouseLeave: @onMouseLeave
 
       content = <ArbitraryHtmlAndMath {...contentProps} html={contentHtml}/>

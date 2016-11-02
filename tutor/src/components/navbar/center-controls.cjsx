@@ -1,53 +1,61 @@
-React = require 'react/addons'
-Router = require 'react-router'
+React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
+
 moment = require 'moment'
 classnames = require 'classnames'
 _ = require 'underscore'
+cloneDeep = require 'lodash/cloneDeep'
 
 Icon = require '../icon'
 {TaskStore} = require '../../flux/task'
 {TaskPanelStore} = require '../../flux/task-panel'
 
+TutorRouter = require '../../helpers/router'
+TutorLink = require '../link'
 
 module.exports = React.createClass
   displayName: 'CenterControls'
-  contextTypes:
-    router: React.PropTypes.func
 
-  mixins: [React.addons.PureRenderMixin]
+  mixins: [PureRenderMixin]
 
   getDefaultProps: ->
     shouldShow: false
 
   getInitialState: ->
-    params = @context.router?.getCurrentParams() or {}
-    params.stepIndex ?= TaskPanelStore.getStepKey(params.id, {is_completed: false})
-
+    params = @getParams()
     taskInfo = @getTaskInfo(params)
     controlInfo = @getControlInfo(params)
 
     _.extend {}, taskInfo, controlInfo
 
+  getParams: (params) ->
+    params ?= @props.params
+
+    params = cloneDeep(params) or {}
+    params.stepIndex ?= TaskPanelStore.getStepKey(params.id, {is_completed: false})
+
+    params
+
   componentWillMount: ->
-    location = @context.router?.getLocation()
-    location.addChangeListener(@updateControls) if location
     TaskStore.on('loaded', @updateTask)
+    TaskPanelStore.on('loaded', @updateControls)
 
   componentWillUnmount: ->
-    location = @context.router?.getLocation()
-    location.removeChangeListener(@updateControls) if location
     TaskStore.off('loaded', @updateTask)
+    TaskPanelStore.off('loaded', @updateControls)
+
+  componentWillReceiveProps: (nextProps) ->
+    @updateControls(nextProps.params, window.location.pathname)
 
   shouldShow: (path) ->
     {shouldShow} = @props
     return true if shouldShow
-    return false unless @context.router?
 
-    path ?= @context.router.getCurrentPath()
-    matchedPath = @context.router.match(path)
-    return false unless matchedPath?.routes
+    path ?= @props.pathname
+    match = TutorRouter.currentMatch(path)
+    return false unless match?.entry.paths
 
-    'viewTask' in _.pluck(matchedPath.routes, 'name')
+    'viewTask' in match.entry.paths
 
   update: (getState, params, path) ->
     show = @shouldShow(path)
@@ -55,18 +63,15 @@ module.exports = React.createClass
       @setState({show})
       return false
 
-    params ?= @context.router.getCurrentParams()
-    params.stepIndex ?= TaskPanelStore.getStepKey(params.id, {is_completed: false})
-
+    params = @getParams(params)
     state = getState(params)
     @setState(state) if state?
 
-  updateControls: ({path}) ->
-    {params} = @context.router.match(path)
+  updateControls: (params, path) ->
     @update(@getControlInfo, params, path)
 
   updateTask: (taskId) ->
-    params = @context.router.getCurrentParams()
+    {params} = @props
     @update(@getTaskInfo) if taskId is params.id
 
   getTaskInfo: (params) ->
@@ -126,14 +131,14 @@ module.exports = React.createClass
             tooltipProps={placement: 'bottom'}
             tooltip={due} />
           <strong className='fa-stack-1x calendar-text'>{date}</strong>
-        </span> 
+        </span>
 
-        <Router.Link
+        <TutorLink
           {...linkProps}
           ref='milestonesToggle'
           activeClassName=''
           className={milestonesToggleClasses}>
           <Icon type='th' />
-        </Router.Link>
+        </TutorLink>
       </div>
     </div>

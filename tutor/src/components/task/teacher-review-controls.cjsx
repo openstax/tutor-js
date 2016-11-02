@@ -1,5 +1,5 @@
 React = require 'react'
-Router = require 'react-router'
+TutorLink = require '../link'
 
 {ViewingAsStudentName} = require './viewing-as-student-name'
 
@@ -15,13 +15,13 @@ TeacherReviewControls = React.createClass
         courseId={courseId}
         taskId={taskId}
       />
-      <Router.Link
+      <TutorLink
         to='viewScores'
         key='step-back'
         params={{courseId}}
         className='btn btn-default'>
           Back to Scores
-      </Router.Link>
+      </TutorLink>
     </div>
 
 module.exports = TeacherReviewControls

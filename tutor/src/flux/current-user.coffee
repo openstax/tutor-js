@@ -7,7 +7,6 @@ flux = require 'flux-react'
 # Read the CSRF token from document's meta tag.  If not found, log a warning but proceed
 # on the assumption that the server knows what it's doing.
 CSRF_Token = document.head.querySelector('meta[name=csrf-token]')?.getAttribute("content")
-console?.warn?("CSRF token was not found, proceeding without CSRF protection") unless CSRF_Token
 
 
 # TODO consider putting this with policies?  especially when this same data could be used for other
@@ -29,24 +28,15 @@ getRankByRole = (roleType) ->
 ROUTES =
   dashboard:
     label: 'Dashboard'
-    allowedForCourse: (course) -> not course?.is_concept_coach is true
+    allowedForCourse: (course) -> !!course
     roles:
-      teacher: 'taskplans'
-      student: 'viewStudentDashboard'
-      default: 'app'
-  cc_dashboard:
-    label: 'Dashboard'
-    allowedForCourse: (course) -> course?.is_concept_coach is true
-    roles:
-      teacher: 'cc-dashboard'
-      student: 'viewStudentDashboard'
-      default: 'app'
+      default: 'dashboard'
   guide:
     label: 'Performance Forecast' # a bit hard to read, but we only want to reject the === true case
     allowedForCourse: (course) -> not course?.is_concept_coach is true
     roles:
-      student: 'viewPerformanceForecast'
-      teacher: 'viewTeacherPerformanceForecast'
+      student: 'viewPerformanceGuide'
+      teacher: 'viewPerformanceGuide'
   questions:
     label: 'Question Library'
     roles:
@@ -66,9 +56,16 @@ ROUTES =
       teacher: 'ccDashboardHelp'
   changeId:
     label: 'Change Student ID'
-    allowedForCourse: (course) -> true
     roles:
       student: 'changeStudentId'
+  cloneCourse:
+    label: 'Add New Course'
+    allowedForCourse: (course) -> true # FIXME: This needs to check if current is a verified instructor
+    params: (courseId, role) ->
+      if courseId and role is 'teacher'
+        offeringId: CourseStore.get(courseId)?.offering_id
+    roles:
+      default: 'createNewCourse' # use default role since we ensured it was a teacher in allowedForCourse
 
 CurrentUserActions = flux.createActions [
   'setToken'  # (token) ->
@@ -96,6 +93,7 @@ CurrentUserStore = flux.createStore
 
   _getRouteByRole: (routeType, menuRole) ->
     ROUTES[routeType].roles[menuRole] or ROUTES[routeType].roles.default
+
   _getParamsForRoute: (courseId, routeType, menuRole) ->
     if _.isFunction(ROUTES[routeType].params)
       ROUTES[routeType].params(courseId, menuRole)
@@ -157,7 +155,6 @@ CurrentUserStore = flux.createStore
     ensureLoaded: ->
       CurrentUserActions.load() unless @_loaded or @_loading
 
-
     getCourseRole: (courseId, silent = true) ->
       @_getCourseRole(courseId, silent)
 
@@ -191,12 +188,12 @@ CurrentUserStore = flux.createStore
       menuRole = @_getCourseRole(courseId, silent)
       validRoutes = _.pick ROUTES, (route) ->
         false isnt route.allowedForCourse?(course)
-
       routes = _.keys(validRoutes)
 
       _.chain(routes)
         .map((routeType) =>
           routeName = @_getRouteByRole(routeType, menuRole)
+
           if routeName?
             name: routeName
             params: @_getParamsForRoute(courseId, routeType, menuRole)

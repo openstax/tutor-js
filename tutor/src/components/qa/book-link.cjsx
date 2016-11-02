@@ -1,5 +1,5 @@
 React = require 'react'
-Router = require 'react-router'
+TutorLink = require '../link'
 
 BookLink = React.createClass
 
@@ -14,14 +14,14 @@ BookLink = React.createClass
     ).isRequired
 
   render: ->
-    <Router.Link to='QAViewBook' className="book"
+    <TutorLink to='QAViewBook' className="book"
       params={ecosystemId: @props.book.ecosystemId}>
         <div className="title-version">
           <span>{@props.book.title}</span>
           <span>{@props.book.version}</span>
         </div>
         <span className="comments">{@props.book.ecosystemComments}</span>
-    </Router.Link>
+    </TutorLink>
 
 
 module.exports = BookLink

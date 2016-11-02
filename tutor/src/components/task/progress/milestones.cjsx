@@ -1,4 +1,5 @@
-React = require 'react/addons'
+React = require 'react'
+ReactDOM = require 'react-dom'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
@@ -12,6 +13,7 @@ classnames = require 'classnames'
 {TaskStore} = require '../../../flux/task'
 {StepTitleStore} = require '../../../flux/step-title'
 
+
 {
   PERSONALIZED_GROUP,
   SPACED_PRACTICE_GROUP,
@@ -20,7 +22,7 @@ classnames = require 'classnames'
   TITLES
 } = StepHelpsHelper
 
-ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
+ReactCSSTransitionGroup = require 'react-addons-css-transition-group'
 
 Milestone = React.createClass
   displayName: 'Milestone'
@@ -40,10 +42,12 @@ Milestone = React.createClass
     title = StepTitleStore.get(crumb.id)
 
     if crumb.type is 'reading' and crumb.related_content?[0]?.title?
+      relatedTitle = crumb.related_content[0].title
+
       if title is 'Summary'
-        title = "#{title} of #{crumb.related_content?[0]?.title}"
+        title = "#{title} of #{relatedTitle}"
       else if not title
-        title = crumb.related_content?[0]?.title
+        title = relatedTitle
 
     title
 
@@ -94,7 +98,8 @@ Milestone = React.createClass
         role='button'
         aria-label={previewText}
         onClick={goToStepForCrumb}
-        onKeyUp={_.partial(@handleKeyUp, stepIndex)}>
+        onKeyUp={_.partial(@handleKeyUp, stepIndex)}
+      >
         <BreadcrumbStatic
           crumb={crumb}
           data-label={crumb.label}
@@ -102,7 +107,8 @@ Milestone = React.createClass
           goToStep={goToStepForCrumb}
           stepIndex={stepIndex}
           key="breadcrumb-#{crumb.type}-#{stepIndex}"
-          ref="breadcrumb-#{crumb.type}-#{stepIndex}"/>
+          ref="breadcrumb-#{crumb.type}-#{stepIndex}"
+        />
         {preview}
       </div>
     </BS.Col>
@@ -137,7 +143,7 @@ MilestonesWrapper = React.createClass
   switchTransitionListen: (switchOn = true) ->
     eventAction = if switchOn then 'addEventListener' else 'removeEventListener'
 
-    milestones = @getDOMNode()
+    milestones = ReactDOM.findDOMNode(@)
     milestones[eventAction]('transitionend', @componentDidEnter)
     milestones[eventAction]('webkitTransitionEnd', @componentDidEnter)
 
@@ -148,7 +154,7 @@ MilestonesWrapper = React.createClass
     document[eventAction]('focus', @checkAllowed, true)
 
   checkAllowed: (focusEvent) ->
-    modal = @getDOMNode()
+    modal = ReactDOM.findDOMNode(@)
 
     unless modal.contains(focusEvent.target) or @props.filterClick?(focusEvent)
       focusEvent.preventDefault()
@@ -168,7 +174,8 @@ MilestonesWrapper = React.createClass
         crumb={crumb}
         goToStep={@goToStep}
         stepIndex={crumbIndex}
-        currentStep={currentStep}/>
+        currentStep={currentStep}
+      />
 
     classes = 'task-breadcrumbs'
 
@@ -192,8 +199,11 @@ Milestones = React.createClass
 
     <ReactCSSTransitionGroup
       transitionName='task-with-milestones'
+      transitionEnterTimeout={300}
+      transitionLeaveTimeout={300}
       transitionAppearTimeout={0}
-      transitionAppear={true}>
+      transitionAppear={true}
+    >
       {milestones}
     </ReactCSSTransitionGroup>
 

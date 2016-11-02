@@ -19,5 +19,4 @@ webpack-dev-server --config webpack.config.js &
 WEBPACK_PID=$!
 echo webpack started pid: $WEBPACK_PID
 
-
-bin/karma "$@"
+./bin/test "$@"

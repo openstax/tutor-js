@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 Icon = require '../icon'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
@@ -19,7 +20,7 @@ StudentIdField = React.createClass
 
   componentDidUpdate: (prevProps, prevState) ->
     if @state.isEditing and not prevState.isEditing
-      el = @refs.input.getDOMNode()
+      el = ReactDOM.findDOMNode(@refs.input)
       el.select()
       el.focus()
 
@@ -32,11 +33,11 @@ StudentIdField = React.createClass
 
   onEditBlur: (ev) ->
     if RosterStore.hasChangedStudentIdentifier(@props.studentId)
-      RosterActions.saveStudentIdentifier(@props)
+      RosterActions.saveStudentIdentifier(_.pick(@props, 'studentId', 'courseId'))
 
     # If blur was triggered by clicking on the editTrigger,
     # let the onClick of the editTrigger toggle the isEditing state.
-    @setState(isEditing: false) unless ev.relatedTarget is @refs.editTrigger.getDOMNode()
+    @setState(isEditing: false) unless ev.relatedTarget is ReactDOM.findDOMNode(@refs.editTrigger)
 
   renderInput: (identifier) ->
     <input type="text" ref="input"

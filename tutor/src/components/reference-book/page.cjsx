@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM  = require 'react-dom'
 {SpyMode} = require 'shared'
 
 _  = require 'underscore'
@@ -8,6 +9,7 @@ classnames = require 'classnames'
 {ArbitraryHtmlAndMath, GetPositionMixin} = require 'shared'
 
 {ReferenceBookExerciseShell} = require './exercise'
+RelatedContent = require '../related-content'
 
 {ReferenceBookPageStore} = require '../../flux/reference-book-page'
 {ReferenceBookStore} = require '../../flux/reference-book'
@@ -27,7 +29,7 @@ module.exports = React.createClass
   shouldOpenNewTab: -> true
 
   waitToScrollToSelector: (hash) ->
-    images = @getDOMNode().querySelectorAll('img')
+    images = ReactDOM.findDOMNode(@).querySelectorAll('img')
     imagesToLoad = images.length
     onImageLoad = =>
       imagesToLoad -= 1
@@ -64,13 +66,20 @@ module.exports = React.createClass
       .replace(/^[\s\S]*<body[\s\S]*?>/, '')
       .replace(/<\/body>[\s\S]*$/, '')
 
+    related =
+      chapter_section: @props.section
+      title: @getSplashTitle()
+
     <div className={classnames('page-wrapper', @props.className)}>
       {@props.children}
+      <div className='page center-panel'>
+        <RelatedContent contentId={cnxId} {...related} />
 
-      <ArbitraryHtmlAndMath className='page center-panel' block html={html} />
+        <ArbitraryHtmlAndMath className='book-content' block html={html} />
+      </div>
 
       <SpyMode.Content className="ecosystem-info">
-        PageId: {@props.cnxId}, Ecosystem: {page?.spy}
+        PageId: {@props.cnxId}, Ecosystem: {JSON.stringify(page?.spy)}
       </SpyMode.Content>
 
     </div>

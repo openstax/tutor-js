@@ -106,16 +106,16 @@
   @except-teacher-rules: @tutor-empty-rules;
   @except-teacher-title-rules: @tutor-empty-rules
 ) {
-  > .note,
+  .book-content > .note,
   section > section > .note,
-  > section > .note:not(.learning-objectives),
+  .book-content > section > .note:not(.learning-objectives),
 
   .grasp-check,
 
-  > [data-element-type="check-understanding"],
+  .book-content > [data-element-type="check-understanding"],
   section > [data-element-type="check-understanding"],
 
-  > .example,
+  .book-content > .example,
   section > .example {
     .tutor-style-note(@all-note-rules; @title-rules);
 
@@ -162,7 +162,7 @@
   }
 
   // .example, check-understanding content currently lacks a data-label attribute
-  > .example,
+  .book-content > .example,
   section > .example {
     .tutor-book-before-manual-label("Worked Example");
   }

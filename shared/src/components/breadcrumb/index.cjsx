@@ -1,6 +1,11 @@
 React = require 'react'
-_ = require 'underscore'
+
+map = require 'lodash/map'
+without = require 'lodash/without'
+partial = require 'lodash/partial'
+
 classnames = require 'classnames'
+{propHelpers} = require 'shared'
 
 Breadcrumb = React.createClass
   displayName: 'Breadcrumb'
@@ -48,7 +53,10 @@ Breadcrumb = React.createClass
     {step, crumb, goToStep, className, stepIndex} = @props
     {isCorrect, isIncorrect, isCurrent, isCompleted, isEnd, crumbType} = @state
 
-    propsToPassOn = _.omit(@props, 'onClick', 'title', 'className', 'data-chapter', 'key', 'step')
+    propsToPassOn = without(@props,
+      'onClick', 'title', 'className', 'data-chapter', 'key', 'step',
+      'goToStep', 'canReview', 'currentStep', 'stepIndex', 'crumb'
+    )
 
     if isCurrent
       title = "Current Step (#{crumbType})"
@@ -73,14 +81,14 @@ Breadcrumb = React.createClass
       'status-incorrect': isIncorrect
 
     # build list of icon classes from the crumb type and the step labels
-    crumbClasses = _.map(crumb.labels, (label) -> "icon-#{label}") if crumb.labels?
+    crumbClasses = map(crumb.labels, (label) -> "icon-#{label}") if crumb.labels?
     iconClasses = classnames "icon-#{crumbType}", crumbClasses
 
     <span
       {...propsToPassOn}
       className={classes}
       title={title}
-      onClick={_.partial(goToStep, stepIndex)}
+      onClick={partial(goToStep, stepIndex)}
       data-chapter={crumb.sectionLabel}
       key="step-#{crumb.key}">
       <i className="icon-lg #{iconClasses}"></i>

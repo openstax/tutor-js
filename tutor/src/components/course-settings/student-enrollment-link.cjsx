@@ -1,6 +1,6 @@
 # coffeelint: disable=max_line_length
-
 React = require 'react'
+ReactDOM = require 'react-dom'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
@@ -16,7 +16,7 @@ StudentEnrollmentLink = React.createClass
     period: React.PropTypes.object.isRequired
 
   selectText: (ev) ->
-    @refs.input.getDOMNode().select()
+    ReactDOM.findDOMNode(@refs.input).select()
 
   render: ->
     <span className='enrollment-code-link' onClick={@selectText}>

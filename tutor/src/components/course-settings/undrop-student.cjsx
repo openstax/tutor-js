@@ -9,7 +9,7 @@ module.exports = React.createClass
   displayName: 'UnDropStudentLink'
   propTypes:
     student: React.PropTypes.object.isRequired
-    id: React.PropTypes.string.isRequired
+    id: React.PropTypes.string
 
   performDeletion: ->
     if not @isUnDropping()
@@ -53,7 +53,11 @@ module.exports = React.createClass
     else
       @popOverMessage()
 
-    <BS.Popover title={title} {...@props} className='undrop-student'>
+    <BS.Popover
+      title={title}
+      className='undrop-student'
+      id={@props.id or "drop-student-popover-#{@props.student.id}"}
+    >
       {body}
     </BS.Popover>
 

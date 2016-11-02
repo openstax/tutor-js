@@ -1,7 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 {SpyMode} = require 'shared'
-
+Router = require '../../helpers/router'
 LoadableItem = require '../loadable-item'
 _ = require 'underscore'
 S = require '../../helpers/string'
@@ -20,9 +20,6 @@ NUM_SECTIONS = 4
 
 ProgressGuide = React.createClass
   displayName: 'ProgressGuide'
-
-  contextTypes:
-    router: React.PropTypes.func
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
@@ -51,7 +48,7 @@ ProgressGuide = React.createClass
 
 ProgressGuidePanels = React.createClass
   contextTypes:
-    router: React.PropTypes.func
+    router: React.PropTypes.object
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
@@ -59,7 +56,9 @@ ProgressGuidePanels = React.createClass
 
   mixins: [ChapterSectionMixin]
   viewPerformanceForecast: ->
-    @context.router.transitionTo('viewPerformanceForecast', {courseId: @props.courseId})
+    @context.router.transitionTo(
+      Router.makePathname('viewPerformanceGuide', @props)
+    )
 
   renderEmpty: (sections) ->
     <div className='progress-guide empty'>
@@ -94,7 +93,7 @@ ProgressGuidePanels = React.createClass
     <div className='progress-guide'>
       <div className='actions-box'>
 
-        <ProgressGuide sections={recent} courseId={@props.courseId} />
+        <ProgressGuide sections={recent} {...@props} />
 
         <PracticeButton ref='practiceBtn' title='Practice my weakest topics'
             courseId={@props.courseId} sections={practiceSections} />
@@ -121,11 +120,13 @@ module.exports = React.createClass
       Loading progress information... {refreshButton}
     </div>
 
+
   render: ->
     <LoadableItem
       id={@props.courseId}
       store={PerformanceForecast.Student.store}
       renderLoading={@renderLoading}
       actions={PerformanceForecast.Student.actions}
-      renderItem={=> <ProgressGuidePanels {...@props} />}
+      renderItem={ =>
+        <ProgressGuidePanels {...@props} />}
     />

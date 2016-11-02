@@ -90,6 +90,11 @@ KARMA_BASE_CONFIG =
       loader: 'coffeelint'
       exclude: /(node_modules|resources)/
     }]
+  externals:
+    'sinon': true
+    'react/addons': true
+    'react/lib/ExecutionEnvironment': true
+    'react/lib/ReactContext': true
 
 mergeWebpackConfigs = ->
 

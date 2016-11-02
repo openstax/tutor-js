@@ -48,7 +48,7 @@ TeacherContentToggle = React.createClass
     else
       'Show Teacher Edition'
 
-    content = if @state.hasTeacherContent
+    if @state.hasTeacherContent
       <span className="has-content">{teacherLinkText}</span>
     else
       <BS.OverlayTrigger
@@ -57,9 +57,5 @@ TeacherContentToggle = React.createClass
         <span className="no-content">{teacherLinkText}</span>
       </BS.OverlayTrigger>
 
-
-    <BS.NavItem className='teacher-edition' onClick={@onClick}>
-      {content}
-    </BS.NavItem>
 
 module.exports = TeacherContentToggle

@@ -5,8 +5,6 @@
 @primary-background: #f47642;
 @primary-background-hover: #fa804d;
 
-@btn-preselector: ~':not(.btn-link):not(.btn-flat):not(.btn-fab)';
-
 // Override the defaults from bootstrap-material-design
 .btn-hover() {
   box-shadow: 0 4px 10px rgba(0, 0, 0, .1), 0 6px 28px rgba(0, 0, 0, .2);
@@ -15,7 +13,6 @@
 .btn-group { border-radius: @btn-border-radius; }
 
 .btn-round() {
-  margin-right: 5px;
   padding: 9px 18px;
   font-size: 1.6rem;
   border-radius: @btn-border-radius;
@@ -54,7 +51,7 @@
   &:active,
   &:focus {
 
-    &.dropdown-toggle { 
+    &.dropdown-toggle {
 			padding: 15px 0;
       color: @tutor-neutral-dark;
       text-align: left;
@@ -70,18 +67,12 @@
   &:disabled {
     background: transparent;
     color: @tutor-primary;
-    border: 2px solid lighten(@tutor-primary, 20%);
-    // annoyingly, there's a margin on btns from material bootstrap.
-    // Take 1px off around to offset the increased border.
-    margin: 9px 0;
   }
 }
 
-@{btn-preselector} {
+.btn {
 
-  &.btn {
-    .btn-round();
-  }
+  .btn-round();
 
   &.btn-lg {
     font-size: 1.8rem;
@@ -102,20 +93,16 @@
   }
 }
 
-.btn-group {
+.input-group {
   > .btn:last-child:not(:first-child),
   > .dropdown-toggle:not(:first-child) {
-    &@{btn-preselector} {
-      border-bottom-left-radius: 0;
-      border-top-left-radius: 0;
-    }
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
   }
-  .btn-primary:disabled@{btn-preselector} {
+
+
+  .btn-primary:disabled {
     margin: 0;
     border-width: 1px;
   }
 }
-
-// bootstrap material design sets this to @darkbg-text
-// which we can't change without affecting quite a few other styles
-.btn-danger@{btn-preselector} { color: darken(@tutor-neutral-light, 10%); }

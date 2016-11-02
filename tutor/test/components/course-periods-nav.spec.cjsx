@@ -1,7 +1,7 @@
 _ = require 'underscore'
 expect = chai.expect
 {Promise} = require 'es6-promise'
-React = require 'react/addons'
+React = require 'react'
 StubContext = require('react-stub-context')
 
 {componentStub, commonActions}   = require './helpers/utilities'

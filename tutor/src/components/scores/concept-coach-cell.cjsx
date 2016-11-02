@@ -1,7 +1,7 @@
 React  = require 'react'
-Router = require 'react-router'
 BS = require 'react-bootstrap'
 
+TutorLink = require '../link'
 Time = require '../time'
 CellStatusMixin = require './cell-status-mixin'
 PieProgress = require './pie-progress'
@@ -60,12 +60,12 @@ ConceptCoachCell = React.createClass
 
 
       <div className="score">
-        <Router.Link to='viewTaskStep'
+        <TutorLink to='viewTaskStep'
           className="#{if not completed then 'not-complete'}"
           data-assignment-type="#{task.type}"
           params={courseId: courseId, id: task.id, stepIndex: 1}>
             { if completed then score else scoreNotComplete }
-        </Router.Link>
+        </TutorLink>
       </div>
 
       <div className="worked">

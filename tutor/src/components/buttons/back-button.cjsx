@@ -2,7 +2,9 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
-{History, Link} = require 'react-router'
+Router = require '../../helpers/router'
+TutorLink = require '../link'
+
 {TransitionActions, TransitionStore} = require '../../flux/transition'
 
 BackButton = React.createClass
@@ -19,24 +21,21 @@ BackButton = React.createClass
   getDefaultProps: ->
     bsStyle: 'default'
 
-  contextTypes:
-    router: React.PropTypes.func
-
   render: ->
     # Gets route to last path that was not the same as the current one
     # See TransitionStore for more detail.
-    historyInfo = TransitionStore.getPrevious(@context.router)
+    historyInfo = TransitionStore.getPrevious()
     {fallbackLink, className} = @props
     {text} = fallbackLink
 
-    backText = if historyInfo.name then "Back to #{historyInfo.name}" else fallbackLink.text
+    backText = if historyInfo?.name then "Back to #{historyInfo.name}" else fallbackLink.text
 
-    href =  historyInfo.path or @context.router.makeHref(
+    to =  historyInfo?.path or Router.makePathname(
       @props.fallbackLink.to, @props.fallbackLink.params
     )
 
-    <Link className={"btn btn-#{@props.bsStyle}"} to={href}>
+    <TutorLink className={"btn btn-#{@props.bsStyle}"} to={to}>
       {backText}
-    </Link>
+    </TutorLink>
 
 module.exports = BackButton

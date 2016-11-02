@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 _ = require 'underscore'
 S = require '../helpers/string'
 dom = require '../helpers/dom'
@@ -10,13 +11,14 @@ dom = require '../helpers/dom'
 {CourseStore} = require '../flux/course'
 ScrollToLinkMixin = require './scroll-to-link-mixin'
 
+Router = require '../helpers/router'
+
 # According to the tagging legend exercises with a link should have `a.os-embed`
 # but in the content they are just a vanilla link.
 EXERCISE_LINK_SELECTOR = [
   '.os-exercise > [data-type="problem"] > p > a[href]'
   '.ost-exercise > [data-type="problem"] > p > a[href]'
 ].join(', ')
-
 
 LEARNING_OBJECTIVE_SELECTORS = '.learning-objectives, [data-type=abstract]'
 IS_INTRO_SELECTORS = '.splash img, [data-type="cnx.flag.introduction"]'
@@ -31,15 +33,12 @@ LinkContentMixin =
   componentWillUnmount: ->
     @cleanUpLinks()
 
-  contextTypes:
-    router: React.PropTypes.func
-
   getCnxIdOfHref: (href) ->
     beforeHash = _.first(href.split('#'))
     _.last(beforeHash.split('/'))
 
   buildReferenceBookLink: (cnxId) ->
-    {courseId, ecosystemId} = @context.router.getCurrentParams()
+    {courseId, ecosystemId} = Router.currentParams()
     {query, id} = @props
 
     if ecosystemId and not courseId
@@ -53,9 +52,9 @@ LinkContentMixin =
 
       if related_content?
         section = @sectionFormat?(related_content[0]?.chapter_section or related_content[0]?.book_location)
-        referenceBookLink = @context.router.makeHref('viewReferenceBookSection', {courseId, section}, query) if section?
+        referenceBookLink = Router.makePathname('viewReferenceBookSection', {courseId, section}, query) if section?
     else if cnxId?
-      referenceBookLink = @context.router.makeHref( 'viewReferenceBookPage', { courseId, cnxId })
+      referenceBookLink = Router.makePathname( 'viewReferenceBookPage', { courseId, cnxId })
 
     referenceBookLink
 
@@ -70,7 +69,7 @@ LinkContentMixin =
     link.hash.length > 0 and trueHref.substr(0, 1) isnt '#'
 
   getMedia: (mediaId) ->
-    root = @getDOMNode()
+    root = ReactDOM.findDOMNode(@)
     try
       root.querySelector("##{mediaId}")
     catch error
@@ -80,11 +79,11 @@ LinkContentMixin =
       false
 
   cleanUpLinks: ->
-    root = @getDOMNode()
+    root = ReactDOM.findDOMNode(@)
     previewNodes = root.getElementsByClassName('media-preview-wrapper')
 
     _.each(previewNodes, (previewNode) ->
-      React.unmountComponentAtNode(previewNode)
+      ReactDOM.unmountComponentAtNode(previewNode)
     )
 
   linkPreview: (link) ->
@@ -112,7 +111,7 @@ LinkContentMixin =
         {link.innerText}
       </MediaPreview>
 
-    React.render(mediaPreview, previewNode)
+    ReactDOM.render(mediaPreview, previewNode)
     return null
 
   processLink: (link) ->
@@ -126,7 +125,7 @@ LinkContentMixin =
 
   _processLinks: ->
     return unless @isMounted()
-    root = @getDOMNode()
+    root = ReactDOM.findDOMNode(@)
     mediaLinks = root.querySelectorAll(MediaStore.getSelector())
     exerciseLinks = root.querySelectorAll(EXERCISE_LINK_SELECTOR)
 
@@ -149,20 +148,16 @@ ReadingContentMixin =
     @cleanUpAbstracts()
     @processLinks()
 
-
   componentDidUpdate: ->
     @insertOverlays()
     @detectImgAspectRatio()
     @cleanUpAbstracts()
     @processLinks()
 
-  contextTypes:
-    router: React.PropTypes.func
-
   insertOverlays: ->
     title = @getSplashTitle()
     return unless title
-    root = @getDOMNode()
+    root = ReactDOM.findDOMNode(@)
     for img in root.querySelectorAll('.splash img')
       continue if img.parentElement.querySelector('.ui-overlay')
       overlay = document.createElement('div')
@@ -174,7 +169,7 @@ ReadingContentMixin =
       img.parentElement.appendChild(overlay)
 
   cleanUpAbstracts: ->
-    root = @getDOMNode()
+    root = ReactDOM.findDOMNode(@)
     abstract = root.querySelector(LEARNING_OBJECTIVE_SELECTORS)
     # dont clean up if abstract does not exist or if it has already been cleaned up
     return if not abstract? or abstract.dataset.isIntro?
@@ -195,7 +190,7 @@ ReadingContentMixin =
     abstract.dataset.isIntro = root.querySelector(IS_INTRO_SELECTORS)?
 
   detectImgAspectRatio: ->
-    root = @getDOMNode()
+    root = ReactDOM.findDOMNode(@)
     for img in root.querySelectorAll('img')
       if img.complete
         sizeImage.call(img)

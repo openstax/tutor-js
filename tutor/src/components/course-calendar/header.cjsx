@@ -5,6 +5,7 @@ _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
+TutorLink = require '../link'
 
 CourseAddMenuMixin = require './add-menu-mixin'
 BrowseTheBook = require '../buttons/browse-the-book'
@@ -22,11 +23,10 @@ CourseCalendarHeader = React.createClass
     date: TimeHelper.PropTypes.moment
     format: React.PropTypes.string.isRequired
     hasPeriods: React.PropTypes.bool.isRequired
+    onCopyPreviousAssignment: React.PropTypes.func.isRequired
 
   mixins: [ CourseAddMenuMixin ]
 
-  contextTypes:
-    router: React.PropTypes.func
 
   getDefaultProps: ->
     duration: 'month'
@@ -58,8 +58,7 @@ CourseCalendarHeader = React.createClass
 
   render: ->
     {date} = @state
-    {format, duration, hasPeriods} = @props
-    {courseId} = @context.router.getCurrentParams()
+    {courseId, format, duration, hasPeriods} = @props
 
     addAssignmentBSStyle = if hasPeriods then 'primary' else 'default'
 
@@ -71,15 +70,19 @@ CourseCalendarHeader = React.createClass
 
         <div className='calendar-header-actions-buttons'>
           <BrowseTheBook bsStyle='default' courseId={courseId} />
-          <Router.Link
+          <TutorLink
             className='btn btn-default'
-            to='viewTeacherPerformanceForecast'
-            params={{courseId}}>
+            to='viewPerformanceGuide'
+            params={{courseId}}
+          >
             Performance Forecast
-          </Router.Link>
-          <Router.Link className='btn btn-default' to='viewScores' params={{courseId}}>
+          </TutorLink>
+          <TutorLink className='btn btn-default'
+            to='viewScores'
+            params={{courseId}}
+          >
             Student Scores
-          </Router.Link>
+          </TutorLink>
         </div>
       </BS.Row>
       <BS.Row className='calendar-header-navigation'>
@@ -89,9 +92,17 @@ CourseCalendarHeader = React.createClass
             id='add-assignment'
             className='add-assignment'
             title='Add Assignment'
-            bsStyle={addAssignmentBSStyle}>
+            bsStyle={addAssignmentBSStyle}
+          >
             {@renderAddActions()}
-            </BS.DropdownButton>
+
+            <BS.MenuItem divider />
+
+            <BS.MenuItem onClick={@props.onCopyPreviousAssignment}>
+              Copy previous Assignment
+            </BS.MenuItem>
+
+          </BS.DropdownButton>
         </BS.Col>
         <BS.Col xs={4} className='calendar-header-label'>
           <a href='#' className='calendar-header-control previous' onClick={@handlePrevious}>

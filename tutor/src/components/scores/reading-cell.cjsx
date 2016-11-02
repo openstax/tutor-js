@@ -1,5 +1,6 @@
 React  = require 'react'
-Router = require 'react-router'
+ReactDOM = require 'react-dom'
+TutorLink = require '../link'
 BS = require 'react-bootstrap'
 classNames = require 'classnames'
 
@@ -21,7 +22,7 @@ ReadingCell = React.createClass
   hide: -> @setState(isShowingPopover: false)
 
   getPieChartTarget: ->
-    @refs.pieChart.getDOMNode()
+    ReactDOM.findDOMNode(@refs.pieChart)
 
   render: ->
     {task, courseId, displayAs, isConceptCoach, rowIndex, columnIndex, period_id} = @props
@@ -50,11 +51,11 @@ ReadingCell = React.createClass
               </div>
               <div className='row'>
                 <div>
-                  <Router.Link to='viewTaskStep'
+                  <TutorLink to='viewTaskStep'
                     data-assignment-type="#{task.type}"
                     params={courseId: courseId, id: task.id, stepIndex: 1}>
                       Review
-                  </Router.Link>
+                  </TutorLink>
                 </div>
               </div>
             </div>

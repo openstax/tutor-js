@@ -1,10 +1,11 @@
+React = require 'react'
 moment = require 'moment-timezone'
 twix = require 'twix'
 _ = require 'underscore'
 camelCase = require 'camelcase'
 padStart = require 'lodash/padStart'
 
-React = require 'react/addons'
+
 CoursePlan = require './plan'
 PlanHelper = require '../../helpers/plan'
 TimeHelper = require '../../helpers/time'
@@ -113,7 +114,7 @@ CourseDuration = React.createClass
   calcTopOffset: (ranges) ->
     dayHeights = _.pluck(ranges, 'dayHeight')
 
-    _.each(ranges, (range, index) =>
+    _.each(ranges, (range, index) ->
       weekTopOffset = _.chain(dayHeights).first(index + 1).reduce((memo, current) ->
         memo + current
       ).value()
@@ -143,10 +144,10 @@ CourseDuration = React.createClass
 
   _calcOrder: ({existingOrdered, current, order}) ->
     # find an order that is not already occupied by any overlapping plans
-    while existingOrdered.indexOf(- (order + current.adder)) > -1
+    while existingOrdered.indexOf(-(order + current.adder)) > -1
       current.adder = current.adder + 1
 
-    - (order + current.adder)
+    -(order + current.adder)
 
   _getDay: (oneMoment) ->
     moment(oneMoment).startOf('day').twix(moment(oneMoment).endOf('day'), {allDay: true})
@@ -274,7 +275,7 @@ CourseDuration = React.createClass
   renderChildren: (item) ->
     {courseId} = @props
     React.Children.map(@props.children, (child) ->
-      React.addons.cloneWithProps(child, {item, courseId})
+      React.cloneElement(child, {item, courseId})
     )
 
   renderDurations: ->

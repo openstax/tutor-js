@@ -25,10 +25,10 @@ TransitionStore = flux.createStore
   actions: _.values(TransitionActions)
   _local: []
 
-  load: (change, router) ->
-    {type, path} = change
-    type ?= 'push'
-    @_local.push(path) if type is 'push' and DestinationHelper.shouldRememberRoute(change, router)
+  load: (path) ->
+    history = @_get()
+    last = history[history.length - 1] if history.length
+    @_local.push(path) if path isnt last and DestinationHelper.shouldRememberRoute(path)
 
   reset: ->
     @_local = []
@@ -37,16 +37,12 @@ TransitionStore = flux.createStore
     @_local
 
   exports:
-    getPrevious: (router) ->
-      matchRoutes = router.match
-      currentPath = DestinationHelper.destinationFromPath(router.getCurrentPath(), matchRoutes)
+    getPrevious: ->
       history = @_get()
-      pathIndex = _.findLastIndex(history, (path) ->
-        currentPath isnt DestinationHelper.destinationFromPath(path, matchRoutes)
-      )
-      return {} if -1 is pathIndex
+      if history.length > 1
+        last = history[history.length - 2]
+        {path: last, name: DestinationHelper.destinationFromPath(last)}
+      else
 
-      # Both path and name will be undefined if history does not have a previous entry.
-      {path: history[pathIndex], name: DestinationHelper.destinationFromPath(history[pathIndex], matchRoutes)}
 
 module.exports = {TransitionActions, TransitionStore}

@@ -5,6 +5,7 @@
 @import './plans-by-week';
 @import './plan';
 @import './plan-details';
+@import './sidebar';
 
 .is-trouble() {
   content: @fa-var-bookmark;
@@ -32,18 +33,18 @@
   font-style: italic;
   content: 'publishing';
   color: @tutor-neutral-darker;
-  -webkit-animation: tutor-plan-publishing 1800ms linear infinite;      
+  -webkit-animation: tutor-plan-publishing 1800ms linear infinite;
   animation: tutor-plan-publishing 1800ms linear infinite;
 }
 
 @keyframes tutor-plan-publishing {
-    0% {opacity: 0.5;} 
+    0% {opacity: 0.5;}
    75% {opacity: 1;}
   100% {opacity: 0.5;}
 }
 
 @-webkit-keyframes tutor-plan-publishing {
-    0% {opacity: 0.5;} 
+    0% {opacity: 0.5;}
    75% {opacity: 1;}
   100% {opacity: 0.5;}
 }

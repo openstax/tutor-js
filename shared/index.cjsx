@@ -5,6 +5,11 @@
 require './src/helpers/polyfills'
 
 module.exports = {
+
+  OXRouter:               require './src/helpers/router'
+  OXLink:                 require './src/factories/link'
+  OXMatchByRouter:        require './src/helpers/match-by-router'
+
   ArbitraryHtmlAndMath:   require './src/components/html'
   Markdown:               require './src/components/markdown'
   AsyncButton:            require './src/components/buttons/async-button'
@@ -26,8 +31,8 @@ module.exports = {
   ExerciseWithScroll,
   TaskHelper:             require './src/helpers/task'
   StepHelpsHelper:        require './src/helpers/step-helps'
+  propHelpers:            require './src/helpers/props'
   ExerciseIntro:          require './src/components/exercise/intro'
-
 
   FreeResponse:           require './src/components/exercise/free-response'
   GetPositionMixin:       require './src/components/get-position-mixin'
@@ -44,4 +49,5 @@ module.exports = {
   SmartOverflow:          require './src/components/smart-overflow'
   SpyMode:                require './src/components/spy-mode'
   SuretyGuard:            require './src/components/surety-guard'
+
 }

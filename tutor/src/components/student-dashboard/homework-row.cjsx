@@ -13,9 +13,6 @@ module.exports = React.createClass
     event: React.PropTypes.object.isRequired
     courseId: React.PropTypes.string.isRequired
 
-  contextTypes:
-    router: React.PropTypes.func
-
   render: ->
     event = @props.event
     feedback = if event.correct_exercise_count?

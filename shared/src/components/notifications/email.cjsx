@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
 _ = require 'underscore'
@@ -34,7 +35,7 @@ EmailNotification = React.createClass
     @props.notice.sendConfirmation()
 
   onPinCheck: ->
-    @props.notice.sendVerification( @refs.verifyInput.getValue(), @onSuccess)
+    @props.notice.sendVerification( ReactDOM.findDOMNode(@refs.verifyInput).value, @onSuccess)
 
   renderSpinner: ->
     <span className="body">
@@ -63,7 +64,7 @@ EmailNotification = React.createClass
       <span className="message">
         Check your email inbox. Enter the 6-digit verification code:
       </span>
-      <BS.Input autofocus ref='verifyInput' onKeyPress={@onVerifyKey} type="text" />
+      <BS.FormControl autofocus ref='verifyInput' onKeyPress={@onVerifyKey} type="text" />
       <a className='pin-check action' onClick={@onPinCheck}>Go</a>
     </span>
 

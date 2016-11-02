@@ -1,8 +1,8 @@
 {Testing, expect, sinon, _, ReactTestUtils} = require './helpers/component-testing'
-React = require 'react/addons'
+React = require 'react'
 RelatedContentLink = require '../../src/components/related-content-link'
 
-describe 'Relalated Content Link Component', ->
+describe 'Related Content Link Component', ->
 
   beforeEach ->
     @props =

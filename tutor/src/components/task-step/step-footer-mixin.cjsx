@@ -1,9 +1,9 @@
 _ = require 'underscore'
 React = require 'react'
 camelCase = require 'camelcase'
-Router = require 'react-router'
-classnames = require 'classnames'
 
+classnames = require 'classnames'
+TutorLink = require '../link'
 {Details} = require '../task/details'
 BrowseTheBook = require '../buttons/browse-the-book'
 LateIcon = require '../late-icon'
@@ -85,24 +85,24 @@ module.exports =
   renderBackButton: ({taskId, courseId, review, panel}, custombuttonClasses) ->
     defaultButtonClasses = 'btn btn-primary'
 
-    backButton = <Router.Link
+    backButton = <TutorLink
       to='viewStudentDashboard'
-      key='step-back'
+      key='step-back-sd'
       params={{courseId}}
       className={custombuttonClasses or defaultButtonClasses}>
         Back to Dashboard
-    </Router.Link>
+    </TutorLink>
 
     if panel? and panel is 'teacher-read-only'
       defaultButtonClasses = 'btn btn-default'
 
-      backButton = <Router.Link
+      backButton = <TutorLink
         to='viewScores'
-        key='step-back'
+        key='step-back-scores'
         params={{courseId}}
         className={custombuttonClasses or defaultButtonClasses}>
           Back to Scores
-      </Router.Link>
+      </TutorLink>
 
     backButton
 
@@ -140,17 +140,13 @@ module.exports =
     className
 
   renderFooter: ({stepId, taskId, courseId, review}) ->
-    buttons = @renderButtons({stepId, taskId, courseId, review})
     className = @getFooterClasses({stepId, taskId, courseId, review})
-
-    taskDetails = <div className={className} key='step-footer'>
-      {@renderTaskDetails({stepId, taskId, courseId, review})}
+    <div>
+      {@renderButtons({stepId, taskId, courseId, review})}
+      <div className={className} key='step-footer'>
+        {@renderTaskDetails({stepId, taskId, courseId, review})}
+      </div>
     </div>
-
-    [
-      buttons
-      taskDetails
-    ]
 
   renderEndFooter: ({stepId, taskId, courseId, review}) ->
     panel = StepPanel.getPanel(stepId)

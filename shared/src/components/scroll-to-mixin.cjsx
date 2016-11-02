@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 _ = require 'underscore'
 
 # Note that the GetPositionMixin methods are called directly rather than mixing it in
@@ -28,7 +29,7 @@ ScrollToMixin =
   getDefaultProps: ->
     windowImpl: window
 
-  _scrollingTargetDOM: -> @scrollingTargetDOM?() or React.findDOMNode(@)
+  _scrollingTargetDOM: -> @scrollingTargetDOM?() or ReactDOM.findDOMNode(@)
 
   scrollToSelector: (selector, options) ->
     options = _.extend({updateHistory: true, unlessInView: false}, options)
