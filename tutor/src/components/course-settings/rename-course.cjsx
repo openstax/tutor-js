@@ -6,31 +6,6 @@ _ = require 'underscore'
 {TutorInput} = require '../tutor-input'
 classnames = require 'classnames'
 
-# RenameCourseField = React.createClass
-
-#   displayName: 'RenameCourseField'
-#   propTypes:
-#     courseId: React.PropTypes.string
-#     label: React.PropTypes.string.isRequired
-#     name: React.PropTypes.string.isRequired
-#     default: React.PropTypes.string.isRequired
-#     onChange: React.PropTypes.func.isRequired
-#     autofocus: React.PropTypes.bool
-#     validate: React.PropTypes.func.isRequired
-
-
-#   onChange: (value) ->
-#     @props.onChange(value)
-
-#   render: ->
-#     <TutorInput
-#       ref='input'
-#       label={@props.label}
-#       default={@props.default}
-#       required={true}
-#       onChange={@onChange}
-#       validate={@props.validate}
-#       />
 
 RenameCourse = React.createClass
   propTypes:
