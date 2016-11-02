@@ -8,6 +8,7 @@ classnames = require 'classnames'
 PastAssignments = require './past-assignments'
 
 CourseAddMenuMixin = require './add-menu-mixin'
+{CourseStore} = require '../../flux/course'
 
 AddAssignmentMenu = React.createClass
 
@@ -25,14 +26,14 @@ AddAssignmentMenu = React.createClass
     <AddAssignmentLink key={link.type} link=link goToBuilder={@goToBuilder} />
 
   onMenuToggle: (isOpen) ->
+    return unless CourseStore.isCloned(@props.courseId)
     @props.onSidebarToggle(isOpen)
     _.defer => @setState({isOpen})
 
   render: ->
-    hasPastAssignments = true # FIXME - this will come from BE endpoint
-
+    isCloned = CourseStore.isCloned(@props.courseId)
     <div className={classnames('add-assignment', {
-      'as-sidebar': hasPastAssignments
+      'as-sidebar': isCloned
       'is-open': @state.isOpen
     })}>
 
@@ -45,7 +46,7 @@ AddAssignmentMenu = React.createClass
         bsStyle={if @props.hasPeriods then 'primary' else 'default'}
       >
         {@renderAddActions()}
-        <PastAssignments courseId={@props.courseId} />
+        {<PastAssignments courseId={@props.courseId} /> if isCloned}
       </BS.DropdownButton>
     </div>
 module.exports = AddAssignmentMenu
