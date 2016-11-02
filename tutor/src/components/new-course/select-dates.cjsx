@@ -3,8 +3,10 @@ BS = require 'react-bootstrap'
 
 classnames = require 'classnames'
 partial = require 'lodash/partial'
-
+isEqual = require 'lodash/isEqual'
+S = require '../../helpers/string'
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
+{OfferingsStore} = require '../../flux/offerings'
 
 QUARTERS =
   '2017Q4': 'Fall 2017'
@@ -12,25 +14,27 @@ QUARTERS =
   '2018Q2': 'Spring 2018'
   '2018Q3': 'Summer 2018'
 
-KEY = "period"
+KEY = "term"
 
 SelectDates = React.createClass
 
   statics:
     title: "Choose when to teach the course"
 
-  onSelect: (period) ->
-    NewCourseActions.set({"#{KEY}": period})
+  onSelect: (term) ->
+    NewCourseActions.set({"#{KEY}": term})
 
   render: ->
+    offering = OfferingsStore.get(NewCourseStore.get('offering_id'))
+
     <BS.Table className="quarters" striped bordered >
       <tbody>
-        {for code, name of QUARTERS
-          <tr key={code}
-            className={classnames(selected: NewCourseStore.get(KEY) is code)}
-            onClick={partial(@onSelect, code)}
+        {for term, index in offering.active_term_years
+          <tr key={index}
+            className={classnames(selected: isEqual(NewCourseStore.get(KEY), term))}
+            onClick={partial(@onSelect, term)}
           >
-            <td>{name}</td>
+            <td>{S.capitalize(term.term)} {term.year}</td>
           </tr>}
       </tbody>
     </BS.Table>

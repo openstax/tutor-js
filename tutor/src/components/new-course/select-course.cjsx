@@ -6,34 +6,28 @@ classnames = require 'classnames'
 
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 
-COURSES =
-  college_physics:      'College Physics'
-  college_biology:      'College Biology'
-  principles_economics: 'Principles of Economics'
-  macro_economics:      'Macroeconomics'
-  micro_economics:      'Microeconomics'
-  intro_sociology:      'Introduction to Sociology'
-  anatomy_physiology:   'Anatomy & Physiology'
+{OfferingsStore} = require '../../flux/offerings'
 
-KEY = "course_code"
+
+KEY = "offering_id"
 
 SelectCourse = React.createClass
   statics:
     title: "Choose your Tutor course"
 
-  onSelect: (type) ->
-    NewCourseActions.set({"#{KEY}": type})
+  onSelect: (id) ->
+    NewCourseActions.set({"#{KEY}": id})
 
   render: ->
     <BS.Table className="offerings" striped bordered>
       <tbody>
-        {for code, name of COURSES
-          <tr data-appearance={code} key={code}
-            className={classnames({selected: NewCourseStore.get(KEY) is code})}
-            onClick={partial(@onSelect, code)}
+        {for offering in OfferingsStore.all()
+          <tr key={offering.id} data-appearance={offering.appearance_code}
+            className={classnames({selected: NewCourseStore.get(KEY) is offering.id})}
+            onClick={partial(@onSelect, offering.id)}
           >
             <td></td>
-            <td>{name}</td>
+            <td>{OfferingsStore.getTitle(offering.id)}</td>
           </tr>}
       </tbody>
     </BS.Table>

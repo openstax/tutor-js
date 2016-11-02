@@ -1,0 +1,125 @@
+{
+  "total_count": 5,
+  "items": [
+    {
+      "id": "1",
+      "is_concept_coach": false,
+      "is_tutor": true,
+      "appearance_code": "college_biology",
+      "active_term_years": [
+        {
+          "term": "fall",
+          "year": 2016
+        },
+        {
+          "term": "spring",
+          "year": 2017
+        },
+        {
+          "term": "summer",
+          "year": 2017
+        },
+        {
+          "term": "fall",
+          "year": 2017
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "is_concept_coach": false,
+      "is_tutor": true,
+      "appearance_code": "college_physics",
+      "active_term_years": [
+        {
+          "term": "fall",
+          "year": 2016
+        },
+        {
+          "term": "spring",
+          "year": 2017
+        },
+        {
+          "term": "summer",
+          "year": 2017
+        },
+        {
+          "term": "fall",
+          "year": 2017
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "is_concept_coach": false,
+      "is_tutor": true,
+      "appearance_code": "intro_sociology",
+      "active_term_years": [
+        {
+          "term": "fall",
+          "year": 2016
+        },
+        {
+          "term": "spring",
+          "year": 2017
+        },
+        {
+          "term": "summer",
+          "year": 2017
+        },
+        {
+          "term": "fall",
+          "year": 2017
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "is_concept_coach": false,
+      "is_tutor": true,
+      "appearance_code": "ap_biology",
+      "active_term_years": [
+        {
+          "term": "fall",
+          "year": 2016
+        },
+        {
+          "term": "spring",
+          "year": 2017
+        },
+        {
+          "term": "summer",
+          "year": 2017
+        },
+        {
+          "term": "fall",
+          "year": 2017
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "is_concept_coach": false,
+      "is_tutor": true,
+      "appearance_code": "hs_physics",
+      "active_term_years": [
+        {
+          "term": "fall",
+          "year": 2016
+        },
+        {
+          "term": "spring",
+          "year": 2017
+        },
+        {
+          "term": "summer",
+          "year": 2017
+        },
+        {
+          "term": "fall",
+          "year": 2017
+        }
+      ]
+    }
+  ]
+}

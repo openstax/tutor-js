@@ -28,7 +28,8 @@ PerformanceForecast = require './flux/performance-forecast'
 {TaskPlanActions, TaskPlanStore} = require './flux/task-plan'
 {TaskTeacherReviewActions, TaskTeacherReviewStore} = require './flux/task-teacher-review'
 {TaskPlanStatsActions, TaskPlanStatsStore} = require './flux/task-plan-stats'
-
+{PastTaskPlansActions} = require './flux/past-task-plans'
+{OfferingsActions} = require './flux/offerings'
 {TocActions} = require './flux/toc'
 {ExerciseActions, ExerciseStore} = require './flux/exercise'
 {TeacherTaskPlanActions, TeacherTaskPlanStore} = require './flux/teacher-task-plan'
@@ -242,6 +243,12 @@ start = (bootstrapData) ->
 
   apiHelper CurrentUserActions, CurrentUserActions.load, CurrentUserActions.loaded, 'GET', ->
     url: '/api/user'
+
+  route 'GET', "/api/offerings",
+    actions: OfferingsActions, trigger: 'load', onSuccess: 'loaded'
+
+  route 'GET', "/api/courses/{courseId}/plans?cloned=true",
+    actions: PastTaskPlansActions, trigger: 'load', onSuccess: 'loaded'
 
   apiHelper CourseListingActions, CourseListingActions.load, CourseListingActions.loaded, 'GET', ->
     url: '/api/user/courses'

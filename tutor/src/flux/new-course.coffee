@@ -1,6 +1,6 @@
 {makeStandardStore} = require './helpers'
 extend = require 'lodash/extend'
-clone  = require 'lodash/clone'
+cloneDeep  = require 'lodash/cloneDeep'
 
 {CourseListingActions} = require './course-listing'
 
@@ -8,12 +8,12 @@ DEFAULTS =
   copy_ql: 'copy'
 
 StoreDefinition = makeStandardStore('NewCourse', {
-  _local: clone(DEFAULTS)
+  _local: cloneDeep(DEFAULTS)
 
   save: ->
     actions = StoreDefinition.NewCourseActions
     if @_local.source_course_id
-      actions.clone({courseId: @_local.source_course_id})
+      actions.cloneDeep({courseId: @_local.source_course_id})
     else
       actions.create()
 
@@ -29,7 +29,7 @@ StoreDefinition = makeStandardStore('NewCourse', {
     @emit('created', newCourse)
 
   _reset: ->
-    @_local = clone(DEFAULTS)
+    @_local = cloneDeep(DEFAULTS)
 
   set: (attrs) ->
     extend(@_local, attrs)
@@ -38,7 +38,7 @@ StoreDefinition = makeStandardStore('NewCourse', {
   exports:
     isValid: (attr) ->
       !! switch attr
-        when 'details' then @_local.name and @_local.number_of_sections
+        when 'details' then @_local.name and @_local.num_sections
         else
           @_local[attr]
 
@@ -49,7 +49,10 @@ StoreDefinition = makeStandardStore('NewCourse', {
       @_local[attr]
 
     requestPayload: ->
-      @_local
+      payload = cloneDeep(@_local)
+      extend(payload, payload.term)
+      payload.is_college = 'true'
+      payload
 
 })
 

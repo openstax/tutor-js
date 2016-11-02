@@ -6,7 +6,7 @@ BS    = require 'react-bootstrap'
 isEmpty = require 'lodash/isEmpty'
 
 
-{TeacherTaskPlanStore} = require '../../flux/teacher-task-plan'
+{PastTaskPlansActions, PastTaskPlansStore} = require '../../flux/past-task-plans'
 BindStoreMixin = require '../bind-store-mixin'
 
 EmptyWarning = (props) ->
@@ -21,10 +21,13 @@ PastAssignments = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
 
-  bindStore: TeacherTaskPlanStore
+  bindStore: PastTaskPlansStore
+
+  componentWillMount: ->
+    PastTaskPlansActions.load(courseId: @props.courseId)
 
   render: ->
-    plans = TeacherTaskPlanStore.get(@props.courseId) or []
+    plans = PastTaskPlansStore.get(@props.courseId) or []
 
     <div className='past-assignments'>
       <EmptyWarning isVisible={isEmpty(plans)} />
