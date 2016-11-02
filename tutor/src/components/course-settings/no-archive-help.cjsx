@@ -49,7 +49,7 @@ NoArchiveHelp = React.createClass
   render: ->
     <span className='control no-archive-help'>
       <BS.Button bsStyle='link' onClick={@open}>
-        Why can’t I add or archive <CourseGroupingLabel lowercase
+        Why can’t I add or archive <CourseGroupingLabel plural lowercase
           courseId={@props.courseId} />?
 
       </BS.Button>
