@@ -1,24 +1,16 @@
-{makeStandardStore} = require './helpers'
+{makeStandardStore, STATES} = require './helpers'
 cloneDeep = require 'lodash/cloneDeep'
 
 BLANK = {}
 
 StoreDefinition = makeStandardStore('PastTaskPlans', {
-  _local: cloneDeep(BLANK)
-
-  # used by api
-  # coffeelint: disable=no_empty_functions
   load: ({courseId}) ->
-  # coffeelint: enable=no_empty_functions
+    @_asyncStatus[courseId] = STATES.LOADING
+
   loaded: (data, {courseId}) ->
+    @_asyncStatus[courseId] = STATES.LOADED
     @_local[courseId] = data.items
     @emitChange()
-
-  exports:
-    get: (courseId) ->
-      @_get(courseId) or []
-
-
 })
 
 module.exports = StoreDefinition
