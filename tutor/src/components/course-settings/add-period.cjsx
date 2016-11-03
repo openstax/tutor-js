@@ -3,10 +3,9 @@ BS = require 'react-bootstrap'
 _ = require 'underscore'
 {PeriodActions, PeriodStore} = require '../../flux/period'
 {TutorInput} = require '../tutor-input'
-{AsyncButton} = require 'shared'
+{SpyMode, AsyncButton} = require 'shared'
 
 CourseGroupingLabel = require '../course-grouping-label'
-
 
 AddPeriodField = React.createClass
 
@@ -107,10 +106,12 @@ module.exports = React.createClass
     </BS.Modal>
 
   render: ->
-    <div className='control add-period'>
-      <BS.Button onClick={@open} bsStyle='link'>
-        <i className='fa fa-plus' />
-        Add <CourseGroupingLabel courseId={@props.courseId} />
-      </BS.Button>
-      {@renderForm()}
-    </div>
+    <SpyMode.Content unstyled>
+      <div className='control add-period'>
+        <BS.Button onClick={@open} bsStyle='link'>
+          <i className='fa fa-plus' />
+          Add <CourseGroupingLabel courseId={@props.courseId} />
+        </BS.Button>
+        {@renderForm()}
+      </div>
+    </SpyMode.Content>

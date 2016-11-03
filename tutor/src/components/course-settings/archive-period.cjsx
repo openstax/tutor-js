@@ -4,7 +4,7 @@ _ = require 'underscore'
 {PeriodActions, PeriodStore} = require '../../flux/period'
 {RosterActions, RosterStore} = require '../../flux/roster'
 {TutorInput} = require '../tutor-input'
-{AsyncButton} = require 'shared'
+{SpyMode, AsyncButton} = require 'shared'
 
 Icon = require '../icon'
 CourseGroupingLabel = require '../course-grouping-label'
@@ -55,14 +55,14 @@ ArchivePeriodLink = React.createClass
 
   render: ->
     return null if _.isEmpty @props.periods
-
-    <BS.OverlayTrigger rootClose={true} ref='overlay'
-      trigger='click' placement='bottom' overlay={@renderPopover()}>
-        <a className="control archive-period">
-          <Icon type='archive' /> Archive <CourseGroupingLabel
-            courseId={@props.courseId} />
-        </a>
-    </BS.OverlayTrigger>
-
+    <SpyMode.Content unstyled>
+      <BS.OverlayTrigger rootClose={true} ref='overlay'
+        trigger='click' placement='bottom' overlay={@renderPopover()}>
+          <a className="control archive-period">
+            <Icon type='archive' /> Archive <CourseGroupingLabel
+              courseId={@props.courseId} />
+          </a>
+      </BS.OverlayTrigger>
+    </SpyMode.Content>
 
 module.exports = ArchivePeriodLink

@@ -78,13 +78,17 @@ getTeacherReview = ->
   {TaskTeacherReviewShell} = require './components/task-teacher-review'
   TaskTeacherReviewShell
 
+getCCHelp = ->
+  require './components/cc-dashboard/help'
+
 ROUTES = [
   { pattern: '/dashboard',              name: 'listing',                  renderer: getCourseListing }
   { pattern: '/course/new',             name: 'createNewCourse',          renderer: getCreateCourse  }
   {
     pattern: '/course/:courseId',       name: 'dashboard',                renderer: getDashboard
     routes: [
-      { pattern: 'scores',              name: 'viewScores',               renderer: getScoresShell          }
+      { pattern: 'scores',              name: 'viewScores',               renderer: getScoresShell }
+      { pattern: 'cc/help',             name: 'ccDashboardHelp',          renderer: getCCHelp      }
       { pattern: 'guide/:roleId?',      name: 'viewPerformanceGuide',     renderer: getPerformanceForecastGuide }
       {
         pattern: 't',                   name: 'viewTeacherDashboard',     renderer: getTeacherTaskPlans
