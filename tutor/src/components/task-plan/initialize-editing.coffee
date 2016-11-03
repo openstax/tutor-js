@@ -4,7 +4,7 @@ moment = require 'moment-timezone'
 TimeHelper = require '../../helpers/time'
 {TimeStore} = require '../../flux/time'
 {TaskingStore, TaskingActions} = require '../../flux/tasking'
-
+_ = require 'underscore'
 Router = require '../../helpers/router'
 
 getOpensAtDefault = ->
