@@ -98,26 +98,6 @@ TeacherTaskPlanListing = React.createClass
 
   mixins: [CourseDataMixin]
 
-  # statics:
-  #   willTransitionTo: (transition, params, query, callback) ->
-  #     {date, planId, courseId} = params
-  #     course = CourseStore.get(courseId)
-  #     if course.is_concept_coach
-  #       transition.redirect('cc-dashboard', {courseId})
-  #       return callback()
-
-  #     unless date? and moment(date, TimeHelper.ISO_DATE_FORMAT).isValid()
-  #       date = moment(TimeStore.getNow())
-  #       params.date = date.format(TimeHelper.ISO_DATE_FORMAT)
-  #       transition.redirect('calendarByDate', params)
-  #       return callback()
-
-  #     if planId? and TaskPlanStore.isDeleteRequested(planId)
-  #       transition.redirect('calendarByDate', _.omit(params, 'planId'))
-  #       return callback()
-
-  #     callback()
-
   componentWillMount: ->
     courseId = @props.params.courseId
     courseTimezone = CourseStore.getTimezone(courseId)
