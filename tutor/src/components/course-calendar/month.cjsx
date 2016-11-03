@@ -172,7 +172,11 @@ CourseMonth = React.createClass
 
   onCloneLoaded: (newPlanId) ->
     _.defer => # give flux store time to update
-      @setState(editingPlanId: newPlanId, cloningPlan: undefined)
+      @setState(
+        editingPlanId: newPlanId,
+        editingPosition: @state.cloningPlan.position
+        cloningPlan: undefined
+      )
 
   getEditingPlanEl: ->
     return null unless @state.editingPlanId
@@ -243,6 +247,7 @@ CourseMonth = React.createClass
       /> if @state.cloningPlan?}
       {<TaskPlanMiniEditor
         planId={@state.editingPlanId}
+        position={@state.editingPosition}
         courseId={@props.courseId}
         onHide={@onEditorHide}
         findPopOverTarget={@getEditingPlanEl}

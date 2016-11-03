@@ -13,6 +13,10 @@ TaskPlanMiniEditorShell = React.createClass
     planId:   React.PropTypes.string.isRequired
     onHide: React.PropTypes.func.isRequired
     findPopOverTarget: React.PropTypes.func.isRequired
+    position: React.PropTypes.shape(
+      x: React.PropTypes.number
+      y: React.PropTypes.number
+    ).isRequired
 
   getInitialState: ->
     isVisible: true
@@ -24,6 +28,14 @@ TaskPlanMiniEditorShell = React.createClass
       courseId={@props.courseId}
     />
 
+  calculatePlacement: ->
+    # depending on UX, we may need to adjust up / down as well
+    console.log @props.position
+    if @props.position.x < 500
+      'right'
+    else
+      'left'
+
   render: ->
     {planId, courseId} = @props
 
@@ -32,7 +44,7 @@ TaskPlanMiniEditorShell = React.createClass
       <BS.Overlay
         show={@state.isVisible}
         onHide={@props.onHide}
-        placement='left'
+        placement={@calculatePlacement()}
         ref='overlay'
         target={@props.findPopOverTarget}
       >
