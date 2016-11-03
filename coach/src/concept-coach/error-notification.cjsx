@@ -40,9 +40,7 @@ ErrorNotification = React.createClass
   onError: (exception) ->
     {config, response} = exception
 
-    # return if failedData?.stopErrorDisplay # someone else is handling displaying the error
-    if exception?
-      errors = [exception.toString()]
+    errors = [exception.toString()] if exception?
 
     if response.status is 0 # either no response, or the response lacked CORS headers and the browser rejected it
       errors = ["Unknown response received from server"]
@@ -50,7 +48,7 @@ ErrorNotification = React.createClass
       errors = ["#{response.status}: #{response.statusText}"]
       if _.isArray(response.data?.errors) # we have something from server to display
         errors = errors.concat(
-          _.flatten _.map response.data.errors, (error) ->
+          _.map response.data.errors, (error) ->
             # All 422 errors from BE *should* have a "code" property.  If not, show whatever it is
             if error.code then error.code else JSON.stringify(error)
           )

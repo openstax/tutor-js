@@ -136,13 +136,13 @@ ROUTES = [{
   method: 'PATCH'
   pattern: 'students/{id}'
   action: 'save-student-identifier'
-  handledErrors: ['student_identifier_has_already_been_taken']
+  # handledErrors: ['student_identifier_has_already_been_taken']
 }, {
   subject: 'student'
   method: 'PUT'
   action: 'undrop'
   pattern: 'students/{id}/undrop'
-  handledErrors: ['already_active', 'student_identifier_has_already_been_taken']
+  # handledErrors: ['already_active', 'student_identifier_has_already_been_taken']
 }, {
   subject: 'course-roster'
   method: 'GET'

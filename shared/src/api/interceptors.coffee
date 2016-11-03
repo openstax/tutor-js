@@ -20,12 +20,13 @@ makeLocalResponse = (response) ->
   response.data = _.extend({}, response.data, payload)
 
 doesErrorMatch = (handledErrors, errorName) ->
-  _.indexOf(handledErrors, errorName) > -1 or
+  _.includes(handledErrors, errorName) or
     _.some(handledErrors, _.partial(minimatch, errorName))
 
 areAllErrorsHandled = (handledErrors, errors, errorNameProperty) ->
-  isErrorHandled = _.partial(doesErrorMatch, handledErrors)
-  _.every errors, _.flow(_.property(errorNameProperty), isErrorHandled)
+  _.every errors, (error) ->
+    errorName = _.propertyOf(error)(errorNameProperty)
+    doesErrorMatch(handledErrors, errorName)
 
 
 class Interceptors
@@ -66,7 +67,8 @@ class Interceptors
 
   handleNonAPIErrors: (error) =>
     unless error.response
-      status = 1
+      status = 0
+      # TODO, see if error.toString() would be better here.
       statusText = "#{error.name} #{error.message}"
       data = error.stack
 
