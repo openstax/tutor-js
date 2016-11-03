@@ -8,7 +8,7 @@ Breadcrumbs = require './breadcrumbs'
 {PinnedHeaderFooterCard, ChapterSectionMixin, ScrollToMixin} = require 'shared'
 
 _ = require 'underscore'
-
+Router = require '../../helpers/router'
 {TaskPlanStatsStore} = require '../../flux/task-plan-stats'
 {TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
 ScrollSpy = require '../scroll-spy'
@@ -28,7 +28,7 @@ TaskTeacherReview = React.createClass
     router: React.PropTypes.object
 
   setStepKey: ->
-    {sectionIndex} = @context.router.getCurrentParams()
+    {sectionIndex} = Router.currentParams()
     defaultKey = null
     # url is 1 based so it matches the breadcrumb button numbers
     crumbKey = if sectionIndex then parseInt(sectionIndex) - 1 else defaultKey
@@ -39,7 +39,7 @@ TaskTeacherReview = React.createClass
 
   getInitialState: ->
     {id} = @props
-    {periodId} = @context.router.getCurrentParams()
+    {periodId} = Router.currentParams()
 
     currentStep: null
     scrollState: {}
@@ -51,15 +51,13 @@ TaskTeacherReview = React.createClass
   componentWillMount: ->
     @setStepKey()
     TaskTeacherReviewStore.on('review.loaded', @setIsReviewLoaded)
-
-    location = @context.router.getLocation()
-    location.addChangeListener(@syncRoute)
+    # location = @context.router.getLocation()
+    # location.addChangeListener(@syncRoute)
 
   componentWillUnmount: ->
     TaskTeacherReviewStore.off('review.loaded', @setIsReviewLoaded)
-
-    location = @context.router.getLocation()
-    location.removeChangeListener(@syncRoute)
+    # location = @context.router.getLocation()
+    # location.removeChangeListener(@syncRoute)
 
   componentWillReceiveProps: (nextProps) ->
     if nextProps.shouldUpdate
@@ -87,17 +85,16 @@ TaskTeacherReview = React.createClass
     shouldUpdate
 
   goToStep: (stepKey) ->
-    params = _.clone(@context.router.getCurrentParams())
+    params = Router.currentParams()
     # url is 1 based so it matches the breadcrumb button numbers
     params.sectionIndex = stepKey + 1
     params.id = @props.id # if we were rendered directly, the router might not have the id
-
-    @context.router.replaceWith('reviewTaskStep', params)
+#    @context.router.replaceWith('reviewTaskStep', params)
 
   setPeriod: (period) ->
     return unless @state.isReviewLoaded
 
-    params = _.clone(@context.router.getCurrentParams())
+    params = Router.currentParams()
     contentState = @getReviewContents(period)
     contentState.period = period
 
@@ -108,7 +105,7 @@ TaskTeacherReview = React.createClass
 
     TaskTeacherReviewStore.off('review.loaded', @setIsReviewLoaded)
 
-    params = _.clone(@context.router.getCurrentParams())
+    params = Router.currentParams()
     @syncStep(params)
 
     contentState = @getReviewContents()
@@ -180,10 +177,9 @@ TaskTeacherReview = React.createClass
 
 
 TaskTeacherReviewShell = React.createClass
-  contextTypes:
-    router: React.PropTypes.object
+
   render: ->
-    {id, courseId} = @context.router.getCurrentParams()
+    {id, courseId} = Router.currentParams()
     <ScrollSpy dataSelector='data-section'>
       <TaskTeacherReview key={id} id={id} courseId={courseId}/>
     </ScrollSpy>
