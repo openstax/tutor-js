@@ -10,12 +10,13 @@ StoreDefinition = makeStandardStore('PastTaskPlans', {
   # coffeelint: disable=no_empty_functions
   load: ({courseId}) ->
   # coffeelint: enable=no_empty_functions
-  loaded: ({courseId}, data) ->
+  loaded: (data, {courseId}) ->
     @_local[courseId] = data.items
+    @emitChange()
 
   exports:
     get: (courseId) ->
-      @_get(courseId)
+      @_get(courseId) or []
 
 
 })
