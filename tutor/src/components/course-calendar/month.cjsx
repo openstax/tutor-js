@@ -83,7 +83,7 @@ CourseMonth = React.createClass
       else
         'current'
 
-    makeModForDate = (dateToModify, calendarDate) ->
+    hackMoment = (dateToModify, calendarDate) ->
       # hacking moment instance to bypass naive filter
       # https://github.com/freiksenet/react-calendar/blob/master/src/Month.js#L64-L65
       # TODO make a pr to include mods for month edges in react-calendar
@@ -95,8 +95,10 @@ CourseMonth = React.createClass
           true
         else
           isSame.call(hackedDate, dateToCompare, period)
+      hackedDate
 
-      date: hackedDate
+    makeModForDate = (dateToModify, calendarDate) ->
+      date: hackMoment(dateToModify, calendarDate)
       component: [ 'day' ]
       classNames: [ getClassNameForDate(dateToModify) ]
 
