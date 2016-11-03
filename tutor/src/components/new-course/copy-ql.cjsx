@@ -7,14 +7,14 @@ classnames = require 'classnames'
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 
 MESSAGES =
-  copy: '''
+  true: '''
     Copying allows you to import the state of the Question Library from your past course.
     Excluded questions will remain excluded in the new course, but you can still make
     changes later. The new library will also include errata corrections and new questions
     added by OpenStax.
   '''
 
-  fresh: '''
+  false: '''
     If you don't copy the question library, questions excluded in the course you are
     copying won't be excluded in the new course.  The new library will, however,
     reflect errata corrections and new questions added by OpenStax.
@@ -36,14 +36,14 @@ CopyQL = React.createClass
       <BS.Table striped bordered>
         <tbody>
           <tr
-            onClick={partial(@onSelect, 'copy')}
-            className={classnames('copy', selected: NewCourseStore.get(KEY) is 'copy')}
+            onClick={partial(@onSelect, 'true')}
+            className={classnames('true', selected: NewCourseStore.get(KEY) is 'true')}
           >
             <td>Copy Question Library</td>
           </tr>
           <tr
-            onClick={partial(@onSelect, 'fresh')}
-            className={classnames('fresh', selected: NewCourseStore.get(KEY) is 'fresh')}
+            onClick={partial(@onSelect, 'false')}
+            className={classnames('false', selected: NewCourseStore.get(KEY) is 'false')}
           >
             <td>Don’t copy Question Library</td>
           </tr>
@@ -51,11 +51,11 @@ CopyQL = React.createClass
       </BS.Table>
       <div
         className={classnames('explain', 'alert', {
-          'alert-info': NewCourseStore.get(KEY) is 'fresh'
-          'alert-danger': NewCourseStore.get(KEY) is 'copy'
+          'alert-info': NewCourseStore.get(KEY) is 'true'
+          'alert-danger': NewCourseStore.get(KEY) is 'false'
         })}
       >
-        {MESSAGES[NewCourseStore.get(KEY) or 'copy']}
+        {MESSAGES[NewCourseStore.get(KEY) or 'true']}
       </div>
     </div>
 
