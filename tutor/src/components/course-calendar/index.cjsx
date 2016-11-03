@@ -1,4 +1,6 @@
 React = require 'react'
+HTML5Backend = require 'react-dnd-html5-backend'
+DragDropContext = require('react-dnd').DragDropContext
 
 CourseMonth = require './month'
 
@@ -20,4 +22,4 @@ CourseCalendar = React.createClass
 
     <Handler {...@props} plansList={plansList} ref='calendarHandler'/>
 
-module.exports = CourseCalendar
+module.exports = DragDropContext(HTML5Backend)(CourseCalendar)

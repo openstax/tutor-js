@@ -1,7 +1,5 @@
 React = require 'react'
 classnames = require 'classnames'
-HTML5Backend = require 'react-dnd-html5-backend'
-DragDropContext = require('react-dnd').DragDropContext
 
 Router = require '../helpers/router'
 Analytics = require '../helpers/analytics'
@@ -63,4 +61,4 @@ App = React.createClass
     </div>
 
 
-module.exports = DragDropContext(HTML5Backend)(App)
+module.exports = App
