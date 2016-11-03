@@ -41,6 +41,6 @@ module.exports =
         <TeacherTaskPlans {...props} />
     else
       if CourseStore.isConceptCoach(courseId)
-        <CCStudentRedirect {...props} />
+        <CCStudentRedirect courseId={courseId} />
       else
         <StudentDashboardShell courseId={courseId} {...props} />
