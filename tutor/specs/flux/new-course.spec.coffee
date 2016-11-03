@@ -20,7 +20,6 @@ describe 'NewCourse Store', ->
     expect(NewCourseStore.requestPayload()).to.deep.equal({
       copy_ql: 'copy',
       course_type: 'tutor',
-      offering_id: '1',
       cloned_from_id: '11'
       term: 'fall',
       year: 2018,
