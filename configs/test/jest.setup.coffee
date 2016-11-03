@@ -4,6 +4,11 @@ sinonChai = require('sinon-chai')
 chai.use(sinonChai)
 isFunction = require('lodash/isFunction')
 
+global.enzyme = require 'enzyme'
+chaiEnzyme = require('chai-enzyme')
+chai.use(chaiEnzyme())
+
+
 # https://github.com/facebook/jest/issues/1730
 
 # Make sure chai and jasmine ".not" play nice together
@@ -28,7 +33,8 @@ global.expect = (actual) ->
 global.chia = chai
 global.sinon = sinon
 global.jasmineExpect = global.expect
-
+global.shallow = enzyme.shallow
+global.mount   = enzyme.mount
 global.expect = (actual) ->
   originalMatchers = global.jasmineExpect(actual)
   chaiMatchers = chai.expect(actual)
