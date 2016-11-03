@@ -22,8 +22,13 @@ describe 'TaskPlan Store', ->
     TaskPlanActions.createClonedPlan( newId, {
       planId: PLAN.id, courseId: COURSE_ID, due_at: moment()
     })
-    clone = TaskPlanStore.get(newId)
+    clone = TaskPlanStore.getChanged(newId)
     for attr in ['title', 'description', 'type', 'settings', 'is_feedback_immediate']
       expect(clone[attr]).to.deep.equal(PLAN[attr])
+
+    expect(clone.cloned_from_id).to.equal(PLAN.id)
+    for period in CourseStore.get(COURSE_ID).periods
+      tasking_plan = _.find(clone.tasking_plans, target_id: period.id)
+      expect(tasking_plan).to.exist
 
     undefined
