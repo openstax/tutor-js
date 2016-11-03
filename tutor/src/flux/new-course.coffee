@@ -25,6 +25,7 @@ StoreDefinition = makeStandardStore('NewCourse', {
   created: (newCourse) ->
     @reset()
     @_local['newlyCreatedCourse'] = newCourse
+    CourseListingActions.addCourse(newCourse)
     @emit('created', newCourse)
 
   _reset: ->
@@ -52,7 +53,7 @@ StoreDefinition = makeStandardStore('NewCourse', {
       extend(payload, payload.term)
       payload.is_college = 'true'
       if payload.cloned_from_id
-        delete payload.catalog_offering_id
+        delete payload.offering_id
       payload
 
 })
