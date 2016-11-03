@@ -1,4 +1,5 @@
 _ = require 'underscore'
+cloneDeep = require 'lodash/cloneDeep'
 Collection = require 'exercise/collection'
 step = require '../../api/steps/4571/GET'
 
@@ -6,7 +7,7 @@ describe 'Exercise Collection', ->
 
   beforeEach ->
     @stepId = 4571
-    @step = _.clone(step)
+    @step = cloneDeep(step)
     Collection.quickLoad(@stepId, @step)
 
   describe 'getCurrentPanel', ->
@@ -22,6 +23,12 @@ describe 'Exercise Collection', ->
 
     it 'returns multiple-choice if free_response is present', ->
       @step.free_response = 'my best guess'
+      Collection.quickLoad(@stepId, @step)
+      expect(Collection.getCurrentPanel(@stepId)).equal('multiple-choice')
+      undefined
+
+    it 'returns multiple-choice for true-false format', ->
+      @step.content.questions[0].formats = ['true-false']
       Collection.quickLoad(@stepId, @step)
       expect(Collection.getCurrentPanel(@stepId)).equal('multiple-choice')
       undefined
