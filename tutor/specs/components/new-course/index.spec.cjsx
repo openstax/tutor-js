@@ -1,4 +1,4 @@
-{React, _, sinon, shallow} = require '../helpers/component-testing'
+{React} = require '../helpers/component-testing'
 
 NewCourse = require '../../../src/components/new-course'
 

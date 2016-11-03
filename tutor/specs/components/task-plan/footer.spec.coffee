@@ -5,7 +5,7 @@ moment = require 'moment'
 {TimeActions, TimeStore} = require '../../../src/flux/time'
 
 PlanFooter = require '../../../src/components/task-plan/footer'
-{Testing, sinon, expect, _, React} = require '../helpers/component-testing'
+{Testing, sinon, _, React} = require '../helpers/component-testing'
 {ExtendBasePlan, PlanRenderHelper} = require '../helpers/task-plan'
 
 ISO_DATE_FORMAT = 'YYYY-MM-DD'

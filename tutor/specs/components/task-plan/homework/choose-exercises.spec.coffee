@@ -1,4 +1,4 @@
-{Testing, sinon, expect, _, React} = require '../../helpers/component-testing'
+{Testing, sinon, _, React} = require '../../helpers/component-testing'
 _ = require 'underscore'
 moment = require 'moment-timezone'
 

@@ -1,4 +1,4 @@
-{React, shallow} = require '../helpers/component-testing'
+{React} = require '../helpers/component-testing'
 
 CopyQL = require '../../../src/components/new-course/copy-ql'
 

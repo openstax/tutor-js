@@ -1,4 +1,4 @@
-{React, spyOnComponentMethod, mount, pause} = require '../helpers/component-testing'
+{React, spyOnComponentMethod, pause} = require '../helpers/component-testing'
 
 SelectType = require '../../../src/components/new-course/select-type'
 {NewCourseStore} = require '../../../src/flux/new-course'

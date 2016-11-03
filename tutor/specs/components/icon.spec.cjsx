@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _, ReactTestUtils} = require './helpers/component-testing'
+{Testing, sinon, _, ReactTestUtils} = require './helpers/component-testing'
 React = require 'react'
 Icon = require '../../src/components/icon'
 

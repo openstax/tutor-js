@@ -1,4 +1,4 @@
-{React, shallow, sinon} = require '../helpers/component-testing'
+{React} = require '../helpers/component-testing'
 
 AddAssignmentMenu = require '../../../src/components/course-calendar/add-assignment-menu'
 

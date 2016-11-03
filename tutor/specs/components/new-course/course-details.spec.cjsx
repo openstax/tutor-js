@@ -1,4 +1,4 @@
-{React, pause, mount} = require '../helpers/component-testing'
+{React, pause} = require '../helpers/component-testing'
 
 CourseDetails = require '../../../src/components/new-course/course-details'
 {CourseListingActions, CourseListingStore} = require '../../../src/flux/course-listing'
