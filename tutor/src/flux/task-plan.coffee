@@ -254,11 +254,12 @@ TaskPlanConfig =
 
     plan.id = newPlanId
     course = CourseStore.get(courseId)
-    due_at = TimeHelper.getZonedMoment( TimeHelper.ISODateToMoment(due_at), course.time_zone).startOf('day')
-    opens_at = due_at.subtract(
-      TimeHelper.getZonedMoment(original.tasking_plans[0].due_at, course.time_zone).diff(
-        moment(original.tasking_plans[0].opens_at), 'days'
-      )
+    due_at = TimeHelper.getZonedMoment(
+      TimeHelper.ISODateToMoment(due_at), course.time_zone
+    ).startOf('day')
+    opens_at = due_at.clone().subtract(
+      moment(original.tasking_plans[0].due_at)
+        .diff(original.tasking_plans[0].opens_at)
     )
     opens_at.add(moment.duration(course.default_open_time))
     due_at.add(moment.duration(course.default_due_time))
