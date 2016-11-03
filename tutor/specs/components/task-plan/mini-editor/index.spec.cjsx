@@ -18,8 +18,18 @@ describe 'TaskPlan MiniEditor wrapper', ->
       planId:   '42'
       findPopOverTarget: sinon.spy()
       onHide: sinon.spy()
+      position: { x: 100, y: 100 }
 
   it 'renders with loadable', ->
     wrapper = shallow(<MiniEditor {...@props} />)
     expect(wrapper.find('LoadableItem[id="42"]')).length.to.be(1)
+    undefined
+
+
+  it 'positions itself to left or right', ->
+    wrapper = shallow(<MiniEditor {...@props} />)
+    expect(wrapper.find('Overlay[placement="right"]')).length.to.be(1)
+    @props.position.x = 800
+    wrapper.setProps(@props)
+    expect(wrapper.find('Overlay[placement="left"]')).length.to.be(1)
     undefined
