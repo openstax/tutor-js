@@ -64,6 +64,49 @@ CourseMonth = React.createClass
     unless moment(date).isSame(@props.date, 'month')
       @setDateParams(date)
 
+  getMonthMods: (calendarDuration) ->
+    date = moment(TimeStore.getNow())
+    mods = [
+      {
+        component: [ 'day' ]
+        events:
+          onClick: @handleDayClick
+          onDragEnter: @onDragHover
+      }
+    ]
+
+    getClassNameForDate = (dateToModify) ->
+      if dateToModify.isBefore(date, 'day')
+        'past'
+      else if dateToModify.isAfter(date, 'day')
+        'upcoming'
+      else
+        'current'
+
+    makeModForDate = (dateToModify, calendarDate) ->
+      # hacking moment instance to bypass naive filter
+      # https://github.com/freiksenet/react-calendar/blob/master/src/Month.js#L64-L65
+      # TODO make a pr to include mods for month edges in react-calendar
+      # Otherwise, outside of month days do not get the mods.
+      hackedDate = dateToModify.clone()
+      {isSame} = hackedDate
+      hackedDate.isSame = (dateToCompare, period) ->
+        if dateToCompare.isSame(calendarDate, 'day') and period is 'month'
+          true
+        else
+          isSame.call(hackedDate, dateToCompare, period)
+
+      date: hackedDate
+      component: [ 'day' ]
+      classNames: [ getClassNameForDate(dateToModify) ]
+
+    daysOfDuration = calendarDuration.iterate('days')
+
+    while daysOfDuration.hasNext()
+      mods.push(makeModForDate(daysOfDuration.next(), @props.date))
+
+    mods
+
   componentDidUpdate: ->
     @setDayHeight(@refs.courseDurations.state.ranges) if @refs.courseDurations?
 
@@ -148,15 +191,6 @@ CourseMonth = React.createClass
 
     calendarClassName = classnames 'calendar-container', className
 
-    mods = [
-      {
-        component: [ 'day' ],
-        events:
-          onClick: @handleDayClick
-          onDragEnter: @onDragHover
-      }
-    ]
-
     if plansList?
       plans = <CourseDuration
         referenceDate={moment(TimeStore.getNow())}
@@ -190,7 +224,7 @@ CourseMonth = React.createClass
           {@props.connectDropTarget(
             <div>
               <Month date={date} monthNames={false}
-                weekdayFormat='ddd' mods={mods} />
+                weekdayFormat='ddd' mods={@getMonthMods(calendarDuration)} />
               {plans}
             </div>
           )}
