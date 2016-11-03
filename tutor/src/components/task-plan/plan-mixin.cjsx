@@ -71,6 +71,14 @@ PlanMixin =
     TaskPlanActions.publish(id) if saveable
     @save()
 
+  isWaiting: ->
+    {id} = @props
+    !! (TaskPlanStore.isSaving(id) or TaskPlanStore.isPublishing(id) or TaskPlanStore.isDeleteRequested(id))
+
+  isSaveable: ->
+    {id} = @props
+    not (TaskPlanStore.isPublished(id) or TaskPlanStore.isPublishing(id))
+
   save: ->
     {id, courseId} = @props
     saveable = TaskPlanStore.isValid(id) and TaskingStore.isTaskValid(id)
@@ -89,7 +97,7 @@ PlanMixin =
     courseId = @props.courseId
     TaskPlanActions.saved.removeListener('change', @saved)
     TaskPlanStore.isLoading(@props.id)
-    @goBackToCalendar()
+    if @afterSave? then @afterSave() else @goBackToCalendar()
 
   cancel: ->
     {id, courseId} = @props

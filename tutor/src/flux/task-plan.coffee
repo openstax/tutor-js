@@ -1,10 +1,13 @@
 # coffeelint: disable=no_empty_functions
 _ = require 'underscore'
-{cloneDeep} = require 'lodash'
+cloneDeep = require 'lodash/cloneDeep'
+map = require 'lodash/map'
+pick = require 'lodash/pick'
 validator = require 'validator'
-
+moment = require 'moment'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {TocStore} = require './toc'
+TimeHelper  = require '../helpers/time'
 {ExerciseStore} = require './exercise'
 {PlanPublishActions, PlanPublishStore} = require './plan-publish'
 {CourseStore} = require './course'
@@ -239,6 +242,40 @@ TaskPlanConfig =
       'deleted'
     ]
     deleteStates.indexOf(@_asyncStatus[id]) > -1
+
+
+  createClonedPlan: (newPlanId, {planId, courseId, due_at}) ->
+    original = @_local[planId]
+    plan = newTaskPlan(pick(original,
+      'title', 'description', 'type'
+    ))
+    for attr in ['is_feedback_immediate', 'settings']
+      plan[attr] = cloneDeep(original[attr])
+
+    plan.id = newPlanId
+    plan.cloned_from_id = planId
+    course = CourseStore.get(courseId)
+    due_at = TimeHelper.getZonedMoment(
+      TimeHelper.ISODateToMoment(due_at), course.time_zone
+    ).startOf('day')
+    opens_at = due_at.clone().subtract(
+      moment(original.tasking_plans[0].due_at)
+        .diff(original.tasking_plans[0].opens_at)
+    )
+    opens_at.add(moment.duration(course.default_open_time))
+    due_at.add(moment.duration(course.default_due_time))
+    opens_at = TimeHelper.toDateTimeISO(opens_at)
+    due_at = TimeHelper.toDateTimeISO(due_at)
+    plan.tasking_plans = map( course.periods, (period) ->
+      {
+        target_id: period.id, target_type: 'period',
+        opens_at: opens_at, due_at: due_at
+      }
+    )
+    @_local[newPlanId] = {}
+    @_changed[newPlanId] = plan
+    @emitChange()
+
 
   exports:
     hasTopic: (id, topicId) ->

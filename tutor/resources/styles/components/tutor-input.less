@@ -1,8 +1,10 @@
 .tutor-input {
   &.form-control-wrapper {
+
     // override line-height styles for paper form controls
     line-height: 1em;
     margin: 0 0 28px 0;
+    position: relative;
 
     #reading-title,
     #external-url {
@@ -20,6 +22,8 @@
     }
 
     .floating-label {
+      position: absolute;
+      top: 0px;
       font-size: 2rem;
       color: lighten(@tutor-neutral, 14%);
     }
@@ -31,14 +35,28 @@
     }
 
     .form-control {
+      box-shadow: none;
+      border: 0;
+      border-radius: 0;
+      border-bottom: 1px solid @tutor-neutral-light;
+      transition: all 0.3s ease;
+      background: linear-gradient(to bottom, white 96%, @tutor-tertiary 4%);
+      background-repeat: no-repeat;
+
+      background-position: 50% 0;
+      background-size: 0px 100%;
 
       &:focus,
       &.focus {
+        outline:none;
         animation: input-highlight 0.125s forwards;
+
+        background-position: 0 0;
+        background-size: 100% 100%;
 
         ~ .floating-label {
           color: @info;
-          top: -15px;
+          top: inherit;
           font-size: 1.1rem;
           font-weight: 300;
         }
@@ -46,6 +64,8 @@
         ~.required-hint {
           display: none;
         }
+
+
       }
 
       &:not(.empty) ~ .floating-label {

@@ -18,7 +18,7 @@ describe 'CreateCourse: entering details', ->
     undefined
 
   it 'toggles the tabs when course are present', ->
-    NewCourseActions.set(course_code: 'testing')
+    NewCourseActions.set(offering_id: 1)
     CourseListingActions.loaded(MASTER_COURSES_LIST)
     wrapper = mount(<CourseDetails />)
     expect(wrapper.find('.other-courses')).not.to.be.empty
@@ -34,5 +34,5 @@ describe 'CreateCourse: entering details', ->
       .simulate('change', target: value: 12)
 
     expect(NewCourseStore.get('name')).to.equal('My Course')
-    expect(NewCourseStore.get('number_of_sections')).to.equal(12)
+    expect(NewCourseStore.get('num_sections')).to.equal(12)
     undefined

@@ -6,6 +6,8 @@ Analytics = require '../helpers/analytics'
 Navbar = require './navbar'
 MatchForTutor = require './match-for-tutor'
 
+
+
 merge = require 'lodash/merge'
 {SpyMode} = require 'shared'
 {CourseStore} = require '../flux/course'
@@ -16,7 +18,7 @@ RouteChange = (props) ->
   TransitionActions.load(props.pathname)
   <span />
 
-module.exports = React.createClass
+App = React.createClass
   displayName: 'App'
   contextTypes:
     router: React.PropTypes.object
@@ -57,3 +59,6 @@ module.exports = React.createClass
         <MatchForTutor routes={Router.getRenderableRoutes()} />
       </SpyMode.Wrapper>
     </div>
+
+
+module.exports = App

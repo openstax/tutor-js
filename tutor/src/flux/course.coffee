@@ -69,6 +69,9 @@ CourseConfig =
       role = _.findWhere(course?.roles, type: 'student')
       if role then _.findWhere(course.students, role_id: role.id).student_identifier else null
 
+    isCloned: (courseId) ->
+      !!@_get(courseId)?.cloned_from_id
+
 extendConfig(CourseConfig, new CrudConfig())
 {actions, store} = makeSimpleStore(CourseConfig)
 module.exports = {CourseActions:actions, CourseStore:store}

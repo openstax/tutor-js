@@ -1,25 +1,28 @@
+React = require 'react'
+ReactDOM = require 'react-dom'
+BS = require 'react-bootstrap'
 moment = require 'moment-timezone'
 twix = require 'twix'
 _ = require 'underscore'
 classnames = require 'classnames'
-
-React = require 'react'
-ReactDOM = require 'react-dom'
-BS = require 'react-bootstrap'
-{Droppable} = require 'react-drag-and-drop'
+qs = require 'qs'
+extend = require 'lodash/extend'
+{DropTarget} = require 'react-dnd'
 {Calendar, Month, Week, Day} = require 'react-calendar'
 {TeacherTaskPlanStore} = require '../../flux/teacher-task-plan'
 {TimeStore} = require '../../flux/time'
 TimeHelper = require '../../helpers/time'
 Router = require '../../helpers/router'
 
+{ItemTypes, TaskDrop, DropInjector} = require './task-dnd'
+
+TaskPlanMiniEditor   = require '../task-plan/mini-editor'
+PlanClonePlaceholder = require './plan-clone-placeholder'
 CourseCalendarHeader = require './header'
 CourseAddMenuMixin   = require './add-menu-mixin'
 CourseDuration       = require './duration'
 CoursePlan           = require './plan'
 CourseAdd            = require './add'
-Sidebar              = require './sidebar'
-
 
 CourseMonth = React.createClass
   displayName: 'CourseMonth'
@@ -61,6 +64,51 @@ CourseMonth = React.createClass
     unless moment(date).isSame(@props.date, 'month')
       @setDateParams(date)
 
+  getMonthMods: (calendarDuration) ->
+    date = moment(TimeStore.getNow())
+    mods = [
+      {
+        component: [ 'day' ]
+        events:
+          onClick: @handleDayClick
+          onDragEnter: @onDragHover
+      }
+    ]
+
+    getClassNameForDate = (dateToModify) ->
+      if dateToModify.isBefore(date, 'day')
+        'past'
+      else if dateToModify.isAfter(date, 'day')
+        'upcoming'
+      else
+        'current'
+
+    hackMoment = (dateToModify, calendarDate) ->
+      # hacking moment instance to bypass naive filter
+      # https://github.com/freiksenet/react-calendar/blob/master/src/Month.js#L64-L65
+      # TODO make a pr to include mods for month edges in react-calendar
+      # Otherwise, outside of month days do not get the mods.
+      hackedDate = dateToModify.clone()
+      {isSame} = hackedDate
+      hackedDate.isSame = (dateToCompare, period) ->
+        if dateToCompare.isSame(calendarDate, 'day') and period is 'month'
+          true
+        else
+          isSame.call(hackedDate, dateToCompare, period)
+      hackedDate
+
+    makeModForDate = (dateToModify, calendarDate) ->
+      date: hackMoment(dateToModify, calendarDate)
+      component: [ 'day' ]
+      classNames: [ getClassNameForDate(dateToModify) ]
+
+    daysOfDuration = calendarDuration.iterate('days')
+
+    while daysOfDuration.hasNext()
+      mods.push(makeModForDate(daysOfDuration.next(), @props.date))
+
+    mods
+
   componentDidUpdate: ->
     @setDayHeight(@refs.courseDurations.state.ranges) if @refs.courseDurations?
 
@@ -84,7 +132,7 @@ CourseMonth = React.createClass
     calendarWeeks = calendarDuration.split(1, 'week')
     {calendarDuration, calendarWeeks}
 
-  handleClick: (dayMoment, mouseEvent) ->
+  handleDayClick: (dayMoment, mouseEvent) ->
     @refs.addOnDay.updateState(dayMoment, mouseEvent.pageX, mouseEvent.pageY)
     @setState({
       activeAddDate: dayMoment
@@ -107,32 +155,47 @@ CourseMonth = React.createClass
   getFullMonthName: ->
     @props.date?.format?('MMMM')
 
-  onTaskDrop: (planId, ev) ->
-    plan = TeacherTaskPlanStore.get(planId)
-    day = ev.target.textContent
+  onDrop: (item, offset) ->
+    return unless @state.hoveredDay
+    if item.pathname # is a link to create an assignment
+      url = item.pathname + "?" + qs.stringify({
+        due_at: @state.hoveredDay.format(@props.dateFormat)
+      })
+      @context.router.transitionTo(url)
+    else # is a task plan to clone
+      @setState(
+        cloningPlan: extend({}, item,
+          due_at: @state.hoveredDay
+          position: offset
+        )
+      )
 
-  onTaskDrop: (planId, ev) ->
-    plan = TeacherTaskPlanStore.get(planId)
-    day = ev.target.textContent
+  onCloneLoaded: (newPlanId) ->
+    _.defer => # give flux store time to update
+      @setState(
+        editingPlanId: newPlanId,
+        editingPosition: @state.cloningPlan.position
+        cloningPlan: undefined
+      )
 
+  getEditingPlanEl: ->
+    return null unless @state.editingPlanId
+    ReactDOM.findDOMNode(@).querySelector(
+      ".course-plan-#{@state.editingPlanId}"
+    )
 
-  onToggleSidebar: ->
-    @setState(showingSideBar: not @state.showingSideBar)
+  onDragHover: (day) ->
+    @setState(hoveredDay: day)
+  onSidebarToggle: (isOpen) ->
+    @setState(showingSideBar: isOpen)
+  onEditorHide: ->
+    @setState(editingPlanId: null)
 
   render: ->
     {plansList, courseId, className, date, hasPeriods} = @props
     {calendarDuration, calendarWeeks} = @getDurationInfo(date)
 
     calendarClassName = classnames 'calendar-container', className
-
-    mods = [
-      {
-        component: [ 'day' ],
-        events:
-          onClick: @handleClick
-
-      }
-    ]
 
     if plansList?
       plans = <CourseDuration
@@ -149,27 +212,49 @@ CourseMonth = React.createClass
 
 
       <CourseAdd ref='addOnDay' hasPeriods={hasPeriods} courseId={@props.courseId} />
-      <Sidebar isOpen={@state.showingSideBar} onHide={@onToggleSidebar} courseId={courseId} />
-
 
       <CourseCalendarHeader
         duration='month'
         date={date}
+        onSidebarToggle={@onSidebarToggle}
         courseId={@props.courseId}
         setDate={@setDate}
         hasPeriods={hasPeriods}
         ref='calendarHeader'
-        onCopyPreviousAssignment={@onToggleSidebar}
       />
 
-      <BS.Row className='calendar-body'>
+      <BS.Row className={classnames('calendar-body', {
+        'with-sidebar-open': @state.showingSideBar
+      })}>
         <BS.Col xs={12} data-duration-name={@getFullMonthName()}>
-          <Droppable types={['task']} onDrop={@onTaskDrop}>
-            <Month date={date} monthNames={false} weekdayFormat='ddd' mods={mods} />
-          </Droppable>
-          {plans}
+          {@props.connectDropTarget(
+            <div>
+              <Month date={date} monthNames={false}
+                weekdayFormat='ddd' mods={@getMonthMods(calendarDuration)} />
+              {plans}
+            </div>
+          )}
         </BS.Col>
       </BS.Row>
+      {<PlanClonePlaceholder
+        planId={@state.cloningPlan.id}
+        planType={@state.cloningPlan.type}
+        position={@state.cloningPlan.position}
+        onLoad={@onCloneLoaded}
+        courseId={@props.courseId}
+        due_at={@state.cloningPlan.due_at}
+        onLoad={@onCloneLoaded}
+      /> if @state.cloningPlan?}
+      {<TaskPlanMiniEditor
+        planId={@state.editingPlanId}
+        position={@state.editingPosition}
+        courseId={@props.courseId}
+        onHide={@onEditorHide}
+        findPopOverTarget={@getEditingPlanEl}
+      /> if @state.editingPlanId}
+
     </BS.Grid>
 
-module.exports = CourseMonth
+
+
+module.exports = DropTarget([ItemTypes.NewTask, ItemTypes.CloneTask], TaskDrop, DropInjector)(CourseMonth)

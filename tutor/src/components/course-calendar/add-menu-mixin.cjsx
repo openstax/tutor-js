@@ -91,17 +91,21 @@ CourseAddMenuMixin =
         type: 'none'
       }]
 
+    renderLink = @renderMenuLink or @menuMixinRenderMenuLink
+
     for link in links
       link.pathname = Router.makePathname(link.to, link.params)
+      renderLink(link)
 
-      <li
-        key={link.type}
-        data-assignment-type={link.type}
-        ref="#{link.type}Link">
-        <a href={link.pathname} onClick={@goToBuilder(link)} >
-          {link.text}
-        </a>
-      </li>
+  menuMixinRenderMenuLink: (link) ->
+    <li
+      key={link.type}
+      data-assignment-type={link.type}
+      ref="#{link.type}Link">
+      <a href={link.pathname} onClick={@goToBuilder(link)} >
+        {link.text}
+      </a>
+    </li>
 
 
 module.exports = CourseAddMenuMixin

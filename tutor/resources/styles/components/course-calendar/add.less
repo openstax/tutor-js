@@ -1,15 +1,17 @@
-.course-add-dropdown, .add-assignment {
+.add-assignment .dropdown-menu,
+.course-add-dropdown {
+  padding: 0;
+
   &.no-add {
     background: @tutor-neutral-light;
-  }
-
-  .no-add-text {
-    display: block;
-    padding: 3px 20px;
+    .no-add-text {
+      display: block;
+      padding: 3px 20px;
+    }
   }
 
   li {
-    .tutor-plan-set(add, ' a');
+    .tutor-plan-set(add);
   }
 
   .dropdown-menu > li > a,
@@ -29,4 +31,55 @@
     }
   }
 
+}
+
+.add-assignment {
+  &.as-sidebar {
+    .dropdown {
+      .dropdown-menu {
+        transition: right 0.5s;
+        right: 200px;
+        left: inherit
+      }
+    }
+    &.is-open {
+      .dropdown .dropdown-menu {  right: 0px; }
+    }
+
+    li {
+      margin: 5px;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      a {
+        padding: 3px 12px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+    }
+
+  }
+  .past-assignments {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid @tutor-neutral-bright;
+
+    .no-plans {
+      padding: 0 6px;
+    }
+
+    .task-plan{
+      .tutor-plan-set(add);
+      cursor: move;
+      margin: 5px;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+
+      div {
+        padding: 3px 12px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+
+    }
+  }
 }

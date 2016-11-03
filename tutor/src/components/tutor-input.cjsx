@@ -24,6 +24,7 @@ TutorInput = React.createClass
     validate: React.PropTypes.func
     onUpdated: React.PropTypes.func
     autofocus: React.PropTypes.bool
+    hasValue: React.PropTypes.bool
 
   getDefaultProps: ->
     validate: (inputValue) ->
@@ -70,8 +71,9 @@ TutorInput = React.createClass
 
   render: ->
     {children} = @props
+
     classes = classnames 'form-control', @props.class,
-      empty: not (@props.default or @props.defaultValue)
+      empty: not (@props.hasValue or @props.default or @props.defaultValue or @props.value)
 
     wrapperClasses = classnames 'form-control-wrapper', 'tutor-input', @props.className,
       'is-required': @props.required
@@ -177,7 +179,7 @@ TutorDateInput = React.createClass
 
   render: ->
     classes = classnames 'form-control',
-      empty: (not @props.value and not @state.hasFocus)
+      empty: not (@props.value or @props.default or @state.hasFocus)
 
 
     wrapperClasses = classnames 'form-control-wrapper', 'tutor-input', '-tutor-date-input', @props.className,
@@ -365,11 +367,11 @@ TutorTimeInput = React.createClass
 
     {formatCharacters} = @props
     {timePattern, timeValue} = @state
-
     <TutorInput
       {...maskedProps}
       onChange={@onChange}
       validate={@validate}
+      hasValue={!!timeValue}
       ref="timeInput">
       <MaskedInput
         value={timeValue}

@@ -1,6 +1,7 @@
 _ = require 'underscore'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {TaskPlanStore} = require './task-plan'
+map = require 'lodash/map'
 
 TeacherTaskPlanConfig =
   _ranges: {}
@@ -27,6 +28,11 @@ TeacherTaskPlanConfig =
 
   _reset: ->
     @_ranges = {}
+
+  addClonedPlan: (courseId, planId) ->
+    plan = TaskPlanStore.get(planId)
+    @_local[courseId].push(plan)
+    @emitChange()
 
   exports:
     getPlanId: (courseId, planId) ->

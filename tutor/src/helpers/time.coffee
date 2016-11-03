@@ -33,6 +33,12 @@ TimeHelper =
   toISO: (datething) ->
     moment(datething).format(@ISO_DATE_FORMAT)
 
+  ISODateToMoment: (datething) ->
+    moment(datething, @ISO_DATE_FORMAT)
+
+  toDateTimeISO: (datething) ->
+    moment(datething).format(@ISO_DATE_FORMAT + ' ' + @ISO_TIME_FORMAT)
+
   isDateStringOnly: (stringToCheck) ->
     ISO_DATE_ONLY_REGEX.test(stringToCheck)
 

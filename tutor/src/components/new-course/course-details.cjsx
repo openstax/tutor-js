@@ -17,7 +17,7 @@ PastCourses = React.createClass
 
   handleTabSelect: (activeTab) ->
     if activeTab is 1
-      NewCourseActions.set(source_course_id: null)
+      NewCourseActions.set(cloned_from_id: null)
     @setState({activeTab})
 
   SourcePicker: ->
@@ -55,17 +55,17 @@ CourseDetails = React.createClass
 
   getInitialState: ->
     teachingCourses: filter(CourseListingStore.allCourses(), (course) ->
-      course.appearance_code is NewCourseStore.get('course_code') and find(course.roles, type: 'teacher')
+      course.offering_id is NewCourseStore.get('offering_id') and find(course.roles, type: 'teacher')
     )
 
   onContinue: ->
     @props.onContinue(quarter: @state.selected)
 
-  onSelect: (source_course_id) ->
-    prev_selected_id = NewCourseStore.get('source_course_id')
-    source_course_id = null if source_course_id is prev_selected_id
+  onSelect: (cloned_from_id) ->
+    prev_selected_id = NewCourseStore.get('cloned_from_id')
+    cloned_from_id = null if cloned_from_id is prev_selected_id
     name = NewCourseStore.get('name')
-    newCourse = find(@state.teachingCourses, id: source_course_id)
+    newCourse = find(@state.teachingCourses, id: cloned_from_id)
 
     if newCourse
       # is the current name blank or the same as the previous course?
@@ -73,18 +73,18 @@ CourseDetails = React.createClass
         prev_selected_id and find(@state.teachingCourses, id: prev_selected_id).name is name
       )
         name = newCourse.name
-        number_of_sections = newCourse.periods.length
+        num_sections = newCourse.periods.length
     else
-      number_of_sections = NewCourseActions.get('number_of_sections')
+      num_sections = NewCourseActions.get('num_sections')
       name = ''
 
-    NewCourseActions.set({name, source_course_id, number_of_sections})
+    NewCourseActions.set({name, cloned_from_id, num_sections})
 
   updateName: (ev) ->
     NewCourseActions.set({name: ev.target.value})
 
   updateSectionCount: (ev) ->
-    NewCourseActions.set({number_of_sections: parseInt(ev.target.value, 10)})
+    NewCourseActions.set({num_sections: parseInt(ev.target.value, 10)})
 
   render: ->
 
@@ -92,7 +92,7 @@ CourseDetails = React.createClass
 
       <PastCourses courses={@state.teachingCourses}
         onSelect={@onSelect}
-        selected={NewCourseStore.get('source_course_id')} />
+        selected={NewCourseStore.get('cloned_from_id')} />
 
       <BS.FormGroup className='course-name'>
         <BS.ControlLabel>Name of new course:</BS.ControlLabel>
@@ -107,7 +107,7 @@ CourseDetails = React.createClass
           <BS.ControlLabel>Number of sections</BS.ControlLabel>
           <BS.FormControl
             type="text"
-            value={NewCourseStore.get('number_of_sections') or ''}
+            value={NewCourseStore.get('num_sections') or ''}
             onChange={@updateSectionCount}
           />
         </BS.FormGroup>
