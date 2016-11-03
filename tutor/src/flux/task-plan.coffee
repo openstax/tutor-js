@@ -253,6 +253,7 @@ TaskPlanConfig =
       plan[attr] = cloneDeep(original[attr])
 
     plan.id = newPlanId
+    plan.cloned_from_id = planId
     course = CourseStore.get(courseId)
     due_at = TimeHelper.getZonedMoment(
       TimeHelper.ISODateToMoment(due_at), course.time_zone
@@ -271,7 +272,8 @@ TaskPlanConfig =
         opens_at: opens_at, due_at: due_at
       }
     )
-    @_local[newPlanId] = plan
+    @_local[newPlanId] = {}
+    @_changed[newPlanId] = plan
     @emitChange()
 
 
