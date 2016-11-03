@@ -14,8 +14,8 @@ describe 'CreateCourse: choosing to copy QL', ->
 
   it 'sets flux values', ->
     wrapper = shallow(<CopyQL />)
-    wrapper.find('tr.fresh').simulate('click')
+    wrapper.find('tr.true').simulate('click')
     expect(NewCourseStore.get('copy_question_library')).to.equal('true')
-    wrapper.find('tr.copy').simulate('click')
+    wrapper.find('tr.false').simulate('click')
     expect(NewCourseStore.get('copy_question_library')).to.equal('false')
     undefined
