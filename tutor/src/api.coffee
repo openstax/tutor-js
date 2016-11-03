@@ -247,7 +247,7 @@ start = (bootstrapData) ->
   route 'GET', "/api/offerings",
     actions: OfferingsActions, trigger: 'load', onSuccess: 'loaded'
 
-  route 'GET', "/api/courses/{courseId}/plans?cloned=true",
+  route 'GET', "/api/courses/{courseId}/plans?clone_status=unused_source",
     actions: PastTaskPlansActions, trigger: 'load', onSuccess: 'loaded'
 
   apiHelper CourseListingActions, CourseListingActions.load, CourseListingActions.loaded, 'GET', ->
