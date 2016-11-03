@@ -30,7 +30,6 @@ TaskPlanMiniEditorShell = React.createClass
 
   calculatePlacement: ->
     # depending on UX, we may need to adjust up / down as well
-    console.log @props.position
     if @props.position.x < 500
       'right'
     else
