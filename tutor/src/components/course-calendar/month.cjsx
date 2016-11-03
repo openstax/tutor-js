@@ -137,9 +137,10 @@ CourseMonth = React.createClass
 
   onDragHover: (day) ->
     @setState(hoveredDay: day)
-
   onSidebarToggle: (isOpen) ->
     @setState(showingSideBar: isOpen)
+  onEditorHide: ->
+    @setState(editingPlanId: null)
 
   render: ->
     {plansList, courseId, className, date, hasPeriods} = @props
@@ -207,6 +208,7 @@ CourseMonth = React.createClass
       {<TaskPlanMiniEditor
         planId={@state.editingPlanId}
         courseId={@props.courseId}
+        onHide={@onEditorHide}
         findPopOverTarget={@getEditingPlanEl}
       /> if @state.editingPlanId}
 

@@ -31,7 +31,7 @@ TaskPlanMiniEditorShell = React.createClass
 
       <BS.Overlay
         show={@state.isVisible}
-        onHide={@onHide}
+        onHide={@props.onHide}
         placement='left'
         ref='overlay'
         target={@props.findPopOverTarget}
