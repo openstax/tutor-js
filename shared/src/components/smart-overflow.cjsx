@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 _ = require 'underscore'
 classnames = require 'classnames'
 
@@ -21,7 +22,7 @@ SmartOverflow = React.createClass
   mixins: [ResizeListenerMixin]
 
   getOffset: ->
-    componentNode = @getDOMNode()
+    componentNode = ReactDOM.findDOMNode(@)
     topOffset = componentNode.getBoundingClientRect().top
 
   getTriggerHeight: ->

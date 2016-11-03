@@ -74,6 +74,10 @@ getQABook = ->
 getCreateCourse = ->
   require './components/new-course'
 
+getTeacherReview = ->
+  {TaskTeacherReviewShell} = require './components/task-teacher-review'
+  TaskTeacherReviewShell
+
 ROUTES = [
   { pattern: '/dashboard',              name: 'listing',                  renderer: getCourseListing }
   { pattern: '/course/new',             name: 'createNewCourse',          renderer: getCreateCourse  }
@@ -93,15 +97,19 @@ ROUTES = [
           }
         ]
       }
+      { pattern: 'metrics/:id',         name: 'reviewTask',               renderer: getTeacherReview }
       {
         pattern: 'task/:id',            name: 'viewTask',                 renderer: getTaskShell
-        routes: [{
-          pattern: 'step/:stepIndex',   name: 'viewTaskStep',             renderer: getTaskShell
-          routes: [{
-            pattern: ':milestones',     name: 'viewTaskStepMilestones',   renderer: getTaskShell
-          }]
-        }]
+        routes: [
+          {
+            pattern: 'step/:stepIndex', name: 'viewTaskStep',             renderer: getTaskShell
+            routes: [{
+              pattern: ':milestones',   name: 'viewTaskStepMilestones',   renderer: getTaskShell
+            }]
+          }
+        ]
       }
+
       { pattern: 'practice/:taskId?',   name: 'practiceTopics',           renderer: getPractice            }
       { pattern: 'homework/new',        name: 'createHomework'                                        }
       { pattern: 'homework/:id',        name: 'editHomework',             renderer: getHomeworkShell       }
