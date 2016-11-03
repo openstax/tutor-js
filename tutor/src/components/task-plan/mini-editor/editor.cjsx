@@ -9,7 +9,9 @@ Icon = require '../../icon'
 Loading = require './loading'
 TutorLink = require '../../link'
 TaskingDateTimes = require '../builder/tasking-date-times'
+BindStoresMixin = require '../../bind-stores-mixin'
 {TutorInput, TutorTextArea} = require '../../tutor-input'
+{TaskingStore, TaskingActions} = require '../../../flux/tasking'
 
 taskPlanEditingInitialize = require '../initialize-editing'
 
@@ -24,7 +26,19 @@ TaskPlanMiniEditor = React.createClass
     id:   React.PropTypes.string.isRequired
     onHide: React.PropTypes.func.isRequired
 
-  mixins: [PlanMixin]
+  mixins: [PlanMixin, BindStoresMixin]
+  getBindEvents: ->
+    {id} = @props
+    taskingChanged:
+      store: TaskingStore
+      listenTo: "taskings.#{id}.*.changed"
+      callback: @changeTaskPlan
+
+  changeTaskPlan: ->
+    {id} = @props
+
+    taskings = TaskingStore.getChanged(id)
+    TaskPlanActions.replaceTaskings(id, taskings)
 
   setTitle: (title) ->
     {id} = @props
