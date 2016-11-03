@@ -73,7 +73,7 @@ PlanMixin =
 
   isWaiting: ->
     {id} = @props
-    TaskPlanStore.isSaving(id) or TaskPlanStore.isPublishing(id) or TaskPlanStore.isDeleteRequested(id)
+    !! (TaskPlanStore.isSaving(id) or TaskPlanStore.isPublishing(id) or TaskPlanStore.isDeleteRequested(id))
 
   isSaveable: ->
     {id} = @props
