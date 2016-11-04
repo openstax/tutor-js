@@ -1,7 +1,7 @@
 {PinnedHeader, CardBody, PinnableFooter} = require './src/components/pinned-header-footer-card/sections'
 {Exercise, ExerciseWithScroll} = require './src/components/exercise'
 {ExControlButtons} = require './src/components/exercise/controls'
-{APIHandler} = require './src/api'
+{APIHandler, APIHandlerBase} = require './src/api'
 
 require './src/helpers/polyfills'
 
@@ -11,7 +11,7 @@ module.exports = {
   OXLink:                 require './src/factories/link'
   OXMatchByRouter:        require './src/helpers/match-by-router'
   OXMatchByRouter:        require './src/helpers/match-by-router'
-  APIHandler,
+  APIHandler, APIHandlerBase,
   APIActionAdapter:       require './src/api/action-adapter'
 
   ArbitraryHtmlAndMath:   require './src/components/html'

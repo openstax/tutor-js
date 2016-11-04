@@ -11,7 +11,7 @@
   actionFrom, createFrom, readFrom, updateFrom, deleteFrom
 } = APIActionAdapter
 
-{setUpAPIHandler} = require './adapter'
+{setUpAPIHandler, setUp} = require './adapter'
 
 {CurrentUserActions} = require '../flux/current-user'
 {CourseActions} = require '../flux/course'
@@ -53,267 +53,169 @@ BOOTSTRAPED_STORES = {
 }
 
 startAPI = ->
-  {updateRequestHandlers, connectTrigger, connectToAPIHandler, connectAsAction} = setUpAPIHandler()
+  {connectAction, connectHandler, connectCreate, connectRead, connectUpdate, connectDelete} = setUp()
 
-  connectAsAction('read', TaskActions, 'task')
-  connectAsAction('delete', TaskActions, 'task')
-  connectAsAction('read', TaskPlanActions, 'task-plan')
-  connectAsAction('delete', TaskPlanActions, 'task-plan')
+  connectRead(TaskActions, pattern: 'tasks/{id}')
+  connectDelete(TaskActions, pattern: 'tasks/{id}')
 
-  updateRequestHandlers(TaskPlanActions, onSuccess: 'saved', createFrom('task-plan'))
-  updateRequestHandlers(TaskPlanActions, onSuccess: 'saved', updateFrom('task-plan'))
-  connectTrigger(TaskPlanActions, trigger: 'save', (id, courseId) ->
-    subject = 'task-plan'
-    requestData = TaskPlanStore.getChanged(id)
-    routeData = {id, courseId}
+  connectRead(TaskPlanActions, pattern: 'plans/{id}')
+  connectDelete(TaskPlanActions, pattern: 'plans/{id}')
 
-    requestInfo = if TaskPlanStore.isNew(id)
-      subject: subject
-      topic: courseId
-      action: 'create'
-    else
-      subject: subject
-      topic: id
-      action: 'update'
-
-    {requestInfo, routeData, requestData}
+  connectUpdate(TaskPlanActions,
+    pattern: (id, courseId) ->
+      if TaskPlanStore.isNew(id) then 'courses/{courseId}/plans' else 'plans/{id}'
+    data: TaskPlanStore.getChanged
+    route: (id, courseId) -> {id, courseId}
   )
 
-  connectAsAction('read', TaskPlanStatsActions, 'task-plan-stats')
-  connectAsAction('read', TaskTeacherReviewActions, 'task-plan-review')
+  connectRead(TaskPlanStatsActions, pattern: 'plans/{id}/stats')
+  connectRead(TaskTeacherReviewActions, pattern: 'plans/{id}/review')
 
-  connectToAPIHandler(
-    ExerciseActions,
-    {
-      trigger: 'loadForEcosystem'
-      onSuccess: 'loadedForEcosystem'
-    },
-    readFrom('ecosystem-exercises'),
-    (id, pageIds, requestType = 'homework_core') ->
-      {id, requestType}
-    ,
-    (id, pageIds, requestType = 'homework_core') ->
-      params =
-        page_ids: pageIds
-
-      {params}
+  connectRead(ExerciseActions,
+    trigger: 'loadForEcosystem', onSuccess: 'loadedForEcosystem'
+    url: (id, pageIds, requestType = 'homework_core') ->
+      "ecosystems/#{id}/exercises/#{requestType}"
+    params: (id, pageIds, requestType = 'homework_core') ->
+      page_ids: pageIds
   )
-  connectToAPIHandler(
-    ExerciseActions,
-    {
-      trigger: 'loadForCourse'
-      onSuccess: 'loadedForCourse'
-    },
-    readFrom('course-exercises'),
-    (id, pageIds, ecosystemId = null, requestType = 'homework_core') ->
-      {id, requestType}
-    ,
-    (id, pageIds, ecosystemId = null, requestType = 'homework_core') ->
+
+  connectRead(ExerciseActions,
+    trigger: 'loadForCourse', onSuccess: 'loadedForCourse'
+    url: (id, pageIds, ecosystemId = null, requestType = 'homework_core') ->
+      "courses/#{id}/exercises/#{requestType}"
+    params: (id, pageIds, ecosystemId = null, requestType = 'homework_core') ->
       params =
         page_ids: pageIds
       params.ecosystem_id = ecosystemId if ecosystemId?
-
-      {params}
-  )
-  connectToAPIHandler(
-    ExerciseActions,
-    {
-      trigger: 'saveExerciseExclusion'
-      onSuccess: 'exclusionsSaved'
-    },
-    actionFrom('exclude', 'course-exercises'),
-    makeIdRouteData,
-    ->
-      data = _.map ExerciseStore.getUnsavedExclusions(), (is_excluded, id) -> {id, is_excluded}
-      {data}
+      params
   )
 
-  connectAsAction('read', TocActions, 'ecosystem-readings')
-  connectAsAction('read', CourseGuideActions, 'course-guide')
-  connectAsAction('read', CourseActions, 'course')
-  connectAsAction('update', CourseActions, 'course')
-  connectAsAction('read', CCDashboardActions, 'course-dashboard-teacher-cc')
-  connectAsAction('create', CoursePracticeActions, 'course-practice')
-  connectAsAction('read', CoursePracticeActions, 'course-practice')
+  connectHandler(ExerciseActions,
+    trigger: 'saveExerciseExclusion', onSuccess: 'exclusionsSaved'
+    method: 'PUT', pattern: 'courses/{id}/exercises'
+    data: ->
+      _.map ExerciseStore.getUnsavedExclusions(), (is_excluded, id) -> {id, is_excluded}
+  )
 
-  connectAsAction('read', PerformanceForecast.Student.actions, 'course-performance-forecast-student')
-  connectAsAction('read', PerformanceForecast.Teacher.actions, 'course-performance-forecast-teacher')
-  connectToAPIHandler(
-    PerformanceForecast.TeacherStudent.actions,
-    readActions,
-    readFrom('course-performance-forecast-teacher'),
-    (id, {roleId}) ->
+  connectRead(TocActions, pattern: 'ecosystems/{id}/readings')
+  connectRead(CourseGuideActions, pattern: 'courses/{id}/guide')
+  connectRead(CourseActions, pattern: 'courses/{id}')
+  connectUpdate(CourseActions, pattern: 'courses/{id}')
+
+  connectRead(CCDashboardActions, pattern: 'courses/{id}/cc/dashboard')
+  connectCreate(CoursePracticeActions, pattern: 'courses/{id}/practice')
+  connectRead(CoursePracticeActions, pattern: 'courses/{id}/practice')
+
+  connectRead(PerformanceForecast.Student.actions, pattern: 'courses/{id}/guide')
+  connectRead(PerformanceForecast.Teacher.actions, pattern: 'courses/{id}/teacher_guide')
+  connectRead(PerformanceForecast.TeacherStudent.actions,
+    url: (id, {roleId}) ->
+      "courses/#{id}/guide/role/#{roleId}"
+    data: (id, {roleId}) ->
       {id, roleId}
   )
-  connectAsAction('read', ScoresActions, 'course-scores')
-  connectAsAction('read', ScoresExportActions, 'course-scores-export')
-  connectToAPIHandler(
-    ScoresExportActions,
-    {trigger: 'export', onSuccess: 'exported'},
-    createFrom('course-scores-export'),
-    makeIdRouteData
-  )
-  connectToAPIHandler(
-    ScoresActions,
-    {trigger: 'acceptLate', onSuccess: 'acceptedLate'},
-    {subject: 'task-scores', action: 'accept-late-work'},
-    makeIdRouteData
-  )
-  connectToAPIHandler(
-    ScoresActions,
-    {trigger: 'rejectLate', onSuccess: 'rejectedLate'},
-    {subject: 'task-scores', action: 'reject-late-work'},
-    makeIdRouteData
+
+  connectRead(ScoresActions, pattern: 'courses/{id}/performance')
+  connectRead(ScoresExportActions, pattern: 'courses/{id}/performance/exports')
+  connectCreate(ScoresExportActions,
+    pattern: 'courses/{id}/performance/export', trigger: 'export', onSuccess: 'exported'
   )
 
-  connectToAPIHandler(
-    TeacherTaskPlanActions,
-    readActions,
-    readFrom('course-dashboard-teacher'),
-    makeIdRouteData,
-    (id, startAt, endAt) ->
-      params =
-        start_at: startAt
-        end_at: endAt
-      {params}
+  connectHandler(ScoresActions,
+    trigger: 'acceptLate', onSuccess: 'acceptedLate'
+    method: 'PUT', pattern: 'tasks/{id}/accept_late_work'
   )
-  connectAsAction('read', JobActions, 'job')
-  connectAsAction('read', EcosystemsActions, 'ecosystem')
-  connectToAPIHandler(
-    RosterActions,
-    {trigger: 'teacherDelete', onSuccess: 'teacherDeleted'},
-    deleteFrom('teacher'),
-    makeIdRouteData
+
+  connectHandler(ScoresActions,
+    trigger: 'rejectLate', onSuccess: 'rejectedLate'
+    method: 'PUT', pattern: 'tasks/{id}/reject_late_work'
   )
-  connectAsAction('delete', RosterActions, 'student')
-  connectAsAction('update', RosterActions, 'student')
-  connectToAPIHandler(
-    RosterActions,
-    {trigger: 'undrop', onSuccess: 'undropped'},
-    {
-      subject: 'student'
-      action: 'undrop'
-      errorHandlers:
-        already_active: 'onUndropAlreadyActive'
-        student_identifier_has_already_been_taken: 'recordDuplicateStudentIdError'
-    },
-    makeIdRouteData
+
+  connectRead(TeacherTaskPlanActions, pattern: 'courses/{id}/dashboard',
+    params: (id, startAt, endAt) ->
+      start_at: startAt
+      end_at: endAt
   )
-  connectToAPIHandler(
-    RosterActions,
-    {trigger: 'saveStudentIdentifier', onSuccess: 'savedStudentIdentifier'},
-    {
-      subject: 'student'
-      action: 'save-student-identifier'
-      errorHandlers:
-        student_identifier_has_already_been_taken: 'recordDuplicateStudentIdError'
-    },
-    makeIdRouteData,
-    ({courseId, studentId}) ->
+
+  connectRead(JobActions, pattern: 'job/{id}', handledErrors: ['*'])
+  connectRead(EcosystemsActions, url: 'ecosystems')
+  connectDelete(RosterActions,
+    pattern: 'teachers/{id}', trigger: 'teacherDelete', onSuccess: 'teacherDeleted'
+  )
+  connectDelete(RosterActions, pattern: 'students/{id}')
+  connectUpdate(RosterActions, pattern: 'students/{id}')
+
+  connectHandler(RosterActions,
+    trigger: 'undrop', onSuccess: 'undropped'
+    method: 'PUT', pattern: 'students/{id}/undrop'
+    errorHandlers:
+      already_active: 'onUndropAlreadyActive'
+      student_identifier_has_already_been_taken: 'recordDuplicateStudentIdError'
+  )
+  connectUpdate(RosterActions,
+    pattern: 'students/{id}', trigger: 'saveStudentIdentifier', onSuccess: 'savedStudentIdentifier'
+    errorHandlers:
+      student_identifier_has_already_been_taken: 'recordDuplicateStudentIdError'
+    data: ({courseId, studentId}) ->
       student_identifier: RosterStore.getStudentIdentifier(courseId, studentId)
   )
-  connectAsAction('create', RosterActions, 'course-roster')
-  connectAsAction('read', RosterActions, 'course-roster')
-  connectToAPIHandler(
-    StudentIdActions,
-    updateActions,
-    {
-      subject: 'course-student-id'
-      action: 'update'
-      handleError: StudentIdActions.errored
-    },
-    makeIdRouteData,
-    makeDefaultRequestData
+  connectCreate(RosterActions, pattern: 'courses/{id}/roster')
+  connectRead(RosterActions, pattern: 'courses/{id}/roster')
+  connectUpdate(StudentIdActions,
+    pattern: 'user/courses/{id}/student'
+    handledErrors: ['*'], handleError: StudentIdActions.errored
+    data: (id, data) -> data
   )
 
-  connectAsAction('create', PeriodActions, 'period')
-  connectAsAction('update', PeriodActions, 'period')
-  connectAsAction('delete', PeriodActions, 'period')
-  connectToAPIHandler(
-    PeriodActions,
-    {trigger: 'restore', onSuccess: 'restored'},
-    {subject: 'period', action: 'restore'},
-    makeIdRouteData
+  connectCreate(PeriodActions, pattern: 'courses/{courseId}/periods')
+  connectUpdate(PeriodActions, pattern: 'periods/{id}')
+  connectDelete(PeriodActions, pattern: 'periods/{id}')
+  connectHandler(PeriodActions,
+    method: 'PUT', pattern: 'periods/{id}/restore'
+    trigger: 'restore', onSuccess: 'restored'
   )
 
-
-  connectAsAction('read', TaskStepActions, 'step')
-  connectToAPIHandler(
-    TaskStepActions,
-    {trigger: 'loadPersonalized', onSuccess: 'loaded'},
-    {
-      subject: 'step'
-      action: 'personalize'
-      handleError: TaskStepActions.loadedNoPersonalized
-    },
-    makeIdRouteData
+  connectRead(TaskStepActions, pattern: 'steps/{id}')
+  connectRead(TaskStepActions,
+    pattern: 'steps/{id}', trigger: 'loadPersonalized'
+    handledErrors: ['*'], handleError: TaskStepActions.loadedNoPersonalized
   )
-  connectToAPIHandler(
-    TaskStepActions,
-    {trigger: 'complete', onSuccess: 'completed'},
-    {subject: 'step', action: 'complete'},
-    makeIdRouteData
+  connectHandler(TaskStepActions,
+    method: 'PUT', pattern: 'steps/{id}/completed'
+    trigger: 'complete', onSuccess: 'completed'
   )
-  connectToAPIHandler(
-    TaskStepActions,
-    {trigger: 'loadRecovery', onSuccess: 'loadedRecovery'},
-    {subject: 'step', action: 'recover'},
-    makeIdRouteData
+  connectHandler(TaskStepActions,
+    method: 'PUT', pattern: 'steps/{id}/recovery'
+    trigger: 'loadRecovery', onSuccess: 'loadedRecovery'
   )
-  connectToAPIHandler(
-    TaskStepActions,
-    {trigger: 'setFreeResponseAnswer', onSuccess: 'saved'},
-    {subject: 'step', action: 'answer'},
-    makeIdRouteData,
-    (id, freeResponse) ->
+  connectUpdate(TaskStepActions,
+    pattern: 'steps/{id}', trigger: 'setFreeResponseAnswer'
+    data: (id, freeResponse) ->
       {free_response: freeResponse}
   )
-  connectToAPIHandler(
-    TaskStepActions,
-    {trigger: 'setAnswerId', onSuccess: 'saved'},
-    {subject: 'step', action: 'answer'},
-    makeIdRouteData,
-    (id, answerId) ->
+  connectUpdate(TaskStepActions,
+    pattern: 'steps/{id}', trigger: 'setAnswerId'
+    data: (id, answerId) ->
       {answer_id: answerId}
   )
 
-  connectAsAction('read', CurrentUserActions, 'user')
-  connectAsAction('read', CourseListingActions, 'user-courses')
-  connectToAPIHandler(
-    NewCourseActions,
-    {trigger: 'clone', onSuccess: 'created'},
-    updateFrom('course-clone'),
-    makeIdRouteData,
-    NewCourseStore.requestPayload
+  connectRead(CurrentUserActions, url: 'user')
+  connectRead(CourseListingActions, url: 'user/courses')
+  connectCreate(NewCourseActions,
+    pattern: 'courses/{id}/clone', trigger: 'clone', data: NewCourseStore.requestPayload
   )
-  connectToAPIHandler(
-    NewCourseActions,
-    createActions,
-    createFrom('course'),
-    makeIdRouteData,
-    NewCourseStore.requestPayload
-  )
+  connectCreate(NewCourseActions, url: 'courses', data: NewCourseStore.requestPayload)
 
-  connectAsAction('read', ReferenceBookActions, 'ecosystem-readings')
-  connectAsAction('read', ReferenceBookPageActions, 'book-page')
-  connectToAPIHandler(
-    ReferenceBookPageActions,
-    {trigger: 'loadSilent', onSuccess: 'loaded'},
-    {action: 'read-silent', subject: 'book-page'},
-    makeIdRouteData
+  connectRead(ReferenceBookActions, pattern: 'ecosystems/{id}/readings')
+  connectRead(ReferenceBookPageActions, pattern: 'pages/{id}')
+  connectRead(ReferenceBookPageActions,
+    pattern: 'pages/{id}', handledErrors: ['*'], trigger: 'loadSilent'
   )
-  connectToAPIHandler(
-    ReferenceBookExerciseActions,
-    readActions,
-    readFrom('book-exercise'),
-    (url) -> {url}
-  )
+  connectRead(ReferenceBookExerciseActions, url: (url) -> url)
 
-  connectAsAction('read', StudentDashboardActions, 'course-dashboard-student')
-  connectToAPIHandler(
-    NotificationActions,
-    {trigger: 'loadUpdates', onSuccess: 'loadedUpdates'},
-    readFrom('notifications')
+  connectRead(StudentDashboardActions, pattern: 'courses/{id}/dashboard')
+  connectRead(NotificationActions,
+    trigger: 'loadUpdates', onSuccess: 'loadedUpdates', url: 'notifications', handledErrors: ['*']
   )
 
 # SharedNetworking = require 'shared/src/model/networking'

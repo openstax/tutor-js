@@ -1,8 +1,10 @@
 {Promise} = require 'es6-promise'
 _ = require 'lodash'
+interpolate = require 'interpolate'
+{METHODS_TO_ACTIONS} = require './collections'
 
-updateRequestHandlers = (apiHandler, Actions, actions, requestInfo) ->
-  {onSuccess, onFail} = actions
+makeRequestHandlers = (Actions, options) ->
+  {onSuccess, onFail} = options
   onFail ?= 'FAILED'
 
   handlers =
@@ -10,30 +12,26 @@ updateRequestHandlers = (apiHandler, Actions, actions, requestInfo) ->
       Actions[onSuccess](response.data, args...)
       response
 
-  if requestInfo.handleError?
+  if options.handleError?
     handlers.onFail = (error, args...) ->
       {response} = error
-      isErrorHandled = requestInfo.handleError(response, args...)
+      isErrorHandled = options.handleError(response, args...)
 
       Promise.reject(error) unless isErrorHandled
 
-    _.unset(requestInfo, 'handleError')
-
-  if requestInfo.errorHandlers?
+  if options.errorHandlers?
     handlers.onFail = (error, args...) ->
       {response} = error
       {errors} = response.data
 
       unhandledErrors = _.reject(errors, (error) ->
-        if requestInfo.errorHandlers[error.code]?
-          Actions[requestInfo.errorHandlers[error.code]]?(args..., error)
+        if options.errorHandlers[error.code]?
+          Actions[options.errorHandlers[error.code]]?(args..., error)
       )
 
       unless _.isEmpty(unhandledErrors)
         error.response.data.errors = unhandledErrors
         Promise.reject(error)
-
-    _.unset(requestInfo, 'errorHandlers')
 
   handlers.onFail ?= (error, args...) ->
     {response} = error
@@ -42,7 +40,12 @@ updateRequestHandlers = (apiHandler, Actions, actions, requestInfo) ->
     Actions[onFail](status, statusMessage, args...)
     Promise.reject(error)
 
-  requestInfo = _.merge(handlers, requestInfo)
+  handlers
+
+updateRequestHandlers = (apiHandler, Actions, actions, requestInfo) ->
+  handlers = makeRequestHandlers(Actions, _.merge({}, actions, requestInfo))
+  requestInfo = _.merge(handlers, _.omit(requestInfo, 'handleError', 'errorHandlers'))
+
   apiHandler.routes.update(requestInfo)
 
 connectTrigger = (apiHandler, Actions, actions, prepareRequest) ->
@@ -84,11 +87,13 @@ deleteActions =
   trigger: 'delete'
   onSuccess: 'deleted'
 
-actions =
+ACTIONS =
   create: createActions
   read: readActions
   update: updateActions
   'delete': deleteActions
+
+METHODS = _.invert(METHODS_TO_ACTIONS)
 
 actionFrom = (action, subject) ->
   {subject, action}
@@ -99,10 +104,36 @@ updateFrom = _.partial(actionFrom, 'update')
 deleteFrom = _.partial(actionFrom, 'delete')
 
 connectAsAction = (apiHandler, action, Actions, subject) ->
-  handlerOptions = [apiHandler, Actions, actions[action], actionFrom(action, subject), makeIdRouteData]
+  handlerOptions = [apiHandler, Actions, ACTIONS[action], actionFrom(action, subject), makeIdRouteData]
   handlerOptions.push(makeDefaultRequestData) if action is 'update' or action is 'create'
 
   connectToAPIHandler(handlerOptions...)
+
+connectHandler = (apiHandler, Actions, options) ->
+  {trigger} = options
+
+  Actions[trigger].addListener 'trigger', (args...) ->
+    options = _.mapValues(options, (option) ->
+      if _.isFunction(option) then option(args...) else option
+    )
+
+    handlers = makeRequestHandlers(Actions, options)
+
+    requestConfig = _.pick(options, 'url', 'method', 'data', 'params')
+    requestConfig.url ?= interpolate(options.pattern, options.route or makeIdRouteData(args...))
+
+    requestOptions = _.merge(_.pick(options, 'delay'), handlers)
+
+    apiHandler.send(requestConfig, requestOptions, args...)
+
+connectAction = (action, apiHandler, Actions, options, make) ->
+  options = _.merge({method: METHODS[action]}, ACTIONS[action], options)
+  connectHandler(apiHandler, Actions, options, make)
+
+connectCreate = _.partial(connectAction, 'create')
+connectRead = _.partial(connectAction, 'read')
+connectUpdate = _.partial(connectAction, 'update')
+connectDelete = _.partial(connectAction, 'delete')
 
 adaptForHandler = (apiHandler) ->
   updateRequestHandlers: _.partial(updateRequestHandlers, apiHandler)
@@ -110,8 +141,17 @@ adaptForHandler = (apiHandler) ->
   connectToAPIHandler: _.partial(connectToAPIHandler, apiHandler)
   connectAsAction: _.partial(connectAsAction, apiHandler)
 
+adaptHandler = (apiHandler) ->
+  connectAction:  _.partial(connectAction, apiHandler)
+  connectHandler: _.partial(connectHandler, apiHandler)
+  connectCreate:  _.partial(connectCreate, apiHandler)
+  connectRead:    _.partial(connectRead, apiHandler)
+  connectUpdate:  _.partial(connectUpdate, apiHandler)
+  connectDelete:  _.partial(connectDelete, apiHandler)
+
 module.exports = {
   adaptForHandler,
+  adaptHandler,
 
   makeIdRouteData,
   makeDefaultRequestData,

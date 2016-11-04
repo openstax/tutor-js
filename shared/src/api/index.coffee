@@ -165,10 +165,10 @@ class APIHandlerBase
 
 
 class APIHandler extends APIHandlerBase
-  constructor: (options, routes, channel) ->
+  constructor: (options, routes = [], channel) ->
     super(options, channel)
 
-    @initializeRoutes(routes)
+    @initializeRoutes(routes) unless _.isEmpty(routes)
     @setUpReceivers(@getOptions().events)
     @initializeEvents(@getOptions().events, routes.length, channel)
 
@@ -203,4 +203,4 @@ class APIHandler extends APIHandlerBase
 
 # include and export cascading error handler for convenience/custom error handling.
 
-module.exports = {APIHandler}
+module.exports = {APIHandler, APIHandlerBase}

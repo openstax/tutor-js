@@ -15,24 +15,24 @@ setNow = (headers) ->
   date = headers['X-App-Date'] or headers['Date']
   TimeActions.setFromString(date)
 
-createAPIHandler = ->
-  options =
-    xhr:
-      baseURL: "#{window.location.origin}/api"
-      headers:
-        'X-CSRF-Token': CurrentUserStore.getCSRFToken()
-        token: CurrentUserStore.getToken()
-    handlers:
-      onFail: (error, args...) ->
-        {response} = error
-        AppActions.setServerError(response)
-    hooks:
-      handleMalformedRequest: ->
-        CurrentUserActions.logout()
-        null
-    isLocal: IS_LOCAL
+OPTIONS =
+  xhr:
+    baseURL: "#{window.location.origin}/api"
+    headers:
+      'X-CSRF-Token': CurrentUserStore.getCSRFToken()
+      token: CurrentUserStore.getToken()
+  handlers:
+    onFail: (error) ->
+      {response} = error
+      AppActions.setServerError(response)
+  hooks:
+    handleMalformedRequest: ->
+      CurrentUserActions.logout()
+      null
+  isLocal: IS_LOCAL
 
-  new APIHandler(options, routes)
+createAPIHandler = ->
+  new APIHandler(OPTIONS, routes)
 
 setUpAPIHandler = ->
   tutorAPIHandler = createAPIHandler()
@@ -43,4 +43,13 @@ setUpAPIHandler = ->
   )
   _.merge({handler: tutorAPIHandler}, APIActionAdapter.adaptForHandler(tutorAPIHandler))
 
-module.exports = {setUpAPIHandler}
+setUp = ->
+  tutorAPIHandler = new APIHandler(OPTIONS)
+
+  tutorAPIHandler.channel.on('*.*.*.receive.*', (response) ->
+    headers = response.headers or response.response.headers
+    setNow(headers)
+  )
+  _.merge({handler: tutorAPIHandler}, APIActionAdapter.adaptHandler(tutorAPIHandler))
+
+module.exports = {setUpAPIHandler, setUp}
