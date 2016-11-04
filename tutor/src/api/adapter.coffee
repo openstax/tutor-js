@@ -31,25 +31,10 @@ OPTIONS =
       null
   isLocal: IS_LOCAL
 
-createAPIHandler = ->
-  new APIHandler(OPTIONS, routes)
+tutorAPIHandler = new APIHandler(OPTIONS)
+tutorAPIHandler.channel.on('*.*.*.receive.*', (response) ->
+  headers = response.headers or response.response.headers
+  setNow(headers)
+)
 
-setUpAPIHandler = ->
-  tutorAPIHandler = createAPIHandler()
-
-  tutorAPIHandler.channel.on('*.*.*.receive.*', (response) ->
-    headers = response.headers or response.response.headers
-    setNow(headers)
-  )
-  _.merge({handler: tutorAPIHandler}, APIActionAdapter.adaptForHandler(tutorAPIHandler))
-
-setUp = ->
-  tutorAPIHandler = new APIHandler(OPTIONS)
-
-  tutorAPIHandler.channel.on('*.*.*.receive.*', (response) ->
-    headers = response.headers or response.response.headers
-    setNow(headers)
-  )
-  _.merge({handler: tutorAPIHandler}, APIActionAdapter.adaptHandler(tutorAPIHandler))
-
-module.exports = {setUpAPIHandler, setUp}
+module.exports = _.merge({handler: tutorAPIHandler}, APIActionAdapter.adaptHandler(tutorAPIHandler))

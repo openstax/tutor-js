@@ -4,14 +4,10 @@
 #
 # For example, `TaskActions.load` everntually yields either
 # `TaskActions.loaded` or `TaskActions.FAILED`
-{APIActionAdapter} = require 'shared'
-
-{ makeIdRouteData, makeDefaultRequestData,
-  createActions, readActions, updateActions, deleteActions,
-  actionFrom, createFrom, readFrom, updateFrom, deleteFrom
-} = APIActionAdapter
-
-{setUpAPIHandler, setUp} = require './adapter'
+{
+  connectAction, connectHandler,
+  connectCreate, connectRead, connectUpdate, connectDelete
+} = require './adapter'
 
 {CurrentUserActions} = require '../flux/current-user'
 {CourseActions} = require '../flux/course'
@@ -53,8 +49,6 @@ BOOTSTRAPED_STORES = {
 }
 
 startAPI = ->
-  {connectAction, connectHandler, connectCreate, connectRead, connectUpdate, connectDelete} = setUp()
-
   connectRead(TaskActions, pattern: 'tasks/{id}')
   connectDelete(TaskActions, pattern: 'tasks/{id}')
 
