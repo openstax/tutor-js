@@ -1,8 +1,11 @@
+EventEmitter2 = require 'eventemitter2'
+
 {APIHandler} = require 'shared'
 routes = require './routes'
 
 coachAPIHandler = null
-
+channel = new EventEmitter2 wildcard: true, maxListeners: routes.length * 2
+isPending = -> false
 # HACK - WORKAROUND
 # MediaBodyView.prototype.initializeConceptCoach calls this multiple times
 # (triggered by back-button and most perhaps search)
@@ -27,7 +30,7 @@ getAPIOptions = (baseURL) ->
     isLocal: window.__karma__
 
 initialize = (baseUrl) ->
-  coachAPIHandler = new APIHandler(getAPIOptions(baseUrl), routes) unless IS_INITIALIZED
+  coachAPIHandler = new APIHandler(getAPIOptions(baseUrl), routes, channel) unless IS_INITIALIZED
   IS_INITIALIZED = true
 
   # export coach api handler things for each access
@@ -38,4 +41,4 @@ destroy = ->
   coachAPIHandler.destroy()
   IS_INITIALIZED = false
 
-module.exports = {initialize, destroy}
+module.exports = {initialize, destroy, channel, isPending}
