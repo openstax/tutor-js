@@ -111,7 +111,7 @@ class Routes extends Collection
     @
 
 simplifyRequestConfig = (requestConfig) ->
-  requestConfig = _.pick(requestConfig, 'method', 'data', 'url')
+  requestConfig = _.pick(requestConfig, 'method', 'data', 'url', 'params')
   requestConfig = _.omit(requestConfig, 'data') if _.isEmpty(requestConfig.data)
   requestConfig
 
@@ -144,4 +144,4 @@ class XHRRecords
 
 utils = {validateOptions, hashWithArrays, makeHashWith, constructCollection, makeRoute, simplifyRequestConfig}
 
-module.exports = {Collection, CollectionCached, Routes, XHRRecords, utils}
+module.exports = {Collection, CollectionCached, Routes, XHRRecords, utils, METHODS_TO_ACTIONS}

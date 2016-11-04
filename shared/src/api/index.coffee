@@ -9,7 +9,7 @@ require 'extract-values'
 
 EventEmitter2 = require 'eventemitter2'
 
-{Routes, XHRRecords, utils} = require './collections'
+{Routes, XHRRecords, utils, METHODS_TO_ACTIONS} = require './collections'
 {Interceptors} = require './interceptors'
 
 {hashWithArrays, makeHashWith} = utils
@@ -74,8 +74,22 @@ makeRequestConfig = (routeOptions, routeData, requestData) ->
 
   requestConfig
 
+guessInfoFromConfig = (requestConfig) ->
+  uriParts = requestConfig.url.split('/')
+
+  subject = requestConfig.url
+  topic = uriParts[1] or 'topic'
+  action = METHODS_TO_ACTIONS[requestConfig.method]
+
+  {subject, topic, action}
+
 DEFAULT_SUCCESS = (response) -> response
 DEFAULT_FAIL = (response) -> Promise.reject(response)
+
+ALL_EVENTS =
+  subject: '*'
+  topic: '*'
+  action: '*'
 
 class APIHandler
   constructor: (options, routes, channel) ->
@@ -116,11 +130,6 @@ class APIHandler
       send: [pattern, send].join('.')
       receive: [pattern, receive].join('.')
 
-    allEvents =
-      subject: '*'
-      topic: '*'
-      action: '*'
-
     sendRequest = @sendRequest
     @_patterns = patterns
     @_statuses = statuses
@@ -129,7 +138,7 @@ class APIHandler
       requestInfo = extractValues(@event, patterns.send)
       sendRequest(requestInfo, args...)
 
-    events.push([interpolate(patterns.send, allEvents), handleSend])
+    events.push([interpolate(patterns.send, ALL_EVENTS), handleSend])
 
   initializeEvents: (events, numberOfRoutes, channel) =>
     @channel = channel or new EventEmitter2 wildcard: true, maxListeners: numberOfRoutes * 2
@@ -147,11 +156,19 @@ class APIHandler
     return unless routeOptions?
 
     requestConfig = makeRequestConfig(routeOptions, routeData, requestData)
-    # TODO throw error somewheres.
+    requestConfig.topic = requestInfo.topic
+
+    _.merge(routeOptions, _.pick(requestInfo, 'subject', 'topic', 'action'))
+
+    @send(requestConfig, routeOptions, args...)
+
+  # send can now be used separately without initializing routes
+  send: (requestConfig, routeOptions, args...) ->
     return if @records.isPending(requestConfig)
 
-    requestConfig.topic = requestInfo.topic
-    requestConfig.params = requestInfo.params
+    requestInfo = _.pick(routeOptions, 'subject', 'topic', 'action')
+    requestInfo = guessInfoFromConfig(requestConfig) if _.isEmpty(requestInfo)
+
     requestConfig.events =
       success: interpolate(@_patterns.receive, _.merge({status: @_statuses.success}, requestInfo))
       failure: interpolate(@_patterns.receive, _.merge({status: @_statuses.failure}, requestInfo))
