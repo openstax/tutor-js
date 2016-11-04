@@ -91,14 +91,14 @@ ALL_EVENTS =
   topic: '*'
   action: '*'
 
-class APIHandler
-  constructor: (options, routes, channel) ->
+
+
+class APIHandlerBase
+  constructor: (options, channel) ->
     @setOptions(options)
 
-    @initializeRoutes(routes)
     @initializeRecords()
-    @initializeEventOptions(@getOptions().eventOptions, @getOptions().events)
-    @initializeEvents(@getOptions().events, routes.length, channel)
+    @initializeEventOptions(@getOptions().eventOptions)
     @initializeXHR(@getOptions().xhr, new Interceptors(@getOptions().hooks, @), @getOptions().isLocal)
 
   destroy: =>
@@ -106,9 +106,6 @@ class APIHandler
 
   initializeRecords: =>
     @records = new XHRRecords()
-
-  initializeRoutes: (routes) =>
-    @routes = new Routes(routes)
 
   initializeXHR: (xhrOptions, interceptors, isLocal) =>
     xhr = axios.create(xhrOptions)
@@ -121,7 +118,7 @@ class APIHandler
     #   will override existing headers, not merge recursively.
     _.assign(@_xhr.defaults, xhrOptions)
 
-  initializeEventOptions: (eventOptions, events) =>
+  initializeEventOptions: (eventOptions) =>
     {pattern, send, receive, statuses} = eventOptions
 
     # {subject}.{topic}.{action}.send||(receive.(failure||success))
@@ -130,37 +127,14 @@ class APIHandler
       send: [pattern, send].join('.')
       receive: [pattern, receive].join('.')
 
-    sendRequest = @sendRequest
     @_patterns = patterns
     @_statuses = statuses
-
-    handleSend = (args...) ->
-      requestInfo = extractValues(@event, patterns.send)
-      sendRequest(requestInfo, args...)
-
-    events.push([interpolate(patterns.send, ALL_EVENTS), handleSend])
-
-  initializeEvents: (events, numberOfRoutes, channel) =>
-    @channel = channel or new EventEmitter2 wildcard: true, maxListeners: numberOfRoutes * 2
-    _.forEach(events, _.spread(@channel.on.bind(@channel)))
 
   setOptions: (options) =>
     previousOptions = @getOptions?() or {}
     options = _.merge({}, API_DEFAULTS, previousOptions, options)
 
     @getOptions = -> options
-
-  sendRequest: (requestInfo, routeData, requestData, args...) =>
-    routeOptions = @routes.get(requestInfo)
-    # TODO throw error somewheres.
-    return unless routeOptions?
-
-    requestConfig = makeRequestConfig(routeOptions, routeData, requestData)
-    requestConfig.topic = requestInfo.topic
-
-    _.merge(routeOptions, _.pick(requestInfo, 'subject', 'topic', 'action'))
-
-    @send(requestConfig, routeOptions, args...)
 
   # send can now be used separately without initializing routes
   send: (requestConfig, routeOptions, args...) ->
@@ -188,6 +162,44 @@ class APIHandler
         .then(_.partial(handlers.onSuccess, _, args...), _.partial(handlers.onFail, _, args...))
 
     , requestDelay
+
+
+class APIHandler extends APIHandlerBase
+  constructor: (options, routes, channel) ->
+    super(options, channel)
+
+    @initializeRoutes(routes)
+    @setUpReceivers(@getOptions().events)
+    @initializeEvents(@getOptions().events, routes.length, channel)
+
+  initializeRoutes: (routes) =>
+    @routes = new Routes(routes)
+
+  setUpReceivers: (events) =>
+    sendRequest = @sendRequest
+    patterns = @_patterns
+
+    handleSend = (args...) ->
+      requestInfo = extractValues(@event, patterns.send)
+      sendRequest(requestInfo, args...)
+
+    events.push([interpolate(patterns.send, ALL_EVENTS), handleSend])
+
+  initializeEvents: (events, numberOfRoutes, channel) =>
+    @channel = channel or new EventEmitter2 wildcard: true, maxListeners: numberOfRoutes * 2
+    _.forEach(events, _.spread(@channel.on.bind(@channel)))
+
+  sendRequest: (requestInfo, routeData, requestData, args...) =>
+    routeOptions = @routes.get(requestInfo)
+    # TODO throw error somewheres.
+    return unless routeOptions?
+
+    requestConfig = makeRequestConfig(routeOptions, routeData, requestData)
+    requestConfig.topic = requestInfo.topic
+
+    _.merge(routeOptions, _.pick(requestInfo, 'subject', 'topic', 'action'))
+
+    @send(requestConfig, routeOptions, args...)
 
 # include and export cascading error handler for convenience/custom error handling.
 
