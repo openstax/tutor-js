@@ -12,7 +12,7 @@ ReviewLink = (props) ->
     <TutorLink
       to='reviewTask'
       query={tab: props.periodIndex}
-      params={id: props.heading.plan_id, courseId: props.courseIdlinkParams}
+      params={id: props.heading.plan_id, courseId: props.courseId}
     >
       Review
     </TutorLink>

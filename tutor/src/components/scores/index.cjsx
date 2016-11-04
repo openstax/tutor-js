@@ -77,7 +77,10 @@ Scores = React.createClass
   render: ->
     {courseId} = @props
     {period_id} = @state
-    return <NoPeriods courseId={@props.courseId} link={false} /> unless period_id?
+
+    if _.isEmpty(CourseStore.getPeriods(courseId))
+      return <NoPeriods courseId={courseId} />
+
 
     <div className='course-scores-wrap' ref='scoresWrap'>
         <span className='course-scores-title'>Student Scores</span>
