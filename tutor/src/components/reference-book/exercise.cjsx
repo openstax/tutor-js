@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOMServer = require 'react-dom/server'
 
 {ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
 
@@ -41,7 +42,7 @@ ReferenceBookExerciseShell = React.createClass
     {exerciseAPIUrl} = @props
     ReferenceBookExerciseActions.load(exerciseAPIUrl) unless @isLoading()
   renderExercise: ->
-    exerciseHtml = React.renderToStaticMarkup(<ReferenceBookExercise {...@props} />)
+    exerciseHtml = ReactDOMServer.renderToStaticMarkup(<ReferenceBookExercise {...@props} />)
     <ArbitraryHtmlAndMath html={exerciseHtml}/>
   render: ->
     {exerciseAPIUrl} = @props

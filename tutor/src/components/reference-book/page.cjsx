@@ -52,7 +52,7 @@ module.exports = React.createClass
   renderExercise: (link) ->
     exerciseAPIUrl = link.href
     exerciseNode = link.parentNode.parentNode
-    React.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl}/>, exerciseNode) if exerciseNode?
+    ReactDOM.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl}/>, exerciseNode) if exerciseNode?
 
   render: ->
     {courseId, cnxId, ecosystemId} = @props
