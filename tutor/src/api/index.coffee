@@ -4,10 +4,7 @@
 #
 # For example, `TaskActions.load` everntually yields either
 # `TaskActions.loaded` or `TaskActions.FAILED`
-{
-  connectAction, connectHandler,
-  connectCreate, connectRead, connectUpdate, connectDelete
-} = require './adapter'
+{connectModify, connectCreate, connectRead, connectUpdate, connectDelete} = require './adapter'
 
 {CurrentUserActions} = require '../flux/current-user'
 {CourseActions} = require '../flux/course'
@@ -55,38 +52,36 @@ startAPI = ->
   connectRead(TaskPlanActions, pattern: 'plans/{id}')
   connectDelete(TaskPlanActions, pattern: 'plans/{id}')
 
-  connectUpdate(TaskPlanActions,
-    pattern: (id, courseId) ->
-      if TaskPlanStore.isNew(id) then 'courses/{courseId}/plans' else 'plans/{id}'
-    data: TaskPlanStore.getChanged
-    route: (id, courseId) -> {id, courseId}
+  connectUpdate(TaskPlanActions, {data: TaskPlanStore.getChanged},
+    (id, courseId) ->
+      url = if TaskPlanStore.isNew(id) then "courses/#{courseId}/plans" else "plans/#{id}"
+      {url}
   )
 
   connectRead(TaskPlanStatsActions, pattern: 'plans/{id}/stats')
   connectRead(TaskTeacherReviewActions, pattern: 'plans/{id}/review')
 
-  connectRead(ExerciseActions,
-    trigger: 'loadForEcosystem', onSuccess: 'loadedForEcosystem'
-    url: (id, pageIds, requestType = 'homework_core') ->
-      "ecosystems/#{id}/exercises/#{requestType}"
-    params: (id, pageIds, requestType = 'homework_core') ->
-      page_ids: pageIds
+  connectRead(ExerciseActions, {trigger: 'loadForEcosystem', onSuccess: 'loadedForEcosystem'},
+    (id, pageIds, requestType = 'homework_core') ->
+      url = "ecosystems/#{id}/exercises/#{requestType}"
+      params =
+        page_ids: pageIds
+
+      {url, params}
   )
 
-  connectRead(ExerciseActions,
-    trigger: 'loadForCourse', onSuccess: 'loadedForCourse'
-    url: (id, pageIds, ecosystemId = null, requestType = 'homework_core') ->
-      "courses/#{id}/exercises/#{requestType}"
-    params: (id, pageIds, ecosystemId = null, requestType = 'homework_core') ->
+  connectRead(ExerciseActions, {trigger: 'loadForCourse', onSuccess: 'loadedForCourse'},
+    (id, pageIds, ecosystemId = null, requestType = 'homework_core') ->
+      url = "courses/#{id}/exercises/#{requestType}"
       params =
         page_ids: pageIds
       params.ecosystem_id = ecosystemId if ecosystemId?
-      params
+
+      {url, params}
   )
 
-  connectHandler(ExerciseActions,
-    trigger: 'saveExerciseExclusion', onSuccess: 'exclusionsSaved'
-    method: 'PUT', pattern: 'courses/{id}/exercises'
+  connectModify(ExerciseActions,
+    pattern: 'courses/{id}/exercises', trigger: 'saveExerciseExclusion', onSuccess: 'exclusionsSaved'
     data: ->
       _.map ExerciseStore.getUnsavedExclusions(), (is_excluded, id) -> {id, is_excluded}
   )
@@ -102,11 +97,10 @@ startAPI = ->
 
   connectRead(PerformanceForecast.Student.actions, pattern: 'courses/{id}/guide')
   connectRead(PerformanceForecast.Teacher.actions, pattern: 'courses/{id}/teacher_guide')
-  connectRead(PerformanceForecast.TeacherStudent.actions,
-    url: (id, {roleId}) ->
-      "courses/#{id}/guide/role/#{roleId}"
-    data: (id, {roleId}) ->
-      {id, roleId}
+  connectRead(PerformanceForecast.TeacherStudent.actions, (id, {roleId}) ->
+    url = "courses/#{id}/guide/role/#{roleId}"
+    data = {id, roleId}
+    {url, data}
   )
 
   connectRead(ScoresActions, pattern: 'courses/{id}/performance')
@@ -115,14 +109,12 @@ startAPI = ->
     pattern: 'courses/{id}/performance/export', trigger: 'export', onSuccess: 'exported'
   )
 
-  connectHandler(ScoresActions,
-    trigger: 'acceptLate', onSuccess: 'acceptedLate'
-    method: 'PUT', pattern: 'tasks/{id}/accept_late_work'
+  connectModify(ScoresActions,
+    trigger: 'acceptLate', onSuccess: 'acceptedLate', pattern: 'tasks/{id}/accept_late_work'
   )
 
-  connectHandler(ScoresActions,
-    trigger: 'rejectLate', onSuccess: 'rejectedLate'
-    method: 'PUT', pattern: 'tasks/{id}/reject_late_work'
+  connectModify(ScoresActions,
+    trigger: 'rejectLate', onSuccess: 'rejectedLate', pattern: 'tasks/{id}/reject_late_work'
   )
 
   connectRead(TeacherTaskPlanActions, pattern: 'courses/{id}/dashboard',
@@ -139,15 +131,13 @@ startAPI = ->
   connectDelete(RosterActions, pattern: 'students/{id}')
   connectUpdate(RosterActions, pattern: 'students/{id}')
 
-  connectHandler(RosterActions,
-    trigger: 'undrop', onSuccess: 'undropped'
-    method: 'PUT', pattern: 'students/{id}/undrop'
+  connectModify(RosterActions, pattern: 'students/{id}/undrop', trigger: 'undrop', onSuccess: 'undropped',
     errorHandlers:
       already_active: 'onUndropAlreadyActive'
       student_identifier_has_already_been_taken: 'recordDuplicateStudentIdError'
   )
   connectUpdate(RosterActions,
-    pattern: 'students/{id}', trigger: 'saveStudentIdentifier', onSuccess: 'savedStudentIdentifier'
+    pattern: 'students/{id}', trigger: 'saveStudentIdentifier', onSuccess: 'savedStudentIdentifier',
     errorHandlers:
       student_identifier_has_already_been_taken: 'recordDuplicateStudentIdError'
     data: ({courseId, studentId}) ->
@@ -155,8 +145,7 @@ startAPI = ->
   )
   connectCreate(RosterActions, pattern: 'courses/{id}/roster')
   connectRead(RosterActions, pattern: 'courses/{id}/roster')
-  connectUpdate(StudentIdActions,
-    pattern: 'user/courses/{id}/student'
+  connectUpdate(StudentIdActions, pattern: 'user/courses/{id}/student',
     handledErrors: ['*'], handleError: StudentIdActions.errored
     data: (id, data) -> data
   )
@@ -164,31 +153,19 @@ startAPI = ->
   connectCreate(PeriodActions, pattern: 'courses/{courseId}/periods')
   connectUpdate(PeriodActions, pattern: 'periods/{id}')
   connectDelete(PeriodActions, pattern: 'periods/{id}')
-  connectHandler(PeriodActions,
-    method: 'PUT', pattern: 'periods/{id}/restore'
-    trigger: 'restore', onSuccess: 'restored'
-  )
+  connectModify(PeriodActions, pattern: 'periods/{id}/restore', trigger: 'restore', onSuccess: 'restored')
 
   connectRead(TaskStepActions, pattern: 'steps/{id}')
-  connectRead(TaskStepActions,
-    pattern: 'steps/{id}', trigger: 'loadPersonalized'
+  connectRead(TaskStepActions, pattern: 'steps/{id}', trigger: 'loadPersonalized',
     handledErrors: ['*'], handleError: TaskStepActions.loadedNoPersonalized
   )
-  connectHandler(TaskStepActions,
-    method: 'PUT', pattern: 'steps/{id}/completed'
-    trigger: 'complete', onSuccess: 'completed'
-  )
-  connectHandler(TaskStepActions,
-    method: 'PUT', pattern: 'steps/{id}/recovery'
-    trigger: 'loadRecovery', onSuccess: 'loadedRecovery'
-  )
-  connectUpdate(TaskStepActions,
-    pattern: 'steps/{id}', trigger: 'setFreeResponseAnswer'
+  connectModify(TaskStepActions, pattern: 'steps/{id}/completed', trigger: 'complete', onSuccess: 'completed')
+  connectModify(TaskStepActions, pattern: 'steps/{id}/recovery', trigger: 'loadRecovery', onSuccess: 'loadedRecovery')
+  connectUpdate(TaskStepActions, pattern: 'steps/{id}', trigger: 'setFreeResponseAnswer',
     data: (id, freeResponse) ->
       {free_response: freeResponse}
   )
-  connectUpdate(TaskStepActions,
-    pattern: 'steps/{id}', trigger: 'setAnswerId'
+  connectUpdate(TaskStepActions, pattern: 'steps/{id}', trigger: 'setAnswerId',
     data: (id, answerId) ->
       {answer_id: answerId}
   )
@@ -202,9 +179,7 @@ startAPI = ->
 
   connectRead(ReferenceBookActions, pattern: 'ecosystems/{id}/readings')
   connectRead(ReferenceBookPageActions, pattern: 'pages/{id}')
-  connectRead(ReferenceBookPageActions,
-    pattern: 'pages/{id}', handledErrors: ['*'], trigger: 'loadSilent'
-  )
+  connectRead(ReferenceBookPageActions, pattern: 'pages/{id}', trigger: 'loadSilent', handledErrors: ['*'])
   connectRead(ReferenceBookExerciseActions, url: (url) -> url)
 
   connectRead(StudentDashboardActions, pattern: 'courses/{id}/dashboard')

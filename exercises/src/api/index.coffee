@@ -1,11 +1,4 @@
-{APIActionAdapter} = require 'shared'
-
-{ makeIdRouteData, makeDefaultRequestData,
-  createActions, readActions, updateActions, deleteActions,
-  actionFrom, createFrom, readFrom, updateFrom, deleteFrom
-} = APIActionAdapter
-
-{setUpAPIHandler} = require './adapter'
+{connectModify, connectCreate, connectRead, connectUpdate, connectDelete} = require './adapter'
 
 {ExerciseActions, ExerciseStore} = require '../stores/exercise'
 {VocabularyActions, VocabularyStore} = require '../stores/vocabulary'
@@ -17,102 +10,47 @@ getIdWithVersion = (id, version = 'latest') ->
   if id.indexOf("@") is -1 then "#{id}@#{version}" else id
 
 start = ->
-  {updateRequestHandlers, connectTrigger, connectToAPIHandler, connectAsAction} = setUpAPIHandler()
+  connectRead(ExerciseActions, url: (id) -> "exercises/#{getIdWithVersion(id)}" )
 
-  connectToAPIHandler(
-    ExerciseActions,
-    readActions,
-    readFrom('exercise'),
-    (id) ->
-      id = getIdWithVersion(id)
-      {id}
+  connectUpdate(ExerciseActions, (id) ->
+    # backend expects the changed props and the entire exercise for some reason
+    obj = ExerciseStore.getChanged(id)
+    obj.exercise = ExerciseStore.get(id)
+
+    exerciseId = getIdOnly(id)
+
+    url: "exercises/#{exerciseId}@draft"
+    method: 'PUT'
+    data: obj
   )
 
-  connectToAPIHandler(
-    ExerciseActions,
-    updateActions,
-    updateFrom('exercise'),
-    (id) ->
-      # backend expects the changed props and the entire exercise for some reason
-      obj = ExerciseStore.getChanged(id)
-      obj.exercise = ExerciseStore.get(id)
+  connectCreate(ExerciseActions, url: 'exercises', data: ExerciseStore.get)
 
-      exerciseId = getIdOnly(id)
-      {exerciseId}
-  )
-
-  connectToAPIHandler(
-    ExerciseActions,
-    createActions,
-    createFrom('exercise'),
-    -> null,
+  connectModify(ExerciseActions, {trigger: 'publish', onSuccess: 'published'},
     (id) ->
-      # backend expects the changed props and the entire exercise for some reason
-      data = ExerciseStore.get(id)
-      {data}
-  )
-
-  connectToAPIHandler(
-    ExerciseActions,
-    {trigger: 'publish', onSuccess: 'published'},
-    actionFrom('publish', 'exercise'),
-    (id) ->
+      obj = ExerciseStore.get(id)
       uid = ExerciseStore.getId(id)
-      {uid}
-    ,
-    (id) ->
-      # backend expects the changed props and the entire exercise for some reason
-      data = ExerciseStore.get(id)
-      {data}
+
+      url: "exercises/#{uid}/publish"
+      data: obj
   )
 
-  connectToAPIHandler(
-    ExerciseActions,
-    {trigger: 'deleteAttachment', onSuccess: 'attachmentDeleted'},
-    deleteFrom('exercise-attachment'),
-    (exerciseUid, attachmentId) -> {exerciseUid, attachmentId}
+  connectDelete(ExerciseActions, {trigger: 'deleteAttachment', onSuccess: 'attachmentDeleted'},
+    (exerciseUid, attachmentId) -> url: "/api/exercises/#{exerciseUid}/attachments/#{attachmentId}"
   )
 
-  connectToAPIHandler(
-    VocabularyActions,
-    readActions,
-    readFrom('vocabulary'),
-    (id) ->
-      id = getIdWithVersion(id, 'draft')
-      {id}
+  connectRead(VocabularyActions, (id) -> url: "vocab_terms/#{getIdWithVersion(id, 'draft')}")
+
+  connectCreate(VocabularyActions, url: 'vocab_terms', data: VocabularyStore.get)
+
+  connectUpdate(VocabularyActions, (id) ->
+    url: "vocab_terms/#{getIdOnly(id)}@draft"
+    data: VocabularyStore.get(id)
   )
 
-  connectToAPIHandler(
-    VocabularyActions,
-    createActions,
-    createFrom('vocabulary'),
-    -> null,
-    (id) ->
-      data = VocabularyStore.get(id)
-      {data}
-  )
-
-  connectToAPIHandler(
-    VocabularyActions,
-    updateActions,
-    updateFrom('vocabulary'),
-    (id) ->
-      id = getIdOnly(id)
-      {id}
-    ,
-    (id) ->
-      data = VocabularyStore.get(id)
-      {data}
-  )
-
-  connectToAPIHandler(
-    VocabularyActions,
-    {trigger: 'publish', onSuccess: 'published'},
-    actionFrom('publish', 'vocabulary'),
-    (id) -> VocabularyStore.get(id),
-    (id) ->
-      data = VocabularyStore.get(id)
-      {data}
+  connectModify(VocabularyActions,
+    trigger: 'publish', onSuccess: 'published'
+    route: VocabularyStore.get, data: VocabularyStore.get
   )
 
 uploadExerciseImage = (exerciseUid, image, cb) ->

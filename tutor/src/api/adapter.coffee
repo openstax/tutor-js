@@ -2,8 +2,6 @@ _ = require 'lodash'
 {APIHandler} = require 'shared'
 {APIActionAdapter} = require 'shared'
 
-routes = require './routes'
-
 {TimeActions} = require '../flux/time'
 {AppActions} = require '../flux/app'
 {CurrentUserStore} = require '../flux/current-user'
@@ -37,4 +35,4 @@ tutorAPIHandler.channel.on('*.*.*.receive.*', (response) ->
   setNow(headers)
 )
 
-module.exports = _.merge({handler: tutorAPIHandler}, APIActionAdapter.adaptHandler(tutorAPIHandler))
+module.exports = _.merge({handler: tutorAPIHandler}, APIActionAdapter(tutorAPIHandler))
