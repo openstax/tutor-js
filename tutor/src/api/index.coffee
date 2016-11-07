@@ -27,8 +27,8 @@ PerformanceForecast = require '../flux/performance-forecast'
 {TaskTeacherReviewActions} = require '../flux/task-teacher-review'
 {TaskPlanStatsActions} = require '../flux/task-plan-stats'
 
-{PastTaskPlansActions} = require './flux/past-task-plans'
-{OfferingsActions} = require './flux/offerings'
+{PastTaskPlansActions} = require '../flux/past-task-plans'
+{OfferingsActions} = require '../flux/offerings'
 
 {TocActions} = require '../flux/toc'
 {ExerciseActions, ExerciseStore} = require '../flux/exercise'
