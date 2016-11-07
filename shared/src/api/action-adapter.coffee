@@ -42,13 +42,15 @@ makeRequestHandlers = (Actions, options) ->
 
   handlers
 
+resolveOption = (option, key, args...) ->
+  if _.isFunction(option) and key isnt 'handleError'
+    option(args...)
+  else
+    option
+
 resolveAndMergeHandlerOptions = (options, makeRequestOptions, args...) ->
-  resolvedAndMergedOptions = _.mapValues(options, (option, key) ->
-    if _.isFunction(option) then option(args...) else option
-  )
-  additionalRequestOptions = _.map(makeRequestOptions, (makeRequestOption) ->
-    makeRequestOption(args...) if _.isFunction(makeRequestOption)
-  )
+  resolvedAndMergedOptions = _.mapValues(options, _.partial(resolveOption, _, _, args...))
+  additionalRequestOptions = _.map(makeRequestOptions, _.partial(resolveOption, _, _, args...))
   _.merge(resolvedAndMergedOptions, additionalRequestOptions...)
   resolvedAndMergedOptions
 

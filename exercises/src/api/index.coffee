@@ -10,7 +10,7 @@ getIdWithVersion = (id, version = 'latest') ->
   if id.indexOf("@") is -1 then "#{id}@#{version}" else id
 
 start = ->
-  connectRead(ExerciseActions, url: (id) -> "exercises/#{getIdWithVersion(id)}" )
+  connectRead(ExerciseActions, handleError: ExerciseStore.isMissingExercise, url: (id) -> "exercises/#{getIdWithVersion(id)}" )
 
   connectUpdate(ExerciseActions, (id) ->
     # backend expects the changed props and the entire exercise for some reason
