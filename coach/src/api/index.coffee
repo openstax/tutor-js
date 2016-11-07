@@ -37,6 +37,8 @@ initialize = (baseUrl) ->
   module.exports.isPending = coachAPIHandler.records.isPending
   module.exports.channel = coachAPIHandler.channel
 
+  coachAPIHandler
+
 destroy = ->
   coachAPIHandler.destroy()
   IS_INITIALIZED = false

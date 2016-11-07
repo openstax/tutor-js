@@ -7,13 +7,14 @@ makeLocalRequest = (requestConfig) ->
 
   [uri, params] = url.split('?')
   if requestConfig.method is 'GET'
-    url_parts = ["#{uri}.json", params]
+    url = "#{uri}.json"
   else
-    url_parts = ["#{uri}/#{requestConfig.method}.json", params]
+    url = "#{uri}/#{requestConfig.method}.json"
     requestConfig.mockMethod = requestConfig.method
     requestConfig.method = 'GET'
 
-  requestConfig.url = _.compact(url_parts).join('?')
+  _.merge(requestConfig, {url, params})
+  requestConfig
 
 makeLocalResponse = (response) ->
   payload = if response.config.data then JSON.parse(response.config.data) else {}
@@ -53,12 +54,12 @@ class Interceptors
 
   broadcastSuccess: (response) =>
     {config} = response
-    @_apiHandler.channel.emit(config.events.success, response)
+    @_apiHandler.channel.emit(config.events.success, response) if config?.events?.success
     response
 
   broadcastError: (response) =>
     {config} = response
-    @_apiHandler.channel.emit(config.events.failure, response)
+    @_apiHandler.channel.emit(config.events.failure, response) if config?.events?.failure
     Promise.reject(response)
 
   makeLocalResponse: (response) =>
@@ -128,6 +129,8 @@ class Interceptors
   filterErrors: (error) =>
     {response, config} = error
     {data} = response
+
+    return Promise.reject(error) if _.isEmpty(config)
 
     if (_.isEmpty(config.handledErrors) or _.isEmpty(data.errors)) or
       not areAllErrorsHandled(config.handledErrors, data.errors, @_apiHandler.getOptions().errorNameProperty)
