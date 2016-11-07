@@ -13,9 +13,10 @@ AssignmentLinks = React.createClass
   bindStore: ReferenceBookStore
 
   componentWillMount: ->
-    {courseId} = Router.currentParams()
+    {courseId} = _.defaults(@props, Router.currentParams() )
+
     course = CourseStore.get(courseId)
-    @ecosystem_id = course.ecosystem_id
+    @setState(ecosystem_id: course.ecosystem_id)
     ReferenceBookActions.load(course.ecosystem_id)
 
   renderRow: (item, baseUrl, bookId) ->
@@ -30,21 +31,26 @@ AssignmentLinks = React.createClass
       else
         null
 
-    row = <tr>
-      <td>{chapter_section}</td>
-      <td>{item.title}{link}</td>
-    </tr>
+    row =
+      <tr key={item.id} data-section-id={item.id}>
+        <td>{chapter_section}</td>
+        <td>
+          <span className="title">{item.title}</span>
+          {link}
+        </td>
+      </tr>
 
     if item.chapter_section.length is 1
-      <tbody>
-        { row }
+      <tbody key={item.id}>
+        {row}
         { _.map item.children, (child) => @renderRow(child, baseUrl, bookId) }
       </tbody>
     else
-      {row}
+      row
 
   render: ->
-    toc = ReferenceBookStore.getToc(@ecosystem_id)
+    toc = ReferenceBookStore.getToc(@state.ecosystem_id)
+
     return null if not toc?.children?
 
     bookId = toc.short_id or toc.uuid
@@ -68,4 +74,4 @@ AssignmentLinks = React.createClass
 
     </BS.Panel>
 
-module.exports = {AssignmentLinks}
+module.exports = AssignmentLinks
