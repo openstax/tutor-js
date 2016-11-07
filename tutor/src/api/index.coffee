@@ -27,6 +27,9 @@ PerformanceForecast = require '../flux/performance-forecast'
 {TaskTeacherReviewActions} = require '../flux/task-teacher-review'
 {TaskPlanStatsActions} = require '../flux/task-plan-stats'
 
+{PastTaskPlansActions} = require './flux/past-task-plans'
+{OfferingsActions} = require './flux/offerings'
+
 {TocActions} = require '../flux/toc'
 {ExerciseActions, ExerciseStore} = require '../flux/exercise'
 {TeacherTaskPlanActions} = require '../flux/teacher-task-plan'
@@ -171,6 +174,14 @@ startAPI = ->
   )
 
   connectRead(CurrentUserActions, url: 'user')
+
+  connectRead(OfferingsActions, url: 'offerings')
+  connectRead(PastTaskPlansActions, ({courseId}) ->
+    url: "courses/#{courseId}/plans"
+    params:
+      clone_status: 'unused_source'
+  )
+
   connectRead(CourseListingActions, url: 'user/courses')
   connectCreate(NewCourseActions,
     pattern: 'courses/{id}/clone', trigger: 'clone', data: NewCourseStore.requestPayload
