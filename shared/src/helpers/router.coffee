@@ -11,6 +11,7 @@ memoize      = require 'lodash/memoize'
 compact      = require 'lodash/compact'
 isEmpty      = require 'lodash/isEmpty'
 forEach      = require 'lodash/forEach'
+mapValues    = require 'lodash/mapValues'
 cloneDeep    = require 'lodash/cloneDeep'
 pathToRegexp = require 'path-to-regexp'
 matchPattern = require('react-router/matchPattern').default
@@ -32,7 +33,10 @@ class OXRouter
     qs.parse((options.window or window).location.search.slice(1))
 
   currentParams: (options = {}) =>
-    @currentMatch( (options.window or window).location.pathname)?.params or {}
+    # needed until https://github.com/ReactTraining/react-router/pull/4064 is released
+    params = @currentMatch( (options.window or window).location.pathname)?.params or {}
+    mapValues(params, (value) -> if value is "undefined" then undefined else value )
+
 
   currentState: (options = {}) =>
     params: @currentParams(options)
