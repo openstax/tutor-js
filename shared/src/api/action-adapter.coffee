@@ -42,6 +42,16 @@ makeRequestHandlers = (Actions, options) ->
 
   handlers
 
+resolveAndMergeHandlerOptions = (options, makeRequestOptions, args...) ->
+  resolvedAndMergedOptions = _.mapValues(options, (option, key) ->
+    if _.isFunction(option) then option(args...) else option
+  )
+  additionalRequestOptions = _.map(makeRequestOptions, (makeRequestOption) ->
+    makeRequestOption(args...) if _.isFunction(makeRequestOption)
+  )
+  _.merge(resolvedAndMergedOptions, additionalRequestOptions...)
+  resolvedAndMergedOptions
+
 # convenient aliases
 makeIdRouteData = (id) -> {id} if id?
 
@@ -61,14 +71,13 @@ ACTIONS =
 
 METHODS = _.invert(METHODS_TO_ACTIONS)
 
-connectHandler = (apiHandler, Actions, options, makeOptions) ->
+connectHandler = (apiHandler, Actions, allOptions...) ->
+  [objectOptions, makeRequestOptions] = _.partition(allOptions, _.isObject)
+  options = _.merge({}, objectOptions...)
   {trigger} = options
 
   Actions[trigger].addListener 'trigger', (args...) ->
-    request = _.mapValues(options, (option) ->
-      if _.isFunction(option) then option(args...) else option
-    )
-    _.merge(request, makeOptions(args...)) if _.isFunction(makeOptions)
+    request = resolveAndMergeHandlerOptions(options, makeRequestOptions, args...)
 
     handlers = makeRequestHandlers(Actions, options)
 
@@ -79,14 +88,9 @@ connectHandler = (apiHandler, Actions, options, makeOptions) ->
 
     apiHandler.send(requestConfig, requestOptions, args...)
 
-connectAction = (action, apiHandler, Actions, options = {}, makeOptions) ->
-  if _.isFunction(options)
-    makeOptions = options
-    options = {}
-
-  options = _.merge(method: METHODS[action], ACTIONS[action] or {}, options)
-
-  connectHandler(apiHandler, Actions, options, makeOptions)
+connectAction = (action, apiHandler, Actions, allOptions...) ->
+  actionOptions = _.merge(method: METHODS[action], ACTIONS[action] or {})
+  connectHandler(apiHandler, Actions, actionOptions, allOptions...)
 
 adaptHandler = (apiHandler) ->
   connectHandler: _.partial(connectHandler, apiHandler)
