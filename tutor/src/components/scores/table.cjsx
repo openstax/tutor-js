@@ -83,8 +83,8 @@ module.exports = React.createClass
     </div>
 
   OverallCell: (props) ->
-    avg = (props.data[props.rowIndex].average_score * 100).toFixed(0)
-    <Cell className="overall-cell">{avg}%</Cell>
+    avg = props.data[props.rowIndex].average_score or 0
+    <Cell className="overall-cell">{(avg * 100).toFixed(0)}%</Cell>
 
 
   NameCell: (props) ->
