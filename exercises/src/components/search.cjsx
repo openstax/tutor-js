@@ -62,11 +62,8 @@ Search = React.createClass
   render: ->
     <div className="search">
       {<NetworkActivity /> if ExerciseStore.isLoading(@state.loading) }
-<<<<<<< f35db2e2cf11c149bad08a15edd7b829c0d1d706
       {<h3>Search is empty, please type an exercise ID into the input.</h3> if @state.showEmptyWarning}
-=======
       <@Errors />
->>>>>>> display error message when exercise id is blank
       {<RecordNotFound
         recordType="Exercise" id={@state.loading}
         /> if ExerciseStore.isFailed(@state.loading)}
