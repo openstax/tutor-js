@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
+{Testing, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
 
 
 LmsInfo = require '../../../src/components/task-plan/lms-info'

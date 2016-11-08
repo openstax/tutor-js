@@ -86,6 +86,10 @@ VocabularyConfig = {
         not @exports.isPublishing.call(@, id) and
         not @_get(id)?.published_at
 
+    canEdit: (id, user) ->
+      exercise = @_get(id)
+      !!find( exercise.authors, user_id: user.id )
+
     validate: (id) ->
       return {valid: false, part: 'vocab'} unless @_get(id)
       valid: true

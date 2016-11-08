@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
+{Testing, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
 {Promise}      = require 'es6-promise'
 ld = require 'lodash'
 

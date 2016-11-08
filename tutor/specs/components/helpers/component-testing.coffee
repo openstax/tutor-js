@@ -5,9 +5,6 @@ React = require 'react'
 ReactDOM = require 'react-dom'
 ReactTestUtils  = require 'react-addons-test-utils'
 { spyOnComponentMethod, stubComponentMethod } = require 'sinon-spy-react'
-enzyme = require 'enzyme'
-chaiEnzyme = require('chai-enzyme')
-chai.use(chaiEnzyme())
 
 # No longer exists, needs further investigation if we're using it
 # ReactContext   = require('react/lib/ReactContext')
@@ -18,7 +15,6 @@ chai.use(chaiEnzyme())
 {commonActions} = require './utilities'
 sandbox = null
 Sinon = {}
-
 
 ROUTER = null
 CURRENT_ROUTER_PARAMS = null
@@ -105,8 +101,7 @@ pause = (scope) ->
 
 
 module.exports = {
-  Testing, expect, sinon, React, _, ReactTestUtils,
+  Testing, sinon, React, _, ReactTestUtils,
   spyOnComponentMethod, stubComponentMethod,
-  shallow: enzyme.shallow, mount: enzyme.mount,
   pause
 }

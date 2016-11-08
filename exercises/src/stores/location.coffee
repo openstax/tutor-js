@@ -21,6 +21,11 @@ VIEWS =
     store:    ExerciseStore
     actions:  ExerciseActions
 
+  view:
+    Body:     require 'components/preview'
+    Controls: require 'components/preview/controls'
+    store:    ExerciseStore
+    actions:  ExerciseActions
 
 # The Location class pairs urls with components and stores
 class Location
@@ -31,7 +36,7 @@ class Location
   _createHistory: ->
     @history = history.createBrowserHistory()
 
-  startListening: (cb) ->
+  startListening: (cb, @user) ->
     @historyUnlisten = @history.listen(cb)
 
   stopListening: ->
@@ -49,6 +54,9 @@ class Location
   visitVocab: (id) ->
     @history.push("/vocabulary/#{id}")
 
+  visitPreview: (id) ->
+    @history.push("/view/#{id}")
+
   getCurrentUrlParts: ->
     path = window.location.pathname
     [view, id, args...] = _.tail path.split('/')
@@ -60,12 +68,16 @@ class Location
   # callback for when a record is newly loaded from store
   # Location may choose to redirect to a different editor depending on the data
   onRecordLoad: (type, id, store) ->
+
     {view} = @getCurrentUrlParts()
     record = store.get(id)
-    # use vocab editor
-    if type is 'exercises' and record.vocab_term_uid
-      @visitVocab(id) #record.vocab_term_uid)
+    if record and not store.canEdit(id, @user)
+      @visitPreview(id)
     else
-      @history.push("/#{type}/#{id}")
+      # use vocab editor
+      if type is 'exercises' and record.vocab_term_uid
+        @visitVocab(id) #record.vocab_term_uid)
+      else
+        @history.push("/#{type}/#{id}")
 
 module.exports = Location

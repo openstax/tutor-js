@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _} = require '../helpers/component-testing'
+{Testing, sinon, _} = require '../helpers/component-testing'
 
 Link = require '../../../src/components/navbar/account-link'
 USER = require '../../../api/user.json'

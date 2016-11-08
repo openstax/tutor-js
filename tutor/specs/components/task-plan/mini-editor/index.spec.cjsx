@@ -1,4 +1,4 @@
-{React, _, sinon, shallow} = require '../../helpers/component-testing'
+{React, _} = require '../../helpers/component-testing'
 
 MiniEditor = require '../../../../src/components/task-plan/mini-editor'
 {CourseActions} = require '../../../../src/flux/course'

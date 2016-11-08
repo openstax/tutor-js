@@ -1,4 +1,4 @@
-{React, sinon, shallow} = require '../helpers/component-testing'
+{React} = require '../helpers/component-testing'
 
 SelectDates = require '../../../src/components/new-course/select-dates'
 OFFERINGS = require '../../../api/offerings'

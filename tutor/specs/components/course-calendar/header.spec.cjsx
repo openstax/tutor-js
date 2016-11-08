@@ -1,4 +1,4 @@
-{React, shallow, sinon} = require '../helpers/component-testing'
+{React} = require '../helpers/component-testing'
 
 Header = require '../../../src/components/course-calendar/header'
 moment = require 'moment'

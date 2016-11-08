@@ -3,25 +3,18 @@
 # Development Instructions
 
 ```sh
-npm install -g gulp
 npm install
-bower install
+npm run tdd
 ```
 
 To build a dist file:
 
 ```sh
-gulp dist
+npm run build exercises
 ```
 
 To run tests:
 
 ```sh
-npm test  # Or gulp test
-```
-
-To continuously run tests:
-
-```sh
-gulp tdd
+npm run test  # Or tdd command above
 ```

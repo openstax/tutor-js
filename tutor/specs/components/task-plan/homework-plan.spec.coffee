@@ -9,7 +9,7 @@ TimeHelper = require '../../../src/helpers/time'
 
 {HomeworkPlan} = require '../../../src/components/task-plan/homework'
 
-{Testing, sinon, expect, _, React, ReactTestUtils} = require '../helpers/component-testing'
+{Testing, sinon, _, React, ReactTestUtils} = require '../helpers/component-testing'
 {ExtendBasePlan, PlanRenderHelper} = require '../helpers/task-plan'
 
 yesterday = moment(TimeStore.getNow()).subtract(1, 'day').format(TimeHelper.ISO_DATE_FORMAT)

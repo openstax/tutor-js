@@ -1,4 +1,4 @@
-{React, Testing, expect, sinon, _} = require '../helpers/component-testing'
+{React, Testing, sinon, _} = require '../helpers/component-testing'
 
 { shallow } = require 'enzyme'
 

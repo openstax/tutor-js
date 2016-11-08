@@ -5,7 +5,7 @@ Builder = require '../../../../src/components/task-plan/builder'
 PlanMixin = require '../../../../src/components/task-plan/plan-mixin'
 {TaskPlanActions, TaskPlanStore} = require '../../../../src/flux/task-plan'
 {TaskingActions, TaskingStore} = require '../../../../src/flux/tasking'
-{Testing, sinon, expect, _, React} = require '../../helpers/component-testing'
+{Testing, sinon, _, React} = require '../../helpers/component-testing'
 {commonActions} = require '../../helpers/utilities'
 {ExtendBasePlan, PlanRenderHelper} = require '../../helpers/task-plan'
 

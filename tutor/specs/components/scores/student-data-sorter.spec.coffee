@@ -1,4 +1,4 @@
-{Testing, expect, _} = require '../helpers/component-testing'
+{Testing, _} = require '../helpers/component-testing'
 
 StudentDataSorter = require '../../../src/components/scores/student-data-sorter'
 

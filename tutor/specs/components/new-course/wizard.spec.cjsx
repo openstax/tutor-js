@@ -1,9 +1,8 @@
-{React, Testing, expect, sinon, _, pause, spyOnComponentMethod} = require '../helpers/component-testing'
+{React, spyOnComponentMethod, pause} = require '../helpers/component-testing'
 
 Wizard = require '../../../src/components/new-course/wizard'
 SelectType = require '../../../src/components/new-course/select-type'
 SelectCourse = require '../../../src/components/new-course/select-course'
-{ mount } = require 'enzyme'
 
 # SnapShot = require 'react-test-renderer'
 
