@@ -6,7 +6,6 @@ BS = require 'react-bootstrap'
 Course = require '../course/model'
 user = require '../user/model'
 {channel} = require './model'
-api = require '../api'
 UserMenu = require '../user/menu'
 {NotificationsBar} = require 'shared'
 

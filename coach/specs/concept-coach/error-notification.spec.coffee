@@ -14,8 +14,9 @@ Render = (props) ->
 getModal = (dom) -> dom.querySelector('.errors.modal')
 
 ERROR =
-  response: {status: 500, statusText: 'Its On Fire!'}
-  failedData:
+  response:
+    status: 500
+    statusText: 'Its On Fire!'
     data:
       errors: [ {code: 'test_test_test'} ]
 

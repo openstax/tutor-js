@@ -156,6 +156,10 @@ ExerciseConfig = {
         not @exports.isPublishing.call(@, id) and
         not @_get(id)?.published_at
 
+    isMissingExercise: (error, id) ->
+      if error.status is 404
+        @FAILED(error.status, error.statusMessage, id)
+        true
 
     getTemplate: (id) ->
       questionId = QuestionStore.freshLocalId()

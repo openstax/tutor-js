@@ -7,6 +7,7 @@ sandbox = null
 
 describe 'User menu component', ->
   beforeEach ->
+    User.update(user: {name: 'User Name'})
     @props =
       course: new Course(ecosystem_book_uuid: 'test-collection-uuid')
     sandbox = sinon.sandbox.create()

@@ -4,6 +4,7 @@ api = require '../api'
 _ = require 'underscore'
 
 interpolate = require 'interpolate'
+require 'extract-values'
 
 Reactive = React.createClass
   displayName: 'Reactive'
@@ -21,8 +22,9 @@ Reactive = React.createClass
     getter: React.PropTypes.func
 
   getDefaultProps: ->
-    apiChannelPattern: '{apiChannelName}.{topic}.send.*'
+    apiChannelPattern: '{apiChannelName}.{topic}.*.send'
     channelUpdatePattern: 'load.*'
+    channelBasePattern: 'load.{topic}'
 
   getInitialState: ->
     {channelUpdatePattern, apiChannelPattern} = @props
@@ -61,12 +63,15 @@ Reactive = React.createClass
 
   update: (eventData, props) ->
     props ?= @props
+    {store, channelBasePattern} = props
+    eventData?.data?.topic ?= extractValues(store.channel.event, channelBasePattern)?.topic
     return unless @isForThisComponent(eventData, props)
 
     nextState = @getState(eventData, props)
     @setState(nextState)
 
   setStatus: (eventData) ->
+    eventData?.data?.topic ?= extractValues(api.channel.event, @props.apiChannelPattern)?.topic
     return unless @isForThisComponent(eventData)
 
     {status} = eventData

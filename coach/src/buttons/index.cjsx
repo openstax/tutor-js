@@ -145,7 +145,9 @@ GoToBookLink = React.createClass
 
   render: ->
     linkAction = if @isFromOpen() then 'Return' else 'Go'
-    <BookLink {...@props}>
+    {collectionUUID} = @context
+
+    <BookLink {...@props} collectionUUID={collectionUUID}>
       {linkAction} to Reading
     </BookLink>
 

@@ -45,7 +45,7 @@ Launcher = React.createClass
           <span className="launch">Launch Concept Coach</span>
           <span className="warn">enrollment code needed</span>
         </BS.Button>
-        <BackgroundAndDesk height={height}/>
+        <BackgroundAndDesk/>
       </div>
     </div>
 

@@ -2,6 +2,7 @@
 
 ErrorNotification = require 'concept-coach/error-notification'
 api = require 'api'
+api.initialize()
 
 ContainedNotification = React.createClass
   displayName: 'ContainedNotification'
@@ -20,14 +21,14 @@ describe 'Error Notification', ->
     Testing.renderComponent( ContainedNotification ).then ({dom, root}) ->
       expect(dom.querySelector('.errors')).to.be.null
       exception = new Error
-      api.channel.emit('error', {exception})
+      api.channel.emit('error', exception)
       expect(dom.querySelector('.errors')).to.not.be.null
 
 
   it 'displays errors when button is clicked', ->
     Testing.renderComponent( ContainedNotification ).then ({dom}) ->
       exception = new Error("You have errors!")
-      api.channel.emit('error', {exception})
+      api.channel.emit('error', exception)
 
       btn = dom.querySelector('.-display-errors')
       expect(btn.textContent).equal('Show Details')

@@ -34,14 +34,15 @@ load = (stepId, data) ->
   channel.emit("load.#{stepId}", {data})
 
 update = (eventData) ->
-  {data} = eventData
-  load(data.id, data)
+  {data, config, response} = eventData
+
+  load(config.topic, data or response?.data)
 
 fetch = (stepId) ->
   eventData = {data: {id: stepId}, status: 'loading'}
 
   channel.emit("fetch.#{stepId}", eventData)
-  api.channel.emit("exercise.#{stepId}.send.fetch", eventData)
+  api.channel.emit("exercise.#{stepId}.fetch.send", {id: stepId})
 
 getCurrentPanel = (stepId) ->
   panel = 'review'
@@ -89,6 +90,6 @@ init = ->
   user.channel.on 'logout.received', ->
     steps = {}
 
-  api.channel.on("exercise.*.receive.*", update)
+  api.channel.on("exercise.*.*.receive.success", update)
 
 module.exports = {fetch, getCurrentPanel, get, getAllParts, init, channel, quickLoad, cacheFreeResponse}

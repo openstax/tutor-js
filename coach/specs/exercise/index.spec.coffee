@@ -14,9 +14,15 @@ setFreeResponse = (dom, answer) ->
   ReactTestUtils.Simulate.change(ta, target: {value: ta.value})
 
 # utility fn to set the free response
-saveFreeResponse = (dom, answer) ->
+saveFreeResponse = (dom, element, answer) ->
   setFreeResponse(dom, answer)
   Testing.actions.click(dom.querySelector('button.continue'))
+  element.forceUpdate()
+
+saveAnswerChoice = (dom, element, answerIndex = 0) ->
+  input = dom.querySelectorAll('input')[answerIndex]
+  ReactTestUtils.Simulate.change(input, target:{checked: true})
+  Testing.actions.click(input)
 
 ensureExerciseLoaded = ->
   Collection.channel.emit("load.#{props.id}", {status: 'loaded', data: step})
@@ -52,18 +58,20 @@ describe 'Exercise Step', ->
 
 
   it 'saves free response', ->
-    Testing.renderComponent( ExerciseStep, {props} ).then ({dom}) ->
+    Testing.renderComponent( ExerciseStep, {props} ).then ({element, dom}) ->
       ensureExerciseLoaded()
 
-      saveFreeResponse(dom, 'My Answer')
+      saveFreeResponse(dom, element, 'My Answer')
+
       expect(dom.querySelector('textarea')).to.be.null
       expect(dom.querySelector('.free-response').textContent).equal('My Answer')
 
   it 'renders answer choices after free response', ->
-    Testing.renderComponent( ExerciseStep, {props} ).then ({dom}) ->
+    Testing.renderComponent( ExerciseStep, {props} ).then ({element, dom}) ->
       ensureExerciseLoaded()
 
-      saveFreeResponse(dom, 'My Second Answer')
+      saveFreeResponse(dom, element, 'My Second Answer')
+
       expect(dom.querySelector('.free-response').textContent).equal('My Second Answer')
       answers = _.pluck dom.querySelectorAll('.answer-content'), 'textContent'
       expect(answers).to.deep.equal(
@@ -71,13 +79,13 @@ describe 'Exercise Step', ->
       )
 
   it 'sets answer id after selection', ->
-    Testing.renderComponent( ExerciseStep, {props} ).then ({dom}) ->
+    Testing.renderComponent( ExerciseStep, {props} ).then ({element, dom}) ->
       ensureExerciseLoaded()
 
-      saveFreeResponse(dom, 'My Second Answer')
+      saveFreeResponse(dom, element, 'My Second Answer')
+
       answer = dom.querySelector('.answers-answer .answer-content')
-      input = dom.querySelector('input')
-      ReactTestUtils.Simulate.change(input, target:{checked: true})
-      Testing.actions.click(input)
+      saveAnswerChoice(dom, element)
+
       selectedAnswer = _.find(Collection.get(props.id).content.questions[0].answers, id: updatedStep.answer_id)
       expect(selectedAnswer.content_html).equal(answer.textContent)

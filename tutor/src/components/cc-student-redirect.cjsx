@@ -8,7 +8,7 @@ LogoutLink         = require './navbar/logout'
 CountdownRedirect  = require './countdown-redirect'
 
 CCStudentRedirect = React.createClass
-  contextTypes:
+  propTypes:
     courseId: React.PropTypes.string.isRequired
 
   render: ->

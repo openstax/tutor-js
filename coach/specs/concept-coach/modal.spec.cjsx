@@ -35,7 +35,7 @@ describe 'CC Modal Component', ->
     sinon.stub(api, 'isPending').returns(true)
     Testing.renderComponent( CCModal, props: @props).then ({dom}) ->
       expect(dom.classList.contains('loaded')).to.be.false
-      api.channel.emit('completed')
+      api.channel.emit('*.*.*.receive.*')
       expect(dom.classList.contains('loaded')).to.be.true
 
   it 'calls filter click on a click event that is not within the modal DOM', ->
