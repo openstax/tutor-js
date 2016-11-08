@@ -58,15 +58,13 @@ module.exports = React.createClass
     params = Router.currentParams()
     {courseId} = params
 
-    brand = <TutorLink to='listing' className='navbar-brand'>
-              <i className='ui-brand-logo'></i>
-            </TutorLink>
-
     <BS.Navbar fixedTop fluid ref="navBar">
-      <CenterControls params={params} />
       <BS.Navbar.Brand>
-        {brand}
+        <TutorLink to='listing' className='navbar-brand'>
+          <i className='ui-brand-logo'></i>
+        </TutorLink>
       </BS.Navbar.Brand>
+      <CenterControls params={params} />
       <BS.Navbar.Collapse>
         <BS.Nav>
           <CourseName course={course}/>
