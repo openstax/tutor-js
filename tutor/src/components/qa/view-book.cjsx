@@ -51,7 +51,7 @@ QAViewBook = React.createClass
     {ecosystemId, section} = Router.currentParams()
     section = section or ReferenceBookStore.getFirstSection(ecosystemId).join('.')
     contentComponent = if @state.isShowingBook then QAContent else QAExercises
-    console.log 'Render section', section
+
     <ReferenceBook
       pageNavRouterLinkTarget='QAViewBookSection'
       menuRouterLinkTarget='QAViewBookSection'
