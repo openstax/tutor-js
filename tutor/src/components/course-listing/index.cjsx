@@ -3,15 +3,15 @@ React = require 'react'
 BS = require 'react-bootstrap'
 {Redirect, Link} = require 'react-router'
 
-Router = require '../helpers/router'
+Router = require '../../helpers/router'
 
-WindowHelpers = require '../helpers/window'
+WindowHelpers = require '../../helpers/window'
 
-{CourseListingActions, CourseListingStore} = require '../flux/course-listing'
-{CourseStore} = require '../flux/course'
+{CourseListingActions, CourseListingStore} = require '../../flux/course-listing'
+{CourseStore} = require '../../flux/course'
 {RefreshButton} = require 'shared'
-EmptyCourses    = require './course-listing/empty'
-CourseData = require './course-data-mixin'
+EmptyCourses    = require '../course-listing/empty'
+CourseData = require '../course-data-mixin'
 
 
 CourseLink = ({courseId, name, is_concept_coach}) ->
