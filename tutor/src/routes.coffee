@@ -80,6 +80,9 @@ getTeacherReview = ->
 getCCHelp = ->
   require './components/cc-dashboard/help'
 
+getAssignmentLinks = ->
+  require './components/assignment-links'
+
 ROUTES = [
   { pattern: '/dashboard',              name: 'listing',                  renderer: getCourseListing }
   { pattern: '/course/new',             name: 'createNewCourse',          renderer: getCreateCourse  }
@@ -100,6 +103,7 @@ ROUTES = [
           }
         ]
       }
+      { pattern: 'assignment-links',    name: 'viewAssignmentLinks',      renderer: getAssignmentLinks }
       { pattern: 'metrics/:id',         name: 'reviewTask',               renderer: getTeacherReview }
       {
         pattern: 'task/:id',            name: 'viewTask',                 renderer: getTaskShell
