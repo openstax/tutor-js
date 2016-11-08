@@ -40,7 +40,7 @@ NoArchiveHelp = React.createClass
         </p>
         <p>
           Need to access grades or info from a section you
-          archived? <NewTabLink to={CurrentUserStore.getHelpLink()}>Contact us</NewTabLink>
+          archived? <NewTabLink href={CurrentUserStore.getHelpLink()}>Contact us</NewTabLink>
         </p>
       </BS.Modal.Body>
 
@@ -53,7 +53,7 @@ NoArchiveHelp = React.createClass
           courseId={@props.courseId} />?
 
       </BS.Button>
-      <@HelpModal />
+      {@HelpModal()}
     </span>
 
 module.exports = NoArchiveHelp

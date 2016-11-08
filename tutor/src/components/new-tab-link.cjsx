@@ -12,7 +12,7 @@ NewTabLink = React.createClass
     tabIndex: 0
 
   propTypes:
-    to:       React.PropTypes.string.isRequired
+    to:       React.PropTypes.string
     children: React.PropTypes.node.isRequired
     params:   React.PropTypes.object
     query:    React.PropTypes.object
@@ -28,8 +28,8 @@ NewTabLink = React.createClass
     _.extend({}, transferProps, linkProps)
 
   render: ->
-    {to, params, query, children} = @props
-    link = @context.router?.makeHref(to, params, query)
+    {to, params, query, children, href} = @props
+    link = href or @context.router?.makeHref(to, params, query)
     linkProps = @getLinkProps(link)
 
     <a {...linkProps}>{children}</a>

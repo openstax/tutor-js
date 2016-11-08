@@ -105,7 +105,7 @@ CourseRoster = React.createClass
           <NoArchiveHelp courseId={@props.courseId} />
         </Tabs>
 
-        <@ActivePeriod periods={periods} />
+        {@ActivePeriod({periods})}
       </div>
 
 
