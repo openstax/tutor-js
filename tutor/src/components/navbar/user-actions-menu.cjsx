@@ -25,7 +25,7 @@ UserActionsMenu = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string
-    onItemClick: React.PropTypes.func.isRequired
+    onItemClick: React.PropTypes.func
     windowImpl: React.PropTypes.object
 
   getDefaultProps: ->
@@ -37,13 +37,13 @@ UserActionsMenu = React.createClass
   transitionToMenuItem: (href, evKey, clickEvent) ->
     clickEvent.preventDefault()
     @context.router.transitionTo(href)
-    @props.onItemClick()
+    @props.onItemClick?()
 
   componentWillMount: ->
     CurrentUserStore.ensureLoaded()
 
   externalLinkClicked: ->
-    @props.onItemClick()
+    @props.onItemClick?()
 
   renderMenuItem: (route, index) ->
     isActive = route.name and Router.isActive(route.name, route.params, window: @props.windowImpl)
