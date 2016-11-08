@@ -1,8 +1,7 @@
 async = require './helpers/webpack-async-loader'
 
 getCourseListing = ->
-  {CourseListing} = require './components/course-listing'
-  CourseListing
+  require './components/course-listing'
 
 getDashboard = ->
   ConditionalHandlers = require './helpers/conditional-handlers'

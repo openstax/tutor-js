@@ -10,7 +10,7 @@ TUTOR_STUDENT_HELP = 'Getting-Started-with-Tutor-Guide-Students/?q=getting+start
 TUTOR_FACULTY_HELP = 'Getting-Started-with-Tutor-Guide-Teachers/?q=getting+started&l=en_US&c=Products%3ATutor&fs=Search&pn=1'
 # coffeelint: enable=max_line_length
 EmptyCourses = React.createClass
-
+  displayName: 'EmptyCourses'
   render: ->
     <BS.Panel
       className='-course-list-empty'
