@@ -13,7 +13,7 @@ AssignmentLinks = React.createClass
   bindStore: ReferenceBookStore
 
   componentWillMount: ->
-    {courseId} = _.defaults(@props, Router.currentParams() )
+    {courseId} = _.defaults(Router.currentParams(), @props)
 
     course = CourseStore.get(courseId)
     @setState(ecosystem_id: course.ecosystem_id)
