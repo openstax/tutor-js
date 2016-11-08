@@ -14,32 +14,19 @@ makePageIdParams = (pageIds) ->
   page_ids: pageIds
 
 createPractice = (pageIds, practice) ->
-  params = makePageIdParams(pageIds)
-
-  CoursePracticeActions.create(COURSE_ID, params)
-  CoursePracticeActions.created(practice, COURSE_ID, params)
+  args = {courseId: COURSE_ID, query: makePageIdParams(pageIds)}
+  CoursePracticeActions.create(args)
+  CoursePracticeActions.created(practice, args)
 
 failToCreatePractice = (pageIds) ->
-  params = makePageIdParams(pageIds)
-
-  CoursePracticeActions.create(COURSE_ID, params)
-  CoursePracticeActions._failed({}, COURSE_ID, params)
+  args = {courseId: COURSE_ID, query: makePageIdParams(pageIds)}
+  CoursePracticeActions.create(args)
+  CoursePracticeActions._failed({}, args)
 
 describe 'CoursePractice Store', ->
 
   afterEach ->
     CoursePracticeActions.reset()
-
-  it 'can get course practice by course id', ->
-    createPractice(PAGE_IDS_1, COURSE_PRACTICE_1)
-    expect(CoursePracticeStore.get(COURSE_ID).id).to.be.equal(COURSE_PRACTICE_1.id)
-    undefined
-
-  it 'can get latests course practice by course id', ->
-    createPractice(PAGE_IDS_1, COURSE_PRACTICE_1)
-    createPractice(PAGE_IDS_2, COURSE_PRACTICE_2)
-    expect(CoursePracticeStore.get(COURSE_ID).id).to.be.equal(COURSE_PRACTICE_2.id)
-    undefined
 
   it 'can get course practice specific to params', ->
     createPractice(PAGE_IDS_1, COURSE_PRACTICE_1)

@@ -39,8 +39,8 @@ CoursePractice =
     @_addToCache(practice, courseId, topicParams)
     practice
 
-  _failed: (result, courseId, topicParams) ->
-    @_cacheError(result, courseId, topicParams)
+  _failed: (result, {courseId, query}) ->
+    @_cacheError(result, courseId, query)
 
   create: (courseId, topicParams) ->
     @_local[courseId] = {} unless @dontReload(courseId)
