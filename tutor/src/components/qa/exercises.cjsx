@@ -78,7 +78,7 @@ QAExercises = React.createClass
           Show 2-Step Preview
           <input type='checkbox'
             className='preview2step'
-            checked={@state.isShowing2StepPreview}
+            checked={!!@state.isShowing2StepPreview}
             onChange={@on2StepPreviewChange} />
         </label>
         <MultiSelect
