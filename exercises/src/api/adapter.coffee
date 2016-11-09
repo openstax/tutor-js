@@ -16,10 +16,9 @@ OPTIONS =
     onFail: (error, args...) ->
       {response} = error
       {status, data, config} = response
-      {url} = config
       opts = config
 
-      ErrorsActions.setServerError(status, data, {url, opts})
+      ErrorsActions.setServerError(status, data, {url: config?.url, opts})
   isLocal: IS_LOCAL
 
 exerciseAPIHandler = new APIHandler(OPTIONS)
