@@ -1,7 +1,7 @@
 _     = require 'underscore'
 React = require 'react'
 MatchForTutor = require '../match-for-tutor'
-
+{Redirect} = require 'react-router'
 {EcosystemsStore, EcosystemsActions} = require '../../flux/ecosystems'
 
 BindStore = require '../bind-store-mixin'
@@ -13,16 +13,25 @@ QADashboard = React.createClass
   mixins: [BindStore]
   bindStore: EcosystemsStore
   bindEvent: 'loaded'
+  contextTypes:
+    router: React.PropTypes.object
+
 
   componentWillMount: ->
-    EcosystemsActions.load() unless EcosystemsStore.isLoading()
+    unless EcosystemsStore.isLoading()
+      EcosystemsActions.load()
+      EcosystemsStore.once('loaded', @redirectToFirst)
+
+  redirectToFirst: ->
+    ecosystemId = EcosystemsStore.first()?.id
+    @context.router.transitionTo(
+      Router.makePathname('QAViewBook', {ecosystemId})
+    )
 
   render: ->
-    if EcosystemsStore.isLoaded()
-      params = Router.currentParams()
-      params.ecosystemId ?= "#{EcosystemsStore.first().id}"
+    <div className="qa">
       <MatchForTutor {...@props} />
-    else
-      <h3>Loading ...</h3>
+      {<h3>Loading …</h3> if EcosystemsStore.isLoading()}
+    </div>
 
 module.exports = QADashboard

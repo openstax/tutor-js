@@ -32,9 +32,6 @@ module.exports = React.createClass
       </li>
     </ul>
 
-  wrapControl: (element, i) ->
-    <BS.NavItem key={i}>{element}</BS.NavItem>
-
   render: ->
     <BS.Navbar fixedTop fluid>
       <BS.Nav navbar>
@@ -51,7 +48,7 @@ module.exports = React.createClass
       </BS.Nav>
       {@renderSectionTitle()}
       <BS.Nav className='full-width-only' pullRight>
-        {React.Children.map(@props.extraControls, @wrapControl)}
+        {@props.extraControls}
         <BS.NavItem><i className='ui-brand-logo' /></BS.NavItem>
       </BS.Nav>
     </BS.Navbar>

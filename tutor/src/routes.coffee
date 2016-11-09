@@ -63,12 +63,10 @@ getChangeStudentId = ->
   require './components/change-student-id'
 
 getQADashboard = ->
-  QALoader = require 'promise?global!./qa'
-  async(QALoader, 'QADashboard')
+  require './components/qa/index'
 
 getQABook = ->
-  QALoader = require 'promise?global!./qa'
-  async(QALoader, 'QABook')
+  require './components/qa/view-book'
 
 getCreateCourse = ->
   require './components/new-course'
@@ -86,6 +84,17 @@ getAssignmentLinks = ->
 ROUTES = [
   { pattern: '/dashboard',              name: 'listing',                  renderer: getCourseListing }
   { pattern: '/course/new',             name: 'createNewCourse',          renderer: getCreateCourse  }
+  {
+    pattern: '/qa',                     name: 'QADashboard',              renderer: getQADashboard
+    routes: [
+      {
+        pattern: ':ecosystemId',        name: 'QAViewBook',               renderer: getQABook
+        routes: [{
+          pattern: 'section/:section',  name: 'QAViewBookSection',        renderer: getQABook
+        }]
+      }
+    ]
+  }
   {
     pattern: '/course/:courseId',       name: 'dashboard',                renderer: getDashboard
     routes: [
@@ -137,17 +146,6 @@ ROUTES = [
     routes: [
       { pattern: 'section/:section',    name: 'viewReferenceBookSection', renderer: getReferenceBookShell  }
       { pattern: 'page/:cnxId',         name: 'viewReferenceBookPage',    renderer: getReferenceBookPageShell  }
-    ]
-  }
-  {
-    pattern: '/qa',                     name: 'QADashboard',              renderer: getQADashboard
-    routes: [
-      {
-        pattern: ':ecosystemId',        name: 'QAViewBook',               renderer: getQABook
-        routes: [{
-          pattern: 'section/:section',  name: 'QAViewBookSection',        renderer: getQABook
-        }]
-      }
     ]
   }
 ]

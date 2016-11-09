@@ -41,7 +41,6 @@ MultiSelect = React.createClass
   render: ->
     classNames = classnames('multi-select', @props.className)
     <BS.DropdownButton
-      navItem={@props.navItem}
       className={classNames}
       id='multi-select'
       onSelect={@onSelect}

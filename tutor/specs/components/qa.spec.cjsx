@@ -1,16 +1,16 @@
-{Testing, expect, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
+{Testing, _, ReactTestUtils} = require './helpers/component-testing'
 
 ld = require 'lodash'
 
+Exercises = require '../../src/components/qa/exercises'
 
-Exercises = require '../../../src/components/qa/exercises'
-{ExerciseActions, ExerciseStore} = require '../../../src/flux/exercise'
-{EcosystemsActions, EcosystemsStore} = require '../../../src/flux/ecosystems'
-{ReferenceBookActions, ReferenceBookStore} = require '../../../src/flux/reference-book'
+{ExerciseActions, ExerciseStore} = require '../../src/flux/exercise'
+{EcosystemsActions, EcosystemsStore} = require '../../src/flux/ecosystems'
+{ReferenceBookActions, ReferenceBookStore} = require '../../src/flux/reference-book'
 
-EXERCISES  = require '../../../api/exercises.json'
-ECOSYSTEMS = require '../../../api/ecosystems.json'
-PAGE = require '../../../api/ecosystems/3/readings.json'
+EXERCISES  = require '../../api/exercises.json'
+ECOSYSTEMS = require '../../api/ecosystems.json'
+PAGE = require '../../api/ecosystems/3/readings.json'
 COURSE_ID = '1'
 ECOSYSTEM_ID = '3'
 CNX_ID = '17f6ff53-2d92-4669-acdd-9a958ea7fd0a@12'
@@ -33,7 +33,6 @@ describe 'QA Exercises Component', ->
     Testing.renderComponent( Exercises, props: @props ).then ({dom}) ->
       questions = _.map EXERCISES.items, (e) ->
         e.content.questions[0].stem_html
-
       renderedQs = _.pluck dom.querySelectorAll('.panel-body .question-stem'), 'textContent'
       expect(renderedQs).to.deep.equal(questions)
 
