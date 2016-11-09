@@ -95,8 +95,12 @@ startAPI = ->
   connectUpdate(CourseActions, pattern: 'courses/{id}')
 
   connectRead(CCDashboardActions, pattern: 'courses/{id}/cc/dashboard')
-  connectCreate(CoursePracticeActions, pattern: 'courses/{id}/practice')
   connectRead(CoursePracticeActions, pattern: 'courses/{id}/practice')
+
+  connectCreate(CoursePracticeActions,
+    url: ({courseId}) -> "courses/#{courseId}/practice"
+    data: ({courseId, query}) -> query
+  )
 
   connectRead(PerformanceForecast.Student.actions, pattern: 'courses/{id}/guide')
   connectRead(PerformanceForecast.Teacher.actions, pattern: 'courses/{id}/teacher_guide')

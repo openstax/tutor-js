@@ -50,6 +50,7 @@ destinationHelpers =
 
   shouldRememberRoute: (path) ->
     match = Router.currentMatch(path)
-    !!_.find( match?.entry.paths, (pathName) -> REMEMBERED_ROUTES[pathName] )
+    !! REMEMBERED_ROUTES[_.last(match?.entry.paths)]
+
 
 module.exports = destinationHelpers

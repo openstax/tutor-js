@@ -37,12 +37,9 @@ TransitionStore = flux.createStore
     @_local
 
   exports:
-    getPrevious: ->
-      history = @_get()
-      if history.length > 1
-        last = history[history.length - 2]
-        {path: last, name: DestinationHelper.destinationFromPath(last)}
-      else
-
+    getPrevious: (current = window.location.pathname) ->
+      for path in @_local by -1
+        if path isnt current
+          return {path, name: DestinationHelper.destinationFromPath(path)}
 
 module.exports = {TransitionActions, TransitionStore}

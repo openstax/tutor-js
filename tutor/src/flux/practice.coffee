@@ -39,8 +39,8 @@ CoursePractice =
     @_addToCache(practice, courseId, topicParams)
     practice
 
-  _failed: (result, courseId, topicParams) ->
-    @_cacheError(result, courseId, topicParams)
+  _failed: (result, {courseId, query}) ->
+    @_cacheError(result, courseId, query)
 
   create: (courseId, topicParams) ->
     @_local[courseId] = {} unless @dontReload(courseId)
@@ -51,13 +51,13 @@ CoursePractice =
     # run _loaded within.
     @loaded(result, courseId, topicParams)
 
-  _loaded: (result, courseId, topicParams = {}) ->
-    @emit("#{STATES.LOADED}.#{courseId}", courseId)
+  _loaded: (result, {courseId, query}) ->
     TaskActions.loaded(result, result.id)
 
-    @_recordTopics(result.id, courseId, topicParams)
+    @_recordTopics(result.id, courseId, query)
     # cache and return practice for loading onto _local
-    @_cacheSuccess(result, courseId, topicParams)
+    @_cacheSuccess(result, courseId, query)
+    @emit("#{STATES.LOADED}.#{courseId}", result.id)
 
   _getFromCache: (courseId, topicParams) ->
     topicHash = getTopicHash(topicParams)

@@ -24,7 +24,6 @@ PracticeTask = React.createClass
 
 
 
-
 LoadPractice = React.createClass
 
   propTypes:
@@ -34,19 +33,16 @@ LoadPractice = React.createClass
     router: React.PropTypes.object
 
   componentDidMount: ->
-    CoursePracticeStore.on("loaded.#{@props.courseId}", @update)
-    CoursePracticeActions.create(@props.courseId, Router.currentQuery())
+    CoursePracticeStore.on("loaded.#{@props.courseId}", @onPracticeLoad)
+    CoursePracticeActions.create({courseId: @props.courseId, query: Router.currentQuery()})
 
 
   componentWillUnmount: ->
-    CoursePracticeStore.off("loaded.#{@props.courseId}", @update)
+    CoursePracticeStore.off("loaded.#{@props.courseId}", @onPracticeLoad)
 
-  update: ->
+  onPracticeLoad: (taskId) ->
     @context.router.transitionTo(
-      Router.makePathname('practiceTopics',
-        courseId: @props.courseId
-        taskId: CoursePracticeStore.getTaskId(@props.courseId)
-      )
+      Router.makePathname('practiceTopics', {taskId, courseId: @props.courseId})
     )
 
   render: ->
