@@ -42,15 +42,17 @@ makeRequestHandlers = (Actions, options) ->
 
   handlers
 
-resolveOption = (option, key, args...) ->
-  if _.isFunction(option) and key isnt 'handleError'
-    option(args...)
-  else
-    option
+resolveOptions = (args...) ->
+  (option, key) ->
+    if _.isFunction(option) and key isnt 'handleError'
+      console.info(args...)
+      option(args...)
+    else
+      option
 
 resolveAndMergeHandlerOptions = (options, makeRequestOptions, args...) ->
-  resolvedAndMergedOptions = _.mapValues(options, _.partial(resolveOption, _, _, args...))
-  additionalRequestOptions = _.map(makeRequestOptions, _.partial(resolveOption, _, _, args...))
+  resolvedAndMergedOptions = _.mapValues(options, resolveOptions(args...))
+  additionalRequestOptions = _.map(makeRequestOptions, resolveOptions(args...))
   _.merge(resolvedAndMergedOptions, additionalRequestOptions...)
   resolvedAndMergedOptions
 
@@ -74,7 +76,7 @@ ACTIONS =
 METHODS = _.invert(METHODS_TO_ACTIONS)
 
 connectHandler = (apiHandler, Actions, allOptions...) ->
-  [objectOptions, makeRequestOptions] = _.partition(allOptions, _.isObject)
+  [objectOptions, makeRequestOptions] = _.partition(allOptions, _.isObjectLike)
   options = _.merge({}, objectOptions...)
   {trigger} = options
 
