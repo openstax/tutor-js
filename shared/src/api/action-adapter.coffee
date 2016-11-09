@@ -45,7 +45,6 @@ makeRequestHandlers = (Actions, options) ->
 resolveOptions = (args...) ->
   (option, key) ->
     if _.isFunction(option) and key isnt 'handleError'
-      console.info(args...)
       option(args...)
     else
       option
