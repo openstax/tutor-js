@@ -57,8 +57,11 @@ startAPI = ->
 
   connectUpdate(TaskPlanActions, {data: TaskPlanStore.getChanged},
     (id, courseId) ->
-      url = if TaskPlanStore.isNew(id) then "courses/#{courseId}/plans" else "plans/#{id}"
-      {url}
+      if TaskPlanStore.isNew(id)
+        url: "courses/#{courseId}/plans"
+        method: 'POST'
+      else
+        url: "plans/#{id}"
   )
 
   connectRead(TaskPlanStatsActions, pattern: 'plans/{id}/stats')
