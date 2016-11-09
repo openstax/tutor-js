@@ -5,7 +5,7 @@ trim = require 'lodash/trim'
 BS = require 'react-bootstrap'
 
 NetworkActivity = require 'components/network-activity-spinner'
-RecordNotFound  = require 'components/record-not-found'
+
 
 Search = React.createClass
   propTypes:
@@ -64,9 +64,6 @@ Search = React.createClass
       {<NetworkActivity /> if ExerciseStore.isLoading(@state.loading) }
       {<h3>Search is empty, please type an exercise ID into the input.</h3> if @state.showEmptyWarning}
       <@Errors />
-      {<RecordNotFound
-        recordType="Exercise" id={@state.loading}
-        /> if ExerciseStore.isFailed(@state.loading)}
 
       <h1>Edit exercise:</h1>
 

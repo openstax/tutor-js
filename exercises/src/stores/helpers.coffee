@@ -32,16 +32,20 @@ CrudConfig = ->
       @_changed = {}
       @_errors = {}
       @_reload = {}
-
+      delete @_lastError
       @_reset?()
       @emitChange()
 
-    FAILED: (status, msg, id) ->
+    FAILED: (status, message, id) ->
       @_asyncStatus[id] = FAILED
-      @_errors[id] = msg
+      @_errors[id] = message
+      @_lastError = {id, message, status}
       unless status is 0 # indicates network failure
         delete @_local[id]
         @emitChange()
+
+    clearLastError: ->
+      delete @_lastError
 
     load: (id) ->
       # Add a shortcut for unit testing
@@ -53,6 +57,7 @@ CrudConfig = ->
     loaded: (obj, id) ->
       # id = obj.id
       @_asyncStatus[id] = LOADED
+      delete @_lastError
       # HACK When working locally a step completion triggers a reload but the is_completed field on the TaskStep
       # is discarded. so, if is_completed is set on the local object but not on the returned JSON
       # Tack on a dummy correct_answer_id
@@ -106,6 +111,7 @@ CrudConfig = ->
       # If the specific type needs to do something else to the object:
       obj = @_created?(result, result.id, localId)
       result = obj if obj
+      delete @_lastError
       @_local[result.id] = result
       @_asyncStatus[localId] = LOADED
       @_asyncStatus[result.id] = LOADED
@@ -156,6 +162,7 @@ CrudConfig = ->
       freshLocalId: -> CREATE_KEY()
       isNew: (id) -> isNew(id)
       reload: (id) -> @_reload[id]
+      getLastError: -> @_lastError
   }
 
 # Helper for creating a simple store for actions

@@ -1,16 +1,19 @@
 React = require 'react'
 
 RecordNotFound = React.createClass
+  componentWillMount: ->
+    ExerciseStore.addChangeListener(@update)
+  componentWillUnmount: ->
+    ExerciseStore.removeChangeListener(@update)
 
-  propTypes:
-    id: React.PropTypes.string.isRequired
-    recordType: React.PropTypes.string.isRequired
-
-
-
+  update: -> @forceUpdate()
   render: ->
+    error = ExerciseStore.getLastError()
+    return null unless error
+
     <div className="record-not-found">
-      <h3>{@props.recordType} ID: {@props.id} was not found</h3>
+      <h3>{error.id} was not found</h3>
+      <p>{error.message}</p>
     </div>
 
 module.exports = RecordNotFound
