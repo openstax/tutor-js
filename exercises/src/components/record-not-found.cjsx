@@ -1,5 +1,7 @@
 React = require 'react'
 
+{ExerciseStore} = require '../stores/exercise'
+
 RecordNotFound = React.createClass
   componentWillMount: ->
     ExerciseStore.addChangeListener(@update)
