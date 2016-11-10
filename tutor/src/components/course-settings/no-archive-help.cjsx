@@ -41,7 +41,7 @@ NoArchiveHelp = React.createClass
         </p>
         <p>
           Need to access grades or info from a section you
-          archived? <NewTabLink to={CurrentUserStore.getContactLink(@props.courseId)}>Contact us</NewTabLink>
+          archived? <NewTabLink href={CurrentUserStore.getContactLink(@props.courseId)}>Contact us</NewTabLink>
         </p>
       </BS.Modal.Body>
 
