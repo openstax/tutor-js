@@ -37,7 +37,7 @@ NoArchiveHelp = React.createClass
         <p>
           You no longer need to add or archive sections to teach this course again.
           To teach this course again, please return to your Dashboard
-          on January 3 <sup>rd</sup>.
+          on January 3<sup>rd</sup>.
         </p>
         <p>
           Need to access grades or info from a section you
