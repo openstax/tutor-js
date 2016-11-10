@@ -37,25 +37,21 @@ CCDashboardHelp = React.createClass
 
             <ol>
               <li>
-                <b>Improved course setup.</b>
-                There will be an easy way to teach this course again.
-                You no longer need to add or archive sections to teach this course.
+                <b>Improved course setup.</b> There
+                will be an easy way to teach this course again. You
+                no longer need to add or archive sections to teach this course.
               </li>
               <li>
                 <b>
                   The ability to copy your Question Library and use it in a future course.
-                </b>
-                If you excluded any questions, you’ll be able to carry over those exclusions
-                to the next course you teach
+                </b> If you excluded any questions, you’ll be able to carry over those exclusions to the next course you teach
               </li>
               <li>
-                <b>
-                  Errata fixes.  We’ve processed corrections for items found to be incorrect.
-                </b>
+                <b>Errata fixes.</b> We’ve processed corrections for items found to be incorrect.
               </li>
             </ol>
             <b>
-              Please return here on January 1<sup>st</sup> to set up your new Concept Coach course!
+              Please return here on January 3<sup>rd</sup> to set up your new Concept Coach course!
             </b>
           </div>
           <div className='graphic'>
