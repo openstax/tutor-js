@@ -46,6 +46,7 @@ CrudConfig = ->
 
     clearLastError: ->
       delete @_lastError
+      @emitChange()
 
     load: (id) ->
       # Add a shortcut for unit testing

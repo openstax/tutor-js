@@ -1,6 +1,7 @@
 React = require 'react'
+BS = require 'react-bootstrap'
 
-{ExerciseStore} = require '../stores/exercise'
+{ExerciseActions, ExerciseStore} = require '../stores/exercise'
 
 RecordNotFound = React.createClass
   componentWillMount: ->
@@ -9,13 +10,17 @@ RecordNotFound = React.createClass
     ExerciseStore.removeChangeListener(@update)
 
   update: -> @forceUpdate()
+  clearError: -> ExerciseActions.clearLastError()
   render: ->
     error = ExerciseStore.getLastError()
     return null unless error
 
-    <div className="record-not-found">
+    <BS.Alert
+      bsStyle="danger" onDismiss={@clearError}
+      className="record-not-found"
+    >
       <h3>{error.id} was not found</h3>
       <p>{error.message}</p>
-    </div>
+    </BS.Alert>
 
 module.exports = RecordNotFound

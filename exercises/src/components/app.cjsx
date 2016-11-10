@@ -40,8 +40,6 @@ App = React.createClass
       @rebindStore(store)
 
     unless store.isLoading(id) or store.get(id)
-      store.once 'loaded', =>
-        @props.location.onRecordLoad(type, id, store)
       actions.load(id)
 
   update: ->
@@ -85,8 +83,6 @@ App = React.createClass
       id = @state.newId or @createNewRecord(view)
 
     {Body, Controls, store, actions} = @props.location.partsForView(view)
-
-    Body = NetworkActivity if store?.isLoading(id)
 
     guardProps =
       onlyPromptIf: (ev) ->
@@ -143,6 +139,7 @@ App = React.createClass
       </nav>
 
       <RecordNotFoundWarning  />
+      <NetworkActivity {...componentProps} isLoading={!!store?.isLoading(id)} />
 
       <Body {...componentProps} />
     </div>
