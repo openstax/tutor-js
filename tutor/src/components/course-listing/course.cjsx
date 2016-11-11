@@ -22,13 +22,42 @@ CourseBranding = React.createClass
       isBeta = true
       brand = "#{BRAND} Tutor"
 
-    <span
+    <p
       className='course-listing-item-brand'
       data-is-beta={isBeta}
-    >{brand}</span>
+    >{brand}</p>
+
+
+SUBJECTS = ['physics', 'biology', 'sociology']
+
+isSubject = (segment) ->
+  _.includes(SUBJECTS, segment.toLowerCase())
 
 Course = React.createClass
   displayName: 'Course'
+
+  Controls: ->
+    {controls} = @props
+
+    <div className='course-listing-item-controls'>
+      {controls}
+    </div>
+
+  CourseName: ({coursePath}) ->
+    {course} = @props
+
+    courseNameSegments = course.name.split(' ')
+
+    <Link to={coursePath}>
+      {_.map(courseNameSegments, (courseNameSegment, index) ->
+        <span
+          key="course-name-segment-#{index}"
+          data-is-subject={isSubject(courseNameSegment)}
+        >
+          {"#{courseNameSegment} "}
+        </span>
+      )}
+    </Link>
 
   render: ->
     {course, courseDataProps, controls, className} = @props
@@ -39,9 +68,7 @@ Course = React.createClass
     <div {...courseDataProps} className={itemClasses}>
       <div
         className='course-listing-item-title'>
-        <Link to={coursePath}>
-          {course.name}
-        </Link>
+        <@CourseName coursePath={coursePath}/>
       </div>
       <div
         className='course-listing-item-details'
@@ -49,11 +76,9 @@ Course = React.createClass
       >
         <Link to={coursePath}>
           <CourseBranding isConceptCoach={course.is_concept_coach} />
-          <span className='course-listing-item-term'>{course.term} {course.year}</span>
+          <p className='course-listing-item-term'>{course.term} {course.year}</p>
         </Link>
-        <div className='course-listing-item-controls'>
-          {controls}
-        </div>
+        {<@Controls /> if controls?}
       </div>
     </div>
 
@@ -63,7 +88,7 @@ CoursePastTeacher = React.createClass
     {course} = @props
     # TODO do this.
   render: ->
-    controls = <BS.Button onClick={@teachAgain}>Teach Again</BS.Button>
+    controls = <BS.Button bsSize='sm' onClick={@teachAgain}>Teach Again</BS.Button>
 
     <Course {...@props} controls={controls} />
 

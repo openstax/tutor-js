@@ -8,13 +8,19 @@
 
 .course-listing {
 
-  .course-listing-current, .course-listing-past {
+  .course-listing-current,
+  .course-listing-past {
     margin-top: @course-listing-buffer;
   }
 
   .course-listing-current {
     background: #EEEEEE;
     border-bottom: 1px solid @tutor-neutral-light;
+
+    .course-listing-title,
+    .course-listing-none {
+      color: @tutor-tertiary;
+    }
   }
 
   .course-listing-past {
@@ -32,8 +38,9 @@
   // }
 
   .course-listing-item {
-    // position: relative;
-    // overflow: hidden;
+    position: relative;
+    overflow: hidden;
+
     // .tutor-course-item {
     //   height: @course-listing-item-height;
     //   width: 100%;
@@ -42,41 +49,55 @@
     //   background-repeat: no-repeat;
     //   background-size: contain;
     //   text-decoration: none;
-    //   .transition(background-position .1s ease-in);
-
-    //   &::before {
-    //     content: 'Go to ';
-    //     height: 100%;
-    //     font-style: italic;
-    //     display: block;
-    //     width: @course-listing-item-offset;
-    //     float: left;
-    //     overflow: hidden;
-    //     .transition(margin .1s ease-in);
-    //     font-size: 4rem;
-    //     padding: @course-listing-buffer/2 0 0 @course-listing-buffer/2;
-    //     margin-left: -@course-listing-item-offset;
-    //     margin-top: 0;
-    //   }
-    //   &:hover {
-    //     background-position: 200px 30px;
-    //       &::before {
-    //         margin-left: 0;
-    //       }
-    //   }
     // }
+    // 
+    &:hover {
+      .tutor-shadow(1);
+
+      .course-listing-item-details[data-has-controls=true] {
+        .translate(0, 0);
+      }
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    .course-listing-item-title,
+    .course-listing-item-details {
+      a {
+        display: block;
+        padding: 1.5em 1em;
+      }
+    }
+
+    .course-listing-item-controls {
+      padding: 0 1em 1.5em 1em;
+    }
 
     .course-listing-item-details {
       background: @tutor-white;
       color: @tutor-neutral;
       font-weight: 100;
 
+      .transition(~'0.1s ease-in-out transform');
+
+      &[data-has-controls=true] {
+        .translate(0, 5.55rem);
+      }
+
       a {
         color: @tutor-neutral;
       }
 
-      .course-listing-item-brand, .course-listing-item-term {
-        display: block;
+      button {
+        font-weight: 400;
+      }
+
+      .course-listing-item-brand,
+      .course-listing-item-term {
+        line-height: 1.25em;
+        margin-bottom: 0;
       }
 
       .course-listing-item-brand {
@@ -93,34 +114,40 @@
 
       .course-listing-item-term {
         text-transform: capitalize;
+        font-size: 0.9em;
       }
     }
+    .course-listing-item-title {
+      min-height: 15rem;
+      line-height: 1.25em;
 
-    &[data-appearance]{
-      // .flex-display();
-      // .tutor-course-item {
-        // .flex(1);
-      .course-listing-item-title {
+      [data-is-subject=true] {
         #fonts > .book-cover();
-        text-overflow: ellipsis;
-        white-space: nowrap;
         font-weight: 800;
+        font-size: 3rem;
+        line-height: 1.25em;
+        display: block;
       }
-
-        // font-size: 2rem;
-        // line-height: 1.5em;
-        // height: @course-listing-item-tablet-height;
-        // @media (min-width: @screen-md-min) {
-          // font-size: 18rem;
-          // line-height: 18rem;
-          // height: @course-listing-item-height;
-        // }
-      // }
     }
+
+    // &[data-appearance]{
+    //   // .flex-display();
+    //   // .tutor-course-item {
+    //     // .flex(1);
+
+    //     // font-size: 2rem;
+    //     // line-height: 1.5em;
+    //     // height: @course-listing-item-tablet-height;
+    //     // @media (min-width: @screen-md-min) {
+    //       // font-size: 18rem;
+    //       // line-height: 18rem;
+    //       // height: @course-listing-item-height;
+    //     // }
+    //   // }
+    // }
 
     .apply-course-listing-book-styling(@code; @fg; @bg) {
       &[data-appearance=@{code}] {
-        // .tutor-course-item, .course-type-flag {
         .course-listing-item-title {
           color: @@fg;
           a {
@@ -128,11 +155,6 @@
           }
         }
         background-color: @@bg;
-
-        // }
-        // .course-type-flag {
-        //   border: 3px solid @@fg;
-        // }
       }
     }
     .for(@openstax-book-appearance-codes); .-each(@code) {

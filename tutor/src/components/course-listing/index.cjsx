@@ -71,7 +71,7 @@ AddCourseArea = ->
 CourseListingCurrent = React.createClass
   displayName: 'CourseListingCurrent'
   NoCourses: ->
-    <BS.Row>
+    <BS.Row className='course-listing-none'>
       <BS.Col md={12}>
         <p>There are no current courses.</p>
       </BS.Col>
@@ -80,7 +80,7 @@ CourseListingCurrent = React.createClass
   Title: ->
     baseName = getReactBaseName(@)
 
-    <BS.Row className="#{baseName}-title">
+    <BS.Row className='course-listing-title'>
       <BS.Col md={12}>
         <h1>Current Courses</h1>
       </BS.Col>
@@ -89,7 +89,7 @@ CourseListingCurrent = React.createClass
   AddCourses: ->
     baseName = getReactBaseName(@)
 
-    <BS.Row className="#{baseName}-add">
+    <BS.Row className='course-listing-add'>
       {wrapCourseItem(AddCourseArea, {id: 'new'})}
     </BS.Row>
 
@@ -119,9 +119,9 @@ CourseListingPast = React.createClass
   Title: ->
     baseName = getReactBaseName(@)
 
-    <BS.Row className="#{baseName}-title">
+    <BS.Row className='course-listing-title'>
       <BS.Col md={12}>
-        <h1>Past Courses</h1>
+        <h2>Past Courses</h2>
       </BS.Col>
     </BS.Row>
 
@@ -172,7 +172,7 @@ CourseListing = React.createClass
     else
       <div className='course-listing'>
         <CourseListingCurrent courses={currentCourses}/>
-        <CourseListingPast courses={currentCourses}/>
+        <CourseListingPast courses={pastCourses}/>
       </div>
 
 
