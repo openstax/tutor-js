@@ -1,5 +1,5 @@
 # coffeelint: disable=no_empty_functions
-_ = require 'underscore'
+_ = require 'lodash'
 flux = require 'flux-react'
 
 {CourseActions, CourseStore} = require './course'
@@ -80,5 +80,9 @@ CourseListingStore = flux.createStore
       return _.compact _.map @_course_ids, (id) ->
         course = CourseStore.get(id)
         course if not _.isEmpty(course?.roles)
+
+    coursesWithRolesByActive: ->
+      courses = @exports.allCoursesWithRoles.call(@)
+      _.partition(courses, _.property('is_active'))
 
 module.exports = {CourseListingActions, CourseListingStore}
