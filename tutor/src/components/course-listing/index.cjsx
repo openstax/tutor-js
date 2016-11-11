@@ -37,9 +37,9 @@ CourseLink = ({courseId, name, is_concept_coach}) ->
 
 CourseLink.displayName = "CourseLink"
 
-wrapCourseItem = (Item, course) ->
+wrapCourseItem = (Item, course, courseDataProps) ->
   <BS.Col key="course-listing-item-wrapper-#{course.id}" md={3} sm={4}>
-    <Item course={course} />
+    <Item course={course} courseDataProps={courseDataProps}/>
   </BS.Col>
 
 DEFAULT_COURSE_ITEMS =
@@ -61,7 +61,7 @@ CourseListingBase = React.createClass
     <BS.Row className={sectionClasses}>
       {_.map(courses, (course) ->
         Item = Items[CurrentUserStore.getCourseRole(course.id)]
-        if Item then wrapCourseItem(Item, course)
+        if Item then wrapCourseItem(Item, course, CourseData.getCourseDataProps(course.id))
       )}
     </BS.Row>
 
@@ -73,7 +73,7 @@ CourseListingCurrent = React.createClass
   NoCourses: ->
     <BS.Row>
       <BS.Col md={12}>
-        <p>There are no current courses</p>
+        <p>There are no current courses.</p>
       </BS.Col>
     </BS.Row>
 
@@ -97,17 +97,19 @@ CourseListingCurrent = React.createClass
     {courses} = @props
     baseName = getReactBaseName(@)
 
-    <BS.Grid className={baseName}>
-      <@Title />
-      {if _.isEmpty(courses)
-        <@NoCourses />
-      else
-        <CourseListingBase
-          className="#{baseName}-section"
-          courses={courses}
-        />}
-      <@AddCourses />
-    </BS.Grid>
+    <div className={baseName}>
+      <BS.Grid>
+        <@Title />
+        {if _.isEmpty(courses)
+          <@NoCourses />
+        else
+          <CourseListingBase
+            className="#{baseName}-section"
+            courses={courses}
+          />}
+        <@AddCourses />
+      </BS.Grid>
+    </div>
 
 CourseListingPast = React.createClass
   displayName: 'CourseListingPast'
@@ -127,20 +129,21 @@ CourseListingPast = React.createClass
     {courses} = @props
     baseName = getReactBaseName(@)
 
-    <BS.Grid className={baseName}>
-      {if _.isEmpty(courses)
-        <@NoCourses />
-      else
-        [
-          <@Title key="#{baseName}-title"/>
-          <CourseListingBase
-            className="#{baseName}-section"
-            courses={courses}
-            Items={{teacher: CoursePastTeacher}}
-            key="#{baseName}-section"/>
-        ]}
-    </BS.Grid>
-
+    <div className={baseName}>
+      <BS.Grid>
+        {if _.isEmpty(courses)
+          <@NoCourses />
+        else
+          [
+            <@Title key="#{baseName}-title"/>
+            <CourseListingBase
+              className="#{baseName}-section"
+              courses={courses}
+              Items={{teacher: CoursePastTeacher}}
+              key="#{baseName}-section"/>
+          ]}
+      </BS.Grid>
+    </div>
 
 CourseListing = React.createClass
   displayName: 'CourseListing'
@@ -167,9 +170,9 @@ CourseListing = React.createClass
     else if @shouldRedirect(currentCourses, pastCourses)
       <Redirect to={Router.makePathname('dashboard', {courseId: currentCourses[0].id})} />
     else
-      <div className='course-listing '>
+      <div className='course-listing'>
         <CourseListingCurrent courses={currentCourses}/>
-        <CourseListingPast courses={pastCourses}/>
+        <CourseListingPast courses={currentCourses}/>
       </div>
 
 

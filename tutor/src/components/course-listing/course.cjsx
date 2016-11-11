@@ -1,5 +1,6 @@
 React = require 'react'
 classnames = require 'classnames'
+BS = require 'react-bootstrap'
 
 {Redirect, Link} = require 'react-router'
 
@@ -19,7 +20,7 @@ CourseBranding = React.createClass
       brand = "#{BRAND} Concept Coach"
     else
       isBeta = true
-      brand = "#{BRAND} Concept Coach"
+      brand = "#{BRAND} Tutor"
 
     <span
       className='course-listing-item-brand'
@@ -36,16 +37,19 @@ Course = React.createClass
     itemClasses = classnames('course-listing-item', className)
 
     <div {...courseDataProps} className={itemClasses}>
-      <Link to={coursePath}>
-        {course.name}
-      </Link>
+      <div
+        className='course-listing-item-title'>
+        <Link to={coursePath}>
+          {course.name}
+        </Link>
+      </div>
       <div
         className='course-listing-item-details'
         data-has-controls={controls?}
       >
         <Link to={coursePath}>
           <CourseBranding isConceptCoach={course.is_concept_coach} />
-          <span className='course-listing-item-term'></span>
+          <span className='course-listing-item-term'>{course.term} {course.year}</span>
         </Link>
         <div className='course-listing-item-controls'>
           {controls}
@@ -57,8 +61,9 @@ CoursePastTeacher = React.createClass
   displayName: 'CoursePastTeacher'
   teachAgain: ->
     {course} = @props
+    # TODO do this.
   render: ->
-    controls = <span onClick={@teachAgain}>Teach Again</span>
+    controls = <BS.Button onClick={@teachAgain}>Teach Again</BS.Button>
 
     <Course {...@props} controls={controls} />
 

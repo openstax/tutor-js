@@ -7,106 +7,136 @@
 @course-listing-item-offset: 140px;
 
 .course-listing {
-  margin-top: @course-listing-buffer;
 
-  .row {
+  .course-listing-current, .course-listing-past {
     margin-top: @course-listing-buffer;
-    @media (max-width: @screen-md-min) {
-      margin-top: @course-listing-tablet-buffer;
-    }
-    &:first-child{
-      margin-top: 0;
-    }
   }
 
-  .tutor-booksplash-course-item {
-    position: relative;
-    overflow: hidden;
-    .tutor-course-item {
-      height: @course-listing-item-height;
-      width: 100%;
-      display: inline;
-      overflow: hidden;
-      background-repeat: no-repeat;
-      background-size: contain;
-      text-decoration: none;
-      .transition(background-position .1s ease-in);
+  .course-listing-current {
+    background: #EEEEEE;
+    border-bottom: 1px solid @tutor-neutral-light;
+  }
 
-      &::before {
-        content: 'Go to ';
-        height: 100%;
-        font-style: italic;
-        display: block;
-        width: @course-listing-item-offset;
-        float: left;
-        overflow: hidden;
-        .transition(margin .1s ease-in);
-        font-size: 4rem;
-        padding: @course-listing-buffer/2 0 0 @course-listing-buffer/2;
-        margin-left: -@course-listing-item-offset;
-        margin-top: 0;
+  .course-listing-past {
+    background: #F1F1F1;
+  }
+
+  // .row {
+  //   margin-top: @course-listing-buffer;
+  //   @media (max-width: @screen-md-min) {
+  //     margin-top: @course-listing-tablet-buffer;
+  //   }
+  //   &:first-child{
+  //     margin-top: 0;
+  //   }
+  // }
+
+  .course-listing-item {
+    // position: relative;
+    // overflow: hidden;
+    // .tutor-course-item {
+    //   height: @course-listing-item-height;
+    //   width: 100%;
+    //   display: inline;
+    //   overflow: hidden;
+    //   background-repeat: no-repeat;
+    //   background-size: contain;
+    //   text-decoration: none;
+    //   .transition(background-position .1s ease-in);
+
+    //   &::before {
+    //     content: 'Go to ';
+    //     height: 100%;
+    //     font-style: italic;
+    //     display: block;
+    //     width: @course-listing-item-offset;
+    //     float: left;
+    //     overflow: hidden;
+    //     .transition(margin .1s ease-in);
+    //     font-size: 4rem;
+    //     padding: @course-listing-buffer/2 0 0 @course-listing-buffer/2;
+    //     margin-left: -@course-listing-item-offset;
+    //     margin-top: 0;
+    //   }
+    //   &:hover {
+    //     background-position: 200px 30px;
+    //       &::before {
+    //         margin-left: 0;
+    //       }
+    //   }
+    // }
+
+    .course-listing-item-details {
+      background: @tutor-white;
+      color: @tutor-neutral;
+      font-weight: 100;
+
+      a {
+        color: @tutor-neutral;
       }
-      &:hover {
-        background-position: 200px 30px;
-          &::before {
-            margin-left: 0;
+
+      .course-listing-item-brand, .course-listing-item-term {
+        display: block;
+      }
+
+      .course-listing-item-brand {
+        font-weight: 600;
+
+        &[data-is-beta=true] {
+          &::after {
+            font-weight: 100;
+            content: ' beta';
+            font-style: italic;
           }
+        }
+      }
+
+      .course-listing-item-term {
+        text-transform: capitalize;
       }
     }
 
     &[data-appearance]{
-      .flex-display();
-      .tutor-course-item {
-        .flex(1);
+      // .flex-display();
+      // .tutor-course-item {
+        // .flex(1);
+      .course-listing-item-title {
         #fonts > .book-cover();
-
-        font-size: 12rem;
-        line-height: 13rem;
-        height: @course-listing-item-tablet-height;
-        @media (min-width: @screen-md-min) {
-          font-size: 18rem;
-          line-height: 18rem;
-          height: @course-listing-item-height;
-        }
-
         text-overflow: ellipsis;
         white-space: nowrap;
         font-weight: 800;
       }
+
+        // font-size: 2rem;
+        // line-height: 1.5em;
+        // height: @course-listing-item-tablet-height;
+        // @media (min-width: @screen-md-min) {
+          // font-size: 18rem;
+          // line-height: 18rem;
+          // height: @course-listing-item-height;
+        // }
+      // }
     }
 
     .apply-course-listing-book-styling(@code; @fg; @bg) {
       &[data-appearance=@{code}] {
-        .tutor-course-item, .course-type-flag {
+        // .tutor-course-item, .course-type-flag {
+        .course-listing-item-title {
           color: @@fg;
-          background-color: @@bg;
+          a {
+            color: @@fg;
+          }
         }
-        .course-type-flag {
-          border: 3px solid @@fg;
-        }
+        background-color: @@bg;
+
+        // }
+        // .course-type-flag {
+        //   border: 3px solid @@fg;
+        // }
       }
     }
     .for(@openstax-book-appearance-codes); .-each(@code) {
       .apply-course-listing-book-styling(@code, "openstax-book-@{code}-fg", "openstax-book-@{code}-bg");
-    }
-
-    .course-type-flag {
-      position: absolute;
-      top: 0;
-      right: 0;
-      margin-top: 8px;
-      margin-right: (@course-listing-buffer/2) + 3;
-      padding: 8px;
-      font-size: 3rem;
-      font-weight: 600;
-      pointer-events: none;
-
-      @media (max-width: @screen-md-min) {
-        & {
-          padding: 3px;
-          font-size: 2rem;
-        }
-      }
     }
 
   }
