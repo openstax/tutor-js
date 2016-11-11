@@ -66,7 +66,7 @@ CourseListingBase = React.createClass
     </BS.Row>
 
 AddCourseArea = ->
-  <div className='course-listing-add'><p>Add a course</p></div>
+  <div className='course-listing-add-zone'><p>Add a course</p></div>
 
 CourseListingCurrent = React.createClass
   displayName: 'CourseListingCurrent'
@@ -129,21 +129,19 @@ CourseListingPast = React.createClass
     {courses} = @props
     baseName = getReactBaseName(@)
 
-    <div className={baseName}>
-      <BS.Grid>
-        {if _.isEmpty(courses)
-          <@NoCourses />
-        else
-          [
-            <@Title key="#{baseName}-title"/>
-            <CourseListingBase
-              className="#{baseName}-section"
-              courses={courses}
-              Items={{teacher: CoursePastTeacher}}
-              key="#{baseName}-section"/>
-          ]}
-      </BS.Grid>
-    </div>
+    if _.isEmpty(courses)
+      <@NoCourses />
+    else
+      <div className={baseName}>
+        <BS.Grid>
+          <@Title key="#{baseName}-title"/>
+          <CourseListingBase
+            className="#{baseName}-section"
+            courses={courses}
+            Items={{teacher: CoursePastTeacher}}
+            key="#{baseName}-section"/>
+        </BS.Grid>
+      </div>
 
 CourseListing = React.createClass
   displayName: 'CourseListing'
@@ -171,8 +169,8 @@ CourseListing = React.createClass
       <Redirect to={Router.makePathname('dashboard', {courseId: currentCourses[0].id})} />
     else
       <div className='course-listing'>
-        <CourseListingCurrent courses={currentCourses}/>
-        <CourseListingPast courses={pastCourses}/>
+        <CourseListingCurrent courses={currentCourses} />
+        <CourseListingPast courses={pastCourses} />
       </div>
 
 

@@ -10,7 +10,7 @@
 
   .course-listing-current,
   .course-listing-past {
-    margin-top: @course-listing-buffer;
+    padding-top: @course-listing-buffer;
   }
 
   .course-listing-current {
@@ -23,39 +23,52 @@
     }
   }
 
+  .course-listing-add-zone {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px @tutor-neutral dashed;
+    .tutor-shadow(1, inset);
+    .flex-display();
+    .align-items(center);
+    
+    p {
+      text-transform: uppercase;
+      text-align: center;
+      margin: auto;
+
+      &::before {
+        .fa-icon();
+        content: @fa-var-plus-square-o;
+        display: block;
+        font-size: 2em;
+      }
+    }
+  }
+
+  .course-listing-title {
+    h1, h2, h3, h4, h5, h6 {
+      margin-bottom: 0;
+    }
+  }
+
   .course-listing-past {
     background: #F1F1F1;
   }
 
-  // .row {
-  //   margin-top: @course-listing-buffer;
-  //   @media (max-width: @screen-md-min) {
-  //     margin-top: @course-listing-tablet-buffer;
-  //   }
-  //   &:first-child{
-  //     margin-top: 0;
-  //   }
-  // }
-
-  .course-listing-item {
+  .course-listing-item,
+  .course-listing-add-zone {
     position: relative;
     overflow: hidden;
+    height: 26rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
 
-    // .tutor-course-item {
-    //   height: @course-listing-item-height;
-    //   width: 100%;
-    //   display: inline;
-    //   overflow: hidden;
-    //   background-repeat: no-repeat;
-    //   background-size: contain;
-    //   text-decoration: none;
-    // }
-    // 
+  .course-listing-item {
     &:hover {
-      .tutor-shadow(1);
+      .tutor-shadow(2);
 
       .course-listing-item-details[data-has-controls=true] {
-        .translate(0, 0);
+        .translate(0, -5.55rem);
       }
     }
 
@@ -83,7 +96,7 @@
       .transition(~'0.1s ease-in-out transform');
 
       &[data-has-controls=true] {
-        .translate(0, 5.55rem);
+        .translate(0, 0);
       }
 
       a {
@@ -117,9 +130,13 @@
         font-size: 0.9em;
       }
     }
+
     .course-listing-item-title {
-      min-height: 15rem;
       line-height: 1.25em;
+
+      a {
+        height: 18.1rem;
+      }
 
       [data-is-subject=true] {
         #fonts > .book-cover();
@@ -129,22 +146,6 @@
         display: block;
       }
     }
-
-    // &[data-appearance]{
-    //   // .flex-display();
-    //   // .tutor-course-item {
-    //     // .flex(1);
-
-    //     // font-size: 2rem;
-    //     // line-height: 1.5em;
-    //     // height: @course-listing-item-tablet-height;
-    //     // @media (min-width: @screen-md-min) {
-    //       // font-size: 18rem;
-    //       // line-height: 18rem;
-    //       // height: @course-listing-item-height;
-    //     // }
-    //   // }
-    // }
 
     .apply-course-listing-book-styling(@code; @fg; @bg) {
       &[data-appearance=@{code}] {
