@@ -82,8 +82,8 @@ Course = React.createClass
       </div>
     </div>
 
-CoursePastTeacher = React.createClass
-  displayName: 'CoursePastTeacher'
+CourseTeacher = React.createClass
+  displayName: 'CourseTeacher'
   teachAgain: ->
     {course} = @props
     # TODO do this.
@@ -92,4 +92,4 @@ CoursePastTeacher = React.createClass
 
     <Course {...@props} controls={controls} />
 
-module.exports = {Course, CoursePastTeacher}
+module.exports = {Course, CourseTeacher}

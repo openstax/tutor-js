@@ -11,11 +11,12 @@
   .course-listing-current,
   .course-listing-past {
     padding-top: @course-listing-buffer;
+    padding-bottom: @course-listing-buffer;
   }
 
   .course-listing-current {
-    background: #EEEEEE;
-    border-bottom: 1px solid @tutor-neutral-light;
+    background: rgba(0, 0, 0, 0.02);
+    border-bottom: 1px solid rgb(200, 200, 200);;
 
     .course-listing-title,
     .course-listing-none {
@@ -26,11 +27,18 @@
   .course-listing-add-zone {
     background: rgba(255, 255, 255, 0.5);
     border: 1px @tutor-neutral dashed;
+    color: @tutor-neutral;
     .tutor-shadow(1, inset);
     .flex-display();
     .align-items(center);
-    
-    p {
+
+    &:hover {
+      color: @tutor-info;
+      text-decoration: none;
+      .box-shadow(none);
+    }
+
+    span {
       text-transform: uppercase;
       text-align: center;
       margin: auto;
@@ -50,9 +58,9 @@
     }
   }
 
-  .course-listing-past {
-    background: #F1F1F1;
-  }
+  // .course-listing-past {
+  //   background: #F1F1F1;
+  // }
 
   .course-listing-item,
   .course-listing-add-zone {
@@ -60,7 +68,6 @@
     overflow: hidden;
     height: 26rem;
     margin-top: 3rem;
-    margin-bottom: 3rem;
   }
 
   .course-listing-item {

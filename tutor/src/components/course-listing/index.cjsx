@@ -15,7 +15,7 @@ WindowHelpers = require '../../helpers/window'
 EmptyCourses    = require '../course-listing/empty'
 CourseData = require '../course-data-mixin'
 
-{Course, CoursePastTeacher} = require './course'
+{Course, CourseTeacher} = require './course'
 
 getReactBaseName = (context) -> _.kebabCase(context.constructor.displayName)
 
@@ -38,12 +38,12 @@ CourseLink = ({courseId, name, is_concept_coach}) ->
 CourseLink.displayName = "CourseLink"
 
 wrapCourseItem = (Item, course, courseDataProps) ->
-  <BS.Col key="course-listing-item-wrapper-#{course.id}" md={3} sm={4}>
+  <BS.Col key="course-listing-item-wrapper-#{course.id}" md={3} sm={4} xs={12}>
     <Item course={course} courseDataProps={courseDataProps}/>
   </BS.Col>
 
 DEFAULT_COURSE_ITEMS =
-  teacher: Course
+  teacher: CourseTeacher
   student: Course
 
 CourseListingBase = React.createClass
@@ -53,20 +53,27 @@ CourseListingBase = React.createClass
     _.merge({}, DEFAULT_COURSE_ITEMS, @props.Items)
 
   render: ->
-    {courses, className} = @props
+    {courses, className, before, after} = @props
     Items = @getItems()
 
     sectionClasses = classnames('course-listing-section', className)
 
     <BS.Row className={sectionClasses}>
+      {before}
       {_.map(courses, (course) ->
         Item = Items[CurrentUserStore.getCourseRole(course.id)]
         if Item then wrapCourseItem(Item, course, CourseData.getCourseDataProps(course.id))
       )}
+      {after}
     </BS.Row>
 
 AddCourseArea = ->
-  <div className='course-listing-add-zone'><p>Add a course</p></div>
+  <Link
+    to={Router.makePathname('createNewCourse')}
+    className='course-listing-add-zone'
+  >
+    <span>Add a course</span>
+  </Link>
 
 CourseListingCurrent = React.createClass
   displayName: 'CourseListingCurrent'
@@ -87,31 +94,21 @@ CourseListingCurrent = React.createClass
     </BS.Row>
 
   AddCourses: ->
-    baseName = getReactBaseName(@)
-
-    <BS.Row className='course-listing-add'>
-      {wrapCourseItem(AddCourseArea, {id: 'new'})}
-    </BS.Row>
+    wrapCourseItem(AddCourseArea, {id: 'new'})
 
   render: ->
-    {courses} = @props
+    {courses, isATeacher} = @props
     baseName = getReactBaseName(@)
-
-    isATeacher = _.some(courses, (course) ->
-      _.includes(_.map(course.roles, 'type'), 'teacher')
-    )
 
     <div className={baseName}>
       <BS.Grid>
         <@Title />
-        {if _.isEmpty(courses)
-          <@NoCourses />
-        else
-          <CourseListingBase
-            className="#{baseName}-section"
-            courses={courses}
-          />}
-        {<@AddCourses /> if isATeacher}
+        {<@NoCourses /> if _.isEmpty(courses)}
+        <CourseListingBase
+          className="#{baseName}-section"
+          courses={courses}
+          after={<@AddCourses /> if isATeacher}
+        />
       </BS.Grid>
     </div>
 
@@ -138,12 +135,11 @@ CourseListingPast = React.createClass
     else
       <div className={baseName}>
         <BS.Grid>
-          <@Title key="#{baseName}-title"/>
+          <@Title />
           <CourseListingBase
             className="#{baseName}-section"
             courses={courses}
-            Items={{teacher: CoursePastTeacher}}
-            key="#{baseName}-section"/>
+          />
         </BS.Grid>
       </div>
 
@@ -166,6 +162,9 @@ CourseListing = React.createClass
 
   render: ->
     [currentCourses, pastCourses] = CourseListingStore.coursesWithRolesByActive()
+    isATeacher = _.some(_.concat(currentCourses, pastCourses), (course) ->
+      _.includes(_.map(course.roles, 'type'), 'teacher')
+    )
 
     if @shouldShowEmpty(currentCourses, pastCourses)
       <EmptyCourses />
@@ -173,7 +172,7 @@ CourseListing = React.createClass
       <Redirect to={Router.makePathname('dashboard', {courseId: currentCourses[0].id})} />
     else
       <div className='course-listing'>
-        <CourseListingCurrent courses={currentCourses} />
+        <CourseListingCurrent courses={currentCourses} isATeacher={isATeacher}/>
         <CourseListingPast courses={pastCourses} />
       </div>
 
