@@ -42,16 +42,28 @@ wrapCourseItem = (Item, course) ->
     <Item course={course} />
   </BS.Col>
 
+DEFAULT_COURSE_ITEMS =
+  teacher: Course
+  student: Course
+
 CourseListingBase = React.createClass
   displayName: 'CourseListingBase'
+
+  getItems: ->
+    _.merge({}, DEFAULT_COURSE_ITEMS, @props.Items)
+
   render: ->
-    {courses, Item, className} = @props
+    {courses, className} = @props
+    Items = @getItems()
+
     sectionClasses = classnames('course-listing-section', className)
 
     <BS.Row className={sectionClasses}>
-      {_.map(courses, _.partial(wrapCourseItem, Item))}
+      {_.map(courses, (course) ->
+        Item = Items[CurrentUserStore.getCourseRole(course.id)]
+        if Item then wrapCourseItem(Item, course)
+      )}
     </BS.Row>
-
 
 AddCourseArea = ->
   <div className='course-listing-add'><p>Add a course</p></div>
@@ -93,7 +105,6 @@ CourseListingCurrent = React.createClass
         <CourseListingBase
           className="#{baseName}-section"
           courses={courses}
-          Item={Course}
         />}
       <@AddCourses />
     </BS.Grid>
@@ -125,7 +136,7 @@ CourseListingPast = React.createClass
           <CourseListingBase
             className="#{baseName}-section"
             courses={courses}
-            Item={CoursePastTeacher}
+            Items={{teacher: CoursePastTeacher}}
             key="#{baseName}-section"/>
         ]}
     </BS.Grid>
