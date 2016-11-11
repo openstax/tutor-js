@@ -10,12 +10,14 @@ WindowHelpers = require '../../helpers/window'
 
 {CourseListingActions, CourseListingStore} = require '../../flux/course-listing'
 {CourseStore} = require '../../flux/course'
+{CurrentUserStore} = require '../../flux/current-user'
 {RefreshButton} = require 'shared'
 EmptyCourses    = require '../course-listing/empty'
 CourseData = require '../course-data-mixin'
 
 {Course, CoursePastTeacher} = require './course'
 
+getReactBaseName = (context) -> _.kebabCase(context.constructor.displayName)
 
 CourseLink = ({courseId, name, is_concept_coach}) ->
   props = CourseData.getCourseDataProps(courseId)
@@ -64,27 +66,68 @@ CourseListingCurrent = React.createClass
     </BS.Row>
 
   Title: ->
-    <BS.Row>
+    baseName = getReactBaseName(@)
+
+    <BS.Row className="#{baseName}-title">
       <BS.Col md={12}>
         <h1>Current Courses</h1>
       </BS.Col>
     </BS.Row>
 
   AddCourses: ->
-    <BS.Row>
+    baseName = getReactBaseName(@)
+
+    <BS.Row className="#{baseName}-add">
       {wrapCourseItem(AddCourseArea, {id: 'new'})}
     </BS.Row>
 
   render: ->
     {courses} = @props
+    baseName = getReactBaseName(@)
 
-    <BS.Grid className='course-listing-heading course-listing-current'>
+    <BS.Grid className={baseName}>
       <@Title />
       {if _.isEmpty(courses)
         <@NoCourses />
       else
-        <CourseListingBase courses={courses} Item={Course}/>}
+        <CourseListingBase
+          className="#{baseName}-section"
+          courses={courses}
+          Item={Course}
+        />}
       <@AddCourses />
+    </BS.Grid>
+
+CourseListingPast = React.createClass
+  displayName: 'CourseListingPast'
+  NoCourses: ->
+    null
+
+  Title: ->
+    baseName = getReactBaseName(@)
+
+    <BS.Row className="#{baseName}-title">
+      <BS.Col md={12}>
+        <h1>Past Courses</h1>
+      </BS.Col>
+    </BS.Row>
+
+  render: ->
+    {courses} = @props
+    baseName = getReactBaseName(@)
+
+    <BS.Grid className={baseName}>
+      {if _.isEmpty(courses)
+        <@NoCourses />
+      else
+        [
+          <@Title key="#{baseName}-title"/>
+          <CourseListingBase
+            className="#{baseName}-section"
+            courses={courses}
+            Item={CoursePastTeacher}
+            key="#{baseName}-section"/>
+        ]}
     </BS.Grid>
 
 
@@ -99,20 +142,23 @@ CourseListing = React.createClass
       <Item course={course} />
     </BS.Col>
 
+  shouldRedirect: (currentCourses) ->
+    currentCourses.length is 1 and CurrentUserStore.getCourseRole(currentCourses[0].id) is 'student'
+
+  shouldShowEmpty: (currentCourses, pastCourses) ->
+    _.isEmpty(currentCourses) and _.isEmpty(pastCourses) # and some way to determine if student?!
+
   render: ->
     [currentCourses, pastCourses] = CourseListingStore.coursesWithRolesByActive()
-    currentCourseItems = <CourseListingCurrent courses={currentCourses}/>
-    pastCourseItems = <CourseListingBase courses={pastCourses} Item={CoursePastTeacher}/>
 
-    if currentCourses.length is 0
+    if @shouldShowEmpty(currentCourses, pastCourses)
       <EmptyCourses />
-    else if currentCourses.length is 1
+    else if @shouldRedirect(currentCourses, pastCourses)
       <Redirect to={Router.makePathname('dashboard', {courseId: currentCourses[0].id})} />
     else
       <div className='course-listing '>
-        <div className='-course-list'>
-          {currentCourseItems}
-        </div>
+        <CourseListingCurrent courses={currentCourses}/>
+        <CourseListingPast courses={pastCourses}/>
       </div>
 
 
