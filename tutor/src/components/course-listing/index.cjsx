@@ -97,6 +97,10 @@ CourseListingCurrent = React.createClass
     {courses} = @props
     baseName = getReactBaseName(@)
 
+    isATeacher = _.some(courses, (course) ->
+      _.includes(_.map(course.roles, 'type'), 'teacher')
+    )
+
     <div className={baseName}>
       <BS.Grid>
         <@Title />
@@ -107,7 +111,7 @@ CourseListingCurrent = React.createClass
             className="#{baseName}-section"
             courses={courses}
           />}
-        <@AddCourses />
+        {<@AddCourses /> if isATeacher}
       </BS.Grid>
     </div>
 
