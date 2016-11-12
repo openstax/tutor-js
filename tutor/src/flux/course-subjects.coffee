@@ -1,0 +1,13 @@
+module.exports =
+  physics:              'Physics'
+  hs_physics:           'Physics'
+  college_physics:      'Physics'
+  biology:              'Biology'
+  ap_biology:           'Biology'
+  concepts_biology:     'Biology'
+  college_biology:      'Biology'
+  principles_economics: 'Economics'
+  macro_economics:      'Macroeconomics'
+  micro_economics:      'Microeconomics'
+  intro_sociology:      'Sociology'
+  anatomy_physiology:   'Anatomy & Physiology'

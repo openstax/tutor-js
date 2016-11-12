@@ -37,9 +37,19 @@ CourseLink = ({courseId, name, is_concept_coach}) ->
 
 CourseLink.displayName = "CourseLink"
 
-wrapCourseItem = (Item, course, courseDataProps) ->
-  <BS.Col key="course-listing-item-wrapper-#{course.id}" md={3} sm={4} xs={12}>
-    <Item course={course} courseDataProps={courseDataProps}/>
+wrapCourseItem = (Item, course = {}) ->
+  {id} = course
+  courseName = id or 'new'
+
+  if id
+    courseDataProps = CourseData.getCourseDataProps(id)
+    courseSubject = CourseStore.getSubject(id)
+
+  <BS.Col key="course-listing-item-wrapper-#{courseName}" md={3} sm={4} xs={12}>
+    <Item
+      course={course}
+      courseSubject={courseSubject}
+      courseDataProps={courseDataProps}/>
   </BS.Col>
 
 DEFAULT_COURSE_ITEMS =
@@ -62,7 +72,7 @@ CourseListingBase = React.createClass
       {before}
       {_.map(courses, (course) ->
         Item = Items[CurrentUserStore.getCourseRole(course.id)]
-        if Item then wrapCourseItem(Item, course, CourseData.getCourseDataProps(course.id))
+        if Item then wrapCourseItem(Item, course)
       )}
       {after}
     </BS.Row>
@@ -94,7 +104,7 @@ CourseListingCurrent = React.createClass
     </BS.Row>
 
   AddCourses: ->
-    wrapCourseItem(AddCourseArea, {id: 'new'})
+    wrapCourseItem(AddCourseArea)
 
   render: ->
     {courses, isATeacher} = @props

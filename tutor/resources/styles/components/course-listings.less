@@ -6,6 +6,27 @@
 
 @course-listing-item-offset: 140px;
 
+@after-shadow-rule: {
+  .tutor-shadow(1, inset);
+};
+
+// use shadow on after for quick fading shadows
+.after-shadow(@shadow-rule: @after-shadow-rule) {
+  position: relative;
+
+  &::after {
+    @shadow-rule();
+    content: ' ';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    .transition(~'150ms ease-in-out opacity');
+    z-index: -1;
+  }
+}
+
 .course-listing {
 
   .course-listing-current,
@@ -28,14 +49,23 @@
     background: rgba(255, 255, 255, 0.5);
     border: 1px @tutor-neutral dashed;
     color: @tutor-neutral;
-    .tutor-shadow(1, inset);
     .flex-display();
     .align-items(center);
+    .transition(~'150ms ease-in-out color');
+
+    .after-shadow();
+
+    &::after{
+      opacity: 1;
+    }
 
     &:hover {
       color: @tutor-info;
       text-decoration: none;
-      .box-shadow(none);
+
+      &::after {
+        opacity: 0;
+      }
     }
 
     span {
@@ -58,10 +88,6 @@
     }
   }
 
-  // .course-listing-past {
-  //   background: #F1F1F1;
-  // }
-
   .course-listing-item,
   .course-listing-add-zone {
     position: relative;
@@ -70,15 +96,34 @@
     margin-top: 3rem;
   }
 
-  .course-listing-item {
-    &:hover {
+  .course-listing-item-wrapper {
+    .after-shadow(@shadow-rule: {
       .tutor-shadow(2);
+    });
 
-      .course-listing-item-details[data-has-controls=true] {
-        .translate(0, -5.55rem);
+    &::after {
+      opacity: 0;
+    }
+
+    .course-listing-item-details {
+      .transition(~'150ms ease-in-out transform');
+      &[data-has-controls=true] {
+        .translate(0, 0);
       }
     }
 
+    &:hover {
+      .course-listing-item-details[data-has-controls=true] {
+        .translate(0, -5.55rem);
+      }
+
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+
+  .course-listing-item {
     a:hover {
       text-decoration: none;
     }
@@ -99,12 +144,6 @@
       background: @tutor-white;
       color: @tutor-neutral;
       font-weight: 100;
-
-      .transition(~'0.1s ease-in-out transform');
-
-      &[data-has-controls=true] {
-        .translate(0, 0);
-      }
 
       a {
         color: @tutor-neutral;

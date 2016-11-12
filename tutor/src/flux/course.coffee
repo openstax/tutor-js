@@ -5,6 +5,7 @@ _ = require 'underscore'
 {CrudConfig, makeSimpleStore, extendConfig, STATES} = require './helpers'
 PeriodHelper = require '../helpers/period'
 AppearanceCodes = require './course-appearance-codes'
+Subjects = require './course-subjects'
 
 DEFAULT_TIME_ZONE = 'Central Time (US & Canada)'
 
@@ -24,6 +25,10 @@ CourseConfig =
     getBookName: (courseId) ->
       {appearance_code} = @_local[courseId]
       AppearanceCodes[appearance_code]
+
+    getSubject: (courseId) ->
+      {appearance_code} = @_local[courseId]
+      Subjects[appearance_code]
 
     isConceptCoach: (courseId) -> !! @_local[courseId]?.is_concept_coach
     isCollege: (courseId) -> !! @_local[courseId]?.is_college
