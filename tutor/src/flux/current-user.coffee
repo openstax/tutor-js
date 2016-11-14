@@ -62,7 +62,7 @@ ROUTES =
     label: 'Add New Course'
     allowedForCourse: (course) ->
       if course
-        _.includes(course.roles, 'teacher')
+        CourseStore.isTeacher(course.id)
       else
         CourseListingStore.isAnyTeacher()
     params: (courseId, role) ->
