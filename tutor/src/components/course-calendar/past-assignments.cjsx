@@ -9,12 +9,6 @@ partial = require 'lodash/partial'
 {PastTaskPlansActions, PastTaskPlansStore} = require '../../flux/past-task-plans'
 LoadableItem = require '../loadable-item'
 
-EmptyWarning = (props) ->
-  return null unless props.isVisible
-  <div className="no-plans">
-    No assignments were found
-  </div>
-
 
 PastAssignmentsLoading = ->
   <div className='past-assignments'>
@@ -32,8 +26,6 @@ PastAssignments = React.createClass
     plans = PastTaskPlansStore.get(@props.courseId) or []
 
     <div className='past-assignments'>
-      <EmptyWarning isVisible={isEmpty(plans)} />
-
       {for plan in plans
         <CloneAssignmentLink key={plan.id} plan={plan} />}
     </div>
