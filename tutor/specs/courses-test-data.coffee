@@ -53,6 +53,34 @@ STUDENT_ARCHIVED_COURSE = {
   roles: []
 }
 
+TEACHER_PAST_COURSE = {
+  id: 5
+  book_id: '123'
+  name:'Local Test Course Three'
+  appearance_code: 'testing'
+  offering_id: 1
+  is_active: false
+  roles: [
+    {
+      type: 'teacher'
+    }
+  ]
+}
+
+STUDENT_PAST_COURSE = {
+  id: 6
+  book_id: '123'
+  name:'Local Test Course Three'
+  appearance_code: 'testing'
+  offering_id: 1
+  is_active: false
+  roles: [
+    {
+      type: 'teacher'
+    }
+  ]
+}
+
 MASTER_COURSES_LIST = [
   STUDENT_COURSE_ONE_MODEL
   TEACHER_COURSE_TWO_MODEL
@@ -69,5 +97,7 @@ module.exports = {
   TEACHER_AND_STUDENT_COURSE_THREE_MODEL,
   MASTER_COURSES_LIST,
   TUTOR_HELP,
-  CONCEPT_COACH_HELP
+  CONCEPT_COACH_HELP,
+  TEACHER_PAST_COURSE,
+  STUDENT_PAST_COURSE
 }
