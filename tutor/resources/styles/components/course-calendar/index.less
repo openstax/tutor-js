@@ -6,6 +6,33 @@
 @import './plan';
 @import './plan-details';
 
+.calendar-container {
+  .calendar-body {
+    position: relative;
+    overflow: hidden;
+  }
+  .month-body {
+    transition: margin-left 0.5s;
+    margin-left: 0px;
+  }
+
+  &.with-sidebar-open .month-body {
+    margin-left: 200px;
+  }
+
+  .add-assignment-sidebar {
+    transition: left 0.5s;
+    width: 200px;
+    left: -200px;
+    position: absolute;
+  }
+
+  &.with-sidebar-open .add-assignment-sidebar {
+    left: 0px;
+  }
+
+}
+
 .is-trouble() {
   content: @fa-var-bookmark;
   .fa-icon();

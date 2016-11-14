@@ -18,9 +18,11 @@ Router = require '../../helpers/router'
 
 TaskPlanMiniEditor   = require '../task-plan/mini-editor'
 PlanClonePlaceholder = require './plan-clone-placeholder'
+AddAssignmentSidebar = require './add-assignment-sidebar'
 CourseCalendarHeader = require './header'
 CourseAddMenuMixin   = require './add-menu-mixin'
 CourseDuration       = require './duration'
+MonthTitleNav        = require './month-title-nav'
 CoursePlan           = require './plan'
 CourseAdd            = require './add'
 
@@ -195,7 +197,9 @@ CourseMonth = React.createClass
     {plansList, courseId, className, date, hasPeriods} = @props
     {calendarDuration, calendarWeeks} = @getDurationInfo(date)
 
-    calendarClassName = classnames 'calendar-container', className
+    calendarClassName = classnames('calendar-container', className,
+      'with-sidebar-open': @state.showingSideBar
+    )
 
     if plansList?
       plans = <CourseDuration
@@ -214,28 +218,30 @@ CourseMonth = React.createClass
       <CourseAdd ref='addOnDay' hasPeriods={hasPeriods} courseId={@props.courseId} />
 
       <CourseCalendarHeader
-        duration='month'
-        date={date}
         onSidebarToggle={@onSidebarToggle}
         courseId={@props.courseId}
-        setDate={@setDate}
         hasPeriods={hasPeriods}
-        ref='calendarHeader'
       />
 
-      <BS.Row className={classnames('calendar-body', {
-        'with-sidebar-open': @state.showingSideBar
-      })}>
-        <BS.Col xs={12} data-duration-name={@getFullMonthName()}>
+      <div className='calendar-body'>
+        <AddAssignmentSidebar courseId={@props.courseId} hasPeriods={hasPeriods} />
+        <div className="month-body" data-duration-name={@getFullMonthName()}>
+          <MonthTitleNav
+            courseId={@props.courseId}
+            duration='month'
+            date={date}
+            setDate={@setDate}
+          />
           {@props.connectDropTarget(
-            <div>
+            <div className="month-wrapper" >
               <Month date={date} monthNames={false}
                 weekdayFormat='ddd' mods={@getMonthMods(calendarDuration)} />
               {plans}
             </div>
           )}
-        </BS.Col>
-      </BS.Row>
+        </div>
+      </div>
+
       {<PlanClonePlaceholder
         planId={@state.cloningPlan.id}
         planType={@state.cloningPlan.type}

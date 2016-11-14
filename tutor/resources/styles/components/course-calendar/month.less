@@ -37,11 +37,6 @@
   }
 
   .calendar-body {
-    transition: margin-left 0.5s;
-
-    &.with-sidebar-open {
-      margin-left: 200px;
-    }
     [class^="col-"] {
       overflow-x: hidden;
       overflow-y: visible;
@@ -61,7 +56,9 @@
       opacity: 0.1;
     }
   }
-
+  .month-wrapper {
+    position: relative;
+  }
   .rc {
     &-Calendar {
       width: 100%;
