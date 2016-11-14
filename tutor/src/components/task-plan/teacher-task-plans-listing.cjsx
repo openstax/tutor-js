@@ -150,9 +150,7 @@ TeacherTaskPlanListing = React.createClass
 
     <div {...courseDataProps} className="tutor-booksplash-background">
 
-      <BS.Panel
-          className='list-courses'
-          bsStyle='primary'>
+      <div className='list-task-plans'>
 
         <LoadableItem
           store={TeacherTaskPlanStore}
@@ -164,7 +162,7 @@ TeacherTaskPlanListing = React.createClass
           renderItem={-> <CourseCalendar {...loadedCalendarProps}/>}
           renderLoading={-> <CourseCalendar {...loadingCalendarProps}/>}
         />
-      </BS.Panel>
+      </div>
     </div>
 
 module.exports = TeacherTaskPlanListing

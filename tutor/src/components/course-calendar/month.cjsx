@@ -212,8 +212,7 @@ CourseMonth = React.createClass
         <CoursePlan courseId={courseId}/>
       </CourseDuration>
 
-    <BS.Grid className={calendarClassName} fluid>
-
+    <div className={calendarClassName}>
 
       <CourseAdd ref='addOnDay' hasPeriods={hasPeriods} courseId={@props.courseId} />
 
@@ -259,7 +258,7 @@ CourseMonth = React.createClass
         findPopOverTarget={@getEditingPlanEl}
       /> if @state.editingPlanId}
 
-    </BS.Grid>
+    </div>
 
 
 
