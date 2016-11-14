@@ -19,24 +19,6 @@ CourseData = require '../course-data-mixin'
 
 getReactBaseName = (context) -> _.kebabCase(context.constructor.displayName)
 
-CourseLink = ({courseId, name, is_concept_coach}) ->
-  props = CourseData.getCourseDataProps(courseId)
-  <BS.Row data-course-id={courseId}>
-    <BS.Col {...props} className='tutor-booksplash-course-item' xs={12}>
-      <Link
-          className='tutor-course-item'
-          to={Router.makePathname('dashboard', {courseId: courseId})}
-      >
-        {name}
-      </Link>
-      <div className='course-type-flag'>
-        {if is_concept_coach then'Concept Coach' else 'Tutor'}
-      </div>
-    </BS.Col>
-  </BS.Row>
-
-CourseLink.displayName = "CourseLink"
-
 wrapCourseItem = (Item, course = {}) ->
   {id} = course
   courseName = id or 'new'
@@ -119,7 +101,7 @@ CourseListingCurrent = React.createClass
         <CourseListingBase
           className="#{baseName}-section"
           courses={courses}
-          after={<@AddCourses /> if CourseListingStore.isAnyTeacher()}
+          after={<@AddCourses /> if CurrentUserStore.isTeacher()}
         />
       </BS.Grid>
     </div>

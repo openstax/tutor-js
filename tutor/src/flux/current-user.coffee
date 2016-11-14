@@ -19,6 +19,8 @@ RANKS = [
   'admin'
 ]
 
+TEACHER_FACULTY_STATUS = 'confirmed_faculty'
+
 getRankByRole = (roleType) ->
   rank = RANKS.indexOf(roleType)
   console.warn("Warning: #{roleType} does not exist.  Rank of -1 assigned.  Check session status.") if rank < 0
@@ -64,7 +66,7 @@ ROUTES =
       if course
         CourseStore.isTeacher(course.id)
       else
-        CourseListingStore.isAnyTeacher()
+        CurrentUserStore.isTeacher()
     params: (courseId, role) ->
       if courseId and role is 'teacher'
         offeringId: CourseStore.get(courseId)?.offering_id
@@ -151,6 +153,7 @@ CurrentUserStore = flux.createStore
     getCSRFToken: -> CSRF_Token
     getName: -> @_user.name
     isAdmin: -> @_user.is_admin
+    isTeacher: -> @_user.faculty_status is TEACHER_FACULTY_STATUS
     get: -> @_user
     isContentAnalyst: -> @_user.is_content_analyst
     isCustomerService: -> @_user.is_customer_service

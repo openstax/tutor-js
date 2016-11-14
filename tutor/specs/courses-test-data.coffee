@@ -4,6 +4,7 @@ STUDENT_COURSE_ONE_MODEL = {
   book_id: '123'
   appearance_code: 'testing'
   offering_id: 1
+  is_active: true
   roles: [
     {
       "type": "student"
@@ -17,6 +18,7 @@ TEACHER_COURSE_TWO_MODEL = {
   book_id: '123'
   appearance_code: 'testing'
   offering_id: 1
+  is_active: true
   roles: [
     {
       "type": "teacher"
@@ -30,6 +32,7 @@ TEACHER_AND_STUDENT_COURSE_THREE_MODEL = {
   name:'Local Test Course Three'
   appearance_code: 'testing'
   offering_id: 1
+  is_active: true
   roles: [
     {
       type: 'student'
@@ -46,6 +49,7 @@ STUDENT_ARCHIVED_COURSE = {
   name:'Local Test Course Three'
   appearance_code: 'testing'
   offering_id: 1
+  is_active: false
   roles: []
 }
 

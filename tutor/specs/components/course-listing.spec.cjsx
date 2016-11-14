@@ -19,9 +19,9 @@ describe 'Course Listing Component', ->
 
   it 'renders the listing', ->
     CourseListingActions.loaded(MASTER_COURSES_LIST)
-    wrapper = shallow(<CourseListing />)
+    wrapper = mount(<CourseListing />)
     for course, i in MASTER_COURSES_LIST
-      expect(wrapper.find("CourseLink[courseId=#{course.id}]")).to.have.length(1)
+      expect(wrapper.find("[data-course-id=#{course.id}]")).to.have.length(1)
     undefined
 
   it 'renders the listing without archived courses', ->
@@ -42,13 +42,13 @@ describe 'Course Listing Component', ->
     wrapper = mount(<CourseListing />)
     for course, i in MASTER_COURSES_LIST
       expect(
-        wrapper.find("[data-course-id=#{course.id}] .course-type-flag").render().text()
-      ).equal('Tutor')
+        wrapper.find("[data-course-id=#{course.id}] .course-listing-item-brand").render().text()
+      ).equal('Openstax Tutor')
     undefined
 
 
   it 'redirects to dashboard for a single course', ->
-    CourseListingActions.loaded([TEACHER_AND_STUDENT_COURSE_THREE_MODEL])
+    CourseListingActions.loaded([STUDENT_COURSE_ONE_MODEL])
     wrapper = shallow(<CourseListing />)
-    expect(wrapper.find('Redirect[to="/course/3"]')).to.have.length(1)
+    expect(wrapper.find('Redirect[to="/course/1"]')).to.have.length(1)
     undefined

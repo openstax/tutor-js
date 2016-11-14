@@ -1,6 +1,7 @@
 React = require 'react'
 classnames = require 'classnames'
 BS = require 'react-bootstrap'
+_ = require 'lodash'
 
 {Redirect, Link} = require 'react-router'
 
@@ -35,7 +36,7 @@ Course = React.createClass
 
     courseRegex = new RegExp(courseSubject, 'i')
     courseNameMatches = courseRegex.exec(course.name)
-    if courseNameMatches
+    if courseSubject and courseNameMatches
       {index} = courseNameMatches
 
       before = course.name.substring(0, index)
@@ -73,8 +74,13 @@ Course = React.createClass
 
     itemClasses = classnames('course-listing-item', className)
 
-    <div className='course-listing-item-wrapper' data-is-teacher={courseIsTeacher}>
-      <div {...courseDataProps} className={itemClasses}>
+    <div className='course-listing-item-wrapper'>
+      <div
+        {...courseDataProps}
+        data-is-teacher={courseIsTeacher}
+        data-course-id={course.id}
+        className={itemClasses}
+      >
         <div
           className='course-listing-item-title'>
           <@CourseName coursePath={coursePath}/>
@@ -84,7 +90,7 @@ Course = React.createClass
           data-has-controls={controls?}
         >
           <Link to={coursePath}>
-            <CourseBranding isConceptCoach={course.is_concept_coach} />
+            <CourseBranding isConceptCoach={course.is_concept_coach or false} />
             <p className='course-listing-item-term'>{course.term} {course.year}</p>
           </Link>
           {<@Controls /> if controls?}
