@@ -172,9 +172,7 @@ CourseListing = React.createClass
 
   render: ->
     [currentCourses, pastCourses] = CourseListingStore.coursesWithRolesByActive()
-    isATeacher = _.some(_.concat(currentCourses, pastCourses), (course) ->
-      _.includes(_.map(course.roles, 'type'), 'teacher')
-    )
+    isATeacher = CourseListingStore.isAnyTeacher()
 
     if @shouldShowEmpty(currentCourses, pastCourses)
       <EmptyCourses />

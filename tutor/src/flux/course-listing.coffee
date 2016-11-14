@@ -85,4 +85,10 @@ CourseListingStore = flux.createStore
       courses = @exports.allCoursesWithRoles.call(@)
       _.partition(courses, _.property('is_active'))
 
+    isAnyTeacher: ->
+      courses = @exports.allCoursesWithRoles.call(@)
+      _.some(courses, (course) ->
+        _.includes(_.map(course.roles, 'type'), 'teacher')
+      )
+
 module.exports = {CourseListingActions, CourseListingStore}

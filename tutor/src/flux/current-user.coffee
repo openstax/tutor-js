@@ -1,5 +1,5 @@
 # coffeelint: disable=no_empty_functions
-_ = require 'underscore'
+_ = require 'lodash'
 flux = require 'flux-react'
 {CourseListingStore} = require './course-listing'
 {CourseActions, CourseStore} = require './course'
@@ -60,7 +60,11 @@ ROUTES =
       student: 'changeStudentId'
   cloneCourse:
     label: 'Add New Course'
-    allowedForCourse: (course) -> true # FIXME: This needs to check if current is a verified instructor
+    allowedForCourse: (course) ->
+      if course
+        _.includes(course.roles, 'teacher')
+      else
+        CourseListingStore.isAnyTeacher()
     params: (courseId, role) ->
       if courseId and role is 'teacher'
         offeringId: CourseStore.get(courseId)?.offering_id
@@ -107,7 +111,7 @@ CurrentUserStore = flux.createStore
     courseRoles = course?.roles or [{type: 'guest'}]
 
     role = _.chain(courseRoles)
-      .pluck('type')
+      .map('type')
       .sortBy((roleType) ->
         # sort by rank -- Teacher role will take precedence over student role for example
         -1 * getRankByRole(roleType)
@@ -182,7 +186,7 @@ CurrentUserStore = flux.createStore
       else
         courses = CourseListingStore.allCourses()
         # link to TUTOR_HELP if they do not have any CC courses
-        if _.all(courses, (course) -> not course.is_concept_coach)
+        if _.every(courses, (course) -> not course.is_concept_coach)
           TUTOR_HELP
         else
           CONCEPT_COACH_HELP
@@ -192,8 +196,8 @@ CurrentUserStore = flux.createStore
     getCourseMenuRoutes: (courseId, silent = false) ->
       course = CourseStore.get(courseId)
       menuRole = @_getCourseRole(courseId, silent)
-      validRoutes = _.pick ROUTES, (route) ->
-        false isnt route.allowedForCourse?(course)
+      validRoutes = _.pickBy ROUTES, (route) ->
+        route.allowedForCourse?(course) isnt false
       routes = _.keys(validRoutes)
 
       _.chain(routes)
