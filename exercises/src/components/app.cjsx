@@ -9,6 +9,7 @@ UserActionsMenu = require 'components/user-actions-menu'
 {SuretyGuard} = require 'shared'
 NetworkActivity = require './network-activity-spinner'
 {VocabularyStore, VocabularyActions} = require 'stores/vocabulary'
+RecordNotFoundWarning = require './record-not-found'
 
 App = React.createClass
 
@@ -16,8 +17,8 @@ App = React.createClass
     location: React.PropTypes.object
     data:  React.PropTypes.object.isRequired
 
-  getDefaultProps: ->
-    location: new Location
+  getInitialState: -> {}
+  getDefaultProps: -> location: new Location
 
   componentWillMount: ->
     @props.location.startListening(@onHistoryChange, @props.data.user)
@@ -27,16 +28,22 @@ App = React.createClass
     else
       @loadRecord(view, id)
 
+  rebindStore: (store) ->
+    @state.store?.off('change', @update)
+    store.on('change', @update)
+    @setState({store})
+
   loadRecord: (type, id) ->
     return unless type and id
     {actions, store} = @props.location.partsForView(type)
+    if @state.store? isnt store
+      @rebindStore(store)
 
     unless store.isLoading(id) or store.get(id)
-      store.once 'loaded', =>
-        @props.location.onRecordLoad(type, id, store)
       actions.load(id)
 
-  update: -> @forceUpdate()
+  update: ->
+    @forceUpdate()
 
   componentWillUnmount: ->
     @props.location.stopListening()
@@ -44,6 +51,7 @@ App = React.createClass
   onHistoryChange: (location) ->
     @setState(location: location)
     {view, id} = @props.location.getCurrentUrlParts()
+
     if id is 'new'
       @setState(newId: @createNewRecord(view))
     else
@@ -75,8 +83,6 @@ App = React.createClass
       id = @state.newId or @createNewRecord(view)
 
     {Body, Controls, store, actions} = @props.location.partsForView(view)
-
-    Body = NetworkActivity if store?.isLoading(id)
 
     guardProps =
       onlyPromptIf: (ev) ->
@@ -129,9 +135,11 @@ App = React.createClass
 
           <UserActionsMenu user={@props.data.user} />
 
-
         </div>
       </nav>
+
+      <RecordNotFoundWarning  />
+      <NetworkActivity {...componentProps} isLoading={!!store?.isLoading(id)} />
 
       <Body {...componentProps} />
     </div>

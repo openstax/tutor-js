@@ -1,16 +1,26 @@
 React = require 'react'
+BS = require 'react-bootstrap'
+
+{ExerciseActions, ExerciseStore} = require '../stores/exercise'
 
 RecordNotFound = React.createClass
+  componentWillMount: ->
+    ExerciseStore.addChangeListener(@update)
+  componentWillUnmount: ->
+    ExerciseStore.removeChangeListener(@update)
 
-  propTypes:
-    id: React.PropTypes.string.isRequired
-    recordType: React.PropTypes.string.isRequired
-
-
-
+  update: -> @forceUpdate()
+  clearError: -> ExerciseActions.clearLastError()
   render: ->
-    <div className="record-not-found">
-      <h3>{@props.recordType} ID: {@props.id} was not found</h3>
-    </div>
+    error = ExerciseStore.getLastError()
+    return null unless error
+
+    <BS.Alert
+      bsStyle="danger" onDismiss={@clearError}
+      className="record-not-found"
+    >
+      <h3>{error.id} was not found</h3>
+      <p>{error.message}</p>
+    </BS.Alert>
 
 module.exports = RecordNotFound

@@ -124,7 +124,6 @@ ExerciseConfig = {
     @loaded(template, id)
 
   exports:
-
     getQuestions: (id) -> @_get(id).questions
 
     isMultiPart: (id) -> @_get(id)?.questions.length > 1

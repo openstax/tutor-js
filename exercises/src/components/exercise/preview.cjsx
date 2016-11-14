@@ -12,16 +12,6 @@ ExercisePreviewWrapper = React.createClass
   propTypes:
     exerciseId: React.PropTypes.string.isRequired
 
-  componentWillMount: ->
-    ExerciseStore.addChangeListener(@update)
-    unless ExerciseStore.isLoading(@props.exerciseId) or ExerciseStore.get(@props.exerciseId)
-      ExerciseActions.load(@props.exerciseId)
-
-  componentWillUnmount: ->
-    ExerciseStore.removeChangeListener(@update)
-
-  update: -> @forceUpdate()
-
   previewData: (ex) ->
     content: ex
     tags: _.map ex.tags, (tag) -> name: tag
