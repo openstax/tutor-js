@@ -94,10 +94,10 @@ CourseListingStore = flux.createStore
       future = []
 
       _.forEach(courses, (course) ->
-        if moment(course.ends_at).isBefore(currentTime)
+        if course.ends_at? and moment(course.ends_at).isBefore(currentTime)
           past.push(course)
         # if in the future, sort into current for now
-        else if moment(course.starts_at).isAfter(currentTime)
+        else if course.starts_at? and moment(course.starts_at).isAfter(currentTime)
           current.push(course)
         else if not course.is_active
           past.push(course)

@@ -5,7 +5,7 @@ cloneDeep  = require 'lodash/cloneDeep'
 {CourseListingActions} = require './course-listing'
 
 DEFAULTS =
-  copy_question_library: 'true'
+  copy_question_library: true
 
 StoreDefinition = makeStandardStore('NewCourse', {
   _local: cloneDeep(DEFAULTS)
@@ -61,7 +61,8 @@ StoreDefinition = makeStandardStore('NewCourse', {
     requestPayload: ->
       payload = cloneDeep(@_local)
       extend(payload, payload.term)
-      payload.is_college = 'true'
+      # TODO check on why this is always true...
+      payload.is_college = true
       if payload.cloned_from_id
         delete payload.offering_id
       payload

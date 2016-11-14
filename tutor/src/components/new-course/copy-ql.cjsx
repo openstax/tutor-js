@@ -6,19 +6,19 @@ classnames = require 'classnames'
 
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 
-MESSAGES =
-  true: '''
+MESSAGES = [
+  '''
+    If you don't copy the question library, questions excluded in the course you are
+    copying won't be excluded in the new course.  The new library will, however,
+    reflect errata corrections and new questions added by OpenStax.
+  ''',
+  '''
     Copying allows you to import the state of the Question Library from your past course.
     Excluded questions will remain excluded in the new course, but you can still make
     changes later. The new library will also include errata corrections and new questions
     added by OpenStax.
   '''
-
-  false: '''
-    If you don't copy the question library, questions excluded in the course you are
-    copying won't be excluded in the new course.  The new library will, however,
-    reflect errata corrections and new questions added by OpenStax.
-  '''
+]
 
 KEY = 'copy_question_library'
 
@@ -36,14 +36,14 @@ CopyQL = React.createClass
       <BS.Table striped bordered>
         <tbody>
           <tr
-            onClick={partial(@onSelect, 'true')}
-            className={classnames('true', selected: NewCourseStore.get(KEY) is 'true')}
+            onClick={partial(@onSelect, true)}
+            className={classnames('true', selected: NewCourseStore.get(KEY) is true)}
           >
             <td>Copy Question Library</td>
           </tr>
           <tr
-            onClick={partial(@onSelect, 'false')}
-            className={classnames('false', selected: NewCourseStore.get(KEY) is 'false')}
+            onClick={partial(@onSelect, false)}
+            className={classnames('false', selected: NewCourseStore.get(KEY) is false)}
           >
             <td>Don’t copy Question Library</td>
           </tr>
@@ -51,11 +51,11 @@ CopyQL = React.createClass
       </BS.Table>
       <div
         className={classnames('explain', 'alert', {
-          'alert-info': NewCourseStore.get(KEY) is 'true'
-          'alert-danger': NewCourseStore.get(KEY) is 'false'
+          'alert-info': NewCourseStore.get(KEY) is true
+          'alert-danger': NewCourseStore.get(KEY) is false
         })}
       >
-        {MESSAGES[NewCourseStore.get(KEY) or 'true']}
+        {MESSAGES[NewCourseStore.get(KEY) or true]}
       </div>
     </div>
 

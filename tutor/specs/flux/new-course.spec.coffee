@@ -18,14 +18,14 @@ describe 'NewCourse Store', ->
     })
 
     expect(NewCourseStore.requestPayload()).to.deep.equal({
-      copy_ql: 'copy',
+      copy_question_library: true,
       course_type: 'tutor',
       cloned_from_id: '11'
       term: 'fall',
       year: 2018,
       name: 'Test Course',
       num_sections: 3,
-      is_college: 'true'
+      is_college: true
     })
 
     undefined
