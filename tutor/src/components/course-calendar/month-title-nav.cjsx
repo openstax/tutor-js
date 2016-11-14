@@ -42,9 +42,9 @@ CourseCalendarTitleNav = React.createClass
     @handleNavigate('subtract', clickEvent)
 
   render: ->
-    <BS.Row className='calendar-header-navigation'>
+    <div className='calendar-header-navigation'>
 
-      <BS.Col xs={6} xsOffset={3} className='calendar-header-label'>
+      <div className='calendar-header-label'>
         <a href='#' className='calendar-header-control previous' onClick={@handlePrevious}>
           <i className='fa fa-caret-left'></i>
         </a>
@@ -52,7 +52,8 @@ CourseCalendarTitleNav = React.createClass
         <a href='#' className='calendar-header-control next' onClick={@handleNext}>
           <i className='fa fa-caret-right'></i>
         </a>
-      </BS.Col>
-    </BS.Row>
+      </div>
+
+    </div>
 
 module.exports = CourseCalendarTitleNav
