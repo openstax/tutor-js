@@ -3,48 +3,47 @@
 // It's intended to be customized for different looks depending on the type of content
 // the user is styling, i.e. Physics, Biology, etc
 .tutor-booksplash-background {
+  color: @openstax-book-default-fg;
+  background-color: @openstax-book-default-bg;
 
-  &[data-appearance]:before {
-    color: @openstax-book-default-fg;
-    background-color: @openstax-book-default-bg;
-    content: attr(data-book-title);
-    position: fixed;
-    top: 60px;
-    left: 0px;
-    right: 0px;
+  letter-spacing: -6px;
+  #fonts > .book-cover();
+  z-index: -1;
 
-    height: 9rem;
-    line-height: 9rem;
-    font-size: 12rem;
-    @media (min-width: @screen-sm-min) {
-      height: 11rem;
-      line-height: 11rem;
-      font-size: 14rem;
-    }
-    @media (min-width: @screen-md-min) {
-      height: 14rem;
-      line-height: 13rem;
-      font-size: 18rem;
-    }
-    @media (min-width: @screen-lg-min) {
-      height: 16rem;
-      line-height: 15rem;
-      font-size: 21rem;
-    }
+  position: fixed;
+  top: 60px;
+  left: 0px;
+  right: 0px;
 
-    overflow: hidden;
-    color: @tutor-secondary;
-    text-align: center;
-    letter-spacing: -6px;
-    #fonts > .book-cover();
-    z-index: -1;
+  height: 8rem;
+  line-height: 9rem;
+  font-size: 8rem;
+  @media (min-width: @screen-sm-min) {
+    height: 11rem;
+    line-height: 11rem;
+    font-size: 10rem;
+  }
+  @media (min-width: @screen-md-min) {
+    height: 14rem;
+    line-height: 13rem;
+    font-size: 11rem;
+  }
+  @media (min-width: @screen-lg-min) {
+    height: 16rem;
+    line-height: 15rem;
+    font-size: 14rem;
+  }
+
+  > .book-title {
+    &:extend(.container);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
   }
 
   .apply-booksplash-background(@code; @fg; @bg) {
-    &[data-appearance=@{code}]:before {
+    &[data-appearance=@{code}] {
         color: @@fg;
         background-color: @@bg;
     }

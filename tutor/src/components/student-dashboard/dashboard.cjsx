@@ -11,9 +11,7 @@ ThisWeekPanel   = require './this-week-panel'
 
 ProgressGuideShell = require './progress-guide'
 BrowseTheBook = require '../buttons/browse-the-book'
-
-CourseDataMixin = require '../course-data-mixin'
-
+CourseTitleBanner = require '../course-title-banner'
 {StudentDashboardStore} = require '../../flux/student-dashboard'
 {CourseStore} = require '../../flux/course'
 Tabs = require '../tabs'
@@ -24,8 +22,6 @@ module.exports = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     params: React.PropTypes.object.isRequired
-
-  mixins: [CourseDataMixin]
 
   getInitialState: ->
     tabIndex: 0
@@ -51,10 +47,11 @@ module.exports = React.createClass
 
   render: ->
     courseId = @props.courseId
-    courseDataProps = @getCourseDataProps(courseId)
+
 
     info = StudentDashboardStore.get(courseId)
-    <div {...courseDataProps} className="tutor-booksplash-background">
+    <div className="dashboard">
+      <CourseTitleBanner courseId={courseId} />
 
       <div className='container'>
 

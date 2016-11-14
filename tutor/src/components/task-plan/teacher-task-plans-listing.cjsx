@@ -10,9 +10,8 @@ LoadableItem = require '../loadable-item'
 {TimeStore} = require '../../flux/time'
 TimeHelper = require '../../helpers/time'
 PH = require '../../helpers/period'
-
+CourseTitleBanner = require '../course-title-banner'
 CourseCalendar = require '../course-calendar'
-CourseDataMixin = require '../course-data-mixin'
 
 getDisplayBounds =
   month: (date) ->
@@ -96,8 +95,6 @@ TeacherTaskPlanListing = React.createClass
 
     getDisplayBounds[displayAs](date)
 
-  mixins: [CourseDataMixin]
-
   componentWillMount: ->
     courseId = @props.params.courseId
     courseTimezone = CourseStore.getTimezone(courseId)
@@ -126,7 +123,7 @@ TeacherTaskPlanListing = React.createClass
     {params} = @props
 
     {courseId} = params
-    courseDataProps = @getCourseDataProps(courseId)
+
     {displayAs} = @state
     {date, startAt, endAt} = @getDateStates()
 
@@ -148,21 +145,21 @@ TeacherTaskPlanListing = React.createClass
     else
       loadedCalendarProps
 
-    <div {...courseDataProps} className="tutor-booksplash-background">
+    <div className="list-task-plans">
 
-      <div className='list-task-plans'>
+      <CourseTitleBanner courseId={courseId} />
 
-        <LoadableItem
-          store={TeacherTaskPlanStore}
-          actions={TeacherTaskPlanActions}
-          load={@loadRange}
-          options={{startAt, endAt}}
-          id={courseId}
-          isLoadingOrLoad={@isLoadingOrLoad}
-          renderItem={-> <CourseCalendar {...loadedCalendarProps}/>}
-          renderLoading={-> <CourseCalendar {...loadingCalendarProps}/>}
-        />
-      </div>
+      <LoadableItem
+        store={TeacherTaskPlanStore}
+        actions={TeacherTaskPlanActions}
+        load={@loadRange}
+        options={{startAt, endAt}}
+        id={courseId}
+        isLoadingOrLoad={@isLoadingOrLoad}
+        renderItem={-> <CourseCalendar {...loadedCalendarProps}/>}
+        renderLoading={-> <CourseCalendar {...loadingCalendarProps}/>}
+      />
+
     </div>
 
 module.exports = TeacherTaskPlanListing

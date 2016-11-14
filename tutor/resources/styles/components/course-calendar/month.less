@@ -26,28 +26,13 @@
 }
 
 
-.list-task-plans {
-  // background-color: transparent;
-  .tutor-booksplash-adjust-top-margin(120px);
-
-  .month-wrapper {
-    &.is-dragging {
-      .rc-Day--upcoming,
-      .rc-Day--current {
-        &.hovered {
-          outline: 4px solid fade(@tutor-tertiary-light, 10%);
-        }
-      }
-    }
-  }
+.calendar-container{
+  .bootstrap-column-padding-override();
+  padding-bottom: @tutor-card-body-padding-vertical;
 
   .calendar-body {
-    [class^="col-"] {
-      overflow-x: hidden;
-      overflow-y: visible;
-      padding-bottom: 20px;
-      .tutor-subtle-load(will-load; 'Loading ' attr(data-duration-name) '...');
-    }
+    .tutor-subtle-load(will-load; 'Loading ' attr(data-duration-name) '...');
+    background-color: @tutor-white;
   }
 
 

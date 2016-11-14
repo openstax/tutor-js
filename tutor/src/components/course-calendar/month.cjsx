@@ -201,7 +201,7 @@ CourseMonth = React.createClass
     {plansList, courseId, className, date, hasPeriods} = @props
     {calendarDuration, calendarWeeks} = @getDurationInfo(date)
 
-    calendarClassName = classnames('calendar-container', className,
+    calendarClassName = classnames('calendar-container', 'container', className,
       'with-sidebar-open': @state.showingSideBar
     )
 
