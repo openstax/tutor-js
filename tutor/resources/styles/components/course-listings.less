@@ -6,6 +6,8 @@
 
 @course-listing-item-offset: 140px;
 
+@course-transition: 200ms ease-in-out;
+
 @after-shadow-rule: {
   .tutor-shadow(1, inset);
 };
@@ -22,7 +24,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    .transition(~'150ms ease-in-out opacity');
+    .transition(~'@{course-transition} opacity');
     z-index: -1;
   }
 }
@@ -51,7 +53,7 @@
     color: @tutor-neutral;
     .flex-display();
     .align-items(center);
-    .transition(~'150ms ease-in-out color');
+    .transition(~'@{course-transition} color');
 
     .after-shadow();
 
@@ -96,6 +98,17 @@
     margin-top: 3rem;
   }
 
+  .course-listing-past {
+    .course-listing-item-wrapper[data-is-teacher=false] {
+      opacity: 0.7;
+      .transition(~'@{course-transition} opacity');
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
   .course-listing-item-wrapper {
     .after-shadow(@shadow-rule: {
       .tutor-shadow(2);
@@ -106,7 +119,7 @@
     }
 
     .course-listing-item-details {
-      .transition(~'150ms ease-in-out transform');
+      .transition(~'@{course-transition} transform');
       &[data-has-controls=true] {
         .translate(0, 0);
       }

@@ -44,11 +44,13 @@ wrapCourseItem = (Item, course = {}) ->
   if id
     courseDataProps = CourseData.getCourseDataProps(id)
     courseSubject = CourseStore.getSubject(id)
+    courseIsTeacher = CourseStore.isTeacher(id)
 
   <BS.Col key="course-listing-item-wrapper-#{courseName}" md={3} sm={4} xs={12}>
     <Item
       course={course}
       courseSubject={courseSubject}
+      courseIsTeacher={courseIsTeacher}
       courseDataProps={courseDataProps}/>
   </BS.Col>
 
@@ -107,7 +109,7 @@ CourseListingCurrent = React.createClass
     wrapCourseItem(AddCourseArea)
 
   render: ->
-    {courses, isATeacher} = @props
+    {courses} = @props
     baseName = getReactBaseName(@)
 
     <div className={baseName}>
@@ -117,7 +119,7 @@ CourseListingCurrent = React.createClass
         <CourseListingBase
           className="#{baseName}-section"
           courses={courses}
-          after={<@AddCourses /> if isATeacher}
+          after={<@AddCourses /> if CourseListingStore.isAnyTeacher()}
         />
       </BS.Grid>
     </div>
@@ -172,7 +174,6 @@ CourseListing = React.createClass
 
   render: ->
     [currentCourses, pastCourses] = CourseListingStore.coursesWithRolesByActive()
-    isATeacher = CourseListingStore.isAnyTeacher()
 
     if @shouldShowEmpty(currentCourses, pastCourses)
       <EmptyCourses />
@@ -180,8 +181,8 @@ CourseListing = React.createClass
       <Redirect to={Router.makePathname('dashboard', {courseId: currentCourses[0].id})} />
     else
       <div className='course-listing'>
-        <CourseListingCurrent courses={currentCourses} isATeacher={isATeacher}/>
-        <CourseListingPast courses={pastCourses} />
+        <CourseListingCurrent courses={currentCourses}/>
+        <CourseListingPast courses={pastCourses}/>
       </div>
 
 

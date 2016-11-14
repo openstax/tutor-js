@@ -68,12 +68,12 @@ Course = React.createClass
     </Link>
 
   render: ->
-    {course, courseDataProps, controls, className} = @props
+    {course, courseDataProps, controls, courseIsTeacher, className} = @props
     coursePath = Router.makePathname('dashboard', {courseId: course.id})
 
     itemClasses = classnames('course-listing-item', className)
 
-    <div className='course-listing-item-wrapper'>
+    <div className='course-listing-item-wrapper' data-is-teacher={courseIsTeacher}>
       <div {...courseDataProps} className={itemClasses}>
         <div
           className='course-listing-item-title'>
