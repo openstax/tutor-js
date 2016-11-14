@@ -13,7 +13,7 @@ classnames = require 'classnames'
 
 PastCourses = React.createClass
   getInitialState: ->
-    activeTab: 1
+    activeTab: if NewCourseStore.get('offering_id') then 2 else 1
 
   handleTabSelect: (activeTab) ->
     if activeTab is 1
@@ -75,7 +75,7 @@ CourseDetails = React.createClass
         name = newCourse.name
         num_sections = newCourse.periods.length
     else
-      num_sections = NewCourseActions.get('num_sections')
+      num_sections = NewCourseStore.get('num_sections')
       name = ''
 
     NewCourseActions.set({name, cloned_from_id, num_sections})

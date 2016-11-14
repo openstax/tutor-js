@@ -67,9 +67,9 @@ ROUTES =
         CourseStore.isTeacher(course.id)
       else
         CurrentUserStore.isTeacher()
-    params: (courseId, role) ->
-      if courseId and role is 'teacher'
-        offeringId: CourseStore.get(courseId)?.offering_id
+    options: (courseId) ->
+      query:
+        courseId: courseId
     roles:
       default: 'createNewCourse' # use default role since we ensured it was a teacher in allowedForCourse
 
@@ -107,6 +107,12 @@ CurrentUserStore = flux.createStore
       ROUTES[routeType].params(courseId, menuRole)
     else
       {courseId}
+
+  _getOptionsForRoute: (courseId, routeType, menuRole) ->
+    if _.isFunction(ROUTES[routeType].options)
+      ROUTES[routeType].options(courseId, menuRole)
+    else
+      ROUTES[routeType].options
 
   _getCourseRole: (courseId, silent = true) ->
     course = CourseStore.get(courseId)
@@ -210,6 +216,7 @@ CurrentUserStore = flux.createStore
           if routeName?
             name: routeName
             params: @_getParamsForRoute(courseId, routeType, menuRole)
+            options: @_getOptionsForRoute(courseId, routeType, menuRole)
             label: ROUTES[routeType].label
         )
         .compact()

@@ -102,11 +102,12 @@ CourseTeacher = React.createClass
   displayName: 'CourseTeacher'
   render: ->
     {course} = @props
-    offeringId = course.offering_id
+    query =
+      courseId: course.id
 
     controls = <BS.Button
       bsSize='sm'
-      href={Router.makePathname('createNewCourse', {offeringId})}
+      href={Router.makePathname('createNewCourse', {}, {query})}
     >Teach Again</BS.Button>
 
     <Course {...@props} controls={controls} />

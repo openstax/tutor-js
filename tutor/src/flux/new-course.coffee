@@ -35,6 +35,16 @@ StoreDefinition = makeStandardStore('NewCourse', {
     extend(@_local, attrs)
     @emitChange()
 
+  setClone: (course) ->
+    newCourse =
+      course_type: if course.is_concept_coach then 'cc' else 'tutor'
+      offering_id: course.offering_id
+      cloned_from_id: course.id
+      name: course.name
+      num_sections: course.periods.length
+
+    @set(newCourse)
+
   exports:
     isValid: (attr) ->
       !! switch attr
