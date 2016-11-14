@@ -94,11 +94,14 @@ Course = React.createClass
 
 CourseTeacher = React.createClass
   displayName: 'CourseTeacher'
-  teachAgain: ->
-    {course} = @props
-    # TODO do this.
   render: ->
-    controls = <BS.Button bsSize='sm' onClick={@teachAgain}>Teach Again</BS.Button>
+    {course} = @props
+    offeringId = course.offering_id
+
+    controls = <BS.Button
+      bsSize='sm'
+      href={Router.makePathname('createNewCourse', {offeringId})}
+    >Teach Again</BS.Button>
 
     <Course {...@props} controls={controls} />
 
