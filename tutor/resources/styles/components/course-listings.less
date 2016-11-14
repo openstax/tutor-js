@@ -70,16 +70,25 @@
       }
     }
 
-    span {
+    div {
       text-transform: uppercase;
       text-align: center;
       margin: auto;
 
-      &::before {
-        .fa-icon();
-        content: @fa-var-plus-square-o;
+      svg {
         display: block;
-        font-size: 2em;
+        margin: auto;
+      }
+    }
+
+    #icon-add-class {
+      .transition(~'@{course-transition} fill');
+      fill: @tutor-neutral;
+    }
+
+    &:hover {
+      #icon-add-class {
+        fill: @tutor-info;
       }
     }
   }

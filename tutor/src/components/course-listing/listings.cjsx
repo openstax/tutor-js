@@ -10,6 +10,7 @@ Router = require '../../helpers/router'
 {CurrentUserStore} = require '../../flux/current-user'
 
 CourseData = require '../course-data-mixin'
+IconAdd = require  '../icons/add'
 
 {Course, CourseTeacher} = require './course'
 
@@ -62,7 +63,10 @@ AddCourseArea = ->
     to={Router.makePathname('createNewCourse')}
     className='course-listing-add-zone'
   >
-    <span>Add a course</span>
+    <div>
+      <IconAdd/>
+      Add a course
+    </div>
   </Link>
 
 CourseListingCurrent = React.createClass
