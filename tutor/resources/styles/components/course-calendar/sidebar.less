@@ -1,0 +1,56 @@
+.add-assignment-sidebar {
+
+  border-right: 1px solid @tutor-neutral-light;
+  position: absolute;
+  width: @calendar-sidebar-width;
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+
+    li {
+      margin: 5px;
+      .tutor-plan-set(sidebar);
+
+      // border-top-left-radius: 5px;
+      // border-bottom-left-radius: 5px;
+      &:before {
+        display: inline-block;
+        .fa-icon();
+        content: @fa-var-th;
+      }
+
+      a {
+        padding: 3px 12px;
+        // border-top-right-radius: 5px;
+        // border-bottom-right-radius: 5px;
+      }
+    }
+  }
+
+  .past-assignments {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid @tutor-neutral-bright;
+
+    .no-plans {
+      padding: 0 6px;
+    }
+
+    .task-plan{
+      .tutor-plan-set(add);
+      cursor: move;
+      margin: 5px;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+
+      div {
+        padding: 3px 12px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+
+    }
+  }
+
+}

@@ -27,7 +27,6 @@ CourseCalendarHeader = React.createClass
           noPanel={true}
         /> unless hasPeriods}
 
-
         <SidebarToggle onToggle={@props.onSidebarToggle} />
 
         <div className='calendar-header-actions-buttons'>

@@ -1,8 +1,12 @@
 // Component Styling
+
+@calendar-sidebar-width: 250px;
+
 @import './add';
 @import './month';
 @import './header';
 @import './plan';
+@import './sidebar';
 @import './plan-details';
 
 .calendar-container {
@@ -16,17 +20,16 @@
   }
 
   &.with-sidebar-open .month-body {
-    margin-left: 200px;
+    margin-left: @calendar-sidebar-width;
   }
 
   .add-assignment-sidebar {
     transition: left 0.5s;
-    width: 200px;
-    left: -200px;
-    position: absolute;
+    left: -@calendar-sidebar-width;
   }
 
   &.with-sidebar-open .add-assignment-sidebar {
+
     left: 0px;
   }
 

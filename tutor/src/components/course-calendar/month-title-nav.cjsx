@@ -43,6 +43,7 @@ CourseCalendarTitleNav = React.createClass
 
   render: ->
     <BS.Row className='calendar-header-navigation'>
+
       <BS.Col xs={6} xsOffset={3} className='calendar-header-label'>
         <a href='#' className='calendar-header-control previous' onClick={@handlePrevious}>
           <i className='fa fa-caret-left'></i>
