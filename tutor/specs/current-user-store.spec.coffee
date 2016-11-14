@@ -58,7 +58,9 @@ TEACHER_MENU = [
   }
   {
     name: 'createNewCourse'
-    params: { offeringId: 1 }
+    options:
+      query:
+        courseId: '2'
     label: 'Add New Course'
   }
 ]

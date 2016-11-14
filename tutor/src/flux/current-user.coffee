@@ -67,6 +67,7 @@ ROUTES =
         CourseStore.isTeacher(course.id)
       else
         CurrentUserStore.isTeacher()
+    params: null
     options: (courseId) ->
       if courseId
         query:
@@ -106,6 +107,8 @@ CurrentUserStore = flux.createStore
   _getParamsForRoute: (courseId, routeType, menuRole) ->
     if _.isFunction(ROUTES[routeType].params)
       ROUTES[routeType].params(courseId, menuRole)
+    else unless _.isUndefined(ROUTES[routeType].params)
+      ROUTES[routeType].params
     else
       {courseId}
 
@@ -215,10 +218,17 @@ CurrentUserStore = flux.createStore
           routeName = @_getRouteByRole(routeType, menuRole)
 
           if routeName?
-            name: routeName
-            params: @_getParamsForRoute(courseId, routeType, menuRole)
-            options: @_getOptionsForRoute(courseId, routeType, menuRole)
-            label: ROUTES[routeType].label
+            options = @_getOptionsForRoute(courseId, routeType, menuRole)
+            params  = @_getParamsForRoute(courseId, routeType, menuRole)
+
+            route =
+              name: routeName
+              label: ROUTES[routeType].label
+
+            route.options = options if options
+            route.params = params if params
+            route
+
         )
         .compact()
         .value()
