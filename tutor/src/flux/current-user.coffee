@@ -68,8 +68,9 @@ ROUTES =
       else
         CurrentUserStore.isTeacher()
     options: (courseId) ->
-      query:
-        courseId: courseId
+      if courseId
+        query:
+          courseId: courseId
     roles:
       default: 'createNewCourse' # use default role since we ensured it was a teacher in allowedForCourse
 

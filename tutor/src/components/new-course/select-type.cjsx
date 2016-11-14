@@ -12,6 +12,8 @@ SelectType = React.createClass
 
   statics:
     title: "Choose what you’d like in your course"
+    shouldSkip: ->
+      NewCourseStore.get('cloned_from_id') and NewCourseStore.get(KEY)
 
   onSelectType: (type) ->
     NewCourseActions.set({"#{KEY}": type})

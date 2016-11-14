@@ -1,8 +1,10 @@
 # coffeelint: disable=no_empty_functions
 _ = require 'lodash'
+moment = require 'moment-timezone'
 flux = require 'flux-react'
 
 {CourseActions, CourseStore} = require './course'
+{TimeStore} = require './time'
 
 LOADING = 'loading'
 LOADED  = 'loaded'
@@ -81,9 +83,29 @@ CourseListingStore = flux.createStore
         course = CourseStore.get(id)
         course if not _.isEmpty(course?.roles)
 
-    coursesWithRolesByActive: ->
+    coursesOrderedByStatus: ->
       courses = @exports.allCoursesWithRoles.call(@)
-      _.partition(courses, _.property('is_active'))
+      # console.info(courses, starts_at)
+      courses = _.sortBy(courses, 'starts_at')
+      currentTime = TimeStore.getNow()
+
+      past = []
+      current = []
+      future = []
+
+      _.forEach(courses, (course) ->
+        if moment(course.ends_at).isBefore(currentTime)
+          past.push(course)
+        # if in the future, sort into current for now
+        else if moment(course.starts_at).isAfter(currentTime)
+          current.push(course)
+        else if not course.is_active
+          past.push(course)
+        else
+          current.push(course)
+      )
+
+      [past, current, future]
 
     isAnyTeacher: ->
       courses = @exports.allCoursesWithRoles.call(@)

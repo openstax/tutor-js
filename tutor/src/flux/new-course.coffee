@@ -5,7 +5,7 @@ cloneDeep  = require 'lodash/cloneDeep'
 {CourseListingActions} = require './course-listing'
 
 DEFAULTS =
-  copy_ql: 'copy'
+  copy_question_library: 'true'
 
 StoreDefinition = makeStandardStore('NewCourse', {
   _local: cloneDeep(DEFAULTS)
@@ -13,7 +13,7 @@ StoreDefinition = makeStandardStore('NewCourse', {
   save: ->
     actions = StoreDefinition.NewCourseActions
     if @_local.cloned_from_id
-      actions.clone({courseId: @_local.cloned_from_id})
+      actions.clone({id: @_local.cloned_from_id})
     else
       actions.create()
 

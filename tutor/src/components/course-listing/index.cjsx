@@ -18,28 +18,23 @@ CourseListing = React.createClass
   contextTypes:
     router: React.PropTypes.object
 
-  wrapCourseItem: (Item, course) ->
-    <BS.Col key="course-listing-item-wrapper-#{course.id}" md={3} sm={4}>
-      <Item course={course} />
-    </BS.Col>
+  shouldRedirect: (past, current) ->
+    current.length is 1 and CurrentUserStore.getCourseRole(current[0].id) is 'student'
 
-  shouldRedirect: (currentCourses) ->
-    currentCourses.length is 1 and CurrentUserStore.getCourseRole(currentCourses[0].id) is 'student'
-
-  shouldShowEmpty: (currentCourses, pastCourses) ->
-    _.isEmpty(currentCourses) and _.isEmpty(pastCourses) # and some way to determine if student?!
+  shouldShowEmpty: (past, current) ->
+    _.isEmpty(past) and _.isEmpty(current) # and some way to determine if student?!
 
   render: ->
-    [currentCourses, pastCourses] = CourseListingStore.coursesWithRolesByActive()
+    [past, current] = CourseListingStore.coursesOrderedByStatus()
 
-    if @shouldShowEmpty(currentCourses, pastCourses)
+    if @shouldShowEmpty(past, current)
       <EmptyCourses />
-    else if @shouldRedirect(currentCourses, pastCourses)
-      <Redirect to={Router.makePathname('dashboard', {courseId: currentCourses[0].id})} />
+    else if @shouldRedirect(past, current)
+      <Redirect to={Router.makePathname('dashboard', {courseId: current[0].id})} />
     else
       <div className='course-listing'>
-        <CourseListingCurrent courses={currentCourses}/>
-        <CourseListingPast courses={pastCourses}/>
+        <CourseListingCurrent courses={current}/>
+        <CourseListingPast courses={past}/>
       </div>
 
 

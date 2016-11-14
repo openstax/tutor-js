@@ -11,12 +11,12 @@ BindStore = require '../bind-store-mixin'
 {CourseActions, CourseStore} = require '../../flux/course'
 
 STAGES = {
-  'course_type': require './select-type'
-  'offering_id': require './select-course'
-  'term':        require './select-dates'
-  'details':     require './course-details'
-  'copy_ql':     require './copy-ql'
-  'build':       require './build-course'
+  'course_type':              require './select-type'
+  'offering_id':              require './select-course'
+  'term':                     require './select-dates'
+  'details':                  require './course-details'
+  'copy_question_library':    require './copy-ql'
+  'build':                    require './build-course'
 }
 
 STAGE_KEYS = keys(STAGES)

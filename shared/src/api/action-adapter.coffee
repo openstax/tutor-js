@@ -56,7 +56,11 @@ resolveAndMergeHandlerOptions = (options, makeRequestOptions, args...) ->
   resolvedAndMergedOptions
 
 # convenient aliases
-makeIdRouteData = (id) -> {id} if id?
+makeIdRouteData = (data) ->
+  if _.isObjectLike(data)
+    data
+  else
+    {id: data}
 
 ACTIONS =
   create:

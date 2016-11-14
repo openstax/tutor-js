@@ -24,7 +24,7 @@ wrapCourseItem = (Item, course = {}) ->
     courseSubject = CourseStore.getSubject(id)
     courseIsTeacher = CourseStore.isTeacher(id)
 
-  <BS.Col key="course-listing-item-wrapper-#{courseName}" md={3} sm={4} xs={12}>
+  <BS.Col key="course-listing-item-wrapper-#{courseName}" md={3} sm={6} xs={12}>
     <Item
       course={course}
       courseSubject={courseSubject}
@@ -102,23 +102,20 @@ CourseListingCurrent = React.createClass
       </BS.Grid>
     </div>
 
-CourseListingPast = React.createClass
-  displayName: 'CourseListingPast'
+CourseListingBasic = React.createClass
+  displayName: 'CourseListingBasic'
   NoCourses: ->
     null
 
   Title: ->
-    baseName = getReactBaseName(@)
-
     <BS.Row className='course-listing-title'>
       <BS.Col md={12}>
-        <h2>Past Courses</h2>
+        <h2>{@props.title}</h2>
       </BS.Col>
     </BS.Row>
 
   render: ->
-    {courses} = @props
-    baseName = getReactBaseName(@)
+    {courses, baseName} = @props
 
     if _.isEmpty(courses)
       <@NoCourses />
@@ -133,4 +130,22 @@ CourseListingPast = React.createClass
         </BS.Grid>
       </div>
 
-module.exports = {CourseListingPast, CourseListingCurrent}
+CourseListingPast = React.createClass
+  displayName: 'CourseListingPast'
+  render: ->
+    baseName = getReactBaseName(@)
+    <CourseListingBasic
+      {...@props}
+      baseName={baseName}
+      title='Past Courses'/>
+
+CourseListingFuture = React.createClass
+  displayName: 'CourseListingFuture'
+  render: ->
+    baseName = getReactBaseName(@)
+    <CourseListingBasic
+      {...@props}
+      baseName={baseName}
+      title='Future Courses'/>
+
+module.exports = {CourseListingPast, CourseListingCurrent, CourseListingFuture}

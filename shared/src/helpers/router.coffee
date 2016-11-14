@@ -44,7 +44,8 @@ class OXRouter
 
   makePathname: (name, params, options = {}) =>
     route = @getRoutesMap()[name]?.toPath?(params)
-    if options.query
+
+    unless isEmpty(options.query)
       route + '?' + qs.stringify(options.query)
     else
       route
