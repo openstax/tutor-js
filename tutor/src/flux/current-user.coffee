@@ -90,6 +90,8 @@ CONCEPT_COACH_CONTACT = 'http://openstax.force.com/support/?cu=1&fs=ContactUs&l=
 
 isDefined = _.negate(_.isUndefined)
 
+isDefined = _.negate(_.isUndefined)
+
 CurrentUserStore = flux.createStore
   actions: [
     CurrentUserActions.setToken
