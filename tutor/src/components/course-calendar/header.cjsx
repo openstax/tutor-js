@@ -21,32 +21,32 @@ CourseCalendarHeader = React.createClass
     {courseId, hasPeriods} = @props
 
     <div className='calendar-header'>
-      <BS.Row className='calendar-header-actions'>
-        {<NoPeriods
-          courseId={courseId}
-          noPanel={true}
-        /> unless hasPeriods}
 
-        <SidebarToggle onToggle={@props.onSidebarToggle} />
+      {<NoPeriods
+        courseId={courseId}
+        noPanel={true}
+      /> unless hasPeriods}
 
-        <div className='calendar-header-actions-buttons'>
+      <SidebarToggle onToggle={@props.onSidebarToggle} />
 
-          <BrowseTheBook bsStyle='default' courseId={courseId} />
-          <TutorLink
-            className='btn btn-default'
-            to='viewPerformanceGuide'
-            params={{courseId}}
-          >
-            Performance Forecast
-          </TutorLink>
-          <TutorLink className='btn btn-default'
-            to='viewScores'
-            params={{courseId}}
-          >
-            Student Scores
-          </TutorLink>
-        </div>
-      </BS.Row>
+      <div className='calendar-header-actions-buttons'>
+
+        <BrowseTheBook bsStyle='default' courseId={courseId} />
+        <TutorLink
+          className='btn btn-default'
+          to='viewPerformanceGuide'
+          params={{courseId}}
+        >
+          Performance Forecast
+        </TutorLink>
+        <TutorLink className='btn btn-default'
+          to='viewScores'
+          params={{courseId}}
+        >
+          Student Scores
+        </TutorLink>
+      </div>
+
     </div>
 
 
