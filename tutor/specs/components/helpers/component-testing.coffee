@@ -3,6 +3,7 @@ chai = require('chai')
 expect = chai.expect
 React = require 'react'
 ReactDOM = require 'react-dom'
+TestRouter = require './test-router'
 ReactTestUtils  = require 'react-addons-test-utils'
 { spyOnComponentMethod, stubComponentMethod } = require 'sinon-spy-react'
 
@@ -23,12 +24,7 @@ CURRENT_ROUTER_QUERY = null
 # Mock a router for the context
 beforeEach ->
   sandbox = sinon.sandbox.create()
-  ROUTER  = {
-    transitionTo:     sandbox.spy()
-    replaceWith:      sandbox.spy()
-    blockTransitions: sandbox.spy()
-    createHref: sandbox.spy( -> '/' )
-  }
+  ROUTER  = new TestRouter
 afterEach ->
   sandbox.restore()
 
