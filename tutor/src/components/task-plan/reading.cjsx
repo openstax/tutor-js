@@ -12,6 +12,7 @@ ChapterSection = require './chapter-section'
 PlanMixin = require './plan-mixin'
 LoadableItem = require '../loadable-item'
 TaskPlanBuilder = require './builder'
+Fn = require '../../helpers/function'
 
 ReviewReadingLi = React.createClass
   displayName: 'ReviewReadingLi'
@@ -108,6 +109,7 @@ ChooseReadings = React.createClass
     <div className="reading-plan-select-topics">
       <SelectTopics
         primary={primary}
+        onSectionChange={Fn.empty}
         header={header}
         courseId={@props.courseId}
         ecosystemId={@props.ecosystemId}
