@@ -1,7 +1,7 @@
 {React, Testing, _} = require '../helpers/component-testing'
 
 {TimeActions, TimeStore} = require '../../../src/flux/time'
-
+moment = require 'moment'
 Cell = require '../../../src/components/scores/homework-cell'
 PieProgress = require '../../../src/components/scores/pie-progress'
 
@@ -30,6 +30,7 @@ describe 'Student Scores Homework Cell', ->
 
   it 'renders score cell', ->
     @props.task.completed_exercise_count = @props.task.exercise_count - 1
+    @props.due_at = moment().add(1, 'day')
     wrapper = mount(<Cell {...@props} />)
     expect(wrapper.find('.score a').text()).to.equal('---')
     expect(wrapper.find('.late-caret')).to.have.length(0)
