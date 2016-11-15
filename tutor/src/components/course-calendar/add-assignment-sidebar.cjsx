@@ -34,7 +34,7 @@ AddAssignmentSidebar = React.createClass
     <div className={classnames('add-assignment-sidebar', {
       'is-open': @state.isOpen
     })}>
-      <ul>
+      <ul className="new-assignments">
         {@renderAddActions()}
       </ul>
       <PastAssignments courseId={@props.courseId} />
