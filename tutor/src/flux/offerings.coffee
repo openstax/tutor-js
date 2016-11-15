@@ -2,7 +2,7 @@
 cloneDeep = require 'lodash/cloneDeep'
 filter = require 'lodash/filter'
 
-CourseAppearanceCodes = require './course-appearance-codes'
+CourseInformation = require './course-information'
 
 StoreDefinition = makeStandardStore('Offerings', {
   _local: {}
@@ -20,7 +20,7 @@ StoreDefinition = makeStandardStore('Offerings', {
       filter(@_all, conditions)
 
     getTitle: (id) ->
-      CourseAppearanceCodes[ @_get(id).appearance_code ]
+      CourseInformation[ @_get(id).appearance_code ].title
 
 })
 

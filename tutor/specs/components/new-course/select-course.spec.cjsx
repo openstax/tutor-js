@@ -6,7 +6,7 @@ OFFERINGS = require '../../../api/offerings'
 {OfferingsActions} = require '../../../src/flux/offerings'
 {NewCourseStore} = require '../../../src/flux/new-course'
 
-CourseAppearanceCodes = require '../../../src/flux/course-appearance-codes'
+CourseInformation = require '../../../src/flux/course-information'
 
 describe 'CreateCourse: Selecting course subject', ->
 
@@ -26,6 +26,6 @@ describe 'CreateCourse: Selecting course subject', ->
       title = row.find('td').at(1).text()
       expect(title).not.to.be.empty
       expect(title).to.equal(
-        CourseAppearanceCodes[ OFFERINGS.items[index].appearance_code ]
+        CourseInformation[ OFFERINGS.items[index].appearance_code ].title
       )
     undefined
