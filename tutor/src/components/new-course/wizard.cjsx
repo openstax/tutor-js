@@ -51,8 +51,7 @@ NewCourse = React.createClass
 
   BackButton: ->
     return null if @state.currentStage is 0
-    <BS.Button onClick={@onBack}
-      bsStyle='success' className="back"
+    <BS.Button onClick={@onBack} className="back"
       disabled={@state.currentStage is 0}
     >
       Back
@@ -69,7 +68,7 @@ NewCourse = React.createClass
       <@BackButton />
 
       <BS.Button onClick={@onContinue}
-        bsStyle='success' className="next"
+        bsStyle='primary' className="next"
         disabled={
           not NewCourseStore.isValid( STAGE_KEYS[@state.currentStage] )
         }
@@ -84,19 +83,17 @@ NewCourse = React.createClass
 
   render: ->
     Component = componentFor(@state.currentStage)
-    <div className="new-course">
-      <BS.Panel
-        header={Component.title}
-        className={@state.currentStage}
-        footer={<@Footer /> unless Component.shouldHideControls}
-      >
-          <Component
-            onContinue={@onContinue}
-            onCancel={@onCancel}
-            {...@state}
-          />
-      </BS.Panel>
-    </div>
+    <BS.Panel
+      header={Component.title}
+      className={@state.currentStage}
+      footer={<@Footer /> unless Component.shouldHideControls}
+    >
+        <Component
+          onContinue={@onContinue}
+          onCancel={@onCancel}
+          {...@state}
+        />
+    </BS.Panel>
 
 
 module.exports = NewCourse

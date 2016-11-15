@@ -1,22 +1,39 @@
+.psuedo-background() {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  content: "";
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .new-course {
   max-width: 400px;
   margin: 0 auto;
 
   &::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    .tutor-background-image('ost-hero.jpg');
-    opacity: .4;
-    content: "";
-    z-index: -1;
-    background-repeat: no-repeat;
-    background-size: cover;
+    .psuedo-background();
+    background-image:
+      linear-gradient(to right, @tutor-secondary, @tutor-tertiary),
+      url('../../images/ost-hero.jpg');
+    background-blend-mode: hard-light;
+    filter: blur(12px);
+  }
+
+  &::after {
+    .psuedo-background();
+    background-image:
+      linear-gradient(to right, fade(@tutor-secondary, 57%), fade(@tutor-tertiary, 57%));
+
   }
 
   .panel {
+    padding: 1.5rem;
+    .tutor-shadow(3);
+
     .panel-heading,
     .panel-footer {
       .controls { text-align: right; }
@@ -25,11 +42,20 @@
       border: 0;
     }
     .panel-heading {
-      font-size: 1.8rem;
-      margin-top: 1.8rem;
+      max-width: 75%;
+      margin: auto;
       padding-bottom: 0;
+      text-align: center;
+      font-size: 1.6rem;
+      line-height: 2rem;
+      font-weight: 600;
     }
   }
+  .btn.btn-default.back {
+    background: @tutor-neutral-light;
+    color: @tutor-white;
+  }
+
   tbody tr {
     cursor: pointer;
     &.selected {

@@ -11,7 +11,7 @@ classnames = require 'classnames'
 SelectType = React.createClass
 
   statics:
-    title: "Choose what you’d like in your course"
+    title: "Choose the tool you want to use in your course"
     shouldSkip: ->
       NewCourseStore.get('cloned_from_id') and NewCourseStore.get(KEY)
 
