@@ -88,6 +88,8 @@ TUTOR_CONTACT = 'http://openstax.force.com/support/?cu=1&fs=ContactUs&l=en_US&c=
 CONCEPT_COACH_HELP = 'http://openstax.force.com/support?l=en_US&c=Products%3AConcept_Coach'
 CONCEPT_COACH_CONTACT = 'http://openstax.force.com/support/?cu=1&fs=ContactUs&l=en_US&c=Products%3AConcept_Coach'
 
+isDefined = _.negate(_.isUndefined)
+
 CurrentUserStore = flux.createStore
   actions: [
     CurrentUserActions.setToken
@@ -107,7 +109,7 @@ CurrentUserStore = flux.createStore
   _getParamsForRoute: (courseId, routeType, menuRole) ->
     if _.isFunction(ROUTES[routeType].params)
       ROUTES[routeType].params(courseId, menuRole)
-    else unless _.isUndefined(ROUTES[routeType].params)
+    else if isDefined(ROUTES[routeType].params)
       ROUTES[routeType].params
     else
       {courseId}

@@ -84,9 +84,7 @@ CourseListingStore = flux.createStore
         course if not _.isEmpty(course?.roles)
 
     coursesOrderedByStatus: ->
-      courses = @exports.allCoursesWithRoles.call(@)
-      # console.info(courses, starts_at)
-      courses = _.sortBy(courses, 'starts_at')
+      courses = _.sortBy(@exports.allCoursesWithRoles.call(@), 'starts_at')
       currentTime = TimeStore.getNow()
 
       past = []
