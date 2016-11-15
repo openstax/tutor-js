@@ -1,5 +1,6 @@
 React = require 'react'
 
+partial = require 'lodash/partial'
 {DragSource} = require 'react-dnd'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 
@@ -47,7 +48,7 @@ AddAssignmentLink = (props) ->
       <a
 
         href={props.link.pathname}
-        onClick={_.partial(props.goToBuilder, props.link)} >
+        onClick={partial(props.goToBuilder, props.link)} >
         {props.link.text}
       </a>
     )}
