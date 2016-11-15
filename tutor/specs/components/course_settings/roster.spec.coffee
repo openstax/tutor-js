@@ -1,4 +1,4 @@
-{Testing, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
+{React, Testing, pause, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
 ld = require 'lodash'
 Roster = require '../../../src/components/course-settings/roster'
 
@@ -32,58 +32,51 @@ describe 'Course Settings', ->
     PeriodActions.restore.restore()
 
   it 'renders period panels', ->
-    Testing.renderComponent( Roster, props: @props ).then ({dom}) ->
-      titles = _.pluck(dom.querySelectorAll('.nav-tabs li a'), 'textContent')
-      expect(titles)
-        .to.deep.equal(['1st', '2nd', '3rd', '5th', '6th', '10th'])
-
+    wrapper = mount(<Roster {...@props} />)
+    for period, i in ['1st', '2nd', '3rd', '5th', '6th', '10th']
+      expect(wrapper.find('.periods .nav-tabs li').at(i).text())
+        .to.equal(period)
+    undefined
 
   it 'renders students in the panels', ->
-    Testing.renderComponent( Roster, props: @props ).then ({dom}) ->
-      names = _.pluck(dom.querySelectorAll("table.roster tr td:nth-child(2)"), 'textContent')
-      expect(names).to.deep.equal(
-        ['Angstrom', 'Glass', 'Hackett', 'Jaskolski', 'Lowe', 'Tromp', 'Reilly']
-      )
+    wrapper = mount(<Roster {...@props} />)
+    for name, i in ['Angstrom', 'Glass', 'Hackett', 'Jaskolski', 'Lowe', 'Tromp', 'Reilly']
+      expect(wrapper.find('.roster tbody tr').at(i).find('td').at(1).text())
+        .to.equal(name)
+    undefined
 
-  it 'switches roster when tab is clicked', (done) ->
-    Testing.renderComponent( Roster, props: @props ).then (result) ->
-      Testing.actions.click(result.dom.querySelector('.periods .nav-tabs li:nth-child(2) a'))
-      _.defer ->
-        names = _.pluck(result.dom.querySelectorAll("table.roster tr td:nth-child(2)"), 'textContent')
-        expect(names).to.deep.equal(
-          ['Bloom', 'Kirlin']
-        )
-        done()
-    true
+  it 'switches roster when tab is clicked', ->
+    wrapper = mount(<Roster {...@props} />)
+    tab = wrapper.find('.periods .nav-tabs li').at(1).find('a')
+    tab.simulate('click')
+    expect(wrapper.find('.roster tbody tr').at(0).find('td').at(1).text())
+      .to.equal('Bloom')
+    expect(wrapper.find('.roster tbody tr').at(1).find('td').at(1).text())
+      .to.equal('Kirlin')
+    undefined
 
   ## this is flaky, doesn't always complete in time
-  xit 'can archive periods', (done) ->
-    Testing.renderComponent( Roster, props: @props, unmountAfter: 30 ).then ({dom}) ->
-      Testing.actions.click(dom.querySelector('.control.archive-period'))
-      expect(dom.querySelector('.nav-tabs .active').textContent).to.equal('1st')
-      expect(dom.querySelector('.roster tbody td').textContent).to.equal('Rabbit')
-      _.defer ->
-        Testing.actions.click(document.querySelector('button.archive-section'))
-        expect(PeriodActions.delete).to.have.been.called
-        _.defer ->
-          expect(dom.querySelector('.nav-tabs .active').textContent).to.equal('2nd')
-          expect(dom.querySelector('.roster tbody td').textContent).to.equal('Molly')
-          done()
-    true
+  it 'can archive periods', ->
+    wrapper = mount(<Roster {...@props} />)
+    expect(wrapper.find('.nav-tabs .active').text()).to.equal('1st')
+    wrapper.find('.control.archive-period').simulate('click')
+    Testing.actions.click(document.querySelector('button.archive-section'))
+    expect(PeriodActions.delete).to.have.been.called
+    wrapper.update()
+    expect(wrapper.find('.nav-tabs .active').text()).to.equal('2nd')
+    expect(wrapper.find('.roster tbody tr').at(0).find('td').at(1).text())
+      .to.equal('Bloom')
+    undefined
 
-  it 'can view and unarchive periods', (done) ->
-    Testing.renderComponent( Roster, props: @props ).then ({dom}) ->
-      Testing.actions.click(dom.querySelector('.view-archived-periods > button'))
-      _.defer ->
-        periods = _.pluck(document.querySelectorAll(
-          '.view-archived-periods-modal tbody td:first-child'), 'textContent'
-        )
-        expect(periods).to.deep.equal(
-          ['4th', '7th']
-        )
-        Testing.actions.click(
-          document.querySelector('.view-archived-periods-modal .restore-period button')
-        )
-        expect(PeriodActions.restore).to.have.been.called
-        done()
-    true
+  it 'can view and unarchive periods', ->
+    wrapper = mount(<Roster {...@props} />)
+    wrapper.find('.view-archived-periods button').simulate('click')
+    periods = _.pluck(document.querySelectorAll(
+      '.view-archived-periods-modal tbody td:first-child'), 'textContent'
+    )
+    expect(periods).to.deep.equal(['4th', '7th'])
+    Testing.actions.click(
+      document.querySelector('.view-archived-periods-modal .restore-period button')
+    )
+    expect(PeriodActions.restore).to.have.been.called
+    undefined

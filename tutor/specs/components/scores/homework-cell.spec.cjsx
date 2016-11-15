@@ -1,7 +1,7 @@
-{Testing, _} = require '../helpers/component-testing'
+{React, Testing, _} = require '../helpers/component-testing'
 
 {TimeActions, TimeStore} = require '../../../src/flux/time'
-
+moment = require 'moment'
 Cell = require '../../../src/components/scores/homework-cell'
 PieProgress = require '../../../src/components/scores/pie-progress'
 
@@ -29,19 +29,25 @@ describe 'Student Scores Homework Cell', ->
         correct_accepted_late_exercise_count: 0
 
   it 'renders score cell', ->
+    @props.task.completed_exercise_count = @props.task.exercise_count - 1
+    now = new Date
+    TimeActions.setNow(now)
+    @props.due_at = moment(now).subtract(10, 'day')
+    expect(TH.isDue(@props.task)).to.eq(false)
+    wrapper = mount(<Cell {...@props} />)
+    expect(wrapper.find('.score a').text()).to.equal('---')
+    expect(wrapper.find('.late-caret')).to.have.length(0)
+    undefined
+
+  it 'renders as completed', ->
     completedProps = _.extend({}, @props)
     completedProps.task.completed_on_time_exercise_count = @props.task.exercise_count
     completedProps.task.completed_exercise_count = @props.task.exercise_count
-
-    Testing.renderComponent( Cell, props: @props ).then ({dom}) ->
-      score = '---'
-      expect(dom.querySelector('.score a').textContent).to.equal(score)
-      expect(dom.querySelector('.late-caret')).to.be.null
-
-    Testing.renderComponent( Cell, props: completedProps ).then ({dom}) =>
-      score = ((@props.task.correct_on_time_exercise_count / @props.task.exercise_count) * 100).toFixed(0) + '%'
-      expect(dom.querySelector('.score a').textContent).to.equal(score)
-      expect(dom.querySelector('.late-caret')).to.be.null
+    wrapper = mount(<Cell {...@props} />)
+    score = ((@props.task.correct_on_time_exercise_count / @props.task.exercise_count) * 100).toFixed(0) + '%'
+    expect(wrapper.find('.score a').text()).to.equal(score)
+    expect(wrapper.find('.late-caret')).to.have.length(0)
+    undefined
 
   it 'renders progress cell', ->
     @props.size = 24

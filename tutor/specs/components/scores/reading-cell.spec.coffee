@@ -1,4 +1,4 @@
-{Testing, _} = require '../helpers/component-testing'
+{React, Testing, _} = require '../helpers/component-testing'
 
 {TimeActions, TimeStore} = require '../../../src/flux/time'
 
@@ -26,23 +26,28 @@ describe 'Student Scores Report Reading Cell', ->
   it 'renders progress cell', ->
     @props.size = 24
     @props.value = 33
-    Testing.renderComponent( PieProgress, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('g')).to.exist
+    wrapper = shallow(<PieProgress {...@props} />)
+    expect(wrapper.find('svg[width="24"][height="24"]')).to.have.length(1)
+    undefined
 
   it 'renders as not started', ->
     @props.task.completed_step_count = 0
     @props.task.completed_on_time_step_count = 0
     expect(TH.getCompletedPercent(@props.task)).to.equal(0)
-    Testing.renderComponent( Cell, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('.worked .not-started')).to.exist
+    wrapper = shallow(<Cell {...@props} />)
+    expect(wrapper.find('.worked .not-started')).to.have.length(0)
+    undefined
 
   it 'displays late caret when worked late', ->
     @props.task.completed_on_time_step_count = 3
-    Testing.renderComponent( Cell, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('.late-caret')).to.exist
+    wrapper = shallow(<Cell {...@props} />)
+    expect(wrapper.find('LateWork')).to.have.length(1)
+    undefined
 
   it 'displays accepted caret when accepted', ->
-    @props.task.completed_on_time_step_count = 3
+    @props.task.completed_on_time_step_count = 1
     @props.task.is_late_work_accepted = true
-    Testing.renderComponent( Cell, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('.late-caret.accepted')).to.exist
+    wrapper = mount(<Cell {...@props} />)
+    expect(wrapper.find('LateWork')).to.have.length(1)
+    expect(wrapper.find('.late-caret.accepted')).to.have.length(1)
+    undefined

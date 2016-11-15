@@ -29,11 +29,12 @@ describe 'Creating a course', ->
     wrapper = mount(<Wizard {...@props} />)
     expect(wrapper.find('.btn.back')).to.have.length(0)
     wrapper.find('.type.tutor').simulate('click')
-    pause().then ->
-      wrapper.find('.btn.next').simulate('click')
-      backBtn = wrapper.find('.btn.back')
-      expect(backBtn).to.have.length(1)
-      expect(backBtn.render().is('[disabled]')).to.be.false
+    wrapper.render()
+    wrapper.find('.btn.next').simulate('click')
+    backBtn = wrapper.find('.btn.back')
+    expect(backBtn).to.have.length(1)
+    expect(backBtn.render().is('[disabled]')).to.be.false
+    undefined
 
   # snapshots currently do not work because of bug with React 15.3.x.
   # is fixed in 15.4 https://github.com/facebook/react/issues/7386

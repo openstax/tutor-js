@@ -10,6 +10,7 @@ omit = require 'lodash/omit'
 TH = require '../../helpers/task'
 
 class LateWork
+  displayName: 'LateWork'
   constructor: (@task) ->
     @isAccepted = @task.is_late_work_accepted
     @status = if @isAccepted

@@ -1,4 +1,4 @@
-{Testing, _, ReactTestUtils} = require './helpers/component-testing'
+{React, Testing, _, ReactTestUtils} = require './helpers/component-testing'
 
 ld = require 'lodash'
 
@@ -30,37 +30,44 @@ describe 'QA Exercises Component', ->
     _.defer(done) # defer done signal so it fires after exercise load emits
 
   it 'displays the exercise questions', ->
-    Testing.renderComponent( Exercises, props: @props ).then ({dom}) ->
-      questions = _.map EXERCISES.items, (e) ->
-        e.content.questions[0].stem_html
-      renderedQs = _.pluck dom.querySelectorAll('.panel-body .question-stem'), 'textContent'
-      expect(renderedQs).to.deep.equal(questions)
+    wrapper = mount(<Exercises {...@props} />)
+    stems = wrapper.find('.panel-body .question-stem').map (stem) -> stem.text()
+    questions = _.map EXERCISES.items, (e) ->
+      e.content.questions[0].stem_html
+    expect(stems).to.deep.equal(questions)
+    undefined
 
   it 'displays free-response box when previewing 2-step', ->
-    Testing.renderComponent( Exercises, props: @props ).then ({dom, element}) ->
-      expect( dom.querySelector('.exercise-free-response-preview') ).to.not.exist
-      cb = dom.querySelector('.preview2step')
-      ReactTestUtils.Simulate.change(cb, {target: checked: true})
-      freeResponseCount = _.reduce(EXERCISES.items, (count, ex) ->
-        count + (if ExerciseStore.hasQuestionWithFormat('free-response', ex) then 1 else 0)
-      , 0)
-      expect( dom.querySelectorAll('.exercise-free-response-preview').length )
-        .to.equal(freeResponseCount)
+    wrapper = mount(<Exercises {...@props} />)
+    expect(wrapper.find('.exercise-free-response-preview')).to.have.length(0)
+    wrapper.find('.preview2step').simulate('change', target: checked: true)
+    freeResponseCount = _.reduce(EXERCISES.items, (count, ex) ->
+      count + (if ExerciseStore.hasQuestionWithFormat('free-response', ex) then 1 else 0)
+    , 0)
+    wrapper.update()
+    # console.log wrapper.debug()
+    expect(wrapper.find('.exercise-free-response-preview'))
+      .to.have.length(freeResponseCount)
+    undefined
 
   it 'renders exercises even if they dont have tags', ->
     ex = ld.cloneDeep EXERCISES
     _.each ex.items, (e) -> e.content.tags = []
     ExerciseActions.loadedForCourse(ex, COURSE_ID, ['146'])
-    Testing.renderComponent( Exercises, props: @props ).then ({dom, element}) ->
-      expect( dom.querySelectorAll('.exercise').length ).to.equal(5)
+    wrapper = mount(<Exercises {...@props} />)
+    expect(wrapper.find('.exercise')).to.have.length(5)
+    undefined
 
   it 'hides exercise lo tags that don\'t belong to current book', ->
     ex = ld.cloneDeep EXERCISES
     _.each ex.items, (e) -> e.content.tags.push("lo:uknown-fake-uuid")
     ExerciseActions.loadedForCourse(ex, COURSE_ID, ['146'])
-    Testing.renderComponent( Exercises, props: @props ).then ({dom, element}) ->
-      expect( dom.textContent ).not.to.contain('uknown-fake-uuid')
+    wrapper = mount(<Exercises {...@props} />)
+    tags = wrapper.find('.lo-tag').map (tag) -> tag.text()
+    expect(tags).to.not.include('LO: uknown-fake-uuid')
+    undefined
 
   it 'displays question formats', ->
-    Testing.renderComponent( Exercises, props: @props ).then ({dom}) ->
-      expect(dom.querySelector('.formats-listing')).to.exist
+    wrapper = mount(<Exercises {...@props} />)
+    expect(wrapper.find('.formats-listing')).to.have.length(EXERCISES.items.length)
+    undefined

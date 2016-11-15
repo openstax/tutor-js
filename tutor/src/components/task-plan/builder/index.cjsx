@@ -216,6 +216,7 @@ TaskPlanBuilder = React.createClass
     isEnabled = false if showingPeriods and not period?
 
     <Tasking
+      key={period?.id or 'all'}
       {...@props}
       isEnabled={isEnabled}
       ref={"tasking-#{taskingIdentifier}"}

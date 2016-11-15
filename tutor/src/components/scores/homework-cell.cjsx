@@ -12,18 +12,17 @@ PieProgress = require './pie-progress'
 TH = require '../../helpers/task'
 
 HomeworkScore = React.createClass
+  displayName: 'HomeworkScore'
   render: ->
     {task, displayAs, courseId} = @props
 
     scorePercent = TH.getHumanScorePercent(task)
     scoreNumber = TH.getHumanScoreNumber(task)
     completed = task.completed_exercise_count is task.exercise_count
-    scoreText = '---'
-    if completed or TH.isDue(task)
-      if displayAs is 'number'
-        scoreText = scoreNumber
-      else
-        scoreText = scorePercent
+    scoreText = if completed or TH.isDue(task)
+      if displayAs is 'number' then scoreNumber else scorePercent
+    else
+      '---'
 
     if TH.isHomeworkTaskStarted(@props.task)
       <div className="score">
@@ -35,6 +34,7 @@ HomeworkScore = React.createClass
       </div>
     else
       <div className="score not-started">---</div>
+
 
 
 HomeworkCell = React.createClass
