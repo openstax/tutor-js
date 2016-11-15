@@ -29,6 +29,7 @@ describe 'Student Scores Homework Cell', ->
         correct_accepted_late_exercise_count: 0
 
   it 'renders score cell', ->
+    @props.task.completed_exercise_count = @props.task.exercise_count - 1
     wrapper = mount(<Cell {...@props} />)
     expect(wrapper.find('.score a').text()).to.equal('---')
     expect(wrapper.find('.late-caret')).to.have.length(0)
