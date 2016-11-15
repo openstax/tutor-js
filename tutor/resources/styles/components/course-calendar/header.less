@@ -5,24 +5,19 @@
   .calendar-header {
     border-bottom: 1px solid @tutor-neutral-light;
 
-    #add-assignment {
-      text-align: center;
-      padding: 9px;
+    .btn-default {
+      background-color: @tutor-neutral-lightest;
+      border-radius: 0;
     }
 
-    .add-assignment {
-      .pull-left;
-      .caret { margin-left: 0.5rem; }
-
-      .btn {
-        margin-right: 0;
-        width: 200px;
-      }
-      .dropdown-menu {
-        margin-top: -1px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-      }
+    .sidebar-toggle {
+      text-align: center;
+      padding: 9px;
+      width: @calendar-sidebar-width;
+      background-color: @tutor-primary;
+      color: white;
+      .tutor-icon { margin-right: 2rem; }
+      &.open { background-color: @tutor-neutral-lite; }
     }
 
     .no-periods-text {
