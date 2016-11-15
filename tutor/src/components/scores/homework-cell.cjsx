@@ -12,6 +12,7 @@ PieProgress = require './pie-progress'
 TH = require '../../helpers/task'
 
 HomeworkScore = React.createClass
+  displayName: 'HomeworkScore'
   render: ->
     {task, displayAs, courseId} = @props
 
@@ -35,6 +36,7 @@ HomeworkScore = React.createClass
       </div>
     else
       <div className="score not-started">---</div>
+
 
 
 HomeworkCell = React.createClass

@@ -37,15 +37,14 @@ describe 'QA Exercises Component', ->
       expect(renderedQs).to.deep.equal(questions)
 
   it 'displays free-response box when previewing 2-step', ->
-    Testing.renderComponent( Exercises, props: @props ).then ({dom, element}) ->
-      expect( dom.querySelector('.exercise-free-response-preview') ).to.not.exist
-      cb = dom.querySelector('.preview2step')
-      ReactTestUtils.Simulate.change(cb, {target: checked: true})
-      freeResponseCount = _.reduce(EXERCISES.items, (count, ex) ->
-        count + (if ExerciseStore.hasQuestionWithFormat('free-response', ex) then 1 else 0)
-      , 0)
-      expect( dom.querySelectorAll('.exercise-free-response-preview').length )
-        .to.equal(freeResponseCount)
+    wrapper = mount(<Exercises {...@props} />)
+    expect(wrapper.find('.exercise-free-response-preview')).to.have.length(0)
+    wrapper.find('.preview2step').simulate('change', checked: true)
+    freeResponseCount = _.reduce(EXERCISES.items, (count, ex) ->
+      count + (if ExerciseStore.hasQuestionWithFormat('free-response', ex) then 1 else 0)
+    , 0)
+    expect(wrapper.find('.exercise-free-response-preview'))
+      .to.have.length(freeResponseCount)
 
   it 'renders exercises even if they dont have tags', ->
     ex = ld.cloneDeep EXERCISES
