@@ -76,7 +76,9 @@ CurrentUserActions = flux.createActions [
 ]
 
 TUTOR_HELP = 'http://openstax.force.com/support?l=en_US&c=Products%3ATutor'
+TUTOR_CONTACT = 'http://openstax.force.com/support/?cu=1&fs=ContactUs&l=en_US&c=Products%3ATutor'
 CONCEPT_COACH_HELP = 'http://openstax.force.com/support?l=en_US&c=Products%3AConcept_Coach'
+CONCEPT_COACH_CONTACT = 'http://openstax.force.com/support/?cu=1&fs=ContactUs&l=en_US&c=Products%3AConcept_Coach'
 
 CurrentUserStore = flux.createStore
   actions: [
@@ -168,6 +170,10 @@ CurrentUserStore = flux.createStore
         @_getRouteByRole('cc_dashboard', menuRole)
       else
         @_getRouteByRole('dashboard', menuRole)
+
+    getContactLink: (courseId) ->
+      course = CourseStore.get(courseId)
+      if course.is_concept_coach then CONCEPT_COACH_CONTACT else TUTOR_CONTACT
 
     getHelpLink: (courseId) ->
       course = CourseStore.get(courseId)

@@ -36,11 +36,12 @@ NoArchiveHelp = React.createClass
       <BS.Modal.Body className='no-archiving-help'>
         <p>
           You no longer need to add or archive sections to teach this course again.
-          To teach this course again, please return to your Dashboard on January 1.
+          To teach this course again, please return to your Dashboard
+          on January 3<sup>rd</sup>.
         </p>
         <p>
           Need to access grades or info from a section you
-          archived? <NewTabLink to={CurrentUserStore.getHelpLink()}>Contact us</NewTabLink>
+          archived? <NewTabLink to={CurrentUserStore.getContactLink(@props.courseId)}>Contact us</NewTabLink>
         </p>
       </BS.Modal.Body>
 
