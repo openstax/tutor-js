@@ -46,9 +46,6 @@ Vocabulary = React.createClass
     vocabId = @getVocabId()
     return null unless vocabId
 
-    if vocabId and VocabularyStore.isLoading(vocabId)
-      return <NetworkActivity />
-
     vocabTerm = VocabularyStore.getFromExerciseId(@props.id)
     unless vocabTerm
       return <RecordNotFound recordType="Vocabulary Term" id={vocabId} />
