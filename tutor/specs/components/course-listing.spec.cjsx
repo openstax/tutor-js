@@ -30,14 +30,14 @@ describe 'Course Listing Component', ->
     CourseListingActions.loaded(MASTER_COURSES_LIST)
     wrapper = mount(<CourseListing />)
     for course, i in MASTER_COURSES_LIST
-      expect(wrapper.find(".course-listing-current [data-course-id=#{course.id}]")).to.have.length(1)
+      expect(wrapper.find(".course-listing-current [data-course-id='#{course.id}']")).to.have.length(1)
     undefined
 
   it 'renders the listing without archived courses', ->
     courseList = _.flatten([MASTER_COURSES_LIST, STUDENT_ARCHIVED_COURSE])
     CourseListingActions.loaded(courseList)
     wrapper = shallow(<CourseListing />)
-    expect(wrapper.find("CourseLink[courseId=#{STUDENT_ARCHIVED_COURSE.id}]")).to.have.length(0)
+    expect(wrapper.find("CourseLink[courseId='#{STUDENT_ARCHIVED_COURSE.id}']")).to.have.length(0)
     undefined
 
   it 'renders add course action if user is teacher', ->
@@ -53,7 +53,7 @@ describe 'Course Listing Component', ->
     wrapper = mount(<CourseListing />)
 
     for course, i in MASTER_COURSES_LIST
-      expect(wrapper.find("[data-course-id=#{course.id}] .course-listing-item-controls"))
+      expect(wrapper.find("[data-course-id='#{course.id}'] .course-listing-item-controls"))
         .to.have.length(1) if CourseStore.isTeacher(course.id)
 
     undefined
@@ -65,7 +65,7 @@ describe 'Course Listing Component', ->
     wrapper = mount(<CourseListing />)
 
     for course, i in MASTER_COURSES_LIST
-      expect(wrapper.find("[data-course-id=#{course.id}] .course-listing-item-controls"))
+      expect(wrapper.find("[data-course-id='#{course.id}'] .course-listing-item-controls"))
         .to.have.length(0) unless CourseStore.isTeacher(course.id)
 
     undefined
@@ -75,9 +75,9 @@ describe 'Course Listing Component', ->
 
     wrapper = mount(<CourseListing />)
 
-    expect(wrapper.find(".course-listing-past [data-course-id=#{TEACHER_PAST_COURSE.id}]"))
+    expect(wrapper.find(".course-listing-past [data-course-id='#{TEACHER_PAST_COURSE.id}']"))
       .to.have.length(1)
-    expect(wrapper.find(".course-listing-past [data-course-id=#{STUDENT_PAST_COURSE.id}]"))
+    expect(wrapper.find(".course-listing-past [data-course-id='#{STUDENT_PAST_COURSE.id}']"))
       .to.have.length(1)
 
     undefined
@@ -93,7 +93,7 @@ describe 'Course Listing Component', ->
     wrapper = mount(<CourseListing />)
     for course, i in MASTER_COURSES_LIST
       expect(
-        wrapper.find("[data-course-id=#{course.id}] .course-listing-item-brand").render().text()
+        wrapper.find("[data-course-id='#{course.id}'] .course-listing-item-brand").render().text()
       ).equal('Openstax Tutor')
     undefined
 
