@@ -3,6 +3,9 @@
   border-right: 1px solid @tutor-neutral-light;
   position: absolute;
   width: @calendar-sidebar-width;
+  height: 100%;
+
+  background-color: @tutor-neutral-lightest;
 
   ul {
     list-style-type: none;
@@ -11,19 +14,18 @@
     li {
       margin: 5px;
       .tutor-plan-set(sidebar);
+      .no-select();
 
-      // border-top-left-radius: 5px;
-      // border-bottom-left-radius: 5px;
       &:before {
-        display: inline-block;
         .fa-icon();
+        display: inline-block;
         content: @fa-var-th;
       }
 
       a {
         padding: 3px 12px;
-        // border-top-right-radius: 5px;
-        // border-bottom-right-radius: 5px;
+        color: @tutor-neutral-darker;
+        &:hover { text-decoration: none; }
       }
     }
   }
@@ -31,23 +33,33 @@
   .past-assignments {
     margin-top: 10px;
     padding-top: 10px;
-    border-top: 1px solid @tutor-neutral-bright;
+    border-top: 1px solid @tutor-neutral-light;
 
     .no-plans {
       padding: 0 6px;
     }
 
     .task-plan{
-      .tutor-plan-set(add);
+      .tutor-plan-set(sidebar);
       cursor: move;
       margin: 5px;
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
+      display: flex;
+      align-items: center;
+
+      &:before {
+        .fa-icon();
+        content: @fa-var-th;
+      }
 
       div {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         padding: 3px 12px;
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
+        &:hover {
+          direction:rtl;
+          text-align:left;
+        }
       }
 
     }
