@@ -18,9 +18,10 @@ QADashboard = React.createClass
 
 
   componentWillMount: ->
-    unless EcosystemsStore.isLoading()
+    unless EcosystemsStore.isLoaded() or EcosystemsStore.isLoading()
       EcosystemsActions.load()
-      EcosystemsStore.once('loaded', @redirectToFirst)
+      unless @props.params?.ecosystemId?
+        EcosystemsStore.once('loaded', @redirectToFirst)
 
   redirectToFirst: ->
     ecosystemId = EcosystemsStore.first()?.id
