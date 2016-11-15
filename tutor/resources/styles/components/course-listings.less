@@ -120,7 +120,7 @@
 
   .course-listing-item-wrapper {
     .after-shadow(@shadow-rule: {
-      .tutor-shadow(2);
+      .tutor-shadow(3);
     });
 
     &::after {
@@ -172,8 +172,13 @@
         color: @tutor-neutral;
       }
 
-      button {
+      .btn {
         font-weight: 400;
+
+        &:hover {
+          // TODO check about using this shadow for every button
+          .tutor-shadow(3);
+        }
       }
 
       .course-listing-item-brand,
