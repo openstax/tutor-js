@@ -133,7 +133,7 @@ startAPI = ->
       end_at: endAt
   )
 
-  connectRead(JobActions, pattern: 'job/{id}', handledErrors: ['*'])
+  connectRead(JobActions, pattern: 'jobs/{id}', handledErrors: ['*'])
   connectRead(EcosystemsActions, url: 'ecosystems')
   connectDelete(RosterActions,
     pattern: 'teachers/{id}', trigger: 'teacherDelete', onSuccess: 'teacherDeleted'
