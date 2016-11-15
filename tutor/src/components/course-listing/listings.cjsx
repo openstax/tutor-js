@@ -12,7 +12,7 @@ Router = require '../../helpers/router'
 CourseData = require '../course-data-mixin'
 IconAdd = require  '../icons/add'
 
-{Course, CourseTeacher} = require './course'
+{Course, CourseTeacher, CoursePropType} = require './course'
 
 getReactBaseName = (context) -> _.kebabCase(context.constructor.displayName)
 
@@ -33,31 +33,6 @@ wrapCourseItem = (Item, course = {}) ->
       courseDataProps={courseDataProps}/>
   </BS.Col>
 
-DEFAULT_COURSE_ITEMS =
-  teacher: CourseTeacher
-  student: Course
-
-CourseListingBase = React.createClass
-  displayName: 'CourseListingBase'
-
-  getItems: ->
-    _.merge({}, DEFAULT_COURSE_ITEMS, @props.Items)
-
-  render: ->
-    {courses, className, before, after} = @props
-    Items = @getItems()
-
-    sectionClasses = classnames('course-listing-section', className)
-
-    <BS.Row className={sectionClasses}>
-      {before}
-      {_.map(courses, (course) ->
-        Item = Items[CurrentUserStore.getCourseRole(course.id)]
-        if Item then wrapCourseItem(Item, course)
-      )}
-      {after}
-    </BS.Row>
-
 AddCourseArea = ->
   <Link
     to={Router.makePathname('createNewCourse')}
@@ -69,64 +44,103 @@ AddCourseArea = ->
     </div>
   </Link>
 
-CourseListingCurrent = React.createClass
-  displayName: 'CourseListingCurrent'
-  NoCourses: ->
-    <BS.Row className='course-listing-none'>
-      <BS.Col md={12}>
-        <p>There are no current courses.</p>
-      </BS.Col>
+CourseListingNone = ->
+  <BS.Row className='course-listing-none'>
+    <BS.Col md={12}>
+      <p>There are no current courses.</p>
+    </BS.Col>
+  </BS.Row>
+
+CourseListingAdd = ->
+  wrapCourseItem(AddCourseArea)
+
+DEFAULT_COURSE_ITEMS =
+  teacher: CourseTeacher
+  student: Course
+
+CourseListingBase = React.createClass
+  displayName: 'CourseListingBase'
+  propTypes:
+    courses:    React.PropTypes.arrayOf(CoursePropType.isRequired).isRequired
+    items:      React.PropTypes.objectOf(React.PropTypes.element)
+    className:  React.PropTypes.string
+    before:     React.PropTypes.element
+    after:      React.PropTypes.element
+
+  getItems: ->
+    _.merge({}, DEFAULT_COURSE_ITEMS, @props.items)
+
+  render: ->
+    {courses, className, before, after} = @props
+    items = @getItems()
+
+    sectionClasses = classnames('course-listing-section', className)
+
+    <BS.Row className={sectionClasses}>
+      {before}
+      {_.map(courses, (course) ->
+        Item = items[CurrentUserStore.getCourseRole(course.id)]
+        if Item then wrapCourseItem(Item, course)
+      )}
+      {after}
     </BS.Row>
 
-  Title: ->
-    baseName = getReactBaseName(@)
+CourseListingTitle = React.createClass
+  displayName: 'CourseListingTitle'
+  propTypes:
+    title: React.PropTypes.string.isRequired
+    main: React.PropTypes.bool
+  getDefaultProps: ->
+    main: false
+  render: ->
+    {main, title} = @props
+
+    heading = if main
+        <h1>{title}</h1>
+      else
+        <h1>{title}</h1>
 
     <BS.Row className='course-listing-title'>
       <BS.Col md={12}>
-        <h1>Current Courses</h1>
+        {heading}
       </BS.Col>
     </BS.Row>
 
-  AddCourses: ->
-    wrapCourseItem(AddCourseArea)
-
+CourseListingCurrent = React.createClass
+  displayName: 'CourseListingCurrent'
+  propTypes:
+    courses:  React.PropTypes.arrayOf(CoursePropType.isRequired).isRequired
   render: ->
     {courses} = @props
     baseName = getReactBaseName(@)
 
     <div className={baseName}>
       <BS.Grid>
-        <@Title />
-        {<@NoCourses /> if _.isEmpty(courses)}
+        <CourseListingTitle title='Current Courses' main={true}/>
+        {<CourseListingNone /> if _.isEmpty(courses)}
         <CourseListingBase
           className="#{baseName}-section"
           courses={courses}
-          after={<@AddCourses /> if CurrentUserStore.isTeacher()}
+          after={<CourseListingAdd /> if CurrentUserStore.isTeacher()}
         />
       </BS.Grid>
     </div>
 
 CourseListingBasic = React.createClass
   displayName: 'CourseListingBasic'
-  NoCourses: ->
-    null
-
-  Title: ->
-    <BS.Row className='course-listing-title'>
-      <BS.Col md={12}>
-        <h2>{@props.title}</h2>
-      </BS.Col>
-    </BS.Row>
-
+  propTypes:
+    title:    React.PropTypes.string.isRequired
+    baseName: React.PropTypes.string.isRequired
+    courses:  React.PropTypes.arrayOf(CoursePropType.isRequired).isRequired
   render: ->
-    {courses, baseName} = @props
+    {courses, baseName, title} = @props
 
     if _.isEmpty(courses)
-      <@NoCourses />
+      null
     else
       <div className={baseName}>
         <BS.Grid>
-          <@Title />
+          <CourseListingTitle title={title} />
           <CourseListingBase
             className="#{baseName}-section"
             courses={courses}
@@ -136,6 +150,8 @@ CourseListingBasic = React.createClass
 
 CourseListingPast = React.createClass
   displayName: 'CourseListingPast'
+  propTypes:
+    courses:  React.PropTypes.arrayOf(CoursePropType.isRequired).isRequired
   render: ->
     baseName = getReactBaseName(@)
     <CourseListingBasic
@@ -145,6 +161,8 @@ CourseListingPast = React.createClass
 
 CourseListingFuture = React.createClass
   displayName: 'CourseListingFuture'
+  propTypes:
+    courses:  React.PropTypes.arrayOf(CoursePropType.isRequired).isRequired
   render: ->
     baseName = getReactBaseName(@)
     <CourseListingBasic

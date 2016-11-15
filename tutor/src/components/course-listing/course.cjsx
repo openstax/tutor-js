@@ -9,18 +9,41 @@ Router = require '../../helpers/router'
 
 BRAND = 'Openstax'
 
+getCourseNameSegments = (course, courseSubject) ->
+  courseRegex = new RegExp(courseSubject, 'i')
+  courseNameMatches = courseRegex.exec(course.name)
+  if courseSubject and courseNameMatches
+    {index} = courseNameMatches
+
+    before = course.name.substring(0, index)
+    after = course.name.substring(index + courseSubject.length)
+
+    [before, courseSubject, after]
+  else
+    [course.name]
+
+
+CoursePropType = React.PropTypes.shape(
+  id:   React.PropTypes.string.isRequired
+  name: React.PropTypes.string.isRequired
+  year: React.PropTypes.number.isRequired
+  term: React.PropTypes.string.isRequired
+  is_concept_coach: React.PropTypes.bool.isRequired
+)
+
 CourseBranding = React.createClass
   displayName: 'CourseBranding'
   propTypes:
     isConceptCoach: React.PropTypes.bool.isRequired
+    isBeta:         React.PropTypes.bool
   render: ->
-    {isConceptCoach} = @props
+    {isConceptCoach, isBeta} = @props
 
     if isConceptCoach
-      isBeta = false
+      isBeta ?= false
       brand = "#{BRAND} Concept Coach"
     else
-      isBeta = true
+      isBeta ?= true
       brand = "#{BRAND} Tutor"
 
     <p
@@ -30,21 +53,13 @@ CourseBranding = React.createClass
 
 Course = React.createClass
   displayName: 'Course'
-
-  getCourseNameSegments: ->
-    {course, courseSubject} = @props
-
-    courseRegex = new RegExp(courseSubject, 'i')
-    courseNameMatches = courseRegex.exec(course.name)
-    if courseSubject and courseNameMatches
-      {index} = courseNameMatches
-
-      before = course.name.substring(0, index)
-      after = course.name.substring(index + courseSubject.length)
-
-      [before, courseSubject, after]
-    else
-      [course.name]
+  propTypes:
+    course:           CoursePropType.isRequired
+    courseSubject:    React.PropTypes.string.isRequired
+    courseIsTeacher:  React.PropTypes.bool.isRequired
+    courseDataProps:  React.PropTypes.object.isRequired
+    className:        React.PropTypes.string
+    controls:         React.PropTypes.element
 
   Controls: ->
     {controls} = @props
@@ -55,7 +70,7 @@ Course = React.createClass
 
   CourseName: ({coursePath}) ->
     {course, courseSubject} = @props
-    courseNameSegments = @getCourseNameSegments()
+    courseNameSegments = getCourseNameSegments(course, courseSubject)
 
     <Link to={coursePath}>
       {_.map(courseNameSegments, (courseNameSegment, index) ->
@@ -100,6 +115,8 @@ Course = React.createClass
 
 CourseTeacher = React.createClass
   displayName: 'CourseTeacher'
+  propTypes:
+    _.omit(Course.propTypes, 'controls')
   render: ->
     {course} = @props
     query =
@@ -112,4 +129,4 @@ CourseTeacher = React.createClass
 
     <Course {...@props} controls={controls} />
 
-module.exports = {Course, CourseTeacher}
+module.exports = {Course, CourseTeacher, CoursePropType}
