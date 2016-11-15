@@ -303,8 +303,8 @@ NoticesDemo = React.createClass
 
   showMessage: ->
     Notifications.display(
-      message: @refs.message.getDOMNode().value,
-      level: @refs.type.getDOMNode().value
+      message: @refs.message.value,
+      level: @refs.type.value
     )
 
   render: ->

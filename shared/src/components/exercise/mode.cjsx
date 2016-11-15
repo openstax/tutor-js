@@ -46,10 +46,11 @@ ExMode = React.createClass
 
   setFreeResponseFocusState: ->
     {focus} = @props
+    el = ReactDOM.findDOMNode(@refs.freeResponse)
     if focus
-      @refs.freeResponse?.getDOMNode?().focus?()
+      el.focus?()
     else
-      @refs.freeResponse?.getDOMNode?().blur?()
+      el.blur?()
 
   onFreeResponseChange: ->
     freeResponse = ReactDOM.findDOMNode(@refs.freeResponse)?.value
