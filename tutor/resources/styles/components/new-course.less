@@ -10,6 +10,63 @@
   background-size: cover;
 }
 
+.course-choice {
+  width: 100%;
+  display: table;
+  min-height: 6rem;
+
+  &::before,
+  &::after {
+    width: 6rem;
+    height: 6rem;
+    margin-right: 1rem;
+    display: inline-block;
+    float: left;
+  }
+
+  .course-choice-content-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+  }
+}
+
+.course-offering {
+  .for(@openstax-book-thumbnails); .-each(@code) {
+    &[data-appearance=@{code}] {
+      &::before {
+        .book-content-thumbnail(@code);
+      }
+    }
+  }
+
+  &[data-appearance]{
+    &::before {
+      content: ' ';
+      background-size: cover;
+      background-position: center bottom;
+    }
+
+    .course-offering-content-wrapper {
+
+      &::before {
+        content: attr(data-book-title);
+        font-size: 1.6rem;
+        font-weight: 600;
+        line-height: 1em;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  &[data-appearance*=biology]{
+    &::before {
+      background-position: center center;
+    }
+  }
+}
+
 .new-course {
   max-width: 400px;
   margin: 0 auto;
@@ -31,6 +88,10 @@
       linear-gradient(to right, fade(@tutor-secondary, 57%), fade(@tutor-tertiary, 57%));
   }
 
+  .list-group-item {
+    padding: 8px;
+  }
+
   .panel {
     padding: 1.5rem;
     .tutor-shadow(3);
@@ -44,7 +105,6 @@
     }
     .panel-heading {
       margin: auto;
-      padding-bottom: 0;
       font-size: 1.6rem;
       line-height: 2rem;
     }
@@ -60,52 +120,12 @@
       font-weight: 600;
       max-width: 75%;
       text-align: center;
-    }
-  }
-
-  .course-offering {
-    .for(@openstax-book-thumbnails); .-each(@code) {
-      &[data-appearance=@{code}] {
-        &::before {
-          .book-content-thumbnail(@code);
-        }
-      }
-    }
-
-    &[data-appearance]{
-      width: 100%;
+      min-height: 6rem;
       display: table;
 
-      &::before {
-        content: ' ';
-        background-size: cover;
-        width: 6rem;
-        height: 6rem;
-        display: inline-block;
-        float: left;
-        margin-right: 1rem;
-        background-position: center bottom;
-        display: table-column;
-      }
-
-      .course-offering-content-wrapper {
+      div {
         display: table-cell;
         vertical-align: middle;
-        width: 100%;
-
-        &::before {
-          content: attr(data-book-title);
-          font-size: 1.8rem;
-          font-weight: 900;
-          line-height: 1em;
-          margin: 0;
-        }
-      }
-    }
-
-    &[data-appearance*=biology]{
-      &::before {
-        background-position: center center;
       }
     }
   }

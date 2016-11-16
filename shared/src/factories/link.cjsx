@@ -1,26 +1,16 @@
 React = require 'react'
 {Link} = require 'react-router'
+concat    = require 'lodash/concat'
 
-indexOf = require 'lodash/indexOf'
-pickBy  = require 'lodash/pickBy'
-concat  = require 'lodash/concat'
-some    = require 'lodash/some'
+{filterProps} = require '../helpers/react'
+filterPropsBase = filterProps
 
-PASSABLE_PROPS = [
-  'className', 'id', 'children', 'target', 'activeOnlyWhenExact',
-  'activeStyle', 'activeClassName', 'isActive', 'location', 'ref',
-  'tabIndex', 'alt', 'title', 'role'
+LINK_PROPS = [
+  'alt', 'title', 'activeOnlyWhenExact', 'activeStyle', 'activeClassName', 'isActive', 'location', 
 ]
 
-PASSABLE_PREFIXES = ['data-', 'aria-', 'on']
-
 filterProps = (props, options = {}) ->
-  pickBy props, (prop, name) ->
-
-    indexOf(concat(PASSABLE_PROPS, options.props or []), name) > -1 or
-      some(concat(PASSABLE_PREFIXES, options.prefixes or []), (prefix) ->
-        name.indexOf(prefix) is 0
-      )
+  filterPropsBase(props, concat(LINK_PROPS, options.props or []))
 
 make = (router, name = 'OpenStax') ->
   React.createClass

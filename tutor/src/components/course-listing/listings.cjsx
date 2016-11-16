@@ -8,7 +8,7 @@ Router = require '../../helpers/router'
 
 {CourseStore} = require '../../flux/course'
 {CurrentUserStore} = require '../../flux/current-user'
-{getReactBaseName} = require '../../helpers/react'
+{ReactHelpers} = require 'shared'
 
 CourseData = require '../course-data-mixin'
 IconAdd = require  '../icons/add'
@@ -112,7 +112,7 @@ CourseListingCurrent = React.createClass
     courses:  React.PropTypes.arrayOf(CoursePropType.isRequired).isRequired
   render: ->
     {courses} = @props
-    baseName = getReactBaseName(@)
+    baseName = ReactHelpers.getBaseName(@)
 
     <div className={baseName}>
       <BS.Grid>
@@ -153,7 +153,7 @@ CourseListingPast = React.createClass
   propTypes:
     courses:  React.PropTypes.arrayOf(CoursePropType.isRequired).isRequired
   render: ->
-    baseName = getReactBaseName(@)
+    baseName = ReactHelpers.getBaseName(@)
     <CourseListingBasic
       {...@props}
       baseName={baseName}
@@ -164,7 +164,7 @@ CourseListingFuture = React.createClass
   propTypes:
     courses:  React.PropTypes.arrayOf(CoursePropType.isRequired).isRequired
   render: ->
-    baseName = getReactBaseName(@)
+    baseName = ReactHelpers.getBaseName(@)
     <CourseListingBasic
       {...@props}
       baseName={baseName}

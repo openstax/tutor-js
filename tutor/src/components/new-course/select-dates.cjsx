@@ -7,6 +7,7 @@ isEqual = require 'lodash/isEqual'
 S = require '../../helpers/string'
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 {OfferingsStore} = require '../../flux/offerings'
+{CourseChoiceItem} = require './choice'
 
 QUARTERS =
   '2017Q4': 'Fall 2017'
@@ -27,17 +28,16 @@ SelectDates = React.createClass
   render: ->
     offering = OfferingsStore.get(NewCourseStore.get('offering_id'))
 
-    <BS.Table className="quarters" striped bordered >
-      <tbody>
-        {for term, index in offering.active_term_years
-          <tr key={index}
-            className={classnames(selected: isEqual(NewCourseStore.get(KEY), term))}
-            onClick={partial(@onSelect, term)}
-          >
-            <td>{S.capitalize(term.term)} {term.year}</td>
-          </tr>}
-      </tbody>
-    </BS.Table>
+    <BS.ListGroup className="quarters">
+      {for term, index in offering.active_term_years
+        <CourseChoiceItem
+          key={index}
+          active={isEqual(NewCourseStore.get(KEY), term)}
+          onClick={partial(@onSelect, term)}
+        >
+          {S.capitalize(term.term)} {term.year}
+        </CourseChoiceItem>}
+    </BS.ListGroup>
 
 
 

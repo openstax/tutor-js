@@ -2,12 +2,14 @@ React = require 'react'
 BS = require 'react-bootstrap'
 
 partial = require 'lodash/partial'
+map = require 'lodash/map'
+isEqual = require 'lodash/isEqual'
 classnames = require 'classnames'
 
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 
 {OfferingsStore} = require '../../flux/offerings'
-
+CourseOffering = require './offering'
 
 KEY = "offering_id"
 
@@ -24,18 +26,18 @@ SelectCourse = React.createClass
     offerings =
       OfferingsStore.filter(is_concept_coach: NewCourseStore.get('course_type') is 'cc')
 
-    <BS.Table className="offerings" striped bordered>
-      <tbody>
-        {for offering in offerings
-          <tr key={offering.id} data-appearance={offering.appearance_code}
-            className={classnames({selected: NewCourseStore.get(KEY) is offering.id})}
-            onClick={partial(@onSelect, offering.id)}
-          >
-            <td></td>
-            <td>{OfferingsStore.getTitle(offering.id)}</td>
-          </tr>}
-      </tbody>
-    </BS.Table>
+    <BS.ListGroup>
+      {_.map(offerings, (offering) =>
+        <BS.ListGroupItem
+          key={"course-choice-offering-#{offering.id}"}
+          active={isEqual(NewCourseStore.get(KEY), offering.id)}
+          onClick={partial(@onSelect, offering.id)}
+        >
+          <CourseOffering offeringId={offering.id}/>
+        </BS.ListGroupItem>
+      )}
+
+    </BS.ListGroup>
 
 
 module.exports = SelectCourse

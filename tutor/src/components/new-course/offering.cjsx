@@ -1,29 +1,31 @@
 React = require 'react'
 classnames = require 'classnames'
+_ = require 'lodash'
 
 {OfferingsStore} = require '../../flux/offerings'
 CourseInformation = require '../../flux/course-information'
-{getReactBaseName} = require '../../helpers/react'
+{ReactHelpers} = require 'shared'
+{CourseChoiceContent, CourseChoice} = require './choice'
 
 CourseOffering = React.createClass
   displayName: 'CourseOffering'
   render: ->
     {offeringId, children, className} = @props
-    baseName = getReactBaseName(@)
+    baseName = ReactHelpers.getBaseName(@)
 
     {appearance_code}  = OfferingsStore.get(offeringId)
     {title}   = CourseInformation[appearance_code]
 
-    <div
+    <CourseChoice
       className={classnames(baseName, className)}
       data-appearance={appearance_code}
     >
-      <div
+      <CourseChoiceContent
         className="#{baseName}-content-wrapper"
         data-book-title={title}
       >
-        <div className="#{baseName}-content">{children}</div>
-      </div>
-    </div>
+        {children}
+      </CourseChoiceContent>
+    </CourseChoice>
 
 module.exports = CourseOffering
