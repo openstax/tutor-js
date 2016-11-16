@@ -18,7 +18,8 @@ CloneTaskDrag =
   beginDrag: ({plan}) ->
     # start loading task plan details as soon as it starts to drag
     # hopefully the load will have completed by the time it's dropped
-    TaskPlanActions.load(plan.id)
+    unless TaskPlanStore.isLoaded(plan.id) or TaskPlanStore.isLoading(plan.id)
+      TaskPlanActions.load(plan.id)
     plan
 
   endDrag: (props, monitor) ->
@@ -39,20 +40,19 @@ DragInjector = (connect, monitor) ->
   { connectDragSource: connect.dragSource(), isDragging: monitor.isDragging() }
 
 DropInjector = (connect, monitor) ->
-  { connectDropTarget: connect.dropTarget() }
+  { connectDropTarget: connect.dropTarget(), isDragging: monitor.isOver() }
 
 
 AddAssignmentLink = (props) ->
-  <li data-assignment-type={props.link.type}>
-    {props.connectDragSource(
+  props.connectDragSource(
+    <li data-assignment-type={props.link.type}>
       <a
-
         href={props.link.pathname}
-        onClick={partial(props.goToBuilder, props.link)} >
+        onClick={props.goToBuilder(props.link)} >
         {props.link.text}
       </a>
-    )}
-  </li>
+    </li>
+  )
 
 CloneAssignmentLink = (props) ->
   <div data-assignment-type={props.plan.type} className='task-plan'>

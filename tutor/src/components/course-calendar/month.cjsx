@@ -76,14 +76,18 @@ CourseMonth = React.createClass
           onDragEnter: @onDragHover
       }
     ]
-
+    {hoveredDay} = @state
     getClassNameForDate = (dateToModify) ->
-      if dateToModify.isBefore(date, 'day')
-        'past'
-      else if dateToModify.isAfter(date, 'day')
-        'upcoming'
-      else
-        'current'
+      className =
+        if dateToModify.isBefore(date, 'day')
+          'past'
+        else if dateToModify.isAfter(date, 'day')
+          'upcoming'
+        else
+          'current'
+      classnames(className,
+        hovered: hoveredDay and dateToModify.isSame(hoveredDay, 'day')
+      )
 
     hackMoment = (dateToModify, calendarDate) ->
       # hacking moment instance to bypass naive filter
@@ -107,7 +111,7 @@ CourseMonth = React.createClass
     daysOfDuration = calendarDuration.iterate('days')
 
     while daysOfDuration.hasNext()
-      mods.push(makeModForDate(daysOfDuration.next(), @props.date))
+      mods.push(makeModForDate(daysOfDuration.next(), @props.date, @state))
 
     mods
 
@@ -224,6 +228,7 @@ CourseMonth = React.createClass
 
       <div className='calendar-body'>
         <AddAssignmentSidebar courseId={@props.courseId} hasPeriods={hasPeriods} />
+
         <div className="month-body" data-duration-name={@getFullMonthName()}>
           <MonthTitleNav
             courseId={@props.courseId}
@@ -232,7 +237,7 @@ CourseMonth = React.createClass
             setDate={@setDate}
           />
           {@props.connectDropTarget(
-            <div className="month-wrapper" >
+            <div className={classnames("month-wrapper", 'is-dragging': @props.isDragging)}>
               <Month date={date} monthNames={false}
                 weekdayFormat='ddd' mods={@getMonthMods(calendarDuration)} />
               {plans}

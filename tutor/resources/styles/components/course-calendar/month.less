@@ -30,10 +30,15 @@
   // background-color: transparent;
   .tutor-booksplash-adjust-top-margin(120px);
 
-  .calendar-container{
-    background-color: @tutor-white;
-    .bootstrap-column-padding-override();
-    padding-bottom: @tutor-card-body-padding-vertical;
+  .month-wrapper {
+    &.is-dragging {
+      .rc-Day--upcoming,
+      .rc-Day--current {
+        &.hovered {
+          outline: 4px solid fade(@tutor-tertiary-light, 10%);
+        }
+      }
+    }
   }
 
   .calendar-body {
@@ -41,7 +46,6 @@
       overflow-x: hidden;
       overflow-y: visible;
       padding-bottom: 20px;
-
       .tutor-subtle-load(will-load; 'Loading ' attr(data-duration-name) '...');
     }
   }
