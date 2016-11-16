@@ -14,8 +14,11 @@
   max-width: 400px;
   margin: 0 auto;
 
+  &::before,
+  &::after {
+    .psuedo-background();    
+  }
   &::before {
-    .psuedo-background();
     background-image:
       linear-gradient(to right, @tutor-secondary, @tutor-tertiary),
       url('../../images/ost-hero.jpg');
@@ -24,10 +27,8 @@
   }
 
   &::after {
-    .psuedo-background();
     background-image:
       linear-gradient(to right, fade(@tutor-secondary, 57%), fade(@tutor-tertiary, 57%));
-
   }
 
   .panel {
@@ -42,18 +43,88 @@
       border: 0;
     }
     .panel-heading {
-      max-width: 75%;
       margin: auto;
       padding-bottom: 0;
-      text-align: center;
       font-size: 1.6rem;
       line-height: 2rem;
-      font-weight: 600;
     }
   }
   .btn.btn-default.back {
     background: @tutor-neutral-light;
     color: @tutor-white;
+  }
+
+  .new-course-wizards-course_type,
+  .new-course-wizards-offering_id {
+    .panel-heading {
+      font-weight: 600;
+      max-width: 75%;
+      text-align: center;
+
+      .book-title {
+        display: none;
+      }
+    }
+  }
+
+  .new-course-wizards-term,
+  .new-course-wizards-details,
+  .new-course-wizards-copy_question_library,
+  .new-course-wizards-build {
+    .panel-heading {
+      margin-bottom: 2rem;
+      display: table;
+      width: 100%;
+
+      .for(@openstax-book-thumbnails); .-each(@code) {
+        [data-appearance=@{code}] {
+          &::before {
+            .book-content-thumbnail(@code);
+          }
+        }
+      }
+
+      [data-appearance]{
+        width: 100%;
+        display: table-row;
+
+        &::before {
+          content: ' ';
+          background-size: cover;
+          width: 6rem;
+          height: 6rem;
+          display: inline-block;
+          float: left;
+          margin-right: 1rem;
+          background-position: center bottom;
+          display: table-column;
+        }
+
+        .new-course-wizards-title-content {
+          display: table-cell;
+          vertical-align: middle;
+          width: 100%;
+
+          &::before {
+            content: attr(data-book-title);
+            font-size: 1.8rem;
+            font-weight: 900;
+            line-height: 1em;
+            margin: 0;
+          }
+        }
+
+        p {
+          margin: 0;
+        }
+      }
+
+      [data-appearance*=biology]{
+        &::before {
+          background-position: center center;
+        }
+      }
+    }
   }
 
   tbody tr {
