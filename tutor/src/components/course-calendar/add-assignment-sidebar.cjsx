@@ -23,7 +23,7 @@ AddAssignmentSidebar = React.createClass
     {isOpen: false}
 
   renderMenuLink: (link) ->
-    <AddAssignmentLink key={link.type} link=link goToBuilder={@goToBuilder} />
+    <AddAssignmentLink key=link.type link=link goToBuilder=@goToBuilder />
 
   onMenuToggle: (isOpen) ->
     return unless CourseStore.isCloned(@props.courseId)
