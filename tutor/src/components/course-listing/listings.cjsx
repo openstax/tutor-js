@@ -8,13 +8,13 @@ Router = require '../../helpers/router'
 
 {CourseStore} = require '../../flux/course'
 {CurrentUserStore} = require '../../flux/current-user'
+{getReactBaseName} = require '../../helpers/react'
 
 CourseData = require '../course-data-mixin'
 IconAdd = require  '../icons/add'
 
 {Course, CourseTeacher, CoursePropType} = require './course'
 
-getReactBaseName = (context) -> _.kebabCase(context.constructor.displayName)
 
 wrapCourseItem = (Item, course = {}) ->
   {id} = course

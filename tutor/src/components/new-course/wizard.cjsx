@@ -12,6 +12,8 @@ BindStore = require '../bind-store-mixin'
 {OfferingsStore} = require '../../flux/offerings'
 CourseInformation = require '../../flux/course-information'
 
+CourseOffering = require './offering'
+
 STAGES = {
   'course_type':              require './select-type'
   'offering_id':              require './select-course'
@@ -81,31 +83,23 @@ NewCourse = React.createClass
     </div>
 
   Title: ->
-    Component = componentFor(@state.currentStage)
-
+    {currentStage} = @state
+    Component = componentFor(currentStage)
     offeringId = NewCourseStore.get('offering_id')
-    data = if offeringId?
-      {appearance_code}  = OfferingsStore.get(offeringId)
-      {title}   = CourseInformation[appearance_code]
 
-    <div
-      className='new-course-wizards-title'
-      data-appearance={appearance_code}
-    >
-      <div
-        className='new-course-wizards-title-content'
-        data-book-title={title}
-      >
-        <p>{Component.title}</p>
-      </div>
-    </div>
-
+    if offeringId? and currentStage > 1
+      <CourseOffering offeringId={offeringId} >
+        {Component.title}
+      </CourseOffering>
+    else
+      <div>{Component.title}</div>
 
   onCancel: ->
     @context.router.transitionTo('/dashboard')
 
   render: ->
     Component = componentFor(@state.currentStage)
+
     <BS.Panel
       header={<@Title />}
       className={"new-course-wizards-#{STAGE_KEYS[@state.currentStage]}"}

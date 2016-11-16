@@ -18,6 +18,7 @@ PastCourses = React.createClass
   handleTabSelect: (activeTab) ->
     if activeTab is 1
       NewCourseActions.set(cloned_from_id: null)
+      NewCourseActions.set(name: null)
     @setState({activeTab})
 
   SourcePicker: ->
