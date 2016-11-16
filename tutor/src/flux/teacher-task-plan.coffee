@@ -34,6 +34,14 @@ TeacherTaskPlanConfig =
     @_local[courseId].push(plan)
     @emitChange()
 
+  removeClonedPlan: (courseId, planId) ->
+    plans = @_local[courseId]
+    indx = _.findIndex(plans, (plan) -> plan.id is planId)
+    if indx isnt -1
+      plans.splice(indx, 1)
+      @emitChange()
+
+
   exports:
     getPlanId: (courseId, planId) ->
       _.findWhere(@_local[courseId], id: planId)

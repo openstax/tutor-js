@@ -12,7 +12,7 @@ TaskingDateTimes = require '../builder/tasking-date-times'
 BindStoresMixin = require '../../bind-stores-mixin'
 {TutorInput, TutorTextArea} = require '../../tutor-input'
 {TaskingStore, TaskingActions} = require '../../../flux/tasking'
-
+{TeacherTaskPlanActions} = require '../../../flux/teacher-task-plan'
 taskPlanEditingInitialize = require '../initialize-editing'
 
 PublishButton = require '../footer/save-button'
@@ -54,6 +54,13 @@ TaskPlanMiniEditor = React.createClass
 
   afterSave: ->
     @props.onHide()
+  onCancel: ->
+    plan = TaskPlanStore.get(@props.id)
+    @props.onHide()
+    if TaskPlanStore.isNew(@props.id)
+      TaskPlanActions.removeUnsavedDraftPlan(@props.id)
+      TeacherTaskPlanActions.removeClonedPlan(@props.courseId, @props.id)
+      #TaskTeacherReviewActions.removeTask(@props.id)
 
   render: ->
     plan = TaskPlanStore.get(@props.id)
@@ -108,7 +115,7 @@ TaskPlanMiniEditor = React.createClass
           isWaiting={!!@isWaiting() and @state.saving}
           isFailed={TaskPlanStore.isFailed(@props.idinde)}
         />
-        <BS.Button className="cancel" onClick={@props.onHide}>Cancel</BS.Button>
+        <BS.Button className="cancel" onClick={@onCancel}>Cancel</BS.Button>
 
       </div>
     </div>
