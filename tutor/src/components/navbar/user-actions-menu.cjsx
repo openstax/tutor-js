@@ -52,7 +52,7 @@ UserActionsMenu = React.createClass
       href: route.href
       onSelect: @props.onItemClick
     else
-      href = Router.makePathname(route.name, route.params)
+      href = Router.makePathname(route.name, route.params, route.options)
       { href, onSelect: _.partial(@transitionToMenuItem, href) }
 
     key = if route.key then "dropdown-item-#{route.key}" else "dropdown-item-#{index}"

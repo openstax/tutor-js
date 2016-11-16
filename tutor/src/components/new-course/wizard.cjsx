@@ -4,16 +4,19 @@ BS = require 'react-bootstrap'
 classnames = require 'classnames'
 keys = require 'lodash/keys'
 
+TutorRouter = require '../../helpers/router'
+
 BindStore = require '../bind-store-mixin'
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
+{CourseActions, CourseStore} = require '../../flux/course'
 
 STAGES = {
-  'course_type': require './select-type'
-  'offering_id': require './select-course'
-  'term':        require './select-dates'
-  'details':     require './course-details'
-  'copy_ql':     require './copy-ql'
-  'build':       require './build-course'
+  'course_type':              require './select-type'
+  'offering_id':              require './select-course'
+  'term':                     require './select-dates'
+  'details':                  require './course-details'
+  'copy_question_library':    require './copy-ql'
+  'build':                    require './build-course'
 }
 
 STAGE_KEYS = keys(STAGES)
@@ -28,6 +31,12 @@ NewCourse = React.createClass
 
   contextTypes:
     router: React.PropTypes.object
+
+  componentWillMount: ->
+    if TutorRouter.currentQuery()?.courseId
+      course = CourseStore.get(TutorRouter.currentQuery()?.courseId)
+      NewCourseActions.setClone(course)
+      @setState({currentStage: 2})
 
   mixins: [BindStore]
   bindStore: NewCourseStore

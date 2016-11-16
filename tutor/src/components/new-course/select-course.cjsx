@@ -14,6 +14,8 @@ KEY = "offering_id"
 SelectCourse = React.createClass
   statics:
     title: "Choose your Tutor course"
+    shouldSkip: ->
+      NewCourseStore.get('cloned_from_id') and NewCourseStore.get(KEY)
 
   onSelect: (id) ->
     NewCourseActions.set({"#{KEY}": id})

@@ -20,11 +20,11 @@ PlanFooter = React.createClass
     id: React.PropTypes.string.isRequired
     courseId: React.PropTypes.string.isRequired
     goBackToCalendar: React.PropTypes.func
-    isVisibleToStudents: React.PropTypes.bool.isRequired
 
   getDefaultProps: ->
     goBackToCalendar: =>
       @context.router.transitionTo('taskplans', {courseId})
+    isVisibleToStudents: false
 
   getInitialState: ->
     isEditable: TaskPlanStore.isEditable(@props.id)

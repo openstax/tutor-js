@@ -4,7 +4,7 @@ _ = require 'underscore'
 {TaskActions, TaskStore} = require './task'
 {CrudConfig, makeSimpleStore, extendConfig, STATES} = require './helpers'
 PeriodHelper = require '../helpers/period'
-AppearanceCodes = require './course-appearance-codes'
+CourseInformation = require './course-information'
 
 DEFAULT_TIME_ZONE = 'Central Time (US & Canada)'
 
@@ -23,7 +23,11 @@ CourseConfig =
   exports:
     getBookName: (courseId) ->
       {appearance_code} = @_local[courseId]
-      AppearanceCodes[appearance_code]
+      CourseInformation[appearance_code]?.title or ''
+
+    getSubject: (courseId) ->
+      {appearance_code} = @_local[courseId]
+      CourseInformation[appearance_code]?.subject or ''
 
     isConceptCoach: (courseId) -> !! @_local[courseId]?.is_concept_coach
     isCollege: (courseId) -> !! @_local[courseId]?.is_college

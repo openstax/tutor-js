@@ -1,5 +1,5 @@
 # coffeelint: disable=no_empty_functions
-_ = require 'underscore'
+_ = require 'lodash'
 flux = require 'flux-react'
 {CourseListingStore} = require './course-listing'
 {CourseActions, CourseStore} = require './course'
@@ -18,6 +18,8 @@ RANKS = [
   'teacher'
   'admin'
 ]
+
+TEACHER_FACULTY_STATUS = 'confirmed_faculty'
 
 getRankByRole = (roleType) ->
   rank = RANKS.indexOf(roleType)
@@ -60,10 +62,16 @@ ROUTES =
       student: 'changeStudentId'
   cloneCourse:
     label: 'Add New Course'
-    allowedForCourse: (course) -> true # FIXME: This needs to check if current is a verified instructor
-    params: (courseId, role) ->
-      if courseId and role is 'teacher'
-        offeringId: CourseStore.get(courseId)?.offering_id
+    allowedForCourse: (course) ->
+      if course
+        CourseStore.isTeacher(course.id)
+      else
+        CurrentUserStore.isTeacher()
+    params: null
+    options: (courseId) ->
+      if courseId
+        query:
+          courseId: courseId
     roles:
       default: 'createNewCourse' # use default role since we ensured it was a teacher in allowedForCourse
 
@@ -79,6 +87,8 @@ TUTOR_HELP = 'http://openstax.force.com/support?l=en_US&c=Products%3ATutor'
 TUTOR_CONTACT = 'http://openstax.force.com/support/?cu=1&fs=ContactUs&l=en_US&c=Products%3ATutor'
 CONCEPT_COACH_HELP = 'http://openstax.force.com/support?l=en_US&c=Products%3AConcept_Coach'
 CONCEPT_COACH_CONTACT = 'http://openstax.force.com/support/?cu=1&fs=ContactUs&l=en_US&c=Products%3AConcept_Coach'
+
+isDefined = _.negate(_.isUndefined)
 
 CurrentUserStore = flux.createStore
   actions: [
@@ -99,15 +109,23 @@ CurrentUserStore = flux.createStore
   _getParamsForRoute: (courseId, routeType, menuRole) ->
     if _.isFunction(ROUTES[routeType].params)
       ROUTES[routeType].params(courseId, menuRole)
+    else if isDefined(ROUTES[routeType].params)
+      ROUTES[routeType].params
     else
       {courseId}
+
+  _getOptionsForRoute: (courseId, routeType, menuRole) ->
+    if _.isFunction(ROUTES[routeType].options)
+      ROUTES[routeType].options(courseId, menuRole)
+    else
+      ROUTES[routeType].options
 
   _getCourseRole: (courseId, silent = true) ->
     course = CourseStore.get(courseId)
     courseRoles = course?.roles or [{type: 'guest'}]
 
     role = _.chain(courseRoles)
-      .pluck('type')
+      .map('type')
       .sortBy((roleType) ->
         # sort by rank -- Teacher role will take precedence over student role for example
         -1 * getRankByRole(roleType)
@@ -147,6 +165,7 @@ CurrentUserStore = flux.createStore
     getCSRFToken: -> CSRF_Token
     getName: -> @_user.name
     isAdmin: -> @_user.is_admin
+    isTeacher: -> @_user.faculty_status is TEACHER_FACULTY_STATUS
     get: -> @_user
     isContentAnalyst: -> @_user.is_content_analyst
     isCustomerService: -> @_user.is_customer_service
@@ -182,7 +201,7 @@ CurrentUserStore = flux.createStore
       else
         courses = CourseListingStore.allCourses()
         # link to TUTOR_HELP if they do not have any CC courses
-        if _.all(courses, (course) -> not course.is_concept_coach)
+        if _.every(courses, (course) -> not course.is_concept_coach)
           TUTOR_HELP
         else
           CONCEPT_COACH_HELP
@@ -192,8 +211,8 @@ CurrentUserStore = flux.createStore
     getCourseMenuRoutes: (courseId, silent = false) ->
       course = CourseStore.get(courseId)
       menuRole = @_getCourseRole(courseId, silent)
-      validRoutes = _.pick ROUTES, (route) ->
-        false isnt route.allowedForCourse?(course)
+      validRoutes = _.pickBy ROUTES, (route) ->
+        route.allowedForCourse?(course) isnt false
       routes = _.keys(validRoutes)
 
       _.chain(routes)
@@ -201,9 +220,17 @@ CurrentUserStore = flux.createStore
           routeName = @_getRouteByRole(routeType, menuRole)
 
           if routeName?
-            name: routeName
-            params: @_getParamsForRoute(courseId, routeType, menuRole)
-            label: ROUTES[routeType].label
+            options = @_getOptionsForRoute(courseId, routeType, menuRole)
+            params  = @_getParamsForRoute(courseId, routeType, menuRole)
+
+            route =
+              name: routeName
+              label: ROUTES[routeType].label
+
+            route.options = options if options
+            route.params = params if params
+            route
+
         )
         .compact()
         .value()

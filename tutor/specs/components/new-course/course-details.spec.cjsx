@@ -18,7 +18,7 @@ describe 'CreateCourse: entering details', ->
     undefined
 
   it 'toggles the tabs when course are present', ->
-    NewCourseActions.set(offering_id: 1)
+    NewCourseActions.set(offering_id: '1')
     CourseListingActions.loaded(MASTER_COURSES_LIST)
     wrapper = mount(<CourseDetails />)
     expect(wrapper.find('.other-courses')).not.to.be.empty

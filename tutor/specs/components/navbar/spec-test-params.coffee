@@ -27,13 +27,6 @@ STUDENT_MENU = [
     params: {courseId: '1'}
     label: 'Change Student ID'
   }
-  # FIXME: This should not be here, but it needs to be present
-  # so specs pass until BE gives us a way to tell if a user
-  # is a verififed instructor
-  {
-    name: 'createNewCourse'
-    label: 'Add New Course'
-  }
 ]
 
 TEACHER_MENU = [

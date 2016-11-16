@@ -1,6 +1,5 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-_ = require 'underscore'
 
 FAQ_BASE = 'http://openstax.force.com/support/articles/FAQ/'
 # coffeelint: disable=max_line_length
