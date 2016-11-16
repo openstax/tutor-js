@@ -9,7 +9,7 @@ Router = require '../../helpers/router'
 {CourseStore} = require '../../flux/course'
 {CurrentUserStore} = require '../../flux/current-user'
 
-CourseData = require '../course-data-mixin'
+CourseData = require '../../helpers/course-data'
 IconAdd = require  '../icons/add'
 
 {Course, CourseTeacher, CoursePropType} = require './course'
