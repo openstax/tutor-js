@@ -33,14 +33,11 @@ PastAssignments = React.createClass
 PastAssignmentsShell = React.createClass
   render: ->
     {courseId} = @props
-
     <LoadableItem
       id={courseId}
       store={PastTaskPlansStore}
       actions={PastTaskPlansActions}
-      load={partial(PastTaskPlansActions.load, {courseId})}
-      renderLoading={ PastAssignmentsLoading }
-      renderItem={-> <PastAssignments courseId={courseId} />}
+      renderItem={ -> <PastAssignments courseId={courseId} /> }
     />
 
 module.exports = PastAssignmentsShell

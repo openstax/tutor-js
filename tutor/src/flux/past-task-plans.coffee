@@ -4,10 +4,10 @@ cloneDeep = require 'lodash/cloneDeep'
 BLANK = {}
 
 StoreDefinition = makeStandardStore('PastTaskPlans', {
-  load: ({courseId}) ->
+  load: (courseId) ->
     @_asyncStatus[courseId] = STATES.LOADING
 
-  loaded: (data, {courseId}) ->
+  loaded: (data, courseId) ->
     @_asyncStatus[courseId] = STATES.LOADED
     @_local[courseId] = data.items
     @emitChange()
