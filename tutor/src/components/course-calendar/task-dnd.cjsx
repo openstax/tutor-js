@@ -1,5 +1,6 @@
 React = require 'react'
 
+classnames = require 'classnames'
 partial = require 'lodash/partial'
 {DragSource} = require 'react-dnd'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
@@ -45,7 +46,10 @@ DropInjector = (connect, monitor) ->
 
 AddAssignmentLink = (props) ->
   props.connectDragSource(
-    <li data-assignment-type={props.link.type}>
+    <li
+      data-assignment-type={props.link.type}
+      className={classnames('new-task', 'is-dragging': props.isDragging)}
+    >
       <a
         href={props.link.pathname}
         onClick={props.goToBuilder(props.link)} >
@@ -55,11 +59,14 @@ AddAssignmentLink = (props) ->
   )
 
 CloneAssignmentLink = (props) ->
-  <div data-assignment-type={props.plan.type} className='task-plan'>
-    {props.connectDragSource(
+  props.connectDragSource(
+    <div
+      data-assignment-type={props.plan.type}
+      className={classnames('task-plan', 'is-dragging': props.isDragging)}
+    >
       <div>{props.plan.title}</div>
-    )}
-  </div>
+    </div>
+  )
 
 
 module.exports = {

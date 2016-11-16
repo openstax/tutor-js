@@ -1,5 +1,20 @@
 .add-assignment-sidebar {
-
+  .draggable() {
+    &.is-dragging {
+      > * { visibility: hidden; }
+      background-color: @tutor-neutral-lighter;
+    }
+    &:not(.is-dragging) {
+      &:before {
+        .fa-icon();
+        display: inline-block;
+        content: @fa-var-th;
+      }
+      &:hover {
+        .tutor-shadow(1);
+      }
+    }
+  }
   border-right: 1px solid @tutor-neutral-light;
   position: absolute;
   width: @calendar-sidebar-width;
@@ -12,20 +27,14 @@
     padding-left: 0;
 
     li {
-      margin: 5px;
+      padding: 5px;
       .tutor-plan-set(sidebar);
       .no-select();
-
-      &:before {
-        .fa-icon();
-        display: inline-block;
-        content: @fa-var-th;
-      }
-
+      .draggable();
       a {
         padding: 3px 12px;
         color: @tutor-neutral-darker;
-        &:hover { text-decoration: none; }
+        &:hover, &:focus { text-decoration: none; }
       }
     }
   }
@@ -42,15 +51,18 @@
     .task-plan{
       .tutor-plan-set(sidebar);
       cursor: move;
-      margin: 5px;
+      padding: 5px;
       display: flex;
       align-items: center;
+      .draggable();
 
-      &:before {
-        .fa-icon();
-        content: @fa-var-th;
-      }
-
+      // &:hover {
+      //   .tutor-shadow(1);
+      // }
+      // &:before {
+      //   .fa-icon();
+      //   content: @fa-var-th;
+      // }
       div {
         white-space: nowrap;
         overflow: hidden;
