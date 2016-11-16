@@ -2,7 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
-
+ReactDOM = require 'react-dom'
 {VocabularyActions, VocabularyStore} = require 'stores/vocabulary'
 
 Distractor = React.createClass
@@ -20,7 +20,8 @@ Distractor = React.createClass
       @save()
       VocabularyActions.addBlankDistractor(@props.termId, @props.index + 1)
       _.defer =>
-        @getDOMNode().parentElement.querySelector("[data-index='#{@props.index+1}']")?.focus()
+        ReactDOM.findDOMNode(@)
+          .parentElement.querySelector("[data-index='#{@props.index+1}']")?.focus()
 
 
   onChange: (ev) ->

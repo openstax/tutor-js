@@ -28,11 +28,8 @@ start = ->
 
   connectModify(ExerciseActions, {trigger: 'publish', onSuccess: 'published'},
     (id) ->
-      obj = ExerciseStore.get(id)
-      uid = ExerciseStore.getId(id)
-
-      url: "exercises/#{uid}/publish"
-      data: obj
+      url: "exercises/#{ExerciseStore.getId(id)}/publish"
+      data: ExerciseStore.get(id)
   )
 
   connectDelete(ExerciseActions, {trigger: 'deleteAttachment', onSuccess: 'attachmentDeleted'},
@@ -48,9 +45,10 @@ start = ->
     data: VocabularyStore.get(id)
   )
 
-  connectModify(VocabularyActions,
-    trigger: 'publish', onSuccess: 'published'
-    route: VocabularyStore.get, data: VocabularyStore.get
+  connectModify(VocabularyActions, {trigger: 'publish', onSuccess: 'published'},
+    (id) ->
+      url: "vocab_terms/#{id}/publish"
+      data: VocabularyStore.get(id)
   )
 
 uploadExerciseImage = (exerciseUid, image, cb) ->

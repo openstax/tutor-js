@@ -34,7 +34,7 @@ PublishedModal = React.createClass
       autoFocus={false}
       backdrop={false}
       animation={false}
-      onRequestHide={@onHide}
+      onHide={@onHide}
       title={"Exercise has published sucessfully"}
       onHide={@onHide}>
 
