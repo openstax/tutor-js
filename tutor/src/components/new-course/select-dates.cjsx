@@ -4,7 +4,7 @@ BS = require 'react-bootstrap'
 classnames = require 'classnames'
 partial = require 'lodash/partial'
 isEqual = require 'lodash/isEqual'
-S = require '../../helpers/string'
+
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 {OfferingsStore} = require '../../flux/offerings'
 {CourseChoiceItem} = require './choice'
@@ -28,14 +28,14 @@ SelectDates = React.createClass
   render: ->
     offering = OfferingsStore.get(NewCourseStore.get('offering_id'))
 
-    <BS.ListGroup className="quarters">
+    <BS.ListGroup>
       {for term, index in offering.active_term_years
         <CourseChoiceItem
           key={index}
           active={isEqual(NewCourseStore.get(KEY), term)}
           onClick={partial(@onSelect, term)}
         >
-          {S.capitalize(term.term)} {term.year}
+          {term.term} {term.year}
         </CourseChoiceItem>}
     </BS.ListGroup>
 

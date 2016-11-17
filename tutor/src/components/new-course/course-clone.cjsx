@@ -16,10 +16,10 @@ SelectDates = React.createClass
   statics:
     title: "Choose a semester to copy"
     shouldSkip: ->
-      NewCourseStore.get('new_or_copy') is 'new'
+      NewCourseStore.get('new_or_copy') is 'new' or NewCourseStore.get(KEY)
 
   onSelect: (course) ->
-    NewCourseActions.set("#{KEY}": course.id)
+    NewCourseActions.set(KEY: course.id)
     NewCourseActions.set('name': course.name)
     NewCourseActions.set('num_sections': course.periods.length)
 

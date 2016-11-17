@@ -1,6 +1,7 @@
 {makeStandardStore} = require './helpers'
 extend = require 'lodash/extend'
 omit = require 'lodash/omit'
+isUndefined  = require 'lodash/isUndefined'
 cloneDeep  = require 'lodash/cloneDeep'
 
 {CourseListingActions} = require './course-listing'
@@ -38,6 +39,7 @@ StoreDefinition = makeStandardStore('NewCourse', {
 
   setClone: (course) ->
     newCourse =
+      new_or_copy: 'copy'
       course_type: if course.is_concept_coach then 'cc' else 'tutor'
       offering_id: course.offering_id
       cloned_from_id: course.id
@@ -48,10 +50,10 @@ StoreDefinition = makeStandardStore('NewCourse', {
 
   exports:
     isValid: (attr) ->
-      !! switch attr
+      switch attr
         when 'details' then @_local.name and @_local.num_sections
         else
-          @_local[attr]
+          not isUndefined(@_local[attr])
 
     newCourse: ->
       @_local['newlyCreatedCourse']

@@ -2,9 +2,11 @@ React = require 'react'
 BS = require 'react-bootstrap'
 
 partial = require 'lodash/partial'
+isEqual = require 'lodash/isEqual'
 classnames = require 'classnames'
 
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
+{CourseChoiceItem} = require './choice'
 
 MESSAGES = [
   '''
@@ -33,29 +35,31 @@ CopyQL = React.createClass
 
   render: ->
     <div className="copy-ql">
-      <BS.Table striped bordered>
-        <tbody>
-          <tr
-            onClick={partial(@onSelect, true)}
-            className={classnames('true', selected: NewCourseStore.get(KEY) is true)}
-          >
-            <td>Copy Question Library</td>
-          </tr>
-          <tr
-            onClick={partial(@onSelect, false)}
-            className={classnames('false', selected: NewCourseStore.get(KEY) is false)}
-          >
-            <td>Don’t copy Question Library</td>
-          </tr>
-        </tbody>
-      </BS.Table>
+      <BS.ListGroup>
+        <CourseChoiceItem
+          key='copy-library'
+          active={isEqual(NewCourseStore.get(KEY), true)}
+          onClick={partial(@onSelect, true)}
+          data-copy-or-not='copy'
+        >
+          Copy
+        </CourseChoiceItem> 
+        <CourseChoiceItem
+          key='dont-copy-library'
+          active={isEqual(NewCourseStore.get(KEY), false)}
+          onClick={partial(@onSelect, false)}
+          data-copy-or-not='dont-copy'
+        >
+          Don’t copy
+        </CourseChoiceItem>          
+      </BS.ListGroup>
       <div
         className={classnames('explain', 'alert', {
           'alert-info': NewCourseStore.get(KEY) is true
           'alert-danger': NewCourseStore.get(KEY) is false
         })}
       >
-        {MESSAGES[NewCourseStore.get(KEY) or true]}
+        {MESSAGES[NewCourseStore.get(KEY) * 1]}
       </div>
     </div>
 

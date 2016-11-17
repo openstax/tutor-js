@@ -23,7 +23,7 @@ SelectType = React.createClass
       tutor:  'tutor-beta'
       cc:     'coach'
 
-    <div className="select-type">
+    <BS.ListGroup>
       {for type, logo of types
         <CourseChoiceItem
           key={type}
@@ -31,7 +31,7 @@ SelectType = React.createClass
           active={isEqual(NewCourseStore.get(KEY), type)}
           onClick={partial(@onSelectType, type)}
         />}
-    </div>
+    </BS.ListGroup>
 
 
 module.exports = SelectType
