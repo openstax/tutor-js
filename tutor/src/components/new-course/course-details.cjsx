@@ -16,6 +16,9 @@ CourseDetails = React.createClass
   statics:
     title: 'Name your course'
 
+  componentWillMount: ->
+    NewCourseActions.set({num_sections: 1}) unless NewCourseStore.get('num_sections')
+
   updateName: (ev) ->
     NewCourseActions.set({name: ev.target.value})
 
@@ -23,29 +26,31 @@ CourseDetails = React.createClass
     NewCourseActions.set({num_sections: parseInt(ev.target.value, 10)})
 
   render: ->
-
-    <div className="course-details" >
-      <BS.FormGroup className='course-name'>
-        <BS.ControlLabel>Name of new course:</BS.ControlLabel>
-        <BS.FormControl autoFocus
-          type="text"
-          value={NewCourseStore.get('name') or ''}
-          onChange={@updateName}
-        />
-      </BS.FormGroup>
-      <BS.Form inline>
-        <BS.FormGroup className="section-count">
-          <BS.ControlLabel>Number of sections</BS.ControlLabel>
-          <BS.FormControl
+    <BS.Form>
+      <BS.FormGroup className='course-details-name'>
+        <BS.InputGroup>
+          <BS.InputGroup.Addon>Name of course</BS.InputGroup.Addon>
+          <BS.FormControl autoFocus
             type="text"
-            value={NewCourseStore.get('num_sections') or ''}
+            value={NewCourseStore.get('name') or ''}
+            onChange={@updateName}
+          />
+        </BS.InputGroup>
+      </BS.FormGroup>
+      <BS.FormGroup className='course-details-sections'>
+        <BS.InputGroup>
+          <BS.InputGroup.Addon>Number of sections</BS.InputGroup.Addon>
+          <BS.FormControl
+            type='number'
+            min='1'
+            value={NewCourseStore.get('num_sections')}
             onChange={@updateSectionCount}
           />
-        </BS.FormGroup>
-      </BS.Form>
-
-    </div>
-
-
+        </BS.InputGroup>
+        <p className='course-details-sections-note'>
+          <small><i>(You can add or remove sections later)</i></small>
+        </p>
+      </BS.FormGroup>
+    </BS.Form>
 
 module.exports = CourseDetails

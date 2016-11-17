@@ -36,7 +36,7 @@ getDependentKeys = (changedKeys) ->
       CONTROL_RANKS[key]
     ).last()
 
-  dropIndex = _.indexOf(DEPENDENT_VALUES_COMBINED, keyToCheck)
+  dropIndex = _.indexOf(CONTROL_VALUES, keyToCheck)
   _.drop(DEPENDENT_VALUES_COMBINED, dropIndex + 1) unless dropIndex < 0
 
 getChangeDependents = (oldObject, newObject) ->

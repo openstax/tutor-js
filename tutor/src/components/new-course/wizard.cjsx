@@ -105,18 +105,18 @@ NewCourse = React.createClass
     Component = componentFor(@state.currentStage)
     wizardClasses = classnames('new-course-wizard', "new-course-wizard-#{STAGE_KEYS[@state.currentStage]}")
 
-    console.info(Component, @state.currentStage) unless Component
-
     <BS.Panel
       header={<@Title />}
       className={wizardClasses}
       footer={<@Footer /> unless Component.shouldHideControls}
-    >
+    > 
+      <div className='panel-content'>
         <Component
           onContinue={@onContinue}
           onCancel={@onCancel}
           {...@state}
         />
+      </div>
     </BS.Panel>
 
 

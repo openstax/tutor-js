@@ -18,6 +18,14 @@
 
 .new-course-wizard {
   .list-group-item {
+    padding: 8px;
+
+    &:focus {
+      outline-color: @tutor-neutral;
+      outline-width: thin;
+      outline-style: dotted;
+    }
+
     &.active {
       .make-wizard-choice-active();
 
@@ -84,6 +92,93 @@
       .course-choice::before {
         content: url('../../images/icons/icon-dont-copy-course.svg');
       }
+    }
+  }
+
+  .input-group-addon {
+    background: @tutor-white;
+    color: @tutor-neutral-dark;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  .form-control {
+    background: @tutor-neutral-lightest;
+
+    &:focus {
+      color: @tutor-neutral-dark;
+    }
+  }
+
+  &.new-course-wizard-course_type,
+  &.new-course-wizard-offering_id {
+    .panel-heading {
+      font-weight: 600;
+      max-width: 75%;
+      text-align: center;
+      min-height: 6rem;
+      display: table;
+
+      div {
+        display: table-cell;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  &.new-course-wizard-term,
+  &.new-course-wizard-cloned_from_id {
+    .list-group-item {
+      text-transform: capitalize;
+    }
+  }
+
+  &.new-course-wizard-cloned_from_id {
+    .course-choice-content {
+      p {
+        margin-bottom: 0;
+        font-weight: 300;
+        font-size: 0.9em;
+        line-height: 1.25em;
+      }
+    }
+  }
+
+  &.new-course-wizard-copy_question_library {
+    .list-group {
+      display: flex;
+
+      .list-group-item {
+        &:first-child {
+          border-top-right-radius: 0;
+          border-bottom-left-radius: @list-group-border-radius;
+        }
+        &:last-child {
+          border-bottom-left-radius: 0;
+          border-top-right-radius: @list-group-border-radius;
+        }
+      }
+
+      .course-choice::before {
+        width: 32px;
+      }
+    }
+  }
+
+  &.new-course-wizard-details {
+    .course-details-sections {
+      .input-group-addon {
+        width: 260px;
+      }
+
+      .form-control {
+        text-align: center;
+      }
+    }
+
+    .course-details-sections-note {
+      color: @tutor-neutral;
+      margin-left: 0.5rem;
     }
   }
 }
@@ -188,12 +283,8 @@
       linear-gradient(to right, fade(@tutor-secondary, 57%), fade(@tutor-tertiary, 57%));
   }
 
-  .list-group-item {
-    padding: 8px;
-  }
-
   .panel {
-    padding: 1.5rem;
+    padding: 3rem 4rem;
     .tutor-shadow(3);
 
     .panel-heading,
@@ -202,78 +293,28 @@
       color: @tutor-neutral-dark;
       background-color: white;
       border: 0;
+      padding: 1rem 0;
     }
     .panel-heading {
       margin: auto;
       font-size: 1.6rem;
       line-height: 2rem;
     }
+    .panel-body {
+      padding: 1.6rem 0;
+      margin-left: -4px;
+      margin-right: -4px;
+    }
+
+    .panel-content {
+      height: 260px;
+      overflow: auto;
+      padding: 4px;
+    }
   }
+
   .btn.btn-default.back {
     background: @tutor-neutral-light;
     color: @tutor-white;
   }
-
-  .new-course-wizard {
-    .panel-body {
-      height: 260px;
-      overflow: auto;
-    }
-  }
-
-  .new-course-wizard-course_type,
-  .new-course-wizard-offering_id {
-    .panel-heading {
-      font-weight: 600;
-      max-width: 75%;
-      text-align: center;
-      min-height: 6rem;
-      display: table;
-
-      div {
-        display: table-cell;
-        vertical-align: middle;
-      }
-    }
-  }
-
-  .new-course-wizard-term,
-  .new-course-wizard-cloned_from_id {
-    .list-group-item {
-      text-transform: capitalize;
-    }
-  }
-
-  .new-course-wizard-cloned_from_id {
-    .course-choice-content {
-      p {
-        margin-bottom: 0;
-        font-weight: 300;
-        font-size: 0.9em;
-        line-height: 1.25em;
-      }
-    }
-  }
-
-  .new-course-wizard-copy_question_library {
-    .list-group {
-      display: flex;
-
-      .list-group-item {
-        &:first-child {
-          border-top-right-radius: 0;
-          border-bottom-left-radius: @list-group-border-radius;
-        }
-        &:last-child {
-          border-bottom-left-radius: 0;
-          border-top-right-radius: @list-group-border-radius;
-        }
-      }
-
-      .course-choice::before {
-        width: 32px;
-      }
-    }
-  }
-
 }
