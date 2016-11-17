@@ -1,5 +1,6 @@
 {makeStandardStore} = require './helpers'
 extend = require 'lodash/extend'
+omit = require 'lodash/omit'
 cloneDeep  = require 'lodash/cloneDeep'
 
 {CourseListingActions} = require './course-listing'
@@ -59,7 +60,7 @@ StoreDefinition = makeStandardStore('NewCourse', {
       @_local[attr]
 
     requestPayload: ->
-      payload = cloneDeep(@_local)
+      payload = omit(@_local, 'new_or_copy')
       extend(payload, payload.term)
       # TODO check on why this is always true...
       payload.is_college = true

@@ -19,8 +19,10 @@ STAGES = {
   'course_type':              require './select-type'
   'offering_id':              require './select-course'
   'term':                     require './select-dates'
-  'details':                  require './course-details'
+  'new_or_copy':              require './new-or-copy'
+  'cloned_from_id':           require './course-clone'
   'copy_question_library':    require './copy-ql'
+  'details':                  require './course-details'
   'build':                    require './build-course'
 }
 

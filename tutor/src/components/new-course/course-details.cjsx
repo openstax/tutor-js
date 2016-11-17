@@ -90,11 +90,6 @@ CourseDetails = React.createClass
   render: ->
 
     <div className="course-details" >
-
-      <PastCourses courses={@state.teachingCourses}
-        onSelect={@onSelect}
-        selected={NewCourseStore.get('cloned_from_id')} />
-
       <BS.FormGroup className='course-name'>
         <BS.ControlLabel>Name of new course:</BS.ControlLabel>
         <BS.FormControl autoFocus
