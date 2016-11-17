@@ -4,12 +4,15 @@ BS = require 'react-bootstrap'
 classnames = require 'classnames'
 keys = require 'lodash/keys'
 isFunction = require 'lodash/isFunction'
+isEmpty = require 'lodash/isEmpty'
 
 TutorRouter = require '../../helpers/router'
 
 BindStore = require '../bind-store-mixin'
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 {CourseActions, CourseStore} = require '../../flux/course'
+{CourseListingStore} = require '../../flux/course-listing'
+
 {OfferingsStore} = require '../../flux/offerings'
 CourseInformation = require '../../flux/course-information'
 
@@ -44,6 +47,9 @@ NewCourse = React.createClass
       course = CourseStore.get(TutorRouter.currentQuery()?.courseId)
       NewCourseActions.setClone(course)
       @setState({currentStage: 2})
+    else if isEmpty(CourseListingStore.filterTeachingCourses(is_concept_coach: true))
+      NewCourseActions.set(course_type: 'tutor')
+      @setState({currentStage: 1})
 
   mixins: [BindStore]
   bindStore: NewCourseStore
