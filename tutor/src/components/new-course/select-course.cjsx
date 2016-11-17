@@ -18,6 +18,7 @@ COURSE_TYPE_NAMES =
   tutor: 'Tutor'
 
 SelectCourse = React.createClass
+  displayName: 'SelectCourse'
   statics:
     title: 'Which course are you teaching?'
     shouldSkip: ->

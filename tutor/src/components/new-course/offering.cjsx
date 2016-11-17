@@ -9,6 +9,10 @@ CourseInformation = require '../../flux/course-information'
 
 CourseOffering = React.createClass
   displayName: 'CourseOffering'
+  propTypes:
+    offeringId: React.PropTypes.string.isRequired
+    className:  React.PropTypes.string
+    children:   React.PropTypes.node
   render: ->
     {offeringId, children, className} = @props
     baseName = ReactHelpers.getBaseName(@)

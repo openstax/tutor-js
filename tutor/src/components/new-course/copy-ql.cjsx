@@ -32,6 +32,7 @@ MESSAGES = [
 KEY = 'copy_question_library'
 
 CopyQL = React.createClass
+  displayName: 'CopyQL'
   statics:
     title: 'Do you want to copy the same questions?'
     shouldSkip: -> # nothing to copy if no source course

@@ -8,7 +8,7 @@ Wizard = require './wizard'
 
 
 NewCourse = React.createClass
-
+  displayName: 'NewCourse'
   render: ->
     <div className="new-course">
           <LoadableItem

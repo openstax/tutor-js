@@ -5,6 +5,7 @@ TutorLink = require '../link'
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 
 BuildCourse = React.createClass
+  displayName: 'BuildCourse'
   statics:
     shouldHideControls: true
 

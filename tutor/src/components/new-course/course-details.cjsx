@@ -13,6 +13,7 @@ classnames = require 'classnames'
 
 
 CourseDetails = React.createClass
+  displayName: 'CourseDetails'
   statics:
     title: 'Name your course'
 

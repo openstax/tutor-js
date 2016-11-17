@@ -14,6 +14,7 @@ TutorRouter = require '../../helpers/router'
 KEY = "new_or_copy"
 
 SelectDates = React.createClass
+  displayName: 'SelectDates'
   statics:
     title: 'Do you want to create a new course or copy a previous course?'
     shouldSkip: ->

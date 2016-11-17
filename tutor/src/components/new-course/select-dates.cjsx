@@ -18,7 +18,7 @@ QUARTERS =
 KEY = "term"
 
 SelectDates = React.createClass
-
+  displayName: 'SelectDates'
   statics:
     title: 'When will you teach this course?'
 

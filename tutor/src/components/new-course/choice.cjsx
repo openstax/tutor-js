@@ -6,6 +6,9 @@ _ = require 'lodash'
 
 CourseChoiceContent = React.createClass
   displayName: 'CourseChoiceContent'
+  propTypes:
+    className:  React.PropTypes.string
+    children:   React.PropTypes.node
   render: ->
     {children, className} = @props
     passableProps = _.omit(@props, 'children', 'className')
@@ -24,7 +27,8 @@ CourseChoiceContent = React.createClass
 CourseChoice = React.createClass
   displayName: 'CourseChoice'
   propTypes:
-    children: (props, propName, componentName) ->
+    className:  React.PropTypes.string
+    children:   (props, propName, componentName) ->
       if props[propName].type.displayName isnt 'CourseChoiceContent'
         new Error(
           "Invalid prop #{propName} supplied to #{componentName}.
@@ -45,6 +49,10 @@ CourseChoice = React.createClass
 
 CourseChoiceItem = React.createClass
   displayName: 'CourseChoiceItem'
+  propTypes:
+    onClick:    React.PropTypes.func.isRequired
+    className:  React.PropTypes.string
+    children:   React.PropTypes.node
   render: ->
     {children, className, onClick} = @props
     itemStateProps = _.pick(@props, 'active', 'disabled')

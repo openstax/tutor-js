@@ -13,7 +13,7 @@ TutorRouter = require '../../helpers/router'
 KEY = 'course_type'
 
 SelectType = React.createClass
-
+  displayName: 'SelectType'
   statics:
     title: 'Which tool do you want to use?'
     shouldSkip: ->

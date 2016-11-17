@@ -34,8 +34,8 @@ STAGE_KEYS = keys(STAGES)
 componentFor = (index) ->
   STAGES[ STAGE_KEYS[ index ] ]
 
-NewCourse = React.createClass
-
+NewCourseWizard = React.createClass
+  displayName: 'NewCourseWizard'
   getInitialState: ->
     currentStage: 0
 
@@ -105,6 +105,7 @@ NewCourse = React.createClass
       <div>{title}</div>
 
   onCancel: ->
+    NewCourseActions.reset()
     @context.router.transitionTo('/dashboard')
 
   render: ->
@@ -117,13 +118,9 @@ NewCourse = React.createClass
       footer={<@Footer /> unless Component.shouldHideControls}
     > 
       <div className='panel-content'>
-        <Component
-          onContinue={@onContinue}
-          onCancel={@onCancel}
-          {...@state}
-        />
+        <Component/>
       </div>
     </BS.Panel>
 
 
-module.exports = NewCourse
+module.exports = NewCourseWizard

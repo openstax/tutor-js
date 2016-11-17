@@ -14,6 +14,7 @@ TutorRouter = require '../../helpers/router'
 KEY = "cloned_from_id"
 
 CourseClone = React.createClass
+  displayName: 'CourseClone'
   statics:
     title: 'Which course do you want to copy?'
     shouldSkip: ->
