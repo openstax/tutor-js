@@ -16,10 +16,6 @@ CourseDetails = React.createClass
   statics:
     title: 'Name your course'
 
-  onContinue: ->
-    console.info(@state.selected)
-    @props.onContinue(quarter: @state.selected)
-
   updateName: (ev) ->
     NewCourseActions.set({name: ev.target.value})
 

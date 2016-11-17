@@ -3,6 +3,8 @@ BS = require 'react-bootstrap'
 partial = require 'lodash/partial'
 isEqual = require 'lodash/isEqual'
 
+TutorRouter = require '../../helpers/router'
+
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 {CourseChoiceItem} = require './choice'
 
@@ -13,7 +15,7 @@ SelectType = React.createClass
   statics:
     title: "Choose the tool you want to use in your course"
     shouldSkip: ->
-      NewCourseStore.get('cloned_from_id') and NewCourseStore.get(KEY)
+      TutorRouter.currentQuery()?.courseId
 
   onSelectType: (type) ->
     NewCourseActions.set({"#{KEY}": type})

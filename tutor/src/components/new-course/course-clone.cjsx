@@ -8,23 +8,33 @@ map = require 'lodash/map'
 
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 {CourseListingStore} = require '../../flux/course-listing'
+TutorRouter = require '../../helpers/router'
 {CourseChoiceItem} = require './choice'
 
 KEY = "cloned_from_id"
 
-SelectDates = React.createClass
+CourseClone = React.createClass
   statics:
     title: "Choose a semester to copy"
     shouldSkip: ->
-      NewCourseStore.get('new_or_copy') is 'new' or NewCourseStore.get(KEY)
+      isEmpty(NewCourseStore.get('new_or_copy')) or
+        NewCourseStore.get('new_or_copy') is 'new' or
+        TutorRouter.currentQuery()?.courseId
+
+  getInitialState: ->
+    courses: CourseListingStore.teachingCoursesForOffering(NewCourseStore.get('offering_id'))
+
+  componentWillMount: ->
+    {courses} = @state
+    @onSelect(courses[0]) if courses.length is 1
 
   onSelect: (course) ->
-    NewCourseActions.set(KEY: course.id)
+    NewCourseActions.set("#{KEY}": course.id)
     NewCourseActions.set('name': course.name)
     NewCourseActions.set('num_sections': course.periods.length)
 
   render: ->
-    courses = CourseListingStore.teachingCoursesForOffering(NewCourseStore.get('offering_id'))
+    {courses} = @state
 
     <BS.ListGroup>
       {_.map(courses, (course) =>
@@ -40,4 +50,4 @@ SelectDates = React.createClass
     </BS.ListGroup>
 
 
-module.exports = SelectDates
+module.exports = CourseClone

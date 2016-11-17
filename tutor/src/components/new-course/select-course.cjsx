@@ -6,6 +6,7 @@ isEqual = require 'lodash/isEqual'
 classnames = require 'classnames'
 
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
+TutorRouter = require '../../helpers/router'
 
 {OfferingsStore} = require '../../flux/offerings'
 CourseOffering = require './offering'
@@ -21,7 +22,7 @@ SelectCourse = React.createClass
     title: ->
       "Choose your #{COURSE_TYPE_NAMES[NewCourseStore.get('course_type')]} course"
     shouldSkip: ->
-      NewCourseStore.get('cloned_from_id') and NewCourseStore.get(KEY)
+      TutorRouter.currentQuery()?.courseId
 
   onSelect: (id) ->
     NewCourseActions.set({"#{KEY}": id})

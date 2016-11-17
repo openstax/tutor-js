@@ -4,20 +4,21 @@ BS = require 'react-bootstrap'
 partial = require 'lodash/partial'
 isEqual = require 'lodash/isEqual'
 isEmpty = require 'lodash/isEmpty'
-S = require '../../helpers/string'
+
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 {CourseListingStore} = require '../../flux/course-listing'
+TutorRouter = require '../../helpers/router'
+
 {CourseChoiceItem} = require './choice'
 
 KEY = "new_or_copy"
 
 SelectDates = React.createClass
-
   statics:
     title: "Choose to create a new course or copy a previous course"
     shouldSkip: ->
-      NewCourseStore.get(KEY) or
-        isEmpty(CourseListingStore.teachingCoursesForOffering(NewCourseStore.get('offering_id')))
+      TutorRouter.currentQuery()?.courseId or
+      isEmpty(CourseListingStore.teachingCoursesForOffering(NewCourseStore.get('offering_id')))
 
   onSelect: (value) ->
     NewCourseActions.set({"#{KEY}": value})
