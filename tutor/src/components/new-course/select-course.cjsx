@@ -2,7 +2,6 @@ React = require 'react'
 BS = require 'react-bootstrap'
 
 partial = require 'lodash/partial'
-map = require 'lodash/map'
 isEqual = require 'lodash/isEqual'
 classnames = require 'classnames'
 
@@ -13,9 +12,14 @@ CourseOffering = require './offering'
 
 KEY = "offering_id"
 
+COURSE_TYPE_NAMES =
+  cc: 'Concept Coach'
+  tutor: 'Tutor'
+
 SelectCourse = React.createClass
   statics:
-    title: "Choose your Tutor course"
+    title: ->
+      "Choose your #{COURSE_TYPE_NAMES[NewCourseStore.get('course_type')]} course"
     shouldSkip: ->
       NewCourseStore.get('cloned_from_id') and NewCourseStore.get(KEY)
 
@@ -27,16 +31,14 @@ SelectCourse = React.createClass
       OfferingsStore.filter(is_concept_coach: NewCourseStore.get('course_type') is 'cc')
 
     <BS.ListGroup>
-      {_.map(offerings, (offering) =>
+      {for offering in offerings
         <BS.ListGroupItem
           key={"course-choice-offering-#{offering.id}"}
           active={isEqual(NewCourseStore.get(KEY), offering.id)}
           onClick={partial(@onSelect, offering.id)}
         >
           <CourseOffering offeringId={offering.id}/>
-        </BS.ListGroupItem>
-      )}
-
+        </BS.ListGroupItem>}
     </BS.ListGroup>
 
 

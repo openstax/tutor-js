@@ -48,11 +48,13 @@ CourseChoiceItem = React.createClass
   render: ->
     {children, className, onClick} = @props
     itemStateProps = _.pick(@props, 'active', 'disabled')
+    passableProps = _.omit(@props, 'children', 'className')
 
     <BS.ListGroupItem
       className={className}
       onClick={onClick}
       {...itemStateProps}
+      {...ReactHelpers.filterProps(passableProps)}
     >
       <CourseChoice>
         <CourseChoiceContent>{children}</CourseChoiceContent>

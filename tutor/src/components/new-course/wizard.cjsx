@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 
 classnames = require 'classnames'
 keys = require 'lodash/keys'
+isFunction = require 'lodash/isFunction'
 
 TutorRouter = require '../../helpers/router'
 
@@ -84,25 +85,27 @@ NewCourse = React.createClass
 
   Title: ->
     {currentStage} = @state
-    Component = componentFor(currentStage)
+    {title} = componentFor(currentStage)
+    title = title() if isFunction(title)
     offeringId = NewCourseStore.get('offering_id')
 
     if offeringId? and currentStage > 1
       <CourseOffering offeringId={offeringId} >
-        {Component.title}
+        {title}
       </CourseOffering>
     else
-      <div>{Component.title}</div>
+      <div>{title}</div>
 
   onCancel: ->
     @context.router.transitionTo('/dashboard')
 
   render: ->
     Component = componentFor(@state.currentStage)
+    wizardClasses = classnames('new-course-wizard', "new-course-wizard-#{STAGE_KEYS[@state.currentStage]}")
 
     <BS.Panel
       header={<@Title />}
-      className={"new-course-wizards-#{STAGE_KEYS[@state.currentStage]}"}
+      className={wizardClasses}
       footer={<@Footer /> unless Component.shouldHideControls}
     >
         <Component

@@ -10,13 +10,72 @@
   background-size: cover;
 }
 
+.make-wizard-choice-active() {
+  background-color: @tutor-neutral-light;
+  border-color: @tutor-neutral-light;
+  color: @tutor-neutral-dark;
+}
+
+.new-course-wizard {
+  .list-group-item {
+    &.active {
+      .make-wizard-choice-active();
+
+      &:hover,
+      &:focus {
+        .make-wizard-choice-active();
+      }
+
+      .course-choice {
+        &::after {
+          top: 16px;
+          width: 28px;
+          height: 28px;
+          content: '';
+          background-image: url('../../images/icons/icon-checked.svg');
+          background-color: @tutor-white;
+          background-repeat: no-repeat;
+          background-position: center center;
+          display: table-cell;
+          vertical-align: middle;
+          border-radius: 50%;
+        }
+      }
+    }
+
+    &[data-brand] {
+      .course-choice-content-wrapper::before {
+        position: absolute;
+        top: 10px;
+      }
+    }
+
+    &[data-brand=coach] {
+      .course-choice-content-wrapper::before {
+        content: url('../../images/openstax-logo-coach-horizontal.svg');
+      }
+    }
+
+    &[data-brand=tutor-beta] {
+      .course-choice-content-wrapper::before {
+        content: url('../../images/openstax-logo-tutor-beta-horizontal.svg');
+      }
+    }
+  }
+}
+
 .course-choice {
   width: 100%;
   display: table;
   min-height: 6rem;
+  position: relative;
 
-  &::before,
   &::after {
+    position: absolute;
+    right: 6px;
+  }
+
+  &::before {
     width: 6rem;
     height: 6rem;
     margin-right: 1rem;
@@ -28,6 +87,12 @@
     display: table-cell;
     vertical-align: middle;
     width: 100%;
+  }
+
+  .course-choice-content {
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 1em;
   }
 }
 
@@ -42,13 +107,12 @@
 
   &[data-appearance]{
     &::before {
-      content: ' ';
+      content: '';
       background-size: cover;
       background-position: center bottom;
     }
 
     .course-offering-content-wrapper {
-
       &::before {
         content: attr(data-book-title);
         font-size: 1.6rem;
@@ -56,6 +120,11 @@
         line-height: 1em;
         margin: 0;
         padding: 0;
+      }
+
+      .course-choice-content {
+        font-weight: 300;
+        margin-top: 0.5rem;
       }
     }
   }
@@ -114,8 +183,8 @@
     color: @tutor-white;
   }
 
-  .new-course-wizards-course_type,
-  .new-course-wizards-offering_id {
+  .new-course-wizard-course_type,
+  .new-course-wizard-offering_id {
     .panel-heading {
       font-weight: 600;
       max-width: 75%;
@@ -151,8 +220,8 @@
 
   .select-type {
 
-    display: flex;
-    border: 1px solid @tutor-neutral-light;
+    // display: flex;
+    // border: 1px solid @tutor-neutral-light;
 
     .type {
       display: flex;
