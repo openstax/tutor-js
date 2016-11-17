@@ -20,7 +20,7 @@ KEY = "term"
 SelectDates = React.createClass
 
   statics:
-    title: "Choose when to teach the course"
+    title: 'When will you teach this course?'
 
   onSelect: (term) ->
     NewCourseActions.set({"#{KEY}": term})

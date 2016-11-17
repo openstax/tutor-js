@@ -15,7 +15,7 @@ KEY = "cloned_from_id"
 
 CourseClone = React.createClass
   statics:
-    title: "Choose a semester to copy"
+    title: 'Which course do you want to copy?'
     shouldSkip: ->
       isEmpty(NewCourseStore.get('new_or_copy')) or
         NewCourseStore.get('new_or_copy') is 'new' or

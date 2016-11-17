@@ -19,8 +19,7 @@ COURSE_TYPE_NAMES =
 
 SelectCourse = React.createClass
   statics:
-    title: ->
-      "Choose your #{COURSE_TYPE_NAMES[NewCourseStore.get('course_type')]} course"
+    title: 'Which course are you teaching?'
     shouldSkip: ->
       TutorRouter.currentQuery()?.courseId
 

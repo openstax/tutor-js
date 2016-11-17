@@ -13,7 +13,7 @@ KEY = 'course_type'
 SelectType = React.createClass
 
   statics:
-    title: "Choose the tool you want to use in your course"
+    title: 'Which tool do you want to use?'
     shouldSkip: ->
       TutorRouter.currentQuery()?.courseId
 

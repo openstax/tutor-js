@@ -15,7 +15,7 @@ KEY = "new_or_copy"
 
 SelectDates = React.createClass
   statics:
-    title: "Choose to create a new course or copy a previous course"
+    title: 'Do you want to create a new course or copy a previous course?'
     shouldSkip: ->
       TutorRouter.currentQuery()?.courseId or
       isEmpty(CourseListingStore.teachingCoursesForOffering(NewCourseStore.get('offering_id')))

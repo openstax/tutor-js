@@ -98,7 +98,7 @@
   .input-group-addon {
     background: @tutor-white;
     color: @tutor-neutral-dark;
-    font-weight: 600;
+    font-weight: 800;
     text-align: left;
   }
 
@@ -110,14 +110,31 @@
     }
   }
 
+  .alert {
+    font-size: 1.5rem;
+    line-height: 1.3em;
+    padding: 1rem;
+    margin-bottom: 0;
+
+    p {
+      margin: 0 0 1.5rem 0;
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
+
   &.new-course-wizard-course_type,
   &.new-course-wizard-offering_id {
     .panel-heading {
-      font-weight: 600;
+      font-weight: 800;
       max-width: 75%;
       text-align: center;
       min-height: 6rem;
       display: table;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
 
       div {
         display: table-cell;
@@ -137,7 +154,7 @@
     .course-choice-content {
       p {
         margin-bottom: 0;
-        font-weight: 300;
+        font-weight: 400;
         font-size: 0.9em;
         line-height: 1.25em;
       }
@@ -212,7 +229,7 @@
 
   .course-choice-content {
     font-size: 1.6rem;
-    font-weight: 600;
+    font-weight: 800;
     line-height: 1em;
     margin-left: 1rem;
   }
@@ -241,14 +258,14 @@
       &::before {
         content: attr(data-book-title);
         font-size: 1.6rem;
-        font-weight: 600;
+        font-weight: 800;
         line-height: 1em;
         margin: 0;
         padding: 0;
       }
 
       .course-choice-content {
-        font-weight: 300;
+        font-weight: 400;
         margin-top: 0.5rem;
         margin-left: 0;
       }
@@ -296,7 +313,8 @@
       padding: 1rem 0;
     }
     .panel-heading {
-      margin: auto;
+      margin-left: auto;
+      margin-right: auto;
       font-size: 1.6rem;
       line-height: 2rem;
     }
@@ -305,7 +323,6 @@
       margin-left: -4px;
       margin-right: -4px;
     }
-
     .panel-content {
       height: 260px;
       overflow: auto;
