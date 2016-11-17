@@ -1,4 +1,5 @@
 {React} = require '../helpers/component-testing'
+{mount} = require 'enzyme'
 
 SelectCourse = require '../../../src/components/new-course/select-course'
 OFFERINGS = require '../../../api/offerings'
@@ -14,18 +15,17 @@ describe 'CreateCourse: Selecting course subject', ->
     OfferingsActions.loaded(OFFERINGS)
 
   it 'it sets offering_id when clicked', ->
-    wrapper = shallow(<SelectCourse />)
+    wrapper = mount(<SelectCourse />)
     expect(NewCourseStore.get('offering_id')).not.to.exist
-    wrapper.find('tr').at(0).simulate('click')
+    wrapper.find('.list-group-item').at(0).simulate('click')
     expect(NewCourseStore.get('offering_id')).to.exist
     undefined
 
   it 'renders titles', ->
-    wrapper = shallow(<SelectCourse />)
-    wrapper.find('tr').forEach (row, index) ->
-      title = row.find('td').at(1).text()
-      expect(title).not.to.be.empty
-      expect(title).to.equal(
-        CourseInformation[ OFFERINGS.items[index].appearance_code ].title
-      )
+    wrapper = mount(<SelectCourse />)
+
+    for offering, i in OFFERINGS
+      offeringItemSelector = "[data-book-title='#{CourseInformation[ OFFERINGS.items[index].appearance_code ].title}']"
+      expect(wrapper.find(offeringItemSelector)).to.have.length(1)
+
     undefined

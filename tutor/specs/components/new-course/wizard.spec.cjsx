@@ -1,17 +1,33 @@
 {React, spyOnComponentMethod, pause} = require '../helpers/component-testing'
+extend = require 'lodash/extend'
 
 Wizard = require '../../../src/components/new-course/wizard'
 SelectType = require '../../../src/components/new-course/select-type'
 SelectCourse = require '../../../src/components/new-course/select-course'
 
+{CourseListingActions} = require '../../../src/flux/course-listing'
+
 # SnapShot = require 'react-test-renderer'
+
+stubCourse = (courseData) ->
+  extend({}, {roles: [{type: 'teacher'}]}, courseData)
+
 
 describe 'Creating a course', ->
 
   beforeEach ->
+    CourseListingActions.loaded([ stubCourse(is_concept_coach: true)])
     @props = {}
 
-  it 'it starts by asking for the course type', ->
+  it 'it skips course type if coach not previously taught', ->
+    CourseListingActions.loaded([ stubCourse(is_concept_coach: false)])
+    wrapper = mount(<Wizard {...@props} />)
+    expect(wrapper.find(SelectType)).to.have.length(0)
+    expect(wrapper.find(SelectCourse)).to.have.length(1)
+    undefined
+
+  it 'it starts by asking for the course type if coach is previously taught', ->
+
     wrapper = mount(<Wizard {...@props} />)
     expect(wrapper.find(SelectType)).to.have.length(1)
     undefined
@@ -19,7 +35,7 @@ describe 'Creating a course', ->
   it 'advances when continue is clicked', ->
     spy = spyOnComponentMethod(Wizard, 'onContinue')
     wrapper = mount(<Wizard {...@props} />)
-    wrapper.find('.type.tutor').simulate('click')
+    wrapper.find('[data-brand="tutor-beta"]').simulate('click')
     pause().then ->
       wrapper.find('.btn.next').simulate('click')
       expect(spy.calledOnce).to.be.true
@@ -28,7 +44,7 @@ describe 'Creating a course', ->
   it 'can go backwards', ->
     wrapper = mount(<Wizard {...@props} />)
     expect(wrapper.find('.btn.back')).to.have.length(0)
-    wrapper.find('.type.tutor').simulate('click')
+    wrapper.find('[data-brand="tutor-beta"]').simulate('click')
     wrapper.render()
     wrapper.find('.btn.next').simulate('click')
     backBtn = wrapper.find('.btn.back')
