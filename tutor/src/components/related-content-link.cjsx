@@ -24,9 +24,9 @@ RelatedContentLink = React.createClass
 
     <div className='related-content-link'>
       <span className="preamble">Comes from </span>
-      {for content in @props.content
+      {for content, i in @props.content
         section = @sectionFormat(content.chapter_section)
-        <BrowseTheBook key={section} unstyled section={section}
+        <BrowseTheBook key={i} unstyled section={section}
           courseId={@props.courseId} onlyShowBrowsable={false} tabIndex={-1}
         >
           <span className="part">

@@ -83,28 +83,23 @@ module.exports =
     @[renderDetailsForPanelMethod]?({stepId, taskId, courseId, review}) or @renderDefaultDetails({stepId, taskId, courseId, review})
 
   renderBackButton: ({taskId, courseId, review, panel}, custombuttonClasses) ->
-    defaultButtonClasses = 'btn btn-primary'
-
-    backButton = <TutorLink
-      to='viewStudentDashboard'
-      key='step-back-sd'
-      params={{courseId}}
-      className={custombuttonClasses or defaultButtonClasses}>
-        Back to Dashboard
-    </TutorLink>
-
-    if panel? and panel is 'teacher-read-only'
-      defaultButtonClasses = 'btn btn-default'
-
-      backButton = <TutorLink
+    if panel is 'teacher-read-only'
+      <TutorLink
         to='viewScores'
         key='step-back-scores'
         params={{courseId}}
-        className={custombuttonClasses or defaultButtonClasses}>
+        className={custombuttonClasses or 'btn btn-default'}>
           Back to Scores
       </TutorLink>
+    else
+      <TutorLink
+        to='dashboard'
+        key='step-back-sd'
+        params={{courseId}}
+        className={custombuttonClasses or 'btn btn-primary'}>
+          Back to Dashboard
+      </TutorLink>
 
-    backButton
 
   renderTeacherReadOnlyButtons: ({taskId, courseId, review, panel}) ->
     unless review?.length

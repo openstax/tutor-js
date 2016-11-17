@@ -40,7 +40,11 @@ Review = React.createClass
         />
       .value()
 
-    <ReactCSSTransitionGroup transitionName="homework-review-problem">
+    <ReactCSSTransitionGroup
+      transitionName="homework-review-problem"
+      transitionEnterTimeout={300}
+      transitionLeaveTimeout={300}
+    >
       {stepsList}
     </ReactCSSTransitionGroup>
 
