@@ -22,7 +22,6 @@ describe 'CreateCourse: choosing offering', ->
     find(burntOfferings.items, id: @props.offeringId).appearance_code = 'firefirefire'
     OfferingsActions.loaded(burntOfferings)
     wrapper = shallow(<Offering {...@props} />)
-    console.log wrapper.debug()
     expect(wrapper.is('[data-appearance="firefirefire"]')).to.be.true
     expect(wrapper.find('CourseChoiceContent[data-book-title=""]')).to.have.length(1)
     undefined
