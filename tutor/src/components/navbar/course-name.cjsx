@@ -21,28 +21,15 @@ CourseName = React.createClass
 
     {course} = @props
     course = CourseStore.get(course?.id)
+    return null unless course
 
-    coursenameComponent = null
+    <TutorLink
+      to='dashboard'
+      params={courseId: course.id}
+      className='navbar-brand'>
+      <div className="course-name">{course.name}</div>
+    </TutorLink>
 
-    if course
-      courseNameTooltip =
-        <BS.Tooltip id="course-name-tooltip">
-          <div>{course.name}</div>
-        </BS.Tooltip>
-      coursenameComponent =
-        <BS.OverlayTrigger
-          placement='bottom'
-          delayShow={1000}
-          delayHide={0}
-          overlay={courseNameTooltip}>
-            <TutorLink
-              to='dashboard'
-              params={courseId: course.id}
-              className='navbar-brand'>
-              <div className="course-name">{course.name}</div>
-            </TutorLink>
-        </BS.OverlayTrigger>
 
-    coursenameComponent
 
 module.exports = CourseName

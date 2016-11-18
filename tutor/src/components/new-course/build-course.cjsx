@@ -16,7 +16,8 @@ BuildCourse = React.createClass
     <div>
       <h4>Your new course is ready!</h4>
       Click <TutorLink
-        to='dashboard' params={courseId: newCourse.id}
+        to={if newCourse.is_concept_coach then 'ccDashboardHelp' else 'dashboard'}
+        params={courseId: newCourse.id}
       > here to start using it.</TutorLink>
     </div>
 

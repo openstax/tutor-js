@@ -15,7 +15,18 @@ describe 'CreateCourse: saving new course', ->
     wrapper = shallow(<BuildCourse />)
     expect(NewCourseActions.save.calledOnce).to.be.true
     expect(wrapper.text()).to.include('building')
+    expect(wrapper.find('Icon[type="refresh"]')).to.have.length(1)
     NewCourseActions.created({id: 1})
     wrapper.setState({})
+    expect(wrapper.find('Icon[type="refresh"]')).to.have.length(0)
     expect(wrapper.text()).to.include('course is ready')
+    undefined
+
+  it 'has a product dependent link', ->
+    NewCourseActions.created({id: 1})
+    wrapper = shallow(<BuildCourse />)
+    expect(wrapper.find('TutorLink[to="dashboard"]')).to.have.length(1)
+    NewCourseActions.created({id: 1, is_concept_coach: true})
+    wrapper.setState({})
+    expect(wrapper.find('TutorLink[to="ccDashboardHelp"]')).to.have.length(1)
     undefined

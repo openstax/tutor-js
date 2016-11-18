@@ -1,4 +1,4 @@
-{Testing, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
+{React, Testing, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
 {Promise}      = require 'es6-promise'
 ld = require 'lodash'
 
@@ -16,11 +16,9 @@ COURSE_ID = '1'
 
 displayPopover = (props) ->
   new Promise( (resolve, reject) ->
-    Testing.renderComponent( UndropStudent, props: props ).then ({dom}) ->
-      expect(dom.textContent).to.include("Add Back")
-      Testing.actions.click(dom)
-      _.defer ->
-        resolve(document.querySelector('.popover.undrop-student'))
+    wrapper = mount(<UndropStudent {...props} />)
+    wrapper.simulate('click')
+    resolve(_.last document.querySelectorAll('.popover.undrop-student'))
   )
 
 describe 'Course Settings, undrop student', ->
@@ -53,7 +51,6 @@ describe 'Course Settings, undrop student', ->
       code: 'student_identifier_has_already_been_taken'
     )
     displayPopover(@props).then (dom) ->
-
       expect(dom.querySelector('.popover-title').textContent).to.include("Student ID is in use")
       expect(dom.querySelector('.popover-content').textContent).to.include('another student is using the same student ID')
       RosterStore.getError.restore()

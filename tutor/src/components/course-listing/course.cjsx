@@ -3,7 +3,7 @@ classnames = require 'classnames'
 BS = require 'react-bootstrap'
 _ = require 'lodash'
 
-{Redirect, Link} = require 'react-router'
+TutorLink = require '../link'
 
 Router = require '../../helpers/router'
 
@@ -68,11 +68,11 @@ Course = React.createClass
       {controls}
     </div>
 
-  CourseName: ({coursePath}) ->
+  CourseName: ->
     {course, courseSubject} = @props
     courseNameSegments = getCourseNameSegments(course, courseSubject)
 
-    <Link to={coursePath}>
+    <TutorLink to='dashboard' params={courseId: course.id}>
       {_.map(courseNameSegments, (courseNameSegment, index) ->
         <span
           key="course-name-segment-#{index}"
@@ -81,11 +81,10 @@ Course = React.createClass
           {"#{courseNameSegment} "}
         </span>
       )}
-    </Link>
+    </TutorLink>
 
   render: ->
     {course, courseDataProps, controls, courseIsTeacher, className} = @props
-    coursePath = Router.makePathname('dashboard', {courseId: course.id})
 
     itemClasses = classnames('course-listing-item', className)
 
@@ -98,16 +97,16 @@ Course = React.createClass
       >
         <div
           className='course-listing-item-title'>
-          <@CourseName coursePath={coursePath}/>
+          <@CourseName />
         </div>
         <div
           className='course-listing-item-details'
           data-has-controls={controls?}
         >
-          <Link to={coursePath}>
+          <TutorLink to='dashboard' params={courseId: course.id}>
             <CourseBranding isConceptCoach={course.is_concept_coach or false} />
             <p className='course-listing-item-term'>{course.term} {course.year}</p>
-          </Link>
+          </TutorLink>
           {<@Controls /> if controls?}
         </div>
       </div>
@@ -119,14 +118,13 @@ CourseTeacher = React.createClass
     _.omit(Course.propTypes, 'controls')
   render: ->
     {course} = @props
-    query =
-      courseId: course.id
+    link =
+      <TutorLink
+        to='createNewCourse'
+        query={courseId: course.id}
+        className='btn btn-default btn-sm'
+      >Teach Again</TutorLink>
+    <Course {...@props} controls={link} />
 
-    controls = <BS.Button
-      bsSize='sm'
-      href={Router.makePathname('createNewCourse', {}, {query})}
-    >Teach Again</BS.Button>
-
-    <Course {...@props} controls={controls} />
-
+      # onClick={href={Router.makePathname('createNewCourse', {}, {query})}
 module.exports = {Course, CourseTeacher, CoursePropType}
