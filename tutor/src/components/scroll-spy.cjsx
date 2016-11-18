@@ -1,6 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
-ScrollListenerMixin = require 'react-scroll-components/ScrollListenerMixin'
+
+ScrollListenerMixin = require 'shared/src/mixins/ScrollListener'
 
 # A component that accepts a dom selector that matches portions of the document
 #

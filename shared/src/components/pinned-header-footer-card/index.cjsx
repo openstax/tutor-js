@@ -2,7 +2,8 @@ React = require 'react'
 ReactDOM = require 'react-dom'
 _ = require 'underscore'
 
-ScrollListenerMixin = require 'react-scroll-components/ScrollListenerMixin'
+ScrollListenerMixin = require '../../mixins/ScrollListener'
+
 ResizeListenerMixin = require '../resize-listener-mixin'
 GetPositionMixin = require '../get-position-mixin'
 
