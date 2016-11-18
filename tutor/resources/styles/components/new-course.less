@@ -332,7 +332,6 @@
       padding: 1.6rem 0;
       margin-left: -4px;
       margin-right: -4px;
-      // height: 260px;
 
       .tutor-subtle-load(will-load; @loading-text: 'Loading...'; @bg-fade: 100%;);
       &::after {
@@ -353,20 +352,20 @@
     }
     .panel-content {
       height: 260px;
-      overflow-y: auto;
-      // border-top: 1px solid @tutor-neutral-light;
-      // border-bottom: 1px solid @tutor-neutral-light;
-
-      // .list-group-item:first-child {
-      //   border-top: 0;
-      // }
-      // .list-group-item:last-child {
-      //   border-bottom: 0;
-      // }
     }
 
-    // .list-group {
-    //   margin-bottom: 0;
-    // }
+    .list-group {
+      max-height: 260px;
+      overflow-y: auto;
+      border-top: 1px solid @tutor-neutral-light;
+      border-bottom: 1px solid @tutor-neutral-light;
+
+      .list-group-item:first-child {
+        border-top: none;
+      }
+      .list-group-item:last-child {
+        border-bottom: none;
+      }
+    }
   }
 }
