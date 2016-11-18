@@ -235,6 +235,11 @@ TaskPlanConfig =
     @_local[id] = _.clone(@_getOriginal(id))
     @clearChanged(id)
 
+  removeUnsavedDraftPlan: (id) ->
+    return unless @exports.isNew.call(@, id)
+    delete @_local[id]
+    @clearChanged(id)
+    @emitChange()
 
   _isDeleteRequested: (id) ->
     deleteStates = [

@@ -5,17 +5,16 @@ classnames = require 'classnames'
 Router = require '../../helpers/router'
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
 {CourseActions, CourseStore} = require '../../flux/course'
+CourseData = require '../../helpers/course-data'
+
 ReferenceBookPageShell = require './page-shell'
 LoadableItem = require '../loadable-item'
 
 ReferenceBook = require './reference-book'
-CourseDataMixin = require '../course-data-mixin'
 TeacherContentToggle = require './teacher-content-toggle'
 
 ReferenceBookShell = React.createClass
   displayName: 'ReferenceBookShell'
-
-  mixins: [CourseDataMixin]
 
   getInitialState: ->
     @getIds()
@@ -59,7 +58,7 @@ ReferenceBookShell = React.createClass
         pageNavRouterLinkTarget='viewReferenceBookSection'
         menuRouterLinkTarget='viewReferenceBookSection'
         className={classnames('is-teacher': @state.isShowingTeacherContent)}
-        dataProps={@getCourseDataProps(courseId) if courseId}
+        dataProps={CourseData.getCourseDataProps(courseId) if courseId}
         ecosystemId={ecosystemId}
     />
 

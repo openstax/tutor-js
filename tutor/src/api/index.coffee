@@ -183,7 +183,7 @@ startAPI = ->
   connectRead(CurrentUserActions, url: 'user')
 
   connectRead(OfferingsActions, url: 'offerings')
-  connectRead(PastTaskPlansActions, ({courseId}) ->
+  connectRead(PastTaskPlansActions, (courseId) ->
     url: "courses/#{courseId}/plans"
     params:
       clone_status: 'unused_source'

@@ -10,7 +10,7 @@ Router = require '../../helpers/router'
 {CurrentUserStore} = require '../../flux/current-user'
 {ReactHelpers} = require 'shared'
 
-CourseData = require '../course-data-mixin'
+CourseData = require '../../helpers/course-data'
 IconAdd = require  '../icons/add'
 
 {Course, CourseTeacher, CoursePropType} = require './course'

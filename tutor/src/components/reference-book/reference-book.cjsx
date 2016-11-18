@@ -72,6 +72,7 @@ module.exports = React.createClass
       ecosystemId: @props.ecosystemId
 
     <div {...@props.dataProps} className={className}>
+
       <SpyMode.Wrapper>
 
         <NavBar

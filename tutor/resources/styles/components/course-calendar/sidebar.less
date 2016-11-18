@@ -1,0 +1,85 @@
+.add-assignment-sidebar {
+  border-right: 1px solid @tutor-neutral-light;
+  position: absolute;
+  width: @calendar-sidebar-width;
+  height: 100%;
+  background-color: @tutor-neutral-lightest;
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+
+  .section-label {
+    margin-top: 15px;
+    margin-left: 10px;
+    font-size: 1.4rem;
+    color: @tutor-neutral-dark;
+  }
+  .draggable() {
+    &.is-dragging {
+      > * { visibility: hidden; }
+      background-color: @tutor-neutral-light;
+      box-shadow: inset 0 0 10px @tutor-neutral-lite;
+    }
+    &:not(.is-dragging) {
+      &:before {
+        .fa-icon();
+        display: inline-block;
+        content: @fa-var-th;
+      }
+      &:hover {
+        .tutor-shadow(1);
+      }
+    }
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+
+    li {
+      .tutor-plan-set(sidebar);
+      .no-select();
+      .draggable();
+      padding-left: 10px;
+      a {
+        padding: 3px 12px;
+        color: @tutor-neutral-darker;
+        &:hover, &:focus { text-decoration: none; }
+      }
+    }
+  }
+
+  .past-assignments {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid @tutor-neutral-light;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    .section-label { margin-top: 0; }
+    .plans {
+      flex: 1;
+      overflow-y: auto;
+    }
+    .task-plan{
+      .tutor-plan-set(sidebar);
+      .draggable();
+      cursor: move;
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+      div {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 3px 12px;
+        &:hover {
+          direction:rtl;
+          text-align:left;
+        }
+      }
+
+    }
+  }
+
+}

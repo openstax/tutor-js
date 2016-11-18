@@ -26,29 +26,13 @@
 }
 
 
-.list-courses.panel {
-  // background-color: transparent;
-  .tutor-booksplash-adjust-top-margin(120px);
-
-  .calendar-container{
-    background-color: @tutor-white;
-    .bootstrap-column-padding-override();
-    padding-bottom: @tutor-card-body-padding-vertical;
-  }
+.calendar-container{
+  .bootstrap-column-padding-override();
+  padding-bottom: @tutor-card-body-padding-vertical;
 
   .calendar-body {
-    transition: margin-left 0.5s;
-
-    &.with-sidebar-open {
-      margin-left: 200px;
-    }
-    [class^="col-"] {
-      overflow-x: hidden;
-      overflow-y: visible;
-      padding-bottom: 20px;
-
-      .tutor-subtle-load(will-load; 'Loading ' attr(data-duration-name) '...');
-    }
+    .tutor-subtle-load(will-load; 'Loading ' attr(data-duration-name) '...');
+    background-color: @tutor-white;
   }
 
 
@@ -61,7 +45,22 @@
       opacity: 0.1;
     }
   }
-
+  .month-wrapper {
+    position: relative;
+    &.is-dragging {
+      .rc-Day--upcoming,
+      .rc-Day--current {
+        &.hovered {
+          border: 1px solid @tutor-tertiary-light;
+        }
+      }
+      .rc-Day--past {
+        &.hovered {
+           background: fade(@tutor-danger, 10%);
+        }
+      }
+    }
+  }
   .rc {
     &-Calendar {
       width: 100%;

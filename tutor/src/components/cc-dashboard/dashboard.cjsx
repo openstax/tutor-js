@@ -6,9 +6,9 @@ TutorLink = require '../link'
 {CoursePeriodsNav} = require '../course-periods-nav'
 {CourseStore} = require '../../flux/course'
 Icon = require '../icon'
-CourseDataMixin = require '../course-data-mixin'
 DashboardChapter = require './chapter'
 EmptyPeriod = require './empty-period'
+CourseTitleBanner = require '../course-title-banner'
 
 TOOLTIPS =
   complete: '''
@@ -35,7 +35,7 @@ TOOLTIPS =
   '''
 
 CCDashboard = React.createClass
-  mixins: [CourseDataMixin]
+
   propTypes:
     courseId: React.PropTypes.string
 
@@ -53,7 +53,7 @@ CCDashboard = React.createClass
     {courseId} = @props
     periods = CCDashboardStore.getPeriods(courseId)
     chapters = CCDashboardStore.chaptersForDisplay(courseId, @state.activePeriodId)
-    courseDataProps = @getCourseDataProps(courseId)
+
     course = CourseStore.get(courseId)
     emptyPeriod = chapters.length is 0
     emptyGraphic = <EmptyPeriod courseId={courseId} />
@@ -91,7 +91,7 @@ CCDashboard = React.createClass
 
 
     <div className="cc-dashboard" data-period={@state.activePeriodId}>
-      <div {...courseDataProps} className='tutor-booksplash-background' />
+      <CourseTitleBanner courseId={courseId} />
       <BS.Panel>
         <h2>
           <span>Class Dashboard</span>

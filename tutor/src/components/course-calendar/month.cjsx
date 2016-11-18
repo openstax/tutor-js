@@ -18,9 +18,11 @@ Router = require '../../helpers/router'
 
 TaskPlanMiniEditor   = require '../task-plan/mini-editor'
 PlanClonePlaceholder = require './plan-clone-placeholder'
+AddAssignmentSidebar = require './add-assignment-sidebar'
 CourseCalendarHeader = require './header'
 CourseAddMenuMixin   = require './add-menu-mixin'
 CourseDuration       = require './duration'
+MonthTitleNav        = require './month-title-nav'
 CoursePlan           = require './plan'
 CourseAdd            = require './add'
 
@@ -74,14 +76,18 @@ CourseMonth = React.createClass
           onDragEnter: @onDragHover
       }
     ]
-
+    {hoveredDay} = @state
     getClassNameForDate = (dateToModify) ->
-      if dateToModify.isBefore(date, 'day')
-        'past'
-      else if dateToModify.isAfter(date, 'day')
-        'upcoming'
-      else
-        'current'
+      className =
+        if dateToModify.isBefore(date, 'day')
+          'past'
+        else if dateToModify.isAfter(date, 'day')
+          'upcoming'
+        else
+          'current'
+      classnames(className,
+        hovered: hoveredDay and dateToModify.isSame(hoveredDay, 'day')
+      )
 
     hackMoment = (dateToModify, calendarDate) ->
       # hacking moment instance to bypass naive filter
@@ -105,7 +111,7 @@ CourseMonth = React.createClass
     daysOfDuration = calendarDuration.iterate('days')
 
     while daysOfDuration.hasNext()
-      mods.push(makeModForDate(daysOfDuration.next(), @props.date))
+      mods.push(makeModForDate(daysOfDuration.next(), @props.date, @state))
 
     mods
 
@@ -156,7 +162,7 @@ CourseMonth = React.createClass
     @props.date?.format?('MMMM')
 
   onDrop: (item, offset) ->
-    return unless @state.hoveredDay
+    return unless @state.hoveredDay and @state.hoveredDay.isSameOrAfter(TimeStore.getNow(), 'day')
     if item.pathname # is a link to create an assignment
       url = item.pathname + "?" + qs.stringify({
         due_at: @state.hoveredDay.format(@props.dateFormat)
@@ -195,7 +201,9 @@ CourseMonth = React.createClass
     {plansList, courseId, className, date, hasPeriods} = @props
     {calendarDuration, calendarWeeks} = @getDurationInfo(date)
 
-    calendarClassName = classnames 'calendar-container', className
+    calendarClassName = classnames('calendar-container', 'container', className,
+      'with-sidebar-open': @state.showingSideBar
+    )
 
     if plansList?
       plans = <CourseDuration
@@ -208,34 +216,36 @@ CourseMonth = React.createClass
         <CoursePlan courseId={courseId}/>
       </CourseDuration>
 
-    <BS.Grid className={calendarClassName} fluid>
-
+    <div className={calendarClassName}>
 
       <CourseAdd ref='addOnDay' hasPeriods={hasPeriods} courseId={@props.courseId} />
 
       <CourseCalendarHeader
-        duration='month'
-        date={date}
         onSidebarToggle={@onSidebarToggle}
         courseId={@props.courseId}
-        setDate={@setDate}
         hasPeriods={hasPeriods}
-        ref='calendarHeader'
       />
 
-      <BS.Row className={classnames('calendar-body', {
-        'with-sidebar-open': @state.showingSideBar
-      })}>
-        <BS.Col xs={12} data-duration-name={@getFullMonthName()}>
+      <div className='calendar-body'>
+        <AddAssignmentSidebar courseId={@props.courseId} hasPeriods={hasPeriods} />
+
+        <div className="month-body" data-duration-name={@getFullMonthName()}>
+          <MonthTitleNav
+            courseId={@props.courseId}
+            duration='month'
+            date={date}
+            setDate={@setDate}
+          />
           {@props.connectDropTarget(
-            <div>
+            <div className={classnames("month-wrapper", 'is-dragging': @props.isDragging)}>
               <Month date={date} monthNames={false}
                 weekdayFormat='ddd' mods={@getMonthMods(calendarDuration)} />
               {plans}
             </div>
           )}
-        </BS.Col>
-      </BS.Row>
+        </div>
+      </div>
+
       {<PlanClonePlaceholder
         planId={@state.cloningPlan.id}
         planType={@state.cloningPlan.type}
@@ -253,7 +263,7 @@ CourseMonth = React.createClass
         findPopOverTarget={@getEditingPlanEl}
       /> if @state.editingPlanId}
 
-    </BS.Grid>
+    </div>
 
 
 

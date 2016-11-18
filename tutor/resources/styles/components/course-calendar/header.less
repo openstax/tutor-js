@@ -1,30 +1,32 @@
 @calendar-header-padding: 2rem;
 
-.list-courses {
-
-  .panel-body { padding: 0; }
+.list-task-plans {
 
   .calendar-header {
-    border-bottom: 1px solid @tutor-neutral-light;
+    margin: 20px 0;
+    background-color: @tutor-neutral-lighter;
 
+    .btn-default {
+      background-color: @tutor-neutral-lightest;
+    }
     #add-assignment {
       text-align: center;
       padding: 9px;
     }
 
-    .add-assignment {
-      .pull-left;
-      .caret { margin-left: 0.5rem; }
+    .btn-default {
+      background-color: @tutor-neutral-lightest;
+      border-radius: 0;
+    }
 
-      .btn {
-        margin-right: 0;
-        width: 200px;
-      }
-      .dropdown-menu {
-        margin-top: -1px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-      }
+    .sidebar-toggle {
+      text-align: center;
+      padding: 9px;
+      width: @calendar-sidebar-width;
+      background-color: @tutor-primary;
+      color: white;
+      .tutor-icon { margin-right: 2rem; }
+      &.open { background-color: @tutor-neutral-lite; }
     }
 
     .no-periods-text {
@@ -46,11 +48,12 @@
       font-size: 3rem;
       padding: @calendar-header-padding 0;
       display: flex;
-      align-items: center;
+      justify-content: center;
     }
 
     &-label {
       font-weight: stronger;
+
     }
 
     &-control {

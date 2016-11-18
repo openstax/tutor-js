@@ -5,6 +5,7 @@ BS = require 'react-bootstrap'
 
 Router = require '../../helpers/router'
 
+
 {CourseListingStore} = require '../../flux/course-listing'
 {CurrentUserStore} = require '../../flux/current-user'
 

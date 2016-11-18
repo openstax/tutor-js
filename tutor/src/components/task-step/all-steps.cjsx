@@ -10,14 +10,13 @@ Placeholder = require './placeholder'
 
 StepMixin = require './step-mixin'
 StepFooterMixin = require './step-footer-mixin'
-CourseDataMixin = require '../course-data-mixin'
 Router = require '../../helpers/router'
 
 {StepPanel} = require '../../helpers/policies'
 
 Reading = React.createClass
   displayName: 'Reading'
-  mixins: [StepMixin, CourseDataMixin]
+  mixins: [StepMixin]
   isContinueEnabled: -> true
   onContinue: ->
     @props.onStepCompleted()
@@ -25,13 +24,12 @@ Reading = React.createClass
   renderBody: ->
     {id} = @props
     {courseId} = Router.currentParams()
-    courseDataProps = @getCourseDataProps(courseId)
 
-    <ReadingStepContent id={id} stepType='reading' courseDataProps={courseDataProps}/>
+    <ReadingStepContent id={id} stepType='reading' courseId={courseId} />
 
 Interactive = React.createClass
   displayName: 'Interactive'
-  mixins: [StepMixin, CourseDataMixin]
+  mixins: [StepMixin]
   isContinueEnabled: -> true
   onContinue: ->
     @props.onStepCompleted()
@@ -39,13 +37,12 @@ Interactive = React.createClass
   renderBody: ->
     {id} = @props
     {courseId} = Router.currentParams()
-    courseDataProps = @getCourseDataProps(courseId)
 
-    <ReadingStepContent id={id} stepType='interactive' courseDataProps={courseDataProps}/>
+    <ReadingStepContent id={id} stepType='interactive' courseId={courseId} />
 
 Video = React.createClass
   displayName: 'Video'
-  mixins: [StepMixin, CourseDataMixin]
+  mixins: [StepMixin]
   isContinueEnabled: -> true
   onContinue: ->
     @props.onStepCompleted()
@@ -53,9 +50,8 @@ Video = React.createClass
   renderBody: ->
     {id} = @props
     {courseId} = Router.currentParams()
-    courseDataProps = @getCourseDataProps(courseId)
 
-    <ReadingStepContent id={id} stepType='video' courseDataProps={courseDataProps}/>
+    <ReadingStepContent id={id} stepType='video' courseId={courseId} />
 
 ExternalUrl = React.createClass
   displayName: 'ExternalUrl'

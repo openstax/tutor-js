@@ -1,10 +1,41 @@
 // Component Styling
+
+@calendar-sidebar-width: 250px;
+
 @import './add';
 @import './month';
 @import './header';
-@import './plans-by-week';
 @import './plan';
+@import './sidebar';
 @import './plan-details';
+
+.calendar-container {
+
+  &:extend(.container);
+
+  .calendar-body {
+    position: relative;
+    overflow: hidden;
+  }
+  .month-body {
+    transition: margin-left 0.5s;
+    margin-left: 0px;
+  }
+
+  &.with-sidebar-open .month-body {
+    margin-left: @calendar-sidebar-width;
+  }
+
+  .add-assignment-sidebar {
+    transition: left 0.5s;
+    left: -@calendar-sidebar-width;
+  }
+
+  &.with-sidebar-open .add-assignment-sidebar {
+    left: 0px;
+  }
+
+}
 
 .is-trouble() {
   content: @fa-var-bookmark;

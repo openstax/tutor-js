@@ -2,9 +2,10 @@ React = require 'react'
 
 {TaskStepStore} = require '../../flux/task-step'
 {ArbitraryHtmlAndMath, ChapterSectionMixin} = require 'shared'
+CourseData = require '../../helpers/course-data'
 {BookContentMixin, LinkContentMixin} = require '../book-content-mixin'
 RelatedContent = require '../related-content'
-
+CourseTitleBanner = require '../course-title-banner'
 Router = require '../../helpers/router'
 
 # TODO: will combine with below, after BookContentMixin clean up
@@ -13,7 +14,7 @@ ReadingStepContent = React.createClass
 
   propTypes:
     id: React.PropTypes.string.isRequired
-    courseDataProps: React.PropTypes.object.isRequired
+    courseId: React.PropTypes.string.isRequired
     stepType: React.PropTypes.string.isRequired
 
   mixins: [BookContentMixin, ChapterSectionMixin]
@@ -28,15 +29,14 @@ ReadingStepContent = React.createClass
 
   shouldOpenNewTab: -> true
   render: ->
-    {id, courseDataProps, stepType} = @props
+    {id, stepType} = @props
 
     {content_html, related_content} = TaskStepStore.get(id)
     {courseId} = Router.currentParams()
 
     <div className="#{stepType}-step">
-      <div
-        className="#{stepType}-content"
-        {...courseDataProps}>
+      <div className="#{stepType}-content" {...CourseData.getCourseDataProps(courseId)}>
+
         <RelatedContent contentId={id} {...related_content?[0]} />
         <ArbitraryHtmlAndMath
           className='book-content'
