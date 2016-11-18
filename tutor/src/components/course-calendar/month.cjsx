@@ -126,7 +126,6 @@ CourseMonth = React.createClass
 
   shouldHideAddOnDay: (clickEvent) ->
     return if _.isEmpty(@state.activeAddDate)
-    calendar = ReactDOM.findDOMNode(@)
     unless clickEvent.target.classList.contains('rc-Day')
       @hideAddOnDay()
       clickEvent.preventDefault()
