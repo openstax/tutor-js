@@ -118,6 +118,20 @@ CourseMonth = React.createClass
   componentDidUpdate: ->
     @setDayHeight(@refs.courseDurations.state.ranges) if @refs.courseDurations?
 
+  componentWillMount: ->
+    document.addEventListener('click', @shouldHideAddOnDay, true)
+
+  componentWillUnmount: ->
+    document.removeEventListener('click', @shouldHideAddOnDay, true)
+
+  shouldHideAddOnDay: (clickEvent) ->
+    return if _.isEmpty(@state.activeAddDate)
+    calendar = ReactDOM.findDOMNode(@)
+    unless clickEvent.target.classList.contains('rc-Day')
+      @hideAddOnDay()
+      clickEvent.preventDefault()
+      clickEvent.stopImmediatePropagation()
+
   setDayHeight: (ranges) ->
     calendar =  ReactDOM.findDOMNode(@)
     nodesWithHeights = calendar.querySelectorAll('.rc-Week')
