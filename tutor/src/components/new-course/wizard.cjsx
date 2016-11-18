@@ -3,19 +3,29 @@ BS = require 'react-bootstrap'
 
 classnames = require 'classnames'
 keys = require 'lodash/keys'
+isFunction = require 'lodash/isFunction'
+isEmpty = require 'lodash/isEmpty'
 
 TutorRouter = require '../../helpers/router'
 
 BindStore = require '../bind-store-mixin'
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 {CourseActions, CourseStore} = require '../../flux/course'
+{CourseListingStore} = require '../../flux/course-listing'
+
+{OfferingsStore} = require '../../flux/offerings'
+CourseInformation = require '../../flux/course-information'
+
+CourseOffering = require './offering'
 
 STAGES = {
   'course_type':              require './select-type'
   'offering_id':              require './select-course'
   'term':                     require './select-dates'
-  'details':                  require './course-details'
+  'new_or_copy':              require './new-or-copy'
+  'cloned_from_id':           require './course-clone'
   'copy_question_library':    require './copy-ql'
+  'details':                  require './course-details'
   'build':                    require './build-course'
 }
 
@@ -24,8 +34,8 @@ STAGE_KEYS = keys(STAGES)
 componentFor = (index) ->
   STAGES[ STAGE_KEYS[ index ] ]
 
-NewCourse = React.createClass
-
+NewCourseWizard = React.createClass
+  displayName: 'NewCourseWizard'
   getInitialState: ->
     currentStage: 0
 
@@ -37,6 +47,9 @@ NewCourse = React.createClass
       course = CourseStore.get(TutorRouter.currentQuery()?.courseId)
       NewCourseActions.setClone(course)
       @setState({currentStage: 2})
+    else if isEmpty(CourseListingStore.filterTeachingCourses(is_concept_coach: true))
+      NewCourseActions.set(course_type: 'tutor')
+      @setState({currentStage: 1})
 
   mixins: [BindStore]
   bindStore: NewCourseStore
@@ -51,8 +64,7 @@ NewCourse = React.createClass
 
   BackButton: ->
     return null if @state.currentStage is 0
-    <BS.Button onClick={@onBack}
-      bsStyle='success' className="back"
+    <BS.Button onClick={@onBack} className="back"
       disabled={@state.currentStage is 0}
     >
       Back
@@ -69,7 +81,7 @@ NewCourse = React.createClass
       <@BackButton />
 
       <BS.Button onClick={@onContinue}
-        bsStyle='success' className="next"
+        bsStyle='primary' className="next"
         disabled={
           not NewCourseStore.isValid( STAGE_KEYS[@state.currentStage] )
         }
@@ -79,24 +91,36 @@ NewCourse = React.createClass
 
     </div>
 
+  Title: ->
+    {currentStage} = @state
+    {title} = componentFor(currentStage)
+    title = title() if isFunction(title)
+    offeringId = NewCourseStore.get('offering_id')
+
+    if offeringId? and currentStage > 1
+      <CourseOffering offeringId={offeringId} >
+        {title}
+      </CourseOffering>
+    else
+      <div>{title}</div>
+
   onCancel: ->
+    NewCourseActions.reset()
     @context.router.transitionTo('/dashboard')
 
   render: ->
     Component = componentFor(@state.currentStage)
-    <div className="new-course">
-      <BS.Panel
-        header={Component.title}
-        className={@state.currentStage}
-        footer={<@Footer /> unless Component.shouldHideControls}
-      >
-          <Component
-            onContinue={@onContinue}
-            onCancel={@onCancel}
-            {...@state}
-          />
-      </BS.Panel>
-    </div>
+    wizardClasses = classnames('new-course-wizard', "new-course-wizard-#{STAGE_KEYS[@state.currentStage]}")
+
+    <BS.Panel
+      header={<@Title />}
+      className={wizardClasses}
+      footer={<@Footer /> unless Component.shouldHideControls}
+    > 
+      <div className='panel-content'>
+        <Component/>
+      </div>
+    </BS.Panel>
 
 
-module.exports = NewCourse
+module.exports = NewCourseWizard

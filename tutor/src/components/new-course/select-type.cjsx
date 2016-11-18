@@ -1,37 +1,42 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 partial = require 'lodash/partial'
+isEqual = require 'lodash/isEqual'
+isEmpty = require 'lodash/isEmpty'
+
+TutorRouter = require '../../helpers/router'
 
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
+{CourseListingStore} = require '../../flux/course-listing'
+{CourseChoiceItem} = require './choice'
 
 KEY = 'course_type'
 
-classnames = require 'classnames'
-
 SelectType = React.createClass
-
+  displayName: 'SelectType'
   statics:
-    title: "Choose what you’d like in your course"
+    title: 'Which tool do you want to use?'
     shouldSkip: ->
-      NewCourseStore.get('cloned_from_id') and NewCourseStore.get(KEY)
+      TutorRouter.currentQuery()?.courseId or
+        isEmpty(CourseListingStore.filterTeachingCourses(is_concept_coach: true))
 
   onSelectType: (type) ->
     NewCourseActions.set({"#{KEY}": type})
 
-  Choice: (props) ->
-    <div
-      onClick={partial(@onSelectType, props.type)}
-      className={classnames('type', props.type, active: NewCourseStore.get(KEY) is props.type)}
-    >
-      <i />
-      <span>{props.title}</span>
-    </div>
-
   render: ->
-    <div className="select-type">
-      <@Choice type='cc' title='Concept Coach' />
-      <@Choice type='tutor' title='Tutor' />
-    </div>
+    types =
+      tutor:  'tutor-beta'
+      cc:     'coach'
+
+    <BS.ListGroup>
+      {for type, logo of types
+        <CourseChoiceItem
+          key={type}
+          data-brand={logo}
+          active={isEqual(NewCourseStore.get(KEY), type)}
+          onClick={partial(@onSelectType, type)}
+        />}
+    </BS.ListGroup>
 
 
 module.exports = SelectType

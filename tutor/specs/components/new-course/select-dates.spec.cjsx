@@ -1,4 +1,5 @@
 {React} = require '../helpers/component-testing'
+{mount} = require 'enzyme'
 
 SelectDates = require '../../../src/components/new-course/select-dates'
 OFFERINGS = require '../../../api/offerings'
@@ -15,9 +16,10 @@ describe 'CreateCourse: Selecting course dates', ->
     NewCourseActions.set(offering_id: OFFERING_ID)
 
   it 'it sets state when date row is clicked', ->
-    wrapper = shallow(<SelectDates />)
-    expect(NewCourseStore.get('period')).not.to.exist
-    wrapper.find('tr').at(0).simulate('click')
+    wrapper = mount(<SelectDates />)
+    expect(NewCourseStore.get('term')).not.to.exist
+    wrapper.find('.list-group-item').at(0).simulate('click')
+
     expect(NewCourseStore.get('term')).to.deep.equal(
       OfferingsStore.get(OFFERING_ID).active_term_years[0]
     )

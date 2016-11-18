@@ -83,6 +83,14 @@ CourseListingStore = flux.createStore
         course = CourseStore.get(id)
         course if not _.isEmpty(course?.roles)
 
+    filterTeachingCourses: (conditions) ->
+      _.filter(@exports.allCoursesWithRoles.call(@), (course) ->
+        _.matches(conditions)(course) and _.find(course.roles, type: 'teacher')
+      )
+
+    teachingCoursesForOffering: (offeringId) ->
+      @exports.filterTeachingCourses.call(@, offering_id: offeringId)
+
     coursesOrderedByStatus: ->
       courses = _.sortBy(@exports.allCoursesWithRoles.call(@), 'starts_at')
       currentTime = TimeStore.getNow()

@@ -1,14 +1,49 @@
 {makeStandardStore} = require './helpers'
-extend = require 'lodash/extend'
-cloneDeep  = require 'lodash/cloneDeep'
+_ = require 'lodash'
 
 {CourseListingActions} = require './course-listing'
 
 DEFAULTS =
   copy_question_library: true
 
+CONTROL_VALUES = [
+  'course_type'
+  'offering_id'
+  'new_or_copy'
+  'cloned_from_id'
+]
+
+DEPENDENT_VALUES = [
+  'copy_question_library'
+  'name'
+  'num_sections'
+]
+
+CONTROL_RANKS = _.invert(CONTROL_VALUES)
+
+DEPENDENT_VALUES_COMBINED = _.concat(CONTROL_VALUES, DEPENDENT_VALUES)
+
+getChangedKeys = (oldObject, newObject) ->
+  changedKeys = []
+  _.forEach(oldObject, (oldValue, key) ->
+    unless _.isUndefined(newObject[key]) or _.isEqual(oldValue, newObject[key])
+      changedKeys.push(key)
+  )
+  changedKeys
+
+getDependentKeys = (changedKeys) ->
+  keyToCheck = _(changedKeys).sortBy((key) ->
+      CONTROL_RANKS[key]
+    ).last()
+
+  dropIndex = _.indexOf(CONTROL_VALUES, keyToCheck)
+  _.drop(DEPENDENT_VALUES_COMBINED, dropIndex + 1) unless dropIndex < 0
+
+getChangeDependents = (oldObject, newObject) ->
+  _.flow(getChangedKeys, getDependentKeys)(oldObject, newObject)
+
 StoreDefinition = makeStandardStore('NewCourse', {
-  _local: cloneDeep(DEFAULTS)
+  _local: _.cloneDeep(DEFAULTS)
 
   save: ->
     actions = StoreDefinition.NewCourseActions
@@ -29,14 +64,23 @@ StoreDefinition = makeStandardStore('NewCourse', {
     @emit('created', newCourse)
 
   _reset: ->
-    @_local = cloneDeep(DEFAULTS)
+    @_local = _.cloneDeep(DEFAULTS)
+
+  unset: (listOfKeys) ->
+    _.forEach listOfKeys, (key) =>
+      if DEFAULTS[key]
+        @_local[key] = DEFAULTS[key]
+      else
+        _.unset(@_local, key)
 
   set: (attrs) ->
-    extend(@_local, attrs)
+    @unset(getChangeDependents(@_local, attrs))
+    _.extend(@_local, attrs)
     @emitChange()
 
   setClone: (course) ->
     newCourse =
+      new_or_copy: 'copy'
       course_type: if course.is_concept_coach then 'cc' else 'tutor'
       offering_id: course.offering_id
       cloned_from_id: course.id
@@ -47,10 +91,10 @@ StoreDefinition = makeStandardStore('NewCourse', {
 
   exports:
     isValid: (attr) ->
-      !! switch attr
+      switch attr
         when 'details' then @_local.name and @_local.num_sections
         else
-          @_local[attr]
+          not _.isUndefined(@_local[attr])
 
     newCourse: ->
       @_local['newlyCreatedCourse']
@@ -59,8 +103,8 @@ StoreDefinition = makeStandardStore('NewCourse', {
       @_local[attr]
 
     requestPayload: ->
-      payload = cloneDeep(@_local)
-      extend(payload, payload.term)
+      payload = _.omit(@_local, 'new_or_copy')
+      _.extend(payload, payload.term)
       # TODO check on why this is always true...
       payload.is_college = true
       if payload.cloned_from_id

@@ -13,6 +13,7 @@ module.exports = {
   OXMatchByRouter:        require './src/helpers/match-by-router'
   APIHandler, APIHandlerBase,
   APIActionAdapter:       require './src/api/action-adapter'
+  ReactHelpers:           require './src/helpers/react'
 
   ArbitraryHtmlAndMath:   require './src/components/html'
   Markdown:               require './src/components/markdown'

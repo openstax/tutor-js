@@ -2,20 +2,27 @@ React = require 'react'
 BS = require 'react-bootstrap'
 
 partial = require 'lodash/partial'
+isEqual = require 'lodash/isEqual'
 classnames = require 'classnames'
 
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
+TutorRouter = require '../../helpers/router'
 
 {OfferingsStore} = require '../../flux/offerings'
-
+CourseOffering = require './offering'
 
 KEY = "offering_id"
 
+COURSE_TYPE_NAMES =
+  cc: 'Concept Coach'
+  tutor: 'Tutor'
+
 SelectCourse = React.createClass
+  displayName: 'SelectCourse'
   statics:
-    title: "Choose your Tutor course"
+    title: 'Which course are you teaching?'
     shouldSkip: ->
-      NewCourseStore.get('cloned_from_id') and NewCourseStore.get(KEY)
+      TutorRouter.currentQuery()?.courseId
 
   onSelect: (id) ->
     NewCourseActions.set({"#{KEY}": id})
@@ -24,18 +31,16 @@ SelectCourse = React.createClass
     offerings =
       OfferingsStore.filter(is_concept_coach: NewCourseStore.get('course_type') is 'cc')
 
-    <BS.Table className="offerings" striped bordered>
-      <tbody>
-        {for offering in offerings
-          <tr key={offering.id} data-appearance={offering.appearance_code}
-            className={classnames({selected: NewCourseStore.get(KEY) is offering.id})}
-            onClick={partial(@onSelect, offering.id)}
-          >
-            <td></td>
-            <td>{OfferingsStore.getTitle(offering.id)}</td>
-          </tr>}
-      </tbody>
-    </BS.Table>
+    <BS.ListGroup>
+      {for offering in offerings
+        <BS.ListGroupItem
+          key={"course-choice-offering-#{offering.id}"}
+          active={isEqual(NewCourseStore.get(KEY), offering.id)}
+          onClick={partial(@onSelect, offering.id)}
+        >
+          <CourseOffering offeringId={offering.id}/>
+        </BS.ListGroupItem>}
+    </BS.ListGroup>
 
 
 module.exports = SelectCourse
