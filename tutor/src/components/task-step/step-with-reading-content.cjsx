@@ -2,6 +2,7 @@ React = require 'react'
 
 {TaskStepStore} = require '../../flux/task-step'
 {ArbitraryHtmlAndMath, ChapterSectionMixin} = require 'shared'
+CourseData = require '../../helpers/course-data'
 {BookContentMixin, LinkContentMixin} = require '../book-content-mixin'
 RelatedContent = require '../related-content'
 CourseTitleBanner = require '../course-title-banner'
@@ -34,8 +35,7 @@ ReadingStepContent = React.createClass
     {courseId} = Router.currentParams()
 
     <div className="#{stepType}-step">
-      <div className="#{stepType}-content">
-        <CourseTitleBanner courseId={courseId} />
+      <div className="#{stepType}-content" {...CourseData.getCourseDataProps(courseId)}>
 
         <RelatedContent contentId={id} {...related_content?[0]} />
         <ArbitraryHtmlAndMath
