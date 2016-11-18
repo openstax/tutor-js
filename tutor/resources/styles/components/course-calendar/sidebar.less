@@ -5,6 +5,9 @@
   height: 100%;
   background-color: @tutor-neutral-lightest;
   padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+
   .section-label {
     margin-top: 15px;
     margin-left: 10px;
@@ -50,11 +53,14 @@
     margin-top: 10px;
     padding-top: 10px;
     border-top: 1px solid @tutor-neutral-light;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     .section-label { margin-top: 0; }
-    .no-plans {
-      padding: 0 6px;
+    .plans {
+      flex: 1;
+      overflow: scroll;
     }
-
     .task-plan{
       .tutor-plan-set(sidebar);
       .draggable();
