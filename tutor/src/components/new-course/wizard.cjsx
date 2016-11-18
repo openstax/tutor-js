@@ -36,6 +36,7 @@ componentFor = (index) ->
 
 NewCourseWizard = React.createClass
   displayName: 'NewCourseWizard'
+  propTypes: React.PropTypes.bool.isRequired
   getInitialState: ->
     currentStage: 0
 
@@ -109,8 +110,12 @@ NewCourseWizard = React.createClass
     @context.router.transitionTo('/dashboard')
 
   render: ->
+    {isLoading} = @props
     Component = componentFor(@state.currentStage)
-    wizardClasses = classnames('new-course-wizard', "new-course-wizard-#{STAGE_KEYS[@state.currentStage]}")
+    wizardClasses = classnames('new-course-wizard',
+      "new-course-wizard-#{STAGE_KEYS[@state.currentStage]}",
+      'is-loading': isLoading
+    )
 
     <BS.Panel
       header={<@Title />}

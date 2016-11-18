@@ -302,6 +302,7 @@
 
   .panel {
     padding: 3rem 4rem;
+    position: relative;
     .tutor-shadow(3);
 
     .panel-heading,
@@ -322,6 +323,17 @@
       padding: 1.6rem 0;
       margin-left: -4px;
       margin-right: -4px;
+
+      .tutor-subtle-load(will-load; 'Loading...');
+      &::after {
+        left: 0;
+        z-index: 1;
+      }
+    }
+    &.is-loading {
+      .panel-body {
+        .tutor-subtle-load(loading);
+      }
     }
     .panel-content {
       height: 260px;
