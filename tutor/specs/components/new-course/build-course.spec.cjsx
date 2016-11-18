@@ -1,5 +1,5 @@
 {React, sinon, pause} = require '../helpers/component-testing'
-{mount} = require 'enzyme'
+{shallow} = require 'enzyme'
 
 BuildCourse = require '../../../src/components/new-course/build-course'
 
@@ -16,18 +16,16 @@ describe 'CreateCourse: saving new course', ->
     wrapper = shallow(<BuildCourse />)
     expect(NewCourseActions.save.calledOnce).to.be.true
     expect(wrapper.text()).to.include('building')
-    expect(wrapper.find('OXFancyLoader[isLoading=true]')).to.have.length(1)
     NewCourseActions.created({id: '1'})
     wrapper.setState({})
-    expect(wrapper.find('OXFancyLoader')).to.have.length(0)
-    expect(wrapper.text()).to.include('course is ready')
+    expect(wrapper.text()).to.include('continue to your new course')
     undefined
 
   it 'has a product dependent link', ->
-    NewCourseActions.created({id: 1})
-    wrapper = shallow(<BuildCourse />)
+    NewCourseActions.created({id: '1', is_concept_coach: false})
+    wrapper = shallow(<BuildCourse.Footer course={NewCourseStore.newCourse()} />)
     expect(wrapper.find('TutorLink[to="dashboard"]')).to.have.length(1)
-    NewCourseActions.created({id: 1, is_concept_coach: true})
-    wrapper.setState({})
+    NewCourseActions.created({id: '1', is_concept_coach: true})
+    wrapper = shallow(<BuildCourse.Footer course={NewCourseStore.newCourse()} />)
     expect(wrapper.find('TutorLink[to="ccDashboardHelp"]')).to.have.length(1)
     undefined

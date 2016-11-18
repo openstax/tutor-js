@@ -20,7 +20,7 @@ BuildCourse = React.createClass
       else
         <BS.Button bsStyle='primary' className='next'>
           Continue to new course
-        </BS.Button>        
+        </BS.Button>
 
       <div className="controls">
         {controls}
@@ -36,6 +36,7 @@ BuildCourse = React.createClass
     </div>
 
   renderPending: ->
+    # covered by loading animation
     <div>
       <h4>We’re building your Tutor course…</h4>
       <p>Should take about 10 seconds</p>
