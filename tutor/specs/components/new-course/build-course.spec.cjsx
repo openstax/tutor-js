@@ -1,4 +1,5 @@
 {React, sinon, pause} = require '../helpers/component-testing'
+{mount} = require 'enzyme'
 
 BuildCourse = require '../../../src/components/new-course/build-course'
 
@@ -15,10 +16,10 @@ describe 'CreateCourse: saving new course', ->
     wrapper = shallow(<BuildCourse />)
     expect(NewCourseActions.save.calledOnce).to.be.true
     expect(wrapper.text()).to.include('building')
-    expect(wrapper.find('Icon[type="refresh"]')).to.have.length(1)
-    NewCourseActions.created({id: 1})
+    expect(wrapper.find('OXFancyLoader[isLoading=true]')).to.have.length(1)
+    NewCourseActions.created({id: '1'})
     wrapper.setState({})
-    expect(wrapper.find('Icon[type="refresh"]')).to.have.length(0)
+    expect(wrapper.find('OXFancyLoader')).to.have.length(0)
     expect(wrapper.text()).to.include('course is ready')
     undefined
 

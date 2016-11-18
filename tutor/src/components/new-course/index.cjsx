@@ -11,12 +11,13 @@ NewCourse = React.createClass
   displayName: 'NewCourse'
   render: ->
     <div className="new-course">
-          <LoadableItem
-            id={'all'}
-            store={OfferingsStore}
-            actions={OfferingsActions}
-            renderItem={-> <Wizard />}
-          />
+      <LoadableItem
+        id={'all'}
+        store={OfferingsStore}
+        actions={OfferingsActions}
+        renderLoading={-> <Wizard isLoading={true}/>}
+        renderItem={-> <Wizard isLoading={false}/>}
+      />
     </div>
 
 

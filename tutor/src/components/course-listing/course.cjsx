@@ -19,8 +19,6 @@ getCourseNameSegments = (course, courseSubject) ->
     after = course.name.substring(index + courseSubject.length)
 
     [before, courseSubject, after]
-  else
-    [course.name]
 
 
 CoursePropType = React.PropTypes.shape(
@@ -71,8 +69,14 @@ Course = React.createClass
   CourseName: ->
     {course, courseSubject} = @props
     courseNameSegments = getCourseNameSegments(course, courseSubject)
+    hasNoSubject = _.isEmpty(courseNameSegments)
+    courseNameSegments ?= course.name.split(' ')
 
-    <TutorLink to='dashboard' params={courseId: course.id}>
+    <TutorLink
+      className={classnames('no-subject': hasNoSubject)}
+      to='dashboard'
+      params={courseId: course.id}
+    >
       {_.map(courseNameSegments, (courseNameSegment, index) ->
         <span
           key="course-name-segment-#{index}"
