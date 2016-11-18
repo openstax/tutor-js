@@ -31,13 +31,16 @@
   padding-bottom: @tutor-card-body-padding-vertical;
 
   .calendar-body {
-    .tutor-subtle-load(will-load; 'Loading ' attr(data-duration-name) '...');
     background-color: @tutor-white;
   }
 
+  .month-wrapper {
+    .tutor-subtle-load(will-load; 'Loading ' attr(data-duration-name) '...');
+  }
 
-  .calendar-loading {
-    .calendar-body [class^="col-"] {
+
+  &.calendar-loading {
+    .month-wrapper {
       .tutor-subtle-load(loading);
     }
 
