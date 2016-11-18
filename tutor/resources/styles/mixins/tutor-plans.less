@@ -128,16 +128,15 @@
 
 .tutor-plan-sidebar(@plan-color) {
   color: @tutor-neutral-darker;
+  border-left: 4px solid transparent;
 
-  &:before {
-    color: @plan-color;
-
-    &:hover {
-      color: fade(@plan-color, 20%);
-    }
-
+  .grabby-dots {
+    fill: @plan-color;
   }
 
+  &:hover {
+    border-left: 4px solid @plan-color;
+  }
 }
 
 .tutor-plan-add(@plan-color) {

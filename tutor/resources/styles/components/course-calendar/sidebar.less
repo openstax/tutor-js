@@ -4,15 +4,19 @@
   width: @calendar-sidebar-width;
   height: 100%;
   background-color: @tutor-neutral-lightest;
-  padding: 0 10px;
+  padding: 0;
   display: flex;
   flex-direction: column;
 
+  .sidebar-section {
+    padding: 1rem;
+  }
+
   .section-label {
-    margin-top: 15px;
     margin-left: 10px;
-    font-size: 1.4rem;
-    color: @tutor-neutral-dark;
+    font-size: 1.3rem;
+    color: @tutor-tertiary;
+    font-weight: 600;
   }
   .draggable() {
     &.is-dragging {
@@ -21,13 +25,8 @@
       box-shadow: inset 0 0 10px @tutor-neutral-lite;
     }
     &:not(.is-dragging) {
-      &:before {
-        .fa-icon();
-        display: inline-block;
-        content: @fa-var-th;
-      }
       &:hover {
-        .tutor-shadow(1);
+        .tutor-shadow(3);
       }
     }
   }
@@ -35,12 +34,18 @@
   ul {
     list-style-type: none;
     padding-left: 0;
+    margin-bottom: 0;
 
     li {
-      .tutor-plan-set(sidebar);
       .no-select();
       .draggable();
       padding-left: 10px;
+      border-left: 4px solid transparent;
+
+      &:hover {
+        .tutor-plan-set(sidebar);
+      }
+
       a {
         padding: 3px 12px;
         color: @tutor-neutral-darker;
@@ -49,18 +54,19 @@
     }
   }
 
+  .task-plan,
+  .new-task {
+    border-radius: @border-radius-base;
+  }
+
   .past-assignments {
-    margin-top: 10px;
-    padding-top: 10px;
+    background: rgba(0, 0, 0, 0.02);
     border-top: 1px solid @tutor-neutral-light;
     flex: 1;
     display: flex;
     flex-direction: column;
-    .section-label { margin-top: 0; }
-    .plans {
-      flex: 1;
-      overflow-y: auto;
-    }
+    overflow-y: auto;
+
     .task-plan{
       .tutor-plan-set(sidebar);
       .draggable();
@@ -72,7 +78,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        padding: 3px 12px;
+        padding: 0 12px;
         &:hover {
           direction:rtl;
           text-align:left;

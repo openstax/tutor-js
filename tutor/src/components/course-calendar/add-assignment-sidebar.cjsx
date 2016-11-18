@@ -34,10 +34,12 @@ AddAssignmentSidebar = React.createClass
     <div className={classnames('add-assignment-sidebar', {
       'is-open': @state.isOpen
     })}>
-      <div className="section-label">NEW</div>
-      <ul className="new-assignments">
-        {@renderAddActions()}
-      </ul>
-      <PastAssignments courseId={@props.courseId} />
+      <div className='sidebar-section'>
+        <div className="section-label">NEW</div>
+        <ul className="new-assignments">
+          {@renderAddActions()}
+        </ul>
+      </div>
+      <PastAssignments className='sidebar-section' courseId={@props.courseId} />
     </div>
 module.exports = AddAssignmentSidebar

@@ -1,5 +1,6 @@
 React = require 'react'
 BS    = require 'react-bootstrap'
+classnames = require 'classnames'
 
 {CloneAssignmentLink} = require './task-dnd'
 
@@ -25,22 +26,26 @@ PastAssignments = React.createClass
   render: ->
     plans = PastTaskPlansStore.get(@props.courseId) or []
     return null if isEmpty(plans)
-    <div className='past-assignments'>
+    <div className={classnames('past-assignments', @props.className)}>
       <div className="section-label">COPIED</div>
       <div className="plans">
         {for plan in plans
           <CloneAssignmentLink key={plan.id} plan={plan} />}
+        {for plan in plans
+          <CloneAssignmentLink key={"#{plan.id}-2"} plan={plan} />}
+        {for plan in plans
+          <CloneAssignmentLink key={"#{plan.id}-3"} plan={plan} />}
       </div>
     </div>
 
 PastAssignmentsShell = React.createClass
   render: ->
-    {courseId} = @props
+    {courseId, className} = @props
     <LoadableItem
       id={courseId}
       store={PastTaskPlansStore}
       actions={PastTaskPlansActions}
-      renderItem={ -> <PastAssignments courseId={courseId} /> }
+      renderItem={ -> <PastAssignments courseId={courseId} className={className}/> }
       renderLoading={ PastAssignmentsLoading }
     />
 
