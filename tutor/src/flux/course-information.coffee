@@ -48,3 +48,6 @@ module.exports =
   anatomy_physiology:
     title:      'Anatomy & Physiology'
     subject:    SUBJECTS.ANATOMY_PHYSIOLOGY
+
+  forAppearanceCode: (code) ->
+    @[code] or { title: 'default', subject: '' }
