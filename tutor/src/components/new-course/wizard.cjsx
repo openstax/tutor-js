@@ -17,6 +17,7 @@ BindStore = require '../bind-store-mixin'
 CourseInformation = require '../../flux/course-information'
 
 CourseOffering = require './offering'
+OXFancyLoader = require '../ox-fancy-loader'
 
 STAGES = {
   'course_type':              require './select-type'
@@ -98,6 +99,10 @@ NewCourseWizard = React.createClass
     title = title() if isFunction(title)
     offeringId = NewCourseStore.get('offering_id')
 
+    if currentStage is (STAGE_KEYS.length - 1)
+      newCourse = NewCourseStore.get('newlyCreatedCourse')
+      offeringId = newCourse.offering_id if newCourse?
+
     if offeringId? and currentStage > 1
       <CourseOffering offeringId={offeringId} >
         {title}
@@ -123,7 +128,8 @@ NewCourseWizard = React.createClass
       footer={<@Footer /> unless Component.shouldHideControls}
     > 
       <div className='panel-content'>
-        <Component/>
+        <OXFancyLoader isLoading={isLoading}/>
+        {<Component/> unless isLoading}
       </div>
     </BS.Panel>
 

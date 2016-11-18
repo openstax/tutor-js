@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 Icon = require '../icon'
 TutorLink = require '../link'
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
+OXFancyLoader = require '../ox-fancy-loader'
 
 BuildCourse = React.createClass
   displayName: 'BuildCourse'
@@ -25,9 +26,7 @@ BuildCourse = React.createClass
     <div>
       <h4>We’re building your Tutor course…</h4>
       <p>Should take about 10 seconds</p>
-      <div className="text-center">
-        <Icon type='refresh' spin className="fa-5x" />
-      </div>
+      <OXFancyLoader isLoading={true}/>
     </div>
 
   render: ->

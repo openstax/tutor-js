@@ -17,6 +17,8 @@ CourseOffering = React.createClass
     {offeringId, children, className} = @props
     baseName = ReactHelpers.getBaseName(@)
 
+    return null if _.isEmpty(OfferingsStore.get(offeringId))
+
     {appearance_code}  = OfferingsStore.get(offeringId)
     {title}   = CourseInformation[appearance_code]
 
