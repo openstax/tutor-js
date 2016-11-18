@@ -9,7 +9,7 @@
   flex-direction: column;
 
   .sidebar-section {
-    padding: 1rem;
+    padding: 1.5rem 1.5rem 1rem 1rem;
   }
 
   .section-label {
@@ -22,11 +22,11 @@
     &.is-dragging {
       > * { visibility: hidden; }
       background-color: @tutor-neutral-light;
-      box-shadow: inset 0 0 10px @tutor-neutral-lite;
+      .tutor-shadow(draggable-well);
     }
     &:not(.is-dragging) {
       &:hover {
-        .tutor-shadow(3);
+        .tutor-shadow(draggable);
       }
     }
   }
