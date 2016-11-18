@@ -25,7 +25,7 @@ describe 'CreateCourse: Selecting course subject', ->
     wrapper = mount(<SelectCourse />)
 
     for offering, i in OFFERINGS
-      offeringItemSelector = "[data-book-title='#{CourseInformation[ OFFERINGS.items[index].appearance_code ].title}']"
+      offeringItemSelector = "[data-book-title='#{CourseInformation.forAppearanceCode(OFFERINGS.items[index].appearance_code).title}']"
       expect(wrapper.find(offeringItemSelector)).to.have.length(1)
 
     undefined
