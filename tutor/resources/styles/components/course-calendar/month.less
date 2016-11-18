@@ -47,6 +47,19 @@
   }
   .month-wrapper {
     position: relative;
+    &.is-dragging {
+      .rc-Day--upcoming,
+      .rc-Day--current {
+        &.hovered {
+          border: 1px solid @tutor-tertiary-light;
+        }
+      }
+      .rc-Day--past {
+        &.hovered {
+           background: fade(@tutor-danger, 10%);
+        }
+      }
+    }
   }
   .rc {
     &-Calendar {
