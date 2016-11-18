@@ -24,8 +24,9 @@ PastAssignments = React.createClass
 
   render: ->
     plans = PastTaskPlansStore.get(@props.courseId) or []
-
+    return null if isEmpty(plans)
     <div className='past-assignments'>
+      <div className="section-label">COPIED</div>
       {for plan in plans
         <CloneAssignmentLink key={plan.id} plan={plan} />}
     </div>

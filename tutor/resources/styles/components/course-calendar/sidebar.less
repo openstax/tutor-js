@@ -1,8 +1,21 @@
 .add-assignment-sidebar {
+  border-right: 1px solid @tutor-neutral-light;
+  position: absolute;
+  width: @calendar-sidebar-width;
+  height: 100%;
+  background-color: @tutor-neutral-lightest;
+  padding: 0 10px;
+  .section-label {
+    margin-top: 15px;
+    margin-left: 10px;
+    font-size: 1.4rem;
+    color: @tutor-neutral-dark;
+  }
   .draggable() {
     &.is-dragging {
       > * { visibility: hidden; }
       background-color: @tutor-neutral-lighter;
+      box-shadow: inset 0 0 10px gray;
     }
     &:not(.is-dragging) {
       &:before {
@@ -15,22 +28,16 @@
       }
     }
   }
-  border-right: 1px solid @tutor-neutral-light;
-  position: absolute;
-  width: @calendar-sidebar-width;
-  height: 100%;
-
-  background-color: @tutor-neutral-lightest;
 
   ul {
     list-style-type: none;
     padding-left: 0;
 
     li {
-      padding: 5px;
       .tutor-plan-set(sidebar);
       .no-select();
       .draggable();
+      padding-left: 10px;
       a {
         padding: 3px 12px;
         color: @tutor-neutral-darker;
@@ -43,26 +50,18 @@
     margin-top: 10px;
     padding-top: 10px;
     border-top: 1px solid @tutor-neutral-light;
-
+    .section-label { margin-top: 0; }
     .no-plans {
       padding: 0 6px;
     }
 
     .task-plan{
       .tutor-plan-set(sidebar);
+      .draggable();
       cursor: move;
-      padding: 5px;
       display: flex;
       align-items: center;
-      .draggable();
-
-      // &:hover {
-      //   .tutor-shadow(1);
-      // }
-      // &:before {
-      //   .fa-icon();
-      //   content: @fa-var-th;
-      // }
+      padding-left: 10px;
       div {
         white-space: nowrap;
         overflow: hidden;
