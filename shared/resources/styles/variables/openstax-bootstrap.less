@@ -20,7 +20,6 @@
 @brand-warning:         @openstax-warning; // openstax-quaternary, yellow
 @brand-danger:          @openstax-danger;  // openstax-danger, red
 
-@state-info-bg:         @openstax-info-bg;
 @container-large-desktop:      (1170px + @grid-gutter-width);
 
 @link-hover-color:      darken(@link-color, 5%);
@@ -107,8 +106,8 @@
 // @line-height-large:         1.3333333; // extra decimals for Win 8.1 Chrome
 // @line-height-small:         1.5;
 
-// @border-radius-base:        4px;
-@border-radius-large:       6px;
+@border-radius-base:        2px;
+@border-radius-large:       4px;
 // @border-radius-small:       3px;
 
 // //** Global color for active items (e.g., navs or dropdowns).
@@ -191,13 +190,13 @@
 // @input-border:                   #ccc;
 
 // // TODO: Rename `@input-border-radius` to `@input-border-radius-base` in v4
-// //** Default `.form-control` border radius
-// // This has no effect on `<select>`s in some browsers, due to the limited stylability of `<select>`s in CSS.
-// @input-border-radius:            @border-radius-base;
-// //** Large `.form-control` border radius
-// @input-border-radius-large:      @border-radius-large;
-// //** Small `.form-control` border radius
-// @input-border-radius-small:      @border-radius-small;
+//** Default `.form-control` border radius
+// This has no effect on `<select>`s in some browsers, due to the limited stylability of `<select>`s in CSS.
+@input-border-radius:            0;
+//** Large `.form-control` border radius
+@input-border-radius-large:      0;
+//** Small `.form-control` border radius
+@input-border-radius-small:      0;
 
 // //** Border color for inputs on focus
 // @input-border-focus:             #66afe9;
@@ -206,7 +205,8 @@
 // @input-color-placeholder:        #999;
 
 // //** Default `.form-control` height
-// @input-height-base:              (@line-height-computed + (@padding-base-vertical * 2) + 2);
+// TODO do this later for all forms...
+// @input-height-base:              (@line-height-computed + (@padding-base-vertical * 2) + 16);
 // //** Large `.form-control` height
 // @input-height-large:             (ceil(@font-size-large * @line-height-large) + (@padding-large-vertical * 2) + 2);
 // //** Small `.form-control` height
@@ -498,17 +498,17 @@
 // @state-success-bg:               #dff0d8;
 // @state-success-border:           darken(spin(@state-success-bg, -10), 5%);
 
-// @state-info-text:                #31708f;
-// @state-info-bg:                  #d9edf7;
-// @state-info-border:              darken(spin(@state-info-bg, -10), 7%);
+@state-info-text:                shade(@openstax-info, 60%);
+@state-info-bg:                  tint(@openstax-info, 80%);
+@state-info-border:              shade(@openstax-info, 40%);
 
 // @state-warning-text:             #8a6d3b;
 // @state-warning-bg:               #fcf8e3;
 // @state-warning-border:           darken(spin(@state-warning-bg, -10), 5%);
 
-// @state-danger-text:              #a94442;
-// @state-danger-bg:                #f2dede;
-// @state-danger-border:            darken(spin(@state-danger-bg, -10), 5%);
+@state-danger-text:              shade(@openstax-danger, 60%);
+@state-danger-bg:                tint(@openstax-danger, 80%);
+@state-danger-border:            shade(@openstax-danger, 40%);
 
 
 // //== Tooltips

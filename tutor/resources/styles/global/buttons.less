@@ -1,28 +1,28 @@
-@btn-border-radius: 4px;
+// @btn-border-radius: 4px;
 @default-border: rgba(66,66,66,.1);
 @default-background: rgba(245,245,245,.4);
 @default-background-hover: rgba(255,255,255,.8);
 @primary-background: #f47642;
 @primary-background-hover: #fa804d;
 
-// Override the defaults from bootstrap-material-design
-.btn-hover() {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, .1), 0 6px 28px rgba(0, 0, 0, .2);
-}
+// // Override the defaults from bootstrap-material-design
+// .btn-hover() {
+//   box-shadow: 0 4px 10px rgba(0, 0, 0, .1), 0 6px 28px rgba(0, 0, 0, .2);
+// }
 
 .btn + .btn { margin-left: 0.5rem; }
 
-.btn-group { border-radius: @btn-border-radius; }
+// .btn-group { border-radius: @btn-border-radius; }
 
 .btn-round() {
   padding: 9px 18px;
   font-size: 1.6rem;
-  border-radius: @btn-border-radius;
+  // border-radius: @btn-border-radius;
   transition: box-shadow 0.2s, background 0.2s;
 
   &:hover,
   &:focus {
-    .btn-hover();
+    .tutor-shadow(button);
   }
 }
 

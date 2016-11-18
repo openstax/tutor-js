@@ -29,14 +29,12 @@ CourseDetails = React.createClass
   render: ->
     <BS.Form>
       <BS.FormGroup className='course-details-name'>
-        <BS.InputGroup>
-          <BS.InputGroup.Addon>Name of course</BS.InputGroup.Addon>
-          <BS.FormControl autoFocus
-            type="text"
-            value={NewCourseStore.get('name') or ''}
-            onChange={@updateName}
-          />
-        </BS.InputGroup>
+        <BS.FormControl autoFocus
+          type="text"
+          value={NewCourseStore.get('name') or ''}
+          placeholder='Choose a name for your course'
+          onChange={@updateName}
+        />
       </BS.FormGroup>
       <BS.FormGroup className='course-details-sections'>
         <BS.InputGroup>

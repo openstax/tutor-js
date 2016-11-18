@@ -44,9 +44,14 @@ getChangeDependents = (oldObject, newObject) ->
 
 StoreDefinition = makeStandardStore('NewCourse', {
   _local: _.cloneDeep(DEFAULTS)
+  # TODO Ideally, we'd use _asyncStatus to do this, but since this flux is kinda
+  # non-standard -- i.e. a new course does not have a new local id -- we will do this for now.
+  _isBuilding: false
 
   save: ->
     actions = StoreDefinition.NewCourseActions
+    @_isBuilding = true
+    @emitChange()
     if @_local.cloned_from_id
       actions.clone({id: @_local.cloned_from_id})
     else
@@ -59,8 +64,10 @@ StoreDefinition = makeStandardStore('NewCourse', {
 # coffeelint: enable=no_empty_functions
   created: (newCourse) ->
     @reset()
+    @_isBuilding = false
     @_local['newlyCreatedCourse'] = newCourse
     CourseListingActions.addCourse(newCourse)
+    @emitChange()
     @emit('created', newCourse)
 
   _reset: ->
@@ -95,6 +102,8 @@ StoreDefinition = makeStandardStore('NewCourse', {
         when 'details' then @_local.name and @_local.num_sections
         else
           not _.isUndefined(@_local[attr])
+
+    isBuilding: -> @_isBuilding
 
     newCourse: ->
       @_local['newlyCreatedCourse']
