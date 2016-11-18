@@ -162,7 +162,7 @@ CourseMonth = React.createClass
     @props.date?.format?('MMMM')
 
   onDrop: (item, offset) ->
-    return unless @state.hoveredDay
+    return unless @state.hoveredDay and @state.hoveredDay.isSameOrAfter(TimeStore.getNow(), 'day')
     if item.pathname # is a link to create an assignment
       url = item.pathname + "?" + qs.stringify({
         due_at: @state.hoveredDay.format(@props.dateFormat)
