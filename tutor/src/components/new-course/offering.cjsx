@@ -19,8 +19,8 @@ CourseOffering = React.createClass
 
     return null if _.isEmpty(OfferingsStore.get(offeringId))
 
-    {appearance_code}  = OfferingsStore.get(offeringId)
-    {title}   = CourseInformation[appearance_code]
+    {appearance_code} = OfferingsStore.get(offeringId)
+    info = CourseInformation[appearance_code] or {}
 
     <CourseChoice
       className={classnames(baseName, className)}
@@ -28,7 +28,7 @@ CourseOffering = React.createClass
     >
       <CourseChoiceContent
         className="#{baseName}-content-wrapper"
-        data-book-title={title}
+        data-book-title={info.title or ''}
       >
         {children}
       </CourseChoiceContent>
