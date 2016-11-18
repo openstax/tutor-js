@@ -1,11 +1,14 @@
 {expect} = require 'chai'
 
-{TimeActions, TimeStore} = require '../src/flux/time'
+{TimeActions, TimeStore} = require '../../src/flux/time'
 
 SERVER_TIME = new Date('2000-02-02')
 LOCAL_TIME = new Date('2011-11-11')
 
 describe 'Server Time', ->
+
+  afterEach ->
+    TimeActions.reset()
 
   it 'returns the server time', ->
     TimeActions.setNow(SERVER_TIME, LOCAL_TIME)

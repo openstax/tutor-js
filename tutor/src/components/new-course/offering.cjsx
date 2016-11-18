@@ -19,8 +19,8 @@ CourseOffering = React.createClass
 
     return null if _.isEmpty(OfferingsStore.get(offeringId))
 
-    {appearance_code}  = OfferingsStore.get(offeringId)
-    {title}   = CourseInformation[appearance_code]
+    {appearance_code} = OfferingsStore.get(offeringId)
+    {title} = CourseInformation.forAppearanceCode(appearance_code)
 
     <CourseChoice
       className={classnames(baseName, className)}

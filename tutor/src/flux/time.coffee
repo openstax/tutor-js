@@ -8,6 +8,8 @@ flux = require 'flux-react'
 TutorDateFormat = "MM/DD/YYYY"
 
 TimeConfig =
+  reset: ->
+    @_shiftMs = 0
 
   setNow: (now, localNow = new Date()) ->
     # called by API

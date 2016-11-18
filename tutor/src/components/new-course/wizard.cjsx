@@ -14,7 +14,6 @@ BindStore = require '../bind-store-mixin'
 {CourseListingStore} = require '../../flux/course-listing'
 
 {OfferingsStore} = require '../../flux/offerings'
-CourseInformation = require '../../flux/course-information'
 
 CourseOffering = require './offering'
 OXFancyLoader = require '../ox-fancy-loader'

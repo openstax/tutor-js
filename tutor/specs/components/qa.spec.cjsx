@@ -45,7 +45,6 @@ describe 'QA Exercises Component', ->
       count + (if ExerciseStore.hasQuestionWithFormat('free-response', ex) then 1 else 0)
     , 0)
     wrapper.update()
-    # console.log wrapper.debug()
     expect(wrapper.find('.exercise-free-response-preview'))
       .to.have.length(freeResponseCount)
     undefined
@@ -60,11 +59,11 @@ describe 'QA Exercises Component', ->
 
   it 'hides exercise lo tags that don\'t belong to current book', ->
     ex = ld.cloneDeep EXERCISES
-    _.each ex.items, (e) -> e.content.tags.push("lo:uknown-fake-uuid")
+    item.content.tags = ["lo:uknown-fake-uuid"] for item in ex.items
     ExerciseActions.loadedForCourse(ex, COURSE_ID, ['146'])
     wrapper = mount(<Exercises {...@props} />)
-    tags = wrapper.find('.lo-tag').map (tag) -> tag.text()
-    expect(tags).to.not.include('LO: uknown-fake-uuid')
+    wrapper.find('.lo-tag').forEach (tag) ->
+      expect(tag.text()).to.not.include('uknown-fake-uuid')
     undefined
 
   it 'displays question formats', ->

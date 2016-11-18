@@ -23,11 +23,11 @@ CourseConfig =
   exports:
     getBookName: (courseId) ->
       {appearance_code} = @_local[courseId]
-      CourseInformation[appearance_code]?.title or ''
+      CourseInformation.forAppearanceCode(appearance_code)?.title or ''
 
     getSubject: (courseId) ->
       {appearance_code} = @_local[courseId]
-      CourseInformation[appearance_code]?.subject or ''
+      CourseInformation.forAppearanceCode(appearance_code)?.subject or ''
 
     isConceptCoach: (courseId) -> !! @_local[courseId]?.is_concept_coach
     isCollege: (courseId) -> !! @_local[courseId]?.is_college

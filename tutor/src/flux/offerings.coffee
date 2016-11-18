@@ -20,7 +20,7 @@ StoreDefinition = makeStandardStore('Offerings', {
       filter(@_all, conditions)
 
     getTitle: (id) ->
-      CourseInformation[ @_get(id).appearance_code ].title
+      CourseInformation.forAppearanceCode(@_get(id).appearance_code).title
 
 })
 
