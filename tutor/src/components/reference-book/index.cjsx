@@ -5,6 +5,8 @@ classnames = require 'classnames'
 Router = require '../../helpers/router'
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
 {CourseActions, CourseStore} = require '../../flux/course'
+CourseData = require '../../helpers/course-data'
+
 ReferenceBookPageShell = require './page-shell'
 LoadableItem = require '../loadable-item'
 
@@ -56,6 +58,7 @@ ReferenceBookShell = React.createClass
         pageNavRouterLinkTarget='viewReferenceBookSection'
         menuRouterLinkTarget='viewReferenceBookSection'
         className={classnames('is-teacher': @state.isShowingTeacherContent)}
+        dataProps={CourseData.getCourseDataProps(courseId) if courseId}
         ecosystemId={ecosystemId}
     />
 

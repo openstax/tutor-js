@@ -10,7 +10,6 @@ Menu = require './slide-out-menu'
 {ResizeListenerMixin, ChapterSectionMixin} = require 'shared'
 PageShell = require './page-shell'
 ReferenceViewPageNavigation = require './page-navigation'
-CourseTitleBanner = require '../course-title-banner'
 
 # menu width (300) + page width (1000) + 50 px padding
 # corresponds to @reference-book-page-width and @reference-book-menu-width in variables.less
@@ -24,6 +23,7 @@ module.exports = React.createClass
   propTypes:
     navbarControls: React.PropTypes.element
     ecosystemId: React.PropTypes.string.isRequired
+    dataProps:   React.PropTypes.object
     section:     React.PropTypes.string
     cnxId:       React.PropTypes.string
     className:   React.PropTypes.string
