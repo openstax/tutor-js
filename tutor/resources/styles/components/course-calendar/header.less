@@ -3,8 +3,10 @@
 .list-task-plans {
 
   .calendar-header {
-    margin: 20px 0;
+    margin-top: 20px;
     background-color: @tutor-neutral-lighter;
+    .clearfix();
+    > * { margin-bottom: 20px; }
 
     .btn-default {
       background-color: @tutor-neutral-lightest;
@@ -30,8 +32,7 @@
     }
 
     .no-periods-text {
-      display: inline-block;
-      margin: 16px 0;
+      display: block;
     }
 
     &-actions {
