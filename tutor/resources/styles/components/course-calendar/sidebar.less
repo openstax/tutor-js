@@ -20,7 +20,10 @@
   }
   .draggable() {
     &.is-dragging {
-      > * { visibility: hidden; }
+      > * {
+        visibility: hidden;
+      }
+
       background-color: @tutor-neutral-light;
       .tutor-shadow(draggable-well);
     }
@@ -67,7 +70,7 @@
     flex-direction: column;
     overflow-y: auto;
 
-    .task-plan{
+    .task-plan {
       .tutor-plan-set(sidebar);
       .draggable();
       cursor: move;

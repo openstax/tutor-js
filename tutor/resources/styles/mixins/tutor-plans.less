@@ -129,11 +129,13 @@
 .tutor-plan-sidebar(@plan-color) {
   color: @tutor-neutral-darker;
   border-left: 4px solid transparent;
-
   .grabby-dots {
     fill: @plan-color;
   }
 
+  &.is-dragging {
+    border-left: 0 !important;
+  }
   &:hover {
     border-left: 4px solid @plan-color;
   }
