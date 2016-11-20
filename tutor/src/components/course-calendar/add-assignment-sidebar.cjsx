@@ -29,7 +29,7 @@ AddAssignmentSidebar = React.createClass
     isOpen: React.PropTypes.bool.isRequired
 
   getInitialState: ->
-    showIntro: @props.isOpen
+    showIntro: true
     needsIntro: false
 
   bindUpdate: ->
