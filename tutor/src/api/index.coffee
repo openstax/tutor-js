@@ -95,7 +95,9 @@ startAPI = ->
   connectRead(TocActions, pattern: 'ecosystems/{id}/readings')
   connectRead(CourseGuideActions, pattern: 'courses/{id}/guide')
   connectRead(CourseActions, pattern: 'courses/{id}')
-  connectUpdate(CourseActions, pattern: 'courses/{id}')
+  connectUpdate(CourseActions, pattern: 'courses/{id}',
+    data: (id, data) -> data
+  )
 
   connectRead(CCDashboardActions, pattern: 'courses/{id}/cc/dashboard')
   connectRead(CoursePracticeActions, pattern: 'courses/{id}/practice')
@@ -139,29 +141,37 @@ startAPI = ->
     pattern: 'teachers/{id}', trigger: 'teacherDelete', onSuccess: 'teacherDeleted'
   )
   connectDelete(RosterActions, pattern: 'students/{id}')
-  connectUpdate(RosterActions, pattern: 'students/{id}')
+  connectUpdate(RosterActions, pattern: 'students/{id}',
+    data: (id, data) -> data
+  )
 
-  connectModify(RosterActions, pattern: 'students/{id}/undrop', trigger: 'undrop', onSuccess: 'undropped',
+  connectModify(RosterActions, pattern: 'students/{studentId}/undrop', trigger: 'undrop', onSuccess: 'undropped',
     errorHandlers:
       already_active: 'onUndropAlreadyActive'
       student_identifier_has_already_been_taken: 'recordDuplicateStudentIdError'
   )
   connectUpdate(RosterActions,
-    pattern: 'students/{id}', trigger: 'saveStudentIdentifier', onSuccess: 'savedStudentIdentifier',
+    pattern: 'students/{studentId}', trigger: 'saveStudentIdentifier', onSuccess: 'savedStudentIdentifier',
     errorHandlers:
       student_identifier_has_already_been_taken: 'recordDuplicateStudentIdError'
     data: ({courseId, studentId}) ->
       student_identifier: RosterStore.getStudentIdentifier(courseId, studentId)
   )
-  connectCreate(RosterActions, pattern: 'courses/{id}/roster')
+  # this isn't currently used, it's the old endpoint for a teacher adding a student
+  # connectCreate(RosterActions, pattern: 'courses/{id}/roster')
   connectRead(RosterActions, pattern: 'courses/{id}/roster')
   connectUpdate(StudentIdActions, pattern: 'user/courses/{id}/student',
     handledErrors: ['*'], handleError: StudentIdActions.errored
     data: (id, data) -> data
   )
 
-  connectCreate(PeriodActions, pattern: 'courses/{courseId}/periods')
-  connectUpdate(PeriodActions, pattern: 'periods/{id}')
+  connectCreate(PeriodActions, pattern: 'courses/{id}/periods',
+    data: (id, data) -> data
+  )
+  connectUpdate(PeriodActions,
+    url: (courseId, periodId, data) -> "periods/#{periodId}"
+    data: (courseId, periodId, data) -> data
+  )
   connectDelete(PeriodActions, pattern: 'periods/{id}')
   connectModify(PeriodActions, pattern: 'periods/{id}/restore', trigger: 'restore', onSuccess: 'restored')
 

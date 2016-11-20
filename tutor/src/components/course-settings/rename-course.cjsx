@@ -53,7 +53,7 @@ RenameCourse = React.createClass
           default={@props.course.name}
           onChange={(val) => @setState(course_name: val)}
           validate={@validate}
-          autofocus
+          autoFocus
         />
       </div>
 
