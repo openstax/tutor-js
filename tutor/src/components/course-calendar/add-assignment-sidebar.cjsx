@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 isEmpty = require 'lodash/isEmpty'
 
 classnames = require 'classnames'
+{UiSettings} = require 'shared'
 
 {AddAssignmentLink} = require './task-dnd'
 
@@ -13,6 +14,9 @@ BindStoreMixin = require '../bind-store-mixin'
 
 {CourseStore} = require '../../flux/course'
 {PastTaskPlansStore} = require '../../flux/past-task-plans'
+
+IS_INTRO_VIEWED = 'viewed-plan-dnd-intro'
+USE_SETTINGS = false
 
 AddAssignmentSidebar = React.createClass
 
@@ -32,7 +36,12 @@ AddAssignmentSidebar = React.createClass
     @setState(needsIntro: PastTaskPlansStore.hasPlans(@props.courseId))
 
   shouldShowIntro: ->
-    @props.isOpen and @state.needsIntro and @state.showIntro
+    shouldIntro = if USE_SETTINGS then not UiSettings.get(IS_INTRO_VIEWED) else true
+
+    @props.isOpen and
+      @state.needsIntro and
+      shouldIntro and
+      @state.showIntro
 
   renderMenuLink: (link) ->
     <AddAssignmentLink
@@ -43,6 +52,7 @@ AddAssignmentSidebar = React.createClass
     />
 
   closeHelp: ->
+    UiSettings.set(IS_INTRO_VIEWED, true) if USE_SETTINGS
     @setState(showIntro: false)
 
   Intro: ->
