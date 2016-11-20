@@ -1,5 +1,6 @@
 React = require 'react'
 BS    = require 'react-bootstrap'
+classnames = require 'classnames'
 
 {CloneAssignmentLink} = require './task-dnd'
 
@@ -10,8 +11,8 @@ partial = require 'lodash/partial'
 LoadableItem = require '../loadable-item'
 
 
-PastAssignmentsLoading = ->
-  <div className='past-assignments'>
+PastAssignmentsLoading = ({className}) ->
+  <div className={classnames('past-assignments', className)}>
     <div className="no-plans is-loading">
       Loading past assignments...
     </div>
@@ -25,8 +26,8 @@ PastAssignments = React.createClass
   render: ->
     plans = PastTaskPlansStore.get(@props.courseId) or []
     return null if isEmpty(plans)
-    <div className='past-assignments'>
-      <div className="section-label">COPIED</div>
+    <div className={classnames('past-assignments', @props.className)}>
+      <div className="section-label">Copied</div>
       <div className="plans">
         {for plan in plans
           <CloneAssignmentLink key={plan.id} plan={plan} />}
@@ -35,13 +36,13 @@ PastAssignments = React.createClass
 
 PastAssignmentsShell = React.createClass
   render: ->
-    {courseId} = @props
+    {courseId, className} = @props
     <LoadableItem
       id={courseId}
       store={PastTaskPlansStore}
       actions={PastTaskPlansActions}
-      renderItem={ -> <PastAssignments courseId={courseId} /> }
-      renderLoading={ PastAssignmentsLoading }
+      renderItem={ -> <PastAssignments courseId={courseId} className={className}/> }
+      renderLoading={ -> <PastAssignmentsLoading className={className}/> }
     />
 
 module.exports = PastAssignmentsShell

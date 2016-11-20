@@ -1,16 +1,13 @@
-{makeStandardStore, STATES} = require './helpers'
-cloneDeep = require 'lodash/cloneDeep'
-
-BLANK = {}
+{makeStandardStore} = require './helpers'
+isEmpty = require 'lodash/isEmpty'
 
 StoreDefinition = makeStandardStore('PastTaskPlans', {
-  load: (courseId) ->
-    @_asyncStatus[courseId] = STATES.LOADING
+  _loaded: (data, courseId) ->
+    data.items
 
-  loaded: (data, courseId) ->
-    @_asyncStatus[courseId] = STATES.LOADED
-    @_local[courseId] = data.items
-    @emitChange()
+  exports:
+    hasPlans: (courseId) ->
+      not isEmpty(@_get(courseId))
 })
 
 module.exports = StoreDefinition

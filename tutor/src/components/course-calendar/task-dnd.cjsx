@@ -5,8 +5,13 @@ partial = require 'lodash/partial'
 {DragSource} = require 'react-dnd'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 
+GrabbyDots = require '../grabby-dots'
+
 NewTaskDrag =
-  beginDrag: ({link}) ->
+  beginDrag: (props) ->
+    {link, onDrag} = props
+    onDrag?()
+
     link
 
   endDrag: (props, monitor) ->
@@ -50,6 +55,7 @@ AddAssignmentLink = (props) ->
       data-assignment-type={props.link.type}
       className={classnames('new-task', 'is-dragging': props.isDragging)}
     >
+      <GrabbyDots/>
       <a
         href={props.link.pathname}
         onClick={props.goToBuilder(props.link)} >
@@ -64,7 +70,7 @@ CloneAssignmentLink = (props) ->
       data-assignment-type={props.plan.type}
       className={classnames('task-plan', 'is-dragging': props.isDragging)}
     >
-      <div>{props.plan.title}</div>
+      <GrabbyDots/><div>{props.plan.title}</div>
     </div>
   )
 

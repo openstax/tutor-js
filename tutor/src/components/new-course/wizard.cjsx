@@ -8,7 +8,7 @@ isEmpty = require 'lodash/isEmpty'
 
 TutorRouter = require '../../helpers/router'
 
-BindStore = require '../bind-store-mixin'
+BindStoreMixin = require '../bind-store-mixin'
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 {CourseActions, CourseStore} = require '../../flux/course'
 {CourseListingStore} = require '../../flux/course-listing'
@@ -36,7 +36,8 @@ componentFor = (index) ->
 
 NewCourseWizard = React.createClass
   displayName: 'NewCourseWizard'
-  propTypes: React.PropTypes.bool.isRequired
+  propTypes:
+    isLoading: React.PropTypes.bool.isRequired
   getInitialState: ->
     currentStage: 0
 
@@ -52,7 +53,7 @@ NewCourseWizard = React.createClass
       NewCourseActions.set(course_type: 'tutor')
       @setState({currentStage: 1})
 
-  mixins: [BindStore]
+  mixins: [BindStoreMixin]
   bindStore: NewCourseStore
 
   onContinue: -> @go(1)
@@ -72,25 +73,29 @@ NewCourseWizard = React.createClass
     </BS.Button>
 
   Footer: ->
-    <div className="controls">
-      <BS.Button
-        onClick={@onCancel} className="cancel"
-      >
-        Cancel
-      </BS.Button>
+    Component = componentFor(@state.currentStage)
+    if Component.Footer?
+      <Component.Footer course={NewCourseStore.newCourse()}/>
+    else
+      <div className="controls">
+        <BS.Button
+          onClick={@onCancel} className="cancel"
+        >
+          Cancel
+        </BS.Button>
 
-      <@BackButton />
+        <@BackButton />
 
-      <BS.Button onClick={@onContinue}
-        bsStyle='primary' className="next"
-        disabled={
-          not NewCourseStore.isValid( STAGE_KEYS[@state.currentStage] )
-        }
-      >
-        Continue
-      </BS.Button>
+        <BS.Button onClick={@onContinue}
+          bsStyle='primary' className="next"
+          disabled={
+            not NewCourseStore.isValid( STAGE_KEYS[@state.currentStage] )
+          }
+        >
+          Continue
+        </BS.Button>
 
-    </div>
+      </div>
 
   Title: ->
     {currentStage} = @state
@@ -99,7 +104,7 @@ NewCourseWizard = React.createClass
     offeringId = NewCourseStore.get('offering_id')
 
     if currentStage is (STAGE_KEYS.length - 1)
-      newCourse = NewCourseStore.get('newlyCreatedCourse')
+      newCourse = NewCourseStore.newCourse()
       offeringId = newCourse.offering_id if newCourse?
 
     if offeringId? and currentStage > 1
@@ -115,19 +120,22 @@ NewCourseWizard = React.createClass
 
   render: ->
     {isLoading} = @props
+    isBuilding = NewCourseStore.isBuilding()
+
     Component = componentFor(@state.currentStage)
-    wizardClasses = classnames('new-course-wizard',
-      "new-course-wizard-#{STAGE_KEYS[@state.currentStage]}",
-      'is-loading': isLoading
+    wizardStageClass = "new-course-wizard-#{STAGE_KEYS[@state.currentStage]}"
+    wizardClasses = classnames('new-course-wizard', wizardStageClass,
+      'is-loading': isLoading or isBuilding
+      'is-building': isBuilding
     )
 
     <BS.Panel
       header={<@Title />}
       className={wizardClasses}
-      footer={<@Footer /> unless Component.shouldHideControls}
+      footer={<@Footer />}
     > 
       <div className='panel-content'>
-        <OXFancyLoader isLoading={isLoading}/>
+        <OXFancyLoader isLoading={isLoading or isBuilding}/>
         {<Component/> unless isLoading}
       </div>
     </BS.Panel>

@@ -10,9 +10,13 @@ CalendarSidebarToggle = React.createClass
 
   propTypes:
     onToggle: React.PropTypes.func.isRequired
+    defaultOpen: React.PropTypes.bool
+
+  getDefaultProps: ->
+    defaultOpen: false
 
   getInitialState: ->
-    {isOpen: false}
+    isOpen: @props.defaultOpen
 
   onToggle: ->
     isOpen = not @state.isOpen

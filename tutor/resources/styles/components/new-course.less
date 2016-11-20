@@ -11,7 +11,7 @@
 }
 
 .make-wizard-choice-active() {
-  background-color: @tutor-neutral-light;
+  background-color: fade(@tutor-neutral-light, 60%);
   border-color: @tutor-neutral-light;
   color: @tutor-neutral-dark;
 }
@@ -21,9 +21,7 @@
     padding: 8px;
 
     &:focus {
-      outline-color: @tutor-neutral;
-      outline-width: thin;
-      outline-style: dotted;
+      outline: none;
     }
 
     &.active {
@@ -98,16 +96,15 @@
   .input-group-addon {
     background: @tutor-white;
     color: @tutor-neutral-dark;
-    font-weight: 800;
+    font-weight: 600;
     text-align: left;
   }
 
   .form-control {
     background: @tutor-neutral-lightest;
-
-    &:focus {
-      color: @tutor-neutral-dark;
-    }
+    height: 4.8rem;
+    font-weight: 600;
+    color: @tutor-neutral-dark;
   }
 
   .alert {
@@ -175,9 +172,8 @@
           border-top-right-radius: @list-group-border-radius;
         }
       }
-
       .course-choice::before {
-        width: 32px;
+        width: 36px;
       }
     }
   }
@@ -231,7 +227,7 @@
     font-size: 1.6rem;
     font-weight: 800;
     line-height: 1em;
-    margin-left: 1rem;
+    margin-left: 0.5rem;
   }
 }
 
@@ -281,7 +277,7 @@
 
 .new-course {
   max-width: 440px;
-  margin: 0 auto;
+  margin: 134px auto 0 auto;
 
   &::before,
   &::after {
@@ -307,12 +303,25 @@
 
     .panel-heading,
     .panel-footer {
-      .controls { text-align: right; }
       color: @tutor-neutral-dark;
       background-color: white;
       border: 0;
       padding: 1rem 0;
     }
+    .panel-footer {
+      .controls { text-align: right; }
+      .btn {
+        font-weight: 600;
+        &.btn-default {
+          color: @tutor-neutral;
+          &.back {
+            background: @tutor-neutral;
+            color: @tutor-white;
+          }
+        }
+      }
+    }
+
     .panel-heading {
       margin-left: auto;
       margin-right: auto;
@@ -324,28 +333,39 @@
       margin-left: -4px;
       margin-right: -4px;
 
-      .tutor-subtle-load(will-load; 'Loading...');
+      .tutor-subtle-load(will-load; @loading-text: 'Loading...'; @bg-fade: 100%;);
       &::after {
         left: 0;
         z-index: 1;
-        font-size: 2rem;
-        line-height: 31em;
+        font-size: 1.5rem;
+        line-height: 60rem;
       }
     }
     &.is-loading {
       .panel-body {
         .tutor-subtle-load(loading);
       }
+
+      &.is-building .panel-body::after {
+        content: 'Building your course...';
+      }
     }
     .panel-content {
       height: 260px;
-      overflow: auto;
-      padding: 4px;
     }
-  }
 
-  .btn.btn-default.back {
-    background: @tutor-neutral-light;
-    color: @tutor-white;
+    .list-group {
+      max-height: 260px;
+      overflow-y: auto;
+      border-top: 1px solid @tutor-neutral-light;
+      border-bottom: 1px solid @tutor-neutral-light;
+
+      .list-group-item:first-child {
+        border-top: none;
+      }
+      .list-group-item:last-child {
+        border-bottom: none;
+      }
+    }
   }
 }

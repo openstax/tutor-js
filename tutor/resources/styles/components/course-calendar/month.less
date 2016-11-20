@@ -1,6 +1,6 @@
 // TODO make this a mixin for flexible calendaringggg
 
-@calendar-cell-width: 14.28%;
+@calendar-cell-width: calc(100%/7);
 @calendar-cell-height: 10rem;
 
 .bootstrap-column-padding-override() {
@@ -31,13 +31,17 @@
   padding-bottom: @tutor-card-body-padding-vertical;
 
   .calendar-body {
-    .tutor-subtle-load(will-load; 'Loading ' attr(data-duration-name) '...');
     background-color: @tutor-white;
+    .tutor-shadow(3);
+  }
+
+  .month-wrapper {
+    .tutor-subtle-load(will-load; 'Loading ' attr(data-duration-name) '...');
   }
 
 
-  .calendar-loading {
-    .calendar-body [class^="col-"] {
+  &.calendar-loading {
+    .month-wrapper {
       .tutor-subtle-load(loading);
     }
 
@@ -47,6 +51,8 @@
   }
   .month-wrapper {
     position: relative;
+    margin: 0 10px 10px 10px;
+
     &.is-dragging {
       .rc-Day--upcoming,
       .rc-Day--current {
