@@ -1,5 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+isEmpty = require 'lodash/isEmpty'
 
 classnames = require 'classnames'
 
@@ -8,11 +9,15 @@ classnames = require 'classnames'
 PastAssignments = require './past-assignments'
 
 CourseAddMenuMixin = require './add-menu-mixin'
+BindStoreMixin = require '../bind-store-mixin'
+
 {CourseStore} = require '../../flux/course'
+{PastTaskPlansStore} = require '../../flux/past-task-plans'
 
 AddAssignmentSidebar = React.createClass
 
-  mixins: [ CourseAddMenuMixin ]
+  mixins: [ CourseAddMenuMixin, BindStoreMixin ]
+  bindStore: PastTaskPlansStore
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
@@ -21,12 +26,19 @@ AddAssignmentSidebar = React.createClass
 
   getInitialState: ->
     showIntro: @props.isOpen
+    needsIntro: false
+
+  bindUpdate: ->
+    @setState(needsIntro: PastTaskPlansStore.hasPlans(@props.courseId))
+
+  shouldShowIntro: ->
+    @props.isOpen and @state.needsIntro and @state.showIntro
 
   renderMenuLink: (link) ->
     <AddAssignmentLink
-      key=link.type
-      link=link
-      goToBuilder=@goToBuilder
+      key={link.type}
+      link={link}
+      goToBuilder={@goToBuilder}
       onDrag={@closeHelp}
     />
 
@@ -55,13 +67,13 @@ AddAssignmentSidebar = React.createClass
         <div className="section-label">New</div>
         <ul
           className={classnames('new-assignments',
-            'is-intro': @state.showIntro and @props.isOpen
+            'is-intro': @shouldShowIntro()
           )}
           ref='newAssignments'
         >
           {@renderAddActions()}
         </ul>
-        {<@Intro/> if @state.showIntro and @props.isOpen}
+        {<@Intro/> if @shouldShowIntro()}
       </div>
       <PastAssignments className='sidebar-section' courseId={@props.courseId} />
     </div>

@@ -29,3 +29,9 @@ describe 'CreateCourse: saving new course', ->
     wrapper = shallow(<BuildCourse.Footer course={NewCourseStore.newCourse()} />)
     expect(wrapper.find('TutorLink[to="ccDashboardHelp"]')).to.have.length(1)
     undefined
+
+  it 'has a link with showIntro query to link to calendar with intro', ->
+    NewCourseActions.created({id: '1', is_concept_coach: false})
+    wrapper = shallow(<BuildCourse.Footer course={NewCourseStore.newCourse()} />)
+    expect(wrapper.find(query: showIntro: 'true')).to.have.length(1)
+    undefined
