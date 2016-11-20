@@ -12,7 +12,7 @@ extend = require 'lodash/extend'
 {TeacherTaskPlanStore} = require '../../flux/teacher-task-plan'
 {TimeStore} = require '../../flux/time'
 TimeHelper = require '../../helpers/time'
-Router = require '../../helpers/router'
+TutorRouter = require '../../helpers/router'
 
 {ItemTypes, TaskDrop, DropInjector} = require './task-dnd'
 
@@ -49,7 +49,7 @@ CourseMonth = React.createClass
     dateFormatted: @props.date.format(@props.dateFormat)
 
   getInitialState: ->
-    showingSideBar: false
+    showingSideBar: TutorRouter.currentQuery()?.showIntro is 'true'
     activeAddDate: null
 
   getDefaultProps: ->
@@ -60,7 +60,7 @@ CourseMonth = React.createClass
     params.date = date.format(@props.dateFormat)
 
     date = date.format(@props.dateFormat)
-    @context.router.transitionTo(Router.makePathname('calendarByDate', params))
+    @context.router.transitionTo(TutorRouter.makePathname('calendarByDate', params))
 
   setDate: (date) ->
     unless moment(date).isSame(@props.date, 'month')
@@ -234,13 +234,19 @@ CourseMonth = React.createClass
       <CourseAdd ref='addOnDay' hasPeriods={hasPeriods} courseId={@props.courseId} />
 
       <CourseCalendarHeader
+        defaultOpen={@state.showingSideBar}
         onSidebarToggle={@onSidebarToggle}
         courseId={@props.courseId}
         hasPeriods={hasPeriods}
       />
 
       <div className='calendar-body'>
-        <AddAssignmentSidebar courseId={@props.courseId} hasPeriods={hasPeriods} />
+
+        <AddAssignmentSidebar
+          isOpen={@state.showingSideBar}
+          courseId={@props.courseId}
+          hasPeriods={hasPeriods}
+        />
 
         <div className="month-body" data-duration-name={@getFullMonthName()}>
           <MonthTitleNav

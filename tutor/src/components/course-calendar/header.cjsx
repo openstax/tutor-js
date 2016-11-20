@@ -18,7 +18,7 @@ CourseCalendarHeader = React.createClass
     onSidebarToggle: React.PropTypes.func.isRequired
 
   render: ->
-    {courseId, hasPeriods} = @props
+    {courseId, hasPeriods, defaultOpen} = @props
 
     <div className='calendar-header'>
 
@@ -27,7 +27,10 @@ CourseCalendarHeader = React.createClass
         noPanel={true}
       /> unless hasPeriods}
 
-      <SidebarToggle onToggle={@props.onSidebarToggle} />
+      <SidebarToggle
+        defaultOpen={defaultOpen}
+        onToggle={@props.onSidebarToggle}
+      />
 
       <div className='calendar-header-actions-buttons'>
 

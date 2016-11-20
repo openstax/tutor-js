@@ -8,7 +8,10 @@ partial = require 'lodash/partial'
 GrabbyDots = require '../grabby-dots'
 
 NewTaskDrag =
-  beginDrag: ({link}) ->
+  beginDrag: (props) ->
+    {link, onDrag} = props
+    onDrag?()
+
     link
 
   endDrag: (props, monitor) ->

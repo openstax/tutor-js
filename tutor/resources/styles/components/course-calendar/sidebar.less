@@ -42,10 +42,46 @@
     }
   }
 
+  #drag-intro {
+    // Manually position for now.
+    left: 100% !important;
+    top: -32px !important;
+    position: absolute;
+    text-align: left;
+    width: 180px;
+    border-radius: 0;
+    .tutor-shadow(3);
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    .popover-content {
+      padding: 1.5rem;
+    }
+
+    .btn {
+      float: right;
+      color: @openstax-info;
+      background: @state-info-bg;
+      border: none;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+    }
+  }
+
   ul {
     list-style-type: none;
     padding-left: 0;
     margin-bottom: 0;
+
+    &.is-intro {
+      li:first-child {
+        .tutor-plan-sidebar(@reading-color);
+        border-color: @reading-color;
+        .tutor-shadow(draggable);
+      }
+    }
 
     li {
       .no-select();
@@ -53,6 +89,7 @@
       padding-left: 10px;
       border-left: 4px solid transparent;
       line-height: 3.6rem;
+      position: relative;
 
       &:hover {
         .tutor-plan-set(sidebar);

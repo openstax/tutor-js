@@ -17,28 +17,51 @@ AddAssignmentSidebar = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     hasPeriods: React.PropTypes.bool.isRequired
-
+    isOpen: React.PropTypes.bool.isRequired
 
   getInitialState: ->
-    {isOpen: false}
+    showIntro: @props.isOpen
 
   renderMenuLink: (link) ->
-    <AddAssignmentLink key=link.type link=link goToBuilder=@goToBuilder />
+    <AddAssignmentLink
+      key=link.type
+      link=link
+      goToBuilder=@goToBuilder
+      onDrag={@closeHelp}
+    />
 
-  onMenuToggle: (isOpen) ->
-    return unless CourseStore.isCloned(@props.courseId)
+  closeHelp: ->
+    @setState(showIntro: false)
 
-    _.defer => @setState({isOpen})
+  Intro: ->
+    <BS.Overlay
+      show={@state.showIntro}
+      placement='right'
+      container={document.querySelector('.new-assignments .new-task')}
+    >
+      <BS.Popover id='drag-intro'>
+        <p>Click to add, or just drag to calendar.</p>
+        <BS.Button bsSize='small' onClick={@closeHelp}>
+          Got it
+        </BS.Button>
+      </BS.Popover>
+    </BS.Overlay>
 
   render: ->
     <div className={classnames('add-assignment-sidebar', {
-      'is-open': @state.isOpen
+      'is-open': @props.isOpen
     })}>
       <div className='sidebar-section'>
         <div className="section-label">New</div>
-        <ul className="new-assignments">
+        <ul
+          className={classnames('new-assignments',
+            'is-intro': @state.showIntro and @props.isOpen
+          )}
+          ref='newAssignments'
+        >
           {@renderAddActions()}
         </ul>
+        {<@Intro/> if @state.showIntro and @props.isOpen}
       </div>
       <PastAssignments className='sidebar-section' courseId={@props.courseId} />
     </div>

@@ -13,6 +13,7 @@ BuildCourse = React.createClass
         <TutorLink
           to={if course.is_concept_coach then 'ccDashboardHelp' else 'dashboard'}
           params={courseId: course.id}
+          query={showIntro: 'true'}
           className='btn btn-primary next'
         >
           Continue to new course
