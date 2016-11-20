@@ -16,14 +16,22 @@
     margin-left: 10px;
     font-size: 1.3rem;
     color: @tutor-tertiary;
-    font-weight: 600;
+    font-weight: 800;
+    text-transform: uppercase;
   }
   .draggable() {
+    svg {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
     &.is-dragging {
       > * {
         visibility: hidden;
       }
 
+      // need the important for some reason to stop the well
+      // from having the border
+      border-left: 0 !important;
       background-color: @tutor-neutral-light;
       .tutor-shadow(draggable-well);
     }
@@ -44,6 +52,7 @@
       .draggable();
       padding-left: 10px;
       border-left: 4px solid transparent;
+      line-height: 3.6rem;
 
       &:hover {
         .tutor-plan-set(sidebar);
@@ -63,7 +72,7 @@
   }
 
   .past-assignments {
-    background: rgba(0, 0, 0, 0.02);
+    background: rgba(0, 0, 0, 0.03);
     border-top: 1px solid @tutor-neutral-light;
     flex: 1;
     display: flex;
@@ -77,6 +86,7 @@
       display: flex;
       align-items: center;
       padding-left: 10px;
+      line-height: 3.6rem;
       div {
         white-space: nowrap;
         overflow: hidden;

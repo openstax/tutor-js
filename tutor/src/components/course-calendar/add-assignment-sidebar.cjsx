@@ -35,7 +35,7 @@ AddAssignmentSidebar = React.createClass
       'is-open': @state.isOpen
     })}>
       <div className='sidebar-section'>
-        <div className="section-label">NEW</div>
+        <div className="section-label">New</div>
         <ul className="new-assignments">
           {@renderAddActions()}
         </ul>

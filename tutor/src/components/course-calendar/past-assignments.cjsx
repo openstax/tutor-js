@@ -11,8 +11,8 @@ partial = require 'lodash/partial'
 LoadableItem = require '../loadable-item'
 
 
-PastAssignmentsLoading = ->
-  <div className='past-assignments'>
+PastAssignmentsLoading = ({className}) ->
+  <div className={classnames('past-assignments', className)}>
     <div className="no-plans is-loading">
       Loading past assignments...
     </div>
@@ -27,14 +27,10 @@ PastAssignments = React.createClass
     plans = PastTaskPlansStore.get(@props.courseId) or []
     return null if isEmpty(plans)
     <div className={classnames('past-assignments', @props.className)}>
-      <div className="section-label">COPIED</div>
+      <div className="section-label">Copied</div>
       <div className="plans">
         {for plan in plans
           <CloneAssignmentLink key={plan.id} plan={plan} />}
-        {for plan in plans
-          <CloneAssignmentLink key={"#{plan.id}-2"} plan={plan} />}
-        {for plan in plans
-          <CloneAssignmentLink key={"#{plan.id}-3"} plan={plan} />}
       </div>
     </div>
 
@@ -46,7 +42,7 @@ PastAssignmentsShell = React.createClass
       store={PastTaskPlansStore}
       actions={PastTaskPlansActions}
       renderItem={ -> <PastAssignments courseId={courseId} className={className}/> }
-      renderLoading={ PastAssignmentsLoading }
+      renderLoading={ -> <PastAssignmentsLoading className={className}/> }
     />
 
 module.exports = PastAssignmentsShell
