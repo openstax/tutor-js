@@ -26,13 +26,18 @@
       width: 1.2rem;
       height: 1.2rem;
     }
-    &.is-dragging {
+
+    &.is-dragging,
+    &.is-editing {
       .element-is-dragging();
     }
-    &:not(.is-dragging) {
+    &:not(.is-dragging):not(.is-editing) {
       &:hover {
         .tutor-shadow(draggable);
       }
+    }
+    &.is-editing {
+      cursor: not-allowed;
     }
   }
 

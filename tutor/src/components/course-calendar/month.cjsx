@@ -193,6 +193,7 @@ CourseMonth = React.createClass
     _.defer => # give flux store time to update
       @setState(
         editingPlanId: newPlanId,
+        cloningPlanId: @state.cloningPlan.id
         editingPosition: @state.cloningPlan.position
         cloningPlan: undefined
       )
@@ -208,7 +209,7 @@ CourseMonth = React.createClass
   onSidebarToggle: (isOpen) ->
     @setState(showingSideBar: isOpen)
   onEditorHide: ->
-    @setState(editingPlanId: null)
+    @setState(editingPlanId: null, cloningPlanId: null)
 
   render: ->
     {plansList, courseId, className, date, hasPeriods} = @props
@@ -246,6 +247,7 @@ CourseMonth = React.createClass
           isOpen={@state.showingSideBar}
           courseId={@props.courseId}
           hasPeriods={hasPeriods}
+          cloningPlanId={@state.cloningPlanId or @state.cloningPlan?.id}
         />
 
         <div className="month-body" data-duration-name={@getFullMonthName()}>

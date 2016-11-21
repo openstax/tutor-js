@@ -20,7 +20,7 @@ TaskingDateTimes = React.createClass
     isVisibleToStudents: React.PropTypes.bool
     taskingIdentifier:   React.PropTypes.string.isRequired
     period:              React.PropTypes.object
-    BSSizes:             React.PropTypes.object
+    bsSizes:             React.PropTypes.object
 
   getDefaultProps: ->
     bsSizes: { sm: 8, md: 9 }

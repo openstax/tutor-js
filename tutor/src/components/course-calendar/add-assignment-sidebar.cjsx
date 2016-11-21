@@ -27,6 +27,7 @@ AddAssignmentSidebar = React.createClass
     courseId: React.PropTypes.string.isRequired
     hasPeriods: React.PropTypes.bool.isRequired
     isOpen: React.PropTypes.bool.isRequired
+    cloningPlanId: React.PropTypes.string
 
   getInitialState: ->
     showIntro: @props.isOpen
@@ -85,6 +86,10 @@ AddAssignmentSidebar = React.createClass
         </ul>
         {<@Intro/> if @shouldShowIntro()}
       </div>
-      <PastAssignments className='sidebar-section' courseId={@props.courseId} />
+      <PastAssignments
+        className='sidebar-section'
+        courseId={@props.courseId}
+        cloningPlanId={@props.cloningPlanId}
+      />
     </div>
 module.exports = AddAssignmentSidebar

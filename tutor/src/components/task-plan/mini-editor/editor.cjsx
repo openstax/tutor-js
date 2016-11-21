@@ -85,6 +85,7 @@ TaskPlanMiniEditor = React.createClass
       </div>
       <div className="row times">
         <TaskingDateTimes
+          bsSizes={{}}
           id={plan.id} isEditable={true} courseId={@props.courseId}
           taskingIdentifier='all'
         />
