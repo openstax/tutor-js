@@ -2,11 +2,16 @@ moment = require 'moment'
 _ = require 'underscore'
 
 {PlanPublishStore, PlanPublishActions} = require '../flux/plan-publish'
+{TaskPlanActions} = require '../flux/task-plan'
 {TimeStore} = require '../flux/time'
 
 PlanHelper =
   isPublishing: (plan) ->
     plan.is_publishing
+
+  startChecking: ({id, jobId}, callback) ->
+    PlanPublishActions.startChecking(id, jobId)
+    PlanPublishStore.on("progress.#{id}.*", callback) if callback? and _.isFunction(callback)
 
   subscribeToPublishing: (plan, callback) ->
     {jobId, id} = PlanPublishStore._getIds(plan)
@@ -16,13 +21,13 @@ PlanHelper =
     isPublishingInStore = PlanPublishStore.isPublishing(id)
 
     if isPublishing and not isPublishingInStore and not PlanPublishStore.isPublished(id)
-      PlanPublishActions.queued(plan, id) if jobId
+      TaskPlanActions.load(plan.id)
+      PlanPublishStore.once("progress.#{id}.queued", _.partial(PlanHelper.startChecking, _, callback))
 
-    isPublishing = isPublishing or isPublishingInStore
+    else if isPublishing or isPublishingInStore
 
-    if isPublishing
-      PlanPublishActions.startChecking(id, jobId)
-      PlanPublishStore.on("progress.#{id}.*", callback) if callback? and _.isFunction(callback)
+      PlanHelper.startChecking({id, jobId}, callback)
+      isPublishing = true
 
     {isPublishing, publishStatus}
 
