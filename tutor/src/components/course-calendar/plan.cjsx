@@ -32,6 +32,7 @@ CoursePlan = React.createClass
         type: React.PropTypes.string.isRequired
         durationLength: React.PropTypes.number.isRequired
         opensAt: React.PropTypes.string.isRequired
+        isNew: React.PropTypes.bool
         isOpen: React.PropTypes.bool
         isPublished: React.PropTypes.bool
         isPublishing: React.PropTypes.bool
@@ -185,6 +186,7 @@ CoursePlan = React.createClass
       'is-published'  : isPublished
       'is-publishing' : isPublishing
       'is-open'       : plan.isOpen
+      'is-new'        : plan.isNew
       'is-trouble'    : plan.isTrouble
       'active'        : isActive,
       "is-#{publishStatus}": publishStatus

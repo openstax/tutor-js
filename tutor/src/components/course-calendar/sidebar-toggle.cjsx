@@ -18,6 +18,9 @@ CalendarSidebarToggle = React.createClass
   getInitialState: ->
     isOpen: @props.defaultOpen
 
+  componentWillReceiveProps: (nextProps) ->
+    @setState(isOpen: nextProps.defaultOpen) if nextProps.defaultOpen?
+
   onToggle: ->
     isOpen = not @state.isOpen
     @setState({isOpen})

@@ -68,7 +68,10 @@ CloneAssignmentLink = (props) ->
   props.connectDragSource(
     <div
       data-assignment-type={props.plan.type}
-      className={classnames('task-plan', 'is-dragging': props.isDragging)}
+      className={classnames('task-plan',
+        'is-dragging': props.isDragging
+        'is-editing': props.isEditing
+      )}
     >
       <GrabbyDots/><div>{props.plan.title}</div>
     </div>

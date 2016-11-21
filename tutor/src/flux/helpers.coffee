@@ -189,4 +189,4 @@ makeStandardStore = (name, storeConfig) ->
   {"#{name}Actions":actions, "#{name}Store":store}
 
 
-module.exports = {CrudConfig, makeSimpleStore, extendConfig, makeStandardStore, STATES}
+module.exports = {CrudConfig, makeSimpleStore, extendConfig, makeStandardStore, isNew, STATES}

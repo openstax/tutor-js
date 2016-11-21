@@ -26,6 +26,9 @@ MonthTitleNav        = require './month-title-nav'
 CoursePlan           = require './plan'
 CourseAdd            = require './add'
 
+shouldIntro = ->
+  TutorRouter.currentQuery()?.showIntro is 'true'
+
 CourseMonth = React.createClass
   displayName: 'CourseMonth'
 
@@ -49,7 +52,7 @@ CourseMonth = React.createClass
     dateFormatted: @props.date.format(@props.dateFormat)
 
   getInitialState: ->
-    showingSideBar: TutorRouter.currentQuery()?.showIntro is 'true'
+    showingSideBar: false
     activeAddDate: null
 
   getDefaultProps: ->
@@ -121,15 +124,22 @@ CourseMonth = React.createClass
   componentWillMount: ->
     document.addEventListener('click', @shouldHideAddOnDay, true)
 
+  componentDidMount: ->
+    _.delay( =>
+      @setState(showingSideBar: shouldIntro()) if shouldIntro()
+    , 2000)
+
   componentWillUnmount: ->
     document.removeEventListener('click', @shouldHideAddOnDay, true)
 
   shouldHideAddOnDay: (clickEvent) ->
     return if _.isEmpty(@state.activeAddDate)
-    unless clickEvent.target.classList.contains('rc-Day')
-      @hideAddOnDay()
-      clickEvent.preventDefault()
-      clickEvent.stopImmediatePropagation()
+
+    unless clickEvent.target.classList.contains('rc-Day') or
+      (clickEvent.target.tagName is 'A' and clickEvent.target.parentNode?.dataset?.assignmentType?)
+        @hideAddOnDay()
+        clickEvent.preventDefault()
+        clickEvent.stopImmediatePropagation()
 
   setDayHeight: (ranges) ->
     calendar =  ReactDOM.findDOMNode(@)
@@ -193,6 +203,7 @@ CourseMonth = React.createClass
     _.defer => # give flux store time to update
       @setState(
         editingPlanId: newPlanId,
+        cloningPlanId: @state.cloningPlan.id
         editingPosition: @state.cloningPlan.position
         cloningPlan: undefined
       )
@@ -208,7 +219,7 @@ CourseMonth = React.createClass
   onSidebarToggle: (isOpen) ->
     @setState(showingSideBar: isOpen)
   onEditorHide: ->
-    @setState(editingPlanId: null)
+    @setState(editingPlanId: null, cloningPlanId: null)
 
   render: ->
     {plansList, courseId, className, date, hasPeriods} = @props
@@ -244,8 +255,10 @@ CourseMonth = React.createClass
 
         <AddAssignmentSidebar
           isOpen={@state.showingSideBar}
+          shouldIntro={shouldIntro()}
           courseId={@props.courseId}
           hasPeriods={hasPeriods}
+          cloningPlanId={@state.cloningPlanId or @state.cloningPlan?.id}
         />
 
         <div className="month-body" data-duration-name={@getFullMonthName()}>

@@ -22,15 +22,21 @@ PastAssignments = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
+    cloningPlanId: React.PropTypes.string
 
   render: ->
     plans = PastTaskPlansStore.get(@props.courseId) or []
     return null if isEmpty(plans)
+
     <div className={classnames('past-assignments', @props.className)}>
       <div className="section-label">Copied</div>
       <div className="plans">
         {for plan in plans
-          <CloneAssignmentLink key={plan.id} plan={plan} />}
+          <CloneAssignmentLink
+            key={plan.id}
+            plan={plan}
+            isEditing={plan.id is @props.cloningPlanId}
+          />}
       </div>
     </div>
 
@@ -41,7 +47,7 @@ PastAssignmentsShell = React.createClass
       id={courseId}
       store={PastTaskPlansStore}
       actions={PastTaskPlansActions}
-      renderItem={ -> <PastAssignments courseId={courseId} className={className}/> }
+      renderItem={ => <PastAssignments {...@props}/> }
       renderLoading={ -> <PastAssignmentsLoading className={className}/> }
     />
 

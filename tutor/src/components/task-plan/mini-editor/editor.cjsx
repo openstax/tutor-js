@@ -69,6 +69,11 @@ TaskPlanMiniEditor = React.createClass
     <div className="task-plan-mini-editor">
       <div className="row">
         <BS.Col xs=12>
+          <h4>Add Past Assignment</h4>
+        </BS.Col>
+      </div>
+      <div className="row">
+        <BS.Col xs=12>
           <TutorInput
             label="Title"
             className='assignment-name'
@@ -80,7 +85,7 @@ TaskPlanMiniEditor = React.createClass
       </div>
       <div className="row times">
         <TaskingDateTimes
-          bSSizes={xs: 12}
+          bsSizes={{}}
           id={plan.id} isEditable={true} courseId={@props.courseId}
           taskingIdentifier='all'
         />
@@ -89,7 +94,7 @@ TaskPlanMiniEditor = React.createClass
         <BS.Col xs=6>
           Assigned to all sections
         </BS.Col>
-        <BS.Col xs=6>
+        <BS.Col xs=6 className='text-right'>
           <TutorLink
             to={camelCase("edit-#{plan.type}")}
             params={id: plan.id, courseId: @props.courseId}
@@ -101,6 +106,7 @@ TaskPlanMiniEditor = React.createClass
 
       <div className="controls">
         <PublishButton
+          bsSize='small'
           onSave={@onSave}
           onPublish={@publish}
           isWaiting={@isWaiting()}
@@ -110,13 +116,19 @@ TaskPlanMiniEditor = React.createClass
           isPublished={isPublished}
         />
         <DraftButton
+          bsSize='small'
           isSavable={@isSaveable()}
           onClick={@onSave}
           isWaiting={!!(@isWaiting() and @state.saving)}
           isFailed={TaskPlanStore.isFailed(@props.idinde)}
         />
-        <BS.Button className="cancel" onClick={@onCancel}>Cancel</BS.Button>
-
+        <BS.Button
+          bsSize='small'
+          className="cancel"
+          onClick={@onCancel}
+        >
+          Don't Add
+        </BS.Button>
       </div>
     </div>
 

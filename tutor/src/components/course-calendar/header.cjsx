@@ -16,6 +16,7 @@ CourseCalendarHeader = React.createClass
     hasPeriods: React.PropTypes.bool.isRequired
     courseId: React.PropTypes.string.isRequired
     onSidebarToggle: React.PropTypes.func.isRequired
+    defaultOpen: React.PropTypes.bool
 
   render: ->
     {courseId, hasPeriods, defaultOpen} = @props

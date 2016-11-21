@@ -2,12 +2,65 @@
 // the correct position when items are re-rendered inside it
 .mini-task-editor-popover {
   width: 450px;
-  height: 250px;
   max-width: 450px;
+
+  .tutor-shadow(3);
 }
 
 .task-plan-mini-editor {
+  padding: 1rem;
+
+  h4 {
+    margin-top: 0;
+    margin-bottom: 2rem;
+  }
+
   .controls {
-    margin-top: 1rem;
+    margin-top: 2rem;
+  }
+
+  .btn {
+    font-weight: 800;
+
+    &.btn-default.cancel {
+      color: @openstax-neutral;
+    }
+
+    &:hover {
+      .tutor-shadow(3);
+    }
+  }
+
+  .cancel {
+    float: right;
+  }
+
+  .save {
+    background: @openstax-neutral;
+    color: @openstax-white;
+
+    &:hover {
+      background: @openstax-neutral;
+    }
+  }
+
+  .tutor-input.form-control-wrapper .form-control:not(.empty) ~ .floating-label {
+    top: -1rem;
+  }
+
+  .tutor-input.form-control-wrapper #reading-title,
+  .tutor-input.form-control-wrapper #external-url {
+    font-size: 1.6rem;
+  }
+
+  .date-wrapper {
+    .fa.fa-calendar {
+      display: none;
+    }
+  }
+
+  .form-control {
+    padding: 0;
+    height: 28px;
   }
 }

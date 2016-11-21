@@ -94,7 +94,10 @@ CourseAddMenuMixin =
     renderLink = @renderMenuLink or @menuMixinRenderMenuLink
 
     for link in links
-      link.pathname = Router.makePathname(link.to, link.params)
+      {query} = link
+      linkQuery = {query} if query.due_at?
+
+      link.pathname = Router.makePathname(link.to, link.params, linkQuery)
       renderLink(link)
 
   menuMixinRenderMenuLink: (link) ->

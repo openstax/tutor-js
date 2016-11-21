@@ -27,21 +27,24 @@ AddAssignmentSidebar = React.createClass
     courseId: React.PropTypes.string.isRequired
     hasPeriods: React.PropTypes.bool.isRequired
     isOpen: React.PropTypes.bool.isRequired
+    shouldIntro: React.PropTypes.bool.isRequired
+    cloningPlanId: React.PropTypes.string
 
   getInitialState: ->
-    showIntro: @props.isOpen
-    needsIntro: false
+    hasShownIntro: false
+    canIntro: false
 
   bindUpdate: ->
-    @setState(needsIntro: PastTaskPlansStore.hasPlans(@props.courseId))
+    @setState(canIntro: PastTaskPlansStore.hasPlans(@props.courseId))
 
   shouldShowIntro: ->
     shouldIntro = if USE_SETTINGS then not UiSettings.get(IS_INTRO_VIEWED) else true
 
-    @props.isOpen and
-      @state.needsIntro and
-      shouldIntro and
-      @state.showIntro
+    @props.shouldIntro and
+      @props.isOpen and
+      not @state.hasShownIntro and
+      @state.canIntro and
+      shouldIntro
 
   renderMenuLink: (link) ->
     <AddAssignmentLink
@@ -53,11 +56,11 @@ AddAssignmentSidebar = React.createClass
 
   closeHelp: ->
     UiSettings.set(IS_INTRO_VIEWED, true) if USE_SETTINGS
-    @setState(showIntro: false)
+    @setState(hasShownIntro: true)
 
   Intro: ->
     <BS.Overlay
-      show={@state.showIntro}
+      show={true}
       placement='right'
       container={document.querySelector('.new-assignments .new-task')}
     >
@@ -85,6 +88,10 @@ AddAssignmentSidebar = React.createClass
         </ul>
         {<@Intro/> if @shouldShowIntro()}
       </div>
-      <PastAssignments className='sidebar-section' courseId={@props.courseId} />
+      <PastAssignments
+        className='sidebar-section'
+        courseId={@props.courseId}
+        cloningPlanId={@props.cloningPlanId}
+      />
     </div>
 module.exports = AddAssignmentSidebar

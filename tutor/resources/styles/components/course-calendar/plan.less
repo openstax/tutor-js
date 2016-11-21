@@ -15,6 +15,27 @@
   font-style: italic;
 }
 
+
+// taken from http://cloudcannon.com/deconstructions/2014/11/15/facebook-content-placeholder-deconstruction.html
+@keyframes placeHolderShimmer{
+  0%{
+    background-position: -468px 0
+  }
+  100%{
+    background-position: 468px 0
+  }
+}
+
+.animated-background() {
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: linear-gradient(to right, @openstax-neutral-light 8%, fade(@tutor-neutral-lite, 80%) 18%, @openstax-neutral-light 33%);
+  background-size: 800px 104px;
+}
+
 .list-task-plans {
   .plan {
     display: block;
@@ -37,6 +58,15 @@
     // takes on CALENDAR_EVENT_DYNAMIC_WIDTH and CALENDAR_EVENT_DYNAMIC_POSITION
     // Based on event duration and event offset from start of week
     // see CoursePlan component
+
+    &.is-new {
+      .animated-background();
+      border-left: none;
+      height: 20px;
+      label {
+        display: none;
+      }
+    }
 
     &.is-published {
       .tutor-plan-set(display);
