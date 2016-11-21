@@ -89,6 +89,7 @@ CourseAddMenuMixin =
         text: linkText
         to: "/course/#{courseId}/settings"
         type: 'none'
+        query: {}
       }]
 
     renderLink = @renderMenuLink or @menuMixinRenderMenuLink
