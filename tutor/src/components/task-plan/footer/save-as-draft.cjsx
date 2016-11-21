@@ -1,5 +1,6 @@
 React = require 'react'
-{AsyncButton} = require 'shared'
+omit = require 'lodash/omit'
+{AsyncButton, OXLink} = require 'shared'
 
 SaveAsDraft = React.createClass
 
@@ -11,13 +12,18 @@ SaveAsDraft = React.createClass
   render: ->
     return null unless @props.isSavable
 
+    additionalProps = OXLink.filterProps(
+      omit(@props, 'onSave', 'onPublish', 'isEditable', 'isSaving', 'isWaiting', 'isPublished', 'isPublishing')
+    , prefixes: 'bs')
+
     <AsyncButton
-      className='-save'
+      className='-save save'
       onClick={@props.onClick}
       isWaiting={@props.isWaiting}
       isFailed={@props.isFailed}
       waitingText='Saving…'
       disabled={@props.isWaiting}
+      {...additionalProps}
     >
       Save as Draft
     </AsyncButton>

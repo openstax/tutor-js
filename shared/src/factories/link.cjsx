@@ -10,7 +10,8 @@ LINK_PROPS = [
 ]
 
 filterProps = (props, options = {}) ->
-  filterPropsBase(props, concat(LINK_PROPS, options.props or []))
+  options.props = concat(LINK_PROPS, options.props or [])
+  filterPropsBase(props, options)
 
 make = (router, name = 'OpenStax') ->
   React.createClass

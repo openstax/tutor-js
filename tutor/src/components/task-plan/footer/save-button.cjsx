@@ -1,6 +1,8 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-{AsyncButton} = require 'shared'
+omit = require 'lodash/omit'
+
+{AsyncButton, OXLink} = require 'shared'
 
 MESSAGES =
 
@@ -36,17 +38,22 @@ TaskSaveButton = React.createClass
 
     Text = if isPublished then MESSAGES.save else MESSAGES.publish
 
+    additionalProps = OXLink.filterProps(
+      omit(@props, 'onSave', 'onPublish', 'isEditable', 'isSaving', 'isWaiting', 'isPublished', 'isPublishing')
+    , prefixes: 'bs')
+
     <AsyncButton
-        isJob={true}
-        bsStyle='primary'
-        className='-publish'
-        onClick={if isPublished then @props.onSave else @props.onPublish}
-        waitingText={Text.waiting}
-        isFailed={@props.isFailed}
-        disabled={@props.isWaiting}
-        isWaiting={@props.isWaiting}
-      >
-          {Text.action}
+      isJob={true}
+      bsStyle='primary'
+      className='-publish publish'
+      onClick={if isPublished then @props.onSave else @props.onPublish}
+      waitingText={Text.waiting}
+      isFailed={@props.isFailed}
+      disabled={@props.isWaiting}
+      isWaiting={@props.isWaiting}
+      {...additionalProps}
+    >
+      {Text.action}
     </AsyncButton>
 
 
