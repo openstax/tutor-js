@@ -26,7 +26,7 @@ CloneCourseDrop =
     {onDrop: comp.onDrop, offset: monitor.getClientOffset()}
 
 DropInjector = (connect, monitor) ->
-  { connectDropTarget: connect.dropTarget(), isDragging: monitor.isOver() }
+  { connectDropTarget: connect.dropTarget(), isHovering: monitor.isOver() }
 
 
 

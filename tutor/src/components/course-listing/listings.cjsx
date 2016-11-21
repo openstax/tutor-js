@@ -48,7 +48,7 @@ AddCourseArea = React.createClass
       <div className='course-listing-add-zone'>
         <TutorLink
           to='createNewCourse'
-          className={classnames('is-hovering': @props.isDragging)}
+          className={classnames('is-hovering': @props.isHovering)}
         >
           <div>
             <IconAdd/>
