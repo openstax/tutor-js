@@ -39,7 +39,7 @@ NewCourseWizard = React.createClass
   propTypes:
     isLoading: React.PropTypes.bool.isRequired
   getInitialState: ->
-    currentStage: 0
+    currentStage: 0, firstStage: 0
 
   contextTypes:
     router: React.PropTypes.object
@@ -48,10 +48,10 @@ NewCourseWizard = React.createClass
     if TutorRouter.currentQuery()?.courseId
       course = CourseStore.get(TutorRouter.currentQuery()?.courseId)
       NewCourseActions.setClone(course)
-      @setState({currentStage: 2})
+      @setState({firstStage: 2, currentStage: 2})
     else if isEmpty(CourseListingStore.filterTeachingCourses(is_concept_coach: true))
       NewCourseActions.set(course_type: 'tutor')
-      @setState({currentStage: 1})
+      @setState({firstStage: 2, currentStage: 1})
 
   mixins: [BindStoreMixin]
   bindStore: NewCourseStore
@@ -62,13 +62,13 @@ NewCourseWizard = React.createClass
     stage = @state.currentStage
     while componentFor(stage + amt)?.shouldSkip?()
       stage += amt
+
     @setState({currentStage: stage + amt})
 
   BackButton: ->
-    return null if @state.currentStage is 0
-    <BS.Button onClick={@onBack} className="back"
-      disabled={@state.currentStage is 0}
-    >
+    return null if @state.currentStage is @state.firstStage
+    console.log @state.currentStage
+    <BS.Button onClick={@onBack} className="back">
       Back
     </BS.Button>
 
@@ -133,7 +133,7 @@ NewCourseWizard = React.createClass
       header={<@Title />}
       className={wizardClasses}
       footer={<@Footer />}
-    > 
+    >
       <div className='panel-content'>
         <OXFancyLoader isLoading={isLoading or isBuilding}/>
         {<Component/> unless isLoading}
