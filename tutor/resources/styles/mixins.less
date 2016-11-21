@@ -81,7 +81,7 @@
   height: @iframe-height + @iframe-shadow-size * 2;
   margin: auto;
   padding: 0;
-  box-shadow: 0 @iframe-shadow-size @iframe-shadow-size 0 @tutor-neutral-dark inset;
+  box-shadow: 0 @iframe-shadow-size @iframe-shadow-size 0 @openstax-neutral-dark inset;
   iframe {
     position: absolute;
     top:    @iframe-shadow-size;
@@ -121,7 +121,7 @@
   &::after {
     .fa-icon();
     content: @fa-var-clock-o;
-    color: @tutor-warning;
+    color: @openstax-warning;
   }
 }
 
@@ -130,7 +130,7 @@
   max-width: 500px;
 
   .popover-title {
-    color: @tutor-primary;
+    color: @openstax-primary;
   }
 
   .has-html {
@@ -159,7 +159,7 @@
 }
 
 
-.tutor-subtle-load(will-load; @loading-text: 'Loading...'; @trans-time: 0.25s; @bg-fade: 90%; @bg-base: @tutor-white;) {
+.tutor-subtle-load(will-load; @loading-text: 'Loading...'; @trans-time: 0.25s; @bg-fade: 90%; @bg-base: @openstax-white;) {
   &::after {
     position: absolute;
     width: 100%;
@@ -230,7 +230,7 @@
   }
   caption {
     #fonts > .sans(1.3rem, 2rem);
-    color: @tutor-neutral-dark;
+    color: @openstax-neutral-dark;
     margin-top: 0.5rem;
     text-align: left;
     caption-side: bottom;
@@ -269,8 +269,8 @@
 }
 
 .tutor-spy-mode-content() {
-    border: 1px solid @tutor-neutral-dark;
-    background-color: @tutor-white;
+    border: 1px solid @openstax-neutral-dark;
+    background-color: @openstax-white;
     border-radius: @input-border-radius;
     text-align: center;
     margin: 20px auto;

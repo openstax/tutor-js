@@ -20,7 +20,7 @@
 @brand-warning:         @openstax-warning; // openstax-quaternary, yellow
 @brand-danger:          @openstax-danger;  // openstax-danger, red
 
-@container-large-desktop:      (1170px + @grid-gutter-width);
+@container-large-desktop:      (1200px + @grid-gutter-width);
 
 @link-hover-color:      darken(@link-color, 5%);
 
@@ -494,21 +494,21 @@
 // //
 // //## Define colors for form feedback states and, by default, alerts.
 
-// @state-success-text:             #3c763d;
-// @state-success-bg:               #dff0d8;
-// @state-success-border:           darken(spin(@state-success-bg, -10), 5%);
+@state-success-text:                shade(@openstax-success, 60%);
+@state-success-bg:                  tint(@openstax-success, 80%);
+@state-success-border:              shade(@openstax-success, 40%);
 
-@state-info-text:                shade(@openstax-info, 60%);
-@state-info-bg:                  tint(@openstax-info, 80%);
-@state-info-border:              shade(@openstax-info, 40%);
+@state-info-text:                   shade(@openstax-info, 60%);
+@state-info-bg:                     tint(@openstax-info, 80%);
+@state-info-border:                 shade(@openstax-info, 40%);
 
-// @state-warning-text:             #8a6d3b;
-// @state-warning-bg:               #fcf8e3;
-// @state-warning-border:           darken(spin(@state-warning-bg, -10), 5%);
+@state-warning-text:                shade(@openstax-warning, 60%);
+@state-warning-bg:                  tint(@openstax-warning, 80%);
+@state-warning-border:              shade(@openstax-warning, 40%);
 
-@state-danger-text:              shade(@openstax-danger, 60%);
-@state-danger-bg:                tint(@openstax-danger, 80%);
-@state-danger-border:            shade(@openstax-danger, 40%);
+@state-danger-text:                 shade(@openstax-danger, 60%);
+@state-danger-bg:                   tint(@openstax-danger, 80%);
+@state-danger-border:               shade(@openstax-danger, 40%);
 
 
 // //== Tooltips
@@ -671,7 +671,7 @@
 // //** `.list-group-item` border color
 // @list-group-border:             #ddd;
 // //** List group border radius
-// @list-group-border-radius:      @border-radius-base;
+@list-group-border-radius:      0;
 
 // //** Background color of single list items on hover
 // @list-group-hover-bg:           #f5f5f5;

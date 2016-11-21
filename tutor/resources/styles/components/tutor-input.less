@@ -9,13 +9,13 @@
     #reading-title,
     #external-url {
       font-size: 2rem;
-      color: @tutor-neutral-darker;
+      color: @openstax-neutral-darker;
     }
 
     textarea {
       overflow: hidden;
       font-size: 2rem;
-      color: @tutor-neutral-darker;
+      color: @openstax-neutral-darker;
       height: 28px;
       margin: 0;
       padding: 0;
@@ -25,7 +25,7 @@
       position: absolute;
       top: 0px;
       font-size: 2rem;
-      color: lighten(@tutor-neutral, 14%);
+      color: lighten(@openstax-neutral, 14%);
     }
 
     &.-tutor-date-input{
@@ -37,10 +37,9 @@
     .form-control {
       box-shadow: none;
       border: 0;
-      border-radius: 0;
-      border-bottom: 1px solid @tutor-neutral-light;
+      border-bottom: 1px solid @openstax-neutral-light;
       transition: all 0.3s ease;
-      background: linear-gradient(to bottom, white 96%, @tutor-tertiary 4%);
+      background: linear-gradient(to bottom, white 96%, @openstax-tertiary 4%);
       background-repeat: no-repeat;
 
       background-position: 50% 0;
@@ -55,7 +54,7 @@
         background-size: 100% 100%;
 
         ~ .floating-label {
-          color: @info;
+          color: @openstax-info;
           top: inherit;
           font-size: 1.1rem;
           font-weight: 300;
@@ -148,7 +147,7 @@
 .tutor-radio {
   &:not(.active) {
     .transition(color 0.1s linear);
-    color: @tutor-neutral;
+    color: @openstax-neutral;
 
     label[for] {
       cursor: pointer;
@@ -156,7 +155,7 @@
     }
 
     &:hover {
-      color: @tutor-neutral-darker;
+      color: @openstax-neutral-darker;
     }
   }
 }

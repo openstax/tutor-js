@@ -43,14 +43,14 @@
 
     .course-listing-title,
     .course-listing-none {
-      color: @tutor-tertiary;
+      color: @openstax-tertiary;
     }
   }
 
   .course-listing-add-zone {
     background: rgba(255, 255, 255, 0.5);
-    border: 1px dashed @tutor-neutral;
-    color: @tutor-neutral;
+    border: 1px dashed @openstax-neutral;
+    color: @openstax-neutral;
     .flex-display();
     .align-items(center);
     .transition(~'@{course-transition} color');
@@ -62,7 +62,7 @@
     }
 
     &:hover {
-      color: @tutor-info;
+      color: @openstax-info;
       text-decoration: none;
 
       &::after {
@@ -83,12 +83,12 @@
 
     #icon-add-class {
       .transition(~'@{course-transition} fill');
-      fill: @tutor-neutral;
+      fill: @openstax-neutral;
     }
 
     &:hover {
       #icon-add-class {
-        fill: @tutor-info;
+        fill: @openstax-info;
       }
     }
   }
@@ -164,12 +164,12 @@
     }
 
     .course-listing-item-details {
-      background: @tutor-white;
-      color: @tutor-neutral;
+      background: @openstax-white;
+      color: @openstax-neutral;
       font-weight: 100;
 
       a {
-        color: @tutor-neutral;
+        color: @openstax-neutral;
       }
 
       .btn {

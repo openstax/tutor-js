@@ -1,4 +1,3 @@
-@import './variables/colors';
 @import './variables/book-content';
 
 // TODO: Decide where best to organize this once more have accumulated
@@ -26,7 +25,7 @@
 @tutor-panel-padding-collapsed: @tutor-panel-padding-vertical @tutor-panel-narrow-padding-horizontal;
 
 @student-dashboard-row-height: 60px;
-@tutor-teacher-plan-stats-border-style: 1px dotted @tutor-neutral-light;
+@tutor-teacher-plan-stats-border-style: 1px dotted @openstax-neutral-light;
 
 @tutor-video-iframe-width: 720px;
 @tutor-video-iframe-height: 405px;
@@ -37,21 +36,9 @@
 @tutor-note-padding-horizontal: 40px;
 @tutor-note-padding: @tutor-note-padding-vertical @tutor-note-padding-horizontal;
 
-@tutor-correct-color: @tutor-success;
-@tutor-correct-background: lighten(saturate(@tutor-success, 60%), 38%);
-@tutor-incorrect-color: @tutor-danger;
-@tutor-incorrect-background: lighten(@tutor-danger, 55%);
-@tutor-answer-background: @tutor-info-bg;
-@tutor-answer-color: @tutor-tertiary-light; // darker than hover
-
-@reading-color: @tutor-quaternary;
-@homework-color: @tutor-tertiary-light;
 @qa-chapter-review-color:    darken(@homework-color, 10%);
-@qa-grasp-check-color: darken(@tutor-primary,  10%);
+@qa-grasp-check-color: darken(@openstax-primary,  10%);
 @qa-test-prep-color: darken(@homework-color,  10%);
-@external-color: @tutor-tertiary;
-@event-color: @tutor-secondary;
-@extras-color: @tutor-primary;
 
 // if these are updated, also change MENU_VISIBLE_BREAKPOINT
 // in src/components/reference-book/reference-book.cjsx

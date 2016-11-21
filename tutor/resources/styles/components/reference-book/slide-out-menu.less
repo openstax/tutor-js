@@ -4,7 +4,7 @@
       top: 60px;
       left: 0;
       background: white;
-     // border-right: 1px solid @tutor-neutral;
+     // border-right: 1px solid @openstax-neutral;
       margin-left: -@reference-book-menu-width;
       bottom: 0;
       width: @reference-book-menu-width;
@@ -26,16 +26,16 @@
   // IE not supporting animation on elements.  That way IE will still work it just won't be animated
   .menu-toggle {
     path {
-      fill: @tutor-neutral;
+      fill: @openstax-neutral;
       transition: fill .4s ease;
       transition: transform .75s ease;
     }
     &:hover {
-      path#triangle { fill: @tutor-neutral;    }
-      path#line1    { fill: @tutor-secondary;  }
-      path#line2    { fill: @tutor-primary;    }
-      path#line3    { fill: @tutor-quaternary; }
-      path#line4    { fill: @tutor-tertiary;   }
+      path#triangle { fill: @openstax-neutral;    }
+      path#line1    { fill: @openstax-secondary;  }
+      path#line2    { fill: @openstax-primary;    }
+      path#line3    { fill: @openstax-quaternary; }
+      path#line4    { fill: @openstax-tertiary;   }
     }
     path#triangle { transform: translate(-30px, 0); }
     path#line2 {    transform: scale(2.0, 1.0) translate(-50px, 0px); }

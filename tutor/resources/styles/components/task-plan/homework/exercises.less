@@ -1,4 +1,4 @@
-@selected-exercise-background: @tutor-highlight;
+@selected-exercise-background: @openstax-highlight;
 @hovered-exercise-background: rgba(241, 241, 241, 0.4);
 
 .homework-plan-exercise-select-topics {
@@ -38,14 +38,14 @@ table.exercise-table {
   border-collapse: collapse;
 
   thead {
-    background: @tutor-tertiary;
+    background: @openstax-tertiary;
     color: #fff;
     font-size: 1.8rem;
   }
 
   tbody {
     tr td {
-      border: 1px solid @tutor-neutral-light;
+      border: 1px solid @openstax-neutral-light;
       font-size: 1.2rem;
 
       &:first-child {
@@ -58,16 +58,16 @@ table.exercise-table {
     }
 
     tr:nth-child(even) {
-      background: white;
+      background: @openstax-white;
     }
 
     tr:nth-child(odd) {
-      background: @tutor-neutral-lightest;
+      background: @openstax-neutral-lightest;
     }
   }
 
   td.exercise-number {
-    color: @tutor-quaternary;
+    color: @openstax-quaternary;
     font-size: 1.8rem;
     text-align: center;
   }
@@ -111,13 +111,13 @@ label.exercises-section-label {
 
   .panel-heading {
     text-align: left;
-    background:@tutor-neutral-bright;
+    background: @openstax-neutral-bright;
     height: 50px;
     padding: 10px 20px;
-    border-bottom: 1px solid @tutor-neutral-light;
+    border-bottom: 1px solid @openstax-neutral-light;
     display: block;
     .exercise-number {
-      color: @tutor-quaternary;
+      color: @openstax-quaternary;
     }
   }
 
@@ -125,7 +125,7 @@ label.exercises-section-label {
     .homework-circle-btn(25px);
     padding: 0;
     margin:0 0 0 15px;
-    color: @tutor-neutral-darker;
+    color: @openstax-neutral-darker;
     background: white;
   }
 

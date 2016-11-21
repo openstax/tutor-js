@@ -4,12 +4,12 @@
 
   .calendar-header {
     margin-top: 20px;
-    background-color: @tutor-neutral-lighter;
+    background-color: @openstax-neutral-lighter;
     .clearfix();
     > * { margin-bottom: 20px; }
 
     .btn-default {
-      background-color: @tutor-neutral-lightest;
+      background-color: @openstax-neutral-lightest;
     }
     #add-assignment {
       text-align: center;
@@ -17,17 +17,17 @@
     }
 
     .btn-default {
-      background-color: @tutor-neutral-lightest;
+      background-color: @openstax-neutral-lightest;
     }
 
     .sidebar-toggle {
       text-align: center;
       padding: 9px;
       width: @calendar-sidebar-width;
-      background-color: @tutor-primary;
-      color: white;
+      background-color: @openstax-primary;
+      color: @openstax-white;
       .tutor-icon { margin-right: 2rem; }
-      &.open { background-color: @tutor-neutral-lite; }
+      &.open { background-color: @openstax-neutral-lite; }
     }
 
     .no-periods-text {
@@ -35,7 +35,7 @@
     }
 
     &-actions {
-      border-bottom: 1px solid @tutor-neutral-light;
+      border-bottom: 1px solid @openstax-neutral-light;
       padding-top: 1rem;
       padding-bottom: 1rem;
       &-buttons {
@@ -58,7 +58,7 @@
 
     &-control {
       .no-select();
-      color: @tutor-neutral-darker;
+      color: @openstax-neutral-darker;
       padding: 0 @calendar-header-padding;
       display: inline-block;
 
@@ -71,7 +71,7 @@
       }
 
       &:hover {
-        color: @tutor-neutral;
+        color: @openstax-neutral;
         text-decoration: none;
       }
       &:active, &:visited {

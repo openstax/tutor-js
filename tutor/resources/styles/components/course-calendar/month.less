@@ -31,7 +31,7 @@
   padding-bottom: @tutor-card-body-padding-vertical;
 
   .calendar-body {
-    background-color: @tutor-white;
+    background-color: @openstax-white;
     .tutor-shadow(3);
   }
 
@@ -57,12 +57,12 @@
       .rc-Day--upcoming,
       .rc-Day--current {
         &.hovered {
-          border: 1px solid @tutor-tertiary-light;
+          border: 1px solid @openstax-tertiary-light;
         }
       }
       .rc-Day--past {
         &.hovered {
-           background: fade(@tutor-danger, 10%);
+           background: fade(@openstax-danger, 10%);
         }
       }
     }
@@ -84,7 +84,7 @@
 
       &-weekdays {
         width: 100%;
-        background-color: @tutor-white;
+        background-color: @openstax-white;
         &-weekday {
           .calendar-cell(@calendar-cell-width);
           text-align: center;
@@ -94,7 +94,7 @@
       }
       &--current {
         .rc-Month-header {
-          color: @primary;
+          color: @openstax-primary;
         }
       }
 
@@ -116,19 +116,19 @@
       &-days {
         width: 100%;
         height: 100%;
-        border-left: 1px solid @tutor-neutral-light;
+        border-left: 1px solid @openstax-neutral-light;
         display: inline-block;
       }
       &:last-child {
         .rc-Week-days {
-          border-bottom: 1px solid @tutor-neutral-light;
+          border-bottom: 1px solid @openstax-neutral-light;
         }
       }
     }
     &-Day {
       .calendar-cell(@calendar-cell-width);
-      border-top: 1px solid @tutor-neutral-light;
-      border-right: 1px solid @tutor-neutral-light;
+      border-top: 1px solid @openstax-neutral-light;
+      border-right: 1px solid @openstax-neutral-light;
       position: relative;
       cursor: default;
       line-height: 1.5rem;
@@ -138,29 +138,29 @@
         cursor: pointer;
 
         &:hover, &.active {
-          background-color: fade(@tutor-tertiary-light, 10%);
+          background-color: fade(@openstax-tertiary-light, 10%);
           &::after{
             content: '+';
             font-size: 2rem;
             position: absolute;
             top: 0.5rem;
             left: 0.5rem;
-            color: @tutor-tertiary-light;
+            color: @openstax-tertiary-light;
           }
         }
       }
 
       &--past {
-        color: @tutor-neutral;
-        background-color: @tutor-neutral-lightest;
+        color: @openstax-neutral;
+        background-color: @openstax-neutral-lightest;
       }
 
       &--outside {
-        color: @tutor-neutral-light;
+        color: @openstax-neutral-light;
       }
 
       &--current {
-        color: @tutor-primary;
+        color: @openstax-primary;
         font-weight: bold;
       }
     }

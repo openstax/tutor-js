@@ -16,12 +16,12 @@
 
       .panel-heading {
         position: relative;
-        border-bottom: 1px solid @tutor-neutral-light;
+        border-bottom: 1px solid @openstax-neutral-light;
         background: none;
         padding: 0;
 
         .chapter-heading > a {
-          color: @tutor-neutral-darker;
+          color: @openstax-neutral-darker;
           display: flex;
           height: 3.5rem;
           align-items: center;
@@ -38,12 +38,12 @@
             font-weight: 700;
           }
           .chapter-section {
-            color: @tutor-neutral-darker;
+            color: @openstax-neutral-darker;
             font-size: 1.7rem;
           }
 
           .browse-book {
-            color: @tutor-info;
+            color: @openstax-info;
             font-size: 1.4rem;
             font-weight: 400;
             position: absolute;
@@ -59,7 +59,7 @@
     .panel-heading .chapter-heading.empty-chapter {
       span.chapter-number span,
       span.chapter-title span {
-        color: @tutor-neutral;
+        color: @openstax-neutral;
       }
       input {
         display: none;
@@ -72,10 +72,10 @@
 
       > .section {
         padding: 1px 10px;
-        border-bottom: 1px solid @tutor-neutral-light;
+        border-bottom: 1px solid @openstax-neutral-light;
         font-weight: 400;
         cursor: pointer;
-        background: white;
+        background: @openstax-white;
         transition: background .05s ease-in;
 
         &:hover {
@@ -84,7 +84,7 @@
         }
 
         &.selected {
-          background: @tutor-highlight;
+          background: @openstax-highlight;
           transition: background .05s ease-in;
         }
         //TODO this could be a mixin of some sort, to keep consistent with HW builder and other similar actions
