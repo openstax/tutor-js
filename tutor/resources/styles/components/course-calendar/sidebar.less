@@ -25,15 +25,7 @@
       height: 1.2rem;
     }
     &.is-dragging {
-      > * {
-        visibility: hidden;
-      }
-
-      // need the important for some reason to stop the well
-      // from having the border
-      border-left: 0 !important;
-      background-color: @tutor-neutral-light;
-      .tutor-shadow(draggable-well);
+      .element-is-dragging();
     }
     &:not(.is-dragging) {
       &:hover {

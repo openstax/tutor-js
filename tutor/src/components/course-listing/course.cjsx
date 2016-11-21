@@ -130,7 +130,7 @@ CourseTeacher = React.createClass
       >Teach Again</TutorLink>
 
     @props.connectDragSource(
-      <div>
+      <div className={classnames('course-teacher', 'is-dragging': @props.isDragging)}>
         <Course {...@props} controls={link} />
       </div>
     )
