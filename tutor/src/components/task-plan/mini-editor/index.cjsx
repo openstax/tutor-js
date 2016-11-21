@@ -29,8 +29,9 @@ TaskPlanMiniEditorShell = React.createClass
     />
 
   calculatePlacement: ->
-    # currently always appearing to the left since the sidebar is also open
-    'left'
+    # currently we use fixed positioning.
+    # May adjust based on "position" prop at some point
+    'top'
 
   render: ->
     {planId, courseId} = @props
