@@ -18,7 +18,9 @@ NoArchiveHelp = React.createClass
       <h1>Hep</h1>
     </BS.Popover>
 
-  open:  -> @setState({showModal: true})
+  open:  (ev) ->
+    ev.preventDefault()
+    @setState({showModal: true})
   close: -> @setState({showModal: false})
 
   HelpModal: ->
