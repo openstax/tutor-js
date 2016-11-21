@@ -60,20 +60,20 @@ ROUTES =
     label: 'Change Student ID'
     roles:
       student: 'changeStudentId'
-  cloneCourse:
-    label: 'Add New Course'
+  creatCourse:
+    label: 'Teach another Course'
+    roles:
+      default: 'createNewCourse'
     allowedForCourse: (course) ->
       if course
         CourseStore.isTeacher(course.id)
       else
         CurrentUserStore.isTeacher()
-    params: null
-    options: (courseId) ->
-      if courseId
-        query:
-          courseId: courseId
+  cloneCourse:
+    label: 'Teach this Course Again'
+    params: (courseId) -> {sourceId: courseId}
     roles:
-      default: 'createNewCourse' # use default role since we ensured it was a teacher in allowedForCourse
+      teacher: 'createNewCourse'
 
 CurrentUserActions = flux.createActions [
   'setToken'  # (token) ->
@@ -219,16 +219,15 @@ CurrentUserStore = flux.createStore
 
       _.chain(routes)
         .map((routeType) =>
-          routeName = @_getRouteByRole(routeType, menuRole)
+          name = @_getRouteByRole(routeType, menuRole)
 
-          if routeName?
+          if name?
             options = @_getOptionsForRoute(courseId, routeType, menuRole)
             params  = @_getParamsForRoute(courseId, routeType, menuRole)
+            label = ROUTES[routeType].label
+            label = label(courseId) if _.isFunction(label)
 
-            route =
-              name: routeName
-              label: ROUTES[routeType].label
-
+            route = {name, label}
             route.options = options if options
             route.params = params if params
             route
