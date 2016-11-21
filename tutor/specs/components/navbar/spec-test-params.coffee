@@ -53,8 +53,14 @@ TEACHER_MENU = [
     label: 'Course Settings and Roster'
   }
   {
-    name: 'createNewCourse'
-    label: 'Add New Course'
+    name: 'createNewCourse',
+    label: 'Teach another Course',
+    params: { courseId: '2' }
+  }
+  {
+    name: 'createNewCourse',
+    label: 'Teach this Course Again',
+    params: { sourceId: '2' }
   }
 ]
 
