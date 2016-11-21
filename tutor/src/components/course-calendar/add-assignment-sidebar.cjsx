@@ -30,7 +30,7 @@ AddAssignmentSidebar = React.createClass
     cloningPlanId: React.PropTypes.string
 
   getInitialState: ->
-    showIntro: @props.isOpen
+    hasShownIntro: false
     needsIntro: false
 
   bindUpdate: ->
@@ -42,7 +42,7 @@ AddAssignmentSidebar = React.createClass
     @props.isOpen and
       @state.needsIntro and
       shouldIntro and
-      @state.showIntro
+      not @state.hasShownIntro
 
   renderMenuLink: (link) ->
     <AddAssignmentLink
@@ -54,11 +54,11 @@ AddAssignmentSidebar = React.createClass
 
   closeHelp: ->
     UiSettings.set(IS_INTRO_VIEWED, true) if USE_SETTINGS
-    @setState(showIntro: false)
+    @setState(hasShownIntro: true)
 
   Intro: ->
     <BS.Overlay
-      show={@state.showIntro}
+      show={true}
       placement='right'
       container={document.querySelector('.new-assignments .new-task')}
     >

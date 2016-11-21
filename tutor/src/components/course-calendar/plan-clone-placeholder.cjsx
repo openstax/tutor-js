@@ -42,7 +42,7 @@ PlanClonePlaceholder = React.createClass
       style={left: @props.position.x, top: @props.position.y}
     >
       <label>
-        <Icon type='spinner' spin /> Copying…
+        <Icon type='spinner' spin /> Adding…
       </label>
     </div>
 

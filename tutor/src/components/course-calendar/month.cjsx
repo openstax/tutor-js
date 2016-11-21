@@ -49,7 +49,7 @@ CourseMonth = React.createClass
     dateFormatted: @props.date.format(@props.dateFormat)
 
   getInitialState: ->
-    showingSideBar: TutorRouter.currentQuery()?.showIntro is 'true'
+    showingSideBar: false
     activeAddDate: null
 
   getDefaultProps: ->
@@ -120,6 +120,12 @@ CourseMonth = React.createClass
 
   componentWillMount: ->
     document.addEventListener('click', @shouldHideAddOnDay, true)
+
+  componentDidMount: ->
+    shouldOpenSideBar = TutorRouter.currentQuery()?.showIntro is 'true'
+    _.delay( =>
+      @setState(showingSideBar: shouldOpenSideBar) if shouldOpenSideBar
+    , 2000)
 
   componentWillUnmount: ->
     document.removeEventListener('click', @shouldHideAddOnDay, true)
