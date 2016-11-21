@@ -2,6 +2,8 @@ _ = require 'lodash'
 React = require 'react'
 BS = require 'react-bootstrap'
 {Redirect} = require 'react-router'
+{DragDropContext} = require 'react-dnd'
+HTML5Backend = require 'react-dnd-html5-backend'
 
 Router = require '../../helpers/router'
 
@@ -40,4 +42,4 @@ CourseListing = React.createClass
 
 
 
-module.exports = CourseListing
+module.exports = DragDropContext(HTML5Backend)(CourseListing)
