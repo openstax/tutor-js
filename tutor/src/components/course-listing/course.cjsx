@@ -125,7 +125,7 @@ CourseTeacher = React.createClass
     link =
       <TutorLink
         to='createNewCourse'
-        query={courseId: course.id}
+        params={sourceId: course.id}
         className='btn btn-default btn-sm'
       >Teach Again</TutorLink>
 

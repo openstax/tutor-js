@@ -40,7 +40,7 @@ AddCourseArea = React.createClass
     router: React.PropTypes.object
 
   onDrop: (course) ->
-    url = Router.makePathname('createNewCourse', {}, query: {courseId: course.id})
+    url = Router.makePathname('createNewCourse', {sourceId: course.id})
     @context.router.transitionTo(url)
 
   render: ->

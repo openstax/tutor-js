@@ -45,8 +45,9 @@ NewCourseWizard = React.createClass
     router: React.PropTypes.object
 
   componentWillMount: ->
-    if TutorRouter.currentQuery()?.courseId
-      course = CourseStore.get(TutorRouter.currentQuery()?.courseId)
+    {sourceId} = TutorRouter.currentParams()
+    if sourceId
+      course = CourseStore.get(sourceId)
       NewCourseActions.setClone(course)
       @setState({firstStage: 2, currentStage: 2})
     else if isEmpty(CourseListingStore.filterTeachingCourses(is_concept_coach: true))
