@@ -27,22 +27,24 @@ AddAssignmentSidebar = React.createClass
     courseId: React.PropTypes.string.isRequired
     hasPeriods: React.PropTypes.bool.isRequired
     isOpen: React.PropTypes.bool.isRequired
+    shouldIntro: React.PropTypes.bool.isRequired
     cloningPlanId: React.PropTypes.string
 
   getInitialState: ->
     hasShownIntro: false
-    needsIntro: false
+    canIntro: false
 
   bindUpdate: ->
-    @setState(needsIntro: PastTaskPlansStore.hasPlans(@props.courseId))
+    @setState(canIntro: PastTaskPlansStore.hasPlans(@props.courseId))
 
   shouldShowIntro: ->
     shouldIntro = if USE_SETTINGS then not UiSettings.get(IS_INTRO_VIEWED) else true
 
-    @props.isOpen and
-      @state.needsIntro and
-      shouldIntro and
-      not @state.hasShownIntro
+    @props.shouldIntro and
+      @props.isOpen and
+      not @state.hasShownIntro and
+      @state.canIntro and
+      shouldIntro
 
   renderMenuLink: (link) ->
     <AddAssignmentLink
