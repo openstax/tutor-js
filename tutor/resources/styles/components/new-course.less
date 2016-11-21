@@ -11,9 +11,9 @@
 }
 
 .make-wizard-choice-active() {
-  background-color: fade(@tutor-neutral-light, 60%);
-  border-color: @tutor-neutral-light;
-  color: @tutor-neutral-dark;
+  background-color: fade(@openstax-neutral-light, 60%);
+  border-color: @openstax-neutral-light;
+  color: @openstax-neutral-dark;
 }
 
 .new-course-wizard {
@@ -39,7 +39,7 @@
           height: 28px;
           content: '';
           background-image: url('../../images/icons/icon-checked.svg');
-          background-color: @tutor-white;
+          background-color: @openstax-white;
           background-repeat: no-repeat;
           background-position: center center;
           display: table-cell;
@@ -94,17 +94,17 @@
   }
 
   .input-group-addon {
-    background: @tutor-white;
-    color: @tutor-neutral-dark;
+    background: @openstax-white;
+    color: @openstax-neutral-dark;
     font-weight: 600;
     text-align: left;
   }
 
   .form-control {
-    background: @tutor-neutral-lightest;
+    background: @openstax-neutral-lightest;
     height: 4.8rem;
     font-weight: 600;
-    color: @tutor-neutral-dark;
+    color: @openstax-neutral-dark;
   }
 
   .alert {
@@ -190,7 +190,7 @@
     }
 
     .course-details-sections-note {
-      color: @tutor-neutral;
+      color: @openstax-neutral;
       margin-left: 0.5rem;
     }
   }
@@ -285,7 +285,7 @@
   }
   &::before {
     background-image:
-      linear-gradient(to right, @tutor-secondary, @tutor-tertiary),
+      linear-gradient(to right, @openstax-secondary, @openstax-tertiary),
       url('../../images/ost-hero.jpg');
     background-blend-mode: hard-light;
     filter: blur(12px);
@@ -293,7 +293,7 @@
 
   &::after {
     background-image:
-      linear-gradient(to right, fade(@tutor-secondary, 57%), fade(@tutor-tertiary, 57%));
+      linear-gradient(to right, fade(@openstax-secondary, 57%), fade(@openstax-tertiary, 57%));
   }
 
   .panel {
@@ -303,8 +303,8 @@
 
     .panel-heading,
     .panel-footer {
-      color: @tutor-neutral-dark;
-      background-color: white;
+      color: @openstax-neutral-dark;
+      background-color: @openstax-white;
       border: 0;
       padding: 1rem 0;
     }
@@ -313,10 +313,10 @@
       .btn {
         font-weight: 600;
         &.btn-default {
-          color: @tutor-neutral;
+          color: @openstax-neutral;
           &.back {
-            background: @tutor-neutral;
-            color: @tutor-white;
+            background: @openstax-neutral;
+            color: @openstax-white;
           }
         }
       }
@@ -357,8 +357,8 @@
     .list-group {
       max-height: 260px;
       overflow-y: auto;
-      border-top: 1px solid @tutor-neutral-light;
-      border-bottom: 1px solid @tutor-neutral-light;
+      border-top: 1px solid @openstax-neutral-light;
+      border-bottom: 1px solid @openstax-neutral-light;
 
       .list-group-item:first-child {
         border-top: none;

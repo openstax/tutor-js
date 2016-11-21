@@ -8,7 +8,7 @@
 @calendar-plan-left-offset: 2px;
 @calendar-plan-left-label-offset: 2 * @calendar-plan-left-offset;
 
-@calendar-inactive-background: @tutor-neutral;
+@calendar-inactive-background: @openstax-neutral;
 
 .psuedo-text-label() {
   font-weight: 400;
@@ -49,7 +49,7 @@
       }
 
       &.is-failed, &.is-killed, &.is-404 {
-        .tutor-plan-display(@tutor-danger);
+        .tutor-plan-display(@openstax-danger);
       }
     }
     &.is-publishing{
@@ -135,7 +135,7 @@
   .plan-clone-placeholder {
     position: absolute;
     display: inline;
-    border: 1px solid @tutor-neutral-lighter;
+    border: 1px solid @openstax-neutral-lighter;
     .tutor-plan-set(display);
     label {
       margin: 0;

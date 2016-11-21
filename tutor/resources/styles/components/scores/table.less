@@ -8,8 +8,8 @@
   @student-header-bg-color: #ccccce;
   @student-header-fg-color: #f2f2f2;
   @left-column-padding: 8px;
-  @pie-color: lighten(@tutor-neutral,10%);
-  @pie-bg-color: lighten(@tutor-neutral,40%);
+  @pie-color: lighten(@openstax-neutral,10%);
+  @pie-bg-color: lighten(@openstax-neutral,40%);
   @pie-color-hover: #0DC0DC;
   @finished-icon-size: 24px;
 //  @group-header-title-height: 60px;
@@ -79,7 +79,7 @@
       font-weight: normal;
       font-size: 1.2rem;
       font-style: italic;
-      color: lighten(@tutor-neutral, 10%);
+      color: lighten(@openstax-neutral, 10%);
 
       border-right: 1px solid @nav-tabs-border-color;
     }
@@ -87,7 +87,7 @@
 
   .overall-border-style() {
     border-style: solid;
-    border-color: @tutor-tertiary-light;
+    border-color: @openstax-tertiary-light;
   }
 
   .overall-border-top() {
@@ -108,7 +108,7 @@
   .overall-header-cell {
     flex: 1;
     text-align: center;
-    background: @tutor-info-bg;
+    background: @openstax-info-bg;
     padding-top: 11px;
     .overall-border-top();
   }
@@ -170,7 +170,7 @@
 
   .public_fixedDataTable_header,
   .public_fixedDataTable_header .public_fixedDataTableCell_main {
-    background: @tutor-white;
+    background: @openstax-white;
   }
 
   .public_fixedDataTable_header,
@@ -214,7 +214,7 @@
       .help {
         font-style: italic;
         font-size: 1.2rem;
-        color: @tutor-neutral;
+        color: @openstax-neutral;
       }
 
       .tutor-icon {
@@ -344,7 +344,7 @@
       text-decoration: none;
     }
     .not-started {
-      color: @tutor-black;
+      color: @openstax-black;
       cursor: default;
     }
     .worked {
@@ -356,7 +356,7 @@
       .finished {
         width: @finished-icon-size;
         height: @finished-icon-size;
-        fill: @tutor-secondary;
+        fill: @openstax-secondary;
       }
       &:hover .finished {
         fill: @pie-color-hover;
@@ -373,7 +373,7 @@
           fill: @pie-color-hover;
         }
         .dividers rect {
-          fill: @tutor-white;
+          fill: @openstax-white;
         }
         .backdrop {
           fill: @pie-bg-color;
@@ -404,10 +404,10 @@
         height: 0;
         border-style: solid;
         border-width: 0 15px 15px 0;
-        border-color: transparent @tutor-primary transparent transparent;
+        border-color: transparent @openstax-primary transparent transparent;
         transition: border-width 0.2s ease-in-out;
         &.accepted {
-          border-color: transparent lighten(@tutor-neutral, 25%) transparent transparent;
+          border-color: transparent lighten(@openstax-neutral, 25%) transparent transparent;
         }
       }
       &:hover {
@@ -427,12 +427,12 @@
     padding: 0 0 0 @left-column-padding;
     .student-name, .student-id { line-height: normal; }
     .student-name {
-      color: @tutor-neutral-dark;
+      color: @openstax-neutral-dark;
     }
     .student-id {
       margin-top: 0.5rem;
       font-size: 1.1rem;
-      color: @tutor-neutral-lite;
+      color: @openstax-neutral-lite;
     }
   }
 }
@@ -450,14 +450,14 @@
     .row {
       display: table-row;
       &:nth-child(1) {
-        background: darken(@tutor-info-bg, 5%);
+        background: darken(@openstax-info-bg, 5%);
       }
       &:nth-child(2) {
-        color: @tutor-neutral;
+        color: @openstax-neutral;
       }
       &:nth-child(3) {
-        background: @tutor-neutral-lighter;
-        color: @tutor-black;
+        background: @openstax-neutral-lighter;
+        color: @openstax-black;
       }
       div {
         font-weight: bold;
@@ -476,11 +476,11 @@
   height: 98px;
   min-width: 315px;
   border-radius: 0;
-  border: 1px solid @tutor-neutral-light;
+  border: 1px solid @openstax-neutral-light;
   &.accepted {
     .popover-title {
-      color: @tutor-black;
-      background: @tutor-info-bg;
+      color: @openstax-black;
+      background: @openstax-info-bg;
     }
     .popover-content {
       .status {
@@ -498,8 +498,8 @@
     font-size: 1em;
     height: 30px;
     border-radius: 0;
-    color: @tutor-white;
-    background: @tutor-primary;
+    color: @openstax-white;
+    background: @openstax-primary;
   }
   .popover-content {
     padding: 3px;
@@ -526,7 +526,7 @@
       .status {
         display: table-cell;
         vertical-align: middle;
-        color: @tutor-primary;
+        color: @openstax-primary;
         text-align: center;
       }
     }
@@ -550,8 +550,8 @@
     font-size: 1em;
     height: 30px;
     border-radius: 0;
-    color: @tutor-black;
-    background: @tutor-info-bg;
+    color: @openstax-black;
+    background: @openstax-info-bg;
   }
 
   .popover-content {

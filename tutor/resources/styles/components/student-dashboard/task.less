@@ -2,11 +2,11 @@
   .due-at, .due-at-label { padding-left: 0; }
 
   .task {
-    background: @tutor-white;
-    border-top: thin dotted @tutor-neutral-light;
+    background: @openstax-white;
+    border-top: thin dotted @openstax-neutral-light;
     position: relative;
     display: block;
-    color: @tutor-neutral-darker;
+    color: @openstax-neutral-darker;
     overflow: hidden;
     // if the screen is wide enought, set a hight and use line-height to vertically center content.
     // This breaks when the responsive small view kicks in and it becomes multi-line
@@ -16,7 +16,7 @@
     }
     &.deleted:not(.workable) {
       cursor: default;
-      background-color: @tutor-neutral-lightest;
+      background-color: @openstax-neutral-lightest;
     }
     .icon {
       background-position: center;
@@ -37,11 +37,11 @@
       margin-left: 0.5rem;
       &.incomplete::before {
         content: @fa-var-exclamation-circle;
-        color: @tutor-warning;
+        color: @openstax-warning;
       }
       &.late::before {
         content: @fa-var-clock-o;
-        color: @tutor-danger;
+        color: @openstax-danger;
       }
     }
     //.btn prefix is needed to override material design styles
@@ -75,12 +75,12 @@
     &.workable {
       cursor: pointer;
       &:hover {
-        background-color: @tutor-neutral-lightest;
+        background-color: @openstax-neutral-lightest;
         .icon { .tutor-icon-active(1.2); }
       }
     }
     &.deleted {
-      color: @tutor-neutral;
+      color: @openstax-neutral;
       filter: grayscale(100%);
       -webkit-filter: grayscale(100%);
     }

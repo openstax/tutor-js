@@ -2,7 +2,7 @@
 
   .btn-link{
     text-transform: capitalize;
-    color: @tutor-tertiary-light;
+    color: @openstax-tertiary-light;
     font-size: 1.5rem;
   }
 
@@ -45,7 +45,7 @@
     .spacer { flex: 1; }
     .control {
       cursor: pointer;
-      button.btn-link { color: @tutor-tertiary-light; }
+      button.btn-link { color: @openstax-tertiary-light; }
 
       margin-left: 10px;
       &.btn {
@@ -60,15 +60,15 @@
     }
 
     .archive-period {
-      color: @tutor-tertiary-light;
+      color: @openstax-tertiary-light;
     }
 
 
 
     .enrollment-code {
       padding: 0 0.5rem;
-      border: 1px solid @tutor-neutral-light;
-      color: @tutor-neutral;
+      border: 1px solid @openstax-neutral-light;
+      color: @openstax-neutral;
       .title { margin-right: 0.5rem; }
       input {
         border: 0;
@@ -82,7 +82,7 @@
       a {
         cursor: pointer;
         margin-right: 1rem;
-        color: @tutor-tertiary-light;
+        color: @openstax-tertiary-light;
 
       }
     }
@@ -94,12 +94,12 @@
         margin-left: 10px;
 
         .btn-link {
-          color: @tutor-tertiary-light;
+          color: @openstax-tertiary-light;
           padding: 0;
         }
 
         &.add-period, &.view-archived-periods {
-          background-color: white;
+          background-color: @openstax-white;
         }
 
       }
@@ -129,7 +129,7 @@
   .roster-empty-info {
     line-height: 2.2rem;
     padding: 0px 20px 0px 20px;
-    color: @tutor-neutral;
+    color: @openstax-neutral;
   }
 
 }
@@ -149,7 +149,7 @@
 .view-archived-periods-modal {
   table { width: 100%; }
   .control {
-    button.btn-link { color: @tutor-tertiary-light; text-transform: capitalize; font-size: 1.5rem; }
+    button.btn-link { color: @openstax-tertiary-light; text-transform: capitalize; font-size: 1.5rem; }
   }
 }
 
@@ -187,7 +187,7 @@
 }
 
 .teacher-edit-period-modal, .teacher-edit-course-modal {
-  .tutor-plan-modal(@tutor-tertiary-light);
+  .tutor-plan-modal(@openstax-tertiary-light);
   .tutor-modal();
 }
 
@@ -211,7 +211,7 @@
   .message {
     #fonts > .sans(1.5rem, 1.5rem);
     text-align: center;
-    border-bottom: 1px solid @tutor-neutral-bright;
+    border-bottom: 1px solid @openstax-neutral-bright;
     padding: 0.5rem 0.5rem 1rem 0.5rem;
     margin-bottom: 1rem;
   }
@@ -226,8 +226,8 @@
     }
     // override material-design
     .btn-default:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
-      background-color: @tutor-secondary;
-      color: @tutor-neutral-bright !important;
+      background-color: @openstax-secondary;
+      color: @openstax-neutral-bright !important;
     }
     .cancel {
       color: @link-color;
