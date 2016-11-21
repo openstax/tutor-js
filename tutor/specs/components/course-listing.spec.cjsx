@@ -5,6 +5,7 @@ CourseListing = require '../../src/components/course-listing'
 {CurrentUserActions} = require '../../src/flux/current-user'
 {CourseStore} = require '../../src/flux/course'
 {shallow, mount} = require 'enzyme'
+EnzymeContext = require './helpers/enzyme-context'
 
 {
   STUDENT_COURSE_ONE_MODEL
@@ -28,7 +29,7 @@ describe 'Course Listing Component', ->
 
   it 'renders the listing', ->
     CourseListingActions.loaded(MASTER_COURSES_LIST)
-    wrapper = mount(<CourseListing />)
+    wrapper = mount(<CourseListing />, EnzymeContext.withDnD())
     for course, i in MASTER_COURSES_LIST
       expect(wrapper.find(".course-listing-current [data-course-id='#{course.id}']")).to.have.length(1)
     undefined
@@ -36,13 +37,13 @@ describe 'Course Listing Component', ->
   it 'renders the listing without archived courses', ->
     courseList = _.flatten([MASTER_COURSES_LIST, STUDENT_ARCHIVED_COURSE])
     CourseListingActions.loaded(courseList)
-    wrapper = shallow(<CourseListing />)
+    wrapper = shallow(<CourseListing />, EnzymeContext.withDnD())
     expect(wrapper.find("CourseLink[courseId='#{STUDENT_ARCHIVED_COURSE.id}']")).to.have.length(0)
     undefined
 
   it 'renders add course action if user is teacher', ->
     loadTeacherUser()
-    wrapper = mount(<CourseListing />)
+    wrapper = mount(<CourseListing />, EnzymeContext.withDnD())
     expect(wrapper.find(".course-listing-add-zone")).to.have.length(1)
     undefined
 
@@ -50,7 +51,7 @@ describe 'Course Listing Component', ->
     loadTeacherUser()
     CourseListingActions.loaded(MASTER_COURSES_LIST)
 
-    wrapper = mount(<CourseListing />)
+    wrapper = mount(<CourseListing />, EnzymeContext.withDnD())
 
     for course, i in MASTER_COURSES_LIST
       expect(wrapper.find("[data-course-id='#{course.id}'] .course-listing-item-controls"))
@@ -62,7 +63,7 @@ describe 'Course Listing Component', ->
     loadTeacherUser()
     CourseListingActions.loaded(MASTER_COURSES_LIST)
 
-    wrapper = mount(<CourseListing />)
+    wrapper = mount(<CourseListing />, EnzymeContext.withDnD())
 
     for course, i in MASTER_COURSES_LIST
       expect(wrapper.find("[data-course-id='#{course.id}'] .course-listing-item-controls"))
@@ -73,7 +74,7 @@ describe 'Course Listing Component', ->
   it 'renders past courses in past courses listing', ->
     CourseListingActions.loaded([TEACHER_PAST_COURSE, STUDENT_PAST_COURSE])
 
-    wrapper = mount(<CourseListing />)
+    wrapper = mount(<CourseListing />, EnzymeContext.withDnD())
 
     expect(wrapper.find(".course-listing-past [data-course-id='#{TEACHER_PAST_COURSE.id}']"))
       .to.have.length(1)
@@ -84,13 +85,13 @@ describe 'Course Listing Component', ->
 
   it 'renders empty courses if course list only contains archived course', ->
     CourseListingActions.loaded([STUDENT_ARCHIVED_COURSE])
-    wrapper = shallow(<CourseListing />)
+    wrapper = shallow(<CourseListing />, EnzymeContext.withDnD())
     expect(wrapper.find("EmptyCourses")).to.have.length(1)
     undefined
 
   it 'renders course appropriate flag', ->
     CourseListingActions.loaded(MASTER_COURSES_LIST)
-    wrapper = mount(<CourseListing />)
+    wrapper = mount(<CourseListing />, EnzymeContext.withDnD())
     for course, i in MASTER_COURSES_LIST
       expect(
         wrapper.find("[data-course-id='#{course.id}'] .course-listing-item-brand").render().text()
@@ -100,6 +101,6 @@ describe 'Course Listing Component', ->
 
   it 'redirects to dashboard for a single course', ->
     CourseListingActions.loaded([STUDENT_COURSE_ONE_MODEL])
-    wrapper = shallow(<CourseListing />)
+    wrapper = shallow(<CourseListing />, EnzymeContext.withDnD())
     expect(wrapper.find('Redirect[to="/course/1"]')).to.have.length(1)
     undefined

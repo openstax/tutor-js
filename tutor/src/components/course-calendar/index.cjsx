@@ -22,4 +22,4 @@ CourseCalendar = React.createClass
 
     <Handler {...@props} plansList={plansList} ref='calendarHandler'/>
 
-module.exports = DragDropContext(HTML5Backend)(CourseCalendar)
+module.exports = CourseCalendar

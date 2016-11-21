@@ -1,10 +1,12 @@
 _ = require 'lodash'
 React = require 'react'
 BS = require 'react-bootstrap'
-{Link} = require 'react-router'
+TutorLink = require '../link'
 classnames = require 'classnames'
 
 Router = require '../../helpers/router'
+
+DnD = require './course-dnd'
 
 {CourseStore} = require '../../flux/course'
 {CurrentUserStore} = require '../../flux/current-user'
@@ -33,16 +35,29 @@ wrapCourseItem = (Item, course = {}) ->
       courseDataProps={courseDataProps}/>
   </BS.Col>
 
-AddCourseArea = ->
-  <Link
-    to={Router.makePathname('createNewCourse')}
-    className='course-listing-add-zone'
-  >
-    <div>
-      <IconAdd/>
-      Add a course
-    </div>
-  </Link>
+AddCourseArea = React.createClass
+  contextTypes:
+    router: React.PropTypes.object
+
+  onDrop: (course) ->
+    url = Router.makePathname('createNewCourse', {sourceId: course.id})
+    @context.router.transitionTo(url)
+
+  render: ->
+    @props.connectDropTarget(
+      <div className='course-listing-add-zone'>
+        <TutorLink
+          to='createNewCourse'
+          className={classnames('is-hovering': @props.isHovering)}
+        >
+          <div>
+            <IconAdd/>
+            Add a course
+          </div>
+        </TutorLink>
+      </div>
+    )
+AddCourseArea = DnD.wrapCourseDropComponent(AddCourseArea)
 
 CourseListingNone = ->
   <BS.Row className='course-listing-none'>
@@ -53,6 +68,7 @@ CourseListingNone = ->
 
 CourseListingAdd = ->
   wrapCourseItem(AddCourseArea)
+
 
 DEFAULT_COURSE_ITEMS =
   teacher: CourseTeacher

@@ -47,26 +47,31 @@
     }
   }
 
+  .course-teacher {
+    &.is-dragging {
+      .element-is-dragging()
+    }
+  }
+
   .course-listing-add-zone {
     background: rgba(255, 255, 255, 0.5);
     border: 1px dashed @tutor-neutral;
-    color: @tutor-neutral;
-    .flex-display();
-    .align-items(center);
-    .transition(~'@{course-transition} color');
-
-    .after-shadow();
-
-    &::after{
-      opacity: 1;
-    }
-
-    &:hover {
-      color: @tutor-info;
-      text-decoration: none;
-
-      &::after {
-        opacity: 0;
+    a {
+      color: @tutor-neutral;
+      height: 100%;
+      .flex-display();
+      .align-items(center);
+      .transition(~'@{course-transition} color');
+      .after-shadow();
+      &::after{
+        opacity: 1;
+      }
+      &:hover, &.is-hovering {
+        color: @tutor-info;
+        text-decoration: none;
+        &::after {
+          opacity: 0;
+        }
       }
     }
 
@@ -234,6 +239,3 @@
 
   }
 }
-
-
-

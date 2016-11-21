@@ -6,7 +6,8 @@ Analytics = require '../helpers/analytics'
 Navbar = require './navbar'
 MatchForTutor = require './match-for-tutor'
 
-
+{DragDropContext} = require 'react-dnd'
+HTML5Backend = require 'react-dnd-html5-backend'
 
 merge = require 'lodash/merge'
 {SpyMode} = require 'shared'
@@ -22,11 +23,6 @@ App = React.createClass
   displayName: 'App'
   contextTypes:
     router: React.PropTypes.object
-
-#   getChildContext: ->
-#     debugger
-#     router: merge(@context.router, getCurrentParams: Router.getCurrentParams)
-# #    courseId: @props.params?.courseId
 
   childContextTypes:
     courseId: React.PropTypes.string
@@ -61,4 +57,4 @@ App = React.createClass
     </div>
 
 
-module.exports = App
+module.exports = DragDropContext(HTML5Backend)(App)

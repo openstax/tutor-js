@@ -31,7 +31,7 @@ describe 'Student Scores Homework Cell', ->
   it 'renders score cell', ->
     @props.task.completed_exercise_count = @props.task.exercise_count - 1
     now = new Date
-    TimeActions.setNow(now)
+    TimeActions.reset()
     @props.due_at = moment(now).subtract(10, 'day')
     expect(TH.isDue(@props.task)).to.eq(false)
     wrapper = mount(<Cell {...@props} />)

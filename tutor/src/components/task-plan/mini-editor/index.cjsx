@@ -16,7 +16,7 @@ TaskPlanMiniEditorShell = React.createClass
     position: React.PropTypes.shape(
       x: React.PropTypes.number
       y: React.PropTypes.number
-    ).isRequired
+    )
 
   getInitialState: ->
     isVisible: true
@@ -29,11 +29,9 @@ TaskPlanMiniEditorShell = React.createClass
     />
 
   calculatePlacement: ->
-    # depending on UX, we may need to adjust up / down as well
-    if @props.position.x < 500
-      'right'
-    else
-      'left'
+    # currently we use fixed positioning.
+    # May adjust based on "position" prop at some point
+    'top'
 
   render: ->
     {planId, courseId} = @props

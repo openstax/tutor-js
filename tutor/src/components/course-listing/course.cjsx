@@ -6,7 +6,7 @@ _ = require 'lodash'
 TutorLink = require '../link'
 
 Router = require '../../helpers/router'
-
+DnD = require './course-dnd'
 BRAND = 'Openstax'
 
 getCourseNameSegments = (course, courseSubject) ->
@@ -125,10 +125,19 @@ CourseTeacher = React.createClass
     link =
       <TutorLink
         to='createNewCourse'
-        query={courseId: course.id}
+        params={sourceId: course.id}
         className='btn btn-default btn-sm'
       >Teach Again</TutorLink>
-    <Course {...@props} controls={link} />
 
-      # onClick={href={Router.makePathname('createNewCourse', {}, {query})}
-module.exports = {Course, CourseTeacher, CoursePropType}
+    @props.connectDragSource(
+      <div className={classnames('course-teacher', 'is-dragging': @props.isDragging)}>
+        <Course {...@props} controls={link} />
+      </div>
+    )
+
+
+module.exports = {
+  Course,
+  CoursePropType,
+  CourseTeacher: DnD.wrapCourseDragComponent(CourseTeacher)
+}

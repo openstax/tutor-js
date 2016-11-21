@@ -57,11 +57,14 @@ TEACHER_MENU = [
     params: {courseId: '2'}
   }
   {
-    name: 'createNewCourse'
-    options:
-      query:
-        courseId: '2'
-    label: 'Add New Course'
+    name: 'createNewCourse',
+    label: 'Teach another Course',
+    params: { courseId: '2' }
+  }
+  {
+    name: 'createNewCourse',
+    label: 'Teach this Course Again',
+    params: { sourceId: '2' }
   }
 ]
 

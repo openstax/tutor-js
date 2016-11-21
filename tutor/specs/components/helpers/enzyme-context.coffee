@@ -1,6 +1,7 @@
 React       = require 'react'
 extend      = require 'lodash/extend'
 TestBackend = require 'react-dnd-test-backend'
+TestRouter  = require './test-router'
 {DragDropManager} = require 'dnd-core'
 
 
@@ -10,7 +11,7 @@ EnzymeContext =
     extend({
       context:
         dragDropManager: new DragDropManager(TestBackend)
-        router: {}
+        router: new TestRouter()
       childContextTypes:
         dragDropManager: React.PropTypes.object
         router: React.PropTypes.object

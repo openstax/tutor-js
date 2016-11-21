@@ -83,7 +83,7 @@ getAssignmentLinks = ->
 
 ROUTES = [
   { pattern: '/dashboard',              name: 'listing',                  renderer: getCourseListing }
-  { pattern: '/course/new',             name: 'createNewCourse',          renderer: getCreateCourse  }
+  { pattern: '/new-course/:sourceId?',  name: 'createNewCourse',          renderer: getCreateCourse  }
   {
     pattern: '/qa',                     name: 'QADashboard',              renderer: getQADashboard
     routes: [
