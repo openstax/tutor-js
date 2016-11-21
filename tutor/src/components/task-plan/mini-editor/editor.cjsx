@@ -112,7 +112,7 @@ TaskPlanMiniEditor = React.createClass
         <DraftButton
           isSavable={@isSaveable()}
           onClick={@onSave}
-          isWaiting={!!@isWaiting() and @state.saving}
+          isWaiting={!!(@isWaiting() and @state.saving)}
           isFailed={TaskPlanStore.isFailed(@props.idinde)}
         />
         <BS.Button className="cancel" onClick={@onCancel}>Cancel</BS.Button>
