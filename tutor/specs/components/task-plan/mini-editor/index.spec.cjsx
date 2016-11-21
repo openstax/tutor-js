@@ -24,12 +24,3 @@ describe 'TaskPlan MiniEditor wrapper', ->
     wrapper = shallow(<MiniEditor {...@props} />)
     expect(wrapper.find('LoadableItem[id="42"]')).length.to.be(1)
     undefined
-
-
-  it 'positions itself to left or right', ->
-    wrapper = shallow(<MiniEditor {...@props} />)
-    expect(wrapper.find('Overlay[placement="right"]')).length.to.be(1)
-    @props.position.x = 800
-    wrapper.setProps(@props)
-    expect(wrapper.find('Overlay[placement="left"]')).length.to.be(1)
-    undefined
