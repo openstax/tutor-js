@@ -25,6 +25,9 @@ Object.defineProperty chai.Assertion.prototype, 'not',
 # Combine both jest and chai matchers on expect
 originalExpect = global.expect
 
+# bump up timeout to 5 seconds
+global.jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000
+
 global.expect = (actual) ->
   originalMatchers = originalExpect(actual)
   chaiMatchers = chai.expect(actual)
