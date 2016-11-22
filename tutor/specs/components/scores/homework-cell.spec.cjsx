@@ -28,17 +28,6 @@ describe 'Student Scores Homework Cell', ->
         completed_accepted_late_exercise_count: 0
         correct_accepted_late_exercise_count: 0
 
-  it 'renders score cell', ->
-    @props.task.completed_exercise_count = @props.task.exercise_count - 1
-    now = new Date
-    TimeActions.reset()
-    @props.due_at = moment(now).subtract(10, 'day')
-    expect(TH.isDue(@props.task)).to.eq(false)
-    wrapper = mount(<Cell {...@props} />)
-    expect(wrapper.find('.score a').text()).to.equal('---')
-    expect(wrapper.find('.late-caret')).to.have.length(0)
-    undefined
-
   it 'renders as completed', ->
     completedProps = _.extend({}, @props)
     completedProps.task.completed_on_time_exercise_count = @props.task.exercise_count

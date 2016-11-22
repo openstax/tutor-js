@@ -8,6 +8,7 @@ global.enzyme = require 'enzyme'
 chaiEnzyme = require('chai-enzyme')
 chai.use(chaiEnzyme())
 
+global.Promise = require.requireActual('es6-promise')
 
 # https://github.com/facebook/jest/issues/1730
 
@@ -23,6 +24,9 @@ Object.defineProperty chai.Assertion.prototype, 'not',
 
 # Combine both jest and chai matchers on expect
 originalExpect = global.expect
+
+# bump up timeout to 5 seconds
+global.jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000
 
 global.expect = (actual) ->
   originalMatchers = originalExpect(actual)
