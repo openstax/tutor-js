@@ -26,4 +26,9 @@ module.exports = {
         memo[tp.target_id] = pickFn(tp)
         memo
       , {})
+
+
+  earliestDueDate: (plan) ->
+    dates = _.map(plan?.tasking_plans, 'due_at')
+    _.first(dates.sort()) or ''
 }

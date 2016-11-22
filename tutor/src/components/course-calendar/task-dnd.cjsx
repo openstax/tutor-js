@@ -21,9 +21,10 @@ NewTaskDrag =
     )
 
 CloneTaskDrag =
-  beginDrag: ({plan}) ->
+  beginDrag: ({plan, offHover}) ->
     # start loading task plan details as soon as it starts to drag
     # hopefully the load will have completed by the time it's dropped
+    offHover()
     unless TaskPlanStore.isLoaded(plan.id) or TaskPlanStore.isLoading(plan.id)
       TaskPlanActions.load(plan.id)
     plan
@@ -67,6 +68,8 @@ AddAssignmentLink = (props) ->
 CloneAssignmentLink = (props) ->
   props.connectDragSource(
     <div
+      onMouseEnter={props.onHover}
+      onMouseLeave={props.offHover}
       data-assignment-type={props.plan.type}
       className={classnames('task-plan',
         'is-dragging': props.isDragging
@@ -90,6 +93,5 @@ module.exports = {
   ),
   CloneAssignmentLink: DragSource(ItemTypes.CloneTask, CloneTaskDrag, DragInjector)(
     CloneAssignmentLink
-  ),
-
+  )
 }
