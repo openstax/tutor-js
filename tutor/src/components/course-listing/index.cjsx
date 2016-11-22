@@ -20,7 +20,7 @@ CourseListing = React.createClass
     router: React.PropTypes.object
 
   shouldRedirect: (past, current) ->
-    current.length is 1 and CurrentUserStore.getCourseRole(current[0].id) is 'student'
+    current.length is 1
 
   shouldShowEmpty: (past, current) ->
     _.isEmpty(past) and _.isEmpty(current) # and some way to determine if student?!
