@@ -8,6 +8,7 @@ global.enzyme = require 'enzyme'
 chaiEnzyme = require('chai-enzyme')
 chai.use(chaiEnzyme())
 
+global.Promise = require.requireActual('es6-promise')
 
 # https://github.com/facebook/jest/issues/1730
 
