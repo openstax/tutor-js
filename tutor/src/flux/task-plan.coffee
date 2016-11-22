@@ -74,6 +74,7 @@ TaskPlanConfig =
 
   _loaded: (obj, planId) ->
     @_server_copy[planId] = JSON.stringify(obj) if _.isObject(obj)
+    PlanPublishActions.queued(obj, planId) if obj.is_publishing
     @emit("loaded.#{planId}")
     obj
 
@@ -226,7 +227,7 @@ TaskPlanConfig =
     @_change(id, {is_publish_requested: true})
 
   _saved: (obj, id) ->
-    if obj.is_publish_requested
+    if obj.is_publishing
       PlanPublishActions.queued(obj, id)
       @emit('publish-queued', id)
     obj
