@@ -20,7 +20,7 @@ CourseClone = React.createClass
     shouldSkip: ->
       isEmpty(NewCourseStore.get('new_or_copy')) or
         NewCourseStore.get('new_or_copy') is 'new' or
-        TutorRouter.currentQuery()?.courseId
+        TutorRouter.currentParams()?.sourceId
 
   getInitialState: ->
     courses: CourseListingStore.teachingCoursesForOffering(NewCourseStore.get('offering_id'))

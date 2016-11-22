@@ -52,7 +52,7 @@ NewCourseWizard = React.createClass
       @setState({firstStage: 2, currentStage: 2})
     else if isEmpty(CourseListingStore.filterTeachingCourses(is_concept_coach: true))
       NewCourseActions.set(course_type: 'tutor')
-      @setState({firstStage: 2, currentStage: 1})
+      @setState({firstStage: 1, currentStage: 1})
 
   mixins: [BindStoreMixin]
   bindStore: NewCourseStore
@@ -68,7 +68,6 @@ NewCourseWizard = React.createClass
 
   BackButton: ->
     return null if @state.currentStage is @state.firstStage
-    console.log @state.currentStage
     <BS.Button onClick={@onBack} className="back">
       Back
     </BS.Button>

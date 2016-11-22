@@ -4,7 +4,9 @@ _ = require 'lodash'
 {CourseListingActions} = require './course-listing'
 
 DEFAULTS =
+  course_type: 'tutor'
   copy_question_library: true
+  new_or_copy: 'new'
 
 CONTROL_VALUES = [
   'course_type'

@@ -3,6 +3,8 @@ BS = require 'react-bootstrap'
 
 partial = require 'lodash/partial'
 isEqual = require 'lodash/isEqual'
+isEmpty = require 'lodash/isEmpty'
+first = require 'lodash/first'
 classnames = require 'classnames'
 
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
@@ -22,10 +24,14 @@ SelectCourse = React.createClass
   statics:
     title: 'Which course are you teaching?'
     shouldSkip: ->
-      TutorRouter.currentQuery()?.courseId
+      TutorRouter.currentParams()?.sourceId
 
   onSelect: (id) ->
     NewCourseActions.set({"#{KEY}": id})
+
+  componentWillMount: ->
+    offerings = OfferingsStore.filter(is_concept_coach: NewCourseStore.get('course_type') is 'cc')
+    @onSelect(first(offerings).id) unless NewCourseStore.get(KEY)? or isEmpty(offerings)
 
   render: ->
     offerings =

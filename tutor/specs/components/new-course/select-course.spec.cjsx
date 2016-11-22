@@ -16,7 +16,7 @@ describe 'CreateCourse: Selecting course subject', ->
 
   it 'it sets offering_id when clicked', ->
     wrapper = mount(<SelectCourse />)
-    expect(NewCourseStore.get('offering_id')).not.to.exist
+    expect(NewCourseStore.get('offering_id')).to.exist
     wrapper.find('.list-group-item').at(0).simulate('click')
     expect(NewCourseStore.get('offering_id')).to.exist
     undefined

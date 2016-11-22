@@ -4,13 +4,14 @@ find = require 'lodash/find'
 filter = require 'lodash/filter'
 isEmpty = require 'lodash/isEmpty'
 partial = require 'lodash/partial'
+capitalize = require 'lodash/capitalize'
 
 classnames = require 'classnames'
 
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 
-{CourseListingStore} = require '../../flux/course-listing'
-
+{OfferingsStore} = require '../../flux/offerings'
+CourseInformation = require '../../flux/course-information'
 
 CourseDetails = React.createClass
   displayName: 'CourseDetails'
@@ -19,6 +20,15 @@ CourseDetails = React.createClass
 
   componentWillMount: ->
     NewCourseActions.set({num_sections: 1}) unless NewCourseStore.get('num_sections')
+    unless NewCourseStore.get('name')
+      offeringId = NewCourseStore.get('offering_id')
+      return unless offeringId
+
+      term = NewCourseStore.get('term')
+      {appearance_code} = OfferingsStore.get(offeringId)
+      {title} = CourseInformation.forAppearanceCode(appearance_code)
+
+      NewCourseActions.set('name': "#{title}, #{capitalize(term.term)} #{term.year}")
 
   updateName: (ev) ->
     NewCourseActions.set({name: ev.target.value})
