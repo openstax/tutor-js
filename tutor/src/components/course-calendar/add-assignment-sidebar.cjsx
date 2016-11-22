@@ -35,7 +35,8 @@ AddAssignmentSidebar = React.createClass
     canIntro: false
 
   bindUpdate: ->
-    @setState(canIntro: PastTaskPlansStore.hasPlans(@props.courseId))
+    # show intro only after Past Task Plans have been loaded
+    @setState(canIntro: true)
 
   shouldShowIntro: ->
     shouldIntro = if USE_SETTINGS then not UiSettings.get(IS_INTRO_VIEWED) else true
