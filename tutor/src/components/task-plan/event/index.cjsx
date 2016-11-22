@@ -34,7 +34,7 @@ EventPlan = React.createClass
     if @state?.invalid then formClasses.push('is-invalid-form')
 
     <div className='event-plan task-plan' data-assignment-type='event'>
-      <BS.Panel bsStyle='primary'
+      <BS.Panel
         className={formClasses.join(' ')}
         footer={footer}
         header={header}>

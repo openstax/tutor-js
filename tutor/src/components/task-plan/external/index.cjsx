@@ -55,7 +55,7 @@ ExternalPlan = React.createClass
     })
 
     <div className='external-plan task-plan' data-assignment-type='external'>
-      <BS.Panel bsStyle='primary'
+      <BS.Panel
         className={formClasses}
         footer={footer}
         header={header}>

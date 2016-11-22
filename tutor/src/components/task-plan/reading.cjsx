@@ -173,7 +173,7 @@ ReadingPlan = React.createClass
       </span>
 
     <div className='reading-plan task-plan' data-assignment-type='reading'>
-      <BS.Panel bsStyle='primary'
+      <BS.Panel
         className={formClasses.join(' ')}
         footer={footer}
         header={header}>
