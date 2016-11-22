@@ -33,13 +33,11 @@ getQueriedOpensAt = (taskPlanId) ->
 
 getQueriedDueAt = ->
   {due_at} = Router.currentQuery() # attempt to read the due date from query params
-  if due_at
-    TimeHelper.getMomentPreserveDate(due_at).format(TimeHelper.ISO_DATE_FORMAT)
+  TimeHelper.getMomentPreserveDate(due_at).format(TimeHelper.ISO_DATE_FORMAT) if due_at
 
 getTaskPlanOpensAt = (planId) ->
-  TimeHelper.getMomentPreserveDate(
-    _.first(TaskPlanStore.get(planId)?.tasking_plans)?.due_at
-  ).format(TimeHelper.ISO_DATE_FORMAT)
+  firstDueAt = _.first(TaskPlanStore.get(planId)?.tasking_plans)?.due_at
+  TimeHelper.getMomentPreserveDate(firstDueAt).format(TimeHelper.ISO_DATE_FORMAT) if firstDueAt
 
 
 setPeriodDefaults = (courseId, planId) ->
