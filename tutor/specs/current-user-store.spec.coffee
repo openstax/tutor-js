@@ -56,9 +56,12 @@ TEACHER_MENU = [
     label: 'Course Settings and Roster'
     params: {courseId: '2'}
   }
+]
+
+TEACHER_ONLY_MENU = [
   {
     name: 'createNewCourse',
-    label: 'Teach another Course',
+    label: 'Teach Another Course',
     params: { courseId: '2' }
   }
   {
@@ -108,4 +111,5 @@ describe 'Current User Store', ->
   it 'should return expected menu routes for courses', ->
     expect(CurrentUserStore.getCourseMenuRoutes('1')).to.deep.equal(STUDENT_MENU)
     expect(CurrentUserStore.getCourseMenuRoutes('2')).to.deep.equal(TEACHER_MENU)
+    expect(CurrentUserStore.getCourseMenuRoutes('2', false, true)).to.deep.equal(TEACHER_ONLY_MENU)
     undefined

@@ -61,7 +61,7 @@ ROUTES =
     roles:
       student: 'changeStudentId'
   creatCourse:
-    label: 'Teach another Course'
+    label: 'Teach Another Course'
     roles:
       teacher: 'createNewCourse'
     allowedForCourse: (course) ->
