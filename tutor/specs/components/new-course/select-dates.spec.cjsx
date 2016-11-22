@@ -17,7 +17,7 @@ describe 'CreateCourse: Selecting course dates', ->
 
   it 'it sets state when date row is clicked', ->
     wrapper = mount(<SelectDates />)
-    expect(NewCourseStore.get('term')).not.to.exist
+    expect(NewCourseStore.get('term')).to.exist
     wrapper.find('.list-group-item').at(0).simulate('click')
 
     expect(NewCourseStore.get('term')).to.deep.equal(

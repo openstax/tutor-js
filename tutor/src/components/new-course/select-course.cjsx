@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 
 partial = require 'lodash/partial'
 isEqual = require 'lodash/isEqual'
+isEmpty = require 'lodash/isEmpty'
 first = require 'lodash/first'
 classnames = require 'classnames'
 
@@ -30,7 +31,7 @@ SelectCourse = React.createClass
 
   componentWillMount: ->
     offerings = OfferingsStore.filter(is_concept_coach: NewCourseStore.get('course_type') is 'cc')
-    @onSelect(first(offerings).id) unless NewCourseStore.get(KEY)?
+    @onSelect(first(offerings).id) unless NewCourseStore.get(KEY)? or isEmpty(offerings)
 
   render: ->
     offerings =
