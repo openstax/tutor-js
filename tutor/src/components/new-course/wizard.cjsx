@@ -68,7 +68,6 @@ NewCourseWizard = React.createClass
 
   BackButton: ->
     return null if @state.currentStage is @state.firstStage
-    console.log @state.currentStage
     <BS.Button onClick={@onBack} className="back">
       Back
     </BS.Button>

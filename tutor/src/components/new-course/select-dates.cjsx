@@ -25,6 +25,13 @@ SelectDates = React.createClass
   onSelect: (term) ->
     NewCourseActions.set({"#{KEY}": term})
 
+  componentWillMount: ->
+    return if NewCourseStore.get(KEY)?
+
+    offering = OfferingsStore.get(NewCourseStore.get('offering_id'))
+    if offering.active_term_years? and offering.active_term_years[1]?
+      @onSelect(offering.active_term_years[1])
+
   render: ->
     offering = OfferingsStore.get(NewCourseStore.get('offering_id'))
 

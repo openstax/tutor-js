@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 
 partial = require 'lodash/partial'
 isEqual = require 'lodash/isEqual'
+first = require 'lodash/first'
 classnames = require 'classnames'
 
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
@@ -26,6 +27,10 @@ SelectCourse = React.createClass
 
   onSelect: (id) ->
     NewCourseActions.set({"#{KEY}": id})
+
+  componentWillMount: ->
+    offerings = OfferingsStore.filter(is_concept_coach: NewCourseStore.get('course_type') is 'cc')
+    @onSelect(first(offerings).id) unless NewCourseStore.get(KEY)?
 
   render: ->
     offerings =
