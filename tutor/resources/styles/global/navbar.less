@@ -5,6 +5,8 @@
 // override bootstrap navbar collapse width for book-links space
 @grid-float-breakpoint: @screen-md-min;
 
+// TODO see how much of this is unnecessary now that bootstrap material is gone
+
 .navbar-fixed-top {
   height: @tutor-navbar-height;
   // override bootstrap material design media query for (max-width: 1199px)
@@ -22,13 +24,6 @@
 
   .navbar-toggle{
     margin-top: 14px;
-  }
-
-  // same as above, override bootstrap material design media query for (max-width: 1199px)
-  &.navbar .navbar-nav > li > a {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    color: @tutor-neutral-darker !important;
   }
 
   .transition(transform 0.2s ease-out);
@@ -107,12 +102,7 @@
       font-weight: normal;
       font-size: 14px;
       line-height: 1.42857143;
-      color: @tutor-neutral;
       white-space: nowrap;
-
-      &:hover {
-        background-color: @tutor-neutral-bright;
-      }
     }
 
     .book-links {
@@ -250,6 +240,24 @@
     }
   }
 }
+
+.navbar-default .navbar-nav > li.book-links > a {
+  @media screen and (max-width: (@screen-md - 1px)) {
+    color: @openstax-neutral;
+
+    &:hover,
+    &:focus {
+      color: @openstax-neutral;
+      background-color: @openstax-neutral-lighter;
+    }
+
+    &.active {
+      color: @openstax-white;
+      background-color: @openstax-primary;
+    }
+  }
+}
+
 
 .tooltip.on-navbar {
   z-index: (@zindex-navbar-fixed + 1);

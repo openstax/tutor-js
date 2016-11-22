@@ -32,6 +32,7 @@ BookLinks = React.createClass
       <TutorLink
         key='assignment'
         to='viewAssignmentLinks'
+        activeClassName='active'
         params={courseId: @props.courseId}
         onClick={onItemClick}>Assignment Links</TutorLink>
     )
