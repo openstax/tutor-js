@@ -139,25 +139,25 @@
 
 .tutor-plan-add(@plan-color) {
   color: @tutor-neutral-darker;
-  border-left: 3px solid @plan-color;
+  border-left: 4px solid transparent;
 
   > * {
     color: @tutor-neutral-darker;
     text-decoration: none;
-    background: fade(@plan-color, 20%);
 
-    &:hover {
+    &:hover,
+    &:focus {
       text-decoration: none;
+      background: transparent;
     }
   }
 
   &:hover,
   &.active,
   &.open {
+    border-left: 4px solid @plan-color;
     text-decoration: none;
-    a {
-      background: fade(@plan-color, 50%);
-    }
+    .tutor-shadow(subtle);
   }
 }
 
