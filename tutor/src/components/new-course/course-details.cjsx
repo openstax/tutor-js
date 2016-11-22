@@ -20,8 +20,10 @@ CourseDetails = React.createClass
 
   componentWillMount: ->
     NewCourseActions.set({num_sections: 1}) unless NewCourseStore.get('num_sections')
-    unless NewCourseStore.get('name')?
+    unless NewCourseStore.get('name')
       offeringId = NewCourseStore.get('offering_id')
+      return unless offeringId
+
       term = NewCourseStore.get('term')
       {appearance_code} = OfferingsStore.get(offeringId)
       {title} = CourseInformation.forAppearanceCode(appearance_code)
