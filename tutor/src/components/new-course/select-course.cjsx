@@ -29,13 +29,11 @@ SelectCourse = React.createClass
   onSelect: (id) ->
     NewCourseActions.set({"#{KEY}": id})
 
-  componentWillMount: ->
-    offerings = OfferingsStore.filter(is_concept_coach: NewCourseStore.get('course_type') is 'cc')
-    @onSelect(first(offerings).id) unless NewCourseStore.get(KEY)? or isEmpty(offerings)
-
   render: ->
     offerings =
-      OfferingsStore.filter(is_concept_coach: NewCourseStore.get('course_type') is 'cc')
+      _.sortBy(
+        OfferingsStore.filter(is_concept_coach: NewCourseStore.get('course_type') is 'cc'),
+      'title')
 
     <BS.ListGroup>
       {for offering in offerings
