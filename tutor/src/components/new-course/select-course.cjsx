@@ -1,10 +1,11 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
+sortBy  = require 'lodash/sortBy'
 partial = require 'lodash/partial'
 isEqual = require 'lodash/isEqual'
 isEmpty = require 'lodash/isEmpty'
-first = require 'lodash/first'
+first   = require 'lodash/first'
 classnames = require 'classnames'
 
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
@@ -31,7 +32,7 @@ SelectCourse = React.createClass
 
   render: ->
     offerings =
-      _.sortBy(
+      sortBy(
         OfferingsStore.filter(is_concept_coach: NewCourseStore.get('course_type') is 'cc'),
       'title')
 
