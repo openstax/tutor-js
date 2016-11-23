@@ -23,8 +23,9 @@ BuildCourse = React.createClass
 
   redirectToCourse: (course) ->
     to = if course.is_concept_coach then 'ccDashboardHelp' else 'dashboard'
-    #console.log "Redir", @context
-    @context.router.transitionTo(Router.makePathname(to, courseId: course.id))
+    @context.router.transitionTo(Router.makePathname(
+      to, {courseId: course.id}, query: {showIntro: 'true'}
+    ))
 
   mixins: [BindStoreMixin]
   bindStore: NewCourseStore
