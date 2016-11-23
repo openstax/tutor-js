@@ -59,11 +59,14 @@ module.exports = React.createClass
     {courseId} = params
 
     <BS.Navbar fixedTop fluid ref="navBar">
-      <BS.Navbar.Brand>
-        <TutorLink to='listing' className='navbar-brand'>
-          <i className='ui-brand-logo'></i>
-        </TutorLink>
-      </BS.Navbar.Brand>
+      <BS.Navbar.Header>
+        <BS.Navbar.Brand>
+          <TutorLink to='listing' className='navbar-brand'>
+            <i className='ui-brand-logo'></i>
+          </TutorLink>
+        </BS.Navbar.Brand>
+        <BS.Navbar.Toggle/>
+      </BS.Navbar.Header>
       <CenterControls params={params} />
       <BS.Navbar.Collapse>
         <BS.Nav>
