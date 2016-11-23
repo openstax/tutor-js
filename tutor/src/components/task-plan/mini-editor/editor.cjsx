@@ -124,10 +124,10 @@ TaskPlanMiniEditor = React.createClass
         />
         <BS.Button
           bsSize='small'
-          className="cancel"
+          className='cancel'
           onClick={@onCancel}
         >
-          Don't Add
+          Cancel
         </BS.Button>
       </div>
     </div>

@@ -82,19 +82,23 @@
 // taken from http://cloudcannon.com/deconstructions/2014/11/15/facebook-content-placeholder-deconstruction.html
 @keyframes placeHolderShimmer{
   0%{
-    background-position: -468px 0
+    background-position: -348px 0
   }
   100%{
-    background-position: 468px 0
+    background-position: 348px 0
   }
 }
 
 .is-progressing-background() {
-  animation-duration: 1s;
+  animation-duration: 1.4s;
   animation-fill-mode: forwards;
   animation-iteration-count: infinite;
   animation-name: placeHolderShimmer;
   animation-timing-function: linear;
-  background: linear-gradient(to right, @openstax-neutral-light 8%, fade(@tutor-neutral-lite, 70%) 18%, @openstax-neutral-light 33%);
-  background-size: 800px 104px;
+  background: linear-gradient(to right,
+    fade(@openstax-neutral-lighter, 60%) 8%,
+    fade(@tutor-neutral-light, 60%) 18%,
+    fade(@openstax-neutral-lighter, 60%) 40%
+  );
+  background-size: 600px 104px;
 }
