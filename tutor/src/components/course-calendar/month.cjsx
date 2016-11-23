@@ -26,8 +26,6 @@ MonthTitleNav        = require './month-title-nav'
 CoursePlan           = require './plan'
 CourseAdd            = require './add'
 
-shouldIntro = ->
-  TutorRouter.currentQuery()?.showIntro is 'true'
 
 CourseMonth = React.createClass
   displayName: 'CourseMonth'
@@ -123,11 +121,6 @@ CourseMonth = React.createClass
 
   componentWillMount: ->
     document.addEventListener('click', @shouldHideAddOnDay, true)
-
-  componentDidMount: ->
-    _.delay( =>
-      @setState(showingSideBar: shouldIntro()) if shouldIntro()
-    , 2000)
 
   componentWillUnmount: ->
     document.removeEventListener('click', @shouldHideAddOnDay, true)
@@ -255,7 +248,6 @@ CourseMonth = React.createClass
 
         <AddAssignmentSidebar
           isOpen={@state.showingSideBar}
-          shouldIntro={shouldIntro()}
           courseId={@props.courseId}
           hasPeriods={hasPeriods}
           cloningPlanId={@state.cloningPlanId or @state.cloningPlan?.id}
