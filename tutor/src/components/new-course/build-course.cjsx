@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 Icon = require '../icon'
 TutorLink = require '../link'
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
-OXFancyLoader = require '../ox-fancy-loader'
+
 BindStoreMixin = require '../bind-store-mixin'
 Router = require '../../helpers/router'
 
@@ -11,7 +11,8 @@ BuildCourse = React.createClass
   displayName: 'BuildCourse'
   statics:
     title: 'Creating your new course'
-
+    Footer: ->
+      <span />
   componentWillMount: ->
     NewCourseActions.save()
 
@@ -19,7 +20,8 @@ BuildCourse = React.createClass
     router: React.PropTypes.object
 
   bindUpdate: ->
-    @redirectToCourse(newCourse) if newCourse = NewCourseStore.newCourse()
+    newCourse = NewCourseStore.newCourse()
+    @redirectToCourse(newCourse) if newCourse
 
   redirectToCourse: (course) ->
     to = if course.is_concept_coach then 'ccDashboardHelp' else 'dashboard'
