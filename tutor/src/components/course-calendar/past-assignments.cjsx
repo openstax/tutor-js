@@ -58,7 +58,7 @@ PastAssignments = React.createClass
         placement="right"
       >
         <BS.Popover id="task-original-due-date">
-          Orig. due date {TimeHelper.toISO(TaskPlanHelper.earliestDueDate(@state.hoveredPlan))}
+          Orig. due date {TimeHelper.toHumanDate(TaskPlanHelper.earliestDueDate(@state.hoveredPlan))}
         </BS.Popover>
       </BS.Overlay>
 
