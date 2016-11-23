@@ -11,12 +11,26 @@ PastAssignments = require './past-assignments'
 
 CourseAddMenuMixin = require './add-menu-mixin'
 BindStoreMixin = require '../bind-store-mixin'
-
+CalendarHelper = require './helper'
 {CourseStore} = require '../../flux/course'
 {PastTaskPlansStore} = require '../../flux/past-task-plans'
 
 IS_INTRO_VIEWED = 'viewed-plan-dnd-intro'
 USE_SETTINGS = false
+
+IntroPopover = (props) ->
+  <BS.Overlay
+    show={props.show}
+    placement='right'
+    container={document.querySelector('.new-assignments .new-task')}
+  >
+    <BS.Popover id='drag-intro'>
+      <p>Click to add, or just drag to calendar.</p>
+      <BS.Button bsSize='small' onClick={props.onClose}>
+        Got it
+      </BS.Button>
+    </BS.Popover>
+  </BS.Overlay>
 
 AddAssignmentSidebar = React.createClass
 
@@ -27,25 +41,35 @@ AddAssignmentSidebar = React.createClass
     courseId: React.PropTypes.string.isRequired
     hasPeriods: React.PropTypes.bool.isRequired
     isOpen: React.PropTypes.bool.isRequired
-    shouldIntro: React.PropTypes.bool.isRequired
     cloningPlanId: React.PropTypes.string
 
   getInitialState: ->
-    hasShownIntro: false
-    canIntro: false
+    introViewed = if USE_SETTINGS then UiSettings.get(IS_INTRO_VIEWED) else false
+    willShowIntro: CalendarHelper.shouldIntro() and not introViewed
 
-  bindUpdate: ->
-    # show intro only after Past Task Plans have been loaded
-    @setState(canIntro: true)
+  componentWillReceiveProps: (nextProps) ->
+    # kickoff intro if we're opening after being closed
+    if @state.willShowIntro and nextProps.isOpen and not @props.isOpen
+      @setState(
+        pendingIntroTimeout: CalendarHelper.scheduleIntroEvent(@showIntro)
+      )
 
-  shouldShowIntro: ->
-    shouldIntro = if USE_SETTINGS then not UiSettings.get(IS_INTRO_VIEWED) else true
+  componentWillUnmount: ->
+    CalendarHelper.clearScheduledEvent(@state.pendingIntroTimeout)
 
-    @props.shouldIntro and
-      @props.isOpen and
-      not @state.hasShownIntro and
-      @state.canIntro and
-      shouldIntro
+  showIntro: ->
+    @setState(
+      showIntro: true, willShowIntro: false,
+      pendingIntroTimeout: CalendarHelper.scheduleIntroEvent(@showPopover)
+    )
+
+
+  showPopover: ->
+    @setState(showPopover: true, pendingIntroTimeout: false)
+
+  onPopoverClose: ->
+    UiSettings.set(IS_INTRO_VIEWED, true) if USE_SETTINGS
+    @setState(showPopover: false, showIntro: false)
 
   renderMenuLink: (link) ->
     <AddAssignmentLink
@@ -55,24 +79,6 @@ AddAssignmentSidebar = React.createClass
       onDrag={@closeHelp}
     />
 
-  closeHelp: ->
-    UiSettings.set(IS_INTRO_VIEWED, true) if USE_SETTINGS
-    @setState(hasShownIntro: true)
-
-  Intro: ->
-    <BS.Overlay
-      show={true}
-      placement='right'
-      container={document.querySelector('.new-assignments .new-task')}
-    >
-      <BS.Popover id='drag-intro'>
-        <p>Click to add, or just drag to calendar.</p>
-        <BS.Button bsSize='small' onClick={@closeHelp}>
-          Got it
-        </BS.Button>
-      </BS.Popover>
-    </BS.Overlay>
-
   render: ->
     <div className={classnames('add-assignment-sidebar', {
       'is-open': @props.isOpen
@@ -81,13 +87,13 @@ AddAssignmentSidebar = React.createClass
         <div className="section-label">New</div>
         <ul
           className={classnames('new-assignments',
-            'is-intro': @shouldShowIntro()
+            'is-intro': @state.showIntro
           )}
           ref='newAssignments'
         >
           {@renderAddActions()}
         </ul>
-        {<@Intro/> if @shouldShowIntro()}
+        <IntroPopover onClose={@onPopoverClose} show={@state.showPopover} />
       </div>
       <PastAssignments
         className='sidebar-section'

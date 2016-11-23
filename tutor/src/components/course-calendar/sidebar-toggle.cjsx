@@ -3,6 +3,7 @@ React = require 'react'
 classnames = require 'classnames'
 {Button} = require 'react-bootstrap'
 Icon = require '../icon'
+CalendarHelper = require './helper'
 
 CalendarSidebarToggle = React.createClass
 
@@ -16,14 +17,17 @@ CalendarSidebarToggle = React.createClass
     defaultOpen: false
 
   getInitialState: ->
-    isOpen: @props.defaultOpen
+    isOpen: false
 
-  componentWillReceiveProps: (nextProps) ->
-    @setState(isOpen: nextProps.defaultOpen) if nextProps.defaultOpen?
+  componentWillMount: ->
+    @setState(pendingIntroTimeout: CalendarHelper.scheduleIntroEvent(@onToggle))
+
+  componentWillUnmount: ->
+    CalendarHelper.clearScheduledEvent(@state.pendingIntroTimeout)
 
   onToggle: ->
     isOpen = not @state.isOpen
-    @setState({isOpen})
+    @setState({isOpen, pendingIntroTimeout: false})
     @props.onToggle(isOpen)
 
   render: ->
