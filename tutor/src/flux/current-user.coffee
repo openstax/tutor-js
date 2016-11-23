@@ -61,19 +61,21 @@ ROUTES =
     roles:
       student: 'changeStudentId'
   creatCourse:
-    label: 'Teach another Course'
+    label: 'Teach Another Course'
     roles:
-      default: 'createNewCourse'
+      teacher: 'createNewCourse'
     allowedForCourse: (course) ->
       if course
         CourseStore.isTeacher(course.id)
       else
         CurrentUserStore.isTeacher()
+    isTeacherOnly: true
   cloneCourse:
     label: 'Teach this Course Again'
     params: (courseId) -> {sourceId: courseId}
     roles:
       teacher: 'createNewCourse'
+    isTeacherOnly: true
 
 CurrentUserActions = flux.createActions [
   'setToken'  # (token) ->
@@ -210,11 +212,12 @@ CurrentUserStore = flux.createStore
 
     # if menu routes are being retrieved, then getCourseRole should store
     # what courseId is being viewed.
-    getCourseMenuRoutes: (courseId, silent = false) ->
+    getCourseMenuRoutes: (courseId, silent = false, isTeacherOnly) ->
       course = CourseStore.get(courseId)
       menuRole = @_getCourseRole(courseId, silent)
       validRoutes = _.pickBy ROUTES, (route) ->
-        route.allowedForCourse?(course) isnt false
+        route.allowedForCourse?(course) isnt false and
+          route.isTeacherOnly is isTeacherOnly
       routes = _.keys(validRoutes)
 
       _.chain(routes)

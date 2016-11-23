@@ -2,7 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 
 
-_ = require 'underscore'
+_ = require 'lodash'
 classnames = require 'classnames'
 
 Router = require '../../helpers/router'
@@ -75,6 +75,11 @@ UserActionsMenu = React.createClass
     menu = _.map CurrentUserStore.getCourseMenuRoutes(courseId), @renderMenuItem
 
     menu.push <BrowseBookMenuOption key="browse-book" courseId={courseId} />
+
+    if CurrentUserStore.isTeacher() and courseId
+      menu.push <BS.MenuItem divider key='dropdown-item-divider-course'/>
+      _.each CurrentUserStore.getCourseMenuRoutes(courseId, false, true), (route, index) =>
+        menu.push @renderMenuItem(route, menu.length)
 
     if CurrentUserStore.isAdmin()
       menu.push @renderMenuItem({label: 'Admin', href: '/admin', key: 'admin'}, menu.length )

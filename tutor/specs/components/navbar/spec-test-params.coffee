@@ -27,6 +27,9 @@ STUDENT_MENU = [
     params: {courseId: '1'}
     label: 'Change Student ID'
   }
+  {
+    label: 'Browse the Book'
+  }
 ]
 
 TEACHER_MENU = [
@@ -53,8 +56,11 @@ TEACHER_MENU = [
     label: 'Course Settings and Roster'
   }
   {
+    label: 'Browse the Book'
+  }
+  {
     name: 'createNewCourse',
-    label: 'Teach another Course',
+    label: 'Teach Another Course',
     params: { courseId: '2' }
   }
   {
@@ -64,10 +70,15 @@ TEACHER_MENU = [
   }
 ]
 
+
 COURSES_LIST = require '../../../api/user/courses.json'
 # COURSE_NAME = COURSES_LIST[0].name
 COURSE_ID = COURSES_LIST[0].id
 USER_MODEL = require '../../../api/user.json'
+
+USER_ROLE_MODES =
+  teacher:
+    faculty_status: 'confirmed_faculty'
 
 testParams = {
   student:
@@ -89,6 +100,8 @@ testParams = {
 setupStores = (roleType) ->
   roleTestParams = testParams[roleType]
   roleTestParams.user = USER_MODEL
+
+  roleTestParams.user = _.extend({}, roleTestParams.user, USER_ROLE_MODES[roleType]) if USER_ROLE_MODES[roleType]
 
   coursesList = _.clone(COURSES_LIST)
   coursesList[0].roles[0].type = roleType
