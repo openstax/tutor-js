@@ -9,4 +9,4 @@ module.exports =
 
   scheduleIntroEvent: (cbFn, args...) ->
     if @shouldIntro()
-      _.delay(_.partial(cbFn, args...), 2000)
+      _.delay(_.partial(cbFn, args...), 1500)
