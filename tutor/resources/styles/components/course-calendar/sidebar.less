@@ -37,7 +37,6 @@
   }
   .draggable() {
     cursor: move;
-
     a {
       cursor: move;
     }
@@ -109,11 +108,14 @@
     li {
       .no-select();
       .draggable();
+      // needs to match the background of the sidebar
+      // Otherwise Safari won't show it when dragging
+      background-color: @tutor-neutral-lightest;
       padding-left: 10px;
       border-left: 4px solid transparent;
       line-height: 3.6rem;
       position: relative;
-
+      & + li { margin-top: 3px; }
       &:hover {
         .tutor-plan-set(sidebar);
       }
@@ -132,7 +134,7 @@
   }
 
   .past-assignments {
-    background: rgba(0, 0, 0, 0.03);
+    background-color: @tutor-neutral-lighter;
     border-top: 1px solid @tutor-neutral-light;
     flex: 1;
     display: flex;
@@ -142,10 +144,12 @@
     .task-plan {
       .tutor-plan-set(sidebar);
       .draggable();
+      background-color: @tutor-neutral-lighter;
       display: flex;
       align-items: center;
       padding-left: 10px;
       line-height: 3.6rem;
+      & + .task-plan { margin-top: 3px; }
       div {
         white-space: nowrap;
         overflow: hidden;
