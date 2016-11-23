@@ -14,11 +14,10 @@ describe 'CreateCourse: entering details', ->
     CourseActions.loaded(COURSE, COURSE_ID)
 
   it 'sets default field values', ->
-    numPeriods = CourseStore.get(COURSE_ID).periods.length
     NewCourseActions.set(cloned_from_id: COURSE_ID, name: 'Test but Verify')
     wrapper = shallow(<CourseDetails />)
     expect(
-      wrapper.find("FormControl[type=\"number\"][value=#{numPeriods}]")
+      wrapper.find("FormControl[type=\"number\"][value=1]")
     ).to.have.length(1)
     expect(
       wrapper.find("FormControl[type=\"text\"][value=\"Test but Verify\"]")
