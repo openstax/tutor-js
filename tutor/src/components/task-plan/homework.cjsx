@@ -35,7 +35,7 @@ HomeworkPlan = React.createClass
     })
 
     <div className='homework-plan task-plan' data-assignment-type='homework'>
-      <BS.Panel bsStyle='default'
+      <BS.Panel
         header={@builderHeader('homework')}
         className={formClasses}
         footer={<PlanFooter id={id}
