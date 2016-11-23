@@ -19,12 +19,15 @@ CalendarSidebarToggle = React.createClass
   getInitialState: ->
     isOpen: false
 
-  componentDidMount: ->
-    CalendarHelper.scheduleIntroEvent(@onToggle)
+  componentWillMount: ->
+    @setState(pendingIntroTimeout: CalendarHelper.scheduleIntroEvent(@onToggle))
+
+  componentWillUnmount: ->
+    CalendarHelper.clearScheduledEvent(@state.pendingIntroTimeout)
 
   onToggle: ->
     isOpen = not @state.isOpen
-    @setState({isOpen})
+    @setState({isOpen, pendingIntroTimeout: false})
     @props.onToggle(isOpen)
 
   render: ->

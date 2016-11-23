@@ -10,3 +10,8 @@ module.exports =
   scheduleIntroEvent: (cbFn, args...) ->
     if @shouldIntro()
       _.delay(_.partial(cbFn, args...), 1500)
+    else
+      undefined
+
+  clearScheduledEvent: (event) ->
+    clearTimeout(event) if (event)

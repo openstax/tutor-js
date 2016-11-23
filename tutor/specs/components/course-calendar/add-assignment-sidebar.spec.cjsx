@@ -1,5 +1,10 @@
 {React} = require '../helpers/component-testing'
 
+last = require 'lodash/last'
+
+jest.mock('../../../src/components/course-calendar/helper')
+Helper = require '../../../src/components/course-calendar/helper'
+
 Sidebar = require '../../../src/components/course-calendar/add-assignment-sidebar'
 
 EnzymeContext = require '../helpers/enzyme-context'
@@ -19,4 +24,31 @@ describe 'CourseCalendar AddAssignmentMenu', ->
     expect(links).to.deep.equal([
       'Add Reading', 'Add Homework', 'Add External Assignment', 'Add Event'
     ])
+    undefined
+
+
+  it 'set state as events are called', ->
+    wrapper = mount(<Sidebar {...@props} />, EnzymeContext.withDnD())
+    expect(Helper.scheduleIntroEvent).not.toHaveBeenCalled()
+    wrapper.setState(willShowIntro: true)
+    wrapper.setProps(isOpen: true)
+    expect(Helper.scheduleIntroEvent).toHaveBeenCalled()
+    expect(wrapper.state('showIntro')).to.be.undefined
+    last(Helper.scheduleIntroEvent.mock.calls)[0]()
+    expect(wrapper.state('showIntro')).to.be.true
+    last(Helper.scheduleIntroEvent.mock.calls)[0]()
+    expect(wrapper.state('showPopover')).to.be.true
+    wrapper.unmount()
+    # nothing pending, so no clear call
+    expect(Helper.clearScheduledEvent).toHaveBeenCalledWith(false)
+    undefined
+
+  it 'clears timeout on unmount', ->
+    Helper.scheduleIntroEvent.mockReturnValueOnce('one')
+    wrapper = mount(<Sidebar {...@props} />, EnzymeContext.withDnD())
+    wrapper.setState(willShowIntro: true)
+    wrapper.setProps(isOpen: true)
+    expect(Helper.scheduleIntroEvent).toHaveBeenCalled()
+    wrapper.unmount()
+    expect(Helper.clearScheduledEvent).toHaveBeenCalledWith('one')
     undefined

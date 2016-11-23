@@ -50,14 +50,22 @@ AddAssignmentSidebar = React.createClass
   componentWillReceiveProps: (nextProps) ->
     # kickoff intro if we're opening after being closed
     if @state.willShowIntro and nextProps.isOpen and not @props.isOpen
-      CalendarHelper.scheduleIntroEvent(@showIntro)
+      @setState(
+        pendingIntroTimeout: CalendarHelper.scheduleIntroEvent(@showIntro)
+      )
+
+  componentWillUnmount: ->
+    CalendarHelper.clearScheduledEvent(@state.pendingIntroTimeout)
 
   showIntro: ->
-    @setState(showIntro: true, willShowIntro: false)
-    CalendarHelper.scheduleIntroEvent(@showPopover)
+    @setState(
+      showIntro: true, willShowIntro: false,
+      pendingIntroTimeout: CalendarHelper.scheduleIntroEvent(@showPopover)
+    )
+
 
   showPopover: ->
-    @setState(showPopover: true)
+    @setState(showPopover: true, pendingIntroTimeout: false)
 
   onPopoverClose: ->
     UiSettings.set(IS_INTRO_VIEWED, true) if USE_SETTINGS
