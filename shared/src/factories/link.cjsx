@@ -6,7 +6,7 @@ concat    = require 'lodash/concat'
 filterPropsBase = filterProps
 
 LINK_PROPS = [
-  'alt', 'title', 'activeOnlyWhenExact', 'activeStyle', 'activeClassName', 'isActive', 'location', 
+  'alt', 'title', 'activeOnlyWhenExact', 'activeStyle', 'activeClassName', 'isActive', 'location', 'disabled'
 ]
 
 filterProps = (props, options = {}) ->
