@@ -92,13 +92,14 @@ module.exports = TutorDialog = React.createClass
         props = _.extend(_.clone(props), {
           onOk, onCancel, show: true
         })
-        if @dialog
-          @dialog.replaceProps(props)
+        div = if @dialog
+          document.body.querySelector('.-tutor-dialog-parent')
         else
           div = document.body.appendChild( document.createElement('div') )
           div.className = '-tutor-dialog-parent'
-          @dialog = ReactDOM.render(React.createElement(DetachedTutorDialog, props), div)
+          div
 
+        @dialog = ReactDOM.render(React.createElement(DetachedTutorDialog, props), div)
         @dialog
 
     hide: ->
