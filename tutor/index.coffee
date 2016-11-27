@@ -31,6 +31,9 @@ window._STORES =
   NOTIFICATIONS: require './src/flux/notifications'
   TOC: require './src/flux/toc'
 
+# In dev builds this enables hot-reloading,
+# in production it simply renders the root app
+{AppContainer} = require 'react-hot-loader'
 
 loadApp = ->
   unless document.readyState is 'interactive'
@@ -52,9 +55,21 @@ loadApp = ->
   mainDiv.id = 'react-root-container'
   document.body.appendChild(mainDiv)
 
-  ReactDOM.render(React.createElement(Root), mainDiv)
+  ReactDOM.render(
+    React.createElement(AppContainer, component: Root)
+  , mainDiv)
 
-
+  if module.hot
+    module.hot.accept('./src/components/root', ->
+      Component = require('./src/components/root')
+      ReactDOM.render(
+        React.createElement(
+          AppContainer, component: Component
+        )
+      , mainDiv)
+    )
   true
+
+
 
 loadApp() or document.addEventListener('readystatechange', loadApp)
