@@ -15,6 +15,8 @@ CourseTitleBanner = React.createClass
       'data-title': CourseStore.getName(@props.courseId)
       'data-appearance': CourseStore.getAppearanceCode(@props.courseId)
 
+    dataProps.term = CourseStore.getTerm(@props.courseId)
+
     <div
       className="course-title-banner"
       {...dataProps}

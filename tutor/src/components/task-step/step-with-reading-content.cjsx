@@ -5,7 +5,6 @@ React = require 'react'
 CourseData = require '../../helpers/course-data'
 {BookContentMixin, LinkContentMixin} = require '../book-content-mixin'
 RelatedContent = require '../related-content'
-CourseTitleBanner = require '../course-title-banner'
 Router = require '../../helpers/router'
 
 # TODO: will combine with below, after BookContentMixin clean up

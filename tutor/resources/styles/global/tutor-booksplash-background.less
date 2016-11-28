@@ -15,24 +15,24 @@
   left: 0px;
   right: 0px;
 
-  height: 8rem;
-  line-height: 9rem;
-  font-size: 8rem;
-  @media (min-width: @screen-sm-min) {
-    height: 10.5rem;
-    line-height: 10.5rem;
-    font-size: 5rem;
-  }
-  @media (min-width: @screen-md-min) {
-    height: 10.5rem;
-    line-height: 10.5rem;
-    font-size: 5rem;
-  }
-  @media (min-width: @screen-lg-min) {
-    height: 10.5rem;
-    line-height: 10.5rem;
-    font-size: 5rem;
-  }
+  font-size: 3.8rem;
+  line-height: 4rem;
+  padding: 1.5rem 0;
+  // @media (min-width: @screen-sm-min) {
+  //   height: 10.5rem;
+  //   line-height: 10.5rem;
+  //   font-size: 5rem;
+  // }
+  // @media (min-width: @screen-md-min) {
+  //   height: 10.5rem;
+  //   line-height: 10.5rem;
+  //   font-size: 5rem;
+  // }
+  // @media (min-width: @screen-lg-min) {
+  //   height: 10.5rem;
+  //   line-height: 10.5rem;
+  //   font-size: 5rem;
+  // }
 
   > .book-title {
     &:extend(.container);
@@ -55,7 +55,4 @@
 }
 .tutor-booksplash-adjust-top-margin(@normal-top-margin: 100px, @short-top-margin: 35px){
   margin-top: @normal-top-margin;
-  // if the screen is short, move up even though it means
-  // the booksplash background won't be as visible
-  @media screen and ( max-height: 600px ){ margin-top: @short-top-margin; }
 }
