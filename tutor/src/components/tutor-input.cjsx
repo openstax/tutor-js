@@ -364,6 +364,7 @@ TutorTimeInput = React.createClass
 
   render: ->
     maskedProps = _.omit(@props, 'defaultValue', 'onChange')
+    inputProps = _.pick(@props, 'disabled')
 
     {formatCharacters} = @props
     {timePattern, timeValue} = @state
@@ -374,6 +375,7 @@ TutorTimeInput = React.createClass
       hasValue={!!timeValue}
       ref="timeInput">
       <MaskedInput
+        {...inputProps}
         value={timeValue}
         name='time'
         size='8'

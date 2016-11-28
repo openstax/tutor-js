@@ -97,13 +97,16 @@ TaskPlanMiniEditor = React.createClass
             id='reading-title'
             value={plan.title or ''}
             required={true}
-            onChange={@setTitle} />
+            onChange={@setTitle}
+            disabled={@state.error} />
         </BS.Col>
       </div>
       <div className="row times">
         <TaskingDateTimes
           bsSizes={{}}
-          id={plan.id} isEditable={true} courseId={@props.courseId}
+          id={plan.id}
+          isEditable={not @state.error?}
+          courseId={@props.courseId}
           taskingIdentifier='all'
         />
       </div>
