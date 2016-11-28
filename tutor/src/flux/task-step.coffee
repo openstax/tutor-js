@@ -15,6 +15,7 @@ isMissingExercises = (response) ->
 TaskStepConfig =
   _asyncStatus: {}
   _recoveryTarget: {}
+  _loadingPersonalizedStatus: {}
 
   _loaded: (obj, id) ->
     if not obj.task_id
@@ -22,6 +23,8 @@ TaskStepConfig =
     @emit('step.loaded', id)
     _.each(@_recoveryTarget, _.partial(@_updateRecoveredFor, id), @)
     StepTitleActions.parseStep(obj)
+
+    @_loadingPersonalizedStatus[id] = false if @_loadingPersonalizedStatus[id]
 
     obj
 
@@ -31,6 +34,7 @@ TaskStepConfig =
 
   loadPersonalized: (id) ->
     @load(id)
+    @_loadingPersonalizedStatus[id] = true
 
   loadedNoPersonalized: (obj, id) ->
     {data, status, statusMessage} = obj
@@ -114,6 +118,9 @@ TaskStepConfig =
     isPlaceholder: (id) ->
       step = @_get(id)
       step?.type is 'placeholder'
+
+    isLoadingPersonalized: (id) ->
+      @_loadingPersonalizedStatus[id]
 
     shouldExist: (id) ->
       @_get(id)?.exists isnt false
