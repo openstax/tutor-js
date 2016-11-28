@@ -25,10 +25,12 @@ doesErrorMatch = (handledErrors, errorName) ->
     _.some(handledErrors, _.partial(minimatch, errorName))
 
 areAllErrorsHandled = (handledErrors, errors, errorNameProperty) ->
-  errors ?= [{ "#{errorNameProperty}": 'HTTP_ERROR'}]
+
+  # use set and propertyOf for flexible errorNameProperty -- i.e. can be nested
+  errors ?= [_.set({}, errorNameProperty, 'HTTP_ERROR')]
 
   _.every errors, (error) ->
-    errorName = error[errorNameProperty]
+    errorName = _.propertyOf(error)(errorNameProperty)
     doesErrorMatch(handledErrors, errorName)
 
 
