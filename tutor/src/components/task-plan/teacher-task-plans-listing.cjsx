@@ -5,7 +5,7 @@ _ = require 'underscore'
 
 LoadableItem = require '../loadable-item'
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
-{TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
+{TaskPlanStore} = require '../../flux/task-plan'
 {CourseStore} = require '../../flux/course'
 {TimeStore} = require '../../flux/time'
 TimeHelper = require '../../helpers/time'
@@ -100,8 +100,15 @@ TeacherTaskPlanListing = React.createClass
     courseTimezone = CourseStore.getTimezone(courseId)
     TimeHelper.syncCourseTimezone(courseTimezone)
 
+    TaskPlanStore.on('publish-queued', @loadToListing)
+
   componentWillUnmount: ->
     TimeHelper.unsyncCourseTimezone()
+
+    TaskPlanStore.off('publish-queued', @loadToListing)
+
+  loadToListing: (plan) ->
+    TeacherTaskPlanActions.addPublishingPlan(plan, @props.params.courseId)
 
   getDateFromParams: ->
     {date} = @props.params

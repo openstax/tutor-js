@@ -3,28 +3,31 @@ _ = require 'underscore'
 {TaskPlanStore} = require './task-plan'
 map = require 'lodash/map'
 
+addPlan = (plan, plans, existingPlanIds) ->
+  existingPlanIds ?= _.pluck(plans, 'id')
+  planIndex = _.indexOf(existingPlanIds, plan.id)
+
+  if planIndex > -1
+    plans[planIndex] = plan
+  else
+    plans.push(plan)
+
 TeacherTaskPlanConfig =
   _ranges: {}
 
   # The load returns a JSON containing `{total_count: 0, items: [...]}`.
   # Unwrap the JSON and store the items.
-  _loaded: (obj, id, startAt, endAt) ->
+  _loaded: (obj, courseId, startAt, endAt) ->
     {plans} = obj
 
-    @_local[id] ?= []
-    existingPlanIds = _.pluck(@_local[id], 'id')
+    @_local[courseId] ?= []
+    existingPlanIds = _.pluck(@_local[courseId], 'id')
 
-    _.each plans, (plan) =>
-      planIndex = _.indexOf(existingPlanIds, plan.id)
+    _.each(plans, _.partial(addPlan, _, @_local[courseId], existingPlanIds))
 
-      if planIndex > -1
-        @_local[id][planIndex] = plan
-      else
-        @_local[id].push(plan)
-
-    @_ranges[id] ?= {}
-    @_ranges[id]["#{startAt}-#{endAt}"] = true
-    @_local[id]
+    @_ranges[courseId] ?= {}
+    @_ranges[courseId]["#{startAt}-#{endAt}"] = true
+    @_local[courseId]
 
   _reset: ->
     @_ranges = {}
@@ -41,6 +44,9 @@ TeacherTaskPlanConfig =
       plans.splice(indx, 1)
       @emitChange()
 
+  addPublishingPlan: (plan, courseId) ->
+    addPlan(plan, @_local[courseId])
+    @emitChange()
 
   exports:
     getPlanId: (courseId, planId) ->
