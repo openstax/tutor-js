@@ -78,8 +78,9 @@ BreadcrumbTaskDynamic = React.createClass
     stepId = crumb.id
     taskId = crumb.task.id
 
-    unless TaskStore.hasIncompleteCoreStepsIndexes(taskId)
-      TaskStepActions.loadPersonalized(stepId)
+    unless TaskStore.hasIncompleteCoreStepsIndexes(taskId) or
+      TaskStepStore.isLoadingPersonalized(stepId)
+        TaskStepActions.loadPersonalized(stepId)
 
   update: (id) ->
     {crumb} = @props
