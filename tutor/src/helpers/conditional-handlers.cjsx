@@ -2,6 +2,7 @@ React = require 'react'
 extend = require 'lodash/extend'
 {Redirect, Link} = require 'react-router'
 
+TutorRouter = require '../helpers/router'
 InvalidPage = require '../components/invalid-page'
 
 TeacherTaskPlans        = require '../components/task-plan/teacher-task-plans-listing'
@@ -37,7 +38,7 @@ module.exports =
       if CourseStore.isConceptCoach(courseId)
         <CCDashboard  courseId={courseId} {...props} />
       else
-        <TeacherTaskPlans {...props} />
+        <Redirect to={TutorRouter.makePathname('viewTeacherDashboard', props.params)}/>
     else
       if CourseStore.isConceptCoach(courseId)
         <CCStudentRedirect courseId={courseId} />
