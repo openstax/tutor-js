@@ -38,7 +38,10 @@ module.exports =
       if CourseStore.isConceptCoach(courseId)
         <CCDashboard  courseId={courseId} {...props} />
       else
-        <Redirect to={TutorRouter.makePathname('viewTeacherDashboard', props.params)}/>
+        <Redirect to={{
+          pathname: TutorRouter.makePathname('viewTeacherDashboard', props.params)
+          query: TutorRouter.currentQuery()
+        }}/>
     else
       if CourseStore.isConceptCoach(courseId)
         <CCStudentRedirect courseId={courseId} />
