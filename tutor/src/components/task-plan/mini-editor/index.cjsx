@@ -1,6 +1,7 @@
 React = require 'react'
 
 BS = require 'react-bootstrap'
+classnames = require 'classnames'
 
 LoadableItem = require '../../loadable-item'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
@@ -21,11 +22,16 @@ TaskPlanMiniEditorShell = React.createClass
   getInitialState: ->
     isVisible: true
 
+  handleError: (error) ->
+    @setState({error})
+
   renderEditor: ->
     <Editor
       id={@props.planId}
       onHide={@props.onHide}
       courseId={@props.courseId}
+      save={TaskPlanActions.saveSilent}
+      handleError={@handleError}
     />
 
   calculatePlacement: ->
@@ -35,6 +41,9 @@ TaskPlanMiniEditorShell = React.createClass
 
   render: ->
     {planId, courseId} = @props
+    popoverClasses = classnames('mini-task-editor-popover',
+      'is-errored': @state.error
+    )
 
     <div className="task-plan-mini-editor">
 
@@ -47,7 +56,7 @@ TaskPlanMiniEditorShell = React.createClass
       >
 
         <BS.Popover id='mini-task-editor-popover'
-          className="mini-task-editor-popover"
+          className={popoverClasses}
         >
 
           <LoadableItem

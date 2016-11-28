@@ -88,7 +88,7 @@ connectHandler = (apiHandler, Actions, allOptions...) ->
 
     handlers = makeRequestHandlers(Actions, options)
 
-    requestConfig = _.pick(request, 'url', 'method', 'data', 'params')
+    requestConfig = _.pick(request, 'url', 'method', 'data', 'params', 'handledErrors')
     requestConfig.url ?= interpolate(options.pattern, options.route or makeIdRouteData(args...))
 
     requestOptions = _.merge(_.pick(request, 'delay'), handlers)

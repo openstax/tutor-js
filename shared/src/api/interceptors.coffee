@@ -25,6 +25,10 @@ doesErrorMatch = (handledErrors, errorName) ->
     _.some(handledErrors, _.partial(minimatch, errorName))
 
 areAllErrorsHandled = (handledErrors, errors, errorNameProperty) ->
+
+  # use set and propertyOf for flexible errorNameProperty -- i.e. can be nested
+  errors ?= [_.set({}, errorNameProperty, 'HTTP_ERROR')]
+
   _.every errors, (error) ->
     errorName = _.propertyOf(error)(errorNameProperty)
     doesErrorMatch(handledErrors, errorName)
@@ -129,11 +133,12 @@ class Interceptors
   filterErrors: (error) =>
     {response, config} = error
     {data} = response
-
     return Promise.reject(error) if _.isEmpty(config)
 
-    if (_.isEmpty(config.handledErrors) or _.isEmpty(data.errors)) or
+    if _.isEmpty(config.handledErrors) or
       not areAllErrorsHandled(config.handledErrors, data.errors, @_apiHandler.getOptions().errorNameProperty)
         Promise.reject(error)
+    else
+      response
 
 module.exports = {Interceptors}

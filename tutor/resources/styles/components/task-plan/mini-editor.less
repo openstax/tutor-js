@@ -5,6 +5,15 @@
   max-width: 450px;
 
   .tutor-shadow(3);
+
+  // offset error content
+  &.is-errored {
+    margin-top: -80px;
+
+    .controls {
+      margin-top: 10px;
+    }
+  }
 }
 
 .task-plan-mini-editor {
@@ -60,5 +69,25 @@
     padding-top: 0;
     padding-bottom: 0;
     height: 28px;
+  }
+
+  .alert {
+    margin-bottom: 0;
+    margin-top: 10px;
+  }
+
+  .server-error {
+    h3 {
+      margin: 0;
+      text-align: left;
+      font-size: 20px;
+    }
+    p {
+      margin-bottom: 0;
+    }
+    a {
+      color: darken(@state-danger-text, 10%);
+      text-decoration: underline;
+    }
   }
 }

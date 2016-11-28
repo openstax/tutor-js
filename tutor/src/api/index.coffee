@@ -64,6 +64,21 @@ startAPI = ->
         url: "plans/#{id}"
   )
 
+  connectUpdate(TaskPlanActions, {
+      trigger: 'saveSilent'
+      handleError: (args...) ->
+        TaskPlanActions.erroredSilent(args...)
+        true
+      data: TaskPlanStore.getChanged
+    },
+    (id, courseId) ->
+      if TaskPlanStore.isNew(id)
+        url: "courses/#{courseId}/plans"
+        method: 'POST'
+      else
+        url: "plans/#{id}"
+  )
+
   connectRead(TaskPlanStatsActions, pattern: 'plans/{id}/stats')
   connectRead(TaskTeacherReviewActions, pattern: 'plans/{id}/review')
 
@@ -161,7 +176,9 @@ startAPI = ->
   # connectCreate(RosterActions, pattern: 'courses/{id}/roster')
   connectRead(RosterActions, pattern: 'courses/{id}/roster')
   connectUpdate(StudentIdActions, pattern: 'user/courses/{id}/student',
-    handledErrors: ['*'], handleError: StudentIdActions.errored
+    handleError: (args...) ->
+      StudentIdActions.errored(args...)
+      true
     data: (id, data) -> data
   )
 
@@ -177,7 +194,9 @@ startAPI = ->
 
   connectRead(TaskStepActions, pattern: 'steps/{id}')
   connectRead(TaskStepActions, pattern: 'steps/{id}', trigger: 'loadPersonalized',
-    handledErrors: ['*'], handleError: TaskStepActions.loadedNoPersonalized
+    handleError: (args...) ->
+      TaskStepActions.loadedNoPersonalized(args...)
+      true
   )
   connectModify(TaskStepActions, pattern: 'steps/{id}/completed', trigger: 'complete', onSuccess: 'completed')
   connectModify(TaskStepActions, pattern: 'steps/{id}/recovery', trigger: 'loadRecovery', onSuccess: 'loadedRecovery')
