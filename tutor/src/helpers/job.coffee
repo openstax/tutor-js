@@ -12,6 +12,14 @@ JOB_KILLED = 'killed'
 JOB_UNKNOWN = 'unknown'
 JOB_NOT_FOUND = 404
 
+JOB_URL_BASE = '/api/jobs/'
+
+getJobIdFromJobUrl = (jobUrl) ->
+  jobUrlSegments = jobUrl.split(JOB_URL_BASE)
+  jobId = jobUrlSegments[1] if jobUrlSegments[1]?
+
+  jobId
+
 JobListenerConfig = (checkIntervals, checkRepeats) ->
   {
     _asyncStatus: {}
@@ -127,6 +135,6 @@ JobListenerConfig = (checkIntervals, checkRepeats) ->
         status is JOBBED
   }
 
-JobHelper = {JobListenerConfig}
+JobHelper = {JobListenerConfig, getJobIdFromJobUrl}
 
 module.exports = JobHelper

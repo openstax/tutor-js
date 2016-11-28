@@ -1,9 +1,10 @@
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
-{JobListenerConfig} = require '../helpers/job'
+{JobListenerConfig, getJobIdFromJobUrl} = require '../helpers/job'
 
 getIds = (obj) ->
-  {publish_job, id} = obj
-  jobId = publish_job?.id or null
+  {publish_job, publish_job_url, id} = obj
+  jobId = publish_job?.id or (getJobIdFromJobUrl(publish_job_url) if publish_job_url?)
+
   {id, jobId}
 
 PlanPublishConfig =

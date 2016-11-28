@@ -20,9 +20,12 @@ PlanHelper =
     publishStatus = PlanPublishStore.getAsyncStatus(id)
     isPublishingInStore = PlanPublishStore.isPublishing(id)
 
-    if isPublishing and not isPublishingInStore and not PlanPublishStore.isPublished(id)
-      TaskPlanActions.load(plan.id)
-      PlanPublishStore.once("progress.#{id}.queued", _.partial(PlanHelper.startChecking, _, callback))
+    if isPublishing and
+      not isPublishingInStore and
+      not PlanPublishStore.isPublished(id) and
+      not jobId
+        TaskPlanActions.load(plan.id)
+        PlanPublishStore.once("progress.#{id}.queued", _.partial(PlanHelper.startChecking, _, callback))
 
     else if isPublishing or isPublishingInStore
 

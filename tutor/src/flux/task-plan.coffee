@@ -229,7 +229,7 @@ TaskPlanConfig =
   _saved: (obj, id) ->
     if obj.is_publishing
       PlanPublishActions.queued(obj, id)
-      @emit('publish-queued', id)
+      @emit('publish-queued', obj)
     obj
 
   resetPlan: (id) ->

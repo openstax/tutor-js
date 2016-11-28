@@ -1,6 +1,6 @@
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 {JobActions, JobStore} = require './job'
-{JobListenerConfig} = require '../helpers/job'
+{JobListenerConfig, getJobIdFromJobUrl} = require '../helpers/job'
 
 _ = require 'underscore'
 
@@ -8,15 +8,9 @@ ScoresExportConfig =
   _loaded: (obj, id) ->
     @emit('loaded', id)
 
-  getJobIdFromJobUrl: (jobUrl) ->
-    jobUrlSegments = jobUrl.split('/api/jobs/')
-    jobId = jobUrlSegments[1] if jobUrlSegments[1]?
-
-    jobId
-
   _getId: (obj, id) ->
     {job} = obj
-    jobId = @getJobIdFromJobUrl(job)
+    jobId = getJobIdFromJobUrl(job)
     {jobId, id}
 
   exports:
