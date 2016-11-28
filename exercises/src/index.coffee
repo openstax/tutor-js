@@ -1,18 +1,17 @@
 React = require 'react'
-ReactDOM = require 'react-dom'
+{ReactHelpers} = require 'shared'
 {AnswerActions, AnswerStore} = require './stores/answer'
 {QuestionActions, QuestionStore} = require './stores/answer'
 {ExerciseActions, ExerciseStore} = require './stores/exercise'
 
 MathJaxHelper =  require 'shared/src/helpers/mathjax'
 Exercise = require './components/exercise'
-App = require './components/app'
 api = require './api'
 
 
 # Just for debugging
 window.React = React
-window.App = React.createFactory(App)
+#window.App = React.createFactory(App)
 window.ExerciseActions = ExerciseActions
 window.ExerciseStore = ExerciseStore
 window.AnswerStore = AnswerStore
@@ -24,12 +23,14 @@ loadApp = ->
 
   api.start()
   MathJaxHelper.startMathJax()
-
-  root = document.createElement('div')
-  document.body.appendChild(root)
   data = JSON.parse(
     document.getElementById('exercises-boostrap-data')?.innerHTML or '{}'
   )
-  ReactDOM.render(window.App({data}), root)
+  # Both require and module.hot.accept must be passed a bare string, not variable
+  Renderer = ReactHelpers.renderRoot( ->
+    Component = require('./components/app')
+    -> React.createElement(Component, {data})
+  )
+  module.hot.accept('./components/app', Renderer) if module.hot
 
 document.addEventListener('DOMContentLoaded', loadApp)

@@ -1,8 +1,13 @@
-indexOf   = require 'lodash/indexOf'
-pickBy    = require 'lodash/pickBy'
-concat    = require 'lodash/concat'
-some      = require 'lodash/some'
-kebabCase = require 'lodash/kebabCase'
+require 'react-hot-loader/patch'
+
+React          = require 'react'
+ReactDOM       = require 'react-dom'
+{AppContainer} = require 'react-hot-loader'
+indexOf        = require 'lodash/indexOf'
+pickBy         = require 'lodash/pickBy'
+concat         = require 'lodash/concat'
+some           = require 'lodash/some'
+kebabCase      = require 'lodash/kebabCase'
 
 getBaseName = (context) -> kebabCase(context.constructor.displayName)
 
@@ -17,4 +22,19 @@ filterProps = (props, options = {}) ->
         name.indexOf(prefix) is 0
       )
 
-module.exports = {getBaseName, filterProps}
+renderRoot = (getComponent, rootEl) ->
+  unless rootEl
+    rootEl = document.createElement('div')
+    rootEl.id = 'ox-react-root-container'
+    document.body.appendChild(rootEl)
+
+  render = ->
+    Root = getComponent()
+    ReactDOM.render(
+      React.createElement(AppContainer, {}, React.createElement(Root))
+    , rootEl)
+
+  render()
+  return render
+
+module.exports = {getBaseName, filterProps, renderRoot}
