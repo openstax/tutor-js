@@ -87,7 +87,7 @@ PlanMixin =
     if saveable
       if TaskPlanStore.hasChanged(id)
         TaskPlanActions.saved.addListener(@saved)
-        TaskPlanActions.save(id, courseId)
+        if @props.save? then @props.save(id, courseId) else TaskPlanActions.save(id, courseId)
       else
         @saved()
     else

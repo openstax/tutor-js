@@ -71,6 +71,7 @@ TaskPlanConfig =
   _stats: {}
   _asyncStatusStats: {}
   _server_copy: {}
+  _silentError: {}
 
   _loaded: (obj, planId) ->
     @_server_copy[planId] = JSON.stringify(obj) if _.isObject(obj)
@@ -226,11 +227,18 @@ TaskPlanConfig =
     @emit('publishing', id)
     @_change(id, {is_publish_requested: true})
 
+  saveSilent: (id, obj) ->
+    @_save(id)
+    @emitChange()
+
   _saved: (obj, id) ->
     if obj.is_publishing
       PlanPublishActions.queued(obj, id)
       @emit('publish-queued', obj)
     obj
+
+  erroredSilent: (obj, id, courseId) ->
+    @emit('errored', obj)
 
   resetPlan: (id) ->
     @_local[id] = _.clone(@_getOriginal(id))

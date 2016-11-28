@@ -19,12 +19,15 @@ PublishButton = require '../footer/save-button'
 DraftButton   = require '../footer/save-as-draft'
 
 PlanMixin       = require '../plan-mixin'
+ServerErrorMessage = require '../../server-error-message'
+
 TaskPlanMiniEditor = React.createClass
 
   propTypes:
-    courseId: React.PropTypes.string.isRequired
-    id:   React.PropTypes.string.isRequired
-    onHide: React.PropTypes.func.isRequired
+    courseId:     React.PropTypes.string.isRequired
+    id:           React.PropTypes.string.isRequired
+    onHide:       React.PropTypes.func.isRequired
+    handleError:  React.PropTypes.func.isRequired
 
   mixins: [PlanMixin, BindStoresMixin]
   getBindEvents: ->
@@ -33,6 +36,10 @@ TaskPlanMiniEditor = React.createClass
       store: TaskingStore
       listenTo: "taskings.#{id}.*.changed"
       callback: @changeTaskPlan
+    taskErrored:
+      store: TaskPlanStore
+      listenTo: 'errored'
+      callback: @setError
 
   changeTaskPlan: ->
     {id} = @props
@@ -43,6 +50,10 @@ TaskPlanMiniEditor = React.createClass
   setTitle: (title) ->
     {id} = @props
     TaskPlanActions.updateTitle(id, title)
+
+  setError: (error) ->
+    @props.handleError(error)
+    @setState({error})
 
   componentWillMount: ->
     {id, courseId} = @props
@@ -72,7 +83,7 @@ TaskPlanMiniEditor = React.createClass
     plan = TaskPlanStore.get(@props.id)
     isPublished = TaskPlanStore.isPublished(@props.id)
 
-    <div className="task-plan-mini-editor">
+    <div className='task-plan-mini-editor'>
       <div className="row">
         <BS.Col xs=12>
           <h4>Add Past Assignment</h4>
@@ -110,31 +121,35 @@ TaskPlanMiniEditor = React.createClass
         </BS.Col>
       </div>
 
+      {<BS.Alert bsStyle='danger' onDismiss={@onCancel}>
+        <ServerErrorMessage {...@state.error} debug={false} />
+      </BS.Alert> if @state.error}
+
       <div className="controls">
         <PublishButton
           bsSize='small'
           onSave={@onSave}
           onPublish={@onPublish}
-          isWaiting={!!(@isWaiting() and @state.publishing)}
+          isWaiting={!!(@isWaiting() and @state.publishing and _.isEmpty(@state.error))}
           isSaving={!!@state.saving}
           isEditable={!!@state.isEditable}
           isPublishing={!!@state.publishing}
           isPublished={isPublished}
-          disabled={@isWaiting()}
+          disabled={@isWaiting() or @state.error}
         />
         <DraftButton
           bsSize='small'
           isSavable={@isSaveable()}
           onClick={@onSave}
-          isWaiting={!!(@isWaiting() and @state.saving)}
-          disabled={@isWaiting()}
+          isWaiting={!!(@isWaiting() and @state.saving and _.isEmpty(@state.error))}
+          disabled={@isWaiting() or @state.error}
           isFailed={TaskPlanStore.isFailed(@props.idinde)}
         />
         <BS.Button
           bsSize='small'
           className='cancel'
           onClick={@onCancel}
-          disabled={@isWaiting()}
+          disabled={@isWaiting() and not @state.error}
         >
           Cancel
         </BS.Button>
