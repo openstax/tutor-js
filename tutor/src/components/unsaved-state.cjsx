@@ -4,7 +4,7 @@ _ = require 'underscore'
 moment = require 'moment'
 React = require 'react'
 TutorDialog = require './tutor-dialog'
-
+{AppStore} = require '../flux/app'
 
 UnsavedStateMixin = {
 
@@ -19,7 +19,7 @@ UnsavedStateMixin = {
 }
 
 TransitionAssistant = {
-  canTransition: -> not _.any(ACTIVE, (c) -> c._cannotTransition())
+  canTransition: -> not _.any(ACTIVE, (c) -> c._cannotTransition()) or AppStore.getError()?
   unsavedMessages: -> _.flatten( _.invoke(ACTIVE, '_unsavedMessages'), 1)
   checkTransitionStateTo: (destination) ->
 
