@@ -1,6 +1,7 @@
 React = require 'react'
 
 BS = require 'react-bootstrap'
+isEmpty = require 'lodash/isEmpty'
 
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 
@@ -133,7 +134,7 @@ TaskPlanMiniEditor = React.createClass
           bsSize='small'
           onSave={@onSave}
           onPublish={@onPublish}
-          isWaiting={!!(@isWaiting() and @state.publishing and _.isEmpty(@state.error))}
+          isWaiting={!!(@isWaiting() and @state.publishing and isEmpty(@state.error))}
           isSaving={!!@state.saving}
           isEditable={!!@state.isEditable}
           isPublishing={!!@state.publishing}
@@ -144,7 +145,7 @@ TaskPlanMiniEditor = React.createClass
           bsSize='small'
           isSavable={@isSaveable()}
           onClick={@onSave}
-          isWaiting={!!(@isWaiting() and @state.saving and _.isEmpty(@state.error))}
+          isWaiting={!!(@isWaiting() and @state.saving and isEmpty(@state.error))}
           disabled={@isWaiting() or @state.error}
           isFailed={TaskPlanStore.isFailed(@props.idinde)}
         />
