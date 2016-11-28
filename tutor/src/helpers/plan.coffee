@@ -15,7 +15,7 @@ PlanHelper =
 
   subscribeToPublishing: (plan, callback) ->
     {jobId, id} = PlanPublishStore._getIds(plan)
-    isPublishing = PlanHelper.isPublishing(plan)
+    isPublishing = PlanHelper.isPublishing(plan) or false
 
     publishStatus = PlanPublishStore.getAsyncStatus(id)
     isPublishingInStore = PlanPublishStore.isPublishing(id)
