@@ -12,6 +12,13 @@ DATA   = require '../../../../api/courses/1/dashboard'
 PLAN = _.extend({
   settings: { exercise_ids: [1, 2, 3] }
 }, _.findWhere(DATA.plans, id: '7'))
+
+
+getButtons = (wrapper) ->
+  publish: wrapper.find('.-publish')
+  save: wrapper.find('.-save')
+  cancel: wrapper.find('.btn.cancel')
+
 describe 'TaskPlan MiniEditor wrapper', ->
 
   beforeEach ->
@@ -28,6 +35,7 @@ describe 'TaskPlan MiniEditor wrapper', ->
       id: PLAN.id
       courseId: COURSE_ID
       onHide: sinon.spy()
+
 
   afterEach ->
     @sandbox.restore()
@@ -47,14 +55,40 @@ describe 'TaskPlan MiniEditor wrapper', ->
     expect(@props.onHide).to.have.been.called
     undefined
 
-  it 'publishes when publish is clicked', ->
+  it 'publishes and sets button state', ->
     wrapper = mount(<MiniEditor {...@props} />)
-    wrapper.find('.-publish').simulate('click')
+    {publish, save, cancel} = getButtons(wrapper)
+    @sandbox.stub(TaskPlanStore, 'isSaving', -> true)
+    expect(publish.text()).to.equal('Publish')
+    publish.simulate('click')
     expect(TaskPlanActions.publish).to.have.been.called
+
+    expect(publish.text()).to.equal('Publishing…')
+    expect(save.text()).to.equal('Save as Draft')
+    expect( publish.prop('disabled') ).to.equal(true)
+    expect( save.prop('disabled') ).to.equal(true)
+    expect( cancel.prop('disabled') ).to.equal(true)
     undefined
 
-  it 'saves as draft when clicked', ->
+  it 'saves as draft and sets button state', ->
     wrapper = mount(<MiniEditor {...@props} />)
-    wrapper.find('.-save').simulate('click')
+    {publish, save, cancel} = getButtons(wrapper)
+
+    expect(save.text()).to.equal('Save as Draft')
+    @sandbox.stub(TaskPlanStore, 'isSaving', -> true)
+    save.simulate('click')
+
     expect(TaskPlanActions.save).to.have.been.called
+    expect(save.text()).to.equal('Saving…')
+    expect(publish.text()).to.equal('Publish')
+    expect( publish.prop('disabled') ).to.equal(true)
+    expect( save.prop('disabled') ).to.equal(true)
+    expect( cancel.prop('disabled') ).to.equal(true)
+    undefined
+
+  it 'hides when cancel is clicked', ->
+    wrapper = mount(<MiniEditor {...@props} />)
+    {cancel} = getButtons(wrapper)
+    cancel.simulate('click')
+    expect(@props.onHide).to.have.been.called
     undefined

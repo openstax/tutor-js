@@ -52,8 +52,14 @@ TaskPlanMiniEditor = React.createClass
     @setState({saving: true, publishing: false})
     @save()
 
+  onPublish: ->
+    @setState({saving: false, publishing: true})
+    @publish()
+
   afterSave: ->
+    @setState({saving: false, publishing: false})
     @props.onHide()
+
   onCancel: ->
     plan = TaskPlanStore.get(@props.id)
     @props.onHide()
@@ -108,24 +114,27 @@ TaskPlanMiniEditor = React.createClass
         <PublishButton
           bsSize='small'
           onSave={@onSave}
-          onPublish={@publish}
-          isWaiting={@isWaiting()}
+          onPublish={@onPublish}
+          isWaiting={!!(@isWaiting() and @state.publishing)}
           isSaving={!!@state.saving}
           isEditable={!!@state.isEditable}
           isPublishing={!!@state.publishing}
           isPublished={isPublished}
+          disabled={@isWaiting()}
         />
         <DraftButton
           bsSize='small'
           isSavable={@isSaveable()}
           onClick={@onSave}
           isWaiting={!!(@isWaiting() and @state.saving)}
+          disabled={@isWaiting()}
           isFailed={TaskPlanStore.isFailed(@props.idinde)}
         />
         <BS.Button
           bsSize='small'
           className='cancel'
           onClick={@onCancel}
+          disabled={@isWaiting()}
         >
           Cancel
         </BS.Button>
