@@ -78,7 +78,8 @@ ScrollToMixin =
     GetPositionMixin.getTopPosition(el) - _.result(@, 'getScrollTopOffset', DEFAULT_TOP_OFFSET)
 
   scrollToTop: ->
-    @scrollToSelector('#react-root-container', updateHistory: false)
+    root = @props.windowImpl.document.body.querySelector('#react-root-container')
+    @scrollToElement(root, updateHistory: false) if root
 
   scrollToElement: (el, options = {} ) ->
     win       = @props.windowImpl
