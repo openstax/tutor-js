@@ -106,12 +106,10 @@ module.exports = React.createClass
     </BS.Modal>
 
   render: ->
-    <SpyMode.Content unstyled>
-      <div className='control add-period'>
-        <BS.Button onClick={@open} bsStyle='link'>
-          <i className='fa fa-plus' />
-          Add <CourseGroupingLabel courseId={@props.courseId} />
-        </BS.Button>
-        {@renderForm()}
-      </div>
-    </SpyMode.Content>
+    <div className='control add-period'>
+      <BS.Button onClick={@open} bsStyle='link'>
+        <i className='fa fa-plus' />
+        Add <CourseGroupingLabel courseId={@props.courseId} />
+      </BS.Button>
+      {@renderForm()}
+    </div>

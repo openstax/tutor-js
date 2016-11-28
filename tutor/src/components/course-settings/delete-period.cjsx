@@ -10,40 +10,40 @@ Icon = require '../icon'
 CourseGroupingLabel = require '../course-grouping-label'
 EMPTY_WARNING = 'EMPTY'
 
-ArchivePeriodLink = React.createClass
+DeletePeriodLink = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
     period: React.PropTypes.object.isRequired
-    afterArchive: React.PropTypes.func.isRequired
+    afterDelete: React.PropTypes.func.isRequired
 
   getInitialState: ->
     warning: ''
     isArchiving: false
 
   close: ->
-    @props.afterArchive()
+    @props.afterDelete()
     @refs.overlay?.hide()
     @setState(isArchiving: false)
 
-  performArchive: ->
+  performDelete: ->
     PeriodActions.delete(@props.period.id, @props.courseId)
     PeriodStore.once 'deleted', @close
     @setState(isArchiving: true)
 
   renderPopover: ->
-    <BS.Popover id='archive-period' className="archive-period">
+    <BS.Popover id='delete-period' className="delete-period">
       <p className="message">
         Archiving means
         this <CourseGroupingLabel lowercase courseId={@props.courseId} /> will
         not be visible on your dashboard, student scores, or export.
       </p>
       <div className="footer">
-        <AsyncButton className='archive-section' onClick={@performArchive}
+        <AsyncButton className='delete-section' onClick={@performDelete}
           isWaiting={PeriodStore.isDeleting(@props.period.id)}
           isFailed={PeriodStore.isFailed(@props.period.id)}
         >
-          <Icon type='archive' /> Archive
+          <Icon type='delete' /> Delete
         </AsyncButton>
         <BS.Button bsStyle="link" className="cancel" onClick={@close}>
           Cancel
@@ -55,14 +55,12 @@ ArchivePeriodLink = React.createClass
 
   render: ->
     return null if _.isEmpty @props.periods
-    <SpyMode.Content unstyled>
-      <BS.OverlayTrigger rootClose={true} ref='overlay'
-        trigger='click' placement='bottom' overlay={@renderPopover()}>
-          <a className="control archive-period">
-            <Icon type='archive' /> Archive <CourseGroupingLabel
-              courseId={@props.courseId} />
-          </a>
-      </BS.OverlayTrigger>
-    </SpyMode.Content>
+    <BS.OverlayTrigger rootClose={true} ref='overlay'
+      trigger='click' placement='bottom' overlay={@renderPopover()}>
+        <a className="control delete-period">
+          <Icon type='delete' /> Delete <CourseGroupingLabel
+            courseId={@props.courseId} />
+        </a>
+    </BS.OverlayTrigger>
 
-module.exports = ArchivePeriodLink
+module.exports = DeletePeriodLink

@@ -10,15 +10,15 @@ PH = require '../../helpers/period'
 {CourseStore, CourseActions} = require '../../flux/course'
 {RosterStore, RosterActions} = require '../../flux/roster'
 
-NoArchiveHelp = require './no-archive-help'
+
 PeriodRoster = require './period-roster'
 DroppedRoster = require './dropped-roster'
-ViewArchivedPeriods = require './view-archived-periods'
+
 StudentEnrollment = require './student-enrollment'
 
 AddPeriodLink = require './add-period'
 RenamePeriodLink = require './rename-period'
-ArchivePeriodLink = require './archive-period'
+DeletePeriodLink = require './delete-period'
 
 Tabs = require '../tabs'
 
@@ -64,11 +64,11 @@ CourseRoster = React.createClass
           period={activePeriod}
         />
 
-        <ArchivePeriodLink
+        <DeletePeriodLink
           courseId={@props.courseId}
           period={activePeriod}
           periods={periods}
-          afterArchive={@selectPreviousPeriod}
+          afterDelete={@selectPreviousPeriod}
         />
 
       </div>
@@ -100,9 +100,6 @@ CourseRoster = React.createClass
           onSelect={@onTabSelection}
         >
           <AddPeriodLink courseId={@props.courseId} periods={periods} />
-          <ViewArchivedPeriods courseId={@props.courseId}
-            afterRestore={@selectPreviousPeriod} />
-          <NoArchiveHelp courseId={@props.courseId} />
         </Tabs>
 
         <@ActivePeriod periods={periods} />
