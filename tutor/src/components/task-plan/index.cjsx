@@ -8,6 +8,8 @@ LoadableItem = require '../loadable-item'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 Router = require '../../helpers/router'
 
+{ScrollToMixin} = require 'shared'
+
 PLAN_TYPES =
   reading: ReadingPlan
   homework: HomeworkPlan
@@ -56,8 +58,12 @@ EventShell = React.createClass
 PlanShell = React.createClass
   displayName: 'PlanShell'
 
+  mixins: [ScrollToMixin]
+
   contextTypes:
     router: React.PropTypes.object
+
+  componentDidMount:  -> @scrollToTop()
 
   getInitialState: ->
     {id} = Router.currentParams()
