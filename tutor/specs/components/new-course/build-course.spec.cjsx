@@ -1,6 +1,7 @@
 {React, sinon, pause} = require '../helpers/component-testing'
 {shallow} = require 'enzyme'
 
+EnzymeContext = require '../helpers/enzyme-context'
 BuildCourse = require '../../../src/components/new-course/build-course'
 
 {NewCourseActions, NewCourseStore} = require '../../../src/flux/new-course'
@@ -9,29 +10,27 @@ describe 'CreateCourse: saving new course', ->
 
   beforeEach ->
     sinon.stub(NewCourseActions, 'save')
+    @options = EnzymeContext.build()
   afterEach ->
     NewCourseActions.save.restore()
 
-  it 'it transitions to ready after save', ->
-    wrapper = shallow(<BuildCourse />)
-    expect(NewCourseActions.save.calledOnce).to.be.true
-    expect(wrapper.text()).to.include('building')
-    NewCourseActions.created({id: '1'})
-    wrapper.setState({})
-    expect(wrapper.text()).to.include('continue to your new course')
+  it 'calls save once mounted', ->
+    shallow(<BuildCourse course={NewCourseStore.newCourse()} />, @options)
+    expect(NewCourseActions.save).to.have.been.called
     undefined
 
-  it 'has a product dependent link', ->
-    NewCourseActions.created({id: '1', is_concept_coach: false})
-    wrapper = shallow(<BuildCourse.Footer course={NewCourseStore.newCourse()} />)
-    expect(wrapper.find('TutorLink[to="dashboard"]')).to.have.length(1)
-    NewCourseActions.created({id: '1', is_concept_coach: true})
-    wrapper = shallow(<BuildCourse.Footer course={NewCourseStore.newCourse()} />)
-    expect(wrapper.find('TutorLink[to="ccDashboardHelp"]')).to.have.length(1)
-    undefined
+  describe 'after course is created', ->
 
-  it 'has a link with showIntro query to link to calendar with intro', ->
-    NewCourseActions.created({id: '1', is_concept_coach: false})
-    wrapper = shallow(<BuildCourse.Footer course={NewCourseStore.newCourse()} />)
-    expect(wrapper.find(query: showIntro: 'true')).to.have.length(1)
-    undefined
+    it 'redirects to Tutor for Tutor', ->
+      NewCourseActions.created({id: '42', is_concept_coach: false})
+      wrapper = shallow(<BuildCourse />, @options)
+      NewCourseStore.emit('change')
+      expect(@options.context.router.transitionTo).to.have.been.calledWith('/course/42?showIntro=true')
+      undefined
+
+    it 'redirects to CC', ->
+      NewCourseActions.created({id: '21', is_concept_coach: true})
+      wrapper = shallow(<BuildCourse />, @options)
+      NewCourseStore.emit('change')
+      expect(@options.context.router.transitionTo).to.have.been.calledWith('/course/21/cc/help?showIntro=true')
+      undefined

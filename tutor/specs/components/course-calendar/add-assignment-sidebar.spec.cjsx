@@ -16,6 +16,8 @@ describe 'CourseCalendar AddAssignmentMenu', ->
     @props =
       courseId: '1'
       onSidebarToggle: sinon.spy()
+      isOpen: false
+      shouldIntro: false
       hasPeriods: true
 
   it 'renders with style for periods', ->

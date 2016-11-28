@@ -3,52 +3,39 @@ BS = require 'react-bootstrap'
 Icon = require '../icon'
 TutorLink = require '../link'
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
-OXFancyLoader = require '../ox-fancy-loader'
+
+BindStoreMixin = require '../bind-store-mixin'
+Router = require '../../helpers/router'
 
 BuildCourse = React.createClass
   displayName: 'BuildCourse'
   statics:
-    Footer: ({course}) ->
-      controls = if course?
-        <TutorLink
-          to={if course.is_concept_coach then 'ccDashboardHelp' else 'dashboard'}
-          params={courseId: course.id}
-          query={showIntro: 'true'}
-          className='btn btn-primary next'
-        >
-          Continue to new course
-        </TutorLink>
-      else
-        <BS.Button bsStyle='primary' className='next'>
-          Continue to new course
-        </BS.Button>
-
-      <div className="controls">
-        {controls}
-      </div>
-    title: 'Your new course is ready!'
-
+    title: 'Creating your new course'
+    Footer: ->
+      <span />
   componentWillMount: ->
     NewCourseActions.save()
 
-  renderSaved: (newCourse) ->
-    <div>
-      <h4>You can now continue to your new course.</h4>
-    </div>
+  contextTypes:
+    router: React.PropTypes.object
 
-  renderPending: ->
-    # covered by loading animation
+  bindUpdate: ->
+    newCourse = NewCourseStore.newCourse()
+    @redirectToCourse(newCourse) if newCourse
+
+  redirectToCourse: (course) ->
+    to = if course.is_concept_coach then 'ccDashboardHelp' else 'dashboard'
+    @context.router.transitionTo(Router.makePathname(
+      to, {courseId: course.id}, query: {showIntro: 'true'}
+    ))
+
+  mixins: [BindStoreMixin]
+  bindStore: NewCourseStore
+
+  render: ->
     <div>
       <h4>We’re building your Tutor course…</h4>
       <p>Should take about 10 seconds</p>
     </div>
-
-  render: ->
-    newCourse = NewCourseStore.newCourse()
-    if newCourse
-      @renderSaved(newCourse)
-    else
-      @renderPending()
-
 
 module.exports = BuildCourse

@@ -9,7 +9,7 @@ capitalize = require 'lodash/capitalize'
 classnames = require 'classnames'
 
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
-
+{CourseStore} = require '../../flux/course'
 {OfferingsStore} = require '../../flux/offerings'
 CourseInformation = require '../../flux/course-information'
 
@@ -20,6 +20,7 @@ CourseDetails = React.createClass
 
   componentWillMount: ->
     NewCourseActions.set({num_sections: 1}) unless NewCourseStore.get('num_sections')
+
     unless NewCourseStore.get('name')
       offeringId = NewCourseStore.get('offering_id')
       return unless offeringId
