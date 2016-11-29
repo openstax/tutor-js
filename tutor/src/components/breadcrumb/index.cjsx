@@ -48,22 +48,15 @@ BreadcrumbTaskDynamic = React.createClass
   displayName: 'BreadcrumbTaskDynamic'
   componentWillMount: ->
     {crumb} = @props
-
     @setStep(@props)
-
     TaskStepStore.on('step.completed', @update)
-
     if TaskStepStore.isPlaceholder(crumb.id)
-      TaskStepStore.on('step.completed', @checkPlaceholder)
       TaskStepStore.on('step.loaded', @update)
 
-  removeListeners: ->
+  componentWillUnmount: ->
     TaskStepStore.off('step.completed', @update)
-    TaskStepStore.off('step.completed', @checkPlaceholder)
     TaskStepStore.off('step.loaded', @update)
 
-  componentWillUnmount: ->
-    @removeListeners()
 
   componentDidMount: ->
     @props.onMount?()
@@ -85,11 +78,13 @@ BreadcrumbTaskDynamic = React.createClass
     stepId = crumb.id
     taskId = crumb.task.id
 
-    unless TaskStore.hasIncompleteCoreStepsIndexes(taskId)
-      TaskStepActions.loadPersonalized(stepId)
+    unless TaskStore.hasIncompleteCoreStepsIndexes(taskId) or
+      TaskStepStore.isLoadingPersonalized(stepId)
+        TaskStepActions.loadPersonalized(stepId)
 
   update: (id) ->
     {crumb} = @props
+    @checkPlaceholder() if TaskStepStore.isPlaceholder(crumb.id)
 
     if (crumb.id is id)
       @setStep(@props)
