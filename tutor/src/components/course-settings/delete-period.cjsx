@@ -9,6 +9,42 @@ _ = require 'underscore'
 Icon = require '../icon'
 CourseGroupingLabel = require '../course-grouping-label'
 EMPTY_WARNING = 'EMPTY'
+{AsyncButton} = require 'shared'
+
+
+DeleteCourseModal = (props) ->
+
+  <BS.Modal
+    show={props.show}
+    onHide={props.onClose}
+    className='delete-period'>
+
+    <BS.Modal.Header closeButton>
+      <BS.Modal.Title>Delete {props.period.name}</BS.Modal.Title>
+    </BS.Modal.Header>
+    <BS.Modal.Body>
+      <p>
+        If you delete this section you will no longer have access to work
+        done in that section and those students will be removed from the course.
+      </p>
+      <p>
+        Are you sure you want to delete this section?
+      </p>
+    </BS.Modal.Body>
+    <BS.Modal.Footer>
+      <AsyncButton
+        bsStyle="danger"
+        onClick={props.onDelete}
+        waitingText='Deleting…'
+        isWaiting={props.isBusy}
+      >Delete</AsyncButton>
+      <BS.Button
+        disabled={props.isBusy}
+        onClick={props.onClose}>Cancel</BS.Button>
+
+    </BS.Modal.Footer>
+
+  </BS.Modal>
 
 DeletePeriodLink = React.createClass
 
@@ -18,49 +54,33 @@ DeletePeriodLink = React.createClass
     afterDelete: React.PropTypes.func.isRequired
 
   getInitialState: ->
-    warning: ''
-    isArchiving: false
+    isShown: false
 
-  close: ->
-    @props.afterDelete()
-    @refs.overlay?.hide()
-    @setState(isArchiving: false)
+  onClose: ->
+    @setState(isShown: false)
+
+  displayModal: ->
+    @setState(isShown: true)
 
   performDelete: ->
     PeriodActions.delete(@props.period.id, @props.courseId)
-    PeriodStore.once 'deleted', @close
-    @setState(isArchiving: true)
+    PeriodStore.once 'deleted', @onClose
+    @setState(isShown: false)
 
-  renderPopover: ->
-    <BS.Popover id='delete-period' className="delete-period">
-      <p className="message">
-        Archiving means
-        this <CourseGroupingLabel lowercase courseId={@props.courseId} /> will
-        not be visible on your dashboard, student scores, or export.
-      </p>
-      <div className="footer">
-        <AsyncButton className='delete-section' onClick={@performDelete}
-          isWaiting={PeriodStore.isDeleting(@props.period.id)}
-          isFailed={PeriodStore.isFailed(@props.period.id)}
-        >
-          <Icon type='delete' /> Delete
-        </AsyncButton>
-        <BS.Button bsStyle="link" className="cancel" onClick={@close}>
-          Cancel
-        </BS.Button>
-
-      </div>
-
-    </BS.Popover>
 
   render: ->
     return null if _.isEmpty @props.periods
-    <BS.OverlayTrigger rootClose={true} ref='overlay'
-      trigger='click' placement='bottom' overlay={@renderPopover()}>
-        <a className="control delete-period">
-          <Icon type='delete' /> Delete <CourseGroupingLabel
-            courseId={@props.courseId} />
-        </a>
-    </BS.OverlayTrigger>
+    <a className="control delete-period" onClick={@displayModal}>
+      <DeleteCourseModal
+        show={@state.isShown}
+        period={@props.period}
+        onClose={@onClose}
+        isBusy={PeriodStore.isDeleting(@props.period.id)}
+        onDelete={@performDelete}
+      />
+      <Icon type='archive' />
+      Delete <CourseGroupingLabel courseId={@props.courseId} />
+    </a>
+
 
 module.exports = DeletePeriodLink
