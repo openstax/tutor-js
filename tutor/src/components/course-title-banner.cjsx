@@ -22,7 +22,7 @@ CourseTitleBanner = React.createClass
       {...dataProps}
     >
       <div className='book-title'>
-        {dataProps['data-title']} pretending to be a super long name for a course
+        {dataProps['data-title']}
       </div>
       <div className='course-term'>
         {CourseStore.getTerm(@props.courseId)}
