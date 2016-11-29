@@ -218,34 +218,13 @@
   }
 }
 
-.delete-period.popover {
-  width: 350px;
-  max-width: 350px;
-  .message {
-    #fonts > .sans(1.5rem, 1.5rem);
-    text-align: center;
-    border-bottom: 1px solid @tutor-neutral-bright;
-    padding: 0.5rem 0.5rem 1rem 0.5rem;
-    margin-bottom: 1rem;
+.delete-period {
+  #fonts > .sans(1.4rem, 1.6rem);
+  .modal-header {
+    .left-stripe(@tutor-tertiary-lighter, @stripe-color: @tutor-tertiary-light);
   }
-  .footer {
-    display: flex;
-    .btn {
-      text-transform: inherit;
-      margin: auto;
-      display: block;
-      border-radius: 0;
-
-    }
-    // override material-design
-    .btn-default:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
-      background-color: @tutor-secondary;
-      color: @tutor-neutral-bright !important;
-    }
-    .cancel {
-      color: @link-color;
-      cursor: pointer;
-    }
+  .modal-footer {
+    text-align: left;
   }
 }
 
