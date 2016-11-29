@@ -147,11 +147,12 @@ TaskPlanMiniEditor = React.createClass
           onClick={@onSave}
           isWaiting={!!(@isWaiting() and @state.saving and isEmpty(@state.error))}
           disabled={@isWaiting() or @state.error}
-          isFailed={TaskPlanStore.isFailed(@props.idinde)}
+          isFailed={TaskPlanStore.isFailed(@props.id)}
         />
         <BS.Button
           bsSize='small'
           className='cancel'
+          bsStyle={if @state.error? then 'primary'}
           onClick={@onCancel}
           disabled={@isWaiting() and not @state.error}
         >
