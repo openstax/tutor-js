@@ -125,7 +125,7 @@ TaskPlanMiniEditor = React.createClass
         </BS.Col>
       </div>
 
-      {<BS.Alert bsStyle='danger' onDismiss={@onCancel}>
+      {<BS.Alert bsStyle='danger'>
         <ServerErrorMessage {...@state.error} debug={false} />
       </BS.Alert> if @state.error}
 
