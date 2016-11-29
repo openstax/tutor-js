@@ -45,6 +45,7 @@ TeacherTaskPlanConfig =
       @emitChange()
 
   addPublishingPlan: (plan, courseId) ->
+    return unless @_local[courseId]?
     addPlan(plan, @_local[courseId])
     @emitChange()
 
