@@ -92,6 +92,16 @@
     }
   }
 
+  &.is-open {
+    ul.is-intro {
+      li:first-child {
+        .tutor-plan-sidebar(@reading-color);
+        border-color: @reading-color;
+        .tutor-shadow(draggable);
+      }
+    }
+  }
+
   ul {
     list-style-type: none;
     padding-left: 0;
@@ -99,9 +109,7 @@
 
     &.is-intro {
       li:first-child {
-        .tutor-plan-sidebar(@reading-color);
-        border-color: @reading-color;
-        .tutor-shadow(draggable);
+        .transition(~'border-color 500ms ease-in-out, box-shadow 500ms ease-in-out');
       }
     }
 
@@ -176,5 +184,6 @@
       );
     }
   }
-
 }
+
+
