@@ -6,7 +6,6 @@
   color: @openstax-book-default-fg;
   background-color: @openstax-book-default-bg;
 
-  letter-spacing: -2px;
   #fonts > .book-cover();
   z-index: -1;
 
@@ -15,31 +14,27 @@
   left: 0px;
   right: 0px;
 
-  font-size: 3.8rem;
-  line-height: 4rem;
-  padding: 1.5rem 0;
-  // @media (min-width: @screen-sm-min) {
-  //   height: 10.5rem;
-  //   line-height: 10.5rem;
-  //   font-size: 5rem;
-  // }
-  // @media (min-width: @screen-md-min) {
-  //   height: 10.5rem;
-  //   line-height: 10.5rem;
-  //   font-size: 5rem;
-  // }
-  // @media (min-width: @screen-lg-min) {
-  //   height: 10.5rem;
-  //   line-height: 10.5rem;
-  //   font-size: 5rem;
-  // }
+  padding: 3rem 0;
+
+  > .book-title,
+  > .course-term {
+    &:extend(.container);
+    // white-space: nowrap;
+    // overflow: hidden;
+    // text-overflow: ellipsis;
+
+  }
 
   > .book-title {
-    &:extend(.container);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    letter-spacing: -2px;
+    font-size: 3.8rem;
+    line-height: 4.4rem;
+    margin-top: -0.3rem;
+  }
 
+  > .course-term {
+    font-weight: 200;
+    line-height: 1em;
   }
 
   .apply-booksplash-background(@code; @fg; @bg) {

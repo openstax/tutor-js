@@ -15,14 +15,17 @@ CourseTitleBanner = React.createClass
       'data-title': CourseStore.getName(@props.courseId)
       'data-appearance': CourseStore.getAppearanceCode(@props.courseId)
 
-    dataProps.term = CourseStore.getTerm(@props.courseId)
+    dataProps['data-term'] = CourseStore.getTerm(@props.courseId)
 
     <div
       className="course-title-banner"
       {...dataProps}
     >
-      <div className="book-title">
-        {dataProps['data-title']}
+      <div className='book-title'>
+        {dataProps['data-title']} pretending to be a super long name for a course
+      </div>
+      <div className='course-term'>
+        {CourseStore.getTerm(@props.courseId)}
       </div>
     </div>
 
