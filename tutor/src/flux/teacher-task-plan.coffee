@@ -44,8 +44,11 @@ TeacherTaskPlanConfig =
       plans.splice(indx, 1)
       @emitChange()
 
-  addPublishingPlan: (plan, courseId) ->
-    addPlan(plan, @_local[courseId])
+  addPublishingPlan: (publishingPlan, courseId) ->
+    existingPlans = @_local[courseId]
+    return unless existingPlans?
+
+    addPlan(publishingPlan, existingPlans)
     @emitChange()
 
   exports:
