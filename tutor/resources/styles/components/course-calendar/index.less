@@ -10,6 +10,7 @@
 @import './plan-details';
 
 .calendar-container {
+  @sidebar-animation-duration: 0.5s;
 
   &:extend(.container);
 
@@ -17,8 +18,11 @@
     position: relative;
     overflow: hidden;
   }
+  .sidebar-toggle {
+    transition: background-color @sidebar-animation-duration;
+  }
   .month-body {
-    transition: margin-left 0.5s;
+    transition: margin-left @sidebar-animation-duration;
     margin-left: 0px;
   }
 
@@ -27,7 +31,7 @@
   }
 
   .add-assignment-sidebar {
-    transition: left 0.5s;
+    transition: left @sidebar-animation-duration;
     left: -@calendar-sidebar-width;
   }
 

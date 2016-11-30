@@ -17,6 +17,7 @@ CalendarSidebarToggle = React.createClass
     defaultOpen: false
 
   getInitialState: ->
+    iconType: 'bars'
     isOpen: false
 
   componentWillMount: ->
@@ -25,6 +26,9 @@ CalendarSidebarToggle = React.createClass
   componentWillUnmount: ->
     CalendarHelper.clearScheduledEvent(@state.pendingIntroTimeout)
 
+  setIconType: ->
+    @setState(iconType: if @state.isOpen then 'times' else 'bars')
+
   onToggle: ->
     isOpen = not @state.isOpen
     @setState({isOpen, pendingIntroTimeout: false})
@@ -32,10 +36,11 @@ CalendarSidebarToggle = React.createClass
 
   render: ->
     <Button
+      onTransitionEnd={@setIconType}
       onClick={@onToggle}
       className={classnames("sidebar-toggle", open: @state.isOpen)}
     >
-      <Icon type={if @state.isOpen then 'times' else 'bars'} />
+      <Icon type={@state.iconType} />
       <span className="text">Add Assignment</span>
     </Button>
 
