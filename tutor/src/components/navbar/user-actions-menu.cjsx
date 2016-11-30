@@ -100,7 +100,7 @@ UserActionsMenu = React.createClass
 
     <BS.NavDropdown
       eventKey={1}
-      className={classnames('-hamburger-menu', 'is-concept-coach': course?.is_concept_coach)}
+      className={classnames('user-actions-menu', 'is-concept-coach': course?.is_concept_coach)}
       id='navbar-dropdown'
       title={<UserName/>}
       ref='navDropDown'>
