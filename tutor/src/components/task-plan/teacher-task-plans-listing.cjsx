@@ -156,15 +156,7 @@ TeacherTaskPlanListing = React.createClass
       loadPlansList, courseId, date, displayAs, hasPeriods, params, termStart, termEnd
     }
     loadingCalendarProps = if hasPeriods
-      {
-        loadPlansList,
-        courseId,
-        date,
-        displayAs,
-        hasPeriods,
-        params,
-        className: 'calendar-loading'
-      }
+      _.extend(className: 'calendar-loading', loadedCalendarProps)
     else
       loadedCalendarProps
 
