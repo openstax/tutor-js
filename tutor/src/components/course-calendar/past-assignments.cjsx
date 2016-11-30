@@ -16,7 +16,7 @@ LoadableItem = require '../loadable-item'
 PastAssignmentsLoading = ({className}) ->
   <div className={classnames('past-assignments', className)}>
     <div className="no-plans is-loading">
-      Loading past assignments...
+      Loading copied assignments...
     </div>
   </div>
 
