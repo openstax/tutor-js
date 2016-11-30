@@ -1,4 +1,5 @@
 {React} = require '../helpers/component-testing'
+{UiSettings} = require 'shared'
 
 jest.mock('../../../src/components/course-calendar/helper')
 Helper = require '../../../src/components/course-calendar/helper'
@@ -8,7 +9,9 @@ Toggle = require '../../../src/components/course-calendar/sidebar-toggle'
 describe 'CourseCalendar Sidebar Toggle', ->
 
   beforeEach ->
+
     @props =
+      courseId: '42'
       onToggle: sinon.spy()
 
   it 'renders and toggles', ->
@@ -25,4 +28,10 @@ describe 'CourseCalendar Sidebar Toggle', ->
     expect(Helper.scheduleIntroEvent).toHaveBeenCalled()
     wrapper.unmount()
     expect(Helper.clearScheduledEvent).toHaveBeenCalledWith(42)
+    undefined
+
+  it 'stores per-course state using helper', ->
+    wrapper = shallow(<Toggle {...@props} />)
+    wrapper.simulate('click')
+    expect(Helper.setSidebarOpen).toHaveBeenCalledWith(@props.courseId, true)
     undefined

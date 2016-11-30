@@ -1,11 +1,14 @@
 TutorRouter = require '../../helpers/router'
+{UiSettings} = require 'shared'
 
 _ = require 'lodash'
+
+SIDEBAR_KEY_PREFIX = "calsidebar"
 
 module.exports =
 
   shouldIntro: ->
-    TutorRouter.currentQuery()?.showIntro is 'true'
+    TutorRouter.currentQuery().showIntro is 'true'
 
   scheduleIntroEvent: (cbFn, args...) ->
     if @shouldIntro()
@@ -15,3 +18,9 @@ module.exports =
 
   clearScheduledEvent: (event) ->
     clearTimeout(event) if (event)
+
+  isSidebarOpen: (courseId) ->
+    !!UiSettings.get("#{SIDEBAR_KEY_PREFIX}.#{courseId}")
+
+  setSidebarOpen: (courseId, isOpen) ->
+    UiSettings.set("#{SIDEBAR_KEY_PREFIX}.#{courseId}", isOpen)
