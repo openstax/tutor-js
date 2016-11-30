@@ -83,10 +83,11 @@ TeacherTaskPlanListing = React.createClass
       displayAs: 'month'
 
   getDateStates: (state) ->
-    date = @getDateFromParams()
+    courseDates = @getBoundsForCourse()
+    date = @getDateFromParams(courseDates)
 
     bounds = @getBoundsForDate(date, state)
-    _.extend({date}, bounds)
+    _.extend({date}, bounds, courseDates)
 
   getBoundsForDate: (date, state) ->
     state ?= @state
@@ -110,9 +111,22 @@ TeacherTaskPlanListing = React.createClass
   loadToListing: (plan) ->
     TeacherTaskPlanActions.addPublishingPlan(plan, @props.params.courseId)
 
-  getDateFromParams: ->
+  getBoundsForCourse: ->
+    course = CourseStore.get(@props.params.courseId)
+
+    termStart = TimeHelper.getMomentPreserveDate(course.starts_at, @props.dateFormat)
+    termEnd = TimeHelper.getMomentPreserveDate(course.ends_at, @props.dateFormat)
+
+    {termStart, termEnd}
+
+  getDateFromParams: ({termStart, termEnd}) ->
     {date} = @props.params
-    TimeHelper.getMomentPreserveDate(date or new Date, @props.dateFormat)
+
+    if date
+      TimeHelper.getMomentPreserveDate(date, @props.dateFormat)
+    else
+      now = TimeHelper.getMomentPreserveDate(TimeStore.getNow(), @props.dateFormat)
+      if termStart.isAfter(now) then termStart else now
 
   isLoadingOrLoad: ->
     courseId = @props.params.courseId
@@ -132,13 +146,15 @@ TeacherTaskPlanListing = React.createClass
     {courseId} = params
 
     {displayAs} = @state
-    {date, startAt, endAt} = @getDateStates()
+    {date, startAt, endAt, termStart, termEnd} = @getDateStates()
 
     course  = CourseStore.get(courseId)
     hasPeriods = PH.hasPeriods(course)
 
     loadPlansList = _.partial(TeacherTaskPlanStore.getActiveCoursePlans, courseId)
-    loadedCalendarProps = {loadPlansList, courseId, date, displayAs, hasPeriods, params}
+    loadedCalendarProps = {
+      loadPlansList, courseId, date, displayAs, hasPeriods, params, termStart, termEnd
+    }
     loadingCalendarProps = if hasPeriods
       {
         loadPlansList,
