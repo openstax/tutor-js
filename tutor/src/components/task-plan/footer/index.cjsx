@@ -77,7 +77,7 @@ PlanFooter = React.createClass
     isFailed    = TaskPlanStore.isFailed(id)
     isPublished = TaskPlanStore.isPublished(id)
 
-    <div className='footer-buttons'>
+    <div className='builder-footer-controls'>
       <SaveButton
         onSave={@onSave}
         onPublish={@props.onPublish}

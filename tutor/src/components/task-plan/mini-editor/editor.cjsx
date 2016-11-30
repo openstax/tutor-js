@@ -129,7 +129,7 @@ TaskPlanMiniEditor = React.createClass
         <ServerErrorMessage {...@state.error} debug={false} />
       </BS.Alert> if @state.error}
 
-      <div className="controls">
+      <div className="builder-footer-controls">
         <PublishButton
           bsSize='small'
           onSave={@onSave}
