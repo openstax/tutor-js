@@ -87,6 +87,12 @@ PlanFooter = React.createClass
         isPublishing={@state.publishing}
         isPublished={isPublished}
       />
+      <DraftButton
+        isSavable={isSaveable}
+        onClick={@onSave}
+        isWaiting={isWaiting and @state.saving}
+        isFailed={isFailed}
+      />
       <CancelButton
         isWaiting={isWaiting}
         onClick={@props.onCancel}
@@ -95,12 +101,6 @@ PlanFooter = React.createClass
       <BackButton
         isEditable={@state.isEditable}
         getBackToCalendarParams={@props.getBackToCalendarParams}
-      />
-      <DraftButton
-        isSavable={isSaveable}
-        onClick={@onSave}
-        isWaiting={isWaiting and @state.saving}
-        isFailed={isFailed}
       />
       <HelpTooltip
         isPublished={isPublished}
