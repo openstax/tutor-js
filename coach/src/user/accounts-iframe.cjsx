@@ -1,6 +1,7 @@
 # coffeelint: disable=no_empty_functions
 
 React = require 'react'
+ReactDOM = require 'react-dom'
 classnames = require 'classnames'
 
 api   = require '../api'
@@ -46,7 +47,7 @@ AccountsIframe = React.createClass
 
   sendCommand: (command, payload = {}) ->
     msg = JSON.stringify(data: {"#{command}": payload})
-    React.findDOMNode(@refs.iframe).contentWindow.postMessage(msg, '*')
+    ReactDOM.findDOMNode(@refs.iframe).contentWindow.postMessage(msg, '*')
 
   parseAndDispatchMessage: (msg) ->
     return unless @isMounted()
@@ -73,9 +74,6 @@ AccountsIframe = React.createClass
     url = "#{url}?parent=#{me}"
     className = classnames( 'accounts-iframe', @props.type )
     <div className={className}>
-      <div className="heading">
-        <h3 className="title">{@state?.title}</h3>
-      </div>
       <iframe src={url} ref='iframe'
         style={width: @state.width, height: @state.height, border: 0}
         id="OxAccountIframe" name="OxAccountIframe">
