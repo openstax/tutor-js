@@ -77,7 +77,7 @@ PlanFooter = React.createClass
     isFailed    = TaskPlanStore.isFailed(id)
     isPublished = TaskPlanStore.isPublished(id)
 
-    <div className='footer-buttons'>
+    <div className='builder-footer-controls'>
       <SaveButton
         onSave={@onSave}
         onPublish={@props.onPublish}
@@ -87,6 +87,12 @@ PlanFooter = React.createClass
         isPublishing={@state.publishing}
         isPublished={isPublished}
       />
+      <DraftButton
+        isSavable={isSaveable}
+        onClick={@onSave}
+        isWaiting={isWaiting and @state.saving}
+        isFailed={isFailed}
+      />
       <CancelButton
         isWaiting={isWaiting}
         onClick={@props.onCancel}
@@ -95,12 +101,6 @@ PlanFooter = React.createClass
       <BackButton
         isEditable={@state.isEditable}
         getBackToCalendarParams={@props.getBackToCalendarParams}
-      />
-      <DraftButton
-        isSavable={isSaveable}
-        onClick={@onSave}
-        isWaiting={isWaiting and @state.saving}
-        isFailed={isFailed}
       />
       <HelpTooltip
         isPublished={isPublished}
