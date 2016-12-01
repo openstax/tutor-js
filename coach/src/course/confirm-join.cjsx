@@ -13,7 +13,7 @@ ConfirmJoin = React.createClass
   render: ->
     <Join
       course={@props.course}
-      errorList={React.createElement(ErrorList, course: @props.course)}
+      errorList={<ErrorList course={@props.course} />}
       optionalStudentId={@props.optionalStudentId}
     />
 

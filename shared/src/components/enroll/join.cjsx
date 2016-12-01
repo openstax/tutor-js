@@ -9,7 +9,7 @@ Join = React.createClass
 
   propTypes:
     course: React.PropTypes.object.isRequired
-    errorList: React.PropTypes.instanceOf(React.Component).isRequired
+    errorList: React.PropTypes.element.isRequired
     optionalStudentId: React.PropTypes.bool
 
   startConfirmation: ->
