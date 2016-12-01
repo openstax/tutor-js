@@ -16,6 +16,8 @@ TaskingDateTimes = React.createClass
   propTypes:
     id:                  React.PropTypes.string.isRequired
     courseId:            React.PropTypes.string.isRequired
+    termStart:           TimeHelper.PropTypes.moment
+    termEnd:             TimeHelper.PropTypes.moment
     isEditable:          React.PropTypes.bool.isRequired
     isVisibleToStudents: React.PropTypes.bool
     taskingIdentifier:   React.PropTypes.string.isRequired
@@ -61,17 +63,26 @@ TaskingDateTimes = React.createClass
     TaskingActions.updateTime(id, period, type, value)
 
   render: ->
-    {isVisibleToStudents, isEditable, period, id} = @props
+    {isVisibleToStudents, isEditable, period, id, termStart, termEnd} = @props
 
     commonDateTimesProps = _.pick @props, 'required', 'currentLocale', 'taskingIdentifier'
 
     defaults = TaskingStore.getDefaultsForTasking(id, period)
     {open_time, open_date, due_time, due_date} = TaskingStore._getTaskingFor(id, period)
 
-    now = TimeHelper.getMomentPreserveDate(TimeStore.getNow()).format(TimeHelper.ISO_DATE_FORMAT)
+    now = TimeHelper.getMomentPreserveDate(TimeStore.getNow())
+    nowString = now.format(TimeHelper.ISO_DATE_FORMAT)
 
-    maxOpensAt = due_date
-    minDueAt = if TaskingStore.isTaskOpened(id) then now else open_date
+    termStartString = termStart.format(TimeHelper.ISO_DATE_FORMAT)
+    termEndString   = termEnd.format(TimeHelper.ISO_DATE_FORMAT)
+
+    minOpensAt = if termStart.isAfter(now) then termStartString else nowString
+    maxOpensAt = due_date or termEndString
+
+    openDate = open_date or minOpensAt
+
+    minDueAt = if TaskingStore.isTaskOpened(id) then minOpensAt else openDate
+    maxDueAt = termEndString
 
     error = @getError()
 
@@ -89,11 +100,11 @@ TaskingDateTimes = React.createClass
         disabled={isVisibleToStudents or not isEditable}
         label="Open"
         ref="open"
-        min={now}
+        min={minOpensAt}
         max={maxOpensAt}
         setDate={_.partial(@setDate, 'open')}
         setTime={_.partial(@setTime, 'open')}
-        value={ open_date }
+        value={ openDate }
         defaultValue={open_time or defaults.open_time}
         defaultTime={defaults.open_time}
         setDefaultTime={@setDefaultTime}
@@ -106,6 +117,7 @@ TaskingDateTimes = React.createClass
         label="Due"
         ref="due"
         min={minDueAt}
+        max={maxDueAt}
         setDate={_.partial(@setDate, 'due')}
         setTime={_.partial(@setTime, 'due')}
         value={due_date}

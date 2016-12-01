@@ -7,16 +7,20 @@ TimeHelper = require '../../helpers/time'
 _ = require 'underscore'
 Router = require '../../helpers/router'
 
-getOpensAtDefault = ->
-  moment(TimeStore.getNow()).add(1, 'day').format(TimeHelper.ISO_DATE_FORMAT)
+getOpensAtDefault = (termStart) ->
+  now = TimeStore.getNow()
+  if termStart.isAfter(now)
+    termStart.format(TimeHelper.ISO_DATE_FORMAT)
+  else
+    moment(now).add(1, 'day').format(TimeHelper.ISO_DATE_FORMAT)
 
-getQueriedOpensAt = (taskPlanId) ->
+getQueriedOpensAt = (taskPlanId, termStart) ->
   {opens_at} = Router.currentQuery() # attempt to read the open date from query params
   isNewPlan = TaskPlanStore.isNew(taskPlanId)
   opensAt = if opens_at and isNewPlan then TimeHelper.getMomentPreserveDate(opens_at)
   if not opensAt
     # default open date is tomorrow
-    opensAt = getOpensAtDefault()
+    opensAt = getOpensAtDefault(termStart)
 
   # if there is a queried due date, make sure it's not the same as the open date
   dueAt = getQueriedDueAt()
@@ -40,11 +44,11 @@ getTaskPlanOpensAt = (planId) ->
   TimeHelper.getMomentPreserveDate(firstDueAt).format(TimeHelper.ISO_DATE_FORMAT) if firstDueAt
 
 
-setPeriodDefaults = (courseId, planId) ->
+setPeriodDefaults = (courseId, planId, term) ->
 
   if TaskPlanStore.isNew(planId)
     due_date = getQueriedDueAt() or getTaskPlanOpensAt(planId)
-    TaskingActions.create(planId, {open_date: getQueriedOpensAt(), due_date})
+    TaskingActions.create(planId, {open_date: getQueriedOpensAt(planId, term.start), due_date})
   else
     {tasking_plans} = TaskPlanStore.get(planId)
     TaskingActions.loadTaskings(planId, tasking_plans)
@@ -64,11 +68,11 @@ loadCourseDefaults = (courseId) ->
   TaskingActions.loadDefaults(courseId, courseDefaults, periods)
 
 
-module.exports = (taskPlanId, courseId) ->
+module.exports = (taskPlanId, courseId, term) ->
   courseTimezone = CourseStore.getTimezone(courseId)
   TimeHelper.syncCourseTimezone(courseTimezone)
   TaskingActions.loadTaskToCourse(taskPlanId, courseId)
   loadCourseDefaults(courseId)
 
   #set the periods defaults only after the timezone has been synced
-  return setPeriodDefaults(courseId, taskPlanId)
+  return setPeriodDefaults(courseId, taskPlanId, term)

@@ -9,6 +9,7 @@ LoadableItem = require '../loadable-item'
 {CourseStore} = require '../../flux/course'
 {TimeStore} = require '../../flux/time'
 TimeHelper = require '../../helpers/time'
+CourseDataHelper = require '../../helpers/course-data'
 PH = require '../../helpers/period'
 CourseTitleBanner = require '../course-title-banner'
 CourseCalendar = require '../course-calendar'
@@ -83,7 +84,8 @@ TeacherTaskPlanListing = React.createClass
       displayAs: 'month'
 
   getDateStates: (state) ->
-    courseDates = @getBoundsForCourse()
+    term = CourseDataHelper.getCourseBounds(@props.params.courseId)
+    courseDates = {termStart: term.start, termEnd: term.end}
     date = @getDateFromParams(courseDates)
 
     bounds = @getBoundsForDate(date, state)

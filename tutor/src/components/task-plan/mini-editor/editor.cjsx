@@ -14,6 +14,8 @@ BindStoresMixin = require '../../bind-stores-mixin'
 {TutorInput, TutorTextArea} = require '../../tutor-input'
 {TaskingStore, TaskingActions} = require '../../../flux/tasking'
 {TeacherTaskPlanActions} = require '../../../flux/teacher-task-plan'
+TimeHelper = require '../../../helpers/time'
+
 taskPlanEditingInitialize = require '../initialize-editing'
 
 PublishButton = require '../footer/save-button'
@@ -26,6 +28,8 @@ TaskPlanMiniEditor = React.createClass
 
   propTypes:
     courseId:     React.PropTypes.string.isRequired
+    termStart:    TimeHelper.PropTypes.moment
+    termEnd:      TimeHelper.PropTypes.moment
     id:           React.PropTypes.string.isRequired
     onHide:       React.PropTypes.func.isRequired
     handleError:  React.PropTypes.func.isRequired
@@ -57,8 +61,8 @@ TaskPlanMiniEditor = React.createClass
     @setState({error})
 
   componentWillMount: ->
-    {id, courseId} = @props
-    taskPlanEditingInitialize(id, courseId)
+    {id, courseId, termStart, termEnd} = @props
+    taskPlanEditingInitialize(id, courseId, {start: termStart, end: termEnd})
 
   onSave: ->
     @setState({saving: true, publishing: false})
@@ -81,8 +85,10 @@ TaskPlanMiniEditor = React.createClass
       #TaskTeacherReviewActions.removeTask(@props.id)
 
   render: ->
-    plan = TaskPlanStore.get(@props.id)
-    isPublished = TaskPlanStore.isPublished(@props.id)
+    {id, courseId, termStart, termEnd} = @props
+
+    plan = TaskPlanStore.get(id)
+    isPublished = TaskPlanStore.isPublished(id)
 
     <div className='task-plan-mini-editor'>
       <div className="row">
@@ -107,7 +113,9 @@ TaskPlanMiniEditor = React.createClass
           bsSizes={{}}
           id={plan.id}
           isEditable={not @state.error?}
-          courseId={@props.courseId}
+          courseId={courseId}
+          termStart={termStart}
+          termEnd={termEnd}
           taskingIdentifier='all'
         />
       </div>
@@ -118,7 +126,7 @@ TaskPlanMiniEditor = React.createClass
         <BS.Col xs=6 className='text-right'>
           <TutorLink
             to={camelCase("edit-#{plan.type}")}
-            params={id: plan.id, courseId: @props.courseId}
+            params={id: plan.id, courseId: courseId}
           >
               Edit other assignment details
           </TutorLink>
@@ -147,7 +155,7 @@ TaskPlanMiniEditor = React.createClass
           onClick={@onSave}
           isWaiting={!!(@isWaiting() and @state.saving and isEmpty(@state.error))}
           disabled={@isWaiting() or @state.error}
-          isFailed={TaskPlanStore.isFailed(@props.id)}
+          isFailed={TaskPlanStore.isFailed(id)}
         />
         <BS.Button
           bsSize='small'
