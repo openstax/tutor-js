@@ -1,6 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
+Icon = require '../icon'
 {PeriodActions, PeriodStore} = require '../../flux/period'
 {TutorInput} = require '../tutor-input'
 {SpyMode, AsyncButton} = require 'shared'
@@ -107,9 +108,8 @@ module.exports = React.createClass
     </BS.Modal>
 
   render: ->
-
     <BS.Button onClick={@open} bsStyle='link' className='control add-period'>
-      <i className='fa fa-plus' />
+      <Icon type="plus" />
       Add <CourseGroupingLabel courseId={@props.courseId} />
       {@renderForm()}
     </BS.Button>
