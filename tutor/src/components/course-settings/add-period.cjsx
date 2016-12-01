@@ -39,11 +39,12 @@ module.exports = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     periods:  React.PropTypes.array.isRequired
+    show:     React.PropTypes.bool
 
 
   getInitialState: ->
     period_name: ''
-    showModal: false
+    showModal: @props.show
     isCreating: false
     submitted: false
 
