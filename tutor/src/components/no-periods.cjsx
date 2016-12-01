@@ -2,7 +2,6 @@ _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
 TutorLink = require './link'
-
 CourseGroupingLabel = require './course-grouping-label'
 
 NoPeriods = React.createClass
@@ -12,41 +11,20 @@ NoPeriods = React.createClass
     noPanel:  React.PropTypes.bool
     link:  React.PropTypes.bool
 
-  getDefaultProps: ->
-    link: true
+  onAddSection: ->
 
-  getMessage: ->
-    [
-      <span key='no-periods-start'>You have no </span>
-      <CourseGroupingLabel
-        key='no-periods-label'
-        lowercase
-        courseId={@props.courseId} />
-      <span key='no-periods-end'> in this course.</span>
-    ]
 
   render: ->
-    {courseId, link} = @props
+    <div className="no-periods">
+      <p>
+        Please add at least
+        one <CourseGroupingLabel courseId={@props.courseId} lowercase /> to the course.
+      </p>
 
-    if link
-      message =
-        <TutorLink
-          className='no-periods-text'
-          to='courseSettings'
-          params={{courseId}}>
-          {@getMessage()}
-        </TutorLink>
-    else
-      message =
-        <span className='no-periods-text'>
-          {@getMessage()}
-        </span>
+      <BS.Button bsStyle="primary" onClick={@onAddSection}>
+        Add a <CourseGroupingLabel courseId={@props.courseId} />
+      </BS.Button>
 
-    if @props.noPanel
-      message
-    else
-      <BS.Panel>
-        {message}
-      </BS.Panel>
+    </div>
 
 module.exports = NoPeriods
