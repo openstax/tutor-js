@@ -29,6 +29,7 @@ CourseCalendarHeader = React.createClass
       /> unless hasPeriods}
 
       <SidebarToggle
+        courseId={@props.courseId}
         defaultOpen={defaultOpen}
         onToggle={@props.onSidebarToggle}
       />
