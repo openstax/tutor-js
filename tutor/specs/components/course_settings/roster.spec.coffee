@@ -55,12 +55,14 @@ describe 'Course Settings', ->
       .to.equal('Kirlin')
     undefined
 
-  ## this is flaky, doesn't always complete in time
   it 'can archive periods', ->
     wrapper = mount(<Roster {...@props} />)
     expect(wrapper.find('.nav-tabs .active').text()).to.equal('1st')
-    wrapper.find('.control.archive-period').simulate('click')
-    Testing.actions.click(document.querySelector('button.archive-section'))
+    wrapper.find('.control.delete-period').simulate('click')
+
+    modal = _.last document.querySelectorAll('.modal.delete-period')
+    expect(modal).to.exist
+    Testing.actions.click(modal.querySelector('button.delete'))
     expect(PeriodActions.delete).to.have.been.called
     wrapper.update()
     expect(wrapper.find('.nav-tabs .active').text()).to.equal('2nd')

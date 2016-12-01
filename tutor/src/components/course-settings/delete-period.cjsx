@@ -33,6 +33,7 @@ DeleteCourseModal = (props) ->
     </BS.Modal.Body>
     <BS.Modal.Footer>
       <AsyncButton
+        className="delete"
         bsStyle="danger"
         onClick={props.onDelete}
         waitingText='Deleting…'
