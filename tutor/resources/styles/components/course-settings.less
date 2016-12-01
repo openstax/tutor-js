@@ -1,13 +1,35 @@
+.course-settings-control-link() {
+  cursor: pointer;
+  display: inline;
+  margin-left: 10px;
+  color: @tutor-tertiary-light;
+  transistion: color 0.4s;
+  &:hover {
+    color: darken(@tutor-tertiary-light, 10%);
+    text-decoration: none;
+  }
+  a, button {
+    color: @tutor-tertiary-light;
+    .tutor-icon { margin-right: 0.5rem; }
+  }
+}
+
 .course-settings {
 
-  .btn-link{
-    text-transform: capitalize;
-    color: @tutor-tertiary-light;
-    font-size: 1.5rem;
-  }
+  // .btn-link{
+  //   text-transform: capitalize;
+  //   color: @tutor-tertiary-light;
+  //   font-size: 1.5rem;
+  // }
 
   margin-top: 20px;
-  select { width: inherit; } // override material design's 100% width
+
+
+  .control {
+    .course-settings-control-link();
+  }
+
+  //  select { width: inherit; } // override material design's 100% width
 
   input[type=radio]{
     margin-right: 0.5rem;
@@ -56,95 +78,74 @@
       height:36px;
     }
     .spacer { flex: 1; }
-    .control {
-      cursor: pointer;
-      button.btn-link { color: @tutor-tertiary-light; }
+  }
 
-      margin-left: 10px;
-      &.btn {
-        padding: 0;
-      }
-    }
-
-    .enrollment-code-link {
-      input{
-        margin-left: 5px;
-      }
-    }
-
-    .delete-period {
-      color: @tutor-tertiary-light;
-    }
-
-
-
-    .enrollment-code {
-      padding: 0 0.5rem;
-      border: 1px solid @tutor-neutral-light;
-      color: @tutor-neutral;
-      .title { margin-right: 0.5rem; }
-      input {
-        border: 0;
-      }
+  .enrollment-code-link {
+    input{
+      margin-left: 5px;
     }
   }
 
-
-  .roster {
-    .actions {
-      a {
-        cursor: pointer;
-        margin-right: 1rem;
-        color: @tutor-tertiary-light;
-
-      }
-    }
-
-    .periods {
-      position: relative;
-
-      .control {
-        margin-left: 10px;
-
-        .btn-link {
-          color: @tutor-tertiary-light;
-          padding: 0;
-        }
-
-        &.add-period, &.view-deleted-periods {
-          background-color: white;
-        }
-
-      }
-
-
-    }
-
-    .student-id {
-      width: 200px;
-      height: 25px;
-
-      .identifier,
-      input {
-        display: inline-block;
-        width: 175px;
-      }
-      &.with-error {
-        color: @form-error-color;
-        border-bottom: 1px dashed @form-error-color;
-        .tutor-icon { color: @form-error-color; }
-      }
-      .identifer { cursor: pointer; }
-      .tutor-icon { margin-left: 0.5rem; }
-    }
+  .delete-period {
+    color: @tutor-tertiary-light;
   }
 
-  .roster-empty-info {
-    line-height: 2.2rem;
-    padding: 0px 20px 0px 20px;
+
+
+  .enrollment-code {
+    padding: 0 0.5rem;
+    border: 1px solid @tutor-neutral-light;
     color: @tutor-neutral;
+    .title { margin-right: 0.5rem; }
+    input {
+      border: 0;
+    }
+  }
+}
+
+
+.roster {
+  .actions {
+    a {
+      .course-settings-control-link();
+    }
   }
 
+  .periods {
+    position: relative;
+
+    .control {
+      margin-left: 10px;
+      &.add-period, &.view-deleted-periods {
+        background-color: white;
+      }
+    }
+
+  }
+
+  .student-id {
+    width: 200px;
+    height: 25px;
+
+    .identifier,
+    input {
+      display: inline-block;
+      width: 175px;
+    }
+    &.with-error {
+      color: @form-error-color;
+      border-bottom: 1px dashed @form-error-color;
+      .tutor-icon { color: @form-error-color; }
+    }
+    .identifer { cursor: pointer; }
+    .tutor-icon { margin-left: 0.5rem; }
+  }
+}
+
+.roster-empty-info {
+  line-height: 2.2rem;
+  padding: 0px 20px 0px 20px;
+  color: @tutor-neutral;
 }
 
 .course-settings .no-archive-help {
@@ -162,7 +163,11 @@
 .view-deleted-periods-modal {
   table { width: 100%; }
   .control {
-    button.btn-link { color: @tutor-tertiary-light; text-transform: capitalize; font-size: 1.5rem; }
+    button.btn-link {
+      color: @tutor-tertiary-light;
+      text-transform: capitalize;
+      font-size: 1.5rem;
+    }
   }
 }
 
