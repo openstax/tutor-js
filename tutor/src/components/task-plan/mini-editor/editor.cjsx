@@ -87,7 +87,7 @@ TaskPlanMiniEditor = React.createClass
     <div className='task-plan-mini-editor'>
       <div className="row">
         <BS.Col xs=12>
-          <h4>Add Past Assignment</h4>
+          <h4>Add Copied Assignment</h4>
         </BS.Col>
       </div>
       <div className="row">
