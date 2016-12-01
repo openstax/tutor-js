@@ -4,6 +4,8 @@ _  = require 'underscore'
 Icon = require '../icon'
 BindStoreMixin = require '../bind-store-mixin'
 RemoveTeacherLink = require './remove-teacher'
+AddTeacherLink = require './add-teacher-link'
+
 {RosterStore, RosterActions} = require '../../flux/roster'
 
 module.exports = React.createClass
@@ -31,7 +33,10 @@ module.exports = React.createClass
     {courseId, store} = @props
     teachers = store.get(courseId).teachers or []
     <div className="teachers-table">
-      <div><span className='course-settings-subtitle'>Instructors</span></div>
+      <div className="heading">
+        <span className='course-settings-subtitle'>Instructors</span>
+        <AddTeacherLink courseId={courseId} />
+      </div>
       <BS.Table striped bordered condensed hover className="roster">
         <thead>
           <tr>
