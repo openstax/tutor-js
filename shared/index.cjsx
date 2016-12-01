@@ -41,6 +41,7 @@ module.exports = {
 
   FreeResponse:           require './src/components/exercise/free-response'
   GetPositionMixin:       require './src/components/get-position-mixin'
+  Join:                   require './src/components/enroll/join'
   ScrollToMixin:          require './src/components/scroll-to-mixin'
   KeysHelper:             require './src/helpers/keys'
   NotificationActions:    require './src/model/notifications'
