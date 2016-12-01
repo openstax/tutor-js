@@ -4,8 +4,6 @@ _ = require 'underscore'
 React = require 'react'
 EventEmitter2 = require 'eventemitter2'
 
-api  = require '../api'
-
 ERROR_MAP = require './handled-errors'
 
 
@@ -14,7 +12,6 @@ class CourseEnrollment
   constructor: (enrollmentCode) ->
     @channel = new EventEmitter2
     @enrollmentCode = enrollmentCode
-    _.bindAll(@, '_onCreate', '_onApprove')
 
   # complete and ready for use
   isRegistered: -> @id and not @isPending()
@@ -57,15 +54,11 @@ class CourseEnrollment
     @errors = error.response?.data?.errors
 
   # Creates an EnrollmentChange
-  create: (enrollment_code, user) ->
-    @enrollment_code = enrollment_code
-    payload = { enrollment_code: enrollment_code }
+  create: ->
     @isBusy = true
-    api.channel.once "enroll.create.receive.*", @_onCreate
-    api.channel.emit("enroll.create.send", payload, payload)
     @channel.emit('change')
 
-  _onCreate: (response) ->
+  created: (response) ->
     throw new Error("response is empty in onCreate") if _.isEmpty(response)
     @_checkForFailure(response)
 
@@ -76,14 +69,10 @@ class CourseEnrollment
 
   # Approves a pending EnrollmentChange
   approve: (studentId) ->
-    payload = { id: @id }
-    payload.student_identifier = studentId if studentId
     @isBusy = true
-    api.channel.once "enroll.#{@id}.approve.receive.*", @_onApprove
-    api.channel.emit("enroll.#{@id}.approve.send", payload, payload)
     @channel.emit('change')
 
-  _onApprove: (response) ->
+  approved: (response) ->
     throw new Error("response is empty in onApproved") if _.isEmpty(response)
     @_checkForFailure(response)
 

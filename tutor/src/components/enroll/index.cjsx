@@ -31,7 +31,7 @@ Enroll = React.createClass
     @state.courseEnrollment.channel.off('change', @onCourseEnrollmentChange)
 
   onComplete: ->
-    @context.router.transitionTo('dashboard', {@props.courseEnrollment.courseId})
+    @context.router.transitionTo('dashboard', @props.courseEnrollment.courseId)
 
   onCourseEnrollmentChange: ->
     if @state.courseEnrollment.isRegistered()

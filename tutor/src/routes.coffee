@@ -86,6 +86,7 @@ getEnrollment = ->
 
 ROUTES = [
   { pattern: '/dashboard',              name: 'listing',                  renderer: getCourseListing }
+  { pattern: '/enroll/:enrollmentCode', name: 'createEnrollmentChange',   renderer: getEnrollment }
   { pattern: '/new-course/:sourceId?',  name: 'createNewCourse',          renderer: getCreateCourse  }
   {
     pattern: '/qa',                     name: 'QADashboard',              renderer: getQADashboard
@@ -151,7 +152,6 @@ ROUTES = [
       { pattern: 'page/:cnxId',         name: 'viewReferenceBookPage',    renderer: getReferenceBookPageShell  }
     ]
   }
-  { pattern: '/enroll/:enrollmentCode', name: 'createEnrollmentChange',   renderer: getEnrollment }
 ]
 
 module.exports = ROUTES
