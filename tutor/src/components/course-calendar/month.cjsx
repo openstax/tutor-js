@@ -189,7 +189,11 @@ CourseMonth = React.createClass
     @props.date?.format?('MMMM')
 
   onDrop: (item, offset) ->
-    return unless @state.hoveredDay and @state.hoveredDay.isSameOrAfter(TimeStore.getNow(), 'day')
+    {termStart, termEnd} = @props
+    return unless @state.hoveredDay and
+      @state.hoveredDay.isBetween(termStart, termEnd, 'day', '[]') and
+      @state.hoveredDay.isSameOrAfter(TimeStore.getNow(), 'day')
+
     if item.pathname # is a link to create an assignment
       url = item.pathname + "?" + qs.stringify({
         due_at: @state.hoveredDay.format(@props.dateFormat)
@@ -291,7 +295,6 @@ CourseMonth = React.createClass
         planId={@state.cloningPlan.id}
         planType={@state.cloningPlan.type}
         position={@state.cloningPlan.position}
-        onLoad={@onCloneLoaded}
         courseId={@props.courseId}
         due_at={@state.cloningPlan.due_at}
         onLoad={@onCloneLoaded}
