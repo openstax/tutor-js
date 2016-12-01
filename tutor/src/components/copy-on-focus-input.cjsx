@@ -12,11 +12,15 @@ module.exports = React.createClass
 
   focus: ->
     @refs.input.focus()
+
+  copy: ->
     @refs.input.select()
     Clipboard.copy()
 
   componentDidMount: ->
-    @focus() if @props.focusOnMount
+    if @props.focusOnMount
+      @focus()
+      @copy()
 
   render: ->
     props = omit(@props, 'focusOnMount')
@@ -24,6 +28,6 @@ module.exports = React.createClass
     <input ref='input'
       className='copy-on-focus'
       readOnly={true}
-      onFocus={@focus}
+      onFocus={@copy}
       {...props}
     />
