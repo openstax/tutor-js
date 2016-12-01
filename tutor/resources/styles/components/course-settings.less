@@ -17,11 +17,9 @@
 .course-settings {
   margin-top: 20px;
 
-
   .control {
     .course-settings-control-link();
   }
-
   input[type=radio]{
     margin-right: 0.5rem;
   }
@@ -240,5 +238,14 @@
   .warning {
     text-align: center;
     color: @tutor-danger;
+  }
+}
+
+
+.openstax-debug-content.is-enabled {
+  .view-archived-periods.visible-when-debugging {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
   }
 }

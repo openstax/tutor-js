@@ -8,21 +8,18 @@ Router = require '../../helpers/router'
 BindStoreMixin = require '../bind-store-mixin'
 NoPeriods = require '../no-periods'
 PH = require '../../helpers/period'
+Tabs = require '../tabs'
 
 {CourseStore, CourseActions} = require '../../flux/course'
 {RosterStore, RosterActions} = require '../../flux/roster'
 
-
-PeriodRoster = require './period-roster'
-DroppedRoster = require './dropped-roster'
-
-StudentEnrollment = require './student-enrollment'
-
-AddPeriodLink = require './add-period'
-RenamePeriodLink = require './rename-period'
-DeletePeriodLink = require './delete-period'
-
-Tabs = require '../tabs'
+PeriodRoster        = require './period-roster'
+DroppedRoster       = require './dropped-roster'
+ViewArchivedPeriods = require './view-archived-periods'
+StudentEnrollment   = require './student-enrollment'
+AddPeriodLink       = require './add-period'
+RenamePeriodLink    = require './rename-period'
+DeletePeriodLink    = require './delete-period'
 
 CourseRoster = React.createClass
 
@@ -110,6 +107,8 @@ CourseRoster = React.createClass
             show={false}
             courseId={@props.courseId}
             periods={periods} />
+          <ViewArchivedPeriods courseId={@props.courseId}
+            afterRestore={@selectPreviousPeriod} />
         </Tabs>
 
         <@ActivePeriod periods={periods} />
