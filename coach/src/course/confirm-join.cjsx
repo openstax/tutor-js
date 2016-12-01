@@ -2,7 +2,7 @@ React = require 'react'
 
 Course = require './model'
 ErrorList = require './error-list'
-{Join} = require 'shared'
+{ConfirmJoinCourse} = require 'shared'
 
 ConfirmJoin = React.createClass
 
@@ -11,7 +11,7 @@ ConfirmJoin = React.createClass
     optionalStudentId: React.PropTypes.bool
 
   render: ->
-    <Join
+    <ConfirmJoinCourse
       course={@props.course}
       errorList={<ErrorList course={@props.course} />}
       optionalStudentId={@props.optionalStudentId}

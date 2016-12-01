@@ -26,6 +26,7 @@ module.exports = {
   CardBody,
   ChapterSectionMixin:    require './src/components/chapter-section-mixin'
   CloseButton:            require './src/components/buttons/close-button'
+  ConfirmJoinCourse:      require './src/components/enroll/confirm-join-course'
 
   Exercise,
   ExControlButtons,
@@ -41,7 +42,6 @@ module.exports = {
 
   FreeResponse:           require './src/components/exercise/free-response'
   GetPositionMixin:       require './src/components/get-position-mixin'
-  Join:                   require './src/components/enroll/join'
   ScrollToMixin:          require './src/components/scroll-to-mixin'
   KeysHelper:             require './src/helpers/keys'
   NotificationActions:    require './src/model/notifications'

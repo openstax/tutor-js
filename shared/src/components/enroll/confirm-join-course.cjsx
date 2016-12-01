@@ -5,7 +5,7 @@ ENTER = 'Enter'
 
 AsyncButton = require '../buttons/async-button'
 
-Join = React.createClass
+ConfirmJoinCourse = React.createClass
 
   propTypes:
     course: React.PropTypes.object.isRequired
@@ -73,4 +73,4 @@ Join = React.createClass
     </BS.Row>
 
 
-module.exports = Join
+module.exports = ConfirmJoinCourse
