@@ -22,7 +22,7 @@ class Course
   isIncomplete: -> not (@name or @to)
   # The registration code has been validated but sign-up is not yet started
   isValidated: -> @status is "validated"
-  # A registration has been created, but not confimed
+  # A registration has been created, but not confirmed
   isPending: ->  @status is "pending"
 
   # forget in-progress registration information.  Called when a join is canceled
@@ -72,7 +72,7 @@ class Course
   errorMessages: ->
     _.map @errors, (err) -> ERROR_MAP[err.code] or "An unknown error with code #{err.code} occured."
 
-  # When a course needs to be manipluated, it's cloned
+  # When a course needs to be manipulated, it's cloned
   clone: ->
     new Course({ecosystem_book_uuid: @ecosystem_book_uuid})
 
@@ -120,7 +120,7 @@ class Course
     @channel.emit('change')
 
   # Submits a course invite for registration.  If user is signed in
-  # the registration will be saved, otherwise it will only be vaidated
+  # the registration will be saved, otherwise it will only be validated
   register: (enrollment_code, user) ->
     @enrollment_code = enrollment_code
     book_uuid = @ecosystem_book_uuid

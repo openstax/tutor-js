@@ -81,6 +81,9 @@ getCCHelp = ->
 getAssignmentLinks = ->
   require './components/assignment-links'
 
+getEnrollment = ->
+  require './components/enroll'
+
 ROUTES = [
   { pattern: '/dashboard',              name: 'listing',                  renderer: getCourseListing }
   { pattern: '/new-course/:sourceId?',  name: 'createNewCourse',          renderer: getCreateCourse  }
@@ -148,6 +151,7 @@ ROUTES = [
       { pattern: 'page/:cnxId',         name: 'viewReferenceBookPage',    renderer: getReferenceBookPageShell  }
     ]
   }
+  { pattern: '/enroll/:enrollmentCode', name: 'createEnrollmentChange',   renderer: getEnrollment }
 ]
 
 module.exports = ROUTES
