@@ -3,27 +3,44 @@ React = require 'react'
 BS = require 'react-bootstrap'
 TutorLink = require './link'
 CourseGroupingLabel = require './course-grouping-label'
+Router = require '../helpers/router'
 
 NoPeriods = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
-    noPanel:  React.PropTypes.bool
-    link:  React.PropTypes.bool
+    button:   React.PropTypes.element
+
+  contextTypes:
+    router: React.PropTypes.object
 
   onAddSection: ->
+    @context.router.transitionTo(
+      Router.makePathname('courseSettings',
+        {courseId: @props.courseId},
+        query: {add: true}
+      )
+    )
 
+
+  AddButton: ->
+    <BS.Button
+      className='no-periods-course-settings-link'
+      bsStyle="primary"
+      onClick={@onAddSection}
+    >
+      Add a <CourseGroupingLabel courseId={@props.courseId} />
+    </BS.Button>
 
   render: ->
-    <div className="no-periods">
+
+    <div className="no-periods-message">
       <p>
         Please add at least
         one <CourseGroupingLabel courseId={@props.courseId} lowercase /> to the course.
       </p>
 
-      <BS.Button bsStyle="primary" onClick={@onAddSection}>
-        Add a <CourseGroupingLabel courseId={@props.courseId} />
-      </BS.Button>
+      {@props.button or <@AddButton />}
 
     </div>
 
