@@ -232,6 +232,7 @@ TaskPlanConfig =
     @emitChange()
 
   _saved: (obj, id) ->
+    @emit("saved.#{id}", obj)
     if obj.is_publishing
       PlanPublishActions.queued(obj, id)
       @emit('publish-queued', obj)

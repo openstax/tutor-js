@@ -103,12 +103,12 @@ TeacherTaskPlanListing = React.createClass
     courseTimezone = CourseStore.getTimezone(courseId)
     TimeHelper.syncCourseTimezone(courseTimezone)
 
-    TaskPlanStore.on('publish-queued', @loadToListing)
+    TaskPlanStore.on('saved.*', @loadToListing)
 
   componentWillUnmount: ->
     TimeHelper.unsyncCourseTimezone()
 
-    TaskPlanStore.off('publish-queued', @loadToListing)
+    TaskPlanStore.off('saved.*', @loadToListing)
 
   loadToListing: (plan) ->
     TeacherTaskPlanActions.addPublishingPlan(plan, @props.params.courseId)
