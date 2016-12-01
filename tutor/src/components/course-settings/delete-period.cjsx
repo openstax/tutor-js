@@ -70,7 +70,7 @@ DeletePeriodLink = React.createClass
 
   render: ->
     return null if _.isEmpty @props.periods
-    <a className="control delete-period" onClick={@displayModal}>
+    <BS.Button onClick={@displayModal} bsStyle='link' className="control delete-period" >
       <DeleteCourseModal
         show={@state.isShown}
         period={@props.period}
@@ -80,7 +80,7 @@ DeletePeriodLink = React.createClass
       />
       <Icon type='archive' />
       Delete <CourseGroupingLabel courseId={@props.courseId} />
-    </a>
+    </BS.Button>
 
 
 module.exports = DeletePeriodLink

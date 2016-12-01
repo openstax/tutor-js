@@ -70,11 +70,10 @@ RenameCourse = React.createClass
     </BS.Modal>
 
   render: ->
-    <span className='-rename-course-link'>
-      <BS.Button onClick={@open} bsStyle='link' className='edit-course'>
-        <i className='fa fa-pencil' /> Rename Course
-      </BS.Button>
+    <BS.Button onClick={@open} bsStyle='link' className='control edit-course'>
+      <i className='fa fa-pencil' /> Rename Course
       {@renderForm()}
-    </span>
+    </BS.Button>
+
 
 module.exports = RenameCourse

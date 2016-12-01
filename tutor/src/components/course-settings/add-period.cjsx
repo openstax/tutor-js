@@ -106,10 +106,9 @@ module.exports = React.createClass
     </BS.Modal>
 
   render: ->
-    <div className='control add-period'>
-      <BS.Button onClick={@open} bsStyle='link'>
-        <i className='fa fa-plus' />
-        Add <CourseGroupingLabel courseId={@props.courseId} />
-      </BS.Button>
+
+    <BS.Button onClick={@open} bsStyle='link' className='control add-period'>
+      <i className='fa fa-plus' />
+      Add <CourseGroupingLabel courseId={@props.courseId} />
       {@renderForm()}
-    </div>
+    </BS.Button>

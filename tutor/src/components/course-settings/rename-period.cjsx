@@ -119,10 +119,8 @@ module.exports = React.createClass
     </BS.Modal>
 
   render: ->
-    <span className='control rename-period'>
-      <BS.Button onClick={@open} bsStyle='link'>
-        <Icon type='pencil' />
-        Rename
-      </BS.Button>
+    <BS.Button onClick={@open} bsStyle='link' className='control rename-period'>
+      <Icon type='pencil' />
+      Rename
       {@renderForm()}
-    </span>
+    </BS.Button>

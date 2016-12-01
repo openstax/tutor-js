@@ -168,11 +168,10 @@ SetTimezone = React.createClass
     </BS.Modal>
 
   render: ->
-    <span className='-set-timezone-course-link'>
-      <BS.Button onClick={@open} bsStyle='link' className='edit-course'>
-        <i className='fa fa-pencil' /> Change Course Timezone
-      </BS.Button>
+    <BS.Button onClick={@open} bsStyle='link' className='control edit-course'>
+      <i className='fa fa-pencil' /> Change Course Timezone
       {@renderForm()}
-    </span>
+    </BS.Button>
+
 
 module.exports = SetTimezone

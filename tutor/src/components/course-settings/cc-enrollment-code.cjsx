@@ -100,9 +100,7 @@ module.exports = React.createClass
     </BS.Modal>
 
   render: ->
-    <span className='cc-enrollment-code'>
-      <BS.Button onClick={@open} bsStyle='link' className='show-enrollment-code'>
-        <Icon type='qrcode' /> {TITLE}
-      </BS.Button>
+    <BS.Button onClick={@open} bsStyle='link' className='control cc-enrollment-code'>
+      <Icon type='qrcode' /> {TITLE}
       {@renderForm()}
-    </span>
+    </BS.Button>
