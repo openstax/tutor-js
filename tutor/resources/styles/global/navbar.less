@@ -210,10 +210,6 @@
     min-width: 0;
   }
 
-  .dropdown-toggle {
-    margin: 5px;
-  }
-
   .dropdown-menu .logout {
     input[type=submit] {
       #fonts .sans(1.4rem, 1.4rem);
@@ -237,6 +233,18 @@
       background: none !important;
       border: 0 !important;
       color: @tutor-neutral-dark !important;
+    }
+  }
+
+  .user-actions-menu {
+    a.dropdown-toggle {
+      height: @tutor-navbar-height;
+      display: flex;
+      align-items: center;
+    }
+    .dropdown-menu {
+      border-top: 1px solid white;
+      margin-top: -1px;
     }
   }
 }

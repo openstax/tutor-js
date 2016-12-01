@@ -60,7 +60,7 @@ ROUTES =
     label: 'Change Student ID'
     roles:
       student: 'changeStudentId'
-  creatCourse:
+  createCourse:
     label: 'Teach Another Course'
     roles:
       teacher: 'createNewCourse'
@@ -76,6 +76,11 @@ ROUTES =
     roles:
       teacher: 'createNewCourse'
     isTeacherOnly: true
+  addOrCopyCourse:
+    label: 'Add or Copy a Course'
+    allowedForCourse: (course) -> CurrentUserStore.isTeacher() and not course
+    roles:
+      default: 'createNewCourse'
 
 CurrentUserActions = flux.createActions [
   'setToken'  # (token) ->
