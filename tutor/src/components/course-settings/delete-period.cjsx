@@ -78,7 +78,7 @@ DeletePeriodLink = React.createClass
         isBusy={PeriodStore.isDeleting(@props.period.id)}
         onDelete={@performDelete}
       />
-      <Icon type='archive' />
+      <Icon type='trash' />
       Delete <CourseGroupingLabel courseId={@props.courseId} />
     </BS.Button>
 
