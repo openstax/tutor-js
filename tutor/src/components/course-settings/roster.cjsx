@@ -3,6 +3,8 @@ BS = require 'react-bootstrap'
 _  = require 'underscore'
 classnames = require 'classnames'
 
+Router = require '../../helpers/router'
+
 BindStoreMixin = require '../bind-store-mixin'
 NoPeriods = require '../no-periods'
 PH = require '../../helpers/period'
@@ -87,10 +89,15 @@ CourseRoster = React.createClass
     </div>
 
   renderEmpty: ->
-    <NoPeriods courseId={@props.courseId} link={false}/>
+    <NoPeriods courseId={@props.courseId} button={
+      <AddPeriodLink
+        show={!!Router.currentQuery().add}
+        courseId={@props.courseId}
+        periods={[]}
+      />
+    } />
 
   renderRoster: (course, periods) ->
-
     <div className="roster">
       <div className="settings-section periods">
 
@@ -99,7 +106,10 @@ CourseRoster = React.createClass
           tabs={_.pluck(periods, 'name')}
           onSelect={@onTabSelection}
         >
-          <AddPeriodLink courseId={@props.courseId} periods={periods} />
+          <AddPeriodLink
+            show={false}
+            courseId={@props.courseId}
+            periods={periods} />
         </Tabs>
 
         <@ActivePeriod periods={periods} />
