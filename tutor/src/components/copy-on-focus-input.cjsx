@@ -10,6 +10,9 @@ module.exports = React.createClass
     value: React.PropTypes.string.isRequired
     focusOnMount: React.PropTypes.bool
 
+  getDefaultProps: ->
+    focusOnMount: false
+
   focus: ->
     @refs.input.focus()
 
