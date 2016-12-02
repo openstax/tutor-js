@@ -20,7 +20,7 @@ CourseListing = React.createClass
     router: React.PropTypes.object
 
   shouldRedirect: (past, current) ->
-    CurrentUserStore.getCourseRole(current[0].id) is 'student' and
+    not CurrentUserStore.isTeacher() and
       current.length is 1 and
       past.length is 0
 
