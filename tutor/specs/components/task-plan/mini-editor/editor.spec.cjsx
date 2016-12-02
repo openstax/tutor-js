@@ -6,6 +6,7 @@ MiniEditor = require '../../../../src/components/task-plan/mini-editor/editor'
 {CourseActions} = require '../../../../src/flux/course'
 {TaskPlanActions, TaskPlanStore} = require '../../../../src/flux/task-plan'
 {TimeStore} = require '../../../../src/flux/time'
+TimeHelper = require '../../../../src/helpers/time'
 
 COURSE  = require '../../../../api/courses/1.json'
 COURSE_ID = '1'
@@ -110,7 +111,21 @@ describe 'TaskPlan MiniEditor wrapper', ->
     undefined
 
   it 'calls handleError when server error is thrown', ->
-    wrapper = mount(<MiniEditor {...@props} />)
+    wrapper = shallow(<MiniEditor {...@props} />)
     TaskPlanStore.emit('errored', {status: 404, statusMessage: "There's been an error", config: {}})
     expect(@props.handleError).to.have.been.called
+    undefined
+
+  it 'renders error when server error is thrown', ->
+    wrapper = mount(<MiniEditor {...@props} />)
+    TaskPlanStore.emit('errored', {status: 404, statusMessage: "There's been an error", config: {}})
+    expect(wrapper.find('ServerErrorMessage')).length.to.be(1)
+    undefined
+
+  it 'limits opens date and due date to term dates', ->
+    wrapper = mount(<MiniEditor {...@props} />)
+    datePickers = wrapper.find("DatePicker")
+
+    expect(datePickers.at(0).props().minDate.isSame(@props.termStart, 'day')).to.equal(true)
+    expect(datePickers.at(1).props().maxDate.isSame(@props.termEnd, 'day')).to.equal(true)
     undefined
