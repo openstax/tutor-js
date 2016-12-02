@@ -19,6 +19,8 @@ CCDashboardHelp = React.createClass
     glprops = {lowercase:true, courseId: courseId}
     section =
       <CourseGroupingLabel lowercase {...glprops} />
+    uCaseSection =
+      <CourseGroupingLabel {...glprops} />
     <div className='cc-dashboard-help'>
       <h3 className="title">
         Welcome to Concept Coach™
@@ -36,20 +38,20 @@ CCDashboardHelp = React.createClass
                 Click your name in the top right corner and select “Course Settings and Roster”
               </li>
               <li>
-                Click the blue “Add Section” link and follow the prompts to create your section.
-                If you have more than one section, repeat this step as needed.
+                Click the blue “Add {uCaseSection}” link and follow the prompts to create your {section}.
+                If you have more than one {section}, repeat this step as needed.
               </li>
             </ol>
             <b>Get student enrollment code and send to your students.</b>
             <ol>
               <li>
-                Select your first section and click the blue “Get Student Enrollment Code” link.
+                Select your first {section} and click the blue “Get Student Enrollment Code” link.
               </li>
               <li>
-                Copy the example message and share this message with your students in that section.
+                Copy the example message and share this message with your students in that {section}.
               </li>
               <li>
-                Repeat this step for each section of your course (every section has a different enrollment code).
+                Repeat this step for each {section} of your course (every {section} has a different enrollment code).
               </li>
             </ol>
             <b>Assign Concept Coach.</b>
