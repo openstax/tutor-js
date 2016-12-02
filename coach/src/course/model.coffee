@@ -25,6 +25,8 @@ class Course
   # A registration has been created, but not confirmed
   isPending: ->  @status is "pending"
 
+  getEnrollmentChangeId: -> @id if @isPending()
+
   # forget in-progress registration information.  Called when a join is canceled
   resetToBlankState: ->
     delete @to
@@ -96,7 +98,7 @@ class Course
     @channel.emit('change')
 
   # Submits pending course change for confirmation
-  confirm: (studentId) ->
+  confirm: (id, studentId) ->
     payload = { id: @id }
     payload.student_identifier = studentId if studentId
     @isBusy = true
@@ -141,7 +143,7 @@ class Course
 
   updateStudentIdentifier: ( newIdentifier ) ->
     if _.isEmpty(newIdentifier)
-      @errors = [{code: 'blank_student_identifer'}]
+      @errors = [{code: 'blank_student_identifier'}]
       @channel.emit('change')
     else if newIdentifier is @getStudentIdentifier()
       @errors = [{code: 'no_change'}]

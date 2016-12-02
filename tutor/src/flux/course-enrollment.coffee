@@ -9,18 +9,23 @@ ERROR_MAP = require './course-enrollment-handled-errors'
 CourseEnrollmentActions = flux.createActions [
   'create'
   'created'
-  'approve'
-  'approved'
+  'confirm'
+  'confirmed'
   'FAILED'
 ]
 
 CourseEnrollmentStore = flux.createStore
   actions: _.values(CourseEnrollmentActions)
   status: "loading"
+  studentId: ""
 
   exports:
     # Still loading (creating the EnrollmentChange)
     isLoading: -> @status is "loading"
+
+    # Errors
+    isCreateError: -> @status is "create_error"
+    isApproveError: -> @status is "approve_error"
 
     # A registration has been created, but not confirmed
     isPending: -> @status is "pending"
@@ -28,16 +33,16 @@ CourseEnrollmentStore = flux.createStore
     # complete and ready for use
     isRegistered: -> @status is "approved"
 
-    getStudentIdentifier: -> ""
+    getEnrollmentChangeId: -> @id
 
-    courseId: -> @to?.course?.id
+    getCourseId: -> @to?.course?.id
 
-    confirm: (studentId) -> CourseEnrollmentActions.approve(@id, studentId)
+    getStudentIdentifier: -> @studentId
 
     description: ->
-      msg = @exports.describeMovePart(@to)
-      if @from and @exports.isPending()
-        "from #{@exports.describeMovePart(@from)} to #{msg}"
+      msg = CourseEnrollmentStore.describeMovePart(@to)
+      if @from and CourseEnrollmentStore.isPending()
+        "from #{CourseEnrollmentStore.describeMovePart(@from)} to #{msg}"
       else
         msg
 
@@ -46,16 +51,19 @@ CourseEnrollmentStore = flux.createStore
       "#{part.course.name} (section #{part.period.name})"
 
     teacherNames: ->
-      part = @to or @
-      return '' unless part.course?.teachers
-      teachers = part.course.teachers
+      teachers = @to.course?.teachers
+      return '' unless teachers
+
       names = _.map teachers, (teacher) ->
         teacher.name or "#{teacher.first_name} #{teacher.last_name}"
+
       # convert array to sentence
-      if names.length > 1
-        "Instructors: " + names.slice(0, names.length - 1).join(', ') + " and " + names.slice(-1)
-      else
+      if names.length == 0
+        ""
+      else if names.length == 1
         "Instructor: " + _.first(names)
+      else
+        "Instructors: " + names.slice(0, names.length - 1).join(', ') + " and " + names.slice(-1)
 
     hasErrors: ->
       not _.isEmpty(@errors)
@@ -78,20 +86,26 @@ CourseEnrollmentStore = flux.createStore
     throw new Error("response is empty in onCreate") if _.isEmpty(response)
     @_checkForFailure(response)
 
-    _.extend(@, response) if response and not @exports.hasErrors()
+    if CourseEnrollmentStore.hasErrors()
+      @status = "create_error"
+    else
+      _.extend(@, response) if response
     delete @isBusy
     @emit('changed')
 
   # Approves a pending EnrollmentChange
-  approve: (studentId) ->
+  confirm: (id, studentId) ->
+    @studentId = studentId
     @isBusy = true
     @emit('changed')
 
-  approved: (response) ->
+  confirmed: (response) ->
     throw new Error("response is empty in onApproved") if _.isEmpty(response)
     @_checkForFailure(response)
-
-    @status = "approved" unless @exports.hasErrors()
+    if CourseEnrollmentStore.hasErrors()
+      @status = "approve_error"
+    else
+      @status = "approved"
     @emit('changed')
 
   FAILED: ->

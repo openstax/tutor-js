@@ -10,7 +10,7 @@ ERROR_MAP =
   already_approved: 'Your enrollment in this course has been approved. Please reload the page.'
   already_rejected: 'Your request to enroll in this course has been rejected for an unknown reason. Please contact OpenStax support.'
   taken: 'The provided student ID has already been used in this course. Please try again or contact your instructor.'
-  blank_student_identifer: 'The student ID field cannot be left blank. Please enter your student ID.'
+  blank_student_identifier: 'The student ID field cannot be left blank. Please enter your student ID.'
   no_change: 'You have not changed the student ID.  Please enter your new student ID and try again.'
 
 module.exports = ERROR_MAP

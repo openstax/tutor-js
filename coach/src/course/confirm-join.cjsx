@@ -12,7 +12,8 @@ ConfirmJoin = React.createClass
 
   render: ->
     <ConfirmJoinCourse
-      course={@props.course}
+      courseEnrollmentActions={@props.course}
+      courseEnrollmentStore={@props.course}
       errorList={<ErrorList course={@props.course} />}
       optionalStudentId={@props.optionalStudentId}
     />

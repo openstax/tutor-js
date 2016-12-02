@@ -19,16 +19,18 @@ describe 'ConfirmJoin Component', ->
       expect(title).to.include("Biology I")
 
   it 'confirms model when submit is clicked', ->
+    sinon.stub(@props.course, 'getEnrollmentChangeId', -> '1234')
     sinon.stub(@props.course, 'confirm')
     Testing.renderComponent( ConfirmJoin, props: @props ).then ({dom}) =>
       dom.querySelector('input').value = 'test'
       Testing.actions.click(dom.querySelector('.btn-success'))
-      expect(@props.course.confirm).to.have.been.calledWith('test')
+      expect(@props.course.confirm).to.have.been.calledWith('1234', 'test')
 
   it 'confirms model when enter is pressed in input', ->
+    sinon.stub(@props.course, 'getEnrollmentChangeId', -> '1234')
     sinon.stub(@props.course, 'confirm')
     Testing.renderComponent( ConfirmJoin, props: @props ).then ({dom}) =>
       input = dom.querySelector('input')
       input.value = 'test'
       ReactTestUtils.Simulate.keyPress(input, {key: "Enter"})
-      expect(@props.course.confirm).to.have.been.calledWith('test')
+      expect(@props.course.confirm).to.have.been.calledWith('1234', 'test')

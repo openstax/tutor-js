@@ -245,8 +245,8 @@ startAPI = ->
       { enrollment_code: enrollmentCode }
   )
   connectUpdate(CourseEnrollmentActions,
-    pattern: 'enrollment_changes/{id}/approve', trigger: 'approve',
-    onSuccess: 'approved', handledErrors: handledEnrollmentErrors, method: 'PUT'
+    pattern: 'enrollment_changes/{id}/approve', trigger: 'confirm',
+    onSuccess: 'confirmed', handledErrors: handledEnrollmentErrors, method: 'PUT'
     data: (id, studentId) ->
       if studentId
         { student_identifier: studentId }

@@ -8,22 +8,22 @@ AsyncButton = require '../buttons/async-button'
 ConfirmJoinCourse = React.createClass
 
   propTypes:
-    course: React.PropTypes.object.isRequired
+    courseEnrollmentActions: React.PropTypes.object.isRequired
+    courseEnrollmentStore: React.PropTypes.object.isRequired
     errorList: React.PropTypes.element.isRequired
     optionalStudentId: React.PropTypes.bool
-
-  startConfirmation: ->
-    @props.course.confirm(@getSchoolId())
 
   onKeyPress: (ev) ->
     @onSubmit() if ev.key is ENTER
 
   onCancel: (ev) ->
     ev.preventDefault()
-    @props.course.confirm()
+    @props.courseEnrollmentActions.confirm(@props.courseEnrollmentStore.getEnrollmentChangeId())
 
   onSubmit: ->
-    @props.course.confirm(@getSchoolId())
+    @props.courseEnrollmentActions.confirm(
+      @props.courseEnrollmentStore.getEnrollmentChangeId(), @getSchoolId()
+    )
 
   getSchoolId: -> ReactDOM.findDOMNode(@refs.input).value
 
@@ -34,8 +34,8 @@ ConfirmJoinCourse = React.createClass
 
         <h3 className="title text-center">
           <div className="join">You are joining</div>
-          <div className="course">{@props.course.description()}</div>
-          <div className="teacher">{@props.course.teacherNames()}</div>
+          <div className="course">{@props.courseEnrollmentStore.description()}</div>
+          <div className="teacher">{@props.courseEnrollmentStore.teacherNames()}</div>
         </h3>
 
         {@props.errorList}
@@ -46,13 +46,13 @@ ConfirmJoinCourse = React.createClass
 
             <input type="text" className="form-control" ref="input"
               autoFocus
-              defaultValue={@props.course.getStudentIdentifier()}
+              defaultValue={@props.courseEnrollmentStore.getStudentIdentifier()}
               onKeyPress={@onKeyPress}
             />
 
             <AsyncButton
               className="btn btn-success continue"
-              isWaiting={!!@props.course.isBusy}
+              isWaiting={!!@props.courseEnrollmentStore.isBusy}
               waitingText={'Confirming…'}
               onClick={@onSubmit}
             >

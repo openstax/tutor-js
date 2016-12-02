@@ -7,6 +7,7 @@ _ = require 'underscore'
 ENTER = 'Enter'
 
 ConfirmJoin = require './confirm-join'
+ErrorList = require './error-list'
 Router = require '../../helpers/router'
 
 Enroll = React.createClass
@@ -24,7 +25,7 @@ Enroll = React.createClass
 
   redirectToDashboard: ->
     @context.router.transitionTo(
-      Router.makePathname('dashboard', {courseId: CourseEnrollmentStore.courseId()})
+      Router.makePathname('dashboard', {courseId: CourseEnrollmentStore.getCourseId()})
     )
 
   # Wait for the course to load and wait at least 1.5 secs
@@ -32,10 +33,9 @@ Enroll = React.createClass
   onComplete: ->
     loadCourse = new Promise((resolve, reject) ->
       CourseStore.once('course.loaded', resolve)
-      CourseActions.load(CourseEnrollmentStore.courseId())
+      CourseActions.load(CourseEnrollmentStore.getCourseId())
     )
     successTimer = new Promise((resolve, reject) -> _.delay(resolve, 1500))
-
     Promise.all([loadCourse, successTimer]).then(@redirectToDashboard)
 
   onCourseEnrollmentChange: ->
@@ -53,8 +53,10 @@ Enroll = React.createClass
   renderCurrentStep: ->
     if CourseEnrollmentStore.isLoading()
       <h3>Loading...</h3>
-    else if CourseEnrollmentStore.isPending()
+    else if CourseEnrollmentStore.isPending() or CourseEnrollmentStore.isApproveError()
       <ConfirmJoin />
+    else if CourseEnrollmentStore.isCreateError()
+      <ErrorList />
     else
       @renderComplete()
 
