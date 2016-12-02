@@ -47,8 +47,8 @@ module.exports = React.createClass
 
     title = <span>Remove <Name {...@props.teacher} />?</span>
     <BS.Popover
-      id="teacher-remove-popover-#{@props.teacher.id}"
-      className='teacher-remove'
+      id="settings-remove-popover-#{@props.teacher.id}"
+      className='settings-remove-teacher'
       title={title}
     >
       {removeButton}

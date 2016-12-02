@@ -16,7 +16,7 @@ displayPopover = (props) ->
   new Promise( (resolve, reject) ->
     wrapper = mount(<AddTeacher {...props} />)
     wrapper.simulate('click')
-    resolve(_.last document.querySelectorAll('.modal.add-instructor'))
+    resolve(_.last document.querySelectorAll('.settings-add-instructor-modal'))
   )
 
 describe 'Course Settings, undrop student', ->

@@ -52,7 +52,7 @@ module.exports = React.createClass
     @setState(_.clone(BLANK_STUDENT))
 
   renderForm: ->
-    <BS.Popover className='teacher-add-student-form'
+    <BS.Popover className='settings-add-student-form'
       title={'Student Information:'}
     >
 

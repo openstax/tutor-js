@@ -11,7 +11,7 @@ AddTeacherModal = (props) ->
     bsSize='lg'
     show={props.show}
     onHide={props.onClose}
-    className='add-instructor'
+    className='settings-add-instructor-modal'
   >
     <BS.Modal.Header closeButton>
       <BS.Modal.Title>Add Teacher</BS.Modal.Title>

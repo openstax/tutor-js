@@ -60,7 +60,7 @@ describe 'Course Settings', ->
     expect(wrapper.find('.nav-tabs .active').text()).to.equal('1st')
     wrapper.find('.control.delete-period').simulate('click')
 
-    modal = _.last document.querySelectorAll('.modal.delete-period')
+    modal = _.last document.querySelectorAll('.settings-delete-period-modal')
     expect(modal).to.exist
     Testing.actions.click(modal.querySelector('button.delete'))
     expect(PeriodActions.delete).to.have.been.called
@@ -74,11 +74,12 @@ describe 'Course Settings', ->
     wrapper = mount(<Roster {...@props} />)
     wrapper.find('.view-archived-periods button').simulate('click')
     periods = _.pluck(document.querySelectorAll(
-      '.view-archived-periods-modal tbody td:first-child'), 'textContent'
+      '.settings-view-archived-periods-modal tbody td:first-child'), 'textContent'
     )
+
     expect(periods).to.deep.equal(['4th', '7th'])
     Testing.actions.click(
-      document.querySelector('.view-archived-periods-modal .restore-period button')
+      document.querySelector('.settings-view-archived-periods-modal .restore-period .btn')
     )
     expect(PeriodActions.restore).to.have.been.called
     undefined

@@ -1,6 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-_ = require 'underscore'
+classnames = require 'classnames'
+
 Icon = require '../icon'
 {PeriodActions, PeriodStore} = require '../../flux/period'
 {TutorInput} = require '../tutor-input'
@@ -68,23 +69,20 @@ module.exports = React.createClass
       PeriodStore.once 'created', => @close()
 
   renderForm: ->
-    formClasses = ['modal-body', 'teacher-edit-period-form']
-    if @state?.invalid and @state.submitted
-      formClasses.push('is-invalid-form')
-      disabled = true
+    invalid = @state?.invalid
     title = <span>Add <CourseGroupingLabel courseId={@props.courseId} /></span>
     label = <span><CourseGroupingLabel courseId={@props.courseId} /> Name</span>
 
     <BS.Modal
       show={@state.showModal}
       onHide={@close}
-      className='teacher-edit-period-modal'>
+      className='settings-edit-period-modal'>
 
       <BS.Modal.Header closeButton>
         <BS.Modal.Title>{title}</BS.Modal.Title>
       </BS.Modal.Header>
 
-      <div className={formClasses.join(' ')}>
+      <BS.Modal.Body className={classnames('is-invalid-form': invalid)}>
         <AddPeriodField
         label={label}
         name='period-name'
@@ -92,18 +90,18 @@ module.exports = React.createClass
         onChange={(val) => @setState(period_name: val)}
         validate={@validate}
         autofocus />
-      </div>
+      </BS.Modal.Body>
 
-      <div className='modal-footer'>
+      <BS.Modal.Footer>
         <AsyncButton
           className='-edit-period-confirm'
           onClick={@performUpdate}
           isWaiting={@state.isCreating}
           waitingText="Adding..."
-          disabled={disabled}>
+          disabled={invalid}>
           Add
         </AsyncButton>
-      </div>
+      </BS.Modal.Footer>
 
     </BS.Modal>
 

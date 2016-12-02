@@ -59,7 +59,7 @@ ViewArchivedPeriods = React.createClass
         <BS.Modal
           show={@state.showModal}
           onHide={@close}
-          className='view-archived-periods-modal'>
+          className='settings-view-archived-periods-modal'>
 
           <BS.Modal.Header closeButton>
             <BS.Modal.Title>

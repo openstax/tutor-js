@@ -133,38 +133,35 @@ SetTimezone = React.createClass
         @close()
 
   renderForm: ->
-    formClasses = classnames 'modal-body', 'teacher-edit-course-form', 'is-invalid-form': @state?.invalid
-    if @state?.invalid
-      disabled = true
-
+    invalid = @state?.invalid
     <BS.Modal
       show={@state.showModal}
       onHide={@close}
-      className='teacher-edit-course-modal course-settings'>
+      className='settings-edit-course-modal'>
 
       <BS.Modal.Header closeButton>
         <BS.Modal.Title>Change Course Timezone</BS.Modal.Title>
       </BS.Modal.Header>
 
-      <div className={formClasses} >
+     <BS.Modal.Body className={classnames('is-invalid-form': invalid)}>
         <SetTimezoneField
         name='course-timezone'
         defaultValue={CourseStore.getTimezone(@props.courseId)}
         onChange={(val) => @setState(course_timezone: val)}
         validate={@validate}
         autofocus />
-      </div>
+      </BS.Modal.Body>
 
-      <div className='modal-footer'>
+      <BS.Modal.Footer>
         <AsyncButton
           className='-edit-course-confirm'
           onClick={@performUpdate}
           isWaiting={CourseStore.isSaving(@props.courseId)}
           waitingText="Saving..."
-          disabled={disabled}>
+          disabled={invalid}>
         Save
         </AsyncButton>
-      </div>
+      </BS.Modal.Footer>
     </BS.Modal>
 
   render: ->

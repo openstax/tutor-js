@@ -17,7 +17,7 @@ DeleteCourseModal = (props) ->
   <BS.Modal
     show={props.show}
     onHide={props.onClose}
-    className='delete-period'>
+    className='settings-delete-period-modal'>
 
     <BS.Modal.Header closeButton>
       <BS.Modal.Title>Delete {props.period.name}</BS.Modal.Title>
