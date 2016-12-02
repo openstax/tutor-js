@@ -199,8 +199,16 @@
 .settings-delete-period-modal,
 .settings-add-instructor-modal,
 .settings-view-archived-periods-modal {
-  .tutor-plan-modal(@tutor-tertiary-light);
   .tutor-modal();
+  .modal-header {
+    color: @tutor-neutral-darker;
+    background-color: @tutor-neutral-bright;
+    button.close {
+      opacity: 0.8;
+      font-size: 3rem;
+      color: @tutor-neutral-darker;
+    }
+  }
 }
 
 .course-timezone-preview {
