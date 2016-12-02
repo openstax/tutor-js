@@ -1,6 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-_ = require 'underscore'
+classnames = require 'classnames'
+
 {PeriodActions, PeriodStore} = require '../../flux/period'
 {TutorInput} = require '../tutor-input'
 {AsyncButton} = require 'shared'
@@ -77,15 +78,12 @@ module.exports = React.createClass
         @close()
 
   renderForm: ->
-    formClasses = ['modal-body', 'teacher-edit-period-form']
-    if @state?.invalid
-      formClasses.push('is-invalid-form')
-      disabled = true
+    invalid = @state?.invalid
 
     <BS.Modal
       show={@state.showModal}
       onHide={@close}
-      className='teacher-edit-period-modal'>
+      className='settings-edit-period-modal'>
 
       <BS.Modal.Header closeButton>
         <BS.Modal.Title>
@@ -93,7 +91,7 @@ module.exports = React.createClass
         </BS.Modal.Title>
       </BS.Modal.Header>
 
-      <div className={formClasses.join(' ')}>
+      <BS.Modal.Body className={classnames('is-invalid-form': invalid)}>
         <RenamePeriodField
           label={
             <span><CourseGroupingLabel courseId={@props.courseId}/> Name</span>
@@ -103,26 +101,24 @@ module.exports = React.createClass
           onChange={(val) => @setState(period_name: val)}
           validate={@validate}
           autofocus />
-      </div>
+      </BS.Modal.Body>
 
-      <div className='modal-footer'>
+      <BS.Modal.Footer>
         <AsyncButton
           className='-edit-period-confirm'
           onClick={@performUpdate}
           isWaiting={@state.isSaving}
           waitingText="Saving..."
-          disabled={disabled}>
+          disabled={invalid}>
         Rename
         </AsyncButton>
-      </div>
+      </BS.Modal.Footer>
 
     </BS.Modal>
 
   render: ->
-    <span className='control rename-period'>
-      <BS.Button onClick={@open} bsStyle='link'>
-        <Icon type='pencil' />
-        Rename
-      </BS.Button>
+    <BS.Button onClick={@open} bsStyle='link' className='control rename-period'>
+      <Icon type='pencil' />
+      Rename
       {@renderForm()}
-    </span>
+    </BS.Button>

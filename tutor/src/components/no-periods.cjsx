@@ -2,53 +2,46 @@ _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
 TutorLink = require './link'
-
 CourseGroupingLabel = require './course-grouping-label'
-NoArchiveHelp = require './course-settings/no-archive-help'
+Router = require '../helpers/router'
 
 NoPeriods = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
-    noPanel:  React.PropTypes.bool
-    link:  React.PropTypes.bool
+    button:   React.PropTypes.element
 
-  getDefaultProps: ->
-    link: true
+  contextTypes:
+    router: React.PropTypes.object
 
-  getMessage: ->
-    [
-      <span key='no-periods-start'>You have no </span>
-      <CourseGroupingLabel
-        key='no-periods-label'
-        lowercase
-        courseId={@props.courseId} />
-      <span key='no-periods-end'> in this course.</span>
-      <NoArchiveHelp key='no-archive' courseId={@props.courseId} />
-    ]
+  onAddSection: ->
+    @context.router.transitionTo(
+      Router.makePathname('courseSettings',
+        {courseId: @props.courseId},
+        query: {add: true}
+      )
+    )
+
+
+  AddButton: ->
+    <BS.Button
+      className='no-periods-course-settings-link'
+      bsStyle="primary"
+      onClick={@onAddSection}
+    >
+      Add a <CourseGroupingLabel courseId={@props.courseId} />
+    </BS.Button>
 
   render: ->
-    {courseId, link} = @props
 
-    if link
-      message =
-        <TutorLink
-          className='no-periods-text'
-          to='courseSettings'
-          params={{courseId}}>
-          {@getMessage()}
-        </TutorLink>
-    else
-      message =
-        <span className='no-periods-text'>
-          {@getMessage()}
-        </span>
+    <div className="no-periods-message">
+      <p>
+        Please add at least
+        one <CourseGroupingLabel courseId={@props.courseId} lowercase /> to the course.
+      </p>
 
-    if @props.noPanel
-      message
-    else
-      <BS.Panel>
-        {message}
-      </BS.Panel>
+      {@props.button or <@AddButton />}
+
+    </div>
 
 module.exports = NoPeriods

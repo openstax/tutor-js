@@ -3,24 +3,23 @@ BS = require 'react-bootstrap'
 _  = require 'underscore'
 classnames = require 'classnames'
 
+Router = require '../../helpers/router'
+
 BindStoreMixin = require '../bind-store-mixin'
 NoPeriods = require '../no-periods'
 PH = require '../../helpers/period'
+Tabs = require '../tabs'
 
 {CourseStore, CourseActions} = require '../../flux/course'
 {RosterStore, RosterActions} = require '../../flux/roster'
 
-NoArchiveHelp = require './no-archive-help'
-PeriodRoster = require './period-roster'
-DroppedRoster = require './dropped-roster'
+PeriodRoster        = require './period-roster'
+DroppedRoster       = require './dropped-roster'
 ViewArchivedPeriods = require './view-archived-periods'
-StudentEnrollment = require './student-enrollment'
-
-AddPeriodLink = require './add-period'
-RenamePeriodLink = require './rename-period'
-ArchivePeriodLink = require './archive-period'
-
-Tabs = require '../tabs'
+StudentEnrollment   = require './student-enrollment'
+AddPeriodLink       = require './add-period'
+RenamePeriodLink    = require './rename-period'
+DeletePeriodLink    = require './delete-period'
 
 CourseRoster = React.createClass
 
@@ -64,11 +63,11 @@ CourseRoster = React.createClass
           period={activePeriod}
         />
 
-        <ArchivePeriodLink
+        <DeletePeriodLink
           courseId={@props.courseId}
           period={activePeriod}
           periods={periods}
-          afterArchive={@selectPreviousPeriod}
+          afterDelete={@selectPreviousPeriod}
         />
 
       </div>
@@ -87,10 +86,15 @@ CourseRoster = React.createClass
     </div>
 
   renderEmpty: ->
-    <NoPeriods courseId={@props.courseId} link={false}/>
+    <NoPeriods courseId={@props.courseId} button={
+      <AddPeriodLink
+        show={!!Router.currentQuery().add}
+        courseId={@props.courseId}
+        periods={[]}
+      />
+    } />
 
   renderRoster: (course, periods) ->
-
     <div className="roster">
       <div className="settings-section periods">
 
@@ -99,10 +103,12 @@ CourseRoster = React.createClass
           tabs={_.pluck(periods, 'name')}
           onSelect={@onTabSelection}
         >
-          <AddPeriodLink courseId={@props.courseId} periods={periods} />
+          <AddPeriodLink
+            show={false}
+            courseId={@props.courseId}
+            periods={periods} />
           <ViewArchivedPeriods courseId={@props.courseId}
             afterRestore={@selectPreviousPeriod} />
-          <NoArchiveHelp courseId={@props.courseId} />
         </Tabs>
 
         <@ActivePeriod periods={periods} />

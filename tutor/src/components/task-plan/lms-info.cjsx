@@ -7,6 +7,7 @@ BindStoreMixin = require '../bind-store-mixin'
 TaskPlanHelper = require '../../helpers/task-plan'
 Clipboard = require '../../helpers/clipboard'
 LoadableItem = require '../loadable-item'
+CopyOnFocusInput = require '../copy-on-focus-input'
 
 moment = require 'moment'
 Icon = require '../icon'
@@ -20,8 +21,7 @@ DUE_FORMAT = 'M/D/YYYY [at] h:mma'
 LmsInfoLink = React.createClass
 
   focusInput: (ev) ->
-    ev.currentTarget.querySelector('input').select()
-    Clipboard.copy()
+    @refs.input.focus()
 
   closePopOver: ->
     @refs.overlay.hide()
@@ -59,7 +59,7 @@ LmsInfoLink = React.createClass
       id={_.uniqueId('sharable-link-popover')}
     >
       <div className='body' onClick={@focusInput}>
-        <input ref='input' value={url} readOnly={true} />
+        <CopyOnFocusInput value={url} ref="input" readOnly={true} />
         <a href={url}>{title}</a>
         {@renderDueDates()}
         {<p>

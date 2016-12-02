@@ -85,24 +85,22 @@ module.exports = React.createClass
     <BS.Modal
       show={@state.showModal}
       onHide={@close}
-      className="teacher-edit-period-modal">
+      className="settings-edit-period-modal">
 
       <BS.Modal.Header closeButton>
         <BS.Modal.Title>{TITLE}</BS.Modal.Title>
       </BS.Modal.Header>
 
-      <div className='modal-body teacher-enrollment-code-modal'>
+      <BS.Modal.Body>
         <div className='enrollment-code'>
           {codeInstructions}
         </div>
-      </div>
+      </BS.Modal.Body>
 
     </BS.Modal>
 
   render: ->
-    <span className='cc-enrollment-code'>
-      <BS.Button onClick={@open} bsStyle='link' className='show-enrollment-code'>
-        <Icon type='qrcode' /> {TITLE}
-      </BS.Button>
+    <BS.Button onClick={@open} bsStyle='link' className='control cc-enrollment-code'>
+      <Icon type='qrcode' /> {TITLE}
       {@renderForm()}
-    </span>
+    </BS.Button>

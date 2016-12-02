@@ -33,20 +33,20 @@ RenameCourse = React.createClass
         @close()
 
   renderForm: ->
-    formClasses = classnames 'modal-body', 'teacher-edit-course-form', 'is-invalid-form': @state?.invalid
+
     if @state?.invalid
       disabled = true
 
     <BS.Modal
       show={@state.showModal}
       onHide={@close}
-      className='teacher-edit-course-modal'>
+      className='settings-edit-course-modal'>
 
       <BS.Modal.Header closeButton>
         <BS.Modal.Title>Rename Course</BS.Modal.Title>
       </BS.Modal.Header>
 
-      <div className={formClasses} >
+      <BS.Modal.Body>
         <TutorInput
           label='Course Name'
           name='course-name'
@@ -55,7 +55,7 @@ RenameCourse = React.createClass
           validate={@validate}
           autoFocus
         />
-      </div>
+      </BS.Modal.Body>
 
       <div className='modal-footer'>
         <AsyncButton
@@ -70,11 +70,10 @@ RenameCourse = React.createClass
     </BS.Modal>
 
   render: ->
-    <span className='-rename-course-link'>
-      <BS.Button onClick={@open} bsStyle='link' className='edit-course'>
-        <i className='fa fa-pencil' /> Rename Course
-      </BS.Button>
+    <BS.Button onClick={@open} bsStyle='link' className='control edit-course'>
+      <i className='fa fa-pencil' /> Rename Course
       {@renderForm()}
-    </span>
+    </BS.Button>
+
 
 module.exports = RenameCourse

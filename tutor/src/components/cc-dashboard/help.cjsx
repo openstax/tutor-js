@@ -19,6 +19,8 @@ CCDashboardHelp = React.createClass
     glprops = {lowercase:true, courseId: courseId}
     section =
       <CourseGroupingLabel lowercase {...glprops} />
+    uCaseSection =
+      <CourseGroupingLabel {...glprops} />
     <div className='cc-dashboard-help'>
       <h3 className="title">
         Welcome to Concept Coach™
@@ -28,28 +30,48 @@ CCDashboardHelp = React.createClass
         <p className="fine-print">This guide is always accessible from your main menu.</p>
         <div className="side-by-side">
           <div className="help">
-            <h3 className="improvements">
-              In January 2017, you’ll see the following improvements to Concept Coach:
-            </h3>
-
+            <b>
+              Add <CourseGroupingLabel plural {...glprops} /> to your course.
+            </b>
             <ol>
               <li>
-                <b>Improved course setup.</b> There
-                will be an easy way to teach this course again. You
-                no longer need to add or archive sections to teach this course.
+                Click your name in the top right corner and select “Course Settings and Roster”
               </li>
               <li>
-                <b>
-                  The ability to copy your Question Library and use it in a future course.
-                </b> If you excluded any questions, you’ll be able to carry over those exclusions to the next course you teach
-              </li>
-              <li>
-                <b>Errata fixes.</b> We’ve processed corrections for items found to be incorrect.
+                Click the blue “Add {uCaseSection}” link and follow the prompts to create your {section}.
+                If you have more than one {section}, repeat this step as needed.
               </li>
             </ol>
-            <b>
-              Please return here on January 3<sup>rd</sup> to set up your new Concept Coach course!
-            </b>
+            <b>Get student enrollment code and send to your students.</b>
+            <ol>
+              <li>
+                Select your first {section} and click the blue “Get Student Enrollment Code” link.
+              </li>
+              <li>
+                Copy the example message and share this message with your students in that {section}.
+              </li>
+              <li>
+                Repeat this step for each {section} of your course (every {section} has a different enrollment code).
+              </li>
+            </ol>
+            <b>Assign Concept Coach.</b>
+            <ol>
+              <li>
+                On the top menu, click “Get Assignment Links.” Follow the instructions to assign Concept Coach question sets.
+              </li>
+              <li>
+                View your students’ progress.
+              </li>
+              <li>
+                As your students begin using Concept Coach, you will be able to track
+                their performance in your dashboard.
+              </li>
+            </ol>
+            <div className="tip">
+              <b>Tip</b>:
+              To view all Concept Coach questions, click your name in the top right corner of your dashboard
+              and select “Question Library.”
+            </div>
           </div>
           <div className='graphic'>
             <div className='svg-container'>
