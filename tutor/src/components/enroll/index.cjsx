@@ -1,8 +1,9 @@
 React = require 'react'
 _ = require 'underscore'
+{Promise} = require 'es6-promise'
 
 {CourseEnrollmentActions, CourseEnrollmentStore} = require '../../flux/course-enrollment'
-{CourseStore} = require '../../flux/course'
+{CourseActions, CourseStore} = require '../../flux/course'
 ENTER = 'Enter'
 
 ConfirmJoin = require './confirm-join'
@@ -21,14 +22,24 @@ Enroll = React.createClass
   componentWillUnmount: ->
     CourseEnrollmentStore.off('changed', @onCourseEnrollmentChange)
 
+  redirectToDashboard: ->
+    @context.router.transitionTo(
+      Router.makePathname('dashboard', {courseId: CourseEnrollmentStore.courseId()})
+    )
+
+  # Wait for the course to load and wait at least 1.5 secs
+  # so our success message is briefly displayed, then redirect to dashboard
   onComplete: ->
-    @context.router.transitionTo('viewStudentDashboard', CourseEnrollmentStore.courseId())
+    loadCourse = new Promise((resolve, reject) ->
+      CourseStore.once('course.loaded', resolve)
+      CourseActions.load(CourseEnrollmentStore.courseId())
+    )
+    successTimer = new Promise((resolve, reject) -> _.delay(resolve, 1500))
+
+    Promise.all([loadCourse, successTimer]).then(@redirectToDashboard)
 
   onCourseEnrollmentChange: ->
-    if CourseEnrollmentStore.isRegistered()
-      # wait 1.5 secs so our success message is briefly displayed, then call onComplete
-      _.delay(@onComplete, 1500)
-
+    @onComplete() if CourseEnrollmentStore.isRegistered()
     @forceUpdate()
 
   renderComplete: ->

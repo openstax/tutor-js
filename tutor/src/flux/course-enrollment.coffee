@@ -30,7 +30,7 @@ CourseEnrollmentStore = flux.createStore
 
     getStudentIdentifier: -> ""
 
-    courseId: -> @to.course?.id
+    courseId: -> @to?.course?.id
 
     confirm: (studentId) -> CourseEnrollmentActions.approve(@id, studentId)
 
