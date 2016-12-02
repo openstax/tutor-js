@@ -12,7 +12,7 @@ TaskPlanMiniEditorShell = React.createClass
   propTypes:
     courseId: React.PropTypes.string.isRequired
     planId:   React.PropTypes.string.isRequired
-    onHide: React.PropTypes.func.isRequired
+    onHide:   React.PropTypes.func.isRequired
     findPopOverTarget: React.PropTypes.func.isRequired
     position: React.PropTypes.shape(
       x: React.PropTypes.number
@@ -30,6 +30,8 @@ TaskPlanMiniEditorShell = React.createClass
       id={@props.planId}
       onHide={@props.onHide}
       courseId={@props.courseId}
+      termStart={@props.termStart}
+      termEnd={@props.termEnd}
       save={TaskPlanActions.saveSilent}
       handleError={@handleError}
     />

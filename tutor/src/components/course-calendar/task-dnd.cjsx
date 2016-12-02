@@ -26,7 +26,7 @@ CloneTaskDrag =
     # hopefully the load will have completed by the time it's dropped
     offHover()
     unless TaskPlanStore.isLoaded(plan.id) or TaskPlanStore.isLoading(plan.id)
-      TaskPlanActions.load(plan.id)
+      TaskPlanActions.loaded(plan, plan.id)
     plan
 
   endDrag: (props, monitor) ->

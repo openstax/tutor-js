@@ -13,6 +13,7 @@ taskPlanEditingInitialize = require '../initialize-editing'
 
 {TimeStore} = require '../../../flux/time'
 TimeHelper = require '../../../helpers/time'
+CourseDataHelper = require '../../../helpers/course-data'
 {PeriodActions, PeriodStore} = require '../../../flux/period'
 
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
@@ -45,6 +46,7 @@ TaskPlanBuilder = React.createClass
   getInitialState: ->
     {id} = @props
 
+    term: CourseDataHelper.getCourseBounds(@props.courseId)
     showingPeriods: not TaskingStore.getTaskingsIsAll(id)
     currentLocale: TimeHelper.getCurrentLocales()
 
@@ -58,7 +60,8 @@ TaskPlanBuilder = React.createClass
 
   componentWillMount: ->
     {id, courseId} = @props
-    nextState = taskPlanEditingInitialize(id, courseId)
+    {term} = @state
+    nextState = taskPlanEditingInitialize(id, courseId, term)
     @setState(nextState)
 
   componentWillUnmount: ->
@@ -209,7 +212,7 @@ TaskPlanBuilder = React.createClass
 
   renderTaskPlanRow: (period) ->
     {id, courseId, isVisibleToStudents, isEditable, isSwitchable} = @props
-    {showingPeriods, currentLocale} = @state
+    {showingPeriods, currentLocale, term} = @state
 
     taskingIdentifier = TaskingStore.getTaskingIndex(period)
     isEnabled = TaskingStore.isTaskingEnabled(id, period)
@@ -218,6 +221,8 @@ TaskPlanBuilder = React.createClass
     <Tasking
       key={period?.id or 'all'}
       {...@props}
+      termStart={term.start}
+      termEnd={term.end}
       isEnabled={isEnabled}
       ref={"tasking-#{taskingIdentifier}"}
       period={period}

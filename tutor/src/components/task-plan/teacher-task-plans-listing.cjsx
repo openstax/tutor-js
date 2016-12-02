@@ -9,6 +9,7 @@ LoadableItem = require '../loadable-item'
 {CourseStore} = require '../../flux/course'
 {TimeStore} = require '../../flux/time'
 TimeHelper = require '../../helpers/time'
+CourseDataHelper = require '../../helpers/course-data'
 PH = require '../../helpers/period'
 CourseTitleBanner = require '../course-title-banner'
 CourseCalendar = require '../course-calendar'
@@ -83,10 +84,12 @@ TeacherTaskPlanListing = React.createClass
       displayAs: 'month'
 
   getDateStates: (state) ->
-    date = @getDateFromParams()
+    term = CourseDataHelper.getCourseBounds(@props.params.courseId)
+    courseDates = {termStart: term.start, termEnd: term.end}
+    date = @getDateFromParams(courseDates)
 
     bounds = @getBoundsForDate(date, state)
-    _.extend({date}, bounds)
+    _.extend({date}, bounds, courseDates)
 
   getBoundsForDate: (date, state) ->
     state ?= @state
@@ -100,19 +103,32 @@ TeacherTaskPlanListing = React.createClass
     courseTimezone = CourseStore.getTimezone(courseId)
     TimeHelper.syncCourseTimezone(courseTimezone)
 
-    TaskPlanStore.on('publish-queued', @loadToListing)
+    TaskPlanStore.on('saved.*', @loadToListing)
 
   componentWillUnmount: ->
     TimeHelper.unsyncCourseTimezone()
 
-    TaskPlanStore.off('publish-queued', @loadToListing)
+    TaskPlanStore.off('saved.*', @loadToListing)
 
   loadToListing: (plan) ->
     TeacherTaskPlanActions.addPublishingPlan(plan, @props.params.courseId)
 
-  getDateFromParams: ->
+  getBoundsForCourse: ->
+    course = CourseStore.get(@props.params.courseId)
+
+    termStart = TimeHelper.getMomentPreserveDate(course.starts_at, @props.dateFormat)
+    termEnd = TimeHelper.getMomentPreserveDate(course.ends_at, @props.dateFormat)
+
+    {termStart, termEnd}
+
+  getDateFromParams: ({termStart, termEnd}) ->
     {date} = @props.params
-    TimeHelper.getMomentPreserveDate(date or new Date, @props.dateFormat)
+
+    if date
+      TimeHelper.getMomentPreserveDate(date, @props.dateFormat)
+    else
+      now = TimeHelper.getMomentPreserveDate(TimeStore.getNow(), @props.dateFormat)
+      if termStart.isAfter(now) then termStart else now
 
   isLoadingOrLoad: ->
     courseId = @props.params.courseId
@@ -132,23 +148,17 @@ TeacherTaskPlanListing = React.createClass
     {courseId} = params
 
     {displayAs} = @state
-    {date, startAt, endAt} = @getDateStates()
+    {date, startAt, endAt, termStart, termEnd} = @getDateStates()
 
     course  = CourseStore.get(courseId)
     hasPeriods = PH.hasPeriods(course)
 
     loadPlansList = _.partial(TeacherTaskPlanStore.getActiveCoursePlans, courseId)
-    loadedCalendarProps = {loadPlansList, courseId, date, displayAs, hasPeriods, params}
+    loadedCalendarProps = {
+      loadPlansList, courseId, date, displayAs, hasPeriods, params, termStart, termEnd
+    }
     loadingCalendarProps = if hasPeriods
-      {
-        loadPlansList,
-        courseId,
-        date,
-        displayAs,
-        hasPeriods,
-        params,
-        className: 'calendar-loading'
-      }
+      _.extend(className: 'calendar-loading', loadedCalendarProps)
     else
       loadedCalendarProps
 

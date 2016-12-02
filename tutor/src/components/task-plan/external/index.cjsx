@@ -7,7 +7,7 @@ classnames = require 'classnames'
 
 {TutorInput, TutorDateInput, TutorTextArea} = require '../../tutor-input'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
-{TaskingStore, TaskingActions} = require '../../../flux/tasking'
+{TaskingStore} = require '../../../flux/tasking'
 
 PlanFooter = require '../footer'
 PlanMixin = require '../plan-mixin'

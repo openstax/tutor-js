@@ -7,6 +7,7 @@ BS = require 'react-bootstrap'
 classnames = require 'classnames'
 
 {TimeStore} = require '../../flux/time'
+TimeHelper = require '../../helpers/time'
 
 CourseAddMenuMixin = require './add-menu-mixin'
 
@@ -14,7 +15,9 @@ CourseAdd = React.createClass
   displayName: 'CourseAdd'
 
   propTypes:
-    courseId: React.PropTypes.string.isRequired
+    courseId:   React.PropTypes.string.isRequired
+    termStart:  TimeHelper.PropTypes.moment
+    termEnd:    TimeHelper.PropTypes.moment
 
   mixins: [CourseAddMenuMixin]
 
@@ -38,6 +41,20 @@ CourseAdd = React.createClass
       open: false
     })
 
+  getDateType: ->
+    {referenceDate, addDate} = @state
+    {termStart, termEnd} = @props
+    return null unless addDate?
+
+    if addDate.isBefore(termStart, 'day')
+      'day before term starts'
+    else if addDate.isAfter(termEnd, 'day')
+      'day after term ends'
+    else if addDate.isBefore(referenceDate, 'day')
+      'past day'
+    else if addDate.isSame(referenceDate, 'day')
+      'today'
+
   render: ->
     {referenceDate, addDate, open} = @state
 
@@ -49,17 +66,17 @@ CourseAdd = React.createClass
 
     style['display'] = if open then 'block' else 'none'
 
+    addDateType = @getDateType()
     className = classnames 'course-add-dropdown',
-      'no-add': not addDate?.isAfter(referenceDate, 'day')
+      'no-add': addDateType
 
     # only allow add if addDate is on or after reference date
-    if addDate?.isAfter(referenceDate, 'day')
-      dropdownContent = @renderAddActions()
-    else
-      dayType = if addDate?.isSame(referenceDate, 'day') then 'today' else 'past day'
+    if addDateType
       dropdownContent = <li>
-        <span className='no-add-text'>Cannot assign to {dayType}</span>
+        <span className='no-add-text'>Cannot assign to {addDateType}</span>
       </li>
+    else
+      dropdownContent = @renderAddActions()
 
     <BS.Dropdown.Menu
     id='course-add-dropdown'

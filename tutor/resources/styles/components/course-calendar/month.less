@@ -56,11 +56,13 @@
     &.is-dragging {
       .rc-Day--upcoming,
       .rc-Day--current {
-        &.hovered {
+        &.hovered:not(.before-term):not(.after-term) {
           border: 1px solid @tutor-tertiary-light;
         }
       }
-      .rc-Day--past {
+      .rc-Day--past,
+      .before-term,
+      .after-term {
         &.hovered {
            background: fade(@tutor-danger, 10%);
         }
@@ -150,7 +152,9 @@
         }
       }
 
-      &--past {
+      &--past,
+      &.before-term,
+      &.after-term {
         color: @tutor-neutral;
         background-color: @tutor-neutral-lightest;
       }

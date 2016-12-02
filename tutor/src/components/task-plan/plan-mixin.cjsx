@@ -1,6 +1,8 @@
 React = require 'react'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TaskingStore, TaskingActions} = require '../../flux/tasking'
+{PastTaskPlansActions} = require '../../flux/past-task-plans'
+
 {TimeStore} = require '../../flux/time'
 {CloseButton} = require 'shared'
 TutorDialog = require '../tutor-dialog'
@@ -86,18 +88,23 @@ PlanMixin =
     # state to the form.  Blame @fredasaurus
     if saveable
       if TaskPlanStore.hasChanged(id)
-        TaskPlanActions.saved.addListener(@saved)
+        TaskPlanStore.once("saved.#{id}", @saved)
         if @props.save? then @props.save(id, courseId) else TaskPlanActions.save(id, courseId)
       else
         @saved()
     else
       @setState({invalid: true})
 
-  saved: ->
+  saved: (savedPlan) ->
     courseId = @props.courseId
-    TaskPlanActions.saved.removeListener('change', @saved)
-    TaskPlanStore.isLoading(@props.id)
-    if @afterSave? then @afterSave() else @goBackToCalendar()
+
+    if savedPlan
+      TaskPlanActions.loaded(savedPlan, savedPlan.id)
+      TaskingActions.loadTaskToCourse(savedPlan.id, courseId)
+      TaskingActions.loadTaskings(savedPlan.id, savedPlan.tasking_plans)
+      PastTaskPlansActions.unload(courseId, savedPlan.cloned_from_id) if savedPlan.cloned_from_id
+
+    if @afterSave? then @afterSave(savedPlan) else @goBackToCalendar()
 
   cancel: ->
     {id, courseId} = @props

@@ -36,10 +36,12 @@ CourseMonth = React.createClass
     router: React.PropTypes.object
 
   propTypes:
-    plansList: React.PropTypes.array
-    date: TimeHelper.PropTypes.moment
+    plansList:  React.PropTypes.array
+    date:       TimeHelper.PropTypes.moment
+    termStart:  TimeHelper.PropTypes.moment
+    termEnd:    TimeHelper.PropTypes.moment
     hasPeriods: React.PropTypes.bool.isRequired
-    courseId: React.PropTypes.string.isRequired
+    courseId:   React.PropTypes.string.isRequired
 
   childContextTypes:
     date: TimeHelper.PropTypes.moment
@@ -69,6 +71,8 @@ CourseMonth = React.createClass
 
   getMonthMods: (calendarDuration) ->
     date = moment(TimeStore.getNow())
+    {termStart, termEnd} = @props
+
     mods = [
       {
         component: [ 'day' ]
@@ -86,7 +90,14 @@ CourseMonth = React.createClass
           'upcoming'
         else
           'current'
-      classnames(className,
+
+      termClasses =
+        if dateToModify.isBefore(termStart, 'day')
+          'before-term'
+        else if dateToModify.isAfter(termEnd, 'day')
+          'after-term'
+
+      classnames(className, termClasses,
         hovered: hoveredDay and dateToModify.isSame(hoveredDay, 'day')
       )
 
@@ -178,7 +189,11 @@ CourseMonth = React.createClass
     @props.date?.format?('MMMM')
 
   onDrop: (item, offset) ->
-    return unless @state.hoveredDay and @state.hoveredDay.isSameOrAfter(TimeStore.getNow(), 'day')
+    {termStart, termEnd} = @props
+    return unless @state.hoveredDay and
+      @state.hoveredDay.isBetween(termStart, termEnd, 'day', '[]') and
+      @state.hoveredDay.isSameOrAfter(TimeStore.getNow(), 'day')
+
     if item.pathname # is a link to create an assignment
       url = item.pathname + "?" + qs.stringify({
         due_at: @state.hoveredDay.format(@props.dateFormat)
@@ -215,7 +230,7 @@ CourseMonth = React.createClass
     @setState(editingPlanId: null, cloningPlanId: null)
 
   render: ->
-    {plansList, courseId, className, date, hasPeriods} = @props
+    {plansList, courseId, className, date, hasPeriods, termStart, termEnd} = @props
     {calendarDuration, calendarWeeks} = @getDurationInfo(date)
 
     calendarClassName = classnames('calendar-container', 'container', className,
@@ -235,12 +250,18 @@ CourseMonth = React.createClass
 
     <div className={calendarClassName}>
 
-      <CourseAdd ref='addOnDay' hasPeriods={hasPeriods} courseId={@props.courseId} />
+      <CourseAdd
+        ref='addOnDay'
+        hasPeriods={hasPeriods}
+        courseId={courseId}
+        termStart={termStart}
+        termEnd={termEnd}
+      />
 
       <CourseCalendarHeader
         defaultOpen={@state.showingSideBar}
         onSidebarToggle={@onSidebarToggle}
-        courseId={@props.courseId}
+        courseId={courseId}
         hasPeriods={hasPeriods}
       />
 
@@ -274,7 +295,6 @@ CourseMonth = React.createClass
         planId={@state.cloningPlan.id}
         planType={@state.cloningPlan.type}
         position={@state.cloningPlan.position}
-        onLoad={@onCloneLoaded}
         courseId={@props.courseId}
         due_at={@state.cloningPlan.due_at}
         onLoad={@onCloneLoaded}
@@ -282,7 +302,9 @@ CourseMonth = React.createClass
       {<TaskPlanMiniEditor
         planId={@state.editingPlanId}
         position={@state.editingPosition}
-        courseId={@props.courseId}
+        courseId={courseId}
+        termStart={termStart}
+        termEnd={termEnd}
         onHide={@onEditorHide}
         findPopOverTarget={@getEditingPlanEl}
       /> if @state.editingPlanId}

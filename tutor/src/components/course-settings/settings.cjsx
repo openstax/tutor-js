@@ -5,6 +5,7 @@ _  = require 'underscore'
 LoadableItem = require '../loadable-item'
 {CourseStore} = require '../../flux/course'
 {RosterStore, RosterActions} = require '../../flux/roster'
+TimeHelper = require '../../helpers/time'
 
 Roster = require './roster'
 TeacherRoster = require './teacher-roster'
@@ -25,9 +26,29 @@ module.exports = React.createClass
         <RenameCourse courseId={@props.courseId}  course={course}/>
       </div>
 
-      <div className='course-settings-timezone'>{CourseStore.getTimezone(@props.courseId)}
-        <SetTimezone courseId={@props.courseId}/>
-      </div>
+      <h4 className='course-settings-term'>
+        {CourseStore.getTerm(@props.courseId)}
+      </h4>
+
+      <BS.Row>
+
+        <BS.Col sm={6} className='course-settings-start-end-dates'>
+          <span className='course-settings-detail'>
+            Starts: {TimeHelper.toHumanDate(course.starts_at)}
+          </span>
+          <span className='course-settings-detail'>
+            Ends: {TimeHelper.toHumanDate(course.ends_at)}
+          </span>
+        </BS.Col>
+
+        <BS.Col sm={6} className='course-settings-timezone text-right'>
+          <span className='course-settings-detail'>
+            {CourseStore.getTimezone(@props.courseId)}
+          </span>
+          <SetTimezone courseId={@props.courseId}/>
+        </BS.Col>
+
+      </BS.Row>
 
       <div className="settings-section teachers">
         <LoadableItem

@@ -29,7 +29,7 @@ TimeHelper =
   ISO_DATE_FORMAT: 'YYYY-MM-DD'
   ISO_TIME_FORMAT: 'HH:mm'
   HUMAN_TIME_FORMAT: 'h:mm a'
-  HUMAN_DATE_FORMAT: 'MM-DD-YYYY'
+  HUMAN_DATE_FORMAT: 'MM/DD/YYYY'
 
   toHumanDate: (datething) ->
     moment(datething).format(@HUMAN_DATE_FORMAT)

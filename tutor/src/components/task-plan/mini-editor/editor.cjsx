@@ -12,8 +12,10 @@ TutorLink = require '../../link'
 TaskingDateTimes = require '../builder/tasking-date-times'
 BindStoresMixin = require '../../bind-stores-mixin'
 {TutorInput, TutorTextArea} = require '../../tutor-input'
-{TaskingStore, TaskingActions} = require '../../../flux/tasking'
+{TaskingStore} = require '../../../flux/tasking'
 {TeacherTaskPlanActions} = require '../../../flux/teacher-task-plan'
+TimeHelper = require '../../../helpers/time'
+
 taskPlanEditingInitialize = require '../initialize-editing'
 
 PublishButton = require '../footer/save-button'
@@ -26,6 +28,8 @@ TaskPlanMiniEditor = React.createClass
 
   propTypes:
     courseId:     React.PropTypes.string.isRequired
+    termStart:    TimeHelper.PropTypes.moment
+    termEnd:      TimeHelper.PropTypes.moment
     id:           React.PropTypes.string.isRequired
     onHide:       React.PropTypes.func.isRequired
     handleError:  React.PropTypes.func.isRequired
@@ -57,8 +61,8 @@ TaskPlanMiniEditor = React.createClass
     @setState({error})
 
   componentWillMount: ->
-    {id, courseId} = @props
-    taskPlanEditingInitialize(id, courseId)
+    {id, courseId, termStart, termEnd} = @props
+    taskPlanEditingInitialize(id, courseId, {start: termStart, end: termEnd})
 
   onSave: ->
     @setState({saving: true, publishing: false})
@@ -70,19 +74,19 @@ TaskPlanMiniEditor = React.createClass
 
   afterSave: ->
     @setState({saving: false, publishing: false})
-    @props.onHide()
+    @onCancel()
 
   onCancel: ->
-    plan = TaskPlanStore.get(@props.id)
     @props.onHide()
     if TaskPlanStore.isNew(@props.id)
       TaskPlanActions.removeUnsavedDraftPlan(@props.id)
       TeacherTaskPlanActions.removeClonedPlan(@props.courseId, @props.id)
-      #TaskTeacherReviewActions.removeTask(@props.id)
 
   render: ->
-    plan = TaskPlanStore.get(@props.id)
-    isPublished = TaskPlanStore.isPublished(@props.id)
+    {id, courseId, termStart, termEnd} = @props
+
+    plan = TaskPlanStore.get(id)
+    isPublished = TaskPlanStore.isPublished(id)
 
     <div className='task-plan-mini-editor'>
       <div className="row">
@@ -99,7 +103,7 @@ TaskPlanMiniEditor = React.createClass
             value={plan.title or ''}
             required={true}
             onChange={@setTitle}
-            disabled={@state.error} />
+            disabled={@state.error?} />
         </BS.Col>
       </div>
       <div className="row times">
@@ -107,7 +111,9 @@ TaskPlanMiniEditor = React.createClass
           bsSizes={{}}
           id={plan.id}
           isEditable={not @state.error?}
-          courseId={@props.courseId}
+          courseId={courseId}
+          termStart={termStart}
+          termEnd={termEnd}
           taskingIdentifier='all'
         />
       </div>
@@ -118,14 +124,14 @@ TaskPlanMiniEditor = React.createClass
         <BS.Col xs=6 className='text-right'>
           <TutorLink
             to={camelCase("edit-#{plan.type}")}
-            params={id: plan.id, courseId: @props.courseId}
+            params={id: plan.id, courseId: courseId}
           >
               Edit other assignment details
           </TutorLink>
         </BS.Col>
       </div>
 
-      {<BS.Alert bsStyle='danger' onDismiss={@onCancel}>
+      {<BS.Alert bsStyle='danger'>
         <ServerErrorMessage {...@state.error} debug={false} />
       </BS.Alert> if @state.error}
 
@@ -139,21 +145,22 @@ TaskPlanMiniEditor = React.createClass
           isEditable={!!@state.isEditable}
           isPublishing={!!@state.publishing}
           isPublished={isPublished}
-          disabled={@isWaiting() or @state.error}
+          disabled={@isWaiting() or @state.error?}
         />
         <DraftButton
           bsSize='small'
           isSavable={@isSaveable()}
           onClick={@onSave}
           isWaiting={!!(@isWaiting() and @state.saving and isEmpty(@state.error))}
-          disabled={@isWaiting() or @state.error}
-          isFailed={TaskPlanStore.isFailed(@props.idinde)}
+          disabled={@isWaiting() or @state.error?}
+          isFailed={TaskPlanStore.isFailed(id)}
         />
         <BS.Button
           bsSize='small'
           className='cancel'
+          bsStyle={if @state.error? then 'primary'}
           onClick={@onCancel}
-          disabled={@isWaiting() and not @state.error}
+          disabled={@isWaiting() and not @state.error?}
         >
           Cancel
         </BS.Button>

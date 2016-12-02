@@ -1,8 +1,12 @@
 {React, _} = require '../../helpers/component-testing'
 
+moment = require 'moment'
+
 MiniEditor = require '../../../../src/components/task-plan/mini-editor/editor'
 {CourseActions} = require '../../../../src/flux/course'
 {TaskPlanActions, TaskPlanStore} = require '../../../../src/flux/task-plan'
+{TimeStore} = require '../../../../src/flux/time'
+TimeHelper = require '../../../../src/helpers/time'
 
 COURSE  = require '../../../../api/courses/1.json'
 COURSE_ID = '1'
@@ -19,6 +23,13 @@ getButtons = (wrapper) ->
   save: wrapper.find('.-save')
   cancel: wrapper.find('.btn.cancel')
 
+fakeTerm = ->
+  now = moment(TimeStore.getNow())
+  start = now.clone().add(1, 'year').startOf('year')
+  end = start.clone().add(6, 'months')
+
+  {start, end}
+
 describe 'TaskPlan MiniEditor wrapper', ->
 
   beforeEach ->
@@ -31,10 +42,16 @@ describe 'TaskPlan MiniEditor wrapper', ->
     CourseActions.loaded(COURSE, COURSE_ID)
 
     TaskPlanActions.loaded(PLAN, PLAN.id)
+
+    term = fakeTerm()
+
     @props =
       id: PLAN.id
       courseId: COURSE_ID
       onHide: sinon.spy()
+      termStart: term.start
+      termEnd: term.end
+      handleError: sinon.spy()
 
 
   afterEach ->
@@ -91,4 +108,24 @@ describe 'TaskPlan MiniEditor wrapper', ->
     {cancel} = getButtons(wrapper)
     cancel.simulate('click')
     expect(@props.onHide).to.have.been.called
+    undefined
+
+  it 'calls handleError when server error is thrown', ->
+    wrapper = shallow(<MiniEditor {...@props} />)
+    TaskPlanStore.emit('errored', {status: 404, statusMessage: "There's been an error", config: {}})
+    expect(@props.handleError).to.have.been.called
+    undefined
+
+  it 'renders error when server error is thrown', ->
+    wrapper = mount(<MiniEditor {...@props} />)
+    TaskPlanStore.emit('errored', {status: 404, statusMessage: "There's been an error", config: {}})
+    expect(wrapper.find('ServerErrorMessage')).length.to.be(1)
+    undefined
+
+  it 'limits opens date and due date to term dates', ->
+    wrapper = mount(<MiniEditor {...@props} />)
+    datePickers = wrapper.find("DatePicker")
+
+    expect(datePickers.at(0).props().minDate.isSame(@props.termStart, 'day')).to.equal(true)
+    expect(datePickers.at(1).props().maxDate.isSame(@props.termEnd, 'day')).to.equal(true)
     undefined

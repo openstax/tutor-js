@@ -1,5 +1,8 @@
-# coffeelint: disable=no_empty_functions
-_ = require 'underscore'
+capitalize  = require 'lodash/capitalize'
+extend  = require 'lodash/extend'
+find    = require 'lodash/find'
+values  = require 'lodash/values'
+pick    = require 'lodash/pick'
 
 {TaskActions, TaskStore} = require './task'
 {CrudConfig, makeSimpleStore, extendConfig, STATES} = require './helpers'
@@ -17,7 +20,7 @@ CourseConfig =
     @emit('saved')
 
     # make sure all of course remains loaded after course gets saved to
-    _.extend {}, @_local[id], result
+    extend {}, @_local[id], result
 
 
   exports:
@@ -48,30 +51,34 @@ CourseConfig =
     getName: (courseId) ->
       @_get(courseId)?.name or ""
 
+    getTerm: (courseId) ->
+      course = @_get(courseId)
+      capitalize("#{course?.term} #{course?.year}") if course
+
     getPeriods: (courseId, options = {includeArchived: false}) ->
       course = @_get(courseId)
       periods = if options.includeArchived then course.periods else PeriodHelper.activePeriods(course)
       sortedPeriods = if periods then PeriodHelper.sort(periods) else []
 
     getTimeDefaults: (courseId) ->
-      _.pick(@_get(courseId), 'default_due_time', 'default_open_time')
+      pick(@_get(courseId), 'default_due_time', 'default_open_time')
 
     getTimezone: (courseId) ->
       @_get(courseId)?.time_zone or DEFAULT_TIME_ZONE
 
     isTeacher: (courseId) ->
-      !!_.findWhere(@_get(courseId)?.roles, type: 'teacher')
+      !!find(@_get(courseId)?.roles, type: 'teacher')
 
     isStudent: (courseId) ->
-      !!_.findWhere(@_get(courseId)?.roles, type: 'student')
+      !!find(@_get(courseId)?.roles, type: 'student')
 
     getByEcosystemId: (ecosystemId) ->
-      _.findWhere(_.values(@_local), ecosystem_id: ecosystemId)
+      find(values(@_local), ecosystem_id: ecosystemId)
 
     getStudentId: (courseId) ->
       course = @_get(courseId)
-      role = _.findWhere(course?.roles, type: 'student')
-      if role then _.findWhere(course.students, role_id: role.id).student_identifier else null
+      role = find(course?.roles, type: 'student')
+      if role then find(course.students, role_id: role.id).student_identifier else null
 
     isCloned: (courseId) ->
       !!@_get(courseId)?.cloned_from_id

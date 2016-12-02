@@ -73,7 +73,9 @@
 
 .btn {
 
-  .btn-round();
+  &:not(.btn-link) {
+    .btn-round();    
+  }
 
   &.btn-lg {
     font-size: 1.8rem;
