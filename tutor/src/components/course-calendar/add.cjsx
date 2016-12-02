@@ -44,14 +44,15 @@ CourseAdd = React.createClass
   getDateType: ->
     {referenceDate, addDate} = @state
     {termStart, termEnd} = @props
+    return null unless addDate?
 
-    if addDate?.isBefore(termStart, 'day')
+    if addDate.isBefore(termStart, 'day')
       'day before term starts'
-    else if addDate?.isAfter(termEnd, 'day')
+    else if addDate.isAfter(termEnd, 'day')
       'day after term ends'
-    else if addDate?.isBefore(referenceDate, 'day')
+    else if addDate.isBefore(referenceDate, 'day')
       'past day'
-    else if addDate?.isSame(referenceDate, 'day')
+    else if addDate.isSame(referenceDate, 'day')
       'today'
 
   render: ->
