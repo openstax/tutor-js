@@ -65,7 +65,9 @@ DeletePeriodLink = React.createClass
 
   performDelete: ->
     PeriodActions.delete(@props.period.id, @props.courseId)
-    PeriodStore.once 'deleted', @onClose
+    PeriodStore.once 'deleted', =>
+      @onClose()
+      @props.afterDelete()
     @setState(isShown: false)
 
 
