@@ -108,3 +108,9 @@ describe 'TaskPlan MiniEditor wrapper', ->
     cancel.simulate('click')
     expect(@props.onHide).to.have.been.called
     undefined
+
+  it 'calls handleError when server error is thrown', ->
+    wrapper = mount(<MiniEditor {...@props} />)
+    TaskPlanStore.emit('errored', {status: 404, statusMessage: "There's been an error", config: {}})
+    expect(@props.handleError).to.have.been.called
+    undefined

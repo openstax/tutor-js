@@ -103,7 +103,7 @@ TaskPlanMiniEditor = React.createClass
             value={plan.title or ''}
             required={true}
             onChange={@setTitle}
-            disabled={@state.error} />
+            disabled={@state.error?} />
         </BS.Col>
       </div>
       <div className="row times">
@@ -145,14 +145,14 @@ TaskPlanMiniEditor = React.createClass
           isEditable={!!@state.isEditable}
           isPublishing={!!@state.publishing}
           isPublished={isPublished}
-          disabled={@isWaiting() or @state.error}
+          disabled={@isWaiting() or @state.error?}
         />
         <DraftButton
           bsSize='small'
           isSavable={@isSaveable()}
           onClick={@onSave}
           isWaiting={!!(@isWaiting() and @state.saving and isEmpty(@state.error))}
-          disabled={@isWaiting() or @state.error}
+          disabled={@isWaiting() or @state.error?}
           isFailed={TaskPlanStore.isFailed(id)}
         />
         <BS.Button
@@ -160,7 +160,7 @@ TaskPlanMiniEditor = React.createClass
           className='cancel'
           bsStyle={if @state.error? then 'primary'}
           onClick={@onCancel}
-          disabled={@isWaiting() and not @state.error}
+          disabled={@isWaiting() and not @state.error?}
         >
           Cancel
         </BS.Button>
