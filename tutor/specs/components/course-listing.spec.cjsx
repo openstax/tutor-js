@@ -72,6 +72,7 @@ describe 'Course Listing Component', ->
     undefined
 
   it 'renders past courses in past courses listing', ->
+    loadTeacherUser()
     CourseListingActions.loaded([TEACHER_PAST_COURSE, STUDENT_PAST_COURSE])
 
     wrapper = mount(<CourseListing />, EnzymeContext.withDnD())

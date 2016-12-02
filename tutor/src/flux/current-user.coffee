@@ -166,6 +166,7 @@ CurrentUserStore = flux.createStore
     @_token = null
     @_user.name = 'Guest'
     @_user.profile_url = null
+    @_user.faculty_status = undefined
     @_viewingCourseId = null
     @emitChange()
 
