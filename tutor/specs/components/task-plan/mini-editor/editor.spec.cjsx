@@ -1,8 +1,11 @@
 {React, _} = require '../../helpers/component-testing'
 
+moment = require 'moment'
+
 MiniEditor = require '../../../../src/components/task-plan/mini-editor/editor'
 {CourseActions} = require '../../../../src/flux/course'
 {TaskPlanActions, TaskPlanStore} = require '../../../../src/flux/task-plan'
+{TimeStore} = require '../../../../src/flux/time'
 
 COURSE  = require '../../../../api/courses/1.json'
 COURSE_ID = '1'
@@ -19,6 +22,13 @@ getButtons = (wrapper) ->
   save: wrapper.find('.-save')
   cancel: wrapper.find('.btn.cancel')
 
+fakeTerm = ->
+  now = moment(TimeStore.getNow())
+  start = now.clone().add(1, 'year').startOf('year')
+  end = start.clone().add(6, 'months')
+
+  {start, end}
+
 describe 'TaskPlan MiniEditor wrapper', ->
 
   beforeEach ->
@@ -31,10 +41,16 @@ describe 'TaskPlan MiniEditor wrapper', ->
     CourseActions.loaded(COURSE, COURSE_ID)
 
     TaskPlanActions.loaded(PLAN, PLAN.id)
+
+    term = fakeTerm()
+
     @props =
       id: PLAN.id
       courseId: COURSE_ID
       onHide: sinon.spy()
+      termStart: term.start
+      termEnd: term.end
+      handleError: sinon.spy()
 
 
   afterEach ->
