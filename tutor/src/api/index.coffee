@@ -43,8 +43,9 @@ PerformanceForecast = require '../flux/performance-forecast'
 {NewCourseActions, NewCourseStore} = require '../flux/new-course'
 {NotificationActions} = require '../flux/notifications'
 
-CourseEnrollment = require '../components/enroll/course-enrollment'
-handledEnrollmentErrorsMap = require '../components/enroll/handled-errors'
+{CourseEnrollmentActions} = require '../flux/course-enrollment'
+
+handledEnrollmentErrorsMap = require '../flux/course-enrollment-handled-errors'
 handledEnrollmentErrors = _.keys(handledEnrollmentErrorsMap)
 
 BOOTSTRAPED_STORES = {
@@ -238,13 +239,15 @@ startAPI = ->
     trigger: 'loadUpdates', onSuccess: 'loadedUpdates', url: 'notifications', handledErrors: ['*']
   )
 
-  connectCreate(CourseEnrollment,
-    pattern: 'enroll/{enrollmentCode}', handledErrors: handledEnrollmentErrors
+  connectCreate(CourseEnrollmentActions,
+    url: 'enrollment_changes', handledErrors: handledEnrollmentErrors,
+    data: (enrollmentCode) ->
+      { enrollment_code: enrollmentCode }
   )
-  connectUpdate(CourseEnrollment,
-    pattern: 'enroll/{id}/approve', trigger: 'approve',
-    onSuccess: 'approved', handledErrors: handledEnrollmentErrors,
-    data: (studentId) ->
+  connectUpdate(CourseEnrollmentActions,
+    pattern: 'enrollment_changes/{id}/approve', trigger: 'approve',
+    onSuccess: 'approved', handledErrors: handledEnrollmentErrors, method: 'PUT'
+    data: (id, studentId) ->
       if studentId
         { student_identifier: studentId }
       else

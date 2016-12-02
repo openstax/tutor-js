@@ -1,9 +1,8 @@
 React = require 'react'
 _ = require 'underscore'
 
-CourseEnrollment = require './course-enrollment'
-{CurrentUserActions, CurrentUserStore} = require '../../flux/current-user'
-{CourseActions, CourseStore} = require '../../flux/course'
+{CourseEnrollmentActions, CourseEnrollmentStore} = require '../../flux/course-enrollment'
+{CourseStore} = require '../../flux/course'
 ENTER = 'Enter'
 
 ConfirmJoin = require './confirm-join'
@@ -11,49 +10,42 @@ Router = require '../../helpers/router'
 
 Enroll = React.createClass
 
-  propTypes:
-    enrollmentCode: React.PropTypes.string.isRequired
-    title: React.PropTypes.string
-    courseEnrollment: React.PropTypes.instanceOf(CourseEnrollment)
-
   contextTypes:
     router: React.PropTypes.object
 
-  getDefaultProps: ->
-    title: 'Register for this Tutor course'
-
   componentWillMount: ->
-    courseEnrollment = @props.courseEnrollment or new CourseEnrollment(@props.enrollmentCode)
-    courseEnrollment.channel.on('change', @onCourseEnrollmentChange)
-    @setState({courseEnrollment})
+    {enrollmentCode} = Router.currentParams()
+    CourseEnrollmentStore.on('changed', @onCourseEnrollmentChange)
+    CourseEnrollmentActions.create(enrollmentCode)
 
   componentWillUnmount: ->
-    @state.courseEnrollment.channel.off('change', @onCourseEnrollmentChange)
+    CourseEnrollmentStore.off('changed', @onCourseEnrollmentChange)
 
   onComplete: ->
-    @context.router.transitionTo('dashboard', @props.courseEnrollment.courseId)
+    @context.router.transitionTo('viewStudentDashboard', CourseEnrollmentStore.courseId())
 
   onCourseEnrollmentChange: ->
-    if @state.courseEnrollment.isRegistered()
+    if CourseEnrollmentStore.isRegistered()
       # wait 1.5 secs so our success message is briefly displayed, then call onComplete
       _.delay(@onComplete, 1500)
 
     @forceUpdate()
 
-  renderComplete: (courseEnrollment) ->
+  renderComplete: ->
     <h3 className="text-center">
-      You have successfully joined {courseEnrollment.description()}
+      You have successfully joined {CourseEnrollmentStore.description()}
     </h3>
 
   isTeacher: ->
-    CourseStore.isTeacher(courseEnrollment.courseId)
+    CourseStore.isTeacher(CourseEnrollmentStore.courseId)
 
   renderCurrentStep: ->
-    {courseEnrollment} = @state
-    if courseEnrollment.isPending()
-      <ConfirmJoin course={courseEnrollment} />
+    if CourseEnrollmentStore.isLoading()
+      <h3>Loading...</h3>
+    else if CourseEnrollmentStore.isPending()
+      <ConfirmJoin />
     else
-      @renderComplete(course)
+      @renderComplete()
 
   teacherMessage: ->
     <div className="teacher-message">
