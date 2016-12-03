@@ -74,9 +74,13 @@ Enroll = React.createClass
     </div>
 
   render: ->
-    <div className="new-registration">
-      {@teacherMessage() if @isTeacher()}
-      {@renderCurrentStep()}
+    <div className="tutor-registration">
+      <div className="row">
+        <div className="new-registration">
+          {@teacherMessage() if @isTeacher()}
+          {@renderCurrentStep()}
+        </div>
+      </div>
     </div>
 
 module.exports = Enroll
