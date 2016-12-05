@@ -11,10 +11,12 @@ FeedbackSetting = React.createClass
 
   render: ->
     { id, showPopup } = @props
-    popover = <BS.Popover className="feedback-tip" placement="bottom" ref="popover">
+    popover = <BS.Popover className="feedback-tip" placement="bottom" ref="popover" id='feedback-tip-popover'>
       Some students may have already seen feedback and answers
       to questions in this assignment.
-    </BS.Popover> if showPopup
+    </BS.Popover> if showPopup and
+      TaskPlanStore.isChangingToDueAt(id) and
+      not TaskPlanStore.isFeedbackImmediate(id)
 
     <div className="form-group">
       <label htmlFor="feedback-select">Show feedback</label>

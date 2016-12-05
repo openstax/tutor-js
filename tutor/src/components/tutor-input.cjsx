@@ -363,7 +363,7 @@ TutorTimeInput = React.createClass
     not /_/.test(value)
 
   render: ->
-    maskedProps = _.omit(@props, 'defaultValue', 'onChange')
+    maskedProps = _.omit(@props, 'defaultValue', 'onChange', 'formatCharacters')
     inputProps = _.pick(@props, 'disabled')
 
     {formatCharacters} = @props

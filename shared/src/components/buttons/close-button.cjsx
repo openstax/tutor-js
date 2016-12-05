@@ -8,7 +8,7 @@ CloseButton = (props) ->
     classNames = classnames 'openstax-close-x', 'close', props.className
     <button
       {...OXLink.filterProps(props)}
-      className={classNames} aria-role='close'
+      className={classNames}
     ></button>
 
 module.exports = CloseButton
