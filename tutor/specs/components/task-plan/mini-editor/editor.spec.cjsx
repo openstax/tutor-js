@@ -7,6 +7,7 @@ MiniEditor = require '../../../../src/components/task-plan/mini-editor/editor'
 {TaskPlanActions, TaskPlanStore} = require '../../../../src/flux/task-plan'
 {TimeStore} = require '../../../../src/flux/time'
 TimeHelper = require '../../../../src/helpers/time'
+EnzymeContext = require '../../helpers/enzyme-context'
 
 COURSE  = require '../../../../api/courses/1.json'
 COURSE_ID = '1'
@@ -27,7 +28,6 @@ fakeTerm = ->
   now = moment(TimeStore.getNow())
   start = now.clone().add(1, 'year').startOf('year')
   end = start.clone().add(6, 'months')
-
   {start, end}
 
 describe 'TaskPlan MiniEditor wrapper', ->
@@ -44,7 +44,7 @@ describe 'TaskPlan MiniEditor wrapper', ->
     TaskPlanActions.loaded(PLAN, PLAN.id)
 
     term = fakeTerm()
-
+    @options = EnzymeContext.build()
     @props =
       id: PLAN.id
       courseId: COURSE_ID
@@ -59,7 +59,7 @@ describe 'TaskPlan MiniEditor wrapper', ->
 
   it 'can update title', ->
     sinon.stub(TaskPlanActions, 'updateTitle')
-    wrapper = mount(<MiniEditor {...@props} />)
+    wrapper = mount(<MiniEditor {...@props} />, @options)
     title = wrapper.find("input[value=\"#{PLAN.title}\"]")
     expect(title).length.to.be(1)
     title.simulate('change', target: value: 'foo')
@@ -67,13 +67,13 @@ describe 'TaskPlan MiniEditor wrapper', ->
     undefined
 
   it 'hides itself when cancel is clicked', ->
-    wrapper = mount(<MiniEditor {...@props} />)
+    wrapper = mount(<MiniEditor {...@props} />, @options)
     wrapper.find('.cancel').simulate('click')
     expect(@props.onHide).to.have.been.called
     undefined
 
   it 'publishes and sets button state', ->
-    wrapper = mount(<MiniEditor {...@props} />)
+    wrapper = mount(<MiniEditor {...@props} />, @options)
     {publish, save, cancel} = getButtons(wrapper)
     @sandbox.stub(TaskPlanStore, 'isSaving', -> true)
     expect(publish.text()).to.equal('Publish')
@@ -88,7 +88,7 @@ describe 'TaskPlan MiniEditor wrapper', ->
     undefined
 
   it 'saves as draft and sets button state', ->
-    wrapper = mount(<MiniEditor {...@props} />)
+    wrapper = mount(<MiniEditor {...@props} />, @options)
     {publish, save, cancel} = getButtons(wrapper)
 
     expect(save.text()).to.equal('Save as Draft')
@@ -104,7 +104,7 @@ describe 'TaskPlan MiniEditor wrapper', ->
     undefined
 
   it 'hides when cancel is clicked', ->
-    wrapper = mount(<MiniEditor {...@props} />)
+    wrapper = mount(<MiniEditor {...@props} />, @options)
     {cancel} = getButtons(wrapper)
     cancel.simulate('click')
     expect(@props.onHide).to.have.been.called
@@ -117,13 +117,13 @@ describe 'TaskPlan MiniEditor wrapper', ->
     undefined
 
   it 'renders error when server error is thrown', ->
-    wrapper = mount(<MiniEditor {...@props} />)
+    wrapper = mount(<MiniEditor {...@props} />, @options)
     TaskPlanStore.emit('errored', {status: 404, statusMessage: "There's been an error", config: {}})
     expect(wrapper.find('ServerErrorMessage')).length.to.be(1)
     undefined
 
   it 'limits opens date and due date to term dates', ->
-    wrapper = mount(<MiniEditor {...@props} />)
+    wrapper = mount(<MiniEditor {...@props} />, @options)
     datePickers = wrapper.find("DatePicker")
 
     expect(datePickers.at(0).props().minDate.isSame(@props.termStart, 'day')).to.equal(true)
