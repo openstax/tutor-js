@@ -9,6 +9,5 @@ describe 'Close Button Component', ->
 
   it 'has proper classes', ->
     Testing.renderComponent( Button, props: @props ).then ({dom}) ->
-      expect(dom.getAttribute('aria-role')).equal('close')
       expect(dom.tagName).equal('BUTTON')
       expect(dom.classList.contains('openstax-close-x')).to.be.true
