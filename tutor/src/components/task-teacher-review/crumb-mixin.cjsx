@@ -1,6 +1,6 @@
 # For handling steps logic outside of breadcrumb and task review rendering.
 _ = require 'underscore'
-camelCase = require 'camelcase'
+camelCase = require 'lodash/camelCase'
 
 {TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
 

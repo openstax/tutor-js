@@ -1,7 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
 
-camelCase = require 'camelcase'
+camelCase = require 'lodash/camelCase'
 
 ExerciseStepCard = require './part-card'
 {propTypes} = require './props'

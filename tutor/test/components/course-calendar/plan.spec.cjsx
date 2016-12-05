@@ -8,7 +8,7 @@ React = require 'react'
 _ = require 'underscore'
 moment = require 'moment'
 twix = require 'twix'
-camelCase = require 'camelcase'
+camelCase = require 'lodash/camelCase'
 
 {TimeActions, TimeStore} = require '../../../src/flux/time'
 {PlanPublishStore, PlanPublishActions} = require '../../../src/flux/plan-publish'

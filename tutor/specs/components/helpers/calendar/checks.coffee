@@ -1,7 +1,7 @@
 {expect} = require 'chai'
 {Promise} = require 'es6-promise'
 _ = require 'underscore'
-camelCase = require 'camelcase'
+camelCase = require 'lodash/camelCase'
 
 moment = require 'moment-timezone'
 twix = require 'twix'

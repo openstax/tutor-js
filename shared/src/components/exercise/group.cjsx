@@ -1,7 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
-camelCase = require 'camelcase'
+camelCase = require 'lodash/camelCase'
 
 ChapterSectionMixin = require '../chapter-section-mixin'
 ExerciseIdentifierLink = require '../exercise-identifier-link'

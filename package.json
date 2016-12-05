@@ -43,7 +43,6 @@
   "dependencies": {
     "axios": "0.15.3",
     "bootstrap": "3.3.7",
-    "camelcase": "3.0.0",
     "classnames": "2.2.5",
     "dateformat": "2.0.0",
     "es6-object-assign": "1.0.3",

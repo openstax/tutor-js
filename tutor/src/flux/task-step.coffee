@@ -1,6 +1,5 @@
 # coffeelint: disable=no_empty_functions
 _ = require 'underscore'
-camelCase = require 'camelcase'
 flux = require 'flux-react'
 Durations = require '../helpers/durations'
 {StepTitleActions} = require './step-title'

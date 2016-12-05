@@ -3,7 +3,6 @@ ReactDOM = require 'react-dom'
 BS = require 'react-bootstrap'
 
 _ = require 'underscore'
-camelCase = require 'camelcase'
 classnames = require 'classnames'
 
 {TaskActions, TaskStore} = require '../../flux/task'

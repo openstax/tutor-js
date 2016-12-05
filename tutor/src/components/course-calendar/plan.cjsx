@@ -3,7 +3,6 @@ twix = require 'twix'
 
 React = require 'react'
 
-camelCase = require 'camelcase'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
 
