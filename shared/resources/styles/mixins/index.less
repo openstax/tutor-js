@@ -92,6 +92,30 @@
                                   not supported by any browser */
 }
 
+.openstax-shadow(pop-down) {
+  box-shadow:
+    0 1px 2px 0 rgba(0, 0, 0, 0.12),
+    0 2px 2px 0 rgba(0, 0, 0, 0.1),
+    0 2px 6px 0 rgba(0, 0, 0, 0.1);
+}
+
+.openstax-shadow(pop-up) {
+  box-shadow:
+    0 -1px 2px 0 rgba(0, 0, 0, 0.12),
+    0 -2px 2px 0 rgba(0, 0, 0, 0.1),
+    0 -2px 6px 0 rgba(0, 0, 0, 0.1);
+}
+
+.openstax-shadow(pop-center) {
+  box-shadow:
+    0 0 2px 0 rgba(0, 0, 0, 0.12),
+    0 0 2px 0 rgba(0, 0, 0, 0.1),
+    0 0 6px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.12),
+    0 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+
 // limit an element's height to max-height and display a gradient at the bottom
 .height-limited-panel(@max-height: 150px){
   position: relative;
