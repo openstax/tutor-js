@@ -32,7 +32,7 @@ TaskStepConfig =
     obj
 
   loadPersonalized: (id) ->
-    @load(id)
+    @_load(id)
     @_loadingPersonalizedStatus[id] = true
 
   loadedNoPersonalized: (obj, id) ->

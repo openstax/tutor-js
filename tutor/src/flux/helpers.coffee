@@ -57,6 +57,10 @@ CrudConfig = ->
         @emitChange()
 
     load: (id) ->
+      @_load(id)
+
+    # allow aliasing load without triggering api call.
+    _load: (id) ->
       # Add a shortcut for unit testing
       return if @dontReload(id)
       @_reload[id] = false
