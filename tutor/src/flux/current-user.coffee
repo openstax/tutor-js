@@ -132,10 +132,9 @@ CurrentUserStore = flux.createStore
     courseRoles = course?.roles or [{type: 'guest'}]
 
     role = _.chain(courseRoles)
-      .map('type')
-      .sortBy((roleType) ->
+      .sortBy((role) ->
         # sort by rank -- Teacher role will take precedence over student role for example
-        -1 * getRankByRole(roleType)
+        -1 * getRankByRole(role.type)
       )
       .first()
       .value()
@@ -189,15 +188,15 @@ CurrentUserStore = flux.createStore
 
     getCourseVerifiedRole: (courseId) ->
       if @exports.isTeacher.call(@)
-        @_getCourseRole(courseId)
+        @_getCourseRole(courseId).type
       else
         'student'
 
     getViewingCourseRole: ->
-      @_getCourseRole(@_viewingCourseId) if @_viewingCourseId?
+      @_getCourseRole(@_viewingCourseId).type if @_viewingCourseId?
 
     getDashboardRoute: (courseId, silent = true) ->
-      menuRole = @_getCourseRole(courseId, silent)
+      menuRole = @_getCourseRole(courseId, silent).type
       course = CourseStore.get(courseId)
       if course?.is_concept_coach
         @_getRouteByRole('cc_dashboard', menuRole)
@@ -224,7 +223,7 @@ CurrentUserStore = flux.createStore
     # what courseId is being viewed.
     getCourseMenuRoutes: (courseId, silent = false, isTeacherOnly) ->
       course = CourseStore.get(courseId)
-      menuRole = @_getCourseRole(courseId, silent)
+      menuRole = @_getCourseRole(courseId, silent).type
       validRoutes = _.pickBy ROUTES, (route) ->
         route.allowedForCourse?(course) isnt false and
           route.isTeacherOnly is isTeacherOnly
