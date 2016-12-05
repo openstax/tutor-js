@@ -301,6 +301,10 @@ TaskPlanConfig =
       plan = @_getPlan(id)
       plan?.settings.page_ids
 
+    isChangingToDueAt: (id) ->
+      plan = @_changed[id]
+      plan? and not plan.is_feedback_immediate
+
     isFeedbackImmediate: (id) ->
       plan = @_getPlan(id)
       plan?.is_feedback_immediate

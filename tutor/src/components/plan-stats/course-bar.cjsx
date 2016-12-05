@@ -21,7 +21,7 @@ CourseBar = React.createClass
     '''
     icon =
       <Icon type='info-circle' tooltip={tooltipMsg}
-        tooltipProps={placement: 'top', trigger: 'click'}
+        tooltipProps={placement: 'top'}
       />
     label =
       <span>

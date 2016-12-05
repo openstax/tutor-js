@@ -12,7 +12,7 @@ CancelButton = React.createClass
   render: ->
     return null unless @props.isEditable
 
-    <BS.Button aria-role='close' disabled={@props.isWaiting} onClick={@props.onClick}>Cancel</BS.Button>
+    <BS.Button disabled={@props.isWaiting} onClick={@props.onClick}>Cancel</BS.Button>
 
 
 module.exports = CancelButton
