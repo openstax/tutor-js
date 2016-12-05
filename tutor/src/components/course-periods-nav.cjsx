@@ -3,7 +3,6 @@ BS = require 'react-bootstrap'
 Router = require '../helpers/router'
 LoadableItem = require './loadable-item'
 _ = require 'underscore'
-camelCase = require 'camelcase'
 classnames = require 'classnames'
 
 {CourseActions, CourseStore} = require '../flux/course'

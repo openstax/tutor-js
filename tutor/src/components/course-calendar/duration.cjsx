@@ -2,7 +2,7 @@ React = require 'react'
 moment = require 'moment-timezone'
 twix = require 'twix'
 _ = require 'underscore'
-camelCase = require 'camelcase'
+camelCase = require 'lodash/camelCase'
 padStart = require 'lodash/padStart'
 
 

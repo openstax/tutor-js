@@ -1,6 +1,6 @@
 selenium = require 'selenium-webdriver'
 _ = require 'underscore'
-camelCase = require 'camelcase'
+camelCase = require 'lodash/camelCase'
 S = require '../../../src/helpers/string'
 {curry} = require 'lodash'
 

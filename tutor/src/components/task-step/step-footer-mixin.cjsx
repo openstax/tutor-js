@@ -1,6 +1,6 @@
 _ = require 'underscore'
 React = require 'react'
-camelCase = require 'camelcase'
+camelCase = require 'lodash/camelCase'
 
 classnames = require 'classnames'
 TutorLink = require '../link'

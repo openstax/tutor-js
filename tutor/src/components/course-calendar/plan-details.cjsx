@@ -1,4 +1,4 @@
-camelCase = require 'camelcase'
+camelCase = require 'lodash/camelCase'
 classnames = require 'classnames'
 React = require 'react'
 BS = require 'react-bootstrap'

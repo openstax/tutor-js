@@ -5,7 +5,7 @@ isEmpty = require 'lodash/isEmpty'
 
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 
-camelCase = require 'camelcase'
+camelCase = require 'lodash/camelCase'
 Icon = require '../../icon'
 Loading = require './loading'
 TutorLink = require '../../link'

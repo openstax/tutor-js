@@ -1,6 +1,6 @@
 React = require 'react'
 ReactDOM = require 'react-dom'
-camelCase = require 'camelcase'
+camelCase = require 'lodash/camelCase'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
