@@ -2,7 +2,9 @@
   "verbose": true,
   "notify": true,
   "testRegex": "specs\/.*\\.spec\\.(coffee|js|jsx|cjsx|json)$",
-  "scriptPreprocessor": "<rootDir>/../configs/test/jest.preprocessor.js",
+  "transform": {
+    "\\.(coffee|cjsx)$": "<rootDir>/../configs/test/jest.preprocessor.js"
+  },
   "moduleFileExtensions": [ "coffee", "js", "cjsx", "jsx", "json" ],
   "setupTestFrameworkScriptFile": "<rootDir>../configs/test/jest.setup.coffee",
   "modulePaths": [

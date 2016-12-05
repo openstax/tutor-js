@@ -31,6 +31,10 @@ window._STORES =
   NOTIFICATIONS: require './src/flux/notifications'
   TOC: require './src/flux/toc'
 
+# In dev builds this enables hot-reloading,
+# in production it simply renders the root app
+
+{ReactHelpers} = require 'shared'
 
 loadApp = ->
   unless document.readyState is 'interactive'
@@ -45,16 +49,12 @@ loadApp = ->
 
   startMathJax()
   TransitionAssistant.startMonitoring()
-  # This is added because MathJax puts in extra divs on initial load.
-  # Moves the React Root to be an element inside a div
-  # instead of the only element in the body.
-  mainDiv = document.createElement('div')
-  mainDiv.id = 'react-root-container'
-  document.body.appendChild(mainDiv)
 
-  ReactDOM.render(React.createElement(Root), mainDiv)
-
-
+  # Both require and module.hot.accept must be passed a bare string, not variable
+  Renderer = ReactHelpers.renderRoot( ->
+    require('./src/components/root')
+  )
+  module.hot.accept('./src/components/root', Renderer) if module.hot
   true
 
 loadApp() or document.addEventListener('readystatechange', loadApp)

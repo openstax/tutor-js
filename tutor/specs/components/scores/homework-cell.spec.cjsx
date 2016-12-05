@@ -4,6 +4,7 @@
 moment = require 'moment'
 Cell = require '../../../src/components/scores/homework-cell'
 PieProgress = require '../../../src/components/scores/pie-progress'
+EnzymeContext = require '../helpers/enzyme-context'
 
 TH = require '../../../src/helpers/task'
 
@@ -28,11 +29,12 @@ describe 'Student Scores Homework Cell', ->
         completed_accepted_late_exercise_count: 0
         correct_accepted_late_exercise_count: 0
 
+
   it 'renders as completed', ->
     completedProps = _.extend({}, @props)
     completedProps.task.completed_on_time_exercise_count = @props.task.exercise_count
     completedProps.task.completed_exercise_count = @props.task.exercise_count
-    wrapper = mount(<Cell {...@props} />)
+    wrapper = mount(<Cell {...@props} />, EnzymeContext.build())
     score = ((@props.task.correct_on_time_exercise_count / @props.task.exercise_count) * 100).toFixed(0) + '%'
     expect(wrapper.find('.score a').text()).to.equal(score)
     expect(wrapper.find('.late-caret')).to.have.length(0)

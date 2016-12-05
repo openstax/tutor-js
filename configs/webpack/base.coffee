@@ -39,7 +39,7 @@ BASE_BUILD =
   cjsx: RESOLVABLES.cjsx
   less: { test: /\.less$/,    loader: LOADERS.lessCompiled }
 
-DEV_LOADERS = ['react-hot']
+DEV_LOADERS = ['react-hot-loader/webpack']
 
 BASE_DEV_LOADERS = _.map(BASE_BUILD, (loaderConfig, type) ->
   config = _.pick(loaderConfig, 'test')

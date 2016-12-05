@@ -1,4 +1,5 @@
 {
   "rootDir": "../../coach",
+  "cacheDirectory": "/tmp/coach",
   "preset": "../configs/test/jest.config.json"
 }

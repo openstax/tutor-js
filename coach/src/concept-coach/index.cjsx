@@ -131,6 +131,15 @@ class ConceptCoachAPI extends EventEmitter2
     User.channel.on('logout.received', @close)
 
     @component = coachWrapped.render(mountNode, props)
+    if module.hot
+      module.hot.accept('./coach', =>
+        pastProps = coachWrapped.props
+        coachWrapped.unmount()
+        {Coach} = require('./coach')
+        coachWrapped = helpers.wrapComponent(Coach)
+        @component = coachWrapped.render(mountNode, pastProps)
+      )
+
 
   open: (props) ->
     openProps = _.extend({}, props, open: true)

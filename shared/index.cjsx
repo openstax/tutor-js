@@ -10,7 +10,7 @@ module.exports = {
   OXRouter:               require './src/helpers/router'
   OXLink:                 require './src/factories/link'
   OXMatchByRouter:        require './src/helpers/match-by-router'
-  OXMatchByRouter:        require './src/helpers/match-by-router'
+
   APIHandler, APIHandlerBase,
   APIActionAdapter:       require './src/api/action-adapter'
   ReactHelpers:           require './src/helpers/react'

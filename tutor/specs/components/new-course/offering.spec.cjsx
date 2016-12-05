@@ -23,5 +23,5 @@ describe 'CreateCourse: choosing offering', ->
     OfferingsActions.loaded(burntOfferings)
     wrapper = shallow(<Offering {...@props} />)
     expect(wrapper.is('[data-appearance="firefirefire"]')).to.be.true
-    expect(wrapper.find('CourseChoiceContent[data-book-title=""]')).to.have.length(1)
+    expect(wrapper.find('CourseChoiceContent[data-book-title="default"]')).to.have.length(1)
     undefined
