@@ -254,14 +254,10 @@ startAPI = ->
         {}
   )
 
-# SharedNetworking = require 'shared/src/model/networking'
-
 start = (bootstrapData) ->
   for storeId, action of BOOTSTRAPED_STORES
     data = bootstrapData[storeId]
     action(data) if data
-
-  # SharedNetworking.onError(onRequestError)
 
   startAPI()
 
