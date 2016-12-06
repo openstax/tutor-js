@@ -2,6 +2,9 @@ React = require 'react'
 BS = require 'react-bootstrap'
 TutorLink = require '../link'
 
+{CourseStore} = require '../../flux/course'
+{CurrentUserStore} = require '../../flux/current-user'
+{NotificationsBar} = require 'shared'
 {CCDashboardStore} = require '../../flux/cc-dashboard'
 {CoursePeriodsNav} = require '../course-periods-nav'
 {CourseStore} = require '../../flux/course'
@@ -9,6 +12,7 @@ Icon = require '../icon'
 DashboardChapter = require './chapter'
 EmptyPeriod = require './empty-period'
 CourseTitleBanner = require '../course-title-banner'
+NotificationHelpers = require '../../helpers/notifications'
 
 TOOLTIPS =
   complete: '''
@@ -38,6 +42,10 @@ CCDashboard = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string
+
+  # router context is needed for Navbar helpers
+  contextTypes:
+    router: React.PropTypes.object
 
   getDefaultProps: ->
     initialActivePeriod: 0
@@ -92,6 +100,12 @@ CCDashboard = React.createClass
 
     <div className="cc-dashboard" data-period={@state.activePeriodId}>
       <CourseTitleBanner courseId={courseId} />
+      <NotificationsBar
+        course={course}
+        role={CurrentUserStore.getCourseRole(courseId)}
+        callbacks={NotificationHelpers.buildCallbackHandlers(@)}
+      />
+
       <BS.Panel>
         <h2>
           <span>Class Dashboard</span>

@@ -12,9 +12,11 @@ ThisWeekPanel   = require './this-week-panel'
 ProgressGuideShell = require './progress-guide'
 BrowseTheBook = require '../buttons/browse-the-book'
 CourseTitleBanner = require '../course-title-banner'
-{StudentDashboardStore} = require '../../flux/student-dashboard'
+{CurrentUserStore} = require '../../flux/current-user'
 {CourseStore} = require '../../flux/course'
 Tabs = require '../tabs'
+{NotificationsBar} = require 'shared'
+NotificationHelpers = require '../../helpers/notifications'
 
 module.exports = React.createClass
   displayName: 'StudentDashboard'
@@ -44,13 +46,19 @@ module.exports = React.createClass
       <UpcomingPanel courseId={courseId}/>
     </div>
 
+  # router context is needed for Navbar helpers
+  contextTypes:
+    router: React.PropTypes.object
 
   render: ->
-    courseId = @props.courseId
+    {courseId} = @props
 
-
-    info = StudentDashboardStore.get(courseId)
     <div className="dashboard">
+      <NotificationsBar
+        role={CurrentUserStore.getCourseRole(courseId)}
+        course={CourseStore.get(courseId)}
+        callbacks={NotificationHelpers.buildCallbackHandlers(@)}
+      />
       <CourseTitleBanner courseId={courseId} />
 
       <div className='container'>
