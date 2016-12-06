@@ -35,6 +35,9 @@ class Course
     delete @name
     @channel.emit('change')
 
+  getRole: ->
+    _.first @roles
+
   description: ->
     if @isIncomplete() # still fetching
       ""
