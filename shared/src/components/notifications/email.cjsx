@@ -114,7 +114,9 @@ EmailNotification = React.createClass
     <div className={classNames}>
       {error}
       {body}
-      <a className='dismiss' onClick={@props.onDismiss}>Dismiss</a>
+      <a className='dismiss' onClick={@props.onDismiss}>
+        <i className="icon fa fa-close" />
+      </a>
     </div>
 
 
