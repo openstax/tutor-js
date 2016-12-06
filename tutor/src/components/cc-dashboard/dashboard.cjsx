@@ -99,13 +99,12 @@ CCDashboard = React.createClass
 
 
     <div className="cc-dashboard" data-period={@state.activePeriodId}>
-      <CourseTitleBanner courseId={courseId} />
       <NotificationsBar
         course={course}
         role={CurrentUserStore.getCourseRole(courseId)}
         callbacks={NotificationHelpers.buildCallbackHandlers(@)}
       />
-
+      <CourseTitleBanner courseId={courseId} />
       <BS.Panel>
         <h2>
           <span>Class Dashboard</span>

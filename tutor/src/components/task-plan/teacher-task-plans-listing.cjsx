@@ -171,14 +171,12 @@ TeacherTaskPlanListing = React.createClass
       loadedCalendarProps
 
     <div className="list-task-plans">
-
-      <CourseTitleBanner courseId={courseId} />
       <NotificationsBar
         course={course}
         role={CurrentUserStore.getCourseRole(courseId)}
         callbacks={NotificationHelpers.buildCallbackHandlers(@)}
       />
-
+      <CourseTitleBanner courseId={courseId} />
       <LoadableItem
         store={TeacherTaskPlanStore}
         actions={TeacherTaskPlanActions}
