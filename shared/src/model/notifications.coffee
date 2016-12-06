@@ -32,21 +32,29 @@ Notifications = {
 
 
   acknowledge: (notice) ->
-    if notice.type is CLIENT_ID
-      NOTICES = _.without(NOTICES, _.findWhere(NOTICES, id: notice.id))
-      @emit('change')
+    poller = POLLERS[notice.type]
+    if poller # let the poller decide what to do
+      poller.acknowledge(notice)
     else
-      POLLERS[notice.type].acknowledge(notice)
+      NOTICES = _.without(NOTICES, _.find(NOTICES, id: notice.id))
+      @emit('change')
 
   getActive: ->
-    notices = _.clone NOTICES
+    return NOTICES[0] if NOTICES.length
     for type, poller of POLLERS
-      notices = notices.concat( poller.getActiveNotifications() )
-    notices
+      notice = poller.getActiveNotification()
+      return notice if notice
+    null
 
   stopPolling: ->
     poller.destroy() for type, poller of POLLERS
     POLLERS = {}
+
+  setCourseRole: (course, role) ->
+    return if role.type is 'teacher'
+    studentId = _.find(course.students, role_id: role.id)?.student_identifier
+    if _.isEmpty(studentId)
+      @display({type: MISSING_STUDENT_ID, course, role})
 
 }
 
