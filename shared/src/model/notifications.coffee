@@ -1,12 +1,12 @@
 EventEmitter2 = require 'eventemitter2'
-_ = require 'underscore'
+_ = require 'lodash'
 
 URLs = require './urls'
 EVENT_BUS = new EventEmitter2
 POLLERS = {}
 
 NOTICES = []
-
+MISSING_STUDENT_ID = 'missing_student_id'
 CLIENT_ID = 'client-specified'
 Poller = require './notifications/pollers'
 
