@@ -1,5 +1,6 @@
 EventEmitter2 = require 'eventemitter2'
 _ = require 'lodash'
+moment = require 'moment'
 
 URLs = require './urls'
 EVENT_BUS = new EventEmitter2
@@ -53,7 +54,7 @@ Notifications = {
   setCourseRole: (course, role) ->
     return if role.type is 'teacher'
     studentId = _.find(course.students, role_id: role.id)?.student_identifier
-    if _.isEmpty(studentId)
+    if _.isEmpty(studentId) and moment().diff(role.joined_at, 'days') > 7
       @display({type: MISSING_STUDENT_ID, course, role})
 
 }
