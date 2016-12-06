@@ -1,26 +1,11 @@
 &-change-student-id-form {
-
-  .panels {
-    width: 60%;
-    @media (max-width: @screen-sm-min){ width: 95%; }
-    margin: 0 auto;
-    display: flex;
-    align-items: flex-end;
-    .form-group { margin: 0; }
-    .field  { height: 80px; }
-    .cancel {
-      margin-left: 20px;
-      padding-left: 20px;
-      border-left: 1px solid @openstax-neutral-light;
-      align-self: stretch;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      a {
-        border-bottom: 0;
-        color: @link-color;
-        &:hover{ color: darken(@link-color, 20%); }
-      }
+    .input-group > * {
+      height: 50px;
+      margin: 0px;
+      .btn { height: 50px; }
     }
-  }
+    .cancel {
+      margin-top: 40px;
+    }
+
 }
