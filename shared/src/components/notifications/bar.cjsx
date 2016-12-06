@@ -15,6 +15,7 @@ NotificationBar = React.createClass
   propTypes:
     callbacks: React.PropTypes.object.isRequired
     displayAfter: React.PropTypes.number
+    className: React.PropTypes.string
 
   getDefaultProps: ->
     displayAfter: 500
@@ -49,7 +50,9 @@ NotificationBar = React.createClass
 
     Notice = TYPES[notice?.type or 'system'] or TYPES['system']
 
-    <div className={classnames("openstax-notifications-bar", {viewable: !!notice})}>
+    <div className={
+      classnames("openstax-notifications-bar", @props.className, {viewable: !!notice})
+    }>
       {<Notice
         noticeId={notice.id}
         notice={notice}
