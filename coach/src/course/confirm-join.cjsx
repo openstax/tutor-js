@@ -1,8 +1,7 @@
 React = require 'react'
 
 Course = require './model'
-ErrorList = require './error-list'
-{ConfirmJoinCourse} = require 'shared'
+{ConfirmJoinCourse, ErrorList} = require 'shared'
 
 ConfirmJoin = React.createClass
 
@@ -14,7 +13,7 @@ ConfirmJoin = React.createClass
     <ConfirmJoinCourse
       courseEnrollmentActions={@props.course}
       courseEnrollmentStore={@props.course}
-      errorList={<ErrorList course={@props.course} />}
+      errorList={<ErrorList errorMessages={@props.course.errorMessages()} />}
       optionalStudentId={@props.optionalStudentId}
     />
 

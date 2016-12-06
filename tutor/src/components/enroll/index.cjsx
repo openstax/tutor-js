@@ -7,8 +7,9 @@ _ = require 'underscore'
 ENTER = 'Enter'
 
 ConfirmJoin = require './confirm-join'
-ErrorList = require './error-list'
 Router = require '../../helpers/router'
+
+{ErrorList} = require 'shared'
 
 Enroll = React.createClass
 
@@ -56,7 +57,7 @@ Enroll = React.createClass
     else if CourseEnrollmentStore.isPending() or CourseEnrollmentStore.isApproveError()
       <ConfirmJoin />
     else if CourseEnrollmentStore.isCreateError()
-      <ErrorList />
+      <ErrorList errorMessages={CourseEnrollmentStore.errorMessages()} />
     else
       @renderComplete()
 

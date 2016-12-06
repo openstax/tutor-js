@@ -1,8 +1,7 @@
 React = require 'react'
 
 {CourseEnrollmentActions, CourseEnrollmentStore} = require '../../flux/course-enrollment'
-ErrorList = require './error-list'
-{ConfirmJoinCourse} = require 'shared'
+{ConfirmJoinCourse, ErrorList} = require 'shared'
 
 ConfirmJoin = React.createClass
 
@@ -10,7 +9,7 @@ ConfirmJoin = React.createClass
     <ConfirmJoinCourse
       courseEnrollmentActions={CourseEnrollmentActions}
       courseEnrollmentStore={CourseEnrollmentStore}
-      errorList={<ErrorList />}
+      errorList={<ErrorList errorMessages={CourseEnrollmentStore.errorMessages()}/>}
     />
 
 

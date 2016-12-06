@@ -27,6 +27,7 @@ module.exports = {
   ChapterSectionMixin:    require './src/components/chapter-section-mixin'
   CloseButton:            require './src/components/buttons/close-button'
   ConfirmJoinCourse:      require './src/components/enroll/confirm-join-course'
+  ErrorList:              require './src/components/enroll/error-list'
 
   Exercise,
   ExControlButtons,
