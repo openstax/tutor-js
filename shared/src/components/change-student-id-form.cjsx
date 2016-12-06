@@ -33,17 +33,6 @@ ChangeStudentIdForm = React.createClass
   onSubmit: ->
     @props.onSubmit(@state.studentId)
 
-  SubmitButton: ->
-    <BS.InputGroup.Button>
-      <AsyncButton
-        bsStyle="primary"
-        className="btn btn-success"
-        isWaiting={!!@props.isBusy}
-        waitingText={'Confirming…'}
-        onClick={@onSubmit}
-      >{@props.saveButtonLabel}</AsyncButton>
-    </BS.InputGroup.Button>
-
   render: ->
     <BS.FormGroup className='openstax-change-student-id-form'>
       <h3 className='text-center'>
@@ -63,7 +52,15 @@ ChangeStudentIdForm = React.createClass
             onKeyPress={@onKeyPress}
           />
           <BS.InputGroup.Button>
-            <@SubmitButton />
+            <AsyncButton
+              bsStyle="primary"
+              className="btn btn-success"
+              isWaiting={!!@props.isBusy}
+              waitingText={'Confirming…'}
+              onClick={@onSubmit}
+            >
+              {@props.saveButtonLabel}
+            </AsyncButton>
           </BS.InputGroup.Button>
         </BS.InputGroup>
       </BS.Col>
