@@ -21,7 +21,6 @@ MissingStudentIdNotification = React.createClass
   onAddClicked: ->
     Notifications.acknowledge(@props.notice)
     @props.callbacks.onAdd(@props.notice)
-#    undefined # silence React warning about return value
 
   render: ->
     <div className='notification missing-student-id'>
