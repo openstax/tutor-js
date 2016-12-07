@@ -19,6 +19,9 @@ BuildCourse = React.createClass
   contextTypes:
     router: React.PropTypes.object
 
+  mixins: [BindStoreMixin]
+  bindStore: NewCourseStore
+  bindEvent: 'created'
   bindUpdate: ->
     newCourse = NewCourseStore.newCourse()
     @redirectToCourse(newCourse) if newCourse
@@ -28,9 +31,6 @@ BuildCourse = React.createClass
     @context.router.transitionTo(Router.makePathname(
       to, {courseId: course.id}, query: {showIntro: 'true'}
     ))
-
-  mixins: [BindStoreMixin]
-  bindStore: NewCourseStore
 
   render: ->
     <div>
