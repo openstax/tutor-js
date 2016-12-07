@@ -20,9 +20,10 @@ describe 'CreateCourse: entering details', ->
       wrapper.find("FormControl[type=\"number\"][value=1]")
     ).to.have.length(1)
     expect(
-      wrapper.find("FormControl[type=\"text\"][value=\"Test but Verify\"]")
+      wrapper.find("FormControl[type=\"text\"][defaultValue=\"Test but Verify\"]")
     ).to.have.length(1)
     undefined
+
 
   it 'updates flux values when edited', ->
     wrapper = mount(<CourseDetails />)
