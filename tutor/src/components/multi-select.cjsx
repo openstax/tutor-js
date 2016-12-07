@@ -25,30 +25,33 @@ MultiSelect = React.createClass
     ev.stopPropagation()
     @props.onOnlySelection(ev.target.getAttribute('data-id'))
 
-  onSelect: (ev, selection) ->
+  onSelect: (selection) ->
     @props.onSelect?( _.findWhere(@props.selections, id: selection))
 
   renderMenuSelection: (selection) ->
     if @props.onOnlySelection
       onlyToggle = <span className="only" data-id={selection.id} onClick={@toggleOnly}>only</span>
 
-    <BS.MenuItem key={selection.id} eventKey={selection.id}>
+    <BS.MenuItem
+      key={selection.id}
+      eventKey={selection.id}
+      className="multi-selection-option"
+    >
       <Icon type={if selection.selected then 'check-square-o' else 'square-o'} />
       <span className="title">{selection.title}</span>
       {onlyToggle}
     </BS.MenuItem>
 
   render: ->
-    classNames = classnames('multi-select', @props.className)
-    <BS.DropdownButton
-      className={classNames}
-      id='multi-select'
-      onSelect={@onSelect}
-      title={@props.title}
-    >
-      {@renderMenuSelection(selection) for selection in @props.selections}
-    </BS.DropdownButton>
-
+    <div className={classnames('multi-select', @props.className)}>
+       <BS.DropdownButton pullRight
+         id='multi-select'
+         onSelect={@onSelect}
+         title={@props.title}
+       >
+         {@renderMenuSelection(selection) for selection in @props.selections}
+       </BS.DropdownButton>
+    </div>
 
 
 module.exports = MultiSelect
