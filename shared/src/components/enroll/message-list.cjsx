@@ -5,20 +5,26 @@ MessageList = React.createClass
 
   propTypes:
     messages: React.PropTypes.array.isRequired
-    divClassName: React.PropTypes.string
-    ulClassName: React.PropTypes.string
-    liClassName: React.PropTypes.string
+    alertType: React.PropTypes.string
+    messagesType: React.PropTypes.string
+    forceBullets: React.PropTypes.bool
 
   getDefaultProps: ->
-    divClassName: "alert alert-danger"
-    ulClassName: "errors"
-    liClassName: ""
+    alertType: "danger"
+    messagesType: "errors"
+    forceBullets: false
+
+  getUlClassName: ->
+    if @props.messages.length == 1 && !@props.forceBullets
+      "#{@props.messagesType} list-unstyled"
+    else
+      @props.messagesType
 
   render: ->
     return null if _.isEmpty(@props.messages)
 
-    <div className={@props.divClassName}>
-      <ul className={@props.ulClassName}>
+    <div className="alert alert-#{@props.alertType}">
+      <ul className={@getUlClassName()}>
         {for msg, i in @props.messages
           <li className={@props.liClassName} key={i}>{msg}</li>}
       </ul>

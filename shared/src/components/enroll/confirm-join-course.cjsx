@@ -33,21 +33,21 @@ ConfirmJoinCourse = React.createClass
     <BS.Row>
       <div className="confirm-join form-group">
 
+        {<MessageList
+          messages={[<CcConflictMessage courseEnrollmentStore={@props.courseEnrollmentStore}/>]}
+          alertType="info"
+          messagesType="conflicts"
+          /> if @props.courseEnrollmentStore.hasConflict()}
+
+        <MessageList messages={@props.courseEnrollmentStore.errorMessages()} />
+
         <h3 className="title text-center">
           <div className="join">You are joining</div>
           <div className="course">{@props.courseEnrollmentStore.description()}</div>
           <div className="teacher">{@props.courseEnrollmentStore.teacherNames()}</div>
         </h3>
 
-        {<MessageList
-          messages={[<CcConflictMessage courseEnrollmentStore={@props.courseEnrollmentStore}/>]}
-          divClassName="alert"
-          ulClassName="conflicts"
-          /> if @props.courseEnrollmentStore.hasConflict()}
-
-        <MessageList messages={@props.courseEnrollmentStore.errorMessages()} />
-
-        <p className="label">Enter your school-issued ID</p>
+        <p className="label">Enter your school-issued student ID that is used for grading</p>
         <div className='controls'>
           <div className='field'>
 
@@ -66,15 +66,13 @@ ConfirmJoinCourse = React.createClass
               Continue
             </AsyncButton>
 
+            <a href='#' className="skip" onClick={@onCancel}>
+              Add it later
+            </a>
           </div>
-          <span className="or">or</span>
-          <a href='#' className="skip" onClick={@onCancel}>
-            Skip this step for now<sup>*</sup>
-          </a>
-        </div>
-        <div className="help-text">
-          <sup>*</sup> You can enter you student ID later by clicking on your name in the top right
-          of your dashboard and selecting "Change Student ID" from the menu.
+          <div className="required">
+            Required for credit
+          </div>
         </div>
       </div>
     </BS.Row>

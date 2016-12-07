@@ -31,7 +31,7 @@ CcJoinConflict = React.createClass
 
         <MessageList messages={[@getConflictMessage()]} />
 
-        <h3 className="title text-center">
+        <h3 className="title text-center no-border">
           <div className="join">You are joining</div>
           <div className="course">{@props.courseEnrollmentStore.description()}</div>
           <div className="teacher">{@props.courseEnrollmentStore.teacherNames()}</div>
@@ -48,6 +48,7 @@ CcJoinConflict = React.createClass
 
         <div className="help-text">
           Still want to enroll in both courses?
+
           <a href='http://openstax.force.com/support/?cu=1&fs=ContactUs&l=en_US&c=Products%3AConcept_Coach&q=ddd'>
             Contact us.
           </a>
