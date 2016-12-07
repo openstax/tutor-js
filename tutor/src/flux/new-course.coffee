@@ -2,6 +2,7 @@
 _ = require 'lodash'
 
 {CourseListingActions} = require './course-listing'
+PeriodHelper = require '../helpers/period'
 
 DEFAULTS =
   course_type: 'tutor'
@@ -94,7 +95,7 @@ StoreDefinition = makeStandardStore('NewCourse', {
       offering_id: course.offering_id
       cloned_from_id: course.id
       name: course.name
-      num_sections: course.periods.length
+      num_sections: PeriodHelper.activePeriods(course).length
 
     @set(newCourse)
 
