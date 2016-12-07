@@ -24,13 +24,13 @@ describe 'CreateCourse: saving new course', ->
     it 'redirects to Tutor for Tutor', ->
       NewCourseActions.created({id: '42', is_concept_coach: false})
       wrapper = shallow(<BuildCourse />, @options)
-      NewCourseStore.emit('change')
+      NewCourseStore.emit('created')
       expect(@options.context.router.transitionTo).to.have.been.calledWith('/course/42?showIntro=true')
       undefined
 
     it 'redirects to CC', ->
       NewCourseActions.created({id: '21', is_concept_coach: true})
       wrapper = shallow(<BuildCourse />, @options)
-      NewCourseStore.emit('change')
+      NewCourseStore.emit('created')
       expect(@options.context.router.transitionTo).to.have.been.calledWith('/course/21/cc/help?showIntro=true')
       undefined
