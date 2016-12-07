@@ -22,7 +22,7 @@ IntroPopover = (props) ->
   <BS.Overlay
     show={props.show}
     placement='right'
-    container={document.querySelector('.new-assignments .new-task')}
+    container={document.querySelector('.new-assignments')}
   >
     <BS.Popover id='drag-intro'>
       <p>Click to add, or just drag to calendar.</p>
@@ -76,7 +76,7 @@ AddAssignmentSidebar = React.createClass
       key={link.type}
       link={link}
       goToBuilder={@goToBuilder}
-      onDrag={@closeHelp}
+      onDrag={@onPopoverClose}
     />
 
   render: ->
