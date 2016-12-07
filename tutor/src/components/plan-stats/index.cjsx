@@ -7,11 +7,25 @@ Router = require '../../helpers/router'
 LoadableItem = require '../loadable-item'
 {SmartOverflow} = require 'shared'
 {CoursePeriodsNav} = require '../course-periods-nav'
-
+CourseGroupingLabel = require '../course-grouping-label'
 CourseBar = require './course-bar'
 {ChaptersPerformance, PracticesPerformance} = require './performances'
 
 PeriodHelper = require '../../helpers/period'
+TutorLink = require '../link'
+
+NoStudents = ({courseId}) ->
+  <span className='no-students'>
+    <p>
+      No students have been given this assignment. It will be
+      automatically assigned to students when they join the
+      course’s <CourseGroupingLabel courseId={courseId} lowercase/>.
+    </p>
+    <p>
+      You can find the enrollment URL for students in
+      the <TutorLink to='courseSettings' params={{courseId}}>Course Settings and Roster</TutorLink>.
+    </p>
+  </span>
 
 Stats = React.createClass
   propTypes:
@@ -65,6 +79,7 @@ Stats = React.createClass
 
     handlePeriodSelect?(period)
 
+
   render: ->
     {id, courseId, shouldOverflowData, activeSection} = @props
     {stats} = @state
@@ -74,7 +89,6 @@ Stats = React.createClass
     plan = TaskPlanStatsStore.get(id)
     periods = TaskPlanStatsStore.getPeriods(id)
 
-    # A Draft does not contain any stats
     if stats
       course = <CourseBar data={stats} type={plan.type}/>
 
@@ -84,8 +98,8 @@ Stats = React.createClass
       if _.isArray(stats.spaced_pages)
         practice = <PracticesPerformance spacedPages={stats.spaced_pages} activeSection={activeSection}/>
 
-    else
-      course = <span className='-no-data'>No Data (draft)</span>
+    else # no stats are available because the plan doesn't have students
+      course = <NoStudents courseId={courseId} />
 
     if shouldOverflowData
       dataComponent = <SmartOverflow className='reading-stats-data' heightBuffer={24}>
