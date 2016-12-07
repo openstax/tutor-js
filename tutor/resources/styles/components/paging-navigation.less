@@ -1,3 +1,19 @@
+@tutor-paging-default-offsets: {
+  margin-left: -75px;
+};
+
+.paging-handle-browser-offsets(@handle-offset: @tutor-paging-default-offsets) {
+  // work around IE and Firefox flexbox bug where the icon is placed outside it's container
+  // this shifts it back into position
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    @handle-offset();
+  }
+  @-moz-document url-prefix() {
+    @handle-offset();
+  }
+}
+
+
 .tutor-paging-navigation {
   @arrow-height: 150px;
   .flex-display();
@@ -26,9 +42,7 @@
         .flex-display();
         .justify-content(flex-end);
         .icon {
-          // work around IE flexbox bug where the icon is placed outside it's container
-          // this shifts it back into position
-          @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) { margin-left: -75px; }
+          .paging-handle-browser-offsets();
         }
       }
     }
