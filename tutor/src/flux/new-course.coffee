@@ -62,6 +62,7 @@ StoreDefinition = makeStandardStore('NewCourse', {
 # used by api
 # coffeelint: disable=no_empty_functions
   clone: ->
+# coffeelint: enable=no_empty_functions
   create: ->
     @_local['newlyCreatedCourse'] = null
 
