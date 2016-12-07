@@ -52,8 +52,6 @@ CourseAdd = React.createClass
       'day after term ends'
     else if addDate.isBefore(referenceDate, 'day')
       'past day'
-    else if addDate.isSame(referenceDate, 'day')
-      'today'
 
   render: ->
     {referenceDate, addDate, open} = @state
