@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _} = require './helpers/component-testing'
+{Testing, sinon, _} = require './helpers/component-testing'
 
 MultiSelect = require '../../src/components/multi-select'
 
@@ -12,6 +12,7 @@ SELECTIONS = [
 ]
 
 describe 'MultiSelect component', ->
+
   beforeEach ->
     @props = {
       id: 'foods'
