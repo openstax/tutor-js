@@ -42,7 +42,7 @@ CourseDetails = React.createClass
       <BS.FormGroup className='course-details-name'>
         <BS.FormControl autoFocus
           type="text"
-          value={NewCourseStore.get('name') or ''}
+          defaultValue={NewCourseStore.get('name') or ''}
           placeholder='Choose a name for your course'
           onChange={@updateName}
         />
