@@ -11,6 +11,7 @@ CourseEnrollmentActions = flux.createActions [
   'created'
   'confirm'
   'confirmed'
+  'conflictContinue'
   'FAILED'
 ]
 
@@ -26,6 +27,9 @@ CourseEnrollmentStore = flux.createStore
     # Errors
     isCreateError: -> @status is "create_error"
     isApproveError: -> @status is "approve_error"
+
+    # A registration has been created, but it conflicts with a previous CC enrollment
+    isConflicting: -> @status is "cc_conflict"
 
     # A registration has been created, but not confirmed
     isPending: -> @status is "pending"
@@ -50,8 +54,8 @@ CourseEnrollmentStore = flux.createStore
       return '' unless part
       "#{part.course.name} (section #{part.period.name})"
 
-    teacherNames: ->
-      teachers = @to.course?.teachers
+    teacherNames: (part = @to) ->
+      teachers = part.course?.teachers
       return '' unless teachers
 
       names = _.map teachers, (teacher) ->
@@ -64,6 +68,12 @@ CourseEnrollmentStore = flux.createStore
         "Instructor: " + _.first(names)
       else
         "Instructors: " + names.slice(0, names.length - 1).join(', ') + " and " + names.slice(-1)
+
+    hasConflict: -> !!@conflict
+
+    conflictDescription: -> CourseEnrollmentStore.describeMovePart(@conflict)
+
+    conflictTeacherNames: -> CourseEnrollmentStore.teacherNames(@conflict)
 
     hasErrors: ->
       not _.isEmpty(@errors)
@@ -90,6 +100,7 @@ CourseEnrollmentStore = flux.createStore
       @status = "create_error"
     else
       _.extend(@, response) if response
+      @status = "cc_conflict" if @status is "pending" and @conflict
     delete @isBusy
     @emit('changed')
 
@@ -106,6 +117,10 @@ CourseEnrollmentStore = flux.createStore
       @status = "approve_error"
     else
       @status = "approved"
+    @emit('changed')
+
+  conflictContinue: ->
+    @status = "pending"
     @emit('changed')
 
   FAILED: ->

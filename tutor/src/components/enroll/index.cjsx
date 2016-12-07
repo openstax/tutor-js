@@ -7,9 +7,10 @@ _ = require 'underscore'
 ENTER = 'Enter'
 
 ConfirmJoin = require './confirm-join'
+JoinConflict = require './join-conflict'
 Router = require '../../helpers/router'
 
-{ErrorList} = require 'shared'
+{MessageList} = require 'shared'
 
 Enroll = React.createClass
 
@@ -54,10 +55,12 @@ Enroll = React.createClass
   renderCurrentStep: ->
     if CourseEnrollmentStore.isLoading()
       <h3>Loading...</h3>
+    else if CourseEnrollmentStore.isConflicting()
+      <JoinConflict />
     else if CourseEnrollmentStore.isPending() or CourseEnrollmentStore.isApproveError()
       <ConfirmJoin />
     else if CourseEnrollmentStore.isCreateError()
-      <ErrorList errorMessages={CourseEnrollmentStore.errorMessages()} />
+      <MessageList messages={CourseEnrollmentStore.errorMessages()} />
     else
       @renderComplete()
 

@@ -1,7 +1,7 @@
 _ = require 'underscore'
 React = require 'react'
 BS = require 'react-bootstrap'
-{ ChangeStudentIdForm, ErrorList } = require 'shared'
+{ ChangeStudentIdForm, MessageList } = require 'shared'
 ENTER = 'Enter'
 
 Course = require './model'
@@ -54,7 +54,7 @@ UpdateStudentIdentifer = React.createClass
         isBusy={@props.course.isBusy}
         studentId={@props.course.getStudentIdentifier()}
       >
-        <ErrorList errorMessages={@props.course.errorMessages()} />
+        <MessageList messages={@props.course.errorMessages()} />
       </ChangeStudentIdForm>
     </BS.Row>
 

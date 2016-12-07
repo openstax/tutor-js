@@ -1,15 +1,15 @@
 React = require 'react'
 
 {CourseEnrollmentActions, CourseEnrollmentStore} = require '../../flux/course-enrollment'
-{ConfirmJoinCourse} = require 'shared'
+{CcJoinConflict} = require 'shared'
 
-ConfirmJoin = React.createClass
+JoinConflict = React.createClass
 
   render: ->
-    <ConfirmJoinCourse
+    <CcJoinConflict
       courseEnrollmentActions={CourseEnrollmentActions}
       courseEnrollmentStore={CourseEnrollmentStore}
     />
 
 
-module.exports = ConfirmJoin
+module.exports = JoinConflict

@@ -4,13 +4,14 @@ BS = require 'react-bootstrap'
 ENTER = 'Enter'
 
 AsyncButton = require '../buttons/async-button'
+CcConflictMessage = require './cc-conflict-message'
+MessageList = require './message-list'
 
 ConfirmJoinCourse = React.createClass
 
   propTypes:
     courseEnrollmentActions: React.PropTypes.object.isRequired
     courseEnrollmentStore: React.PropTypes.object.isRequired
-    errorList: React.PropTypes.element.isRequired
     optionalStudentId: React.PropTypes.bool
 
   onKeyPress: (ev) ->
@@ -38,7 +39,13 @@ ConfirmJoinCourse = React.createClass
           <div className="teacher">{@props.courseEnrollmentStore.teacherNames()}</div>
         </h3>
 
-        {@props.errorList}
+        {<MessageList
+          messages={[<CcConflictMessage courseEnrollmentStore={@props.courseEnrollmentStore}/>]}
+          divClassName="alert"
+          ulClassName="conflicts"
+          /> if @props.courseEnrollmentStore.hasConflict()}
+
+        <MessageList messages={@props.courseEnrollmentStore.errorMessages()} />
 
         <p className="label">Enter your school-issued ID</p>
         <div className='controls'>

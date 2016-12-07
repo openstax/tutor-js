@@ -22,6 +22,8 @@ class Course
   isIncomplete: -> not (@name or @to)
   # The registration code has been validated but sign-up is not yet started
   isValidated: -> @status is "validated"
+  # Conflicts with a previous CC enrollment
+  isConflicting: -> @status is "conflict"
   # A registration has been created, but not confirmed
   isPending: ->  @status is "pending"
 
@@ -46,8 +48,7 @@ class Course
     return '' unless part
     "#{part.course.name} (section #{part.period.name})"
 
-  teacherNames: ->
-    part = @to or @
+  teacherNames: (part = @to or @) ->
     return '' unless part.course?.teachers
     teachers = part.course.teachers
     names = _.map teachers, (teacher) ->
@@ -57,6 +58,12 @@ class Course
       "Instructors: " + names.slice(0, names.length - 1).join(', ') + " and " + names.slice(-1)
     else
       "Instructor: " + _.first(names)
+
+  hasConflict: -> !!@conflict
+
+  conflictDescription: -> @describeMovePart(@conflict)
+
+  conflictTeacherNames: -> @teacherNames(@conflict)
 
   getStudentIdentifier: ->
     @getStudentRecord()?.student_identifier
@@ -162,9 +169,14 @@ class Course
 
     {data} = response
     _.extend(@, data) if data
+    @status = "cc_conflict" if @status is "pending" and @conflict
     # a freshly registered course doesn't contain the is_concept_coach flag
     @is_concept_coach = true
     delete @isBusy
+    @channel.emit('change')
+
+  conflictContinue: ->
+    @status = "pending"
     @channel.emit('change')
 
   destroy: ->
