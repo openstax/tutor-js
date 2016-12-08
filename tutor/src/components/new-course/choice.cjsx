@@ -20,9 +20,7 @@ CourseChoiceItem = React.createClass
       onClick={@props.onClick}
       {...ReactHelpers.filterProps(@props)}
     >
-
       {@props.children}
-
     </div>
 
 module.exports = CourseChoiceItem

@@ -42,7 +42,8 @@ SelectDates = React.createClass
           active={isEqual(NewCourseStore.get(KEY), term)}
           onClick={partial(@onSelect, term)}
         >
-          {term.term} {term.year}
+          <span className="term">{term.term}</span>
+          <span className="year">{term.year}</span>
         </Choice>}
     </BS.ListGroup>
 

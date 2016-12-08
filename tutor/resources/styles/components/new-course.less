@@ -138,6 +138,7 @@
         margin-right: 2rem;
         margin-top: 0;
         width: 60px;
+        display: block;
       }
 
     }
@@ -176,6 +177,7 @@
         position: absolute;
         background-repeat: no-repeat;
         background-position: center center;
+        display: block;
       }
       &::before {
         margin-right: 1rem;
@@ -183,29 +185,24 @@
 
       &.active {
         .make-wizard-choice-active();
-
         &:hover,
         &:focus {
           .make-wizard-choice-active();
         }
-
         &::after {
           right: 5px;
           top: 50%;
+          .fa-icon();
+          content: @fa-var-check-circle-o;
+          color: @tutor-secondary;
+          margin-bottom: 0;
+          font-size: 28px;
           margin-top: -14px;
-          width: 28px;
-          height: 28px;
-          background-image: url('../../images/icons/icon-checked.svg');
-          border-radius: 50%;
-          background-color: @tutor-white;
         }
-
       }
-
-      // &[data-brand]::before {
-      //   top: 10px;
-      // }
-
+      &[data-brand] {
+        display: block;
+      }
       &[data-brand=coach]::before {
         content: url('../../images/openstax-logo-coach-horizontal.svg');
       }
@@ -280,6 +277,9 @@
       }
     }
 
+    &.term {
+      .year { margin-left: 0.5rem; }
+    }
     &.cloned_from_id {
       .list-group-item .sub-title {
         font-weight: 400;
