@@ -1,6 +1,7 @@
 # coffeelint: disable=no_empty_functions
 _ = require 'underscore'
 cloneDeep = require 'lodash/cloneDeep'
+each = require 'lodash/each'
 map = require 'lodash/map'
 pick = require 'lodash/pick'
 isEmpty = require 'lodash/isEmpty'
@@ -265,9 +266,12 @@ TaskPlanConfig =
 
   createClonedPlan: (newPlanId, {planId, courseId, due_at}) ->
     original = @_local[planId]
+    originalPlan = {}
+    copyKeys = ['title', 'description', 'is_feedback_immediate', 'settings']
+    each(copyKeys, (key) ->
+      originalPlan[key] = cloneDeep(original[key])
+    )
 
-    originalPlan = pick(original, 'title', 'description', 'is_feedback_immediate')
-    originalPlan.settings = cloneDeep(original.settings)
     periods = CourseStore.getPeriods(courseId)
     tasking_plans = map( periods, (period) ->
       {
