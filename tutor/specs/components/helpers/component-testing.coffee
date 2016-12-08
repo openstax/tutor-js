@@ -5,6 +5,7 @@ React = require 'react'
 ReactDOM = require 'react-dom'
 TestRouter = require './test-router'
 ReactTestUtils  = require 'react-addons-test-utils'
+SnapShot = require 'react-test-renderer'
 { spyOnComponentMethod, stubComponentMethod } = require 'sinon-spy-react'
 
 # No longer exists, needs further investigation if we're using it
@@ -99,5 +100,5 @@ pause = (scope) ->
 module.exports = {
   Testing, sinon, React, _, ReactTestUtils,
   spyOnComponentMethod, stubComponentMethod,
-  pause
+  SnapShot, pause
 }
