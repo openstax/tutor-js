@@ -126,8 +126,7 @@ ReadingPlan = React.createClass
   render: ->
     {id, courseId} = @props
     builderProps = _.pick(@state, 'isVisibleToStudents', 'isEditable', 'isSwitchable')
-    isValid = @isValid()
-
+    hasError = @hasError()
 
     plan = TaskPlanStore.get(id)
     ecosystemId = TaskPlanStore.getEcosystemId(id, courseId)
@@ -141,7 +140,7 @@ ReadingPlan = React.createClass
       onPublish={@publish}
       onSave={@save}
       onCancel={@cancel}
-      isValid={isValid}
+      hasError={hasError}
       isVisibleToStudents={@state.isVisibleToStudents}
       getBackToCalendarParams={@getBackToCalendarParams}
       goBackToCalendar={@goBackToCalendar}/>
@@ -160,7 +159,7 @@ ReadingPlan = React.createClass
                         ecosystemId={ecosystemId}
                         selected={topics}/>
 
-    unless isValid then formClasses.push('is-invalid-form')
+    if hasError then formClasses.push('is-invalid-form')
 
     if not @state.isVisibleToStudents
       addReadingsButton = <BS.Button id='reading-select'
@@ -169,7 +168,7 @@ ReadingPlan = React.createClass
         bsStyle='default'>+ {addReadingText}
       </BS.Button>
 
-    if (not isValid and not topics?.length)
+    if (hasError and not topics?.length)
       readingsRequired = <span className="readings-required">
         Please add sections to this assignment
         <i className="fa fa-exclamation-circle"></i>

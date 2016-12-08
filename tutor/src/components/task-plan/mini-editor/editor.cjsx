@@ -85,9 +85,9 @@ TaskPlanMiniEditor = React.createClass
 
   render: ->
     {id, courseId, termStart, termEnd} = @props
-    isValid = @isValid()
+    hasError = @hasError()
     classes = classnames('task-plan-mini-editor',
-      'is-invalid-form': not isValid
+      'is-invalid-form': hasError
     )
 
     plan = TaskPlanStore.get(id)
@@ -150,14 +150,14 @@ TaskPlanMiniEditor = React.createClass
           isEditable={!!@state.isEditable}
           isPublishing={!!@state.publishing}
           isPublished={isPublished}
-          isValid={isValid}
+          hasError={hasError}
         />
         <DraftButton
           bsSize='small'
           onClick={@onSave}
           isWaiting={!!(@isWaiting() and @state.saving and isEmpty(@state.error))}
           isFailed={TaskPlanStore.isFailed(id)}
-          isValid={isValid}
+          hasError={hasError}
           isPublished={isPublished}
           isPublishing={!!@state.publishing}
         />

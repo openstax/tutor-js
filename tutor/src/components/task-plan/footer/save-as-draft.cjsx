@@ -8,7 +8,7 @@ SaveAsDraft = React.createClass
     onClick:      React.PropTypes.func.isRequired
     isWaiting:    React.PropTypes.bool.isRequired
     isFailed:     React.PropTypes.bool.isRequired
-    isValid:      React.PropTypes.bool.isRequired
+    hasError:     React.PropTypes.bool.isRequired
     isPublished:  React.PropTypes.bool.isRequired
     isPublishing: React.PropTypes.bool.isRequired
 
@@ -16,7 +16,7 @@ SaveAsDraft = React.createClass
     return null if @props.isPublished
 
     additionalProps = OXLink.filterProps(
-      omit(@props, 'onSave', 'onPublish', 'isEditable', 'isSaving', 'isWaiting', 'isPublished', 'isPublishing', 'isValid')
+      omit(@props, 'onSave', 'onPublish', 'isEditable', 'isSaving', 'isWaiting', 'isPublished', 'isPublishing', 'hasError')
     , prefixes: 'bs')
 
     <AsyncButton
@@ -25,7 +25,7 @@ SaveAsDraft = React.createClass
       isWaiting={@props.isWaiting}
       isFailed={@props.isFailed}
       waitingText='Saving…'
-      disabled={not @props.isValid or @props.isWaiting or @props.isPublishing}
+      disabled={@props.hasError or @props.isWaiting or @props.isPublishing}
       {...additionalProps}
     >
       Save as Draft

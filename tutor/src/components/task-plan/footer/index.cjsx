@@ -19,7 +19,7 @@ PlanFooter = React.createClass
   propTypes:
     id:               React.PropTypes.string.isRequired
     courseId:         React.PropTypes.string.isRequired
-    isValid:          React.PropTypes.bool.isRequired
+    hasError:         React.PropTypes.bool.isRequired
     goBackToCalendar: React.PropTypes.func
 
   getDefaultProps: ->
@@ -71,7 +71,7 @@ PlanFooter = React.createClass
     @context.router.transitionTo('viewStats', {courseId, id})
 
   render: ->
-    {id, isValid} = @props
+    {id, hasError} = @props
     plan = TaskPlanStore.get(id)
     isWaiting   = TaskPlanStore.isSaving(id) or TaskPlanStore.isPublishing(id) or TaskPlanStore.isDeleteRequested(id)
     isFailed    = TaskPlanStore.isFailed(id)
@@ -86,14 +86,14 @@ PlanFooter = React.createClass
         isEditable={@state.isEditable}
         isPublishing={@state.publishing}
         isPublished={isPublished}
-        isValid={isValid}
+        hasError={hasError}
       />
       <DraftButton
         onClick={@onSave}
         isWaiting={isWaiting and @state.saving}
         isPublishing={@state.publishing}
         isFailed={isFailed}
-        isValid={isValid}
+        hasError={hasError}
         isPublished={isPublished}
       />
       <CancelButton

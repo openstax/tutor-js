@@ -25,7 +25,7 @@ TaskSaveButton = React.createClass
     isWaiting:    React.PropTypes.bool.isRequired
     isPublished:  React.PropTypes.bool.isRequired
     isPublishing: React.PropTypes.bool.isRequired
-    isValid:      React.PropTypes.bool.isRequired
+    hasError:     React.PropTypes.bool.isRequired
 
   render: ->
     return null unless @props.isEditable
@@ -40,7 +40,7 @@ TaskSaveButton = React.createClass
     Text = if isPublished then MESSAGES.save else MESSAGES.publish
 
     additionalProps = OXLink.filterProps(
-      omit(@props, 'onSave', 'onPublish', 'isEditable', 'isSaving', 'isWaiting', 'isPublished', 'isPublishing', 'isValid')
+      omit(@props, 'onSave', 'onPublish', 'isEditable', 'isSaving', 'isWaiting', 'isPublished', 'isPublishing', 'hasError')
     , prefixes: 'bs')
 
     <AsyncButton
@@ -50,7 +50,7 @@ TaskSaveButton = React.createClass
       onClick={if isPublished then @props.onSave else @props.onPublish}
       waitingText={Text.waiting}
       isFailed={@props.isFailed}
-      disabled={not @props.isValid or @props.isWaiting or @props.isSaving}
+      disabled={@props.hasError or @props.isWaiting or @props.isSaving}
       isWaiting={isBusy}
       {...additionalProps}
     >

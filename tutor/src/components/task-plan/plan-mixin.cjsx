@@ -20,7 +20,7 @@ PlanMixin =
     router: React.PropTypes.object
 
   getInitialState: ->
-    extend(@getStates(), checkValidity: false)
+    extend(@getStates(), displayValidity: false)
 
   getStates: ->
     id = @props.id or @props.planId
@@ -45,7 +45,7 @@ PlanMixin =
 
     TaskPlanStore.on('publish-queued', @updateIsVisibleAndIsEditable)
     TaskPlanStore.on("loaded.#{id}", @updateIsVisibleAndIsEditable)
-    TaskPlanStore.on('change', @checkIfValid)
+    TaskPlanStore.on('change', @updateValidity)
     TaskingStore.on("taskings.#{id}.*.loaded", @updateIsVisibleAndIsEditable)
 
   componentWillUnmount: ->
@@ -53,7 +53,7 @@ PlanMixin =
 
     TaskPlanStore.off('publish-queued', @updateIsVisibleAndIsEditable)
     TaskPlanStore.off("loaded.#{id}", @updateIsVisibleAndIsEditable)
-    TaskPlanStore.off('change', @checkIfValid)
+    TaskPlanStore.off('change', @updateValidity)
     TaskingStore.off("taskings.#{id}.*.loaded", @updateIsVisibleAndIsEditable)
 
   showSectionTopics: ->
@@ -88,10 +88,10 @@ PlanMixin =
       TaskingStore.isTaskValid(id) and
       not TaskPlanStore.isPublishing(id)
 
-  isValid: ->
-    (@state.checkValidity and not @state.invalid) or not @state.checkValidity
+  hasError: ->
+    @state.displayValidity and @state.invalid
 
-  checkIfValid: ->
+  updateValidity: ->
     @setState(invalid: not @isSaveable())
 
   save: ->
@@ -106,7 +106,7 @@ PlanMixin =
         @saved()
       true
     else
-      @setState(invalid: true, checkValidity: true)
+      @setState(invalid: true, displayValidity: true)
       false
 
   saved: (savedPlan) ->
