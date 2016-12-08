@@ -2,6 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
+classnames = require 'classnames'
 
 {TutorInput, TutorDateInput, TutorTextArea} = require '../tutor-input'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
@@ -132,7 +133,6 @@ ReadingPlan = React.createClass
     ecosystemId = TaskPlanStore.getEcosystemId(id, courseId)
 
     topics = TaskPlanStore.getTopics(id)
-    formClasses = ['edit-reading', 'dialog']
 
     footer = <PlanFooter
       id={id}
@@ -150,7 +150,6 @@ ReadingPlan = React.createClass
 
 
     if (@state?.showSectionTopics)
-      formClasses.push('hide')
       selectReadings = <ChooseReadings
                         hide={@hideSectionTopics}
                         cancel={@cancelSelection}
@@ -159,7 +158,9 @@ ReadingPlan = React.createClass
                         ecosystemId={ecosystemId}
                         selected={topics}/>
 
-    if hasError then formClasses.push('is-invalid-form')
+    formClasses = classnames 'edit-reading', 'dialog',
+      'hide': @state.showSectionTopics
+      'is-invalid-form': hasError
 
     if not @state.isVisibleToStudents
       addReadingsButton = <BS.Button id='reading-select'
@@ -176,7 +177,7 @@ ReadingPlan = React.createClass
 
     <div className='reading-plan task-plan' data-assignment-type='reading'>
       <BS.Panel
-        className={formClasses.join(' ')}
+        className={formClasses}
         footer={footer}
         header={header}>
 

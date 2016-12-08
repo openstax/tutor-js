@@ -2,6 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
 Router = require 'react-router'
+classnames = require 'classnames'
 
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 
@@ -19,8 +20,6 @@ EventPlan = React.createClass
 
     plan = TaskPlanStore.get(id)
 
-    formClasses = ['edit-event', 'dialog']
-
     footer = <PlanFooter
       id={id}
       courseId={courseId}
@@ -33,11 +32,13 @@ EventPlan = React.createClass
       goBackToCalendar={@goBackToCalendar}/>
 
     header = @builderHeader('event', '')
-    if hasError then formClasses.push('is-invalid-form')
+
+    formClasses = classnames 'edit-event', 'dialog',
+      'is-invalid-form': hasError
 
     <div className='event-plan task-plan' data-assignment-type='event'>
       <BS.Panel
-        className={formClasses.join(' ')}
+        className={formClasses}
         footer={footer}
         header={header}>
 
