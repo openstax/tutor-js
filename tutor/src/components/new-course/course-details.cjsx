@@ -13,6 +13,8 @@ classnames = require 'classnames'
 {OfferingsStore} = require '../../flux/offerings'
 CourseInformation = require '../../flux/course-information'
 
+MAX_SECTION_COUNT = 12
+
 CourseDetails = React.createClass
   displayName: 'CourseDetails'
   statics:
@@ -35,7 +37,8 @@ CourseDetails = React.createClass
     NewCourseActions.set({name: ev.target.value})
 
   updateSectionCount: (ev) ->
-    NewCourseActions.set({num_sections: parseInt(ev.target.value, 10)})
+    num_sections = Math.min(parseInt(ev.target.value, 10), MAX_SECTION_COUNT)
+    NewCourseActions.set({num_sections})
 
   render: ->
     <BS.Form>
@@ -52,7 +55,7 @@ CourseDetails = React.createClass
           <BS.InputGroup.Addon>Number of sections</BS.InputGroup.Addon>
           <BS.FormControl
             type='number'
-            min='1'
+            min='1' max={MAX_SECTION_COUNT}
             value={NewCourseStore.get('num_sections')}
             onChange={@updateSectionCount}
           />

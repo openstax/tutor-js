@@ -6,7 +6,7 @@ isEqual = require 'lodash/isEqual'
 classnames = require 'classnames'
 
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
-{CourseChoiceItem} = require './choice'
+Choice = require './choice'
 
 ERRATA_EXPLAIN =
   <p key='errata-explain'>
@@ -44,22 +44,22 @@ CopyQL = React.createClass
   render: ->
     <div className="copy-ql">
       <BS.ListGroup>
-        <CourseChoiceItem
+        <Choice
           key='copy-library'
           active={isEqual(NewCourseStore.get(KEY), true)}
           onClick={partial(@onSelect, true)}
           data-copy-or-not='copy'
         >
           Copy
-        </CourseChoiceItem> 
-        <CourseChoiceItem
+        </Choice>
+        <Choice
           key='dont-copy-library'
           active={isEqual(NewCourseStore.get(KEY), false)}
           onClick={partial(@onSelect, false)}
           data-copy-or-not='dont-copy'
         >
           Don’t copy
-        </CourseChoiceItem>          
+        </Choice>
       </BS.ListGroup>
       <div
         className={classnames('explain', 'alert',

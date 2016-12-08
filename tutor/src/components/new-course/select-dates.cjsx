@@ -7,7 +7,7 @@ isEqual = require 'lodash/isEqual'
 
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 {OfferingsStore} = require '../../flux/offerings'
-{CourseChoiceItem} = require './choice'
+Choice = require './choice'
 
 QUARTERS =
   '2017Q4': 'Fall 2017'
@@ -37,13 +37,13 @@ SelectDates = React.createClass
 
     <BS.ListGroup>
       {for term, index in offering.active_term_years
-        <CourseChoiceItem
+        <Choice
           key={index}
           active={isEqual(NewCourseStore.get(KEY), term)}
           onClick={partial(@onSelect, term)}
         >
           {term.term} {term.year}
-        </CourseChoiceItem>}
+        </Choice>}
     </BS.ListGroup>
 
 

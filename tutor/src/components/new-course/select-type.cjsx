@@ -8,7 +8,7 @@ TutorRouter = require '../../helpers/router'
 
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 {CourseListingStore} = require '../../flux/course-listing'
-{CourseChoiceItem} = require './choice'
+Choice = require './choice'
 
 KEY = 'course_type'
 
@@ -30,7 +30,7 @@ SelectType = React.createClass
 
     <BS.ListGroup>
       {for type, logo of types
-        <CourseChoiceItem
+        <Choice
           key={type}
           data-brand={logo}
           active={isEqual(NewCourseStore.get(KEY), type)}
