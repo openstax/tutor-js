@@ -15,7 +15,7 @@ BindStoreMixin = require '../bind-store-mixin'
 
 {OfferingsStore} = require '../../flux/offerings'
 
-CourseOffering = require './offering'
+CourseOfferingTitle = require './offering-title'
 OXFancyLoader = require '../ox-fancy-loader'
 
 STAGES = {
@@ -108,9 +108,9 @@ NewCourseWizard = React.createClass
       offeringId = newCourse.offering_id if newCourse?
 
     if offeringId? and currentStage > 1
-      <CourseOffering offeringId={offeringId} >
+      <CourseOfferingTitle offeringId={offeringId} >
         {title}
-      </CourseOffering>
+      </CourseOfferingTitle>
     else
       <div>{title}</div>
 
@@ -123,8 +123,8 @@ NewCourseWizard = React.createClass
     isBuilding = NewCourseStore.isBuilding()
 
     Component = componentFor(@state.currentStage)
-    wizardStageClass = "new-course-wizard-#{STAGE_KEYS[@state.currentStage]}"
-    wizardClasses = classnames('new-course-wizard', wizardStageClass,
+
+    wizardClasses = classnames('new-course-wizard', STAGE_KEYS[@state.currentStage],
       'is-loading': isLoading or isBuilding
       'is-building': isBuilding
     )
