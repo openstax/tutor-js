@@ -8,7 +8,9 @@ The Front-end code for Openstax Tutor related projects
 
 ## Install
 
-1. install [nodejs](http://nodejs.org) from the website or using <http://brew.sh> if you’re already using it
+1. install [nvm](https://github.com/creationix/nvm)
+  - run `nvm install` in this directory to install and use the correct version of node
+  - _Alternatively:_ manualy install the right version of node in [./.nvmrc](./.nvmrc)
 1. `npm install -g gulp` to install [gulp](http://gulpjs.com) globally
 1. Git Clone this repository to the directory of your choice
   - If you don’t have `git` installed you can install homebrew and then `brew install git`
