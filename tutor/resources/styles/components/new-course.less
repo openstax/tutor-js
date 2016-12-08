@@ -14,265 +14,7 @@
   background-color: fade(@tutor-neutral-light, 60%);
   border-color: @tutor-neutral-light;
   color: @tutor-neutral-dark;
-}
-
-.new-course-wizard {
-  .list-group-item {
-    padding: 8px;
-
-    &:focus {
-      outline: none;
-    }
-
-    &.active {
-      .make-wizard-choice-active();
-
-      &:hover,
-      &:focus {
-        .make-wizard-choice-active();
-      }
-
-      .course-choice {
-        &::after {
-          top: 16px;
-          width: 28px;
-          height: 28px;
-          content: '';
-          background-image: url('../../images/icons/icon-checked.svg');
-          background-color: @tutor-white;
-          background-repeat: no-repeat;
-          background-position: center center;
-          display: table-cell;
-          vertical-align: middle;
-          border-radius: 50%;
-        }
-      }
-    }
-
-    &[data-brand] {
-      .course-choice-content-wrapper::before {
-        position: absolute;
-        top: 10px;
-      }
-    }
-
-    &[data-brand=coach] {
-      .course-choice-content-wrapper::before {
-        content: url('../../images/openstax-logo-coach-horizontal.svg');
-      }
-    }
-
-    &[data-brand=tutor-beta] {
-      .course-choice-content-wrapper::before {
-        content: url('../../images/openstax-logo-tutor-beta-horizontal.svg');
-      }
-    }
-
-    &[data-new-or-copy=new]{
-      .course-choice::before {
-        content: url('../../images/icons/icon-new-course.svg');
-      }
-    }
-
-    &[data-new-or-copy=copy]{
-      .course-choice::before {
-        content: url('../../images/icons/icon-copy-course.svg');
-      }
-    }
-
-    &[data-copy-or-not=copy]{
-      .course-choice::before {
-        content: url('../../images/icons/icon-copy-library.svg');
-      }
-    }
-
-    &[data-copy-or-not=dont-copy]{
-      .course-choice::before {
-        content: url('../../images/icons/icon-dont-copy-library.svg');
-      }
-    }
-  }
-
-  .input-group-addon {
-    background: @tutor-white;
-    color: @tutor-neutral-dark;
-    font-weight: 600;
-    text-align: left;
-  }
-
-  .form-control {
-    background: @tutor-neutral-lightest;
-    height: 4.8rem;
-    font-weight: 600;
-    color: @tutor-neutral-dark;
-  }
-
-  .alert {
-    font-size: 1.5rem;
-    line-height: 1.3em;
-    padding: 1rem;
-    margin-bottom: 0;
-
-    p {
-      margin: 0 0 1.5rem 0;
-
-      &:last-child {
-        margin: 0;
-      }
-    }
-  }
-
-  &.new-course-wizard-course_type,
-  &.new-course-wizard-offering_id {
-    .panel-heading {
-      font-weight: 800;
-      max-width: 75%;
-      text-align: center;
-      min-height: 6rem;
-      display: table;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-
-      div {
-        display: table-cell;
-        vertical-align: middle;
-      }
-    }
-  }
-
-  &.new-course-wizard-term,
-  &.new-course-wizard-cloned_from_id {
-    .list-group-item {
-      text-transform: capitalize;
-    }
-  }
-
-  &.new-course-wizard-cloned_from_id {
-    .course-choice-content {
-      p {
-        margin-bottom: 0;
-        font-weight: 400;
-        font-size: 0.9em;
-        line-height: 1.25em;
-      }
-    }
-  }
-
-  &.new-course-wizard-copy_question_library {
-    .list-group {
-      display: flex;
-
-      .list-group-item {
-        &:first-child {
-          border-top-right-radius: 0;
-          border-bottom-left-radius: @list-group-border-radius;
-        }
-        &:last-child {
-          border-bottom-left-radius: 0;
-          border-top-right-radius: @list-group-border-radius;
-        }
-      }
-      .course-choice::before {
-        width: 36px;
-      }
-    }
-  }
-
-  &.new-course-wizard-details {
-    .course-details-sections {
-      .input-group-addon {
-        width: 260px;
-      }
-
-      .form-control {
-        text-align: center;
-      }
-    }
-
-    .course-details-sections-note {
-      color: @tutor-neutral;
-      margin-left: 0.5rem;
-    }
-  }
-}
-
-.course-choice {
-  width: 100%;
-  display: table;
-  min-height: 6rem;
   position: relative;
-
-  &::after {
-    position: absolute;
-    right: 6px;
-  }
-
-  &::before {
-    width: 6rem;
-    display: inline-block;
-    float: left;
-    text-align: center;
-    margin-right: 0;
-    margin-top: 1.6rem;
-    height: 2.8rem;
-  }
-
-  .course-choice-content-wrapper {
-    display: table-cell;
-    vertical-align: middle;
-    width: 100%;
-  }
-
-  .course-choice-content {
-    font-size: 1.6rem;
-    font-weight: 800;
-    line-height: 1em;
-    margin-left: 0.5rem;
-  }
-}
-
-.course-offering {
-  .for(@openstax-book-thumbnails); .-each(@code) {
-    &[data-appearance=@{code}] {
-      &::before {
-        .book-content-thumbnail(@code);
-      }
-    }
-  }
-
-  &[data-appearance]{
-    &::before {
-      content: '';
-      background-size: cover;
-      background-position: center bottom;
-      height: 6rem;
-      margin-right: 2rem;
-      margin-top: 0;
-    }
-
-    .course-offering-content-wrapper {
-      &::before {
-        content: attr(data-book-title);
-        font-size: 1.6rem;
-        font-weight: 800;
-        line-height: 1em;
-        margin: 0;
-        padding: 0;
-      }
-
-      .course-choice-content {
-        font-weight: 400;
-        margin-top: 0.5rem;
-        margin-left: 0;
-      }
-    }
-  }
-
-  &[data-appearance*=biology]{
-    &::before {
-      background-position: center center;
-    }
-  }
 }
 
 .new-course {
@@ -327,6 +69,18 @@
       margin-right: auto;
       font-size: 1.6rem;
       line-height: 2rem;
+      .course-offering {
+        display: flex;
+        .contents {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          .title {
+            font-size: 1.6rem;
+            font-weight: 800;
+          }
+        }
+      }
     }
     .panel-body {
       padding: 1.6rem 0;
@@ -371,5 +125,208 @@
         border-bottom: none;
       }
     }
+  }
+
+  .new-course-wizard {
+
+    [data-appearance] {
+      &::before {
+        content: '';
+        background-size: cover;
+        background-position: center bottom;
+        height: 6rem;
+        margin-right: 2rem;
+        margin-top: 0;
+        width: 60px;
+      }
+
+    }
+
+    [data-appearance*=biology]{
+      &::before {
+        background-position: center center;
+      }
+    }
+
+    .for(@openstax-book-thumbnails); .-each(@code) {
+      [data-appearance=@{code}] {
+        &::before {
+          .book-content-thumbnail(@code);
+        }
+      }
+    }
+
+    .list-group-item {
+      padding: 8px;
+      display: flex;
+      align-content: center;
+      min-height: 7rem;
+      position: relative;
+      font-size: 1.6rem;
+      font-weight: 800;
+      line-height: 1em;
+      flex-direction: row;
+      align-items: center;
+
+      &:focus {
+        outline: none;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
+      &::before {
+        margin-right: 1rem;
+      }
+
+      &.active {
+        .make-wizard-choice-active();
+
+        &:hover,
+        &:focus {
+          .make-wizard-choice-active();
+        }
+
+        &::after {
+          right: 5px;
+          top: 50%;
+          margin-top: -14px;
+          width: 28px;
+          height: 28px;
+          background-image: url('../../images/icons/icon-checked.svg');
+          border-radius: 50%;
+          background-color: @tutor-white;
+        }
+
+      }
+
+      // &[data-brand]::before {
+      //   top: 10px;
+      // }
+
+      &[data-brand=coach]::before {
+        content: url('../../images/openstax-logo-coach-horizontal.svg');
+      }
+
+      &[data-brand=tutor-beta]::before {
+        content: url('../../images/openstax-logo-tutor-beta-horizontal.svg');
+      }
+
+
+      &[data-new-or-copy=new]::before {
+        content: url('../../images/icons/icon-new-course.svg');
+      }
+
+      &[data-new-or-copy=copy]::before {
+        content: url('../../images/icons/icon-copy-course.svg');
+      }
+
+      &[data-copy-or-not=copy]::before {
+        content: url('../../images/icons/icon-copy-library.svg');
+      }
+
+      &[data-copy-or-not=dont-copy]::before {
+        content: url('../../images/icons/icon-dont-copy-library.svg');
+      }
+    }
+
+    .input-group-addon {
+      background: @tutor-white;
+      color: @tutor-neutral-dark;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    .form-control {
+      background: @tutor-neutral-lightest;
+      height: 4.8rem;
+      font-weight: 600;
+      color: @tutor-neutral-dark;
+    }
+
+    .alert {
+      font-size: 1.5rem;
+      line-height: 1.3em;
+      padding: 1rem;
+      margin-bottom: 0;
+
+      p {
+        margin: 0 0 1.5rem 0;
+
+        &:last-child {
+          margin: 0;
+        }
+      }
+    }
+
+    // customize differnt wizard types
+    &.course_type,
+    &.offering_id {
+      .panel-heading {
+        font-weight: 800;
+        text-align: center;
+        min-height: 6rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+      }
+    }
+
+    &.term,
+    &.cloned_from_id {
+      .list-group-item {
+        text-transform: capitalize;
+      }
+    }
+
+    &.cloned_from_id {
+      .list-group-item .sub-title {
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1.25em;
+      }
+    }
+
+    &.details {
+      .course-details-sections {
+        .input-group {
+          width: 100%;
+          .input-group-addon {
+            width: 260px;
+          }
+          .form-control {
+            text-align: center;
+          }
+        }
+      }
+      .course-details-sections-note {
+        color: @tutor-neutral;
+        margin-left: 0.5rem;
+      }
+    }
+
+    &.copy_question_library.panel {
+      .list-group {
+        display: flex;
+        overflow-y: hidden;
+        .list-group-item {
+          flex: 1;
+          &:first-child {
+            border-top-right-radius: 0;
+            border-bottom-left-radius: @list-group-border-radius;
+          }
+          &:last-child {
+            border-bottom-left-radius: 0;
+            border-top-right-radius: @list-group-border-radius;
+          }
+        }
+        .course-choice::before {
+          width: 36px;
+        }
+      }
+    }
+
+
   }
 }
