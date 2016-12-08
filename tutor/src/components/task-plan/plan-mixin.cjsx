@@ -20,7 +20,7 @@ PlanMixin =
     router: React.PropTypes.object
 
   getInitialState: ->
-    extend(@getStates(), invalid: false)
+    extend(@getStates(), checkValidity: false)
 
   getStates: ->
     id = @props.id or @props.planId
@@ -83,15 +83,16 @@ PlanMixin =
 
   isSaveable: ->
     {id} = @props
+
     TaskPlanStore.isValid(id) and
       TaskingStore.isTaskValid(id) and
       not TaskPlanStore.isPublishing(id)
 
   isValid: ->
-    not @state.invalid
+    (@state.checkValidity and not @state.invalid) or not @state.checkValidity
 
   checkIfValid: ->
-    @setState(invalid: not @isSaveable()) if @state.invalid
+    @setState(invalid: not @isSaveable())
 
   save: ->
     {id, courseId} = @props
@@ -105,7 +106,7 @@ PlanMixin =
         @saved()
       true
     else
-      @setState(invalid: true)
+      @setState(invalid: true, checkValidity: true)
       false
 
   saved: (savedPlan) ->

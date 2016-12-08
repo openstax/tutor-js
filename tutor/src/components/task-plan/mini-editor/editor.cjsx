@@ -66,12 +66,12 @@ TaskPlanMiniEditor = React.createClass
     taskPlanEditingInitialize(id, courseId, {start: termStart, end: termEnd})
 
   onSave: ->
-    @setState({saving: true, publishing: false})
-    @save()
+    saving = @save()
+    @setState({saving: saving, publishing: false})
 
   onPublish: ->
-    @setState({saving: false, publishing: true})
-    @publish()
+    publishing = @publish()
+    @setState({saving: false, publishing: publishing})
 
   afterSave: ->
     @setState({saving: false, publishing: false})
@@ -87,7 +87,7 @@ TaskPlanMiniEditor = React.createClass
     {id, courseId, termStart, termEnd} = @props
     isValid = @isValid()
     classes = classnames('task-plan-mini-editor',
-      'is-invalid-form': @state.invalid
+      'is-invalid-form': not isValid
     )
 
     plan = TaskPlanStore.get(id)

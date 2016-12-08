@@ -15,6 +15,7 @@ EventPlan = React.createClass
   render: ->
     {id, courseId} = @props
     builderProps = _.pick(@state, 'isVisibleToStudents', 'isEditable', 'isSwitchable')
+    isValid = @isValid()
 
     plan = TaskPlanStore.get(id)
 
@@ -26,13 +27,13 @@ EventPlan = React.createClass
       onPublish={@publish}
       onSave={@save}
       onCancel={@cancel}
-      isValid={@isValid()}
+      isValid={isValid}
       isVisibleToStudents={@state.isVisibleToStudents}
       getBackToCalendarParams={@getBackToCalendarParams}
       goBackToCalendar={@goBackToCalendar}/>
 
     header = @builderHeader('event', '')
-    if @state?.invalid then formClasses.push('is-invalid-form')
+    unless isValid then formClasses.push('is-invalid-form')
 
     <div className='event-plan task-plan' data-assignment-type='event'>
       <BS.Panel
