@@ -84,7 +84,7 @@ PlanMixin =
       not TaskPlanStore.isPublishing(id)
 
   isValid: ->
-    not @state.invalid and TaskingStore.isTaskValid(@props.id)
+    not @state.invalid
 
   save: ->
     {id, courseId} = @props
