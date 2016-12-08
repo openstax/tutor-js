@@ -59,12 +59,12 @@ PlanFooter = React.createClass
     @props.goBackToCalendar()
 
   onSave: ->
-    @setState({saving: true, publishing: false})
-    @props.onSave()
+    saving = @props.onSave()
+    @setState({saving: saving, publishing: false})
 
   onPublish: ->
-    @setState({publishing: true, saving: false, isEditable: TaskPlanStore.isEditable(@props.id)})
-    @props.onPublish()
+    publishing = @props.onPublish()
+    @setState({publishing: publishing, saving: false, isEditable: TaskPlanStore.isEditable(@props.id)})
 
   onViewStats: ->
     {id, courseId} = @props

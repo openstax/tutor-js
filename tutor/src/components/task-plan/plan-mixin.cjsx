@@ -33,7 +33,9 @@ PlanMixin =
     isEditable = TaskPlanStore.isEditable(id)
     isSwitchable = not isVisibleToStudents or TaskingStore.hasAllTaskings(id)
 
-    {isVisibleToStudents, isEditable, isSwitchable}
+    invalid = not @isSaveable()
+
+    {isVisibleToStudents, isEditable, isSwitchable, invalid}
 
   updateIsVisibleAndIsEditable: ->
     @setState(@getStates())
@@ -43,6 +45,7 @@ PlanMixin =
 
     TaskPlanStore.on('publish-queued', @updateIsVisibleAndIsEditable)
     TaskPlanStore.on("loaded.#{id}", @updateIsVisibleAndIsEditable)
+    TaskPlanStore.on('change', @checkIfValid)
     TaskingStore.on("taskings.#{id}.*.loaded", @updateIsVisibleAndIsEditable)
 
   componentWillUnmount: ->
@@ -50,6 +53,7 @@ PlanMixin =
 
     TaskPlanStore.off('publish-queued', @updateIsVisibleAndIsEditable)
     TaskPlanStore.off("loaded.#{id}", @updateIsVisibleAndIsEditable)
+    TaskPlanStore.off('change', @checkIfValid)
     TaskingStore.off("taskings.#{id}.*.loaded", @updateIsVisibleAndIsEditable)
 
   showSectionTopics: ->
@@ -86,6 +90,9 @@ PlanMixin =
   isValid: ->
     not @state.invalid
 
+  checkIfValid: ->
+    @setState(invalid: not @isSaveable()) if @state.invalid
+
   save: ->
     {id, courseId} = @props
 
@@ -96,8 +103,10 @@ PlanMixin =
         if @props.save? then @props.save(id, courseId) else TaskPlanActions.save(id, courseId)
       else
         @saved()
+      true
     else
       @setState(invalid: true)
+      false
 
   saved: (savedPlan) ->
     courseId = @props.courseId

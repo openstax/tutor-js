@@ -19,8 +19,6 @@ SaveAsDraft = React.createClass
       omit(@props, 'onSave', 'onPublish', 'isEditable', 'isSaving', 'isWaiting', 'isPublished', 'isPublishing', 'isValid')
     , prefixes: 'bs')
 
-    console.info('draft', @props.isPublishing)
-
     <AsyncButton
       className='-save save'
       onClick={@props.onClick}
