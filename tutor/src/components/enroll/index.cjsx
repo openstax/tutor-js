@@ -1,29 +1,49 @@
 React = require 'react'
 _ = require 'underscore'
 {Promise} = require 'es6-promise'
+BindStoreMixin = require '../bind-store-mixin'
+Router = require '../../helpers/router'
 
 {CourseEnrollmentActions, CourseEnrollmentStore} = require '../../flux/course-enrollment'
 {CourseActions, CourseStore} = require '../../flux/course'
-ENTER = 'Enter'
+{MessageList} = require 'shared'
 
 ConfirmJoin = require './confirm-join'
 JoinConflict = require './join-conflict'
-Router = require '../../helpers/router'
 
-{MessageList} = require 'shared'
+ENTER = 'Enter'
+
+TeacherMessage = (props) ->
+  return null unless props.visible
+
+  <div className="teacher-message">
+    <p className="lead">
+      Welcome!
+    </p><p className="lead">
+      To see the student view of your course in Tutor,
+      enter an enrollment code from one of your sections.
+    </p><p>
+      We suggest creating a test section for yourself so you can
+      separate your Tutor responses from those of your students.
+    </p>
+  </div>
 
 Enroll = React.createClass
+
+  mixins: [BindStoreMixin]
+
+  bindStore: CourseEnrollmentStore
+
+  bindUpdate: ->
+    @onComplete() if CourseEnrollmentStore.isRegistered()
+    @forceUpdate()
 
   contextTypes:
     router: React.PropTypes.object
 
   componentWillMount: ->
     {enrollmentCode} = Router.currentParams()
-    CourseEnrollmentStore.on('changed', @onCourseEnrollmentChange)
     CourseEnrollmentActions.create(enrollmentCode)
-
-  componentWillUnmount: ->
-    CourseEnrollmentStore.off('changed', @onCourseEnrollmentChange)
 
   redirectToDashboard: ->
     @context.router.transitionTo(
@@ -40,15 +60,6 @@ Enroll = React.createClass
     successTimer = new Promise((resolve, reject) -> _.delay(resolve, 1500))
     Promise.all([loadCourse, successTimer]).then(@redirectToDashboard)
 
-  onCourseEnrollmentChange: ->
-    @onComplete() if CourseEnrollmentStore.isRegistered()
-    @forceUpdate()
-
-  renderComplete: ->
-    <h3 className="text-center">
-      You have successfully joined {CourseEnrollmentStore.description()}
-    </h3>
-
   isTeacher: ->
     CourseStore.isTeacher(CourseEnrollmentStore.courseId)
 
@@ -62,26 +73,15 @@ Enroll = React.createClass
     else if CourseEnrollmentStore.isCreateError()
       <MessageList messages={CourseEnrollmentStore.errorMessages()} />
     else
-      @renderComplete()
-
-  teacherMessage: ->
-    <div className="teacher-message">
-      <p className="lead">
-        Welcome!
-      </p><p className="lead">
-        To see the student view of your course in Tutor,
-        enter an enrollment code from one of your sections.
-      </p><p>
-        We suggest creating a test section for yourself so you can
-        separate your Tutor responses from those of your students.
-      </p>
-    </div>
+      <h3 className="text-center">
+        You have successfully joined {CourseEnrollmentStore.description()}
+      </h3>
 
   render: ->
     <div className="tutor-registration">
       <div className="row">
         <div className="new-registration">
-          {@teacherMessage() if @isTeacher()}
+          <TeacherMessage visible={@isTeacher()} />
           {@renderCurrentStep()}
         </div>
       </div>

@@ -1,6 +1,8 @@
 React = require 'react'
 _ = require 'underscore'
 
+classnames = require 'classnames'
+
 MessageList = React.createClass
 
   propTypes:
@@ -15,10 +17,9 @@ MessageList = React.createClass
     forceBullets: false
 
   getUlClassName: ->
-    if @props.messages.length == 1 && !@props.forceBullets
-      "#{@props.messagesType} list-unstyled"
-    else
-      @props.messagesType
+    classnames('message-list', @props.messagesType,
+      {'list-unstyled': @props.messages.length == 1 && !@props.forceBullets}
+    )
 
   render: ->
     return null if _.isEmpty(@props.messages)

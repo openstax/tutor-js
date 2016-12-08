@@ -10,8 +10,15 @@ MessageList = require './message-list'
 ConfirmJoinCourse = React.createClass
 
   propTypes:
-    courseEnrollmentActions: React.PropTypes.object.isRequired
-    courseEnrollmentStore: React.PropTypes.object.isRequired
+    courseEnrollmentActions: React.PropTypes.shape(
+      confirm: React.PropTypes.func.isRequired
+    ).isRequired
+    courseEnrollmentStore: React.PropTypes.shape(
+      getEnrollmentChangeId: React.PropTypes.func.isRequired
+      hasConflict: React.PropTypes.func.isRequired
+      description: React.PropTypes.func.isRequired
+      teacherNames: React.PropTypes.func.isRequired
+    ).isRequired
     optionalStudentId: React.PropTypes.bool
 
   onKeyPress: (ev) ->

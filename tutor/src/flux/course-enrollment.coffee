@@ -91,7 +91,7 @@ CourseEnrollmentStore = flux.createStore
   create: (enrollmentCode) ->
     @status = "loading"
     @isBusy = true
-    @emit('changed')
+    @emit('change')
 
   created: (response) ->
     throw new Error("response is empty in onCreate") if _.isEmpty(response)
@@ -103,13 +103,13 @@ CourseEnrollmentStore = flux.createStore
       _.extend(@, response) if response
       @status = "cc_conflict" if @status is "pending" and @conflict
     delete @isBusy
-    @emit('changed')
+    @emit('change')
 
   # Approves a pending EnrollmentChange
   confirm: (id, studentId) ->
     @studentId = studentId
     @isBusy = true
-    @emit('changed')
+    @emit('change')
 
   confirmed: (response) ->
     throw new Error("response is empty in onApproved") if _.isEmpty(response)
@@ -118,15 +118,15 @@ CourseEnrollmentStore = flux.createStore
       @status = "approve_error"
     else
       @status = "approved"
-    @emit('changed')
+    @emit('change')
 
   conflictContinue: ->
     @status = "pending"
-    @emit('changed')
+    @emit('change')
 
   FAILED: ->
     @isBusy = false
-    @emit('changed')
+    @emit('change')
 
 
 module.exports = {CourseEnrollmentActions, CourseEnrollmentStore}
