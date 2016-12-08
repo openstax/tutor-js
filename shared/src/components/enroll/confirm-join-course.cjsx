@@ -14,10 +14,13 @@ ConfirmJoinCourse = React.createClass
       confirm: React.PropTypes.func.isRequired
     ).isRequired
     courseEnrollmentStore: React.PropTypes.shape(
-      getEnrollmentChangeId: React.PropTypes.func.isRequired
+      isBusy: React.PropTypes.bool.isRequired
       hasConflict: React.PropTypes.func.isRequired
       description: React.PropTypes.func.isRequired
       teacherNames: React.PropTypes.func.isRequired
+      getEnrollmentChangeId: React.PropTypes.func.isRequired
+      getStudentIdentifier: React.PropTypes.func.isRequired
+      errorMessages: React.PropTypes.func.isRequired
     ).isRequired
     optionalStudentId: React.PropTypes.bool
 

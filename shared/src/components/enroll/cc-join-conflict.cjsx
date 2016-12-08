@@ -8,8 +8,16 @@ MessageList = require './message-list'
 CcJoinConflict = React.createClass
 
   propTypes:
-    courseEnrollmentStore: React.PropTypes.object.isRequired
-    courseEnrollmentActions: React.PropTypes.object.isRequired
+    courseEnrollmentStore: React.PropTypes.shape(
+      isBusy: React.PropTypes.bool.isRequired
+      description: React.PropTypes.func.isRequired
+      teacherNames: React.PropTypes.func.isRequired
+      conflictDescription: React.PropTypes.func.isRequired
+      conflictTeacherNames: React.PropTypes.func.isRequired
+    ).isRequired
+    courseEnrollmentActions: React.PropTypes.shape(
+      conflictContinue: React.PropTypes.func.isRequired
+    ).isRequired
 
   onKeyPress: (ev) ->
     @onSubmit() if ev.key is ENTER

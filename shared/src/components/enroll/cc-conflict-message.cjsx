@@ -3,7 +3,10 @@ React = require 'react'
 CcConflictMessage = React.createClass
 
   propTypes:
-    courseEnrollmentStore: React.PropTypes.object.isRequired
+    courseEnrollmentStore: React.PropTypes.shape(
+      conflictDescription: React.PropTypes.func.isRequired
+      conflictTeacherNames: React.PropTypes.func.isRequired
+    ).isRequired
 
   render: ->
     <span>
