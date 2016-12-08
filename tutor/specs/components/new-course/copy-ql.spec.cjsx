@@ -1,4 +1,4 @@
-{React} = require '../helpers/component-testing'
+{React, SnapShot} = require '../helpers/component-testing'
 
 CopyQL = require '../../../src/components/new-course/copy-ql'
 
@@ -19,3 +19,11 @@ describe 'CreateCourse: choosing to copy QL', ->
     wrapper.find('[data-copy-or-not="dont-copy"]').simulate('click')
     expect(NewCourseStore.get('copy_question_library')).to.equal(false)
     undefined
+
+
+  it 'matches snapshot', ->
+    component = SnapShot.create(
+      <CopyQL />
+    )
+    tree = component.toJSON()
+    expect(tree).toMatchSnapshot()

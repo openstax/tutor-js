@@ -1,5 +1,4 @@
-{React} = require '../helpers/component-testing'
-{mount} = require 'enzyme'
+{React, SnapShot} = require '../helpers/component-testing'
 
 SelectCourse = require '../../../src/components/new-course/select-course'
 OFFERINGS = require '../../../api/offerings'
@@ -30,3 +29,11 @@ describe 'CreateCourse: Selecting course subject', ->
       expect(wrapper.find(offeringItemSelector)).to.have.length(1)
 
     undefined
+
+
+  it 'matches snapshot', ->
+    component = SnapShot.create(
+      <SelectCourse />
+    )
+    tree = component.toJSON()
+    expect(tree).toMatchSnapshot()

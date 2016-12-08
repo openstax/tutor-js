@@ -1,0 +1,29 @@
+exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
+<div
+  className="list-group">
+  <div
+    className="list-group-item choice active"
+    data-appearance="college_biology"
+    onClick={[Function]}>
+    College Biology
+  </div>
+  <div
+    className="list-group-item choice"
+    data-appearance="college_physics"
+    onClick={[Function]}>
+    College Physics
+  </div>
+  <div
+    className="list-group-item choice"
+    data-appearance="intro_sociology"
+    onClick={[Function]}>
+    Introduction to Sociology
+  </div>
+  <div
+    className="list-group-item choice"
+    data-appearance="ap_biology"
+    onClick={[Function]}>
+    Biology for AP® Courses
+  </div>
+</div>
+`;
