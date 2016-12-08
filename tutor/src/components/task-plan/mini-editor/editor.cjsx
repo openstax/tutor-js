@@ -84,6 +84,7 @@ TaskPlanMiniEditor = React.createClass
 
   render: ->
     {id, courseId, termStart, termEnd} = @props
+    isSaveable = @isSaveable()
 
     plan = TaskPlanStore.get(id)
     isPublished = TaskPlanStore.isPublished(id)
@@ -145,15 +146,14 @@ TaskPlanMiniEditor = React.createClass
           isEditable={!!@state.isEditable}
           isPublishing={!!@state.publishing}
           isPublished={isPublished}
-          disabled={@isWaiting() or @state.error?}
+          isSaveable={isSaveable}
         />
         <DraftButton
           bsSize='small'
-          isSavable={@isSaveable()}
           onClick={@onSave}
           isWaiting={!!(@isWaiting() and @state.saving and isEmpty(@state.error))}
-          disabled={@isWaiting() or @state.error?}
           isFailed={TaskPlanStore.isFailed(id)}
+          isSaveable={isSaveable}
         />
         <BS.Button
           bsSize='small'

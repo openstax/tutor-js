@@ -40,6 +40,7 @@ ExternalPlan = React.createClass
       onPublish={@publish}
       onSave={@save}
       onCancel={@cancel}
+      isSaveable={@isSaveable()}
       isVisibleToStudents={@state.isVisibleToStudents}
       getBackToCalendarParams={@getBackToCalendarParams}
       goBackToCalendar={@goBackToCalendar}/>

@@ -68,9 +68,7 @@ PlanMixin =
     })
 
   publish: ->
-    {id} = @props
-    saveable = TaskPlanStore.isValid(id) and TaskingStore.isTaskValid(id)
-    TaskPlanActions.publish(id) if saveable
+    TaskPlanActions.publish(@props.id) if @isSaveable()
     @save()
 
   isWaiting: ->
@@ -79,14 +77,15 @@ PlanMixin =
 
   isSaveable: ->
     {id} = @props
-    not (TaskPlanStore.isPublished(id) or TaskPlanStore.isPublishing(id))
+
+    TaskPlanStore.isValid(id) and
+      TaskingStore.isTaskValid(id) and
+      not TaskPlanStore.isPublishing(id)
 
   save: ->
     {id, courseId} = @props
-    saveable = TaskPlanStore.isValid(id) and TaskingStore.isTaskValid(id)
-    # The logic here is this way because we need to be able to add an invalid
-    # state to the form.  Blame @fredasaurus
-    if saveable
+
+    if @isSaveable()
       if TaskPlanStore.hasChanged(id)
         TaskPlanStore.once("saved.#{id}", @saved)
         if @props.save? then @props.save(id, courseId) else TaskPlanActions.save(id, courseId)

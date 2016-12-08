@@ -8,6 +8,7 @@ SaveAsDraft = React.createClass
     onClick:   React.PropTypes.func.isRequired
     isWaiting: React.PropTypes.bool.isRequired
     isFailed:  React.PropTypes.bool.isRequired
+    isSaveable:  React.PropTypes.bool.isRequired
 
   render: ->
     return null unless @props.isSavable
@@ -22,7 +23,7 @@ SaveAsDraft = React.createClass
       isWaiting={@props.isWaiting}
       isFailed={@props.isFailed}
       waitingText='Saving…'
-      disabled={@props.isWaiting}
+      disabled={not @props.isSaveable or @props.isWaiting}
       {...additionalProps}
     >
       Save as Draft

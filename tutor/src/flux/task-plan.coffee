@@ -3,6 +3,8 @@ _ = require 'underscore'
 cloneDeep = require 'lodash/cloneDeep'
 map = require 'lodash/map'
 pick = require 'lodash/pick'
+isEmpty = require 'lodash/isEmpty'
+negate = require 'lodash/negate'
 validator = require 'validator'
 moment = require 'moment'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
@@ -14,6 +16,8 @@ TimeHelper  = require '../helpers/time'
 ContentHelpers = require '../helpers/content'
 
 planCrudConfig = new CrudConfig()
+
+hasValue = negate(isEmpty)
 
 TUTOR_SELECTIONS =
   default: 3
@@ -336,13 +340,15 @@ TaskPlanConfig =
     isValid: (id) ->
       plan = @_getPlan(id)
       if (plan.type is 'reading')
-        return plan.title and plan.settings?.page_ids?.length > 0
+        hasValue(plan.title) and hasValue(plan.settings) and hasValue(plan.settings.page_ids)
       else if (plan.type is 'homework')
-        return plan.title and plan.settings?.exercise_ids?.length > 0
+        hasValue(plan.title) and hasValue(plan.settings) and hasValue(plan.settings.exercise_ids)
       else if (plan.type is 'external')
-        return plan.title and plan.settings?.external_url and validator.isURL(plan.settings.external_url)
+        hasValue(plan.title) and hasValue(plan.settings) and hasValue(plan.settings.external_url)
       else if (plan.type is 'event')
-        return plan.title
+        hasValue(plan.title)
+      else
+        false
 
     isPublished: (id) ->
       plan = @_getPlan(id)
