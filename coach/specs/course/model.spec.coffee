@@ -26,3 +26,12 @@ describe 'Course Model', ->
     @course._onStudentUpdated(data: {student_identifier: 'WXYZ'})
     expect(@course.getStudentIdentifier()).to.eq('WXYZ')
     undefined
+
+  it 'translates error messages', ->
+    @course.errors = [
+      {code: 'already_enrolled'},
+      {code: 'already_processed'}]
+    expect(@course.errorMessages()).to.deep.equal([
+      'You are already enrolled in this course.  Please verify the enrollment code and try again.',
+      'Your enrollment in this course has been processed. Please reload the page.'])
+    undefined

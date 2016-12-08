@@ -12,7 +12,7 @@ describe 'ConfirmJoin Component', ->
     @props =
       course: new Course(COURSE)
 
-  it 'sets title with coure', ->
+  it 'sets title with course', ->
     Testing.renderComponent( ConfirmJoin, props: @props ).then ({dom}) ->
       title = dom.querySelector('h3.title').textContent
       expect(title).to.include("You are joining")
