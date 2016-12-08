@@ -72,6 +72,9 @@
       .course-offering {
         display: flex;
         .contents {
+          &::before {
+            width: 60px;
+          }
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -129,20 +132,35 @@
 
   .new-course-wizard {
 
-    [data-appearance] {
+    [data-appearance],
+    [data-copy-or-not],
+    [data-new-or-copy],
+    [data-brand] {
       &::before {
         content: '';
-        background-size: cover;
-        background-position: center bottom;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
         height: 6rem;
-        margin-right: 2rem;
-        margin-top: 0;
-        width: 60px;
+        margin-right: 1rem;
         display: block;
+        margin-top: 0;
       }
 
     }
 
+    [data-appearance]::before{
+      width: 60px;
+    }
+    [data-brand]::before {
+      width: 80%;
+    }
+    [data-new-or-copy],
+    [data-copy-or-not] {
+      &::before {
+        width: 40px;
+      }
+    }
     [data-appearance*=biology]{
       &::before {
         background-position: center center;
@@ -161,14 +179,14 @@
       padding: 8px;
       display: flex;
       align-content: center;
-      min-height: 7rem;
+      height: 7rem;
       position: relative;
       font-size: 1.6rem;
       font-weight: 800;
       line-height: 1em;
       flex-direction: row;
       align-items: center;
-
+      cursor: pointer;
       &:focus {
         outline: none;
       }
@@ -178,9 +196,6 @@
         background-repeat: no-repeat;
         background-position: center center;
         display: block;
-      }
-      &::before {
-        margin-right: 1rem;
       }
 
       &.active {
@@ -200,32 +215,29 @@
           margin-top: -14px;
         }
       }
-      &[data-brand] {
-        display: block;
-      }
       &[data-brand=coach]::before {
-        content: url('../../images/openstax-logo-coach-horizontal.svg');
+        background-image: url('../../images/openstax-logo-coach-horizontal.svg');
       }
 
       &[data-brand=tutor-beta]::before {
-        content: url('../../images/openstax-logo-tutor-beta-horizontal.svg');
+        background-image: url('../../images/openstax-logo-tutor-beta-horizontal.svg');
       }
 
 
       &[data-new-or-copy=new]::before {
-        content: url('../../images/icons/icon-new-course.svg');
+        background-image: url('../../images/icons/icon-new-course.svg');
       }
 
       &[data-new-or-copy=copy]::before {
-        content: url('../../images/icons/icon-copy-course.svg');
+        background-image: url('../../images/icons/icon-copy-course.svg');
       }
 
       &[data-copy-or-not=copy]::before {
-        content: url('../../images/icons/icon-copy-library.svg');
+        background-image: url('../../images/icons/icon-copy-library.svg');
       }
 
       &[data-copy-or-not=dont-copy]::before {
-        content: url('../../images/icons/icon-dont-copy-library.svg');
+        background-image: url('../../images/icons/icon-dont-copy-library.svg');
       }
     }
 
@@ -309,6 +321,7 @@
     &.copy_question_library.panel {
       .list-group {
         display: flex;
+
         overflow-y: hidden;
         .list-group-item {
           flex: 1;
