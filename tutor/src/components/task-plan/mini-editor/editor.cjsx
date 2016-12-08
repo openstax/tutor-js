@@ -5,6 +5,7 @@ isEmpty = require 'lodash/isEmpty'
 
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 
+classnames = require 'classnames'
 camelCase = require 'lodash/camelCase'
 Icon = require '../../icon'
 Loading = require './loading'
@@ -84,12 +85,15 @@ TaskPlanMiniEditor = React.createClass
 
   render: ->
     {id, courseId, termStart, termEnd} = @props
-    isSaveable = @isSaveable()
+    isValid = @isValid()
+    classes = classnames('task-plan-mini-editor',
+      'is-invalid-form': @state.invalid
+    )
 
     plan = TaskPlanStore.get(id)
     isPublished = TaskPlanStore.isPublished(id)
 
-    <div className='task-plan-mini-editor'>
+    <div className={classes}>
       <div className="row">
         <BS.Col xs=12>
           <h4>Add Copied Assignment</h4>
@@ -146,14 +150,15 @@ TaskPlanMiniEditor = React.createClass
           isEditable={!!@state.isEditable}
           isPublishing={!!@state.publishing}
           isPublished={isPublished}
-          isSaveable={isSaveable}
+          isValid={isValid}
         />
         <DraftButton
           bsSize='small'
           onClick={@onSave}
           isWaiting={!!(@isWaiting() and @state.saving and isEmpty(@state.error))}
           isFailed={TaskPlanStore.isFailed(id)}
-          isSaveable={isSaveable}
+          isValid={isValid}
+          isPublished={isPublished}
         />
         <BS.Button
           bsSize='small'

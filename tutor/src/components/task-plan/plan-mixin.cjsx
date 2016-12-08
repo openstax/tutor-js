@@ -1,4 +1,6 @@
 React = require 'react'
+extend   = require 'lodash/extend'
+
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TaskingStore, TaskingActions} = require '../../flux/tasking'
 {PastTaskPlansActions} = require '../../flux/past-task-plans'
@@ -18,7 +20,7 @@ PlanMixin =
     router: React.PropTypes.object
 
   getInitialState: ->
-    @getStates()
+    extend(@getStates(), invalid: false)
 
   getStates: ->
     id = @props.id or @props.planId
@@ -77,10 +79,12 @@ PlanMixin =
 
   isSaveable: ->
     {id} = @props
-
     TaskPlanStore.isValid(id) and
       TaskingStore.isTaskValid(id) and
       not TaskPlanStore.isPublishing(id)
+
+  isValid: ->
+    not @state.invalid and TaskingStore.isTaskValid(@props.id)
 
   save: ->
     {id, courseId} = @props

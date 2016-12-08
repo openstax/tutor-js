@@ -5,13 +5,14 @@ omit = require 'lodash/omit'
 SaveAsDraft = React.createClass
 
   propTypes:
-    onClick:   React.PropTypes.func.isRequired
-    isWaiting: React.PropTypes.bool.isRequired
-    isFailed:  React.PropTypes.bool.isRequired
-    isSaveable:  React.PropTypes.bool.isRequired
+    onClick:      React.PropTypes.func.isRequired
+    isWaiting:    React.PropTypes.bool.isRequired
+    isFailed:     React.PropTypes.bool.isRequired
+    isValid:      React.PropTypes.bool.isRequired
+    isPublished:  React.PropTypes.bool.isRequired
 
   render: ->
-    return null unless @props.isSavable
+    return null if @props.isPublished
 
     additionalProps = OXLink.filterProps(
       omit(@props, 'onSave', 'onPublish', 'isEditable', 'isSaving', 'isWaiting', 'isPublished', 'isPublishing')
@@ -23,7 +24,7 @@ SaveAsDraft = React.createClass
       isWaiting={@props.isWaiting}
       isFailed={@props.isFailed}
       waitingText='Saving…'
-      disabled={not @props.isSaveable or @props.isWaiting}
+      disabled={not @props.isValid or @props.isWaiting}
       {...additionalProps}
     >
       Save as Draft
