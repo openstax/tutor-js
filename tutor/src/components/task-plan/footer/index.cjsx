@@ -80,7 +80,7 @@ PlanFooter = React.createClass
     <div className='builder-footer-controls'>
       <SaveButton
         onSave={@onSave}
-        onPublish={@props.onPublish}
+        onPublish={@onPublish}
         isWaiting={isWaiting}
         isSaving={@state.saving}
         isEditable={@state.isEditable}
@@ -91,6 +91,7 @@ PlanFooter = React.createClass
       <DraftButton
         onClick={@onSave}
         isWaiting={isWaiting and @state.saving}
+        isPublishing={@state.publishing}
         isFailed={isFailed}
         isValid={isValid}
         isPublished={isPublished}

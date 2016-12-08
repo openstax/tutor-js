@@ -90,13 +90,14 @@ PlanMixin =
     {id, courseId} = @props
 
     if @isSaveable()
+      @setState(invalid: false)
       if TaskPlanStore.hasChanged(id)
         TaskPlanStore.once("saved.#{id}", @saved)
         if @props.save? then @props.save(id, courseId) else TaskPlanActions.save(id, courseId)
       else
         @saved()
     else
-      @setState({invalid: true})
+      @setState(invalid: true)
 
   saved: (savedPlan) ->
     courseId = @props.courseId

@@ -159,6 +159,7 @@ TaskPlanMiniEditor = React.createClass
           isFailed={TaskPlanStore.isFailed(id)}
           isValid={isValid}
           isPublished={isPublished}
+          isPublishing={!!@state.publishing}
         />
         <BS.Button
           bsSize='small'
