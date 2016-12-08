@@ -3,7 +3,7 @@ React = require 'react'
 TutorRequired = React.createClass
   render: ->
     <div className='hint required-hint'>
-      Required Field <i className='fa fa-exclamation-circle'></i>
+      Required field
     </div>
 
 TutorUrl = React.createClass

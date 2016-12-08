@@ -10,7 +10,7 @@
   input:not([disabled]) + label.period {
     cursor: pointer;
   }
-  .assign-to-label { 
+  .assign-to-label {
     font-size: 1.8rem;
     font-style: italic;
   }
@@ -75,6 +75,15 @@
   }
 }
 
+.-select-sections-btn {
+    border-radius: 4px;
+
+    &.invalid {
+        border: thin solid @form-error-color;
+        margin-right: 3px;
+    }
+}
+
 .due-before-open {
   line-height: 1.2rem;
   margin: -10px 0 30px;
@@ -82,7 +91,8 @@
 
 .due-before-open,
 .readings-required,
-.problems-required {
+.problems-required,
+.required-hint {
   color: @form-error-color;
   font-size: 1.2rem;
 

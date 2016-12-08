@@ -167,10 +167,6 @@ TutorDateInput = React.createClass
     @props.onChange(value)
     @setState({expandCalendar: false, valid, value, errors})
 
-  # TODO There's a bug in our version of datepicker where onBlur fires when
-  #   changing months.  Put this onBlur back as a prop for Datepicker when
-  #   we upgrade so that label and invalid date errors can display properly
-  #   on blur.
   onBlur: ->
     @setState({hasFocus: false})
 
@@ -180,7 +176,6 @@ TutorDateInput = React.createClass
   render: ->
     classes = classnames 'form-control',
       empty: not (@props.value or @props.default or @state.hasFocus)
-
 
     wrapperClasses = classnames 'form-control-wrapper', 'tutor-input', '-tutor-date-input', @props.className,
       'is-required': @props.required
@@ -205,6 +200,7 @@ TutorDateInput = React.createClass
           minDate={min}
           maxDate={max}
           onFocus={@expandCalendar}
+          onBlur={@onBlur}
           dateFormat={TutorDateFormat}
           key={@props.id}
           ref="picker"
@@ -228,7 +224,7 @@ TutorDateInput = React.createClass
       <input {...displayOnlyProps}/>
       <div className="floating-label">{@props.label}</div>
       <div className="hint required-hint">
-        Required Field <i className="fa fa-exclamation-circle"></i>
+        Required field
       </div>
 
 
@@ -425,7 +421,7 @@ TutorTextArea = React.createClass
         onChange={@onChange} />
       <div className="floating-label" onClick={@forwardLabelClick}>{@props.label}</div>
       <div className="hint required-hint">
-        Required Field <i className="fa fa-exclamation-circle"></i>
+        Required field
       </div>
     </div>
 

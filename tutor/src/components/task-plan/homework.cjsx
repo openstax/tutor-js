@@ -61,13 +61,12 @@ HomeworkPlan = React.createClass
           <BS.Row>
             <BS.Col xs=12 md=12>
               {<BS.Button id='problems-select'
-                className="-select-sections-btn"
+                className={"-select-sections-btn" + (if @state?.invalid and not hasExercises then ' invalid')}
                 onClick={@showSectionTopics}
                 bsStyle='default'>+ Select Problems
               </BS.Button> unless @state.isVisibleToStudents}
               {<span className="problems-required">
-                Please add exercises to this assignment
-                <Icon type='exclamation-circle' />
+                Please select problems for this assignment
               </span> if hasError and not hasExercises}
             </BS.Col>
           </BS.Row>

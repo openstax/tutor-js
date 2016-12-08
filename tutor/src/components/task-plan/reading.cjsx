@@ -164,15 +164,14 @@ ReadingPlan = React.createClass
 
     if not @state.isVisibleToStudents
       addReadingsButton = <BS.Button id='reading-select'
-        className="-select-sections-btn"
+        className={"-select-sections-btn" + (if @state?.invalid and not topics?.length then ' invalid')}
         onClick={@showSectionTopics}
         bsStyle='default'>+ {addReadingText}
       </BS.Button>
 
     if (hasError and not topics?.length)
       readingsRequired = <span className="readings-required">
-        Please add sections to this assignment
-        <i className="fa fa-exclamation-circle"></i>
+        Please add readings to this assignment
       </span>
 
     <div className='reading-plan task-plan' data-assignment-type='reading'>
