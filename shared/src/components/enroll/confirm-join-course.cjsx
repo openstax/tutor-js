@@ -14,7 +14,7 @@ ConfirmJoinCourse = React.createClass
       confirm: React.PropTypes.func.isRequired
     ).isRequired
     courseEnrollmentStore: React.PropTypes.shape(
-      isBusy: React.PropTypes.bool.isRequired
+      isBusy: React.PropTypes.bool
       hasConflict: React.PropTypes.func.isRequired
       description: React.PropTypes.func.isRequired
       teacherNames: React.PropTypes.func.isRequired

@@ -23,7 +23,7 @@ class Course
   # The registration code has been validated but sign-up is not yet started
   isValidated: -> @status is "validated"
   # Conflicts with a previous CC enrollment
-  isConflicting: -> @status is "conflict"
+  isConflicting: -> @status is "cc_conflict"
   # A registration has been created, but not confirmed
   isPending: ->  @status is "pending"
 

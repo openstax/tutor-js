@@ -9,7 +9,7 @@ CcJoinConflict = React.createClass
 
   propTypes:
     courseEnrollmentStore: React.PropTypes.shape(
-      isBusy: React.PropTypes.bool.isRequired
+      isBusy: React.PropTypes.bool
       description: React.PropTypes.func.isRequired
       teacherNames: React.PropTypes.func.isRequired
       conflictDescription: React.PropTypes.func.isRequired

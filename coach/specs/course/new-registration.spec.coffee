@@ -4,6 +4,7 @@ Course = require 'course/model'
 NewCourseRegistration = require 'course/new-registration'
 User = require 'user/model'
 EnrollmentCodeInput = require 'course/enrollment-code-input'
+JoinConflict = require 'course/join-conflict'
 ConfirmJoin = require 'course/confirm-join'
 
 describe 'NewCourseRegistration Component', ->
@@ -28,6 +29,14 @@ describe 'NewCourseRegistration Component', ->
     Testing.renderComponent( NewCourseRegistration, props: @props ).then ({element}) ->
       expect(ReactTestUtils.scryRenderedComponentsWithType(element, ConfirmJoin)).to.be.empty
       expect(ReactTestUtils.scryRenderedComponentsWithType(element, EnrollmentCodeInput)).not.to.be.empty
+
+  it 'renders join conflict page if course is conflicting', ->
+    sinon.stub(@props.course, 'isIncomplete').returns(false)
+    sinon.stub(@props.course, 'isConflicting').returns(true)
+    sinon.stub(@props.course, 'description').returns('Some course')
+    Testing.renderComponent( NewCourseRegistration, props: @props ).then ({element}) ->
+      expect(ReactTestUtils.scryRenderedComponentsWithType(element, JoinConflict)).not.to.be.empty
+      expect(ReactTestUtils.scryRenderedComponentsWithType(element, EnrollmentCodeInput)).to.be.empty
 
   it 'renders confirmation if course is pending', ->
     sinon.stub(@props.course, 'isIncomplete').returns(false)
