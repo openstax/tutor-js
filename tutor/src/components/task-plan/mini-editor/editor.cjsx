@@ -60,9 +60,18 @@ TaskPlanMiniEditor = React.createClass
     @props.handleError(error)
     @setState({error})
 
-  componentWillMount: ->
-    {id, courseId, termStart, termEnd} = @props
+  initializePlan: (props) ->
+    props ?= @props
+    {id, courseId, termStart, termEnd} = props
     taskPlanEditingInitialize(id, courseId, {start: termStart, end: termEnd})
+
+  componentWillMount: ->
+    @initializePlan()
+
+  componentWillReceiveProps: (nextProps) ->
+    if @props.id isnt nextProps.id or
+      @props.courseId isnt nextProps.courseId
+        @initializePlan(nextProps)
 
   onSave: ->
     @setState({saving: true, publishing: false})

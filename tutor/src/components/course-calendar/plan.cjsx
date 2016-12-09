@@ -49,6 +49,8 @@ CoursePlan = React.createClass
       ).isRequired
     )
     activeHeight: React.PropTypes.number
+    onShow: React.PropTypes.func
+    onHide: React.PropTypes.func
 
   contextTypes:
     router: React.PropTypes.object.isRequired
@@ -154,7 +156,11 @@ CoursePlan = React.createClass
     else
       @syncRoute()
 
+  componentDidMount: ->
+    @props.onShow?(@props.item.plan)
+
   componentWillUnmount: ->
+    @props.onHide?(@props.item.plan)
     @stopCheckingPlan(@props.item.plan)
 
   stopCheckingPlan: (plan) ->
