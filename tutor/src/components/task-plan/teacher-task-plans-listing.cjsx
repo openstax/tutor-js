@@ -5,7 +5,7 @@ _ = require 'underscore'
 
 LoadableItem = require '../loadable-item'
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
-{TaskPlanStore} = require '../../flux/task-plan'
+{TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {CourseStore} = require '../../flux/course'
 {TimeStore} = require '../../flux/time'
 TimeHelper = require '../../helpers/time'
@@ -103,6 +103,7 @@ TeacherTaskPlanListing = React.createClass
     courseTimezone = CourseStore.getTimezone(courseId)
     TimeHelper.syncCourseTimezone(courseTimezone)
 
+    TeacherTaskPlanActions.clearPendingClone(courseId)
     TaskPlanStore.on('saved.*', @loadToListing)
 
   componentWillUnmount: ->

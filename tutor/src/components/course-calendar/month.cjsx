@@ -7,9 +7,10 @@ _ = require 'underscore'
 classnames = require 'classnames'
 qs = require 'qs'
 extend = require 'lodash/extend'
+find = require 'lodash/find'
 {DropTarget} = require 'react-dnd'
 {Calendar, Month, Week, Day} = require 'react-calendar'
-{TeacherTaskPlanStore} = require '../../flux/teacher-task-plan'
+
 {TimeStore} = require '../../flux/time'
 TimeHelper = require '../../helpers/time'
 TutorRouter = require '../../helpers/router'
@@ -228,6 +229,12 @@ CourseMonth = React.createClass
     @setState(showingSideBar: isOpen)
   onEditorHide: ->
     @setState(editingPlanId: null, cloningPlanId: null)
+  onIfIsEditing: (plan) ->
+    if plan.id is @state.editingPlanId or
+      plan.cloned_from_id is @state.cloningPlan?.id
+        @setState(showMiniEditor: true)
+  offIfIsEditing: (plan) ->
+    @setState(showMiniEditor: false) if plan.id is @state.editingPlanId
 
   render: ->
     {plansList, courseId, className, date, hasPeriods, termStart, termEnd} = @props
@@ -245,7 +252,7 @@ CourseMonth = React.createClass
         groupingDurations={calendarWeeks}
         courseId={courseId}
         ref='courseDurations'>
-        <CoursePlan courseId={courseId}/>
+        <CoursePlan courseId={courseId} onShow={@onIfIsEditing} onHide={@offIfIsEditing}/>
       </CourseDuration>
 
     <div className={calendarClassName}>
@@ -307,7 +314,7 @@ CourseMonth = React.createClass
         termEnd={termEnd}
         onHide={@onEditorHide}
         findPopOverTarget={@getEditingPlanEl}
-      /> if @state.editingPlanId}
+      /> if @state.editingPlanId and @state.showMiniEditor}
 
     </div>
 
