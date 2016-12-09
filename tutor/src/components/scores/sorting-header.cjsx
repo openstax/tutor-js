@@ -1,6 +1,8 @@
 React    = require 'react'
 Router = require 'react-router'
 
+classnames = require 'classnames'
+
 module.exports = React.createClass
   displayName: 'SortingHeader'
 
@@ -11,22 +13,17 @@ module.exports = React.createClass
     dataType: React.PropTypes.string
 
   onClick: ->
-    @props.onSort(@props.sortKey, @props.children.ref)
-
-  isSplitHeader: ->
-    if @props.dataType?
-      if (@props.dataType is @props.children.ref) then true else false
-    else
-      true
+    @props.onSort(@props.sortKey, @props.dataType)
 
   render: ->
-    classNames = ['header-cell', 'sortable', @props.className]
-    if @props.sortState.key is @props.sortKey and @isSplitHeader()
-      classNames.push if @props.sortState.asc then 'is-ascending' else 'is-descending'
+    ascDesc = if @props.sortState.asc then 'is-ascending' else 'is-descending'
+    classNames = classnames('header-cell', 'sortable', @props.className, {
+      "#{ascDesc}" : @props.sortState.key is @props.sortKey and @props.sortState.dataType is @props.dataType
+    })
 
     <div
       data-assignment-type={@props.type}
       onClick={@onClick}
-      className={classNames.join(' ')}>
+      className={classNames}>
         {@props.children}
     </div>
