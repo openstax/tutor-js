@@ -51,6 +51,8 @@ start = ->
       data: VocabularyStore.get(id)
   )
 
+CSRF_TOKEN = document.head.querySelector('meta[name=csrf-token]')?.getAttribute("content")
+
 uploadExerciseImage = (exerciseUid, image, cb) ->
   url = "/api/exercises/#{exerciseUid}/attachments"
   xhr = new XMLHttpRequest()
@@ -64,7 +66,7 @@ uploadExerciseImage = (exerciseUid, image, cb) ->
   xhr.addEventListener 'progress', (ev) ->
     cb({progress: (ev.total / (ev.total or image.size) * 100) })
   xhr.open('POST', url, true)
-  xhr.setRequestHeader('X-CSRF-Token', CSRF_Token)
+  xhr.setRequestHeader('X-CSRF-Token', CSRF_TOKEN)
   form = new FormData()
   form.append("image", image, image.name)
   xhr.send(form)
