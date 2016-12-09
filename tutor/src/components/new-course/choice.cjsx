@@ -14,6 +14,7 @@ CourseChoiceItem = React.createClass
 
   render: ->
     <div
+      role="button"
       className={classnames("list-group-item", "choice", @props.className, {
         active: @props.active, disabled: @props.disabled
       })}
