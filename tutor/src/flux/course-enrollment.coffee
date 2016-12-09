@@ -3,7 +3,6 @@
 _ = require 'underscore'
 React = require 'react'
 flux = require 'flux-react'
-EventEmitter2 = require 'eventemitter2'
 
 ERROR_MAP = require './course-enrollment-handled-errors'
 

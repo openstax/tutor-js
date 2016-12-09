@@ -26,11 +26,11 @@ CcJoinConflict = React.createClass
     @props.courseEnrollmentActions.conflictContinue()
 
   getConflictMessage: ->
-    "You are already enrolled in another OpenStax Concept Coach using this textbook, " +
+    'You are already enrolled in another OpenStax Concept Coach using this textbook, ' +
     "#{@props.courseEnrollmentStore.conflictDescription()} with " +
     "#{@props.courseEnrollmentStore.conflictTeacherNames()}. To make sure you don't lose work, " +
-    "we strongly recommend enrolling in only one Concept Coach per textbook. When you join the " +
-    "new course below, we will remove you from the other course."
+    'we strongly recommend enrolling in only one Concept Coach per textbook. When you join the ' +
+    'new course below, we will remove you from the other course.'
 
   render: ->
 
