@@ -25,7 +25,7 @@ class Course
   # Conflicts with a previous CC enrollment
   isConflicting: -> @status is "cc_conflict"
   # A registration has been created, but not confirmed
-  isPending: ->  @status is "pending"
+  isPending: -> @status is "pending"
 
   getEnrollmentChangeId: -> @id if @isPending()
 
@@ -38,7 +38,7 @@ class Course
   description: ->
     if @isIncomplete() # still fetching
       ""
-    else if @isPending() # we originated from a join or move request
+    else if @isConflicting() or @isPending() # we originated from a join or move request
       msg = @describeMovePart(@to)
       if @from then "from #{@describeMovePart(@from)} to #{msg}" else msg
     else

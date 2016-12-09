@@ -17,44 +17,43 @@ CourseEnrollmentActions = flux.createActions [
 
 CourseEnrollmentStore = flux.createStore
   actions: _.values(CourseEnrollmentActions)
-  status: "loading"
-  studentId: ""
 
   exports:
     # Still loading (creating the EnrollmentChange)
-    isLoading: -> @status is "loading"
+    isLoading: -> @enrollmentChange.status is "loading"
 
     # Errors
-    isCreateError: -> @status is "create_error"
-    isApproveError: -> @status is "approve_error"
+    isCreateError: -> @enrollmentChange.status is "create_error"
+    isApproveError: -> @enrollmentChange.status is "approve_error"
 
     # A registration has been created, but it conflicts with a previous CC enrollment
-    isConflicting: -> @status is "cc_conflict"
+    isConflicting: -> @enrollmentChange.status is "cc_conflict"
 
     # A registration has been created, but not confirmed
-    isPending: -> @status is "pending"
+    isPending: -> @enrollmentChange.status is "pending"
 
     # complete and ready for use
-    isRegistered: -> @status is "approved"
+    isRegistered: -> @enrollmentChange.status is "approved"
 
-    getEnrollmentChangeId: -> @id
+    getEnrollmentChangeId: -> @enrollmentChange.id
 
-    getCourseId: -> @to?.course?.id
+    getCourseId: -> @enrollmentChange.to?.course?.id
 
-    getStudentIdentifier: -> @studentId
+    getStudentIdentifier: -> @enrollmentChange.student_identifier or ''
 
     description: ->
-      msg = CourseEnrollmentStore.describeMovePart(@to)
-      if @from and CourseEnrollmentStore.isPending()
-        "from #{CourseEnrollmentStore.describeMovePart(@from)} to #{msg}"
+      to_msg = CourseEnrollmentStore.describeMovePart(@enrollmentChange.to)
+      if @enrollmentChange.from and (
+        CourseEnrollmentStore.isConflicting() or CourseEnrollmentStore.isPending())
+        "from #{CourseEnrollmentStore.describeMovePart(@enrollmentChange.from)} to #{to_msg}"
       else
-        msg
+        to_msg
 
     describeMovePart: (part) ->
       return '' unless part
       "#{part.course.name} (section #{part.period.name})"
 
-    teacherNames: (part = @to) ->
+    teacherNames: (part = @enrollmentChange.to) ->
       teachers = part.course?.teachers
       return '' unless teachers
 
@@ -69,58 +68,58 @@ CourseEnrollmentStore = flux.createStore
       else
         "Instructors: " + names.slice(0, names.length - 1).join(', ') + " and " + names.slice(-1)
 
-    hasConflict: -> !!@conflict
+    hasConflict: -> !!@enrollmentChange.conflict
 
-    conflictDescription: -> CourseEnrollmentStore.describeMovePart(@conflict)
+    conflictDescription: -> CourseEnrollmentStore.describeMovePart(@enrollmentChange.conflict)
 
-    conflictTeacherNames: -> CourseEnrollmentStore.teacherNames(@conflict)
+    conflictTeacherNames: -> CourseEnrollmentStore.teacherNames(@enrollmentChange.conflict)
 
     hasErrors: ->
-      not _.isEmpty(@errors)
+      not _.isEmpty(@enrollmentChange.errors)
 
     errorMessages: ->
-      _.map(@errors,
+      _.map(@enrollmentChange.errors,
         (err) -> ERROR_MAP[err.code] or "An unknown error with code #{err.code} occured."
       )
 
-  _checkForFailure: (response) ->
-    @errors = response.errors
+  storeResponse: (response) ->
+    return if _.isEmpty(response)
+    @enrollmentChange = response
 
   # Creates an EnrollmentChange
   create: (enrollmentCode) ->
-    @status = "loading"
+    @enrollmentChange = { status: "loading" }
     @isBusy = true
     @emit('change')
 
   created: (response) ->
     throw new Error("response is empty in onCreate") if _.isEmpty(response)
-    @_checkForFailure(response)
+    @storeResponse(response)
 
     if CourseEnrollmentStore.hasErrors()
-      @status = "create_error"
-    else
-      _.extend(@, response) if response
-      @status = "cc_conflict" if @status is "pending" and @conflict
+      @enrollmentChange.status = "create_error"
+    else if CourseEnrollmentStore.isPending() and CourseEnrollmentStore.hasConflict()
+      @enrollmentChange.status = "cc_conflict"
+
     delete @isBusy
     @emit('change')
 
   # Approves a pending EnrollmentChange
   confirm: (id, studentId) ->
-    @studentId = studentId
+    @enrollmentChange.student_identifier = studentId
     @isBusy = true
     @emit('change')
 
   confirmed: (response) ->
     throw new Error("response is empty in onApproved") if _.isEmpty(response)
-    @_checkForFailure(response)
-    if CourseEnrollmentStore.hasErrors()
-      @status = "approve_error"
-    else
-      @status = "approved"
+    @storeResponse(response)
+
+    @enrollmentChange.status = "approve_error" if CourseEnrollmentStore.hasErrors()
+
     @emit('change')
 
   conflictContinue: ->
-    @status = "pending"
+    @enrollmentChange.status = "pending"
     @emit('change')
 
   FAILED: ->

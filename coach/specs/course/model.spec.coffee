@@ -62,6 +62,10 @@ describe 'Course Model', ->
         expect(@course.description()).to.eq('Physics I (section 1st)')
         undefined
 
+      it 'can return teacher names', ->
+        expect(@course.teacherNames()).to.eq('Instructors: Charles Morris and William Blake')
+        undefined
+
       it 'does not have a student identifier', ->
         expect(@course.getStudentIdentifier()).to.be.undefined
         undefined
@@ -102,6 +106,27 @@ describe 'Course Model', ->
         expect(@course.isConflicting()).to.eq true
         undefined
 
+      it 'can describe itself', ->
+        expect(@course.description()).to.eq(
+          'from College Physics with Concept Coach (section 1st) ' +
+          'to College Physics with Concept Coach II (section 2nd)'
+        )
+        undefined
+
+      it 'can return teacher names', ->
+        expect(@course.teacherNames()).to.eq('Instructor: William Blake')
+        undefined
+
+      it 'can describe the conflicts', ->
+        expect(@course.conflictDescription()).to.eq(
+          'College Physics with Concept Coach (section 1st)'
+        )
+        undefined
+
+      it 'can return conflict teacher names', ->
+        expect(@course.conflictTeacherNames()).to.eq('Instructor: Charles Morris')
+        undefined
+
       describe 'after continuing from the conflict', ->
 
         beforeEach -> @course.conflictContinue()
@@ -118,10 +143,18 @@ describe 'Course Model', ->
           )
           undefined
 
+        it 'can return teacher names', ->
+          expect(@course.teacherNames()).to.eq('Instructor: William Blake')
+          undefined
+
         it 'can describe the conflicts', ->
           expect(@course.conflictDescription()).to.eq(
             'College Physics with Concept Coach (section 1st)'
           )
+          undefined
+
+        it 'can return conflict teacher names', ->
+          expect(@course.conflictTeacherNames()).to.eq('Instructor: Charles Morris')
           undefined
 
         it 'does not have a student identifier', ->
