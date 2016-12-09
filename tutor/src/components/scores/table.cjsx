@@ -51,19 +51,19 @@ module.exports = React.createClass
 
   tableWidth: ->
     windowEl = @_getWindowSize()
-    tableContainer = ReactDOM.findDOMNode(@refs.tableContainer) #.course-scores-container
+    tableContainer = ReactDOM.findDOMNode(@refs.tableContainer) or { currentStyle: {} }
     style = tableContainer.currentStyle or window.getComputedStyle(tableContainer)
-    padding = parseInt(style.paddingLeft) + parseInt(style.paddingRight)
-    tableContainerWidth = tableContainer.clientWidth - padding
-    tableHorzSpacing = document.body.clientWidth - tableContainerWidth
+    padding = parseInt(style.paddingLeft or 0) + parseInt(style.paddingRight or 0)
+    tableContainerWidth = (tableContainer?.clientWidth or 0) - padding
+    tableHorzSpacing = (document.body.clientWidth or 0) - tableContainerWidth
     # since table.clientWidth returns 0 on initial load in IE, include windowEl as a fallback
     Math.max(windowEl.width - tableHorzSpacing, tableContainerWidth)
 
   tableHeight: ->
     windowEl = @_getWindowSize()
-    table = ReactDOM.findDOMNode(@refs.tableContainer)
+    table = ReactDOM.findDOMNode(@refs.tableContainer) or {}
     bottomMargin = 140
-    windowEl.height - table.offsetTop - bottomMargin
+    windowEl.height - (table.offsetTop or 0) - bottomMargin
 
   renderNoAssignments: ->
     <div className='course-scores-container' ref='tableContainer'>
