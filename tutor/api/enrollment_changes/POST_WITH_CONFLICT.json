@@ -28,8 +28,8 @@
   },
   "conflict": {
     "course": {
-      "id":"1",
-      "name":"College Physics with Concept Coach",
+      "id": "1",
+      "name": "College Physics with Concept Coach",
       "teachers": [
         {"name": "Charles Morris", "first_name": "Charles", "last_name": "Morris"}
       ]
