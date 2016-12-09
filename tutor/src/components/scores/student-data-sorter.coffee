@@ -1,16 +1,14 @@
 _ = require 'underscore'
 
-FIRST_DATA_COLUMN = 2
 
 percent = (num, total) ->
   Math.round((num / total) * 100) or 0
 
 
-getSortValue = (student, key, dataType, displayAs) ->
+getSortValue = (student, index, dataType, displayAs) ->
 
-  return (student.last_name or student.name).toLowerCase() unless _.isNumber(key)
+  return (student.last_name or student.name).toLowerCase() unless _.isNumber(index)
 
-  index = key - FIRST_DATA_COLUMN
   record = student.data[index]
   return -1 unless record
 
