@@ -59,6 +59,7 @@ AssignmentSortingHeader = (props) ->
         sortKey={columnIndex}
         sortState={sort}
         onSort={onSort}
+        dataType='score'
       >
         <div className='completed'>Progress</div>
       </SortingHeader>
@@ -68,7 +69,7 @@ AssignmentSortingHeader = (props) ->
       <SortingHeader
         type={heading.type}
         sortKey={columnIndex}
-        dataType={dataType}
+        dataType='score'
         sortState={sort}
         onSort={onSort}
       >
@@ -77,7 +78,7 @@ AssignmentSortingHeader = (props) ->
       <SortingHeader
         type={heading.type}
         sortKey={columnIndex}
-        dataType={dataType}
+        dataType='completed'
         sortState={sort}
         onSort={onSort}
       >
