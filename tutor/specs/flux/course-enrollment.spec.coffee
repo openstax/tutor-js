@@ -54,7 +54,7 @@ describe 'EnrollmentChange Store', ->
     describe 'after confirming', ->
 
       beforeEach -> CourseEnrollmentActions.confirmed(_.extend(
-        ENROLLMENT_CHANGE_DATA_WITHOUT_CONFLICT, student_identifier: 'S12345', status: 'approved'))
+        ENROLLMENT_CHANGE_DATA_WITHOUT_CONFLICT, student_identifier: 'S12345', status: 'processed'))
 
       it 'is in a done state', ->
         expect(CourseEnrollmentStore.isPending()).to.eq false
@@ -143,7 +143,7 @@ describe 'EnrollmentChange Store', ->
       describe 'after confirming', ->
 
         beforeEach -> CourseEnrollmentActions.confirmed(_.extend(
-          ENROLLMENT_CHANGE_DATA_WITH_CONFLICT, student_identifier: 'S12345', status: 'approved'))
+          ENROLLMENT_CHANGE_DATA_WITH_CONFLICT, student_identifier: 'S12345', status: 'processed'))
 
         it 'is in a done state', ->
           expect(CourseEnrollmentStore.isPending()).to.eq false

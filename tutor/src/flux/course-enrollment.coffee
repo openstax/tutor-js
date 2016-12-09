@@ -24,7 +24,7 @@ CourseEnrollmentStore = flux.createStore
 
     # Errors
     isCreateError: -> @enrollmentChange.status is "create_error"
-    isApproveError: -> @enrollmentChange.status is "approve_error"
+    isRegisterError: -> @enrollmentChange.status is "process_error"
 
     # A registration has been created, but it conflicts with a previous CC enrollment
     isConflicting: -> @enrollmentChange.status is "cc_conflict"
@@ -33,7 +33,7 @@ CourseEnrollmentStore = flux.createStore
     isPending: -> @enrollmentChange.status is "pending"
 
     # complete and ready for use
-    isRegistered: -> @enrollmentChange.status is "approved"
+    isRegistered: -> @enrollmentChange.status is "processed"
 
     getEnrollmentChangeId: -> @enrollmentChange.id
 
@@ -93,7 +93,7 @@ CourseEnrollmentStore = flux.createStore
     @emit('change')
 
   created: (response) ->
-    throw new Error("response is empty in onCreate") if _.isEmpty(response)
+    throw new Error("response is empty in created") if _.isEmpty(response)
     @storeResponse(response)
 
     if CourseEnrollmentStore.hasErrors()
@@ -111,10 +111,10 @@ CourseEnrollmentStore = flux.createStore
     @emit('change')
 
   confirmed: (response) ->
-    throw new Error("response is empty in onApproved") if _.isEmpty(response)
+    throw new Error("response is empty in confirmed") if _.isEmpty(response)
     @storeResponse(response)
 
-    @enrollmentChange.status = "approve_error" if CourseEnrollmentStore.hasErrors()
+    @enrollmentChange.status = "process_error" if CourseEnrollmentStore.hasErrors()
 
     @emit('change')
 

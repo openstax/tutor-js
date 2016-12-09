@@ -68,7 +68,7 @@ Enroll = React.createClass
       <h3>Loading...</h3>
     else if CourseEnrollmentStore.isConflicting()
       <JoinConflict />
-    else if CourseEnrollmentStore.isPending() or CourseEnrollmentStore.isApproveError()
+    else if CourseEnrollmentStore.isPending() or CourseEnrollmentStore.isRegisterError()
       <ConfirmJoin />
     else if CourseEnrollmentStore.isCreateError()
       <MessageList messages={CourseEnrollmentStore.errorMessages()} />

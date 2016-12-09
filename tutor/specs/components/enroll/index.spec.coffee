@@ -37,7 +37,7 @@ describe 'Enroll Component', ->
   it 'renders done message if EnrollmentChange is approved', ->
     CourseEnrollmentActions.created(ENROLLMENT_CHANGE_DATA)
     CourseEnrollmentActions.conflictContinue()
-    CourseEnrollmentActions.confirmed(_.extend(ENROLLMENT_CHANGE_DATA, status: "approved"))
+    CourseEnrollmentActions.confirmed(_.extend(ENROLLMENT_CHANGE_DATA, status: "processed"))
     @wrapper.node.forceUpdate()
     expect(@wrapper.find(JoinConflict)).to.be.empty
     expect(@wrapper.find(ConfirmJoin)).to.be.empty
