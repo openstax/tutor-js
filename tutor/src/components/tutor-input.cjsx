@@ -28,17 +28,15 @@ TutorInput = React.createClass
 
   getDefaultProps: ->
     validate: (inputValue) ->
-      return ['required'] unless (inputValue? and inputValue.length > 0)
+      return ['required'] if _.isEmpty(inputValue)
     type: 'text'
-
-  componentDidMount: ->
-    errors = @props.validate(@props.default)
-    @setState({errors}) unless _.isEmpty(errors)
 
   getInitialState: ->
     errors: []
 
   componentDidMount: ->
+    errors = @props.validate(@props.default)
+    @setState({errors}) unless _.isEmpty(errors)
     @focus().cursorToEnd() if @props.autofocus
 
   componentDidUpdate: (prevProps, prevState) ->
