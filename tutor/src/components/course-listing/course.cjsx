@@ -16,7 +16,7 @@ getCourseNameSegments = (course, courseSubject) ->
     {index} = courseNameMatches
 
     before = course.name.substring(0, index)
-    after = course.name.substring(index + courseSubject.length)
+    after = course.name.substring(index + courseSubject.length).replace(/^\W+/, '')
 
     [before, courseSubject, after]
 
@@ -70,7 +70,7 @@ Course = React.createClass
     {course, courseSubject} = @props
     courseNameSegments = getCourseNameSegments(course, courseSubject)
     hasNoSubject = _.isEmpty(courseNameSegments)
-    courseNameSegments ?= course.name.split(' ')
+    courseNameSegments ?= course.name.split(/\W+/)
 
     <TutorLink
       className={classnames('no-subject': hasNoSubject)}
