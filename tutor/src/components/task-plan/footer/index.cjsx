@@ -105,6 +105,9 @@ PlanFooter = React.createClass
         isEditable={@state.isEditable}
         getBackToCalendarParams={@props.getBackToCalendarParams}
       />
+      <HelpTooltip
+        isPublished={isPublished}
+      />
       <DeleteLink
         isNew={TaskPlanStore.isNew(id)}
         onClick={@onDelete}
