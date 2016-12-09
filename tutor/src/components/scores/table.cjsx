@@ -113,6 +113,7 @@ module.exports = React.createClass
               sortKey='name'
               sortState={sort}
               onSort={onSort}
+              dataType={'name'}
             >
                 <div className='student-name'>Name and Student ID</div>
             </SortingHeader>
