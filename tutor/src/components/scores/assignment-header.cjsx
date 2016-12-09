@@ -88,7 +88,7 @@ AssignmentSortingHeader = (props) ->
 
 
 AssignmentHeader = (props) ->
-  {isConceptCoach, periodIndex, period_id, courseId, sort, onSort, dataType, columnIndex, width} = props
+  {isConceptCoach, periodIndex, period_id, courseId, sort, onSort, columnIndex, width} = props
   heading = props.headings[columnIndex]
 
   cellWidth = getCellWidth({isConceptCoach, heading})
