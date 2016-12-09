@@ -18,6 +18,17 @@
 }
 
 .new-course {
+  .book-icon-style(){
+    &::before{
+      width: 60px;
+      background-size: cover;
+      background-position: bottom;
+    }
+    &[data-appearance*=biology]::before {
+      background-position: center;
+    }
+  }
+
   max-width: 440px;
   margin: 134px auto 0 auto;
 
@@ -77,7 +88,8 @@
           flex-direction: column;
           justify-content: center;
           &::before {
-            width: 60px;
+            .book-icon-style();
+            width: 70px;
           }
           .title {
             font-size: 1.6rem;
@@ -141,7 +153,6 @@
         content: '';
         background-size: contain;
         background-repeat: no-repeat;
-        background-position: center;
         height: 6rem;
         margin-right: 1rem;
         display: block;
@@ -150,21 +161,19 @@
 
     }
 
-    [data-appearance]::before{
-      width: 60px;
+    [data-appearance] {
+      .book-icon-style();
     }
+
     [data-brand]::before {
       width: 80%;
+      background-position: left center;
     }
     [data-new-or-copy],
     [data-copy-or-not] {
       &::before {
         width: 40px;
-      }
-    }
-    [data-appearance*=biology]{
-      &::before {
-        background-position: center center;
+        background-position: center;
       }
     }
 
