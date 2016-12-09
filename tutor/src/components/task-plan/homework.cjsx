@@ -22,6 +22,7 @@ HomeworkPlan = React.createClass
   render: ->
     {id, courseId} = @props
     builderProps = _.pick(@state, 'isVisibleToStudents', 'isEditable', 'isSwitchable')
+    hasError = @hasError()
 
     plan = TaskPlanStore.get(id)
     ecosystemId = TaskPlanStore.getEcosystemId(id, courseId)
@@ -31,7 +32,7 @@ HomeworkPlan = React.createClass
 
     formClasses = classnames('edit-homework dialog', {
       hide: @state.showSectionTopics
-      'is-invalid-form': @state.invalid
+      'is-invalid-form': hasError
     })
 
     <div className='homework-plan task-plan' data-assignment-type='homework'>
@@ -43,6 +44,7 @@ HomeworkPlan = React.createClass
           onPublish={@publish}
           onSave={@save}
           onCancel={@cancel}
+          hasError={hasError}
           isVisibleToStudents={@state.isVisibleToStudents}
           getBackToCalendarParams={@getBackToCalendarParams}
           goBackToCalendar={@goBackToCalendar}
@@ -66,7 +68,7 @@ HomeworkPlan = React.createClass
               {<span className="problems-required">
                 Please add exercises to this assignment
                 <Icon type='exclamation-circle' />
-              </span> if @state.invalid and not hasExercises}
+              </span> if hasError and not hasExercises}
             </BS.Col>
           </BS.Row>
         </BS.Grid>

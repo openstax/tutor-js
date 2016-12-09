@@ -1,8 +1,11 @@
 # coffeelint: disable=no_empty_functions
 _ = require 'underscore'
 cloneDeep = require 'lodash/cloneDeep'
+each = require 'lodash/each'
 map = require 'lodash/map'
 pick = require 'lodash/pick'
+isEmpty = require 'lodash/isEmpty'
+negate = require 'lodash/negate'
 validator = require 'validator'
 moment = require 'moment'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
@@ -14,6 +17,8 @@ TimeHelper  = require '../helpers/time'
 ContentHelpers = require '../helpers/content'
 
 planCrudConfig = new CrudConfig()
+
+hasValue = negate(isEmpty)
 
 TUTOR_SELECTIONS =
   default: 3
@@ -261,32 +266,26 @@ TaskPlanConfig =
 
   createClonedPlan: (newPlanId, {planId, courseId, due_at}) ->
     original = @_local[planId]
-    plan = newTaskPlan(pick(original,
-      'title', 'description', 'type'
-    ))
-    for attr in ['is_feedback_immediate', 'settings']
-      plan[attr] = cloneDeep(original[attr])
-
-    plan.id = newPlanId
-    plan.cloned_from_id = planId
-    course = CourseStore.get(courseId)
-    due_at = TimeHelper.getZonedMoment(
-      TimeHelper.ISODateToMoment(due_at), course.time_zone
-    ).startOf('day')
-    opens_at = due_at.clone().subtract(
-      moment(original.tasking_plans[0].due_at)
-        .diff(original.tasking_plans[0].opens_at)
+    originalPlan = {}
+    copyKeys = ['title', 'description', 'is_feedback_immediate', 'settings']
+    each(copyKeys, (key) ->
+      originalPlan[key] = cloneDeep(original[key])
     )
-    opens_at.add(moment.duration(course.default_open_time))
-    due_at.add(moment.duration(course.default_due_time))
-    opens_at = TimeHelper.toDateTimeISO(opens_at)
-    due_at = TimeHelper.toDateTimeISO(due_at)
-    plan.tasking_plans = map( course.periods, (period) ->
+
+    periods = CourseStore.getPeriods(courseId)
+    tasking_plans = map( periods, (period) ->
       {
         target_id: period.id, target_type: 'period',
-        opens_at: opens_at, due_at: due_at
+        due_at: due_at
       }
     )
+
+    plan = _.extend(newTaskPlan(type: original.type), originalPlan, {
+      id: newPlanId
+      cloned_from_id: planId
+      tasking_plans: tasking_plans
+    })
+
     @_local[newPlanId] = {}
     @_changed[newPlanId] = plan
     @emitChange()
@@ -336,13 +335,15 @@ TaskPlanConfig =
     isValid: (id) ->
       plan = @_getPlan(id)
       if (plan.type is 'reading')
-        return plan.title and plan.settings?.page_ids?.length > 0
+        hasValue(plan.title) and hasValue(plan.settings) and hasValue(plan.settings.page_ids)
       else if (plan.type is 'homework')
-        return plan.title and plan.settings?.exercise_ids?.length > 0
+        hasValue(plan.title) and hasValue(plan.settings) and hasValue(plan.settings.exercise_ids)
       else if (plan.type is 'external')
-        return plan.title and plan.settings?.external_url and validator.isURL(plan.settings.external_url)
+        hasValue(plan.title) and hasValue(plan.settings) and hasValue(plan.settings.external_url)
       else if (plan.type is 'event')
-        return plan.title
+        hasValue(plan.title)
+      else
+        false
 
     isPublished: (id) ->
       plan = @_getPlan(id)

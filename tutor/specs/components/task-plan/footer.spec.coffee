@@ -48,7 +48,9 @@ getBackToCalendarParams = ->
     date: moment(TimeStore.getNow()).format('YYYY-MM-DD')
 
 
-helper = (model) -> PlanRenderHelper(model, PlanFooter, {getBackToCalendarParams, onCancel: sinon.spy(), onPublish: sinon.spy()})
+helper = (model) -> PlanRenderHelper(model, PlanFooter,
+  {getBackToCalendarParams, onCancel: sinon.spy(), onPublish: sinon.spy(), isValid: true}
+)
 
 describe 'Task Plan Footer', ->
   beforeEach ->

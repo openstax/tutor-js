@@ -28,6 +28,7 @@ ExternalPlan = React.createClass
   render: ->
     {id, courseId} = @props
     builderProps = _.pick(@state, 'isVisibleToStudents', 'isEditable', 'isSwitchable')
+    hasError = @hasError()
 
     plan = TaskPlanStore.get(id)
     externalUrl = plan?.settings?.external_url
@@ -40,6 +41,7 @@ ExternalPlan = React.createClass
       onPublish={@publish}
       onSave={@save}
       onCancel={@cancel}
+      hasError={hasError}
       isVisibleToStudents={@state.isVisibleToStudents}
       getBackToCalendarParams={@getBackToCalendarParams}
       goBackToCalendar={@goBackToCalendar}/>
@@ -51,7 +53,7 @@ ExternalPlan = React.createClass
     label = "#{label} (Cannot be changed once assignment is opened and published)" if isURLLocked
 
     formClasses = classnames('edit-external', 'dialog', {
-      'is-invalid-form': @state.invalid
+      'is-invalid-form': hasError
     })
 
     <div className='external-plan task-plan' data-assignment-type='external'>

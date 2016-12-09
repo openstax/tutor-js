@@ -17,8 +17,9 @@ PlanFooter = React.createClass
   contextTypes:
     router: React.PropTypes.object
   propTypes:
-    id: React.PropTypes.string.isRequired
-    courseId: React.PropTypes.string.isRequired
+    id:               React.PropTypes.string.isRequired
+    courseId:         React.PropTypes.string.isRequired
+    hasError:         React.PropTypes.bool.isRequired
     goBackToCalendar: React.PropTypes.func
 
   getDefaultProps: ->
@@ -58,21 +59,20 @@ PlanFooter = React.createClass
     @props.goBackToCalendar()
 
   onSave: ->
-    @setState({saving: true, publishing: false})
-    @props.onSave()
+    saving = @props.onSave()
+    @setState({saving: saving, publishing: false})
 
   onPublish: ->
-    @setState({publishing: true, saving: false, isEditable: TaskPlanStore.isEditable(@props.id)})
-    @props.onPublish()
+    publishing = @props.onPublish()
+    @setState({publishing: publishing, saving: false, isEditable: TaskPlanStore.isEditable(@props.id)})
 
   onViewStats: ->
     {id, courseId} = @props
     @context.router.transitionTo('viewStats', {courseId, id})
 
   render: ->
-    {id} = @props
+    {id, hasError} = @props
     plan = TaskPlanStore.get(id)
-    isSaveable  = not (TaskPlanStore.isPublished(id) or TaskPlanStore.isPublishing(id))
     isWaiting   = TaskPlanStore.isSaving(id) or TaskPlanStore.isPublishing(id) or TaskPlanStore.isDeleteRequested(id)
     isFailed    = TaskPlanStore.isFailed(id)
     isPublished = TaskPlanStore.isPublished(id)
@@ -80,18 +80,21 @@ PlanFooter = React.createClass
     <div className='builder-footer-controls'>
       <SaveButton
         onSave={@onSave}
-        onPublish={@props.onPublish}
+        onPublish={@onPublish}
         isWaiting={isWaiting}
         isSaving={@state.saving}
         isEditable={@state.isEditable}
         isPublishing={@state.publishing}
         isPublished={isPublished}
+        hasError={hasError}
       />
       <DraftButton
-        isSavable={isSaveable}
         onClick={@onSave}
         isWaiting={isWaiting and @state.saving}
+        isPublishing={@state.publishing}
         isFailed={isFailed}
+        hasError={hasError}
+        isPublished={isPublished}
       />
       <CancelButton
         isWaiting={isWaiting}

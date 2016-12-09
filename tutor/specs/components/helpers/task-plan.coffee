@@ -2,8 +2,8 @@ _ = require 'underscore'
 {TaskPlanActions, TaskPlanStore} = require '../../../src/flux/task-plan'
 {Testing} = require '../helpers/component-testing'
 
-tomorrow = (new Date(Date.now() + 1000 * 3600 * 24)).toString()
-dayAfter = (new Date(tomorrow + 1000 * 3600 * 24)).toString()
+tomorrow = (new Date(Date.now() + 1000 * 3600 * 24)).toISOString()
+dayAfter = (new Date(Date.now() + 1000 * 3600 * 24 * 2)).toISOString()
 
 ExtendBasePlan = (props, taskingProps = {}, extendTasking = true) ->
   baseModel =

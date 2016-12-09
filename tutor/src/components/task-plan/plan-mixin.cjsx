@@ -1,4 +1,6 @@
 React = require 'react'
+extend   = require 'lodash/extend'
+
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TaskingStore, TaskingActions} = require '../../flux/tasking'
 {PastTaskPlansActions} = require '../../flux/past-task-plans'
@@ -18,7 +20,7 @@ PlanMixin =
     router: React.PropTypes.object
 
   getInitialState: ->
-    @getStates()
+    extend(@getStates(), displayValidity: false)
 
   getStates: ->
     id = @props.id or @props.planId
@@ -31,7 +33,9 @@ PlanMixin =
     isEditable = TaskPlanStore.isEditable(id)
     isSwitchable = not isVisibleToStudents or TaskingStore.hasAllTaskings(id)
 
-    {isVisibleToStudents, isEditable, isSwitchable}
+    invalid = not @isSaveable()
+
+    {isVisibleToStudents, isEditable, isSwitchable, invalid}
 
   updateIsVisibleAndIsEditable: ->
     @setState(@getStates())
@@ -41,6 +45,7 @@ PlanMixin =
 
     TaskPlanStore.on('publish-queued', @updateIsVisibleAndIsEditable)
     TaskPlanStore.on("loaded.#{id}", @updateIsVisibleAndIsEditable)
+    TaskPlanStore.on('change', @updateValidity)
     TaskingStore.on("taskings.#{id}.*.loaded", @updateIsVisibleAndIsEditable)
 
   componentWillUnmount: ->
@@ -48,6 +53,7 @@ PlanMixin =
 
     TaskPlanStore.off('publish-queued', @updateIsVisibleAndIsEditable)
     TaskPlanStore.off("loaded.#{id}", @updateIsVisibleAndIsEditable)
+    TaskPlanStore.off('change', @updateValidity)
     TaskingStore.off("taskings.#{id}.*.loaded", @updateIsVisibleAndIsEditable)
 
   showSectionTopics: ->
@@ -68,9 +74,7 @@ PlanMixin =
     })
 
   publish: ->
-    {id} = @props
-    saveable = TaskPlanStore.isValid(id) and TaskingStore.isTaskValid(id)
-    TaskPlanActions.publish(id) if saveable
+    TaskPlanActions.publish(@props.id) if @isSaveable()
     @save()
 
   isWaiting: ->
@@ -79,21 +83,31 @@ PlanMixin =
 
   isSaveable: ->
     {id} = @props
-    not (TaskPlanStore.isPublished(id) or TaskPlanStore.isPublishing(id))
+
+    TaskPlanStore.isValid(id) and
+      TaskingStore.isTaskValid(id) and
+      not TaskPlanStore.isPublishing(id)
+
+  hasError: ->
+    @state.displayValidity and @state.invalid
+
+  updateValidity: ->
+    @setState(invalid: not @isSaveable())
 
   save: ->
     {id, courseId} = @props
-    saveable = TaskPlanStore.isValid(id) and TaskingStore.isTaskValid(id)
-    # The logic here is this way because we need to be able to add an invalid
-    # state to the form.  Blame @fredasaurus
-    if saveable
+
+    if @isSaveable()
+      @setState(invalid: false)
       if TaskPlanStore.hasChanged(id)
         TaskPlanStore.once("saved.#{id}", @saved)
         if @props.save? then @props.save(id, courseId) else TaskPlanActions.save(id, courseId)
       else
         @saved()
+      true
     else
-      @setState({invalid: true})
+      @setState(invalid: true, displayValidity: true)
+      false
 
   saved: (savedPlan) ->
     courseId = @props.courseId

@@ -27,7 +27,7 @@ describe 'TaskPlan Store', ->
       expect(clone[attr]).to.deep.equal(PLAN[attr])
 
     expect(clone.cloned_from_id).to.equal(PLAN.id)
-    for period in CourseStore.get(COURSE_ID).periods
+    for period in CourseStore.getPeriods(COURSE_ID)
       tasking_plan = _.find(clone.tasking_plans, target_id: period.id)
       expect(tasking_plan).to.exist
 

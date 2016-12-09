@@ -5,6 +5,7 @@ isEmpty = require 'lodash/isEmpty'
 
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 
+classnames = require 'classnames'
 camelCase = require 'lodash/camelCase'
 Icon = require '../../icon'
 Loading = require './loading'
@@ -74,12 +75,12 @@ TaskPlanMiniEditor = React.createClass
         @initializePlan(nextProps)
 
   onSave: ->
-    @setState({saving: true, publishing: false})
-    @save()
+    saving = @save()
+    @setState({saving: saving, publishing: false})
 
   onPublish: ->
-    @setState({saving: false, publishing: true})
-    @publish()
+    publishing = @publish()
+    @setState({saving: false, publishing: publishing})
 
   afterSave: ->
     @setState({saving: false, publishing: false})
@@ -93,11 +94,15 @@ TaskPlanMiniEditor = React.createClass
 
   render: ->
     {id, courseId, termStart, termEnd} = @props
+    hasError = @hasError()
+    classes = classnames('task-plan-mini-editor',
+      'is-invalid-form': hasError
+    )
 
     plan = TaskPlanStore.get(id)
     isPublished = TaskPlanStore.isPublished(id)
 
-    <div className='task-plan-mini-editor'>
+    <div className={classes}>
       <div className="row">
         <BS.Col xs=12>
           <h4>Add Copied Assignment</h4>
@@ -154,15 +159,16 @@ TaskPlanMiniEditor = React.createClass
           isEditable={!!@state.isEditable}
           isPublishing={!!@state.publishing}
           isPublished={isPublished}
-          disabled={@isWaiting() or @state.error?}
+          hasError={hasError}
         />
         <DraftButton
           bsSize='small'
-          isSavable={@isSaveable()}
           onClick={@onSave}
           isWaiting={!!(@isWaiting() and @state.saving and isEmpty(@state.error))}
-          disabled={@isWaiting() or @state.error?}
           isFailed={TaskPlanStore.isFailed(id)}
+          hasError={hasError}
+          isPublished={isPublished}
+          isPublishing={!!@state.publishing}
         />
         <BS.Button
           bsSize='small'

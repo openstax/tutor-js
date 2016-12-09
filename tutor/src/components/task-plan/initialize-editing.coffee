@@ -29,8 +29,8 @@ getQueriedOpensAt = (taskPlanId, termStart) ->
     dueAtMoment = TimeHelper.getMomentPreserveDate(dueAt)
     # there's a corner case is certain timezones where isAfter doesn't quite cut it
     # and we need to check that the ISO strings don't match
-    unless (dueAtMoment.isAfter(opensAt, 'day') and dueAtMoment.format(TimeHelper.ISO_DATE_FORMAT) isnt opensAt)
-      # make open date today if default due date is tomorrow
+    unless (dueAtMoment.isSameOrAfter(opensAt, 'day') and dueAtMoment.format(TimeHelper.ISO_DATE_FORMAT) isnt opensAt)
+      # make open date today if default due date is tomorrow or today
       opensAt = moment(TimeStore.getNow()).format(TimeHelper.ISO_DATE_FORMAT)
 
   opensAt
