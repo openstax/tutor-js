@@ -59,15 +59,10 @@
 
         ~ .floating-label {
           color: @info;
-          top: inherit;
           font-size: 1.1rem;
           font-weight: 300;
+          top: -15px;
         }
-
-        ~.required-hint {
-          display: none;
-        }
-
 
       }
 
@@ -115,10 +110,6 @@
 .is-invalid-form {
   .form-control-wrapper.is-required {
     margin-bottom: 2em;
-    .form-control.empty {
-      background-image: linear-gradient(@form-error-color, @form-error-color),
-      linear-gradient(@form-error-color, @form-error-color);
-    }
     .form-control.empty ~ .floating-label {
       color: @form-error-color;
     }
@@ -127,12 +118,11 @@
       margin-bottom: 1em;
       color: @form-error-color;
     }
+    .form-control.empty:not(:focus) {
+        border-bottom-color: @form-error-color;
+    }
   }
   .form-control-wrapper.has-error {
-    .form-control {
-      background-image: linear-gradient(@form-error-color, @form-error-color),
-      linear-gradient(@form-error-color, @form-error-color);
-    }
     .form-control ~ .floating-label {
       color: @form-error-color;
     }

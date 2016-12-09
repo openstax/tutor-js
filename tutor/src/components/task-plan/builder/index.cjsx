@@ -105,7 +105,6 @@ TaskPlanBuilder = React.createClass
         <BS.Col className="periods-invalid" sm=12>
           Please select at least
           one <CourseGroupingLabel lowercase courseId={@props.courseId} />
-          <i className="fa fa-exclamation-circle"></i>
         </BS.Col>
       </BS.Row>
 
@@ -113,7 +112,7 @@ TaskPlanBuilder = React.createClass
       <span key='assignment-label'>{"#{@props.label} name"}</span>
       <span
         key='assignment-label-instructions'
-        className='instructions'> (students will see this on their dashboard)</span>
+        className='instructions'> (Students will see this on their dashboard.)</span>
     ]
 
     <div className="assignment">
