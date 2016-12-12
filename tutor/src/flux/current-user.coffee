@@ -71,7 +71,7 @@ ROUTES =
         CurrentUserStore.isTeacher()
     isTeacherOnly: true
   cloneCourse:
-    label: 'Teach this Course Again'
+    label: 'Teach This Course Again'
     params: (courseId) -> {sourceId: courseId}
     roles:
       teacher: 'createNewCourse'
