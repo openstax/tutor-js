@@ -25,7 +25,7 @@ describe 'Student Scores Data Sorter', ->
     undefined
 
   it 'can sort by homework score', ->
-    @args.sort.key = 2
+    @args.sort.key = 0
     @args.sort.asc = false
     scores = _.map(_.sortBy(@students, StudentDataSorter(@args)), (s) ->
       s.data[0].correct_on_time_exercise_count)
@@ -33,7 +33,7 @@ describe 'Student Scores Data Sorter', ->
     undefined
 
   it 'can sort by reading progress', ->
-    @args.sort.key = 3
+    @args.sort.key = 1
     @args.sort.asc = false
     steps = _.map(_.sortBy(@students, StudentDataSorter(@args)), (s) ->
       s.data[1].completed_on_time_step_count)
