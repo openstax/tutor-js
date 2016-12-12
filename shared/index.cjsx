@@ -26,6 +26,9 @@ module.exports = {
   CardBody,
   ChapterSectionMixin:    require './src/components/chapter-section-mixin'
   CloseButton:            require './src/components/buttons/close-button'
+  CcJoinConflict:         require './src/components/enroll/cc-join-conflict'
+  ConfirmJoinCourse:      require './src/components/enroll/confirm-join-course'
+  MessageList:            require './src/components/enroll/message-list'
 
   Exercise,
   ExControlButtons,

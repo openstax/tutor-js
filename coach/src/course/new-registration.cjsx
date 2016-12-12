@@ -7,6 +7,7 @@ ENTER = 'Enter'
 
 EnrollmentCodeInput = require './enrollment-code-input'
 ConfirmJoin = require './confirm-join'
+JoinConflict = require './join-conflict'
 Navigation = require '../navigation/model'
 User = require '../user/model'
 
@@ -62,6 +63,8 @@ NewCourseRegistration = React.createClass
     else if course.isIncomplete()
       title = if @isTeacher() then '' else @props.title
       <EnrollmentCodeInput course={course} currentCourses={User.registeredCourses()} title={title} />
+    else if course.isConflicting()
+      <JoinConflict course={course} />
     else if course.isPending()
       <ConfirmJoin course={course} />
     else

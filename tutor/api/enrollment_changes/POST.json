@@ -3,10 +3,10 @@
   "to": {
     "course": {
       "id": "3",
-      "name": "Physics I",
+      "name": "Physics with Courseware",
       "teachers": [
         {"name": "Charles Morris", "first_name": "Charles", "last_name": "Morris"},
-        {"name": "", "first_name": "William", "last_name": "Blake"}
+        {"name": "William Blake", "first_name": "William", "last_name": "Blake"}
       ]
     },
     "period":{

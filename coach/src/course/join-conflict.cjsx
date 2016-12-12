@@ -1,20 +1,18 @@
 React = require 'react'
 
 Course = require './model'
-{ConfirmJoinCourse} = require 'shared'
+{CcJoinConflict} = require 'shared'
 
-ConfirmJoin = React.createClass
+JoinConflict = React.createClass
 
   propTypes:
     course: React.PropTypes.instanceOf(Course).isRequired
-    optionalStudentId: React.PropTypes.bool
 
   render: ->
-    <ConfirmJoinCourse
+    <CcJoinConflict
       courseEnrollmentActions={@props.course}
       courseEnrollmentStore={@props.course}
-      optionalStudentId={@props.optionalStudentId}
     />
 
 
-module.exports = ConfirmJoin
+module.exports = JoinConflict

@@ -22,8 +22,12 @@ class Course
   isIncomplete: -> not (@name or @to)
   # The registration code has been validated but sign-up is not yet started
   isValidated: -> @status is "validated"
-  # A registration has been created, but not confimed
-  isPending: ->  @status is "pending"
+  # Conflicts with a previous CC enrollment
+  isConflicting: -> @status is "cc_conflict"
+  # A registration has been created, but not confirmed
+  isPending: -> @status is "pending"
+
+  getEnrollmentChangeId: -> @id if @isPending()
 
   # forget in-progress registration information.  Called when a join is canceled
   resetToBlankState: ->
@@ -34,7 +38,7 @@ class Course
   description: ->
     if @isIncomplete() # still fetching
       ""
-    else if @isPending() # we originated from a join or move request
+    else if @isConflicting() or @isPending() # we originated from a join or move request
       msg = @describeMovePart(@to)
       if @from then "from #{@describeMovePart(@from)} to #{msg}" else msg
     else
@@ -44,8 +48,7 @@ class Course
     return '' unless part
     "#{part.course.name} (section #{part.period.name})"
 
-  teacherNames: ->
-    part = @to or @
+  teacherNames: (part = @to or @) ->
     return '' unless part.course?.teachers
     teachers = part.course.teachers
     names = _.map teachers, (teacher) ->
@@ -55,6 +58,12 @@ class Course
       "Instructors: " + names.slice(0, names.length - 1).join(', ') + " and " + names.slice(-1)
     else
       "Instructor: " + _.first(names)
+
+  hasConflict: -> !!@conflict
+
+  conflictDescription: -> @describeMovePart(@conflict)
+
+  conflictTeacherNames: -> @teacherNames(@conflict)
 
   getStudentIdentifier: ->
     @getStudentRecord()?.student_identifier
@@ -72,7 +81,7 @@ class Course
   errorMessages: ->
     _.map @errors, (err) -> ERROR_MAP[err.code] or "An unknown error with code #{err.code} occured."
 
-  # When a course needs to be manipluated, it's cloned
+  # When a course needs to be manipulated, it's cloned
   clone: ->
     new Course({ecosystem_book_uuid: @ecosystem_book_uuid})
 
@@ -96,7 +105,7 @@ class Course
     @channel.emit('change')
 
   # Submits pending course change for confirmation
-  confirm: (studentId) ->
+  confirm: (id, studentId) ->
     payload = { id: @id }
     payload.student_identifier = studentId if studentId
     @isBusy = true
@@ -120,7 +129,7 @@ class Course
     @channel.emit('change')
 
   # Submits a course invite for registration.  If user is signed in
-  # the registration will be saved, otherwise it will only be vaidated
+  # the registration will be saved, otherwise it will only be validated
   register: (enrollment_code, user) ->
     @enrollment_code = enrollment_code
     book_uuid = @ecosystem_book_uuid
@@ -141,7 +150,7 @@ class Course
 
   updateStudentIdentifier: ( newIdentifier ) ->
     if _.isEmpty(newIdentifier)
-      @errors = [{code: 'blank_student_identifer'}]
+      @errors = [{code: 'blank_student_identifier'}]
       @channel.emit('change')
     else if newIdentifier is @getStudentIdentifier()
       @errors = [{code: 'no_change'}]
@@ -160,9 +169,14 @@ class Course
 
     {data} = response
     _.extend(@, data) if data
+    @status = "cc_conflict" if @status is "pending" and @conflict
     # a freshly registered course doesn't contain the is_concept_coach flag
     @is_concept_coach = true
     delete @isBusy
+    @channel.emit('change')
+
+  conflictContinue: ->
+    @status = "pending"
     @channel.emit('change')
 
   destroy: ->

@@ -1,0 +1,44 @@
+{
+  "id": "1",
+  "from": {
+    "course": {
+      "id": "1",
+      "name": "College Physics with Concept Coach",
+      "teachers": [
+        {"name": "Charles Morris", "first_name": "Charles", "last_name": "Morris"}
+      ]
+    },
+    "period":{
+      "id": "1",
+      "name": "1st"
+    }
+  },
+  "to": {
+    "course": {
+      "id": "2",
+      "name": "College Physics with Concept Coach II",
+      "teachers": [
+        {"name": "William Blake", "first_name": "William", "last_name": "Blake"}
+      ]
+    },
+    "period":{
+      "id": "4",
+      "name": "2nd"
+    }
+  },
+  "conflict": {
+    "course": {
+      "id": "1",
+      "name": "College Physics with Concept Coach",
+      "teachers": [
+        {"name": "Charles Morris", "first_name": "Charles", "last_name": "Morris"}
+      ]
+    },
+    "period":{
+      "id": "1",
+      "name": "1st"
+    }
+  },
+  "status": "pending",
+  "requires_enrollee_approval": true
+}

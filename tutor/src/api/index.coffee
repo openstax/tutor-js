@@ -43,6 +43,11 @@ PerformanceForecast = require '../flux/performance-forecast'
 {NewCourseActions, NewCourseStore} = require '../flux/new-course'
 {NotificationActions} = require '../flux/notifications'
 
+{CourseEnrollmentActions} = require '../flux/course-enrollment'
+
+handledEnrollmentErrorsMap = require '../flux/course-enrollment-handled-errors'
+handledEnrollmentErrors = _.keys(handledEnrollmentErrorsMap)
+
 BOOTSTRAPED_STORES = {
   user:   CurrentUserActions.loaded
   courses: CourseListingActions.loaded
@@ -232,6 +237,21 @@ startAPI = ->
   connectRead(StudentDashboardActions, pattern: 'courses/{id}/dashboard')
   connectRead(NotificationActions,
     trigger: 'loadUpdates', onSuccess: 'loadedUpdates', url: 'notifications', handledErrors: ['*']
+  )
+
+  connectCreate(CourseEnrollmentActions,
+    url: 'enrollment_changes', handledErrors: handledEnrollmentErrors,
+    data: (enrollmentCode) ->
+      { enrollment_code: enrollmentCode }
+  )
+  connectUpdate(CourseEnrollmentActions,
+    pattern: 'enrollment_changes/{id}/approve', trigger: 'confirm',
+    onSuccess: 'confirmed', handledErrors: handledEnrollmentErrors, method: 'PUT'
+    data: (id, studentId) ->
+      if studentId
+        { student_identifier: studentId }
+      else
+        {}
   )
 
 # SharedNetworking = require 'shared/src/model/networking'

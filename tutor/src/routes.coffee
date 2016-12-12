@@ -81,8 +81,12 @@ getCCHelp = ->
 getAssignmentLinks = ->
   require './components/assignment-links'
 
+getCreateEnrollmentChange = ->
+  require './components/enroll'
+
 ROUTES = [
   { pattern: '/dashboard',              name: 'listing',                  renderer: getCourseListing }
+  { pattern: '/enroll/:enrollmentCode', name: 'createEnrollmentChange',   renderer: getCreateEnrollmentChange }
   { pattern: '/new-course/:sourceId?',  name: 'createNewCourse',          renderer: getCreateCourse  }
   {
     pattern: '/qa',                     name: 'QADashboard',              renderer: getQADashboard

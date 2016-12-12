@@ -4,9 +4,8 @@ BS = require 'react-bootstrap'
 ENTER = 'Enter'
 
 {CourseListing} = require './listing'
-ErrorList = require './error-list'
 Course = require './model'
-{AsyncButton} = require 'shared'
+{AsyncButton, MessageList} = require 'shared'
 User = require '../user/model'
 
 EnrollmentCodeInput = React.createClass
@@ -36,7 +35,7 @@ EnrollmentCodeInput = React.createClass
       {@renderCurrentCourses() if @props.currentCourses?.length}
       <h3 className="text-center">{@props.title}</h3>
       <hr/>
-      <ErrorList course={@props.course} />
+      <MessageList messages={@props.course.errorMessages()} />
       <div className="code-wrapper col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
         <BS.FormGroup controlId="enrollment-code">
           <BS.ControlLabel>Enter the enrollment code</BS.ControlLabel>
