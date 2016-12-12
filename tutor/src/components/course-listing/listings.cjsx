@@ -95,7 +95,7 @@ CourseListingBase = React.createClass
     <BS.Row className={sectionClasses}>
       {before}
       {_.map(courses, (course) ->
-        Item = items[CurrentUserStore.getCourseRole(course.id)]
+        Item = items[CurrentUserStore.getCourseVerifiedRole(course.id)]
         if Item then wrapCourseItem(Item, course)
       )}
       {after}
