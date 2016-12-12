@@ -13,14 +13,17 @@
 .make-wizard-choice-active() {
   background-color: fade(@tutor-neutral-light, 60%);
   border-color: @tutor-neutral-light;
-  color: @tutor-neutral-dark;
+  color: inherit;
   position: relative;
 }
 
 .new-course {
   .book-icon-style(){
     &::before{
+      content: '';
+      margin-right: 1rem;
       width: 60px;
+      height: 60px;
       min-width: 60px;
       background-size: cover;
       background-position: bottom;
@@ -57,7 +60,7 @@
 
     .panel-heading,
     .panel-footer {
-      color: @tutor-neutral-dark;
+      color: inherit;
       background-color: white;
       border: 0;
       padding: 1rem 0;
@@ -90,7 +93,6 @@
           justify-content: center;
           &::before {
             .book-icon-style();
-            width: 70px;
           }
           .title {
             font-size: 1.6rem;
@@ -101,8 +103,6 @@
     }
     .panel-body {
       padding: 1.6rem 0;
-      margin-left: -4px;
-      margin-right: -4px;
 
       .tutor-subtle-load(will-load; @loading-text: 'Loading...'; @bg-fade: 100%;);
       &::after {
@@ -146,51 +146,11 @@
 
   .new-course-wizard {
 
-    [data-appearance],
-    [data-copy-or-not],
-    [data-new-or-copy],
-    [data-brand] {
-      &::before {
-        content: '';
-        background-size: contain;
-        background-repeat: no-repeat;
-        height: 6rem;
-        margin-right: 1rem;
-        display: block;
-        margin-top: 0;
-      }
-
-    }
-
-    [data-appearance] {
-      .book-icon-style();
-    }
-
-    [data-brand]::before {
-      width: 80%;
-      background-position: left center;
-    }
-    [data-new-or-copy],
-    [data-copy-or-not] {
-      &::before {
-        width: 40px;
-        background-position: center;
-      }
-    }
-
-    .for(@openstax-book-thumbnails); .-each(@code) {
-      [data-appearance=@{code}] {
-        &::before {
-          .book-content-thumbnail(@code);
-        }
-      }
-    }
-
-    .list-group-item {
+    .choice {
       padding: 8px;
       display: flex;
       align-content: center;
-      height: 7rem;
+      height: 7.6rem;
       position: relative;
       font-size: 1.6rem;
       font-weight: 800;
@@ -200,6 +160,15 @@
       cursor: pointer;
       &:focus {
         outline: none;
+      }
+      &::before {
+        content: '';
+        background-size: contain;
+        background-repeat: no-repeat;
+        height: 2.5rem;
+        margin-right: 1rem;
+        display: block;
+        margin-top: 0;
       }
       &::after {
         content: '';
@@ -216,8 +185,8 @@
           .make-wizard-choice-active();
         }
         &::after {
-          right: 5px;
-          top: 50%;
+          right: 16px;
+          top: calc(50% - 4px);
           .fa-icon();
           content: @fa-var-check;
           color: @tutor-secondary;
@@ -255,9 +224,50 @@
       }
     }
 
+    [data-appearance] {
+      .book-icon-style();
+    }
+
+    [data-brand]::before {
+      width: 80%;
+      height: 5rem;
+      background-position: left center;
+    }
+
+    [data-copy-or-not],
+    [data-new-or-copy] {
+      &::before {
+        background-position: center;
+      }
+    }
+    [data-new-or-copy] {
+      &::before {
+        width: 60px;
+      }
+    }
+    [data-copy-or-not] {
+      &::before {
+        width: 36px;
+      }
+
+      &.active {
+        &::after {
+          right: 12px;
+        }
+      }
+    }
+
+    .for(@openstax-book-thumbnails); .-each(@code) {
+      [data-appearance=@{code}] {
+        &::before {
+          .book-content-thumbnail(@code);
+        }
+      }
+    }
+
     .input-group-addon {
       background: @tutor-white;
-      color: @tutor-neutral-dark;
+      color: inherit;
       font-weight: 600;
       text-align: left;
     }
@@ -266,7 +276,7 @@
       background: @tutor-neutral-lightest;
       height: 4.8rem;
       font-weight: 600;
-      color: @tutor-neutral-dark;
+      color: inherit;
     }
 
     .alert {
@@ -284,7 +294,7 @@
       }
     }
 
-    // customize differnt wizard types
+    // customize different wizard types
     &.course_type,
     &.offering_id {
       .panel-heading {
@@ -293,6 +303,9 @@
         min-height: 6rem;
         margin-top: 1rem;
         margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
 
