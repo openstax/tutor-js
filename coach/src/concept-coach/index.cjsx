@@ -40,7 +40,7 @@ listenAndBroadcast = (componentAPI) ->
   componentModel.channel.on 'close.clicked', ->
     componentAPI.emit('ui.close')
 
-  componentModel.channel.on 'launcher.clicked', ->
+  componentModel.channel.on 'launcher.clicked.*', ->
     componentAPI.emit('ui.launching')
 
   navigation.channel.on 'show.*', (eventData) ->

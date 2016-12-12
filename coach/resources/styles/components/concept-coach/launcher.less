@@ -140,7 +140,7 @@
 .launcher-base() {
   position: relative;
   width: 100%;
-  height: 388px;
+
   text-align: center;
 
   .laptop-and-mug {
@@ -250,11 +250,29 @@
   min-height: 388px;
   height: 100%;
 
-  button {
-    background-color: #F37440;
+  .launcher-background {
+    background-color: @openstax-neutral-bright;
+    color: @dark-blue;
+    height: 388px;
+    width: 100%;
+  }
+
+  .border-well {
+    border-color: @openstax-neutral-medium;
+    border-style: solid;
+    border-width: 20px 5px;
+    margin: 8px;
+  }
+
+  // .concept-coach-launcher {
+  //   .box-shadow(0 1px 6px rgba(0, 0, 0, 0.5));
+  // }
+
+  .button(@color) {
+    background-color: @color;
+    color: @openstax-neutral-lightest;
     border: 1px solid transparent;
-    font-weight: bold;
-    padding: 20px;
+    border-radius: 4px;
     span  { display: block; }
     .warn {
       font-size: 90%;
@@ -263,24 +281,60 @@
     &:active,
     &:focus,
     &:hover {
-      background-color: darken(#F37440, 10%);
-      border-color: darken(#F37440, 15%);
+      background-color: darken(@color, 10%);
+      border-color: darken(@color, 15%);
     }
   }
 
-  .launcher-background {
-    background: #9dd4db url('/resources/images/bg-cc-launcher.png') repeat left top;
-    color: white;
-    height: 388px;
-    text-shadow: 2px 2px 3px rgba(150, 150, 150, 0.75);
-    width: 100%;
+  .header {
+    border-bottom: 1px solid @openstax-neutral-light;
+    font-size: 18px;
+    .flex-display();
+    .align-items(center);
+    .justify-content(flex-end);
+    button {
+      .button(#3aab47);
+      padding: 8px;
+      margin: 1rem 2rem;
+    }
+  }
 
-    > h1 {
-      color: white;
-      font-size: 3rem;
-      font-weight: bold;
-      padding-top: 30px;
-      text-shadow: 2px 2px 3px rgba(150, 150, 150, 0.8);
+
+  .body {
+    .flex-display();
+    .align-items(center);
+    padding: 30px;
+    .study {
+      text-align: left;
+      .align-self(stretch);
+      .flex-display();
+      .align-items(flex-start);
+      .flex-direction(column);
+      .flex(1.2);
+      .cta {
+        .flex(1);
+        .flex-display();
+        .flex-direction(column);
+        .justify-content(center);
+        color: @dark-blue;
+        h1 { margin: 0; }
+      }
+      .fine-print {
+        p {
+          margin: 0;
+          font-size: 1.8rem;
+        }
+      }
+      button {
+        .align-self(flex-start);
+        font-size: 22px;
+        margin-top: 20px;
+        padding: 15px 30px;
+        .button(@orange);
+      }
+    }
+    .question {
+      .flex(1);
     }
   }
 }
@@ -289,7 +343,7 @@
   .launcher-base();
 
   &:not(.launching):not(.closing){
-    cursor: pointer;
+
     .launcher-animate();
 
     &:hover,
@@ -312,12 +366,12 @@
   }
 }
 
-@media (min-width: @screen-xs-min) {
-  .concept-coach-launcher {
-    .btn {
-      position: absolute;
-      top: 40%;
-      left: 8%;
-    }
-  }
-}
+// @media (min-width: @screen-xs-min) {
+//   .concept-coach-launcher {
+//     .btn {
+//       position: absolute;
+//       top: 40%;
+//       left: 8%;
+//     }
+//   }
+// }

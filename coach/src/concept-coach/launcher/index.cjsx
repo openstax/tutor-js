@@ -4,7 +4,7 @@ _ = require 'underscore'
 classnames = require 'classnames'
 
 BackgroundAndDesk = require './background-and-desk'
-LaptopAndMug = require '../laptop-and-mug'
+QuestionSVG = require '../question-svg'
 
 {channel} = require '../model'
 
@@ -27,26 +27,36 @@ Launcher = React.createClass
     {isLaunching, defaultHeight} = props
     if isLaunching then window.innerHeight else defaultHeight
 
-  launch: ->
-    channel.emit('launcher.clicked')
-    undefined # stop react from complaining about returning false from a handler
 
   render: ->
     {isLaunching, defaultHeight} = @props
     {height} = @state
 
-    classes = classnames 'concept-coach-launcher',
-      launching: isLaunching
+    classes =
 
     <div className='concept-coach-launcher-wrapper'>
-      <div className={classes} onClick={@launch}>
-        <LaptopAndMug height={defaultHeight}/>
-        <BS.Button bsStyle='primary' bsSize='large'>
-          <span className="launch">Launch Concept Coach</span>
-          <span className="warn">enrollment code needed</span>
-        </BS.Button>
-        <BackgroundAndDesk/>
+      <div className="border-well">
+        <div className={classnames('concept-coach-launcher', launching: isLaunching)}>
+          <div className="header">
+            <span>Already enrolled in this course?</span>
+            <button onClick={@onLogin}>Login</button>
+          </div>
+          <div className="body">
+            <div className="study">
+              <div className="cta">
+                <h1>Study smarter with OpenStax Concept Coach</h1>
+                <button onClick={@onEnroll}>Enroll in This Class</button>
+              </div>
+              <div className="fine-print">
+                <p>Course-specific enrollment code required.</p>
+                <p>Each semester has a new code.</p>
+              </div>
+            </div>
+            <QuestionSVG />
+          </div>
+        </div>
       </div>
     </div>
+
 
 module.exports = {Launcher}
