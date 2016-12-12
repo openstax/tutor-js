@@ -96,7 +96,7 @@ describe 'Course Listing Component', ->
     for course, i in MASTER_COURSES_LIST
       expect(
         wrapper.find("[data-course-id='#{course.id}'] .course-listing-item-brand").render().text()
-      ).equal('Openstax Tutor')
+      ).equal('OpenStax Tutor')
     undefined
 
 
