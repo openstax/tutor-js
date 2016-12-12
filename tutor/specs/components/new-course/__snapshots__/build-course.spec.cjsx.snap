@@ -1,0 +1,10 @@
+exports[`CreateCourse: saving new course matches snapshot 1`] = `
+<div>
+  <h4>
+    We’re building your Tutor course…
+  </h4>
+  <p>
+    Should take about 10 seconds
+  </p>
+</div>
+`;

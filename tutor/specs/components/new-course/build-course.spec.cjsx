@@ -1,5 +1,4 @@
-{React, sinon, pause} = require '../helpers/component-testing'
-{shallow} = require 'enzyme'
+{React, sinon, SnapShot} = require '../helpers/component-testing'
 
 EnzymeContext = require '../helpers/enzyme-context'
 BuildCourse = require '../../../src/components/new-course/build-course'
@@ -34,3 +33,10 @@ describe 'CreateCourse: saving new course', ->
       NewCourseStore.emit('created')
       expect(@options.context.router.transitionTo).to.have.been.calledWith('/course/21/cc/help?showIntro=true')
       undefined
+
+  it 'matches snapshot', ->
+    component = SnapShot.create(
+      <BuildCourse />
+    )
+    tree = component.toJSON()
+    expect(tree).toMatchSnapshot()

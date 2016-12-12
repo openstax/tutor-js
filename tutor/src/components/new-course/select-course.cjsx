@@ -12,7 +12,10 @@ classnames = require 'classnames'
 TutorRouter = require '../../helpers/router'
 
 {OfferingsStore} = require '../../flux/offerings'
-CourseOffering = require './offering'
+
+CourseInformation = require '../../flux/course-information'
+
+Choice = require './choice'
 
 KEY = "offering_id"
 
@@ -38,13 +41,15 @@ SelectCourse = React.createClass
 
     <BS.ListGroup>
       {for offering in offerings
-        <BS.ListGroupItem
+        {appearance_code} = OfferingsStore.get(offering.id)
+        <Choice
           key={"course-choice-offering-#{offering.id}"}
+          data-appearance={appearance_code}
           active={isEqual(NewCourseStore.get(KEY), offering.id)}
           onClick={partial(@onSelect, offering.id)}
         >
-          <CourseOffering offeringId={offering.id}/>
-        </BS.ListGroupItem>}
+          {CourseInformation.forAppearanceCode(appearance_code).title}
+        </Choice>}
     </BS.ListGroup>
 
 

@@ -5,33 +5,30 @@ _ = require 'lodash'
 {OfferingsStore} = require '../../flux/offerings'
 CourseInformation = require '../../flux/course-information'
 {ReactHelpers} = require 'shared'
-{CourseChoiceContent, CourseChoice} = require './choice'
+Choice = require './choice'
 
-CourseOffering = React.createClass
+CourseOfferingTitle = React.createClass
   displayName: 'CourseOffering'
   propTypes:
     offeringId: React.PropTypes.string.isRequired
     className:  React.PropTypes.string
     children:   React.PropTypes.node
+
   render: ->
     {offeringId, children, className} = @props
     baseName = ReactHelpers.getBaseName(@)
-
     return null if _.isEmpty(OfferingsStore.get(offeringId))
 
     {appearance_code} = OfferingsStore.get(offeringId)
     {title} = CourseInformation.forAppearanceCode(appearance_code)
-
-    <CourseChoice
+    <div
       className={classnames(baseName, className)}
       data-appearance={appearance_code}
     >
-      <CourseChoiceContent
-        className="#{baseName}-content-wrapper"
-        data-book-title={title}
-      >
-        {children}
-      </CourseChoiceContent>
-    </CourseChoice>
+      <div className="contents">
+        <div className="title">{title}</div>
+        <div className="sub-title">{@props.children}</div>
+      </div>
+    </div>
 
-module.exports = CourseOffering
+module.exports = CourseOfferingTitle

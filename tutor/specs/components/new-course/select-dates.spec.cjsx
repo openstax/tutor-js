@@ -1,5 +1,4 @@
-{React} = require '../helpers/component-testing'
-{mount} = require 'enzyme'
+{React, SnapShot} = require '../helpers/component-testing'
 
 SelectDates = require '../../../src/components/new-course/select-dates'
 OFFERINGS = require '../../../api/offerings'
@@ -24,3 +23,10 @@ describe 'CreateCourse: Selecting course dates', ->
       OfferingsStore.get(OFFERING_ID).active_term_years[0]
     )
     undefined
+
+  it 'matches snapshot', ->
+    component = SnapShot.create(
+      <SelectDates />
+    )
+    tree = component.toJSON()
+    expect(tree).toMatchSnapshot()

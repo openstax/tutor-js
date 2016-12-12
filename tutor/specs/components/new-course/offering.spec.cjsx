@@ -1,9 +1,10 @@
-{React} = require '../helpers/component-testing'
+{React, SnapShot} = require '../helpers/component-testing'
+
 
 find = require 'lodash/find'
 cloneDeep = require 'lodash/cloneDeep'
 
-Offering = require '../../../src/components/new-course/offering'
+OfferingTitle = require '../../../src/components/new-course/offering-title'
 OFFERINGS = require '../../../api/offerings'
 
 {OfferingsStore, OfferingsActions} = require '../../../src/flux/offerings'
@@ -21,7 +22,13 @@ describe 'CreateCourse: choosing offering', ->
     burntOfferings = cloneDeep(OFFERINGS)
     find(burntOfferings.items, id: @props.offeringId).appearance_code = 'firefirefire'
     OfferingsActions.loaded(burntOfferings)
-    wrapper = shallow(<Offering {...@props} />)
+    wrapper = shallow(<OfferingTitle {...@props} />)
     expect(wrapper.is('[data-appearance="firefirefire"]')).to.be.true
-    expect(wrapper.find('CourseChoiceContent[data-book-title="default"]')).to.have.length(1)
     undefined
+
+  it 'matches snapshot', ->
+    component = SnapShot.create(
+      <OfferingTitle {...@props} />
+    )
+    tree = component.toJSON()
+    expect(tree).toMatchSnapshot()

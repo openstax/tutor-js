@@ -1,0 +1,15 @@
+exports[`CreateCourse: choosing offering matches snapshot 1`] = `
+<div
+  className="course-offering"
+  data-appearance="college_biology">
+  <div
+    className="contents">
+    <div
+      className="title">
+      College Biology
+    </div>
+    <div
+      className="sub-title" />
+  </div>
+</div>
+`;

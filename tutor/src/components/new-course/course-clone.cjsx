@@ -9,7 +9,7 @@ map = require 'lodash/map'
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 {CourseListingStore} = require '../../flux/course-listing'
 TutorRouter = require '../../helpers/router'
-{CourseChoiceItem} = require './choice'
+Choice = require './choice'
 
 KEY = "cloned_from_id"
 
@@ -39,14 +39,16 @@ CourseClone = React.createClass
 
     <BS.ListGroup>
       {_.map(courses, (course) =>
-        <CourseChoiceItem
+        <Choice
           key="course-clone-#{course.id}"
           active={isEqual(NewCourseStore.get(KEY), course.id)}
           onClick={partial(@onSelect, course)}
         >
-          {course.name}
-          <p className='course-clone-term'>{course.term} {course.year}</p>
-        </CourseChoiceItem>
+          <div className="contents">
+            <div className="title">{course.name}</div>
+            <div className="sub-title">{course.term} {course.year}</div>
+          </div>
+        </Choice>
       )}
     </BS.ListGroup>
 

@@ -1,0 +1,36 @@
+exports[`CreateCourse: choosing to copy QL matches snapshot 1`] = `
+<div
+  className="copy-ql">
+  <div
+    className="list-group">
+    <div
+      className="list-group-item choice"
+      data-copy-or-not="copy"
+      onClick={[Function]}
+      role="button">
+      Copy
+    </div>
+    <div
+      className="list-group-item choice active"
+      data-copy-or-not="dont-copy"
+      onClick={[Function]}
+      role="button">
+      Don’t copy
+    </div>
+  </div>
+  <div
+    className="explain alert alert-danger">
+    <p>
+      Any questions you previously excluded 
+      <strong>
+        will not be
+      </strong>
+       excluded in your new course.
+    </p>
+    <p>
+      Some questions have been added, corrected or removed to improve the quality of
+      the Question Library.  You can always make changes before publishing assignments.
+    </p>
+  </div>
+</div>
+`;
