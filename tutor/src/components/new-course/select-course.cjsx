@@ -30,14 +30,25 @@ SelectCourse = React.createClass
     shouldSkip: ->
       TutorRouter.currentParams()?.sourceId
 
-  onSelect: (id) ->
-    NewCourseActions.set({"#{KEY}": id})
-
-  render: ->
+  getInitialState: ->
     offerings =
       sortBy(
         OfferingsStore.filter(is_concept_coach: NewCourseStore.get('course_type') is 'cc'),
       'title')
+
+    {offerings}
+
+  onSelect: (id) ->
+    NewCourseActions.set({"#{KEY}": id})
+
+  componentWillMount: ->
+    {offerings} = @state
+    return if NewCourseStore.get(KEY)? or offerings.length > 1 or isEmpty(offerings)
+
+    @onSelect(first(offerings).id)
+
+  render: ->
+    {offerings} = @state
 
     <BS.ListGroup>
       {for offering in offerings
