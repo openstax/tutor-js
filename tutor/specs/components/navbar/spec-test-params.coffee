@@ -65,7 +65,7 @@ TEACHER_MENU = [
   }
   {
     name: 'createNewCourse',
-    label: 'Teach this Course Again',
+    label: 'Teach This Course Again',
     params: { sourceId: '2' }
   }
 ]
