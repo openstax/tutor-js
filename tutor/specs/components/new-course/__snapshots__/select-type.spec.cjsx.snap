@@ -4,10 +4,12 @@ exports[`CreateCourse: Selecting type of course matches snapshot 1`] = `
   <div
     className="list-group-item choice"
     data-brand="tutor-beta"
-    onClick={[Function]} />
+    onClick={[Function]}
+    role="button" />
   <div
     className="list-group-item choice active"
     data-brand="coach"
-    onClick={[Function]} />
+    onClick={[Function]}
+    role="button" />
 </div>
 `;

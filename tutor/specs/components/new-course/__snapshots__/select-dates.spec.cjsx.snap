@@ -3,7 +3,8 @@ exports[`CreateCourse: Selecting course dates matches snapshot 1`] = `
   className="list-group">
   <div
     className="list-group-item choice active"
-    onClick={[Function]}>
+    onClick={[Function]}
+    role="button">
     <span
       className="term">
       fall
@@ -15,7 +16,8 @@ exports[`CreateCourse: Selecting course dates matches snapshot 1`] = `
   </div>
   <div
     className="list-group-item choice"
-    onClick={[Function]}>
+    onClick={[Function]}
+    role="button">
     <span
       className="term">
       spring
@@ -27,7 +29,8 @@ exports[`CreateCourse: Selecting course dates matches snapshot 1`] = `
   </div>
   <div
     className="list-group-item choice"
-    onClick={[Function]}>
+    onClick={[Function]}
+    role="button">
     <span
       className="term">
       summer
@@ -39,7 +42,8 @@ exports[`CreateCourse: Selecting course dates matches snapshot 1`] = `
   </div>
   <div
     className="list-group-item choice"
-    onClick={[Function]}>
+    onClick={[Function]}
+    role="button">
     <span
       className="term">
       fall
