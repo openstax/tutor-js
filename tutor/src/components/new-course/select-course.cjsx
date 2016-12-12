@@ -43,7 +43,7 @@ SelectCourse = React.createClass
 
   componentWillMount: ->
     {offerings} = @state
-    return if NewCourseStore.get(KEY)? or offerings.length > 1
+    return if NewCourseStore.get(KEY)? or offerings.length > 1 or isEmpty(offerings)
 
     @onSelect(first(offerings).id)
 
