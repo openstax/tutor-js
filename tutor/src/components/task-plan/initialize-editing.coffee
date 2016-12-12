@@ -45,8 +45,7 @@ getTaskPlanOpensAt = (planId) ->
 
 
 setPeriodDefaults = (courseId, planId, term) ->
-
-  if TaskPlanStore.isNew(planId)
+  if TaskPlanStore.isNew(planId) and not TaskingStore.hasTasking(planId)
     due_date = getQueriedDueAt() or getTaskPlanOpensAt(planId)
     TaskingActions.create(planId, {open_date: getQueriedOpensAt(planId, term.start), due_date})
   else

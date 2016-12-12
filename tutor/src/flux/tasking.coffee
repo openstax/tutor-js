@@ -410,7 +410,7 @@ TaskingConfig =
 
     _getTaskingFor: (taskId, tasking) ->
       storedTaskings = @exports._getTaskings.call(@, taskId)
-      tasking = getFromForTasking(storedTaskings, tasking)
+      tasking = if storedTaskings? then getFromForTasking(storedTaskings, tasking)
 
     isTaskingEnabled: (taskId, tasking) ->
       tasking = @exports._getTaskingFor.call(@, taskId, tasking)
