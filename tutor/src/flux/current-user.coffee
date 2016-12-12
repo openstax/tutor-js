@@ -187,6 +187,12 @@ CurrentUserStore = flux.createStore
     getCourseRole: (courseId, silent = true) ->
       @_getCourseRole(courseId, silent)
 
+    getCourseVerifiedRole: (courseId) ->
+      if @exports.isTeacher.call(@)
+        @_getCourseRole(courseId)
+      else
+        'student'
+
     getViewingCourseRole: ->
       @_getCourseRole(@_viewingCourseId) if @_viewingCourseId?
 
