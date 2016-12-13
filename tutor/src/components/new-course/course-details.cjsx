@@ -63,6 +63,9 @@ CourseDetails = React.createClass
         <p className='course-details-sections-note'>
           <small><i>(You can add or remove sections later)</i></small>
         </p>
+        <p className='explain copy-explain'>
+          Any questions you previously excluded in the Question Library will remain excluded in your new course.
+        </p>
       </BS.FormGroup>
     </BS.Form>
 
