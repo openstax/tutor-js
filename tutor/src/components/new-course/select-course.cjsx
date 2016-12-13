@@ -28,7 +28,7 @@ SelectCourse = React.createClass
   statics:
     title: 'Which course are you teaching?'
     shouldSkip: ->
-      TutorRouter.currentParams()?.sourceId
+      TutorRouter.currentParams().sourceId
 
   getInitialState: ->
     offerings =

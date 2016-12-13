@@ -24,7 +24,6 @@ STAGES = {
   'term':                     require './select-dates'
   'new_or_copy':              require './new-or-copy'
   'cloned_from_id':           require './course-clone'
-  'copy_question_library':    require './copy-ql'
   'details':                  require './course-details'
   'build':                    require './build-course'
 }
@@ -45,14 +44,14 @@ NewCourseWizard = React.createClass
     router: React.PropTypes.object
 
   componentWillMount: ->
-    {sourceId} = TutorRouter.currentParams()
-    if sourceId
-      course = CourseStore.get(sourceId)
-      NewCourseActions.setClone(course)
-      @setState({firstStage: 2, currentStage: 2})
-    else if isEmpty(CourseListingStore.filterTeachingCourses(is_concept_coach: true))
-      NewCourseActions.set(course_type: 'tutor')
-      @setState({firstStage: 1, currentStage: 1})
+    NewCourseActions.initialize(
+      TutorRouter.currentParams()
+    )
+    if STAGES.offering_id.shouldSkip()
+      firstStage = 2
+    else
+      firstStage = if NewCourseStore.canSelectCourseType() then 0 else 1
+    @setState({firstStage, currentStage: firstStage})
 
   mixins: [BindStoreMixin]
   bindStore: NewCourseStore

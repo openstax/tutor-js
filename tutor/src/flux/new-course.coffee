@@ -1,7 +1,7 @@
 {makeStandardStore} = require './helpers'
 _ = require 'lodash'
-
-{CourseListingActions} = require './course-listing'
+{CourseStore} = require './course'
+{CourseListingActions, CourseListingStore} = require './course-listing'
 PeriodHelper = require '../helpers/period'
 
 DEFAULTS =
@@ -90,18 +90,34 @@ StoreDefinition = makeStandardStore('NewCourse', {
     _.extend(@_local, attrs)
     @emitChange()
 
+  initialize: ({sourceId}) ->
+    if sourceId
+      course = CourseStore.get(sourceId)
+      @setClone(course)
+    else
+      @setNew()
+
+  setNew: ->
+    @set(
+      course_type: CourseListingStore.typeOfAllCourses()
+    )
+
   setClone: (course) ->
-    newCourse =
+    @set(
       new_or_copy: 'copy'
-      course_type: if course.is_concept_coach then 'cc' else 'tutor'
       offering_id: course.offering_id
       cloned_from_id: course.id
       name: course.name
+      course_type: CourseListingStore.typeOfAllCourses()
       num_sections: PeriodHelper.activePeriods(course).length
-
-    @set(newCourse)
+    )
 
   exports:
+
+    canSelectCourseType: ->
+      # if the user has only a single type of course then they cannot change it
+      not CourseListingStore.typeOfAllCourses()
+
     isValid: (attr) ->
       switch attr
         when 'details' then @_local.name and @_local.num_sections

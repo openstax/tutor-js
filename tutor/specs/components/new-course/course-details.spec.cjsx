@@ -1,4 +1,4 @@
-{React, pause} = require '../helpers/component-testing'
+{React, SnapShot} = require '../helpers/component-testing'
 
 CourseDetails = require '../../../src/components/new-course/course-details'
 {NewCourseStore, NewCourseActions} = require '../../../src/flux/new-course'
@@ -33,4 +33,12 @@ describe 'CreateCourse: entering details', ->
       .simulate('change', target: value: 12)
     expect(NewCourseStore.get('name')).to.equal('My Course')
     expect(NewCourseStore.get('num_sections')).to.equal(12)
+    undefined
+
+  it 'matches snapshot', ->
+    component = SnapShot.create(
+      <CourseDetails />
+    )
+    tree = component.toJSON()
+    expect(tree).toMatchSnapshot()
     undefined

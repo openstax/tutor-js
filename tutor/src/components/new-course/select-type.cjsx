@@ -17,8 +17,7 @@ SelectType = React.createClass
   statics:
     title: 'Which tool do you want to use?'
     shouldSkip: ->
-      TutorRouter.currentParams()?.sourceId or
-        isEmpty(CourseListingStore.filterTeachingCourses(is_concept_coach: true))
+      TutorRouter.currentParams().sourceId
 
   onSelectType: (type) ->
     NewCourseActions.set({"#{KEY}": type})

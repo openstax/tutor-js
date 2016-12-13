@@ -214,14 +214,6 @@
       &[data-new-or-copy=copy]::before {
         background-image: url('../../images/icons/icon-copy-course.svg');
       }
-
-      &[data-copy-or-not=copy]::before {
-        background-image: url('../../images/icons/icon-copy-library.svg');
-      }
-
-      &[data-copy-or-not=dont-copy]::before {
-        background-image: url('../../images/icons/icon-dont-copy-library.svg');
-      }
     }
 
     [data-appearance] {
@@ -233,30 +225,12 @@
       height: 5rem;
       background-position: left center;
     }
-
-    [data-copy-or-not],
     [data-new-or-copy] {
       &::before {
         background-position: center;
-      }
-    }
-    [data-new-or-copy] {
-      &::before {
         width: 60px;
       }
     }
-    [data-copy-or-not] {
-      &::before {
-        width: 36px;
-      }
-
-      &.active {
-        &::after {
-          right: 12px;
-        }
-      }
-    }
-
     .for(@openstax-book-thumbnails); .-each(@code) {
       [data-appearance=@{code}] {
         &::before {
@@ -277,21 +251,6 @@
       height: 4.8rem;
       font-weight: 600;
       color: inherit;
-    }
-
-    .alert {
-      font-size: 1.5rem;
-      line-height: 1.3em;
-      padding: 1rem;
-      margin-bottom: 0;
-
-      p {
-        margin: 0 0 1.5rem 0;
-
-        &:last-child {
-          margin: 0;
-        }
-      }
     }
 
     // customize different wizard types
@@ -343,30 +302,13 @@
         color: @tutor-neutral;
         margin-left: 0.5rem;
       }
-    }
-
-    &.copy_question_library.panel {
-      .list-group {
-        display: flex;
-
-        overflow-y: hidden;
-        .list-group-item {
-          flex: 1;
-          &:first-child {
-            border-top-right-radius: 0;
-            border-bottom-left-radius: @list-group-border-radius;
-          }
-          &:last-child {
-            border-bottom-left-radius: 0;
-            border-top-right-radius: @list-group-border-radius;
-          }
-        }
-        .course-choice::before {
-          width: 36px;
-        }
+      .copy-explain {
+        color: @tutor-neutral;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+        margin: 1.5rem 0.5rem;
       }
     }
-
 
   }
 }
