@@ -50,8 +50,6 @@ describe 'Creating a course', ->
     undefined
 
 
-  # snapshots currently do not work because of bug with React 15.3.x.
-  # is fixed in 15.4 https://github.com/facebook/react/issues/7386
   it 'matches snapshot', ->
     component = SnapShot.create(
       <Wizard {...@props} />
