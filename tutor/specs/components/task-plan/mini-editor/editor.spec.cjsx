@@ -18,6 +18,15 @@ PLAN = _.extend({
   settings: { exercise_ids: [1, 2, 3] }
 }, _.findWhere(DATA.plans, id: '7'))
 
+today = moment(TimeStore.getNow()).format(TimeHelper.ISO_DATE_FORMAT)
+dayAfter = moment(TimeStore.getNow()).add(2, 'day').format(TimeHelper.ISO_DATE_FORMAT)
+
+PLAN.tasking_plans = _.map(PLAN.tasking_plans, (tasking) ->
+  tasking = _.clone(tasking)
+  tasking.opens_at = today
+  tasking.due_at = dayAfter
+  tasking
+)
 
 getButtons = (wrapper) ->
   publish: wrapper.find('.-publish')

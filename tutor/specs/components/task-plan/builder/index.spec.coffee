@@ -30,7 +30,6 @@ getISODateString = (value) -> TimeHelper.getZonedMoment(value).format(ISO_DATE_F
 
 COURSES = require '../../../../api/user/courses.json'
 NEW_READING = ExtendBasePlan({id: "_CREATING_1", settings: {page_ids: []}}, false, false)
-console.info('NEW_READING', NEW_READING)
 PUBLISHED_MODEL = ExtendBasePlan({
   id: '1'
   title: 'hello',
