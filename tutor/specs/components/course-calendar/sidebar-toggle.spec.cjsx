@@ -35,3 +35,20 @@ describe 'CourseCalendar Sidebar Toggle', ->
     wrapper.simulate('click')
     expect(Helper.setSidebarOpen).toHaveBeenCalledWith(@props.courseId, true)
     undefined
+
+
+  it 'displays the correct icon after animation finishes', ->
+    wrapper = shallow(<Toggle {...@props} />)
+    expect(wrapper.hasClass('open')).to.equal false
+    wrapper.simulate('click')
+    expect(wrapper.find('Icon[type="bars"]').length).to.equal(1)
+    wrapper.simulate('transitionEnd')
+    expect(wrapper.find('Icon[type="times"]').length).to.equal(1)
+    undefined
+
+  it 'defaults to last opened value', ->
+    Helper.isSidebarOpen.mockReturnValueOnce(true)
+    wrapper = shallow(<Toggle {...@props} />)
+    expect(wrapper.hasClass('open')).to.equal true
+    expect(wrapper.find('Icon[type="times"]').length).to.equal(1)
+    undefined

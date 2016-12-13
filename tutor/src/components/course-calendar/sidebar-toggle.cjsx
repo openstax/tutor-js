@@ -5,6 +5,9 @@ classnames = require 'classnames'
 Icon = require '../icon'
 CalendarHelper = require './helper'
 
+OPEN_ICON = 'times'
+CLOSED_ICON = 'bars'
+
 CalendarSidebarToggle = React.createClass
 
   displayName: 'CalendarSidebarToggle'
@@ -17,8 +20,9 @@ CalendarSidebarToggle = React.createClass
     defaultOpen: false
 
   getInitialState: ->
-    iconType: 'bars'
-    isOpen: CalendarHelper.isSidebarOpen(@props.courseId)
+    isOpen = CalendarHelper.isSidebarOpen(@props.courseId)
+    iconType = if isOpen then OPEN_ICON else CLOSED_ICON
+    {isOpen, iconType}
 
   componentWillMount: ->
     if @state.isOpen
@@ -30,7 +34,7 @@ CalendarSidebarToggle = React.createClass
     CalendarHelper.clearScheduledEvent(@state.pendingIntroTimeout)
 
   setIconType: ->
-    @setState(iconType: if @state.isOpen then 'times' else 'bars')
+    @setState(iconType: if @state.isOpen then OPEN_ICON else CLOSED_ICON)
 
   onToggle: ->
     isOpen = not @state.isOpen
