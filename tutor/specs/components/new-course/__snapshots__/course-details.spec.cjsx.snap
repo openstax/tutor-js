@@ -37,10 +37,6 @@ exports[`CreateCourse: entering details matches snapshot 1`] = `
         </i>
       </small>
     </p>
-    <p
-      className="explain copy-explain">
-      Any questions you previously excluded in the Question Library will remain excluded in your new course.
-    </p>
   </div>
 </form>
 `;
