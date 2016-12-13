@@ -44,9 +44,6 @@ CourseConfig =
         if not name? or name is ''
           return ['required']
 
-    hasStudents: (courseId) ->
-      not _.isEmpty(@_local[courseId]?.students)
-
     # Returns the configured appearance code for a course
     getAppearanceCode: (courseId) ->
       return @_get(courseId)?.appearance_code or 'default'
