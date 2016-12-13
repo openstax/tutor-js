@@ -6,7 +6,7 @@ BS = require 'react-bootstrap'
 {StatsModalShell} = require '../plan-stats'
 {EventModalShell} = require '../plan-stats/event'
 {TaskPlanStore} = require '../../flux/task-plan'
-
+{CourseStore}   = require '../../flux/course'
 LmsInfo = require '../task-plan/lms-info'
 TutorLink = require '../link'
 
@@ -34,6 +34,7 @@ CoursePlanDetails = React.createClass
     {plan, courseId} = @props
     {type, id} = plan
     linkParams = {courseId, id}
+
 
     reviewButton = <TutorLink
       className='btn btn-default'

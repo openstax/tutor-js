@@ -25,6 +25,7 @@ module.exports =
     _.findWhere(review.stats, {period_id: period.id})
 
   _getExercisesFromStats: (stats) ->
+    return [] unless stats
     pagedExercises = _.map @_pages, (page) =>
       # exercises = _.clone(_.pluck(stats[page], 'exercises'))
       exercises = _.chain(stats[page])
@@ -174,4 +175,3 @@ module.exports =
     listeners = _.reduce crumbs, (memo, crumb) ->
       memo + crumb.listeners
     , 0
-
