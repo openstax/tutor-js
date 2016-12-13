@@ -270,6 +270,8 @@ TaskPlanConfig =
     copyKeys = ['title', 'description', 'is_feedback_immediate', 'settings']
     each(copyKeys, (key) ->
       originalPlan[key] = cloneDeep(original[key])
+      # need to prevent false from being returned and ending the each loop early.
+      true
     )
 
     periods = CourseStore.getPeriods(courseId)

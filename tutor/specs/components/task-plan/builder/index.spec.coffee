@@ -2,7 +2,10 @@ _ = require 'underscore'
 moment = require 'moment-timezone'
 
 Builder = require '../../../../src/components/task-plan/builder'
+taskPlanEditingInitialize = require '../../../../src/components/task-plan/initialize-editing'
 PlanMixin = require '../../../../src/components/task-plan/plan-mixin'
+CourseDataHelper = require '../../../../src/helpers/course-data'
+
 {TaskPlanActions, TaskPlanStore} = require '../../../../src/flux/task-plan'
 {TaskingActions, TaskingStore} = require '../../../../src/flux/tasking'
 {Testing, sinon, _, React} = require '../../helpers/component-testing'
@@ -42,10 +45,14 @@ makeTaskingPeriodKey = (period) ->
 
 helper = (model, routerQuery) ->
   {id} = model
+  props = {id, courseId: "1"}
   # Load the plan into the store
   TaskPlanActions.loaded(model, id)
 
-  props = {id, courseId: "1"}
+  unless TaskPlanStore.isNew(id)
+    term = CourseDataHelper.getCourseBounds(props.courseId)
+    taskPlanEditingInitialize(id, props.courseId, term)
+
   PlanMixin.props = props
   moreProps = PlanMixin.getStates()
   props = _.extend(props, moreProps)
@@ -105,6 +112,7 @@ getDueDateAtInput = (element, period) ->
 describe 'Task Plan Builder', ->
   beforeEach ->
     TaskPlanActions.reset()
+    TaskingActions.reset()
     CourseListingActions.loaded(COURSES)
 
   it 'should load expected plan', ->

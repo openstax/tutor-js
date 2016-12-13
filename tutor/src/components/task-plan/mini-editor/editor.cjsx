@@ -13,7 +13,7 @@ TutorLink = require '../../link'
 TaskingDateTimes = require '../builder/tasking-date-times'
 BindStoresMixin = require '../../bind-stores-mixin'
 {TutorInput, TutorTextArea} = require '../../tutor-input'
-{TaskingStore} = require '../../../flux/tasking'
+{TaskingStore, TaskingActions} = require '../../../flux/tasking'
 {TeacherTaskPlanActions} = require '../../../flux/teacher-task-plan'
 TimeHelper = require '../../../helpers/time'
 
@@ -68,11 +68,13 @@ TaskPlanMiniEditor = React.createClass
 
   componentWillMount: ->
     @initializePlan()
+    TaskingActions.updateTaskingsIsAll(@props.id, true)
 
   componentWillReceiveProps: (nextProps) ->
     if @props.id isnt nextProps.id or
       @props.courseId isnt nextProps.courseId
         @initializePlan(nextProps)
+        TaskingActions.updateTaskingsIsAll(@props.id, true)
 
   onSave: ->
     saving = @save()

@@ -242,6 +242,43 @@
           "due_at": "2015-10-14T12:00:00.000Z"
         }
       ]
+    },
+    {
+      "id": "29",
+      "ecosystem_id": "4",
+      "type": "homework",
+      "title": "test d",
+      "is_feedback_immediate": false,
+      "is_draft": false,
+      "is_publishing": false,
+      "is_published": true,
+      "first_published_at": "2016-12-07T18:23:24.615Z",
+      "last_published_at": "2016-12-07T19:18:28.195Z",
+      "settings": {
+        "page_ids": [
+          "762",
+          "763"
+        ],
+        "exercise_ids": [
+          "20650",
+          "21167"
+        ],
+        "exercises_count_dynamic": 3
+      },
+      "tasking_plans": [
+        {
+          "target_id": "29",
+          "target_type": "period",
+          "opens_at": "2016-12-08T06:01:00.000Z",
+          "due_at": "2016-12-17T13:00:00.000Z"
+        },
+        {
+          "target_id": "30",
+          "target_type": "period",
+          "opens_at": "2016-12-08T06:01:00.000Z",
+          "due_at": "2016-12-17T13:00:00.000Z"
+        }
+      ]
     }
   ],
   "role": {
