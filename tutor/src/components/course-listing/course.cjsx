@@ -7,7 +7,7 @@ TutorLink = require '../link'
 
 Router = require '../../helpers/router'
 DnD = require './course-dnd'
-BRAND = 'Openstax'
+BRAND = 'OpenStax'
 
 getCourseNameSegments = (course, courseSubject) ->
   courseRegex = new RegExp(courseSubject, 'i')
