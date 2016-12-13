@@ -45,12 +45,13 @@ getTaskPlanOpensAt = (planId) ->
 
 
 setPeriodDefaults = (courseId, planId, term) ->
-  if TaskPlanStore.isNew(planId) and not TaskingStore.hasTasking(planId)
-    due_date = getQueriedDueAt() or getTaskPlanOpensAt(planId)
-    TaskingActions.create(planId, {open_date: getQueriedOpensAt(planId, term.start), due_date})
-  else
-    {tasking_plans} = TaskPlanStore.get(planId)
-    TaskingActions.loadTaskings(planId, tasking_plans)
+  unless TaskingStore.hasTasking(planId)
+    if TaskPlanStore.isNew(planId) and not TaskingStore.hasTasking(planId)
+      due_date = getQueriedDueAt() or getTaskPlanOpensAt(planId)
+      TaskingActions.create(planId, {open_date: getQueriedOpensAt(planId, term.start), due_date})
+    else
+      {tasking_plans} = TaskPlanStore.get(planId)
+      TaskingActions.loadTaskings(planId, tasking_plans)
 
   nextState = {}
   nextState.showingPeriods = not TaskingStore.getTaskingsIsAll(planId)
