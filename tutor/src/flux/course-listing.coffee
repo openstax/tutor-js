@@ -113,6 +113,14 @@ CourseListingStore = flux.createStore
 
       [past, current, future]
 
+    typeOfAllCourses: ->
+      uniq = _.uniqBy(@_course_ids, (id) ->
+        CourseStore.get(id).is_concept_coach
+      )
+      if uniq.length is 1
+        if CourseStore.isConceptCoach(uniq[0]) then 'cc' else 'tutor'
+
+
     isAnyTeacher: ->
       courses = @exports.allCoursesWithRoles.call(@)
       _.some(courses, (course) ->
