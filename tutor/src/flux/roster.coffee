@@ -58,6 +58,7 @@ RosterConfig = {
   teacherDeleted: (unused, teacherId) ->
     @_asyncStatus[teacherId] = DELETED
     @emitChange()
+    @emit(DELETED)
 
   undrop: ({studentId}) ->
     @_asyncStatus[studentId] = UNDROPPING

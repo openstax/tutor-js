@@ -4,6 +4,8 @@ _  = require 'underscore'
 BindStoreMixin = require '../bind-store-mixin'
 {CourseStore, CourseActions} = require '../../flux/course'
 {RosterStore, RosterActions} = require '../../flux/roster'
+TutorRouter = require '../../helpers/router'
+
 Icon = require '../icon'
 Name = require '../name'
 {AsyncButton} = require 'shared'
@@ -28,7 +30,10 @@ module.exports = React.createClass
       .value()
 
   goToDashboard: ->
-    RosterActions.once 'deleted', @context.router.transitionTo('dashboard')
+    @_removeListener()
+    RosterStore.once('deleted', =>
+      @context.router.transitionTo(TutorRouter.makePathname('listing'))
+    )
 
   performDeletion: ->
     {courseId, teacher, courseRoles} = @props
