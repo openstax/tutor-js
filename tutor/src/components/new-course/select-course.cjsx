@@ -1,12 +1,10 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 
-sortBy  = require 'lodash/sortBy'
+first   = require 'lodash/first'
 partial = require 'lodash/partial'
 isEqual = require 'lodash/isEqual'
 isEmpty = require 'lodash/isEmpty'
-first   = require 'lodash/first'
-classnames = require 'classnames'
 
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 TutorRouter = require '../../helpers/router'
