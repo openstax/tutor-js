@@ -6,6 +6,7 @@ LoadableItem = require '../loadable-item'
 {CourseStore} = require '../../flux/course'
 {RosterStore, RosterActions} = require '../../flux/roster'
 TimeHelper = require '../../helpers/time'
+CourseDataHelper = require '../../helpers/course-data'
 
 Roster = require './roster'
 TeacherRoster = require './teacher-roster'
@@ -19,6 +20,7 @@ module.exports = React.createClass
 
   render: ->
     course = CourseStore.get(@props.courseId)
+    termDates = CourseDataHelper.getCourseBounds(@props.courseId)
 
     <BS.Panel className='course-settings'>
 
@@ -34,10 +36,10 @@ module.exports = React.createClass
 
         <BS.Col sm={6} className='course-settings-start-end-dates'>
           <span className='course-settings-detail'>
-            Starts: {TimeHelper.toHumanDate(course.starts_at)}
+            Starts: {TimeHelper.toHumanDate(termDates.start)}
           </span>
           <span className='course-settings-detail'>
-            Ends: {TimeHelper.toHumanDate(course.ends_at)}
+            Ends: {TimeHelper.toHumanDate(termDates.end)}
           </span>
         </BS.Col>
 
