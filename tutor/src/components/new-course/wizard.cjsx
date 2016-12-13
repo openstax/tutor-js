@@ -45,9 +45,10 @@ NewCourseWizard = React.createClass
     router: React.PropTypes.object
 
   componentWillMount: ->
-    {sourceId} = TutorRouter.currentParams()
-    NewCourseActions.initialize({sourceId})
-    if sourceId
+    NewCourseActions.initialize(
+      TutorRouter.currentParams()
+    )
+    if STAGES.offering_id.shouldSkip()
       firstStage = 2
     else
       firstStage = if NewCourseStore.canSelectCourseType() then 0 else 1
