@@ -1,4 +1,4 @@
-{React} = require '../helpers/component-testing'
+{React, SnapShot} = require '../helpers/component-testing'
 {UiSettings} = require 'shared'
 
 jest.mock('../../../src/components/course-calendar/helper')
@@ -52,3 +52,10 @@ describe 'CourseCalendar Sidebar Toggle', ->
     expect(wrapper.hasClass('open')).to.equal true
     expect(wrapper.find('Icon[type="times"]').length).to.equal(1)
     undefined
+
+  it 'matches snapshot', ->
+    component = SnapShot.create(
+      <Toggle {...@props} />
+    )
+    tree = component.toJSON()
+    expect(tree).toMatchSnapshot()

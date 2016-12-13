@@ -1,0 +1,16 @@
+exports[`CourseCalendar Sidebar Toggle matches snapshot 1`] = `
+<button
+  className="sidebar-toggle btn btn-default"
+  disabled={false}
+  onClick={[Function]}
+  onTransitionEnd={[Function]}
+  type="button">
+  <i
+    className="tutor-icon fa fa-bars"
+    type="bars" />
+  <span
+    className="text">
+    Add Assignment
+  </span>
+</button>
+`;
