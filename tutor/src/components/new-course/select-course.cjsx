@@ -31,11 +31,7 @@ SelectCourse = React.createClass
       TutorRouter.currentParams().sourceId
 
   getInitialState: ->
-    offerings =
-      sortBy(
-        OfferingsStore.filter(is_concept_coach: NewCourseStore.get('course_type') is 'cc'),
-      'title')
-
+    offerings = OfferingsStore.filter(is_concept_coach: NewCourseStore.get('course_type') is 'cc')
     {offerings}
 
   onSelect: (id) ->
