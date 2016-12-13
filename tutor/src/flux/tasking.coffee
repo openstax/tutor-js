@@ -410,7 +410,7 @@ TaskingConfig =
 
     _getTaskingFor: (taskId, tasking) ->
       storedTaskings = @exports._getTaskings.call(@, taskId)
-      tasking = if storedTaskings? then getFromForTasking(storedTaskings, tasking)
+      tasking = getFromForTasking(storedTaskings, tasking)
 
     isTaskingEnabled: (taskId, tasking) ->
       tasking = @exports._getTaskingFor.call(@, taskId, tasking)
@@ -451,6 +451,9 @@ TaskingConfig =
       tasking["#{type}_time"] is defaults["#{type}_time"]
 
     hasTasking: (taskId, tasking) ->
+      storedTaskings = @exports._getTaskings.call(@, taskId)
+      return false unless storedTaskings?
+
       tasking = @exports._getTaskingFor.call(@, taskId, tasking)
       tasking?
 
@@ -503,7 +506,7 @@ TaskingConfig =
 
     isTaskOpened: (taskId) ->
       firstTasking = _.first(@exports._getTaskingsSortedByOpenDate.call(@, taskId))
-      !!(firstTasking and isTaskingOpened(firstTasking))
+      (firstTasking and isTaskingOpened(firstTasking)) or false
 
     getFirstDueDate: (taskId) ->
       firstTasking = _.first(@exports._getTaskingsSortedByDueDate.call(@, taskId))
