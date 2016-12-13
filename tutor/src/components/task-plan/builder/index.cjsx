@@ -73,7 +73,7 @@ TaskPlanBuilder = React.createClass
     {id} = @props
 
     taskings = TaskingStore.getChanged(id)
-    TaskPlanActions.replaceTaskings(id, taskings)
+    TaskPlanActions.replaceTaskings(id, taskings) if taskings?
 
   setAllPeriods: ->
     {id} = @props
