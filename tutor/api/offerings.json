@@ -3,6 +3,8 @@
   "items": [
     {
       "id": "1",
+      "title": "Biology",
+      "description": "Biology with Courseware",
       "is_concept_coach": false,
       "is_tutor": true,
       "appearance_code": "college_biology",
@@ -27,6 +29,8 @@
     },
     {
       "id": "2",
+      "title": "College Physics",
+      "description": "College Physics with Courseware",
       "is_concept_coach": false,
       "is_tutor": true,
       "appearance_code": "college_physics",
@@ -51,6 +55,8 @@
     },
     {
       "id": "3",
+      "title": "Introduction to Sociology 2e",
+      "description": "Introduction to Sociology 2e with Courseware",
       "is_concept_coach": false,
       "is_tutor": true,
       "appearance_code": "intro_sociology",
@@ -75,6 +81,8 @@
     },
     {
       "id": "4",
+      "title": "Biology for AP® Courses",
+      "description": "Biology for AP® Courses",
       "is_concept_coach": false,
       "is_tutor": true,
       "appearance_code": "ap_biology",
@@ -99,6 +107,8 @@
     },
     {
       "id": "5",
+      "title": "HS Physics",
+      "description": "High School Physics",
       "is_concept_coach": true,
       "is_tutor": true,
       "appearance_code": "hs_physics",

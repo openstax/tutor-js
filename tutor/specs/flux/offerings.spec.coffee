@@ -18,5 +18,9 @@ describe 'Offerings Store', ->
     undefined
 
   it 'can get offering title', ->
-    expect(OfferingsStore.getTitle('1')).to.equal('College Biology')
+    expect(OfferingsStore.getTitle('1')).to.equal('Biology')
+    undefined
+
+  it 'can get offering description', ->
+    expect(OfferingsStore.getDescription('1')).to.equal('Biology with Courseware')
     undefined
