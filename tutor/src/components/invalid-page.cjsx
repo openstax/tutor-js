@@ -1,13 +1,18 @@
 React  = require 'react'
 {Link} = require 'react-router'
+BS = require 'react-bootstrap'
+TutorRouter = require '../helpers/router'
 
 InvalidPage = (props) ->
-  <div>
+  {message} = props
+  message ?= "#{props.location?.pathname} not found"
+
+  <BS.Grid>
     <h1>
-      Woops, this is an invalid page
-      {props.message or props.location?.pathname}
+      Whoops, we do not have this page.
     </h1>
-    <Link to='dashboard'>Home</Link>
-  </div>
+    <p>{message}</p>
+    <Link to={TutorRouter.makePathname('listing')}>Home</Link>
+  </BS.Grid>
 
 module.exports = InvalidPage
