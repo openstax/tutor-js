@@ -1,6 +1,9 @@
 React = require 'react'
 ReactDOM = require 'react-dom'
-_ = require 'underscore'
+
+union = require 'lodash/union'
+omit  = require 'lodash/omit'
+without = require 'lodash/without'
 
 ScrollListenerMixin = require '../../mixins/ScrollListener'
 
@@ -34,15 +37,19 @@ module.exports = React.createClass
 
   mixins: [ScrollListenerMixin, ResizeListenerMixin, GetPositionMixin]
 
+  desiredBodyClassList: ->
+    desired = ["#{@props.cardType}-view", 'pinned-view']
+    desired.push('pinned-force-shy') if @props.forceShy
+    desired
+
   componentWillMount: ->
-    @previousBodyClasses = document.body.className
-    cardBodyClass = @props.cardType
-    document.body.className = "#{cardBodyClass}-view"
-    document.body.classList.add('pinned-view')
-    document.body.classList.add('pinned-force-shy') if @props.forceShy
+    @setBodyClassList()
 
   componentWillUnmount: ->
-    document.body.className = @previousBodyClasses
+    document.body.className = without(document.body.classList, @desiredBodyClassList()).join(' ')
+
+  setBodyClassList: ->
+    document.body.className = union(document.body.classList, @desiredBodyClassList()).join(' ')
 
   getOffset: ->
     if @props.fixedOffset?
@@ -158,6 +165,7 @@ module.exports = React.createClass
 
   componentWillReceiveProps: ->
     @forceShy() if @props.forceShy
+    @setBodyClassList()
 
   render: ->
     {className} = @props
@@ -166,7 +174,7 @@ module.exports = React.createClass
     classes.push(className) if className?
     classes = classes.join(' ')
 
-    childrenProps = _.omit(@props, 'children', 'header', 'footer', 'className')
+    childrenProps = omit(@props, 'children', 'header', 'footer', 'className')
 
     if @state.pinned
       containerStyle =
