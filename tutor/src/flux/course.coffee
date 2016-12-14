@@ -3,6 +3,7 @@ extend  = require 'lodash/extend'
 find    = require 'lodash/find'
 values  = require 'lodash/values'
 pick    = require 'lodash/pick'
+isEmpty = require 'lodash/isEmpty'
 
 {TaskActions, TaskStore} = require './task'
 {CrudConfig, makeSimpleStore, extendConfig, STATES} = require './helpers'
@@ -42,7 +43,6 @@ CourseConfig =
           return['courseNameExists'] unless name is active
         if not name? or name is ''
           return ['required']
-
 
     # Returns the configured appearance code for a course
     getAppearanceCode: (courseId) ->

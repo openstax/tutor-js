@@ -102,7 +102,7 @@ Stats = React.createClass
       course = <NoStudents courseId={courseId} />
 
     if shouldOverflowData
-      dataComponent = <SmartOverflow className='reading-stats-data' heightBuffer={24}>
+      dataComponent = <SmartOverflow className='task-stats-data' heightBuffer={24}>
         <section>
           {course}
         </section>
@@ -110,7 +110,7 @@ Stats = React.createClass
         {practice}
       </SmartOverflow>
     else
-      dataComponent = <div className='reading-stats-data'>
+      dataComponent = <div className='task-stats-data'>
         <section>
           {course}
         </section>
@@ -118,7 +118,7 @@ Stats = React.createClass
         {practice}
       </div>
 
-    <BS.Panel className='reading-stats'>
+    <BS.Panel className='task-stats'>
       <CoursePeriodsNav
         handleSelect={@handlePeriodSelect}
         initialActive={initialActivePeriodIndex}
