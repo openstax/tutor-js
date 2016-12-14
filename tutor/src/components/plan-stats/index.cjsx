@@ -118,7 +118,7 @@ Stats = React.createClass
         {practice}
       </div>
 
-    <BS.Panel className='reading-stats'>
+    <BS.Panel className='task-stats'>
       <CoursePeriodsNav
         handleSelect={@handlePeriodSelect}
         initialActive={initialActivePeriodIndex}
