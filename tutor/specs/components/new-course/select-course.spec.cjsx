@@ -34,10 +34,12 @@ describe 'CreateCourse: Selecting course subject', ->
 
     undefined
 
-  it 'only skips if offering id is set', ->
+  it 'only skips if offering id is set and valid', ->
     Router.currentParams.mockReturnValue({sourceId: 1})
     expect(SelectCourse.shouldSkip()).to.be.false
-    NewCourseActions.set({offering_id: 22})
+    NewCourseActions.set({offering_id: 1234}) ## not a valid offering_id
+    expect(SelectCourse.shouldSkip()).to.be.false
+    NewCourseActions.set({offering_id: OFFERINGS.items[0].id})
     expect(SelectCourse.shouldSkip()).to.be.true
     undefined
 
