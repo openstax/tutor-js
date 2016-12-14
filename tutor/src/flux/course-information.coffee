@@ -1,3 +1,5 @@
+String = require '../helpers/string'
+
 SUBJECTS =
   PHYSICS:    'Physics'
   BIOLOGY:    'Biology'
@@ -50,4 +52,4 @@ module.exports =
     subject:    SUBJECTS.ANATOMY_PHYSIOLOGY
 
   forAppearanceCode: (code) ->
-    @[code] or { title: 'default', subject: '' }
+    @[code] or { title: String.titleize(code), subject: '' }
