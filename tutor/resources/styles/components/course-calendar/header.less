@@ -6,14 +6,13 @@
     margin-top: 20px;
     background-color: @tutor-neutral-lighter;
     .clearfix();
+    .flex-display();
+    .flex-flow(row wrap);
+
     > * { margin-bottom: 20px; }
 
     .btn-default {
       background-color: @tutor-neutral-lightest;
-    }
-    #add-assignment {
-      text-align: center;
-      padding: 9px;
     }
 
     .btn-default {
@@ -28,6 +27,22 @@
       color: white;
       .tutor-icon { margin-right: 2rem; }
       &.open { background-color: @tutor-neutral-lite; }
+      .flex-order(2);
+    }
+    .calendar-header-actions-buttons {
+      .flex-display();
+      .flex(auto);
+      .justify-content(flex-end);
+      .flex-order(1);
+    }
+
+    @media (min-width: @screen-md-min) {
+      .sidebar-toggle {
+        .flex-order(1);        
+      }
+      .calendar-header-actions-buttons {
+        .flex-order(2);
+      }
     }
 
     .no-periods-text {
@@ -38,9 +53,6 @@
       border-bottom: 1px solid @tutor-neutral-light;
       padding-top: 1rem;
       padding-bottom: 1rem;
-      &-buttons {
-        float: right;
-      }
     }
 
     &-navigation {
