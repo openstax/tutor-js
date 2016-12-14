@@ -26,7 +26,7 @@ SelectCourse = React.createClass
   statics:
     title: 'Which course are you teaching?'
     shouldSkip: ->
-      TutorRouter.currentParams().sourceId
+      !!( NewCourseStore.get('offering_id') and TutorRouter.currentParams().sourceId )
 
   getInitialState: ->
     offerings = OfferingsStore.filter(is_concept_coach: NewCourseStore.get('course_type') is 'cc')
