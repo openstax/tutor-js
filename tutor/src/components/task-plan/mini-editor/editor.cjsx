@@ -15,6 +15,8 @@ BindStoresMixin = require '../../bind-stores-mixin'
 {TutorInput, TutorTextArea} = require '../../tutor-input'
 {TaskingStore, TaskingActions} = require '../../../flux/tasking'
 {TeacherTaskPlanActions} = require '../../../flux/teacher-task-plan'
+{CourseStore, CourseActions} = require '../../../flux/course'
+
 TimeHelper = require '../../../helpers/time'
 
 taskPlanEditingInitialize = require '../initialize-editing'
@@ -64,6 +66,11 @@ TaskPlanMiniEditor = React.createClass
   initializePlan: (props) ->
     props ?= @props
     {id, courseId, termStart, termEnd} = props
+
+    # make sure timezone is synced before working with plan
+    courseTimezone = CourseStore.getTimezone(courseId)
+    TimeHelper.syncCourseTimezone(courseTimezone)
+
     taskPlanEditingInitialize(id, courseId, {start: termStart, end: termEnd})
 
   componentWillMount: ->

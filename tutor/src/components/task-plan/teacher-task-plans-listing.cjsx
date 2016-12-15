@@ -106,6 +106,12 @@ TeacherTaskPlanListing = React.createClass
     TeacherTaskPlanActions.clearPendingClone(courseId)
     TaskPlanStore.on('saved.*', @loadToListing)
 
+  componentDidMount: ->
+    # the unmount from the builder often get's called after
+    # the initial `componentWillMount`
+    courseTimezone = CourseStore.getTimezone(@props.params.courseId)
+    TimeHelper.syncCourseTimezone(courseTimezone)
+
   componentWillUnmount: ->
     TimeHelper.unsyncCourseTimezone()
 

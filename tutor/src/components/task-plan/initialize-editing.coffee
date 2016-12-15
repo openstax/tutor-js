@@ -69,8 +69,6 @@ loadCourseDefaults = (courseId) ->
 
 
 module.exports = (taskPlanId, courseId, term) ->
-  courseTimezone = CourseStore.getTimezone(courseId)
-  TimeHelper.syncCourseTimezone(courseTimezone)
   TaskingActions.loadTaskToCourse(taskPlanId, courseId)
   loadCourseDefaults(courseId)
 
