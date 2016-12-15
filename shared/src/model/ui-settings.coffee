@@ -10,7 +10,7 @@ PREVIOUS_SETTINGS = {}
 saveSettings = _.debounce( ->
   Networking.perform(
     method: 'PUT',
-    url: URLs.construct('tutor_api', 'user', 'ui_settings')
+    url: URLs.construct('tutor_api', 'users', 'ui_settings')
     withCredentials: true
     data:
       previous_ui_settings: PREVIOUS_SETTINGS
