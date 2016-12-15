@@ -49,7 +49,14 @@ getBackToCalendarParams = ->
 
 
 helper = (model) -> PlanRenderHelper(model, PlanFooter,
-  {getBackToCalendarParams, onCancel: sinon.spy(), onPublish: sinon.spy(), isValid: true}
+  {
+    getBackToCalendarParams,
+    onCancel: sinon.spy(),
+    onPublish: sinon.spy(),
+    goBackToCalendar: sinon.spy(),
+    isValid: true,
+    hasError: false
+  }
 )
 
 describe 'Task Plan Footer', ->
