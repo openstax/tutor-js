@@ -30,7 +30,7 @@ ERROR_HANDLERS =
   no_exercises: (error, message, context) ->
     hideDialog = ->
       {courseId} = context
-      context.router.transitionTo('viewStudentDashboard', {courseId})
+      context.router.transitionTo(router.makePathname('viewStudentDashboard', {courseId}))
       Dialog.hide()
     dialog:
       title: 'No exercises are available'

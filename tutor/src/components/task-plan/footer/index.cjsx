@@ -24,7 +24,7 @@ PlanFooter = React.createClass
 
   getDefaultProps: ->
     goBackToCalendar: =>
-      @context.router.transitionTo('taskplans', {courseId})
+      @context.router.transitionTo(Router.makePathname('taskplans', {courseId}))
     isVisibleToStudents: false
 
   getInitialState: ->
@@ -68,7 +68,7 @@ PlanFooter = React.createClass
 
   onViewStats: ->
     {id, courseId} = @props
-    @context.router.transitionTo('viewStats', {courseId, id})
+    @context.router.transitionTo(Router.makePathname('viewStats', {courseId, id}))
 
   render: ->
     {id, hasError} = @props

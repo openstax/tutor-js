@@ -75,7 +75,9 @@ module.exports = React.createClass
     </div>
 
   returnToDashboard: ->
-    @context.router.transitionTo('viewTeacherDashBoard', {courseId: @props.courseId})
+    @context.router.transitionTo(
+      Router.makePathname('viewTeacherDashBoard', {courseId: @props.courseId})
+    )
 
   renderEmptyMessage: ->
     <div className="no-data-message">

@@ -9,6 +9,7 @@ module.exports = {
 
   OXRouter:               require './src/helpers/router'
   OXLink:                 require './src/factories/link'
+  OXButtonLink:           require './src/factories/button-link'
   OXMatchByRouter:        require './src/helpers/match-by-router'
 
   APIHandler, APIHandlerBase,

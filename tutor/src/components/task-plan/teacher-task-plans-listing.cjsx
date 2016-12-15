@@ -23,51 +23,6 @@ getDisplayBounds =
       date.clone().endOf('month').endOf('week').add(1, 'day')
     )
 
-TeacherTaskPlans = React.createClass
-
-  contextTypes:
-    router: React.PropTypes.object
-
-  propTypes:
-    params: React.PropTypes.shape(
-      courseId: React.PropTypes.string.isRequired
-      date:     React.PropTypes.string
-    ).isRequired
-
-  onEditPlan: ->
-    courseId = @props.params.courseId
-    {plan} = @props
-    {id, type} = plan
-    if type is 'reading'
-      @context.router.transitionTo("/courses/#{courseId}/editReading")
-    else if type is 'homework'
-      @context.router.transitionTo('editHomework', {courseId, id})
-
-  onViewStats: ->
-    courseId = @props.params.courseId
-    {plan} = @props
-    {id} = @props.plan
-
-    @context.router.transitionTo('viewStats', {courseId, id})
-
-
-  render: ->
-    {plan} = @props
-    start  = moment(plan.opens_at)
-    ending = moment(plan.due_at)
-    duration = moment.duration( ending.diff(start) ).humanize()
-
-    <div className='-list-item'>
-      <BS.ListGroupItem header={plan.title} onClick={@onEditPlan}>
-        {start.fromNow()} ({duration})
-      </BS.ListGroupItem>
-      <BS.Button
-        bsStyle='link'
-        className='-tasks-list-stats-button'
-        onClick={@onViewStats}>View Stats</BS.Button>
-    </div>
-
-
 TeacherTaskPlanListing = React.createClass
 
   displayName: 'TeacherTaskPlanListing'

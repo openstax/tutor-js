@@ -19,7 +19,9 @@ module.exports = React.createClass
     courseId:  React.PropTypes.string.isRequired
 
   returnToDashboard: ->
-    @context.router.transitionTo('viewStudentDashboard', {courseId: @props.courseId})
+    @context.router.transitionTo(
+      Router.makePathname('viewStudentDashboard', {courseId: @props.courseId})
+    )
 
   renderHeading: ->
     <div className='guide-heading'>

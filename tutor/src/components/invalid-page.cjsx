@@ -2,6 +2,7 @@ React  = require 'react'
 {Link} = require 'react-router'
 BS = require 'react-bootstrap'
 TutorRouter = require '../helpers/router'
+TutorButtonLink = require './button-link'
 
 InvalidPage = (props) ->
   {message} = props
@@ -12,7 +13,7 @@ InvalidPage = (props) ->
       Whoops, we do not have this page.
     </h1>
     <p>{message}</p>
-    <Link to={TutorRouter.makePathname('listing')}>Home</Link>
+    <TutorButtonLink to='listing' bsStyle='primary'>Home</TutorButtonLink>
   </BS.Grid>
 
 module.exports = InvalidPage
