@@ -21,7 +21,6 @@ module.exports = React.createClass
     chapters:    React.PropTypes.arrayOf(ChapterSectionType)
     heading:     React.PropTypes.element
     canPractice:  React.PropTypes.bool
-    onReturn:    React.PropTypes.func.isRequired
     weakerTitle: React.PropTypes.string.isRequired
     weakerExplanation: React.PropTypes.element
     sampleSizeThreshold: React.PropTypes.number.isRequired
