@@ -1,16 +1,20 @@
 {React, SnapShot} = require '../helpers/component-testing'
 
+jest.mock('../../../src/helpers/router')
+Router = require '../../../src/helpers/router'
+
 SelectCourse = require '../../../src/components/new-course/select-course'
 OFFERINGS = require '../../../api/offerings'
 
 {OfferingsActions} = require '../../../src/flux/offerings'
-{NewCourseStore} = require '../../../src/flux/new-course'
+{NewCourseStore, NewCourseActions} = require '../../../src/flux/new-course'
 
 CourseInformation = require '../../../src/flux/course-information'
 
 describe 'CreateCourse: Selecting course subject', ->
 
   beforeEach ->
+    NewCourseActions.set({offering_id: null})
     OfferingsActions.loaded(OFFERINGS)
 
   it 'it sets offering_id when clicked', ->
@@ -28,6 +32,15 @@ describe 'CreateCourse: Selecting course subject', ->
       offeringItemSelector = "[data-book-title='#{CourseInformation.forAppearanceCode(OFFERINGS.items[index].appearance_code).title}']"
       expect(wrapper.find(offeringItemSelector)).to.have.length(1)
 
+    undefined
+
+  it 'only skips if offering id is set and valid', ->
+    Router.currentParams.mockReturnValue({sourceId: 1})
+    expect(SelectCourse.shouldSkip()).to.be.false
+    NewCourseActions.set({offering_id: 1234}) ## not a valid offering_id
+    expect(SelectCourse.shouldSkip()).to.be.false
+    NewCourseActions.set({offering_id: OFFERINGS.items[0].id})
+    expect(SelectCourse.shouldSkip()).to.be.true
     undefined
 
 
