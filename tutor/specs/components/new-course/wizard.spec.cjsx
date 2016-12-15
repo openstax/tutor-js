@@ -1,56 +1,52 @@
 {React, spyOnComponentMethod, pause} = require '../helpers/component-testing'
 extend = require 'lodash/extend'
-
+uniqueId = require 'lodash/uniqueId'
 Wizard = require '../../../src/components/new-course/wizard'
-SelectType = require '../../../src/components/new-course/select-type'
-SelectCourse = require '../../../src/components/new-course/select-course'
+OFFERINGS = require '../../../api/offerings'
+
+{OfferingsActions} = require '../../../src/flux/offerings'
 
 {CourseListingActions} = require '../../../src/flux/course-listing'
 
 SnapShot = require 'react-test-renderer'
 
 stubCourse = (courseData) ->
-  extend({}, {roles: [{type: 'teacher'}]}, courseData)
+  extend({id: uniqueId()}, {roles: [{type: 'teacher'}]}, courseData)
 
 
 describe 'Creating a course', ->
 
   beforeEach ->
     CourseListingActions.loaded([ stubCourse(is_concept_coach: true)])
+    OfferingsActions.loaded(OFFERINGS)
     @props =
       isLoading: false
 
-  it 'it skips course type if coach not previously taught', ->
+  it 'it skips course type if a single kind was previously taught', ->
     CourseListingActions.loaded([ stubCourse(is_concept_coach: false)])
-    wrapper = mount(<Wizard {...@props} />)
-    expect(wrapper.find(SelectType)).to.have.length(0)
-    expect(wrapper.find(SelectCourse)).to.have.length(1)
+    wrapper = shallow(<Wizard {...@props} />)
+    expect(wrapper.find('SelectType')).to.have.length(0)
+    expect(wrapper.find('SelectCourse')).to.have.length(1)
     undefined
 
-  it 'it starts by asking for the course type if coach is previously taught', ->
-
-    wrapper = mount(<Wizard {...@props} />)
-    expect(wrapper.find(SelectType)).to.have.length(1)
+  it 'displays select type if multiple kinds were previously taught', ->
+    CourseListingActions.loaded([
+      stubCourse(is_concept_coach: true),
+      stubCourse(is_concept_coach: false)
+    ])
+    wrapper = shallow(<Wizard {...@props} />)
+    expect(wrapper.find('SelectType')).to.have.length(1)
     undefined
 
-  it 'advances when continue is clicked', ->
+  it 'advances and can go back', ->
     spy = spyOnComponentMethod(Wizard, 'onContinue')
     wrapper = mount(<Wizard {...@props} />)
-    wrapper.find('[data-brand="tutor-beta"]').simulate('click')
-    pause().then ->
-      wrapper.find('.btn.next').simulate('click')
-      expect(spy.calledOnce).to.be.true
-      expect(wrapper.find(SelectCourse)).to.have.length(1)
-
-  it 'can go backwards', ->
-    wrapper = mount(<Wizard {...@props} />)
-    expect(wrapper.find('.btn.back')).to.have.length(0)
-    wrapper.find('[data-brand="tutor-beta"]').simulate('click')
-    wrapper.render()
+    wrapper.find('CourseChoiceItem').simulate('click')
     wrapper.find('.btn.next').simulate('click')
-    backBtn = wrapper.find('.btn.back')
-    expect(backBtn).to.have.length(1)
-    expect(backBtn.render().is('[disabled]')).to.be.false
+    expect(spy.calledOnce).to.be.true
+    expect(wrapper.find('SelectDates')).to.have.length(1)
+    wrapper.find('.btn.back').simulate('click')
+    expect(wrapper.find('SelectCourse')).to.have.length(1)
     undefined
 
   it 'matches snapshot', ->
@@ -59,3 +55,4 @@ describe 'Creating a course', ->
     )
     tree = component.toJSON()
     expect(tree).toMatchSnapshot()
+    undefined
