@@ -3,7 +3,6 @@ ReactDOM = require 'react-dom'
 
 union = require 'lodash/union'
 omit  = require 'lodash/omit'
-without = require 'lodash/without'
 
 ScrollListenerMixin = require '../../mixins/ScrollListener'
 
@@ -34,6 +33,7 @@ module.exports = React.createClass
     shouldBeShy: false
     headerHeight: 0
     containerMarginTop: '0px'
+    originalClassName: document.body.className
 
   mixins: [ScrollListenerMixin, ResizeListenerMixin, GetPositionMixin]
 
@@ -46,7 +46,7 @@ module.exports = React.createClass
     @setBodyClassList()
 
   componentWillUnmount: ->
-    document.body.className = without(document.body.classList, @desiredBodyClassList()).join(' ')
+    document.body.className = @state.originalClassName
 
   setBodyClassList: ->
     document.body.className = union(document.body.classList, @desiredBodyClassList()).join(' ')
