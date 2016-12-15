@@ -61,12 +61,16 @@ TaskPlanBuilder = React.createClass
   componentWillMount: ->
     {id, courseId} = @props
     {term} = @state
+
+    # better to have `syncCourseTimezone` out here to make the symmetry
+    # of the unsync in the unmount obvious.
+    courseTimezone = CourseStore.getTimezone(courseId)
+    TimeHelper.syncCourseTimezone(courseTimezone)
+
     nextState = taskPlanEditingInitialize(id, courseId, term)
     @setState(nextState)
 
   componentWillUnmount: ->
-    {id, courseId} = @props
-
     TimeHelper.unsyncCourseTimezone()
 
   changeTaskPlan: ->

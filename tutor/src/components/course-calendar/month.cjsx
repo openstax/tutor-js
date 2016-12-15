@@ -224,8 +224,6 @@ CourseMonth = React.createClass
     )
 
   onDragHover: (day) ->
-    # console.info(TimeHelper.toDateTimeISO(TimeHelper.getZonedMoment(day)))
-    # console.info(TimeHelper.toDateTimeISO(TimeHelper.getMomentPreserveDate(day)))
     @setState(hoveredDay: TimeHelper.getMomentPreserveDate(day))
   onSidebarToggle: (isOpen) ->
     @setState(showingSideBar: isOpen)
