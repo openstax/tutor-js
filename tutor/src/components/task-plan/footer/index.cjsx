@@ -14,17 +14,13 @@ DeleteLink   = require './delete-link'
 
 PlanFooter = React.createClass
   displayName: 'PlanFooter'
-  contextTypes:
-    router: React.PropTypes.object
   propTypes:
     id:               React.PropTypes.string.isRequired
     courseId:         React.PropTypes.string.isRequired
     hasError:         React.PropTypes.bool.isRequired
-    goBackToCalendar: React.PropTypes.func
+    goBackToCalendar: React.PropTypes.func.isRequired
 
   getDefaultProps: ->
-    goBackToCalendar: =>
-      @context.router.transitionTo('taskplans', {courseId})
     isVisibleToStudents: false
 
   getInitialState: ->
@@ -65,10 +61,6 @@ PlanFooter = React.createClass
   onPublish: ->
     publishing = @props.onPublish()
     @setState({publishing: publishing, saving: false, isEditable: TaskPlanStore.isEditable(@props.id)})
-
-  onViewStats: ->
-    {id, courseId} = @props
-    @context.router.transitionTo('viewStats', {courseId, id})
 
   render: ->
     {id, hasError} = @props

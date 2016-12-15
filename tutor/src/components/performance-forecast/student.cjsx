@@ -12,14 +12,8 @@ InfoLink    = require './info-link'
 
 module.exports = React.createClass
   displayName: 'PerformanceForecastStudentDisplay'
-  contextTypes:
-    router: React.PropTypes.object
-
   propTypes:
     courseId:  React.PropTypes.string.isRequired
-
-  returnToDashboard: ->
-    @context.router.transitionTo('viewStudentDashboard', {courseId: @props.courseId})
 
   renderHeading: ->
     <div className='guide-heading'>
@@ -65,7 +59,6 @@ module.exports = React.createClass
         heading={@renderHeading()}
         sampleSizeThreshold={3}
         emptyMessage={@renderEmptyMessage()}
-        onReturn={@returnToDashboard}
         allSections={PerformanceForecast.Student.store.getAllSections(courseId)}
         chapters={PerformanceForecast.Student.store.get(courseId).children}
       />

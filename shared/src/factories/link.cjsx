@@ -16,6 +16,10 @@ filterProps = (props, options = {}) ->
 make = (router, name = 'OpenStax') ->
   React.createClass
     displayName: "#{name}Link"
+    propTypes:
+      to:     React.PropTypes.string.isRequired
+      params: React.PropTypes.object
+      query:  React.PropTypes.object
     render: ->
       {to, params, query} = @props
 

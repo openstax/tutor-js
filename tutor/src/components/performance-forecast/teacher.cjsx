@@ -15,9 +15,6 @@ InfoLink    = require './info-link'
 
 module.exports = React.createClass
   displayName: 'PerformanceForecastTeacherDisplay'
-  contextTypes:
-    router: React.PropTypes.object
-
   propTypes:
     courseId:  React.PropTypes.string.isRequired
 
@@ -59,9 +56,6 @@ module.exports = React.createClass
       this <CourseGroupingLabel courseId={@props.courseId} lowercase />.
     </div>
 
-  returnToDashboard: ->
-    @context.router.transitionTo('viewTeacherDashBoard', {courseId: @props.courseId})
-
   renderWeakerExplanation: ->
     <div className='explanation'>
       <p>
@@ -81,7 +75,6 @@ module.exports = React.createClass
         weakerExplanation={@renderWeakerExplanation()}
         weakerEmptyMessage="Your students haven't worked enough problems for Tutor to predict their weakest topics."
         emptyMessage={@renderEmptyMessage()}
-        onReturn={@returnToDashboard}
         sampleSizeThreshold={20}
         allSections={PerformanceForecast.Teacher.store.getSectionsForPeriod(courseId, @state.periodId)}
         chapters={PerformanceForecast.Teacher.store.getChaptersForPeriod(courseId, @state.periodId)}

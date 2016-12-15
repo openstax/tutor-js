@@ -213,7 +213,9 @@ Task = React.createClass
 
   closeMilestones: ->
     params = Router.currentParams()
-    @context.router.transitionTo('viewTaskStep', params)
+    @context.router.transitionTo(
+      Router.makePathname('viewTaskStep', params)
+    )
 
   filterClickForMilestones: (focusEvent) ->
     stepPanel = ReactDOM.findDOMNode(@refs.stepPanel)
