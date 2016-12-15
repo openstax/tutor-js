@@ -108,7 +108,8 @@ TeacherTaskPlanListing = React.createClass
 
   componentDidMount: ->
     # the unmount from the builder often get's called after
-    # the initial `componentWillMount`
+    # the initial `componentWillMount` so this is needed to make sure
+    # the time gets synced
     courseTimezone = CourseStore.getTimezone(@props.params.courseId)
     TimeHelper.syncCourseTimezone(courseTimezone)
 
