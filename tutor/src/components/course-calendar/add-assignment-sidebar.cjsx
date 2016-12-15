@@ -93,7 +93,7 @@ AddAssignmentSidebar = React.createClass
         >
           {@renderAddActions()}
         </ul>
-        <IntroPopover onClose={@onPopoverClose} show={@state.showPopover} />
+        <IntroPopover onClose={@onPopoverClose} show={@state.showPopover and @props.isOpen} />
       </div>
       <PastAssignments
         className='sidebar-section'
