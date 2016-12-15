@@ -33,7 +33,6 @@ PlanClonePlaceholder = React.createClass
       due_at: TimeHelper.toISO(@props.due_at)
     })
     TeacherTaskPlanActions.addClonedPlan(@props.courseId, taskPlanId)
-    TaskingActions.loadTaskToCourse(taskPlanId, @props.courseId)
     @props.onLoad(taskPlanId)
 
   render: ->
