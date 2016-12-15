@@ -1,0 +1,41 @@
+exports[`Error monitoring: server-error message matches snapshot 1`] = `
+<div
+  className="server-error">
+  <h3>
+    An error with code 
+    404
+     has occured
+  </h3>
+  <p>
+    Please visit 
+    <a
+      href="http://openstax.force.com/support?l=en_US&c=Products%3ATutor&cu=1&fs=ContactUs&q=Hello!%0AI%20ran%20into%20a%20problem%20on%0ANode.js%20(darwin%3B%20U%3B%20rv%3Av7.2.1)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20at%20about%3Ablank.%0A%0AHere%20is%20some%20additional%20info%3A%0A404%20with%20Not%20Found%20for%20none%20on%20non-url%20with%0Acode%3A%20Red."
+      target="_blank">
+      our support page
+    </a>
+     to file a bug report.
+  </p>
+  <p>
+    Additional error messages returned from the server is:
+  </p>
+  <pre
+    className="response">
+    Not Found
+  </pre>
+  <div
+    className="request">
+    <kbd>
+      none
+    </kbd>
+     on 
+    non-url
+     
+    <span>
+      with 
+      <pre>
+        code: Red
+      </pre>
+    </span>
+  </div>
+</div>
+`;

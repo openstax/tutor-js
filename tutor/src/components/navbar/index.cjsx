@@ -5,7 +5,7 @@ _ = require 'underscore'
 Router = require '../../helpers/router'
 
 CourseName = require './course-name'
-ServerErrorMonitoring = require './server-error-monitoring'
+ServerErrorMonitoring = require '../error-monitoring'
 UserActionsMenu = require './user-actions-menu'
 BookLinks = require './book-links'
 CenterControls = require './center-controls'

@@ -1,5 +1,5 @@
 React = require 'react'
-{CurrentUserStore} = require '../flux/current-user'
+{CurrentUserStore} = require '../../flux/current-user'
 
 SUPPORT_LINK_PARAMS = '&cu=1&fs=ContactUs&q='
 
