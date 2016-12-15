@@ -22,12 +22,19 @@ filterProps = (props, options = {}) ->
 make = (router, name = 'OpenStax') ->
   React.createClass
     displayName: "#{name}ButtonLink"
+    propTypes:
+      to:     React.PropTypes.string.isRequired
+      params: React.PropTypes.object
+      query:  React.PropTypes.object
 
     getInitialState: ->
       fullPathname: @makeFullPathname()
 
     componentWillReceiveProps: (nextProps) ->
       @setState(fullPathname: @makeFullPathname(nextProps))
+
+    contextTypes:
+      router: React.PropTypes.object
 
     makeFullPathname: (props) ->
       props ?= @props
@@ -36,7 +43,7 @@ make = (router, name = 'OpenStax') ->
 
     goToPathname: (clickEvent) ->
       clickEvent.preventDefault()
-      router.transitionTo(@state.fullPathname)
+      @context.router.transitionTo(@state.fullPathname)
 
     render: ->
       {fullPathname} = @state
