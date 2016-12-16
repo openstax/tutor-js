@@ -52,7 +52,7 @@ module.exports = React.createClass
     'pinned-shy': state.shy
 
   getBodyClasses: ->
-    difference(document.body.classList, keys(@_getClasses()))
+    difference(document.body.classList or document.body.className.split(' '), keys(@_getClasses()))
 
   getClasses: (props, state) ->
     compact(map(@_getClasses(props, state), (value, key) ->
