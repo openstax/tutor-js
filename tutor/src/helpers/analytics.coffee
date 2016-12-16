@@ -42,7 +42,7 @@ Translators =
 
   # Task steps are viewed by both teacher and student with no difference in params
   viewTaskStep:         ({courseId}) ->
-    role = CurrentUserStore.getCourseRole(courseId, true)
+    role = CurrentUserStore.getCourseRole(courseId, true).type
     "/#{role}/task-step/#{courseId}"
 
 

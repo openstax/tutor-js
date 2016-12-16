@@ -36,12 +36,26 @@ describe 'Notifications', ->
     expect(changeListener).to.have.been.called
 
     active = Notifications.getActive()
-    expect(active).to.have.length(1)
+    expect(active).to.exist
     # should have copied the object vs mutating it
-    expect(active[0]).not.to.not.equal(notice)
-    expect(active[0].type).to.exist
+    expect(active).not.to.not.equal(notice)
+    expect(active.type).to.exist
 
-    Notifications.acknowledge(active[0])
+    Notifications.acknowledge(active)
     expect(changeListener).to.have.callCount(2)
-    expect(Notifications.getActive()).to.be.empty
+    expect(Notifications.getActive()).to.be.null
+    undefined
+
+  it 'adds notices automatically when course role is set', ->
+    changeListener = sinon.stub()
+    notice = {message: 'hello world', icon: 'globe'}
+    Notifications.on('change', changeListener)
+    course = {id: '1', students: [{role_id: '111'}]}
+    role = {id: '111', type: 'student', joined_at: '2016-01-30T01:15:43.807Z'}
+    Notifications.setCourseRole(course, role)
+    expect(changeListener).to.have.been.called
+    active = Notifications.getActive()
+    expect(active.type).to.equal('missing_student_id')
+    expect(active.course).to.deep.equal(course)
+    expect(active.role).to.deep.equal(role)
     undefined

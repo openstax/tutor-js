@@ -35,6 +35,9 @@ Navigation = React.createClass
   handleSelect: (selectedKey) ->
     channel.emit("show.#{selectedKey}", view: selectedKey) if selectedKey?
 
+  onAddStudentId: ->
+    channel.emit('show.student_id', view: 'student_id')
+
   render: ->
     {course} = @props
     {view} = @context
@@ -67,7 +70,12 @@ Navigation = React.createClass
           <UserMenu course={@props.course} />
         </BS.Nav>
       </BS.Navbar.Collapse>
-      <NotificationsBar />
+      <NotificationsBar
+        className="row"
+        role={course?.getRole()}
+        course={course}
+        callbacks={missing_student_id: {onAdd: @onAddStudentId}}
+      />
     </BS.Navbar>
 
 module.exports = {Navigation, channel}

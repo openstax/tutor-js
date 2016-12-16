@@ -6,20 +6,17 @@ Notifications = require 'model/notifications'
 describe 'System Notifications', ->
 
   beforeEach ->
-    sinon.stub(Notifications, 'acknowledge')
     @props =
+      onDismiss: sinon.spy()
       notice:
         id: '1'
         message: 'a test notice'
         type: 'tutor'
 
-  afterEach ->
-    Notifications.acknowledge.restore()
-
   it 'remembers notice as ignored when dismiss is clicked', ->
     Testing.renderComponent( SystemNotifications, props: @props ).then ({dom}) =>
       Testing.actions.click(dom.querySelector('.dismiss'))
-      expect(Notifications.acknowledge).to.have.been.calledWith(@props.notice)
+      expect(@props.onDismiss).to.have.been.called
 
   it 'displays icon based on level', ->
     @props.notice.level = 'alert'

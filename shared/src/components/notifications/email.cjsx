@@ -8,7 +8,9 @@ URLs = require '../../model/urls'
 Notifications = require '../../model/notifications'
 
 EmailNotification = React.createClass
+
   propTypes:
+    onDismiss: React.PropTypes.func.isRequired
     notice: React.PropTypes.shape(
       id: React.PropTypes.number.isRequired
       value: React.PropTypes.string.isRequired
@@ -81,15 +83,9 @@ EmailNotification = React.createClass
       <span className="message">Verification was successful!</span>
     </span>
 
-  onDismiss: ->
-    Notifications.acknowledge(@props.notice)
-    undefined # silence react warning about return value
-
   onSuccess: ->
     # wait a bit so the "Success" message is seen, then hide
-    _.delay =>
-      Notifications.acknowledge(@props.notice)
-    , 1500
+    _.delay @props.onDismiss, 1500
 
   render: ->
 
@@ -118,7 +114,9 @@ EmailNotification = React.createClass
     <div className={classNames}>
       {error}
       {body}
-      <a className='dismiss' onClick={@onDismiss}>Dismiss</a>
+      <a className='dismiss' onClick={@props.onDismiss}>
+        <i className="icon fa fa-close" />
+      </a>
     </div>
 
 

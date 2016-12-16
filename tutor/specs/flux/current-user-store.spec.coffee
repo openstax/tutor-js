@@ -1,16 +1,16 @@
 {expect} = require 'chai'
 _ = require 'underscore'
 
-{CourseListingActions, CourseListingStore} = require '../src/flux/course-listing'
-{CurrentUserActions, CurrentUserStore} = require '../src/flux/current-user'
+{CourseListingActions, CourseListingStore} = require '../../src/flux/course-listing'
+{CurrentUserActions, CurrentUserStore} = require '../../src/flux/current-user'
 
-USER_MODEL = require '../api/user.json'
+USER_MODEL = require '../../api/user.json'
 {
   STUDENT_COURSE_ONE_MODEL
   TEACHER_COURSE_TWO_MODEL
   TEACHER_AND_STUDENT_COURSE_THREE_MODEL
   MASTER_COURSES_LIST
-} = require './courses-test-data'
+} = require '../courses-test-data'
 
 STUDENT_MENU = [
   {
@@ -97,9 +97,9 @@ describe 'Current User Store', ->
     undefined
 
   it 'should return expected roles for courses', ->
-    expect(CurrentUserStore.getCourseRole(1)).to.equal('student')
-    expect(CurrentUserStore.getCourseRole(2)).to.equal('teacher')
-    expect(CurrentUserStore.getCourseRole(3)).to.equal('teacher')
+    expect(CurrentUserStore.getCourseRole(1).type).to.equal('student')
+    expect(CurrentUserStore.getCourseRole(2).type).to.equal('teacher')
+    expect(CurrentUserStore.getCourseRole(3).type).to.equal('teacher')
     undefined
 
   it 'should return expected dashboard routes for courses', ->

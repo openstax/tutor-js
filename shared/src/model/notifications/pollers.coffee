@@ -34,8 +34,8 @@ class Poller
   onError: (resp) ->
     console.warn resp
 
-  getActiveNotifications: ->
-    _.values @_activeNotices
+  getActiveNotification: ->
+    _.first _.values @_activeNotices
 
   acknowledge: (notice) ->
     @_setObservedNoticeIds(

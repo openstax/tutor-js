@@ -7,12 +7,15 @@ LoadableItem = require '../loadable-item'
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {CourseStore} = require '../../flux/course'
+{CurrentUserStore} = require '../../flux/current-user'
 {TimeStore} = require '../../flux/time'
 TimeHelper = require '../../helpers/time'
 CourseDataHelper = require '../../helpers/course-data'
 PH = require '../../helpers/period'
 CourseTitleBanner = require '../course-title-banner'
 CourseCalendar = require '../course-calendar'
+{NotificationsBar} = require 'shared'
+NotificationHelpers = require '../../helpers/notifications'
 
 getDisplayBounds =
   month: (date) ->
@@ -105,6 +108,10 @@ TeacherTaskPlanListing = React.createClass
 
     TeacherTaskPlanActions.load(courseId, startAt, endAt)
 
+  # router context is needed for Navbar helpers
+  contextTypes:
+    router: React.PropTypes.object
+
   render: ->
     {params} = @props
 
@@ -126,9 +133,12 @@ TeacherTaskPlanListing = React.createClass
       loadedCalendarProps
 
     <div className="list-task-plans">
-
+      <NotificationsBar
+        course={course}
+        role={CurrentUserStore.getCourseRole(courseId)}
+        callbacks={NotificationHelpers.buildCallbackHandlers(@)}
+      />
       <CourseTitleBanner courseId={courseId} />
-
       <LoadableItem
         store={TeacherTaskPlanStore}
         actions={TeacherTaskPlanActions}

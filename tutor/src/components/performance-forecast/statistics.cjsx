@@ -39,7 +39,7 @@ Statistics = React.createClass
       role = 'teacher-student'
     else
     # else use the course role of teacher or student
-      role = CurrentUserStore.getCourseRole(@props.courseId, true)
+      role = CurrentUserStore.getCourseRole(@props.courseId, true).type
 
     <div className='statistics'>
       <SpyMode.Content className="clue">

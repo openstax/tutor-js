@@ -26,16 +26,16 @@ describe 'Notification Pollers', ->
   it 'remembers notices when they are dismissed', ->
     @poller.onReply(data: TEST_NOTICES)
     expect(@notices.emit).to.have.been.calledWith('change')
-    active = @poller.getActiveNotifications()
-    expect( _.pluck(active, 'id') ).to.deep.equal( _.pluck(TEST_NOTICES, 'id') )
+    active = @poller.getActiveNotification()
+    expect( active.id ).to.deep.equal(TEST_NOTICES[0].id)
     expect(@notices.windowImpl.localStorage.setItem).not.to.have.been.called
     undefined
 
   it 'does not list items that are ignored', ->
     @notices.windowImpl.localStorage.getItem.returns('["2"]')
     @poller.onReply(data: TEST_NOTICES)
-    active = @poller.getActiveNotifications()
-    expect( _.pluck(active, 'id') ).to.deep.equal( [TEST_NOTICES[0].id] )
+    active = @poller.getActiveNotification()
+    expect( active.id ).to.deep.equal(TEST_NOTICES[0].id)
     undefined
 
   it 'removes outdated ids from localstorage', ->

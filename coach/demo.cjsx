@@ -13,7 +13,7 @@ SETTINGS =
     CNX_URL: ''
   LOCAL:
     API_BASE_URL: 'http://localhost:3001'
-    COLLECTION_UUID: 'f10533ca-f803-490d-b935-88899941197f'
+    COLLECTION_UUID: "3402dc53-113d-45f3-954e-8d2ad1e73659"
     MODULE_UUID: '7636a3bf-eb80-4898-8b2c-e81c1711b99f'
     CNX_URL: 'http://localhost:8000'
   SERVER:

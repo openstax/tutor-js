@@ -11,8 +11,6 @@ BookLinks = require './book-links'
 CenterControls = require './center-controls'
 TutorLink = require '../link'
 
-{NotificationsBar} = require 'shared'
-
 {CurrentUserActions} = require '../../flux/current-user'
 {CourseStore} = require '../../flux/course'
 {CourseListingStore} = require '../../flux/course-listing'
@@ -79,5 +77,4 @@ module.exports = React.createClass
         </BS.Nav>
       </BS.Navbar.Collapse>
       <ServerErrorMonitoring />
-      <NotificationsBar />
     </BS.Navbar>

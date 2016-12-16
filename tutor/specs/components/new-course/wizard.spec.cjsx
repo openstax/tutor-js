@@ -49,7 +49,6 @@ describe 'Creating a course', ->
     expect(wrapper.find('SelectCourse')).to.have.length(1)
     undefined
 
-
   it 'matches snapshot', ->
     component = SnapShot.create(
       <Wizard {...@props} />

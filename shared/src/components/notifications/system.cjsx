@@ -1,18 +1,16 @@
 React = require 'react'
 classnames = require 'classnames'
 
-Notifications = require '../../model/notifications'
-
 SystemNotification = React.createClass
+
+  displayName: 'SystemNotification'
+
   propTypes:
+    onDismiss: React.PropTypes.func.isRequired
     notice: React.PropTypes.shape(
       id: React.PropTypes.string.isRequired
       message: React.PropTypes.string.isRequired
     ).isRequired
-
-  acknowledge: ->
-    Notifications.acknowledge(@props.notice)
-    undefined # silence React warning about return value
 
   getIcon: ->
     return @props.notice.icon if @props.notice.icon
@@ -29,7 +27,9 @@ SystemNotification = React.createClass
         <i className={"icon fa fa-#{@getIcon()}"} />
         {@props.notice.message}
       </span>
-      <a className='dismiss' onClick={@acknowledge}>Dismiss</a>
+      <a className='dismiss' onClick={@props.onDismiss}>
+        <i className="icon fa fa-close" />
+      </a>
     </div>
 
 module.exports = SystemNotification
