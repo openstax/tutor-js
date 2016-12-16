@@ -25,7 +25,7 @@ PublishButton = require '../footer/save-button'
 DraftButton   = require '../footer/save-as-draft'
 
 PlanMixin       = require '../plan-mixin'
-ServerErrorMessage = require '../../server-error-message'
+ServerErrorMessage = require '../../error-monitoring/server-error-message'
 
 TaskPlanMiniEditor = React.createClass
 
