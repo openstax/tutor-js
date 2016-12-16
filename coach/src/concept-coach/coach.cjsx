@@ -4,6 +4,7 @@ _ = require 'underscore'
 {ConceptCoach, channel} = require './base'
 {CCModal} = require './modal'
 {Launcher} = require './launcher'
+LoginGateway = require '../user/login-gateway'
 
 Coach = React.createClass
   displayName: 'Coach'
@@ -14,38 +15,47 @@ Coach = React.createClass
     open: React.PropTypes.bool
     displayLauncher: React.PropTypes.bool
     filterClick: React.PropTypes.func
+    windowImpl: LoginGateway.FakeWindowPropTypes
+
+  getDefaultProps: ->
+    window: window
 
   getInitialState: ->
     {}
 
-  onLogin: ->
-    channel.emit('launcher.clicked.login')
-    @setState(openAs: 'login')
-    undefined # stop react from complaining about returning false from a handler
+  onLogin: ->  @launch('login')
+  onEnroll: -> @launch('signup')
 
-  onEnroll: ->
-    channel.emit('launcher.clicked.enroll')
-    @setState(openAs: 'enroll')
-    undefined # stop react from complaining about returning false from a handler
+  launch: (type) ->
+    channel.emit("launcher.clicked.#{type}")
+    @setState(openingAs: type, loginWindow: LoginGateway.openWindow(@props.windowImpl, {type}))
 
-  render: ->
-    {open, displayLauncher, filterClick} = @props
+  Modal: ->
+    return null unless @props.open
     coachProps = _.omit(@props, 'open')
-    coachProps.openAs = @state.openAs
+    <CCModal
+      filterClick={@props.filterClick}
+    >
+      <ConceptCoach
+        opensAt={@state.opensAs}
+        loginWindow={@state.loginWindow}
+        {...coachProps}
+      />
+    </CCModal>
 
-    modal = <CCModal filterClick={filterClick}>
-      <ConceptCoach {...coachProps} />
-    </CCModal> if open
-
-    launcher = <Launcher
+  Launcher: ->
+    return null unless @props.displayLauncher
+    <Launcher
       isLaunching={open}
       onLogin={@onLogin}
       onEnroll={@onEnroll}
-    /> if displayLauncher
+    />
 
+  render: ->
+    console.log @props
     <div className='concept-coach-wrapper'>
-      {launcher}
-      {modal}
+      <@Launcher />
+      <@Modal />
     </div>
 
 module.exports = {Coach, channel}

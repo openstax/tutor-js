@@ -6,12 +6,37 @@ classnames = require 'classnames'
 
 SECOND = 1000
 
+FakeWindowPropTypes = React.PropTypes.shape(
+  open: React.PropTypes.func.isRequired
+  screen: React.PropTypes.shape(
+    height: React.PropTypes.number.isRequired
+    width:  React.PropTypes.number.isRequired
+    opera:  React.PropTypes.any
+  ).isRequired
+)
+
 LoginGateway = React.createClass
 
+  statics:
+    FakeWindowPropTypes: FakeWindowPropTypes
+    openWindow: (windowImpl, options) ->
+
+      width  = Math.min(1000, windowImpl.screen.width - 20)
+      height = Math.min(800, windowImpl.screen.height - 30)
+      options = ["toolbar=no", "location=" + (if windowImpl.opera then "no" else "yes"),
+        "directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no",
+        "width=" + width, "height=" + height,
+        "top="   + (windowImpl.screen.height - height) / 2,
+        "left="  + (windowImpl.screen.width - width)   / 2].join()
+
+      url = @urlForLogin()
+      url += '?go=signup' if options.type is 'signup'
+      windowImpl.open(url, 'oxlogin', options)
+
+
   propTypes:
-    window: React.PropTypes.shape(
-      open: React.PropTypes.func
-    )
+    isLoggingIn: React.PropTypes.bool.isRequired
+    window: FakeWindowPropTypes
     onToggle: React.PropTypes.func
 
   getDefaultProps: ->
@@ -23,14 +48,6 @@ LoginGateway = React.createClass
   openLogin: (ev) ->
     ev.preventDefault()
 
-    width  = Math.min(1000, window.screen.width - 20)
-    height = Math.min(800, window.screen.height - 30)
-    options = ["toolbar=no", "location=" + (if @props.window.opera then "no" else "yes"),
-      "directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no",
-      "width=" + width, "height=" + height,
-      "top="   + (window.screen.height - height) / 2,
-      "left="  + (window.screen.width - width)   / 2].join()
-    loginWindow = @props.window.open(@urlForLogin(), 'oxlogin', options)
     @setState({loginWindow})
     @props.onToggle?(loginWindow)
     _.delay(@windowClosedCheck, SECOND)
@@ -67,6 +84,8 @@ LoginGateway = React.createClass
     </span>
 
   render: ->
+    return null unless props.loginWindow
+
     classes = classnames('login-gateway', @props.className,
       'is-open': @state.loginWindow
       'is-closed': not @state.loginWindow
