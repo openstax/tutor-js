@@ -1,8 +1,13 @@
 React = require 'react'
 ReactDOM = require 'react-dom'
+classnames = require 'classnames'
 
 union = require 'lodash/union'
 omit  = require 'lodash/omit'
+difference = require 'lodash/difference'
+map = require 'lodash/map'
+compact = require 'lodash/compact'
+keys = require 'lodash/keys'
 
 ScrollListenerMixin = require '../../mixins/ScrollListener'
 
@@ -33,35 +38,47 @@ module.exports = React.createClass
     shouldBeShy: false
     headerHeight: 0
     containerMarginTop: '0px'
-    originalClassName: document.body.className
 
   mixins: [ScrollListenerMixin, ResizeListenerMixin, GetPositionMixin]
 
-  desiredBodyClassList: ->
-    desired = ["#{@props.cardType}-view", 'pinned-view']
-    desired.push('pinned-force-shy') if @props.forceShy
-    desired
+  _getClasses: (props, state) ->
+    props ?= @props
+    state ?= @state
+
+    "#{props.cardType}-view": true
+    'pinned-view': true
+    'pinned-force-shy': props.forceShy
+    'pinned-on':  state.pinned
+    'pinned-shy': state.shy
+
+  getBodyClasses: ->
+    difference(document.body.classList or document.body.className.split(' '), keys(@_getClasses()))
+
+  getClasses: (props, state) ->
+    compact(map(@_getClasses(props, state), (value, key) ->
+      key if value
+    ))
+
+  setBodyClasses: (props, state) ->
+    document.body.className = classnames(union(@getBodyClasses(), @getClasses(props, state)))
+
+  unsetBodyClasses: (props, state) ->
+    document.body.className = classnames(difference(@getBodyClasses(), @getClasses(props, state)))
 
   componentWillMount: ->
-    @setBodyClassList()
+    @setBodyClasses()
 
   componentWillUnmount: ->
-    document.body.className = @state.originalClassName
-
-  setBodyClassList: ->
-    document.body.className = union(document.body.classList, @desiredBodyClassList()).join(' ')
+    @unsetBodyClasses()
 
   getOffset: ->
     if @props.fixedOffset?
-      offset = @props.fixedOffset
+      @props.fixedOffset
     else if @refs.header?
-      offset = @getTopPosition(ReactDOM.findDOMNode(@refs.header))
-
-    offset
+      @getTopPosition(ReactDOM.findDOMNode(@refs.header))
 
   setOffset: ->
-    offset = @getOffset()
-    @setState(offset: offset)
+    @setState(offset: @getOffset())
 
   shouldPinHeader: (prevScrollTop, currentScrollTop) ->
     currentScrollTop >= @state.offset - @props.buffer
@@ -78,50 +95,38 @@ module.exports = React.createClass
   shouldBeShy: (prevScrollTop, currentScrollTop) ->
     # should not pin regardless of scroll direction if the scroll top is above buffer
     unless @isScrollPassBuffer(prevScrollTop, currentScrollTop)
-      shouldBeShy = false
+      false
 
     # otherwise, when scroll top is below buffer
     # and on down scroll
     else if @isScrollingDown(prevScrollTop, currentScrollTop)
       # header should pin
-      shouldBeShy = true
+      true
 
     # or when up scrolling is slow
     else if @isScrollingSlowed(prevScrollTop, currentScrollTop)
       # leave the pinning as is
-      shouldBeShy = @state.shy
+      @state.shy
 
     # else, the only case left is if up scrolling is fast
     else
       # unpin on fast up scroll
-      shouldBeShy = false
-
-    shouldBeShy
+      false
 
   unPin: ->
     @setState(pinned: false)
 
   updatePinState: (prevScrollTop) ->
-    addOrRemove = [
-      'remove' # remove class if shouldPinHeader is false
-      'add' # add class if shouldPinHeader is true
-    ]
-    # set the pinned state
-    @setState(
+    nextState = 
       # allow shouldBeShy override if needed
       shy: @state.shouldBeShy or @shouldBeShy(prevScrollTop, @state.scrollTop)
       pinned: @shouldPinHeader(prevScrollTop, @state.scrollTop)
       # reset shouldBeShy
       shouldBeShy: false
-    )
-    shouldPinHeader = @state.pinned * 1
-    shouldBeShy = @state.shy * 1
 
-    pinnedClassAction = addOrRemove[shouldPinHeader]
-    document.body.classList[pinnedClassAction]('pinned-on')
-
-    shyClassAction = addOrRemove[shouldBeShy]
-    document.body.classList[shyClassAction]('pinned-shy')
+    # set the pinned state
+    @setState(nextState)
+    @setBodyClasses(@props, nextState)
 
   forceShy: ->
     window.scroll(0, @props.buffer + @state.offset)
@@ -163,16 +168,13 @@ module.exports = React.createClass
     @updatePinState(prevState.scrollTop) if didShouldPinChange or didShouldBeShyChange
     @setContainerMargin() if didHeaderHeightChange or didShouldPinChange
 
-  componentWillReceiveProps: ->
+  componentWillReceiveProps: (nextProps) ->
     @forceShy() if @props.forceShy
-    @setBodyClassList()
+    @setBodyClasses()
 
   render: ->
     {className} = @props
-
-    classes = ['pinned-container']
-    classes.push(className) if className?
-    classes = classes.join(' ')
+    classes = classnames('pinned-container', className)
 
     childrenProps = omit(@props, 'children', 'header', 'footer', 'className')
 
