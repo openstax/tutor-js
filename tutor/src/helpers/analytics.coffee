@@ -70,7 +70,7 @@ Analytics =
       Events[route.entry.name]( route.params )
       @sendPageView() # url's not needed since it was set before events
     else
-      @sendPageView(route.match.pathname)
+      @sendPageView(route.pathname)
 
   sendEvent: (category, action, attrs) ->
     return unless GA
