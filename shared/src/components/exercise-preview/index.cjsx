@@ -1,5 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
+trimEnd = require 'lodash/trimEnd'
+forEach = require 'lodash/forEach'
 classnames = require 'classnames'
 BS = require 'react-bootstrap'
 
@@ -64,13 +66,22 @@ ExercisePreview = React.createClass
       {@props.children}
     </div>
 
+  getCleanPreview: ->
+    {preview} = @props.exercise
+
+    forEach(@props.exercise.content.questions, (question) =>
+      preview = trimEnd(preview, question.stem_html)
+    )
+
+    preview
+
   renderStimulus: ->
     if @props.isInteractive or not @props.exercise.preview
       <ArbitraryHtmlAndMath className='stimulus' block={true}
         html={@props.exercise.content.stimulus_html} />
     else
       <ArbitraryHtmlAndMath className='stimulus' block={true}
-        html={@props.exercise.preview} />
+        html={@getCleanPreview()} />
 
 
 
@@ -91,6 +102,7 @@ ExercisePreview = React.createClass
       'is-vertically-truncated': @props.isVerticallyTruncated
       'is-displaying-formats':   @props.displayFormats
       'is-displaying-feedback':  @props.displayFeedback
+      'has-interactive':  @props.exercise.has_interactive
     })
 
     questions = _.map(content.questions, (question, questionIter) =>
@@ -127,7 +139,7 @@ ExercisePreview = React.createClass
         <ExerciseBadges exercise={@props.exercise} />
 
         {<ArbitraryHtmlAndMath className='context' block={true}
-          html={@props.exercise.context} /> unless _.isEmpty(@props.exercise.context)}
+          html={@props.exercise.context} /> unless _.isEmpty(@props.exercise.context) or not @props.isInteractive}
 
         {@renderStimulus()}
 
