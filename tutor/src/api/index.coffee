@@ -235,6 +235,9 @@ startAPI = ->
   connectRead(ReferenceBookExerciseActions, url: (url) -> url)
 
   connectRead(StudentDashboardActions, pattern: 'courses/{id}/dashboard')
+  connectDelete(StudentDashboardActions,
+    trigger: 'hide', onSuccess: 'hidden', pattern: 'tasks/{id}'
+  )
   connectRead(NotificationActions,
     trigger: 'loadUpdates', onSuccess: 'loadedUpdates', url: 'notifications', handledErrors: ['*']
   )
