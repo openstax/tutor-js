@@ -1,7 +1,18 @@
 {Promise} = require 'es6-promise'
-_ = require 'lodash'
 interpolate = require 'interpolate'
 {METHODS_TO_ACTIONS} = require './collections'
+
+partial   = require 'lodash/partial'
+map       = require 'lodash/map'
+mapValues = require 'lodash/mapValues'
+reject    = require 'lodash/reject'
+pick      = require 'lodash/pick'
+merge     = require 'lodash/merge'
+invert    = require 'lodash/invert'
+partition = require 'lodash/partition'
+isEmpty   = require 'lodash/isEmpty'
+isObjectLike  = require 'lodash/isObjectLike'
+isFunction    = require 'lodash/isFunction'
 
 makeRequestHandlers = (Actions, options) ->
   {onSuccess, onFail} = options
@@ -24,12 +35,12 @@ makeRequestHandlers = (Actions, options) ->
       {response} = error
       {errors} = response.data
 
-      unhandledErrors = _.reject(errors, (error) ->
+      unhandledErrors = reject(errors, (error) ->
         if options.errorHandlers[error.code]?
           Actions[options.errorHandlers[error.code]]?(args..., error)
       )
 
-      unless _.isEmpty(unhandledErrors)
+      unless isEmpty(unhandledErrors)
         error.response.data.errors = unhandledErrors
         Promise.reject(error)
 
@@ -44,20 +55,20 @@ makeRequestHandlers = (Actions, options) ->
 
 resolveOptions = (args...) ->
   (option, key) ->
-    if _.isFunction(option) and key isnt 'handleError'
+    if isFunction(option) and key isnt 'handleError'
       option(args...)
     else
       option
 
 resolveAndMergeHandlerOptions = (options, makeRequestOptions, args...) ->
-  resolvedAndMergedOptions = _.mapValues(options, resolveOptions(args...))
-  additionalRequestOptions = _.map(makeRequestOptions, resolveOptions(args...))
-  _.merge(resolvedAndMergedOptions, additionalRequestOptions...)
+  resolvedAndMergedOptions = mapValues(options, resolveOptions(args...))
+  additionalRequestOptions = map(makeRequestOptions, resolveOptions(args...))
+  merge(resolvedAndMergedOptions, additionalRequestOptions...)
   resolvedAndMergedOptions
 
 # convenient aliases
 makeIdRouteData = (data) ->
-  if _.isObjectLike(data)
+  if isObjectLike(data)
     data
   else
     {id: data}
@@ -76,11 +87,11 @@ ACTIONS =
     trigger: 'delete'
     onSuccess: 'deleted'
 
-METHODS = _.invert(METHODS_TO_ACTIONS)
+METHODS = invert(METHODS_TO_ACTIONS)
 
 connectHandler = (apiHandler, Actions, allOptions...) ->
-  [objectOptions, makeRequestOptions] = _.partition(allOptions, _.isObjectLike)
-  options = _.merge({}, objectOptions...)
+  [objectOptions, makeRequestOptions] = partition(allOptions, isObjectLike)
+  options = merge({}, objectOptions...)
   {trigger} = options
 
   Actions[trigger].addListener 'trigger', (args...) ->
@@ -88,23 +99,23 @@ connectHandler = (apiHandler, Actions, allOptions...) ->
 
     handlers = makeRequestHandlers(Actions, options)
 
-    requestConfig = _.pick(request, 'url', 'method', 'data', 'params', 'handledErrors')
+    requestConfig = pick(request, 'url', 'method', 'data', 'params', 'handledErrors')
     requestConfig.url ?= interpolate(options.pattern, options.route or makeIdRouteData(args...))
 
-    requestOptions = _.merge(_.pick(request, 'delay'), handlers)
+    requestOptions = merge(pick(request, 'delay'), handlers)
 
     apiHandler.send(requestConfig, requestOptions, args...)
 
 connectAction = (action, apiHandler, Actions, allOptions...) ->
-  actionOptions = _.merge(method: METHODS[action], ACTIONS[action] or {})
+  actionOptions = merge(method: METHODS[action], ACTIONS[action] or {})
   connectHandler(apiHandler, Actions, actionOptions, allOptions...)
 
 adaptHandler = (apiHandler) ->
-  connectHandler: _.partial(connectHandler, apiHandler)
-  connectCreate:  _.partial(connectAction, 'create', apiHandler)
-  connectRead:    _.partial(connectAction, 'read', apiHandler)
-  connectUpdate:  _.partial(connectAction, 'update', apiHandler)
-  connectDelete:  _.partial(connectAction, 'delete', apiHandler)
-  connectModify:  _.partial(connectAction, 'modify', apiHandler)
+  connectHandler: partial(connectHandler, apiHandler)
+  connectCreate:  partial(connectAction, 'create', apiHandler)
+  connectRead:    partial(connectAction, 'read', apiHandler)
+  connectUpdate:  partial(connectAction, 'update', apiHandler)
+  connectDelete:  partial(connectAction, 'delete', apiHandler)
+  connectModify:  partial(connectAction, 'modify', apiHandler)
 
 module.exports = adaptHandler

@@ -1,5 +1,9 @@
-_ = require 'lodash'
 steps = require './steps'
+
+omit    = require 'lodash/omit'
+extend  = require 'lodash/extend'
+clone   = require 'lodash/clone'
+forEach = require 'lodash/forEach'
 
 stepsStubs = {}
 
@@ -20,15 +24,15 @@ commonContent =
   uid: '120@1'
 
 assignStepToTask = (step, stepIndex) ->
-  step.content = _.extend {}, commonContent, step.content
-  _.extend {questionNumber: (stepIndex + 1)}, {stepIndex: stepIndex}, commonInfo, step
+  step.content = extend {}, commonContent, step.content
+  extend {questionNumber: (stepIndex + 1)}, {stepIndex: stepIndex}, commonInfo, step
 
 
-_.forEach steps, (step, stepIndex) ->
+forEach steps, (step, stepIndex) ->
   stepStubs =
-    'free-response': assignStepToTask _.omit(step, 'correct_answer_id', 'feedback_html'), stepIndex
-    'multiple-choice': assignStepToTask _.omit(step, 'correct_answer_id', 'feedback_html'), stepIndex
-    'review': assignStepToTask _.clone(step), stepIndex
+    'free-response': assignStepToTask omit(step, 'correct_answer_id', 'feedback_html'), stepIndex
+    'multiple-choice': assignStepToTask omit(step, 'correct_answer_id', 'feedback_html'), stepIndex
+    'review': assignStepToTask clone(step), stepIndex
 
   stepsStubs[step.id] = stepStubs
 

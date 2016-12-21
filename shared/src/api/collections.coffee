@@ -1,21 +1,36 @@
-_ = require 'lodash'
 hash = require 'object-hash'
 moment = require 'moment-timezone'
 
+partial   = require 'lodash/partial'
+every     = require 'lodash/every'
+pick      = require 'lodash/pick'
+omit      = require 'lodash/omit'
+merge     = require 'lodash/merge'
+some      = require 'lodash/some'
+has       = require 'lodash/has'
+flow      = require 'lodash/flow'
+last      = require 'lodash/last'
+size      = require 'lodash/size'
+keys      = require 'lodash/keys'
+memoize   = require 'lodash/memoize'
+forEach   = require 'lodash/forEach'
+isEmpty   = require 'lodash/isEmpty'
+cloneDeep = require 'lodash/cloneDeep'
+
 validateOptions = (requiredProperties...) ->
   (options) ->
-    _.every(requiredProperties, _.partial(_.has, options))
+    every(requiredProperties, partial(has, options))
 
-hashWithArrays = _.partial(hash, _, {unorderedArrays: true})
+hashWithArrays = partial(hash, partial.placeholder, {unorderedArrays: true})
 
 makeHashWith = (uniqueProperties...) ->
   (objectToHash) ->
-    hashWithArrays(_.pick(objectToHash, uniqueProperties...))
+    hashWithArrays(pick(objectToHash, uniqueProperties...))
 
 constructCollection = (context, makeItem, lookup) ->
   context._cache = {}
   context.make = makeItem
-  context.lookup = _.memoize(lookup) or _.memoize(_.flow(makeItem, hashWithArrays))
+  context.lookup = memoize(lookup) or memoize(flow(makeItem, hashWithArrays))
 
   context
 
@@ -27,13 +42,13 @@ class Collection
     @_cache[@lookup(args...)] = @make(args...)
 
   update: (args...) =>
-    _.merge(@_cache[@lookup(args...)], args...)
+    merge(@_cache[@lookup(args...)], args...)
 
   load: (items) =>
-    _.forEach items, @set
+    forEach items, @set
 
   get: (args...) =>
-    _.cloneDeep(@_cache[@lookup(args...)])
+    cloneDeep(@_cache[@lookup(args...)])
 
   delete: (args...) =>
     delete @_cache[@lookup(args...)]
@@ -49,13 +64,13 @@ class CollectionCached
     @_cache[@lookup(args...)].push(@make(args...))
 
   get: (args...) =>
-    _.flow(_.last, _.cloneDeep)(@_cache[@lookup(args...)])
+    flow(last, cloneDeep)(@_cache[@lookup(args...)])
 
   getAll: (args...) =>
-    _.cloneDeep(@_cache[@lookup(args...)])
+    cloneDeep(@_cache[@lookup(args...)])
 
   getSize: (args...) =>
-    _.size(@_cache[@lookup(args...)]) or 0
+    size(@_cache[@lookup(args...)]) or 0
 
   reset: (args...) =>
     delete @_cache[@lookup(args...)]
@@ -95,29 +110,29 @@ makeRoute = (options = {}) ->
   DEFAULT_ROUTE_OPTIONS =
     topic: '*'
 
-  route = _.merge({}, DEFAULT_ROUTE_OPTIONS, options)
+  route = merge({}, DEFAULT_ROUTE_OPTIONS, options)
   route.action ?= METHODS_TO_ACTIONS[route.method]
-  route.handledErrors ?= _.keys(route.errorHandlers) if route.errorHandlers
+  route.handledErrors ?= keys(route.errorHandlers) if route.errorHandlers
 
   route
 
 class Routes extends Collection
   constructor: (routes = [], uniqueProperties = ROUTE_UNIQUES) ->
     hashRoute = makeHashWith(uniqueProperties...)
-    lookup = _.flow(makeRoute, hashRoute)
+    lookup = flow(makeRoute, hashRoute)
 
     super(makeRoute, lookup)
     @load(routes)
     @
 
 simplifyRequestConfig = (requestConfig) ->
-  requestConfig = _.pick(requestConfig, 'method', 'data', 'url', 'params')
-  requestConfig = _.omit(requestConfig, 'data') if _.isEmpty(requestConfig.data)
+  requestConfig = pick(requestConfig, 'method', 'data', 'url', 'params')
+  requestConfig = omit(requestConfig, 'data') if isEmpty(requestConfig.data)
   requestConfig
 
 class XHRRecords
   constructor: ->
-    hashRequestConfig = _.flow(simplifyRequestConfig, hashWithArrays)
+    hashRequestConfig = flow(simplifyRequestConfig, hashWithArrays)
     makeTime = ->
       moment()
 
@@ -135,8 +150,8 @@ class XHRRecords
     if requestConfig
       @_requests.getSize(requestConfig) > @_responses.getSize(requestConfig)
     else
-      _.some @_requests._cache, (cachedRequests, requestKey) =>
-        _.size(cachedRequests) > _.size(@_responses._cache[requestKey])
+      some @_requests._cache, (cachedRequests, requestKey) =>
+        size(cachedRequests) > size(@_responses._cache[requestKey])
 
   getResponseTime: (requestConfig) =>
     @_requests.get(requestConfig).diff(@_responses.get(requestConfig))
