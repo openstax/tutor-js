@@ -1,5 +1,5 @@
 {Testing, expect, sinon, _, ReactTestUtils} = require 'shared/specs/helpers'
-ld = require 'lodash'
+cloneDeep = require 'lodash/cloneDeep'
 ExercisePreview = require '../../../src/components/exercise-preview'
 
 EXERCISE = require '../../../api/exercise-preview/data.json'
@@ -9,7 +9,7 @@ describe 'Exercise Preview Component', ->
 
   beforeEach ->
     @props = {
-      exercise: ld.cloneDeep(EXERCISE)
+      exercise: cloneDeep(EXERCISE)
     }
 
   it 'displays the exercise answers', ->

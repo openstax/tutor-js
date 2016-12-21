@@ -1,6 +1,16 @@
-_ = require 'lodash'
 minimatch = require 'minimatch'
 {Promise} = require 'es6-promise'
+
+partial   = require 'lodash/partial'
+merge     = require 'lodash/merge'
+extend    = require 'lodash/extend'
+includes  = require 'lodash/includes'
+some      = require 'lodash/some'
+set       = require 'lodash/set'
+every     = require 'lodash/every'
+isError   = require 'lodash/isError'
+isEmpty   = require 'lodash/isEmpty'
+propertyOf  = require 'lodash/propertyOf'
 
 makeLocalRequest = (requestConfig) ->
   {url} = requestConfig
@@ -13,24 +23,24 @@ makeLocalRequest = (requestConfig) ->
     requestConfig.mockMethod = requestConfig.method
     requestConfig.method = 'GET'
 
-  _.merge(requestConfig, {url, params})
+  merge(requestConfig, {url, params})
   requestConfig
 
 makeLocalResponse = (response) ->
   payload = if response.config.data then JSON.parse(response.config.data) else {}
-  response.data = _.extend({}, response.data, payload)
+  response.data = extend({}, response.data, payload)
 
 doesErrorMatch = (handledErrors, errorName) ->
-  _.includes(handledErrors, errorName) or
-    _.some(handledErrors, _.partial(minimatch, errorName))
+  includes(handledErrors, errorName) or
+    some(handledErrors, partial(minimatch, errorName))
 
 areAllErrorsHandled = (handledErrors, errors, errorNameProperty) ->
 
   # use set and propertyOf for flexible errorNameProperty -- i.e. can be nested
-  errors ?= [_.set({}, errorNameProperty, 'HTTP_ERROR')]
+  errors ?= [set({}, errorNameProperty, 'HTTP_ERROR')]
 
-  _.every errors, (error) ->
-    errorName = _.propertyOf(error)(errorNameProperty)
+  every errors, (error) ->
+    errorName = propertyOf(error)(errorNameProperty)
     doesErrorMatch(handledErrors, errorName)
 
 
@@ -104,14 +114,14 @@ class Interceptors
   handleMalformedRequest: (error) =>
     error = @_hooks.handleMalformedRequest(error) if error.response.status is 400 and @_hooks.handleMalformedRequest?
 
-    Promise.reject(error) if _.isError(error)
+    Promise.reject(error) if isError(error)
 
   handleNotFound: (error) =>
     if error.response.status is 404
       error.response.statusText ?= 'ERROR_NOTFOUND'
       error = @_hooks.handleNotFound(error) if @_hooks.handleNotFound?
 
-    Promise.reject(error) if _.isError(error)
+    Promise.reject(error) if isError(error)
 
   handleErrorMessage: (error) =>
     {statusText, data} = error.response
@@ -123,7 +133,7 @@ class Interceptors
 
     error.response.statusMessage = msg
 
-    unless _.isObject(data)
+    unless isObject(data)
       try
         error.response.data = JSON.parse(data)
       catch e
@@ -133,9 +143,9 @@ class Interceptors
   filterErrors: (error) =>
     {response, config} = error
     {data} = response
-    return Promise.reject(error) if _.isEmpty(config)
+    return Promise.reject(error) if isEmpty(config)
 
-    if _.isEmpty(config.handledErrors) or
+    if isEmpty(config.handledErrors) or
       not areAllErrorsHandled(config.handledErrors, data.errors, @_apiHandler.getOptions().errorNameProperty)
         Promise.reject(error)
     else

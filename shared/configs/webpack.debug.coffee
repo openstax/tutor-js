@@ -1,9 +1,9 @@
-_ = require 'lodash'
+cloneDeep = require 'lodash/cloneDeep'
 
 # similar custom configs as production
 productionConfig = require './webpack.production'
 
-debugConfig = _.cloneDeep(productionConfig)
+debugConfig = cloneDeep(productionConfig)
 debugConfig.output.filename = 'main.js'
 
 module.exports = debugConfig

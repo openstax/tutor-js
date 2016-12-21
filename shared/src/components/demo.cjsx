@@ -1,6 +1,11 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-_ = require 'lodash'
+
+forEach = require 'lodash/forEach'
+extend  = require 'lodash/extend'
+merge   = require 'lodash/merge'
+map     = require 'lodash/map'
+
 EventEmitter2 = require 'eventemitter2'
 classnames = require 'classnames'
 
@@ -13,18 +18,18 @@ exerciseStub = require '../../api/exercise'
 multipartExerciseStub = require '../../api/exercise-multipart'
 exerciseEvents = new EventEmitter2(wildcard: true)
 STEP_ID = exerciseStub['free-response'].id
-MULTIPART_STEP_IDS = _.keys(multipartExerciseStub)
+MULTIPART_STEP_IDS = ld.keys(multipartExerciseStub)
 SINGLEPART_STEP_IDS = [STEP_ID]
 
 steps = []
 steps[STEP_ID] = {}
-_.forEach multipartExerciseStub, (step, stepId) ->
+forEach multipartExerciseStub, (step, stepId) ->
   steps[stepId] = {}
 
 stubForExercise = {}
 stubForExercise[STEP_ID] = exerciseStub
 
-stubsForExercises = _.extend {}, multipartExerciseStub, stubForExercise
+stubsForExercises = extend {}, multipartExerciseStub, stubForExercise
 
 ExercisePreview = require './exercise-preview'
 exercisePreviewStub = require '../../api/exercise-preview/data'
@@ -47,15 +52,15 @@ getCurrentPanel = (stepId) ->
 getUpdatedStep = (stepId) ->
   step = steps[stepId]
   panel = getCurrentPanel(stepId)
-  steps[stepId] = _.merge({}, stubsForExercises[stepId][panel], step)
+  steps[stepId] = merge({}, stubsForExercises[stepId][panel], step)
 
 getProps = (stepIds) ->
   localSteps = {}
 
-  _.forEach stepIds, (stepId) ->
+  forEach stepIds, (stepId) ->
     localSteps[stepId] = getUpdatedStep(stepId)
 
-  parts = _.map stepIds, (stepId) ->
+  parts = map stepIds, (stepId) ->
     localSteps[stepId]
 
   props =
@@ -223,7 +228,7 @@ BreadcrumbDemo = React.createClass
   render: ->
     {currentStep} = @state
 
-    crumbs = _.map(breadcrumbStub.steps, (crumbStep, index) ->
+    crumbs = map(breadcrumbStub.steps, (crumbStep, index) ->
       crumb =
         key: index
         data: crumbStep
@@ -233,7 +238,7 @@ BreadcrumbDemo = React.createClass
 
     crumbs.push(type: 'end', key: crumbs.length + 1, data: {})
 
-    breadcrumbsNoReview = _.map(crumbs, (crumb) =>
+    breadcrumbsNoReview = map(crumbs, (crumb) =>
       <Breadcrumb
         crumb={crumb}
         key={crumb.key}
@@ -243,7 +248,7 @@ BreadcrumbDemo = React.createClass
         goToStep={@goToStep}/>
     )
 
-    breadcrumbsReview = _.map(crumbs, (crumb, key) =>
+    breadcrumbsReview = map(crumbs, (crumb, key) =>
       if crumb.type is 'step' and crumb.data.is_completed
         crumb.data.correct_answer_id = "3"
 
@@ -336,7 +341,7 @@ Demo = React.createClass
       breadcrumbs: <BreadcrumbDemo/>
       html: <HTMLDemo/>
 
-    demos = _.map(demos, (demo, name) ->
+    demos = map(demos, (demo, name) ->
       <BS.Row key={name} className='demo openstax-wrapper'>
         <BS.Col xs={12}>
           <h1>{"#{name}"}</h1>
