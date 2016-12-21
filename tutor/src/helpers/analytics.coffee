@@ -3,6 +3,7 @@ _ = require 'underscore'
 Router = require '../helpers/router'
 
 {CurrentUserStore} = require '../flux/current-user'
+{CourseStore} = require '../flux/course'
 
 # generate custom event data for routes
 Events =
@@ -14,31 +15,38 @@ Events =
     # compare activity between courses
     Analytics.sendEvent 'Student', 'Dashboard', label: courseId
 
+# a bit shorter helper methods
+isTeacher = (courseId) -> CourseStore.isTeacher(courseId)
+getRole = (courseId) ->
+  if CourseStore.isTeacher(courseId) then 'teacher' else 'student'
+
+assignmentTypeTranslator = (assignmentType, {courseId, id}) ->
+  type = if id is 'new' then 'create' else 'edit'
+  "/teacher/assignment/#{type}/#{assignmentType}/#{courseId}"
 
 # Translators convert a url like '/foo/bar/123/baz/1' into a simplified one like just '/foo/bar'
 Translators =
-
-  dashboard:            ({courseId}) -> "/student/choose-course/#{courseId}"
-  viewPractice:         ({courseId}) -> "/student/practice/#{courseId}"
-  viewPerformanceForecast:  ({courseId}) -> "/student/performance-forecast/#{courseId}"
-  viewStudentDashboard: ({courseId}) -> "/student/dashboard/#{courseId}"
-
+  dashboard:            ({courseId}) ->
+    if isTeacher(courseId) then "/teacher/calendar/#{courseId}" else "/student/dashboard/#{courseId}"
+  practiceTopics:       ({courseId}) -> "/student/practice/#{courseId}"
+  viewPerformanceGuide:  ({courseId}) ->
+    "/#{getRole(courseId)}/performance-forecast/#{courseId}"
   calendarByDate:        ({courseId}) -> "/teacher/calendar/#{courseId}"
-  viewTeacherPerformanceForecast:      ({courseId}) -> "/teacher/performance-forecast/#{courseId}"
   viewScores:            ({courseId}) -> "/teacher/student-scores/#{courseId}"
   courseSettings:        ({courseId}) -> "/teacher/roster/#{courseId}"
-  editReading:           ({courseId}) -> "/teacher/assignment/edit/reading/#{courseId}"
-  editHomework:          ({courseId}) -> "/teacher/assignment/edit/homework/#{courseId}"
-  editExternal:          ({courseId}) -> "/teacher/assignment/edit/external/#{courseId}"
-  createReading:         ({courseId}) -> "/teacher/assignment/create/reading/#{courseId}"
-  createHomework:        ({courseId}) -> "/teacher/assignment/create/homework/#{courseId}"
-  createExternal:        ({courseId}) -> "/teacher/assignment/create/external/#{courseId}"
+  editReading:    _.partial(assignmentTypeTranslator, 'reading')
+  editHomework:   _.partial(assignmentTypeTranslator, 'homework')
+  editExternal:   _.partial(assignmentTypeTranslator, 'external')
+  editEvent:      _.partial(assignmentTypeTranslator, 'event')
+  createReading:  _.partial(assignmentTypeTranslator, 'reading')
+  createHomework: _.partial(assignmentTypeTranslator, 'homework')
+  createExternal: _.partial(assignmentTypeTranslator, 'external')
+  createEvent:    _.partial(assignmentTypeTranslator, 'event')
   calendarViewPlanStats: ({courseId}) -> "/teacher/metrics/quick/#{courseId}"
   reviewTask:            ({courseId}) -> "/teacher/metrics/review/#{courseId}"
-
   viewReferenceBook:        ({courseId}) -> "/reference-view/#{courseId}"
-  viewReferenceBookSection: ({courseId}) -> "/reference-view/#{courseId}"
-  viewReferenceBookPage:    ({courseId}) -> "/reference-view/#{courseId}"
+  viewReferenceBookSection: ({courseId, section}) -> "/reference-view/#{courseId}/section/#{section}"
+  viewReferenceBookPage:    ({courseId, cnxId}) -> "/reference-view/#{courseId}/page/#{cnxId}"
 
   # Task steps are viewed by both teacher and student with no difference in params
   viewTaskStep:         ({courseId}) ->
@@ -53,24 +61,24 @@ Analytics =
   setTracker: (tracker) -> GA = tracker
 
   sendPageView: (url) ->
+
     GA?('send', 'pageview', url)
 
   onNavigation: (path) ->
     return unless GA
-
     route = Router.currentMatch(path)
 
-    return @sendPageView("/not-found/#{change.path}") unless route
+    return @sendPageView("/not-found#{path}") unless route
 
-    path = Translators[route.entry.name]?( route.params ) or route.pathname
+    translatedPath = Translators[route.entry.name]?( route.params ) or route.pathname
 
     # if we're also going to send custom events then we set the page
     if Events[route.entry.name]
-      GA('set', 'page', path)
+      GA('set', 'page', translatedPath)
       Events[route.entry.name]( route.params )
       @sendPageView() # url's not needed since it was set before events
     else
-      @sendPageView(route.match.pathname)
+      @sendPageView(translatedPath)
 
   sendEvent: (category, action, attrs) ->
     return unless GA
