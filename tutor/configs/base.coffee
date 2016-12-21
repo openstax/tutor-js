@@ -1,2 +1,2 @@
 module.exports =
-  devPort: '8003'
+  devPort: '8000'
