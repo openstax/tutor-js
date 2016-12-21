@@ -13,7 +13,7 @@ describe 'Coach wrapper component', ->
 
   it 'renders launch state', ->
     Testing.renderComponent( Coach, props: @props ).then ({dom, element}) ->
-      expect(dom.textContent).to.contain('Launch Concept Coach')
+      expect(dom.textContent).to.contain('Enroll in this Course')
       expect(ReactTestUtils.scryRenderedComponentsWithType(element, CCModal)).to.be.empty
 
   it 'renders coach when open=true', ->
