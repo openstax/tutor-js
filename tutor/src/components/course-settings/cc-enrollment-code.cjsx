@@ -29,7 +29,7 @@ module.exports = React.createClass
   getInstructions: (code) ->
     {bookUrl, bookName} = @props
     # appends :3 to skip book intro
-    url = bookUrl + ':3'
+    url = "#{bookUrl}:3?enrollment_code=#{code}"
     section =
       <CourseGroupingLabel lowercase courseId={@props.courseId} />
 
@@ -38,21 +38,30 @@ module.exports = React.createClass
 
       To register for Concept Coach:
 
-      1. Paste this link in your web browser to visit the class textbook:
-      #{url}
+      1. Click or paste this link in your web browser to visit the class textbook:
+        #{url}
 
-      You can also find your Concept Coach book by visiting cc.openstax.org and clicking “Student Portal.”
+      The link has your enrollment code for this Concept Coach course embedded. Course Enrollment Code: #{code}
 
-      1. In the browser, click the orange “Jump to Concept Coach” button to jump to to the Concept Coach widget at the end of the section. Click “Launch Concept Coach” to open your Concept Coach log-in window.
+      2. Click "Jump to Concept Coach"
 
-      2. If you’re new to Concept Coach, click “Sign up for Concept Coach” and follow the prompts to create your free account. If you’ve used Concept Coach before, click “Sign In” to sign in.
+      In the browser, click the orange “Jump to Concept Coach” button to jump to the Concept Coach widget at the end of the section.
 
-      3. After signing in, enter your enrollment code for this course. Your enrollment code is:
-      #{code}
+      3. Click “Enroll in This Course”
 
-      4. On the enrollment confirmation screen, input your school-issued ID number so your instructor can identify you.
+      Click the orange “Enroll in This Course” button to open your Concept Coach log-in window.
 
-      5. Continue to your Concept Coach questions!
+      4. Click Sign Up and Enroll (or Login and Enroll if you already have an account).
+
+      If you’re new to Concept Coach, you’ll be prompted to create a free account. If you’ve used Concept Coach before, log in using your existing OpenStax Concept Coach account.
+
+      5. Enter your school-issued ID
+
+      On the enrollment confirmation screen, input your school-issued ID number used for grading so your instructor can identify you.
+
+      6. Continue to your Concept Coach questions!
+
+      You can also find your Concept Coach book by visiting cc.openstax.org and clicking “Student Portal.” If you get to your book this way, and have not already enrolled, you may be asked to enter your enrollment code:  Course Enrollment Code: #{code}
     """
     <div>
 
