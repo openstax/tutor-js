@@ -41,21 +41,21 @@ Coach = React.createClass
       loginWindow = LoginGateway.openWindow(@props.windowImpl, {type})
       @setState({loginWindow, loginType: type})
 
-  # onLoginGatewayComplete: ->
-  #   @setState({loginWindow: null})
-  #   # TODO: Hookup new enrollment screen here
-  #   channel.emit("launcher.clicked.#{@state.loginType}")
-
   Modal: ->
     coachProps = _.omit(@props, 'open')
+    coach = <ConceptCoach opensAt={@state.opensAs} {...coachProps} />
+    if User.isLoggedIn()
+      children = coach
+    else
+      children =
+        <LoginGateway
+          loginWindow={@state.loginWindow}
+          loginType={@state.loginType}
+          windowImpl={@props.windowImpl}
+        >{coach}</LoginGateway>
+
     <CCModal filterClick={@props.filterClick}>
-      <LoginGateway
-        loginWindow={@state.loginWindow}
-        loginType={@state.loginType}
-        windowImpl={@props.windowImpl}
-      >
-        <ConceptCoach opensAt={@state.opensAs} {...coachProps} />
-      </LoginGateway>
+      {children}
     </CCModal>
 
   Launcher: ->
