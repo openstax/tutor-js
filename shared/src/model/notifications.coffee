@@ -1,21 +1,36 @@
 EventEmitter2 = require 'eventemitter2'
-_ = require 'lodash'
 moment = require 'moment'
+
+clone     = require 'lodash/clone'
+defaults  = require 'lodash/defaults'
+uniqueId  = require 'lodash/uniqueId'
+without   = require 'lodash/without'
+extend    = require 'lodash/extend'
+find      = require 'lodash/find'
+isEmpty   = require 'lodash/isEmpty'
 
 URLs = require './urls'
 EVENT_BUS = new EventEmitter2
 POLLERS = {}
 
 NOTICES = []
-MISSING_STUDENT_ID = 'missing_student_id'
+
 CLIENT_ID = 'client-specified'
 Poller = require './notifications/pollers'
 
 Notifications = {
+  POLLING_TYPES:
+    MISSING_STUDENT_ID: 'missing_student_id'
+    COURSE_HAS_ENDED: 'course_has_ended'
+
+  # for use by specs, not to be considered "public"
+  _reset: ->
+    @stopPolling()
+    NOTICES = []
 
   display: (notice) ->
     # fill in an id and type if not provided
-    NOTICES.push( _.defaults(_.clone(notice), id: _.uniqueId(CLIENT_ID), type: CLIENT_ID ))
+    NOTICES.push( defaults(clone(notice), id: uniqueId(CLIENT_ID), type: CLIENT_ID ))
     @emit('change')
 
   _startPolling: (type, url) ->
@@ -37,7 +52,7 @@ Notifications = {
     if poller # let the poller decide what to do
       poller.acknowledge(notice)
     else
-      NOTICES = _.without(NOTICES, _.find(NOTICES, id: notice.id))
+      NOTICES = without(NOTICES, find(NOTICES, id: notice.id))
       @emit('change')
 
   getActive: ->
@@ -53,14 +68,17 @@ Notifications = {
 
   setCourseRole: (course, role) ->
     return if role.type is 'teacher'
-    studentId = _.find(course.students, role_id: role.id)?.student_identifier
-    if _.isEmpty(studentId) and moment().diff(role.joined_at, 'days') > 7
-      @display({type: MISSING_STUDENT_ID, course, role})
+    unless isEmpty(role)
+      studentId = find(course.students, role_id: role.id)?.student_identifier
+      if isEmpty(studentId) and moment().diff(role.joined_at, 'days') > 7
+        @display({type: @POLLING_TYPES.MISSING_STUDENT_ID, course, role})
+    if moment(course.ends_at).isBefore(moment(), 'day')
+      @display({type: @POLLING_TYPES.COURSE_HAS_ENDED, course, role})
 
 }
 
 # mixin event emitter methods, particulary it's 'on' and 'off'
 # since they're compatible with Tutor's bindstore mixin
-_.extend Notifications, EVENT_BUS
+extend Notifications, EVENT_BUS
 
 module.exports = Notifications

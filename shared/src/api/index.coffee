@@ -1,8 +1,18 @@
-_ = require 'lodash'
 {Promise} = require 'es6-promise'
 axios = require 'axios'
 
 interpolate = require 'interpolate'
+
+partial   = require 'lodash/partial'
+isEmpty   = require 'lodash/isEmpty'
+pick      = require 'lodash/pick'
+omit      = require 'lodash/omit'
+merge     = require 'lodash/merge'
+delay     = require 'lodash/delay'
+assign    = require 'lodash/assign'
+spread    = require 'lodash/spread'
+forEach   = require 'lodash/forEach'
+isEmpty   = require 'lodash/isEmpty'
 
 # this is pretty terrible.
 require 'extract-values'
@@ -63,12 +73,12 @@ setUpXHRInterceptors = (xhrInstance, interceptors, isLocal) ->
 makeRequestConfig = (routeOptions, routeData, requestData) ->
   {pattern} = routeOptions
 
-  requestConfig = _.omit(routeOptions, 'subject', 'topic', 'pattern', 'action', 'delay', 'onSuccess', 'onFail')
+  requestConfig = omit(routeOptions, 'subject', 'topic', 'pattern', 'action', 'delay', 'onSuccess', 'onFail')
   requestConfig.url = interpolate(pattern, routeData)
 
-  unless _.isEmpty(requestData)
+  unless isEmpty(requestData)
     if requestData.data or requestData.params
-      _.merge(requestConfig, _.pick(requestData, 'data', 'params'))
+      merge(requestConfig, pick(requestData, 'data', 'params'))
     else
       requestConfig.data = requestData
 
@@ -116,7 +126,7 @@ class APIHandlerBase
   updateXHR: (xhrOptions) =>
     # notice that this is not deep -- for example, passings header through xhrOptions
     #   will override existing headers, not merge recursively.
-    _.assign(@_xhr.defaults, xhrOptions)
+    assign(@_xhr.defaults, xhrOptions)
 
   initializeEventOptions: (eventOptions) =>
     {pattern, send, receive, statuses} = eventOptions
@@ -132,7 +142,7 @@ class APIHandlerBase
 
   setOptions: (options) =>
     previousOptions = @getOptions?() or {}
-    options = _.merge({}, API_DEFAULTS, previousOptions, options)
+    options = merge({}, API_DEFAULTS, previousOptions, options)
 
     @getOptions = -> options
 
@@ -140,16 +150,16 @@ class APIHandlerBase
   send: (requestConfig, routeOptions, args...) ->
     return if @records.isPending(requestConfig)
 
-    requestInfo = _.pick(routeOptions, 'subject', 'topic', 'action')
-    requestInfo = guessInfoFromConfig(requestConfig) if _.isEmpty(requestInfo)
+    requestInfo = pick(routeOptions, 'subject', 'topic', 'action')
+    requestInfo = guessInfoFromConfig(requestConfig) if isEmpty(requestInfo)
 
     requestConfig.events =
-      success: interpolate(@_patterns.receive, _.merge({status: @_statuses.success}, requestInfo))
-      failure: interpolate(@_patterns.receive, _.merge({status: @_statuses.failure}, requestInfo))
+      success: interpolate(@_patterns.receive, merge({status: @_statuses.success}, requestInfo))
+      failure: interpolate(@_patterns.receive, merge({status: @_statuses.failure}, requestInfo))
 
     requestDelay = routeOptions.delay or @getOptions().request.delay
 
-    _.delay =>
+    delay =>
       {handlers} = @getOptions()
       {onSuccess, onFail} = routeOptions
 
@@ -158,8 +168,8 @@ class APIHandlerBase
 
       @_xhr.request(requestConfig)
         # if onFail doesn't Promise.reject anything, then the default fail will not fire.
-        .then(_.partial(onSuccess, _, args...), _.partial(onFail, _, args...))
-        .then(_.partial(handlers.onSuccess, _, args...), _.partial(handlers.onFail, _, args...))
+        .then(partial(onSuccess, partial.placeholder, args...), partial(onFail, partial.placeholder, args...))
+        .then(partial(handlers.onSuccess, partial.placeholder, args...), partial(handlers.onFail, partial.placeholder, args...))
 
     , requestDelay
 
@@ -168,7 +178,7 @@ class APIHandler extends APIHandlerBase
   constructor: (options, routes = [], channel) ->
     super(options, channel)
 
-    @initializeRoutes(routes) unless _.isEmpty(routes)
+    @initializeRoutes(routes) unless isEmpty(routes)
     @setUpReceivers(@getOptions().events)
     @initializeEvents(@getOptions().events, routes.length, channel)
 
@@ -187,7 +197,7 @@ class APIHandler extends APIHandlerBase
 
   initializeEvents: (events, numberOfRoutes, channel) =>
     @channel = channel or new EventEmitter2 wildcard: true, maxListeners: numberOfRoutes * 2
-    _.forEach(events, _.spread(@channel.on.bind(@channel)))
+    forEach(events, spread(@channel.on.bind(@channel)))
 
   sendRequest: (requestInfo, routeData, requestData, args...) =>
     routeOptions = @routes.get(requestInfo)
@@ -197,7 +207,7 @@ class APIHandler extends APIHandlerBase
     requestConfig = makeRequestConfig(routeOptions, routeData, requestData)
     requestConfig.topic = requestInfo.topic
 
-    _.merge(routeOptions, _.pick(requestInfo, 'subject', 'topic', 'action'))
+    merge(routeOptions, pick(requestInfo, 'subject', 'topic', 'action'))
 
     @send(requestConfig, routeOptions, args...)
 

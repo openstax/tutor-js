@@ -5,10 +5,12 @@ without = require 'lodash/without'
 classnames = require 'classnames'
 Notifications = require '../../model/notifications'
 
+# Keep in sync with keys on model/notifications
 TYPES =
   system: require './system'
   accounts: require './email'
-  missing_student_id: require './missing-student-id'
+  "#{Notifications.POLLING_TYPES.MISSING_STUDENT_ID}": require './missing-student-id'
+  "#{Notifications.POLLING_TYPES.COURSE_HAS_ENDED}":   require './course-has-ended'
 
 NotificationBar = React.createClass
 

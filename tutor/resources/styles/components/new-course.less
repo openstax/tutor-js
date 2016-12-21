@@ -198,15 +198,6 @@
           padding: 4px;
         }
       }
-      &[data-brand=coach]::before {
-        background-image: url('../../images/openstax-logo-coach-horizontal.svg');
-      }
-
-      &[data-brand=tutor-beta]::before {
-        background-image: url('../../images/openstax-logo-tutor-beta-horizontal.svg');
-      }
-
-
       &[data-new-or-copy=new]::before {
         background-image: url('../../images/icons/icon-new-course.svg');
       }
@@ -220,11 +211,6 @@
       .book-icon-style();
     }
 
-    [data-brand]::before {
-      width: 80%;
-      height: 5rem;
-      background-position: left center;
-    }
     [data-new-or-copy] {
       &::before {
         background-position: center;
@@ -267,7 +253,12 @@
         justify-content: center;
       }
     }
-
+    &.course_type {
+      svg {
+        width: 80%;
+        height: 5rem;
+      }
+    }
     &.term,
     &.cloned_from_id {
       .list-group-item {

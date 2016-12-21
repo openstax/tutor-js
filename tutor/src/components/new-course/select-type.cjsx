@@ -6,6 +6,9 @@ isEmpty = require 'lodash/isEmpty'
 
 TutorRouter = require '../../helpers/router'
 
+CCLogo = require 'shared/src/components/logos/concept-coach-horizontal'
+TutorLogo = require 'shared/src/components/logos/tutor-horizontal'
+
 {NewCourseActions, NewCourseStore} = require '../../flux/new-course'
 {CourseListingStore} = require '../../flux/course-listing'
 Choice = require './choice'
@@ -24,17 +27,19 @@ SelectType = React.createClass
 
   render: ->
     types =
-      tutor:  'tutor-beta'
-      cc:     'coach'
+      tutor: TutorLogo
+      coach: CCLogo
 
     <BS.ListGroup>
-      {for type, logo of types
+      {for type, Logo of types
         <Choice
           key={type}
-          data-brand={logo}
+          data-brand={type}
           active={isEqual(NewCourseStore.get(KEY), type)}
           onClick={partial(@onSelectType, type)}
-        />}
+        >
+          <Logo />
+        </Choice>}
     </BS.ListGroup>
 
 

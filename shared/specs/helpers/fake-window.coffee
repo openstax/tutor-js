@@ -31,5 +31,11 @@ class FakeWindow
       setItem: sinon.stub()
     @history =
       pushState: sinon.spy()
+    @open = sinon.spy()
+    @screen =
+      height: 1024
+      width:  768
+    @addEventListener = sinon.spy()
+    @removeEventListener = sinon.spy()
 
 module.exports = FakeWindow
