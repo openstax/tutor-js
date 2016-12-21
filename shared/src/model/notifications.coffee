@@ -7,11 +7,19 @@ EVENT_BUS = new EventEmitter2
 POLLERS = {}
 
 NOTICES = []
-MISSING_STUDENT_ID = 'missing_student_id'
+
 CLIENT_ID = 'client-specified'
 Poller = require './notifications/pollers'
 
 Notifications = {
+  POLLING_TYPES:
+    MISSING_STUDENT_ID: 'missing_student_id'
+    COURSE_HAS_ENDED: 'course_has_ended'
+
+  # for use by specs, not to be considered "public"
+  _reset: ->
+    @stopPolling()
+    NOTICES = []
 
   display: (notice) ->
     # fill in an id and type if not provided
@@ -53,9 +61,12 @@ Notifications = {
 
   setCourseRole: (course, role) ->
     return if role.type is 'teacher'
-    studentId = _.find(course.students, role_id: role.id)?.student_identifier
-    if _.isEmpty(studentId) and moment().diff(role.joined_at, 'days') > 7
-      @display({type: MISSING_STUDENT_ID, course, role})
+    unless _.isEmpty(role)
+      studentId = _.find(course.students, role_id: role.id)?.student_identifier
+      if _.isEmpty(studentId) and moment().diff(role.joined_at, 'days') > 7
+        @display({type: @POLLING_TYPES.MISSING_STUDENT_ID, course, role})
+    if moment(course.ends_at).isBefore(moment(), 'day')
+      @display({type: @POLLING_TYPES.COURSE_HAS_ENDED, course, role})
 
 }
 

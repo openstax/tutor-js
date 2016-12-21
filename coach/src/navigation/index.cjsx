@@ -38,6 +38,10 @@ Navigation = React.createClass
   onAddStudentId: ->
     channel.emit('show.student_id', view: 'student_id')
 
+  onCourseEnded: ->
+    # FIXME: this should go to new registration page
+    channel.emit('show.registration', view: 'registration')
+
   render: ->
     {course} = @props
     {view} = @context
@@ -74,7 +78,10 @@ Navigation = React.createClass
         className="row"
         role={course?.getRole()}
         course={course}
-        callbacks={missing_student_id: {onAdd: @onAddStudentId}}
+        callbacks={
+          missing_student_id: {onAdd: @onAddStudentId}
+          course_has_ended:   {onCCSecondSemester: @onCourseEnded}
+        }
       />
     </BS.Navbar>
 

@@ -1,0 +1,18 @@
+exports[`Notifications MissingStudentId notice renders and matches snapshot 1`] = `
+<div
+  className="notification course-has-ended">
+  <span
+    className="body">
+    <i
+      className="icon fa fa-info-circle" />
+    <span>
+      This course is no longer active.
+    </span>
+    <a
+      className="action"
+      onClick={[Function]}>
+      Using Concept Coach over two semesters?
+    </a>
+  </span>
+</div>
+`;

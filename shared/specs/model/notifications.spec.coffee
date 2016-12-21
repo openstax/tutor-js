@@ -1,5 +1,5 @@
 {Testing, expect, sinon, _} = require 'shared/specs/helpers'
-
+moment = require 'moment'
 URLs = require 'model/urls'
 Notifications = require 'model/notifications'
 Poller = require 'model/notifications/pollers'
@@ -14,7 +14,7 @@ describe 'Notifications', ->
   afterEach ->
     Poller::poll.restore()
     Poller::setUrl.restore()
-    Notifications.stopPolling()
+    Notifications._reset()
     URLs.reset()
 
   it 'polls when URL is set', ->
@@ -46,16 +46,27 @@ describe 'Notifications', ->
     expect(Notifications.getActive()).to.be.null
     undefined
 
-  it 'adds notices automatically when course role is set', ->
+  it 'adds missing student id when course role is set', ->
     changeListener = sinon.stub()
     notice = {message: 'hello world', icon: 'globe'}
-    Notifications.on('change', changeListener)
-    course = {id: '1', students: [{role_id: '111'}]}
-    role = {id: '111', type: 'student', joined_at: '2016-01-30T01:15:43.807Z'}
+    Notifications.once('change', changeListener)
+    course = {id: '1', ends_at: moment().add(1, 'day'), students: [{role_id: '111'}] }
+    role = {id: '111', type: 'student', joined_at: '2016-01-30T01:15:43.807Z' }
     Notifications.setCourseRole(course, role)
     expect(changeListener).to.have.been.called
     active = Notifications.getActive()
     expect(active.type).to.equal('missing_student_id')
     expect(active.course).to.deep.equal(course)
     expect(active.role).to.deep.equal(role)
+    undefined
+
+  it 'adds course has ended when course role is set', ->
+    changeListener = sinon.stub()
+    notice = {message: 'hello world', icon: 'globe'}
+    Notifications.once('change', changeListener)
+    course = {id: '1', students: [{role_id: '111'}], ends_at: '2011-11-11T01:15:43.807Z'}
+    Notifications.setCourseRole(course, {})
+    expect(changeListener).to.have.been.called
+    active = Notifications.getActive()
+    expect(active.type).to.equal('course_has_ended')
     undefined
