@@ -13,7 +13,7 @@ describe 'ChangeStudentIdForm Component', ->
 
   it 'renders values from props', ->
     Testing.renderComponent( ChangeStudentIdForm, props: @props ).then ({dom}) =>
-      expect(dom.querySelector('h3').textContent).to.equal(@props.title)
+      expect(dom.querySelector('.title').textContent).to.equal(@props.title)
       expect(dom.querySelector('.control-label').textContent).to.equal(@props.label)
       expect(dom.querySelector('.btn').textContent).to.equal(@props.saveButtonLabel)
 

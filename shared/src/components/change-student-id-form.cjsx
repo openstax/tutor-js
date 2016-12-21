@@ -1,7 +1,16 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+isEmpty = require 'lodash/isEmpty'
 AsyncButton = require './buttons/async-button'
 ENTER = 'Enter'
+classnames = require 'classnames'
+
+BlankWarning = (props) ->
+  <div
+    className={classnames('blank-warning', visible: isEmpty(props.value))}
+  >
+    An ID is required for credit. You have not yet entered an ID
+  </div>
 
 ChangeStudentIdForm = React.createClass
 
@@ -34,24 +43,22 @@ ChangeStudentIdForm = React.createClass
     @props.onSubmit(@state.studentId)
 
   render: ->
-    <BS.FormGroup className='openstax-change-student-id-form'>
-      <h3 className='text-center'>
+    <div className='openstax-change-student-id-form'>
+      <h2 className='title'>
         {@props.title}
-      </h3>
+      </h2>
       {@props.children}
-      <BS.Col sm={9}>
-        <BS.ControlLabel>{@props.label}</BS.ControlLabel>
-        <BS.InputGroup>
-          <BS.FormControl
-            type='text'
-            ref='input'
-            autoFocus
-            placeholder='School issued ID'
-            value={@state.studentId}
-            onChange={@handleChange}
-            onKeyPress={@onKeyPress}
-          />
-          <BS.InputGroup.Button>
+      <div className="controls">
+        <div className="main">
+          <BS.ControlLabel>{@props.label}</BS.ControlLabel>
+          <div className="inputs">
+            <input
+              autoFocus
+              placeholder='School issued ID'
+              defaultValue={@state.studentId}
+              onChange={@handleChange}
+              onKeyPress={@onKeyPress}
+            />
             <AsyncButton
               bsStyle="primary"
               className="btn btn-success"
@@ -61,14 +68,17 @@ ChangeStudentIdForm = React.createClass
             >
               {@props.saveButtonLabel}
             </AsyncButton>
-          </BS.InputGroup.Button>
-        </BS.InputGroup>
-      </BS.Col>
-      <BS.Col sm={3}>
-        <div className='cancel'>
+          </div>
+          <BlankWarning value={@state.studentId} />
+        </div>
+        <div className="cancel">
           <a href='#' onClick={@onCancel}>Cancel</a>
         </div>
-      </BS.Col>
-    </BS.FormGroup>
+      </div>
+
+      <div className="ask-for-it">
+        Don’t have one? Contact your instructor.
+      </div>
+    </div>
 
 module.exports = ChangeStudentIdForm
