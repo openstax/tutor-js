@@ -40,8 +40,8 @@ listenAndBroadcast = (componentAPI) ->
   componentModel.channel.on 'close.clicked', ->
     componentAPI.emit('ui.close')
 
-  componentModel.channel.on 'launcher.clicked.*', ->
-    componentAPI.emit('ui.launching')
+  componentModel.channel.on 'launcher.clicked.*', (args)->
+    componentAPI.emit('ui.launching', args)
 
   navigation.channel.on 'show.*', (eventData) ->
     componentAPI.emit('view.update', navigation.getDataByView(eventData.view))
@@ -110,7 +110,7 @@ class ConceptCoachAPI extends EventEmitter2
 
   initialize: (mountNode, props = {}) ->
     @remove()
-    props = _.clone(props)
+    props = _.extend(_.clone(props), _.pick(componentModel, PROPS))
     props.defaultView ?= if componentModel.isSame then componentModel.view else 'task'
 
     componentModel.update(

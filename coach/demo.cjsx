@@ -51,15 +51,15 @@ loadApp = ->
 
   initialModel = _.clone(demoSettings)
   initialModel.mounter = mainDiv
-
   conceptCoachDemo = new ConceptCoachAPI(settings.API_BASE_URL)
+
   conceptCoachDemo.setOptions(initialModel)
 
   conceptCoachDemo.on 'open', conceptCoachDemo.handleOpened
   conceptCoachDemo.on 'ui.close', conceptCoachDemo.handleClosed
 
-  show = ->
-    conceptCoachDemo.open(demoSettings)
+  show = (args) ->
+    conceptCoachDemo.open(demoSettings, args)
     true
 
   showOtherCourse = ->

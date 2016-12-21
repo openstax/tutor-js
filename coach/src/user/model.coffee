@@ -15,6 +15,7 @@ BLANK_USER =
   _course_data: []
   isLoaded: false
   isLoggingOut: false
+  isLoading: false
 
 User =
   channel: new EventEmitter2 wildcard: true
@@ -45,6 +46,9 @@ User =
     isRegistered: !!course?.isRegistered()
     preValidate: (not @isLoggedIn()) and (not course?.isValidated())
 
+  isEnrolled: (collectionUUID) ->
+    Boolean(@isLoggedIn() and @getCourse(collectionUUID))
+
   getCourse: (collectionUUID) ->
     _.findWhere( @courses, ecosystem_book_uuid: collectionUUID )
 
@@ -58,8 +62,13 @@ User =
       course
     )
 
+  load: ->
+    @isLoading = true
+    User.channel.emit('change')
+    api.channel.emit('user.status.fetch.send')
+
   ensureStatusLoaded: (force = false) ->
-    api.channel.emit('user.status.fetch.send') if force or not @isLoggedIn()
+    @load() if force or not @isLoggedIn()
 
   isLoggedIn: ->
     !!@profile_url
@@ -81,7 +90,7 @@ User =
   init: ->
     api.channel.on 'user.status.fetch.receive.*', ({data}) ->
       User.isLoaded = true
-
+      User.isLoading = false
       if data.access_token
         api.channel.emit('set.access_token', data.access_token)
       User.endpoints = data.endpoints

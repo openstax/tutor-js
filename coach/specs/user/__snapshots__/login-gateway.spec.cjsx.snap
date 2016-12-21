@@ -1,0 +1,35 @@
+exports[`User login gateway component renders children when window is closed 1`] = `
+<div
+  className="login-gateway is-open"
+  onClick={[Function]}
+  role="link">
+  <span
+    className="message">
+    Please log in using your OpenStax account in the window. 
+    <a
+      data-bypass={true}
+      href="test-login?parent=about%3Ablank"
+      onClick={[Function]}>
+      Click to reopen window.
+    </a>
+  </span>
+</div>
+`;
+
+exports[`User login gateway component renders children when window is closed 2`] = `
+<div
+  className="login-gateway is-open"
+  onClick={[Function]}
+  role="link">
+  <span
+    className="message">
+    Please log in using your OpenStax account in the window. 
+    <a
+      data-bypass={true}
+      href="test-login?parent=about%3Ablank"
+      onClick={[Function]}>
+      Click to reopen window.
+    </a>
+  </span>
+</div>
+`;

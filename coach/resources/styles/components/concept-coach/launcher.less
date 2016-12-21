@@ -289,9 +289,11 @@
   .header {
     border-bottom: 1px solid @openstax-neutral-light;
     font-size: 18px;
+    height: 60px;
+    padding: 0 20px;
     .flex-display();
     .align-items(center);
-    .justify-content(flex-end);
+    .justify-content(space-between);
     button {
       .button(#3aab47);
       padding: 8px;
@@ -304,8 +306,9 @@
     .flex-display();
     .align-items(center);
     padding: 30px;
-    .study {
+    .words {
       text-align: left;
+      margin-right: 1rem;
       .align-self(stretch);
       .flex-display();
       .align-items(flex-start);
@@ -317,7 +320,10 @@
         .flex-direction(column);
         .justify-content(center);
         color: @dark-blue;
-        h1 { margin: 0; }
+        h1 {
+          margin: 0;
+          font-size: 2.4vw;
+        }
       }
       .fine-print {
         p {
@@ -327,9 +333,9 @@
       }
       button {
         .align-self(flex-start);
-        font-size: 22px;
-        margin-top: 20px;
-        padding: 15px 30px;
+        font-size: 18px;
+        margin-top: 10px;
+        padding: 10px 40px;
         .button(@orange);
       }
     }
@@ -337,6 +343,22 @@
       .flex(1);
     }
   }
+  &.is-loading {
+    .words {
+      .fine-print,
+      button {
+        visibility: hidden;
+      }
+    }
+  }
+  &.is-logged-in,
+  &.is-loading {
+    .header .actions { display: none; }
+  }
+  &.is-enrolled {
+    .words button { .button(@green); }
+  }
+
 }
 
 .concept-coach-launcher {

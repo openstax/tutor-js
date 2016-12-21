@@ -1,61 +1,79 @@
 React = require 'react'
 _ = require 'underscore'
 
+
 {ConceptCoach, channel} = require './base'
 {CCModal} = require './modal'
-{Launcher} = require './launcher'
+Launcher = require './launcher'
 LoginGateway = require '../user/login-gateway'
+User = require '../user/model'
 
 Coach = React.createClass
   displayName: 'Coach'
-  getDefaultProps: ->
-    open: false
-    displayLauncher: true
+
   propTypes:
     open: React.PropTypes.bool
     displayLauncher: React.PropTypes.bool
     filterClick: React.PropTypes.func
-    windowImpl: LoginGateway.FakeWindowPropTypes
-
-  getDefaultProps: ->
-    window: window
+    windowImpl: LoginGateway.windowPropType
+    collectionUUID: React.PropTypes.string.isRequired
+    moduleUUID: React.PropTypes.string.isRequired
 
   getInitialState: ->
     {}
 
-  onLogin: ->  @launch('login')
-  onEnroll: -> @launch('signup')
+  getDefaultProps: ->
+    open: false
+    displayLauncher: true
+    windowImpl: window
+
+
+  onLoginClick: ->
+    @launch('login')
+
+  onEnrollClick: ->
+    @launch('signup')
 
   launch: (type) ->
-    channel.emit("launcher.clicked.#{type}")
-    @setState(openingAs: type, loginWindow: LoginGateway.openWindow(@props.windowImpl, {type}))
+    if User.isLoggedIn()
+      channel.emit("launcher.clicked.#{type}")
+    else
+      loginWindow = LoginGateway.openWindow(@props.windowImpl, {type})
+      @setState({loginWindow, loginType: type})
+
+  # onLoginGatewayComplete: ->
+  #   @setState({loginWindow: null})
+  #   # TODO: Hookup new enrollment screen here
+  #   channel.emit("launcher.clicked.#{@state.loginType}")
 
   Modal: ->
-    return null unless @props.open
     coachProps = _.omit(@props, 'open')
-    <CCModal
-      filterClick={@props.filterClick}
-    >
-      <ConceptCoach
-        opensAt={@state.opensAs}
+    <CCModal filterClick={@props.filterClick}>
+      <LoginGateway
         loginWindow={@state.loginWindow}
-        {...coachProps}
-      />
+        loginType={@state.loginType}
+        windowImpl={@props.windowImpl}
+      >
+        <ConceptCoach opensAt={@state.opensAs} {...coachProps} />
+      </LoginGateway>
     </CCModal>
 
   Launcher: ->
-    return null unless @props.displayLauncher
     <Launcher
-      isLaunching={open}
-      onLogin={@onLogin}
-      onEnroll={@onEnroll}
+      isLaunching={@props.open}
+      onLogin={@onLoginClick}
+      onEnroll={@onEnrollClick}
+      collectionUUID={@props.collectionUUID}
     />
 
   render: ->
-    console.log @props
+    Component = if @props.open or @state.loginWindow
+      @Modal
+    else
+      @Launcher
+
     <div className='concept-coach-wrapper'>
-      <@Launcher />
-      <@Modal />
+      <Component />
     </div>
 
 module.exports = {Coach, channel}
