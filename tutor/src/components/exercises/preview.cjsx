@@ -24,6 +24,7 @@ ExercisePreviewWrapper = React.createClass
 
   render: ->
     { exercise } = @props
+
     <ExercisePreview
       key={exercise.id}
       className='exercise-card'

@@ -24,6 +24,7 @@
     .pinned-on & {
       position: fixed;
       top: 190px;
+      z-index: 10;
     }
 
     .pinned-shy & {
@@ -51,6 +52,11 @@
       transition: none;
       height: 100vh;
     }
+    &.has-interactive {
+      .controls-overlay {
+        left: 400px - @tutor-interactive-iframe-width/2;
+      }
+    }
   }
 
   .paging-control {
@@ -72,6 +78,11 @@
         position: fixed;
         top: 0px;
         left: calc(~"50% - " 400px );
+      }
+      &.has-interactive {
+        .controls-overlay {
+          left: calc(~"50% - " @tutor-interactive-iframe-width/2 );
+        }
       }
     }
   }
