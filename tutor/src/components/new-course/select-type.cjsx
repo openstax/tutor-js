@@ -28,12 +28,13 @@ SelectType = React.createClass
   render: ->
     types =
       tutor: TutorLogo
-      cc: CCLogo
+      coach: CCLogo
 
     <BS.ListGroup>
       {for type, Logo of types
         <Choice
           key={type}
+          data-brand={type}
           active={isEqual(NewCourseStore.get(KEY), type)}
           onClick={partial(@onSelectType, type)}
         >
