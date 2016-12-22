@@ -8,6 +8,7 @@ includes  = require 'lodash/includes'
 some      = require 'lodash/some'
 set       = require 'lodash/set'
 every     = require 'lodash/every'
+isObject  = require 'lodash/isObject'
 isError   = require 'lodash/isError'
 isEmpty   = require 'lodash/isEmpty'
 propertyOf  = require 'lodash/propertyOf'
@@ -124,7 +125,7 @@ class Interceptors
     Promise.reject(error) if isError(error)
 
   handleErrorMessage: (error) =>
-    {statusText, data} = error.response
+    {statusText, data} = error.response if isObject(error.response)
 
     try
       msg = JSON.parse(statusText)
@@ -142,11 +143,10 @@ class Interceptors
 
   filterErrors: (error) =>
     {response, config} = error
-    {data} = response
+    {data} = response if isObject(response)
     return Promise.reject(error) if isEmpty(config)
-
     if isEmpty(config.handledErrors) or
-      not areAllErrorsHandled(config.handledErrors, data.errors, @_apiHandler.getOptions().errorNameProperty)
+      not areAllErrorsHandled(config.handledErrors, data?.errors, @_apiHandler.getOptions().errorNameProperty)
         Promise.reject(error)
     else
       response
