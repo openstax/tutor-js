@@ -59,14 +59,13 @@ EmailNotification = React.createClass
       @onPinCheck()
 
   renderPin: ->
-    _.defer =>
-      @refs.verifyInput?.getInputDOMNode().focus()
+    _.defer => @refs.verifyInput.focus()
     <span className="body verify">
       <i className='icon fa fa-envelope-o' />
       <span className="message">
         Check your email inbox. Enter the 6-digit verification code:
       </span>
-      <BS.FormControl autofocus ref='verifyInput' onKeyPress={@onVerifyKey} type="text" />
+      <input autofocus ref='verifyInput' onKeyPress={@onVerifyKey} type="text" />
       <a className='pin-check action' onClick={@onPinCheck}>Go</a>
     </span>
 

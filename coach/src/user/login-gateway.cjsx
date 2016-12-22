@@ -48,6 +48,7 @@ LoginGateway = React.createClass
     loginWindow: WindowPropType.isRequired
     windowImpl: WindowPropType
     loginType: React.PropTypes.string
+    onLogin:   React.PropTypes.func.isRequired
 
   getDefaultProps: ->
     windowImpl: window
@@ -67,7 +68,7 @@ LoginGateway = React.createClass
       data = JSON.parse(msg.data)
       if data.user
         api.channel.emit 'user.status.fetch.receive.success', data: data
-        @setState(loginWindow: false)
+        @props.onLogin()
     catch error
       console.warn(error)
 
@@ -83,13 +84,6 @@ LoginGateway = React.createClass
     else
       _.delay( @windowClosedCheck, SECOND)
 
-  renderOpenMessage: ->
-    <span className="message">
-      Please log in using your OpenStax account in the window. <a data-bypass
-        onClick={@openLogin} href={LoginGateway.urlForLogin()}
-      >Click to reopen window.</a>
-    </span>
-
   render: ->
     classes = classnames('login-gateway', @props.className,
       'is-open': @state.loginWindow
@@ -97,7 +91,11 @@ LoginGateway = React.createClass
     )
 
     <div role="link" className={classes} onClick={@openLogin}>
-      {if @state.loginWindow then @renderOpenMessage() else @props.children}
+      <span className="message">
+        Please log in using your OpenStax account in the window. <a data-bypass
+          onClick={@openLogin} href={LoginGateway.urlForLogin()}
+        >Click to reopen window.</a>
+      </span>
     </div>
 
 module.exports = LoginGateway

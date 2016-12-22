@@ -13,16 +13,18 @@ describe 'User login gateway component', ->
     User.endpoints = {login: 'test-login'}
     @props =
       type: 'profile'
+      onLogin: jest.fn()
       loginWindow: new FakeWindow()
       windowImpl: new FakeWindow()
 
-  it 'renders children when window is closed', ->
+  it 'calls callback when complete', ->
     wrapper = shallow(<LoginGateway {...@props}><span>Child</span></LoginGateway>)
     expect(wrapper.text()).to.include('reopen window')
     expect(SnapShot.create(<LoginGateway {...@props} />).toJSON()).toMatchSnapshot()
-    wrapper.setState(loginWindow: false)
-    expect(wrapper.text()).to.include('Child')
-    expect(SnapShot.create(<LoginGateway {...@props} />).toJSON()).toMatchSnapshot()
+    @props.windowImpl.addEventListener.lastCall.args[1](
+      data: '{"user":{"id":1}}'
+    )
+    expect(@props.onLogin).toHaveBeenCalled()
     undefined
 
   it 'opens a propup window when clicked', ->
