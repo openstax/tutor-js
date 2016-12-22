@@ -4,7 +4,7 @@ _ = require 'underscore'
 classnames = require 'classnames'
 {SpyMode, TaskHelper, ExerciseIntro} = require 'shared'
 
-{channel} = tasks = require './collection'
+{channel,getLastError} = tasks = require './collection'
 api = require '../api'
 {Reactive} = require '../reactive'
 apiChannelName = 'task'
@@ -14,7 +14,7 @@ breadcrumbs = {Breadcrumbs} = require '../breadcrumbs'
 
 {TaskReview} = require './review'
 {TaskTitle} = require './title'
-{NoExercises} = require './no-exercises'
+ErrorHandlers = require './errors'
 
 TaskBase = React.createClass
   displayName: 'TaskBase'
@@ -131,8 +131,14 @@ TaskBase = React.createClass
 
     noExercises = not task.steps? or _.isEmpty(task.steps)
 
-    panel = if noExercises
-      <NoExercises/>
+    error = getLastError()
+    if error?.code
+      ErrorHandler = ErrorHandlers[error.code]
+    if noExercises and not ErrorHandler
+      ErrorHandler = ErrorHandlers.no_exercises
+
+    panel = <ErrorHandler /> if ErrorHandler
+
     else if @isExerciseStep(currentStep)
       <ExerciseStep
         className='concept-coach-task-body'

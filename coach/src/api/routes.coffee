@@ -28,7 +28,7 @@ routes = [{
     action: 'fetchByModule'
     method: 'GET'
     pattern: 'api/cc/tasks/{collectionUUID}/{moduleUUID}'
-    handledErrors: ['page_has_no_exercises']
+    handledErrors: ['page_has_no_exercises', 'course_ended']
   }, {
     subject: 'user'
     topic: 'status'
