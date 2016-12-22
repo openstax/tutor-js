@@ -92,7 +92,7 @@ ChangeStudentId = React.createClass
     <BS.Panel bsStyle='primary' className="change-id-panel">
       <BS.Row>
         <ChangeStudentIdForm
-          label="Enter your school-issued ID that is used for granding:"
+          label="Enter your school-issued ID that is used for grading:"
           title="Update your student ID"
           onCancel={@onCancel}
           onSubmit={@onSubmit}
