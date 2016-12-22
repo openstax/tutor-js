@@ -27,6 +27,8 @@ Coach = React.createClass
     displayLauncher: true
     windowImpl: window
 
+  onLoginComplete: ->
+    @forceUpdate()
 
   onLoginClick: ->
     @launch('login')
@@ -43,19 +45,17 @@ Coach = React.createClass
 
   Modal: ->
     coachProps = _.omit(@props, 'open')
-    coach = <ConceptCoach opensAt={@state.opensAs} {...coachProps} />
-    if User.isLoggedIn()
-      children = coach
+    body = if User.isLoggedIn()
+      <ConceptCoach opensAt={@state.opensAs} {...coachProps} />
     else
-      children =
-        <LoginGateway
-          loginWindow={@state.loginWindow}
-          loginType={@state.loginType}
-          windowImpl={@props.windowImpl}
-        >{coach}</LoginGateway>
-
+      <LoginGateway
+        onLogin={@onLoginComplete}
+        loginWindow={@state.loginWindow}
+        loginType={@state.loginType}
+        windowImpl={@props.windowImpl}
+      />
     <CCModal filterClick={@props.filterClick}>
-      {children}
+      {body}
     </CCModal>
 
   Launcher: ->
