@@ -111,10 +111,14 @@ CourseEnrollmentStore = flux.createStore
     @emit('change')
 
   confirmed: (response) ->
-    throw new Error("response is empty in confirmed") if _.isEmpty(response)
+    throw new Error('response is empty in confirmed') if _.isEmpty(response)
     @storeResponse(response)
 
-    @enrollmentChange.status = "process_error" if CourseEnrollmentStore.hasErrors()
+    if CourseEnrollmentStore.hasErrors()
+      @enrollmentChange.status = 'process_error'
+    else
+      # need to actually set this so that `isRegistered` get's to be true at some point.
+      @enrollmentChange.status = 'processed'
 
     @emit('change')
 

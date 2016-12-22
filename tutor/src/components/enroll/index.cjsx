@@ -6,6 +6,7 @@ Router = require '../../helpers/router'
 
 {CourseEnrollmentActions, CourseEnrollmentStore} = require '../../flux/course-enrollment'
 {CourseActions, CourseStore} = require '../../flux/course'
+{CourseListingActions, CourseListingStore} = require '../../flux/course-listing'
 {MessageList} = require 'shared'
 
 ConfirmJoin = require './confirm-join'
@@ -57,8 +58,16 @@ Enroll = React.createClass
       CourseStore.once('course.loaded', resolve)
       CourseActions.load(CourseEnrollmentStore.getCourseId())
     )
+    # On page load of this page, the student is not yet enrolled to this course,
+    # so the bootstrapped data that gets loaded into CourseListingStore does not include this new course.
+    # We need to make sure we load the full course listing after enrollment, otherwise
+    # dashboard will continue to think we're not enrolled in the new course.
+    loadCourseListing = new Promise((resolve, reject) ->
+      CourseListingStore.once('loaded', resolve)
+      CourseListingActions.load()
+    )
     successTimer = new Promise((resolve, reject) -> _.delay(resolve, 1500))
-    Promise.all([loadCourse, successTimer]).then(@redirectToDashboard)
+    Promise.all([loadCourse, loadCourseListing, successTimer]).then(@redirectToDashboard)
 
   isTeacher: ->
     CourseStore.isTeacher(CourseEnrollmentStore.courseId)
