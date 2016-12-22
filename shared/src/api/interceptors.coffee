@@ -11,6 +11,7 @@ every     = require 'lodash/every'
 isError   = require 'lodash/isError'
 isEmpty   = require 'lodash/isEmpty'
 propertyOf  = require 'lodash/propertyOf'
+isObjectLike = require 'lodash/isObjectLike'
 
 makeLocalRequest = (requestConfig) ->
   {url} = requestConfig
@@ -124,7 +125,7 @@ class Interceptors
     Promise.reject(error) if isError(error)
 
   handleErrorMessage: (error) =>
-    {statusText, data} = error.response
+    {statusText, data} = error.response if isObjectLike(error.response)
 
     try
       msg = JSON.parse(statusText)
@@ -133,7 +134,7 @@ class Interceptors
 
     error.response.statusMessage = msg
 
-    unless isObject(data)
+    unless isObjectLike(data)
       try
         error.response.data = JSON.parse(data)
       catch e
@@ -142,11 +143,10 @@ class Interceptors
 
   filterErrors: (error) =>
     {response, config} = error
-    {data} = response
+    {data} = response if isObjectLike(response)
     return Promise.reject(error) if isEmpty(config)
-
     if isEmpty(config.handledErrors) or
-      not areAllErrorsHandled(config.handledErrors, data.errors, @_apiHandler.getOptions().errorNameProperty)
+      not areAllErrorsHandled(config.handledErrors, data?.errors, @_apiHandler.getOptions().errorNameProperty)
         Promise.reject(error)
     else
       response

@@ -5,10 +5,13 @@ api = require '../api'
 exercises = require '../exercise/collection'
 
 tasks = {}
-
+lastError = {}
 user = require '../user/model'
 
 channel = new EventEmitter2 wildcard: true
+
+getLastError = ->
+  lastError
 
 load = (taskId, data) ->
   tasks[taskId] = data
@@ -17,6 +20,7 @@ load = (taskId, data) ->
 
   _.each data?.steps, (step) ->
     exercises.quickLoad(step.id, step)
+  lastError = data.errors?[0]
 
   channel.emit("load.#{taskId}", {data, status})
 
@@ -99,5 +103,6 @@ module.exports = {
   getStepIndex,
   getModuleInfo,
   getAsPage,
-  channel
+  channel,
+  getLastError
 }

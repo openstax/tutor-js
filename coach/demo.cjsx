@@ -14,7 +14,7 @@ SETTINGS =
   LOCAL:
     API_BASE_URL: 'http://localhost:3001'
     COLLECTION_UUID: "3402dc53-113d-45f3-954e-8d2ad1e73659"
-    MODULE_UUID: '7636a3bf-eb80-4898-8b2c-e81c1711b99f'
+    MODULE_UUID: '68ae7446-32b4-4cc7-89a7-4615dd20f3bd'
     CNX_URL: 'http://localhost:8000'
   SERVER:
     API_BASE_URL: 'https://tutor-dev.openstax.org'

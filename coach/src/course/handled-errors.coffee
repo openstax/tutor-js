@@ -12,5 +12,8 @@ ERROR_MAP =
   taken: 'The provided student ID has already been used in this course. Please try again or contact your instructor.'
   blank_student_identifier: 'The student ID field cannot be left blank. Please enter your student ID.'
   no_change: 'You have not changed the student ID.  Please enter your new student ID and try again.'
+  'belongs to a course that has already ended': 'The course that this enrollment code belongs to has ended.'
+  course_ended: "This Concept Coach course has ended. Click My Progress at the top of the next screen to access all previous work for this course."
+
 
 module.exports = ERROR_MAP
