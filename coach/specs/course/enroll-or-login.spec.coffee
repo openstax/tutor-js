@@ -8,7 +8,7 @@ EnrollOrLogin = require 'course/enroll-or-login'
 
 describe 'EnrollOrLogin Component', ->
 
-  it 'renders actions', ->
+  xit 'renders actions', ->
     Testing.renderComponent( EnrollOrLogin, props: {} ).then ({dom}) ->
       expect(dom.textContent).to.include 'Sign up for Concept Coach'
       expect(dom.textContent).to.include 'No enrollment code? Contact your instructor'
