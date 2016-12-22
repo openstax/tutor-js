@@ -38,7 +38,6 @@ NewCourseRegistration = React.createClass
 
   registerIfReady: (course) ->
     if User.isLoggedIn() and @props.enrollmentCode and not course.isRegistered()
-      console.info(course)
       course.register(@props.enrollmentCode, User)
 
   onComplete: ->

@@ -68,10 +68,12 @@ Launcher = React.createClass
     {isLaunching, defaultHeight, enrollmentCode} = @props
     {height} = @state
     isLoggedIn = User.isLoggedIn()
-    FinePrint = if User.isEnrolled(@props.collectionUUID)
-      SwitchSections
+    finePrint = if User.isEnrolled(@props.collectionUUID)
+      <SwitchSections {...@props}/>
     else unless enrollmentCode?
-      EnrollmentCode
+      <EnrollmentCode {...@props}/>
+    else
+      null
 
     <div className={
       classnames('concept-coach-launcher-wrapper',
@@ -95,7 +97,7 @@ Launcher = React.createClass
                   {@primaryActionText()}
                 </button>
               </div>
-              {<FinePrint {...@props} /> unless enrollmentCode?}
+              {finePrint}
             </div>
             <QuestionSVG {...@props} />
           </div>
