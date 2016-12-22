@@ -137,7 +137,8 @@ TaskBase = React.createClass
     if noExercises and not ErrorHandler
       ErrorHandler = ErrorHandlers.no_exercises
 
-    panel = <ErrorHandler /> if ErrorHandler
+    if ErrorHandler
+      panel = <ErrorHandler />
 
     else if @isExerciseStep(currentStep)
       <ExerciseStep
