@@ -65,10 +65,13 @@ Launcher = React.createClass
     if User.isEnrolled(@props.collectionUUID) then 'Launch Concept Coach' else 'Enroll in This Course'
 
   render: ->
-    {isLaunching, defaultHeight} = @props
+    {isLaunching, defaultHeight, enrollmentCode} = @props
     {height} = @state
     isLoggedIn = User.isLoggedIn()
-    FinePrint = if User.isEnrolled(@props.collectionUUID) then SwitchSections else EnrollmentCode
+    FinePrint = if User.isEnrolled(@props.collectionUUID)
+      SwitchSections
+    else unless enrollmentCode?
+      EnrollmentCode
 
     <div className={
       classnames('concept-coach-launcher-wrapper',
@@ -92,7 +95,7 @@ Launcher = React.createClass
                   {@primaryActionText()}
                 </button>
               </div>
-              <FinePrint {...@props} />
+              {<FinePrint {...@props} /> unless enrollmentCode?}
             </div>
             <QuestionSVG {...@props} />
           </div>
