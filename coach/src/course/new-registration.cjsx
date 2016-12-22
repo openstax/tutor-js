@@ -2,7 +2,6 @@ React = require 'react'
 _ = require 'underscore'
 
 Course = require './model'
-User = require '../user/model'
 ENTER = 'Enter'
 
 EnrollmentCodeInput = require './enrollment-code-input'
@@ -19,6 +18,9 @@ NewCourseRegistration = React.createClass
     title: React.PropTypes.string
     course: React.PropTypes.instanceOf(Course)
 
+  contextTypes:
+    enrollmentCode: React.PropTypes.string
+
   getDefaultProps: ->
     title: 'Register for this Concept Coach course'
 
@@ -26,11 +28,17 @@ NewCourseRegistration = React.createClass
     course = @props.course or
       User.getCourse(@props.collectionUUID) or
       new Course({ecosystem_book_uuid: @props.collectionUUID})
+
+    @registerIfReady(course)
     course.channel.on('change', @onCourseChange)
     @setState({course})
 
   componentWillUnmount: ->
     @state.course.channel.off('change', @onCourseChange)
+
+  registerIfReady: (course) ->
+    if User.isLoggedIn() and @props.enrollmentCode and not course.isRegistered()
+      course.register(@props.enrollmentCode, User)
 
   onComplete: ->
     @state.course.persist(User)

@@ -51,6 +51,7 @@ ConceptCoach = React.createClass
   childContextTypes:
     moduleUUID:     React.PropTypes.string
     collectionUUID: React.PropTypes.string
+    enrollmentCode: React.PropTypes.string
     triggeredFrom:  React.PropTypes.shape(
       moduleUUID:     React.PropTypes.string
       collectionUUID: React.PropTypes.string
@@ -65,7 +66,7 @@ ConceptCoach = React.createClass
 
   getChildContext: ->
     {view} = @state
-    {cnxUrl, close, moduleUUID, collectionUUID, getNextPage, triggeredFrom} = @props
+    {cnxUrl, close, moduleUUID, collectionUUID, enrollmentCode, getNextPage, triggeredFrom} = @props
     bookUrlPattern = '{cnxUrl}/contents/{ecosystem_book_uuid}'
     processHtmlAndMath = @props.processHtmlAndMath
 
@@ -78,6 +79,7 @@ ConceptCoach = React.createClass
       navigator,
       moduleUUID,
       collectionUUID,
+      enrollmentCode,
       triggeredFrom,
       getNextPage
     }

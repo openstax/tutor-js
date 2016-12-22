@@ -45,6 +45,8 @@ Coach = React.createClass
 
   Modal: ->
     coachProps = _.omit(@props, 'open')
+    gatewayProps = _.pick(@props, 'enrollmentCode')
+
     body = if User.isLoggedIn()
       <ConceptCoach opensAt={@state.opensAs} {...coachProps} />
     else
@@ -53,17 +55,22 @@ Coach = React.createClass
         loginWindow={@state.loginWindow}
         loginType={@state.loginType}
         windowImpl={@props.windowImpl}
+        {...gatewayProps}
       />
+
     <CCModal filterClick={@props.filterClick}>
       {body}
     </CCModal>
 
   Launcher: ->
+    launcherProps = _.pick(@props, 'enrollmentCode')
+
     <Launcher
       isLaunching={@props.open}
       onLogin={@onLoginClick}
       onEnroll={@onEnrollClick}
       collectionUUID={@props.collectionUUID}
+      {...launcherProps}
     />
 
   render: ->
