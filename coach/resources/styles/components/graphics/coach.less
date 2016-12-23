@@ -1,0 +1,46 @@
+.openstax-graphics-coach {
+  &-wrapper { isolation: isolate; }
+
+  &-browser-base { fill: #e6e7e8; }
+  &-browser-ui { opacity: 0.5; }
+  &-browser-ui-button { fill: #222e65; }
+  &-browser-bar { fill: @openstax-info; }
+
+  &-navbar-base,
+  &-coach-wrapper,
+  &-question-label,
+  &-answer-circle {
+    fill: @openstax-white;
+  }
+  &-navbar-ui,
+  &-coach-ui {
+    fill: #d1d3d4;
+  }
+  &-coach-bar {
+    fill: none;
+    stroke: #f0efef;
+    stroke-miterlimit: 10;
+    opacity: 0.3;
+  }
+
+  &-question-circle { fill: #f47641; }
+  &-question-text { fill: @openstax-tertiary; }
+
+  &-answer-text { fill: #ccc; }
+  &-answer-label {
+    fill: @openstax-neutral-dark;
+  }
+
+  &-answer-active {
+    .openstax-graphics-coach-answer-label {
+      fill: @openstax-white;
+    }
+    .openstax-graphics-coach-answer-circle {
+      fill: @openstax-info;
+    }
+    .openstax-graphics-coach-answer-text {
+      fill: @openstax-neutral-dark;
+    }
+  }
+
+}

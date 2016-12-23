@@ -6,8 +6,7 @@ classnames = require 'classnames'
 CCLogo = require 'shared/src/components/logos/concept-coach-horizontal'
 User = require '../../user/model'
 
-BackgroundAndDesk = require './background-and-desk'
-QuestionSVG = require '../question-svg'
+CoachGraphic = require '../../graphics/coach'
 
 {channel} = require '../model'
 
@@ -15,7 +14,7 @@ LoginAction = (props) ->
   return null unless props.isVisible
   <div className="actions">
     <span>Already enrolled in this course?</span>
-    <button onClick={props.onLogin}>Login</button>
+    <BS.Button onClick={props.onLogin}>Login</BS.Button>
   </div>
 LoginAction.displayName = 'LoginAction'
 
@@ -82,25 +81,23 @@ Launcher = React.createClass
         'is-enrolled': User.isEnrolled(@props.collectionUUID)
       )}
     >
-      <div className="border-well">
-        <div className={classnames('concept-coach-launcher', launching: isLaunching)}>
-          <div className="header">
-            <CCLogo />
-            <LoginAction onLogin={@props.onLogin} isVisible={not isLoggedIn} />
-          </div>
-          <div className="body">
-            <div className="words">
-              <div className="cta">
-                <h1>Study Smarter with OpenStax</h1>
-                <h1>Concept Coach</h1>
-                <button onClick={@props.onEnroll}>
-                  {@primaryActionText()}
-                </button>
-              </div>
-              {finePrint}
+      <div className={classnames('concept-coach-launcher', launching: isLaunching)}>
+        <div className="header">
+          <CCLogo />
+          <LoginAction onLogin={@props.onLogin} isVisible={not isLoggedIn} />
+        </div>
+        <div className="body">
+          <div className="words">
+            <div className="cta">
+              <h1>Study Smarter with OpenStax</h1>
+              <h1>Concept Coach</h1>
+              <BS.Button className='btn-openstax-primary' onClick={@props.onEnroll}>
+                {@primaryActionText()}
+              </BS.Button>
             </div>
-            <QuestionSVG {...@props} />
+            {finePrint}
           </div>
+          <CoachGraphic {...@props} />
         </div>
       </div>
     </div>
