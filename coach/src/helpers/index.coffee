@@ -3,6 +3,8 @@ ReactDOM = require 'react-dom'
 _ = require 'underscore'
 deepMerge = require 'lodash/merge'
 
+{AppContainer} = require 'react-hot-loader'
+
 helpers =
 
   wrapComponent: (component) ->
@@ -16,7 +18,10 @@ helpers =
 
     update: (props = {}) ->
       @props = deepMerge({}, cache.component.props, props)
-      ReactDOM.render React.createElement(component, @props), cache.DOMNode
+      ReactDOM.render(
+        React.createElement(AppContainer, {}, React.createElement(component, @props))
+        cache.DOMNode
+      )
 
     unmount: ->
       ReactDOM.unmountComponentAtNode(cache.DOMNode)
