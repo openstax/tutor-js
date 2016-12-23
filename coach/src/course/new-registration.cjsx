@@ -28,7 +28,8 @@ NewCourseRegistration = React.createClass
     course = @props.course or
       User.getCourse(@props.collectionUUID) or
       new Course({ecosystem_book_uuid: @props.collectionUUID})
-
+    if @props.secondSemester
+      course.prepForSecondSemesterEnrollment()
     @registerIfReady(course)
     course.channel.on('change', @onCourseChange)
     @setState({course})

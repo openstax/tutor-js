@@ -16,6 +16,10 @@ class Course
     _.extend(@, attributes)
     _.bindAll(@, '_onRegistered', '_onConfirmed', '_onValidated', '_onStudentUpdated')
 
+  prepForSecondSemesterEnrollment: ->
+    @resetToBlankState()
+    @secondSemester = true
+
   # complete and ready for use
   isRegistered: -> @id and not (@isIncomplete() or @isPending())
   # Freshly initialized, registration code has not been entered
