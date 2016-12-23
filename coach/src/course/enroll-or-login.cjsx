@@ -4,7 +4,7 @@ classnames = require 'classnames'
 NewCourseRegistration = require './new-registration'
 Course = require './model'
 LoginGateway = require '../user/login-gateway'
-LaptopAndMug = require '../concept-coach/laptop-and-mug'
+LaptopAndMug = require '../graphics/laptop-and-mug'
 
 EnrollOrLogin = React.createClass
   getInitialState: ->
