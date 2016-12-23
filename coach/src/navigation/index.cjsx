@@ -39,8 +39,7 @@ Navigation = React.createClass
     channel.emit('show.student_id', view: 'student_id')
 
   onCourseEnded: ->
-    # FIXME: this should go to new registration page
-    channel.emit('show.registration', view: 'registration')
+    channel.emit('show.registration', view: 'second-semester-registration')
 
   render: ->
     {course} = @props
