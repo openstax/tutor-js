@@ -8,7 +8,7 @@ EventEmitter2 = require 'eventemitter2'
 
 {Task} = require '../task'
 navigation = {Navigation} = require '../navigation'
-CourseRegistration = require '../course/registration'
+NewCourseRegistration = require '../course/new-registration'
 ErrorNotification = require './error-notification'
 SafariWarning = require './safari-warning'
 AccountsIframe = require '../user/accounts-iframe'
@@ -25,7 +25,14 @@ navigator = navigation.channel
 
 # TODO Move this and auth logic to user model
 # These views are used with an authLevel (0, 1, 2, or 3) to determine what views the user is allowed to see.
-VIEWS = ['loading', 'login', 'registration', ['task', 'progress', 'profile', 'dashboard', 'registration', 'student_id'], 'logout']
+VIEWS = [
+  'loading', 'login', 'registration',
+  [
+    'task', 'progress', 'profile', 'dashboard', 'student_id',
+    'registration', 'second-semester-registration'
+  ],
+  'logout'
+]
 
 ConceptCoach = React.createClass
   displayName: 'ConceptCoach'
@@ -161,7 +168,9 @@ ConceptCoach = React.createClass
       when 'login'
         <LoginGateway />
       when 'registration'
-        <CourseRegistration {...@props} />
+        <NewCourseRegistration {...@props} />
+      when 'second-semester-registration'
+        <NewCourseRegistration {...@props} secondSemester=true />
       when 'task'
         <Task {...@props} key='task'/>
       when 'progress'
