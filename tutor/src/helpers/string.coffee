@@ -26,7 +26,7 @@ module.exports = {
     string.replace(/\W+/g, '').replace /([A-Z])/g, ($1) -> "-#{$1.toLowerCase()}"
 
   # originated from http://individed.com/code/to-title-case/
-  titleize: (string) ->
+  titleize: (string = '') ->
     string
       .replace(/_/g, ' ')
       .replace(/[A-Za-z0-9\u00C0-\u00FF]+[^\s-]*/g, (match, index, title) ->
