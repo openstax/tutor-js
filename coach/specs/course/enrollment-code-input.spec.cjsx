@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _, ReactTestUtils} = require 'shared/specs/helpers'
+{React, Testing, expect, sinon, _, ReactTestUtils} = require 'shared/specs/helpers'
 
 EnrollmentCodeInput = require 'course/enrollment-code-input'
 Course = require 'course/model'
@@ -9,10 +9,17 @@ describe 'EnrollmentCodeInput Component', ->
   beforeEach ->
     @props =
       title: 'Join my Course'
+      isTeacher: false
       course: new Course(ecosystem_book_uuid: 'test-uuid')
       currentCourses: _.map STATUS.courses, (c) -> new Course(c)
 
-  it 'lists current courses', ->
+  it 'displays second semester message when prop is set', ->
+    @props.secondSemester = true
+    wrapper = shallow(<EnrollmentCodeInput {...@props} />)
+    expect(wrapper.text()).to.include('A New Semester, A New Enrollment Code')
+    undefined
+
+  xit 'lists current courses', ->
     @props.optionalStudentId = true
     Testing.renderComponent( EnrollmentCodeInput, props: @props ).then ({dom}) ->
       courses = _.pluck(dom.querySelectorAll('.list-group-item'), 'textContent')
