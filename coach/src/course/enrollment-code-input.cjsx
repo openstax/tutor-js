@@ -9,9 +9,9 @@ Course = require './model'
 User = require '../user/model'
 
 EnrollmentCodeInput = React.createClass
-
+  displayName: 'EnrollmentCodeInput'
   propTypes:
-    title: React.PropTypes.string.isRequired
+    isTeacher: React.PropTypes.bool.isRequired
     course: React.PropTypes.instanceOf(Course).isRequired
     currentCourses: React.PropTypes.arrayOf(React.PropTypes.instanceOf(Course))
 
@@ -29,11 +29,25 @@ EnrollmentCodeInput = React.createClass
       <CourseListing courses={@props.currentCourses}/>
     </div>
 
+  renderTitle: ->
+    if @props.secondSemester and not @props.isTeacher
+      <div class="second-semester">
+        <h3 className="text-center">A New Semester, A New Enrollment Code</h3>
+        <p>
+          Concept Coach requires a new enrollment code each semester. If you’re
+          in the second semester of a two-semester course, get the new code from your
+          instructor and enter it below.
+        </p>
+      </div>
+    else
+      title = if @props.isTeacher then '' else 'Register for this Concept Coach course'
+      <h3 className="text-center">{title}</h3>
+
   render: ->
 
-    <div className="enrollment-code form-group">
+    <div className="enrollment-code form-group row">
       {@renderCurrentCourses() if @props.currentCourses?.length}
-      <h3 className="text-center">{@props.title}</h3>
+      {@renderTitle()}
       <hr/>
       <MessageList messages={@props.course.errorMessages()} />
       <div className="code-wrapper col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
