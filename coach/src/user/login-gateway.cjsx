@@ -32,6 +32,9 @@ LoginGateway = React.createClass
     urlForLogin: ->
       User.endpoints.login + '?parent=' + encodeURIComponent(window.location.href)
 
+    isActive: ->
+      Boolean( CURRENT_WINDOW and not CURRENT_WINDOW.closed )
+
     openWindow: (windowImpl, options) ->
       width  = Math.min(1000, windowImpl.screen.width - 20)
       height = Math.min(800, windowImpl.screen.height - 30)
