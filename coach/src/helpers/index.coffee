@@ -12,8 +12,11 @@ helpers =
 
     render: (DOMNode, @props = {}) ->
       cache.DOMNode = DOMNode
-      cache.component = ReactDOM.render React.createElement(component, @props), DOMNode
-
+      cache.component =
+        ReactDOM.render(
+          React.createElement(AppContainer, {}, React.createElement(component, @props))
+          DOMNode
+        )
       cache.component
 
     update: (props = {}) ->
@@ -24,6 +27,7 @@ helpers =
       )
 
     unmount: ->
+      debugger
       ReactDOM.unmountComponentAtNode(cache.DOMNode)
 
 module.exports = helpers

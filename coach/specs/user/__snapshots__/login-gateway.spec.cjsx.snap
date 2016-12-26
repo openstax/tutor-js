@@ -1,6 +1,6 @@
 exports[`User login gateway component calls callback when complete 1`] = `
 <div
-  className="login-gateway is-open"
+  className="login-gateway is-closed"
   onClick={[Function]}
   role="link">
   <span
