@@ -135,8 +135,6 @@ class ConceptCoachAPI extends EventEmitter2
       module.hot.accept('./coach', =>
         pastProps = coachWrapped.props
         coachWrapped.unmount()
-        {Coach} = require('./coach')
-        coachWrapped = helpers.wrapComponent(Coach)
         @component = coachWrapped.render(mountNode, pastProps)
       )
 
