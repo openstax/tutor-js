@@ -37,11 +37,9 @@ Coach = React.createClass
     @launch('signup')
 
   launch: (type) ->
-    # if User.isLoggedIn()
+    unless User.isLoggedIn()
+      LoginGateway.openWindow(@props.windowImpl, {type})
     channel.emit("launcher.clicked.#{type}")
-    # else
-    #   loginWindow = LoginGateway.openWindow(@props.windowImpl, {type})
-    #   @setState({loginWindow, loginType: type})
 
   Modal: ->
     coachProps = _.omit(@props, 'open')
