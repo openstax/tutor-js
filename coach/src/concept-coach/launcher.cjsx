@@ -4,11 +4,11 @@ _ = require 'underscore'
 classnames = require 'classnames'
 
 CCLogo = require 'shared/src/components/logos/concept-coach-horizontal'
-UserStatusMixin = require '../../user/status-mixin'
+UserStatusMixin = require '../user/status-mixin'
 
-CoachGraphic = require '../../graphics/coach'
+CoachGraphic = require '../graphics/coach'
 
-{channel} = require '../model'
+{channel} = require './model'
 
 LoginAction = (props) ->
   return null unless props.isVisible
