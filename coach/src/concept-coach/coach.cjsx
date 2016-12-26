@@ -31,14 +31,14 @@ Coach = React.createClass
     @forceUpdate()
 
   onLoginClick: ->
+    unless User.isLoggedIn()
+      LoginGateway.openWindow(@props.windowImpl, type: 'login')
     @launch('login')
 
   onEnrollClick: ->
     @launch('signup')
 
   launch: (type) ->
-    unless User.isLoggedIn()
-      LoginGateway.openWindow(@props.windowImpl, {type})
     channel.emit("launcher.clicked.#{type}")
 
   Modal: ->
