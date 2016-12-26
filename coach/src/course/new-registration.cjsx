@@ -15,20 +15,18 @@ NewCourseRegistration = React.createClass
   propTypes:
     collectionUUID: React.PropTypes.string.isRequired
     validateOnly: React.PropTypes.bool
-    title: React.PropTypes.string
     course: React.PropTypes.instanceOf(Course)
 
   contextTypes:
     enrollmentCode: React.PropTypes.string
 
-  getDefaultProps: ->
-    title: 'Register for this Concept Coach course'
 
   componentWillMount: ->
     course = @props.course or
       User.getCourse(@props.collectionUUID) or
       new Course({ecosystem_book_uuid: @props.collectionUUID})
-
+    if @props.secondSemester
+      course.prepForSecondSemesterEnrollment()
     @registerIfReady(course)
     course.channel.on('change', @onCourseChange)
     @setState({course})
@@ -69,8 +67,12 @@ NewCourseRegistration = React.createClass
     if course.isValidated()
       @renderValidated()
     else if course.isIncomplete()
-      title = if @isTeacher() then '' else @props.title
-      <EnrollmentCodeInput course={course} currentCourses={User.registeredCourses()} title={title} />
+      <EnrollmentCodeInput
+        isTeacher={!!@isTeacher()}
+        secondSemester={@props.secondSemester}
+        course={course}
+        currentCourses={User.registeredCourses()}
+      />
     else if course.isConflicting()
       <JoinConflict course={course} />
     else if course.isPending()

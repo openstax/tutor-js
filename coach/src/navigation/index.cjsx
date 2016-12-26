@@ -7,7 +7,7 @@ Course = require '../course/model'
 user = require '../user/model'
 {channel} = require './model'
 UserMenu = require '../user/menu'
-{NotificationsBar} = require 'shared'
+{NotificationsBar, NotificationActions} = require 'shared'
 
 Navigation = React.createClass
   displayName: 'Navigation'
@@ -38,9 +38,9 @@ Navigation = React.createClass
   onAddStudentId: ->
     channel.emit('show.student_id', view: 'student_id')
 
-  onCourseEnded: ->
-    # FIXME: this should go to new registration page
-    channel.emit('show.registration', view: 'registration')
+  onCourseEnded: (notice) ->
+    NotificationActions.acknowledge(notice)
+    channel.emit('show.registration', view: 'second-semester-registration')
 
   render: ->
     {course} = @props

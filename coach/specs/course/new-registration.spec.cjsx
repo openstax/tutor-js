@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _, ReactTestUtils} = require 'shared/specs/helpers'
+{React, Testing, expect, sinon, _, ReactTestUtils} = require 'shared/specs/helpers'
 
 Course = require 'course/model'
 NewCourseRegistration = require 'course/new-registration'
@@ -15,6 +15,13 @@ describe 'NewCourseRegistration Component', ->
       collectionUUID: 'test-collection-uuid'
 
   describe 'teacher message', ->
+
+    it 'sets second semester prop when it’s prop is set', ->
+      @props.secondSemester = true
+      wrapper = shallow(<NewCourseRegistration {...@props} />)
+      expect(wrapper.find('EnrollmentCodeInput[secondSemester=true]')).to.have.length(1)
+      undefined
+
     it 'is normally hidden', ->
       Testing.renderComponent( NewCourseRegistration, props: @props ).then ({dom}) ->
         expect(dom.querySelector('.teacher-message')).to.be.null
