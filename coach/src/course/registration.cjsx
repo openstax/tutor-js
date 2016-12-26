@@ -4,7 +4,7 @@ NewCourseRegistration = require './new-registration'
 ModifyCourseRegistration = require './modify-registration'
 EnrollOrLogin = require './enroll-or-login'
 
-UserStatus = require '../user/status-mixin'
+UserStatusMixin = require '../user/status-mixin'
 Course = require './model'
 
 CourseRegistration = React.createClass
@@ -12,11 +12,11 @@ CourseRegistration = React.createClass
   propTypes:
     collectionUUID: React.PropTypes.string.isRequired
 
-  mixins: [UserStatus]
+  mixins: [UserStatusMixin]
 
   render: ->
     user = @getUser()
-    course = user.getCourse(@props.collectionUUID)
+
     body = if user.isLoggedIn()
       <NewCourseRegistration {...@props} />
     else
