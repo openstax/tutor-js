@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 EventEmitter2 = require 'eventemitter2'
 {CloseButton} = require 'shared'
 
-Status = require './status-mixin'
+UserStatusMixin = require './status-mixin'
 
 Course = require '../course/model'
 
@@ -16,7 +16,7 @@ getWaitingText = (status) ->
   "#{status}…"
 
 UserMenu = React.createClass
-  mixins: [Status]
+  mixins: [UserStatusMixin]
 
   contextTypes:
     close: React.PropTypes.func
