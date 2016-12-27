@@ -179,8 +179,6 @@ ConceptCoach = React.createClass
         <Dashboard cnxUrl={@props.cnxUrl}/>
       when 'profile'
         <AccountsIframe type='profile' onComplete={@updateUser} />
-      when 'registration'
-        <CourseRegistration {...@props} />
       when 'student_id'
         <UpdateStudentIdentifier {...@props} course={course} />
       else
