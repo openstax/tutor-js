@@ -24,7 +24,6 @@ describe 'Launcher', ->
 
   it 'renders as logged in', ->
     User.isLoggedIn.mockReturnValue(true)
-    #User.isEnrolled.mockReturnValue(false)
     wrapper = shallow(<Launcher {...@props} />)
     expect(wrapper.find('LoginAction[isVisible=false]')).to.have.length(1)
     expect(wrapper.find('.btn-openstax-primary').childAt(0).text() ).to.eq('Enroll in This Course')

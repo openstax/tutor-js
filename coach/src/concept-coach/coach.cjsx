@@ -43,12 +43,8 @@ Coach = React.createClass
 
   Modal: ->
     coachProps = _.omit(@props, 'open')
-    gatewayProps = _.pick(@props, 'enrollmentCode')
-
-    body = <ConceptCoach {...coachProps} />
-
     <CCModal filterClick={@props.filterClick}>
-      {body}
+      <ConceptCoach {...coachProps} />
     </CCModal>
 
   Launcher: ->
