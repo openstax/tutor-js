@@ -41,6 +41,7 @@ Launcher = React.createClass
     onEnroll: React.PropTypes.func.isRequired
     collectionUUID: React.PropTypes.string.isRequired
     enrollmentCode: React.PropTypes.string
+    setIsEnrollmentCodeValid: React.PropTypes.func
 
   getDefaultProps: ->
     isLaunching: false
@@ -63,6 +64,7 @@ Launcher = React.createClass
     course.validate(enrollmentCode)
 
   setIsEnrollmentCodeValid: ->
+    @props.setIsEnrollmentCodeValid?(true)
     @setState(isEnrollmentCodeValid: true)
 
   mixins: [UserStatusMixin]
