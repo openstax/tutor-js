@@ -14,7 +14,7 @@ task = require '../task/collection'
 {Coach} = require './coach'
 coachWrapped = helpers.wrapComponent(Coach)
 
-PROPS = ['moduleUUID', 'collectionUUID', 'cnxUrl', 'getNextPage', 'processHtmlAndMath']
+PROPS = ['moduleUUID', 'collectionUUID', 'cnxUrl', 'getNextPage', 'processHtmlAndMath', 'enrollmentCode']
 WRAPPER_CLASSNAME = 'concept-coach-wrapper'
 
 listenAndBroadcast = (componentAPI) ->
@@ -135,6 +135,8 @@ class ConceptCoachAPI extends EventEmitter2
       module.hot.accept('./coach', =>
         pastProps = coachWrapped.props
         coachWrapped.unmount()
+        {Coach} = require('./coach')
+        coachWrapped = helpers.wrapComponent(Coach)
         @component = coachWrapped.render(mountNode, pastProps)
       )
 

@@ -9,6 +9,9 @@ ConfirmJoin = require './confirm-join'
 JoinConflict = require './join-conflict'
 Navigation = require '../navigation/model'
 User = require '../user/model'
+{getCourse} = require '../user/status-mixin'
+LaptopAndMug = require '../graphics/laptop-and-mug'
+
 
 NewCourseRegistration = React.createClass
 
@@ -23,12 +26,10 @@ NewCourseRegistration = React.createClass
 
   getDefaultProps: ->
     title: 'Register for this Concept Coach course'
+    isAutoRegistering: false
 
   componentWillMount: ->
-    course = @props.course or
-      User.getCourse(@props.collectionUUID) or
-      new Course({ecosystem_book_uuid: @props.collectionUUID})
-
+    course = getCourse.call(@)
     @registerIfReady(course)
     course.channel.on('change', @onCourseChange)
     @setState({course})
@@ -39,6 +40,7 @@ NewCourseRegistration = React.createClass
   registerIfReady: (course) ->
     if User.isLoggedIn() and @props.enrollmentCode and not course.isRegistered()
       course.register(@props.enrollmentCode, User)
+      @setState(isAutoRegistering: true)
 
   onComplete: ->
     @state.course.persist(User)
@@ -46,6 +48,7 @@ NewCourseRegistration = React.createClass
 
   onCourseChange: ->
     if @state.course.isRegistered()
+      @setState(isAutoRegistering: false)
       # wait 1.5 secs so our success message is briefly displayed, then call onComplete
       _.delay(@onComplete, 1500)
     else if @state.course.isValidated()
@@ -65,7 +68,7 @@ NewCourseRegistration = React.createClass
     User.isTeacherForCourse(@props.collectionUUID)
 
   renderCurrentStep: ->
-    {course} = @state
+    {course, isAutoRegistering} = @state
     if course.isValidated()
       @renderValidated()
     else if course.isIncomplete()
@@ -75,6 +78,11 @@ NewCourseRegistration = React.createClass
       <JoinConflict course={course} />
     else if course.isPending()
       <ConfirmJoin course={course} />
+    else if isAutoRegistering
+      <div>
+        <h3>Please wait while we enroll you in this course.</h3>
+        <LaptopAndMug height=400 />
+      </div>
     else
       @renderComplete(course)
 

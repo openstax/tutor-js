@@ -53,18 +53,17 @@ Launcher = React.createClass
     @setState(height: @getHeight(nextProps)) if @props.isLaunching isnt nextProps.isLaunching
 
   componentWillMount: ->
-    if @props.enrollmentCode and not @getUser().isEnrolled(@props.collectionUUID)
+    if @props.enrollmentCode? and not @getUser().isEnrolled(@props.collectionUUID)
       @validateEnrollmentCode()
 
   validateEnrollmentCode: ->
     {enrollmentCode} = @props
-    validationSignal = "course.#{@props.collectionUUID}.prevalidation.receive.*"
-    @getCourse().validate(enrollmentCode)
-    @getCourse().channel.once(validationSignal, @setIsEnrollmentCodeValid)
+    course = @getCourse()
+    course.channel.once('validated', @setIsEnrollmentCodeValid)
+    course.validate(enrollmentCode)
 
-  setIsEnrollmentCodeValid: (validationResponse) ->
-    {data} = validationResponse
-    @setState(isEnrollmentCodeValid: data?.response is true)
+  setIsEnrollmentCodeValid: ->
+    @setState(isEnrollmentCodeValid: true)
 
   mixins: [UserStatusMixin]
 

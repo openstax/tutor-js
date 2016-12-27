@@ -104,7 +104,9 @@ class Course
     @_checkForFailure(response)
     {data} = response
     delete @isBusy
-    @status = 'validated' if data?.response is true
+    if data?.response is true
+      @status = 'validated'
+      @channel.emit('validated')
     @channel.emit('change')
 
   # Submits pending course change for confirmation

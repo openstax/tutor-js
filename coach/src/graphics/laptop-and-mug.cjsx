@@ -1,6 +1,6 @@
 # coffeelint: disable=max_line_length
 React = require 'react'
-{CoachGraphic} = require './coach'
+{Coach} = require './coach'
 
 Laptop = ->
   <g className='launcher-laptop'>
@@ -115,7 +115,7 @@ LaptopAndMug = React.createClass
 
       <LaptopAndMug.Laptop/>
       <LaptopAndMug.Mug/>
-      <LaptopAndMug.ConceptCoach/>
+      <Coach/>
 
     </svg>
 
