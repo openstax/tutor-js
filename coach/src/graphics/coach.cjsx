@@ -7,10 +7,10 @@ class CoachGraphic extends React.Component
   @displayName: 'CoachGraphic'
   render: ->
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 435 289.71" className={CLASSNAME_BASE}>
-      <CoachGraphic.Question/>
+      <CoachGraphic.Coach/>
     </svg>
 
-CoachGraphic.Question = ->
+CoachGraphic.Coach = ->
   <g className="#{CLASSNAME_BASE}-wrapper">
     <g className="#{CLASSNAME_BASE}-browser">
       <rect className="#{CLASSNAME_BASE}-browser-base" width="435" height="289.71" rx="3" ry="3"/>

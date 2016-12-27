@@ -40,6 +40,7 @@ loadApp = ->
     collectionUUID: settings.COLLECTION_UUID
     moduleUUID: settings.MODULE_UUID
     cnxUrl: settings.CNX_URL
+    enrollmentCode: '388938'
     processHtmlAndMath: typesetMath # from demo
     getNextPage: ->
       nextChapter: '2.2'

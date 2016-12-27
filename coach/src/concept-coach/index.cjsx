@@ -14,7 +14,7 @@ task = require '../task/collection'
 {Coach} = require './coach'
 coachWrapped = helpers.wrapComponent(Coach)
 
-PROPS = ['moduleUUID', 'collectionUUID', 'cnxUrl', 'getNextPage', 'processHtmlAndMath']
+PROPS = ['moduleUUID', 'collectionUUID', 'cnxUrl', 'getNextPage', 'processHtmlAndMath', 'enrollmentCode']
 WRAPPER_CLASSNAME = 'concept-coach-wrapper'
 
 listenAndBroadcast = (componentAPI) ->

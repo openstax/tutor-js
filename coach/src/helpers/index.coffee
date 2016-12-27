@@ -20,14 +20,13 @@ helpers =
       cache.component
 
     update: (props = {}) ->
-      @props = deepMerge({}, cache.component.props, props)
+      deepMerge(@props, props)
       ReactDOM.render(
         React.createElement(AppContainer, {}, React.createElement(component, @props))
         cache.DOMNode
       )
 
     unmount: ->
-      debugger
       ReactDOM.unmountComponentAtNode(cache.DOMNode)
 
 module.exports = helpers

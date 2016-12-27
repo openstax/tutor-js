@@ -104,7 +104,9 @@ class Course
     @_checkForFailure(response)
     {data} = response
     delete @isBusy
-    @status = 'validated' if data?.response is true
+    if data?.response is true
+      @status = 'validated'
+      @channel.emit('validated')
     @channel.emit('change')
 
   # Submits pending course change for confirmation
@@ -131,6 +133,14 @@ class Course
     delete @isBusy
     @channel.emit('change')
 
+  validate: (enrollment_code) ->
+    @enrollment_code = enrollment_code
+    book_uuid = @ecosystem_book_uuid
+    data = {enrollment_code, book_uuid}
+    @isBusy = true
+    api.channel.once "course.#{@ecosystem_book_uuid}.prevalidation.receive.*", @_onValidated
+    api.channel.emit("course.#{@ecosystem_book_uuid}.prevalidation.send", {book_uuid}, data)
+
   # Submits a course invite for registration.  If user is signed in
   # the registration will be saved, otherwise it will only be validated
   register: (enrollment_code, user) ->
@@ -142,8 +152,7 @@ class Course
       api.channel.once "course.#{@ecosystem_book_uuid}.registration.receive.*", @_onRegistered
       api.channel.emit("course.#{@ecosystem_book_uuid}.registration.send", {book_uuid}, data)
     else
-      api.channel.once "course.#{@ecosystem_book_uuid}.prevalidation.receive.*", @_onValidated
-      api.channel.emit("course.#{@ecosystem_book_uuid}.prevalidation.send", {book_uuid}, data)
+      @validate(enrollment_code)
     @channel.emit('change')
 
   _onStudentUpdated: (response) ->
