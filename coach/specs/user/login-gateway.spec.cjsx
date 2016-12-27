@@ -20,7 +20,6 @@ describe 'User login gateway component', ->
     wrapper = shallow(<LoginGateway {...@props}><span>Child</span></LoginGateway>)
     expect(wrapper.text()).to.include('reopen window')
     wrapper.find('a').simulate('click')
-    expect(SnapShot.create(<LoginGateway {...@props} />).toJSON()).toMatchSnapshot()
     @props.windowImpl.addEventListener.lastCall.args[1](
       data: '{"user":{"id":1}}'
     )
@@ -36,3 +35,9 @@ describe 'User login gateway component', ->
         sinon.match(/toolbar=no,location=yes,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=\d+,height=\d+,top=\d+,left=\d+/)
       )
     undefined
+
+  it 'has differnt wording depending on login or enroll', ->
+    @props.loginType = 'signup'
+    expect(SnapShot.create(<LoginGateway {...@props} />).toJSON()).toMatchSnapshot()
+    @props.loginType = 'login'
+    expect(SnapShot.create(<LoginGateway {...@props} />).toJSON()).toMatchSnapshot()
