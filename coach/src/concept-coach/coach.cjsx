@@ -20,7 +20,7 @@ Coach = React.createClass
     moduleUUID: React.PropTypes.string.isRequired
 
   getInitialState: ->
-    {}
+    isLoaded: false
 
   getDefaultProps: ->
     open: false
@@ -41,6 +41,9 @@ Coach = React.createClass
   launch: (type) ->
     channel.emit("launcher.clicked.#{type}")
 
+  setIsLoaded: ->
+    @setState(isLoaded: true)
+
   Modal: ->
     coachProps = _.omit(@props, 'open')
     <CCModal filterClick={@props.filterClick}>
@@ -59,13 +62,9 @@ Coach = React.createClass
     />
 
   render: ->
-    Component = if @props.open or @state.loginWindow
-      @Modal
-    else
-      @Launcher
-
     <div className='concept-coach-wrapper'>
-      <Component />
+      {<@Modal setIsLoaded={@setIsLoaded}/> if @props.open or @state.loginWindow}
+      {<@Launcher /> unless @state.isLoaded}
     </div>
 
 module.exports = {Coach, channel}
