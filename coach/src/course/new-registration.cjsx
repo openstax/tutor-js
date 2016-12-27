@@ -18,14 +18,10 @@ NewCourseRegistration = React.createClass
   propTypes:
     collectionUUID: React.PropTypes.string.isRequired
     validateOnly: React.PropTypes.bool
-    title: React.PropTypes.string
     course: React.PropTypes.instanceOf(Course)
 
   contextTypes:
     enrollmentCode: React.PropTypes.string
-
-  getDefaultProps: ->
-    title: 'Register for this Concept Coach course'
 
   getInitialState: ->
     course: getCourse.call(@)
@@ -92,8 +88,12 @@ NewCourseRegistration = React.createClass
     else if course.isPending()
       <ConfirmJoin course={course} />
     else if course.isIncomplete()
-      title = if @isTeacher() then '' else @props.title
-      <EnrollmentCodeInput course={course} currentCourses={User.registeredCourses()} title={title} />
+      <EnrollmentCodeInput
+        isTeacher={!!@isTeacher()}
+        secondSemester={@props.secondSemester}
+        course={course}
+        currentCourses={User.registeredCourses()}
+      />
     else if course.isConflicting()
       <JoinConflict course={course} />
     else
