@@ -31,35 +31,20 @@ Coach = React.createClass
     @forceUpdate()
 
   onLoginClick: ->
+    unless User.isLoggedIn()
+      LoginGateway.openWindow(@props.windowImpl, type: 'login')
     @launch('login')
 
   onEnrollClick: ->
     @launch('signup')
 
   launch: (type) ->
-    if User.isLoggedIn()
-      channel.emit("launcher.clicked.#{type}")
-    else
-      loginWindow = LoginGateway.openWindow(@props.windowImpl, {type})
-      @setState({loginWindow, loginType: type})
+    channel.emit("launcher.clicked.#{type}")
 
   Modal: ->
     coachProps = _.omit(@props, 'open')
-    gatewayProps = _.pick(@props, 'enrollmentCode')
-
-    body = if User.isLoggedIn()
-      <ConceptCoach opensAt={@state.opensAs} {...coachProps} />
-    else
-      <LoginGateway
-        onLogin={@onLoginComplete}
-        loginWindow={@state.loginWindow}
-        loginType={@state.loginType}
-        windowImpl={@props.windowImpl}
-        {...gatewayProps}
-      />
-
     <CCModal filterClick={@props.filterClick}>
-      {body}
+      <ConceptCoach {...coachProps} />
     </CCModal>
 
   Launcher: ->

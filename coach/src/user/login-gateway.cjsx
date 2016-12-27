@@ -4,6 +4,8 @@ User  = require './model'
 api   = require '../api'
 classnames = require 'classnames'
 
+CURRENT_WINDOW = undefined
+
 SECOND = 1000
 
 WindowPropType =
@@ -30,6 +32,9 @@ LoginGateway = React.createClass
     urlForLogin: ->
       User.endpoints.login + '?parent=' + encodeURIComponent(window.location.href)
 
+    isActive: ->
+      Boolean( CURRENT_WINDOW and not CURRENT_WINDOW.closed )
+
     openWindow: (windowImpl, options) ->
       width  = Math.min(1000, windowImpl.screen.width - 20)
       height = Math.min(800, windowImpl.screen.height - 30)
@@ -41,11 +46,10 @@ LoginGateway = React.createClass
 
       url = @urlForLogin()
       url += '?go=signup' if options.type is 'signup'
-      windowImpl.open(url, 'oxlogin', options)
+      CURRENT_WINDOW = windowImpl.open(url, 'oxlogin', options)
 
 
   propTypes:
-    loginWindow: WindowPropType.isRequired
     windowImpl: WindowPropType
     loginType: React.PropTypes.string
     onLogin:   React.PropTypes.func.isRequired
@@ -54,7 +58,7 @@ LoginGateway = React.createClass
     windowImpl: window
 
   getInitialState: ->
-    loginWindow: @props.loginWindow
+    loginWindow: CURRENT_WINDOW
 
   openLogin: (ev) ->
     ev?.preventDefault()

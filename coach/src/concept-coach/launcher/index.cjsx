@@ -4,10 +4,9 @@ _ = require 'underscore'
 classnames = require 'classnames'
 
 CCLogo = require 'shared/src/components/logos/concept-coach-horizontal'
-User = require '../../user/model'
+UserStatusMixin = require '../../user/status-mixin'
 
-BackgroundAndDesk = require './background-and-desk'
-QuestionSVG = require '../question-svg'
+CoachGraphic = require '../../graphics/coach'
 
 {channel} = require '../model'
 
@@ -15,7 +14,7 @@ LoginAction = (props) ->
   return null unless props.isVisible
   <div className="actions">
     <span>Already enrolled in this course?</span>
-    <button onClick={props.onLogin}>Login</button>
+    <BS.Button onClick={props.onLogin}>Login</BS.Button>
   </div>
 LoginAction.displayName = 'LoginAction'
 
@@ -41,66 +40,80 @@ Launcher = React.createClass
     onLogin: React.PropTypes.func.isRequired
     onEnroll: React.PropTypes.func.isRequired
     collectionUUID: React.PropTypes.string.isRequired
+    enrollmentCode: React.PropTypes.string
 
   getDefaultProps: ->
     isLaunching: false
     defaultHeight: 388
   getInitialState: ->
     height: @getHeight()
+    isEnrollmentCodeValid: false
+
   componentWillReceiveProps: (nextProps) ->
     @setState(height: @getHeight(nextProps)) if @props.isLaunching isnt nextProps.isLaunching
+
+  componentWillMount: ->
+    if @props.enrollmentCode? and not @getUser().isEnrolled(@props.collectionUUID)
+      @validateEnrollmentCode()
+
+  validateEnrollmentCode: ->
+    {enrollmentCode} = @props
+    course = @getCourse()
+    course.channel.once('validated', @setIsEnrollmentCodeValid)
+    course.validate(enrollmentCode)
+
+  setIsEnrollmentCodeValid: ->
+    @setState(isEnrollmentCodeValid: true)
+
+  mixins: [UserStatusMixin]
 
   getHeight: (props) ->
     props ?= @props
     {isLaunching, defaultHeight} = props
     if isLaunching then window.innerHeight else defaultHeight
 
-  componentWillMount: ->
-    User.channel.on 'change', @update
-  componentWillUnmount: ->
-    User.channel.off 'change', @update
-  update: -> @forceUpdate()
-
   primaryActionText: ->
-    if User.isEnrolled(@props.collectionUUID) then 'Launch Concept Coach' else 'Enroll in This Course'
+    if @getUser().isEnrolled(@props.collectionUUID) then 'Launch Concept Coach' else 'Enroll in This Course'
 
   render: ->
-    {isLaunching, defaultHeight, enrollmentCode} = @props
-    {height} = @state
-    isLoggedIn = User.isLoggedIn()
-    finePrint = if User.isEnrolled(@props.collectionUUID)
+    {isLaunching, defaultHeight} = @props
+    {height, isEnrollmentCodeValid} = @state
+    user = @getUser()
+    isLoggedIn = user.isLoggedIn()
+    finePrint = if user.isEnrolled(@props.collectionUUID)
       <SwitchSections {...@props}/>
-    else unless enrollmentCode?
-      <EnrollmentCode {...@props}/>
-    else
+    else if isEnrollmentCodeValid
       null
+    else
+      <EnrollmentCode {...@props}/>
 
     <div className={
       classnames('concept-coach-launcher-wrapper',
         'is-logged-in': isLoggedIn
-        'is-loading': User.isLoading
-        'is-enrolled': User.isEnrolled(@props.collectionUUID)
+        'is-loading': user.isLoading
+        'is-enrolled': user.isEnrolled(@props.collectionUUID)
       )}
     >
-      <div className="border-well">
-        <div className={classnames('concept-coach-launcher', launching: isLaunching)}>
-          <div className="header">
-            <CCLogo />
-            <LoginAction onLogin={@props.onLogin} isVisible={not isLoggedIn} />
-          </div>
-          <div className="body">
-            <div className="words">
-              <div className="cta">
-                <h1>Study Smarter with OpenStax</h1>
-                <h1>Concept Coach</h1>
-                <button onClick={@props.onEnroll}>
-                  {@primaryActionText()}
-                </button>
-              </div>
-              {finePrint}
+      <div className={classnames('concept-coach-launcher', launching: isLaunching)}>
+        <div className="header">
+          <CCLogo />
+          <LoginAction onLogin={@props.onLogin} isVisible={not isLoggedIn} />
+        </div>
+        <div className="body">
+          <div className="words">
+            <div className="cta">
+              <h2>Study Smarter with OpenStax</h2>
+              <h2>Concept Coach</h2>
+              <BS.Button className={
+                classnames(
+                  'btn-openstax-primary': not @getUser().isEnrolled(@props.collectionUUID)
+                )} onClick={@props.onEnroll}>
+                {@primaryActionText()}
+              </BS.Button>
             </div>
-            <QuestionSVG {...@props} />
+            {finePrint}
           </div>
+          <CoachGraphic {...@props} />
         </div>
       </div>
     </div>

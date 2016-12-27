@@ -9,6 +9,9 @@ ConfirmJoin = require './confirm-join'
 JoinConflict = require './join-conflict'
 Navigation = require '../navigation/model'
 User = require '../user/model'
+{getCourse} = require '../user/status-mixin'
+LaptopAndMug = require '../graphics/laptop-and-mug'
+
 
 NewCourseRegistration = React.createClass
 
@@ -20,23 +23,26 @@ NewCourseRegistration = React.createClass
   contextTypes:
     enrollmentCode: React.PropTypes.string
 
+  getInitialState: ->
+    course: getCourse.call(@)
+    isAutoRegistering: false
 
   componentWillMount: ->
-    course = @props.course or
-      User.getCourse(@props.collectionUUID) or
-      new Course({ecosystem_book_uuid: @props.collectionUUID})
-    if @props.secondSemester
-      course.prepForSecondSemesterEnrollment()
-    @registerIfReady(course)
-    course.channel.on('change', @onCourseChange)
-    @setState({course})
+    @state.course.channel.on('change', @onCourseChange)
+    @registerIfReady()
 
   componentWillUnmount: ->
     @state.course.channel.off('change', @onCourseChange)
 
-  registerIfReady: (course) ->
-    if User.isLoggedIn() and @props.enrollmentCode and not course.isRegistered()
-      course.register(@props.enrollmentCode, User)
+  registerIfReady: ->
+    {course} = @state
+
+    if User.isLoggedIn() and
+      @props.enrollmentCode and
+      not course.isPending() and
+      not course.isRegistered()
+        course.register(@props.enrollmentCode, User)
+        @setState(isAutoRegistering: true)
 
   onComplete: ->
     @state.course.persist(User)
@@ -48,6 +54,10 @@ NewCourseRegistration = React.createClass
       _.delay(@onComplete, 1500)
     else if @state.course.isValidated()
       @onComplete()
+    else if @state.course.isPending()
+      _.delay( =>
+        @setState(isAutoRegistering: false)
+      , 1000)
 
     @forceUpdate()
 
@@ -55,17 +65,28 @@ NewCourseRegistration = React.createClass
     <p className="lead">Redirecting to login...</p>
 
   renderComplete: (course) ->
-    <h3 className="text-center">
-      You have successfully joined {course.description()}
-    </h3>
+    <div>
+      <h3 className="text-center">
+        You have successfully joined {course.description()}
+      </h3>
+      <p>We are loading your first exercise.</p>
+    </div>
 
   isTeacher: ->
     User.isTeacherForCourse(@props.collectionUUID)
 
   renderCurrentStep: ->
-    {course} = @state
+    {course, isAutoRegistering} = @state
+
     if course.isValidated()
       @renderValidated()
+    else if isAutoRegistering
+      <div>
+        <h3>Please wait while we enroll you in this course.</h3>
+        <LaptopAndMug height=400 />
+      </div>
+    else if course.isPending()
+      <ConfirmJoin course={course} />
     else if course.isIncomplete()
       <EnrollmentCodeInput
         isTeacher={!!@isTeacher()}
@@ -75,8 +96,6 @@ NewCourseRegistration = React.createClass
       />
     else if course.isConflicting()
       <JoinConflict course={course} />
-    else if course.isPending()
-      <ConfirmJoin course={course} />
     else
       @renderComplete(course)
 

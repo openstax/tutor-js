@@ -1,4 +1,5 @@
 User = require './model'
+Course = require '../course/model'
 
 UserStatusMixin = {
 
@@ -10,6 +11,10 @@ UserStatusMixin = {
     @forceUpdate() if @isMounted()
   getUser: ->
     User
+  getCourse: ->
+    @props.course or
+      User.getCourse(@props.collectionUUID) or
+      new Course({ecosystem_book_uuid: @props.collectionUUID})
 }
 
 module.exports = UserStatusMixin
