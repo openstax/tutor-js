@@ -35,7 +35,7 @@ LoginGateway = React.createClass
     isActive: ->
       Boolean( CURRENT_WINDOW and not CURRENT_WINDOW.closed )
 
-    openWindow: (windowImpl, options) ->
+    openWindow: (windowImpl = window, options = {type: 'login'}) ->
       width  = Math.min(1000, windowImpl.screen.width - 20)
       height = Math.min(800, windowImpl.screen.height - 30)
       options = ["toolbar=no", "location=" + (if windowImpl.opera then "no" else "yes"),
