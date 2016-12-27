@@ -95,7 +95,7 @@ LoginGateway = React.createClass
       'is-closed': not @state.loginWindow
     )
 
-    <div role="link" className={classes} onClick={@openLogin}>
+    <div className={classes}>
       <span className="message">
         Please log in using your OpenStax account in the window. <a data-bypass
           onClick={@openLogin} href={LoginGateway.urlForLogin()}
