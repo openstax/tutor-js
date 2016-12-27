@@ -11,10 +11,11 @@ UserStatusMixin = {
     @forceUpdate()
   getUser: ->
     User
-  getCourse: ->
-    @props.course or
-      User.getCourse(@props.collectionUUID) or
-      new Course({ecosystem_book_uuid: @props.collectionUUID})
+  getCourse: (props) ->
+    props ?= @props
+    props.course or
+      User.getCourse(props.collectionUUID) or
+      new Course({ecosystem_book_uuid: props.collectionUUID})
 }
 
 module.exports = UserStatusMixin
