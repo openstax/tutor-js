@@ -3,7 +3,7 @@ _ = require 'underscore'
 User  = require './model'
 api   = require '../api'
 classnames = require 'classnames'
-
+SIGNUP_TYPE = 'signup'
 CURRENT_WINDOW = undefined
 
 SECOND = 1000
@@ -46,7 +46,7 @@ LoginGateway = React.createClass
         "left="  + (windowImpl.screen.width - width)   / 2].join()
 
       url = @urlForLogin()
-      url += '&go=signup' if options.type is 'signup'
+      url += '&go=signup' if options.type is SIGNUP_TYPE
       CURRENT_WINDOW = windowImpl.open(url, 'oxlogin', windowOptions)
 
 
@@ -89,6 +89,12 @@ LoginGateway = React.createClass
     else
       _.delay( @windowClosedCheck, SECOND)
 
+  getActionText: ->
+    if @props.loginType is SIGNUP_TYPE
+      'create an OpenStax account'
+    else
+      'log in using your OpenStax account'
+
   render: ->
     classes = classnames('login-gateway', @props.className,
       'is-open': @state.loginWindow
@@ -97,7 +103,7 @@ LoginGateway = React.createClass
 
     <div className={classes}>
       <span className="message">
-        Please log in using your OpenStax account in the window. <a data-bypass
+        Please {@getActionText()} in the window. <a data-bypass
           onClick={@openLogin} href={LoginGateway.urlForLogin()}
         >Click to reopen window.</a>
       </span>
