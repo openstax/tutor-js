@@ -37,6 +37,8 @@ EnrollOrLogin = React.createClass
   propTypes:
     windowImpl: LoginGateway.windowPropType
 
+  getInitialState: -> {}
+
   getDefaultProps: ->
     windowImpl: window
 
