@@ -9,6 +9,8 @@ navigation = require '../navigation/model'
 
 CCModal = React.createClass
   displayName: 'CCModal'
+  propTypes:
+    setIsLoaded: React.PropTypes.func
   getInitialState: ->
     isLoaded: false
 
@@ -48,6 +50,7 @@ CCModal = React.createClass
       modal.focus()
 
   setLoaded: ->
+    @props.setIsLoaded?()
     {isLoaded} = @state
     @setState(isLoaded: true) unless isLoaded
 

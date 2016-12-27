@@ -87,6 +87,14 @@ Launcher = React.createClass
     else
       <EnrollmentCode {...@props}/>
 
+    words = if isLaunching
+      <h2>Launching Concept Coach...</h2>
+    else [
+      <h2 key='cta-headline'>Study Smarter with OpenStax</h2>
+      <h2 key='cta-item'>Concept Coach</h2>
+    ]
+
+
     <div className={
       classnames('concept-coach-launcher-wrapper',
         'is-logged-in': isLoggedIn
@@ -102,8 +110,7 @@ Launcher = React.createClass
         <div className="body">
           <div className="words">
             <div className="cta">
-              <h2>Study Smarter with OpenStax</h2>
-              <h2>Concept Coach</h2>
+              {words}
               <BS.Button className={
                 classnames(
                   'btn-openstax-primary': not @getUser().isEnrolled(@props.collectionUUID)
