@@ -4,6 +4,7 @@ _ = require 'underscore'
 Course = require './model'
 ENTER = 'Enter'
 
+EnrollOrLogin = require './enroll-or-login'
 EnrollmentCodeInput = require './enrollment-code-input'
 ConfirmJoin = require './confirm-join'
 JoinConflict = require './join-conflict'
@@ -77,8 +78,9 @@ NewCourseRegistration = React.createClass
 
   renderCurrentStep: ->
     {course, isAutoRegistering} = @state
-
-    if course.isValidated()
+    unless User.isLoggedIn()
+      <EnrollOrLogin />
+    else if course.isValidated()
       @renderValidated()
     else if isAutoRegistering
       <div>
