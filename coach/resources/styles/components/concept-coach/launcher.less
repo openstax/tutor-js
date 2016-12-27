@@ -19,6 +19,9 @@
     }
   }
 
+  a:not(.btn) {
+    color: @openstax-info;
+  }
 
   .body {
     .flex-display();
@@ -46,7 +49,6 @@
       .fine-print {
         p {
           margin: 0;
-          font-size: 1.8rem;
         }
       }
       button {
@@ -70,9 +72,6 @@
   &.is-logged-in,
   &.is-loading {
     .header .actions { display: none; }
-  }
-  &.is-enrolled {
-    // .words button { .button(@green); }
   }
 
 }
