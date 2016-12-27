@@ -78,9 +78,7 @@ NewCourseRegistration = React.createClass
 
   renderCurrentStep: ->
     {course, isAutoRegistering} = @state
-    unless User.isLoggedIn()
-      <EnrollOrLogin />
-    else if course.isValidated()
+    if course.isValidated()
       @renderValidated()
     else if isAutoRegistering
       <div>
