@@ -30,6 +30,7 @@ EnrollChoices = (props) ->
     </div>
   </div>
 
+EnrollChoices.displayName = 'EnrollChoices'
 
 
 EnrollOrLogin = React.createClass

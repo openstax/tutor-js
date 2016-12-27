@@ -17,6 +17,7 @@ describe 'EnrollOrLogin Component', ->
     @props = { windowImpl: new FakeWindow }
 
   it 'renders with action choices', ->
+    LoginGateway.isActive.mockReturnValue(false)
     wrapper = shallow(<EnrollOrLogin {...@props} />)
     expect(wrapper.find('EnrollChoices')).to.have.length(1)
     expect(wrapper.find('LoginGateway')).to.have.length(0)
