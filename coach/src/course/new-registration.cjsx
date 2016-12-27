@@ -41,7 +41,8 @@ NewCourseRegistration = React.createClass
     if User.isLoggedIn() and
       @props.enrollmentCode and
       not course.isPending() and
-      not course.isRegistered()
+      not course.isRegistered() and
+      not course.isSecondSemester()
         course.register(@props.enrollmentCode, User)
         @setState(isAutoRegistering: true)
 
