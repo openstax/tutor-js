@@ -40,26 +40,22 @@ EnrollOrLogin = React.createClass
   getDefaultProps: ->
     windowImpl: window
 
-  getInitialState: ->
-    isOpen: false
+  onLoginCompleted: ->
+    @forceUpdate()
 
-  toggleOpen: (isOpen) ->
-    @setState({isOpen})
+  onLogin: ->  @openGateway('login')
+  onSignup: -> @openGateway('signup')
 
-  onLogin: ->
-    LoginGateway.openWindow(@props.windowImpl, {type: 'login'})
-
-  onSignup: ->
-    LoginGateway.openWindow(@props.windowImpl, {type: 'signup'})
+  openGateway: (type) ->
+    LoginGateway.openWindow(@props.windowImpl, {type})
+    @setState({type})
 
   render: ->
-    {isOpen} = @state
-
     signUpClasses = classnames 'sign-up'
 
     body =
       if LoginGateway.isActive()
-        <LoginGateway className={signUpClasses} onToggle={@toggleOpen} />
+        <LoginGateway className={signUpClasses} onLogin={@onLoginCompleted} loginType={@state.type} />
       else
         <EnrollChoices onLogin={@onLogin} onSignup={@onSignup} />
 
