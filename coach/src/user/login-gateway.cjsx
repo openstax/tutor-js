@@ -38,15 +38,15 @@ LoginGateway = React.createClass
     openWindow: (windowImpl = window, options = {type: 'login'}) ->
       width  = Math.min(1000, windowImpl.screen.width - 20)
       height = Math.min(800, windowImpl.screen.height - 30)
-      options = ["toolbar=no", "location=" + (if windowImpl.opera then "no" else "yes"),
+      windowOptions = ["toolbar=no", "location=" + (if windowImpl.opera then "no" else "yes"),
         "directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no",
         "width=" + width, "height=" + height,
         "top="   + (windowImpl.screen.height - height) / 2,
         "left="  + (windowImpl.screen.width - width)   / 2].join()
 
       url = @urlForLogin()
-      url += '?go=signup' if options.type is 'signup'
-      CURRENT_WINDOW = windowImpl.open(url, 'oxlogin', options)
+      url += '&go=signup' if options.type is 'signup'
+      CURRENT_WINDOW = windowImpl.open(url, 'oxlogin', windowOptions)
 
 
   propTypes:
