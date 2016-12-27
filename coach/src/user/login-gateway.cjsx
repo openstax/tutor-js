@@ -25,6 +25,7 @@ WindowPropType =
 
 
 LoginGateway = React.createClass
+  displayName: 'LoginGateway'
 
   statics:
     windowPropType: WindowPropType
