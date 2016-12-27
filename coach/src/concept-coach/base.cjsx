@@ -8,7 +8,7 @@ EventEmitter2 = require 'eventemitter2'
 
 {Task} = require '../task'
 navigation = {Navigation} = require '../navigation'
-NewCourseRegistration = require '../course/new-registration'
+CourseRegistration = require '../course/registration'
 ErrorNotification = require './error-notification'
 SafariWarning = require './safari-warning'
 AccountsIframe = require '../user/accounts-iframe'
@@ -168,9 +168,9 @@ ConceptCoach = React.createClass
       when 'login'
         <LoginGateway />
       when 'registration'
-        <NewCourseRegistration {...@props} />
+        <CourseRegistration {...@props} />
       when 'second-semester-registration'
-        <NewCourseRegistration {...@props} secondSemester=true />
+        <CourseRegistration {...@props} secondSemester=true />
       when 'task'
         <Task {...@props} key='task'/>
       when 'progress'
@@ -179,8 +179,6 @@ ConceptCoach = React.createClass
         <Dashboard cnxUrl={@props.cnxUrl}/>
       when 'profile'
         <AccountsIframe type='profile' onComplete={@updateUser} />
-      when 'registration'
-        <CourseRegistration {...@props} />
       when 'student_id'
         <UpdateStudentIdentifier {...@props} course={course} />
       else

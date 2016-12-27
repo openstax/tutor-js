@@ -30,7 +30,9 @@ class Course
   isConflicting: -> @status is "cc_conflict"
   # A registration has been created, but not confirmed
   isPending: -> @status is "pending"
-
+  # the course exists but the user has indicated that
+  # they're going to be taking the second semester of it
+  isSecondSemester: -> @secondSemester is true
   getEnrollmentChangeId: -> @id if @isPending()
 
   # forget in-progress registration information.  Called when a join is canceled

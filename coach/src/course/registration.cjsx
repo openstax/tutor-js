@@ -11,8 +11,12 @@ CourseRegistration = React.createClass
 
   propTypes:
     collectionUUID: React.PropTypes.string.isRequired
+    secondSemester: React.PropTypes.bool
 
   mixins: [UserStatusMixin]
+
+  componentWillMount: ->
+    @getCourse().prepForSecondSemesterEnrollment() if @props.secondSemester
 
   render: ->
     user = @getUser()

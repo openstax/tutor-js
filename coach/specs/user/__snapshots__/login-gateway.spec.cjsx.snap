@@ -1,11 +1,29 @@
-exports[`User login gateway component calls callback when complete 1`] = `
+exports[`User login gateway component has differnt wording depending on login or enroll 1`] = `
 <div
-  className="login-gateway is-open"
-  onClick={[Function]}
-  role="link">
+  className="login-gateway is-open">
   <span
     className="message">
-    Please log in using your OpenStax account in the window. 
+    Please 
+    create an OpenStax account
+     in the window. 
+    <a
+      data-bypass={true}
+      href="test-login?parent=about%3Ablank"
+      onClick={[Function]}>
+      Click to reopen window.
+    </a>
+  </span>
+</div>
+`;
+
+exports[`User login gateway component has differnt wording depending on login or enroll 2`] = `
+<div
+  className="login-gateway is-open">
+  <span
+    className="message">
+    Please 
+    log in using your OpenStax account
+     in the window. 
     <a
       data-bypass={true}
       href="test-login?parent=about%3Ablank"

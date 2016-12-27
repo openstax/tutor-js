@@ -3,7 +3,7 @@ _ = require 'underscore'
 User  = require './model'
 api   = require '../api'
 classnames = require 'classnames'
-
+SIGNUP_TYPE = 'signup'
 CURRENT_WINDOW = undefined
 
 SECOND = 1000
@@ -25,6 +25,7 @@ WindowPropType =
 
 
 LoginGateway = React.createClass
+  displayName: 'LoginGateway'
 
   statics:
     windowPropType: WindowPropType
@@ -35,18 +36,18 @@ LoginGateway = React.createClass
     isActive: ->
       Boolean( CURRENT_WINDOW and not CURRENT_WINDOW.closed )
 
-    openWindow: (windowImpl, options) ->
+    openWindow: (windowImpl = window, options = {type: 'login'}) ->
       width  = Math.min(1000, windowImpl.screen.width - 20)
       height = Math.min(800, windowImpl.screen.height - 30)
-      options = ["toolbar=no", "location=" + (if windowImpl.opera then "no" else "yes"),
+      windowOptions = ["toolbar=no", "location=" + (if windowImpl.opera then "no" else "yes"),
         "directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no",
         "width=" + width, "height=" + height,
         "top="   + (windowImpl.screen.height - height) / 2,
         "left="  + (windowImpl.screen.width - width)   / 2].join()
 
       url = @urlForLogin()
-      url += '?go=signup' if options.type is 'signup'
-      CURRENT_WINDOW = windowImpl.open(url, 'oxlogin', options)
+      url += '&go=signup' if options.type is SIGNUP_TYPE
+      CURRENT_WINDOW = windowImpl.open(url, 'oxlogin', windowOptions)
 
 
   propTypes:
@@ -88,15 +89,21 @@ LoginGateway = React.createClass
     else
       _.delay( @windowClosedCheck, SECOND)
 
+  getActionText: ->
+    if @props.loginType is SIGNUP_TYPE
+      'create an OpenStax account'
+    else
+      'log in using your OpenStax account'
+
   render: ->
     classes = classnames('login-gateway', @props.className,
       'is-open': @state.loginWindow
       'is-closed': not @state.loginWindow
     )
 
-    <div role="link" className={classes} onClick={@openLogin}>
+    <div className={classes}>
       <span className="message">
-        Please log in using your OpenStax account in the window. <a data-bypass
+        Please {@getActionText()} in the window. <a data-bypass
           onClick={@openLogin} href={LoginGateway.urlForLogin()}
         >Click to reopen window.</a>
       </span>
