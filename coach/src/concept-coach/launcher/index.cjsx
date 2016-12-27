@@ -102,9 +102,12 @@ Launcher = React.createClass
         <div className="body">
           <div className="words">
             <div className="cta">
-              <h1>Study Smarter with OpenStax</h1>
-              <h1>Concept Coach</h1>
-              <BS.Button className='btn-openstax-primary' onClick={@props.onEnroll}>
+              <h2>Study Smarter with OpenStax</h2>
+              <h2>Concept Coach</h2>
+              <BS.Button className={
+                classnames(
+                  'btn-openstax-primary': not @getUser().isEnrolled(@props.collectionUUID)
+                )} onClick={@props.onEnroll}>
                 {@primaryActionText()}
               </BS.Button>
             </div>

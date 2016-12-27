@@ -3,24 +3,6 @@
   min-height: 388px;
   height: 100%;
 
-  // .button(@color) {
-  //   background-color: @color;
-  //   color: @openstax-neutral-lightest;
-  //   border: 1px solid transparent;
-  //   border-radius: 4px;
-  //   span  { display: block; }
-  //   .warn {
-  //     font-size: 90%;
-  //     font-weight: 300;
-  //   }
-  //   &:active,
-  //   &:focus,
-  //   &:hover {
-  //     background-color: darken(@color, 10%);
-  //     border-color: darken(@color, 15%);
-  //   }
-  // }
-
   .header {
     border-bottom: 1px solid @openstax-neutral-light;
     font-size: 18px;
@@ -29,6 +11,12 @@
     .flex-display();
     .align-items(center);
     .justify-content(space-between);
+
+    .actions {
+      .btn {
+        margin-left: 1rem;
+      }
+    }
   }
 
 
@@ -50,10 +38,9 @@
         .flex-direction(column);
         .justify-content(center);
         color: @dark-blue;
-        h1 {
+        h2 {
           margin: 0;
-          font-size: 2.4vw;
-          color: @dark-blue;
+          font-weight: 800;
         }
       }
       .fine-print {
