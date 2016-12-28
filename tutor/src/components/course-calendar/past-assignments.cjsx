@@ -36,7 +36,7 @@ PastAssignments = React.createClass
     @setState(tooltipTarget: ev.currentTarget, hoveredPlan: plan)
 
   render: ->
-    plans = PastTaskPlansStore.get(@props.courseId) or []
+    plans = PastTaskPlansStore.byDueDate(@props.courseId)
     return null if isEmpty(plans)
 
     <div className={classnames('past-assignments', @props.className)}>
