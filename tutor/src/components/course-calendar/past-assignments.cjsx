@@ -75,4 +75,4 @@ PastAssignmentsShell = React.createClass
       renderLoading={ -> <PastAssignmentsLoading className={className}/> }
     />
 
-module.exports = PastAssignmentsShell
+module.exports = {PastAssignmentsShell, PastAssignments}
