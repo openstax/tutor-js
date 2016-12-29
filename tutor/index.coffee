@@ -14,6 +14,9 @@ dom = require './src/helpers/dom'
 {startMathJax} = require 'shared/src/helpers/mathjax'
 {TransitionAssistant} = require './src/components/unsaved-state'
 Root = require './src/components/root'
+ErrorMonitoring = require 'shared/src/helpers/error-monitoring'
+
+{Logging, ReactHelpers} = require 'shared'
 
 window._STORES =
   APP: require './src/flux/app'
@@ -31,10 +34,10 @@ window._STORES =
   NOTIFICATIONS: require './src/flux/notifications'
   TOC: require './src/flux/toc'
 
+window._LOGGING = Logging
+
 # In dev builds this enables hot-reloading,
 # in production it simply renders the root app
-
-{ReactHelpers} = require 'shared'
 
 loadApp = ->
   unless document.readyState is 'interactive'
@@ -46,7 +49,7 @@ loadApp = ->
 
   UiSettings.initialize(bootstrapData.ui_settings)
   Notices.start(bootstrapData)
-
+  ErrorMonitoring.start()
   startMathJax()
   TransitionAssistant.startMonitoring()
 
