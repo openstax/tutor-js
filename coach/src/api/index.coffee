@@ -43,6 +43,7 @@ initialize = (baseUrl) ->
 
 destroy = ->
   coachAPIHandler.destroy()
+  ErrorMonitoring.stop()
   IS_INITIALIZED = false
 
 module.exports = {initialize, destroy, channel, isPending}
