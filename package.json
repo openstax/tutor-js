@@ -56,6 +56,7 @@
     "interpolate": "0.1.0",
     "keymaster": "1.6.2",
     "lodash": "4.17.2",
+    "loglevel": "1.4.1",
     "markdown-it": "8.2.1",
     "mime-types": "2.1.13",
     "minimatch": "3.0.3",
