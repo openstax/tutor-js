@@ -65,7 +65,7 @@ LoginGateway = React.createClass
     ev?.preventDefault()
     loginWindow = LoginGateway.openWindow(@props.windowImpl, {type: @props.loginType})
     @setState({loginWindow})
-    _.delay(@windowClosedCheck, SECOND)
+    @setState(pendingDelay: _.delay(@windowClosedCheck, SECOND))
 
   parseAndDispatchMessage: (msg) ->
     try
@@ -78,14 +78,18 @@ LoginGateway = React.createClass
 
   componentWillUnmount: ->
     @props.windowImpl.removeEventListener('message', @parseAndDispatchMessage)
+    clearTimeout(@state.pendingDelay) if @state.pendingDelay
+
   componentWillMount: ->
     @props.windowImpl.addEventListener('message', @parseAndDispatchMessage)
 
   windowClosedCheck: ->
-    if @state.loginWindow and @state.loginWindow.closed
+    pendingDelay = if @state.loginWindow and @state.loginWindow.closed
       User.ensureStatusLoaded(true)
+      pendingDelay = null
     else
-      _.delay( @windowClosedCheck, SECOND)
+      pendingDelay = _.delay( @windowClosedCheck, SECOND)
+    @setState({pendingDelay})
 
   getActionText: ->
     if @props.loginType is SIGNUP_TYPE
