@@ -40,7 +40,7 @@ module.exports = React.createClass
 
   checkForTimeout: ->
     {isWaiting} = @props
-    @setState(isTimedout: true, delayTimeout: null) if isWaiting and @isMounted()
+    @setState(isTimedout: true, delayTimeout: null) if isWaiting
 
   clearDelay: ->
     {delayTimeout} = @state
