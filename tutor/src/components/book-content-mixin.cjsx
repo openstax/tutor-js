@@ -25,14 +25,14 @@ IS_INTRO_SELECTORS = '.splash img, [data-type="cnx.flag.introduction"]'
 
 LinkContentMixin =
   componentDidMount:  ->
-    @_isMounted = true
+    @_linkContentIsMounted = true
     @processLinks()
 
   componentDidUpdate: ->
     @processLinks()
 
   componentWillUnmount: ->
-    @_isMounted = false
+    @_linkContentIsMounted = false
     @cleanUpLinks()
 
   getCnxIdOfHref: (href) ->
@@ -126,7 +126,7 @@ LinkContentMixin =
     _.defer(@_processLinks)
 
   _processLinks: ->
-    return unless @_isMounted
+    return unless @_linkContentIsMounted
     root = ReactDOM.findDOMNode(@)
     mediaLinks = root.querySelectorAll(MediaStore.getSelector())
     exerciseLinks = root.querySelectorAll(EXERCISE_LINK_SELECTOR)
