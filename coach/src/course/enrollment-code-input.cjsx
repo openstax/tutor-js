@@ -3,7 +3,6 @@ ReactDOM = require 'react-dom'
 BS = require 'react-bootstrap'
 ENTER = 'Enter'
 
-{CourseListing} = require './listing'
 Course = require './model'
 {AsyncButton, MessageList} = require 'shared'
 User = require '../user/model'
@@ -22,13 +21,6 @@ EnrollmentCodeInput = React.createClass
     return if @props.course.isBusy # double enter
     @startRegistration() if ev.key is ENTER
 
-  renderCurrentCourses: ->
-    <div className='text-center'>
-      <h3>You are not registered for this course.</h3>
-      <p>Did you mean to go to one of these?</p>
-      <CourseListing courses={@props.currentCourses}/>
-    </div>
-
   renderTitle: ->
     if @props.secondSemester and not @props.isTeacher
       <div class="second-semester">
@@ -46,7 +38,6 @@ EnrollmentCodeInput = React.createClass
   render: ->
 
     <div className="enrollment-code form-group row">
-      {@renderCurrentCourses() if @props.currentCourses?.length}
       {@renderTitle()}
       <hr/>
       <MessageList messages={@props.course.errorMessages()} />
