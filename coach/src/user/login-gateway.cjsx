@@ -68,7 +68,6 @@ LoginGateway = React.createClass
     _.delay(@windowClosedCheck, SECOND)
 
   parseAndDispatchMessage: (msg) ->
-    return unless @isMounted()
     try
       data = JSON.parse(msg.data)
       if data.user
@@ -83,7 +82,6 @@ LoginGateway = React.createClass
     @props.windowImpl.addEventListener('message', @parseAndDispatchMessage)
 
   windowClosedCheck: ->
-    return unless @isMounted()
     if @state.loginWindow and @state.loginWindow.closed
       User.ensureStatusLoaded(true)
     else

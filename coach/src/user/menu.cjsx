@@ -38,7 +38,7 @@ UserMenu = React.createClass
     @context.navigator.emit('show.student_id', view: 'student_id')
 
   update: ->
-    @forceUpdate() if @isMounted()
+    @forceUpdate()
 
   close: ->
     @context.close?()
