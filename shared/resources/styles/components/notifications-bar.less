@@ -1,20 +1,18 @@
 &-notifications-bar {
-  height: 0px;
   background-color: @openstax-primary;
-  overflow: hidden;
-  transition: height 0.5s;
-  .flex-display();
-  .justify-content(center);
-  .align-items(center);
-  .flex(1);
-  &.viewable {
-    height: 60px;
-  }
+
   .notification {
     .flex-display();
     .flex(1);
     .justify-content(flex-start);
     .align-items(center);
+    overflow: hidden;
+    transition: height 0.5s;
+    height: 60px;
+    &.acknowledged {
+      height: 0px;
+    }
+
     color: @openstax-neutral-lighter;
 
     font-size: 2rem;
@@ -33,7 +31,7 @@
       .flex(1);
     }
 
-    & + .notification {
+    & + .notification:not(.acknowledged) {
       border-top: 1px solid darken(@openstax-primary, 5%);
     }
 
