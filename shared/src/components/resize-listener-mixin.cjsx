@@ -20,10 +20,12 @@ module.exports =
     @resizeListener = _.throttle(@resizeEffect, @state.resizeThrottle or @props.resizeThrottle)
 
   componentDidMount: ->
+    @_isMounted = true
     _.defer(@setInitialSize)
     window.addEventListener('resize', @resizeListener)
 
   componentWillUnmount: ->
+    @_isMounted = false
     window.removeEventListener('resize', @resizeListener)
 
   resizeEffect: (resizeEvent) ->
@@ -41,13 +43,13 @@ module.exports =
     {width, height}
 
   _getComponentSize: ->
-    return {height: 0, width: 0} unless @isMounted()
+    return {height: 0, width: 0} unless @_isMounted
     componentNode = ReactDOM.findDOMNode(@)
     width: componentNode.offsetWidth
     height: componentNode.offsetHeight
 
   setInitialSize: ->
-    return unless @isMounted()
+    return unless @_isMounted
     windowEl = @_getWindowSize()
     componentEl = @_getComponentSize()
 

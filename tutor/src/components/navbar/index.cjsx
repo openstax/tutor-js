@@ -30,10 +30,9 @@ module.exports = React.createClass
     CourseStore.get(courseId) if courseId?
 
   handleCourseChanges: ->
-    if @isMounted()
-      course = @getCourseFromParams()
-      unless _.isEqual(course, @state.course)
-        @setState({course})
+    course = @getCourseFromParams()
+    unless _.isEqual(course, @state.course)
+      @setState({course})
 
   collapseNav: ->
     navBar = ReactDOM.findDOMNode(@refs.navBar)
