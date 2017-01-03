@@ -23,15 +23,15 @@ NotificationBar = React.createClass
     displayAfter: 500
 
   getInitialState: ->
-    notice: null
+    notices: []
 
   componentWillMount: ->
     Notifications.on('change', @onChange)
     if @props.role and @props.course
       Notifications.setCourseRole(@props.course, @props.role)
-    notice = Notifications.getActive()
-    if notice
-      displayTimer = setTimeout( (=> @setState({notice})), @props.displayAfter)
+    notices = Notifications.getActive()
+    unless isEmpty(notices)
+      displayTimer = setTimeout( (=> @setState({notices})), @props.displayAfter)
       @setState({displayTimer})
 
   componentWillUnmount: ->
@@ -39,28 +39,30 @@ NotificationBar = React.createClass
     clearTimeout(@state.displayTimer) if @state.displayTimer
 
   onChange: ->
-    notice = Notifications.getActive()
-    @setState({notice})
+    @setState({notices: Notifications.getActive()})
 
-  onDismiss: ->
-    {notice} = @state
-    Notifications.acknowledge(notice)
-    @setState({notice: Notifications.getActive()})
+  onDismiss: (notice) ->
+    notice.acknowledged = true
+
+    displayTimer = setTimeout( =>
+      Notifications.acknowledge(notice)
+      @setState({notices: Notifications.getActive()})
+    , @props.displayAfter)
+
+    @setState({displayTimer})
 
   render: ->
-    {notice} = @state
-
-    Notice = TYPES[notice?.type or 'system'] or TYPES['system']
+    #console.log @state.notices, Notifications.getActive()
 
     <div className={
-      classnames("openstax-notifications-bar", @props.className, {viewable: !!notice})
+      classnames("openstax-notifications-bar", @props.className, {viewable: not isEmpty(@state.notices)})
     }>
-      {<Notice
-        noticeId={notice.id}
-        notice={notice}
-        onDismiss={@onDismiss}
-        callbacks={@props.callbacks[notice.type]}
-      /> if notice}
+      {for notice in @state.notices or []
+        Notice = TYPES[notice?.type or 'system'] or TYPES['system']
+        <Notice
+          key={notice.id} noticeId={notice.id} notice={notice}
+          onDismiss={partial(@onDismiss, notice)} callbacks={@props.callbacks[notice.type]}
+        />}
     </div>
 
 

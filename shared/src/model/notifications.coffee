@@ -56,11 +56,10 @@ Notifications = {
       @emit('change')
 
   getActive: ->
-    return NOTICES[0] if NOTICES.length
+    active = clone(NOTICES)
     for type, poller of POLLERS
-      notice = poller.getActiveNotification()
-      return notice if notice
-    null
+      active.push(clone(notice)) for notice in poller.getActiveNotifications()
+    active
 
   stopPolling: ->
     poller.destroy() for type, poller of POLLERS

@@ -35,7 +35,7 @@ describe 'Notifications', ->
     Notifications.display(notice)
     expect(changeListener).to.have.been.called
 
-    active = Notifications.getActive()
+    active = Notifications.getActive()[0]
     expect(active).to.exist
     # should have copied the object vs mutating it
     expect(active).not.to.not.equal(notice)
@@ -43,7 +43,7 @@ describe 'Notifications', ->
 
     Notifications.acknowledge(active)
     expect(changeListener).to.have.callCount(2)
-    expect(Notifications.getActive()).to.be.null
+    expect(Notifications.getActive()).to.be.empty
     undefined
 
   it 'adds missing student id when course role is set', ->
@@ -54,7 +54,7 @@ describe 'Notifications', ->
     role = {id: '111', type: 'student', joined_at: '2016-01-30T01:15:43.807Z' }
     Notifications.setCourseRole(course, role)
     expect(changeListener).to.have.been.called
-    active = Notifications.getActive()
+    active = Notifications.getActive()[0]
     expect(active.type).to.equal('missing_student_id')
     expect(active.course).to.deep.equal(course)
     expect(active.role).to.deep.equal(role)
@@ -67,6 +67,6 @@ describe 'Notifications', ->
     course = {id: '1', students: [{role_id: '111'}], ends_at: '2011-11-11T01:15:43.807Z'}
     Notifications.setCourseRole(course, {})
     expect(changeListener).to.have.been.called
-    active = Notifications.getActive()
+    active = Notifications.getActive()[0]
     expect(active.type).to.equal('course_has_ended')
     undefined

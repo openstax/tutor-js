@@ -26,7 +26,7 @@ describe 'Notification Pollers', ->
   it 'remembers notices when they are dismissed', ->
     @poller.onReply(data: TEST_NOTICES)
     expect(@notices.emit).to.have.been.calledWith('change')
-    active = @poller.getActiveNotification()
+    active = @poller.getActiveNotifications()[0]
     expect( active.id ).to.deep.equal(TEST_NOTICES[0].id)
     expect(@notices.windowImpl.localStorage.setItem).not.to.have.been.called
     undefined
@@ -34,7 +34,7 @@ describe 'Notification Pollers', ->
   it 'does not list items that are ignored', ->
     @notices.windowImpl.localStorage.getItem.returns('["2"]')
     @poller.onReply(data: TEST_NOTICES)
-    active = @poller.getActiveNotification()
+    active = @poller.getActiveNotifications()[0]
     expect( active.id ).to.deep.equal(TEST_NOTICES[0].id)
     undefined
 

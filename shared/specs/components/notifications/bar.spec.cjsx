@@ -21,7 +21,7 @@ describe 'Notifications Bar', ->
     setTimeout.mockClear()
 
   it 'renders and matches snapshot', ->
-    Notifications.getActive.mockReturnValue({id: '1', message: 'A test'})
+    Notifications.getActive.mockReturnValue([{id: '1', message: 'A test'}])
     wrapper = shallow(<Bar {...@props} />)
     jest.runAllTimers()
     expect(wrapper.hasClass('viewable')).to.equal true
@@ -41,7 +41,7 @@ describe 'Notifications Bar', ->
     undefined
 
   it 'shows itself after a delay if there are notifications', ->
-    Notifications.getActive.mockReturnValueOnce({id: '1', message: 'A test'})
+    Notifications.getActive.mockReturnValueOnce([{id: '1', message: 'A test'}])
     wrapper = shallow(<Bar {...@props} />)
     expect(wrapper.hasClass('viewable')).to.equal false
     expect(setTimeout.mock.calls.length).toBe(1)
@@ -50,23 +50,36 @@ describe 'Notifications Bar', ->
     expect(wrapper.hasClass('viewable')).to.equal true
     undefined
 
-  it 'displays a new notification after current is dismissed', ->
+  it 'displays all notifications and can dismiss them', ->
     firstNotice = {id: '1', message: 'TEST 1'}
-    Notifications.getActive.mockReturnValue(firstNotice)
+    Notifications.getActive.mockReturnValue([firstNotice])
     wrapper = shallow(<Bar {...@props} />)
     jest.runAllTimers()
     expect(wrapper.hasClass('viewable')).to.equal true
     systemNotice = wrapper.find("SystemNotification[noticeId='1']")
     expect(systemNotice).to.have.length(1)
     secondNotice = {id: '2', message: 'TEST 2'}
-    Notifications.getActive.mockReturnValue(secondNotice)
-    systemNotice.prop('onDismiss')()
-    expect(Notifications.acknowledge).toHaveBeenLastCalledWith(firstNotice)
+    Notifications.getActive.mockReturnValue([firstNotice, secondNotice])
+
+    Notifications.on.mock.calls[0][1]()
+
+    expect(wrapper.find("SystemNotification[noticeId='1']")).to.have.length(1)
     expect(wrapper.find("SystemNotification[noticeId='2']")).to.have.length(1)
+
+    Notifications.getActive.mockReturnValue([secondNotice])
+    systemNotice.prop('onDismiss')()
+    jest.runAllTimers()
+    expect(Notifications.acknowledge).toHaveBeenLastCalledWith(firstNotice)
+
+    expect(wrapper.find("SystemNotification[noticeId='1']")).to.have.length(0)
+    expect(wrapper.find("SystemNotification[noticeId='2']")).to.have.length(1)
+
     # simulate no new notices
     Notifications.getActive.mockReturnValue(null)
-    systemNotice.prop('onDismiss')()
+    wrapper.find("SystemNotification[noticeId='2']").prop('onDismiss')()
+    jest.runAllTimers()
     expect(Notifications.acknowledge).toHaveBeenLastCalledWith(secondNotice)
+
     expect(wrapper.hasClass('viewable')).to.equal false
     undefined
 
@@ -75,7 +88,7 @@ describe 'Notifications Bar', ->
     wrapper = shallow(<Bar {...@props} />)
     expect(wrapper.find("SystemNotification")).to.have.length(0)
     expect(wrapper.hasClass('viewable')).to.equal false
-    Notifications.getActive.mockReturnValue({id: '42', message: 'Foo'})
+    Notifications.getActive.mockReturnValue([{id: '42', message: 'Foo'}])
     Notifications.on.mock.calls[0][1]()
     expect(wrapper.hasClass('viewable')).to.equal true
     expect(wrapper.find("SystemNotification[noticeId='42']")).to.have.length(1)
