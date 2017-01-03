@@ -50,7 +50,6 @@ AccountsIframe = React.createClass
     ReactDOM.findDOMNode(@refs.iframe).contentWindow.postMessage(msg, '*')
 
   parseAndDispatchMessage: (msg) ->
-    return unless @isMounted()
     try
       json = JSON.parse(msg.data)
       for method, payload of json.data

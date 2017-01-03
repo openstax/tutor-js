@@ -101,7 +101,7 @@ class ConceptCoachAPI extends EventEmitter2
     @removeAllListeners()
 
   remove: ->
-    coachWrapped.unmount() if @component?.isMounted()
+    coachWrapped.unmount()
 
   setOptions: (options) ->
     isSame = _.isEqual(_.pick(options, PROPS), _.pick(componentModel, PROPS))
@@ -155,7 +155,7 @@ class ConceptCoachAPI extends EventEmitter2
       @open(props)
 
   updateToView: (view) ->
-    if @component?.isMounted()
+    if @component
       if view is 'close'
         @component.props.close()
       else

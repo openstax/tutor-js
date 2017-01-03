@@ -51,7 +51,6 @@ TutorPopover = React.createClass
     content.querySelectorAll('img')
 
   imageLoaded: (iter) ->
-    return unless @isMounted()
     {imagesLoading} = @state
 
     currentImageStatus = _.clone(imagesLoading)

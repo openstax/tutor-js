@@ -27,7 +27,7 @@ Navigation = React.createClass
     user.channel.off('change', @update)
 
   update: ->
-    @forceUpdate() if @isMounted()
+    @forceUpdate()
 
   close: ->
     @context.close?()

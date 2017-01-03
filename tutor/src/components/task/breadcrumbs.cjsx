@@ -29,6 +29,7 @@ module.exports = React.createClass
     currentStep: currentStep
 
   componentWillMount: ->
+    @_isMounted = true
     crumbs = @getCrumbs()
 
     # if a recovery step needs to be loaded, don't update breadcrumbs
@@ -66,7 +67,7 @@ module.exports = React.createClass
     TaskPanelStore.get(@props.id)
 
   calculateCrumbsWidth: (crumbDOM) ->
-    if @isMounted()
+    if @_isMounted
       currentCrumbWidth = 0
       crumbsWidth = _.reduce(@refs, (memo, ref) ->
         refDOM = ReactDOM.findDOMNode(ref)
@@ -80,6 +81,7 @@ module.exports = React.createClass
       @setState({crumbsWidth}) if crumbsWidth > @state.crumbsWidth
 
   componentWillUnmount: ->
+    @_isMounted = false
     TaskStepStore.setMaxListeners(10)
     TaskStore.off('task.beforeRecovery', @stopUpdate)
     TaskStore.off('task.afterRecovery', @update)
