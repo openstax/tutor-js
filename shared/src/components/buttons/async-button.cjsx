@@ -29,6 +29,9 @@ module.exports = React.createClass
       @clearDelay() unless nextProps.isWaiting
       @setState(delayTimeout: null)
 
+  componentWillUnmount: ->
+    @clearDelay() # make sure any pending timeouts are removed
+
   componentDidUpdate: ->
     {isWaiting, isJob} = @props
     {isTimedout, delayTimeout} = @state
@@ -44,7 +47,7 @@ module.exports = React.createClass
 
   clearDelay: ->
     {delayTimeout} = @state
-    clearTimeout(delayTimeout)
+    clearTimeout(delayTimeout) if delayTimeout
 
   getDefaultProps: ->
     isDone: false
