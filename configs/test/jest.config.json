@@ -1,6 +1,10 @@
 {
   "verbose": true,
   "notify": true,
+  "collectCoverage": true,
+  "collectCoverageFrom": ["**/*.{js,jsx,cjsx}", "!**/node_modules/**"],
+  "coverageDirectory": "../coverage/",
+  "coverageReporters": ["json", "lcov", "text-summary"],
   "testRegex": "specs\/.*\\.spec\\.(coffee|js|jsx|cjsx|json)$",
   "transform": {
     "\\.(coffee|cjsx)$": "<rootDir>/../configs/test/jest.preprocessor.js"

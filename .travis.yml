@@ -11,4 +11,7 @@ script:
 after_failure:
   - npm list
 after_success:
-  - cat ./coverage/all.lcov.txt | node ./node_modules/.bin/coveralls --verbose
+  # Report coverage to codecov
+  - bash <(curl -s https://codecov.io/bash)
+  # Report to coveralls
+  - cat ./coverage/*/lcov.info | node ./node_modules/.bin/coveralls --verbose
