@@ -40,7 +40,7 @@ Navigation = React.createClass
 
   onCourseEnded: (notice) ->
     NotificationActions.acknowledge(notice)
-    channel.emit('show.registration', view: 'second-semester-registration')
+    channel.emit('show.second-semester-registration', view: 'second-semester-registration')
 
   render: ->
     {course} = @props

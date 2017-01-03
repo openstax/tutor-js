@@ -22,7 +22,9 @@ SystemNotification = React.createClass
 
   render: ->
 
-    <div className={classnames('notification', 'system', @props.notice.level)}>
+    <div className={classnames('notification', 'system', @props.notice.level,
+      {acknowledged: @props.notice.acknowledged}
+    )}>
       <span className="body">
         <i className={"icon fa fa-#{@getIcon()}"} />
         {@props.notice.message}
