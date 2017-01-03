@@ -1,5 +1,8 @@
 {makeStandardStore} = require './helpers'
+TaskPlanHelper = require '../helpers/task-plan'
+
 isEmpty = require 'lodash/isEmpty'
+sortBy  = require 'lodash/sortBy'
 reject = require 'lodash/reject'
 
 StoreDefinition = makeStandardStore('PastTaskPlans', {
@@ -11,6 +14,9 @@ StoreDefinition = makeStandardStore('PastTaskPlans', {
     @loaded({items: newItems}, courseId)
 
   exports:
+    byDueDate: (courseId) ->
+      sortBy(@_get(courseId), TaskPlanHelper.earliestDueDate)
+
     hasPlans: (courseId) ->
       not isEmpty(@_get(courseId))
 })

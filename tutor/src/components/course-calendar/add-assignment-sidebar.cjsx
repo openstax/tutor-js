@@ -7,7 +7,7 @@ classnames = require 'classnames'
 
 {AddAssignmentLink} = require './task-dnd'
 
-PastAssignments = require './past-assignments'
+{PastAssignmentsShell} = require './past-assignments'
 
 CourseAddMenuMixin = require './add-menu-mixin'
 BindStoreMixin = require '../bind-store-mixin'
@@ -95,7 +95,7 @@ AddAssignmentSidebar = React.createClass
         </ul>
         <IntroPopover onClose={@onPopoverClose} show={@state.showPopover and @props.isOpen} />
       </div>
-      <PastAssignments
+      <PastAssignmentsShell
         className='sidebar-section'
         courseId={@props.courseId}
         cloningPlanId={@props.cloningPlanId}

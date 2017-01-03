@@ -64,6 +64,7 @@ AddAssignmentLink = (props) ->
       </a>
     </li>
   )
+AddAssignmentLink.displayName = 'AddAssignmentLink'
 
 CloneAssignmentLink = (props) ->
   props.connectDragSource(
@@ -79,7 +80,7 @@ CloneAssignmentLink = (props) ->
       <GrabbyDots/><div>{props.plan.title}</div>
     </div>
   )
-
+CloneAssignmentLink.displayName = 'CloneAssignmentLink'
 
 module.exports = {
   NewTaskDrag,
