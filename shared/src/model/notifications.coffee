@@ -55,6 +55,12 @@ Notifications = {
       NOTICES = without(NOTICES, find(NOTICES, id: notice.id))
       @emit('change')
 
+  # Notices originate via multiple methods.
+  # * Pollers periodically check verious network endpoints
+  # * Generated when the `setCourseRole` method is called
+  #   based on the user's relationship with the course
+  # The `getActive` method is the single point for checking which notifications
+  # should be displayed
   getActive: ->
     active = clone(NOTICES)
     for type, poller of POLLERS
@@ -65,6 +71,9 @@ Notifications = {
     poller.destroy() for type, poller of POLLERS
     POLLERS = {}
 
+  # Called when the current course and/or role has changed
+  # The notification logic may display a notice
+  # based on the relationship or if student identifier is missing
   setCourseRole: (course, role) ->
     return if role.type is 'teacher'
     unless isEmpty(role)
