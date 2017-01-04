@@ -158,7 +158,7 @@ class ConceptCoachAPI extends EventEmitter2
   updateToView: (view) ->
     if @component
       if view is 'close'
-        @component.props.close()
+        @component.props?.close?()
       else
         navigation.channel.emit("show.#{view}", {view})
     else if componentModel.mounter? and view isnt 'close'
