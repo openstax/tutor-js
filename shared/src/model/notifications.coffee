@@ -75,11 +75,10 @@ Notifications = {
   # The notification logic may display a notice
   # based on the relationship or if student identifier is missing
   setCourseRole: (course, role) ->
-    return if role.type is 'teacher'
-    unless isEmpty(role)
-      studentId = find(course.students, role_id: role.id)?.student_identifier
-      if isEmpty(studentId) and moment().diff(role.joined_at, 'days') > 7
-        @display({type: @POLLING_TYPES.MISSING_STUDENT_ID, course, role})
+    return if isEmpty(role) or role.type is 'teacher'
+    studentId = find(course.students, role_id: role.id)?.student_identifier
+    if isEmpty(studentId) and moment().diff(role.joined_at, 'days') > 7
+      @display({type: @POLLING_TYPES.MISSING_STUDENT_ID, course, role})
     if moment(course.ends_at).isBefore(moment(), 'day')
       @display({type: @POLLING_TYPES.COURSE_HAS_ENDED, course, role})
 
