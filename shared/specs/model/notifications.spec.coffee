@@ -65,7 +65,7 @@ describe 'Notifications', ->
     notice = {message: 'hello world', icon: 'globe'}
     Notifications.once('change', changeListener)
     course = {id: '1', students: [{role_id: '111'}], ends_at: '2011-11-11T01:15:43.807Z'}
-    Notifications.setCourseRole(course, {})
+    Notifications.setCourseRole(course, {id: '111'})
     expect(changeListener).to.have.been.called
     active = Notifications.getActive()[0]
     expect(active.type).to.equal('course_has_ended')
