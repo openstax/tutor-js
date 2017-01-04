@@ -6,6 +6,8 @@ ENTER = 'Enter'
 Course = require './model'
 {AsyncButton, MessageList} = require 'shared'
 User = require '../user/model'
+Navigation = require '../navigation/model'
+
 
 EnrollmentCodeInput = React.createClass
   displayName: 'EnrollmentCodeInput'
@@ -21,19 +23,31 @@ EnrollmentCodeInput = React.createClass
     return if @props.course.isBusy # double enter
     @startRegistration() if ev.key is ENTER
 
+  isSecondSemester: ->
+    @props.secondSemester and not @props.isTeacher
+
   renderTitle: ->
-    if @props.secondSemester and not @props.isTeacher
-      <div class="second-semester">
+    if @isSecondSemester()
+      <div className="second-semester">
         <h3 className="text-center">A New Semester, A New Enrollment Code</h3>
         <p>
-          Concept Coach requires a new enrollment code each semester. If you’re
-          in the second semester of a two-semester course, get the new code from your
-          instructor and enter it below.
+          Concept Coach requires a new enrollment code each semester.
+          If you’re in the second semester of a two-semester course,
+          get the new code from your instructor and enter it below.
         </p>
       </div>
     else
       title = if @props.isTeacher then '' else 'Register for this Concept Coach course'
       <h3 className="text-center">{title}</h3>
+
+  PastCourseLink: ->
+    return null unless @isSecondSemester()
+    <BS.Button bsStyle='link' onClick={@returnToPastCourse}>
+      Return to my past Concept Coach course
+    </BS.Button>
+
+  returnToPastCourse: ->
+    Navigation.channel.emit('show.panel', view: 'task')
 
   render: ->
 
@@ -63,6 +77,7 @@ EnrollmentCodeInput = React.createClass
             </BS.InputGroup.Button>
           </BS.InputGroup>
         </BS.FormGroup>
+        <@PastCourseLink />
       </div>
     </div>
 
