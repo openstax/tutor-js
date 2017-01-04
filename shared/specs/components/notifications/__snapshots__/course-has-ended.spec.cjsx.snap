@@ -11,7 +11,7 @@ exports[`Notifications MissingStudentId notice renders and matches snapshot 1`] 
     <a
       className="action"
       onClick={[Function]}>
-      Using Concept Coach over two semesters?
+      Using Concept Coach in a two-semester course?
     </a>
   </span>
 </div>
