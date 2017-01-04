@@ -47,6 +47,10 @@ describe 'Breadcrumb Component', ->
         expect(dom.classList.contains('status-incorrect')).to.be.true
         expect(dom.querySelector('i.icon-incorrect')).not.to.be.null
 
+    it 'passes on data-label props', ->
+      @props['data-label'] = 'This is a Label'
+      Testing.renderComponent( BC, props: @props ).then ({dom}) =>
+        expect(dom.getAttribute('data-label')).to.equal(@props['data-label'])
 
   it 'calls onClick handler', ->
     Testing.renderComponent( BC, props: @props ).then ({dom}) =>
