@@ -17,7 +17,7 @@ CourseHasEndedNotification = React.createClass
   actionsLink: ->
     return null unless @props.callbacks?.onCCSecondSemester
     <a className='action' onClick={@onSecondSemesterClick}>
-      Using Concept Coach over two semesters?
+      Using Concept Coach in a two-semester course?
     </a>
 
   render: ->
