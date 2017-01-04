@@ -68,7 +68,7 @@ ExerciseBase = React.createClass
         eventData = change: step, data: step, status: 'saving'
 
         channel.emit("change.#{step.id}", eventData)
-        api.channel.emit("exercise.#{step.id}.save.send", id: step.id, _.pick(step, 'answer_idr'))
+        api.channel.emit("exercise.#{step.id}.save.send", id: step.id, _.pick(step, 'answer_id'))
 
       setFreeResponseAnswer: (id, freeResponse) ->
         step.free_response = freeResponse

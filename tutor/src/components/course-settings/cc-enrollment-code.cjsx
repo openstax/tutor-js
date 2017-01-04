@@ -7,7 +7,10 @@ _ = require 'underscore'
 {TutorInput} = require '../tutor-input'
 CourseGroupingLabel = require '../course-grouping-label'
 Icon = require '../icon'
-TITLE = 'Your student enrollment code'
+Title = (props) ->
+  <span>
+    Send enrollment instructions for this <CourseGroupingLabel lowercase courseId={props.courseId} />
+  </span>
 
 module.exports = React.createClass
   displayName: 'PeriodEnrollmentCode'
@@ -30,51 +33,28 @@ module.exports = React.createClass
     {bookUrl, bookName} = @props
     # appends :3 to skip book intro
     url = "#{bookUrl}:3?enrollment_code=#{code}"
-    section =
-      <CourseGroupingLabel lowercase courseId={@props.courseId} />
 
     msg = """
-      Concept Coach is a free learning tool embedded in your online book. After reading a section of the book, launch Concept Coach to complete practice questions and give your learning a boost.
-
-      To register for Concept Coach:
+      Concept Coach is a free tool to help you remember and understand what you read. After reading a section of the book, launch Concept Coach to complete practice questions and give your learning a boost.
 
       1. Click or paste this link in your web browser to visit the class textbook:
-        #{url}
+      #{url}
 
-      The link has your enrollment code for this Concept Coach course embedded. Course Enrollment Code: #{code}
+      2. Click the orange “Jump to Concept Coach” button.
 
-      2. Click "Jump to Concept Coach"
+      3. Click the orange “Enroll in This Course” button in the Concept Coach widget.
 
-      In the browser, click the orange “Jump to Concept Coach” button to jump to the Concept Coach widget at the end of the section.
+      4. Follow the prompts to complete the enrollment process. Then, you’ll be taken to your Concept Coach questions.
 
-      3. Click “Enroll in This Course”
-
-      Click the orange “Enroll in This Course” button to open your Concept Coach log-in window.
-
-      4. Click Sign Up and Enroll (or Login and Enroll if you already have an account).
-
-      If you’re new to Concept Coach, you’ll be prompted to create a free account. If you’ve used Concept Coach before, log in using your existing OpenStax Concept Coach account.
-
-      5. Enter your school-issued ID
-
-      On the enrollment confirmation screen, input your school-issued ID number used for grading so your instructor can identify you.
-
-      6. Continue to your Concept Coach questions!
-
-      You can also find your Concept Coach book by visiting cc.openstax.org and clicking “Student Portal.” If you get to your book this way, and have not already enrolled, you may be asked to enter your enrollment code:  Course Enrollment Code: #{code}
+      5. To find your Concept Coach book in the future, visit cc.openstax.org and click “Student Portal.” Use the book table of contents to locate the section(s) assigned by your instructor. Read the section, then launch Concept Coach at the bottom of the section.
     """
     <div>
 
-      <div className='summary'>
-        <p>The enrollment code for this {section} is:</p>
-        <p className='code'>{code}</p>
-        <p>Each {section} of your course will have a different enrollment code.</p>
-      </div>
 
       <div className='callout'>
         <p>
           <span className='emphasis'>
-            Send the following enrollment instructions to students in this section of your course:
+            Send these instructions to students in this <CourseGroupingLabel lowercase courseId={@props.courseId} />
           </span>
         </p>
       </div>
@@ -94,10 +74,12 @@ module.exports = React.createClass
     <BS.Modal
       show={@state.showModal}
       onHide={@close}
-      className="settings-edit-period-modal">
+      className="settings-cc-enrollment-code-modal">
 
       <BS.Modal.Header closeButton>
-        <BS.Modal.Title>{TITLE}</BS.Modal.Title>
+        <BS.Modal.Title>
+          <Title {...@props} />
+        </BS.Modal.Title>
       </BS.Modal.Header>
 
       <BS.Modal.Body>
@@ -110,6 +92,6 @@ module.exports = React.createClass
 
   render: ->
     <BS.Button onClick={@open} bsStyle='link' className='control cc-enrollment-code'>
-      <Icon type='qrcode' /> {TITLE}
+      <Icon type='qrcode' /> <Title {...@props} />
       {@renderForm()}
     </BS.Button>

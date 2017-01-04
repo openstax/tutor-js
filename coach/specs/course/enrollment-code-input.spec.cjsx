@@ -1,4 +1,8 @@
-{React, Testing, expect, sinon, _, ReactTestUtils} = require 'shared/specs/helpers'
+{React, Testing, sinon, _, ReactTestUtils} = require 'shared/specs/helpers'
+SnapShot = require 'react-test-renderer'
+
+jest.mock('navigation/model')
+Navigation = require 'navigation/model'
 
 EnrollmentCodeInput = require 'course/enrollment-code-input'
 Course = require 'course/model'
@@ -17,13 +21,10 @@ describe 'EnrollmentCodeInput Component', ->
     @props.secondSemester = true
     wrapper = shallow(<EnrollmentCodeInput {...@props} />)
     expect(wrapper.text()).to.include('A New Semester, A New Enrollment Code')
-    undefined
+    expect(wrapper.find('.past-course')).to.have.length(1)
+    expect(SnapShot.create(<EnrollmentCodeInput {...@props} />).toJSON()).toMatchSnapshot()
 
-  xit 'lists current courses', ->
-    @props.optionalStudentId = true
-    Testing.renderComponent( EnrollmentCodeInput, props: @props ).then ({dom}) ->
-      courses = _.pluck(dom.querySelectorAll('.list-group-item'), 'textContent')
-      expect(courses).to.deep.equal(['Biology I 1st'])
+    undefined
 
   it 'model registers when submit is clicked', ->
     sinon.stub(@props.course, 'register')

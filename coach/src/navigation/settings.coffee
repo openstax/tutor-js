@@ -14,5 +14,6 @@ settings =
     logout: DEFAULT_PATTERN
     default: '{prefix}{base}'
     close: '{prefix}'
+    'second-semester-registration': DEFAULT_PATTERN
 
 module.exports = settings

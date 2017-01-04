@@ -580,10 +580,10 @@ exports[`Launcher renders as logged in 1`] = `
         <div
           className="fine-print enrollment">
           <p>
-            Course-specific enrollment code required.
+            Course-specific enrollment link required.
           </p>
           <p>
-            Ask your instructor for a code
+            Ask your instructor for a link
           </p>
         </div>
       </div>
@@ -996,10 +996,10 @@ exports[`Launcher renders with launching status 1`] = `
         <div
           className="fine-print enrollment">
           <p>
-            Course-specific enrollment code required.
+            Course-specific enrollment link required.
           </p>
           <p>
-            Ask your instructor for a code
+            Ask your instructor for a link
           </p>
         </div>
       </div>

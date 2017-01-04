@@ -20,8 +20,8 @@ LoginAction.displayName = 'LoginAction'
 
 EnrollmentCode = (props) ->
   <div className="fine-print enrollment">
-    <p>Course-specific enrollment code required.</p>
-    <p>Ask your instructor for a code</p>
+    <p>Course-specific enrollment link required.</p>
+    <p>Ask your instructor for a link</p>
   </div>
 
 SwitchSections = (props) ->

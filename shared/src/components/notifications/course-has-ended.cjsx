@@ -8,7 +8,9 @@ CourseHasEndedNotification = React.createClass
       onCCSecondSemester: React.PropTypes.func.isRequired
     )
     notice: React.PropTypes.shape(
-      id: React.PropTypes.number.isRequired
+      id: React.PropTypes.oneOfType([
+        React.PropTypes.number, React.PropTypes.string
+      ])
     )
 
   onSecondSemesterClick: ->
@@ -17,7 +19,7 @@ CourseHasEndedNotification = React.createClass
   actionsLink: ->
     return null unless @props.callbacks?.onCCSecondSemester
     <a className='action' onClick={@onSecondSemesterClick}>
-      Using Concept Coach over two semesters?
+      Using Concept Coach in a two-semester course?
     </a>
 
   render: ->
