@@ -1,0 +1,56 @@
+exports[`EnrollmentCodeInput Component displays second semester message when prop is set 1`] = `
+<div
+  className="enrollment-code form-group row">
+  <div
+    className="second-semester">
+    <h3
+      className="text-center">
+      A New Semester, A New Enrollment Code
+    </h3>
+    <p>
+      Concept Coach requires a new enrollment code each semester.
+      If you’re in the second semester of a two-semester course,
+      get the new code from your instructor and enter it below.
+    </p>
+  </div>
+  <hr />
+  <div
+    className="code-wrapper col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
+    <div
+      className="form-group">
+      <label
+        className="control-label"
+        htmlFor="enrollment-code">
+        Enter the enrollment code
+      </label>
+      <span
+        className="input-group">
+        <input
+          autoFocus={true}
+          className="form-control"
+          id="enrollment-code"
+          onKeyPress={[Function]}
+          placeholder="enrollment code"
+          type="text" />
+        <span
+          className="input-group-btn">
+          <button
+            className="async-button enroll btn btn-default"
+            disabled={false}
+            onClick={[Function]}
+            type="button">
+            Enroll
+          </button>
+        </span>
+      </span>
+    </div>
+    <button
+      className="past-course btn btn-link"
+      disabled={false}
+      onClick={[Function]}
+      type="button">
+      Return to my past Concept Coach course
+    </button>
+  </div>
+</div>
+`;

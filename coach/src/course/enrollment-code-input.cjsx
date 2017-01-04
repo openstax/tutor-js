@@ -40,9 +40,9 @@ EnrollmentCodeInput = React.createClass
       title = if @props.isTeacher then '' else 'Register for this Concept Coach course'
       <h3 className="text-center">{title}</h3>
 
-  PastCourseLink: ->
+  renderPastCourseLink: ->
     return null unless @isSecondSemester()
-    <BS.Button bsStyle='link' onClick={@returnToPastCourse}>
+    <BS.Button bsStyle='link' className="past-course" onClick={@returnToPastCourse}>
       Return to my past Concept Coach course
     </BS.Button>
 
@@ -77,7 +77,7 @@ EnrollmentCodeInput = React.createClass
             </BS.InputGroup.Button>
           </BS.InputGroup>
         </BS.FormGroup>
-        <@PastCourseLink />
+        {@renderPastCourseLink()}
       </div>
     </div>
 
