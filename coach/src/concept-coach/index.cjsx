@@ -101,7 +101,8 @@ class ConceptCoachAPI extends EventEmitter2
     @removeAllListeners()
 
   remove: ->
-    coachWrapped.unmount()
+    coachWrapped.unmount() if @component
+    @component = null
 
   setOptions: (options) ->
     isSame = _.isEqual(_.pick(options, PROPS), _.pick(componentModel, PROPS))
