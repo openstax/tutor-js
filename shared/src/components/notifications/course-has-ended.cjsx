@@ -8,7 +8,9 @@ CourseHasEndedNotification = React.createClass
       onCCSecondSemester: React.PropTypes.func.isRequired
     )
     notice: React.PropTypes.shape(
-      id: React.PropTypes.number.isRequired
+      id: React.PropTypes.oneOfType([
+        React.PropTypes.number, React.PropTypes.string
+      ])
     )
 
   onSecondSemesterClick: ->
