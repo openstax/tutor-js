@@ -1,7 +1,7 @@
 React = require 'react'
 
 map = require 'lodash/map'
-without = require 'lodash/without'
+omit    = require 'lodash/omit'
 partial = require 'lodash/partial'
 
 classnames = require 'classnames'
@@ -53,7 +53,7 @@ Breadcrumb = React.createClass
     {step, crumb, goToStep, className, stepIndex} = @props
     {isCorrect, isIncorrect, isCurrent, isCompleted, isEnd, crumbType} = @state
 
-    propsToPassOn = without(@props,
+    propsToPassOn = omit(@props,
       'onClick', 'title', 'className', 'data-chapter', 'key', 'step',
       'goToStep', 'canReview', 'currentStep', 'stepIndex', 'crumb'
     )

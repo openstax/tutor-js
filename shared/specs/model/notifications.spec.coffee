@@ -70,3 +70,10 @@ describe 'Notifications', ->
     active = Notifications.getActive()[0]
     expect(active.type).to.equal('course_has_ended')
     undefined
+
+  it 'prevents duplicates from being displayed', ->
+    notice = {id: '1', type: 'status'}
+    Notifications.display(notice)
+    Notifications.display(notice)
+    expect(Notifications.getActive()).to.deep.eq([notice])
+    undefined
