@@ -30,7 +30,8 @@ Notifications = {
 
   display: (notice) ->
     # fill in an id and type if not provided
-    NOTICES.push( defaults(clone(notice), id: uniqueId(CLIENT_ID), type: CLIENT_ID ))
+    notice = defaults(clone(notice), id: uniqueId(CLIENT_ID), type: CLIENT_ID)
+    NOTICES.push(notice) unless find(NOTICES, id: notice.id)
     @emit('change')
 
   _startPolling: (type, url) ->
@@ -78,9 +79,11 @@ Notifications = {
     return if isEmpty(role) or role.type is 'teacher'
     studentId = find(course.students, role_id: role.id)?.student_identifier
     if isEmpty(studentId) and moment().diff(role.joined_at, 'days') > 7
-      @display({type: @POLLING_TYPES.MISSING_STUDENT_ID, course, role})
+      id = @POLLING_TYPES.MISSING_STUDENT_ID
+      @display({id, type: id, course, role})
     if moment(course.ends_at).isBefore(moment(), 'day')
-      @display({type: @POLLING_TYPES.COURSE_HAS_ENDED, course, role})
+      id = @POLLING_TYPES.COURSE_HAS_ENDED
+      @display({id,  type: id, course, role})
 
 }
 
