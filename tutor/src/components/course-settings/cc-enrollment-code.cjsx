@@ -40,6 +40,8 @@ module.exports = React.createClass
       1. Click or paste this link in your web browser to visit the class textbook:
       #{url}
 
+      Returning Concept Coach user? You may need to enter this course enrollment code: #{code}
+
       2. Click the orange “Jump to Concept Coach” button.
 
       3. Click the orange “Enroll in This Course” button in the Concept Coach widget.
