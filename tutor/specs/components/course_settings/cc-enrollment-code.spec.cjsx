@@ -18,12 +18,13 @@ describe 'CC enrollment instructions modal', ->
       courseId: COURSE_ID
       bookUrl: 'http://test.test.com'
       bookName: 'My Test Textbook'
-      period: {}
+      period: { enrollment_code: 'TEST42' }
     CourseActions.loaded(COURSE, COURSE_ID)
 
   it 'displays when clicked', ->
     displayModal(@props).then (dom) =>
       expect(dom.querySelector('.modal-title').textContent)
         .to.include("Send enrollment instructions")
-      expect(dom.querySelector('textarea').value)
-        .to.include(@props.bookUrl)
+      instructions = dom.querySelector('textarea').value
+      expect(instructions).to.include(@props.bookUrl)
+      expect(instructions).to.include("course enrollment code: #{@props.period.enrollment_code}")
