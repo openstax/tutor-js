@@ -65,7 +65,7 @@ ChapterAccordion = React.createClass
 
     classNames = classnames 'chapter-heading', 'empty-chapter': _.isEmpty(chapter.children)
 
-    <div className={classNames} data-chapter-section={chapter.chapter_section[0]}>
+    <div className={classNames}  data-chapter-section={chapter.chapter_section[0]}>
       <span className='chapter-checkbox'>
         <TriStateCheckbox type={checkBoxType} onClick={@toggleSectionSelections} />
       </span>
@@ -103,6 +103,7 @@ ChapterAccordion = React.createClass
 
 
 SectionsChooser = React.createClass
+  displayName: 'SectionsChooser'
   propTypes:
     onSelectionChange: React.PropTypes.func
     ecosystemId: React.PropTypes.string.isRequired

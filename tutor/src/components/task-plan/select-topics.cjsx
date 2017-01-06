@@ -17,6 +17,8 @@ SelectTopics = React.createClass
     onSectionChange: React.PropTypes.func.isRequired
     hide: React.PropTypes.func.isRequired
     selected: React.PropTypes.array
+    header: React.PropTypes.string.isRequired
+    cancel: React.PropTypes.func.isRequired
 
   getInitialState: -> {initialSelected: @props.selected}
 
@@ -28,8 +30,7 @@ SelectTopics = React.createClass
     @props.onSectionChange?(sectionIds)
 
   renderDialog: ->
-    {courseId, planId, selected, hide, header, primary, cancel} = @props
-    ecosystemId = CourseStore.get(courseId).ecosystem_id
+    {courseId, planId, selected, hide, header, primary, cancel, ecosystemId} = @props
 
     <Dialog
       className='select-topics'
@@ -40,7 +41,7 @@ SelectTopics = React.createClass
       isChanged={_.constant(@hasChanged())}
       onCancel={cancel}>
 
-      <div className='select-chapters'>
+      <div className='select-chapters' data-ecosystem-id={ecosystemId}>
         <SectionsChooser
           ecosystemId={ecosystemId}
           chapters={TocStore.get(ecosystemId)}
