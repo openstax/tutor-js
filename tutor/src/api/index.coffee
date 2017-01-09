@@ -44,6 +44,7 @@ PerformanceForecast = require '../flux/performance-forecast'
 {NotificationActions} = require '../flux/notifications'
 
 {CourseEnrollmentActions} = require '../flux/course-enrollment'
+TaskPlanHelpers = require '../helpers/task-plan'
 
 handledEnrollmentErrorsMap = require '../flux/course-enrollment-handled-errors'
 handledEnrollmentErrors = _.keys(handledEnrollmentErrorsMap)
@@ -53,6 +54,7 @@ BOOTSTRAPED_STORES = {
   courses: CourseListingActions.loaded
 }
 
+
 startAPI = ->
   connectRead(TaskActions, pattern: 'tasks/{id}')
   connectDelete(TaskActions, pattern: 'tasks/{id}')
@@ -60,29 +62,15 @@ startAPI = ->
   connectRead(TaskPlanActions, pattern: 'plans/{id}')
   connectDelete(TaskPlanActions, pattern: 'plans/{id}')
 
-  connectUpdate(TaskPlanActions, {data: TaskPlanStore.getChanged},
-    (id, courseId) ->
-      if TaskPlanStore.isNew(id)
-        url: "courses/#{courseId}/plans"
-        method: 'POST'
-      else
-        url: "plans/#{id}"
-  )
+  connectUpdate(TaskPlanActions, {data: TaskPlanStore.getChanged}, TaskPlanHelpers.apiEndpointOptions)
 
   connectUpdate(TaskPlanActions, {
-      trigger: 'saveSilent'
-      handleError: (args...) ->
-        TaskPlanActions.erroredSilent(args...)
-        true
-      data: TaskPlanStore.getChanged
-    },
-    (id, courseId) ->
-      if TaskPlanStore.isNew(id)
-        url: "courses/#{courseId}/plans"
-        method: 'POST'
-      else
-        url: "plans/#{id}"
-  )
+    trigger: 'saveSilent'
+    handleError: (args...) ->
+      TaskPlanActions.erroredSilent(args...)
+      true
+    data: TaskPlanStore.getChanged
+  }, TaskPlanHelpers.apiEndpointOptions)
 
   connectRead(TaskPlanStatsActions, pattern: 'plans/{id}/stats')
   connectRead(TaskTeacherReviewActions, pattern: 'plans/{id}/review')

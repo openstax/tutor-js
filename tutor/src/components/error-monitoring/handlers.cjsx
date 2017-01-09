@@ -85,7 +85,7 @@ ERROR_HANDLERS =
     onCancel: navigateAction
 
   # The default error dialog that's displayed when we have no idea what's going on
-  default: (error, message, context) ->
+  default: (error, message, context = {}) ->
     unless error.supportLinkBase?
       {courseId} = context
       error.supportLinkBase = CurrentUserStore.getHelpLink(courseId)

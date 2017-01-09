@@ -267,7 +267,7 @@ TaskPlanConfig =
   createClonedPlan: (newPlanId, {planId, courseId, due_at}) ->
     original = @_local[planId]
     originalPlan = {}
-    copyKeys = ['title', 'description', 'is_feedback_immediate', 'settings']
+    copyKeys = ['title', 'description', 'is_feedback_immediate', 'settings', 'ecosystem_id']
     each(copyKeys, (key) ->
       originalPlan[key] = cloneDeep(original[key])
       # need to prevent false from being returned and ending the each loop early.

@@ -1,5 +1,6 @@
 moment = require 'moment'
 _ = require 'underscore'
+{TaskPlanStore} = require '../flux/task-plan'
 
 module.exports = {
 
@@ -31,4 +32,17 @@ module.exports = {
   earliestDueDate: (plan) ->
     dates = _.map(plan?.tasking_plans, 'due_at')
     _.first(dates.sort()) or ''
+
+
+  apiEndpointOptions: (id, courseId) ->
+    task = TaskPlanStore.get(id)
+    options = if TaskPlanStore.isNew(id)
+      url: "courses/#{courseId}/plans"
+      method: 'POST'
+    else
+      url: "plans/#{id}"
+    if task?.ecosystem_id
+      options.params = {ecosystem_id: task.ecosystem_id}
+    options
+
 }
