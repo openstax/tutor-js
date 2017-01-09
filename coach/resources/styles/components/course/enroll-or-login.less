@@ -1,27 +1,38 @@
 .enroll-or-login {
 
-  .enroll-choices {
-    .flex-display();
-    .flex-direction(column);
+  text-align: center;
+  .flex-wrap(wrap);
+  .flex-direction(row);
+
+  .signup,
+  .login {
+    width: 100%;
+  }
+
+  hr {
+    border-top: 1px solid @openstax-neutral-medium;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .signup {
+    width: 100%;
+
+    h3 {
+      margin-top: 0;
+    }
 
     button {
-      color: @openstax-white;
+      font-size: 18px;
+      padding: 10px 40px;
     }
-    .signup {
-      border-bottom: 1px solid @openstax-neutral-medium;
-      padding-bottom: 20px;
-      margin-bottom: 20px;
-      button {
-        font-size: 18px;
-        margin-top: 10px;
-        padding: 10px 40px;
-      }
-    }
-    .login {
-      button {
-        background-color: @openstax-secondary;
-        margin-left: 10px;
-      }
+  }
+
+  .login {
+    .align-self(flex-end);
+
+    button {
+      margin-left: 10px;
     }
   }
 }
