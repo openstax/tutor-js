@@ -37,7 +37,7 @@ module.exports = {
   apiEndpointOptions: (id, courseId) ->
     task = TaskPlanStore.get(id)
     options = if TaskPlanStore.isNew(id)
-      url: "courses/#{courseId}"
+      url: "courses/#{courseId}/plans"
       method: 'POST'
     else
       url: "plans/#{id}"
