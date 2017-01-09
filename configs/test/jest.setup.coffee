@@ -47,3 +47,7 @@ global.expect = (actual) ->
   chaiMatchers = chai.expect(actual)
   combinedMatchers = Object.assign(chaiMatchers, originalMatchers)
   combinedMatchers
+
+global.expect.extend = originalExpect.extend
+
+require './matchers'
