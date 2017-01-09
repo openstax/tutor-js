@@ -66,4 +66,8 @@ describe 'task-plan helper', ->
     expect(TaskPlan.apiEndpointOptions(SINGLE.id, COURSE_ID))
       .to.deep.equal(url: "courses/#{COURSE_ID}", method: 'POST')
 
+    TaskPlanFlux.TaskPlanStore.get.mockReturnValue(ecosystem_id: 42)
+    expect(TaskPlan.apiEndpointOptions(SINGLE.id, COURSE_ID))
+      .to.deep.equal(url: "courses/#{COURSE_ID}?ecosystem_id=42", method: 'POST')
+
     undefined
