@@ -3,6 +3,7 @@
   "book_id": "123",
   "ecosystem_id": "1",
   "appearance_code": "biology",
+  "offering_id": "1",
   "periods": [{
     "id": "1",
     "name" : "1st",

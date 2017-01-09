@@ -47,11 +47,19 @@ NewCourseWizard = React.createClass
     NewCourseActions.initialize(
       TutorRouter.currentParams()
     )
+    @setStage()
+
+  setStage: ->
     if STAGES.offering_id.shouldSkip()
       firstStage = 2
     else
       firstStage = if NewCourseStore.canSelectCourseType() then 0 else 1
     @setState({firstStage, currentStage: firstStage})
+
+  componentWillReceiveProps: (nextProps) ->
+    # we're switching from loading to not loading
+    if @props.isLoading and not nextProps.isLoading
+      @setStage()
 
   mixins: [BindStoreMixin]
   bindStore: NewCourseStore
