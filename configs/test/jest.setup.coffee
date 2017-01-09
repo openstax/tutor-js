@@ -28,12 +28,6 @@ originalExpect = global.expect
 # bump up timeout to 30 seconds
 global.jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000
 
-global.expect = (actual) ->
-  originalMatchers = originalExpect(actual)
-  chaiMatchers = chai.expect(actual)
-  combinedMatchers = Object.assign(chaiMatchers, originalMatchers)
-  combinedMatchers
-
 process.on 'unhandledRejection', (reason, p) ->
   console.error("Possibly Unhandled Rejection at: Promise ", p, " reason: ", reason)
 
