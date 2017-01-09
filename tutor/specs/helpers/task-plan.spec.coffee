@@ -1,5 +1,7 @@
 _ = require 'underscore'
 
+jest.mock('../../src/flux/task-plan')
+TaskPlanFlux = require '../../src/flux/task-plan'
 
 TaskPlan = require '../../src/helpers/task-plan'
 {CourseListingActions} = require '../../src/flux/course-listing'
@@ -53,4 +55,15 @@ describe 'task-plan helper', ->
       all:
         due_at: '2015-04-05T10:00:00.000Z'
     )
+    undefined
+
+
+  it 'calculates api options depending on plan isNew', ->
+    expect(TaskPlan.apiEndpointOptions(SINGLE.id, COURSE_ID))
+      .to.deep.equal(url: "plans/#{SINGLE.id}")
+
+    TaskPlanFlux.TaskPlanStore.isNew.mockReturnValue(true)
+    expect(TaskPlan.apiEndpointOptions(SINGLE.id, COURSE_ID))
+      .to.deep.equal(url: "courses/#{COURSE_ID}", method: 'POST')
+
     undefined
