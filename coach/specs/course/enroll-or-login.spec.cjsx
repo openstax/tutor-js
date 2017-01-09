@@ -19,13 +19,15 @@ describe 'EnrollOrLogin Component', ->
   it 'renders with action choices', ->
     LoginGateway.isActive.mockReturnValue(false)
     wrapper = shallow(<EnrollOrLogin {...@props} />)
-    expect(wrapper.find('EnrollChoices')).to.have.length(1)
+    expect(wrapper.find('EnrollSignUp')).to.have.length(1)
+    expect(wrapper.find('EnrollLogin')).to.have.length(1)
     expect(wrapper.find('LoginGateway')).to.have.length(0)
     undefined
 
   it 'renders login gateway when it’s open', ->
     LoginGateway.isActive.mockReturnValue(true)
     wrapper = shallow(<EnrollOrLogin {...@props} />)
-    expect(wrapper.find('EnrollChoices')).to.have.length(0)
+    expect(wrapper.find('EnrollSignUp')).to.have.length(0)
+    expect(wrapper.find('EnrollLogin')).to.have.length(0)
     expect(wrapper.find('LoginGateway')).to.have.length(1)
     undefined
