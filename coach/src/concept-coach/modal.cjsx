@@ -1,7 +1,7 @@
 React = require 'react'
 ReactDOM = require 'react-dom'
 classnames = require 'classnames'
-_ = require 'underscore'
+isEqual = require 'lodash/isEqual'
 
 {channel} = require './model'
 api = require '../api'
@@ -37,9 +37,11 @@ CCModal = React.createClass
 
     navigation.channel.off('show.*', @resetScroll)
 
-  resetScroll: ->
-    modal = ReactDOM.findDOMNode(@)
-    modal.scrollTop = 0
+  resetScroll: (displaying = {}) ->
+    unless isEqual(displaying, @previouslyDisplaying)
+      @previouslyDisplaying = displaying
+      modal = ReactDOM.findDOMNode(@)
+      modal.scrollTop = 0
 
   checkAllowed: (focusEvent) ->
     modal = ReactDOM.findDOMNode(@)
