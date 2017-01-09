@@ -41,7 +41,8 @@ module.exports = {
       method: 'POST'
     else
       url: "plans/#{id}"
-    options.url += "?ecosystem_id=#{task.ecosystem_id}" if task?.ecosystem_id
+    if task?.ecosystem_id
+      options.params = {ecosystem_id: task.ecosystem_id}
     options
 
 }
