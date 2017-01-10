@@ -6,12 +6,12 @@ exports[`Notifications MissingStudentId notice renders and matches snapshot 1`] 
     <i
       className="icon fa fa-info-circle" />
     <span>
-      This course is no longer active.
+      The first semester of this course has ended.
     </span>
     <a
       className="action"
       onClick={[Function]}>
-      Using Concept Coach in a two-semester course?
+      Click here to enroll in second semester
     </a>
   </span>
 </div>
