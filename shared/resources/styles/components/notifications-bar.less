@@ -83,5 +83,16 @@
         text-align: center;
       }
     }
+
+    &.course-has-ended {
+      .action {
+        background-color: white;
+        border-radius: 5px;
+        color: @openstax-primary;
+        &:hover {
+          background-color: lighten(@openstax-neutral-lighter, 10%);
+        }
+      }
+    }
   }
 }
