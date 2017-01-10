@@ -19,7 +19,7 @@ CourseHasEndedNotification = React.createClass
   actionsLink: ->
     return null unless @props.callbacks?.onCCSecondSemester
     <a className='action' onClick={@onSecondSemesterClick}>
-      Click here to enroll in second semester
+      Click to enroll in second semester
     </a>
 
   render: ->
