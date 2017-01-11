@@ -1,11 +1,21 @@
 {Testing, expect, sinon, _} = require 'shared/specs/helpers'
+cloneDeep = require 'lodash/cloneDeep'
 
 User = require 'user/model'
 
+AUTH_DATA = require '../../auth/status/GET'
+TWO_COURSE_ECOSYSTEM_ID = 'd52e93f4-8653-4273-86da-3850001c0786'
+
 describe 'User', ->
 
+  beforeEach ->
+    User.update(cloneDeep(AUTH_DATA))
+
+  afterEach ->
+    User._reset()
 
   it 'defaults to not logged in', ->
+    User._reset()
     expect(User.isLoggedIn()).to.be.false
     undefined
 
@@ -23,4 +33,19 @@ describe 'User', ->
 
     User._signalLogoutCompleted()
     expect(logoutSpy).to.have.not.been.called
+    undefined
+
+
+  it 'returns most recent registration for course', ->
+    expect(User.courses).to.have.length(3)
+    matches = _.where(User.courses, ecosystem_book_uuid: TWO_COURSE_ECOSYSTEM_ID)
+    expect(matches).to.have.length(2)
+
+    course = User.getCourse(TWO_COURSE_ECOSYSTEM_ID)
+    expect(course.id).to.equal(matches[1].id)
+
+    matches[0].roles[0].joined_at = "2017-01-06T19:59:44.072Z"
+    course = User.getCourse(TWO_COURSE_ECOSYSTEM_ID)
+    expect(course.id).to.equal(matches[0].id)
+
     undefined

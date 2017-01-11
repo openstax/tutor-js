@@ -30,7 +30,14 @@ User =
     _.each pending, (course) =>
       @courses.push(course)
       course.register(course.enrollment_code, @)
+
     @channel.emit('change')
+
+  # for use by specs
+  _reset: ->
+    @_course_data = []
+    @courses = []
+    delete @profile_url
 
   validatedPendingCourses: ->
     _.filter @courses, (course) -> course.isValidated()
@@ -50,7 +57,13 @@ User =
     Boolean(@isLoggedIn() and @getCourse(collectionUUID))
 
   getCourse: (collectionUUID) ->
-    _.findWhere( @courses, ecosystem_book_uuid: collectionUUID )
+    _.chain(@courses)
+      .where( ecosystem_book_uuid: collectionUUID )
+      .sortBy( (course) ->
+        course.getRole().joined_at
+      )
+      .last()
+      .value()
 
   registeredCourses: ->
     _.filter @courses, (course) -> course.isRegistered()
