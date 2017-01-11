@@ -50,7 +50,13 @@ User =
     Boolean(@isLoggedIn() and @getCourse(collectionUUID))
 
   getCourse: (collectionUUID) ->
-    _.findWhere( @courses, ecosystem_book_uuid: collectionUUID )
+    _.chain(@courses)
+      .where( ecosystem_book_uuid: collectionUUID )
+      .sortBy( (course) ->
+        course.getRole().joined_at
+      )
+      .last()
+      .value()
 
   registeredCourses: ->
     _.filter @courses, (course) -> course.isRegistered()
