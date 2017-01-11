@@ -192,7 +192,7 @@ ConceptCoach = React.createClass
       loading: not (isLoggedIn or isLoaded)
 
     <div className='concept-coach openstax-wrapper'>
-      <ErrorNotification container={@} />
+      <ErrorNotification container={@} course={course} close={@props.close} />
 
       <SpyMode.Wrapper>
         <Navigation key='user-status' close={@props.close} course={course}/>
