@@ -1,5 +1,6 @@
 React = require 'react'
 isEmpty = require 'lodash/isEmpty'
+isEqual = require 'lodash/isEqual'
 partial = require 'lodash/partial'
 without = require 'lodash/without'
 classnames = require 'classnames'
@@ -33,6 +34,11 @@ NotificationBar = React.createClass
     unless isEmpty(notices)
       displayTimer = setTimeout( (=> @setState({notices})), @props.displayAfter)
       @setState({displayTimer})
+
+  componentWillReceiveProps: (nextProps) ->
+    # Trigger a notification if role or course has changed
+    if @props.role?.id isnt nextProps.role?.id or @props.course?.id isnt nextProps.course?.id
+      Notifications.setCourseRole(nextProps.course, nextProps.role)
 
   componentWillUnmount: ->
     Notifications.off('change', @onChange)
