@@ -12,6 +12,7 @@ MissingStudentIdNotification = React.createClass
         id:        React.PropTypes.string
         type:      React.PropTypes.string
         joined_at: React.PropTypes.string
+        latest_enrollment_at: React.PropTypes.string
       )
       course: React.PropTypes.shape(
         id: React.PropTypes.string

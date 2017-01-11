@@ -33,7 +33,8 @@
           {
               "id": "124",
               "type": "student",
-              "joined_at": "2015-12-06T19:59:44.072Z"
+              "joined_at": "2015-12-06T19:59:44.072Z",
+              "latest_enrollment_at": "2015-12-06T19:59:44.072Z"
           }
       ],
       "periods": [
@@ -70,7 +71,8 @@
             {
                 "id": "53",
                 "type": "student",
-                "joined_at": "2016-11-30T01:15:43.807Z"
+                "joined_at": "2016-11-30T01:15:43.807Z",
+                "latest_enrollment_at": "2016-11-30T01:15:43.807Z"
             }
         ],
         "periods": [
@@ -125,7 +127,8 @@
             {
                 "id": "176",
                 "type": "student",
-                "joined_at": "2016-12-07T19:18:28.095Z"
+                "joined_at": "2016-12-07T19:18:28.095Z",
+                "latest_enrollment_at": "2016-12-07T19:18:28.095Z"
             }
         ],
         "periods": [
@@ -179,7 +182,8 @@
             {
                 "id": "106",
                 "type": "student",
-                "joined_at": "2016-12-02T20:55:38.470Z"
+                "joined_at": "2016-12-02T20:55:38.470Z",
+                "latest_enrollment_at": "2016-12-02T20:55:38.470Z"
             }
         ],
         "periods": [
@@ -234,7 +238,8 @@
             {
                 "id": "124",
                 "type": "student",
-                "joined_at": "2016-12-06T19:59:44.072Z"
+                "joined_at": "2016-12-06T19:59:44.072Z",
+                "latest_enrollment_at": "2016-12-06T19:59:44.072Z"
             }
         ],
         "periods": [
@@ -288,7 +293,8 @@
             {
                 "id": "189",
                 "type": "student",
-                "joined_at": "2017-01-09T17:30:51.539Z"
+                "joined_at": "2017-01-09T17:30:51.539Z",
+                "latest_enrollment_at": "2017-01-09T17:30:51.539Z"
             }
         ],
         "periods": [
