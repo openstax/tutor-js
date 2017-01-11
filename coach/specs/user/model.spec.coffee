@@ -41,11 +41,18 @@ describe 'User', ->
     matches = _.where(User.courses, ecosystem_book_uuid: TWO_COURSE_ECOSYSTEM_ID)
     expect(matches).to.have.length(2)
 
-    course = User.getCourse(TWO_COURSE_ECOSYSTEM_ID)
-    expect(course.id).to.equal(matches[1].id)
+    matches[0].roles[0].joined_at = "2016-01-06T19:59:44.072Z"
+    matches[1].roles[0].joined_at = "2017-01-06T19:59:44.072Z"
+    expect(User.getCourse(TWO_COURSE_ECOSYSTEM_ID).id).to.equal(matches[1].id)
 
-    matches[0].roles[0].joined_at = "2017-01-06T19:59:44.072Z"
-    course = User.getCourse(TWO_COURSE_ECOSYSTEM_ID)
-    expect(course.id).to.equal(matches[0].id)
+    matches[0].roles[0].joined_at = "2017-01-06T20:00:00.100Z"
+    matches[1].roles[0].joined_at = "2017-01-06T20:00:00.000Z"
+    expect(User.getCourse(TWO_COURSE_ECOSYSTEM_ID).id).to.equal(matches[0].id)
+
+    # test that it doesn't blowup if role joined_at is missing
+    delete matches[0].roles[0].joined_at
+    matches[1].roles[0].joined_at = "2017-01-06T20:00:00.000Z"
+    delete matches[0].roles[0].joined_at
+    expect(User.getCourse(TWO_COURSE_ECOSYSTEM_ID).id).to.equal(matches[1].id)
 
     undefined
