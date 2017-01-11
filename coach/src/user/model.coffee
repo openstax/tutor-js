@@ -59,9 +59,7 @@ User =
   getCourse: (collectionUUID) ->
     _.chain(@courses)
       .where( ecosystem_book_uuid: collectionUUID )
-      .sortBy( (course) ->
-        course.getRole().joined_at
-      )
+      .sortBy( (course) -> course.getRole()?.joined_at or '' )
       .last()
       .value()
 
