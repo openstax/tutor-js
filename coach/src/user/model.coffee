@@ -30,7 +30,14 @@ User =
     _.each pending, (course) =>
       @courses.push(course)
       course.register(course.enrollment_code, @)
+
     @channel.emit('change')
+
+  # for use by specs
+  _reset: ->
+    @_course_data = []
+    @courses = []
+    delete @profile_url
 
   validatedPendingCourses: ->
     _.filter @courses, (course) -> course.isValidated()
