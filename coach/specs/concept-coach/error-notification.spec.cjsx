@@ -32,6 +32,14 @@ describe 'CC Error Notification Component', ->
     expect(wrapper.html()).to.be.null
     undefined
 
+  it 'renders exceptions', ->
+    wrapper = shallow(<ErrorNotification {...@props} />)
+    msg = 'undefined var foo used in bar'
+    api.channel.emit('error', new Error(msg))
+    console.log wrapper.debug()
+    expect(wrapper.find('ModalBody').render().text()).to.include("Error: #{msg}")
+    undefined
+
   it 'shows error details by default', ->
     wrapper = shallow(<ErrorNotification {...@props} />)
     api.channel.emit('error', ERROR)
