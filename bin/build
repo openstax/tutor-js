@@ -26,19 +26,23 @@ fi
 [ -d $OX_PROJECT/dist ] && rm -r $OX_PROJECT/dist
 node node_modules/webpack/bin/webpack.js --progress --config webpack.config.js
 
+SHA=`git rev-parse HEAD`
+
 if [ "$2" = "archive" ]; then
   cd $OX_PROJECT/dist
   echo "{" > ./rev-manifest.json
-  # credit/blame to: http://stackoverflow.com/questions/8201729/rename-files-to-md5-sum-extension-bash
   LAST_FILE=""
-  for F in *.min.*; do
-    MD5=`md5sum $F | perl -MFile::Basename -ne '($m, $f) = split(/\s+/,$_); $f=basename($f); $f =~ m/(.*?)\.(.*)/; print "$1-$m.$2"'`
+  for minified in *.min.*; do
+    filename="${minified##*/}"  # discard directory
+    base="${filename%%.[^.]*}"  # Strip longest match of . plus at least one non-dot char from end
+    ext="${filename:${#base} + 1}"  # Substring from len of base thru end
+    hashed=$base-$SHA.$ext
     if [ "$LAST_FILE" ]; then
         echo -n "," >> ./rev-manifest.json
     fi
-    echo -n '  "'$F'": "'$MD5'"' >> ./rev-manifest.json
+    echo -n '  "'$minified'": "'$hashed'"' >> ./rev-manifest.json
     LAST_FILE=$F
-    cp $F $MD5
+    cp $minified $hashed
   done
   echo "}" >> ./rev-manifest.json
   cd ..
