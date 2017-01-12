@@ -54,7 +54,7 @@ Launcher = React.createClass
     @setState(height: @getHeight(nextProps)) if @props.isLaunching isnt nextProps.isLaunching
 
   componentWillMount: ->
-    if @props.enrollmentCode? and not @getUser().isEnrolled(@props.collectionUUID)
+    if @props.enrollmentCode? and not @getUser().isEnrolled(@props.collectionUUID, @props.enrollmentCode)
       @validateEnrollmentCode()
 
   validateEnrollmentCode: ->
@@ -75,14 +75,16 @@ Launcher = React.createClass
     if isLaunching then window.innerHeight else defaultHeight
 
   primaryActionText: ->
-    if @getUser().isEnrolled(@props.collectionUUID) then 'Launch Concept Coach' else 'Enroll in This Course'
+    if @getUser().isEnrolled(@props.collectionUUID, @props.enrollmentCode) then 'Launch Concept Coach' else 'Enroll in This Course'
 
   render: ->
     {isLaunching, defaultHeight} = @props
     {height, isEnrollmentCodeValid} = @state
     user = @getUser()
+    isEnrolled =  user.isEnrolled(@props.collectionUUID, @props.enrollmentCode)
     isLoggedIn = user.isLoggedIn()
-    finePrint = if user.isEnrolled(@props.collectionUUID)
+
+    finePrint = if isEnrolled
       <SwitchSections {...@props}/>
     else if isEnrollmentCodeValid
       null
@@ -96,12 +98,11 @@ Launcher = React.createClass
       <h2 key='cta-item'>Concept Coach</h2>
     ]
 
-
     <div className={
       classnames('concept-coach-launcher-wrapper',
         'is-logged-in': isLoggedIn
         'is-loading': user.isLoading
-        'is-enrolled': user.isEnrolled(@props.collectionUUID)
+        'is-enrolled': isEnrolled
       )}
     >
       <div className={classnames('concept-coach-launcher', launching: isLaunching)}>
@@ -115,7 +116,7 @@ Launcher = React.createClass
               {words}
               <BS.Button className={
                 classnames(
-                  'btn-openstax-primary': not @getUser().isEnrolled(@props.collectionUUID)
+                  'btn-openstax-primary': not isEnrolled
                 )} onClick={@props.onEnroll}>
                 {@primaryActionText()}
               </BS.Button>

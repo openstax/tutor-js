@@ -13,7 +13,7 @@ UserStatusMixin = {
     User
   getCourse: ->
     @props.course or
-      User.getCourse(@props.collectionUUID) or
+      User.getCourse(@props.collectionUUID, @props.enrollmentCode) or
       new Course({ecosystem_book_uuid: @props.collectionUUID})
 }
 

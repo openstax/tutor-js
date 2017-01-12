@@ -46,29 +46,38 @@ User =
     course = _.findWhere @_course_data, ecosystem_book_uuid: collectionUUID
     course and _.detect(course.roles, (role) -> role.type is 'teacher')
 
-  status: (collectionUUID) ->
-    course = @getCourse(collectionUUID)
+  status: (collectionUUID, enrollmentCode) ->
+    course = @getCourse(collectionUUID, enrollmentCode)
+    # console.info('status course', course, enrollmentCode)
     isLoggedIn: @isLoggedIn()
     isLoaded:   @isLoaded
     isRegistered: !!course?.isRegistered()
     preValidate: (not @isLoggedIn()) and (not course?.isValidated())
 
-  isEnrolled: (collectionUUID) ->
-    Boolean(@isLoggedIn() and @getCourse(collectionUUID))
+  isEnrolled: (collectionUUID, enrollmentCode) ->
+    Boolean(@isLoggedIn() and @getCourse(collectionUUID, enrollmentCode))
 
-  getCourse: (collectionUUID) ->
-    _.chain(@courses)
-      .where( ecosystem_book_uuid: collectionUUID )
-      .sortBy( (course) -> course.getRole()?.latest_enrollment_at or '' )
-      .last()
-      .value()
+  getCourse: (collectionUUID, enrollmentCode) ->
+    filterForEcosystem = _.partial(_.where, _, ecosystem_book_uuid: collectionUUID)
+    sortyByJoinedAt = _.partial(_.sortBy, _, (course) -> course.getRole()?.latest_enrollment_at or '')
+    filters = [filterForEcosystem]
+
+    if enrollmentCode
+      filterForEnrollmentCode = _.partial(_.filter, _, (course) ->
+        _.find(course.periods, enrollment_code: enrollmentCode)
+      )
+      filters.push(filterForEnrollmentCode)
+
+    filters.push(sortyByJoinedAt)
+
+    _.last(_.compose(filters...)(@courses))
 
   registeredCourses: ->
     _.filter @courses, (course) -> course.isRegistered()
 
-  findOrCreateCourse: (collectionUUID) ->
-    @getCourse(collectionUUID) or (
-      course = new Course(ecosystem_book_uuid: collectionUUID)
+  findOrCreateCourse: (collectionUUID, enrollmentCode) ->
+    @getCourse(collectionUUID, enrollmentCode) or (
+      course = new Course(ecosystem_book_uuid: collectionUUID, enrollmentCode: enrollmentCode)
       @courses.push(course)
       course
     )

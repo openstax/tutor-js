@@ -50,7 +50,7 @@ ConceptCoach = React.createClass
     defaultView: _.chain(VIEWS).last().first().value()
 
   getInitialState: ->
-    userState = User.status(@props.collectionUUID)
+    userState = User.status(@props.collectionUUID, @props.enrollmentCode)
     view = @getAllowedView(userState)
     userState.view = view
     userState
@@ -109,7 +109,10 @@ ConceptCoach = React.createClass
     navigator.off('show.*', @updateView)
 
   getAllowedView: (userInfo) ->
-    {defaultView} = @props
+    {defaultView, collectionUUID, enrollmentCode} = @props
+    course = User.getCourse(collectionUUID, enrollmentCode)
+
+    # console.info(userInfo, course)
     if not userInfo.isLoaded
       authLevel = 0
     else if userInfo.preValidate
@@ -150,7 +153,7 @@ ConceptCoach = React.createClass
     @updateView(view: 'task')
 
   updateUser: ->
-    userState = User.status(@props.collectionUUID)
+    userState = User.status(@props.collectionUUID, @props.enrollmentCode)
     view = @getAllowedView(userState)
 
     # tell nav to update view if the next view isn't the current view
@@ -186,7 +189,7 @@ ConceptCoach = React.createClass
 
   render: ->
     {isLoaded, isLoggedIn, view} = @state
-    course = User.getCourse(@props.collectionUUID)
+    course = User.getCourse(@props.collectionUUID, @props.enrollmentCode)
 
     className = classnames 'concept-coach-view', "concept-coach-view-#{view}",
       loading: not (isLoggedIn or isLoaded)

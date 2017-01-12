@@ -96,7 +96,7 @@ class Course
 
   # The clone's attributes are persisted to the user once complete
   persist: (user) ->
-    other = user.findOrCreateCourse(@ecosystem_book_uuid)
+    other = user.findOrCreateCourse(@ecosystem_book_uuid, @enrollmentCode)
     _.extend(other, @to?.course)
     other.status = @status
     other.enrollment_code = @enrollment_code
@@ -107,12 +107,12 @@ class Course
     @errors = error.response?.data?.errors
 
   _onValidated: (response) ->
-    @_checkForFailure(response)
+    hasErrors = @_checkForFailure(response)
     {data} = response
     delete @isBusy
-    if data?.response is true
+    unless hasErrors
       @status = 'validated'
-      @channel.emit('validated')
+      @channel.emit('validated', data)
     @channel.emit('change')
 
   # Submits pending course change for confirmation
