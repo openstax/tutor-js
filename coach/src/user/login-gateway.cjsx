@@ -53,6 +53,7 @@ LoginGateway = React.createClass
   propTypes:
     windowImpl: WindowPropType
     loginType: React.PropTypes.string
+    displayAfterLogin: React.PropTypes.string
     onLogin:   React.PropTypes.func.isRequired
 
   getDefaultProps: ->
@@ -71,7 +72,8 @@ LoginGateway = React.createClass
     try
       data = JSON.parse(msg.data)
       if data.user
-        api.channel.emit 'user.status.fetch.receive.success', data: data
+        api.channel.emit 'user.status.fetch.receive.success',
+          data: data, desiredView: @props.displayAfterLogin
         @props.onLogin()
     catch error
       console.warn(error)

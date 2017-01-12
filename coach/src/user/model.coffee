@@ -20,7 +20,7 @@ BLANK_USER =
 User =
   channel: new EventEmitter2 wildcard: true
 
-  update: (data) ->
+  update: (data, options = {}) ->
     _.extend(this, data.user)
     @_course_data = data.courses
     pending = @validatedPendingCourses()
@@ -31,7 +31,7 @@ User =
       @courses.push(course)
       course.register(course.enrollment_code, @)
 
-    @channel.emit('change')
+    @channel.emit('change', options)
 
   # for use by specs
   _reset: ->
@@ -99,7 +99,7 @@ User =
     @channel.emit('logout.received')
 
   init: ->
-    api.channel.on 'user.status.fetch.receive.*', ({data}) ->
+    api.channel.on 'user.status.fetch.receive.*', ({data, desiredView}) ->
       User.isLoaded = true
       User.isLoading = false
       if data.access_token
@@ -109,7 +109,7 @@ User =
         BootstrapURLs.update(data)
         NotificationActions.startPolling()
         UiSettings.initialize(data.ui_settings)
-        User.update(data)
+        User.update(data, {desiredView})
       else
         _.extend(this, BLANK_USER)
         User.channel.emit('change')

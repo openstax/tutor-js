@@ -149,9 +149,10 @@ ConceptCoach = React.createClass
   showTasks: ->
     @updateView(view: 'task')
 
-  updateUser: ->
+  updateUser: (options = {}) ->
+    {desiredView} = options
     userState = User.status(@props.collectionUUID)
-    view = @getAllowedView(userState)
+    view = desiredView or @getAllowedView(userState)
 
     # tell nav to update view if the next view isn't the current view
     navigator.emit("show.#{view}", view: view) if view isnt @state.view
