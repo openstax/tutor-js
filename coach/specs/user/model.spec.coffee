@@ -52,7 +52,6 @@ describe 'User', ->
     # test that it doesn't blowup if role latest_enrollment_at is missing
     delete matches[0].roles[0].latest_enrollment_at
     matches[1].roles[0].latest_enrollment_at = "2017-01-06T20:00:00.000Z"
-    delete matches[0].roles[0].latest_enrollment_at
     expect(User.getCourse(TWO_COURSE_ECOSYSTEM_ID).id).to.equal(matches[1].id)
 
     undefined
