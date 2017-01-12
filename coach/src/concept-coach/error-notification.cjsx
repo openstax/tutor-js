@@ -11,7 +11,7 @@ isArray = require 'lodash/isArray'
 ErrorNotification = React.createClass
 
   propTypes:
-    container: React.PropTypes.object.isRequired
+    container: React.PropTypes.object
     close: React.PropTypes.func.isRequired
     course: React.PropTypes.instanceOf(Course)
 
@@ -64,9 +64,9 @@ ErrorNotification = React.createClass
         <BS.Modal.Title>{dialog.title}</BS.Modal.Title>
       </BS.Modal.Header>
 
-      <div className='modal-body'>
+      <BS.Modal.Body>
         {dialog.body}
-      </div>
+      </BS.Modal.Body>
       <div className='modal-footer'>
         {dialog.buttons}
       </div>
