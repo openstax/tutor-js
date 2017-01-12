@@ -67,9 +67,11 @@ ErrorNotification = React.createClass
       <BS.Modal.Body>
         {dialog.body}
       </BS.Modal.Body>
-      <div className='modal-footer'>
+
+      <BS.Modal.Footer>
         {dialog.buttons}
-      </div>
+      </BS.Modal.Footer>
+
     </BS.Modal>
 
 
