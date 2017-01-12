@@ -110,7 +110,7 @@ Launcher = React.createClass
           <LoginAction onLogin={@props.onLogin} isVisible={not isLoggedIn} />
         </div>
         <div className="body">
-          <div className="words">
+          <div id="words">
             <div className="cta">
               {words}
               <BS.Button className={

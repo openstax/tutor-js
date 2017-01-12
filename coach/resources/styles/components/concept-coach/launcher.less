@@ -26,8 +26,9 @@
   .body {
     .flex-display();
     .align-items(center);
+    min-height: 300px;
     padding: 30px;
-    .words {
+    #words {
       text-align: left;
       margin-right: 1rem;
       .align-self(stretch);
@@ -42,6 +43,8 @@
         .justify-content(center);
         color: @dark-blue;
         h2 {
+          font-size: 2.6rem;
+          letter-spacing: -1px;
           margin: 0;
           font-weight: 800;
         }
@@ -64,7 +67,7 @@
     }
   }
   &.is-loading {
-    .words {
+    #words {
       .fine-print {
         visibility: hidden;
       }

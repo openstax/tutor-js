@@ -154,7 +154,7 @@ exports[`Launcher renders as enrolled 1`] = `
     <div
       className="body">
       <div
-        className="words">
+        id="words">
         <div
           className="cta">
           <h2>
@@ -560,7 +560,7 @@ exports[`Launcher renders as logged in 1`] = `
     <div
       className="body">
       <div
-        className="words">
+        id="words">
         <div
           className="cta">
           <h2>
@@ -976,7 +976,7 @@ exports[`Launcher renders with launching status 1`] = `
     <div
       className="body">
       <div
-        className="words">
+        id="words">
         <div
           className="cta">
           <h2>
