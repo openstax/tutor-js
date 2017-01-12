@@ -16,6 +16,7 @@ memoize   = require 'lodash/memoize'
 forEach   = require 'lodash/forEach'
 isEmpty   = require 'lodash/isEmpty'
 cloneDeep = require 'lodash/cloneDeep'
+isString = require 'lodash/isString'
 
 validateOptions = (requiredProperties...) ->
   (options) ->
@@ -127,7 +128,13 @@ class Routes extends Collection
 
 simplifyRequestConfig = (requestConfig) ->
   requestConfig = pick(requestConfig, 'method', 'data', 'url', 'params')
-  requestConfig = omit(requestConfig, 'data') if isEmpty(requestConfig.data)
+  if isEmpty(requestConfig.data)
+    requestConfig = omit(requestConfig, 'data')
+  else if isString(requestConfig.data)
+    try
+      requestConfig.data = JSON.parse(requestConfig.data)
+    catch e
+
   requestConfig
 
 class XHRRecords

@@ -1,7 +1,7 @@
 React = require 'react'
 ReactDOM = require 'react-dom'
 classnames = require 'classnames'
-_ = require 'underscore'
+isEqual = require 'lodash/isEqual'
 
 {channel} = require './model'
 api = require '../api'
@@ -15,7 +15,7 @@ CCModal = React.createClass
     isLoaded: false
 
   componentDidMount: ->
-    mountData = modal: el: ReactDOM.findDOMNode(@)
+    mountData = modal: el: @getDomNode()
     channel.emit('modal.mount.success', mountData)
     mountData.modal.el.focus()
 
@@ -37,12 +37,16 @@ CCModal = React.createClass
 
     navigation.channel.off('show.*', @resetScroll)
 
-  resetScroll: ->
-    modal = ReactDOM.findDOMNode(@)
-    modal.scrollTop = 0
+  resetScroll: (displaying = {}) ->
+    unless isEqual(displaying, @previouslyDisplaying)
+      @previouslyDisplaying = displaying
+      @getDomNode().scrollTop = 0
+
+  getDomNode: ->
+    ReactDOM.findDOMNode(@)
 
   checkAllowed: (focusEvent) ->
-    modal = ReactDOM.findDOMNode(@)
+    modal = @getDomNode()
     unless focusEvent.target is modal or modal.contains(focusEvent.target) or @props.filterClick?(focusEvent)
       console?.warn "CC ignoring outside click to element ", focusEvent.target
       focusEvent.preventDefault()

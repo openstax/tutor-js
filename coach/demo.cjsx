@@ -16,6 +16,7 @@ SETTINGS =
     COLLECTION_UUID: "3402dc53-113d-45f3-954e-8d2ad1e73659"
     MODULE_UUID: '68ae7446-32b4-4cc7-89a7-4615dd20f3bd'
     CNX_URL: 'http://localhost:8000'
+    ENROLLMENT_CODE: '388938'
   SERVER:
     API_BASE_URL: 'https://tutor-dev.openstax.org'
     COLLECTION_UUID: 'f10533ca-f803-490d-b935-88899941197f'
@@ -40,7 +41,7 @@ loadApp = ->
     collectionUUID: settings.COLLECTION_UUID
     moduleUUID: settings.MODULE_UUID
     cnxUrl: settings.CNX_URL
-    enrollmentCode: '388938'
+    enrollmentCode: settings.ENROLLMENT_CODE
     processHtmlAndMath: typesetMath # from demo
     getNextPage: ->
       nextChapter: '2.2'

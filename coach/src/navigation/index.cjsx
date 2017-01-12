@@ -57,20 +57,24 @@ Navigation = React.createClass
     ] if course?.isRegistered()
 
     <BS.Navbar fixedTop fluid>
-      <BS.Navbar.Brand>
-        <span key='app' className='navbar-logo'>
-          <strong>Concept</strong> Coach
-        </span>
-        <CourseNameBase key = 'course-name' className='hidden-sm hidden-xs' course={course}/>
-      </BS.Navbar.Brand>
+      <BS.Navbar.Header>
+        <BS.Navbar.Brand>
+          <span key='app' className='navbar-logo'>
+            <strong>Concept</strong> Coach
+          </span>
+          <CourseNameBase key = 'course-name' className='hidden-sm hidden-xs' course={course}/>
+        </BS.Navbar.Brand>
+        <BS.Button className='btn-plain coach-close visible-xs' onClick={@close}>Close</BS.Button>
+        {<BS.Navbar.Toggle /> if user.isLoggedIn()}
+      </BS.Navbar.Header>
+      <BS.Button
+        className='btn-plain coach-close hidden-xs'
+        onClick={@close}>
+          Close
+      </BS.Button>
       <BS.Navbar.Collapse>
         <BS.Nav pullRight navbar activeKey={view} onSelect={@handleSelect}>
           {courseItems}
-          <BS.NavItem
-            onClick={@close}
-            className='concept-coach-dashboard-nav'>
-            <BS.Button className='btn-plain -coach-close'>Close</BS.Button>
-          </BS.NavItem>
           <UserMenu course={@props.course} />
         </BS.Nav>
       </BS.Navbar.Collapse>

@@ -1,6 +1,7 @@
 React = require 'react'
 SnapShot = require 'react-test-renderer'
-
+moment = require 'moment'
+cloneDeep = require 'lodash/cloneDeep'
 jest.mock('../../../src/model/notifications')
 Notifications = require '../../../src/model/notifications'
 
@@ -19,6 +20,7 @@ describe 'Notifications Bar', ->
     Notifications.getActive.mockClear()
     Notifications.on.mockClear()
     setTimeout.mockClear()
+    Notifications.setCourseRole.mockClear()
 
   it 'renders and matches snapshot', ->
     Notifications.getActive.mockReturnValue([{id: '1', message: 'A test'}])
@@ -93,3 +95,24 @@ describe 'Notifications Bar', ->
     expect(wrapper.hasClass('viewable')).to.equal true
     expect(wrapper.find("SystemNotification[noticeId='42']")).to.have.length(1)
     undefined
+
+
+  it 'notifies the store when course or role changes', ->
+    expect(Notifications.setCourseRole).not.toHaveBeenCalled()
+    @props.course = {id: '1', ends_at: moment().add(1, 'day'), students: [{role_id: '111'}] }
+    @props.role = {id: '111', type: 'student', joined_at: '2016-01-30T01:15:43.807Z' }
+    wrapper = shallow(<Bar {...@props} />)
+    expect(Notifications.setCourseRole).toHaveBeenCalledTimes(1)
+
+    wrapper.setProps(cloneDeep(@props))
+    expect(Notifications.setCourseRole).toHaveBeenCalledTimes(1)
+
+    props = cloneDeep(@props)
+    props.role.id = '34'
+    wrapper.setProps(props)
+    expect(Notifications.setCourseRole).toHaveBeenCalledTimes(2)
+
+    props = cloneDeep(@props)
+    props.course.id = '42'
+    wrapper.setProps(props)
+    expect(Notifications.setCourseRole).toHaveBeenCalledTimes(3)

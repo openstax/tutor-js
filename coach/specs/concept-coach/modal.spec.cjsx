@@ -1,5 +1,8 @@
-{Testing, expect, sinon, _, React} = require 'shared/specs/helpers'
+{Testing, sinon, _, React} = require 'shared/specs/helpers'
 
+jest.mock 'navigation/model'
+Navigation = require 'navigation/model'
+last = require 'lodash/last'
 {CCModal} = require 'concept-coach/modal'
 api = require 'api'
 
@@ -31,6 +34,20 @@ describe 'CC Modal Component', ->
       )
       el.dispatchEvent(ev)
 
+  it 'scrolls to top only when view changes', ->
+    wrapper = shallow(<CCModal {...@props} />)
+    node = {scrollTop: 100}
+    sinon.stub(wrapper.instance(), 'getDomNode', -> node) # = jest.fn(node)
+    expect(Navigation.channel.on).toHaveBeenCalled()
+    last(Navigation.channel.on.mock.calls)[1](view: 'test')
+    expect(node.scrollTop).to.eq(0)
+    node.scrollTop = 100
+    last(Navigation.channel.on.mock.calls)[1](view: 'test')
+    expect(node.scrollTop).to.eq(100)
+    last(Navigation.channel.on.mock.calls)[1](view: 'test-new-view')
+    expect(node.scrollTop).to.eq(0)
+    undefined
+
   it 'sets isLoaded class if api call is pending', ->
     sinon.stub(api, 'isPending').returns(true)
     Testing.renderComponent( CCModal, props: @props).then ({dom}) ->
@@ -49,4 +66,3 @@ describe 'CC Modal Component', ->
       # elements focused on or clicked on outside the modal should be checked
       @click(root, element.checkAllowed)
       expect(@props.filterClick).to.have.been.called
-

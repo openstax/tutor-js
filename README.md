@@ -1,6 +1,6 @@
 # tutor-js
 [![build status][travis-image]][travis-url]
-[![code coverage][coveralls-image]][coveralls-url]
+[![Coverage][codecov-image]][codecov-url]
 [![dependency status][dependency-image]][dependency-url]
 [![dev dependency status][dev-dependency-image]][dev-dependency-url]
 
@@ -71,5 +71,5 @@ Before starting up vagrant, you can debug using a more production-like config by
 [dependency-url]: https://david-dm.org/openstax/tutor-js
 [dev-dependency-image]: https://img.shields.io/david/dev/openstax/tutor-js.svg?style=flat-square
 [dev-dependency-url]: https://david-dm.org/openstax/tutor-js#info=devDependencies
-[coveralls-image]: https://img.shields.io/coveralls/openstax/tutor-js.svg
-[coveralls-url]: https://coveralls.io/github/openstax/tutor-js
+[codecov-image]: https://img.shields.io/codecov/c/github/openstax/tutor-js.svg
+[codecov-url]: https://codecov.io/gh/openstax/tutor-js
