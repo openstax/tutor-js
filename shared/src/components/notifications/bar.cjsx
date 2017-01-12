@@ -34,6 +34,11 @@ NotificationBar = React.createClass
       displayTimer = setTimeout( (=> @setState({notices})), @props.displayAfter)
       @setState({displayTimer})
 
+  componentWillReceiveProps: (nextProps) ->
+    # Trigger a notification if role or course has changed
+    if @props.role?.id isnt nextProps.role?.id or @props.course?.id isnt nextProps.course?.id
+      Notifications.setCourseRole(nextProps.course, nextProps.role)
+
   componentWillUnmount: ->
     Notifications.off('change', @onChange)
     clearTimeout(@state.displayTimer) if @state.displayTimer
