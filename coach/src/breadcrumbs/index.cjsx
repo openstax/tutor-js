@@ -56,18 +56,14 @@ Breadcrumbs = React.createClass
     currentStep: React.PropTypes.number
     canReview: React.PropTypes.bool
 
-  getInitialState: ->
-    {collectionUUID, moduleUUID} = @props
+  render: ->
+    {currentStep, canReview, collectionUUID, moduleUUID} = @props
     taskId = "#{collectionUUID}/#{moduleUUID}"
 
-    task: tasks.get(taskId)
-    moduleInfo: tasks.getModuleInfo(taskId)
+    task = tasks.get(taskId)
+    return null if _.isEmpty(task) or _.isEmpty(task.steps)
 
-  render: ->
-    {task, moduleInfo} = @state
-    {currentStep, canReview} = @props
-    return null if _.isEmpty(task.steps)
-
+    moduleInfo = tasks.getModuleInfo(taskId)
     task.title = moduleInfo.title
 
     crumbs = TaskHelper.mapSteps(task)
