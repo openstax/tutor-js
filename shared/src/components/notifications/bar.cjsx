@@ -1,6 +1,5 @@
 React = require 'react'
 isEmpty = require 'lodash/isEmpty'
-isEqual = require 'lodash/isEqual'
 partial = require 'lodash/partial'
 without = require 'lodash/without'
 classnames = require 'classnames'
