@@ -231,14 +231,7 @@ TaskingConfig =
     @_originalTaskings = {}
 
   resetFor: (taskId) ->
-    courseId = @_tasksToCourse[taskId]
-
-    delete @_taskings[taskId]
-    delete @_tasksToCourse[taskId]
-    delete @_taskingsIsAll[taskId]
-    delete @_originalTaskings[taskId]
-
-    delete @_defaults[courseId] unless courseId in _.values(@_tasksToCourse)
+    @loadTaskings(taskId, @_originalTaskings[taskId]) unless _.isEmpty(@_originalTaskings[taskId])
 
   loadDefaults: (courseId, course, periods) ->
     @_defaults[courseId] = transformCourseToDefaults(course, periods)
