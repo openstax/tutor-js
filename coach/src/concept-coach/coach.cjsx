@@ -7,6 +7,7 @@ _ = require 'underscore'
 Launcher = require './launcher'
 LoginGateway = require '../user/login-gateway'
 User = require '../user/model'
+{getCourse} = require '../user/status-mixin'
 
 Coach = React.createClass
   displayName: 'Coach'
@@ -21,6 +22,10 @@ Coach = React.createClass
 
   getInitialState: ->
     isLoaded: false
+    course: getCourse.call(@)
+
+  componentWillReceiveProps: (nextProps) ->
+    @setState(course: getCourse.call(@, nextProps)) if nextProps.collectionUUID isnt @props.collectionUUID
 
   getDefaultProps: ->
     open: false
@@ -47,7 +52,7 @@ Coach = React.createClass
   Modal: ->
     coachProps = _.omit(@props, 'open')
     <CCModal filterClick={@props.filterClick}>
-      <ConceptCoach {...coachProps} />
+      <ConceptCoach {...coachProps} course={@state.course}/>
     </CCModal>
 
   Launcher: ->
@@ -59,6 +64,7 @@ Coach = React.createClass
       onEnroll={@onEnrollClick}
       collectionUUID={@props.collectionUUID}
       {...launcherProps}
+      course={@state.course}
     />
 
   render: ->
