@@ -57,8 +57,6 @@ NotificationBar = React.createClass
     @setState({displayTimer})
 
   render: ->
-    #console.log @state.notices, Notifications.getActive()
-
     <div className={
       classnames("openstax-notifications-bar", @props.className, {viewable: not isEmpty(@state.notices)})
     }>
