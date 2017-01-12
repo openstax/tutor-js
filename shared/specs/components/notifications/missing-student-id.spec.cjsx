@@ -14,6 +14,7 @@ describe 'Notifications MissingStudentId notice', ->
           id: '1'
           type: 'student'
           joined_at: '2012-01-01'
+          latest_enrollment_at: '2012-01-01'
         course:
           id: '1'
 
