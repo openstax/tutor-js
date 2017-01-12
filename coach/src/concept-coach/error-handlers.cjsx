@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 moment = require 'moment'
 _  = require 'underscore'
 componentModel = require './model'
-{Navigation} = require '../navigation'
+Navigation = require '../../src/navigation/model'
 
 BASE_CONTACT_LINK = 'http://openstax.force.com/support?l=en_US&c=Products%3AConcept_Coach&cu=1&fs=ContactUs&q='
 
@@ -36,7 +36,7 @@ formattedDate = (date) ->
 
 ERROR_HANDLERS =
   # The course's starts_at is in the future
-  course_not_started: (error, onHide, onClose, course) ->
+  course_not_started: ({error, onClose, course}) ->
     title: 'Future Course'
     body:
       <p className="lead">
@@ -49,7 +49,7 @@ ERROR_HANDLERS =
 
 
   # The course's ends_at has past
-  course_ended: (error, onHide, onClose, course) ->
+  course_ended: ({error, course}) ->
     navigateAction = ->
       Navigation.channel.emit('show.progress', view: 'progress')
     title: 'Past Course'
@@ -63,7 +63,7 @@ ERROR_HANDLERS =
     ]
 
   # The default error dialog that's displayed when we have no idea what's going on
-  default: (errors, onHide, onClose, course) ->
+  default: ({errors, onHide}) ->
     title: 'Server Error encountered'
     body:
       <BS.Panel header="Error Details">
@@ -90,5 +90,5 @@ module.exports = {
     error = _.first(errors)
 
     dlg = ERROR_HANDLERS[error.code] or ERROR_HANDLERS.default
-    dlg(errors, onHide, onClose, course)
+    dlg({errors, onHide, onClose, course})
 }
