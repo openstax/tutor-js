@@ -97,6 +97,7 @@ User =
     _.extend(this, BLANK_USER)
     @isLoggingOut = true
     @channel.emit('logout.received')
+    @channel.emit('change')
 
   init: ->
     api.channel.on 'user.status.fetch.receive.*', ({data}) ->

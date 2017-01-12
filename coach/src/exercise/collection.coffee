@@ -87,7 +87,7 @@ getAllParts = (stepId) ->
     get(part.id)
 
 init = ->
-  user.channel.on 'logout.received', ->
+  user.channel.on 'change', ->
     steps = {}
 
   api.channel.on("exercise.*.*.receive.success", update)

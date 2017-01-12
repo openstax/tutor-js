@@ -87,8 +87,9 @@ getAsPage = (taskId) ->
   page
 
 init = ->
-  user.channel.on 'logout.received', ->
+  user.channel.on 'change', ->
     tasks = {}
+
   api.channel.on('task.*.*.receive.*', update)
 
 module.exports = {
