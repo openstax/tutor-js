@@ -1,6 +1,7 @@
 {Testing, sinon, _, React, ReactTestUtils} = require 'shared/specs/helpers'
 
-{ConceptCoach}    = require 'concept-coach/base'
+jest.mock '../../src/navigation/model'
+
 ErrorNotification = require 'concept-coach/error-notification'
 
 TASK  = require '../../api/cc/tasks/C_UUID/m_uuid/GET'
@@ -18,8 +19,11 @@ ERROR =
     data:
       errors: [ {code: 'test_test_test'} ]
 
+Navigation = null
+
 describe 'CC Error Notification Component', ->
   beforeEach ->
+    Navigation = require '../../src/navigation/model'
     @props =
       course: new Course(_.first(AUTH_DATA.courses))
       close: sinon.spy()
@@ -36,15 +40,18 @@ describe 'CC Error Notification Component', ->
     wrapper = shallow(<ErrorNotification {...@props} />)
     msg = 'undefined var foo used in bar'
     api.channel.emit('error', new Error(msg))
-    console.log wrapper.debug()
     expect(wrapper.find('ModalBody').render().text()).to.include("Error: #{msg}")
     undefined
 
   it 'shows error details by default', ->
     wrapper = shallow(<ErrorNotification {...@props} />)
+    comp = wrapper.instance()
+    sinon.stub(comp, 'onHide')
     api.channel.emit('error', ERROR)
     expect(wrapper.find('ModalTitle').render().text()).to.equal('Server Error encountered')
     expect(wrapper.find('ModalBody').render().text()).to.include('test_test_test')
+    wrapper.find('ModalFooter Button').simulate('click')
+    expect(comp.onHide).to.have.been.called
     undefined
 
   it 'renders course not started', ->
@@ -54,6 +61,8 @@ describe 'CC Error Notification Component', ->
     api.channel.emit('error', error)
     expect(wrapper.find('ModalTitle').render().text()).to.equal('Future Course')
     expect(wrapper.find('ModalBody').render().text()).to.include('not yet started')
+    wrapper.find('ModalFooter Button').simulate('click')
+    expect(@props.close).to.have.been.called
     undefined
 
   it 'renders course has ended', ->
@@ -63,4 +72,6 @@ describe 'CC Error Notification Component', ->
     api.channel.emit('error', error)
     expect(wrapper.find('ModalTitle').render().text()).to.equal('Past Course')
     expect(wrapper.find('ModalBody').render().text()).to.include('course ended')
+    wrapper.find('ModalFooter Button').simulate('click')
+    expect(Navigation.channel.emit).toHaveBeenCalledWith('show.progress', view: 'progress')
     undefined
