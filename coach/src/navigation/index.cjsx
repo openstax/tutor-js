@@ -38,8 +38,7 @@ Navigation = React.createClass
   onAddStudentId: ->
     channel.emit('show.student_id', view: 'student_id')
 
-  onCourseEnded: (notice) ->
-    NotificationActions.acknowledge(notice)
+  onCourseEnded: ->
     channel.emit('show.second-semester-registration', view: 'second-semester-registration')
 
   render: ->

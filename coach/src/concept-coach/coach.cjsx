@@ -34,13 +34,19 @@ Coach = React.createClass
   onLoginClick: ->
     unless User.isLoggedIn()
       LoginGateway.openWindow(@props.windowImpl, type: 'login')
-    @launch('login')
+    @launch('login', 'login')
 
   onEnrollClick: ->
-    @launch('signup')
+    @launch('signup', 'registration')
 
-  launch: (type) ->
-    channel.emit("launcher.clicked.#{type}")
+  onLaunchClick: ->
+    @launch('task', 'task')
+
+  onEnrollSecondSemester: ->
+    @launch('signup', 'second-semester-registration')
+
+  launch: (type, view) ->
+    channel.emit("launcher.clicked.#{type}", defaultView: view)
 
   setIsLoaded: ->
     @setState(isLoaded: true)
@@ -64,6 +70,8 @@ Coach = React.createClass
       isLaunching={@props.open}
       onLogin={@onLoginClick}
       onEnroll={@onEnrollClick}
+      onLaunch={@onLaunchClick}
+      onEnrollSecondSemester={@onEnrollSecondSemester}
       collectionUUID={@props.collectionUUID}
       {...launcherProps}
     />

@@ -16,7 +16,7 @@ SETTINGS =
     COLLECTION_UUID: "3402dc53-113d-45f3-954e-8d2ad1e73659"
     MODULE_UUID: '68ae7446-32b4-4cc7-89a7-4615dd20f3bd'
     CNX_URL: 'http://localhost:8000'
-    ENROLLMENT_CODE: '615595' # coach awesome or 615595
+    ENROLLMENT_CODE: '282589' # coach awesome or 615595 or 978097 or 282589
   SERVER:
     API_BASE_URL: 'https://tutor-dev.openstax.org'
     COLLECTION_UUID: 'f10533ca-f803-490d-b935-88899941197f'

@@ -57,14 +57,16 @@ User =
   isEnrolled: (collectionUUID, enrollmentCode) ->
     Boolean(@isLoggedIn() and @getCourse(collectionUUID, enrollmentCode))
 
-  getCourse: (collectionUUID, enrollmentCode) ->
-    filterForEcosystem = _.partial(_.where, _, ecosystem_book_uuid: collectionUUID)
+  getCourse: (collectionUUID, enrollmentCode, options) ->
+    initialFilter = _.extend(ecosystem_book_uuid: collectionUUID, options)
+    filterForEcosystem = _.partial(_.where, _, initialFilter)
     sortyByJoinedAt = _.partial(_.sortBy, _, (course) -> course.getRole()?.latest_enrollment_at or '')
     filters = [filterForEcosystem]
 
     if enrollmentCode
       filterForEnrollmentCode = _.partial(_.filter, _, (course) ->
-        _.find(course.periods, enrollment_code: enrollmentCode)
+        course.enrollmentCode is enrollmentCode or
+          _.find(course.periods, enrollment_code: enrollmentCode)
       )
       filters.push(filterForEnrollmentCode)
 
@@ -75,9 +77,10 @@ User =
   registeredCourses: ->
     _.filter @courses, (course) -> course.isRegistered()
 
-  findOrCreateCourse: (collectionUUID, enrollmentCode) ->
-    @getCourse(collectionUUID, enrollmentCode) or (
-      course = new Course(ecosystem_book_uuid: collectionUUID, enrollmentCode: enrollmentCode)
+  findOrCreateCourse: (collectionUUID, enrollmentCode, options) ->
+    @getCourse(collectionUUID, enrollmentCode, options) or (
+      courseInfo = _.extend({ecosystem_book_uuid: collectionUUID, enrollmentCode: enrollmentCode}, options)
+      course = new Course(courseInfo)
       @courses.push(course)
       course
     )

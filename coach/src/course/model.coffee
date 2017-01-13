@@ -12,7 +12,7 @@ ERROR_MAP = require './handled-errors'
 class Course
 
   constructor: (attributes) ->
-    @channel = new EventEmitter2
+    @channel = new EventEmitter2(wildcard: true)
     _.extend(@, attributes)
     _.bindAll(@, '_onRegistered', '_onConfirmed', '_onValidated', '_onStudentUpdated')
 
@@ -110,9 +110,11 @@ class Course
     hasErrors = @_checkForFailure(response)
     {data} = response
     delete @isBusy
-    unless hasErrors
+    if hasErrors
+      @channel.emit('validated.failure', hasErrors)
+    else
       @status = 'validated'
-      @channel.emit('validated', data)
+      @channel.emit('validated.success', data)
     @channel.emit('change')
 
   # Submits pending course change for confirmation

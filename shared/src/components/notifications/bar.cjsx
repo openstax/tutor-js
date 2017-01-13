@@ -31,7 +31,9 @@ NotificationBar = React.createClass
       Notifications.setCourseRole(@props.course, @props.role)
     notices = Notifications.getActive()
     unless isEmpty(notices)
-      displayTimer = setTimeout( (=> @setState({notices})), @props.displayAfter)
+      # get a fresh list of active notifications after timeout in case some have
+      # been acknowledged during the timeout.
+      displayTimer = setTimeout( (=> @setState(notices: Notifications.getActive())), @props.displayAfter)
       @setState({displayTimer})
 
   componentWillReceiveProps: (nextProps) ->

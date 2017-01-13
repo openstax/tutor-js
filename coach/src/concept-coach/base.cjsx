@@ -26,7 +26,8 @@ navigator = navigation.channel
 # TODO Move this and auth logic to user model
 # These views are used with an authLevel (0, 1, 2, or 3) to determine what views the user is allowed to see.
 VIEWS = [
-  'loading', 'login', 'registration',
+  'loading', 'login',
+  ['registration', 'second-semester-registration'],
   [
     'task', 'progress', 'profile', 'dashboard', 'student_id',
     'registration', 'second-semester-registration'

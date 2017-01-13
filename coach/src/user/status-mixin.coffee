@@ -1,5 +1,6 @@
 User = require './model'
 Course = require '../course/model'
+pick = require 'lodash/pick'
 
 UserStatusMixin = {
 
@@ -12,8 +13,10 @@ UserStatusMixin = {
   getUser: ->
     User
   getCourse: ->
+    otherOptions = pick(@props, 'secondSemester')
+
     @props.course or
-      User.getCourse(@props.collectionUUID, @props.enrollmentCode) or
+      User.getCourse(@props.collectionUUID, @props.enrollmentCode, otherOptions) or
       new Course({ecosystem_book_uuid: @props.collectionUUID})
 }
 

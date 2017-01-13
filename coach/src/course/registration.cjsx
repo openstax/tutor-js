@@ -1,11 +1,12 @@
 React = require 'react'
+omit = require 'lodash/omit'
 
 NewCourseRegistration = require './new-registration'
 ModifyCourseRegistration = require './modify-registration'
 EnrollOrLogin = require './enroll-or-login'
 
 UserStatusMixin = require '../user/status-mixin'
-Course = require './model'
+{NotificationActions} = require 'shared'
 
 CourseRegistration = React.createClass
 
@@ -16,7 +17,20 @@ CourseRegistration = React.createClass
   mixins: [UserStatusMixin]
 
   componentWillMount: ->
-    @getCourse().prepForSecondSemesterEnrollment() if @props.secondSemester
+    if @props.secondSemester
+      # this logic can be moved to user model once it's confirmed whether or not the second semester
+      # version needs all of the info.
+      semesterClone = omit(@getUser().getCourse(@props.collectionUUID, @props.enrollmentCode), 'to', 'name', 'roles')
+      semesterClone.secondSemester = true
+
+      # attach a new course as opposed to mutating the one we are currently enrolled in
+      # so that we can go back to progress if needed.
+      @getUser().findOrCreateCourse(@props.collectionUUID, @props.enrollmentCode,
+        semesterClone
+      )
+
+      # should always hide bar when this is mounted regardless of where it's triggered from.
+      NotificationActions.acknowledge(id: 'course_has_ended')
 
   render: ->
     user = @getUser()
