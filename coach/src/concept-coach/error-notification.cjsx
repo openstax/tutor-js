@@ -1,32 +1,19 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-_  = require 'underscore'
 api = require '../api'
+Handlers = require './error-handlers'
+Course = require '../course/model'
 
-
-BASE_CONTACT_LINK = 'http://openstax.force.com/support?l=en_US&c=Products%3AConcept_Coach&cu=1&fs=ContactUs&q='
-
-makeContactMessage = (errors, userAgent, location) ->
-  template = """Hello!
-    I ran into a problem while using Concept Coach on
-    #{userAgent} at #{location}.
-
-    Here is some additional info:
-    #{errors.join()}."""
-
-makeContactURL = (errors, windowContext) ->
-  userAgent = windowContext.navigator.userAgent
-  location = windowContext.location.href
-
-  q = encodeURIComponent(makeContactMessage(errors, userAgent, location))
-
-  "#{BASE_CONTACT_LINK}#{q}"
-
+each = require 'lodash/each'
+isEmpty = require 'lodash/isEmpty'
+isArray = require 'lodash/isArray'
 
 ErrorNotification = React.createClass
 
   propTypes:
-    container: React.PropTypes.object.isRequired
+    container: React.PropTypes.object
+    close: React.PropTypes.func.isRequired
+    course: React.PropTypes.instanceOf(Course)
 
   getInitialState: ->
     errors: false, isShowingDetails: false
@@ -46,13 +33,12 @@ ErrorNotification = React.createClass
       if response.status is 0 # either no response, or the response lacked CORS headers and the browser rejected it
         errors = ["Unknown response received from server"]
       else
-        errors = ["#{response.status}: #{response.statusText}"]
-        if _.isArray(response.data?.errors) # we have something from server to display
-          errors = errors.concat(
-            _.map response.data.errors, (error) ->
-              # All 422 errors from BE *should* have a "code" property.  If not, show whatever it is
-              if error.code then error.code else JSON.stringify(error)
-            )
+        errors = if isArray(response.data?.errors) # we have something from server to display
+          each response.data.errors, (error) ->
+            # All 422 errors from BE *should* have a "code" property.  If not, show whatever it is
+            if error.code then error.code else JSON.stringify(error)
+        else
+          ["#{response.status}: #{response.statusText}"]
 
     @setState(errors: errors)
 
@@ -62,51 +48,30 @@ ErrorNotification = React.createClass
   onHide: ->
     @setState(errors: false)
 
-  renderDetails: ->
-    <BS.Panel header="Error Details">
-      <ul className="errors-listing">
-        {for error, i in @state.errors
-          <li key={i}>{error}</li>}
-      </ul>
-      <p>
-        {window.navigator.userAgent}
-      </p>
-    </BS.Panel>
-
   render: ->
     return null unless @state.errors
 
-    modalProps = _.pick(@props, 'container')
+    dialog = Handlers.getDialogAttributes(@state.errors, @onHide, @props.close, @props.course)
 
     <BS.Modal
-      {...modalProps}
+      {...dialog.modalProps}
       container={@props.container}
       className='errors'
-      show={not _.isEmpty(@state.errors)}
+      show={not isEmpty(@state.errors)}
       onHide={@onHide}>
 
       <BS.Modal.Header closeButton>
-        <BS.Modal.Title>Error encountered</BS.Modal.Title>
+        <BS.Modal.Title>{dialog.title}</BS.Modal.Title>
       </BS.Modal.Header>
 
-      <div className='modal-body'>
-        <p>
-          An unexpected error has occured.  Please
-          visit <a target="_blank"
-            href={makeContactURL(@state.errors, window)}
-          > our support site </a> so we can help to diagnose and correct the issue.
-        </p>
-        <p>
-          When reporting the issue, it would be helpful if you could include the error details.
-        </p>
-        <BS.Button className='-display-errors' style={marginBottom: '1rem'} onClick={@toggleDetails}>
-          {if @state.isShowingDetails then "Hide" else "Show"} Details
-        </BS.Button>
-        {@renderDetails() if @state.isShowingDetails}
-      </div>
-      <div className='modal-footer'>
-        <BS.Button className='ok' bsStyle='primary' onClick={@onHide}>OK</BS.Button>
-      </div>
+      <BS.Modal.Body>
+        {dialog.body}
+      </BS.Modal.Body>
+
+      <BS.Modal.Footer>
+        {dialog.buttons}
+      </BS.Modal.Footer>
+
     </BS.Modal>
 
 
