@@ -41,7 +41,7 @@ if [ "$2" = "archive" ]; then
         echo -n "," >> ./rev-manifest.json
     fi
     echo -n '  "'$minified'": "'$hashed'"' >> ./rev-manifest.json
-    LAST_FILE=$F
+    LAST_FILE=$hashed
     cp $minified $hashed
   done
   echo "}" >> ./rev-manifest.json
