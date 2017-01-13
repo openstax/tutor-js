@@ -49,9 +49,6 @@ EnrollOrLogin = React.createClass
 
   onLoginCompleted: ->
     @props.onLoginComplete()
-    # if User.status(@props.collectionUUID, @props.enrollmentCode).isRegistered
-    #   channel.emit("launcher.clicked.unset", defaultView: null)
-    # #   @context.navigator.emit('show.task', view: 'task')
 
   onLogin: ->  @openGateway('login')
   onSignup: -> @openGateway('signup')
