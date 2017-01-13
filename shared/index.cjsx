@@ -41,6 +41,7 @@ module.exports = {
   TaskHelper:             require './src/helpers/task'
   StepHelpsHelper:        require './src/helpers/step-helps'
   propHelpers:            require './src/helpers/props'
+  Logging:                require './src/helpers/logging'
   ExerciseIntro:          require './src/components/exercise/intro'
 
   FreeResponse:           require './src/components/exercise/free-response'

@@ -1,4 +1,7 @@
-_ = require 'underscore'
+isEmpty  = require 'lodash/isEmpty'
+isString = require 'lodash/isString'
+
+
 
 URL = {}
 URL_SUFFIX = /_url$/
@@ -6,7 +9,7 @@ URL_SUFFIX = /_url$/
 URLMethods = {
 
   update: (urls) ->
-    for name, url of urls when name.match(URL_SUFFIX) and _.isString(url)
+    for name, url of urls when name.match(URL_SUFFIX) and isString(url)
       URL[ name.replace(URL_SUFFIX, '') ] = url.replace(/\/$/, '')
 
   get: (url) ->
@@ -14,6 +17,9 @@ URLMethods = {
 
   construct: (base, parts...) ->
     @get(base) + '/' + parts.join('/')
+
+  hasApiHost: (key) ->
+    not isEmpty(URL[key])
 
   reset: -> URL = {}
 }

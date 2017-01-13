@@ -2,6 +2,7 @@ EventEmitter2 = require 'eventemitter2'
 
 {APIHandler} = require 'shared'
 routes = require './routes'
+ErrorMonitoring = require 'shared/src/helpers/error-monitoring'
 
 coachAPIHandler = null
 channel = new EventEmitter2 wildcard: true, maxListeners: routes.length * 2
@@ -14,7 +15,7 @@ IS_INITIALIZED = false
 updateHeadersWithToken = (token) ->
   coachAPIHandler?.updateXHR(
     headers:
-      Authorization: "Bearer #{token}"  
+      Authorization: "Bearer #{token}"
   )
 
 getAPIOptions = (baseURL) ->
@@ -36,11 +37,13 @@ initialize = (baseUrl) ->
   # export coach api handler things for each access
   module.exports.isPending = coachAPIHandler.records.isPending
   module.exports.channel = coachAPIHandler.channel
+  ErrorMonitoring.start()
 
   coachAPIHandler
 
 destroy = ->
   coachAPIHandler.destroy()
+  ErrorMonitoring.stop()
   IS_INITIALIZED = false
 
 module.exports = {initialize, destroy, channel, isPending}
