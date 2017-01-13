@@ -73,6 +73,7 @@ Launcher = React.createClass
     height: @getHeight()
     isEnrollmentCodeValid: false
     isEnrollmentTargetPast: false
+    isCoursePast: false
 
   componentWillReceiveProps: (nextProps) ->
     @setState(height: @getHeight(nextProps)) if @props.isLaunching isnt nextProps.isLaunching
@@ -89,10 +90,17 @@ Launcher = React.createClass
 
   setIsEnrollmentCodeValid: (eventChannel, data) ->
     if eventChannel.event is 'validated.failure'
-      @setState(isEnrollmentTargetPast: includes(map(data, 'code'), 'course_ended'))
+      if includes(map(data, 'code'), 'course_ended')
+        @setState(isEnrollmentTargetPast: true)
+        if @getUser().getCourse(@props.collectionUUID).id is @getUser().getCourse(@props.collectionUUID, @props.enrollmentCode)?.id
+          @setState(isCoursePast: true)
     else if eventChannel.event is 'validated.success'
       @props.setIsEnrollmentCodeValid?(true)
       @setState(isEnrollmentCodeValid: true)
+
+  isEnrolled: ->
+    {enrollmentCode} = @props if not @state.isEnrollmentTargetPast and @state.isEnrollmentCodeValid
+    @getUser().isEnrolled(@props.collectionUUID, enrollmentCode)
 
   mixins: [UserStatusMixin]
 
@@ -103,13 +111,13 @@ Launcher = React.createClass
 
   render: ->
     {isLaunching, defaultHeight} = @props
-    {height, isEnrollmentCodeValid, isEnrollmentTargetPast} = @state
+    {height, isEnrollmentCodeValid, isCoursePast} = @state
     user = @getUser()
-    isEnrolled =  user.isEnrolled(@props.collectionUUID, @props.enrollmentCode)
+    isEnrolled =  @isEnrolled()
     isLoggedIn = user.isLoggedIn()
 
     finePrint = if isEnrolled
-      if isEnrollmentTargetPast
+      if isCoursePast
         <SemesterIsPast {...@props}/>
       else
         <SwitchSections {...@props}/>
