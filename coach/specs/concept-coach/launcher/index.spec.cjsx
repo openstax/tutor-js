@@ -37,6 +37,7 @@ describe 'Launcher', ->
     User.isEnrolled.mockReturnValue(true)
     wrapper = shallow(<Launcher {...@props} />)
     expect(wrapper.find('LoginAction[isVisible=false]')).to.have.length(1)
+    expect(wrapper.find('Launch')).to.have.length(1)
     expect(SnapShot.create(<Launcher {...@props} />).toJSON()).toMatchSnapshot()
     undefined
 
