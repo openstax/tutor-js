@@ -46,14 +46,16 @@ NewCourseRegistration = React.createClass
         course.register(@props.enrollmentCode, User)
         @setState(isAutoRegistering: true)
 
-  onComplete: ->
-    @state.course.persist(User)
+  onComplete: (changeEvent) ->
+    @state.course.persist(User, changeEvent)
     Navigation.channel.emit('show')
 
-  onCourseChange: ->
+  onCourseChange: (changeEvent) ->
     if @state.course.isRegistered()
-      # wait 1.5 secs so our success message is briefly displayed, then call onComplete
-      _.delay(@onComplete, 1500)
+      # wait 1.5 secs so our success message is briefly displayed, then call onComplete.
+      # call on complete with change event so that it passes it on so that the base view will
+      # update based on being just confirmed.
+      _.delay(_.partial(@onComplete, changeEvent), 1500)
     else if @state.course.isValidated()
       @onComplete()
     else if @state.course.isPending()

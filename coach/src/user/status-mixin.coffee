@@ -9,7 +9,7 @@ UserStatusMixin = {
   componentWillUnmount: ->
     User.channel.off("change", @onUserChange)
   onUserChange: ->
-    @forceUpdate()
+    @_onUserChange?() or @forceUpdate()
   getUser: ->
     User
   getCourse: ->

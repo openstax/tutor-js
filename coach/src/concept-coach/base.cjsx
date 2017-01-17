@@ -159,7 +159,8 @@ ConceptCoach = React.createClass
   showTasks: ->
     @updateView(view: 'task')
 
-  updateUser: ->
+  updateUser: (options) ->
+    @setState(ignoreDefaultView: true) if options?.justConfirmed
     userState = User.status(@props.collectionUUID, @props.enrollmentCode)
     view = @getAllowedView(userState)
 

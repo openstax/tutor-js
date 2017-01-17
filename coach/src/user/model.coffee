@@ -96,8 +96,8 @@ User =
   isLoggedIn: ->
     !!@profile_url
 
-  onCourseUpdate: (course) ->
-    @channel.emit('change')
+  onCourseUpdate: (course, changeEvent) ->
+    @channel.emit('change', changeEvent)
     @ensureStatusLoaded(true) # re-fetch course list from server
 
   removeCourse: (course) ->

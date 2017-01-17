@@ -3,6 +3,8 @@
 _ = require 'underscore'
 React = require 'react'
 EventEmitter2 = require 'eventemitter2'
+# TODO pull out time helper from tutor to shared.
+moment = require 'moment-timezone'
 
 api  = require '../api'
 
@@ -43,6 +45,25 @@ class Course
 
   getRole: ->
     _.first @roles
+
+  getEnrollmentCode: ->
+    _.first(@periods).enrollment_code
+
+  getWhen: ->
+    currentDay = moment()
+    return false unless (@starts_at and @ends_at)
+
+    startDate = moment(@starts_at)
+    endDate = moment(@ends_at)
+
+    if endDate.isBefore(currentDay, 'day')
+      'past'
+    else if startDate.isAfter(currentDay, 'day')
+      'future'
+    else if @is_active
+      'current'
+    else
+      false
 
   description: ->
     if @isIncomplete() # still fetching
@@ -95,13 +116,13 @@ class Course
     new Course({ecosystem_book_uuid: @ecosystem_book_uuid})
 
   # The clone's attributes are persisted to the user once complete
-  persist: (user) ->
+  persist: (user, changeEvent) ->
     other = user.findOrCreateCourse(@ecosystem_book_uuid, @enrollmentCode)
     _.extend(other, @to?.course)
     other.status = @status
     other.enrollment_code = @enrollment_code
     other.periods = [ @to?.period ]
-    user.onCourseUpdate(other)
+    user.onCourseUpdate(other, changeEvent)
 
   _checkForFailure: (error) ->
     @errors = error.response?.data?.errors
@@ -139,7 +160,7 @@ class Course
 
     delete @status unless @hasErrors() # blank status indicates good to go
     delete @isBusy
-    @channel.emit('change')
+    @channel.emit('change', justConfirmed: true)
 
   validate: (enrollment_code) ->
     @enrollment_code = enrollment_code

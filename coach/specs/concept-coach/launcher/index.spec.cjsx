@@ -14,6 +14,8 @@ describe 'Launcher', ->
     @props =
       onLogin: jest.fn()
       onEnroll: jest.fn()
+      onLaunch: jest.fn()
+      onEnrollSecondSemester: jest.fn()
       collectionUUID: 'C_UUID'
 
   it 'renders with launching status', ->

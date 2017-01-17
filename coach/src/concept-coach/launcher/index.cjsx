@@ -73,7 +73,7 @@ Launcher = React.createClass
     height: @getHeight()
     isEnrollmentCodeValid: false
     isEnrollmentTargetPast: false
-    isCoursePast: false
+    isCoursePast: @getCourse().getWhen() is 'past'
 
   componentWillReceiveProps: (nextProps) ->
     @setState(height: @getHeight(nextProps)) if @props.isLaunching isnt nextProps.isLaunching
@@ -81,6 +81,10 @@ Launcher = React.createClass
   componentWillMount: ->
     if @props.enrollmentCode? and not @getUser().isEnrolled(@props.collectionUUID, @props.enrollmentCode)
       @validateEnrollmentCode()
+
+  _onUserChange: ->
+    @setState(isCoursePast: @getCourse().getWhen() is 'past')
+    true
 
   validateEnrollmentCode: ->
     {enrollmentCode} = @props
