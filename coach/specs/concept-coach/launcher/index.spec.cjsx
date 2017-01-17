@@ -28,7 +28,7 @@ describe 'Launcher', ->
     User.isLoggedIn.mockReturnValue(true)
     wrapper = shallow(<Launcher {...@props} />)
     expect(wrapper.find('LoginAction[isVisible=false]')).to.have.length(1)
-    expect(wrapper.find('.btn-openstax-primary').childAt(0).text() ).to.eq('Enroll in This Course')
+    expect(wrapper.find('Enroll')).to.have.length(1)
     expect(SnapShot.create(<Launcher {...@props} />).toJSON()).toMatchSnapshot()
     undefined
 
@@ -41,9 +41,9 @@ describe 'Launcher', ->
     undefined
 
   it 'calls callbacks when buttons clicked', ->
-    wrapper = shallow(<Launcher {...@props} />)
+    wrapper = mount(<Launcher {...@props} />)
     wrapper.find('LoginAction').prop('onLogin')()
     expect(@props.onLogin).toHaveBeenCalled()
-    wrapper.find('.btn-openstax-primary').simulate('click')
+    wrapper.find('Enroll').simulate('click')
     expect(@props.onEnroll).toHaveBeenCalled()
     undefined
