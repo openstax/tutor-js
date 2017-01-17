@@ -26,6 +26,7 @@ EnrollmentCode = (props) ->
     <p>Course-specific enrollment link required.</p>
     <p>Ask your instructor for a link</p>
   </div>
+EnrollmentCode.displayName = 'EnrollmentCode'
 
 SwitchSections = (props) ->
   <div className="fine-print switch">
@@ -34,6 +35,7 @@ SwitchSections = (props) ->
       using this book? <a role="button" onClick={props.onEnroll}>Change enrollment</a>
     </p>
   </div>
+SwitchSections.displayName = 'SwitchSections'
 
 SemesterIsPast = (props) ->
   <div className="fine-print switch">
@@ -41,17 +43,19 @@ SemesterIsPast = (props) ->
       <a role="button" onClick={props.onEnrollSecondSemester}>Register for the new semester</a>
     </p>
   </div>
+SemesterIsPast.displayName = 'SemesterIsPast'
 
 Enroll = (props) ->
   <BS.Button className='btn-openstax-primary' onClick={props.onEnroll}>
     Enroll in This Course
   </BS.Button>
+Enroll.displayName = 'Enroll'
 
 Launch = (props) ->
   <BS.Button bsStyle='default' onClick={props.onLaunch}>
     Launch Concept Coach
   </BS.Button>
-
+Launch.displayName = 'Launch'
 
 Launcher = React.createClass
   displayName: 'Launcher'
