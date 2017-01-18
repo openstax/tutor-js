@@ -1,7 +1,6 @@
 {
   "verbose": true,
   "notify": true,
-  "collectCoverage": true,
   "collectCoverageFrom": ["**/*.{js,jsx,cjsx}", "!**/node_modules/**"],
   "coverageDirectory": "../coverage/",
   "coverageReporters": ["json", "lcov", "text-summary"],
