@@ -34,10 +34,10 @@ describe 'Creating a course', ->
     Router.currentParams.mockReturnValue({sourceId: '1'})
     @props.isLoading = true
     wrapper = shallow(<Wizard {...@props} />)
-    expect(wrapper.find('OXFancyLoader[isLoading=true]')).to.have.length(1)
+    expect(wrapper).toHaveRendered('OXFancyLoader[isLoading=true]')
     wrapper.setProps(isLoading: false)
-    expect(wrapper.find('OXFancyLoader[isLoading=false]')).to.have.length(1)
-    expect(wrapper.find('SelectDates')).to.have.length(1)
+    expect(wrapper).toHaveRendered('OXFancyLoader[isLoading=false]')
+    expect(wrapper).toHaveRendered('SelectDates')
     expect(wrapper.state('firstStage')).to.eq(2)
     expect(wrapper.state('currentStage')).to.eq(2)
     undefined
@@ -45,8 +45,8 @@ describe 'Creating a course', ->
   it 'it skips course type if a single kind was previously taught', ->
     CourseListingActions.loaded([ stubCourse(is_concept_coach: false)])
     wrapper = shallow(<Wizard {...@props} />)
-    expect(wrapper.find('SelectType')).to.have.length(0)
-    expect(wrapper.find('SelectCourse')).to.have.length(1)
+    expect(wrapper).not.toHaveRendered('SelectType')
+    expect(wrapper).toHaveRendered('SelectCourse')
     undefined
 
   it 'displays select type if multiple kinds were previously taught', ->
@@ -55,7 +55,7 @@ describe 'Creating a course', ->
       stubCourse(is_concept_coach: false)
     ])
     wrapper = shallow(<Wizard {...@props} />)
-    expect(wrapper.find('SelectType')).to.have.length(1)
+    expect(wrapper).toHaveRendered('SelectType')
     undefined
 
   it 'advances and can go back', ->
@@ -64,9 +64,9 @@ describe 'Creating a course', ->
     wrapper.find('CourseChoiceItem').simulate('click')
     wrapper.find('.btn.next').simulate('click')
     expect(spy.calledOnce).to.be.true
-    expect(wrapper.find('SelectDates')).to.have.length(1)
+    expect(wrapper).toHaveRendered('SelectDates')
     wrapper.find('.btn.back').simulate('click')
-    expect(wrapper.find('SelectCourse')).to.have.length(1)
+    expect(wrapper).toHaveRendered('SelectCourse')
     undefined
 
   it 'matches snapshot', ->

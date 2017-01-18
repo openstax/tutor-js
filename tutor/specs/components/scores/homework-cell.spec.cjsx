@@ -37,7 +37,7 @@ describe 'Student Scores Homework Cell', ->
     wrapper = mount(<Cell {...@props} />, EnzymeContext.build())
     score = ((@props.task.correct_on_time_exercise_count / @props.task.exercise_count) * 100).toFixed(0) + '%'
     expect(wrapper.find('.score a').text()).to.equal(score)
-    expect(wrapper.find('.late-caret')).to.have.length(0)
+    expect(wrapper).not.toHaveRendered('.late-caret')
     undefined
 
   it 'renders progress cell', ->
