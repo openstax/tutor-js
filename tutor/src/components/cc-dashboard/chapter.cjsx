@@ -19,11 +19,11 @@ DashboardChapter = React.createClass
 
   renderSections: ->
     _.map @props.chapter.valid_sections, (section, index) ->
-      <Section section={section} key={index} />
+      <Section id={section.id} section={section} key={index} />
 
   render: ->
     classes = classnames('chapter', empty: @props.chapter.valid_sections)
-    <div className={classes}>
+    <div className={classes}  data-chapter-id={@props.chapter.id}>
       <BS.Row className="name" key={@props.chapter.id}>
         <BS.Col xs={12}>
           <ChapterSection section={@props.chapter.chapter_section} />
