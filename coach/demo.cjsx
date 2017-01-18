@@ -17,7 +17,7 @@ SETTINGS =
     MODULE_UUID: '68ae7446-32b4-4cc7-89a7-4615dd20f3bd'
     CNX_URL: 'http://localhost:8000'
     # ENROLLMENT_CODE: '282589' # past
-    ENROLLMENT_CODE: 'coach awesome' # current and enrolled
+    # ENROLLMENT_CODE: 'coach awesome' # current and enrolled
     # ENROLLMENT_CODE: '615595' # current and not enrolled
   SERVER:
     API_BASE_URL: 'https://tutor-dev.openstax.org'
@@ -39,11 +39,13 @@ loadApp = ->
   buttonC = document.getElementById('launcher-intro')
   buttonMATHS = document.getElementById('launcher-maths')
 
+  code = window.location.search.replace('?enrollment_code=', '') or settings.ENROLLMENT_CODE
+  enrollmentCode = decodeURI(code) if code
   demoSettings =
     collectionUUID: settings.COLLECTION_UUID
     moduleUUID: settings.MODULE_UUID
     cnxUrl: settings.CNX_URL
-    enrollmentCode: settings.ENROLLMENT_CODE
+    enrollmentCode: enrollmentCode
     processHtmlAndMath: typesetMath # from demo
     getNextPage: ->
       nextChapter: '2.2'
