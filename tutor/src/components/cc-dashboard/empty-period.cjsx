@@ -7,6 +7,8 @@ DesktopImage = require './desktop-image'
 
 CCDashboardEmptyPeriod = React.createClass
 
+  displayName: 'CCDashboardEmptyPeriod'
+
   propTypes:
     courseId: React.PropTypes.string
 

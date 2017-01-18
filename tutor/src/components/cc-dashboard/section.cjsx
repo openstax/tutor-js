@@ -7,6 +7,7 @@ ChapterSection = require '../task-plan/chapter-section'
 SectionProgress = require './section-progress'
 
 Section = React.createClass
+  displayName: 'Section'
 
   PropTypes:
     section: React.PropTypes.shape(
