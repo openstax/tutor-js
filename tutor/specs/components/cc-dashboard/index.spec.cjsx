@@ -1,4 +1,10 @@
+React = require 'react'
+
+jest.mock('../../../src/helpers/router')
+Router = require '../../../src/helpers/router'
+SnapShot = require 'react-test-renderer'
 _ = require 'underscore'
+Context = require '../helpers/enzyme-context'
 
 {CCDashboardStore, CCDashboardActions} = require '../../../src/flux/cc-dashboard'
 {CourseStore, CourseActions} = require '../../../src/flux/course'
@@ -22,6 +28,7 @@ RenderHelper = (courseId) ->
 
 describe 'Concept Coach Dashboard Shell', ->
   beforeEach (done) ->
+    Router.currentQuery.mockReturnValue({})
     CourseObj = _.extend {}, _.pick(BlankCourse.course, 'name', 'teachers'), {is_concept_coach: true}
     CCDashboardActions.loaded(BlankCourse, IDS.BLANK)
     CCDashboardActions.loaded(BaseModel, IDS.BASE)
@@ -29,14 +36,13 @@ describe 'Concept Coach Dashboard Shell', ->
     CourseActions.loaded(CourseObj, IDS.BASE)
     _.defer(done)
 
-  it 'displays the help page when there are no periods', (done) ->
-    RenderHelper(IDS.BLANK).then ({dom}) ->
-      expect(dom).to.exist
-      expect(dom.classList.contains('cc-dashboard-help')).to.be.true
-      done()
+  it 'displays the help page when there are no periods', ->
+    Router.currentParams.mockReturnValue({courseId: IDS.BLANK})
+    wrapper = mount(<DashboardShell />, Context.build())
+    expect(wrapper).toHaveRendered('.cc-dashboard-help')
 
-  it 'renders dashboard when there are periods', (done) ->
-    RenderHelper(IDS.BASE).then ({dom}) ->
-      expect(dom).to.exist
-      expect(dom.classList.contains('cc-dashboard')).to.exist
-      done()
+  it 'renders dashboard when there are periods', ->
+    Router.currentParams.mockReturnValue({courseId: IDS.BASE})
+    wrapper = mount(<DashboardShell />, Context.build())
+    expect(wrapper).toHaveRendered('.cc-dashboard')
+    expect(wrapper).not.toHaveRendered('.cc-dashboard-help')
