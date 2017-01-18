@@ -65,7 +65,7 @@ User =
 
     if enrollmentCode
       filterForEnrollmentCode = _.partial(_.filter, _, (course) ->
-        course.enrollmentCode is enrollmentCode or
+        course.enrollment_code is enrollmentCode or
           _.find(course.periods, enrollment_code: enrollmentCode)
       )
       filters.push(filterForEnrollmentCode)
@@ -79,7 +79,7 @@ User =
 
   findOrCreateCourse: (collectionUUID, enrollmentCode, options) ->
     @getCourse(collectionUUID, enrollmentCode, options) or (
-      courseInfo = _.extend({ecosystem_book_uuid: collectionUUID, enrollmentCode: enrollmentCode}, options)
+      courseInfo = _.extend({ecosystem_book_uuid: collectionUUID, enrollment_code: enrollmentCode}, options)
       course = new Course(courseInfo)
       @courses.push(course)
       course

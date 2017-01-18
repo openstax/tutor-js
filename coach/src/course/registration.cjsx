@@ -1,5 +1,5 @@
 React = require 'react'
-omit = require 'lodash/omit'
+pick = require 'lodash/pick'
 
 NewCourseRegistration = require './new-registration'
 ModifyCourseRegistration = require './modify-registration'
@@ -20,7 +20,7 @@ CourseRegistration = React.createClass
     if @props.secondSemester
       # this logic can be moved to user model once it's confirmed whether or not the second semester
       # version needs all of the info.
-      semesterClone = omit(@getUser().getCourse(@props.collectionUUID, @props.enrollmentCode), 'to', 'name', 'roles')
+      semesterClone = pick(@getUser().getCourse(@props.collectionUUID, @props.enrollmentCode), 'ecosystem_book_uuid', 'enrollment_code')
       semesterClone.secondSemester = true
 
       # attach a new course as opposed to mutating the one we are currently enrolled in
