@@ -28,8 +28,9 @@ SectionPerformance = React.createClass
         key={1} />
 
     if percents.incorrect
-      incorrectLabel = if percents.incorrect is 100 then "#{percents.incorrect}% incorrect"
-      incorrectBar = <BS.ProgressBar
+      incorrectLabel = if percents.incorrect is 100 then "#{percents.incorrect}% incorrect" else ''
+      bars.push <BS.ProgressBar
+        key='incorrect'
         className="reading-progress-bar progress-bar-incorrect"
         now={percents.incorrect}
         label={incorrectLabel}
@@ -38,9 +39,10 @@ SectionPerformance = React.createClass
 
     <div>
       <BS.ProgressBar className="reading-progress-group">
-        {correctBar}
-        {incorrectBar}
+        {bars}
       </BS.ProgressBar>
     </div>
+
+
 
 module.exports = SectionPerformance
