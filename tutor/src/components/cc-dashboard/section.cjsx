@@ -9,7 +9,7 @@ SectionProgress = require './section-progress'
 Section = React.createClass
   displayName: 'Section'
 
-  PropTypes:
+  propTypes:
     section: React.PropTypes.shape(
       id: React.PropTypes.string
       title: React.PropTypes.string
