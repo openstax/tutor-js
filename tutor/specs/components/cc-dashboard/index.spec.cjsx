@@ -20,12 +20,6 @@ IDS =
   BLANK: '0'
   BASE: '1'
 
-RenderHelper = (courseId) ->
-  optionsWithParams =
-    routerParams:
-      courseId: courseId
-  Testing.renderComponent(DashboardShell, optionsWithParams)
-
 describe 'Concept Coach Dashboard Shell', ->
   beforeEach (done) ->
     Router.currentQuery.mockReturnValue({})
