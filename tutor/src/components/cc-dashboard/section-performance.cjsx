@@ -2,16 +2,25 @@ React = require 'react'
 BS = require 'react-bootstrap'
 
 SectionPerformance = React.createClass
-  render: ->
-    percents =
-      correct: if @props.performance then Math.round(@props.performance * 100) else 0
+  displayName: 'SectionPerformace'
 
+  propTypes:
+    performance: React.PropTypes.number.isRequired
+
+
+  render: ->
+    {performance} = @props
+
+    percents =
+      correct: if performance then Math.round(performance * 100) else 0
     percents.incorrect = 100 - percents.correct
+    bars = []
 
     if percents.correct
       correctLabel = "#{percents.correct}%"
       correctLabel = if percents.correct is 100 then "#{correctLabel} correct" else correctLabel
-      correctBar = <BS.ProgressBar
+      bars.push <BS.ProgressBar
+        key='correct'
         className="reading-progress-bar progress-bar-correct"
         now={percents.correct}
         label={correctLabel}
