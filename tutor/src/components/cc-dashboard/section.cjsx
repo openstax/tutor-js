@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-
+Icon = require '../icon'
 SectionPerformance = require './section-performance'
 ChapterSection = require '../task-plan/chapter-section'
 
@@ -26,7 +26,7 @@ Section = React.createClass
       spacedPractice = <SectionPerformance performance={@props.section.spaced_practice_performance} />
     else
       spacedPracticeClass = "empty-spaced-practice"
-      spacedPractice = <i className="fa fa-ellipsis-h"/>
+      spacedPractice = <Icon type="ellipsis-h" />
 
     <BS.Row className="section" key={@props.section.id}>
       <BS.Col xs={6}>
