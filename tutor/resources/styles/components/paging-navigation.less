@@ -11,6 +11,11 @@
   @-moz-document url-prefix() {
     @handle-offset();
   }
+  // safari 9 only
+  _::-webkit-:not(:root:root) {
+    @handle-offset();
+  }
+
 }
 
 
