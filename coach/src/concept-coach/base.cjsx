@@ -114,7 +114,6 @@ ConceptCoach = React.createClass
     ignoreDefaultView = @state?.ignoreDefaultView or false
     course = User.getCourse(collectionUUID, enrollmentCode)
 
-    # console.info(userInfo, course)
     if not userInfo.isLoaded
       authLevel = 0
     else if userInfo.preValidate
