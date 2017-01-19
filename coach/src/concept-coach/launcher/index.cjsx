@@ -1,6 +1,9 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
+partial = require 'lodash/partial'
+includes = require 'lodash/includes'
+map = require 'lodash/map'
 classnames = require 'classnames'
 
 CCLogo = require 'shared/src/components/logos/concept-coach-horizontal'
@@ -23,6 +26,7 @@ EnrollmentCode = (props) ->
     <p>Course-specific enrollment link required.</p>
     <p>Ask your instructor for a link</p>
   </div>
+EnrollmentCode.displayName = 'EnrollmentCode'
 
 SwitchSections = (props) ->
   <div className="fine-print switch">
@@ -31,6 +35,27 @@ SwitchSections = (props) ->
       using this book? <a role="button" onClick={props.onEnroll}>Change enrollment</a>
     </p>
   </div>
+SwitchSections.displayName = 'SwitchSections'
+
+SemesterIsPast = (props) ->
+  <div className="fine-print switch">
+    <p>
+      <a role="button" onClick={props.onEnrollSecondSemester}>Register for the new semester</a>
+    </p>
+  </div>
+SemesterIsPast.displayName = 'SemesterIsPast'
+
+Enroll = (props) ->
+  <BS.Button className='btn-openstax-primary' onClick={props.onEnroll}>
+    Enroll in This Course
+  </BS.Button>
+Enroll.displayName = 'Enroll'
+
+Launch = (props) ->
+  <BS.Button bsStyle='default' onClick={props.onLaunch}>
+    Launch Concept Coach
+  </BS.Button>
+Launch.displayName = 'Launch'
 
 Launcher = React.createClass
   displayName: 'Launcher'
@@ -39,6 +64,8 @@ Launcher = React.createClass
     defaultHeight: React.PropTypes.number
     onLogin: React.PropTypes.func.isRequired
     onEnroll: React.PropTypes.func.isRequired
+    onLaunch: React.PropTypes.func.isRequired
+    onEnrollSecondSemester: React.PropTypes.func.isRequired
     collectionUUID: React.PropTypes.string.isRequired
     enrollmentCode: React.PropTypes.string
     setIsEnrollmentCodeValid: React.PropTypes.func
@@ -49,23 +76,43 @@ Launcher = React.createClass
   getInitialState: ->
     height: @getHeight()
     isEnrollmentCodeValid: false
+    isEnrollmentTargetPast: false
+    isCoursePast: @getCurrentCourse()?.getWhen() is 'past'
 
   componentWillReceiveProps: (nextProps) ->
     @setState(height: @getHeight(nextProps)) if @props.isLaunching isnt nextProps.isLaunching
 
   componentWillMount: ->
-    if @props.enrollmentCode? and not @getUser().isEnrolled(@props.collectionUUID)
+    if @props.enrollmentCode? and not @getUser().isEnrolled(@props.collectionUUID, @props.enrollmentCode)
       @validateEnrollmentCode()
+
+  getCurrentCourse: ->
+    @getUser().getCourse(@props.collectionUUID)
+
+  getEnrollmentTarget: ->
+    @getCourse()
+
+  _onUserChange: ->
+    @setState(isCoursePast: @getCurrentCourse()?.getWhen() is 'past')
+    true
 
   validateEnrollmentCode: ->
     {enrollmentCode} = @props
-    course = @getCourse()
-    course.channel.once('validated', @setIsEnrollmentCodeValid)
+    course = @getEnrollmentTarget()
+    course.channel.once('validated.*', partial(@setIsEnrollmentCodeValid, course.channel))
     course.validate(enrollmentCode)
 
-  setIsEnrollmentCodeValid: ->
-    @props.setIsEnrollmentCodeValid?(true)
-    @setState(isEnrollmentCodeValid: true)
+  setIsEnrollmentCodeValid: (eventChannel, data) ->
+    if eventChannel.event is 'validated.failure'
+      if includes(map(data, 'code'), 'course_ended')
+        @setState(isEnrollmentTargetPast: true)
+    else if eventChannel.event is 'validated.success'
+      @props.setIsEnrollmentCodeValid?(true)
+      @setState(isEnrollmentCodeValid: true)
+
+  isEnrolled: ->
+    {enrollmentCode} = @props if not @state.isEnrollmentTargetPast and @state.isEnrollmentCodeValid
+    @getUser().isEnrolled(@props.collectionUUID, enrollmentCode)
 
   mixins: [UserStatusMixin]
 
@@ -74,16 +121,18 @@ Launcher = React.createClass
     {isLaunching, defaultHeight} = props
     if isLaunching then window.innerHeight else defaultHeight
 
-  primaryActionText: ->
-    if @getUser().isEnrolled(@props.collectionUUID) then 'Launch Concept Coach' else 'Enroll in This Course'
-
   render: ->
     {isLaunching, defaultHeight} = @props
-    {height, isEnrollmentCodeValid} = @state
+    {height, isEnrollmentCodeValid, isCoursePast} = @state
     user = @getUser()
+    isEnrolled =  @isEnrolled()
     isLoggedIn = user.isLoggedIn()
-    finePrint = if user.isEnrolled(@props.collectionUUID)
-      <SwitchSections {...@props}/>
+
+    finePrint = if isEnrolled
+      if isCoursePast
+        <SemesterIsPast {...@props}/>
+      else
+        <SwitchSections {...@props}/>
     else if isEnrollmentCodeValid
       null
     else
@@ -96,12 +145,11 @@ Launcher = React.createClass
       <h2 key='cta-item'>Concept Coach</h2>
     ]
 
-
     <div className={
       classnames('concept-coach-launcher-wrapper',
         'is-logged-in': isLoggedIn
         'is-loading': user.isLoading
-        'is-enrolled': user.isEnrolled(@props.collectionUUID)
+        'is-enrolled': isEnrolled
       )}
     >
       <div className={classnames('concept-coach-launcher', launching: isLaunching)}>
@@ -113,12 +161,7 @@ Launcher = React.createClass
           <div id="words">
             <div className="cta">
               {words}
-              <BS.Button className={
-                classnames(
-                  'btn-openstax-primary': not @getUser().isEnrolled(@props.collectionUUID)
-                )} onClick={@props.onEnroll}>
-                {@primaryActionText()}
-              </BS.Button>
+              {if isEnrolled then <Launch {...@props}/> else <Enroll {...@props} />}
             </div>
             {finePrint}
           </div>

@@ -1,12 +1,15 @@
 React = require 'react'
 BS = require 'react-bootstrap'
+EventEmitter2 = require 'eventemitter2'
 
 classnames = require 'classnames'
 
 NewCourseRegistration = require './new-registration'
 Course = require './model'
 LoginGateway = require '../user/login-gateway'
+User = require '../user/model'
 LaptopAndMug = require '../graphics/laptop-and-mug'
+{channel} = require '../concept-coach/base'
 
 EnrollSignUp = (props) ->
   <div className="signup">
@@ -36,6 +39,8 @@ EnrollOrLogin = React.createClass
 
   propTypes:
     windowImpl: LoginGateway.windowPropType
+  contextTypes:
+    navigator: React.PropTypes.instanceOf(EventEmitter2)
 
   getInitialState: -> {}
 
@@ -43,7 +48,7 @@ EnrollOrLogin = React.createClass
     windowImpl: window
 
   onLoginCompleted: ->
-    @forceUpdate()
+    @props.onLoginComplete()
 
   onLogin: ->  @openGateway('login')
   onSignup: -> @openGateway('signup')

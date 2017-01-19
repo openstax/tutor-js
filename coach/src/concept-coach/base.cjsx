@@ -26,7 +26,8 @@ navigator = navigation.channel
 # TODO Move this and auth logic to user model
 # These views are used with an authLevel (0, 1, 2, or 3) to determine what views the user is allowed to see.
 VIEWS = [
-  'loading', 'login', 'registration',
+  'loading', 'login',
+  ['registration', 'second-semester-registration'],
   [
     'task', 'progress', 'profile', 'dashboard', 'student_id',
     'registration', 'second-semester-registration'
@@ -50,10 +51,10 @@ ConceptCoach = React.createClass
     defaultView: _.chain(VIEWS).last().first().value()
 
   getInitialState: ->
-    userState = User.status(@props.collectionUUID)
+    userState = User.status(@props.collectionUUID, @props.enrollmentCode)
     view = @getAllowedView(userState)
     userState.view = view
-    userState
+    _.extend(ignoreDefaultView: false, userState)
 
   childContextTypes:
     moduleUUID:     React.PropTypes.string
@@ -109,7 +110,10 @@ ConceptCoach = React.createClass
     navigator.off('show.*', @updateView)
 
   getAllowedView: (userInfo) ->
-    {defaultView} = @props
+    {defaultView, collectionUUID, enrollmentCode} = @props
+    ignoreDefaultView = @state?.ignoreDefaultView or false
+    course = User.getCourse(collectionUUID, enrollmentCode)
+
     if not userInfo.isLoaded
       authLevel = 0
     else if userInfo.preValidate
@@ -126,7 +130,7 @@ ConceptCoach = React.createClass
     # if there are multiple views allowed for this level
     if _.isArray(view)
       # and the target/defaultView is one of the views in this level
-      if defaultView in view
+      if not ignoreDefaultView and defaultView in view
         # then the iew should be the defaultView
         view = defaultView
       else
@@ -134,6 +138,11 @@ ConceptCoach = React.createClass
         view = _.first(view)
 
     view
+
+  unsetDefaultView: ->
+    if User.status(@props.collectionUUID, @props.enrollmentCode).isRegistered
+      @setState(ignoreDefaultView: true)
+      @updateUser()
 
   getMountData: (action) ->
     {moduleUUID, collectionUUID} = @props
@@ -149,8 +158,9 @@ ConceptCoach = React.createClass
   showTasks: ->
     @updateView(view: 'task')
 
-  updateUser: ->
-    userState = User.status(@props.collectionUUID)
+  updateUser: (options) ->
+    @setState(ignoreDefaultView: true) if options?.justConfirmed
+    userState = User.status(@props.collectionUUID, @props.enrollmentCode)
     view = @getAllowedView(userState)
 
     # tell nav to update view if the next view isn't the current view
@@ -168,9 +178,9 @@ ConceptCoach = React.createClass
       when 'login'
         <LoginGateway />
       when 'registration'
-        <CourseRegistration {...@props} />
+        <CourseRegistration {...@props} onLoginComplete={@unsetDefaultView}/>
       when 'second-semester-registration'
-        <CourseRegistration {...@props} secondSemester=true />
+        <CourseRegistration {...@props} secondSemester=true  onLoginComplete={@unsetDefaultView}/>
       when 'task'
         <Task {...@props} key='task'/>
       when 'progress'
@@ -186,7 +196,7 @@ ConceptCoach = React.createClass
 
   render: ->
     {isLoaded, isLoggedIn, view} = @state
-    course = User.getCourse(@props.collectionUUID)
+    course = User.getCourse(@props.collectionUUID, @props.enrollmentCode)
 
     className = classnames 'concept-coach-view', "concept-coach-view-#{view}",
       loading: not (isLoggedIn or isLoaded)

@@ -142,9 +142,9 @@ class ConceptCoachAPI extends EventEmitter2
       )
 
 
-  open: (props) ->
-    openProps = _.extend({}, props, open: true)
-    openProps.triggeredFrom = _.pick(props, 'moduleUUID', 'collectionUUID')
+  open: (openArgs...) ->
+    openProps = _.extend({}, openArgs..., open: true)
+    openProps.triggeredFrom = _.pick(openProps, 'moduleUUID', 'collectionUUID')
 
     coachWrapped.update(openProps)
 

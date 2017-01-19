@@ -46,29 +46,41 @@ User =
     course = _.findWhere @_course_data, ecosystem_book_uuid: collectionUUID
     course and _.detect(course.roles, (role) -> role.type is 'teacher')
 
-  status: (collectionUUID) ->
-    course = @getCourse(collectionUUID)
+  status: (collectionUUID, enrollmentCode) ->
+    course = @getCourse(collectionUUID, enrollmentCode)
+
     isLoggedIn: @isLoggedIn()
     isLoaded:   @isLoaded
     isRegistered: !!course?.isRegistered()
     preValidate: (not @isLoggedIn()) and (not course?.isValidated())
 
-  isEnrolled: (collectionUUID) ->
-    Boolean(@isLoggedIn() and @getCourse(collectionUUID))
+  isEnrolled: (collectionUUID, enrollmentCode) ->
+    Boolean(@isLoggedIn() and @getCourse(collectionUUID, enrollmentCode))
 
-  getCourse: (collectionUUID) ->
-    _.chain(@courses)
-      .where( ecosystem_book_uuid: collectionUUID )
-      .sortBy( (course) -> course.getRole()?.latest_enrollment_at or '' )
-      .last()
-      .value()
+  getCourse: (collectionUUID, enrollmentCode, options) ->
+    initialFilter = _.extend(ecosystem_book_uuid: collectionUUID, options)
+    filterForEcosystem = _.partial(_.where, _, initialFilter)
+    sortyByJoinedAt = _.partial(_.sortBy, _, (course) -> course.getRole()?.latest_enrollment_at or '')
+    operations = [filterForEcosystem]
+
+    if enrollmentCode
+      filterForEnrollmentCode = _.partial(_.filter, _, (course) ->
+        course.enrollment_code is enrollmentCode or
+          _.find(course.periods, enrollment_code: enrollmentCode)
+      )
+      operations.push(filterForEnrollmentCode)
+
+    operations.push(sortyByJoinedAt)
+
+    _.last(_.compose(operations...)(@courses))
 
   registeredCourses: ->
     _.filter @courses, (course) -> course.isRegistered()
 
-  findOrCreateCourse: (collectionUUID) ->
-    @getCourse(collectionUUID) or (
-      course = new Course(ecosystem_book_uuid: collectionUUID)
+  findOrCreateCourse: (collectionUUID, enrollmentCode, options) ->
+    @getCourse(collectionUUID, enrollmentCode, options) or (
+      courseInfo = _.extend({ecosystem_book_uuid: collectionUUID, enrollment_code: enrollmentCode}, options)
+      course = new Course(courseInfo)
       @courses.push(course)
       course
     )
@@ -84,8 +96,8 @@ User =
   isLoggedIn: ->
     !!@profile_url
 
-  onCourseUpdate: (course) ->
-    @channel.emit('change')
+  onCourseUpdate: (course, changeEvent) ->
+    @channel.emit('change', changeEvent)
     @ensureStatusLoaded(true) # re-fetch course list from server
 
   removeCourse: (course) ->
