@@ -61,18 +61,18 @@ User =
     initialFilter = _.extend(ecosystem_book_uuid: collectionUUID, options)
     filterForEcosystem = _.partial(_.where, _, initialFilter)
     sortyByJoinedAt = _.partial(_.sortBy, _, (course) -> course.getRole()?.latest_enrollment_at or '')
-    filters = [filterForEcosystem]
+    operations = [filterForEcosystem]
 
     if enrollmentCode
       filterForEnrollmentCode = _.partial(_.filter, _, (course) ->
         course.enrollment_code is enrollmentCode or
           _.find(course.periods, enrollment_code: enrollmentCode)
       )
-      filters.push(filterForEnrollmentCode)
+      operations.push(filterForEnrollmentCode)
 
-    filters.push(sortyByJoinedAt)
+    operations.push(sortyByJoinedAt)
 
-    _.last(_.compose(filters...)(@courses))
+    _.last(_.compose(operations...)(@courses))
 
   registeredCourses: ->
     _.filter @courses, (course) -> course.isRegistered()

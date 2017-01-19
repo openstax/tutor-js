@@ -1,7 +1,7 @@
 EventEmitter2 = require 'eventemitter2'
 moment = require 'moment'
 
-clone     = require 'lodash/clone'
+cloneDeep = require 'lodash/cloneDeep'
 reject    = require 'lodash/reject'
 find      = require 'lodash/find'
 defaults  = require 'lodash/defaults'
@@ -35,7 +35,7 @@ Notifications = {
 
   display: (notice) ->
     # fill in an id and type if not provided
-    notice = defaults(clone(notice), id: uniqueId(CLIENT_ID), type: CLIENT_ID)
+    notice = defaults(cloneDeep(notice), id: uniqueId(CLIENT_ID), type: CLIENT_ID)
     NOTICES.push(notice) unless find(NOTICES, id: notice.id)
     @emit('change')
 
@@ -83,9 +83,9 @@ Notifications = {
   # The `getActive` method is the single point for checking which notifications
   # should be displayed
   getActive: ->
-    active = clone(@rejectHidden(NOTICES))
+    active = cloneDeep(@rejectHidden(NOTICES))
     for type, poller of POLLERS
-      active.push(clone(notice)) for notice in @rejectHidden(poller.getActiveNotifications())
+      active.push(cloneDeep(notice)) for notice in @rejectHidden(poller.getActiveNotifications())
     active
 
   stopPolling: ->
