@@ -20,6 +20,7 @@ EcosystemsStore = flux.createStore
     @emit('load')
 
   loaded: (ecosystems) ->
+    @_asyncStatus = null
     @_ecosystems = ecosystems
     @emit('loaded')
 
