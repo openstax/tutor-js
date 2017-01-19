@@ -18,9 +18,7 @@ CourseRegistration = React.createClass
   mixins: [UserStatusMixin]
 
   getInitialState: ->
-    if @props.secondSemester
-      courseOptions =
-        secondSemester: true
+    courseOptions = pick('secondSemester', @props)
     course: new Course(@props.collectionUUID, @props.enrollmentCode, courseOptions)
 
   componentWillMount: ->
