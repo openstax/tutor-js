@@ -2,7 +2,7 @@ React = require 'react'
 TutorLink = require '../link'
 
 BookLink = React.createClass
-
+  displayName: 'BookLink'
   propTypes:
     book: React.PropTypes.shape(
       ecosystemId: React.PropTypes.string

@@ -8,7 +8,7 @@ InvalidPage = require '../invalid-page'
 {ReferenceBookPageActions, ReferenceBookPageStore} = require '../../flux/reference-book-page'
 
 ReferenceBookPageShell = React.createClass
-
+  displayName: 'ReferenceBookPage'
   propTypes:
     cnxId: React.PropTypes.string.isRequired
 

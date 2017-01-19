@@ -18,7 +18,7 @@ QAContentToggle      = require './content-toggle'
 UserActionsMenu      = require '../navbar/user-actions-menu'
 
 QAViewBook = React.createClass
-
+  displayName: 'QAViewBook'
   getInitialState: ->
     isShowingTeacherContent: true, isShowingBook: false
 

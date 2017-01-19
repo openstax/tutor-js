@@ -9,7 +9,7 @@ BookLink  = require './book-link'
 Router = require '../../helpers/router'
 
 QADashboard = React.createClass
-
+  displayName: 'QADashboard'
   mixins: [BindStore]
   bindStore: EcosystemsStore
   bindEvent: 'loaded'

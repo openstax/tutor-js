@@ -14,6 +14,7 @@ ExerciseCard   = require './exercise-card'
 MultiSelect    = require '../multi-select'
 
 QAExercises = React.createClass
+  displayName: 'QAExercises'
   propTypes:
     cnxId: React.PropTypes.string.isRequired
     ecosystemId: React.PropTypes.string.isRequired

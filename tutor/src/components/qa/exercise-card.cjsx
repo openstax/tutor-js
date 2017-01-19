@@ -6,7 +6,7 @@ String = require '../../helpers/string'
 {ExercisePreview} = require 'shared'
 exerciseDataFilter = require '../../flux/qa-exercise-data-filter'
 Exercise = React.createClass
-
+  displayName: 'QAExercise'
   propTypes:
     exercise: React.PropTypes.object.isRequired
     ignoredTypes: React.PropTypes.object.isRequired
