@@ -57,7 +57,8 @@ EnrollOrLogin = React.createClass
 
     body =
       if LoginGateway.isActive()
-        <LoginGateway className={signUpClasses} onLogin={@onLoginCompleted} loginType={@state.type} />
+        <LoginGateway className={signUpClasses} onLogin={@onLoginCompleted}
+          loginType={@state.type} displayAfterLogin='registration' />
       else
         [
           <EnrollSignUp onSignup={@onSignup}  key='enroll-sign-up'/>

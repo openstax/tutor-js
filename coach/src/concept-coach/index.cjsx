@@ -23,6 +23,7 @@ listenAndBroadcast = (componentAPI) ->
     componentAPI.emit('api.error', response)
 
   restAPI.channel.on 'user.status.fetch.receive', (response) ->
+
     componentAPI.emit('user.change', response)
 
   componentModel.channel.on 'coach.mount.success', (eventData) ->
