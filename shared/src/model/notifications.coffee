@@ -2,18 +2,23 @@ EventEmitter2 = require 'eventemitter2'
 moment = require 'moment'
 
 clone     = require 'lodash/clone'
+reject    = require 'lodash/reject'
+find      = require 'lodash/find'
 defaults  = require 'lodash/defaults'
 uniqueId  = require 'lodash/uniqueId'
 without   = require 'lodash/without'
 extend    = require 'lodash/extend'
 find      = require 'lodash/find'
 isEmpty   = require 'lodash/isEmpty'
+isMatch   = require 'lodash/isMatch'
 
 URLs = require './urls'
 EVENT_BUS = new EventEmitter2
 POLLERS = {}
 
 NOTICES = []
+
+HIDDEN = []
 
 CLIENT_ID = 'client-specified'
 Poller = require './notifications/pollers'
@@ -56,6 +61,21 @@ Notifications = {
       NOTICES = without(NOTICES, find(NOTICES, id: notice.id))
       @emit('change')
 
+  hide: (notice) ->
+    HIDDEN.push(notice)
+    @emit('change')
+
+  unhide: (notice) ->
+    HIDDEN = reject(HIDDEN, notice)
+    @emit('change')
+
+  rejectHidden: (notices) ->
+    reject(notices, (notice) ->
+      find(HIDDEN, (hidden) ->
+        isMatch(notice, hidden)
+      )
+    )
+
   # Notices originate via multiple methods.
   # * Pollers periodically check verious network endpoints
   # * Generated when the `setCourseRole` method is called
@@ -63,9 +83,9 @@ Notifications = {
   # The `getActive` method is the single point for checking which notifications
   # should be displayed
   getActive: ->
-    active = clone(NOTICES)
+    active = clone(@rejectHidden(NOTICES))
     for type, poller of POLLERS
-      active.push(clone(notice)) for notice in poller.getActiveNotifications()
+      active.push(clone(notice)) for notice in @rejectHidden(poller.getActiveNotifications())
     active
 
   stopPolling: ->

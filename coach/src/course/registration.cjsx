@@ -24,9 +24,12 @@ CourseRegistration = React.createClass
     course: new Course(@props.collectionUUID, @props.enrollmentCode, courseOptions)
 
   componentWillMount: ->
-    if @props.secondSemester
-      # should always hide bar when this is mounted regardless of where it's triggered from.
-      NotificationActions.acknowledge(id: 'course_has_ended')
+    NotificationActions.hide(id: 'missing_student_id')
+    NotificationActions.hide(id: 'course_has_ended') if @props.secondSemester
+
+  componentWillUnmount: ->
+    NotificationActions.unhide(id: 'course_has_ended')
+    NotificationActions.unhide(id: 'missing_student_id')
 
   render: ->
     user = @getUser()
