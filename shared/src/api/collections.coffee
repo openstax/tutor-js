@@ -4,7 +4,9 @@ moment = require 'moment-timezone'
 partial   = require 'lodash/partial'
 every     = require 'lodash/every'
 pick      = require 'lodash/pick'
+trim      = require 'lodash/trim'
 omit      = require 'lodash/omit'
+omitBy    = require 'lodash/omitBy'
 merge     = require 'lodash/merge'
 some      = require 'lodash/some'
 has       = require 'lodash/has'
@@ -16,7 +18,8 @@ memoize   = require 'lodash/memoize'
 forEach   = require 'lodash/forEach'
 isEmpty   = require 'lodash/isEmpty'
 cloneDeep = require 'lodash/cloneDeep'
-isString = require 'lodash/isString'
+isString  = require 'lodash/isString'
+isUndefined  = require 'lodash/isUndefined'
 
 validateOptions = (requiredProperties...) ->
   (options) ->
@@ -127,15 +130,20 @@ class Routes extends Collection
     @
 
 simplifyRequestConfig = (requestConfig) ->
-  requestConfig = pick(requestConfig, 'method', 'data', 'url', 'params')
-  if isEmpty(requestConfig.data)
-    requestConfig = omit(requestConfig, 'data')
-  else if isString(requestConfig.data)
+  simpleRequest = pick(requestConfig, 'method', 'data', 'url', 'params')
+  simpleRequest.url = simpleRequest.url.replace(requestConfig.baseURL, '') if requestConfig.baseURL
+  simpleRequest.url = trim(simpleRequest.url, '/')
+
+  if isEmpty(simpleRequest.data)
+    simpleRequest = omit(simpleRequest, 'data')
+  else if isString(simpleRequest.data)
     try
-      requestConfig.data = JSON.parse(requestConfig.data)
+      simpleRequest.data = JSON.parse(simpleRequest.data)
     catch e
 
-  requestConfig
+  simpleRequest.data = omitBy(simpleRequest.data, isUndefined) if simpleRequest.data
+
+  simpleRequest
 
 class XHRRecords
   constructor: ->
