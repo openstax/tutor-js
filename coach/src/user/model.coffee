@@ -48,7 +48,7 @@ User =
 
   status: (collectionUUID, enrollmentCode) ->
     course = @getCourse(collectionUUID, enrollmentCode)
-    # console.info('status course', course, enrollmentCode)
+
     isLoggedIn: @isLoggedIn()
     isLoaded:   @isLoaded
     isRegistered: !!course?.isRegistered()
