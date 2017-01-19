@@ -1,14 +1,15 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-
+Icon = require '../icon'
 SectionPerformance = require './section-performance'
 ChapterSection = require '../task-plan/chapter-section'
 
 SectionProgress = require './section-progress'
 
 Section = React.createClass
+  displayName: 'Section'
 
-  PropTypes:
+  propTypes:
     section: React.PropTypes.shape(
       id: React.PropTypes.string
       title: React.PropTypes.string
@@ -25,7 +26,7 @@ Section = React.createClass
       spacedPractice = <SectionPerformance performance={@props.section.spaced_practice_performance} />
     else
       spacedPracticeClass = "empty-spaced-practice"
-      spacedPractice = <i className="fa fa-ellipsis-h"/>
+      spacedPractice = <Icon type="ellipsis-h" />
 
     <BS.Row className="section" key={@props.section.id}>
       <BS.Col xs={6}>

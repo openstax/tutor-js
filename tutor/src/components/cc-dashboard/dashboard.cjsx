@@ -89,7 +89,7 @@ CCDashboard = React.createClass
           </BS.Col>
         </BS.Row>
         {for chapter, index in chapters
-          <DashboardChapter chapter={chapter} key={index} />}
+          <DashboardChapter id={chapter.id} chapter={chapter} key={index} />}
         <BS.Row>
           <BS.Col className="hide-section-legend" xs={12}>
             Chapters and sections that have not been worked are hidden

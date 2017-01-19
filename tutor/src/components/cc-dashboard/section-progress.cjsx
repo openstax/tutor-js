@@ -4,6 +4,12 @@ BS = require 'react-bootstrap'
 classnames = require 'classnames'
 
 SectionProgress = React.createClass
+  displayName: 'SectionProgress'
+
+  propTypes:
+    section: React.PropTypes.shape(
+      completed_percentage: React.PropTypes.number.isRequired
+    ).isRequired
 
   render: ->
     p = @props.section.completed_percentage
@@ -44,5 +50,7 @@ SectionProgress = React.createClass
         {completed}
       </BS.ProgressBar>
     </div>
+
+
 
 module.exports = SectionProgress
