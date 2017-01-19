@@ -16,8 +16,8 @@ matchProps = (Router, props, parentParams) ->
     <props.render {...componentProps} params={params} />
   )
 
-matchByRouter = (Router, InvalidPage) ->
-  (props) ->
+matchByRouter = (Router, InvalidPage, displayName = 'RouterMatch') ->
+  match = (props) ->
     return null unless props.routes
 
     <span>
@@ -25,5 +25,7 @@ matchByRouter = (Router, InvalidPage) ->
         <Match key={i} {...matchProps(Router, route, props.params)} />}
       <Miss component={InvalidPage} />
     </span>
+  match.displayName = displayName
+  match
 
 module.exports = matchByRouter
