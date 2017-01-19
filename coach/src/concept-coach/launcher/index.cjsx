@@ -77,7 +77,7 @@ Launcher = React.createClass
     height: @getHeight()
     isEnrollmentCodeValid: false
     isEnrollmentTargetPast: false
-    isCoursePast: @getCourse().getWhen() is 'past'
+    isCoursePast: @getCurrentCourse()?.getWhen() is 'past'
 
   componentWillReceiveProps: (nextProps) ->
     @setState(height: @getHeight(nextProps)) if @props.isLaunching isnt nextProps.isLaunching
@@ -86,13 +86,19 @@ Launcher = React.createClass
     if @props.enrollmentCode? and not @getUser().isEnrolled(@props.collectionUUID, @props.enrollmentCode)
       @validateEnrollmentCode()
 
+  getCurrentCourse: ->
+    @getUser().getCourse(@props.collectionUUID)
+
+  getEnrollmentTarget: ->
+    @getCourse()
+
   _onUserChange: ->
-    @setState(isCoursePast: @getCourse().getWhen() is 'past')
+    @setState(isCoursePast: @getCurrentCourse()?.getWhen() is 'past')
     true
 
   validateEnrollmentCode: ->
     {enrollmentCode} = @props
-    course = @getCourse()
+    course = @getEnrollmentTarget()
     course.channel.once('validated.*', partial(@setIsEnrollmentCodeValid, course.channel))
     course.validate(enrollmentCode)
 
@@ -100,8 +106,6 @@ Launcher = React.createClass
     if eventChannel.event is 'validated.failure'
       if includes(map(data, 'code'), 'course_ended')
         @setState(isEnrollmentTargetPast: true)
-        if @getUser().getCourse(@props.collectionUUID).id is @getUser().getCourse(@props.collectionUUID, @props.enrollmentCode)?.id
-          @setState(isCoursePast: true)
     else if eventChannel.event is 'validated.success'
       @props.setIsEnrollmentCodeValid?(true)
       @setState(isEnrollmentCodeValid: true)
