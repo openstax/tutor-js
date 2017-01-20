@@ -7,9 +7,7 @@ BookLink = React.createClass
     book: React.PropTypes.shape(
       ecosystemId: React.PropTypes.string
       ecosystemComments: React.PropTypes.string
-      id:      React.PropTypes.number
       title:   React.PropTypes.string
-      uuid:    React.PropTypes.string
       version: React.PropTypes.string
     ).isRequired
 

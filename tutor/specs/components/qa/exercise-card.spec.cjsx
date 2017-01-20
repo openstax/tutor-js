@@ -1,3 +1,6 @@
+jest.mock('react-dom')
+ReactDOM = require 'react-dom'
+
 {React, SnapShot} = require '../helpers/component-testing'
 
 ExerciseCard = require '../../../src/components/qa/exercise-card'
@@ -27,8 +30,11 @@ describe 'QA Exercises Card', ->
 
   it 'renders a book page', ->
     wrapper = shallow(<ExerciseCard {...@props} />)
-    console.log wrapper.debug()
     expect(wrapper).toHaveRendered('OXExercisePreview')
 
   it 'matches snapshot', ->
+    ReactDOM.findDOMNode.mockReturnValue({
+      querySelectorAll: jest.fn(-> [])
+      getElementsByTagName: jest.fn(-> [])
+    })
     expect(SnapShot.create(<ExerciseCard {...@props} />).toJSON()).toMatchSnapshot()

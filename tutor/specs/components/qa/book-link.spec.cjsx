@@ -1,7 +1,7 @@
-{React, SnapShot} = require './helpers/component-testing'
+{React, SnapShot} = require '../helpers/component-testing'
 
-BookLink = require '../../src/components/qa/book-link'
-Context = require './helpers/enzyme-context'
+BookLink = require '../../../src/components/qa/book-link'
+Context = require '../helpers/enzyme-context'
 
 
 describe 'QA Exercises Book Link', ->
