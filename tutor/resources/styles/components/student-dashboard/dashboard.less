@@ -47,23 +47,23 @@
   a.view-reference-guide {
     height: 80px;
     background-repeat: no-repeat;
+    background-size: auto 80px;
     display: inline-block;
     div {
-      margin: 10px 0 0 80px;
+      margin: 10px 0 0 85px;
       text-align: left; // override center specified for actions-box
       #fonts > .sans(2.5rem, 3rem);
       font-weight: 900;
       color: @tutor-black;  // override link color
     }
     &:hover { text-decoration: initial; }
-  }
-  [data-appearance] .view-reference-guide {
-    background-size: auto 80px;
-  }
-  .for(@openstax-book-thumbnails); .-each(@code) {
-    [data-appearance=@{code}] {
-      .view-reference-guide { .book-content-thumbnail(@code); }
+
+    .for(@openstax-book-thumbnails); .-each(@code) {
+      &[data-appearance=@{code}] {
+        .book-content-thumbnail(@code);
+      }
     }
+
   }
 
 }
