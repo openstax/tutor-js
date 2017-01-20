@@ -84,3 +84,20 @@
   .tutor-bullet-lists(@tutor-book-intro-sociology-primary);
   .tutor-book-theme-tables(@tutor-book-intro-sociology-primary);
 }
+
+
+.tutor-book-content-theme-ap-us-history() {
+  @book-theme-name: 'ap-us-history';
+  @import './@{book-theme-name}/index.less';
+  .tutor-book-theme-ap-us-history-specific();
+
+  .tutor-book-theme-first-letter(@tutor-book-ap-us-history-secondary);
+  .tutor-book-theme-typography(@tutor-book-ap-us-history-primary);
+  .tutor-book-theme-learning-objectives(@tutor-book-ap-us-history-primary; @tutor-book-ap-us-history-accent);
+  .tutor-book-theme-related-content(@tutor-book-ap-us-history-primary; @tutor-book-ap-us-history-secondary);
+  .tutor-book-theme-splash-image(@tutor-book-ap-us-history-primary; @tutor-book-ap-us-history-secondary);
+  .tutor-book-theme-note(@tutor-book-ap-us-history-primary; @tutor-book-ap-us-history-secondary);
+  .tutor-book-theme-note-borders(@tutor-book-text-on-dark-labels);
+  .tutor-bullet-lists(@tutor-book-ap-us-history-primary);
+  .tutor-book-theme-tables(@tutor-book-ap-us-history-primary);
+}
