@@ -1,10 +1,10 @@
 // NOTE:
 //  * The 'biology' and 'physics' codes are deprecated, but are retained for older courses that may have them
 //  * These must be kept in sync with the books in src/flux/course-information.coffee
-@openstax-book-appearance-codes: default physics hs_physics college_physics biology ap_biology concepts_biology college_biology principles_economics macro_economics micro_economics intro_sociology anatomy_physiology;
+@openstax-book-appearance-codes: default physics hs_physics college_physics biology ap_biology concepts_biology college_biology principles_economics macro_economics micro_economics intro_sociology anatomy_physiology ap_us_history;
 
 // books that we have thumbnails for.  Some appearance codes share thumbnails
-@openstax-book-thumbnails: intro_sociology physics hs_physics college_physics biology ap_biology college_biology;
+@openstax-book-thumbnails: intro_sociology physics hs_physics college_physics biology ap_biology college_biology ap_us_history;
 
 .book-content-thumbnail(intro_sociology) { .tutor-background-image("courses/sociology-book-thumbnail.png");       }
 .book-content-thumbnail(physics)         { .tutor-background-image("courses/hs_physics-book-thumbnail.png");      }
@@ -13,6 +13,7 @@
 .book-content-thumbnail(biology)         { .tutor-background-image("courses/biology-book-thumbnail.png");         }
 .book-content-thumbnail(ap_biology)      { .tutor-background-image("courses/biology-book-thumbnail.png");         }
 .book-content-thumbnail(college_biology) { .tutor-background-image("courses/biology-book-thumbnail.png");         }
+.book-content-thumbnail(ap_us_history)   { .tutor-background-image("courses/ap_us_history-book-thumbnail.png");   }
 
 @openstax-book-white: rgb(255, 255, 255);
 @openstax-book-gray: rgb(94, 96, 98);
@@ -59,6 +60,11 @@
 @openstax-book-concepts_biology-fg: @openstax-book-yellow;
 @openstax-book-concepts_biology-bg: @openstax-book-orange;
 @openstax-book-concepts_biology-accent: @openstax-book-orange-accent;
+
+// History
+@openstax-book-ap_us_history-fg: rgb(241, 118, 72);
+@openstax-book-ap_us_history-bg: rgb(35,  48,  99);
+@openstax-book-ap_us_history-acccent: @openstax-book-orange-accent;
 
 // Social Sciences
 @openstax-book-principles_economics-fg: @openstax-book-gray;
