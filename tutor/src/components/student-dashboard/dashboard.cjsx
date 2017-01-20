@@ -79,7 +79,7 @@ module.exports = React.createClass
           <BS.Col xs=12 md=4 lg=3>
             <ProgressGuideShell courseId={courseId} sampleSizeThreshold=3 />
             <div className='actions-box'>
-              <BrowseTheBook unstyled courseId={courseId} data-appearance="ap_us_history">
+              <BrowseTheBook unstyled courseId={courseId} data-appearance={CourseStore.getAppearanceCode(courseId)}>
                 <div>Browse the Book</div>
               </BrowseTheBook>
             </div>
