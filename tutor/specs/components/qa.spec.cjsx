@@ -39,7 +39,7 @@ describe 'QA Exercises Component', ->
 
   it 'displays free-response box when previewing 2-step', ->
     wrapper = mount(<Exercises {...@props} />)
-    expect(wrapper.find('.exercise-free-response-preview')).to.have.length(0)
+    expect(wrapper).not.toHaveRendered('.exercise-free-response-preview')
     wrapper.find('.preview2step').simulate('change', target: checked: true)
     freeResponseCount = _.reduce(EXERCISES.items, (count, ex) ->
       count + (if ExerciseStore.hasQuestionWithFormat('free-response', ex) then 1 else 0)
