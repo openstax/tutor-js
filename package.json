@@ -45,6 +45,7 @@
     "bootstrap": "3.3.7",
     "classnames": "2.2.5",
     "dateformat": "2.0.0",
+    "detect-browser": "1.6.2",
     "es6-object-assign": "1.0.3",
     "es6-promise": "4.0.5",
     "eventemitter2": "2.2.1",
