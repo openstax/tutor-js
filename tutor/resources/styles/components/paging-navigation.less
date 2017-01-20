@@ -1,26 +1,19 @@
-@tutor-paging-default-offsets: {
-  margin-left: -75px;
-};
-
-.paging-handle-browser-offsets(@handle-offset: @tutor-paging-default-offsets) {
-  // work around IE and Firefox flexbox bug where the icon is placed outside it's container
-  // this shifts it back into position
-  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-    @handle-offset();
+.paging-handle-browser-left-offset(@left-offset: -75px) {
+  // Only Chrome properly positions the right arrow properly.
+  // (Firefox/Safari/IE) place it to the right of the .arrow-wrapper element
+  // this rule shifts it back inside
+  #ox-react-root-container[data-browser="ie"]      &,
+  #ox-react-root-container[data-browser="safari"]  &,
+  #ox-react-root-container[data-browser="firefox"] &
+  {
+    margin-left: @left-offset;
   }
-  @-moz-document url-prefix() {
-    @handle-offset();
-  }
-  // safari 9 only
-  _::-webkit-:not(:root:root) {
-    @handle-offset();
-  }
-
 }
 
 
 .tutor-paging-navigation {
   @arrow-height: 150px;
+  @arrow-width: 75px;
   .flex-display();
   .justify-content(center);
 
@@ -46,9 +39,7 @@
       .arrow-wrapper {
         .flex-display();
         .justify-content(flex-end);
-        .icon {
-          .paging-handle-browser-offsets();
-        }
+        .icon { .paging-handle-browser-left-offset(-@arrow-width);  }
       }
     }
     &.prev {
