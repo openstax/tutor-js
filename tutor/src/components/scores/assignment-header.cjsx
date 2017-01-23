@@ -17,6 +17,7 @@ ReviewLink = (props) ->
       Review
     </TutorLink>
   </span>
+ReviewLink.displayName = 'ReviewLink'
 
 AverageLabel = (props) ->
   if props.average_score
@@ -39,6 +40,7 @@ AverageLabel = (props) ->
       </span>
     else
       null
+AverageLabel.displayName = 'AverageLabel'
 
 getCellWidth = ({isConceptCoach, heading}) ->
   if isConceptCoach
