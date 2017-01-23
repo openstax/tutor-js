@@ -100,7 +100,7 @@ module.exports = React.createClass
   NameHeader: (props) ->
     {sort, onSort, isConceptCoach} = @props
     <div className='header-cell-wrapper'>
-      <div className='assignment-header-cell'>
+      <div className='assignment-header-cell student-names'>
         <div className='average-label'>
           Class Performance &nbsp
           <sup>
