@@ -111,9 +111,9 @@ AssignmentHeader = (props) ->
         >
           {heading.title}
         </div>
-        <div className='due'>
+        {<div className='due'>
           due <Time date={heading.due_at} format='shortest'/>
-        </div>
+        </div> unless isConceptCoach}
       </span>
     </BS.OverlayTrigger>
     <div className='average-cell'>
