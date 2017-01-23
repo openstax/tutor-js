@@ -1,8 +1,8 @@
-import Helpers from '../helpers';
+const Helpers = require '../helpers';
 const {describe} = Helpers;
 const {freshId} = Helpers;
-import {expect} from 'chai';
-import _ from 'underscore'
+{expect} = require 'chai';
+_ = require 'underscore'
 
 describe('Student Dashboard', function(){
 

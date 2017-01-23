@@ -1,2 +1,2 @@
-import Calendar from './calendar'
-import ReferenceBook from './reference-book'
+const Calendar = require './calendar'
+const ReferenceBook = require './reference-book'

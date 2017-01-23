@@ -1,6 +1,7 @@
 {describe, xdescribe} = require './describe'
 
-module.exports =
+
+allHelpers =
   Calendar         : require './ui/calendar'
   TaskBuilder      : require './ui/task-builder'
   CourseSelect     : require './ui/course-select'
@@ -18,3 +19,5 @@ module.exports =
   util             : require './utils'
   describe         : describe
   xdescribe        : xdescribe
+
+module.exports = allHelpers
