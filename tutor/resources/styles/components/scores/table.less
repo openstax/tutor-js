@@ -17,9 +17,9 @@
   @table-outer-border-color: @student-header-bg-color;
   @thick-grey-border: 2px solid @nav-tabs-border-color;
   .header-cell-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    .flex-display();
+    .flex-direction(column);
+    .justify-content(flex-end);
     height: 100%;
   }
 
@@ -72,9 +72,9 @@
   }
 
   .group-header {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+    .flex(1);
+    .flex-display();
+    .flex-direction(column);
     .due {
       text-align: center;
       font-weight: normal;
@@ -230,9 +230,9 @@
       font-weight: normal;
       background-color: white;
       border-top: @thick-grey-border;
-      display: flex;
-      flex-basis: 27px;
-      align-items: stretch;
+      .flex-display();
+      .flex-basis(27px);
+      .align-items(stretch);
       > span {
         line-height: @average-header-row-height;
         display: inline-block;
@@ -297,9 +297,9 @@
   .external-cell,   .overall-cell {
     height: @table-row-height;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    .flex-display();
+    .align-items(center);
+    .justify-content(center);
   }
   .external-cell {
     border-right: 1px solid @nav-tabs-border-color;
@@ -423,9 +423,9 @@
   .name-cell {
     border-left: @table-outer-border-width solid @table-outer-border-color;
     height: @table-row-height;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    .flex-display();
+    .flex-direction(column);
+    .justify-content(center);
     padding: 0 0 0 @left-column-padding;
     .student-name, .student-id { line-height: normal; }
     .student-name {
