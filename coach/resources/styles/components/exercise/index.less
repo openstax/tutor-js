@@ -11,9 +11,11 @@
 }
 
 .exercise-wrapper {
+
   .task-help-links {
     position: absolute;
     bottom: 1rem;
+    max-width: calc(~"100% - "@concept-coach-base-y-padding+@openstax-exercise-identifier-link-max-width);
   }
 
   .card-footer {
@@ -22,12 +24,9 @@
 }
 
 .exercise-identifier-link {
-  position: absolute;
   right: @concept-coach-base-x-padding;
   bottom: @concept-coach-base-x-padding;
   color: @openstax-neutral-dark;
-  font-size: 1.2rem;
-  line-height: 1.2rem;
   // override CC global 1px blue border
   a:not(.btn) { border-bottom: 0px; }
 }
