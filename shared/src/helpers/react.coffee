@@ -8,6 +8,7 @@ pickBy         = require 'lodash/pickBy'
 concat         = require 'lodash/concat'
 some           = require 'lodash/some'
 kebabCase      = require 'lodash/kebabCase'
+browser        = require 'detect-browser'
 
 getBaseName = (context) -> kebabCase(context.constructor.displayName)
 
@@ -25,8 +26,11 @@ filterProps = (props, options = {}) ->
 renderRoot = (getComponent, rootEl) ->
   unless rootEl
     rootEl = document.createElement('div')
-    rootEl.id = 'ox-react-root-container'
     document.body.appendChild(rootEl)
+
+  rootEl.id = 'ox-react-root-container'
+  rootEl.setAttribute('data-browser', browser.name)
+  rootEl.setAttribute('data-browser-version', browser.version)
 
   render = ->
     Root = getComponent()
