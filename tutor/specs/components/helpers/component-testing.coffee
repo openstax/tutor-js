@@ -37,10 +37,10 @@ Wrapper = React.createClass
     router: ROUTER
   render: ->
     location = createRouterLocation('/')
+    props = _.omit(@props, '_wrapped_component')
+    props.ref = 'element' unless @props.noReference
     React.createElement(LocationBroadcast, value: location,
-      React.createElement(@props._wrapped_component,
-        _.extend(_.omit(@props, '_wrapped_component'), ref: 'element')
-      )
+      React.createElement(@props._wrapped_component, props)
     )
 
 Testing = {
@@ -100,5 +100,5 @@ pause = (scope) ->
 module.exports = {
   Testing, sinon, React, _, ReactTestUtils,
   spyOnComponentMethod, stubComponentMethod,
-  SnapShot, pause
+  SnapShot, pause, Wrapper
 }

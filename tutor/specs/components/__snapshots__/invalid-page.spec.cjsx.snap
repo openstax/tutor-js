@@ -1,0 +1,34 @@
+exports[`Invalid Page renders and matches snapshot 1`] = `
+<div
+  className="invalid-page">
+  <div
+    className="ox-colored-stripe">
+    <div
+      className="orange" />
+    <div
+      className="blue" />
+    <div
+      className="red" />
+    <div
+      className="yellow" />
+    <div
+      className="teal" />
+  </div>
+  <h1>
+    Uh-oh, no page here
+  </h1>
+  <p>
+    Kudos on your desire to explore! Unfortunately, we don\'t have a page to go with that particular location.
+  </p>
+  <a
+    className="home"
+    href="/"
+    onClick={[Function]}
+    style={Object {}}>
+    Return Home
+    <i
+      className="tutor-icon fa fa-caret-right"
+      type="caret-right" />
+  </a>
+</div>
+`;

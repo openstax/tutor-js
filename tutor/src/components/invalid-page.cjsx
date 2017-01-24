@@ -1,19 +1,26 @@
 React  = require 'react'
 {Link} = require 'react-router'
 BS = require 'react-bootstrap'
+Icon = require './icon'
 TutorRouter = require '../helpers/router'
-TutorButtonLink = require './button-link'
+TutorLink = require './link'
+
+OXColoredStripe = require 'shared/src/components/ox-colored-stripe'
 
 InvalidPage = (props) ->
   {message} = props
-  message ?= "#{props.location?.pathname} not found"
+  message ?= "Kudos on your desire to explore! Unfortunately, we don't have a page to go with that particular location."
 
-  <BS.Grid>
+  <div className="invalid-page">
+    <OXColoredStripe />
     <h1>
-      Whoops, we do not have this page.
+      Uh-oh, no page here
     </h1>
     <p>{message}</p>
-    <TutorButtonLink to='listing' bsStyle='primary'>Home</TutorButtonLink>
-  </BS.Grid>
+    <TutorLink className="home" to='listing' bsStyle='primary'>
+      Return Home
+      <Icon type='caret-right' />
+    </TutorLink>
+  </div>
 
 module.exports = InvalidPage
