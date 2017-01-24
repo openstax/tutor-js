@@ -35,6 +35,12 @@
   });
 }
 
+.tutor-book-theme-quote(@border-color: @tutor-book-secondary){
+  blockquote {
+    border-left-color: @border-color;
+  }
+}
+
 .tutor-book-theme-note-borders(@border-color: @tutor-book-secondary) {
   .grasp-check {
     border-top: solid 8px @border-color;
@@ -82,6 +88,7 @@
 
   .tutor-book-theme-first-letter(@@book-theme-secondary);
   .tutor-book-theme-typography(@@book-theme-secondary);
+  .tutor-book-theme-quote(@@book-theme-secondary);
   .tutor-book-theme-learning-objectives(@@book-theme-primary);
   .tutor-book-theme-note(@@book-theme-primary; @@book-theme-secondary);
 }
