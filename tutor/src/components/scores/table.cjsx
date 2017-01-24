@@ -79,7 +79,7 @@ module.exports = React.createClass
           {"#{(@props.overall_average_score * 100).toFixed(0)}%"}
         </span>
       </div>
-      <div className='label-cell'></div>
+      <div className='header-row short'></div>
     </div>
 
   OverallCell: (props) ->
@@ -105,7 +105,7 @@ module.exports = React.createClass
         Class Performance
         <AverageInfo isConceptCoach={isConceptCoach} />
       </div>
-      <div className='label-cell'>
+      <div className='header-row short'>
         <div className='scores-cell'>
           <SortingHeader
             sortKey='name'

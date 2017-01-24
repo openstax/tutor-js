@@ -122,7 +122,7 @@ AssignmentHeader = (props) ->
       <AverageLabel {...props} heading={heading} cellWidth={cellWidth} />
       <ReviewLink {...props} heading={heading} cellWidth={cellWidth} />
     </div>
-    <div className='label-cell'>
+    <div className='header-row short'>
       <AssignmentSortingHeader {...props} heading={heading} />
     </div>
   </div>

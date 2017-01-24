@@ -15,13 +15,8 @@
     .flex-direction(column);
   }
 
-  .header-row,
-  .label-cell {
-    .flex-display();
-
-  }
-
   .header-row {
+    .flex-display();
     .flex-basis(@row-height);
     > * {
       height: @row-height;
@@ -29,16 +24,15 @@
       align-items: center;
       .justify-content(center);
     }
-  }
-
-  .label-cell {
-    .flex-basis(@short-row-height);
-    > * {
-      height: @short-row-height;
-      .flex-display();
-      .flex(1);
+    &.short {
+      .flex-basis(@short-row-height);
+      > * {
+        height: @short-row-height;
+      }
     }
   }
+
+
 
 
   &.student-names {
@@ -82,11 +76,11 @@
         border-top: @table-outer-border-width solid @table-outer-border-color;
         margin-bottom: 2px;
       }
-    }
-    .label-cell {
-      background: @student-header-bg-color;
-      borderom-bottom: 0;
-      border-top: 0;
+      &.short {
+        background: @student-header-bg-color;
+        borderom-bottom: 0;
+        border-top: 0;
+      }
     }
   }
 
@@ -116,34 +110,42 @@
       font-weight: normal;
       background-color: white;
       border-top: @thick-grey-border;
-      > span {
-//        display: inline-block;
-        width: 50%;
+        .average {
+          width: 50%;
+          font-weight: 600;
+          border-right: 1px solid @nav-tabs-border-color;
+          &.wide {
+            width: 100%;
+          }
+        }
+
+        .review-link {
+          border-right: 1px solid @nav-tabs-border-color;
+          width: 50%;
+          &.wide {
+            width: 100%;
+          }
+        }
+      .scores-cell {
+        width: 100%;
+        .header-cell {
+
+        }
+//        width: 50%;
         text-align: center;
         border-right: 1px solid @nav-tabs-border-color;
         &.click-rate {
           width: 100%;
         }
-      }
 
-      .average {
-        font-weight: 600;
-        &.wide {
-          width: 100%;
-        }
-      }
 
-      .review-link {
-        &.wide {
-          width: 100%;
-        }
       }
     }
 
-    .label-cell {
-      padding: 0px;
-      font-weight: normal;
-    }
+    // .label-cell {
+    //   padding: 0px;
+    //   font-weight: normal;
+    // }
   }
 
 
