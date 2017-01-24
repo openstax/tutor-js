@@ -95,7 +95,7 @@ AssignmentHeader = (props) ->
 
   cellWidth = getCellWidth({isConceptCoach, heading})
 
-  <div className='header-cell-wrapper assignment-header-cell'>
+  <div className='header-cell-wrapper assignment'>
     <BS.OverlayTrigger
       placement='top'
       delayShow={1000}
@@ -106,7 +106,7 @@ AssignmentHeader = (props) ->
         </BS.Tooltip>
       }
     >
-      <span className="group-header">
+      <div className="expanded-header-row">
         <div
           data-assignment-type="#{heading.type}"
           className={classnames('header-cell', 'group', 'title', {cc: isConceptCoach})}
@@ -116,9 +116,9 @@ AssignmentHeader = (props) ->
         {<div className='due'>
           due <Time date={heading.due_at} format='shortest'/>
         </div> unless isConceptCoach}
-      </span>
+      </div>
     </BS.OverlayTrigger>
-    <div className='average-cell'>
+    <div className='header-row'>
       <AverageLabel {...props} heading={heading} cellWidth={cellWidth} />
       <ReviewLink {...props} heading={heading} cellWidth={cellWidth} />
     </div>

@@ -72,9 +72,9 @@ module.exports = React.createClass
 
 
   OverallHeader: ->
-    <div className='header-cell-wrapper overall-average-cell'>
+    <div className='header-cell-wrapper overall-average'>
       <div className='overall-header-cell'>Overall</div>
-      <div className='average-cell'>
+      <div className='header-row'>
         <span>
           {"#{(@props.overall_average_score * 100).toFixed(0)}%"}
         </span>
@@ -101,7 +101,7 @@ module.exports = React.createClass
     {sort, onSort, isConceptCoach} = @props
     <div className='header-cell-wrapper student-names'>
       <div className='overall-header-cell' />
-      <div className='average-cell'>
+      <div className='header-row'>
         Class Performance
         <AverageInfo isConceptCoach={isConceptCoach} />
       </div>

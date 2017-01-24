@@ -72,19 +72,18 @@
     border-bottom: @table-outer-border-width solid @table-outer-border-color;
   }
 
-  .align-center() {
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-  }
+  // .align-center() {
+  //   display: inline-block;
+  //   width: 100%;
+  //   text-align: center;
+  // }
 
   .external-cell,   .overall-cell {
-//    height: @table-row-height;
-
     .flex-display();
     .align-items(center);
     .justify-content(center);
   }
+
   .external-cell {
     border-right: 1px solid @nav-tabs-border-color;
   }
