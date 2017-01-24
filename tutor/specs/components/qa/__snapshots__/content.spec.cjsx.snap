@@ -1,0 +1,8 @@
+exports[`QA Exercises Content matches snapshot 1`] = `
+<div>
+  <div
+    className="loadable is-loading">
+    Loading... 
+  </div>
+</div>
+`;

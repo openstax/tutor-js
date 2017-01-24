@@ -8,7 +8,7 @@ ReferenceBook = require '../reference-book/reference-book'
 LoadableItem = require '../loadable-item'
 
 ReferenceBookWrapper = React.createClass
-
+  displayName: 'ReferenceBookWrapper'
   propTypes:
     id: React.PropTypes.number.isRequired
 

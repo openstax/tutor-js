@@ -9,7 +9,7 @@ BookLink  = require './book-link'
 Router = require '../../helpers/router'
 
 QADashboard = React.createClass
-
+  displayName: 'QADashboard'
   mixins: [BindStore]
   bindStore: EcosystemsStore
   bindEvent: 'loaded'
@@ -30,9 +30,10 @@ QADashboard = React.createClass
     )
 
   render: ->
+    return <h3 className="loading">Loading …</h3> if EcosystemsStore.isLoading()
+
     <div className="qa">
       <MatchForTutor {...@props} />
-      {<h3>Loading …</h3> if EcosystemsStore.isLoading()}
     </div>
 
 module.exports = QADashboard

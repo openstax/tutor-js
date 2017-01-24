@@ -13,7 +13,7 @@ ControlsOverlay = require './controls-overlay'
 Exercise = require '../../model/exercise'
 
 ExercisePreview = React.createClass
-
+  displayName: 'OXExercisePreview'
   propTypes:
     extractTag:      React.PropTypes.func
     displayFeedback: React.PropTypes.bool

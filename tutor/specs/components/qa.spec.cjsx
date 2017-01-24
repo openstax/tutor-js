@@ -2,6 +2,7 @@
 
 ld = require 'lodash'
 
+Wrapper = require '../../src/components/qa'
 Exercises = require '../../src/components/qa/exercises'
 
 {ExerciseActions, ExerciseStore} = require '../../src/flux/exercise'
@@ -28,6 +29,16 @@ describe 'QA Exercises Component', ->
     ReferenceBookActions.loaded(PAGE, ECOSYSTEM_ID)
     ExerciseActions.loadedForCourse(EXERCISES, COURSE_ID, ['146'])
     _.defer(done) # defer done signal so it fires after exercise load emits
+
+  it 'waits until ecosystem load is complete before rendering', ->
+    EcosystemsActions.loaded([])
+    wrapper = shallow(<Wrapper {...@props} />)
+    expect(wrapper).toHaveRendered('.loading')
+
+    EcosystemsActions.loaded(ECOSYSTEMS)
+    wrapper = shallow(<Wrapper {...@props} />)
+    expect(wrapper).toHaveRendered('TutorRouterMatch')
+    undefined
 
   it 'displays the exercise questions', ->
     wrapper = mount(<Exercises {...@props} />)
