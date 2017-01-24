@@ -39,6 +39,8 @@ getSortValue = (student, index, dataType, displayAs) ->
             else
               record.completed_on_time_exercise_count
           percent(progress, record.exercise_count)
+    when 'external' # events are also of type 'external' and require no special handling
+      record.status
     when 'concept_coach'
       switch dataType
         when 'score'
