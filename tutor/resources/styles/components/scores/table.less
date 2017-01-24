@@ -1,10 +1,6 @@
 @pie-color-late: #268FBE;
 
 .scores-report {
-  // @table-row-height: 50px;
-  // @due-row-height: 25px;
-  // @average-header-row-height: 25px;
-  // @student-header-row-height: 25px;
   @student-header-bg-color: #ccccce;
   @student-header-fg-color: #f2f2f2;
   @left-column-padding: 8px;
@@ -12,7 +8,6 @@
   @pie-bg-color: lighten(@tutor-neutral,40%);
   @pie-color-hover: #0DC0DC;
   @finished-icon-size: 24px;
-//  @group-header-title-height: 60px;
   @table-outer-border-width: 2px;
   @table-outer-border-color: @student-header-bg-color;
   @thick-grey-border: 2px solid @nav-tabs-border-color;
@@ -35,8 +30,6 @@
   .assignment-header-cell {
     width: 100%;
   }
-
-
 
   .status-cell {
     text-decoration: none;
@@ -72,12 +65,6 @@
     border-bottom: @table-outer-border-width solid @table-outer-border-color;
   }
 
-  // .align-center() {
-  //   display: inline-block;
-  //   width: 100%;
-  //   text-align: center;
-  // }
-
   .external-cell,   .overall-cell {
     .flex-display();
     .align-items(center);
@@ -88,13 +75,12 @@
     border-right: 1px solid @nav-tabs-border-color;
   }
   .scores-cell {
+    .flex-display();
+    .align-items(center);
+    .justify-content(center);
     height: 100%;
-      & > *:not(.late-caret-trigger) {
-      height: 100%;
-    }
-//    height: @table-row-height;
     position: relative;
-
+    & > *:not(.late-caret-trigger) { height: 100%; }
     &.highlighted {
       &::after {
         content: '';
@@ -102,39 +88,23 @@
         top: 0;
         left: 0;
         width: 100%;
-//        height: 100%;
         pointer-events: none;
         border: @thick-grey-border;
         border-left-width: 1px;
       }
-
-      > .late-caret-trigger {
-        z-index: 1;
-      }
+      > .late-caret-trigger { z-index: 1; }
     }
-    .flex-display();
-    .align-items(center);
-    .justify-content(center);
 
     // includes split cells
     & > *:not(.late-caret-trigger) {
-      //      line-height: @table-row-height;
       .flex(1);
       .flex-display();
       .align-items(center);
       .justify-content(center);
-
-//      display: inline-block;
-//      width: 50%;
-//      text-align: center;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       border-right: 1px solid @nav-tabs-border-color;
-
-      &.wide {
-//        width: 100%;
-      }
     }
 
     a.not-complete {
@@ -145,14 +115,9 @@
       cursor: default;
     }
     .worked {
-//      height: @table-row-height;
-      svg {
-      //  padding-top: 2px;
-        overflow: visible;
-      }
+      svg { overflow: visible; }
       .finished {
         width: @finished-icon-size;
-//        height: @finished-icon-size;
         fill: @tutor-secondary;
       }
       &:hover .finished {
@@ -191,14 +156,12 @@
       top: 0px;
       right: 0px;
       width: 50%;
-//      height: @table-row-height;
       .late-caret {
         position: absolute;
         cursor: pointer;
         top: 0px;
         right: 0px;
         width: 0;
-//        height: 0;
         border-style: solid;
         border-width: 0 15px 15px 0;
         border-color: transparent @tutor-primary transparent transparent;
@@ -220,18 +183,12 @@
     .name-cell {
       border-left: @table-outer-border-width solid @table-outer-border-color;
       height: 100%;
-      //    height: @table-row-height;
       .flex-display();
       .flex-direction(column);
       .justify-content(center);
       padding: 0 0 0 @left-column-padding;
-      //    .student-name, .student-id { line-height: normal; }
-      > * {
-        max-height: 50%;
-      }
-      .student-name {
-        color: @tutor-neutral-dark;
-      }
+      > * { max-height: 50%; }
+      .student-name { color: @tutor-neutral-dark; }
       .student-id {
         font-size: 1.1rem;
         color: @tutor-neutral-lite;
@@ -242,10 +199,8 @@
 }
 
 .scores-scores-tooltip-completed-info {
-//  @completed-popover-row-height: 30px;
-//  height: auto;
   .popover-content {
-//    height: 100%;
+    height: 100%;
     overflow: hidden;
     padding: 0;
   }
@@ -266,7 +221,6 @@
       div {
         font-weight: bold;
         width: 150px;
-//        height: @completed-popover-row-height;
         vertical-align: middle;
         display: table-cell;
         text-align: center;

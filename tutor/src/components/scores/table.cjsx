@@ -106,16 +106,16 @@ module.exports = React.createClass
         <AverageInfo isConceptCoach={isConceptCoach} />
       </div>
       <div className='header-row short'>
-        <div className='scores-cell'>
-          <SortingHeader
-            sortKey='name'
-            sortState={sort}
-            onSort={onSort}
-            dataType={'name'}
-          >
-              <div className='student-name'>Name and Student ID</div>
-          </SortingHeader>
-        </div>
+
+        <SortingHeader
+          sortKey='name'
+          sortState={sort}
+          onSort={onSort}
+          dataType={'name'}
+        >
+            <div className='student-name'>Name and Student ID</div>
+        </SortingHeader>
+
       </div>
 
     </div>

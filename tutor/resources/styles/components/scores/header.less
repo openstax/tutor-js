@@ -32,34 +32,30 @@
     }
   }
 
-
-
-
   &.student-names {
     .header-row {
       border-top:  @table-outer-border-width solid @table-outer-border-color;
       border-left: @table-outer-border-width solid @table-outer-border-color;
       padding-left: @left-column-padding - @table-outer-border-width;
+      &.short {
+        background: @student-header-bg-color;
+        .sortable { justify-content: space-between; }
+      }
       .align-items(center);
       .tutor-icon {
         margin-left: 0.5rem;
-        align-self: center;
+        .align-self(center);
         font-size: 75%;
         color: @link-color;
       }
-    }
-    .scores-cell {
-      .header-cell { justify-content: flex-start; }
-      .student-name{ padding-left: @left-column-padding; }
     }
   }
 
   &.overall-average {
     .flex(1);
-
+    .overall-border-style();
     background: @tutor-info-bg;
     font-weight: normal;
-    .overall-border-style();
     border-bottom: 0;
     > * {
       justify-content: center;
@@ -72,10 +68,6 @@
       border-width: 2px;
       border-top: @thick-grey-border;
       border-bottom: 0;
-      &:first-child {
-        border-top: @table-outer-border-width solid @table-outer-border-color;
-        margin-bottom: 2px;
-      }
       &.short {
         background: @student-header-bg-color;
         borderom-bottom: 0;
@@ -84,68 +76,49 @@
     }
   }
 
-
   &.assignment {
-    padding: 0;
-    > div {
-//      display: block;
-  //    width: 100%;
-//      padding-left: @left-column-padding;
+
+    &[data-assignment-type] {
+      font-weight: 400;
     }
+
     .due {
       text-align: center;
       font-weight: normal;
       font-size: 1.2rem;
       line-height: @row-height;
       font-style: italic;
-      color: lighten(@tutor-neutral, 10%);
+      color: @tutor-neutral-lite;
       border-right: 1px solid @nav-tabs-border-color;
-    }
-    &[data-assignment-type] {
-      font-weight: 400;
     }
 
     .header-row {
-      padding: 0;
       font-weight: normal;
-      background-color: white;
       border-top: @thick-grey-border;
-        .average {
-          width: 50%;
-          font-weight: 600;
-          border-right: 1px solid @nav-tabs-border-color;
-          &.wide {
-            width: 100%;
-          }
+      .average {
+        width: 50%;
+        font-weight: 600;
+        border-right: 1px solid @nav-tabs-border-color;
+        &.wide {
+          width: 100%;
         }
-
-        .review-link {
-          border-right: 1px solid @nav-tabs-border-color;
-          width: 50%;
-          &.wide {
-            width: 100%;
-          }
+      }
+      .review-link {
+        border-right: 1px solid @nav-tabs-border-color;
+        width: 50%;
+        &.wide {
+          width: 100%;
         }
+      }
       .scores-cell {
         width: 100%;
-        .header-cell {
-
-        }
-//        width: 50%;
         text-align: center;
         border-right: 1px solid @nav-tabs-border-color;
         &.click-rate {
           width: 100%;
         }
-
-
       }
     }
-
-    // .label-cell {
-    //   padding: 0px;
-    //   font-weight: normal;
-    // }
   }
 
 
@@ -158,16 +131,13 @@
     width: 100%;
     position: relative;
     border-right: 1px solid @nav-tabs-border-color;
-
     &.sortable {
       font-size: 1.2rem;
-
       background-color: @student-header-bg-color;
       &:not(.is-descending):not(.is-ascending):hover::after { content: @fa-var-sort-desc; }
       &.is-descending:hover::after { content: @fa-var-sort-asc;  }
       &.is-ascending:hover::after  { content: @fa-var-sort-desc; }
     }
-
     &.is-ascending,
     &.is-descending,
     &.sortable:hover {
@@ -180,11 +150,6 @@
     }
     &.is-ascending::after  { content: @fa-var-sort-asc;  }
     &.is-descending::after { content: @fa-var-sort-desc; }
-
-    &[data-assignment-type] {
-      //      height: 100%;
-    }
-
     &.group.title {
       .tutor-plan-set(heading);
       .flex(1);
