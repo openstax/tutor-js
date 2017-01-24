@@ -77,7 +77,9 @@ PieProgress = React.createClass
         </g>
       </g>
     pieCircle =
-      <svg width="#{size}" height="#{size}" className='pie-progress'>
+      <svg width="#{size}" height="#{size}" className='pie-progress'
+        viewBox={"0 0 24 24"}
+      >
         {if progress is 25 then q1}
         {if progress is 50 then q2}
         {if progress is 75 then q3}

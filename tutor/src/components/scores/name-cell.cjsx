@@ -28,7 +28,7 @@ module.exports = React.createClass
     ]
     classname = classnames("name-cell", @props.className)
 
-    if @props.isConceptCoach
+    body = if @props.isConceptCoach
       <div className={classname}>
         {children}
       </div>
