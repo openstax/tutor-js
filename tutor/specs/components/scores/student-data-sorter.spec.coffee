@@ -41,3 +41,15 @@ describe 'Student Scores Data Sorter', ->
     expect(_.first(steps)).to.equal(0)
     expect(_.last(steps)).to.equal(29)
     undefined
+
+  it 'sorts external events', ->
+    @args.sort.key = 2
+    @args.sort.asc = false
+    steps = _.map(_.sortBy(@students, StudentDataSorter(@args)), (s) ->
+      s.data[2].status)
+    expect(_.first(steps)).to.equal('completed')
+    expect(_.last(steps)).to.equal('not_started')
+    expect(steps).to.deep.equal([
+      'completed', 'completed', 'not_started', 'not_started',
+      'not_started', 'not_started', 'not_started', 'not_started', 'not_started'])
+    undefined
