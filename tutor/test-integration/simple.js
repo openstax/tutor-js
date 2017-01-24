@@ -1,5 +1,5 @@
-import Helpers from './helpers'
-var {describe} = Helpers
+const Helpers = require './helpers';
+const {describe} = Helpers;
 
 var TEACHER_USERNAME = 'teacher01'
 

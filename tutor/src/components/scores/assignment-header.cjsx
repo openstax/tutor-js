@@ -17,6 +17,7 @@ ReviewLink = (props) ->
       Review
     </TutorLink>
   </span>
+ReviewLink.displayName = 'ReviewLink'
 
 AverageLabel = (props) ->
   if props.average_score
@@ -39,6 +40,7 @@ AverageLabel = (props) ->
       </span>
     else
       null
+AverageLabel.displayName = 'AverageLabel'
 
 getCellWidth = ({isConceptCoach, heading}) ->
   if isConceptCoach
@@ -111,9 +113,9 @@ AssignmentHeader = (props) ->
         >
           {heading.title}
         </div>
-        <div className='due'>
+        {<div className='due'>
           due <Time date={heading.due_at} format='shortest'/>
-        </div>
+        </div> unless isConceptCoach}
       </span>
     </BS.OverlayTrigger>
     <div className='average-cell'>
