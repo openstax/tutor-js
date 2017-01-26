@@ -1,3 +1,5 @@
+Router = require '../../../src/helpers/router'
+
 _ = require 'underscore'
 chai = require('chai')
 expect = chai.expect
@@ -18,6 +20,7 @@ SnapShot = require 'react-test-renderer'
 sandbox = null
 Sinon = {}
 
+
 ROUTER = null
 CURRENT_ROUTER_PARAMS = null
 CURRENT_ROUTER_PATH   = null
@@ -26,6 +29,7 @@ CURRENT_ROUTER_QUERY = null
 beforeEach ->
   sandbox = sinon.sandbox.create()
   ROUTER  = new TestRouter
+
 afterEach ->
   sandbox.restore()
 
@@ -51,6 +55,8 @@ Testing = {
     CURRENT_ROUTER_PARAMS = options.routerParams or {}
     CURRENT_ROUTER_QUERY = options.routerQuery or {}
     CURRENT_ROUTER_PATH   = options.routerPath   or '/'
+    Router.currentParams.mockReturnValue?(CURRENT_ROUTER_PARAMS)
+    Router.currentQuery.mockReturnValue?(CURRENT_ROUTER_QUERY)
     root = document.createElement('div')
     promise = new Promise( (resolve, reject) ->
       props = _.clone(options.props)
@@ -98,7 +104,7 @@ pause = (scope) ->
 
 
 module.exports = {
-  Testing, sinon, React, _, ReactTestUtils,
+  Testing, sinon, React, ReactDOM, _, ReactTestUtils,
   spyOnComponentMethod, stubComponentMethod,
   SnapShot, pause, Wrapper
 }

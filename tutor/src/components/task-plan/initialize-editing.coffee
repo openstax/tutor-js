@@ -18,18 +18,22 @@ getQueriedOpensAt = (planId, dueAt, termStart) ->
   {opens_at} = Router.currentQuery() # attempt to read the open date from query params
   isNewPlan = TaskPlanStore.isNew(planId)
   opensAt = if opens_at and isNewPlan then TimeHelper.getMomentPreserveDate(opens_at)
+  defaultsOpenAt = getOpensAtDefault(termStart)
+
   if not opensAt
     # default open date is tomorrow
-    opensAt = getOpensAtDefault(termStart)
+    opensAt = defaultsOpenAt
 
   # if there is a current due date, make sure it's not the same as the open date
   if dueAt?
     dueAtMoment = TimeHelper.getMomentPreserveDate(dueAt)
     # there's a corner case is certain timezones where isAfter doesn't quite cut it
     # and we need to check that the ISO strings don't match
-    unless (dueAtMoment.isSameOrAfter(opensAt, 'day') and dueAtMoment.format(TimeHelper.ISO_DATE_FORMAT) isnt opensAt)
-      # make open date today if default due date is tomorrow or today
-      opensAt = moment(TimeStore.getNow()).format(TimeHelper.ISO_DATE_FORMAT)
+    unless dueAtMoment.isSameOrAfter(opensAt, 'day') and (dueAtMoment.format(TimeHelper.ISO_DATE_FORMAT) isnt opensAt)
+      # move open date to the earliest it can be that's not dueAt
+      latestAllowed = moment.max(TimeStore.getNow(), moment(defaultsOpenAt))
+      opensAt = moment.min(latestAllowed, dueAtMoment).format(TimeHelper.ISO_DATE_FORMAT)
+
 
   opensAt
 
