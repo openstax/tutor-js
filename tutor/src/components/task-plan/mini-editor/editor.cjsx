@@ -25,7 +25,7 @@ PublishButton = require '../footer/save-button'
 DraftButton   = require '../footer/save-as-draft'
 
 PlanMixin       = require '../plan-mixin'
-ServerErrorMessage = require '../../error-monitoring/server-error-message'
+ServerErrorHandlers = require '../../error-monitoring/handlers'
 
 TaskPlanMiniEditor = React.createClass
 
@@ -107,7 +107,7 @@ TaskPlanMiniEditor = React.createClass
     classes = classnames('task-plan-mini-editor',
       'is-invalid-form': hasError
     )
-
+    errorAttrs = ServerErrorHandlers.forError(@state.error) if @state.error
     plan = TaskPlanStore.get(id)
     isPublished = TaskPlanStore.isPublished(id)
 
@@ -155,8 +155,9 @@ TaskPlanMiniEditor = React.createClass
       </div>
 
       {<BS.Alert bsStyle='danger'>
-        <ServerErrorMessage {...@state.error} debug={false} />
-      </BS.Alert> if @state.error}
+        <h3>{errorAttrs.title}</h3>
+        {errorAttrs.body}
+      </BS.Alert> if errorAttrs}
 
       <div className="builder-footer-controls">
         <PublishButton
