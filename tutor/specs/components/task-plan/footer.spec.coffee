@@ -94,3 +94,7 @@ describe 'Task Plan Footer', ->
       expect(dom.querySelector('.delete-link')).to.not.be.null
       expect(dom.querySelector('.-save')).to.be.null
       expect(dom.querySelector('.-publish')).to.not.be.null
+
+  it 'should have help tooltip', ->
+    helper(PUBLISHED_READING).then ({dom}) ->
+      expect(dom.querySelector('.footer-instructions')).to.not.be.null
