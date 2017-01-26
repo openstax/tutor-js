@@ -1,4 +1,5 @@
-{React, _} = require '../../helpers/component-testing'
+{React} = require '../../helpers/component-testing'
+_ = require 'underscore'
 
 moment = require 'moment'
 
@@ -121,13 +122,13 @@ describe 'TaskPlan MiniEditor wrapper', ->
 
   it 'calls handleError when server error is thrown', ->
     wrapper = shallow(<MiniEditor {...@props} />)
-    TaskPlanStore.emit('errored', {status: 404, statusMessage: "There's been an error", config: {}})
+    TaskPlanStore.emit('errored', {status: 404, method: 'GET', statusMessage: "There's been an error", config: {}})
     expect(@props.handleError).to.have.been.called
     undefined
 
   it 'renders error when server error is thrown', ->
     wrapper = mount(<MiniEditor {...@props} />, @options)
-    TaskPlanStore.emit('errored', {status: 404, statusMessage: "There's been an error", config: {}})
+    TaskPlanStore.emit('errored', {status: 404, statusMessage: method: 'POST', "There's been an error", config: {}})
     expect(wrapper.find('ServerErrorMessage')).length.to.be(1)
     undefined
 

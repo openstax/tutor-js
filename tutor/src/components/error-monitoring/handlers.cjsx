@@ -3,6 +3,7 @@ BS = require 'react-bootstrap'
 
 partial = require 'lodash/partial'
 isEmpty = require 'lodash/isEmpty'
+isObject = require 'lodash/isObject'
 
 Dialog      = require '../tutor-dialog'
 TutorRouter = require '../../helpers/router'
@@ -38,16 +39,15 @@ ERROR_HANDLERS =
   course_not_started: (error, message, context) ->
     course = getCurrentCourse()
     navigateAction = partial(goToDashboard, context, course.id)
-    dialog:
-      title: 'Future Course'
-      body:
-        <p className="lead">
-          This course has not yet started.
-          Please try again after it starts on {TimeHelper.toHumanDate(course.starts_at)}
-        </p>
-      buttons: [
-        <BS.Button key='ok' onClick={navigateAction} bsStyle='primary'>OK</BS.Button>
-      ]
+    title: 'Future Course'
+    body:
+      <p className="lead">
+        This course has not yet started.
+        Please try again after it starts on {TimeHelper.toHumanDate(course.starts_at)}
+      </p>
+    buttons: [
+      <BS.Button key='ok' onClick={navigateAction} bsStyle='primary'>OK</BS.Button>
+    ]
     onOk: navigateAction
     onCancel: navigateAction
 
@@ -55,16 +55,15 @@ ERROR_HANDLERS =
   course_ended: (error, message, context) ->
     course = getCurrentCourse()
     navigateAction = partial(goToDashboard, context, course.id)
-    dialog:
-      title: 'Past Course'
-      body:
-        <p className="lead">
-          This course ended on {TimeHelper.toHumanDate(course.ends_at)}.
-          No new activity can be peformed on it, but you can still review past activity.
-        </p>
-      buttons: [
-        <BS.Button key='ok' onClick={navigateAction} bsStyle='primary'>OK</BS.Button>
-      ]
+    title: 'Past Course'
+    body:
+      <p className="lead">
+        This course ended on {TimeHelper.toHumanDate(course.ends_at)}.
+        No new activity can be peformed on it, but you can still review past activity.
+      </p>
+    buttons: [
+      <BS.Button key='ok' onClick={navigateAction} bsStyle='primary'>OK</BS.Button>
+    ]
     onOk: navigateAction
     onCancel: navigateAction
 
@@ -72,15 +71,14 @@ ERROR_HANDLERS =
   # No exercises were found, usually for personalized practice
   no_exercises: (error, message, context) ->
     navigateAction = partial(goToDashboard, context, getCurrentCourse().id)
-    dialog:
-      title: 'No exercises are available'
-      body:
-        <div className="no-exercises">
-          <p className="lead">There are no problems to show for this topic.</p>
-        </div>
-      buttons: [
-        <BS.Button key='ok' onClick={navigateAction} bsStyle='primary'>OK</BS.Button>
-      ]
+    title: 'No exercises are available'
+    body:
+      <div className="no-exercises">
+        <p className="lead">There are no problems to show for this topic.</p>
+      </div>
+    buttons: [
+      <BS.Button key='ok' onClick={navigateAction} bsStyle='primary'>OK</BS.Button>
+    ]
     onOk: navigateAction
     onCancel: navigateAction
 
@@ -89,21 +87,30 @@ ERROR_HANDLERS =
     unless error.supportLinkBase?
       {courseId} = context
       error.supportLinkBase = CurrentUserStore.getHelpLink(courseId)
-    dialog:
-      title: 'Server Error'
-      body: <ServerErrorMessage {...error}/>
-      buttons: [
-        <BS.Button key='ok' onClick={-> Dialog.hide()} bsStyle='primary'>OK</BS.Button>
-      ]
+    title: 'Server Error'
+    body: <ServerErrorMessage {...error}/>
+    buttons: [
+      <BS.Button key='ok' onClick={-> Dialog.hide()} bsStyle='primary'>OK</BS.Button>
+    ]
     onOk: reloadOnce
     onCancel: reloadOnce
 
 
 module.exports = {
-  defaultDialogAttributes: ({error, data, context}) ->
+  defaultAttributes: ({error, data, context}) ->
     ERROR_HANDLERS.default({error, data, context})
 
-  getDialogAttributesForCode: (code, {error, data, context}) ->
+  getAttributesForCode: (code, {error, data, context}) ->
     dlg = ERROR_HANDLERS[code] or ERROR_HANDLERS.default
     dlg(error, data, context)
+
+  forError: (error, context) ->
+    handlerArgs = {error, data: error.data, context}
+    console.log handlerArgs
+    if isObject(handlerArgs.data) and handlerArgs.data.errors?.length is 1
+      attrs = @getAttributesForCode(
+        handlerArgs.data.errors[0].code, handlerArgs
+      )
+    attrs or @defaultAttributes(handlerArgs)
+
 }

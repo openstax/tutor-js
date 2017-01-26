@@ -32,16 +32,16 @@ describe 'Error monitoring: handlers', ->
     @args.error = {
       status: 500, statusMessage: '500 Error fool!', config: {}
     }
-    attrs = Handlers.getDialogAttributesForCode('blarg', @args)
-    expect(attrs.dialog.title).to.include('Server Error')
-    wrapper = shallow(<Wrapper body={attrs.dialog.body} />)
+    attrs = Handlers.getAttributesForCode('blarg', @args)
+    expect(attrs.title).to.include('Server Error')
+    wrapper = shallow(<Wrapper body={attrs.body} />)
     expect(wrapper.find('ServerErrorMessage')).to.have.length(1)
     undefined
 
   it 'renders not started message', ->
-    attrs = Handlers.getDialogAttributesForCode('course_not_started', @args)
-    expect(attrs.dialog.title).to.include('Future')
-    wrapper = shallow(<Wrapper body={attrs.dialog.body} />)
+    attrs = Handlers.getAttributesForCode('course_not_started', @args)
+    expect(attrs.title).to.include('Future')
+    wrapper = shallow(<Wrapper body={attrs.body} />)
     expect(wrapper.text()).to.include('not yet started')
     attrs.onOk()
     expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', {courseId: COURSE_ID})
@@ -49,9 +49,9 @@ describe 'Error monitoring: handlers', ->
     undefined
 
   it 'renders course ended message', ->
-    attrs = Handlers.getDialogAttributesForCode('course_ended', @args)
-    expect(attrs.dialog.title).to.include('Past')
-    wrapper = shallow(<Wrapper body={attrs.dialog.body} />)
+    attrs = Handlers.getAttributesForCode('course_ended', @args)
+    expect(attrs.title).to.include('Past')
+    wrapper = shallow(<Wrapper body={attrs.body} />)
     expect(wrapper.text()).to.include('course ended')
     attrs.onOk()
     expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', {courseId: COURSE_ID})
@@ -59,9 +59,9 @@ describe 'Error monitoring: handlers', ->
     undefined
 
   it 'renders exercises not found', ->
-    attrs = Handlers.getDialogAttributesForCode('no_exercises', @args)
-    expect(attrs.dialog.title).to.include('No exercises are available')
-    wrapper = shallow(<Wrapper body={attrs.dialog.body} />)
+    attrs = Handlers.getAttributesForCode('no_exercises', @args)
+    expect(attrs.title).to.include('No exercises are available')
+    wrapper = shallow(<Wrapper body={attrs.body} />)
     expect(wrapper.text()).to.include('no problems to show')
     attrs.onOk()
     expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', {courseId: COURSE_ID})

@@ -24,15 +24,9 @@ module.exports = React.createClass
     error = AppStore.getError()
 
     return unless error and -1 is window.location.search.indexOf('reloaded')
+    dialogAttrs = ErrorHandlers.forError(error, @context)
 
-    handlerArgs = {error, data: error.data, @context}
-
-    if _.isObject(handlerArgs.data) and handlerArgs.data.errors?.length is 1
-      dialogAttrs = ErrorHandlers.getDialogAttributesForCode(
-        handlerArgs.data.errors[0].code, handlerArgs
-      )
-    dialogAttrs ?= ErrorHandlers.defaultDialogAttributes(handlerArgs)
-    Dialog.show( dialogAttrs.dialog ).then(dialogAttrs.onOk, dialogAttrs.onCancel)
+    Dialog.show( dialogAttrs ).then(dialogAttrs.onOk, dialogAttrs.onCancel)
 
 
   # We don't actually render anything
