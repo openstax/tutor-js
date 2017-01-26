@@ -107,7 +107,7 @@ module.exports = {
   forError: (error, context) ->
     handlerArgs = {error, data: error.data, context}
     console.log handlerArgs
-    if _.isObject(handlerArgs.data) and handlerArgs.data.errors?.length is 1
+    if isObject(handlerArgs.data) and handlerArgs.data.errors?.length is 1
       attrs = @getAttributesForCode(
         handlerArgs.data.errors[0].code, handlerArgs
       )
