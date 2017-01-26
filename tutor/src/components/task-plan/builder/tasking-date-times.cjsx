@@ -94,7 +94,11 @@ TaskingDateTimes = React.createClass
     </BS.Col> if error
 
 
-    <BS.Col {...@props.bsSizes} className="tasking-date-times">
+    <BS.Col
+      {...@props.bsSizes}
+      className="tasking-date-times"
+      data-period-id={if period then period.id else 'all'}
+    >
       <DateTime
         {...commonDateTimesProps}
         disabled={isVisibleToStudents or not isEditable}
