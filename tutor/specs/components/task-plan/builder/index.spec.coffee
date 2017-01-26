@@ -53,7 +53,6 @@ getDateValue = (dom, type, periodId = 'all') ->
     wrapper.querySelector(".-assignment-#{type}-time input")?.value
   moment(dateStr, 'MM/DD/YYYY hh:mm a')
 
-
 makeTaskingPeriodKey = (period) ->
   if period then "tasking-period#{period.id}" else "all"
 
@@ -114,15 +113,6 @@ getDueDates = (dom) ->
 getOpenDates = (dom) ->
   availableDueDates = dom.querySelectorAll(OPEN_DATE_INPUT_SELECTOR)
   _.pluck(availableDueDates, 'value')
-
-getOpenDateAtInput = (element, period) ->
-  taskingRefName = makeTaskingPeriodKey(period)
-  element.refs[taskingRefName]?.getDOMNode?().querySelector?(OPEN_DATE_INPUT_SELECTOR)?.value
-
-getDueDateAtInput = (element, period) ->
-  taskingRefName = makeTaskingPeriodKey(period)
-  console.log element.refs[taskingRefName]
-  ReactDOM.findDOMNode(element).querySelector?(DUE_DATE_INPUT_SELECTOR)?.value
 
 describe 'Task Plan Builder', ->
   beforeEach ->
