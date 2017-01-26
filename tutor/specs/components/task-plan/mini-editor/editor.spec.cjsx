@@ -1,4 +1,5 @@
-{React, _} = require '../../helpers/component-testing'
+{React} = require '../../helpers/component-testing'
+_ = require 'underscore'
 
 moment = require 'moment'
 
