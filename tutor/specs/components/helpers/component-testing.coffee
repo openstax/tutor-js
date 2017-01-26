@@ -1,4 +1,3 @@
-jest.mock('../../../src/helpers/router')
 Router = require '../../../src/helpers/router'
 
 _ = require 'underscore'
@@ -30,8 +29,6 @@ CURRENT_ROUTER_QUERY = null
 beforeEach ->
   sandbox = sinon.sandbox.create()
   ROUTER  = new TestRouter
-  Router.currentParams.mockReturnValue({})
-  Router.currentQuery.mockReturnValue({})
 
 afterEach ->
   sandbox.restore()
@@ -58,8 +55,8 @@ Testing = {
     CURRENT_ROUTER_PARAMS = options.routerParams or {}
     CURRENT_ROUTER_QUERY = options.routerQuery or {}
     CURRENT_ROUTER_PATH   = options.routerPath   or '/'
-    Router.currentParams.mockReturnValue(CURRENT_ROUTER_PARAMS)
-    Router.currentQuery.mockReturnValue(CURRENT_ROUTER_QUERY)
+    Router.currentParams.mockReturnValue?(CURRENT_ROUTER_PARAMS)
+    Router.currentQuery.mockReturnValue?(CURRENT_ROUTER_QUERY)
     root = document.createElement('div')
     promise = new Promise( (resolve, reject) ->
       props = _.clone(options.props)
