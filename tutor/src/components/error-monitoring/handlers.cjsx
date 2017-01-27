@@ -98,15 +98,14 @@ ERROR_HANDLERS =
 
 module.exports = {
   defaultAttributes: ({error, data, context}) ->
-    ERROR_HANDLERS.default({error, data, context})
+    ERROR_HANDLERS.default(error, data, context)
 
   getAttributesForCode: (code, {error, data, context}) ->
-    dlg = ERROR_HANDLERS[code] or ERROR_HANDLERS.default
-    dlg(error, data, context)
+    handler = ERROR_HANDLERS[code] or ERROR_HANDLERS.default
+    handler(error, data, context)
 
   forError: (error, context) ->
     handlerArgs = {error, data: error.data, context}
-    console.log handlerArgs
     if isObject(handlerArgs.data) and handlerArgs.data.errors?.length is 1
       attrs = @getAttributesForCode(
         handlerArgs.data.errors[0].code, handlerArgs
