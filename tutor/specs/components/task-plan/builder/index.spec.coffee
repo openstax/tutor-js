@@ -311,7 +311,7 @@ describe 'Task Plan Builder', ->
     courses[0].starts_at = starts_at.format(ISO_DATE_FORMAT)
     courses[0].ends_at = starts_at.clone().add(3, 'month').format(ISO_DATE_FORMAT)
     CourseActions.loaded(courses[0], COURSE_ID)
-    starts_at_iso = starts_at.format(ISO_DATE_FORMAT)
+    starts_at_iso = TimeHelper.getZonedMoment(starts_at).format(ISO_DATE_FORMAT)
     extendedReading =
       due_at: starts_at_iso
       opens_at: starts_at_iso
