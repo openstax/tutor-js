@@ -46,7 +46,7 @@ LoginGateway = React.createClass
         "left="  + (windowImpl.screen.width - width)   / 2].join()
 
       url = @urlForLogin()
-      url += '&go=signup' if options.type is SIGNUP_TYPE
+      url += '&go=student_signup' if options.type is SIGNUP_TYPE
       CURRENT_WINDOW = windowImpl.open(url, 'oxlogin', windowOptions)
 
 
