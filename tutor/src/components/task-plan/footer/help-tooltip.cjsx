@@ -27,9 +27,8 @@ buildTooltip = ({isPublished}) ->
       <strong>Cancel</strong> will discard all changes and return to the calendar.
     </p>
     {<p>
-      <strong>Delete Assignment</strong>
-      will remove the assignment from students dashboards.  Students who
-      have worked the assignment will still be able to review their work.
+      <strong>Delete Assignment</strong> will remove the assignment from students
+      dashboards.  Students who have worked the assignment will still be able to review their work.
     </p> if isPublished}
   </BS.Popover>
 
