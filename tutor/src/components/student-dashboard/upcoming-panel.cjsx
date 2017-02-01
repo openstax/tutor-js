@@ -9,6 +9,7 @@ module.exports = React.createClass
   displayName: 'UpcomingPanel'
   propTypes:
     courseId: React.PropTypes.string.isRequired
+    isCollege: React.PropTypes.bool.isRequired
 
   render: ->
     startAt = moment(TimeStore.getNow()).startOf('isoweek').add(1, 'week')
@@ -18,6 +19,7 @@ module.exports = React.createClass
         className='-upcoming'
         onTaskClick={@onTaskClick}
         courseId={@props.courseId}
+        isCollege={@props.isCollege}
         events=events
         title='Coming Up'
       />

@@ -10,6 +10,7 @@ module.exports = React.createClass
   displayName: 'ThisWeekPanel'
   propTypes:
     courseId: React.PropTypes.string.isRequired
+    isCollege: React.PropTypes.bool.isRequired
 
   render: ->
     startAt = moment(TimeStore.getNow()).startOf('isoweek')
@@ -18,6 +19,7 @@ module.exports = React.createClass
       <Events
         className='-this-week'
         courseId={@props.courseId}
+        isCollege={@props.isCollege}
         events=events
         startAt={startAt}
         endAt={startAt.clone().add(1, 'week').subtract(1, 'second')}

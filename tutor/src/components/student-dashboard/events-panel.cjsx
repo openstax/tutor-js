@@ -14,13 +14,14 @@ module.exports = React.createClass
   displayName: 'EventsPanel'
 
   propTypes:
-    events:   React.PropTypes.array.isRequired
-    courseId: React.PropTypes.string.isRequired
-    startAt:  React.PropTypes.object
-    endAt:    React.PropTypes.object
-    limit:    React.PropTypes.number
-    title:    React.PropTypes.string
-    className: React.PropTypes.string
+    events:     React.PropTypes.array.isRequired
+    courseId:   React.PropTypes.string.isRequired
+    isCollege:  React.PropTypes.bool.isRequired
+    startAt:    React.PropTypes.object
+    endAt:      React.PropTypes.object
+    limit:      React.PropTypes.number
+    title:      React.PropTypes.string
+    className:  React.PropTypes.string
 
   renderTitle: ->
     if @props.title
@@ -33,13 +34,19 @@ module.exports = React.createClass
       </span>
 
   renderEvent: (event) ->
+    rowProps =
+      courseId:   @props.courseId
+      isCollege:  @props.isCollege
+      key:        event.id
+      event:      event
+
     switch event.type
-      when 'reading'  then <ReadingRow  courseId=@props.courseId key={event.id} event={event}/>
-      when 'homework' then <HomeworkRow courseId=@props.courseId key={event.id} event={event}/>
-      when 'external' then <ExternalRow courseId=@props.courseId key={event.id} event={event}/>
-      when 'event' then <EventTaskRow courseId=@props.courseId key={event.id} event={event}/>
+      when 'reading'  then <ReadingRow {...rowProps}/>
+      when 'homework' then <HomeworkRow {...rowProps}/>
+      when 'external' then <ExternalRow {...rowProps}/>
+      when 'event' then <EventTaskRow {...rowProps}/>
       else
-        <GenericEventRow courseId=@props.courseId key={event.id} event={event}/>
+        <GenericEventRow {...rowProps}/>
 
   render: ->
     <BS.Panel className={@props.className}>

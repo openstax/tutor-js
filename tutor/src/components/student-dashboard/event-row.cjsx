@@ -17,6 +17,7 @@ module.exports = React.createClass
     event:     React.PropTypes.object.isRequired
     courseId:  React.PropTypes.string.isRequired
     feedback:  React.PropTypes.string.isRequired
+    isCollege:  React.PropTypes.bool.isRequired
 
   contextTypes:
     router: React.PropTypes.object
@@ -73,7 +74,7 @@ module.exports = React.createClass
       time = <Time date={@props.event.due_at} format='concise'/>
       feedback = [
         <span key="feedback">{@props.feedback}</span>
-        <EventInfoIcon key="icon" event={@props.event} />
+        <EventInfoIcon key="icon" event={@props.event} isCollege={@props.isCollege}/>
       ]
 
     <a
