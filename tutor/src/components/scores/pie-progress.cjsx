@@ -19,9 +19,10 @@ PieProgress = React.createClass
   render: ->
     {size, value, isConceptCoach, isLate} = @props
     progress = @roundToQuarters(value)
+
     lateClass = if isLate and not isConceptCoach then 'late' else ''
     q1 =
-      <g>
+      <g id='q1'>
         <g>
           <circle fill="#DDDDDD" cx="12.334" cy="11.583" r="12"/>
           <path className="slice #{lateClass}"
@@ -33,7 +34,7 @@ PieProgress = React.createClass
           x1="0.334" y1="11.583" x2="24.334" y2="11.583"/>
       </g>
     q2 =
-      <g>
+      <g id='q2'>
         <g>
           <circle fill="#DDDDDD" cx="11.566" cy="11.582" r="12"/>
           <path className="slice #{lateClass}"
@@ -48,7 +49,7 @@ PieProgress = React.createClass
         />
       </g>
     q3 =
-      <g>
+      <g id='q3'>
         <g>
           <circle fill="#DDDDDD" cx="11.799" cy="11.583" r="12"/>
           <g>
@@ -67,7 +68,7 @@ PieProgress = React.createClass
         </g>
       </g>
     q4 =
-      <g>
+      <g id='q4'>
         <circle className="slice #{lateClass}" cx="12.03" cy="11.583" r="12"/>
         <g>
           <line fill="none" stroke="#FFFFFF"
@@ -77,7 +78,9 @@ PieProgress = React.createClass
         </g>
       </g>
     pieCircle =
-      <svg width="#{size}" height="#{size}" className='pie-progress'>
+      <svg width="#{size}" height="#{size}" className='pie-progress'
+        viewBox={"0 0 24 24"}
+      >
         {if progress is 25 then q1}
         {if progress is 50 then q2}
         {if progress is 75 then q3}

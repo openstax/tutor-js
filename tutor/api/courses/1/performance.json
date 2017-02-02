@@ -46,6 +46,14 @@
             "status": "completed",
             "id": 8,
             "type": "reading"
+          },
+          {
+            "type": "external",
+            "id": 702,
+            "status": "not_started",
+            "due_at": "2017-02-04T13:00:00.000Z",
+            "is_late_work_accepted": false,
+            "is_included_in_averages": false
           }
         ],
         "average_score": 0.5,
@@ -100,6 +108,14 @@
             "status": "in_progress",
             "id": 7,
             "type": "reading"
+          },
+          {
+            "type": "external",
+            "id": 703,
+            "status": "not_started",
+            "due_at": "2017-02-04T13:00:00.000Z",
+            "is_late_work_accepted": false,
+            "is_included_in_averages": false
           }
         ],
         "average_score": 0.5,
@@ -154,6 +170,14 @@
             "status": "in_progress",
             "id": 9,
             "type": "reading"
+          },
+          {
+            "type": "external",
+            "id": 704,
+            "status": "not_started",
+            "due_at": "2017-02-04T13:00:00.000Z",
+            "is_late_work_accepted": false,
+            "is_included_in_averages": false
           }
         ],
         "average_score": 0.5,
@@ -207,6 +231,14 @@
             "status": "not_started",
             "id": 3,
             "type": "reading"
+          },
+          {
+            "type": "external",
+            "id": 705,
+            "status": "completed",
+            "due_at": "2017-02-04T13:00:00.000Z",
+            "is_late_work_accepted": false,
+            "is_included_in_averages": false
           }
         ],
         "average_score": 0.0,
@@ -259,6 +291,14 @@
             "status": "not_started",
             "id": 4,
             "type": "reading"
+          },
+          {
+            "type": "external",
+            "id": 706,
+            "status": "completed",
+            "due_at": "2017-02-04T13:00:00.000Z",
+            "is_late_work_accepted": false,
+            "is_included_in_averages": false
           }
         ],
         "average_score": 0.0,
@@ -311,6 +351,14 @@
             "status": "not_started",
             "id": 1,
             "type": "reading"
+          },
+          {
+            "type": "external",
+            "id": 707,
+            "status": "not_started",
+            "due_at": "2017-02-04T13:00:00.000Z",
+            "is_late_work_accepted": false,
+            "is_included_in_averages": false
           }
         ],
         "average_score": 0.0,
@@ -365,6 +413,14 @@
             "status": "in_progress",
             "id": 5,
             "type": "reading"
+          },
+          {
+            "type": "external",
+            "id": 708,
+            "status": "not_started",
+            "due_at": "2017-02-04T13:00:00.000Z",
+            "is_late_work_accepted": false,
+            "is_included_in_averages": false
           }
         ],
         "average_score": 0.0,
@@ -417,6 +473,14 @@
             "status": "not_started",
             "id": 6,
             "type": "reading"
+          },
+          {
+            "type": "external",
+            "id": 709,
+            "status": "not_started",
+            "due_at": "2017-02-04T13:00:00.000Z",
+            "is_late_work_accepted": false,
+            "is_included_in_averages": false
           }
         ],
         "average_score": 0.0,
@@ -469,6 +533,14 @@
             "status": "not_started",
             "id": 2,
             "type": "reading"
+          },
+          {
+            "type": "external",
+            "id": 709,
+            "status": "not_started",
+            "due_at": "2017-02-04T13:00:00.000Z",
+            "is_late_work_accepted": false,
+            "is_included_in_averages": false
           }
         ],
         "average_score": 0.0,
@@ -492,6 +564,13 @@
         "type": "reading",
         "plan_id": 1,
         "title": "Reading Test"
+      },
+      {
+        "title": "eternal assignment",
+        "plan_id": 60,
+        "type": "external",
+        "due_at": "2017-02-04T13:00:00.000Z",
+        "completion_rate": 0
       }
     ],
     "overall_average_score": 0.16666666666666666,

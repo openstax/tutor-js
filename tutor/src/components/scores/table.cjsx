@@ -72,14 +72,14 @@ module.exports = React.createClass
 
 
   OverallHeader: ->
-    <div className='header-cell-wrapper overall-average-cell'>
+    <div className='header-cell-wrapper overall-average'>
       <div className='overall-header-cell'>Overall</div>
-      <div className='average'>
+      <div className='header-row'>
         <span>
           {"#{(@props.overall_average_score * 100).toFixed(0)}%"}
         </span>
       </div>
-      <div className='average empty'></div>
+      <div className='header-row short'></div>
     </div>
 
   OverallCell: (props) ->
@@ -89,7 +89,7 @@ module.exports = React.createClass
 
   NameCell: (props) ->
     student = props.data[props.rowIndex]
-    <div>
+    <div className="name-cell-wrapper">
       <NameCell key='name' {...@props} student={student} />
       <div className="overall-cell">
         {"#{(student.average_score * 100).toFixed(0)}%" if student.average_score?}
@@ -99,27 +99,25 @@ module.exports = React.createClass
 
   NameHeader: (props) ->
     {sort, onSort, isConceptCoach} = @props
-    <div className='header-cell-wrapper'>
-      <div className='assignment-header-cell'>
-        <div className='average-label'>
-          Class Performance &nbsp
-          <sup>
-            <AverageInfo isConceptCoach={isConceptCoach} />
-          </sup>
-        </div>
-        <div className='student-header'>
-          <div className='scores-cell'>
-            <SortingHeader
-              sortKey='name'
-              sortState={sort}
-              onSort={onSort}
-              dataType={'name'}
-            >
-                <div className='student-name'>Name and Student ID</div>
-            </SortingHeader>
-          </div>
-        </div>
+    <div className='header-cell-wrapper student-names'>
+      <div className='overall-header-cell' />
+      <div className='header-row'>
+        Class Performance
+        <AverageInfo isConceptCoach={isConceptCoach} />
       </div>
+      <div className='header-row short'>
+
+        <SortingHeader
+          sortKey='name'
+          sortState={sort}
+          onSort={onSort}
+          dataType={'name'}
+        >
+            <div className='student-name'>Name and Student ID</div>
+        </SortingHeader>
+
+      </div>
+
     </div>
 
   render: ->

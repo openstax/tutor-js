@@ -50,6 +50,8 @@ getSortValue = (student, index, dataType, displayAs) ->
         when 'completed'
           progress = record.completed_exercise_count
           percent(progress, record.exercise_count)
+    else # default to using record status for external and other type of events
+      record.status
 
 
 
