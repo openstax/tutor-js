@@ -36,6 +36,13 @@ describe 'User login gateway component', ->
       )
     undefined
 
+  it 'requests a student signup', ->
+    @props.loginType = 'signup'
+    wrapper = shallow(<LoginGateway {...@props} />)
+    wrapper.find('a').simulate('click')
+    expect(@props.windowImpl.open).to.have.been.calledWith(sinon.match(/go=student_signup/))
+    undefined
+
   it 'has differnt wording depending on login or enroll', ->
     @props.loginType = 'signup'
     expect(SnapShot.create(<LoginGateway {...@props} />).toJSON()).toMatchSnapshot()
