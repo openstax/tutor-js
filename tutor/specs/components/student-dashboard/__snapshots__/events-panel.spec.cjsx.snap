@@ -1,0 +1,414 @@
+exports[`EventsPanel renders with events 1`] = `
+<div
+  className="panel panel-default"
+  id={undefined}>
+  <div
+    className="panel-body">
+    <div
+      className="row labels">
+      <div
+        className="col-sm-7 col-xs-12">
+        <span
+          className="date-range">
+          <time>
+            Feb 03, 2017
+          </time>
+          –
+          <time>
+            Feb 03, 2017
+          </time>
+        </span>
+      </div>
+      <div
+        className="progress-label col-sm-3 col-sm-offset-0 col-xs-5 col-xs-offset-2">
+        Progress
+      </div>
+      <div
+        className="due-at-label col-sm-2 col-xs-5">
+        Due
+      </div>
+    </div>
+    <a
+      aria-labelledby="Work on homework: Chapter 6 Homework Before Due, no feedback"
+      className="task row homework workable"
+      data-event-id="6"
+      href="#"
+      onClick={[Function]}
+      onKeyDown={undefined}
+      tabIndex={0}>
+      <div
+        className="column-icon col-sm-1 col-xs-2">
+        <i
+          aria-label="homework icon"
+          className="icon icon-lg icon-homework" />
+      </div>
+      <div
+        className="title col-sm-6 col-xs-10">
+        Chapter 6 Homework Before Due, no feedback
+      </div>
+      <div
+        className="feedback col-sm-3 col-xs-5">
+        <span>
+          0/2 answered
+        </span>
+        <i
+          aria-describedby="event-info-icon-6"
+          className="info late"
+          onBlur={[Function]}
+          onClick={null}
+          onFocus={[Function]}
+          onMouseOut={[Function]}
+          onMouseOver={[Function]} />
+      </div>
+      <div
+        className="due-at col-sm-2 col-xs-5">
+        <time>
+          Apr 24, 7:45pm
+        </time>
+      </div>
+    </a>
+    <a
+      aria-labelledby="Work on reading: Chapter 5 and Chapter 6 Reading"
+      className="task row reading workable"
+      data-event-id="4"
+      href="#"
+      onClick={[Function]}
+      onKeyDown={undefined}
+      tabIndex={0}>
+      <div
+        className="column-icon col-sm-1 col-xs-2">
+        <i
+          aria-label="reading icon"
+          className="icon icon-lg icon-reading" />
+      </div>
+      <div
+        className="title col-sm-6 col-xs-10">
+        Chapter 5 and Chapter 6 Reading
+      </div>
+      <div
+        className="feedback col-sm-3 col-xs-5">
+        <span>
+          Not started
+        </span>
+      </div>
+      <div
+        className="due-at col-sm-2 col-xs-5">
+        <time>
+          Apr 24, 7:45pm
+        </time>
+      </div>
+    </a>
+    <a
+      aria-labelledby="Work on reading: Chapter 10 and Chapter 11 Reading, multi-part"
+      className="task row reading workable"
+      data-event-id="9"
+      href="#"
+      onClick={[Function]}
+      onKeyDown={undefined}
+      tabIndex={0}>
+      <div
+        className="column-icon col-sm-1 col-xs-2">
+        <i
+          aria-label="reading icon"
+          className="icon icon-lg icon-reading" />
+      </div>
+      <div
+        className="title col-sm-6 col-xs-10">
+        Chapter 10 and Chapter 11 Reading, multi-part
+      </div>
+      <div
+        className="feedback col-sm-3 col-xs-5">
+        <span>
+          Not started
+        </span>
+      </div>
+      <div
+        className="due-at col-sm-2 col-xs-5">
+        <time>
+          Apr 24, 7:45pm
+        </time>
+      </div>
+    </a>
+    <a
+      aria-labelledby="Work on reading: iReading 1: Force"
+      className="task row reading workable"
+      data-event-id="3"
+      href="#"
+      onClick={[Function]}
+      onKeyDown={undefined}
+      tabIndex={0}>
+      <div
+        className="column-icon col-sm-1 col-xs-2">
+        <i
+          aria-label="reading icon"
+          className="icon icon-lg icon-reading" />
+      </div>
+      <div
+        className="title col-sm-6 col-xs-10">
+        iReading 1: Force
+      </div>
+      <div
+        className="feedback col-sm-3 col-xs-5">
+        <span>
+          Not started
+        </span>
+      </div>
+      <div
+        className="due-at col-sm-2 col-xs-5">
+        <time>
+          Apr 12, 3:15am
+        </time>
+      </div>
+    </a>
+    <a
+      aria-labelledby="Work on reading: iReading 2: Newton\'s First Law of Motion: Inertia"
+      className="task row reading workable"
+      data-event-id="5"
+      href="#"
+      onClick={[Function]}
+      onKeyDown={undefined}
+      tabIndex={0}>
+      <div
+        className="column-icon col-sm-1 col-xs-2">
+        <i
+          aria-label="reading icon"
+          className="icon icon-lg icon-reading" />
+      </div>
+      <div
+        className="title col-sm-6 col-xs-10">
+        iReading 2: Newton\'s First Law of Motion: Inertia
+      </div>
+      <div
+        className="feedback col-sm-3 col-xs-5">
+        <span>
+          Complete
+        </span>
+      </div>
+      <div
+        className="due-at col-sm-2 col-xs-5">
+        <time>
+          Apr 13, 3:15am
+        </time>
+      </div>
+    </a>
+    <a
+      aria-labelledby="Work on reading: iReading 3: Newton\'s Second Law of Motion:"
+      className="task row reading workable"
+      data-event-id="7"
+      href="#"
+      onClick={[Function]}
+      onKeyDown={undefined}
+      tabIndex={0}>
+      <div
+        className="column-icon col-sm-1 col-xs-2">
+        <i
+          aria-label="reading icon"
+          className="icon icon-lg icon-reading" />
+      </div>
+      <div
+        className="title col-sm-6 col-xs-10">
+        iReading 3: Newton\'s Second Law of Motion:
+      </div>
+      <div
+        className="feedback col-sm-3 col-xs-5">
+        <span>
+          In progress
+        </span>
+      </div>
+      <div
+        className="due-at col-sm-2 col-xs-5">
+        <time>
+          Apr 16, 9:15am
+        </time>
+      </div>
+    </a>
+    <a
+      aria-labelledby="Work on reading: iReading 4: Newton\'s Third Law of Motion"
+      className="task row reading workable"
+      data-event-id="10"
+      href="#"
+      onClick={[Function]}
+      onKeyDown={undefined}
+      tabIndex={0}>
+      <div
+        className="column-icon col-sm-1 col-xs-2">
+        <i
+          aria-label="reading icon"
+          className="icon icon-lg icon-reading" />
+      </div>
+      <div
+        className="title col-sm-6 col-xs-10">
+        iReading 4: Newton\'s Third Law of Motion
+      </div>
+      <div
+        className="feedback col-sm-3 col-xs-5">
+        <span>
+          Not started
+        </span>
+      </div>
+      <div
+        className="due-at col-sm-2 col-xs-5">
+        <time>
+          Apr 19, 9:15am
+        </time>
+      </div>
+    </a>
+    <a
+      aria-labelledby="Work on homework: Homework #1"
+      className="task row homework workable"
+      data-event-id="11"
+      href="#"
+      onClick={[Function]}
+      onKeyDown={undefined}
+      tabIndex={0}>
+      <div
+        className="column-icon col-sm-1 col-xs-2">
+        <i
+          aria-label="homework icon"
+          className="icon icon-lg icon-homework" />
+      </div>
+      <div
+        className="title col-sm-6 col-xs-10">
+        Homework #1
+      </div>
+      <div
+        className="feedback col-sm-3 col-xs-5">
+        <span>
+          6/7 correct
+        </span>
+        <i
+          aria-describedby="event-info-icon-11"
+          className="info late"
+          onBlur={[Function]}
+          onClick={null}
+          onFocus={[Function]}
+          onMouseOut={[Function]}
+          onMouseOver={[Function]} />
+      </div>
+      <div
+        className="due-at col-sm-2 col-xs-5">
+        <time>
+          Apr 20, 9:15am
+        </time>
+      </div>
+    </a>
+    <a
+      aria-labelledby="Work on homework: Homework #2"
+      className="task row homework workable"
+      data-event-id="13"
+      href="#"
+      onClick={[Function]}
+      onKeyDown={undefined}
+      tabIndex={0}>
+      <div
+        className="column-icon col-sm-1 col-xs-2">
+        <i
+          aria-label="homework icon"
+          className="icon icon-lg icon-homework" />
+      </div>
+      <div
+        className="title col-sm-6 col-xs-10">
+        Homework #2
+      </div>
+      <div
+        className="feedback col-sm-3 col-xs-5">
+        <span>
+          7/8 correct
+        </span>
+        <i
+          aria-describedby="event-info-icon-13"
+          className="info late"
+          onBlur={[Function]}
+          onClick={null}
+          onFocus={[Function]}
+          onMouseOut={[Function]}
+          onMouseOver={[Function]} />
+      </div>
+      <div
+        className="due-at col-sm-2 col-xs-5">
+        <time>
+          Apr 21, 9:15am
+        </time>
+      </div>
+    </a>
+    <a
+      aria-labelledby="Work on homework: Homework #3"
+      className="task row homework workable"
+      data-event-id="15"
+      href="#"
+      onClick={[Function]}
+      onKeyDown={undefined}
+      tabIndex={0}>
+      <div
+        className="column-icon col-sm-1 col-xs-2">
+        <i
+          aria-label="homework icon"
+          className="icon icon-lg icon-homework" />
+      </div>
+      <div
+        className="title col-sm-6 col-xs-10">
+        Homework #3
+      </div>
+      <div
+        className="feedback col-sm-3 col-xs-5">
+        <span>
+          6/6 answered
+        </span>
+        <i
+          aria-describedby="event-info-icon-15"
+          className="info late"
+          onBlur={[Function]}
+          onClick={null}
+          onFocus={[Function]}
+          onMouseOut={[Function]}
+          onMouseOver={[Function]} />
+      </div>
+      <div
+        className="due-at col-sm-2 col-xs-5">
+        <time>
+          May 04, 6:15pm
+        </time>
+      </div>
+    </a>
+    <a
+      aria-labelledby="Work on homework: Homework #4 (final)"
+      className="task row homework workable"
+      data-event-id="17"
+      href="#"
+      onClick={[Function]}
+      onKeyDown={undefined}
+      tabIndex={0}>
+      <div
+        className="column-icon col-sm-1 col-xs-2">
+        <i
+          aria-label="homework icon"
+          className="icon icon-lg icon-homework" />
+      </div>
+      <div
+        className="title col-sm-6 col-xs-10">
+        Homework #4 (final)
+      </div>
+      <div
+        className="feedback col-sm-3 col-xs-5">
+        <span>
+          7/3 answered
+        </span>
+        <i
+          aria-describedby="event-info-icon-17"
+          className="info late"
+          onBlur={[Function]}
+          onClick={null}
+          onFocus={[Function]}
+          onMouseOut={[Function]}
+          onMouseOver={[Function]} />
+      </div>
+      <div
+        className="due-at col-sm-2 col-xs-5">
+        <time>
+          May 19, 9:15am
+        </time>
+      </div>
+    </a>
+  </div>
+</div>
+`;
