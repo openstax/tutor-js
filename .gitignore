@@ -6,7 +6,6 @@ dist
 *.orig
 /test-failed-*.png
 /coverage
-/coverage-selenium.json
 /docs*
 archive.tar.gz
 *.cjsx.js
