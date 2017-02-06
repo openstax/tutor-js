@@ -8,7 +8,7 @@ EmptyPanel      = require './empty-panel'
 UpcomingPanel   = require './upcoming-panel'
 AllEventsByWeek = require './all-events-by-week'
 ThisWeekPanel   = require './this-week-panel'
-
+PaymentsModal   = require '../payments/modal'
 ProgressGuideShell = require './progress-guide'
 BrowseTheBook = require '../buttons/browse-the-book'
 CourseTitleBanner = require '../course-title-banner'
@@ -60,7 +60,7 @@ module.exports = React.createClass
         callbacks={NotificationHelpers.buildCallbackHandlers(@)}
       />
       <CourseTitleBanner courseId={courseId} />
-
+      <PaymentsModal />
       <div className='container'>
 
         <BS.Row>
