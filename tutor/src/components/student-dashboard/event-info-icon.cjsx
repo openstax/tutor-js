@@ -18,10 +18,10 @@ module.exports = React.createClass
     # TODO this is naive and not timezone aware.  As a hotfix, this should suffice.
     now   = moment(TimeStore.getNow())
     dueAt = moment(event.due_at)
-    isIncomplete = event.complete_exercise_count isnt event.exercise_count
+    isIncomplete = not event.complete
     pastDue      = shouldShowLate and dueAt.isBefore(now)
     isDueToday   = now.isBetween(dueAt.clone().subtract(1, 'day'), dueAt)
-    workedLate   = moment(event.last_worked_at).isAfter(dueAt)
+    workedLate   = if event.last_worked_at then moment(event.last_worked_at).isAfter(dueAt) else false
 
     unless shouldShowLate and ( (isIncomplete or workedLate) and (pastDue or isDueToday ))
       return null
