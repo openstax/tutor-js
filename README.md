@@ -36,23 +36,6 @@ After local updates are made:
 1. restart `npm start`
 
 
-## Selenium Tests
-
-To run the Selenium tests:
-
-- `npm run test-integration`: runs the tests locally against `http://localhost:3001` by default (also builds the JS files and serves them)
-  - Environment Variables
-    1. `SERVER_URL="https://example.com"` will run the tests against a remote server
-    1. `VERBOSE=true` will print out what is being done as it is running
-- `npm run test-integration:only` will just run the tests without building and serving the JS files
-
-To debug the Selenium tests:
-
-- `npm run debug-integration`: Starts up `node-inspector`
-  - add `debugger;` to the tests to set a breakpoint that the debugger will stop at
-  - change a test from `this.it()` or `@it()` to `this.it.only()` to only run the one test
-  - **Note:** you may have to kill the process if you pressed <kbd>Ctrl</kbd>+<kbd>C</kbd>  (ie `ps ax|grep 5858`)
-
 ### Pre-production
 
 Before starting up vagrant, you can debug using a more production-like config by:

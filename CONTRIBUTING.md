@@ -24,8 +24,6 @@ See [openstax/CONTRIBUTING.md](https://github.com/openstax/napkin-notes/CONTRIBU
 
 # Code to Include
 
-- Add selenium code to be able to exercise the feature or bug in the Pull Request
-  - test by [Running Selenium](./test-integration/)
 - Fix lint warnings by running `npm run lint-cjsx`
 - Every element should have a `className`
   - prefix the classname with `-` if it does not appear in CSS
