@@ -1,3 +1,7 @@
+.public_fixedDataTableCell_main {
+  border-right: 1px solid @nav-tabs-border-color;
+}
+
 .header-cell-wrapper {
   @row-height: 30px;
   @short-row-height: 26px;
@@ -90,34 +94,26 @@
       line-height: @row-height;
       font-style: italic;
       color: @tutor-neutral-lite;
-      border-right: 1px solid @nav-tabs-border-color;
     }
 
     .header-row {
       font-weight: normal;
       border-top: @thick-grey-border;
-      .average {
-        width: 50%;
-        font-weight: 600;
+
+      > * {
         border-right: 1px solid @nav-tabs-border-color;
-        &.wide {
+        width: 50%;
+        &:only-child { // override "split" styling if it's the only child
+          border-right: 0;
           width: 100%;
         }
       }
-      .review-link {
-        border-right: 1px solid @nav-tabs-border-color;
-        width: 50%;
-        &.wide {
-          width: 100%;
-        }
+
+      .average {
+        font-weight: 600;
       }
       .scores-cell {
-        width: 100%;
         text-align: center;
-        border-right: 1px solid @nav-tabs-border-color;
-        &.click-rate {
-          width: 100%;
-        }
       }
     }
   }
@@ -131,7 +127,6 @@
     text-overflow: ellipsis;
     width: 100%;
     position: relative;
-    border-right: 1px solid @nav-tabs-border-color;
     &.sortable {
       font-size: 1.2rem;
       background-color: @student-header-bg-color;
@@ -152,7 +147,8 @@
     &.is-ascending::after  { content: @fa-var-sort-asc;  }
     &.is-descending::after { content: @fa-var-sort-desc; }
     &.group.title {
-      // border-top styles are defaults which are overridden by the .tutor-plan-set() mixin for specific types
+      // border-top rules are defaults for the cell and are overridden by .tutor-plan-set() mixin
+      // for various assignment types
       border-top-width: 1px;
       border-top-style: solid;
       border-top-color: @nav-tabs-border-color;
@@ -166,21 +162,5 @@
       background: lighten(@student-header-bg-color, 4%);
       .transition(background 0.2s);
     }
-  }
-
-
-}
-
-// If any of the items on the last column fail to render because they're a type of cell that
-// doesn't use them (external, CC, etc), then we end up without a border on the table which looks weird.
-//
-// To workaround that we add a border on the entire right side of the header cell and remove
-// it from any cells that may be inside to prevent double-borders
-.public_fixedDataTable_header .public_fixedDataTableCell_main:last-child {
-  border-right: 1px solid @nav-tabs-border-color;
-  .due,
-  .header-row .review-link,
-  .header-cell-wrapper .header-cell {
-    border-right: 0;
   }
 }
