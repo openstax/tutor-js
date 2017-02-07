@@ -1,6 +1,6 @@
-{React} = require '../helpers/component-testing'
+{React, SnapShot, Wrapper} = require '../helpers/component-testing'
 _ = require 'lodash'
-SnapShot = require 'react-test-renderer'
+
 
 EnzymeContext = require '../helpers/enzyme-context'
 
@@ -42,3 +42,8 @@ describe 'Scores Report', ->
     wrapper.find('.header-cell.sortable').at(1).simulate('click')
     expect(getStudentNames(wrapper)).to.deep.equal(_.map(sorted.reverse(), 'name'))
     undefined
+
+  it 'renders and matches snapshot', ->
+    expect(SnapShot.create(
+      <Wrapper _wrapped_component={Scores} noReference {...@props}/>).toJSON()
+    ).toMatchSnapshot()
