@@ -8,7 +8,7 @@ Time   = require '../time'
 
 ReviewLink = (props) ->
   return null if props.isConceptCoach or props.heading.type is 'external' or not props.heading.plan_id?
-  <span className="review-link #{props.cellWidth}">
+  <span className="review-link">
     <TutorLink
       to='reviewTask'
       query={tab: props.periodIndex}
@@ -21,7 +21,7 @@ ReviewLink.displayName = 'ReviewLink'
 
 AverageLabel = (props) ->
   if props.average_score
-    <span className="average #{props.cellWidth}">
+    <span className="average">
       {(props.average_score * 100).toFixed(0)}%
     </span>
   else
@@ -41,15 +41,6 @@ AverageLabel = (props) ->
     else
       null
 AverageLabel.displayName = 'AverageLabel'
-
-getCellWidth = ({isConceptCoach, heading}) ->
-  if isConceptCoach
-    'wide'
-  else
-    switch heading.type
-      when 'reading' then 'wide'
-      when 'external' then 'wide'
-      else ''
 
 AssignmentSortingHeader = (props) ->
   {heading, dataType, columnIndex, sort, onSort} = props
@@ -93,8 +84,6 @@ AssignmentHeader = (props) ->
   {isConceptCoach, periodIndex, period_id, courseId, sort, onSort, columnIndex, width} = props
   heading = props.headings[columnIndex]
 
-  cellWidth = getCellWidth({isConceptCoach, heading})
-
   <div className='header-cell-wrapper assignment'>
     <BS.OverlayTrigger
       placement='top'
@@ -119,8 +108,8 @@ AssignmentHeader = (props) ->
       </div>
     </BS.OverlayTrigger>
     <div className='header-row'>
-      <AverageLabel {...props} heading={heading} cellWidth={cellWidth} />
-      <ReviewLink {...props} heading={heading} cellWidth={cellWidth} />
+      <AverageLabel {...props} heading={heading} />
+      <ReviewLink {...props} heading={heading} />
     </div>
     <div className='header-row short'>
       <AssignmentSortingHeader {...props} heading={heading} />

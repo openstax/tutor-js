@@ -1,0 +1,114 @@
+exports[`Scores Report: assignment column header for a CC course matches snapshot 1`] = `
+<div
+  className="header-cell-wrapper assignment">
+  <div
+    aria-describedby="header-cell-title-0"
+    className="expanded-header-row"
+    onBlur={[Function]}
+    onClick={null}
+    onFocus={[Function]}
+    onMouseOut={[Function]}
+    onMouseOver={[Function]}>
+    <div
+      className="header-cell group title cc"
+      data-assignment-type="homework">
+      Homework Test
+    </div>
+  </div>
+  <div
+    className="header-row">
+    <span
+      className="average">
+      ---
+    </span>
+  </div>
+  <div
+    className="header-row short">
+    <div
+      className="scores-cell">
+      <div
+        className="header-cell sortable"
+        data-assignment-type="homework"
+        onClick={[Function]}>
+        <div>
+          Score
+        </div>
+      </div>
+      <div
+        className="header-cell sortable"
+        data-assignment-type="homework"
+        onClick={[Function]}>
+        <div>
+          Progress
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Scores Report: assignment column header renders and matches snapshot 1`] = `
+<div
+  className="header-cell-wrapper assignment">
+  <div
+    aria-describedby="header-cell-title-0"
+    className="expanded-header-row"
+    onBlur={[Function]}
+    onClick={null}
+    onFocus={[Function]}
+    onMouseOut={[Function]}
+    onMouseOver={[Function]}>
+    <div
+      className="header-cell group title"
+      data-assignment-type="homework">
+      Homework Test
+    </div>
+    <div
+      className="due">
+      due 
+      <time>
+        5/31
+      </time>
+    </div>
+  </div>
+  <div
+    className="header-row">
+    <span
+      className="average">
+      ---
+    </span>
+    <span
+      className="review-link">
+      <a
+        className=""
+        href="/"
+        onClick={[Function]}
+        style={Object {}}>
+        Review
+      </a>
+    </span>
+  </div>
+  <div
+    className="header-row short">
+    <div
+      className="scores-cell">
+      <div
+        className="header-cell sortable"
+        data-assignment-type="homework"
+        onClick={[Function]}>
+        <div>
+          Score
+        </div>
+      </div>
+      <div
+        className="header-cell sortable"
+        data-assignment-type="homework"
+        onClick={[Function]}>
+        <div>
+          Progress
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
