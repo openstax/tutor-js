@@ -164,4 +164,19 @@
     }
   }
 
+
+}
+
+// If any of the items on the last column fail to render because they're a type of cell that
+// doesn't use them (external, CC, etc), then we end up without a border on the table which looks weird.
+//
+// To workaround that we add a border on the entire right side of the header cell and remove
+// it from any cells that may be inside to prevent double-borders
+.public_fixedDataTable_header .public_fixedDataTableCell_main:last-child {
+  border-right: 1px solid @nav-tabs-border-color;
+  .due,
+  .header-row .review-link,
+  .header-cell-wrapper .header-cell {
+    border-right: 0;
+  }
 }
