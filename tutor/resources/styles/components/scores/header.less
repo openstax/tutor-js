@@ -152,6 +152,10 @@
     &.is-ascending::after  { content: @fa-var-sort-asc;  }
     &.is-descending::after { content: @fa-var-sort-desc; }
     &.group.title {
+      // border-top styles are defaults which are overridden by the .tutor-plan-set() mixin for specific types
+      border-top-width: 1px;
+      border-top-style: solid;
+      border-top-color: @nav-tabs-border-color;
       .tutor-plan-set(heading);
       .flex(1);
       padding: 8px;
