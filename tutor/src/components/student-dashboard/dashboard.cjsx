@@ -34,16 +34,16 @@ module.exports = React.createClass
     else
       ev.preventDefault()
 
-  renderPastWork: (courseId) ->
+  renderPastWork: (course) ->
     <div className="tab-pane active">
-      <AllEventsByWeek courseId={courseId}/>
+      <AllEventsByWeek courseId={course.id} isCollege={course.is_college}/>
     </div>
 
 
-  renderThisWeek: (courseId) ->
+  renderThisWeek: (course) ->
     <div className="tab-pane active">
-      <ThisWeekPanel courseId={courseId}/>
-      <UpcomingPanel courseId={courseId}/>
+      <ThisWeekPanel courseId={course.id} isCollege={course.is_college}/>
+      <UpcomingPanel courseId={course.id} isCollege={course.is_college}/>
     </div>
 
   # router context is needed for Navbar helpers
@@ -52,11 +52,12 @@ module.exports = React.createClass
 
   render: ->
     {courseId} = @props
+    course = CourseStore.get(courseId)
 
     <div className="dashboard">
       <NotificationsBar
         role={CurrentUserStore.getCourseRole(courseId)}
-        course={CourseStore.get(courseId)}
+        course={course}
         callbacks={NotificationHelpers.buildCallbackHandlers(@)}
       />
       <CourseTitleBanner courseId={courseId} />
@@ -72,7 +73,7 @@ module.exports = React.createClass
               tabs={['This Week', 'All Past Work']}
             />
 
-            {if @state.tabIndex is 0 then @renderThisWeek(courseId) else @renderPastWork(courseId)}
+            {if @state.tabIndex is 0 then @renderThisWeek(course) else @renderPastWork(course)}
 
           </BS.Col>
 

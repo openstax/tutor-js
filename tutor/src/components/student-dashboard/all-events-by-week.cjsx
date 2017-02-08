@@ -9,6 +9,7 @@ module.exports = React.createClass
   displayName: 'AllEventsByWeek'
   propTypes:
     courseId: React.PropTypes.string.isRequired
+    isCollege: React.PropTypes.bool.isRequired
 
   renderWeek:(events, week) ->
     startAt = moment(week, 'YYYYww')
@@ -16,6 +17,7 @@ module.exports = React.createClass
       key={week}
       className='-weeks-events'
       courseId={@props.courseId}
+      isCollege={@props.isCollege}
       events={events}
       startAt={startAt}
       endAt={startAt.clone().add(1, 'week')}

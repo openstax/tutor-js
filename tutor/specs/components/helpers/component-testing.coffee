@@ -87,7 +87,7 @@ Testing = {
     renderer = ReactTestUtils.createRenderer()
     renderer.render(component, context)
     output = renderer.getRenderOutput()
-    ReactContext.current = {}
+    # ReactContext.current = {}
 
     output
 }

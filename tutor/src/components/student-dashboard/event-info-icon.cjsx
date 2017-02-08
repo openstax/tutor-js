@@ -9,19 +9,21 @@ module.exports = React.createClass
 
   propTypes:
     event: React.PropTypes.object.isRequired
+    isCollege:  React.PropTypes.bool.isRequired
 
   render: ->
-    {event} = @props
+    {event, isCollege} = @props
 
+    shouldShowLate = isCollege or event.type is 'homework'
     # TODO this is naive and not timezone aware.  As a hotfix, this should suffice.
     now   = moment(TimeStore.getNow())
     dueAt = moment(event.due_at)
-    isIncomplete = event.complete_exercise_count isnt event.exercise_count
-    pastDue      = event.type is 'homework' and dueAt.isBefore(now)
+    isIncomplete = not event.complete
+    pastDue      = shouldShowLate and dueAt.isBefore(now)
     isDueToday   = now.isBetween(dueAt.clone().subtract(1, 'day'), dueAt)
-    workedLate   = moment(event.last_worked_at).isAfter(dueAt)
+    workedLate   = if event.last_worked_at then moment(event.last_worked_at).isAfter(dueAt) else false
 
-    unless @props.event.type is 'homework' and ( (isIncomplete or workedLate) and (pastDue or isDueToday ))
+    unless shouldShowLate and ( (isIncomplete or workedLate) and (pastDue or isDueToday ))
       return null
 
     status = if (workedLate or pastDue) then 'late' else 'incomplete'
