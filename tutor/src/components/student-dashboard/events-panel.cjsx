@@ -40,13 +40,15 @@ module.exports = React.createClass
       key:        event.id
       event:      event
 
-    switch event.type
-      when 'reading'  then <ReadingRow {...rowProps}/>
-      when 'homework' then <HomeworkRow {...rowProps}/>
-      when 'external' then <ExternalRow {...rowProps}/>
-      when 'event' then <EventTaskRow {...rowProps}/>
+    Row = switch event.type
+      when 'reading'  then  ReadingRow
+      when 'homework' then  HomeworkRow
+      when 'external' then  ExternalRow
+      when 'event'    then  EventTaskRow
       else
-        <GenericEventRow {...rowProps}/>
+        GenericEventRow
+
+    <Row {...rowProps}/>
 
   render: ->
     <BS.Panel className={@props.className}>
