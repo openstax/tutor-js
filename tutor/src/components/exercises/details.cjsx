@@ -9,8 +9,9 @@ NoExercisesFound  = require './no-exercises-found'
 Icon              = require '../icon'
 
 ExerciseDetails = React.createClass
-
+  displayName: 'ExerciseDetails'
   propTypes:
+    courseId:              React.PropTypes.string.isRequired
     ecosystemId:           React.PropTypes.string.isRequired
     selectedExercise:      React.PropTypes.object.isRequired
     selectedSection:       React.PropTypes.string
