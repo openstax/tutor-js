@@ -29,6 +29,9 @@ CourseConfig =
       {appearance_code} = @_local[courseId]
       CourseInformation.forAppearanceCode(appearance_code)?.title or ''
 
+    getBookUUID: (courseId) ->
+      @_local[courseId]?.ecosystem_book_uuid
+
     getSubject: (courseId) ->
       {appearance_code} = @_local[courseId]
       CourseInformation.forAppearanceCode(appearance_code)?.subject or ''
