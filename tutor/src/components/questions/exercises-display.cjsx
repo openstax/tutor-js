@@ -162,7 +162,7 @@ ExercisesDisplay = React.createClass
       handler: @onShowDetailsViewClick
 
   reportError: (ev, exercise) ->
-    ExerciseHelpers.openReportErrorPage(exercise)
+    ExerciseHelpers.openReportErrorPage(exercise, @props.courseId)
 
   toggleFeedback: ->
     @setState(displayFeedback: not @state.displayFeedback)
