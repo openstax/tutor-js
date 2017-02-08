@@ -1,11 +1,20 @@
 _ = require 'underscore'
 {ExerciseStore} = require '../flux/exercise'
 {ExerciseHelpers} = require 'shared'
+{CourseStore} = require '../flux/course'
+
 
 TutorHelpers = {
 
-  openReportErrorPage: (exercise) ->
-    window.open(@troubleUrl(exerciseId: exercise.content.uid), '_blank')
+  openReportErrorPage: (exercise, courseId) ->
+
+    window.open(
+      @troubleUrl(
+        project: 'tutor',
+        bookUUID: CourseStore.getBookUUID(courseId),
+        exerciseId: exercise.content.uid
+      )
+    , '_blank')
 
 }
 
