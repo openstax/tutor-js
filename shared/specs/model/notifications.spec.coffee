@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _} = require 'shared/specs/helpers'
+{Testing, sinon, _} = require 'shared/specs/helpers'
 moment = require 'moment'
 URLs = require 'model/urls'
 Notifications = require 'model/notifications'
