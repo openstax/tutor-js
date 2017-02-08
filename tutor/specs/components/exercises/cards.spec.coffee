@@ -1,8 +1,9 @@
-{Testing, expect, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
+{Testing, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
 
 Cards = require '../../../src/components/exercises/cards'
 {ExerciseActions, ExerciseStore} = require '../../../src/flux/exercise'
-FakeWindow = require 'shared/test/helpers/fake-window'
+
+FakeWindow = require 'shared/specs/helpers/fake-window'
 
 
 EXERCISES = require '../../../api/exercises'
