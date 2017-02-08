@@ -18,6 +18,21 @@ ErrorHandlers = require './errors'
 
 TaskBase = React.createClass
   displayName: 'TaskBase'
+
+  propTypes:
+    collectionUUID: React.PropTypes.string.isRequired
+    moduleUUID: React.PropTypes.string.isRequired
+
+  # Book and Project context is used by the exercise identifier link which
+  # deeply nested and impractical to pass through the tree.
+  childContextTypes:
+    bookUUID:  React.PropTypes.string
+    oxProject: React.PropTypes.string
+
+  getChildContext: ->
+    bookUUID: @props.collectionUUID
+    oxProject: 'coach'
+
   getInitialState: ->
     {item} = @props
     initialState = @getState()
