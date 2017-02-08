@@ -1,4 +1,4 @@
-_ = require 'underscore'
+qs = require 'qs'
 
 BOOK_UID_XREF =
   '27275f49-f212-4506-b3b1-a4d5e3598b99': 'Tutor Physics'
@@ -9,18 +9,19 @@ BOOK_UID_XREF =
   '4f86c023-a135-412a-9d96-dcbd1ca61e7d': 'Introduction to Sociology 2e with Concept Coach'
   'd2fbadca-e4f3-4432-a074-2438c216b62a': 'Principles of Economics with Concept Coach'
   '99e127f8-f722-4907-a6b3-2d62fca135d6': 'Anatomy & Physiology with Concept Coach'
+  '3402dc53-113d-45f3-954e-8d2ad1e73659': 'Mini Biology CC Test'
+  '185cbf87-c72e-48f5-b51e-f14f21b5eabd': 'Biology'
+  '405335a3-7cff-4df2-a9ad-29062a4af261': 'Physics'
 
 Exercises =
 
-  troubleUrl: (options = {}) ->
-    url = 'https://docs.google.com/a/rice.edu/forms/d/' +
-    '1AmwbFIRvZJ6F91PQp1I6jQgqM9Kc3qNMrHdLdqhj8FE/viewform' +
-    "?entry.649352110=#{options.exerciseId}"
-    if options.project
-      url += "&entry.1655668181=#{if options.project is 'concept-coach' then 'Yes' else 'No'}"
-    if options.bookUUID and BOOK_UID_XREF[options.bookUUID]
-      url += "&entry.1091629000=#{BOOK_UID_XREF[options.bookUUID]}"
-    url
+  troubleUrl: ({bookUUID, project, exerciseId}) ->
+    # FIXME - get correct url
+    'https://oscms-dev.openstax.org/errata/form?' + qs.stringify(
+      source: project, # either tutor or CC
+      location: exerciseId,
+      book: BOOK_UID_XREF[bookUUID]
+    )
 
   getParts: (exercise) ->
     exercise.content?.questions or []
