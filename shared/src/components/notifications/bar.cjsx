@@ -9,6 +9,7 @@ Notifications = require '../../model/notifications'
 TYPES =
   system: require './system'
   accounts: require './email'
+  payment:  require './payment'
   "#{Notifications.POLLING_TYPES.MISSING_STUDENT_ID}": require './missing-student-id'
   "#{Notifications.POLLING_TYPES.COURSE_HAS_ENDED}":   require './course-has-ended'
 

@@ -1,6 +1,8 @@
 Braintree    = require 'braintree-web/client'
 HostedFields = require 'braintree-web/hosted-fields'
+
 {Promise} = require 'es6-promise'
+
 class BraintreeClient
 
   constructor: ->
@@ -15,12 +17,13 @@ class BraintreeClient
 
   onError: (err) ->
     return unless (err)
-    console.error(err)
+    this.callback(err) if this.callback
 
   detach: ->
     this.hostedFields?.teardown()
 
-  attach: (@dom) ->
+  attach: (@dom, options = {}) ->
+    this.callback = options.callback
     HostedFields.create({
       client: @clientInstance,
       styles: {

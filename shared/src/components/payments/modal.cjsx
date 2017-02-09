@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-
+delay = require 'lodash/delay'
 Braintree = require './braintree'
 
 module.exports = React.createClass
@@ -9,6 +9,7 @@ module.exports = React.createClass
 
   getInitialState: ->
     showModal: false
+    message: ''
     processor: new Braintree()
 
   closeModal: ->
@@ -17,31 +18,39 @@ module.exports = React.createClass
   openModal: ->
     @setState(showModal: true)
 
+  updateProcessingState: (state) ->
+    @setState(state)
+
   startProcessing: ->
-    @state.processor.attach(this.refs.cardbody)
+    @state.processor.attach(this.refs.cardbody, {
+      callback: @updateProcessingState
+    })
 
   stopProcessing: ->
     @state.processor.detach(this.refs.cardbody)
 
-  submitCharge: (ev) ->
-    @state.processor.submit(ev).then(
-      => @setState(showModal: false) # save token to flux store
+  onSuccess: (state) ->
+    @setState(message: "Processed successfully!  Authorization # is #{state.nonce}")
+    delay(@props.onSuccess, 8000)
 
-    )
+  onFailure: (state) ->
+    @setState(state)
+
+  submitCharge: (ev) ->
+    @state.processor.submit(ev).then(@onSuccess, @onFailure)
 
   render: ->
     {Modal} = BS
 
     <div>
-      <BS.Button
-          bsStyle="primary"
-          bsSize="large"
-          onClick={@openModal}
+      <a
+        className='action'
+        onClick={@openModal}
       >
         Pay Course Tuition
-      </BS.Button>
+      </a>
       <Modal
-        container={@}
+
         onEntered={@startProcessing}
         onExit={@stopProcessing}
         show={@state.showModal} onHide={@closeModal}
@@ -50,7 +59,8 @@ module.exports = React.createClass
           <Modal.Title>Pay course fees</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <form className="panel-body" ref="cardbody">
+          {<BS.Alert bsStyle="danger">{@state.message}</BS.Alert> if @state.message}
+          <form ref="cardbody">
             <div className="row">
               <div className="form-group col-xs-8">
                 <label className="control-label">Card Number</label>
@@ -87,11 +97,6 @@ module.exports = React.createClass
               Pay with <span id="card-type">Card</span>
             </button>
           </form>
-
-
         </Modal.Body>
-        <Modal.Footer>
-          <BS.Button onClick={@closeModal}>Close</BS.Button>
-        </Modal.Footer>
       </Modal>
     </div>
