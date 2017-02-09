@@ -72,7 +72,7 @@ TaskTeacherReview = React.createClass
 
   scrollToStep: (currentStep) ->
     stepSelector = "[data-section='#{currentStep}']"
-    @scrollToSelector(stepSelector, {updateHistory: false, unlessInView: true})
+    @scrollToSelector(stepSelector, {updateHistory: false, unlessInView: false, scrollTopOffset: 180})
 
   shouldComponentUpdate: (nextProps) ->
     {shouldUpdate} = nextProps
