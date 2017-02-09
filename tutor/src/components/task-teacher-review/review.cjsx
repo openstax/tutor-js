@@ -58,6 +58,7 @@ Review = React.createClass
 
 
 ReviewShell = React.createClass
+  displayName: 'ReviewShell'
   render: ->
     {id} = @props
     <LoadableItem

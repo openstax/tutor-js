@@ -1,0 +1,2394 @@
+{
+    "id": "1",
+    "type": "homework",
+    "title": "Homework 1",
+    "stats": [
+        {
+            "period_id": "40",
+            "name": "2nd",
+            "mean_grade_percent": 83,
+            "total_count": 10,
+            "complete_count": 8,
+            "partially_complete_count": 2,
+            "current_pages": [
+                {
+                    "id": "1331",
+                    "title": "Research Methods",
+                    "student_count": 10,
+                    "correct_count": 22,
+                    "incorrect_count": 5,
+                    "chapter_section": [
+                        2,
+                        2
+                    ],
+                    "exercises": [
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:2\",\"blooms:2\",\"book:stax-soc\",\"lo:stax-soc:2-2-1\",\"context-cnxmod:e72e915a-719d-4496-ac15-5197a2c11258\",\"type:practice\",\"requires-context:true\",\"context-cnxfeature:fs-id1403519\"],\"uuid\":\"aa27ba06-a424-4b80-8d59-363335f58eaf\",\"group_uuid\":\"b586615f-edcd-409b-84aa-0ec63b3063d1\",\"number\":11852,\"version\":6,\"uid\":\"11852@6\",\"published_at\":\"2016-11-18T18:15:06.230Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":2,\"name\":\"Rice University\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":69992,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"In the 1970s, sociologist Frances Heussenstamm conducted an experiment in which she selected students to drive up and down a Los Angeles freeway. Some of the students had Black Panther bumper stickers on their cars and some did not. All of the students previously had clean driving records. This sort of research design is known as ___.\",\"answers\":[{\"id\":287787,\"content_html\":\"survey \",\"correctness\":\"0.0\",\"feedback_html\":\"Surveys are quantitative analyses of a large sample utilizing standardized questionnaires.\"},{\"id\":287788,\"content_html\":\"ethnography\",\"correctness\":\"0.0\",\"feedback_html\":\"An ethnography is a long-term, intensive study in which a researcher observes and/or lives with a group of people.\"},{\"id\":287789,\"content_html\":\"experiment\",\"correctness\":\"1.0\",\"feedback_html\":\"An experiment is a controlled examination of cause and effect in which a researcher attempts to test a specific hypothesis.\"},{\"id\":287790,\"content_html\":\"secondary analysis\",\"correctness\":\"0.0\",\"feedback_html\":\"Secondary analysis is a research method in which a researcher analyzes data previously collected by another person (or agency).\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"Experiments are a research method in which a researcher manipulates the variables in order to test a specific hypothesis. Many experiments are conducted in laboratory settings although some are carried out in the field. In this study, the researcher was testing the hypothesis that drivers with Black Panther bumper stickers on their car were at a higher risk for being pulled over by police.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"free-response\",\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "69992",
+                                    "answered_count": 9,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Rabbit Angstrom"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "287787"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Nathan Zuckerman"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287789"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Myron Sauer"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287789"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Janelle Skiles"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287789"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Fabiola Thiel"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "287788"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Holly Golightly"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287789"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Clarissa Dalloway"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287789"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Beatrice Batz"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287789"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Ashleigh Goyette"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287789"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "287787",
+                                            "selected_count": 1
+                                        },
+                                        {
+                                            "answer_id": "287788",
+                                            "selected_count": 1
+                                        },
+                                        {
+                                            "answer_id": "287789",
+                                            "selected_count": 7
+                                        },
+                                        {
+                                            "answer_id": "287790",
+                                            "selected_count": 0
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 2.0
+                        },
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:2\",\"blooms:2\",\"book:stax-soc\",\"lo:stax-soc:2-2-1\",\"context-cnxmod:e72e915a-719d-4496-ac15-5197a2c11258\",\"type:practice\",\"requires-context:true\",\"context-cnxfeature:fs-id1195314\"],\"uuid\":\"694cebe2-fbfc-4034-aafa-f1bec2f8f2d9\",\"group_uuid\":\"1a3661b1-b49c-40c7-8272-dfbe6e56c8a0\",\"number\":11851,\"version\":4,\"uid\":\"11851@4\",\"published_at\":\"2016-09-14T18:20:22.401Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":2,\"name\":\"Rice University\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":62824,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"In the 1920s, researchers Lynd and Lynd conducted a longitudinal study of a small town in Indiana, referred to as “Middletown.”  Over a period of several months, they observed, interviewed, and lived amongst the residents of this small town, a methodology known as ___.\",\"answers\":[{\"id\":258989,\"content_html\":\"survey\",\"correctness\":\"0.0\",\"feedback_html\":\"Surveys are quantitative analyses of a large sample utilizing standardized questionnaires.\"},{\"id\":258990,\"content_html\":\"ethnography\",\"correctness\":\"1.0\",\"feedback_html\":\"An ethnography is a long-term, intensive study in which a researcher observes and/or lives with a group of people.\"},{\"id\":258991,\"content_html\":\"experiment\",\"correctness\":\"0.0\",\"feedback_html\":\"An experiment is a controlled examination of cause and effect, often taking place in a laboratory setting.\"},{\"id\":258992,\"content_html\":\"secondary analysis\",\"correctness\":\"0.0\",\"feedback_html\":\"Secondary analysis is a research method in which a researcher analyzes data collected previously by another person or agency.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"Ethnography is an extended, qualitative study of a group of people or their community. Ethnographers attempt to gain an insider’s point of view of a particular way of life. The “Middletown” study is one of the most well-known and earliest examples of ethnography in Sociology.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"free-response\",\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "62824",
+                                    "answered_count": 9,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Rabbit Angstrom"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "258990"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Nathan Zuckerman"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "258990"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Myron Sauer"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "258990"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Janelle Skiles"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "258990"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Holly Golightly"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "258990"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Clarissa Dalloway"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "258990"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Beatrice Batz"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "258990"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Ashleigh Goyette"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "258990"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Atticus Finch"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "258990"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "258989",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "258990",
+                                            "selected_count": 9
+                                        },
+                                        {
+                                            "answer_id": "258991",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "258992",
+                                            "selected_count": 0
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 5.0
+                        },
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"blooms:3\",\"dok:3\",\"book:stax-soc\",\"context-cnxmod:e72e915a-719d-4496-ac15-5197a2c11258\",\"type:practice\",\"requires-context:true\",\"context-cnxfeature:fs-id1391993\",\"lo:stax-soc:2-2-3\"],\"uuid\":\"7777e6f9-7014-4a29-855b-845e36967eba\",\"group_uuid\":\"41cb2d99-0b3c-4f8a-9cfb-4f944a1831c2\",\"number\":16556,\"version\":3,\"uid\":\"16556@3\",\"published_at\":\"2016-07-18T18:52:03.271Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":59157,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"If Mihelich and Papineau followed up their “web ethnography” by mailing questionnaires to the people in online Parrothead communities, what type of research method would they be using?\\n\",\"answers\":[{\"id\":244153,\"content_html\":\"participant observation\",\"correctness\":\"0.0\",\"feedback_html\":\"Participant observation is when a researcher immerses herself in a group or social setting in order to make observations from an “insider” perspective.\"},{\"id\":244154,\"content_html\":\"survey\",\"correctness\":\"1.0\",\"feedback_html\":\"Surveys collect data from subjects who respond to a series of questions about behaviors and opinions, often in the form of a questionnaire\"},{\"id\":244155,\"content_html\":\"field research\",\"correctness\":\"0.0\",\"feedback_html\":\"Field research refers to gathering data from a natural environment without doing a lab experiment or a survey.\"},{\"id\":244156,\"content_html\":\"secondary data analysis\",\"correctness\":\"0.0\",\"feedback_html\":\"Secondary data analysis refers to using data collected by others but applying new interpretations.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"Surveys are a form of quantitative data, research collected in numerical form that can be counted.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"free-response\",\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "59157",
+                                    "answered_count": 9,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Rabbit Angstrom"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244154"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Nathan Zuckerman"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244154"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Myron Sauer"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244154"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Janelle Skiles"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244154"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Holly Golightly"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244154"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Clarissa Dalloway"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "244155"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Beatrice Batz"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "244155"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Ashleigh Goyette"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244154"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Atticus Finch"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "244153"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "244153",
+                                            "selected_count": 1
+                                        },
+                                        {
+                                            "answer_id": "244154",
+                                            "selected_count": 6
+                                        },
+                                        {
+                                            "answer_id": "244155",
+                                            "selected_count": 2
+                                        },
+                                        {
+                                            "answer_id": "244156",
+                                            "selected_count": 0
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 8.0
+                        }
+                    ],
+                    "is_trouble": false
+                },
+                {
+                    "id": "1336",
+                    "title": "Pop Culture, Subculture, and Cultural Change",
+                    "student_count": 9,
+                    "correct_count": 9,
+                    "incorrect_count": 2,
+                    "chapter_section": [
+                        3,
+                        3
+                    ],
+                    "exercises": [
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:2\",\"blooms:2\",\"book:stax-soc\",\"lo:stax-soc:3-3-2\",\"context-cnxmod:4ee317f2-cc23-4075-b377-51ee4d11bb61\",\"type:practice\",\"requires-context:true\",\"context-cnxfeature:fs-id2371798\"],\"uuid\":\"18f383c2-9816-4107-aeb5-121f88a4a649\",\"group_uuid\":\"11bf09cc-0963-479b-a01a-180f4857b0a6\",\"number\":11860,\"version\":3,\"uid\":\"11860@3\",\"published_at\":\"2016-09-14T18:38:45.869Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":2,\"name\":\"Rice University\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":62844,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"One of the latest groups to differentiate itself from mainstream culture through its sense of fashion is that of the hipsters. In sociological terms, hipsters are classified as a ___.\",\"answers\":[{\"id\":259069,\"content_html\":\"subculture\",\"correctness\":\"1.0\",\"feedback_html\":\"Subcultures are groups that are somewhat distinguished from mainstream society but still compatible with it for the most part.\"},{\"id\":259070,\"content_html\":\"counterculture\",\"correctness\":\"0.0\",\"feedback_html\":\"Counterculture  groups strongly reject society’s core values and beliefs.\"},{\"id\":259071,\"content_html\":\"reference group\",\"correctness\":\"0.0\",\"feedback_html\":\"A reference group is a group to which one identifies and/or aspires to.\"},{\"id\":259072,\"content_html\":\"out-group\",\"correctness\":\"0.0\",\"feedback_html\":\"An out-group is a group to which one does not belong and may feel competitive towards.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"Hipsters are primarily known for their rejection of current fashion trends.  While they may superficially reject some of society’s values, such as wealth and power, their resistance is not perceived as threatening.  Thus, they are best classified as a subculture.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "62844",
+                                    "answered_count": 9,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Rabbit Angstrom"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259069"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Nathan Zuckerman"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259069"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Myron Sauer"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259069"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Janelle Skiles"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259069"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Fabiola Thiel"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "259072"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Holly Golightly"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "259072"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Clarissa Dalloway"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259069"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Beatrice Batz"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259069"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Ashleigh Goyette"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259069"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "259069",
+                                            "selected_count": 7
+                                        },
+                                        {
+                                            "answer_id": "259070",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "259071",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "259072",
+                                            "selected_count": 2
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 4.0
+                        },
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:2\",\"blooms:2\",\"book:stax-soc\",\"lo:stax-soc:3-3-2\",\"context-cnxmod:4ee317f2-cc23-4075-b377-51ee4d11bb61\",\"type:practice\",\"context-cnxfeature:\"],\"uuid\":\"03b8295c-09e5-4758-a20d-76fffb01683e\",\"group_uuid\":\"06bee8f2-bf84-4cae-a4e1-389ca6505069\",\"number\":12273,\"version\":2,\"uid\":\"12273@2\",\"published_at\":\"2016-07-13T19:18:50.015Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":2,\"name\":\"Rice University\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":58894,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"The term “parrothead” is used to describe a group of people who follow music icon Jimmy Buffet.  Researchers Mihelich and Papineau found in their research that this group is distinguished by its dedication to Buffett’s music, love of the “island” lifestyle, and desire to withdraw from the stress of everyday life.  Otherwise, parrotheads live mostly conventional lives.  In sociological terms, this group is known as___.\",\"answers\":[{\"id\":243116,\"content_html\":\"counterculture\",\"correctness\":\"0.0\",\"feedback_html\":\"Countercultures are groups that are primarily distinguished by their rejection of society’s fundamental values and beliefs.\"},{\"id\":243117,\"content_html\":\"subcultures\",\"correctness\":\"1.0\",\"feedback_html\":\"Subcultures are groups which are slightly distinguished from, but still compatible with, the dominant culture.\"},{\"id\":243118,\"content_html\":\"out group\",\"correctness\":\"0.0\",\"feedback_html\":\"Out groups are groups to which we do not belong.\"},{\"id\":243119,\"content_html\":\"secondary group\",\"correctness\":\"0.0\",\"feedback_html\":\"Secondary groups are impersonal groups that are goal oriented.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"Subcultures are distinguished from the larger culture  by dress, values, language, or behaviors.  However, they are compatible with the dominant culture and do not oppose its fundamental values.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"free-response\",\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "58894",
+                                    "answered_count": 2,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Janelle Skiles"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "243117"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Holly Golightly"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "243117"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "243116",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "243117",
+                                            "selected_count": 2
+                                        },
+                                        {
+                                            "answer_id": "243118",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "243119",
+                                            "selected_count": 0
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 11.0
+                        }
+                    ],
+                    "is_trouble": false
+                },
+                {
+                    "id": "1346",
+                    "title": "Socialization Across the Life Course",
+                    "student_count": 10,
+                    "correct_count": 13,
+                    "incorrect_count": 1,
+                    "chapter_section": [
+                        5,
+                        4
+                    ],
+                    "exercises": [
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:2\",\"blooms:2\",\"book:stax-soc\",\"lo:stax-soc:5-4-2\",\"context-cnxmod:269040ea-022f-40d1-b2f7-4b9219fa096d\",\"type:practice\",\"requires-context:true\",\"context-cnxfeature:fs-id1337210\"],\"uuid\":\"1a9cf689-8e99-44a0-a206-c269cd881fa6\",\"group_uuid\":\"52c0c609-0b38-497a-aa05-b999f20e10a6\",\"number\":11866,\"version\":4,\"uid\":\"11866@4\",\"published_at\":\"2016-09-14T19:04:12.760Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":2,\"name\":\"Rice University\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":62857,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"As young adults prepare to enter college or the labor force, they may do certain things to ready themselves. Thinking about, and preparing for, a new life role is known as ___.\",\"answers\":[{\"id\":259121,\"content_html\":\"anticipatory socialization\",\"correctness\":\"1.0\",\"feedback_html\":\"Anticipatory socialization involves preparation for a new role in life.\"},{\"id\":259122,\"content_html\":\"resocialization\",\"correctness\":\"0.0\",\"feedback_html\":\"Resocialization involves learning about a new way of life, including new values, beliefs, and attitudes.\"},{\"id\":259123,\"content_html\":\"generalizing\",\"correctness\":\"0.0\",\"feedback_html\":\"In social science research, generalizing is when a researcher applies findings from a specific sample to the entire population.\"},{\"id\":259124,\"content_html\":\"risky shift\",\"correctness\":\"0.0\",\"feedback_html\":\"Risky shift occurs when one becomes less inhibited, often in a group situation.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"In the excerpt, it is noted that British youth are often encouraged to take a “gap year” to prepare themselves for what is ahead.  Anticipatory socialization is the process of thinking about, and preparing for, one’s future life roles.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"free-response\",\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "62857",
+                                    "answered_count": 10,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Rabbit Angstrom"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "259124"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Nathan Zuckerman"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259121"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Myron Sauer"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259121"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Janelle Skiles"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259121"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Fabiola Thiel"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259121"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Holly Golightly"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259121"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Clarissa Dalloway"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259121"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Beatrice Batz"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259121"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Ashleigh Goyette"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259121"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Atticus Finch"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259121"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "259121",
+                                            "selected_count": 9
+                                        },
+                                        {
+                                            "answer_id": "259122",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "259123",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "259124",
+                                            "selected_count": 1
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 1.0
+                        },
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:2\",\"blooms:2\",\"book:stax-soc\",\"lo:stax-soc:5-4-2\",\"context-cnxmod:269040ea-022f-40d1-b2f7-4b9219fa096d\",\"type:practice\",\"requires-context:true\",\"context-cnxfeature:fs-id611914\"],\"uuid\":\"b36e3e1b-9c91-485c-ba3f-736af7a95721\",\"group_uuid\":\"c0137b85-4677-40ab-b14c-3fab7c58d1ee\",\"number\":11865,\"version\":3,\"uid\":\"11865@3\",\"published_at\":\"2016-09-14T19:16:22.426Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":2,\"name\":\"Rice University\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":62861,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"Generation Y, also known as Millennials, may have a harder time preparing for future life roles as they are coming of age during a time of economic hardship, political turmoil, and rapid social change.  The sociological term for preparation for future life roles is ___.\",\"answers\":[{\"id\":259137,\"content_html\":\"anticipatory socialization\",\"correctness\":\"1.0\",\"feedback_html\":\"Anticipatory socialization involves preparation for a new role in life.\"},{\"id\":259138,\"content_html\":\"resocialization\",\"correctness\":\"0.0\",\"feedback_html\":\"Resocialization involves learning about a new way of life, including new values, beliefs, and attitudes.\"},{\"id\":259139,\"content_html\":\"generalizing\",\"correctness\":\"0.0\",\"feedback_html\":\"In social science research, generalizing is when a researcher applies findings from a specific sample to the entire population.\"},{\"id\":259140,\"content_html\":\"risky shift\",\"correctness\":\"0.0\",\"feedback_html\":\"Risky shift occurs when one becomes less inhibited, often in a group situation.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"The passage describes some of the challenges faced by millennials as they transition from youth to adulthood.  In sociology, the term for mentally and practically preparing for future life roles is anticipatory socialization.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"free-response\",\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "62861",
+                                    "answered_count": 4,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Nathan Zuckerman"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259137"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Myron Sauer"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259137"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Clarissa Dalloway"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259137"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Beatrice Batz"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259137"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "259137",
+                                            "selected_count": 4
+                                        },
+                                        {
+                                            "answer_id": "259138",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "259139",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "259140",
+                                            "selected_count": 0
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 11.0
+                        }
+                    ],
+                    "is_trouble": false
+                },
+                {
+                    "id": "1358",
+                    "title": "Global Implications of Media and Technology",
+                    "student_count": 9,
+                    "correct_count": 16,
+                    "incorrect_count": 1,
+                    "chapter_section": [
+                        8,
+                        3
+                    ],
+                    "exercises": [
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:2\",\"blooms:2\",\"book:stax-soc\",\"lo:stax-soc:8-3-2\",\"context-cnxmod:f8e4d21a-488f-491c-9e07-968a0b3e48ba\",\"type:practice\",\"requires-context:true\",\"context-cnxfeature:fs-id1485546\"],\"uuid\":\"f6dfe142-7c4c-4784-b50d-35e1132d8433\",\"group_uuid\":\"fffda88b-be7e-4465-9b07-ab8cbd9ded53\",\"number\":11879,\"version\":4,\"uid\":\"11879@4\",\"published_at\":\"2016-09-14T19:50:28.052Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":2,\"name\":\"Rice University\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":62882,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"Through a shared phone system, many of the residents of sub-Saharan Africa now have access to cell phones.  The spread of technology across borders is known as ___.\",\"answers\":[{\"id\":259221,\"content_html\":\"technological diffusion\",\"correctness\":\"1.0\",\"feedback_html\":\"Technological diffusion is the term for the spread of technology across borders.\"},{\"id\":259222,\"content_html\":\"knowledge gap\",\"correctness\":\"0.0\",\"feedback_html\":\"A knowledge gap is an increasing gap in information for those who have less access to technology.\"},{\"id\":259223,\"content_html\":\"media consolidation\",\"correctness\":\"0.0\",\"feedback_html\":\"Media consolidation refers to the trend of fewer persons controlling the major media outlets.\"},{\"id\":259224,\"content_html\":\"digital divide\",\"correctness\":\"0.0\",\"feedback_html\":\"Digital divide refers to the varying levels of access to technology experienced by different social classes.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"The shared phone system is an example of what sociologists refer to as technological diffusion, the spread of technology across international borders.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"free-response\",\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "62882",
+                                    "answered_count": 8,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Rabbit Angstrom"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259221"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Nathan Zuckerman"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259221"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Myron Sauer"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259221"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Janelle Skiles"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259221"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Holly Golightly"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259221"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Clarissa Dalloway"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259221"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Beatrice Batz"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259221"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Ashleigh Goyette"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259221"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "259221",
+                                            "selected_count": 8
+                                        },
+                                        {
+                                            "answer_id": "259222",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "259223",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "259224",
+                                            "selected_count": 0
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 6.0
+                        },
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:2\",\"blooms:2\",\"book:stax-soc\",\"lo:stax-soc:8-3-1\",\"context-cnxmod:f8e4d21a-488f-491c-9e07-968a0b3e48ba\",\"type:practice\",\"requires-context:true\",\"context-cnxfeature:fs-id1690744\"],\"uuid\":\"73fa1fce-d81d-41a9-872a-a97349c91f42\",\"group_uuid\":\"4fed3e1f-338a-44c7-af70-ff9635ee4fe3\",\"number\":11878,\"version\":3,\"uid\":\"11878@3\",\"published_at\":\"2016-09-14T19:49:25.150Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":2,\"name\":\"Rice University\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":62880,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"While the advancement and spread of technology is generally considered a good thing, some countries may resist the intrusion and influence of the internet into their culture. The worldwide integration of media through the cross-cultural exchange of ideas is known as ___.\",\"answers\":[{\"id\":259213,\"content_html\":\"media globalization\",\"correctness\":\"1.0\",\"feedback_html\":\"Media globalization is defined as the worldwide integration of media through the global exchange of ideas.\"},{\"id\":259214,\"content_html\":\"technological globalization\",\"correctness\":\"0.0\",\"feedback_html\":\"Technological globalization refers to the cross-cultural development and exchange of technology.\"},{\"id\":259215,\"content_html\":\"media consolidation\",\"correctness\":\"0.0\",\"feedback_html\":\"Media consolidation refers to the trend of fewer persons controlling the major media outlets.\"},{\"id\":259216,\"content_html\":\"digital divide\",\"correctness\":\"0.0\",\"feedback_html\":\"Digital divide refers to the varying levels of access to technology experienced by different social classes.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"Media globalization is a process whereby ideas are exchanged across societies worldwide and the outcome is an integration of media across the globe.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"free-response\",\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "62880",
+                                    "answered_count": 9,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Rabbit Angstrom"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259213"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Nathan Zuckerman"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259213"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Myron Sauer"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259213"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Janelle Skiles"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259213"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Fabiola Thiel"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "259216"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Holly Golightly"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259213"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Clarissa Dalloway"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259213"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Beatrice Batz"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259213"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Ashleigh Goyette"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259213"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "259213",
+                                            "selected_count": 8
+                                        },
+                                        {
+                                            "answer_id": "259214",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "259215",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "259216",
+                                            "selected_count": 1
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 9.0
+                        }
+                    ],
+                    "is_trouble": false
+                },
+                {
+                    "id": "1381",
+                    "title": "The Process of Aging",
+                    "student_count": 10,
+                    "correct_count": 16,
+                    "incorrect_count": 3,
+                    "chapter_section": [
+                        13,
+                        2
+                    ],
+                    "exercises": [
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:2\",\"blooms:2\",\"book:stax-soc\",\"lo:stax-soc:13-2-1\",\"context-cnxmod:d9df5e48-4b72-482e-b616-886926188054\",\"type:practice\",\"requires-context:true\",\"context-cnxfeature:fs-id1760982\"],\"uuid\":\"ea1ce0d5-a12f-4a15-a5e6-3d74f6dff542\",\"group_uuid\":\"50467e39-d39d-4bd5-9188-8d8f13560abc\",\"number\":16564,\"version\":3,\"uid\":\"16564@3\",\"published_at\":\"2016-09-16T16:06:42.006Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":62979,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"Lesbian, gay, bisexual, and transgender (LGBT) people experience the aging process differently in all the following ways EXCEPT ________.\\n \",\"answers\":[{\"id\":259611,\"content_html\":\"LGBT older adults have lower rates of “disclosure management.”\",\"correctness\":\"1.0\",\"feedback_html\":\"As they transition to assisted-living facilities, LGBT people have the added burden of “disclosure management:” the way they share their sexual and relationship identity.\"},{\"id\":259612,\"content_html\":\"LGBT older adults have higher rates of disability than their heterosexual peers.\",\"correctness\":\"0.0\",\"feedback_html\":\"This statement is true.\"},{\"id\":259613,\"content_html\":\"LGBT older adults are less likely to have a support system that might provide elder care.\",\"correctness\":\"0.0\",\"feedback_html\":\"This statement is true.\"},{\"id\":259614,\"content_html\":\"LGBT older adults have lower rates of disability than their heterosexual peers.\",\"correctness\":\"0.0\",\"feedback_html\":\"This statement is true.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"A study from the National Senior Citizens Law Center reports that only 22 percent of LGBT older adults expect they could be open about their sexual orientation or gender identity in a long-term care facility.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "62979",
+                                    "answered_count": 9,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Rabbit Angstrom"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "259612"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Nathan Zuckerman"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259611"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Myron Sauer"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259611"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Janelle Skiles"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259611"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Fabiola Thiel"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259611"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Holly Golightly"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259611"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Clarissa Dalloway"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259611"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Beatrice Batz"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259611"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Ashleigh Goyette"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259611"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "259611",
+                                            "selected_count": 8
+                                        },
+                                        {
+                                            "answer_id": "259612",
+                                            "selected_count": 1
+                                        },
+                                        {
+                                            "answer_id": "259613",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "259614",
+                                            "selected_count": 0
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 7.0
+                        },
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:2\",\"blooms:4\",\"book:stax-soc\",\"lo:stax-soc:13-2-1\",\"context-cnxmod:d9df5e48-4b72-482e-b616-886926188054\",\"type:practice\"],\"uuid\":\"34dbcf9b-360a-47bc-9fc6-b28c44b64928\",\"group_uuid\":\"966257f7-0a68-4d1a-8de2-36eb34d06d76\",\"number\":12202,\"version\":3,\"uid\":\"12202@3\",\"published_at\":\"2016-11-18T19:05:21.637Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":2,\"name\":\"Rice University\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"Watch the following video on the aging process, then answer the questions afterward.\\n<iframe src=\\\"https://www.youtube.com/embed/uCnYUhETmqM\\\"></iframe>\",\"questions\":[{\"id\":70019,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"Which of the following statements about assisted living is TRUE?\",\"answers\":[{\"id\":287896,\"content_html\":\"Most of those in assisted living facilities are men.\",\"correctness\":\"0.0\",\"feedback_html\":\"The opposite is true, since women outlive men.\"},{\"id\":287897,\"content_html\":\"There will be an increase in the need for assisted living facilities as the baby-boomers begin to retire.\",\"correctness\":\"1.0\",\"feedback_html\":\"More elderly people means more demand for assisted living.\"},{\"id\":287898,\"content_html\":\"A majority of those in assisted living are between the ages of 65 to 84.\",\"correctness\":\"0.0\",\"feedback_html\":\"Those 65 to 84 are relatively healthy by comparison to those 85 and older.\"},{\"id\":287899,\"content_html\":\"Assisted living is another name for a nursing care facility.\",\"correctness\":\"0.0\",\"feedback_html\":\"Assisted living and nursing care are different things.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"Assisted living facilities exist between independent living and nursing care facilities. The majority of those in assisted living facilities are women and most are 85 and older.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "70019",
+                                    "answered_count": 10,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Rabbit Angstrom"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287897"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Nathan Zuckerman"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287897"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Myron Sauer"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "287899"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Janelle Skiles"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287897"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Fabiola Thiel"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287897"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Holly Golightly"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287897"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Clarissa Dalloway"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287897"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Beatrice Batz"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287897"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Ashleigh Goyette"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287897"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Atticus Finch"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "287896"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "287896",
+                                            "selected_count": 1
+                                        },
+                                        {
+                                            "answer_id": "287897",
+                                            "selected_count": 8
+                                        },
+                                        {
+                                            "answer_id": "287898",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "287899",
+                                            "selected_count": 1
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 10.0
+                        }
+                    ],
+                    "is_trouble": false
+                },
+                {
+                    "id": "1418",
+                    "title": "Social Change",
+                    "student_count": 10,
+                    "correct_count": 11,
+                    "incorrect_count": 1,
+                    "chapter_section": [
+                        21,
+                        3
+                    ],
+                    "exercises": [
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"book:stax-soc\",\"lo:stax-soc:21-3-1\",\"context-cnxmod:be2e1e07-67a1-469b-b17c-109fda35d510\",\"type:practice\",\"requires-context:true\",\"blooms:7\",\"context-cnxfeature:fs-id1842955\"],\"uuid\":\"900bcfa9-0578-476e-a6c2-ecabcda1c88f\",\"group_uuid\":\"ab195f9a-8c13-4c97-aeeb-586e17c30612\",\"number\":16546,\"version\":2,\"uid\":\"16546@2\",\"published_at\":\"2016-07-18T18:58:27.310Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":59186,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"After Hurricane Katrina, developers rebuilt some houses in the lower area of the Ninth Ward where the worst of the flooding occurred to be more flood resistant by using stilts to elevate the living area.  Which of the four key elements in social change does this exemplify?\",\"answers\":[{\"id\":244269,\"content_html\":\"the environment\",\"correctness\":\"0.0\",\"feedback_html\":\"Rebuilding houses to be flood resistant does not exemplify the environment element in social change.\"},{\"id\":244270,\"content_html\":\"technology\",\"correctness\":\"1.0\",\"feedback_html\":\"Rebuilding houses to be flood resistant exemplifies the technology element in social change.\"},{\"id\":244271,\"content_html\":\"population\",\"correctness\":\"0.0\",\"feedback_html\":\"Rebuilding houses to be flood resistant does not exemplify the population element in social change, which is also referred to as demographic.\"},{\"id\":244272,\"content_html\":\"demographic\",\"correctness\":\"0.0\",\"feedback_html\":\"Rebuilding houses to be flood resistant does not exemplify the demographic element in social change, which is also referred to as population.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"Technology is the application of science to address the problems of daily life.  Adjusting house constructions can address an environmental problem.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"free-response\",\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "59186",
+                                    "answered_count": 10,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Rabbit Angstrom"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244270"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Nathan Zuckerman"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244270"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Myron Sauer"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244270"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Janelle Skiles"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244270"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Fabiola Thiel"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244270"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Holly Golightly"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244270"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Clarissa Dalloway"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244270"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Beatrice Batz"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244270"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Ashleigh Goyette"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244270"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Atticus Finch"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "244271"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "244269",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "244270",
+                                            "selected_count": 9
+                                        },
+                                        {
+                                            "answer_id": "244271",
+                                            "selected_count": 1
+                                        },
+                                        {
+                                            "answer_id": "244272",
+                                            "selected_count": 0
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 3.0
+                        },
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:4\",\"book:stax-soc\",\"lo:stax-soc:21-3-1\",\"context-cnxmod:be2e1e07-67a1-469b-b17c-109fda35d510\",\"type:practice\",\"requires-context:true\",\"context-cnxfeature:eip-653\",\"blooms:7\"],\"uuid\":\"62be3ca9-a89d-4c72-bd76-c01b8fc604ea\",\"group_uuid\":\"319e1eaa-34da-49f3-8da7-d819f65b02db\",\"number\":16544,\"version\":2,\"uid\":\"16544@2\",\"published_at\":\"2016-07-18T18:57:39.751Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":59180,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"Which of the following is a good example of “crowdsourcing?”\",\"answers\":[{\"id\":244245,\"content_html\":\"Which of the following is a good example of “crowdsourcing?”\",\"correctness\":\"0.0\",\"feedback_html\":\"This is not an example of crowdsourcing.\"},{\"id\":244246,\"content_html\":\"A newlywed couple requesting monetary gifts via a webpage designed to gather money to put towards honeymoons.\",\"correctness\":\"1.0\",\"feedback_html\":\"Crowdsourcing involves soliciting money from large groups of people.\"},{\"id\":244247,\"content_html\":\"Renting out extra rooms in your house through a virtual marketplace, such as Airbnb to make extra money.\",\"correctness\":\"0.0\",\"feedback_html\":\"This is not an example of crowdsourcing.\"},{\"id\":244248,\"content_html\":\"Creating crafts and selling them to strangers via websites such as Etsy. \",\"correctness\":\"0.0\",\"feedback_html\":\"This is not an example of crowdsourcing.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"Crowdsourcing is the process of obtaining needed services, ideas, or content by soliciting\\ncontributions from a large group of people, and especially from an online community rather than from traditional employees or suppliers.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "59180",
+                                    "answered_count": 2,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Rabbit Angstrom"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244246"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Ashleigh Goyette"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244246"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "244245",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "244246",
+                                            "selected_count": 2
+                                        },
+                                        {
+                                            "answer_id": "244247",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "244248",
+                                            "selected_count": 0
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 11.0
+                        }
+                    ],
+                    "is_trouble": false
+                }
+            ],
+            "spaced_pages": [],
+            "is_trouble": false
+        },
+        {
+            "period_id": "39",
+            "name": "1st",
+            "mean_grade_percent": 81,
+            "total_count": 10,
+            "complete_count": 8,
+            "partially_complete_count": 2,
+            "current_pages": [
+                {
+                    "id": "1331",
+                    "title": "Research Methods",
+                    "student_count": 10,
+                    "correct_count": 22,
+                    "incorrect_count": 7,
+                    "chapter_section": [
+                        2,
+                        2
+                    ],
+                    "exercises": [
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:2\",\"blooms:2\",\"book:stax-soc\",\"lo:stax-soc:2-2-1\",\"context-cnxmod:e72e915a-719d-4496-ac15-5197a2c11258\",\"type:practice\",\"requires-context:true\",\"context-cnxfeature:fs-id1403519\"],\"uuid\":\"aa27ba06-a424-4b80-8d59-363335f58eaf\",\"group_uuid\":\"b586615f-edcd-409b-84aa-0ec63b3063d1\",\"number\":11852,\"version\":6,\"uid\":\"11852@6\",\"published_at\":\"2016-11-18T18:15:06.230Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":2,\"name\":\"Rice University\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":69992,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"In the 1970s, sociologist Frances Heussenstamm conducted an experiment in which she selected students to drive up and down a Los Angeles freeway. Some of the students had Black Panther bumper stickers on their cars and some did not. All of the students previously had clean driving records. This sort of research design is known as ___.\",\"answers\":[{\"id\":287787,\"content_html\":\"survey \",\"correctness\":\"0.0\",\"feedback_html\":\"Surveys are quantitative analyses of a large sample utilizing standardized questionnaires.\"},{\"id\":287788,\"content_html\":\"ethnography\",\"correctness\":\"0.0\",\"feedback_html\":\"An ethnography is a long-term, intensive study in which a researcher observes and/or lives with a group of people.\"},{\"id\":287789,\"content_html\":\"experiment\",\"correctness\":\"1.0\",\"feedback_html\":\"An experiment is a controlled examination of cause and effect in which a researcher attempts to test a specific hypothesis.\"},{\"id\":287790,\"content_html\":\"secondary analysis\",\"correctness\":\"0.0\",\"feedback_html\":\"Secondary analysis is a research method in which a researcher analyzes data previously collected by another person (or agency).\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"Experiments are a research method in which a researcher manipulates the variables in order to test a specific hypothesis. Many experiments are conducted in laboratory settings although some are carried out in the field. In this study, the researcher was testing the hypothesis that drivers with Black Panther bumper stickers on their car were at a higher risk for being pulled over by police.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"free-response\",\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "69992",
+                                    "answered_count": 10,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Vernien Walker"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287789"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Stephen Dedalus"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287789"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Nellie Effertz"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287789"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Lily Bart"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287789"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Leopold Bloom"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287789"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Harry Potter"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "287787"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Giovanny Jaskolski"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287789"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Cleve Pacocha"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287789"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Alyce Tromp"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287789"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Albin Kirlin"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287789"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "287787",
+                                            "selected_count": 1
+                                        },
+                                        {
+                                            "answer_id": "287788",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "287789",
+                                            "selected_count": 9
+                                        },
+                                        {
+                                            "answer_id": "287790",
+                                            "selected_count": 0
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 2.0
+                        },
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:2\",\"blooms:2\",\"book:stax-soc\",\"lo:stax-soc:2-2-1\",\"context-cnxmod:e72e915a-719d-4496-ac15-5197a2c11258\",\"type:practice\",\"requires-context:true\",\"context-cnxfeature:fs-id1195314\"],\"uuid\":\"694cebe2-fbfc-4034-aafa-f1bec2f8f2d9\",\"group_uuid\":\"1a3661b1-b49c-40c7-8272-dfbe6e56c8a0\",\"number\":11851,\"version\":4,\"uid\":\"11851@4\",\"published_at\":\"2016-09-14T18:20:22.401Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":2,\"name\":\"Rice University\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":62824,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"In the 1920s, researchers Lynd and Lynd conducted a longitudinal study of a small town in Indiana, referred to as “Middletown.”  Over a period of several months, they observed, interviewed, and lived amongst the residents of this small town, a methodology known as ___.\",\"answers\":[{\"id\":258989,\"content_html\":\"survey\",\"correctness\":\"0.0\",\"feedback_html\":\"Surveys are quantitative analyses of a large sample utilizing standardized questionnaires.\"},{\"id\":258990,\"content_html\":\"ethnography\",\"correctness\":\"1.0\",\"feedback_html\":\"An ethnography is a long-term, intensive study in which a researcher observes and/or lives with a group of people.\"},{\"id\":258991,\"content_html\":\"experiment\",\"correctness\":\"0.0\",\"feedback_html\":\"An experiment is a controlled examination of cause and effect, often taking place in a laboratory setting.\"},{\"id\":258992,\"content_html\":\"secondary analysis\",\"correctness\":\"0.0\",\"feedback_html\":\"Secondary analysis is a research method in which a researcher analyzes data collected previously by another person or agency.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"Ethnography is an extended, qualitative study of a group of people or their community. Ethnographers attempt to gain an insider’s point of view of a particular way of life. The “Middletown” study is one of the most well-known and earliest examples of ethnography in Sociology.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"free-response\",\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "62824",
+                                    "answered_count": 10,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Vernien Walker"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "258990"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Stephen Dedalus"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "258990"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Nellie Effertz"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "258992"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Lily Bart"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "258990"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Leopold Bloom"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "258992"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Harry Potter"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "258990"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Giovanny Jaskolski"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "258990"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Cleve Pacocha"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "258990"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Alyce Tromp"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "258992"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Albin Kirlin"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "258989"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "258989",
+                                            "selected_count": 1
+                                        },
+                                        {
+                                            "answer_id": "258990",
+                                            "selected_count": 6
+                                        },
+                                        {
+                                            "answer_id": "258991",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "258992",
+                                            "selected_count": 3
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 5.0
+                        },
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"blooms:3\",\"dok:3\",\"book:stax-soc\",\"context-cnxmod:e72e915a-719d-4496-ac15-5197a2c11258\",\"type:practice\",\"requires-context:true\",\"context-cnxfeature:fs-id1391993\",\"lo:stax-soc:2-2-3\"],\"uuid\":\"7777e6f9-7014-4a29-855b-845e36967eba\",\"group_uuid\":\"41cb2d99-0b3c-4f8a-9cfb-4f944a1831c2\",\"number\":16556,\"version\":3,\"uid\":\"16556@3\",\"published_at\":\"2016-07-18T18:52:03.271Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":59157,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"If Mihelich and Papineau followed up their “web ethnography” by mailing questionnaires to the people in online Parrothead communities, what type of research method would they be using?\\n\",\"answers\":[{\"id\":244153,\"content_html\":\"participant observation\",\"correctness\":\"0.0\",\"feedback_html\":\"Participant observation is when a researcher immerses herself in a group or social setting in order to make observations from an “insider” perspective.\"},{\"id\":244154,\"content_html\":\"survey\",\"correctness\":\"1.0\",\"feedback_html\":\"Surveys collect data from subjects who respond to a series of questions about behaviors and opinions, often in the form of a questionnaire\"},{\"id\":244155,\"content_html\":\"field research\",\"correctness\":\"0.0\",\"feedback_html\":\"Field research refers to gathering data from a natural environment without doing a lab experiment or a survey.\"},{\"id\":244156,\"content_html\":\"secondary data analysis\",\"correctness\":\"0.0\",\"feedback_html\":\"Secondary data analysis refers to using data collected by others but applying new interpretations.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"Surveys are a form of quantitative data, research collected in numerical form that can be counted.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"free-response\",\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "59157",
+                                    "answered_count": 9,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Vernien Walker"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244154"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Stephen Dedalus"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244154"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Nellie Effertz"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244154"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Lily Bart"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244154"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Harry Potter"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "244153"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Giovanny Jaskolski"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244154"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Cleve Pacocha"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244154"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Alyce Tromp"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244154"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Albin Kirlin"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "244153"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "244153",
+                                            "selected_count": 2
+                                        },
+                                        {
+                                            "answer_id": "244154",
+                                            "selected_count": 7
+                                        },
+                                        {
+                                            "answer_id": "244155",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "244156",
+                                            "selected_count": 0
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 8.0
+                        }
+                    ],
+                    "is_trouble": false
+                },
+                {
+                    "id": "1336",
+                    "title": "Pop Culture, Subculture, and Cultural Change",
+                    "student_count": 9,
+                    "correct_count": 9,
+                    "incorrect_count": 2,
+                    "chapter_section": [
+                        3,
+                        3
+                    ],
+                    "exercises": [
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:2\",\"blooms:2\",\"book:stax-soc\",\"lo:stax-soc:3-3-2\",\"context-cnxmod:4ee317f2-cc23-4075-b377-51ee4d11bb61\",\"type:practice\",\"requires-context:true\",\"context-cnxfeature:fs-id2371798\"],\"uuid\":\"18f383c2-9816-4107-aeb5-121f88a4a649\",\"group_uuid\":\"11bf09cc-0963-479b-a01a-180f4857b0a6\",\"number\":11860,\"version\":3,\"uid\":\"11860@3\",\"published_at\":\"2016-09-14T18:38:45.869Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":2,\"name\":\"Rice University\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":62844,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"One of the latest groups to differentiate itself from mainstream culture through its sense of fashion is that of the hipsters. In sociological terms, hipsters are classified as a ___.\",\"answers\":[{\"id\":259069,\"content_html\":\"subculture\",\"correctness\":\"1.0\",\"feedback_html\":\"Subcultures are groups that are somewhat distinguished from mainstream society but still compatible with it for the most part.\"},{\"id\":259070,\"content_html\":\"counterculture\",\"correctness\":\"0.0\",\"feedback_html\":\"Counterculture  groups strongly reject society’s core values and beliefs.\"},{\"id\":259071,\"content_html\":\"reference group\",\"correctness\":\"0.0\",\"feedback_html\":\"A reference group is a group to which one identifies and/or aspires to.\"},{\"id\":259072,\"content_html\":\"out-group\",\"correctness\":\"0.0\",\"feedback_html\":\"An out-group is a group to which one does not belong and may feel competitive towards.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"Hipsters are primarily known for their rejection of current fashion trends.  While they may superficially reject some of society’s values, such as wealth and power, their resistance is not perceived as threatening.  Thus, they are best classified as a subculture.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "62844",
+                                    "answered_count": 9,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Vernien Walker"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259069"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Stephen Dedalus"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259069"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Nellie Effertz"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259069"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Lily Bart"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259069"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Harry Potter"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259069"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Giovanny Jaskolski"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259069"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Cleve Pacocha"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "259072"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Alyce Tromp"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259069"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Albin Kirlin"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "259071"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "259069",
+                                            "selected_count": 7
+                                        },
+                                        {
+                                            "answer_id": "259070",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "259071",
+                                            "selected_count": 1
+                                        },
+                                        {
+                                            "answer_id": "259072",
+                                            "selected_count": 1
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 4.0
+                        },
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:2\",\"blooms:2\",\"book:stax-soc\",\"lo:stax-soc:3-3-2\",\"context-cnxmod:4ee317f2-cc23-4075-b377-51ee4d11bb61\",\"type:practice\",\"context-cnxfeature:\"],\"uuid\":\"03b8295c-09e5-4758-a20d-76fffb01683e\",\"group_uuid\":\"06bee8f2-bf84-4cae-a4e1-389ca6505069\",\"number\":12273,\"version\":2,\"uid\":\"12273@2\",\"published_at\":\"2016-07-13T19:18:50.015Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":2,\"name\":\"Rice University\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":58894,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"The term “parrothead” is used to describe a group of people who follow music icon Jimmy Buffet.  Researchers Mihelich and Papineau found in their research that this group is distinguished by its dedication to Buffett’s music, love of the “island” lifestyle, and desire to withdraw from the stress of everyday life.  Otherwise, parrotheads live mostly conventional lives.  In sociological terms, this group is known as___.\",\"answers\":[{\"id\":243116,\"content_html\":\"counterculture\",\"correctness\":\"0.0\",\"feedback_html\":\"Countercultures are groups that are primarily distinguished by their rejection of society’s fundamental values and beliefs.\"},{\"id\":243117,\"content_html\":\"subcultures\",\"correctness\":\"1.0\",\"feedback_html\":\"Subcultures are groups which are slightly distinguished from, but still compatible with, the dominant culture.\"},{\"id\":243118,\"content_html\":\"out group\",\"correctness\":\"0.0\",\"feedback_html\":\"Out groups are groups to which we do not belong.\"},{\"id\":243119,\"content_html\":\"secondary group\",\"correctness\":\"0.0\",\"feedback_html\":\"Secondary groups are impersonal groups that are goal oriented.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"Subcultures are distinguished from the larger culture  by dress, values, language, or behaviors.  However, they are compatible with the dominant culture and do not oppose its fundamental values.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"free-response\",\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "58894",
+                                    "answered_count": 2,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Lily Bart"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "243117"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Harry Potter"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "243117"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "243116",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "243117",
+                                            "selected_count": 2
+                                        },
+                                        {
+                                            "answer_id": "243118",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "243119",
+                                            "selected_count": 0
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 11.0
+                        }
+                    ],
+                    "is_trouble": false
+                },
+                {
+                    "id": "1346",
+                    "title": "Socialization Across the Life Course",
+                    "student_count": 10,
+                    "correct_count": 12,
+                    "incorrect_count": 0,
+                    "chapter_section": [
+                        5,
+                        4
+                    ],
+                    "exercises": [
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:2\",\"blooms:2\",\"book:stax-soc\",\"lo:stax-soc:5-4-2\",\"context-cnxmod:269040ea-022f-40d1-b2f7-4b9219fa096d\",\"type:practice\",\"requires-context:true\",\"context-cnxfeature:fs-id1337210\"],\"uuid\":\"1a9cf689-8e99-44a0-a206-c269cd881fa6\",\"group_uuid\":\"52c0c609-0b38-497a-aa05-b999f20e10a6\",\"number\":11866,\"version\":4,\"uid\":\"11866@4\",\"published_at\":\"2016-09-14T19:04:12.760Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":2,\"name\":\"Rice University\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":62857,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"As young adults prepare to enter college or the labor force, they may do certain things to ready themselves. Thinking about, and preparing for, a new life role is known as ___.\",\"answers\":[{\"id\":259121,\"content_html\":\"anticipatory socialization\",\"correctness\":\"1.0\",\"feedback_html\":\"Anticipatory socialization involves preparation for a new role in life.\"},{\"id\":259122,\"content_html\":\"resocialization\",\"correctness\":\"0.0\",\"feedback_html\":\"Resocialization involves learning about a new way of life, including new values, beliefs, and attitudes.\"},{\"id\":259123,\"content_html\":\"generalizing\",\"correctness\":\"0.0\",\"feedback_html\":\"In social science research, generalizing is when a researcher applies findings from a specific sample to the entire population.\"},{\"id\":259124,\"content_html\":\"risky shift\",\"correctness\":\"0.0\",\"feedback_html\":\"Risky shift occurs when one becomes less inhibited, often in a group situation.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"In the excerpt, it is noted that British youth are often encouraged to take a “gap year” to prepare themselves for what is ahead.  Anticipatory socialization is the process of thinking about, and preparing for, one’s future life roles.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"free-response\",\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "62857",
+                                    "answered_count": 10,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Vernien Walker"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259121"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Stephen Dedalus"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259121"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Nellie Effertz"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259121"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Lily Bart"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259121"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Leopold Bloom"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259121"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Harry Potter"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259121"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Giovanny Jaskolski"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259121"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Cleve Pacocha"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259121"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Alyce Tromp"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259121"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Albin Kirlin"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259121"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "259121",
+                                            "selected_count": 10
+                                        },
+                                        {
+                                            "answer_id": "259122",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "259123",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "259124",
+                                            "selected_count": 0
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 1.0
+                        },
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:2\",\"blooms:2\",\"book:stax-soc\",\"lo:stax-soc:5-4-2\",\"context-cnxmod:269040ea-022f-40d1-b2f7-4b9219fa096d\",\"type:practice\",\"requires-context:true\",\"context-cnxfeature:fs-id611914\"],\"uuid\":\"b36e3e1b-9c91-485c-ba3f-736af7a95721\",\"group_uuid\":\"c0137b85-4677-40ab-b14c-3fab7c58d1ee\",\"number\":11865,\"version\":3,\"uid\":\"11865@3\",\"published_at\":\"2016-09-14T19:16:22.426Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":2,\"name\":\"Rice University\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":62861,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"Generation Y, also known as Millennials, may have a harder time preparing for future life roles as they are coming of age during a time of economic hardship, political turmoil, and rapid social change.  The sociological term for preparation for future life roles is ___.\",\"answers\":[{\"id\":259137,\"content_html\":\"anticipatory socialization\",\"correctness\":\"1.0\",\"feedback_html\":\"Anticipatory socialization involves preparation for a new role in life.\"},{\"id\":259138,\"content_html\":\"resocialization\",\"correctness\":\"0.0\",\"feedback_html\":\"Resocialization involves learning about a new way of life, including new values, beliefs, and attitudes.\"},{\"id\":259139,\"content_html\":\"generalizing\",\"correctness\":\"0.0\",\"feedback_html\":\"In social science research, generalizing is when a researcher applies findings from a specific sample to the entire population.\"},{\"id\":259140,\"content_html\":\"risky shift\",\"correctness\":\"0.0\",\"feedback_html\":\"Risky shift occurs when one becomes less inhibited, often in a group situation.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"The passage describes some of the challenges faced by millennials as they transition from youth to adulthood.  In sociology, the term for mentally and practically preparing for future life roles is anticipatory socialization.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"free-response\",\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "62861",
+                                    "answered_count": 2,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Giovanny Jaskolski"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259137"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Cleve Pacocha"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259137"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "259137",
+                                            "selected_count": 2
+                                        },
+                                        {
+                                            "answer_id": "259138",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "259139",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "259140",
+                                            "selected_count": 0
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 11.0
+                        }
+                    ],
+                    "is_trouble": false
+                },
+                {
+                    "id": "1358",
+                    "title": "Global Implications of Media and Technology",
+                    "student_count": 10,
+                    "correct_count": 15,
+                    "incorrect_count": 4,
+                    "chapter_section": [
+                        8,
+                        3
+                    ],
+                    "exercises": [
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:2\",\"blooms:2\",\"book:stax-soc\",\"lo:stax-soc:8-3-2\",\"context-cnxmod:f8e4d21a-488f-491c-9e07-968a0b3e48ba\",\"type:practice\",\"requires-context:true\",\"context-cnxfeature:fs-id1485546\"],\"uuid\":\"f6dfe142-7c4c-4784-b50d-35e1132d8433\",\"group_uuid\":\"fffda88b-be7e-4465-9b07-ab8cbd9ded53\",\"number\":11879,\"version\":4,\"uid\":\"11879@4\",\"published_at\":\"2016-09-14T19:50:28.052Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":2,\"name\":\"Rice University\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":62882,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"Through a shared phone system, many of the residents of sub-Saharan Africa now have access to cell phones.  The spread of technology across borders is known as ___.\",\"answers\":[{\"id\":259221,\"content_html\":\"technological diffusion\",\"correctness\":\"1.0\",\"feedback_html\":\"Technological diffusion is the term for the spread of technology across borders.\"},{\"id\":259222,\"content_html\":\"knowledge gap\",\"correctness\":\"0.0\",\"feedback_html\":\"A knowledge gap is an increasing gap in information for those who have less access to technology.\"},{\"id\":259223,\"content_html\":\"media consolidation\",\"correctness\":\"0.0\",\"feedback_html\":\"Media consolidation refers to the trend of fewer persons controlling the major media outlets.\"},{\"id\":259224,\"content_html\":\"digital divide\",\"correctness\":\"0.0\",\"feedback_html\":\"Digital divide refers to the varying levels of access to technology experienced by different social classes.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"The shared phone system is an example of what sociologists refer to as technological diffusion, the spread of technology across international borders.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"free-response\",\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "62882",
+                                    "answered_count": 10,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Vernien Walker"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259221"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Stephen Dedalus"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "259223"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Nellie Effertz"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259221"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Lily Bart"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259221"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Leopold Bloom"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259221"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Harry Potter"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259221"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Giovanny Jaskolski"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259221"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Cleve Pacocha"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259221"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Alyce Tromp"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "259224"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Albin Kirlin"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "259222"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "259221",
+                                            "selected_count": 7
+                                        },
+                                        {
+                                            "answer_id": "259222",
+                                            "selected_count": 1
+                                        },
+                                        {
+                                            "answer_id": "259223",
+                                            "selected_count": 1
+                                        },
+                                        {
+                                            "answer_id": "259224",
+                                            "selected_count": 1
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 6.0
+                        },
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:2\",\"blooms:2\",\"book:stax-soc\",\"lo:stax-soc:8-3-1\",\"context-cnxmod:f8e4d21a-488f-491c-9e07-968a0b3e48ba\",\"type:practice\",\"requires-context:true\",\"context-cnxfeature:fs-id1690744\"],\"uuid\":\"73fa1fce-d81d-41a9-872a-a97349c91f42\",\"group_uuid\":\"4fed3e1f-338a-44c7-af70-ff9635ee4fe3\",\"number\":11878,\"version\":3,\"uid\":\"11878@3\",\"published_at\":\"2016-09-14T19:49:25.150Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":2,\"name\":\"Rice University\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":62880,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"While the advancement and spread of technology is generally considered a good thing, some countries may resist the intrusion and influence of the internet into their culture. The worldwide integration of media through the cross-cultural exchange of ideas is known as ___.\",\"answers\":[{\"id\":259213,\"content_html\":\"media globalization\",\"correctness\":\"1.0\",\"feedback_html\":\"Media globalization is defined as the worldwide integration of media through the global exchange of ideas.\"},{\"id\":259214,\"content_html\":\"technological globalization\",\"correctness\":\"0.0\",\"feedback_html\":\"Technological globalization refers to the cross-cultural development and exchange of technology.\"},{\"id\":259215,\"content_html\":\"media consolidation\",\"correctness\":\"0.0\",\"feedback_html\":\"Media consolidation refers to the trend of fewer persons controlling the major media outlets.\"},{\"id\":259216,\"content_html\":\"digital divide\",\"correctness\":\"0.0\",\"feedback_html\":\"Digital divide refers to the varying levels of access to technology experienced by different social classes.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"Media globalization is a process whereby ideas are exchanged across societies worldwide and the outcome is an integration of media across the globe.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"free-response\",\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "62880",
+                                    "answered_count": 9,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Vernien Walker"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "259214"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Stephen Dedalus"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259213"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Nellie Effertz"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259213"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Lily Bart"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259213"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Leopold Bloom"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259213"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Harry Potter"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259213"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Giovanny Jaskolski"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259213"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Cleve Pacocha"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259213"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Alyce Tromp"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259213"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "259213",
+                                            "selected_count": 8
+                                        },
+                                        {
+                                            "answer_id": "259214",
+                                            "selected_count": 1
+                                        },
+                                        {
+                                            "answer_id": "259215",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "259216",
+                                            "selected_count": 0
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 9.0
+                        }
+                    ],
+                    "is_trouble": false
+                },
+                {
+                    "id": "1381",
+                    "title": "The Process of Aging",
+                    "student_count": 9,
+                    "correct_count": 14,
+                    "incorrect_count": 3,
+                    "chapter_section": [
+                        13,
+                        2
+                    ],
+                    "exercises": [
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:2\",\"blooms:2\",\"book:stax-soc\",\"lo:stax-soc:13-2-1\",\"context-cnxmod:d9df5e48-4b72-482e-b616-886926188054\",\"type:practice\",\"requires-context:true\",\"context-cnxfeature:fs-id1760982\"],\"uuid\":\"ea1ce0d5-a12f-4a15-a5e6-3d74f6dff542\",\"group_uuid\":\"50467e39-d39d-4bd5-9188-8d8f13560abc\",\"number\":16564,\"version\":3,\"uid\":\"16564@3\",\"published_at\":\"2016-09-16T16:06:42.006Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":62979,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"Lesbian, gay, bisexual, and transgender (LGBT) people experience the aging process differently in all the following ways EXCEPT ________.\\n \",\"answers\":[{\"id\":259611,\"content_html\":\"LGBT older adults have lower rates of “disclosure management.”\",\"correctness\":\"1.0\",\"feedback_html\":\"As they transition to assisted-living facilities, LGBT people have the added burden of “disclosure management:” the way they share their sexual and relationship identity.\"},{\"id\":259612,\"content_html\":\"LGBT older adults have higher rates of disability than their heterosexual peers.\",\"correctness\":\"0.0\",\"feedback_html\":\"This statement is true.\"},{\"id\":259613,\"content_html\":\"LGBT older adults are less likely to have a support system that might provide elder care.\",\"correctness\":\"0.0\",\"feedback_html\":\"This statement is true.\"},{\"id\":259614,\"content_html\":\"LGBT older adults have lower rates of disability than their heterosexual peers.\",\"correctness\":\"0.0\",\"feedback_html\":\"This statement is true.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"A study from the National Senior Citizens Law Center reports that only 22 percent of LGBT older adults expect they could be open about their sexual orientation or gender identity in a long-term care facility.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "62979",
+                                    "answered_count": 8,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Vernien Walker"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259611"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Stephen Dedalus"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "259614"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Nellie Effertz"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259611"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Lily Bart"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "259614"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Harry Potter"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259611"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Giovanny Jaskolski"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259611"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Cleve Pacocha"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259611"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Alyce Tromp"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "259611"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "259611",
+                                            "selected_count": 6
+                                        },
+                                        {
+                                            "answer_id": "259612",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "259613",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "259614",
+                                            "selected_count": 2
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 7.0
+                        },
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:2\",\"blooms:4\",\"book:stax-soc\",\"lo:stax-soc:13-2-1\",\"context-cnxmod:d9df5e48-4b72-482e-b616-886926188054\",\"type:practice\"],\"uuid\":\"34dbcf9b-360a-47bc-9fc6-b28c44b64928\",\"group_uuid\":\"966257f7-0a68-4d1a-8de2-36eb34d06d76\",\"number\":12202,\"version\":3,\"uid\":\"12202@3\",\"published_at\":\"2016-11-18T19:05:21.637Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":2,\"name\":\"Rice University\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"Watch the following video on the aging process, then answer the questions afterward.\\n<iframe src=\\\"https://www.youtube.com/embed/uCnYUhETmqM\\\"></iframe>\",\"questions\":[{\"id\":70019,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"Which of the following statements about assisted living is TRUE?\",\"answers\":[{\"id\":287896,\"content_html\":\"Most of those in assisted living facilities are men.\",\"correctness\":\"0.0\",\"feedback_html\":\"The opposite is true, since women outlive men.\"},{\"id\":287897,\"content_html\":\"There will be an increase in the need for assisted living facilities as the baby-boomers begin to retire.\",\"correctness\":\"1.0\",\"feedback_html\":\"More elderly people means more demand for assisted living.\"},{\"id\":287898,\"content_html\":\"A majority of those in assisted living are between the ages of 65 to 84.\",\"correctness\":\"0.0\",\"feedback_html\":\"Those 65 to 84 are relatively healthy by comparison to those 85 and older.\"},{\"id\":287899,\"content_html\":\"Assisted living is another name for a nursing care facility.\",\"correctness\":\"0.0\",\"feedback_html\":\"Assisted living and nursing care are different things.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"Assisted living facilities exist between independent living and nursing care facilities. The majority of those in assisted living facilities are women and most are 85 and older.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "70019",
+                                    "answered_count": 9,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Vernien Walker"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287897"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Stephen Dedalus"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287897"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Nellie Effertz"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287897"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Lily Bart"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287897"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Leopold Bloom"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287897"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Harry Potter"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287897"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Giovanny Jaskolski"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287897"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Cleve Pacocha"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "287899"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Alyce Tromp"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "287897"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "287896",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "287897",
+                                            "selected_count": 8
+                                        },
+                                        {
+                                            "answer_id": "287898",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "287899",
+                                            "selected_count": 1
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 10.0
+                        }
+                    ],
+                    "is_trouble": false
+                },
+                {
+                    "id": "1418",
+                    "title": "Social Change",
+                    "student_count": 10,
+                    "correct_count": 12,
+                    "incorrect_count": 2,
+                    "chapter_section": [
+                        21,
+                        3
+                    ],
+                    "exercises": [
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"book:stax-soc\",\"lo:stax-soc:21-3-1\",\"context-cnxmod:be2e1e07-67a1-469b-b17c-109fda35d510\",\"type:practice\",\"requires-context:true\",\"blooms:7\",\"context-cnxfeature:fs-id1842955\"],\"uuid\":\"900bcfa9-0578-476e-a6c2-ecabcda1c88f\",\"group_uuid\":\"ab195f9a-8c13-4c97-aeeb-586e17c30612\",\"number\":16546,\"version\":2,\"uid\":\"16546@2\",\"published_at\":\"2016-07-18T18:58:27.310Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":59186,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"After Hurricane Katrina, developers rebuilt some houses in the lower area of the Ninth Ward where the worst of the flooding occurred to be more flood resistant by using stilts to elevate the living area.  Which of the four key elements in social change does this exemplify?\",\"answers\":[{\"id\":244269,\"content_html\":\"the environment\",\"correctness\":\"0.0\",\"feedback_html\":\"Rebuilding houses to be flood resistant does not exemplify the environment element in social change.\"},{\"id\":244270,\"content_html\":\"technology\",\"correctness\":\"1.0\",\"feedback_html\":\"Rebuilding houses to be flood resistant exemplifies the technology element in social change.\"},{\"id\":244271,\"content_html\":\"population\",\"correctness\":\"0.0\",\"feedback_html\":\"Rebuilding houses to be flood resistant does not exemplify the population element in social change, which is also referred to as demographic.\"},{\"id\":244272,\"content_html\":\"demographic\",\"correctness\":\"0.0\",\"feedback_html\":\"Rebuilding houses to be flood resistant does not exemplify the demographic element in social change, which is also referred to as population.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"Technology is the application of science to address the problems of daily life.  Adjusting house constructions can address an environmental problem.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"free-response\",\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "59186",
+                                    "answered_count": 10,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Vernien Walker"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244270"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Stephen Dedalus"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244270"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Nellie Effertz"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244270"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Lily Bart"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "244271"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Leopold Bloom"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244270"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Harry Potter"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244270"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Giovanny Jaskolski"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244270"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Cleve Pacocha"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244270"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Alyce Tromp"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244270"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Albin Kirlin"
+                                            ],
+                                            "free_response": "A sentence explaining all the wrong things...",
+                                            "answer_id": "244269"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "244269",
+                                            "selected_count": 1
+                                        },
+                                        {
+                                            "answer_id": "244270",
+                                            "selected_count": 8
+                                        },
+                                        {
+                                            "answer_id": "244271",
+                                            "selected_count": 1
+                                        },
+                                        {
+                                            "answer_id": "244272",
+                                            "selected_count": 0
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 3.0
+                        },
+                        {
+                            "content": "{\"attachments\":[],\"tags\":[\"time:short\",\"dok:4\",\"book:stax-soc\",\"lo:stax-soc:21-3-1\",\"context-cnxmod:be2e1e07-67a1-469b-b17c-109fda35d510\",\"type:practice\",\"requires-context:true\",\"context-cnxfeature:eip-653\",\"blooms:7\"],\"uuid\":\"62be3ca9-a89d-4c72-bd76-c01b8fc604ea\",\"group_uuid\":\"319e1eaa-34da-49f3-8da7-d819f65b02db\",\"number\":16544,\"version\":2,\"uid\":\"16544@2\",\"published_at\":\"2016-07-18T18:57:39.751Z\",\"authors\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"copyright_holders\":[{\"user_id\":1,\"name\":\"OpenStax\"}],\"derived_from\":[],\"is_vocab\":false,\"stimulus_html\":\"\",\"questions\":[{\"id\":59180,\"is_answer_order_important\":false,\"stimulus_html\":\"\",\"stem_html\":\"Which of the following is a good example of “crowdsourcing?”\",\"answers\":[{\"id\":244245,\"content_html\":\"Which of the following is a good example of “crowdsourcing?”\",\"correctness\":\"0.0\",\"feedback_html\":\"This is not an example of crowdsourcing.\"},{\"id\":244246,\"content_html\":\"A newlywed couple requesting monetary gifts via a webpage designed to gather money to put towards honeymoons.\",\"correctness\":\"1.0\",\"feedback_html\":\"Crowdsourcing involves soliciting money from large groups of people.\"},{\"id\":244247,\"content_html\":\"Renting out extra rooms in your house through a virtual marketplace, such as Airbnb to make extra money.\",\"correctness\":\"0.0\",\"feedback_html\":\"This is not an example of crowdsourcing.\"},{\"id\":244248,\"content_html\":\"Creating crafts and selling them to strangers via websites such as Etsy. \",\"correctness\":\"0.0\",\"feedback_html\":\"This is not an example of crowdsourcing.\"}],\"collaborator_solutions\":[{\"attachments\":[],\"solution_type\":\"detailed\",\"content_html\":\"Crowdsourcing is the process of obtaining needed services, ideas, or content by soliciting\\ncontributions from a large group of people, and especially from an online community rather than from traditional employees or suppliers.\"}],\"community_solutions\":[],\"hints\":[],\"formats\":[\"multiple-choice\"],\"combo_choices\":[]}]}",
+                            "question_stats": [
+                                {
+                                    "question_id": "59180",
+                                    "answered_count": 4,
+                                    "answers": [
+                                        {
+                                            "student_names": [
+                                                "Vernien Walker"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244246"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Stephen Dedalus"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244246"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Nellie Effertz"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244246"
+                                        },
+                                        {
+                                            "student_names": [
+                                                "Alyce Tromp"
+                                            ],
+                                            "free_response": "A sentence explaining all the things!",
+                                            "answer_id": "244246"
+                                        }
+                                    ],
+                                    "answer_stats": [
+                                        {
+                                            "answer_id": "244245",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "244246",
+                                            "selected_count": 4
+                                        },
+                                        {
+                                            "answer_id": "244247",
+                                            "selected_count": 0
+                                        },
+                                        {
+                                            "answer_id": "244248",
+                                            "selected_count": 0
+                                        }
+                                    ]
+                                }
+                            ],
+                            "average_step_number": 11.0
+                        }
+                    ],
+                    "is_trouble": false
+                }
+            ],
+            "spaced_pages": [],
+            "is_trouble": false
+        }
+    ],
+    "shareable_url": "/@/96cf60/homework-1"
+}
