@@ -74,13 +74,15 @@ ScrollToMixin =
     # The element's postion may have changed if scrolling was initiated while
     # the page was still being manipulated.
     # If that's the case, we begin another scroll to it's current position
-    if options.attemptNumber < MAXIMUM_SCROLL_ATTEMPTS and @props.windowImpl.pageYOffset isnt @_desiredTopPosition(el)
-      @scrollToElement(el, options.attemptNumber + 1)
+    if options.attemptNumber < MAXIMUM_SCROLL_ATTEMPTS and @props.windowImpl.pageYOffset isnt @_desiredTopPosition(el, options)
+      @scrollToElement(el, extend(options, {attemptNumber: options.attemptNumber + 1}))
     else
       @_onAfterScroll(el, options)
 
-  _desiredTopPosition: (el) ->
-    GetPositionMixin.getTopPosition(el) - _.result(@, 'getScrollTopOffset', DEFAULT_TOP_OFFSET)
+  _desiredTopPosition: (el, options = {} ) ->
+    GetPositionMixin.getTopPosition(el) - (
+      options.scrollTopOffset or result(@, 'getScrollTopOffset', DEFAULT_TOP_OFFSET)
+    )
 
   scrollToTop: ->
     root = @props.windowImpl.document.body.querySelector('#ox-react-root-container')
