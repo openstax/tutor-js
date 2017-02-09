@@ -31,7 +31,7 @@ TaskBase = React.createClass
 
   getChildContext: ->
     bookUUID: @props.collectionUUID
-    oxProject: 'coach'
+    oxProject: 'cc'
 
   getInitialState: ->
     {item} = @props
