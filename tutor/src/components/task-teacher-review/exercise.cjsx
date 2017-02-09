@@ -126,11 +126,11 @@ TaskTeacherReviewExercise = React.createClass
       html={stimulus_html} /> if stimulus_html?.length > 0
     firstSectionKey = questions
 
-    <div data-section={@props.sectionKey}>
-      <CardBody
-        className='task-step openstax-exercise openstax-exercise-card'
-        pinned={false}
-      >
+    <div
+      data-section={@props.sectionKey}
+      className='task-step openstax-exercise openstax-exercise-card'
+    >
+      <CardBody pinned={false}>
         {stimulus}
         {exercise}
         <ExerciseGroup
