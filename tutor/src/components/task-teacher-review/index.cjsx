@@ -51,13 +51,9 @@ TaskTeacherReview = React.createClass
   componentWillMount: ->
     @setStepKey()
     TaskTeacherReviewStore.on('review.loaded', @setIsReviewLoaded)
-    # location = @context.router.getLocation()
-    # location.addChangeListener(@syncRoute)
 
   componentWillUnmount: ->
     TaskTeacherReviewStore.off('review.loaded', @setIsReviewLoaded)
-    # location = @context.router.getLocation()
-    # location.removeChangeListener(@syncRoute)
 
   componentWillReceiveProps: (nextProps) ->
     if nextProps.shouldUpdate
@@ -89,7 +85,6 @@ TaskTeacherReview = React.createClass
     # url is 1 based so it matches the breadcrumb button numbers
     params.sectionIndex = stepKey + 1
     params.id = @props.id # if we were rendered directly, the router might not have the id
-#    @context.router.replaceWith('reviewTaskStep', params)
 
   setPeriod: (period) ->
     return unless @state.isReviewLoaded
