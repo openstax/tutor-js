@@ -105,13 +105,13 @@ TaskTeacherReviewExercise = React.createClass
   renderQuestion: (question, index) ->
     questionStats = @getQuestionStatsById(question.id)
     return null unless questionStats
-    {sectionKey} = @props
+    sectionKey = if index then @props.sectionKey + index else null
 
     <TaskTeacherReviewQuestionTracker
       key={"task-review-question-#{question.id}"}
       question={question}
       questionStats={questionStats}
-      sectionKey={sectionKey}/>
+      sectionKey={sectionKey} />
 
   render: ->
     {content} = @props
@@ -124,15 +124,20 @@ TaskTeacherReviewExercise = React.createClass
       className='exercise-stimulus'
       block={true}
       html={stimulus_html} /> if stimulus_html?.length > 0
+    firstSectionKey = questions
 
-    <CardBody className='task-step openstax-exercise openstax-exercise-card' pinned={false}>
-      {stimulus}
-      {exercise}
-      <ExerciseGroup
-        project='tutor'
-        key='step-exercise-group'
-        exercise_uid={uid}/>
-      <ExerciseIdentifierLink exerciseId={@props.content.uid} project='tutor' />
-    </CardBody>
-
+    <div data-section={@props.sectionKey}>
+      <CardBody
+        className='task-step openstax-exercise openstax-exercise-card'
+        pinned={false}
+      >
+        {stimulus}
+        {exercise}
+        <ExerciseGroup
+          project='tutor'
+          key='step-exercise-group'
+          exercise_uid={uid}/>
+        <ExerciseIdentifierLink exerciseId={@props.content.uid} project='tutor' />
+      </CardBody>
+    </div>
 module.exports = TaskTeacherReviewExercise
