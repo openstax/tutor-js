@@ -40,7 +40,7 @@
   "dependencies": {
     "axios": "0.15.3",
     "bootstrap": "3.3.7",
-    "braintree-web": "^3.7.0",
+    "braintree-web": "3.8.0",
     "classnames": "2.2.5",
     "dateformat": "2.0.0",
     "detect-browser": "1.6.2",

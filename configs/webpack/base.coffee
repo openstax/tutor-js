@@ -68,7 +68,6 @@ BASE_CONFIG =
   module:
     noParse: [
       /\/sinon\.js/
-      /braintree-web/  # https://github.com/braintree/braintree-web/issues/52
     ]
     loaders: _.values(STATICS)
   plugins: [
