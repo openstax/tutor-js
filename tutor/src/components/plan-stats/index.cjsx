@@ -27,7 +27,10 @@ NoStudents = ({courseId}) ->
     </p>
   </span>
 
+NoStudents.displayName = 'NoStudents'
+
 Stats = React.createClass
+  displayName: 'Stats'
   propTypes:
     id: React.PropTypes.string.isRequired
     activeSection: React.PropTypes.string
@@ -128,7 +131,7 @@ Stats = React.createClass
     </BS.Panel>
 
 StatsShell = React.createClass
-
+  displayName: 'StatsShell'
   getId: -> RoutercurrentParams().id
 
   render: ->
@@ -142,6 +145,8 @@ StatsShell = React.createClass
     />
 
 StatsModalShell = React.createClass
+  displayName: 'StatsModalShell'
+
   render: ->
     {id} = @props
     <LoadableItem

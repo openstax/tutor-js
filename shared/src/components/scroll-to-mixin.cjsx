@@ -1,6 +1,11 @@
 React = require 'react'
 ReactDOM = require 'react-dom'
-_ = require 'underscore'
+
+extend  = require 'lodash/extend'
+isEmpty = require 'lodash/isEmpty'
+delay   = require 'lodash/delay'
+result  = require 'lodash/result'
+
 
 # Note that the GetPositionMixin methods are called directly rather than mixing it in
 # since we're a mixin ourselves our consumers also include GetPosition and it causes
@@ -32,7 +37,7 @@ ScrollToMixin =
   _scrollingTargetDOM: -> @scrollingTargetDOM?() or ReactDOM.findDOMNode(@)
 
   scrollToSelector: (selector, options) ->
-    options = _.extend({updateHistory: true, unlessInView: false}, options)
+    options = extend({updateHistory: true, unlessInView: false}, options)
 
     el = @getElement(selector)
     return false unless el
@@ -52,7 +57,7 @@ ScrollToMixin =
     visibleHeight > height / 2
 
   getElement: (selector) ->
-    return if _.isEmpty(selector)
+    return if isEmpty(selector)
     @_scrollingTargetDOM().querySelector(selector)
 
   _onBeforeScroll: (el) ->
@@ -61,7 +66,7 @@ ScrollToMixin =
 
   _onAfterScroll: (el, options) ->
     if el?.classList?.contains('target-scroll')
-      _.delay(el.classList.remove.bind(el.classList, 'target-scroll'), 150)
+      delay(el.classList.remove.bind(el.classList, 'target-scroll'), 150)
     @props.windowImpl.history.pushState(null, null, "##{el.id}") if options.updateHistory
     @onAfterScroll?(el)
 
@@ -69,13 +74,15 @@ ScrollToMixin =
     # The element's postion may have changed if scrolling was initiated while
     # the page was still being manipulated.
     # If that's the case, we begin another scroll to it's current position
-    if options.attemptNumber < MAXIMUM_SCROLL_ATTEMPTS and @props.windowImpl.pageYOffset isnt @_desiredTopPosition(el)
-      @scrollToElement(el, options.attemptNumber + 1)
+    if options.attemptNumber < MAXIMUM_SCROLL_ATTEMPTS and @props.windowImpl.pageYOffset isnt @_desiredTopPosition(el, options)
+      @scrollToElement(el, extend(options, {attemptNumber: options.attemptNumber + 1}))
     else
       @_onAfterScroll(el, options)
 
-  _desiredTopPosition: (el) ->
-    GetPositionMixin.getTopPosition(el) - _.result(@, 'getScrollTopOffset', DEFAULT_TOP_OFFSET)
+  _desiredTopPosition: (el, options = {} ) ->
+    GetPositionMixin.getTopPosition(el) - (
+      options.scrollTopOffset or result(@, 'getScrollTopOffset', DEFAULT_TOP_OFFSET)
+    )
 
   scrollToTop: ->
     root = @props.windowImpl.document.body.querySelector('#ox-react-root-container')
@@ -83,7 +90,7 @@ ScrollToMixin =
 
   scrollToElement: (el, options = {} ) ->
     win       = @props.windowImpl
-    endPos    = @_desiredTopPosition(el)
+    endPos    = @_desiredTopPosition(el, options)
 
     if options.immediate is true
       win.scroll(0, endPos)
@@ -92,8 +99,8 @@ ScrollToMixin =
 
     startPos  = win.pageYOffset
     startTime = Date.now()
-    duration  = _.result(@, 'getScrollDuration', DEFAULT_DURATION)
-    requestAnimationFrame = win.requestAnimationFrame or _.defer
+    duration  = result(@, 'getScrollDuration', DEFAULT_DURATION)
+    requestAnimationFrame = win.requestAnimationFrame or delay
     options.attemptNumber ||= 0
 
     step = =>
