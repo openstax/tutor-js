@@ -42,12 +42,10 @@ BASE_DEV_LOADER_RULES = _.map(BASE_BUILD, (loaderConfig, type) ->
   config = _.pick(loaderConfig, 'test')
   config.use ||= []
 
-
   if type is 'less'
     config.use = config.use.concat DEV_LOADERS.concat(LOADERS.style, LOADERS.css, LOADERS.less)
   else
-    config.use = loaderConfig.use #DEV_LOADERS # config.use.concat DEV_LOADERS.concat(loaderConfig)
-  console.log config
+    config.use = loaderConfig.use
   config
 )
 
@@ -70,9 +68,7 @@ BASE_CONFIG =
       /\/sinon\.js/
     ]
     rules: _.values(STATICS)
-  plugins: [
-#    new webpack.optimize.DedupePlugin()
-  ]
+  plugins: [ ]
 
 
 mergeWebpackConfigs = ->
@@ -139,7 +135,6 @@ makeProductionBase = (projectConfig) ->
 
   # rename to minified
   output.filename = '[name].min.js'
-  # output.path = "#{projectConfig.basePath}/dist"
   {styleFilename} = projectConfig
   styleFilename ?= '[name].min.css'
 
@@ -184,7 +179,7 @@ makeDevelopmentBase = (projectConfig) ->
     ]
     devServer:
       contentBase: "#{projectConfig.basePath}/"
-#      outputPath: outputPath
+
       publicPath: publicPath
       historyApiFallback: true
       inline: true
