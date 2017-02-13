@@ -1,7 +1,5 @@
 {NotificationActions} = require 'shared'
 
-Router = require './router'
-
 module.exports =
 
   start: (bootstrapData) ->
@@ -10,6 +8,9 @@ module.exports =
       NotificationActions.display({message, level})
 
   buildCallbackHandlers: (comp) ->
+    # Require router here because requiring it in global scope
+    # causes hot module reloading to fail in dev mode because this file is required outside the HMR scope
+    Router = require './router'
     router = comp.context.router
     unless router
       throw new Error("Component's context must have router present")
