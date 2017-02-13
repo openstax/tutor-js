@@ -7,4 +7,4 @@ bin/checkinputs "$@"
 export OX_PROJECT=$1
 echo Serving: $OX_PROJECT
 
-webpack-dev-server --progress --config webpack.config.js
+./node_modules/webpack-dev-server/bin/webpack-dev-server.js --debug --progress --config webpack.config.js
