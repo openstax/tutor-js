@@ -4,6 +4,7 @@ _ = require 'lodash'
 webpack = require 'webpack'
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 
+
 LOADERS =
   babel:  'babel-loader'
   file:   'file-loader?name=[name].[ext]'
@@ -13,7 +14,6 @@ LOADERS =
   style:  'style-loader'
   css:    'css-loader'
   less:   'less-loader'
-#  lessCompiled: ExtractTextPlugin.extract('css!less')
 
 RESOLVABLES =
   js:     { test: /\.js$/,     use: LOADERS.babel, exclude: /node_modules/}
@@ -34,7 +34,12 @@ BASE_BUILD =
   jsx:    RESOLVABLES.jsx
   coffee: RESOLVABLES.coffee
   cjsx:   RESOLVABLES.cjsx
-  less: { test: /\.less$/,  use: [ LOADERS.style, LOADERS.css, LOADERS.less ] }
+  less: {
+    test: /\.less$/, use: ExtractTextPlugin.extract({
+      fallback: 'style-loader',
+      use: [ LOADERS.css, LOADERS.less ]
+    })
+  }
 
 DEV_LOADERS = ['react-hot-loader/webpack']
 
@@ -68,7 +73,9 @@ BASE_CONFIG =
       /\/sinon\.js/
     ]
     rules: _.values(STATICS)
-  plugins: [ ]
+  plugins: [
+
+  ]
 
 
 mergeWebpackConfigs = ->
@@ -97,9 +104,9 @@ makeBuildPlugins = (projectConfig) ->
   styleFilename ?= '[name].css'
 
   [
-    new ExtractTextPlugin({
-      filename: styleFilename
-    })
+    new ExtractTextPlugin(
+      styleFilename
+    )
   ]
 
 
@@ -192,7 +199,7 @@ makeDevelopmentBase = (projectConfig) ->
       # to see success build.
       noInfo: false
       host: "#{host}",
-      filename: 'tutor.js'
+      filename: '[name].js'
       hot: true
       stats:
         # Config for minimal console.log mess.
