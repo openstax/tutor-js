@@ -110,7 +110,7 @@
     "del": "2.2.2",
     "enzyme": "2.7.1",
     "eslint": "3.15.0",
-    "extract-text-webpack-plugin": "^2.0.0-rc.3",
+    "extract-text-webpack-plugin": "2.0.0-rc.3",
     "extract-values": "0.1.2",
     "file-exists": "3.0.1",
     "file-loader": "0.10.0",
