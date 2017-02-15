@@ -22,7 +22,7 @@ describe 'Scores Report: assignment column header', ->
     expect(wrapper).toHaveRendered("Time[date=\"#{@props.headings[0].due_at}\"]")
     undefined
 
-  context 'for a CC course', ->
+  describe 'for a CC course', ->
 
     beforeEach ->
       @props.isConceptCoach = true
