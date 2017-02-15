@@ -42,6 +42,8 @@ global.expect = (actual) ->
   combinedMatchers = Object.assign(chaiMatchers, originalMatchers)
   combinedMatchers
 
-global.expect.extend = originalExpect.extend
+
+for key, fn of originalExpect
+  global.expect[key] = fn
 
 require './matchers'
