@@ -37,9 +37,9 @@ describe 'Notifications Bar', ->
 
   it 'starts and stops listening to notifications', ->
     wrapper = shallow(<Bar {...@props} />)
-    expect(Notifications.on).toHaveBeenLastCalledWith('change', jasmine.any(Function))
+    expect(Notifications.on).toHaveBeenLastCalledWith('change', expect.anything())
     wrapper.unmount()
-    expect(Notifications.off).toHaveBeenLastCalledWith('change', jasmine.any(Function))
+    expect(Notifications.off).toHaveBeenLastCalledWith('change', expect.anything())
     undefined
 
   it 'shows itself after a delay if there are notifications', ->
