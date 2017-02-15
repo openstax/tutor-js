@@ -73,7 +73,7 @@
     "react-dom": "15.4.2",
     "react-maskedinput": "3.3.4",
     "react-router": "4.0.0-alpha.6",
-    "react-widgets": "4.0.0-rc.2",
+    "react-widgets": "3.4.6",
     "recordo": "0.0.6",
     "svg-url-loader": "2.0.1",
     "twix": "1.1.3",
