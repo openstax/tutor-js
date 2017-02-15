@@ -1,6 +1,6 @@
 React       = require 'react'
 merge       = require 'lodash/merge'
-TestBackend = require 'react-dnd-test-backend'
+TestBackend = require('react-dnd-test-backend').default
 TestRouter  = require './test-router'
 {DragDropManager} = require 'dnd-core'
 
