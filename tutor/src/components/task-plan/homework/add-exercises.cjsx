@@ -1,5 +1,6 @@
 React = require 'react'
-_ = require 'underscore'
+
+keys = require('lodash/keys')
 
 LoadingExercises = require './loading-exercises-mixin'
 {PinnedHeaderFooterCard, ScrollToMixin} = require 'shared'
@@ -71,7 +72,7 @@ AddExercises = React.createClass
       handler: @showDetails
 
   reportError: (ev, exercise) ->
-    ExerciseHelpers.openReportErrorPage(exercise)
+    ExerciseHelpers.openReportErrorPage(exercise, @props.courseId)
 
   toggleFeedback: ->
     @setState(displayFeedback: not @state.displayFeedback)
@@ -137,7 +138,7 @@ AddExercises = React.createClass
           currentSection: @state.currentSection
           onSectionClick: @setCurrentSection
           nonAvailableWidth: 600
-          chapter_sections: _.keys(exercises.all.grouped)
+          chapter_sections: keys(exercises.all.grouped)
         }
       />
 

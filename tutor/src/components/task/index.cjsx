@@ -9,6 +9,7 @@ classnames = require 'classnames'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 {TaskPanelActions, TaskPanelStore} = require '../../flux/task-panel'
 {TaskProgressActions, TaskProgressStore} = require '../../flux/task-progress'
+{CourseStore} = require '../../flux/course'
 
 StepFooterMixin = require '../task-step/step-footer-mixin'
 Router = require '../../helpers/router'
@@ -29,10 +30,22 @@ LoadableItem = require '../loadable-item'
 {PinnedHeaderFooterCard, PinnedHeader, ScrollToMixin, ExerciseIntro} = require 'shared'
 
 Task = React.createClass
+
+  displayName: 'Task'
+
   propTypes:
     id: React.PropTypes.string
 
-  displayName: 'Task'
+  # Book and Project context is used by the exercise identifier link which
+  # deeply nested and impractical to pass through the tree.
+  childContextTypes:
+    bookUUID:  React.PropTypes.string
+    oxProject: React.PropTypes.string
+
+  getChildContext: ->
+    {courseId} = Router.currentParams()
+    bookUUID: CourseStore.getBookUUID(courseId)
+    oxProject: 'tutor'
 
   contextTypes:
     router: React.PropTypes.object

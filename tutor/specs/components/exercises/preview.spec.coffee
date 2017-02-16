@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
+{Testing, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
 
 ExercisePreviewWrapper = require '../../../src/components/exercises/preview'
 {ExerciseActions, ExerciseStore} = require '../../../src/flux/exercise'
