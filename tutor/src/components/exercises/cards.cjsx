@@ -15,7 +15,7 @@ Icon = require '../icon'
 ExercisePreview = require './preview'
 
 SectionsExercises = React.createClass
-
+  displayName: 'SectionsExercises'
   propTypes:
     ecosystemId:            React.PropTypes.string.isRequired
     exercises:              React.PropTypes.array.isRequired
@@ -44,7 +44,7 @@ SectionsExercises = React.createClass
 
 
 ExerciseCards = React.createClass
-
+  displayName: 'ExerciseCards'
   propTypes:
     ecosystemId:            React.PropTypes.string.isRequired
     exercises:              React.PropTypes.object.isRequired
