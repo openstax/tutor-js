@@ -28,7 +28,10 @@ ChooseExercises = React.createClass
     showProblems: false
 
   selectProblems: ->
-    ExerciseActions.loadForCourse(@props.courseId, TaskPlanStore.getTopics(@props.planId) )
+
+    ExerciseActions.loadForCourse(
+      @props.courseId, TaskPlanStore.getTopics(@props.planId), @props.ecosystemId
+    )
     @setState(showProblems: true)
 
   onAddClick: ->

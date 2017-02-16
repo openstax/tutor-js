@@ -74,7 +74,7 @@ ExerciseConfig =
     @_exerciseCache = {}
     @_unsavedExclusions = {}
 
-  loadForCourse: (courseId, pageIds) -> # Used by API
+  loadForCourse: (courseId, pageIds, ecosystemId) -> # Used by API
     @_asyncStatus = LOADING
   loadedForCourse: (obj, courseId, pageIds) ->
     @processLoad(obj, pageIds)

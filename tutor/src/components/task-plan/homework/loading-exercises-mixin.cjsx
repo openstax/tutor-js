@@ -1,6 +1,7 @@
 _     = require 'underscore'
 React = require 'react'
 
+{TaskPlanStore} = require '../../../flux/task-plan'
 {ExerciseStore, ExerciseActions} = require '../../../flux/exercise'
 Icon = require '../../icon'
 
@@ -12,7 +13,8 @@ LoadingExercisesMixin =
   componentWillUnmount: -> ExerciseStore.removeChangeListener(@exerciseLoadListenerOnUpdate)
 
   requestExerciseLoad: ->
-    ExerciseActions.loadForCourse(@props.courseId, @props.sectionIds, @props.ecosystemId)
+    ecosystemId = @props.ecosystemId or TaskPlanStore.getEcosystemId(@props.planId, @props.courseId)
+    ExerciseActions.loadForCourse(@props.courseId, @props.sectionIds, ecosystemId)
 
   exercisesNeedLoading: ->
     not _.isEmpty(@props.sectionIds) and
