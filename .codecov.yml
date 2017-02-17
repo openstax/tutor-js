@@ -1,9 +1,6 @@
 comment:
   layout: "header, diff, changes, uncovered, tree"
   behavior: default
-ignore:
-  - "**/specs/*"
-  - "**/test/*"
 
 # To Turn off comments completely:
 # comment: false
