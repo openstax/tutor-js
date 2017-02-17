@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
+{Testing, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
 ld = require 'lodash'
 
 ExercisesDisplay = require '../../../src/components/questions/exercises-display'
@@ -30,12 +30,11 @@ describe 'QL exercises display', ->
   afterEach ->
     ExerciseActions.saveExerciseExclusion.restore()
 
-  it 'renders cards', (done) ->
+  it 'renders cards', ->
     Testing.renderComponent( ExercisesDisplay, props: @props, unmountAfter: 20 ).then ({dom}) ->
-
       expect( dom.querySelectorAll('.openstax-exercise-preview').length ).to
         .equal(EXERCISES.items.length)
-      done()
+
 
   it 'displays dialog when exercises are at minimum (5)', ->
     expect(EXERCISES.items.length).to.equal(5)

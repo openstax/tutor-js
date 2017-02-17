@@ -1,5 +1,9 @@
-{Testing, expect, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
+{Testing, sinon, _, SnapShot, React, Wrapper, ReactTestUtils} = require '../helpers/component-testing'
 
+jest.mock('react-dom')
+ReactDOM = require 'react-dom'
+
+FakeDOMNode = require 'shared/specs/helpers/fake-dom-node'
 ld = require 'lodash'
 
 Dashboard = require '../../../src/components/questions/dashboard'
@@ -29,3 +33,10 @@ describe 'Questions Dashboard Component', ->
       expect(dom.textContent).to.contain(
         'Students will only see questions from sections they work on in Concept Coach'
       )
+
+  it 'matches snapshot', ->
+    ReactDOM.findDOMNode = jest.fn(-> new FakeDOMNode)
+    expect(SnapShot.create(
+      <Wrapper _wrapped_component={Dashboard} noReference {...@props}/>).toJSON()
+    ).toMatchSnapshot()
+    undefined
