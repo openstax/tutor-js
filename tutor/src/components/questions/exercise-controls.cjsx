@@ -2,6 +2,10 @@ React = require 'react'
 BS = require 'react-bootstrap'
 classNames = require 'classnames'
 
+keys    = require 'lodash/keys'
+first   = require 'lodash/first'
+isEmpty = require 'lodash/isEmpty'
+
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
 {CourseStore} = require '../../flux/course'
 {AsyncButton, ScrollToMixin} = require 'shared'
@@ -35,7 +39,7 @@ QuestionsControls = React.createClass
   }
 
   getSections: ->
-    _.keys @props.exercises.all.grouped
+    keys @props.exercises.all.grouped
 
   onFilterClick: (ev) ->
     filter = ev.currentTarget.getAttribute('data-filter')
@@ -45,13 +49,13 @@ QuestionsControls = React.createClass
   render: ->
     sections = @getSections()
 
-    selected = @props.selectedSection or _.first(sections)
+    selected = @props.selectedSection or first(sections)
 
     isConceptCoach = CourseStore.isConceptCoach(@props.courseId)
     filters =
       <BS.ButtonGroup className="filters">
         <BS.Button data-filter='all' onClick={@onFilterClick}
-          className={classNames 'all', 'active': _.isEmpty(@props.filter) or @props.filter is 'all'}
+          className={classNames 'all', 'active': isEmpty(@props.filter) or @props.filter is 'all'}
         >
           All
         </BS.Button>
