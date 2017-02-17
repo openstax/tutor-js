@@ -90,7 +90,8 @@ AddExercises = React.createClass
 
   render: ->
     return @renderLoading() if @exercisesAreLoading()
-    ecosystemId = CourseStore.get(@props.courseId)?.ecosystem_id
+    ecosystemId = TaskPlanStore.getEcosystemId(@props.planId, @props.courseId)
+
     exercises = ExerciseStore.groupBySectionsAndTypes(
       ecosystemId, @props.sectionIds
     )
