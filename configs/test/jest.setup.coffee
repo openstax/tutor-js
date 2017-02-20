@@ -42,8 +42,7 @@ global.expect = (actual) ->
   combinedMatchers = Object.assign(chaiMatchers, originalMatchers)
   combinedMatchers
 
-
-for key, fn of originalExpect
-  global.expect[key] = fn
+for prop in ['extend', 'anything', 'any', 'arrayContaining', 'objectContaining', 'stringContaining', 'stringMatching']
+  global.expect[prop] = originalExpect[prop]
 
 require './matchers'
