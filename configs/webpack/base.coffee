@@ -109,10 +109,7 @@ makeBuildPlugins = (projectConfig) ->
     )
   ]
 
-
- path = require 'path'
-
- makePathsBase = (projectConfig) ->
+makePathsBase = (projectConfig) ->
   {basePath} = projectConfig
 
   pathConfigs =
