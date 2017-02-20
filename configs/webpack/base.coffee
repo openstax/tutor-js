@@ -12,7 +12,7 @@ LOADERS =
   coffee: 'coffee-loader'
   cjsx:   'coffee-jsx-loader'
   style:  'style-loader'
-  css:    'css-loader'
+  css:    'css-loader?minimize=true'
   less:   'less-loader'
 
 RESOLVABLES =
