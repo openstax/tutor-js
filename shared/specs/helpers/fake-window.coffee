@@ -9,7 +9,7 @@ EmptyFn = ->
 
 class FakeWindow
   clearInterval: EmptyFn
-  setInterval: -> Math.random()
+  setInterval: -> sinon.spy( -> Math.random() )
   document:
     hidden: false
   pageYOffset: 0
