@@ -149,7 +149,9 @@ makeProductionBase = (projectConfig) ->
       rules: BASE_BUILD_LOADERS
     plugins: makeBuildPlugins({styleFilename}).concat([
       # Minify
-      new webpack.optimize.UglifyJsPlugin(minimize: true)
+      # https://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
+      # https://github.com/webpack/webpack/issues/2704
+      new webpack.optimize.UglifyJsPlugin(comments: false, sourceMap: true)
 
       # Use the production version of React (no warnings/runtime checks)
       new webpack.DefinePlugin(
