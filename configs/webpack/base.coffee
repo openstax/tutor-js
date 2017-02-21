@@ -4,29 +4,26 @@ _ = require 'lodash'
 webpack = require 'webpack'
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 
+
 LOADERS =
-  babel: 'babel'
-  json: 'json'
-  file: 'file?name=[name].[ext]'
-  url: 'url?limit=30000&name=[name]-[hash].[ext]'
-  coffee: 'coffee'
-  cjsx: 'coffee-jsx'
-  lessCompiled: ExtractTextPlugin.extract('css!less')
-  style: 'style'
-  css: 'css'
-  less: 'less'
+  babel:  'babel-loader'
+  file:   'file-loader?name=[name].[ext]'
+  url:    'url-loader?limit=30000&name=[name]-[hash].[ext]'
+  coffee: 'coffee-loader'
+  cjsx:   'coffee-jsx-loader'
+  style:  'style-loader'
+  css:    'css-loader?minimize=true'
+  less:   'less-loader'
 
 RESOLVABLES =
-  js: { test: /\.js$/, exclude: /node_modules/, loader: LOADERS.babel}
-  json: { test: /\.json$/,   loader: LOADERS.json }
-  jsx: { test: /\.jsx$/, loader: LOADERS.babel}
-  coffee: { test: /\.coffee$/,  loader: LOADERS.coffee }
-  cjsx: { test: /\.cjsx$/,    loader: LOADERS.cjsx }
+  js:     { test: /\.js$/,     use: LOADERS.babel, exclude: /node_modules/}
+  jsx:    { test: /\.jsx$/,    use: LOADERS.babel  }
+  coffee: { test: /\.coffee$/, use: LOADERS.coffee }
+  cjsx:   { test: /\.cjsx$/,   use: LOADERS.cjsx   }
 
 STATICS =
-  json: RESOLVABLES.json
-  image: { test: /\.(png|jpg|svg|gif)/, loader: LOADERS.file }
-  font: { test: /\.(woff|woff2|eot|ttf)/, loader: LOADERS.url }
+  image: { test: /\.(png|jpg|svg|gif)/,    use: [ LOADERS.file ] }
+  font:  { test: /\.(woff|woff2|eot|ttf)/, use: [ LOADERS.url  ] }
 
 BASE_BUILD =
   # TODO
@@ -34,26 +31,32 @@ BASE_BUILD =
   #   It doesn't seem to exclude node_modules,
   #   will need to eventually for ES6 support.
   # js: RESOLVABLES.js
-  jsx: RESOLVABLES.jsx
+  jsx:    RESOLVABLES.jsx
   coffee: RESOLVABLES.coffee
-  cjsx: RESOLVABLES.cjsx
-  less: { test: /\.less$/,    loader: LOADERS.lessCompiled }
+  cjsx:   RESOLVABLES.cjsx
+  less: {
+    test: /\.less$/, use: ExtractTextPlugin.extract({
+      fallback: 'style-loader',
+      use: [ LOADERS.css, LOADERS.less ]
+    })
+  }
 
 DEV_LOADERS = ['react-hot-loader/webpack']
 
-BASE_DEV_LOADERS = _.map(BASE_BUILD, (loaderConfig, type) ->
+BASE_DEV_LOADER_RULES = _.map(BASE_BUILD, (loaderConfig, type) ->
   config = _.pick(loaderConfig, 'test')
-  if type is 'less'
-    config.loaders = DEV_LOADERS.concat(LOADERS.style, LOADERS.css, LOADERS.less)
-  else
-    config.loaders = DEV_LOADERS.concat(loaderConfig.loader)
+  config.use ||= []
 
+  if type is 'less'
+    config.use = config.use.concat DEV_LOADERS.concat(LOADERS.style, LOADERS.css, LOADERS.less)
+  else
+    config.use = loaderConfig.use
   config
 )
 
 BASE_BUILD_LOADERS = _.values(BASE_BUILD)
 
-RESOLVABLE_EXTENSIONS = _.union([''], _.chain(RESOLVABLES).keys().map((ext) -> ".#{ext}").value())
+RESOLVABLE_EXTENSIONS = _.union(_.chain(RESOLVABLES).keys().map((ext) -> ".#{ext}").value())
 
 # base config, true for all builds no matter what conditions
 BASE_CONFIG =
@@ -69,32 +72,11 @@ BASE_CONFIG =
     noParse: [
       /\/sinon\.js/
     ]
-    loaders: _.values(STATICS)
+    rules: _.values(STATICS)
   plugins: [
-    new webpack.optimize.DedupePlugin()
+
   ]
 
-KARMA_BASE_CONFIG =
-  devtool: 'cheap-module-eval-source-map'
-  resolve:
-    extensions: RESOLVABLE_EXTENSIONS
-  node:
-    fs: 'empty'
-  module:
-    noParse: [
-      /\/sinon\.js/
-    ]
-    loaders: _.values(RESOLVABLES)
-    preLoaders: [{
-      test: /\.(cjsx|coffee)$/
-      loader: 'coffeelint'
-      exclude: /(node_modules|resources)/
-    }]
-  externals:
-    'sinon': true
-    'react/addons': true
-    'react/lib/ExecutionEnvironment': true
-    'react/lib/ReactContext': true
 
 mergeWebpackConfigs = ->
 
@@ -121,15 +103,19 @@ makeBuildPlugins = (projectConfig) ->
 
   styleFilename ?= '[name].css'
 
-  [new ExtractTextPlugin(styleFilename)]
-
+  [
+    new ExtractTextPlugin(
+      styleFilename
+    )
+  ]
 
 makePathsBase = (projectConfig) ->
   {basePath} = projectConfig
 
   pathConfigs =
     resolve:
-      root: [
+      modules: [
+        'node_modules'
         path.resolve(basePath)
         path.resolve(basePath, 'src')
         path.resolve(basePath, 'api')
@@ -144,7 +130,7 @@ makeDebugBase = (projectConfig) ->
   debugBase =
     output: makeBuildOutputs(projectConfig)
     module:
-      loaders: BASE_BUILD_LOADERS
+      rules: BASE_BUILD_LOADERS
     plugins: makeBuildPlugins(projectConfig)
 
 makeProductionBase = (projectConfig) ->
@@ -153,17 +139,23 @@ makeProductionBase = (projectConfig) ->
 
   # rename to minified
   output.filename = '[name].min.js'
-  # output.path = "#{projectConfig.basePath}/dist"
   {styleFilename} = projectConfig
   styleFilename ?= '[name].min.css'
 
   productionBase =
     output: output
+    devtool: 'source-map'
     module:
-      loaders: BASE_BUILD_LOADERS
+      rules: BASE_BUILD_LOADERS
     plugins: makeBuildPlugins({styleFilename}).concat([
       # Minify
-      new webpack.optimize.UglifyJsPlugin(minimize: true)
+      # https://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
+      # https://github.com/webpack/webpack/issues/2704
+      new webpack.optimize.UglifyJsPlugin(
+        mangle: false
+        comments: false
+        sourceMap: true
+      )
 
       # Use the production version of React (no warnings/runtime checks)
       new webpack.DefinePlugin(
@@ -187,29 +179,30 @@ makeDevelopmentBase = (projectConfig) ->
   outputPath = "#{projectConfig.basePath}/"
 
   developmentBase =
+    context: path.resolve(__dirname, '../../', projectConfig.basePath)
     output:
-      path: 'dist'
+      path: '/'
       publicPath: publicPath
     module:
-      loaders: BASE_DEV_LOADERS
+      rules: BASE_DEV_LOADER_RULES
     plugins: [
       new webpack.HotModuleReplacementPlugin()
     ]
     devServer:
       contentBase: "#{projectConfig.basePath}/"
-      outputPath: outputPath
+
       publicPath: publicPath
       historyApiFallback: true
       inline: true
       port: projectConfig.devPort
       # It suppress error shown in console, so it has to be set to false.
       quiet: false
-      progress: true
+      # progress: true
       # It suppress everything except error, so it has to be set to false as well
       # to see success build.
       noInfo: false
       host: "#{host}",
-      filename: '[name].js',
+      filename: '[name].js'
       hot: true
       stats:
         # Config for minimal console.log mess.
@@ -228,8 +221,6 @@ makeEnvironmentBase =
   production: makeProductionBase
   productionWithCoverage: makeProductionWithCoverageBase
   development: makeDevelopmentBase
-  karma: ->
-    KARMA_BASE_CONFIG
 
 ENVIRONMENTS = _.keys(makeEnvironmentBase)
 

@@ -11,7 +11,7 @@ var mode = process.env.NODE_ENV || 'development';
 console.log("mode: ", mode);
 config = makeConfig(process.env.OX_PROJECT, mode);
 
-//config = require("./configs/webpack/testing-tutor.config.coffee");
+
 // testing debug - rm before mergeing
 // console.dir(config);
 

@@ -24,7 +24,7 @@ describe 'Scores Report: assignment column header', ->
       <Wrapper _wrapped_component={Header} noReference {...@props}/>).toJSON()
     ).toMatchSnapshot()
 
-  context 'for a CC course', ->
+  describe 'for a CC course', ->
 
     beforeEach ->
       @props.isConceptCoach = true
