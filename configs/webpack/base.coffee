@@ -151,7 +151,11 @@ makeProductionBase = (projectConfig) ->
       # Minify
       # https://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
       # https://github.com/webpack/webpack/issues/2704
-      new webpack.optimize.UglifyJsPlugin(comments: false, sourceMap: true)
+      new webpack.optimize.UglifyJsPlugin(
+        mangle: false
+        comments: false
+        sourceMap: true
+      )
 
       # Use the production version of React (no warnings/runtime checks)
       new webpack.DefinePlugin(
