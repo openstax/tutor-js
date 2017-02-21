@@ -5,7 +5,7 @@ set -ev
 # travis should be setting the OX_PROJECT variable
 # export OX_PROJECT='tutor'
 
-node ./node_modules/jest/bin/jest.js --runInBand --coverage --config ./configs/test/jest.$OX_PROJECT.json
+$(npm bin)/jest --runInBand --coverage --config ./configs/test/jest.$OX_PROJECT.json
 
 
 #karma start configs/test/karma.config.js --single-run
