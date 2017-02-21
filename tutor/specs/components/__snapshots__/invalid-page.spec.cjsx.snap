@@ -1,34 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Invalid Page renders and matches snapshot 1`] = `
 <div
-  className="invalid-page">
+  className="invalid-page"
+>
   <div
-    className="ox-colored-stripe">
+    className="ox-colored-stripe"
+  >
     <div
-      className="orange" />
+      className="orange"
+    />
     <div
-      className="blue" />
+      className="blue"
+    />
     <div
-      className="red" />
+      className="red"
+    />
     <div
-      className="yellow" />
+      className="yellow"
+    />
     <div
-      className="teal" />
+      className="teal"
+    />
   </div>
   <h1>
     Uh-oh, no page here
   </h1>
   <p>
-    Kudos on your desire to explore! Unfortunately, we don\'t have a page to go with that particular location.
+    Kudos on your desire to explore! Unfortunately, we don't have a page to go with that particular location.
   </p>
   <a
     className="home"
     href="/"
     onClick={[Function]}
-    style={Object {}}>
+    style={Object {}}
+  >
     Return Home
     <i
       className="tutor-icon fa fa-caret-right"
-      type="caret-right" />
+      type="caret-right"
+    />
   </a>
 </div>
 `;

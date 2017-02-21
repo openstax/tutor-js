@@ -1,24 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`QA Exercises Card matches snapshot 1`] = `
 <div
   className="openstax-exercise-preview exercise is-displaying-formats is-displaying-feedback panel panel-default"
   data-exercise-id="1617"
   id={undefined}
-  tabIndex={-1}>
+  tabIndex={-1}
+>
   <div
-    className="panel-heading">
+    className="panel-heading"
+  >
     <div
-      className="types panel-title" />
+      className="types panel-title"
+    />
   </div>
   <div
-    className="panel-body">
+    className="panel-body"
+  >
     <div
-      className="exercise-body">
+      className="exercise-body"
+    >
       <div
         className="openstax-has-html stimulus"
-        dangerouslySetInnerHTML={undefined} />
+        dangerouslySetInnerHTML={undefined}
+      />
       <div
         className="openstax-question openstax-question-preview"
-        data-question-number={undefined}>
+        data-question-number={undefined}
+      >
         <div
           className="openstax-has-html question-stem"
           dangerouslySetInnerHTML={
@@ -26,24 +35,31 @@ exports[`QA Exercises Card matches snapshot 1`] = `
               "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
             }
           }
-          data-question-number={undefined} />
+          data-question-number={undefined}
+        />
         <div
-          className="answers-table">
+          className="answers-table"
+        >
           <div
-            className="openstax-answer">
+            className="openstax-answer"
+          >
             <div
-              className="answers-answer disabled answer-correct">
+              className="answers-answer disabled answer-correct"
+            >
               <label
                 className="answer-label"
                 htmlFor="1664-option-0"
-                onKeyPress={[Function]}>
+                onKeyPress={[Function]}
+              >
                 <div
                   aria-labelledby="Answer choice: a"
-                  className="answer-letter">
+                  className="answer-letter"
+                >
                   a
                 </div>
                 <div
-                  className="answer-answer">
+                  className="answer-answer"
+                >
                   <span
                     className="openstax-has-html answer-content"
                     dangerouslySetInnerHTML={
@@ -55,33 +71,40 @@ exports[`QA Exercises Card matches snapshot 1`] = `
                       </ol>
                       ",
                       }
-                    } />
+                    }
+                  />
                   <div
                     className="openstax-has-html question-feedback-content has-html"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "Classical physics involves weak gravitational fields and objects big enough to be seen with the naked eye with their motional speed much less than the speed of light. Also, it is a subset of the Einstein’s theory of relativity where not only weak gravitational field but also strong gravity influences are studied.",
                       }
-                    } />
+                    }
+                  />
                 </div>
               </label>
             </div>
           </div>
           <div
-            className="openstax-answer">
+            className="openstax-answer"
+          >
             <div
-              className="answers-answer disabled">
+              className="answers-answer disabled"
+            >
               <label
                 className="answer-label"
                 htmlFor="1664-option-1"
-                onKeyPress={[Function]}>
+                onKeyPress={[Function]}
+              >
                 <div
                   aria-labelledby="Answer choice: b"
-                  className="answer-letter">
+                  className="answer-letter"
+                >
                   b
                 </div>
                 <div
-                  className="answer-answer">
+                  className="answer-answer"
+                >
                   <span
                     className="openstax-has-html answer-content"
                     dangerouslySetInnerHTML={
@@ -93,33 +116,40 @@ exports[`QA Exercises Card matches snapshot 1`] = `
                       </ol>
                       ",
                       }
-                    } />
+                    }
+                  />
                   <div
                     className="openstax-has-html question-feedback-content has-html"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "Objects far smaller than what is visible may require quantum mechanics.",
                       }
-                    } />
+                    }
+                  />
                 </div>
               </label>
             </div>
           </div>
           <div
-            className="openstax-answer">
+            className="openstax-answer"
+          >
             <div
-              className="answers-answer disabled">
+              className="answers-answer disabled"
+            >
               <label
                 className="answer-label"
                 htmlFor="1664-option-2"
-                onKeyPress={[Function]}>
+                onKeyPress={[Function]}
+              >
                 <div
                   aria-labelledby="Answer choice: c"
-                  className="answer-letter">
+                  className="answer-letter"
+                >
                   c
                 </div>
                 <div
-                  className="answer-answer">
+                  className="answer-answer"
+                >
                   <span
                     className="openstax-has-html answer-content"
                     dangerouslySetInnerHTML={
@@ -131,33 +161,40 @@ exports[`QA Exercises Card matches snapshot 1`] = `
                       </ol>
                       ",
                       }
-                    } />
+                    }
+                  />
                   <div
                     className="openstax-has-html question-feedback-content has-html"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "Speeds greater than roughly 1% pf the speed of light start to involve significant effects from relativity.",
                       }
-                    } />
+                    }
+                  />
                 </div>
               </label>
             </div>
           </div>
           <div
-            className="openstax-answer">
+            className="openstax-answer"
+          >
             <div
-              className="answers-answer disabled">
+              className="answers-answer disabled"
+            >
               <label
                 className="answer-label"
                 htmlFor="1664-option-3"
-                onKeyPress={[Function]}>
+                onKeyPress={[Function]}
+              >
                 <div
                   aria-labelledby="Answer choice: d"
-                  className="answer-letter">
+                  className="answer-letter"
+                >
                   d
                 </div>
                 <div
-                  className="answer-answer">
+                  className="answer-answer"
+                >
                   <span
                     className="openstax-has-html answer-content"
                     dangerouslySetInnerHTML={
@@ -169,23 +206,27 @@ exports[`QA Exercises Card matches snapshot 1`] = `
                       </ol>
                       ",
                       }
-                    } />
+                    }
+                  />
                   <div
                     className="openstax-has-html question-feedback-content has-html"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "A high gravitational field distorts space-time and leads to phenomena that classical physics fails to explain.",
                       }
-                    } />
+                    }
+                  />
                 </div>
               </label>
             </div>
           </div>
         </div>
         <div
-          className="formats-listing">
+          className="formats-listing"
+        >
           <div
-            className="header">
+            className="header"
+          >
             Formats:
           </div>
           <span>
@@ -198,42 +239,52 @@ exports[`QA Exercises Card matches snapshot 1`] = `
       </div>
     </div>
     <div
-      className="exercise-tags">
+      className="exercise-tags"
+    >
       <span
-        className="exercise-tag">
+        className="exercise-tag"
+      >
         (2A) Know the definition of science and understand that it has limitations, as specified in subsection (b)(2) of this section.
       </span>
       <span
-        className="exercise-tag">
+        className="exercise-tag"
+      >
         Blooms: 1
       </span>
       <span
-        className="exercise-tag">
+        className="exercise-tag"
+      >
         DOK: 2
       </span>
       <span
-        className="exercise-tag">
+        className="exercise-tag"
+      >
         Length: M
       </span>
       <span
-        className="exercise-tag">
+        className="exercise-tag"
+      >
         ID: 1664@1
       </span>
       <div
-        className="lo-tag">
+        className="lo-tag"
+      >
         LO: 
         Describe and distinguish classical physics from modern physics and describe the importance of relativity, quantum mechanics, and relativistic quantum mechanics in modern physics
       </div>
     </div>
   </div>
   <div
-    className="panel-footer">
+    className="panel-footer"
+  >
     <div
-      className="controls">
+      className="controls"
+    >
       <a
         className="edit-link"
         href="https://exercises-dev.openstax.org/exercises/1664@draft"
-        target="_blank">
+        target="_blank"
+      >
         edit
       </a>
     </div>

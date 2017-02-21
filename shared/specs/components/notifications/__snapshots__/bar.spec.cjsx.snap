@@ -1,19 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Notifications Bar renders and matches snapshot 1`] = `
 <div
-  className="openstax-notifications-bar viewable">
+  className="openstax-notifications-bar viewable"
+>
   <div
-    className="notification system">
+    className="notification system"
+  >
     <span
-      className="body">
+      className="body"
+    >
       <i
-        className="icon fa fa-info-circle" />
+        className="icon fa fa-info-circle"
+      />
       A test
     </span>
     <a
       className="dismiss"
-      onClick={[Function]}>
+      onClick={[Function]}
+    >
       <i
-        className="icon fa fa-close" />
+        className="icon fa fa-close"
+      />
     </a>
   </div>
 </div>

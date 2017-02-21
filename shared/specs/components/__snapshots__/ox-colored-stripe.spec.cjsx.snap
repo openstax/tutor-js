@@ -1,15 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`OX Colored Stripe renders and matches snapshot 1`] = `
 <div
-  className="ox-colored-stripe">
+  className="ox-colored-stripe"
+>
   <div
-    className="orange" />
+    className="orange"
+  />
   <div
-    className="blue" />
+    className="blue"
+  />
   <div
-    className="red" />
+    className="red"
+  />
   <div
-    className="yellow" />
+    className="yellow"
+  />
   <div
-    className="teal" />
+    className="teal"
+  />
 </div>
 `;

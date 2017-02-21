@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`choose exercises component matches snapshot 1`] = `
 <div
   className="pinned-container"
@@ -5,36 +7,46 @@ exports[`choose exercises component matches snapshot 1`] = `
     Object {
       "marginTop": "50px",
     }
-  }>
+  }
+>
   <div
-    className="pinned-header">
+    className="pinned-header"
+  >
     <div
-      className="exercise-controls-bar">
+      className="exercise-controls-bar"
+    >
       <div
-        className="controls">
+        className="controls"
+      >
         <div
-          className="sectionizer">
+          className="sectionizer"
+        >
           <div
             className="prev"
-            onClick={[Function]}>
+            onClick={[Function]}
+          >
             ❮❮
           </div>
           <div
             className="section"
-            onClick={[Function]}>
+            onClick={[Function]}
+          >
             1.1
           </div>
           <div
             className="next"
-            onClick={[Function]}>
+            onClick={[Function]}
+          >
             ❯❯
           </div>
         </div>
       </div>
       <div
-        className="indicators">
+        className="indicators"
+      >
         <div
-          className="num total">
+          className="num total"
+        >
           <h2>
             NaN
           </h2>
@@ -43,7 +55,8 @@ exports[`choose exercises component matches snapshot 1`] = `
           </span>
         </div>
         <div
-          className="num mine">
+          className="num mine"
+        >
           <h2>
             1
           </h2>
@@ -52,86 +65,106 @@ exports[`choose exercises component matches snapshot 1`] = `
           </span>
         </div>
         <div
-          className="num tutor">
+          className="num tutor"
+        >
           <div
-            className="tutor-selections">
+            className="tutor-selections"
+          >
             <span
-              className="circle-btn-placeholder" />
+              className="circle-btn-placeholder"
+            />
             <h2 />
             <span
-              className="circle-btn-placeholder" />
+              className="circle-btn-placeholder"
+            />
           </div>
           <span>
             Tutor Selections
           </span>
         </div>
         <div
-          className="tutor-added-later">
+          className="tutor-added-later"
+        >
           <span>
             Tutor selections are added later to support spaced practice and personalized learning.
           </span>
         </div>
       </div>
       <div
-        className="actions">
+        className="actions"
+      >
         <button
           className="-review-exercises btn btn-primary"
           disabled={false}
           onClick={undefined}
-          type="button">
+          type="button"
+        >
           Next
         </button>
         <button
           className="-cancel-add btn btn-default"
           disabled={false}
           onClick={undefined}
-          type="button">
+          type="button"
+        >
           Cancel
         </button>
       </div>
     </div>
   </div>
   <div
-    className="exercise-cards">
+    className="exercise-cards"
+  >
     <div
       className="exercise-sections"
-      data-section="1.1">
+      data-section="1.1"
+    >
       <label
-        className="exercises-section-label">
+        className="exercises-section-label"
+      >
         <span
           className="chapter-section"
-          data-chapter-section="1.1">
+          data-chapter-section="1.1"
+        >
           1.1
         </span>
          
         Kinematics in 1 dim
       </label>
       <div
-        className="exercises">
+        className="exercises"
+      >
         <div
           className="openstax-exercise-preview exercise-card has-actions is-selected non-interactive is-vertically-truncated panel panel-default"
           data-exercise-id="1616"
           id={undefined}
-          tabIndex={-1}>
+          tabIndex={-1}
+        >
           <div
-            className="panel-body">
+            className="panel-body"
+          >
             <div
-              className="selected-mask" />
+              className="selected-mask"
+            />
             <div
               className="controls-overlay"
-              onClick={undefined}>
+              onClick={undefined}
+            >
               <div
-                className="message">
+                className="message"
+              >
                 <div
                   className="action exclude"
-                  onClick={[Function]}>
+                  onClick={[Function]}
+                >
                   <span>
                     Remove question
                   </span>
                 </div>
                 <div
                   className="action details"
-                  onClick={[Function]}>
+                  onClick={[Function]}
+                >
                   <span>
                     Question details
                   </span>
@@ -139,13 +172,16 @@ exports[`choose exercises component matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="exercise-body">
+              className="exercise-body"
+            >
               <div
                 className="openstax-has-html stimulus"
-                dangerouslySetInnerHTML={undefined} />
+                dangerouslySetInnerHTML={undefined}
+              />
               <div
                 className="openstax-question openstax-question-preview"
-                data-question-number={undefined}>
+                data-question-number={undefined}
+              >
                 <div
                   className="openstax-has-html question-stem"
                   dangerouslySetInnerHTML={
@@ -153,109 +189,135 @@ exports[`choose exercises component matches snapshot 1`] = `
                       "__html": "Which statement best compares and contrasts the aims and topics of natural philosophy had versus physics?",
                     }
                   }
-                  data-question-number={undefined} />
+                  data-question-number={undefined}
+                />
                 <div
-                  className="answers-table">
+                  className="answers-table"
+                >
                   <div
-                    className="openstax-answer">
+                    className="openstax-answer"
+                  >
                     <div
-                      className="answers-answer disabled">
+                      className="answers-answer disabled"
+                    >
                       <label
                         className="answer-label"
                         htmlFor="1663-option-0"
-                        onKeyPress={[Function]}>
+                        onKeyPress={[Function]}
+                      >
                         <div
                           aria-labelledby="Answer choice: a"
-                          className="answer-letter">
+                          className="answer-letter"
+                        >
                           a
                         </div>
                         <div
-                          className="answer-answer">
+                          className="answer-answer"
+                        >
                           <span
                             className="openstax-has-html answer-content"
                             dangerouslySetInnerHTML={
                               Object {
                                 "__html": "Natural philosophy and physics are essentially the same thing.",
                               }
-                            } />
+                            }
+                          />
                         </div>
                       </label>
                     </div>
                   </div>
                   <div
-                    className="openstax-answer">
+                    className="openstax-answer"
+                  >
                     <div
-                      className="answers-answer disabled">
+                      className="answers-answer disabled"
+                    >
                       <label
                         className="answer-label"
                         htmlFor="1663-option-1"
-                        onKeyPress={[Function]}>
+                        onKeyPress={[Function]}
+                      >
                         <div
                           aria-labelledby="Answer choice: b"
-                          className="answer-letter">
+                          className="answer-letter"
+                        >
                           b
                         </div>
                         <div
-                          className="answer-answer">
+                          className="answer-answer"
+                        >
                           <span
                             className="openstax-has-html answer-content"
                             dangerouslySetInnerHTML={
                               Object {
                                 "__html": "Natural philosophy and physics are different.",
                               }
-                            } />
+                            }
+                          />
                         </div>
                       </label>
                     </div>
                   </div>
                   <div
-                    className="openstax-answer">
+                    className="openstax-answer"
+                  >
                     <div
-                      className="answers-answer disabled">
+                      className="answers-answer disabled"
+                    >
                       <label
                         className="answer-label"
                         htmlFor="1663-option-2"
-                        onKeyPress={[Function]}>
+                        onKeyPress={[Function]}
+                      >
                         <div
                           aria-labelledby="Answer choice: c"
-                          className="answer-letter">
+                          className="answer-letter"
+                        >
                           c
                         </div>
                         <div
-                          className="answer-answer">
+                          className="answer-answer"
+                        >
                           <span
                             className="openstax-has-html answer-content"
                             dangerouslySetInnerHTML={
                               Object {
                                 "__html": "Natural philosophy included all aspects of nature excluding physics.",
                               }
-                            } />
+                            }
+                          />
                         </div>
                       </label>
                     </div>
                   </div>
                   <div
-                    className="openstax-answer">
+                    className="openstax-answer"
+                  >
                     <div
-                      className="answers-answer disabled answer-correct">
+                      className="answers-answer disabled answer-correct"
+                    >
                       <label
                         className="answer-label"
                         htmlFor="1663-option-3"
-                        onKeyPress={[Function]}>
+                        onKeyPress={[Function]}
+                      >
                         <div
                           aria-labelledby="Answer choice: d"
-                          className="answer-letter">
+                          className="answer-letter"
+                        >
                           d
                         </div>
                         <div
-                          className="answer-answer">
+                          className="answer-answer"
+                        >
                           <span
                             className="openstax-has-html answer-content"
                             dangerouslySetInnerHTML={
                               Object {
                                 "__html": "Natural philosophy included all aspects of nature including physics.",
                               }
-                            } />
+                            }
+                          />
                         </div>
                       </label>
                     </div>
@@ -264,9 +326,11 @@ exports[`choose exercises component matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="exercise-tags">
+              className="exercise-tags"
+            >
               <span
-                className="exercise-tag">
+                className="exercise-tag"
+              >
                 ID: 1663@1
               </span>
             </div>
@@ -276,24 +340,30 @@ exports[`choose exercises component matches snapshot 1`] = `
           className="openstax-exercise-preview exercise-card has-actions non-interactive is-vertically-truncated panel panel-default"
           data-exercise-id="1617"
           id={undefined}
-          tabIndex={-1}>
+          tabIndex={-1}
+        >
           <div
-            className="panel-body">
+            className="panel-body"
+          >
             <div
               className="controls-overlay"
-              onClick={undefined}>
+              onClick={undefined}
+            >
               <div
-                className="message">
+                className="message"
+              >
                 <div
                   className="action include"
-                  onClick={[Function]}>
+                  onClick={[Function]}
+                >
                   <span>
                     Add question
                   </span>
                 </div>
                 <div
                   className="action details"
-                  onClick={[Function]}>
+                  onClick={[Function]}
+                >
                   <span>
                     Question details
                   </span>
@@ -301,13 +371,16 @@ exports[`choose exercises component matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="exercise-body">
+              className="exercise-body"
+            >
               <div
                 className="openstax-has-html stimulus"
-                dangerouslySetInnerHTML={undefined} />
+                dangerouslySetInnerHTML={undefined}
+              />
               <div
                 className="openstax-question openstax-question-preview"
-                data-question-number={undefined}>
+                data-question-number={undefined}
+              >
                 <div
                   className="openstax-has-html question-stem"
                   dangerouslySetInnerHTML={
@@ -315,24 +388,31 @@ exports[`choose exercises component matches snapshot 1`] = `
                       "__html": "What conditions imply that we can use classical physics without considering special relativity or quantum mechanics?",
                     }
                   }
-                  data-question-number={undefined} />
+                  data-question-number={undefined}
+                />
                 <div
-                  className="answers-table">
+                  className="answers-table"
+                >
                   <div
-                    className="openstax-answer">
+                    className="openstax-answer"
+                  >
                     <div
-                      className="answers-answer disabled answer-correct">
+                      className="answers-answer disabled answer-correct"
+                    >
                       <label
                         className="answer-label"
                         htmlFor="1664-option-0"
-                        onKeyPress={[Function]}>
+                        onKeyPress={[Function]}
+                      >
                         <div
                           aria-labelledby="Answer choice: a"
-                          className="answer-letter">
+                          className="answer-letter"
+                        >
                           a
                         </div>
                         <div
-                          className="answer-answer">
+                          className="answer-answer"
+                        >
                           <span
                             className="openstax-has-html answer-content"
                             dangerouslySetInnerHTML={
@@ -344,26 +424,32 @@ exports[`choose exercises component matches snapshot 1`] = `
                               </ol>
                               ",
                               }
-                            } />
+                            }
+                          />
                         </div>
                       </label>
                     </div>
                   </div>
                   <div
-                    className="openstax-answer">
+                    className="openstax-answer"
+                  >
                     <div
-                      className="answers-answer disabled">
+                      className="answers-answer disabled"
+                    >
                       <label
                         className="answer-label"
                         htmlFor="1664-option-1"
-                        onKeyPress={[Function]}>
+                        onKeyPress={[Function]}
+                      >
                         <div
                           aria-labelledby="Answer choice: b"
-                          className="answer-letter">
+                          className="answer-letter"
+                        >
                           b
                         </div>
                         <div
-                          className="answer-answer">
+                          className="answer-answer"
+                        >
                           <span
                             className="openstax-has-html answer-content"
                             dangerouslySetInnerHTML={
@@ -375,26 +461,32 @@ exports[`choose exercises component matches snapshot 1`] = `
                               </ol>
                               ",
                               }
-                            } />
+                            }
+                          />
                         </div>
                       </label>
                     </div>
                   </div>
                   <div
-                    className="openstax-answer">
+                    className="openstax-answer"
+                  >
                     <div
-                      className="answers-answer disabled">
+                      className="answers-answer disabled"
+                    >
                       <label
                         className="answer-label"
                         htmlFor="1664-option-2"
-                        onKeyPress={[Function]}>
+                        onKeyPress={[Function]}
+                      >
                         <div
                           aria-labelledby="Answer choice: c"
-                          className="answer-letter">
+                          className="answer-letter"
+                        >
                           c
                         </div>
                         <div
-                          className="answer-answer">
+                          className="answer-answer"
+                        >
                           <span
                             className="openstax-has-html answer-content"
                             dangerouslySetInnerHTML={
@@ -406,26 +498,32 @@ exports[`choose exercises component matches snapshot 1`] = `
                               </ol>
                               ",
                               }
-                            } />
+                            }
+                          />
                         </div>
                       </label>
                     </div>
                   </div>
                   <div
-                    className="openstax-answer">
+                    className="openstax-answer"
+                  >
                     <div
-                      className="answers-answer disabled">
+                      className="answers-answer disabled"
+                    >
                       <label
                         className="answer-label"
                         htmlFor="1664-option-3"
-                        onKeyPress={[Function]}>
+                        onKeyPress={[Function]}
+                      >
                         <div
                           aria-labelledby="Answer choice: d"
-                          className="answer-letter">
+                          className="answer-letter"
+                        >
                           d
                         </div>
                         <div
-                          className="answer-answer">
+                          className="answer-answer"
+                        >
                           <span
                             className="openstax-has-html answer-content"
                             dangerouslySetInnerHTML={
@@ -437,7 +535,8 @@ exports[`choose exercises component matches snapshot 1`] = `
                               </ol>
                               ",
                               }
-                            } />
+                            }
+                          />
                         </div>
                       </label>
                     </div>
@@ -446,9 +545,11 @@ exports[`choose exercises component matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="exercise-tags">
+              className="exercise-tags"
+            >
               <span
-                className="exercise-tag">
+                className="exercise-tag"
+              >
                 ID: 1664@1
               </span>
             </div>
@@ -458,24 +559,30 @@ exports[`choose exercises component matches snapshot 1`] = `
           className="openstax-exercise-preview exercise-card has-actions non-interactive is-vertically-truncated panel panel-default"
           data-exercise-id="1618"
           id={undefined}
-          tabIndex={-1}>
+          tabIndex={-1}
+        >
           <div
-            className="panel-body">
+            className="panel-body"
+          >
             <div
               className="controls-overlay"
-              onClick={undefined}>
+              onClick={undefined}
+            >
               <div
-                className="message">
+                className="message"
+              >
                 <div
                   className="action include"
-                  onClick={[Function]}>
+                  onClick={[Function]}
+                >
                   <span>
                     Add question
                   </span>
                 </div>
                 <div
                   className="action details"
-                  onClick={[Function]}>
+                  onClick={[Function]}
+                >
                   <span>
                     Question details
                   </span>
@@ -483,13 +590,16 @@ exports[`choose exercises component matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="exercise-body">
+              className="exercise-body"
+            >
               <div
                 className="openstax-has-html stimulus"
-                dangerouslySetInnerHTML={undefined} />
+                dangerouslySetInnerHTML={undefined}
+              />
               <div
                 className="openstax-question openstax-question-preview"
-                data-question-number={undefined}>
+                data-question-number={undefined}
+              >
                 <div
                   className="openstax-has-html question-stem"
                   dangerouslySetInnerHTML={
@@ -497,109 +607,135 @@ exports[`choose exercises component matches snapshot 1`] = `
                       "__html": "How could physics be useful in weather prediction?",
                     }
                   }
-                  data-question-number={undefined} />
+                  data-question-number={undefined}
+                />
                 <div
-                  className="answers-table">
+                  className="answers-table"
+                >
                   <div
-                    className="openstax-answer">
+                    className="openstax-answer"
+                  >
                     <div
-                      className="answers-answer disabled">
+                      className="answers-answer disabled"
+                    >
                       <label
                         className="answer-label"
                         htmlFor="1665-option-0"
-                        onKeyPress={[Function]}>
+                        onKeyPress={[Function]}
+                      >
                         <div
                           aria-labelledby="Answer choice: a"
-                          className="answer-letter">
+                          className="answer-letter"
+                        >
                           a
                         </div>
                         <div
-                          className="answer-answer">
+                          className="answer-answer"
+                        >
                           <span
                             className="openstax-has-html answer-content"
                             dangerouslySetInnerHTML={
                               Object {
                                 "__html": "Physics helps in predicting how the flowing water affects Earth’s surface.",
                               }
-                            } />
+                            }
+                          />
                         </div>
                       </label>
                     </div>
                   </div>
                   <div
-                    className="openstax-answer">
+                    className="openstax-answer"
+                  >
                     <div
-                      className="answers-answer disabled">
+                      className="answers-answer disabled"
+                    >
                       <label
                         className="answer-label"
                         htmlFor="1665-option-1"
-                        onKeyPress={[Function]}>
+                        onKeyPress={[Function]}
+                      >
                         <div
                           aria-labelledby="Answer choice: b"
-                          className="answer-letter">
+                          className="answer-letter"
+                        >
                           b
                         </div>
                         <div
-                          className="answer-answer">
+                          className="answer-answer"
+                        >
                           <span
                             className="openstax-has-html answer-content"
                             dangerouslySetInnerHTML={
                               Object {
                                 "__html": "Physics helps in predicting the motion of tectonic plates.",
                               }
-                            } />
+                            }
+                          />
                         </div>
                       </label>
                     </div>
                   </div>
                   <div
-                    className="openstax-answer">
+                    className="openstax-answer"
+                  >
                     <div
-                      className="answers-answer disabled answer-correct">
+                      className="answers-answer disabled answer-correct"
+                    >
                       <label
                         className="answer-label"
                         htmlFor="1665-option-2"
-                        onKeyPress={[Function]}>
+                        onKeyPress={[Function]}
+                      >
                         <div
                           aria-labelledby="Answer choice: c"
-                          className="answer-letter">
+                          className="answer-letter"
+                        >
                           c
                         </div>
                         <div
-                          className="answer-answer">
+                          className="answer-answer"
+                        >
                           <span
                             className="openstax-has-html answer-content"
                             dangerouslySetInnerHTML={
                               Object {
                                 "__html": "Physics helps in predicting dynamics and movement of weather phenomena.",
                               }
-                            } />
+                            }
+                          />
                         </div>
                       </label>
                     </div>
                   </div>
                   <div
-                    className="openstax-answer">
+                    className="openstax-answer"
+                  >
                     <div
-                      className="answers-answer disabled">
+                      className="answers-answer disabled"
+                    >
                       <label
                         className="answer-label"
                         htmlFor="1665-option-3"
-                        onKeyPress={[Function]}>
+                        onKeyPress={[Function]}
+                      >
                         <div
                           aria-labelledby="Answer choice: d"
-                          className="answer-letter">
+                          className="answer-letter"
+                        >
                           d
                         </div>
                         <div
-                          className="answer-answer">
+                          className="answer-answer"
+                        >
                           <span
                             className="openstax-has-html answer-content"
                             dangerouslySetInnerHTML={
                               Object {
                                 "__html": "Physics helps in predicting how burning fossil fuel releases pollutants.",
                               }
-                            } />
+                            }
+                          />
                         </div>
                       </label>
                     </div>
@@ -608,9 +744,11 @@ exports[`choose exercises component matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="exercise-tags">
+              className="exercise-tags"
+            >
               <span
-                className="exercise-tag">
+                className="exercise-tag"
+              >
                 ID: 1665@1
               </span>
             </div>
@@ -620,24 +758,30 @@ exports[`choose exercises component matches snapshot 1`] = `
           className="openstax-exercise-preview exercise-card has-actions non-interactive is-vertically-truncated panel panel-default"
           data-exercise-id="1619"
           id={undefined}
-          tabIndex={-1}>
+          tabIndex={-1}
+        >
           <div
-            className="panel-body">
+            className="panel-body"
+          >
             <div
               className="controls-overlay"
-              onClick={undefined}>
+              onClick={undefined}
+            >
               <div
-                className="message">
+                className="message"
+              >
                 <div
                   className="action include"
-                  onClick={[Function]}>
+                  onClick={[Function]}
+                >
                   <span>
                     Add question
                   </span>
                 </div>
                 <div
                   className="action details"
-                  onClick={[Function]}>
+                  onClick={[Function]}
+                >
                   <span>
                     Question details
                   </span>
@@ -645,13 +789,16 @@ exports[`choose exercises component matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="exercise-body">
+              className="exercise-body"
+            >
               <div
                 className="openstax-has-html stimulus"
-                dangerouslySetInnerHTML={undefined} />
+                dangerouslySetInnerHTML={undefined}
+              />
               <div
                 className="openstax-question openstax-question-preview"
-                data-question-number={undefined}>
+                data-question-number={undefined}
+              >
                 <div
                   className="openstax-has-html question-stem"
                   dangerouslySetInnerHTML={
@@ -659,109 +806,135 @@ exports[`choose exercises component matches snapshot 1`] = `
                       "__html": "In what sense does Einstein’s theory of relativity illustrate that physics describes fundamental aspects of our universe?",
                     }
                   }
-                  data-question-number={undefined} />
+                  data-question-number={undefined}
+                />
                 <div
-                  className="answers-table">
+                  className="answers-table"
+                >
                   <div
-                    className="openstax-answer">
+                    className="openstax-answer"
+                  >
                     <div
-                      className="answers-answer disabled">
+                      className="answers-answer disabled"
+                    >
                       <label
                         className="answer-label"
                         htmlFor="1666-option-0"
-                        onKeyPress={[Function]}>
+                        onKeyPress={[Function]}
+                      >
                         <div
                           aria-labelledby="Answer choice: a"
-                          className="answer-letter">
+                          className="answer-letter"
+                        >
                           a
                         </div>
                         <div
-                          className="answer-answer">
+                          className="answer-answer"
+                        >
                           <span
                             className="openstax-has-html answer-content"
                             dangerouslySetInnerHTML={
                               Object {
                                 "__html": "It describes how a frame of reference is necessary to describe position or motion.",
                               }
-                            } />
+                            }
+                          />
                         </div>
                       </label>
                     </div>
                   </div>
                   <div
-                    className="openstax-answer">
+                    className="openstax-answer"
+                  >
                     <div
-                      className="answers-answer disabled">
+                      className="answers-answer disabled"
+                    >
                       <label
                         className="answer-label"
                         htmlFor="1666-option-1"
-                        onKeyPress={[Function]}>
+                        onKeyPress={[Function]}
+                      >
                         <div
                           aria-labelledby="Answer choice: b"
-                          className="answer-letter">
+                          className="answer-letter"
+                        >
                           b
                         </div>
                         <div
-                          className="answer-answer">
+                          className="answer-answer"
+                        >
                           <span
                             className="openstax-has-html answer-content"
                             dangerouslySetInnerHTML={
                               Object {
                                 "__html": "It describes how people think of other people’s views from their own frame of reference.",
                               }
-                            } />
+                            }
+                          />
                         </div>
                       </label>
                     </div>
                   </div>
                   <div
-                    className="openstax-answer">
+                    className="openstax-answer"
+                  >
                     <div
-                      className="answers-answer disabled">
+                      className="answers-answer disabled"
+                    >
                       <label
                         className="answer-label"
                         htmlFor="1666-option-2"
-                        onKeyPress={[Function]}>
+                        onKeyPress={[Function]}
+                      >
                         <div
                           aria-labelledby="Answer choice: c"
-                          className="answer-letter">
+                          className="answer-letter"
+                        >
                           c
                         </div>
                         <div
-                          className="answer-answer">
+                          className="answer-answer"
+                        >
                           <span
                             className="openstax-has-html answer-content"
                             dangerouslySetInnerHTML={
                               Object {
                                 "__html": "It describes how different parts of the universe are far apart and do not affect each other",
                               }
-                            } />
+                            }
+                          />
                         </div>
                       </label>
                     </div>
                   </div>
                   <div
-                    className="openstax-answer">
+                    className="openstax-answer"
+                  >
                     <div
-                      className="answers-answer disabled answer-correct">
+                      className="answers-answer disabled answer-correct"
+                    >
                       <label
                         className="answer-label"
                         htmlFor="1666-option-3"
-                        onKeyPress={[Function]}>
+                        onKeyPress={[Function]}
+                      >
                         <div
                           aria-labelledby="Answer choice: d"
-                          className="answer-letter">
+                          className="answer-letter"
+                        >
                           d
                         </div>
                         <div
-                          className="answer-answer">
+                          className="answer-answer"
+                        >
                           <span
                             className="openstax-has-html answer-content"
                             dangerouslySetInnerHTML={
                               Object {
                                 "__html": "It describes how speed affects different observers’ measurements of time and space.",
                               }
-                            } />
+                            }
+                          />
                         </div>
                       </label>
                     </div>
@@ -770,9 +943,11 @@ exports[`choose exercises component matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="exercise-tags">
+              className="exercise-tags"
+            >
               <span
-                className="exercise-tag">
+                className="exercise-tag"
+              >
                 ID: 1666@1
               </span>
             </div>
@@ -782,24 +957,30 @@ exports[`choose exercises component matches snapshot 1`] = `
           className="openstax-exercise-preview exercise-card has-actions non-interactive is-vertically-truncated panel panel-default"
           data-exercise-id="1620"
           id={undefined}
-          tabIndex={-1}>
+          tabIndex={-1}
+        >
           <div
-            className="panel-body">
+            className="panel-body"
+          >
             <div
               className="controls-overlay"
-              onClick={undefined}>
+              onClick={undefined}
+            >
               <div
-                className="message">
+                className="message"
+              >
                 <div
                   className="action include"
-                  onClick={[Function]}>
+                  onClick={[Function]}
+                >
                   <span>
                     Add question
                   </span>
                 </div>
                 <div
                   className="action details"
-                  onClick={[Function]}>
+                  onClick={[Function]}
+                >
                   <span>
                     Question details
                   </span>
@@ -807,13 +988,16 @@ exports[`choose exercises component matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="exercise-body">
+              className="exercise-body"
+            >
               <div
                 className="openstax-has-html stimulus"
-                dangerouslySetInnerHTML={undefined} />
+                dangerouslySetInnerHTML={undefined}
+              />
               <div
                 className="openstax-question openstax-question-preview"
-                data-question-number={undefined}>
+                data-question-number={undefined}
+              >
                 <div
                   className="openstax-has-html question-stem"
                   dangerouslySetInnerHTML={
@@ -821,109 +1005,135 @@ exports[`choose exercises component matches snapshot 1`] = `
                       "__html": "Can classical physics be used to accurately describe a satellite moving at a speed of? Explain why or why not.",
                     }
                   }
-                  data-question-number={undefined} />
+                  data-question-number={undefined}
+                />
                 <div
-                  className="answers-table">
+                  className="answers-table"
+                >
                   <div
-                    className="openstax-answer">
+                    className="openstax-answer"
+                  >
                     <div
-                      className="answers-answer disabled">
+                      className="answers-answer disabled"
+                    >
                       <label
                         className="answer-label"
                         htmlFor="1667-option-0"
-                        onKeyPress={[Function]}>
+                        onKeyPress={[Function]}
+                      >
                         <div
                           aria-labelledby="Answer choice: a"
-                          className="answer-letter">
+                          className="answer-letter"
+                        >
                           a
                         </div>
                         <div
-                          className="answer-answer">
+                          className="answer-answer"
+                        >
                           <span
                             className="openstax-has-html answer-content"
                             dangerouslySetInnerHTML={
                               Object {
                                 "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
                               }
-                            } />
+                            }
+                          />
                         </div>
                       </label>
                     </div>
                   </div>
                   <div
-                    className="openstax-answer">
+                    className="openstax-answer"
+                  >
                     <div
-                      className="answers-answer disabled answer-correct">
+                      className="answers-answer disabled answer-correct"
+                    >
                       <label
                         className="answer-label"
                         htmlFor="1667-option-1"
-                        onKeyPress={[Function]}>
+                        onKeyPress={[Function]}
+                      >
                         <div
                           aria-labelledby="Answer choice: b"
-                          className="answer-letter">
+                          className="answer-letter"
+                        >
                           b
                         </div>
                         <div
-                          className="answer-answer">
+                          className="answer-answer"
+                        >
                           <span
                             className="openstax-has-html answer-content"
                             dangerouslySetInnerHTML={
                               Object {
                                 "__html": "Yes, because the satellite is moving at a speed much smaller than the speed of the light and it is not in a strong gravitational field.",
                               }
-                            } />
+                            }
+                          />
                         </div>
                       </label>
                     </div>
                   </div>
                   <div
-                    className="openstax-answer">
+                    className="openstax-answer"
+                  >
                     <div
-                      className="answers-answer disabled">
+                      className="answers-answer disabled"
+                    >
                       <label
                         className="answer-label"
                         htmlFor="1667-option-2"
-                        onKeyPress={[Function]}>
+                        onKeyPress={[Function]}
+                      >
                         <div
                           aria-labelledby="Answer choice: c"
-                          className="answer-letter">
+                          className="answer-letter"
+                        >
                           c
                         </div>
                         <div
-                          className="answer-answer">
+                          className="answer-answer"
+                        >
                           <span
                             className="openstax-has-html answer-content"
                             dangerouslySetInnerHTML={
                               Object {
                                 "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is in a strong gravitational field.",
                               }
-                            } />
+                            }
+                          />
                         </div>
                       </label>
                     </div>
                   </div>
                   <div
-                    className="openstax-answer">
+                    className="openstax-answer"
+                  >
                     <div
-                      className="answers-answer disabled">
+                      className="answers-answer disabled"
+                    >
                       <label
                         className="answer-label"
                         htmlFor="1667-option-3"
-                        onKeyPress={[Function]}>
+                        onKeyPress={[Function]}
+                      >
                         <div
                           aria-labelledby="Answer choice: d"
-                          className="answer-letter">
+                          className="answer-letter"
+                        >
                           d
                         </div>
                         <div
-                          className="answer-answer">
+                          className="answer-answer"
+                        >
                           <span
                             className="openstax-has-html answer-content"
                             dangerouslySetInnerHTML={
                               Object {
                                 "__html": "No, because the satellite is moving at a speed much smaller than the speed of the light and is not in a strong gravitational field.",
                               }
-                            } />
+                            }
+                          />
                         </div>
                       </label>
                     </div>
@@ -932,9 +1142,11 @@ exports[`choose exercises component matches snapshot 1`] = `
               </div>
             </div>
             <div
-              className="exercise-tags">
+              className="exercise-tags"
+            >
               <span
-                className="exercise-tag">
+                className="exercise-tag"
+              >
                 ID: 1667@1
               </span>
             </div>
