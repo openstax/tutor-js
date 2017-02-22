@@ -62,12 +62,12 @@ module.exports = React.createClass
       }
       hideButton =
         <span>
-          Withdrawn
           <SuretyGuard {...guardProps}>
             <BS.Button className="hide-task" onClick={@stopEventPropagation}>
               <i className="fa fa-close" />
             </BS.Button>
           </SuretyGuard>
+          Withdrawn
         </span>
 
     else
