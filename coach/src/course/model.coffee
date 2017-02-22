@@ -4,7 +4,7 @@ _ = require 'underscore'
 React = require 'react'
 EventEmitter2 = require 'eventemitter2'
 # TODO pull out time helper from tutor to shared.
-moment = require 'moment-timezone'
+moment = require 'moment'
 
 api  = require '../api'
 

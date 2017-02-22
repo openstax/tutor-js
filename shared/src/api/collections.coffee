@@ -1,5 +1,5 @@
 hash = require 'object-hash'
-moment = require 'moment-timezone'
+moment = require 'moment'
 
 partial   = require 'lodash/partial'
 every     = require 'lodash/every'
