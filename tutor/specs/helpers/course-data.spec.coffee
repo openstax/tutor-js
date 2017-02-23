@@ -1,6 +1,7 @@
 CD = require '../../src/helpers/course-data'
 
 mapValues = require 'lodash/mapValues'
+TimeHelper = require '../../src/helpers/time'
 
 {CourseActions, CourseStore} = require '../../src/flux/course'
 
@@ -34,6 +35,10 @@ describe 'Course Data helpers', ->
 
   it 'getCourseBounds', ->
     CourseActions.loaded(COURSE, COURSE_ID)
-    expect(mapValues(CD.getCourseBounds(COURSE_ID), (m) -> m.toString())).toEqual(
-        {"end": "Sat Dec 31 2016 12:00:00 GMT-0600", "start": "Fri Jul 01 2016 12:00:00 GMT-0500"}
-      )
+    bounds = CD.getCourseBounds(COURSE_ID)
+    expect(bounds.start).toEqual(
+      TimeHelper.getMomentPreserveDate(COURSE.starts_at, TimeHelper.ISO_DATE_FORMAT)
+    )
+    expect(bounds.end).toEqual(
+      TimeHelper.getMomentPreserveDate(COURSE.ends_at, TimeHelper.ISO_DATE_FORMAT)
+    )
