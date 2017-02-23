@@ -9,8 +9,8 @@ const DEFAULT_MESSAGE = 'Kudos on your desire to explore! Unfortunately, ' +
 
 export default function InvalidPage(props) {
   const {
-    message = DEFAULT_MESSAGE
-  } = props
+    message = DEFAULT_MESSAGE,
+  } = props;
 
   return (
     <div className="invalid-page">
@@ -26,3 +26,7 @@ export default function InvalidPage(props) {
     </div>
   );
 }
+
+InvalidPage.propTypes = {
+  message: React.PropTypes.string,
+};

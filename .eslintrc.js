@@ -46,6 +46,7 @@ module.exports = {
     "react/prefer-stateless-function": [2, {
       "ignorePureComponents": true
     }],
+    "react/prop-types": 2,
     "react/jsx-uses-vars": [2],
     "react/jsx-indent": [2, 2],
     "react/jsx-indent-props": [2, 2],
