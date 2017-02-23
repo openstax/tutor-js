@@ -31,6 +31,7 @@ global.jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000
 process.on 'unhandledRejection', (reason, p) ->
   console.error("Possibly Unhandled Rejection at: Promise ", p, " reason: ", reason)
 
+global.React = require 'react'
 global.chia = chai
 global.sinon = sinon
 global.jasmineExpect = global.expect

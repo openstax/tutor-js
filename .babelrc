@@ -1,4 +1,15 @@
 {
-  "plugins": ["transform-react-jsx"],
-  "presets": ["es2015", "stage-3"]
+    "plugins": [
+        "react-hot-loader/babel",
+        "transform-decorators-legacy",
+        "transform-class-properties",
+        "transform-function-bind",
+        "transform-react-jsx",
+        "transform-runtime"
+    ],
+    "presets": [
+        "es2015",
+        "react",
+        "stage-1"
+    ]
 }
