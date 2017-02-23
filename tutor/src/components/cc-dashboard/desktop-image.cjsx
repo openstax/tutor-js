@@ -1,6 +1,7 @@
 # coffeelint: disable=max_line_length
-_ = require 'underscore'
+
 React = require 'react'
+truncate = require 'lodash/truncate'
 
 {CourseStore} = require '../../flux/course'
 
@@ -25,8 +26,9 @@ DesktopImage = React.createClass
       <path d="M30.249,0l312.042,0c17.232,0 30.911,13.245 30.911,30.472l0,187.774c0,17.226 -13.28,30.514 -30.515,30.514l-312.174,0c-17.233,0 -30.513,-13.288 -30.513,-30.514l0,-187.774c0,-17.227 13.015,-30.472 30.249,-30.472Z" style={fill:'#9a9a9b'} />
       <path d="M14.083,40.082l0,25.127l267.028,0l40.149,-25.127l-307.177,0Z"
         className='banner' />
+      <path className='banner-light' d="M281.111,65.209l78.008,0l0,-25.127l-37.859,0l-40.149,25.127Z" />
       <text className='course-name' x="26.0px" y="59px">
-          {course?.name}
+          {truncate(course?.name, length: 40, omission: '…' )}
       </text>
       <path d="M14.083,220.594c0,6.48 5.253,11.736 11.736,11.736l321.563,0c6.481,0 11.736,-5.256 11.736,-11.736l0,-155.385l-345.035,0l0,155.385Z" style={fill:'#fff' } />
       <path d="M347.382,16.389l-321.563,0c-6.483,0 -11.736,5.254 -11.736,11.736l0,11.957l345.036,0l0,-11.957c0,-6.482 -5.255,-11.736 -11.737,-11.736Z" style={fill:'#fff'} />
@@ -49,7 +51,6 @@ DesktopImage = React.createClass
       <path d="M314.382,204.746l0,-15.299l-231.781,0l-9.027,5.65l59.469,0l0,4l-65.86,0l-8.363,5.234l0,0.415l255.562,0Z" style={fill:'#f5f5f5'} />
       <rect x="159.285" y="194.662" width="30.14" height="4.869" style={fill:'#77cfe0'} />
       <path d="M354.842,19.065l-7.291,4.563l1.139,0l0,1.535l-3.59,0l-3.683,2.304l7.271,0l0,1.536l-9.726,0l-17.702,11.079l37.858,0l0,-11.957c0.001,-3.648 -1.664,-6.908 -4.276,-9.06ZM348.689,32.842l-11.52,0l0,-1.536l11.52,0l0,1.536Z" style={fill:'#fff'} />
-      <path className='banner-light' d="M281.111,65.209l78.008,0l0,-25.127l-37.859,0l-40.149,25.127Z" />
       <path d="M337.17,23.628l0,1.535l7.93,0l2.451,-1.535l-10.381,0Z" style={fill:'#9a9a9b'} />
       <path d="M348.689,23.628l-1.138,0l-2.451,1.535l3.589,0l0,-1.535Z" style={fill:'#b2b3b3'} />
       <path d="M337.17,27.467l0,1.536l1.793,0l2.454,-1.536l-4.247,0Z" style={fill:'#9a9a9b'} />
