@@ -1,8 +1,12 @@
-_           = require 'underscore'
+{ extend, bindAll, difference, without, keys, isEmpty, values } = require 'lodash'
+
 moment      = require 'moment'
 axios       = require 'axios'
-STORAGE_KEY = 'ox-notifications'
+
 User        = require '../user'
+UiSettings  = require '../ui-settings'
+
+STORAGE_KEY = 'ox-notifications'
 
 class Poller
 
@@ -10,8 +14,8 @@ class Poller
     new POLLER_TYPES[type](type, notices)
 
   constructor: (@type, @notices, @interval) ->
-    @localStorageKey = STORAGE_KEY + '-' + @type
-    _.bindAll(@, 'poll', 'onReply', 'onError')
+    @prefsStorageKey = STORAGE_KEY + '-' + @type
+    bindAll(@, 'poll', 'onReply', 'onError')
 
   setUrl: (@url) ->
     @startPolling() unless @polling
@@ -35,7 +39,7 @@ class Poller
     console.warn resp
 
   getActiveNotifications: ->
-    _.values @_activeNotices
+    values @_activeNotices
 
   acknowledge: (notice) ->
     @_setObservedNoticeIds(
@@ -45,10 +49,10 @@ class Poller
     @notices.emit('change')
 
   _setObservedNoticeIds: (newIds) ->
-    @notices.windowImpl.localStorage.setItem(@localStorageKey, JSON.stringify(newIds) )
+    UiSettings.set(@prefsStorageKey, newIds)
 
   _getObservedNoticeIds: ->
-    JSON.parse(@notices.windowImpl.localStorage.getItem(@localStorageKey) or '[]')
+    UiSettings.get(@prefsStorageKey) or []
 
   _setActiveNotices: (newActiveNotices, currentIds) ->
     @_activeNotices = newActiveNotices
@@ -56,9 +60,9 @@ class Poller
     observedIds = @_getObservedNoticeIds()
 
     # Prune the list of observed notice ids so it doesn't continue to fill up with old notices
-    outdatedIds = _.difference(observedIds, _.without(currentIds, _.keys(newActiveNotices)...))
-    unless _.isEmpty(outdatedIds)
-      @_setObservedNoticeIds( _.without(observedIds, outdatedIds...) )
+    outdatedIds = difference(observedIds, without(currentIds, keys(newActiveNotices)...))
+    unless isEmpty(outdatedIds)
+      @_setObservedNoticeIds( without(observedIds, outdatedIds...) )
 
 
 class TutorNotices extends Poller
@@ -72,8 +76,9 @@ class TutorNotices extends Poller
     currentIds = []
     for notice in data
       currentIds.push(notice.id)
+
       continue unless observedIds.indexOf(notice.id) is -1
-      notices[notice.id] = _.extend(notice, {type: @type})
+      notices[notice.id] = extend(notice, {type: @type})
 
     @_setActiveNotices(notices, currentIds)
 
@@ -85,8 +90,8 @@ class AccountsNagger extends Poller
     User.setCurrent(data)
     emails = {}
     for email in User.current().unVerfiedEmails()
-      emails[email.id] = _.extend(email, {type: @type})
-    @_setActiveNotices(emails, _.keys(emails))
+      emails[email.id] = extend(email, {type: @type})
+    @_setActiveNotices(emails, keys(emails))
 
 
 POLLER_TYPES =
