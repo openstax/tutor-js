@@ -4,13 +4,6 @@ TimeHelper = require '../helpers/time'
 
 module.exports =
 
-  getCourseNameSegments: (course, courseSubject) ->
-    return unless courseSubject
-    courseRegex = new RegExp('^(.*)\s*(?:^|\\W|\\s)+('+courseSubject+')(?:\\s|\\W|$)+(.*)$', 'i')
-    courseNameMatches = courseRegex.exec(course.name)
-    if courseNameMatches
-      return courseNameMatches[1..3]
-
   getCourseDataProps: (courseId) ->
     unless courseId?
       {courseId} = Router.currentParams()

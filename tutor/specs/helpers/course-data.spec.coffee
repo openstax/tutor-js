@@ -10,23 +10,6 @@ COURSE_ID = '1'
 
 describe 'Course Data helpers', ->
 
-  it 'getCourseNameSegments', ->
-    expect(CD.getCourseNameSegments({name: 'a physics course'}, 'Physics')).toEqual(
-      ["a", "physics", "course"]
-    )
-    expect(CD.getCourseNameSegments({name: 'physics course'}, 'Physics')).toEqual(
-      ["", "physics", "course"]
-    )
-    expect(CD.getCourseNameSegments({name: 'Dr Goods physics'}, 'Physics')).toEqual(
-      ["Dr Goods", "physics", ""]
-    )
-    expect(CD.getCourseNameSegments({name: 'A Long Preamble about physics, then some stuff at end'}, 'Physics')).toEqual(
-      ["A Long Preamble about", "physics", "then some stuff at end"]
-    )
-    # extra chars on start/end
-    expect(CD.getCourseNameSegments({name: 'a physicss course'}, 'Physics')).toBeUndefined()
-    expect(CD.getCourseNameSegments({name: 'aphysics course'}, 'Physics')).toBeUndefined()
-
   it 'getCourseDataProps', ->
     CourseActions.loaded(COURSE, COURSE_ID)
     expect(CD.getCourseDataProps(COURSE_ID)).toEqual(

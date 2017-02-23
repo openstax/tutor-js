@@ -58,23 +58,15 @@ Course = React.createClass
 
   CourseName: ->
     {course, courseSubject} = @props
-    courseNameSegments = CourseData.getCourseNameSegments(course, courseSubject)
-    hasNoSubject = _.isEmpty(courseNameSegments)
-    courseNameSegments ?= course.name.split(/\W+/)
+    # courseNameSegments = CourseData.getCourseNameSegments(course, courseSubject)
+    # hasNoSubject = _.isEmpty(courseNameSegments)
+    # courseNameSegments ?= course.name.split(/\W+/)
 
     <TutorLink
-      className={classnames('no-subject': hasNoSubject)}
       to='dashboard'
       params={courseId: course.id}
     >
-      {_.map(courseNameSegments, (courseNameSegment, index) ->
-        <span
-          key="course-name-segment-#{index}"
-          data-is-subject={courseNameSegment is courseSubject}
-        >
-          {"#{courseNameSegment} "}
-        </span>
-      )}
+      {course.name}
     </TutorLink>
 
   render: ->
