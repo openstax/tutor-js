@@ -79,5 +79,5 @@ describe 'QA Exercises Component', ->
 
   it 'displays question formats', ->
     wrapper = mount(<Exercises {...@props} />)
-    # expect(wrapper.find('.formats-listing')).to.have.length(EXERCISES.items.length)
+    expect(wrapper.find('.formats-listing')).to.have.length(EXERCISES.items.length)
     undefined
