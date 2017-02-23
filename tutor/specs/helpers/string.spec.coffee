@@ -119,9 +119,3 @@ describe 'String helpers', ->
     expect(S.titleize('my_words_are_concatenated-please help')).to
       .equal('My Words Are Concatenated-Please Help')
     undefined
-
-  it 'can ellipsis a long string', ->
-    expect(S.ellipsis('foo bar baz bang', 10)).to.equal('foo bar ba…')
-    expect(S.ellipsis('bang', 10)).to.equal('bang')
-    expect(S.ellipsis(undefined, 10)).to.be.undefined
-    undefined

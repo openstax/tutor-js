@@ -1,7 +1,7 @@
 # coffeelint: disable=max_line_length
-_ = require 'underscore'
+
 React = require 'react'
-String = require '../../helpers/string'
+truncate = require 'lodash/truncate'
 
 {CourseStore} = require '../../flux/course'
 
@@ -28,7 +28,7 @@ DesktopImage = React.createClass
         className='banner' />
       <path className='banner-light' d="M281.111,65.209l78.008,0l0,-25.127l-37.859,0l-40.149,25.127Z" />
       <text className='course-name' x="26.0px" y="59px">
-          {String.ellipsis(course?.name, 40)}
+          {truncate(course?.name, length: 40, omission: '…' )}
       </text>
       <path d="M14.083,220.594c0,6.48 5.253,11.736 11.736,11.736l321.563,0c6.481,0 11.736,-5.256 11.736,-11.736l0,-155.385l-345.035,0l0,155.385Z" style={fill:'#fff' } />
       <path d="M347.382,16.389l-321.563,0c-6.483,0 -11.736,5.254 -11.736,11.736l0,11.957l345.036,0l0,-11.957c0,-6.482 -5.255,-11.736 -11.737,-11.736Z" style={fill:'#fff'} />

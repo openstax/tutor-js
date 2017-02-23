@@ -16,8 +16,10 @@ describe 'CC Dashboard desktop image', ->
     @props =
       courseId: COURSE_ID
 
-  it 'lists the course title', ->
+  it 'list a truncated course title', ->
+    course = _.extend({}, COURSE, name: 'A long name that should be truncated somewhere')
+    CourseActions.loaded(course, COURSE_ID)
     image = shallow(<Image {...@props} />, Context.build())
     expect(image).toHaveRendered('text[className="course-name"]')
-    expect(image.find('text[className="course-name"]').text()).toEqual(COURSE.name)
+    expect(image.find('text[className="course-name"]').text()).toEqual('A long name that should be truncated so…')
     undefined
