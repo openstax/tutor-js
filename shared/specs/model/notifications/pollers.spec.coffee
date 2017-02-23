@@ -8,6 +8,7 @@ moment = require 'moment'
 URLs = require 'model/urls'
 Notifications = require 'model/notifications'
 UiSettings = require 'model/ui-settings'
+TEST_NOTICES = require '../../../api/notifications'
 
 Poller = require 'model/notifications/pollers'
 FakeWindow = require 'shared/specs/helpers/fake-window'
@@ -55,4 +56,24 @@ describe 'Notification Pollers', ->
       notice = _.first poller.getActiveNotifications()
       poller.acknowledge(notice)
       expect(UiSettings.set).toHaveBeenLastCalledWith("ox-notifications-#{poller.type}", [notice.id])
+    undefined
+
+  it 'does not list items that are already acknowledged', ->
+    UiSettings.get.mockReturnValue(["2"])
+    @tutor.onReply(data: TEST_NOTICES)
+    active = @tutor.getActiveNotifications()
+    expect( _.pluck(active, 'id') ).to.deep.equal(['1']) # no id "2"
+    undefined
+
+  it 'removes outdated ids from prefs', ->
+    # mock that we've observed the current notices
+    UiSettings.get.mockReturnValue(['1', '2'])
+    @tutor.onReply(data: TEST_NOTICES)
+
+    # load a new set of messages that do not include the previous ones
+    @tutor.onReply(
+      data: [{id: '3', message: 'message three'}]
+    )
+    # 1 and 2 are removed
+    expect(UiSettings.set).toHaveBeenLastCalledWith('ox-notifications-tutor', [])
     undefined
