@@ -9,17 +9,7 @@ Router = require '../../helpers/router'
 DnD = require './course-dnd'
 BRAND = 'OpenStax'
 
-getCourseNameSegments = (course, courseSubject) ->
-  courseRegex = new RegExp(courseSubject, 'i')
-  courseNameMatches = courseRegex.exec(course.name)
-  if courseSubject and courseNameMatches
-    {index} = courseNameMatches
-
-    before = course.name.substring(0, index)
-    after = course.name.substring(index + courseSubject.length).replace(/^\W+/, '')
-
-    [before, courseSubject, after]
-
+CourseData = require '../../helpers/course-data'
 
 CoursePropType = React.PropTypes.shape(
   id:   React.PropTypes.string.isRequired
@@ -68,7 +58,7 @@ Course = React.createClass
 
   CourseName: ->
     {course, courseSubject} = @props
-    courseNameSegments = getCourseNameSegments(course, courseSubject)
+    courseNameSegments = CourseData.getCourseNameSegments(course, courseSubject)
     hasNoSubject = _.isEmpty(courseNameSegments)
     courseNameSegments ?= course.name.split(/\W+/)
 
