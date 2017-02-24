@@ -1,4 +1,10 @@
-{ extend, bindAll, difference, without, keys, isEmpty, values } = require 'lodash'
+extend     = require 'lodash/extend'
+bindAll    = require 'lodash/bindAll'
+difference = require 'lodash/difference'
+without    = require 'lodash/without'
+keys       = require 'lodash/keys'
+isEmpty    = require 'lodash/isEmpty'
+values     = require 'lodash/values'
 
 moment      = require 'moment'
 axios       = require 'axios'
