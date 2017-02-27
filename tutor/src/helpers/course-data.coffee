@@ -3,6 +3,7 @@ Router = require '../helpers/router'
 TimeHelper = require '../helpers/time'
 
 module.exports =
+
   getCourseDataProps: (courseId) ->
     unless courseId?
       {courseId} = Router.currentParams()
@@ -19,4 +20,3 @@ module.exports =
     end = TimeHelper.getMomentPreserveDate(course.ends_at, TimeHelper.ISO_DATE_FORMAT)
 
     {start, end}
-
