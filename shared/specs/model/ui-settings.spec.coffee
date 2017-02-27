@@ -60,14 +60,14 @@ describe 'UiSettings', ->
     undefined
 
   it 'migrates old dot keys when initialized', ->
-    UiSettings.initialize({ 'one.two': 4, 'four.five.size': 18 })
+    UiSettings.initialize({ 'one.2': 4, 'four.five.size': 18 })
     jest.runAllTimers()
     expect(Networking.perform).to.have.been.calledOnce
     expect(Networking.perform.lastCall.args[0].data?.ui_settings).to.eql(
-      'one': { 'two': 4 }, 'four': { five: { size: 18 } }
+      'one': { '2': 4 }, 'four': { five: { size: 18 } }
     )
     expect(Networking.perform.lastCall.args[0].data?.previous_ui_settings).to.eql(
-      { 'one.two': 4, 'four.five.size': 18 }
+      { 'one.2': 4, 'four.five.size': 18 }
     )
 
     undefined
