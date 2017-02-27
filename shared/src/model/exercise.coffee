@@ -16,14 +16,15 @@ BOOK_UID_XREF =
   '185cbf87-c72e-48f5-b51e-f14f21b5eabd': 'Biology'
   '405335a3-7cff-4df2-a9ad-29062a4af261': 'College Physics'
 
+FORM_URL =
+  'https://docs.google.com/a/rice.edu/forms/d/e/1FAIpQLSd5rLsdKv75nkpary6dfJMRuw0bcqSetYV3hO-pFbzqqplM0Q/viewform?'
+
 Exercises =
 
   troubleUrl: ({bookUUID, project, exerciseId}) ->
-    # FIXME - get correct url
-    'https://oscms-dev.openstax.org/errata/form?' + qs.stringify(
-      source: project, # either tutor or CC
-      location: "Exercise: #{exerciseId}",
-      book: BOOK_UID_XREF[bookUUID]
+    FORM_URL + qs.stringify(
+      'entry.649352110': exerciseId,
+      'entry.1091629000': BOOK_UID_XREF[bookUUID]
     )
 
   getParts: (exercise) ->
