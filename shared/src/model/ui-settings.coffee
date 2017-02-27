@@ -1,5 +1,5 @@
 get       = require 'lodash/get'
-setWith   = require 'lodash/set'
+setWith   = require 'lodash/setWith'
 debounce  = require 'lodash/debounce'
 includes  = require 'lodash/includes'
 assign    = require 'lodash/assign'
@@ -39,9 +39,6 @@ UiSettings = {
       assign(SETTINGS, key)
     else
       setWith(SETTINGS, key, value, Object)
-
-    # key else
-    # attrVal = SETTINGS, key)
     saveSettings()
 
   # for use by specs to reset
@@ -50,13 +47,15 @@ UiSettings = {
 
   _migrateBadKeys: ->
     badKeys = []
-    for key, value of SETTINGS
+    keys = Object.getOwnPropertyNames(SETTINGS) # make a copy since it'll be mutated
+    for key in keys
       if includes(key, '.') # legacy key from before we were using lodash set
+        value = SETTINGS[key]
+        delete SETTINGS[key]
         setWith(SETTINGS, key, value, Object)
         badKeys.push(key)
-    if badKeys.length
-      delete SETTINGS[key] for key in badKeys
-      saveSettings()
+
+    saveSettings() if badKeys.length
 
   # for debugging purposes
   _dump: -> cloneDeep(SETTINGS)
