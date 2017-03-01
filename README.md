@@ -11,14 +11,13 @@ The Front-end code for Openstax Tutor related projects
 1. install [nvm](https://github.com/creationix/nvm)
   - run `nvm install` in this directory to install and use the correct version of node
   - _Alternatively:_ manualy install the right version of node in [./.nvmrc](./.nvmrc)
-1. `npm install -g gulp` to install [gulp](http://gulpjs.com) globally
 1. Git Clone this repository to the directory of your choice
   - If you don’t have `git` installed you can install homebrew and then `brew install git`
 1. `cd tutor-js` move into the checked out directory
 1. `npm install`
 1. `npm run serve <project>` *(where <project is one of tutor|coach|exercises)*
 1. Point your browser to <http://localhost:8000> to use the mock data in `/api`
-
+ - Or run the Tutor server as shown below to use real data
 
 ## Development
 
@@ -36,16 +35,16 @@ After local updates are made:
 1. restart `npm start`
 
 
-### Pre-production
+### Tutor Server
 
-Before starting up vagrant, you can debug using a more production-like config by:
+Using the sample API data only allows acting as a student and can't save data.  For a more realistic development experience you'll also need to run the [Tutor server](https://github.com/openstax/tutor-server)
 
-1. `gulp prod`
-2. unzip `/dist/archive.tar.gz` into an `assets/` directory
-3. serve the `assets/` directory via NGINX or something with CORS enabled
-4. update the paths in `tutor-server/conf/secrets.yml` to point to `http://localhost:[NGINX-PORT]/assets/tutor.min-####.css` and `tutor.min-####.js` respectively
-5. in `tutor-server` run `rails s`
-6. go to <http://localhost:3001>
+1. Install Tutor Server as shown in it's README file
+1. Start both the Server and run `npm server tutor` in this project's directory
+1. Load <http://localhost:3001> in your browser
+  - Once you click login, the server will present a dev console that allows yout to select a user
+1. And will then render the FE just as it appears in production
+
 
 
 [travis-image]: https://img.shields.io/travis/openstax/tutor-js.svg?style=flat-square
