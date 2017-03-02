@@ -969,7 +969,7 @@ exports[`Launcher renders with launching status 1`] = `
           disabled={false}
           onClick={[Function]}
           type="button">
-          Login
+          Log in
         </button>
       </div>
     </div>
