@@ -17,7 +17,7 @@ LoginAction = (props) ->
   return null unless props.isVisible
   <div className="actions">
     <span>Already enrolled in this course?</span>
-    <BS.Button onClick={props.onLogin}>Login</BS.Button>
+    <BS.Button onClick={props.onLogin}>Log in</BS.Button>
   </div>
 LoginAction.displayName = 'LoginAction'
 

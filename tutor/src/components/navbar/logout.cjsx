@@ -12,7 +12,7 @@ LogoutLink = React.createClass
     label: React.PropTypes.string
 
   getDefaultProps: ->
-    label: 'Log Out'
+    label: 'Log out'
 
   onLinkClick: (ev) ->
     ev.currentTarget.querySelector('form').submit()

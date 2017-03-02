@@ -72,7 +72,7 @@ UserMenu = React.createClass
         href={GET_HELP_LINK}>
           Get Help
       </BS.MenuItem>
-      <BS.MenuItem onSelect={@logoutUser}>Logout</BS.MenuItem>
+      <BS.MenuItem onSelect={@logoutUser}>Log out</BS.MenuItem>
     </BS.NavDropdown>
 
 
