@@ -1,55 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`CreateCourse: Selecting course dates matches snapshot 1`] = `
 <div
-  className="list-group">
+  className="list-group"
+>
   <div
     className="list-group-item choice active"
     onClick={[Function]}
-    role="button">
+    role="button"
+  >
     <span
-      className="term">
+      className="term"
+    >
       fall
     </span>
     <span
-      className="year">
+      className="year"
+    >
       2016
     </span>
   </div>
   <div
     className="list-group-item choice"
     onClick={[Function]}
-    role="button">
+    role="button"
+  >
     <span
-      className="term">
+      className="term"
+    >
       spring
     </span>
     <span
-      className="year">
+      className="year"
+    >
       2017
     </span>
   </div>
   <div
     className="list-group-item choice"
     onClick={[Function]}
-    role="button">
+    role="button"
+  >
     <span
-      className="term">
+      className="term"
+    >
       summer
     </span>
     <span
-      className="year">
+      className="year"
+    >
       2017
     </span>
   </div>
   <div
     className="list-group-item choice"
     onClick={[Function]}
-    role="button">
+    role="button"
+  >
     <span
-      className="term">
+      className="term"
+    >
       fall
     </span>
     <span
-      className="year">
+      className="year"
+    >
       2017
     </span>
   </div>

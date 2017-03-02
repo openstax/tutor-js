@@ -1,16 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Notifications MissingStudentId notice renders and matches snapshot 1`] = `
 <div
-  className="notification missing-student-id">
+  className="notification missing-student-id"
+>
   <span
-    className="body">
+    className="body"
+  >
     <i
-      className="icon fa fa-info-circle" />
+      className="icon fa fa-info-circle"
+    />
     <span>
       To get credit for your work, add your student ID.
     </span>
     <a
       className="action"
-      onClick={[Function]}>
+      onClick={[Function]}
+    >
       Add Student ID
     </a>
   </span>

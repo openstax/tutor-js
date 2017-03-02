@@ -1,8 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`CreateCourse: entering details matches snapshot 1`] = `
 <form
-  className="">
+  className=""
+>
   <div
-    className="course-details-name form-group">
+    className="course-details-name form-group"
+  >
     <input
       autoFocus={true}
       className="form-control"
@@ -10,14 +14,18 @@ exports[`CreateCourse: entering details matches snapshot 1`] = `
       id={undefined}
       onChange={[Function]}
       placeholder="Choose a name for your course"
-      type="text" />
+      type="text"
+    />
   </div>
   <div
-    className="course-details-sections form-group">
+    className="course-details-sections form-group"
+  >
     <span
-      className="input-group">
+      className="input-group"
+    >
       <span
-        className="input-group-addon">
+        className="input-group-addon"
+      >
         Number of sections
       </span>
       <input
@@ -27,10 +35,12 @@ exports[`CreateCourse: entering details matches snapshot 1`] = `
         min="1"
         onChange={[Function]}
         type="number"
-        value={12} />
+        value={12}
+      />
     </span>
     <p
-      className="course-details-sections-note">
+      className="course-details-sections-note"
+    >
       <small>
         <i>
           (You can add or remove sections later)

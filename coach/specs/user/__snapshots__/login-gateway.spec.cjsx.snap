@@ -1,15 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`User login gateway component has differnt wording depending on login or enroll 1`] = `
 <div
-  className="login-gateway is-open">
+  className="login-gateway is-open"
+>
   <span
-    className="message">
+    className="message"
+  >
     Please 
     create an OpenStax account
      in the window. 
     <a
       data-bypass={true}
       href="test-login?parent=about%3Ablank"
-      onClick={[Function]}>
+      onClick={[Function]}
+    >
       Click to reopen window.
     </a>
   </span>
@@ -18,16 +23,19 @@ exports[`User login gateway component has differnt wording depending on login or
 
 exports[`User login gateway component has differnt wording depending on login or enroll 2`] = `
 <div
-  className="login-gateway is-open">
+  className="login-gateway is-open"
+>
   <span
-    className="message">
+    className="message"
+  >
     Please 
     log in using your OpenStax account
      in the window. 
     <a
       data-bypass={true}
       href="test-login?parent=about%3Ablank"
-      onClick={[Function]}>
+      onClick={[Function]}
+    >
       Click to reopen window.
     </a>
   </span>

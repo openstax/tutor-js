@@ -1,6 +1,0 @@
-{
-  "rules": {
-    "no-unused-vars": 1,
-    "no-unreachable": 1
-  }
-}
