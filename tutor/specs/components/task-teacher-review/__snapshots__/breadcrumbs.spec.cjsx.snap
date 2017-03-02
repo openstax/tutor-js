@@ -1,23 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Task Teacher Review: Breadcrumbs renders and matches snapshot 1`] = `
 <div
-  className="task-breadcrumbs">
+  className="task-breadcrumbs"
+>
   <span
     className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-exercise"
     data-chapter="5.4"
     onClick={[Function]}
-    title={undefined}>
+    title={undefined}
+  >
     <i
-      className="icon-lg icon-exercise" />
+      className="icon-lg icon-exercise"
+    />
   </span>
   <a
     className="btn btn-default"
     href="/"
     onClick={[Function]}
-    style={Object {}}>
+    style={Object {}}
+  >
     Back to Calendar
   </a>
   <div
-    className="task-title">
+    className="task-title"
+  >
     Title
   </div>
 </div>

@@ -1,13 +1,13 @@
-var coffee = require('coffee-script');
-var transform = require('coffee-react-transform');
+const coffee = require('coffee-script');
+const transform = require('coffee-react-transform');
 
 module.exports = {
   process: function(src, path) {
-
-    if (coffee.helpers.isCoffee(path) || (path.match(/\.cjsx/))) {
-      return coffee.compile(transform(src), {'bare': true});
+    const isCoffee = path.match(/\.cjsx$/)
+    if (coffee.helpers.isCoffee(path) || isCoffee) {
+      if (isCoffee) { src = transform(src); }
+      return coffee.compile(src, {'bare': true});
     }
-
     return src;
   }
 };

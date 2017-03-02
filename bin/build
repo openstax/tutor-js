@@ -24,7 +24,7 @@ if [ "$(version "$npm_version")" -lt "$(version "$required_version")" ]; then
 fi
 
 [ -d $OX_PROJECT/dist ] && rm -r $OX_PROJECT/dist
-node node_modules/webpack/bin/webpack.js --progress --config webpack.config.js
+$(npm bin)/webpack --progress --config webpack.config.js
 
 SHA=`git rev-parse HEAD`
 

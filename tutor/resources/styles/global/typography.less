@@ -1,20 +1,10 @@
 .tutor-font-face(@family, @name, @filename, @weight, @style: normal) {
   @font-face {
     font-family: @name;
-    src: local(@name),
-    url('../../fonts/@{filename}.woff2') format('woff2'),
-    url('../../fonts/@{filename}.woff') format('woff');
     font-weight: @weight;
     font-style: @style;
   }
 }
-
-.tutor-font-face('Lato'; 'Lato-Bold';           'lato-v11-latin-700';       700);
-.tutor-font-face('Lato'; 'Lato-Black';          'lato-v11-latin-900';       900);
-.tutor-font-face('Lato'; 'Lato-LightItalic';    'lato-v11-latin-300italic'; 300; @style: 'italic');
-.tutor-font-face('Lato'; 'Lato-Light';          'lato-v11-latin-300';       300);
-.tutor-font-face('Lato'; 'Lato-RegularItalic';  'lato-v11-latin-italic';    400; @style: 'italic');
-.tutor-font-face('Lato'; 'Lato-Regular';        'lato-v11-latin-regular';   400);
 
 .tutor-font-face('MerriWeather'; 'MerriWeather-Light';          'merriweather-v8-latin-300';       300);
 .tutor-font-face('MerriWeather'; 'MerriWeather-LightItalic';    'merriweather-v8-latin-300italic'; 300; @style: 'italic');
@@ -28,10 +18,11 @@
 @body-font-color: @tutor-neutral-darker;
 @caption-font-color: #646464;
 @html-font-size: 10px;
+@tutor-default-font-face: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 #fonts {
   .sans (@size: 1.5rem, @line-height: 3rem) {
-    font-family: 'Lato', Helvetica, sans-serif;
+    font-family: @tutor-default-font-face;
     font-weight: 400;
     font-style: normal;
     font-size: @size;
@@ -56,17 +47,17 @@
     font-style: @style;
   }
   .guide-label(){
-    font-family: 'Lato-RegularItalic', Helvetica, sans-serif;
+    font-family: @tutor-default-font-face;
   }
   .guide-header(){
-    font-family: 'Lato-Black', Helvetica, sans-serif;
+    font-family: @tutor-default-font-face;
   }
   .book-cover(){
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: @tutor-default-font-face;
     font-weight: 900;
   }
   .scores-cells(){
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;  
+    font-family: @tutor-default-font-face;
   }
 }
 

@@ -19,6 +19,7 @@ ErrorMonitoring = require 'shared/src/helpers/error-monitoring'
 {Logging, ReactHelpers} = require 'shared'
 
 window._STORES =
+  SETTINGS: UiSettings
   APP: require './src/flux/app'
   COURSE: require './src/flux/course'
   CURRENT_USER: require './src/flux/current-user'

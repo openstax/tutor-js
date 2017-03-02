@@ -1,6 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Scores Report: assignment column header for a CC course matches snapshot 1`] = `
 <div
-  className="header-cell-wrapper assignment">
+  className="header-cell-wrapper assignment"
+>
   <div
     aria-describedby="header-cell-title-0"
     className="expanded-header-row"
@@ -8,28 +11,35 @@ exports[`Scores Report: assignment column header for a CC course matches snapsho
     onClick={null}
     onFocus={[Function]}
     onMouseOut={[Function]}
-    onMouseOver={[Function]}>
+    onMouseOver={[Function]}
+  >
     <div
       className="header-cell group title cc"
-      data-assignment-type="homework">
+      data-assignment-type="homework"
+    >
       Homework Test
     </div>
   </div>
   <div
-    className="header-row">
+    className="header-row"
+  >
     <span
-      className="average">
+      className="average"
+    >
       ---
     </span>
   </div>
   <div
-    className="header-row short">
+    className="header-row short"
+  >
     <div
-      className="scores-cell">
+      className="scores-cell"
+    >
       <div
         className="header-cell sortable"
         data-assignment-type="homework"
-        onClick={[Function]}>
+        onClick={[Function]}
+      >
         <div>
           Score
         </div>
@@ -37,7 +47,8 @@ exports[`Scores Report: assignment column header for a CC course matches snapsho
       <div
         className="header-cell sortable"
         data-assignment-type="homework"
-        onClick={[Function]}>
+        onClick={[Function]}
+      >
         <div>
           Progress
         </div>
@@ -49,7 +60,8 @@ exports[`Scores Report: assignment column header for a CC course matches snapsho
 
 exports[`Scores Report: assignment column header renders and matches snapshot 1`] = `
 <div
-  className="header-cell-wrapper assignment">
+  className="header-cell-wrapper assignment"
+>
   <div
     aria-describedby="header-cell-title-0"
     className="expanded-header-row"
@@ -57,14 +69,17 @@ exports[`Scores Report: assignment column header renders and matches snapshot 1`
     onClick={null}
     onFocus={[Function]}
     onMouseOut={[Function]}
-    onMouseOver={[Function]}>
+    onMouseOver={[Function]}
+  >
     <div
       className="header-cell group title"
-      data-assignment-type="homework">
+      data-assignment-type="homework"
+    >
       Homework Test
     </div>
     <div
-      className="due">
+      className="due"
+    >
       due 
       <time>
         5/31
@@ -72,30 +87,37 @@ exports[`Scores Report: assignment column header renders and matches snapshot 1`
     </div>
   </div>
   <div
-    className="header-row">
+    className="header-row"
+  >
     <span
-      className="average">
+      className="average"
+    >
       ---
     </span>
     <span
-      className="review-link">
+      className="review-link"
+    >
       <a
         className=""
         href="/"
         onClick={[Function]}
-        style={Object {}}>
+        style={Object {}}
+      >
         Review
       </a>
     </span>
   </div>
   <div
-    className="header-row short">
+    className="header-row short"
+  >
     <div
-      className="scores-cell">
+      className="scores-cell"
+    >
       <div
         className="header-cell sortable"
         data-assignment-type="homework"
-        onClick={[Function]}>
+        onClick={[Function]}
+      >
         <div>
           Score
         </div>
@@ -103,7 +125,8 @@ exports[`Scores Report: assignment column header renders and matches snapshot 1`
       <div
         className="header-cell sortable"
         data-assignment-type="homework"
-        onClick={[Function]}>
+        onClick={[Function]}
+      >
         <div>
           Progress
         </div>

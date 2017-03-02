@@ -1,45 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Creating a course matches snapshot 1`] = `
 <div
   className="new-course-wizard offering_id panel panel-default"
-  id={undefined}>
+  id={undefined}
+>
   <div
-    className="panel-heading">
+    className="panel-heading"
+  >
     <div>
       Which course are you teaching?
     </div>
   </div>
   <div
-    className="panel-body">
+    className="panel-body"
+  >
     <div
-      className="panel-content">
+      className="panel-content"
+    >
       <div
-        className="list-group">
+        className="list-group"
+      >
         <div
           className="list-group-item choice active"
           data-appearance="hs_physics"
           onClick={[Function]}
-          role="button">
+          role="button"
+        >
           High School Physics
         </div>
       </div>
     </div>
   </div>
   <div
-    className="panel-footer">
+    className="panel-footer"
+  >
     <div
-      className="controls">
+      className="controls"
+    >
       <button
         className="cancel btn btn-default"
         disabled={false}
         onClick={[Function]}
-        type="button">
+        type="button"
+      >
         Cancel
       </button>
       <button
         className="next btn btn-primary"
         disabled={false}
         onClick={[Function]}
-        type="button">
+        type="button"
+      >
         Continue
       </button>
     </div>

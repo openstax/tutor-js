@@ -1,5 +1,5 @@
 {React, _} = require '../../helpers/component-testing'
-
+Promise = require 'es6-promise'
 HelpTooltip = require '../../../../src/components/task-plan/footer/help-tooltip'
 
 displayPopover = (props) ->
