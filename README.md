@@ -40,7 +40,7 @@ After local updates are made:
 Using the sample API data only allows acting as a student and can't save data.  For a more realistic development experience you'll also need to run the [Tutor server](https://github.com/openstax/tutor-server)
 
 1. Install Tutor Server as shown in it's README file
-1. Start both the Server and run `npm server tutor` in this project's directory
+1. Start both the tutor-server Rails application and run `npm run serve tutor` in this project's directory
 1. Load <http://localhost:3001> in your browser
   - Once you click login, the server will present a dev console that allows yout to select a user
 1. And will then render the FE just as it appears in production
