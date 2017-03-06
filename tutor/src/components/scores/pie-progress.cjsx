@@ -87,7 +87,7 @@ PieProgress = React.createClass
         {if progress is 100 then q4}
       </svg>
     finishedIcon =
-      <svg className='finished'>
+      <svg width="#{size}" height="#{size}" viewBox={"0 0 24 24"} className='finished'>
         <g>
           <circle className="slice #{lateClass}" cx="11.778" cy="12.296" r="12"/>
           <g>
