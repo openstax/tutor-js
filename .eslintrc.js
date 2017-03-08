@@ -23,6 +23,7 @@ module.exports = {
       "error",
       2
     ],
+    "no-multiple-empty-lines": [2, { "max": 2, "maxEOF": 0, "maxEOF": 0 }],
     "no-multi-spaces": [2, {
       "exceptions": {
         "Identifier": true,
