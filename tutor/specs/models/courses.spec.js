@@ -29,4 +29,11 @@ describe('Course Model', () => {
     expect(Courses.get(2).isTeacher).toBe(true);
     expect(Courses.get(3).isTeacher).toBe(true);
   });
+
+  it('calculates audiance tags', () => {
+    expect(Courses.get(1).tourAudianceTags).toEqual(['student']);
+    expect(Courses.get(2).tourAudianceTags).toEqual(['teacher']);
+    expect(Courses.get(3).tourAudianceTags).toEqual(['teacher', 'student']);
+  });
+
 });

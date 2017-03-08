@@ -25,13 +25,6 @@ export class User extends BaseModel {
   @field is_content_analyst;
   @field is_customer_service;
 
-  audianceTagsForCourse(course) {
-    const tags = [];
-    if (course.isTeacher) { tags.push('teacher'); }
-    if (course.isStudent) { tags.push('student'); }
-    // more checks TBD
-    return tags;
-  }
 }
 
 const currentUser = new User;

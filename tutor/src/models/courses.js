@@ -50,6 +50,14 @@ class Course extends BaseModel {
     return !!find(this.roles, 'isTeacher');
   }
 
+  @computed get tourAudianceTags() {
+    const tags = [];
+    if (this.isTeacher) { tags.push('teacher'); }
+    if (this.isStudent) { tags.push('student'); }
+    // more checks TBD
+    return tags;
+  }
+
 }
 
 const courses = Object.assign(observable.shallowMap(), {
