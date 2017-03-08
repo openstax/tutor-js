@@ -39,6 +39,9 @@ Exercises =
     exercise.has_video
 
 
-Exercises.ERRATA_FORM_URL = 'https://oscms-qa.openstax.org/errata/form'
+
+Exercises.ERRATA_FORM_URL = 'https://oscms.openstax.org/errata/form'
+Exercises.setErrataFormURL = (url) ->
+  Exercises.ERRATA_FORM_URL = url if url
 
 module.exports = Exercises
