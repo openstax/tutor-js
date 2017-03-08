@@ -2,6 +2,9 @@
   "teach-new-preview": {
     "id": "teach-new-preview",
     "name": "Preview shown to new teachers",
+    "audience_tags": [
+      "teacher"
+    ],
     "steps": [
       {
         "title": "Your Openstax Tutor beta course dashboard",

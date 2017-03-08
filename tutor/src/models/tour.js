@@ -33,6 +33,7 @@ export default class Tour extends BaseModel {
   @identifier id;
 
   @field name;
+  @field({ type: 'array' }) audience_tags;
 
   @hasMany({ model: TourStep, inverseOf: 'tour' }) steps;
 

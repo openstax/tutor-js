@@ -1,4 +1,6 @@
 import { autorun } from 'mobx';
+import Courses from '../../src/models/courses';
+import { MASTER_COURSES_LIST } from '../courses-test-data';
 
 import User from '../../src/models/user';
 
@@ -14,4 +16,10 @@ describe('Course Model', () => {
     expect(spy).toHaveBeenCalledWith(USER_DATA.name);
   });
 
+  it('calculates audiance tags', () => {
+    Courses.bootstrap(MASTER_COURSES_LIST);
+    expect(User.audianceTagsForCourse(Courses.get(1))).toEqual(['student']);
+    expect(User.audianceTagsForCourse(Courses.get(2))).toEqual(['teacher']);
+    expect(User.audianceTagsForCourse(Courses.get(3))).toEqual(['teacher', 'student']);
+  });
 });

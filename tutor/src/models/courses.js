@@ -1,8 +1,8 @@
 import {
   BaseModel, identifiedBy, field, identifier, hasMany,
 } from './base';
-import { observable } from 'mobx';
-
+import { observable, computed } from 'mobx';
+import { find } from 'lodash';
 import { CourseListingActions } from '../flux/course-listing';
 import Period  from './course/period';
 import Role    from './course/role';
@@ -42,19 +42,22 @@ class Course extends BaseModel {
   @hasMany({ model: Role }) roles;
   @hasMany({ model: Student }) students;
 
+  @computed get isStudent() {
+    return !!find(this.roles, 'isStudent');
+  }
+
+  @computed get isTeacher() {
+    return !!find(this.roles, 'isTeacher');
+  }
+
 }
 
-
-
-
 const courses = Object.assign(observable.shallowMap(), {
-
   // api.coffee calls this
   bootstrap( courseData ) {
     CourseListingActions.loaded(courseData);
     courseData.forEach(cd => courses.set(String(cd.id), new Course(cd)));
   },
-
 });
 
 export default courses;
