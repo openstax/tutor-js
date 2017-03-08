@@ -3,7 +3,8 @@ React = require 'react'
 EventEmitter2 = require 'eventemitter2'
 Course = require '../course/model'
 api = require '../api'
-{BootstrapURLs, NotificationActions, UiSettings}  = require 'shared'
+
+{BootstrapURLs, NotificationActions, UiSettings, ExerciseHelpers}  = require 'shared'
 
 BLANK_USER =
   is_admin: false
@@ -118,6 +119,8 @@ User =
       if data.access_token
         api.channel.emit('set.access_token', data.access_token)
       User.endpoints = data.endpoints
+      ExerciseHelpers.setErrataFormURL(data.errata_form_url)
+
       if data.user
         BootstrapURLs.update(data)
         NotificationActions.startPolling()

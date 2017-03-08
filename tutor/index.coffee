@@ -6,7 +6,7 @@ Recordo = require('recordo')
 Recordo.initialize()
 # Recordo.start()
 
-{BootstrapURLs, UiSettings}  = require 'shared'
+{BootstrapURLs, UiSettings, ExerciseHelpers}  = require 'shared'
 
 api = require './src/api'
 Notices = require './src/helpers/notifications'
@@ -50,6 +50,7 @@ loadApp = ->
 
   UiSettings.initialize(bootstrapData.ui_settings)
   Notices.start(bootstrapData)
+  ExerciseHelpers.setErrataFormURL(bootstrapData.errata_form_url)
   ErrorMonitoring.start()
   startMathJax()
   TransitionAssistant.startMonitoring()
