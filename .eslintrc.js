@@ -23,6 +23,8 @@ module.exports = {
       "error",
       2
     ],
+    "object-curly-spacing": ["error", "always"],
+    "quotes": ["error", "double"],
     "no-multiple-empty-lines": [2, { "max": 2, "maxEOF": 0, "maxEOF": 0 }],
     "no-multi-spaces": [2, {
       "exceptions": {
