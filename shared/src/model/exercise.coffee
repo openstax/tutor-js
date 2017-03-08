@@ -20,7 +20,7 @@ Exercises =
 
   troubleUrl: ({bookUUID, project, exerciseId}) ->
     # FIXME - get correct url
-    'https://oscms-dev.openstax.org/errata/form?' + qs.stringify(
+    Exercises.BASE_URL + '?' + qs.stringify(
       source: project, # either tutor or CC
       location: "Exercise: #{exerciseId}",
       book: BOOK_UID_XREF[bookUUID]
@@ -38,5 +38,7 @@ Exercises =
   hasVideo: (exercise) ->
     exercise.has_video
 
+
+Exercises.BASE_URL = 'https://oscms-qa.openstax.org/errata/form'
 
 module.exports = Exercises

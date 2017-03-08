@@ -2,7 +2,7 @@
 
 ExerciseIdentifierLink = require 'components/exercise-identifier-link'
 
-BASE = 'https://oscms-dev.openstax.org/errata/form'
+Exercise = require 'model/exercise'
 
 describe 'Exercise Identifier Link', ->
 
@@ -14,7 +14,7 @@ describe 'Exercise Identifier Link', ->
 
   it 'reads the parts from props and sets the url', ->
     link = shallow(<ExerciseIdentifierLink {...@props} />)
-    expect(link).toHaveRendered("a[href=\"#{BASE}?source=tutor&location=Exercise%3A%201234%4042&book=College%20Physics\"]")
+    expect(link).toHaveRendered("a[href=\"#{Exercise.BASE_URL}?source=tutor&location=Exercise%3A%201234%4042&book=College%20Physics\"]")
     undefined
 
   it 'falls back to context if props are missing', ->
@@ -25,7 +25,7 @@ describe 'Exercise Identifier Link', ->
       oxProject: 'TESTING'
     })
     expect(link).toHaveRendered(
-      "a[href=\"#{BASE}?source=TESTING&location=Exercise%3A%201234%4042&book=Principles%20of%20Microeconomics\"]"
+      "a[href=\"#{Exercise.BASE_URL}?source=TESTING&location=Exercise%3A%201234%4042&book=Principles%20of%20Microeconomics\"]"
     )
     undefined
 
