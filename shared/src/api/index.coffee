@@ -18,7 +18,7 @@ isEmpty   = require 'lodash/isEmpty'
 require 'extract-values'
 
 EventEmitter2 = require 'eventemitter2'
-
+Networking = require '../model/networking'
 {Routes, XHRRecords, utils, METHODS_TO_ACTIONS} = require './collections'
 {Interceptors} = require './interceptors'
 
@@ -103,6 +103,7 @@ ALL_EVENTS =
 
 
 
+
 class APIHandlerBase
   constructor: (options, channel) ->
     @setOptions(options)
@@ -143,6 +144,7 @@ class APIHandlerBase
   setOptions: (options) =>
     previousOptions = @getOptions?() or {}
     options = merge({}, API_DEFAULTS, previousOptions, options)
+    Networking.setOptions(options)
 
     @getOptions = -> options
 

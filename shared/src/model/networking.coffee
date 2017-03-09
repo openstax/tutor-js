@@ -1,20 +1,18 @@
 axios = require 'axios'
+extend = require 'lodash/extend'
 
-ERROR_HANDLERS = []
+OPTIONS = {}
 
-emitError = (resp) ->
-  for handler in ERROR_HANDLERS
-    try
-      handler(resp)
-
+emitError = (response) ->
+  OPTIONS.handlers?.onFail?({response})
 
 Networking = {
 
-  onError: (fn) -> ERROR_HANDLERS.push(fn)
-
+  setOptions: (options) ->
+    OPTIONS = options
 
   perform: (opts) ->
-    axios(opts).catch(emitError)
+    axios(extend({}, OPTIONS?.xhr, opts)).catch(emitError)
 }
 
 module.exports = Networking
