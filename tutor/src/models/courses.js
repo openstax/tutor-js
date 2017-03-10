@@ -50,7 +50,7 @@ class Course extends BaseModel {
     return !!find(this.roles, 'isTeacher');
   }
 
-  @computed get tourAudianceTags() {
+  @computed get tourAudienceTags() {
     const tags = [];
     if (this.isTeacher) { tags.push('teacher'); }
     if (this.isStudent) { tags.push('student'); }

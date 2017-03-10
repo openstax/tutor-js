@@ -1,7 +1,7 @@
 import React from 'react';
 import observable from 'mobx';
 import { Provider, observer } from 'mobx-react';
-import { extend } from 'lodash';
+import { pick } from 'lodash';
 
 import TourContext from '../../models/tour/context';
 
@@ -13,30 +13,37 @@ export default class TourWrapper extends React.PureComponent {
   }
 
   static propTypes = {
-    courseId: React.PropTypes.string,
+    tourIds: React.PropTypes.arrayOfType(React.PropTypes.string).isRequired,
     children: React.PropTypes.node.isRequired,
+    courseId: React.PropTypes.string,
   }
 
-  @observable tour;
+  @observable tourContext;
 
   constructor(props) {
     super(props);
-    this.tour = new TourContext(extend({}, props, { wrapper: this }));
+    this.tourContext = new TourContext(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.tour.update(nextProps);
+    this.tourContext.update(nextProps);
   }
 
   componentWillUnmount() {
-    this.tour.shutdown();
+    this.tourContext.shutdown();
+  }
+
+  renderCurrentTour() {
+    const { tour } = this.tourContext;
+    if (tour) {
+
+    }
   }
 
   render() {
-
     return (
       <Provider tour={this.tour}>
-        <Tour tour={this.tour} />
+      {this.renderCurrentTour()}
         {this.props.children}
       </Provider>
     );

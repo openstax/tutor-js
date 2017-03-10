@@ -1,19 +1,18 @@
 import Courses from '../../src/models/courses';
 import { autorun } from 'mobx';
-import { MASTER_COURSES_LIST } from '../courses-test-data';
+import { bootstrapCoursesList } from '../courses-test-data';
 
 describe('Course Model', () => {
 
-  beforeEach(() => {
-    Courses.bootstrap(MASTER_COURSES_LIST);
-  });
+  beforeEach(() => bootstrapCoursesList());
+
 
   it('can be bootstrapped and size observed', () => {
     Courses.clear();
     const lenSpy = jest.fn();
     autorun(() => lenSpy(Courses.size));
     expect(lenSpy).toHaveBeenCalledWith(0);
-    Courses.bootstrap(MASTER_COURSES_LIST);
+    bootstrapCoursesList();
     expect(lenSpy).toHaveBeenCalledWith(3);
     expect(Courses.size).toEqual(3);
   });
@@ -30,10 +29,10 @@ describe('Course Model', () => {
     expect(Courses.get(3).isTeacher).toBe(true);
   });
 
-  it('calculates audiance tags', () => {
-    expect(Courses.get(1).tourAudianceTags).toEqual(['student']);
-    expect(Courses.get(2).tourAudianceTags).toEqual(['teacher']);
-    expect(Courses.get(3).tourAudianceTags).toEqual(['teacher', 'student']);
+  it('calculates audience tags', () => {
+    expect(Courses.get(1).tourAudienceTags).toEqual(['student']);
+    expect(Courses.get(2).tourAudienceTags).toEqual(['teacher']);
+    expect(Courses.get(3).tourAudienceTags).toEqual(['teacher', 'student']);
   });
 
 });
