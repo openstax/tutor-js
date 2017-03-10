@@ -14,3 +14,8 @@ export class BaseModel {
 export {
   identifiedBy, identifier, hasMany, belongsTo, field, session,
 } from 'mobx-decorated-models';
+
+export {
+  computed,
+  observable,
+} from 'mobx'
