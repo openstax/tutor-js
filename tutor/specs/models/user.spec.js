@@ -1,8 +1,10 @@
 import { autorun } from 'mobx';
 
 import User from '../../src/models/user';
+import Courses from '../../src/models/courses';
 
 import USER_DATA from '../../api/user.json';
+import { bootstrapCoursesList } from '../courses-test-data';
 
 describe('Course Model', () => {
 
@@ -13,5 +15,11 @@ describe('Course Model', () => {
     User.bootstrap(USER_DATA);
     expect(spy).toHaveBeenCalledWith(USER_DATA.name);
   });
+
+  it('calculates audience tags', () => {
+    bootstrapCoursesList();
+    expect(User.tourAudienceTags).toEqual(['student', 'teacher']);
+  });
+
 
 });

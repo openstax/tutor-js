@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, field,
 } from './base';
-import { selected } from 'lodash';
+import { uniq, flatMap } from 'lodash';
 import { action, computed } from 'mobx';
 import { CurrentUserActions } from '../flux/current-user';
 
@@ -25,6 +25,9 @@ export class User extends BaseModel {
   @field is_content_analyst;
   @field is_customer_service;
 
+  @computed get tourAudienceTags() {
+    return uniq(flatMap(Courses.values(), 'tourAudienceTags'));
+  }
 }
 
 const currentUser = new User;
