@@ -22,12 +22,21 @@ import TourData from './tour/data.json';
 // TourAnchor
 // visual elements that a TourStep points to, provides styles to the TourStep to position it.
 
+const TourInstances = new Map();
+function getTour(id) {
+  let tour = TourInstances.get(id);
+  if (!tour){
+    tour = new Tour(TourData[id]);
+    TourInstances.set(id, tour);
+  }
+  return tour;
+}
 
 @identifiedBy('tour')
 export default class Tour extends BaseModel {
 
   static forIdentifier(id) {
-    return new Tour(TourData[id]);
+    return TourData[id] ? getTour(id) : undefined;
   }
 
   @identifier id;
