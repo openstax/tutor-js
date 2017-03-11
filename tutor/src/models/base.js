@@ -18,4 +18,4 @@ export {
 export {
   computed,
   observable,
-} from 'mobx'
+} from 'mobx';
