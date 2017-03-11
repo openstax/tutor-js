@@ -14,6 +14,7 @@ merge = require 'lodash/merge'
 {CourseStore} = require '../flux/course'
 {TransitionActions, TransitionStore} = require '../flux/transition'
 { LocationSubscriber } = require 'react-router/Broadcasts'
+{ default: TourConductor } = require './tours/conductor'
 
 RouteChange = (props) ->
   TransitionActions.load(props.pathname)
@@ -49,11 +50,12 @@ App = React.createClass
 
     <div className={classNames}>
       <LocationSubscriber>{RouteChange}</LocationSubscriber>
-
-      <SpyMode.Wrapper>
-        <Navbar {...@props}/>
-        <MatchForTutor routes={Router.getRenderableRoutes()} />
-      </SpyMode.Wrapper>
+      <TourConductor>
+        <SpyMode.Wrapper>
+          <Navbar {...@props}/>
+          <MatchForTutor routes={Router.getRenderableRoutes()} />
+        </SpyMode.Wrapper>
+      </TourConductor>
     </div>
 
 
