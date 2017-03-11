@@ -19,4 +19,10 @@ describe('Tour Model', () => {
     expect(tour.serialize()).toEqual(TourData['teach-new-preview']);
   });
 
+  it('can find by audience_tags', () => {
+    expect(Tour.forAudienceTags(['foo', 'bar'])).toEqual([]);
+    expect(Tour.forAudienceTags(['teacher', 'foo'])).toEqual([
+      Tour.forIdentifier('teach-new-preview'),
+    ]);
+  });
 });

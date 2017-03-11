@@ -1,7 +1,7 @@
 import {
-  BaseModel, identifiedBy, identifier, hasMany, field,
+  BaseModel, identifiedBy, identifier, hasMany, field, computed,
 } from './base';
-
+import { partial, includes, some, each, compact } from 'lodash';
 import TourStep from './tour/step';
 import TourData from './tour/data.json';
 
@@ -37,6 +37,15 @@ export default class Tour extends BaseModel {
 
   static forIdentifier(id) {
     return TourData[id] ? getTour(id) : undefined;
+  }
+
+  static forAudienceTags(tags) {
+    const tours = [];
+    const doesIncludeTag = partial(includes, tags);
+    each(TourData, (data, id) => {
+      if (some(data.audience_tags, doesIncludeTag)) { tours.push(getTour(id)); }
+    });
+    return compact(tours);
   }
 
   @identifier id;
