@@ -1,7 +1,7 @@
 import {
-  BaseModel, identifiedBy, field, computed,
+  BaseModel, identifiedBy, field, computed, observable,
 } from '../base';
-import { find, isEmpty, intersection, compact } from 'lodash';
+import { find, isEmpty, intersection, compact, uniq, flatMap, map } from 'lodash';
 import Courses from '../courses';
 import User from '../user';
 import Tour from '../tour';
@@ -9,21 +9,45 @@ import Tour from '../tour';
 @identifiedBy('tour/context')
 export default class TourContext extends BaseModel {
 
-  @field({ type: 'array' }) tourIds;
-  @field courseId;
+  @observable regions = observable.shallowMap();
+
+  @computed get tourIds() {
+    return uniq(flatMap(this.regions.values(), 'tourIds'));
+  }
+
+  @computed get courseIds() {
+    return uniq(map(this.regions.values(), 'courseId'));
+  }
 
   @computed get tours() {
-    if (!this.tourIds) { return []; }
     return compact(this.tourIds.map(id => Tour.forIdentifier(id)));
   }
 
-  @computed get course() {
-    return this.courseId ? Courses.get(this.courseId) : undefined;
+  @computed get courses() {
+    return compact(this.courseIds.map(id => Courses.get(id)));
+  }
+
+  @computed get courseAudienceTags() {
+    return uniq(flatMap(this.courses, c => c.tourAudienceTags));
+  }
+
+  updateRegion(regionId, { courseId, tourIds }) {
+    this.regions.set(regionId, { courseId, tourIds });
   }
 
   @computed get tour() {
-    return this.tourForAudienceTags(this.course.tourAudienceTags) ||
+    return this.tourForAudienceTags(this.courseAudienceTags) ||
       this.tourForAudienceTags(User.tourAudienceTags);
+  }
+
+  @computed get joyrideProps() {
+    const { tour } = this;
+    if (!tour) { return {}; }
+    const props = {
+      tourId: tour.id,
+      steps: [], //tour.steps.map(ts => ({ }))
+    };
+    return props;
   }
 
   shutdown() {

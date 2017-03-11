@@ -7,26 +7,48 @@ describe('Tour Context Model', () => {
   let context;
 
   beforeEach(() => {
-    context = new TourContext({ courseId: '1', tourIds: ['foo', 'bar'] });
+    context = new TourContext();
     bootstrapCoursesList();
   });
 
-  it('can be created from JSON', () => {
-    expect(context.serialize()).toEqual({ courseId: '1', tourIds: ['foo', 'bar'] });
+  it('calculates regions', () => {
+    context.updateRegion('foo', { courseId: '1', tourIds: ['foo', 'bar'] });
+    expect(context.tourIds).toEqual(['foo', 'bar']);
+    context.updateRegion('bar', { courseId: '1', tourIds: ['baz', 'bar'] });
+    expect(context.tourIds).toEqual(['foo', 'bar', 'baz']);
+  });
+
+  it('calculates courses', () => {
+    context.updateRegion('foo', { courseId: '1', tourIds: ['foo', 'bar'] });
+    expect(context.courseIds).toEqual(['1']);
+    context.updateRegion('bar', { courseId: '2', tourIds: ['foo', 'bar'] });
+    expect(context.courseIds).toEqual(['1', '2']);
+    context.updateRegion('bar', { courseId: '5', tourIds: ['foo', 'bar'] });
+    expect(context.courseIds).toEqual(['1', '5']);
   });
 
   it('converts ids to tours', () => {
+    context.updateRegion('foo', { courseId: '1', tourIds: ['foo', 'bar'] });
     expect(context.tours).toHaveLength(0); // 'foo' & 'bar' are invalid ids
-    context.tourIds = ['teach-new-preview'];
+    context.updateRegion('foo', { courseId: '1', tourIds: ['teach-new-preview'] });
     expect(context.tours).toHaveLength(1);
     expect(context.tours[0].id).toEqual('teach-new-preview');
   });
 
-  it('calculates current tour based on audianceTags', () => {
+  it('calculates a tour based on audienceTags', () => {
     const tourSpy = jest.fn();
     autorun(() => tourSpy(context.tour));
     expect(tourSpy).toHaveBeenCalledWith(undefined);
-    context.tourIds = ['teach-new-preview'];
+    context.updateRegion('foo', { courseId: '1', tourIds: ['teach-new-preview'] });
     expect(tourSpy).toHaveBeenCalledWith(Tour.forIdentifier('teach-new-preview'));
   });
+
+  it('calculates props for react joyride', () => {
+    expect(context.joyrideProps).toEqual({});
+    context.updateRegion('foo', { courseId: '1', tourIds: ['teach-new-preview'] });
+    expect(context.joyrideProps).toMatchObject({
+      tourId: 'teach-new-preview',
+    });
+  });
+
 });
