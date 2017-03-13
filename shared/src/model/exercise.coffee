@@ -18,12 +18,13 @@ BOOK_UID_XREF =
 
 Exercises =
 
-  troubleUrl: ({bookUUID, project, exerciseId}) ->
+  troubleUrl: ({bookUUID, project, exerciseId, chapter, section, title}) ->
     # FIXME - get correct url
     Exercises.ERRATA_FORM_URL + '?' + qs.stringify(
-      source: project, # either tutor or CC
-      location: "Exercise: #{exerciseId}",
+      source: project # either tutor or CC
+      location: "#{chapter}.#{section} #{title}"
       book: BOOK_UID_XREF[bookUUID]
+      exerciseId: exerciseId
     )
 
   getParts: (exercise) ->

@@ -3,9 +3,6 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 camelCase = require 'lodash/camelCase'
 
-ChapterSectionMixin = require '../chapter-section-mixin'
-ExerciseIdentifierLink = require '../exercise-identifier-link'
-
 {
   PERSONALIZED_GROUP,
   SPACED_PRACTICE_GROUP,
