@@ -5,18 +5,20 @@ import { find, isEmpty, intersection, compact, uniq, flatMap, map } from 'lodash
 import Courses from '../courses';
 import User from '../user';
 import Tour from '../tour';
+import invariant from 'invariant';
+import Regions from './regions.json';
 
 @identifiedBy('tour/context')
 export default class TourContext extends BaseModel {
 
-  @observable regions = observable.shallowMap();
+  @observable regions = observable.shallowArray();
 
   @computed get tourIds() {
-    return uniq(flatMap(this.regions.values(), 'tourIds'));
+    return compact(uniq(flatMap(this.regions, r => r.tour_ids.peek())));
   }
 
   @computed get courseIds() {
-    return uniq(map(this.regions.values(), 'courseId'));
+    return compact(uniq(map(this.regions, 'courseId')));
   }
 
   @computed get tours() {
@@ -31,8 +33,22 @@ export default class TourContext extends BaseModel {
     return uniq(flatMap(this.courses, c => c.tourAudienceTags));
   }
 
-  updateRegion(regionId, { courseId, tourIds }) {
-    this.regions.set(regionId, { courseId, tourIds });
+  openRegion(region) {
+    const existing = find(this.regions, {id: region.id});
+    if (existing){
+      invariant(existing === region, 'attempted to add a region when one already exist with same id');
+    } else { // no need to add if existing is the same object
+      this.regions.push(region);
+    }
+  }
+
+  closeRegion(region) {
+    this.regions.remove(region);
+  }
+
+  @computed get activeRegion() {
+    if (!this.tour){ return null; }
+    return this.regions.find(region => region.tour_ids.find(tid => tid === this.tour.id));
   }
 
   @computed get tour() {
@@ -48,10 +64,6 @@ export default class TourContext extends BaseModel {
       steps: [], //tour.steps.map(ts => ({ }))
     };
     return props;
-  }
-
-  shutdown() {
-
   }
 
   // will have to filter based on more complex logic such as "has watched" in the near future
