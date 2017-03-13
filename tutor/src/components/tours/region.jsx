@@ -35,7 +35,7 @@ export default class TourRegion extends React.PureComponent {
   componentWillReceiveProps({ id, ...otherProps }) {
     invariant(id === this.props.id,
               `Cannot update region id, was ${this.props.id} attempted to set ${id}`);
-    this.props.tourContext.updateRegion(this.region, otherProps);
+    this.region.courseId = otherProps.courseId;
   }
 
   componentWillUnmount() {
