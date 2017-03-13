@@ -15,6 +15,7 @@ LOADERS =
   css:    'css-loader?minimize=true'
   less:   'less-loader'
 
+
 RESOLVABLES =
   js:     { test: /\.js$/,     use: LOADERS.babel,  exclude: /node_modules/ }
   jsx:    { test: /\.jsx$/,    use: LOADERS.babel,  exclude: /node_modules/ }
@@ -32,11 +33,11 @@ BASE_BUILD =
   cjsx:   RESOLVABLES.cjsx
   less: {
     test: /\.less$/
-    use: ExtractTextPlugin.extract({
-      fallback: 'style-loader',
-      use: [ LOADERS.css, LOADERS.less ]
-    })
-    exclude: /node_modules/
+    use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: [ LOADERS.css, LOADERS.less ]})
+  }
+  css: {
+    test: /\.css$/
+    use: [ LOADERS.css ]
   }
 
 DEV_LOADERS = ['react-hot-loader/webpack']
