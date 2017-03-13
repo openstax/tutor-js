@@ -21,7 +21,7 @@ CourseCalendar = React.createClass
     Handler = displayAsHandler[displayAs]
 
     plansList = if hasPeriods then loadPlansList?() else []
-    <TourRegion courseId={courseId} tourIds={['teach-new-preview']}>
+    <TourRegion id="teacher-calendar" courseId={courseId}>
       <Handler {...@props} plansList={plansList} ref='calendarHandler'/>
     </TourRegion>
 
