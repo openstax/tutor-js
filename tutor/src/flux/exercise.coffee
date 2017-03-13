@@ -17,11 +17,16 @@ EXERCISE_TAGS =
 getExerciseCnxModUuids = (exercise) ->
   tag.data for tag in exercise.tags when tag.type is 'cnxmod'
 
-getChapterSection = (ecosystemId, exercise) ->
+getSectionInfo = (ecosystemId, exercise) ->
   for uuid in getExerciseCnxModUuids(exercise)
-    section = TocStore.getByUuid(ecosystemId, uuid)
-    return section.chapter_section.join('.') if section?
-  '' # return empty string if section wasn't found
+    return TocStore.getByUuid(ecosystemId, uuid)
+
+getChapterSection = (ecosystemId, exercise) ->
+  section = getSectionInfo(ecosystemId, exercise)
+  if section?
+    section.chapter_section.join('.')
+  else
+    '' # return empty string if section wasn't found
 
 getTagName = (tag) ->
   name = _.compact([tag.name, tag.description]).join(' ')
@@ -163,6 +168,9 @@ ExerciseConfig =
 
     getChapterSectionOfExercise: (ecosystemId, exercise) ->
       getChapterSection(ecosystemId, exercise)
+
+    getSectionInfo: (ecosystemId, exercise) ->
+      getSectionInfo(ecosystemId, exercise)
 
     groupBySectionsAndTypes: (ecosystemId, pageIds, options = {withExcluded: false}) ->
       all = @_exercises[pageIds.toString()] or []

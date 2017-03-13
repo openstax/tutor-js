@@ -19,27 +19,23 @@ ExerciseIdentifierLink = React.createClass
       chapter_section: React.PropTypes.arrayOf(React.PropTypes.number)
       title: React.PropTypes.string
     ))
-    chapter: React.PropTypes.string
-    section: React.PropTypes.string
+    chapter_section: React.PropTypes.arrayOf(React.PropTypes.number)
     title: React.PropTypes.string
 
   contextTypes:
     oxProject: React.PropTypes.string
     bookUUID:  React.PropTypes.string
 
-  getInfoFromRelated: ->
-    {chapter_section, title} = first(@props.related_content)
-    [chapter, section] = chapter_section
+  getLocationInfo: ->
+    info = if @props.related_content
+      first(@props.related_content)
+    else
+      @props
 
-    {chapter, section, title}
+    pick(info, 'chapter_section', 'title')      
 
   render: ->
-    info = if @props.related_content
-      @getInfoFromRelated()
-    else
-      pick(@props, 'chapter', 'section', 'title')
-
-    url = Exercise.troubleUrl(extend(info, {
+    url = Exercise.troubleUrl(extend(@getLocationInfo(), {
       exerciseId: @props.exerciseId
       project:    @props.project  or @context.oxProject
       bookUUID:   @props.bookUUID or @context.bookUUID

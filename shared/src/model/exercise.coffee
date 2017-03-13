@@ -18,8 +18,9 @@ BOOK_UID_XREF =
 
 Exercises =
 
-  troubleUrl: ({bookUUID, project, exerciseId, chapter, section, title}) ->
-    # FIXME - get correct url
+  troubleUrl: ({bookUUID, project, exerciseId, chapter_section, title}) ->
+    [chapter, section] = chapter_section
+
     Exercises.ERRATA_FORM_URL + '?' + qs.stringify(
       source: project # either tutor or CC
       location: "#{chapter}.#{section} #{title}"

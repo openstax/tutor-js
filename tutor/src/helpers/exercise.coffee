@@ -6,14 +6,14 @@ _ = require 'underscore'
 
 TutorHelpers = {
 
-  openReportErrorPage: (exercise, courseId) ->
+  openReportErrorPage: (exercise, courseId, ecosystemId) ->
 
     window.open(
-      @troubleUrl(
+      @troubleUrl(_.extend({
         project: 'tutor',
         bookUUID: CourseStore.getBookUUID(courseId),
         exerciseId: exercise.content.uid
-      )
+      }, ExerciseStore.getSectionInfo(ecosystemId, exercise)))
     , '_blank')
 
 }

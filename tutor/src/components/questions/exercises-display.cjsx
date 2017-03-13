@@ -5,6 +5,8 @@ React = require 'react'
 {PinnedHeaderFooterCard} = require 'shared'
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
 {TocStore} = require '../../flux/toc'
+window.TocStore = TocStore
+window.ExerciseStore = ExerciseStore
 
 Help = require './help'
 Icon = require '../icon'
@@ -162,7 +164,7 @@ ExercisesDisplay = React.createClass
       handler: @onShowDetailsViewClick
 
   reportError: (ev, exercise) ->
-    ExerciseHelpers.openReportErrorPage(exercise, @props.courseId)
+    ExerciseHelpers.openReportErrorPage(exercise, @props.courseId, @props.ecosystemId)
 
   toggleFeedback: ->
     @setState(displayFeedback: not @state.displayFeedback)
