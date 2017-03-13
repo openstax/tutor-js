@@ -187,7 +187,12 @@
       .flex-direction(column);
       .justify-content(center);
       padding: 0 0 0 @left-column-padding;
-      > * { max-height: 50%; }
+      > * {
+        max-height: 50%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
       .student-name { color: @tutor-neutral-dark; }
       .student-id {
         font-size: 1.1rem;
