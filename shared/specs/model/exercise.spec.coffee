@@ -10,14 +10,17 @@ describe 'Exercise Helper', ->
   it 'calculates trouble url', ->
     expect(Exercise.troubleUrl({
       bookUUID: '185cbf87-c72e-48f5-b51e-f14f21b5eabd'
-      project: 'tutor',
+      project: 'tutor'
       exerciseId: '22@22'
-    })).toEqual("#{Exercise.ERRATA_FORM_URL}?source=tutor&location=Exercise%3A%2022%4022&book=Biology")
+      chapter_section: [1, 2]
+      title: 'Intro to Physics'
+    })).toEqual("#{Exercise.ERRATA_FORM_URL}?source=tutor&location=1.2%20Intro%20to%20Physics&book=Biology&exerciseId=22%4022")
 
   it 'skips missing parts', ->
     expect(Exercise.troubleUrl({
-      exerciseId: '42@1'
-    })).toEqual("#{Exercise.ERRATA_FORM_URL}?location=Exercise%3A%2042%401")
+      chapter_section: [1, 2]
+      title: 'Intro to Physics'
+    })).toEqual("#{Exercise.ERRATA_FORM_URL}?location=1.2%20Intro%20to%20Physics")
 
 
   it 'can set the errata url', ->
@@ -26,6 +29,8 @@ describe 'Exercise Helper', ->
     Exercise.setErrataFormURL('https://my-crazy-url/')
     expect(Exercise.troubleUrl({
       bookUUID: '185cbf87-c72e-48f5-b51e-f14f21b5eabd'
-      project: 'tutor',
+      project: 'tutor'
       exerciseId: '22@22'
-    })).toEqual("https://my-crazy-url/?source=tutor&location=Exercise%3A%2022%4022&book=Biology")
+      chapter_section: [1, 2]
+      title: 'Intro to Physics'
+    })).toEqual("https://my-crazy-url/?source=tutor&location=1.2%20Intro%20to%20Physics&book=Biology&exerciseId=22%4022")
