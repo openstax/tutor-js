@@ -19,7 +19,7 @@ BOOK_UID_XREF =
 Exercises =
 
   troubleUrl: ({bookUUID, project, exerciseId, chapter_section, title}) ->
-    [chapter, section] = chapter_section
+    [chapter, section] = chapter_section if chapter_section
 
     Exercises.ERRATA_FORM_URL + '?' + qs.stringify(
       source: project # either tutor or CC
