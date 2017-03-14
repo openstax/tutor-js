@@ -21,15 +21,22 @@ BOOK_UID_XREF =
 Exercises =
 
   troubleUrl: ({bookUUID, project, exerciseId, chapter_section, title}) ->
-    if chapter_section and title
+    location = []
+
+    location.push(exerciseId) if exerciseId
+
+    if chapter_section
       [chapter, section] = chapter_section
-      location = "#{chapter}.#{section} #{title}"
+      location.push "#{chapter}.#{section}"
+
+    location.push(title) if title
+
+    locationString = location.join(' ')
 
     urlParams = 
       source: project # either tutor or CC
-      location: location
+      location: locationString
       book: BOOK_UID_XREF[bookUUID]
-      exerciseId: exerciseId
 
     Exercises.ERRATA_FORM_URL + '?' + qs.stringify(omitBy(urlParams, isUndefined))
 
