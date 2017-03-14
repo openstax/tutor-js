@@ -16,7 +16,7 @@ describe('Tour Model', () => {
   it('initializes from JSON', () => {
     const tour = Tour.forIdentifier('teach-new-preview');
     expect(tour).toBeInstanceOf(Tour);
-    expect(tour.serialize()).toEqual(TourData['teach-new-preview']);
+    expect(tour.serialize()).toMatchObject(TourData['teach-new-preview']);
   });
 
   it('can find by audience_tags', () => {
