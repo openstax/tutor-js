@@ -1,16 +1,18 @@
 import React from 'react';
-import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import invariant from 'invariant';
 import TourRegionModel from '../../models/tour/region';
 import TourContext from '../../models/tour/context';
 
+import { delay } from 'lodash';
 
 @inject('tourContext') @observer
 export default class TourRegion extends React.PureComponent {
 
   static defaultProps = {
     courseId: undefined,
+    tag: 'div',
+    className: '',
   }
 
   static propTypes = {
@@ -18,6 +20,8 @@ export default class TourRegion extends React.PureComponent {
     courseId: React.PropTypes.string,
     children: React.PropTypes.node.isRequired,
     tourContext: React.PropTypes.instanceOf(TourContext).isRequired,
+    tag: React.PropTypes.string,
+    className: React.PropTypes.string,
   }
 
   constructor(props) {
@@ -28,7 +32,9 @@ export default class TourRegion extends React.PureComponent {
 
   componentDidMount() {
     this.region.el = this.wrapperEl;
-    this.props.tourContext.openRegion(this.region, this.props);
+    delay(() =>
+      this.props.tourContext.openRegion(this.region, this.props)
+    , 500);
   }
 
   // not really sure this is needed, but we may update the courseId somwhere
@@ -43,11 +49,12 @@ export default class TourRegion extends React.PureComponent {
   }
 
   render() {
-    return (
-      <div data-tour-region-id={this.props.id} ref={ref => (this.wrapperEl = ref)}>
-        {this.props.children}
-      </div>
-    );
+    const { tag, className } = this.props;
+    return React.createElement(tag, {
+      className,
+      'data-tour-region-id': this.props.id,
+      ref: ref => (this.wrapperEl = ref),
+    }, this.props.children);
   }
 
 }

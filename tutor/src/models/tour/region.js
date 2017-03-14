@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, field, identifier,
+  BaseModel, identifiedBy, field, identifier, computed,
 } from '../base';
 import { extend } from 'lodash';
 
@@ -18,6 +18,10 @@ export default class TourRegion extends BaseModel {
 
   @identifier id;
   @field courseId;
+
+  @computed get domSelector() {
+    return `[data-tour-region-id="${this.id}"]`;
+  }
 
   @field({ type: 'array' }) tour_ids;
 
