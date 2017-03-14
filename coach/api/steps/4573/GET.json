@@ -4,7 +4,10 @@
     "type": "exercise",
     "group": "default",
     "is_completed": false,
-    "related_content": [],
+    "related_content": [{
+        "chapter_section": [1, 2],
+        "title": "Intro to Physics"
+    }],
     "labels": [],
     "content_url": "https://exercises-dev.openstax.org/exercises/-3@1",
     "content": {

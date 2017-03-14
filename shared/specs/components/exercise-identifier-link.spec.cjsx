@@ -11,10 +11,14 @@ describe 'Exercise Identifier Link', ->
       bookUUID: '27275f49-f212-4506-b3b1-a4d5e3598b99'
       exerciseId: '1234@42'
       project: 'tutor'
+      related_content: [{
+        chapter_section: [1, 2]
+        title: 'Introduction to Apples'
+      }]
 
   it 'reads the parts from props and sets the url', ->
     link = shallow(<ExerciseIdentifierLink {...@props} />)
-    expect(link).toHaveRendered("a[href=\"#{Exercise.ERRATA_FORM_URL}?source=tutor&location=Exercise%3A%201234%4042&book=College%20Physics\"]")
+    expect(link).toHaveRendered("a[href=\"#{Exercise.ERRATA_FORM_URL}?source=tutor&location=1.2%20Introduction%20to%20Apples&book=College%20Physics&exerciseId=1234%4042\"]")
     undefined
 
   it 'falls back to context if props are missing', ->
@@ -25,7 +29,7 @@ describe 'Exercise Identifier Link', ->
       oxProject: 'TESTING'
     })
     expect(link).toHaveRendered(
-      "a[href=\"#{Exercise.ERRATA_FORM_URL}?source=TESTING&location=Exercise%3A%201234%4042&book=Principles%20of%20Microeconomics\"]"
+      "a[href=\"#{Exercise.ERRATA_FORM_URL}?source=TESTING&location=1.2%20Introduction%20to%20Apples&book=Principles%20of%20Microeconomics&exerciseId=1234%4042\"]"
     )
     undefined
 

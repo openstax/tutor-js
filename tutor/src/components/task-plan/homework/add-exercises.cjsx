@@ -72,7 +72,8 @@ AddExercises = React.createClass
       handler: @showDetails
 
   reportError: (ev, exercise) ->
-    ExerciseHelpers.openReportErrorPage(exercise, @props.courseId)
+    ecosystemId = TaskPlanStore.getEcosystemId(@props.planId, @props.courseId)
+    ExerciseHelpers.openReportErrorPage(exercise, @props.courseId, ecosystemId)
 
   toggleFeedback: ->
     @setState(displayFeedback: not @state.displayFeedback)
