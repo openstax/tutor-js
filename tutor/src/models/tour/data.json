@@ -8,15 +8,22 @@
     "steps": [
       {
         "title": "Your Openstax Tutor beta course dashboard",
-        "content": "Your course dashboard is your gateway to creating and managing assignments, as well as viewing student scores and progress."
+        "content": "Your course dashboard is your gateway to creating and managing assignments, as well as viewing student scores and progress.",
+        "position": "center"
       }, {
         "title": "Adding assignments",
         "content": "Add assignments by clicking or dragging to your calendar.",
-        "anchor_id": "sidebar-add-tasks"
+        "anchor_id": "sidebar-add-tasks",
+        "action": {
+          "id": "open-calendar-sidebar"
+        }
       }, {
         "title": "Managing assignments",
         "content": "You can edit an assignment or review student progress and performance by clicking on the assignment on your calendar.",
-        "anchor_id": "saved-task"
+        "anchor_id": "calendar-task-plan",
+        "action": {
+          "id": "reposition"
+        }
       }, {
         "title": "Performance forecast",
         "content": "See how students are doing on each topic.",
@@ -28,13 +35,10 @@
       }, {
         "title": "Question library",
         "content": "Manage the questions students see in assignments and when they practice on their own.",
-        "setup_action": "open-user-menu",
-        "teardown_action": "close-user-menu",
         "anchor_id": "ql-menu-option"
       }, {
         "title": "View tips again",
         "content": "Here's where you can view all tips for this page.",
-        "setup_action": "display-tours-navbar-icon",
         "anchor_id": "tours-navbar-icon"
       }
 
