@@ -60,7 +60,7 @@ RESOLVABLE_EXTENSIONS = _.union(_.chain(RESOLVABLES).keys().map((ext) -> ".#{ext
 # base config, true for all builds no matter what conditions
 BASE_CONFIG =
   cache: true
-  devtool: 'cheap-module-eval-source-map'
+  devtool: 'cheap-source-map'
   resolve:
     extensions: RESOLVABLE_EXTENSIONS
   output:
