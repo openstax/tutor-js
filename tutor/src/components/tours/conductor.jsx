@@ -3,7 +3,6 @@ import { observable } from 'mobx';
 import { Provider, observer } from 'mobx-react';
 
 import Joyride from 'react-joyride';
-import 'react-joyride/lib/react-joyride-compiled.css';
 
 import TourContext from '../../models/tour/context';
 
@@ -12,16 +11,18 @@ export default class TourConductor extends React.PureComponent {
 
   @observable tourContext;
 
+  static propTypes = {
+    children: React.PropTypes.node.isRequired,
+  }
+
   constructor(props) {
     super(props);
     this.tourContext = new TourContext(this.props);
   }
 
   renderTour() {
-    const { tour, joyrideProps } = this.tourContext;
-
-    if (tour) {
-      return <Joyride {...joyrideProps} />;
+    if (this.tourContext.tourRide) {
+      return <Joyride {...this.tourContext.tourRide.joyrideProps} />;
     }
   }
 

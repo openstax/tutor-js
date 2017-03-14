@@ -5,6 +5,7 @@ import { find, isEmpty, intersection, compact, uniq, flatMap, map } from 'lodash
 import Courses from '../courses';
 import User from '../user';
 import Tour from '../tour';
+import TourRide from './ride';
 import invariant from 'invariant';
 import Regions from './regions.json';
 
@@ -12,6 +13,7 @@ import Regions from './regions.json';
 export default class TourContext extends BaseModel {
 
   @observable regions = observable.shallowArray();
+  @observable anchors = observable.shallowMap();
 
   @computed get tourIds() {
     return compact(uniq(flatMap(this.regions, r => r.tour_ids.peek())));
@@ -33,8 +35,16 @@ export default class TourContext extends BaseModel {
     return uniq(flatMap(this.courses, c => c.tourAudienceTags));
   }
 
+  addAnchor(id, domEl) {
+    this.anchors.set(id, domEl);
+  }
+
+  removeAnchor(id) {
+    this.anchors.delete(id);
+  }
+
   openRegion(region) {
-    const existing = find(this.regions, {id: region.id});
+    const existing = find(this.regions, { id: region.id });
     if (existing){
       invariant(existing === region, 'attempted to add a region when one already exist with same id');
     } else { // no need to add if existing is the same object
@@ -56,17 +66,18 @@ export default class TourContext extends BaseModel {
       this.tourForAudienceTags(User.tourAudienceTags);
   }
 
-  @computed get joyrideProps() {
+  @computed get tourRide() {
+    // right now we just display the first tour.  Eventually we'll filter on previously viewed state
     const { tour } = this;
-    if (!tour) { return {}; }
-    const props = {
-      tourId: tour.id,
-      steps: [], //tour.steps.map(ts => ({ }))
-    };
-    return props;
+    if ( tour ) {
+      const ride = new TourRide();
+      ride.tour = tour; // FIXME update once mobx is
+      ride.context = this;
+      ride.region = this.activeRegion;
+      return ride;
+    }
   }
 
-  // will have to filter based on more complex logic such as "has watched" in the near future
   tourForAudienceTags(tags) {
     return find(this.tours, tour => !isEmpty(intersection(tags, tour.audience_tags)));
   }
