@@ -104,7 +104,8 @@ ExerciseMixin =
     {parts} = @props
     step = _.last(parts)
 
-    related_content = step.related_content # if related
+    # TODO check whether or not if related is still needed
+    related_content = step.related_content if related
 
     if step.content?.uid
       <ExerciseIdentifierLink key='exercise-uid'
