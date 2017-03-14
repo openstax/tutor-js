@@ -49,11 +49,12 @@ describe('Tour Context Model', () => {
     expect(tourSpy).toHaveBeenCalledWith(Tour.forIdentifier('teach-new-preview'));
   });
 
-  it('calculates props for react joyride', () => {
-    expect(context.joyrideProps).toEqual({});
+  it('calculates a TourRide', () => {
     context.openRegion(region);
-    expect(context.joyrideProps).toMatchObject({
-      tourId: 'teach-new-preview',
+    expect(context.tourRide).toMatchObject({
+      tour: Tour.forIdentifier('teach-new-preview'),
+      region: region,
+      context: context,
     });
   });
 
@@ -62,4 +63,13 @@ describe('Tour Context Model', () => {
     region.tour_ids = [ 'teach-new-preview' ];
     expect(context.activeRegion).toBe(region);
   });
+
+  it('adds/removes anchors', () => {
+    expect(context.anchors.size).toBe(0);
+    context.addAnchor('test', { test: true });
+    expect(context.anchors.get('test')).toEqual({ test: true });
+    context.removeAnchor('test');
+    expect(context.anchors.size).toBe(0);
+  });
+
 });
