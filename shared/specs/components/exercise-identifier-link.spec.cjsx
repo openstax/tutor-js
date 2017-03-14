@@ -18,7 +18,7 @@ describe 'Exercise Identifier Link', ->
 
   it 'reads the parts from props and sets the url', ->
     link = shallow(<ExerciseIdentifierLink {...@props} />)
-    expect(link).toHaveRendered("a[href=\"#{Exercise.ERRATA_FORM_URL}?source=tutor&location=1.2%20Introduction%20to%20Apples&book=College%20Physics&exerciseId=1234%4042\"]")
+    expect(link).toHaveRendered("a[href=\"#{Exercise.ERRATA_FORM_URL}?source=tutor&location=1234%4042%201.2%20Introduction%20to%20Apples&book=College%20Physics\"]")
     undefined
 
   it 'falls back to context if props are missing', ->
@@ -29,7 +29,7 @@ describe 'Exercise Identifier Link', ->
       oxProject: 'TESTING'
     })
     expect(link).toHaveRendered(
-      "a[href=\"#{Exercise.ERRATA_FORM_URL}?source=TESTING&location=1.2%20Introduction%20to%20Apples&book=Principles%20of%20Microeconomics&exerciseId=1234%4042\"]"
+      "a[href=\"#{Exercise.ERRATA_FORM_URL}?source=TESTING&location=1234%4042%201.2%20Introduction%20to%20Apples&book=Principles%20of%20Microeconomics\"]"
     )
     undefined
 

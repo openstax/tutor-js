@@ -14,7 +14,7 @@ describe 'Exercise Helper', ->
       exerciseId: '22@22'
       chapter_section: [1, 2]
       title: 'Intro to Physics'
-    })).toEqual("#{Exercise.ERRATA_FORM_URL}?source=tutor&location=1.2%20Intro%20to%20Physics&book=Biology&exerciseId=22%4022")
+    })).toEqual("#{Exercise.ERRATA_FORM_URL}?source=tutor&location=22%4022%201.2%20Intro%20to%20Physics&book=Biology")
 
   it 'skips missing parts', ->
     expect(Exercise.troubleUrl({
@@ -33,4 +33,4 @@ describe 'Exercise Helper', ->
       exerciseId: '22@22'
       chapter_section: [1, 2]
       title: 'Intro to Physics'
-    })).toEqual("https://my-crazy-url/?source=tutor&location=1.2%20Intro%20to%20Physics&book=Biology&exerciseId=22%4022")
+    })).toEqual("https://my-crazy-url/?source=tutor&location=22%4022%201.2%20Intro%20to%20Physics&book=Biology")
