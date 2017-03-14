@@ -10,7 +10,7 @@ export default class OpenCalendarSidebar extends BaseAction {
     if (!this.wasOpen) {
       this.toggleSidebar();
       // sidebar animates for 500ms
-      delay(() => this.ride.joyrideRef.calcPlacement(), 550);
+      this.repositionAfter(550);
     }
   }
 

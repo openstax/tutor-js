@@ -31,7 +31,7 @@ export default class TourRide extends BaseModel {
 
   @action.bound
   joyrideCallback({ type, action, step: joyRideStep, index }) {
-    if (action === 'close') {
+    if (action === 'close' || (action === 'next' && type == 'finished')) {
       // FIXME mark as watched
       return; // no step data, nothing more to do
     }
