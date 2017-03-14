@@ -3,7 +3,7 @@ BS = require 'react-bootstrap'
 moment = require 'moment'
 _ = require 'underscore'
 
-
+{ default: TourAnchor } = require '../tours/anchor'
 TutorLink     = require '../link'
 BrowseTheBook = require '../buttons/browse-the-book'
 NoPeriods     = require '../no-periods'
@@ -37,19 +37,25 @@ CourseCalendarHeader = React.createClass
       <div className='calendar-header-actions-buttons'>
 
         <BrowseTheBook bsStyle='default' courseId={courseId} />
-        <TutorLink
-          className='btn btn-default'
-          to='viewPerformanceGuide'
-          params={{courseId}}
-        >
-          Performance Forecast
-        </TutorLink>
-        <TutorLink className='btn btn-default'
-          to='viewScores'
-          params={{courseId}}
-        >
-          Student Scores
-        </TutorLink>
+
+        <TourAnchor id="performance-forcast-button">
+          <TutorLink
+            className='btn btn-default'
+            to='viewPerformanceGuide'
+            params={{courseId}}
+          >
+            Performance Forecast
+          </TutorLink>
+        </TourAnchor>
+
+        <TourAnchor id="student-scores-button">
+          <TutorLink className='btn btn-default'
+            to='viewScores'
+            params={{courseId}}
+          >
+            Student Scores
+          </TutorLink>
+        </TourAnchor>
       </div>
 
     </div>

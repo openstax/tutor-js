@@ -1,7 +1,6 @@
 React = require 'react'
 HTML5Backend = require 'react-dnd-html5-backend'
 DragDropContext = require('react-dnd').DragDropContext
-{ default: TourRegion } = require '../tours/Region';
 
 CourseMonth = require './month'
 
@@ -21,8 +20,6 @@ CourseCalendar = React.createClass
     Handler = displayAsHandler[displayAs]
 
     plansList = if hasPeriods then loadPlansList?() else []
-    <TourRegion id="teacher-calendar" courseId={courseId}>
-      <Handler {...@props} plansList={plansList} ref='calendarHandler'/>
-    </TourRegion>
+    <Handler {...@props} plansList={plansList} ref='calendarHandler'/>
 
 module.exports = CourseCalendar

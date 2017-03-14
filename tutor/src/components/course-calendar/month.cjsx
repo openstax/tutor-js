@@ -10,6 +10,7 @@ extend = require 'lodash/extend'
 find = require 'lodash/find'
 {DropTarget} = require 'react-dnd'
 {Calendar, Month, Week, Day} = require 'react-calendar'
+{ default: TourRegion } = require '../tours/Region'
 
 {TimeStore} = require '../../flux/time'
 TimeHelper = require '../../helpers/time'
@@ -255,7 +256,10 @@ CourseMonth = React.createClass
         <CoursePlan courseId={courseId} onShow={@onIfIsEditing} onHide={@offIfIsEditing}/>
       </CourseDuration>
 
-    <div className={calendarClassName}>
+    <TourRegion
+      tag="div" className={calendarClassName}
+      id="teacher-calendar" courseId={courseId}
+    >
 
       <CourseAdd
         ref='addOnDay'
@@ -316,7 +320,7 @@ CourseMonth = React.createClass
         findPopOverTarget={@getEditingPlanEl}
       /> if @state.editingPlanId and @state.showMiniEditor}
 
-    </div>
+    </TourRegion>
 
 
 

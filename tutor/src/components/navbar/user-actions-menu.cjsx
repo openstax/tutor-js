@@ -4,7 +4,7 @@ BS = require 'react-bootstrap'
 
 _ = require 'lodash'
 classnames = require 'classnames'
-
+{ default: TourAnchor } = require '../tours/anchor'
 Router = require '../../helpers/router'
 UserName = require './username'
 AccountLink = require './account-link'
@@ -58,6 +58,7 @@ UserActionsMenu = React.createClass
     key = if route.key then "dropdown-item-#{route.key}" else "dropdown-item-#{index}"
 
     # MenuItem doesn't pass on props to the li currently, so using className instead for route.name visual control.
+    console.log(route)
     <BS.MenuItem
       {...props}
       className={classnames(route.name, 'active': isActive)}
@@ -65,7 +66,9 @@ UserActionsMenu = React.createClass
       data-name={route.name}
       eventKey={index + 2}
     >
+      <TourAnchor id={"menu-option-#{route.name}"}>
         {route.label}
+      </TourAnchor>
     </BS.MenuItem>
 
 
