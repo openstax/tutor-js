@@ -1,4 +1,6 @@
 qs = require 'qs'
+omitBy      = require 'lodash/omitBy'
+isUndefined = require 'lodash/isUndefined'
 
 # This list maps Tutor book UUID's to the their official OpenStax title.
 # It's used to pre-fill the errata submission form on webview with
@@ -19,14 +21,17 @@ BOOK_UID_XREF =
 Exercises =
 
   troubleUrl: ({bookUUID, project, exerciseId, chapter_section, title}) ->
-    [chapter, section] = chapter_section if chapter_section
+    if chapter_section and title
+      [chapter, section] = chapter_section
+      location = "#{chapter}.#{section} #{title}"
 
-    Exercises.ERRATA_FORM_URL + '?' + qs.stringify(
+    urlParams = 
       source: project # either tutor or CC
-      location: "#{chapter}.#{section} #{title}"
+      location: location
       book: BOOK_UID_XREF[bookUUID]
       exerciseId: exerciseId
-    )
+
+    Exercises.ERRATA_FORM_URL + '?' + qs.stringify(omitBy(urlParams, isUndefined))
 
   getParts: (exercise) ->
     exercise.content?.questions or []
