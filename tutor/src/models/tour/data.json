@@ -35,13 +35,16 @@
       }, {
         "title": "Question library",
         "content": "Manage the questions students see in assignments and when they practice on their own.",
-        "anchor_id": "ql-menu-option"
+        "anchor_id": "menu-option-viewQuestionsLibrary",
+        "position": "right",
+        "action": {
+          "id": "open-user-menu"
+        }
       }, {
         "title": "View tips again",
         "content": "Here's where you can view all tips for this page.",
         "anchor_id": "tours-navbar-icon"
       }
-
     ]
   }
 }
