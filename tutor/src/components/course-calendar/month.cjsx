@@ -10,7 +10,7 @@ extend = require 'lodash/extend'
 find = require 'lodash/find'
 {DropTarget} = require 'react-dnd'
 {Calendar, Month, Week, Day} = require 'react-calendar'
-{ default: TourRegion } = require '../tours/Region'
+{ default: TourRegion } = require '../tours/region'
 
 {TimeStore} = require '../../flux/time'
 TimeHelper = require '../../helpers/time'
