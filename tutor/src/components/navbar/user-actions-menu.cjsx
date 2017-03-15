@@ -58,7 +58,6 @@ UserActionsMenu = React.createClass
     key = if route.key then "dropdown-item-#{route.key}" else "dropdown-item-#{index}"
 
     # MenuItem doesn't pass on props to the li currently, so using className instead for route.name visual control.
-    console.log(route)
     <BS.MenuItem
       {...props}
       className={classnames(route.name, 'active': isActive)}
