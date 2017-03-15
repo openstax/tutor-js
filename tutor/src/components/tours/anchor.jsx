@@ -5,12 +5,16 @@ import TourRegionModel from '../../models/tour/region';
 import TourContext from '../../models/tour/context';
 import cn from 'classnames';
 
-@inject('tourContext') @observer
+@inject((allStores, props) => ({
+  tourContext: ( props.tourContext || allStores.tourContext ),
+}))
+@observer
 export default class TourAnchor extends React.PureComponent {
 
   static defaultProps = {
     tag: 'div',
     className: '',
+    tourContext: null,
   }
 
   static propTypes = {
@@ -18,15 +22,19 @@ export default class TourAnchor extends React.PureComponent {
     className: React.PropTypes.string,
     id: React.PropTypes.string.isRequired,
     children: React.PropTypes.node.isRequired,
-    tourContext: React.PropTypes.instanceOf(TourContext).isRequired,
+    tourContext: React.PropTypes.instanceOf(TourContext),
   }
 
   componentDidMount() {
-    this.props.tourContext.addAnchor(this.props.id, `[data-tour-anchor-id="${this.props.id}"]`);
+    if (this.props.tourContext) {
+      this.props.tourContext.addAnchor(this.props.id, `[data-tour-anchor-id="${this.props.id}"]`);
+    }
   }
 
   componentWillUnmount() {
-    this.props.tourContext.removeAnchor(this.props.id);
+    if (this.props.tourContext) {
+      this.props.tourContext.removeAnchor(this.props.id);
+    }
   }
 
   render() {
