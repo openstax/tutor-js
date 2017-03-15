@@ -1,5 +1,5 @@
 import { BaseAction, identifiedBy } from './base';
-import { defer, delay } from 'lodash';
+import { defer } from 'lodash';
 import { action } from 'mobx';
 
 @identifiedBy('tour/action/open-user-menu')

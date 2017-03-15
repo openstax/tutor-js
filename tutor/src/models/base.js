@@ -1,5 +1,3 @@
-import { pick, assign } from 'lodash';
-
 // will eventually hook into data loading/saving using the
 // derived model's identifiedBy strings
 export class BaseModel {

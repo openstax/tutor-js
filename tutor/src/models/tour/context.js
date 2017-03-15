@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, field, computed, observable,
+  BaseModel, identifiedBy, computed, observable,
 } from '../base';
 import { find, isEmpty, intersection, compact, uniq, flatMap, map } from 'lodash';
 import Courses from '../courses';
@@ -7,8 +7,6 @@ import User from '../user';
 import Tour from '../tour';
 import TourRide from './ride';
 import invariant from 'invariant';
-import Regions from './regions.json';
-
 
 // TourContext
 // Created by the upper-most React element (the Conductor)

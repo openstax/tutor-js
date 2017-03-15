@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, identifier, hasMany, field, computed,
+  BaseModel, identifiedBy, identifier, hasMany, field,
 } from './base';
 import { partial, includes, some, each, compact } from 'lodash';
 import TourStep from './tour/step';
