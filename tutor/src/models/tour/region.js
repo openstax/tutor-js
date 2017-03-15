@@ -3,9 +3,11 @@ import {
 } from '../base';
 import { extend } from 'lodash';
 
-
+// contains the mappings from region-ids to audiance tags
 import RegionData from './regions.json';
 
+// TourRegion
+// Wraps an area of the screen, maps it's id to a given set of audience tags
 
 @identifiedBy('tour/region')
 export default class TourRegion extends BaseModel {

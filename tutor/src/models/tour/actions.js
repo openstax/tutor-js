@@ -4,6 +4,12 @@ import './actions/open-user-menu';
 import './actions/open-calendar-sidebar';
 import './actions/reposition';
 
+
+// TourActions
+// scripted bits of logic for tour transitions like
+// “Open User Menu” or “Advance Teacher Calendar” that will mimic user action during a tour.
+// actions have an id and are specified as the TourStep
+
 export default {
 
   forIdentifier(id) {

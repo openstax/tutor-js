@@ -9,6 +9,11 @@ import TourRide from './ride';
 import invariant from 'invariant';
 import Regions from './regions.json';
 
+
+// TourContext
+// Created by the upper-most React element (the Conductor)
+// Regions and Anchors check in and out as they're mounted/unmounted
+
 @identifiedBy('tour/context')
 export default class TourContext extends BaseModel {
 

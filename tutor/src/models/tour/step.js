@@ -9,6 +9,12 @@ import {
 import Markdown from 'markdown-it';
 const MD = Markdown({ html: true, linkify: true, typographer: true });
 import Actions from './actions';
+
+// TourStep
+// A step in a tour, where steps are connected by a “next” button that leads from one step to the next.
+// Can be linked to either an anchor or region
+// Has a title and rich text body.
+
 @identifiedBy('tour/step')
 export default class TourStep extends BaseModel {
   @identifier id;
