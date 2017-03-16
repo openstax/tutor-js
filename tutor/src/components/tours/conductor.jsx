@@ -22,9 +22,8 @@ export default class TourConductor extends React.PureComponent {
   }
 
   renderTour() {
-    if (this.tourContext.tourRide) {
-      return <Joyride {...this.tourContext.tourRide.joyrideProps} />;
-    }
+    return this.tourContext.tourRide ?
+      <Joyride {...this.tourContext.tourRide.joyrideProps} /> : null;
   }
 
   render() {
