@@ -49,9 +49,12 @@ TaskPlanHelpers = require '../helpers/task-plan'
 handledEnrollmentErrorsMap = require '../flux/course-enrollment-handled-errors'
 handledEnrollmentErrors = _.keys(handledEnrollmentErrorsMap)
 
+{ default: User } = require '../models/user'
+{ default: Courses } = require '../models/courses'
+
 BOOTSTRAPED_STORES = {
-  user:   CurrentUserActions.loaded
-  courses: CourseListingActions.loaded
+  user:    User.bootstrap,
+  courses: Courses.bootstrap
 }
 
 

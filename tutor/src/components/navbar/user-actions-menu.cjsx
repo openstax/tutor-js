@@ -4,7 +4,7 @@ BS = require 'react-bootstrap'
 
 _ = require 'lodash'
 classnames = require 'classnames'
-
+{ default: TourAnchor } = require '../tours/anchor'
 Router = require '../../helpers/router'
 UserName = require './username'
 AccountLink = require './account-link'
@@ -65,7 +65,9 @@ UserActionsMenu = React.createClass
       data-name={route.name}
       eventKey={index + 2}
     >
+      <TourAnchor id={"menu-option-#{route.name}"}>
         {route.label}
+      </TourAnchor>
     </BS.MenuItem>
 
 

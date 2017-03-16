@@ -15,36 +15,35 @@ LOADERS =
   css:    'css-loader?minimize=true'
   less:   'less-loader'
 
+
 RESOLVABLES =
-  js:     { test: /\.js$/,     use: LOADERS.babel, exclude: /node_modules/}
-  jsx:    { test: /\.jsx$/,    use: LOADERS.babel  }
-  coffee: { test: /\.coffee$/, use: LOADERS.coffee }
-  cjsx:   { test: /\.cjsx$/,   use: LOADERS.cjsx   }
+  js:     { test: /\.js$/,     use: LOADERS.babel,  exclude: /node_modules/ }
+  jsx:    { test: /\.jsx$/,    use: LOADERS.babel,  exclude: /node_modules/ }
+  coffee: { test: /\.coffee$/, use: LOADERS.coffee, exclude: /node_modules/ }
+  cjsx:   { test: /\.cjsx$/,   use: LOADERS.cjsx,   exclude: /node_modules/ }
 
 STATICS =
   image: { test: /\.(png|jpg|svg|gif)/,    use: [ LOADERS.file ] }
   font:  { test: /\.(woff|woff2|eot|ttf)/, use: [ LOADERS.url  ] }
 
 BASE_BUILD =
-  # TODO
-  #   Loading .js through babel is not yet working.
-  #   It doesn't seem to exclude node_modules,
-  #   will need to eventually for ES6 support.
-  # js: RESOLVABLES.js
+  js:     RESOLVABLES.js
   jsx:    RESOLVABLES.jsx
   coffee: RESOLVABLES.coffee
   cjsx:   RESOLVABLES.cjsx
   less: {
-    test: /\.less$/, use: ExtractTextPlugin.extract({
-      fallback: 'style-loader',
-      use: [ LOADERS.css, LOADERS.less ]
-    })
+    test: /\.less$/
+    use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: [ LOADERS.css, LOADERS.less ]})
+  }
+  css: {
+    test: /\.css$/
+    use: [ LOADERS.css ]
   }
 
 DEV_LOADERS = ['react-hot-loader/webpack']
 
 BASE_DEV_LOADER_RULES = _.map(BASE_BUILD, (loaderConfig, type) ->
-  config = _.pick(loaderConfig, 'test')
+  config = _.pick(loaderConfig, 'test', 'exclude')
   config.use ||= []
 
   if type is 'less'
@@ -61,7 +60,7 @@ RESOLVABLE_EXTENSIONS = _.union(_.chain(RESOLVABLES).keys().map((ext) -> ".#{ext
 # base config, true for all builds no matter what conditions
 BASE_CONFIG =
   cache: true
-  devtool: 'cheap-module-eval-source-map'
+  devtool: 'cheap-source-map'
   resolve:
     extensions: RESOLVABLE_EXTENSIONS
   output:

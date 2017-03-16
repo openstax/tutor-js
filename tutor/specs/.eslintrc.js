@@ -11,6 +11,7 @@ module.exports = {
     "fit":        false,
     "expect":     false,
     "shallow":    false,
+    "mount":      false,
     "console":    false,
     "jest":       false
   },

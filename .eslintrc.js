@@ -3,6 +3,7 @@ module.exports = {
     "browser": true,
     "es6": true
   },
+  "parser": "babel-eslint",
   "extends": "eslint:recommended",
   "parserOptions": {
     "ecmaFeatures": {
@@ -22,6 +23,9 @@ module.exports = {
       "error",
       2
     ],
+    "object-curly-spacing": ["error", "always"],
+    "quotes": ["error", "double"],
+    "no-multiple-empty-lines": [2, { "max": 2, "maxEOF": 0, "maxEOF": 0 }],
     "no-multi-spaces": [2, {
       "exceptions": {
         "Identifier": true,

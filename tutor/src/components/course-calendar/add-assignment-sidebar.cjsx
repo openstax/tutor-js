@@ -8,6 +8,7 @@ classnames = require 'classnames'
 {AddAssignmentLink} = require './task-dnd'
 
 {PastAssignmentsShell} = require './past-assignments'
+{ default: TourAnchor } = require '../tours/anchor'
 
 CourseAddMenuMixin = require './add-menu-mixin'
 BindStoreMixin = require '../bind-store-mixin'
@@ -83,8 +84,9 @@ AddAssignmentSidebar = React.createClass
     <div className={classnames('add-assignment-sidebar', {
       'is-open': @props.isOpen
     })}>
-      <div className='sidebar-section'>
+      <TourAnchor id="sidebar-add-tasks" className='sidebar-section'>
         <div className="section-label">New</div>
+
         <ul
           className={classnames('new-assignments',
             'is-intro': @state.showIntro
@@ -94,7 +96,7 @@ AddAssignmentSidebar = React.createClass
           {@renderAddActions()}
         </ul>
         <IntroPopover onClose={@onPopoverClose} show={@state.showPopover and @props.isOpen} />
-      </div>
+      </TourAnchor>
       <PastAssignmentsShell
         className='sidebar-section'
         courseId={@props.courseId}
