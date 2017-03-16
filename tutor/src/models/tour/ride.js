@@ -3,6 +3,7 @@ import {
 } from '../base';
 import { action } from 'mobx';
 import { compact, extend } from 'lodash';
+import User from '../user';
 
 @identifiedBy('tour/ride')
 export default class TourRide extends BaseModel {
@@ -32,7 +33,7 @@ export default class TourRide extends BaseModel {
   @action.bound
   joyrideCallback({ type, action, step: joyRideStep }) {
     if (action === 'close' || (action === 'next' && type == 'finished')) {
-      // FIXME mark as watched
+      User.viewedTour(this.tour, { exitedEarly: action === 'close' });
       return; // no step data, nothing more to do
     }
     const { step } = joyRideStep;
