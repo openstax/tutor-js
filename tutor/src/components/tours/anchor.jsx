@@ -1,7 +1,6 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import invariant from 'invariant';
-import TourRegionModel from '../../models/tour/region';
+import { extend } from 'lodash'
 import TourContext from '../../models/tour/context';
 import cn from 'classnames';
 
@@ -38,12 +37,12 @@ export default class TourAnchor extends React.PureComponent {
   }
 
   render() {
-    const { tag, className } = this.props;
-    return React.createElement(tag, {
+    const { tag, className, ...otherProps } = this.props;
+    return React.createElement(tag, extend({
       className: cn('tour-anchor', className),
       'data-tour-anchor-id': this.props.id,
       ref: ref => (this.wrapperEl = ref),
-    }, this.props.children);
+    }, otherProps), this.props.children);
   }
 
 }
