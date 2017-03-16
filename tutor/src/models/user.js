@@ -25,8 +25,21 @@ export class User extends BaseModel {
   @field is_content_analyst;
   @field is_customer_service;
 
+  @field({ type: 'array' }) viewed_tour_ids;
+
   @computed get tourAudienceTags() {
     return uniq(flatMap(Courses.values(), 'tourAudienceTags'));
+  }
+
+  replayTours() {
+    // once we start saving the viewed tours we'll need two arrays
+    // on for the "real" viewed state and one of the "available to view"
+    this.viewed_tour_ids.clear();
+  }
+
+  viewedTour(tour) {
+    // FIXME: SAVE event call goes here, or more likely it'll autorun whenever "viewed_tour_ids" updates
+    this.viewed_tour_ids.push(tour.id);
   }
 }
 
