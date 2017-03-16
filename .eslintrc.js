@@ -23,6 +23,7 @@ module.exports = {
       "error",
       2
     ],
+    "no-unused-vars": [2, {'varsIgnorePattern': '_+'}],
     "consistent-return": ["error", { "treatUndefinedAsUnspecified": true }],
     "object-curly-spacing": ["error", "always"],
     "quotes": ["error", "double"],
