@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tours Replay Icon renders and matches snapshot 1`] = `
+<li
+  className="tour-anchor tours-replay fa-stack fa-lg is-visible"
+  data-tour-anchor-id="tours-navbar-icon"
+  id="tours-navbar-icon"
+  onClick={[Function]}
+  tourContext={null}
+>
+  <i
+    className="fa fa-television fa-stack-2x"
+  />
+  <i
+    className="fa fa-commenting-o fa-stack-1x"
+  />
+</li>
+`;
