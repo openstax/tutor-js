@@ -6,7 +6,7 @@ exports[`Tours Replay Icon renders and matches snapshot 1`] = `
   data-tour-anchor-id="tours-navbar-icon"
   id="tours-navbar-icon"
   onClick={[Function]}
-  tourContext={null}
+  role="button"
 >
   <i
     className="fa fa-television fa-stack-2x"
