@@ -3,7 +3,7 @@ classnames = require 'classnames'
 
 Router = require '../helpers/router'
 Analytics = require '../helpers/analytics'
-Navbar = require './navbar'
+{default: Navbar} = require './navbar'
 MatchForTutor = require './match-for-tutor'
 
 {DragDropContext} = require 'react-dnd'
