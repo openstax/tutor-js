@@ -43,7 +43,10 @@
       }, {
         "title": "View tips again",
         "content": "Here's where you can view all tips for this page.",
-        "anchor_id": "tours-navbar-icon"
+        "anchor_id": "tours-navbar-icon",
+        "action": {
+          "id": "display-tours-replay-icon"
+        }
       }
     ]
   }
