@@ -23,6 +23,7 @@ module.exports = {
       "error",
       2
     ],
+    "consistent-return": ["error", { "treatUndefinedAsUnspecified": true }],
     "object-curly-spacing": ["error", "always"],
     "quotes": ["error", "double"],
     "no-multiple-empty-lines": [2, { "max": 2, "maxEOF": 0, "maxEOF": 0 }],
