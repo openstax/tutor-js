@@ -6,8 +6,6 @@ React = require 'react'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
 
-{ default: TourAnchor } = require '../tours/anchor'
-
 CoursePlanDetails = require './plan-details'
 CoursePlanLabel = require './plan-label'
 
@@ -223,12 +221,11 @@ CoursePlan = React.createClass
       setIsViewing: @setIsViewing
     }
 
-    <TourAnchor id='calendar-task-plan'>
-      <DisplayComponent
-        {...displayComponentProps}
-        ref="display#{index}"
-        key="display#{index}"/>
-    </TourAnchor>
+    <DisplayComponent
+      {...displayComponentProps}
+      ref="display#{index}"
+      key="display#{index}"/>
+
   render: ->
     {item, courseId} = @props
     {publishStatus, isPublishing, isPublished, isHovered, isViewingStats} = @state

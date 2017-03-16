@@ -1,5 +1,6 @@
 React = require 'react'
 twix = require 'twix'
+{ default: TourAnchor } = require '../tours/anchor'
 
 CoursePlanLabel = React.createClass
   displayName: 'CoursePlanLabel'
@@ -30,10 +31,12 @@ CoursePlanLabel = React.createClass
 
     labelClass = 'continued' unless index is 0
 
-    label = <label
-      data-opens-at={opensAt}
-      data-title={title}
-      style={planLabelStyle}
-      className={labelClass}>{title}</label>
+    label = <TourAnchor id='calendar-task-plan'>
+      <label
+        data-opens-at={opensAt}
+        data-title={title}
+        style={planLabelStyle}
+        className={labelClass}>{title}</label>
+    </TourAnchor>
 
 module.exports = CoursePlanLabel
