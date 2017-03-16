@@ -31,10 +31,12 @@ CoursePlanLabel = React.createClass
 
     labelClass = 'continued' unless index is 0
 
-    label = <label
-      data-opens-at={opensAt}
-      data-title={title}
-      style={planLabelStyle}
-      className={labelClass}><TourAnchor id='calendar-task-plan'>{title}</TourAnchor></label>
+    label = <TourAnchor id='calendar-task-plan'>
+      <label
+        data-opens-at={opensAt}
+        data-title={title}
+        style={planLabelStyle}
+        className={labelClass}>{title}</label>
+    </TourAnchor>
 
 module.exports = CoursePlanLabel
