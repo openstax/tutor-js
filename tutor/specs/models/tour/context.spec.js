@@ -42,7 +42,7 @@ describe('Tour Context Model', () => {
     expect(context.tours).toHaveLength(0);
   });
 
-  fit('calculates a tour based on audienceTags', () => {
+  it('calculates a tour based on audienceTags', () => {
     const tourSpy = jest.fn();
     autorun(() => tourSpy(context.tour));
     expect(tourSpy).toHaveBeenCalledWith(null);
