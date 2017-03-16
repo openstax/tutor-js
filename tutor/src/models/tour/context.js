@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, computed, observable,
 } from '../base';
-import { find, isEmpty, intersection, compact, uniq, flatMap, map } from 'lodash';
+import { find, isEmpty, intersection, compact, uniq, flatMap, map, reject, includes } from 'lodash';
 import Courses from '../courses';
 import User from '../user';
 import Tour from '../tour';
@@ -18,6 +18,7 @@ export default class TourContext extends BaseModel {
   @observable regions = observable.shallowArray();
   @observable anchors = observable.shallowMap();
 
+  @observable forcePastToursIndication;
   @computed get tourIds() {
     return compact(uniq(flatMap(this.regions, r => r.tour_ids.peek())));
   }
@@ -70,7 +71,6 @@ export default class TourContext extends BaseModel {
   }
 
   @computed get tourRide() {
-    // right now we just display the first tour.  Eventually we'll filter on previously viewed state
     const { tour } = this;
     if ( tour ) {
       const ride = new TourRide();
@@ -79,10 +79,17 @@ export default class TourContext extends BaseModel {
       ride.region = this.activeRegion;
       return ride;
     }
+    return null;
+  }
+
+  @computed get hasReplayableTours() {
+    return this.forcePastToursIndication || !isEmpty(User.viewed_tour_ids);
   }
 
   tourForAudienceTags(tags) {
-    return find(this.tours, tour => !isEmpty(intersection(tags, tour.audience_tags)));
+    return find(this.tours, tour => !(
+      includes(User.viewed_tour_ids, tour.id) || isEmpty(intersection(tags, tour.audience_tags))
+    )) || null;
   }
 
 }

@@ -2,6 +2,7 @@ import { bootstrapCoursesList } from '../../courses-test-data';
 import { autorun } from 'mobx';
 import TourRegion from '../../../src/models/tour/region';
 import TourContext from '../../../src/models/tour/context';
+import User from '../../../src/models/user';
 import Tour from '../../../src/models/tour';
 
 describe('Tour Context Model', () => {
@@ -41,12 +42,15 @@ describe('Tour Context Model', () => {
     expect(context.tours).toHaveLength(0);
   });
 
-  it('calculates a tour based on audienceTags', () => {
+  fit('calculates a tour based on audienceTags', () => {
     const tourSpy = jest.fn();
     autorun(() => tourSpy(context.tour));
-    expect(tourSpy).toHaveBeenCalledWith(undefined);
+    expect(tourSpy).toHaveBeenCalledWith(null);
     context.openRegion(region);
     expect(tourSpy).toHaveBeenCalledWith(Tour.forIdentifier('teach-new-preview'));
+    expect(context.tourForAudienceTags(['teacher'])).toBe(Tour.forIdentifier('teach-new-preview'));
+    User.viewedTour(Tour.forIdentifier('teach-new-preview'));
+    expect(context.tourForAudienceTags(['teacher'])).toBe(null);
   });
 
   it('calculates a TourRide', () => {
@@ -72,4 +76,12 @@ describe('Tour Context Model', () => {
     expect(context.anchors.size).toBe(0);
   });
 
+  it('calculates when tours are replayable', () => {
+    context.openRegion(region);
+    expect(context.tourRide).not.toBeNull();
+    expect(context.hasReplayableTours).toBe(false);
+    User.viewedTour({ id: 'teach-new-preview' });
+    expect(context.hasReplayableTours).toBe(true);
+    expect(context.tourRide).toBeNull();
+  });
 });
