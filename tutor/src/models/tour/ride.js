@@ -21,7 +21,7 @@ export default class TourRide extends BaseModel {
       run: true,
       type: 'continuous',
       autoStart: true,
-      debug: true,
+      debug: false,
       resizeDebounce: true,
       resizeDebounceDelay: 200,
       callback: this.joyrideCallback,
