@@ -13,6 +13,9 @@ describe('Tour Context Model', () => {
     region = new TourRegion({ id: 'foo', courseId: '1', tour_ids: ['teach-new-preview'] });
     bootstrapCoursesList();
   });
+  afterEach(() => {
+    User.viewed_tour_ids.clear();
+  });
 
   it('calculates courses', () => {
     const region1 = new TourRegion({ id: 'foo1', courseId: '1', tour_ids: ['foo'] });
