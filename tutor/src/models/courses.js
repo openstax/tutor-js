@@ -3,7 +3,7 @@ import {
 } from './base';
 import { observable, computed } from 'mobx';
 import { find } from 'lodash';
-import { CourseListingActions } from '../flux/course-listing';
+import { CourseListingActions, CourseListingStore } from '../flux/course-listing';
 import Period  from './course/period';
 import Role    from './course/role';
 import Student from './course/student';
@@ -63,8 +63,10 @@ class Course extends BaseModel {
 const courses = Object.assign(observable.shallowMap(), {
   // api.coffee calls this
   bootstrap( courseData ) {
+    CourseListingStore.on('loaded', (loadedData) => {
+      loadedData.forEach(cd => courses.set(String(cd.id), new Course(cd)));
+    });
     CourseListingActions.loaded(courseData);
-    courseData.forEach(cd => courses.set(String(cd.id), new Course(cd)));
   },
 });
 

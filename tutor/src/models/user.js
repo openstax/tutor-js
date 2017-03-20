@@ -3,7 +3,7 @@ import {
 } from './base';
 import { uniq, flatMap } from 'lodash';
 import { action, computed } from 'mobx';
-import { CurrentUserActions } from '../flux/current-user';
+import { CurrentUserActions, CurrentUserStore } from '../flux/current-user';
 
 import Courses from './courses';
 
@@ -12,8 +12,8 @@ export class User extends BaseModel {
 
   @action.bound
   bootstrap(data) {
+    CurrentUserStore.on('change', () => this.update(CurrentUserStore.get()));
     CurrentUserActions.loaded(data);
-    this.update(data);
   }
 
   @field name;
