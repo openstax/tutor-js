@@ -26,11 +26,6 @@ STATICS =
   image: { test: /\.(png|jpg|svg|gif)/,    use: [ LOADERS.file ] }
   font:  { test: /\.(woff|woff2|eot|ttf)/, use: [ LOADERS.url  ] }
 
-extractText = ExtractTextPlugin.extract({
-  fallback: 'style-loader',
-  use: [ LOADERS.css, LOADERS.less, LOADERS.scss ]
-})
-
 BASE_BUILD =
   js:     RESOLVABLES.js
   jsx:    RESOLVABLES.jsx
