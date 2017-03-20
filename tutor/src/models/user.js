@@ -38,8 +38,8 @@ export class User extends BaseModel {
   }
 
   viewedTour(tour) {
-    // FIXME: SAVE event call goes here, or more likely it'll autorun whenever "viewed_tour_ids" updates
     this.viewed_tour_ids.push(tour.id);
+    this.saveTourView(tour); // saveTourView is method created by api
   }
 }
 
