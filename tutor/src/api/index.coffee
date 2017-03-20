@@ -259,7 +259,7 @@ startAPI = ->
 start = (bootstrapData) ->
   for storeId, action of BOOTSTRAPED_STORES
     data = bootstrapData[storeId]
-    action(data, bootstrapData) if data
+    action(data) if data
 
   startAPI()
 
