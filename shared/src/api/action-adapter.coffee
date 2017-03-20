@@ -10,7 +10,9 @@ pick      = require 'lodash/pick'
 merge     = require 'lodash/merge'
 invert    = require 'lodash/invert'
 partition = require 'lodash/partition'
+defaults  = require 'lodash/defaults'
 isEmpty   = require 'lodash/isEmpty'
+isFunction = require 'lodash/isFunction'
 isObjectLike  = require 'lodash/isObjectLike'
 isFunction    = require 'lodash/isFunction'
 
@@ -110,6 +112,16 @@ connectAction = (action, apiHandler, Actions, allOptions...) ->
   actionOptions = merge(method: METHODS[action], ACTIONS[action] or {})
   connectHandler(apiHandler, Actions, actionOptions, allOptions...)
 
+connectModelAction = (action, apiHandler, klass, method, options) ->
+  actionOptions = defaults(options, { method: METHODS[action] })
+  handlers = makeRequestHandlers(klass, options)
+  handler = (reqOptions) ->
+    requestConfig = pick(options, 'url', 'method', 'data', 'params', 'handledErrors')
+    requestConfig.url ?= interpolate(options.pattern, defaults({}, reqOptions, this))
+    apiHandler.send(requestConfig, options, reqOptions)
+  klass.prototype[method] = handler
+
+
 adaptHandler = (apiHandler) ->
   connectHandler: partial(connectHandler, apiHandler)
   connectCreate:  partial(connectAction, 'create', apiHandler)
@@ -117,5 +129,10 @@ adaptHandler = (apiHandler) ->
   connectUpdate:  partial(connectAction, 'update', apiHandler)
   connectDelete:  partial(connectAction, 'delete', apiHandler)
   connectModify:  partial(connectAction, 'modify', apiHandler)
+
+  connectModelCreate: partial(connectModelAction, 'create', apiHandler)
+  connectModelRead:   partial(connectModelAction, 'read',   apiHandler)
+  connectModelUpdate: partial(connectModelAction, 'update', apiHandler)
+  connectModelDelete: partial(connectModelAction, 'delete', apiHandler)
 
 module.exports = adaptHandler

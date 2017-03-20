@@ -4,7 +4,10 @@
 #
 # For example, `TaskActions.load` everntually yields either
 # `TaskActions.loaded` or `TaskActions.FAILED`
-{connectModify, connectCreate, connectRead, connectUpdate, connectDelete} = require './adapter'
+{
+  connectModify, connectCreate, connectRead, connectUpdate, connectDelete
+  connectModelCreate, connectModelUpdate, connectModelUpdate, connectModelDelete
+} = require './adapter'
 
 {CurrentUserActions} = require '../flux/current-user'
 {CourseActions} = require '../flux/course'
@@ -248,10 +251,15 @@ startAPI = ->
         {}
   )
 
+  # "User" is actually an instance, but connectModel works at the class level
+  connectModelUpdate(User.constructor, 'saveTourView',
+    pattern: 'user/tours/{id}'
+   )
+
 start = (bootstrapData) ->
   for storeId, action of BOOTSTRAPED_STORES
     data = bootstrapData[storeId]
-    action(data) if data
+    action(data, bootstrapData) if data
 
   startAPI()
 
