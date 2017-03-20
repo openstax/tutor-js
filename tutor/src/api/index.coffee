@@ -55,7 +55,7 @@ handledEnrollmentErrors = _.keys(handledEnrollmentErrorsMap)
 { default: User } = require '../models/user'
 { default: Courses } = require '../models/courses'
 
-BOOTSTRAPED_STORES = {
+BOOTSTRAPED_MODELS = {
   user:    User.bootstrap,
   courses: Courses.bootstrap
 }
@@ -257,7 +257,7 @@ startAPI = ->
    )
 
 start = (bootstrapData) ->
-  for storeId, action of BOOTSTRAPED_STORES
+  for storeId, action of BOOTSTRAPED_MODELS
     data = bootstrapData[storeId]
     action(data) if data
 
