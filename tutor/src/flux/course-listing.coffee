@@ -50,7 +50,7 @@ CourseListingStore = flux.createStore
       CourseActions.loaded(course, course.id)
       course.id # Store only the ids
     @_asyncStatus = LOADED
-    @emit('loaded')
+    @emit('loaded', courses)
 
   delete: (courseId) ->
     @_asyncStatus[courseId] = DELETING
