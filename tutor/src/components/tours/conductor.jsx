@@ -3,7 +3,8 @@ import { observable } from 'mobx';
 import { Provider, observer } from 'mobx-react';
 
 import Joyride from 'react-joyride';
-
+// When/if we move to using scss this can be imported in the main scss import
+import 'resources/styles/components/tours/joyride.scss';
 import TourContext from '../../models/tour/context';
 
 @observer
@@ -21,9 +22,8 @@ export default class TourConductor extends React.PureComponent {
   }
 
   renderTour() {
-    if (this.tourContext.tourRide) {
-      return <Joyride {...this.tourContext.tourRide.joyrideProps} />;
-    }
+    return this.tourContext.tourRide ?
+      <Joyride {...this.tourContext.tourRide.joyrideProps} /> : null;
   }
 
   render() {

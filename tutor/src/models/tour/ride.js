@@ -1,8 +1,22 @@
 import {
   BaseModel, identifiedBy, belongsTo, computed,
 } from '../base';
+import { defaults } from 'lodash';
 import { action } from 'mobx';
 import { compact, extend } from 'lodash';
+import User from '../user';
+
+const DEFAULT_JOYRIDE_CONFIG = {
+  run: true,
+  type: 'continuous',
+  autoStart: true,
+  debug: false,
+  scrollToSteps: true,
+  scrollToFirstStep: true,
+  scrollOffset: 80, // below top navbar
+  resizeDebounce: true,
+  resizeDebounceDelay: 200,
+};
 
 @identifiedBy('tour/ride')
 export default class TourRide extends BaseModel {
@@ -14,25 +28,18 @@ export default class TourRide extends BaseModel {
   @computed get joyrideProps() {
     const { tour } = this;
     if (!tour) { return {}; }
-    const props = {
+    return defaults({
+      callback: this.joyrideCallback,
       tourId: tour.id,
       ref: ref => (this.joyrideRef = ref),
-      run: true,
-      type: 'continuous',
-      autoStart: true,
-      debug: true,
-      resizeDebounce: true,
-      resizeDebounceDelay: 200,
-      callback: this.joyrideCallback,
       steps: compact(this.tour.steps.map(step => this.stepForRide(step))),
-    };
-    return props;
+    }, DEFAULT_JOYRIDE_CONFIG);
   }
 
   @action.bound
   joyrideCallback({ type, action, step: joyRideStep }) {
     if (action === 'close' || (action === 'next' && type == 'finished')) {
-      // FIXME mark as watched
+      User.viewedTour(this.tour, { exitedEarly: action === 'close' });
       return; // no step data, nothing more to do
     }
     const { step } = joyRideStep;

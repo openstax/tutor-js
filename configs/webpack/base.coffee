@@ -14,7 +14,7 @@ LOADERS =
   style:  'style-loader'
   css:    'css-loader?minimize=true'
   less:   'less-loader'
-
+  scss:   'sass-loader'
 
 RESOLVABLES =
   js:     { test: /\.js$/,     use: LOADERS.babel,  exclude: /node_modules/ }
@@ -31,14 +31,9 @@ BASE_BUILD =
   jsx:    RESOLVABLES.jsx
   coffee: RESOLVABLES.coffee
   cjsx:   RESOLVABLES.cjsx
-  less: {
-    test: /\.less$/
-    use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: [ LOADERS.css, LOADERS.less ]})
-  }
-  css: {
-    test: /\.css$/
-    use: [ LOADERS.css ]
-  }
+  css:  { test: /\.css$/,  use: ExtractTextPlugin.extract([ LOADERS.css ]) }
+  less: { test: /\.less$/, use: ExtractTextPlugin.extract([ LOADERS.css, LOADERS.less ]) }
+  scss: { test: /\.scss$/, use: ExtractTextPlugin.extract([ LOADERS.css, LOADERS.scss ]) }
 
 DEV_LOADERS = ['react-hot-loader/webpack']
 
@@ -73,7 +68,7 @@ BASE_CONFIG =
     ]
     rules: _.values(STATICS)
   plugins: [
-
+    new ExtractTextPlugin('[name].css')
   ]
 
 

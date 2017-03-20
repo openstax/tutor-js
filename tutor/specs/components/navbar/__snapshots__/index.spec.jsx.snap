@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Main navbar renders and matches snapshot 1`] = `
+<nav
+  className="navbar navbar-default navbar-fixed-top"
+>
+  <div
+    className="container-fluid"
+  >
+    <div
+      className="navbar-header"
+    >
+      <a
+        className="navbar-brand navbar-brand"
+        href="/"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <i
+          className="ui-brand-logo"
+        />
+      </a>
+      <button
+        className="navbar-toggle collapsed"
+        onClick={[Function]}
+        type="button"
+      >
+        <span
+          className="sr-only"
+        >
+          Toggle navigation
+        </span>
+        <span
+          className="icon-bar"
+        />
+        <span
+          className="icon-bar"
+        />
+        <span
+          className="icon-bar"
+        />
+      </button>
+    </div>
+    <div
+      aria-expanded={null}
+      className="navbar-collapse collapse"
+    >
+      <ul
+        className="nav navbar-nav"
+        role={null}
+      />
+      <ul
+        className="nav navbar-nav navbar-right"
+        role={null}
+      >
+        <li
+          className="tour-anchor tours-replay fa-stack fa-lg"
+          data-tour-anchor-id="tours-navbar-icon"
+          id="tours-navbar-icon"
+          onClick={[Function]}
+          role="button"
+        >
+          <i
+            className="fa fa-television fa-stack-2x"
+          />
+          <i
+            className="fa fa-commenting-o fa-stack-1x"
+          />
+        </li>
+        <li
+          className="user-actions-menu dropdown"
+          style={undefined}
+        >
+          <a
+            aria-expanded={false}
+            aria-haspopup={true}
+            className="dropdown-toggle"
+            href="#"
+            id="navbar-dropdown"
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+          >
+            <span />
+             
+            <span
+              className="caret"
+            />
+          </a>
+          <ul
+            aria-labelledby="navbar-dropdown"
+            className="dropdown-menu"
+            role="menu"
+          >
+            <li />
+            <li
+              className="divider"
+              onKeyDown={[Function]}
+              role="separator"
+              style={undefined}
+            />
+            <li
+              className="-help-link"
+              role="presentation"
+              style={undefined}
+            >
+              <a
+                href="http://openstax.force.com/support?l=en_US&c=Products%3ATutor"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="menuitem"
+                tabIndex="-1"
+                target="_blank"
+              >
+                Get Help
+              </a>
+            </li>
+            <li
+              className="logout"
+            >
+              <a
+                href="#"
+                onClick={[Function]}
+              >
+                <form
+                  acceptCharset="UTF-8"
+                  action="/accounts/logout"
+                  className="-logout-form"
+                  method="post"
+                >
+                  <input
+                    name="_method"
+                    type="hidden"
+                    value="delete"
+                  />
+                  <input
+                    name="authenticity_token"
+                    type="hidden"
+                    value={undefined}
+                  />
+                  <input
+                    aria-label="Log out"
+                    type="submit"
+                    value="Log out"
+                  />
+                </form>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+`;
