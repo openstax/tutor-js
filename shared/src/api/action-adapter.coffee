@@ -8,6 +8,7 @@ mapValues = require 'lodash/mapValues'
 reject    = require 'lodash/reject'
 pick      = require 'lodash/pick'
 merge     = require 'lodash/merge'
+wrap      = require 'lodash/wrap'
 invert    = require 'lodash/invert'
 partition = require 'lodash/partition'
 defaults  = require 'lodash/defaults'
@@ -112,14 +113,17 @@ connectAction = (action, apiHandler, Actions, allOptions...) ->
   actionOptions = merge(method: METHODS[action], ACTIONS[action] or {})
   connectHandler(apiHandler, Actions, actionOptions, allOptions...)
 
+emptyFn = (config) -> {}
+
 connectModelAction = (action, apiHandler, klass, method, options) ->
   actionOptions = defaults(options, { method: METHODS[action] })
   handlers = makeRequestHandlers(klass, options)
-  handler = (reqOptions) ->
+  handler = (originalMethod, reqOptions) ->
     requestConfig = pick(options, 'url', 'method', 'data', 'params', 'handledErrors')
     requestConfig.url ?= interpolate(options.pattern, defaults({}, reqOptions, this))
+    merge(requestConfig, originalMethod(reqOptions, requestConfig))
     apiHandler.send(requestConfig, options, reqOptions)
-  klass.prototype[method] = handler
+  klass.prototype[method] = wrap(klass.prototype[method] or emptyFn, handler)
 
 
 adaptHandler = (apiHandler) ->
