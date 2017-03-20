@@ -39,8 +39,12 @@ export class User extends BaseModel {
 
   viewedTour(tour) {
     this.viewed_tour_ids.push(tour.id);
-    this.saveTourView(tour); // saveTourView is method created by api
+    this.saveTourView(tour);
   }
+
+  // this method will be wrapped by the API to trigger saving a tour view
+  saveTourView() { }
+
 }
 
 const currentUser = new User;
