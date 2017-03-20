@@ -15,6 +15,7 @@ dom = require './src/helpers/dom'
 {TransitionAssistant} = require './src/components/unsaved-state'
 Root = require './src/components/root'
 ErrorMonitoring = require 'shared/src/helpers/error-monitoring'
+{ default: User } = require './src/models/user'
 
 {Logging, ReactHelpers} = require 'shared'
 
@@ -34,6 +35,9 @@ window._STORES =
   TIME: require './src/flux/time'
   NOTIFICATIONS: require './src/flux/notifications'
   TOC: require './src/flux/toc'
+
+window._MODELS =
+  USER: User
 
 window._LOGGING = Logging
 
