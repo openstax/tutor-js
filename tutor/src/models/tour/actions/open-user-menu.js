@@ -8,7 +8,7 @@ export default class OpenUserMenu extends BaseAction {
   beforeStep() {
     if (!this.isOpen) {
       this.clickMenu();
-      this.repositionAfter(10);
+      this.repositionAfter(30);
     }
   }
 

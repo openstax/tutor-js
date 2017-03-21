@@ -27,11 +27,13 @@
       }, {
         "title": "Performance forecast",
         "content": "See how students are doing on each topic.",
-        "anchor_id": "performance-forcast-button"
+        "anchor_id": "performance-forcast-button",
+        "position": "bottom-right"
       }, {
         "title": "Student scores",
         "content": "View, manage, and export student scores for all assignments.",
-        "anchor_id": "student-scores-button"
+        "anchor_id": "student-scores-button",
+        "position": "bottom-right"
       }, {
         "title": "Question library",
         "content": "Manage the questions students see in assignments and when they practice on their own.",

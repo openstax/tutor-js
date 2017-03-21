@@ -13,7 +13,7 @@ const DEFAULT_JOYRIDE_CONFIG = {
   debug: false,
   scrollToSteps: true,
   scrollToFirstStep: true,
-  scrollOffset: 80, // below top navbar
+  scrollOffset: 120, // below top navbar
   resizeDebounce: true,
   resizeDebounceDelay: 200,
 };
