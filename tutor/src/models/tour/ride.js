@@ -16,6 +16,7 @@ const DEFAULT_JOYRIDE_CONFIG = {
   scrollOffset: 120, // below top navbar
   disableOverlay: true, // poorly named: still shows overlay, but disables canceling tours when it's clicked
   resizeDebounce: true,
+  showStepsProgress: true,
   resizeDebounceDelay: 200,
 };
 
