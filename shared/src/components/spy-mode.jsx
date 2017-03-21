@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import { observable, action } from 'mobx';
 import { Provider, observer } from 'mobx-react';
 
-class SpyModeContext {
+export class SpyModeContext {
 
   @observable isEnabled = false;
 
