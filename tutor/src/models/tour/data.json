@@ -38,7 +38,15 @@
         "title": "Question library",
         "content": "Manage the questions students see in assignments and when they practice on their own.",
         "anchor_id": "menu-option-viewQuestionsLibrary",
-        "position": "right",
+        "position": "bottom-right",
+        "action": {
+          "id": "open-user-menu"
+        }
+      }, {
+        "title": "Browse the book",
+        "content": "Review the OpenStax textbook content here.",
+        "anchor_id": "menu-option-browse-book",
+        "position": "bottom-right",
         "action": {
           "id": "open-user-menu"
         }
@@ -48,6 +56,13 @@
         "anchor_id": "tours-navbar-icon",
         "action": {
           "id": "display-tours-replay-icon"
+        }
+      }, {
+        "content": "Now that you know where everything is, let's make an assignment!",
+        "anchor_id": "sidebar-add-reading-assignment",
+        "position": "right",
+        "action": {
+          "id": "open-calendar-sidebar"
         }
       }
     ]
