@@ -1,6 +1,6 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { extend } from 'lodash'
+import { extend } from 'lodash';
 import TourContext from '../../models/tour/context';
 import cn from 'classnames';
 
