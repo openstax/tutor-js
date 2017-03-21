@@ -73,12 +73,17 @@ AddAssignmentSidebar = React.createClass
     @setState(showPopover: false, showIntro: false)
 
   renderMenuLink: (link) ->
-    <AddAssignmentLink
+    <TourAnchor
+      tag="li"
       key={link.type}
-      link={link}
-      goToBuilder={@goToBuilder}
-      onDrag={@onPopoverClose}
-    />
+      id={"sidebar-add-#{link.type}-assignment"}
+    >
+      <AddAssignmentLink
+        link={link}
+        goToBuilder={@goToBuilder}
+        onDrag={@onPopoverClose}
+      />
+    </TourAnchor>
 
   render: ->
     <div className={classnames('add-assignment-sidebar', {

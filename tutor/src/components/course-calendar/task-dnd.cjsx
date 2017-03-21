@@ -52,7 +52,7 @@ DropInjector = (connect, monitor) ->
 
 AddAssignmentLink = (props) ->
   props.connectDragSource(
-    <li
+    <div
       data-assignment-type={props.link.type}
       className={classnames('new-task', 'is-dragging': props.isDragging)}
     >
@@ -62,7 +62,7 @@ AddAssignmentLink = (props) ->
         onClick={props.goToBuilder(props.link)} >
         {props.link.text}
       </a>
-    </li>
+    </div>
   )
 AddAssignmentLink.displayName = 'AddAssignmentLink'
 

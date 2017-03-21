@@ -119,11 +119,14 @@
       // needs to match the background of the sidebar
       // Otherwise Safari won't show it when dragging
       background-color: @tutor-neutral-lightest;
-      padding-left: 10px;
-      border-left: 4px solid transparent;
       line-height: 3.6rem;
       position: relative;
       & + li { margin-top: 3px; }
+
+    }
+    .new-task {
+      padding-left: 10px;
+      border-left: 4px solid transparent;
       &:hover {
         .tutor-plan-set(sidebar);
       }
@@ -189,5 +192,3 @@
     }
   }
 }
-
-
