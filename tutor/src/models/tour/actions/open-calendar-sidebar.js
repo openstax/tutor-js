@@ -1,12 +1,12 @@
 import { BaseAction, identifiedBy } from './base';
 import { defer } from 'lodash';
-import { action } from 'mobx';
+import { action, computed } from 'mobx';
 
 @identifiedBy('tour/action/open-calendar-sidebar')
 export default class OpenCalendarSidebar extends BaseAction {
 
   beforeStep() {
-    this.wasOpen = this.el.parentElement.classList.contains('is-open');
+    this.wasOpen = this.toggle.classList.contains('open');
     if (!this.wasOpen) {
       this.toggleSidebar();
       // sidebar animates for 500ms
@@ -18,10 +18,14 @@ export default class OpenCalendarSidebar extends BaseAction {
     if (!this.wasOpen) { this.toggleSidebar(); }
   }
 
+  @computed get toggle() {
+    return this.document.querySelector('.calendar-header .sidebar-toggle');
+  }
+
   @action.bound
   toggleSidebar() {
     defer(() => {
-      this.document.querySelector('.calendar-header .sidebar-toggle').click();
+      this.toggle.click();
     });
   }
 
