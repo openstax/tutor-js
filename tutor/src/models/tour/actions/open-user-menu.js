@@ -5,11 +5,11 @@ import { action } from 'mobx';
 @identifiedBy('tour/action/open-user-menu')
 export default class OpenUserMenu extends BaseAction {
 
+  // for unknown reasons the menu always closes after the card is moved
+  // therefore it'll aways be closed when the action starts, no need to check isOpen
   beforeStep() {
-    if (!this.isOpen) {
-      this.clickMenu();
-      this.repositionAfter(30);
-    }
+    this.clickMenu();
+    this.repositionAfter(30);
   }
 
   get isOpen() {
