@@ -9,7 +9,7 @@ describe('Tour Context Model', () => {
   let context;
   let region;
   beforeEach(() => {
-    context = new TourContext();
+    context = new TourContext({ isEnabled: true });
     region = new TourRegion({ id: 'foo', courseId: '1', tour_ids: ['teach-new-preview'] });
     bootstrapCoursesList();
   });
@@ -86,5 +86,18 @@ describe('Tour Context Model', () => {
     User.viewedTour({ id: 'teach-new-preview' });
     expect(context.hasReplayableTours).toBe(true);
     expect(context.tourRide).toBeNull();
+  });
+
+  it('is disabled by default', () => {
+    context = new TourContext();
+    const tourSpy = jest.fn();
+    autorun(() => tourSpy(context.tourIds));
+    expect(tourSpy).toHaveBeenLastCalledWith([]);
+    expect(context.isEnabled).toBe(false);
+    context.openRegion(region);
+    expect(context.tourIds).toHaveLength(0);
+    context.isEnabled = true;
+    expect(context.tourIds).toEqual(['teach-new-preview']);
+    expect(tourSpy).toHaveBeenLastCalledWith(['teach-new-preview']);
   });
 });

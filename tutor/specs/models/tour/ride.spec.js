@@ -10,7 +10,7 @@ describe('Tour View Model', () => {
   let ride;
   beforeEach(() => {
     bootstrapCoursesList();
-    context = new TourContext();
+    context = new TourContext({ isEnabled: true });
     region = new TourRegion({ id: 'foo', courseId: '1', tour_ids: ['teach-new-preview'] });
     context.openRegion(region);
     ride = context.tourRide;

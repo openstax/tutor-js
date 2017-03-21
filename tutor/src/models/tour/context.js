@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, computed, observable,
+  BaseModel, identifiedBy, computed, observable, field,
 } from '../base';
 import { find, isEmpty, intersection, compact, uniq, flatMap, map, includes } from 'lodash';
 import Courses from '../courses';
@@ -18,8 +18,11 @@ export default class TourContext extends BaseModel {
   @observable regions = observable.shallowArray();
   @observable anchors = observable.shallowMap();
 
+  @field isEnabled = false;
+
   @observable forcePastToursIndication;
   @computed get tourIds() {
+    if (!this.isEnabled) { return []; }
     return compact(uniq(flatMap(this.regions, r => r.tour_ids.peek())));
   }
 
