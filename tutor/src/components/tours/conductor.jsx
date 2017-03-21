@@ -1,24 +1,30 @@
 import React from 'react';
 import { observable } from 'mobx';
-import { Provider, observer } from 'mobx-react';
+import { Provider, observer, inject } from 'mobx-react';
 
 import Joyride from 'react-joyride';
 // When/if we move to using scss this can be imported in the main scss import
 import 'resources/styles/components/tours/joyride.scss';
 import TourContext from '../../models/tour/context';
+import { SpyModeContext } from 'shared/src/components/spy-mode';
 
-@observer
+@inject("spyMode") @observer
 export default class TourConductor extends React.PureComponent {
 
   @observable tourContext;
 
   static propTypes = {
     children: React.PropTypes.node.isRequired,
+    spyMode: React.PropTypes.instanceOf(SpyModeContext).isRequired,
   }
 
   constructor(props) {
     super(props);
-    this.tourContext = new TourContext(this.props);
+    this.tourContext = new TourContext({ isEnabled: props.spyMode.isEnabled });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.tourContext.isEnabled = nextProps.spyMode.isEnabled;
   }
 
   renderTour() {
