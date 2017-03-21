@@ -12,8 +12,9 @@ export class User extends BaseModel {
 
   @action.bound
   bootstrap(data) {
-    CurrentUserStore.on('change', () => this.update(CurrentUserStore.get()));
     CurrentUserActions.loaded(data);
+    this.update(data);
+    CurrentUserStore.on('change', () => this.update(CurrentUserStore.get()));
   }
 
   @field name;
