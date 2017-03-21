@@ -38,13 +38,15 @@ export class User extends BaseModel {
     this.viewed_tour_ids.clear();
   }
 
-  viewedTour(tour) {
+  viewedTour(tour, options) {
     this.viewed_tour_ids.push(tour.id);
-    this.saveTourView(tour);
+    this.saveTourView(tour, options);
   }
 
   // this method will be wrapped by the API to trigger saving a tour view
-  saveTourView() { }
+  saveTourView(tour, options) {
+    return { data: options };
+  }
 
 }
 
