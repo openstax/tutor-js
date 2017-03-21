@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, computed, observable,
 } from '../base';
-import { find, isEmpty, intersection, compact, uniq, flatMap, map, reject, includes } from 'lodash';
+import { find, isEmpty, intersection, compact, uniq, flatMap, map, includes } from 'lodash';
 import Courses from '../courses';
 import User from '../user';
 import Tour from '../tour';
@@ -83,7 +83,10 @@ export default class TourContext extends BaseModel {
   }
 
   @computed get hasReplayableTours() {
-    return this.forcePastToursIndication || !isEmpty(User.viewed_tour_ids);
+    return !!(
+      this.forcePastToursIndication ||
+        !isEmpty(intersection(this.tourIds, User.viewed_tour_ids))
+    );
   }
 
   tourForAudienceTags(tags) {
