@@ -14,7 +14,8 @@ export default class TourRegion extends BaseModel {
 
   static forIdentifier(id, options = {}) {
     const data = RegionData[id] || RegionData[options.fallback];
-    return data ? new TourRegion(extend({ id: id }, data[id])) : undefined;
+
+    return data ? new TourRegion(extend({ id: id }, data)) : undefined;
   }
 
   @identifier id;
