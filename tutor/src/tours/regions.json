@@ -1,0 +1,11 @@
+{
+  "tutor": {
+    "tour_ids": []
+  },
+  "teacher-calendar": {
+    "tour_ids": ["teach-new-preview"]
+  },
+  "homework-assignment-editor": {
+    "tour_ids": ["add-homework"]
+  }
+}
