@@ -1,6 +1,6 @@
 import Tour from '../../src/models/tour';
 import { range, map } from 'lodash';
-import TourData from '../../src/models/tour/data.json';
+import TourData from '../../src/tours';
 
 describe('Tour Model', () => {
   it('can be created', () => {
@@ -21,8 +21,8 @@ describe('Tour Model', () => {
 
   it('can find by audience_tags', () => {
     expect(Tour.forAudienceTags(['foo', 'bar'])).toEqual([]);
-    expect(Tour.forAudienceTags(['teacher', 'foo'])).toEqual([
-      Tour.forIdentifier('teach-new-preview'),
-    ]);
+    const tours = Tour.forAudienceTags(['teacher', 'foo']);
+    expect(tours.length).toBeGreaterThan(0);
+    expect(map(tours, 'id')).toContain('teach-new-preview');
   });
 });
