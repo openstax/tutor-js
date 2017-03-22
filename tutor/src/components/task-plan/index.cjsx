@@ -7,6 +7,7 @@ LoadableItem = require '../loadable-item'
 {CourseStore, CourseActions} = require '../../flux/course'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 Router = require '../../helpers/router'
+{ default: TourRegion } = require '../tours/region'
 
 {ScrollToMixin} = require 'shared'
 
@@ -54,8 +55,6 @@ EventShell = React.createClass
   render: ->
     {courseId, id} = Router.currentParams()
     <PlanShell courseId={courseId} id={id} type='event'/>
-
-{ default: TourRegion } = require '../tours/region'
 
 PlanBuilder = ({ id, courseId, body: Body, type }) ->
   <TourRegion
