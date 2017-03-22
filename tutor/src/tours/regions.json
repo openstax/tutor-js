@@ -6,6 +6,13 @@
     "tour_ids": ["teach-new-preview"]
   },
   "homework-assignment-editor": {
-    "tour_ids": ["add-homework"]
+    "tour_ids": ["add-homework-builder"]
+  },
+  "add-homework-choose-sections": {
+    "tour_ids": ["add-homework-choose-sections"]
+  },
+  "add-homework-select-exercises": {
+    "tour_ids": ["add-homework-select-exercises"]
   }
+
 }

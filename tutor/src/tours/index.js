@@ -1,8 +1,11 @@
 /* global require:true */
-import { extend } from 'lodash';
+import { extend, each } from 'lodash';
 
-export default {
+const TOURS = {};
 
-  'teach-new-preview': require('./teacher-calendar.json'),
-  'add-homework': require('./add-homework.json'),
-};
+[
+  require('./teacher-calendar.json'),
+  require('./add-homework.json'),
+].forEach(tours => tours.forEach(tour => TOURS[tour.id] = tour));
+
+export default TOURS;
