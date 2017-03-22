@@ -34,14 +34,14 @@ export default class TourStep extends BaseModel {
   }
 
   @computed get HTML() {
-    return MD.render(this.body);
+    return this.body ? MD.render(this.body) : '';
   }
 
   @computed get joyrideStepProperties() {
     return {
       title: this.title,
       text:  this.HTML,
-      position: this.position || 'top',
+      position: this.position || ( this.anchor_id ? 'top' : 'center' ),
     };
   }
 }
