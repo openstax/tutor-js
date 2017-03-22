@@ -30,12 +30,10 @@ export default class TourRegion extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.region = TourRegionModel.forIdentifier(this.props.id);
-    invariant(this.region, `Region for ID: ${this.props.id} was not found`);
+    this.region = TourRegionModel.forIdentifier(this.props.id, { fallback: 'tutor' });
   }
 
   componentDidMount() {
-    this.region.el = this.wrapperEl;
     if (this.props.tourContext) {
       delay(() => this.props.tourContext.openRegion(this.region, this.props), 500);
     }
