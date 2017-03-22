@@ -22,7 +22,7 @@ export default class TourStep extends BaseModel {
   @belongsTo tour;
 
   @field title;
-  @field content;
+  @field body;
   @field position;
 
   @field anchor_id;
@@ -34,7 +34,7 @@ export default class TourStep extends BaseModel {
   }
 
   @computed get HTML() {
-    return MD.render(this.content);
+    return MD.render(this.body);
   }
 
   @computed get joyrideStepProperties() {
