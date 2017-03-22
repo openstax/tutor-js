@@ -44,7 +44,6 @@ export class SpyModeWrapper extends React.PureComponent {
   }
 }
 
-
 export class SpyModeContent extends React.PureComponent {
 
   static propTypes = {
