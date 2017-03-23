@@ -101,4 +101,8 @@ export default class TourContext extends BaseModel {
       includes(User.viewed_tour_ids, tour.id) || isEmpty(intersection(tags, tour.audience_tags))
     )) || null;
   }
+
+  @computed get debugStatus() {
+    return `available regions: [${map(this.regions, 'id')}]; region tour ids: [${this.tourIds}]; valid tours: [${map(this.tours,'id')}]; viewed tours: [${User.viewed_tour_ids}]; tour tags: [${this.toursTags}]; User tags: [${User.tourAudienceTags}]; course tags: [${this.courseAudienceTags}]; TOUR RIDE: ${this.tourRide ? this.tourRide.tour.id : '<none>'}`;
+  }
 }

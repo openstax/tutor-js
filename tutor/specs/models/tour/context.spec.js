@@ -100,4 +100,13 @@ describe('Tour Context Model', () => {
     expect(context.tourIds).toEqual(['teacher-calendar']);
     expect(tourSpy).toHaveBeenLastCalledWith(['teacher-calendar']);
   });
+
+  it('emits debug info', () => {
+    expect(context.debugStatus).toContain('available regions: []');
+    context.openRegion(region);
+    region.tour_ids = [ 'teacher-calendar' ];
+    expect(context.debugStatus).toContain('available regions: [foo]');
+    expect(context.debugStatus).toContain('region tour ids: [teacher-calendar]');
+    expect(context.debugStatus).toContain('valid tours: [teacher-calendar]');
+  });
 });

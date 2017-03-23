@@ -6,7 +6,7 @@ import Joyride from 'react-joyride';
 // When/if we move to using scss this can be imported in the main scss import
 import 'resources/styles/components/tours/joyride.scss';
 import TourContext from '../../models/tour/context';
-import { SpyModeContext } from 'shared/src/components/spy-mode';
+import { SpyModeContext, Content as SpyModeContent } from 'shared/src/components/spy-mode';
 
 @inject("spyMode") @observer
 export default class TourConductor extends React.PureComponent {
@@ -29,7 +29,7 @@ export default class TourConductor extends React.PureComponent {
 
   renderTour() {
     return this.tourContext.tourRide ?
-      <Joyride {...this.tourContext.tourRide.joyrideProps} /> : null;
+           <Joyride {...this.tourContext.tourRide.joyrideProps} /> : null;
   }
 
   render() {
@@ -38,6 +38,9 @@ export default class TourConductor extends React.PureComponent {
         <div data-purpose="tour-conductor-wrapper">
           {this.renderTour()}
           {this.props.children}
+          <SpyModeContent>
+            <div className="tour-spy-info">{this.tourContext.debugStatus}</div>
+          </SpyModeContent>
         </div>
       </Provider>
     );
