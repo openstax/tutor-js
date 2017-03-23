@@ -10,7 +10,7 @@ describe('Tour Context Model', () => {
   let region;
   beforeEach(() => {
     context = new TourContext({ isEnabled: true });
-    region = new TourRegion({ id: 'foo', courseId: '1', tour_ids: ['teach-new-preview'] });
+    region = new TourRegion({ id: 'foo', courseId: '1', tour_ids: ['teacher-calendar'] });
     bootstrapCoursesList();
   });
   afterEach(() => {
@@ -37,10 +37,10 @@ describe('Tour Context Model', () => {
     context.openRegion(region);
     expect(context.tourIds).toEqual(['foo']);
     expect(context.tours).toHaveLength(0);
-    region.tour_ids = [ 'teach-new-preview', 'bar', 'baz' ];
-    expect(context.tourIds).toEqual(['teach-new-preview', 'bar', 'baz']);
+    region.tour_ids = [ 'teacher-calendar', 'bar', 'baz' ];
+    expect(context.tourIds).toEqual(['teacher-calendar', 'bar', 'baz']);
     expect(context.tours).toHaveLength(1);
-    expect(context.tours[0].id).toEqual('teach-new-preview');
+    expect(context.tours[0].id).toEqual('teacher-calendar');
     context.closeRegion(region);
     expect(context.tours).toHaveLength(0);
   });
@@ -50,16 +50,16 @@ describe('Tour Context Model', () => {
     autorun(() => tourSpy(context.tour));
     expect(tourSpy).toHaveBeenCalledWith(null);
     context.openRegion(region);
-    expect(tourSpy).toHaveBeenCalledWith(Tour.forIdentifier('teach-new-preview'));
-    expect(context.tourForAudienceTags(['teacher'])).toBe(Tour.forIdentifier('teach-new-preview'));
-    User.viewedTour(Tour.forIdentifier('teach-new-preview'));
+    expect(tourSpy).toHaveBeenCalledWith(Tour.forIdentifier('teacher-calendar'));
+    expect(context.tourForAudienceTags(['teacher'])).toBe(Tour.forIdentifier('teacher-calendar'));
+    User.viewedTour(Tour.forIdentifier('teacher-calendar'));
     expect(context.tourForAudienceTags(['teacher'])).toBe(null);
   });
 
   it('calculates a TourRide', () => {
     context.openRegion(region);
     expect(context.tourRide).toMatchObject({
-      tour: Tour.forIdentifier('teach-new-preview'),
+      tour: Tour.forIdentifier('teacher-calendar'),
       region: region,
       context: context,
     });
@@ -67,7 +67,7 @@ describe('Tour Context Model', () => {
 
   it('knows which region is active', () => {
     context.openRegion(region);
-    region.tour_ids = [ 'teach-new-preview' ];
+    region.tour_ids = [ 'teacher-calendar' ];
     expect(context.activeRegion).toBe(region);
   });
 
@@ -83,7 +83,7 @@ describe('Tour Context Model', () => {
     context.openRegion(region);
     expect(context.tourRide).not.toBeNull();
     expect(context.hasReplayableTours).toBe(false);
-    User.viewedTour({ id: 'teach-new-preview' });
+    User.viewedTour({ id: 'teacher-calendar' });
     expect(context.hasReplayableTours).toBe(true);
     expect(context.tourRide).toBeNull();
   });
@@ -97,7 +97,7 @@ describe('Tour Context Model', () => {
     context.openRegion(region);
     expect(context.tourIds).toHaveLength(0);
     context.isEnabled = true;
-    expect(context.tourIds).toEqual(['teach-new-preview']);
-    expect(tourSpy).toHaveBeenLastCalledWith(['teach-new-preview']);
+    expect(context.tourIds).toEqual(['teacher-calendar']);
+    expect(tourSpy).toHaveBeenLastCalledWith(['teacher-calendar']);
   });
 });

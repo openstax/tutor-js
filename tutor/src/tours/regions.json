@@ -3,7 +3,7 @@
     "tour_ids": []
   },
   "teacher-calendar": {
-    "tour_ids": ["teach-new-preview"]
+    "tour_ids": ["teacher-calendar"]
   },
   "homework-assignment-editor": {
     "tour_ids": ["add-homework-builder"]

@@ -13,7 +13,7 @@ describe('Tour Region Model', () => {
 
   it('finds tour_ids', () => {
     const region = TourRegion.forIdentifier('homework-assignment-editor');
-    expect(region.tour_ids.peek()).toEqual(["add-homework"]);
+    expect(region.tour_ids.peek()).toEqual(['add-homework-builder']);
   });
 
 });

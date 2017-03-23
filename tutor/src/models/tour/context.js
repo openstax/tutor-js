@@ -92,10 +92,13 @@ export default class TourContext extends BaseModel {
     );
   }
 
+  @computed get toursTags() {
+    return flatMap(this.tours, t => t.audience_tags);
+  }
+
   tourForAudienceTags(tags) {
     return find(this.tours, tour => !(
       includes(User.viewed_tour_ids, tour.id) || isEmpty(intersection(tags, tour.audience_tags))
     )) || null;
   }
-
 }
