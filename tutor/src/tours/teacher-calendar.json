@@ -37,6 +37,7 @@
       "body": "Manage the questions students see in assignments and when they practice on their own.",
       "anchor_id": "menu-option-viewQuestionsLibrary",
       "position": "bottom-right",
+      "is_fixed": true,
       "action": {
         "id": "open-user-menu"
       }
@@ -45,6 +46,7 @@
       "body": "Review the OpenStax textbook content here.",
       "anchor_id": "menu-option-browse-book",
       "position": "bottom-right",
+      "is_fixed": true,
       "action": {
         "id": "open-user-menu"
       }
@@ -52,6 +54,7 @@
       "title": "View tips again",
       "body": "Here's where you can view all tips for this page.",
       "anchor_id": "tours-navbar-icon",
+      "is_fixed": true,
       "action": {
         "id": "display-tours-replay-icon"
       }
