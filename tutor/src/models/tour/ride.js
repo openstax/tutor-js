@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, belongsTo, computed,
 } from '../base';
 import { defaults } from 'lodash';
-import { action } from 'mobx';
+import { action, observable } from 'mobx';
 import { compact, extend } from 'lodash';
 import User from '../user';
 
@@ -16,7 +16,6 @@ const DEFAULT_JOYRIDE_CONFIG = {
   scrollOffset: 120, // below top navbar
   disableOverlay: true, // poorly named: still shows overlay, but disables canceling tours when it's clicked
   resizeDebounce: true,
-  showStepsProgress: true,
   resizeDebounceDelay: 200,
 };
 
@@ -27,6 +26,8 @@ export default class TourRide extends BaseModel {
   @belongsTo({ model: 'tour/context' }) context;
   @belongsTo({ model: 'tour/region' }) region;
 
+  @observable currentStep = 0;
+
   @computed get joyrideProps() {
     const { tour } = this;
     if (!tour) { return {}; }
@@ -34,16 +35,34 @@ export default class TourRide extends BaseModel {
       callback: this.joyrideCallback,
       tourId: tour.id,
       ref: ref => (this.joyrideRef = ref),
+      locale: this.labels,
+      showStepsProgress: this.showStepsProgress,
       steps: compact(this.tour.steps.map(step => this.stepForRide(step))),
     }, DEFAULT_JOYRIDE_CONFIG);
   }
 
+  @computed get labels() {
+    return {
+      back: 'Back',
+      close: 'Close',
+      last: 'Got It',
+      next: (this.showStepsProgress ? 'Next' : 'Got it'),
+      skip: 'Skip',
+    };
+  }
+
+  @computed get showStepsProgress() {
+    return this.currentStep > 2;
+  }
+
   @action.bound
-  joyrideCallback({ type, action, step: joyRideStep }) {
+  joyrideCallback({ index, type, action, step: joyRideStep }) {
     if (type === 'finished' || (action === 'close' && type === 'beacon:before')) {
       User.viewedTour(this.tour, { exitedEarly: type !== 'finished' });
     }
+    if (type === 'step:before'){ this.currentStep = index; }
     if (!joyRideStep){ return; } // is of a type we don't care about
+
     const { step } = joyRideStep;
     if (type === 'step:before' && step.actionClass) {
       joyRideStep.action = new step.actionClass(extend({

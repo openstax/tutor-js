@@ -1,4 +1,5 @@
 import { bootstrapCoursesList } from '../../courses-test-data';
+import { times } from 'lodash';
 import Tour from '../../../src/models/tour';
 import TourContext from '../../../src/models/tour/context';
 import TourRide from '../../../src/models/tour/ride';
@@ -20,14 +21,23 @@ describe('Tour View Model', () => {
     expect(ride.joyrideProps).toMatchObject({
       tourId: 'teacher-calendar',
     });
-
     expect(ride.joyrideProps.steps).toHaveLength(1);
     expect(ride.joyrideProps.steps[0]).toMatchObject({
       title: 'Your Openstax Tutor beta course dashboard',
       selector: '[data-tour-region-id="foo"]',
       position: 'center',
     });
+  });
 
+  it ('calculates if steps should show progress', () => {
+    times(3, (index) => {
+      ride.joyrideCallback({ index, type: 'step:before' });
+      expect(ride.joyrideProps.showStepsProgress).toBe(false);
+    });
+    times(3, (index) => {
+      ride.joyrideCallback({ index: index+3, type: 'step:before' });
+      expect(ride.joyrideProps.showStepsProgress).toBe(true);
+    });
   });
 
 });

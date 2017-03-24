@@ -76,11 +76,7 @@ export default class TourContext extends BaseModel {
   @computed get tourRide() {
     const { tour } = this;
     if ( tour ) {
-      const ride = new TourRide();
-      ride.tour = tour; // FIXME update once mobx is
-      ride.context = this;
-      ride.region = this.activeRegion;
-      return ride;
+      return new TourRide({ tour, context: this, region: this.activeRegion });
     }
     return null;
   }
