@@ -1,8 +1,13 @@
 $tutor-tertiary-light: rgb(0, 193, 222); // light blue
 
 $joyride-color: $tutor-tertiary-light;
+
+
 // set both medium and large sizes to be 360
 $joyride-tooltip-width: (290px, 360px, 360px);
+$joyride-tooltip-color: #232E66;
+$joyride-close: (color: $joyride-tooltip-color, size: 12px, top: 10px, right: 10px);
+
 @import '~react-joyride/lib/react-joyride';
 
 .joyride-tooltip__button--secondary {
@@ -10,7 +15,8 @@ $joyride-tooltip-width: (290px, 360px, 360px);
   &:before {
     display: 'inline';
     margin-right: 0.5rem;
-    content: '<';
+    font-family: FontAwesome;
+    content: "\f053"; // chevron-left
   }
 }
 
