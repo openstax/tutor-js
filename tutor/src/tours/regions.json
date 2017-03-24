@@ -1,0 +1,18 @@
+{
+  "tutor": {
+    "tour_ids": []
+  },
+  "teacher-calendar": {
+    "tour_ids": ["teacher-calendar"]
+  },
+  "homework-assignment-editor": {
+    "tour_ids": ["add-homework-builder"]
+  },
+  "add-homework-choose-sections": {
+    "tour_ids": ["add-homework-choose-sections"]
+  },
+  "add-homework-select-exercises": {
+    "tour_ids": ["add-homework-select-exercises"]
+  }
+
+}

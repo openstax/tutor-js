@@ -13,6 +13,7 @@ invert    = require 'lodash/invert'
 partition = require 'lodash/partition'
 defaults  = require 'lodash/defaults'
 isEmpty   = require 'lodash/isEmpty'
+first     = require 'lodash/first'
 isFunction = require 'lodash/isFunction'
 isObjectLike  = require 'lodash/isObjectLike'
 isFunction    = require 'lodash/isFunction'
@@ -118,11 +119,12 @@ emptyFn = (config) -> {}
 connectModelAction = (action, apiHandler, klass, method, options) ->
   actionOptions = defaults(options, { method: METHODS[action] })
   handlers = makeRequestHandlers(klass, options)
-  handler = (originalMethod, reqOptions) ->
+  handler = (originalMethod, reqArgs...) ->
+    firstArg = first(reqArgs)
     requestConfig = pick(options, 'url', 'method', 'data', 'params', 'handledErrors')
-    requestConfig.url ?= interpolate(options.pattern, defaults({}, reqOptions, this))
-    merge(requestConfig, originalMethod(reqOptions, requestConfig))
-    apiHandler.send(requestConfig, options, reqOptions)
+    requestConfig.url ?= interpolate(options.pattern, defaults({}, firstArg, this))
+    merge(requestConfig, originalMethod(reqArgs..., requestConfig))
+    apiHandler.send(requestConfig, options, firstArg)
   klass.prototype[method] = wrap(klass.prototype[method] or emptyFn, handler)
 
 

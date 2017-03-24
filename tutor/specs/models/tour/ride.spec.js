@@ -10,15 +10,15 @@ describe('Tour View Model', () => {
   let ride;
   beforeEach(() => {
     bootstrapCoursesList();
-    context = new TourContext();
-    region = new TourRegion({ id: 'foo', courseId: '1', tour_ids: ['teach-new-preview'] });
+    context = new TourContext({ isEnabled: true });
+    region = new TourRegion({ id: 'foo', courseId: '1', tour_ids: ['teacher-calendar'] });
     context.openRegion(region);
     ride = context.tourRide;
   });
 
   it('calculates props for joyride', () => {
     expect(ride.joyrideProps).toMatchObject({
-      tourId: 'teach-new-preview',
+      tourId: 'teacher-calendar',
     });
 
     expect(ride.joyrideProps.steps).toHaveLength(1);

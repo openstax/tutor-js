@@ -3,7 +3,7 @@ import {
 } from './base';
 import { uniq, flatMap } from 'lodash';
 import { action, computed } from 'mobx';
-import { CurrentUserActions } from '../flux/current-user';
+import { CurrentUserActions, CurrentUserStore } from '../flux/current-user';
 
 import Courses from './courses';
 
@@ -14,6 +14,7 @@ export class User extends BaseModel {
   bootstrap(data) {
     CurrentUserActions.loaded(data);
     this.update(data);
+    CurrentUserStore.on('change', () => this.update(CurrentUserStore.get()));
   }
 
   @field name;
@@ -37,13 +38,15 @@ export class User extends BaseModel {
     this.viewed_tour_ids.clear();
   }
 
-  viewedTour(tour) {
+  viewedTour(tour, options) {
     this.viewed_tour_ids.push(tour.id);
-    this.saveTourView(tour);
+    this.saveTourView(tour, options);
   }
 
   // this method will be wrapped by the API to trigger saving a tour view
-  saveTourView() { }
+  saveTourView(tour, options) {
+    return { data: options };
+  }
 
 }
 

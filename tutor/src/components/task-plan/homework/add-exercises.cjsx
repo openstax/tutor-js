@@ -11,6 +11,7 @@ ExerciseHelpers  = require '../../../helpers/exercise'
 ExerciseControls = require './exercise-controls'
 ExerciseDetails  = require '../../exercises/details'
 ExerciseCards    = require '../../exercises/cards'
+{ default: TourRegion } = require '../../tours/region'
 
 AddExercises = React.createClass
 
@@ -117,7 +118,6 @@ AddExercises = React.createClass
       else
         <ExerciseCards
           {...sharedProps}
-          ecosystemId={ecosystemId}
           watchStore={TaskPlanStore}
           watchEvent='change-exercise-'
           topScrollOffset={110}
@@ -147,8 +147,11 @@ AddExercises = React.createClass
     <PinnedHeaderFooterCard
       containerBuffer={50}
       header={controls}
-      cardType='homework-builder'>
-      {body}
+      cardType='homework-builder'
+    >
+      <TourRegion id="add-homework-select-exercises" courseId={@props.courseId}>
+        {body}
+      </TourRegion>
     </PinnedHeaderFooterCard>
 
 module.exports = AddExercises

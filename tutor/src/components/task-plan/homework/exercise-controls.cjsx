@@ -6,6 +6,8 @@ ScrollSpy   = require '../../scroll-spy'
 Sectionizer = require '../../exercises/sectionizer'
 Icon        = require '../../icon'
 
+{ default: TourAnchor } = require '../../tours/anchor'
+
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 
 ExerciseControls = React.createClass
@@ -109,14 +111,14 @@ ExerciseControls = React.createClass
           <span>My Selections</span>
         </div>
 
-        <div className="num tutor">
+        <TourAnchor id={"tutor-selections"} className="num tutor">
           <div className="tutor-selections">
             {@renderDecreaseButton()}
             <h2>{numTutor}</h2>
             {@renderIncreaseButton()}
           </div>
           <span>Tutor Selections</span>
-        </div>
+        </TourAnchor>
 
         {@renderExplanation()}
 

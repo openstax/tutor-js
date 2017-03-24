@@ -7,6 +7,7 @@ LoadableItem = require '../loadable-item'
 {CourseStore, CourseActions} = require '../../flux/course'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 Router = require '../../helpers/router'
+{ default: TourRegion } = require '../tours/region'
 
 {ScrollToMixin} = require 'shared'
 
@@ -55,6 +56,14 @@ EventShell = React.createClass
     {courseId, id} = Router.currentParams()
     <PlanShell courseId={courseId} id={id} type='event'/>
 
+PlanBuilder = ({ id, courseId, body: Body, type }) ->
+  <TourRegion
+    id={"#{type}-assignment-editor"} courseId={courseId}
+  >
+    <Body id={id} courseId={courseId} />
+  </TourRegion>
+
+
 PlanShell = React.createClass
   displayName: 'PlanShell'
 
@@ -85,7 +94,6 @@ PlanShell = React.createClass
     getPlanType(typeName)
 
   render: ->
-    Type = @getType()
     {courseId} = Router.currentParams()
     id = @getId()
 
@@ -96,7 +104,9 @@ PlanShell = React.createClass
       id={id}
       store={TaskPlanStore}
       actions={TaskPlanActions}
-      renderItem={-> <Type id={id} courseId={courseId} />}
+      renderItem={=>
+        <PlanBuilder type={@props.type} body={@getType()} id={id} courseId={courseId} />
+      }
     />
 
 module.exports = {ReadingShell, HomeworkShell, ExternalShell, EventShell}

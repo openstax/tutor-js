@@ -5,7 +5,7 @@ jest.useFakeTimers();
 
 describe('Tour Region', () => {
   it('checks in with tour context when mounting/unmounting', () => {
-    const context = new TourContext();
+    const context = new TourContext({ isEnabled: true });
     const wrapper = mount(
       <TourRegion id='teacher-calendar' tourContext={context}>
         <span>Hello</span>

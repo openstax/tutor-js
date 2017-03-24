@@ -5,6 +5,7 @@
     "transform-class-properties",
     "transform-function-bind",
     "transform-react-jsx",
+    "babel-plugin-lodash",
     "transform-runtime"
   ],
   "presets": [

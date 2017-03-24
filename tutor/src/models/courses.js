@@ -1,9 +1,9 @@
 import {
   BaseModel, identifiedBy, field, identifier, hasMany,
 } from './base';
-import { observable, computed } from 'mobx';
+import { observable, computed, action } from 'mobx';
 import { find } from 'lodash';
-import { CourseListingActions } from '../flux/course-listing';
+import { CourseListingActions, CourseListingStore } from '../flux/course-listing';
 import Period  from './course/period';
 import Role    from './course/role';
 import Student from './course/student';
@@ -64,8 +64,14 @@ const courses = Object.assign(observable.shallowMap(), {
   // api.coffee calls this
   bootstrap( courseData ) {
     CourseListingActions.loaded(courseData);
+    courses.loaded(courseData);
+    CourseListingStore.on('loaded', courses.loaded);
+  },
+
+  loaded(courseData) {
     courseData.forEach(cd => courses.set(String(cd.id), new Course(cd)));
   },
+
 });
 
 export default courses;

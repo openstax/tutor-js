@@ -4,8 +4,8 @@ import {
 import { partial, includes, some, each, compact } from 'lodash';
 import TourStep from './tour/step';
 
-// Currently holds all the tours.  Will probably need to be split into multiple files
-import TourData from './tour/data.json';
+// compiles and exports the data for tours from the JSON files
+import TourData from '../tours';
 
 // Tour
 // A set of instructions for viewing a Training Wheel, has-many TourSteps and TourActions

@@ -1,0 +1,67 @@
+[{
+  "id": "teacher-calendar",
+  "name": "Preview shown to new teachers",
+  "audience_tags": [
+    "teacher"
+  ],
+  "steps": [
+    {
+      "title": "Your Openstax Tutor beta course dashboard",
+      "body": "Your course dashboard is your gateway to creating and managing assignments, as well as viewing student scores and progress."
+    }, {
+      "title": "Adding assignments",
+      "body": "Add assignments by clicking or dragging to your calendar.",
+      "anchor_id": "sidebar-add-tasks",
+      "action": {
+        "id": "open-calendar-sidebar"
+      }
+    }, {
+      "title": "Managing assignments",
+      "body": "You can edit an assignment or review student progress and performance by clicking on the assignment on your calendar.",
+      "anchor_id": "calendar-task-plan",
+      "action": {
+        "id": "reposition"
+      }
+    }, {
+      "title": "Performance forecast",
+      "body": "See how students are doing on each topic.",
+      "anchor_id": "performance-forcast-button",
+      "position": "bottom-right"
+    }, {
+      "title": "Student scores",
+      "body": "View, manage, and export student scores for all assignments.",
+      "anchor_id": "student-scores-button",
+      "position": "bottom-right"
+    }, {
+      "title": "Question library",
+      "body": "Manage the questions students see in assignments and when they practice on their own.",
+      "anchor_id": "menu-option-viewQuestionsLibrary",
+      "position": "bottom-right",
+      "action": {
+        "id": "open-user-menu"
+      }
+    }, {
+      "title": "Browse the book",
+      "body": "Review the OpenStax textbook content here.",
+      "anchor_id": "menu-option-browse-book",
+      "position": "bottom-right",
+      "action": {
+        "id": "open-user-menu"
+      }
+    }, {
+      "title": "View tips again",
+      "body": "Here's where you can view all tips for this page.",
+      "anchor_id": "tours-navbar-icon",
+      "action": {
+        "id": "display-tours-replay-icon"
+      }
+    }, {
+      "body": "Now that you know where everything is, let's make an assignment!",
+      "anchor_id": "sidebar-add-reading-assignment",
+      "position": "right",
+      "action": {
+        "id": "open-calendar-sidebar"
+      }
+    }
+  ]
+}]

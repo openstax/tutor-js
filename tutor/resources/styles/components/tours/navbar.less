@@ -1,12 +1,22 @@
 .navbar-fixed-top .tours-replay {
-  color: @tutor-tertiary-light;
   margin: 10px 0;
+  display: flex;
+  align-items: center;
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.4s;
   &.is-visible {
     opacity: 1;
   }
-  .fa-commenting-o { top: -6px; }
-  .fa-television { opacity: 0.5; }
+  svg {
+    height: 35px;
+    path {
+      fill: @tutor-tertiary-light;
+      transition: fill 0.2s;
+    }
+  }
+
+  &:hover {
+    svg path { fill: darken(@tutor-tertiary-light, 5%); }
+  }
 }

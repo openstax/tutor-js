@@ -16,7 +16,13 @@ LogOut = require './logout'
 {CourseStore} = require '../../flux/course'
 
 BrowseBookMenuOption = (props) ->
-  <li><BrowseTheBook unstyled={true} courseId={props.courseId} /></li>
+  <li>
+
+      <BrowseTheBook unstyled={true} courseId={props.courseId}>
+        <TourAnchor id={"menu-option-browse-book"}><span>Browse the Book</span></TourAnchor>
+      </BrowseTheBook>
+
+  </li>
 
 UserActionsMenu = React.createClass
 

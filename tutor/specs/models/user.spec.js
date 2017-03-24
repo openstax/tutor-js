@@ -6,7 +6,7 @@ import Courses from '../../src/models/courses';
 import USER_DATA from '../../api/user.json';
 import { bootstrapCoursesList } from '../courses-test-data';
 
-describe('Course Model', () => {
+describe('User Model', () => {
   afterEach(() => {
     User.viewed_tour_ids.clear();
   });

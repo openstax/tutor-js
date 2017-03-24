@@ -13,8 +13,10 @@ const DEFAULT_JOYRIDE_CONFIG = {
   debug: false,
   scrollToSteps: true,
   scrollToFirstStep: true,
-  scrollOffset: 80, // below top navbar
+  scrollOffset: 120, // below top navbar
+  disableOverlay: true, // poorly named: still shows overlay, but disables canceling tours when it's clicked
   resizeDebounce: true,
+  showStepsProgress: true,
   resizeDebounceDelay: 200,
 };
 
@@ -38,10 +40,10 @@ export default class TourRide extends BaseModel {
 
   @action.bound
   joyrideCallback({ type, action, step: joyRideStep }) {
-    if (action === 'close' || (action === 'next' && type == 'finished')) {
-      User.viewedTour(this.tour, { exitedEarly: action === 'close' });
-      return; // no step data, nothing more to do
+    if (type === 'finished' || (action === 'close' && type === 'beacon:before')) {
+      User.viewedTour(this.tour, { exitedEarly: type !== 'finished' });
     }
+    if (!joyRideStep){ return; } // is of a type we don't care about
     const { step } = joyRideStep;
     if (type === 'step:before' && step.actionClass) {
       joyRideStep.action = new step.actionClass(extend({

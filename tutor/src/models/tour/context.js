@@ -1,7 +1,7 @@
 import {
-  BaseModel, identifiedBy, computed, observable,
+  BaseModel, identifiedBy, computed, observable, field,
 } from '../base';
-import { find, isEmpty, intersection, compact, uniq, flatMap, map, reject, includes } from 'lodash';
+import { find, isEmpty, intersection, compact, uniq, flatMap, map, includes } from 'lodash';
 import Courses from '../courses';
 import User from '../user';
 import Tour from '../tour';
@@ -18,8 +18,11 @@ export default class TourContext extends BaseModel {
   @observable regions = observable.shallowArray();
   @observable anchors = observable.shallowMap();
 
+  @field isEnabled = false;
+
   @observable forcePastToursIndication;
   @computed get tourIds() {
+    if (!this.isEnabled) { return []; }
     return compact(uniq(flatMap(this.regions, r => r.tour_ids.peek())));
   }
 
@@ -83,7 +86,14 @@ export default class TourContext extends BaseModel {
   }
 
   @computed get hasReplayableTours() {
-    return this.forcePastToursIndication || !isEmpty(User.viewed_tour_ids);
+    return !!(
+      this.forcePastToursIndication ||
+        !isEmpty(intersection(this.tourIds, User.viewed_tour_ids))
+    );
+  }
+
+  @computed get toursTags() {
+    return flatMap(this.tours, t => t.audience_tags);
   }
 
   tourForAudienceTags(tags) {
@@ -92,4 +102,7 @@ export default class TourContext extends BaseModel {
     )) || null;
   }
 
+  @computed get debugStatus() {
+    return `available regions: [${map(this.regions, 'id')}]; region tour ids: [${this.tourIds}]; valid tours: [${map(this.tours,'id')}]; viewed tours: [${User.viewed_tour_ids}]; tour tags: [${this.toursTags}]; User tags: [${User.tourAudienceTags}]; course tags: [${this.courseAudienceTags}]; TOUR RIDE: ${this.tourRide ? this.tourRide.tour.id : '<none>'}`;
+  }
 }

@@ -50,12 +50,12 @@ App = React.createClass
 
     <div className={classNames}>
       <LocationSubscriber>{RouteChange}</LocationSubscriber>
-      <TourConductor>
-        <SpyMode.Wrapper>
+      <SpyMode.Wrapper>
+        <TourConductor>
           <Navbar {...@props}/>
           <MatchForTutor routes={Router.getRenderableRoutes()} />
-        </SpyMode.Wrapper>
-      </TourConductor>
+        </TourConductor>
+      </SpyMode.Wrapper>
     </div>
 
 

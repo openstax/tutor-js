@@ -1,7 +1,18 @@
-$tutor-primary: rgb(244, 118, 65); // orange
-$joyride-color: $tutor-primary;
+$tutor-tertiary-light: rgb(0, 193, 222); // light blue
 
+$joyride-color: $tutor-tertiary-light;
+// set both medium and large sizes to be 360
+$joyride-tooltip-width: (290px, 360px, 360px);
 @import '~react-joyride/lib/react-joyride';
+
+.joyride-tooltip__button--secondary {
+  float: left;
+  &:before {
+    display: 'inline';
+    margin-right: 0.5rem;
+    content: '<';
+  }
+}
 
 // the default rules lighten the button when it's focused,
 // but it's focused by default when paging; essentially causing the standard color to be ignored
