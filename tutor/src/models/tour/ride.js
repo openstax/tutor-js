@@ -57,7 +57,6 @@ export default class TourRide extends BaseModel {
 
   @action.bound
   joyrideCallback({ index, type, action, step: joyRideStep }) {
-    console.log(arguments[0])
     if (type === 'finished' || (action === 'close' && type === 'beacon:before')) {
       User.viewedTour(this.tour, { exitedEarly: type !== 'finished' });
     }
