@@ -12,6 +12,7 @@
       "title": "Adding assignments",
       "body": "Add assignments by clicking or dragging to your calendar.",
       "anchor_id": "sidebar-add-tasks",
+      "position": "right",
       "action": {
         "id": "open-calendar-sidebar"
       }
@@ -26,7 +27,7 @@
       "title": "Performance forecast",
       "body": "See how students are doing on each topic.",
       "anchor_id": "performance-forcast-button",
-      "position": "bottom-right"
+      "position": "bottom-left"
     }, {
       "title": "Student scores",
       "body": "View, manage, and export student scores for all assignments.",
