@@ -5,12 +5,12 @@ import { Modal } from 'react-bootstrap';
 import { computed, observable } from 'mobx';
 
 import TourRegion from '../tours/region';
+import TourAnchor from '../tours/anchor';
 import { StatsModalShell } from '../plan-stats';
 import { EventModalShell } from '../plan-stats/event';
 import { TaskPlanStore } from '../../flux/task-plan';
 import LmsInfo from '../task-plan/lms-info';
 import TutorLink from '../link';
-
 
 class CoursePlanDetails extends React.PureComponent {
 
@@ -43,28 +43,22 @@ class CoursePlanDetails extends React.PureComponent {
     this.keepVisible = true;
   }
 
+  get isExternal() {
+    this.props.plan.type === 'external';
+  }
+
   renderReviewButton() {
     if (!this.props.hasReview) { return null; }
-    const { type } = this.props.plan;
-
-    if (type === 'external') {
-      return (
-        <TutorLink
-          className='btn btn-default -view-scores'
-          to='viewScores'
-          params={this.linkParams}>
-          View Scores
-        </TutorLink>
-      );
-    }
 
     return (
-      <TutorLink
-        className='btn btn-default'
-        to='reviewTask'
-        params={this.linkParams}>
-        Review Metrics
-      </TutorLink>
+      <TourAnchor id="view-metrics">
+        <TutorLink
+          className='btn btn-default -view-scores'
+          to={this.isExternal ? 'viewScores' : 'reviewTask'}
+          params={this.linkParams}>
+          {this.isExternal ? 'View Scores' : 'Review Metrics'}
+        </TutorLink>
+      </TourAnchor>
     );
   }
 
@@ -81,15 +75,17 @@ class CoursePlanDetails extends React.PureComponent {
       <div className="modal-footer">
         <div className="left-buttons">
           {this.renderReviewButton()}
-          <TutorLink
-            className="btn btn-default -edit-assignment"
-            to={editLinkName}
-            params={this.linkParams}
-          >
-            {TaskPlanStore.isEditable(this.props.plan.id) ? 'Edit' : 'View'}
-            {' '}
-            {this.props.plan.type === 'event' ? 'Event' : 'Assignment'}
-          </TutorLink>
+          <TourAnchor id="edit-assignment-button">
+            <TutorLink
+              className="btn btn-default -edit-assignment"
+              to={editLinkName}
+              params={this.linkParams}
+            >
+              {TaskPlanStore.isEditable(this.props.plan.id) ? 'Edit' : 'View'}
+              {' '}
+              {this.props.plan.type === 'event' ? 'Event' : 'Assignment'}
+            </TutorLink>
+          </TourAnchor>
         </div>
         <LmsInfo plan={this.props.plan} courseId={this.props.courseId} />
       </div>
@@ -123,15 +119,15 @@ class CoursePlanDetails extends React.PureComponent {
     if (!isPublishing && !isPublished) { return null; }
 
     return (
-      <TourRegion
-        id="analytics-modal"
-        courseId={this.props.courseId}
+      <Modal
+        onHide={onHide}
+        show={true}
+        data-assignment-type={type}
+        className={classnames('plan-modal', className, { 'in': this.keepVisible })}
       >
-        <Modal
-          onHide={onHide}
-          show={true}
-          data-assignment-type={type}
-          className={classnames('plan-modal', className, { 'in': this.keepVisible })}
+        <TourRegion
+          id="analytics-modal"
+          courseId={this.props.courseId}
         >
           <Modal.Header closeButton={true}>
             <Modal.Title>
@@ -142,12 +138,10 @@ class CoursePlanDetails extends React.PureComponent {
             {this.body}
           </div>
           {this.footer}
-        </Modal>
-      </TourRegion>
+        </TourRegion>
+      </Modal>
     );
-
   }
 }
-
 
 export default CoursePlanDetails;

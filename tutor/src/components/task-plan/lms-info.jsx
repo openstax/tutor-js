@@ -6,6 +6,7 @@ import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import moment from 'moment';
 
+import TourAnchor from '../tours/anchor';
 import BindStoreMixin from '../bind-store-mixin';
 import TaskPlanHelper from '../../helpers/task-plan';
 import LoadableItem from '../loadable-item';
@@ -115,9 +116,13 @@ export class LmsInfoLink extends React.PureComponent {
           placement="top"
           ref="overlay"
           overlay={this.renderPopOver()}>
-          <a onClick={this.togglePopover} className="get-link">
+          <TourAnchor
+            tag='a'
+            onClick={this.togglePopover}
+            className='get-link' id="lms-info-link"
+          >
             Get assignment link
-          </a>
+          </TourAnchor>
         </OverlayTrigger>
       </div>
     );
