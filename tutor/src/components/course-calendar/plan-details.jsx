@@ -124,7 +124,7 @@ class CoursePlanDetails extends React.PureComponent {
 
     return (
       <TourRegion
-        id="ql-analytics-modal"
+        id="analytics-modal"
         courseId={this.props.courseId}
       >
         <Modal

@@ -25,7 +25,7 @@ export class LmsInfoLink extends React.PureComponent {
     plan: React.PropTypes.shape({
       id: React.PropTypes.string.isRequired,
       title: React.PropTypes.string.isRequired,
-      description: React.PropTypes.string.isRequired,
+      description: React.PropTypes.string,
     }).isRequired,
   }
 
