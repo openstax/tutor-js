@@ -107,7 +107,7 @@ export class LmsInfoLink extends React.PureComponent {
   render() {
     if (!this.getStats().shareable_url) { return null; }
     const course = Courses.get(this.props.courseId);
-    if (course.is_demo) { return null; }
+    if (course.is_preview) { return null; }
     return (
       <div className="lms-info">
         <OverlayTrigger
