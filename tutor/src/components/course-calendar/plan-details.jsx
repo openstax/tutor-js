@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { Modal } from 'react-bootstrap';
 import { computed, observable } from 'mobx';
 
+import TourRegion from '../tours/region';
 import { StatsModalShell } from '../plan-stats';
 import { EventModalShell } from '../plan-stats/event';
 import { TaskPlanStore } from '../../flux/task-plan';
@@ -122,23 +123,29 @@ class CoursePlanDetails extends React.PureComponent {
     if (!isPublishing && !isPublished) { return null; }
 
     return (
-      <Modal
-        onHide={onHide}
-        show={true}
-        data-assignment-type={type}
-        className={classnames('plan-modal', className, { 'in': this.keepVisible })}
+      <TourRegion
+        id="ql-analytics-modal"
+        courseId={this.props.courseId}
       >
-        <Modal.Header closeButton={true}>
-          <Modal.Title>
-            {title}
-          </Modal.Title>
-        </Modal.Header>
-        <div className="modal-body">
-          {this.body}
-        </div>
-        {this.footer}
-      </Modal>
+        <Modal
+          onHide={onHide}
+          show={true}
+          data-assignment-type={type}
+          className={classnames('plan-modal', className, { 'in': this.keepVisible })}
+        >
+          <Modal.Header closeButton={true}>
+            <Modal.Title>
+              {title}
+            </Modal.Title>
+          </Modal.Header>
+          <div className="modal-body">
+            {this.body}
+          </div>
+          {this.footer}
+        </Modal>
+      </TourRegion>
     );
+
   }
 }
 
