@@ -1,7 +1,7 @@
 // coffeelint: disable=max_line_length
 import React from 'react';
 import { get, uniqueId } from 'lodash';
-
+import { action } from 'mobx';
 import { Course } from '../../models/courses';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 
@@ -18,6 +18,7 @@ export default class StudentEnrollmentLink extends React.PureComponent {
     course: React.PropTypes.instanceOf(Course).isRequired,
   }
 
+  @action.bound
   selectText() {
     this.input.select();
   }
