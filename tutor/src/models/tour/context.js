@@ -2,10 +2,12 @@ import {
   BaseModel, identifiedBy, computed, observable, field,
 } from '../base';
 import { find, isEmpty, intersection, compact, uniq, flatMap, map, includes } from 'lodash';
-import Courses from '../courses';
-import User from '../user';
-import Tour from '../tour';
-import TourRide from './ride';
+import { autorun, observe } from 'mobx';
+
+import Courses   from '../courses';
+import User      from '../user';
+import Tour      from '../tour';
+import TourRide  from './ride';
 import invariant from 'invariant';
 
 // TourContext
@@ -21,6 +23,12 @@ export default class TourContext extends BaseModel {
   @field isEnabled = false;
 
   @observable forcePastToursIndication;
+
+  constructor(attrs) {
+    super(attrs);
+    observe(this, 'tourRide', this._onTourRideChange.bind(this));
+  }
+
   @computed get tourIds() {
     if (!this.isEnabled) { return []; }
     return compact(uniq(flatMap(this.regions, r => r.tour_ids.peek())));
@@ -101,4 +109,10 @@ export default class TourContext extends BaseModel {
   @computed get debugStatus() {
     return `available regions: [${map(this.regions, 'id')}]; region tour ids: [${this.tourIds}]; valid tours: [${map(this.tours,'id')}]; viewed tours: [${User.viewed_tour_ids}]; tour tags: [${this.toursTags}]; User tags: [${User.tourAudienceTags}]; course tags: [${this.courseAudienceTags}]; TOUR RIDE: ${this.tourRide ? this.tourRide.tour.id : '<none>'}`;
   }
+
+  _onTourRideChange({ type, oldValue: oldRide }) {
+    if (type !== 'update') { return; }
+    if (oldRide) { oldRide.dispose(); }
+  }
+
 }

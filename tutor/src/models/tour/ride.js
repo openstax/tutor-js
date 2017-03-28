@@ -28,6 +28,12 @@ export default class TourRide extends BaseModel {
 
   @observable currentStep = 0;
 
+  dispose() {
+    if (this.joyrideRef) {
+      this.joyrideRef.reset();
+    }
+  }
+
   @computed get joyrideProps() {
     const { tour } = this;
     if (!tour) { return {}; }
@@ -46,9 +52,9 @@ export default class TourRide extends BaseModel {
   }
 
   @computed get validSteps() {
-    return filter(this.tourSteps, step =>
-                  !!(step && (!step.anchor_id ||this.context.anchors.has(step.anchor_id)))
-                 );
+    return filter(
+      this.tourSteps, step => !!(step && (!step.anchor_id ||this.context.anchors.has(step.anchor_id)))
+    );
   }
 
   @computed get labels() {
