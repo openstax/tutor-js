@@ -33,7 +33,7 @@ start = ->
   )
 
   connectDelete(ExerciseActions, {trigger: 'deleteAttachment', onSuccess: 'attachmentDeleted'},
-    (exerciseUid, attachmentId) -> url: "/api/exercises/#{exerciseUid}/attachments/#{attachmentId}"
+    (exerciseUid, attachmentId) -> url: "exercises/#{exerciseUid}/attachments/#{attachmentId}"
   )
 
   connectRead(VocabularyActions, (id) -> url: "vocab_terms/#{getIdWithVersion(id, 'draft')}")
