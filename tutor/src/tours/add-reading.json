@@ -1,0 +1,38 @@
+[{
+  "id": "add-reading-builder",
+  "audience_tags": [ "teacher" ],
+  "steps": [
+    {
+      "title": "OpenStax Tutor reading assignments",
+      "body": "Reading assignments include book content, formative questions, and one to three spaced practice questions per section of the book."
+    }, {
+      "body": "[best practices icon]: Make reading assignments due before you cover the topic in class to help your students prepare."
+    }, {
+      "title": "Build a reading assignment",
+      "body":  "Ready to make a reading assignment? Fill in this form and click “Add readings.”"
+    }
+  ]
+}, {
+  "id": "add-reading-choose-sections",
+  "audience_tags": [ "teacher" ],
+  "steps": [
+    {
+      "title": "First, select a chapter",
+      "body": "Select a chapter you want to assign, then scroll down and click “show problems.” Uncheck any sections you don’t want to cover."
+    }
+  ]
+}, {
+  "id": "add-reading-review-sections",
+  "audience_tags": [ "teacher" ],
+  "steps": [
+    {
+      "title": "What will students get",
+      "body": "Your students will get formative and spaced practice questions from the sections you selected above. Remember: you can see all questions that OpenStax Tutor might use in the Question Library.",
+      "position": "top"
+    }, {
+      "title": "Publish",
+      "body": "To schedule this reading assignment, click Publish.",
+      "anchor_id": "builder-save-button"
+    }
+  ]
+}]

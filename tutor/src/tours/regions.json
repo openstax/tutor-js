@@ -8,9 +8,22 @@
   "homework-assignment-editor": {
     "tour_ids": ["add-homework-builder"]
   },
+  "reading-assignment-editor": {
+    "tour_ids": ["add-reading-builder"]
+  },
+
   "add-homework-choose-sections": {
     "tour_ids": ["add-homework-choose-sections"]
   },
+
+  "add-reading-choose-sections": {
+    "tour_ids": ["add-reading-choose-sections"]
+  },
+
+  "add-reading-review-sections": {
+    "tour_ids": ["add-reading-review-sections"]
+  },
+
   "add-homework-select-exercises": {
     "tour_ids": ["add-homework-select-exercises"]
   },
