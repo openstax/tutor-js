@@ -54,11 +54,6 @@ QuestionsControls = React.createClass
     isConceptCoach = CourseStore.isConceptCoach(@props.courseId)
     filters =
       <BS.ButtonGroup className="filters">
-        <BS.Button data-filter='all' onClick={@onFilterClick}
-          className={classNames 'all', 'active': isEmpty(@props.filter) or @props.filter is 'all'}
-        >
-          All
-        </BS.Button>
 
         <BS.Button data-filter='reading' onClick={@onFilterClick}
           className={classNames 'reading', 'active': @props.filter is 'reading'}
@@ -74,11 +69,11 @@ QuestionsControls = React.createClass
       </BS.ButtonGroup>
 
     <div className="exercise-controls-bar">
-      <div className="filters-wrapper">
-        {if not isConceptCoach then filters}
-      </div>
-
       {@props.children}
+
+      <div className="filters-wrapper">
+        {filters unless isConceptCoach}
+      </div>
 
       <BS.Button onClick={@scrollToTop}>
         + Select more sections

@@ -7,12 +7,8 @@ React = require 'react'
 
 BackButton = require '../buttons/back-button'
 Chooser = require '../sections-chooser'
-Help = require './help'
 
 Icon = require '../icon'
-
-
-
 
 QLSectionsChooser = React.createClass
 
@@ -34,8 +30,6 @@ QLSectionsChooser = React.createClass
   onSectionChange: (sectionIds) -> @setState({sectionIds})
 
   render: ->
-    helpText = Help.forCourseId(@props.courseId).first
-
     <div className="sections-chooser panel">
 
       <div className="header">
@@ -46,14 +40,6 @@ QLSectionsChooser = React.createClass
           }/>
         </div>
       </div>
-
-      <div className="instructions">
-        <div className="wrapper">
-          {helpText.bar}
-        </div>
-      </div>
-
-     <div className='instructions-addon'>{helpText.addon}</div>
 
       <div className="sections-list">
         <Chooser

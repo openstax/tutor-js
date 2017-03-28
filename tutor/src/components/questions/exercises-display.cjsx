@@ -8,7 +8,6 @@ React = require 'react'
 window.TocStore = TocStore
 window.ExerciseStore = ExerciseStore
 
-Help = require './help'
 Icon = require '../icon'
 ExerciseControls = require './exercise-controls'
 ExerciseDetails  = require '../exercises/details'
@@ -182,7 +181,7 @@ ExercisesDisplay = React.createClass
         getExerciseActions: @getExerciseActions
         getExerciseIsSelected: @getExerciseIsSelected
         ecosystemId: @props.ecosystemId
-        topScrollOffset: 190
+        topScrollOffset: 100
 
     if @props.showingDetails
       <ExerciseDetails
@@ -207,12 +206,6 @@ ExercisesDisplay = React.createClass
 
     exercises = ExerciseStore.groupBySectionsAndTypes(@props.ecosystemId, @props.sectionIds, withExcluded: true)
     <div className="exercises-display">
-
-      <div className="instructions">
-        <div className="wrapper">
-          {Help.forCourseId(@props.courseId).second.bar}
-        </div>
-      </div>
 
       <PinnedHeaderFooterCard
         ref='controls'
