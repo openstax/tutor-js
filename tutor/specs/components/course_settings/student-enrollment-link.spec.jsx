@@ -26,9 +26,8 @@ describe('Course Settings, student enrollment link', () => {
   it('renders with disabled url for preview course', () => {
     props.course.is_preview = true;
     const enrollment = mount(<StudentEnrollmentLink {...props} />);
-    console.log(enrollment.debug())
-//    expect(enrollment).toHaveRendered('input[value="123456"]');
-//    expect(Renderer.create(<StudentEnrollmentLink {...props} />).toJSON()).toMatchSnapshot();
+    expect(enrollment).toHaveRendered('.disabled-for-preview');
+    expect(Renderer.create(<StudentEnrollmentLink {...props} />).toJSON()).toMatchSnapshot();
   });
 
 });

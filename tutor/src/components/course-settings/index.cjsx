@@ -2,8 +2,14 @@ React = require 'react'
 BS = require 'react-bootstrap'
 Router = require '../../helpers/router'
 {CourseStore, CourseActions} = require '../../flux/course'
-Settings = require './settings'
 LoadableItem = require '../loadable-item'
+Settings = require './settings'
+{ default: TourRegion } = require '../tours/region'
+
+SettingsWithTour = (props) ->
+  <TourRegion id="course-settings" courseId={props.courseId}>
+    <Settings {...props} />
+  </TourRegion>
 
 module.exports = React.createClass
   displayName: 'CourseSettingsShell'
@@ -14,5 +20,5 @@ module.exports = React.createClass
       id={courseId}
       store={CourseStore}
       actions={CourseActions}
-      renderItem={-> <Settings courseId={courseId} />}
+      renderItem={-> <SettingsWithTour courseId={courseId} />}
     />

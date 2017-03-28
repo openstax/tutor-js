@@ -34,8 +34,12 @@
   "add-homework-select-exercises": {
     "tour_ids": ["add-homework-select-exercises"]
   },
+
   "analytics-modal": {
     "tour_ids": [ "analytics-modal" ]
-  }
+  },
 
+  "course-settings": {
+    "tour_ids": ["course-settings-preview", "course-settings"]
+  }
 }

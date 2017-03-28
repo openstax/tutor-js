@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Course Settings, student enrollment link renders for regular courses 1`] = `
+exports[`Course Settings, student enrollment link renders with disabled url for preview course 1`] = `
 <span
   className="enrollment-code-link"
   onClick={[Function]}
@@ -10,16 +10,11 @@ exports[`Course Settings, student enrollment link renders for regular courses 1`
   >
     Student Enrollment URL:
   </span>
-  <input
-    readOnly={true}
-    style={
-      Object {
-        "width": 42,
-      }
-    }
-    type="text"
-    value="123456"
-  />
+  <span
+    className="disabled-for-preview"
+  >
+    No enrollment URL in preview.
+  </span>
 </span>
 `;
 

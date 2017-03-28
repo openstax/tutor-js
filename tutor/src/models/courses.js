@@ -52,9 +52,10 @@ export class Course extends BaseModel {
 
   @computed get tourAudienceTags() {
     const tags = [];
-    if (this.isTeacher) { tags.push('teacher'); }
+    if (this.isTeacher) {
+      tags.push(this.is_preview ? 'teacher-preview' : 'teacher');
+    }
     if (this.isStudent) { tags.push('student'); }
-    // more checks TBD
     return tags;
   }
 

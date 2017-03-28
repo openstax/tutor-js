@@ -1,0 +1,20 @@
+[{
+  "id": "course-settings-preview",
+  "audience_tags": [ "teacher-preview" ],
+  "steps": [
+    {
+      "title": "Enrolling students",
+      "body": "Send this URL — one for each section — to your students so they can enroll in your course. This is the only way students can enroll in your course. You can set up your own “student” account using the same URL."
+    }
+  ]
+}, {
+  "id": "course-settings",
+  "audience_tags": [ "teacher" ],
+  "steps": [
+    {
+      "title": "Enrolling students",
+      "body": "Send this URL — one for each section — to your students so they can enroll in your course. This is the only way students can enroll in your course. You can set up your own “student” account using the same URL."
+    }
+  ]
+}
+]

@@ -35,25 +35,9 @@ export default class StudentEnrollmentLink extends React.PureComponent {
     );
   }
 
-  renderPopover() {
-    return (
-      <Popover id={uniqueId('disabled-enrollment')}>
-        A full course will include a student enrollment URL here.
-        You can use this link to enroll as a student too.
-      </Popover>
-    );
-  }
-
   renderPreview() {
     return (
-      <OverlayTrigger
-        trigger="click"
-        placement="top"
-        ref="overlay"
-        overlay={this.renderPopover()}
-      >
-        <span className="disabled-for-preview" >No enrollment URL in preview.</span>
-      </OverlayTrigger>
+      <span className="disabled-for-preview">No enrollment URL in preview.</span>
     );
   }
 

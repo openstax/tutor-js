@@ -9,6 +9,7 @@ const TOURS = {};
   require('./question-library.json'),
   require('./add-reading.json'),
   require('./add-homework.json'),
+  require('./course-settings.json'),
 ].forEach(tours => tours.forEach(tour => TOURS[tour.id] = tour));
 
 export default TOURS;

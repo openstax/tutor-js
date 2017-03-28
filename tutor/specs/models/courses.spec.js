@@ -6,7 +6,6 @@ describe('Course Model', () => {
 
   beforeEach(() => bootstrapCoursesList());
 
-
   it('can be bootstrapped and size observed', () => {
     Courses.clear();
     const lenSpy = jest.fn();
@@ -31,7 +30,10 @@ describe('Course Model', () => {
 
   it('calculates audience tags', () => {
     expect(Courses.get(1).tourAudienceTags).toEqual(['student']);
-    expect(Courses.get(2).tourAudienceTags).toEqual(['teacher']);
+    const teacher = Courses.get(2);
+    expect(teacher.tourAudienceTags).toEqual(['teacher']);
+    teacher.is_preview = true;
+    expect(teacher.tourAudienceTags).toEqual(['teacher-preview']);
     expect(Courses.get(3).tourAudienceTags).toEqual(['teacher', 'student']);
   });
 
