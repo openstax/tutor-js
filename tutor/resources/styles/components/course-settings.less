@@ -69,8 +69,13 @@
   }
 
   .enrollment-code-link {
-    input{
+    input,
+    .disabled-for-preview {
       margin-left: 5px;
+    }
+    .disabled-for-preview {
+      border: 1px solid @tutor-neutral-light;
+      padding: 5px;
     }
   }
 

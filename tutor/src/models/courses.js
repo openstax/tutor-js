@@ -9,7 +9,7 @@ import Role    from './course/role';
 import Student from './course/student';
 
 @identifiedBy('course')
-class Course extends BaseModel {
+export class Course extends BaseModel {
 
   @identifier id
 
