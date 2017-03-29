@@ -11,6 +11,7 @@ Attachment = React.createClass
     exerciseUid: React.PropTypes.string.isRequired
     attachment: React.PropTypes.shape({
       asset: React.PropTypes.shape({
+        filename: React.PropTypes.string.isRequired
         url: React.PropTypes.string.isRequired
         large: React.PropTypes.shape( url: React.PropTypes.string.isRequired ).isRequired
         medium: React.PropTypes.shape( url: React.PropTypes.string.isRequired ).isRequired
@@ -19,7 +20,7 @@ Attachment = React.createClass
     }).isRequired
 
   deleteImage: ->
-    ExerciseActions.deleteAttachment(@props.exerciseUid, @props.attachment.id)
+    ExerciseActions.deleteAttachment(@props.exerciseUid, @props.attachment.asset.filename)
 
   render: ->
     # large.url will be null on non-image assets (like PDF)

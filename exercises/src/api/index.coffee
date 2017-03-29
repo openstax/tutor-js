@@ -33,9 +33,10 @@ start = ->
   )
 
   connectDelete(ExerciseActions, {trigger: 'deleteAttachment', onSuccess: 'attachmentDeleted'},
-    (exerciseId, attachmentId) ->
+    (exerciseId, attachmentFilename) ->
       id = getIdOnly(exerciseId)
-      url: "exercises/#{id}@draft/attachments/#{attachmentId}"
+
+      url: "exercises/#{id}@draft/attachments/#{attachmentFilename}"
   )
 
   connectRead(VocabularyActions, (id) -> url: "vocab_terms/#{getIdWithVersion(id, 'draft')}")
@@ -62,7 +63,7 @@ uploadExerciseImage = (exerciseId, image, cb) ->
   xhr.addEventListener 'load', (req) ->
     cb(if req.currentTarget.status is 201
       attachment = JSON.parse(req.target.response)
-      ExerciseActions.attachmentUploaded(exerciseUid, attachment)
+      ExerciseActions.attachmentUploaded(exerciseId, attachment)
       {response: attachment, progress: 100}
     else
       {error: req.currentTarget.statusText})
