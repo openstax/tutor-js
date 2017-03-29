@@ -46,6 +46,7 @@ ExerciseConfig = {
   _created:(obj, id) ->
     cascadeLoad(obj, obj.number)
     obj.id = obj.number
+    @emit('created', obj.id)
     @emit('updated', obj.id)
     obj
 
@@ -58,9 +59,10 @@ ExerciseConfig = {
 
   deleteAttachment: EmptyFn
 
-  attachmentDeleted: (resp, exerciseUid, attachmentId) ->
-    exercise = _.findWhere(@_local, {uid: exerciseUid})
-    exercise.attachments = _.reject exercise.attachments, (attachment) -> attachment.id is attachmentId
+  attachmentDeleted: (resp, id, attachmentFilename) ->
+    exercise = @_local[id]
+    exercise.attachments = _.reject(exercise.attachments, (attachment) ->
+      attachment.asset.filename is attachmentFilename)
     @emitChange()
 
   addQuestionPart: (id) ->
@@ -113,8 +115,8 @@ ExerciseConfig = {
       @sync(id)
 
 
-  attachmentUploaded: (uid, attachment) ->
-    exercise = _.findWhere(@_local, {uid})
+  attachmentUploaded: (id, attachment) ->
+    exercise = @_local[id]
     exercise.attachments ||= []
     exercise.attachments.push(attachment)
     @emitChange()
@@ -144,17 +146,20 @@ ExerciseConfig = {
 
     isPublishing: (id) -> !!@_asyncStatusPublish[id]
 
-    isSavable: (id) ->
-      @exports.isChanged.call(@, id) and
-        @exports.validate.call(@, id).valid and
+    isValid: (id) -> @exports.validate.call(@, id).valid
+
+    isSavedOrSavable: (id) ->
+      @exports.isValid.call(@, id) and
         not @exports.isSaving.call(@, id) and
         not @exports.isPublishing.call(@, id)
 
+    isSavable: (id) ->
+      @exports.isChanged.call(@, id) and
+        @exports.isSavedOrSavable.call(@, id)
+
     isPublishable: (id) ->
-      @exports.validate.call(@, id).valid and
+      @exports.isSavedOrSavable.call(@, id) and
         not @exports.isChanged.call(@, id) and
-        not @exports.isSaving.call(@, id) and
-        not @exports.isPublishing.call(@, id) and
         not @_get(id)?.published_at
 
     isMissingExercise: (error, id) ->

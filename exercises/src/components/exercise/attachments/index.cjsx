@@ -4,7 +4,7 @@ React = require 'react'
 Attachment = require './attachment'
 AttachmentChooser = require './chooser'
 
-Attachements = React.createClass
+Attachments = React.createClass
 
   propTypes:
     exerciseId: React.PropTypes.string.isRequired
@@ -13,9 +13,9 @@ Attachements = React.createClass
     exercise = ExerciseStore.get(@props.exerciseId)
     <div className="attachments">
       {for attachment in exercise.attachments or []
-        <Attachment key={attachment.asset.url} exerciseUid={exercise.uid} attachment={attachment} />}
-      <AttachmentChooser exerciseUid={exercise.uid} />
+        <Attachment key={attachment.asset.url} exerciseId={@props.exerciseId} attachment={attachment} />}
+      <AttachmentChooser exerciseId={@props.exerciseId} />
     </div>
 
 
-module.exports = Attachements
+module.exports = Attachments

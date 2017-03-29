@@ -8,7 +8,7 @@ classnames = require 'classnames'
 Attachment = React.createClass
 
   propTypes:
-    exerciseUid: React.PropTypes.string.isRequired
+    exerciseId: React.PropTypes.string.isRequired
     attachment: React.PropTypes.shape({
       asset: React.PropTypes.shape({
         filename: React.PropTypes.string.isRequired
@@ -20,7 +20,12 @@ Attachment = React.createClass
     }).isRequired
 
   deleteImage: ->
-    ExerciseActions.deleteAttachment(@props.exerciseUid, @props.attachment.asset.filename)
+    if ExerciseStore.isNew(@props.exerciseId)
+      ExerciseActions.create(@props.exerciseId, ExerciseStore.get(@props.exerciseId))
+    else
+      ExerciseActions.save(@props.exerciseId)
+    ExerciseStore.once 'updated', (id) =>
+      ExerciseActions.deleteAttachment(@props.exerciseId, @props.attachment.asset.filename)
 
   render: ->
     # large.url will be null on non-image assets (like PDF)
@@ -31,7 +36,7 @@ Attachment = React.createClass
     <div className='attachment with-image'>
       <img className="preview" src={@props.attachment.asset.url} />
       <div className="controls">
-        <BS.Button onClick={@deleteImage}>Delete</BS.Button>
+        <BS.Button onClick={@deleteImage} disabled={not ExerciseStore.isSavedOrSavable(@props.exerciseId)}>Delete</BS.Button>
       </div>
       <textarea value={copypaste} readOnly className="copypaste" />
     </div>
