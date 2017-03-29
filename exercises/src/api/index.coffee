@@ -33,7 +33,9 @@ start = ->
   )
 
   connectDelete(ExerciseActions, {trigger: 'deleteAttachment', onSuccess: 'attachmentDeleted'},
-    (exerciseUid, attachmentId) -> url: "exercises/#{exerciseUid}/attachments/#{attachmentId}"
+    (exerciseId, attachmentId) ->
+      id = getIdOnly(exerciseId)
+      url: "exercises/#{id}@draft/attachments/#{attachmentId}"
   )
 
   connectRead(VocabularyActions, (id) -> url: "vocab_terms/#{getIdWithVersion(id, 'draft')}")
@@ -53,8 +55,9 @@ start = ->
 
 CSRF_TOKEN = document.head.querySelector('meta[name=csrf-token]')?.getAttribute("content")
 
-uploadExerciseImage = (exerciseUid, image, cb) ->
-  url = "/api/exercises/#{exerciseUid}/attachments"
+uploadExerciseImage = (exerciseId, image, cb) ->
+  id = getIdOnly(exerciseId)
+  url = "/api/exercises/#{id}@draft/attachments"
   xhr = new XMLHttpRequest()
   xhr.addEventListener 'load', (req) ->
     cb(if req.currentTarget.status is 201
