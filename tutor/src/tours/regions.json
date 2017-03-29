@@ -5,6 +5,13 @@
   "teacher-calendar": {
     "tour_ids": ["teacher-calendar"]
   },
+  "question-library-sections-chooser": {
+    "tour_ids": [ "preview-question-library-sections-chooser", "question-library-sections-chooser" ]
+  },
+  "question-library-exercises": {
+    "tour_ids": [ "preview-question-library-exercises", "question-library-exercises" ]
+  },
+
   "homework-assignment-editor": {
     "tour_ids": ["add-homework-builder"]
   },

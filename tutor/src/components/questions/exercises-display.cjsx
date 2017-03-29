@@ -18,6 +18,17 @@ NoExercisesFound = require './no-exercises-found'
 ExerciseHelpers  = require '../../helpers/exercise'
 Dialog           = require '../tutor-dialog'
 CourseGroupingLabel = require '../course-grouping-label'
+{default: TourRegion } = require '../tours/region'
+
+ExerciseDetailsWrapper = (props) ->
+  <TourRegion id="question-library-details" courseId={props.courseId}>
+    <ExerciseDetails {...props} />
+  </TourRegion>
+
+ExerciseCardsWrapper = (props) ->
+  <TourRegion id="question-library-exercises" courseId={props.courseId}>
+    <ExerciseCards {...props} />
+  </TourRegion>
 
 
 ExercisesDisplay = React.createClass
@@ -184,7 +195,7 @@ ExercisesDisplay = React.createClass
         topScrollOffset: 100
 
     if @props.showingDetails
-      <ExerciseDetails
+      <ExerciseDetailsWrapper
         {...sharedProps}
         selectedExercise={@state.selectedExercise}
         selectedSection={@state.currentSection}
@@ -193,7 +204,7 @@ ExercisesDisplay = React.createClass
         displayFeedback={@state.displayFeedback}
         onShowCardViewClick={@onShowCardViewClick} />
     else
-      <ExerciseCards
+      <ExerciseCardsWrapper
         {...sharedProps}
         watchStore={ExerciseStore}
         watchEvent='change-exercise-'
