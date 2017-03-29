@@ -37,6 +37,8 @@ export default class TourRide extends BaseModel {
       ref: ref => (this.joyrideRef = ref),
       locale: this.labels,
       showStepsProgress: this.showStepsProgress,
+      scrollToSteps: tour.scrollToSteps,
+      showOverlay: tour.showOverlay,
       steps: compact(this.tour.steps.map(step => this.stepForRide(step))),
     }, DEFAULT_JOYRIDE_CONFIG);
   }
