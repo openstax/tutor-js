@@ -7,6 +7,7 @@ const TOURS = {};
   require('./scores.json'),
   require('./analytics-modal.json'),
   require('./teacher-calendar.json'),
+  require('./performance-forecast.json'),
   require('./review-metrics.json'),
   require('./question-library.json'),
   require('./add-reading.json'),

@@ -37,15 +37,15 @@
   "add-homework-select-exercises": {
     "tour_ids": ["add-homework-select-exercises"]
   },
-
+  "performance-forecast": {
+    "tour_ids": ["performance-forecast"]
+  }
   "review-metrics": {
     "tour_ids": ["review-metrics"]
   },
-
   "analytics-modal": {
     "tour_ids": [ "analytics-modal" ]
   },
-
   "course-settings": {
     "tour_ids": ["course-settings-preview", "course-settings"]
   }
