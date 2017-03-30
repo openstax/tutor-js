@@ -1,6 +1,7 @@
 React = require 'react'
 
 {ExercisePreview} = require 'shared'
+{default: TourAnchor} = require '../tours/anchor'
 BindStoreMixin = require '../bind-store-mixin'
 
 # Wraps the ExercisePreview component so it will re-render in
@@ -24,16 +25,17 @@ ExercisePreviewWrapper = React.createClass
 
   render: ->
     { exercise } = @props
-
-    <ExercisePreview
-      key={exercise.id}
-      className='exercise-card'
-      isInteractive={false}
-      isVerticallyTruncated={true}
-      isSelected={@props.getExerciseIsSelected(exercise)}
-      exercise={exercise}
-      onOverlayClick={@onExerciseToggle}
-      overlayActions={@props.getExerciseActions(exercise)}
-    />
+    <TourAnchor id="exercise-preview">
+      <ExercisePreview
+        key={exercise.id}
+        className='exercise-card'
+        isInteractive={false}
+        isVerticallyTruncated={true}
+        isSelected={@props.getExerciseIsSelected(exercise)}
+        exercise={exercise}
+        onOverlayClick={@onExerciseToggle}
+        overlayActions={@props.getExerciseActions(exercise)}
+      />
+    </TourAnchor>
 
 module.exports = ExercisePreviewWrapper

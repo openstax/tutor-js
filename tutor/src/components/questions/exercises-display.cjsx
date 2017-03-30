@@ -8,7 +8,6 @@ React = require 'react'
 window.TocStore = TocStore
 window.ExerciseStore = ExerciseStore
 
-Help = require './help'
 Icon = require '../icon'
 ExerciseControls = require './exercise-controls'
 ExerciseDetails  = require '../exercises/details'
@@ -19,6 +18,17 @@ NoExercisesFound = require './no-exercises-found'
 ExerciseHelpers  = require '../../helpers/exercise'
 Dialog           = require '../tutor-dialog'
 CourseGroupingLabel = require '../course-grouping-label'
+{default: TourRegion } = require '../tours/region'
+
+ExerciseDetailsWrapper = (props) ->
+  <TourRegion id="question-library-details" courseId={props.courseId}>
+    <ExerciseDetails {...props} />
+  </TourRegion>
+
+ExerciseCardsWrapper = (props) ->
+  <TourRegion id="question-library-exercises" courseId={props.courseId}>
+    <ExerciseCards {...props} />
+  </TourRegion>
 
 
 ExercisesDisplay = React.createClass
@@ -182,10 +192,10 @@ ExercisesDisplay = React.createClass
         getExerciseActions: @getExerciseActions
         getExerciseIsSelected: @getExerciseIsSelected
         ecosystemId: @props.ecosystemId
-        topScrollOffset: 190
+        topScrollOffset: 100
 
     if @props.showingDetails
-      <ExerciseDetails
+      <ExerciseDetailsWrapper
         {...sharedProps}
         selectedExercise={@state.selectedExercise}
         selectedSection={@state.currentSection}
@@ -194,7 +204,7 @@ ExercisesDisplay = React.createClass
         displayFeedback={@state.displayFeedback}
         onShowCardViewClick={@onShowCardViewClick} />
     else
-      <ExerciseCards
+      <ExerciseCardsWrapper
         {...sharedProps}
         watchStore={ExerciseStore}
         watchEvent='change-exercise-'
@@ -207,12 +217,6 @@ ExercisesDisplay = React.createClass
 
     exercises = ExerciseStore.groupBySectionsAndTypes(@props.ecosystemId, @props.sectionIds, withExcluded: true)
     <div className="exercises-display">
-
-      <div className="instructions">
-        <div className="wrapper">
-          {Help.forCourseId(@props.courseId).second.bar}
-        </div>
-      </div>
 
       <PinnedHeaderFooterCard
         ref='controls'

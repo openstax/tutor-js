@@ -4,15 +4,11 @@ React = require 'react'
 
 {ExerciseActions} = require '../../flux/exercise'
 {TocStore, TocActions} = require '../../flux/toc'
-
+{default: TourRegion } = require '../tours/region'
 BackButton = require '../buttons/back-button'
 Chooser = require '../sections-chooser'
-Help = require './help'
 
 Icon = require '../icon'
-
-
-
 
 QLSectionsChooser = React.createClass
 
@@ -34,8 +30,6 @@ QLSectionsChooser = React.createClass
   onSectionChange: (sectionIds) -> @setState({sectionIds})
 
   render: ->
-    helpText = Help.forCourseId(@props.courseId).first
-
     <div className="sections-chooser panel">
 
       <div className="header">
@@ -47,22 +41,18 @@ QLSectionsChooser = React.createClass
         </div>
       </div>
 
-      <div className="instructions">
-        <div className="wrapper">
-          {helpText.bar}
-        </div>
-      </div>
-
-     <div className='instructions-addon'>{helpText.addon}</div>
-
-      <div className="sections-list">
+      <TourRegion
+        className="sections-list"
+        id="question-library-sections-chooser"
+        courseId={@props.courseId}
+      >
         <Chooser
           onSelectionChange={@onSectionChange}
           selectedSectionIds={@state.sectionIds}
           ecosystemId={@props.ecosystemId}
           chapters={TocStore.get(@props.ecosystemId)}
         />
-      </div>
+      </TourRegion>
 
       <div className='section-controls panel-footer'>
         <div className='wrapper'>

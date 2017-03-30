@@ -27,42 +27,8 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
       </div>
     </div>
     <div
-      className="instructions"
-    >
-      <div
-        className="wrapper"
-      >
-        <span>
-          Select the sections you plan to assign below to review all possible
-          questions. 
-          <button
-            aria-describedby="icon-tooltip-5"
-            className="tutor-icon fa fa-info-circle"
-            onBlur={[Function]}
-            onClick={null}
-            onFocus={[Function]}
-          />
-        </span>
-      </div>
-    </div>
-    <div
-      className="instructions-addon"
-    >
-      <span>
-        You can skip any sections you won’t be covering in your
-        course.  Students will never see questions from sections you don’t
-        assign. 
-        <button
-          aria-describedby="icon-tooltip-6"
-          className="tutor-icon fa fa-info-circle"
-          onBlur={[Function]}
-          onClick={null}
-          onFocus={[Function]}
-        />
-      </span>
-    </div>
-    <div
       className="sections-list"
+      data-tour-region-id="question-library-sections-chooser"
     >
       <div
         className="sections-chooser"

@@ -25,15 +25,6 @@ describe 'Questions Dashboard Component', ->
     CourseActions.loaded(COURSE, COURSE_ID)
     TocActions.loaded([TOC[0]], ECOSYSTEM_ID)
 
-  it 'displays cc help when course is cc', ->
-    course = ld.cloneDeep(COURSE)
-    course.is_concept_coach = true
-    CourseActions.loaded(course, COURSE_ID)
-    Testing.renderComponent( Dashboard, props: @props ).then ({dom}) ->
-      expect(dom.textContent).to.contain(
-        'Students will only see questions from sections they work on in Concept Coach'
-      )
-
   it 'matches snapshot', ->
     ReactDOM.findDOMNode = jest.fn(-> new FakeDOMNode)
     expect(SnapShot.create(

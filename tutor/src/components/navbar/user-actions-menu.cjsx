@@ -71,7 +71,7 @@ UserActionsMenu = React.createClass
       data-name={route.name}
       eventKey={index + 2}
     >
-      <TourAnchor id={"menu-option-#{route.name}"}>
+      <TourAnchor id={"menu-option-#{route.name or route.key or route.label}"}>
         {route.label}
       </TourAnchor>
     </BS.MenuItem>
