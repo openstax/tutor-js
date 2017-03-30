@@ -8,6 +8,7 @@ DEFAULTS =
   course_type: 'tutor'
   copy_question_library: true
   new_or_copy: 'new'
+  is_preview: false
 
 CONTROL_VALUES = [
   'course_type'
@@ -102,6 +103,7 @@ StoreDefinition = makeStandardStore('NewCourse', {
       course_type: CourseListingStore.typeOfAllCourses()
     )
 
+  # BE ignores is_preview when cloning (always false)
   setClone: (course) ->
     @set(
       new_or_copy: 'copy'
