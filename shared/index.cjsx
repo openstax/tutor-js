@@ -3,8 +3,6 @@
 {ExControlButtons} = require './src/components/exercise/controls'
 {APIHandler, APIHandlerBase} = require './src/api'
 
-require 'babel-polyfill/dist/polyfill'
-
 module.exports = {
 
   OXRouter:               require './src/helpers/router'
