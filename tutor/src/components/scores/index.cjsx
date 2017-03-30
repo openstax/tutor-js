@@ -13,6 +13,7 @@ merge = require 'lodash/merge'
 LoadableItem = require '../loadable-item'
 ScoresExport = require './export'
 {CoursePeriodsNavShell} = require '../course-periods-nav'
+{default: TourRegion} = require '../tours/region';
 BindStoreMixin = require '../bind-store-mixin'
 
 StudentDataSorter = require './student-data-sorter'
@@ -97,20 +98,22 @@ Scores = React.createClass
             changeDisplayAs={@changeDisplayAs}
           />
         </div>
-        <ScoresTable
-          courseId={courseId}
-          overall_average_score={@state.overall_average_score}
-          rows={@state.rows}
-          headings={@state.headings}
-          sort={@state.sort}
-          onSort={@changeSortingOrder}
-          colSetWidth={@state.colSetWidth}
-          period_id={@state.period_id}
-          periodIndex={@state.periodIndex}
-          displayAs={@state.displayAs}
-          dataType={@state.sort.dataType}
-          isConceptCoach={@props.isConceptCoach}
-        />
+        <TourRegion id="scores">
+          <ScoresTable
+            courseId={courseId}
+            overall_average_score={@state.overall_average_score}
+            rows={@state.rows}
+            headings={@state.headings}
+            sort={@state.sort}
+            onSort={@changeSortingOrder}
+            colSetWidth={@state.colSetWidth}
+            period_id={@state.period_id}
+            periodIndex={@state.periodIndex}
+            displayAs={@state.displayAs}
+            dataType={@state.sort.dataType}
+            isConceptCoach={@props.isConceptCoach}
+          />
+        </TourRegion>
     </div>
 
 
