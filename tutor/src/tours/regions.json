@@ -13,6 +13,8 @@
   },
   "add-homework-select-exercises": {
     "tour_ids": ["add-homework-select-exercises"]
+  },
+  "performance-forecast": {
+    "tour_ids": ["performance-forecast"]
   }
-
 }

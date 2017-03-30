@@ -8,6 +8,7 @@ _ = require 'underscore'
 {CoursePeriodsNavShell} = require '../course-periods-nav'
 CourseGroupingLabel = require '../course-grouping-label'
 PerformanceForecast = require '../../flux/performance-forecast'
+{default: TourRegion} = require '../tours/region'
 
 Guide = require './guide'
 ColorKey    = require './color-key'
@@ -68,15 +69,17 @@ module.exports = React.createClass
   render: ->
     {courseId} = @props
     <BS.Panel className='performance-forecast teacher'>
-      <Guide
-        courseId={courseId}
-        weakerTitle="Weaker Areas"
-        heading={@renderHeading()}
-        weakerExplanation={@renderWeakerExplanation()}
-        weakerEmptyMessage="Your students haven't worked enough problems for Tutor to predict their weakest topics."
-        emptyMessage={@renderEmptyMessage()}
-        sampleSizeThreshold={20}
-        allSections={PerformanceForecast.Teacher.store.getSectionsForPeriod(courseId, @state.periodId)}
-        chapters={PerformanceForecast.Teacher.store.getChaptersForPeriod(courseId, @state.periodId)}
-      />
+      <TourRegion id="performance-forecast">
+        <Guide
+          courseId={courseId}
+          weakerTitle="Weaker Areas"
+          heading={@renderHeading()}
+          weakerExplanation={@renderWeakerExplanation()}
+          weakerEmptyMessage="Your students haven't worked enough problems for Tutor to predict their weakest topics."
+          emptyMessage={@renderEmptyMessage()}
+          sampleSizeThreshold={20}
+          allSections={PerformanceForecast.Teacher.store.getSectionsForPeriod(courseId, @state.periodId)}
+          chapters={PerformanceForecast.Teacher.store.getChaptersForPeriod(courseId, @state.periodId)}
+        />
+      </TourRegion>
     </BS.Panel>
