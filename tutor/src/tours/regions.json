@@ -45,5 +45,8 @@
   },
   "analytics-modal": {
     "tour_ids": [ "analytics-modal" ]
+  },
+  "course-settings": {
+    "tour_ids": ["course-settings-preview", "course-settings"]
   }
 }

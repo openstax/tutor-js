@@ -13,7 +13,7 @@ Title = (props) ->
   </span>
 
 module.exports = React.createClass
-  displayName: 'PeriodEnrollmentCode'
+  displayName: 'CCPeriodEnrollmentCode'
   propTypes:
     courseId: React.PropTypes.string.isRequired
     period:   React.PropTypes.object.isRequired

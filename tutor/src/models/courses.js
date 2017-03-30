@@ -9,7 +9,7 @@ import Role    from './course/role';
 import Student from './course/student';
 
 @identifiedBy('course')
-class Course extends BaseModel {
+export class Course extends BaseModel {
 
   @identifier id
 
@@ -52,9 +52,10 @@ class Course extends BaseModel {
 
   @computed get tourAudienceTags() {
     const tags = [];
-    if (this.isTeacher) { tags.push('teacher'); }
+    if (this.isTeacher) {
+      tags.push(this.is_preview ? 'teacher-preview' : 'teacher');
+    }
     if (this.isStudent) { tags.push('student'); }
-    // more checks TBD
     return tags;
   }
 
