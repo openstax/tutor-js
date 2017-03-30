@@ -12,6 +12,8 @@ STUDENT_COURSE_ONE_MODEL = {
   term: 'Spring'
   starts_at: '2017-01-01T00:00:00.000Z'
   ends_at: '2017-06-30T23:59:59.000Z'
+  webview_url: 'http://cnx.org/',
+  salesforce_book_name: 'a book title',
   roles: [
     {
       "type": "student"
@@ -31,6 +33,8 @@ TEACHER_COURSE_TWO_MODEL = {
   term: 'Spring'
   starts_at: '2017-01-01T00:00:00.000Z'
   ends_at: '2017-06-30T23:59:59.000Z'
+  webview_url: 'http://cnx.org/',
+  salesforce_book_name: 'a book title',
   roles: [
     {
       "type": "teacher"
@@ -72,6 +76,8 @@ STUDENT_ARCHIVED_COURSE = {
   term: 'Spring'
   starts_at: '2016-01-01T00:00:00.000Z'
   ends_at: '2016-06-30T23:59:59.000Z'
+  webview_url: 'http://cnx.org/',
+  salesforce_book_name: 'a book title',
   roles: []
 }
 
@@ -87,6 +93,8 @@ TEACHER_PAST_COURSE = {
   term: 'Spring'
   starts_at: '2016-01-01T00:00:00.000Z'
   ends_at: '2016-06-30T23:59:59.000Z'
+  webview_url: 'http://cnx.org/',
+  salesforce_book_name: 'a book title',
   roles: [
     {
       type: 'teacher'
@@ -106,6 +114,8 @@ STUDENT_PAST_COURSE = {
   term: 'Spring'
   starts_at: '2016-01-01T00:00:00.000Z'
   ends_at: '2016-06-30T23:59:59.000Z'
+  webview_url: 'http://cnx.org/',
+  salesforce_book_name: 'a book title',
   roles: [
     {
       type: 'teacher'

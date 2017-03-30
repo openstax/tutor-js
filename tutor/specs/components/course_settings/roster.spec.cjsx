@@ -1,7 +1,7 @@
 {React, Testing, pause, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
 ld = require 'lodash'
 Roster = require '../../../src/components/course-settings/roster'
-
+{ bootstrapCoursesList } = require('../../courses-test-data')
 COURSE = require '../../../api/user/courses/1.json'
 ROSTER = require '../../../api/courses/1/roster.json'
 
@@ -14,6 +14,7 @@ COURSE_ID = '1'
 describe 'Course Settings', ->
 
   beforeEach ->
+    bootstrapCoursesList()
     CourseActions.loaded(COURSE, COURSE_ID)
     RosterActions.loaded(ROSTER, COURSE_ID)
     sinon.stub(PeriodActions, 'delete', (periodId) ->
