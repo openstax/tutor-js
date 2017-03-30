@@ -3,7 +3,7 @@ import {
 } from '../base';
 import { defaults } from 'lodash';
 import { action, observable } from 'mobx';
-import { compact, extend } from 'lodash';
+import { filter, extend } from 'lodash';
 import User from '../user';
 
 const DEFAULT_JOYRIDE_CONFIG = {
@@ -28,6 +28,12 @@ export default class TourRide extends BaseModel {
 
   @observable currentStep = 0;
 
+  dispose() {
+    if (this.joyrideRef) {
+      this.joyrideRef.reset();
+    }
+  }
+
   @computed get joyrideProps() {
     const { tour } = this;
     if (!tour) { return {}; }
@@ -37,8 +43,18 @@ export default class TourRide extends BaseModel {
       ref: ref => (this.joyrideRef = ref),
       locale: this.labels,
       showStepsProgress: this.showStepsProgress,
-      steps: compact(this.tour.steps.map(step => this.stepForRide(step))),
+      steps: this.validSteps,
     }, DEFAULT_JOYRIDE_CONFIG);
+  }
+
+  @computed get tourSteps() {
+    return this.tour.steps.map(step => this.stepForRide(step));
+  }
+
+  @computed get validSteps() {
+    return filter(
+      this.tourSteps, step => !!(step && (!step.anchor_id ||this.context.anchors.has(step.anchor_id)))
+    );
   }
 
   @computed get labels() {
@@ -52,7 +68,7 @@ export default class TourRide extends BaseModel {
   }
 
   @computed get showStepsProgress() {
-    return this.currentStep > 2;
+    return this.validSteps.length > 3;
   }
 
   @action.bound

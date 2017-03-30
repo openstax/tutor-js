@@ -30,14 +30,14 @@ describe('Tour View Model', () => {
   });
 
   it ('calculates if steps should show progress', () => {
-    times(3, (index) => {
-      ride.joyrideCallback({ index, type: 'step:before' });
-      expect(ride.joyrideProps.showStepsProgress).toBe(false);
+    // no anchors
+    expect(ride.joyrideProps.showStepsProgress).toBe(false);
+    ride.tour.steps.forEach((s) => {
+      if (s.anchor_id){
+        context.addAnchor(s.anchor_id, {});
+      }
     });
-    times(3, (index) => {
-      ride.joyrideCallback({ index: index+3, type: 'step:before' });
-      expect(ride.joyrideProps.showStepsProgress).toBe(true);
-    });
+    expect(ride.joyrideProps.showStepsProgress).toBe(true);
   });
 
 });
