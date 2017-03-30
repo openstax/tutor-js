@@ -13,6 +13,9 @@
   },
   "add-homework-select-exercises": {
     "tour_ids": ["add-homework-select-exercises"]
+  },
+  "review-metrics": {
+    "tour_ids": ["review-metrics"]
   }
 
 }
