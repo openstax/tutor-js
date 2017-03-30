@@ -11,6 +11,7 @@ CancelButton = require './cancel-button'
 BackButton   = require './back-button'
 DraftButton  = require './save-as-draft'
 DeleteLink   = require './delete-link'
+{ default: TourAnchor } = require '../../tours/anchor'
 
 PlanFooter = React.createClass
   displayName: 'PlanFooter'
@@ -70,44 +71,61 @@ PlanFooter = React.createClass
     isPublished = TaskPlanStore.isPublished(id)
 
     <div className='builder-footer-controls'>
-      <SaveButton
-        onSave={@onSave}
-        onPublish={@onPublish}
-        isWaiting={isWaiting}
-        isSaving={@state.saving}
-        isEditable={@state.isEditable}
-        isPublishing={@state.publishing}
-        isPublished={isPublished}
-        hasError={hasError}
-      />
-      <DraftButton
-        onClick={@onSave}
-        isWaiting={isWaiting and @state.saving}
-        isPublishing={@state.publishing}
-        isFailed={isFailed}
-        hasError={hasError}
-        isPublished={isPublished}
-      />
-      <CancelButton
-        isWaiting={isWaiting}
-        onClick={@props.onCancel}
-        isEditable={@state.isEditable}
-      />
-      <BackButton
-        isEditable={@state.isEditable}
-        getBackToCalendarParams={@props.getBackToCalendarParams}
-      />
+
+      <TourAnchor id="builder-save-button">
+        <SaveButton
+          onSave={@onSave}
+          onPublish={@onPublish}
+          isWaiting={isWaiting}
+          isSaving={@state.saving}
+          isEditable={@state.isEditable}
+          isPublishing={@state.publishing}
+          isPublished={isPublished}
+          hasError={hasError}
+        />
+      </TourAnchor>
+
+      <TourAnchor id="builder-draft-button">
+        <DraftButton
+          onClick={@onSave}
+          isWaiting={isWaiting and @state.saving}
+          isPublishing={@state.publishing}
+          isFailed={isFailed}
+          hasError={hasError}
+          isPublished={isPublished}
+        />
+      </TourAnchor>
+
+      <TourAnchor id="builder-cancel-button">
+        <CancelButton
+          isWaiting={isWaiting}
+          onClick={@props.onCancel}
+          isEditable={@state.isEditable}
+        />
+      </TourAnchor>
+
+      <TourAnchor id="builder-back-button">
+        <BackButton
+          isEditable={@state.isEditable}
+          getBackToCalendarParams={@props.getBackToCalendarParams}
+        />
+      </TourAnchor>
+
       <HelpTooltip
         isPublished={isPublished}
       />
-      <DeleteLink
-        isNew={TaskPlanStore.isNew(id)}
-        onClick={@onDelete}
-        isFailed={isFailed}
-        isVisibleToStudents={@props.isVisibleToStudents}
-        isWaiting={TaskPlanStore.isDeleting(id)}
-        isPublished={isPublished}
-      />
+
+      <TourAnchor id="builder-delete-button">
+        <DeleteLink
+          isNew={TaskPlanStore.isNew(id)}
+          onClick={@onDelete}
+          isFailed={isFailed}
+          isVisibleToStudents={@props.isVisibleToStudents}
+          isWaiting={TaskPlanStore.isDeleting(id)}
+          isPublished={isPublished}
+        />
+      </TourAnchor>
+
     </div>
 
 module.exports = PlanFooter

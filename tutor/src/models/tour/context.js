@@ -61,7 +61,7 @@ export default class TourContext extends BaseModel {
   openRegion(region) {
     const existing = find(this.regions, { id: region.id });
     if (existing){
-      invariant(existing === region, 'attempted to add a region when one already exist with same id');
+      invariant(existing === region, `attempted to add region ${region.id}, but it already exists!`);
     } else { // no need to add if existing is the same object
       this.regions.push(region);
     }
