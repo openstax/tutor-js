@@ -37,9 +37,7 @@ export default class StudentEnrollmentLink extends React.PureComponent {
 
   renderPreview() {
     return (
-      <TourAnchor id="disabled-preview-url">
-        <span className="disabled-for-preview">No enrollment URL in preview.</span>
-      </TourAnchor>
+      <span className="disabled-for-preview">No enrollment URL in preview.</span>
     );
   }
 

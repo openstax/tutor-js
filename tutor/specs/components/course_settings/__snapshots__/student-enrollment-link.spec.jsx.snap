@@ -2,7 +2,9 @@
 
 exports[`Course Settings, student enrollment link renders with disabled url for preview course 1`] = `
 <span
-  className="enrollment-code-link"
+  className="tour-anchor enrollment-code-link"
+  data-tour-anchor-id="enrollment-code-link"
+  id="enrollment-code-link"
   onClick={[Function]}
 >
   <span
@@ -20,7 +22,9 @@ exports[`Course Settings, student enrollment link renders with disabled url for 
 
 exports[`Course Settings, student enrollment link renders with url 1`] = `
 <span
-  className="enrollment-code-link"
+  className="tour-anchor enrollment-code-link"
+  data-tour-anchor-id="enrollment-code-link"
+  id="enrollment-code-link"
   onClick={[Function]}
 >
   <span

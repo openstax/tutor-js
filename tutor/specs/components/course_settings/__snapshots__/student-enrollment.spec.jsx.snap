@@ -23,7 +23,9 @@ exports[`Course Settings, enrollment url renders for cc courses 1`] = `
 
 exports[`Course Settings, enrollment url renders for regular courses 1`] = `
 <span
-  className="enrollment-code-link"
+  className="tour-anchor enrollment-code-link"
+  data-tour-anchor-id="enrollment-code-link"
+  id="enrollment-code-link"
   onClick={[Function]}
 >
   <span
