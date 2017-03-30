@@ -5,7 +5,11 @@ const TOURS = {};
 
 [
   require('./scores.json'),
+  require('./analytics-modal.json'),
   require('./teacher-calendar.json'),
+  require('./review-metrics.json'),
+  require('./question-library.json'),
+  require('./add-reading.json'),
   require('./add-homework.json'),
 ].forEach(tours => tours.forEach(tour => TOURS[tour.id] = tour));
 

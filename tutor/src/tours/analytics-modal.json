@@ -1,0 +1,24 @@
+[{
+    "id": "analytics-modal",
+    "audience_tags": [ "teacher" ],
+    "steps": [
+        {
+          "body": "Get in the habit of checking this view for each assignment, as it lets you do a bunch of important things: edit the assignment, get a link for your Learning Management System, and review how students are doing.",
+          "action": {
+            "id": "reposition"
+          }
+        }, {
+          "title": "Get assignment link",
+          "body": "Put this assignment directly into your learning management system using this link.",
+          "anchor_id": "lms-info-link"
+        }, {
+          "title": "Edit this assignment",
+          "body": "Edit assignment dates or delete an assignment by clicking “edit assignment.”",
+          "anchor_id": "edit-assignment-button"
+        }, {
+          "title": "Review Metrics",
+          "body": "See students’ free-response answers and performance data for each question.",
+          "anchor_id": "view-metrics"
+        }
+    ]
+}]

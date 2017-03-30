@@ -25,6 +25,14 @@
 
   @import './question';
   @import './breadcrumbs';
+  // match errata link styles so the tour pointer matches it's position
+  .tour-anchor#errata-link {
+    position: relative;
+    float: right;
+    .exercise-identifier-link {
+      position: initial;
+    }
+  }
 }
 
 .pinned-on {

@@ -6,7 +6,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
 
-CoursePlanDetails = require './plan-details'
+{ default: CoursePlanDetails } = require './plan-details'
 CoursePlanLabel = require './plan-label'
 
 { CoursePlanDisplayEdit,
