@@ -1,5 +1,5 @@
 import { bootstrapCoursesList } from '../../courses-test-data';
-import { autorun } from 'mobx';
+import { autorun, observe } from 'mobx';
 import TourRegion from '../../../src/models/tour/region';
 import TourContext from '../../../src/models/tour/context';
 import User from '../../../src/models/user';
@@ -108,5 +108,14 @@ describe('Tour Context Model', () => {
     expect(context.debugStatus).toContain('available regions: [foo]');
     expect(context.debugStatus).toContain('region tour ids: [teacher-calendar]');
     expect(context.debugStatus).toContain('valid tours: [teacher-calendar]');
+  });
+
+  it('calls dispose on old ride it changes', () => {
+    context.openRegion(region);
+    const ride = context.tourRide;
+    ride.dispose = jest.fn();
+    context.closeRegion(region);
+    expect(context.tourRide).toBeNull();
+    expect(ride.dispose).toHaveBeenCalled();
   });
 });

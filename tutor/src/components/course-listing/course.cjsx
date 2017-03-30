@@ -79,6 +79,7 @@ Course = React.createClass
         {...courseDataProps}
         data-is-teacher={courseIsTeacher}
         data-course-id={course.id}
+        data-course-course-type={if course.is_concept_coach then 'cc' else 'tutor'}
         className={itemClasses}
       >
         <div

@@ -14,6 +14,7 @@ PlanMixin = require './plan-mixin'
 LoadableItem = require '../loadable-item'
 TaskPlanBuilder = require './builder'
 Fn = require '../../helpers/function'
+{ default: TourRegion } = require '../tours/region'
 
 ReviewReadingLi = React.createClass
   displayName: 'ReviewReadingLi'
@@ -75,10 +76,16 @@ ReviewReadings = React.createClass
 
   renderSelected: ->
     if @props.selected.length
-      <ul className='selected-reading-list'>
+      <TourRegion
+        tag="ul"
+        delay=4000
+        className="selected-reading-list"
+        id={"add-reading-review-sections"}
+        courseId={@props.courseId}
+      >
         <li>Currently selected</li>
         {_.map(@props.selected, @renderSection)}
-      </ul>
+      </TourRegion>
     else
       <div className='-selected-reading-list-none'></div>
 
@@ -106,8 +113,11 @@ ChooseReadings = React.createClass
         disabled={@props.selected?.length is 0}
         onClick={@hide}>Add Readings
       </BS.Button>
-
-    <div className="reading-plan-select-topics">
+    <TourRegion
+      className="reading-plan-select-topics"
+      id={"add-reading-choose-sections"}
+      courseId={@props.courseId}
+    >
       <SelectTopics
         primary={primary}
         onSectionChange={Fn.empty}
@@ -118,11 +128,14 @@ ChooseReadings = React.createClass
         selected={@props.selected}
         cancel={@props.cancel}
         hide={@hide} />
-    </div>
+    </TourRegion>
 
 ReadingPlan = React.createClass
   displayName: 'ReadingPlan'
   mixins: [PlanMixin]
+
+  getInitialState: ->
+    showSectionTopics: false
 
   render: ->
     {id, courseId} = @props
@@ -149,7 +162,7 @@ ReadingPlan = React.createClass
     addReadingText = if topics?.length then 'Add More Readings' else 'Add Readings'
 
 
-    if (@state?.showSectionTopics)
+    if (@state.showSectionTopics)
       selectReadings = <ChooseReadings
                         hide={@hideSectionTopics}
                         cancel={@cancelSelection}
@@ -178,9 +191,10 @@ ReadingPlan = React.createClass
       <BS.Panel
         className={formClasses}
         footer={footer}
-        header={header}>
+        header={header}
+      >
 
-        <BS.Grid fluid>
+        {<BS.Grid fluid>
           <TaskPlanBuilder courseId={courseId} id={id} {...builderProps}/>
 
           <BS.Row>
@@ -196,7 +210,7 @@ ReadingPlan = React.createClass
             </BS.Col>
           </BS.Row>
 
-        </BS.Grid>
+        </BS.Grid> unless @state.showSectionTopics}
       </BS.Panel>
       {selectReadings}
     </div>
