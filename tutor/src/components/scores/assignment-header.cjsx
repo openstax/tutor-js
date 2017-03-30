@@ -5,6 +5,7 @@ classnames = require 'classnames'
 TutorLink = require '../link'
 SortingHeader    = require './sorting-header'
 Time   = require '../time'
+{default: TourAnchor} = require '../tours/anchor'
 
 ReviewLink = (props) ->
   return null if props.isConceptCoach or props.heading.type is 'external' or not props.heading.plan_id?
@@ -95,7 +96,7 @@ AssignmentHeader = (props) ->
         </BS.Tooltip>
       }
     >
-      <div className="expanded-header-row">
+      <TourAnchor className="expanded-header-row" id={"scores-#{heading.type}-header"}>
         <div
           data-assignment-type="#{heading.type}"
           className={classnames('header-cell', 'group', 'title', {cc: isConceptCoach})}
@@ -105,7 +106,7 @@ AssignmentHeader = (props) ->
         {<div className='due'>
           due <Time date={heading.due_at} format='shortest'/>
         </div> unless isConceptCoach}
-      </div>
+      </TourAnchor>
     </BS.OverlayTrigger>
     <div className='header-row'>
       <AverageLabel {...props} heading={heading} />

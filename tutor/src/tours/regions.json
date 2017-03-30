@@ -2,6 +2,9 @@
   "tutor": {
     "tour_ids": []
   },
+  "scores": {
+    "tour_ids": ["preview-scores", "scores"]
+  },
   "teacher-calendar": {
     "tour_ids": ["teacher-calendar"]
   },
