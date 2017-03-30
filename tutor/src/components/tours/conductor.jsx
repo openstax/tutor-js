@@ -32,15 +32,22 @@ export default class TourConductor extends React.PureComponent {
            <Joyride {...this.tourContext.tourRide.joyrideProps} /> : null;
   }
 
+  renderSpyModeInfo() {
+    return null; // temporarily disabled while tours are demoed
+    return (
+      <SpyModeContent>
+        <div className="tour-spy-info">{this.tourContext.debugStatus}</div>
+      </SpyModeContent>
+    );
+  }
+
   render() {
     return (
       <Provider tourContext={this.tourContext}>
         <div data-purpose="tour-conductor-wrapper">
           {this.renderTour()}
           {this.props.children}
-          <SpyModeContent>
-            <div className="tour-spy-info">{this.tourContext.debugStatus}</div>
-          </SpyModeContent>
+          {this.renderSpyModeInfo()}
         </div>
       </Provider>
     );
