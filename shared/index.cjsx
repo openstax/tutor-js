@@ -3,7 +3,7 @@
 {ExControlButtons} = require './src/components/exercise/controls'
 {APIHandler, APIHandlerBase} = require './src/api'
 
-require './src/helpers/polyfills'
+require 'babel-polyfill/dist/polyfill'
 
 module.exports = {
 
