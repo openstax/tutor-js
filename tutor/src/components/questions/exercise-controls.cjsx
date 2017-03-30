@@ -10,6 +10,7 @@ isEmpty = require 'lodash/isEmpty'
 {CourseStore} = require '../../flux/course'
 {AsyncButton, ScrollToMixin} = require 'shared'
 showDialog = require './unsaved-dialog'
+{default: TourAnchor} = require '../tours/anchor'
 
 Icon = require '../icon'
 
@@ -53,32 +54,29 @@ QuestionsControls = React.createClass
 
     isConceptCoach = CourseStore.isConceptCoach(@props.courseId)
     filters =
-      <BS.ButtonGroup className="filters">
-        <BS.Button data-filter='all' onClick={@onFilterClick}
-          className={classNames 'all', 'active': isEmpty(@props.filter) or @props.filter is 'all'}
-        >
-          All
-        </BS.Button>
+      <TourAnchor id="exercise-type-toggle">
+        <BS.ButtonGroup className="filters">
 
-        <BS.Button data-filter='reading' onClick={@onFilterClick}
-          className={classNames 'reading', 'active': @props.filter is 'reading'}
-        >
-          Reading
-        </BS.Button>
+          <BS.Button data-filter='reading' onClick={@onFilterClick}
+            className={classNames 'reading', 'active': @props.filter is 'reading'}
+          >
+            Reading
+          </BS.Button>
 
-        <BS.Button data-filter='homework' onClick={@onFilterClick}
-          className={classNames 'homework', 'active': @props.filter is 'homework'}
-        >
-          Practice
-        </BS.Button>
-      </BS.ButtonGroup>
+          <BS.Button data-filter='homework' onClick={@onFilterClick}
+            className={classNames 'homework', 'active': @props.filter is 'homework'}
+          >
+            Practice
+          </BS.Button>
+        </BS.ButtonGroup>
+      </TourAnchor>
 
     <div className="exercise-controls-bar">
-      <div className="filters-wrapper">
-        {if not isConceptCoach then filters}
-      </div>
-
       {@props.children}
+
+      <div className="filters-wrapper">
+        {filters unless isConceptCoach}
+      </div>
 
       <BS.Button onClick={@scrollToTop}>
         + Select more sections
