@@ -4,6 +4,7 @@ BS = require 'react-bootstrap'
 
 {ArbitraryHtmlAndMath, Question, CardBody, FreeResponse, ExerciseGroup, ExerciseIdentifierLink} = require 'shared'
 {ExerciseStore} = require '../../flux/exercise'
+{default: TourAnchor} = require '../tours/anchor'
 
 TaskTeacherReviewQuestion = React.createClass
   displayName: 'TaskTeacherReviewQuestion'
@@ -54,12 +55,14 @@ TaskTeacherReviewQuestion = React.createClass
       <FreeResponse {...answer} key={freeResponseKey}/>
 
     <BS.Accordion onSelect={@toggleAnswers}>
-      <BS.Panel
-        header={toggleAnswersText}
-        eventKey={question.id}
-        className={freeResponsesClasses}>
-        {freeResponses}
-      </BS.Panel>
+      <TourAnchor id="student-responses">
+        <BS.Panel
+          header={toggleAnswersText}
+          eventKey={question.id}
+          className={freeResponsesClasses}>
+          {freeResponses}
+        </BS.Panel>
+      </TourAnchor>
     </BS.Accordion>
 
   render: ->
@@ -136,8 +139,11 @@ TaskTeacherReviewExercise = React.createClass
         <ExerciseGroup
           project='tutor'
           key='step-exercise-group'
-          exercise_uid={uid}/>
-        <ExerciseIdentifierLink exerciseId={@props.content.uid} project='tutor' />
+          exercise_uid={uid}
+        />
+        <TourAnchor id="errata-link">
+          <ExerciseIdentifierLink exerciseId={@props.content.uid} project='tutor' />
+        </TourAnchor>
       </CardBody>
     </div>
 module.exports = TaskTeacherReviewExercise

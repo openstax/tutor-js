@@ -26,7 +26,7 @@ class Course extends BaseModel {
   @field is_active;
   @field is_college;
   @field is_concept_coach;
-  @field is_trial;
+  @field is_preview;
   @field num_sections;
   @field offering_id;
 

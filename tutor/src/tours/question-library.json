@@ -1,0 +1,59 @@
+[{
+  "id": "preview-question-library-sections-chooser",
+  "showOverlay": false,
+  "audience_tags": [
+    "teacher-preview"
+  ],
+  "steps": [
+    {
+      "body": "Before you make an assignment, you’ll exclude the questions you don’t want your students to get"
+    }, {
+      "title": "View questions",
+      "body" : "Select chapters you plan to assign, then scroll down and click Show Questions. And don’t worry — students never get questions from sections you don’t assign."
+    }
+  ]
+}, {
+  "id": "question-library-sections-chooser",
+  "showOverlay": false,
+  "audience_tags": [
+    "teacher"
+  ],
+  "steps": [
+    {
+      "body": "Before you make your first homework or reading, customize your question library by removing questions you don’t want your students to get."
+    }, {
+      "title": "View questions",
+      "body" : "Select chapters you plan to assign, then scroll down and click Show Questions. And don’t worry — students never get questions from sections you don’t assign."
+    }
+  ]
+}, {
+
+  "id": "question-library-exercises",
+  "scrollToSteps": false,
+  "showOverlay": false,
+  "audience_tags": [
+    "teacher", "teacher-preview"
+  ],
+  "steps": [
+    {
+      "title": "How OpenStax Tutor uses questions",
+      "body": "In addition to the questions you assign your students, OpenStax Tutor assigns personalized questions for each student from the sections you have assigned.",
+      "is_fixed": true
+    }, {
+      "title": "Reading vs Homework",
+      "body": "Click “Reading” to view questions reserved for reading assignments. To view questions you can assign as homework, click “Homework.”",
+      "anchor_id": "exercise-type-toggle",
+      "position": "bottom"
+    }, {
+      "title": "Excluding questions",
+      "body": "See a question you don’t like? Hover over it and click “exclude.”\n\n[best-practices]: Don’t exclude too many — OpenStax Tutor needs several questions to make its personalized recommendations.",
+      "position": "right",
+      "anchor_id": "exercise-preview"
+    }, {
+      "title": "Details View",
+      "body": "See question details and report a question error by hovering over it and selecting “Question details.”",
+      "position": "right",
+      "anchor_id": "exercise-preview"
+    }
+  ]
+}]

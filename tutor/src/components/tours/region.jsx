@@ -17,6 +17,7 @@ export default class TourRegion extends React.PureComponent {
     tag: 'div',
     className: '',
     tourContext: undefined,
+    delay: 500,
   }
 
   static propTypes = {
@@ -25,6 +26,7 @@ export default class TourRegion extends React.PureComponent {
     children: React.PropTypes.node.isRequired,
     tourContext: React.PropTypes.instanceOf(TourContext),
     tag: React.PropTypes.string,
+    delay: React.PropTypes.number,
     className: React.PropTypes.string,
   }
 
@@ -35,7 +37,7 @@ export default class TourRegion extends React.PureComponent {
 
   componentDidMount() {
     if (this.props.tourContext) {
-      delay(() => this.props.tourContext.openRegion(this.region, this.props), 500);
+      delay(() => this.props.tourContext.openRegion(this.region, this.props), this.delay);
     }
   }
 

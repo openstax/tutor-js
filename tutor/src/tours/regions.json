@@ -2,19 +2,48 @@
   "tutor": {
     "tour_ids": []
   },
+  "scores": {
+    "tour_ids": ["preview-scores", "scores"]
+  },
   "teacher-calendar": {
     "tour_ids": ["teacher-calendar"]
   },
+  "question-library-sections-chooser": {
+    "tour_ids": [ "preview-question-library-sections-chooser", "question-library-sections-chooser" ]
+  },
+  "question-library-exercises": {
+    "tour_ids": [ "preview-question-library-exercises", "question-library-exercises" ]
+  },
+
   "homework-assignment-editor": {
     "tour_ids": ["add-homework-builder"]
   },
+  "reading-assignment-editor": {
+    "tour_ids": ["add-reading-builder"]
+  },
+
   "add-homework-choose-sections": {
     "tour_ids": ["add-homework-choose-sections"]
   },
+
+  "add-reading-choose-sections": {
+    "tour_ids": ["add-reading-choose-sections"]
+  },
+
+  "add-reading-review-sections": {
+    "tour_ids": ["add-reading-review-sections"]
+  },
+
   "add-homework-select-exercises": {
     "tour_ids": ["add-homework-select-exercises"]
   },
   "performance-forecast": {
     "tour_ids": ["performance-forecast"]
+  }
+  "review-metrics": {
+    "tour_ids": ["review-metrics"]
+  },
+  "analytics-modal": {
+    "tour_ids": [ "analytics-modal" ]
   }
 }

@@ -6,7 +6,9 @@ exports[`Scores Report: assignment column header for a CC course matches snapsho
 >
   <div
     aria-describedby="header-cell-title-0"
-    className="expanded-header-row"
+    className="tour-anchor expanded-header-row"
+    data-tour-anchor-id="scores-homework-header"
+    id="scores-homework-header"
     onBlur={[Function]}
     onClick={null}
     onFocus={[Function]}
@@ -64,7 +66,9 @@ exports[`Scores Report: assignment column header renders and matches snapshot 1`
 >
   <div
     aria-describedby="header-cell-title-0"
-    className="expanded-header-row"
+    className="tour-anchor expanded-header-row"
+    data-tour-anchor-id="scores-homework-header"
+    id="scores-homework-header"
     onBlur={[Function]}
     onClick={null}
     onFocus={[Function]}
