@@ -39,7 +39,7 @@
   },
   "performance-forecast": {
     "tour_ids": ["performance-forecast"]
-  }
+  },
   "review-metrics": {
     "tour_ids": ["review-metrics"]
   },
