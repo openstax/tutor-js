@@ -25,6 +25,7 @@ describe 'NewCourse Store', ->
       year: 2018,
       name: 'Test Course',
       num_sections: 3,
+      is_preview: false,
       is_college: true
     })
 
