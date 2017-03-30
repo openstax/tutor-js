@@ -6,6 +6,7 @@ classnames = require 'classnames'
 BindStoreMixin = require '../bind-store-mixin'
 {AsyncButton} = require 'shared'
 TimeDifference = require '../time-difference'
+{default: TourAnchor} = require '../tours/anchor'
 
 {ScoresExportStore, ScoresExportActions} = require '../../flux/scores-export'
 
@@ -153,12 +154,12 @@ ScoresExport = React.createClass
       exportTimeNotice =
         <i><small>The export may take up to 10 minutes.</small></i>
 
-    <div className={classes}>
+    <TourAnchor className={classes} id="scores-export-button">
       <div className='export-button-buttons'>
         {actionButton}
       </div>
       {exportTimeNotice}
       <iframe id="downloadExport" src={finalDownloadUrl}></iframe>
-    </div>
+    </TourAnchor>
 
 module.exports = ScoresExport

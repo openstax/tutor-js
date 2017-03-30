@@ -4,6 +4,7 @@ import { extend, each } from 'lodash';
 const TOURS = {};
 
 [
+  require('./scores.json'),
   require('./analytics-modal.json'),
   require('./teacher-calendar.json'),
   require('./review-metrics.json'),
