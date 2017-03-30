@@ -35,6 +35,10 @@
     "tour_ids": ["add-homework-select-exercises"]
   },
 
+  "review-metrics": {
+    "tour_ids": ["review-metrics"]
+  },
+
   "analytics-modal": {
     "tour_ids": [ "analytics-modal" ]
   },

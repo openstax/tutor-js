@@ -5,6 +5,7 @@ TaskTeacherReviewExercise = require './exercise'
 LoadableItem = require '../loadable-item'
 
 {TaskTeacherReviewActions, TaskTeacherReviewStore} = require '../../flux/task-teacher-review'
+{default: TourRegion} = require '../tours/region'
 
 ReviewHeadingTracker = React.createClass
   displayName: 'ReviewHeadingTracker'
@@ -52,9 +53,9 @@ Review = React.createClass
         {...stepProps}
         sectionKey={step.key}/>
 
-    <div>
+    <TourRegion id="review-metrics">
       {stepsList}
-    </div>
+    </TourRegion>
 
 
 ReviewShell = React.createClass
