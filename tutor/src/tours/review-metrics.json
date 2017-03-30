@@ -1,0 +1,17 @@
+[{
+  "id": "review-metrics",
+  "audience_tags": [
+    "teacher"
+  ],
+  "steps": [
+    {
+      "title": "View student text responses",
+      "body": "Research shows when students submit answer a question in their own words before selecting a multiple choice answer, they are more likely to retain the information they’ve learned.",
+      "anchor_id": "student-responses"
+    }, {
+      "title": "Find an error?",
+      "body": "Click here and report the error to the OpenStax team.",
+      "anchor_id": "errata-link"
+    }
+  ]
+}]
