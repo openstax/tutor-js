@@ -1,9 +1,9 @@
 // coffeelint: disable=max_line_length
 import React from 'react';
-import { get, uniqueId } from 'lodash';
 import { action } from 'mobx';
+import { get }    from 'lodash';
 import { Course } from '../../models/courses';
-import { OverlayTrigger, Popover } from 'react-bootstrap';
+import TourAnchor from '../tours/anchor';
 
 // Approx how wide each char is in the text input
 // it's width will be set to this * link's character count
@@ -37,18 +37,25 @@ export default class StudentEnrollmentLink extends React.PureComponent {
 
   renderPreview() {
     return (
-      <span className="disabled-for-preview">No enrollment URL in preview.</span>
+      <TourAnchor id="disabled-preview-url">
+        <span className="disabled-for-preview">No enrollment URL in preview.</span>
+      </TourAnchor>
     );
   }
 
   render() {
     return (
-      <span className="enrollment-code-link" onClick={this.selectText}>
+      <TourAnchor
+        id="enrollment-code-link"
+        tag="span"
+        className="enrollment-code-link"
+        onClick={this.selectText}
+      >
         <span className="title">
           Student Enrollment URL:
         </span>
         {this.props.course.is_preview ? this.renderPreview() : this.renderInput()}
-      </span>
+      </TourAnchor>
     );
   }
 }
