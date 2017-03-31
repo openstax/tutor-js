@@ -29,7 +29,7 @@ export class User extends BaseModel {
   @field({ type: 'array' }) viewed_tour_ids;
 
   @computed get tourAudienceTags() {
-    return uniq(flatMap(Courses.values(), 'tourAudienceTags'));
+    return []; // we may have special per-user tags at some point?
   }
 
   replayTours() {
