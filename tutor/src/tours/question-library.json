@@ -45,7 +45,7 @@
       "position": "bottom"
     }, {
       "title": "Excluding questions",
-      "body": "See a question you don’t like? Hover over it and click “exclude.”\n\n[best-practices]: Don’t exclude too many — OpenStax Tutor needs several questions to make its personalized recommendations.",
+      "body": "See a question you don’t like? Hover over it and click “exclude.” :best-practices: Don’t exclude too many — OpenStax Tutor needs several questions to make its personalized recommendations.",
       "position": "right",
       "anchor_id": "exercise-preview"
     }, {

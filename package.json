@@ -53,6 +53,7 @@
     "lodash": "4.17.4",
     "loglevel": "1.4.1",
     "markdown-it": "8.2.2",
+    "markdown-it-regexp": "0.4.0",
     "mime-types": "2.1.14",
     "minimatch": "3.0.3",
     "mobx": "3.1.3",
