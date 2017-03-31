@@ -26,7 +26,11 @@ ExerciseDetailsWrapper = (props) ->
   </TourRegion>
 
 ExerciseCardsWrapper = (props) ->
-  <TourRegion id="question-library-exercises" courseId={props.courseId}>
+  <TourRegion
+    id="question-library-exercises"
+    otherTours={["preview-question-library-exercises"]}
+    courseId={props.courseId}
+  >
     <ExerciseCards {...props} />
   </TourRegion>
 

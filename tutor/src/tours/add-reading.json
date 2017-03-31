@@ -1,6 +1,9 @@
 [{
-  "id": "add-reading-builder",
-  "audience_tags": [ "teacher" ],
+  "id": "reading-assignment-editor",
+  "audience_tags": [
+    "teacher",
+    "teacher-preview"
+  ],
   "steps": [
     {
       "title": "OpenStax Tutor reading assignments",
@@ -14,7 +17,10 @@
   ]
 }, {
   "id": "add-reading-choose-sections",
-  "audience_tags": [ "teacher" ],
+  "audience_tags": [
+    "teacher",
+    "teacher-preview"
+  ],
   "steps": [
     {
       "title": "First, select a chapter",
@@ -23,7 +29,10 @@
   ]
 }, {
   "id": "add-reading-review-sections",
-  "audience_tags": [ "teacher" ],
+  "audience_tags": [
+    "teacher",
+    "teacher-preview"
+  ],
   "steps": [
     {
       "title": "What will students get",

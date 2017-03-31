@@ -1,50 +1,58 @@
 [{
-    "id": "add-homework-builder",
-    "audience_tags": [ "teacher" ],
-    "steps": [
-        {
-            "title": "OpenStax Tutor homework",
-            "body": "A homework assignment includes questions you assign and up to four personalized questions assigned by OpenStax Tutor."
-        },
-        {
-            "title": "Build a homework",
-            "body": "Ready to make a homework assignment? Fill in this form and click “select problems.”"
-        }
+  "id": "homework-assignment-editor",
+  "audience_tags": [
+    "teacher",
+    "teacher-preview"
+  ],
+  "steps": [
+    {
+      "title": "OpenStax Tutor homework",
+      "body": "A homework assignment includes questions you assign and up to four personalized questions assigned by OpenStax Tutor."
+    },
+    {
+      "title": "Build a homework",
+      "body": "Ready to make a homework assignment? Fill in this form and click “select problems.”"
+    }
 
-    ]
+  ]
 }, {
-    "id": "add-homework-choose-sections",
-    "audience_tags": [ "teacher" ],
-    "steps": [
-        {
-            "title": "First, select a chapter",
-            "body": "Select a chapter you want to assign, then scroll down and click “show problems.” Uncheck any sections you don’t want to cover."
-        }
-    ]
+  "id": "add-homework-choose-sections",
+  "audience_tags": [
+    "teacher",
+    "teacher-preview"
+  ],
+  "steps": [
+    {
+      "title": "First, select a chapter",
+      "body": "Select a chapter you want to assign, then scroll down and click “show problems.” Uncheck any sections you don’t want to cover."
+    }
+  ]
 }, {
-    "id": "add-homework-select-exercises",
-    "audience_tags": [ "teacher" ],
-    "steps": [
-        {
-            "title": "Personalized questions",
-            "body": "OpenStax Tutor generates questions using machine learning algorithms that study a student’s performance. You can allow up to four, but no fewer than two personalized questions per homework assignment.",
-            "position": "bottom",
-            "anchor_id": "tutor-selections"
-        }, {
-            "body":  "[Best practice icon] Don’t forget—exclude questions you don’t want your students to get before you publish an assignment. Questions can’t be removed after it’s published.",
-            "position": "bottom",
-            "anchor_id": "tutor-selections"
-        }, {
-            "title": "How OpenStax Tutor selects questions",
-            "body": "Based on sections you assign and student performance, OpenStax Tutor selects questions that will help students improve their understanding of [the section or topic, depending on how we’re using those terms].",
-            "position": "bottom",
-            "anchor_id": "tutor-selections"
-        }, {
-            "title": "Add questions",
-            "body": "To add a homework question, hover over the question and click “Add question.”",
-            "position": "bottom",
-            "anchor_id": "exercise_preview"
-        }
-    ]
-
+  "id": "add-homework-select-exercises",
+  "audience_tags": [
+    "teacher",
+    "teacher-preview"
+  ],
+  "steps": [
+    {
+      "title": "Personalized questions",
+      "body": "OpenStax Tutor generates questions using machine learning algorithms that study a student’s performance. You can allow up to four, but no fewer than two personalized questions per homework assignment.",
+      "position": "bottom",
+      "anchor_id": "tutor-selections"
+    }, {
+      "body":  "[Best practice icon] Don’t forget—exclude questions you don’t want your students to get before you publish an assignment. Questions can’t be removed after it’s published.",
+      "position": "bottom",
+      "anchor_id": "tutor-selections"
+    }, {
+      "title": "How OpenStax Tutor selects questions",
+      "body": "Based on sections you assign and student performance, OpenStax Tutor selects questions that will help students improve their understanding of [the section or topic, depending on how we’re using those terms].",
+      "position": "bottom",
+      "anchor_id": "tutor-selections"
+    }, {
+      "title": "Add questions",
+      "body": "To add a homework question, hover over the question and click “Add question.”",
+      "position": "bottom",
+      "anchor_id": "exercise_preview"
+    }
+  ]
 }]

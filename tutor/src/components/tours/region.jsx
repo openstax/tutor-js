@@ -22,6 +22,8 @@ export default class TourRegion extends React.PureComponent {
 
   static propTypes = {
     id: React.PropTypes.string.isRequired,
+    // will default to id if tours is not given
+    otherTours: React.PropTypes.arrayOf(React.PropTypes.string),
     courseId: React.PropTypes.string,
     children: React.PropTypes.node.isRequired,
     tourContext: React.PropTypes.instanceOf(TourContext),
@@ -32,20 +34,21 @@ export default class TourRegion extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.region = TourRegionModel.forIdentifier(this.props.id, { fallback: 'tutor' });
+    this.region = new TourRegionModel(props);
   }
 
   componentDidMount() {
     if (this.props.tourContext) {
-      delay(() => this.props.tourContext.openRegion(this.region, this.props), this.delay);
+      delay(() => this.props.tourContext.openRegion(this.region), this.delay);
     }
   }
 
   // not really sure this is needed, but we may update the courseId somwhere
-  componentWillReceiveProps({ id, ...otherProps }) {
+  componentWillReceiveProps({ id, tours, courseId }) {
     invariant(id === this.props.id,
               `Cannot update region id, was ${this.props.id} attempted to set ${id}`);
-    this.region.courseId = otherProps.courseId;
+    if (tours) { this.region.tour_ids = tours; }
+    this.region.courseId = courseId;
   }
 
   componentWillUnmount() {
