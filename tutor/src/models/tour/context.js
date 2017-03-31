@@ -35,7 +35,7 @@ export default class TourContext extends BaseModel {
 
   @computed get tourIds() {
     if (!this.isEnabled) { return []; }
-    return compact(uniq(flatMap(this.regions, r => r.tour_ids.peek())));
+    return compact(uniq(flatMap(this.regions, r => r.tour_ids)));
   }
 
   @computed get courseIds() {
@@ -109,7 +109,7 @@ export default class TourContext extends BaseModel {
   }
 
   @computed get debugStatus() {
-    return `available regions: [${map(this.regions, 'id')}]; region tour ids: [${this.tourIds}]; valid tours: [${map(this.validTours,'id')}]; audiance tags: [${this.audienceTags}]; tour tags: [${this.toursTags}]; TOUR RIDE: ${this.tourRide ? this.tourRide.tour.id : '<none>'}`;
+    return `available regions: [${map(this.regions, 'id')}]; region tour ids: [${this.tourIds}]; audience tags: [${this.audienceTags}]; tour tags: [${this.toursTags}]; valid tours: [${map(this.validTours,'id')}]; TOUR RIDE: ${this.tourRide ? this.tourRide.tour.id : '<none>'}`;
   }
 
   _onTourRideChange({ type, oldValue: oldRide }) {

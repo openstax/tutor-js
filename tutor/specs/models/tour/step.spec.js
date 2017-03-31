@@ -16,7 +16,7 @@ describe('TourStep Model', () => {
 
   it('renders best practices', () => {
     const step = new TourStep({ id: 1, title: 'a step', body: 'you should :best-practices: take note' });
-    expect(step.HTML).toEqual('<p>you should <i class="tour-step-best-practices></i> take note</p>\n');
+    expect(step.HTML).toEqual('<p>you should <i class="tour-step-best-practices"></i> take note</p>\n');
   });
 
 });

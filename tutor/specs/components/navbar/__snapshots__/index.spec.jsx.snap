@@ -54,7 +54,7 @@ exports[`Main navbar renders and matches snapshot 1`] = `
         role={null}
       >
         <li
-          className="tour-anchor tours-replay fa-stack fa-lg"
+          className="tour-anchor tours-replay"
           data-tour-anchor-id="tours-navbar-icon"
           id="tours-navbar-icon"
           onClick={[Function]}

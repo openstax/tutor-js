@@ -1,6 +1,6 @@
 import { bootstrapCoursesList } from '../../courses-test-data';
-import { autorun, observe } from 'mobx';
-import { toArray } from 'lodash';
+import { autorun } from 'mobx';
+
 import TourRegion from '../../../src/models/tour/region';
 import TourContext from '../../../src/models/tour/context';
 import User from '../../../src/models/user';
@@ -11,7 +11,7 @@ describe('Tour Context Model', () => {
   let region;
   beforeEach(() => {
     context = new TourContext({ isEnabled: true });
-    region = new TourRegion({ id: 'foo', courseId: '2', tour_ids: ['teacher-calendar'] });
+    region = new TourRegion({ id: 'foo', courseId: '2', otherTours: ['teacher-calendar'] });
     bootstrapCoursesList();
   });
   afterEach(() => {
@@ -35,12 +35,12 @@ describe('Tour Context Model', () => {
   });
 
   it('converts ids to tours', () => {
-    region.tour_ids = ['foo']; // invalid
+    region.otherTours = []; // id of foo is invalid
     context.openRegion(region);
     expect(context.tourIds).toEqual(['foo']);
     expect(context.validTours).toHaveLength(0);
-    region.tour_ids = [ 'teacher-calendar', 'bar', 'baz' ];
-    expect(context.tourIds).toEqual(['teacher-calendar', 'bar', 'baz']);
+    region.otherTours = [ 'teacher-calendar', 'bar', 'baz' ];
+    expect(context.tourIds).toEqual(['foo', 'teacher-calendar', 'bar', 'baz']);
     expect(context.validTours).toHaveLength(1);
     expect(context.validTours[0].id).toEqual('teacher-calendar');
     context.closeRegion(region);
@@ -68,7 +68,6 @@ describe('Tour Context Model', () => {
 
   it('knows which region is active', () => {
     context.openRegion(region);
-    region.tour_ids = [ 'teacher-calendar' ];
     expect(context.activeRegion).toBe(region);
   });
 
@@ -101,16 +100,14 @@ describe('Tour Context Model', () => {
     context.openRegion(region);
     expect(context.tourIds).toHaveLength(0);
     context.isEnabled = true;
-    expect(context.tourIds).toEqual(['teacher-calendar']);
-    expect(tourSpy).toHaveBeenLastCalledWith(['teacher-calendar']);
+    expect(tourSpy).toHaveBeenLastCalledWith(['foo', 'teacher-calendar']);
   });
 
   it('emits debug info', () => {
     expect(context.debugStatus).toContain('available regions: []');
     context.openRegion(region);
-    region.tour_ids = [ 'teacher-calendar' ];
     expect(context.debugStatus).toContain('available regions: [foo]');
-    expect(context.debugStatus).toContain('region tour ids: [teacher-calendar]');
+    expect(context.debugStatus).toContain('region tour ids: [foo,teacher-calendar]');
     expect(context.debugStatus).toContain('valid tours: [teacher-calendar]');
   });
 

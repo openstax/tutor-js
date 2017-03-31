@@ -1,6 +1,5 @@
 [{
   "id": "teacher-calendar",
-  "name": "Preview shown to new teachers",
   "audience_tags": [
     "teacher",
     "teacher-preview"

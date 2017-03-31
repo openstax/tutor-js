@@ -4,16 +4,11 @@ import TourRegion from '../../../src/models/tour/region';
 
 describe('Tour Region Model', () => {
 
-  it('can bootstrap from JSON', () => {
-    const tour = TourRegion.forIdentifier('teacher-calendar');
-    expect(tour.serialize()).toMatchObject({
-      'id': 'teacher-calendar',
-    });
-  });
-
-  it('finds tour_ids', () => {
-    const region = TourRegion.forIdentifier('homework-assignment-editor');
-    expect(region.tour_ids.peek()).toEqual(['add-homework-builder']);
+  it('adds it’s id and otherTours to make tour_ids', () => {
+    const region = new TourRegion({ id: 'foo' });
+    expect(region.tour_ids).toEqual(['foo']);
+    region.otherTours = ['bar', 'baz'];
+    expect(region.tour_ids).toEqual(['foo', 'bar', 'baz']);
   });
 
 });
