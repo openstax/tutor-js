@@ -12,7 +12,7 @@ describe('Tour View Model', () => {
   beforeEach(() => {
     bootstrapCoursesList();
     context = new TourContext({ isEnabled: true });
-    region = new TourRegion({ id: 'foo', courseId: '1', tour_ids: ['teacher-calendar'] });
+    region = new TourRegion({ id: 'teacher-calendar', courseId: '2', tour_ids: ['teacher-calendar'] });
     context.openRegion(region);
     ride = context.tourRide;
   });
@@ -24,7 +24,7 @@ describe('Tour View Model', () => {
     expect(ride.joyrideProps.steps).toHaveLength(1);
     expect(ride.joyrideProps.steps[0]).toMatchObject({
       title: 'Your Openstax Tutor beta course dashboard',
-      selector: '[data-tour-region-id="foo"]',
+      selector: '[data-tour-region-id="teacher-calendar"]',
       position: 'center',
     });
   });
