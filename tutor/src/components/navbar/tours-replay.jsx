@@ -23,7 +23,7 @@ export default class ToursReplay extends React.PureComponent {
   render() {
     const classes = classnames(
       'tours-replay', 'fa-stack fa-lg',
-      { 'is-visible': get(this.props, 'tourContext.hasReplayableTours') }
+      { 'is-visible': get(this.props, 'tourContext.hasViewableTour') }
     );
 
     return (
