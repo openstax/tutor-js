@@ -66,7 +66,7 @@ QuestionsControls = React.createClass
           <BS.Button data-filter='homework' onClick={@onFilterClick}
             className={classNames 'homework', 'active': @props.filter is 'homework'}
           >
-            Practice
+            Homework
           </BS.Button>
         </BS.ButtonGroup>
       </TourAnchor>
