@@ -37,8 +37,7 @@
   "steps": [
     {
       "title": "How OpenStax Tutor uses questions",
-      "body": "In addition to the questions you assign your students, OpenStax Tutor assigns personalized questions for each student from the sections you have assigned.",
-      "is_fixed": true
+      "body": "In addition to the questions you assign your students, OpenStax Tutor assigns personalized questions for each student from the sections you have assigned."
     }, {
       "title": "Reading vs Homework",
       "body": "Click “Reading” to view questions reserved for reading assignments. To view questions you can assign as homework, click “Homework.”",
