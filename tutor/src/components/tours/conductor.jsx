@@ -23,9 +23,9 @@ export default class TourConductor extends React.PureComponent {
     this.tourContext = new TourContext({ isEnabled: true });
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   this.tourContext.isEnabled = nextProps.spyMode.isEnabled;
-  // }
+  componentWillReceiveProps(nextProps) {
+    this.tourContext.emitDebugInfo = nextProps.spyMode.isEnabled;
+  }
 
   renderTour() {
     return this.tourContext.tourRide ?

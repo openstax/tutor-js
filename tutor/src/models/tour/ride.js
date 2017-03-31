@@ -10,7 +10,6 @@ const DEFAULT_JOYRIDE_CONFIG = {
   run: true,
   type: 'continuous',
   autoStart: true,
-  debug: false,
   scrollToSteps: true,
   scrollToFirstStep: true,
   scrollOffset: 120, // below top navbar
@@ -39,6 +38,7 @@ export default class TourRide extends BaseModel {
     if (!tour) { return {}; }
     return defaults({
       callback: this.joyrideCallback,
+      debug: this.context.emitDebugInfo,
       tourId: tour.id,
       ref: ref => (this.joyrideRef = ref),
       locale: this.labels,
