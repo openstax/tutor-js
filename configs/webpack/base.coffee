@@ -41,12 +41,13 @@ BASE_DEV_LOADER_RULES = _.map(BASE_BUILD, (loaderConfig, type) ->
   config = _.pick(loaderConfig, 'test', 'exclude')
   config.use ||= []
 
-  if type is 'less'
-    config.use = config.use.concat DEV_LOADERS.concat(LOADERS.style, LOADERS.css, LOADERS.less)
+  if type is 'less' or type is 'scss'
+    config.use = config.use.concat DEV_LOADERS.concat(LOADERS.style, LOADERS.css, LOADERS[type])
   else
     config.use = loaderConfig.use
   config
 )
+
 
 BASE_BUILD_LOADERS = _.values(BASE_BUILD)
 
