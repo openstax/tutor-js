@@ -98,7 +98,7 @@ Scores = React.createClass
             changeDisplayAs={@changeDisplayAs}
           />
         </div>
-        <TourRegion id="scores">
+        <TourRegion id="scores" courseId={courseId}>
           <ScoresTable
             courseId={courseId}
             overall_average_score={@state.overall_average_score}
