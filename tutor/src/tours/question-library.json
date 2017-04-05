@@ -1,5 +1,6 @@
 [{
   "id": "preview-question-library-sections-chooser",
+  "group_id": "question-library",
   "showOverlay": false,
   "audience_tags": [
     "teacher-preview"
@@ -14,6 +15,7 @@
   ]
 }, {
   "id": "question-library-sections-chooser",
+  "group_id": "question-library",
   "showOverlay": false,
   "audience_tags": [
     "teacher"
@@ -29,6 +31,7 @@
 }, {
 
   "id": "question-library-exercises",
+  "group_id": "question-library",
   "scrollToSteps": false,
   "showOverlay": false,
   "audience_tags": [

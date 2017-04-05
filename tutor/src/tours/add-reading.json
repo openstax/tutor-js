@@ -1,5 +1,6 @@
 [{
   "id": "reading-assignment-editor",
+  "group_id": "reading",
   "audience_tags": [
     "teacher",
     "teacher-preview"
@@ -17,6 +18,7 @@
   ]
 }, {
   "id": "add-reading-choose-sections",
+  "group_id": "reading",
   "audience_tags": [
     "teacher",
     "teacher-preview"
@@ -29,6 +31,7 @@
   ]
 }, {
   "id": "add-reading-review-sections",
+  "group_id": "reading",
   "audience_tags": [
     "teacher",
     "teacher-preview"

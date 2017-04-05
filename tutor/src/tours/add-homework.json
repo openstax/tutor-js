@@ -1,5 +1,6 @@
 [{
   "id": "homework-assignment-editor",
+  "group_id": "homework",
   "audience_tags": [
     "teacher",
     "teacher-preview"
@@ -17,6 +18,7 @@
   ]
 }, {
   "id": "add-homework-choose-sections",
+  "group_id": "homework",
   "audience_tags": [
     "teacher",
     "teacher-preview"
@@ -29,6 +31,7 @@
   ]
 }, {
   "id": "add-homework-select-exercises",
+  "group_id": "homework",
   "audience_tags": [
     "teacher",
     "teacher-preview"

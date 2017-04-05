@@ -38,6 +38,7 @@ export default class Tour extends BaseModel {
 
   @identifier id;
 
+  @field group_id;
   @field name;
   @field({ type: 'array' }) audience_tags;
   @field scrollToSteps;
