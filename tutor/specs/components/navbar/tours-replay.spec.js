@@ -6,7 +6,7 @@ import { bootstrapCoursesList } from '../../courses-test-data';
 import User from '../../../src/models/user';
 
 jest.mock('../../../src/models/user', () => ({
-  replayTours: jest.fn(),
+  replayTour: jest.fn(),
 }));
 
 
@@ -27,7 +27,7 @@ describe('Tours Replay Icon', () => {
     expect(icon).toHaveRendered('.tours-replay.is-visible');
 
     icon.simulate('click');
-    expect(User.replayTours).toHaveBeenCalled();
+    expect(User.replayTour).toHaveBeenCalled();
   });
 
   it('renders and matches snapshot', () => {

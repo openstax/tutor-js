@@ -17,7 +17,7 @@ export default class ToursReplay extends React.PureComponent {
 
   @action.bound
   onReplayClicked() {
-    User.replayTours();
+    this.props.tourContext.replayTours();
   }
 
   render() {

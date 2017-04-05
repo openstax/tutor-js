@@ -4,7 +4,7 @@ import {
 import {
   find, isEmpty, intersection, compact, uniq, flatMap, map, includes, filter, first,
 } from 'lodash';
-import { autorun, observe } from 'mobx';
+import { observe, action } from 'mobx';
 
 import Courses   from '../courses';
 import User      from '../user';
@@ -110,6 +110,12 @@ export default class TourContext extends BaseModel {
 
   @computed get debugStatus() {
     return `available regions: [${map(this.regions, 'id')}]; region tour ids: [${this.tourIds}]; audience tags: [${this.audienceTags}]; tour tags: [${this.toursTags}]; valid tours: [${map(this.validTours,'id')}]; TOUR RIDE: ${this.tourRide ? this.tourRide.tour.id : '<none>'}`;
+  }
+
+  @action replayTours() {
+    this.validTours.forEach((tour) => {
+      tour.replay();
+    });
   }
 
   _onTourRideChange({ type, oldValue: oldRide }) {

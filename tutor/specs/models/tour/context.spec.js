@@ -111,6 +111,15 @@ describe('Tour Context Model', () => {
     expect(context.debugStatus).toContain('valid tours: [teacher-calendar]');
   });
 
+  it('replays all valid tours', () => {
+    User.viewed_tour_ids = ['homework-assignment-editor', 'teacher-calendar', 'foo'];
+    region.id = 'homework-assignment-editor';
+    context.openRegion(region);
+    expect(context.validTours).toHaveLength(2);
+    context.replayTours();
+    expect(User.viewed_tour_ids.peek()).toEqual(['foo']);
+  });
+
   it('calls dispose on old ride it changes', () => {
     context.openRegion(region);
     const ride = context.tourRide;

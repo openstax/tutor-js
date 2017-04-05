@@ -1,6 +1,12 @@
 import Tour from '../../src/models/tour';
+import User from '../../src/models/user';
 import { range, map } from 'lodash';
 import TourData from '../../src/tours';
+
+jest.mock('../../src/models/user', () => ({
+  replayTour: jest.fn(),
+}));
+
 
 describe('Tour Model', () => {
   it('can be created', () => {
@@ -24,5 +30,26 @@ describe('Tour Model', () => {
     const tours = Tour.forAudienceTags(['teacher', 'foo']);
     expect(tours.length).toBeGreaterThan(0);
     expect(map(tours, 'id')).toContain('teacher-calendar');
+  });
+
+  it('finds all', () => {
+    expect(Tour.all.length).toBeGreaterThan(10);
+  });
+
+  it('finds others in the same group', () => {
+    const tour = new Tour();
+    expect(tour.othersInGroup).toEqual([]);
+    tour.group_id = 'bad';
+    expect(tour.othersInGroup).toEqual([]);
+    tour.group_id = 'homework';
+    expect(tour.othersInGroup.length).toBeGreaterThan(2);
+  });
+
+  it ('replays itself and others in group', () => {
+    User.viewed_tour_ids = ['homework-assignment-editor', 'add-homework-select-exercises'];
+    const tour = Tour.forIdentifier('homework-assignment-editor');
+    tour.replay();
+    expect(User.replayTour).toHaveBeenCalledWith(tour);
+    expect(User.replayTour).toHaveBeenCalledWith(Tour.forIdentifier('add-homework-select-exercises'));
   });
 });
