@@ -32,7 +32,6 @@
 
   "id": "question-library-exercises",
   "group_id": "question-library",
-  "scrollToSteps": false,
   "showOverlay": false,
   "audience_tags": [
     "teacher", "teacher-preview"
