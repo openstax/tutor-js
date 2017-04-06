@@ -116,7 +116,9 @@ startAPI = ->
   connectRead(CoursePracticeActions, pattern: 'courses/{id}/practice')
 
   connectCreate(CoursePracticeActions,
-    url: ({courseId}) -> "courses/#{courseId}/practice"
+    url: ({courseId, query}) ->
+      url = "courses/#{courseId}/practice"
+      if query?.worst then "#{url}/worst" else url
     data: ({courseId, query}) -> query
   )
 
