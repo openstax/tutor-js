@@ -5,6 +5,7 @@ import TourData from '../../src/tours';
 
 jest.mock('../../src/models/user', () => ({
   replayTour: jest.fn(),
+  viewedTour: jest.fn(),
 }));
 
 
@@ -51,5 +52,21 @@ describe('Tour Model', () => {
     tour.replay();
     expect(User.replayTour).toHaveBeenCalledWith(tour);
     expect(User.replayTour).toHaveBeenCalledWith(Tour.forIdentifier('add-homework-select-exercises'));
+  });
+
+  it ('marks itself viewed', () => {
+    const tour = Tour.forIdentifier('homework-assignment-editor');
+    tour.markViewed({ exitedEarly: false });
+    expect(User.viewedTour).toHaveBeenCalledWith(tour, expect.anything());
+    expect(User.viewedTour).toHaveBeenCalledTimes(1);
+  });
+
+  it ('marks others in group as viewed when canceled early', () => {
+    const tour = Tour.forIdentifier('homework-assignment-editor');
+    tour.markViewed({ exitedEarly: true });
+    expect(User.viewedTour).toHaveBeenCalledWith(tour, expect.anything());
+    expect(User.viewedTour).toHaveBeenCalledWith(
+      Tour.forIdentifier('add-homework-select-exercises'), expect.anything()
+    );
   });
 });

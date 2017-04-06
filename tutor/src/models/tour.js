@@ -63,4 +63,12 @@ export default class Tour extends BaseModel {
     User.replayTour(this);
     this.othersInGroup.forEach((tour) => User.replayTour(tour));
   }
+
+  @action
+  markViewed({ exitedEarly }){
+    User.viewedTour(this, { exitedEarly });
+    if (exitedEarly) {
+      this.othersInGroup.forEach(tour => User.viewedTour(tour, { exitedEarly }));
+    }
+  }
 }

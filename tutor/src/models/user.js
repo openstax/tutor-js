@@ -39,6 +39,7 @@ export class User extends BaseModel {
   viewedTour(tour, options) {
     this.viewed_tour_ids.push(tour.id);
     this.saveTourView(tour, options);
+
   }
 
   // this method will be wrapped by the API to trigger saving a tour view
