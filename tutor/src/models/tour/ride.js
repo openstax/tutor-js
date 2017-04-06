@@ -61,13 +61,13 @@ export default class TourRide extends BaseModel {
       back: 'Back',
       close: 'Close',
       last: 'Got It',
-      next: (this.showStepsProgress ? 'Next' : 'Got it'),
+      next: 'Next',
       skip: 'Skip',
     };
   }
 
   @computed get showStepsProgress() {
-    return this.validSteps.length > 3;
+    return this.validSteps.length > 1;
   }
 
   @action.bound
