@@ -61,10 +61,10 @@ exports[`Main navbar renders and matches snapshot 1`] = `
           role="button"
         >
           <svg
-            height="100%"
+            height="24"
             version="1.1"
             viewBox="0 0 12 14"
-            width="100%"
+            width="24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
