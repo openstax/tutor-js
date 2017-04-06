@@ -41,21 +41,33 @@
       "title": "Personalized questions",
       "body": "OpenStax Tutor generates questions using machine learning algorithms that study a student’s performance. You can allow up to four, but no fewer than two personalized questions per homework assignment.",
       "position": "bottom",
-      "anchor_id": "tutor-selections"
+      "anchor_id": "tutor-selections",
+      "action": {
+        "id": "reposition"
+      }
     }, {
-      "body":  "[Best practice icon] Don’t forget—exclude questions you don’t want your students to get before you publish an assignment. Questions can’t be removed after it’s published.",
+      "body":  ":best-practices: Don’t forget—exclude questions you don’t want your students to get before you publish an assignment. Questions can’t be removed after it’s published.",
       "position": "bottom",
-      "anchor_id": "tutor-selections"
+      "anchor_id": "tutor-selections",
+      "action": {
+        "id": "reposition"
+      }
     }, {
       "title": "How OpenStax Tutor selects questions",
       "body": "Based on sections you assign and student performance, OpenStax Tutor selects questions that will help students improve their understanding of [the section or topic, depending on how we’re using those terms].",
       "position": "bottom",
-      "anchor_id": "tutor-selections"
+      "anchor_id": "tutor-selections",
+      "action": {
+        "id": "reposition"
+      }
     }, {
       "title": "Add questions",
       "body": "To add a homework question, hover over the question and click “Add question.”",
       "position": "bottom",
-      "anchor_id": "exercise_preview"
+      "anchor_id": "exercise_preview",
+      "action": {
+        "id": "reposition"
+      }
     }
   ]
 }]

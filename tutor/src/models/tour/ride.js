@@ -26,12 +26,7 @@ export default class TourRide extends BaseModel {
   @belongsTo({ model: 'tour/region' }) region;
 
   @observable currentStep = 0;
-
-  dispose() {
-    if (this.joyrideRef) {
-      this.joyrideRef.reset();
-    }
-  }
+  @observable joyrideRef;
 
   @computed get joyrideProps() {
     const { tour } = this;
@@ -40,7 +35,9 @@ export default class TourRide extends BaseModel {
       callback: this.joyrideCallback,
       debug: this.context.emitDebugInfo,
       tourId: tour.id,
-      ref: ref => (this.joyrideRef = ref),
+      ref: ref => {
+        if (ref) { this.joyrideRef = ref; }
+      },
       locale: this.labels,
       showStepsProgress: this.showStepsProgress,
       scrollToSteps: tour.scrollToSteps,
@@ -105,6 +102,12 @@ export default class TourRide extends BaseModel {
       step,
       selector: (step.anchor_id ? this.context.anchors.get(step.anchor_id) : this.region.domSelector),
     });
-
   }
+
+  dispose() {
+    if (this.joyrideRef) {
+      this.joyrideRef.reset(true);
+    }
+  }
+
 }
