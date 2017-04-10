@@ -22,10 +22,10 @@ ProgressPanel = React.createClass
     @getShouldShows()
 
   componentWillUnmount: ->
-    TaskStepStore.off('step.completed', @updateShouldShows)
+    TaskStore.off('step.completed', @updateShouldShows)
 
   componentWillMount: ->
-    TaskStepStore.on('step.completed', @updateShouldShows)
+    TaskStore.on('step.completed', @updateShouldShows)
 
   componentWillReceiveProps: (nextProps) ->
     @setState(@getShouldShows(nextProps))
@@ -41,10 +41,10 @@ ProgressPanel = React.createClass
   goForward: ->
     { stepId } = @props
     if stepId and not TaskStepStore.get(stepId)?.is_completed
-      TaskStepStore.once('step.completed', =>
+      TaskStore.once('step.completed', =>
         @props.goToStep(@props.stepKey + 1)
       )
-      TaskStepActions.complete(stepId)
+      TaskActions.complete(stepId)
     else
       @props.goToStep(@props.stepKey + 1)
     undefined # silence React return value warning
