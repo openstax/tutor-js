@@ -114,6 +114,14 @@ defaultPolicies =
 
 policies =
 
+  practice_worst_topics:
+    exercise:
+      panels:
+        default: stepFeedbackImmediate
+        check: 'role'
+        states:
+          teacher: stepTeacherReview
+
   homework:
     exercise:
       panels:
