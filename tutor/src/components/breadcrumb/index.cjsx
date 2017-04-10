@@ -27,7 +27,7 @@ BreadcrumbStatic = React.createClass
 
   render: ->
     {step} = @state
-    crumbProps = _.omit(@props, 'step')
+    crumbProps = _.omit(@props, 'step', 'onMount')
     step = _.first(step) if _.isArray(step)
 
     <Breadcrumb
@@ -91,7 +91,7 @@ BreadcrumbTaskDynamic = React.createClass
 
   render: ->
     {step} = @state
-    crumbProps = _.omit(@props, 'step')
+    crumbProps = _.omit(@props, 'step', 'onMount')
 
     <Breadcrumb
       {...crumbProps}
