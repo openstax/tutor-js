@@ -198,8 +198,8 @@ startAPI = ->
       TaskStepActions.loadedNoPersonalized(args...)
       true
   )
-  connectModify(TaskStepActions, pattern: 'steps/{id}/completed', trigger: 'complete', onSuccess: 'completed')
-  connectModify(TaskStepActions, pattern: 'steps/{id}/recovery', trigger: 'loadRecovery', onSuccess: 'loadedRecovery')
+  connectModify(TaskActions, pattern: 'steps/{id}/completed', trigger: 'completeStep', onSuccess: 'stepCompleted')
+
   connectUpdate(TaskStepActions, pattern: 'steps/{id}', trigger: 'setFreeResponseAnswer',
     data: (id, freeResponse) ->
       {free_response: freeResponse}
