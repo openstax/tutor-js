@@ -75,6 +75,8 @@ CourseListingStore = flux.createStore
         CourseListingActions.load() unless CourseListingStore.isLoading()
         true
 
+    hasCourses: -> not _.isEmpty(@_course_ids)
+
     allCourses: ->
       return _.compact _.map @_course_ids, CourseStore.get
 
