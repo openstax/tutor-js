@@ -78,7 +78,9 @@ ROUTES =
     isTeacherOnly: true
   addOrCopyCourse:
     label: 'Add or Copy a Course'
-    allowedForCourse: (course) -> (not course) and CurrentUserStore.isTeacher() and CourseListingStore.hasCourses()
+    options: ->
+      className: if CourseListingStore.hasCourses() then '' else 'visible-when-debugging unstyled'
+    allowedForCourse: (course) -> (not course) and CurrentUserStore.isTeacher()
     roles:
       default: 'createNewCourse'
 
