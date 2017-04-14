@@ -66,7 +66,7 @@ UserActionsMenu = React.createClass
     # MenuItem doesn't pass on props to the li currently, so using className instead for route.name visual control.
     <BS.MenuItem
       {...props}
-      className={classnames(route.name, 'active': isActive)}
+      className={classnames(route.name, route.options?.className, 'active': isActive)}
       key={key}
       data-name={route.name}
       eventKey={index + 2}
