@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120px" height="15px" viewBox="0 0 120 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>BEST PRACTICE font awesome</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="OXT-icons" transform="translate(-647.000000, -58.000000)" fill="#EDAA00">
+            <g id="BEST-PRACTICE-font-awesome" transform="translate(646.000000, 57.000000)">
+                <text id="BEST-PRACTICE" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="13" font-weight="bold">
+                    <tspan x="20" y="15">BEST</tspan>
+                    <tspan x="53.956" y="15" font-family="HelveticaNeue, Helvetica Neue" font-weight="normal"> PRACTICE</tspan>
+                </text>
+                <text id="thumbs-up---FontAwesome" font-family="FontAwesome" font-size="16" font-weight="normal">
+                    <tspan x="1" y="14"></tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

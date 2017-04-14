@@ -1,5 +1,6 @@
 import { bootstrapCoursesList } from '../../courses-test-data';
-import { autorun, observe } from 'mobx';
+import { autorun } from 'mobx';
+
 import TourRegion from '../../../src/models/tour/region';
 import TourContext from '../../../src/models/tour/context';
 import User from '../../../src/models/user';
@@ -10,12 +11,13 @@ describe('Tour Context Model', () => {
   let region;
   beforeEach(() => {
     context = new TourContext({ isEnabled: true });
-    region = new TourRegion({ id: 'foo', courseId: '1', tour_ids: ['teacher-calendar'] });
+    region = new TourRegion({ id: 'foo', courseId: '2', otherTours: ['teacher-calendar'] });
     bootstrapCoursesList();
   });
   afterEach(() => {
     User.viewed_tour_ids.clear();
   });
+
 
   it('calculates courses', () => {
     const region1 = new TourRegion({ id: 'foo1', courseId: '1', tour_ids: ['foo'] });
@@ -33,16 +35,16 @@ describe('Tour Context Model', () => {
   });
 
   it('converts ids to tours', () => {
-    region.tour_ids = ['foo']; // invalid
+    region.otherTours = []; // id of foo is invalid
     context.openRegion(region);
     expect(context.tourIds).toEqual(['foo']);
-    expect(context.tours).toHaveLength(0);
-    region.tour_ids = [ 'teacher-calendar', 'bar', 'baz' ];
-    expect(context.tourIds).toEqual(['teacher-calendar', 'bar', 'baz']);
-    expect(context.tours).toHaveLength(1);
-    expect(context.tours[0].id).toEqual('teacher-calendar');
+    expect(context.validTours).toHaveLength(0);
+    region.otherTours = [ 'teacher-calendar', 'bar', 'baz' ];
+    expect(context.tourIds).toEqual(['foo', 'teacher-calendar', 'bar', 'baz']);
+    expect(context.validTours).toHaveLength(1);
+    expect(context.validTours[0].id).toEqual('teacher-calendar');
     context.closeRegion(region);
-    expect(context.tours).toHaveLength(0);
+    expect(context.validTours).toHaveLength(0);
   });
 
   it('calculates a tour based on audienceTags', () => {
@@ -51,9 +53,8 @@ describe('Tour Context Model', () => {
     expect(tourSpy).toHaveBeenCalledWith(null);
     context.openRegion(region);
     expect(tourSpy).toHaveBeenCalledWith(Tour.forIdentifier('teacher-calendar'));
-    expect(context.tourForAudienceTags(['teacher'])).toBe(Tour.forIdentifier('teacher-calendar'));
     User.viewedTour(Tour.forIdentifier('teacher-calendar'));
-    expect(context.tourForAudienceTags(['teacher'])).toBe(null);
+    expect(context.tour).toBe(null);
   });
 
   it('calculates a TourRide', () => {
@@ -67,7 +68,6 @@ describe('Tour Context Model', () => {
 
   it('knows which region is active', () => {
     context.openRegion(region);
-    region.tour_ids = [ 'teacher-calendar' ];
     expect(context.activeRegion).toBe(region);
   });
 
@@ -79,13 +79,16 @@ describe('Tour Context Model', () => {
     expect(context.anchors.size).toBe(0);
   });
 
-  it('calculates when tours are replayable', () => {
+  it('calculates when tours are viewable', () => {
+    expect(context.hasViewableTour).toBe(false);
     context.openRegion(region);
     expect(context.tourRide).not.toBeNull();
-    expect(context.hasReplayableTours).toBe(false);
+    expect(context.hasViewableTour).toBe(true);
     User.viewedTour({ id: 'teacher-calendar' });
-    expect(context.hasReplayableTours).toBe(true);
+    expect(context.hasViewableTour).toBe(true);
     expect(context.tourRide).toBeNull();
+    context.closeRegion(region);
+    expect(context.hasViewableTour).toBe(false);
   });
 
   it('is disabled by default', () => {
@@ -97,17 +100,24 @@ describe('Tour Context Model', () => {
     context.openRegion(region);
     expect(context.tourIds).toHaveLength(0);
     context.isEnabled = true;
-    expect(context.tourIds).toEqual(['teacher-calendar']);
-    expect(tourSpy).toHaveBeenLastCalledWith(['teacher-calendar']);
+    expect(tourSpy).toHaveBeenLastCalledWith(['foo', 'teacher-calendar']);
   });
 
   it('emits debug info', () => {
     expect(context.debugStatus).toContain('available regions: []');
     context.openRegion(region);
-    region.tour_ids = [ 'teacher-calendar' ];
     expect(context.debugStatus).toContain('available regions: [foo]');
-    expect(context.debugStatus).toContain('region tour ids: [teacher-calendar]');
+    expect(context.debugStatus).toContain('region tour ids: [foo,teacher-calendar]');
     expect(context.debugStatus).toContain('valid tours: [teacher-calendar]');
+  });
+
+  it('replays all valid tours', () => {
+    User.viewed_tour_ids = ['homework-assignment-editor', 'teacher-calendar', 'foo'];
+    region.id = 'homework-assignment-editor';
+    context.openRegion(region);
+    expect(context.validTours).toHaveLength(2);
+    context.replayTours();
+    expect(User.viewed_tour_ids.peek()).toEqual(['foo']);
   });
 
   it('calls dispose on old ride it changes', () => {

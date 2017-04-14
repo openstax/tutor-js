@@ -7,7 +7,11 @@ Settings = require './settings'
 { default: TourRegion } = require '../tours/region'
 
 SettingsWithTour = (props) ->
-  <TourRegion id="course-settings" courseId={props.courseId}>
+  <TourRegion
+    id="course-settings"
+    otherTours={["course-settings-preview"]}
+    courseId={props.courseId}
+  >
     <Settings {...props} />
   </TourRegion>
 

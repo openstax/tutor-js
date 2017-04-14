@@ -10,7 +10,6 @@ const DEFAULT_JOYRIDE_CONFIG = {
   run: true,
   type: 'continuous',
   autoStart: true,
-  debug: false,
   scrollToSteps: true,
   scrollToFirstStep: true,
   scrollOffset: 120, // below top navbar
@@ -27,20 +26,18 @@ export default class TourRide extends BaseModel {
   @belongsTo({ model: 'tour/region' }) region;
 
   @observable currentStep = 0;
-
-  dispose() {
-    if (this.joyrideRef) {
-      this.joyrideRef.reset();
-    }
-  }
+  @observable joyrideRef;
 
   @computed get joyrideProps() {
     const { tour } = this;
     if (!tour) { return {}; }
     return defaults({
       callback: this.joyrideCallback,
+      debug: this.context.emitDebugInfo,
       tourId: tour.id,
-      ref: ref => (this.joyrideRef = ref),
+      ref: ref => {
+        if (ref) { this.joyrideRef = ref; }
+      },
       locale: this.labels,
       showStepsProgress: this.showStepsProgress,
       scrollToSteps: tour.scrollToSteps,
@@ -64,19 +61,19 @@ export default class TourRide extends BaseModel {
       back: 'Back',
       close: 'Close',
       last: 'Got It',
-      next: (this.showStepsProgress ? 'Next' : 'Got it'),
+      next: 'Next',
       skip: 'Skip',
     };
   }
 
   @computed get showStepsProgress() {
-    return this.validSteps.length > 3;
+    return this.validSteps.length > 1;
   }
 
   @action.bound
   joyrideCallback({ index, type, action, step: joyRideStep }) {
     if (type === 'finished' || (action === 'close' && type === 'beacon:before')) {
-      User.viewedTour(this.tour, { exitedEarly: type !== 'finished' });
+      this.tour.markViewed({ exitedEarly: type !== 'finished' });
     }
     if (type === 'step:before'){ this.currentStep = index; }
     if (!joyRideStep){ return; } // is of a type we don't care about
@@ -105,6 +102,12 @@ export default class TourRide extends BaseModel {
       step,
       selector: (step.anchor_id ? this.context.anchors.get(step.anchor_id) : this.region.domSelector),
     });
-
   }
+
+  dispose() {
+    if (this.joyrideRef) {
+      this.joyrideRef.reset(true);
+    }
+  }
+
 }

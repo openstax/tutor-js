@@ -29,18 +29,17 @@ export class User extends BaseModel {
   @field({ type: 'array' }) viewed_tour_ids;
 
   @computed get tourAudienceTags() {
-    return uniq(flatMap(Courses.values(), 'tourAudienceTags'));
+    return []; // we may have special per-user tags at some point?
   }
 
-  replayTours() {
-    // once we start saving the viewed tours we'll need two arrays
-    // on for the "real" viewed state and one of the "available to view"
-    this.viewed_tour_ids.clear();
+  replayTour(tour) {
+    this.viewed_tour_ids.remove(tour.id);
   }
 
   viewedTour(tour, options) {
     this.viewed_tour_ids.push(tour.id);
     this.saveTourView(tour, options);
+
   }
 
   // this method will be wrapped by the API to trigger saving a tour view

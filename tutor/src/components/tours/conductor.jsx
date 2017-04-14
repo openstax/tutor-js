@@ -20,20 +20,20 @@ export default class TourConductor extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.tourContext = new TourContext({ isEnabled: props.spyMode.isEnabled });
+    this.tourContext = new TourContext({ isEnabled: true });
   }
 
   componentWillReceiveProps(nextProps) {
-    this.tourContext.isEnabled = nextProps.spyMode.isEnabled;
+    this.tourContext.emitDebugInfo = nextProps.spyMode.isEnabled;
   }
 
   renderTour() {
     return this.tourContext.tourRide ?
-           <Joyride {...this.tourContext.tourRide.joyrideProps} /> : null;
+      <Joyride {...this.tourContext.tourRide.joyrideProps} /> : null;
   }
 
   renderSpyModeInfo() {
-    return null; // temporarily disabled while tours are demoed
+    // return null; // temporarily disabled while tours are demoed
     return (
       <SpyModeContent>
         <div className="tour-spy-info">{this.tourContext.debugStatus}</div>

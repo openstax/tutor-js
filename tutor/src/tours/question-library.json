@@ -1,5 +1,6 @@
 [{
   "id": "preview-question-library-sections-chooser",
+  "group_id": "question-library",
   "showOverlay": false,
   "audience_tags": [
     "teacher-preview"
@@ -14,6 +15,7 @@
   ]
 }, {
   "id": "question-library-sections-chooser",
+  "group_id": "question-library",
   "showOverlay": false,
   "audience_tags": [
     "teacher"
@@ -29,7 +31,7 @@
 }, {
 
   "id": "question-library-exercises",
-  "scrollToSteps": false,
+  "group_id": "question-library",
   "showOverlay": false,
   "audience_tags": [
     "teacher", "teacher-preview"
@@ -37,8 +39,7 @@
   "steps": [
     {
       "title": "How OpenStax Tutor uses questions",
-      "body": "In addition to the questions you assign your students, OpenStax Tutor assigns personalized questions for each student from the sections you have assigned.",
-      "is_fixed": true
+      "body": "In addition to the questions you assign your students, OpenStax Tutor assigns personalized questions for each student from the sections you have assigned."
     }, {
       "title": "Reading vs Homework",
       "body": "Click “Reading” to view questions reserved for reading assignments. To view questions you can assign as homework, click “Homework.”",
@@ -46,7 +47,7 @@
       "position": "bottom"
     }, {
       "title": "Excluding questions",
-      "body": "See a question you don’t like? Hover over it and click “exclude.”\n\n[best-practices]: Don’t exclude too many — OpenStax Tutor needs several questions to make its personalized recommendations.",
+      "body": "See a question you don’t like? Hover over it and click “exclude.” :best-practices: Don’t exclude too many — OpenStax Tutor needs several questions to make its personalized recommendations.",
       "position": "right",
       "anchor_id": "exercise-preview"
     }, {

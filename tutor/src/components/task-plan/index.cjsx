@@ -58,7 +58,8 @@ EventShell = React.createClass
 
 PlanBuilder = ({ id, courseId, body: Body, type }) ->
   <TourRegion
-    id={"#{type}-assignment-editor"} courseId={courseId}
+    id={"#{type}-assignment-editor"}
+    courseId={courseId}
   >
     <Body id={id} courseId={courseId} />
   </TourRegion>

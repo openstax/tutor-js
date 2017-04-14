@@ -21,7 +21,7 @@ describe('User Model', () => {
 
   it('calculates audience tags', () => {
     bootstrapCoursesList();
-    expect(User.tourAudienceTags).toEqual(['student', 'teacher']);
+    expect(User.tourAudienceTags).toEqual([]); // currently user tags are always empty
   });
 
 

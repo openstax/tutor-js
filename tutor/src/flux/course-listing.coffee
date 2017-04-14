@@ -44,6 +44,7 @@ CourseListingStore = flux.createStore
   addCourse: (newCourse) ->
     @_course_ids.push(newCourse.id)
     CourseActions.loaded(newCourse, newCourse.id)
+    @emit('loaded', [newCourse])
 
   loaded: (courses) ->
     @_course_ids = _.map courses, (course) ->

@@ -1,12 +1,16 @@
 [{
-  "id": "add-reading-builder",
-  "audience_tags": [ "teacher" ],
+  "id": "reading-assignment-editor",
+  "group_id": "reading",
+  "audience_tags": [
+    "teacher",
+    "teacher-preview"
+  ],
   "steps": [
     {
       "title": "OpenStax Tutor reading assignments",
       "body": "Reading assignments include book content, formative questions, and one to three spaced practice questions per section of the book."
     }, {
-      "body": "[best practices icon]: Make reading assignments due before you cover the topic in class to help your students prepare."
+      "body": ":best-practices: Make reading assignments due before you cover the topic in class to help your students prepare."
     }, {
       "title": "Build a reading assignment",
       "body":  "Ready to make a reading assignment? Fill in this form and click “Add readings.”"
@@ -14,7 +18,11 @@
   ]
 }, {
   "id": "add-reading-choose-sections",
-  "audience_tags": [ "teacher" ],
+  "group_id": "reading",
+  "audience_tags": [
+    "teacher",
+    "teacher-preview"
+  ],
   "steps": [
     {
       "title": "First, select a chapter",
@@ -23,7 +31,11 @@
   ]
 }, {
   "id": "add-reading-review-sections",
-  "audience_tags": [ "teacher" ],
+  "group_id": "reading",
+  "audience_tags": [
+    "teacher",
+    "teacher-preview"
+  ],
   "steps": [
     {
       "title": "What will students get",

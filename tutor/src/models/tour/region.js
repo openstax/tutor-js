@@ -1,10 +1,7 @@
 import {
   BaseModel, identifiedBy, field, identifier, computed,
 } from '../base';
-import { extend } from 'lodash';
-
-// contains the mappings from region-ids to audiance tags
-import RegionData from '../../tours/regions.json';
+import { concat } from 'lodash';
 
 // TourRegion
 // Wraps an area of the screen, maps it's id to a given set of audience tags
@@ -12,16 +9,14 @@ import RegionData from '../../tours/regions.json';
 @identifiedBy('tour/region')
 export default class TourRegion extends BaseModel {
 
-  static forIdentifier(id, options = {}) {
-    const data = RegionData[id] || RegionData[options.fallback];
-
-    return data ? new TourRegion(extend({ id: id }, data)) : undefined;
-  }
-
   @identifier id;
   @field courseId;
 
-  @field({ type: 'array' }) tour_ids;
+  @field({ type: 'array' }) otherTours;
+
+  @computed get tour_ids() {
+    return concat( [this.id], this.otherTours.peek() );
+  }
 
   @computed get domSelector() {
     return `[data-tour-region-id="${this.id}"]`;
