@@ -59,7 +59,7 @@
       "group": "core",
       "related_content": [{
           "title": "Physics is cool, yo",
-          "chapter_section": "5.3"
+          "chapter_section": [5,3]
       }]
     }
   ]

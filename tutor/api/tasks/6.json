@@ -59,7 +59,7 @@
       "group": "core",
       "related_content": [{
           "title": "Physics is cool, yo",
-          "chapter_section": "6.3"
+          "chapter_section": [6,3]
       }]
     },{ "id": "step-id-6-4",
       "type": "placeholder",
@@ -67,7 +67,7 @@
       "group": "personalized",
       "related_content": [{
           "title": "Physics is cool, yo",
-          "chapter_section": "6.4"
+          "chapter_section": [6, 4]
       }],
       "exists": false
     }

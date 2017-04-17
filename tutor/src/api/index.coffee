@@ -6,7 +6,7 @@
 # `TaskActions.loaded` or `TaskActions.FAILED`
 {
   connectModify, connectCreate, connectRead, connectUpdate, connectDelete
-  connectModelCreate, connectModelUpdate, connectModelUpdate, connectModelDelete
+  connectModelCreate, connectModelRead, connectModelUpdate, connectModelDelete
 } = require './adapter'
 
 {CurrentUserActions} = require '../flux/current-user'
@@ -52,6 +52,7 @@ TaskPlanHelpers = require '../helpers/task-plan'
 handledEnrollmentErrorsMap = require '../flux/course-enrollment-handled-errors'
 handledEnrollmentErrors = _.keys(handledEnrollmentErrorsMap)
 
+{ default: Task } = require '../models/task'
 { default: User } = require '../models/user'
 { default: Courses } = require '../models/courses'
 
@@ -255,6 +256,7 @@ startAPI = ->
   connectModelUpdate(User.constructor, 'saveTourView',
     pattern: 'user/tours/{id}'
    )
+  connectModelRead(Task, 'fetch', pattern: 'tasks/{id}', onSuccess: 'loaded')
 
 start = (bootstrapData) ->
   for storeId, action of BOOTSTRAPED_MODELS
