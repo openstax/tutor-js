@@ -6,7 +6,7 @@
 # `TaskActions.loaded` or `TaskActions.FAILED`
 {
   connectModify, connectCreate, connectRead, connectUpdate, connectDelete
-  connectModelCreate, connectModelUpdate, connectModelUpdate, connectModelDelete
+  connectModelCreate, connectModelRead, connectModelUpdate, connectModelDelete
 } = require './adapter'
 
 {CurrentUserActions} = require '../flux/current-user'
@@ -255,6 +255,7 @@ startAPI = ->
   connectModelUpdate(User.constructor, 'saveTourView',
     pattern: 'user/tours/{id}'
    )
+
 
 start = (bootstrapData) ->
   for storeId, action of BOOTSTRAPED_MODELS

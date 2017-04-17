@@ -160,20 +160,19 @@ class APIHandlerBase
       failure: interpolate(@_patterns.receive, merge({status: @_statuses.failure}, requestInfo))
 
     requestDelay = routeOptions.delay or @getOptions().request.delay
+    {handlers} = @getOptions()
+    {onSuccess, onFail} = routeOptions
 
-    delay =>
-      {handlers} = @getOptions()
-      {onSuccess, onFail} = routeOptions
-
-      onSuccess ?= DEFAULT_SUCCESS
-      onFail ?= DEFAULT_FAIL
-
-      @_xhr.request(requestConfig)
-        # if onFail doesn't Promise.reject anything, then the default fail will not fire.
-        .then(partial(onSuccess, partial.placeholder, args...), partial(onFail, partial.placeholder, args...))
-        .then(partial(handlers.onSuccess, partial.placeholder, args...), partial(handlers.onFail, partial.placeholder, args...))
-
-    , requestDelay
+    onSuccess ?= DEFAULT_SUCCESS
+    onFail ?= DEFAULT_FAIL
+    return new Promise (resolve) =>
+      delay =>
+        @_xhr.request(requestConfig)
+          # if onFail doesn't Promise.reject anything, then the default fail will not fire.
+          .then(partial(onSuccess, partial.placeholder, args...), partial(onFail, partial.placeholder, args...))
+          .then(partial(handlers.onSuccess, partial.placeholder, args...), partial(handlers.onFail, partial.placeholder, args...))
+          .then(resolve)
+      , requestDelay
 
 
 class APIHandler extends APIHandlerBase
