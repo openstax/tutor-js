@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-
+import { observer } from 'mobx-react';
 import _ from 'lodash';
 
 import TutorLink from '../link';
@@ -18,13 +18,16 @@ const CoursePropType = React.PropTypes.shape({
   term: React.PropTypes.string.isRequired,
   is_concept_coach: React.PropTypes.bool.isRequired,
 });
+export { CoursePropType };
 
-const CourseBranding = React.createClass({
-  displayName: 'CourseBranding',
-  propTypes: {
+@observer
+class CourseBranding extends React.PureComponent {
+
+  static propTypes = {
     isConceptCoach: React.PropTypes.bool.isRequired,
     isBeta:         React.PropTypes.bool,
-  },
+  }
+
   render() {
     let brand;
     let { isConceptCoach, isBeta } = this.props;
@@ -38,100 +41,71 @@ const CourseBranding = React.createClass({
     }
 
     return (
-
-        (
-          <p className="course-listing-item-brand" data-is-beta={isBeta}>
-            {brand}
-          </p>
-        )
-
+      <p className="course-listing-item-brand" data-is-beta={isBeta}>
+        {brand}
+      </p>
     );
-  },
-});
+  }
 
-const Course = React.createClass({
-  displayName: 'Course',
-  propTypes: {
+}
+
+
+export class Course extends React.PureComponent {
+
+  static propTypes = {
     course:           CoursePropType.isRequired,
     courseSubject:    React.PropTypes.string.isRequired,
     courseIsTeacher:  React.PropTypes.bool.isRequired,
     courseDataProps:  React.PropTypes.object.isRequired,
     className:        React.PropTypes.string,
     controls:         React.PropTypes.element,
-  },
+  }
 
-  Controls() {
-    const { controls } = this.props;
-
+  renderControls(controls) {
     return (
-
-        (
-          <div className="course-listing-item-controls">
-            {controls}
-          </div>
-        )
-
+      <div className="course-listing-item-controls">
+        {controls}
+      </div>
     );
-  },
-
-  CourseName() {
-    const { course, courseSubject } = this.props;
-    // courseNameSegments = CourseData.getCourseNameSegments(course, courseSubject)
-    // hasNoSubject = _.isEmpty(courseNameSegments)
-    // courseNameSegments ?= course.name.split(/\W+/)
-
-    return (
-
-        (
-          <TutorLink to="dashboard" params={{ courseId: course.id }}>
-            {course.name}
-          </TutorLink>
-        )
-
-    );
-  },
+  }
 
   render() {
     const { course, courseDataProps, controls, courseIsTeacher, className } = this.props;
-
     const itemClasses = classnames('course-listing-item', className);
-
     return (
-
-        (
-          <div className="course-listing-item-wrapper">
-            <div
-              {...courseDataProps}
-              data-is-teacher={courseIsTeacher}
-              data-course-id={course.id}
-              data-course-course-type={course.is_concept_coach ? 'cc' : 'tutor'}
-              className={itemClasses}>
-              <div className="course-listing-item-title">
-                {React.createElement(this.CourseName, null)}
-              </div>
-              <div
-                className="course-listing-item-details"
-                data-has-controls={controls != null}>
-                <TutorLink to="dashboard" params={{ courseId: course.id }}>
-                  <CourseBranding isConceptCoach={course.is_concept_coach || false} />
-                  <p className="course-listing-item-term">
-                    {course.term}
-                    {' '}
-                    {course.year}
-                  </p>
-                </TutorLink>
-                {(controls != null) ? React.createElement(this.Controls, null) : undefined}
-              </div>
-            </div>
+      <div className="course-listing-item-wrapper">
+        <div
+          {...courseDataProps}
+          data-is-teacher={courseIsTeacher}
+          data-course-id={course.id}
+          data-course-course-type={course.is_concept_coach ? 'cc' : 'tutor'}
+          className={itemClasses}>
+          <div className="course-listing-item-title">
+            <TutorLink to="dashboard" params={{ courseId: course.id }}>
+              {course.name}
+            </TutorLink>
           </div>
-        )
-
+          <div
+            className="course-listing-item-details"
+            data-has-controls={controls != null}>
+            <TutorLink to="dashboard" params={{ courseId: course.id }}>
+              <CourseBranding isConceptCoach={course.is_concept_coach || false} />
+              <p className="course-listing-item-term">
+                {course.term}
+                {' '}
+                {course.year}
+              </p>
+            </TutorLink>
+            {controls && this.renderControls(controls)}
+          </div>
+        </div>
+      </div>
     );
-  },
-});
+  }
+}
 
 @wrapCourseDragComponent
-class CourseTeacher extends React.Component {
+export class CourseTeacher extends React.Component {
 
   static propTypes = _.omit(Course.propTypes, 'controls');
 
@@ -146,18 +120,12 @@ class CourseTeacher extends React.Component {
       </TutorLink>;
 
     return (
-        this.props.connectDragSource(
-          <div
-            className={classnames('course-teacher', { 'is-dragging': this.props.isDragging })}>
-            <Course {...this.props} controls={link} />
-          </div>
-        )
+      this.props.connectDragSource(
+        <div
+          className={classnames('course-teacher', { 'is-dragging': this.props.isDragging })}>
+          <Course {...this.props} controls={link} />
+        </div>
+      )
     );
   }
 }
-
-export {
-  Course,
-  CoursePropType,
-  CourseTeacher,
-};
