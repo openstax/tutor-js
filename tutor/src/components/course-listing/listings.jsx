@@ -1,8 +1,7 @@
-import _ from 'lodash';
 import React from 'react';
 
 import { observer } from 'mobx-react';
-import { reject, filter, isEmpty } from 'lodash';
+import { reject, filter, isEmpty, merge, map } from 'lodash';
 import { Col, Row, Grid } from 'react-bootstrap';
 
 import TutorLink from '../link';
@@ -103,7 +102,7 @@ class CourseListingBase extends React.Component {
 
   getItems() {
     return (
-      _.merge({}, DEFAULT_COURSE_ITEMS, this.props.items)
+      merge({}, DEFAULT_COURSE_ITEMS, this.props.items)
     );
   }
 
@@ -116,7 +115,7 @@ class CourseListingBase extends React.Component {
     return (
       <Row className={sectionClasses}>
         {before}
-        {_.map(courses, (course) => {
+        {map(courses, (course) => {
            const Item = items[CurrentUserStore.getCourseVerifiedRole(course.id)]
            if (Item) { return wrapCourseItem(Item, course); }
          })}
@@ -175,13 +174,13 @@ class CourseListingBasic extends React.PureComponent {
   static propTypes = {
     title:    React.PropTypes.string.isRequired,
     baseName: React.PropTypes.string.isRequired,
-    courses:  React.PropTypes.arrayOf(CoursePropType.isRequired).isRequired
+    courses:  React.PropTypes.arrayOf(CoursePropType.isRequired).isRequired,
   }
 
   render() {
-    const {courses, baseName, title} = this.props;
+    const { courses, baseName, title } = this.props;
 
-    if (_.isEmpty(courses)) {
+    if (isEmpty(courses)) {
       return (
         null
       );
