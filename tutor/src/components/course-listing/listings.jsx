@@ -1,22 +1,19 @@
 import React from 'react';
 
 import { observer } from 'mobx-react';
+import { computed } from 'mobx';
 import { reject, filter, isEmpty, merge, map } from 'lodash';
 import { Col, Row, Grid } from 'react-bootstrap';
-
-import TutorLink from '../link';
 import classnames from 'classnames';
 
+import { ReactHelpers } from 'shared';
 import Router from '../../helpers/router';
-
+import TutorLink from '../link';
 import { wrapCourseDropComponent } from './course-dnd';
+import IconAdd from '../icons/add';
 
 import Courses from '../../models/courses-map';
-
-import { CurrentUserStore } from '../../flux/current-user';
-import { ReactHelpers } from 'shared';
-
-import IconAdd from '../icons/add';
+import User from '../../models/user';
 
 import { Course, CourseTeacher, CoursePropType } from './course';
 
@@ -32,7 +29,8 @@ function wrapCourseItem(Item, course = {}) {
   );
 }
 
-@wrapCourseDropComponent
+
+@wrapCourseDropComponent @observer
 class AddCourseArea extends React.Component {
 
   static propTypes = {
@@ -84,12 +82,12 @@ function CourseListingNone() {
 
 const CourseListingAdd = () => wrapCourseItem(AddCourseArea);
 
-
 const DEFAULT_COURSE_ITEMS = {
   teacher: CourseTeacher,
   student: Course,
 };
 
+@observer
 class CourseListingBase extends React.Component {
 
   static propTypes = {
@@ -100,31 +98,31 @@ class CourseListingBase extends React.Component {
     after:      React.PropTypes.element,
   }
 
-  getItems() {
-    return (
-      merge({}, DEFAULT_COURSE_ITEMS, this.props.items)
-    );
+  @computed get items() {
+    return merge({}, DEFAULT_COURSE_ITEMS, this.props.items);
+  }
+
+  renderCourse(course) {
+    const Item = this.items[User.verifiedRoleForCourse(course)];
+    return Item ? wrapCourseItem(Item, course) : null;
   }
 
   render() {
     const { courses, className, before, after } = this.props;
-    const items = this.getItems();
 
     const sectionClasses = classnames('course-listing-section', className);
 
     return (
       <Row className={sectionClasses}>
         {before}
-        {map(courses, (course) => {
-           const Item = items[CurrentUserStore.getCourseVerifiedRole(course.id)]
-           if (Item) { return wrapCourseItem(Item, course); }
-         })}
+        {map(courses, (course) => this.renderCourse(course))}
         {after}
       </Row>
     );
   }
 }
 
+@observer
 class CourseListingTitle extends React.Component {
   static propTypes = {
     title: React.PropTypes.string.isRequired,
@@ -162,7 +160,7 @@ export class CourseListingCurrent extends React.PureComponent {
           <CourseListingBase
             className={`${baseName}-section`}
             courses={courses}
-            after={CurrentUserStore.isTeacher() ? <CourseListingAdd /> : undefined} />
+            after={User.isTeacher ? <CourseListingAdd /> : undefined} />
         </Grid>
       </div>
     );
@@ -179,23 +177,18 @@ class CourseListingBasic extends React.PureComponent {
 
   render() {
     const { courses, baseName, title } = this.props;
+    if (isEmpty(courses)) { return null; }
 
-    if (isEmpty(courses)) {
-      return (
-        null
-      );
-    } else {
-      return (
-        (
-          <div className={baseName}>
-            <BS.Grid>
-              <CourseListingTitle title={title} />
-              <CourseListingBase className={`${baseName}-section`} courses={courses} />
-            </BS.Grid>
-          </div>
-        )
-      );
-    }
+    return (
+      (
+        <div className={baseName}>
+          <BS.Grid>
+            <CourseListingTitle title={title} />
+            <CourseListingBase className={`${baseName}-section`} courses={courses} />
+          </BS.Grid>
+        </div>
+      )
+    );
   }
 }
 
