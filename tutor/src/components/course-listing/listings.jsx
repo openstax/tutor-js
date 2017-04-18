@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import React from 'react';
 
+import { observer } from 'mobx-react';
+import { reject, filter, isEmpty } from 'lodash';
 import { Col, Row, Grid } from 'react-bootstrap';
 
 import TutorLink from '../link';
@@ -15,23 +17,13 @@ import Courses from '../../models/courses-map';
 import { CurrentUserStore } from '../../flux/current-user';
 import { ReactHelpers } from 'shared';
 
-//import CourseData from '../../helpers/course-data';
 import IconAdd from '../icons/add';
 
 import { Course, CourseTeacher, CoursePropType } from './course';
 
 function wrapCourseItem(Item, course = {}) {
-  // let courseDataProps, courseIsTeacher, courseSubject;
-  // if (course == null) { course = {}; }
-  //const { id } = course;
-  // const courseName = id || 'new';
-  // if (id) {
-  //   courseDataProps = CourseData.getCourseDataProps(id);
-  //   courseSubject = CourseStore.getSubject(id);
-  //   courseIsTeacher = CourseStore.isTeacher(id);
-  // }
   return (
-    <Col key={`course-listing-item-wrapper-${course.name}`} md={3} sm={6} xs={12}>
+    <Col key={`course-listing-item-wrapper-${course.id}`} md={3} sm={6} xs={12}>
       <Item
         course={course}
         courseSubject={course.subject}
@@ -111,7 +103,7 @@ class CourseListingBase extends React.Component {
 
   getItems() {
     return (
-        _.merge({}, DEFAULT_COURSE_ITEMS, this.props.items)
+      _.merge({}, DEFAULT_COURSE_ITEMS, this.props.items)
     );
   }
 
@@ -137,11 +129,11 @@ class CourseListingBase extends React.Component {
 class CourseListingTitle extends React.Component {
   static propTypes = {
     title: React.PropTypes.string.isRequired,
-    main: React.PropTypes.bool
+    main: React.PropTypes.bool,
   }
 
   static defaultProps = {
-        main: false,
+    main: false,
   }
 
   render() {
@@ -156,21 +148,18 @@ class CourseListingTitle extends React.Component {
   }
 }
 
-class CourseListingCurrent extends React.Component {
+@observer
+export class CourseListingCurrent extends React.PureComponent {
 
-  static propTypes = {
-    courses:  React.PropTypes.arrayOf(CoursePropType.isRequired).isRequired
-  }
-
-  render() {
-    const { courses } = this.props;
-    const baseName = ReactHelpers.getBaseName(this);
+  render () {
+    const baseName = ReactHelpers.getBaseName('CourseListingCurrent');
+    const courses = reject(Courses.values(), 'hasEnded');
 
     return (
       <div className={baseName}>
         <Grid>
           <CourseListingTitle title="Current Courses" main={true} />
-          {_.isEmpty(courses) ? <CourseListingNone /> : undefined}
+          {isEmpty(courses) ? <CourseListingNone /> : undefined}
           <CourseListingBase
             className={`${baseName}-section`}
             courses={courses}
@@ -181,59 +170,61 @@ class CourseListingCurrent extends React.Component {
   }
 }
 
-const CourseListingBasic = React.createClass({
-  displayName: 'CourseListingBasic',
-  propTypes: {
+@observer
+class CourseListingBasic extends React.PureComponent {
+  static propTypes = {
     title:    React.PropTypes.string.isRequired,
     baseName: React.PropTypes.string.isRequired,
     courses:  React.PropTypes.arrayOf(CoursePropType.isRequired).isRequired
-  },
+  }
+
   render() {
     const {courses, baseName, title} = this.props;
 
     if (_.isEmpty(courses)) {
       return (
-          null
+        null
       );
     } else {
       return (
-          (
-            <div className={baseName}>
-              <BS.Grid>
-                <CourseListingTitle title={title} />
-                <CourseListingBase className={`${baseName}-section`} courses={courses} />
-              </BS.Grid>
-            </div>
-          )
+        (
+          <div className={baseName}>
+            <BS.Grid>
+              <CourseListingTitle title={title} />
+              <CourseListingBase className={`${baseName}-section`} courses={courses} />
+            </BS.Grid>
+          </div>
+        )
       );
     }
   }
-});
+}
 
-const CourseListingPast = React.createClass({
-  displayName: 'CourseListingPast',
-  propTypes: {
-    courses:  React.PropTypes.arrayOf(CoursePropType.isRequired).isRequired
-  },
+@observer
+export class CourseListingPast extends React.PureComponent {
   render() {
-    const baseName = ReactHelpers.getBaseName(this);
     return (
-        <CourseListingBasic {...this.props} baseName={baseName} title="Past Courses" />
+      <CourseListingBasic
+        courses={filter(Courses.values(), 'hasEnded')}
+        baseName={ReactHelpers.getBaseName(this)}
+        title="Past Courses"
+      />
     );
   }
-});
+}
 
-const CourseListingFuture = React.createClass({
-  displayName: 'CourseListingFuture',
-  propTypes: {
-    courses:  React.PropTypes.arrayOf(CoursePropType.isRequired).isRequired
-  },
+
+@observer
+export class CourseListingFuture extends React.PureComponent {
   render() {
-    const baseName = ReactHelpers.getBaseName(this);
     return (
-        <CourseListingBasic {...this.props} baseName={baseName} title="Future Courses" />
+      <CourseListingBasic
+        courses={reject(Courses.values(), 'hasStarted')}
+        baseName={ReactHelpers.getBaseName(this)}
+        title="Future Courses"
+      />
     );
   }
-});
+}
 
-export { CourseListingPast, CourseListingCurrent, CourseListingFuture };
+// export { CourseListingPast, CourseListingCurrent, CourseListingFuture };

@@ -29,18 +29,18 @@ export default class CourseListing extends React.PureComponent {
   }
 
   render() {
-    if (!Courses.size()) { return <EmptyCourses /> }
+    if (!Courses.size) { return <EmptyCourses />; }
 
     if (this.shouldRedirect) {
       return (
-        <Redirect to={Router.makePathname('dashboard', { courseId: current[0].id })} />
+        <Redirect to={Router.makePathname('dashboard', { courseId: Courses.currentAndFuture[0].id })} />
       );
     }
 
     return (
       <div className="course-listing">
-        <CourseListingCurrent courses={Courses.currentAndFuture} />
-        <CourseListingPast courses={Courses.past} />
+        <CourseListingCurrent />
+        <CourseListingPast />
       </div>
     );
   }

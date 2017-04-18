@@ -1,4 +1,4 @@
-import Courses from '../../src/models/courses';
+import Courses from '../../src/models/courses-map';
 import { autorun } from 'mobx';
 import { bootstrapCoursesList } from '../courses-test-data';
 
@@ -35,6 +35,14 @@ describe('Course Model', () => {
     teacher.is_preview = true;
     expect(teacher.tourAudienceTags).toEqual(['teacher-preview']);
     expect(Courses.get(3).tourAudienceTags).toEqual(['teacher', 'student']);
+  });
+
+  it('#dataProps', () => {
+    expect(Courses.get(1).dataProps).toEqual({
+      'data-appearance': 'testing',
+      'data-book-title': 'Testing',
+      'data-title': 'Local Test Course One',
+    });
   });
 
 });

@@ -9,6 +9,7 @@ import Student from './course/student';
 import CourseInformation from '../flux/course-information';
 import TimeHelper from '../helpers/time';
 import { TimeStore } from '../flux/time';
+import moment from 'moment-timezone';
 
 @identifiedBy('course')
 export default class Course extends BaseModel {
@@ -52,8 +53,12 @@ export default class Course extends BaseModel {
     return {
       'data-title': this.name,
       'data-book-title': this.bookName,
-      'data-appearance': this.appearanceCode,
+      'data-appearance': this.appearance_code,
     };
+  }
+
+  @computed get bookName() {
+    return get(CourseInformation.forAppearanceCode(this.appearance_code), 'title', '');
   }
 
   @computed get bounds() {
@@ -65,6 +70,10 @@ export default class Course extends BaseModel {
 
   @computed get hasEnded() {
     return moment(this.ends_at).isBefore(TimeStore.getNow());
+  }
+
+  @computed get hasStarted() {
+    return moment(this.starts_at).isBefore(TimeStore.getNow());
   }
 
   @computed get isFuture() {

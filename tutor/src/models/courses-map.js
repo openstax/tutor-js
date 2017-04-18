@@ -1,5 +1,5 @@
 import { observable, computed } from 'mobx';
-import { filter, reject } from 'lodash';
+import { filter, reject, extend, assign } from 'lodash';
 import { CourseListingActions, CourseListingStore } from '../flux/course-listing';
 import Course from './course';
 
@@ -9,22 +9,26 @@ function onLoaded(courseData) {
   courseData.forEach(cd => coursesMap.set(String(cd.id), new Course(cd)));
 }
 
-Object.assign(coursesMap, {
-  // api.coffee calls this
+extend(coursesMap, {
   bootstrap( courseData ) {
     CourseListingActions.loaded(courseData);
     onLoaded(courseData);
     CourseListingStore.on('loaded', onLoaded);
   },
-
-  @computed get past() {
-    return filter(coursesMap.values(), 'hasEnded');
-  },
-
-  @computed get currentAndFuture() {
-    return reject(coursesMap.values(), 'hasEnded');
-  },
-
 });
+
+// Object.defineProperties(coursesMap, {
+
+//   past: {
+//     get: function() { return filter(this.values(), 'hasEnded'); },
+//   },
+
+//   currentAndFuture: {
+//     get: function(){ return reject(this.values(), 'hasEnded'); },
+//   },
+
+// });
+
+
 
 export default coursesMap;

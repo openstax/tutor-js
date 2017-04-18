@@ -1,7 +1,6 @@
 import { autorun } from 'mobx';
 
 import User from '../../src/models/user';
-import Courses from '../../src/models/courses';
 
 import USER_DATA from '../../api/user.json';
 import { bootstrapCoursesList } from '../courses-test-data';
