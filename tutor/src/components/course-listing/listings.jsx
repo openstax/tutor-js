@@ -10,32 +10,33 @@ import Router from '../../helpers/router';
 
 import { wrapCourseDropComponent } from './course-dnd';
 
-import { CourseStore } from '../../flux/course';
+import Courses from '../../models/courses-map';
+
 import { CurrentUserStore } from '../../flux/current-user';
 import { ReactHelpers } from 'shared';
 
-import CourseData from '../../helpers/course-data';
+//import CourseData from '../../helpers/course-data';
 import IconAdd from '../icons/add';
 
 import { Course, CourseTeacher, CoursePropType } from './course';
 
-function wrapCourseItem(Item, course) {
-  let courseDataProps, courseIsTeacher, courseSubject;
-  if (course == null) { course = {}; }
-  const { id } = course;
-  const courseName = id || 'new';
-  if (id) {
-    courseDataProps = CourseData.getCourseDataProps(id);
-    courseSubject = CourseStore.getSubject(id);
-    courseIsTeacher = CourseStore.isTeacher(id);
-  }
+function wrapCourseItem(Item, course = {}) {
+  // let courseDataProps, courseIsTeacher, courseSubject;
+  // if (course == null) { course = {}; }
+  //const { id } = course;
+  // const courseName = id || 'new';
+  // if (id) {
+  //   courseDataProps = CourseData.getCourseDataProps(id);
+  //   courseSubject = CourseStore.getSubject(id);
+  //   courseIsTeacher = CourseStore.isTeacher(id);
+  // }
   return (
-    <Col key={`course-listing-item-wrapper-${courseName}`} md={3} sm={6} xs={12}>
+    <Col key={`course-listing-item-wrapper-${course.name}`} md={3} sm={6} xs={12}>
       <Item
         course={course}
-        courseSubject={courseSubject}
-        courseIsTeacher={courseIsTeacher}
-        courseDataProps={courseDataProps} />
+        courseSubject={course.subject}
+        courseIsTeacher={course.isTeacher}
+        courseDataProps={course.dataProps} />
     </Col>
   );
 }

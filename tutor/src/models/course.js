@@ -2,19 +2,21 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany,
 } from './base';
 import { observable, computed, action } from 'mobx';
-import { find } from 'lodash';
-import { CourseListingActions, CourseListingStore } from '../flux/course-listing';
+import { find, get } from 'lodash';
 import Period  from './course/period';
 import Role    from './course/role';
 import Student from './course/student';
+import CourseInformation from '../flux/course-information';
+import TimeHelper from '../helpers/time';
+import { TimeStore } from '../flux/time';
 
 @identifiedBy('course')
-export class Course extends BaseModel {
+export default class Course extends BaseModel {
 
   @identifier id
 
   @field appearance_code;
-  @field name
+  @field name;
 
   @field book_pdf_url;
   @field cloned_from_id;
@@ -42,6 +44,37 @@ export class Course extends BaseModel {
   @hasMany({ model: Role }) roles;
   @hasMany({ model: Student }) students;
 
+  @computed get subject() {
+    return get(CourseInformation.forAppearanceCode(this.appearance_code), 'subject', '');
+  }
+
+  @computed get dataProps() {
+    return {
+      'data-title': this.name,
+      'data-book-title': this.bookName,
+      'data-appearance': this.appearanceCode,
+    };
+  }
+
+  @computed get bounds() {
+    return {
+      start: TimeHelper.getMomentPreserveDate(this.starts_at, TimeHelper.ISO_DATE_FORMAT),
+      end: TimeHelper.getMomentPreserveDate(this.ends_at, TimeHelper.ISO_DATE_FORMAT),
+    };
+  }
+
+  @computed get hasEnded() {
+    return moment(this.ends_at).isBefore(TimeStore.getNow());
+  }
+
+  @computed get isFuture() {
+    return moment(course.starts_at).isAfter(TimeStore.getNow())
+  }
+
+  @computed get isActive() {
+    return !(this.hasEnded || this.isFuture);
+  }
+
   @computed get isStudent() {
     return !!find(this.roles, 'isStudent');
   }
@@ -60,19 +93,3 @@ export class Course extends BaseModel {
   }
 
 }
-
-const courses = Object.assign(observable.shallowMap(), {
-  // api.coffee calls this
-  bootstrap( courseData ) {
-    CourseListingActions.loaded(courseData);
-    courses.loaded(courseData);
-    CourseListingStore.on('loaded', courses.loaded);
-  },
-
-  loaded(courseData) {
-    courseData.forEach(cd => courses.set(String(cd.id), new Course(cd)));
-  },
-
-});
-
-export default courses;

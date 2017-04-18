@@ -53,7 +53,7 @@ handledEnrollmentErrorsMap = require '../flux/course-enrollment-handled-errors'
 handledEnrollmentErrors = _.keys(handledEnrollmentErrorsMap)
 
 { default: User } = require '../models/user'
-{ default: Courses } = require '../models/courses'
+{ default: Courses } = require '../models/courses-map'
 
 BOOTSTRAPED_MODELS = {
   user:    User.bootstrap,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Courses from '../../models/courses';
+import Courses from '../../models/courses-map';
 
 import CCEnrollmentCode from './cc-enrollment-code';
 import StudentEnrollmentLink from './student-enrollment-link';

@@ -12,7 +12,7 @@ import TaskPlanHelper from '../../helpers/task-plan';
 import LoadableItem from '../loadable-item';
 import CopyOnFocusInput from '../copy-on-focus-input';
 import Icon from '../icon';
-import Courses from '../../models/courses';
+import Courses from '../../models/courses-map';
 import { TaskPlanStatsStore, TaskPlanStatsActions } from '../../flux/task-plan-stats';
 import { TeacherTaskPlanStore } from '../../flux/teacher-task-plan';
 

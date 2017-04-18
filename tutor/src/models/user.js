@@ -5,7 +5,7 @@ import { uniq, flatMap } from 'lodash';
 import { action, computed } from 'mobx';
 import { CurrentUserActions, CurrentUserStore } from '../flux/current-user';
 
-import Courses from './courses';
+import Courses from './courses-map';
 
 @identifiedBy('user')
 export class User extends BaseModel {
