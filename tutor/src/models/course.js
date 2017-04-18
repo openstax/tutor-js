@@ -2,7 +2,8 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany,
 } from './base';
 import { observable, computed, action } from 'mobx';
-import { find, get } from 'lodash';
+import { first, sortBy, find, get } from 'lodash';
+
 import Period  from './course/period';
 import Role    from './course/role';
 import Student from './course/student';
@@ -10,6 +11,8 @@ import CourseInformation from '../flux/course-information';
 import TimeHelper from '../helpers/time';
 import { TimeStore } from '../flux/time';
 import moment from 'moment-timezone';
+
+const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
 
 @identifiedBy('course')
 export default class Course extends BaseModel {
@@ -77,7 +80,7 @@ export default class Course extends BaseModel {
   }
 
   @computed get isFuture() {
-    return moment(course.starts_at).isAfter(TimeStore.getNow())
+    return moment(this.starts_at).isAfter(TimeStore.getNow());
   }
 
   @computed get isActive() {
@@ -101,4 +104,7 @@ export default class Course extends BaseModel {
     return tags;
   }
 
+  @computed get primaryRole() {
+    return first(sortBy(this.roles, r => -1 * ROLE_PRIORITY.indexOf(r.type)));
+  }
 }

@@ -1,6 +1,7 @@
 import { autorun } from 'mobx';
 
 import User from '../../src/models/user';
+import Courses from '../../src/models/courses-map';
 
 import USER_DATA from '../../api/user.json';
 import { bootstrapCoursesList } from '../courses-test-data';
@@ -23,5 +24,11 @@ describe('User Model', () => {
     expect(User.tourAudienceTags).toEqual([]); // currently user tags are always empty
   });
 
+  it('#verifiedRoleForCourse', () => {
+    bootstrapCoursesList();
+    expect(User.verifiedRoleForCourse(Courses.get(2))).toEqual('student');
+    User.faculty_status = 'confirmed_faculty';
+    expect(User.verifiedRoleForCourse(Courses.get(2))).toEqual('teacher');
+  });
 
 });
