@@ -15,7 +15,7 @@ import IconAdd from '../icons/add';
 import Courses from '../../models/courses-map';
 import User from '../../models/user';
 
-import { Course, CourseTeacher, CoursePropType } from './course';
+import { CoursePreview, Course, CourseTeacher, CoursePropType } from './course';
 
 function wrapCourseItem(Item, course = {}) {
   return (
@@ -87,6 +87,7 @@ const DEFAULT_COURSE_ITEMS = {
   student: Course,
 };
 
+
 @observer
 class CourseListingBase extends React.Component {
 
@@ -103,7 +104,8 @@ class CourseListingBase extends React.Component {
   }
 
   renderCourse(course) {
-    const Item = this.items[User.verifiedRoleForCourse(course)];
+    const Item = course.is_preview ? CoursePreview :
+                 this.items[User.verifiedRoleForCourse(course)];
     return Item ? wrapCourseItem(Item, course) : null;
   }
 

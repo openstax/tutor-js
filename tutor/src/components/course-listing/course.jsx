@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import _ from 'lodash';
 
 import TutorLink from '../link';
-
+import Icon from '../icon';
 import Router from '../../helpers/router';
 import { wrapCourseDragComponent } from './course-dnd';
 const BRAND = 'OpenStax';
@@ -49,6 +49,37 @@ class CourseBranding extends React.PureComponent {
 
 }
 
+
+@observer
+export class CoursePreview extends React.PureComponent {
+
+  render() {
+    const { course, courseDataProps, controls, courseIsTeacher, className } = this.props;
+    const itemClasses = classnames('course-listing-item', 'preview', className);
+    return (
+      <div className="course-listing-item-wrapper preview">
+        <div
+          {...courseDataProps}
+          data-is-teacher={true}
+          data-course-id={course.id}
+          data-course-course-type={'tutor'}
+          className={itemClasses}
+        >
+          <div className="course-listing-item-title">
+            <TutorLink to="dashboard" params={{ courseId: course.id }}>
+              <h3 className="name">{course.name}</h3>
+              <div className="preview-belt">
+                <h4><Icon type="eye" /> Preview</h4>
+                <p>Check out a course with assignments and sample data</p>
+              </div>
+            </TutorLink>
+          </div>
+        </div>
+      </div>
+    );
+
+  }
+}
 
 export class Course extends React.PureComponent {
 
