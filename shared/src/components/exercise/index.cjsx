@@ -5,7 +5,7 @@ ExercisePart = require './part'
 {ExFooter} = require './controls'
 {CardBody} = require '../pinned-header-footer-card/sections'
 ExerciseGroup = require './group'
-ExerciseBadges = require '../exercise-badges'
+ExerciseBadges = require('../exercise-badges').default
 ExerciseIdentifierLink = require '../exercise-identifier-link'
 ScrollToMixin = require '../scroll-to-mixin'
 
