@@ -1,50 +1,70 @@
-React = require 'react'
-_ = require 'underscore'
-Exercise = require '../../model/exercise'
-Interactive = require './interactive-icon'
-MultiPart   = require './multipart-icon'
-classnames = require 'classnames'
+import React from 'react';
+import _ from 'underscore';
+import Exercise from '../../model/exercise';
+import Interactive from './interactive-icon';
+import MultiPart from './multipart-icon';
+import classnames from 'classnames';
 
-ExerciseBadges = React.createClass
+export default class ExerciseBadges extends React.PureComponent {
 
-  propTypes:
-    isMultipart:   React.PropTypes.bool
-    hasInteractive:   React.PropTypes.bool
-    hasVideo:   React.PropTypes.bool
-    exercise: React.PropTypes.object
+  static propTypes = {
+    isMultipart:    React.PropTypes.bool,
+    hasInteractive: React.PropTypes.bool,
+    hasVideo:       React.PropTypes.bool,
+    exercise:       React.PropTypes.object,
+    className:      React.PropTypes.string,
+  }
 
-  getDefaultProps: ->
-    isMultipart: false
-    hasInteractive: false
-    hasVideo: false
-    exercise: {}
+  static defaultProps = {
+    isMultipart: false,
+    hasInteractive: false,
+    hasVideo: false,
+    exercise: {},
+  }
 
-  render: ->
-    classes = classnames 'openstax-exercise-badges', @props.className
-
-    badges = []
-    if @props.isMultipart or Exercise.isMultipart(@props.exercise)
-      badges.push <span key='mpq' className="mpq">
-          <MultiPart />Multi-part question
+  render() {
+    const classes = classnames('openstax-exercise-badges', this.props.className);
+    debugger
+    const badges = [];
+    if (this.props.isMultipart || Exercise.isMultipart(this.props.exercise)) {
+      badges.push(<span key="mpq" className="mpq">
+        <MultiPart />
+        <span>
+          Multi-part question
         </span>
+      </span>
+      );
+    }
 
-    if @props.hasInteractive or Exercise.hasInteractive(@props.exercise)
-      badges.push <span key='interactive' className="interactive">
-          <Interactive />Interactive
+    if (this.props.hasInteractive || Exercise.hasInteractive(this.props.exercise)) {
+      badges.push(<span key="interactive" className="interactive">
+        <Interactive />
+        <span>
+          Interactive
         </span>
+      </span>
+      );
+    }
 
-    if @props.hasVideo or Exercise.hasVideo(@props.exercise)
-      badges.push <span key='video' className="video">
-          <Interactive />Video
+    if (this.props.hasVideo || Exercise.hasVideo(this.props.exercise)) {
+      badges.push(<span key="video" className="video">
+        <Interactive />
+        <span>
+          Video
         </span>
+      </span>
+      );
+    }
 
-    if badges.length
-      <div className={classes}>
-        {badges}
-      </div>
-    else
-      null
+    if (badges.length) {
+      return (
+        <div className={classes}>{badges}</div>
+      );
+    } else {
+      return (
+          null
+      );
+    }
+  }
 
-
-
-module.exports = ExerciseBadges
+}
