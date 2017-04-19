@@ -1,5 +1,4 @@
 import { ObservableMap, computed } from 'mobx';
-import { each } from 'lodash';
 import { CourseListingActions, CourseListingStore } from '../flux/course-listing';
 import Course from './course';
 
@@ -16,7 +15,9 @@ function onLoaded(courseData) {
 
 function mapWhere(condition) {
   const map = new CoursesMap();
-  each(coursesMap.values(), c => condition(c) && map.set(c.id, c));
+  coursesMap.forEach(c => {
+    if(condition(c)) { map.set(c.id, c); }
+  });
   return map;
 }
 
