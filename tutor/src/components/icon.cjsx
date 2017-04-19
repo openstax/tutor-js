@@ -38,7 +38,7 @@ module.exports = React.createClass
     icon = <button {...buttonProps} className={classNames} />
     tooltip =
       <BS.Tooltip id={@state.uniqueId}
-        className={classnames('foo', {'on-navbar': @props.onNavbar})}
+        className={classnames('icon-tt', {'on-navbar': @props.onNavbar})}
       >{@props.tooltip}</BS.Tooltip>
 
     <BS.OverlayTrigger {...@props.tooltipProps} overlay={tooltip}>{icon}</BS.OverlayTrigger>
