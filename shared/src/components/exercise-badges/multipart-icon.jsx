@@ -1,12 +1,9 @@
 import React from 'react';
+import StaticComponent from '../static';
 
 // Basically just an icon,
 // create as plain class without this binding and never updates
-export default class MultipartIcon extends React.PureComponent {
-
-  shouldComponentUpdate() {
-    return false;
-  }
+export default class MultipartIcon extends StaticComponent {
 
   render() {
     return (
