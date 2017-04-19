@@ -27,54 +27,30 @@
     margin-bottom: 2.4rem;
   }
 
+  &.card-body {
+    color: @openstax-white;
+    background-color: @openstax-blue;
+  }
   button:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
-    font-weight: 600;
+    background-color: @openstax-white;
+    color: @openstax-blue !important;
   }
 }
 
 &-two-step-intro {
-
   h1::before {
     content: data-uri('image/svg+xml;charset=UTF-8', "../@{icon-path}/icon-two-step-intro-heading.svg");
-  }
-
-  &.card-body {
-    color: @openstax-white;
-    background: @openstax-secondary;
-  }
-  button:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
-    background-color: @openstax-white;
-    color: @openstax-secondary !important;
   }
 }
 
 &-personalized-intro {
-
   h1::before {
     content: data-uri('image/svg+xml;charset=UTF-8', "../@{icon-path}/icon-personalized-intro-heading.svg");
-  }
-
-  &.card-body {
-    color: @openstax-white;
-    background: @openstax-primary;
-  }
-  button:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
-    background-color: @openstax-white;
-    color: @openstax-primary !important;
   }
 }
 
 &-spaced-practice-intro {
-
   h1::before {
     content: data-uri('image/svg+xml;charset=UTF-8', "../@{icon-path}/icon-spaced-practice-intro-heading.svg");
-  }
-
-  &.card-body {
-    background: @openstax-white;
-  }
-  button:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
-    background-color: @openstax-primary;
-    color: @openstax-white !important;
   }
 }

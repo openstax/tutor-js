@@ -8,7 +8,7 @@ BS = require 'react-bootstrap'
 ArbitraryHtmlAndMath = require '../html'
 ExerciseIdentifierLink = require '../exercise-identifier-link'
 Question = require '../question'
-ExerciseBadges = require '../exercise-badges'
+ExerciseBadges = require('../exercise-badges').default
 ControlsOverlay = require './controls-overlay'
 Exercise = require '../../model/exercise'
 
