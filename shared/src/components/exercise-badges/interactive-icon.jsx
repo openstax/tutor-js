@@ -16,7 +16,7 @@ export default class InteractiveIcon extends React.PureComponent {
         version="1.1" xmlns="http://www.w3.org/2000/svg"
       >
         <defs></defs>
-        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           <g id="OXT-icons" transform="translate(-886.000000, -221.000000)">
             <g id="interactive" transform="translate(886.000000, 221.000000)">
               <g id="Layer_2" transform="translate(0.000000, 0.000000)">

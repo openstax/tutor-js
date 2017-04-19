@@ -16,7 +16,7 @@ export default class MultipartIcon extends React.PureComponent {
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs></defs>
-        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           <g id="OXT-icons" transform="translate(-886.000000, -186.000000)">
             <g id="multipart" transform="translate(886.000000, 186.000000)">
               <g id="Layer_2">
