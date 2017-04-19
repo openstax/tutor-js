@@ -1,6 +1,6 @@
 import StudentEnrollmentLink from '../../../src/components/course-settings/student-enrollment-link';
 import { bootstrapCoursesList } from '../../courses-test-data';
-import Courses from '../../../src/models/courses';
+import Courses from '../../../src/models/courses-map';
 import Renderer from 'react-test-renderer';
 
 describe('Course Settings, student enrollment link', () => {

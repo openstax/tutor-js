@@ -1,11 +1,9 @@
 import {
   BaseModel, identifiedBy, field,
 } from './base';
-import { uniq, flatMap } from 'lodash';
+
 import { action, computed } from 'mobx';
 import { CurrentUserActions, CurrentUserStore } from '../flux/current-user';
-
-import Courses from './courses';
 
 @identifiedBy('user')
 export class User extends BaseModel {
@@ -28,6 +26,10 @@ export class User extends BaseModel {
 
   @field({ type: 'array' }) viewed_tour_ids;
 
+  @computed get isConfirmedFaculty() {
+    return this.faculty_status === 'confirmed_faculty';
+  }
+
   @computed get tourAudienceTags() {
     return []; // we may have special per-user tags at some point?
   }
@@ -39,7 +41,10 @@ export class User extends BaseModel {
   viewedTour(tour, options) {
     this.viewed_tour_ids.push(tour.id);
     this.saveTourView(tour, options);
+  }
 
+  verifiedRoleForCourse(course) {
+    return this.isConfirmedFaculty ? course.primaryRole.type : 'student';
   }
 
   // this method will be wrapped by the API to trigger saving a tour view

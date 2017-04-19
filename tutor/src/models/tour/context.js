@@ -6,7 +6,7 @@ import {
 } from 'lodash';
 import { observe, action } from 'mobx';
 
-import Courses   from '../courses';
+import Courses   from '../courses-map';
 import User      from '../user';
 import Tour      from '../tour';
 import TourRide  from './ride';

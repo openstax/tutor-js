@@ -10,7 +10,7 @@ some           = require 'lodash/some'
 kebabCase      = require 'lodash/kebabCase'
 browser        = require 'detect-browser'
 
-getBaseName = (context) -> kebabCase(context.constructor.displayName)
+getBaseName = (context) -> kebabCase(context.constructor.displayName || context.constructor.name)
 
 
 PASSABLE_PROPS = ['className', 'id', 'children', 'target', 'ref', 'tabIndex', 'role']

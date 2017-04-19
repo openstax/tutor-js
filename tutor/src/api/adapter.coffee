@@ -22,7 +22,7 @@ OPTIONS =
   handlers:
     onFail: (error) ->
       {response} = error
-      AppActions.setServerError(response)
+      AppActions.setServerError(response or error)
   hooks:
     handleMalformedRequest: ->
       CurrentUserActions.logout()

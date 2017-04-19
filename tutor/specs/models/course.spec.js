@@ -1,4 +1,4 @@
-import Courses from '../../src/models/courses';
+import Courses from '../../src/models/courses-map';
 import { autorun } from 'mobx';
 import { bootstrapCoursesList } from '../courses-test-data';
 

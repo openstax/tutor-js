@@ -1,4 +1,4 @@
-{ default: CoursesListing } = require '../src/models/courses'
+{ default: CoursesMap } = require '../src/models/courses-map'
 
 STUDENT_COURSE_ONE_MODEL = {
   id: '1'
@@ -133,7 +133,7 @@ TUTOR_HELP = 'http://openstax.force.com/support?l=en_US&c=Products%3ATutor'
 CONCEPT_COACH_HELP = 'http://openstax.force.com/support?l=en_US&c=Products%3AConcept_Coach'
 
 bootstrapCoursesList = ->
-  CoursesListing.bootstrap(MASTER_COURSES_LIST)
+  CoursesMap.bootstrap(MASTER_COURSES_LIST)
 
 module.exports = {
   STUDENT_COURSE_ONE_MODEL,

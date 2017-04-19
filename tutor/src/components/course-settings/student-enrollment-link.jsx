@@ -2,7 +2,7 @@
 import React from 'react';
 import { action } from 'mobx';
 import { get }    from 'lodash';
-import { Course } from '../../models/courses';
+import Course from '../../models/course';
 import TourAnchor from '../tours/anchor';
 
 // Approx how wide each char is in the text input
