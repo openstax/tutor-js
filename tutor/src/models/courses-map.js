@@ -1,5 +1,5 @@
-import { ObservableMap, observable, computed } from 'mobx';
-import { each, filter, reject, extend, assign } from 'lodash';
+import { ObservableMap, computed } from 'mobx';
+import { each } from 'lodash';
 import { CourseListingActions, CourseListingStore } from '../flux/course-listing';
 import Course from './course';
 
@@ -43,6 +43,7 @@ class AllCoursesMap extends CoursesMap {
     if (options.clear) { this.clear(); }
     onLoaded(courseData);
     CourseListingStore.on('loaded', onLoaded);
+    return coursesMap;
   }
 }
 

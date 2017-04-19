@@ -37,12 +37,4 @@ describe('Course Model', () => {
     expect(Courses.get(3).tourAudienceTags).toEqual(['teacher', 'student']);
   });
 
-  it('#dataProps', () => {
-    expect(Courses.get(1).dataProps).toEqual({
-      'data-appearance': 'testing',
-      'data-book-title': 'Testing',
-      'data-title': 'Local Test Course One',
-    });
-  });
-
 });

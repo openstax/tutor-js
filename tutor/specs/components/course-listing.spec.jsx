@@ -1,5 +1,5 @@
 import CourseListing from '../../src/components/course-listing';
-import { flatten, extend } from 'lodash';
+import { flatten } from 'lodash';
 import EnzymeContext from './helpers/enzyme-context';
 import Courses from '../../src/models/courses-map';
 import User from '../../src/models/user';

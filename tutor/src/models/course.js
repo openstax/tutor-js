@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, field, identifier, hasMany,
 } from './base';
-import { observable, computed, action } from 'mobx';
+import { computed } from 'mobx';
 import { first, sortBy, find, get } from 'lodash';
 
 import Period  from './course/period';
@@ -50,14 +50,6 @@ export default class Course extends BaseModel {
 
   @computed get subject() {
     return get(CourseInformation.forAppearanceCode(this.appearance_code), 'subject', '');
-  }
-
-  @computed get dataProps() {
-    return {
-      'data-title': this.name,
-      'data-book-title': this.bookName,
-      'data-appearance': this.appearance_code,
-    };
   }
 
   @computed get bookName() {

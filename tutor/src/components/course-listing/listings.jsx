@@ -14,17 +14,16 @@ import IconAdd from '../icons/add';
 
 import Courses from '../../models/courses-map';
 import User from '../../models/user';
+import CourseModel from '../../models/course';
 
-import { CoursePreview, Course, CourseTeacher, CoursePropType } from './course';
+import { CoursePreview, Course, CourseTeacher } from './course';
 
 function wrapCourseItem(Item, course = {}) {
   return (
     <Col key={`course-listing-item-wrapper-${course.id}`} md={3} sm={6} xs={12}>
       <Item
         course={course}
-        courseSubject={course.subject}
-        courseIsTeacher={course.isTeacher}
-        courseDataProps={course.dataProps} />
+      />
     </Col>
   );
 }
@@ -92,7 +91,7 @@ const DEFAULT_COURSE_ITEMS = {
 class CourseListingBase extends React.Component {
 
   static propTypes = {
-    courses:    React.PropTypes.arrayOf(CoursePropType.isRequired).isRequired,
+    courses:    React.PropTypes.arrayOf( React.PropTypes.instanceOf(CourseModel) ).isRequired,
     items:      React.PropTypes.objectOf(React.PropTypes.element),
     className:  React.PropTypes.string,
     before:     React.PropTypes.element,
@@ -174,7 +173,7 @@ class CourseListingBasic extends React.PureComponent {
   static propTypes = {
     title:    React.PropTypes.string.isRequired,
     baseName: React.PropTypes.string.isRequired,
-    courses:  React.PropTypes.arrayOf(CoursePropType.isRequired).isRequired,
+    courses:  React.PropTypes.arrayOf( React.PropTypes.instanceOf(CourseModel) ).isRequired,
   }
 
   render() {

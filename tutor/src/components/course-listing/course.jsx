@@ -1,12 +1,15 @@
 import React from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
-import _ from 'lodash';
-
+import { omit } from 'lodash';
+import { computed } from 'mobx';
 import TutorLink from '../link';
 import Icon from '../icon';
-import Router from '../../helpers/router';
+import CourseModel from '../../models/course';
+import CourseUX from '../../models/course/ux';
+
 import { wrapCourseDragComponent } from './course-dnd';
+
 const BRAND = 'OpenStax';
 
 import CourseData from '../../helpers/course-data';
@@ -53,13 +56,22 @@ class CourseBranding extends React.PureComponent {
 @observer
 export class CoursePreview extends React.PureComponent {
 
+  static propTypes = {
+    course: React.PropTypes.instanceOf(CourseModel).isRequired,
+    className: React.PropTypes.string,
+  }
+
+  @computed get ux () {
+    return new CourseUX(this.props.course);
+  }
+
   render() {
-    const { course, courseDataProps, controls, courseIsTeacher, className } = this.props;
+    const { course, className } = this.props;
     const itemClasses = classnames('course-listing-item', 'preview', className);
     return (
       <div className="course-listing-item-wrapper preview">
         <div
-          {...courseDataProps}
+          {...this.ux.dataProps}
           data-is-teacher={true}
           data-course-id={course.id}
           data-course-course-type={'tutor'}
@@ -84,12 +96,13 @@ export class CoursePreview extends React.PureComponent {
 export class Course extends React.PureComponent {
 
   static propTypes = {
-    course:           CoursePropType.isRequired,
-    courseSubject:    React.PropTypes.string.isRequired,
-    courseIsTeacher:  React.PropTypes.bool.isRequired,
-    courseDataProps:  React.PropTypes.object.isRequired,
+    course: React.PropTypes.instanceOf(CourseModel).isRequired,
     className:        React.PropTypes.string,
     controls:         React.PropTypes.element,
+  }
+
+  @computed get ux () {
+    return new CourseUX(this.props.course);
   }
 
   renderControls(controls) {
@@ -101,26 +114,26 @@ export class Course extends React.PureComponent {
   }
 
   render() {
-    const { course, courseDataProps, controls, courseIsTeacher, className } = this.props;
-    const itemClasses = classnames('course-listing-item', className);
+    const { course, controls } = this.props;
     return (
       <div className="course-listing-item-wrapper">
         <div
-          {...courseDataProps}
-          data-is-teacher={courseIsTeacher}
-          data-course-id={course.id}
-          data-course-course-type={course.is_concept_coach ? 'cc' : 'tutor'}
-          className={itemClasses}>
+          {...this.ux.dataProps}
+          data-is-teacher={this.ux.course.isTeacher}
+          data-course-id={this.ux.courseId}
+          data-course-course-type={this.ux.courseType}
+          className={classnames('course-listing-item', this.props.className)}
+        >
           <div className="course-listing-item-title">
-            <TutorLink to="dashboard" params={{ courseId: course.id }}>
+            <TutorLink to="dashboard" params={{ courseId: this.ux.courseId }}>
               {course.name}
             </TutorLink>
           </div>
           <div
             className="course-listing-item-details"
             data-has-controls={controls != null}>
-            <TutorLink to="dashboard" params={{ courseId: course.id }}>
-              <CourseBranding isConceptCoach={course.is_concept_coach || false} />
+            <TutorLink to="dashboard" params={{ courseId: this.ux.courseId }}>
+              <CourseBranding isConceptCoach={!!course.is_concept_coach} />
               <p className="course-listing-item-term">
                 {course.term}
                 {' '}
@@ -138,7 +151,7 @@ export class Course extends React.PureComponent {
 @wrapCourseDragComponent
 export class CourseTeacher extends React.Component {
 
-  static propTypes = _.omit(Course.propTypes, 'controls');
+  static propTypes = omit(Course.propTypes, 'controls');
 
   render() {
     const { course } = this.props;
