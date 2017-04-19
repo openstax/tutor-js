@@ -1,6 +1,6 @@
 import LoadableModel from '../../src/components/loadable-model';
 
-import Task from '../../src/models/task';
+import Course from '../../src/models/course';
 
 
 describe('LoadableModel', () => {
@@ -8,7 +8,7 @@ describe('LoadableModel', () => {
   let task;
   let renderSpy;
   beforeEach(() => {
-    task = new Task();
+    task = new Course();
     task.fetch = jest.fn(() => task.apiRequestsInProgress.set('fetch',{}) );
     renderSpy = jest.fn(() => <span className="loaded"/>);
   });
