@@ -2,7 +2,7 @@ import React from 'react';
 
 import { observer } from 'mobx-react';
 import { computed } from 'mobx';
-import { reject, filter, isEmpty, merge, map } from 'lodash';
+import { isEmpty, merge, map } from 'lodash';
 import { Col, Row, Grid } from 'react-bootstrap';
 import classnames from 'classnames';
 
@@ -151,8 +151,8 @@ class CourseListingTitle extends React.Component {
 export class CourseListingCurrent extends React.PureComponent {
 
   render () {
-    const baseName = ReactHelpers.getBaseName('CourseListingCurrent');
-    const courses = reject(Courses.values(), 'hasEnded');
+    const baseName = ReactHelpers.getBaseName(this);
+    const courses = Courses.currentAndFuture.array;
 
     return (
       <div className={baseName}>
@@ -162,7 +162,7 @@ export class CourseListingCurrent extends React.PureComponent {
           <CourseListingBase
             className={`${baseName}-section`}
             courses={courses}
-            after={User.isTeacher ? <CourseListingAdd /> : undefined} />
+            after={User.isConfirmedFaculty ? <CourseListingAdd /> : undefined} />
         </Grid>
       </div>
     );
@@ -184,10 +184,10 @@ class CourseListingBasic extends React.PureComponent {
     return (
       (
         <div className={baseName}>
-          <BS.Grid>
+          <Grid>
             <CourseListingTitle title={title} />
             <CourseListingBase className={`${baseName}-section`} courses={courses} />
-          </BS.Grid>
+          </Grid>
         </div>
       )
     );
@@ -199,7 +199,7 @@ export class CourseListingPast extends React.PureComponent {
   render() {
     return (
       <CourseListingBasic
-        courses={filter(Courses.values(), 'hasEnded')}
+        courses={Courses.completed.array}
         baseName={ReactHelpers.getBaseName(this)}
         title="Past Courses"
       />
@@ -213,12 +213,10 @@ export class CourseListingFuture extends React.PureComponent {
   render() {
     return (
       <CourseListingBasic
-        courses={reject(Courses.values(), 'hasStarted')}
+        courses={Courses.future.array}
         baseName={ReactHelpers.getBaseName(this)}
         title="Future Courses"
       />
     );
   }
 }
-
-// export { CourseListingPast, CourseListingCurrent, CourseListingFuture };

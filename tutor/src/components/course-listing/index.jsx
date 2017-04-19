@@ -1,30 +1,26 @@
-import _ from 'lodash';
 import React from 'react';
-import BS from 'react-bootstrap';
 import { Redirect } from 'react-router';
-
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 
 import Router from '../../helpers/router';
-
 import Courses from '../../models/courses-map';
-
-//import { CourseListingStore } from '../../flux/course-listing';
-import { CurrentUserStore } from '../../flux/current-user';
-
-// import { Course, CourseTeacher } from './course';
 import EmptyCourses from './empty';
 import { CourseListingPast, CourseListingCurrent } from './listings';
 
 @observer
 export default class CourseListing extends React.PureComponent {
 
+  @computed get firstCourse() {
+    return Courses.array[0];
+  }
+
   @computed get shouldRedirect() {
+    if (Courses.size !== 1){
+      return false;
+    }
     return (
-      !CurrentUserStore.isTeacher() &&
-      (Courses.currentAndFuture.length === 1) &&
-      (Courses.past.length === 0)
+      this.firstCourse.isStudent && this.firstCourse.isActive
     );
   }
 
@@ -33,7 +29,7 @@ export default class CourseListing extends React.PureComponent {
 
     if (this.shouldRedirect) {
       return (
-        <Redirect to={Router.makePathname('dashboard', { courseId: Courses.currentAndFuture[0].id })} />
+        <Redirect to={Router.makePathname('dashboard', { courseId: this.firstCourse.id })} />
       );
     }
 

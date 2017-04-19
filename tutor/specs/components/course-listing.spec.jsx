@@ -1,100 +1,91 @@
-_              = require 'underscore'
-React          = require 'react'
-CourseListing = require '../../src/components/course-listing'
-{CourseListingActions, CourseListingStore} = require '../../src/flux/course-listing'
-{CurrentUserActions} = require '../../src/flux/current-user'
-{CourseStore} = require '../../src/flux/course'
-{shallow, mount} = require 'enzyme'
-EnzymeContext = require './helpers/enzyme-context'
+import CourseListing from '../../src/components/course-listing';
+import { flatten, extend } from 'lodash';
+import EnzymeContext from './helpers/enzyme-context';
+import Courses from '../../src/models/courses-map';
+import User from '../../src/models/user';
+import { bootstrapCoursesList, STUDENT_COURSE_ONE_MODEL, TEACHER_COURSE_TWO_MODEL, TEACHER_AND_STUDENT_COURSE_THREE_MODEL, MASTER_COURSES_LIST, TUTOR_HELP, CONCEPT_COACH_HELP, STUDENT_ARCHIVED_COURSE, TEACHER_PAST_COURSE, STUDENT_PAST_COURSE } from '../courses-test-data';
 
-{
-  STUDENT_COURSE_ONE_MODEL
-  TEACHER_COURSE_TWO_MODEL
-  TEACHER_AND_STUDENT_COURSE_THREE_MODEL
-  MASTER_COURSES_LIST,
-  TUTOR_HELP,
-  CONCEPT_COACH_HELP,
-  STUDENT_ARCHIVED_COURSE,
-  TEACHER_PAST_COURSE,
-  STUDENT_PAST_COURSE
-} = require '../courses-test-data'
+const loadTeacherUser = () => User.faculty_status = 'confirmed_faculty'
 
-loadTeacherUser = ->
-  CurrentUserActions.loaded(faculty_status: 'confirmed_faculty')
+describe('Course Listing Component', function() {
 
-describe 'Course Listing Component', ->
+  beforeEach(bootstrapCoursesList);
 
-  afterEach ->
-    CurrentUserActions.reset()
+  afterEach(() => Courses.clear());
 
-  it 'renders the listing', ->
-    CourseListingActions.loaded(MASTER_COURSES_LIST)
-    wrapper = mount(<CourseListing />, EnzymeContext.withDnD())
-    for course, i in MASTER_COURSES_LIST
-      expect(wrapper).toHaveRendered(".course-listing-current [data-course-id='#{course.id}']")
-    undefined
+  it('renders the listing', function() {
+    const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
+    for (let i = 0; i < MASTER_COURSES_LIST.length; i++) {
+      const course = MASTER_COURSES_LIST[i];
+      expect(wrapper).toHaveRendered(`.course-listing-current [data-course-id='${course.id}']`);
+    }
+  });
 
-  it 'renders the listing without archived courses', ->
-    courseList = _.flatten([MASTER_COURSES_LIST, STUDENT_ARCHIVED_COURSE])
-    CourseListingActions.loaded(courseList)
-    wrapper = shallow(<CourseListing />, EnzymeContext.withDnD())
-    expect(wrapper).not.toHaveRendered("CourseLink[courseId='#{STUDENT_ARCHIVED_COURSE.id}']")
-    undefined
+  it('renders the listing without archived courses', function() {
+    Courses.bootstrap(flatten([MASTER_COURSES_LIST, STUDENT_ARCHIVED_COURSE]), { clear: true });
+    const wrapper = shallow(<CourseListing />, EnzymeContext.withDnD());
+    expect(wrapper).not.toHaveRendered(`CourseLink[courseId='${STUDENT_ARCHIVED_COURSE.id}']`);
+  });
 
-  it 'renders add course action if user is teacher', ->
-    loadTeacherUser()
-    wrapper = mount(<CourseListing />, EnzymeContext.withDnD())
-    expect(wrapper).toHaveRendered(".course-listing-add-zone")
-    undefined
+  it('renders add course action if user is teacher', function() {
+    loadTeacherUser();
+    const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
+    expect(User.isConfirmedFaculty).toBeTruthy();
+    expect(wrapper).toHaveRendered('.course-listing-add-zone');
+  });
 
-  it 'renders controls for course if user is teacher of course', ->
-    loadTeacherUser()
-    CourseListingActions.loaded(MASTER_COURSES_LIST)
+  it('renders controls for course if user is teacher of course', function() {
+    loadTeacherUser();
+    const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
+    for (let i = 0; i < MASTER_COURSES_LIST.length; i++) {
+      const course = MASTER_COURSES_LIST[i];
+      if (Courses.get(course.id).isTeacher) {
+        expect(wrapper).toHaveRendered(`[data-course-id='${course.id}'] .course-listing-item-controls`);
+      }
+    }
+  });
 
-    wrapper = mount(<CourseListing />, EnzymeContext.withDnD())
+  it('does not render controls for course if user is student of course', function() {
+    loadTeacherUser();
+    const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
+    for (let i = 0; i < MASTER_COURSES_LIST.length; i++) {
+      const course = MASTER_COURSES_LIST[i];
+      if (!Courses.get(course.id).isTeacher) {
+        expect(wrapper).not.toHaveRendered(`[data-course-id='${course.id}'] .course-listing-item-controls`);
+      }
+    }
+  });
 
-    for course, i in MASTER_COURSES_LIST when CourseStore.isTeacher(course.id)
-      expect(wrapper).toHaveRendered("[data-course-id='#{course.id}'] .course-listing-item-controls")
+  it('renders past courses in past courses listing', function() {
+    loadTeacherUser();
+    Courses.bootstrap([TEACHER_PAST_COURSE, STUDENT_PAST_COURSE], { clear: true });
+    const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
+    expect(wrapper).toHaveRendered(`.course-listing-past [data-course-id='${TEACHER_PAST_COURSE.id}']`);
+    expect(wrapper).toHaveRendered(`.course-listing-past [data-course-id='${STUDENT_PAST_COURSE.id}']`);
+  });
 
-    undefined
+  it('renders empty courses if course list is empty', function() {
+    Courses.clear();
+    const wrapper = shallow(<CourseListing />, EnzymeContext.withDnD());
+    expect(wrapper).toHaveRendered('EmptyCourses');
+  });
 
-  it 'does not render controls for course if user is student of course', ->
-    loadTeacherUser()
-    CourseListingActions.loaded(MASTER_COURSES_LIST)
-
-    wrapper = mount(<CourseListing />, EnzymeContext.withDnD())
-
-    for course, i in MASTER_COURSES_LIST when not CourseStore.isTeacher(course.id)
-      expect(wrapper).not.toHaveRendered("[data-course-id='#{course.id}'] .course-listing-item-controls")
-
-    undefined
-
-  it 'renders past courses in past courses listing', ->
-    loadTeacherUser()
-    CourseListingActions.loaded([TEACHER_PAST_COURSE, STUDENT_PAST_COURSE])
-    wrapper = mount(<CourseListing />, EnzymeContext.withDnD())
-    expect(wrapper).toHaveRendered(".course-listing-past [data-course-id='#{TEACHER_PAST_COURSE.id}']")
-    expect(wrapper).toHaveRendered(".course-listing-past [data-course-id='#{STUDENT_PAST_COURSE.id}']")
-    undefined
-
-  it 'renders empty courses if course list only contains archived course', ->
-    CourseListingActions.loaded([STUDENT_ARCHIVED_COURSE])
-    wrapper = shallow(<CourseListing />, EnzymeContext.withDnD())
-    expect(wrapper).toHaveRendered("EmptyCourses")
-    undefined
-
-  it 'renders course appropriate flag', ->
-    CourseListingActions.loaded(MASTER_COURSES_LIST)
-    wrapper = mount(<CourseListing />, EnzymeContext.withDnD())
-    for course, i in MASTER_COURSES_LIST
+  it('renders course appropriate flag', function() {
+    const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
+    for (let i = 0; i < MASTER_COURSES_LIST.length; i++) {
+      const course = MASTER_COURSES_LIST[i];
       expect(
-        wrapper.find("[data-course-id='#{course.id}'] .course-listing-item-brand").render().text()
-      ).equal('OpenStax Tutor')
-    undefined
+        wrapper.find(`[data-course-id='${course.id}'] .course-listing-item-brand`).render().text()
+      ).equal('OpenStax Tutor');
+    }
+  });
 
 
-  it 'redirects to dashboard for a single course', ->
-    CourseListingActions.loaded([STUDENT_COURSE_ONE_MODEL])
-    wrapper = shallow(<CourseListing />, EnzymeContext.withDnD())
-    expect(wrapper).toHaveRendered('Redirect[to="/course/1"]')
-    undefined
+  it('redirects to dashboard for a single course', function() {
+    Courses.clear();
+    Courses.bootstrap([STUDENT_COURSE_ONE_MODEL], { clear: true });
+    const wrapper = shallow(<CourseListing />, EnzymeContext.withDnD());
+    expect(wrapper).toHaveRendered('Redirect[to="/course/1"]');
+  });
+
+});
