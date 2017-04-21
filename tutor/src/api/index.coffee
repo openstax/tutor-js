@@ -9,7 +9,6 @@
   connectModelCreate, connectModelRead, connectModelUpdate, connectModelDelete
 } = require './adapter'
 
-{CurrentUserActions} = require '../flux/current-user'
 {CourseActions} = require '../flux/course'
 {CoursePracticeActions} = require '../flux/practice'
 {CourseGuideActions} = require '../flux/guide'
@@ -207,8 +206,6 @@ startAPI = ->
     data: (id, answerId) ->
       {answer_id: answerId}
   )
-
-  connectRead(CurrentUserActions, url: 'user')
 
   connectRead(OfferingsActions, url: 'offerings')
   connectRead(PastTaskPlansActions, (courseId) ->
