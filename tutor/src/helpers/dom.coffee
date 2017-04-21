@@ -1,3 +1,5 @@
+User = require('../models/user').default;
+
 module.exports = {
 
   matches: (el, selector) ->
@@ -11,6 +13,8 @@ module.exports = {
 
 
   readBootstrapData: (root = document) ->
+    User.csrf_token = root.head.querySelector('meta[name=csrf-token]')?.getAttribute('content')
+
     el = root.querySelector('#tutor-boostrap-data')
     if el
       el.parentNode.removeChild(el)
