@@ -12,7 +12,7 @@ ServerErrorMessage = require './server-error-message'
 
 {AppStore}    = require '../../flux/app'
 {CourseStore} = require '../../flux/course'
-{CurrentUserStore} = require '../../flux/current-user'
+UserMenu = require('../../models/user/menu').default
 
 goToDashboard = (context, courseId) ->
   context.router.transitionTo(
@@ -86,7 +86,7 @@ ERROR_HANDLERS =
   default: (error, message, context = {}) ->
     unless error.supportLinkBase?
       {courseId} = context
-      error.supportLinkBase = CurrentUserStore.getHelpLink(courseId)
+      error.supportLinkBase = UserMenu.helpLinkForCourseId(courseId)
     title: 'Server Error'
     body: <ServerErrorMessage {...error}/>
     buttons: [
