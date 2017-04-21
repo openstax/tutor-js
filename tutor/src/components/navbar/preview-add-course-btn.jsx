@@ -13,11 +13,11 @@ export default class PreviewAddCourseBtn extends React.PureComponent {
   }
 
   render() {
-    // const course = Courses.get(this.props.courseId);
-    // if (!course.is_preview) { return null; }
+    const course = Courses.get(this.props.courseId);
+    if (!course || !course.is_preview) { return null; }
 
     return (
-      <Button>Create a course</Button>
+      <Button bsStyle="primary">Create a course</Button>
     );
   }
 }
