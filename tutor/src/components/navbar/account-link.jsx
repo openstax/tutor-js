@@ -15,11 +15,7 @@ export default class AccountLink extends React.PureComponent {
     if (!profile_url) { return null; }
     return (
       <li>
-        <a
-          href={profile_url}
-          target="_blank"
-          onClick={this.props.onClick}
-        >
+        <a href={profile_url} target="_blank">
           My Account
         </a>
       </li>

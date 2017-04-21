@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Course from '../../models/user';
+import Course from '../../models/course';
 
 import TutorLink from '../link';
 
