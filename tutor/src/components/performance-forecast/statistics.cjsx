@@ -4,7 +4,7 @@ Router = require 'react-router'
 _ = require 'underscore'
 {SpyMode} = require 'shared'
 
-Courses = require('../../models/courses-map')
+Courses = require('../../models/courses-map').default
 
 ChapterSectionType = require './chapter-section-type'
 

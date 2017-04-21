@@ -11,7 +11,7 @@ import BookLinks from './book-links';
 import CenterControls from './center-controls';
 import TutorLink from '../link';
 
-import { CourseStore } from '../../flux/course';
+import Courses from '../../models/courses-map';
 import PreviewAddCourseBtn from './preview-add-course-btn';
 import { action } from 'mobx';
 
@@ -28,7 +28,7 @@ export default class NavigationBar extends React.PureComponent {
   render() {
     const params = Router.currentParams();
     const { courseId } = params;
-    const course = courseId ? CourseStore.get(courseId) : null;
+    const course = courseId ? Courses.get(courseId) : null;
 
     return (
       <div
@@ -52,8 +52,6 @@ export default class NavigationBar extends React.PureComponent {
           <ToursReplay />
           <UserActionsMenu
             courseId={courseId}
-            course={course}
-            onItemClick={this.collapseNav}
           />
 
         </div>

@@ -13,7 +13,7 @@ ProgressGuideShell = require './progress-guide'
 BrowseTheBook = require '../buttons/browse-the-book'
 CourseTitleBanner = require '../course-title-banner'
 User = require '../../models/user'
-Courses = require('../../models/courses-map');
+Courses = require('../../models/courses-map').default
 Tabs = require '../tabs'
 {NotificationsBar} = require 'shared'
 NotificationHelpers = require '../../helpers/notifications'
@@ -56,8 +56,8 @@ module.exports = React.createClass
 
     <div className="dashboard">
       <NotificationsBar
-        role={CurrentUserStore.getCourseRole(courseId)}
-        course={course}
+        role={course.primaryRole.serialize()}
+        course={course.serialize()}
         callbacks={NotificationHelpers.buildCallbackHandlers(@)}
       />
       <CourseTitleBanner courseId={courseId} />
