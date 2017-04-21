@@ -1,4 +1,5 @@
-@top-navbar-min-height: 60px;
+@tutor-navbar-height: 61px;
+@tutor-navbar-padding-horizontal: 4rem;
 
 // the @navbar-XX vars are bootstrap defaults
 
@@ -12,7 +13,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  min-height: @top-navbar-min-height;
+  min-height: @tutor-navbar-height;
 
   padding-right: @navbar-padding-horizontal;
   padding-left:  @navbar-padding-horizontal;
@@ -27,7 +28,6 @@
     align-items: center;
   }
 
-
   .ui-brand-logo {
     display: inline-block;
     height: 30px;
@@ -36,19 +36,9 @@
     .tutor-background-image('openstax-logo.svg');
   }
 
-  .ui-rice-logo {
-    display: inline-block;
-    margin: 15px 0 15px 20px;
-    height: 30px;
-    width: 132px;
-    background-repeat: no-repeat;
-    .tutor-background-image('rice-logo.png');
-  }
-
-
   .right-side-controls {
     > * {
-      margin-left: 5px;
+      margin-left: 20px;
     }
 
   }
