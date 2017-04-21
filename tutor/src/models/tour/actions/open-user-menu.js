@@ -23,7 +23,7 @@ export default class OpenUserMenu extends BaseAction {
   @action.bound
   clickMenu() {
     defer(() => {
-      this.menu.querySelector('#navbar-dropdown').click();
+      this.menu.querySelector('.dropdown-toggle').click();
     });
   }
 
