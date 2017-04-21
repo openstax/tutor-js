@@ -12,7 +12,7 @@ import CenterControls from './center-controls';
 import TutorLink from '../link';
 
 import { CourseStore } from '../../flux/course';
-
+import PreviewAddCourseBtn from './preview-add-course-btn';
 import { action } from 'mobx';
 
 export default class NavigationBar extends React.PureComponent {
@@ -31,36 +31,35 @@ export default class NavigationBar extends React.PureComponent {
     const course = courseId ? CourseStore.get(courseId) : null;
 
     return (
-      <Navbar
-        fixedTop={true}
-        fluid={true}
+      <div
+        className="tutor-top-navbar"
         ref={nb => (this.navBar = nb)}
       >
-        <Navbar.Header>
-          <Navbar.Brand>
-            <TutorLink to="listing" className="navbar-brand">
-              <i className="ui-brand-logo" />
-            </TutorLink>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
+
+        <TutorLink to="listing" className="brand">
+          <i className="ui-brand-logo" />
+        </TutorLink>
+
+
         <CenterControls params={params} />
-        <Navbar.Collapse>
-          <Nav>
-            <CourseName course={course} />
-            <BookLinks courseId={courseId} onItemClick={this.collapseNav} />
-          </Nav>
-          <Nav pullRight={true}>
-            <ToursReplay />
-            <UserActionsMenu
-              courseId={courseId}
-              course={course}
-              onItemClick={this.collapseNav}
-            />
-          </Nav>
-        </Navbar.Collapse>
+
+        <div className="right-side-controls">
+
+          <CourseName course={course} />
+          <BookLinks courseId={courseId} onItemClick={this.collapseNav} />
+
+          <PreviewAddCourseBtn courseId={courseId} />
+          <ToursReplay />
+          <UserActionsMenu
+            courseId={courseId}
+            course={course}
+            onItemClick={this.collapseNav}
+          />
+
+        </div>
+
         <ServerErrorMonitoring />
-      </Navbar>
+      </div>
     );
   }
 }

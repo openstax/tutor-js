@@ -1,8 +1,9 @@
 import React from 'react';
-import BS from 'react-bootstrap';
+
+import { Dropdown, MenuItem } from 'react-bootstrap';
 
 
-import { invoke, partial, map, each } from 'lodash';
+import { invoke, partial, map, each, get } from 'lodash';
 import classnames from 'classnames';
 import TourAnchor from '../tours/anchor';
 import Router from '../../helpers/router';
@@ -12,10 +13,11 @@ import BrowseTheBook from '../buttons/browse-the-book';
 import BindStoreMixin from '../bind-store-mixin';
 import LogOut from './logout';
 
-import { observer } from 'mobx-react'
-
+import { observer } from 'mobx-react';
+import { autobind } from 'core-decorators';
 
 import User from '../../models/user';
+import UserMenu from '../../models/user/menu';
 import Courses from '../../models/courses-map';
 
 const BrowseBookMenuOption = props =>
@@ -53,11 +55,12 @@ export default class UserActionsMenu extends React.PureComponent {
 
 
   externalLinkClicked() {
-    invoke(this.props, 'onItemClick')
+    invoke(this.props, 'onItemClick');
   }
 
+  @autobind
   renderMenuItem(route, index) {
-    let href;
+
     const isActive = route.name && Router.isActive(route.name, route.params, { window: this.props.windowImpl });
 
     let props;
@@ -65,43 +68,43 @@ export default class UserActionsMenu extends React.PureComponent {
       props = {
         href: route.href,
         onSelect: this.props.onItemClick,
-      }
+      };
     } else {
-      const href = Router.makePathname(route.name, route.params, route.options)
+      const href = Router.makePathname(route.name, route.params, route.options);
       props = { href, onSelect: partial(this.transitionToMenuItem, href) };
     }
     const key = route.key ? `dropdown-item-${route.key}` : `dropdown-item-${index}`;
 
     // MenuItem doesn't pass on props to the li currently, so using className instead for route.name visual control.
     return (
-      <BS.MenuItem
+      <MenuItem
         {...props}
-        className={classnames(route.name, __guard__(route.options, x => x.className), { 'active': isActive })}
+        className={classnames(route.name, get(route, 'options.className'), { 'active': isActive })}
         key={key}
         data-name={route.name}
-        eventKey={index + 2}>
+      >
         <TourAnchor id={`menu-option-${route.name || route.key || route.label}`}>
           {route.label}
         </TourAnchor>
-      </BS.MenuItem>
+      </MenuItem>
     );
   }
 
   renderMenuItems() {
     const { courseId } = this.props;
 
-    const menu = map(CurrentUserStore.getCourseMenuRoutes(courseId), this.renderMenuItem);
+    const menu = map(UserMenu.getRoutes(courseId), this.renderMenuItem);
 
     menu.push(<BrowseBookMenuOption key="browse-book" courseId={courseId} />);
 
-    if (User.isTeacher && courseId) {
-      menu.push(<BS.MenuItem divider={true} key="dropdown-item-divider-course" />);
-      each(UserMenu.getCourseMenuRoutes(courseId, false), (route, index) => {
-        return (
-          menu.push(this.renderMenuItem(route, menu.length))
-        );
-      });
-    }
+    // if (User.isTeacher && courseId) {
+    //   menu.push(<BS.MenuItem divider={true} key="dropdown-item-divider-course" />);
+    //   each(UserMenu.getCourseMenuRoutes(courseId, false), (route) => {
+    //     return (
+    //       menu.push(this.renderMenuItem(route, menu.length))
+    //     );
+    //   });
+    // }
 
     if (User.is_admin) {
       menu.push(this.renderMenuItem({ label: 'Admin', href: '/admin', key: 'admin' }, menu.length ));
@@ -116,58 +119,41 @@ export default class UserActionsMenu extends React.PureComponent {
       menu.push(this.renderMenuItem({ label: 'Content Analyst', href: '/content_analyst', key: 'ca' }, menu.length ));
     }
 
-    menu.push(<BS.MenuItem divider={true} key="dropdown-item-divider" />);
+    menu.push(<MenuItem divider={true} key="dropdown-item-divider" />);
     return (
         menu
     );
-  },
-
+  }
 
   render() {
-    const course = CourseStore.get(this.props.courseId);
-
+    const course = Courses.get(this.props.courseId);
+    const isConceptCoach = get(course, 'is_concept_coach', false);
     return (
-      <BS.NavDropdown
-        eventKey={1}
-        className={classnames('user-actions-menu', { 'is-concept-coach': __guard__(course, x => x.is_concept_coach) })}
-        id="navbar-dropdown"
-        title={React.createElement(UserName, null)}
-        ref="navDropDown">
-        {this.renderMenuItems()}
-        <AccountLink key="accounts-link" onClick={this.externalLinkClicked} />
-        <BS.MenuItem
-          key="nav-help-link"
-          className="-help-link"
-          target="_blank"
-          href={CurrentUserStore.getHelpLink(this.props.courseId)}
-          onSelect={this.externalLinkClicked}>
-          <span>
-            Get Help
-          </span>
-        </BS.MenuItem>
-        <LogOut isConceptCoach={__guard__(this.props.course, x1 => x1.is_concept_coach)} />
-      </BS.NavDropdown>
+      <Dropdown
+        className={classnames('user-actions-menu', { 'is-concept-coach': isConceptCoach })}
+      >
+        <Dropdown.Toggle
+          useAnchor={true}
+        >
+          {User.name}
+        </Dropdown.Toggle>
+        <Dropdown.Menu >
+          {this.renderMenuItems()}
+          <AccountLink bsRole="menu-item" onClick={this.externalLinkClicked} />
+          <MenuItem
+            key="nav-help-link"
+            className="-help-link"
+            target="_blank"
+            href={UserMenu.helpLinkForCourseId(this.props.courseId)}
+            onSelect={this.externalLinkClicked}>
+            <span>
+              Get Help
+            </span>
+          </MenuItem>
+          <LogOut bsRole="menu" isConceptCoach={isConceptCoach} />
+        </Dropdown.Menu>
+      </Dropdown>
     );
   }
 
-}
-
-
-export default UserActionsMenu;
-
-function __guardMethod__(obj, methodName, transform) {
-  if (typeof obj !== 'undefined' && obj !== null && typeof obj[methodName] === 'function') {
-    return (
-        transform(obj, methodName)
-    );
-  } else {
-    return (
-        undefined
-    );
-  }
-}
-function __guard__(value, transform) {
-  return (
-      (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined
-  );
 }
