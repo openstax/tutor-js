@@ -3,7 +3,7 @@ import { Panel } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 
 import User from '../models/course';
-import Courses from '../models/course-map';
+import Courses from '../models/courses-map';
 import LogoutLink from './navbar/logout';
 import CountdownRedirect from './countdown-redirect';
 

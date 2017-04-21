@@ -2,8 +2,7 @@ _ = require 'underscore'
 
 Router = require '../helpers/router'
 
-{CurrentUserStore} = require '../flux/current-user'
-{CourseStore} = require '../flux/course'
+Courses = require('../models/courses-map').default
 
 # generate custom event data for routes
 Events =
@@ -16,9 +15,9 @@ Events =
     Analytics.sendEvent 'Student', 'Dashboard', label: courseId
 
 # a bit shorter helper methods
-isTeacher = (courseId) -> CourseStore.isTeacher(courseId)
+isTeacher = (courseId) -> Courses.get(courseId).is_teacher
 getRole = (courseId) ->
-  if CourseStore.isTeacher(courseId) then 'teacher' else 'student'
+  if Courses.get(courseId).is_teacher then 'teacher' else 'student'
 
 assignmentTypeTranslator = (assignmentType, {courseId, id}) ->
   type = if id is 'new' then 'create' else 'edit'
@@ -50,7 +49,7 @@ Translators =
 
   # Task steps are viewed by both teacher and student with no difference in params
   viewTaskStep:         ({courseId}) ->
-    role = CurrentUserStore.getCourseRole(courseId, true).type
+    role = Courses.get(courseId).primaryRole.type
     "/#{role}/task-step/#{courseId}"
 
 

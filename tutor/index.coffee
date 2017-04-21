@@ -24,7 +24,6 @@ window._STORES =
   SETTINGS: UiSettings
   APP: require './src/flux/app'
   COURSE: require './src/flux/course'
-  CURRENT_USER: require './src/flux/current-user'
   EXERCISE: require './src/flux/exercise'
   PERFORMANCE_FORECAST: require './src/flux/performance-forecast'
   SCORES: require './src/flux/scores'
