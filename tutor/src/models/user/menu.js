@@ -144,6 +144,7 @@ const UserMenu = observable({
   },
 
   helpLinkForCourseId(courseId) {
+    if (!courseId) { return this.helpUrl; }
     const course = Courses.get(courseId);
     return course.is_concept_coach ? CONCEPT_COACH_HELP : TUTOR_HELP;
   },
