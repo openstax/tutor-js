@@ -11,6 +11,11 @@ const STUDENT_MENU = [
     label: 'Dashboard',
   },
   {
+    name: 'browseBook',
+    params: { courseId: '1' },
+    label: 'Browse the Book',
+  },
+  {
     name: 'viewPerformanceGuide',
     params: { courseId: '1' },
     label: 'Performance Forecast',
@@ -27,6 +32,11 @@ const TEACHER_MENU = [
     name: 'dashboard',
     label: 'Dashboard',
     params: { courseId: '2' },
+  },
+  {
+    name: 'browseBook',
+    params: { courseId: '2' },
+    label: 'Browse the Book',
   },
   {
     name: 'viewPerformanceGuide',
