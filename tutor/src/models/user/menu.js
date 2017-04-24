@@ -84,21 +84,21 @@ const ROUTES = {
   customer_service: {
     label: 'Customer Service',
     href: '/customer_service',
-    isAllowed() { return User.is_customer_service; },
+    isAllowed() { return !!User.is_customer_service; },
   },
   admin: {
     label: 'Admin',
     href: '/admin',
-    isAllowed() { return User.is_admin; },
+    isAllowed() { return !!User.is_admin; },
   },
   QADashboard: {
     label: 'QA Dashboard',
-    isAllowed() { return User.is_content_analyst; },
+    isAllowed() { return !!User.is_content_analyst; },
   },
   qaHome: {
     label: 'Content Analyst',
     href: '/content_analyst',
-    isAllowed() { return User.is_content_analyst; },
+    isAllowed() { return !!User.is_content_analyst; },
   },
 
 };
@@ -138,7 +138,6 @@ const UserMenu = observable({
     const course = Courses.get(courseId);
     return course.is_concept_coach ? CONCEPT_COACH_HELP : TUTOR_HELP;
   },
-
 
   getRoutes(courseId) {
     let isTeacher = false, menuRole;
