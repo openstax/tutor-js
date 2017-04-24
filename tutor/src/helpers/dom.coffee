@@ -13,7 +13,7 @@ module.exports = {
 
 
   readBootstrapData: (root = document) ->
-    User.csrf_token = root.head.querySelector('meta[name=csrf-token]')?.getAttribute('content')
+    User.csrf_token = root.querySelector('meta[name=csrf-token]')?.getAttribute('content')
 
     el = root.querySelector('#tutor-boostrap-data')
     if el
