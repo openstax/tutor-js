@@ -14,7 +14,7 @@ export default class AccountLink extends React.PureComponent {
     const { profile_url } = User;
     if (!profile_url) { return null; }
     return (
-      <li>
+      <li role="presentation">
         <a href={profile_url} target="_blank">
           My Account
         </a>
