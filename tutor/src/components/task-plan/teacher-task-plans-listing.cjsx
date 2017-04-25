@@ -2,7 +2,7 @@ React = require 'react'
 moment = require 'moment-timezone'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
-
+LoadableModel = require '../loadable-model'
 LoadableItem = require '../loadable-item'
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
@@ -139,7 +139,7 @@ TeacherTaskPlanListing = React.createClass
         callbacks={NotificationHelpers.buildCallbackHandlers(@)}
       />
       <CourseTitleBanner courseId={courseId} />
-      <LoadableItem
+      <LoadableMap
         store={TeacherTaskPlanStore}
         actions={TeacherTaskPlanActions}
         load={@loadRange}
