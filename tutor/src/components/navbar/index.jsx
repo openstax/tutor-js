@@ -40,9 +40,9 @@ export default class NavigationBar extends React.PureComponent {
             <i className="ui-brand-logo" />
           </TutorLink>
           <CourseName course={course} />
+          <BookLinks courseId={courseId} onItemClick={this.collapseNav} />
         </div>
         <CenterControls params={params} />
-        <BookLinks courseId={courseId} onItemClick={this.collapseNav} />
         <div className="right-side-controls">
           <PreviewAddCourseBtn courseId={courseId} />
           <ToursReplay />

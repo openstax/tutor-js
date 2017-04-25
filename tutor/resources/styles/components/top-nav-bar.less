@@ -19,7 +19,6 @@
   padding-right: @navbar-padding-horizontal;
   padding-left:  @navbar-padding-horizontal;
 
-
   a {
     color: #777;
     text-decoration: none;
@@ -29,8 +28,8 @@
     display: flex;
     align-items: center;
   }
-
   .ui-brand-logo {
+    margin-top: 3px; // the text on the logo is a bit vertically mis-aligned
     display: inline-block;
     height: 30px;
     width: 126px;
@@ -43,9 +42,11 @@
       margin-left: 20px;
     }
   }
-  .course-name { margin-left: 1rem; }
+  .course-name { margin: 0 1rem; }
   .book-links {
     border-right: 1px solid @tutor-neutral-light;
+    display: flex;
+    align-self: stretch;
     align-items: stretch;
     a {
       display: flex;
