@@ -2,7 +2,9 @@ import {
   computed, observable,
 } from 'mobx';
 
-import { TeacherTaskPlanStore as TaskPlans } from '../flux/teacher-task-plan';
+import { filter } from 'lodash';
+
+import { TeacherTaskPlanStore as TaskPlans } from '../../flux/teacher-task-plan';
 
 export default class CoursePreviewBehaviour {
 
@@ -12,12 +14,19 @@ export default class CoursePreviewBehaviour {
     this.course = course;
   }
 
-  // @computed shouldWarnPreviewOnly() {
-  //   TaskPlans.getActiveCoursePlans
-  // }
+
+  get shouldWarnPreviewOnly() {
+    const tasks = TaskPlans.getActiveCoursePlans(this.course.id);
+    const demoTasks = filter(tasks, { is_demo: true });
+    return (tasks.length - demoTasks.length == 3);
+  }
 
   @computed get tourAudienceTags() {
-    return []
+    const tags = [];
+    if (this.shouldWarnPreviewOnly) {
+      tags.push('preview-warning');
+    }
+    return tags;
   }
 
 }
