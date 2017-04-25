@@ -24,7 +24,6 @@ export default class ExerciseBadges extends React.PureComponent {
 
   render() {
     const classes = classnames('openstax-exercise-badges', this.props.className);
-    debugger
     const badges = [];
     if (this.props.isMultipart || Exercise.isMultipart(this.props.exercise)) {
       badges.push(<span key="mpq" className="mpq">
@@ -60,11 +59,8 @@ export default class ExerciseBadges extends React.PureComponent {
       return (
         <div className={classes}>{badges}</div>
       );
-    } else {
-      return (
-          null
-      );
     }
+    return null;
   }
 
 }
