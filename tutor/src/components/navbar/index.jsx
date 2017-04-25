@@ -36,27 +36,27 @@ export default class NavigationBar extends React.PureComponent {
         ref={nb => (this.navBar = nb)}
       >
 
-        <TutorLink to="listing" className="brand">
-          <i className="ui-brand-logo" />
-        </TutorLink>
+      <TutorLink to="listing" className="brand">
+        <i className="ui-brand-logo" />
+      </TutorLink>
 
 
-        <CenterControls params={params} />
+      <CenterControls params={params} />
+      <CourseName course={course} />
+      <BookLinks courseId={courseId} onItemClick={this.collapseNav} />
 
-        <div className="right-side-controls">
+      <div className="right-side-controls">
 
-          <CourseName course={course} />
-          <BookLinks courseId={courseId} onItemClick={this.collapseNav} />
 
-          <PreviewAddCourseBtn courseId={courseId} />
-          <ToursReplay />
-          <UserActionsMenu
-            courseId={courseId}
-          />
+        <PreviewAddCourseBtn courseId={courseId} />
+        <ToursReplay />
+        <UserActionsMenu
+          courseId={courseId}
+        />
 
-        </div>
+      </div>
 
-        <ServerErrorMonitoring />
+      <ServerErrorMonitoring />
       </nav>
     );
   }

@@ -42,8 +42,19 @@
     > * {
       margin-left: 20px;
     }
-
   }
+  .book-links {
+    border-right: 1px solid @tutor-neutral-light;
+    align-items: stretch;
+    a {
+      display: flex;
+      align-items: center;
+       padding-left: 1rem;
+       padding-right: 1rem;
+       border-left: 1px solid @tutor-neutral-light;
+       .tutor-icon { margin-left: 0.5rem; }
+     }
+   }
   @import './top-nav-bar/center-controls';
   @import './top-nav-bar/user-actions-menu';
 }
