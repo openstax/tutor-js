@@ -31,7 +31,7 @@ export default class NavigationBar extends React.PureComponent {
     const course = courseId ? Courses.get(courseId) : null;
 
     return (
-      <div
+      <nav
         className="tutor-top-navbar"
         ref={nb => (this.navBar = nb)}
       >
@@ -57,7 +57,7 @@ export default class NavigationBar extends React.PureComponent {
         </div>
 
         <ServerErrorMonitoring />
-      </div>
+      </nav>
     );
   }
 }
