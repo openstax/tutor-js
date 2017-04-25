@@ -8,6 +8,7 @@ import Period  from './course/period';
 import Role    from './course/role';
 import Student from './course/student';
 import CourseInformation from './course/information';
+import PreviewBehaviour from './course/preview-behaviour';
 import TimeHelper from '../helpers/time';
 import { TimeStore } from '../flux/time';
 import moment from 'moment-timezone';
@@ -87,12 +88,19 @@ export default class Course extends BaseModel {
     return !!find(this.roles, 'isTeacher');
   }
 
+  @computed get previewBehaviour() {
+    return this.is_preview ? new PreviewBehaviour(this) : null;
+  }
+
   @computed get tourAudienceTags() {
-    const tags = [];
+    let tags = [];
     if (this.isTeacher) {
       tags.push(this.is_preview ? 'teacher-preview' : 'teacher');
     }
     if (this.isStudent) { tags.push('student'); }
+    if (this.previewBehaviour) {
+      tags = tags.concat(this.previewBehaviour.tourAudienceTags);
+    }
     return tags;
   }
 

@@ -1,6 +1,8 @@
 import {
-  computed, observable
+  computed, observable,
 } from 'mobx';
+
+import CoursePreviewUX from './preview-ux';
 
 export default class CourseUX {
 
@@ -26,4 +28,7 @@ export default class CourseUX {
     return this.course.isNew ? 'new' : this.course.id;
   }
 
+  @computed get previewBehaviour() {
+    return this.course.is_preview ? new CoursePreviewUX(this.course) : null;
+  }
 }
