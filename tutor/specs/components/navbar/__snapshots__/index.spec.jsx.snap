@@ -4,16 +4,20 @@ exports[`Main navbar renders and matches snapshot 1`] = `
 <nav
   className="tutor-top-navbar"
 >
-  <a
-    className="brand"
-    href="/"
-    onClick={[Function]}
-    style={Object {}}
+  <div
+    className="left-side-controls"
   >
-    <i
-      className="ui-brand-logo"
-    />
-  </a>
+    <a
+      className="brand"
+      href="/"
+      onClick={[Function]}
+      style={Object {}}
+    >
+      <i
+        className="ui-brand-logo"
+      />
+    </a>
+  </div>
   <div
     className="right-side-controls"
   >
