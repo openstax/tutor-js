@@ -137,7 +137,6 @@ connectModelAction = (action, apiHandler, klass, method, options) ->
       bind(this[options.onFail] , this, bind.placeholder, reqArgs, requestConfig)
     else
       apiHandler.getOptions().handlers.onFail
-
     this.apiRequestsInProgress?.set(action, requestConfig)
     apiHandler.send(requestConfig, perRequestOptions, firstArg).then((reply) =>
       this.apiRequestsInProgress?.delete(action)
