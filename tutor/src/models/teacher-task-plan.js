@@ -22,4 +22,5 @@ export default class TeacherTaskPlan extends BaseModel {
   @field({ type: 'object' }) settings;
   @hasMany({ model: TaskingPlan }) tasking_plans;
 
+
 }
