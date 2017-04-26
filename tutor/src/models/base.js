@@ -5,6 +5,8 @@ import { observable, computed } from 'mobx';
 import { find, isNil } from 'lodash';
 import { session } from 'mobx-decorated-models';
 
+const FLUX_NEW = /_CREATING_/;
+
 export class BaseModel {
 
   constructor(attrs) {
@@ -19,7 +21,8 @@ export class BaseModel {
 
   @computed get isNew() {
     const idField = find(this.constructor.$schema.values(), { type: 'identifier' });
-    return isNil(this[idField.name]);
+    const id = this[idField.name];
+    return isNil(id) || FLUX_NEW.test(id);
   }
 
   loaded(req) {

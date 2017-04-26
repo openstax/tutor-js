@@ -4,7 +4,7 @@ import {
 
 import { filter } from 'lodash';
 
-import { TeacherTaskPlanStore as TaskPlans } from '../../flux/teacher-task-plan';
+import TeacherTaskPlans from '../teacher-task-plans';
 
 export default class CoursePreviewBehaviour {
 
@@ -14,11 +14,10 @@ export default class CoursePreviewBehaviour {
     this.course = course;
   }
 
-
-  get shouldWarnPreviewOnly() {
-    const tasks = TaskPlans.getActiveCoursePlans(this.course.id);
-    const demoTasks = filter(tasks, { is_demo: true });
-    return (tasks.length - demoTasks.length == 3);
+  @computed get shouldWarnPreviewOnly() {
+    const plans = TeacherTaskPlans.forCourseId(this.course.id).active;
+    const demoPlans = filter(plans, { is_demo: true });
+    return (plans.length - demoPlans.length == 3);
   }
 
   @computed get tourAudienceTags() {

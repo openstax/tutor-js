@@ -11,7 +11,7 @@ find = require 'lodash/find'
 {DropTarget} = require 'react-dnd'
 {Calendar, Month, Week, Day} = require 'react-calendar'
 { default: TourRegion } = require '../tours/region'
-
+{ default: TeacherTaskPlans } = require '../../models/teacher-task-plans'
 {TimeStore} = require '../../flux/time'
 TimeHelper = require '../../helpers/time'
 TutorRouter = require '../../helpers/router'
@@ -38,7 +38,7 @@ CourseMonth = React.createClass
     router: React.PropTypes.object
 
   propTypes:
-    plansList:  React.PropTypes.array
+#    plansList:  React.PropTypes.array
     date:       TimeHelper.PropTypes.moment
     termStart:  TimeHelper.PropTypes.moment
     termEnd:    TimeHelper.PropTypes.moment
@@ -238,8 +238,9 @@ CourseMonth = React.createClass
     @setState(showMiniEditor: false) if plan.id is @state.editingPlanId
 
   render: ->
-    {plansList, courseId, className, date, hasPeriods, termStart, termEnd} = @props
+    {courseId, className, date, hasPeriods, termStart, termEnd} = @props
     {calendarDuration, calendarWeeks} = @getDurationInfo(date)
+    plansList = TeacherTaskPlans.forCourseId(courseId).array
 
     calendarClassName = classnames('calendar-container', 'container', className,
       'with-sidebar-open': @state.showingSideBar

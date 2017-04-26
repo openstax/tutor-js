@@ -1,12 +1,14 @@
 import CoursePreviewBehaviour from '../../../src/models/course/preview-behaviour';
-import { autorun } from 'mobx';
+import { autorun, observable } from 'mobx';
 import { bootstrapCoursesList } from '../../courses-test-data';
 
-let mockActiveCoursePlans = [];
+let mockActiveCoursePlans = observable.array();
 
-jest.mock('../../../src/flux/teacher-task-plan', () => ({
-  TeacherTaskPlanStore: {
-    getActiveCoursePlans: jest.fn(() => mockActiveCoursePlans),
+jest.mock('../../../src/models/teacher-task-plans', () => ({
+  forCourseId() {
+    return {
+      active: mockActiveCoursePlans,
+    };
   },
 }));
 
@@ -19,29 +21,26 @@ describe('Course Preview Behaviour', () => {
   });
 
   afterEach(() => {
-    mockActiveCoursePlans = [];
+
   });
 
   it('#shouldWarnPreviewOnly', () => {
     expect(behaviour.shouldWarnPreviewOnly).toBe(false);
-    mockActiveCoursePlans = [
+    mockActiveCoursePlans.replace([
       { is_demo: true }, { is_demo: false }, { is_demo: false },
-    ];
+    ]);
     expect(behaviour.shouldWarnPreviewOnly).toBe(false);
     mockActiveCoursePlans.push({ is_demo: false });
     expect(behaviour.shouldWarnPreviewOnly).toBe(true);
   });
 
-
   it('#tourAudienceTags', () => {
     const dispose = autorun(jest.fn(() => behaviour.tourAudienceTags ));
-    expect(behaviour.tourAudienceTags).toEqual([]);
-    mockActiveCoursePlans = [
+    mockActiveCoursePlans.replace([
       { is_demo: true }, { is_demo: false }, { is_demo: false }, { is_demo: false },
-    ];
+    ]);
     expect(behaviour.shouldWarnPreviewOnly).toBe(true);
     expect(behaviour.tourAudienceTags).toEqual(['preview-warning']);
-    dispose()
+    dispose();
   });
-
 });

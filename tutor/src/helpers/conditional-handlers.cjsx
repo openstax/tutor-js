@@ -5,7 +5,6 @@ extend = require 'lodash/extend'
 TutorRouter = require '../helpers/router'
 {default: InvalidPage} = require '../components/invalid-page'
 
-TeacherTaskPlans        = require '../components/task-plan/teacher-task-plans-listing'
 {default: CCStudentRedirect}       = require '../components/cc-student-redirect'
 {StudentDashboardShell} = require '../components/student-dashboard'
 CCDashboard = require '../components/cc-dashboard'

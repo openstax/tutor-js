@@ -13,7 +13,8 @@ getStudentDashboardShell = ->
   StudentDashboardShell
 
 getTeacherTaskPlans = ->
-  require './components/task-plan/teacher-task-plans-listing'
+  {default: TeacherTaskPlans} = require './components/course-calendar'
+  TeacherTaskPlans
 
 getTaskShell = ->
   {TaskShell} = require './components/task'

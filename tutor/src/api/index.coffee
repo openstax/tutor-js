@@ -33,7 +33,6 @@ PerformanceForecast = require '../flux/performance-forecast'
 
 {TocActions} = require '../flux/toc'
 {ExerciseActions, ExerciseStore} = require '../flux/exercise'
-# {TeacherTaskPlanActions} = require '../flux/teacher-task-plan'
 {StudentDashboardActions} = require '../flux/student-dashboard'
 {CourseListingActions} = require '../flux/course-listing'
 {CCDashboardActions} = require '../flux/cc-dashboard'
@@ -252,10 +251,10 @@ startAPI = ->
 
   connectModelCreate(CourseCreate, 'save', onSuccess: 'onCreated')
 
-  connectModelRead(TeacherTaskPlans, 'fetch',
-    pattern: 'courses/{id}/dashboard',
-    params: (id, startAt, endAt) ->
-      debugger
+  connectModelRead(TeacherTaskPlans.constructor, 'fetch',
+    pattern: 'courses/{courseId}/dashboard',
+    onSuccess: 'onLoaded'
+    params: ({ id, startAt, endAt }) ->
       start_at: startAt
       end_at: endAt
   )

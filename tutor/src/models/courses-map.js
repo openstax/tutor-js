@@ -1,12 +1,11 @@
-import { ObservableMap, computed, action } from 'mobx';
+import Map from './map';
+import { computed, action } from 'mobx';
 import { CourseListingActions, CourseListingStore } from '../flux/course-listing';
 import Course from './course';
 import { once } from 'lodash';
 
-class CoursesMap extends ObservableMap {
-  @computed get array() {
-    return this.values();
-  }
+class CoursesMap extends Map {
+
 
 }
 

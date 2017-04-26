@@ -1,5 +1,5 @@
-import { extend, clone } from 'lodash';
-import { TeacherTaskPlanActions, TeacherTaskPlanStore } from '../../../src/flux/teacher-task-plan';
+import { extend, clone, invoke } from 'lodash';
+
 import { StudentDashboardActions, StudentDashboardStore } from '../../../src/flux/student-dashboard';
 import User from '../../../src/models/user';
 import Courses from '../../../src/models/courses-map';
@@ -105,7 +105,6 @@ const testParams = {
     dashboard: TEACHER_DASHBOARD_MODEL,
     dashroute: TEACHER_DASHROUTE,
     menu: TEACHER_MENU,
-    actions: TeacherTaskPlanActions,
     dashpath: '/courses/1/t/calendar/',
   },
 
@@ -122,12 +121,12 @@ export function setupStores(roleType) {
 
   User.update(roleTestParams.user);
   Courses.bootstrap(coursesList);
-  roleTestParams.actions.loaded(roleTestParams.dashboard, COURSE_ID);
+  invoke( roleTestParams.actions, 'loaded', roleTestParams.dashboard, COURSE_ID);
   return roleTestParams;
 }
 
 export function resetStores(roleType) {
-  return testParams[roleType].actions.reset();
+  invoke(testParams[roleType].actions, 'reset');
 }
 
 const courseModel = COURSES_LIST[0];

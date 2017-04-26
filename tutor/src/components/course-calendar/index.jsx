@@ -1,155 +1,218 @@
-React = require 'react'
-moment = require 'moment-timezone'
-BS = require 'react-bootstrap'
-_ = require 'underscore'
-LoadableModel = require '../loadable-model'
-LoadableItem = require '../loadable-item'
-{TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
-{TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
-Courses = require('../../models/courses-map').default
-{TimeStore} = require '../../flux/time'
-TimeHelper = require '../../helpers/time'
-CourseDataHelper = require '../../helpers/course-data'
-PH = require '../../helpers/period'
-CourseTitleBanner = require '../course-title-banner'
-CourseCalendar = require '../course-calendar'
-{NotificationsBar} = require 'shared'
-NotificationHelpers = require '../../helpers/notifications'
+import React from 'react';
 
-getDisplayBounds =
-  month: (date) ->
-    startAt: TimeHelper.toISO(
-      date.clone().startOf('month').startOf('week').subtract(1, 'day')
-    )
-    endAt: TimeHelper.toISO(
-      date.clone().endOf('month').endOf('week').add(1, 'day')
-    )
 
-TeacherTaskPlanListing = React.createClass
 
-  displayName: 'TeacherTaskPlanListing'
+import { extend, pick } from 'lodash';
+import { observable, computed } from 'mobx';
+import { observer } from 'mobx-react';
 
-  propTypes:
-    dateFormat: React.PropTypes.string
-    date: React.PropTypes.string
+import ModelLoader from '../../models/loader';
+import TaskPlans from '../../models/teacher-task-plans';
 
-  getDefaultProps: ->
-    dateFormat: TimeHelper.ISO_DATE_FORMAT
+import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
+import Courses from '../../models/courses-map';
+import { TimeStore } from '../../flux/time';
+import TimeHelper from '../../helpers/time';
+import CourseDataHelper from '../../helpers/course-data';
+import PH from '../../helpers/period';
+import CourseTitleBanner from '../course-title-banner';
 
-  getInitialState: ->
-    startingState =
-      displayAs: 'month'
+import { NotificationsBar } from 'shared';
+import NotificationHelpers from '../../helpers/notifications';
 
-  getDateStates: (state) ->
-    term = CourseDataHelper.getCourseBounds(@props.params.courseId)
-    courseDates = {termStart: term.start, termEnd: term.end}
-    date = @getDateFromParams(courseDates)
+import CourseMonth from './month';
 
-    bounds = @getBoundsForDate(date, state)
-    _.extend({date}, bounds, courseDates)
+const displayAsHandler = {
+  month: CourseMonth,
+};
 
-  getBoundsForDate: (date, state) ->
-    state ?= @state
+const getDisplayBounds = {
+  month(date) {
+    return {
+      startAt: TimeHelper.toISO(
+        date.clone().startOf('month').startOf('week').subtract(1, 'day')
+      ),
+      endAt: TimeHelper.toISO(
+        date.clone().endOf('month').endOf('week').add(1, 'day')
+      ),
+    };
+  },
+};
 
-    {displayAs} = state
+@observer
+export default class TeacherTaskPlanListing extends React.PureComponent {
 
-    getDisplayBounds[displayAs](date)
+  static propTypes = {
+    dateFormat: React.PropTypes.string,
+    date: React.PropTypes.string,
+    params: React.PropTypes.shape({
+      courseId: React.PropTypes.string,
+    }).isRequired,
+  }
 
-  componentWillMount: ->
-    { courseId } = @props.params
-    courseTimezone = Courses.get(courseId).time_zone
-    TimeHelper.syncCourseTimezone(courseTimezone)
+  static defaultProps = {
+    dateFormat: TimeHelper.ISO_DATE_FORMAT,
+  }
 
-    TeacherTaskPlanActions.clearPendingClone(courseId)
-    TaskPlanStore.on('saved.*', @loadToListing)
+  // router context is needed for Navbar helpers
+  static contextTypes = {
+    router: React.PropTypes.object,
+  }
 
-  componentDidMount: ->
-    # the unmount from the builder often get's called after
-    # the initial `componentWillMount` so this is needed to make sure
-    # the time gets synced
-    { courseId } = @props.params
-    courseTimezone = Courses.get(courseId).time_zone
-    TimeHelper.syncCourseTimezone(courseTimezone)
+  @observable loader = new ModelLoader({ model: TaskPlans });
+  @observable displayAs = 'month';
 
-  componentWillUnmount: ->
-    TimeHelper.unsyncCourseTimezone()
+  @computed get calendarParams() {
+    const term = CourseDataHelper.getCourseBounds(this.props.params.courseId);
+    const courseDates = { termStart: term.start, termEnd: term.end };
+    const date = this.getDateFromParams(courseDates);
+    const bounds = getDisplayBounds[this.displayAs](date);
+    return (
+      extend({ date }, bounds, courseDates)
+    );
+  }
 
-    TaskPlanStore.off('saved.*', @loadToListing)
+  @computed get fetchParams() {
+    return extend(
+      pick(this.calendarParams, 'startAt', 'endAt'),
+      { courseId: this.props.params.courseId }
+    );
+  }
 
-  loadToListing: (plan) ->
-    TeacherTaskPlanActions.addPublishingPlan(plan, @props.params.courseId)
+  componentWillMount() {
+    const { courseId } = this.props.params;
+    const courseTimezone = Courses.get(courseId).time_zone;
+    TimeHelper.syncCourseTimezone(courseTimezone);
 
-  getBoundsForCourse: ->
-    course = Courses.get(@props.params.courseId)
+    this.loader.fetch(this.fetchParams);
 
-    termStart = TimeHelper.getMomentPreserveDate(course.starts_at, @props.dateFormat)
-    termEnd = TimeHelper.getMomentPreserveDate(course.ends_at, @props.dateFormat)
+    TaskPlans.forCourseId(courseId).clearPendingClones();
 
-    {termStart, termEnd}
+    // TeacherTaskPlanActions.clearPendingClone(courseId);
+    return (
+      TaskPlanStore.on('saved.*', this.loadToListing)
+    );
+  }
 
-  getDateFromParams: ({termStart, termEnd}) ->
-    {date} = @props.params
+  componentDidMount() {
+    // the unmount from the builder often get's called after
+    // the initial `componentWillMount` so this is needed to make sure
+    // the time gets synced
+    const { courseId } = this.props.params;
+    const courseTimezone = Courses.get(courseId).time_zone;
+    return (
+      TimeHelper.syncCourseTimezone(courseTimezone)
+    );
+  }
 
-    if date
-      TimeHelper.getMomentPreserveDate(date, @props.dateFormat)
-    else
-      now = TimeHelper.getMomentPreserveDate(TimeStore.getNow(), @props.dateFormat)
-      if termStart.isAfter(now) then termStart else now
+  componentWillUnmount() {
+    TimeHelper.unsyncCourseTimezone();
+    return (
+      TaskPlanStore.off('saved.*', this.loadToListing)
+    );
+  }
 
-  isLoadingOrLoad: ->
-    courseId = @props.params.courseId
-    {startAt, endAt} = @getDateStates()
+  loadToListing(plan) {
+    return (
+      TeacherTaskPlanActions.addPublishingPlan(plan, this.props.params.courseId)
+    );
+  }
 
-    TeacherTaskPlanStore.isLoadingRange(courseId, startAt, endAt)
+  getBoundsForCourse() {
+    const course = Courses.get(this.props.params.courseId);
 
-  loadRange: ->
-    courseId = @props.params.courseId
-    {startAt, endAt} = @getDateStates()
+    const termStart = TimeHelper.getMomentPreserveDate(course.starts_at, this.props.dateFormat);
+    const termEnd = TimeHelper.getMomentPreserveDate(course.ends_at, this.props.dateFormat);
 
-    TeacherTaskPlanActions.load(courseId, startAt, endAt)
+    return {termStart, termEnd};
+  }
 
-  # router context is needed for Navbar helpers
-  contextTypes:
-    router: React.PropTypes.object
+  getDateFromParams({termStart, termEnd}) {
+    const {date} = this.props.params;
 
-  render: ->
-    {params} = @props
-
-    {courseId} = params
-
-    {displayAs} = @state
-    {date, startAt, endAt, termStart, termEnd} = @getDateStates()
-
-    course  = Courses.get(courseId)
-    hasPeriods = PH.hasPeriods(course)
-
-    loadPlansList = _.partial(TeacherTaskPlanStore.getActiveCoursePlans, courseId)
-    loadedCalendarProps = {
-      loadPlansList, courseId, date, displayAs, hasPeriods, params, termStart, termEnd
+    if (date) {
+      return (
+        TimeHelper.getMomentPreserveDate(date, this.props.dateFormat)
+      );
+    } else {
+      const now = TimeHelper.getMomentPreserveDate(TimeStore.getNow(), this.props.dateFormat);
+      if (termStart.isAfter(now)) { return termStart; } else { return now; }
     }
-    loadingCalendarProps = if hasPeriods
-      _.extend(className: 'calendar-loading', loadedCalendarProps)
-    else
-      loadedCalendarProps
+  }
 
-    <div className="list-task-plans">
-      <NotificationsBar
-        course={course}
-        role={Courses.get(courseId).primaryRole}
-        callbacks={NotificationHelpers.buildCallbackHandlers(@)}
-      />
-      <CourseTitleBanner courseId={courseId} />
-      <LoadableMap
-        store={TeacherTaskPlanStore}
-        actions={TeacherTaskPlanActions}
-        load={@loadRange}
-        options={{startAt, endAt}}
-        id={courseId}
-        isLoadingOrLoad={@isLoadingOrLoad}
-        renderItem={-> <CourseCalendar {...loadedCalendarProps}/>}
-        renderLoading={-> <CourseCalendar {...loadingCalendarProps}/>}
-      />
+  // isLoadingOrLoad() {
+  //   const { courseId } = this.props.params;
+  //   const {startAt, endAt} = this.getDateStates();
 
-    </div>
+  //   return (
 
-module.exports = TeacherTaskPlanListing
+  //     TeacherTaskPlanStore.isLoadingRange(courseId, startAt, endAt)
+
+  //   );
+  // }
+
+  // loadRange() {
+  //   const { courseId } = this.props.params;
+  //   const {startAt, endAt} = this.getDateStates();
+
+  //   return (
+
+  //       TeacherTaskPlanActions.load(courseId, startAt, endAt)
+
+  //   );
+  // }
+
+  render() {
+    const {params} = this.props;
+
+    const {courseId} = params;
+
+    const {displayAs} = this;
+
+    const {date, startAt, endAt, termStart, termEnd} = this.calendarParams;
+
+    const course  = Courses.get(courseId);
+    const hasPeriods = PH.hasPeriods(course);
+
+    //const loadPlansList = partial(TeacherTaskPlanStore.getActiveCoursePlans, courseId);
+
+    const calendarProps = {
+      courseId, date, displayAs, hasPeriods, params, termStart, termEnd,
+    };
+
+    if (this.loader.isBusy) {
+      extend(calendarProps, { className: 'calendar-loading' });
+    }
+
+    const CourseCalendar = displayAsHandler[this.displayAs]
+
+    //
+    //     // const loadingCalendarProps = hasPeriods ?
+    //     //   _.extend({className: 'calendar-loading'}, loadedCalendarProps)
+    //     // :
+    //     //   loadedCalendarProps;
+    //
+    //     {/* <LoadableMap
+    //         store={TeacherTaskPlanStore}
+    //         actions={TeacherTaskPlanActions}
+    //         load={this.loadRange}
+    //         options={{startAt, endAt}}
+    //         id={courseId}
+    //         isLoadingOrLoad={this.isLoadingOrLoad}
+    //         renderItem={function() { return <CourseCalendar {...loadedCalendarProps} />
+    //
+    //         ); }}
+    //         renderLoading={function() { return <CourseCalendar {...loadingCalendarProps} />; }} /> */}
+    return (
+      <div className="list-task-plans">
+        <NotificationsBar
+          course={course}
+          role={Courses.get(courseId).primaryRole}
+          callbacks={NotificationHelpers.buildCallbackHandlers(this)} />
+        <CourseTitleBanner courseId={courseId} />
+        <CourseCalendar {...calendarProps} />;
+      </div>
+    );
+  }
+
+}
