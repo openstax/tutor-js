@@ -37,4 +37,11 @@ describe('Course Model', () => {
     expect(Courses.get(3).tourAudienceTags).toEqual(['teacher', 'student']);
   });
 
+
+  it('should return expected roles for courses', function() {
+    expect(Courses.get(1).primaryRole.type).to.equal('student');
+    expect(Courses.get(2).primaryRole.type).to.equal('teacher');
+    expect(Courses.get(3).primaryRole.type).to.equal('teacher');
+  });
+
 });

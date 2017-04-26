@@ -1,0 +1,62 @@
+@tutor-navbar-height: 61px;
+@tutor-navbar-padding-horizontal: 4rem;
+
+// the @navbar-XX vars are bootstrap defaults
+
+.tutor-top-navbar {
+  background: @tutor-white;
+  z-index: @zindex-navbar-fixed;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: @zindex-navbar-fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  min-height: @tutor-navbar-height;
+
+  padding-right: @navbar-padding-horizontal;
+  padding-left:  @navbar-padding-horizontal;
+
+  a {
+    color: #777;
+    text-decoration: none;
+  }
+
+  > * {
+    display: flex;
+    align-items: center;
+  }
+  .ui-brand-logo {
+    margin-top: 3px; // the text on the logo is a bit vertically mis-aligned
+    display: inline-block;
+    height: 30px;
+    width: 126px;
+    background-repeat: no-repeat;
+    .tutor-background-image('openstax-logo.svg');
+  }
+
+  .right-side-controls {
+    > * {
+      margin-left: 20px;
+    }
+  }
+  .course-name { margin: 0 1rem; }
+  .book-links {
+    border-right: 1px solid @tutor-neutral-light;
+    display: flex;
+    align-self: stretch;
+    align-items: stretch;
+    a {
+      display: flex;
+      align-items: center;
+       padding-left: 1rem;
+       padding-right: 1rem;
+       border-left: 1px solid @tutor-neutral-light;
+       .tutor-icon { margin-left: 0.5rem; }
+     }
+   }
+  @import './top-nav-bar/center-controls';
+  @import './top-nav-bar/user-actions-menu';
+}

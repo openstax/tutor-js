@@ -4,7 +4,7 @@ Router = require 'react-router'
 _ = require 'underscore'
 {SpyMode} = require 'shared'
 
-{CurrentUserStore} = require '../../flux/current-user'
+Courses = require('../../models/courses-map').default
 
 ChapterSectionType = require './chapter-section-type'
 
@@ -39,7 +39,7 @@ Statistics = React.createClass
       role = 'teacher-student'
     else
     # else use the course role of teacher or student
-      role = CurrentUserStore.getCourseRole(@props.courseId, true).type
+      role = Courses.get(@props.courseId).primaryRole.type
 
     <div className='statistics'>
       <SpyMode.Content className="clue">

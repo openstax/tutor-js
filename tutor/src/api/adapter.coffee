@@ -4,7 +4,7 @@ _ = require 'lodash'
 
 {TimeActions} = require '../flux/time'
 {AppActions} = require '../flux/app'
-{CurrentUserStore} = require '../flux/current-user'
+User = require('../models/user').default
 
 IS_LOCAL = window.location.port is '8000' or window.__karma__
 
@@ -17,15 +17,14 @@ OPTIONS =
   xhr:
     baseURL: "#{window.location.origin}/api"
     headers:
-      'X-CSRF-Token': CurrentUserStore.getCSRFToken()
-      token: CurrentUserStore.getToken()
+      'X-CSRF-Token': User.csrf_token
+      token: User.csrf_token
   handlers:
     onFail: (error) ->
       {response} = error
       AppActions.setServerError(response or error)
   hooks:
-    handleMalformedRequest: ->
-      CurrentUserActions.logout()
+    handleMalformedRequest: -> # at one time this logged out the user, but that seems too drastic
       null
   isLocal: IS_LOCAL
 

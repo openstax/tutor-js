@@ -1,5 +1,5 @@
 React = require 'react'
-{CurrentUserStore} = require '../../flux/current-user'
+UserMenu = require('../../models/user/menu').default
 
 SUPPORT_LINK_PARAMS = '&cu=1&fs=ContactUs&q='
 
@@ -34,7 +34,7 @@ ServerErrorMessage = React.createClass
     debug: React.PropTypes.bool
 
   getDefaultProps: ->
-    supportLinkBase: CurrentUserStore.getHelpLink()
+    supportLinkBase: UserMenu.helpURL
     debug: true
 
   render: ->

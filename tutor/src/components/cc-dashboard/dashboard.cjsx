@@ -2,12 +2,12 @@ React = require 'react'
 BS = require 'react-bootstrap'
 TutorLink = require '../link'
 
-{CourseStore} = require '../../flux/course'
-{CurrentUserStore} = require '../../flux/current-user'
+Courses = require('../../models/courses-map').default
+
 {NotificationsBar} = require 'shared'
 {CCDashboardStore} = require '../../flux/cc-dashboard'
 {CoursePeriodsNav} = require '../course-periods-nav'
-{CourseStore} = require '../../flux/course'
+
 Icon = require '../icon'
 DashboardChapter = require './chapter'
 EmptyPeriod = require './empty-period'
@@ -62,7 +62,7 @@ CCDashboard = React.createClass
     periods = CCDashboardStore.getPeriods(courseId)
     chapters = CCDashboardStore.chaptersForDisplay(courseId, @state.activePeriodId)
 
-    course = CourseStore.get(courseId)
+    course = Courses.get(courseId)
     emptyPeriod = chapters.length is 0
     emptyGraphic = <EmptyPeriod courseId={courseId} />
 
@@ -101,7 +101,7 @@ CCDashboard = React.createClass
     <div className="cc-dashboard" data-period={@state.activePeriodId}>
       <NotificationsBar
         course={course}
-        role={CurrentUserStore.getCourseRole(courseId)}
+        role={course.primaryRole}
         callbacks={NotificationHelpers.buildCallbackHandlers(@)}
       />
       <CourseTitleBanner courseId={courseId} />

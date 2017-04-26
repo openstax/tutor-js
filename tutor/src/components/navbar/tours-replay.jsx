@@ -29,7 +29,7 @@ export default class ToursReplay extends React.PureComponent {
     return (
       <TourAnchor
         role="button"
-        id="tours-navbar-icon" tag="li"
+        id="tours-navbar-icon"
         onClick={this.onReplayClicked}
         className={classes}
       >

@@ -7,15 +7,11 @@ import { Col, Row, Grid } from 'react-bootstrap';
 import classnames from 'classnames';
 
 import { ReactHelpers } from 'shared';
-import Router from '../../helpers/router';
-import TutorLink from '../link';
-import { wrapCourseDropComponent } from './course-dnd';
-import IconAdd from '../icons/add';
 
 import Courses from '../../models/courses-map';
 import User from '../../models/user';
 import CourseModel from '../../models/course';
-
+import AddCourse from './add-course';
 import { CoursePreview, Course, CourseTeacher } from './course';
 
 function wrapCourseItem(Item, course = {}) {
@@ -26,44 +22,6 @@ function wrapCourseItem(Item, course = {}) {
       />
     </Col>
   );
-}
-
-
-@wrapCourseDropComponent @observer
-class AddCourseArea extends React.Component {
-
-  static propTypes = {
-    isHovering: React.PropTypes.bool,
-    connectDropTarget: React.PropTypes.func.isRequired,
-  }
-
-  static contextTypes = {
-    router: React.PropTypes.object,
-  }
-
-  onDrop(course) {
-    const url = Router.makePathname('createNewCourse', { sourceId: course.id });
-    this.context.router.transitionTo(url);
-  }
-
-  render() {
-    return (
-      this.props.connectDropTarget(
-        <div className="course-listing-add-zone">
-          <TutorLink
-            to="createNewCourse"
-            className={classnames({ 'is-hovering': this.props.isHovering })}>
-            <div>
-              <IconAdd />
-              <span>
-                Add a course
-              </span>
-            </div>
-          </TutorLink>
-        </div>
-      )
-    );
-  }
 }
 
 
@@ -79,7 +37,7 @@ function CourseListingNone() {
   );
 }
 
-const CourseListingAdd = () => wrapCourseItem(AddCourseArea);
+const CourseListingAdd = () => wrapCourseItem(AddCourse);
 
 const DEFAULT_COURSE_ITEMS = {
   teacher: CourseTeacher,

@@ -2,7 +2,7 @@ _ = require 'underscore'
 
 policies = require './policies'
 {TaskStore} = require '../../flux/task'
-{CurrentUserStore} = require '../../flux/current-user'
+User = require('../../models/user').default
 
 DEFAULT = 'default'
 
@@ -13,8 +13,7 @@ utils =
 
     state
 
-  _role: ->
-    CurrentUserStore.getViewingCourseRole()
+  _role: -> User.viewing_course_role
 
   _checkQuestionFormat: (task, step, panel) ->
     # assuming 1 question right now

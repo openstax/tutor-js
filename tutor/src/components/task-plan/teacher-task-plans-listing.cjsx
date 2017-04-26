@@ -6,8 +6,7 @@ _ = require 'underscore'
 LoadableItem = require '../loadable-item'
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
-{CourseStore} = require '../../flux/course'
-{CurrentUserStore} = require '../../flux/current-user'
+Courses = require('../../models/courses-map').default
 {TimeStore} = require '../../flux/time'
 TimeHelper = require '../../helpers/time'
 CourseDataHelper = require '../../helpers/course-data'
@@ -57,8 +56,8 @@ TeacherTaskPlanListing = React.createClass
     getDisplayBounds[displayAs](date)
 
   componentWillMount: ->
-    courseId = @props.params.courseId
-    courseTimezone = CourseStore.getTimezone(courseId)
+    { courseId } = @props.params
+    courseTimezone = Courses.get(courseId).time_zone
     TimeHelper.syncCourseTimezone(courseTimezone)
 
     TeacherTaskPlanActions.clearPendingClone(courseId)
@@ -68,7 +67,8 @@ TeacherTaskPlanListing = React.createClass
     # the unmount from the builder often get's called after
     # the initial `componentWillMount` so this is needed to make sure
     # the time gets synced
-    courseTimezone = CourseStore.getTimezone(@props.params.courseId)
+    { courseId } = @props.params
+    courseTimezone = Courses.get(courseId).time_zone
     TimeHelper.syncCourseTimezone(courseTimezone)
 
   componentWillUnmount: ->
@@ -80,7 +80,7 @@ TeacherTaskPlanListing = React.createClass
     TeacherTaskPlanActions.addPublishingPlan(plan, @props.params.courseId)
 
   getBoundsForCourse: ->
-    course = CourseStore.get(@props.params.courseId)
+    course = Courses.get(@props.params.courseId)
 
     termStart = TimeHelper.getMomentPreserveDate(course.starts_at, @props.dateFormat)
     termEnd = TimeHelper.getMomentPreserveDate(course.ends_at, @props.dateFormat)
@@ -120,7 +120,7 @@ TeacherTaskPlanListing = React.createClass
     {displayAs} = @state
     {date, startAt, endAt, termStart, termEnd} = @getDateStates()
 
-    course  = CourseStore.get(courseId)
+    course  = Courses.get(courseId)
     hasPeriods = PH.hasPeriods(course)
 
     loadPlansList = _.partial(TeacherTaskPlanStore.getActiveCoursePlans, courseId)
@@ -135,7 +135,7 @@ TeacherTaskPlanListing = React.createClass
     <div className="list-task-plans">
       <NotificationsBar
         course={course}
-        role={CurrentUserStore.getCourseRole(courseId)}
+        role={Courses.get(courseId).primaryRole}
         callbacks={NotificationHelpers.buildCallbackHandlers(@)}
       />
       <CourseTitleBanner courseId={courseId} />

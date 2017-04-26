@@ -11,8 +11,8 @@ import BookLinks from './book-links';
 import CenterControls from './center-controls';
 import TutorLink from '../link';
 
-import { CourseStore } from '../../flux/course';
-
+import Courses from '../../models/courses-map';
+import PreviewAddCourseBtn from './preview-add-course-btn';
 import { action } from 'mobx';
 
 export default class NavigationBar extends React.PureComponent {
@@ -28,39 +28,30 @@ export default class NavigationBar extends React.PureComponent {
   render() {
     const params = Router.currentParams();
     const { courseId } = params;
-    const course = courseId ? CourseStore.get(courseId) : null;
+    const course = courseId ? Courses.get(courseId) : null;
 
     return (
-      <Navbar
-        fixedTop={true}
-        fluid={true}
+      <nav
+        className="tutor-top-navbar"
         ref={nb => (this.navBar = nb)}
       >
-        <Navbar.Header>
-          <Navbar.Brand>
-            <TutorLink to="listing" className="navbar-brand">
-              <i className="ui-brand-logo" />
-            </TutorLink>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
+        <div className="left-side-controls">
+          <TutorLink to="listing" className="brand">
+            <i className="ui-brand-logo" />
+          </TutorLink>
+          <CourseName course={course} />
+          <BookLinks courseId={courseId} onItemClick={this.collapseNav} />
+        </div>
         <CenterControls params={params} />
-        <Navbar.Collapse>
-          <Nav>
-            <CourseName course={course} />
-            <BookLinks courseId={courseId} onItemClick={this.collapseNav} />
-          </Nav>
-          <Nav pullRight={true}>
-            <ToursReplay />
-            <UserActionsMenu
-              courseId={courseId}
-              course={course}
-              onItemClick={this.collapseNav}
-            />
-          </Nav>
-        </Navbar.Collapse>
+        <div className="right-side-controls">
+          <PreviewAddCourseBtn courseId={courseId} />
+          <ToursReplay />
+          <UserActionsMenu
+            courseId={courseId}
+          />
+        </div>
         <ServerErrorMonitoring />
-      </Navbar>
+      </nav>
     );
   }
 }

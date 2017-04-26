@@ -2,7 +2,7 @@ React = require 'react'
 classnames = require 'classnames'
 
 Router = require '../helpers/router'
-Analytics = require '../helpers/analytics'
+{default: Analytics} = require '../helpers/analytics'
 {default: Navbar} = require './navbar'
 MatchForTutor = require './match-for-tutor'
 

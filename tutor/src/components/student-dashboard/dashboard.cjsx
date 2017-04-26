@@ -12,8 +12,8 @@ ThisWeekPanel   = require './this-week-panel'
 ProgressGuideShell = require './progress-guide'
 BrowseTheBook = require '../buttons/browse-the-book'
 CourseTitleBanner = require '../course-title-banner'
-{CurrentUserStore} = require '../../flux/current-user'
-{CourseStore} = require '../../flux/course'
+User = require '../../models/user'
+Courses = require('../../models/courses-map').default
 Tabs = require '../tabs'
 {NotificationsBar} = require 'shared'
 NotificationHelpers = require '../../helpers/notifications'
@@ -52,12 +52,12 @@ module.exports = React.createClass
 
   render: ->
     {courseId} = @props
-    course = CourseStore.get(courseId)
+    course = Courses.get(courseId)
 
     <div className="dashboard">
       <NotificationsBar
-        role={CurrentUserStore.getCourseRole(courseId)}
-        course={course}
+        role={course.primaryRole.serialize()}
+        course={course.serialize()}
         callbacks={NotificationHelpers.buildCallbackHandlers(@)}
       />
       <CourseTitleBanner courseId={courseId} />
@@ -80,7 +80,10 @@ module.exports = React.createClass
           <BS.Col xs=12 md=4 lg=3>
             <ProgressGuideShell courseId={courseId} sampleSizeThreshold=3 />
             <div className='actions-box'>
-              <BrowseTheBook unstyled courseId={courseId} data-appearance={CourseStore.getAppearanceCode(courseId)}>
+              <BrowseTheBook unstyled
+                courseId={courseId}
+                data-appearance={Courses.get(courseId).appearance_code}
+              >
                 <div>Browse the Book</div>
               </BrowseTheBook>
             </div>

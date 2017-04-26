@@ -2,18 +2,17 @@ import {
   BaseModel, identifiedBy, field,
 } from './base';
 
-import { action, computed } from 'mobx';
-import { CurrentUserActions, CurrentUserStore } from '../flux/current-user';
+import { action, computed, observable } from 'mobx';
 
 @identifiedBy('user')
 export class User extends BaseModel {
 
   @action.bound
   bootstrap(data) {
-    CurrentUserActions.loaded(data);
     this.update(data);
-    CurrentUserStore.on('change', () => this.update(CurrentUserStore.get()));
   }
+
+  @observable crsf_token;
 
   @field name;
 
@@ -47,7 +46,6 @@ export class User extends BaseModel {
     return this.isConfirmedFaculty ? course.primaryRole.type : 'student';
   }
 
-  // this method will be wrapped by the API to trigger saving a tour view
   saveTourView(tour, options) {
     return { data: options };
   }
