@@ -1,5 +1,5 @@
 {makeStandardStore} = require './helpers'
-TaskPlanHelper = require '../helpers/task-plan'
+{default: TaskPlanHelper} = require '../helpers/task-plan'
 
 isEmpty = require 'lodash/isEmpty'
 sortBy  = require 'lodash/sortBy'

@@ -3,7 +3,7 @@ _ = require 'underscore'
 jest.mock('../../src/flux/task-plan')
 TaskPlanFlux = require '../../src/flux/task-plan'
 
-TaskPlan = require '../../src/helpers/task-plan'
+{ default: TaskPlan } = require '../../src/helpers/task-plan'
 {CourseListingActions} = require '../../src/flux/course-listing'
 
 COURSE_ID = 1
