@@ -1,15 +1,15 @@
 import React from 'react';
 
-
-
 import { extend, pick } from 'lodash';
 import { observable, computed } from 'mobx';
 import { observer } from 'mobx-react';
 
+import { NotificationsBar } from 'shared';
+
 import ModelLoader from '../../models/loader';
 import TaskPlans from '../../models/teacher-task-plans';
 
-import { TaskPlanStore, TaskPlanActions } from '../../flux/task-plan';
+import { TaskPlanStore } from '../../flux/task-plan';
 import Courses from '../../models/courses-map';
 import { TimeStore } from '../../flux/time';
 import TimeHelper from '../../helpers/time';
@@ -17,7 +17,6 @@ import CourseDataHelper from '../../helpers/course-data';
 import PH from '../../helpers/period';
 import CourseTitleBanner from '../course-title-banner';
 
-import { NotificationsBar } from 'shared';
 import NotificationHelpers from '../../helpers/notifications';
 
 import CourseMonth from './month';
@@ -39,6 +38,12 @@ const getDisplayBounds = {
   },
 };
 
+function addPlanToListing(plan) {
+  TaskPlans
+    .forCourseId(this.props.params.courseId)
+    .addPublishingPlan(plan);
+}
+
 @observer
 export default class TeacherTaskPlanListing extends React.PureComponent {
 
@@ -47,6 +52,7 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
     date: React.PropTypes.string,
     params: React.PropTypes.shape({
       courseId: React.PropTypes.string,
+      date: React.PropTypes.string,
     }).isRequired,
   }
 
@@ -83,14 +89,10 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
     const { courseId } = this.props.params;
     const courseTimezone = Courses.get(courseId).time_zone;
     TimeHelper.syncCourseTimezone(courseTimezone);
-
     this.loader.fetch(this.fetchParams);
-
     TaskPlans.forCourseId(courseId).clearPendingClones();
-
-    // TeacherTaskPlanActions.clearPendingClone(courseId);
     return (
-      TaskPlanStore.on('saved.*', this.loadToListing)
+      TaskPlanStore.on('saved.*', addPlanToListing)
     );
   }
 
@@ -108,28 +110,19 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
   componentWillUnmount() {
     TimeHelper.unsyncCourseTimezone();
     return (
-      TaskPlanStore.off('saved.*', this.loadToListing)
-    );
-  }
-
-  loadToListing(plan) {
-    return (
-      TeacherTaskPlanActions.addPublishingPlan(plan, this.props.params.courseId)
+      TaskPlanStore.off('saved.*', addPlanToListing)
     );
   }
 
   getBoundsForCourse() {
     const course = Courses.get(this.props.params.courseId);
-
     const termStart = TimeHelper.getMomentPreserveDate(course.starts_at, this.props.dateFormat);
     const termEnd = TimeHelper.getMomentPreserveDate(course.ends_at, this.props.dateFormat);
-
-    return {termStart, termEnd};
+    return { termStart, termEnd };
   }
 
-  getDateFromParams({termStart, termEnd}) {
-    const {date} = this.props.params;
-
+  getDateFromParams({ termStart }) {
+    const { date } = this.props.params;
     if (date) {
       return (
         TimeHelper.getMomentPreserveDate(date, this.props.dateFormat)
@@ -140,42 +133,13 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
     }
   }
 
-  // isLoadingOrLoad() {
-  //   const { courseId } = this.props.params;
-  //   const {startAt, endAt} = this.getDateStates();
-
-  //   return (
-
-  //     TeacherTaskPlanStore.isLoadingRange(courseId, startAt, endAt)
-
-  //   );
-  // }
-
-  // loadRange() {
-  //   const { courseId } = this.props.params;
-  //   const {startAt, endAt} = this.getDateStates();
-
-  //   return (
-
-  //       TeacherTaskPlanActions.load(courseId, startAt, endAt)
-
-  //   );
-  // }
-
   render() {
-    const {params} = this.props;
-
-    const {courseId} = params;
-
-    const {displayAs} = this;
-
-    const {date, startAt, endAt, termStart, termEnd} = this.calendarParams;
-
+    const {
+      displayAs, props: { params, params: { courseId } },
+      calendarParams: { date, termStart, termEnd },
+    } = this;
     const course  = Courses.get(courseId);
     const hasPeriods = PH.hasPeriods(course);
-
-    //const loadPlansList = partial(TeacherTaskPlanStore.getActiveCoursePlans, courseId);
-
     const calendarProps = {
       courseId, date, displayAs, hasPeriods, params, termStart, termEnd,
     };
@@ -184,25 +148,8 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
       extend(calendarProps, { className: 'calendar-loading' });
     }
 
-    const CourseCalendar = displayAsHandler[this.displayAs]
+    const CourseCalendar = displayAsHandler[this.displayAs];
 
-    //
-    //     // const loadingCalendarProps = hasPeriods ?
-    //     //   _.extend({className: 'calendar-loading'}, loadedCalendarProps)
-    //     // :
-    //     //   loadedCalendarProps;
-    //
-    //     {/* <LoadableMap
-    //         store={TeacherTaskPlanStore}
-    //         actions={TeacherTaskPlanActions}
-    //         load={this.loadRange}
-    //         options={{startAt, endAt}}
-    //         id={courseId}
-    //         isLoadingOrLoad={this.isLoadingOrLoad}
-    //         renderItem={function() { return <CourseCalendar {...loadedCalendarProps} />
-    //
-    //         ); }}
-    //         renderLoading={function() { return <CourseCalendar {...loadingCalendarProps} />; }} /> */}
     return (
       <div className="list-task-plans">
         <NotificationsBar
