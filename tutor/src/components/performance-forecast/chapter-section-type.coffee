@@ -5,5 +5,6 @@ module.exports = React.PropTypes.shape(
   children:                 React.PropTypes.array
   chapter_section:          React.PropTypes.array
   clue:                     React.PropTypes.object
+  student_count:            React.PropTypes.number
   questions_answered_count: React.PropTypes.number
 )

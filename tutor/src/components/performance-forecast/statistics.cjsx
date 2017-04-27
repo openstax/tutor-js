@@ -22,7 +22,7 @@ Statistics = React.createClass
     displaying: React.PropTypes.string.isRequired
 
   getWorkedText: (role) ->
-    count = @props.section.students_count
+    count = @props.section.student_count
     total = @props.section.questions_answered_count
     switch role
       when 'teacher'
