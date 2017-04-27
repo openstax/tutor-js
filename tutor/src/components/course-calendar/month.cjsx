@@ -38,7 +38,6 @@ CourseMonth = React.createClass
     router: React.PropTypes.object
 
   propTypes:
-#    plansList:  React.PropTypes.array
     date:       TimeHelper.PropTypes.moment
     termStart:  TimeHelper.PropTypes.moment
     termEnd:    TimeHelper.PropTypes.moment
@@ -240,12 +239,12 @@ CourseMonth = React.createClass
   render: ->
     {courseId, className, date, hasPeriods, termStart, termEnd} = @props
     {calendarDuration, calendarWeeks} = @getDurationInfo(date)
-    plansList = TeacherTaskPlans.forCourseId(courseId).array
 
     calendarClassName = classnames('calendar-container', 'container', className,
       'with-sidebar-open': @state.showingSideBar
     )
 
+    plansList = TeacherTaskPlans.forCourseId(courseId).array
     if plansList?
       plans = <CourseDuration
         referenceDate={moment(TimeStore.getNow())}

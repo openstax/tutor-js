@@ -142,12 +142,6 @@ startAPI = ->
     trigger: 'rejectLate', onSuccess: 'rejectedLate', pattern: 'tasks/{id}/reject_late_work'
   )
 
-  # connectRead(TeacherTaskPlanActions, pattern: 'courses/{id}/dashboard',
-  #   params: (id, startAt, endAt) ->
-  #     start_at: startAt
-  #     end_at: endAt
-  # )
-
   connectRead(JobActions, pattern: 'jobs/{id}', handledErrors: ['*'])
   connectRead(EcosystemsActions, url: 'ecosystems')
   connectDelete(RosterActions,
