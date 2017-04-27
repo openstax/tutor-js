@@ -33,7 +33,7 @@ describe('Model Loader', () => {
     expect(model.fetch).toHaveBeenCalledTimes(1);
   });
 
-  fit('will reload once complete', () => {
+  it('will reload once complete', () => {
     expect(model.fetch).toHaveBeenCalledTimes(0);
     const args = { one: 1, two: 2 };
     loader.fetch(args);
