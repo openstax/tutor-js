@@ -27,7 +27,7 @@ module.exports = React.createClass
     {page_ids} = section
 
     bar = if PerformanceForecast.Helpers.canDisplayForecast(section.clue)
-      percent = Math.round(parseInt(section.clue.most_likely, 10) * 100)
+      percent = Math.round(Number(section.clue.most_likely) * 100)
       value_interpretation = percent >= 80 ? 'high' : (percent >= 30 ? 'medium' : 'low')
       # always show at least 5% of bar, otherwise it just looks empty
       <BS.ProgressBar className={value_interpretation} now={Math.max(percent, 5)} />
