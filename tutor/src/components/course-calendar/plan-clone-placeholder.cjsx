@@ -27,12 +27,12 @@ PlanClonePlaceholder = React.createClass
 
   onLoad: ->
     taskPlanId = TaskPlanStore.freshLocalId()
+    { planId, courseId } = @props
     TaskPlanActions.createClonedPlan(taskPlanId, {
-      planId: @props.planId,
-      courseId: @props.courseId,
+      planId, courseId
       due_at: TimeHelper.toISO(@props.due_at)
     })
-    TeacherTaskPlans.forCourseId(@props.courseId).addClone(TaskPlanStore.get(planId))
+    TeacherTaskPlans.forCourseId(courseId).addClone(TaskPlanStore.get(taskPlanId))
     @props.onLoad(taskPlanId)
 
   render: ->

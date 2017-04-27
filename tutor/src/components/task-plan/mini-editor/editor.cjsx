@@ -100,7 +100,7 @@ TaskPlanMiniEditor = React.createClass
     @props.onHide()
     if TaskPlanStore.isNew(@props.id)
       TaskPlanActions.removeUnsavedDraftPlan(@props.id)
-      TeacherTaskPlanActions.removeClonedPlan(@props.courseId, @props.id)
+      TeacherTaskPlans.forCourseId(@props.courseId).delete(@props.id)
 
   render: ->
     {id, courseId, termStart, termEnd} = @props
