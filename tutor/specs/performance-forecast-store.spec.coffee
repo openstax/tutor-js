@@ -6,14 +6,23 @@ LGH = PerformanceForecast.Helpers
 
 makeSections = (valid, invalid) ->
   sections = _.times(valid, (i) ->
+    # Sort the values to guarantee that minimum <= most_likely <= maximum
+    values = _.sortBy([Math.random(), Math.random(), Math.random()], (n) -> n)
+
     clue:
-      value: Math.random(), sample_size: Math.round(Math.random() * 100 + 10),
-      sample_size_interpretation: "above"
+      minimum: values[0],
+      most_likely: values[1],
+      maximum: values[2],
+      is_real: true
   ).concat(
     _.times(invalid, (i) ->
+      values = _.sortBy([Math.random(), Math.random(), Math.random()], (n) -> n)
+
       clue:
-        value: Math.random(), sample_size: Math.round(Math.random() * 2)
-        sample_size_interpretation: "below"
+        minimum: values[0],
+        most_likely: values[1],
+        maximum: values[2],
+        is_real: false
     )
   )
   _.shuffle(sections)
@@ -21,9 +30,9 @@ makeSections = (valid, invalid) ->
 testWeakCount = ( returnedLength, sampleSizes ) ->
   for count in sampleSizes
     sections = makeSections(count, 10)
-    weakest = LGH.weakestSections( sections, 3 )
+    weakest = LGH.weakestSections( sections )
     expect( weakest ).to.have.length(returnedLength)
-    ourWeakest = _.sortBy( LGH.filterForecastedSections(sections), (s) -> s.clue.value)
+    ourWeakest = _.sortBy( LGH.filterForecastedSections(sections), (s) -> s.clue.most_likely)
     expect(ourWeakest[0..(returnedLength - 1)]).to.deep.equal(weakest)
   undefined
 
@@ -37,9 +46,9 @@ describe 'Learning Guide Store', ->
 
   it 'finds sections with a valid forecast', ->
     sections = makeSections(8, 33)
-    valid = LGH.filterForecastedSections(sections, 3)
+    valid = LGH.filterForecastedSections(sections)
     expect( valid.length ).to.equal(8)
-    expect( _.findWhere(valid, sample_size_interpretation: "below") ).to.be.undefined
+    expect( _.findWhere(valid, is_real: false) ).to.be.undefined
     undefined
 
   it 'finds the weakest sections', ->
@@ -50,11 +59,11 @@ describe 'Learning Guide Store', ->
 
   it 'does not return any weakest when there is none or only one valid candidate', ->
     expect(
-      LGH.weakestSections( makeSections(0, 33), 3 )
+      LGH.weakestSections( makeSections(0, 33) )
     ).to.be.empty
 
     expect(
-      LGH.weakestSections( makeSections(1, 33), 3 )
+      LGH.weakestSections( makeSections(1, 33) )
     ).to.be.empty
     undefined
 

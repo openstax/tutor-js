@@ -22,10 +22,9 @@ describe 'Learning Guide Progress Bar', ->
     @props = {
       courseId: COURSE_ID
       canPractice: true
-      sampleSizeThreshold: 10
       section:
         page_ids: ['2', '3']
-        clue: { value: 0.82, sample_size: 2, sample_size_interpretation: 'high', magic: true }
+        clue: { minimum: 0.8, most_likely: 0.82, maximum: 0.85, is_real: true }
     }
 
   afterEach ->
@@ -46,29 +45,18 @@ describe 'Learning Guide Progress Bar', ->
     Testing.renderComponent( Bar, props: @props ).then ({dom}) ->
       expect(dom.disabled).to.be.true
 
-  describe 'when sample_size_interpretation is below', ->
+  describe 'when the clue is not real', ->
 
     it 'does not render the bar', ->
-      @props.section.clue.sample_size_interpretation = 'below'
+      @props.section.clue.is_real = false
       Testing.renderComponent( Bar, props: @props).then ({dom}) ->
         expect(dom.querySelector('.progress-bar')).to.be.null
 
-    describe 'when threshold is met', ->
+  describe 'when the clue is real', ->
 
-      it 'renders if threshold is exceeded', ->
-        @props.section.clue.sample_size_interpretation = 'below'
-        @props.section.clue.sample_size = 2
-        @props.sampleSizeThreshold = 1 # less than the clue sample_size of 2
-        Testing.renderComponent( Bar, props: @props).then ({dom}) =>
-          expect(dom.querySelector('.progress-bar')).not.to.be.null
-          Testing.actions.click(dom)
-          didRouterGoToPractice()
-
-      it 'renders if sample threshold is equal', ->
-        @props.section.clue.sample_size_interpretation = 'below'
-        # both are equal
-        @props.sampleSizeThreshold = @props.section.clue.sample_size = 10
-        Testing.renderComponent( Bar, props: @props).then ({dom}) =>
-          expect(dom.querySelector('.progress-bar')).not.to.be.null
-          Testing.actions.click(dom)
-          didRouterGoToPractice()
+    it 'renders the bar', ->
+      @props.section.clue.is_real = true
+      Testing.renderComponent( Bar, props: @props).then ({dom}) =>
+        expect(dom.querySelector('.progress-bar')).not.to.be.null
+        Testing.actions.click(dom)
+        didRouterGoToPractice()

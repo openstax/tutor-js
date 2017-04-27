@@ -23,7 +23,6 @@ module.exports = React.createClass
     canPractice:  React.PropTypes.bool
     weakerTitle: React.PropTypes.string.isRequired
     weakerExplanation: React.PropTypes.element
-    sampleSizeThreshold: React.PropTypes.number.isRequired
 
   renderBody: ->
     <div className='guide-group'>

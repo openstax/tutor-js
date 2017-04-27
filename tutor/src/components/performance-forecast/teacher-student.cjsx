@@ -97,7 +97,6 @@ module.exports = React.createClass
         emptyMessage={@renderEmptyMessage()}
         weakerTitle="Their weakest topics"
         weakerEmptyMessage="Your student hasn't worked enough problems for Tutor to predict their weakest topics."
-        sampleSizeThreshold={3}
         allSections={PerformanceForecast.TeacherStudent.store.getAllSections(courseId, {roleId})}
         chapters={PerformanceForecast.TeacherStudent.store.getChapters(courseId, {roleId}) }
       />

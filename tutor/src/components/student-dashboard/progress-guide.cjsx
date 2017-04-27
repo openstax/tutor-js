@@ -23,7 +23,6 @@ ProgressGuide = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
-    sampleSizeThreshold: React.PropTypes.number.isRequired
 
   render: ->
     courseId = @props.courseId
@@ -39,7 +38,7 @@ ProgressGuide = React.createClass
         <div className='chapter-panel'>
           {for section, i in sections
             <Section key={i} section={section} canPractice={true}
-              {...@props} sampleSizeThreshold={3} />}
+              {...@props} />}
         </div>
       </div>
       <PerformanceForecastColorKey />
@@ -52,7 +51,6 @@ ProgressGuidePanels = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
-    sampleSizeThreshold: React.PropTypes.number.isRequired
 
   mixins: [ChapterSectionMixin]
   viewPerformanceForecast: ->
@@ -108,7 +106,6 @@ module.exports = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
-    sampleSizeThreshold: React.PropTypes.number.isRequired
 
   renderLoading: (refreshButton) ->
     <div className='actions-box loadable is-loading'>

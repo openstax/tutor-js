@@ -38,7 +38,7 @@ Student = makeSimpleStore extendConfig {
   exports:
     getSortedSections: (courseId) ->
       sections = findAllSections(@_get(courseId))
-      _.sortBy(sections, (s) -> s.clue.value)
+      _.sortBy(sections, (s) -> s.clue.most_likely)
 
     getAllSections: (courseId) ->
       findAllSections(@_get(courseId))
@@ -102,14 +102,13 @@ Helpers = {
   recentSections: (sections, limit = 4) ->
     _.last(sections, limit)
 
-  canDisplayForecast: (clue, sampleSizeThreshold) ->
-    clue.sample_size >= sampleSizeThreshold or clue.sample_size_interpretation isnt 'below'
+  canDisplayForecast: (clue) -> clue.is_real
 
-  filterForecastedSections: (sections, sampleSizeThreshold) ->
-    _.filter(sections, (s) -> Helpers.canDisplayForecast(s.clue, sampleSizeThreshold) )
+  filterForecastedSections: (sections) ->
+    _.filter(sections, (s) -> Helpers.canDisplayForecast(s.clue) )
 
-  weakestSections: (sections, sampleSizeThreshold, displayCount = 4) ->
-    validSections = @filterForecastedSections(sections, sampleSizeThreshold)
+  weakestSections: (sections, displayCount = 4) ->
+    validSections = @filterForecastedSections(sections)
     # weakestSections are only selected if there's at least two sections with forecasts
     return [] unless validSections.length >= 2
     # Select at least one, but no more than displayCount(4)
@@ -118,16 +117,16 @@ Helpers = {
       , displayCount)
 
     _.chain(validSections)
-      .sortBy((s) -> s.clue.value )
+      .sortBy((s) -> s.clue.most_likely )
       .first(displayCount)
       .value()
 
-  canPracticeWeakest: ({sections, sampleSizeThreshold, displayCount, minimumSectionCount}) ->
+  canPracticeWeakest: ({sections, displayCount, minimumSectionCount}) ->
     displayCount ||= 4
     minimumSectionCount ||= 1
     @weakestSections(sections, displayCount).length >= minimumSectionCount
 
-  canDisplayWeakest: ({sections, sampleSizeThreshold}) ->
+  canDisplayWeakest: ({sections}) ->
     @filterForecastedSections(sections).length > 1
 
   pagesForSections: (sections) ->

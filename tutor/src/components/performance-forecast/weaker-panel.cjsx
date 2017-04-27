@@ -17,7 +17,6 @@ WeakerPanel = React.createClass
     weakerEmptyMessage:  React.PropTypes.string.isRequired
     canPractice:         React.PropTypes.bool
     sectionCount:        React.PropTypes.number
-    sampleSizeThreshold: React.PropTypes.number.isRequired
 
   render: ->
     # Do not render if we have no sections
