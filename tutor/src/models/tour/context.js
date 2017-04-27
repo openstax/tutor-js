@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, computed, observable, field,
 } from '../base';
 import {
-  find, isEmpty, intersection, compact, uniq, flatMap, map, includes, filter, first,
+  find, isEmpty, intersection, compact, uniq, flatMap, map, includes, filter,
 } from 'lodash';
 import { observe, action } from 'mobx';
 
