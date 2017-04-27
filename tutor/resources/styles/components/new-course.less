@@ -1,6 +1,6 @@
 .psuedo-background() {
   position: absolute;
-  top: 0;
+  top: @tutor-navbar-height;
   left: 0;
   bottom: 0;
   right: 0;
@@ -41,18 +41,8 @@
     .psuedo-background();
   }
   &::before {
-    background-image:
-      linear-gradient(to right, @tutor-secondary, @tutor-tertiary),
-      url('../../images/ost-hero.jpg');
-    background-blend-mode: hard-light;
-    filter: blur(12px);
+    background-image: url('../../images/ost-hero.jpg');
   }
-
-  &::after {
-    background-image:
-      linear-gradient(to right, fade(@tutor-secondary, 57%), fade(@tutor-tertiary, 57%));
-  }
-
   .panel {
     padding: 3rem 4rem;
     position: relative;
