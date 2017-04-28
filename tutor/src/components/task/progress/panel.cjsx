@@ -5,9 +5,10 @@ keymaster = require 'keymaster'
 
 PagingNavigation  = require '../../paging-navigation'
 
-{TaskStore} = require '../../../flux/task'
+{TaskStore, TaskActions} = require '../../../flux/task'
 {StepPanel} = require '../../../helpers/policies'
-{TaskStepStore, TaskStepActions} = require '../../../flux/task-step'
+{TaskStepStore} = require '../../../flux/task-step'
+
 
 ProgressPanel = React.createClass
   propTypes:
@@ -44,9 +45,9 @@ ProgressPanel = React.createClass
       TaskStore.once('step.completed', =>
         @props.goToStep(@props.stepKey + 1)
       )
-      TaskActions.complete(stepId)
-    else
-      @props.goToStep(@props.stepKey + 1)
+      TaskActions.completeStep(stepId)
+
+    @props.goToStep(@props.stepKey + 1)
     undefined # silence React return value warning
 
   goBackward: ->
