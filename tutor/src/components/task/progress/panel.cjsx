@@ -46,8 +46,8 @@ ProgressPanel = React.createClass
         @props.goToStep(@props.stepKey + 1)
       )
       TaskActions.completeStep(stepId)
-
-    @props.goToStep(@props.stepKey + 1)
+    else
+      @props.goToStep(@props.stepKey + 1)
     undefined # silence React return value warning
 
   goBackward: ->
