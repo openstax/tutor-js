@@ -7,7 +7,7 @@ import { first, sortBy, find, get } from 'lodash';
 import Period  from './course/period';
 import Role    from './course/role';
 import Student from './course/student';
-import CourseInformation from '../flux/course-information';
+import CourseInformation from './course/information';
 import TimeHelper from '../helpers/time';
 import { TimeStore } from '../flux/time';
 import moment from 'moment-timezone';
