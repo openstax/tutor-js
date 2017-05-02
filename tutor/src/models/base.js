@@ -13,6 +13,10 @@ export class BaseModel {
 
   apiRequestsInProgress = observable.map();
 
+  @computed get hasApiRequestPending() {
+    return !!this.apiRequestsInProgress.size;
+  }
+
   @computed get isNew() {
     const idField = find(this.constructor.$schema.values(), { type: 'identifier' });
     return isNil(this[idField.name]);
