@@ -1,19 +1,20 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 
-
-// import { OfferingsStore, OfferingsActions } from '../../flux/offerings';
+import Loader from '../../models/loader';
+import Offerings from '../../models/course/offerings';
 
 import Wizard from './wizard';
 
 @observer
 export default class NewCourse extends React.PureComponent {
 
+  loader = new Loader({ model: Offerings, fetch: true });
+
   render() {
-    const isBusy = true; // FIXME replace with model loader once merged
     return (
       <div className="new-course">
-        <Wizard isLoading={isBusy} />
+        <Wizard isLoading={this.loader.isBusy} />
       </div>
     );
   }

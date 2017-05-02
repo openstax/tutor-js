@@ -1,28 +1,24 @@
 import React from 'react';
 import { ListGroup } from 'react-bootstrap';
 import { observer } from 'mobx-react';
-
-import { get, partial, isEqual, isEmpty } from 'lodash';
-
-import { NewCourseActions, NewCourseStore } from '../../flux/new-course';
-import { CourseListingStore } from '../../flux/course-listing';
-import TutorRouter from '../../helpers/router';
+import { action } from 'mobx';
+import { partial } from 'lodash';
 
 import Choice from './choice';
-
-const KEY = 'new_or_copy';
+import BuilderUX from '../../models/course/builder-ux';
 
 @observer
 export default class NewOrCopy extends React.PureComponent {
 
   static title = 'Do you want to create a new course or copy a previous course?';
-  static shouldSkip() {
-    return get(TutorRouter.currentParams(), 'sourceId') ||
-           isEmpty(CourseListingStore.teachingCoursesForOffering(NewCourseStore.get('offering_id')));
+
+  static propTypes = {
+    ux: React.PropTypes.instanceOf(BuilderUX).isRequired,
   }
 
+  @action.bound
   onSelect(value) {
-    NewCourseActions.set({ [KEY]: value });
+    this.props.ux.newCourse.new_or_copy = value;
   }
 
   render() {
@@ -30,16 +26,18 @@ export default class NewOrCopy extends React.PureComponent {
       <ListGroup>
         <Choice
           key="course-new"
-          active={isEqual(NewCourseStore.get(KEY), 'new')}
+          active={this.props.ux.newCourse.new_or_copy === 'new'}
           onClick={partial(this.onSelect, 'new')}
-          data-new-or-copy="new">
+          data-new-or-copy="new"
+        >
           Create a new course
         </Choice>
         <Choice
           key="course-copy"
-          active={isEqual(NewCourseStore.get(KEY), 'copy')}
+          active={this.props.ux.newCourse.new_or_copy === 'copy'}
           onClick={partial(this.onSelect, 'copy')}
-          data-new-or-copy="copy">
+          data-new-or-copy="copy"
+        >
           Copy a past course
         </Choice>
       </ListGroup>

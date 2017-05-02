@@ -1,26 +1,22 @@
 import React from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
-import { isEmpty } from 'lodash';
 
-import { OfferingsStore } from '../../flux/offerings';
-import CourseInformation from '../../flux/course-information';
+import Offering from '../../models/offerings/offering';
+import CourseInformation from '../../models/course/information';
 import { ReactHelpers } from 'shared';
 
 @observer
 export default class CourseOfferingTitle extends React.PureComponent {
   static propTypes = {
-    offeringId: React.PropTypes.string.isRequired,
+    offering: React.PropTypes.instanceOf(Offering).isRequired,
     className:  React.PropTypes.string,
     children:   React.PropTypes.node,
   }
 
   render() {
-    const { offeringId, children, className } = this.props;
+    const { offering: { appearance_code }, children, className } = this.props;
     const baseName = ReactHelpers.getBaseName(this);
-    if (isEmpty(OfferingsStore.get(offeringId))) { return null; }
-
-    const { appearance_code } = OfferingsStore.get(offeringId);
     const { title } = CourseInformation.forAppearanceCode(appearance_code);
     return (
       <div

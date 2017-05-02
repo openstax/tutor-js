@@ -1,29 +1,26 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { ListGroup } from 'react-bootstrap';
-import { partial, isEqual, map } from 'lodash';
-
-import TutorRouter from '../../helpers/router';
+import { partial, map } from 'lodash';
+import { action } from 'mobx';
 
 import CCLogo from 'shared/src/components/logos/concept-coach-horizontal';
 import TutorLogo from 'shared/src/components/logos/tutor-horizontal';
 
-import { NewCourseActions, NewCourseStore } from '../../flux/new-course';
-
+import BuilderUX from '../../models/course/builder-ux';
 import Choice from './choice';
-
-const KEY = 'course_type';
 
 @observer
 export default class SelectType extends React.PureComponent {
 
   static title = 'Which tool do you want to use?';
-  static shouldSkip() {
-    return TutorRouter.currentParams().sourceId;
+  static propTypes = {
+    ux: React.PropTypes.instanceOf(BuilderUX).isRequired,
   }
 
+  @action.bound
   onSelectType(type) {
-    NewCourseActions.set({ [KEY]: type });
+    this.props.ux.course_type = type;
   }
 
   render() {
@@ -38,8 +35,9 @@ export default class SelectType extends React.PureComponent {
           <Choice
             key={type}
             data-brand={type}
-            active={isEqual(NewCourseStore.get(KEY), type)}
-            onClick={partial(this.onSelectType, type)}>
+            active={this.props.ux.course_type === type}
+            onClick={partial(this.onSelectType, type)}
+          >
             <Logo />
           </Choice>
          )}

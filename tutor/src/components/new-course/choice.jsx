@@ -19,11 +19,11 @@ export default class CourseChoiceItem extends React.PureComponent {
     return (
       <div
         role="button"
+        {...ReactHelpers.filterProps(this.props)}
         className={classnames('list-group-item', 'choice', this.props.className, {
           active: this.props.active, disabled: this.props.disabled,
         })}
         onClick={this.props.onClick}
-        {...ReactHelpers.filterProps(this.props)}
       >
         {this.props.children}
       </div>

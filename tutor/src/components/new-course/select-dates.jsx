@@ -1,40 +1,38 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { map, partial, isEqual } from 'lodash';
+import { action } from 'mobx';
+
+import { partial } from 'lodash';
+
 import { ListGroup } from 'react-bootstrap';
 
-import { NewCourseActions, NewCourseStore } from '../../flux/new-course';
-import { OfferingsStore } from '../../flux/offerings';
 import Choice from './choice';
-
-const KEY = 'term';
+import BuilderUX from '../../models/course/builder-ux';
 
 @observer
 export default class SelectDates extends React.PureComponent {
   static title = 'When will you teach this course?';
 
-  onSelect(term) {
-    NewCourseActions.set({ [KEY]: term });
+  static propTypes = {
+    ux: React.PropTypes.instanceOf(BuilderUX).isRequired,
   }
 
-  componentWillMount() {
-    if (NewCourseStore.get(KEY) != null) { return; }
-    const offering = OfferingsStore.get(NewCourseStore.get('offering_id'));
-    if ((offering.active_term_years != null) && (offering.active_term_years[1] != null)) {
-      this.onSelect(offering.active_term_years[1]);
-    }
+  @action.bound
+  onSelect(term) {
+    this.props.ux.newCourse.term = term;
   }
 
   render() {
-    const offering = OfferingsStore.get(NewCourseStore.get('offering_id'));
+    const { ux, ux: { offering } } = this.props;
 
     return (
       <ListGroup>
-        {map(offering.active_term_years, (term, index) =>
+        {offering.active_term_years.map((term, index) =>
           <Choice
             key={index}
-            active={isEqual(NewCourseStore.get(KEY), term)}
-            onClick={partial(this.onSelect, term)}>
+            active={ux.newCourse.term === term}
+            onClick={partial(this.onSelect, term)}
+          >
             <span className="term">
               {term.term}
             </span>
