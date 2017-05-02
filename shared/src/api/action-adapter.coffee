@@ -122,15 +122,25 @@ connectModelAction = (action, apiHandler, klass, method, options) ->
   actionOptions = defaults(options, { method: METHODS[action] })
   handler = (originalMethod, reqArgs...) ->
     firstArg = first(reqArgs)
-    requestConfig = pick(options, 'url', 'method', 'data', 'params', 'handledErrors')
+    requestConfig = mapValues(
+      pick(options, 'url', 'method', 'data', 'params', 'handledErrors'), (val) =>
+        if isFunction(val) then val.call(this, reqArgs...) else val
+    )
+    merge(requestConfig, originalMethod.call(this, reqArgs..., requestConfig))
     requestConfig.url ?= interpolate(options.pattern, defaults({}, firstArg, this))
-    merge(requestConfig, originalMethod(reqArgs..., requestConfig))
     perRequestOptions = clone(options)
-    perRequestOptions.onSuccess = bind(this[options.onSuccess], this) if options.onSuccess
-    perRequestOptions.onFail    = bind(this[options.onFail], this)     if options.onFail
-    this.apiRequestsInProgress.set(action, requestConfig)
+    if options.onSuccess
+      perRequestOptions.onSuccess = bind(
+        this[options.onSuccess], this, bind.placeholder, reqArgs, requestConfig
+      )
+    perRequestOptions.onFail = if options.onFail
+      bind(this[options.onFail] , this, bind.placeholder, reqArgs, requestConfig)
+    else
+      apiHandler.getOptions().handlers.onFail
+
+    this.apiRequestsInProgress?.set(action, requestConfig)
     apiHandler.send(requestConfig, perRequestOptions, firstArg).then((reply) =>
-      this.apiRequestsInProgress.delete(action)
+      this.apiRequestsInProgress?.delete(action)
       reply
     )
 
