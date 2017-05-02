@@ -13,6 +13,7 @@ assign    = require 'lodash/assign'
 spread    = require 'lodash/spread'
 forEach   = require 'lodash/forEach'
 isEmpty   = require 'lodash/isEmpty'
+defaultsDeep  = require 'lodash/defaultsDeep'
 
 # this is pretty terrible.
 require 'extract-values'
@@ -125,9 +126,8 @@ class APIHandlerBase
     @_xhr = xhr
 
   updateXHR: (xhrOptions) =>
-    # notice that this is not deep -- for example, passings header through xhrOptions
-    #   will override existing headers, not merge recursively.
-    assign(@_xhr.defaults, xhrOptions)
+    Networking.updateOptions(xhr: xhrOptions)
+    defaultsDeep(@_xhr.defaults, xhrOptions)
 
   initializeEventOptions: (eventOptions) =>
     {pattern, send, receive, statuses} = eventOptions
