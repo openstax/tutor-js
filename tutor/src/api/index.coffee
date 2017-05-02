@@ -30,7 +30,6 @@ PerformanceForecast = require '../flux/performance-forecast'
 {TaskPlanStatsActions} = require '../flux/task-plan-stats'
 
 {PastTaskPlansActions} = require '../flux/past-task-plans'
-{OfferingsActions} = require '../flux/offerings'
 
 {TocActions} = require '../flux/toc'
 {ExerciseActions, ExerciseStore} = require '../flux/exercise'
@@ -53,6 +52,7 @@ handledEnrollmentErrors = _.keys(handledEnrollmentErrorsMap)
 
 { default: User } = require '../models/user'
 { default: Courses } = require '../models/courses-map'
+{ default: Offerings } = require '../models/offerings';
 
 BOOTSTRAPED_MODELS = {
   user:    User.bootstrap,
@@ -207,7 +207,6 @@ startAPI = ->
       {answer_id: answerId}
   )
 
-  connectRead(OfferingsActions, url: 'offerings')
   connectRead(PastTaskPlansActions, (courseId) ->
     url: "courses/#{courseId}/plans"
     params:
@@ -252,6 +251,7 @@ startAPI = ->
   connectModelUpdate(User.constructor, 'saveTourView',
     pattern: 'user/tours/{id}'
    )
+  connectModelRead(Offerings.constructor, 'fetch', url: 'offerings', onSuccess: 'onLoaded')
 
 
 start = (bootstrapData) ->
