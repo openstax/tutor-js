@@ -35,6 +35,10 @@ TEACHER_COURSE_TWO_MODEL = {
   ends_at: '2017-06-30T23:59:59.000Z'
   webview_url: 'http://cnx.org/',
   salesforce_book_name: 'a book title',
+  periods: [{
+    id: "1", name : "1st", enrollment_url: "http://test/period/1", default_open_time: "07:01",
+    default_due_time: "12:00", is_archived: false
+  }]
   roles: [
     {
       "type": "teacher"
