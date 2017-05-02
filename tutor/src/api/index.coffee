@@ -53,6 +53,7 @@ handledEnrollmentErrors = _.keys(handledEnrollmentErrorsMap)
 { default: User } = require '../models/user'
 { default: Courses } = require '../models/courses-map'
 { default: Offerings } = require '../models/offerings';
+{ default: CourseCreate } = require '../models/course/create';
 
 BOOTSTRAPED_MODELS = {
   user:    User.bootstrap,
@@ -214,10 +215,6 @@ startAPI = ->
   )
 
   connectRead(CourseListingActions, url: 'user/courses')
-  connectCreate(NewCourseActions,
-    pattern: 'courses/{id}/clone', trigger: 'clone', data: NewCourseStore.requestPayload
-  )
-  connectCreate(NewCourseActions, url: 'courses', data: NewCourseStore.requestPayload)
 
   connectRead(ReferenceBookActions, pattern: 'ecosystems/{id}/readings')
   connectRead(ReferenceBookPageActions, pattern: 'pages/{id}')
@@ -253,6 +250,7 @@ startAPI = ->
    )
   connectModelRead(Offerings.constructor, 'fetch', url: 'offerings', onSuccess: 'onLoaded')
 
+  connectModelCreate(CourseCreate, 'save', onSuccess: 'onCreated')
 
 start = (bootstrapData) ->
   for storeId, action of BOOTSTRAPED_MODELS
