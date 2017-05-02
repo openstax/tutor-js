@@ -5,7 +5,7 @@ import {
 import { extend, omit } from 'lodash';
 import Offerings from './offerings';
 import Courses from '../courses-map';
-import Term from '../offerings/term';
+import Term from './offerings/term';
 
 @identifiedBy('course/create')
 export default class CourseCreate extends BaseModel {

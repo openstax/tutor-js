@@ -52,7 +52,7 @@ handledEnrollmentErrors = _.keys(handledEnrollmentErrorsMap)
 
 { default: User } = require '../models/user'
 { default: Courses } = require '../models/courses-map'
-{ default: Offerings } = require '../models/offerings';
+{ default: Offerings } = require '../models/course/offerings';
 { default: CourseCreate } = require '../models/course/create';
 
 BOOTSTRAPED_MODELS = {

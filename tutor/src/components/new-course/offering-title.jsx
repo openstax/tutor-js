@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
 
-import Offering from '../../models/offerings/offering';
+import Offering from '../../models/course/offerings/offering';
 import CourseInformation from '../../models/course/information';
 import { ReactHelpers } from 'shared';
 
