@@ -12,7 +12,7 @@ export class User extends BaseModel {
     this.update(data);
   }
 
-  @observable crsf_token;
+  @observable csrf_token;
 
   @field name;
 

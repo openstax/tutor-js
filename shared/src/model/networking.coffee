@@ -1,5 +1,6 @@
 axios = require 'axios'
 extend = require 'lodash/extend'
+defaultsDeep = require 'lodash/defaultsDeep'
 
 OPTIONS = {}
 
@@ -10,6 +11,9 @@ Networking = {
 
   setOptions: (options) ->
     OPTIONS = options
+
+  updateOptions: (options) ->
+    defaultsDeep(OPTIONS, options)
 
   perform: (opts) ->
     axios(extend({}, OPTIONS?.xhr, opts)).catch(emitError)
