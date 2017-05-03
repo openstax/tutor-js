@@ -1,7 +1,8 @@
 import {
   BaseModel, identifiedBy, identifier, hasMany, field,
 } from './base';
-import { partial, includes, some, each, compact, map, filter } from 'lodash';
+import { partial, some, each, compact, map, filter } from 'lodash';
+import includes from 'lodash/includes'; // babel-traverse blows up with includes is in list above?
 import TourStep from './tour/step';
 import { computed, action } from 'mobx';
 // compiles and exports the data for tours from the JSON files
