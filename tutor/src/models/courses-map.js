@@ -6,7 +6,6 @@ import { once } from 'lodash';
 
 class CoursesMap extends Map {
 
-
 }
 
 function onLoaded(courseData) {
