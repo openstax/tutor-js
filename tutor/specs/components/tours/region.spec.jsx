@@ -17,8 +17,8 @@ describe('Tour Region', () => {
       </TourRegion>
     );
     jest.runAllTimers();
-    expect(context.validTours).toHaveLength(1);
+    expect(context.viewableTours).toHaveLength(1);
     wrapper.unmount();
-    expect(context.validTours).toHaveLength(0);
+    expect(context.viewableTours).toHaveLength(0);
   });
 });

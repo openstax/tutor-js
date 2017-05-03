@@ -10,7 +10,7 @@ import UserActionsMenu       from './user-actions-menu';
 import BookLinks             from './book-links';
 import CenterControls        from './center-controls';
 import PreviewAddCourseBtn   from './preview-add-course-btn';
-
+import SupportMenu           from './support-menu';
 
 export default function NavigationBar() {
   const params = Router.currentParams();
@@ -30,6 +30,7 @@ export default function NavigationBar() {
       <div className="right-side-controls">
         <PreviewAddCourseBtn courseId={courseId} />
         <ToursReplay />
+        <SupportMenu />
         <UserActionsMenu
           courseId={courseId}
         />

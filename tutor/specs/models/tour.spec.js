@@ -1,5 +1,4 @@
 import Tour from '../../src/models/tour';
-import User from '../../src/models/user';
 import { range, map } from 'lodash';
 import TourData from '../../src/tours';
 
@@ -47,26 +46,22 @@ describe('Tour Model', () => {
   });
 
   it ('replays itself and others in group', () => {
-    User.viewed_tour_ids = ['homework-assignment-editor', 'add-homework-select-exercises'];
     const tour = Tour.forIdentifier('homework-assignment-editor');
-    tour.replay();
-    expect(User.replayTour).toHaveBeenCalledWith(tour);
-    expect(User.replayTour).toHaveBeenCalledWith(Tour.forIdentifier('add-homework-select-exercises'));
+    tour.play();
+    expect(tour.isAvailable).toBeTruthy();
+    expect(Tour.forIdentifier('add-homework-select-exercises').isAvailable).toBeTruthy();
   });
 
   it ('marks itself viewed', () => {
     const tour = Tour.forIdentifier('homework-assignment-editor');
     tour.markViewed({ exitedEarly: false });
-    expect(User.viewedTour).toHaveBeenCalledWith(tour, expect.anything());
-    expect(User.viewedTour).toHaveBeenCalledTimes(1);
+    expect(tour.isAvailable).toBeFalsy();
   });
 
   it ('marks others in group as viewed when canceled early', () => {
     const tour = Tour.forIdentifier('homework-assignment-editor');
     tour.markViewed({ exitedEarly: true });
-    expect(User.viewedTour).toHaveBeenCalledWith(tour, expect.anything());
-    expect(User.viewedTour).toHaveBeenCalledWith(
-      Tour.forIdentifier('add-homework-select-exercises'), expect.anything()
-    );
+    expect(tour.isAvailable).toBeFalsy();
+    expect(Tour.forIdentifier('add-homework-select-exercises').isAvailable).toBeFalsy();
   });
 });

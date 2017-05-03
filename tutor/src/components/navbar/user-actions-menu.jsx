@@ -1,6 +1,6 @@
 import React from 'react';
-
 import { Dropdown, MenuItem } from 'react-bootstrap';
+
 import {  partial, flatMap, get } from 'lodash';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';

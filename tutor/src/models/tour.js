@@ -51,8 +51,9 @@ export default class Tour extends BaseModel {
   @field scrollToSteps;
   @field showOverlay;
 
-  @hasMany({ model: TourStep, inverseOf: 'tour' }) steps;
+  @field isAvailable = false;
 
+  @hasMany({ model: TourStep, inverseOf: 'tour' }) steps;
 
   @computed get othersInGroup() {
     if (!this.group_id){ return []; }
@@ -60,16 +61,16 @@ export default class Tour extends BaseModel {
   }
 
   @action
-  replay() {
-    User.replayTour(this);
-    this.othersInGroup.forEach((tour) => User.replayTour(tour));
+  play() {
+    this.isAvailable = true;
+    this.othersInGroup.forEach((tour) => tour.isAvailable = true);
   }
 
   @action
   markViewed({ exitedEarly }){
-    User.viewedTour(this, { exitedEarly });
+    this.isAvailable = false;
     if (exitedEarly) {
-      this.othersInGroup.forEach(tour => User.viewedTour(tour, { exitedEarly }));
+      this.othersInGroup.forEach(tour => tour.isAvailable = false);
     }
   }
 }
