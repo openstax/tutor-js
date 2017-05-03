@@ -1,9 +1,10 @@
 import {
   BaseModel, identifiedBy, field, belongsTo, computed,
 } from '../base';
-
+import { observable } from 'mobx';
 import { extend, omit } from 'lodash';
 import Offerings from './offerings';
+import Course from '../course';
 import Courses from '../courses-map';
 import Term from './offerings/term';
 
@@ -20,6 +21,8 @@ export default class CourseCreate extends BaseModel {
   @field new_or_copy = 'new';
   @field cloned_from_id = false;
   @field copy_question_library = true;
+
+  @observable createdCourse;
 
   @belongsTo({ model: Term }) term;
 
@@ -54,8 +57,9 @@ export default class CourseCreate extends BaseModel {
     };
   }
 
-  onCreated() {
-    debugger
+  onCreated(data) {
+    this.createdCourse = new Course(data);
+    Courses.set(this.createdCourse.id, this.createdCourse);
   }
 
 }

@@ -430,7 +430,7 @@ exports[`Creating a course matches snapshot 1`] = `
       <button
         className="cancel btn btn-default"
         disabled={false}
-        onClick={undefined}
+        onClick={[Function]}
         type="button"
       >
         Cancel

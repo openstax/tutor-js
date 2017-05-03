@@ -31,9 +31,9 @@ export default class CourseBuilderUX extends BaseModel {
   @readonly maximumSectionCount = 99;
   @observable course_type = '';
 
-  constructor() {
+  constructor(router) {
     super();
-
+    this.router = router;
     observe(this, 'source', ({ newValue: newSource }) => {
       if (newSource) {
         this.newCourse.offering_id = newSource.offering_id;
@@ -43,7 +43,7 @@ export default class CourseBuilderUX extends BaseModel {
 
     observe(this, 'currentStageIndex', ({ newValue: index }) => {
       if (index === this.stages.length - 1 && !this.newCourse.hasApiRequestPending) {
-        this.newCourse.save();
+        this.newCourse.save().then(this.afterCreate);
       }
     });
 
@@ -79,6 +79,10 @@ export default class CourseBuilderUX extends BaseModel {
     while (this.shouldSkip) {
       this.currentStageIndex -= 1;
     }
+  }
+
+  @action.bound onCancel() {
+    this.router.transitionTo('/dashboard');
   }
 
   @computed get stage() {
@@ -139,6 +143,15 @@ export default class CourseBuilderUX extends BaseModel {
 
   @computed get shouldSkip() {
     return !!(result(this, `skip_${this.stage}`, false) && this.currentStageIndex < this.stages.length - 1);
+  }
+
+  @action.bound
+  afterCreate() {
+    const c = this.newCourse.createdCourse;
+    if (!c) { return; }
+    const url = c.is_concept_coach ?
+          `/course/${c.id}/cc/help?showIntro=true` : `/course/${c.id}?showIntro=true`;
+    this.router.transitionTo(url);
   }
 
   // per step tests - must return true in order to navigate to next step

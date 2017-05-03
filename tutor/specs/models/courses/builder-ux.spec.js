@@ -2,7 +2,7 @@ import CourseBuilderUX from '../../../src/models/course/builder-ux';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import Offerings from '../../../src/models/course/offerings';
 import Router from '../../../src/helpers/router';
-import { extend } from 'lodash';
+import { extend, defer } from 'lodash';
 jest.mock('../../../src/helpers/router');
 jest.mock('../../../src/models/course/offerings', () => ({
   get: jest.fn(() => undefined),
@@ -47,7 +47,7 @@ describe('Course Builder UX Model', () => {
     });
     expect(ux.canGoForward).toBe(true);
 
-    ux.newCourse.save = jest.fn();
+    ux.newCourse.save = jest.fn(() => Promise.resolve());
     ux.goForward();
     expect(ux.stage).toEqual('build');
     expect(ux.canNavigate).toBe(false);
@@ -112,38 +112,35 @@ describe('Course Builder UX Model', () => {
     advanceToSave();
   });
 
-  // it('calls save once mounted', function() {
-  //   shallow(<BuildCourse course={NewCourseStore.newCourse()} />, this.options);
+  it('goes to dashboard after canceling', () => {
+    ux.router = { transitionTo: jest.fn() };
+    const { onCancel } = ux;
+    onCancel();
+    expect(ux.router.transitionTo).toHaveBeenCalledWith('/dashboard');
+  });
 
-  // });
+  describe('after course is created', function() {
+    beforeEach(() => {
+      ux.router = { transitionTo: jest.fn() };
+      ux.newCourseMock = { id: 42 };
+      ux.newCourse.term = { year: 2018, term: 'spring' };
+      ux.newCourse.save = jest.fn(() => ({ then: (c) => {
+        ux.newCourse.onCreated(ux.newCourseMock);
+        c();
+      } }));
+    });
 
-  // describe('after course is created', function() {
+    it('redirects to Tutor for Tutor', function() {
+      ux.currentStageIndex = ux.stages.length - 1;
+      expect(ux.router.transitionTo).toHaveBeenCalledWith('/course/42?showIntro=true');
+    });
 
-  //   it('redirects to Tutor for Tutor', function() {
-  //     NewCourseActions.created({id: '42', is_concept_coach: false});
-  //     const wrapper = shallow(<BuildCourse />, this.options);
-  //     NewCourseStore.emit('created');
-  //     expect(this.options.context.router.transitionTo).to.have.been.calledWith('/course/42?showIntro=true');
-  //     return (
-  //       undefined
-  //     );
-  //   });
-
-  //   return (
-
-  //     it('redirects to CC', function() {
-  //       NewCourseActions.created({id: '21', is_concept_coach: true})
-
-  //     );
-  //       const wrapper = shallow(<BuildCourse />, this.options);
-  //       NewCourseStore.emit('created');
-  //       expect(this.options.context.router.transitionTo).to.have.been.calledWith('/course/21/cc/help?showIntro=true');
-  //       return (
-  //         undefined
-  //       );
-  //     });
-  // });
-
+    it('redirects to CC', function() {
+      ux.newCourseMock.is_concept_coach = true;
+      ux.currentStageIndex = ux.stages.length - 1;
+      expect(ux.router.transitionTo).toHaveBeenCalledWith('/course/42/cc/help?showIntro=true');
+    });
+  });
 
 
 });
