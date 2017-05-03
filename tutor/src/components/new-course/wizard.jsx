@@ -2,17 +2,8 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { Button, Panel } from 'react-bootstrap';
 import classnames from 'classnames';
-import { keys, isFunction, isEmpty, invoke } from 'lodash';
+import { isFunction } from 'lodash';
 import { observable, computed } from 'mobx';
-
-import { autobind } from 'core-decorators';
-
-import TutorRouter from '../../helpers/router';
-
-
-import { NewCourseActions, NewCourseStore } from '../../flux/new-course';
-//import { CourseActions, CourseStore } from '../../flux/course';
-//import { CourseListingStore } from '../../flux/course-listing';
 
 import CourseOfferingTitle from './offering-title';
 import OXFancyLoader from '../ox-fancy-loader';
