@@ -27,7 +27,7 @@ export default class SelectDates extends React.PureComponent {
 
     return (
       <ListGroup>
-        {offering.active_term_years.map((term, index) =>
+        {offering.validTerms.map((term, index) =>
           <Choice
             key={index}
             active={ux.newCourse.term === term}

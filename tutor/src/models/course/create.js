@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, field, belongsTo, computed,
 } from '../base';
 import { observable } from 'mobx';
-import { extend, omit } from 'lodash';
+import { extend, omit, filter } from 'lodash';
 import Offerings from './offerings';
 import Course from '../course';
 import Courses from '../courses-map';
