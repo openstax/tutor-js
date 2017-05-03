@@ -13,7 +13,7 @@ import TourContext from '../../models/tour/context';
 export default class SupportMenu extends React.PureComponent {
   static propTypes = {
     tourContext: React.PropTypes.instanceOf(TourContext),
-    courseId: React.PropTypes.string.isRequired,
+    courseId: React.PropTypes.string,
   }
 
   @action.bound
@@ -25,6 +25,7 @@ export default class SupportMenu extends React.PureComponent {
     if (!get(this.props, 'tourContext.hasViewableTour', false)){ return null; }
     return (
       <MenuItem
+        className="page-tips"
         onSelect={this.onPlayTourClick}
       >
         Page Tips
