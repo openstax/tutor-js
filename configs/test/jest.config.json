@@ -1,7 +1,7 @@
 {
   "verbose": true,
-  "notify": false,
-  "collectCoverageFrom": ["**/src/*.{jsx,js,coffee,cjsx}", "!**/node_modules/**"],
+  "notify": true,
+  "collectCoverageFrom": ["**/*.{jsx,js,coffee,cjsx}", "!**/node_modules/**"],
   "coverageDirectory": "../coverage/",
   "coverageReporters": ["json", "lcov", "text-summary"],
   "testRegex": "specs\/.*\\.spec\\.(coffee|js|jsx|cjsx|json)$",
