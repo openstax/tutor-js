@@ -10,7 +10,7 @@ exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
     onClick={[Function]}
     role="button"
   >
-    College Biology
+    Biology
   </div>
   <div
     className="list-group-item choice"
@@ -26,7 +26,7 @@ exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
     onClick={[Function]}
     role="button"
   >
-    Introduction to Sociology
+    Introduction to Sociology 2e
   </div>
   <div
     className="list-group-item choice"
@@ -35,6 +35,14 @@ exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
     role="button"
   >
     Biology for AP® Courses
+  </div>
+  <div
+    className="list-group-item choice"
+    data-appearance="hs_physics"
+    onClick={[Function]}
+    role="button"
+  >
+    HS Physics
   </div>
 </div>
 `;

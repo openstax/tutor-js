@@ -5,7 +5,7 @@ exports[`CreateCourse: Selecting course dates matches snapshot 1`] = `
   className="list-group"
 >
   <div
-    className="list-group-item choice active"
+    className="list-group-item choice"
     onClick={[Function]}
     role="button"
   >

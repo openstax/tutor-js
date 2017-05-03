@@ -77,7 +77,7 @@ export default class NewCourseWizard extends React.PureComponent {
     isLoading: React.PropTypes.bool.isRequired,
   }
 
-  @observable ux = new CourseBuilderUX();
+  @observable ux = new CourseBuilderUX(this.context.router);
 
   static contextTypes = {
     router: React.PropTypes.object,

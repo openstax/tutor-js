@@ -216,7 +216,7 @@ exports[`CreateCourse: Selecting type of course matches snapshot 1`] = `
     </svg>
   </div>
   <div
-    className="list-group-item choice active"
+    className="list-group-item choice"
     data-brand="coach"
     onClick={[Function]}
     role="button"

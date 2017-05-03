@@ -112,4 +112,38 @@ describe('Course Builder UX Model', () => {
     advanceToSave();
   });
 
+  // it('calls save once mounted', function() {
+  //   shallow(<BuildCourse course={NewCourseStore.newCourse()} />, this.options);
+
+  // });
+
+  // describe('after course is created', function() {
+
+  //   it('redirects to Tutor for Tutor', function() {
+  //     NewCourseActions.created({id: '42', is_concept_coach: false});
+  //     const wrapper = shallow(<BuildCourse />, this.options);
+  //     NewCourseStore.emit('created');
+  //     expect(this.options.context.router.transitionTo).to.have.been.calledWith('/course/42?showIntro=true');
+  //     return (
+  //       undefined
+  //     );
+  //   });
+
+  //   return (
+
+  //     it('redirects to CC', function() {
+  //       NewCourseActions.created({id: '21', is_concept_coach: true})
+
+  //     );
+  //       const wrapper = shallow(<BuildCourse />, this.options);
+  //       NewCourseStore.emit('created');
+  //       expect(this.options.context.router.transitionTo).to.have.been.calledWith('/course/21/cc/help?showIntro=true');
+  //       return (
+  //         undefined
+  //       );
+  //     });
+  // });
+
+
+
 });
