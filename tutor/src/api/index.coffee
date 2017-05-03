@@ -41,7 +41,6 @@ PerformanceForecast = require '../flux/performance-forecast'
 {ReferenceBookActions} = require '../flux/reference-book'
 {ReferenceBookPageActions} = require '../flux/reference-book-page'
 {ReferenceBookExerciseActions} = require '../flux/reference-book-exercise'
-{NewCourseActions, NewCourseStore} = require '../flux/new-course'
 {NotificationActions} = require '../flux/notifications'
 
 {CourseEnrollmentActions} = require '../flux/course-enrollment'
