@@ -43,7 +43,7 @@ describe('Course Builder UX Model', () => {
     expect(ux.canGoForward).toBe(false);
     extend(ux.newCourse, {
       num_sections: 3,
-      num_students: 100,
+      estimated_student_count: 100,
     });
     expect(ux.canGoForward).toBe(true);
 
@@ -125,7 +125,7 @@ describe('Course Builder UX Model', () => {
       ux.newCourseMock = { id: 42 };
       ux.newCourse.term = { year: 2018, term: 'spring' };
       ux.newCourse.save = jest.fn(() => ({ then: (c) => {
-        ux.newCourse.onCreated(ux.newCourseMock);
+        ux.newCourse.onCreated({ data: ux.newCourseMock });
         c();
       } }));
     });

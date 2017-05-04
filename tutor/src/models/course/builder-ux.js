@@ -172,7 +172,7 @@ export default class CourseBuilderUX extends BaseModel {
   }
 
   test_numbers() {
-    return every(values(pick(this.newCourse, 'num_students', 'num_sections')), v => Boolean(v));
+    return every(values(pick(this.newCourse, 'estimated_student_count', 'num_sections')), v => Boolean(v));
   }
 
 

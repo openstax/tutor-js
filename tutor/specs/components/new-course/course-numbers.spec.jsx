@@ -18,8 +18,8 @@ describe('CreateCourse: entering details', function() {
     ux.newCourse.cloned_from = courses.get(COURSE_ID);
     const wrapper = shallow(<CourseNumbers ux={ux} />);
     expect(wrapper).toHaveRendered('.course-details-sections FormControl[type="number"][value=0]');
-    ux.newCourse.num_sections = 4;
-    expect(wrapper).toHaveRendered('.course-details-sections FormControl[type="number"][value=4]');
+    ux.newCourse.estimated_student_count = 4;
+    expect(wrapper).toHaveRendered('.course-details-numbers FormControl[type="number"][value=4]');
   });
 
 
@@ -29,7 +29,7 @@ describe('CreateCourse: entering details', function() {
            .simulate('change', { target: { value: 3 } });
     wrapper.find('.course-details-sections .form-control')
            .simulate('change', { target: { value: 12 } });
-    expect(ux.newCourse.num_students).toEqual(3);
+    expect(ux.newCourse.estimated_student_count).toEqual(3);
     expect(ux.newCourse.num_sections).toEqual(12);
   });
 

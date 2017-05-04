@@ -16,7 +16,7 @@ export default class CourseNumbers extends React.PureComponent {
 
   @action.bound
   updateStudentCount(ev) {
-    this.props.ux.newCourse.num_students = ev.target.value;
+    this.props.ux.newCourse.estimated_student_count = ev.target.value;
   }
 
   @action.bound
@@ -57,7 +57,7 @@ export default class CourseNumbers extends React.PureComponent {
             <FormControl
               type="number"
               min="1"
-              value={newCourse.num_students || ''}
+              value={newCourse.estimated_student_count || ''}
               onChange={this.updateStudentCount} />
           </InputGroup>
         </FormGroup>

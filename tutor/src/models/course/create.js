@@ -13,7 +13,7 @@ export default class CourseCreate extends BaseModel {
   @field name = '';
   @field offering_id = '';
   @field num_sections = 1;
-  @field num_students;
+  @field estimated_student_count;
   @field is_preview = false;
   @field is_college = false;
   @field time_zone = 'Central Time (US & Canada)';
