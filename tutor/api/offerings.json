@@ -128,6 +128,14 @@
         {
           "term": "fall",
           "year": 2017
+        },
+        {
+          "term": "spring",
+          "year": 2018
+        },
+        {
+          "term": "summer",
+          "year": 2018
         }
       ]
     }

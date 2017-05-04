@@ -33,10 +33,10 @@ SelectDates = React.createClass
       @onSelect(offering.active_term_years[1])
 
   render: ->
-    offering = OfferingsStore.get(NewCourseStore.get('offering_id'))
+    terms = OfferingsStore.getValidTerms(NewCourseStore.get('offering_id'))
 
     <BS.ListGroup>
-      {for term, index in offering.active_term_years
+      {for term, index in terms
         <Choice
           key={index}
           active={isEqual(NewCourseStore.get(KEY), term)}
