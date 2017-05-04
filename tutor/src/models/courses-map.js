@@ -1,4 +1,4 @@
-import { ObservableMap, computed } from 'mobx';
+import { ObservableMap, computed, action } from 'mobx';
 import { CourseListingActions, CourseListingStore } from '../flux/course-listing';
 import Course from './course';
 import { once } from 'lodash';
@@ -44,12 +44,18 @@ class AllCoursesMap extends CoursesMap {
     return mapWhere(c => !c.hasEnded);
   }
 
+  @action addNew(courseData) {
+    const course = new Course(courseData);
+    this.set(course.id, course);
+    CourseListingActions.loaded([courseData]);
+    return course;
+  }
+
   bootstrap( courseData, options = {} ) {
     CourseListingActions.loaded(courseData);
     if (options.clear) { this.clear(); }
     onLoaded(courseData);
     listenForLoad();
-
     return coursesMap;
   }
 
