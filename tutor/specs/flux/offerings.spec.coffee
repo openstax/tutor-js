@@ -24,3 +24,10 @@ describe 'Offerings Store', ->
   it 'can get offering description', ->
     expect(OfferingsStore.getDescription('1')).to.equal('Biology with Courseware')
     undefined
+
+  it 'limits terms for CC', ->
+    expect(OfferingsStore.getValidTerms('5')).toEqual([
+      {"term": "spring", "year": 2017},
+      {"term": "summer", "year": 2017},
+    ])
+    undefined

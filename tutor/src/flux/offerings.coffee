@@ -1,6 +1,7 @@
 {makeStandardStore} = require './helpers'
 cloneDeep = require 'lodash/cloneDeep'
 filter = require 'lodash/filter'
+includes = require 'lodash/includes'
 
 CourseInformation = require './course-information'
 
@@ -26,6 +27,12 @@ StoreDefinition = makeStandardStore('Offerings', {
     getDescription: (id) ->
       @_get(id).description
 
+    getValidTerms: (id) ->
+      offering = @_get(id)
+      if offering.is_concept_coach
+        filter(offering.active_term_years, (t) -> t.year is 2017 and includes(['spring', 'summer'], t.term))
+      else
+        offering.active_term_years
 })
 
 module.exports = StoreDefinition
