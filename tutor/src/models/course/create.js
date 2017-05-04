@@ -4,7 +4,6 @@ import {
 import { observable } from 'mobx';
 import { extend, omit, filter } from 'lodash';
 import Offerings from './offerings';
-import Course from '../course';
 import Courses from '../courses-map';
 import Term from './offerings/term';
 
@@ -57,9 +56,8 @@ export default class CourseCreate extends BaseModel {
     };
   }
 
-  onCreated(data) {
-    this.createdCourse = new Course(data);
-    Courses.set(this.createdCourse.id, this.createdCourse);
+  onCreated({ data: courseData }) {
+    this.createdCourse = Courses.addNew(courseData);
   }
 
 }
