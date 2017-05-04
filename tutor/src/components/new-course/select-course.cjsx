@@ -33,7 +33,7 @@ SelectCourse = React.createClass
       )
 
   getInitialState: ->
-    offerings = OfferingsStore.filter(is_concept_coach: NewCourseStore.get('course_type') is 'cc')
+    offerings = OfferingsStore.filter(is_concept_coach: NewCourseStore.get('course_type') is 'coach')
     {offerings}
 
   onSelect: (id) ->
