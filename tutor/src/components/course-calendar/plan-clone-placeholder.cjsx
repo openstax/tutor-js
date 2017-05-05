@@ -4,7 +4,7 @@ TimeHelper = require '../../helpers/time'
 Icon = require '../icon'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TaskingActions} = require '../../flux/tasking'
-{TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../flux/teacher-task-plan'
+{ default: TeacherTaskPlans } = require '../../models/teacher-task-plans'
 
 PlanClonePlaceholder = React.createClass
 
@@ -27,12 +27,12 @@ PlanClonePlaceholder = React.createClass
 
   onLoad: ->
     taskPlanId = TaskPlanStore.freshLocalId()
+    { planId, courseId } = @props
     TaskPlanActions.createClonedPlan(taskPlanId, {
-      planId: @props.planId,
-      courseId: @props.courseId,
+      planId, courseId
       due_at: TimeHelper.toISO(@props.due_at)
     })
-    TeacherTaskPlanActions.addClonedPlan(@props.courseId, taskPlanId)
+    TeacherTaskPlans.forCourseId(courseId).addClone(TaskPlanStore.get(taskPlanId))
     @props.onLoad(taskPlanId)
 
   render: ->

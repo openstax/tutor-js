@@ -5,6 +5,7 @@ import { Markdown } from 'shared';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import moment from 'moment';
+import { autobind } from 'core-decorators';
 
 import TourAnchor from '../tours/anchor';
 import BindStoreMixin from '../bind-store-mixin';
@@ -14,7 +15,7 @@ import CopyOnFocusInput from '../copy-on-focus-input';
 import Icon from '../icon';
 import Courses from '../../models/courses-map';
 import { TaskPlanStatsStore, TaskPlanStatsActions } from '../../flux/task-plan-stats';
-import { TeacherTaskPlanStore } from '../../flux/teacher-task-plan';
+import TeacherTaskPlans from '../../models/teacher-task-plans';
 
 const DUE_FORMAT = 'M/D/YYYY [at] h:mma';
 
@@ -41,7 +42,10 @@ export class LmsInfoLink extends React.PureComponent {
   }
 
   renderDueDates() {
-    const taskPlan = TeacherTaskPlanStore.getPlanId(this.props.courseId, this.props.plan.id);
+    const taskPlan = TeacherTaskPlans
+      .forCourseId(this.props.courseId)
+      .get(this.props.plan.id);
+
     const taskPlanDates = TaskPlanHelper.dates( taskPlan, { only: 'due_at' } );
     if (taskPlanDates.all != null) {
       return (
@@ -130,25 +134,23 @@ export class LmsInfoLink extends React.PureComponent {
 }
 
 
-const LmsInfo = React.createClass({
+export default class LmsInfo extends React.PureComponent {
 
-  propTypes: {
+  static propTypes = {
     courseId: React.PropTypes.string.isRequired,
     plan: React.PropTypes.shape({
       id: React.PropTypes.string.isRequired,
       title: React.PropTypes.string.isRequired,
       shareable_url: React.PropTypes.string,
     }).isRequired,
-  },
+  }
 
-  mixins: [BindStoreMixin],
-  bindStore: TeacherTaskPlanStore,
-
+  @autobind
   renderLink() {
     return (
       <LmsInfoLink {...this.props} />
     );
-  },
+  }
 
   render() {
     return (
@@ -158,8 +160,6 @@ const LmsInfo = React.createClass({
         actions={TaskPlanStatsActions}
         renderItem={this.renderLink} />
     );
-  },
-});
+  }
 
-
-export default LmsInfo;
+}

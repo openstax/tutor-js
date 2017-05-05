@@ -3,7 +3,7 @@ _ = require 'underscore'
 
 {TaskActions, TaskStore} = require './task'
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
-PeriodHelper = require '../helpers/period'
+{default: PeriodHelper} = require '../helpers/period'
 
 DEFAULT_COURSE_TIMEZONE = 'US/Central'
 

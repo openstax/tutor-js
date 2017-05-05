@@ -7,7 +7,7 @@ Router = require '../../helpers/router'
 
 BindStoreMixin = require '../bind-store-mixin'
 NoPeriods = require '../no-periods'
-PH = require '../../helpers/period'
+{default: PH} = require '../../helpers/period'
 Tabs = require '../tabs'
 
 {CourseStore, CourseActions} = require '../../flux/course'

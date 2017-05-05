@@ -15,9 +15,13 @@ dom = require './src/helpers/dom'
 {TransitionAssistant} = require './src/components/unsaved-state'
 Root = require './src/components/root'
 ErrorMonitoring = require 'shared/src/helpers/error-monitoring'
-{ default: User } = require './src/models/user'
-{ default: Courses } = require './src/models/courses-map'
-{ default: Offerings } = require './src/models/course/offerings'
+
+
+{ default: OFFERINGS } = require './src/models/course/offerings'
+{ default: USER } = require './src/models/user'
+{ default: COURSES } = require './src/models/courses-map'
+{ default: TEACHER_TASK_PLANS } = require './src/models/teacher-task-plans'
+
 {Logging, ReactHelpers} = require 'shared'
 
 window._STORES =
@@ -31,15 +35,16 @@ window._STORES =
   TASK_PLAN: require './src/flux/task-plan'
   TASK_STEP: require './src/flux/task-step'
   TASK: require './src/flux/task'
-  TEACHER_TASK_PLAN: require './src/flux/teacher-task-plan'
   TIME: require './src/flux/time'
   NOTIFICATIONS: require './src/flux/notifications'
   TOC: require './src/flux/toc'
 
-window._MODELS =
-  USER: User
-  COURSES: Courses
-  OFFERINGS: Offerings
+window._MODELS = {
+  USER,
+  COURSES,
+  TEACHER_TASK_PLANS,
+  OFFERINGS,
+}
 
 window._LOGGING = Logging
 

@@ -197,7 +197,7 @@ CourseDuration = React.createClass
     plan.isPublishing = @isPlanPublishing(plan)
     plan.isTrouble = plan.is_trouble
     plan.isEditable = plan.duration.start().isAfter(referenceDate)
-    plan.isNew = isNew(plan.id)
+
 
   # TODO see how to pull out plan specific logic to show that this
   # can be reused for units, for example

@@ -1,5 +1,5 @@
 import {
-  computed, observable
+  computed, observable,
 } from 'mobx';
 
 export default class CourseUX {

@@ -14,7 +14,8 @@ TaskingDateTimes = require '../builder/tasking-date-times'
 BindStoresMixin = require '../../bind-stores-mixin'
 {TutorInput, TutorTextArea} = require '../../tutor-input'
 {TaskingStore, TaskingActions} = require '../../../flux/tasking'
-{TeacherTaskPlanActions} = require '../../../flux/teacher-task-plan'
+{default: TeacherTaskPlans } = require '../../../models/teacher-task-plans'
+
 {CourseStore, CourseActions} = require '../../../flux/course'
 
 TimeHelper = require '../../../helpers/time'
@@ -50,10 +51,10 @@ TaskPlanMiniEditor = React.createClass
       callback: @setError
 
   changeTaskPlan: ->
-    {id} = @props
+    {id, courseId} = @props
 
     taskings = TaskingStore.getChanged(id)
-    TaskPlanActions.replaceTaskings(id, taskings)
+    TeacherTaskPlans.forCourseId(courseId).get(id).taskings = taskings
 
   setTitle: (title) ->
     {id} = @props
@@ -99,7 +100,7 @@ TaskPlanMiniEditor = React.createClass
     @props.onHide()
     if TaskPlanStore.isNew(@props.id)
       TaskPlanActions.removeUnsavedDraftPlan(@props.id)
-      TeacherTaskPlanActions.removeClonedPlan(@props.courseId, @props.id)
+      TeacherTaskPlans.forCourseId(@props.courseId).delete(@props.id)
 
   render: ->
     {id, courseId, termStart, termEnd} = @props

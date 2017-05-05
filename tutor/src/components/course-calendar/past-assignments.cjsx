@@ -4,7 +4,7 @@ classnames = require 'classnames'
 
 {CloneAssignmentLink} = require './task-dnd'
 
-TaskPlanHelper = require '../../helpers/task-plan'
+{default: TaskPlanHelper} = require '../../helpers/task-plan'
 TimeHelper = require '../../helpers/time'
 isEmpty = require 'lodash/isEmpty'
 partial = require 'lodash/partial'

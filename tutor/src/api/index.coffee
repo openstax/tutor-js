@@ -33,7 +33,6 @@ PerformanceForecast = require '../flux/performance-forecast'
 
 {TocActions} = require '../flux/toc'
 {ExerciseActions, ExerciseStore} = require '../flux/exercise'
-{TeacherTaskPlanActions} = require '../flux/teacher-task-plan'
 {StudentDashboardActions} = require '../flux/student-dashboard'
 {CourseListingActions} = require '../flux/course-listing'
 {CCDashboardActions} = require '../flux/cc-dashboard'
@@ -44,15 +43,16 @@ PerformanceForecast = require '../flux/performance-forecast'
 {NotificationActions} = require '../flux/notifications'
 
 {CourseEnrollmentActions} = require '../flux/course-enrollment'
-TaskPlanHelpers = require '../helpers/task-plan'
+{default: TaskPlanHelpers} = require '../helpers/task-plan'
 
 handledEnrollmentErrorsMap = require '../flux/course-enrollment-handled-errors'
 handledEnrollmentErrors = _.keys(handledEnrollmentErrorsMap)
 
 { default: User } = require '../models/user'
 { default: Courses } = require '../models/courses-map'
-{ default: Offerings } = require '../models/course/offerings';
-{ default: CourseCreate } = require '../models/course/create';
+{ default: Offerings } = require '../models/course/offerings'
+{ default: CourseCreate } = require '../models/course/create'
+{ default: TeacherTaskPlans } = require '../models/teacher-task-plans'
 
 BOOTSTRAPED_MODELS = {
   user:    User.bootstrap,
@@ -140,12 +140,6 @@ startAPI = ->
 
   connectModify(ScoresActions,
     trigger: 'rejectLate', onSuccess: 'rejectedLate', pattern: 'tasks/{id}/reject_late_work'
-  )
-
-  connectRead(TeacherTaskPlanActions, pattern: 'courses/{id}/dashboard',
-    params: (id, startAt, endAt) ->
-      start_at: startAt
-      end_at: endAt
   )
 
   connectRead(JobActions, pattern: 'jobs/{id}', handledErrors: ['*'])
@@ -250,6 +244,14 @@ startAPI = ->
   connectModelRead(Offerings.constructor, 'fetch', url: 'offerings', onSuccess: 'onLoaded')
 
   connectModelCreate(CourseCreate, 'save', onSuccess: 'onCreated')
+
+  connectModelRead(TeacherTaskPlans.constructor, 'fetch',
+    pattern: 'courses/{courseId}/dashboard',
+    onSuccess: 'onLoaded'
+    params: ({ id, startAt, endAt }) ->
+      start_at: startAt
+      end_at: endAt
+  )
 
 start = (bootstrapData) ->
   for storeId, action of BOOTSTRAPED_MODELS
