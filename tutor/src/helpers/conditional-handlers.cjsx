@@ -3,7 +3,7 @@ extend = require 'lodash/extend'
 {Redirect, Link} = require 'react-router'
 
 TutorRouter = require '../helpers/router'
-InvalidPage = require '../components/invalid-page'
+{default: InvalidPage} = require '../components/invalid-page'
 
 TeacherTaskPlans        = require '../components/task-plan/teacher-task-plans-listing'
 {default: CCStudentRedirect}       = require '../components/cc-student-redirect'

@@ -30,7 +30,6 @@ PerformanceForecast = require '../flux/performance-forecast'
 {TaskPlanStatsActions} = require '../flux/task-plan-stats'
 
 {PastTaskPlansActions} = require '../flux/past-task-plans'
-{OfferingsActions} = require '../flux/offerings'
 
 {TocActions} = require '../flux/toc'
 {ExerciseActions, ExerciseStore} = require '../flux/exercise'
@@ -42,7 +41,6 @@ PerformanceForecast = require '../flux/performance-forecast'
 {ReferenceBookActions} = require '../flux/reference-book'
 {ReferenceBookPageActions} = require '../flux/reference-book-page'
 {ReferenceBookExerciseActions} = require '../flux/reference-book-exercise'
-{NewCourseActions, NewCourseStore} = require '../flux/new-course'
 {NotificationActions} = require '../flux/notifications'
 
 {CourseEnrollmentActions} = require '../flux/course-enrollment'
@@ -53,6 +51,8 @@ handledEnrollmentErrors = _.keys(handledEnrollmentErrorsMap)
 
 { default: User } = require '../models/user'
 { default: Courses } = require '../models/courses-map'
+{ default: Offerings } = require '../models/course/offerings';
+{ default: CourseCreate } = require '../models/course/create';
 
 BOOTSTRAPED_MODELS = {
   user:    User.bootstrap,
@@ -207,7 +207,6 @@ startAPI = ->
       {answer_id: answerId}
   )
 
-  connectRead(OfferingsActions, url: 'offerings')
   connectRead(PastTaskPlansActions, (courseId) ->
     url: "courses/#{courseId}/plans"
     params:
@@ -215,10 +214,6 @@ startAPI = ->
   )
 
   connectRead(CourseListingActions, url: 'user/courses')
-  connectCreate(NewCourseActions,
-    pattern: 'courses/{id}/clone', trigger: 'clone', data: NewCourseStore.requestPayload
-  )
-  connectCreate(NewCourseActions, url: 'courses', data: NewCourseStore.requestPayload)
 
   connectRead(ReferenceBookActions, pattern: 'ecosystems/{id}/readings')
   connectRead(ReferenceBookPageActions, pattern: 'pages/{id}')
@@ -252,7 +247,9 @@ startAPI = ->
   connectModelUpdate(User.constructor, 'saveTourView',
     pattern: 'user/tours/{id}'
    )
+  connectModelRead(Offerings.constructor, 'fetch', url: 'offerings', onSuccess: 'onLoaded')
 
+  connectModelCreate(CourseCreate, 'save', onSuccess: 'onCreated')
 
 start = (bootstrapData) ->
   for storeId, action of BOOTSTRAPED_MODELS

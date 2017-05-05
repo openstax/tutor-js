@@ -1,6 +1,6 @@
 .psuedo-background() {
   position: absolute;
-  top: 0;
+  top: @tutor-navbar-height;
   left: 0;
   bottom: 0;
   right: 0;
@@ -18,6 +18,9 @@
 }
 
 .new-course {
+  @panel-choice-height: 70px;
+  @panel-body-height: @panel-choice-height * 3.5;
+
   .book-icon-style(){
     &::before{
       content: '';
@@ -41,18 +44,8 @@
     .psuedo-background();
   }
   &::before {
-    background-image:
-      linear-gradient(to right, @tutor-secondary, @tutor-tertiary),
-      url('../../images/ost-hero.jpg');
-    background-blend-mode: hard-light;
-    filter: blur(12px);
+    background-image: url('../../images/ost-hero.jpg');
   }
-
-  &::after {
-    background-image:
-      linear-gradient(to right, fade(@tutor-secondary, 57%), fade(@tutor-tertiary, 57%));
-  }
-
   .panel {
     padding: 3rem 4rem;
     position: relative;
@@ -84,7 +77,7 @@
       margin-right: auto;
       font-size: 1.6rem;
       line-height: 2rem;
-      .course-offering {
+      .course-offering-title {
         display: flex;
         .contents {
           width: 100%;
@@ -115,7 +108,9 @@
     // set footer to a fixed height so the panel stays the same height
     // even if some do not have any controls
     .panel-footer { height: 65px; }
-
+    .tutor-icon.best-practices {
+      height: 2rem;
+    }
     &.is-loading {
       .panel-body {
         .tutor-subtle-load(loading);
@@ -126,11 +121,11 @@
       }
     }
     .panel-content {
-      height: 260px;
+      height: @panel-body-height;
     }
 
     .list-group {
-      max-height: 260px;
+      max-height: @panel-body-height;
       overflow-y: auto;
       border-top: 1px solid @tutor-neutral-light;
       border-bottom: 1px solid @tutor-neutral-light;
@@ -150,7 +145,7 @@
       padding: 8px;
       display: flex;
       align-content: center;
-      height: 7.6rem;
+      height: @panel-choice-height;
       position: relative;
       font-size: 1.6rem;
       font-weight: 800;

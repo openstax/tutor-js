@@ -70,7 +70,8 @@ getQABook = ->
   require './components/qa/view-book'
 
 getCreateCourse = ->
-  require './components/new-course'
+  {default: Wizard} =  require './components/new-course'
+  Wizard
 
 getTeacherReview = ->
   {TaskTeacherReviewShell} = require './components/task-teacher-review'

@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateCourse: entering details matches snapshot 1`] = `
+<form
+  className=""
+>
+  <i
+    className="tutor-icon best-practices"
+  />
+  <p>
+    If you teach multiple sections of the same course, include all sections below. You can add or remove sections later.
+  </p>
+  <div
+    className="course-details-sections form-group"
+  >
+    <span
+      className="input-group"
+    >
+      <span
+        className="input-group-addon"
+      >
+        Number of sections in your course
+      </span>
+      <input
+        className="form-control"
+        id={undefined}
+        max={99}
+        min="1"
+        onChange={[Function]}
+        type="number"
+        value={1}
+      />
+    </span>
+  </div>
+  <div
+    className="course-details-numbers form-group"
+  >
+    <span
+      className="input-group"
+    >
+      <span
+        className="input-group-addon"
+      >
+        Number of students in your course
+      </span>
+      <input
+        className="form-control"
+        id={undefined}
+        min="1"
+        onChange={[Function]}
+        type="number"
+        value=""
+      />
+    </span>
+  </div>
+</form>
+`;

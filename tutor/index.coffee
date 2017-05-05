@@ -17,7 +17,7 @@ Root = require './src/components/root'
 ErrorMonitoring = require 'shared/src/helpers/error-monitoring'
 { default: User } = require './src/models/user'
 { default: Courses } = require './src/models/courses-map'
-
+{ default: Offerings } = require './src/models/course/offerings'
 {Logging, ReactHelpers} = require 'shared'
 
 window._STORES =
@@ -39,6 +39,7 @@ window._STORES =
 window._MODELS =
   USER: User
   COURSES: Courses
+  OFFERINGS: Offerings
 
 window._LOGGING = Logging
 
