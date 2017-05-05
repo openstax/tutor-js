@@ -5,7 +5,7 @@ Router = require '../../helpers/router'
 LoadableItem = require '../loadable-item'
 {TaskActions, TaskStore} = require '../../flux/task'
 {CoursePracticeActions, CoursePracticeStore} = require '../../flux/practice'
-InvalidPage = require '../invalid-page'
+{default: InvalidPage} = require '../invalid-page'
 Icon = require '../icon'
 
 PracticeTask = React.createClass
@@ -36,7 +36,6 @@ LoadPractice = React.createClass
     CoursePracticeStore.on("loaded.#{@props.courseId}", @onPracticeLoad)
     CoursePracticeActions.create({courseId: @props.courseId, query: Router.currentQuery()})
 
-
   componentWillUnmount: ->
     CoursePracticeStore.off("loaded.#{@props.courseId}", @onPracticeLoad)
 
@@ -53,7 +52,7 @@ PracticeTaskShell = React.createClass
 
   render: ->
     {params, query} = Router.currentState()
-    if query.page_ids
+    if query.page_ids or query.worst
       <LoadPractice courseId={params.courseId} sectionIds={query.page_ids} />
     else if params.taskId
       <PracticeTask courseId={params.courseId} taskId={params.taskId} />

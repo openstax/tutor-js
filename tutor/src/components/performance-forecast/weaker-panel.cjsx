@@ -6,6 +6,7 @@ _ = require 'underscore'
 PerformanceForecast  = require '../../flux/performance-forecast'
 PracticeButton = require './practice-button'
 WeakerSections = require './weaker-sections'
+{default: PracticeWeakestButton} = require './weakest-practice-button'
 
 WeakerPanel = React.createClass
   propTypes:
@@ -23,9 +24,7 @@ WeakerPanel = React.createClass
     return null if @props.sections.length is 0
     # Only show the practice button if practice is allowed and weakest sections exit
     if @props.canPractice and PerformanceForecast.Helpers.canDisplayWeakest(@props) then practiceBtn =
-      <PracticeButton title='Practice All'
-        sections=PerformanceForecast.Helpers.weakestSections(@props.sections)
-        courseId={@props.courseId} />
+      <PracticeWeakestButton title='Practice All' courseId={this.props.courseId} />
 
     <div className="chapter-panel weaker">
       <div className='chapter metric'>

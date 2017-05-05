@@ -49,12 +49,12 @@ BreadcrumbTaskDynamic = React.createClass
   componentWillMount: ->
     {crumb} = @props
     @setStep(@props)
-    TaskStepStore.on('step.completed', @update)
+    TaskStore.on('step.completed', @update)
     if TaskStepStore.isPlaceholder(crumb.id)
       TaskStepStore.on('step.loaded', @update)
 
   componentWillUnmount: ->
-    TaskStepStore.off('step.completed', @update)
+    TaskStore.off('step.completed', @update)
     TaskStepStore.off('step.loaded', @update)
 
 

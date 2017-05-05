@@ -92,12 +92,12 @@ Task = React.createClass
     @updateSteps()
     @setStepKey()
     TaskStepStore.on('step.recovered', @prepareToRecover)
-    TaskStepStore.on('step.completed', @updateSteps)
+    TaskStore.on('step.completed', @updateSteps)
     TaskStore.on('loaded', @updateTask)
 
   componentWillUnmount: ->
     TaskStepStore.off('step.recovered', @prepareToRecover)
-    TaskStepStore.off('step.completed', @updateSteps)
+    TaskStore.off('step.completed', @updateSteps)
     TaskStore.off('loaded', @updateTask)
 
   componentWillReceiveProps: ->

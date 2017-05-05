@@ -1,10 +1,11 @@
 React = require 'react'
 {SpyMode} = require 'shared'
 
-{TaskStore} = require '../../flux/task'
+{TaskActions, TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 LoadableItem = require '../loadable-item'
 {Reading, Interactive, Video, Exercise, Placeholder, ExternalUrl} = require './all-steps'
+BindStoreMixin = require '../bind-store-mixin'
 
 {StepPanel} = require '../../helpers/policies'
 
@@ -26,13 +27,21 @@ getStepType = (typeName) ->
   type or err('BUG: Invalid task step type', typeName)
 
 
-TaskStepLoaded = React.createClass
-  displayName: 'TaskStepLoaded'
+TaskStep = React.createClass
+  displayName: 'TaskStep'
 
   propTypes:
     id: React.PropTypes.string.isRequired
     onNextStep: React.PropTypes.func.isRequired
-    onStepCompleted: React.PropTypes.func.isRequired
+
+  mixins: [BindStoreMixin]
+  bindStore: TaskStepStore
+
+  onStepCompleted: (id) ->
+    {id} = @props unless id?
+
+    if StepPanel.canWrite(id)
+      TaskActions.completeStep(id)
 
   render: ->
     {id, taskId} = @props
@@ -40,34 +49,14 @@ TaskStepLoaded = React.createClass
     {spy} = TaskStore.get(taskId)
     Type = getStepType(type)
     <div>
-      <Type {...@props}/>
+      <Type
+        {...@props}
+        onStepCompleted={@onStepCompleted}
+      />
       <SpyMode.Content className='task-ecosystem-info'>
         TaskId: {taskId}, StepId: {id}, Ecosystem: {spy?.ecosystem_title}
       </SpyMode.Content>
     </div>
 
-module.exports = React.createClass
-  displayName: 'TaskStep'
 
-  propTypes:
-    id: React.PropTypes.string.isRequired
-    onNextStep: React.PropTypes.func.isRequired
-
-  onStepCompleted: (id) ->
-    {id} = @props unless id?
-    canWrite = StepPanel.canWrite(id)
-
-    if canWrite
-      TaskStepActions.complete(id)
-
-  render: ->
-    {id} = @props
-    unless TaskStepStore.isPlaceholder(id) and not TaskStepStore.shouldExist(id)
-      <LoadableItem
-        id={id}
-        store={TaskStepStore}
-        actions={TaskStepActions}
-        renderItem={=> <TaskStepLoaded {...@props} onStepCompleted={@onStepCompleted}/>}
-      />
-    else
-      <TaskStepLoaded {...@props} onStepCompleted={@onStepCompleted}/>
+module.exports = TaskStep
