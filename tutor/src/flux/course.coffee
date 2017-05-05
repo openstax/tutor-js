@@ -7,7 +7,7 @@ isEmpty = require 'lodash/isEmpty'
 
 {TaskActions, TaskStore} = require './task'
 {CrudConfig, makeSimpleStore, extendConfig, STATES} = require './helpers'
-PeriodHelper = require '../helpers/period'
+{default: PeriodHelper} = require '../helpers/period'
 {default:CourseInformation} = require '../models/course/information'
 
 DEFAULT_TIME_ZONE = 'Central Time (US & Canada)'

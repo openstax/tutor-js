@@ -6,7 +6,7 @@ _ = require 'underscore'
 classnames = require 'classnames'
 
 {CourseActions, CourseStore} = require '../flux/course'
-PeriodHelper = require '../helpers/period'
+{default: PeriodHelper} = require '../helpers/period'
 Tabs = require './tabs'
 
 CoursePeriodsNav = React.createClass

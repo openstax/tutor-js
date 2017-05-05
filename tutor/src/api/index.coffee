@@ -43,7 +43,7 @@ PerformanceForecast = require '../flux/performance-forecast'
 {NotificationActions} = require '../flux/notifications'
 
 {CourseEnrollmentActions} = require '../flux/course-enrollment'
-TaskPlanHelpers = require '../helpers/task-plan'
+{default: TaskPlanHelpers} = require '../helpers/task-plan'
 
 handledEnrollmentErrorsMap = require '../flux/course-enrollment-handled-errors'
 handledEnrollmentErrors = _.keys(handledEnrollmentErrorsMap)
