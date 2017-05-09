@@ -38,13 +38,13 @@ describe('Tour Context Model', () => {
     region.otherTours = []; // id of foo is invalid
     context.openRegion(region);
     expect(context.tourIds).toEqual(['foo']);
-    expect(context.viewableTours).toHaveLength(0);
+    expect(context.elgibleTours).toHaveLength(0);
     region.otherTours = [ 'teacher-calendar', 'bar', 'baz' ];
     expect(context.tourIds).toEqual(['foo', 'teacher-calendar', 'bar', 'baz']);
-    expect(context.viewableTours).toHaveLength(1);
-    expect(context.viewableTours[0].id).toEqual('teacher-calendar');
+    expect(context.elgibleTours).toHaveLength(1);
+    expect(context.elgibleTours[0].id).toEqual('teacher-calendar');
     context.closeRegion(region);
-    expect(context.viewableTours).toHaveLength(0);
+    expect(context.elgibleTours).toHaveLength(0);
   });
 
   it('calculates tours', () => {
@@ -52,8 +52,8 @@ describe('Tour Context Model', () => {
     autorun(() => tourSpy(context.tour));
     expect(tourSpy).toHaveBeenCalledWith(null);
     context.openRegion(region);
-    expect(context.viewableTours).toHaveLength(1);
-    context.playTours();
+    expect(context.elgibleTours).toHaveLength(1);
+    context.playTriggeredTours();
     expect(context.tour).not.toBeNull();
     expect(tourSpy).toHaveBeenCalledWith(Tour.forIdentifier('teacher-calendar'));
     context.tour.markViewed({ exitedEarly: false });
@@ -62,7 +62,7 @@ describe('Tour Context Model', () => {
 
   it('calculates a TourRide', () => {
     context.openRegion(region);
-    context.playTours();
+    context.playTriggeredTours();
     expect(context.tourRide).toMatchObject({
       tour: Tour.forIdentifier('teacher-calendar'),
       region: region,
@@ -100,14 +100,14 @@ describe('Tour Context Model', () => {
     context.openRegion(region);
     expect(context.debugStatus).toContain('available regions: [foo]');
     expect(context.debugStatus).toContain('region tour ids: [foo,teacher-calendar]');
-    expect(context.debugStatus).toContain('viewable tours: [teacher-calendar]');
+    expect(context.debugStatus).toContain('elgible tours: [teacher-calendar]');
   });
 
   it('replays all valid tours', () => {
     region.id = 'homework-assignment-editor';
     context.openRegion(region);
-    expect(context.viewableTours).toHaveLength(2);
-    context.playTours();
+    expect(context.elgibleTours).toHaveLength(2);
+    context.playTriggeredTours();
   });
 
   it('calls dispose on old ride it changes', () => {

@@ -50,10 +50,15 @@ export default class Tour extends BaseModel {
   @field({ type: 'array' }) audience_tags;
   @field scrollToSteps;
   @field showOverlay;
+  @field auto_display;
 
   @field isAvailable = false;
 
   @hasMany({ model: TourStep, inverseOf: 'tour' }) steps;
+
+  @computed get isViewable() {
+    return this.auto_display ? !includes(User.viewed_tour_ids, this.id) : this.isAvailable;
+  }
 
   @computed get othersInGroup() {
     if (!this.group_id){ return []; }
@@ -69,6 +74,7 @@ export default class Tour extends BaseModel {
   @action
   markViewed({ exitedEarly }){
     this.isAvailable = false;
+    User.viewedTour(this, { exitedEarly });
     if (exitedEarly) {
       this.othersInGroup.forEach(tour => tour.isAvailable = false);
     }

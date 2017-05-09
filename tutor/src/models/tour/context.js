@@ -79,7 +79,7 @@ export default class TourContext extends BaseModel {
 
   // The tour that should be shown
   @computed get tour() {
-    return find(this.viewableTours, 'isAvailable') || null;
+    return find(this.elgibleTours, 'isViewable') || null;
   }
 
   @computed get tourRide() {
@@ -102,26 +102,22 @@ export default class TourContext extends BaseModel {
     return compact(this.tourIds.map(id => Tour.forIdentifier(id)));
   }
 
-  @computed get viewableTours() {
+  @computed get elgibleTours() {
     return filter(this.allTours, (tour) => (!isEmpty(intersection(tour.audience_tags, this.audienceTags))));
   }
 
   // same logic as above but uses find, which short-circuits after a match
-  @computed get hasViewableTour() {
+  @computed get hasElgibleTour() {
     return !!find(this.allTours, (tour) => (!isEmpty(intersection(tour.audience_tags, this.audienceTags))));
   }
 
-  @computed get watchableTours() {
-    return filter(this.viewableTours, 'isAvailable');
-  }
-
   @computed get debugStatus() {
-    return `available regions: [${map(this.regions, 'id')}]; region tour ids: [${this.tourIds}]; audience tags: [${this.audienceTags}]; tour tags: [${this.toursTags}]; viewable tours: [${map(this.viewableTours,'id')}]; TOUR RIDE: ${this.tourRide ? this.tourRide.tour.id : '<none>'}`;
+    return `available regions: [${map(this.regions, 'id')}]; region tour ids: [${this.tourIds}]; audience tags: [${this.audienceTags}]; tour tags: [${this.toursTags}]; elgible tours: [${map(this.elgibleTours,'id')}]; TOUR RIDE: ${this.tourRide ? this.tourRide.tour.id : '<none>'}`;
   }
 
-  @action playTours() {
-    this.viewableTours.forEach((tour) => {
-      tour.play();
+  @action playTriggeredTours() {
+    this.elgibleTours.forEach((tour) => {
+      if (!tour.auto_display){ tour.play(); }
     });
   }
 

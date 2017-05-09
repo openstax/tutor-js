@@ -1,10 +1,12 @@
 import Tour from '../../src/models/tour';
 import { range, map } from 'lodash';
 import TourData from '../../src/tours';
-
+import User from '../../src/models/user';
 jest.mock('../../src/models/user', () => ({
   replayTour: jest.fn(),
-  viewedTour: jest.fn(),
+  viewedTour: jest.fn(function(t){
+    this.viewed_tour_ids = [t.id];
+  }),
 }));
 
 
@@ -55,6 +57,7 @@ describe('Tour Model', () => {
   it ('marks itself viewed', () => {
     const tour = Tour.forIdentifier('homework-assignment-editor');
     tour.markViewed({ exitedEarly: false });
+    expect(User.viewedTour).toHaveBeenCalledWith(tour, { exitedEarly: false });
     expect(tour.isAvailable).toBeFalsy();
   });
 
@@ -64,4 +67,17 @@ describe('Tour Model', () => {
     expect(tour.isAvailable).toBeFalsy();
     expect(Tour.forIdentifier('add-homework-select-exercises').isAvailable).toBeFalsy();
   });
+
+  it('calculates if a auto_play tour is viewable', () => {
+    User.viewed_tour_ids = [];
+    const tour = Tour.forIdentifier('question-library-super');
+    expect(tour.isViewable).toBeTruthy();
+    tour.markViewed({ exitedEarly: true });
+    expect(User.viewedTour).toHaveBeenCalledWith(tour, expect.anything());
+    expect(tour.isViewable).toBeFalsy();
+    tour.isAvailable = true; // test setting available doesn't affect it
+    expect(tour.isViewable).toBeFalsy();
+  });
+
+
 });
