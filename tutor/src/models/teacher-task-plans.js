@@ -31,7 +31,7 @@ class CourseTaskPlans extends Map {
   }
 
   @computed get active() {
-    return filter(this.array, 'is_deleting');
+    return filter(this.array, plan => !plan.is_deleting);
   }
 
 }
