@@ -1,20 +1,19 @@
-import CourseUX from '../../../src/models/course/ux';
+import createUXForCourse from '../../../src/models/course/ux';
 
-import { bootstrapCoursesList } from '../../courses-test-data';
+import BasicCourseUX from '../../../src/models/course/basic-ux';
+import CoursePreviewUX from '../../../src/models/course/preview-ux';
 
-describe('Course UX Model', () => {
-  let ux;
-  beforeEach(() => {
-    const courses = bootstrapCoursesList();
-    ux = new CourseUX(courses.get(1));
-  });
 
-  it('#dataProps', () => {
-    expect(ux.dataProps).toEqual({
-      'data-appearance': 'testing',
-      'data-book-title': 'Testing',
-      'data-title': 'Local Test Course One',
-    });
+describe('Basic Course UX Model', () => {
+
+
+  it('returns either preview or basic', () => {
+    expect(
+      createUXForCourse({ is_preview: true })
+    ).toBeInstanceOf(CoursePreviewUX);
+    expect(
+      createUXForCourse({ is_preview: true })
+    ).toBeInstanceOf(BasicCourseUX);
   });
 
 });

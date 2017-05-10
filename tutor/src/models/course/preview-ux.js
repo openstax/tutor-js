@@ -15,9 +15,7 @@ export default class CoursePreviewUX extends BasicCourseUX {
 
   @computed get shouldWarnPreviewOnly() {
     const plans = TeacherTaskPlans.forCourseId(this.course.id).active;
-    const previewPlans = filter(plans, { is_preview: true });
-    const realPlanCount = plans.length - previewPlans.length;
-    // we should warn after every 2nd plan that's created;
+    const realPlanCount = filter(plans, { is_preview: false }).length;
     return (realPlanCount > 0 && realPlanCount % 2 === 0);
   }
 

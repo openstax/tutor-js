@@ -34,10 +34,10 @@ export default class PreviewAddCourseBtn extends React.PureComponent {
   }
 
   render() {
-      if (!get(this, 'ux.showCreateCourseAction')) { return null; }
+    if (!get(this, 'ux.showCreateCourseAction')) { return null; }
 
-      return (
-        <Button bsStyle="primary" onClick={this.onAddCourse}>Create a course</Button>
-      );
+    return (
+      <Button bsStyle="primary" onClick={this.onAddCourse}>Create a course</Button>
+    );
   }
 }

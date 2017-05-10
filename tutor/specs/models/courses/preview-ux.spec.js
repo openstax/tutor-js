@@ -1,4 +1,4 @@
-import { autorun, observable } from 'mobx';
+import { observable } from 'mobx';
 import { TEACHER_COURSE_TWO_MODEL } from '../../courses-test-data';
 import Course from '../../../src/models/course';
 import CoursePreviewUX from '../../../src/models/course/preview-ux';
@@ -24,17 +24,13 @@ describe('Course Preview UX', () => {
     ux = new CoursePreviewUX(new Course(TEACHER_COURSE_TWO_MODEL));
   });
 
-  afterEach(() => {
-
-  });
-
   it('#shouldWarnPreviewOnly', () => {
     expect(ux.shouldWarnPreviewOnly).toBe(false);
     mockActiveCoursePlans.replace([
-      { is_demo: true }, { is_demo: false }, { is_demo: false },
+      { is_preview: true }, { is_preview: false }, { is_preview: true },
     ]);
     expect(ux.shouldWarnPreviewOnly).toBe(false);
-    mockActiveCoursePlans.push({ is_demo: false });
+    mockActiveCoursePlans.push({ is_preview: false });
     expect(ux.shouldWarnPreviewOnly).toBe(true);
   });
 
