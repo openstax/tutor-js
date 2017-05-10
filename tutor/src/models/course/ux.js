@@ -2,28 +2,10 @@ import {
   computed, observable,
 } from 'mobx';
 
-export default class CourseUX {
+import BasicCourseUX from './basic-ux';
+import CoursePreviewUX from './preview-ux';
 
-  @observable course;
-
-  constructor(course) {
-    this.course = course;
-  }
-
-  @computed get dataProps() {
-    return {
-      'data-title': this.course.name,
-      'data-book-title': this.course.bookName,
-      'data-appearance': this.course.appearance_code,
-    };
-  }
-
-  @computed get courseType() {
-    return this.course.is_concept_coach ? 'cc' : 'tutor';
-  }
-
-  @computed get courseId() {
-    return this.course.isNew ? 'new' : this.course.id;
-  }
-
+export default function createUXForCourse(course) {
+  const UxKlass = course.is_preview ? CoursePreviewUX : BasicCourseUX;
+  return new UxKlass(course);
 }
