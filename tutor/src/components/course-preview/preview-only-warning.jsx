@@ -1,28 +1,12 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
 import { action } from 'mobx';
+import { Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
-import CoursePreviewUX from '../../models/course/preview-ux';
-
-import Router from '../../helpers/router';
-
-import { NagWarning, Heading, Body, Footer } from './nag-components';
+import { PreviewWarning, NagWarning, Heading, Body, Footer } from './preview-warning';
 
 @observer
-export default class PreviewOnlyWarning extends React.PureComponent {
-  static propTypes = {
-    ux: React.PropTypes.instanceOf(CoursePreviewUX).isRequired,
-  }
-  static contextTypes = {
-    router: React.PropTypes.object,
-  }
+export default class PreviewOnlyWarning extends PreviewWarning {
 
-  @action.bound
-  onAddCourse() {
-    this.context.router.transitionTo(
-      Router.makePathname('createNewCourse')
-    );
-  }
 
   @action.bound
   onContinue() {
