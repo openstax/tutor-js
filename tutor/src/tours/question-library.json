@@ -2,6 +2,7 @@
 {
   "id": "question-library-super",
   "auto_display": true,
+  "group_id": "question-library",
   "audience_tags": [
     "teacher", "teacher-preview"
   ],

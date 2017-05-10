@@ -1,4 +1,24 @@
-[{
+[
+{
+  "id": "teacher-calendar-super",
+  "auto_display": true,
+  "audience_tags": [
+    "teacher-preview"
+  ],
+  "steps": [
+    {
+      "component": "HowToUsePreview"
+    }, {
+      "body": "More about the Question Library in our “Page tips.”",
+      "anchor_id": "menu-option-page-tips",
+      "position": "bottom-right",
+      "is_fixed": true,
+      "action": {
+        "id": "open-support-menu"
+      }
+    }
+  ]
+}, {
   "id": "teacher-calendar",
   "audience_tags": [
     "teacher",

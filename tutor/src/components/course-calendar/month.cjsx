@@ -261,6 +261,7 @@ CourseMonth = React.createClass
     <TourRegion
       className={calendarClassName}
       id="teacher-calendar"
+      otherTours={['teacher-calendar-super']}
       courseId={courseId}
     >
 
