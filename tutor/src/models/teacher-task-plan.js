@@ -18,6 +18,7 @@ export default class TeacherTaskPlan extends BaseModel {
   @field({ type: 'date' }) last_published_at;
 
   @field is_draft;
+  @field is_preview;
   @field is_published;
   @field is_publishing;
   @field is_trouble;
