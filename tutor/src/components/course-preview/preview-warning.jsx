@@ -1,12 +1,8 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { action, observable } from 'mobx';
-import { observer } from 'mobx-react';
-
-import CoursePreviewUX from '../../models/course/preview-ux';
-
+import { observer, PropTypes as MobxPropTypes  } from 'mobx-react';
 import Router from '../../helpers/router';
-
 import { NagWarning, Heading, Body, Footer } from './nag-components';
 
 export { NagWarning, Heading, Body, Footer };
@@ -14,7 +10,7 @@ export { NagWarning, Heading, Body, Footer };
 @observer
 export class PreviewWarning extends React.PureComponent {
   static propTypes = {
-    ux: React.PropTypes.instanceOf(CoursePreviewUX).isRequired,
+    ux: MobxPropTypes.observableObject.isRequired,
   }
   static contextTypes = {
     router: React.PropTypes.object,

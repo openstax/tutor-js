@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Preview Only Warning renders and matches snapshot 1`] = `
+<div
+  className="preview-course-nag-warning only-preview"
+>
+  <div
+    className="heading"
+  >
+    Remember -- this is just a preview course!
+  </div>
+  <div
+    className="body"
+  >
+    If you’re ready to create real assignments your students can see, create your real course now. It’s free for you and students will pay 
+    $10
+     per course per semester.
+  </div>
+  <div
+    className="footer"
+  >
+    <button
+      className="btn btn-primary"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Create a course
+    </button>
+    <button
+      className="btn btn-default"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Stay in Preview course
+    </button>
+  </div>
+</div>
+`;
