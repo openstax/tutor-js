@@ -30,7 +30,6 @@ export default class Course extends BaseModel {
   @field default_open_time;
   @field ecosystem_book_uuid;
   @field ecosystem_id;
-  @field ends_at;
   @field is_active;
   @field is_college;
   @field is_concept_coach;
@@ -39,7 +38,9 @@ export default class Course extends BaseModel {
   @field offering_id;
 
   @field salesforce_book_name;
-  @field starts_at;
+
+  @field({ type: 'date' }) starts_at;
+  @field({ type: 'date' }) ends_at;
 
   @field term;
   @field time_zone;
