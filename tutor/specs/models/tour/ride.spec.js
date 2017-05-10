@@ -14,7 +14,7 @@ describe('Tour View Model', () => {
     context = new TourContext({ isEnabled: true });
     region = new TourRegion({ id: 'teacher-calendar', courseId: '2', tour_ids: ['teacher-calendar'] });
     context.openRegion(region);
-    context.playTours();
+    context.playTriggeredTours();
     ride = context.tourRide;
   });
 
