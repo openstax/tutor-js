@@ -1,6 +1,8 @@
 import Courses from '../../src/models/courses-map';
 import { autorun } from 'mobx';
 import { bootstrapCoursesList } from '../courses-test-data';
+import UiSettings from 'shared/src/model/ui-settings';
+jest.mock('shared/src/model/ui-settings');
 
 describe('Course Model', () => {
 
@@ -44,4 +46,8 @@ describe('Course Model', () => {
     expect(Courses.get(3).primaryRole.type).to.equal('teacher');
   });
 
+  it('stores dashboard view count', () => {
+    Courses.get(2).recordDashboardView();
+    expect(UiSettings.set).toHaveBeenCalledWith('DV.2', 1);
+  });
 });

@@ -10,6 +10,7 @@ extend = require 'lodash/extend'
 find = require 'lodash/find'
 {DropTarget} = require 'react-dnd'
 {Calendar, Month, Week, Day} = require 'react-calendar'
+{ default: Courses } = require '../../models/courses-map'
 { default: TourRegion } = require '../tours/region'
 { default: TeacherTaskPlans } = require '../../models/teacher-task-plans'
 {TimeStore} = require '../../flux/time'
@@ -132,6 +133,7 @@ CourseMonth = React.createClass
     @setDayHeight(@refs.courseDurations.state.ranges) if @refs.courseDurations?
 
   componentWillMount: ->
+    Courses.get(this.props.courseId).recordDashboardView()
     document.addEventListener('click', @shouldHideAddOnDay, true)
 
   componentWillUnmount: ->
