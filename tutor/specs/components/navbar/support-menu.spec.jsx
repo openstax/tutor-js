@@ -19,6 +19,7 @@ describe('Support Menu', () => {
     expect(menu).not.toHaveRendered('.page-tips');
     region = new TourRegion({ id: 'foo', courseId: '2', otherTours: ['teacher-calendar'] });
     context.openRegion(region);
+    expect(context.hasElgibleTour).toBe(true);
     expect(menu).toHaveRendered('.page-tips');
   });
 
@@ -28,5 +29,6 @@ describe('Support Menu', () => {
       <Wrapper _wrapped_component={SupportMenu} courseId="2" tourContext={context} />).toJSON()
     ).toMatchSnapshot();
   });
+
 
 });

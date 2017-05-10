@@ -22,7 +22,7 @@ export default class SupportMenu extends React.PureComponent {
   }
 
   renderPageTipsOption() {
-    if (!get(this.props, 'tourContext.hasViewableTour', false)){ return null; }
+    if (!get(this.props, 'tourContext.hasElgibleTour', false)){ return null; }
     return (
       <MenuItem
         className="page-tips"
