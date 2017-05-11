@@ -142,7 +142,7 @@ module.exports = React.createClass
 
     stepButtons = _.map crumbs, (crumb, crumbIndex) =>
       crumbStyle =
-        zIndex: crumbs.length - Math.abs(@state.hoverCrumb - crumbIndex)
+        zIndex: crumbs.length - Math.abs((@state.hoverCrumb or 1) - crumbIndex)
 
       <BreadcrumbTaskDynamic
         onMouseEnter={@updateHoverCrumb.bind(@, crumbIndex)}
