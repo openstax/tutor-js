@@ -145,6 +145,7 @@ ReadingContentMixin =
   mixins: [ ScrollToLinkMixin ]
 
   componentDidMount:  ->
+    @_linkContentIsMounted = true
     @insertOverlays()
     @detectImgAspectRatio()
     @cleanUpAbstracts()
