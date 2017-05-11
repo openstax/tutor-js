@@ -50,14 +50,26 @@ export default class Tour extends BaseModel {
   @field({ type: 'array' }) audience_tags;
   @field scrollToSteps;
   @field showOverlay;
-  @field auto_display;
+  @field autoplay = false;
+  @field standalone = false;
 
-  @field isAvailable = false;
+  @field isEnabled = false;
 
   @hasMany({ model: TourStep, inverseOf: 'tour' }) steps;
 
   @computed get isViewable() {
-    return this.auto_display ? !includes(User.viewed_tour_ids, this.id) : this.isAvailable;
+    if (this.autoplay) {
+      const unViewed = !this.isViewed;
+      if (this.standalone){
+        return unViewed;
+      }
+      return unViewed || this.isEnabled;
+    }
+    return this.isEnabled;
+  }
+
+  @computed get isViewed() {
+    return !!includes(User.viewed_tour_ids, this.id);
   }
 
   @computed get othersInGroup() {
@@ -67,16 +79,16 @@ export default class Tour extends BaseModel {
 
   @action
   play() {
-    this.isAvailable = true;
-    this.othersInGroup.forEach((tour) => tour.isAvailable = true);
+    this.isEnabled = true;
+    this.othersInGroup.forEach((tour) => tour.isEnabled = true);
   }
 
   @action
   markViewed({ exitedEarly }){
-    this.isAvailable = false;
+    this.isEnabled = false;
     User.viewedTour(this, { exitedEarly });
     if (exitedEarly) {
-      this.othersInGroup.forEach(tour => tour.isAvailable = false);
+      this.othersInGroup.forEach(tour => tour.isEnabled = false);
     }
   }
 }

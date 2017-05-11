@@ -1,5 +1,6 @@
 import { bootstrapCoursesList } from '../../courses-test-data';
 import { autorun } from 'mobx';
+import { each } from 'lodash';
 
 import TourRegion from '../../../src/models/tour/region';
 import TourContext from '../../../src/models/tour/context';
@@ -16,6 +17,9 @@ describe('Tour Context Model', () => {
   });
   afterEach(() => {
     User.viewed_tour_ids.clear();
+    each(Tour.all, t => {
+      t.isEnabled = false;
+    });
   });
 
 
@@ -72,6 +76,7 @@ describe('Tour Context Model', () => {
 
   it('knows which region is active', () => {
     context.openRegion(region);
+    context.playTriggeredTours();
     expect(context.activeRegion).toBe(region);
   });
 
@@ -107,11 +112,14 @@ describe('Tour Context Model', () => {
     region.id = 'homework-assignment-editor';
     context.openRegion(region);
     expect(context.elgibleTours).toHaveLength(2);
+    expect(context.tour).toBeNull();
     context.playTriggeredTours();
+    expect(context.tour).toBe(Tour.forIdentifier('homework-assignment-editor'));
   });
 
   it('calls dispose on old ride it changes', () => {
     context.openRegion(region);
+    context.playTriggeredTours();
     const ride = context.tourRide;
     ride.dispose = jest.fn();
     context.closeRegion(region);

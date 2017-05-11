@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, computed, observable, field,
 } from '../base';
 import {
-  find, isEmpty, intersection, compact, uniq, flatMap, map, includes, filter,
+  find, isEmpty, intersection, compact, uniq, flatMap, map, invoke, filter,
 } from 'lodash';
 import { observe, action } from 'mobx';
 
@@ -116,6 +116,7 @@ export default class TourContext extends BaseModel {
   }
 
   @action playTriggeredTours() {
+    //invoke(this.elgibleTours, 'play');
     this.elgibleTours.forEach((tour) => {
       if (!tour.auto_display){ tour.play(); }
     });

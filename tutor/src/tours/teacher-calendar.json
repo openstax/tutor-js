@@ -1,7 +1,8 @@
 [
 {
   "id": "teacher-calendar-super",
-  "auto_display": true,
+  "autoplay": true,
+  "standalone": true,
   "audience_tags": [
     "teacher-preview"
   ],

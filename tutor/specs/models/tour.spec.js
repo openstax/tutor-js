@@ -50,33 +50,37 @@ describe('Tour Model', () => {
   it ('replays itself and others in group', () => {
     const tour = Tour.forIdentifier('homework-assignment-editor');
     tour.play();
-    expect(tour.isAvailable).toBeTruthy();
-    expect(Tour.forIdentifier('add-homework-select-exercises').isAvailable).toBeTruthy();
+    expect(tour.isEnabled).toBeTruthy();
+    expect(Tour.forIdentifier('add-homework-select-exercises').isEnabled).toBeTruthy();
   });
 
   it ('marks itself viewed', () => {
     const tour = Tour.forIdentifier('homework-assignment-editor');
     tour.markViewed({ exitedEarly: false });
     expect(User.viewedTour).toHaveBeenCalledWith(tour, { exitedEarly: false });
-    expect(tour.isAvailable).toBeFalsy();
+    expect(tour.isEnabled).toBeFalsy();
   });
 
   it ('marks others in group as viewed when canceled early', () => {
     const tour = Tour.forIdentifier('homework-assignment-editor');
     tour.markViewed({ exitedEarly: true });
-    expect(tour.isAvailable).toBeFalsy();
-    expect(Tour.forIdentifier('add-homework-select-exercises').isAvailable).toBeFalsy();
+    expect(tour.isEnabled).toBeFalsy();
+    expect(Tour.forIdentifier('add-homework-select-exercises').isEnabled).toBeFalsy();
   });
 
-  it('calculates if a auto_play tour is viewable', () => {
+  it('calculates when an autoplay tour is viewable', () => {
     User.viewed_tour_ids = [];
     const tour = Tour.forIdentifier('question-library-super');
-    expect(tour.isViewable).toBeTruthy();
-    tour.markViewed({ exitedEarly: true });
-    expect(User.viewedTour).toHaveBeenCalledWith(tour, expect.anything());
-    expect(tour.isViewable).toBeFalsy();
-    tour.isAvailable = true; // test setting available doesn't affect it
-    expect(tour.isViewable).toBeFalsy();
+    expect(tour.autoplay).toBe(true);
+    expect(tour.isViewed).toBe(false);
+    expect(tour.standalone).toBe(false);
+    expect(tour.isViewable).toBe(true);
+
+    User.viewed_tour_ids = ['question-library-super'];
+    expect(tour.isViewable).toBe(false);
+
+    tour.isEnabled = true;
+    expect(tour.isViewable).toBe(true);
   });
 
 
