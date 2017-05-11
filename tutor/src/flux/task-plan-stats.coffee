@@ -1,6 +1,6 @@
 {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
 _ = require 'underscore'
-PeriodHelper = require '../helpers/period'
+{default: PeriodHelper} = require '../helpers/period'
 
 TaskPlanStatsConfig = {
 
