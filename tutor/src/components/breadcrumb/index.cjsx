@@ -91,7 +91,7 @@ BreadcrumbTaskDynamic = React.createClass
 
   render: ->
     {step} = @state
-    crumbProps = _.omit(@props, 'step')
+    crumbProps = _.omit(@props, 'step', 'onMount')
 
     <Breadcrumb
       {...crumbProps}
