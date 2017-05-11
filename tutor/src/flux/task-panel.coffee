@@ -44,6 +44,10 @@ TaskPanel =
       else
         0
 
-
 {actions, store} = makeSimpleStore(TaskPanel)
+
+TaskStore.on('step.completed', (stepId, taskId) ->
+  actions.sync(taskId)
+)
+
 module.exports = {TaskPanelActions:actions, TaskPanelStore:store}

@@ -13,7 +13,7 @@ PerformanceForecastSection = require '../performance-forecast/section'
 PerformanceForecastColorKey = require '../performance-forecast/color-key'
 PracticeButton = require '../performance-forecast/practice-button'
 Section = require '../performance-forecast/section'
-
+{default: PracticeWeakestButton} = require '../performance-forecast/weakest-practice-button'
 
 # Number of sections to display
 NUM_SECTIONS = 4
@@ -23,7 +23,6 @@ ProgressGuide = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
-    sampleSizeThreshold: React.PropTypes.number.isRequired
 
   render: ->
     courseId = @props.courseId
@@ -39,7 +38,7 @@ ProgressGuide = React.createClass
         <div className='chapter-panel'>
           {for section, i in sections
             <Section key={i} section={section} canPractice={true}
-              {...@props} sampleSizeThreshold={3} />}
+              {...@props} />}
         </div>
       </div>
       <PerformanceForecastColorKey />
@@ -52,7 +51,6 @@ ProgressGuidePanels = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
-    sampleSizeThreshold: React.PropTypes.number.isRequired
 
   mixins: [ChapterSectionMixin]
   viewPerformanceForecast: ->
@@ -86,17 +84,12 @@ ProgressGuidePanels = React.createClass
     recent = PerformanceForecast.Helpers.recentSections(sections)
     return @renderEmpty(sections) if _.isEmpty(recent)
 
-    practiceSections = PerformanceForecast.Helpers.weakestSections(sections)
-    if _.isEmpty(practiceSections)
-      practiceSections = recent
-
     <div className='progress-guide'>
       <div className='actions-box'>
 
         <ProgressGuide sections={recent} {...@props} />
 
-        <PracticeButton ref='practiceBtn' title='Practice my weakest topics'
-            courseId={@props.courseId} sections={practiceSections} />
+        <PracticeWeakestButton courseId={@props.courseId} />
 
         <BS.Button
           onClick={@viewPerformanceForecast}
@@ -113,7 +106,6 @@ module.exports = React.createClass
 
   propTypes:
     courseId: React.PropTypes.string.isRequired
-    sampleSizeThreshold: React.PropTypes.number.isRequired
 
   renderLoading: (refreshButton) ->
     <div className='actions-box loadable is-loading'>

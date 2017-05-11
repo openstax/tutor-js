@@ -96,6 +96,13 @@ TaskConfig =
     # explicit return obj to load onto @_local
     obj
 
+  completeStep: (id) ->
+    TaskStepActions.complete(id)
+
+  stepCompleted: (obj, taskStepId) ->
+    this._loaded(obj, obj.id)
+    @emit('step.completed', taskStepId, obj.id)
+
   exports:
     getSteps: (id) ->
       throw new Error('BUG: Steps not loaded') unless @_steps[id]

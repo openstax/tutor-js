@@ -57,7 +57,6 @@ module.exports = React.createClass
         weakerExplanation={@renderWeakerExplanation()}
         weakerEmptyMessage="You haven't worked enough problems for Tutor to predict your weakest topics."
         heading={@renderHeading()}
-        sampleSizeThreshold={3}
         emptyMessage={@renderEmptyMessage()}
         allSections={PerformanceForecast.Student.store.getAllSections(courseId)}
         chapters={PerformanceForecast.Student.store.get(courseId).children}

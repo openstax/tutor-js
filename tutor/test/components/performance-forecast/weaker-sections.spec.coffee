@@ -12,7 +12,6 @@ describe 'Weaker Sections listing', ->
       courseId: '1'
       sections: PerformanceForecast.Student.store.getAllSections('1')
       weakerEmptyMessage: 'Not enough data'
-      sampleSizeThreshold: 3
     }
 
   it 'renders forecast bars', ->
@@ -26,19 +25,18 @@ describe 'Weaker Sections listing', ->
   it 'renders empty message when less than 2 sections are valid', ->
     # set everything to be invalid
     for s in @props.sections
-      s.clue.sample_size = 1
-      s.clue.sample_size_interpretation = 'below'
+      s.clue.is_real = false
 
     Testing.renderComponent( Sections, props: @props ).then ({dom}) =>
       expect(dom.querySelector('.lacking-data')).not.to.be.null
       expect(dom.querySelector('.lacking-data').textContent).to.equal(@props.weakerEmptyMessage)
 
     # flip one back to valid and the no-data message should still render
-    @props.sections[0].clue.sample_size_interpretation = 'above'
+    @props.sections[0].clue.is_real = true
     Testing.renderComponent( Sections, props: @props ).then ({dom}) ->
       expect(dom.querySelector('.lacking-data')).not.to.be.null
 
     # It should not render when another is marked as valid
-    @props.sections[1].clue.sample_size_interpretation = 'above'
+    @props.sections[1].clue.is_real = true
     Testing.renderComponent( Sections, props: @props ).then ({dom}) ->
       expect(dom.querySelector('.lacking-data')).to.be.null

@@ -14,7 +14,6 @@ module.exports = React.createClass
     section:  React.PropTypes.object.isRequired
     canPractice: React.PropTypes.bool
     courseId:    React.PropTypes.string.isRequired
-    sampleSizeThreshold: React.PropTypes.number.isRequired
 
   getDefaultProps: ->
     id: _.uniqueId('progress-bar-tooltip-')
@@ -27,10 +26,11 @@ module.exports = React.createClass
     {section, canPractice, courseId, id} = @props
     {page_ids} = section
 
-    bar = if PerformanceForecast.Helpers.canDisplayForecast(section.clue, @props.sampleSizeThreshold)
-      percent = Math.round((section.clue.value / 1) * 100)
+    bar = if PerformanceForecast.Helpers.canDisplayForecast(section.clue)
+      percent = Math.round(Number(section.clue.most_likely) * 100)
+      value_interpretation = if percent >= 80 then 'high' else (if percent >= 30 then 'medium' else 'low')
       # always show at least 5% of bar, otherwise it just looks empty
-      <BS.ProgressBar className={section.clue.value_interpretation} now={Math.max(percent, 5)} />
+      <BS.ProgressBar className={value_interpretation} now={Math.max(percent, 5)} />
     else
       <span className="no-data">
         {if canPractice then 'Practice more to get forecast' else 'Not enough exercises completed'}

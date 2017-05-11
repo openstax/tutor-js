@@ -14,7 +14,6 @@ describe 'Weaker Section Panel', ->
       weakerTitle: 'Weaker'
       weakerExplanation: 'Stuff you suck at'
       weakerEmptyMessage: 'Not enough data'
-      sampleSizeThreshold: 3
     }
 
   it 'displays the title', ->
@@ -49,8 +48,7 @@ describe 'Weaker Section Panel', ->
     Testing.renderComponent( Weaker, props: @props ).then ({dom}) ->
       expect( dom.querySelector('.practice.btn' ) ).to.not.be.null
 
-    section.sample_size = 1
-    section.sample_size_interpretation = 'below'
+    section.is_real = false
 
     Testing.renderComponent( Weaker, props: @props ).then ({dom}) ->
       expect( dom.querySelector('.practice.btn' ) ).to.be.null

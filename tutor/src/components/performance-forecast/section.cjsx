@@ -16,7 +16,6 @@ module.exports = React.createClass
     roleId:   React.PropTypes.string
     section:  ChapterSectionType.isRequired
     canPractice: React.PropTypes.bool
-    sampleSizeThreshold: React.PropTypes.number.isRequired
 
   mixins: [ChapterSectionMixin]
 

@@ -12,13 +12,12 @@ WeakerSections = React.createClass
     courseId:     React.PropTypes.string.isRequired
     sections:     React.PropTypes.array.isRequired
     weakerEmptyMessage:  React.PropTypes.string.isRequired
-    sampleSizeThreshold: React.PropTypes.number.isRequired
 
   renderLackingData: ->
     <div className='lacking-data'>{@props.weakerEmptyMessage}</div>
 
   renderSections: ->
-    for section, i in PerformanceForecast.Helpers.weakestSections(@props.sections, @props.sampleSizeThreshold)
+    for section, i in PerformanceForecast.Helpers.weakestSections(@props.sections)
       <Section key={i} section={section} {...@props} />
 
   render: ->
