@@ -62,6 +62,10 @@ TaskStepConfig =
 
   complete: (id) ->
     @_change(id, {is_completed: true})
+    @_save(id)
+
+  completed: (obj, id) ->
+    @_asyncStatus[id] = STATES.LOADED
 
   setAnswerId: (id, answer_id) ->
     @_change(id, {answer_id})
