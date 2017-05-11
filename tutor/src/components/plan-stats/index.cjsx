@@ -11,7 +11,7 @@ CourseGroupingLabel = require '../course-grouping-label'
 CourseBar = require './course-bar'
 {ChaptersPerformance, PracticesPerformance} = require './performances'
 
-PeriodHelper = require '../../helpers/period'
+{default: PeriodHelper} = require '../../helpers/period'
 TutorLink = require '../link'
 
 NoStudents = ({courseId}) ->
