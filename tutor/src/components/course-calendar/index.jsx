@@ -157,7 +157,7 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
           role={Courses.get(courseId).primaryRole}
           callbacks={NotificationHelpers.buildCallbackHandlers(this)} />
         <CourseTitleBanner courseId={courseId} />
-        <CourseCalendar {...calendarProps} />;
+        <CourseCalendar {...calendarProps} />
       </div>
     );
   }
