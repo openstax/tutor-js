@@ -2,17 +2,13 @@ React = require 'react'
 ReactDOM = require 'react-dom'
 classnames = require 'classnames'
 
-union = require 'lodash/union'
 omit  = require 'lodash/omit'
-difference = require 'lodash/difference'
-map = require 'lodash/map'
-compact = require 'lodash/compact'
-keys = require 'lodash/keys'
 
 ScrollListenerMixin = require '../../mixins/ScrollListener'
 
 ResizeListenerMixin = require '../resize-listener-mixin'
 GetPositionMixin = require '../get-position-mixin'
+HandleBodyClassesMixin = require '../handle-body-classes-mixin'
 
 {PinnedHeader, CardBody, PinnableFooter} = require './sections'
 
@@ -39,7 +35,7 @@ module.exports = React.createClass
     headerHeight: 0
     containerMarginTop: '0px'
 
-  mixins: [ScrollListenerMixin, ResizeListenerMixin, GetPositionMixin]
+  mixins: [ScrollListenerMixin, ResizeListenerMixin, GetPositionMixin, HandleBodyClassesMixin]
 
   _getClasses: (props, state) ->
     props ?= @props
@@ -50,20 +46,6 @@ module.exports = React.createClass
     'pinned-force-shy': props.forceShy
     'pinned-on':  state.pinned
     'pinned-shy': state.shy
-
-  getBodyClasses: ->
-    difference(document.body.classList or document.body.className.split(' '), keys(@_getClasses()))
-
-  getClasses: (props, state) ->
-    compact(map(@_getClasses(props, state), (value, key) ->
-      key if value
-    ))
-
-  setBodyClasses: (props, state) ->
-    document.body.className = classnames(union(@getBodyClasses(), @getClasses(props, state)))
-
-  unsetBodyClasses: (props, state) ->
-    document.body.className = classnames(difference(@getBodyClasses(), @getClasses(props, state)))
 
   componentWillMount: ->
     @setBodyClasses()

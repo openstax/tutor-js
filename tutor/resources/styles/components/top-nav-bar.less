@@ -4,6 +4,8 @@
 // the @navbar-XX vars are bootstrap defaults
 
 .tutor-top-navbar {
+  .make-shy-animate();
+
   background: @tutor-white;
   z-index: @zindex-navbar-fixed;
   position: fixed;
@@ -59,4 +61,8 @@
    }
   @import './top-nav-bar/center-controls';
   @import './top-nav-bar/user-actions-menu';
+}
+
+.pinned-shy .tutor-top-navbar {
+  .make-shy();
 }

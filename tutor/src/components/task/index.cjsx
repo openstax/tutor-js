@@ -27,7 +27,7 @@ TeacherReviewControls = require './teacher-review-controls'
 {UnsavedStateMixin} = require '../unsaved-state'
 LoadableItem = require '../loadable-item'
 
-{PinnedHeaderFooterCard, PinnedHeader, ScrollToMixin, ExerciseIntro} = require 'shared'
+{PinnedHeaderFooterCard, PinnedHeader, ScrollToMixin, HandleBodyClassesMixin, ExerciseIntro} = require 'shared'
 
 Task = React.createClass
 
@@ -50,7 +50,7 @@ Task = React.createClass
   contextTypes:
     router: React.PropTypes.object
 
-  mixins: [StepFooterMixin, UnsavedStateMixin, ScrollToMixin]
+  mixins: [StepFooterMixin, UnsavedStateMixin, ScrollToMixin, HandleBodyClassesMixin]
 
   scrollingTargetDOM: -> window.document
 
@@ -87,6 +87,12 @@ Task = React.createClass
 
   hasUnsavedState: -> TaskStore.hasAnyStepChanged(@props.id)
   unsavedStateMessages: -> 'The assignment has unsaved changes'
+
+  _getClasses: (props, state) ->
+    props ?= @props
+    state ?= @state
+
+    'prevent-scroll': state.milestonesEntered
 
   componentWillMount: ->
     @updateSteps()
