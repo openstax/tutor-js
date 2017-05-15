@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Dropdown, MenuItem } from 'react-bootstrap';
-import {  partial, map, get } from 'lodash';
+import {  partial, flatMap, get } from 'lodash';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
 import { autobind } from 'core-decorators';
@@ -50,36 +50,41 @@ export default class UserActionsMenu extends React.PureComponent {
   }
 
   @autobind
-  renderMenuItem(route, index) {
-    const isActive = route.name && Router.isActive(route.name, route.params, { window: this.props.windowImpl });
-    const key = route.key ? `dropdown-item-${route.key}` : `dropdown-item-${index}`;
-    const Component = CustomComponents[route.name];
+  renderMenuItem(menuOption) {
+    const options = menuOption.options || {};
+    const isActive = menuOption.name && Router.isActive(menuOption.name, menuOption.params, { window: this.props.windowImpl });
+    const key = `menu-option-${menuOption.key || menuOption.name || menuOption.key || menuOption.label}`;
+    const Component = CustomComponents[menuOption.name];
 
     if (Component) {
-      return <Component key={key} {...route} active={isActive} />;
+      return <Component key={key} {...menuOption} active={isActive} />;
     }
 
     let props;
-    if (route.href) {
-      props = { href: route.href };
+    if (menuOption.href) {
+      props = { href: menuOption.href };
     } else {
-      const href = Router.makePathname(route.name, route.params, route.options);
+      const href = Router.makePathname(menuOption.name, menuOption.params, menuOption.options);
       props = { href, onSelect: partial(this.transitionToMenuItem, href) };
     }
 
-    // MenuItem doesn't pass on props to the li currently, so using className instead for route.name visual control.
-    return (
+    const item = (
       <MenuItem
         {...props}
-        className={classnames(route.name, get(route, 'options.className'), { 'active': isActive })}
+        className={classnames(menuOption.name, options.className, { 'active': isActive })}
         key={key}
-        data-name={route.name}
+        data-name={menuOption.name}
       >
-        <TourAnchor id={`menu-option-${route.name || route.key || route.label}`}>
-          {route.label}
+        <TourAnchor id={key}>
+          {menuOption.label}
         </TourAnchor>
       </MenuItem>
     );
+    if (options.separator) {
+      const separator = <MenuItem divider={true} key={`${key}-divider`} />;
+      return options.separator === 'after' ? [item, separator] : [separator, item];
+    }
+    return item;
   }
 
   render() {
@@ -99,8 +104,7 @@ export default class UserActionsMenu extends React.PureComponent {
           {User.name}
         </Dropdown.Toggle>
         <Dropdown.Menu >
-          {map(UserMenu.getRoutes(this.props.courseId), this.renderMenuItem)}
-          <MenuItem divider={true} key="dropdown-item-divider" />
+          {flatMap(UserMenu.getRoutes(this.props.courseId), this.renderMenuItem)}
           <AccountLink bsRole="menu-item" />
           <MenuItem
             key="nav-help-link"

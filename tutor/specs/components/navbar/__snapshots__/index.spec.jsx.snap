@@ -64,12 +64,6 @@ exports[`Main navbar renders and matches snapshot 1`] = `
         role="menu"
       >
         <li
-          className="divider"
-          onKeyDown={[Function]}
-          role="separator"
-          style={undefined}
-        />
-        <li
           className="-help-link"
           role="presentation"
           style={undefined}

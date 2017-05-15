@@ -52,34 +52,20 @@ const ROUTES = {
     roles: {
       student: 'changeStudentId',
     },
-  },
-  createCourse: {
-    label: 'Teach Another Course',
-    roles: {
-      teacher: 'createNewCourse',
+    options: {
+      separator: 'after',
     },
-    isAllowed(course) {
-      if (course) {
-        return course.isTeacher;
-      } else {
-        return User.isConfirmedFaculty;
-      }
-    },
-  },
-  cloneCourse: {
-    label: 'Teach This Course Again',
-    params({ courseId }) { return { sourceId: courseId }; },
-    roles: {
-      teacher: 'createNewCourse',
-    },
-    isAllowed(course) { return course && course.isTeacher; },
   },
   createNewCourse: {
-    label: 'Add or Copy a Course',
+    label: 'Create or Copy a Course',
     options() {
-      return { className: Courses.count ? '' : 'visible-when-debugging unstyled' };
+      return {
+        className: (Courses.size ? '' : 'visible-when-debugging unstyled'),
+        separator: 'after',
+      };
+
     },
-    isAllowed(course) { return (!course) && User.isConfirmedFaculty; },
+    isAllowed() { return User.isConfirmedFaculty; },
   },
   customer_service: {
     label: 'Customer Service',

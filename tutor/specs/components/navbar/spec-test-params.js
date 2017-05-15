@@ -62,13 +62,7 @@ const TEACHER_MENU = [
   },
   {
     name: 'createNewCourse',
-    label: 'Teach Another Course',
-    params: { courseId: '2' },
-  },
-  {
-    name: 'createNewCourse',
-    label: 'Teach This Course Again',
-    params: { sourceId: '2' },
+    label: 'Create or Copy a Course',
   },
   {
     label: '', // divider has no label
