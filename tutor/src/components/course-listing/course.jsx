@@ -159,8 +159,9 @@ export class CourseTeacher extends React.Component {
       <TutorLink
         to="createNewCourse"
         params={{ sourceId: course.id }}
-        className="btn btn-default btn-sm">
-        Teach Again
+        className="btn btn-default btn-sm"
+      >
+        Copy this course
       </TutorLink>;
 
     return (
