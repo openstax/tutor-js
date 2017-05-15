@@ -19,7 +19,7 @@ export default function InvalidPage(props) {
         Uh-oh, no page here
       </h1>
       <p>{message}</p>
-      <TutorLink className="home" to="listing" bsStyle="primary">
+      <TutorLink className="home" to="myCourses" bsStyle="primary">
         Return Home
         <Icon type="caret-right" />
       </TutorLink>

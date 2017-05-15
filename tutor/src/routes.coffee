@@ -88,7 +88,7 @@ getCreateEnrollmentChange = ->
   require './components/enroll'
 
 ROUTES = [
-  { pattern: '/dashboard',              name: 'listing',                  renderer: getCourseListing }
+  { pattern: '/dashboard',              name: 'myCourses',                renderer: getCourseListing }
   { pattern: '/enroll/:enrollmentCode', name: 'createEnrollmentChange',   renderer: getCreateEnrollmentChange }
   { pattern: '/new-course/:sourceId?',  name: 'createNewCourse',          renderer: getCreateCourse  }
   {

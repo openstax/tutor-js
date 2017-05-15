@@ -32,7 +32,7 @@ module.exports = React.createClass
   goToDashboard: ->
     @_removeListener()
     RosterStore.once('deleted', =>
-      @context.router.transitionTo(TutorRouter.makePathname('listing'))
+      @context.router.transitionTo(TutorRouter.makePathname('myCourses'))
     )
 
   performDeletion: ->
