@@ -12,6 +12,11 @@ const TEACHER_DASHROUTE = 'taskplans';
 
 const STUDENT_MENU = [
   {
+    name: 'myCourses',
+    label: 'My Courses',
+  },
+  { label: '' }, // divider has no label
+  {
     name: STUDENT_DASHROUTE,
     params: { courseId: '1' },
     label: 'Dashboard',
@@ -26,9 +31,7 @@ const STUDENT_MENU = [
     params: { courseId: '1' },
     label: 'Change Student ID',
   },
-  {
-    label: '', // divider has no label
-  },
+  { label: '' }, // divider has no label
   {
     label: 'Get Help',
   },
@@ -38,6 +41,11 @@ const STUDENT_MENU = [
 ];
 
 const TEACHER_MENU = [
+  {
+    name: 'myCourses',
+    label: 'My Courses',
+  },
+  { label: '' }, // divider has no label
   {
     name: TEACHER_DASHROUTE,
     label: 'Dashboard',

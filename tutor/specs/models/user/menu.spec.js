@@ -9,6 +9,11 @@ import { bootstrapCoursesList, STUDENT_COURSE_ONE_MODEL, TEACHER_COURSE_TWO_MODE
 
 const STUDENT_MENU = [
   {
+    name: 'myCourses',
+    options: { separator: 'after' },
+    label: 'My Courses',
+  },
+  {
     name: 'dashboard',
     params: { courseId: '1' },
     label: 'Dashboard',
@@ -32,6 +37,11 @@ const STUDENT_MENU = [
 ];
 
 const TEACHER_MENU = [
+  {
+    name: 'myCourses',
+    options: { separator: 'after' },
+    label: 'My Courses',
+  },
   {
     name: 'dashboard',
     label: 'Dashboard',
