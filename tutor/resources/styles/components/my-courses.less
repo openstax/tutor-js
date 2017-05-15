@@ -1,10 +1,10 @@
-@course-listing-buffer: 40px;
-@course-listing-tablet-buffer: 29px;
+@my-courses-buffer: 40px;
+@my-courses-tablet-buffer: 29px;
 
-@course-listing-item-height: 200px;
-@course-listing-item-tablet-height: 139px;
+@my-courses-item-height: 200px;
+@my-courses-item-tablet-height: 139px;
 
-@course-listing-item-offset: 140px;
+@my-courses-item-offset: 140px;
 
 @course-transition: 200ms ease-in-out;
 
@@ -29,20 +29,20 @@
   }
 }
 
-.course-listing {
+.my-courses {
 
-  .course-listing-current,
-  .course-listing-past {
-    padding-top: @course-listing-buffer;
-    padding-bottom: @course-listing-buffer;
+  .my-courses-current,
+  .my-courses-past {
+    padding-top: @my-courses-buffer;
+    padding-bottom: @my-courses-buffer;
   }
 
-  .course-listing-current {
+  .my-courses-current {
     background: rgba(0, 0, 0, 0.02);
     border-bottom: 1px solid rgb(200, 200, 200);;
 
-    .course-listing-title,
-    .course-listing-none {
+    .my-courses-title,
+    .my-courses-none {
       color: @tutor-tertiary;
     }
   }
@@ -53,7 +53,7 @@
     }
   }
 
-  .course-listing-add-zone {
+  .my-courses-add-zone {
     background: rgba(255, 255, 255, 0.5);
     border: 1px dashed @tutor-neutral;
     a {
@@ -98,22 +98,22 @@
     }
   }
 
-  .course-listing-title {
+  .my-courses-title {
     h1, h2, h3, h4, h5, h6 {
       margin-bottom: 0;
     }
   }
 
-  .course-listing-item,
-  .course-listing-add-zone {
+  .my-courses-item,
+  .my-courses-add-zone {
     position: relative;
     overflow: hidden;
     height: 26rem;
     margin-top: 3rem;
   }
 
-  .course-listing-past {
-    .course-listing-item[data-is-teacher=false] {
+  .my-courses-past {
+    .my-courses-item[data-is-teacher=false] {
       opacity: 0.7;
       .transition(~'@{course-transition} opacity');
 
@@ -123,7 +123,7 @@
     }
   }
 
-  .course-listing-item-wrapper {
+  .my-courses-item-wrapper {
     .after-shadow(@shadow-rule: {
       .tutor-shadow(pop);
     });
@@ -132,7 +132,7 @@
       opacity: 0;
     }
 
-    .course-listing-item-details {
+    .my-courses-item-details {
       .transition(~'@{course-transition} transform');
       &[data-has-controls=true] {
         .translate(0, 0);
@@ -140,7 +140,7 @@
     }
 
     &:hover {
-      .course-listing-item-details[data-has-controls=true] {
+      .my-courses-item-details[data-has-controls=true] {
         .translate(0, -5.55rem);
       }
 
@@ -150,13 +150,13 @@
     }
   }
 
-  .course-listing-item {
+  .my-courses-item {
     a:hover {
       text-decoration: none;
     }
 
-    .course-listing-item-title,
-    .course-listing-item-details {
+    .my-courses-item-title,
+    .my-courses-item-details {
       > a {
         display: block;
         padding: 1.5em 0.75em;
@@ -170,12 +170,13 @@
       &:hover {
          box-shadow: 0 5px 15px rgba(0,0,0,0.3);
       }
-      .course-listing-item-title {
+      .my-courses-item-title {
         > a {
           padding: 1.5em 0;
           .name {
             margin: 0;
             padding: 0.4em 0.75em;
+            min-height: 3em;
           }
           .preview-belt {
             margin-top: 1em;
@@ -199,11 +200,11 @@
       }
     }
 
-    .course-listing-item-controls {
+    .my-courses-item-controls {
       padding: 0 1em 1.5em 1em;
     }
 
-    .course-listing-item-details {
+    .my-courses-item-details {
       background: @tutor-white;
       color: @tutor-neutral;
       font-weight: 100;
@@ -216,13 +217,13 @@
         font-weight: 400;
       }
 
-      .course-listing-item-brand,
-      .course-listing-item-term {
+      .my-courses-item-brand,
+      .my-courses-item-term {
         line-height: 1.25em;
         margin-bottom: 0;
       }
 
-      .course-listing-item-brand {
+      .my-courses-item-brand {
         font-weight: 600;
 
         &[data-is-beta=true] {
@@ -234,13 +235,13 @@
         }
       }
 
-      .course-listing-item-term {
+      .my-courses-item-term {
         text-transform: capitalize;
         font-size: 0.9em;
       }
     }
 
-    .course-listing-item-title {
+    .my-courses-item-title {
       line-height: 1.25em;
 
       a {
@@ -253,9 +254,9 @@
       }
     }
 
-    .apply-course-listing-book-styling(@code; @fg; @bg) {
+    .apply-my-courses-book-styling(@code; @fg; @bg) {
       &[data-appearance=@{code}] {
-        .course-listing-item-title {
+        .my-courses-item-title {
           color: @@fg;
           a {
             color: @@fg;
@@ -265,7 +266,7 @@
       }
     }
     .for(@openstax-book-appearance-codes); .-each(@code) {
-      .apply-course-listing-book-styling(@code, "openstax-book-@{code}-fg", "openstax-book-@{code}-bg");
+      .apply-my-courses-book-styling(@code, "openstax-book-@{code}-fg", "openstax-book-@{code}-bg");
     }
 
   }

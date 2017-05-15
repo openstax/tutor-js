@@ -44,7 +44,7 @@ class CourseBranding extends React.PureComponent {
     }
 
     return (
-      <p className="course-listing-item-brand" data-is-beta={isBeta}>
+      <p className="my-courses-item-brand" data-is-beta={isBeta}>
         {brand}
       </p>
     );
@@ -67,9 +67,9 @@ export class CoursePreview extends React.PureComponent {
 
   render() {
     const { course, className } = this.props;
-    const itemClasses = classnames('course-listing-item', 'preview', className);
+    const itemClasses = classnames('my-courses-item', 'preview', className);
     return (
-      <div className="course-listing-item-wrapper preview">
+      <div className="my-courses-item-wrapper preview">
         <div
           {...this.ux.dataProps}
           data-is-teacher={true}
@@ -77,7 +77,7 @@ export class CoursePreview extends React.PureComponent {
           data-course-course-type={'tutor'}
           className={itemClasses}
         >
-          <div className="course-listing-item-title">
+          <div className="my-courses-item-title">
             <TutorLink to="dashboard" params={{ courseId: course.id }}>
               <h3 className="name">{course.name}</h3>
               <div className="preview-belt">
@@ -107,7 +107,7 @@ export class Course extends React.PureComponent {
 
   renderControls(controls) {
     return (
-      <div className="course-listing-item-controls">
+      <div className="my-courses-item-controls">
         {controls}
       </div>
     );
@@ -116,25 +116,25 @@ export class Course extends React.PureComponent {
   render() {
     const { course, controls } = this.props;
     return (
-      <div className="course-listing-item-wrapper">
+      <div className="my-courses-item-wrapper">
         <div
           {...this.ux.dataProps}
           data-is-teacher={this.ux.course.isTeacher}
           data-course-id={this.ux.courseId}
           data-course-course-type={this.ux.courseType}
-          className={classnames('course-listing-item', this.props.className)}
+          className={classnames('my-courses-item', this.props.className)}
         >
-          <div className="course-listing-item-title">
+          <div className="my-courses-item-title">
             <TutorLink to="dashboard" params={{ courseId: this.ux.courseId }}>
               {course.name}
             </TutorLink>
           </div>
           <div
-            className="course-listing-item-details"
+            className="my-courses-item-details"
             data-has-controls={controls != null}>
             <TutorLink to="dashboard" params={{ courseId: this.ux.courseId }}>
               <CourseBranding isConceptCoach={!!course.is_concept_coach} />
-              <p className="course-listing-item-term">
+              <p className="my-courses-item-term">
                 {course.term}
                 {' '}
                 {course.year}

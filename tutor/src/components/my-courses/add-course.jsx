@@ -28,7 +28,7 @@ export default class AddCourseArea extends React.PureComponent {
   render() {
     return (
       this.props.connectDropTarget(
-        <div className="course-listing-add-zone">
+        <div className="my-courses-add-zone">
           <TutorLink
             to="createNewCourse"
             className={classnames({ 'is-hovering': this.props.isHovering })}>

@@ -16,7 +16,7 @@ import { CoursePreview, Course, CourseTeacher } from './course';
 
 function wrapCourseItem(Item, course = {}) {
   return (
-    <Col key={`course-listing-item-wrapper-${course.id}`} md={3} sm={6} xs={12}>
+    <Col key={`my-courses-item-wrapper-${course.id}`} md={3} sm={6} xs={12}>
       <Item
         course={course}
       />
@@ -27,7 +27,7 @@ function wrapCourseItem(Item, course = {}) {
 
 function CourseListingNone() {
   return (
-    <Row className="course-listing-none">
+    <Row className="my-courses-none">
       <Col md={12}>
         <p>
           There are no current courses.
@@ -69,7 +69,7 @@ class CourseListingBase extends React.Component {
   render() {
     const { courses, className, before, after } = this.props;
 
-    const sectionClasses = classnames('course-listing-section', className);
+    const sectionClasses = classnames('my-courses-section', className);
 
     return (
       <Row className={sectionClasses}>
@@ -95,7 +95,7 @@ class CourseListingTitle extends React.Component {
   render() {
     const { title } = this.props;
     return (
-      <Row className="course-listing-title">
+      <Row className="my-courses-title">
         <Col md={12}>
           <h1>{title}</h1>
         </Col>

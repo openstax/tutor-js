@@ -1,8 +1,8 @@
 async = require './helpers/webpack-async-loader'
 
-getCourseListing = ->
-  {default: CourseListing} = require './components/course-listing'
-  CourseListing
+getMyCourses = ->
+  {default: MyCourses} = require './components/my-courses'
+  MyCourses
 
 getDashboard = ->
   ConditionalHandlers = require './helpers/conditional-handlers'
@@ -88,7 +88,7 @@ getCreateEnrollmentChange = ->
   require './components/enroll'
 
 ROUTES = [
-  { pattern: '/dashboard',              name: 'myCourses',                renderer: getCourseListing }
+  { pattern: '/dashboard',              name: 'myCourses',                renderer: getMyCourses }
   { pattern: '/enroll/:enrollmentCode', name: 'createEnrollmentChange',   renderer: getCreateEnrollmentChange }
   { pattern: '/new-course/:sourceId?',  name: 'createNewCourse',          renderer: getCreateCourse  }
   {
