@@ -25,7 +25,7 @@ function wrapCourseItem(Item, course = {}) {
 }
 
 
-function CourseListingNone() {
+function MyCoursesNone() {
   return (
     <Row className="my-courses-none">
       <Col md={12}>
@@ -37,7 +37,7 @@ function CourseListingNone() {
   );
 }
 
-const CourseListingAdd = () => wrapCourseItem(AddCourse);
+const MyCoursesAdd = () => wrapCourseItem(AddCourse);
 
 const DEFAULT_COURSE_ITEMS = {
   teacher: CourseTeacher,
@@ -46,7 +46,7 @@ const DEFAULT_COURSE_ITEMS = {
 
 
 @observer
-class CourseListingBase extends React.Component {
+class MyCoursesBase extends React.Component {
 
   static propTypes = {
     courses:    React.PropTypes.arrayOf( React.PropTypes.instanceOf(CourseModel) ).isRequired,
@@ -82,7 +82,7 @@ class CourseListingBase extends React.Component {
 }
 
 @observer
-class CourseListingTitle extends React.Component {
+class MyCoursesTitle extends React.Component {
   static propTypes = {
     title: React.PropTypes.string.isRequired,
     main: React.PropTypes.bool,
@@ -105,7 +105,7 @@ class CourseListingTitle extends React.Component {
 }
 
 @observer
-export class CourseListingCurrent extends React.PureComponent {
+export class MyCoursesCurrent extends React.PureComponent {
 
   render () {
     const baseName = ReactHelpers.getBaseName(this);
@@ -114,12 +114,12 @@ export class CourseListingCurrent extends React.PureComponent {
     return (
       <div className={baseName}>
         <Grid>
-          <CourseListingTitle title="Current Courses" main={true} />
-          {isEmpty(courses) ? <CourseListingNone /> : undefined}
-          <CourseListingBase
+          <MyCoursesTitle title="Current Courses" main={true} />
+          {isEmpty(courses) ? <MyCoursesNone /> : undefined}
+          <MyCoursesBase
             className={`${baseName}-section`}
             courses={courses}
-            after={User.isConfirmedFaculty ? <CourseListingAdd /> : undefined} />
+            after={User.isConfirmedFaculty ? <MyCoursesAdd /> : undefined} />
         </Grid>
       </div>
     );
@@ -127,7 +127,7 @@ export class CourseListingCurrent extends React.PureComponent {
 }
 
 @observer
-class CourseListingBasic extends React.PureComponent {
+class MyCoursesBasic extends React.PureComponent {
   static propTypes = {
     title:    React.PropTypes.string.isRequired,
     baseName: React.PropTypes.string.isRequired,
@@ -142,8 +142,8 @@ class CourseListingBasic extends React.PureComponent {
       (
         <div className={baseName}>
           <Grid>
-            <CourseListingTitle title={title} />
-            <CourseListingBase className={`${baseName}-section`} courses={courses} />
+            <MyCoursesTitle title={title} />
+            <MyCoursesBase className={`${baseName}-section`} courses={courses} />
           </Grid>
         </div>
       )
@@ -152,10 +152,10 @@ class CourseListingBasic extends React.PureComponent {
 }
 
 @observer
-export class CourseListingPast extends React.PureComponent {
+export class MyCoursesPast extends React.PureComponent {
   render() {
     return (
-      <CourseListingBasic
+      <MyCoursesBasic
         courses={Courses.nonPreview.completed.array}
         baseName={ReactHelpers.getBaseName(this)}
         title="Past Courses"
@@ -166,10 +166,10 @@ export class CourseListingPast extends React.PureComponent {
 
 
 @observer
-export class CourseListingFuture extends React.PureComponent {
+export class MyCoursesFuture extends React.PureComponent {
   render() {
     return (
-      <CourseListingBasic
+      <MyCoursesBasic
         courses={Courses.nonPreview.future.array}
         baseName={ReactHelpers.getBaseName(this)}
         title="Future Courses"
@@ -179,7 +179,7 @@ export class CourseListingFuture extends React.PureComponent {
 }
 
 @observer
-export class CourseListingPreview extends React.PureComponent {
+export class MyCoursesPreview extends React.PureComponent {
 
   @observable previews;
 
@@ -193,7 +193,7 @@ export class CourseListingPreview extends React.PureComponent {
     if (!User.isConfirmedFaculty) { return null; }
 
     return (
-      <CourseListingBasic
+      <MyCoursesBasic
         courses={PreviewCourseOffering.all}
         baseName={ReactHelpers.getBaseName(this)}
         title="Preview Courses"

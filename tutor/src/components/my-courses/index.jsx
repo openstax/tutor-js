@@ -6,7 +6,7 @@ import { observer } from 'mobx-react';
 import Router from '../../helpers/router';
 import Courses from '../../models/courses-map';
 import EmptyCourses from './empty';
-import { CourseListingPast, CourseListingCurrent, CourseListingPreview } from './listings';
+import { MyCoursesPast, MyCoursesCurrent, MyCoursesPreview } from './listings';
 
 @observer
 export default class MyCourses extends React.PureComponent {
@@ -35,9 +35,9 @@ export default class MyCourses extends React.PureComponent {
 
     return (
       <div className="my-courses">
-        <CourseListingCurrent />
-        <CourseListingPreview />
-        <CourseListingPast    />
+        <MyCoursesCurrent />
+        <MyCoursesPreview />
+        <MyCoursesPast    />
       </div>
     );
   }

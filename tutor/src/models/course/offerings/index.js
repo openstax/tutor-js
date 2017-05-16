@@ -12,7 +12,7 @@ class OfferingsMap extends ObservableMap {
   }
 
   @computed get fetched() {
-    if (!this.isFetched){
+    if (!this.isFetched && this.fetch){
       this.fetch();
       this.isFetched = true;
     }
