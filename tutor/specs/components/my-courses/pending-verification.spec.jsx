@@ -4,7 +4,7 @@ import PendingVerification from '../../../src/components/my-courses/pending-veri
 describe('My Courses Pending Verification Component', function() {
 
   it('renders and matches snapshot', () => {
-    expect(SnapShot.create(<PendingVerification />).toJSON()).toMatchSnapshot()
+    expect(SnapShot.create(<PendingVerification />).toJSON()).toMatchSnapshot();
   });
 
 });

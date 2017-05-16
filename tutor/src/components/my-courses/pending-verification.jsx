@@ -14,7 +14,7 @@ export default function PendingVerification() {
         <div className="explain">
           <h3>Almost done!</h3>
           <p className="lead">
-            We're manually verifying that you’re an instructor and we'll email you in 3-4 business days when your account is ready.
+            We’re manually verifying that you’re an instructor and we’ll email you in 3-4 business days when your account is ready.
           </p>
           <p>CHAT GOES HERE</p>
         </div>
