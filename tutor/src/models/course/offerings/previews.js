@@ -1,4 +1,4 @@
-import { filter, pick, sortBy } from 'lodash';
+import { filter, pick, sortBy, find } from 'lodash';
 import { action } from 'mobx';
 import {
   BaseModel, identifiedBy, session, identifier, field, belongsTo, computed,
@@ -21,6 +21,13 @@ export class PreviewCourseOffering extends Course {
     });
   }
 
+  @computed get isCreated() {
+    return !!this.previewCourse;
+  }
+
+  @computed get previewCourse() {
+    return find(Courses.array, { offering_id: this.offering_id, is_preview: true });
+  }
 
 }
 

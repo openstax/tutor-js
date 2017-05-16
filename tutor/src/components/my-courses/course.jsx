@@ -2,7 +2,8 @@ import React from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
 import { omit } from 'lodash';
-import { computed } from 'mobx';
+import { computed, action } from 'mobx';
+import Router from '../../helpers/router';
 import TutorLink from '../link';
 import Icon from '../icon';
 import CourseModel from '../../models/course';
@@ -56,6 +57,10 @@ class CourseBranding extends React.PureComponent {
 @observer
 export class CoursePreview extends React.PureComponent {
 
+  static contextTypes = {
+    router: React.PropTypes.object,
+  }
+
   static propTypes = {
     course: React.PropTypes.instanceOf(CourseModel).isRequired,
     className: React.PropTypes.string,
@@ -63,6 +68,18 @@ export class CoursePreview extends React.PureComponent {
 
   @computed get ux () {
     return new CourseUX(this.props.course);
+  }
+
+  @action.bound onClick() {
+    const { course } = this.props;
+    if (course.isCreated) {
+      this.context.router.transitionTo(Router.makePathname(
+        'dashboard', { courseId: course.previewCourse.id },
+      ));
+    } else {
+      console.warn("BUILDING COURSE")
+      // TODO BUILD COURSE
+    }
   }
 
   render() {
@@ -77,16 +94,16 @@ export class CoursePreview extends React.PureComponent {
           data-course-course-type={'tutor'}
           className={itemClasses}
         >
-          <TutorLink to="dashboard"
+          <a
             className="my-courses-item-title"
-            params={{ courseId: course.id }}
+            onClick={this.onClick}
           >
             <h3 className="name">{course.name}</h3>
             <div className="preview-belt">
               <h4><Icon type="eye" /> Preview</h4>
               <p>Check out a course with assignments and sample data</p>
             </div>
-          </TutorLink>
+          </a>
         </div>
       </div>
     );
