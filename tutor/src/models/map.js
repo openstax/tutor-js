@@ -14,4 +14,8 @@ export default class Map extends ObservableMap {
     return map;
   }
 
+  @computed get isEmpty() {
+    return this.size === 0;
+  }
+
 }

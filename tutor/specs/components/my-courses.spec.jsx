@@ -99,4 +99,11 @@ describe('My Courses Component', function() {
     const wrapper = shallow(<CourseListing />, EnzymeContext.withDnD());
     expect(wrapper).toHaveRendered('PendingVerification');
   });
+
+  it('displays popover help for verified instructor without courses', () => {
+    Courses.clear();
+    loadTeacherUser();
+    const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
+    expect(wrapper).toHaveRendered('#add-course-popover');
+  });
 });

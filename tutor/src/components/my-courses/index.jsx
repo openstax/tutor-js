@@ -7,6 +7,7 @@ import Router from '../../helpers/router';
 import Courses from '../../models/courses-map';
 import EmptyCourses from './empty';
 import PendingVerification from './pending-verification';
+
 import { MyCoursesPast, MyCoursesCurrent, MyCoursesPreview } from './listings';
 
 @observer
@@ -26,10 +27,8 @@ export default class MyCourses extends React.PureComponent {
   }
 
   render() {
-    if (!Courses.size) {
-      if (User.isUnverifiedInstructor) {
-        return <PendingVerification />;
-      }
+    if (!Courses.size && !User.isConfirmedFaculty) {
+      if (User.isUnverifiedInstructor) { return <PendingVerification />; }
       return <EmptyCourses />;
     }
 
