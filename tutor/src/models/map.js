@@ -6,4 +6,12 @@ export default class Map extends ObservableMap {
     return this.values();
   }
 
+  where(condition) {
+    const map = new this.constructor();
+    this.forEach(c => {
+      if(condition(c)) { map.set(c.id, c); }
+    });
+    return map;
+  }
+
 }
