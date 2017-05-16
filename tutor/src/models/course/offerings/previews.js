@@ -1,4 +1,5 @@
 import { filter, pick, sortBy } from 'lodash';
+import { action } from 'mobx';
 import {
   BaseModel, identifiedBy, session, identifier, field, belongsTo, computed,
 } from '../../base';
@@ -8,9 +9,6 @@ import Offerings from './index';
 
 @identifiedBy('course/offerings/preview')
 export class PreviewCourseOffering extends Course {
-
-  // @identifier id;
-  // @session title;
 
   constructor(offering) {
     super({
@@ -27,7 +25,11 @@ export class PreviewCourseOffering extends Course {
 }
 
 
-const preview = {
+export default {
+
+  @action fetch() {
+    Offerings.fetched;
+  },
 
   @computed get all() {
     const tutor = sortBy(filter(Offerings.fetched.array, 'is_tutor'), 'title');
@@ -35,5 +37,3 @@ const preview = {
   },
 
 };
-
-export default preview;

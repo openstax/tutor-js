@@ -185,7 +185,7 @@ export class CourseListingPreview extends React.PureComponent {
 
   componentWillMount() {
     if (User.isConfirmedFaculty) {
-      // PreviewCourseOffering.fetch();
+      PreviewCourseOffering.fetch();
     }
   }
 
