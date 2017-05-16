@@ -1,3 +1,4 @@
+import { SnapShot, Wrapper } from './helpers/component-testing';
 import CourseListing from '../../src/components/my-courses';
 import { flatten } from 'lodash';
 import EnzymeContext from './helpers/enzyme-context';
@@ -11,7 +12,11 @@ describe('My Courses Component', function() {
 
   beforeEach(bootstrapCoursesList);
 
-  afterEach(() => Courses.clear());
+  afterEach(() => {
+    Courses.clear();
+    User.faculty_status = '';
+    User.self_reported_role = '';
+  });
 
   it('renders the listing', function() {
     const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
@@ -88,4 +93,10 @@ describe('My Courses Component', function() {
     expect(wrapper).toHaveRendered('Redirect[to="/course/1"]');
   });
 
+  it('displays pending screen', () => {
+    Courses.clear();
+    User.self_reported_role = 'instructor';
+    const wrapper = shallow(<CourseListing />, EnzymeContext.withDnD());
+    expect(wrapper).toHaveRendered('PendingVerification');
+  });
 });

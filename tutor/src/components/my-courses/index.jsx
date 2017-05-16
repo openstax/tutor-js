@@ -2,10 +2,11 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
-
+import User from '../../models/user';
 import Router from '../../helpers/router';
 import Courses from '../../models/courses-map';
 import EmptyCourses from './empty';
+import PendingVerification from './pending-verification';
 import { MyCoursesPast, MyCoursesCurrent, MyCoursesPreview } from './listings';
 
 @observer
@@ -25,7 +26,12 @@ export default class MyCourses extends React.PureComponent {
   }
 
   render() {
-    if (!Courses.size) { return <EmptyCourses />; }
+    if (!Courses.size) {
+      if (User.isUnverifiedInstructor) {
+        return <PendingVerification />;
+      }
+      return <EmptyCourses />;
+    }
 
     if (this.shouldRedirect) {
       return (

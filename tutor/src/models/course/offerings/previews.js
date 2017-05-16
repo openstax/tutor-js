@@ -1,14 +1,15 @@
-import { filter, pick, sortBy, find } from 'lodash';
-import { action } from 'mobx';
-import {
-  BaseModel, identifiedBy, session, identifier, field, belongsTo, computed,
-} from '../../base';
+import { filter, sortBy, find } from 'lodash';
+import { action, observable, computed } from 'mobx';
+import { identifiedBy } from '../../base';
 import Course from '../../course';
 import Courses from '../../courses-map';
 import Offerings from './index';
+import CourseCreate from '../create';
 
 @identifiedBy('course/offerings/preview')
 export class PreviewCourseOffering extends Course {
+  @observable isBuilding = false;
+  @observable offering;
 
   constructor(offering) {
     super({
@@ -19,7 +20,9 @@ export class PreviewCourseOffering extends Course {
       is_preview: true,
       roles: [ { type: 'teacher' }],
     });
+    this.offering = offering;
   }
+
 
   @computed get isCreated() {
     return !!this.previewCourse;
@@ -27,6 +30,25 @@ export class PreviewCourseOffering extends Course {
 
   @computed get previewCourse() {
     return find(Courses.active.array, { offering_id: this.offering_id, is_preview: true });
+  }
+
+  @action build() {
+    if (this.isBuilding) { return Promise.resolve(this); }
+    this.isBuilding = true;
+
+    return new Promise((res) => {
+      console.warn("BUILDING COURSE");
+
+      const create = new CourseCreate({
+        name: `${this.name} Preview`,
+        is_preview: true,
+        offering_id: this.offering_id,
+        term: this.offering.currentTerm,
+      });
+      create.save()
+      // TODO build, then resolve promise
+    });
+
   }
 
 }

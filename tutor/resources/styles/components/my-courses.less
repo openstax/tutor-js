@@ -181,6 +181,7 @@
         }
         .preview-belt {
           position: absolute;
+          width: 100%;
           bottom: 30px;
           height: 110px;
           padding: 0 0.75em;
@@ -196,10 +197,15 @@
             font-weight: 400;
             font-style: italic;
           }
-
         }
+      }
+      &.is-building {
+        .preview-belt {
+          align-items: center;
+        }
+        .ox-loader { width: 100%; }
+      }
     }
-  }
 
     .my-courses-item-controls {
       padding: 0 1em 1.5em 1em;
@@ -268,6 +274,33 @@
     }
     .for(@openstax-book-appearance-codes); .-each(@code) {
       .apply-my-courses-book-styling(@code, "openstax-book-@{code}-fg", "openstax-book-@{code}-bg");
+    }
+  }
+
+  &.pending-faculty-verification {
+    border-bottom: 1px solid @tutor-neutral-light;
+    padding: 3rem;
+
+    .courses {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .locked-card {
+      width: 240px;
+      height: 210px;
+      padding: 2rem;
+      margin-right: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      color: @tutor-neutral-lightest;
+      background-color: @tutor-neutral-lite;
+      .tutor-icon {
+        font-size: 6.5rem;
+      }
     }
 
   }

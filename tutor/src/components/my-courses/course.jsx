@@ -8,6 +8,7 @@ import TutorLink from '../link';
 import Icon from '../icon';
 import CourseModel from '../../models/course';
 import CourseUX from '../../models/course/ux';
+import OXFancyLoader from '../ox-fancy-loader';
 
 import { wrapCourseDragComponent } from './course-dnd';
 
@@ -70,21 +71,36 @@ export class CoursePreview extends React.PureComponent {
     return new CourseUX(this.props.course);
   }
 
+  @action.bound redirectToCourse() {
+    this.context.router.transitionTo(Router.makePathname(
+      'dashboard', { courseId: course.previewCourse.id },
+    ));
+  }
+
   @action.bound onClick() {
     const { course } = this.props;
     if (course.isCreated) {
-      this.context.router.transitionTo(Router.makePathname(
-        'dashboard', { courseId: course.previewCourse.id },
-      ));
+      this.redirectToCourse();
     } else {
-      console.warn("BUILDING COURSE")
-      // TODO BUILD COURSE
+      course.build().then(this.redirectToCourse);
     }
+  }
+
+  @computed get previewMessage() {
+    if (this.props.course.isBuilding) {
+      return <h4 key="title">Loading Preview</h4>;
+    }
+    return [
+      <h4 key="title"><Icon type="eye" /> Preview</h4>,
+      <p key="message">Check out a course with assignments and sample data</p>,
+    ];
   }
 
   render() {
     const { course, className } = this.props;
-    const itemClasses = classnames('my-courses-item', 'preview', className);
+    const itemClasses = classnames('my-courses-item', 'preview', className, {
+      'is-building': course.isBuilding,
+    });
     return (
       <div className="my-courses-item-wrapper preview">
         <div
@@ -100,8 +116,8 @@ export class CoursePreview extends React.PureComponent {
           >
             <h3 className="name">{course.name}</h3>
             <div className="preview-belt">
-              <h4><Icon type="eye" /> Preview</h4>
-              <p>Check out a course with assignments and sample data</p>
+              {this.previewMessage}
+              <OXFancyLoader isLoading={course.isBuilding} />
             </div>
           </a>
         </div>
