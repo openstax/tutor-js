@@ -36,8 +36,8 @@ export default class MyCourses extends React.PureComponent {
     return (
       <div className="my-courses">
         <CourseListingCurrent />
-        <CourseListingPast    />
         <CourseListingPreview />
+        <CourseListingPast    />
       </div>
     );
   }
