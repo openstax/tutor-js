@@ -17,30 +17,26 @@ const listenForLoad = once(() => {
   CourseListingStore.on('loaded', onLoaded);
 });
 
-function mapWhere(condition) {
-  const map = new CoursesMap();
-  coursesMap.forEach(c => {
-    if(condition(c)) { map.set(c.id, c); }
-  });
-  return map;
-}
-
 class AllCoursesMap extends CoursesMap {
 
   @computed get active() {
-    return mapWhere(c => c.is_active);
+    return this.where(c => c.is_active);
   }
 
   @computed get completed() {
-    return mapWhere(c => c.hasEnded);
+    return this.where(c => c.hasEnded);
   }
 
   @computed get future() {
-    return mapWhere(c => !c.hasStarted);
+    return this.where(c => !c.hasStarted);
   }
 
   @computed get currentAndFuture() {
-    return mapWhere(c => !c.hasEnded);
+    return this.where(c => !c.hasEnded);
+  }
+
+  @computed get nonPreview() {
+    return this.where(c => !c.is_preview);
   }
 
   @action addNew(courseData) {
