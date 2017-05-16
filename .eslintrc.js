@@ -38,6 +38,10 @@ module.exports = {
         "ReturnStatement": true,
         "BlockStatement": true,
         "IfStatement": true,
+        "JSXAttribute": true,
+        "JSXIdentifier": true,
+        "JSXOpeningElement": true,
+        "JSXClosingElement": true
       }
     }],
     "linebreak-style": [
