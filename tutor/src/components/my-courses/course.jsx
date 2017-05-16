@@ -77,15 +77,16 @@ export class CoursePreview extends React.PureComponent {
           data-course-course-type={'tutor'}
           className={itemClasses}
         >
-          <div className="my-courses-item-title">
-            <TutorLink to="dashboard" params={{ courseId: course.id }}>
-              <h3 className="name">{course.name}</h3>
-              <div className="preview-belt">
-                <h4><Icon type="eye" /> Preview</h4>
-                <p>Check out a course with assignments and sample data</p>
-              </div>
-            </TutorLink>
-          </div>
+          <TutorLink to="dashboard"
+            className="my-courses-item-title"
+            params={{ courseId: course.id }}
+          >
+            <h3 className="name">{course.name}</h3>
+            <div className="preview-belt">
+              <h4><Icon type="eye" /> Preview</h4>
+              <p>Check out a course with assignments and sample data</p>
+            </div>
+          </TutorLink>
         </div>
       </div>
     );
