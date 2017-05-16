@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { observer } from 'mobx-react';
-import { computed } from 'mobx';
-import { isEmpty, merge, map } from 'lodash';
+import { computed, observable } from 'mobx';
+import { isEmpty, merge, map, reject } from 'lodash';
 import { Col, Row, Grid } from 'react-bootstrap';
 import classnames from 'classnames';
 
 import { ReactHelpers } from 'shared';
-
+import PreviewCourseOffering from '../../models/course/offerings/previews';
 import Courses from '../../models/courses-map';
 import User from '../../models/user';
 import CourseModel from '../../models/course';
@@ -109,7 +109,7 @@ export class CourseListingCurrent extends React.PureComponent {
 
   render () {
     const baseName = ReactHelpers.getBaseName(this);
-    const courses = Courses.currentAndFuture.array;
+    const courses = Courses.nonPreview.currentAndFuture.array;
 
     return (
       <div className={baseName}>
@@ -156,7 +156,7 @@ export class CourseListingPast extends React.PureComponent {
   render() {
     return (
       <CourseListingBasic
-        courses={Courses.completed.array}
+        courses={Courses.nonPreview.completed.array}
         baseName={ReactHelpers.getBaseName(this)}
         title="Past Courses"
       />
@@ -170,9 +170,33 @@ export class CourseListingFuture extends React.PureComponent {
   render() {
     return (
       <CourseListingBasic
-        courses={Courses.future.array}
+        courses={Courses.nonPreview.future.array}
         baseName={ReactHelpers.getBaseName(this)}
         title="Future Courses"
+      />
+    );
+  }
+}
+
+@observer
+export class CourseListingPreview extends React.PureComponent {
+
+  @observable previews;
+
+  componentWillMount() {
+    if (User.isConfirmedFaculty) {
+      // PreviewCourseOffering.fetch();
+    }
+  }
+
+  render() {
+    if (!User.isConfirmedFaculty) { return null; }
+
+    return (
+      <CourseListingBasic
+        courses={PreviewCourseOffering.all}
+        baseName={ReactHelpers.getBaseName(this)}
+        title="Preview Courses"
       />
     );
   }
