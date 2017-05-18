@@ -8,7 +8,6 @@ dom = require '../helpers/dom'
 {CourseStore} = require '../flux/course'
 {TaskStepStore} = require '../flux/task-step'
 {MediaStore} = require '../flux/media'
-{CourseStore} = require '../flux/course'
 ScrollToLinkMixin = require './scroll-to-link-mixin'
 
 Router = require '../helpers/router'
@@ -146,16 +145,42 @@ ReadingContentMixin =
 
   componentDidMount:  ->
     @_linkContentIsMounted = true
+    @insertCanonicalLink()
     @insertOverlays()
     @detectImgAspectRatio()
     @cleanUpAbstracts()
     @processLinks()
 
   componentDidUpdate: ->
+    @updateCanonicalLink()
     @insertOverlays()
     @detectImgAspectRatio()
     @cleanUpAbstracts()
     @processLinks()
+
+  componentWillUnmount: ->
+    @removeCanonicalLink()
+
+  insertCanonicalLink: ->
+    @linkNode = document.createElement('link')
+    @linkNode.rel = 'canonical'
+    document.head.appendChild(@linkNode)
+
+    @updateCanonicalLink()
+
+  updateCanonicalLink: ->
+    cnxId = @props.cnxId or @getCnxId?()
+    {courseId} = Router.currentParams()
+    {webview_url} = CourseStore.get(courseId)
+    baseWebviewUrl = _.first(webview_url.split('/contents/'))
+
+    # webview actually links to webview_url as it's canonical url.
+    # will need to ask them why.
+    @linkNode.href = "#{baseWebviewUrl}/contents/#{cnxId}"
+
+  removeCanonicalLink: ->
+    # document.head.
+    @linkNode.remove()
 
   insertOverlays: ->
     title = @getSplashTitle()
