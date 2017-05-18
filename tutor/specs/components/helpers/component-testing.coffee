@@ -9,6 +9,8 @@ TestRouter = require './test-router'
 ReactTestUtils  = require 'react-addons-test-utils'
 SnapShot = require 'react-test-renderer'
 { spyOnComponentMethod, stubComponentMethod } = require 'sinon-spy-react'
+{DragDropManager} = require 'dnd-core'
+TestBackend = require('react-dnd-test-backend').default
 
 # No longer exists, needs further investigation if we're using it
 # ReactContext   = require('react/lib/ReactContext')
@@ -37,8 +39,12 @@ afterEach ->
 Wrapper = React.createClass
   childContextTypes:
     router: React.PropTypes.object
+    dragDropManager: React.PropTypes.object,
+    broadcasts: React.PropTypes.object
   getChildContext: ->
     router: ROUTER
+    dragDropManager: new DragDropManager(TestBackend),
+    broadcasts: { location: (cb) -> cb(pathname: (options.pathname or '/')) }
   render: ->
     location = createRouterLocation('/')
     props = _.omit(@props, '_wrapped_component')

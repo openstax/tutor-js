@@ -6,6 +6,14 @@ import Courses from '../courses-map';
 
 const ROUTES = {
 
+  myCourses: {
+    label: 'My Courses',
+    isAllowed(course) { return !!course; },
+    params: () => undefined,
+    options: {
+      separator: 'after',
+    },
+  },
   dashboard: {
     label: 'Dashboard',
     isAllowed(course) { return !!course; },

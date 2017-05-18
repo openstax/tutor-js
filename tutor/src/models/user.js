@@ -15,6 +15,8 @@ export class User extends BaseModel {
   @observable csrf_token;
 
   @field name;
+  @field self_reported_role;
+  @field account_uuid;
 
   @field faculty_status;
   @field profile_url;
@@ -43,11 +45,15 @@ export class User extends BaseModel {
   }
 
   verifiedRoleForCourse(course) {
-    return this.isConfirmedFaculty ? course.primaryRole.type : 'student';
+    return course.primaryRole && this.isConfirmedFaculty ? course.primaryRole.type : 'student';
   }
 
   saveTourView(tour, options) {
     return { data: options };
+  }
+
+  @computed get isUnverifiedInstructor() {
+    return !this.isConfirmedFaculty && this.self_reported_role === 'instructor';
   }
 
 }

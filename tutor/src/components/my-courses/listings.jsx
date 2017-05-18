@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { observer } from 'mobx-react';
-import { computed } from 'mobx';
-import { isEmpty, merge, map } from 'lodash';
+import { computed, observable } from 'mobx';
+import { isEmpty, merge, map, reject } from 'lodash';
 import { Col, Row, Grid } from 'react-bootstrap';
 import classnames from 'classnames';
 
 import { ReactHelpers } from 'shared';
-
+import PreviewCourseOffering from '../../models/course/offerings/previews';
 import Courses from '../../models/courses-map';
 import User from '../../models/user';
 import CourseModel from '../../models/course';
@@ -16,7 +16,7 @@ import { CoursePreview, Course, CourseTeacher } from './course';
 
 function wrapCourseItem(Item, course = {}) {
   return (
-    <Col key={`course-listing-item-wrapper-${course.id}`} md={3} sm={6} xs={12}>
+    <Col key={`my-courses-item-wrapper-${course.id}`} md={3} sm={6} xs={12}>
       <Item
         course={course}
       />
@@ -25,9 +25,9 @@ function wrapCourseItem(Item, course = {}) {
 }
 
 
-function CourseListingNone() {
+function MyCoursesNone() {
   return (
-    <Row className="course-listing-none">
+    <Row className="my-courses-none">
       <Col md={12}>
         <p>
           There are no current courses.
@@ -37,7 +37,7 @@ function CourseListingNone() {
   );
 }
 
-const CourseListingAdd = () => wrapCourseItem(AddCourse);
+const MyCoursesAdd = () => wrapCourseItem(AddCourse);
 
 const DEFAULT_COURSE_ITEMS = {
   teacher: CourseTeacher,
@@ -46,7 +46,7 @@ const DEFAULT_COURSE_ITEMS = {
 
 
 @observer
-class CourseListingBase extends React.Component {
+class MyCoursesBase extends React.Component {
 
   static propTypes = {
     courses:    React.PropTypes.arrayOf( React.PropTypes.instanceOf(CourseModel) ).isRequired,
@@ -69,7 +69,7 @@ class CourseListingBase extends React.Component {
   render() {
     const { courses, className, before, after } = this.props;
 
-    const sectionClasses = classnames('course-listing-section', className);
+    const sectionClasses = classnames('my-courses-section', className);
 
     return (
       <Row className={sectionClasses}>
@@ -82,7 +82,7 @@ class CourseListingBase extends React.Component {
 }
 
 @observer
-class CourseListingTitle extends React.Component {
+class MyCoursesTitle extends React.Component {
   static propTypes = {
     title: React.PropTypes.string.isRequired,
     main: React.PropTypes.bool,
@@ -95,7 +95,7 @@ class CourseListingTitle extends React.Component {
   render() {
     const { title } = this.props;
     return (
-      <Row className="course-listing-title">
+      <Row className="my-courses-title">
         <Col md={12}>
           <h1>{title}</h1>
         </Col>
@@ -105,21 +105,21 @@ class CourseListingTitle extends React.Component {
 }
 
 @observer
-export class CourseListingCurrent extends React.PureComponent {
+export class MyCoursesCurrent extends React.PureComponent {
 
   render () {
     const baseName = ReactHelpers.getBaseName(this);
-    const courses = Courses.currentAndFuture.array;
+    const courses = Courses.nonPreview.currentAndFuture.array;
 
     return (
       <div className={baseName}>
         <Grid>
-          <CourseListingTitle title="Current Courses" main={true} />
-          {isEmpty(courses) ? <CourseListingNone /> : undefined}
-          <CourseListingBase
+          <MyCoursesTitle title="Current Courses" main={true} />
+          {isEmpty(courses) ? <MyCoursesNone /> : undefined}
+          <MyCoursesBase
             className={`${baseName}-section`}
             courses={courses}
-            after={User.isConfirmedFaculty ? <CourseListingAdd /> : undefined} />
+            after={User.isConfirmedFaculty ? <MyCoursesAdd /> : undefined} />
         </Grid>
       </div>
     );
@@ -127,7 +127,7 @@ export class CourseListingCurrent extends React.PureComponent {
 }
 
 @observer
-class CourseListingBasic extends React.PureComponent {
+class MyCoursesBasic extends React.PureComponent {
   static propTypes = {
     title:    React.PropTypes.string.isRequired,
     baseName: React.PropTypes.string.isRequired,
@@ -142,8 +142,8 @@ class CourseListingBasic extends React.PureComponent {
       (
         <div className={baseName}>
           <Grid>
-            <CourseListingTitle title={title} />
-            <CourseListingBase className={`${baseName}-section`} courses={courses} />
+            <MyCoursesTitle title={title} />
+            <MyCoursesBase className={`${baseName}-section`} courses={courses} />
           </Grid>
         </div>
       )
@@ -152,11 +152,11 @@ class CourseListingBasic extends React.PureComponent {
 }
 
 @observer
-export class CourseListingPast extends React.PureComponent {
+export class MyCoursesPast extends React.PureComponent {
   render() {
     return (
-      <CourseListingBasic
-        courses={Courses.completed.array}
+      <MyCoursesBasic
+        courses={Courses.nonPreview.completed.array}
         baseName={ReactHelpers.getBaseName(this)}
         title="Past Courses"
       />
@@ -166,13 +166,37 @@ export class CourseListingPast extends React.PureComponent {
 
 
 @observer
-export class CourseListingFuture extends React.PureComponent {
+export class MyCoursesFuture extends React.PureComponent {
   render() {
     return (
-      <CourseListingBasic
-        courses={Courses.future.array}
+      <MyCoursesBasic
+        courses={Courses.nonPreview.future.array}
         baseName={ReactHelpers.getBaseName(this)}
         title="Future Courses"
+      />
+    );
+  }
+}
+
+@observer
+export class MyCoursesPreview extends React.PureComponent {
+
+  @observable previews;
+
+  componentWillMount() {
+    if (User.isConfirmedFaculty) {
+      PreviewCourseOffering.fetch();
+    }
+  }
+
+  render() {
+    if (!User.isConfirmedFaculty) { return null; }
+
+    return (
+      <MyCoursesBasic
+        courses={PreviewCourseOffering.all}
+        baseName={ReactHelpers.getBaseName(this)}
+        title="Preview Courses"
       />
     );
   }

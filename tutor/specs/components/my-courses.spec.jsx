@@ -1,4 +1,5 @@
-import CourseListing from '../../src/components/course-listing';
+import { SnapShot, Wrapper } from './helpers/component-testing';
+import CourseListing from '../../src/components/my-courses';
 import { flatten } from 'lodash';
 import EnzymeContext from './helpers/enzyme-context';
 import Courses from '../../src/models/courses-map';
@@ -7,17 +8,21 @@ import { bootstrapCoursesList, STUDENT_COURSE_ONE_MODEL, TEACHER_COURSE_TWO_MODE
 
 const loadTeacherUser = () => User.faculty_status = 'confirmed_faculty'
 
-describe('Course Listing Component', function() {
+describe('My Courses Component', function() {
 
   beforeEach(bootstrapCoursesList);
 
-  afterEach(() => Courses.clear());
+  afterEach(() => {
+    Courses.clear();
+    User.faculty_status = '';
+    User.self_reported_role = '';
+  });
 
   it('renders the listing', function() {
     const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
     for (let i = 0; i < MASTER_COURSES_LIST.length; i++) {
       const course = MASTER_COURSES_LIST[i];
-      expect(wrapper).toHaveRendered(`.course-listing-current [data-course-id='${course.id}']`);
+      expect(wrapper).toHaveRendered(`.my-courses-current [data-course-id='${course.id}']`);
     }
   });
 
@@ -31,7 +36,7 @@ describe('Course Listing Component', function() {
     loadTeacherUser();
     const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
     expect(User.isConfirmedFaculty).toBeTruthy();
-    expect(wrapper).toHaveRendered('.course-listing-add-zone');
+    expect(wrapper).toHaveRendered('.my-courses-add-zone');
   });
 
   it('renders controls for course if user is teacher of course', function() {
@@ -40,7 +45,7 @@ describe('Course Listing Component', function() {
     for (let i = 0; i < MASTER_COURSES_LIST.length; i++) {
       const course = MASTER_COURSES_LIST[i];
       if (Courses.get(course.id).isTeacher) {
-        expect(wrapper).toHaveRendered(`[data-course-id='${course.id}'] .course-listing-item-controls`);
+        expect(wrapper).toHaveRendered(`[data-course-id='${course.id}'] .my-courses-item-controls`);
       }
     }
   });
@@ -51,7 +56,7 @@ describe('Course Listing Component', function() {
     for (let i = 0; i < MASTER_COURSES_LIST.length; i++) {
       const course = MASTER_COURSES_LIST[i];
       if (!Courses.get(course.id).isTeacher) {
-        expect(wrapper).not.toHaveRendered(`[data-course-id='${course.id}'] .course-listing-item-controls`);
+        expect(wrapper).not.toHaveRendered(`[data-course-id='${course.id}'] .my-courses-item-controls`);
       }
     }
   });
@@ -60,8 +65,8 @@ describe('Course Listing Component', function() {
     loadTeacherUser();
     Courses.bootstrap([TEACHER_PAST_COURSE, STUDENT_PAST_COURSE], { clear: true });
     const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
-    expect(wrapper).toHaveRendered(`.course-listing-past [data-course-id='${TEACHER_PAST_COURSE.id}']`);
-    expect(wrapper).toHaveRendered(`.course-listing-past [data-course-id='${STUDENT_PAST_COURSE.id}']`);
+    expect(wrapper).toHaveRendered(`.my-courses-past [data-course-id='${TEACHER_PAST_COURSE.id}']`);
+    expect(wrapper).toHaveRendered(`.my-courses-past [data-course-id='${STUDENT_PAST_COURSE.id}']`);
   });
 
   it('renders empty courses if course list is empty', function() {
@@ -75,7 +80,7 @@ describe('Course Listing Component', function() {
     for (let i = 0; i < MASTER_COURSES_LIST.length; i++) {
       const course = MASTER_COURSES_LIST[i];
       expect(
-        wrapper.find(`[data-course-id='${course.id}'] .course-listing-item-brand`).render().text()
+        wrapper.find(`[data-course-id='${course.id}'] .my-courses-item-brand`).render().text()
       ).equal('OpenStax Tutor');
     }
   });
@@ -88,4 +93,17 @@ describe('Course Listing Component', function() {
     expect(wrapper).toHaveRendered('Redirect[to="/course/1"]');
   });
 
+  it('displays pending screen', () => {
+    Courses.clear();
+    User.self_reported_role = 'instructor';
+    const wrapper = shallow(<CourseListing />, EnzymeContext.withDnD());
+    expect(wrapper).toHaveRendered('PendingVerification');
+  });
+
+  it('displays popover help for verified instructor without courses', () => {
+    Courses.clear();
+    loadTeacherUser();
+    const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
+    expect(wrapper).toHaveRendered('#add-course-popover');
+  });
 });

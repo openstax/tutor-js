@@ -20,7 +20,7 @@ export default function NavigationBar() {
   return (
     <nav className="tutor-top-navbar">
       <div className="left-side-controls">
-        <TutorLink to="listing" className="brand">
+        <TutorLink to="myCourses" className="brand">
           <i className="ui-brand-logo" />
         </TutorLink>
         <CourseName course={course} />

@@ -11,6 +11,14 @@ class OfferingsMap extends ObservableMap {
     items.forEach(offering => this.set(offering.id, new Offering(offering)));
   }
 
+  @computed get fetched() {
+    if (!this.isFetched && this.fetch){
+      this.fetch();
+      this.isFetched = true;
+    }
+    return this;
+  }
+
 }
 
 const offeringsMap = new OfferingsMap();

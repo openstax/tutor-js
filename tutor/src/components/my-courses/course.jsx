@@ -2,11 +2,13 @@ import React from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
 import { omit } from 'lodash';
-import { computed } from 'mobx';
+import { computed, action } from 'mobx';
+import Router from '../../helpers/router';
 import TutorLink from '../link';
 import Icon from '../icon';
 import CourseModel from '../../models/course';
 import CourseUX from '../../models/course/ux';
+import OXFancyLoader from '../ox-fancy-loader';
 
 import { wrapCourseDragComponent } from './course-dnd';
 
@@ -44,7 +46,7 @@ class CourseBranding extends React.PureComponent {
     }
 
     return (
-      <p className="course-listing-item-brand" data-is-beta={isBeta}>
+      <p className="my-courses-item-brand" data-is-beta={isBeta}>
         {brand}
       </p>
     );
@@ -56,6 +58,10 @@ class CourseBranding extends React.PureComponent {
 @observer
 export class CoursePreview extends React.PureComponent {
 
+  static contextTypes = {
+    router: React.PropTypes.object,
+  }
+
   static propTypes = {
     course: React.PropTypes.instanceOf(CourseModel).isRequired,
     className: React.PropTypes.string,
@@ -65,11 +71,39 @@ export class CoursePreview extends React.PureComponent {
     return new CourseUX(this.props.course);
   }
 
+  @action.bound redirectToCourse() {
+    const { course } = this.props;
+    this.context.router.transitionTo(Router.makePathname(
+      'dashboard', { courseId: course.previewCourse.id },
+    ));
+  }
+
+  @action.bound onClick() {
+    const { course } = this.props;
+    if (course.isCreated) {
+      this.redirectToCourse();
+    } else {
+      course.build().then(this.redirectToCourse);
+    }
+  }
+
+  @computed get previewMessage() {
+    if (this.props.course.isBuilding) {
+      return <h4 key="title">Loading Preview</h4>;
+    }
+    return [
+      <h4 key="title"><Icon type="eye" /> Preview</h4>,
+      <p key="message">Check out a course with assignments and sample data</p>,
+    ];
+  }
+
   render() {
     const { course, className } = this.props;
-    const itemClasses = classnames('course-listing-item', 'preview', className);
+    const itemClasses = classnames('my-courses-item', 'preview', className, {
+      'is-building': course.isBuilding,
+    });
     return (
-      <div className="course-listing-item-wrapper preview">
+      <div className="my-courses-item-wrapper preview">
         <div
           {...this.ux.dataProps}
           data-is-teacher={true}
@@ -77,15 +111,16 @@ export class CoursePreview extends React.PureComponent {
           data-course-course-type={'tutor'}
           className={itemClasses}
         >
-          <div className="course-listing-item-title">
-            <TutorLink to="dashboard" params={{ courseId: course.id }}>
-              <h3 className="name">{course.name}</h3>
-              <div className="preview-belt">
-                <h4><Icon type="eye" /> Preview</h4>
-                <p>Check out a course with assignments and sample data</p>
-              </div>
-            </TutorLink>
-          </div>
+          <a
+            className="my-courses-item-title"
+            onClick={this.onClick}
+          >
+            <h3 className="name">{course.name}</h3>
+            <div className="preview-belt">
+              {this.previewMessage}
+              <OXFancyLoader isLoading={course.isBuilding} />
+            </div>
+          </a>
         </div>
       </div>
     );
@@ -107,7 +142,7 @@ export class Course extends React.PureComponent {
 
   renderControls(controls) {
     return (
-      <div className="course-listing-item-controls">
+      <div className="my-courses-item-controls">
         {controls}
       </div>
     );
@@ -116,25 +151,25 @@ export class Course extends React.PureComponent {
   render() {
     const { course, controls } = this.props;
     return (
-      <div className="course-listing-item-wrapper">
+      <div className="my-courses-item-wrapper">
         <div
           {...this.ux.dataProps}
           data-is-teacher={this.ux.course.isTeacher}
           data-course-id={this.ux.courseId}
           data-course-course-type={this.ux.courseType}
-          className={classnames('course-listing-item', this.props.className)}
+          className={classnames('my-courses-item', this.props.className)}
         >
-          <div className="course-listing-item-title">
+          <div className="my-courses-item-title">
             <TutorLink to="dashboard" params={{ courseId: this.ux.courseId }}>
               {course.name}
             </TutorLink>
           </div>
           <div
-            className="course-listing-item-details"
+            className="my-courses-item-details"
             data-has-controls={controls != null}>
             <TutorLink to="dashboard" params={{ courseId: this.ux.courseId }}>
               <CourseBranding isConceptCoach={!!course.is_concept_coach} />
-              <p className="course-listing-item-term">
+              <p className="my-courses-item-term">
                 {course.term}
                 {' '}
                 {course.year}

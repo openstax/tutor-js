@@ -1,7 +1,7 @@
 import {
   BaseModel, field, identifier, hasMany, identifiedBy,
 } from '../../base';
-import { filter, includes} from 'lodash';
+import { filter, includes, first } from 'lodash';
 import { computed } from 'mobx';
 import Term from './term';
 
@@ -21,5 +21,9 @@ export default class Offering extends BaseModel {
       return filter(this.active_term_years, (t) => t.year == 2017 && includes(['spring', 'summer'], t.term));
     }
     return this.active_term_years;
+  }
+
+  @computed get currentTerm() {
+    return first(this.validTerms);
   }
 }
