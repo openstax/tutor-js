@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Second Session Warning renders and matches snapshot 1`] = `
+<div
+  className="preview-course-nag-warning second-session-prompt"
+>
+  <div
+    className="body"
+  >
+    Ready to create your real course? It’s free for you and students will pay 
+    $10
+     per course per semester.
+  </div>
+  <div
+    className="footer"
+  >
+    <button
+      className="btn btn-primary"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Create your course
+    </button>
+    <button
+      className="btn btn-default"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Ask me later
+    </button>
+  </div>
+</div>
+`;

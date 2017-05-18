@@ -34,7 +34,10 @@ module.exports = {
         "ClassProperty": true,
         "ImportDeclaration": true,
         "VariableDeclarator": true,
-        "AssignmentExpression": true
+        "AssignmentExpression": true,
+        "ReturnStatement": true,
+        "BlockStatement": true,
+        "IfStatement": true,
       }
     }],
     "linebreak-style": [

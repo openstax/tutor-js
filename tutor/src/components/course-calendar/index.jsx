@@ -8,7 +8,7 @@ import { NotificationsBar } from 'shared';
 
 import ModelLoader from '../../models/loader';
 import TaskPlans from '../../models/teacher-task-plans';
-
+import createUXForCourse from '../../models/course/ux';
 import { TaskPlanStore } from '../../flux/task-plan';
 import Courses from '../../models/courses-map';
 import { TimeStore } from '../../flux/time';
@@ -16,7 +16,7 @@ import TimeHelper from '../../helpers/time';
 import CourseDataHelper from '../../helpers/course-data';
 import PH from '../../helpers/period';
 import CourseTitleBanner from '../course-title-banner';
-
+import PreviewWarningsModal from '../course-preview/warning-modal';
 import NotificationHelpers from '../../helpers/notifications';
 
 import CourseMonth from './month';
@@ -60,6 +60,14 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
     dateFormat: TimeHelper.ISO_DATE_FORMAT,
   }
 
+  @computed get course() {
+    return Courses.get(this.props.params.courseId);
+  }
+
+  @computed get ux() {
+    return createUXForCourse(this.course);
+  }
+
   // router context is needed for Navbar helpers
   static contextTypes = {
     router: React.PropTypes.object,
@@ -69,7 +77,7 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
   @observable displayAs = 'month';
 
   @computed get calendarParams() {
-    const term = CourseDataHelper.getCourseBounds(this.props.params.courseId);
+    const term = CourseDataHelper.getCourseBounds(this.course.id);
     const courseDates = { termStart: term.start, termEnd: term.end };
     const date = this.getDateFromParams(courseDates);
     const bounds = getDisplayBounds[this.displayAs](date);
@@ -81,16 +89,15 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
   @computed get fetchParams() {
     return extend(
       pick(this.calendarParams, 'startAt', 'endAt'),
-      { courseId: this.props.params.courseId }
+      { courseId: this.course.id }
     );
   }
 
   componentWillMount() {
-    const { courseId } = this.props.params;
-    const courseTimezone = Courses.get(courseId).time_zone;
+    const courseTimezone = this.course.time_zone;
     TimeHelper.syncCourseTimezone(courseTimezone);
     this.loader.fetch(this.fetchParams);
-    TaskPlans.forCourseId(courseId).clearPendingClones();
+    TaskPlans.forCourseId(this.course.id).clearPendingClones();
     return (
       TaskPlanStore.on('saved.*', addPlanToListing)
     );
@@ -100,8 +107,7 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
     // the unmount from the builder often get's called after
     // the initial `componentWillMount` so this is needed to make sure
     // the time gets synced
-    const { courseId } = this.props.params;
-    const courseTimezone = Courses.get(courseId).time_zone;
+    const courseTimezone = this.course.time_zone;
     return (
       TimeHelper.syncCourseTimezone(courseTimezone)
     );
@@ -115,7 +121,7 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
   }
 
   getBoundsForCourse() {
-    const course = Courses.get(this.props.params.courseId);
+    const { course } = this;
     const termStart = TimeHelper.getMomentPreserveDate(course.starts_at, this.props.dateFormat);
     const termEnd = TimeHelper.getMomentPreserveDate(course.ends_at, this.props.dateFormat);
     return { termStart, termEnd };
@@ -135,10 +141,11 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
 
   render() {
     const {
+      course,
       displayAs, props: { params, params: { courseId } },
       calendarParams: { date, termStart, termEnd },
     } = this;
-    const course  = Courses.get(courseId);
+
     const hasPeriods = PH.hasPeriods(course);
     const calendarProps = {
       courseId, date, displayAs, hasPeriods, params, termStart, termEnd,
@@ -154,9 +161,11 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
       <div className="list-task-plans">
         <NotificationsBar
           course={course}
-          role={Courses.get(courseId).primaryRole}
-          callbacks={NotificationHelpers.buildCallbackHandlers(this)} />
-        <CourseTitleBanner courseId={courseId} />
+          role={course.primaryRole}
+          callbacks={NotificationHelpers.buildCallbackHandlers(this)}
+        />
+        <PreviewWarningsModal ux={this.ux} />
+        <CourseTitleBanner courseId={course.id} />
         <CourseCalendar {...calendarProps} />
       </div>
     );

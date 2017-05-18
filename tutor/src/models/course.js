@@ -3,17 +3,18 @@ import {
 } from './base';
 import { computed } from 'mobx';
 import { first, sortBy, find, get } from 'lodash';
+import UiSettings from 'shared/src/model/ui-settings';
 
 import Period  from './course/period';
 import Role    from './course/role';
 import Student from './course/student';
 import CourseInformation from './course/information';
-import PreviewBehaviour from './course/preview-behaviour';
 import TimeHelper from '../helpers/time';
 import { TimeStore } from '../flux/time';
 import moment from 'moment-timezone';
 
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
+const VIEW_KEY = 'DV';
 
 @identifiedBy('course')
 export default class Course extends BaseModel {
@@ -29,7 +30,6 @@ export default class Course extends BaseModel {
   @field default_open_time;
   @field ecosystem_book_uuid;
   @field ecosystem_id;
-  @field ends_at;
   @field is_active;
   @field is_college;
   @field is_concept_coach;
@@ -38,7 +38,9 @@ export default class Course extends BaseModel {
   @field offering_id;
 
   @field salesforce_book_name;
-  @field starts_at;
+
+  @field({ type: 'date' }) starts_at;
+  @field({ type: 'date' }) ends_at;
 
   @field term;
   @field time_zone;
@@ -88,23 +90,25 @@ export default class Course extends BaseModel {
     return !!find(this.roles, 'isTeacher');
   }
 
-  @computed get previewBehaviour() {
-    return this.is_preview ? new PreviewBehaviour(this) : null;
-  }
-
   @computed get tourAudienceTags() {
     let tags = [];
     if (this.isTeacher) {
       tags.push(this.is_preview ? 'teacher-preview' : 'teacher');
     }
     if (this.isStudent) { tags.push('student'); }
-    if (this.previewBehaviour) {
-      tags = tags.concat(this.previewBehaviour.tourAudienceTags);
-    }
     return tags;
   }
 
   @computed get primaryRole() {
     return first(sortBy(this.roles, r => -1 * ROLE_PRIORITY.indexOf(r.type)));
   }
+
+  recordDashboardView() {
+    UiSettings.set(`${VIEW_KEY}.${this.id}`, this.dashboardViewCount + 1);
+  }
+
+  get dashboardViewCount() {
+    return UiSettings.get(`${VIEW_KEY}.${this.id}`) || 0;
+  }
+
 }

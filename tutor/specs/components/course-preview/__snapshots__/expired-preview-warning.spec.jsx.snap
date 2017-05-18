@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Expired Preview Warning renders and matches snapshot 1`] = `
+<div
+  className="preview-course-nag-warning only-preview"
+>
+  <div
+    className="heading"
+  >
+    This preview course has expired.
+  </div>
+  <div
+    className="body"
+  >
+    Want to create a real course that students can access? Click “Create a course” on the top right of your dashboard.
+  </div>
+  <div
+    className="footer"
+  >
+    <button
+      className="btn btn-primary"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Create a course
+    </button>
+    <button
+      className="btn btn-default"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Stay in Preview course
+    </button>
+  </div>
+</div>
+`;

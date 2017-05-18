@@ -1,23 +1,43 @@
 import React from 'react';
-
-import { NavItem, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
+import { computed, action } from 'mobx';
+import { get } from 'lodash';
 
+import Router from '../../helpers/router';
 import Courses from '../../models/courses-map.js';
+import createUXForCourse from '../../models/course/ux';
 
 @observer
 export default class PreviewAddCourseBtn extends React.PureComponent {
+  static contextTypes = {
+    router: React.PropTypes.object,
+  }
 
   static propTypes = {
     courseId: React.PropTypes.string,
   }
 
+  @computed get course() {
+    return this.props.courseId ? Courses.get(this.props.courseId) : null;
+  }
+
+  @computed get ux() {
+    return this.course ? createUXForCourse(this.course) : null;
+  }
+
+  @action.bound
+  onAddCourse() {
+    this.context.router.transitionTo(
+      Router.makePathname('createNewCourse')
+    );
+  }
+
   render() {
-    const course = Courses.get(this.props.courseId);
-    if (!course || !course.is_preview) { return null; }
+    if (!get(this, 'ux.showCreateCourseAction')) { return null; }
 
     return (
-      <Button bsStyle="primary">Create a course</Button>
+      <Button bsStyle="primary" onClick={this.onAddCourse}>Create a course</Button>
     );
   }
 }

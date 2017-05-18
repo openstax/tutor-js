@@ -18,10 +18,12 @@ export default class TeacherTaskPlan extends BaseModel {
   @field({ type: 'date' }) last_published_at;
 
   @field is_draft;
+  @field is_preview;
   @field is_published;
   @field is_publishing;
   @field is_trouble;
   @field cloned_from_id;
+  @field is_deleting;
 
   @field({ type: 'object' }) settings;
   @hasMany({ model: TaskingPlan }) tasking_plans;

@@ -1,11 +1,8 @@
-//import { React, Testing, sinon, _ } from '../helpers/component-testing';
 import { map } from 'lodash';
 import { shallow } from 'enzyme';
 
 import UserActionsMenu from '../../../src/components/navbar/user-actions-menu';
-import { CourseActions, CourseStore } from '../../../src/flux/course';
-import { testParams, setupStores, resetStores, userModel, courseModel } from './spec-test-params';
-import User from '../../../src/models/user';
+import { setupStores, resetStores, courseModel } from './spec-test-params';
 import FakeWindow from 'shared/specs/helpers/fake-window';
 
 const testWithRole = roleType =>
