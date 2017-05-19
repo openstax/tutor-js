@@ -170,13 +170,15 @@ ReadingContentMixin =
 
   updateCanonicalLink: ->
     cnxId = @props.cnxId or @getCnxId?()
+    # leave versioning out of canonical link
+    canonicalCNXId = _.first(cnxId.split('@'))
     {courseId} = Router.currentParams()
     {webview_url} = CourseStore.get(courseId)
     baseWebviewUrl = _.first(webview_url.split('/contents/'))
 
     # webview actually links to webview_url as it's canonical url.
     # will need to ask them why.
-    @linkNode.href = "#{baseWebviewUrl}/contents/#{cnxId}"
+    @linkNode.href = "#{baseWebviewUrl}/contents/#{canonicalCNXId}"
 
   removeCanonicalLink: ->
     # document.head.
