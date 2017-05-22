@@ -2,7 +2,7 @@ module.exports =
   entry:
     tutor: [
       "babel-polyfill",
-      "index.coffee",
+      "index.js",
       "resources/styles/tutor.less"
     ]
     qa: [
