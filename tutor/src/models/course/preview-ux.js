@@ -10,10 +10,13 @@ import TeacherTaskPlans from '../teacher-task-plans';
 
 import Nags from '../../components/course-preview/nags';
 
+const IS_DISMISSED = observable.box(false);
 
 export default class CoursePreviewUX extends BasicCourseUX {
 
-  @observable isDismissed = false;
+  set isDismissed(value) {
+    IS_DISMISSED.set(value);
+  }
 
   @computed get shouldWarnPreviewOnly() {
     const plans = TeacherTaskPlans.forCourseId(this.course.id).active;
@@ -21,9 +24,8 @@ export default class CoursePreviewUX extends BasicCourseUX {
     return (realPlanCount > 0 && realPlanCount % 2 === 0);
   }
 
-
   @computed get nagComponent() {
-    if (this.isDismissed || this.hasCreatedRealCourse) { return null; }
+    if (IS_DISMISSED.get() || this.hasCreatedRealCourse) { return null; }
 
     if (this.course.hasEnded)       { return Nags.expiredPreviewWarning; }
     if (this.shouldWarnPreviewOnly) { return Nags.previewOnlyWarning;    }
