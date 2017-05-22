@@ -21,7 +21,7 @@ export class PreviewWarning extends React.PureComponent {
   @action.bound
   onAddCourse() {
     this.context.router.transitionTo(
-      Router.makePathname('createNewCourse')
+      Router.makePathname('myCourses')
     );
   }
 
