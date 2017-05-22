@@ -5,7 +5,7 @@ import {
 import BasicCourseUX from './basic-ux';
 import Courses from '../courses-map';
 import { filter, find } from 'lodash';
-
+import User from '../user';
 import TeacherTaskPlans from '../teacher-task-plans';
 
 import Nags from '../../components/course-preview/nags';
@@ -25,9 +25,9 @@ export default class CoursePreviewUX extends BasicCourseUX {
   @computed get nagComponent() {
     if (this.isDismissed || this.hasCreatedRealCourse) { return null; }
 
-    if (this.course.hasEnded)                { return Nags.expiredPreviewWarning; }
-    if (this.shouldWarnPreviewOnly)          { return Nags.previewOnlyWarning;    }
-    if (this.course.dashboardViewCount == 2) { return Nags.secondSessionWarning;  }
+    if (this.course.hasEnded)       { return Nags.expiredPreviewWarning; }
+    if (this.shouldWarnPreviewOnly) { return Nags.previewOnlyWarning;    }
+    if (User.sessionCount > 2)      { return Nags.secondSessionWarning;  }
     return null;
   }
 
