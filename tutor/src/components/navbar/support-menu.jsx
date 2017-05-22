@@ -18,7 +18,7 @@ export default class SupportMenu extends React.PureComponent {
 
   @action.bound
   onPlayTourClick() {
-    this.props.tourContext.playTours();
+    this.props.tourContext.playTriggeredTours();
   }
 
   renderPageTipsOption() {
