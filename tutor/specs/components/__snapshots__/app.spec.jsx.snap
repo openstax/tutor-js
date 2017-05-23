@@ -1,0 +1,178 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`main Tutor App renders and matches snapshot 1`] = `
+<div
+  className="tutor-app openstax-wrapper"
+>
+  <span />
+  <div
+    className="openstax-debug-content"
+  >
+    <div
+      data-purpose="tour-conductor-wrapper"
+    >
+      <nav
+        className="tutor-top-navbar"
+      >
+        <div
+          className="left-side-controls"
+        >
+          <a
+            className="brand"
+            href="/"
+            onClick={[Function]}
+            style={Object {}}
+          >
+            <i
+              className="ui-brand-logo"
+            />
+          </a>
+        </div>
+        <div
+          className="right-side-controls"
+        >
+          <div
+            className="tour-anchor tours-replay"
+            data-tour-anchor-id="tours-navbar-icon"
+            id="tours-navbar-icon"
+            onClick={[Function]}
+            role="button"
+          >
+            <svg
+              height="24"
+              version="1.1"
+              viewBox="0 0 12 14"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6.795,6.795l2.58,-1.17l-2.58,-1.17l-1.17,-2.58l-1.17,2.58l-2.58,1.17l2.58,1.17l1.17,2.58l1.17,-2.58Zm3.195,-6.795c0.34,0 0.635,0.12 0.885,0.36c0.25,0.24 0.375,0.53 0.375,0.87l0,8.76c0,0.34 -0.125,0.635 -0.375,0.885c-0.25,0.25 -0.545,0.375 -0.885,0.375l-2.49,0l-1.875,1.875l-1.875,-1.875l-2.49,0c-0.34,0 -0.635,-0.125 -0.885,-0.375c-0.25,-0.25 -0.375,-0.545 -0.375,-0.885l0,-8.76c0,-0.34 0.125,-0.63 0.375,-0.87c0.25,-0.24 0.545,-0.36 0.885,-0.36l8.73,0Z"
+              />
+            </svg>
+          </div>
+          <div
+            className="user-actions-menu dropdown btn-group"
+          >
+            <a
+              aria-expanded={false}
+              aria-haspopup={true}
+              className="dropdown-toggle"
+              href="#"
+              id="user-actions-menu"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              role="button"
+            >
+               
+              <span
+                className="caret"
+              />
+            </a>
+            <ul
+              aria-labelledby="user-actions-menu"
+              className="dropdown-menu dropdown-menu-right"
+              role="menu"
+            >
+              <li
+                className="createNewCourse visible-when-debugging unstyled"
+                role="presentation"
+                style={undefined}
+              >
+                <a
+                  data-name="createNewCourse"
+                  href="/new-course"
+                  onClick={[Function]}
+                  onKeyDown={[Function]}
+                  role="menuitem"
+                  tabIndex="-1"
+                >
+                  <div
+                    className="tour-anchor"
+                    data-tour-anchor-id="menu-option-createNewCourse"
+                    id="menu-option-createNewCourse"
+                  >
+                    Create or Copy a Course
+                  </div>
+                </a>
+              </li>
+              <li
+                className="divider"
+                onKeyDown={[Function]}
+                role="separator"
+                style={undefined}
+              />
+              <li
+                className="-help-link"
+                role="presentation"
+                style={undefined}
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                  onKeyDown={[Function]}
+                  role="menuitem"
+                  tabIndex="-1"
+                  target="_blank"
+                >
+                  <span>
+                    Get Help
+                  </span>
+                </a>
+              </li>
+              <li
+                className="logout"
+              >
+                <a
+                  href="#"
+                  onClick={[Function]}
+                >
+                  <form
+                    acceptCharset="UTF-8"
+                    action="/accounts/logout"
+                    className="-logout-form"
+                    method="post"
+                  >
+                    <input
+                      name="_method"
+                      type="hidden"
+                      value="delete"
+                    />
+                    <input
+                      name="authenticity_token"
+                      type="hidden"
+                      value={undefined}
+                    />
+                    <input
+                      aria-label="Log out"
+                      type="submit"
+                      value="Log out"
+                    />
+                  </form>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <span />
+      <div
+        className="visible-when-debugging"
+      >
+        <div
+          className="tour-spy-info"
+        >
+          available regions: []; region tour ids: []; audience tags: []; tour tags: []; valid tours: []; TOUR RIDE: &lt;none&gt;
+        </div>
+      </div>
+    </div>
+    <a
+      className="debug-toggle-link"
+      href="#spy"
+      onClick={[Function]}
+      tabIndex={-1}
+    >
+      π
+    </a>
+  </div>
+</div>
+`;

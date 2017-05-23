@@ -60,7 +60,7 @@ export default class CoursePreviewUX extends BasicCourseUX {
     return !this.hasCreatedRealCourse;
   }
 
-  onTaskPlanPublish() {
-    HAS_PUBLISHED.set(true);
+  _setTaskPlanPublish(v = true) {
+    HAS_PUBLISHED.set(v);
   }
 }

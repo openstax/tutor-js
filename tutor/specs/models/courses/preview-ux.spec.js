@@ -8,6 +8,7 @@ let mockActiveCoursePlans = observable.array();
 jest.mock('../../../src/models/courses-map', () => ({
   get array(){ return mockCourses; },
 }));
+import { TimeStore } from '../../../src/flux/time';
 
 jest.mock('../../../src/models/teacher-task-plans', () => ({
   forCourseId() {
@@ -22,10 +23,11 @@ describe('Course Preview UX', () => {
 
   beforeEach(() => {
     ux = new CoursePreviewUX(new Course(TEACHER_COURSE_TWO_MODEL));
+    ux._setTaskPlanPublish(false);
   });
 
   it('#shouldWarnPreviewOnly', () => {
-    ux.onTaskPlanPublish();
+    ux._setTaskPlanPublish();
     expect(ux.shouldWarnPreviewOnly).toBe(false);
     mockActiveCoursePlans.replace([
       { is_preview: true, type: 'homework' },
@@ -44,6 +46,15 @@ describe('Course Preview UX', () => {
     expect(ux.hasCreatedRealCourse).toBe(false);
     mockCourses.push({ is_preview: false });
     expect(ux.hasCreatedRealCourse).toBe(true);
+  });
+
+  it('#nagComponent', () => {
+    mockCourses.clear();
+    expect(ux.nagComponent).toBeNull();
+    ux.course.ends_at = TimeStore.getNow() - 100;
+    expect(ux.course.hasEnded).toBe(true);
+    mockActiveCoursePlans.clear();
+    expect(ux.nagComponent).not.toBeNull();
   });
 
 });
