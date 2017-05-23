@@ -4,7 +4,7 @@ import {
 
 import BasicCourseUX from './basic-ux';
 import Courses from '../courses-map';
-import { filter, find } from 'lodash';
+import { filter, find, includes } from 'lodash';
 import User from '../user';
 import TeacherTaskPlans from '../teacher-task-plans';
 import { TaskPlanStore } from '../../flux/task-plan';
@@ -14,6 +14,8 @@ import Nags from '../../components/course-preview/nags';
 const IS_DISMISSED = observable.box(false);
 const HAS_PUBLISHED = observable.box(false);
 TaskPlanStore.on('publish-queued', () => HAS_PUBLISHED.set(true));
+
+const NAG_PLAN_TYPES = [ 'homework', 'reading' ];
 
 export default class CoursePreviewUX extends BasicCourseUX {
 
@@ -33,8 +35,9 @@ export default class CoursePreviewUX extends BasicCourseUX {
        ) { return false; }
 
     const plans = TeacherTaskPlans.forCourseId(this.course.id).active;
-    const realPlanCount = filter(plans, { is_preview: false }).length;
-
+    const realPlanCount = filter(
+      plans, (plan) => !plan.is_preview && includes(NAG_PLAN_TYPES, plan.type)
+    ).length;
     return (realPlanCount > 0 && realPlanCount % 2 === 0);
   }
 

@@ -25,13 +25,17 @@ describe('Course Preview UX', () => {
   });
 
   it('#shouldWarnPreviewOnly', () => {
+    ux.onTaskPlanPublish();
     expect(ux.shouldWarnPreviewOnly).toBe(false);
     mockActiveCoursePlans.replace([
-      { is_preview: true }, { is_preview: false }, { is_preview: true },
+      { is_preview: true, type: 'homework' },
+      { is_preview: false, type: 'homework' },
+      { is_preview: true, type: 'reading' },
     ]);
     expect(ux.shouldWarnPreviewOnly).toBe(false);
-    mockActiveCoursePlans.push({ is_preview: false });
-    ux.onTaskPlanPublish();
+    mockActiveCoursePlans.push({ is_preview: false, type: 'external' });
+    expect(ux.shouldWarnPreviewOnly).toBe(false);
+    mockActiveCoursePlans.push({ is_preview: false, type: 'reading' });
     expect(ux.shouldWarnPreviewOnly).toBe(true);
   });
 
