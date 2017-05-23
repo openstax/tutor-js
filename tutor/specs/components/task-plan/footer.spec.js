@@ -68,6 +68,7 @@ describe('Task Plan Footer', function() {
   it('should have correct buttons when reading is new', () =>
     helper(NEW_READING).then(function({ dom }) {
       expect(dom.querySelector('.delete-link')).to.be.null;
+      expect(dom.querySelector('.preview-btn')).to.not.be.null;
       expect(dom.querySelector('.-save')).to.not.be.null;
       expect(dom.querySelector('.-publish')).to.not.be.null;
       expect(dom.querySelector('.-publish').textContent).to.equal('Publish');

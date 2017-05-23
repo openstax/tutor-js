@@ -10,6 +10,7 @@ import CancelButton from './cancel-button';
 import BackButton from './back-button';
 import DraftButton from './save-as-draft';
 import DeleteLink from './delete-link';
+import PreviewButton from './preview-button';
 
 import TourAnchor from '../../tours/anchor';
 
@@ -130,6 +131,11 @@ export default class PlanFooter extends React.PureComponent {
             isWaiting={TaskPlanStore.isDeleting(id)}
             isPublished={isPublished} />
         </TourAnchor>
+        <PreviewButton
+          isWaiting={isWaiting}
+          isNew={TaskPlanStore.isNew(id)}
+          courseId={this.props.courseId}
+        />
       </div>
     );
   }
