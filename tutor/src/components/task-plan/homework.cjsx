@@ -6,11 +6,11 @@ classnames = require 'classnames'
 
 Icon            = require '../icon'
 PlanMixin       = require './plan-mixin'
-PlanFooter      = require './footer'
 TaskPlanBuilder = require './builder'
 ChooseExercises = require './homework/choose-exercises'
 ReviewExercises = require './homework/review-exercises'
 FeedbackSetting = require './feedback'
+{default: PlanFooter} = require './footer'
 
 {TutorInput, TutorDateInput, TutorTextArea} = require '../tutor-input'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'

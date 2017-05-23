@@ -9,7 +9,7 @@ classnames = require 'classnames'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 {TaskingStore} = require '../../../flux/tasking'
 
-PlanFooter = require '../footer'
+{default: PlanFooter} = require '../footer'
 PlanMixin = require '../plan-mixin'
 TaskPlanBuilder = require '../builder'
 
