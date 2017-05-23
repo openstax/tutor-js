@@ -2,9 +2,12 @@ import { autorun } from 'mobx';
 
 import User from '../../src/models/user';
 import Courses from '../../src/models/courses-map';
+import UiSettings from 'shared/src/model/ui-settings';
 
 import USER_DATA from '../../api/user.json';
 import { bootstrapCoursesList } from '../courses-test-data';
+
+jest.mock('shared/src/model/ui-settings')
 
 describe('User Model', () => {
   afterEach(() => {
@@ -29,6 +32,12 @@ describe('User Model', () => {
     expect(User.verifiedRoleForCourse(Courses.get(2))).toEqual('student');
     User.faculty_status = 'confirmed_faculty';
     expect(User.verifiedRoleForCourse(Courses.get(2))).toEqual('teacher');
+  });
+
+  it('#recordSessionStart', () => {
+    User.recordSessionStart();
+    expect(UiSettings.set).toHaveBeenCalled();
+    expect(UiSettings.set).toHaveBeenCalledWith('sessionCount', 1);
   });
 
 });

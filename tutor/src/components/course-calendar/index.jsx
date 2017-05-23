@@ -55,13 +55,6 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
     dateFormat: TimeHelper.ISO_DATE_FORMAT,
   }
 
-  @action.bound addPlanToListing(plan) {
-    debugger
-    TaskPlans
-      .forCourseId(this.props.params.courseId)
-      .addPublishingPlan(plan);
-  }
-
   @computed get course() {
     return Courses.get(this.props.params.courseId);
   }
@@ -100,7 +93,6 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
     TimeHelper.syncCourseTimezone(courseTimezone);
     this.loader.fetch(this.fetchParams);
     TaskPlans.forCourseId(this.course.id).clearPendingClones();
-    TaskPlanStore.on('saved.*', this.addPlanToListing);
   }
 
   componentDidMount() {
@@ -115,7 +107,6 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
 
   componentWillUnmount() {
     TimeHelper.unsyncCourseTimezone();
-    TaskPlanStore.off('saved.*', this.addPlanToListing);
   }
 
   getBoundsForCourse() {
