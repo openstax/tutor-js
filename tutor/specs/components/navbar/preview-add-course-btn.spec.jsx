@@ -3,6 +3,9 @@ import { Wrapper, SnapShot } from '../helpers/component-testing';
 
 jest.mock('../../../src/models/courses-map', () => ({
   get: jest.fn(() => ({ is_preview: true }) ),
+  tutor: { currentAndFuture: { nonPreview: {
+    get isEmpty() { return true; },
+  } } },
 }));
 
 describe('Preview Add Course Button', () => {

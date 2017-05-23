@@ -53,7 +53,7 @@ export default class CoursePreviewUX extends BasicCourseUX {
   }
 
   @computed get hasCreatedRealCourse() {
-    return !!find(Courses.array, { is_preview: false });
+    return !Courses.tutor.currentAndFuture.nonPreview.isEmpty;
   }
 
   @computed get showCreateCourseAction() {

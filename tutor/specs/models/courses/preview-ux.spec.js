@@ -4,9 +4,12 @@ import Course from '../../../src/models/course';
 import CoursePreviewUX from '../../../src/models/course/preview-ux';
 
 let mockCourses = observable.array();
+Object.defineProperty(mockCourses, 'isEmpty', {
+  get: function() { return this.length === 0; },
+});
 let mockActiveCoursePlans = observable.array();
 jest.mock('../../../src/models/courses-map', () => ({
-  get array(){ return mockCourses; },
+  tutor: { currentAndFuture: { get nonPreview() { return mockCourses; } } },
 }));
 import { TimeStore } from '../../../src/flux/time';
 
@@ -42,8 +45,6 @@ describe('Course Preview UX', () => {
   });
 
   it('#hasCreatedRealCourse', () => {
-    mockCourses.push({ is_preview: true });
-    expect(ux.hasCreatedRealCourse).toBe(false);
     mockCourses.push({ is_preview: false });
     expect(ux.hasCreatedRealCourse).toBe(true);
   });
