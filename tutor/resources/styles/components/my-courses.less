@@ -32,21 +32,15 @@
 .my-courses {
 
   .my-courses-current,
+  .my-courses-preview,
   .my-courses-past {
-    padding-top: @my-courses-buffer;
     padding-bottom: @my-courses-buffer;
-  }
-
-  .my-courses-current {
     background: rgba(0, 0, 0, 0.02);
     border-bottom: 1px solid rgb(200, 200, 200);;
-
-    .my-courses-title,
-    .my-courses-none {
-      color: @tutor-tertiary;
-    }
   }
-
+  .my-courses-title,{
+    color: @tutor-tertiary;
+  }
   .course-teacher {
     &.is-dragging {
       .element-is-dragging()
@@ -182,20 +176,22 @@
         .preview-belt {
           position: absolute;
           width: 100%;
-          bottom: 30px;
-          height: 110px;
+          bottom: 60px;
+          height: 90px;
           padding: 0 0.75em;
-          color: @tutor-neutral-lightest;
-          background-color: @tutor-neutral-lite;
+          background-color: @tutor-neutral-lightest;
+          background: linear-gradient(140deg, @tutor-neutral-lightest, @tutor-neutral-lighter);
+          box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.2);
           display: flex;
           flex-direction: column;
           justify-content: center;
+          h4 { color: @openstax-gold };
           > * { margin: 0; }
           p {
             margin-top: 0.5rem;
             #fonts > .sans(1.4rem);
             font-weight: 400;
-            font-style: italic;
+            color: @tutor-neutral-darker;
           }
         }
       }
