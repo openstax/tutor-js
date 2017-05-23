@@ -1,4 +1,5 @@
-import { ObservableMap, computed } from 'mobx';
+import { ObservableMap, computed, observable } from 'mobx';
+import { nonenumerable } from 'core-decorators';
 
 export default class Map extends ObservableMap {
 
@@ -16,6 +17,13 @@ export default class Map extends ObservableMap {
 
   @computed get isEmpty() {
     return this.size === 0;
+  }
+
+  @nonenumerable
+  apiRequestsInProgress = observable.map();
+
+  @computed get hasApiRequestPending() {
+    return !!this.apiRequestsInProgress.size;
   }
 
 }
