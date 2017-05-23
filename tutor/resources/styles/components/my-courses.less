@@ -53,6 +53,7 @@
     a {
       color: @tutor-neutral;
       height: 100%;
+      font-weight: bold;
       .flex-display();
       .align-items(center);
       .transition(~'@{course-transition} color');
@@ -66,6 +67,9 @@
         &::after {
           opacity: 0;
         }
+      }
+      svg {
+        margin-bottom: 0.5rem;
       }
     }
 
@@ -185,7 +189,10 @@
           display: flex;
           flex-direction: column;
           justify-content: center;
-          h4 { color: @openstax-gold };
+          h4 {
+            color: @openstax-gold;
+            text-transform: uppercase;
+          }
           > * { margin: 0; }
           p {
             margin-top: 0.5rem;
@@ -246,7 +253,7 @@
 
     .my-courses-item-title {
       line-height: 1.25em;
-
+      font-weight: bold;
       a {
         height: 18.1rem;
         #fonts > .book-cover();
