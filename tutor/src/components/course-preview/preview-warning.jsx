@@ -28,7 +28,7 @@ export class PreviewWarning extends React.PureComponent {
   @action.bound
   onContinue() {
     if (this.noProblemo) {
-      this.props.ux.isDismissed = true;
+      this.props.ux.dismissNag();
     } else {
       this.noProblemo = true;
     }

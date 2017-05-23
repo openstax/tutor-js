@@ -31,6 +31,7 @@ describe('Course Preview UX', () => {
     ]);
     expect(ux.shouldWarnPreviewOnly).toBe(false);
     mockActiveCoursePlans.push({ is_preview: false });
+    ux.onTaskPlanPublish();
     expect(ux.shouldWarnPreviewOnly).toBe(true);
   });
 

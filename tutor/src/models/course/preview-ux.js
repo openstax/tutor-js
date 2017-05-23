@@ -13,7 +13,7 @@ import Nags from '../../components/course-preview/nags';
 
 const IS_DISMISSED = observable.box(false);
 const HAS_PUBLISHED = observable.box(false);
-TaskPlanStore.on('publish-queued', () => HAS_PUBLISHED.set(true))
+TaskPlanStore.on('publish-queued', () => HAS_PUBLISHED.set(true));
 
 export default class CoursePreviewUX extends BasicCourseUX {
 
@@ -22,8 +22,8 @@ export default class CoursePreviewUX extends BasicCourseUX {
     IS_DISMISSED.set(true);
   }
 
-  set isDismissed(value) {
-    IS_DISMISSED.set(value);
+  dismissNag() {
+    IS_DISMISSED.set(true);
   }
 
   @computed get shouldWarnPreviewOnly() {
