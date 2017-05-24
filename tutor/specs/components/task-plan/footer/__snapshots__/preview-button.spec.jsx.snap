@@ -4,6 +4,7 @@ exports[`Task Plan Builder: Preview button matches snapshot 1`] = `
 <button
   className="preview-btn pull-right btn btn-default"
   disabled={false}
+  onClick={[Function]}
   type="button"
 >
   <i

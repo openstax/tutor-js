@@ -1,10 +1,13 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import Icon from '../../icon';
 import { includes } from 'lodash';
+import { observer } from 'mobx-react';
+import { observable, action } from 'mobx';
+
+import BuilderPopup from "../../student-preview/builder-popup";
 
 const VALID_PLAN_TYPES = ['reading', 'homework'];
 
+@observer
 export default class PreviewButton extends React.PureComponent {
 
   static propTypes = {
@@ -21,10 +24,7 @@ export default class PreviewButton extends React.PureComponent {
     ) { return null; }
 
     return (
-      <Button className="preview-btn pull-right">
-        <Icon type="video-camera" />
-        What do students see?
-      </Button>
+      <BuilderPopup courseId={this.props.courseId} />
     );
   }
 }
