@@ -59,6 +59,7 @@ const helper = model => PlanRenderHelper(model, PlanFooter,
     goBackToCalendar: sinon.spy(),
     isValid: true,
     hasError: false,
+    onSave: sinon.spy(),
   }
 ) ;
 

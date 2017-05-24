@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { action } from 'mobx';
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
 import { PlanPublishStore } from '../../../flux/plan-publish';
 import PlanHelper from '../../../helpers/plan';
@@ -20,6 +20,8 @@ export default class PlanFooter extends React.PureComponent {
     id:               React.PropTypes.string.isRequired,
     courseId:         React.PropTypes.string.isRequired,
     hasError:         React.PropTypes.bool.isRequired,
+    onSave:           React.PropTypes.func.isRequired,
+    onPublish:        React.PropTypes.func.isRequired,
     goBackToCalendar: React.PropTypes.func.isRequired,
     isVisibleToStudents: React.PropTypes.bool,
     getBackToCalendarParams: React.PropTypes.func,
@@ -58,22 +60,20 @@ export default class PlanFooter extends React.PureComponent {
     }
   }
 
-  saved() {
-    TaskPlanStore.removeChangeListener(this.saved);
-    this.props.goBackToCalendar();
-  }
-
+  @action.bound
   onDelete() {
     const { id } = this.props;
     TaskPlanActions.delete(id);
     this.props.goBackToCalendar();
   }
 
+  @action.bound
   onSave() {
     const saving = this.props.onSave();
     this.setState({ saving, publishing: false });
   }
 
+  @action.bound
   onPublish() {
     const publishing = this.props.onPublish();
     this.setState({ publishing, saving: false, isEditable: TaskPlanStore.isEditable(this.props.id) });
@@ -81,13 +81,11 @@ export default class PlanFooter extends React.PureComponent {
 
   render() {
     const { id, hasError } = this.props;
-    const plan = TaskPlanStore.get(id);
     const isWaiting   = TaskPlanStore.isSaving(id) || TaskPlanStore.isPublishing(id) || TaskPlanStore.isDeleteRequested(id);
     const isFailed    = TaskPlanStore.isFailed(id);
     const isPublished = TaskPlanStore.isPublished(id);
 
     return (
-
       <div className="builder-footer-controls">
         <TourAnchor id="builder-save-button">
           <SaveButton
