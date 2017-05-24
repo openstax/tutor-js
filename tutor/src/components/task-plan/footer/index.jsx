@@ -130,6 +130,7 @@ export default class PlanFooter extends React.PureComponent {
             isPublished={isPublished} />
         </TourAnchor>
         <PreviewButton
+          planType={TaskPlanStore.get(id).type}
           isWaiting={isWaiting}
           isNew={TaskPlanStore.isNew(id)}
           courseId={this.props.courseId}
