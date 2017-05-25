@@ -2,7 +2,7 @@ defer = require 'lodash/defer'
 merge = require 'lodash/merge'
 isFunction = require 'lodash/isFunction'
 cloneDeep = require 'lodash/cloneDeep'
-
+{ JSDOM } = require 'jsdom'
 
 EmptyFn = ->
   return undefined
@@ -33,8 +33,10 @@ class FakeWindow
       setItem: sinon.stub()
     @history =
       pushState: sinon.spy()
-    windowRef = cloneDeep(@)
-    @open = sinon.spy( => windowRef )
+    @open = sinon.spy( =>
+      @openedDOM = new JSDOM('<!DOCTYPE html><body></body>')
+      return @openedDOM.window
+    )
     @screen =
       height: 1024
       width:  768

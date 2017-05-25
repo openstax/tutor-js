@@ -87,6 +87,11 @@ getAssignmentLinks = ->
 getCreateEnrollmentChange = ->
   require './components/enroll'
 
+
+getStudentPreview = ->
+  {default: StudentPreview} = require './components/student-preview'
+  StudentPreview
+
 ROUTES = [
   { pattern: '/dashboard',              name: 'myCourses',                renderer: getMyCourses }
   { pattern: '/enroll/:enrollmentCode', name: 'createEnrollmentChange',   renderer: getCreateEnrollmentChange }
@@ -147,6 +152,9 @@ ROUTES = [
       { pattern: 'change-student-id',   name: 'changeStudentId',          renderer: getChangeStudentId     }
     ]
 
+  }
+  {
+    pattern: '/student-preview',        name: 'studentPreview',           renderer: getStudentPreview
   }
   {
     pattern: '/books/:courseId',        name: 'viewReferenceBook',        renderer: getReferenceBookShell

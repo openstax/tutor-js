@@ -8,7 +8,11 @@
     align-self: stretch;
     display: flex;
     align-items: center;
-    padding: 0 2rem;
+    padding: 0 0.5rem;
+    @media screen and ( min-width: @screen-md-min ){
+      padding: 0 2rem;
+    }
+    .top-nav-action();
   }
   .dropdown-menu {
     margin-top: -1px;
@@ -22,6 +26,5 @@
       text-align: left;
       &:hover { text-decoration: initial; }
     }
-
   }
 }

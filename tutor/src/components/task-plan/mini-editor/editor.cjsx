@@ -22,8 +22,8 @@ TimeHelper = require '../../../helpers/time'
 
 taskPlanEditingInitialize = require '../initialize-editing'
 
-PublishButton = require '../footer/save-button'
-DraftButton   = require '../footer/save-as-draft'
+{default:PublishButton} = require '../footer/save-button'
+{default:DraftButton}   = require '../footer/save-as-draft'
 
 PlanMixin       = require '../plan-mixin'
 ServerErrorHandlers = require '../../error-monitoring/handlers'
