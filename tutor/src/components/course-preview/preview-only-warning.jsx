@@ -10,7 +10,7 @@ export default class PreviewOnlyWarning extends PreviewWarning {
 
   @action.bound
   onContinue() {
-    this.props.ux.isDismissed = true;
+    this.props.ux.hasViewedPublishWarning();
   }
 
   render() {

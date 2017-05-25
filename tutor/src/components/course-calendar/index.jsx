@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { extend, pick } from 'lodash';
-import { observable, computed } from 'mobx';
+import { observable, computed, action } from 'mobx';
 import { observer } from 'mobx-react';
 
 import { NotificationsBar } from 'shared';
@@ -38,11 +38,6 @@ const getDisplayBounds = {
   },
 };
 
-function addPlanToListing(plan) {
-  TaskPlans
-    .forCourseId(this.props.params.courseId)
-    .addPublishingPlan(plan);
-}
 
 @observer
 export default class TeacherTaskPlanListing extends React.PureComponent {
@@ -98,9 +93,6 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
     TimeHelper.syncCourseTimezone(courseTimezone);
     this.loader.fetch(this.fetchParams);
     TaskPlans.forCourseId(this.course.id).clearPendingClones();
-    return (
-      TaskPlanStore.on('saved.*', addPlanToListing)
-    );
   }
 
   componentDidMount() {
@@ -115,9 +107,6 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
 
   componentWillUnmount() {
     TimeHelper.unsyncCourseTimezone();
-    return (
-      TaskPlanStore.off('saved.*', addPlanToListing)
-    );
   }
 
   getBoundsForCourse() {

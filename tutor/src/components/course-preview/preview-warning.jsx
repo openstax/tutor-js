@@ -21,14 +21,14 @@ export class PreviewWarning extends React.PureComponent {
   @action.bound
   onAddCourse() {
     this.context.router.transitionTo(
-      Router.makePathname('createNewCourse')
+      Router.makePathname('myCourses')
     );
   }
 
   @action.bound
   onContinue() {
     if (this.noProblemo) {
-      this.props.ux.isDismissed = true;
+      this.props.ux.dismissNag();
     } else {
       this.noProblemo = true;
     }

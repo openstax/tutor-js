@@ -29,7 +29,7 @@ export default class PreviewAddCourseBtn extends React.PureComponent {
   @action.bound
   onAddCourse() {
     this.context.router.transitionTo(
-      Router.makePathname('createNewCourse')
+      Router.makePathname('myCourses')
     );
   }
 

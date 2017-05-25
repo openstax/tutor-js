@@ -6,8 +6,12 @@ import EnzymeContext from '../helpers/enzyme-context';
 describe('Preview Only Warning', () => {
 
   let ux;
+
   beforeEach(() => {
     ux = new CoursePreviewUX({});
+    Object.assign(ux, {
+      hasViewedPublishWarning: jest.fn(),
+    });
   });
 
   it('renders and matches snapshot', () => {
@@ -18,16 +22,15 @@ describe('Preview Only Warning', () => {
 
   it('dismisses on continue', () => {
     const warning = shallow(<PreviewOnlyWarning ux={ux} />);
-    expect(ux.isDismissed).toBe(false);
     warning.find('Button[bsStyle="default"]').simulate('click');
-    expect(ux.isDismissed).toBe(true);
+    expect(ux.hasViewedPublishWarning).toHaveBeenCalled();
   });
 
   it('navigates on add', () => {
     const context =  EnzymeContext.build();
     const warning = shallow(<PreviewOnlyWarning ux={ux} />, context);
     warning.find('Button[bsStyle="primary"]').simulate('click');
-    expect(context.context.router.transitionTo).to.have.been.calledWith('/new-course');
+    expect(context.context.router.transitionTo).to.have.been.calledWith('/dashboard');
   });
 
 });

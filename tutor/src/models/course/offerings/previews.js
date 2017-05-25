@@ -36,17 +36,14 @@ export class PreviewCourseOffering extends Course {
     if (this.isBuilding) { return Promise.resolve(this); }
     this.isBuilding = true;
 
-    return new Promise((res) => {
-      console.warn("BUILDING COURSE");
-
+    return new Promise((resolve) => {
       const create = new CourseCreate({
         name: `${this.name} Preview`,
         is_preview: true,
         offering_id: this.offering_id,
         term: this.offering.currentTerm,
       });
-      create.save()
-      // TODO build, then resolve promise
+      create.save().then(resolve);
     });
 
   }

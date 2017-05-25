@@ -30,4 +30,6 @@ export default class BasicCourseUX {
     return '$10';
   }
 
+  onTaskPlanPublish(plan) { }
+
 }

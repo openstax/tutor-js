@@ -3,6 +3,7 @@ import {
 } from './base';
 
 import { action, computed, observable } from 'mobx';
+import UiSettings from 'shared/src/model/ui-settings';
 
 @identifiedBy('user')
 export class User extends BaseModel {
@@ -54,6 +55,14 @@ export class User extends BaseModel {
 
   @computed get isUnverifiedInstructor() {
     return !this.isConfirmedFaculty && this.self_reported_role === 'instructor';
+  }
+
+  recordSessionStart() {
+    UiSettings.set('sessionCount', this.sessionCount + 1);
+  }
+
+  get sessionCount() {
+    return UiSettings.get('sessionCount') || 0;
   }
 
 }

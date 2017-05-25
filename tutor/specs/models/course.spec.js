@@ -46,8 +46,4 @@ describe('Course Model', () => {
     expect(Courses.get(3).primaryRole.type).to.equal('teacher');
   });
 
-  it('stores dashboard view count', () => {
-    Courses.get(2).recordDashboardView();
-    expect(UiSettings.set).toHaveBeenCalledWith('DV.2', 1);
-  });
 });

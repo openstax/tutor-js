@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
-import { PreviewWarning, NagWarning, Heading, Body, Footer } from './preview-warning';
+import { PreviewWarning, NagWarning, Body, Footer } from './preview-warning';
 
 @observer
 export default class SecondSessionWarning extends PreviewWarning {

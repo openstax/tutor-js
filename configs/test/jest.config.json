@@ -16,7 +16,8 @@
     "<rootDir>/../"
   ],
   "moduleNameMapper": {
-    "^shared$": "<rootDir>/../shared/index.cjsx"
+    "^shared$": "<rootDir>/../shared/index.cjsx",
+    "\\.(css|less|scss)$": "<rootDir>/../configs/test/jest.style-mock.js"
   },
   "testPathIgnorePatterns": [
     "node_modules"

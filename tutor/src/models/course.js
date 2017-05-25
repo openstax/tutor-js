@@ -3,7 +3,6 @@ import {
 } from './base';
 import { computed } from 'mobx';
 import { first, sortBy, find, get } from 'lodash';
-import UiSettings from 'shared/src/model/ui-settings';
 
 import Period  from './course/period';
 import Role    from './course/role';
@@ -14,7 +13,6 @@ import { TimeStore } from '../flux/time';
 import moment from 'moment-timezone';
 
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
-const VIEW_KEY = 'DV';
 
 @identifiedBy('course')
 export default class Course extends BaseModel {
@@ -101,14 +99,6 @@ export default class Course extends BaseModel {
 
   @computed get primaryRole() {
     return first(sortBy(this.roles, r => -1 * ROLE_PRIORITY.indexOf(r.type)));
-  }
-
-  recordDashboardView() {
-    UiSettings.set(`${VIEW_KEY}.${this.id}`, this.dashboardViewCount + 1);
-  }
-
-  get dashboardViewCount() {
-    return UiSettings.get(`${VIEW_KEY}.${this.id}`) || 0;
   }
 
 }

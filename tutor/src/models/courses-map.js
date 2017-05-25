@@ -34,6 +34,10 @@ class AllCoursesMap extends CoursesMap {
     return this.where(c => !c.hasEnded);
   }
 
+  @computed get tutor() {
+    return this.where(c => !c.is_concept_coach);
+  }
+
   @computed get nonPreview() {
     return this.where(c => !c.is_preview);
   }
