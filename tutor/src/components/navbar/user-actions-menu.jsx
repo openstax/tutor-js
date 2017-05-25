@@ -5,6 +5,7 @@ import {  partial, flatMap, get } from 'lodash';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
 import { autobind } from 'core-decorators';
+import Icon from '../icon';
 
 import TourAnchor from '../tours/anchor';
 import AccountLink from './account-link';
@@ -98,10 +99,10 @@ export default class UserActionsMenu extends React.PureComponent {
         className={classnames('user-actions-menu', { 'is-concept-coach': isConceptCoach })}
       >
         <Dropdown.Toggle
-
           useAnchor={true}
         >
-          {User.name}
+          <Icon type="user" />
+          <span>{User.name}</span>
         </Dropdown.Toggle>
         <Dropdown.Menu >
           {flatMap(UserMenu.getRoutes(this.props.courseId), this.renderMenuItem)}

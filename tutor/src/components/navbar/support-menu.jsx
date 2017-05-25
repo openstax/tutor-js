@@ -5,7 +5,7 @@ import { action } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import UserMenu from '../../models/user/menu';
-import SupportMenuIcon from './support-menu-icon';
+import Icon from '../icon';
 import TourContext from '../../models/tour/context';
 
 @inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
@@ -41,10 +41,10 @@ export default class SupportMenu extends React.PureComponent {
         className="support-menu"
       >
         <Dropdown.Toggle
-          noCaret
           useAnchor={true}
         >
-          <SupportMenuIcon />
+          <Icon type="question-circle" />
+          <span className="control-label">Help</span>
         </Dropdown.Toggle>
         <Dropdown.Menu >
           {this.renderPageTipsOption()}
