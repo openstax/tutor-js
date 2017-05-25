@@ -1,11 +1,12 @@
 import Tour from '../../src/models/tour';
-import User from '../../src/models/user';
 import { range, map } from 'lodash';
 import TourData from '../../src/tours';
-
+import User from '../../src/models/user';
 jest.mock('../../src/models/user', () => ({
   replayTour: jest.fn(),
-  viewedTour: jest.fn(),
+  viewedTour: jest.fn(function(t){
+    this.viewed_tour_ids = [t.id];
+  }),
 }));
 
 
@@ -47,26 +48,40 @@ describe('Tour Model', () => {
   });
 
   it ('replays itself and others in group', () => {
-    User.viewed_tour_ids = ['homework-assignment-editor', 'add-homework-select-exercises'];
     const tour = Tour.forIdentifier('homework-assignment-editor');
-    tour.replay();
-    expect(User.replayTour).toHaveBeenCalledWith(tour);
-    expect(User.replayTour).toHaveBeenCalledWith(Tour.forIdentifier('add-homework-select-exercises'));
+    tour.play();
+    expect(tour.isEnabled).toBeTruthy();
+    expect(Tour.forIdentifier('add-homework-select-exercises').isEnabled).toBeTruthy();
   });
 
   it ('marks itself viewed', () => {
     const tour = Tour.forIdentifier('homework-assignment-editor');
     tour.markViewed({ exitedEarly: false });
-    expect(User.viewedTour).toHaveBeenCalledWith(tour, expect.anything());
-    expect(User.viewedTour).toHaveBeenCalledTimes(1);
+    expect(User.viewedTour).toHaveBeenCalledWith(tour, { exitedEarly: false });
+    expect(tour.isEnabled).toBeFalsy();
   });
 
   it ('marks others in group as viewed when canceled early', () => {
     const tour = Tour.forIdentifier('homework-assignment-editor');
     tour.markViewed({ exitedEarly: true });
-    expect(User.viewedTour).toHaveBeenCalledWith(tour, expect.anything());
-    expect(User.viewedTour).toHaveBeenCalledWith(
-      Tour.forIdentifier('add-homework-select-exercises'), expect.anything()
-    );
+    expect(tour.isEnabled).toBeFalsy();
+    expect(Tour.forIdentifier('add-homework-select-exercises').isEnabled).toBeFalsy();
   });
+
+  it('calculates when an autoplay tour is viewable', () => {
+    User.viewed_tour_ids = [];
+    const tour = Tour.forIdentifier('question-library-super');
+    expect(tour.autoplay).toBe(true);
+    expect(tour.isViewed).toBe(false);
+    expect(tour.standalone).toBe(false);
+    expect(tour.isViewable).toBe(true);
+
+    User.viewed_tour_ids = ['question-library-super'];
+    expect(tour.isViewable).toBe(false);
+
+    tour.isEnabled = true;
+    expect(tour.isViewable).toBe(true);
+  });
+
+
 });

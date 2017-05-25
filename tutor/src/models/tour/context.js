@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, computed, observable, field,
 } from '../base';
 import {
-  find, isEmpty, intersection, compact, uniq, flatMap, map, includes, filter,
+  find, isEmpty, intersection, compact, uniq, flatMap, map, invoke, filter,
 } from 'lodash';
 import { observe, action } from 'mobx';
 
@@ -34,8 +34,13 @@ export default class TourContext extends BaseModel {
   }
 
   @computed get tourIds() {
-    if (!this.isEnabled) { return []; }
-    return compact(uniq(flatMap(this.regions, r => r.tour_ids)));
+    if (this.isEnabled) {
+      return compact(uniq(flatMap(this.regions, r => r.tour_ids)));
+    } else {
+      return [];
+    }
+
+    //return compact(uniq(flatMap(this.regions, r => r.tour_ids)));
   }
 
   @computed get courseIds() {
@@ -72,8 +77,9 @@ export default class TourContext extends BaseModel {
     return this.regions.find(region => region.tour_ids.find(tid => tid === this.tour.id));
   }
 
+  // The tour that should be shown
   @computed get tour() {
-    return find(this.validTours, (tour) => (!includes(User.viewed_tour_ids, tour.id))) || null;
+    return find(this.elgibleTours, 'isViewable') || null;
   }
 
   @computed get tourRide() {
@@ -84,12 +90,8 @@ export default class TourContext extends BaseModel {
     return null;
   }
 
-  @computed get hasViewableTour() {
-    return !isEmpty(this.validTours);
-  }
-
   @computed get audienceTags() {
-    return uniq(flatMap(this.courses, c => c.tourAudienceTags).concat(User.tourAudienceTags));
+    return uniq(flatMap(this.courses, c => c.tourAudienceTags));
   }
 
   @computed get toursTags() {
@@ -100,21 +102,23 @@ export default class TourContext extends BaseModel {
     return compact(this.tourIds.map(id => Tour.forIdentifier(id)));
   }
 
-  @computed get validTours() {
+  @computed get elgibleTours() {
     return filter(this.allTours, (tour) => (!isEmpty(intersection(tour.audience_tags, this.audienceTags))));
   }
 
-  @computed get unwatchedTours() {
-    return filter(this.validTours, (tour) => (!includes(User.viewed_tour_ids, tour.id)));
+  // same logic as above but uses find, which short-circuits after a match
+  @computed get hasElgibleTour() {
+    return !!find(this.allTours, (tour) => (!isEmpty(intersection(tour.audience_tags, this.audienceTags))));
   }
 
   @computed get debugStatus() {
-    return `available regions: [${map(this.regions, 'id')}]; region tour ids: [${this.tourIds}]; audience tags: [${this.audienceTags}]; tour tags: [${this.toursTags}]; valid tours: [${map(this.validTours,'id')}]; TOUR RIDE: ${this.tourRide ? this.tourRide.tour.id : '<none>'}`;
+    return `available regions: [${map(this.regions, 'id')}]; region tour ids: [${this.tourIds}]; audience tags: [${this.audienceTags}]; tour tags: [${this.toursTags}]; elgible tours: [${map(this.elgibleTours,'id')}]; TOUR RIDE: ${this.tourRide ? this.tourRide.tour.id : '<none>'}`;
   }
 
-  @action replayTours() {
-    this.validTours.forEach((tour) => {
-      tour.replay();
+  @action playTriggeredTours() {
+    //invoke(this.elgibleTours, 'play');
+    this.elgibleTours.forEach((tour) => {
+      if (!tour.auto_display){ tour.play(); }
     });
   }
 

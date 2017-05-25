@@ -1,5 +1,6 @@
 import { bootstrapCoursesList } from '../../courses-test-data';
 import { autorun } from 'mobx';
+import { each } from 'lodash';
 
 import TourRegion from '../../../src/models/tour/region';
 import TourContext from '../../../src/models/tour/context';
@@ -16,6 +17,9 @@ describe('Tour Context Model', () => {
   });
   afterEach(() => {
     User.viewed_tour_ids.clear();
+    each(Tour.all, t => {
+      t.isEnabled = false;
+    });
   });
 
 
@@ -38,27 +42,31 @@ describe('Tour Context Model', () => {
     region.otherTours = []; // id of foo is invalid
     context.openRegion(region);
     expect(context.tourIds).toEqual(['foo']);
-    expect(context.validTours).toHaveLength(0);
+    expect(context.elgibleTours).toHaveLength(0);
     region.otherTours = [ 'teacher-calendar', 'bar', 'baz' ];
     expect(context.tourIds).toEqual(['foo', 'teacher-calendar', 'bar', 'baz']);
-    expect(context.validTours).toHaveLength(1);
-    expect(context.validTours[0].id).toEqual('teacher-calendar');
+    expect(context.elgibleTours).toHaveLength(1);
+    expect(context.elgibleTours[0].id).toEqual('teacher-calendar');
     context.closeRegion(region);
-    expect(context.validTours).toHaveLength(0);
+    expect(context.elgibleTours).toHaveLength(0);
   });
 
-  it('calculates a tour based on audienceTags', () => {
+  it('calculates tours', () => {
     const tourSpy = jest.fn();
     autorun(() => tourSpy(context.tour));
     expect(tourSpy).toHaveBeenCalledWith(null);
     context.openRegion(region);
+    expect(context.elgibleTours).toHaveLength(1);
+    context.playTriggeredTours();
+    expect(context.tour).not.toBeNull();
     expect(tourSpy).toHaveBeenCalledWith(Tour.forIdentifier('teacher-calendar'));
-    User.viewedTour(Tour.forIdentifier('teacher-calendar'));
-    expect(context.tour).toBe(null);
+    context.tour.markViewed({ exitedEarly: false });
+    expect(context.tour).toBeNull();
   });
 
   it('calculates a TourRide', () => {
     context.openRegion(region);
+    context.playTriggeredTours();
     expect(context.tourRide).toMatchObject({
       tour: Tour.forIdentifier('teacher-calendar'),
       region: region,
@@ -68,6 +76,7 @@ describe('Tour Context Model', () => {
 
   it('knows which region is active', () => {
     context.openRegion(region);
+    context.playTriggeredTours();
     expect(context.activeRegion).toBe(region);
   });
 
@@ -77,18 +86,6 @@ describe('Tour Context Model', () => {
     expect(context.anchors.get('test')).toEqual({ test: true });
     context.removeAnchor('test');
     expect(context.anchors.size).toBe(0);
-  });
-
-  it('calculates when tours are viewable', () => {
-    expect(context.hasViewableTour).toBe(false);
-    context.openRegion(region);
-    expect(context.tourRide).not.toBeNull();
-    expect(context.hasViewableTour).toBe(true);
-    User.viewedTour({ id: 'teacher-calendar' });
-    expect(context.hasViewableTour).toBe(true);
-    expect(context.tourRide).toBeNull();
-    context.closeRegion(region);
-    expect(context.hasViewableTour).toBe(false);
   });
 
   it('is disabled by default', () => {
@@ -108,20 +105,21 @@ describe('Tour Context Model', () => {
     context.openRegion(region);
     expect(context.debugStatus).toContain('available regions: [foo]');
     expect(context.debugStatus).toContain('region tour ids: [foo,teacher-calendar]');
-    expect(context.debugStatus).toContain('valid tours: [teacher-calendar]');
+    expect(context.debugStatus).toContain('elgible tours: [teacher-calendar]');
   });
 
   it('replays all valid tours', () => {
-    User.viewed_tour_ids = ['homework-assignment-editor', 'teacher-calendar', 'foo'];
     region.id = 'homework-assignment-editor';
     context.openRegion(region);
-    expect(context.validTours).toHaveLength(2);
-    context.replayTours();
-    expect(User.viewed_tour_ids.peek()).toEqual(['foo']);
+    expect(context.elgibleTours).toHaveLength(2);
+    expect(context.tour).toBeNull();
+    context.playTriggeredTours();
+    expect(context.tour).toBe(Tour.forIdentifier('homework-assignment-editor'));
   });
 
   it('calls dispose on old ride it changes', () => {
     context.openRegion(region);
+    context.playTriggeredTours();
     const ride = context.tourRide;
     ride.dispose = jest.fn();
     context.closeRegion(region);

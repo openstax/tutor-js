@@ -1,10 +1,11 @@
+import React from 'react';
 import {
   BaseModel, identifiedBy, belongsTo, computed,
 } from '../base';
 import { defaults } from 'lodash';
 import { action, observable } from 'mobx';
 import { filter, extend } from 'lodash';
-import User from '../user';
+import CustomComponents from '../../components/tours/custom';
 
 const DEFAULT_JOYRIDE_CONFIG = {
   run: true,
@@ -97,8 +98,18 @@ export default class TourRide extends BaseModel {
     if (step.anchor_id && !this.context.anchors.has(step.anchor_id)) {
       return null;
     }
+    const props = step.joyrideStepProperties;
 
-    return extend(step.joyrideStepProperties, {
+    if (!step.text && step.component && CustomComponents[step.component]){
+      props.text = React.createElement(CustomComponents[step.component], { step, ride: this });
+      props.style = extend(props.style, {
+        button: {
+          display: 'none',
+        },
+      });
+    }
+
+    return extend(props, {
       step,
       selector: (step.anchor_id ? this.context.anchors.get(step.anchor_id) : this.region.domSelector),
     });

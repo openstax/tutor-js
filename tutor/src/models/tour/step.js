@@ -15,7 +15,6 @@ const MD = Markdown({ html: true, linkify: true, typographer: true });
 
 MD.use(MDRegex(/\:best-practices\:/, () => '<i class="tour-step-best-practices"></i>' ));
 
-
 // TourStep
 // A step in a tour, where steps are connected by a “next” button that leads from one step to the next.
 // Can be linked to either an anchor or region
@@ -32,11 +31,14 @@ export default class TourStep extends BaseModel {
   @field position;
   @field is_fixed;
   @field anchor_id;
+  @field component;
   @field({ type: 'object' }) action;
 
   @computed get actionClass() {
     if (!this.action) { return null; }
     return Actions.forIdentifier(this.action.id);
+
+
   }
 
   @computed get HTML() {

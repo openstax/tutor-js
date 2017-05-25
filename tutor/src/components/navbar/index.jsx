@@ -4,13 +4,12 @@ import Router                from '../../helpers/router';
 import Courses               from '../../models/courses-map';
 import TutorLink             from '../link';
 import ServerErrorMonitoring from '../error-monitoring';
-import ToursReplay           from './tours-replay';
 import CourseName            from './course-name';
 import UserActionsMenu       from './user-actions-menu';
 import BookLinks             from './book-links';
 import CenterControls        from './center-controls';
 import PreviewAddCourseBtn   from './preview-add-course-btn';
-
+import SupportMenu           from './support-menu';
 
 export default function NavigationBar() {
   const params = Router.currentParams();
@@ -29,7 +28,7 @@ export default function NavigationBar() {
       <CenterControls params={params} />
       <div className="right-side-controls">
         <PreviewAddCourseBtn courseId={courseId} />
-        <ToursReplay />
+        <SupportMenu />
         <UserActionsMenu
           courseId={courseId}
         />
