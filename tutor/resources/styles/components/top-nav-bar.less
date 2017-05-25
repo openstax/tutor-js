@@ -5,6 +5,16 @@
 
 .tutor-top-navbar {
   .make-shy-animate();
+  .top-nav-action() {
+    font-size: 1.8rem;
+    * > {
+      margin-left: 1rem;
+    }
+    .tutor-icon {
+      margin-left: 0;
+      font-size: 2rem;
+    }
+  }
 
   background: @tutor-white;
   z-index: @zindex-navbar-fixed;
@@ -58,6 +68,9 @@
       border-left: 1px solid @tutor-neutral-light;
       .tutor-icon { margin-left: 0.5rem; }
     }
+  }
+  .student-preview-link {
+    .top-nav-action();
   }
   @import './top-nav-bar/center-controls';
   @import './top-nav-bar/drop-down-menu';
