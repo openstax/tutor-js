@@ -11,7 +11,8 @@ export default function StudentPreview() {
       <Row>
         <Col sm={6}>
           <h3>Student dashboard</h3>
-          <p>Cat ipsum dolor sit amet, spit up on light gray carpet instead of adjacent linoleum fall asleep on the washing machine. Poop on grasses wake up wander around the house making large amounts of noise jump on top of your human's bed and fall asleep again, loves cheeseburgers. Slap kitten brother with paw put toy mouse in food bowl run out of litter box at full speed sleep on keyboard cat is love, cat is life chase mice purrr purr littel cat, little cat purr purr. Steal the warm chair right after you get up sit in window and stare oooh, a bird, yum for purr for no reason caticus cuteicus. Eat half my food and ask for more. Find a way to fit in tiny box chew foot. Slap owner's face at 5am until human fills food dish asdflkjaertvlkjasntvkjn (sits on keyboard). Lick the curtain just to be annoying lies down if it smells like fish eat as much as you wish. Climb leg sleep on dog bed, force dog to sleep on floor you call this cat food cat not kitten around and give me attention or face the wrath of my claws. Freak human out make funny noise mow mow mow mow mow mow success now attack human going to catch the red dot today going to catch the red dot today. Scratch at fleas, meow until belly rubs, hide behind curtain when vacuum cleaner is on scratch strangers and poo on owners food fall over dead (not really but gets sypathy).
+          <p>
+            Cat ipsum dolor sit amet, spit up on light gray carpet instead of adjacent linoleum fall asleep on the washing machine. Poop on grasses wake up wander around the house making large amounts of noise jump on top of your human's bed and fall asleep again, loves cheeseburgers. Slap kitten brother with paw put toy mouse in food bowl run out of litter box at full speed sleep on keyboard cat is love, cat is life chase mice purrr purr littel cat, little cat purr purr. Steal the warm chair right after you get up sit in window and stare oooh, a bird, yum for purr for no reason caticus cuteicus. Eat half my food and ask for more. Find a way to fit in tiny box chew foot. Slap owner's face at 5am until human fills food dish asdflkjaertvlkjasntvkjn (sits on keyboard). Lick the curtain just to be annoying lies down if it smells like fish eat as much as you wish. Climb leg sleep on dog bed, force dog to sleep on floor you call this cat food cat not kitten around and give me attention or face the wrath of my claws. Freak human out make funny noise mow mow mow mow mow mow success now attack human going to catch the red dot today going to catch the red dot today. Scratch at fleas, meow until belly rubs, hide behind curtain when vacuum cleaner is on scratch strangers and poo on owners food fall over dead (not really but gets sypathy).
           </p>
         </Col>
         <Col sm={6}>
@@ -23,8 +24,6 @@ export default function StudentPreview() {
           />
         </Col>
       </Row>
-
-
 
       <Row>
         <Col sm={6}>
@@ -78,6 +77,5 @@ export default function StudentPreview() {
       </Row>
 
     </Grid>
-
   );
 }
