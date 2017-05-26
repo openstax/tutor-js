@@ -65,6 +65,11 @@ export class User extends BaseModel {
     return UiSettings.get('sessionCount') || 0;
   }
 
+  logEvent(code) {
+    // students do not track events
+    if (!this.isConfirmedFaculty && this.self_reported_role === 'student') { return 'ABORT'; }
+    return { code };
+  }
 }
 
 const currentUser = new User;
