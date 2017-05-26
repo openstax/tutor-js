@@ -3,6 +3,7 @@ import { Dropdown, MenuItem } from 'react-bootstrap';
 import { get } from 'lodash';
 import { action } from 'mobx';
 import { observer, inject } from 'mobx-react';
+import TourAnchor from '../tours/anchor'
 
 import UserMenu from '../../models/user/menu';
 import Icon from '../icon';
@@ -43,8 +44,10 @@ export default class SupportMenu extends React.PureComponent {
         <Dropdown.Toggle
           useAnchor={true}
         >
-          <Icon type="question-circle" />
-          <span className="control-label">Help</span>
+          <TourAnchor id="support-menu-button">
+            <Icon type="question-circle" />
+            <span className="control-label">Help</span>
+          </TourAnchor>
         </Dropdown.Toggle>
         <Dropdown.Menu >
           {this.renderPageTipsOption()}
