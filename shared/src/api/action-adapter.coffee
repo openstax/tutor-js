@@ -126,8 +126,10 @@ connectModelAction = (action, apiHandler, klass, method, options) ->
       pick(options, 'url', 'method', 'data', 'params', 'handledErrors'), (val) =>
         if isFunction(val) then val.call(this, reqArgs...) else val
     )
-    merge(requestConfig, originalMethod.call(this, reqArgs..., requestConfig))
-    requestConfig.url ?= interpolate(options.pattern, defaults({}, firstArg, this))
+    updatedConfig = originalMethod.call(this, reqArgs..., requestConfig)
+    return if updatedConfig is "ABORT"
+    merge(requestConfig, updatedConfig)
+    requestConfig.url ?= interpolate(options.pattern, defaults({}, firstArg, requestConfig, this))
     perRequestOptions = clone(options)
     if options.onSuccess
       perRequestOptions.onSuccess = bind(
