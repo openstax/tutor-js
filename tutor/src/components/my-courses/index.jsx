@@ -13,6 +13,10 @@ import { MyCoursesPast, MyCoursesCurrent, MyCoursesPreview } from './listings';
 @observer
 export default class MyCourses extends React.PureComponent {
 
+  componentWillMount() {
+    User.logEvent('arrived_my_courses');
+  }
+
   @computed get firstCourse() {
     return Courses.array[0];
   }
