@@ -43,7 +43,10 @@ export class PreviewCourseOffering extends Course {
         offering_id: this.offering_id,
         term: this.offering.currentTerm,
       });
-      create.save().then(resolve);
+      create.save().then(() => {
+        this.isBuilding = false;
+        resolve(create.createdCourse);
+      }, () => (this.isBuilding = false));
     });
 
   }
