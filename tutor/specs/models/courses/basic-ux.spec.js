@@ -13,6 +13,8 @@ describe('Basic Course UX Model', () => {
     expect(ux.dataProps).toEqual({
       'data-appearance': 'testing',
       'data-book-title': 'Testing',
+      'data-is-preview': false,
+      'data-term': 'Spring 2017',
       'data-title': 'Local Test Course One',
     });
   });
