@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany,
 } from './base';
 import { computed } from 'mobx';
-import { first, sortBy, find, get } from 'lodash';
+import { first, sortBy, find, get, endsWith, dropRight, capitalize } from 'lodash';
 
 import Period  from './course/period';
 import Role    from './course/role';
@@ -48,6 +48,19 @@ export default class Course extends BaseModel {
   @hasMany({ model: Period }) periods;
   @hasMany({ model: Role }) roles;
   @hasMany({ model: Student }) students;
+
+  @computed get nameCleaned() {
+    const previewSuffix = ' Preview';
+    if (this.is_preview && endsWith(this.name, previewSuffix)) {
+      return this.name.slice(0, -previewSuffix.length);
+    } else {
+      return this.name;
+    }
+  }
+
+  @computed get termFull() {
+    return `${capitalize(this.term)} ${this.year}`
+  }
 
   @computed get subject() {
     return get(CourseInformation.forAppearanceCode(this.appearance_code), 'subject', '');

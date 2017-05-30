@@ -1,6 +1,7 @@
 React = require 'react'
 
-{CourseStore} = require '../flux/course'
+{default: Courses} = require '../models/courses-map'
+{default: CourseUX} = require '../models/course/ux'
 
 CourseTitleBanner = React.createClass
 
@@ -10,22 +11,18 @@ CourseTitleBanner = React.createClass
     courseId: React.PropTypes.string.isRequired
 
   render: ->
-
-    dataProps =
-      'data-title': CourseStore.getName(@props.courseId)
-      'data-appearance': CourseStore.getAppearanceCode(@props.courseId)
-
-    dataProps['data-term'] = CourseStore.getTerm(@props.courseId)
+    course = Courses.get(@props.courseId)
+    this.ux = new CourseUX(course)
 
     <div
       className="course-title-banner"
-      {...dataProps}
+      {...this.ux.dataProps}
     >
       <div className='book-title'>
-        {dataProps['data-title']}
+        <span className='book-title-text'>{this.ux.dataProps['data-title']}</span>
       </div>
       <div className='course-term'>
-        {CourseStore.getTerm(@props.courseId)}
+        {course.termFull}
       </div>
     </div>
 

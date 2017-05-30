@@ -38,7 +38,7 @@ export class PreviewCourseOffering extends Course {
 
     return new Promise((resolve) => {
       const create = new CourseCreate({
-        name: `${this.name} Preview`,
+        name: `${this.name}`,
         is_preview: true,
         offering_id: this.offering_id,
         term: this.offering.currentTerm,
