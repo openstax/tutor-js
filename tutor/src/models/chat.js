@@ -12,12 +12,11 @@ export default {
 
   initialize() {
     window.liveagent.init('https://d.la2-c2-dfw.salesforceliveagent.com/chat', DEPLOYMENT_ID, ORGANIZATION_ID);
-    window.liveagent.enableLogging()
+    window.liveagent.enableLogging();
 
   },
 
   setElementVisiblity(online, offline) {
-    console.log(online, offline)
     window.liveagent.showWhenOnline(DEPLOYMENT_ID, online);
     window.liveagent.showWhenOffline(DEPLOYMENT_ID, offline);
   },

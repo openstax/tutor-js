@@ -10,6 +10,7 @@ jest.mock('../../src/models/user', () => ({
   isConfirmedFaculty: true,
 }));
 
+jest.mock('../../src/models/chat');
 
 describe('main Tutor App', () => {
 

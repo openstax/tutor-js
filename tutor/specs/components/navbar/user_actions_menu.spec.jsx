@@ -23,11 +23,6 @@ const testWithRole = roleType =>
 
     afterEach(() => resetStores(roleType));
 
-    it('includes a link to get help', function() {
-      const wrapper = shallow(<UserActionsMenu {...props} />);
-      expect(wrapper).toHaveRendered('.-help-link');
-    });
-
     it('should have expected dropdown menu', function() {
       const menu = shallow(<UserActionsMenu {...props} />);
       const labels = map(roleTestParams.menu, 'label');

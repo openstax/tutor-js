@@ -32,9 +32,28 @@ exports[`My Courses Pending Verification Component renders and matches snapshot 
       >
         We’re manually verifying that you’re an instructor and we’ll email you in 3-4 business days when your account is ready.
       </p>
-      <p>
-        CHAT GOES HERE
-      </p>
+      <img
+        id="liveagent_button_online_573U0000000k9cB"
+        onClick={[Function]}
+        src="https://openstax.secure.force.com/support/resource/1491006720000/chat_online_button"
+        style={
+          Object {
+            "border": "0",
+            "cursor": "pointer",
+            "display": "none",
+          }
+        }
+      />
+      <img
+        id="liveagent_button_offline_573U0000000k9cB"
+        src="https://openstax.secure.force.com/support/resource/1481851646000/chat_offline_button"
+        style={
+          Object {
+            "border": "0",
+            "display": "none",
+          }
+        }
+      />
     </div>
   </div>
 </div>
