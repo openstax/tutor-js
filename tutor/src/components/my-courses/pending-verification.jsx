@@ -6,7 +6,7 @@ import Icon from '../icon';
 export default class PendingVerification extends React.PureComponent {
 
   componentDidMount() {
-    Chat.setButtonStatus(this.onlineChatImg, this.offlineChatImg);
+    Chat.setElementVisiblity(this.onlineChatImg, this.offlineChatImg);
   }
 
   render() {
@@ -25,6 +25,7 @@ export default class PendingVerification extends React.PureComponent {
             </p>
 
             <img
+              id='liveagent_button_online_573U0000000k9cB'
               ref={img => this.onlineChatImg = img}
               style={{ display: 'none', border: '0', cursor: 'pointer' }}
               onClick={Chat.start}
@@ -32,6 +33,7 @@ export default class PendingVerification extends React.PureComponent {
             />
 
             <img
+              id='liveagent_button_offline_573U0000000k9cB'
               ref={img => this.offlineChatImg = img}
               style={{ display: 'none', border: '0' }}
               src="https://openstax.secure.force.com/support/resource/1481851646000/chat_offline_button"

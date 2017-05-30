@@ -1,24 +1,29 @@
 // FIXME - get real values
-const AGENT_ID = '572U0000000k9cB';
+const DEPLOYMENT_ID = '572U0000000k9cB';
+const ORGANIZATION_ID = '00DU0000000Kwch';
+import { computed } from 'mobx';
+import User from './user';
 
 export default {
 
-  get isEnabled() {
-    return !!window.liveagent;
+  @computed get isEnabled() {
+    return window.liveagent && (User.isConfirmedFaculty || User.self_reported_role !== 'student');
   },
 
   initialize() {
-
-    window.liveagent.init('https://d.la2-c2-dfw.salesforceliveagent.com/chat', AGENT_ID, '00DU0000000Kwch');
+    window.liveagent.init('https://d.la2-c2-dfw.salesforceliveagent.com/chat', DEPLOYMENT_ID, ORGANIZATION_ID);
+    window.liveagent.enableLogging()
 
   },
 
-  setButtonStatus(online, offline) {
-    window.liveagent.showWhenOnline(AGENT_ID, online);
-    window.liveagent.showWhenOffline(AGENT_ID, offline);
+  setElementVisiblity(online, offline) {
+    console.log(online, offline)
+    window.liveagent.showWhenOnline(DEPLOYMENT_ID, online);
+    window.liveagent.showWhenOffline(DEPLOYMENT_ID, offline);
   },
 
   start() {
-    window.liveagent.startChat(AGENT_ID);
+    window.liveagent.startChat(DEPLOYMENT_ID);
   },
+
 };
