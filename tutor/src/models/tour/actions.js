@@ -2,7 +2,7 @@ import { findModel } from 'mobx-decorated-models';
 
 import './actions/open-user-menu';
 import './actions/open-calendar-sidebar';
-import './actions/open-help-menu';
+import './actions/open-support-menu';
 import './actions/reposition';
 
 // TourActions

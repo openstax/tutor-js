@@ -4,6 +4,8 @@ import { observer } from 'mobx-react';
 import { computed, action } from 'mobx';
 import { get } from 'lodash';
 
+import TourAnchor from '../tours/anchor';
+
 import Router from '../../helpers/router';
 import Courses from '../../models/courses-map.js';
 import createUXForCourse from '../../models/course/ux';
@@ -37,7 +39,9 @@ export default class PreviewAddCourseBtn extends React.PureComponent {
     if (!get(this, 'ux.showCreateCourseAction')) { return null; }
 
     return (
-      <Button bsStyle="primary" onClick={this.onAddCourse}>Create a course</Button>
+      <TourAnchor id="preview-add-course-nav-button">
+        <Button bsStyle="primary" onClick={this.onAddCourse}>Create a course</Button>
+      </TourAnchor>
     );
   }
 }

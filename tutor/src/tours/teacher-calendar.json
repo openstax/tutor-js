@@ -10,7 +10,7 @@
     {
       "component": "HowToUsePreview"
     }, {
-      "body": "More about the Question Library in our “Page tips.”",
+      "body": "Learn more about the dashboard with our \"Page tips.\"",
       "anchor_id": "menu-option-page-tips",
       "position": "bottom-right",
       "is_fixed": true,
@@ -76,7 +76,12 @@
       "title": "Help videos",
       "body": "View the student experience and other helpful videos here.",
       "anchor_id": "student-preview-link",
-      "position": "bottom-right"
+      "position": "bottom-center"
+    }, {
+      "title": "Remember, this is a preview course",
+      "body": "You're in a preview course with pre-populated data. When you're done exploring the preview course, here's where you can create a real course.",
+      "anchor_id": "preview-add-course-nav-button",
+      "position": "bottom-center"
     }, {
       "title": "Get help",
       "body": "Get help with a page tour, support articles, or chat.",
@@ -84,7 +89,7 @@
       "position": "bottom-center",
       "is_fixed": true,
       "action": {
-        "id": "open-help-menu"
+        "id": "open-support-menu"
       }
     }, {
       "body": "Now that you know where everything is, let's make an assignment!",

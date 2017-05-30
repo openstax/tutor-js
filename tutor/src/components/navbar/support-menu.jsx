@@ -29,7 +29,9 @@ export default class SupportMenu extends React.PureComponent {
         className="page-tips"
         onSelect={this.onPlayTourClick}
       >
-        Page Tips
+        <TourAnchor id="menu-option-page-tips">
+          Page Tips
+        </TourAnchor>
       </MenuItem>
     );
   }

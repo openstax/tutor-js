@@ -7,15 +7,14 @@
   .make-shy-animate();
   .top-nav-action() {
     font-size: 1.8rem;
-    * > {
-      margin-left: 0.5rem;
-      @media screen and ( min-width: @screen-md-min ){
-        margin-left: 1rem;
-      }
-    }
+
     .tutor-icon {
-      margin-left: 0;
       font-size: 2rem;
+      margin-left: 0;
+      margin-right: 0.5rem;
+      @media screen and ( min-width: @screen-md-min ){
+        margin-right: 1rem;
+      }
     }
     @media screen and ( max-width: @screen-sm-min ){
       .control-label { display: none; }
