@@ -14,7 +14,7 @@ import { MyCoursesPast, MyCoursesCurrent, MyCoursesPreview } from './listings';
 export default class MyCourses extends React.PureComponent {
 
   componentWillMount() {
-    User.logEvent('arrived_my_courses');
+    User.logEvent({ category: 'onboarding', code: 'arrived_my_courses' });
   }
 
   @computed get firstCourse() {

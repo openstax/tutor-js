@@ -65,11 +65,12 @@ export class User extends BaseModel {
     return UiSettings.get('sessionCount') || 0;
   }
 
-  logEvent(code) {
+  logEvent({ category, code }) {
     // students do not track events
     if (!this.isConfirmedFaculty && this.self_reported_role === 'student') { return 'ABORT'; }
-    return { code };
+    return { category, code };
   }
+
 }
 
 const currentUser = new User;
