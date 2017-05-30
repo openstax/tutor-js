@@ -6,7 +6,22 @@ import Icon from '../icon';
 export default class PendingVerification extends React.PureComponent {
 
   componentDidMount() {
-    Chat.setElementVisiblity(this.onlineChatImg);
+    Chat.setElementVisiblity(this.onlineChatButton);
+  }
+
+  renderChat() {
+    if (!Chat.isEnabled) { return null; }
+
+    return (
+      <button
+        className="chat btn"
+        ref={btn => this.onlineChatButton = btn}
+        style={{ display: 'none' }}
+        onClick={Chat.start}
+      >
+        <Icon type='comment' /><span>VERIFY NOW VIA CHAT</span>
+      </button>
+    );
   }
 
   render() {
@@ -23,15 +38,7 @@ export default class PendingVerification extends React.PureComponent {
             <p className="lead">
               We’re manually verifying that you’re an instructor and we’ll email you in 3-4 business days when your account is ready.
             </p>
-
-            <img
-              id='liveagent_button_online_573U0000000k9cB'
-              ref={img => this.onlineChatImg = img}
-              style={{ display: 'none', border: '0', cursor: 'pointer' }}
-              onClick={Chat.start}
-              src="https://openstax.secure.force.com/support/resource/1491006720000/chat_online_button"
-            />
-
+            {this.renderChat()}
           </div>
         </div>
       </div>
