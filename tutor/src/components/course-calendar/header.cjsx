@@ -5,6 +5,7 @@ _ = require 'underscore'
 
 { default: TourAnchor } = require '../tours/anchor'
 TutorLink     = require '../link'
+BrowseTheBook = require '../buttons/browse-the-book'
 NoPeriods     = require '../no-periods'
 SidebarToggle = require './sidebar-toggle'
 
@@ -34,6 +35,19 @@ CourseCalendarHeader = React.createClass
       />
 
       <div className='calendar-header-actions-buttons'>
+
+        <BrowseTheBook bsStyle='default' courseId={courseId} />
+
+        <TourAnchor id="question-library-button">
+          <TutorLink
+            className='btn btn-default'
+            to='viewQuestionsLibrary'
+            params={{courseId}}
+          >
+            Question Library
+          </TutorLink>
+        </TourAnchor>
+
         <TourAnchor id="performance-forcast-button">
           <TutorLink
             className='btn btn-default'

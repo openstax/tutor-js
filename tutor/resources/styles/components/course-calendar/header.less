@@ -11,8 +11,6 @@
 
     > * { margin-bottom: 20px; }
 
-    .tour-anchor + .tour-anchor { margin-left: 0.5rem; }
-
     .btn-default {
       background-color: @tutor-neutral-lightest;
     }
@@ -36,6 +34,8 @@
       .flex(auto);
       .justify-content(flex-end);
       .flex-order(1);
+
+      > * { margin-left: 0.5rem; }
     }
 
     @media (min-width: @screen-md-min) {
