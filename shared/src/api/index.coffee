@@ -165,13 +165,16 @@ class APIHandlerBase
 
     onSuccess ?= DEFAULT_SUCCESS
     onFail ?= DEFAULT_FAIL
-    return new Promise (resolve) =>
+    return new Promise (resolve, reject) =>
+
       delay =>
         @_xhr.request(requestConfig)
+          .then(((resp) -> resolve(resp); resp), ((resp) -> reject(resp); Promise.reject(resp)))
+
           # if onFail doesn't Promise.reject anything, then the default fail will not fire.
           .then(partial(onSuccess, partial.placeholder, args...), partial(onFail, partial.placeholder, args...))
           .then(partial(handlers.onSuccess, partial.placeholder, args...), partial(handlers.onFail, partial.placeholder, args...))
-          .then(resolve)
+
       , requestDelay
 
 
