@@ -18,7 +18,9 @@ export default {
 
   setElementVisiblity(online, offline) {
     window.liveagent.showWhenOnline(DEPLOYMENT_ID, online);
-    window.liveagent.showWhenOffline(DEPLOYMENT_ID, offline);
+    if (offline) {
+      window.liveagent.showWhenOffline(DEPLOYMENT_ID, offline);
+    }
   },
 
   start() {
