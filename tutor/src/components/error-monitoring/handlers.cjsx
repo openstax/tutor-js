@@ -67,6 +67,16 @@ ERROR_HANDLERS =
     onOk: navigateAction
     onCancel: navigateAction
 
+  no_preview_courses_available: (error) ->
+    title: 'This Preview isn’t quite ready yet.'
+    body:
+      <p>
+        We need a few minutes to load the sample data.
+        Click “Create a Course” to see a real course now, or try the Preview a little later.
+      </p>
+    buttons: [
+      <BS.Button key='ok' onClick={-> Dialog.hide()} bsStyle='primary'>OK</BS.Button>
+    ]
 
   # No exercises were found, usually for personalized practice
   no_exercises: (error, message, context) ->
