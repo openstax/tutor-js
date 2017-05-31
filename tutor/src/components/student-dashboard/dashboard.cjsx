@@ -11,7 +11,7 @@ ThisWeekPanel   = require './this-week-panel'
 
 ProgressGuideShell = require './progress-guide'
 BrowseTheBook = require '../buttons/browse-the-book'
-CourseTitleBanner = require '../course-title-banner'
+{default: CourseTitleBanner} = require '../course-title-banner'
 User = require '../../models/user'
 Courses = require('../../models/courses-map').default
 Tabs = require '../tabs'

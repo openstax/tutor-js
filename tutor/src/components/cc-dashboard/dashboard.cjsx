@@ -11,7 +11,7 @@ Courses = require('../../models/courses-map').default
 Icon = require '../icon'
 DashboardChapter = require './chapter'
 EmptyPeriod = require './empty-period'
-CourseTitleBanner = require '../course-title-banner'
+{default: CourseTitleBanner} = require '../course-title-banner'
 NotificationHelpers = require '../../helpers/notifications'
 
 TOOLTIPS =
