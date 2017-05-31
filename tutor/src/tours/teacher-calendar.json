@@ -91,13 +91,6 @@
       "action": {
         "id": "open-support-menu"
       }
-    }, {
-      "body": "Now that you know where everything is, let's make an assignment!",
-      "anchor_id": "sidebar-add-reading-assignment",
-      "position": "right",
-      "action": {
-        "id": "open-calendar-sidebar"
-      }
     }
   ]
 }]
