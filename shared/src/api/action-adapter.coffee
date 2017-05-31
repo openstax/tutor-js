@@ -141,7 +141,7 @@ connectModelAction = (action, apiHandler, klass, method, options) ->
     apiHandler.send(requestConfig, perRequestOptions, firstArg).then((reply) =>
       this.apiRequestsInProgress?.delete(action)
       reply
-    )
+    ).catch( => this.apiRequestsInProgress?.delete(action))
 
   klass.prototype[method] = wrap(klass.prototype[method] or emptyFn, handler)
 
