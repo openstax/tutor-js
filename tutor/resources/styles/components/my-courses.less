@@ -7,6 +7,7 @@
 @my-courses-item-offset: 140px;
 
 @course-transition: 200ms ease-in-out;
+@my-courses-card-padding: 20px;
 
 @after-shadow-rule: {
   .tutor-shadow(1, inset);
@@ -15,7 +16,6 @@
 // use shadow on after for quick fading shadows
 .after-shadow(@shadow-rule: @after-shadow-rule) {
   position: relative;
-
   &::after {
     @shadow-rule();
     content: ' ';
@@ -30,23 +30,23 @@
 }
 
 .my-courses {
+  .card-title() {
+    #fonts > .book-cover();
+    font-weight: 800;
+    font-size: 2rem;
+    line-height: 1.25em;
+  }
 
   .my-courses-current,
+  .my-courses-preview,
   .my-courses-past {
-    padding-top: @my-courses-buffer;
     padding-bottom: @my-courses-buffer;
-  }
-
-  .my-courses-current {
     background: rgba(0, 0, 0, 0.02);
     border-bottom: 1px solid rgb(200, 200, 200);;
-
-    .my-courses-title,
-    .my-courses-none {
-      color: @tutor-tertiary;
-    }
   }
-
+  .my-courses-title,{
+    color: @tutor-tertiary;
+  }
   .course-teacher {
     &.is-dragging {
       .element-is-dragging()
@@ -59,6 +59,7 @@
     a {
       color: @tutor-neutral;
       height: 100%;
+      font-weight: bold;
       .flex-display();
       .align-items(center);
       .transition(~'@{course-transition} color');
@@ -72,6 +73,9 @@
         &::after {
           opacity: 0;
         }
+      }
+      svg {
+        margin-bottom: 0.5rem;
       }
     }
 
@@ -159,7 +163,7 @@
     .my-courses-item-details {
       > a {
         display: block;
-        padding: 1.5em 0.75em;
+        padding: @my-courses-card-padding;
         text-decoration: none;
       }
     }
@@ -173,42 +177,49 @@
          box-shadow: 0 5px 15px rgba(0,0,0,0.3);
       }
       > a {
-        padding: 1.5em 0;
+        padding: @my-courses-card-padding 0;
         height: 100%;
         .name {
           margin: 0;
-          padding: 1.5em 0.75em;
+          padding: @my-courses-card-padding;
+          .card-title();
         }
         .preview-belt {
           position: absolute;
           width: 100%;
-          bottom: 30px;
-          height: 110px;
-          padding: 0 0.75em;
-          color: @tutor-neutral-lightest;
-          background-color: @tutor-neutral-lite;
+          bottom: 60px;
+          height: 90px;
+          padding: 0 @my-courses-card-padding;
+          background-color: @tutor-neutral-lightest;
+          background: linear-gradient(140deg, @tutor-white, @tutor-neutral-lighter);
+          box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.2);
           display: flex;
           flex-direction: column;
           justify-content: center;
+          h4 {
+            color: @openstax-gold;
+            text-transform: uppercase;
+          }
           > * { margin: 0; }
           p {
             margin-top: 0.5rem;
             #fonts > .sans(1.4rem);
             font-weight: 400;
-            font-style: italic;
+            color: @tutor-neutral-darker;
           }
         }
       }
       &.is-building {
         .preview-belt {
           align-items: center;
+          h4 { font-size: 14px; }
         }
         .ox-loader { width: 100%; }
       }
     }
 
     .my-courses-item-controls {
-      padding: 0 1em 1.5em 1em;
+      padding: 0 1em @my-courses-card-padding 1em;
     }
 
     .my-courses-item-details {
@@ -250,13 +261,9 @@
 
     .my-courses-item-title {
       line-height: 1.25em;
-
       a {
-        height: 18.1rem;
-        #fonts > .book-cover();
-        font-weight: 800;
-        font-size: 2rem;
-        line-height: 1.25em;
+        height: 19rem;
+        .card-title();
         display: block;
       }
     }
