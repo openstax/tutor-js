@@ -38,6 +38,16 @@ CourseCalendarHeader = React.createClass
 
         <BrowseTheBook bsStyle='default' courseId={courseId} />
 
+        <TourAnchor id="question-library-button">
+          <TutorLink
+            className='btn btn-default'
+            to='viewQuestionsLibrary'
+            params={{courseId}}
+          >
+            Question Library
+          </TutorLink>
+        </TourAnchor>
+
         <TourAnchor id="performance-forcast-button">
           <TutorLink
             className='btn btn-default'

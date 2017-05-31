@@ -10,7 +10,7 @@
     {
       "component": "HowToUsePreview"
     }, {
-      "body": "More about the Question Library in our “Page tips.”",
+      "body": "Learn more about the dashboard with our \"Page tips.\"",
       "anchor_id": "menu-option-page-tips",
       "position": "bottom-right",
       "is_fixed": true,
@@ -27,11 +27,11 @@
   ],
   "steps": [
     {
-      "title": "Your Openstax Tutor beta course dashboard",
-      "body": "Your course dashboard is your gateway to creating and managing assignments, as well as viewing student scores and progress."
+      "title": "Welcome to your dashboard!",
+      "body": "Think of your dashboard as base camp -- you can create and manage assignments, see student progress, and review the book."
     }, {
-      "title": "Adding assignments",
-      "body": "Add assignments by clicking or dragging to your calendar.",
+      "title": "Here’s where you add your assignments",
+      "body": "Create an assignment by clicking it or dragging to the calendar.",
       "anchor_id": "sidebar-add-tasks",
       "position": "right",
       "action": {
@@ -39,24 +39,24 @@
       }
     }, {
       "title": "Managing assignments",
-      "body": "You can edit an assignment or review student progress and performance by clicking on the assignment on your calendar.",
+      "body": "You can edit an assignment or review student progress and performance by clicking an assignment in your calendar.",
       "anchor_id": "calendar-task-plan",
       "action": {
         "id": "reposition"
       }
     }, {
-      "title": "Performance forecast",
-      "body": "See how students are doing on each topic.",
+      "title": "Here’s where you see section analytics",
+      "body": "The Performance Forecast is the compass in your pocket: it helps you measure how your class is understanding concepts so you can target your teaching!",
       "anchor_id": "performance-forcast-button",
       "position": "bottom-left"
     }, {
-      "title": "Student scores",
-      "body": "View, manage, and export student scores for all assignments.",
+      "title": "View student scores",
+      "body": "View individual student performance and completion, and export student scores for your learning management system.",
       "anchor_id": "student-scores-button",
       "position": "bottom-right"
     }, {
-      "title": "Question library",
-      "body": "Manage the questions students see in assignments and when they practice on their own.",
+      "title": "Manage your question library",
+      "body": "View all OpenStax Tutor questions here.",
       "anchor_id": "menu-option-viewQuestionsLibrary",
       "position": "bottom-right",
       "is_fixed": true,
@@ -65,7 +65,7 @@
       }
     }, {
       "title": "Browse the book",
-      "body": "Review the OpenStax textbook content here.",
+      "body": "Review the OpenStax textbook here.",
       "anchor_id": "menu-option-browse-book",
       "position": "bottom-right",
       "is_fixed": true,
@@ -73,19 +73,23 @@
         "id": "open-user-menu"
       }
     }, {
-      "title": "View tips again",
-      "body": "Here's where you can view all tips for this page.",
-      "anchor_id": "tours-navbar-icon",
+      "title": "Help videos",
+      "body": "View the student experience and other helpful videos here.",
+      "anchor_id": "student-preview-link",
+      "position": "bottom-center"
+    }, {
+      "title": "Remember, this is a preview course",
+      "body": "You're in a preview course with pre-populated data. When you're done exploring the preview course, here's where you can create a real course.",
+      "anchor_id": "preview-add-course-nav-button",
+      "position": "bottom-center"
+    }, {
+      "title": "Get help",
+      "body": "Get help with a page tour, support articles, or chat.",
+      "anchor_id": "support-menu-button",
+      "position": "bottom-center",
       "is_fixed": true,
       "action": {
-        "id": "display-tours-replay-icon"
-      }
-    }, {
-      "body": "Now that you know where everything is, let's make an assignment!",
-      "anchor_id": "sidebar-add-reading-assignment",
-      "position": "right",
-      "action": {
-        "id": "open-calendar-sidebar"
+        "id": "open-support-menu"
       }
     }
   ]

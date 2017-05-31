@@ -14,16 +14,26 @@
   }
 
   > .book-title {
-    letter-spacing: -2px;
     font-size: 3.8rem;
     line-height: 4.4rem;
     margin-top: -0.3rem;
+  }
+
+  &[data-is-preview=true] {
+    > .book-title > .book-title-text {
+      &::after {
+        content: ' Preview';
+        color: @openstax-gold;
+        font-weight: 100;
+      }
+    }
   }
 
   > .course-term {
     font-weight: 200;
     line-height: 1em;
     font-size: 1.6rem;
+    text-transform: capitalize;
   }
 
   .apply-booksplash-background(@code; @fg; @bg) {

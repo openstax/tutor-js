@@ -39,7 +39,7 @@ export class PreviewCourseOffering extends Course {
   @action build() {
     if (this.isBuilding) { return Promise.resolve(this.courseCreate); }
     this.courseCreate = new CourseCreate({
-      name: `${this.name} Preview`,
+      name: this.name,
       is_preview: true,
       offering_id: this.offering_id,
       term: this.offering.currentTerm,

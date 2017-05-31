@@ -12,9 +12,11 @@ export default class BasicCourseUX {
 
   @computed get dataProps() {
     return {
-      'data-title': this.course.name,
-      'data-book-title': this.course.bookName,
-      'data-appearance': this.course.appearance_code,
+      'data-title':       this.course.nameCleaned,
+      'data-book-title':  this.course.bookName,
+      'data-appearance':  this.course.appearance_code,
+      'data-is-preview':  this.course.is_preview || false,
+      'data-term':        this.course.termFull
     };
   }
 

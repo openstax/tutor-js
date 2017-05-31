@@ -2,8 +2,8 @@ import { findModel } from 'mobx-decorated-models';
 
 import './actions/open-user-menu';
 import './actions/open-calendar-sidebar';
+import './actions/open-support-menu';
 import './actions/reposition';
-import './actions/display-tours-replay-icon';
 
 // TourActions
 // scripted bits of logic for tour transitions like
