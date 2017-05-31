@@ -9,7 +9,7 @@ import User from '../user';
 import TeacherTaskPlans from '../teacher-task-plans';
 import { TaskPlanStore } from '../../flux/task-plan';
 
-import Nags from '../../components/course-preview/nags';
+import Nags from '../../components/onboarding/nags';
 
 const IS_DISMISSED = observable.box(false);
 const HAS_PUBLISHED = observable.box(false);
