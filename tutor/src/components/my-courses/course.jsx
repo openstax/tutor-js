@@ -71,9 +71,11 @@ export class CoursePreview extends React.PureComponent {
     return new CourseUX(this.props.course);
   }
 
-  @action.bound redirectToCourse(course = this.props.course) {
+  @action.bound redirectToCourse() {
+    const { props: { course: { previewCourse } } } = this;
+    if ( !previewCourse ) { return; }
     this.context.router.transitionTo(Router.makePathname(
-      'dashboard', { courseId: course.previewCourse.id },
+      'dashboard', { courseId: previewCourse.id },
     ));
   }
 
