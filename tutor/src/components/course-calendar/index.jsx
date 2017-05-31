@@ -100,9 +100,8 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
     // the initial `componentWillMount` so this is needed to make sure
     // the time gets synced
     const courseTimezone = this.course.time_zone;
-    return (
-      TimeHelper.syncCourseTimezone(courseTimezone)
-    );
+    TimeHelper.syncCourseTimezone(courseTimezone);
+    this.course.trackDashboardView();
   }
 
   componentWillUnmount() {

@@ -1,9 +1,9 @@
 import {
   BaseModel, identifiedBy, field, identifier, hasMany,
 } from './base';
-import { computed } from 'mobx';
-import { first, sortBy, find, get, endsWith, dropRight, capitalize } from 'lodash';
-
+import { computed, action } from 'mobx';
+import { first, sortBy, find, get, endsWith, capitalize } from 'lodash';
+import { UiSettings } from 'shared';
 import Period  from './course/period';
 import Role    from './course/role';
 import Student from './course/student';
@@ -13,6 +13,7 @@ import { TimeStore } from '../flux/time';
 import moment from 'moment-timezone';
 
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
+const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
 
 @identifiedBy('course')
 export default class Course extends BaseModel {
@@ -108,6 +109,14 @@ export default class Course extends BaseModel {
     }
     if (this.isStudent) { tags.push('student'); }
     return tags;
+  }
+
+  @action trackDashboardView() {
+    UiSettings.set(DASHBOARD_VIEW_COUNT_KEY, this.id, this.dashboardViewCount + 1);
+  }
+
+  @computed get dashboardViewCount() {
+    return UiSettings.get(DASHBOARD_VIEW_COUNT_KEY, this.id) || 0;
   }
 
   @computed get primaryRole() {

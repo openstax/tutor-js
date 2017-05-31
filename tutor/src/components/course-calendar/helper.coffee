@@ -3,7 +3,7 @@ TutorRouter = require '../../helpers/router'
 
 _ = require 'lodash'
 
-SIDEBAR_KEY_PREFIX = "calsidebar"
+SIDEBAR_KEY_PREFIX = "CSB"
 
 module.exports =
 
@@ -20,7 +20,7 @@ module.exports =
     clearTimeout(event) if (event)
 
   isSidebarOpen: (courseId) ->
-    !!UiSettings.get("#{SIDEBAR_KEY_PREFIX}.#{courseId}")
+    !!UiSettings.get(SIDEBAR_KEY_PREFIX, courseId)
 
   setSidebarOpen: (courseId, isOpen) ->
-    UiSettings.set("#{SIDEBAR_KEY_PREFIX}.#{courseId}", isOpen)
+    UiSettings.set(SIDEBAR_KEY_PREFIX, courseId, isOpen)
