@@ -2,10 +2,10 @@ import React from 'react';
 import { action } from 'mobx';
 import { Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
-import { PreviewWarning, NagWarning, Heading, Body, Footer } from './preview-warning';
+import { OnboardingNag, GotItOnboardingNag, Heading, Body, Footer } from './onboarding-nag';
 
 @observer
-export default class PreviewOnlyWarning extends PreviewWarning {
+export default class PreviewOnlyWarning extends GotItOnboardingNag {
 
 
   @action.bound
@@ -17,7 +17,7 @@ export default class PreviewOnlyWarning extends PreviewWarning {
     const { ux } = this.props;
 
     return (
-      <NagWarning className="only-preview">
+      <OnboardingNag className="only-preview">
         <Heading>
           Remember -- this is just a preview course!
         </Heading>
@@ -28,7 +28,7 @@ export default class PreviewOnlyWarning extends PreviewWarning {
           <Button bsStyle="primary" onClick={this.onAddCourse}>Create a course</Button>
           <Button onClick={this.onContinue}>Stay in Preview course</Button>
         </Footer>
-      </NagWarning>
+      </OnboardingNag>
     );
   }
 }

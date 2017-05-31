@@ -1,8 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export function NagWarning({ className, children }) {
-  return <div className={classnames('preview-course-nag-warning', className)}>{children}</div>;
+export function OnboardingNag({ className, children }) {
+  return <div className={classnames('onboarding-nag', className)}>{children}</div>;
 }
 
 export function Heading({ children }) {

@@ -4,7 +4,7 @@ import { Modal } from 'react-bootstrap';
 import { get } from 'lodash';
 
 @observer
-export default class CoursePreviewNags extends React.PureComponent {
+export default class CourseNagModal extends React.PureComponent {
 
   static propTypes = {
     ux: MobxPropTypes.observableObject,
@@ -18,7 +18,7 @@ export default class CoursePreviewNags extends React.PureComponent {
     }
 
     return (
-      <Modal show={true} onHide={this.onClose} className="preview-warning-modal">
+      <Modal show={true} onHide={this.onClose} className="onboarding">
         <NagComponent ux={this.props.ux} />
       </Modal>
     );
