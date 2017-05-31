@@ -8,8 +8,9 @@ import CourseCreate from '../create';
 
 @identifiedBy('course/offerings/preview')
 export class PreviewCourseOffering extends Course {
-  @observable isBuilding = false;
+
   @observable offering;
+  @observable courseCreate;
 
   constructor(offering) {
     super({
@@ -23,7 +24,6 @@ export class PreviewCourseOffering extends Course {
     this.offering = offering;
   }
 
-
   @computed get isCreated() {
     return !!this.previewCourse;
   }
@@ -32,20 +32,19 @@ export class PreviewCourseOffering extends Course {
     return find(Courses.active.array, { offering_id: this.offering_id, is_preview: true });
   }
 
+  @computed get isBuilding() {
+    return !!(this.courseCreate && this.courseCreate.hasApiRequestPending);
+  }
+
   @action build() {
-    if (this.isBuilding) { return Promise.resolve(this); }
-    this.isBuilding = true;
-
-    return new Promise((resolve) => {
-      const create = new CourseCreate({
-        name: `${this.name} Preview`,
-        is_preview: true,
-        offering_id: this.offering_id,
-        term: this.offering.currentTerm,
-      });
-      create.save().then(resolve);
+    if (this.isBuilding) { return Promise.resolve(this.courseCreate); }
+    this.courseCreate = new CourseCreate({
+      name: `${this.name} Preview`,
+      is_preview: true,
+      offering_id: this.offering_id,
+      term: this.offering.currentTerm,
     });
-
+    return this.courseCreate.save();
   }
 
 }
