@@ -38,7 +38,8 @@ export default class CourseNumbers extends React.PureComponent {
         <FormGroup className="course-details-sections">
           <InputGroup>
             <InputGroup.Addon>
-              Number of sections in your course
+              Number of sections
+              <p className="course-details-explain">in this course</p>
             </InputGroup.Addon>
             <FormControl
               type="number"
@@ -52,7 +53,8 @@ export default class CourseNumbers extends React.PureComponent {
         <FormGroup className="course-details-numbers">
           <InputGroup>
             <InputGroup.Addon>
-              Estimated number of students in your course
+              Estimated number of students
+              <p className="course-details-explain">in this course</p>
             </InputGroup.Addon>
             <FormControl
               type="number"

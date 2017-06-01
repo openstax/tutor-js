@@ -19,7 +19,12 @@ exports[`CreateCourse: entering details matches snapshot 1`] = `
       <span
         className="input-group-addon"
       >
-        Number of sections in your course
+        Number of sections
+        <p
+          className="course-details-explain"
+        >
+          in this course
+        </p>
       </span>
       <input
         className="form-control"
@@ -41,7 +46,12 @@ exports[`CreateCourse: entering details matches snapshot 1`] = `
       <span
         className="input-group-addon"
       >
-        Estimated number of students in your course
+        Estimated number of students
+        <p
+          className="course-details-explain"
+        >
+          in this course
+        </p>
       </span>
       <input
         className="form-control"
