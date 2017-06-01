@@ -4,8 +4,9 @@ defaultsDeep = require 'lodash/defaultsDeep'
 
 OPTIONS = {}
 
-emitError = (response) ->
+emitError = ({response}) ->
   OPTIONS.handlers?.onFail?({response})
+  response
 
 Networking = {
 
