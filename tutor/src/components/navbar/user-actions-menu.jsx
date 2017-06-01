@@ -107,16 +107,6 @@ export default class UserActionsMenu extends React.PureComponent {
         <Dropdown.Menu >
           {flatMap(UserMenu.getRoutes(this.props.courseId), this.renderMenuItem)}
           <AccountLink bsRole="menu-item" />
-          <MenuItem
-            key="nav-help-link"
-            className="-help-link"
-            target="_blank"
-            href={UserMenu.helpLinkForCourseId(this.props.courseId)}
-            onSelect={this.externalLinkClicked}>
-            <span>
-              Get Help
-            </span>
-          </MenuItem>
           <LogOut bsRole="menu" isConceptCoach={isConceptCoach} />
         </Dropdown.Menu>
       </Dropdown>

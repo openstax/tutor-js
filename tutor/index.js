@@ -18,7 +18,7 @@ import OFFERINGS from './src/models/course/offerings';
 import USER from './src/models/user';
 import COURSES from './src/models/courses-map';
 import TEACHER_TASK_PLANS from './src/models/teacher-task-plans';
-
+import Chat from './src/models/chat';
 import { Logging, ReactHelpers } from 'shared';
 
 window._STORES = {
@@ -62,6 +62,7 @@ const loadApp = function() {
   Notices.start(bootstrapData);
   ExerciseHelpers.setErrataFormURL(bootstrapData.errata_form_url);
   ErrorMonitoring.start();
+  Chat.initialize();
   startMathJax();
   TransitionAssistant.startMonitoring();
 

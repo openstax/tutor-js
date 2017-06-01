@@ -4,6 +4,8 @@ import { flatten } from 'lodash';
 import EnzymeContext from './helpers/enzyme-context';
 import Courses from '../../src/models/courses-map';
 import User from '../../src/models/user';
+jest.mock('../../src/models/chat');
+
 import { bootstrapCoursesList, STUDENT_COURSE_ONE_MODEL, TEACHER_COURSE_TWO_MODEL, TEACHER_AND_STUDENT_COURSE_THREE_MODEL, MASTER_COURSES_LIST, TUTOR_HELP, CONCEPT_COACH_HELP, STUDENT_ARCHIVED_COURSE, TEACHER_PAST_COURSE, STUDENT_PAST_COURSE } from '../courses-test-data';
 
 const loadTeacherUser = () => User.faculty_status = 'confirmed_faculty'

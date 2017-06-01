@@ -4,6 +4,8 @@ import SupportMenu from '../../../src/components/navbar/support-menu';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import TourRegion from '../../../src/models/tour/region';
 import TourContext from '../../../src/models/tour/context';
+import Chat from '../../../src/models/chat';
+jest.mock('../../../src/models/chat');
 
 describe('Support Menu', () => {
   let context;
@@ -30,5 +32,10 @@ describe('Support Menu', () => {
     ).toMatchSnapshot();
   });
 
-
+  it('calls chat when clicked', () => {
+    Chat.isEnabled = true;
+    const menu = mount(<SupportMenu courseId="2" tourContext={context} />);
+    menu.find('.chat.enabled a').simulate('click');
+    expect(Chat.start).toHaveBeenCalled();
+  });
 });

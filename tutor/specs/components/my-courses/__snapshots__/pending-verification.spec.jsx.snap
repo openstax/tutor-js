@@ -32,9 +32,6 @@ exports[`My Courses Pending Verification Component renders and matches snapshot 
       >
         We’re manually verifying that you’re an instructor and we’ll email you in 3-4 business days when your account is ready.
       </p>
-      <p>
-        CHAT GOES HERE
-      </p>
     </div>
   </div>
 </div>

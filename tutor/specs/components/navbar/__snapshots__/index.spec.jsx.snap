@@ -65,7 +65,7 @@ exports[`Main navbar renders and matches snapshot 1`] = `
           style={undefined}
         >
           <a
-            href="#"
+            href="http://openstax.force.com/support?l=en_US&c=Products%3ATutor"
             onClick={[Function]}
             onKeyDown={[Function]}
             role="menuitem"
@@ -107,24 +107,6 @@ exports[`Main navbar renders and matches snapshot 1`] = `
         className="dropdown-menu dropdown-menu-right"
         role="menu"
       >
-        <li
-          className="-help-link"
-          role="presentation"
-          style={undefined}
-        >
-          <a
-            href="#"
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="menuitem"
-            tabIndex="-1"
-            target="_blank"
-          >
-            <span>
-              Get Help
-            </span>
-          </a>
-        </li>
         <li
           className="logout"
         >
