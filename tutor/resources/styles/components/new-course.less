@@ -236,7 +236,8 @@
 
     // customize different wizard types
     &.course_type,
-    &.offering_id {
+    &.offering_id,
+    &.offering {
       .panel-heading {
         font-weight: 800;
         text-align: center;
@@ -272,29 +273,32 @@
       }
     }
 
-    &.details {
-      .course-details-sections {
-        .input-group {
-          width: 100%;
-          .input-group-addon {
-            width: 260px;
-          }
-          .form-control {
-            text-align: center;
-          }
+    &.numbers {
+
+      .course-details-explain {
+        font-weight: 100;
+      }
+
+      .input-group {
+        width: 100%;
+      }
+
+      .form-control {
+        text-align: center;
+      }
+
+      .input-group-addon {
+        width: 80%;
+
+        p {
+          margin-bottom: 0;
         }
       }
-      .course-details-sections-note {
-        color: @tutor-neutral;
-        margin-left: 0.5rem;
-      }
-      .copy-explain {
-        color: @tutor-neutral;
-        font-size: 1.5rem;
-        line-height: 1.3em;
-        margin: 1.5rem 0.5rem;
+
+      input[type=number] {
+        padding-right: 4px;
+        padding-left: 16px;
       }
     }
-
   }
 }
