@@ -41,9 +41,9 @@ class App extends React.PureComponent {
   }
 
   componentDidMount() {
+    Analytics.setGa(window.ga);
     User.recordSessionStart();
     this.storeHistory();
-    Analytics.setTracker(window.ga);
   }
 
   componentDidUpdate() {

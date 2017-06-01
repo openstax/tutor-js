@@ -62,13 +62,44 @@ const Translators = {
 
 
 let GA = undefined;
+let trackerNames = undefined;
 
 var Analytics = {
 
-  setTracker(tracker) { return GA = tracker; },
+  // Set the Command Queue (ga) and cache the (possibly multiple) tracker names
+  setGa(ga) {
+    trackerNames = undefined;
+    GA = ga;
+
+    if (GA) {
+      GA(function() {
+        trackerNames = GA.getAll().map(function(tracker) { return tracker.get('name'); });
+      });
+    }
+
+    return GA;
+  },
+
+  // Calls all trackers with the command and arguments given here
+  ga() {
+    if (!GA || !trackerNames) { return; }
+
+    var params = Array.prototype.slice.call(arguments);
+    var command = params.shift();
+    var that = this;
+
+    trackerNames.forEach(function(trackerName) {
+      that.realGa(trackerName + '.' + command, ...params)
+    });
+  },
+
+  // Exists largely for spec mocking
+  realGa() {
+    GA(arguments);
+  },
 
   sendPageView(url) {
-    if (GA) { GA('send', 'pageview', url); }
+    this.ga('send', 'pageview', url);
   },
 
   onNavigation(path) {
@@ -82,7 +113,7 @@ var Analytics = {
 
     // if we're also going to send custom events then we set the page
     if (Events[route.entry.name]) {
-      GA('set', 'page', translatedPath);
+      ga('set', 'page', translatedPath);
       Events[route.entry.name]( route.params );
       return this.sendPageView(); // url's not needed since it was set before events
     } else {
@@ -91,8 +122,7 @@ var Analytics = {
   },
 
   sendEvent(category, action, attrs) {
-    if (!GA) { return; }
-    GA('send', 'event', category, action, attrs.label, attrs.value);
+    ga('send', 'event', category, action, attrs.label, attrs.value);
   },
 };
 
