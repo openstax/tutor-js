@@ -40,7 +40,7 @@ export default class FreshlyCreatedCourse extends React.PureComponent {
         <Footer>
           {map(this.props.ux.usageOptions, (txt, id) =>
             <Button
-              key={id} bsStyle={id === 'some_credit' ? 'primary' :'default'}
+              key={id}
               onClick={partial(this.onChoice, id)}
             >
               {txt}
