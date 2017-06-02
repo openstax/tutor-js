@@ -4,7 +4,7 @@ import {
 
 import BasicCourseUX from './basic-ux';
 import Courses from '../courses-map';
-import { filter, find, includes } from 'lodash';
+import { filter, includes } from 'lodash';
 import User from '../user';
 import TeacherTaskPlans from '../teacher-task-plans';
 import { TaskPlanStore } from '../../flux/task-plan';
