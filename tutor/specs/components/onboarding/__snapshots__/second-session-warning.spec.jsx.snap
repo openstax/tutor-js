@@ -2,7 +2,7 @@
 
 exports[`Second Session Warning renders and matches snapshot 1`] = `
 <div
-  className="preview-course-nag-warning second-session-prompt"
+  className="onboarding-nag second-session-prompt"
 >
   <div
     className="body"

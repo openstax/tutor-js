@@ -1,5 +1,5 @@
 import { Wrapper, SnapShot } from '../helpers/component-testing';
-import PreviewOnlyWarning from '../../../src/components/course-preview/preview-only-warning';
+import PreviewOnlyWarning from '../../../src/components/onboarding/preview-only-warning';
 import CoursePreviewUX from '../../../src/models/course/preview-ux';
 import EnzymeContext from '../helpers/enzyme-context';
 

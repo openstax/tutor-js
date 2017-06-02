@@ -1,18 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Expired Preview Warning renders and matches snapshot 1`] = `
+exports[`Preview Only Warning renders and matches snapshot 1`] = `
 <div
-  className="preview-course-nag-warning only-preview"
+  className="onboarding-nag only-preview"
 >
   <div
     className="heading"
   >
-    This preview course has expired.
+    Remember -- this is just a preview course!
   </div>
   <div
     className="body"
   >
-    Want to create a real course that students can access? Click “Create a course” on the top right of your dashboard.
+    If you’re ready to create real assignments your students can see, create your real course now. It’s free for you and students will pay 
+    $10
+     per course per semester.
   </div>
   <div
     className="footer"
