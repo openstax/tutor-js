@@ -23,12 +23,13 @@ export default class StandardCourseUX extends BasicCourseUX {
   }
 
   get usageOptions() {
+    // NOTE - the key's below are meaningful and MUST match what's expected by the BE
     return {
-      some_credit: 'Required for some course credit',
-      extra_credit: 'For extra credit',
-      additional_resource: 'As an additional resource',
-      dont_know: 'I don’t know yet',
-      wont_use: 'I won’t be using it',
+      'For course credit': 'Required for some course credit',
+      'For extra credit': 'For extra credit',
+      'As an additional resource': 'As an additional resource',
+      'I don\'t know yet': 'I don’t know yet',
+      'I won\'t be using it': 'I won’t be using it',
     };
   }
 

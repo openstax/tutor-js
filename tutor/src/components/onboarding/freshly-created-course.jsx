@@ -31,7 +31,9 @@ export default class FreshlyCreatedCourse extends React.PureComponent {
             headerRole='button'
             header = "Why are you asking?"
           >
-            OpenStax Tutor is funded by philanthropic foundations who want to know how their gifts impact student learning. Your confirmation helps us send accurate student numbers to our foundation supporters, helping to secure future funding.
+            OpenStax Tutor is funded by philanthropic foundations who want to know how their gifts
+            impact student learning. Your confirmation helps us send accurate student numbers to our
+            foundation supporters, helping to secure future funding.
           </Panel>
 
         </Body>
