@@ -40,7 +40,7 @@ export class GotItOnboardingNag extends React.PureComponent {
         <Body>
           No problem. When you’re ready to create a real course, click “Create a course” on the top right of your dashboard.
         </Body>
-        <Footer>
+        <Footer className="got-it">
           <Button bsStyle="primary" onClick={this.onContinue}>Got it</Button>
         </Footer>
       </OnboardingNag>

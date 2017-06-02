@@ -18,6 +18,7 @@ export default class FreshlyCreatedCourse extends React.PureComponent {
   }
 
   render() {
+
     return (
       <OnboardingNag className="freshly-created-course">
         <Body>

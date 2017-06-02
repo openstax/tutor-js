@@ -13,6 +13,6 @@ export function Body({ children }) {
   return <div className="body">{children}</div>;
 }
 
-export function Footer({ children }) {
-  return <div className="footer">{children}</div>;
+export function Footer({ className, children }) {
+  return <div className={classnames('footer', className)}>{children}</div>;
 }
