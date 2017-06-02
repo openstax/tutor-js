@@ -28,8 +28,8 @@ UiSettings = {
     SETTINGS.replace(settings)
 
   get: (key, id) ->
-    obj = SETTINGS.get(key) or {}
-    if isNil(id) then obj else obj[id]
+    obj = SETTINGS.get(key)
+    if (not isNil(id) and isObject(obj)) then obj[id] else obj
 
   set: (key, id, value) ->
     if isObject(key)
