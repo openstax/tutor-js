@@ -4,6 +4,7 @@ import {
 
 import BasicCourseUX from './basic-ux';
 import Nags from '../../components/onboarding/nags';
+import User from '../user';
 
 export default class StandardCourseUX extends BasicCourseUX {
 
@@ -17,9 +18,8 @@ export default class StandardCourseUX extends BasicCourseUX {
     }
   }
 
-  recordExpectedUse(id) {
-    console.log(`LOG CHOICE ${id}`);
-
+  recordExpectedUse(decision) {
+    User.logEvent({ category: 'onboarding', code: 'made_adoption_decision', data: { decision } });
   }
 
   get usageOptions() {
