@@ -243,6 +243,9 @@ startAPI = ->
   connectModelUpdate(User.constructor, 'saveTourView',
     pattern: 'user/tours/{id}'
    )
+  connectModelCreate(User.constructor, 'logEvent',
+    pattern: 'log/event/{category}/{code}'
+   )
   connectModelRead(Offerings.constructor, 'fetch', url: 'offerings', onSuccess: 'onLoaded')
 
   connectModelCreate(CourseCreate, 'save', onSuccess: 'onCreated')
