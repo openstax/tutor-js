@@ -33,7 +33,9 @@ start = ->
   )
 
   connectDelete(ExerciseActions, {trigger: 'deleteAttachment', onSuccess: 'attachmentDeleted'},
-    (exerciseUid, attachmentId) -> url: "/api/exercises/#{exerciseUid}/attachments/#{attachmentId}"
+    (exerciseId, attachmentFilename) ->
+      url: "exercises/#{getIdOnly(exerciseId)}@draft/attachments"
+      params: { filename: attachmentFilename }
   )
 
   connectRead(VocabularyActions, (id) -> url: "vocab_terms/#{getIdWithVersion(id, 'draft')}")
@@ -53,13 +55,13 @@ start = ->
 
 CSRF_TOKEN = document.head.querySelector('meta[name=csrf-token]')?.getAttribute("content")
 
-uploadExerciseImage = (exerciseUid, image, cb) ->
-  url = "/api/exercises/#{exerciseUid}/attachments"
+uploadExerciseImage = (exerciseId, image, cb) ->
+  url = "/api/exercises/#{getIdOnly(exerciseId)}@draft/attachments"
   xhr = new XMLHttpRequest()
   xhr.addEventListener 'load', (req) ->
     cb(if req.currentTarget.status is 201
       attachment = JSON.parse(req.target.response)
-      ExerciseActions.attachmentUploaded(exerciseUid, attachment)
+      ExerciseActions.attachmentUploaded(exerciseId, attachment)
       {response: attachment, progress: 100}
     else
       {error: req.currentTarget.statusText})
@@ -68,7 +70,7 @@ uploadExerciseImage = (exerciseUid, image, cb) ->
   xhr.open('POST', url, true)
   xhr.setRequestHeader('X-CSRF-Token', CSRF_TOKEN)
   form = new FormData()
-  form.append("image", image, image.name)
+  form.append("file", image, image.name)
   xhr.send(form)
 
 module.exports = {start, uploadExerciseImage}

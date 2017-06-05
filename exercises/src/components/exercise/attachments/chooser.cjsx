@@ -8,7 +8,7 @@ api = require 'api'
 AttachmentChooser = React.createClass
 
   propTypes:
-    exerciseUid: React.PropTypes.string.isRequired
+    exerciseId: React.PropTypes.string.isRequired
 
   getInitialState: -> {}
 
@@ -21,9 +21,13 @@ AttachmentChooser = React.createClass
       @replaceState({}) # <- N.B. replaceState, not setState.
 
   uploadImage: ->
-    return unless @state.file
-    api.uploadExerciseImage(@props.exerciseUid, @state.file, @updateUploadStatus)
-    @setState(progress: 0)
+    if ExerciseStore.isNew(@props.exerciseId)
+      ExerciseActions.create(@props.exerciseId, ExerciseStore.get(@props.exerciseId))
+    else
+      ExerciseActions.save(@props.exerciseId)
+    ExerciseStore.once 'updated', (id) =>
+      api.uploadExerciseImage(@props.exerciseId, @state.file, @updateUploadStatus)
+      @setState(progress: 0)
 
   renderUploadStatus: ->
     return unless @state.progress?
@@ -40,7 +44,7 @@ AttachmentChooser = React.createClass
 
   renderUploadBtn: ->
     return unless @state.imageData and not @state.progress
-    <BS.Button onClick={@uploadImage}>Upload</BS.Button>
+    <BS.Button onClick={@uploadImage} disabled={not ExerciseStore.isSavedOrSavable(@props.exerciseId) or not @state.file}>Upload</BS.Button>
 
   renderErrors: ->
     return null unless @state.error

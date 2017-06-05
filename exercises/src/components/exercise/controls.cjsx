@@ -33,8 +33,8 @@ ExerciseControls = React.createClass
     else
       ExerciseActions.save(@props.id)
 
-   publishExercise: ->
-     ExerciseActions.publish(@props.id)
+  publishExercise: ->
+    ExerciseActions.publish(@props.id)
 
   onPreview: ->
     @props.location.visitPreview(@props.id)
