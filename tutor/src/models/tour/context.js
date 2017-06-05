@@ -91,6 +91,9 @@ export default class TourContext extends BaseModel {
   }
 
   @computed get audienceTags() {
+    if (isEmpty(this.courses)) {
+      return User.tourAudienceTags;
+    }
     return uniq(flatMap(this.courses, c => c.tourAudienceTags));
   }
 
