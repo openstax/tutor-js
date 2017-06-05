@@ -69,8 +69,15 @@ const TEACHER_MENU = [
     label: 'Course Settings and Roster',
   },
   {
+    label: '', // divider has no label
+  },
+  {
     name: 'createNewCourse',
-    label: 'Create or Copy a Course',
+    label: 'Create a Course',
+  },
+  {
+    name: 'cloneCourse',
+    label: 'Copy this Course',
   },
   {
     label: '', // divider has no label

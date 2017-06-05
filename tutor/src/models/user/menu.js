@@ -65,15 +65,25 @@ const ROUTES = {
     },
   },
   createNewCourse: {
-    label: 'Create or Copy a Course',
-    options() {
-      return {
-        className: (Courses.size ? '' : 'visible-when-debugging unstyled'),
-        separator: 'after',
-      };
-
-    },
+    label: 'Create a Course',
     isAllowed() { return User.isConfirmedFaculty; },
+    options({ courseId }) {
+      return courseId ? { separator: 'before' } : { separator: 'both' };
+    },
+  },
+  cloneCourse: {
+    label: 'Copy this Course',
+    params(course) {
+      return { sourceId: course.courseId };
+    },
+    roles: {
+      teacher: 'createNewCourse',
+    },
+    options: {
+      key: 'clone-course', separator: 'after',
+    },
+    isAllowed(course) {
+      return !!(course && User.isConfirmedFaculty); },
   },
   customer_service: {
     label: 'Customer Service',
