@@ -4,6 +4,7 @@ import {
 
 import { action, computed, observable } from 'mobx';
 import UiSettings from 'shared/src/model/ui-settings';
+import Courses from './courses-map';
 
 @identifiedBy('user')
 export class User extends BaseModel {
@@ -33,7 +34,9 @@ export class User extends BaseModel {
   }
 
   @computed get tourAudienceTags() {
-    return []; // we may have special per-user tags at some point?
+    if (Courses.active.teaching.nonPreview.any) { return ['teacher']; }
+    if (Courses.active.teaching.isEmpty.any) { return ['teacher-preview']; }
+    return [];
   }
 
   replayTour(tour) {
