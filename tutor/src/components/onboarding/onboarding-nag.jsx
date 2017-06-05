@@ -3,12 +3,12 @@ import { Button } from 'react-bootstrap';
 import { action, observable } from 'mobx';
 import { observer, PropTypes as MobxPropTypes  } from 'mobx-react';
 import Router from '../../helpers/router';
-import { NagWarning, Heading, Body, Footer } from './nag-components';
+import { OnboardingNag, Heading, Body, Footer } from './nag-components';
 
-export { NagWarning, Heading, Body, Footer };
+export { OnboardingNag, Heading, Body, Footer };
 
 @observer
-export class PreviewWarning extends React.PureComponent {
+export class GotItOnboardingNag extends React.PureComponent {
   static propTypes = {
     ux: MobxPropTypes.observableObject.isRequired,
   }
@@ -36,14 +36,14 @@ export class PreviewWarning extends React.PureComponent {
 
   renderNoProblem() {
     return (
-      <NagWarning className="second-session-prompt got-it">
+      <OnboardingNag className="got-it">
         <Body>
           No problem. When you’re ready to create a real course, click “Create a course” on the top right of your dashboard.
         </Body>
-        <Footer>
+        <Footer className="got-it">
           <Button bsStyle="primary" onClick={this.onContinue}>Got it</Button>
         </Footer>
-      </NagWarning>
+      </OnboardingNag>
     );
   }
 

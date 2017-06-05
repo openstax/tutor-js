@@ -4,12 +4,13 @@ debounce  = require 'lodash/debounce'
 includes  = require 'lodash/includes'
 assign    = require 'lodash/assign'
 isObject  = require 'lodash/isObject'
+isNil     = require 'lodash/isNil'
 cloneDeep = require 'lodash/cloneDeep'
+mobx = require 'mobx'
 URLs = require './urls'
 Networking = require './networking'
 
-SETTINGS = {}
-PREVIOUS_SETTINGS = {}
+SETTINGS = mobx.observable.map()
 
 saveSettings = debounce( ->
   Networking.perform(
@@ -17,48 +18,37 @@ saveSettings = debounce( ->
     url: URLs.construct('tutor_api', 'user', 'ui_settings')
     withCredentials: true
     data:
-      previous_ui_settings: PREVIOUS_SETTINGS
-      ui_settings: SETTINGS
-  ).then( ->
-    PREVIOUS_SETTINGS = cloneDeep SETTINGS
+      ui_settings: mobx.toJS(SETTINGS)
   )
-, 10)
+, 500)
 
 UiSettings = {
 
   initialize: (settings) ->
-    SETTINGS = cloneDeep(settings) or {}
-    PREVIOUS_SETTINGS = cloneDeep SETTINGS
-    this._migrateBadKeys()
+    SETTINGS.replace(settings)
 
-  get: (key) ->
-    get(SETTINGS, key)
+  get: (key, id) ->
+    obj = SETTINGS.get(key)
+    if (not isNil(id) and isObject(obj)) then obj[id] else obj
 
-  set: (key, value) ->
+  set: (key, id, value) ->
     if isObject(key)
-      assign(SETTINGS, key)
+      SETTINGS.merge(key)
     else
-      setWith(SETTINGS, key, value, Object)
+      if isNil(value)
+        SETTINGS.set(key, id)
+      else
+        obj = SETTINGS.get(key) or {}
+        obj[id] = value
+        SETTINGS.set(key, obj)
     saveSettings()
 
   # for use by specs to reset
   _reset: ->
-    SETTINGS = {}
-
-  _migrateBadKeys: ->
-    badKeys = []
-    keys = Object.getOwnPropertyNames(SETTINGS) # make a copy since it'll be mutated
-    for key in keys
-      if includes(key, '.') # legacy key from before we were using lodash set
-        value = SETTINGS[key]
-        delete SETTINGS[key]
-        setWith(SETTINGS, key, value, Object)
-        badKeys.push(key)
-
-    saveSettings() if badKeys.length
+    SETTINGS.clear()
 
   # for debugging purposes
-  _dump: -> cloneDeep(SETTINGS)
+  _dump: -> mobx.toJS(SETTINGS)
 }
 
 module.exports = UiSettings

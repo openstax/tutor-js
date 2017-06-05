@@ -1,4 +1,4 @@
-.preview-warning-modal {
+.onboarding.modal {
   margin-top: 130px;
   .modal-dialog {
     width: 500px;
@@ -8,7 +8,7 @@
   }
 }
 
-.preview-course-nag-warning {
+.onboarding-nag {
   .heading,
   .body,
   .footer {
@@ -33,13 +33,15 @@
       margin-top: 0.5rem;
       & + .btn { margin-left: 0; }
     }
+    &.got-it {
+      .btn { width: inherit; }
+    }
   }
 
-  &.second-session-prompt {
-    &.got-it {
-      .footer {
-        .btn { width: inherit; }
-      }
+  &.freshly-created-course {
+    .why-ask-heading { cursor: pointer; }
+    .footer button:first-child {
+      &:extend(.btn-primary);
     }
   }
 }

@@ -245,6 +245,8 @@ startAPI = ->
    )
   connectModelCreate(User.constructor, 'logEvent',
     pattern: 'log/event/{category}/{code}'
+    data: ({ data }) -> { data }
+
    )
   connectModelRead(Offerings.constructor, 'fetch', url: 'offerings', onSuccess: 'onLoaded')
 

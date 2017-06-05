@@ -2,14 +2,14 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 
-import { PreviewWarning, NagWarning, Heading, Body, Footer } from './preview-warning';
+import { OnboardingNag, GotItOnboardingNag, Heading, Body, Footer } from './onboarding-nag';
 
 @observer
-export default class ExpiredPreviewWarning extends PreviewWarning {
+export default class ExpiredPreviewWarning extends GotItOnboardingNag {
 
   renderPrompt() {
     return (
-      <NagWarning className="only-preview">
+      <OnboardingNag className="only-preview">
         <Heading>
           This preview course has expired.
         </Heading>
@@ -20,7 +20,7 @@ export default class ExpiredPreviewWarning extends PreviewWarning {
           <Button bsStyle="primary" onClick={this.onAddCourse}>Create a course</Button>
           <Button onClick={this.onContinue}>Stay in Preview course</Button>
         </Footer>
-      </NagWarning>
+      </OnboardingNag>
     );
   }
 

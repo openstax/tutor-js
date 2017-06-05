@@ -65,10 +65,10 @@ export class User extends BaseModel {
     return UiSettings.get('sessionCount') || 0;
   }
 
-  logEvent({ category, code }) {
+  logEvent({ category, code, data }) {
     // students do not track events
     if (!this.isConfirmedFaculty && this.self_reported_role === 'student') { return 'ABORT'; }
-    return { category, code };
+    return { category, code, data };
   }
 
 }
