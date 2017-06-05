@@ -7,7 +7,7 @@ import UiSettings from 'shared/src/model/ui-settings';
 import USER_DATA from '../../api/user.json';
 import { bootstrapCoursesList } from '../courses-test-data';
 
-jest.mock('shared/src/model/ui-settings')
+jest.mock('shared/src/model/ui-settings');
 
 describe('User Model', () => {
   afterEach(() => {
@@ -24,7 +24,11 @@ describe('User Model', () => {
 
   it('calculates audience tags', () => {
     bootstrapCoursesList();
-    expect(User.tourAudienceTags).toEqual([]); // currently user tags are always empty
+    expect(User.tourAudienceTags).toEqual(['teacher']);
+    Courses.forEach((c) => (c.is_preview = true));
+    expect(User.tourAudienceTags).toEqual(['teacher-preview']);
+    Courses.clear();
+    expect(User.tourAudienceTags).toEqual([]);
   });
 
   it('#verifiedRoleForCourse', () => {
