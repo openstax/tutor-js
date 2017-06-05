@@ -19,6 +19,10 @@ export default class Map extends ObservableMap {
     return this.size === 0;
   }
 
+  @computed get any() {
+    return ! this.isEmpty;
+  }
+
   @nonenumerable
   apiRequestsInProgress = observable.map();
 
