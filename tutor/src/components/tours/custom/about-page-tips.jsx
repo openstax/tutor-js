@@ -40,9 +40,9 @@ export default class AboutPageTips extends React.PureComponent {
   render () {
     return (
       <Tooltip
+        {...this.props}
         buttons={{primary: 'View later', secondary: 'View tips now'}}
         onClick={this.handleClick}
-        {...this.props}
       />
     );
   }
