@@ -4,6 +4,10 @@ import {
 
 export default class BasicCourseUX {
 
+  static get formattedStudentCost() {
+    return '$10';
+  }
+
   @observable course;
 
   constructor(course) {
@@ -29,7 +33,7 @@ export default class BasicCourseUX {
   }
 
   get formattedStudentCost() {
-    return '$10';
+    return BasicCourseUX.formattedStudentCost;
   }
 
 }
