@@ -78,6 +78,4 @@ export class User extends BaseModel {
 
 const currentUser = new User;
 
-window.currentUser = currentUser;
-
 export default currentUser;

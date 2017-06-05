@@ -4,7 +4,7 @@ import { observer, inject } from 'mobx-react';
 
 import TourContext from '../../../models/tour/context';
 
-import Tooltip from 'react-joyride/src/scripts/Tooltip';
+import { Tooltip } from 'react-joyride';
 
 @inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
 @observer
@@ -38,41 +38,11 @@ export default class AboutPageTips extends React.PureComponent {
   }
 
   render () {
-    let parentRide = this.props.ride.joyrideRef;
-    window.parentRide = parentRide;
-    let { index, shouldRedraw, shouldRenderTooltip, standaloneData, xPos, yPos } = parentRide.state
-    let {
-      disableOverlay,
-      holePadding,
-      locale,
-      offsetParentSelector,
-      showBackButton,
-      showOverlay,
-      showSkipButton,
-      showStepsProgress,
-      steps,
-      type
-    } = parentRide.props;
-
     return (
       <Tooltip
-        allowClicksThruHole={false}
-        animate={true}
         buttons={{primary: 'View later', secondary: 'View tips now'}}
-        disableOverlay={disableOverlay}
-        holePadding={holePadding}
-        offsetParentSelector={offsetParentSelector}
         onClick={this.handleClick}
-        onRender={parentRide.onRenderTooltip}
-        showOverlay={true}
-        standalone={false}
-        position={parentRide.calcPosition(this.props.step)}
-        selector={this.props.selector}
-        target={parentRide.getStepTargetElement(this.props.step)}
-        step={this.props.step}
-        type={type}
-        xPos={this.props.xPos}
-        yPos={this.props.yPos}
+        {...this.props}
       />
     );
   }

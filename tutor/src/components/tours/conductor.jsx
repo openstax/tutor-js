@@ -8,24 +8,6 @@ import 'resources/styles/components/tours/joyride.scss';
 import TourContext from '../../models/tour/context';
 import { SpyModeContext, Content as SpyModeContent } from 'shared/src/components/spy-mode';
 
-import { create } from 'lodash';
-
-let { createComponent } = Joyride.prototype;
-
-Joyride.prototype.createComponent = function() {
-  const { index, standaloneData } = this.state;
-  const { steps } = this.props;
-
-  const currentStep = standaloneData || steps[index];
-  const step = { ...currentStep };
-
-  if (step.customComponent) {
-    return step.customComponent(this.state.xPos, this.state.yPos);
-  } else {
-    return createComponent.call(this);
-  }
-}
-
 @inject("spyMode") @observer
 export default class TourConductor extends React.PureComponent {
 
