@@ -31,6 +31,7 @@ export default class TourStep extends BaseModel {
   @field position;
   @field is_fixed;
   @field anchor_id;
+  @field supersize;
   @field component;
   @field({ type: 'object' }) action;
 
@@ -50,6 +51,7 @@ export default class TourStep extends BaseModel {
       title: this.title,
       text:  this.HTML,
       isFixed: !!this.is_fixed,
+      style: this.supersize ? { width: 1000, padding: 0 } : {},
       position: this.position || ( this.anchor_id ? 'top' : 'center' ),
     };
   }

@@ -22,6 +22,10 @@ class AllCoursesMap extends CoursesMap {
     return this.where(c => c.is_active);
   }
 
+  @computed get teaching() {
+    return this.where(c => c.isTeacher);
+  }
+
   @computed get completed() {
     return this.where(c => c.hasEnded);
   }
@@ -36,6 +40,10 @@ class AllCoursesMap extends CoursesMap {
 
   @computed get tutor() {
     return this.where(c => !c.is_concept_coach);
+  }
+
+  @computed get conceptCoach() {
+    return this.where(c => c.is_concept_coach);
   }
 
   @computed get nonPreview() {

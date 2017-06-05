@@ -1,0 +1,70 @@
+.joyride-tooltip {
+  &[data-target*="my-courses"] {
+    padding: 0;
+    .joyride-tooltip__main {
+      padding-bottom: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+.joyride-tooltip .value-prop {
+  @spacing: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: @spacing;
+  .beta {
+    font-style: italic;
+    font-size: 80%;
+  }
+  .heading {
+    margin: @spacing;
+    padding: 0;
+    text-align: center;
+    font-size: 48px;
+  }
+  .sub-heading {
+    font-size: 18px;
+    margin: 0 0 @spacing*0.5 0;
+    padding: 0;
+    text-align: center;
+    font-weight: normal;
+  }
+  .column-content {
+    display: flex;
+    flex-direction: row;
+    padding: @spacing;
+    .column {
+      background-repeat: no-repeat;
+      padding-top: @spacing*2;
+      background-size: 75px auto;
+      background-position: center top;
+      flex: 1;
+      + .column {
+        padding-left: @spacing;
+      }
+      h3 {
+        font-size: 16px;
+        margin: 0 0 @spacing*0.25 0;
+        font-weight: 700;
+      }
+    }
+  }
+  .btn {
+    color: @tutor-neutral-lightest;
+    background-color: @tutor-tertiary-light;
+    border-radius: 5px;
+  }
+
+  &.cc-to-tutor,
+  &.welcome-to-tutor {
+    .tutor-background-image("value-prop/tutor-background.svg");
+    .column {
+      &.spaced       { .tutor-background-image("value-prop/spaced-practice.svg"); }
+      &.personalized { .tutor-background-image("value-prop/personalized.svg"); }
+      &.low-cost     { .tutor-background-image("value-prop/low-cost.svg"); }
+      &.two-step     { .tutor-background-image("value-prop/two-step.svg"); }
+    }
+  }
+}

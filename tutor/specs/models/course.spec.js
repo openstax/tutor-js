@@ -46,4 +46,14 @@ describe('Course Model', () => {
     expect(Courses.get(3).primaryRole.type).to.equal('teacher');
   });
 
+  it('sunsets cc courses', () => {
+    const course = Courses.get(2);
+    expect(course.isSunsetting).toEqual(false);
+    course.is_concept_coach = true;
+    course.appearance_code = 'physics';
+    expect(course.isSunsetting).toEqual(false);
+    course.appearance_code = 'micro_econ';
+    expect(course.isSunsetting).toEqual(true);
+  });
+
 });

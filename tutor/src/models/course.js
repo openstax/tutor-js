@@ -60,7 +60,7 @@ export default class Course extends BaseModel {
   }
 
   @computed get termFull() {
-    return `${capitalize(this.term)} ${this.year}`
+    return `${capitalize(this.term)} ${this.year}`;
   }
 
   @computed get subject() {
@@ -123,4 +123,9 @@ export default class Course extends BaseModel {
     return first(sortBy(this.roles, r => -1 * ROLE_PRIORITY.indexOf(r.type)));
   }
 
+  @computed get isSunsetting() {
+    return !!(this.is_concept_coach && !(
+        /biology/.test(this.appearance_code) || /physics/.test(this.appearance_code)
+    ));
+  }
 }
