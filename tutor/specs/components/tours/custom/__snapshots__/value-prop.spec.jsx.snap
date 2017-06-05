@@ -1,0 +1,200 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tour Value Prop Component matches snapshot for cc 1`] = `
+<div
+  className="value-prop cc-to-tutor"
+>
+  <h1
+    className="heading"
+  >
+    Welcome to 
+    <span>
+      OpenStax Tutor 
+      <span
+        className="beta"
+      >
+        beta
+      </span>
+    </span>
+    !
+  </h1>
+  <h2
+    className="sub-heading"
+  >
+    Concept Coach is ending, but a better tool is here. Here's what your students have to look forward to!
+  </h2>
+  <div
+    className="column-content"
+  >
+    <div
+      className="column spaced"
+    >
+      <h3>
+        Spaced practice
+      </h3>
+      <p>
+        Help students remember what they previously learned
+      </p>
+    </div>
+    <div
+      className="column personalized"
+    >
+      <h3>
+        Personalized questions
+      </h3>
+      <p>
+        Help students improve where they need it most
+      </p>
+    </div>
+    <div
+      className="column two-step"
+    >
+      <h3>
+        Two-step questions
+      </h3>
+      <p>
+        Help students study more effectively
+      </p>
+    </div>
+    <div
+      className="column low-cost"
+    >
+      <h3>
+        Low cost
+      </h3>
+      <p>
+        $10
+         per course saves students money
+      </p>
+    </div>
+  </div>
+  <button
+    className="btn btn-default"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Continue
+  </button>
+</div>
+`;
+
+exports[`Tour Value Prop Component matches snapshot for sunset cc 1`] = `
+<div
+  className="value-prop sunset"
+>
+  <h1
+    className="heading"
+  >
+    Looking for your Concept Coach courses?
+  </h1>
+  <div
+    className="column-content"
+  >
+    <div
+      className="column thanks"
+    >
+      Thanks for participating in the Concept Coach pilot! Read our blog post to find out what we learned and how we’re moving forward.
+    </div>
+    <div
+      className="column"
+    >
+      The last day to export your Concept Coach scores reports is October 1.
+    </div>
+    <div
+      className="column"
+    >
+      We haven’t launched OpenStax Tutor in your subject yet. We’ll let you know as soon as it’s available. Looking for your Concept Coach
+    </div>
+  </div>
+  <button
+    className="btn btn-default"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Continue
+  </button>
+</div>
+`;
+
+exports[`Tour Value Prop Component matches snapshot for tutor 1`] = `
+<div
+  className="value-prop welcome-to-tutor"
+>
+  <h1
+    className="heading"
+  >
+    Welcome to 
+    <span>
+      OpenStax Tutor 
+      <span
+        className="beta"
+      >
+        beta
+      </span>
+    </span>
+    !
+  </h1>
+  <h2
+    className="sub-heading"
+  >
+    Improve how your students learn with research-based technology -- for only 
+    $10
+    .
+  </h2>
+  <div
+    className="column-content"
+  >
+    <div
+      className="column spaced"
+    >
+      <h3>
+        Spaced practice
+      </h3>
+      <p>
+        Help students remember what they previously learned
+      </p>
+    </div>
+    <div
+      className="column personalized"
+    >
+      <h3>
+        Personalized questions
+      </h3>
+      <p>
+        Help students improve where they need it most
+      </p>
+    </div>
+    <div
+      className="column two-step"
+    >
+      <h3>
+        Two-step questions
+      </h3>
+      <p>
+        Help students study more effectively
+      </p>
+    </div>
+    <div
+      className="column low-cost"
+    >
+      <h3>
+        Low cost
+      </h3>
+      <p>
+        $10
+         per course saves students money
+      </p>
+    </div>
+  </div>
+  <button
+    className="btn btn-default"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Continue
+  </button>
+</div>
+`;

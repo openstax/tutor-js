@@ -86,7 +86,7 @@ function CCSunsetMessage({ onContinue }) {
 function Welcome({ onContinue }) {
   return (
     <ValueProp className="welcome-to-tutor">
-      <h1 className="heading">Welcome to <TutorBeta /></h1>
+      <h1 className="heading">Welcome to <TutorBeta />!</h1>
       <h2 className="sub-heading">
         Improve how your students learn with research-based
         technology -- for only {BasicCourseUX.formattedStudentCost}.
@@ -107,7 +107,7 @@ export default class ValuePropWrapper extends React.PureComponent {
 
   @computed get isCCteacherWithoutMigration() {
     const sunset = Courses.where((c) => c.isSunsetting);
-    return (sunset.size === Courses.nonPreview.size);
+    return (sunset.any && sunset.size === Courses.nonPreview.size);
   }
 
   render () {
