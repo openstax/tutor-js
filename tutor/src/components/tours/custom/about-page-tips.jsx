@@ -29,8 +29,11 @@ export default class AboutPageTips extends React.PureComponent {
     if (el.className.indexOf('joyride-') === 0 && dataType === 'back') { 
       clickEvent.preventDefault();
       clickEvent.stopPropagation();
-      parentRide.stop();
-      parentRide.reset();
+
+      parentRide.props.callback({
+        type: 'finished',
+        action: 'finished'
+      });
       this.props.tourContext.playTriggeredTours();
     } else {
       parentRide.onClickTooltip(clickEvent);
