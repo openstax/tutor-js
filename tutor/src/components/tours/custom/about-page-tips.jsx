@@ -15,29 +15,32 @@ export default class AboutPageTips extends React.PureComponent {
 
   @action.bound
   handleClick(clickEvent) {
-    let parentRide = this.props.ride.joyrideRef;
-
-    const { index, shouldRun } = parentRide.state;
-    const { steps, type } = parentRide.props;
-    const el = clickEvent.currentTarget.className.includes('joyride-') && [
-      'A',
-      'BUTTON'
-    ].includes(clickEvent.currentTarget.tagName) ? clickEvent.currentTarget : clickEvent.target;
+    const el = this.getClickTarget(clickEvent);
     const dataType = el.dataset.type;
 
-    /* istanbul ignore else */
-    if (el.className.indexOf('joyride-') === 0 && dataType === 'back') { 
+    if (el.className.indexOf('joyride-') === 0 && dataType === 'back') {
       clickEvent.preventDefault();
       clickEvent.stopPropagation();
 
-      parentRide.props.callback({
-        type: 'finished',
-        action: 'finished'
-      });
-      this.props.tourContext.playTriggeredTours();
-    } else {
-      parentRide.onClickTooltip(clickEvent);
+      return this.triggerPageTips();
     }
+
+    this.props.ride.joyrideRef.onClickTooltip(clickEvent);
+  }
+
+  getClickTarget(clickEvent) {
+    return clickEvent.currentTarget.className.includes('joyride-') && [
+      'A',
+      'BUTTON'
+    ].includes(clickEvent.currentTarget.tagName) ? clickEvent.currentTarget : clickEvent.target;
+  }
+
+  triggerPageTips() {
+    this.props.ride.joyrideRef.props.callback({
+      type: 'finished',
+      action: 'finished'
+    });
+    this.props.tourContext.playTriggeredTours();
   }
 
   render () {
