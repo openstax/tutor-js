@@ -17,8 +17,8 @@ LOADERS =
   scss:   'sass-loader'
 
 RESOLVABLES =
-  js:     { test: /\.js$/,     use: LOADERS.babel,  exclude: /node_modules/ }
-  jsx:    { test: /\.jsx$/,    use: LOADERS.babel,  exclude: /node_modules/ }
+  js:     { test: /\.js$/,     use: LOADERS.babel,  exclude: /node_modules\/(?!(react-joyride\/src\/scripts)\/).*/ }
+  jsx:    { test: /\.jsx$/,    use: LOADERS.babel,  exclude: /node_modules\/(?!(react-joyride\/src\/scripts)\/).*/ }
   coffee: { test: /\.coffee$/, use: LOADERS.coffee, exclude: /node_modules/ }
   cjsx:   { test: /\.cjsx$/,   use: LOADERS.cjsx,   exclude: /node_modules/ }
 

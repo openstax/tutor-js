@@ -79,6 +79,7 @@ export default class TourContext extends BaseModel {
 
   // The tour that should be shown
   @computed get tour() {
+    console.info(this.elgibleTours)
     return find(this.elgibleTours, 'isViewable') || null;
   }
 
@@ -119,6 +120,7 @@ export default class TourContext extends BaseModel {
   }
 
   @action playTriggeredTours() {
+    console.info(this.elgibleTours, 'this.elgibleTours')
     //invoke(this.elgibleTours, 'play');
     this.elgibleTours.forEach((tour) => {
       if (!tour.auto_display){ tour.play(); }

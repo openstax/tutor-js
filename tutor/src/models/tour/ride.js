@@ -105,8 +105,19 @@ export default class TourRide extends BaseModel {
       props.style = extend(props.style, {
         button: {
           display: 'none',
-        },
+        }
       });
+    } else if (step.customComponent && CustomComponents[step.customComponent]) {
+      let Step = CustomComponents[step.customComponent];
+      props.customComponent = (xPos, yPos) => {
+        return <Step
+          ride={this}
+          selector={(step.anchor_id ? this.context.anchors.get(step.anchor_id) : this.region.domSelector)}
+          step={props}
+          xPos={xPos}
+          yPos={yPos}
+        />;
+      }
     }
 
     return extend(props, {

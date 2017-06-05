@@ -10,6 +10,7 @@
     {
       "component": "HowToUsePreview"
     }, {
+      "customComponent": "AboutPageTips",
       "body": "Learn more about the dashboard with our \"Page tips.\"",
       "anchor_id": "menu-option-page-tips",
       "position": "bottom-right",
