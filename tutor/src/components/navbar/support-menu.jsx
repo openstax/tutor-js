@@ -20,7 +20,6 @@ export default class SupportMenu extends React.PureComponent {
     courseId: React.PropTypes.string,
   }
 
-
   componentDidMount() {
     Chat.setElementVisiblity(findDOMNode(this.chatEnabled), findDOMNode(this.chatDisabled));
   }
@@ -84,7 +83,6 @@ export default class SupportMenu extends React.PureComponent {
         </Dropdown.Toggle>
         <Dropdown.Menu >
           {this.renderPageTipsOption()}
-          {this.renderChat()}
           <MenuItem
             key="nav-help-link"
             className="-help-link"
@@ -93,6 +91,7 @@ export default class SupportMenu extends React.PureComponent {
           >
             <span>Get Help</span>
           </MenuItem>
+          {this.renderChat()}
         </Dropdown.Menu>
       </Dropdown>
     );
