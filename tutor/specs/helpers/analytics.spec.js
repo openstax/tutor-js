@@ -9,7 +9,7 @@ describe('Analytics', function() {
 
   beforeEach(function() {
     this.ga = jest.fn();
-    Analytics.setTracker(this.ga);
+    Analytics.setGa(this.ga);
     Courses.bootstrap([ COURSE ]);
     this.sendPageView = Analytics.sendPageView = jest.fn();
   });
@@ -23,9 +23,49 @@ describe('Analytics', function() {
   });
 
   it('skips sending pageviews if ga isn\'t present', function() {
-    Analytics.setTracker(undefined);
+    Analytics.setGa(undefined);
     Analytics.onNavigation('/course/1');
     expect(Analytics.sendPageView).not.toHaveBeenCalled()
+    return undefined;
+  });
+
+  it('sends the same commands to all trackers', function() {
+    // Set up a mock GA function/object
+    function Tracker(name) {
+      this.name = name;
+      this.get = function(fieldName) {
+        if ('name' == fieldName) { return this.name; }
+      };
+    }
+
+    const mockGa = function() {
+      if (arguments.length == 0) { return; }
+      if (arguments.length == 1 && typeof(arguments[0]) == 'function') {
+        return arguments[0]();
+      }
+      if (arguments[0] == 'create') {
+        mockGa.trackers.push(new Tracker(arguments[3]))
+      }
+    }
+    mockGa.trackers = [];
+    mockGa.getAll = function() { return this.trackers; }
+
+    // Create two trackers in our mock
+    mockGa('create', 42, 42, 't0');
+    mockGa('create', 42, 42, 't1');
+
+    Analytics.setGa(mockGa);
+
+    let originalRealGa = Analytics.realGa;
+    Analytics.realGa = jest.fn();
+
+    // Fire off a tracking event and then check that it went to both trackers
+    Analytics.ga('send', 'blah');
+
+    expect(Analytics.realGa).toHaveBeenCalledWith('t0.send', 'blah');
+    expect(Analytics.realGa).toHaveBeenCalledWith('t1.send', 'blah');
+
+    Analytics.realGa = originalRealGa;
     return undefined;
   });
 
