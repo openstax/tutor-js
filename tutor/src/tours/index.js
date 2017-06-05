@@ -13,6 +13,7 @@ const TOURS = {};
   require('./add-reading.json'),
   require('./add-homework.json'),
   require('./course-settings.json'),
+  require('./my-courses.json'),
 ].forEach(tours => tours.forEach(tour => TOURS[tour.id] = tour));
 
 export default TOURS;

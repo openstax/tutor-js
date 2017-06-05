@@ -1,0 +1,15 @@
+[
+{
+  "id": "my-courses",
+  "autoplay": true,
+  "standalone": true,
+  "audience_tags": [
+    "teacher", "teacher-preview"
+  ],
+  "steps": [
+    {
+      "component": "ValueProp"
+    }
+  ]
+}
+]

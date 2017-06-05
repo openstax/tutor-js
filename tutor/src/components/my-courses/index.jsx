@@ -6,6 +6,7 @@ import User from '../../models/user';
 import Router from '../../helpers/router';
 import Courses from '../../models/courses-map';
 import EmptyCourses from './empty';
+import TourRegion from '../tours/region'
 import PendingVerification from './pending-verification';
 
 import { MyCoursesPast, MyCoursesCurrent, MyCoursesPreview } from './listings';
@@ -43,11 +44,11 @@ export default class MyCourses extends React.PureComponent {
     }
 
     return (
-      <div className="my-courses">
+      <TourRegion id="my-courses" className="my-courses">
         <MyCoursesCurrent />
         <MyCoursesPreview />
         <MyCoursesPast    />
-      </div>
+      </TourRegion>
     );
   }
 
