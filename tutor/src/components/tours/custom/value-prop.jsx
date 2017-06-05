@@ -61,7 +61,7 @@ function CCToTutor({ onContinue }) {
 
 function CCSunsetMessage({ onContinue }) {
   return (
-    <ValueProp className="sunset">
+    <ValueProp className="cc-sunset">
       <h1 className="heading">Looking for your Concept Coach courses?</h1>
       <ColumnContent>
         <Column className="thanks">
@@ -69,11 +69,11 @@ function CCSunsetMessage({ onContinue }) {
           Concept Coach pilot! Read our
           blog post to find out what we learned and how we’re moving forward.
         </Column>
-        <Column>
+        <Column className="export-by">
           The last day to export your
           Concept Coach scores reports is October 1.
         </Column>
-        <Column>
+        <Column className="not-launched-yet">
           We haven’t launched OpenStax Tutor in your subject yet. We’ll let you know as soon as it’s available.
           Looking for your Concept Coach
         </Column>
