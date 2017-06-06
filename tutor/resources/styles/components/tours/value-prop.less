@@ -8,6 +8,11 @@
   }
 }
 
+.column-icons-embiggen() {
+  background-size: auto 100px;
+  padding-top: 116px;
+}
+
 .joyride-tooltip .value-prop {
   @spacing: 40px;
   display: flex;
@@ -98,7 +103,7 @@
   }
   &.course-preview {
     .column {
-      background-size: auto 82px;
+      .column-icons-embiggen();
 
       &.all-features              { .tutor-background-image("course-preview/all-features.svg");             }
       &.view-analytics            { .tutor-background-image("course-preview/view-analytics.svg");           }
@@ -108,8 +113,7 @@
   }
   &.question-library {
     .column {
-      background-size: auto 100px;
-      padding-top: 116px;
+      .column-icons-embiggen();
 
       &.exclude-question  { .tutor-background-image("question-library/exclude-question.svg"); }
       &.machine-learning  { .tutor-background-image("question-library/machine-learning.svg"); }
