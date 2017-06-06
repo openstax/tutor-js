@@ -8,7 +8,7 @@
   ],
   "steps": [
     {
-      "component": "HowToUsePreview"
+      "customComponent": "HowToUsePreview"
     }, {
       "customComponent": "AboutPageTips",
       "body": "Learn more about the dashboard with our \"Page tips.\"",

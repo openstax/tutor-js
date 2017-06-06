@@ -1,6 +1,9 @@
 import React from 'react';
 import { action } from 'mobx';
 
+import { Tooltip } from 'react-joyride';
+
+
 export default class HowToUsePreview extends React.PureComponent {
 
 
@@ -10,11 +13,20 @@ export default class HowToUsePreview extends React.PureComponent {
   }
 
   render () {
+    const step = this.props.step;
+    step.text = <div>
+      <h3>This is how you use Preview!</h3>
+    </div>
+
     return (
-      <div>
-        <h3>This is how you use Preview!</h3>
-        <button onClick={this.onHide}>Done</button>
-      </div>
+      <Tooltip
+        {...this.props}
+        step={step}
+        buttons={{
+          primary: 'Continue'
+        }}
+      />
+
     );
   }
 }
