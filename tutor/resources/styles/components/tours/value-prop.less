@@ -99,12 +99,22 @@
   }
   &.course-preview {
     .column {
-      background-size: auto 80px;
+      background-size: auto 82px;
 
       &.all-features              { .tutor-background-image("course-preview/all-features.svg");             }
       &.view-analytics            { .tutor-background-image("course-preview/view-analytics.svg");           }
       &.cant-save-work            { .tutor-background-image("course-preview/cant-save-work.svg");           }
       &.view-textbook-questions   { .tutor-background-image("course-preview/view-textbook-questions.svg");  }
+    }
+  }
+  &.question-library {
+    .column {
+      background-size: auto 100px;
+      padding-top: 120px;
+
+      &.exclude-question  { .tutor-background-image("question-library/exclude-question.svg"); }
+      &.machine-learning  { .tutor-background-image("question-library/machine-learning.svg"); }
+      &.question-details  { .tutor-background-image("question-library/question-details.svg"); }
     }
   }
 }

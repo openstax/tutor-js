@@ -29,6 +29,7 @@ class SuperTrainingWheel extends React.PureComponent {
     const buttons = { primary: 'Continue' };
 
     step.text = this.props.children;
+    step.isFixed = true;
 
     step.style.footer = {
       textAlign: 'center',
@@ -44,6 +45,15 @@ class SuperTrainingWheel extends React.PureComponent {
       paddingBottom: 0
     };
 
+    // close hole
+    step.style.hole = {
+      maxWidth: 0,
+      maxHeight: 0
+    };
+
+    step.style.width = 1000;
+    step.style.padding = 0;
+
     defaultsDeep(step.style, this.props.style);
     defaultsDeep(buttons, this.props.buttons);
 
@@ -56,7 +66,6 @@ class SuperTrainingWheel extends React.PureComponent {
     );
   }
 }
-
 
 export {
   ValueProp,
