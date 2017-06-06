@@ -1,5 +1,9 @@
-import React from 'react';
-import classnames from 'classnames';
+import React        from 'react';
+import { Tooltip }  from 'react-joyride';
+
+import classnames   from 'classnames';
+import defaultsDeep from 'lodash/defaultsDeep';
+import omit         from 'lodash/omit';
 
 function ValueProp({ className, children }) {
   return <div className={classnames('value-prop', className)}>{children}</div>;
@@ -19,9 +23,45 @@ function TutorBeta() {
   );
 }
 
+class SuperTrainingWheel extends React.PureComponent {
+  render () {
+    const step = this.props.step;
+    const buttons = { primary: 'Continue' };
+
+    step.text = this.props.children;
+
+    step.style.footer = {
+      textAlign: 'center',
+      paddingBottom: '25px'
+    };
+
+    step.style.button = {
+      padding: '15px 40px',
+      fontWeight: 700
+    };
+
+    step.style.main = {
+      paddingBottom: 0
+    };
+
+    defaultsDeep(step.style, this.props.style);
+    defaultsDeep(buttons, this.props.buttons);
+
+    return (
+      <Tooltip
+        {...omit(this.props, 'style', 'buttons')}
+        step={step}
+        buttons={buttons}
+      />
+    );
+  }
+}
+
+
 export {
   ValueProp,
   ColumnContent,
   Column,
-  TutorBeta
+  TutorBeta,
+  SuperTrainingWheel
 };
