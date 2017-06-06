@@ -21,7 +21,7 @@ export default class TipsNowOrLater extends React.PureComponent {
     const el = this.getClickTarget(clickEvent);
     const dataType = el.dataset.type;
 
-    if (el.className.indexOf('joyride-') === 0 && dataType === 'back') {
+    if (el.className.indexOf('joyride-') === 0 && dataType === 'next') {
       clickEvent.preventDefault();
       clickEvent.stopPropagation();
 
@@ -48,13 +48,27 @@ export default class TipsNowOrLater extends React.PureComponent {
 
   render () {
     const step = this.props.step;
-    const buttons = { primary: 'View later', secondary: 'View tips now' };
+    const buttons = { primary: 'View tips now', skip: 'View later' };
 
     step.text = this.props.children;
     step.isFixed = true;
 
+    step.style.footer = {
+      width: '220px'
+    };
+
+    step.style.button = {
+      float: 'left'
+    };
+
+    step.style.skip = {
+      float: 'right',
+      padding: '6px 12px',
+      margin: 0
+    };
+
     defaultsDeep(step.style, this.props.style);
-    defaultsDeep(buttons, this.props.buttons);
+    defaultsDeep(buttons, omit(this.props.buttons, 'secondary'));
 
     return (
       <Tooltip

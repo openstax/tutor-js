@@ -7,7 +7,10 @@ import omit         from 'lodash/omit';
 export default class SuperTrainingWheel extends React.PureComponent {
   render () {
     const step = this.props.step;
-    const buttons = { primary: 'Continue' };
+    const buttons = (
+      this.props.ride.joyrideRef &&
+      this.props.ride.joyrideRef.props.steps.length === 2
+    )? { primary: 'Continue' } : {};
 
     step.text = this.props.children;
     step.isFixed = true;
