@@ -8,7 +8,8 @@
   connectModify, connectCreate, connectRead, connectUpdate, connectDelete
   connectModelCreate, connectModelRead, connectModelUpdate, connectModelDelete
 } = require './adapter'
-
+pick = require 'lodash/pick'
+assign = require 'lodash/assign'
 {CourseActions} = require '../flux/course'
 {CoursePracticeActions} = require '../flux/practice'
 {CourseGuideActions} = require '../flux/guide'
@@ -49,6 +50,7 @@ handledEnrollmentErrorsMap = require '../flux/course-enrollment-handled-errors'
 handledEnrollmentErrors = _.keys(handledEnrollmentErrorsMap)
 
 { default: User } = require '../models/user'
+{ UserTerms, Term } = require '../models/user/terms'
 { default: Courses } = require '../models/courses-map'
 { default: Offerings } = require '../models/course/offerings'
 { default: CourseCreate } = require '../models/course/create'
@@ -243,6 +245,10 @@ startAPI = ->
   connectModelUpdate(User.constructor, 'saveTourView',
     pattern: 'user/tours/{id}'
    )
+
+  connectModelRead(UserTerms, 'fetch', onSuccess: 'onLoaded', url: 'terms')
+  connectModelUpdate(Term, 'sign', pattern: 'terms/{id}', method: 'PUT')
+
   connectModelCreate(User.constructor, 'logEvent',
     pattern: 'log/event/{category}/{code}'
     data: ({ data }) -> { data }
@@ -260,11 +266,13 @@ startAPI = ->
       end_at: endAt
   )
 
+
+
 start = (bootstrapData) ->
+  console.log bootstrapData
   for storeId, action of BOOTSTRAPED_MODELS
     data = bootstrapData[storeId]
     action(data) if data
-
   startAPI()
 
 module.exports = {startAPI, start}

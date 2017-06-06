@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Terms agreement modal renders and matches snapshot when there are terms 1`] = `
+<div
+  className="user-terms modal"
+  role="dialog"
+  style={
+    Object {
+      "display": "block",
+    }
+  }
+  tabIndex="-1"
+>
+  <div
+    className="modal-dialog"
+  >
+    <div
+      className="modal-content"
+      role="document"
+    >
+      <div
+        className="modal-header"
+      >
+        <h4>
+          SIGN ME
+        </h4>
+      </div>
+      <div
+        className="modal-body"
+      >
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "TERMS TESTING CONTENT <p> with some HTML</p>",
+            }
+          }
+        />
+      </div>
+      <div
+        className="modal-footer"
+      >
+        <button
+          className="btn btn-primary"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          I agree
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
