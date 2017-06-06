@@ -6,6 +6,7 @@ isStepComplete = (step) -> step.is_completed
 StudentDashboard = require './dashboard'
 WindowHelpers = require '../../helpers/window'
 {NotificationActions} = require 'shared'
+{default: TermsModal} = require '../terms-modal'
 
 StudentDashboardShell = React.createClass
   displayName: 'StudentDashboardShell'
@@ -33,6 +34,7 @@ StudentDashboardShell = React.createClass
     {courseId} = params
 
     <div className='student-dashboard '>
+      <TermsModal />
       <LoadableItem
         id={courseId}
         store={StudentDashboardStore}

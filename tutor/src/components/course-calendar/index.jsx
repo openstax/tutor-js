@@ -18,7 +18,7 @@ import PH from '../../helpers/period';
 import CourseTitleBanner from '../course-title-banner';
 import CourseNagModal from '../onboarding/course-nag';
 import NotificationHelpers from '../../helpers/notifications';
-
+import TermsModal from '../terms-modal';
 import CourseMonth from './month';
 
 const displayAsHandler = {
@@ -152,6 +152,7 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
           role={course.primaryRole}
           callbacks={NotificationHelpers.buildCallbackHandlers(this)}
         />
+        <TermsModal />
         <CourseNagModal ux={this.ux} />
         <CourseTitleBanner courseId={course.id} />
         <CourseCalendar {...calendarProps} />
