@@ -6,9 +6,12 @@ import TourContext from '../../../models/tour/context';
 
 import { Tooltip } from 'react-joyride';
 
+import defaultsDeep from 'lodash/defaultsDeep';
+import omit         from 'lodash/omit';
+
 @inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
 @observer
-export default class AboutPageTips extends React.PureComponent {
+export default class TipsNowOrLater extends React.PureComponent {
   // static propTypes = {
   //   tourContext: React.PropTypes.instanceOf(TourContext)
   // }
@@ -44,10 +47,21 @@ export default class AboutPageTips extends React.PureComponent {
   }
 
   render () {
+    const step = this.props.step;
+    const buttons = { primary: 'View later', secondary: 'View tips now' };
+
+    step.text = this.props.children;
+    step.isFixed = true;
+
+    defaultsDeep(step.style, this.props.style);
+    defaultsDeep(buttons, this.props.buttons);
+
     return (
       <Tooltip
-        {...this.props}
-        buttons={{primary: 'View later', secondary: 'View tips now'}}
+        position="left"
+        {...omit(this.props, 'style', 'buttons')}
+        step={step}
+        buttons={buttons}
         onClick={this.handleClick}
       />
     );

@@ -2,9 +2,9 @@ import React from 'react';
 import {
   ValueProp,
   ColumnContent,
-  Column,
-  SuperTrainingWheel
+  Column
 } from './common';
+import SuperTrainingWheel from './super-training-wheel';
 
 export default class HowToUseQL extends React.PureComponent {
 
