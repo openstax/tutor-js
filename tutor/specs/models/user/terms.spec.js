@@ -21,12 +21,13 @@ describe('User Terms Store', function() {
     expect(terms.unsigned.map((t) => t.id)).toEqual([1, 3]);
   });
 
-  it('signing a term removes it from list', () => {
+  it('signs unsigned terms and removes them from list', () => {
     terms.onLoaded({ data: [
       { id: 1, is_signed: false, title: 'TEST' },
     ] });
     const term = terms.unsigned[0];
-    term.sign();
+    terms.sign();
+    expect(term.is_signed).toBe(true);
     expect(terms.unsigned).toHaveLength(0);
   });
 });

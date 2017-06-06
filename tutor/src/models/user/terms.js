@@ -15,9 +15,6 @@ export class Term extends BaseModel {
   @field is_signed;
   @field name;
 
-  sign() {
-    this.is_signed = true;
-  }
 }
 
 @identifiedBy('user/terms')
@@ -42,4 +39,12 @@ export class UserTerms extends BaseModel {
   // will be overwritten by api
   fetch() {}
 
+  sign() {
+    const ids = [];
+    this.unsigned.forEach((t) => {
+      ids.push(t.id);
+      t.is_signed = true;
+    });
+    return { ids };
+  }
 }

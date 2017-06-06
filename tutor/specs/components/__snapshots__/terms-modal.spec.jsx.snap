@@ -12,7 +12,7 @@ exports[`Terms agreement modal renders and matches snapshot when there are terms
   tabIndex="-1"
 >
   <div
-    className="modal-dialog"
+    className="modal-lg modal-dialog"
   >
     <div
       className="modal-content"
@@ -21,20 +21,27 @@ exports[`Terms agreement modal renders and matches snapshot when there are terms
       <div
         className="modal-header"
       >
-        <h4>
-          SIGN ME
-        </h4>
+        Please agree to 
+        SIGN ME
+         before continuing.
       </div>
       <div
         className="modal-body"
       >
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "TERMS TESTING CONTENT <p> with some HTML</p>",
+        <div>
+          <h1
+            className="title"
+          >
+            SIGN ME
+          </h1>
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "TERMS TESTING CONTENT <p> with some HTML</p>",
+              }
             }
-          }
-        />
+          />
+        </div>
       </div>
       <div
         className="modal-footer"

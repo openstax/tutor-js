@@ -29,10 +29,11 @@ describe('Terms agreement modal', () => {
       id: 1, is_signed: false, content: 'TERMS TESTING CONTENT', title: 'SIGN ME',
     });
     term.sign = jest.fn();
+    User.terms = { sign: jest.fn() };
     User.unsignedTerms = [ term ];
     const modal = shallow(<TermsModal />);
     modal.find('Button').simulate('click');
-    expect(term.sign).toHaveBeenCalled();
+    expect(User.terms.sign).toHaveBeenCalled();
   });
 
 });

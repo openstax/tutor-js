@@ -247,7 +247,7 @@ startAPI = ->
    )
 
   connectModelRead(UserTerms, 'fetch', onSuccess: 'onLoaded', url: 'terms')
-  connectModelUpdate(Term, 'sign', pattern: 'terms/{id}', method: 'PUT')
+  connectModelUpdate(UserTerms, 'sign', pattern: 'terms/{ids}', method: 'PUT')
 
   connectModelCreate(User.constructor, 'logEvent',
     pattern: 'log/event/{category}/{code}'

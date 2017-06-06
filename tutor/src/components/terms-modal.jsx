@@ -4,7 +4,8 @@ import { action, computed } from 'mobx';
 
 import User from '../models/user';
 import { Modal, Button } from 'react-bootstrap';
-import { first } from 'lodash';
+import { map, isEmpty } from 'lodash';
+import String from '../helpers/string';
 
 @observer
 export default class TermsModal extends React.PureComponent {
@@ -13,23 +14,29 @@ export default class TermsModal extends React.PureComponent {
     ux: MobxPropTypes.observableObject,
   }
 
-  @computed get term() {
-    return first(User.unsignedTerms);
+  @computed get title() {
+    return String.toSentence(map(User.unsignedTerms, 'title'));
   }
 
   @action.bound onAgreement() {
-    this.term.sign();
+    User.terms.sign();
   }
 
   render() {
-    const { term } = this;
-    if (!term) { return null; }
+    if (isEmpty(User.unsignedTerms)) { return null; }
+
 
     return (
-      <Modal.Dialog className="user-terms">
-        <Modal.Header><h4>{term.title}</h4></Modal.Header>
+      <Modal.Dialog className="user-terms" bsSize="lg">
+        <Modal.Header>
+          Please agree to {this.title} before continuing.
+        </Modal.Header>
         <Modal.Body>
-          <div dangerouslySetInnerHTML={{__html: term.content}} />
+          {map(User.unsignedTerms, (t) =>
+            <div key={t.id}>
+              <h1 className="title">{t.title}</h1>
+              <div dangerouslySetInnerHTML={{ __html: t.content }} />
+            </div>)}
         </Modal.Body>
         <Modal.Footer>
           <Button bsStyle="primary" onClick={this.onAgreement}>I agree</Button>
