@@ -3,12 +3,6 @@
 _ = require 'underscore'
 moment = require 'moment'
 
-arrayToSentence = (arry) ->
-  if arry.length > 1
-    arry.slice(0, arry.length - 1).join(', ') + ' & ' + arry.slice(-1)
-  else
-    arry[0]
-
 StudentDashboardConfig = {
   _asyncStatusStats: {}
 

@@ -43,4 +43,11 @@ module.exports = {
 
         return match.charAt(0).toUpperCase() + match.substr(1)
   )
+
+  toSentence: (arry, join = 'and') ->
+    arry = arry.split(' ') if _.isString(arry)
+    if arry.length > 1
+      arry.slice(0, arry.length - 1).join(', ') + " #{join} " + arry.slice(-1)
+    else
+      arry[0]
 }

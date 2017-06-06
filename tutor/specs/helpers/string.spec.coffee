@@ -119,3 +119,7 @@ describe 'String helpers', ->
     expect(S.titleize('my_words_are_concatenated-please help')).to
       .equal('My Words Are Concatenated-Please Help')
     undefined
+
+  it 'join into a sentence', ->
+    expect(S.toSentence(['foo', 'bar', 'baz'])).toEqual('foo, bar and baz')
+    expect(S.toSentence('foo bar baz')).toEqual('foo, bar and baz')
