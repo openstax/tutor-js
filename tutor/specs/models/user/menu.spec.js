@@ -74,17 +74,23 @@ const TEACHER_MENU = [
   },
   {
     name: 'createNewCourse',
-    options: { className: '', separator: 'after' },
+    options: { separator: 'before' },
     params: { courseId: '2' },
-    label: 'Create or Copy a Course',
+    label: 'Create a Course',
+  },
+  {
+    name: 'createNewCourse',
+    options: { key: 'clone-course', separator: 'after' },
+    params: { sourceId: '2' },
+    label: 'Copy this Course',
   },
 ];
 
 const TEACHER_NO_COURSE_MENU = [
   {
     name: 'createNewCourse',
-    options: { className: 'visible-when-debugging unstyled', separator: 'after' },
-    label: 'Create or Copy a Course',
+    options: { separator: 'both' },
+    label: 'Create a Course',
   },
 ];
 

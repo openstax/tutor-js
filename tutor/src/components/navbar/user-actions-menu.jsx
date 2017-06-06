@@ -54,7 +54,7 @@ export default class UserActionsMenu extends React.PureComponent {
   renderMenuItem(menuOption) {
     const options = menuOption.options || {};
     const isActive = menuOption.name && Router.isActive(menuOption.name, menuOption.params, { window: this.props.windowImpl });
-    const key = `menu-option-${menuOption.key || menuOption.name || menuOption.key || menuOption.label}`;
+    const key = `menu-option-${options.key || menuOption.name || menuOption.key || menuOption.label}`;
     const Component = CustomComponents[menuOption.name];
 
     if (Component) {
@@ -82,8 +82,16 @@ export default class UserActionsMenu extends React.PureComponent {
       </MenuItem>
     );
     if (options.separator) {
-      const separator = <MenuItem divider={true} key={`${key}-divider`} />;
-      return options.separator === 'after' ? [item, separator] : [separator, item];
+      const separator = (suffix = 'divider') =>
+        <MenuItem divider={true} key={`${key}-${suffix}`} />;
+      switch (options.separator) {
+      case 'after':
+        return [item, separator()];
+      case 'before':
+        return [separator(), item];
+      case 'both':
+        return [separator('before'), item, separator('after')];
+      }
     }
     return item;
   }

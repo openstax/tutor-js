@@ -140,7 +140,13 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
               role="menu"
             >
               <li
-                className="createNewCourse visible-when-debugging unstyled"
+                className="divider"
+                onKeyDown={[Function]}
+                role="separator"
+                style={undefined}
+              />
+              <li
+                className="createNewCourse"
                 role="presentation"
                 style={undefined}
               >
@@ -157,7 +163,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                     data-tour-anchor-id="menu-option-createNewCourse"
                     id="menu-option-createNewCourse"
                   >
-                    Create or Copy a Course
+                    Create a Course
                   </div>
                 </a>
               </li>
