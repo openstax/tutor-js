@@ -2,26 +2,15 @@ import React from 'react';
 import { action, computed } from 'mobx';
 import Courses from '../../../models/courses-map';
 import { Button } from 'react-bootstrap';
-import classnames from 'classnames';
 import BasicCourseUX from '../../../models/course/basic-ux';
 
-function ValueProp({ className, children }) {
-  return <div className={classnames('value-prop', className)}>{children}</div>;
-}
+import {
+  ValueProp,
+  ColumnContent,
+  Column,
+  TutorBeta
+} from './common';
 
-function ColumnContent({ children }) {
-  return <div className="column-content">{children}</div>;
-}
-
-function Column({ className, children }) {
-  return <div className={classnames('column', className)}>{children}</div>;
-}
-
-function TutorBeta() {
-  return (
-    <span>OpenStax Tutor <span className="beta">beta</span></span>
-  );
-}
 function TutorValueColumns() {
   return (
     <ColumnContent>

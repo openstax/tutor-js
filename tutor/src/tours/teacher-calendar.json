@@ -8,6 +8,7 @@
   ],
   "steps": [
     {
+      "supersize": true,
       "customComponent": "HowToUsePreview"
     }, {
       "customComponent": "AboutPageTips",
