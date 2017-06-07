@@ -269,7 +269,6 @@ startAPI = ->
 
 
 start = (bootstrapData) ->
-  console.log bootstrapData
   for storeId, action of BOOTSTRAPED_MODELS
     data = bootstrapData[storeId]
     action(data) if data
