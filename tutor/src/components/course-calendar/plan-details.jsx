@@ -122,6 +122,7 @@ class CoursePlanDetails extends React.PureComponent {
       <Modal
         onHide={onHide}
         show={true}
+        enforceFocus={false}
         data-assignment-type={type}
         className={classnames('plan-modal', className, { 'in': this.keepVisible })}
       >
