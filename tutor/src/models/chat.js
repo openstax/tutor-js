@@ -12,16 +12,19 @@ export default {
   },
 
   initialize() {
-    window.liveagent.init('https://d.la2-c2-dfw.salesforceliveagent.com/chat', DEPLOYMENT_ID, ORGANIZATION_ID);
-
+    if (this.isEnabled) {
+      window.liveagent.init('https://d.la2-c2-dfw.salesforceliveagent.com/chat', DEPLOYMENT_ID, ORGANIZATION_ID);
+    }
     // will emit debugging info to the console
     // liveagent.enableLogging();
   },
 
   setElementVisiblity(online, offline) {
-    window.liveagent.showWhenOnline(ELEMENT_ID, online);
-    if (offline) {
-      window.liveagent.showWhenOffline(ELEMENT_ID, offline);
+    if (this.isEnabled) {
+      window.liveagent.showWhenOnline(ELEMENT_ID, online);
+      if (offline) {
+        window.liveagent.showWhenOffline(ELEMENT_ID, offline);
+      }
     }
   },
 
