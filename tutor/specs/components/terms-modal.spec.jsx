@@ -16,14 +16,6 @@ describe('Terms agreement modal', () => {
     expect(modal.children()).toHaveLength(0);
   });
 
-  it('renders and matches snapshot when there are terms', () => {
-    User.unsignedTerms = [ new Term({
-      id: 1, is_signed: false, title: 'SIGN ME',
-      content: 'TERMS TESTING CONTENT <p> with some HTML</p>',
-    }) ];
-    expect(SnapShot.create(<TermsModal />).toJSON()).toMatchSnapshot();
-  });
-
   it('signs term when agreed', () => {
     const term = new Term({
       id: 1, is_signed: false, content: 'TERMS TESTING CONTENT', title: 'SIGN ME',

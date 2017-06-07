@@ -27,7 +27,12 @@ export default class TermsModal extends React.PureComponent {
 
 
     return (
-      <Modal.Dialog className="user-terms" bsSize="lg">
+      <Modal
+        bsSize="lg"
+        show={true}
+        backdrop="static"
+        className="user-terms"
+      >
         <Modal.Header>
           Please agree to {this.title} before continuing.
         </Modal.Header>
@@ -41,7 +46,7 @@ export default class TermsModal extends React.PureComponent {
         <Modal.Footer>
           <Button bsStyle="primary" onClick={this.onAgreement}>I agree</Button>
         </Modal.Footer>
-      </Modal.Dialog>
+      </Modal>
     );
   }
 }
