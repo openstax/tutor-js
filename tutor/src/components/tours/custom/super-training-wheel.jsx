@@ -9,8 +9,8 @@ export default class SuperTrainingWheel extends React.PureComponent {
   render () {
     const step = this.props.step;
     const buttons = (
-      this.props.ride.joyrideRef &&
-      this.props.ride.joyrideRef.props.steps.length < 3
+      this.props.step.ride.joyrideRef &&
+      this.props.step.ride.joyrideRef.props.steps.length < 3
     )? { primary: 'Continue' } : {};
     const className = classnames('super-training-wheel',  this.props.className);
 

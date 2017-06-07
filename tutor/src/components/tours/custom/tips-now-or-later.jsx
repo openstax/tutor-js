@@ -29,7 +29,7 @@ export default class TipsNowOrLater extends React.PureComponent {
       return this.triggerPageTips();
     }
 
-    this.props.ride.joyrideRef.onClickTooltip(clickEvent);
+    this.props.step.ride.joyrideRef.onClickTooltip(clickEvent);
   }
 
   getClickTarget(clickEvent) {
@@ -40,7 +40,7 @@ export default class TipsNowOrLater extends React.PureComponent {
   }
 
   triggerPageTips() {
-    this.props.ride.joyrideRef.props.callback({
+    this.props.step.ride.joyrideRef.props.callback({
       type: 'finished',
       action: 'finished'
     });

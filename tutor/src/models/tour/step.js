@@ -32,7 +32,6 @@ export default class TourStep extends BaseModel {
   @field is_fixed;
   @field anchor_id;
   @field supersize;
-  @field component;
   @field customComponent;
   @field({ type: 'object' }) action;
 
