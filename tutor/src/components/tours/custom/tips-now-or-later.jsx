@@ -8,6 +8,7 @@ import { Tooltip } from 'react-joyride';
 
 import defaultsDeep from 'lodash/defaultsDeep';
 import omit         from 'lodash/omit';
+import classnames   from 'classnames';
 
 @inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
 @observer
@@ -49,23 +50,10 @@ export default class TipsNowOrLater extends React.PureComponent {
   render () {
     const step = this.props.step;
     const buttons = { primary: 'View tips now', skip: 'View later' };
+    const className = classnames('tips-now-or-later',  this.props.className);
 
     step.text = this.props.children;
     step.isFixed = true;
-
-    step.style.footer = {
-      width: '220px'
-    };
-
-    step.style.button = {
-      float: 'left'
-    };
-
-    step.style.skip = {
-      float: 'right',
-      padding: '6px 12px',
-      margin: 0
-    };
 
     defaultsDeep(step.style, this.props.style);
     defaultsDeep(buttons, omit(this.props.buttons, 'secondary'));
@@ -74,6 +62,7 @@ export default class TipsNowOrLater extends React.PureComponent {
       <Tooltip
         position="left"
         {...omit(this.props, 'style', 'buttons')}
+        className={className}
         step={step}
         buttons={buttons}
         onClick={this.handleClick}

@@ -78,7 +78,7 @@
     "react-dnd": "2.2.3",
     "react-dnd-html5-backend": "2.2.3",
     "react-dom": "15.4.2",
-    "react-joyride": "github:openstax/react-joyride#master",
+    "react-joyride": "github:openstax/react-joyride#feature-classes",
     "react-maskedinput": "3.3.4",
     "react-router": "4.0.0-alpha.6",
     "react-widgets": "3.4.6",
