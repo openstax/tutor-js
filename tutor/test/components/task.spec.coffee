@@ -103,7 +103,6 @@ describe 'Task Widget, Reading Task', ->
   xit 'should allow recovery when available and answer is incorrect', (done) ->
     taskTests
       .submitMultipleChoice(@result)
-      .then(taskChecks.checkRecoveryRefreshChoice)
       .then( ->
         done()
       , done)
@@ -203,7 +202,6 @@ describe 'Task Widget, through routes', ->
   #   taskActions
   #     .clickContinue(@result)
   #     .then(taskTests.submitMultipleChoice)
-  #     .then(taskChecks.checkRecoveryRefreshChoice)
   #     .then(taskActions.clickTryAnother)
   #     .then(taskActions.loadRecovery('step-id-4-2-recovery', VALID_RECOVERY_STEP))
   #     .then(taskActions.loadTask(VALID_RECOVERY_MODEL))

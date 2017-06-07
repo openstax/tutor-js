@@ -8,7 +8,7 @@ ExerciseStepCard = require './part-card'
 {step} = propTypes.ExerciseStepCard
 
 # TODO clean this up.
-REVIEW_CONTROL_PROPS = ['refreshStep', 'recoverFor', 'canTryAnother']
+REVIEW_CONTROL_PROPS = ['recoverFor', 'canTryAnother']
 
 NOT_REVIEW_PROPS = ['onNextStep', 'canReview', 'disabled']
 NOT_TEACHER_READ_ONLY_PROPS = _.union(NOT_REVIEW_PROPS, ['onStepCompleted', 'canTryAnother'])
@@ -29,7 +29,6 @@ ExercisePart = React.createClass
     setAnswerId: React.PropTypes.func.isRequired
 
     getReadingForStep: React.PropTypes.func
-    refreshStep: React.PropTypes.func
     recoverFor: React.PropTypes.func
 
     review: React.PropTypes.string
@@ -65,12 +64,6 @@ ExercisePart = React.createClass
     canTryAnother: false
     canReview: false
 
-  refreshMemory: ->
-    {id, taskId} = @props
-
-    {index} = @props.getReadingForStep(id, taskId)
-    @props.refreshStep(index, id)
-
   tryAnother: ->
     {id} = @props
     @props.recoverFor(id)
@@ -87,7 +80,6 @@ ExercisePart = React.createClass
   getReviewProps: ->
     reviewProps = _.omit(@props, NOT_REVIEW_PROPS)
     reviewProps.onContinue = @props.onNextStep
-    reviewProps.refreshMemory = @refreshMemory
     reviewProps.tryAnother = @tryAnother
 
     reviewProps

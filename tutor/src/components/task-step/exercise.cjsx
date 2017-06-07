@@ -119,10 +119,9 @@ module.exports = React.createClass
       (part.correct_answer_id is part.answer_id)
 
   getReviewProps: ->
-    {refreshStep, recoverFor} = @props
+    {recoverFor} = @props
     {task, lastPartId} = @state
 
-    refreshMemory: _.partial(refreshStep, lastPartId)
     tryAnother: _.partial(recoverFor, lastPartId)
     canTryAnother: TaskStepStore.canTryAnother(lastPartId, task, not @allCorrect())
     isRecovering: TaskStepStore.isRecovering(lastPartId)

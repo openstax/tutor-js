@@ -102,17 +102,6 @@ checks =
     expect(div.querySelector('.question-feedback-content').innerHTML).to.equal(feedback_html)
     {div, component, stepId, taskId, state, router, history, correct_answer, feedback_html}
 
-  _checkRecoveryRefreshChoice: ({div, component, stepId, taskId, state, router, history}) ->
-    expect(div.querySelector('.task-footer-buttons').children.length).to.equal(3)
-    classes = _.pluck(div.querySelector('.task-footer-buttons').children, 'className')
-    expect(classes).to.deep.equal([
-      '-try-another btn btn-primary'
-      # "Refresh my Memory" button is disabled until BE gets it working properly.
-      # '-refresh-memory btn btn-primary'
-      'async-button continue btn btn-primary'
-    ])
-    {div, component, stepId, taskId, state, router, history}
-
   _checkRecoveryContent: ({div, component, stepId, taskId, state, router, history}) ->
     expect(div.innerText).to.contain('recovery')
     expect(div.querySelector('.task-footer-buttons')).to.be.null
