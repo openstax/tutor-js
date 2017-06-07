@@ -8,7 +8,7 @@ import MatchForTutor from './match-for-tutor';
 
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import User from '../models/user'
+import User from '../models/user';
 import { SpyMode } from 'shared';
 import { CourseStore } from '../flux/course';
 import { TransitionActions } from '../flux/transition';

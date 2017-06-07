@@ -3,6 +3,11 @@ import SecondSessionWarning from '../../../src/components/onboarding/second-sess
 import CoursePreviewUX from '../../../src/models/course/preview-ux';
 import EnzymeContext from '../helpers/enzyme-context';
 import { extend } from 'lodash';
+import User from '../../../src/models/user';
+
+jest.mock('../../../src/models/user', () => ({
+  logEvent: jest.fn(),
+}));
 
 describe('Second Session Warning', () => {
 
@@ -21,15 +26,17 @@ describe('Second Session Warning', () => {
   it('dislays got it and dismisses on continue', () => {
     const warning = shallow(<SecondSessionWarning ux={ux} />);
     warning.find('Button[bsStyle="default"]').simulate('click');
+    expect(User.logEvent).toHaveBeenCalledWith({ category: 'onboarding', code: 'like_preview_ask_later' });
     expect(warning.find('Body').render().text()).toContain('No problem');
     warning.find('Button[bsStyle="primary"]').simulate('click');
     expect(ux.dismissNag).toHaveBeenCalled();
   });
 
-  it('navigates on add', () => {
+  it('navigates and logs on add', () => {
     const context =  EnzymeContext.build();
     const warning = shallow(<SecondSessionWarning ux={ux} />, context);
     warning.find('Button[bsStyle="primary"]').simulate('click');
+    expect(User.logEvent).toHaveBeenCalledWith({ category: 'onboarding', code: 'like_preview_yes' });
     expect(context.context.router.transitionTo).to.have.been.calledWith('/dashboard');
   });
 
