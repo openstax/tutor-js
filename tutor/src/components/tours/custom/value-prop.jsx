@@ -85,7 +85,25 @@ function Welcome() {
   );
 }
 
+class CourseValueProp extends React.PureComponent {
 
+  @computed get isCCteacherWithoutMigration() {
+    const sunset = Courses.where((c) => c.isSunsetting);
+    return (sunset.any && sunset.size === Courses.nonPreview.size);
+  }
+
+  render () {
+    if (this.isCCteacherWithoutMigration) {
+      return <CCSunsetMessage onContinue={this.onContinue} />;
+    } else if (Courses.conceptCoach.any) {
+      return <CCToTutor onContinue={this.onContinue} />;
+    } else {
+      return <Welcome onContinue={this.onContinue} />;
+    }
+  }
+}
+
+export { CourseValueProp };
 export default class ValuePropWrapper extends React.PureComponent {
 
   @computed get isCCteacherWithoutMigration() {
@@ -94,16 +112,10 @@ export default class ValuePropWrapper extends React.PureComponent {
   }
 
   render () {
-    let component = null;
     let hasForestBackground = true;
 
     if (this.isCCteacherWithoutMigration) {
-      component = <CCSunsetMessage onContinue={this.onContinue} />;
       hasForestBackground = false;
-    } else if (Courses.conceptCoach.any) {
-      component = <CCToTutor onContinue={this.onContinue} />;
-    } else {
-      component = <Welcome onContinue={this.onContinue} />;
     }
 
     const className = classnames({
@@ -115,7 +127,7 @@ export default class ValuePropWrapper extends React.PureComponent {
         {...this.props}
         className={className}
       >
-        {component}
+        <CourseValueProp/>
       </SuperTrainingWheel>
     );
   }

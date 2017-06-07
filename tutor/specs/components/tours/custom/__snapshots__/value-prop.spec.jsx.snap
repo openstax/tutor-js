@@ -68,14 +68,6 @@ exports[`Tour Value Prop Component matches snapshot for cc 1`] = `
       </p>
     </div>
   </div>
-  <button
-    className="btn btn-default"
-    disabled={false}
-    onClick={[Function]}
-    type="button"
-  >
-    Continue
-  </button>
 </div>
 `;
 
@@ -107,14 +99,6 @@ exports[`Tour Value Prop Component matches snapshot for sunset cc 1`] = `
       We haven’t launched OpenStax Tutor in your subject yet. We’ll let you know as soon as it’s available. Looking for your Concept Coach
     </div>
   </div>
-  <button
-    className="btn btn-default"
-    disabled={false}
-    onClick={[Function]}
-    type="button"
-  >
-    Continue
-  </button>
 </div>
 `;
 
@@ -188,13 +172,5 @@ exports[`Tour Value Prop Component matches snapshot for tutor 1`] = `
       </p>
     </div>
   </div>
-  <button
-    className="btn btn-default"
-    disabled={false}
-    onClick={[Function]}
-    type="button"
-  >
-    Continue
-  </button>
 </div>
 `;
