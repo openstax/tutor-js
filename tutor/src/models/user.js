@@ -1,10 +1,11 @@
 import {
-  BaseModel, identifiedBy, field,
+  BaseModel, identifiedBy, field, belongsTo,
 } from './base';
 
 import { action, computed, observable } from 'mobx';
 import UiSettings from 'shared/src/model/ui-settings';
 import Courses from './courses-map';
+import { UserTerms } from './user/terms';
 
 @identifiedBy('user')
 export class User extends BaseModel {
@@ -26,11 +27,21 @@ export class User extends BaseModel {
   @field is_admin;
   @field is_content_analyst;
   @field is_customer_service;
+  @field terms_signatures_needed;
 
   @field({ type: 'array' }) viewed_tour_ids;
 
   @computed get isConfirmedFaculty() {
     return this.faculty_status === 'confirmed_faculty';
+  }
+
+  @computed get terms() {
+    return this.terms_signatures_needed ?
+      new UserTerms({ user: this }) : null;
+  }
+
+  @computed get unsignedTerms() {
+    return this.terms ? this.terms.unsigned : [];
   }
 
   @computed get tourAudienceTags() {
