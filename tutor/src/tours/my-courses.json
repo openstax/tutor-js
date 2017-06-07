@@ -3,14 +3,13 @@
   "id": "my-courses",
   "autoplay": true,
   "standalone": true,
-  "showOverlay": false,
+  "showOverlay": true,
   "audience_tags": [
     "teacher", "teacher-preview"
   ],
   "steps": [
     {
-      "supersize": true,
-      "component": "ValueProp"
+      "customComponent": "ValueProp"
     }
   ]
 }

@@ -100,13 +100,9 @@ export default class TourRide extends BaseModel {
     }
     const props = step.joyrideStepProperties;
 
-    if (!step.text && step.component && CustomComponents[step.component]){
-      props.text = React.createElement(CustomComponents[step.component], { step, ride: this });
-      props.style = extend(props.style, {
-        button: {
-          display: 'none',
-        },
-      });
+    if (step.customComponent && CustomComponents[step.customComponent]) {
+      props.StepComponent = CustomComponents[step.customComponent];
+      props.ride = this;
     }
 
     return extend(props, {

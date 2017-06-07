@@ -1,27 +1,18 @@
 import React from 'react';
-import { action, computed } from 'mobx';
+import { computed } from 'mobx';
 import Courses from '../../../models/courses-map';
-import { Button } from 'react-bootstrap';
-import classnames from 'classnames';
 import BasicCourseUX from '../../../models/course/basic-ux';
 
-function ValueProp({ className, children }) {
-  return <div className={classnames('value-prop', className)}>{children}</div>;
-}
+import classnames from 'classnames';
 
-function ColumnContent({ children }) {
-  return <div className="column-content">{children}</div>;
-}
+import {
+  ValueProp,
+  ColumnContent,
+  Column,
+  TutorBeta
+} from './common';
+import SuperTrainingWheel from './super-training-wheel';
 
-function Column({ className, children }) {
-  return <div className={classnames('column', className)}>{children}</div>;
-}
-
-function TutorBeta() {
-  return (
-    <span>OpenStax Tutor <span className="beta">beta</span></span>
-  );
-}
 function TutorValueColumns() {
   return (
     <ColumnContent>
@@ -45,7 +36,7 @@ function TutorValueColumns() {
   );
 }
 
-function CCToTutor({ onContinue }) {
+function CCToTutor() {
   return (
     <ValueProp className="cc-to-tutor">
       <h1 className="heading">Welcome to <TutorBeta />!</h1>
@@ -54,12 +45,11 @@ function CCToTutor({ onContinue }) {
         Here's what your students have to look forward to!
       </h2>
       <TutorValueColumns />
-      <Button onClick={onContinue}>Continue</Button>
     </ValueProp>
   );
 }
 
-function CCSunsetMessage({ onContinue }) {
+function CCSunsetMessage() {
   return (
     <ValueProp className="cc-sunset">
       <h1 className="heading">Looking for your Concept Coach courses?</h1>
@@ -78,12 +68,11 @@ function CCSunsetMessage({ onContinue }) {
           Looking for your Concept Coach
         </Column>
       </ColumnContent>
-      <Button onClick={onContinue}>Continue</Button>
     </ValueProp>
   );
 }
 
-function Welcome({ onContinue }) {
+function Welcome() {
   return (
     <ValueProp className="welcome-to-tutor">
       <h1 className="heading">Welcome to <TutorBeta />!</h1>
@@ -92,18 +81,11 @@ function Welcome({ onContinue }) {
         technology -- for only {BasicCourseUX.formattedStudentCost}.
       </h2>
       <TutorValueColumns />
-      <Button onClick={onContinue}>Continue</Button>
     </ValueProp>
   );
 }
 
-
-export default class ValuePropWrapper extends React.PureComponent {
-
-  @action.bound
-  onContinue() {
-    this.props.ride.joyrideRef.next();
-  }
+class CourseValueProp extends React.PureComponent {
 
   @computed get isCCteacherWithoutMigration() {
     const sunset = Courses.where((c) => c.isSunsetting);
@@ -113,10 +95,40 @@ export default class ValuePropWrapper extends React.PureComponent {
   render () {
     if (this.isCCteacherWithoutMigration) {
       return <CCSunsetMessage onContinue={this.onContinue} />;
-    }
-    if (Courses.conceptCoach.any) {
+    } else if (Courses.conceptCoach.any) {
       return <CCToTutor onContinue={this.onContinue} />;
+    } else {
+      return <Welcome onContinue={this.onContinue} />;
     }
-    return <Welcome onContinue={this.onContinue} />;
+  }
+}
+
+export { CourseValueProp };
+export default class ValuePropWrapper extends React.PureComponent {
+
+  @computed get isCCteacherWithoutMigration() {
+    const sunset = Courses.where((c) => c.isSunsetting);
+    return (sunset.any && sunset.size === Courses.nonPreview.size);
+  }
+
+  render () {
+    let hasForestBackground = true;
+
+    if (this.isCCteacherWithoutMigration) {
+      hasForestBackground = false;
+    }
+
+    const className = classnames({
+      'has-forest-background': hasForestBackground
+    });
+
+    return (
+      <SuperTrainingWheel
+        {...this.props}
+        className={className}
+      >
+        <CourseValueProp/>
+      </SuperTrainingWheel>
+    );
   }
 }

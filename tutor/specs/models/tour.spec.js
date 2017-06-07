@@ -73,14 +73,11 @@ describe('Tour Model', () => {
     const tour = Tour.forIdentifier('question-library-super');
     expect(tour.autoplay).toBe(true);
     expect(tour.isViewed).toBe(false);
-    expect(tour.standalone).toBe(false);
+    expect(tour.standalone).toBe(true);
     expect(tour.isViewable).toBe(true);
 
     User.viewed_tour_ids = ['question-library-super'];
     expect(tour.isViewable).toBe(false);
-
-    tour.isEnabled = true;
-    expect(tour.isViewable).toBe(true);
   });
 
 

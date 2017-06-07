@@ -2,18 +2,17 @@
 {
   "id": "question-library-super",
   "autoplay": true,
+  "standalone": true,
   "group_id": "question-library",
   "audience_tags": [
     "teacher", "teacher-preview"
   ],
   "steps": [
     {
-      "component": "HowToUseQL"
+      "customComponent": "HowToUseQL"
     }, {
-      "body": "More about the Question Library in our “Page tips.”",
+      "customComponent": "QuestionLibraryPageTips",
       "anchor_id": "menu-option-page-tips",
-      "position": "bottom-right",
-      "is_fixed": true,
       "action": {
         "id": "open-support-menu"
       }
@@ -28,6 +27,8 @@
   ],
   "steps": [
     {
+      "customComponent": "HowToUseQL"
+    }, {
       "body": "Before you make an assignment, you’ll exclude the questions you don’t want your students to get"
     }, {
       "title": "View questions",

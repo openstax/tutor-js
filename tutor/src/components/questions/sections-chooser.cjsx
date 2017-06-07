@@ -44,7 +44,7 @@ QLSectionsChooser = React.createClass
       <TourRegion
         className="sections-list"
         id="question-library-sections-chooser"
-        otherTours={["preview-question-library-sections-chooser"]}
+        otherTours={["preview-question-library-sections-chooser", "question-library-super"]}
         courseId={@props.courseId}
       >
         <Chooser
