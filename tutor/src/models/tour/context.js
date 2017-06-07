@@ -39,8 +39,6 @@ export default class TourContext extends BaseModel {
     } else {
       return [];
     }
-
-    //return compact(uniq(flatMap(this.regions, r => r.tour_ids)));
   }
 
   @computed get courseIds() {
@@ -119,7 +117,6 @@ export default class TourContext extends BaseModel {
   }
 
   @action playTriggeredTours() {
-    //invoke(this.elgibleTours, 'play');
     this.elgibleTours.forEach((tour) => {
       if (!tour.auto_display){ tour.play(); }
     });
