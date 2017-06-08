@@ -77,6 +77,7 @@ export default class TourContext extends BaseModel {
 
   // The tour that should be shown
   @computed get tour() {
+    if (User.terms_signatures_needed) { return null; } // do not interfere with terms agreement
     return find(this.elgibleTours, 'isViewable') || null;
   }
 

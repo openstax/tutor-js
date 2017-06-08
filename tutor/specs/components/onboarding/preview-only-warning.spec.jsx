@@ -1,6 +1,6 @@
 import { Wrapper, SnapShot } from '../helpers/component-testing';
 import PreviewOnlyWarning from '../../../src/components/onboarding/preview-only-warning';
-import CoursePreviewUX from '../../../src/models/course/preview-ux';
+import CoursePreviewUX from '../../../src/models/course/onboarding/preview';
 import EnzymeContext from '../helpers/enzyme-context';
 
 describe('Preview Only Warning', () => {

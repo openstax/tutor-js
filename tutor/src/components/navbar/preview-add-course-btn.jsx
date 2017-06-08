@@ -1,23 +1,28 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import { computed, action } from 'mobx';
 import { get } from 'lodash';
 
 import TourAnchor from '../tours/anchor';
-
+import TourContext from '../../models/tour/context';
 import Router from '../../helpers/router';
 import Courses from '../../models/courses-map.js';
-import createUXForCourse from '../../models/course/ux';
+import onboardingForCourse from '../../models/course/onboarding';
 
+@inject((allStores, props) => ({
+  tourContext: ( props.tourContext || allStores.tourContext ),
+}))
 @observer
 export default class PreviewAddCourseBtn extends React.PureComponent {
+
   static contextTypes = {
     router: React.PropTypes.object,
   }
 
   static propTypes = {
     courseId: React.PropTypes.string,
+    tourContext: React.PropTypes.instanceOf(TourContext),
   }
 
   @computed get course() {
@@ -25,7 +30,7 @@ export default class PreviewAddCourseBtn extends React.PureComponent {
   }
 
   @computed get ux() {
-    return this.course ? createUXForCourse(this.course) : null;
+    return this.course ? onboardingForCourse(this.course, this.props.tourContext) : null;
   }
 
   @action.bound

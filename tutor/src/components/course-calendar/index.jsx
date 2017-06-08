@@ -2,14 +2,13 @@ import React from 'react';
 
 import { extend, pick } from 'lodash';
 import { observable, computed, action } from 'mobx';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 
 import { NotificationsBar } from 'shared';
 
 import ModelLoader from '../../models/loader';
 import TaskPlans from '../../models/teacher-task-plans';
-import createUXForCourse from '../../models/course/ux';
-import { TaskPlanStore } from '../../flux/task-plan';
+import onboardingForCourse from '../../models/course/onboarding';
 import Courses from '../../models/courses-map';
 import { TimeStore } from '../../flux/time';
 import TimeHelper from '../../helpers/time';
@@ -39,6 +38,9 @@ const getDisplayBounds = {
 };
 
 
+@inject((allStores, props) => ({
+  tourContext: ( props.tourContext || allStores.tourContext ),
+}))
 @observer
 export default class TeacherTaskPlanListing extends React.PureComponent {
 
@@ -60,7 +62,7 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
   }
 
   @computed get ux() {
-    return createUXForCourse(this.course);
+    return onboardingForCourse(this.course, this.props.tourContext);
   }
 
   // router context is needed for Navbar helpers

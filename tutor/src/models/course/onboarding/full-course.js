@@ -3,9 +3,9 @@ import {
 } from 'mobx';
 import { includes } from 'lodash';
 
-import BasicCourseUX from './basic-ux';
-import Nags from '../../components/onboarding/nags';
-import User from '../user';
+import BaseOnboarding from './base';
+import Nags from '../../../components/onboarding/nags';
+import User from '../../user';
 import { UiSettings } from 'shared';
 const ONBOARDING_CHOICE = 'OBC';
 
@@ -18,7 +18,7 @@ const CHOICES = {
   wu: 'I wont be using it',
 };
 
-export default class StandardCourseUX extends BasicCourseUX {
+export default class FullCourseOnboarding extends BaseOnboarding {
 
   @observable response = false;
 

@@ -2,14 +2,15 @@ import {
   computed, observable,
 } from 'mobx';
 
-import BasicCourseUX from './basic-ux';
-import Courses from '../courses-map';
 import { filter, includes } from 'lodash';
-import User from '../user';
-import TeacherTaskPlans from '../teacher-task-plans';
-import { TaskPlanStore } from '../../flux/task-plan';
 
-import Nags from '../../components/onboarding/nags';
+import BaseOnboarding from './base';
+import Courses from '../../courses-map';
+import User from '../../user';
+import TeacherTaskPlans from '../../teacher-task-plans';
+import { TaskPlanStore } from '../../../flux/task-plan';
+
+import Nags from '../../../components/onboarding/nags';
 
 const IS_DISMISSED = observable.box(false);
 const HAS_PUBLISHED = observable.box(false);
@@ -17,7 +18,7 @@ TaskPlanStore.on('publish-queued', () => HAS_PUBLISHED.set(true));
 
 const NAG_PLAN_TYPES = [ 'homework', 'reading' ];
 
-export default class CoursePreviewUX extends BasicCourseUX {
+export default class PreviewOnboarding extends BaseOnboarding {
 
   hasViewedPublishWarning() {
     HAS_PUBLISHED.set(false);

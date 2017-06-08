@@ -1,12 +1,11 @@
-import { observable } from 'mobx';
-import { TEACHER_COURSE_TWO_MODEL } from '../../courses-test-data';
-import Course from '../../../src/models/course';
-import CourseUX from '../../../src/models/course/standard-ux';
+import { TEACHER_COURSE_TWO_MODEL } from '../../../courses-test-data';
+
+import CourseUX from '../../../../src/models/course/onboarding/full-course';
 import UiSettings from 'shared/src/model/ui-settings';
-import User from '../../../src/models/user';
+import User from '../../../../src/models/user';
 
 jest.mock('shared/src/model/ui-settings');
-jest.mock('../../../src/models/user', ()=> ({
+jest.mock('../../../../src/models/user', ()=> ({
   logEvent: jest.fn(),
 }));
 

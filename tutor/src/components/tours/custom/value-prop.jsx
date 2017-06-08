@@ -1,7 +1,7 @@
 import React from 'react';
 import { computed } from 'mobx';
 import Courses from '../../../models/courses-map';
-import BasicCourseUX from '../../../models/course/basic-ux';
+import CourseUX from '../../../models/course/ux';
 
 import classnames from 'classnames';
 
@@ -9,7 +9,7 @@ import {
   ValueProp,
   ColumnContent,
   Column,
-  TutorBeta
+  TutorBeta,
 } from './common';
 import SuperTrainingWheel from './super-training-wheel';
 
@@ -30,7 +30,7 @@ function TutorValueColumns() {
       </Column>
       <Column className="low-cost">
         <h3>Low cost</h3>
-        <p>{BasicCourseUX.formattedStudentCost} per course saves students money</p>
+        <p>{CourseUX.formattedStudentCost} per course saves students money</p>
       </Column>
     </ColumnContent>
   );
@@ -78,7 +78,7 @@ function Welcome() {
       <h1 className="heading">Welcome to <TutorBeta />!</h1>
       <h2 className="sub-heading">
         Improve how your students learn with research-based
-        technology -- for only {BasicCourseUX.formattedStudentCost}.
+        technology -- for only {CourseUX.formattedStudentCost}.
       </h2>
       <TutorValueColumns />
     </ValueProp>
@@ -119,7 +119,7 @@ export default class ValuePropWrapper extends React.PureComponent {
     }
 
     const className = classnames({
-      'has-forest-background': hasForestBackground
+      'has-forest-background': hasForestBackground,
     });
 
     return (

@@ -3,6 +3,7 @@ import { action } from 'mobx';
 import { Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { OnboardingNag, GotItOnboardingNag, Heading, Body, Footer } from './onboarding-nag';
+import CourseUX from '../../models/course/ux';
 
 @observer
 export default class PreviewOnlyWarning extends GotItOnboardingNag {
@@ -22,7 +23,7 @@ export default class PreviewOnlyWarning extends GotItOnboardingNag {
           Remember -- this is just a preview course!
         </Heading>
         <Body>
-          If you’re ready to create real assignments your students can see, create your real course now. It’s free for you and students will pay {ux.formattedStudentCost} per course per semester.
+          If you’re ready to create real assignments your students can see, create your real course now. It’s free for you and students will pay {CourseUX.formattedStudentCost} per course per semester.
         </Body>
         <Footer>
           <Button bsStyle="primary" onClick={this.onAddCourse}>Create a course</Button>
