@@ -40,7 +40,7 @@ describe('Course Preview UX', () => {
   it('#recordExpectedUse(decision)', () => {
     ux.recordExpectedUse('wu');
     expect(User.logEvent).toHaveBeenCalledWith({
-      category: 'onboarding', code: 'made_adoption_decision', data: { decision: 'I won\'t be using it' },
+      category: 'onboarding', code: 'made_adoption_decision', data: { decision: 'I wont be using it' },
     });
     expect(UiSettings.set).toHaveBeenCalledWith('OBC', 1, 'wu');
   });

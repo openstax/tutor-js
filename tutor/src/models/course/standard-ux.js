@@ -14,8 +14,8 @@ const CHOICES = {
   cc: 'For course credit',
   exc: 'For extra credit',
   adr: 'As an additional resource',
-  dn: 'I don\'t know yet',
-  wu: 'I won\'t be using it',
+  dn: 'I dont know yet',
+  wu: 'I wont be using it',
 };
 
 export default class StandardCourseUX extends BasicCourseUX {
