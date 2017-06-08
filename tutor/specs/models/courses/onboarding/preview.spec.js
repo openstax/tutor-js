@@ -25,7 +25,7 @@ describe('Course Preview UX', () => {
   let ux;
 
   beforeEach(() => {
-    ux = new CoursePreviewUX(new Course(TEACHER_COURSE_TWO_MODEL));
+    ux = new CoursePreviewUX(new Course(TEACHER_COURSE_TWO_MODEL), { tour: null });
     ux._setTaskPlanPublish(false);
   });
 

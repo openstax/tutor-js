@@ -1,8 +1,8 @@
-import CourseUX from '../../../src/models/course/basic-ux';
+import CourseUX from '../../../src/models/course/ux';
 
 import { bootstrapCoursesList } from '../../courses-test-data';
 
-describe('Basic Course UX Model', () => {
+describe('Course UX Model', () => {
   let ux;
   beforeEach(() => {
     const courses = bootstrapCoursesList();

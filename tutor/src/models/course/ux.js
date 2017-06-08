@@ -33,4 +33,8 @@ export default class CourseUX {
     return this.course.isNew ? 'new' : this.course.id;
   }
 
+  get formattedStudentCost() {
+    return CourseUX.formattedStudentCost;
+  }
+
 }
