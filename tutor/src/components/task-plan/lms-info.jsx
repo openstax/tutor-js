@@ -3,7 +3,7 @@ import { uniqueId } from 'lodash';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 import { Markdown } from 'shared';
 import { observer } from 'mobx-react';
-import { action } from 'mobx';
+import { action, computed } from 'mobx';
 import moment from 'moment';
 import { autobind } from 'core-decorators';
 
@@ -69,39 +69,65 @@ export class LmsInfoLink extends React.PureComponent {
     );
   }
 
-  renderPopOver() {
-    const { title, description } = this.props.plan;
-    const { shareable_url } = this.getStats();
+  @computed get url() {
     const l = window.location;
-    const url = `${l.protocol}//${l.host}${shareable_url}`;
-    const popoverTitle = (
-      <div>
-        Copy information for your LMS
-        <Icon type="close" onClick={this.closePopOver} className="close" />
+    const { shareable_url } = this.getStats();
+    return `${l.protocol}//${l.host}${shareable_url}`;
+  }
+
+  @computed get isPreview() {
+    return Courses.get(this.props.courseId).is_preview;
+  }
+
+  @computed get popOverBody() {
+    if (this.isPreview) {
+      return (
+        <div className="body">
+          {this.props.plan.title}
+          {this.renderDueDates()}
+          {this.popoverDescription}
+        </div>
+      );
+    }
+    return (
+      <div className="body" onClick={this.focusInput}>
+        <CopyOnFocusInput value={this.url} ref="input" readOnly={true} />
+        <a href={this.url}>{this.props.plan.title}</a>
+        {this.renderDueDates()}
+        {this.popoverDescription}
       </div>
     );
-    const popoverDescription = description ? (
+  }
+
+  @computed get popoverTitle() {
+    return this.isPreview ? 'No assignment links for preview courses' :
+           'Copy information for your LMS';
+  }
+
+  @computed get popoverDescription() {
+    const { description } = this.props.plan;
+    return description ? (
       <div>
         Description:
         <Markdown className="description" text={description} block={true} />
       </div>
     ) : undefined;
+  }
+
+  @computed get popOver() {
     return (
       <Popover
         id={uniqueId('sharable-link-popover')}
         className="lms-sharable-link"
-        title={popoverTitle}
+        title={
+          <span>
+            {this.popoverTitle}
+            <Icon type="close" onClick={this.closePopOver} className="close" />
+          </span>
+        }
       >
-        <div className="body" onClick={this.focusInput}>
-          <CopyOnFocusInput value={url} ref="input" readOnly={true} />
-          <a href={url}>
-            {title}
-          </a>
-          {this.renderDueDates()}
-          {popoverDescription}
-        </div>
+        {this.popOverBody}
       </Popover>
-
     );
   }
 
@@ -111,15 +137,15 @@ export class LmsInfoLink extends React.PureComponent {
 
   render() {
     if (!this.getStats().shareable_url) { return null; }
-    const course = Courses.get(this.props.courseId);
-    if (course.is_preview) { return null; }
+
     return (
       <div className="lms-info">
         <OverlayTrigger
           trigger="click"
           placement="top"
           ref="overlay"
-          overlay={this.renderPopOver()}>
+          overlay={this.popOver}
+        >
           <TourAnchor
             tag='a'
             onClick={this.togglePopover}
