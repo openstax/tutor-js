@@ -43,6 +43,8 @@ export default class PreviewOnboarding extends BaseOnboarding {
   }
 
   @computed get nagComponent() {
+    if (this.otherModalsAreDisplaying) { return null; }
+
     // we warn about creating assigments in a preview regardless of previous dismissals
     if (this.shouldWarnPreviewOnly)  { return Nags.previewOnlyWarning;  }
 

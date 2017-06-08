@@ -13,10 +13,10 @@ describe('Course Preview UX', () => {
   let ux;
 
   beforeEach(() => {
-    ux = new CourseUX({
-      id: 1,
-      dashboardViewCount: 0,
-    });
+    ux = new CourseUX(
+      { id: 1, dashboardViewCount: 0 },
+      { tour: null },
+    );
   });
 
   it('#nagComponent', () => {
@@ -44,4 +44,14 @@ describe('Course Preview UX', () => {
     expect(UiSettings.set).toHaveBeenCalledWith('OBC', 1, 'wu');
   });
 
+  it('hides itself if tour is being displayed', () => {
+    ux.course.dashboardViewCount = 2;
+    expect(ux.nagComponent).not.toBeNull();
+    ux.tourContext.tour = true;
+    expect(ux.nagComponent).toBeNull();
+    ux.tourContext.tour = null;
+    expect(ux.nagComponent).not.toBeNull();
+    User.terms_signatures_needed = true;
+    expect(ux.nagComponent).toBeNull();
+  });
 });

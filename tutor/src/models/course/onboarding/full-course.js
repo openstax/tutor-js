@@ -23,6 +23,8 @@ export default class FullCourseOnboarding extends BaseOnboarding {
   @observable response = false;
 
   @computed get nagComponent() {
+    if (this.otherModalsAreDisplaying) { return null; }
+
     if (this.response === false && (
       this.course.dashboardViewCount == 2 || this.isOnboardingUndecided
     )) {
