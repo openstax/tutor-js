@@ -72,7 +72,7 @@ Task = React.createClass
     if step?
       @setState(currentStep: stepIndex)
     # otherwise, redirect to the latest accessible step
-    else
+    else if defaultKey isnt stepIndex
       @goToStep(defaultKey, true)
 
   getInitialState: ->
