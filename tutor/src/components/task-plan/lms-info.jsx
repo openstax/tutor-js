@@ -41,6 +41,7 @@ export class LmsInfoLink extends React.PureComponent {
     this.refs.overlay.hide();
   }
 
+  @autobind
   renderDueDates() {
     const taskPlan = TeacherTaskPlans
       .forCourseId(this.props.courseId)
