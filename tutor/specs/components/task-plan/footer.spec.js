@@ -9,6 +9,10 @@ import { ExtendBasePlan, PlanRenderHelper } from '../helpers/task-plan';
 
 const ISO_DATE_FORMAT = 'YYYY-MM-DD';
 
+jest.mock('../../../src/models/courses-map', () => ({
+  get: jest.fn(() => ({ appearance_code: 'college_physics' }) ),
+}));
+
 const twoDaysBefore = moment(TimeStore.getNow()).subtract(2, 'days').format(ISO_DATE_FORMAT);
 const yesterday = moment(TimeStore.getNow()).subtract(1, 'day').format(ISO_DATE_FORMAT);
 const tomorrow = moment(TimeStore.getNow()).add(1, 'day').format(ISO_DATE_FORMAT);
@@ -66,7 +70,7 @@ const helper = model => PlanRenderHelper(model, PlanFooter,
 describe('Task Plan Footer', function() {
   beforeEach(() => TaskPlanActions.reset());
 
-  it('should have correct buttons when reading is new', () =>
+  fit('should have correct buttons when reading is new', () =>
     helper(NEW_READING).then(function({ dom }) {
       expect(dom.querySelector('.delete-link')).to.be.null;
       expect(dom.querySelector('.preview-btn')).to.not.be.null;
