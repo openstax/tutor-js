@@ -198,6 +198,7 @@ ends = {
   practice: PracticeEnd,
   chapter_practice: PracticeEnd,
   page_practice: PracticeEnd,
+  practice_worst_topics: PracticeEnd,
   reading: TaskEnd
 }
 

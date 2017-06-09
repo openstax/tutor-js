@@ -5,7 +5,7 @@ cloneDeep = require 'lodash/cloneDeep'
 TaskHelper = require 'helpers/task'
 UiSettings = require 'model/ui-settings'
 
-TASK_PRACTICE_TYPES = ['practice', 'chapter_practice', 'page_practice']
+TASK_PRACTICE_TYPES = ['practice', 'chapter_practice', 'page_practice', 'practice_worst_topics']
 TASK_HOMEWORK_TYPE = 'homework'
 TASK_READING_TYPE = 'reading'
 TASK_EVENT_TYPE = 'event'

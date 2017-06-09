@@ -25,6 +25,7 @@ PRACTICES = [
   'practice'
   'chapter_practice'
   'page_practice'
+  'practice_worst_topics'
 ]
 
 SEE_AHEAD_ALLOWED = [

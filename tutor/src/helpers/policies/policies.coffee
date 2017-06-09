@@ -160,6 +160,14 @@ policies =
         states:
           teacher: stepTeacherReview
 
+  practice_worst_topics:
+    exercise:
+      panels:
+        default: stepFeedbackImmediate
+        check: 'role'
+        states:
+          teacher: stepTeacherReview
+
   concept_coach:
     exercise:
       panels:
