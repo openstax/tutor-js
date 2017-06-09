@@ -17,7 +17,7 @@ export default function StudentPreview() {
         </Col>
         <Col sm={6}>
           <YouTube
-            videoId="AEUgriQUjPc"
+            videoId="IbYU5py9YP8"
             opts={{
               width: '100%',
             }}

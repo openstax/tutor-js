@@ -18,13 +18,15 @@ export default class PreviewButton extends React.PureComponent {
   }
 
   render() {
+    const { planType } = this.props;
+
     if (!this.props.isNew ||
         this.props.isWaiting ||
-        !includes(VALID_PLAN_TYPES, this.props.planType)
+        !includes(VALID_PLAN_TYPES, planType)
     ) { return null; }
 
     return (
-      <BuilderPopup courseId={this.props.courseId} />
+      <BuilderPopup courseId={this.props.courseId} planType={planType} />
     );
   }
 }
