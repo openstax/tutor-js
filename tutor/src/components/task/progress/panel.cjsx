@@ -2,6 +2,7 @@ React = require 'react'
 PureRenderMixin = require 'react-addons-pure-render-mixin'
 
 keymaster = require 'keymaster'
+classnames = require 'classnames'
 
 PagingNavigation  = require '../../paging-navigation'
 
@@ -38,8 +39,10 @@ ProgressPanel = React.createClass
 
   getShouldShows: (props = @props) ->
     {stepKey, stepId, isSpacer} = props
+
     shouldShowLeft: stepKey > 0
     shouldShowRight: isSpacer or (stepId? and StepPanel.canForward(stepId))
+    isCompleting: false
 
   updateShouldShows: ->
     @setState(@getShouldShows())
@@ -47,8 +50,10 @@ ProgressPanel = React.createClass
   goForward: ->
     { stepId } = @props
     if stepId and not TaskStepStore.get(stepId)?.is_completed
+      @setState(isCompleting: true)
       TaskStore.once('step.completed', =>
         @props.goToStep(@props.stepKey + 1)
+        @setState(isCompleting: false)
       )
       TaskActions.completeStep(stepId)
     else
@@ -60,8 +65,15 @@ ProgressPanel = React.createClass
     undefined # silence React return value warning
 
   render: ->
+    {isCompleting} = @state
+    isLoading = TaskStepStore.isLoading(@props.stepId)
+
+    className = classnames('progress-panel',
+      'page-loading': isCompleting or isLoading
+    )
+
     <PagingNavigation
-      className="progress-panel"
+      className={className}
       enableKeys={@props.enableKeys}
       isForwardEnabled={@state.shouldShowRight}
       isBackwardEnabled={@state.shouldShowLeft}

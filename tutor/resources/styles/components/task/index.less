@@ -31,6 +31,22 @@
       }
     }
   }
+
+  .paged-content {
+    position: relative;
+    .tutor-subtle-load(will-load; 'Loading...'; 0.1s);
+  }
+
+  .page-loading {
+    .refresh-button {
+      position: absolute;
+      left: 50%;
+      z-index: 2;
+    }
+    .paged-content {
+      .tutor-subtle-load(loading);
+    }
+  }
 }
 
 .task-view {
