@@ -33,8 +33,6 @@ REVIEW_CONTROL_PROP_TYPES =
   isRecovering: React.PropTypes.bool
   canTryAnother: React.PropTypes.bool
   tryAnother: React.PropTypes.func
-  canRefreshMemory: React.PropTypes.bool
-  refreshMemory: React.PropTypes.func
 
 FREE_RESPONSE_PROP_TYPES =
   free_response: React.PropTypes.string

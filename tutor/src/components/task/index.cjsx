@@ -72,14 +72,12 @@ Task = React.createClass
     if step?
       @setState(currentStep: stepIndex)
     # otherwise, redirect to the latest accessible step
-    else
+    else if defaultKey isnt stepIndex
       @goToStep(defaultKey, true)
 
   getInitialState: ->
     {
       currentStep: 0
-      refreshFrom: false
-      refreshTo: false
       recoverForStepId: false
       recoveredStepId: false
       milestonesEntered: false
@@ -124,9 +122,6 @@ Task = React.createClass
   _taskRecoveredStep: (nextState) ->
     @state.recoveredStepId and not nextState.recoveredStepId
 
-  _leavingRefreshingStep: (nextState) ->
-    @state.refreshTo and not (nextState.currentStep is @state.refreshTo)
-
   _isSameStep: (nextProps, nextState) ->
     return false unless nextProps.id is @props.id
     step = @getStep(@state.currentStep)
@@ -166,14 +161,8 @@ Task = React.createClass
     #   if we are not refreshing our memory, go to this recovered step, which is the next step.
     #   Emit afterRecovery so that the breadcrumbs update with the new recovered step as the next crumb
     if @_taskRecoveredStep(nextState)
-      @onNextStep() unless @state.refreshTo
+      @onNextStep()
       TaskStore.emit('task.afterRecovery', id)
-      return false
-
-    # if we are trying to leave the refresh step,
-    #   redirect to the step after the step we triggered refresh from.
-    if @_leavingRefreshingStep(nextState)
-      @continueAfterRefreshStep()
       return false
 
     if @state.currentStep isnt nextState.currentStep and @_isSameStep(nextProps, nextState)
@@ -181,18 +170,6 @@ Task = React.createClass
 
     # if we reach this point, assume that we should go ahead and do a normal component update
     true
-
-  # on refresh clicked and refresh step loaded, go to the refreshing step
-  # also, ask the step to be recovered.  this will trigger loadRecovery to be called within shouldComponentUpdate
-  refreshStep: (refreshTo, stepId) ->
-    @setState({refreshFrom: @state.currentStep, refreshTo: refreshTo, recoverForStepId: stepId})
-    @goToStep(refreshTo)
-
-  # on leaving refresh step, go to the step after the step that triggered the refresh and clear related states.
-  # the step after should be the recovered step!
-  continueAfterRefreshStep: ->
-    @goToStep(@state.refreshFrom + 1)
-    @setState({refreshFrom: false, refreshTo: false, recoverForStepId: false})
 
   # set what step needs to be recovered.  this will trigger loadRecovery.
   recoverFor: (stepId) ->
@@ -259,7 +236,6 @@ Task = React.createClass
       courseId={courseId}
       goToStep={@goToStep}
       onNextStep={@onNextStep}
-      refreshStep={@refreshStep}
       recoverFor={@recoverFor}
       pinned={pinned}
       ref='stepPanel'

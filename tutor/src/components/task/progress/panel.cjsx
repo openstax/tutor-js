@@ -9,6 +9,8 @@ PagingNavigation  = require '../../paging-navigation'
 {StepPanel} = require '../../../helpers/policies'
 {TaskStepStore} = require '../../../flux/task-step'
 
+isEqual = require 'lodash/isEqual'
+pick    = require 'lodash/pick'
 
 ProgressPanel = React.createClass
   propTypes:
@@ -29,6 +31,9 @@ ProgressPanel = React.createClass
     TaskStore.on('step.completed', @updateShouldShows)
 
   componentWillReceiveProps: (nextProps) ->
+    props = ['stepKey', 'stepId', 'isSpacer']
+    return if isEqual(pick(this.props, props), pick(nextProps, props))
+
     @setState(@getShouldShows(nextProps))
 
   getShouldShows: (props = @props) ->

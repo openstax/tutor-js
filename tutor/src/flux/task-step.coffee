@@ -61,10 +61,12 @@ TaskStepConfig =
     @_reload[id] = true
 
   complete: (id) ->
+    return if @exports.isCompleting.call(@, id)
     @_change(id, {is_completed: true})
     @_save(id)
 
   completed: (obj, id) ->
+    delete @_changed[id]
     @_asyncStatus[id] = STATES.LOADED
 
   setAnswerId: (id, answer_id) ->
@@ -95,6 +97,9 @@ TaskStepConfig =
 
   exports:
     isRecovering: (id) -> @_asyncStatus[id] is RECOVERY
+
+    isCompleting: (id) ->
+      (@_changed[id] && @_changed[id].is_completed) || false
 
     isAnswered: (id) ->
       step = @_get(id)
