@@ -3,7 +3,7 @@ React = require 'react'
 
 {TaskActions, TaskStore} = require '../../flux/task'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
-LoadableItem = require '../loadable-item'
+
 {Reading, Interactive, Video, Exercise, Placeholder, ExternalUrl} = require './all-steps'
 BindStoreMixin = require '../bind-store-mixin'
 
