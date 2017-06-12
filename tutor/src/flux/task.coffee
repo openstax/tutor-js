@@ -253,8 +253,9 @@ TaskConfig =
     isPractice: (taskId) ->
       practices = [
         'practice'
-        'chapter_practice',
+        'chapter_practice'
         'page_practice'
+        'practice_worst_topics'
       ]
 
       if practices.indexOf(@_get(taskId).type) > -1 then true else false
