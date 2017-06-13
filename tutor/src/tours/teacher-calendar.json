@@ -56,7 +56,7 @@
       "title": "Manage your question library",
       "body": "View all OpenStax Tutor questions here.",
       "anchor_id": "menu-option-viewQuestionsLibrary",
-      "position": "bottom-right",
+      "position": "left",
       "is_fixed": true,
       "action": {
         "id": "open-user-menu"
@@ -65,7 +65,7 @@
       "title": "Browse the book",
       "body": "Review the OpenStax textbook here.",
       "anchor_id": "menu-option-browse-book",
-      "position": "bottom-right",
+      "position": "left",
       "is_fixed": true,
       "action": {
         "id": "open-user-menu"
@@ -84,7 +84,7 @@
       "title": "Get help",
       "body": "Get help with a page tour, support articles, or chat.",
       "anchor_id": "support-menu-button",
-      "position": "bottom-center",
+      "position": "left",
       "is_fixed": true,
       "action": {
         "id": "open-support-menu"
