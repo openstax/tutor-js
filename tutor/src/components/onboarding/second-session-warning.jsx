@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import { OnboardingNag, GotItOnboardingNag, NagWarning, Body, Footer } from './onboarding-nag';
 import User from '../../models/user';
+import CourseUX from '../../models/course/ux';
 
 @observer
 export default class SecondSessionWarning extends GotItOnboardingNag {
@@ -25,7 +26,7 @@ export default class SecondSessionWarning extends GotItOnboardingNag {
     return (
       <OnboardingNag className="second-session-prompt">
         <Body>
-          Ready to create your real course? It’s free for you and students will pay {ux.formattedStudentCost} per course per semester.
+          Ready to create your real course? It’s free for you and students will pay {CourseUX.formattedStudentCost} per course per semester.
         </Body>
         <Footer>
           <Button bsStyle="primary" onClick={this.onLoggedAddCourse}>Create your course</Button>

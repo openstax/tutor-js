@@ -1,19 +1,19 @@
 import { observable } from 'mobx';
-import { TEACHER_COURSE_TWO_MODEL } from '../../courses-test-data';
-import Course from '../../../src/models/course';
-import CoursePreviewUX from '../../../src/models/course/preview-ux';
+import { TEACHER_COURSE_TWO_MODEL } from '../../../courses-test-data';
+import Course from '../../../../src/models/course';
+import CoursePreviewUX from '../../../../src/models/course/onboarding/preview';
 
 let mockCourses = observable.array();
 Object.defineProperty(mockCourses, 'isEmpty', {
   get: function() { return this.length === 0; },
 });
 let mockActiveCoursePlans = observable.array();
-jest.mock('../../../src/models/courses-map', () => ({
+jest.mock('../../../../src/models/courses-map', () => ({
   tutor: { currentAndFuture: { get nonPreview() { return mockCourses; } } },
 }));
-import { TimeStore } from '../../../src/flux/time';
+import { TimeStore } from '../../../../src/flux/time';
 
-jest.mock('../../../src/models/teacher-task-plans', () => ({
+jest.mock('../../../../src/models/teacher-task-plans', () => ({
   forCourseId() {
     return {
       active: mockActiveCoursePlans,
@@ -25,7 +25,7 @@ describe('Course Preview UX', () => {
   let ux;
 
   beforeEach(() => {
-    ux = new CoursePreviewUX(new Course(TEACHER_COURSE_TWO_MODEL));
+    ux = new CoursePreviewUX(new Course(TEACHER_COURSE_TWO_MODEL), { tour: null });
     ux._setTaskPlanPublish(false);
   });
 

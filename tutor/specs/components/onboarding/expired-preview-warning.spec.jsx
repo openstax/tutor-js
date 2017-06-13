@@ -1,6 +1,6 @@
 import { Wrapper, SnapShot } from '../helpers/component-testing';
 import ExpiredPreviewWarning from '../../../src/components/onboarding/expired-preview-warning';
-import CoursePreviewUX from '../../../src/models/course/preview-ux';
+import CoursePreviewUX from '../../../src/models/course/onboarding/preview';
 import EnzymeContext from '../helpers/enzyme-context';
 
 describe('Expired Preview Warning', () => {

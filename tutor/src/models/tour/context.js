@@ -39,8 +39,6 @@ export default class TourContext extends BaseModel {
     } else {
       return [];
     }
-
-    //return compact(uniq(flatMap(this.regions, r => r.tour_ids)));
   }
 
   @computed get courseIds() {
@@ -79,6 +77,7 @@ export default class TourContext extends BaseModel {
 
   // The tour that should be shown
   @computed get tour() {
+    if (User.terms_signatures_needed) { return null; } // do not interfere with terms agreement
     return find(this.elgibleTours, 'isViewable') || null;
   }
 
@@ -119,7 +118,6 @@ export default class TourContext extends BaseModel {
   }
 
   @action playTriggeredTours() {
-    //invoke(this.elgibleTours, 'play');
     this.elgibleTours.forEach((tour) => {
       if (!tour.auto_display){ tour.play(); }
     });

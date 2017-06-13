@@ -18,7 +18,6 @@ export default class FreshlyCreatedCourse extends React.PureComponent {
   }
 
   render() {
-
     return (
       <OnboardingNag className="freshly-created-course">
         <Body>
@@ -43,7 +42,7 @@ export default class FreshlyCreatedCourse extends React.PureComponent {
             <Button
               key={id}
               onClick={partial(this.onChoice, id)}
-            >
+              >
               {txt}
             </Button>)}
         </Footer>

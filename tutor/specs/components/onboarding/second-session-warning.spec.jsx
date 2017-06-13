@@ -1,6 +1,6 @@
 import { Wrapper, SnapShot } from '../helpers/component-testing';
 import SecondSessionWarning from '../../../src/components/onboarding/second-session-warning';
-import CoursePreviewUX from '../../../src/models/course/preview-ux';
+import CoursePreviewUX from '../../../src/models/course/onboarding/preview';
 import EnzymeContext from '../helpers/enzyme-context';
 import { extend } from 'lodash';
 import User from '../../../src/models/user';
