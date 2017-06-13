@@ -15,7 +15,8 @@
       "anchor_id": "menu-option-page-tips",
       "action": {
         "id": "open-support-menu"
-      }
+      },
+      "position": "left"
     }
   ]
 }, {
