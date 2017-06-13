@@ -16,12 +16,12 @@ export default class HowToUsePreview extends React.PureComponent {
             What can you do in a preview course?
           </h1>
           <h2 className="sub-heading">
-            Test drive all the features, but your work will stay in here.
+            Test drive all the features, but your work won't transfer to a live course.
           </h2>
           <ColumnContent>
             <Column className="all-features">
               <p>
-                Try out all features
+                Try all the features
               </p>
             </Column>
             <Column className="view-analytics">
@@ -31,13 +31,12 @@ export default class HowToUsePreview extends React.PureComponent {
             </Column>
             <Column className="view-textbook-questions">
               <p>
-                See the textbook and questions
+                Browse the textbook and questions
               </p>
             </Column>
             <Column className="cant-save-work">
               <p>
-                Work you do here won't<br/>
-                be saved
+                Remember, work you do here won't be saved
               </p>
             </Column>
           </ColumnContent>

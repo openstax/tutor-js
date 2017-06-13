@@ -60,7 +60,6 @@ export default class TipsNowOrLater extends React.PureComponent {
 
     return (
       <Tooltip
-        position="left"
         {...omit(this.props, 'style', 'buttons')}
         className={className}
         step={step}
