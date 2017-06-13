@@ -2,7 +2,8 @@ import React from 'react';
 import {
   ValueProp,
   ColumnContent,
-  Column
+  Column,
+  TutorBeta
 } from './common';
 import SuperTrainingWheel from './super-training-wheel';
 
@@ -16,22 +17,22 @@ export default class HowToUseQL extends React.PureComponent {
             How to use the Question Library
           </h1>
           <h2 className="sub-heading">
-            View and manage assignment questions here, or let us do the work.
+            View all questions here and exclude questions you never want students to see.
           </h2>
           <ColumnContent>
             <Column className="machine-learning">
               <p>
-                When you assign a reading or homework, OpenStax Tutor will add personalized and spaced practice questions.
+                <TutorBeta/> adds personalized and spaced practice questions to your assignments
               </p>
             </Column>
             <Column className="question-details">
               <p>
-                If you want to see the questions OpenStax Tutor might use, view them in the Question Library.
+                You can view all questions <TutorBeta/> might use in the Question Library
               </p>
             </Column>
             <Column className="exclude-question">
               <p>
-                If you see any that should never be used, exclude them here.  Just remember to do so before you publish those assignments.
+                If you see any questions you never want used, exclude them here before you publish your assignments
               </p>
             </Column>
           </ColumnContent>

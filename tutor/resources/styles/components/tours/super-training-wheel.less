@@ -1,4 +1,21 @@
 .super-training-wheel {
+  &-wrapper {
+    .joyride-overlay {
+      height: 100% !important;
+      position: fixed;
+
+      .flex-display();
+      .align-items(center);
+      .justify-content(center);
+    }
+
+    .super-training-wheel {
+      position: relative !important;
+      top: initial !important;
+      left: initial !important;
+    }
+  }
+
   &.joyride-tooltip {
     width: 1000px;
     padding: 0;
@@ -18,10 +35,6 @@
 
     &main {
       padding-bottom: 0;
-    }
-
-    &close {
-      display: none;
     }
 
   }

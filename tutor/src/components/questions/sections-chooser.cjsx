@@ -5,6 +5,7 @@ React = require 'react'
 {ExerciseActions} = require '../../flux/exercise'
 {TocStore, TocActions} = require '../../flux/toc'
 {default: TourRegion } = require '../tours/region'
+{default: TourAnchor } = require '../tours/anchor'
 BackButton = require '../buttons/back-button'
 Chooser = require '../sections-chooser'
 

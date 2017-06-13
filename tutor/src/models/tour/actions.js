@@ -4,6 +4,7 @@ import './actions/open-user-menu';
 import './actions/open-calendar-sidebar';
 import './actions/open-support-menu';
 import './actions/reposition';
+import './actions/hover-exercise';
 
 // TourActions
 // scripted bits of logic for tour transitions like
