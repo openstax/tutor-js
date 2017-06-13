@@ -12,8 +12,12 @@
     }
   }
 
-  > .tour-anchor + .tour-anchor {
-    margin-left: 0.5rem;
+  > .tour-anchor,
+  > .btn {
+    & + .tour-anchor,
+    & + .btn {
+      margin-left: 0.5rem;
+    }
   }
 
   .tour-anchor { display: inline; }
