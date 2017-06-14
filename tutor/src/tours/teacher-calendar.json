@@ -14,7 +14,8 @@
       "anchor_id": "menu-option-page-tips",
       "action": {
         "id": "open-support-menu"
-      }
+      },
+      "position": "left"
     }
   ]
 }, {
@@ -28,8 +29,8 @@
       "title": "Welcome to your dashboard!",
       "body": "Think of your dashboard as base camp -- you can create and manage assignments, see student progress, and review the book."
     }, {
-      "title": "Here’s where you add your assignments",
-      "body": "Create an assignment by clicking it or dragging to the calendar.",
+      "title": "Here's where you add your assignments",
+      "body": "Create an assignment by clicking it or dragging to the calendar.  Events are important class dates, like the final exam.",
       "anchor_id": "sidebar-add-tasks",
       "position": "right",
       "action": {
@@ -37,26 +38,26 @@
       }
     }, {
       "title": "Managing assignments",
-      "body": "You can edit an assignment or review student progress and performance by clicking an assignment in your calendar.",
+      "body": "You can edit an assignment or review student progress and performance by clicking on the assignment on your calendar.",
       "anchor_id": "calendar-task-plan",
       "action": {
         "id": "reposition"
       }
     }, {
-      "title": "Here’s where you see section analytics",
+      "title": "Here's where you see section analytics",
       "body": "The Performance Forecast is the compass in your pocket: it helps you measure how your class is understanding concepts so you can target your teaching!",
       "anchor_id": "performance-forcast-button",
       "position": "bottom-left"
     }, {
-      "title": "View student scores",
+      "title": "View student scores here",
       "body": "View individual student performance and completion, and export student scores for your learning management system.",
       "anchor_id": "student-scores-button",
       "position": "bottom-right"
     }, {
       "title": "Manage your question library",
-      "body": "View all OpenStax Tutor questions here.",
+      "body": "View all OpenStax Tutor questions and exclude questions you don't want students to get in your course.",
       "anchor_id": "menu-option-viewQuestionsLibrary",
-      "position": "bottom-right",
+      "position": "left",
       "is_fixed": true,
       "action": {
         "id": "open-user-menu"
@@ -65,7 +66,7 @@
       "title": "Browse the book",
       "body": "Review the OpenStax textbook here.",
       "anchor_id": "menu-option-browse-book",
-      "position": "bottom-right",
+      "position": "left",
       "is_fixed": true,
       "action": {
         "id": "open-user-menu"
@@ -82,9 +83,9 @@
       "position": "bottom-center"
     }, {
       "title": "Get help",
-      "body": "Get help with a page tour, support articles, or chat.",
+      "body": "Get help with a page tour, support articles, or live chat.",
       "anchor_id": "support-menu-button",
-      "position": "bottom-center",
+      "position": "left",
       "is_fixed": true,
       "action": {
         "id": "open-support-menu"
