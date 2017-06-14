@@ -18,6 +18,7 @@ export default {
   physics: {
     title:      'Physics',
     subject:    SUBJECTS.PHYSICS,
+    bp_doc:     'college-physics',
   },
   hs_physics: {
     title:      'High School Physics',
@@ -26,10 +27,12 @@ export default {
   college_physics: {
     title:      'College Physics',
     subject:    SUBJECTS.PHYSICS,
+    bp_doc:     'college-physics',
   },
   biology: {
     title:      'Biology',
     subject:    SUBJECTS.BIOLOGY,
+    bp_doc:     'biology',
   },
   ap_biology: {
     title:      'Biology for AP® Courses',
@@ -42,6 +45,7 @@ export default {
   college_biology: {
     title:      'College Biology',
     subject:    SUBJECTS.BIOLOGY,
+    bp_doc:     'biology',
   },
   principles_economics: {
     title:      'Principles of Economics',
@@ -58,6 +62,7 @@ export default {
   intro_sociology: {
     title:      'Introduction to Sociology',
     subject:    SUBJECTS.SOCIOLOGY,
+    bp_doc:     'sociology',
   },
   anatomy_physiology: {
     title:      'Anatomy & Physiology',
@@ -66,5 +71,10 @@ export default {
 
   forAppearanceCode(code) {
     return this[code] || { title: String.titleize(code), subject: '' };
+  },
+
+  bestPracticesDocumentURLFor(code) {
+    return this[code] && this[code].bp_doc ?
+           `https://s3-us-west-2.amazonaws.com/openstax-assets/oscms-prodcms/media/documents/oxt-${this[code].bp_doc}-best-practices.pdf` : '';
   },
 };
