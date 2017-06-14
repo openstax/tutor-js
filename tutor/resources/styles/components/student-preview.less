@@ -1,9 +1,28 @@
 .student-preview {
+  margin-top: 2rem;
+  &:extend(.container);
+  background-color: @tutor-white;
+  .tutor-shadow(pop);
 
-  .row {
+  header {
+    border-bottom: 1px solid @tutor-neutral-light;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    h1 {
+      #fonts > .main-title();
+    }
+  }
+
+  .section {
     margin-bottom: 6rem;
     h3 {
-      margin: 0 0 2rem 0;
+      margin: 0 0 2.5rem 0;
+      #fonts > .section-title();
+    }
+    p {
+      #fonts > .sans(16px, 25px);
     }
   }
 

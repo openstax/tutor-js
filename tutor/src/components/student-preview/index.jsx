@@ -1,14 +1,24 @@
 import React from 'react';
+import Router from '../../helpers/router';
+
 import { Grid, Row, Col } from 'react-bootstrap';
 import YouTube from 'react-youtube';
+import BackButton from '../buttons/back-button';
 
 export default function StudentPreview() {
+  const params = Router.currentParams();
+  const { courseId } = params;
+  const backLink = courseId ? { to: 'dashboard', text: 'Back to Dashboard', params: { courseId } } :
+                   { to: 'myCourses', text: 'Back to My Courses' };
 
   return (
     <Grid className="student-preview">
-      <h1>Preview the Student Experience</h1>
+      <header>
+        <h1>Preview the Student Experience</h1>
+        <BackButton fallbackLink={backLink} />
+      </header>
 
-      <Row>
+      <Row className="section">
         <Col sm={6}>
           <h3>Student dashboard</h3>
           <p>
@@ -25,7 +35,7 @@ export default function StudentPreview() {
         </Col>
       </Row>
 
-      <Row>
+      <Row className="section">
         <Col sm={6}>
           <h3>Reading assignment</h3>
           <p>
@@ -42,7 +52,7 @@ export default function StudentPreview() {
         </Col>
       </Row>
 
-      <Row>
+      <Row className="section">
         <Col sm={6}>
           <h3>Homework assignment</h3>
           <p>
@@ -60,7 +70,7 @@ export default function StudentPreview() {
       </Row>
 
 
-      <Row>
+      <Row className="section">
         <Col sm={6}>
           <h3>Performance forecast</h3>
           <p>
@@ -77,7 +87,7 @@ export default function StudentPreview() {
         </Col>
       </Row>
 
-      <Row>
+      <Row className="section">
         <Col sm={6}>
           <h3>Viewing progress</h3>
           <p>

@@ -154,7 +154,7 @@ ROUTES = [
 
   }
   {
-    pattern: '/student-preview',        name: 'studentPreview',           renderer: getStudentPreview
+    pattern: '/student-preview/:courseId?', name: 'studentPreview',       renderer: getStudentPreview
   }
   {
     pattern: '/books/:courseId',        name: 'viewReferenceBook',        renderer: getReferenceBookShell

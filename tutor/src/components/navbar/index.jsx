@@ -30,10 +30,8 @@ export default function NavigationBar() {
       <div className="right-side-controls">
         <PreviewAddCourseBtn courseId={courseId} />
         <SupportMenu />
-        <StudentPreviewLink />
-        <UserActionsMenu
-          courseId={courseId}
-        />
+        <StudentPreviewLink  courseId={courseId} />
+        <UserActionsMenu     courseId={courseId} />
       </div>
       <ServerErrorMonitoring />
     </nav>
