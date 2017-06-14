@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Course Use Tips renders and matches snapshot 1`] = `
+<div
+  className="onboarding-nag course-use-tips"
+>
+  <div
+    className="heading"
+  >
+    Great news! Let's pioneer the future of better learning together.
+  </div>
+  <div
+    className="body"
+  >
+    Your students can access your course as soon as you send them the enrollment code, found on the 
+    <a
+      className=""
+      href="/"
+      onClick={[Function]}
+      style={Object {}}
+    >
+      Course Settings and Roster page
+    </a>
+    . 
+    <span>
+      Also, 
+      <a
+        className="best-practices"
+        href="https://s3-us-west-2.amazonaws.com/openstax-assets/oscms-prodcms/media/documents/oxt-biology-best-practices.pdf"
+        target="_blank"
+      >
+        download our best practices PDF
+      </a>
+       so you can make the most of OpenStax Tutor.
+    </span>
+  </div>
+  <div
+    className="footer got-it"
+  >
+    <button
+      className="btn btn-primary"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Got it
+    </button>
+  </div>
+</div>
+`;
