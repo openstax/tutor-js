@@ -12,6 +12,14 @@
     }
   }
 
+  > .tour-anchor,
+  > .btn {
+    & + .tour-anchor,
+    & + .btn {
+      margin-left: 0.5rem;
+    }
+  }
+
   .tour-anchor { display: inline; }
   .save {
     background: @openstax-neutral;
