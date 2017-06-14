@@ -27,7 +27,8 @@
   "steps": [
     {
       "title": "Welcome to your dashboard!",
-      "body": "Think of your dashboard as base camp -- you can create and manage assignments, see student progress, and review the book."
+      "body": "Think of your dashboard as base camp -- you can create and manage assignments, see student progress, and review the book.",
+      "customComponent": "CenteredWheel"
     }, {
       "title": "Here's where you add your assignments",
       "body": "Create an assignment by clicking it or dragging to the calendar.  Events are important class dates, like the final exam.",

@@ -1,26 +1,16 @@
 import React        from 'react';
-import ReactDOM     from 'react-dom';
-import { Tooltip }  from 'react-joyride';
 
 import defaultsDeep from 'lodash/defaultsDeep';
 import omit         from 'lodash/omit';
 import kebabCase    from 'lodash/kebabCase';
 import classnames   from 'classnames';
 
+import CenteredWheel from './centered-wheel';
+
 export default class SuperTrainingWheel extends React.PureComponent {
   constructor(props) {
     super(props);
     this.className = kebabCase(this.constructor.name);
-  }
-
-  componentDidMount() {
-    this.joyrideEl = ReactDOM.findDOMNode(this.props.step.ride.joyrideRef);
-    this.joyrideEl.classList.add(`${this.className}-wrapper`);
-  }
-
-  componentWillUnmount() {
-    this.joyrideEl = ReactDOM.findDOMNode(this.props.step.ride.joyrideRef);
-    this.joyrideEl.classList.remove(`${this.className}-wrapper`);
   }
 
   render () {
@@ -44,7 +34,7 @@ export default class SuperTrainingWheel extends React.PureComponent {
     defaultsDeep(buttons, this.props.buttons);
 
     return (
-      <Tooltip
+      <CenteredWheel
         {...omit(this.props, 'style', 'buttons')}
         showOverlay={true}
         className={className}
