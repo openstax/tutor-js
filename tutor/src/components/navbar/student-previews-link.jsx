@@ -7,7 +7,7 @@ import TourAnchor from '../tours/anchor';
 
 export default function StudentPreviewLinks({ courseId }) {
 
-  if( ! ( User.isConfirmedFaculty || User.isUnverifiedInstructor ) ) { return null; }
+  if( !courseId || !( User.isConfirmedFaculty || User.isUnverifiedInstructor ) ) { return null; }
 
   return (
     <TourAnchor id="student-preview-link">
