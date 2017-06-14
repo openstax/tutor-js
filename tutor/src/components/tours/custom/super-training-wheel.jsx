@@ -1,16 +1,26 @@
 import React        from 'react';
 
+import { action } from 'mobx';
+
 import defaultsDeep from 'lodash/defaultsDeep';
 import omit         from 'lodash/omit';
 import kebabCase    from 'lodash/kebabCase';
 import classnames   from 'classnames';
 
 import CenteredWheel from './centered-wheel';
+import { bindClickHandler } from './common';
 
 export default class SuperTrainingWheel extends React.PureComponent {
   constructor(props) {
     super(props);
     this.className = kebabCase(this.constructor.name);
+  }
+
+  @action.bound
+  handleClick = bindClickHandler.call(this, {close: this.triggerNext.bind(this)});
+
+  triggerNext() {
+    this.props.step.ride.joyrideRef.next();
   }
 
   render () {
@@ -40,6 +50,7 @@ export default class SuperTrainingWheel extends React.PureComponent {
         className={className}
         step={step}
         buttons={buttons}
+        onClick={this.handleClick}
       />
     );
   }
