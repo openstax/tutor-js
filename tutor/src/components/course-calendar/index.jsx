@@ -93,6 +93,9 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
   componentWillMount() {
     const courseTimezone = this.course.time_zone;
     TimeHelper.syncCourseTimezone(courseTimezone);
+  }
+
+  componentWillUpdate(nextProps, nextState) {
     this.loader.fetch(this.fetchParams);
     TaskPlans.forCourseId(this.course.id).clearPendingClones();
   }
