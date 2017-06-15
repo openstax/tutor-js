@@ -76,7 +76,12 @@ export default class BuilderPopup extends React.Component {
           }}
         >
           <div className="student-preview builder-popup">
-            <h3 style={{ color: 'darkGrey' }}>
+            <h3 style={{
+              color: '#424242',
+              fontSize: '16px',
+              fontFamily: 'HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif',
+              marginBottom: '1rem',
+            }}>
               Student view of your own assignment coming soon!
             </h3>
             <YouTube

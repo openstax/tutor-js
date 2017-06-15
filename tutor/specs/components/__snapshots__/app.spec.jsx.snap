@@ -90,28 +90,6 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
             </ul>
           </div>
           <div
-            className="tour-anchor"
-            data-tour-anchor-id="student-preview-link"
-            id="student-preview-link"
-          >
-            <a
-              className="student-preview-link"
-              href="/"
-              onClick={[Function]}
-              style={Object {}}
-            >
-              <i
-                className="tutor-icon fa fa-video-camera"
-                type="video-camera"
-              />
-              <span
-                className="control-label"
-              >
-                Student preview videos
-              </span>
-            </a>
-          </div>
-          <div
             className="user-actions-menu dropdown btn-group"
           >
             <a
