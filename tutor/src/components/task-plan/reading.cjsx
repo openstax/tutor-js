@@ -103,7 +103,7 @@ ChooseReadings = React.createClass
     @props.hide()
 
   render: ->
-    buttonStyle = if @props.selected?.length then 'primary' else 'default'
+    buttonStyle = 'primary'
     header = <span>Select Readings</span>
 
     primary =
