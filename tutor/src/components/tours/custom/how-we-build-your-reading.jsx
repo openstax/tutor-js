@@ -7,11 +7,13 @@ import {
 import SuperTrainingWheel from './super-training-wheel';
 
 import TutorLink from '../../link'
+import Router from '../../../helpers/router'
 
 export default class HowWeBuildYourReading extends React.PureComponent {
 
   render () {
-    console.info(this.props)
+    const { courseId } = Router.currentParams()
+
     return (
       <SuperTrainingWheel {...this.props}>
         <ValueProp className="build-reading">
@@ -30,7 +32,7 @@ export default class HowWeBuildYourReading extends React.PureComponent {
             <Column className="exclude-question">
               <p>
                 You can manage questions in the<br/>
-                <TutorLink to='viewQuestionsLibrary' params={{courseId: 'CHANGME'}}>
+                <TutorLink to='viewQuestionsLibrary' params={{courseId}}>
                   Question Library
                 </TutorLink> before you publish your assignment
               </p>
