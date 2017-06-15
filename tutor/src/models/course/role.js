@@ -7,7 +7,7 @@ import { computed } from 'mobx';
 export default class CourseRole extends BaseModel {
   @identifier id;
 
-  @field joined_at;
+  @field({ type: 'date' }) joined_at;
   @field type;
 
   @computed get isStudent() {

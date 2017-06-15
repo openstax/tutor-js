@@ -26,7 +26,7 @@ export default class FullCourseOnboarding extends BaseOnboarding {
     if (this.otherModalsAreDisplaying) { return null; }
 
     if (this.response === false && (
-      this.course.dashboardViewCount == 2 || this.isOnboardingUndecided
+      this.courseIsWellAged || this.isOnboardingUndecided
     )) {
       return Nags.freshlyCreatedCourse;
     } else if (includes(['cc', 'exc', 'adr'], this.response)) {
