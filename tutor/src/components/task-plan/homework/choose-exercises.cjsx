@@ -1,7 +1,6 @@
 React      = require 'react'
 _          = require 'underscore'
 BS         = require 'react-bootstrap'
-classnames = require 'classnames'
 
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 
@@ -49,8 +48,9 @@ ChooseExercises = React.createClass
 
     primaryBtn =
       <BS.Button
-        className={classnames('-show-problems', { disabled: _.isEmpty(selected) })}
+        className={'-show-problems'}
         bsStyle='primary'
+        disabled={_.isEmpty(selected)}
         onClick={@selectProblems}
         key='hello'
       >Show Problems</BS.Button>
