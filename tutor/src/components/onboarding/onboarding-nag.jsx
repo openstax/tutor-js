@@ -1,8 +1,9 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { action, observable } from 'mobx';
-import { observer, PropTypes as MobxPropTypes  } from 'mobx-react';
+import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import Router from '../../helpers/router';
+
 import { OnboardingNag, Heading, Body, Footer } from './nag-components';
 
 export { OnboardingNag, Heading, Body, Footer };
