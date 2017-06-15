@@ -1,7 +1,7 @@
 import React        from 'react';
 
 import classnames   from 'classnames';
-import forEach      from 'lodash/forEach';
+import { forEach }  from 'lodash';
 
 function ValueProp({ className, children }) {
   return <div className={classnames('value-prop', className)}>{children}</div>;
@@ -44,7 +44,7 @@ function bindClickHandler(handlers) {
           clickEvent.preventDefault();
           clickEvent.stopPropagation();
 
-          return handler(clickEvent);
+          handler(clickEvent);
         }
       });
     }

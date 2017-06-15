@@ -1,16 +1,16 @@
 import React        from 'react';
 import ReactDOM     from 'react-dom';
 import { Tooltip }  from 'react-joyride';
+import { computed } from 'mobx';
 
-import kebabCase    from 'lodash/kebabCase';
-import first        from 'lodash/first';
+import { first }    from 'lodash';
 import classnames   from 'classnames';
 
 export default class CenteredWheel extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.className = kebabCase(this.constructor.name);
-    this.wrapperClassName = this.props.className? `${first(this.props.className.split(' '))}-wrapper` : 'training-wheel-wrapper';
+  className = 'centered-wheel'
+
+  @computed get wrapperClassName() {
+    return this.props.className? `${first(this.props.className.split(' '))}-wrapper` : 'training-wheel-wrapper';
   }
 
   setupWrapperClasses() {
