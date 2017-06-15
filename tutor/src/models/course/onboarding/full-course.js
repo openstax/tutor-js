@@ -25,9 +25,7 @@ export default class FullCourseOnboarding extends BaseOnboarding {
   @computed get nagComponent() {
     if (this.otherModalsAreDisplaying) { return null; }
 
-    if (this.response === false && (
-      this.courseIsWellAged || this.isOnboardingUndecided
-    )) {
+    if (this.canPrompt) {
       return Nags.freshlyCreatedCourse;
     } else if (includes(['cc', 'exc', 'adr'], this.response)) {
       return Nags.courseUseTips;
@@ -37,6 +35,14 @@ export default class FullCourseOnboarding extends BaseOnboarding {
       return Nags.thanksAnways;
     }
     return null;
+  }
+
+  @computed get canPrompt() {
+    return this.response === false && (
+      this.isOnboardingUndecided || (
+        this.courseIsWellAged && !UiSettings.get(ONBOARDING_CHOICE, this.course.id)
+      )
+    );
   }
 
   @computed get isOnboardingUndecided() {
