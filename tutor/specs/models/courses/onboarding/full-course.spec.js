@@ -3,29 +3,31 @@ import { TEACHER_COURSE_TWO_MODEL } from '../../../courses-test-data';
 import CourseUX from '../../../../src/models/course/onboarding/full-course';
 import UiSettings from 'shared/src/model/ui-settings';
 import User from '../../../../src/models/user';
-
+import moment from 'moment';
 jest.mock('shared/src/model/ui-settings');
 jest.mock('../../../../src/models/user', ()=> ({
   logEvent: jest.fn(),
 }));
 
-describe('Course Preview UX', () => {
+describe('Full Course Onboarding', () => {
   let ux;
 
   beforeEach(() => {
     ux = new CourseUX(
-      { id: 1, dashboardViewCount: 0 },
+      { id: 1, primaryRole: { joined_at: new Date() } },
       { tour: null },
     );
   });
 
   it('#nagComponent', () => {
     expect(ux.nagComponent).toBeNull();
-    ux.course.dashboardViewCount = 2;
+    ux.course.primaryRole.joined_at = moment().subtract(4, 'hours').subtract(1, 'second');
+
     expect(ux.nagComponent).not.toBeNull();
 
     UiSettings.get.mockImplementation(() => 'dn');
-    ux.course.dashboardViewCount = 12;
+    ux.course.primaryRole.joined_at = moment().subtract(2, 'hours');
+
     expect(ux.isOnboardingUndecided).toBe(true);
     expect(ux.nagComponent).not.toBeNull();
 
@@ -45,7 +47,7 @@ describe('Course Preview UX', () => {
   });
 
   it('hides itself if tour is being displayed', () => {
-    ux.course.dashboardViewCount = 2;
+    ux.course.primaryRole.joined_at = moment().subtract(4, 'hours').subtract(1, 'second');
     expect(ux.nagComponent).not.toBeNull();
     ux.tourContext.tour = true;
     expect(ux.nagComponent).toBeNull();

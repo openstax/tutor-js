@@ -6,7 +6,7 @@ import { filter, includes } from 'lodash';
 
 import BaseOnboarding from './base';
 import Courses from '../../courses-map';
-import User from '../../user';
+
 import TeacherTaskPlans from '../../teacher-task-plans';
 import { TaskPlanStore } from '../../../flux/task-plan';
 
@@ -33,7 +33,7 @@ export default class PreviewOnboarding extends BaseOnboarding {
     if (!HAS_PUBLISHED.get() ||
         this.hasCreatedRealCourse ||
         TeacherTaskPlans.hasApiRequestPending
-       ) { return false; }
+    ) { return false; }
 
     const plans = TeacherTaskPlans.forCourseId(this.course.id).active;
     const realPlanCount = filter(
@@ -51,7 +51,10 @@ export default class PreviewOnboarding extends BaseOnboarding {
     if (IS_DISMISSED.get() || this.hasCreatedRealCourse) { return null; }
 
     if (this.course.hasEnded)       { return Nags.expiredPreviewWarning; }
-    if (User.sessionCount > 2)      { return Nags.secondSessionWarning;  }
+
+    if (this.courseIsWellAged) {
+      return Nags.secondSessionWarning;
+    }
     return null;
   }
 
