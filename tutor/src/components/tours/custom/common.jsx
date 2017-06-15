@@ -1,6 +1,7 @@
 import React        from 'react';
 
 import classnames   from 'classnames';
+import { forEach }  from 'lodash';
 
 function ValueProp({ className, children }) {
   return <div className={classnames('value-prop', className)}>{children}</div>;
@@ -20,9 +21,45 @@ function TutorBeta() {
   );
 }
 
+function getClickTarget(clickEvent) {
+  return clickEvent.currentTarget.className.includes('joyride-') && [
+    'A',
+    'BUTTON'
+  ].includes(clickEvent.currentTarget.tagName) ? clickEvent.currentTarget : clickEvent.target;
+}
+
+function bindClickHandler(handlers) {
+
+  return ((clickEvent) => {
+    const el = getClickTarget(clickEvent);
+    const dataType = el.dataset.type;
+
+    let handled = false;
+
+    if (el.className.indexOf('joyride-') === 0) {
+      forEach(handlers, (handler, name) => {
+        if (dataType === name) {
+          handled = true;
+
+          clickEvent.preventDefault();
+          clickEvent.stopPropagation();
+
+          handler(clickEvent);
+        }
+      });
+    }
+
+    if (!handled) {
+      this.props.step.ride.joyrideRef.onClickTooltip(clickEvent);
+    }
+
+  });
+}
+
 export {
   ValueProp,
   ColumnContent,
   Column,
-  TutorBeta
+  TutorBeta,
+  bindClickHandler
 };

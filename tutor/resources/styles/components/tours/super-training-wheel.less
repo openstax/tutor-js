@@ -2,17 +2,14 @@
   &-wrapper {
     .joyride-overlay {
       height: 100% !important;
-      position: fixed;
-
-      .flex-display();
-      .align-items(center);
-      .justify-content(center);
     }
 
-    .super-training-wheel {
-      position: relative !important;
-      top: initial !important;
-      left: initial !important;
+    @media only screen and (max-height:550px) {
+      &.centered-wheel-wrapper {
+        .joyride-overlay {
+          .align-items(flex-start);
+        }
+      }
     }
   }
 

@@ -1,0 +1,46 @@
+import React        from 'react';
+import ReactDOM     from 'react-dom';
+import { Tooltip }  from 'react-joyride';
+import { computed } from 'mobx';
+
+import { first }    from 'lodash';
+import classnames   from 'classnames';
+
+export default class CenteredWheel extends React.PureComponent {
+  className = 'centered-wheel'
+
+  @computed get wrapperClassName() {
+    return this.props.className? `${first(this.props.className.split(' '))}-wrapper` : 'training-wheel-wrapper';
+  }
+
+  setupWrapperClasses() {
+    this.joyrideEl = ReactDOM.findDOMNode(this.props.step.ride.joyrideRef);
+    if (this.joyrideEl) {
+      this.joyrideEl.classList.add(`${this.className}-wrapper`, this.wrapperClassName);
+    }
+  }
+
+  componentDidMount() {
+    this.setupWrapperClasses();
+  }
+
+  componentDidUpdate() {
+    if (!this.joyrideEl) {
+      this.setupWrapperClasses();
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.joyrideEl) {
+      this.joyrideEl.classList.remove(`${this.className}-wrapper`, this.wrapperClassName);
+    }
+  }
+
+  render () {
+    const className = classnames(this.className,  this.props.className);
+
+    return (
+      <Tooltip {...this.props} className={className}/>
+    );
+  }
+}

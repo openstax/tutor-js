@@ -10,6 +10,8 @@ import defaultsDeep from 'lodash/defaultsDeep';
 import omit         from 'lodash/omit';
 import classnames   from 'classnames';
 
+import { bindClickHandler } from './common';
+
 @inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
 @observer
 export default class TipsNowOrLater extends React.PureComponent {
@@ -18,26 +20,7 @@ export default class TipsNowOrLater extends React.PureComponent {
   // }
 
   @action.bound
-  handleClick(clickEvent) {
-    const el = this.getClickTarget(clickEvent);
-    const dataType = el.dataset.type;
-
-    if (el.className.indexOf('joyride-') === 0 && dataType === 'next') {
-      clickEvent.preventDefault();
-      clickEvent.stopPropagation();
-
-      return this.triggerPageTips();
-    }
-
-    this.props.step.ride.joyrideRef.onClickTooltip(clickEvent);
-  }
-
-  getClickTarget(clickEvent) {
-    return clickEvent.currentTarget.className.includes('joyride-') && [
-      'A',
-      'BUTTON'
-    ].includes(clickEvent.currentTarget.tagName) ? clickEvent.currentTarget : clickEvent.target;
-  }
+  handleClick = bindClickHandler.call(this, {next: this.triggerPageTips.bind(this)});
 
   triggerPageTips() {
     this.props.step.ride.joyrideRef.props.callback({
