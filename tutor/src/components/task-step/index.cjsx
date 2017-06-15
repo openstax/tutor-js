@@ -53,9 +53,9 @@ TaskStep = React.createClass
         {...@props}
         onStepCompleted={@onStepCompleted}
       />
-      <SpyMode.Content className='task-ecosystem-info'>
-        TaskId: {taskId}, StepId: {id}, Ecosystem: {taskSpy?.ecosystem_title}
-        TaskStep: {JSON.stringify(taskStepSpy)}
+      <SpyMode.Content className='task-spy-info'>
+        TaskId: {taskId}, TaskSpy: {JSON.stringify(taskSpy)},
+        StepId: {id}, StepSpy: {JSON.stringify(taskStepSpy)}
       </SpyMode.Content>
     </div>
 
