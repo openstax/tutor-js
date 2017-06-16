@@ -50,7 +50,7 @@ function bindClickHandler(handlers) {
     }
 
     if (!handled) {
-      this.props.step.ride.joyrideRef.onClickTooltip(clickEvent);
+      this.props.step.joyrideRef.onClickTooltip(clickEvent);
     }
 
   });

@@ -23,7 +23,7 @@ export default class TipsNowOrLater extends React.PureComponent {
   handleClick = bindClickHandler.call(this, {next: this.triggerPageTips.bind(this)});
 
   triggerPageTips() {
-    this.props.step.ride.joyrideRef.props.callback({
+    this.props.step.joyrideRef.props.callback({
       type: 'finished',
       action: 'finished'
     });

@@ -16,14 +16,14 @@ export default class SuperTrainingWheel extends React.PureComponent {
   handleClick = bindClickHandler.call(this, {close: this.triggerNext.bind(this)});
 
   triggerNext() {
-    this.props.step.ride.joyrideRef.next();
+    this.props.step.joyrideRef.next();
   }
 
   render () {
     const step = this.props.step;
     const buttons = (
-      this.props.step.ride.joyrideRef &&
-      this.props.step.ride.joyrideRef.props.steps.length < 3
+      this.props.step.joyrideRef &&
+      this.props.step.joyrideRef.props.steps.length < 3
     )? { primary: 'Continue' } : {};
     const className = classnames(this.className,  this.props.className);
 

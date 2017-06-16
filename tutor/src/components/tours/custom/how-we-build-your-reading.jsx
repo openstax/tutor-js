@@ -11,7 +11,7 @@ import TutorLink from '../../link'
 export default class HowWeBuildYourReading extends React.PureComponent {
 
   render () {
-    const { courseId } = this.props.step.ride.region
+    const { courseId } = this.props.step.region
 
     return (
       <SuperTrainingWheel {...this.props}>
