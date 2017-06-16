@@ -178,7 +178,7 @@ export default class CourseBuilderUX extends BaseModel {
 
   // skips
   skip_new_or_copy() {
-    return !!this.source || Courses.nonPreview.isEmpty;
+    return !!this.source || Courses.isEmpty || Courses.nonPreview.isEmpty;
   }
 
   skip_cloned_from_id() {
