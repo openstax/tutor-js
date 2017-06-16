@@ -39,6 +39,10 @@ export class UserTerms extends BaseModel {
   // will be overwritten by api
   fetch() {}
 
+  onSigned() {
+    this.user.terms_signatures_needed = false;
+  }
+
   sign() {
     const ids = [];
     this.unsigned.forEach((t) => {
