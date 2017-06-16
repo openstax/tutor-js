@@ -7,12 +7,11 @@ import {
 import SuperTrainingWheel from './super-training-wheel';
 
 import TutorLink from '../../link'
-import Router from '../../../helpers/router'
 
 export default class HowWeBuildYourReading extends React.PureComponent {
 
   render () {
-    const { courseId } = Router.currentParams()
+    const { courseId } = this.props.step.ride.region
 
     return (
       <SuperTrainingWheel {...this.props}>
