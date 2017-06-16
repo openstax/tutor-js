@@ -45,6 +45,7 @@ exports[`Main navbar renders and matches snapshot 1`] = `
           />
           <span
             className="control-label"
+            title="Page tips and support"
           >
             Help
           </span>
@@ -73,7 +74,7 @@ exports[`Main navbar renders and matches snapshot 1`] = `
             target="_blank"
           >
             <span>
-              Get Help
+              Help Articles
             </span>
           </a>
         </li>
@@ -96,7 +97,9 @@ exports[`Main navbar renders and matches snapshot 1`] = `
           className="tutor-icon fa fa-user"
           type="user"
         />
-        <span />
+        <span
+          title="Menu and settings"
+        />
          
         <span
           className="caret"
