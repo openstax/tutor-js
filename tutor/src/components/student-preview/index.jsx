@@ -4,6 +4,7 @@ import Router from '../../helpers/router';
 import { Grid, Row, Col } from 'react-bootstrap';
 import YouTube from 'react-youtube';
 import BackButton from '../buttons/back-button';
+import CourseBranding from '../branding/course';
 
 export default function StudentPreview() {
   const params = Router.currentParams();
@@ -39,7 +40,7 @@ export default function StudentPreview() {
         <Col sm={6} className="txt">
           <h3>Reading assignment</h3>
           <p>
-            OpenStax Tutor Beta reading assignments present the textbook to students in manageable chunks and engage students with videos, case studies, and interactive elements. As students read, each section is followed by personalized, two-step questions that give immediate feedback.
+            <CourseBranding/> reading assignments present the textbook to students in manageable chunks and engage students with videos, case studies, and interactive elements. As students read, each section is followed by personalized, two-step questions that give immediate feedback.
           </p>
         </Col>
         <Col sm={6} className="vid">
@@ -56,7 +57,7 @@ export default function StudentPreview() {
         <Col sm={6} className="txt">
           <h3>Homework assignment</h3>
           <p>
-            After students work instructor-assigned questions, OpenStax Tutor Beta will unlock personalized and spaced practice questions chosen specifically for each student. These two-step questions prompt students to recall the answer from memory before selecting a multiple choice option.
+            After students work instructor-assigned questions, <CourseBranding/> will unlock personalized and spaced practice questions chosen specifically for each student. These two-step questions prompt students to recall the answer from memory before selecting a multiple choice option.
           </p>
         </Col>
         <Col sm={6} className="vid">

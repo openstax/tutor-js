@@ -51,7 +51,13 @@ exports[`Student Preview Builder renders and matches snapshot 1`] = `
         Reading assignment
       </h3>
       <p>
-        OpenStax Tutor Beta reading assignments present the textbook to students in manageable chunks and engage students with videos, case studies, and interactive elements. As students read, each section is followed by personalized, two-step questions that give immediate feedback.
+        <span
+          className="course-branding"
+          data-is-beta={true}
+        >
+          OpenStax Tutor
+        </span>
+         reading assignments present the textbook to students in manageable chunks and engage students with videos, case studies, and interactive elements. As students read, each section is followed by personalized, two-step questions that give immediate feedback.
       </p>
     </div>
     <div
@@ -75,7 +81,14 @@ exports[`Student Preview Builder renders and matches snapshot 1`] = `
         Homework assignment
       </h3>
       <p>
-        After students work instructor-assigned questions, OpenStax Tutor Beta will unlock personalized and spaced practice questions chosen specifically for each student. These two-step questions prompt students to recall the answer from memory before selecting a multiple choice option.
+        After students work instructor-assigned questions, 
+        <span
+          className="course-branding"
+          data-is-beta={true}
+        >
+          OpenStax Tutor
+        </span>
+         will unlock personalized and spaced practice questions chosen specifically for each student. These two-step questions prompt students to recall the answer from memory before selecting a multiple choice option.
       </p>
     </div>
     <div

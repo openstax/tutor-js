@@ -15,12 +15,6 @@ function Column({ className, children }) {
   return <div className={classnames('column', className)}>{children}</div>;
 }
 
-function TutorBeta() {
-  return (
-    <span>OpenStax Tutor <span className="beta">beta</span></span>
-  );
-}
-
 function getClickTarget(clickEvent) {
   return clickEvent.currentTarget.className.includes('joyride-') && [
     'A',
@@ -58,6 +52,5 @@ export {
   ValueProp,
   ColumnContent,
   Column,
-  TutorBeta,
   bindClickHandler
 };

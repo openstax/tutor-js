@@ -11,8 +11,7 @@ import CourseUX from '../../models/course/ux';
 import OXFancyLoader from '../ox-fancy-loader';
 
 import { wrapCourseDragComponent } from './course-dnd';
-
-const BRAND = 'OpenStax';
+import CourseBranding from '../branding/course';
 
 import CourseData from '../../helpers/course-data';
 
@@ -24,36 +23,6 @@ const CoursePropType = React.PropTypes.shape({
   is_concept_coach: React.PropTypes.bool.isRequired,
 });
 export { CoursePropType };
-
-@observer
-class CourseBranding extends React.PureComponent {
-
-  static propTypes = {
-    isConceptCoach: React.PropTypes.bool.isRequired,
-    isBeta:         React.PropTypes.bool,
-  }
-
-  render() {
-    let brand;
-    let { isConceptCoach, isBeta } = this.props;
-
-    if (isConceptCoach) {
-      if (isBeta == null) { isBeta = false; }
-      brand = `${BRAND} Concept Coach`;
-    } else {
-      if (isBeta == null) { isBeta = true; }
-      brand = `${BRAND} Tutor`;
-    }
-
-    return (
-      <p className="my-courses-item-brand" data-is-beta={isBeta}>
-        {brand}
-      </p>
-    );
-  }
-
-}
-
 
 @observer
 export class CoursePreview extends React.PureComponent {
@@ -169,7 +138,11 @@ export class Course extends React.PureComponent {
             className="my-courses-item-details"
             data-has-controls={controls != null}>
             <TutorLink to="dashboard" params={{ courseId: this.ux.courseId }}>
-              <CourseBranding isConceptCoach={!!course.is_concept_coach} />
+              <CourseBranding
+                tag="p"
+                className="my-courses-item-brand"
+                isConceptCoach={!!course.is_concept_coach}
+              />
               <p className="my-courses-item-term">
                 {course.term}
                 {' '}

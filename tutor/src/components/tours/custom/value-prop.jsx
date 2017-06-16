@@ -9,8 +9,8 @@ import {
   ValueProp,
   ColumnContent,
   Column,
-  TutorBeta,
 } from './common';
+import CourseBranding from '../../branding/course';
 import SuperTrainingWheel from './super-training-wheel';
 
 function TutorValueColumns() {
@@ -39,7 +39,7 @@ function TutorValueColumns() {
 function CCToTutor() {
   return (
     <ValueProp className="cc-to-tutor">
-      <h1 className="heading">Welcome to <TutorBeta />!</h1>
+      <h1 className="heading">Welcome to <CourseBranding />!</h1>
       <h2 className="sub-heading">
         Concept Coach is ending, but a better tool is here.
         Here's what your students have to look forward to!
@@ -75,7 +75,7 @@ function CCSunsetMessage() {
 function Welcome() {
   return (
     <ValueProp className="welcome-to-tutor">
-      <h1 className="heading">Welcome to <TutorBeta />!</h1>
+      <h1 className="heading">Welcome to <CourseBranding />!</h1>
       <h2 className="sub-heading">
         Improve how your students learn with research-based
         technology -- for only {CourseUX.formattedStudentCost}.
