@@ -8,13 +8,11 @@ exports[`Tour Value Prop Component matches snapshot for cc 1`] = `
     className="heading"
   >
     Welcome to 
-    <span>
-      OpenStax Tutor 
-      <span
-        className="beta"
-      >
-        beta
-      </span>
+    <span
+      className="course-branding"
+      data-is-beta={true}
+    >
+      OpenStax Tutor
     </span>
     !
   </h1>
@@ -110,13 +108,11 @@ exports[`Tour Value Prop Component matches snapshot for tutor 1`] = `
     className="heading"
   >
     Welcome to 
-    <span>
-      OpenStax Tutor 
-      <span
-        className="beta"
-      >
-        beta
-      </span>
+    <span
+      className="course-branding"
+      data-is-beta={true}
+    >
+      OpenStax Tutor
     </span>
     !
   </h1>

@@ -2,8 +2,9 @@ import React from 'react';
 import {
   ValueProp,
   ColumnContent,
-  Column
+  Column,
 } from './common';
+import CourseBranding from '../../branding/course';
 import SuperTrainingWheel from './super-training-wheel';
 
 import TutorLink from '../../link'
@@ -25,7 +26,7 @@ export default class HowWeBuildYourReading extends React.PureComponent {
           <ColumnContent>
             <Column className="machine-learning">
               <p>
-                Select what you want your students to read, and OpenStax Tutor Beta picks the questions for you
+                Select what you want your students to read, and <CourseBranding/> picks the questions for you
               </p>
             </Column>
             <Column className="exclude-question">
