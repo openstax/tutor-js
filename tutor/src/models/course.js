@@ -123,10 +123,6 @@ export default class Course extends BaseModel {
     return UiSettings.get(DASHBOARD_VIEW_COUNT_KEY, this.id) || 0;
   }
 
-  resetToursAndOnboarding() {
-    UiSettings.set(DASHBOARD_VIEW_COUNT_KEY, this.id, 0);
-  }
-
   @computed get primaryRole() {
     return first(sortBy(this.roles, r => -1 * ROLE_PRIORITY.indexOf(r.type)));
   }

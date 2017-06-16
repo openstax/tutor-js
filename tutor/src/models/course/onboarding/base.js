@@ -1,6 +1,7 @@
 import {
   observable,
   computed,
+  action,
 } from 'mobx';
 
 import moment from 'moment';
@@ -8,10 +9,16 @@ import moment from 'moment';
 import User from '../../user';
 import { TimeStore } from '../../../flux/time';
 
+const SPY_MODE = observable.box(false);
+
 export default class BasicCourseOnboarding {
 
   @observable course;
   @observable tourContext;
+
+  static set spyMode(v) {
+    SPY_MODE.set(v);
+  }
 
   constructor(course, tourContext) {
     this.course = course;
@@ -24,7 +31,7 @@ export default class BasicCourseOnboarding {
   }
 
   @computed get courseIsWellAged() {
-    return moment(TimeStore.getNow()).isAfter(
+    return SPY_MODE.get() || moment(TimeStore.getNow()).isAfter(
       moment(this.course.primaryRole.joined_at).add(4, 'hours')
     );
   }

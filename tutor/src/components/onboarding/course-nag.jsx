@@ -4,7 +4,7 @@ import { action, observable, observe } from 'mobx';
 import { Modal } from 'react-bootstrap';
 import { get, pick } from 'lodash';
 import TourContext from '../../models/tour/context';
-import User from '../../models/user';
+import Onboarding from '../../models/course/onboarding/base';
 
 @inject((context) => pick(context, 'tourContext', 'spyMode'))
 @observer
@@ -27,15 +27,10 @@ export default class CourseNagModal extends React.PureComponent {
 
   componentWillMount() {
     if (this.props.spyMode) {
-      this.spyModeObserverDispose = observe(this.props.spyMode, 'isEnabled', ({ newValue }) => {
-        if (newValue) { this.resetOnboarding(); }
-      });
+      this.spyModeObserverDispose = observe(this.props.spyMode, 'isEnabled',
+                                            ({ newValue }) => (Onboarding.spyMode = newValue)
+      );
     }
-  }
-
-  @action resetOnboarding() {
-    User.viewed_tour_ids.clear();
-    this.props.ux.course.resetToursAndOnboarding();
   }
 
   render() {

@@ -2,11 +2,7 @@ import CourseNag from '../../../src/components/onboarding/course-nag';
 import TourContext from '../../../src/models/tour/context';
 
 import { observable } from 'mobx';
-import User from '../../../src/models/user';
-
-jest.mock('../../../src/models/user', () => ({
-  viewed_tour_ids: { clear: jest.fn() },
-}));
+import Onboarding from '../../../src/models/course/onboarding/base';
 
 jest.mock('../../../src/models/tour/context', () => (
   class MockContext {
@@ -23,9 +19,7 @@ describe('Second Session Warning', () => {
   beforeEach(() => {
     ux = observable.object({
       nagComponent: SomethingToDo,
-      course: {
-        resetToursAndOnboarding: jest.fn(),
-      },
+      course: { primaryRole: { joined_at: new Date } },
     });
     spyMode = observable.object({ isEnabled: false });
     tourContext = new TourContext();
@@ -43,9 +37,10 @@ describe('Second Session Warning', () => {
 
   it('replays tours when spy mode is triggered', () => {
     mount(<CourseNag {...props} />);
+    const onboarding = new Onboarding(ux.course, tourContext);
+    expect(onboarding.courseIsWellAged).toBe(false);
     spyMode.isEnabled = true;
-    expect(ux.course.resetToursAndOnboarding).toHaveBeenCalled();
-    expect(User.viewed_tour_ids.clear).toHaveBeenCalled();
+    expect(onboarding.courseIsWellAged).toBe(true);
   });
 
 });
