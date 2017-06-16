@@ -10,7 +10,7 @@ SECTION_IDS  = [234..242]
 COURSE_ID = '1'
 ECOSYSTEM_ID = '1'
 
-{ExerciseActions} = require '../../../src/flux/exercise'
+{ExerciseActions, ExerciseStore} = require '../../../src/flux/exercise'
 {CourseActions} = require '../../../src/flux/course'
 {TocActions, TocStore} = require '../../../src/flux/toc'
 
@@ -30,10 +30,14 @@ describe 'QL exercises display', ->
   afterEach ->
     ExerciseActions.saveExerciseExclusion.restore()
 
-  it 'renders cards', ->
+  it 'renders reading cards', ->
+    defaultReadingCards = ExerciseStore.groupBySectionsAndTypes(
+      ECOSYSTEM_ID, SECTION_IDS, withExcluded: true
+    )?['reading']
+
     Testing.renderComponent( ExercisesDisplay, props: @props, unmountAfter: 20 ).then ({dom}) ->
       expect( dom.querySelectorAll('.openstax-exercise-preview').length ).to
-        .equal(EXERCISES.items.length)
+        .equal(defaultReadingCards.count)
 
 
   it 'displays dialog when exercises are at minimum (5)', ->

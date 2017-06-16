@@ -13,6 +13,7 @@ ChapterSection = require './chapter-section'
 PlanMixin = require './plan-mixin'
 LoadableItem = require '../loadable-item'
 TaskPlanBuilder = require './builder'
+{ default: NoQuestionsTooltip } = require './reading/no-questions-tooltip'
 Fn = require '../../helpers/function'
 { default: TourRegion } = require '../tours/region'
 
@@ -113,22 +114,18 @@ ChooseReadings = React.createClass
         disabled={@props.selected?.length is 0}
         onClick={@hide}>Add Readings
       </BS.Button>
-    <TourRegion
-      className="reading-plan-select-topics"
-      id={"add-reading-choose-sections"}
+
+    <SelectTopics
+      primary={primary}
+      onSectionChange={Fn.empty}
+      header={header}
+      type="reading"
       courseId={@props.courseId}
-    >
-      <SelectTopics
-        primary={primary}
-        onSectionChange={Fn.empty}
-        header={header}
-        courseId={@props.courseId}
-        ecosystemId={@props.ecosystemId}
-        planId={@props.planId}
-        selected={@props.selected}
-        cancel={@props.cancel}
-        hide={@hide} />
-    </TourRegion>
+      ecosystemId={@props.ecosystemId}
+      planId={@props.planId}
+      selected={@props.selected}
+      cancel={@props.cancel}
+      hide={@hide} />
 
 ReadingPlan = React.createClass
   displayName: 'ReadingPlan'
@@ -206,6 +203,7 @@ ReadingPlan = React.createClass
                 ecosystemId={ecosystemId}
                 selected={topics}/>
               {addReadingsButton}
+              <NoQuestionsTooltip/>
               {readingsRequired}
             </BS.Col>
           </BS.Row>

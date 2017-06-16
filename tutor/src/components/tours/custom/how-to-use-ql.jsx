@@ -22,12 +22,12 @@ export default class HowToUseQL extends React.PureComponent {
           <ColumnContent>
             <Column className="machine-learning">
               <p>
-                <TutorBeta/> adds personalized and spaced practice questions to your assignments
+                OpenStax Tutor Beta adds personalized and spaced practice questions to your assignments
               </p>
             </Column>
             <Column className="question-details">
               <p>
-                You can view all questions <TutorBeta/> might use in the Question Library
+                You can view all questions OpenStax Tutor Beta might use in the Question Library
               </p>
             </Column>
             <Column className="exclude-question">

@@ -81,8 +81,18 @@ exports[`choose exercises component matches snapshot 1`] = `
             />
           </div>
           <span>
-            Tutor Selections
+            OpenStax Tutor Selections
           </span>
+          <button
+            aria-describedby="homework-selections-popover"
+            className="btn btn-link"
+            disabled={false}
+            id="homework-selections-trigger"
+            onClick={[Function]}
+            type="button"
+          >
+            What are these?
+          </button>
         </div>
         <div
           className="tutor-added-later"

@@ -88,6 +88,16 @@
       padding: @spacing*0.25 @spacing;
     }
 
+    &.build-reading {
+      .column-content {      
+        padding: @spacing 90px;
+      }
+
+      .column + .column {
+        margin-left: 60px;
+      }
+    }
+
     &.cc-to-tutor,
     &.welcome-to-tutor {
       .column {
@@ -122,7 +132,8 @@
         &.view-textbook-questions   { .tutor-background-image("course-preview/view-textbook-questions.svg");  }
       }
     }
-    &.question-library {
+    &.question-library,
+    &.build-reading {
       .column {
         .column-icons-embiggen();
 

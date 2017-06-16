@@ -43,7 +43,7 @@ ExercisesDisplay = React.createClass
     ecosystemId: React.PropTypes.string.isRequired
 
   getInitialState: -> {
-    filter: ''
+    filter: 'reading'
     showingCardsFromDetailsView: false
   }
   componentWillMount:   -> ExerciseStore.on('change',  @update)

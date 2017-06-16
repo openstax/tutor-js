@@ -1,4 +1,24 @@
-[{
+[
+{
+  "id": "reading-assignment-editor-super",
+  "autoplay": true,
+  "standalone": true,
+  "audience_tags": [
+    "teacher-preview"
+  ],
+  "steps": [
+    {
+      "customComponent": "HowWeBuildYourReading"
+    }, {
+      "body": "More about reading assignments in our \"Page Tips\"",
+      "anchor_id": "menu-option-page-tips",
+      "action": {
+        "id": "open-support-menu"
+      },
+      "position": "left"
+    }
+  ]
+}, {
   "id": "reading-assignment-editor",
   "group_id": "reading",
   "audience_tags": [
@@ -13,7 +33,7 @@
       "body": ":best-practices: Make reading assignments due before you cover the topic in class to help your students prepare."
     }, {
       "title": "Build a reading assignment",
-      "body":  "Ready to make a reading assignment? Fill in this form and click “Add readings.”"
+      "body":  "Ready to make a reading assignment? Fill in this form and click \"Add readings.\""
     }
   ]
 }, {
@@ -26,7 +46,7 @@
   "steps": [
     {
       "title": "First, select a chapter",
-      "body": "Select a chapter you want to assign, then scroll down and click “show problems.” Uncheck any sections you don’t want to cover."
+      "body": "Select a chapter you want to assign, then scroll down and click \"Add Readings.\" Uncheck any sections you don’t want to cover."
     }
   ]
 }, {
@@ -45,6 +65,19 @@
       "title": "Publish",
       "body": "To schedule this reading assignment, click Publish.",
       "anchor_id": "builder-save-button"
+    }
+  ]
+}, {
+  "id": "reading-published",
+  "group_id": "reading",
+  "audience_tags": [
+    "teacher-reading-published"
+  ],
+  "steps": [
+    {
+      "title": "Congratulations!",
+      "body": "You just published your first reading assignment. Now, find the reading on your calendar and:\n\n* Get a direct link for your learning management system\n* Edit or delete the assignment\n* View student completion and performance metrics, once students complete it.",
+      "customComponent": "CenteredNoHoleWheel"
     }
   ]
 }]

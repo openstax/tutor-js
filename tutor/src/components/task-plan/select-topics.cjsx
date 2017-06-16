@@ -9,6 +9,8 @@ LoadableItem = require '../loadable-item'
 SectionsChooser = require '../sections-chooser'
 LoadableItem = require '../loadable-item'
 
+{ default: TourRegion } = require '../tours/region'
+
 SelectTopics = React.createClass
   displayName: 'SelectTopics'
   propTypes:
@@ -30,27 +32,33 @@ SelectTopics = React.createClass
     @props.onSectionChange?(sectionIds)
 
   renderDialog: ->
-    {courseId, planId, selected, hide, header, primary, cancel, ecosystemId} = @props
+    {courseId, planId, selected, hide, header, primary, cancel, ecosystemId, type} = @props
 
-    <Dialog
-      className='select-topics'
-      header={header}
-      primary={primary}
-      confirmMsg='You will lose unsaved changes if you continue.'
-      cancel='Cancel'
-      isChanged={_.constant(@hasChanged())}
-      onCancel={cancel}>
+    <TourRegion
+      className={"#{type}-plan-select-topics"}
+      id={"add-#{type}-choose-sections"}
+      courseId={courseId}
+    >
+      <Dialog
+        className='select-topics'
+        header={header}
+        primary={primary}
+        confirmMsg='You will lose unsaved changes if you continue.'
+        cancel='Cancel'
+        isChanged={_.constant(@hasChanged())}
+        onCancel={cancel}>
 
-      <div className='select-chapters' data-ecosystem-id={ecosystemId}>
-        <SectionsChooser
-          ecosystemId={ecosystemId}
-          chapters={TocStore.get(ecosystemId)}
-          selectedSectionIds={TaskPlanStore.getTopics(planId)}
-          onSelectionChange={@onSectionChange}
-        />
-      </div>
+        <div className='select-chapters' data-ecosystem-id={ecosystemId}>
+          <SectionsChooser
+            ecosystemId={ecosystemId}
+            chapters={TocStore.get(ecosystemId)}
+            selectedSectionIds={TaskPlanStore.getTopics(planId)}
+            onSelectionChange={@onSectionChange}
+          />
+        </div>
 
-    </Dialog>
+      </Dialog>
+    </TourRegion>
 
   render: ->
 

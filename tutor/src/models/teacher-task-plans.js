@@ -39,6 +39,21 @@ class CourseTaskPlans extends Map {
     return filter(this.array, plan => !plan.is_deleting);
   }
 
+  @computed get isPublishing() {
+    return this.where(plan => plan.is_publishing);
+  }
+
+  @computed get hasPublishing() {
+    return this.isPublishing.any;
+  }
+
+  @computed get reading() {
+    return this.where(plan => plan.type === 'reading');
+  }
+
+  @computed get homework() {
+    return this.where(plan => plan.type === 'homework');
+  }
 }
 
 

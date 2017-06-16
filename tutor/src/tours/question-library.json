@@ -44,7 +44,8 @@
   "steps": [
     {
       "title": "How OpenStax Tutor uses questions",
-      "body": "When you assign a reading or homework, OpenStax Tutor will add personalized and spaced practice questions."
+      "body": "When you assign a reading or homework, OpenStax Tutor will add personalized and spaced practice questions.",
+      "customComponent": "ForceScrollOnMount"
     }, {
       "title": "Reading vs Homework",
       "body": "Click \"Reading\" to view questions reserved for reading assignments. To view questions you can assign as homework, click \"Homework.\"",

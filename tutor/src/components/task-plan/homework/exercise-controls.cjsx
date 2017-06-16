@@ -7,6 +7,7 @@ Sectionizer = require '../../exercises/sectionizer'
 Icon        = require '../../icon'
 
 { default: TourAnchor } = require '../../tours/anchor'
+{ default: SelectionsTooltip } = require './selections-tooltip'
 
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 
@@ -117,7 +118,8 @@ ExerciseControls = React.createClass
             <h2>{numTutor}</h2>
             {@renderIncreaseButton()}
           </div>
-          <span>Tutor Selections</span>
+          <span>OpenStax Tutor Selections</span>
+          <SelectionsTooltip/>
         </TourAnchor>
 
         {@renderExplanation()}

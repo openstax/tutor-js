@@ -102,7 +102,8 @@ export default class TourRide extends BaseModel {
 
     if (step.customComponent && CustomComponents[step.customComponent]) {
       props.StepComponent = CustomComponents[step.customComponent];
-      props.ride = this;
+      props.joyrideRef = this.joyrideRef;
+      props.region = this.region;
     }
 
     return extend(props, {

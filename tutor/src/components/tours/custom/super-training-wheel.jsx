@@ -5,7 +5,7 @@ import { action }             from 'mobx';
 import { defaultsDeep, omit } from 'lodash';
 import classnames             from 'classnames';
 
-import CenteredWheel          from './centered-wheel';
+import CenteredNoHoleWheel    from './centered-no-hole-wheel';
 import { bindClickHandler }   from './common';
 
 export default class SuperTrainingWheel extends React.PureComponent {
@@ -16,31 +16,27 @@ export default class SuperTrainingWheel extends React.PureComponent {
   handleClick = bindClickHandler.call(this, {close: this.triggerNext.bind(this)});
 
   triggerNext() {
-    this.props.step.ride.joyrideRef.next();
+    if (this.props.step.step.tour.autoplay) {
+      this.props.step.joyrideRef.next();
+      return true;      
+    }
+
+    return false;
   }
 
   render () {
-    const step = this.props.step;
-    const buttons = (
-      this.props.step.ride.joyrideRef &&
-      this.props.step.ride.joyrideRef.props.steps.length < 3
-    )? { primary: 'Continue' } : {};
+    const { step } = this.props;
+    const buttons = step.step.tour.autoplay? { primary: 'Continue' } : {};
     const className = classnames(this.className,  this.props.className);
 
     step.text = this.props.children;
     step.isFixed = true;
 
-    // close hole
-    step.style.hole = {
-      maxWidth: 0,
-      maxHeight: 0
-    };
-
     defaultsDeep(step.style, this.props.style);
     defaultsDeep(buttons, this.props.buttons);
 
     return (
-      <CenteredWheel
+      <CenteredNoHoleWheel
         {...omit(this.props, 'style', 'buttons')}
         showOverlay={true}
         className={className}
