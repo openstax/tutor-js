@@ -9,6 +9,8 @@ _     = require 'underscore'
 LoadingExercises       = require './loading-exercises-mixin'
 ChapterSection         = require '../chapter-section'
 
+{ default: TourRegion } = require '../../tours/region'
+
 ExerciseTable = React.createClass
 
   mixins: [LoadingExercises]
@@ -74,7 +76,13 @@ ExerciseTable = React.createClass
     if (hasTeks)
       teksHead = <td>TEKS</td>
 
-    <table className="exercise-table">
+    <TourRegion
+      tag="table"
+      delay=4000
+      className="exercise-table"
+      id={"add-homework-review-sections"}
+      courseId={@props.courseId}
+    >
       <thead>
         <tr>
           <td></td>
@@ -89,7 +97,7 @@ ExerciseTable = React.createClass
         {_.map(exerciseIds, (exerciseId, index) => @renderExerciseRow(exerciseId, index, hasTeks))}
         {_.times(tutorSelection, (index) => @renderTutorRow(index, hasTeks))}
       </tbody>
-    </table>
+    </TourRegion>
 
 
 module.exports = ExerciseTable

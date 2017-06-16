@@ -21,7 +21,6 @@ export default class TourConductor extends React.PureComponent {
   constructor(props) {
     super(props);
     this.tourContext = new TourContext({ isEnabled: true });
-    window.tourContext = this.tourContext;
   }
 
   componentWillReceiveProps(nextProps) {

@@ -114,22 +114,18 @@ ChooseReadings = React.createClass
         disabled={@props.selected?.length is 0}
         onClick={@hide}>Add Readings
       </BS.Button>
-    <TourRegion
-      className="reading-plan-select-topics"
-      id={"add-reading-choose-sections"}
+
+    <SelectTopics
+      primary={primary}
+      onSectionChange={Fn.empty}
+      header={header}
+      type="reading"
       courseId={@props.courseId}
-    >
-      <SelectTopics
-        primary={primary}
-        onSectionChange={Fn.empty}
-        header={header}
-        courseId={@props.courseId}
-        ecosystemId={@props.ecosystemId}
-        planId={@props.planId}
-        selected={@props.selected}
-        cancel={@props.cancel}
-        hide={@hide} />
-    </TourRegion>
+      ecosystemId={@props.ecosystemId}
+      planId={@props.planId}
+      selected={@props.selected}
+      cancel={@props.cancel}
+      hide={@hide} />
 
 ReadingPlan = React.createClass
   displayName: 'ReadingPlan'

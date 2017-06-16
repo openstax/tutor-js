@@ -8,7 +8,6 @@ AddExercises    = require './add-exercises'
 ReviewExercises = require './review-exercises'
 SelectTopics    = require '../select-topics'
 {ScrollToMixin} = require 'shared'
-{ default: TourRegion } = require '../../tours/region'
 
 {ExerciseActions} = require '../../../flux/exercise'
 
@@ -57,18 +56,17 @@ ChooseExercises = React.createClass
 
     <div className='homework-plan-exercise-select-topics'>
 
-      <TourRegion id={"add-homework-choose-sections"} courseId={courseId}>
-        <SelectTopics
-          primary={primaryBtn}
-          onSectionChange={@onSectionChange}
-          header={<span key='hd'>Add Questions</span>}
-          courseId={courseId}
-          ecosystemId={ecosystemId}
-          planId={planId}
-          selected={selected}
-          cancel={cancel}
-          hide={hide} />
-      </TourRegion>
+      <SelectTopics
+        primary={primaryBtn}
+        onSectionChange={@onSectionChange}
+        header={<span key='hd'>Add Questions</span>}
+        type="homework"
+        courseId={courseId}
+        ecosystemId={ecosystemId}
+        planId={planId}
+        selected={selected}
+        cancel={cancel}
+        hide={hide} />
 
       {<AddExercises
         hide={hide}
