@@ -2,12 +2,13 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany,
 } from './base';
 import { computed, action } from 'mobx';
-import { first, sortBy, find, get, endsWith, capitalize } from 'lodash';
+import { first, sortBy, find, get, endsWith, capitalize, some } from 'lodash';
 import { UiSettings } from 'shared';
 import Period  from './course/period';
 import Role    from './course/role';
 import Student from './course/student';
 import CourseInformation from './course/information';
+import TeacherTaskPlans   from './teacher-task-plans';
 import TimeHelper from '../helpers/time';
 import { TimeStore } from '../flux/time';
 import moment from 'moment-timezone';
@@ -106,10 +107,30 @@ export default class Course extends BaseModel {
     return !!find(this.roles, 'isTeacher');
   }
 
+  @computed get taskPlans() {
+    if (this.isTeacher) {
+      return TeacherTaskPlans.forCourseId(this.id).values();
+    }
+
+    return [];
+  }
+
+  @computed get hasPublishing() {
+    if (this.isTeacher) {
+      return some(this.taskPlans, 'is_publishing');
+    }
+
+    return false;
+  }
+
   @computed get tourAudienceTags() {
     let tags = [];
     if (this.isTeacher) {
       tags.push(this.is_preview ? 'teacher-preview' : 'teacher');
+
+      if (this.is_preview && this.hasPublishing) {
+        tags.push('teacher-preview-published');
+      }
     }
     if (this.isStudent) { tags.push('student'); }
     return tags;
