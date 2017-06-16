@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { extend, pick } from 'lodash';
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, observe } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import { NotificationsBar } from 'shared';
@@ -46,7 +46,6 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
 
   static propTypes = {
     dateFormat: React.PropTypes.string,
-    date: React.PropTypes.string,
     params: React.PropTypes.shape({
       courseId: React.PropTypes.string,
       date: React.PropTypes.string,
@@ -57,29 +56,45 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
     dateFormat: TimeHelper.ISO_DATE_FORMAT,
   }
 
+  // router context is needed for Navbar helpers
+  static contextTypes = {
+    router: React.PropTypes.object,
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.disposePlanObserver = observe(this, 'fetchParams', ({ newValue: newFetchParams }) => {
+      this.loader.fetch(newFetchParams);
+    });
+  }
+
   @computed get course() {
     return Courses.get(this.props.params.courseId);
+  }
+
+  @computed get courseDates() {
+    const term = CourseDataHelper.getCourseBounds(this.course.id);
+    return { termStart: term.start, termEnd: term.end };
   }
 
   @computed get ux() {
     return onboardingForCourse(this.course, this.props.tourContext);
   }
 
-  // router context is needed for Navbar helpers
-  static contextTypes = {
-    router: React.PropTypes.object,
-  }
-
   @observable loader = new ModelLoader({ model: TaskPlans });
+
   @observable displayAs = 'month';
 
+  @observable date = this.getDateFromParams(this.courseDates);
+
+  @computed get bounds() {
+    return getDisplayBounds[this.displayAs](this.date);
+  }
+
   @computed get calendarParams() {
-    const term = CourseDataHelper.getCourseBounds(this.course.id);
-    const courseDates = { termStart: term.start, termEnd: term.end };
-    const date = this.getDateFromParams(courseDates);
-    const bounds = getDisplayBounds[this.displayAs](date);
     return (
-      extend({ date }, bounds, courseDates)
+      extend({ date: this.date }, this.bounds, this.courseDates)
     );
   }
 
@@ -95,8 +110,11 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
     TimeHelper.syncCourseTimezone(courseTimezone);
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    this.loader.fetch(this.fetchParams);
+  componentWillReceiveProps() {
+    this.date = this.getDateFromParams(this.courseDates);
+  }
+
+  componentWillUpdate() {
     TaskPlans.forCourseId(this.course.id).clearPendingClones();
   }
 
@@ -111,13 +129,7 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
 
   componentWillUnmount() {
     TimeHelper.unsyncCourseTimezone();
-  }
-
-  getBoundsForCourse() {
-    const { course } = this;
-    const termStart = TimeHelper.getMomentPreserveDate(course.starts_at, this.props.dateFormat);
-    const termEnd = TimeHelper.getMomentPreserveDate(course.ends_at, this.props.dateFormat);
-    return { termStart, termEnd };
+    this.disposePlanObserver();
   }
 
   getDateFromParams({ termStart }) {
