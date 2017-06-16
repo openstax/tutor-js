@@ -16,8 +16,8 @@
     }
   }
 
-  background: none;
-  box-shadow: none;
+  &:extend(.container);
+  .tutor-shadow(pop);
 
   .guide-container {
     min-width: 340px;
@@ -38,14 +38,21 @@
     text-align: center;
   }
 
+  .no-data {
+    #fonts > .sans(1.2rem);
+    font-weight: 300;
+    color: @tutor-neutral-lite;
+    margin: 0.5rem 0;
+  }
+
   .chapter-panel {
     .performance-forecast-panel();
-
+    .align-items(flex-start);
     // specific styles to apply to the chapter progress
     .chapter {
       .performance-forecast-section();
       .heading  { #fonts > .sans(1.8rem, 1.8rem); }
-      .progress { height: 1rem; }
+      .progress { height: 1.2rem; }
       .amount-worked {
         .justify-content(flex-start);
         font-size: 1.3rem;
@@ -55,7 +62,10 @@
       }
     }
 
-    .section { .performance-forecast-section(); }
+    .section {
+      .performance-forecast-section();
+      margin-bottom: 2rem;
+    }
 
     &.weaker {
       .metric {

@@ -32,9 +32,9 @@ module.exports = React.createClass
       # always show at least 5% of bar, otherwise it just looks empty
       <BS.ProgressBar className={value_interpretation} now={Math.max(percent, 5)} />
     else
-      <span className="no-data">
+      <div className="no-data">
         {if canPractice then 'Practice more to get forecast' else 'Not enough exercises completed'}
-      </span>
+      </div>
 
     if canPractice
       <Practice
