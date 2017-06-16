@@ -194,7 +194,6 @@ CourseMonth = React.createClass
     return unless @state.hoveredDay and
       @state.hoveredDay.isBetween(termStart, termEnd, 'day', '[]') and
       @state.hoveredDay.isSameOrAfter(TimeStore.getNow(), 'day')
-
     if item.pathname # is a link to create an assignment
       url = item.pathname + "?" + qs.stringify({
         due_at: @state.hoveredDay.format(@props.dateFormat)
@@ -203,7 +202,7 @@ CourseMonth = React.createClass
     else # is a task plan to clone
       @setState(
         cloningPlan: extend({}, item,
-          due_at: @state.hoveredDay
+          due_at: this.state.hoveredDay
           position: offset
         )
       )

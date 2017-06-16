@@ -3,6 +3,7 @@ import { filter } from 'lodash';
 
 import Map from './map';
 import TaskPlan from './teacher-task-plan';
+import moment from 'moment';
 
 class CourseTaskPlans extends Map {
 
@@ -27,6 +28,10 @@ class CourseTaskPlans extends Map {
 
   addClone(planAttrs) {
     this.clearPendingClones();
+    // the tasking plan's due dates are in YYYY-MM-DD
+    // which Date.parse will convert to the user's timezone which may cause the
+    // date to change.  Momentjs does better at parsin
+    planAttrs.tasking_plans.forEach((tp) => tp.due_at = moment(tp.due_at).toDate());
     this.set(planAttrs.id, new TaskPlan(planAttrs));
   }
 
