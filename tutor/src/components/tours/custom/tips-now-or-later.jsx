@@ -28,6 +28,7 @@ export default class TipsNowOrLater extends React.PureComponent {
       action: 'finished'
     });
     this.props.tourContext.playTriggeredTours();
+    return true;
   }
 
   render () {

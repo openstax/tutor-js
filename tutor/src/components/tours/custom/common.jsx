@@ -39,12 +39,10 @@ function bindClickHandler(handlers) {
     if (el.className.indexOf('joyride-') === 0) {
       forEach(handlers, (handler, name) => {
         if (dataType === name) {
-          handled = true;
-
           clickEvent.preventDefault();
           clickEvent.stopPropagation();
 
-          handler(clickEvent);
+          handled = handler(clickEvent) || handled;
         }
       });
     }
