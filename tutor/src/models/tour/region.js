@@ -14,7 +14,7 @@ export default class TourRegion extends BaseModel {
   @field({ type: 'array' }) otherTours;
 
   @computed get tour_ids() {
-    return this.otherTours.concat( [this.id] );
+    return this.otherTours.reverse().concat( [this.id] ).reverse();
   }
 
   @computed get domSelector() {
