@@ -89,7 +89,7 @@ export default class SupportMenu extends React.PureComponent {
             target="_blank"
             href={UserMenu.helpLinkForCourseId(this.props.courseId)}
           >
-            <span>Get Help</span>
+            <span>Help Articles</span>
           </MenuItem>
           {this.renderChat()}
         </Dropdown.Menu>
