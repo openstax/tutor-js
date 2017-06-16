@@ -108,27 +108,7 @@ export default class Course extends BaseModel {
   }
 
   @computed get taskPlans() {
-    if (this.isTeacher) {
-      return TeacherTaskPlans.forCourseId(this.id).values();
-    }
-
-    return [];
-  }
-
-  @computed get hasReadingPublishing() {
-    if (this.isTeacher) {
-      return some(this.taskPlans, {is_publishing: true, type: 'reading'});
-    }
-
-    return false;
-  }
-
-  @computed get hasHomeworkPublishing() {
-    if (this.isTeacher) {
-      return some(this.taskPlans, {is_publishing: true, type: 'homework'});
-    }
-
-    return false;
+    return TeacherTaskPlans.forCourseId(this.id);
   }
 
   @computed get tourAudienceTags() {
@@ -136,11 +116,11 @@ export default class Course extends BaseModel {
     if (this.isTeacher) {
       tags.push(this.is_preview ? 'teacher-preview' : 'teacher');
 
-      if (this.hasReadingPublishing) {
+      if (this.taskPlans.reading.hasPublishing) {
         tags.push('teacher-reading-published');
       }
 
-      if (this.hasHomeworkPublishing) {
+      if (this.taskPlans.homework.hasPublishing) {
         tags.push('teacher-homework-published');
       }
     }
