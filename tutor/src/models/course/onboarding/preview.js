@@ -52,7 +52,7 @@ export default class PreviewOnboarding extends BaseOnboarding {
 
     if (this.course.hasEnded)       { return Nags.expiredPreviewWarning; }
 
-    if (this.courseIsWellAged) {
+    if (this.courseIsNaggable) {
       return Nags.secondSessionWarning;
     }
     return null;

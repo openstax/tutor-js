@@ -30,9 +30,11 @@ export default class BasicCourseOnboarding {
     return !!(User.terms_signatures_needed || this.tourContext.tour);
   }
 
-  @computed get courseIsWellAged() {
-    return SPY_MODE.get() || moment(TimeStore.getNow()).isAfter(
-      moment(this.course.primaryRole.joined_at).add(4, 'hours')
+  @computed get courseIsNaggable() {
+    return SPY_MODE.get() || (
+      this.course.isActive && moment(TimeStore.getNow()).isAfter(
+        moment(this.course.primaryRole.joined_at).add(4, 'hours')
+      )
     );
   }
 

@@ -2,7 +2,7 @@ import { observable } from 'mobx';
 import { TEACHER_COURSE_TWO_MODEL } from '../../../courses-test-data';
 import Course from '../../../../src/models/course';
 import CoursePreviewUX from '../../../../src/models/course/onboarding/preview';
-import moment from 'moment';
+
 let mockCourses = observable.array();
 Object.defineProperty(mockCourses, 'isEmpty', {
   get: function() { return this.length === 0; },
@@ -47,12 +47,6 @@ describe('Course Preview Onboarding', () => {
   it('#hasCreatedRealCourse', () => {
     mockCourses.push({ is_preview: false });
     expect(ux.hasCreatedRealCourse).toBe(true);
-  });
-
-  it('#courseIsWellAged', () => {
-    expect(ux.courseIsWellAged).toBe(false);
-    ux.course.primaryRole.joined_at = moment().subtract(4, 'hours').subtract(1, 'second');
-    expect(ux.courseIsWellAged).toBe(true);
   });
 
   it('#nagComponent', () => {

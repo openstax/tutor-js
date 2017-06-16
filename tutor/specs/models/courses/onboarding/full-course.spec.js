@@ -15,7 +15,7 @@ describe('Full Course Onboarding', () => {
   beforeEach(() => {
     UiSettings.get.mockImplementation(() => undefined);
     ux = new CourseUX(
-      { id: 1, primaryRole: { joined_at: new Date() } },
+      { id: 1, isActive: true, primaryRole: { joined_at: new Date() } },
       { tour: null },
     );
   });
