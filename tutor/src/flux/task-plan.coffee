@@ -277,7 +277,9 @@ TaskPlanConfig =
     periods = CourseStore.getPeriods(courseId)
     tasking_plans = map( periods, (period) ->
       {
-        target_id: period.id, target_type: 'period',
+        opens_at: CourseStore.get(courseId).starts_at
+        target_id: period.id,
+        target_type: 'period',
         due_at: due_at
       }
     )
