@@ -45,6 +45,7 @@ export class User extends BaseModel {
   }
 
   @computed get tourAudienceTags() {
+    if (Courses.active.isEmpty && this.isConfirmedFaculty) { return ['teacher']; }
     if (Courses.active.teaching.nonPreview.any) { return ['teacher']; }
     if (Courses.active.teaching.any) { return ['teacher-preview']; }
     return [];
