@@ -17,7 +17,7 @@ export default function StudentPreviewLinks({ courseId }) {
         params={{ courseId: courseId }}
       >
         <Icon type="video-camera" />
-        <span className="control-label">Student preview videos</span>
+        <span className="control-label" title="See what students see">Student preview videos</span>
       </TutorLink>
     </TourAnchor>
   );
