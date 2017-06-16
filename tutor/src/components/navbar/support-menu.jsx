@@ -78,7 +78,7 @@ export default class SupportMenu extends React.PureComponent {
         >
           <TourAnchor id="support-menu-button">
             <Icon type="question-circle" />
-            <span className="control-label">Help</span>
+            <span title="Page tips and support" className="control-label">Help</span>
           </TourAnchor>
         </Dropdown.Toggle>
         <Dropdown.Menu >

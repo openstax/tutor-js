@@ -110,7 +110,7 @@ export default class UserActionsMenu extends React.PureComponent {
           useAnchor={true}
         >
           <Icon type="user" />
-          <span>{User.name}</span>
+          <span title="Menu and settings">{User.name}</span>
         </Dropdown.Toggle>
         <Dropdown.Menu >
           {flatMap(UserMenu.getRoutes(this.props.courseId), this.renderMenuItem)}
