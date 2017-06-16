@@ -19,7 +19,8 @@ describe('Second Session Warning', () => {
   beforeEach(() => {
     ux = observable.object({
       nagComponent: SomethingToDo,
-      course: { primaryRole: { joined_at: new Date } },
+      course: {
+        isActive: true, primaryRole: { joined_at: new Date } },
     });
     spyMode = observable.object({ isEnabled: false });
     tourContext = new TourContext();
@@ -38,9 +39,9 @@ describe('Second Session Warning', () => {
   it('replays tours when spy mode is triggered', () => {
     mount(<CourseNag {...props} />);
     const onboarding = new Onboarding(ux.course, tourContext);
-    expect(onboarding.courseIsWellAged).toBe(false);
+    expect(onboarding.courseIsNaggable).toBe(false);
     spyMode.isEnabled = true;
-    expect(onboarding.courseIsWellAged).toBe(true);
+    expect(onboarding.courseIsNaggable).toBe(true);
   });
 
 });

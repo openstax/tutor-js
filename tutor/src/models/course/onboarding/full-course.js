@@ -39,7 +39,7 @@ export default class FullCourseOnboarding extends BaseOnboarding {
 
   @computed get displayInitialPrompt() {
     return this.response === false && (
-      this.courseIsWellAged && this.isOnboardingUndecided
+      this.courseIsNaggable && this.isOnboardingUndecided
     );
   }
 
