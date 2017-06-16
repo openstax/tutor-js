@@ -28,13 +28,12 @@ export default class TermsModal extends React.PureComponent {
 
     return (
       <Modal
-        bsSize="lg"
         show={true}
         backdrop="static"
         className="user-terms"
       >
         <Modal.Header>
-          Please agree to {this.title} before continuing.
+          {this.title}
         </Modal.Header>
         <Modal.Body>
           {map(User.unsignedTerms, (t) =>
