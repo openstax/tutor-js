@@ -8,7 +8,7 @@
   ],
   "steps": [
     {
-      "customComponent": "HowWeBuildYourReading"
+      "customComponent": "HowToBuildYourReading"
     }, {
       "body": "More about reading assignments in our \"Page Tips\"",
       "anchor_id": "menu-option-page-tips",

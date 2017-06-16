@@ -5,7 +5,7 @@ import DashboardPageTips        from './dashboard-page-tips';
 import QuestionLibraryPageTips  from './question-library-page-tips';
 import CenteredWheel            from './centered-wheel';
 import CenteredNoHoleWheel      from './centered-no-hole-wheel';
-import HowWeBuildYourReading    from './how-we-build-your-reading';
+import HowToBuildYourReading    from './how-to-build-your-reading';
 import ForceScrollOnMount       from './force-scroll-on-mount';
 
 export default {
@@ -16,6 +16,6 @@ export default {
   QuestionLibraryPageTips,
   CenteredWheel,
   CenteredNoHoleWheel,
-  HowWeBuildYourReading,
+  HowToBuildYourReading,
   ForceScrollOnMount
 };
