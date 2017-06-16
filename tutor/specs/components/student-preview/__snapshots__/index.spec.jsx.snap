@@ -21,7 +21,7 @@ exports[`Student Preview Builder renders and matches snapshot 1`] = `
     className="section row"
   >
     <div
-      className="col-sm-6"
+      className="txt col-sm-6"
     >
       <h3>
         Student dashboard
@@ -31,7 +31,7 @@ exports[`Student Preview Builder renders and matches snapshot 1`] = `
       </p>
     </div>
     <div
-      className="col-sm-6"
+      className="vid col-sm-6"
     >
       <span>
         <div
@@ -45,7 +45,7 @@ exports[`Student Preview Builder renders and matches snapshot 1`] = `
     className="section row"
   >
     <div
-      className="col-sm-6"
+      className="txt col-sm-6"
     >
       <h3>
         Reading assignment
@@ -55,7 +55,7 @@ exports[`Student Preview Builder renders and matches snapshot 1`] = `
       </p>
     </div>
     <div
-      className="col-sm-6"
+      className="vid col-sm-6"
     >
       <span>
         <div
@@ -69,7 +69,7 @@ exports[`Student Preview Builder renders and matches snapshot 1`] = `
     className="section row"
   >
     <div
-      className="col-sm-6"
+      className="txt col-sm-6"
     >
       <h3>
         Homework assignment
@@ -79,7 +79,7 @@ exports[`Student Preview Builder renders and matches snapshot 1`] = `
       </p>
     </div>
     <div
-      className="col-sm-6"
+      className="vid col-sm-6"
     >
       <span>
         <div
