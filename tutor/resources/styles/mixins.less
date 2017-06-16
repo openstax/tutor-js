@@ -7,6 +7,18 @@
 @import './mixins/drag-and-drop';
 @import './mixins/left-stripe';
 
+.psuedo-background() {
+  position: absolute;
+  top: @tutor-navbar-height;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  content: "";
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .no-select() {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
