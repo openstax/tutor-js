@@ -2,1889 +2,1894 @@
 
 exports[`Select Topics matches snapshot 1`] = `
 <div
-  className="dialog default-dialog select-topics panel panel-default"
-  id={undefined}
+  className="undefined-plan-select-topics"
+  data-tour-region-id="add-undefined-choose-sections"
 >
   <div
-    className="panel-heading"
-  >
-    Section Chooser Header
-    <button
-      className="openstax-close-x close"
-      onClick={[Function]}
-    />
-  </div>
-  <div
-    className="panel-body"
+    className="dialog default-dialog select-topics panel panel-default"
+    id={undefined}
   >
     <div
-      className="select-chapters"
-      data-ecosystem-id="3"
+      className="panel-heading"
+    >
+      Section Chooser Header
+      <button
+        className="openstax-close-x close"
+        onClick={[Function]}
+      />
+    </div>
+    <div
+      className="panel-body"
     >
       <div
-        className="sections-chooser"
+        className="select-chapters"
+        data-ecosystem-id="3"
       >
         <div
-          className="panel-group"
-          expanded={true}
-          role="tablist"
+          className="sections-chooser"
         >
           <div
-            className="panel panel-default"
-            id={null}
+            className="panel-group"
+            expanded={true}
+            role="tablist"
           >
             <div
-              className="panel-heading"
+              className="panel panel-default"
+              id={null}
             >
               <div
-                className="chapter-heading panel-title"
-                data-chapter-section={1}
+                className="panel-heading"
               >
-                <a
-                  aria-controls={undefined}
-                  aria-expanded={true}
-                  aria-selected={true}
-                  className={null}
-                  href={undefined}
-                  onClick={[Function]}
-                  role="tab"
+                <div
+                  className="chapter-heading panel-title"
+                  data-chapter-section={1}
                 >
-                  <span
-                    className="chapter-checkbox"
+                  <a
+                    aria-controls={undefined}
+                    aria-expanded={true}
+                    aria-selected={true}
+                    className={null}
+                    href={undefined}
+                    onClick={[Function]}
+                    role="tab"
                   >
                     <span
-                      className="tri-state-checkbox unchecked"
-                      onClick={[Function]}
-                      tabIndex={1}
+                      className="chapter-checkbox"
                     >
-                      <i
-                        className="tutor-icon fa fa-square-o clickable"
+                      <span
+                        className="tri-state-checkbox unchecked"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "cursor": "pointer",
+                        tabIndex={1}
+                      >
+                        <i
+                          className="tutor-icon fa fa-square-o clickable"
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "cursor": "pointer",
+                            }
                           }
-                        }
-                        type="square-o"
+                          type="square-o"
+                        />
+                      </span>
+                    </span>
+                    <span
+                      className="chapter-number"
+                    >
+                      Chapter 
+                      <span
+                        className="chapter-section"
+                        data-chapter-section="1"
+                      >
+                        1
+                      </span>
+                       -
+                    </span>
+                    <span
+                      className="chapter-title"
+                    >
+                       
+                      What Is Physics?
+                    </span>
+                  </a>
+                </div>
+              </div>
+              <div
+                aria-expanded={null}
+                aria-hidden={false}
+                className="panel-collapse collapse in"
+                id={undefined}
+                role="tabpanel"
+              >
+                <div
+                  className="panel-body"
+                >
+                  <div
+                    className="section"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
                       />
                     </span>
-                  </span>
-                  <span
-                    className="chapter-number"
-                  >
-                    Chapter 
                     <span
                       className="chapter-section"
                       data-chapter-section="1"
                     >
                       1
                     </span>
-                     -
-                  </span>
-                  <span
-                    className="chapter-title"
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Introduction
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                     
-                    What Is Physics?
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div
-              aria-expanded={null}
-              aria-hidden={false}
-              className="panel-collapse collapse in"
-              id={undefined}
-              role="tabpanel"
-            >
-              <div
-                className="panel-body"
-              >
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="1.1"
+                    >
+                      1.1
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Physics: Definitions and Applications
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="1"
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="1.2"
+                    >
+                      1.2
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      The Scientific Method
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                    1
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Introduction
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="1.1"
-                  >
-                    1.1
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Physics: Definitions and Applications
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="1.2"
-                  >
-                    1.2
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    The Scientific Method
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="1.3"
-                  >
-                    1.3
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    The Language of Physics: Physical Quantities and Units
-                  </span>
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="1.3"
+                    >
+                      1.3
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      The Language of Physics: Physical Quantities and Units
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="panel-group"
-          expanded={false}
-          role="tablist"
-        >
           <div
-            className="panel panel-default"
-            id={null}
+            className="panel-group"
+            expanded={false}
+            role="tablist"
           >
             <div
-              className="panel-heading"
+              className="panel panel-default"
+              id={null}
             >
               <div
-                className="chapter-heading panel-title"
-                data-chapter-section={2}
+                className="panel-heading"
               >
-                <a
-                  aria-controls={undefined}
-                  aria-expanded={false}
-                  aria-selected={false}
-                  className="collapsed"
-                  href={undefined}
-                  onClick={[Function]}
-                  role="tab"
+                <div
+                  className="chapter-heading panel-title"
+                  data-chapter-section={2}
                 >
-                  <span
-                    className="chapter-checkbox"
+                  <a
+                    aria-controls={undefined}
+                    aria-expanded={false}
+                    aria-selected={false}
+                    className="collapsed"
+                    href={undefined}
+                    onClick={[Function]}
+                    role="tab"
                   >
                     <span
-                      className="tri-state-checkbox unchecked"
-                      onClick={[Function]}
-                      tabIndex={1}
+                      className="chapter-checkbox"
                     >
-                      <i
-                        className="tutor-icon fa fa-square-o clickable"
+                      <span
+                        className="tri-state-checkbox unchecked"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "cursor": "pointer",
+                        tabIndex={1}
+                      >
+                        <i
+                          className="tutor-icon fa fa-square-o clickable"
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "cursor": "pointer",
+                            }
                           }
-                        }
-                        type="square-o"
+                          type="square-o"
+                        />
+                      </span>
+                    </span>
+                    <span
+                      className="chapter-number"
+                    >
+                      Chapter 
+                      <span
+                        className="chapter-section"
+                        data-chapter-section="2"
+                      >
+                        2
+                      </span>
+                       -
+                    </span>
+                    <span
+                      className="chapter-title"
+                    >
+                       
+                      Motion in One Dimension
+                    </span>
+                  </a>
+                </div>
+              </div>
+              <div
+                aria-expanded={null}
+                aria-hidden={true}
+                className="panel-collapse collapse"
+                id={undefined}
+                role="tabpanel"
+              >
+                <div
+                  className="panel-body"
+                >
+                  <div
+                    className="section"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
                       />
                     </span>
-                  </span>
-                  <span
-                    className="chapter-number"
-                  >
-                    Chapter 
                     <span
                       className="chapter-section"
                       data-chapter-section="2"
                     >
                       2
                     </span>
-                     -
-                  </span>
-                  <span
-                    className="chapter-title"
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Introduction
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                     
-                    Motion in One Dimension
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div
-              aria-expanded={null}
-              aria-hidden={true}
-              className="panel-collapse collapse"
-              id={undefined}
-              role="tabpanel"
-            >
-              <div
-                className="panel-body"
-              >
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="2.1"
+                    >
+                      2.1
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Relative Motion, Distance and Displacement
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="2"
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="2.2"
+                    >
+                      2.2
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Speed and Velocity
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                    2
-                  </span>
-                  <span
-                    className="-section-title"
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="2.3"
+                    >
+                      2.3
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Position vs. Time Graphs
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                     
-                    Introduction
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="2.1"
-                  >
-                    2.1
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Relative Motion, Distance and Displacement
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="2.2"
-                  >
-                    2.2
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Speed and Velocity
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="2.3"
-                  >
-                    2.3
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Position vs. Time Graphs
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="2.4"
-                  >
-                    2.4
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Velocity vs. Time Graphs
-                  </span>
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="2.4"
+                    >
+                      2.4
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Velocity vs. Time Graphs
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="panel-group"
-          expanded={false}
-          role="tablist"
-        >
           <div
-            className="panel panel-default"
-            id={null}
+            className="panel-group"
+            expanded={false}
+            role="tablist"
           >
             <div
-              className="panel-heading"
+              className="panel panel-default"
+              id={null}
             >
               <div
-                className="chapter-heading panel-title"
-                data-chapter-section={3}
+                className="panel-heading"
               >
-                <a
-                  aria-controls={undefined}
-                  aria-expanded={false}
-                  aria-selected={false}
-                  className="collapsed"
-                  href={undefined}
-                  onClick={[Function]}
-                  role="tab"
+                <div
+                  className="chapter-heading panel-title"
+                  data-chapter-section={3}
                 >
-                  <span
-                    className="chapter-checkbox"
+                  <a
+                    aria-controls={undefined}
+                    aria-expanded={false}
+                    aria-selected={false}
+                    className="collapsed"
+                    href={undefined}
+                    onClick={[Function]}
+                    role="tab"
                   >
                     <span
-                      className="tri-state-checkbox unchecked"
-                      onClick={[Function]}
-                      tabIndex={1}
+                      className="chapter-checkbox"
                     >
-                      <i
-                        className="tutor-icon fa fa-square-o clickable"
+                      <span
+                        className="tri-state-checkbox unchecked"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "cursor": "pointer",
+                        tabIndex={1}
+                      >
+                        <i
+                          className="tutor-icon fa fa-square-o clickable"
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "cursor": "pointer",
+                            }
                           }
-                        }
-                        type="square-o"
+                          type="square-o"
+                        />
+                      </span>
+                    </span>
+                    <span
+                      className="chapter-number"
+                    >
+                      Chapter 
+                      <span
+                        className="chapter-section"
+                        data-chapter-section="3"
+                      >
+                        3
+                      </span>
+                       -
+                    </span>
+                    <span
+                      className="chapter-title"
+                    >
+                       
+                      Acceleration
+                    </span>
+                  </a>
+                </div>
+              </div>
+              <div
+                aria-expanded={null}
+                aria-hidden={true}
+                className="panel-collapse collapse"
+                id={undefined}
+                role="tabpanel"
+              >
+                <div
+                  className="panel-body"
+                >
+                  <div
+                    className="section"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
                       />
                     </span>
-                  </span>
-                  <span
-                    className="chapter-number"
-                  >
-                    Chapter 
                     <span
                       className="chapter-section"
                       data-chapter-section="3"
                     >
                       3
                     </span>
-                     -
-                  </span>
-                  <span
-                    className="chapter-title"
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Introduction
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                     
-                    Acceleration
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div
-              aria-expanded={null}
-              aria-hidden={true}
-              className="panel-collapse collapse"
-              id={undefined}
-              role="tabpanel"
-            >
-              <div
-                className="panel-body"
-              >
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="3.1"
+                    >
+                      3.1
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Acceleration
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="3"
-                  >
-                    3
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Introduction
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="3.1"
-                  >
-                    3.1
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Acceleration
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="3.2"
-                  >
-                    3.2
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Representing Acceleration with Equations and Graphs
-                  </span>
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="3.2"
+                    >
+                      3.2
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Representing Acceleration with Equations and Graphs
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="panel-group"
-          expanded={false}
-          role="tablist"
-        >
           <div
-            className="panel panel-default"
-            id={null}
+            className="panel-group"
+            expanded={false}
+            role="tablist"
           >
             <div
-              className="panel-heading"
+              className="panel panel-default"
+              id={null}
             >
               <div
-                className="chapter-heading panel-title"
-                data-chapter-section={4}
+                className="panel-heading"
               >
-                <a
-                  aria-controls={undefined}
-                  aria-expanded={false}
-                  aria-selected={false}
-                  className="collapsed"
-                  href={undefined}
-                  onClick={[Function]}
-                  role="tab"
+                <div
+                  className="chapter-heading panel-title"
+                  data-chapter-section={4}
                 >
-                  <span
-                    className="chapter-checkbox"
+                  <a
+                    aria-controls={undefined}
+                    aria-expanded={false}
+                    aria-selected={false}
+                    className="collapsed"
+                    href={undefined}
+                    onClick={[Function]}
+                    role="tab"
                   >
                     <span
-                      className="tri-state-checkbox unchecked"
-                      onClick={[Function]}
-                      tabIndex={1}
+                      className="chapter-checkbox"
                     >
-                      <i
-                        className="tutor-icon fa fa-square-o clickable"
+                      <span
+                        className="tri-state-checkbox unchecked"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "cursor": "pointer",
+                        tabIndex={1}
+                      >
+                        <i
+                          className="tutor-icon fa fa-square-o clickable"
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "cursor": "pointer",
+                            }
                           }
-                        }
-                        type="square-o"
+                          type="square-o"
+                        />
+                      </span>
+                    </span>
+                    <span
+                      className="chapter-number"
+                    >
+                      Chapter 
+                      <span
+                        className="chapter-section"
+                        data-chapter-section="4"
+                      >
+                        4
+                      </span>
+                       -
+                    </span>
+                    <span
+                      className="chapter-title"
+                    >
+                       
+                      Forces and Newton's Law of Motion
+                    </span>
+                  </a>
+                </div>
+              </div>
+              <div
+                aria-expanded={null}
+                aria-hidden={true}
+                className="panel-collapse collapse"
+                id={undefined}
+                role="tabpanel"
+              >
+                <div
+                  className="panel-body"
+                >
+                  <div
+                    className="section"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
                       />
                     </span>
-                  </span>
-                  <span
-                    className="chapter-number"
-                  >
-                    Chapter 
                     <span
                       className="chapter-section"
                       data-chapter-section="4"
                     >
                       4
                     </span>
-                     -
-                  </span>
-                  <span
-                    className="chapter-title"
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Introduction
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                     
-                    Forces and Newton's Law of Motion
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div
-              aria-expanded={null}
-              aria-hidden={true}
-              className="panel-collapse collapse"
-              id={undefined}
-              role="tabpanel"
-            >
-              <div
-                className="panel-body"
-              >
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="4.1"
+                    >
+                      4.1
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Force
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="4"
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="4.2"
+                    >
+                      4.2
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Newton’s First Law of Motion: Inertia
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                    4
-                  </span>
-                  <span
-                    className="-section-title"
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="4.3"
+                    >
+                      4.3
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Newton’s Second Law of Motion
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                     
-                    Introduction
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="4.1"
-                  >
-                    4.1
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Force
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="4.2"
-                  >
-                    4.2
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Newton’s First Law of Motion: Inertia
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="4.3"
-                  >
-                    4.3
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Newton’s Second Law of Motion
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="4.4"
-                  >
-                    4.4
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Newton’s Third Law of Motion
-                  </span>
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="4.4"
+                    >
+                      4.4
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Newton’s Third Law of Motion
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="panel-group"
-          expanded={false}
-          role="tablist"
-        >
           <div
-            className="panel panel-default"
-            id={null}
+            className="panel-group"
+            expanded={false}
+            role="tablist"
           >
             <div
-              className="panel-heading"
+              className="panel panel-default"
+              id={null}
             >
               <div
-                className="chapter-heading panel-title"
-                data-chapter-section={5}
+                className="panel-heading"
               >
-                <a
-                  aria-controls={undefined}
-                  aria-expanded={false}
-                  aria-selected={false}
-                  className="collapsed"
-                  href={undefined}
-                  onClick={[Function]}
-                  role="tab"
+                <div
+                  className="chapter-heading panel-title"
+                  data-chapter-section={5}
                 >
-                  <span
-                    className="chapter-checkbox"
+                  <a
+                    aria-controls={undefined}
+                    aria-expanded={false}
+                    aria-selected={false}
+                    className="collapsed"
+                    href={undefined}
+                    onClick={[Function]}
+                    role="tab"
                   >
                     <span
-                      className="tri-state-checkbox unchecked"
-                      onClick={[Function]}
-                      tabIndex={1}
+                      className="chapter-checkbox"
                     >
-                      <i
-                        className="tutor-icon fa fa-square-o clickable"
+                      <span
+                        className="tri-state-checkbox unchecked"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "cursor": "pointer",
+                        tabIndex={1}
+                      >
+                        <i
+                          className="tutor-icon fa fa-square-o clickable"
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "cursor": "pointer",
+                            }
                           }
-                        }
-                        type="square-o"
+                          type="square-o"
+                        />
+                      </span>
+                    </span>
+                    <span
+                      className="chapter-number"
+                    >
+                      Chapter 
+                      <span
+                        className="chapter-section"
+                        data-chapter-section="5"
+                      >
+                        5
+                      </span>
+                       -
+                    </span>
+                    <span
+                      className="chapter-title"
+                    >
+                       
+                      Motion in Two Dimensions
+                    </span>
+                  </a>
+                </div>
+              </div>
+              <div
+                aria-expanded={null}
+                aria-hidden={true}
+                className="panel-collapse collapse"
+                id={undefined}
+                role="tabpanel"
+              >
+                <div
+                  className="panel-body"
+                >
+                  <div
+                    className="section"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
                       />
                     </span>
-                  </span>
-                  <span
-                    className="chapter-number"
-                  >
-                    Chapter 
                     <span
                       className="chapter-section"
                       data-chapter-section="5"
                     >
                       5
                     </span>
-                     -
-                  </span>
-                  <span
-                    className="chapter-title"
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Introduction
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                     
-                    Motion in Two Dimensions
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div
-              aria-expanded={null}
-              aria-hidden={true}
-              className="panel-collapse collapse"
-              id={undefined}
-              role="tabpanel"
-            >
-              <div
-                className="panel-body"
-              >
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="5.1"
+                    >
+                      5.1
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Vector Addition and Subtraction: Graphical Methods
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="5"
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="5.2"
+                    >
+                      5.2
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Vector Addition and Subtraction: Analytical Methods
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                    5
-                  </span>
-                  <span
-                    className="-section-title"
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="5.3"
+                    >
+                      5.3
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Projectile Motion
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                     
-                    Introduction
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="5.4"
+                    >
+                      5.4
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Inclined Planes
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="5.1"
-                  >
-                    5.1
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Vector Addition and Subtraction: Graphical Methods
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="5.2"
-                  >
-                    5.2
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Vector Addition and Subtraction: Analytical Methods
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="5.3"
-                  >
-                    5.3
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Projectile Motion
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="5.4"
-                  >
-                    5.4
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Inclined Planes
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="5.5"
-                  >
-                    5.5
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Simple Harmonic Motion
-                  </span>
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="5.5"
+                    >
+                      5.5
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Simple Harmonic Motion
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="panel-group"
-          expanded={false}
-          role="tablist"
-        >
           <div
-            className="panel panel-default"
-            id={null}
+            className="panel-group"
+            expanded={false}
+            role="tablist"
           >
             <div
-              className="panel-heading"
+              className="panel panel-default"
+              id={null}
             >
               <div
-                className="chapter-heading panel-title"
-                data-chapter-section={6}
+                className="panel-heading"
               >
-                <a
-                  aria-controls={undefined}
-                  aria-expanded={false}
-                  aria-selected={false}
-                  className="collapsed"
-                  href={undefined}
-                  onClick={[Function]}
-                  role="tab"
+                <div
+                  className="chapter-heading panel-title"
+                  data-chapter-section={6}
                 >
-                  <span
-                    className="chapter-checkbox"
+                  <a
+                    aria-controls={undefined}
+                    aria-expanded={false}
+                    aria-selected={false}
+                    className="collapsed"
+                    href={undefined}
+                    onClick={[Function]}
+                    role="tab"
                   >
                     <span
-                      className="tri-state-checkbox unchecked"
-                      onClick={[Function]}
-                      tabIndex={1}
+                      className="chapter-checkbox"
                     >
-                      <i
-                        className="tutor-icon fa fa-square-o clickable"
+                      <span
+                        className="tri-state-checkbox unchecked"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "cursor": "pointer",
+                        tabIndex={1}
+                      >
+                        <i
+                          className="tutor-icon fa fa-square-o clickable"
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "cursor": "pointer",
+                            }
                           }
-                        }
-                        type="square-o"
+                          type="square-o"
+                        />
+                      </span>
+                    </span>
+                    <span
+                      className="chapter-number"
+                    >
+                      Chapter 
+                      <span
+                        className="chapter-section"
+                        data-chapter-section="6"
+                      >
+                        6
+                      </span>
+                       -
+                    </span>
+                    <span
+                      className="chapter-title"
+                    >
+                       
+                      Circular and Rotational Motion
+                    </span>
+                  </a>
+                </div>
+              </div>
+              <div
+                aria-expanded={null}
+                aria-hidden={true}
+                className="panel-collapse collapse"
+                id={undefined}
+                role="tabpanel"
+              >
+                <div
+                  className="panel-body"
+                >
+                  <div
+                    className="section"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
                       />
                     </span>
-                  </span>
-                  <span
-                    className="chapter-number"
-                  >
-                    Chapter 
                     <span
                       className="chapter-section"
                       data-chapter-section="6"
                     >
                       6
                     </span>
-                     -
-                  </span>
-                  <span
-                    className="chapter-title"
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Introduction
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                     
-                    Circular and Rotational Motion
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div
-              aria-expanded={null}
-              aria-hidden={true}
-              className="panel-collapse collapse"
-              id={undefined}
-              role="tabpanel"
-            >
-              <div
-                className="panel-body"
-              >
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="6.1"
+                    >
+                      6.1
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Angle of Rotation and Angular Velocity
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="6"
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="6.2"
+                    >
+                      6.2
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Uniform Circular Motion
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                    6
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Introduction
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="6.1"
-                  >
-                    6.1
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Angle of Rotation and Angular Velocity
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="6.2"
-                  >
-                    6.2
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Uniform Circular Motion
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="6.3"
-                  >
-                    6.3
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Rotational Motion
-                  </span>
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="6.3"
+                    >
+                      6.3
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Rotational Motion
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="panel-group"
-          expanded={false}
-          role="tablist"
-        >
           <div
-            className="panel panel-default"
-            id={null}
+            className="panel-group"
+            expanded={false}
+            role="tablist"
           >
             <div
-              className="panel-heading"
+              className="panel panel-default"
+              id={null}
             >
               <div
-                className="chapter-heading panel-title"
-                data-chapter-section={7}
+                className="panel-heading"
               >
-                <a
-                  aria-controls={undefined}
-                  aria-expanded={false}
-                  aria-selected={false}
-                  className="collapsed"
-                  href={undefined}
-                  onClick={[Function]}
-                  role="tab"
+                <div
+                  className="chapter-heading panel-title"
+                  data-chapter-section={7}
                 >
-                  <span
-                    className="chapter-checkbox"
+                  <a
+                    aria-controls={undefined}
+                    aria-expanded={false}
+                    aria-selected={false}
+                    className="collapsed"
+                    href={undefined}
+                    onClick={[Function]}
+                    role="tab"
                   >
                     <span
-                      className="tri-state-checkbox unchecked"
-                      onClick={[Function]}
-                      tabIndex={1}
+                      className="chapter-checkbox"
                     >
-                      <i
-                        className="tutor-icon fa fa-square-o clickable"
+                      <span
+                        className="tri-state-checkbox unchecked"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "cursor": "pointer",
+                        tabIndex={1}
+                      >
+                        <i
+                          className="tutor-icon fa fa-square-o clickable"
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "cursor": "pointer",
+                            }
                           }
-                        }
-                        type="square-o"
+                          type="square-o"
+                        />
+                      </span>
+                    </span>
+                    <span
+                      className="chapter-number"
+                    >
+                      Chapter 
+                      <span
+                        className="chapter-section"
+                        data-chapter-section="7"
+                      >
+                        7
+                      </span>
+                       -
+                    </span>
+                    <span
+                      className="chapter-title"
+                    >
+                       
+                      Newton's Law of Gravitation
+                    </span>
+                  </a>
+                </div>
+              </div>
+              <div
+                aria-expanded={null}
+                aria-hidden={true}
+                className="panel-collapse collapse"
+                id={undefined}
+                role="tabpanel"
+              >
+                <div
+                  className="panel-body"
+                >
+                  <div
+                    className="section"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
                       />
                     </span>
-                  </span>
-                  <span
-                    className="chapter-number"
-                  >
-                    Chapter 
                     <span
                       className="chapter-section"
                       data-chapter-section="7"
                     >
                       7
                     </span>
-                     -
-                  </span>
-                  <span
-                    className="chapter-title"
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Introduction
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                     
-                    Newton's Law of Gravitation
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div
-              aria-expanded={null}
-              aria-hidden={true}
-              className="panel-collapse collapse"
-              id={undefined}
-              role="tabpanel"
-            >
-              <div
-                className="panel-body"
-              >
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="7.1"
+                    >
+                      7.1
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Kepler’s Laws of Planetary Motion
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="7"
-                  >
-                    7
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Introduction
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="7.1"
-                  >
-                    7.1
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Kepler’s Laws of Planetary Motion
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="7.2"
-                  >
-                    7.2
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Newton’s Law of Universal Gravitation and Einstein’s Theory of General Relativity
-                  </span>
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="7.2"
+                    >
+                      7.2
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Newton’s Law of Universal Gravitation and Einstein’s Theory of General Relativity
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="panel-group"
-          expanded={false}
-          role="tablist"
-        >
           <div
-            className="panel panel-default"
-            id={null}
+            className="panel-group"
+            expanded={false}
+            role="tablist"
           >
             <div
-              className="panel-heading"
+              className="panel panel-default"
+              id={null}
             >
               <div
-                className="chapter-heading panel-title"
-                data-chapter-section={8}
+                className="panel-heading"
               >
-                <a
-                  aria-controls={undefined}
-                  aria-expanded={false}
-                  aria-selected={false}
-                  className="collapsed"
-                  href={undefined}
-                  onClick={[Function]}
-                  role="tab"
+                <div
+                  className="chapter-heading panel-title"
+                  data-chapter-section={8}
                 >
-                  <span
-                    className="chapter-checkbox"
+                  <a
+                    aria-controls={undefined}
+                    aria-expanded={false}
+                    aria-selected={false}
+                    className="collapsed"
+                    href={undefined}
+                    onClick={[Function]}
+                    role="tab"
                   >
                     <span
-                      className="tri-state-checkbox unchecked"
-                      onClick={[Function]}
-                      tabIndex={1}
+                      className="chapter-checkbox"
                     >
-                      <i
-                        className="tutor-icon fa fa-square-o clickable"
+                      <span
+                        className="tri-state-checkbox unchecked"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "cursor": "pointer",
+                        tabIndex={1}
+                      >
+                        <i
+                          className="tutor-icon fa fa-square-o clickable"
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "cursor": "pointer",
+                            }
                           }
-                        }
-                        type="square-o"
+                          type="square-o"
+                        />
+                      </span>
+                    </span>
+                    <span
+                      className="chapter-number"
+                    >
+                      Chapter 
+                      <span
+                        className="chapter-section"
+                        data-chapter-section="8"
+                      >
+                        8
+                      </span>
+                       -
+                    </span>
+                    <span
+                      className="chapter-title"
+                    >
+                       
+                      Momentum
+                    </span>
+                  </a>
+                </div>
+              </div>
+              <div
+                aria-expanded={null}
+                aria-hidden={true}
+                className="panel-collapse collapse"
+                id={undefined}
+                role="tabpanel"
+              >
+                <div
+                  className="panel-body"
+                >
+                  <div
+                    className="section"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
                       />
                     </span>
-                  </span>
-                  <span
-                    className="chapter-number"
-                  >
-                    Chapter 
                     <span
                       className="chapter-section"
                       data-chapter-section="8"
                     >
                       8
                     </span>
-                     -
-                  </span>
-                  <span
-                    className="chapter-title"
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Introduction
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                     
-                    Momentum
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div
-              aria-expanded={null}
-              aria-hidden={true}
-              className="panel-collapse collapse"
-              id={undefined}
-              role="tabpanel"
-            >
-              <div
-                className="panel-body"
-              >
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="8.1"
+                    >
+                      8.1
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Linear Momentum, Force, and Impulse
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="8"
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="8.2"
+                    >
+                      8.2
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Conservation of Momentum
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                    8
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Introduction
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="8.1"
-                  >
-                    8.1
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Linear Momentum, Force, and Impulse
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="8.2"
-                  >
-                    8.2
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Conservation of Momentum
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="8.3"
-                  >
-                    8.3
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Elastic and Inelastic Collisions
-                  </span>
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="8.3"
+                    >
+                      8.3
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Elastic and Inelastic Collisions
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="panel-group"
-          expanded={false}
-          role="tablist"
-        >
           <div
-            className="panel panel-default"
-            id={null}
+            className="panel-group"
+            expanded={false}
+            role="tablist"
           >
             <div
-              className="panel-heading"
+              className="panel panel-default"
+              id={null}
             >
               <div
-                className="chapter-heading panel-title"
-                data-chapter-section={9}
+                className="panel-heading"
               >
-                <a
-                  aria-controls={undefined}
-                  aria-expanded={false}
-                  aria-selected={false}
-                  className="collapsed"
-                  href={undefined}
-                  onClick={[Function]}
-                  role="tab"
+                <div
+                  className="chapter-heading panel-title"
+                  data-chapter-section={9}
                 >
-                  <span
-                    className="chapter-checkbox"
+                  <a
+                    aria-controls={undefined}
+                    aria-expanded={false}
+                    aria-selected={false}
+                    className="collapsed"
+                    href={undefined}
+                    onClick={[Function]}
+                    role="tab"
                   >
                     <span
-                      className="tri-state-checkbox unchecked"
-                      onClick={[Function]}
-                      tabIndex={1}
+                      className="chapter-checkbox"
                     >
-                      <i
-                        className="tutor-icon fa fa-square-o clickable"
+                      <span
+                        className="tri-state-checkbox unchecked"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "cursor": "pointer",
+                        tabIndex={1}
+                      >
+                        <i
+                          className="tutor-icon fa fa-square-o clickable"
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "cursor": "pointer",
+                            }
                           }
-                        }
-                        type="square-o"
+                          type="square-o"
+                        />
+                      </span>
+                    </span>
+                    <span
+                      className="chapter-number"
+                    >
+                      Chapter 
+                      <span
+                        className="chapter-section"
+                        data-chapter-section="9"
+                      >
+                        9
+                      </span>
+                       -
+                    </span>
+                    <span
+                      className="chapter-title"
+                    >
+                       
+                      Work, Energy, and Simple Machines
+                    </span>
+                  </a>
+                </div>
+              </div>
+              <div
+                aria-expanded={null}
+                aria-hidden={true}
+                className="panel-collapse collapse"
+                id={undefined}
+                role="tabpanel"
+              >
+                <div
+                  className="panel-body"
+                >
+                  <div
+                    className="section"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
                       />
                     </span>
-                  </span>
-                  <span
-                    className="chapter-number"
-                  >
-                    Chapter 
                     <span
                       className="chapter-section"
                       data-chapter-section="9"
                     >
                       9
                     </span>
-                     -
-                  </span>
-                  <span
-                    className="chapter-title"
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Introduction
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                     
-                    Work, Energy, and Simple Machines
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div
-              aria-expanded={null}
-              aria-hidden={true}
-              className="panel-collapse collapse"
-              id={undefined}
-              role="tabpanel"
-            >
-              <div
-                className="panel-body"
-              >
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="9.1"
+                    >
+                      9.1
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Work, Power, and the Work–Energy Theorem
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="9"
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="9.2"
+                    >
+                      9.2
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Mechanical Energy and the Conservation of Energy
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                    9
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Introduction
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="9.1"
-                  >
-                    9.1
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Work, Power, and the Work–Energy Theorem
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="9.2"
-                  >
-                    9.2
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Mechanical Energy and the Conservation of Energy
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="9.3"
-                  >
-                    9.3
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Simple Machines
-                  </span>
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="9.3"
+                    >
+                      9.3
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Simple Machines
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="panel-group"
-          expanded={false}
-          role="tablist"
-        >
           <div
-            className="panel panel-default"
-            id={null}
+            className="panel-group"
+            expanded={false}
+            role="tablist"
           >
             <div
-              className="panel-heading"
+              className="panel panel-default"
+              id={null}
             >
               <div
-                className="chapter-heading panel-title"
-                data-chapter-section={10}
+                className="panel-heading"
               >
-                <a
-                  aria-controls={undefined}
-                  aria-expanded={false}
-                  aria-selected={false}
-                  className="collapsed"
-                  href={undefined}
-                  onClick={[Function]}
-                  role="tab"
+                <div
+                  className="chapter-heading panel-title"
+                  data-chapter-section={10}
                 >
-                  <span
-                    className="chapter-checkbox"
+                  <a
+                    aria-controls={undefined}
+                    aria-expanded={false}
+                    aria-selected={false}
+                    className="collapsed"
+                    href={undefined}
+                    onClick={[Function]}
+                    role="tab"
                   >
                     <span
-                      className="tri-state-checkbox unchecked"
-                      onClick={[Function]}
-                      tabIndex={1}
+                      className="chapter-checkbox"
                     >
-                      <i
-                        className="tutor-icon fa fa-square-o clickable"
+                      <span
+                        className="tri-state-checkbox unchecked"
                         onClick={[Function]}
-                        style={
-                          Object {
-                            "cursor": "pointer",
+                        tabIndex={1}
+                      >
+                        <i
+                          className="tutor-icon fa fa-square-o clickable"
+                          onClick={[Function]}
+                          style={
+                            Object {
+                              "cursor": "pointer",
+                            }
                           }
-                        }
-                        type="square-o"
+                          type="square-o"
+                        />
+                      </span>
+                    </span>
+                    <span
+                      className="chapter-number"
+                    >
+                      Chapter 
+                      <span
+                        className="chapter-section"
+                        data-chapter-section="10"
+                      >
+                        10
+                      </span>
+                       -
+                    </span>
+                    <span
+                      className="chapter-title"
+                    >
+                       
+                      Special Relativity
+                    </span>
+                  </a>
+                </div>
+              </div>
+              <div
+                aria-expanded={null}
+                aria-hidden={true}
+                className="panel-collapse collapse"
+                id={undefined}
+                role="tabpanel"
+              >
+                <div
+                  className="panel-body"
+                >
+                  <div
+                    className="section"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
                       />
                     </span>
-                  </span>
-                  <span
-                    className="chapter-number"
-                  >
-                    Chapter 
                     <span
                       className="chapter-section"
                       data-chapter-section="10"
                     >
                       10
                     </span>
-                     -
-                  </span>
-                  <span
-                    className="chapter-title"
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Introduction
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                     
-                    Special Relativity
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div
-              aria-expanded={null}
-              aria-hidden={true}
-              className="panel-collapse collapse"
-              id={undefined}
-              role="tabpanel"
-            >
-              <div
-                className="panel-body"
-              >
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="10.1"
+                    >
+                      10.1
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Postulates of Special Relativity
+                    </span>
+                  </div>
+                  <div
+                    className="section"
+                    onClick={[Function]}
                   >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="10"
-                  >
-                    10
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Introduction
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="10.1"
-                  >
-                    10.1
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Postulates of Special Relativity
-                  </span>
-                </div>
-                <div
-                  className="section"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="section-checkbox"
-                  >
-                    <input
-                      checked={false}
-                      readOnly={true}
-                      type="checkbox"
-                    />
-                  </span>
-                  <span
-                    className="chapter-section"
-                    data-chapter-section="10.2"
-                  >
-                    10.2
-                  </span>
-                  <span
-                    className="-section-title"
-                  >
-                     
-                    Consequences of Special Relativity
-                  </span>
+                    <span
+                      className="section-checkbox"
+                    >
+                      <input
+                        checked={false}
+                        readOnly={true}
+                        type="checkbox"
+                      />
+                    </span>
+                    <span
+                      className="chapter-section"
+                      data-chapter-section="10.2"
+                    >
+                      10.2
+                    </span>
+                    <span
+                      className="-section-title"
+                    >
+                       
+                      Consequences of Special Relativity
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1892,19 +1897,19 @@ exports[`Select Topics matches snapshot 1`] = `
         </div>
       </div>
     </div>
-  </div>
-  <div
-    className="panel-footer"
-  >
-    <button
-      aria-role="close"
-      className="btn btn-default"
-      disabled={false}
-      onClick={[Function]}
-      type="button"
+    <div
+      className="panel-footer"
     >
-      Cancel
-    </button>
+      <button
+        aria-role="close"
+        className="btn btn-default"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Cancel
+      </button>
+    </div>
   </div>
 </div>
 `;
