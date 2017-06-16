@@ -14,6 +14,9 @@ export default class TourRegion extends BaseModel {
   @field({ type: 'array' }) otherTours;
 
   @computed get tour_ids() {
+    // this seems convoluted, but this makes it so that `tour_ids` will react
+    // to `otherTours` updates.  see https://github.com/openstax/tutor-js/pull/1726#discussion_r122459935
+    // for more details.
     return this.otherTours.reverse().concat( [this.id] ).reverse();
   }
 
