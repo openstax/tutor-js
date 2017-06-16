@@ -115,9 +115,17 @@ export default class Course extends BaseModel {
     return [];
   }
 
-  @computed get hasPublishing() {
+  @computed get hasReadingPublishing() {
     if (this.isTeacher) {
-      return some(this.taskPlans, 'is_publishing');
+      return some(this.taskPlans, {is_publishing: true, type: 'reading'});
+    }
+
+    return false;
+  }
+
+  @computed get hasHomeworkPublishing() {
+    if (this.isTeacher) {
+      return some(this.taskPlans, {is_publishing: true, type: 'homework'});
     }
 
     return false;
@@ -128,8 +136,12 @@ export default class Course extends BaseModel {
     if (this.isTeacher) {
       tags.push(this.is_preview ? 'teacher-preview' : 'teacher');
 
-      if (this.is_preview && this.hasPublishing) {
-        tags.push('teacher-preview-published');
+      if (this.hasReadingPublishing) {
+        tags.push('teacher-reading-published');
+      }
+
+      if (this.hasHomeworkPublishing) {
+        tags.push('teacher-homework-published');
       }
     }
     if (this.isStudent) { tags.push('student'); }
