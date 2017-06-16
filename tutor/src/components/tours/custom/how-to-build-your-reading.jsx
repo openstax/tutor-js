@@ -9,7 +9,7 @@ import SuperTrainingWheel from './super-training-wheel';
 
 import TutorLink from '../../link'
 
-export default class HowWeBuildYourReading extends React.PureComponent {
+export default class HowToBuildYourReading extends React.PureComponent {
 
   render () {
     const { courseId } = this.props.step.region
@@ -18,7 +18,7 @@ export default class HowWeBuildYourReading extends React.PureComponent {
       <SuperTrainingWheel {...this.props}>
         <ValueProp className="build-reading">
           <h1 className="heading">
-            How we build your reading assignment
+            How to build your reading assignment
           </h1>
           <h2 className="sub-heading">
             You select the chapters and sections, we do the rest.
