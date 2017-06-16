@@ -130,7 +130,7 @@ export default class CourseBuilderUX extends BaseModel {
   }
 
   @computed get cloneSources() {
-    return filter(Courses.array, c => c.isTeacher && c.offering_id == this.offering.id);
+    return filter(Courses.nonPreview.array, c => c.isTeacher && c.offering_id == this.offering.id);
   }
 
   @computed get isCurrentStageValid() {
