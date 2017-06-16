@@ -13,6 +13,7 @@ ChapterSection = require './chapter-section'
 PlanMixin = require './plan-mixin'
 LoadableItem = require '../loadable-item'
 TaskPlanBuilder = require './builder'
+{ default: NoQuestionsTooltip } = require './reading/no-questions-tooltip'
 Fn = require '../../helpers/function'
 { default: TourRegion } = require '../tours/region'
 
@@ -206,6 +207,7 @@ ReadingPlan = React.createClass
                 ecosystemId={ecosystemId}
                 selected={topics}/>
               {addReadingsButton}
+              <NoQuestionsTooltip/>
               {readingsRequired}
             </BS.Col>
           </BS.Row>
