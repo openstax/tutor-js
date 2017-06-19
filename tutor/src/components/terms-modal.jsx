@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { action, computed } from 'mobx';
-
+import Branding from './branding/course';
 import User from '../models/user';
 import { Modal, Button } from 'react-bootstrap';
 import { map, isEmpty } from 'lodash';
@@ -33,7 +33,7 @@ export default class TermsModal extends React.PureComponent {
         className="user-terms"
       >
         <Modal.Header>
-          {this.title}
+          <Branding isBeta={true} /> {this.title}
         </Modal.Header>
         <Modal.Body>
           {map(User.unsignedTerms, (t) =>
