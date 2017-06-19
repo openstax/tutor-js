@@ -32,6 +32,7 @@ export default class TourStep extends BaseModel {
   @field is_fixed;
   @field anchor_id;
   @field customComponent;
+  @field requiredViewsCount = 1;
   @field({ type: 'object' }) action;
 
   @computed get actionClass() {
@@ -43,6 +44,11 @@ export default class TourStep extends BaseModel {
 
   @computed get HTML() {
     return this.body ? MD.render(this.body) : '';
+  }
+
+  @computed get shouldReplay() {
+    console.info(this.requiredViewsCount, this.tour.viewCounts, 'shouldReplay');
+    return this.requiredViewsCount > this.tour.viewCounts;
   }
 
   @computed get joyrideStepProperties() {

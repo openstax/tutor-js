@@ -11,7 +11,7 @@ jest.mock('shared/src/model/ui-settings');
 
 describe('User Model', () => {
   afterEach(() => {
-    User.viewed_tour_ids.clear();
+    User.viewed_tour_stats.clear();
   });
 
   it('can be bootstrapped', () => {

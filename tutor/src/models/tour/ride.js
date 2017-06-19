@@ -4,7 +4,7 @@ import {
 } from '../base';
 import { defaults } from 'lodash';
 import { action, observable } from 'mobx';
-import { filter, extend } from 'lodash';
+import { filter, extend, isEmpty } from 'lodash';
 import CustomComponents from '../../components/tours/custom';
 
 const DEFAULT_JOYRIDE_CONFIG = {
@@ -43,7 +43,7 @@ export default class TourRide extends BaseModel {
       showStepsProgress: this.showStepsProgress,
       scrollToSteps: tour.scrollToSteps,
       showOverlay: tour.showOverlay,
-      steps: this.validSteps,
+      steps: this.stepsToPlay,
     }, DEFAULT_JOYRIDE_CONFIG);
   }
 
@@ -53,8 +53,26 @@ export default class TourRide extends BaseModel {
 
   @computed get validSteps() {
     return filter(
-      this.tourSteps, step => !!(step && (!step.anchor_id ||this.context.anchors.has(step.anchor_id)))
+      this.tourSteps, (step, stepIndex) => {
+        return !!(step &&
+          (!step.anchor_id ||
+          this.context.anchors.has(step.anchor_id))
+        );
+    });
+  }
+
+  @computed get replaySteps() {
+    return filter(
+      this.tourSteps, (step, stepIndex) => !!(this.tour.steps[stepIndex].shouldReplay)
     );
+  }
+
+  @computed get hasValidSteps() {
+    return !isEmpty(this.validSteps);
+  }
+
+  @computed get stepsToPlay() {
+    return this.hasValidSteps? this.validSteps : this.replaySteps;
   }
 
   @computed get labels() {
@@ -68,7 +86,7 @@ export default class TourRide extends BaseModel {
   }
 
   @computed get showStepsProgress() {
-    return this.validSteps.length > 1;
+    return this.stepsToPlay.length > 1;
   }
 
   @action.bound

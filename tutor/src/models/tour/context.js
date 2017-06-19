@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, computed, observable, field,
 } from '../base';
 import {
-  find, isEmpty, intersection, compact, uniq, flatMap, map, invoke, filter,
+  find, isEmpty, intersection, compact, uniq, flatMap, map, invoke, filter, delay,
 } from 'lodash';
 import { observe, action } from 'mobx';
 
@@ -25,6 +25,8 @@ export default class TourContext extends BaseModel {
   @field isEnabled = false;
 
   @field emitDebugInfo = false;
+
+  @field autoRemind = true;
 
   @observable forcePastToursIndication;
 
@@ -63,6 +65,11 @@ export default class TourContext extends BaseModel {
       invariant(existing === region, `attempted to add region ${region.id}, but it already exists!`);
     } else { // no need to add if existing is the same object
       this.regions.push(region);
+
+      if ( this.autoRemind && !this.tour && this.needsPageTipsReminders ) {
+        delay(() => region.otherTours.push('page-tips-reminders'), 500);
+      }
+
     }
   }
 
@@ -107,6 +114,10 @@ export default class TourContext extends BaseModel {
 
   @computed get elgibleTours() {
     return filter(this.allTours, (tour) => (!isEmpty(intersection(tour.audience_tags, this.audienceTags))));
+  }
+
+  @computed get needsPageTipsReminders() {
+    return this.hasElgibleTour && !find(this.elgibleTours, 'autoplay');
   }
 
   // same logic as above but uses find, which short-circuits after a match

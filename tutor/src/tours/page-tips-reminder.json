@@ -1,0 +1,21 @@
+[{
+  "id": "page-tips-reminders",
+  "autoplay": true,
+  "standalone": true,
+  "audience_tags": [
+    "teacher",
+    "teacher-preview"
+  ],
+  "steps": [
+    {
+      "customComponent": "TipsNowOrLater",
+      "body": "Learn more about this page in our \"Page tips.\"",
+      "anchor_id": "menu-option-page-tips",
+      "action": {
+        "id": "open-support-menu"
+      },
+      "position": "left",
+      "requiredViewsCount": 2
+    }
+  ]
+}]

@@ -5,7 +5,7 @@ import User from '../../src/models/user';
 jest.mock('../../src/models/user', () => ({
   replayTour: jest.fn(),
   viewedTour: jest.fn(function(t){
-    this.viewed_tour_ids = [t.id];
+    this.viewed_tour_stats = [{ identifier: t.id, view_count: 1 }];
   }),
 }));
 
@@ -69,14 +69,14 @@ describe('Tour Model', () => {
   });
 
   it('calculates when an autoplay tour is viewable', () => {
-    User.viewed_tour_ids = [];
+    User.viewed_tour_stats = [];
     const tour = Tour.forIdentifier('question-library-super');
     expect(tour.autoplay).toBe(true);
     expect(tour.isViewed).toBe(false);
     expect(tour.standalone).toBe(true);
     expect(tour.isViewable).toBe(true);
 
-    User.viewed_tour_ids = ['question-library-super'];
+    User.viewed_tour_stats = [{ identifier: 'question-library-super', view_count: 1 }];
     expect(tour.isViewable).toBe(false);
   });
 

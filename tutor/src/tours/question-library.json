@@ -11,7 +11,8 @@
     {
       "customComponent": "HowToUseQL"
     }, {
-      "customComponent": "QuestionLibraryPageTips",
+      "customComponent": "TipsNowOrLater",
+      "body": "More about the Question Library in our \"Page tips.\"",
       "anchor_id": "menu-option-page-tips",
       "action": {
         "id": "open-support-menu"
