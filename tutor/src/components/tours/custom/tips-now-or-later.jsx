@@ -36,7 +36,6 @@ export default class TipsNowOrLater extends React.PureComponent {
     const buttons = { primary: 'View tips now', skip: 'View later' };
     const className = classnames('tips-now-or-later',  this.props.className);
 
-    step.text = this.props.children;
     step.isFixed = true;
 
     defaultsDeep(step.style, this.props.style);

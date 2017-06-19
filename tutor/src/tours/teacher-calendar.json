@@ -10,7 +10,8 @@
     {
       "customComponent": "HowToUsePreview"
     }, {
-      "customComponent": "DashboardPageTips",
+      "customComponent": "TipsNowOrLater",
+      "body": "Learn more about the dashboard with our \"Page tips.\"",
       "anchor_id": "menu-option-page-tips",
       "action": {
         "id": "open-support-menu"
