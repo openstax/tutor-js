@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, identifier, hasMany, field,
 } from './base';
-import { partial, some, each, compact, map, filter, countBy, max } from 'lodash';
+import { partial, some, each, compact, map, filter, max } from 'lodash';
 import includes from 'lodash/includes'; // babel-traverse blows up with includes is in list above?
 import TourStep from './tour/step';
 import { computed, action } from 'mobx';
@@ -78,7 +78,8 @@ export default class Tour extends BaseModel {
   }
 
   @computed get viewCounts() {
-    return countBy(User.viewed_tour_ids)[this.id];
+    const stat = User.viewed_tour_stats.find((stat) => stat.identifier === this.id);
+    return stat? stat.view_count : 0;
   }
 
   @computed get maxRequiredViewCounts() {

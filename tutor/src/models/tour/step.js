@@ -47,6 +47,7 @@ export default class TourStep extends BaseModel {
   }
 
   @computed get shouldReplay() {
+    console.info(this.requiredViewsCount, this.tour.viewCounts, 'shouldReplay');
     return this.requiredViewsCount > this.tour.viewCounts;
   }
 
