@@ -37,10 +37,11 @@ describe('Second Session Warning', () => {
   });
 
   it('replays tours when spy mode is triggered', () => {
-    mount(<CourseNag {...props} />);
+    const nag = mount(<CourseNag {...props} />);
     const onboarding = new Onboarding(ux.course, tourContext);
     expect(onboarding.courseIsNaggable).toBe(false);
     spyMode.isEnabled = true;
+    nag.setProps({ spyMode });
     expect(onboarding.courseIsNaggable).toBe(true);
   });
 

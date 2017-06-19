@@ -1,7 +1,6 @@
 import {
   observable,
   computed,
-  action,
 } from 'mobx';
 
 import moment from 'moment';
