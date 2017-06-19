@@ -54,6 +54,7 @@
       display: flex;
       flex-direction: row;
       padding: @spacing 0;
+      width: 100%;
       .column {
         background-repeat: no-repeat;
         padding-top: @spacing*2.5;
@@ -85,7 +86,7 @@
     }
 
     &.build-reading {
-      .column-content {      
+      .column-content {
         padding: @spacing 90px;
       }
 
@@ -114,7 +115,6 @@
     &.cc-sunset {
       .column {
         .column-icons-embiggen();
-
         &.thanks           { .tutor-background-image("cc-sunset/thanks.svg");             }
         &.export-by        { .tutor-background-image("cc-sunset/export-by.svg");          }
         &.not-launched-yet { .tutor-background-image("cc-sunset/under-construction.svg"); }

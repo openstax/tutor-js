@@ -27,11 +27,8 @@
   max-width: 440px;
   margin: 134px auto 0 auto;
 
-  &::before,
-  &::after {
-    .psuedo-background();
-  }
   &::before {
+    .psuedo-background();
     background-image: url('../../images/ost-hero.jpg');
   }
   .panel {
@@ -82,15 +79,23 @@
         }
       }
     }
-    .panel-body {
-      padding: 1.6rem 0;
-
-      .tutor-subtle-load(will-load; @loading-text: 'Loading...'; @bg-fade: 100%;);
-      &::after {
-        left: 0;
-        z-index: 1;
-        font-size: 1.5rem;
-        line-height: 60rem;
+    .panel-body .ox-loader {
+      background-color: white;
+      z-index: 1;
+      .ox-loader--inner {
+        padding: 1.6rem 0;
+        .tutor-subtle-load(will-load; @loading-text: 'Loading...'; @bg-fade: 100%;);
+        &::after {
+          display: block;
+          position: absolute;
+          left: 0;
+          right: 0;
+          text-align: center;
+          left: 0;
+          z-index: -1;
+          opacity: inherit;
+          font-size: 1.5rem;
+        }
       }
     }
     // set footer to a fixed height so the panel stays the same height
@@ -104,8 +109,9 @@
         .tutor-subtle-load(loading);
       }
 
-      &.is-building .panel-body::after {
-        content: 'Building your course...';
+
+      &.is-building .ox-loader .ox-loader--inner::after {
+        content: "Building your course...";
       }
     }
     .panel-content {
