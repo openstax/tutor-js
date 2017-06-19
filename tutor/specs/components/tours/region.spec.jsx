@@ -10,7 +10,7 @@ describe('Tour Region', () => {
   });
 
   it('checks in with tour context when mounting/unmounting', () => {
-    const context = new TourContext({ isEnabled: true });
+    const context = new TourContext({ isEnabled: true, autoRemind: false });
     const wrapper = mount(
       <TourRegion id='teacher-calendar' courseId='2' tourContext={context}>
         <span>Hello</span>

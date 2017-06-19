@@ -26,6 +26,8 @@ export default class TourContext extends BaseModel {
 
   @field emitDebugInfo = false;
 
+  @field autoRemind = true;
+
   @observable forcePastToursIndication;
 
   constructor(attrs) {
@@ -64,7 +66,7 @@ export default class TourContext extends BaseModel {
     } else { // no need to add if existing is the same object
       this.regions.push(region);
 
-      if ( !this.tour && this.needsPageTipsReminders ) {
+      if ( this.autoRemind && !this.tour && this.needsPageTipsReminders ) {
         delay(() => region.otherTours.push('page-tips-reminders'), 500);
       }
 
@@ -115,7 +117,7 @@ export default class TourContext extends BaseModel {
   }
 
   @computed get needsPageTipsReminders() {
-    return !find(this.elgibleTours, 'autoplay');
+    return this.hasElgibleTour && !find(this.elgibleTours, 'autoplay');
   }
 
   // same logic as above but uses find, which short-circuits after a match
