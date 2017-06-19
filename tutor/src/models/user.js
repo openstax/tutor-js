@@ -39,7 +39,7 @@ export class User extends BaseModel {
 
   @computed get terms() {
     return this.terms_signatures_needed ?
-      new UserTerms({ user: this }) : null;
+           new UserTerms({ user: this }) : null;
   }
 
   @computed get unsignedTerms() {
@@ -51,6 +51,10 @@ export class User extends BaseModel {
     if (Courses.active.teaching.nonPreview.any) { return ['teacher']; }
     if (Courses.active.teaching.any) { return ['teacher-preview']; }
     return [];
+  }
+
+  resetTours() {
+    this.viewed_tour_ids.clear();
   }
 
   replayTour(tour) {

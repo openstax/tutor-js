@@ -1,11 +1,12 @@
 import React from 'react';
-import { observable } from 'mobx';
+import { observable, observe } from 'mobx';
 import { Provider, observer, inject } from 'mobx-react';
-
+import { autobind } from 'core-decorators';
 import Joyride from 'react-joyride';
 // When/if we move to using scss this can be imported in the main scss import
 import 'resources/styles/components/tours/joyride.scss';
 import TourContext from '../../models/tour/context';
+import User from '../../models/user';
 import { SpyModeContext, Content as SpyModeContent } from 'shared/src/components/spy-mode';
 
 @inject("spyMode") @observer
@@ -23,9 +24,21 @@ export default class TourConductor extends React.PureComponent {
     this.tourContext = new TourContext({ isEnabled: true });
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.tourContext.emitDebugInfo = true
-//    this.tourContext.isEnabled = this.tourContext.emitDebugInfo = nextProps.spyMode.isEnabled;
+  componentWillUnmount() {
+    this.spyModeObserverDispose();
+  }
+
+  componentWillMount() {
+    this.spyModeObserverDispose = observe(this.props.spyMode, 'isEnabled', this.onSpyModelChange);
+  }
+
+  @autobind
+  onSpyModelChange({ newValue: isEnabled }) {
+    this.tourContext.emitDebugInfo = isEnabled;
+    if (isEnabled) {
+      User.resetTours();
+
+    }
   }
 
   renderTour() {
@@ -34,7 +47,6 @@ export default class TourConductor extends React.PureComponent {
   }
 
   renderSpyModeInfo() {
-    // return null; // temporarily disabled while tours are demoed
     return (
       <SpyModeContent>
         <div className="tour-spy-info">{this.tourContext.debugStatus}</div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { inject, observer, PropTypes as MobxPropTypes } from 'mobx-react';
-import { action, observable, observe } from 'mobx';
+import { action, observable } from 'mobx';
 import { Modal } from 'react-bootstrap';
 import { get, pick } from 'lodash';
 import TourContext from '../../models/tour/context';
@@ -21,15 +21,9 @@ export default class CourseNagModal extends React.PureComponent {
 
   @observable isDismissed = false
 
-  componentWillUnmount() {
-    if (this.spyModeObserverDispose) { this.spyModeObserverDispose(); }
-  }
-
-  componentWillMount() {
-    if (this.props.spyMode) {
-      this.spyModeObserverDispose = observe(this.props.spyMode, 'isEnabled',
-                                            ({ newValue }) => (Onboarding.spyMode = newValue)
-      );
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.spyMode) {
+      Onboarding.spyMode = nextProps.spyMode.isEnabled;
     }
   }
 
