@@ -33,7 +33,7 @@ export default class TermsModal extends React.PureComponent {
         className="user-terms"
       >
         <Modal.Header>
-          {this.title}
+          OpenStax Tutor Beta {this.title}
         </Modal.Header>
         <Modal.Body>
           {map(User.unsignedTerms, (t) =>
