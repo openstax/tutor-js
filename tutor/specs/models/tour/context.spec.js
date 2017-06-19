@@ -16,7 +16,7 @@ describe('Tour Context Model', () => {
     bootstrapCoursesList();
   });
   afterEach(() => {
-    User.viewed_tour_ids.clear();
+    User.viewed_tour_stats.clear();
     each(Tour.all, t => {
       t.isEnabled = false;
     });
