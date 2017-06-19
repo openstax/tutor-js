@@ -1,11 +1,13 @@
 import {
-  BaseModel, identifiedBy, field, belongsTo,
+  BaseModel, identifiedBy, field, hasMany,
 } from './base';
-
+import { find } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import UiSettings from 'shared/src/model/ui-settings';
 import Courses from './courses-map';
 import { UserTerms } from './user/terms';
+
+import ViewedTourStat from './user/viewed-tour-stat';
 
 @identifiedBy('user')
 export class User extends BaseModel {
@@ -29,7 +31,7 @@ export class User extends BaseModel {
   @field is_customer_service;
   @field terms_signatures_needed;
 
-  @field({ type: 'array' }) viewed_tour_ids;
+  @hasMany({ model: ViewedTourStat }) viewed_tour_stats;
 
   @computed get isConfirmedFaculty() {
     return this.faculty_status === 'confirmed_faculty';
@@ -52,11 +54,11 @@ export class User extends BaseModel {
   }
 
   replayTour(tour) {
-    this.viewed_tour_ids.remove(tour.id);
+    this.viewed_tour_stats.remove(find(this.viwed_tour_stats, { id: tour.id }));
   }
 
   viewedTour(tour, options) {
-    this.viewed_tour_ids.push(tour.id);
+    this.viewed_tour_stats.push({ id: tour.id });
     this.saveTourView(tour, options);
   }
 
