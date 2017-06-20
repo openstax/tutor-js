@@ -5,7 +5,7 @@ import {
 @identifiedBy('user/viewed-tour-stat')
 export default class ViewedTourStat extends BaseModel {
 
-  @identifier identifier;
+  @identifier id;
   @field view_count = 1;
 
 }

@@ -78,7 +78,7 @@ export default class Tour extends BaseModel {
   }
 
   @computed get viewCounts() {
-    const stat = User.viewed_tour_stats.find((stat) => stat.identifier === this.id);
+    const stat = User.viewed_tour_stats.find((stat) => stat.id === this.id);
     return stat? stat.view_count : 0;
   }
 
