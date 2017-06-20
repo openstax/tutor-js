@@ -19,7 +19,7 @@ export default class PendingVerification extends React.PureComponent {
         style={{ display: 'none' }}
         onClick={Chat.start}
       >
-        <Icon type='comment' /><span>VERIFY NOW VIA CHAT</span>
+        <Icon type='comments' /><span>Verify now via chat</span>
       </button>
     );
   }

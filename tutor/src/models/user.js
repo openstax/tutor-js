@@ -37,6 +37,10 @@ export class User extends BaseModel {
     return this.faculty_status === 'confirmed_faculty';
   }
 
+  @computed get isProbablyTeacher() {
+    return Boolean(this.isConfirmedFaculty || this.self_reported_role === 'instructor' || Courses.teaching.any);
+  }
+
   @computed get terms() {
     return this.terms_signatures_needed ?
            new UserTerms({ user: this }) : null;
@@ -67,7 +71,7 @@ export class User extends BaseModel {
     if (stats) {
       stats.view_count ++;
     } else {
-      stats = new ViewedTourStat({id: tour.id});
+      stats = new ViewedTourStat({ id: tour.id });
       this.viewed_tour_stats.push(stats);
     }
 

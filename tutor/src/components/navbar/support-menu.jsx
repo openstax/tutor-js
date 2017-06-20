@@ -53,7 +53,7 @@ export default class SupportMenu extends React.PureComponent {
         ref={opt => this.chatEnabled = opt}
         onClick={Chat.start}
       >
-        <Icon type='comment-o' /><span>Chat with Support</span>
+        <Icon type='comments' /><span>Chat with Support</span>
       </MenuItem>,
       <MenuItem
         style={{ display: 'none' }}
@@ -61,7 +61,7 @@ export default class SupportMenu extends React.PureComponent {
         className="chat disabled"
         ref={opt => this.chatDisabled = opt}
       >
-        <Icon type='comment-o' /><span>Chat with Support</span>
+        <Icon type='comments-o' /><span>Chat support offline</span>
       </MenuItem>,
     ];
   }

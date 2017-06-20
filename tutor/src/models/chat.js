@@ -8,7 +8,7 @@ import User from './user';
 export default {
 
   @computed get isEnabled() {
-    return window.liveagent && (User.isConfirmedFaculty || User.self_reported_role !== 'student');
+    return Boolean(window.liveagent && User.isProbablyTeacher);
   },
 
   initialize() {
