@@ -1,7 +1,8 @@
-import { ObservableMap, computed } from 'mobx';
+import { computed } from 'mobx';
+import Map from '../../map';
 import Offering from './offering';
 
-class OfferingsMap extends ObservableMap {
+class OfferingsMap extends Map {
 
   @computed get array() {
     return this.values();
@@ -17,6 +18,10 @@ class OfferingsMap extends ObservableMap {
       this.isFetched = true;
     }
     return this;
+  }
+
+  @computed get tutor() {
+    return this.where(c => !c.is_concept_coach);
   }
 
 }
