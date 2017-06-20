@@ -37,8 +37,8 @@ export class User extends BaseModel {
     return this.faculty_status === 'confirmed_faculty';
   }
 
-  @computed get isTeacher() {
-    return Boolean(this.isConfirmedFaculty || Courses.active.teaching.nonPreview.any);
+  @computed get isProbablyTeacher() {
+    return Boolean(this.isConfirmedFaculty || this.self_reported_role === 'instructor' || Courses.active.teaching.any);
   }
 
   @computed get terms() {
