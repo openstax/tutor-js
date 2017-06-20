@@ -120,6 +120,9 @@ export default class PlanFooter extends React.PureComponent {
             getBackToCalendarParams={this.props.getBackToCalendarParams} />
         </TourAnchor>
         <HelpTooltip isPublished={isPublished} />
+
+        <div className="spacer" />
+
         <TourAnchor id="builder-delete-button">
           <DeleteLink
             isNew={TaskPlanStore.isNew(id)}
