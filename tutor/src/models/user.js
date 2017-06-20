@@ -58,16 +58,16 @@ export class User extends BaseModel {
   }
 
   replayTour(tour) {
-    this.viewed_tour_stats.remove(find(this.identifier, { identifier: tour.id }));
+    this.viewed_tour_stats.remove(find(this.viewed_tour_stats, { id: tour.id }));
   }
 
   viewedTour(tour, options) {
-    let stats = this.viewed_tour_stats.find((stat) => stat.identifier === tour.id);
+    let stats = this.viewed_tour_stats.find((stat) => stat.id === tour.id);
 
     if (stats) {
       stats.view_count ++;
     } else {
-      stats = new ViewedTourStat({identifier: tour.id});
+      stats = new ViewedTourStat({id: tour.id});
       this.viewed_tour_stats.push(stats);
     }
 
