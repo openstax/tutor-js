@@ -38,7 +38,7 @@ export class User extends BaseModel {
   }
 
   @computed get isProbablyTeacher() {
-    return Boolean(this.isConfirmedFaculty || this.self_reported_role === 'instructor' || Courses.active.teaching.any);
+    return Boolean(this.isConfirmedFaculty || this.self_reported_role === 'instructor' || Courses.teaching.any);
   }
 
   @computed get terms() {

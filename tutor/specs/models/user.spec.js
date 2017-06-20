@@ -44,4 +44,15 @@ describe('User Model', () => {
     expect(UiSettings.set).toHaveBeenCalledWith('sessionCount', 1);
   });
 
+  it('#isProbablyTeacher', () => {
+    User.faculty_status = 'nope';
+    User.self_reported_role = 'student';
+    Courses.clear();
+    expect(User.isProbablyTeacher).toBe(false);
+    bootstrapCoursesList();
+    expect(User.isProbablyTeacher).toBe(true);
+    Courses.clear();
+    User.faculty_status = 'confirmed_faculty';
+    expect(User.isProbablyTeacher).toBe(true);
+  });
 });
