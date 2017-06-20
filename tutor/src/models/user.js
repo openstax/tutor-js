@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, field, hasMany,
 } from './base';
-import { find } from 'lodash';
+import { find, isEmpty, isNil } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import UiSettings from 'shared/src/model/ui-settings';
 import Courses from './courses-map';
@@ -37,6 +37,10 @@ export class User extends BaseModel {
     return this.faculty_status === 'confirmed_faculty';
   }
 
+  @computed get isTeacher() {
+    return Boolean(this.isConfirmedFaculty || Courses.active.teaching.nonPreview.any);
+  }
+
   @computed get terms() {
     return this.terms_signatures_needed ?
            new UserTerms({ user: this }) : null;
@@ -67,7 +71,7 @@ export class User extends BaseModel {
     if (stats) {
       stats.view_count ++;
     } else {
-      stats = new ViewedTourStat({id: tour.id});
+      stats = new ViewedTourStat({ id: tour.id });
       this.viewed_tour_stats.push(stats);
     }
 
