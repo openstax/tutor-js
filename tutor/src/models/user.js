@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, field, hasMany,
 } from './base';
-import { find, isEmpty, isNil } from 'lodash';
+import { find } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import UiSettings from 'shared/src/model/ui-settings';
 import Courses from './courses-map';
