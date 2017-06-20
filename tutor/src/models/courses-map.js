@@ -1,11 +1,12 @@
 import Map from './map';
 import { computed, action } from 'mobx';
 import { CourseListingActions, CourseListingStore } from '../flux/course-listing';
+import { CourseStore } from '../flux/course';
 import Course from './course';
 import { once } from 'lodash';
 
-class CoursesMap extends Map {
-
+function onCourseSave(courseData) {
+  coursesMap.get(courseData.id).update(courseData);
 }
 
 function onLoaded(courseData) {
@@ -14,9 +15,10 @@ function onLoaded(courseData) {
 
 const listenForLoad = once(() => {
   CourseListingStore.on('loaded', onLoaded);
+  CourseStore.on('saved', onCourseSave);
 });
 
-class AllCoursesMap extends CoursesMap {
+class CoursesMap extends Map {
 
   @computed get active() {
     return this.where(c => c.is_active);
@@ -67,6 +69,6 @@ class AllCoursesMap extends CoursesMap {
 
 }
 
-const coursesMap = new AllCoursesMap();
+const coursesMap = new CoursesMap();
 
 export default coursesMap;

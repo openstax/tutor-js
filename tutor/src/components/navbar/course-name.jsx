@@ -1,9 +1,10 @@
 import React from 'react';
-
+import { observer } from 'mobx-react';
 import Course from '../../models/course';
 
 import TutorLink from '../link';
 
+@observer
 export default class CourseName extends React.PureComponent {
 
   static propTypes = {
