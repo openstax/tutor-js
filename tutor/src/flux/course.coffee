@@ -18,7 +18,7 @@ CourseConfig =
     @emit('course.loaded', obj.id)
 
   _saved: (result, id) ->
-    @emit('saved')
+    @emit('saved', result)
 
     # make sure all of course remains loaded after course gets saved to
     extend {}, @_local[id], result
