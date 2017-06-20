@@ -36,13 +36,5 @@ exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
   >
     Biology for AP® Courses
   </div>
-  <div
-    className="list-group-item choice"
-    data-appearance="hs_physics"
-    onClick={[Function]}
-    role="button"
-  >
-    HS Physics
-  </div>
 </div>
 `;

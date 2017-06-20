@@ -1,5 +1,5 @@
 // NOTE: The exported symbols must match steps defined in models/course/builder-ux
-export course_type     from './select-type';
+
 export offering        from './select-course';
 export term            from './select-dates';
 export new_or_copy     from './new-or-copy';
