@@ -1,5 +1,5 @@
 import React from 'react';
-import { observer } from 'mobx-react';
+import { observer, propTypes as MobxPropTypes } from 'mobx-react';
 import { ListGroup } from 'react-bootstrap';
 import { partial, map } from 'lodash';
 import { action } from 'mobx';
@@ -15,7 +15,7 @@ export default class SelectType extends React.PureComponent {
 
   static title = 'Which tool do you want to use?';
   static propTypes = {
-    ux: React.PropTypes.instanceOf(BuilderUX).isRequired,
+    ux: MobxPropTypes.observableObject.isRequired,
   }
 
   @action.bound

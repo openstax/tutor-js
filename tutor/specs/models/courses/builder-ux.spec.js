@@ -9,21 +9,20 @@ jest.mock('../../../src/models/course/offerings', () => ({
 }));
 
 describe('Course Builder UX Model', () => {
-  let ux;
-  let courses;
-
+  let ux, courses, mockOffering;
   beforeEach(() => {
     Router.currentParams.mockReturnValue({});
     courses = bootstrapCoursesList();
+    mockOffering = { id: 1, title: 'A Test Course' };
     ux = new CourseBuilderUX();
   });
 
-  function advanceToCopy() {
+  function advanceToName() {
     expect(ux.stage).toEqual('offering');
     expect(ux.canGoBackward).toBe(false);
     expect(ux.canGoForward).toBe(false);
-    ux.newCourse.offering_id = 1;
-    Offerings.get.mockReturnValue({});
+    ux.newCourse.offering = mockOffering;
+    Offerings.get.mockReturnValue(mockOffering);
     expect(ux.canGoForward).toBe(true);
 
     ux.goForward();
@@ -34,7 +33,7 @@ describe('Course Builder UX Model', () => {
     expect(ux.canGoForward).toBe(true);
 
     ux.goForward();
-    expect(ux.stage).toEqual('new_or_copy'); // will default to new
+    expect(ux.stage).toEqual('name');
   }
 
   function advanceToSave() {
@@ -55,60 +54,17 @@ describe('Course Builder UX Model', () => {
   }
 
   it('calculates first stage', () => {
-    expect(ux.firstStageIndex).toEqual(1);
-    Router.currentParams.mockReturnValue({ sourceId: '1' });
-  });
-
-  it('allows selecting CC if taught before', () => {
-    expect(ux.firstStageIndex).toEqual(1);
-    expect(ux.allCoursesOfType).toBe('tutor');
-    courses.array[0].is_concept_coach = true;
-    expect(ux.allCoursesOfType).toBeNull();
     expect(ux.firstStageIndex).toEqual(0);
-    Offerings.get.mockReturnValue({});
-    ux.source = courses.get('1');
-    expect(ux.canSkipOffering).toEqual(true);
-    expect(ux.firstStageIndex).toEqual(2);
-    courses.array.forEach(c => (c.is_concept_coach = true));
-    expect(ux.allCoursesOfType).toBe('cc');
-    expect(ux.firstStageIndex).toEqual(2);
+    Router.currentParams.mockReturnValue({ sourceId: '1' });
+    ux = new CourseBuilderUX();
+    expect(ux.firstStageIndex).toEqual(1);
   });
 
   it('can advance through specs for a cloned course', () => {
-    advanceToCopy();
-    ux.newCourse.new_or_copy = 'copy';
-    expect(ux.canGoForward).toBe(true);
-
-    ux.goForward();
-    expect(ux.canGoForward).toBe(false);
-    expect(ux.stage).toEqual('cloned_from_id');
-    ux.newCourse.cloned_from = courses.get(2);
-    expect(ux.canGoForward).toBe(true);
-
-    ux.goForward();
-    expect(ux.stage).toEqual('name');
-    expect(ux.newCourse.name).toEqual(courses.get(2).name);
+    advanceToName();
+    expect(ux.newCourse.name).toEqual(mockOffering.title);
     expect(ux.newCourse.num_sections).toEqual(courses.get(2).periods.length);
     expect(ux.canGoForward).toBe(true); // fields are already set from clone
-
-    advanceToSave();
-  });
-
-  it('can advance through steps for a new course', () => {
-    advanceToCopy();
-
-    ux.newCourse.new_or_copy = 'new';
-    expect(ux.canGoForward).toBe(true);
-
-    ux.goForward();
-    expect(ux.stage).toEqual('name');
-    expect(ux.canGoForward).toBe(false);
-    extend(ux.newCourse, {
-      name: 'Test Course',
-      time_zone: 'US/Eastern',
-    });
-    expect(ux.canGoForward).toBe(true);
-
     advanceToSave();
   });
 

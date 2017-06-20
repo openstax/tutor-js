@@ -1,11 +1,11 @@
 import {
-  BaseModel, identifiedBy, field, identifier,
+  BaseModel, identifiedBy,
 } from '../base';
 import {
-  uniqBy, keys, indexOf, filter, result, isEmpty, negate, pick, values, every,
+  filter, result, isEmpty, pick, values, every,
 } from 'lodash';
 import { readonly } from 'core-decorators';
-import { observable, computed, action, observe } from 'mobx';
+import { when, observable, computed, action, observe } from 'mobx';
 import Course from '../course';
 import Courses from '../courses-map';
 import TutorRouter from '../../helpers/router';
@@ -24,20 +24,22 @@ export default class CourseBuilderUX extends BaseModel {
   @observable currentStageIndex;
 
   @readonly stages = [
-    'course_type', 'offering', 'term', 'new_or_copy', 'cloned_from_id',
+    'offering', 'term', 'new_or_copy', 'cloned_from_id',
     'name', 'numbers', 'build',
   ]
 
   @readonly maximumSectionCount = 99;
-  @observable course_type = '';
+  @observable course_type = 'tutor';
 
   constructor(router) {
     super();
     this.router = router;
     observe(this, 'source', ({ newValue: newSource }) => {
       if (newSource) {
-        this.newCourse.offering_id = newSource.offering_id;
-        this.newCourse.new_or_copy = 'copy';
+        when(
+          () => Offerings.get(newSource.offering_id),
+          () => this.newCourse.offering = Offerings.get(newSource.offering_id),
+        );
       }
     }, true);
 
@@ -47,11 +49,6 @@ export default class CourseBuilderUX extends BaseModel {
       }
     });
 
-    observe(this, 'firstStageIndex', ({ newValue: index }) => {
-      if (index > this.currentStageIndex) {
-        this.currentStageIndex = index;
-      }
-    }, true);
     this.currentStageIndex = this.firstStageIndex;
   }
 
@@ -90,13 +87,7 @@ export default class CourseBuilderUX extends BaseModel {
   }
 
   @computed get firstStageIndex() {
-    let stage;
-    if (this.canSkipOffering) {
-      stage = 2;
-    } else {
-      stage = this.canSelectCourseType ? 0 : 1;
-    }
-    return stage;
+    return this.canSkipOffering ? 1 : 0;
   }
 
   @computed get offering() {
@@ -104,33 +95,15 @@ export default class CourseBuilderUX extends BaseModel {
   }
 
   @computed get validOfferings() {
-    let offerings = Offerings.array;
-    if (!this.allCoursesOfType && this.course_type) {
-      offerings = filter(offerings, { is_concept_coach: this.courseTypeIsCC });
-    }
-    return offerings;
-  }
-
-  @computed get courseTypeIsCC() {
-    return this.course_type === 'coach';
+    return Offerings.tutor.array;
   }
 
   @computed get canSkipOffering() {
-    return Boolean(this.source && this.offering);
-  }
-
-  @computed get canSelectCourseType() {
-    return this.allCoursesOfType ? false : true;
-  }
-
-  @computed get allCoursesOfType() {
-    const allCC = uniqBy(Courses.array, 'is_concept_coach');
-    if (allCC.length !== 1) { return null; }
-    return allCC[0].is_concept_coach ? 'cc' : 'tutor';
+    return Boolean(this.source);
   }
 
   @computed get cloneSources() {
-    return filter(Courses.nonPreview.array, c => c.isTeacher && c.offering_id == this.offering.id);
+    return filter(Courses.tutor.nonPreview.teaching.array, c => c.offering_id == this.offering.id);
   }
 
   @computed get isCurrentStageValid() {
@@ -175,13 +148,12 @@ export default class CourseBuilderUX extends BaseModel {
     return every(values(pick(this.newCourse, 'estimated_student_count', 'num_sections')), v => Boolean(v));
   }
 
-
   // skips
   skip_new_or_copy() {
-    return !!this.source || Courses.isEmpty || Courses.nonPreview.isEmpty;
+    return Boolean(this.offering || isEmpty(this.cloneSources));
   }
 
   skip_cloned_from_id() {
-    return this.newCourse.new_or_copy === 'new';
+    return Boolean(this.offering);
   }
 }

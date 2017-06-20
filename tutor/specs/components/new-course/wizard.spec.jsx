@@ -5,12 +5,27 @@ import Wizard from '../../../src/components/new-course/wizard';
 
 jest.mock('../../../src/helpers/router');
 
+jest.mock('../../../src/models/course/offerings', () => {
+  const mockOffering = {
+    id: 1, title: 'Test Offering',
+    validTerms: [ {
+      term: 'spring',
+      year: 2018,
+    } ],
+  };
+  return {
+    get: jest.fn(() => mockOffering),
+    tutor: {
+      array: [ mockOffering ],
+    },
+  };
+});
+
 describe('Creating a course', function() {
-  let ux;
+
   let props;
   beforeEach(() => {
     Router.currentParams.mockReturnValue({});
-    ux = new BuilderUX();
     props = { isLoading: false };
   });
 
@@ -21,15 +36,19 @@ describe('Creating a course', function() {
 
   it('advances and can go back', function() {
     const wrapper = mount(<Wizard {...props} />);
-    expect(wrapper).toHaveRendered('SelectType');
+
     expect(wrapper.instance().ux.currentStageIndex).toEqual(0);
-    wrapper.find('[data-brand="tutor"]').simulate('click');
-    wrapper.find('.btn.next').simulate('click');
-    expect(wrapper.instance().ux.currentStageIndex).toEqual(1);
     expect(wrapper).toHaveRendered('SelectCourse');
+    expect(wrapper).toHaveRendered('.btn.next[disabled=true]');
+    wrapper.find('.choice').simulate('click');
+
+    wrapper.find('.btn.next[disabled=false]').simulate('click');
+
+    expect(wrapper.instance().ux.currentStageIndex).toEqual(1);
+    expect(wrapper).toHaveRendered('SelectDates');
     wrapper.find('.btn.back').simulate('click');
     expect(wrapper.instance().ux.currentStageIndex).toEqual(0);
-    expect(wrapper).toHaveRendered('SelectType');
+    expect(wrapper).toHaveRendered('SelectCourse');
   });
 
   it('matches snapshot', function() {
