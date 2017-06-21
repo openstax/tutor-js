@@ -26,7 +26,7 @@ export default class SecondSessionWarning extends GotItOnboardingNag {
     return (
       <OnboardingNag className="second-session-prompt">
         <Body>
-          Ready to create your real course? It’s free for you and students will pay {CourseUX.formattedStudentCost} per course per semester.
+          Ready to create your real course? It’s free for you and students will pay {CourseUX.formattedStudentCost} per course.
         </Body>
         <Footer>
           <Button bsStyle="primary" onClick={this.onLoggedAddCourse}>Create your course</Button>
