@@ -3,6 +3,7 @@ import { action } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import TourContext from '../../../models/tour/context';
+import TourStep from '../../../models/tour/step';
 
 import { Tooltip } from 'react-joyride';
 
@@ -15,26 +16,29 @@ import { bindClickHandler } from './common';
 @inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
 @observer
 export default class TipsNowOrLater extends React.PureComponent {
-  // static propTypes = {
-  //   tourContext: React.PropTypes.instanceOf(TourContext)
-  // }
+  static propTypes = {
+    tourContext: React.PropTypes.object.isRequired,
+    step:  React.PropTypes.object.isRequired,
+    className: React.PropTypes.string,
+    buttons: React.PropTypes.object,
+    style: React.PropTypes.object,
+  }
 
   @action.bound
-  handleClick = bindClickHandler.call(this, {next: this.triggerPageTips.bind(this)});
+  handleClick = bindClickHandler.call(this, { next: this.triggerPageTips.bind(this) });
 
   triggerPageTips() {
     this.props.step.joyrideRef.props.callback({
       type: 'finished',
-      action: 'finished'
+      action: 'finished',
     });
     this.props.tourContext.playTriggeredTours();
     return true;
   }
 
   render () {
-    const step = this.props.step;
+    const { step, className } = this.props;
     const buttons = { primary: 'View tips now', skip: 'View later' };
-    const className = classnames('tips-now-or-later',  this.props.className);
 
     step.isFixed = true;
 
@@ -44,7 +48,7 @@ export default class TipsNowOrLater extends React.PureComponent {
     return (
       <Tooltip
         {...omit(this.props, 'style', 'buttons')}
-        className={className}
+        className={classnames('tips-now-or-later', className)}
         step={step}
         buttons={buttons}
         onClick={this.handleClick}
