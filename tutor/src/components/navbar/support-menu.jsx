@@ -26,6 +26,8 @@ export default class SupportMenu extends React.PureComponent {
 
   @action.bound
   onPlayTourClick() {
+    // close the menu so it's not stuck open while tours play
+    this.dropdownToggle.props.onClick();
     this.props.tourContext.playTriggeredTours();
   }
 
@@ -73,6 +75,7 @@ export default class SupportMenu extends React.PureComponent {
         className="support-menu"
       >
         <Dropdown.Toggle
+          ref={m => (this.dropdownToggle = m)}
           useAnchor={true}
         >
           <Icon type="question-circle" />
