@@ -4,10 +4,10 @@
   "steps": [
     {
       "title": "Performance Forecast",
-      "body": "The Performance Forecast shows how well the overall class comprehends the sections you assigned based on student performance on readings and homework—including personalized and spaced practice problems."
+      "body": "The Performance Forecast shows how well the class comprehends what you assign. This view shows you where students are struggling, so you can target your teaching."
     }, {
       "title": "What students see",
-      "body": "Students have their own individualized Performance Forecast. In addition to showing students how well they are doing and where they are struggling, OpenStax Tutor also gives students the ability to target their studies by answering practice questions."
+      "body": "Students have their own individualized Performance Forecast to help them focus their study efforts. Students see where they need more help, and they can even ask OpenStax Tutor for additional practice questions."
     }
   ]
 }]
