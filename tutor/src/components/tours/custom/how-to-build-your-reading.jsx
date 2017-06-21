@@ -18,7 +18,7 @@ export default class HowToBuildYourReading extends React.PureComponent {
       <SuperTrainingWheel {...this.props}>
         <ValueProp className="build-reading">
           <h1 className="heading">
-            How to build your reading assignment
+            How to build a reading assignment
           </h1>
           <h2 className="sub-heading">
             You select the chapters and sections, we do the rest.
