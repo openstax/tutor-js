@@ -117,12 +117,13 @@ export default class TourContext extends BaseModel {
   }
 
   @computed get needsPageTipsReminders() {
-    return this.hasElgibleTour && !find(this.elgibleTours, 'autoplay');
+    return this.hasTriggeredTour && !find(this.elgibleTours, 'autoplay');
   }
 
-  // same logic as above but uses find, which short-circuits after a match
-  @computed get hasElgibleTour() {
-    return !!find(this.allTours, (tour) => (!isEmpty(intersection(tour.audience_tags, this.audienceTags))));
+  @computed get hasTriggeredTour() {
+    return !!find(this.allTours, (tour) =>
+        !(tour.autoplay || isEmpty(intersection(tour.audience_tags, this.audienceTags)))
+    );
   }
 
   @computed get debugStatus() {
@@ -131,7 +132,7 @@ export default class TourContext extends BaseModel {
 
   @action playTriggeredTours() {
     this.elgibleTours.forEach((tour) => {
-      if (!tour.auto_display){ tour.play(); }
+      if (!tour.autoplay){ tour.play(); }
     });
   }
 
