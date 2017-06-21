@@ -56,7 +56,7 @@
       "anchor_id": "student-scores-button",
       "position": "bottom-right"
     }, {
-      "title": "Manage your question library",
+      "title": "Manage your Question Library",
       "body": "View all OpenStax Tutor questions here.",
       "anchor_id": "menu-option-viewQuestionsLibrary",
       "position": "left",
@@ -74,8 +74,8 @@
         "id": "open-user-menu"
       }
     }, {
-      "title": "Help videos",
-      "body": "View the student experience and other helpful videos here.",
+      "title": "Student preview videos",
+      "body": "View the student experience here.",
       "anchor_id": "student-preview-link",
       "position": "bottom-center",
       "is_fixed": true
