@@ -77,7 +77,8 @@
       "title": "Help videos",
       "body": "View the student experience and other helpful videos here.",
       "anchor_id": "student-preview-link",
-      "position": "bottom-center"
+      "position": "bottom-center",
+      "is_fixed": true
     }, {
       "title": "Remember, this is a preview course",
       "body": "You're in a preview course with pre-populated data. When you're done exploring the preview course, here's where you can create a real course.",
