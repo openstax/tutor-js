@@ -58,7 +58,7 @@ export class User extends BaseModel {
   }
 
   resetTours() {
-    this.viewed_tour_ids.clear();
+    this.viewed_tour_stats.clear();
   }
 
   replayTour(tour) {

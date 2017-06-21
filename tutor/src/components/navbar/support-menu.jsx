@@ -70,18 +70,21 @@ export default class SupportMenu extends React.PureComponent {
     return (
       <Dropdown
         id="support-menu"
-        pullRight
         className="support-menu"
       >
         <Dropdown.Toggle
           useAnchor={true}
         >
-          <TourAnchor id="support-menu-button">
-            <Icon type="question-circle" />
-            <span title="Page tips and support" className="control-label">Help</span>
-          </TourAnchor>
+          <Icon type="question-circle" />
+          <span title="Page tips and support" className="control-label">Help</span>
         </Dropdown.Toggle>
-        <Dropdown.Menu >
+        <TourAnchor
+          tag="ul"
+          bsRole="menu"
+          id="support-menu-button"
+          ariaLabelledby="support-menu"
+          className="dropdown-menu dropdown-menu-right"
+        >
           {this.renderPageTipsOption()}
           <MenuItem
             key="nav-help-link"
@@ -92,7 +95,7 @@ export default class SupportMenu extends React.PureComponent {
             <span>Help Articles</span>
           </MenuItem>
           {this.renderChat()}
-        </Dropdown.Menu>
+        </TourAnchor>
       </Dropdown>
     );
 
