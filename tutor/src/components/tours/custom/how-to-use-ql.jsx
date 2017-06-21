@@ -17,7 +17,7 @@ export default class HowToUseQL extends React.PureComponent {
             How to use the Question Library
           </h1>
           <h2 className="sub-heading">
-            View all questions here and exclude questions you never want students to see.
+            View all questions and exclude questions you never want students to see.
           </h2>
           <ColumnContent>
             <Column className="machine-learning">
