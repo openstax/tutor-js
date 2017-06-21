@@ -17,7 +17,7 @@
       "body": "Once students have completed assignments, see student progress on a homework assignment and the student view of the assignment by clicking a student’s score.",
       "anchor_id": "scores-homework-header"
     }, {
-      "title": "Export Scores",
+      "title": "Export scores",
       "body": "Download an Excel document containing student scores for easy upload into your learning management system. [Coming soon: LMS integration.]",
       "anchor_id": "scores-export-button"
     }
