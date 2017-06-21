@@ -32,7 +32,8 @@
       "customComponent": "HowToUseQL"
     }, {
       "title": "View questions",
-      "body" : "Select chapters you plan to assign, then scroll down and click Show Questions. And don't worry — students never get questions from sections you don't assign."
+      "body" : "Select chapters you plan to assign, then scroll down and click \"Show questions\". 
+       And don't worry — students never get questions from sections you don't assign."
     }
   ]
 }, {
@@ -49,7 +50,7 @@
       "customComponent": "ForceScrollOnMount"
     }, {
       "title": "Reading vs Homework",
-      "body": "Click \"Reading\" to view questions reserved for reading assignments. To view questions you can assign as homework, click \"Homework.\"",
+      "body": "Click \"Reading\" to view questions reserved for reading assignments. Click \"Homework\" to view questions reserved for homework assignments.",
       "anchor_id": "exercise-type-toggle",
       "position": "bottom"
     }, {
