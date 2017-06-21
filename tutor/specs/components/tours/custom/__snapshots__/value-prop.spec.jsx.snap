@@ -139,7 +139,7 @@ exports[`Tour Value Prop Component matches snapshot for tutor 1`] = `
   <h2
     className="sub-heading"
   >
-    Improve how your students learn with research-based technology -- for only 
+    Improve how your students learn with research-based technology — for only 
     $10
     .
   </h2>

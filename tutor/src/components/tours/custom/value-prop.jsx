@@ -81,7 +81,7 @@ function Welcome() {
       <h1 className="heading">Welcome to <CourseBranding />!</h1>
       <h2 className="sub-heading">
         Improve how your students learn with research-based
-        technology -- for only {CourseUX.formattedStudentCost}.
+        technology — for only {CourseUX.formattedStudentCost}.
       </h2>
       <TutorValueColumns />
     </ValueProp>
