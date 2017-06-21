@@ -46,7 +46,7 @@
   "steps": [
     {
       "title": "First, select a chapter",
-      "body": "Select a chapter you want to assign, then scroll down and click \"Add Readings.\" Uncheck any sections you don’t want to cover."
+      "body": "Select a chapter you want to assign, then scroll down and click \"Add readings.\" Uncheck any sections you don’t want to cover."
     }
   ]
 }, {
@@ -58,8 +58,8 @@
   ],
   "steps": [
     {
-      "title": "What will students get",
-      "body": "Your students will get formative and spaced practice questions from the sections you selected. Remember: you can see all questions that OpenStax Tutor might use in the Question Library.",
+      "title": "What students get",
+      "body": "Your students will get formative and spaced practice questions from the sections you selected above. Remember: you can see all questions that OpenStax Tutor might use in the Question Library.",
       "position": "top"
     }, {
       "title": "Publish",
