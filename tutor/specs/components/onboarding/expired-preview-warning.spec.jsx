@@ -20,7 +20,7 @@ describe('Expired Preview Warning', () => {
   it('dislays got it and dismisses on continue', () => {
     const warning = shallow(<ExpiredPreviewWarning ux={ux} />);
     warning.find('Button[bsStyle="default"]').simulate('click');
-    expect(warning.find('Body').render().text()).toContain('No problem');
+    expect(warning.find('Body').render().text()).toContain('ready to create a real course');
     warning.find('Button[bsStyle="primary"]').simulate('click');
     expect(ux.dismissNag).toHaveBeenCalled();
   });

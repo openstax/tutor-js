@@ -27,7 +27,7 @@ describe('Second Session Warning', () => {
     const warning = shallow(<SecondSessionWarning ux={ux} />);
     warning.find('Button[bsStyle="default"]').simulate('click');
     expect(User.logEvent).toHaveBeenCalledWith({ category: 'onboarding', code: 'like_preview_ask_later' });
-    expect(warning.find('Body').render().text()).toContain('No problem');
+    expect(warning.find('Body').render().text()).toContain('ready to create a real course');
     warning.find('Button[bsStyle="primary"]').simulate('click');
     expect(ux.dismissNag).toHaveBeenCalled();
   });
