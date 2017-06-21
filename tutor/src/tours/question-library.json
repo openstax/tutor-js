@@ -52,12 +52,18 @@
       "title": "Reading vs Homework",
       "body": "Click \"Reading\" to view questions reserved for reading assignments. To view questions you can assign as homework, click \"Homework.\"",
       "anchor_id": "exercise-type-toggle",
-      "position": "bottom"
+      "position": "bottom",
+      "action": {
+        "id": "reposition"
+      }
     }, {
       "title": "Excluding questions",
       "body": "See a question that should never be used? Hover over it and click \"exclude.\" :best-practices: Don't exclude too many — OpenStax Tutor needs several questions to make its personalized recommendations.",
       "position": "right",
-      "anchor_id": "exercise-preview"
+      "anchor_id": "exercise-preview",
+      "action": {
+        "id": "reposition"
+      }
     }, {
       "title": "Details view",
       "body": "See question details and report a question error by hovering over it and selecting \"Question details.\"",
