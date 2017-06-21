@@ -12,7 +12,7 @@
     },
     {
       "title": "Build a homework",
-      "body": "Ready to make a homework assignment? Fill in this form and click \"Select Problems.\""
+      "body": "Ready to make a homework assignment? Fill in this form and click \"select problems.\""
     }
 
   ]
@@ -26,7 +26,7 @@
   "steps": [
     {
       "title": "First, select a chapter",
-      "body": "Select a chapter you want to assign, then scroll down and click \"Show Problems.\" Uncheck any sections you don't want to cover."
+      "body": "Select a chapter you want to assign, then scroll down and click \"show problems.\" Uncheck any sections you don't want to cover."
     }
   ]
 }, {
