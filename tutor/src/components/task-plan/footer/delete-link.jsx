@@ -31,9 +31,10 @@ export default class DeleteLink extends React.PureComponent {
           className="delete-link pull-right"
           isWaiting={this.props.isWaiting}
           isFailed={this.props.isFailed}
-          waitingText="Deleting…">
+          waitingText="Deleting…"
+        >
           <Icon type="trash" />
-          Delete Assignment
+          Delete
         </AsyncButton>
       </SuretyGuard>
     );

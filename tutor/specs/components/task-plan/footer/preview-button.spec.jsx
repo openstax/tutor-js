@@ -13,17 +13,13 @@ describe('Task Plan Builder: Preview button', () => {
     };
   });
 
-  it('renders when plan is new and not waiting', () => {
+  it('renders when plan hw or reading', () => {
     const btn = shallow(<Preview {...props} />);
-    expect(btn.html()).not.toBeNull();
-    btn.setProps({ isWaiting: true });
-    expect(btn.html()).toBeNull();
-    btn.setProps({ isWaiting: false, isNew: false });
-    expect(btn.html()).toBeNull();
-    btn.setProps({ isWaiting: false, isNew: true });
     expect(btn.html()).not.toBeNull();
     btn.setProps({ planType: 'external' });
     expect(btn.html()).toBeNull();
+    btn.setProps({ planType: 'homework' });
+    expect(btn.html()).not.toBeNull();
   });
 
   it('matches snapshot', function() {

@@ -119,10 +119,6 @@ export default class PlanFooter extends React.PureComponent {
             isEditable={this.state.isEditable}
             getBackToCalendarParams={this.props.getBackToCalendarParams} />
         </TourAnchor>
-        <HelpTooltip isPublished={isPublished} />
-
-        <div className="spacer" />
-
         <TourAnchor id="builder-delete-button">
           <DeleteLink
             isNew={TaskPlanStore.isNew(id)}
@@ -132,6 +128,11 @@ export default class PlanFooter extends React.PureComponent {
             isWaiting={TaskPlanStore.isDeleting(id)}
             isPublished={isPublished} />
         </TourAnchor>
+
+        <HelpTooltip isPublished={isPublished} />
+
+        <div className="spacer" />
+
         <PreviewButton
           planType={TaskPlanStore.get(id).type}
           isWaiting={isWaiting}
