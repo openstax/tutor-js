@@ -23,7 +23,7 @@ function AddCoursePopover(props) {
 }
 
 @wrapCourseDropComponent @observer
-export default class AddCourseArea extends React.PureComponent {
+export default class CreateACourse extends React.PureComponent {
 
   static propTypes = {
     isHovering: React.PropTypes.bool,
@@ -49,7 +49,7 @@ export default class AddCourseArea extends React.PureComponent {
             <div>
               <IconAdd />
               <span>
-                Add a course
+                CREATE A COURSE
               </span>
             </div>
           </TutorLink>
