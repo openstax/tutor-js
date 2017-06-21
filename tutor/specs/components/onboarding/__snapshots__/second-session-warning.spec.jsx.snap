@@ -9,7 +9,7 @@ exports[`Second Session Warning renders and matches snapshot 1`] = `
   >
     Ready to create your real course? It’s free for you and students will pay 
     $10
-     per course per semester.
+     per course.
   </div>
   <div
     className="footer"
