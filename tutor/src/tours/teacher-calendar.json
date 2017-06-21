@@ -32,7 +32,7 @@
       "customComponent": "CenteredWheel"
     }, {
       "title": "Here's where you add your assignments",
-      "body": "Create an assignment by clicking it or dragging to the calendar.  Events are important class dates, like the final exam.",
+      "body": "Create an assignment by clicking it or dragging to the calendar.",
       "anchor_id": "sidebar-add-tasks",
       "position": "right",
       "action": {
@@ -40,7 +40,7 @@
       }
     }, {
       "title": "Managing assignments",
-      "body": "You can edit an assignment or review student progress and performance by clicking on the assignment on your calendar.",
+      "body": "You can edit an assignment or review student progress and performance by clicking an assignment in your calendar.",
       "anchor_id": "calendar-task-plan",
       "action": {
         "id": "reposition"
@@ -51,13 +51,13 @@
       "anchor_id": "performance-forcast-button",
       "position": "bottom-left"
     }, {
-      "title": "View student scores here",
+      "title": "View student scores",
       "body": "View individual student performance and completion, and export student scores for your learning management system.",
       "anchor_id": "student-scores-button",
       "position": "bottom-right"
     }, {
       "title": "Manage your question library",
-      "body": "View all OpenStax Tutor questions and exclude questions you don't want students to get in your course.",
+      "body": "View all OpenStax Tutor questions here.",
       "anchor_id": "menu-option-viewQuestionsLibrary",
       "position": "left",
       "is_fixed": true,
