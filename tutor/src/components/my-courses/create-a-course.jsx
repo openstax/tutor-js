@@ -49,11 +49,9 @@ export default class CreateACourse extends React.PureComponent {
 
   render() {
     return (
-      <TourRegion id="create-a-course">
-        <TourAnchor id="create-course-zone">
-          {this.renderAddZone()}
-        </TourAnchor>
-      </TourRegion>
+      <TourAnchor id="create-course-zone">
+        {this.renderAddZone()}
+      </TourAnchor>
     );
   }
 }
