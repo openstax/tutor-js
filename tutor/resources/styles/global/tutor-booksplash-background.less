@@ -26,11 +26,12 @@
       font-size: 90%; // best we can do until font-size-adjust is supported
       font-weight: 100;
     }
-    &[data-appearance="intro_sociology"] {
-      .book-title-text::after {
-        color: @openstax-book-intro_sociology-fg-inverse;
+    .for(@openstax-book-fg-inverse-codes); .-each(@bookcode) {
+      &[data-appearance=@{bookcode}] .book-title-text::after {
+        color: ~"@{openstax-book-@{bookcode}-fg-inverse}";
       }
     }
+
   }
 
   > .course-term {
@@ -39,7 +40,6 @@
     font-size: 1.6rem;
     text-transform: capitalize;
   }
-
   .apply-booksplash-background(@code; @fg; @bg) {
     &[data-appearance=@{code}] {
         color: @@fg;
@@ -52,6 +52,7 @@
 
 
 }
+
 .tutor-booksplash-adjust-top-margin(@normal-top-margin: 100px, @short-top-margin: 35px){
   margin-top: @normal-top-margin;
 }
