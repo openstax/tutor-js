@@ -6,16 +6,21 @@ import TourRegion from '../../../src/models/tour/region';
 import TourContext from '../../../src/models/tour/context';
 import User from '../../../src/models/user';
 import Tour from '../../../src/models/tour';
+import browser from 'detect-browser';
 
+jest.mock('detect-browser', () => ({
+  name: 'not-ie',
+}));
 describe('Tour Context Model', () => {
   let context;
   let region;
   beforeEach(() => {
-    context = new TourContext({ isEnabled: true });
+    context = new TourContext();
     region = new TourRegion({ id: 'foo', courseId: '2', otherTours: ['teacher-calendar'] });
     bootstrapCoursesList();
   });
   afterEach(() => {
+    browser.name = 'not-ie';
     User.viewed_tour_stats.clear();
     each(Tour.all, t => {
       t.isEnabled = false;
@@ -88,16 +93,11 @@ describe('Tour Context Model', () => {
     expect(context.anchors.size).toBe(0);
   });
 
-  it('is disabled by default', () => {
+  it('is disabled for ie', () => {
+    expect(context.isEnabled).toBe(true);
+    browser.name = 'ie';
     context = new TourContext();
-    const tourSpy = jest.fn();
-    autorun(() => tourSpy(context.tourIds));
-    expect(tourSpy).toHaveBeenLastCalledWith([]);
     expect(context.isEnabled).toBe(false);
-    context.openRegion(region);
-    expect(context.tourIds).toHaveLength(0);
-    context.isEnabled = true;
-    expect(tourSpy).toHaveBeenLastCalledWith(['foo', 'teacher-calendar']);
   });
 
   it('emits debug info', () => {
