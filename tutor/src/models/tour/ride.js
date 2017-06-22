@@ -45,6 +45,7 @@ export default class TourRide extends BaseModel {
       scrollToSteps: tour.scrollToSteps,
       showOverlay: tour.showOverlay,
       steps: this.stepsToPlay,
+      className: tour.className,
     }, DEFAULT_JOYRIDE_CONFIG);
   }
 

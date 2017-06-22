@@ -52,8 +52,8 @@ export default class Tour extends BaseModel {
   @field showOverlay;
   @field autoplay = false;
   @field standalone = false;
-
   @field isEnabled = false;
+  @field className;
 
   @hasMany({ model: TourStep, inverseOf: 'tour' }) steps;
 
