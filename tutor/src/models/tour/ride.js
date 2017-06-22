@@ -17,6 +17,7 @@ const DEFAULT_JOYRIDE_CONFIG = {
   disableOverlay: true, // poorly named: still shows overlay, but disables canceling tours when it's clicked
   resizeDebounce: true,
   resizeDebounceDelay: 200,
+  holePadding: 0,
 };
 
 @identifiedBy('tour/ride')

@@ -11,7 +11,7 @@ import PreviewCourseOffering from '../../models/course/offerings/previews';
 import Courses from '../../models/courses-map';
 import User from '../../models/user';
 import CourseModel from '../../models/course';
-import AddCourse from './add-course';
+import CreateACourse from './create-a-course';
 import { CoursePreview, Course, CourseTeacher } from './course';
 
 function wrapCourseItem(Item, course = {}) {
@@ -37,7 +37,7 @@ function MyCoursesNone() {
   );
 }
 
-const MyCoursesAdd = () => wrapCourseItem(AddCourse);
+const MyCoursesCreate = () => wrapCourseItem(CreateACourse);
 
 const DEFAULT_COURSE_ITEMS = {
   teacher: CourseTeacher,
@@ -119,7 +119,7 @@ export class MyCoursesCurrent extends React.PureComponent {
           <MyCoursesBase
             className={`${baseName}-section`}
             courses={courses}
-            after={User.isConfirmedFaculty ? <MyCoursesAdd /> : undefined} />
+            after={User.isConfirmedFaculty ? <MyCoursesCreate /> : undefined} />
         </Grid>
       </div>
     );

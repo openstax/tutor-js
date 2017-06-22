@@ -11,6 +11,7 @@
       "customComponent": "HowToUsePreview"
     }, {
       "customComponent": "TipsNowOrLater",
+      "is_fixed": true,
       "body": "Learn more about the dashboard with our \"Page tips.\"",
       "anchor_id": "menu-option-page-tips",
       "action": {

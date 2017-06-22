@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany,
 } from './base';
 import { computed, action } from 'mobx';
-import { first, sortBy, find, get, endsWith, capitalize, some } from 'lodash';
+import { first, sortBy, find, get, endsWith, capitalize } from 'lodash';
 import { UiSettings } from 'shared';
 import Period  from './course/period';
 import Role    from './course/role';
@@ -115,13 +115,13 @@ export default class Course extends BaseModel {
     let tags = [];
     if (this.isTeacher) {
       tags.push(this.is_preview ? 'teacher-preview' : 'teacher');
-
-      if (this.taskPlans.reading.hasPublishing) {
-        tags.push('teacher-reading-published');
-      }
-
-      if (this.taskPlans.homework.hasPublishing) {
-        tags.push('teacher-homework-published');
+      if (!this.is_preview) {
+        if (this.taskPlans.reading.hasPublishing) {
+          tags.push('teacher-reading-published');
+        }
+        if (this.taskPlans.homework.hasPublishing) {
+          tags.push('teacher-homework-published');
+        }
       }
     }
     if (this.isStudent) { tags.push('student'); }

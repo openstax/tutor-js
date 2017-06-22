@@ -1,9 +1,14 @@
 import Courses from '../../src/models/courses-map';
 import { autorun } from 'mobx';
 import { bootstrapCoursesList } from '../courses-test-data';
-import UiSettings from 'shared/src/model/ui-settings';
+import TeacherTaskPlans from '../../src/models/teacher-task-plans';
 jest.mock('shared/src/model/ui-settings');
-
+jest.mock('../../src/models/teacher-task-plans', () => ({
+  forCourseId: jest.fn(() => ({
+    reading:  { hasPublishing: false },
+    homework: { hasPublishing: false },
+  })),
+}));
 describe('Course Model', () => {
 
   beforeEach(() => bootstrapCoursesList());
@@ -36,7 +41,15 @@ describe('Course Model', () => {
     expect(teacher.tourAudienceTags).toEqual(['teacher']);
     teacher.is_preview = true;
     expect(teacher.tourAudienceTags).toEqual(['teacher-preview']);
-    expect(Courses.get(3).tourAudienceTags).toEqual(['teacher', 'student']);
+    const course = Courses.get(3);
+    expect(course.tourAudienceTags).toEqual(['teacher', 'student']);
+    course.is_preview = false;
+
+    TeacherTaskPlans.forCourseId.mockImplementation(() => ({
+      reading: { hasPublishing: true },
+      homework: { hasPublishing: false },
+    }));
+    expect(course.tourAudienceTags).toEqual(['teacher', 'teacher-reading-published', 'student' ]);
   });
 
 

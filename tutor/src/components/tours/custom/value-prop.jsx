@@ -56,19 +56,19 @@ function CCSunsetMessage() {
       <ColumnContent>
         <Column className="thanks">
           <p>Thanks for participating in the<br/>
-          Concept Coach pilot! Read our<br/>
-          <a
-            target="_blank"
-            href="https://openstax.org/blog/concept-coach-ending-greater-tools-are-coming"
-          >blog post</a> to find out what we learned and how we’re moving forward.</p>
+            Concept Coach pilot! Read our<br/>
+            <a
+              target="_blank"
+              href="https://openstax.org/blog/concept-coach-ending-greater-tools-are-coming"
+            >blog post</a> to find out what we learned and how we’re moving forward.</p>
         </Column>
         <Column className="export-by">
           <p>The last day to export your<br/>
-          Concept Coach scores reports is October 1.</p>
+            Concept Coach scores reports is October 1.</p>
         </Column>
         <Column className="not-launched-yet">
           <p>We haven’t launched<br/>
-          OpenStax Tutor in your subject yet. We’ll let you know as soon as it’s available.</p>
+            OpenStax Tutor in your subject yet. We’ll let you know as soon as it’s available.</p>
         </Column>
       </ColumnContent>
     </ValueProp>
