@@ -6,6 +6,8 @@
 // books that we have thumbnails for.  Some appearance codes share thumbnails
 @openstax-book-thumbnails: intro_sociology physics hs_physics college_physics biology ap_biology college_biology ap_us_history;
 
+@openstax-book-fg-inverse-codes: intro_sociology anatomy_physiology;
+
 .book-content-thumbnail(intro_sociology) { .tutor-background-image("courses/sociology-book-thumbnail.png");       }
 .book-content-thumbnail(physics)         { .tutor-background-image("courses/hs_physics-book-thumbnail.png");      }
 .book-content-thumbnail(hs_physics)      { .tutor-background-image("courses/hs_physics-book-thumbnail.png");      }
@@ -24,6 +26,7 @@
 @openstax-book-orange: @tutor-primary;
 @openstax-book-warmer-blue: rgb(0, 36, 106);
 
+
 @openstax-book-blue-accent: rgb(40, 55, 124);
 @openstax-book-green-accent: lighten(@openstax-book-green, 5%);
 @openstax-book-yellow-accent: lighten(@openstax-book-yellow, 12%);
@@ -34,6 +37,7 @@
 @openstax-book-default-fg: @openstax-book-brighter-green;
 @openstax-book-default-bg: @openstax-book-gray;
 @openstax-book-default-accent: @openstax-book-gray-accent;
+@openstax-book-default-fg-inverse: @openstax-gold;
 
 // Physics
 @openstax-book-physics-fg: @openstax-book-green;
@@ -81,8 +85,10 @@
 
 @openstax-book-intro_sociology-fg: @openstax-book-warmer-blue;
 @openstax-book-intro_sociology-bg: @openstax-book-yellow;
+@openstax-book-intro_sociology-fg-inverse: @openstax-book-blue-accent;
 @openstax-book-intro_sociology-accent: @openstax-book-yellow-accent;
 
 @openstax-book-anatomy_physiology-fg: @openstax-book-orange;
+@openstax-book-anatomy_physiology-fg-inverse: @openstax-book-blue-accent;
 @openstax-book-anatomy_physiology-bg: @openstax-book-gray;
 @openstax-book-anatomy_physiology-accent: @openstax-book-gray-accent;
