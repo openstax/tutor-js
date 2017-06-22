@@ -34,7 +34,7 @@ export default class TourStep extends BaseModel {
   @field customComponent;
   @field requiredViewsCount = 1;
   @field({ type: 'object' }) action;
-
+  @field className;
   @computed get actionClass() {
     if (!this.action) { return null; }
     return Actions.forIdentifier(this.action.id);
@@ -55,6 +55,7 @@ export default class TourStep extends BaseModel {
       title: this.title,
       text:  this.HTML,
       isFixed: !!this.is_fixed,
+      className: this.className,
       style: this.supersize ? { width: 1000, padding: 0 } : {},
       position: this.position || ( this.anchor_id ? 'top' : 'center' ),
     };

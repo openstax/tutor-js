@@ -12,5 +12,23 @@
       "customComponent": "ValueProp"
     }
   ]
+}, {
+  "id": "create-a-course",
+  "autoplay": true,
+  "standalone": true,
+  "showOverlay": false,
+  "audience_tags": [
+    "teacher", "teacher-preview"
+  ],
+  "steps": [
+    {
+      "anchor_id": "create-course-zone",
+      "className": "button-less",
+      "position": "right",
+      "title": "Create a course anytime!",
+      "body":  "Click here to create a real course."
+    }
+  ]
 }
+
 ]
