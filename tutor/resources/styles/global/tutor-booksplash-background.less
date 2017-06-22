@@ -20,11 +20,15 @@
   }
 
   &[data-is-preview=true] {
-    > .book-title > .book-title-text {
-      &::after {
-        content: ' Preview';
-        color: @openstax-gold;
-        font-weight: 100;
+    .book-title-text::after {
+      content: ' Preview';
+      color: @openstax-book-default-fg-inverse;
+      font-size: 90%; // best we can do until font-size-adjust is supported
+      font-weight: 100;
+    }
+    &[data-appearance="intro_sociology"] {
+      .book-title-text::after {
+        color: @openstax-book-intro_sociology-fg-inverse;
       }
     }
   }
@@ -45,6 +49,7 @@
   .for(@openstax-book-appearance-codes); .-each(@code) {
     .apply-booksplash-background(@code, "openstax-book-@{code}-fg", "openstax-book-@{code}-bg");
   }
+
 
 }
 .tutor-booksplash-adjust-top-margin(@normal-top-margin: 100px, @short-top-margin: 35px){
