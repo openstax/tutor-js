@@ -1,5 +1,5 @@
 import React from 'react';
-import { Overlay, Popover } from 'react-bootstrap';
+
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import Router from '../../helpers/router';
@@ -8,19 +8,8 @@ import { wrapCourseDropComponent } from './course-dnd';
 import TutorLink from '../link';
 import IconAdd from '../icons/add';
 import Courses from '../../models/courses-map';
-
-function AddCoursePopover(props) {
-  return (
-
-    <Popover id='add-course-popover'
-      placement="right"
-      title="Create a course anytime!"
-    >
-      <p>Click here to create a real course.</p>
-    </Popover>
-
-  );
-}
+import TourAnchor from '../tours/anchor';
+import TourRegion from '../tours/region';
 
 @wrapCourseDropComponent @observer
 export default class CreateACourse extends React.PureComponent {
@@ -59,15 +48,12 @@ export default class CreateACourse extends React.PureComponent {
   }
 
   render() {
-    const addZone = this.renderAddZone();
-    if (Courses.nonPreview.isEmpty) {
-      return (
-        <div className="my-courses-add-wrapper">
-          {addZone}
-          <AddCoursePopover />
-        </div>
-      );
-    }
-    return addZone;
+    return (
+      <TourRegion id="create-a-course">
+        <TourAnchor id="create-course-zone">
+          {this.renderAddZone()}
+        </TourAnchor>
+      </TourRegion>
+    );
   }
 }
