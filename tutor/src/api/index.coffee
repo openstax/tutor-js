@@ -52,6 +52,8 @@ PerformanceForecast = require '../flux/performance-forecast'
 { default: TeacherTaskPlans } = require '../models/teacher-task-plans'
 { default: Student } = require '../models/course/student'
 { default: CourseEnroll } = require '../models/course/enroll'
+{ default: Payments } = require '../models/payments'
+
 
 BOOTSTRAPED_MODELS = {
   user:    User.bootstrap,
@@ -251,6 +253,8 @@ startAPI = ->
 
 
 start = (bootstrapData) ->
+  console.log(bootstrapData)
+  Payments.embed_js_url = bootstrapData.payments_embed_js_url
   for storeId, action of BOOTSTRAPED_MODELS
     data = bootstrapData[storeId]
     action(data) if data

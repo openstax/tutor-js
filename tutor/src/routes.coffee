@@ -8,10 +8,6 @@ getDashboard = ->
   ConditionalHandlers = require './helpers/conditional-handlers'
   ConditionalHandlers.dashboard
 
-getStudentDashboardShell = ->
-  {StudentDashboardShell} = require './components/student-dashboard'
-  StudentDashboardShell
-
 getTeacherTaskPlans = ->
   {default: TeacherTaskPlans} = require './components/course-calendar'
   TeacherTaskPlans

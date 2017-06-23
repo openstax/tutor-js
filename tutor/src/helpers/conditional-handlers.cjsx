@@ -6,7 +6,7 @@ TutorRouter = require '../helpers/router'
 {default: InvalidPage} = require '../components/invalid-page'
 
 {default: CCStudentRedirect}       = require '../components/cc-student-redirect'
-{StudentDashboardShell} = require '../components/student-dashboard'
+{default: StudentDashboardShell} = require '../components/student-dashboard'
 CCDashboard = require '../components/cc-dashboard'
 {CourseStore} = require '../flux/course'
 
