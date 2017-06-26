@@ -133,7 +133,7 @@ function addRouteProperty(route, property, rules, options, defaults) {
 const UserMenu = observable({
 
   get helpURL() {
-    return find(Courses.array, 'is_concept_coach') ? CONCEPT_COACH_HELP : TUTOR_HELP;
+    return TUTOR_HELP;
   },
 
   helpLinkForCourseId(courseId) {
