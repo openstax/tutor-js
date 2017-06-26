@@ -108,7 +108,7 @@ describe('Current User Store', function() {
     expect(UserMenu.helpURL).toContain('Tutor');
     expect(UserMenu.helpLinkForCourseId(1)).toContain('Tutor');
     Courses.get(1).is_concept_coach = true;
-    expect(UserMenu.helpURL).toContain('Coach');
+    expect(UserMenu.helpURL).toContain('Tutor');
     expect(UserMenu.helpLinkForCourseId(1)).toContain('Coach');
   });
 
