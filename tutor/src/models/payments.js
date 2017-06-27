@@ -1,8 +1,8 @@
 import {
   BaseModel, identifiedBy, field, hasMany,
 } from './base';
-
-import { action, observable, when } from 'mobx';
+import {  extend } from 'lodash';
+import { action, observable, when,computed } from 'mobx';
 import loadjs from 'loadjs';
 
 let EMBED_URL = '';
@@ -17,18 +17,32 @@ export default class Payments extends BaseModel {
   @observable isBusy = false;
   @observable errorMsg = ''
   @observable element;
+  @observable parentCallbacks;
 
-  constructor() {
+  constructor(options) {
     super();
+    this.options = options;
     when(
       () => this.element && EMBED_URL,
       this.fetch,
     );
   }
 
-  @action.bound fetch() {
-    this.isBusy = true;
+  close() {
+    if (this.remote) {
 
+    }
+  }
+
+  @computed get callbacks() {
+    return extend({}, this.parentCallbacks, {
+
+    });
+  }
+
+  @action.bound
+  fetch() {
+    this.isBusy = true;
     loadjs(EMBED_URL, {
       success: this.createIframe,
       error: (e) => this.errorMsg = `Unable to request assets: ${e}`,
@@ -36,13 +50,16 @@ export default class Payments extends BaseModel {
 
   }
 
-  @action.bound createIframe() {
+  @action.bound
+  createIframe() {
     const { OSPayments } = window;
-    this.remote = new OSPayments(this.params);
+
+    this.remote = new OSPayments(this.options);
+
     this.remote.createIframe(this.element).then(() => {
       this.isBusy = false;
     });
-  }
 
+  }
 
 }
