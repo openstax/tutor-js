@@ -253,7 +253,6 @@ startAPI = ->
 
 
 start = (bootstrapData) ->
-  console.log(bootstrapData)
   Payments.embed_js_url = bootstrapData.payments_embed_js_url
   for storeId, action of BOOTSTRAPED_MODELS
     data = bootstrapData[storeId]
