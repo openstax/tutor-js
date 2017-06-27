@@ -12,22 +12,36 @@ export default class SuperTrainingWheel extends React.PureComponent {
 
   className = 'super-training-wheel'
 
-  @action.bound
-  handleClick = bindClickHandler.call(this, {close: this.triggerNext.bind(this)});
+  static propTypes = {
+    step: React.PropTypes.object,
+    onClick: React.PropTypes.func,
+    children: React.PropTypes.node,
+    buttons: React.PropTypes.object,
+    style: React.PropTypes.object,
+    className: React.PropTypes.string,
+  }
 
   triggerNext() {
     if (this.props.step.step.tour.autoplay) {
       this.props.step.joyrideRef.next();
-      return true;      
+      return true;
     }
 
     return false;
   }
 
+  defaultContinueHandler = bindClickHandler.call(this, { close: this.triggerNext.bind(this) });
+
+  @action.bound
+  handleClick(ev) {
+    const handler = this.props.onClick || this.defaultContinueHandler;
+    handler(ev);
+  }
+
   render () {
     const { step } = this.props;
     const buttons = step.step.tour.autoplay? { primary: 'Continue' } : {};
-    const className = classnames(this.className,  this.props.className);
+    const className = classnames(this.className, this.props.className);
 
     step.text = this.props.children;
     step.isFixed = true;
