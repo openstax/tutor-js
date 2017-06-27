@@ -7,22 +7,7 @@ import { Button } from 'react-bootstrap';
 import Icon from '../icon';
 import Courses from '../../models/courses-map';
 import PopoutWindow from 'shared/src/components/popout-window';
-
-const VIDEOS = {
-  college_biology: {
-    homework: 'kzvHLFsQDTM',
-    reading: '4neNaHRyTUw',
-  },
-  college_physics: {
-    homework: 'Ic2_9LYXY84',
-    reading: 'tCocd4jCVCA',
-  },
-  intro_sociology: {
-    homework: 'Ki-y2AywXlI',
-    reading: 'GF05th84Bw8',
-  },
-}
-
+import StudentPreviewUX from '../../models/course/student-preview-ux';
 
 @observer
 export default class BuilderPopup extends React.Component {
@@ -48,17 +33,13 @@ export default class BuilderPopup extends React.Component {
     this.popup.open();
   }
 
-  @computed get videoId() {
-    const course = Courses.get(this.props.courseId);
-    if (course && VIDEOS[course.appearance_code]) {
-      return VIDEOS[course.appearance_code][this.props.planType];
-    }
-    return null;
-  }
+  ux = new StudentPreviewUX(
+    Courses.get(this.props.courseId), this.props.planType
+  )
 
   render() {
-    const { videoId } = this;
-    if (!videoId) { return null; }
+    const { builderVideoId } = this.ux;
+    if (!builderVideoId) { return null; }
 
     return (
       <Button
@@ -85,7 +66,7 @@ export default class BuilderPopup extends React.Component {
               Student view of your own assignment coming soon!
             </p>
             <YouTube
-              videoId={videoId}
+              videoId={builderVideoId}
               opts={{
                 width: '100%',
                 playerVars: {
