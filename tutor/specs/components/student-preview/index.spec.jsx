@@ -2,13 +2,15 @@ import { Wrapper, SnapShot } from '../helpers/component-testing';
 import StudentPreview from '../../../src/components/student-preview';
 import Router from '../../../src/helpers/router';
 import EnzymeContext from '../helpers/enzyme-context';
+import { bootstrapCoursesList } from '../../courses-test-data';
 
 jest.mock('../../../src/helpers/router');
 
 describe('Student Preview Builder', () => {
 
   it('renders and matches snapshot', () => {
-    Router.currentParams.mockReturnValue({ courseId: '1' });
+    bootstrapCoursesList();
+    Router.currentParams.mockReturnValue({ courseId: '2' });
     Router.makePathname.mockImplementation(() => '/foo');
     expect(
       SnapShot.create(<Wrapper noReference _wrapped_component={StudentPreview} />).toJSON()

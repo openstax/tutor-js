@@ -5,10 +5,25 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import YouTube from 'react-youtube';
 import BackButton from '../buttons/back-button';
 import CourseBranding from '../branding/course';
+import Courses from '../../models/courses-map';
+import StudentPreviewUX from '../../models/course/student-preview-ux';
+
+function PreviewVideo({ux, type}) {
+  const studentPreviewVideoId = ux.studentPreviewVideoId(type);
+  if (!studentPreviewVideoId) { return null; }
+  return (
+    <YouTube
+      videoId={studentPreviewVideoId}
+      opts={{ width: '100%' }}
+    />
+  );
+}
 
 export default function StudentPreview() {
   const params = Router.currentParams();
   const { courseId } = params;
+  const ux = new StudentPreviewUX(Courses.get(courseId));
+
   const backLink = courseId ? { to: 'dashboard', text: 'Back to Dashboard', params: { courseId } } :
                    { to: 'myCourses', text: 'Back to My Courses' };
 
@@ -28,10 +43,8 @@ export default function StudentPreview() {
         </Col>
         <Col sm={6} className="vid">
           <YouTube
-            videoId="AEUgriQUjPc"
-            opts={{
-              width: '100%',
-            }}
+            videoId={ux.genericStudentDashboardVideoId}
+            opts={{ width: '100%' }}
           />
         </Col>
       </Row>
@@ -44,12 +57,7 @@ export default function StudentPreview() {
           </p>
         </Col>
         <Col sm={6} className="vid">
-          <YouTube
-            videoId="emjbBoV0Ixs"
-            opts={{
-              width: '100%',
-            }}
-          />
+          <PreviewVideo ux={ux} type='reading' />
         </Col>
       </Row>
 
@@ -61,12 +69,7 @@ export default function StudentPreview() {
           </p>
         </Col>
         <Col sm={6} className="vid">
-          <YouTube
-            videoId="Aoco1IRixZA"
-            opts={{
-              width: '100%',
-            }}
-          />
+          <PreviewVideo ux={ux} type='homework' />
         </Col>
       </Row>
 
