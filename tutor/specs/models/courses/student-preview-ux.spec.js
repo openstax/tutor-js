@@ -36,4 +36,10 @@ describe('Course Student Preview UX Model', () => {
     ux.playType=null;
     expect(ux.studentPreviewVideoId('reading')).toEqual('tCocd4jCVCA');
   });
+  it('has readonly student dash vid', () => {
+    expect(ux.genericStudentDashboardVideoId).toEqual('IbYU5py9YP8');
+    expect(() => {
+      ux.genericStudentDashboardVideoId = 'bad';
+    }).toThrow();
+  });
 });

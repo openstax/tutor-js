@@ -1,4 +1,5 @@
 import { computed, observable } from 'mobx';
+import { readonly } from 'core-decorators';
 
 const VIDEOS = {
   college_biology: {
@@ -20,12 +21,14 @@ export default class CourseStudentPreviewUX {
   @observable course;
   @observable planType;
 
+  @readonly genericStudentDashboardVideoId = 'IbYU5py9YP8';
+
   constructor(course, planType) {
     this.course = course;
     this.planType = planType;
   }
 
-  isPlanTypeValid(planType) {
+  isPlanTypeValid(planType = this.planType) {
     return Boolean(
       ['reading', 'homework'].includes(planType)
     );
@@ -44,5 +47,6 @@ export default class CourseStudentPreviewUX {
     }
     return null;
   }
+
 
 }

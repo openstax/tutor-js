@@ -43,7 +43,7 @@ export default function StudentPreview() {
         </Col>
         <Col sm={6} className="vid">
           <YouTube
-            videoId="AEUgriQUjPc"
+            videoId={ux.genericStudentDashboardVideoId}
             opts={{ width: '100%' }}
           />
         </Col>
