@@ -2,7 +2,7 @@ import React from 'react';
 import { inject, observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { action, observe, observable } from 'mobx';
 import { Modal } from 'react-bootstrap';
-import { get, pick } from 'lodash';
+import { delay } from 'lodash';
 import { autobind } from 'core-decorators';
 import User from '../../models/user';
 
@@ -13,10 +13,20 @@ import Payments from '../../models/payments';
 @observer
 export default class PaymentsModal extends React.PureComponent {
 
+  @observable isDismissed;
+  @observable hasPaid;
+
   @action.bound
   onDismiss() { this.isDismissed = true; }
 
-  ux = new Payments();
+
+  ux = new Payments({
+    productUUID: 'e6d22dbc-0a01-5131-84ba-2214bbe4d74d',
+    messageHandlers: {
+      cancel: this.onDismiss,
+      payment: this.onDismiss, // will probably be different (display thanks?)
+    },
+  })
 
   render() {
     // TODO something like this?:
@@ -36,6 +46,7 @@ export default class PaymentsModal extends React.PureComponent {
           className="payments-wrapper"
           ref={b => ux.element=b}
         />
+
 
         <OXFancyLoader isLoading={ux.isBusy} />
 
