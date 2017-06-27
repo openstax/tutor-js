@@ -30,19 +30,21 @@ export default class CourseStudentPreviewUX {
 
   isPlanTypeValid(planType = this.planType) {
     return Boolean(
-      ['reading', 'homework'].includes(planType)
+      this.course && VIDEOS[this.course.appearance_code] && ['reading', 'homework'].includes(planType)
     );
   }
 
+  // while these two methods below really do the same thing they weren't in that past
+  // and may not be in the future. Allows video's to be more specific
   @computed get builderVideoId() {
-    if (VIDEOS[this.course.appearance_code] && this.isPlanTypeValid()) {
+    if (this.isPlanTypeValid()) {
       return VIDEOS[this.course.appearance_code][this.planType];
     }
     return null;
   }
 
   studentPreviewVideoId(planType) {
-    if (VIDEOS[this.course.appearance_code] && this.isPlanTypeValid(planType)) {
+    if (this.isPlanTypeValid(planType)) {
       return VIDEOS[this.course.appearance_code][planType];
     }
     return null;

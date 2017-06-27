@@ -62,14 +62,7 @@ exports[`Student Preview Builder renders and matches snapshot 1`] = `
     </div>
     <div
       className="vid col-sm-6"
-    >
-      <span>
-        <div
-          className={undefined}
-          id={undefined}
-        />
-      </span>
-    </div>
+    />
   </div>
   <div
     className="section row"
@@ -93,14 +86,7 @@ exports[`Student Preview Builder renders and matches snapshot 1`] = `
     </div>
     <div
       className="vid col-sm-6"
-    >
-      <span>
-        <div
-          className={undefined}
-          id={undefined}
-        />
-      </span>
-    </div>
+    />
   </div>
 </div>
 `;

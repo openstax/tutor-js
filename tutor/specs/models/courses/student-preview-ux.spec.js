@@ -10,13 +10,13 @@ describe('Course Student Preview UX Model', () => {
     ux = new CourseStudentPreviewUX(course, 'reading');
   });
   it('checks for valid planTypes', () => {
-    expect(ux.isPlanTypeValid()).toBe(true);
-    ux.planType = 'bad';
     expect(ux.isPlanTypeValid()).toBe(false);
+    ux.course.appearance_code = 'college_biology';
+    expect(ux.isPlanTypeValid()).toBe(true);
     expect(ux.isPlanTypeValid('homework')).toBe(true);
   });
   it('doesnt blowup on invalid codes', () => {
-    expect(ux.isPlanTypeValid()).toBe(true);
+    expect(ux.isPlanTypeValid()).toBe(false);
     expect(ux.builderVideoId).toBeNull();
     expect(ux.studentPreviewVideoId('reading')).toBeNull();
   });
