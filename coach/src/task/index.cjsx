@@ -102,17 +102,6 @@ TaskBase = React.createClass
     {steps} = @state
     steps[stepIndex] is 'continue'
 
-  fetchTask: ->
-    tasks.fetchByModule(@props)
-
-  componentWillMount: ->
-    api.channel.on('exercise.*.*.receive.*', @fetchTask)
-    exercises.channel.on('leave.*', @nextStep)
-
-  componentWillUnmount: ->
-    api.channel.off('exercise.*.*.receive.*', @fetchTask)
-    exercises.channel.off('leave.*', @nextStep)
-
   componentWillReceiveProps: (nextProps) ->
     nextState = @getState(nextProps)
 

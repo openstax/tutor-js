@@ -91,6 +91,7 @@ init = ->
     tasks = {}
 
   api.channel.on('task.*.*.receive.*', update)
+  api.channel.on('exercise.*.complete.receive.success', update)
 
 module.exports = {
   init,

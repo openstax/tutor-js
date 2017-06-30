@@ -33,6 +33,11 @@ load = (stepId, data) ->
   steps[stepId] = data
   channel.emit("load.#{stepId}", {data})
 
+stepCompletedUpdate = (eventData) ->
+  {data, config, response} = eventData
+  stepData = _.find(data.steps, (step) -> step.id is config.topic)
+  load(config.topic, stepData)
+
 update = (eventData) ->
   {data, config, response} = eventData
 
@@ -90,6 +95,8 @@ init = ->
   user.channel.on 'change', ->
     steps = {}
 
-  api.channel.on("exercise.*.*.receive.success", update)
+  api.channel.on("exercise.*.fetch.receive.success", update)
+  api.channel.on("exercise.*.save.receive.success", update)
+  api.channel.on('exercise.*.complete.receive.success', stepCompletedUpdate)
 
 module.exports = {fetch, getCurrentPanel, get, getAllParts, init, channel, quickLoad, cacheFreeResponse}
