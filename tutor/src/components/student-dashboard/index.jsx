@@ -21,7 +21,7 @@ export default class StudentDashboardShell extends React.PureComponent {
       <div className="student-dashboard ">
         <TermsModal />
 
-        <PaymentsModal /> {/* FOR TESTING ONLY */}
+        <PaymentsModal courseId={courseId} /> {/* FOR TESTING ONLY */}
 
         <LoadableItem
           id={courseId}

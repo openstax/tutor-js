@@ -5,6 +5,7 @@ import { Modal } from 'react-bootstrap';
 import { delay } from 'lodash';
 import { autobind } from 'core-decorators';
 import User from '../../models/user';
+import Courses from '../../models/courses-map';
 
 import OXFancyLoader from '../ox-fancy-loader';
 
@@ -16,12 +17,17 @@ export default class PaymentsModal extends React.PureComponent {
   @observable isDismissed;
   @observable hasPaid;
 
+  static propTypes = {
+    courseId: React.PropTypes.string.isRequired,
+  }
+
   @action.bound
   onDismiss() { this.isDismissed = true; }
 
 
   ux = new Payments({
-    productUUID: 'e6d22dbc-0a01-5131-84ba-2214bbe4d74d',
+    product_uuid: 'e6d22dbc-0a01-5131-84ba-2214bbe4d74d',
+    course: Courses.get(this.props.courseId),
     messageHandlers: {
       cancel: this.onDismiss,
       payment: this.onDismiss, // will probably be different (display thanks?)
