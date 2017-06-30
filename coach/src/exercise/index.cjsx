@@ -45,7 +45,7 @@ ExerciseBase = React.createClass
     if not sections?.length then return
 
     section = _.first(sections)
-    console.info(section)
+
     <div key='task-help-links' className='task-help-links'>
       Comes from {@sectionFormat(section.chapter_section)} - {section.title}
     </div>
