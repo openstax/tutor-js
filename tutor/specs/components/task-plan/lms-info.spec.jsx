@@ -27,17 +27,22 @@ describe('LmsInfo Component', function() {
     const info = mount(<LmsInfoLink {...props} />);
     info.find('.get-link').simulate('click');
     expect(document.querySelector('.popover-title').textContent).toContain('No assignment link');
+    info.unmount();
   });
 
-  it('does not render when there are no stats', function() {
-    const info = shallow(<LmsInfoLink {...props} />);
-    expect(info.html()).toBeNull();
+  it('renders with message even when there is no url', function() {
+    TaskPlanStore.TaskPlanStatsStore.get.mockReturnValueOnce({});
+    props.plan.shareable_url = '';
+    const info = mount(<LmsInfoLink {...props} />);
+    expect(info.html()).not.toBeNull();
+    info.unmount();
   });
 
   it('renders with stats', () => {
     TaskPlanStore.TaskPlanStatsStore.get.mockReturnValueOnce({ shareable_url: 'foo' });
     const info = shallow(<LmsInfoLink {...props} />);
     expect(info).toHaveRendered('.get-link');
+    info.unmount();
   });
 
   it('displays popover when clicked', () => {
@@ -45,5 +50,6 @@ describe('LmsInfo Component', function() {
     const info = mount(<LmsInfoLink {...props} />);
     info.find('.get-link').simulate('click');
     expect(document.querySelector('.body input').value).toContain('foo');
+    info.unmount();
   });
 });
