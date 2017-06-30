@@ -73,7 +73,7 @@ export class LmsInfoLink extends React.PureComponent {
   @computed get url() {
     const l = window.location;
     const { shareable_url } = this.getStats();
-    return `${l.protocol}//${l.host}${shareable_url}`;
+    return shareable_url ? `${l.protocol}//${l.host}${shareable_url}` : null;
   }
 
   @computed get isPreview() {
@@ -81,7 +81,7 @@ export class LmsInfoLink extends React.PureComponent {
   }
 
   @computed get popOverBody() {
-    if (this.isPreview) {
+    if (this.isPreview || !this.url) {
       return (
         <div className="body">
           {this.props.plan.title}
@@ -137,7 +137,6 @@ export class LmsInfoLink extends React.PureComponent {
   }
 
   render() {
-    if (!this.getStats().shareable_url) { return null; }
 
     return (
       <div className="lms-info">
