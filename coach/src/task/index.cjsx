@@ -102,6 +102,12 @@ TaskBase = React.createClass
     {steps} = @state
     steps[stepIndex] is 'continue'
 
+  componentWillMount: ->
+    exercises.channel.on('leave.*', @nextStep)
+
+  componentWillUnmount: ->
+    exercises.channel.off('leave.*', @nextStep)
+
   componentWillReceiveProps: (nextProps) ->
     nextState = @getState(nextProps)
 
