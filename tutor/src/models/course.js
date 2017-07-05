@@ -116,6 +116,11 @@ export default class Course extends BaseModel {
     return TeacherTaskPlans.forCourseId(this.id);
   }
 
+  // FIXME use payment status from BE once that's complete
+  @computed get needsPayment() {
+    return this.isStudent;
+  }
+
   @computed get tourAudienceTags() {
     let tags = [];
     if (this.isTeacher) {
