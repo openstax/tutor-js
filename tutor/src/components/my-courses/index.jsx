@@ -46,7 +46,11 @@ export default class MyCourses extends React.PureComponent {
     return (
       <TourRegion
         id="my-courses"
-        otherTours={['create-a-course']}
+        otherTours={[
+          'my-courses-coach-migrate',
+          'my-courses-coach-no-migrate',
+          'create-a-course'
+        ]}
         className="my-courses"
       >
         <MyCoursesCurrent />

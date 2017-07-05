@@ -50,11 +50,43 @@ export class User extends BaseModel {
     return this.terms ? this.terms.unsigned : [];
   }
 
+  @computed get isCoachTeacher() {
+    return Courses.conceptCoach.any;
+  }
+
+  @computed get isCoachTeacherWithoutMigration() {
+
+    if (!this.isCoachTeacher) {
+      return false;
+    }
+
+    const sunset = Courses.where((c) => c.isSunsetting);
+    return (sunset.any && sunset.size === Courses.nonPreview.size);
+  }
+
   @computed get tourAudienceTags() {
-    if (Courses.active.isEmpty && this.isConfirmedFaculty) { return ['teacher']; }
-    if (Courses.active.teaching.nonPreview.any) { return ['teacher']; }
-    if (Courses.active.teaching.any) { return ['teacher-preview']; }
-    return [];
+    let tags = [];
+
+    if (
+      (Courses.active.isEmpty && this.isConfirmedFaculty) ||
+      Courses.active.teaching.nonPreview.any
+    ) {
+      tags.push('teacher');
+
+      if (this.isCoachTeacher) {
+        if (this.isCoachTeacherWithoutMigration) {
+          tags.push('teacher-coach-no-migration');
+        } else {
+          tags.push('teacher-coach-with-migration');
+        }
+      } else {
+        tags.push('teacher-no-coach');
+      }
+
+    } else if (Courses.active.teaching.any) {
+      tags.push('teacher-preview');
+    }
+    return tags;
   }
 
   resetTours() {

@@ -26,7 +26,10 @@ export default class SuperTrainingWheel extends React.PureComponent {
 
   render () {
     const { step } = this.props;
-    const buttons = step.step.tour.autoplay? { primary: 'Continue' } : {};
+    const buttons = step.step.tour.autoplay? {
+      primary: 'Continue',
+      secondary: null
+    } : {};
     const className = classnames(this.className,  this.props.className);
 
     step.text = this.props.children;
