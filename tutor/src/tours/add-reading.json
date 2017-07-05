@@ -27,6 +27,8 @@
   ],
   "steps": [
     {
+      "customComponent": "HowToBuildYourReading"
+    }, {
       "title": "OpenStax Tutor reading assignments",
       "body": "Reading assignments include book content, formative questions, and one to three spaced practice questions per section of the book."
     }, {
