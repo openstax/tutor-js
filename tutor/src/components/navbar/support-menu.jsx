@@ -89,9 +89,6 @@ class SupportMenuDropDown extends React.PureComponent {
       <TourAnchor
         tag="ul"
         bsRole="menu"
-        omitProps={[
-          'bsRole', 'ariaLabelledby', 'pullRight', 'bsClass', 'labelledBy', 'onClose', 'rootCloseEvent',
-        ]}
         id="support-menu-button"
         ariaLabelledby="support-menu"
         onSelect={this.onSelect}

@@ -30,22 +30,9 @@ exports[`Support Menu renders and matches snapshot 1`] = `
     />
   </a>
   <ul
-    ariaLabelledby="support-menu"
-    bsRole="menu"
     className="tour-anchor dropdown-menu dropdown-menu-right"
     data-tour-anchor-id="support-menu-button"
     id="support-menu-button"
-    omitProps={
-      Array [
-        "bsRole",
-        "ariaLabelledby",
-        "pullRight",
-        "bsClass",
-        "labelledBy",
-        "onClose",
-        "rootCloseEvent",
-      ]
-    }
     onSelect={[Function]}
   >
     <li

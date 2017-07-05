@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react';
 import { extend } from 'lodash';
 import TourContext from '../../models/tour/context';
 import cn from 'classnames';
+import { ReactHelpers } from 'shared';
 
 @inject((allStores, props) => ({
   tourContext: ( props.tourContext || allStores.tourContext ),
@@ -38,11 +39,12 @@ export default class TourAnchor extends React.PureComponent {
 
   render() {
     const { tag, className, tourContext: _, ...otherProps } = this.props;
+
     return React.createElement(tag, extend({
       className: cn('tour-anchor', className),
       'data-tour-anchor-id': this.props.id,
       ref: ref => (this.wrapperEl = ref),
-    }, otherProps), this.props.children);
+    }, ReactHelpers.filterProps(otherProps)), this.props.children);
   }
 
 }
