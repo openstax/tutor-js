@@ -6,7 +6,6 @@ import LoadableItem from '../loadable-item';
 import StudentDashboard from './dashboard';
 
 import TermsModal from '../terms-modal';
-import PaymentsModal from '../payments/modal';
 
 export default class StudentDashboardShell extends React.PureComponent {
 
@@ -20,8 +19,6 @@ export default class StudentDashboardShell extends React.PureComponent {
     return (
       <div className="student-dashboard ">
         <TermsModal />
-
-        <PaymentsModal courseId={courseId} /> {/* FOR TESTING ONLY */}
 
         <LoadableItem
           id={courseId}
