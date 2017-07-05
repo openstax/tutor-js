@@ -40,7 +40,7 @@ export default class Payments extends BaseModel {
 
   close() {
     if (this.remote) {
-
+      this.remote.close();
     }
   }
 
@@ -53,11 +53,14 @@ export default class Payments extends BaseModel {
   @action.bound
   fetch() {
     this.isBusy = true;
-    loadjs(EMBED_URL, {
-      success: this.createIframe,
-      error: (e) => this.errorMsg = `Unable to request assets: ${e}`,
-    });
-
+    if (window.OSPayments) { // may already be loaded
+      this.createIframe();
+    } else {
+      loadjs(EMBED_URL, {
+        success: this.createIframe,
+        error: (e) => this.errorMsg = `Unable to request assets: ${e}`,
+      });
+    }
   }
 
   get remotePaymentOptions() {
