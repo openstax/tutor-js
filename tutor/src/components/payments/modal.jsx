@@ -13,51 +13,37 @@ import Payments from '../../models/payments';
 
 @observer
 export default class PaymentsModal extends React.PureComponent {
-
-  @observable isDismissed;
-  @observable hasPaid;
-
   static propTypes = {
+    onComplete: React.PropTypes.func.isRequired,
     courseId: React.PropTypes.string.isRequired,
   }
 
-  @action.bound
-  onDismiss() { this.isDismissed = true; }
-
+  @observable isDismissed;
+  @observable hasPaid;
 
   ux = new Payments({
     product_uuid: 'e6d22dbc-0a01-5131-84ba-2214bbe4d74d',
     course: Courses.get(this.props.courseId),
     messageHandlers: {
-      cancel: this.onDismiss,
-      payment: this.onDismiss, // will probably be different (display thanks?)
+      cancel: this.props.onComplete,
+      payment: this.props.onComplete, // will probably be different (display thanks?)
     },
   })
 
+  componentWillUnmount() {
+    this.ux.close();
+  }
+
   render() {
-    // TODO something like this?:
-    // if (!User.needsPayment) { return null }
     const { ux } = this;
 
     return (
-      <Modal
-        show={!this.isDismissed}
-        onHide={this.onClose}
-        className="payments"
-      >
-        <Modal.Header>
-          PAYME!
-        </Modal.Header>
+      <Modal show className="payments">
         <div
           className="payments-wrapper"
           ref={b => ux.element=b}
         />
-
-
         <OXFancyLoader isLoading={ux.isBusy} />
-
-
-
       </Modal>
     );
   }
