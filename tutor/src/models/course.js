@@ -142,7 +142,9 @@ export default class Course extends BaseModel {
 
   @computed get isSunsetting() {
     return !!(this.is_concept_coach && !(
-        /biology/.test(this.appearance_code) || /physics/.test(this.appearance_code)
+        /biology/.test(this.appearance_code) ||
+        /physics/.test(this.appearance_code) ||
+        /sociology/.test(this.appearance_code)
     ));
   }
 }

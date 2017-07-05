@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Welcome to Tutor matches snapshot for welcome to tutor 1`] = `
+<div
+  className="value-prop welcome-to-tutor"
+>
+  <h1
+    className="heading"
+  >
+    Welcome to 
+    <span
+      className="course-branding"
+      data-is-beta={true}
+    >
+      OpenStax Tutor
+    </span>
+    !
+  </h1>
+  <h2
+    className="sub-heading"
+  >
+    Improve how your students learn with research-based technology — for only 
+    $10
+    .
+  </h2>
+  <div
+    className="column-content"
+  >
+    <div
+      className="column spaced"
+    >
+      <h3>
+        Spaced practice
+      </h3>
+      <p>
+        Help students remember what they previously learned
+      </p>
+    </div>
+    <div
+      className="column personalized"
+    >
+      <h3>
+        Personalized questions
+      </h3>
+      <p>
+        Help students improve where they need it most
+      </p>
+    </div>
+    <div
+      className="column two-step"
+    >
+      <h3>
+        Two-step questions
+      </h3>
+      <p>
+        Help students study more effectively
+      </p>
+    </div>
+    <div
+      className="column low-cost"
+    >
+      <h3>
+        Low cost
+      </h3>
+      <p>
+        $10
+         per course saves students money
+      </p>
+    </div>
+  </div>
+</div>
+`;

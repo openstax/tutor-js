@@ -4,6 +4,7 @@ import classnames   from 'classnames';
 import { forEach }  from 'lodash';
 
 import CourseUX from '../../../models/course/ux';
+import CourseBranding from '../../branding/course';
 
 function ValueProp({ className, children }) {
   return <div className={classnames('value-prop', className)}>{children}</div>;
@@ -96,6 +97,15 @@ function TutorCoachSunset(props) {
   );
 }
 
+function WelcomeToTutorMessage(props) {
+  return (
+    <ValueProp className="welcome-to-tutor">
+      <h1 className="heading">Welcome to <CourseBranding />!</h1>
+      {props.children}
+      <TutorValueColumns />
+    </ValueProp>
+  );
+}
 
 export {
   ValueProp,
@@ -103,5 +113,6 @@ export {
   Column,
   TutorValueColumns,
   TutorCoachSunset,
+  WelcomeToTutorMessage,
   bindClickHandler
 };
