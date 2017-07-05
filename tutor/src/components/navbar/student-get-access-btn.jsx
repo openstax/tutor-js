@@ -43,7 +43,7 @@ export default class StudentGetAccessBtn extends React.PureComponent {
     if (!courseId || !Courses.get(courseId).needsPayment) { return null; }
 
     return (
-      <Button bsStyle="primary" onClick={this.onClick}>
+      <Button bsStyle="primary" onClick={this.onClick} className="get-access visible-when-debugging">
         {this.renderModal()}
         Get access
       </Button>
