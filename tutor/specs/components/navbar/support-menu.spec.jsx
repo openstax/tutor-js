@@ -22,6 +22,7 @@ describe('Support Menu', () => {
     region = new TourRegion({ id: 'foo', courseId: '2', otherTours: ['teacher-calendar'] });
     context.openRegion(region);
     expect(context.hasTriggeredTour).toBe(true);
+    expect(context.hasTriggeredTour).toBe(true);
     expect(menu).toHaveRendered('.page-tips');
   });
 

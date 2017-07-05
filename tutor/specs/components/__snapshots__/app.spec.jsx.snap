@@ -60,18 +60,10 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
               />
             </a>
             <ul
-              ariaLabelledby="support-menu"
-              bsClass="dropdown-menu"
-              bsRole="menu"
               className="tour-anchor dropdown-menu dropdown-menu-right"
               data-tour-anchor-id="support-menu-button"
               id="support-menu-button"
-              labelledBy="support-menu"
-              onClose={[Function]}
               onSelect={[Function]}
-              open={undefined}
-              pullRight={undefined}
-              rootCloseEvent={undefined}
             >
               <li
                 className="-help-link"

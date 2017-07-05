@@ -4,6 +4,7 @@ import { flatten } from 'lodash';
 import EnzymeContext from './helpers/enzyme-context';
 import Courses from '../../src/models/courses-map';
 import User from '../../src/models/user';
+import moment from 'moment';
 jest.mock('../../src/models/chat');
 
 import { bootstrapCoursesList, STUDENT_COURSE_ONE_MODEL, TEACHER_COURSE_TWO_MODEL, TEACHER_AND_STUDENT_COURSE_THREE_MODEL, MASTER_COURSES_LIST, TUTOR_HELP, CONCEPT_COACH_HELP, STUDENT_ARCHIVED_COURSE, TEACHER_PAST_COURSE, STUDENT_PAST_COURSE } from '../courses-test-data';
@@ -24,7 +25,7 @@ describe('My Courses Component', function() {
     const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
     for (let i = 0; i < MASTER_COURSES_LIST.length; i++) {
       const course = MASTER_COURSES_LIST[i];
-      expect(wrapper).toHaveRendered(`.my-courses-current [data-course-id='${course.id}']`);
+      expect(wrapper).toHaveRendered(`.my-courses [data-course-id='${course.id}']`);
     }
   });
 
@@ -87,10 +88,12 @@ describe('My Courses Component', function() {
     }
   });
 
-
-  it('redirects to dashboard for a single course', function() {
+  it('redirects to student dashboard for a single student course', function() {
     Courses.clear();
     Courses.bootstrap([STUDENT_COURSE_ONE_MODEL], { clear: true });
+    const c = Courses.get(STUDENT_COURSE_ONE_MODEL.id);
+    c.ends_at = moment().add(1, 'week');
+    c.starts_at = moment().subtract(1, 'week');
     const wrapper = shallow(<CourseListing />, EnzymeContext.withDnD());
     expect(wrapper).toHaveRendered('Redirect[to="/course/1"]');
   });

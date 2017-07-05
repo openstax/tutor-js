@@ -1,4 +1,5 @@
 { default: CoursesMap } = require '../src/models/courses-map'
+moment = require 'moment'
 
 STUDENT_COURSE_ONE_MODEL = {
   id: '1'
@@ -10,8 +11,8 @@ STUDENT_COURSE_ONE_MODEL = {
   is_concept_coach: false
   year: 2017
   term: 'Spring'
-  starts_at: '2017-01-01T00:00:00.000Z'
-  ends_at: '2017-06-30T23:59:59.000Z'
+  starts_at: moment().subtract(1, 'month').format(),
+  ends_at: moment().add(1, 'month').format(),
   webview_url: 'http://cnx.org/',
   salesforce_book_name: 'a book title',
   roles: [
@@ -31,8 +32,8 @@ TEACHER_COURSE_TWO_MODEL = {
   is_concept_coach: false
   year: 2017
   term: 'Spring'
-  starts_at: '2017-01-01T00:00:00.000Z'
-  ends_at: '2017-06-30T23:59:59.000Z'
+  starts_at: moment().subtract(1, 'month').format(),
+  ends_at: moment().add(1, 'month').format(),
   webview_url: 'http://cnx.org/',
   salesforce_book_name: 'a book title',
   periods: [{
@@ -56,8 +57,8 @@ TEACHER_AND_STUDENT_COURSE_THREE_MODEL = {
   is_concept_coach: false
   year: 2017
   term: 'Spring'
-  starts_at: '2017-01-01T00:00:00.000Z'
-  ends_at: '2017-06-30T23:59:59.000Z'
+  starts_at: moment().subtract(1, 'month').format(),
+  ends_at: moment().add(1, 'month').format(),
   roles: [
     {
       type: 'student'
@@ -78,8 +79,8 @@ STUDENT_ARCHIVED_COURSE = {
   is_concept_coach: false
   year: 2016
   term: 'Spring'
-  starts_at: '2016-01-01T00:00:00.000Z'
-  ends_at: '2016-06-30T23:59:59.000Z'
+  starts_at: moment().subtract(1, 'month').format(),
+  ends_at: moment().add(1, 'month').format(),
   webview_url: 'http://cnx.org/',
   salesforce_book_name: 'a book title',
   roles: []
@@ -95,8 +96,8 @@ TEACHER_PAST_COURSE = {
   is_concept_coach: false
   year: 2016
   term: 'Spring'
-  starts_at: '2016-01-01T00:00:00.000Z'
-  ends_at: '2016-06-30T23:59:59.000Z'
+  starts_at: moment().subtract(6, 'month').format(),
+  ends_at: moment().subtract(1, 'month').format(),
   webview_url: 'http://cnx.org/',
   salesforce_book_name: 'a book title',
   roles: [
@@ -116,8 +117,8 @@ STUDENT_PAST_COURSE = {
   is_concept_coach: false
   year: 2016
   term: 'Spring'
-  starts_at: '2016-01-01T00:00:00.000Z'
-  ends_at: '2016-06-30T23:59:59.000Z'
+  starts_at: moment().subtract(6, 'month').format(),
+  ends_at: moment().subtract(1, 'month').format(),
   webview_url: 'http://cnx.org/',
   salesforce_book_name: 'a book title',
   roles: [
