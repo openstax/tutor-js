@@ -24,9 +24,18 @@ describe('User Model', () => {
 
   it('calculates audience tags', () => {
     bootstrapCoursesList();
-    expect(User.tourAudienceTags).toEqual(['teacher']);
+    expect(User.tourAudienceTags).toEqual(['teacher', 'teacher-no-coach']);
     Courses.forEach((c) => (c.is_preview = true));
     expect(User.tourAudienceTags).toEqual(['teacher-preview']);
+    Courses.forEach((c) => {
+      c.is_concept_coach = true
+      c.is_preview = false
+    });
+    expect(User.tourAudienceTags).toEqual(['teacher', 'teacher-coach-no-migration']);
+    Courses.forEach((c) => {
+      c.appearance_code = 'intro_sociology'
+    });
+    expect(User.tourAudienceTags).toEqual(['teacher', 'teacher-coach-with-migration']);
     Courses.clear();
     expect(User.tourAudienceTags).toEqual([]);
   });
