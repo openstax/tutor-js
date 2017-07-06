@@ -16,7 +16,7 @@ export default class CenteredWheel extends React.PureComponent {
   setupWrapperClasses() {
     this.joyrideEl = ReactDOM.findDOMNode(this.props.step.joyrideRef);
     if (this.joyrideEl) {
-      this.joyrideEl.className += ` ${this.className}-wrapper ${this.wrapperClassName}`
+      this.joyrideEl.className += ` ${this.className}-wrapper ${this.wrapperClassName}`;
     }
   }
 
