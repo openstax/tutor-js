@@ -1,49 +1,65 @@
-.change-student-id {
-  padding-top: 120px;
-  .alert-danger {
-    color: @tutor-danger;
-    background: @tutor-info-bg;
-  }
-  .title, .cancel {
-    align-self: center;
-  }
-  .title {
-    margin-bottom: 50px;
-    text-align: center;
-    .joining {
-      font-style: italic;
+.modal {
+
+  &.course-enroll,
+  &.change-student-id {
+    padding-top: 120px;
+    background-color: @tutor-neutral-bright;
+
+    .modal-body,
+    .modal-footer {
+      padding: 40px;
     }
-  }
-  .sub-title, .required {
-    color: @tutor-neutral-dark;
-    font-size: 1.6rem;
-  }
-  .inputs {
-    display: flex;
-    height: 50px;
-    margin: 1rem 0;
-    .student-id-icon {
-      width: 70px;
-      margin-right: 1rem;
-      background-repeat: no-repeat;
-      .tutor-background-image('student-id.svg');
+
+    .alert-danger {
+      color: @tutor-danger;
+      background: @tutor-info-bg;
     }
-    input {
-      flex: 1;
-      padding: 0 1rem;
+    .title, .cancel {
+      align-self: center;
     }
-  }
-  .modal-footer {
-    border-top: 0;
-    display: flex;
-  }
-  &::before {
-    .psuedo-background();
-    background-image: url('../../images/ost-hero.jpg');
+    .title {
+      margin-bottom: 50px;
+      text-align: center;
+    }
+    .sub-title, .required {
+      color: @tutor-neutral-dark;
+      font-size: 1.6rem;
+    }
+    .inputs {
+      display: flex;
+      height: 50px;
+      margin: 1rem 0;
+      .student-id-icon {
+        width: 70px;
+        margin-right: 1rem;
+        background-repeat: no-repeat;
+        .tutor-background-image('student-id.svg');
+      }
+      input {
+        flex: 1;
+        padding: 0 1rem;
+      }
+    }
+    .modal-footer {
+      border-top: 0;
+      display: flex;
+    }
+    &::before {
+      .psuedo-background();
+      background-image: url('../../images/ost-hero.jpg');
+    }
+
   }
 
-  &.is-join::before {
-    top: 0px;
+  &.course-enroll {
+    .joining {
+      font-style: italic;
+      margin-bottom: 0;
+    }
+
+    &::before {
+      top: 0px;
+    }
   }
 
 }
