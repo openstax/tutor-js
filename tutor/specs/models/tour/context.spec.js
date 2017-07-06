@@ -93,11 +93,11 @@ describe('Tour Context Model', () => {
     expect(context.anchors.size).toBe(0);
   });
 
-  it('is disabled for ie', () => {
+  it('is enabled for ie', () => {
     expect(context.isEnabled).toBe(true);
     browser.name = 'ie';
     context = new TourContext();
-    expect(context.isEnabled).toBe(false);
+    expect(context.isEnabled).toBe(true);
   });
 
   it('emits debug info', () => {
