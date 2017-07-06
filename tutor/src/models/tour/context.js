@@ -23,7 +23,7 @@ export default class TourContext extends BaseModel {
   @observable regions = observable.shallowArray();
   @observable anchors = observable.shallowMap();
 
-  @field isEnabled = (browser.name !== 'ie');
+  @field isEnabled = true;
 
   @field emitDebugInfo = false;
 
