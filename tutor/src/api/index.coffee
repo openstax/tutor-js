@@ -25,7 +25,6 @@ PerformanceForecast = require '../flux/performance-forecast'
 {TaskActions} = require '../flux/task'
 {TaskPanelActions} = require '../flux/task-panel'
 {TaskStepActions} = require '../flux/task-step'
-{StudentIdActions} = require '../flux/student-id'
 {TaskPlanActions, TaskPlanStore} = require '../flux/task-plan'
 {TaskTeacherReviewActions} = require '../flux/task-teacher-review'
 {TaskPlanStatsActions} = require '../flux/task-plan-stats'
@@ -55,6 +54,7 @@ handledEnrollmentErrors = _.keys(handledEnrollmentErrorsMap)
 { default: Offerings } = require '../models/course/offerings'
 { default: CourseCreate } = require '../models/course/create'
 { default: TeacherTaskPlans } = require '../models/teacher-task-plans'
+{ default: Student } = require '../models/course/student'
 
 BOOTSTRAPED_MODELS = {
   user:    User.bootstrap,
@@ -171,12 +171,6 @@ startAPI = ->
   # this isn't currently used, it's the old endpoint for a teacher adding a student
   # connectCreate(RosterActions, pattern: 'courses/{id}/roster')
   connectRead(RosterActions, pattern: 'courses/{id}/roster')
-  connectUpdate(StudentIdActions, pattern: 'user/courses/{id}/student',
-    handleError: (args...) ->
-      StudentIdActions.errored(args...)
-      true
-    data: (id, data) -> data
-  )
 
   connectCreate(PeriodActions, pattern: 'courses/{id}/periods',
     data: (id, data) -> data
@@ -266,6 +260,7 @@ startAPI = ->
       end_at: endAt
   )
 
+  connectModelUpdate(Student, 'save', pattern: 'user/courses/{courseId}/student', onSuccess: 'onSaved')
 
 
 start = (bootstrapData) ->

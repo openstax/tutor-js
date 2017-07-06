@@ -49,7 +49,12 @@ export default class Course extends BaseModel {
 
   @hasMany({ model: Period }) periods;
   @hasMany({ model: Role }) roles;
-  @hasMany({ model: Student }) students;
+  @hasMany({ model: Student, inverseOf: 'course' }) students;
+
+  @computed get student() {
+    const role = find(this.roles, 'isStudent');
+    return role ? find(this.students, { role_id: role.id }) : null;
+  }
 
   @computed get nameCleaned() {
     const previewSuffix = ' Preview';

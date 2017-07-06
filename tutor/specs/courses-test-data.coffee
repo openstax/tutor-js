@@ -17,9 +17,14 @@ STUDENT_COURSE_ONE_MODEL = {
   salesforce_book_name: 'a book title',
   roles: [
     {
+      "id": "1",
       "type": "student"
     }
+  ],
+  students: [
+    { role_id: "1", student_identifier: '1234' }
   ]
+
 }
 
 TEACHER_COURSE_TWO_MODEL = {

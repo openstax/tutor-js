@@ -62,7 +62,8 @@ getQuestionsLibrary = ->
   require './components/questions'
 
 getChangeStudentId = ->
-  require './components/change-student-id'
+  {default: StudentId} = require './components/change-student-id'
+  StudentId
 
 getQADashboard = ->
   require './components/qa/index'
@@ -150,6 +151,7 @@ ROUTES = [
       { pattern: 'settings',            name: 'courseSettings',           renderer: getCourseSettings      }
       { pattern: 'questions',           name: 'viewQuestionsLibrary',     renderer: getQuestionsLibrary    }
       { pattern: 'change-student-id',   name: 'changeStudentId',          renderer: getChangeStudentId     }
+      { pattern: 'joining',             name: 'joinStudentId',            renderer: getChangeStudentId     }
     ]
 
   }

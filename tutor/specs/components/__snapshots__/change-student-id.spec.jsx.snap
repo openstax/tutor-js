@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Change Student ID renders and matches snapshot for various states 1`] = `
+<div
+  className="change-student-id is-join modal"
+  role="dialog"
+  style={
+    Object {
+      "display": "block",
+    }
+  }
+  tabIndex="-1"
+>
+  <div
+    className="modal-dialog"
+  >
+    <div
+      className="modal-content"
+      role="document"
+    >
+      <div
+        className="modal-body"
+      >
+        <div
+          className="title"
+        >
+          <p
+            className="joining"
+          >
+            You are joining
+          </p>
+          <h3>
+            Local Test Course One
+          </h3>
+        </div>
+        <div
+          className="sub-title"
+        >
+          Enter your school-issued student ID number *
+        </div>
+        <div
+          className="inputs"
+        >
+          <span
+            className="student-id-icon"
+          />
+          <input
+            autoFocus={true}
+            defaultValue="1234"
+            placeholder="School issued ID"
+          />
+        </div>
+        <div
+          className="required"
+        >
+          * required for course credit
+        </div>
+      </div>
+      <div
+        className="modal-footer"
+      >
+        <button
+          className="async-button btn btn-success btn btn-primary"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Continue
+        </button>
+        <button
+          className="cancel btn btn-link"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Add it later
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Change Student ID renders and matches snapshot for various states 2`] = `
+<div
+  className="change-student-id modal"
+  role="dialog"
+  style={
+    Object {
+      "display": "block",
+    }
+  }
+  tabIndex="-1"
+>
+  <div
+    className="modal-dialog"
+  >
+    <div
+      className="modal-content"
+      role="document"
+    >
+      <div
+        className="modal-body"
+      >
+        <div
+          className="title"
+        >
+          <h3>
+            Update your student identifier
+          </h3>
+        </div>
+        <div
+          className="sub-title"
+        >
+          Enter your school-issued student ID number *
+        </div>
+        <div
+          className="inputs"
+        >
+          <span
+            className="student-id-icon"
+          />
+          <input
+            autoFocus={true}
+            defaultValue="1234"
+            placeholder="School issued ID"
+          />
+        </div>
+        <div
+          className="required"
+        >
+          * required for course credit
+        </div>
+      </div>
+      <div
+        className="modal-footer"
+      >
+        <button
+          className="async-button btn btn-success btn btn-primary"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Save
+        </button>
+        <button
+          className="cancel btn btn-link"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
