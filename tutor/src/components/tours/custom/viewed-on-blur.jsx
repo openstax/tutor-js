@@ -7,6 +7,10 @@ import classnames   from 'classnames';
 export default class ViewedOnBlur extends React.PureComponent {
   className = 'viewed-on-blur-tooltip'
 
+  static contextTypes = {
+    history: React.PropTypes.object,
+  }
+
   constructor(props) {
     super(props)
 
@@ -20,7 +24,19 @@ export default class ViewedOnBlur extends React.PureComponent {
     document.addEventListener('focus', this.checkIsBlur);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.step.joyrideRef.next) {
+      if (this.unlistenRouteChange) {
+        this.unlistenRouteChange();
+      }
+
+      this.unlistenRouteChange = this.context.history.listen(nextProps.step.joyrideRef.next);
+    }
+  }
+
   componentWillUnmount() {
+    this.unlistenRouteChange();
+
     document.removeEventListener('click', this.checkIsBlur);
     document.removeEventListener('focus', this.checkIsBlur);
   }
