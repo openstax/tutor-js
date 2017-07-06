@@ -16,7 +16,7 @@ export default class CenteredWheel extends React.PureComponent {
   setupWrapperClasses() {
     this.joyrideEl = ReactDOM.findDOMNode(this.props.step.joyrideRef);
     if (this.joyrideEl) {
-      this.joyrideEl.classList.add(`${this.className}-wrapper`, this.wrapperClassName);
+      this.joyrideEl.className += ` ${this.className}-wrapper ${this.wrapperClassName}`;
     }
   }
 
@@ -32,7 +32,8 @@ export default class CenteredWheel extends React.PureComponent {
 
   componentWillUnmount() {
     if (this.joyrideEl) {
-      this.joyrideEl.classList.remove(`${this.className}-wrapper`, this.wrapperClassName);
+      this.joyrideEl.classList.remove(`${this.className}-wrapper`);
+      this.joyrideEl.classList.remove(this.wrapperClassName);
     }
   }
 

@@ -5,7 +5,6 @@ import {
   find, isEmpty, intersection, compact, uniq, flatMap, map, invoke, filter, delay,
 } from 'lodash';
 import { observe, action } from 'mobx';
-import browser from 'detect-browser';
 
 import Courses   from '../courses-map';
 import User      from '../user';
@@ -23,7 +22,7 @@ export default class TourContext extends BaseModel {
   @observable regions = observable.shallowArray();
   @observable anchors = observable.shallowMap();
 
-  @field isEnabled = (browser.name !== 'ie');
+  @field isEnabled = true;
 
   @field emitDebugInfo = false;
 
