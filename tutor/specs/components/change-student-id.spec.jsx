@@ -1,7 +1,5 @@
-import { Wrapper, SnapShot } from './helpers/component-testing';
+import { SnapShot } from './helpers/component-testing';
 
-import App from '../../src/components/app';
-import User from '../../src/models/user';
 import ChangeStudentId from '../../src/components/change-student-id';
 import { bootstrapCoursesList } from '../courses-test-data';
 import EnzymeContext from './helpers/enzyme-context';
@@ -16,12 +14,9 @@ describe('Change Student ID', () => {
     courses = bootstrapCoursesList();
     Router.currentParams.mockReturnValue(params);
     Router.makePathname.mockReturnValue('go-to-dash');
-    Router.currentMatch.mockReturnValue({ entry: { name: 'joinStudentId' }, params });
   });
 
   it('renders and matches snapshot for various states', () => {
-    expect(SnapShot.create(<ChangeStudentId />).toJSON()).toMatchSnapshot();
-    Router.currentMatch.mockReturnValue({ entry: { name: 'updateStudentId' }, params });
     expect(SnapShot.create(<ChangeStudentId />).toJSON()).toMatchSnapshot();
   });
 
@@ -42,6 +37,5 @@ describe('Change Student ID', () => {
     expect(Router.makePathname).toHaveBeenCalledWith('dashboard', params);
     expect(context.context.router.transitionTo).to.have.been.calledWith('go-to-dash');
   });
-
 
 });

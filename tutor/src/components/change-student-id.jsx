@@ -6,30 +6,6 @@ import Courses from '../models/courses-map';
 import { AsyncButton } from 'shared';
 import Router from '../helpers/router';
 import BackButton from './buttons/back-button';
-import cn from 'classnames';
-
-function isJoining() {
-  const { entry: { name } } = Router.currentMatch();
-  return (name === 'joinStudentId');
-}
-
-function Title() {
-  const { params: { courseId } } = Router.currentMatch();
-  if (isJoining()) {
-    return (
-      <div className="title">
-        <p className="joining">You are joining</p>
-        <h3>{Courses.get(courseId).name}</h3>
-      </div>
-    );
-  }
-  return (
-    <div className="title">
-      <h3>Update your student identifier</h3>
-    </div>
-  );
-}
-
 
 @observer
 export default class ChangeStudentId extends React.PureComponent {
@@ -60,11 +36,7 @@ export default class ChangeStudentId extends React.PureComponent {
 
   @action.bound
   onSaved() {
-    if (isJoining()) {
-      this.goToDashboard();
-    } else {
-      this.isSaved = true;
-    }
+    this.isSaved = true;
   }
 
   @action.bound
@@ -74,7 +46,7 @@ export default class ChangeStudentId extends React.PureComponent {
 
   renderSuccess() {
     return (
-      <Modal.Dialog className={cn('change-student-id', { 'is-join': isJoining() })}>
+      <Modal.Dialog className="change-student-id">
         <Modal.Body>
           <h3>You have successfully updated your student identifier.</h3>
         </Modal.Body>
@@ -91,9 +63,11 @@ export default class ChangeStudentId extends React.PureComponent {
     if (this.isSaved) { return this.renderSuccess(); }
 
     return (
-      <Modal.Dialog className={cn('change-student-id', { 'is-join': isJoining() })}>
+      <Modal.Dialog className="change-student-id">
         <Modal.Body>
-          <Title />
+          <div className="title">
+            <h3>Update your student identifier</h3>
+          </div>
           <div className="sub-title">Enter your school-issued student ID number *</div>
           <div className="inputs">
             <span className="student-id-icon"></span>
@@ -114,9 +88,9 @@ export default class ChangeStudentId extends React.PureComponent {
             waitingText={'Confirming…'}
             onClick={this.onSubmit}
           >
-            {isJoining() ? 'Continue' : 'Save'}
+            Save
           </AsyncButton>
-          <Button className="cancel" bsStyle="link" onClick={this.goToDashboard}>{isJoining() ? 'Add it later' : 'Cancel'}</Button>
+          <Button className="cancel" bsStyle="link" onClick={this.goToDashboard}>Cancel</Button>
         </Modal.Footer>
       </Modal.Dialog>
     );
