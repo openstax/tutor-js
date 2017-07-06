@@ -51,7 +51,7 @@ export default class Course extends BaseModel {
   @hasMany({ model: Role }) roles;
   @hasMany({ model: Student, inverseOf: 'course' }) students;
 
-  @computed get student() {
+  @computed get userStudentRecord() {
     const role = find(this.roles, 'isStudent');
     return role ? find(this.students, { role_id: role.id }) : null;
   }

@@ -16,10 +16,7 @@ STUDENT_COURSE_ONE_MODEL = {
   webview_url: 'http://cnx.org/',
   salesforce_book_name: 'a book title',
   roles: [
-    {
-      "id": "1",
-      "type": "student"
-    }
+    { "id": "1", "type": "student" }
   ],
   students: [
     { role_id: "1", student_identifier: '1234' }

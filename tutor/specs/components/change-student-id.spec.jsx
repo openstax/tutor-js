@@ -28,11 +28,11 @@ describe('Change Student ID', () => {
   it('updates student id when edited', () => {
     const form = mount(<ChangeStudentId />, EnzymeContext.build());
     const course = courses.get(params.courseId);
-    course.student.save = jest.fn(() => Promise.resolve({}));
+    course.userStudentRecord.save = jest.fn(() => Promise.resolve({}));
     form.find('input').get(0).value = '4252';
     form.find('.btn-primary').simulate('click');
-    expect(course.student.student_identifier).toEqual('4252');
-    expect(course.student.save).toHaveBeenCalled();
+    expect(course.userStudentRecord.student_identifier).toEqual('4252');
+    expect(course.userStudentRecord.save).toHaveBeenCalled();
   });
 
   it('navigates to dashboard when clicked', () => {
@@ -42,5 +42,6 @@ describe('Change Student ID', () => {
     expect(Router.makePathname).toHaveBeenCalledWith('dashboard', params);
     expect(context.context.router.transitionTo).to.have.been.calledWith('go-to-dash');
   });
+
 
 });

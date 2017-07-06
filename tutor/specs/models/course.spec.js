@@ -35,6 +35,12 @@ describe('Course Model', () => {
     expect(Courses.get(3).isTeacher).toBe(true);
   });
 
+  it('#userStudentRecord', () => {
+    expect(Courses.get(1).userStudentRecord).not.toBeNull();
+    expect(Courses.get(1).userStudentRecord.student_identifier).toEqual('1234');
+    expect(Courses.get(2).userStudentRecord).toBeNull();
+  });
+
   it('calculates audience tags', () => {
     expect(Courses.get(1).tourAudienceTags).toEqual(['student']);
     const teacher = Courses.get(2);

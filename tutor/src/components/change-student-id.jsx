@@ -43,7 +43,7 @@ export default class ChangeStudentId extends React.PureComponent {
   }
 
   courseId = Router.currentParams().courseId;
-  student = Courses.get(this.courseId).student
+  student = Courses.get(this.courseId).userStudentRecord;
 
   @observable isSaved = false;
 
