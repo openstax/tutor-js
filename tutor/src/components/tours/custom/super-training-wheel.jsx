@@ -18,7 +18,7 @@ export default class SuperTrainingWheel extends React.PureComponent {
   triggerNext() {
     if (this.props.step.step.tour.autoplay) {
       this.props.step.joyrideRef.next();
-      return true;      
+      return true;
     }
 
     return false;
