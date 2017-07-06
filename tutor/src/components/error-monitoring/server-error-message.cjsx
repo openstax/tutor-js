@@ -1,4 +1,5 @@
 React = require 'react'
+map = require 'lodash/map'
 UserMenu = require('../../models/user/menu').default
 
 SUPPORT_LINK_PARAMS = '&cu=1&fs=ContactUs&q='
@@ -38,18 +39,23 @@ ServerErrorMessage = React.createClass
     debug: true
 
   render: ->
-    {status, statusMessage, config, supportLinkBase, debug} = @props
+    {status, statusMessage, config, supportLinkBase, debug, data} = @props
     statusMessage ?= 'No response was received'
     q = makeContactMessage(status, statusMessage, config)
 
-    dataMessage =  <span>
+    errorsMessage =
+      <span>
+        {if data?.errors then map(data.errors, 'code').join(', ') else statusMessage}
+      </span>
+
+    dataMessage = <span>
       with <pre>{config.data}</pre>
     </span> if config.data?
 
     debugInfo = [
       <p key='error-note'>Additional error messages returned from the server is:</p>
-      <pre key='error-response' className='response'>{statusMessage}</pre>
-      <div key='error-request' className='request'>
+      <pre key='errors' className='response'>{errorsMessage}</pre>
+      <div key='request' className='request'>
         <kbd>{config.method}</kbd> on {config.url} {dataMessage}
       </div>
     ] if debug
