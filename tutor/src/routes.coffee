@@ -86,7 +86,8 @@ getAssignmentLinks = ->
   require './components/assignment-links'
 
 getCreateEnrollmentChange = ->
-  require './components/enroll'
+  {default: CourseEnroll} = require './components/enroll'
+  CourseEnroll
 
 
 getStudentPreview = ->
