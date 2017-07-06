@@ -1,12 +1,13 @@
 .modal {
-
+  z-index: -1;
   &.course-enroll,
   &.change-student-id {
     padding-top: 120px;
-    background-color: @tutor-neutral-bright;
 
+    .modal-title,
     .modal-body,
     .modal-footer {
+      background-color: @tutor-neutral-bright;
       padding: 40px;
     }
 
