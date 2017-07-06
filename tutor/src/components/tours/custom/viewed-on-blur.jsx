@@ -1,9 +1,7 @@
 import React        from 'react';
 import ReactDOM     from 'react-dom';
 import { Tooltip }  from 'react-joyride';
-import { computed } from 'mobx';
 
-import { first }    from 'lodash';
 import classnames   from 'classnames';
 
 export default class ViewedOnBlur extends React.PureComponent {
