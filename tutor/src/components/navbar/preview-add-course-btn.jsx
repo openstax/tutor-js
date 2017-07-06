@@ -8,6 +8,7 @@ import TourAnchor from '../tours/anchor';
 import TourContext from '../../models/tour/context';
 import Router from '../../helpers/router';
 import Courses from '../../models/courses-map.js';
+import User from '../../models/user.js';
 import onboardingForCourse from '../../models/course/onboarding';
 
 @inject((allStores, props) => ({
@@ -35,6 +36,7 @@ export default class PreviewAddCourseBtn extends React.PureComponent {
 
   @action.bound
   onAddCourse() {
+    User.replayTour({id: 'create-a-course'});
     this.context.router.transitionTo(
       Router.makePathname('myCourses')
     );
