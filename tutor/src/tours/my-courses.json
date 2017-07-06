@@ -56,7 +56,8 @@
       "className": "button-less",
       "position": "right",
       "title": "Create a course anytime!",
-      "body":  "Click here to create a real course."
+      "body":  "Click here to create a real course.",
+      "customComponent": "ViewedOnBlur"
     }
   ]
 }
