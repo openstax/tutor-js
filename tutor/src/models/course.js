@@ -24,6 +24,7 @@ export default class Course extends BaseModel {
   @field appearance_code;
   @field name;
 
+  @field does_cost;
   @field book_pdf_url;
   @field cloned_from_id;
   @field default_due_time;
@@ -116,9 +117,9 @@ export default class Course extends BaseModel {
     return TeacherTaskPlans.forCourseId(this.id);
   }
 
-  // FIXME use payment status from BE once that's complete
+  // FIXME use student info once that's merged
   @computed get needsPayment() {
-    return this.isStudent;
+    return this.does_cost;
   }
 
   @computed get tourAudienceTags() {
