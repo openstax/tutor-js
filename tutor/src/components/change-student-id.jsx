@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { action, observable } from 'mobx';
+import { isEmpty } from 'lodash';
 import { Modal, Button } from 'react-bootstrap';
 import Courses from '../models/courses-map';
 import { AsyncButton } from 'shared';
@@ -22,6 +23,7 @@ export default class ChangeStudentId extends React.PureComponent {
   student = Courses.get(this.courseId).userStudentRecord;
 
   @observable isSaved = false;
+  @observable isValid = true;
 
   @action.bound
   onChange(ev) {
@@ -44,6 +46,11 @@ export default class ChangeStudentId extends React.PureComponent {
     this.context.router.transitionTo(Router.makePathname('dashboard', { courseId: this.courseId }));
   }
 
+  @action.bound
+  checkValidity(ev) {
+    this.isValid = !isEmpty(ev.target.value);
+  }
+
   renderSuccess() {
     return (
       <Modal.Dialog className="change-student-id">
@@ -57,6 +64,10 @@ export default class ChangeStudentId extends React.PureComponent {
         </Modal.Footer>
       </Modal.Dialog>
     );
+  }
+
+  renderWarning() {
+    return <div className="invalid-warning">An ID is required for credit. You have not yet entered an ID</div>;
   }
 
   render() {
@@ -73,15 +84,18 @@ export default class ChangeStudentId extends React.PureComponent {
             <span className="student-id-icon"></span>
             <input
               autoFocus
+              onKeyUp={this.checkValidity}
               ref={i => (this.input = i)}
               placeholder='School issued ID'
               defaultValue={this.student.student_identifier}
             />
           </div>
+          {this.isValid ? null : this.renderWarning()}
           <div className="required">* required for course credit</div>
         </Modal.Body>
         <Modal.Footer>
           <AsyncButton
+            disabled={!this.isValid}
             bsStyle="primary"
             className="btn btn-success"
             isWaiting={!!this.student.hasApiRequestPending}

@@ -42,6 +42,7 @@ exports[`Change Student ID renders and matches snapshot for various states 1`] =
           <input
             autoFocus={true}
             defaultValue="1234"
+            onKeyUp={[Function]}
             placeholder="School issued ID"
           />
         </div>

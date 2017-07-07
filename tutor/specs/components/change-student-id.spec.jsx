@@ -7,9 +7,10 @@ import Router from '../../src/helpers/router';
 jest.mock('../../src/helpers/router');
 
 describe('Change Student ID', () => {
-  let params, courses;
+  let params, courses, context;
 
   beforeEach(() => {
+    context = EnzymeContext.build()
     params = { courseId: '1' };
     courses = bootstrapCoursesList();
     Router.currentParams.mockReturnValue(params);
@@ -21,7 +22,7 @@ describe('Change Student ID', () => {
   });
 
   it('updates student id when edited', () => {
-    const form = mount(<ChangeStudentId />, EnzymeContext.build());
+    const form = mount(<ChangeStudentId />, context);
     const course = courses.get(params.courseId);
     course.userStudentRecord.save = jest.fn(() => Promise.resolve({}));
     form.find('input').get(0).value = '4252';
@@ -31,11 +32,15 @@ describe('Change Student ID', () => {
   });
 
   it('navigates to dashboard when clicked', () => {
-    const context = EnzymeContext.build();
     const form = mount(<ChangeStudentId />, context);
     form.find('.btn.cancel').simulate('click');
     expect(Router.makePathname).toHaveBeenCalledWith('dashboard', params);
     expect(context.context.router.transitionTo).to.have.been.calledWith('go-to-dash');
   });
 
+  it('warns when invalid', () => {
+    const form = mount(<ChangeStudentId />, context);
+    form.find('input').simulate('keyUp', { target: { value: '' } });
+    expect(form).toHaveRendered('.invalid-warning');
+  });
 });
