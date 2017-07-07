@@ -152,7 +152,6 @@ ROUTES = [
       { pattern: 'settings',            name: 'courseSettings',           renderer: getCourseSettings      }
       { pattern: 'questions',           name: 'viewQuestionsLibrary',     renderer: getQuestionsLibrary    }
       { pattern: 'change-student-id',   name: 'changeStudentId',          renderer: getChangeStudentId     }
-      { pattern: 'joining',             name: 'joinStudentId',            renderer: getChangeStudentId     }
     ]
 
   }
