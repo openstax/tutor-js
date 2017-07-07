@@ -1,7 +1,9 @@
 import {
   BaseModel, identifiedBy, field, identifier, computed, session,
 } from '../base';
+import { when } from 'mobx';
 import { get, pick, isEmpty } from 'lodash';
+import { CourseListingActions } from '../../flux/course-listing';
 
 @identifiedBy('course/student')
 export default class CourseEnrollment extends BaseModel {
@@ -13,6 +15,14 @@ export default class CourseEnrollment extends BaseModel {
 
   @session({ type: 'object' }) to = {};
   @session status;
+
+  constructor(...args) {
+    super(...args);
+    when(
+      () => this.isComplete,
+      () => CourseListingActions.load(),
+    );
+  }
 
   @computed get courseDescription() {
     return get(this, 'to.course.name', '');
@@ -36,6 +46,5 @@ export default class CourseEnrollment extends BaseModel {
   }
 
   confirm() { }
-
 
 }

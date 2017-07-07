@@ -1,4 +1,8 @@
 import CourseEnroll from '../../../src/models/course/enroll';
+import { CourseListingActions } from '../../../src/flux/course-listing';
+jest.mock('../../../src/flux/course-listing', () => ({
+  CourseListingActions: { load: jest.fn() },
+}));
 
 describe('Course Enrollment', function() {
   let enroll;
@@ -37,4 +41,9 @@ describe('Course Enrollment', function() {
     expect(enroll.isComplete).toBe(true);
   });
 
+  it('fetches on complete', () => {
+    enroll.status = 'processed';
+    expect(enroll.isComplete).toBe(true);
+    expect(CourseListingActions.load).toHaveBeenCalled();
+  });
 });
