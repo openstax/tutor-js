@@ -19,7 +19,7 @@ const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
 @identifiedBy('course')
 export default class Course extends BaseModel {
 
-  @identifier id
+  @identifier id;
 
   @field appearance_code;
   @field name;
