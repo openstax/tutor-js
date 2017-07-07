@@ -5,7 +5,6 @@ import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import { Modal, Button, Alert } from 'react-bootstrap';
 import Enroll from '../models/course/enroll';
-import { AsyncButton } from 'shared';
 
 import Activity from './ox-fancy-loader';
 
@@ -50,16 +49,8 @@ export default class CourseEnroll extends React.PureComponent {
           <div className="required">* required for course credit</div>
         </Modal.Body>
         <Modal.Footer>
-          <AsyncButton
-            bsStyle="primary"
-            className="btn btn-success"
-            isWaiting={!!enrollment.hasApiRequestPending}
-            waitingText={'Confirming…'}
-            onClick={this.onSubmit}
-          >
-            Continue
-          </AsyncButton>
-          <Button className="cancel" bsStyle="link" onClick={this.goToDashboard}>Add it later</Button>
+          <Button bsStyle="primary" className="btn btn-success" onClick={this.onSubmit}>Continue</Button>
+          <Button className="cancel" bsStyle="link" onClick={this.onSubmit}>Add it later</Button>
         </Modal.Footer>
       </div>
     );
@@ -79,7 +70,7 @@ export default class CourseEnroll extends React.PureComponent {
     const { enrollment } = this;
     let body;
 
-    if (enrollment.isPending) {
+    if (enrollment.hasApiRequestPending) {
       body = <Activity isLoading={true} />;
     } else if (enrollment.isInvalid) {
       body = this.renderInvalid();

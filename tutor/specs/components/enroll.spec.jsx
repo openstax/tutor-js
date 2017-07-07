@@ -19,21 +19,19 @@ describe('Student Enrollment', () => {
   });
 
   it('loads when mounted', () => {
-    EnrollModel.prototype.isPending = true;
+    EnrollModel.prototype.hasApiRequestPending = true;
     const enroll = shallow(<Enroll />, context);
     expect(enroll).toHaveRendered('OXFancyLoader');
-    EnrollModel.prototype.isPending = false;
+    EnrollModel.prototype.hasApiRequestPending = false;
     enroll.setState({});
     expect(enroll).not.toHaveRendered('OXFancyLoader');
   });
 
   it('renders and matches snapshot', () => {
-    EnrollModel.prototype.isPending = false;
     expect(SnapShot.create(<Enroll />).toJSON()).toMatchSnapshot();
   });
 
   it('submits with student id when form is clicked', () => {
-    EnrollModel.prototype.isPending = false;
     const enroll = mount(<Enroll />, context);
     enroll.find('input').get(0).value = '411';
     enroll.find('.btn-primary').simulate('click');
@@ -42,7 +40,6 @@ describe('Student Enrollment', () => {
   });
 
   it('redirects on success', () => {
-    EnrollModel.prototype.isPending = false;
     EnrollModel.prototype.isComplete = true;
     const enroll = shallow(<Enroll />, context);
     expect(enroll).toHaveRendered('Redirect');

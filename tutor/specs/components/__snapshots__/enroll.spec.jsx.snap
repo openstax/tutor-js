@@ -58,7 +58,7 @@ exports[`Student Enrollment renders and matches snapshot 1`] = `
           className="modal-footer"
         >
           <button
-            className="async-button btn btn-success btn btn-primary"
+            className="btn btn-success btn btn-primary"
             disabled={false}
             onClick={[Function]}
             type="button"
@@ -68,7 +68,7 @@ exports[`Student Enrollment renders and matches snapshot 1`] = `
           <button
             className="cancel btn btn-link"
             disabled={false}
-            onClick={undefined}
+            onClick={[Function]}
             type="button"
           >
             Add it later
