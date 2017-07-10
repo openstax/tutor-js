@@ -21,10 +21,10 @@
 
   &[data-is-preview=true] {
     .book-title-text::after {
-      content: ' Preview';
+      content: ' preview';
       color: @openstax-book-default-fg-inverse;
-      font-size: 90%; // best we can do until font-size-adjust is supported
-      font-weight: 100;
+      font-weight: normal;
+      font-variant: small-caps;
     }
     .for(@openstax-book-fg-inverse-codes); .-each(@bookcode) {
       &[data-appearance=@{bookcode}] .book-title-text::after {
