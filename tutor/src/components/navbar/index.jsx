@@ -11,6 +11,7 @@ import CenterControls        from './center-controls';
 import PreviewAddCourseBtn   from './preview-add-course-btn';
 import SupportMenu           from './support-menu';
 import StudentPreviewLink    from './student-previews-link';
+import StudentGetAccessBtn   from './student-get-access-btn';
 
 export default function NavigationBar() {
   const params = Router.currentParams();
@@ -29,6 +30,7 @@ export default function NavigationBar() {
       <CenterControls params={params} />
       <div className="right-side-controls">
         <PreviewAddCourseBtn courseId={courseId} />
+        <StudentGetAccessBtn courseId={courseId} />
         <SupportMenu />
         <StudentPreviewLink  courseId={courseId} />
         <UserActionsMenu     courseId={courseId} />

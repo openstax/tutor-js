@@ -19,6 +19,8 @@ export class User extends BaseModel {
 
   @observable csrf_token;
 
+  @field account_uuid;
+
   @field name;
   @field self_reported_role;
   @field account_uuid;
