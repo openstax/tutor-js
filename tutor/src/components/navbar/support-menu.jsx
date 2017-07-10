@@ -83,7 +83,7 @@ class SupportMenuDropDown extends React.PureComponent {
 
 
   render() {
-    const { open, courseId, onClose } = this.props;
+    const { open, courseId, onClose, rootCloseEvent } = this.props;
 
     const menu = (
       <TourAnchor
@@ -108,15 +108,15 @@ class SupportMenuDropDown extends React.PureComponent {
         {this.renderChat()}
       </TourAnchor>
     );
-
-    if (open) {
-      return (
-        <RootCloseWrapper noWrap onRootClose={onClose}>
-          {menu}
-        </RootCloseWrapper>
-      );
-    }
-    return menu;
+    return (
+      <RootCloseWrapper noWrap
+        onRootClose={onClose}
+        disabled={!open}
+        event={rootCloseEvent}
+      >
+        {menu}
+      </RootCloseWrapper>
+    );
   }
 
 }
