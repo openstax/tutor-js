@@ -62,7 +62,8 @@ getQuestionsLibrary = ->
   require './components/questions'
 
 getChangeStudentId = ->
-  require './components/change-student-id'
+  {default: StudentId} = require './components/change-student-id'
+  StudentId
 
 getQADashboard = ->
   require './components/qa/index'
@@ -85,7 +86,8 @@ getAssignmentLinks = ->
   require './components/assignment-links'
 
 getCreateEnrollmentChange = ->
-  require './components/enroll'
+  {default: CourseEnroll} = require './components/enroll'
+  CourseEnroll
 
 
 getStudentPreview = ->

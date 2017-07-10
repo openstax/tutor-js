@@ -19,7 +19,7 @@ const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
 @identifiedBy('course')
 export default class Course extends BaseModel {
 
-  @identifier id
+  @identifier id;
 
   @field appearance_code;
   @field name;
@@ -49,7 +49,12 @@ export default class Course extends BaseModel {
 
   @hasMany({ model: Period }) periods;
   @hasMany({ model: Role }) roles;
-  @hasMany({ model: Student }) students;
+  @hasMany({ model: Student, inverseOf: 'course' }) students;
+
+  @computed get userStudentRecord() {
+    const role = find(this.roles, 'isStudent');
+    return role ? find(this.students, { role_id: role.id }) : null;
+  }
 
   @computed get nameCleaned() {
     const previewSuffix = ' Preview';

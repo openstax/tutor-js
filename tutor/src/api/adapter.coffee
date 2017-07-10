@@ -33,7 +33,7 @@ OPTIONS =
   handlers:
     onFail: (error) ->
       {response} = error
-      AppActions.setServerError(response or error)
+      AppActions.setServerError(response or error) unless error?.isRecorded
   hooks:
     handleMalformedRequest: -> # at one time this logged out the user, but that seems too drastic
       null

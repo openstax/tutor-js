@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Student Enrollment renders and matches snapshot 1`] = `
+<div
+  className="course-enroll modal"
+  role="dialog"
+  style={
+    Object {
+      "display": "block",
+    }
+  }
+  tabIndex="-1"
+>
+  <div
+    className="modal-dialog"
+  >
+    <div
+      className="modal-content"
+      role="document"
+    >
+      <div>
+        <div
+          className="modal-body"
+        >
+          <div
+            className="title"
+          >
+            <p
+              className="joining"
+            >
+              You are joining
+            </p>
+            <h3 />
+          </div>
+          <div
+            className="sub-title"
+          >
+            Enter your school-issued student ID number *
+          </div>
+          <div
+            className="inputs"
+          >
+            <span
+              className="student-id-icon"
+            />
+            <input
+              autoFocus={true}
+              placeholder="School issued ID"
+            />
+          </div>
+          <div
+            className="required"
+          >
+            * required for course credit
+          </div>
+        </div>
+        <div
+          className="modal-footer"
+        >
+          <button
+            className="btn btn-success btn btn-primary"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Continue
+          </button>
+          <button
+            className="cancel btn btn-link"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Add it later
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

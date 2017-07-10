@@ -25,7 +25,6 @@ PerformanceForecast = require '../flux/performance-forecast'
 {TaskActions} = require '../flux/task'
 {TaskPanelActions} = require '../flux/task-panel'
 {TaskStepActions} = require '../flux/task-step'
-{StudentIdActions} = require '../flux/student-id'
 {TaskPlanActions, TaskPlanStore} = require '../flux/task-plan'
 {TaskTeacherReviewActions} = require '../flux/task-teacher-review'
 {TaskPlanStatsActions} = require '../flux/task-plan-stats'
@@ -43,11 +42,7 @@ PerformanceForecast = require '../flux/performance-forecast'
 {ReferenceBookExerciseActions} = require '../flux/reference-book-exercise'
 {NotificationActions} = require '../flux/notifications'
 
-{CourseEnrollmentActions} = require '../flux/course-enrollment'
 {default: TaskPlanHelpers} = require '../helpers/task-plan'
-
-handledEnrollmentErrorsMap = require '../flux/course-enrollment-handled-errors'
-handledEnrollmentErrors = _.keys(handledEnrollmentErrorsMap)
 
 { default: User } = require '../models/user'
 { UserTerms, Term } = require '../models/user/terms'
@@ -55,6 +50,8 @@ handledEnrollmentErrors = _.keys(handledEnrollmentErrorsMap)
 { default: Offerings } = require '../models/course/offerings'
 { default: CourseCreate } = require '../models/course/create'
 { default: TeacherTaskPlans } = require '../models/teacher-task-plans'
+{ default: Student } = require '../models/course/student'
+{ default: CourseEnroll } = require '../models/course/enroll'
 
 BOOTSTRAPED_MODELS = {
   user:    User.bootstrap,
@@ -171,12 +168,6 @@ startAPI = ->
   # this isn't currently used, it's the old endpoint for a teacher adding a student
   # connectCreate(RosterActions, pattern: 'courses/{id}/roster')
   connectRead(RosterActions, pattern: 'courses/{id}/roster')
-  connectUpdate(StudentIdActions, pattern: 'user/courses/{id}/student',
-    handleError: (args...) ->
-      StudentIdActions.errored(args...)
-      true
-    data: (id, data) -> data
-  )
 
   connectCreate(PeriodActions, pattern: 'courses/{id}/periods',
     data: (id, data) -> data
@@ -226,21 +217,6 @@ startAPI = ->
     trigger: 'loadUpdates', onSuccess: 'loadedUpdates', url: 'notifications', handledErrors: ['*']
   )
 
-  connectCreate(CourseEnrollmentActions,
-    url: 'enrollment_changes', handledErrors: handledEnrollmentErrors,
-    data: (enrollmentCode) ->
-      { enrollment_code: enrollmentCode }
-  )
-  connectUpdate(CourseEnrollmentActions,
-    pattern: 'enrollment_changes/{id}/approve', trigger: 'confirm',
-    onSuccess: 'confirmed', handledErrors: handledEnrollmentErrors, method: 'PUT'
-    data: (id, studentId) ->
-      if studentId
-        { student_identifier: studentId }
-      else
-        {}
-  )
-
   # "User" is actually an instance, but connectModel works at the class level
   connectModelUpdate(User.constructor, 'saveTourView',
     pattern: 'user/tours/{id}'
@@ -257,7 +233,6 @@ startAPI = ->
   connectModelRead(Offerings.constructor, 'fetch', url: 'offerings', onSuccess: 'onLoaded')
 
   connectModelCreate(CourseCreate, 'save', onSuccess: 'onCreated')
-
   connectModelRead(TeacherTaskPlans.constructor, 'fetch',
     pattern: 'courses/{courseId}/dashboard',
     onSuccess: 'onLoaded'
@@ -265,6 +240,13 @@ startAPI = ->
       start_at: startAt
       end_at: endAt
   )
+
+  connectModelUpdate(Student, 'save', pattern: 'user/courses/{courseId}/student', onSuccess: 'onSaved')
+
+  connectModelCreate(CourseEnroll, 'create', url: 'enrollment_changes', onSuccess: 'onApiRequestComplete', onFail: 'setApiErrors')
+  connectModelUpdate(CourseEnroll, 'confirm',
+    pattern: 'enrollment_changes/{id}/approve', method: 'PUT'
+    onSuccess: 'onApiRequestComplete', onFail: 'setApiErrors')
 
 
 
