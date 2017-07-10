@@ -1,6 +1,6 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { extend, omit } from 'lodash';
+import { extend } from 'lodash';
 import TourContext from '../../models/tour/context';
 import cn from 'classnames';
 import { ReactHelpers } from 'shared';
@@ -14,7 +14,6 @@ export default class TourAnchor extends React.PureComponent {
   static defaultProps = {
     tag: 'div',
     className: '',
-    omitProps: [],
     tourContext: null,
   }
 
@@ -23,7 +22,6 @@ export default class TourAnchor extends React.PureComponent {
     className: React.PropTypes.string,
     id: React.PropTypes.string.isRequired,
     children: React.PropTypes.node.isRequired,
-    omitProps: React.PropTypes.arrayOf(React.PropTypes.string),
     tourContext: React.PropTypes.instanceOf(TourContext),
   }
 
