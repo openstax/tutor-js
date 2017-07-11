@@ -1,7 +1,13 @@
 import FullCourse from './full-course';
+import StudentCourse from './student-course';
 import Preview from './preview';
 
 export default function onboardingForCourse(course, context) {
-  const Klass = course.is_preview ? Preview : FullCourse;
+  let Klass;
+  if (course.isStudent) {
+    Klass = StudentCourse;
+  } else {
+    Klass = course.is_preview ? Preview : FullCourse;
+  }
   return new Klass(course, context);
 }

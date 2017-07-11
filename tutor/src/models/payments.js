@@ -5,7 +5,7 @@ import {  extend } from 'lodash';
 import { action, observable, when,computed } from 'mobx';
 import loadjs from 'loadjs';
 import invariant from 'invariant';
-
+import { Logging } from 'shared';
 import User from './user';
 
 let EMBED_URL = '';
@@ -23,7 +23,7 @@ export default class Payments extends BaseModel {
   }
 
   @observable isBusy = false;
-  @observable errorMsg = ''
+  @observable errorMessage = ''
   @observable element;
   @observable parentCallbacks;
 
@@ -33,7 +33,7 @@ export default class Payments extends BaseModel {
     REQUIRED_OPTIONS.forEach((key) =>
       invariant(options[key], `option ${key} was not set for payments`));
     when(
-      () => this.element && EMBED_URL,
+      () => !!this.element,
       this.fetch,
     );
   }
@@ -50,21 +50,31 @@ export default class Payments extends BaseModel {
     });
   }
 
+  @computed get hasError() {
+    return Boolean(this.errorMessage);
+  }
+
   @action.bound
   fetch() {
+    if (!EMBED_URL) { return this.logFailure('Attempted to load payments without a url set'); }
     this.isBusy = true;
     if (window.OSPayments) { // may already be loaded
-      this.createIframe();
+      return this.createIframe();
     } else {
-      loadjs(EMBED_URL, {
+      return loadjs(EMBED_URL, {
         success: this.createIframe,
-        error: (e) => this.errorMsg = `Unable to request assets: ${e}`,
+        error: (e) => this.logFailure(`Unable to request assets: ${e}`),
       });
     }
   }
 
+  logFailure(msg) {
+    this.errorMessage = msg;
+    this.isBusy = false;
+    Logging.error(msg);
+  }
+
   get remotePaymentOptions() {
-//
     const BAD_UUID = '00000000-0000-0000-0000-000000000000';
     const { options: { course } } = this;
     return extend({}, this.options, {
