@@ -22,7 +22,10 @@ describe('Full Course Onboarding', () => {
   it('#nagComponent', () => {
     expect(ux.nagComponent).toBeNull();
     ux.course.needsPayment = true;
+    ux.course.userStudentRecord = {};
     expect(ux.nagComponent).toBe(Nags.payNowOrLater);
+    ux.course.userStudentRecord = { mustPayImmediatly: true };
+    expect(ux.nagComponent).toBe(Nags.freeTrialEnded);
   });
 
   it('#payNow', () => {
