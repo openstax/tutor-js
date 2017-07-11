@@ -6,6 +6,7 @@ import { get, pick } from 'lodash';
 import TourContext from '../../models/tour/context';
 import Onboarding from '../../models/course/onboarding/base';
 import { autobind } from 'core-decorators';
+import classnames from 'classnames';
 
 @inject((context) => pick(context, 'tourContext', 'spyMode'))
 @observer
@@ -46,9 +47,9 @@ export default class CourseNagModal extends React.PureComponent {
 
     return (
       <Modal
+        className={classnames("onboarding", NagComponent.className)}
         show={!this.isDismissed}
         onHide={this.onClose}
-        className="onboarding"
       >
         <NagComponent
           onDismiss={this.onDismiss}

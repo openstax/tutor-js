@@ -29,7 +29,10 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
   }
 
   @action.bound
-  payLater() { UiSettings.set(PAY_LATER_CHOICE, true); }
+  payLater() {
+    UiSettings.set(PAY_LATER_CHOICE, this.course.id, true);
+    this.displayPayment = false;
+  }
 
   @action.bound
   onPaymentComplete() {

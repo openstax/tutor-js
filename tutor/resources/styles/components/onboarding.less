@@ -1,84 +1,95 @@
 .onboarding.modal {
-  margin-top: 130px;
+  top: 130px;
   .modal-dialog {
     width: 500px;
   }
   .modal-content {
     border-radius: 0;
   }
-}
-
-.onboarding-nag {
-  .heading,
-  .body,
-  .footer {
-    padding: 2rem;
-  }
-
-  .heading {
-    background-color: @tutor-neutral-lighter;
-    font-weight: 700;
-    font-size: 18px;
-  }
-
-  .body {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-  }
-
-  .footer {
-    .btn {
-      width: 100%;
-      margin-top: 0.5rem;
-      & + .btn { margin-left: 0; }
-    }
-    &.got-it {
-      .btn { width: inherit; }
+  &.pay-now-or-later,
+  &.make-payment {
+    &::before {
+      .psuedo-background();
+      position: fixed;
+      background-image: url('../../images/ost-hero.jpg');
+      top: 0;
     }
   }
 
-  &.freshly-created-course {
-    .why-ask-heading { cursor: pointer; }
-    .footer button:first-child {
-      &:extend(.btn-primary);
+  .onboarding-nag {
+    .heading,
+    .body,
+    .footer {
+      padding: 2rem;
     }
-  }
-  &.pay-now-or-later {
-    padding: 40px;
-    background-color: @tutor-neutral-bright;
-    text-align: center;
-    .btn.later {
-      background-color: @tutor-neutral;
-      color: @tutor-neutral-lightest;
-    }
-    p {
-      font-size: 1.4rem;
-      margin: 20px 0;
 
+    .heading {
+      background-color: @tutor-neutral-lighter;
+      font-weight: 700;
+      font-size: 18px;
     }
-    .or {
-      overflow: hidden;
+
+    .body {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    .footer {
+      .btn {
+        width: 100%;
+        margin-top: 0.5rem;
+        & + .btn { margin-left: 0; }
+      }
+      &.got-it {
+        .btn { width: inherit; }
+      }
+    }
+
+    &.freshly-created-course {
+      .why-ask-heading { cursor: pointer; }
+      .footer button:first-child {
+        &:extend(.btn-primary);
+      }
+    }
+
+    &.pay-now-or-later {
+      padding: 40px;
+      background-color: @tutor-neutral-bright;
       text-align: center;
-      margin: 20px 0;
-      &:before,
-      &:after {
-        background-color: @tutor-neutral-light;
-        content: "";
-        display: inline-block;
-        height: 1px;
-        position: relative;
-        vertical-align: middle;
-        width: 50%;
+      .btn.later {
+        background-color: @tutor-neutral;
+        color: @tutor-neutral-lightest;
       }
-      &:before {
-        right: 0.5em;
-        margin-left: -50%;
+      p {
+        font-size: 1.4rem;
+        margin: 20px 0;
+
       }
-      &:after {
-        left: 0.5em;
-        margin-right: -50%;
+      .or {
+        overflow: hidden;
+        text-align: center;
+        margin: 20px 0;
+        &:before,
+        &:after {
+          background-color: @tutor-neutral-light;
+          content: "";
+          display: inline-block;
+          height: 1px;
+          position: relative;
+          vertical-align: middle;
+          width: 50%;
+        }
+        &:before {
+          right: 0.5em;
+          margin-left: -50%;
+        }
+        &:after {
+          left: 0.5em;
+          margin-right: -50%;
+        }
       }
     }
+
   }
 }

@@ -11,6 +11,8 @@ export default class PayNowOrLater extends React.PureComponent {
     onDismiss: React.PropTypes.func.isRequired,
   }
 
+  static className = 'pay-now-or-later';
+
   render() {
     const { ux } = this.props;
 
