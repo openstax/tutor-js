@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Free trial ended modal renders and matches snapshot 1`] = `
+<div
+  className="onboarding-nag free-trial-ended"
+>
+  <div
+    className="heading"
+  >
+    Your free trial for 
+    Local Test Course One
+     has ended
+  </div>
+  <div
+    className="body"
+  >
+    <p>
+      To continue accessing your course, click the button below to pay your one-time 
+      $10
+       fee for the semester.
+    </p>
+  </div>
+  <div
+    className="footer"
+  >
+    <button
+      className="btn btn-primary"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Buy access now
+    </button>
+    <button
+      className="btn btn-link"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Return to my courses
+    </button>
+  </div>
+</div>
+`;
