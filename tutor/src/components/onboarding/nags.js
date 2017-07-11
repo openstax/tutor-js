@@ -7,6 +7,9 @@ import courseUseTips from './course-use-tips';
 import thanksForNow from './thank-you-for-now';
 import thanksAnways from './thanks-anyways';
 
+import payNowOrLater from './pay-now-or-later';
+import makePayment from './make-payment';
+
 export default {
   previewOnlyWarning,
   secondSessionWarning,
@@ -17,4 +20,6 @@ export default {
   thanksForNow,
   thanksAnways,
 
+  payNowOrLater,
+  makePayment,
 };

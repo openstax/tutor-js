@@ -117,9 +117,8 @@ export default class Course extends BaseModel {
     return TeacherTaskPlans.forCourseId(this.id);
   }
 
-  // FIXME use student info once that's merged
   @computed get needsPayment() {
-    return this.does_cost;
+    return Boolean(this.does_cost && this.userStudentRecord && this.userStudentRecord.needsPayment);
   }
 
   @computed get tourAudienceTags() {

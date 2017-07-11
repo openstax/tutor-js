@@ -1,4 +1,8 @@
 import {
+  computed, action,
+} from 'mobx'
+
+import {
   BaseModel, identifiedBy, field, identifier, belongsTo,
 } from '../base';
 
@@ -33,5 +37,14 @@ export default class CourseStudent extends BaseModel {
 
   onSaved({ data }) {
     this.update(data);
+  }
+
+  @computed get needsPayment() {
+    return Boolean(!this.is_paid && !this.is_compted);
+  }
+
+  @action markPaid() {
+    this.is_paid = true;
+    this.prompt_student_to_pay = false;
   }
 }

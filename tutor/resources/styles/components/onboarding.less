@@ -44,4 +44,41 @@
       &:extend(.btn-primary);
     }
   }
+  &.pay-now-or-later {
+    padding: 40px;
+    background-color: @tutor-neutral-bright;
+    text-align: center;
+    .btn.later {
+      background-color: @tutor-neutral;
+      color: @tutor-neutral-lightest;
+    }
+    p {
+      font-size: 1.4rem;
+      margin: 20px 0;
+
+    }
+    .or {
+      overflow: hidden;
+      text-align: center;
+      margin: 20px 0;
+      &:before,
+      &:after {
+        background-color: @tutor-neutral-light;
+        content: "";
+        display: inline-block;
+        height: 1px;
+        position: relative;
+        vertical-align: middle;
+        width: 50%;
+      }
+      &:before {
+        right: 0.5em;
+        margin-left: -50%;
+      }
+      &:after {
+        left: 0.5em;
+        margin-right: -50%;
+      }
+    }
+  }
 }
