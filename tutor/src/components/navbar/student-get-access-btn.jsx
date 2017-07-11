@@ -14,6 +14,9 @@ export default class StudentGetAccessBtn extends React.PureComponent {
   }
 
   @observable isShowingModal = false;
+  @computed get course() {
+    return this.props.courseId ? Courses.get(this.props.courseId) : null;
+  }
 
   @action.bound
   onClick() {
@@ -29,8 +32,9 @@ export default class StudentGetAccessBtn extends React.PureComponent {
     if (this.isShowingModal) {
       return (
         <PaymentsModal
-          onComplete={this.onComplete}
-          courseId={this.props.courseId}
+          onPaymentComplete={this.onComplete}
+          onCancel={this.onComplete}
+          course={this.course}
         />
       );
     }
@@ -38,12 +42,10 @@ export default class StudentGetAccessBtn extends React.PureComponent {
   }
 
   render() {
-    const { courseId } = this.props;
-
-    if (!courseId || !Courses.get(courseId).needsPayment) { return null; }
+    if (!this.course || !this.course.needsPayment) { return null; }
 
     return (
-      <Button bsStyle="primary" onClick={this.onClick} className="get-access visible-when-debugging">
+      <Button bsStyle="primary" onClick={this.onClick} className="get-access">
         {this.renderModal()}
         Get access
       </Button>
