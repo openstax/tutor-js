@@ -92,7 +92,7 @@ getStudentPreview = ->
 
 ROUTES = [
   { pattern: '/dashboard',              name: 'myCourses',                renderer: getMyCourses }
-  { pattern: '/enroll/:enrollmentCode', name: 'createEnrollmentChange',   renderer: getCreateEnrollmentChange }
+  { pattern: '/enroll/start/:enrollmentCode', name: 'createEnrollmentChange',   renderer: getCreateEnrollmentChange }
   { pattern: '/new-course/:sourceId?',  name: 'createNewCourse',          renderer: getCreateCourse  }
   {
     pattern: '/qa',                     name: 'QADashboard',              renderer: getQADashboard
