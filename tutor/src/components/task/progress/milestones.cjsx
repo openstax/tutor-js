@@ -129,6 +129,11 @@ MilestonesWrapper = React.createClass
     currentStep: currentStep
     crumbs: crumbs
 
+  componentWillMount: ->
+    bStyle = document.body.style
+    @_bodyOverflowStyle = bStyle.overflow
+    bStyle.overflow = 'hidden'
+
   componentDidMount: ->
     @switchCheckingClick()
     @switchTransitionListen()
@@ -136,6 +141,8 @@ MilestonesWrapper = React.createClass
   componentWillUnmount: ->
     @switchCheckingClick(false)
     @switchTransitionListen(false)
+    bStyle = document.body.style
+    bStyle.overflow = @_bodyOverflowStyle
 
   componentDidEnter: (transitionEvent) ->
     @props.handleTransitions?(transitionEvent) if transitionEvent.propertyName is 'transform'
