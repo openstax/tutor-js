@@ -15,6 +15,7 @@
 
   > .book-title {
     font-size: 3.8rem;
+    letter-spacing: 3.8rem * -0.04;
     line-height: 4.4rem;
     margin-top: -0.3rem;
   }
@@ -25,6 +26,7 @@
       color: @openstax-book-default-fg-inverse;
       font-weight: normal;
       font-variant: small-caps;
+      letter-spacing: normal;
     }
     .for(@openstax-book-fg-inverse-codes); .-each(@bookcode) {
       &[data-appearance=@{bookcode}] .book-title-text::after {
