@@ -5,6 +5,8 @@ import {
 import {
   BaseModel, identifiedBy, field, identifier, belongsTo,
 } from '../base';
+import { TimeStore } from '../../flux/time';
+import moment from 'moment';
 
 @identifiedBy('course/student')
 export default class CourseStudent extends BaseModel {
@@ -19,8 +21,8 @@ export default class CourseStudent extends BaseModel {
   @field is_paid;
   @field is_refund_allowed;
   @field is_refund_pending;
-  @field payment_due_at;
-  @field prompt_student_to_pay;
+  @field({ type: 'date' }) payment_due_at;
+  @field prompt_student_to_pay; // not needed and unused
 
   @field period_id;
   @field role_id;
@@ -35,12 +37,16 @@ export default class CourseStudent extends BaseModel {
     };
   }
 
+  get mustPayImmediatly() {
+    return Boolean(this.needsPayment && moment(this.payment_due_at).isBefore(TimeStore.getNow()));
+  }
+
   onSaved({ data }) {
     this.update(data);
   }
 
   @computed get needsPayment() {
-    return Boolean(!this.is_paid && !this.is_compted);
+    return !(this.is_paid || this.is_comped);
   }
 
   @action markPaid() {
