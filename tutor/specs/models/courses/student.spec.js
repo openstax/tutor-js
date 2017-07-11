@@ -20,12 +20,12 @@ describe('Course Student', () => {
     expect(student.needsPayment).toBe(false);
   });
 
-  test('#mustPayImmediatly', () => {
+  test('#mustPayImmediately', () => {
     const student = new Student({ payment_due_at: '1999-12-30' });
     expect(student.needsPayment).toBe(true);
-    expect(student.mustPayImmediatly).toBe(true);
+    expect(student.mustPayImmediately).toBe(true);
     student.payment_due_at = new Date('2000-01-02');
     expect(student.needsPayment).toBe(true);
-    expect(student.mustPayImmediatly).toBe(false);
+    expect(student.mustPayImmediately).toBe(false);
   });
 });

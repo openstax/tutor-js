@@ -37,7 +37,7 @@ export default class CourseStudent extends BaseModel {
     };
   }
 
-  get mustPayImmediatly() {
+  get mustPayImmediately() {
     return Boolean(this.needsPayment && moment(this.payment_due_at).isBefore(TimeStore.getNow()));
   }
 

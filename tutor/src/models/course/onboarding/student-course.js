@@ -20,7 +20,7 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
     if (this.displayPayment) {
       return Nags.makePayment;
     }
-    if (this.course.userStudentRecord.mustPayImmediatly) {
+    if (this.course.userStudentRecord.mustPayImmediately) {
       return Nags.freeTrialEnded;
     }
     if (!UiSettings.get(PAY_LATER_CHOICE, this.course.id)) {
