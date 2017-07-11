@@ -9,8 +9,8 @@ export default class OpenCalendarSidebar extends BaseAction {
     this.wasOpen = this.toggle.classList.contains('open');
     if (!this.wasOpen) {
       this.toggleSidebar();
-      // sidebar animates for 500ms
-      this.repositionAfter(550);
+      // sidebar animates for 500ms + a bit longer
+      this.repositionAfter(650);
     }
   }
 
