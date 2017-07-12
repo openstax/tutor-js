@@ -34,6 +34,10 @@ export default class PreviewAddCourseBtn extends React.PureComponent {
     return this.course ? onboardingForCourse(this.course, this.props.tourContext) : null;
   }
 
+  componentWillUnmount() {
+    if (this.ux) { this.ux.close(); }
+  }
+
   @action.bound
   onAddCourse() {
     User.replayTour({id: 'create-a-course'});
