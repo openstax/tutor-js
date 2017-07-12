@@ -14,7 +14,7 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
   @observable displayPayment = false;
 
   @computed get nagComponent() {
-    if (!this.course.needsPayment) {
+    if (this.otherModalsAreDisplaying || !this.course.needsPayment) {
       return null;
     }
     if (this.displayPayment) {
