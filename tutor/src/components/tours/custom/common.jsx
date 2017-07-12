@@ -51,7 +51,16 @@ function bindClickHandler(handlers) {
   });
 }
 
-function TutorValueColumns() {
+function TutorValueColumns({ withoutCost }) {
+  let cost = null;
+  if (!withoutCost) {
+    cost = (
+      <Column className="low-cost">
+        <h3>Low cost</h3>
+        <p>{CourseUX.formattedStudentCost} per course saves students money</p>
+      </Column>
+    );
+  }
   return (
     <ColumnContent>
       <Column className="spaced">
@@ -66,10 +75,7 @@ function TutorValueColumns() {
         <h3>Two-step questions</h3>
         <p>Help students study more effectively</p>
       </Column>
-      <Column className="low-cost">
-        <h3>Low cost</h3>
-        <p>{CourseUX.formattedStudentCost} per course saves students money</p>
-      </Column>
+      {cost}
     </ColumnContent>
   );
 }
@@ -98,11 +104,12 @@ function TutorCoachSunset(props) {
 }
 
 function WelcomeToTutorMessage(props) {
+
   return (
     <ValueProp className="welcome-to-tutor">
       <h1 className="heading">Welcome to <CourseBranding />!</h1>
       {props.children}
-      <TutorValueColumns />
+      <TutorValueColumns {...props} />
     </ValueProp>
   );
 }
