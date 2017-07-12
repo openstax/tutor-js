@@ -7,24 +7,21 @@
     border-radius: 0;
   }
   &.pay-now-or-later,
+  &.free-trial-ended,
   &.make-payment {
-    &::before {
-      .psuedo-background();
-      position: fixed;
-      background-image: url('../../images/ost-hero.jpg');
-      top: 0;
-    }
+    .ost-hero-background(0px);
+    top: 60px;
   }
 
   .onboarding-nag {
+    background-color: @tutor-neutral-lighter;
+
     .heading,
-    .body,
     .footer {
-      padding: 2rem;
+      padding: 40px;
     }
 
     .heading {
-      background-color: @tutor-neutral-lighter;
       font-weight: 700;
       font-size: 18px;
     }
@@ -33,6 +30,7 @@
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
+      padding: 0 40px;
     }
 
     .footer {
@@ -50,6 +48,15 @@
       .why-ask-heading { cursor: pointer; }
       .footer button:first-child {
         &:extend(.btn-primary);
+      }
+    }
+
+    &.free-trial-ended {
+      .body, .footer {
+
+      }
+      .footer {
+        .btn { width: inherit; }
       }
     }
 

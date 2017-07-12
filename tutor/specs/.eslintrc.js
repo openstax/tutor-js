@@ -6,6 +6,7 @@ module.exports = {
     "describe":   false,
     "xdescribe":  false,
     "fdescribe":  false,
+    "test":       false,
     "it":         false,
     "xit":        false,
     "fit":        false,

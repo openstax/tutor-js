@@ -8,7 +8,6 @@ export default class PayNowOrLater extends React.PureComponent {
 
   static propTypes = {
     ux: MobxPropTypes.observableObject.isRequired,
-    onDismiss: React.PropTypes.func.isRequired,
   }
 
   static className = 'pay-now-or-later';

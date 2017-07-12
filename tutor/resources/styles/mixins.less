@@ -19,6 +19,22 @@
   background-size: cover;
 }
 
+.ost-hero-background(@top: @tutor-navbar-height) {
+  &::before {
+    position: fixed;
+    top: @top;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    content: "";
+    z-index: -1;
+    background-image: url('../images/openstax-logo-white.png'), url('../images/ost-hero.jpg');
+    background-repeat: no-repeat, no-repeat;
+    background-size: 174px 40px, cover;
+    background-position: center 20px, center;
+  }
+}
+
 .no-select() {
   -webkit-touch-callout: none;
   -webkit-user-select: none;

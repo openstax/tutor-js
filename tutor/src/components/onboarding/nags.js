@@ -7,8 +7,9 @@ import courseUseTips from './course-use-tips';
 import thanksForNow from './thank-you-for-now';
 import thanksAnways from './thanks-anyways';
 
-import payNowOrLater from './pay-now-or-later';
-import makePayment from './make-payment';
+import payNowOrLater  from './pay-now-or-later';
+import makePayment    from './make-payment';
+import freeTrialEnded from './free-trial-ended';
 
 export default {
   previewOnlyWarning,
@@ -22,4 +23,5 @@ export default {
 
   payNowOrLater,
   makePayment,
+  freeTrialEnded,
 };
