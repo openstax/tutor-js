@@ -1,5 +1,5 @@
 import {
-  computed, observable, action,
+  computed, observable, action, autorun,
 } from 'mobx';
 
 import BaseOnboarding from './base';
@@ -13,13 +13,14 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
 
   @observable displayPayment = false;
 
+  constructor(course, tourContext) {
+    super(course, tourContext);
+    this.disposeTourSilencer = autorun(() => this.tourContext.isEnabled = !this.nagComponent);
+  }
+
   @computed get nagComponent() {
-    if (this.otherModalsAreDisplaying || !this.course.needsPayment) {
-      return null;
-    }
-    if (this.displayPayment) {
-      return Nags.makePayment;
-    }
+    if (this.displayPayment) { return Nags.makePayment; }
+    if (!this.course.needsPayment) { return null; }
     if (this.course.userStudentRecord.mustPayImmediately) {
       return Nags.freeTrialEnded;
     }
@@ -44,5 +45,10 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
   onPaymentComplete() {
     this.displayPayment = false;
     this.course.userStudentRecord.markPaid();
+  }
+
+  close() {
+    super.close();
+    this.disposeTourSilencer();
   }
 }
