@@ -1,0 +1,15 @@
+[
+{
+  "id": "student-dashboard",
+  "autoplay": true,
+  "standalone": true,
+  "audience_tags": [
+    "student"
+  ],
+  "steps": [
+    {
+      "customComponent": "StudentWelcomeToTutor"
+    }
+  ]
+}
+]
