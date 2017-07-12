@@ -53,7 +53,7 @@ export default class UserActionsMenu extends React.PureComponent {
   @autobind
   renderMenuItem(menuOption) {
     const options = menuOption.options || {};
-    const isActive = menuOption.name && Router.isActive(menuOption.name, menuOption.params, { window: this.props.windowImpl });
+    const isActive = false;
     const key = `menu-option-${options.key || menuOption.name || menuOption.key || menuOption.label}`;
     const Component = CustomComponents[menuOption.name];
 
