@@ -101,7 +101,7 @@ const ROUTES = {
   },
   managePayments: {
     label: 'Manage payments',
-    isAllowed() { return Courses.student.any; },
+    isAllowed() { return Courses.costing.student.any; },
   },
   qaHome: {
     label: 'Content Analyst',
