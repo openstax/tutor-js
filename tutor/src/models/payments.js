@@ -15,6 +15,14 @@ const REQUIRED_OPTIONS = [
   'course',
 ];
 
+function s4() {
+  return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+}
+
+function BAD_UUID() {
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
 @identifiedBy('payments')
 export default class Payments extends BaseModel {
 
@@ -76,14 +84,14 @@ export default class Payments extends BaseModel {
   }
 
   get remotePaymentOptions() {
-    const BAD_UUID = '00000000-0000-0000-0000-000000000000';
+
     const { options: { course } } = this;
     return extend({}, this.options, {
       product_uuid: PRODUCT_UUID,
-      purchaser_account_uuid: BAD_UUID, // User.account_uuid,
+      purchaser_account_uuid: BAD_UUID(), // User.account_uuid,
       product_end_date: course.ends_at, // TODO: course doesn't currently have the below UUIDs from BE
-      product_instance_uuid: course.primaryRole.membership_uuid || BAD_UUID,
-      course_uuid: course.uuid || BAD_UUID,
+      product_instance_uuid: course.primaryRole.membership_uuid || BAD_UUID(),
+      course_uuid: course.uuid || BAD_UUID(),
     });
   }
 
