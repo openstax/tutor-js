@@ -1,6 +1,7 @@
 import { BaseAction, identifiedBy } from './base';
 import { defer } from 'lodash';
 import { action, computed } from 'mobx';
+import browser from 'detect-browser';
 
 @identifiedBy('tour/action/open-calendar-sidebar')
 export default class OpenCalendarSidebar extends BaseAction {
@@ -10,7 +11,7 @@ export default class OpenCalendarSidebar extends BaseAction {
     if (!this.wasOpen) {
       this.toggleSidebar();
       // sidebar animates for 500ms + a bit longer
-      this.repositionAfter(650);
+      this.repositionAfter(browser.name === 'ie' ? 850 : 550);
     }
   }
 
