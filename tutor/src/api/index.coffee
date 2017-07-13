@@ -253,7 +253,7 @@ startAPI = ->
 
 
 start = (bootstrapData) ->
-  Payments.embed_js_url = bootstrapData.payments_embed_js_url
+  Payments.bootstrap(bootstrapData)
   for storeId, action of BOOTSTRAPED_MODELS
     data = bootstrapData[storeId]
     action(data) if data

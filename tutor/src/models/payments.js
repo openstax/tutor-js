@@ -9,17 +9,18 @@ import { Logging } from 'shared';
 import User from './user';
 
 let EMBED_URL = '';
+let PRODUCT_UUID = '';
 
 const REQUIRED_OPTIONS = [
   'course',
-  'product_uuid',
 ];
 
 @identifiedBy('payments')
 export default class Payments extends BaseModel {
 
-  static set embed_js_url(url) {
-    EMBED_URL = url;
+  static bootstrap(data) {
+    EMBED_URL = data.payments_embed_js_url;
+    PRODUCT_UUID = data.payments_product_uuid;
   }
 
   @observable isBusy = false;
@@ -78,6 +79,7 @@ export default class Payments extends BaseModel {
     const BAD_UUID = '00000000-0000-0000-0000-000000000000';
     const { options: { course } } = this;
     return extend({}, this.options, {
+      product_uuid: PRODUCT_UUID,
       purchaser_account_uuid: BAD_UUID, // User.account_uuid,
       product_end_date: course.ends_at, // TODO: course doesn't currently have the below UUIDs from BE
       product_instance_uuid: course.primaryRole.membership_uuid || BAD_UUID,
