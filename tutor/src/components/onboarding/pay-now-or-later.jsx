@@ -12,15 +12,6 @@ export default class PayNowOrLater extends React.PureComponent {
 
   static className = 'pay-now-or-later';
 
-  componentWillMount() {
-    this.originalTourState = this.props.ux.tourContext.isEnabled;
-    this.props.ux.tourContext.isEnabled = false;
-  }
-
-  componentWillUnmount() {
-    this.props.ux.tourContext.isEnabled = this.originalTourState;
-  }
-
   render() {
     const { ux } = this.props;
 
