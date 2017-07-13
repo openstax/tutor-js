@@ -50,6 +50,7 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
       courseId: React.PropTypes.string,
       date: React.PropTypes.string,
     }).isRequired,
+    tourContext: React.PropTypes.object,
   }
 
   static defaultProps = {
@@ -78,9 +79,7 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
     return { termStart: term.start, termEnd: term.end };
   }
 
-  @computed get ux() {
-    return onboardingForCourse(this.course, this.props.tourContext);
-  }
+  ux = onboardingForCourse(this.course, this.props.tourContext);
 
   @observable loader = new ModelLoader({ model: TaskPlans });
 
@@ -130,6 +129,7 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
   componentWillUnmount() {
     TimeHelper.unsyncCourseTimezone();
     this.disposePlanObserver();
+    this.ux.close();
   }
 
   getDateFromParams({ termStart }) {

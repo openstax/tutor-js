@@ -7,10 +7,11 @@ import HowToBuildYourReading    from './how-to-build-your-reading';
 import ForceScrollOnMount       from './force-scroll-on-mount';
 import TipsNowOrLater           from './tips-now-or-later';
 
-import WelcomeToTutor               from './welcome-to-tutor';
+import InstructorWelcomeToTutor     from './instructor-welcome-to-tutor';
 import WelcomeToTutorWithCoach      from './welcome-to-tutor-with-coach';
 import LookingForCoach              from './looking-for-coach';
 import LookingForCoachNoMigration   from './looking-for-coach-no-migration';
+import StudentWelcomeToTutor        from './student-welcome-to-tutor';
 
 export default {
   HowToUseQL,
@@ -22,8 +23,9 @@ export default {
   ForceScrollOnMount,
   TipsNowOrLater,
 
-  WelcomeToTutor,
+  InstructorWelcomeToTutor,
   WelcomeToTutorWithCoach,
   LookingForCoach,
   LookingForCoachNoMigration,
+  StudentWelcomeToTutor,
 };

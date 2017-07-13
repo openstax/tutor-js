@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, computed, observable, field,
 } from '../base';
 import {
-  find, isEmpty, intersection, compact, uniq, flatMap, map, invoke, filter, delay,
+  find, isEmpty, intersection, compact, uniq, flatMap, map, get, filter, delay,
 } from 'lodash';
 import { observe, action } from 'mobx';
 
@@ -30,13 +30,15 @@ export default class TourContext extends BaseModel {
 
   @observable forcePastToursIndication;
 
+  @observable otherModal;
+
   constructor(attrs) {
     super(attrs);
     observe(this, 'tourRide', this._onTourRideChange.bind(this));
   }
 
   @computed get tourIds() {
-    if (this.isEnabled) {
+    if (this.isEnabled && !get(this, 'otherModal.isDisplaying', false)) {
       return compact(uniq(flatMap(this.regions, r => r.tour_ids)));
     } else {
       return [];

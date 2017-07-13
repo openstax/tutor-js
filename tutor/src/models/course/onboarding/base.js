@@ -37,5 +37,6 @@ export default class BasicCourseOnboarding {
     );
   }
 
-
+  mount() { }
+  close() { }
 }

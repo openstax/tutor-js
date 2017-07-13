@@ -4,7 +4,8 @@ import Nags from '../../../../src/components/onboarding/nags';
 import CourseUX from '../../../../src/models/course/onboarding/student-course';
 import UiSettings from 'shared/src/model/ui-settings';
 
-jest.mock('shared/src/model/ui-settings');
+
+jest.mock('shared/src/model/ui-settings' );
 jest.mock('../../../../src/models/course');
 
 
@@ -17,6 +18,10 @@ describe('Full Course Onboarding', () => {
       new Course,
       { tour: null },
     );
+  });
+
+  afterEach(() => {
+    ux.close();
   });
 
   it('#nagComponent', () => {
@@ -42,6 +47,18 @@ describe('Full Course Onboarding', () => {
     };
     ux.onPaymentComplete();
     expect(ux.course.userStudentRecord.markPaid).toHaveBeenCalled();
+  });
+
+  it('silences tours', () => {
+    ux.course.userStudentRecord = { mustPayImmediately: false };
+    UiSettings.get.mockImplementation(() => true);
+    ux.mount();
+    expect(ux.tourContext.otherModal).toBe(ux);
+    ux.course.needsPayment = true;
+    ux.displayPayment = true;
+    expect(ux.tourContext.otherModal.isDisplaying).toBe(true);
+    ux.close();
+    expect(ux.tourContext.otherModal).toBeNull();
   });
 
 });

@@ -9,7 +9,7 @@
   ],
   "steps": [
     {
-      "customComponent": "WelcomeToTutor"
+      "customComponent": "InstructorWelcomeToTutor"
     }
   ]
 }, {

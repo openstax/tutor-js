@@ -20,14 +20,21 @@ export default class StudentDashboardShell extends React.PureComponent {
     params: React.PropTypes.shape({
       courseId: React.PropTypes.string,
     }).isRequired,
+    tourContext: React.PropTypes.object,
   }
 
   @computed get course() {
     return Courses.get(this.props.params.courseId);
   }
 
-  @computed get ux() {
-    return onboardingForCourse(this.course, this.props.tourContext);
+  ux = onboardingForCourse(this.course, this.props.tourContext);
+
+  componentWillMount() {
+    this.ux.mount(); // ux will use this to start silencing tours while it's displaying payment nags
+  }
+
+  componentWillUnmount() {
+    this.ux.close(); // ux will tell context it's ok to display tours
   }
 
   render() {

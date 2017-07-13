@@ -14,12 +14,8 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
   @observable displayPayment = false;
 
   @computed get nagComponent() {
-    if (!this.course.needsPayment) {
-      return null;
-    }
-    if (this.displayPayment) {
-      return Nags.makePayment;
-    }
+    if (this.displayPayment) { return Nags.makePayment; }
+    if (!this.course.needsPayment) { return null; }
     if (this.course.userStudentRecord.mustPayImmediately) {
       return Nags.freeTrialEnded;
     }
@@ -27,6 +23,10 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
       return Nags.payNowOrLater;
     }
     return null;
+  }
+
+  @computed get isDisplaying() {
+    return Boolean(this.nagComponent);
   }
 
   @action.bound
@@ -45,4 +45,15 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
     this.displayPayment = false;
     this.course.userStudentRecord.markPaid();
   }
+
+  mount() {
+    super.mount();
+    this.tourContext.otherModal = this;
+  }
+
+  close() {
+    super.close();
+    this.tourContext.otherModal = null;
+  }
+
 }
