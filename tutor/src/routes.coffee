@@ -36,6 +36,10 @@ getExternalShell = ->
   {ExternalShell} = require './components/task-plan'
   ExternalShell
 
+getPaymentsShell = ->
+  {default: Payments} = require './components/payments/manage'
+  Payments
+
 getEventShell = ->
   {EventShell} = require './components/task-plan'
   EventShell
@@ -135,7 +139,6 @@ ROUTES = [
           }
         ]
       }
-
       { pattern: 'practice/:taskId?',   name: 'practiceTopics',           renderer: getPractice            }
       { pattern: 'homework/new',        name: 'createHomework'                                        }
       { pattern: 'homework/:id',        name: 'editHomework',             renderer: getHomeworkShell       }
@@ -154,6 +157,7 @@ ROUTES = [
   {
     pattern: '/student-preview/:courseId?', name: 'studentPreview',       renderer: getStudentPreview
   }
+  { pattern: 'payments',                name: 'managePayments',           renderer: getPaymentsShell     }
   {
     pattern: '/books/:courseId',        name: 'viewReferenceBook',        renderer: getReferenceBookShell
     routes: [

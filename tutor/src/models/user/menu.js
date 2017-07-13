@@ -99,6 +99,10 @@ const ROUTES = {
     label: 'QA Dashboard',
     isAllowed() { return !!User.is_content_analyst; },
   },
+  managePayments: {
+    label: 'Manage payments',
+    isAllowed() { return Courses.student.any; },
+  },
   qaHome: {
     label: 'Content Analyst',
     href: '/content_analyst',

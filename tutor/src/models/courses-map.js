@@ -24,6 +24,10 @@ class CoursesMap extends Map {
     return this.where(c => c.is_active);
   }
 
+  @computed get student() {
+    return this.where(c => c.isStudent);
+  }
+
   @computed get teaching() {
     return this.where(c => c.isTeacher);
   }

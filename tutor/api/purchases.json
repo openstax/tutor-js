@@ -1,0 +1,9 @@
+[
+  {
+    "uuid": "bd12c724-45b0-4e22-ab6d-53cffe5633e1", "occured_at": "2017-06-04", "product_name": "OpenStax Tutor Physics 202",
+    "order_number": "4567890123", "amount": "10.90", "can_refund": true },
+  { "uuid": "cd9bfc7d-2212-4387-9107-5cc81b3b1ae6", "occured_at": "2017-07-01", "product_name": "OpenStax Tutor Physics 201",
+    "order_number": "3456789012", "amount": "10.33" },
+  { "uuid": "d5c4c762-19de-4c87-b2e1-730bb9f5c6fc", "occured_at": "2017-01-04", "product_name": "OpenStax Tutor Physics 102",
+    "order_number": "2345678901", "amount": "10.90" }
+]
