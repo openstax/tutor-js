@@ -45,10 +45,13 @@ export default class StudentGetAccessBtn extends React.PureComponent {
     if (!this.course || !this.course.needsPayment) { return null; }
 
     return (
-      <Button bsStyle="primary" onClick={this.onClick} className="get-access">
+      <span className="student-get-access">
+        You have {this.course.userStudentRecord.trialDaysRemaining} days left in your free trial
         {this.renderModal()}
-        Get access
-      </Button>
+        <Button bsStyle="primary" onClick={this.onClick}>
+          Get access
+        </Button>
+      </span>
     );
   }
 }
