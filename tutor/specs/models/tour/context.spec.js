@@ -1,5 +1,5 @@
 import { bootstrapCoursesList } from '../../courses-test-data';
-import { autorun } from 'mobx';
+import { autorun, observable } from 'mobx';
 import { each } from 'lodash';
 
 import TourRegion from '../../../src/models/tour/region';
@@ -93,11 +93,17 @@ describe('Tour Context Model', () => {
     expect(context.anchors.size).toBe(0);
   });
 
-  it('is enabled for ie', () => {
+  it('can be disabled by other observable', () => {
     expect(context.isEnabled).toBe(true);
-    browser.name = 'ie';
-    context = new TourContext();
-    expect(context.isEnabled).toBe(true);
+    context.openRegion(region);
+    context.playTriggeredTours();
+    expect(context.tour).not.toBeNull();
+    context.otherModal = observable({
+      isDisplaying: true,
+    });
+    expect(context.tour).toBeNull();
+    context.otherModal.isDisplaying = false;
+    expect(context.tour).not.toBeNull();
   });
 
   it('emits debug info', () => {

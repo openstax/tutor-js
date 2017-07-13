@@ -29,8 +29,12 @@ export default class StudentDashboardShell extends React.PureComponent {
 
   ux = onboardingForCourse(this.course, this.props.tourContext);
 
+  componentWillMount() {
+    this.ux.mount(); // ux will use this to start silencing tours while it's displaying payment nags
+  }
+
   componentWillUnmount() {
-    this.ux.close();
+    this.ux.close(); // ux will tell context it's ok to display tours
   }
 
   render() {

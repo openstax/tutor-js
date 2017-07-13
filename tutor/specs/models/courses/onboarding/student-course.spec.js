@@ -26,7 +26,6 @@ describe('Full Course Onboarding', () => {
 
   it('#nagComponent', () => {
     expect(ux.nagComponent).toBeNull();
-    ux.disposeTourSilencer();
     ux.course.needsPayment = true;
     ux.course.userStudentRecord = {};
     expect(ux.nagComponent).toBe(Nags.payNowOrLater);
@@ -35,7 +34,6 @@ describe('Full Course Onboarding', () => {
   });
 
   it('#payNow', () => {
-    ux.disposeTourSilencer();
     ux.course.needsPayment = true;
     ux.payNow();
     expect(ux.nagComponent).toBe(Nags.makePayment);
@@ -54,12 +52,13 @@ describe('Full Course Onboarding', () => {
   it('silences tours', () => {
     ux.course.userStudentRecord = { mustPayImmediately: false };
     UiSettings.get.mockImplementation(() => true);
-    expect(ux.tourContext.isEnabled).toBe(true);
+    ux.mount();
+    expect(ux.tourContext.otherModal).toBe(ux);
     ux.course.needsPayment = true;
     ux.displayPayment = true;
-    expect(ux.tourContext.isEnabled).toBe(false);
-    ux.displayPayment = false;
-    expect(ux.tourContext.isEnabled).toBe(true);
+    expect(ux.tourContext.otherModal.isDisplaying).toBe(true);
+    ux.close();
+    expect(ux.tourContext.otherModal).toBeNull();
   });
 
 });
