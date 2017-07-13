@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Student Payments Management renders and matches snapshot 1`] = `
+<div
+  className="manage-payments container"
+>
+  <header>
+    <h1>
+      Manage payments
+    </h1>
+    <a
+      className="btn btn-default"
+      href="/"
+      onClick={[Function]}
+      style={Object {}}
+    >
+      Back to Dashboard
+    </a>
+  </header>
+  <table
+    className="table table-striped table-bordered"
+  >
+    <thead>
+      <tr>
+        <th>
+          Item
+        </th>
+        <th>
+          Transaction date
+        </th>
+        <th>
+          Order number
+        </th>
+        <th>
+          Amount
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          OpenStax Tutor Physics 202
+        </td>
+        <td>
+          June 4th 2017
+        </td>
+        <td>
+          4567890123
+        </td>
+        <td>
+          10.90
+        </td>
+      </tr>
+      <tr>
+        <td>
+          OpenStax Tutor Physics 201
+        </td>
+        <td>
+          July 1st 2017
+        </td>
+        <td>
+          3456789012
+        </td>
+        <td>
+          10.33
+        </td>
+      </tr>
+      <tr>
+        <td>
+          OpenStax Tutor Physics 102
+        </td>
+        <td>
+          January 4th 2017
+        </td>
+        <td>
+          2345678901
+        </td>
+        <td>
+          10.90
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
