@@ -15,7 +15,7 @@ exports[`Course Settings, enrollment url renders for cc courses 1`] = `
   <span>
     Send enrollment instructions for this 
     <span>
-      period
+      section
     </span>
   </span>
 </button>

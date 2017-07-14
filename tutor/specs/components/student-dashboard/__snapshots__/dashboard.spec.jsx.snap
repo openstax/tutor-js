@@ -1,0 +1,134 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Student Dashboard matches snapshot 1`] = `
+<div
+  className="dashboard"
+>
+  <div
+    className="openstax-notifications-bar"
+  />
+  <div
+    className="course-title-banner"
+    data-appearance="testing"
+    data-book-title="Testing"
+    data-is-preview={false}
+    data-term="Spring 2017"
+    data-title="Local Test Course One"
+  >
+    <div
+      className="book-title"
+    >
+      <span
+        className="book-title-text"
+      >
+        Local Test Course One
+      </span>
+    </div>
+    <div
+      className="course-term"
+    >
+      Spring 2017
+    </div>
+  </div>
+  <div
+    className="container"
+    data-tour-region-id="student-dashboard"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-lg-9 col-md-8 col-xs-12"
+      >
+        <nav
+          className="tutor-tabs"
+        >
+          <ul
+            className="nav nav-tabs"
+            role="tablist"
+          >
+            <li
+              className="active"
+              tabIndex={0}
+            >
+              <a
+                aria-selected="true"
+                href="#"
+                onClick={[Function]}
+                role="tab"
+                tabIndex={-1}
+              >
+                This Week
+              </a>
+            </li>
+            <li
+              className=""
+              tabIndex={1}
+            >
+              <a
+                aria-selected={undefined}
+                href="#"
+                onClick={[Function]}
+                role="tab"
+                tabIndex={0}
+              >
+                All Past Work
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <div
+          className="tab-pane active"
+        >
+          <div
+            className="empty panel panel-default"
+            id={undefined}
+          >
+            <div
+              className="panel-body"
+            >
+              No events this week
+            </div>
+          </div>
+          <div
+            className="empty panel panel-default"
+            id={undefined}
+          >
+            <div
+              className="panel-body"
+            >
+              No upcoming events
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="col-lg-3 col-md-4 col-xs-12"
+      >
+        <div
+          className="actions-box loadable is-loading"
+        >
+          Loading progress information... 
+        </div>
+        <div
+          className="actions-box"
+        >
+          <a
+            className="view-reference-guide"
+            data-appearance="testing"
+            href="/"
+            onClick={[Function]}
+            style={Object {}}
+            tabIndex={0}
+            target="_blank"
+          >
+            <div>
+              Browse the Book
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

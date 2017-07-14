@@ -9,6 +9,7 @@ STUDENT_COURSE_ONE_MODEL = {
   offering_id: '1'
   is_active: true
   is_concept_coach: false
+  is_college: true,
   year: 2017
   term: 'Spring'
   starts_at: moment().subtract(1, 'month').format(),
