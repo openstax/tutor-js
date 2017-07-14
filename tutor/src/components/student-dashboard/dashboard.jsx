@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
-
+import { action, observable } from 'mobx';
 import { includes } from 'lodash';
 
 import UpcomingPanel from './upcoming-panel';
@@ -29,17 +29,14 @@ export default class StudentDashboard extends React.PureComponent {
     router: React.PropTypes.object,
   }
 
-  state = {  tabIndex: 0 };
+  @observable tabIndex = 0;
 
+  @action.bound
   onTabSelection(tabIndex, ev) {
     if (includes([0, 1], tabIndex)) {
-      return (
-        this.setState({ tabIndex })
-      );
+      this.tabIndex = tabIndex;
     } else {
-      return (
-        ev.preventDefault()
-      );
+      ev.preventDefault();
     }
   }
 
@@ -61,7 +58,7 @@ export default class StudentDashboard extends React.PureComponent {
   }
 
   render() {
-    const { courseId } = this.props;
+    const { tabIndex, props: { courseId } } = this;
     const course = Courses.get(courseId);
 
     return (
@@ -78,7 +75,7 @@ export default class StudentDashboard extends React.PureComponent {
                 params={this.props.params}
                 onSelect={this.onTabSelection}
                 tabs={['This Week', 'All Past Work']} />
-              {this.state.tabIndex === 0 ? this.renderThisWeek(course) : this.renderPastWork(course)}
+              {tabIndex === 0 ? this.renderThisWeek(course) : this.renderPastWork(course)}
             </Col>
             <Col xs={12} md={4} lg={3}>
               <ProgressGuideShell courseId={courseId} />
