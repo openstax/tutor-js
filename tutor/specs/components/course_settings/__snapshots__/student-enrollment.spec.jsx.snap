@@ -26,7 +26,7 @@ exports[`Course Settings, enrollment url renders for regular courses 1`] = `
   className="tour-anchor enrollment-code-link"
   data-tour-anchor-id="enrollment-code-link"
   id="enrollment-code-link"
-  onClick={[Function]}
+  onClick={undefined}
 >
   <span
     className="title"
@@ -34,13 +34,9 @@ exports[`Course Settings, enrollment url renders for regular courses 1`] = `
     Student Enrollment URL:
   </span>
   <input
+    className="copy-on-focus"
+    onFocus={[Function]}
     readOnly={true}
-    style={
-      Object {
-        "width": 42,
-      }
-    }
-    type="text"
     value="123456"
   />
 </span>
