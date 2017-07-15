@@ -23,7 +23,7 @@ export default class Course extends BaseModel {
 
   @field appearance_code;
   @field name;
-
+  @field uuid;
   @field does_cost;
   @field book_pdf_url;
   @field cloned_from_id;
