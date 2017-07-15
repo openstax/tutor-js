@@ -10,18 +10,15 @@ jest.mock('../../../src/flux/time', () => ({
 describe('Course Student', () => {
 
   test('#needsPayment', () => {
-    const student = new Student({ is_paid: true });
+    const student = new Student({ prompt_student_to_pay: false });
     expect(student.needsPayment).toBe(false);
-    assign(student, { is_paid: false, is_comped: true });
-    expect(student.needsPayment).toBe(false);
-    student.is_comped = false;
+    assign(student, { prompt_student_to_pay: true });
     expect(student.needsPayment).toBe(true);
-    student.markPaid();
-    expect(student.needsPayment).toBe(false);
   });
 
+
   test('#mustPayImmediately', () => {
-    const student = new Student({ payment_due_at: '1999-12-30' });
+    const student = new Student({ payment_due_at: '1999-12-30', prompt_student_to_pay: true });
     expect(student.needsPayment).toBe(true);
     expect(student.mustPayImmediately).toBe(true);
     student.payment_due_at = new Date('2000-01-02');

@@ -13,7 +13,7 @@ export default class CourseStudent extends BaseModel {
   @identifier id;
 
   @field name;
-
+  @field uuid;
   @field first_name;
   @field last_name;
   @field is_active;
@@ -50,7 +50,7 @@ export default class CourseStudent extends BaseModel {
   }
 
   @computed get needsPayment() {
-    return !(this.is_paid || this.is_comped);
+    return Boolean(this.prompt_student_to_pay);
   }
 
   @action markPaid() {
