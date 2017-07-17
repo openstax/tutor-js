@@ -100,6 +100,8 @@ export default class UserActionsMenu extends React.PureComponent {
 
     const course = Courses.get(this.props.courseId);
     const isConceptCoach = get(course, 'is_concept_coach', false);
+    const firstName = User.name.replace(/ .*/, '');
+
     return (
       <Dropdown
         id="user-actions-menu"
@@ -110,7 +112,7 @@ export default class UserActionsMenu extends React.PureComponent {
           useAnchor={true}
         >
           <Icon type="user" />
-          <span title="Menu and settings">{User.name}</span>
+          <span title="Menu and settings">Hi {firstName}</span>
         </Dropdown.Toggle>
         <Dropdown.Menu >
           {flatMap(UserMenu.getRoutes(this.props.courseId), this.renderMenuItem)}
