@@ -6,7 +6,7 @@
 .tutor-top-navbar {
   .make-shy-animate();
   .top-nav-action() {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
 
     .tutor-icon {
       font-size: 2rem;
@@ -40,6 +40,11 @@
   a {
     color: #777;
     text-decoration: none;
+
+    &:hover,
+    &[aria-expanded="true"] {
+      color: #333;
+    }
   }
 
   > * {
@@ -49,8 +54,8 @@
   .ui-brand-logo {
     margin-top: 3px; // the text on the logo is a bit vertically mis-aligned
     display: inline-block;
-    height: 41px;
-    width: 265px;
+    height: 35px;
+    width: 250px;
     background-repeat: no-repeat;
     .tutor-background-image('openstax-tutor-beta-logo.svg');
   }

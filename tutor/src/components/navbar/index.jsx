@@ -4,7 +4,6 @@ import Router                from '../../helpers/router';
 import Courses               from '../../models/courses-map';
 import TutorLink             from '../link';
 import ServerErrorMonitoring from '../error-monitoring';
-import CourseName            from './course-name';
 import UserActionsMenu       from './user-actions-menu';
 import BookLinks             from './book-links';
 import CenterControls        from './center-controls';
@@ -24,7 +23,6 @@ export default function NavigationBar() {
         <TutorLink to="myCourses" className="brand">
           <i className="ui-brand-logo" />
         </TutorLink>
-        <CourseName course={course} />
         <BookLinks courseId={courseId} />
       </div>
       <CenterControls params={params} />
