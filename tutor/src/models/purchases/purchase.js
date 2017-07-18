@@ -3,7 +3,7 @@ import moment from 'moment';
 import {
   BaseModel, identifiedBy, field, identifier, belongsTo, computed, observable,
 } from '../base';
-
+import Courses from '../courses-map';
 import { TimeStore } from '../../flux/time';
 @identifiedBy('purchase/product')
 class Product extends BaseModel {
@@ -26,6 +26,11 @@ export default class Purchase extends BaseModel {
   @field({ type: 'date' }) purchased_at;
   @belongsTo({ model: Product }) product;
 
+  @computed get course() {
+    return find(Courses.array, c =>
+      c.userStudentRecord && c.userStudentRecord.uuid == this.product_instance_uuid);
+  }
+
   @computed get isRefundable() {
     return !this.is_refunded &&
            moment(this.purchased_at).add(14, 'days').isAfter(TimeStore.getNow());
@@ -41,6 +46,9 @@ export default class Purchase extends BaseModel {
 
   onRefunded() {
     this.is_refunded = true;
+    if (this.course) {
+      Courses.delete(this.course.id);
+    }
   }
 
 }
