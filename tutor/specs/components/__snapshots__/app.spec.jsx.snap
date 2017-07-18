@@ -105,7 +105,6 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                 title="Menu and settings"
               >
                 Hi 
-                
               </span>
                
               <span
