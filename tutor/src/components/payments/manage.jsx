@@ -1,14 +1,47 @@
 import React from 'react';
-import Router from '../../helpers/router';
 import { observer } from 'mobx-react';
-import { Grid, Table } from 'react-bootstrap';
+import { Grid, Table, Button } from 'react-bootstrap';
+import moment from 'moment';
+import Router from '../../helpers/router';
 import BackButton from '../buttons/back-button';
 import Purchases from '../../models/purchases';
 import OXFancyLoader from '../ox-fancy-loader';
-import moment from 'moment';
+import { AsyncButton } from 'shared';
+import NewTabLink from '../new-tab-link';
+import { map, extend, isFunction } from 'lodash';
+
+const defaultOptions = {
+  toolbar: 'no',
+  location: 'no',
+  directories: 'no',
+  status: 'no',
+  menubar: 'no',
+  scrollbars: 'yes',
+  resizable: 'yes',
+  width: 500,
+  height: 400,
+  top: (o, w) => ((w.innerHeight - o.height) / 2) + w.screenY,
+  left: (o, w) => ((w.innerWidth - o.width) / 2) + w.screenX,
+};
+
+function openWindow(url, options = {}) {
+  const windowImpl = options.windowImpl || window;
+  const windowOptions = map(extend({}, defaultOptions, options), (v, key, o) =>
+    `${key}=${v = isFunction(v) ? v(o, windowImpl) : v}`
+  ).join(',');
+  return windowImpl.open(url, options.title, windowOptions);
+}
+
 
 @observer
 export default class ManagePayments extends React.PureComponent {
+
+  static propTypes = {
+    windowImpl: React.PropTypes.shape({
+      open: React.PropTypes.func,
+    }),
+  };
+
 
   get backLink() {
     const params = Router.currentParams();
@@ -20,25 +53,62 @@ export default class ManagePayments extends React.PureComponent {
     Purchases.fetch();
   }
 
+  onRequestRefund(ev) {
+    const purchase = Purchases.get(ev.target.dataset.identifier);
+    purchase.refund();
+  }
+
+  onShowInvoiceClick(ev) {
+    ev.preventDefault();
+    openWindow(ev.target.href, { width: 700, height: 500 });
+  }
+
+  renderRefundActions(purchase) {
+    return (
+      <td className="refund">
+        <AsyncButton
+          data-identifier={purchase.identifier}
+          isWaiting={purchase.hasApiRequestPending}
+          onClick={this.onRequestRefund}
+        >
+          Request Refund
+        </AsyncButton>
+      </td>
+    );
+  }
+
   renderTable() {
     return (
-      <Table striped bordered>
+      <Table striped>
         <thead>
           <tr>
             <th>Item</th>
             <th>Transaction date</th>
             <th>Order number</th>
-            <th>Amount</th>
+            <th className="right">Amount</th>
+            {Purchases.isAnyRefundable ? <th></th> : null}
           </tr>
         </thead>
         <tbody>
           {Purchases.array.map(purchase =>
-            <tr key={purchase.uuid}>
-              <td>{purchase.product_name}</td>
-              <td>{moment(purchase.occured_at).format('MMMM Do YYYY')}</td>
-              <td>{purchase.order_number}</td>
-              <td>{purchase.amount}</td>
-            </tr>
+          <tr key={purchase.identifier}>
+            <td>{purchase.product.name}</td>
+            <td>{moment(purchase.purchased_at).format('MMMM Do YYYY')}</td>
+            <td>{purchase.identifier}</td>
+            <td className="right">
+              {purchase.total}
+            </td>
+            {purchase.isRefundable ? this.renderRefundActions(purchase) : null}
+            <td>
+              <Button bsStyle="link"
+                data-identifier={purchase.identifier}
+                onClick={this.onShowInvoiceClick}
+                href={purchase.invoiceURL}
+              >
+                Invoice
+              </Button>
+            </td>
+          </tr>
           )}
         </tbody>
       </Table>
@@ -53,6 +123,12 @@ export default class ManagePayments extends React.PureComponent {
           <BackButton fallbackLink={this.backLink} />
         </header>
         {Purchases.hasApiRequestPending ? <OXFancyLoader isLoading /> : this.renderTable()}
+        <div className="refund-policy">
+          <NewTabLink to="http://openstax.force.com/support/articles/FAQ/OpenStax-Tutor-Student-Refund-Policy/?q=refund&l=en_US&c=Products%3ATutor&fs=Search&pn=1">
+            Refund policy for OpenStax Tutor Beta courses
+
+          </NewTabLink>
+        </div>
       </Grid>
     );
   }

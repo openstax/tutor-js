@@ -1,16 +1,16 @@
 import { Wrapper, SnapShot } from '../helpers/component-testing';
 import Payments from '../../../src/components/payments/manage';
+import Purchases from '../../../src/models/purchases';
 import Router from '../../../src/helpers/router';
 
-const mockData = require('../../../api/purchases.json');
+import mockData from '../../../api/purchases.json';
 
 jest.mock('../../../src/helpers/router');
-jest.mock('../../../src/models/purchases', () => ({
-  array: { map: (cb) => mockData.map(cb) },
-  fetch: jest.fn(),
-}));
 
 describe('Student Payments Management', () => {
+  beforeEach(() => {
+    Purchases.onLoaded({ data: mockData });
+  });
 
   it('renders and matches snapshot', () => {
     Router.currentParams.mockReturnValue({ courseId: '2' });

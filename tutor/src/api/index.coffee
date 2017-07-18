@@ -53,6 +53,8 @@ PerformanceForecast = require '../flux/performance-forecast'
 { default: Student } = require '../models/course/student'
 { default: CourseEnroll } = require '../models/course/enroll'
 { default: Payments } = require '../models/payments'
+{ default: Purchases } = require '../models/purchases'
+{ default: Purchase } = require '../models/purchases/purchase'
 
 
 BOOTSTRAPED_MODELS = {
@@ -226,7 +228,8 @@ startAPI = ->
 
   connectModelRead(UserTerms, 'fetch', onSuccess: 'onLoaded', url: 'terms')
   connectModelUpdate(UserTerms, 'sign', onSuccess: 'onSigned', pattern: 'terms/{ids}', method: 'PUT')
-
+  connectModelRead(Purchases.constructor, 'fetch', onSuccess: 'onLoaded', url: 'purchases')
+  connectModelUpdate(Purchase, 'refund', onSuccess: 'onRefunded', pattern: 'purchases/{item_uuid}/refund', method: 'PUT')
   connectModelCreate(User.constructor, 'logEvent',
     pattern: 'log/event/{category}/{code}'
     data: ({ data }) -> { data }
@@ -253,6 +256,7 @@ startAPI = ->
 
 
 start = (bootstrapData) ->
+  Purchases.bootstrap(bootstrapData)
   Payments.bootstrap(bootstrapData)
   for storeId, action of BOOTSTRAPED_MODELS
     data = bootstrapData[storeId]

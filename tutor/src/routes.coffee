@@ -157,7 +157,7 @@ ROUTES = [
   {
     pattern: '/student-preview/:courseId?', name: 'studentPreview',       renderer: getStudentPreview
   }
-  { pattern: 'payments',                name: 'managePayments',           renderer: getPaymentsShell     }
+  { pattern: '/payments',                name: 'managePayments',           renderer: getPaymentsShell     }
   {
     pattern: '/books/:courseId',        name: 'viewReferenceBook',        renderer: getReferenceBookShell
     routes: [
