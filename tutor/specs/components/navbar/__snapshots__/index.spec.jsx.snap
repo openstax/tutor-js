@@ -93,7 +93,10 @@ exports[`Main navbar renders and matches snapshot 1`] = `
         />
         <span
           title="Menu and settings"
-        />
+        >
+          Hi 
+          
+        </span>
          
         <span
           className="caret"

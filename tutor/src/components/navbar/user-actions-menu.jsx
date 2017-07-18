@@ -100,7 +100,7 @@ export default class UserActionsMenu extends React.PureComponent {
 
     const course = Courses.get(this.props.courseId);
     const isConceptCoach = get(course, 'is_concept_coach', false);
-    const firstName = User.name.replace(/ .*/, '');
+    const firstName = User.name ? User.name.replace(/ .*/, '') : '';
 
     return (
       <Dropdown
