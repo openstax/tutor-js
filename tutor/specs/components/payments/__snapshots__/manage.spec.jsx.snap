@@ -250,19 +250,6 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
         >
           1388.07
         </td>
-        <td
-          className="refund"
-        >
-          <button
-            className="async-button btn btn-default"
-            data-identifier="kjxdvs9wd7rw"
-            disabled={false}
-            onClick={[Function]}
-            type="button"
-          >
-            Request Refund
-          </button>
-        </td>
         <td>
           <a
             className="btn btn-link"
@@ -288,19 +275,6 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           className="right"
         >
           1591.48
-        </td>
-        <td
-          className="refund"
-        >
-          <button
-            className="async-button btn btn-default"
-            data-identifier="cufu6hr4xicy"
-            disabled={false}
-            onClick={[Function]}
-            type="button"
-          >
-            Request Refund
-          </button>
         </td>
         <td>
           <a

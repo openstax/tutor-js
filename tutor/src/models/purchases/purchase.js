@@ -27,7 +27,8 @@ export default class Purchase extends BaseModel {
   @belongsTo({ model: Product }) product;
 
   @computed get isRefundable() {
-    return moment(this.purchased_at).add(14, 'days').isAfter(TimeStore.getNow());
+    return !this.is_refunded &&
+           moment(this.purchased_at).add(14, 'days').isAfter(TimeStore.getNow());
   }
 
   @computed get invoiceURL() {
@@ -38,8 +39,8 @@ export default class Purchase extends BaseModel {
     return { item_uuid: this.product_instance_uuid };
   }
 
-  onRefunded(resp) {
-    debugger
+  onRefunded() {
+    this.is_refunded = true;
   }
 
 }
