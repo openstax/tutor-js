@@ -55,7 +55,7 @@ export default class ChangeStudentId extends React.PureComponent {
     return (
       <Modal.Dialog className="change-student-id">
         <Modal.Body>
-          <h3>You have successfully updated your student identifier.</h3>
+          <h3>You have successfully updated your student ID.</h3>
         </Modal.Body>
         <Modal.Footer>
           <BackButton fallbackLink={{
@@ -77,7 +77,7 @@ export default class ChangeStudentId extends React.PureComponent {
       <Modal.Dialog className="change-student-id">
         <Modal.Body>
           <div className="title">
-            <h3>Update your student identifier</h3>
+            <h3>Update your student ID</h3>
           </div>
           <div className="sub-title">Enter your school-issued student ID number *</div>
           <div className="inputs">

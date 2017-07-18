@@ -25,7 +25,7 @@ exports[`Change Student ID renders and matches snapshot for various states 1`] =
           className="title"
         >
           <h3>
-            Update your student identifier
+            Update your student ID
           </h3>
         </div>
         <div
