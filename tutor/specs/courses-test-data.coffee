@@ -19,7 +19,7 @@ STUDENT_COURSE_ONE_MODEL = {
     { "id": "1", "type": "student" }
   ],
   students: [
-    { role_id: "1", student_identifier: '1234' }
+    { role_id: "1", student_identifier: '1234', uuid: "06fc16fc-70f5-4db1-a61d-b0f496cf3cd4" }
   ]
 
 }
