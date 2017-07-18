@@ -18,6 +18,7 @@ export default class Purchase extends BaseModel {
   static URL = observable.shallowBox('');;
 
   @identifier identifier;
+  @field product_instance_uuid;
   @field is_refunded;
   @field sales_tax;
   @field total;
@@ -34,7 +35,7 @@ export default class Purchase extends BaseModel {
   }
 
   refund() {
-    return { item_uuid: this.product.uuid };
+    return { item_uuid: this.product_instance_uuid };
   }
 
   onRefunded(resp) {
