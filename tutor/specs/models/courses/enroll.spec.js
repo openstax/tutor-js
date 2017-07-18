@@ -1,6 +1,7 @@
 import CourseEnroll from '../../../src/models/course/enroll';
-import { CourseListingActions } from '../../../src/flux/course-listing';
+import CL from '../../../src/flux/course-listing';
 jest.mock('../../../src/flux/course-listing', () => ({
+  CourseListingStore: { once: jest.fn((signal, cb) => cb()) },
   CourseListingActions: { load: jest.fn() },
 }));
 
@@ -31,19 +32,21 @@ describe('Course Enrollment', function() {
     expect(enroll.isInvalid).toBe(true);
   });
 
-  it('#isComplete', () => {
-    expect(enroll.isComplete).toBe(false);
+  it('#isRegistered', () => {
+    expect(enroll.isRegistered).toBe(false);
     enroll.apiErrors = { already_enrolled: 'true' };
-    expect(enroll.isComplete).toBe(true);
+    expect(enroll.isRegistered).toBe(true);
     enroll.apiErrors = null;
-    expect(enroll.isComplete).toBe(false);
+    expect(enroll.isRegistered).toBe(false);
     enroll.status = 'processed';
-    expect(enroll.isComplete).toBe(true);
+    expect(enroll.isRegistered).toBe(true);
   });
 
   it('fetches on complete', () => {
     enroll.status = 'processed';
+    expect(enroll.isRegistered).toBe(true);
+    expect(CL.CourseListingStore.once).toHaveBeenCalled();
+    expect(CL.CourseListingActions.load).toHaveBeenCalled();
     expect(enroll.isComplete).toBe(true);
-    expect(CourseListingActions.load).toHaveBeenCalled();
   });
 });
