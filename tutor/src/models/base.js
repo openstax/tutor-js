@@ -26,6 +26,7 @@ export class BaseModel {
     return isNil(id) || FLUX_NEW.test(id);
   }
 
+  @action
   loaded(req) {
     this.update(req.data);
   }
