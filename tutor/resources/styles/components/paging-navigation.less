@@ -16,46 +16,54 @@
   @arrow-width: 75px;
   .flex-display();
   .justify-content(center);
+  max-width: 1400px;
+  margin: 0 auto;
 
   .paging-control {
-    .flex(1);
-    .arrow-wrapper {
-      width: 100%;
-      height: 100%;
-      max-width: @arrow-height;  // keep left edge of icons no more than 60px from edge
+
       .icon {
+        height: @arrow-height;
+        top: 50%;
+        transform: translateY(-50%);
+        width: @arrow-height / 2;
         z-index: 1; //appear above content when page is extremely narrow
-        position: fixed;
-        top: calc(~"55vh - "@arrow-height);
         path {
           .transition(fill 150ms linear);
           fill: @tutor-neutral-light;
         }
-        height: @arrow-height;
-        width: @arrow-height / 2;
+      }
+
+      &.next .icon {
+        right: 20px;
+      }
+
+      &.prev .icon {
+        left: 20px;
+      }
+
+      @media screen and (min-width: 1260px) {
+        &.next .icon {
+          right: auto;
+          transform: translate(50%, -50%);
+        }
+
+        &.prev .icon {
+          left: auto;
+          transform: translate(-150%, -50%);
+        }
+      }
+
+      &[disabled] {
+        cursor: default; // otherwise it's "pointer" since it's an a tag
+        .icon{ display: none; }
+      }
+      &:not([disabled]) {
+        &.active,
+        &:hover {
+          text-decoration: none;
+          .icon path { fill: @tutor-neutral-lite; }
+        }
+        &:focus { text-decoration: none; }
       }
     }
-    &.next {
-      .arrow-wrapper {
-        .flex-display();
-        .justify-content(flex-end);
-        .icon { .paging-handle-browser-left-offset(-@arrow-width);  }
-      }
-    }
-    &.prev {
-      .arrow-wrapper { float: right; }
-    }
-    &[disabled] {
-      cursor: default; // otherwise it's "pointer" since it's an a tag
-      .icon{ display: none; }
-    }
-    &:not([disabled]) {
-      &.active,
-      &:hover {
-        text-decoration: none;
-        .icon path { fill: @tutor-neutral-lite; }
-      }
-      &:focus { text-decoration: none; }
-    }
-  }
 }

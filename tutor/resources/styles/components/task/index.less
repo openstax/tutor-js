@@ -8,19 +8,6 @@
   max-width: @tutor-task-width;
   margin: 0 auto;
 
-  &.task-reading {
-    max-width: inherit;
-
-    // small screens
-    @media screen and (max-width: (@tutor-task-width + 200px)){
-      .icon.arrow.left  { margin-left: -30px; }
-      .icon.arrow.right {
-        margin-left: 30px;
-        .paging-handle-browser-left-offset(-45px);
-      }
-    }
-  }
-
   .step-footer-mixin();
 
   // no such thing as a late reading
