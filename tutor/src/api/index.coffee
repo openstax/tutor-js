@@ -229,7 +229,7 @@ startAPI = ->
   connectModelRead(UserTerms, 'fetch', onSuccess: 'onLoaded', url: 'terms')
   connectModelUpdate(UserTerms, 'sign', onSuccess: 'onSigned', pattern: 'terms/{ids}', method: 'PUT')
   connectModelRead(Purchases.constructor, 'fetch', onSuccess: 'onLoaded', url: 'purchases')
-  connectModelRead(Purchase, 'refund', onSuccess: 'onRefunded', pattern: 'purchases/{item_uuid}/refund')
+  connectModelUpdate(Purchase, 'refund', onSuccess: 'onRefunded', pattern: 'purchases/{item_uuid}/refund', method: 'PUT')
   connectModelCreate(User.constructor, 'logEvent',
     pattern: 'log/event/{category}/{code}'
     data: ({ data }) -> { data }
