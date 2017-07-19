@@ -22,7 +22,7 @@ export default class CourseStudent extends BaseModel {
   @field is_refund_allowed;
   @field is_refund_pending;
   @field({ type: 'date' }) payment_due_at;
-  @field prompt_student_to_pay; // not needed and unused
+  @field prompt_student_to_pay;
 
   @field period_id;
   @field role_id;
