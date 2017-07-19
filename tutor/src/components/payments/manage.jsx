@@ -1,7 +1,9 @@
 import React from 'react';
 import { observer } from 'mobx-react';
+import { observable, action } from 'mobx';
 import { Grid, Table, Button } from 'react-bootstrap';
 import moment from 'moment';
+import { map, extend, isFunction } from 'lodash';
 import Router from '../../helpers/router';
 import BackButton from '../buttons/back-button';
 import Purchases from '../../models/purchases';
@@ -9,7 +11,7 @@ import OXFancyLoader from '../ox-fancy-loader';
 import { AsyncButton } from 'shared';
 import NewTabLink from '../new-tab-link';
 import UserMenu from '../../models/user/menu';
-import { map, extend, isFunction } from 'lodash';
+import RefundModal from './refund-modal';
 
 const defaultOptions = {
   toolbar: 'no',
@@ -43,6 +45,7 @@ export default class ManagePayments extends React.PureComponent {
     }),
   };
 
+  @observable refunding;
 
   get backLink() {
     const params = Router.currentParams();
@@ -54,9 +57,9 @@ export default class ManagePayments extends React.PureComponent {
     Purchases.fetch();
   }
 
+  @action.bound
   onRequestRefund(ev) {
-    const purchase = Purchases.get(ev.target.dataset.identifier);
-    purchase.refund();
+    this.refunding = Purchases.get(ev.target.dataset.identifier);
   }
 
   onShowInvoiceClick(ev) {
@@ -132,10 +135,25 @@ export default class ManagePayments extends React.PureComponent {
     );
   }
 
+  @action.bound
+  onRefundConfirm() {
+    this.refunding.refund();
+    this.refunding = null;
+  }
+
+  @action.bound
+  onRefundCancel() {
+    this.refunding = null;
+  }
+
   render() {
-    console.log('rend', Purchases.hasApiRequestPending)
     return (
       <Grid className="manage-payments">
+        <RefundModal
+          purchase={this.refunding}
+          onRefund={this.onRefundConfirm}
+          onCancel={this.onRefundCancel}
+        />
         <header>
           <h1>Manage payments</h1>
           <BackButton fallbackLink={this.backLink} />
