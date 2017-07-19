@@ -24,7 +24,7 @@ CnxModTag = React.createClass
       prefix='context-cnxmod'
       cleanInput={@cleanInput}
       validateInput={@validateInput}
-      placeholder='#########-####-###-####-############'
+      placeholder='########-####-####-####-############'
     />
 
 module.exports = CnxModTag
