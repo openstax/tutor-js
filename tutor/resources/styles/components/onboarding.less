@@ -1,7 +1,9 @@
 .onboarding.modal {
-  top: 130px;
+
   .modal-dialog {
     width: 500px;
+    margin: 0 auto;
+    transform: translateY(130px);
   }
   .modal-content {
     border-radius: 0;
@@ -10,7 +12,9 @@
   &.free-trial-ended,
   &.make-payment {
     .ost-hero-background(0px);
-    top: 60px;
+    .modal-dialog {
+      transform: translateY(80px);
+    }
   }
 
   .onboarding-nag {
