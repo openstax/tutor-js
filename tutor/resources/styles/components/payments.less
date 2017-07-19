@@ -3,7 +3,7 @@
   &:extend(.container);
   background-color: @tutor-white;
   .tutor-shadow(pop);
-
+  padding: 40px;
   header {
     border-bottom: 1px solid @tutor-neutral-light;
     display: flex;
@@ -28,8 +28,12 @@
       text-align: center;
     }
   }
-  .refund-policy {
+
+  .footer {
     margin: 40px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     a { .tutor-external-link-indicator(); }
   }
 

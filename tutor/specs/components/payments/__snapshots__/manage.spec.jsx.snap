@@ -36,7 +36,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
         >
           Amount
         </th>
-        <th />
+        <td />
       </tr>
     </thead>
     <tbody>
@@ -250,6 +250,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
         >
           1388.07
         </td>
+        <td />
         <td>
           <a
             className="btn btn-link"
@@ -276,6 +277,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
         >
           1591.48
         </td>
+        <td />
         <td>
           <a
             className="btn btn-link"
@@ -290,10 +292,10 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
     </tbody>
   </table>
   <div
-    className="refund-policy"
+    className="footer"
   >
     <a
-      className=""
+      className="refund-policy"
       href="/"
       onClick={[Function]}
       style={Object {}}
@@ -302,6 +304,77 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
     >
       Refund policy for OpenStax Tutor Beta courses
     </a>
+    <div
+      className="help"
+    >
+      Need Help? 
+      <a
+        className=""
+        href="/"
+        onClick={[Function]}
+        style={Object {}}
+        tabIndex={0}
+        target="_blank"
+      >
+        Contact Support
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Student Payments Management renders empty when no payments 1`] = `
+<div
+  className="manage-payments container"
+>
+  <header>
+    <h1>
+      Manage payments
+    </h1>
+    <a
+      className="btn btn-default"
+      href="/"
+      onClick={[Function]}
+      style={Object {}}
+    >
+      Back to Dashboard
+    </a>
+  </header>
+  <div
+    className="empty"
+  >
+    <h3>
+      No payments were found for your account.
+    </h3>
+  </div>
+  <div
+    className="footer"
+  >
+    <a
+      className="refund-policy"
+      href="/"
+      onClick={[Function]}
+      style={Object {}}
+      tabIndex={0}
+      target="_blank"
+    >
+      Refund policy for OpenStax Tutor Beta courses
+    </a>
+    <div
+      className="help"
+    >
+      Need Help? 
+      <a
+        className=""
+        href="/"
+        onClick={[Function]}
+        style={Object {}}
+        tabIndex={0}
+        target="_blank"
+      >
+        Contact Support
+      </a>
+    </div>
   </div>
 </div>
 `;
