@@ -51,7 +51,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           33uqbxbi324n
         </td>
         <td
-          className="right"
+          className="right total"
         >
           13.41
         </td>
@@ -90,7 +90,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           nuvwqun23ztq
         </td>
         <td
-          className="right"
+          className="right total"
         >
           13.41
         </td>
@@ -129,7 +129,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           ru6ifviicwki
         </td>
         <td
-          className="right"
+          className="right total"
         >
           13.41
         </td>
@@ -168,7 +168,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           fxa4s2kj75fr
         </td>
         <td
-          className="right"
+          className="right total"
         >
           13.41
         </td>
@@ -207,7 +207,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           3dmy8nu4v4bg
         </td>
         <td
-          className="right"
+          className="right total"
         >
           357.25
         </td>
@@ -246,9 +246,9 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           kjxdvs9wd7rw
         </td>
         <td
-          className="right"
+          className="right total refunded"
         >
-          1388.07
+          -1388.07
         </td>
         <td />
         <td>
@@ -273,9 +273,9 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           cufu6hr4xicy
         </td>
         <td
-          className="right"
+          className="right total refunded"
         >
-          1591.48
+          -1591.48
         </td>
         <td />
         <td>
@@ -307,7 +307,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
     <div
       className="help"
     >
-      Need Help? 
+      Need help? 
       <a
         className=""
         href="/"
@@ -363,7 +363,7 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
     <div
       className="help"
     >
-      Need Help? 
+      Need help? 
       <a
         className=""
         href="/"

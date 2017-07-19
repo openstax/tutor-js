@@ -44,11 +44,12 @@ export default class Purchase extends BaseModel {
   }
 
   @computed get formattedTotal() {
-    return numberWithTwoDecimalPlaces(this.total);
+    const amount = numberWithTwoDecimalPlaces(this.total);
+    return this.is_refunded ? `-${amount}` : amount;
   }
 
   refund() {
-    return { item_uuid: this.product_instance_uuid };
+    return { item_uuid: this.product_instance_uuid, refund_survey: this.refund_survey };
   }
 
   onRefunded() {

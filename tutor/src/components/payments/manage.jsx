@@ -4,6 +4,7 @@ import { observable, action } from 'mobx';
 import { Grid, Table, Button } from 'react-bootstrap';
 import moment from 'moment';
 import { map, extend, isFunction } from 'lodash';
+import cn from 'classnames';
 import Router from '../../helpers/router';
 import BackButton from '../buttons/back-button';
 import Purchases from '../../models/purchases';
@@ -115,7 +116,7 @@ export default class ManagePayments extends React.PureComponent {
               <td>{purchase.product.name}</td>
               <td>{moment(purchase.purchased_at).format('MMMM Do YYYY')}</td>
               <td>{purchase.identifier}</td>
-              <td className="right">
+              <td className={cn('right', 'total', { refunded: purchase.is_refunded })}>
                 {purchase.formattedTotal}
               </td>
               {this.renderRefundCell(purchase)}
@@ -160,7 +161,6 @@ export default class ManagePayments extends React.PureComponent {
         </header>
         {Purchases.hasApiRequestPending ? <OXFancyLoader isLoading /> : this.renderTable()}
         <div className="footer">
-
           <NewTabLink
             className="refund-policy"
             to="http://openstax.force.com/support/articles/FAQ/OpenStax-Tutor-Student-Refund-Policy/?q=refund&l=en_US&c=Products%3ATutor&fs=Search&pn=1"
@@ -168,10 +168,8 @@ export default class ManagePayments extends React.PureComponent {
             Refund policy for OpenStax Tutor Beta courses
           </NewTabLink>
           <div className="help">
-            Need Help? <NewTabLink to={UserMenu.helpURL}>Contact Support</NewTabLink>
+            Need help? <NewTabLink to={UserMenu.helpURL}>Contact Support</NewTabLink>
           </div>
-
-
         </div>
       </Grid>
     );
