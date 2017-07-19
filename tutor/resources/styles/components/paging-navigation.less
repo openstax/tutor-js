@@ -35,6 +35,15 @@
         width: @arrow-height / 2;
       }
     }
+
+    &:focus {
+        outline: 0;
+
+        .arrow-wrapper > .arrow.icon > path {
+            fill: lightblue;
+        }
+    }
+
     &.next {
       .arrow-wrapper {
         .flex-display();
