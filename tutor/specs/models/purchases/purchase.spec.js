@@ -22,7 +22,8 @@ describe('Purchase Model', () => {
 
   test('#onRefunded', () => {
     purchase.onRefunded();
-    expect(Courses.get(course.id)).toBeUndefined();
+    expect(course.userStudentRecord.is_paid).toBe(false);
+    expect(course.userStudentRecord.prompt_student_to_pay).toBe(true);
   });
 
 });
