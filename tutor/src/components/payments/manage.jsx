@@ -1,14 +1,18 @@
 import React from 'react';
 import { observer } from 'mobx-react';
+import { observable, action } from 'mobx';
 import { Grid, Table, Button } from 'react-bootstrap';
 import moment from 'moment';
+import { map, extend, isFunction } from 'lodash';
+import cn from 'classnames';
 import Router from '../../helpers/router';
 import BackButton from '../buttons/back-button';
 import Purchases from '../../models/purchases';
 import OXFancyLoader from '../ox-fancy-loader';
 import { AsyncButton } from 'shared';
 import NewTabLink from '../new-tab-link';
-import { map, extend, isFunction } from 'lodash';
+import UserMenu from '../../models/user/menu';
+import RefundModal from './refund-modal';
 
 const defaultOptions = {
   toolbar: 'no',
@@ -42,6 +46,7 @@ export default class ManagePayments extends React.PureComponent {
     }),
   };
 
+  @observable refunding;
 
   get backLink() {
     const params = Router.currentParams();
@@ -53,9 +58,9 @@ export default class ManagePayments extends React.PureComponent {
     Purchases.fetch();
   }
 
+  @action.bound
   onRequestRefund(ev) {
-    const purchase = Purchases.get(ev.target.dataset.identifier);
-    purchase.refund();
+    this.refunding = Purchases.get(ev.target.dataset.identifier);
   }
 
   onShowInvoiceClick(ev) {
@@ -63,21 +68,37 @@ export default class ManagePayments extends React.PureComponent {
     openWindow(ev.target.href, { width: 700, height: 500 });
   }
 
-  renderRefundActions(purchase) {
+  renderEmpty() {
     return (
-      <td className="refund">
-        <AsyncButton
-          data-identifier={purchase.identifier}
-          isWaiting={purchase.hasApiRequestPending}
-          onClick={this.onRequestRefund}
-        >
-          Request Refund
-        </AsyncButton>
-      </td>
+      <div className="empty">
+        <h3>No payments were found for your account.</h3>
+      </div>
     );
   }
 
+  renderRefundCell(purchase) {
+    if (purchase && purchase.isRefundable) {
+      return (
+        <td className="refund">
+          <AsyncButton
+            data-identifier={purchase.identifier}
+            isWaiting={purchase.hasApiRequestPending}
+            onClick={this.onRequestRefund}
+          >
+            Request Refund
+          </AsyncButton>
+        </td>
+      );
+    } else if (Purchases.isAnyRefundable) {
+      return <td></td>;
+    } else {
+      return null;
+    }
+  }
+
   renderTable() {
+    if (Purchases.isEmpty) { return this.renderEmpty(); }
+
     return (
       <Table striped>
         <thead>
@@ -86,48 +107,69 @@ export default class ManagePayments extends React.PureComponent {
             <th>Transaction date</th>
             <th>Order number</th>
             <th className="right">Amount</th>
-            {Purchases.isAnyRefundable ? <th></th> : null}
+            {this.renderRefundCell()}
           </tr>
         </thead>
         <tbody>
           {Purchases.array.map(purchase =>
-          <tr key={purchase.identifier}>
-            <td>{purchase.product.name}</td>
-            <td>{moment(purchase.purchased_at).format('MMMM Do YYYY')}</td>
-            <td>{purchase.identifier}</td>
-            <td className="right">
-              {purchase.total}
-            </td>
-            {purchase.isRefundable ? this.renderRefundActions(purchase) : null}
-            <td>
-              <Button bsStyle="link"
-                data-identifier={purchase.identifier}
-                onClick={this.onShowInvoiceClick}
-                href={purchase.invoiceURL}
-              >
-                Invoice
-              </Button>
-            </td>
-          </tr>
+            <tr key={purchase.identifier}>
+              <td>{purchase.product.name}</td>
+              <td>{moment(purchase.purchased_at).format('MMMM Do YYYY')}</td>
+              <td>{purchase.identifier}</td>
+              <td className={cn('right', 'total', { refunded: purchase.is_refunded })}>
+                {purchase.formattedTotal}
+              </td>
+              {this.renderRefundCell(purchase)}
+              <td>
+                <Button bsStyle="link"
+                  data-identifier={purchase.identifier}
+                  onClick={this.onShowInvoiceClick}
+                  href={purchase.invoiceURL}
+                >
+                  Invoice
+                </Button>
+              </td>
+            </tr>
           )}
         </tbody>
       </Table>
     );
   }
 
+  @action.bound
+  onRefundConfirm() {
+    this.refunding.refund();
+    this.refunding = null;
+  }
+
+  @action.bound
+  onRefundCancel() {
+    this.refunding = null;
+  }
+
   render() {
     return (
       <Grid className="manage-payments">
+        <RefundModal
+          purchase={this.refunding}
+          onRefund={this.onRefundConfirm}
+          onCancel={this.onRefundCancel}
+        />
         <header>
           <h1>Manage payments</h1>
           <BackButton fallbackLink={this.backLink} />
         </header>
         {Purchases.hasApiRequestPending ? <OXFancyLoader isLoading /> : this.renderTable()}
-        <div className="refund-policy">
-          <NewTabLink to="http://openstax.force.com/support/articles/FAQ/OpenStax-Tutor-Student-Refund-Policy/?q=refund&l=en_US&c=Products%3ATutor&fs=Search&pn=1">
+        <div className="footer">
+          <NewTabLink
+            className="refund-policy"
+            to="http://openstax.force.com/support/articles/FAQ/OpenStax-Tutor-Student-Refund-Policy/?q=refund&l=en_US&c=Products%3ATutor&fs=Search&pn=1"
+          >
             Refund policy for OpenStax Tutor Beta courses
-
           </NewTabLink>
+          <div className="help">
+            Need help? <NewTabLink to={UserMenu.helpURL}>Contact Support</NewTabLink>
+          </div>
         </div>
       </Grid>
     );

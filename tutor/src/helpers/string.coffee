@@ -4,6 +4,9 @@ SMALL_WORDS = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\
 
 module.exports = {
 
+  numberWithTwoDecimalPlaces: (num) ->
+    return parseFloat(Math.round(parseFloat(num) * 100) / 100).toFixed(2)
+
   capitalize: (string, lowerOthers = true) ->
     other = if lowerOthers then string.substring(1).toLowerCase() else string.substring(1)
     string.charAt(0).toUpperCase() + other

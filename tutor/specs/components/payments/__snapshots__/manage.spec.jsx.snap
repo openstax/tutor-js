@@ -36,7 +36,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
         >
           Amount
         </th>
-        <th />
+        <td />
       </tr>
     </thead>
     <tbody>
@@ -51,7 +51,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           33uqbxbi324n
         </td>
         <td
-          className="right"
+          className="right total"
         >
           13.41
         </td>
@@ -90,7 +90,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           nuvwqun23ztq
         </td>
         <td
-          className="right"
+          className="right total"
         >
           13.41
         </td>
@@ -129,7 +129,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           ru6ifviicwki
         </td>
         <td
-          className="right"
+          className="right total"
         >
           13.41
         </td>
@@ -168,7 +168,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           fxa4s2kj75fr
         </td>
         <td
-          className="right"
+          className="right total"
         >
           13.41
         </td>
@@ -207,7 +207,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           3dmy8nu4v4bg
         </td>
         <td
-          className="right"
+          className="right total"
         >
           357.25
         </td>
@@ -246,10 +246,11 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           kjxdvs9wd7rw
         </td>
         <td
-          className="right"
+          className="right total refunded"
         >
-          1388.07
+          -1388.07
         </td>
+        <td />
         <td>
           <a
             className="btn btn-link"
@@ -272,10 +273,11 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           cufu6hr4xicy
         </td>
         <td
-          className="right"
+          className="right total refunded"
         >
-          1591.48
+          -1591.48
         </td>
+        <td />
         <td>
           <a
             className="btn btn-link"
@@ -290,10 +292,10 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
     </tbody>
   </table>
   <div
-    className="refund-policy"
+    className="footer"
   >
     <a
-      className=""
+      className="refund-policy"
       href="/"
       onClick={[Function]}
       style={Object {}}
@@ -302,6 +304,77 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
     >
       Refund policy for OpenStax Tutor Beta courses
     </a>
+    <div
+      className="help"
+    >
+      Need help? 
+      <a
+        className=""
+        href="/"
+        onClick={[Function]}
+        style={Object {}}
+        tabIndex={0}
+        target="_blank"
+      >
+        Contact Support
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Student Payments Management renders empty when no payments 1`] = `
+<div
+  className="manage-payments container"
+>
+  <header>
+    <h1>
+      Manage payments
+    </h1>
+    <a
+      className="btn btn-default"
+      href="/"
+      onClick={[Function]}
+      style={Object {}}
+    >
+      Back to Dashboard
+    </a>
+  </header>
+  <div
+    className="empty"
+  >
+    <h3>
+      No payments were found for your account.
+    </h3>
+  </div>
+  <div
+    className="footer"
+  >
+    <a
+      className="refund-policy"
+      href="/"
+      onClick={[Function]}
+      style={Object {}}
+      tabIndex={0}
+      target="_blank"
+    >
+      Refund policy for OpenStax Tutor Beta courses
+    </a>
+    <div
+      className="help"
+    >
+      Need help? 
+      <a
+        className=""
+        href="/"
+        onClick={[Function]}
+        style={Object {}}
+        tabIndex={0}
+        target="_blank"
+      >
+        Contact Support
+      </a>
+    </div>
   </div>
 </div>
 `;

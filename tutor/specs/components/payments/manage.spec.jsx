@@ -9,12 +9,19 @@ jest.mock('../../../src/helpers/router');
 
 describe('Student Payments Management', () => {
   beforeEach(() => {
+    Router.currentParams.mockReturnValue({ courseId: '2' });
+    Router.makePathname.mockImplementation(() => '/foo');
     Purchases.onLoaded({ data: mockData });
   });
 
   it('renders and matches snapshot', () => {
-    Router.currentParams.mockReturnValue({ courseId: '2' });
-    Router.makePathname.mockImplementation(() => '/foo');
+    expect(
+      SnapShot.create(<Wrapper noReference _wrapped_component={Payments} />).toJSON()
+    ).toMatchSnapshot();
+  });
+
+  it('renders empty when no payments', () => {
+    Purchases.clear();
     expect(
       SnapShot.create(<Wrapper noReference _wrapped_component={Payments} />).toJSON()
     ).toMatchSnapshot();

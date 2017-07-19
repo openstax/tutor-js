@@ -3,7 +3,7 @@
   &:extend(.container);
   background-color: @tutor-white;
   .tutor-shadow(pop);
-
+  padding: 40px;
   header {
     border-bottom: 1px solid @tutor-neutral-light;
     display: flex;
@@ -21,6 +21,9 @@
     .right {
       text-align: right;
     }
+    .refunded {
+      color: @currency-green;
+    }
     tbody tr td {
       vertical-align: middle;
     }
@@ -28,9 +31,69 @@
       text-align: center;
     }
   }
-  .refund-policy {
+
+  .footer {
     margin: 40px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     a { .tutor-external-link-indicator(); }
   }
+}
 
+
+// TODO - make this a mixin or standard style once UX finishes style guide
+.modal.refund {
+  @spacing: 40px;
+  top: 130px;
+  .modal-dialog {
+    width: 500px;
+  }
+  .modal-content {
+    border-radius: 0;
+  }
+  .modal-header,
+  .modal-footer
+  {
+    padding: @spacing;
+  }
+  .modal-header {
+    background-color: @tutor-neutral-bright;
+    border-bottom-color: @tutor-neutral-light;
+    margin-bottom: @spacing;
+    .modal-title {
+      color: black;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  }
+  .modal-body {
+    padding: 0 @spacing;
+  }
+
+  .modal-footer {
+    text-align: left;
+    border-top: 0;
+    .btn + .btn {
+      margin-left: @spacing/2;
+    }
+  }
+
+  &.process {
+    .amount { color: @currency-green; }
+  }
+  &.survey {
+    p { margin-top: @spacing/2; }
+    label {
+      font-weight: normal;
+      display: block;
+      margin-bottom: @spacing/3;
+    }
+    textarea {
+      width: 100%;
+      border: thin solid @tutor-neutral-light;
+      height: 60px;
+      margin-bottom: @spacing/3;
+    }
+  }
 }

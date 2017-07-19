@@ -5,6 +5,9 @@ import {
 } from '../base';
 import Courses from '../courses-map';
 import { TimeStore } from '../../flux/time';
+import { numberWithTwoDecimalPlaces } from '../../helpers/string';
+
+
 @identifiedBy('purchase/product')
 class Product extends BaseModel {
   @identifier uuid;
@@ -15,7 +18,7 @@ class Product extends BaseModel {
 @identifiedBy('purchase')
 export default class Purchase extends BaseModel {
 
-  static URL = observable.shallowBox('');;
+  static URL = observable.shallowBox('');
 
   @identifier identifier;
   @field product_instance_uuid;
@@ -40,8 +43,13 @@ export default class Purchase extends BaseModel {
     return Purchase.URL.get() + '/invoice/' + this.identifier;
   }
 
+  @computed get formattedTotal() {
+    const amount = numberWithTwoDecimalPlaces(this.total);
+    return this.is_refunded ? `-${amount}` : amount;
+  }
+
   refund() {
-    return { item_uuid: this.product_instance_uuid };
+    return { item_uuid: this.product_instance_uuid, refund_survey: this.refund_survey };
   }
 
   onRefunded() {
