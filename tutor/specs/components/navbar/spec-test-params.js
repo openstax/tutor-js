@@ -33,10 +33,6 @@ const STUDENT_MENU = [
   },
   { label: '' }, // divider has no label
   {
-    name: 'managePayments',
-    label: 'Manage payments',
-  },
-  {
     label: 'Get Help',
   },
   {

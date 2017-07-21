@@ -14,14 +14,12 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
   @observable displayPayment = false;
 
   @computed get nagComponent() {
-    if (this.displayPayment) { return Nags.makePayment; }
-    if (!this.course.needsPayment) { return null; }
-    if (this.course.userStudentRecord.mustPayImmediately) {
-      return Nags.freeTrialEnded;
-    }
+    if (!this.course.does_cost) { return null; }
+
     if (!UiSettings.get(PAY_LATER_CHOICE, this.course.id)) {
       return Nags.payNowOrLater;
     }
+
     return null;
   }
 
