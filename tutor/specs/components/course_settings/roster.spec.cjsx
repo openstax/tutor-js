@@ -48,7 +48,7 @@ describe 'Course Settings', ->
 
   it 'switches roster when tab is clicked', ->
     wrapper = mount(<Roster {...@props} />)
-    tab = wrapper.find('.periods .nav-tabs li').at(1).find('a')
+    tab = wrapper.find('.periods .nav-tabs li').at(1).find('h2')
     tab.simulate('click')
     expect(wrapper.find('.roster tbody tr').at(0).find('td').at(1).text())
       .to.equal('Bloom')

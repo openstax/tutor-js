@@ -43,14 +43,12 @@ exports[`Scores Report renders and matches snapshot 1`] = `
       >
         <li
           className="active"
-          tabIndex={0}
+          role="tab"
+          tabIndex={-1}
         >
-          <a
+          <h2
             aria-selected="true"
-            href="#"
             onClick={[Function]}
-            role="tab"
-            tabIndex={-1}
           >
             <div
               className=""
@@ -67,18 +65,16 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                 1st
               </span>
             </div>
-          </a>
+          </h2>
         </li>
         <li
           className=""
-          tabIndex={1}
+          role="tab"
+          tabIndex={0}
         >
-          <a
+          <h2
             aria-selected={undefined}
-            href="#"
             onClick={[Function]}
-            role="tab"
-            tabIndex={0}
           >
             <div
               className=""
@@ -95,18 +91,16 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                 2nd
               </span>
             </div>
-          </a>
+          </h2>
         </li>
         <li
           className=""
-          tabIndex={2}
+          role="tab"
+          tabIndex={0}
         >
-          <a
+          <h2
             aria-selected={undefined}
-            href="#"
             onClick={[Function]}
-            role="tab"
-            tabIndex={0}
           >
             <div
               className=""
@@ -123,18 +117,16 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                 3rd
               </span>
             </div>
-          </a>
+          </h2>
         </li>
         <li
           className=""
-          tabIndex={3}
+          role="tab"
+          tabIndex={0}
         >
-          <a
+          <h2
             aria-selected={undefined}
-            href="#"
             onClick={[Function]}
-            role="tab"
-            tabIndex={0}
           >
             <div
               className=""
@@ -151,18 +143,16 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                 5th
               </span>
             </div>
-          </a>
+          </h2>
         </li>
         <li
           className=""
-          tabIndex={4}
+          role="tab"
+          tabIndex={0}
         >
-          <a
+          <h2
             aria-selected={undefined}
-            href="#"
             onClick={[Function]}
-            role="tab"
-            tabIndex={0}
           >
             <div
               className=""
@@ -179,18 +169,16 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                 6th
               </span>
             </div>
-          </a>
+          </h2>
         </li>
         <li
           className=""
-          tabIndex={5}
+          role="tab"
+          tabIndex={0}
         >
-          <a
+          <h2
             aria-selected={undefined}
-            href="#"
             onClick={[Function]}
-            role="tab"
-            tabIndex={0}
           >
             <div
               className=""
@@ -207,7 +195,7 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                 10th
               </span>
             </div>
-          </a>
+          </h2>
         </li>
       </ul>
       <span
