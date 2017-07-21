@@ -42,7 +42,7 @@ export default class StudentDashboard extends React.PureComponent {
 
   renderPastWork(course) {
     return (
-      <div className="tab-pane active">
+      <div className="tab-pane active" role="tabpanel">
         <AllEventsByWeek courseId={course.id} isCollege={course.is_college} />
       </div>
     );
@@ -50,7 +50,7 @@ export default class StudentDashboard extends React.PureComponent {
 
   renderThisWeek(course) {
     return (
-      <div className="tab-pane active">
+      <div className="tab-pane active" role="tabpanel">
         <ThisWeekPanel courseId={course.id} isCollege={course.is_college} />
         <UpcomingPanel courseId={course.id} isCollege={course.is_college} />
       </div>

@@ -32,8 +32,8 @@ ProgressGuide = React.createClass
     )
 
     <div className='progress-guide'>
-      <h1 className='panel-title'>Performance Forecast</h1>
-      <h2 className='recent'>Recent topics</h2>
+      <h2 className='panel-title'>Performance Forecast</h2>
+      <h3 className='recent'>Recent topics</h3>
       <div className='guide-group'>
         <div className='chapter-panel'>
           {for section, i in sections
@@ -92,6 +92,7 @@ ProgressGuidePanels = React.createClass
         <PracticeWeakestButton courseId={@props.courseId} />
 
         <BS.Button
+          role="link"
           onClick={@viewPerformanceForecast}
           className='view-performance-forecast'
         >

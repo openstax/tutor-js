@@ -75,15 +75,12 @@ Tabs = React.createClass
   renderTab: (tab, index) ->
     isSelected = index is @state.activeIndex
 
-    <li key={index} tabIndex={index} className={classnames(active: isSelected)}>
-      <a role="tab"
-        href="#"
-          tabIndex={if isSelected then -1 else 0}
-        onClick={_.partial(@onTabClick, index)}
+    <li key={index} tabIndex={if isSelected then -1 else 0} className={classnames(active: isSelected)} role="tab">
+      <h2 onClick={_.partial(@onTabClick, index)}
         aria-selected={'true' if isSelected}
       >
         {tab}
-      </a>
+      </h2>
     </li>
 
   render: ->
