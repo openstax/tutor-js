@@ -3,6 +3,7 @@ import { observable } from 'mobx';
 
 import User from '../user';
 import Courses from '../courses-map';
+import Payments from '../payments';
 
 const ROUTES = {
 
@@ -101,7 +102,7 @@ const ROUTES = {
   },
   managePayments: {
     label: 'Manage payments',
-    isAllowed() { return Courses.costing.student.any; },
+    isAllowed() { return Payments.config.is_enabled && Courses.costing.student.any; },
   },
   qaHome: {
     label: 'Content Analyst',

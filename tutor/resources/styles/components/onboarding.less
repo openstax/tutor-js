@@ -64,7 +64,8 @@
       }
     }
 
-    &.pay-now-or-later {
+    &.pay-now-or-later,
+    &.payments-disabled {
       padding: 40px;
       background-color: @tutor-neutral-bright;
       text-align: center;
@@ -101,6 +102,8 @@
         }
       }
     }
-
+    &.payments-disabled {
+      h3 { margin-bottom: 20px; }
+    }
   }
 }

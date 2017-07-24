@@ -6,7 +6,7 @@ import {
 import Courses from '../courses-map';
 import { TimeStore } from '../../flux/time';
 import { numberWithTwoDecimalPlaces } from '../../helpers/string';
-
+import Payments from '../payments';
 
 @identifiedBy('purchase/product')
 class Product extends BaseModel {
@@ -17,8 +17,6 @@ class Product extends BaseModel {
 
 @identifiedBy('purchase')
 export default class Purchase extends BaseModel {
-
-  static URL = observable.shallowBox('');
 
   @identifier identifier;
   @field product_instance_uuid;
@@ -40,7 +38,7 @@ export default class Purchase extends BaseModel {
   }
 
   @computed get invoiceURL() {
-    return Purchase.URL.get() + '/invoice/' + this.identifier;
+    return `${Payments.config.base_url}/invoice/${this.identifier}`;
   }
 
   @computed get formattedTotal() {

@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { computed, action, observable } from 'mobx';
 import PaymentsModal from '../payments/modal';
-import User from '../../models/user';
+import Payments from '../../models/payments';
 import Courses from '../../models/courses-map';
 
 @observer
@@ -42,6 +42,10 @@ export default class StudentGetAccessBtn extends React.PureComponent {
   }
 
   render() {
+    if (!Payments.config.is_enabled && this.course && this.course.isInTrialPeriod) {
+      return <span className="student-get-access">Free Trial</span>;
+    }
+
     if (!this.course || !this.course.needsPayment) { return null; }
 
     return (

@@ -4,12 +4,10 @@ import {
 import {  extend } from 'lodash';
 import { action, observable, when,computed } from 'mobx';
 import loadjs from 'loadjs';
+import { readonly } from 'core-decorators';
 import invariant from 'invariant';
 import { Logging } from 'shared';
 import User from './user';
-
-let EMBED_URL = '';
-let PRODUCT_UUID = '';
 
 const REQUIRED_OPTIONS = [
   'course',
@@ -18,9 +16,15 @@ const REQUIRED_OPTIONS = [
 @identifiedBy('payments')
 export default class Payments extends BaseModel {
 
+  @readonly static config = observable({
+    base_url: '',
+    js_url: '',
+    is_enabled: false,
+    product_uuid: '',
+  });
+
   static bootstrap(data) {
-    EMBED_URL = data.payments_embed_js_url;
-    PRODUCT_UUID = data.payments_product_uuid;
+    extend(this.config, data);
   }
 
   @observable isBusy = false;

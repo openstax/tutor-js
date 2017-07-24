@@ -9,10 +9,6 @@ class PurchasesMap extends Map {
     return find(this.array, 'isRefundable');
   }
 
-  bootstrap(data) {
-    Purchase.URL.set(data.payments_base_url);
-  }
-
   // called by API
   fetch() {}
   onLoaded({ data: { orders } }) {

@@ -9,6 +9,7 @@ import thanksAnways from './thanks-anyways';
 
 import payNowOrLater  from './pay-now-or-later';
 import makePayment    from './make-payment';
+import payDisabled    from './payments-disabled';
 import freeTrialEnded from './free-trial-ended';
 
 export default {
@@ -22,6 +23,7 @@ export default {
   thanksAnways,
 
   payNowOrLater,
+  payDisabled,
   makePayment,
   freeTrialEnded,
 };
