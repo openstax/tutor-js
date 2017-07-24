@@ -19,19 +19,21 @@ export default function NavigationBar() {
 
   return (
     <nav className="tutor-top-navbar">
-      <div className="left-side-controls">
-        <TutorLink to="myCourses" className="brand">
-          <i className="ui-brand-logo" />
-        </TutorLink>
-        <BookLinks courseId={courseId} />
-      </div>
-      <CenterControls params={params} />
-      <div className="right-side-controls">
-        <PreviewAddCourseBtn courseId={courseId} />
-        <StudentPayNowBtn    courseId={courseId} />
-        <SupportMenu />
-        <StudentPreviewLink  courseId={courseId} />
-        <UserActionsMenu     courseId={courseId} />
+      <div className="tutor-nav-controls">
+        <div className="left-side-controls">
+          <TutorLink to="myCourses" className="brand">
+            <i className="ui-brand-logo" />
+          </TutorLink>
+          <BookLinks courseId={courseId} />
+        </div>
+        <CenterControls params={params} />
+        <div className="right-side-controls">
+          <PreviewAddCourseBtn courseId={courseId} />
+          <StudentGetAccessBtn courseId={courseId} />
+          <SupportMenu />
+          <StudentPreviewLink  courseId={courseId} />
+          <UserActionsMenu     courseId={courseId} />
+        </div>
       </div>
       <ServerErrorMonitoring />
     </nav>

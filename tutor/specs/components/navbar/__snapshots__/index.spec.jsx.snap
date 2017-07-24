@@ -5,140 +5,145 @@ exports[`Main navbar renders and matches snapshot 1`] = `
   className="tutor-top-navbar"
 >
   <div
-    className="left-side-controls"
-  >
-    <a
-      className="brand"
-      href="/"
-      onClick={[Function]}
-      style={Object {}}
-    >
-      <i
-        className="ui-brand-logo"
-      />
-    </a>
-  </div>
-  <div
-    className="right-side-controls"
+    className="tutor-nav-controls"
   >
     <div
-      className="support-menu dropdown btn-group"
+      className="left-side-controls"
     >
       <a
-        aria-expanded={false}
-        aria-haspopup={true}
-        className="dropdown-toggle"
-        href="#"
-        id="support-menu"
+        className="brand"
+        href="/"
         onClick={[Function]}
-        onKeyDown={[Function]}
-        role="button"
+        style={Object {}}
       >
         <i
-          className="tutor-icon fa fa-question-circle"
-          type="question-circle"
-        />
-        <span
-          className="control-label"
-          title="Page tips and support"
-        >
-          Help
-        </span>
-         
-        <span
-          className="caret"
+          className="ui-brand-logo"
         />
       </a>
-      <ul
-        className="tour-anchor dropdown-menu dropdown-menu-right"
-        data-tour-anchor-id="support-menu-button"
-        id="support-menu-button"
-        onSelect={[Function]}
-      >
-        <li
-          className="-help-link"
-          role="presentation"
-          style={undefined}
-        >
-          <a
-            href="http://openstax.force.com/support?l=en_US&c=Products%3ATutor"
-            onClick={[Function]}
-            role="menuitem"
-            tabIndex="-1"
-            target="_blank"
-          >
-            <span>
-              Help Articles
-            </span>
-          </a>
-        </li>
-      </ul>
     </div>
     <div
-      className="user-actions-menu dropdown btn-group"
+      className="right-side-controls"
     >
-      <a
-        aria-expanded={false}
-        aria-haspopup={true}
-        className="dropdown-toggle"
-        href="#"
-        id="user-actions-menu"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        role="button"
+      <div
+        className="support-menu dropdown btn-group"
       >
-        <i
-          className="tutor-icon fa fa-user"
-          type="user"
-        />
-        <span
-          title="Menu and settings"
+        <a
+          aria-expanded={false}
+          aria-haspopup={true}
+          className="dropdown-toggle"
+          href="#"
+          id="support-menu"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
         >
-          Hi 
-          
-        </span>
-         
-        <span
-          className="caret"
-        />
-      </a>
-      <ul
-        aria-labelledby="user-actions-menu"
-        className="dropdown-menu dropdown-menu-right"
-        role="menu"
-      >
-        <li
-          className="logout"
-        >
-          <a
-            href="#"
-            onClick={[Function]}
+          <i
+            className="tutor-icon fa fa-question-circle"
+            type="question-circle"
+          />
+          <span
+            className="control-label"
+            title="Page tips and support"
           >
-            <form
-              acceptCharset="UTF-8"
-              action="/accounts/logout"
-              className="-logout-form"
-              method="post"
+            Help
+          </span>
+           
+          <span
+            className="caret"
+          />
+        </a>
+        <ul
+          className="tour-anchor dropdown-menu dropdown-menu-right"
+          data-tour-anchor-id="support-menu-button"
+          id="support-menu-button"
+          onSelect={[Function]}
+        >
+          <li
+            className="-help-link"
+            role="presentation"
+            style={undefined}
+          >
+            <a
+              href="http://openstax.force.com/support?l=en_US&c=Products%3ATutor"
+              onClick={[Function]}
+              role="menuitem"
+              tabIndex="-1"
+              target="_blank"
             >
-              <input
-                name="_method"
-                type="hidden"
-                value="delete"
-              />
-              <input
-                name="authenticity_token"
-                type="hidden"
-                value={undefined}
-              />
-              <input
-                aria-label="Log out"
-                type="submit"
-                value="Log out"
-              />
-            </form>
-          </a>
-        </li>
-      </ul>
+              <span>
+                Help Articles
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div
+        className="user-actions-menu dropdown btn-group"
+      >
+        <a
+          aria-expanded={false}
+          aria-haspopup={true}
+          className="dropdown-toggle"
+          href="#"
+          id="user-actions-menu"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
+        >
+          <i
+            className="tutor-icon fa fa-user"
+            type="user"
+          />
+          <span
+            className="control-label"
+            title="Menu and settings"
+          >
+            Hi 
+            
+          </span>
+           
+          <span
+            className="caret"
+          />
+        </a>
+        <ul
+          aria-labelledby="user-actions-menu"
+          className="dropdown-menu dropdown-menu-right"
+          role="menu"
+        >
+          <li
+            className="logout"
+          >
+            <a
+              href="#"
+              onClick={[Function]}
+            >
+              <form
+                acceptCharset="UTF-8"
+                action="/accounts/logout"
+                className="-logout-form"
+                method="post"
+              >
+                <input
+                  name="_method"
+                  type="hidden"
+                  value="delete"
+                />
+                <input
+                  name="authenticity_token"
+                  type="hidden"
+                  value={undefined}
+                />
+                <input
+                  aria-label="Log out"
+                  type="submit"
+                  value="Log out"
+                />
+              </form>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>

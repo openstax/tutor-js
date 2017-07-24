@@ -5,24 +5,35 @@
   align-self: stretch;
 
   .dropdown-toggle {
-    flex: 1;
-    align-self: stretch;
     display: flex;
+    flex: 1;
     align-items: center;
-    padding: 0 0.5rem;
-    flex-basis: auto;
-    @media screen and ( min-width: @screen-md-min ){
-      padding: 0 2rem;
-    }
+    align-self: stretch;
     .top-nav-action();
   }
 
   &.open > a {
-      box-shadow: none;
+    box-shadow: none;
   }
 
   .dropdown-menu {
-    margin-top: -1px;
+    border-top: 4px solid @green;
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+    margin-top: -4px;
+    right: -15px;
+
+    > li > a {
+      color: inherit;
+      height: auto;
+      line-height: 2;
+      padding: 15 20px;
+
+      &:hover,
+      &:active {
+        background-color: @tutor-neutral-lighter;
+        color: @tutor-neutral-darker;
+      }
+    }
 
     input[type=submit] {
       #fonts .sans(1.4rem, 1.4rem);
