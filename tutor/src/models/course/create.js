@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, field, belongsTo, computed,
 } from '../base';
 import { observable } from 'mobx';
-import { extend, omit, filter } from 'lodash';
+import { extend, omit } from 'lodash';
 import Offerings from './offerings';
 import Courses from '../courses-map';
 import Term from './offerings/term';
@@ -15,7 +15,7 @@ export default class CourseCreate extends BaseModel {
   @field num_sections = 1;
   @field estimated_student_count;
   @field is_preview = false;
-  @field is_college = false;
+  @field is_college = true;
   @field time_zone = 'Central Time (US & Canada)';
   @field new_or_copy = 'new';
   @field cloned_from_id = false;

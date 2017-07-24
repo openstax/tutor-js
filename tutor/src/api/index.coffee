@@ -57,12 +57,6 @@ PerformanceForecast = require '../flux/performance-forecast'
 { default: Purchase } = require '../models/purchases/purchase'
 
 
-BOOTSTRAPED_MODELS = {
-  user:    User.bootstrap,
-  courses: Courses.bootstrap
-}
-
-
 startAPI = ->
   connectRead(TaskActions, pattern: 'tasks/{id}')
   connectDelete(TaskActions, pattern: 'tasks/{id}')
@@ -256,13 +250,16 @@ startAPI = ->
     onSuccess: 'onApiRequestComplete', onFail: 'setApiErrors')
 
 
+BOOTSTRAPED_MODELS = {
+  user:     User,
+  courses:  Courses,
+  payments: Payments,
+}
 
 start = (bootstrapData) ->
-  Purchases.bootstrap(bootstrapData)
-  Payments.bootstrap(bootstrapData)
-  for storeId, action of BOOTSTRAPED_MODELS
+  for storeId, model of BOOTSTRAPED_MODELS
     data = bootstrapData[storeId]
-    action(data) if data
+    model.bootstrap(data)
   startAPI()
 
 module.exports = {startAPI, start}

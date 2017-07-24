@@ -3,10 +3,11 @@ import Nags from '../../../../src/components/onboarding/nags';
 
 import CourseUX from '../../../../src/models/course/onboarding/student-course';
 import UiSettings from 'shared/src/model/ui-settings';
-
+import Payments from '../../../../src/models/payments';
 
 jest.mock('shared/src/model/ui-settings' );
 jest.mock('../../../../src/models/course');
+jest.mock('../../../../src/models/payments' );
 
 
 describe('Full Course Onboarding', () => {
@@ -25,7 +26,9 @@ describe('Full Course Onboarding', () => {
   });
 
   it('#nagComponent', () => {
-    expect(ux.nagComponent).toBeNull();
+    expect(ux.course.needsPayment).toBeUndefined();
+    expect(ux.nagComponent).toBe(Nags.payDisabled);
+    Payments.config.is_enabled = true;
     ux.course.needsPayment = true;
     ux.course.userStudentRecord = {};
     expect(ux.nagComponent).toBe(Nags.payNowOrLater);

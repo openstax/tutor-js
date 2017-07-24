@@ -19,21 +19,23 @@ export default class PayNowOrLater extends React.PureComponent {
       <OnboardingNag className="pay-now-or-later">
         <Body>
 
-          <h3>
-            You are now enrolled in {ux.course.name}
-          </h3>
-          <br />
-          <Button bsStyle="primary" onClick={ux.payLater}>
-            Start your free trial
+          <Button bsStyle="primary" className="now" onClick={ux.payNow}>
+            Buy access now
           </Button>
-          <p>
-            You will be prompted to pay once the trial period is complete.
-          </p>
+          <p>You may request a refund within 14 days of purchasing</p>
+
+          <div className="or">or</div>
+
+          <Button className="later" onClick={ux.payLater}>
+            Try free for 14 days
+          </Button>
+          <p>You can enter payment info anytime</p>
 
         </Body>
 
       </OnboardingNag>
     );
   }
+
 
 }
