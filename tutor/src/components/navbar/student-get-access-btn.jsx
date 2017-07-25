@@ -5,6 +5,7 @@ import { computed, action, observable } from 'mobx';
 import PaymentsModal from '../payments/modal';
 import Payments from '../../models/payments';
 import Courses from '../../models/courses-map';
+import Icon from '../icon';
 
 @observer
 export default class StudentGetAccessBtn extends React.PureComponent {
@@ -43,7 +44,11 @@ export default class StudentGetAccessBtn extends React.PureComponent {
 
   render() {
     if (!Payments.config.is_enabled && this.course && this.course.isInTrialPeriod) {
-      return <span className="student-get-access">Free Trial</span>;
+      return (
+        <span className="student-get-access">
+          Free Trial <Icon type="info-circle" tooltip="NO DATA LOST!"/>
+        </span>
+      );
     }
 
     if (!this.course || !this.course.needsPayment) { return null; }
