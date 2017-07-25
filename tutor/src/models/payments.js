@@ -66,12 +66,12 @@ export default class Payments extends BaseModel {
 
   @action.bound
   fetch() {
-    if (!EMBED_URL) { return this.logFailure('Attempted to load payments without a url set'); }
+    if (!Payments.config.js_url) { return this.logFailure('Attempted to load payments without a url set'); }
     this.isBusy = true;
     if (window.OSPayments) { // may already be loaded
       return this.createIframe();
     } else {
-      return loadjs(EMBED_URL, {
+      return loadjs(Payments.config.js_url, {
         success: this.createIframe,
         error: (e) => this.logFailure(`Unable to request assets: ${e}`),
       });
@@ -88,7 +88,7 @@ export default class Payments extends BaseModel {
 
     const { options: { course } } = this;
     return extend({}, this.options, {
-      product_uuid: PRODUCT_UUID,
+      product_uuid: Payments.config.product_uuid,
       purchaser_account_uuid: User.account_uuid,
       product_end_date: course.ends_at,
       product_instance_uuid: course.userStudentRecord.uuid,
