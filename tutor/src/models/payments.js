@@ -8,6 +8,11 @@ import { readonly } from 'core-decorators';
 import invariant from 'invariant';
 import { Logging } from 'shared';
 import User from './user';
+import { NotificationActions } from 'shared';
+
+NotificationActions.on('tutor-update', ({ payments }) => {
+  extend(Payments.config, payments);
+});
 
 const REQUIRED_OPTIONS = [
   'course',

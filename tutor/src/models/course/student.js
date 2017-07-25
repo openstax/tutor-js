@@ -7,7 +7,7 @@ import {
 } from '../base';
 import { TimeStore } from '../../flux/time';
 import moment from 'moment';
-
+import Payments from '../payments';
 @identifiedBy('course/student')
 export default class CourseStudent extends BaseModel {
   @identifier id;
@@ -50,7 +50,13 @@ export default class CourseStudent extends BaseModel {
   }
 
   @computed get needsPayment() {
-    return Boolean(this.prompt_student_to_pay);
+    return Boolean(
+      Payments.config.is_enabled &&
+      this.course.does_cost &&
+      !this.course.is_preview &&
+      !this.is_paid &&
+      !this.is_compted
+    );
   }
 
   @action markPaid() {

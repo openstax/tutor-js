@@ -49,7 +49,7 @@ Notifications = {
     ) if URLs.get('accounts_api')
 
     @_startPolling(
-      'tutor', URLs.construct('tutor_api', 'notifications')
+      'tutor', URLs.construct('tutor_api', 'updates')
     ) if URLs.get('tutor_api')
 
 
