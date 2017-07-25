@@ -20,6 +20,7 @@ import COURSES from './src/models/courses-map';
 import TEACHER_TASK_PLANS from './src/models/teacher-task-plans';
 import Chat from './src/models/chat';
 import { Logging, ReactHelpers } from 'shared';
+import PAYMENTS from './src/models/payments';
 
 window._STORES = {
   SETTINGS: UiSettings,
@@ -42,6 +43,7 @@ window._MODELS = {
   COURSES,
   TEACHER_TASK_PLANS,
   OFFERINGS,
+  PAYMENTS,
 };
 
 window._LOGGING = Logging;
