@@ -6,6 +6,7 @@ import BaseOnboarding from './base';
 import Nags from '../../../components/onboarding/nags';
 
 import { UiSettings } from 'shared';
+import { get } from 'lodash';
 
 const PAY_LATER_CHOICE  = 'PL';
 
@@ -27,6 +28,10 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
 
   @computed get isDisplaying() {
     return Boolean(this.nagComponent);
+  }
+
+  @computed get paymentIsPastDue() {
+    return get(this.course, 'userStudentRecord.mustPayImmediately', false);
   }
 
   @action.bound
