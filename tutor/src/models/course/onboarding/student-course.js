@@ -16,7 +16,7 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
 
   get nagComponent() {
     if (this.displayPayment) { return Nags.makePayment; }
-    if (!Payments.config.is_enabled){
+    if (!Payments.config.is_enabled && this.course.does_cost){
       if (!UiSettings.get(TRIAL_ACKNOWLEDGED, this.course.id)) {
         return Nags.payDisabled;
       }

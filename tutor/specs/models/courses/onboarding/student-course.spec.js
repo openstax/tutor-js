@@ -27,6 +27,8 @@ describe('Full Course Onboarding', () => {
 
   it('#nagComponent', () => {
     expect(ux.course.needsPayment).toBeUndefined();
+    expect(ux.nagComponent).toBeNull();
+    ux.course.does_cost = true
     expect(ux.nagComponent).toBe(Nags.payDisabled);
     Payments.config.is_enabled = true;
     ux.course.needsPayment = true;
