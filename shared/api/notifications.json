@@ -1,7 +1,11 @@
-[{
-  "id": "1",
-  "message": "Warning: Updates will happen soon!  Site will be down."
-}, {
-  "id": "2",
-  "message": "These are test messages."
-}]
+{
+  "notifications":  [
+    {
+      "id": "1",
+      "message": "Warning: Updates will happen soon!  Site will be down."
+    }, {
+      "id": "2",
+      "message": "These are test messages."
+    }
+  ]
+}

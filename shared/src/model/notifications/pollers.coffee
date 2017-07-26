@@ -71,7 +71,7 @@ class Poller
       @_setObservedNoticeIds( without(observedIds, outdatedIds...) )
 
 
-class TutorNotices extends Poller
+class TutorUpdates extends Poller
   constructor: (type, notices) ->
     super(type, notices, moment.duration(5, 'minutes'))
     @active = {}
@@ -80,13 +80,14 @@ class TutorNotices extends Poller
     observedIds = @_getObservedNoticeIds()
     notices = {}
     currentIds = []
-    for notice in data
+    for notice in data.notifications
       currentIds.push(notice.id)
 
       continue unless observedIds.indexOf(notice.id) is -1
       notices[notice.id] = extend(notice, {type: @type})
 
     @_setActiveNotices(notices, currentIds)
+    @notices.emit('tutor-update', data)
 
 
 class AccountsNagger extends Poller
@@ -101,7 +102,7 @@ class AccountsNagger extends Poller
 
 
 POLLER_TYPES =
-  tutor: TutorNotices
+  tutor: TutorUpdates
   accounts: AccountsNagger
 
 module.exports = Poller

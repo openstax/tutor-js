@@ -19,9 +19,13 @@ describe 'Notification Pollers', ->
     @notices.windowImpl = new FakeWindow
 
     @tutor = Poller.forType(@notices, 'tutor')
-    @tutor.onReply({ data: [
-      { id: 'test', message: 'A test notice' }
-    ]})
+    @tutor.onReply({
+      data: {
+        notifications: [
+          { id: 'test', message: 'A test notice' }
+        ]
+      }
+    })
 
     @accounts = Poller.forType(@notices, 'accounts')
     @accounts.onReply({
@@ -72,7 +76,7 @@ describe 'Notification Pollers', ->
 
     # load a new set of messages that do not include the previous ones
     @tutor.onReply(
-      data: [{id: '3', message: 'message three'}]
+      data: { notifications: [{id: '3', message: 'message three'}] }
     )
     # 1 and 2 are removed
     expect(UiSettings.set).toHaveBeenLastCalledWith('ox-notifications-tutor', [])
