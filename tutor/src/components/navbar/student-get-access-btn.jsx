@@ -5,6 +5,13 @@ import { computed, action, observable } from 'mobx';
 import PaymentsModal from '../payments/modal';
 import Payments from '../../models/payments';
 import Courses from '../../models/courses-map';
+import Icon from '../icon';
+
+const FREE_TRIAL_MESSAGE = `
+When the free trial ends, you'll be prompted to pay to maintain access
+to your course. You will not lose any of the work you have completed
+during the free trial.
+`;
 
 @observer
 export default class StudentGetAccessBtn extends React.PureComponent {
@@ -43,7 +50,11 @@ export default class StudentGetAccessBtn extends React.PureComponent {
 
   render() {
     if (!Payments.config.is_enabled && this.course && this.course.isInTrialPeriod) {
-      return <span className="student-get-access">Free Trial</span>;
+      return (
+        <span className="student-get-access">
+          Free trial <Icon type="info-circle" tooltip={FREE_TRIAL_MESSAGE} />
+        </span>
+      );
     }
 
     if (!this.course || !this.course.needsPayment) { return null; }
