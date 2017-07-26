@@ -23,7 +23,7 @@ module.exports = React.createClass
   getDefaultProps: ->
     tooltipProps:
       placement: 'bottom',
-      trigger: 'focus'
+      trigger: ['hover', 'focus']
 
   render: ->
     classNames = classnames('tutor-icon', 'fa', "fa-#{@props.type}", @props.className, {
