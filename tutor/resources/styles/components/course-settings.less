@@ -133,7 +133,11 @@
       border-bottom: 1px dashed @form-error-color;
       .tutor-icon { color: @form-error-color; }
     }
-    .identifer { cursor: pointer; }
+    .identifier {
+      cursor: pointer;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     .tutor-icon { margin-left: 0.5rem; }
   }
 }
