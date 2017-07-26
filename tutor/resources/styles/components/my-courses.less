@@ -53,10 +53,12 @@
     }
   }
 
-  .my-courses-add-zone {
+  .my-courses-add-zone,
+  .disabled-create-zone {
     background: rgba(255, 255, 255, 0.5);
     border: 1px dashed @tutor-neutral;
-    a {
+    a,
+    .mock-tutor-link {
       color: @tutor-neutral;
       height: 100%;
       font-weight: bold;
@@ -74,7 +76,8 @@
           opacity: 0;
         }
       }
-      svg {
+      svg,
+      div > svg {
         margin-bottom: 0.5rem;
       }
     }
@@ -286,24 +289,60 @@
     }
 
     .locked-card {
-      width: 240px;
-      height: 210px;
-      padding: 2rem;
-      margin-right: 2rem;
-      display: flex;
-      flex-direction: column;
+      height: 244px;
+      width: 252px;
+    }
+
+    .locked-card {
       align-items: center;
-      text-align: center;
-      justify-content: center;
-      color: @tutor-neutral-lightest;
-      background-color: @tutor-neutral-lite;
-      .tutor-icon {
-        font-size: 6.5rem;
+      margin-right: 4rem;
+      position: relative;
+
+      .disabled-create-zone,
+      .mock-tutor-link,
+      .overlay {
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+      }
+
+      .overlay {
+        align-items: center;
+        background-color: fadeout(@tutor-neutral-dark, 40%);
+        color: @tutor-neutral-lightest;
+        display: flex;
+        flex-direction: column;
+        font-size: 16px;
+        justify-content: center;
+        padding: 2rem;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .pending-verification-icon {
+        height: 64px;
+        width: 64px;
+        .tutor-background-image('icons/pending-verification.svg');
+      }
+    }
+    .explain {
+      max-width: 54rem;
+
+      h3 {
+        font-size: 25px;
+      }
+
+      .lead {
+        font-size: 16px;
+        line-height: 25px;
       }
     }
     .chat.btn {
-      color: @tutor-white;
       background-color: @tutor-dark-blue;
+      border-radius: 3px;
+      color: @tutor-white;
       cursor: pointer;
       transition: color 0.3s ease 0s;
       &:hover {
