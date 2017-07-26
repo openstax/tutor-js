@@ -7,6 +7,12 @@ import Payments from '../../models/payments';
 import Courses from '../../models/courses-map';
 import Icon from '../icon';
 
+const FREE_TRIAL_MESSAGE = `
+When the free trial ends, you'll be prompted to pay to maintain access
+to your course. You will not lose any of the work you have completed
+during the free trial.
+`;
+
 @observer
 export default class StudentGetAccessBtn extends React.PureComponent {
 
@@ -46,7 +52,7 @@ export default class StudentGetAccessBtn extends React.PureComponent {
     if (!Payments.config.is_enabled && this.course && this.course.isInTrialPeriod) {
       return (
         <span className="student-get-access">
-          Free Trial <Icon type="info-circle" tooltip="NO DATA LOST!"/>
+          Free trial <Icon type="info-circle" tooltip={FREE_TRIAL_MESSAGE} />
         </span>
       );
     }
