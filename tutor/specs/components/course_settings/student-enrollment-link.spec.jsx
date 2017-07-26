@@ -26,8 +26,14 @@ describe('Course Settings, student enrollment link', () => {
   it('renders with disabled url for preview course', () => {
     props.course.is_preview = true;
     const enrollment = mount(<StudentEnrollmentLink {...props} />);
-    expect(enrollment).toHaveRendered('.disabled-for-preview');
+    expect(enrollment).toHaveRendered('.faux-disabled-input');
     expect(Renderer.create(<StudentEnrollmentLink {...props} />).toJSON()).toMatchSnapshot();
   });
 
+  it('is hidden for fall 2017', () => {
+    props.course.term = 'fall';
+    props.course.year = 2017;
+    const enrollment = mount(<StudentEnrollmentLink {...props} />);
+    expect(enrollment).toHaveRendered('.faux-disabled-input');
+  });
 });
