@@ -3,8 +3,8 @@ webpackUMDExternal = require 'webpack-umd-external'
 
 module.exports =
   entry:
-    main: ['resources/styles/main.less']
-    'full-build': ['full-build']
+    'concept-coach-styles': ['resources/styles/main.less']
+    'concept-coach': ['full-build']
   output:
     filename: '[name].min.js'
   plugins: [
