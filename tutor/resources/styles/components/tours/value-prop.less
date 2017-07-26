@@ -36,6 +36,10 @@
     padding: @spacing;
     color: @openstax-black;
 
+    > * {
+      width: 100%;
+    }
+
     .heading {
       margin: 0 0 @spacing*0.25 0;
       padding: 0;
@@ -101,8 +105,8 @@
         &.spaced       { .tutor-background-image("value-prop/spaced-practice.svg"); }
         &.personalized {
           .tutor-background-image("value-prop/personalized.svg");
-          background-size: 120px auto;
-          background-position: center 5px;
+          background-size: auto 120px;
+          background-position: center -15px;
         }
         &.low-cost     {
           .tutor-background-image("value-prop/low-cost.svg");
