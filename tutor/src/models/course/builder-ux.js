@@ -152,10 +152,10 @@ export default class CourseBuilderUX extends BaseModel {
 
   // skips
   skip_new_or_copy() {
-    return Boolean(this.offering || isEmpty(this.cloneSources));
+    return Boolean(this.source);
   }
 
   skip_cloned_from_id() {
-    return Boolean(this.offering);
+    return Boolean(this.newCourse.new_or_copy === 'new');
   }
 }
