@@ -21,7 +21,7 @@ export default class CourseNumbers extends React.PureComponent {
 
   @action.bound
   updateSectionCount(ev) {
-    this.props.ux.newCourse.num_sections = Math.min(ev.target.value, ev.target.max);
+    this.props.ux.newCourse.num_sections = ev.target.max ? Math.min(ev.target.value, ev.target.max) : ev.target.value;
   }
 
   render() {
