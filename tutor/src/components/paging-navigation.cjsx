@@ -67,6 +67,7 @@ PageNavigation = React.createClass
   clickHandler: (action, href, ev) ->
     ev.preventDefault()
     action?(href)
+    window.scrollTo(0,0);
 
   renderPrev: ->
     cb = if @props.isBackwardEnabled then @props.onBackwardNavigation else null
