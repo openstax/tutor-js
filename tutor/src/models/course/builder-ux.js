@@ -34,8 +34,10 @@ export default class CourseBuilderUX extends BaseModel {
   constructor(router) {
     super();
     this.router = router;
+
     observe(this, 'source', ({ newValue: newSource }) => {
       if (newSource) {
+        this.newCourse.cloned_from = newSource;
         when(
           () => Offerings.get(newSource.offering_id),
           () => this.newCourse.offering = Offerings.get(newSource.offering_id),

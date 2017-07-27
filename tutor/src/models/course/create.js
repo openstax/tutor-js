@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, field, belongsTo, computed,
+  BaseModel, identifiedBy, field, belongsTo, computed, session,
 } from '../base';
 import { observable } from 'mobx';
 import { extend, omit } from 'lodash';
@@ -17,7 +17,7 @@ export default class CourseCreate extends BaseModel {
   @field is_preview = false;
   @field is_college = true;
   @field time_zone = 'Central Time (US & Canada)';
-  @field new_or_copy = 'new';
+  @session new_or_copy = 'new';
   @field cloned_from_id = false;
   @field copy_question_library = true;
 
@@ -52,7 +52,7 @@ export default class CourseCreate extends BaseModel {
     });
     return {
       data,
-      url: this.new_or_copy === 'new' ? '/courses' : `/courses/${this.cloned_from_id}/clone`,
+      url: this.cloned_from_id ? `/courses/${this.cloned_from_id}/clone` : '/courses',
     };
   }
 

@@ -234,6 +234,7 @@ startAPI = ->
   connectModelRead(Offerings.constructor, 'fetch', url: 'offerings', onSuccess: 'onLoaded')
 
   connectModelCreate(CourseCreate, 'save', onSuccess: 'onCreated')
+
   connectModelRead(TeacherTaskPlans.constructor, 'fetch',
     pattern: 'courses/{courseId}/dashboard',
     onSuccess: 'onLoaded'

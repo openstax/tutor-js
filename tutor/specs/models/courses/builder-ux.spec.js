@@ -53,6 +53,14 @@ describe('Course Builder UX Model', () => {
     expect(ux.newCourse.save).toHaveBeenCalled();
   }
 
+  it('sets cloned course when sourceId is present', () => {
+    Router.currentParams.mockReturnValue({ sourceId: '2' });
+    courses.get('2').name = 'CLONE ME';
+    ux = new CourseBuilderUX();
+    expect(ux.newCourse.cloned_from_id).toEqual('2');
+    expect(ux.newCourse.name).toEqual('CLONE ME');
+  });
+
   it('calculates first stage', () => {
     expect(ux.firstStageIndex).toEqual(0);
     Router.currentParams.mockReturnValue({ sourceId: '1' });
@@ -97,6 +105,5 @@ describe('Course Builder UX Model', () => {
       expect(ux.router.transitionTo).toHaveBeenCalledWith('/course/42/cc/help?showIntro=true');
     });
   });
-
 
 });
