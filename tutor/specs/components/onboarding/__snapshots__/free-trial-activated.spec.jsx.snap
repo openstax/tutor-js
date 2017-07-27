@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Free trial ended modal renders and matches snapshot 1`] = `
+<div
+  className="onboarding-nag free-trial-activated"
+>
+  <div
+    className="heading"
+  >
+    Your free trial is activated!
+  </div>
+  <div
+    className="body"
+  >
+    <p>
+      You will have access to 
+      Local Test Course One
+       for 14 days.
+    </p>
+    <p>
+      To continue accessing your course beyond your trial period, click the Get Access button on your OpenStax Tutor Beta dashboard and enter your one-time 
+      $10
+       payment for the semester
+    </p>
+  </div>
+  <div
+    className="footer"
+  >
+    <button
+      className="now btn btn-primary"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Access your course
+    </button>
+  </div>
+</div>
+`;

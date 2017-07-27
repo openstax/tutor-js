@@ -26,7 +26,7 @@ export default class PayNowOrLater extends React.PureComponent {
 
           <div className="or">or</div>
 
-          <Button className="later" onClick={ux.payLater}>
+          <Button className="later" onClick={ux.onPayLater}>
             Try free for 14 days
           </Button>
           <p>You can enter payment info anytime</p>
@@ -36,6 +36,5 @@ export default class PayNowOrLater extends React.PureComponent {
       </OnboardingNag>
     );
   }
-
 
 }
