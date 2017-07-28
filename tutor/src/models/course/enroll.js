@@ -30,6 +30,10 @@ export default class CourseEnrollment extends BaseModel {
     return get(this, 'to.course.name', '');
   }
 
+  @computed get courseId() {
+    return get(this, 'to.course.id', '');
+  }
+
   @computed get isPending() {
     return Boolean(isEmpty(this.apiErrors) && isEmpty(this.to));
   }
