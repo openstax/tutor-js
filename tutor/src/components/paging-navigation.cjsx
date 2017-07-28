@@ -100,7 +100,7 @@ PageNavigation = React.createClass
   render: ->
     <div className={classnames('tutor-paging-navigation', @props.className)}>
       {@renderPrev()}
-      <div className="paged-content">
+      <div className="paged-content" tabIndex="0">
         {@props.children}
       </div>
       {@renderNext()}
