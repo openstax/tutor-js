@@ -14,6 +14,7 @@ const TRIAL_ACKNOWLEDGED = 'FTA';
 export default class StudentCourseOnboarding extends BaseOnboarding {
 
   @observable displayPayment = false;
+  @observable displayTrialActive = false;
 
   get nagComponent() {
     if (this.displayPayment) { return Nags.makePayment; }
@@ -24,6 +25,8 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
     } else if (this.course.needsPayment) {
       if (this.course.userStudentRecord.mustPayImmediately) {
         return Nags.freeTrialEnded;
+      } else if (this.displayTrialActive) {
+        return Nags.freeTrialActivated;
       } else if (!UiSettings.get(PAY_LATER_CHOICE, this.course.id)) {
         return Nags.payNowOrLater;
       }
@@ -51,8 +54,14 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
   }
 
   @action.bound
-  payLater() {
+  onAccessCourse() {
+    this.displayTrialActive = false;
+  }
+
+  @action.bound
+  onPayLater() {
     UiSettings.set(PAY_LATER_CHOICE, this.course.id, true);
+    this.displayTrialActive = true;
     this.displayPayment = false;
   }
 
