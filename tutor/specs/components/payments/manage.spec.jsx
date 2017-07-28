@@ -24,7 +24,7 @@ describe('Student Payments Management', () => {
     };
     Router.currentParams.mockReturnValue({ courseId: '2' });
     Router.makePathname.mockImplementation(() => '/foo');
-    mockData.orders.forEach((o) => o.purchased_at = '2017-06-25T00:00:00.000Z');
+    mockData.orders.forEach((o) => o.purchased_at = '2017-06-24');
     Purchases.onLoaded({ data: mockData });
   });
 
