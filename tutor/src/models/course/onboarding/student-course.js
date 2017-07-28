@@ -1,12 +1,11 @@
 import {
   computed, observable, action,
 } from 'mobx';
+import { get } from 'lodash';
 import { UiSettings } from 'shared';
 import BaseOnboarding from './base';
 import Nags from '../../../components/onboarding/nags';
 import Payments from '../../payments';
-import { UiSettings } from 'shared';
-import { get } from 'lodash';
 import User from '../../user';
 
 const PAY_LATER_CHOICE  = 'PL';
