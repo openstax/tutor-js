@@ -32,6 +32,7 @@ export default class StudentGetAccessBtn extends React.PureComponent {
 
   @action.bound
   onComplete() {
+    this.course.userStudentRecord.markPaid();
     this.isShowingModal = false;
   }
 

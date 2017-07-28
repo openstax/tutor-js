@@ -21,7 +21,10 @@ STUDENT_COURSE_ONE_MODEL = {
     { "id": "1", "type": "student" }
   ],
   students: [
-    { role_id: "1", student_identifier: '1234', uuid: "06fc16fc-70f5-4db1-a61d-b0f496cf3cd4" }
+    {
+       role_id: "1", student_identifier: '1234', uuid: "06fc16fc-70f5-4db1-a61d-b0f496cf3cd4"
+       is_paid: false, is_comped: false, is_active: true, first_name: 'Test', last_name: 'Tester',
+    }
   ]
 
 }
