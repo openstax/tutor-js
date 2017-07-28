@@ -14,7 +14,7 @@ during the free trial.
 `;
 
 @observer
-export default class StudentGetAccessBtn extends React.PureComponent {
+export default class StudentPayNowBtn extends React.PureComponent {
 
   static propTypes = {
     courseId: React.PropTypes.string,
@@ -52,7 +52,7 @@ export default class StudentGetAccessBtn extends React.PureComponent {
   render() {
     if (!Payments.config.is_enabled && this.course && this.course.isInTrialPeriod) {
       return (
-        <span className="student-get-access">
+        <span className="student-pay-now">
           Free trial <Icon type="info-circle" tooltip={FREE_TRIAL_MESSAGE} />
         </span>
       );
@@ -61,11 +61,11 @@ export default class StudentGetAccessBtn extends React.PureComponent {
     if (!this.course || !this.course.needsPayment) { return null; }
 
     return (
-      <span className="student-get-access">
+      <span className="student-pay-now">
         You have {this.course.userStudentRecord.trialDaysRemaining} days left in your free trial
         {this.renderModal()}
         <Button bsStyle="primary" onClick={this.onClick}>
-          Get access
+          Pay now
         </Button>
       </span>
     );
