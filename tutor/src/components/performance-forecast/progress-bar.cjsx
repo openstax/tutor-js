@@ -40,7 +40,7 @@ module.exports = React.createClass
       <Practice
         courseId={courseId}
         page_ids={page_ids}>
-        <ButtonWithTip id={id} block getTip={@getTip}>
+        <ButtonWithTip id={id} block getTip={@getTip} role='link'>
           {bar}
         </ButtonWithTip>
       </Practice>

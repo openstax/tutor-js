@@ -94,6 +94,7 @@ ProgressGuidePanels = React.createClass
         <BS.Button
           onClick={@viewPerformanceForecast}
           className='view-performance-forecast'
+          role='link'
         >
           View All Topics
         </BS.Button>
