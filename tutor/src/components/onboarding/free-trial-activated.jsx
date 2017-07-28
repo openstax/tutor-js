@@ -17,7 +17,7 @@ export default class FreeTrialActivated extends React.PureComponent {
     const { ux } = this.props;
 
     return (
-      <OnboardingNag className="free-trial-activated">
+      <OnboardingNag className={this.constructor.className}>
         <Heading>
           Your free trial is activated!
         </Heading>
