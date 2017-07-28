@@ -56,6 +56,8 @@ export default class CourseEnrollment extends BaseModel {
     return { data: pick(this, 'enrollment_code') };
   }
 
-  confirm() { }
+  confirm() {
+    return { data: pick(this, 'student_identifier') };
+  }
 
 }
