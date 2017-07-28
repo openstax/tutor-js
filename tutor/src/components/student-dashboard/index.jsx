@@ -40,6 +40,10 @@ export default class StudentDashboardShell extends React.PureComponent {
   render() {
     const { params, params: { courseId } } = this.props;
 
+    if (this.ux.paymentIsPastDue) {
+      return <CourseNagModal ux={this.ux} />;
+    }
+
     return (
       <div className="student-dashboard ">
         <TermsModal />
