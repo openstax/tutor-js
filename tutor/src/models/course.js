@@ -122,7 +122,7 @@ export default class Course extends BaseModel {
   }
 
   @computed get isInTrialPeriod() {
-    return Boolean(this.does_cost && this.userStudentRecord && !this.userStudentRecord.is_paid);
+    return Boolean(this.does_cost && this.userStudentRecord && !this.userStudentRecord.isUnPaid);
   }
 
   @computed get tourAudienceTags() {

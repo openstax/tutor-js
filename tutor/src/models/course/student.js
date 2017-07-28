@@ -54,11 +54,16 @@ export default class CourseStudent extends BaseModel {
   // https://github.com/openstax/tutor-server/blob/master/app/representers/api/v1/student_representer.rb#L68-L84
   @computed get needsPayment() {
     return Boolean(
-      Payments.config.is_enabled &&
+      Payments.config.is_enabled && this.isUnPaid
+    );
+  }
+
+  @computed get isUnPaid() {
+    return Boolean(
       this.course.does_cost &&
       !this.course.is_preview &&
       !this.is_paid &&
-      !this.is_compted
+      !this.is_comped
     );
   }
 
