@@ -45,7 +45,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           OpenStax Tutor
         </td>
         <td>
-          July 13th 2017
+          June 24th 2017
         </td>
         <td>
           33uqbxbi324n
@@ -72,7 +72,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           <a
             className="btn btn-link"
             data-identifier="33uqbxbi324n"
-            href="/invoice/33uqbxbi324n"
+            href="url-for-test/invoice/33uqbxbi324n"
             onClick={[Function]}
           >
             Invoice
@@ -84,7 +84,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           OpenStax Tutor
         </td>
         <td>
-          July 13th 2017
+          June 24th 2017
         </td>
         <td>
           nuvwqun23ztq
@@ -111,7 +111,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           <a
             className="btn btn-link"
             data-identifier="nuvwqun23ztq"
-            href="/invoice/nuvwqun23ztq"
+            href="url-for-test/invoice/nuvwqun23ztq"
             onClick={[Function]}
           >
             Invoice
@@ -123,7 +123,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           OpenStax Tutor
         </td>
         <td>
-          July 13th 2017
+          June 24th 2017
         </td>
         <td>
           ru6ifviicwki
@@ -150,7 +150,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           <a
             className="btn btn-link"
             data-identifier="ru6ifviicwki"
-            href="/invoice/ru6ifviicwki"
+            href="url-for-test/invoice/ru6ifviicwki"
             onClick={[Function]}
           >
             Invoice
@@ -162,7 +162,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           OpenStax Tutor
         </td>
         <td>
-          July 14th 2017
+          June 24th 2017
         </td>
         <td>
           fxa4s2kj75fr
@@ -189,7 +189,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           <a
             className="btn btn-link"
             data-identifier="fxa4s2kj75fr"
-            href="/invoice/fxa4s2kj75fr"
+            href="url-for-test/invoice/fxa4s2kj75fr"
             onClick={[Function]}
           >
             Invoice
@@ -201,7 +201,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           unit test product
         </td>
         <td>
-          July 16th 2017
+          June 24th 2017
         </td>
         <td>
           3dmy8nu4v4bg
@@ -228,7 +228,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           <a
             className="btn btn-link"
             data-identifier="3dmy8nu4v4bg"
-            href="/invoice/3dmy8nu4v4bg"
+            href="url-for-test/invoice/3dmy8nu4v4bg"
             onClick={[Function]}
           >
             Invoice
@@ -240,7 +240,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           unit test product
         </td>
         <td>
-          July 16th 2017
+          June 24th 2017
         </td>
         <td>
           kjxdvs9wd7rw
@@ -255,7 +255,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           <a
             className="btn btn-link"
             data-identifier="kjxdvs9wd7rw"
-            href="/invoice/kjxdvs9wd7rw"
+            href="url-for-test/invoice/kjxdvs9wd7rw"
             onClick={[Function]}
           >
             Invoice
@@ -267,7 +267,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           unit test product
         </td>
         <td>
-          July 16th 2017
+          June 24th 2017
         </td>
         <td>
           cufu6hr4xicy
@@ -282,7 +282,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           <a
             className="btn btn-link"
             data-identifier="cufu6hr4xicy"
-            href="/invoice/cufu6hr4xicy"
+            href="url-for-test/invoice/cufu6hr4xicy"
             onClick={[Function]}
           >
             Invoice
