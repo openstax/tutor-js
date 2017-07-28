@@ -1,12 +1,13 @@
 import {
   computed, observable, action,
 } from 'mobx';
-
+import { UiSettings } from 'shared';
 import BaseOnboarding from './base';
 import Nags from '../../../components/onboarding/nags';
 import Payments from '../../payments';
 import { UiSettings } from 'shared';
 import { get } from 'lodash';
+import User from '../../user';
 
 const PAY_LATER_CHOICE  = 'PL';
 const TRIAL_ACKNOWLEDGED = 'FTA';
@@ -16,6 +17,8 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
   @observable displayPayment = false;
 
   get nagComponent() {
+    if (User.terms_signatures_needed) { return null; }
+
     if (this.displayPayment) { return Nags.makePayment; }
     if (!Payments.config.is_enabled && this.course.does_cost){
       if (!UiSettings.get(TRIAL_ACKNOWLEDGED, this.course.id)) {

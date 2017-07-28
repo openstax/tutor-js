@@ -3,6 +3,7 @@ import Nags from '../../../../src/components/onboarding/nags';
 
 import CourseUX from '../../../../src/models/course/onboarding/student-course';
 import UiSettings from 'shared/src/model/ui-settings';
+import User from '../../../../src/models/user';
 import Payments from '../../../../src/models/payments';
 
 jest.mock('shared/src/model/ui-settings' );
@@ -15,6 +16,7 @@ describe('Full Course Onboarding', () => {
 
   beforeEach(() => {
     UiSettings.get.mockImplementation(() => undefined);
+    User.terms_signatures_needed = false;
     ux = new CourseUX(
       new Course,
       { tour: null },
@@ -28,7 +30,7 @@ describe('Full Course Onboarding', () => {
   it('#nagComponent', () => {
     expect(ux.course.needsPayment).toBeUndefined();
     expect(ux.nagComponent).toBeNull();
-    ux.course.does_cost = true
+    ux.course.does_cost = true;
     expect(ux.nagComponent).toBe(Nags.payDisabled);
     Payments.config.is_enabled = true;
     ux.course.needsPayment = true;
@@ -36,6 +38,8 @@ describe('Full Course Onboarding', () => {
     expect(ux.nagComponent).toBe(Nags.payNowOrLater);
     ux.course.userStudentRecord = { mustPayImmediately: true };
     expect(ux.nagComponent).toBe(Nags.freeTrialEnded);
+    User.terms_signatures_needed = true;
+    expect(ux.nagComponent).toBeNull();
   });
 
   it('#payNow', () => {
