@@ -4,6 +4,7 @@ deepMerge = require 'lodash/merge'
 UiSettings = require '../model/ui-settings'
 {formatSection} = require './step-content'
 {
+  INDIVIDUAL_REVIEW,
   PERSONALIZED_GROUP,
   SPACED_PRACTICE_GROUP,
   TWO_STEP_ALIAS,
@@ -61,11 +62,13 @@ makeKeyForType = (settingKey, taskType) ->
   "#{settingKey}#{TYPE_SEPARATOR}#{taskType}"
 
 isPlacedHere = (settingKey, step) ->
+  return false;
   settings = UiSettings.get(settingKey)
   settings = settings.placement or settings
   step.task_id is settings.taskId and step.id is settings.stepId
 
 hasBeenPlaced = (settingKey) ->
+  return false;
   settings = UiSettings.get(settingKey)
   # has been found for setting in current task type, return early
   return true if not _.isEmpty(settings)
@@ -136,9 +139,19 @@ befores[SPACED_PRACTICE_GROUP] = (task, step, stepIndex, isAvailable) ->
       arguments...
     )
 
+isPersonalized = (task, step, stepIndex) ->
+  _.findWhere(task.steps, {group: PERSONALIZED_GROUP})?.id is step.id
+
+befores[INDIVIDUAL_REVIEW] = (task, step, stepIndex, isAvailable) ->
+  return if isPractice(task)
+  stepMapOneTimeCardForGroup(
+    INDIVIDUAL_REVIEW,
+    isPersonalized,
+    isAvailable,
+    arguments...
+  )
+
 befores[PERSONALIZED_GROUP] = (task, step, stepIndex, isAvailable) ->
-  isPersonalized = (task, step, stepIndex) ->
-    _.findWhere(task.steps, {group: PERSONALIZED_GROUP})?.id is step.id
 
   return if isPractice(task)
 

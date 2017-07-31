@@ -4,8 +4,9 @@ BS = require 'react-bootstrap'
 camelCase = require 'lodash/camelCase'
 
 {
-  PERSONALIZED_GROUP,
+  INDIVIDUAL_REVIEW,
   SPACED_PRACTICE_GROUP,
+  PERSONALIZED_GROUP,
   ALIASES,
   LABELS,
   getHelpText
@@ -27,6 +28,7 @@ RULES =
   core: DEFAULT_GROUP
   recovery: DEFAULT_GROUP
   personalized: PERSONALIZED_GROUP
+  individual: INDIVIDUAL_REVIEW
   'spaced practice': REVIEW_GROUP
 
 ExerciseGroup = React.createClass

@@ -5,6 +5,7 @@ capitalize = require 'lodash/capitalize'
 PERSONALIZED_GROUP = 'personalized'
 SPACED_PRACTICE_GROUP = 'spaced practice'
 TWO_STEP_ALIAS = 'two-step'
+INDIVIDUAL_REVIEW = 'individual-review'
 
 PROJECT_NAME =
   tutor: 'OpenStax Tutor'
@@ -22,13 +23,15 @@ LABELS = {}
 LABELS[PERSONALIZED_GROUP] = 'Personalized'
 LABELS[SPACED_PRACTICE_GROUP] = 'Spaced Practice'
 LABELS[TWO_STEP_ALIAS] = 'Two-step'
-
+LABELS[INDIVIDUAL_REVIEW] = 'Your individual review'
 TITLES = {}
 TITLES[PERSONALIZED_GROUP] = "#{LABELS[PERSONALIZED_GROUP]} questions"
 TITLES[SPACED_PRACTICE_GROUP] = LABELS[SPACED_PRACTICE_GROUP]
 TITLES[TWO_STEP_ALIAS] = "#{LABELS[TWO_STEP_ALIAS]} questions"
+TITLES[INDIVIDUAL_REVIEW] = 'Your individual review'
 
 ALIASES = {}
+ALIASES[INDIVIDUAL_REVIEW] = INDIVIDUAL_REVIEW
 ALIASES[PERSONALIZED_GROUP] = PERSONALIZED_GROUP
 ALIASES[SPACED_PRACTICE_GROUP] = 'spaced-practice'
 ALIASES[TWO_STEP_ALIAS] = TWO_STEP_ALIAS
@@ -85,6 +88,15 @@ getIntroText[TWO_STEP_ALIAS] = (project) ->
     </p>
   ]
 
+
+getIntroText[INDIVIDUAL_REVIEW] = (project) ->
+  <p>
+    OpenStax Tutor has selected questions for you based on what you’ve studied and how you’ve
+    performed so far. By answering these custom review questions, you’re more likely to
+    remember what you learned.
+  </p>
+
+
 getHelpText = _.mapObject(getIntroText, (getIntro) ->
   _.partial(getIntro, _, false)
 )
@@ -98,6 +110,7 @@ getHelpText[TWO_STEP_ALIAS] = (project) ->
     so you can get {getProject(project).feedbackType}.  Both you and your
     instructor can review your work later.</p>
   ]
+
 
 getHelpText[SPACED_PRACTICE_GROUP] = (project) ->
   [
@@ -120,6 +133,7 @@ module.exports = {
   PERSONALIZED_GROUP,
   SPACED_PRACTICE_GROUP,
   TWO_STEP_ALIAS,
+  INDIVIDUAL_REVIEW,
   LABELS,
   ALIASES,
   INTRO_ALIASES,
