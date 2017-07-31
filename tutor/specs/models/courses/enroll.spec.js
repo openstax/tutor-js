@@ -49,4 +49,10 @@ describe('Course Enrollment', function() {
     expect(CL.CourseListingActions.load).toHaveBeenCalled();
     expect(enroll.isComplete).toBe(true);
   });
+
+  test('#confirm', () => {
+    enroll.student_identifier = '1234';
+    expect(enroll.confirm()).toEqual({ data: { student_identifier: '1234' } });
+  });
+
 });
