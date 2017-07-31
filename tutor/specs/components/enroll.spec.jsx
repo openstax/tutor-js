@@ -15,7 +15,7 @@ describe('Student Enrollment', () => {
     params = { courseId: '1' };
     context = EnzymeContext.build();
     Router.currentParams.mockReturnValue(params);
-    Router.makePathname.mockReturnValue('go-to-dash');
+    Router.makePathname = jest.fn((name, params) => name);
   });
 
   it('loads when mounted', () => {
@@ -41,7 +41,15 @@ describe('Student Enrollment', () => {
 
   it('redirects on success', () => {
     EnrollModel.prototype.isComplete = true;
+    EnrollModel.prototype.courseId = 12;
     const enroll = shallow(<Enroll />, context);
-    expect(enroll).toHaveRendered('Redirect');
+    expect(enroll).toHaveRendered('Redirect[to="dashboard"]');
+  });
+
+  it('redirects when already a member', () => {
+    EnrollModel.prototype.isComplete = true;
+    EnrollModel.prototype.courseId = null;
+    const enroll = shallow(<Enroll />, context);
+    expect(enroll).toHaveRendered('Redirect[to="myCourses"]');
   });
 });
