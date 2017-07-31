@@ -1,6 +1,7 @@
 import TeacherTaskPlans from '../../src/models/teacher-task-plans';
 import { autorun } from 'mobx';
 import { map } from 'lodash';
+import { TaskPlanStore } from '../../src/flux/task-plan';
 
 const COURSE_ID = '123';
 
@@ -27,7 +28,18 @@ describe('Teacher Task Plans', function() {
         { id: '2', hello: 'world', steps: [] },
       ] } }, [ { courseId: COURSE_ID } ]);
     TeacherTaskPlans.get(COURSE_ID).get(1).is_deleting = true;
-    expect(TeacherTaskPlans.get(COURSE_ID).active).toHaveLength(1);
+    expect(TeacherTaskPlans.get(COURSE_ID).active.array).toHaveLength(1);
+  });
+
+  it('removes deleted plans when flux deletes', () => {
+    TeacherTaskPlans.onLoaded(
+      { data: { plans: [ { id: '211', hello: 'world', steps: [] } ] } },
+      [ { courseId: COURSE_ID } ]
+    );
+    expect(TeacherTaskPlans.get(COURSE_ID).get(211)).not.toBeUndefined();
+    TaskPlanStore.emit('deleted', 211);
+    expect(TeacherTaskPlans.get(COURSE_ID).get(211)).toBeUndefined();
+    expect(TeacherTaskPlans.get(COURSE_ID).array).toHaveLength(0);
   });
 
   it('can store a cloned plan', () => {

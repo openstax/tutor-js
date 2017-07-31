@@ -243,7 +243,7 @@ CourseMonth = React.createClass
       'with-sidebar-open': @state.showingSideBar
     )
 
-    plansList = TeacherTaskPlans.forCourseId(courseId).array
+    plansList = TeacherTaskPlans.forCourseId(courseId).active.array
     if plansList?
       plans = <CourseDuration
         referenceDate={moment(TimeStore.getNow())}
