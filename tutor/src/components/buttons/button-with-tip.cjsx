@@ -29,7 +29,7 @@ module.exports = React.createClass
     if disabledState? and isDisabled
       button = disabledState
     else
-      button = <BS.Button {...buttonProps}>{children}</BS.Button>
+      button = <BS.Button {...buttonProps} role="link">{children}</BS.Button>
 
     if tip
       tooltip = <BS.Tooltip id={id}>{tip}</BS.Tooltip>
@@ -38,4 +38,3 @@ module.exports = React.createClass
       </BS.OverlayTrigger>
     else
       button
-

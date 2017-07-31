@@ -18,11 +18,11 @@ exports[`Student Dashboard matches snapshot 1`] = `
     <div
       className="book-title"
     >
-      <span
+      <h1
         className="book-title-text"
       >
         Local Test Course One
-      </span>
+      </h1>
     </div>
     <div
       className="course-term"
@@ -45,40 +45,38 @@ exports[`Student Dashboard matches snapshot 1`] = `
         >
           <ul
             className="nav nav-tabs"
-            role="tablist"
           >
             <li
               className="active"
-              tabIndex={0}
             >
               <a
-                aria-selected="true"
+                aria-selected={true}
                 href="#"
                 onClick={[Function]}
-                role="tab"
-                tabIndex={-1}
               >
-                This Week
+                <h2>
+                  This Week
+                </h2>
               </a>
             </li>
             <li
               className=""
-              tabIndex={1}
             >
               <a
-                aria-selected={undefined}
+                aria-selected={false}
                 href="#"
                 onClick={[Function]}
-                role="tab"
-                tabIndex={0}
               >
-                All Past Work
+                <h2>
+                  All Past Work
+                </h2>
               </a>
             </li>
           </ul>
         </nav>
         <div
           className="tab-pane active"
+          role="tabpanel"
         >
           <div
             className="empty panel panel-default"

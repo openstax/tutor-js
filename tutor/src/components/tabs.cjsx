@@ -75,20 +75,23 @@ Tabs = React.createClass
   renderTab: (tab, index) ->
     isSelected = index is @state.activeIndex
 
-    <li key={index} tabIndex={index} className={classnames(active: isSelected)}>
-      <a role="tab"
-        href="#"
-          tabIndex={if isSelected then -1 else 0}
-        onClick={_.partial(@onTabClick, index)}
-        aria-selected={'true' if isSelected}
+    <li key={index}
+    className={classnames(active: isSelected)}
+    >
+      <a
+      href="#"
+      aria-selected={isSelected ? 'true' : 'false'}
+      onClick={_.partial(@onTabClick, index)}
       >
-        {tab}
+        <h2>
+          {tab}
+        </h2>
       </a>
     </li>
 
   render: ->
     <nav className={classnames('tutor-tabs', @props.className)}>
-      <ul role="tablist" className="nav nav-tabs">
+      <ul className="nav nav-tabs">
         {_.map @props.tabs, @renderTab}
       </ul>
       {@props.children}

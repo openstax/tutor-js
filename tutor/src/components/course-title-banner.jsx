@@ -28,7 +28,7 @@ export default class CourseTitleBanner extends React.PureComponent {
         {...this.ux.dataProps}
       >
         <div className='book-title'>
-          <span className='book-title-text'>{this.ux.dataProps['data-title']}</span>
+          <h1 className='book-title-text'>{this.ux.dataProps['data-title']}</h1>
         </div>
         <div className='course-term'>
           {this.course.termFull}

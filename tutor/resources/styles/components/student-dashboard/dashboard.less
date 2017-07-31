@@ -25,20 +25,22 @@
       #fonts .sans(2.4rem, 2.4rem);
       width: 210px;
       background: @tutor-neutral-lighter;
+      cursor: pointer;
       border: none;
       padding: 0;
 
-      &:hover {
+      &:not(.active):hover {
         background: @tutor-neutral-lightest;
-
-        a {
+        > * {
           color: @tutor-neutral !important;
         }
       }
 
       &.active {
         background: @tutor-white;
-        border: none;
+        cursor: default;
+        border: thin solid #ddd;
+        border-bottom: 0;
         padding: 0;
       }
     }

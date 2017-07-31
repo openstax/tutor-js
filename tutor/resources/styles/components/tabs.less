@@ -6,6 +6,7 @@
     display: flex;
     flex-wrap: wrap;
     border-bottom: none;
+
     li {
       text-align: center;
       background: transparent;
@@ -15,9 +16,13 @@
       .transition(background 0.2s);
 
       a {
-        font-weight: 400;
         color: @tutor-neutral !important;
-        outline: none;
+        display: flex;
+        font-size: inherit;
+        font-weight: 400;
+        justify-content: center;
+        margin: 0;
+        outline: 0;
         span.tab-item-period-name {
           overflow: hidden;
           text-overflow: ellipsis;
@@ -26,22 +31,29 @@
           font-size: 1.3rem;
           max-width: 100px;
         }
-        &:focus{ .tab-focus() }
 
-      }
+        h2 {
+          font-size: inherit;
+          font-weight: inherit;
+          line-height: normal;
+          margin: 0;
+        }
 
-      &:hover a {
-        color: lighten(@tutor-neutral, 14%) !important;
-      }
+        &:focus {
+          .tab-focus();
+          position: relative;
+          z-index: 2;
+        }
 
-      &.active {
-        background: @tutor-white;
-        border-bottom: none;
-        padding: 0;
-        padding-bottom: 1px;
-        a {
-          font-weight: 900;
+        &:hover {
+          color: lighten(@tutor-neutral, 14%) !important;
+        }
+
+        &[aria-selected="true"] {
+          background: @tutor-white;
+          border-bottom: none;
           color: @tutor-neutral-darker !important;
+          font-weight: 900;
         }
       }
 

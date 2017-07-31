@@ -168,7 +168,8 @@ export default class ManagePayments extends React.PureComponent {
             Refund policy for OpenStax Tutor Beta courses
           </NewTabLink>
           <div className="help">
-            Need help? <NewTabLink to={UserMenu.helpURL}>Contact Support</NewTabLink>
+            Need help?
+            <NewTabLink to={UserMenu.helpURL}>Contact Support</NewTabLink>
           </div>
         </div>
       </Grid>
