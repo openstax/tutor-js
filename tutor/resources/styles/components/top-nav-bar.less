@@ -15,7 +15,7 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  height: @tutor-navbar-height;
+  min-height: @tutor-navbar-height;
   padding-right: @navbar-padding-horizontal;
   padding-left:  @navbar-padding-horizontal;
   z-index: @zindex-navbar-fixed;
@@ -63,6 +63,11 @@
   }
 
   > * {
+    display: flex;
+  }
+
+  .navbar-overlay {
+    align-items: center;
     display: flex;
   }
 

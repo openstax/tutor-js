@@ -29,7 +29,6 @@ export default function NavigationBar() {
         <CenterControls params={params} />
         <div className="right-side-controls">
           <PreviewAddCourseBtn courseId={courseId} />
-          <StudentGetAccessBtn courseId={courseId} />
           <SupportMenu />
           <StudentPreviewLink  courseId={courseId} />
           <UserActionsMenu     courseId={courseId} />
