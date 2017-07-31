@@ -103,6 +103,9 @@ TaskPlanConfig =
 
   FAILED: -> # used by API
 
+  _deleted: (result, id, args...) ->
+    @emit('deleted', id, result)
+
   # Returns copies of the given property names from settings
   # Copies are returned so that the store can be reset
   _getClonedSettings: (id, names...) ->

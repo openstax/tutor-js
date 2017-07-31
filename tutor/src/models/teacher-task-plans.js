@@ -4,6 +4,13 @@ import { filter } from 'lodash';
 import Map from './map';
 import TaskPlan from './teacher-task-plan';
 import moment from 'moment';
+import { TaskPlanStore } from '../flux/task-plan';
+
+let TaskPlans;
+
+TaskPlanStore.on('deleted', (planId) => {
+  TaskPlans.forEach((plans) => plans.delete(planId));
+});
 
 class CourseTaskPlans extends Map {
 
@@ -32,7 +39,7 @@ class CourseTaskPlans extends Map {
   }
 
   @computed get active() {
-    return filter(this.array, plan => !plan.is_deleting);
+    return this.where(plan => plan.is_deleting !== true);
   }
 
   @computed get isPublishing() {
@@ -75,5 +82,5 @@ class TeacherTaskPlans extends Map {
 
 }
 
-const taskPlans = new TeacherTaskPlans();
-export default taskPlans;
+TaskPlans = new TeacherTaskPlans();
+export default TaskPlans;
