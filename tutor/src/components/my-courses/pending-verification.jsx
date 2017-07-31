@@ -1,5 +1,7 @@
 import React from 'react';
 import Chat from '../../models/chat';
+import TutorLink from '../link';
+import IconAdd from '../icons/add';
 
 import Icon from '../icon';
 
@@ -30,8 +32,20 @@ export default class PendingVerification extends React.PureComponent {
         <h2>My Courses</h2>
         <div className="courses">
           <div className="locked-card">
-            <Icon type="ban" />
-            <h4>Pending faculty verification</h4>
+            <div className="disabled-create-zone">
+              <div className="mock-tutor-link">
+                <div>
+                  <IconAdd />
+                  <span>
+                    CREATE A COURSE
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="overlay">
+              <i className="pending-verification-icon"></i>
+              <h4>Pending faculty verification</h4>
+            </div>
           </div>
           <div className="explain">
             <h3>Almost done!</h3>
