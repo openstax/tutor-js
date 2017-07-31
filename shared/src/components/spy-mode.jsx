@@ -35,7 +35,8 @@ export class SpyModeWrapper extends React.PureComponent {
             href="#spy"
             tabIndex={-1}
             onClick={this.toggleDebug}
-            className="debug-toggle-link">
+            className="debug-toggle-link"
+            aria-hidden="true">
             π
           </a>
         </div>
