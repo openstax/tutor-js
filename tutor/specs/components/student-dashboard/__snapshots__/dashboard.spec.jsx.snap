@@ -45,31 +45,32 @@ exports[`Student Dashboard matches snapshot 1`] = `
         >
           <ul
             className="nav nav-tabs"
-            role="tablist"
           >
             <li
               className="active"
-              role="tab"
-              tabIndex={-1}
             >
-              <h2
-                aria-selected="true"
+              <a
+                aria-selected={true}
+                href="#"
                 onClick={[Function]}
               >
-                This Week
-              </h2>
+                <h2>
+                  This Week
+                </h2>
+              </a>
             </li>
             <li
               className=""
-              role="tab"
-              tabIndex={0}
             >
-              <h2
-                aria-selected={undefined}
+              <a
+                aria-selected={false}
+                href="#"
                 onClick={[Function]}
               >
-                All Past Work
-              </h2>
+                <h2>
+                  All Past Work
+                </h2>
+              </a>
             </li>
           </ul>
         </nav>

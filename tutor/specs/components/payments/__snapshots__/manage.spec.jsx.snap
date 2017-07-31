@@ -307,7 +307,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
     <div
       className="help"
     >
-      Need help? 
+      Need help?
       <a
         className=""
         href="/"
@@ -363,7 +363,7 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
     <div
       className="help"
     >
-      Need help? 
+      Need help?
       <a
         className=""
         href="/"

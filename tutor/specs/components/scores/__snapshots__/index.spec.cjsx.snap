@@ -39,163 +39,168 @@ exports[`Scores Report renders and matches snapshot 1`] = `
     >
       <ul
         className="nav nav-tabs"
-        role="tablist"
       >
         <li
           className="active"
-          role="tab"
-          tabIndex={-1}
         >
-          <h2
-            aria-selected="true"
+          <a
+            aria-selected={true}
+            href="#"
             onClick={[Function]}
           >
-            <div
-              className=""
-            >
-              <span
-                aria-describedby="course-periods-nav-tab-0"
-                className="tab-item-period-name"
-                onBlur={[Function]}
-                onClick={null}
-                onFocus={[Function]}
-                onMouseOut={[Function]}
-                onMouseOver={[Function]}
+            <h2>
+              <div
+                className=""
               >
-                1st
-              </span>
-            </div>
-          </h2>
+                <span
+                  aria-describedby="course-periods-nav-tab-0"
+                  className="tab-item-period-name"
+                  onBlur={[Function]}
+                  onClick={null}
+                  onFocus={[Function]}
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  1st
+                </span>
+              </div>
+            </h2>
+          </a>
         </li>
         <li
           className=""
-          role="tab"
-          tabIndex={0}
         >
-          <h2
-            aria-selected={undefined}
+          <a
+            aria-selected={false}
+            href="#"
             onClick={[Function]}
           >
-            <div
-              className=""
-            >
-              <span
-                aria-describedby="course-periods-nav-tab-1"
-                className="tab-item-period-name"
-                onBlur={[Function]}
-                onClick={null}
-                onFocus={[Function]}
-                onMouseOut={[Function]}
-                onMouseOver={[Function]}
+            <h2>
+              <div
+                className=""
               >
-                2nd
-              </span>
-            </div>
-          </h2>
+                <span
+                  aria-describedby="course-periods-nav-tab-1"
+                  className="tab-item-period-name"
+                  onBlur={[Function]}
+                  onClick={null}
+                  onFocus={[Function]}
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  2nd
+                </span>
+              </div>
+            </h2>
+          </a>
         </li>
         <li
           className=""
-          role="tab"
-          tabIndex={0}
         >
-          <h2
-            aria-selected={undefined}
+          <a
+            aria-selected={false}
+            href="#"
             onClick={[Function]}
           >
-            <div
-              className=""
-            >
-              <span
-                aria-describedby="course-periods-nav-tab-2"
-                className="tab-item-period-name"
-                onBlur={[Function]}
-                onClick={null}
-                onFocus={[Function]}
-                onMouseOut={[Function]}
-                onMouseOver={[Function]}
+            <h2>
+              <div
+                className=""
               >
-                3rd
-              </span>
-            </div>
-          </h2>
+                <span
+                  aria-describedby="course-periods-nav-tab-2"
+                  className="tab-item-period-name"
+                  onBlur={[Function]}
+                  onClick={null}
+                  onFocus={[Function]}
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  3rd
+                </span>
+              </div>
+            </h2>
+          </a>
         </li>
         <li
           className=""
-          role="tab"
-          tabIndex={0}
         >
-          <h2
-            aria-selected={undefined}
+          <a
+            aria-selected={false}
+            href="#"
             onClick={[Function]}
           >
-            <div
-              className=""
-            >
-              <span
-                aria-describedby="course-periods-nav-tab-3"
-                className="tab-item-period-name"
-                onBlur={[Function]}
-                onClick={null}
-                onFocus={[Function]}
-                onMouseOut={[Function]}
-                onMouseOver={[Function]}
+            <h2>
+              <div
+                className=""
               >
-                5th
-              </span>
-            </div>
-          </h2>
+                <span
+                  aria-describedby="course-periods-nav-tab-3"
+                  className="tab-item-period-name"
+                  onBlur={[Function]}
+                  onClick={null}
+                  onFocus={[Function]}
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  5th
+                </span>
+              </div>
+            </h2>
+          </a>
         </li>
         <li
           className=""
-          role="tab"
-          tabIndex={0}
         >
-          <h2
-            aria-selected={undefined}
+          <a
+            aria-selected={false}
+            href="#"
             onClick={[Function]}
           >
-            <div
-              className=""
-            >
-              <span
-                aria-describedby="course-periods-nav-tab-4"
-                className="tab-item-period-name"
-                onBlur={[Function]}
-                onClick={null}
-                onFocus={[Function]}
-                onMouseOut={[Function]}
-                onMouseOver={[Function]}
+            <h2>
+              <div
+                className=""
               >
-                6th
-              </span>
-            </div>
-          </h2>
+                <span
+                  aria-describedby="course-periods-nav-tab-4"
+                  className="tab-item-period-name"
+                  onBlur={[Function]}
+                  onClick={null}
+                  onFocus={[Function]}
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  6th
+                </span>
+              </div>
+            </h2>
+          </a>
         </li>
         <li
           className=""
-          role="tab"
-          tabIndex={0}
         >
-          <h2
-            aria-selected={undefined}
+          <a
+            aria-selected={false}
+            href="#"
             onClick={[Function]}
           >
-            <div
-              className=""
-            >
-              <span
-                aria-describedby="course-periods-nav-tab-5"
-                className="tab-item-period-name"
-                onBlur={[Function]}
-                onClick={null}
-                onFocus={[Function]}
-                onMouseOut={[Function]}
-                onMouseOver={[Function]}
+            <h2>
+              <div
+                className=""
               >
-                10th
-              </span>
-            </div>
-          </h2>
+                <span
+                  aria-describedby="course-periods-nav-tab-5"
+                  className="tab-item-period-name"
+                  onBlur={[Function]}
+                  onClick={null}
+                  onFocus={[Function]}
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  10th
+                </span>
+              </div>
+            </h2>
+          </a>
         </li>
       </ul>
       <span
