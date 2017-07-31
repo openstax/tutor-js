@@ -28,6 +28,9 @@
       font-variant: small-caps;
       letter-spacing: normal;
     }
+    .course-term {
+      display: none;
+    }
     .for(@openstax-book-fg-inverse-codes); .-each(@bookcode) {
       &[data-appearance=@{bookcode}] .book-title-text::after {
         color: ~"@{openstax-book-@{bookcode}-fg-inverse}";
