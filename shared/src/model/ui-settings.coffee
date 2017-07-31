@@ -9,6 +9,7 @@ cloneDeep = require 'lodash/cloneDeep'
 mobx = require 'mobx'
 URLs = require './urls'
 Networking = require './networking'
+{ toJS, observable } = require 'mobx'
 
 SETTINGS = mobx.observable.map()
 
@@ -25,7 +26,7 @@ saveSettings = debounce( ->
 UiSettings = {
 
   initialize: (settings) ->
-    SETTINGS.replace(settings)
+    SETTINGS.replace(observable.object(settings))
 
   get: (key, id) ->
     obj = SETTINGS.get(key)
@@ -39,8 +40,9 @@ UiSettings = {
         SETTINGS.set(key, id)
       else
         obj = SETTINGS.get(key) or {}
+        obj = {} unless isObject(obj)
         obj[id] = value
-        SETTINGS.set(key, obj)
+        SETTINGS.set(key, observable(toJS(obj)))
     saveSettings()
 
   # for use by specs to reset
