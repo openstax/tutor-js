@@ -17,24 +17,6 @@ describe('Course Builder UX Model', () => {
     ux = new CourseBuilderUX();
   });
 
-  function advanceToName() {
-    expect(ux.stage).toEqual('offering');
-    expect(ux.canGoBackward).toBe(false);
-    expect(ux.canGoForward).toBe(false);
-    ux.newCourse.offering = mockOffering;
-    Offerings.get.mockReturnValue(mockOffering);
-    expect(ux.canGoForward).toBe(true);
-
-    ux.goForward();
-    expect(ux.canGoBackward).toBe(true);
-    expect(ux.stage).toEqual('term');
-    expect(ux.canGoForward).toBe(false);
-    ux.newCourse.term = { year: 2018 };
-    expect(ux.canGoForward).toBe(true);
-
-    ux.goForward();
-    expect(ux.stage).toEqual('name');
-  }
 
   function advanceToSave() {
     ux.goForward();
@@ -53,6 +35,14 @@ describe('Course Builder UX Model', () => {
     expect(ux.newCourse.save).toHaveBeenCalled();
   }
 
+  it('sets cloned course when sourceId is present', () => {
+    Router.currentParams.mockReturnValue({ sourceId: '2' });
+    courses.get('2').name = 'CLONE ME';
+    ux = new CourseBuilderUX();
+    expect(ux.newCourse.cloned_from_id).toEqual('2');
+    expect(ux.newCourse.name).toEqual('CLONE ME');
+  });
+
   it('calculates first stage', () => {
     expect(ux.firstStageIndex).toEqual(0);
     Router.currentParams.mockReturnValue({ sourceId: '1' });
@@ -60,13 +50,68 @@ describe('Course Builder UX Model', () => {
     expect(ux.firstStageIndex).toEqual(1);
   });
 
-  it('can advance through specs for a cloned course', () => {
-    advanceToName();
+  it('can advance through steps for new course', () => {
+    expect(ux.stage).toEqual('offering');
+    expect(ux.canGoBackward).toBe(false);
+    expect(ux.canGoForward).toBe(false);
+    ux.newCourse.offering = mockOffering;
+    Offerings.get.mockReturnValue(mockOffering);
+    expect(ux.canGoForward).toBe(true);
+
+    ux.goForward();
+    expect(ux.canGoBackward).toBe(true);
+    expect(ux.stage).toEqual('term');
+    expect(ux.canGoForward).toBe(false);
+    ux.newCourse.term = { year: 2018 };
+    expect(ux.canGoForward).toBe(true);
+
+    ux.goForward();
+
+    expect(ux.stage).toEqual('new_or_copy');
+    expect(ux.canGoForward).toBe(true);
+    ux.goForward();
+    expect(ux.stage).toEqual('name');
     expect(ux.newCourse.name).toEqual(mockOffering.title);
-    expect(ux.newCourse.num_sections).toEqual(courses.get(2).periods.length);
-    expect(ux.canGoForward).toBe(true); // fields are already set from clone
+
+    ux.goBackward();
+    expect(ux.stage).toEqual('new_or_copy');
+    ux.newCourse.new_or_copy = 'copy';
+    expect(ux.canGoForward).toBe(true);
+    ux.goForward();
+
+    const course = courses.get('2');
+
+    expect(ux.stage).toEqual('cloned_from_id');
+    expect(ux.canGoForward).toBe(false);
+    ux.source = course;
+
+    expect(ux.canGoForward).toBe(true);
+    ux.goForward();
+    expect(ux.stage).toEqual('name');
+    expect(ux.newCourse.name).toEqual(course.name);
+
+    expect(ux.newCourse.num_sections).toEqual(course.periods.length);
+    expect(ux.canGoForward).toBe(true);
     advanceToSave();
   });
+
+  it('can advance through steps for cloned course', () => {
+    const course = courses.get('2');
+    Router.currentParams.mockReturnValue({ sourceId: course.id });
+    ux = new CourseBuilderUX();
+    expect(ux.stage).toEqual('term');
+    expect(ux.canGoForward).toBe(false);
+    ux.newCourse.term = { year: 2018 };
+    expect(ux.canGoForward).toBe(true);
+    ux.goForward();
+    expect(ux.stage).toEqual('name'); // new_or_copy is skipped
+    expect(ux.canGoForward).toBe(true);
+    expect(ux.newCourse.name).toEqual(course.name);
+    expect(ux.newCourse.num_sections).toEqual(course.periods.length);
+    expect(ux.canGoForward).toBe(true);
+    advanceToSave();
+  });
+
 
   it('goes to dashboard after canceling', () => {
     ux.router = { transitionTo: jest.fn() };
@@ -97,6 +142,5 @@ describe('Course Builder UX Model', () => {
       expect(ux.router.transitionTo).toHaveBeenCalledWith('/course/42/cc/help?showIntro=true');
     });
   });
-
 
 });

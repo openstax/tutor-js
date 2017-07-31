@@ -34,8 +34,10 @@ export default class CourseBuilderUX extends BaseModel {
   constructor(router) {
     super();
     this.router = router;
+
     observe(this, 'source', ({ newValue: newSource }) => {
       if (newSource) {
+        this.newCourse.cloned_from = newSource;
         when(
           () => Offerings.get(newSource.offering_id),
           () => this.newCourse.offering = Offerings.get(newSource.offering_id),
@@ -150,10 +152,10 @@ export default class CourseBuilderUX extends BaseModel {
 
   // skips
   skip_new_or_copy() {
-    return Boolean(this.offering || isEmpty(this.cloneSources));
+    return Boolean(this.source);
   }
 
   skip_cloned_from_id() {
-    return Boolean(this.offering);
+    return Boolean(this.newCourse.new_or_copy === 'new');
   }
 }
