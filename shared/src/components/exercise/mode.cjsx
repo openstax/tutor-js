@@ -49,6 +49,7 @@ ExMode = React.createClass
     el = ReactDOM.findDOMNode(@refs.freeResponse)
     if focus
       el.focus?()
+      window.scrollTo(0, 0);
     else
       el.blur?()
 

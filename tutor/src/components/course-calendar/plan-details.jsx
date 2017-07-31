@@ -107,7 +107,7 @@ class CoursePlanDetails extends React.PureComponent {
     } else if (this.props.isPublishing) {
       return (
         <p>
-          This plan is publishing.
+          This assignment is publishing.
         </p>
       );
     }

@@ -59,7 +59,9 @@ AddAssignmentLink = (props) ->
       <GrabbyDots/>
       <a
         href={props.link.pathname}
-        onClick={props.goToBuilder(props.link)} >
+        onClick={props.goToBuilder(props.link)}
+        draggable="false"
+      >
         {props.link.text}
       </a>
     </div>

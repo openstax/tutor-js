@@ -297,7 +297,7 @@ describe 'Plan on Course Calendar', ->
 
         expect(detailsModal.classList.contains('is-publishing')).to.be.true
         expect(modalBody.querySelector('a')).to.not.exist
-        expect(modalBody.innerText).to.contain('plan is publishing')
+        expect(modalBody.innerText).to.contain('assignment is publishing')
 
   it 'should show as published when plan is done publishing', ->
     item = _.clone(ITEM_DRAFT_ONE_DAY)
