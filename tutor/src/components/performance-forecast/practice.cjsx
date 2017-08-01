@@ -22,7 +22,7 @@ module.exports = React.createClass
 
   isDisabled: ->
     {page_ids, courseId} = @props
-    _.isEmpty(page_ids) or CoursePracticeStore.isDisabled(courseId, {page_ids})
+    _.isEmpty(page_ids) # or CoursePracticeStore.isDisabled(courseId, {page_ids})
 
   render: ->
     isDisabled = @isDisabled()
