@@ -75,7 +75,10 @@ export default class CourseEnroll extends React.PureComponent {
     } else if (enrollment.isInvalid) {
       body = this.renderInvalid();
     } else if (enrollment.isComplete) {
-      body = <Redirect to={Router.makePathname('dashboard', { courseId: enrollment.courseId })} />;
+      if (enrollment.courseId)
+        body = <Redirect to={Router.makePathname('dashboard', { courseId: enrollment.courseId })} />;
+      else
+        body = <Redirect to={Router.makePathname('myCourses')} />;
     } else {
       body = this.renderForm(enrollment);
     }
