@@ -29,8 +29,16 @@ module.exports = React.createClass
     # endpoint fails to return a practice.
     _.isEmpty(page_ids)
 
+  isErrored: ->
+    {page_ids, courseId} = @props
+
+    not @isDisabled() && CoursePracticeStore.isDisabled(courseId, {page_ids})
+
   render: ->
     isDisabled = @isDisabled()
-    props = {isDisabled, onClick: @onClick}
+    className = classnames(
+      'is-errored': @isErrored()
+    )
+    props = {isDisabled, onClick: @onClick, className}
 
     React.cloneElement(@props.children, props)
