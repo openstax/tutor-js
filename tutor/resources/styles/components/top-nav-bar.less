@@ -1,12 +1,43 @@
-@tutor-navbar-height: 61px;
+@tutor-navbar-height: 60px;
 @tutor-navbar-padding-horizontal: 4rem;
 
 // the @navbar-XX vars are bootstrap defaults
 
 .tutor-top-navbar {
+
+  background: @tutor-white;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+  color: @openstax-gray;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  min-height: @tutor-navbar-height;
+  padding-right: @navbar-padding-horizontal;
+  padding-left:  @navbar-padding-horizontal;
+  z-index: @zindex-navbar-fixed;
+
+  .tutor-nav-controls {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 15px;
+    width: 1200px;
+  }
+
+  #student-preview-link {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    align-self: stretch;
+    .top-nav-action();
+  }
+
   .make-shy-animate();
   .top-nav-action() {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
 
     .tutor-icon {
       font-size: 2rem;
@@ -21,49 +52,50 @@
     }
   }
 
-  background: @tutor-white;
-  z-index: @zindex-navbar-fixed;
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: @zindex-navbar-fixed;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: @tutor-navbar-height;
-
-
-  padding-right: @navbar-padding-horizontal;
-  padding-left:  @navbar-padding-horizontal;
-
   a {
-    color: #777;
+    color: inherit;
     text-decoration: none;
+
+    &:hover,
+    &[aria-expanded="true"] {
+      color: #333;
+    }
   }
 
   > * {
     display: flex;
-    align-items: center;
   }
+
+  .navbar-overlay {
+    align-items: center;
+    display: flex;
+  }
+
   .ui-brand-logo {
-    margin-top: 3px; // the text on the logo is a bit vertically mis-aligned
     display: inline-block;
-    height: 41px;
-    width: 265px;
+    margin-top: 12px;
+    height: 34px;
+    width: 200px;
     background-repeat: no-repeat;
     .tutor-background-image('openstax-tutor-beta-logo.svg');
   }
 
   .right-side-controls {
+    display: flex;
+
     > * {
-      margin-left: 5px;
-      @media screen and ( min-width: @screen-md-min ){
-        margin-left: 20px;
+      margin-left: 20px;
+
+      @media screen and (min-width: @screen-md-min ) {
+        margin-left: 40px;
+      }
+
+      &:first-child {
+        margin-left: 0;
       }
     }
   }
-  .course-name { margin: 0 1rem; }
+
   .book-links {
     border-right: 1px solid @tutor-neutral-light;
     display: flex;

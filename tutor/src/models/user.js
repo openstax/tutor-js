@@ -35,6 +35,10 @@ export class User extends BaseModel {
 
   @hasMany({ model: ViewedTourStat }) viewed_tour_stats;
 
+  @computed get firstName() {
+    return this.first_name || this.name ? this.name.replace(/ .*/, '') : '';
+  }
+
   @computed get isConfirmedFaculty() {
     return this.faculty_status === 'confirmed_faculty';
   }
