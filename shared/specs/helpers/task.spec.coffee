@@ -222,8 +222,8 @@ describe 'Task Helper', ->
       group: EXERCISE_PERSONALIZED_GROUP
 
     testForPersonalized = (task, steps) ->
-      expect(steps.length).to.equal(task.steps.length + 2)
-      expect(steps[12].type).to.equal('personalized-intro')
+      expect(steps.length).to.equal(task.steps.length + 3)
+      expect(steps[13].type).to.equal('personalized-intro')
       expect(UiSettings.get("personalized-info-#{task.type}").stepId).to.equal('12')
 
     beforeEach ->
@@ -252,7 +252,7 @@ describe 'Task Helper', ->
         steps = TaskHelper.mapSteps(readingTask)
 
         testForPersonalized(readingTask, steps)
-        expect(_.where(steps, isAvailable: true).length).to.equal(14)
+        expect(_.where(steps, isAvailable: true).length).to.equal(15)
         undefined
 
     it 'for homework task', ->
@@ -262,7 +262,7 @@ describe 'Task Helper', ->
 
       testForPersonalized(homeworkTask, steps)
       expect(_.where(steps, isAvailable: true).length)
-        .to.equal(homeworkTask.steps.length + 2)
+        .to.equal(homeworkTask.steps.length + 3)
       undefined
 
     it 'for coach task', ->
@@ -272,7 +272,7 @@ describe 'Task Helper', ->
 
       testForPersonalized(coachTask, steps)
       expect(_.where(steps, isAvailable: true).length)
-        .to.equal(coachTask.steps.length + 2)
+        .to.equal(coachTask.steps.length + 3)
       undefined
 
     it 'for practice task, does not introduce', ->
@@ -292,5 +292,5 @@ describe 'Task Helper', ->
 
       homeworkTask = makeTask(TASK_HOMEWORK_TYPE, numberOfSteps, stepModifications)
       steps = TaskHelper.mapSteps(homeworkTask)
-      expect(steps.length).to.equal(homeworkTask.steps.length + 1)
+      expect(steps.length).to.equal(homeworkTask.steps.length + 2)
       undefined

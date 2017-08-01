@@ -62,13 +62,11 @@ makeKeyForType = (settingKey, taskType) ->
   "#{settingKey}#{TYPE_SEPARATOR}#{taskType}"
 
 isPlacedHere = (settingKey, step) ->
-  return false;
   settings = UiSettings.get(settingKey)
   settings = settings.placement or settings
   step.task_id is settings.taskId and step.id is settings.stepId
 
 hasBeenPlaced = (settingKey) ->
-  return false;
   settings = UiSettings.get(settingKey)
   # has been found for setting in current task type, return early
   return true if not _.isEmpty(settings)
