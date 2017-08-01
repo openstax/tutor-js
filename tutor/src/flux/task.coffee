@@ -98,6 +98,7 @@ TaskConfig =
 
   completeStep: (id) ->
     TaskStepActions.complete(id)
+    @emit('step.completing', id)
 
   stepCompleted: (obj, taskStepId) ->
     TaskStepActions.completed(obj, taskStepId)
