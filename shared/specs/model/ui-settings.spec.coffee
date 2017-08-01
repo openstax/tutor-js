@@ -1,5 +1,5 @@
 {sinon, _} = require 'shared/specs/helpers'
-
+{ autorun } = require 'mobx';
 UiSettings = require 'model/ui-settings'
 Networking = require 'model/networking'
 
@@ -58,3 +58,31 @@ describe 'UiSettings', ->
     expect(UiSettings.get('deep', 42)).toEqual('answer')
     expect(UiSettings.get('deep')).toEqual({ 42: 'answer', key: 'value', bar: 'bz' })
     undefined
+
+  it 'can observe', ->
+    initialSetting = {one: 18, two:'III', deep: {key: 'value', bar: 'bz'}}
+    UiSettings.initialize(initialSetting)
+    spy = jest.fn(-> UiSettings.get('deep', 'bar'))
+    autorun(spy)
+    expect(spy).toHaveBeenCalledTimes(1) # mobx fires two observed events per set; one for the insert
+    UiSettings.set('deep', 'bar', 'foo') # and one for converting to observable object
+    expect(spy).toHaveBeenCalledTimes(3)
+
+  it 'can observe when bad values are present', ->
+    initialSetting = { deep: {} }
+    UiSettings.initialize(initialSetting)
+    spy = jest.fn(-> UiSettings.get('deep', 'bar'))
+    autorun(spy)
+    expect(spy).toHaveBeenCalledTimes(1)
+    UiSettings.set('deep', true)
+    expect(spy).toHaveBeenCalledTimes(2)
+    UiSettings.set('deep', 'bar', 'foo')
+    expect(spy).toHaveBeenCalledTimes(3)
+    obj = UiSettings.get('deep')
+    expect(obj).toEqual({bar: 'foo'})
+    obj.bar = 233
+    expect(spy).toHaveBeenCalledTimes(4)
+    UiSettings.set('deep', 'bar', [2, 3] )
+    expect(spy).toHaveBeenCalledTimes(6)
+    obj = UiSettings.get('deep', 'bar')
+    expect(obj.toJS()).toEqual([2, 3])

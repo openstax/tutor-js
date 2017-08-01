@@ -16,7 +16,7 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
   @observable displayPayment = false;
   @observable displayTrialActive = false;
 
-  get nagComponent() {
+  @computed get nagComponent() {
     if (User.terms_signatures_needed) { return null; }
 
     if (this.displayPayment) { return Nags.makePayment; }
