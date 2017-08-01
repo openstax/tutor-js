@@ -33,6 +33,10 @@ SEE_AHEAD_ALLOWED = [
   'homework'
 ].concat(PRACTICES)
 
+ALL_TYPES = ['reading'].concat(SEE_AHEAD_ALLOWED)
+
+TYPE_SEPARATOR = '-'
+
 makeStep = (task, step = {}, stepIndex) ->
 
   if step.chapter_section?
@@ -53,6 +57,9 @@ makeStep = (task, step = {}, stepIndex) ->
 makeUiSettings = (initial) ->
   deepMerge({}, ONE_TIME_CARD_DEFAULTS, initial)
 
+makeKeyForType = (settingKey, taskType) ->
+  "#{settingKey}#{TYPE_SEPARATOR}#{taskType}"
+
 isPlacedHere = (settingKey, step) ->
   settings = UiSettings.get(settingKey)
   settings = settings.placement or settings
@@ -60,13 +67,29 @@ isPlacedHere = (settingKey, step) ->
 
 hasBeenPlaced = (settingKey) ->
   settings = UiSettings.get(settingKey)
-  not _.isEmpty(settings)
+  # has been found for setting in current task type, return early
+  return true if not _.isEmpty(settings)
+
+  # otherwise, need to check for setting in all task types
+
+  # make a setting key with no type
+  settingKeyParts = settingKey.split(TYPE_SEPARATOR)
+  settingKeyParts.pop()
+  settingKeyNoType = settingKeyParts.join(TYPE_SEPARATOR)
+
+  # find type for which setting exists
+  placedForType = _.find(ALL_TYPES, (taskType) ->
+    typedSettingKey = makeKeyForType(settingKeyNoType, taskType)
+    not _.isEmpty( UiSettings.get(typedSettingKey))
+  )
+
+  return placedForType?
 
 isPractice = (task) ->
   _.contains(PRACTICES, task.type)
 
 stepMapOneTimeCard = (condition, type, settingKey, isAvailable, task, step, stepIndex) ->
-  settingKeyForTaskType = "#{settingKey}-#{task.type}"
+  settingKeyForTaskType = makeKeyForType(settingKey, task.type)
 
   if hasBeenPlaced(settingKeyForTaskType)
     if isPlacedHere(settingKeyForTaskType, step)
