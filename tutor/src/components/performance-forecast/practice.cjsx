@@ -22,7 +22,12 @@ module.exports = React.createClass
 
   isDisabled: ->
     {page_ids, courseId} = @props
-    _.isEmpty(page_ids) # or CoursePracticeStore.isDisabled(courseId, {page_ids})
+
+    # Used to disable for CoursePracticeStore.isDisabled(courseId, {page_ids}) as well
+    #
+    # CoursePracticeStore.isDisabled(courseId, {page_ids}) is true when practice
+    # endpoint fails to return a practice.
+    _.isEmpty(page_ids)
 
   render: ->
     isDisabled = @isDisabled()
