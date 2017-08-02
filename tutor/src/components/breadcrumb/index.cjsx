@@ -80,10 +80,8 @@ BreadcrumbTaskDynamic = React.createClass
     stepId = crumb.id
     taskId = crumb.task.id
 
-    console.info(TaskStore.hasIncompleteCoreStepsIndexes(taskId), TaskStepStore.isLoadingPersonalized(stepId))
     unless TaskStore.hasIncompleteCoreStepsIndexes(taskId) or
       TaskStepStore.isLoadingPersonalized(stepId)
-        console.log('calling loadPersonalized')
         TaskStepActions.loadPersonalized(stepId)
 
   update: (id) ->
