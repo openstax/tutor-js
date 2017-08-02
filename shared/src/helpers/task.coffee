@@ -115,14 +115,19 @@ stepMapOneTimeCardForGroup = (group, condition, isAvailable, task, step, stepInd
 
 befores = {}
 
+isSpacedPractice = (task, step, stepIndex) ->
+  # TODO check if should be first or last
+  _.findWhere(task.steps, {group: SPACED_PRACTICE_GROUP})?.id is step.id
+
+isPersonalized = (task, step, stepIndex) ->
+  # TODO check if should be first or last
+  _.findWhere(task.steps, {group: PERSONALIZED_GROUP})?.id is step.id
+
 # TODO for future implementation of instructions card.
 # befores['intro'] = (task, step, stepIndex) ->
 #   makeStep(task, {type: 'task-intro'}, stepIndex)
 
 befores[SPACED_PRACTICE_GROUP] = (task, step, stepIndex, isAvailable) ->
-  isSpacedPractice = (task, step, stepIndex) ->
-    # TODO check if should be first or last
-    _.findWhere(task.steps, {group: SPACED_PRACTICE_GROUP})?.id is step.id
 
   return if isPractice(task)
 
@@ -141,13 +146,9 @@ isPersonalized = (task, step, stepIndex) ->
   _.findWhere(task.steps, {group: PERSONALIZED_GROUP})?.id is step.id
 
 befores[INDIVIDUAL_REVIEW] = (task, step, stepIndex, isAvailable) ->
-  return unless includes(['reading', 'homework'], task.type)
-  stepMapOneTimeCardForGroup(
-    INDIVIDUAL_REVIEW,
-    isPersonalized,
-    isAvailable,
-    arguments...
-  )
+  if includes(['reading', 'homework'], task.type) and isPersonalized(task, step, stepIndex)
+    makeStep(task, {type: INTRO_ALIASES[INDIVIDUAL_REVIEW]}, stepIndex)
+
 
 befores[PERSONALIZED_GROUP] = (task, step, stepIndex, isAvailable) ->
 
