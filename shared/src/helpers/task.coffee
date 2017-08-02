@@ -1,6 +1,10 @@
 _ = require 'underscore'
 deepMerge = require 'lodash/merge'
 includes = require 'lodash/includes'
+find = require 'lodash/find'
+findIndex = require 'lodash/findIndex'
+findLastIndex = require 'lodash/findLastIndex'
+findLast = require 'lodash/findLast'
 UiSettings = require '../model/ui-settings'
 {formatSection} = require './step-content'
 {
@@ -42,7 +46,7 @@ makeStep = (task, step = {}, stepIndex) ->
 
   if step.chapter_section?
     sectionLabel = formatSection(step.chapter_section)
-    firstSectionStep = _.findIndex(task.steps, (compareStep) ->
+    firstSectionStep = findIndex(task.steps, (compareStep) ->
       formatSection(compareStep.chapter_section) is sectionLabel
     )
     step.sectionLabel = formatSection(step.chapter_section) if stepIndex is firstSectionStep
@@ -79,7 +83,7 @@ hasBeenPlaced = (settingKey) ->
   settingKeyNoType = settingKeyParts.join(TYPE_SEPARATOR)
 
   # find type for which setting exists
-  placedForType = _.find(ALL_TYPES, (taskType) ->
+  placedForType = find(ALL_TYPES, (taskType) ->
     typedSettingKey = makeKeyForType(settingKeyNoType, taskType)
     not _.isEmpty( UiSettings.get(typedSettingKey))
   )
@@ -115,13 +119,14 @@ stepMapOneTimeCardForGroup = (group, condition, isAvailable, task, step, stepInd
 
 befores = {}
 
+isAfterPersonalized = (task, step, stepIndex) ->
+  findLast(task.steps, {group: PERSONALIZED_GROUP})?.id is step.id
+
 isSpacedPractice = (task, step, stepIndex) ->
-  # TODO check if should be first or last
-  _.findWhere(task.steps, {group: SPACED_PRACTICE_GROUP})?.id is step.id
+  find(task.steps, {group: SPACED_PRACTICE_GROUP})?.id is step.id
 
 isPersonalized = (task, step, stepIndex) ->
-  # TODO check if should be first or last
-  _.findWhere(task.steps, {group: PERSONALIZED_GROUP})?.id is step.id
+  find(task.steps, {group: PERSONALIZED_GROUP})?.id is step.id
 
 # TODO for future implementation of instructions card.
 # befores['intro'] = (task, step, stepIndex) ->
@@ -142,11 +147,8 @@ befores[SPACED_PRACTICE_GROUP] = (task, step, stepIndex, isAvailable) ->
       arguments...
     )
 
-isPersonalized = (task, step, stepIndex) ->
-  _.findWhere(task.steps, {group: PERSONALIZED_GROUP})?.id is step.id
-
 befores[INDIVIDUAL_REVIEW] = (task, step, stepIndex, isAvailable) ->
-  if includes(['reading', 'homework'], task.type) and isPersonalized(task, step, stepIndex)
+  if includes(['reading', 'homework'], task.type) and isSpacedPractice(task, step, stepIndex)
     makeStep(task, {type: INTRO_ALIASES[INDIVIDUAL_REVIEW]}, stepIndex)
 
 
