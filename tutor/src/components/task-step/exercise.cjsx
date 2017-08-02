@@ -29,8 +29,7 @@ getReadingForStep = (id, taskId) ->
   TaskStore.getReadingForTaskId(taskId, id)
 
 getCurrentPanel = (id) ->
-  unless TaskStepStore.isSaving(id)
-    currentPanel = StepPanel.getPanel(id)
+  StepPanel.getPanel(id)
 
 module.exports = React.createClass
   displayName: 'ExerciseShell'

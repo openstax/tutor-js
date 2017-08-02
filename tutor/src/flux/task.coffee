@@ -96,8 +96,16 @@ TaskConfig =
     # explicit return obj to load onto @_local
     obj
 
-  completeStep: (id) ->
+  completeStep: (id, taskId) ->
     TaskStepActions.complete(id)
+    @emit('step.completing', id)
+    if @exports.hasNonCore.call(@, taskId) and
+      not @exports.hasIncompleteCoreStepsIndexes.call(@, taskId)
+        nonCoreSteps = @exports.getNonCore.call(@, taskId)
+        _.forEach(nonCoreSteps, (step) ->
+          TaskStepActions._loadPersonalized(step.id)
+        )
+
 
   stepCompleted: (obj, taskStepId) ->
     TaskStepActions.completed(obj, taskStepId)
@@ -180,11 +188,20 @@ TaskConfig =
       )
       steps?
 
+    getNonCore: (taskId) ->
+      allSteps = getSteps(@_steps[taskId])
+      _.filter(allSteps, (step) ->
+        step? and not TaskStepStore.isCore(step.id)
+      )
+
     getFirstNonCoreIndex: (taskId) ->
       allSteps = getSteps(@_steps[taskId])
       stepIndex = _.findIndex(allSteps, (step) ->
         step? and not TaskStepStore.isCore(step.id)
       )
+
+    hasNonCore: (taskId) ->
+      @exports.getFirstNonCoreIndex.call(@, taskId)?
 
     getPlaceholder: (taskId) ->
       allSteps = getSteps(@_steps[taskId])

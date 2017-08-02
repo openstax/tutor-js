@@ -38,10 +38,10 @@ TaskStep = React.createClass
   bindStore: TaskStepStore
 
   onStepCompleted: (id) ->
-    {id} = @props unless id?
+    {id, taskId} = @props
 
     if StepPanel.canWrite(id)
-      TaskActions.completeStep(id)
+      TaskActions.completeStep(id, taskId)
 
   render: ->
     {id, taskId} = @props
