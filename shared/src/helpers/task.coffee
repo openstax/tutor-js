@@ -62,7 +62,7 @@ makeKeyForType = (settingKey, taskType) ->
   "#{settingKey}#{TYPE_SEPARATOR}#{taskType}"
 
 isPlacedHere = (settingKey, step) ->
-  settings = UiSettings.get(settingKey)
+  settings = UiSettings.get(settingKey) or {}
   settings = settings.placement or settings
   step.task_id is settings.taskId and step.id is settings.stepId
 
