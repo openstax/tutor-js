@@ -1,6 +1,6 @@
 # :+1::tada: Thanks for Contributing! :tada::+1:
 
-See [openstax/CONTRIBUTING.md](https://github.com/openstax/napkin-notes/CONTRIBUTING.md) for more information!
+See [openstax/CONTRIBUTING.md](https://github.com/openstax/napkin-notes/blob/master/CONTRIBUTING.md) for more information!
 
 
 # Creating a Pull Request or Issue
