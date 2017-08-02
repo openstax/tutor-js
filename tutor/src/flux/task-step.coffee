@@ -31,9 +31,12 @@ TaskStepConfig =
     obj.task_id = @_local[id]?.task_id
     obj
 
+  _loadPersonalized: (id) ->
+    @_loadingPersonalizedStatus[id] = true
+
   loadPersonalized: (id) ->
     @_load(id)
-    @_loadingPersonalizedStatus[id] = true
+    @_loadPersonalized(id)
 
   loadedNoPersonalized: (obj, id) ->
     {data, status, statusMessage} = obj

@@ -48,14 +48,14 @@ ProgressPanel = React.createClass
     @setState(@getShouldShows())
 
   goForward: ->
-    { stepId } = @props
+    { stepId, taskId } = @props
     if stepId and not TaskStepStore.get(stepId)?.is_completed
       @setState(isCompleting: true)
       TaskStore.once('step.completed', =>
         @props.goToStep(@props.stepKey + 1)
         @setState(isCompleting: false)
       )
-      TaskActions.completeStep(stepId)
+      TaskActions.completeStep(stepId, taskId)
     else
       @props.goToStep(@props.stepKey + 1)
     undefined # silence React return value warning
