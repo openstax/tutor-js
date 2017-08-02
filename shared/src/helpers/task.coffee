@@ -1,6 +1,6 @@
 _ = require 'underscore'
 deepMerge = require 'lodash/merge'
-
+includes = require 'lodash/includes'
 UiSettings = require '../model/ui-settings'
 {formatSection} = require './step-content'
 {
@@ -141,7 +141,7 @@ isPersonalized = (task, step, stepIndex) ->
   _.findWhere(task.steps, {group: PERSONALIZED_GROUP})?.id is step.id
 
 befores[INDIVIDUAL_REVIEW] = (task, step, stepIndex, isAvailable) ->
-  return if isPractice(task)
+  return unless includes(['reading', 'homework'], task.type)
   stepMapOneTimeCardForGroup(
     INDIVIDUAL_REVIEW,
     isPersonalized,
