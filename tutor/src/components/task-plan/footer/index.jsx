@@ -40,12 +40,17 @@ export default class PlanFooter extends React.PureComponent {
     };
   }
 
+  componentWillUnmount() {
+    PlanHelper.unsubscribeFromPublishing(this.props.id, this.checkPublishingStatus);
+  }
+
   componentWillMount() {
     const plan = TaskPlanStore.get(this.props.id);
     const publishState = PlanHelper.subscribeToPublishing(plan, this.checkPublishingStatus);
     this.setState({ publishing: publishState.isPublishing });
   }
 
+  @action.bound
   checkPublishingStatus(published) {
     const planId = this.props.id;
     if (published.for === planId) {
@@ -54,7 +59,7 @@ export default class PlanFooter extends React.PureComponent {
 
       this.setState(planStatus);
       if (PlanPublishStore.isDone(planId)) {
-        PlanPublishStore.removeAllListeners(`progress.${planId}.*`, this.checkPublishingStatus);
+        PlanHelper.unsubscribeFromPublishing(planId, this.checkPublishingStatus);
         TaskPlanActions.load(planId);
       }
     }

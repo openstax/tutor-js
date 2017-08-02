@@ -13,6 +13,9 @@ PlanHelper =
     PlanPublishActions.startChecking(id, jobId)
     PlanPublishStore.on("progress.#{id}.*", callback) if callback? and _.isFunction(callback)
 
+  unsubscribeFromPublishing: (planId, callback) ->
+    PlanPublishStore.removeAllListeners("progress.#{planId}.*", callback) if callback? and _.isFunction(callback)
+
   subscribeToPublishing: (plan, callback) ->
     {jobId, id} = PlanPublishStore._getIds(plan)
     isPublishing = PlanHelper.isPublishing(plan) or false
