@@ -15,7 +15,6 @@ export default class CourseCreate extends BaseModel {
   @field num_sections = 1;
   @field estimated_student_count;
   @field is_preview = false;
-  @field is_college = true;
   @field time_zone = 'Central Time (US & Canada)';
   @session new_or_copy = 'new';
   @field cloned_from_id = false;
@@ -43,7 +42,6 @@ export default class CourseCreate extends BaseModel {
   set cloned_from(course) {
     this.cloned_from_id = course.id;
     this.name = course.name;
-    this.is_college = course.is_college;
     this.num_sections = course.periods.length;
   }
 
