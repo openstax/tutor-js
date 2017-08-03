@@ -4,7 +4,7 @@ _ = require 'underscore'
 BS = require 'react-bootstrap'
 classnames = require 'classnames'
 
-{ChapterSectionMixin, ArbitraryHtmlAndMath, StepHelpsHelper} = require 'shared'
+{ChapterSectionMixin, ArbitraryHtmlAndMath } = require 'shared'
 {BreadcrumbStatic} = require '../../breadcrumb'
 
 {TaskStepActions, TaskStepStore} = require '../../../flux/task-step'
@@ -12,16 +12,6 @@ classnames = require 'classnames'
 {TaskPanelActions, TaskPanelStore} = require '../../../flux/task-panel'
 {TaskStore} = require '../../../flux/task'
 {StepTitleStore} = require '../../../flux/step-title'
-
-
-{
-  INDIVIDUAL_REVIEW,
-  PERSONALIZED_GROUP,
-  SPACED_PRACTICE_GROUP,
-  TWO_STEP_ALIAS,
-  INTRO_ALIASES,
-  TITLES
-} = StepHelpsHelper
 
 ReactCSSTransitionGroup = require 'react-addons-css-transition-group'
 
@@ -37,44 +27,6 @@ Milestone = React.createClass
       @props.goToStep(crumbKey)
       keyEvent.preventDefault()
 
-  getStepTitle: (crumb) ->
-    {goToStep, crumb, currentStep, stepIndex} = @props
-
-    title = StepTitleStore.get(crumb.id)
-
-    if crumb.type is 'reading' and crumb.related_content?[0]?.title?
-      relatedTitle = crumb.related_content[0].title
-
-      if title is 'Summary'
-        title = "#{title} of #{relatedTitle}"
-      else if not title
-        title = relatedTitle
-
-    title
-
-  getPreviewText: (crumb) ->
-    if crumb.id?
-      @getStepTitle(crumb)
-    else
-      switch crumb.type
-        when 'end'
-          "#{crumb.task.title} Completed"
-
-        when 'coach'
-          TITLES[SPACED_PRACTICE_GROUP]
-
-        when INTRO_ALIASES[SPACED_PRACTICE_GROUP]
-          TITLES[SPACED_PRACTICE_GROUP]
-
-        when INTRO_ALIASES[PERSONALIZED_GROUP]
-          TITLES[PERSONALIZED_GROUP]
-
-        when INTRO_ALIASES[TWO_STEP_ALIAS]
-          TITLES[TWO_STEP_ALIAS]
-
-        when INTRO_ALIASES[INDIVIDUAL_REVIEW]
-          TITLES[INDIVIDUAL_REVIEW]
-
   render: ->
     {goToStep, crumb, currentStep, stepIndex} = @props
 
@@ -83,7 +35,7 @@ Milestone = React.createClass
     classes = classnames 'milestone', "milestone-#{crumb.type}",
       'active': isCurrent
 
-    previewText = @getPreviewText(crumb)
+    previewText = StepTitleStore.getTitleForCrumb(@props.crumb)
 
     if crumb.type is 'exercise'
       preview = <ArbitraryHtmlAndMath
@@ -99,7 +51,6 @@ Milestone = React.createClass
       <div
         tabIndex='0'
         className={classes}
-        role='button'
         aria-label={previewText}
         onClick={goToStepForCrumb}
         onKeyUp={_.partial(@handleKeyUp, stepIndex)}
