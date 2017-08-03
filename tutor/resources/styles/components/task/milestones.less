@@ -1,5 +1,7 @@
-@milestone-scale: 1.6;
 @milestone-active-indicator-height: 8px;
+@milestone-bottom-margin: 50px;
+@milestone-height: 250px;
+@milestone-icon-size: 60px;
 
 .task-view {
   .task-with-progress {
@@ -52,14 +54,12 @@
 }
 
 .milestone {
-  position: relative;
   display: block;
-  padding: 0;
+  padding: 1.25rem;
   background: @tutor-white;
-  height: 200px;
+  height: @milestone-height;
   width: 100%;
-  margin-top: 0;
-  margin-bottom: 5rem;
+  margin-bottom: @milestone-bottom-margin;
   .tutor-shadow(1);
 
   &.milestone-two-step-intro,
@@ -69,15 +69,31 @@
   }
 
   .openstax-breadcrumbs-step {
-    .scale(@milestone-scale);
     display: block;
-    margin: -0.8rem auto 1.5rem;
+    margin: auto;
+    width: @milestone-icon-size;
+    height: @milestone-icon-size;
     background: transparent;
+    &::before {
+      line-height: @milestone-icon-size;
+      width: 100%;
+      height: 100%;
+    }
+
+    .icon-lg {
+      height: 100%;
+      width: 100%;
+      background-size: contain;
+    }
 
     &:hover,
     &.active {
-      .scale(@milestone-scale);
+      .scale(1.0);
       box-shadow: none;
+    }
+
+    &.breadcrumb-individual-review-intro .icon-lg {
+      background-size: 50px; // icon is tall, shrink it so it matches
     }
   }
 
@@ -89,30 +105,20 @@
   &:focus {
     .tutor-shadow(2);
   }
-
   &.active {
-    height: 200px + @milestone-active-indicator-height;
-    margin-bottom: 50px - @milestone-active-indicator-height;
-
-    &::after {
-      position: absolute;
-      bottom: 0;
-      display: block;
-      height: @milestone-active-indicator-height;
-      background: @tutor-success;
-      width: 100%;
-      content: '';
-    }
+    border-bottom: @milestone-active-indicator-height solid @tutor-success;
+    height: @milestone-height + @milestone-active-indicator-height;
+    margin-bottom: @milestone-bottom-margin - @milestone-active-indicator-height;
   }
 }
 
 .milestone-preview {
-  padding: 1.25rem;
   display: block;
   max-height: 125px;
   overflow: hidden;
-  line-height: 1.5em;
   font-weight: 600;
+  padding: 0;
+  margin-top: 20px;
   hyphens: auto;
 }
 

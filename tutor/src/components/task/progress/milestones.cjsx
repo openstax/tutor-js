@@ -15,6 +15,7 @@ classnames = require 'classnames'
 
 
 {
+  INDIVIDUAL_REVIEW,
   PERSONALIZED_GROUP,
   SPACED_PRACTICE_GROUP,
   TWO_STEP_ALIAS,
@@ -70,6 +71,9 @@ Milestone = React.createClass
 
         when INTRO_ALIASES[TWO_STEP_ALIAS]
           TITLES[TWO_STEP_ALIAS]
+
+        when INTRO_ALIASES[INDIVIDUAL_REVIEW]
+          TITLES[INDIVIDUAL_REVIEW]
 
   render: ->
     {goToStep, crumb, currentStep, stepIndex} = @props
