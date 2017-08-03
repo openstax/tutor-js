@@ -46,7 +46,6 @@ TaskPanel =
 
     getTitlesForStepIndex: (taskId, stepIndex) ->
       crumbs = @_get(taskId) # TaskPanelStore.get(@props.id)
-      console.log crumbs
       previous = crumbs[stepIndex - 1] if stepIndex >= 0
       next = crumbs[stepIndex + 1]
 
