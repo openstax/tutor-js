@@ -4,7 +4,7 @@ BS        = require 'react-bootstrap'
 
 {ExerciseStore}   = require '../../flux/exercise'
 {ExercisePreview, ScrollToMixin} = require 'shared'
-PagingNavigation  = require '../paging-navigation'
+{default: PagingNavigation}  = require '../paging-navigation'
 NoExercisesFound  = require './no-exercises-found'
 Icon              = require '../icon'
 

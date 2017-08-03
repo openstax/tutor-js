@@ -2,7 +2,7 @@ _ = require 'underscore'
 {makeSimpleStore} = require './helpers'
 
 {TaskStore} = require '../flux/task'
-
+{StepTitleStore} = require '../flux/step-title'
 {TaskHelper} = require 'shared'
 
 TaskPanel =
@@ -43,6 +43,17 @@ TaskPanel =
         (stepIndex + 1) / (steps.length) * 100
       else
         0
+
+    getTitlesForStepIndex: (taskId, stepIndex) ->
+      crumbs = @_get(taskId) # TaskPanelStore.get(@props.id)
+      previous = crumbs[stepIndex - 1] if stepIndex >= 0
+      next = crumbs[stepIndex + 1]
+
+      return {
+        previous: previous and StepTitleStore.getTitleForCrumb(previous)
+        current: StepTitleStore.getTitleForCrumb(crumbs[stepIndex]),
+        next: next and StepTitleStore.getTitleForCrumb(next),
+      }
 
 {actions, store} = makeSimpleStore(TaskPanel)
 

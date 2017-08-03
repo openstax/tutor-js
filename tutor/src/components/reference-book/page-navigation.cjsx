@@ -5,7 +5,7 @@ React = require 'react'
 classnames = require 'classnames'
 
 Router = require '../../helpers/router'
-PagingNavigation = require '../paging-navigation'
+{default: PagingNavigation} = require '../paging-navigation'
 {ReferenceBookStore} = require '../../flux/reference-book'
 {ChapterSectionMixin} = require 'shared'
 

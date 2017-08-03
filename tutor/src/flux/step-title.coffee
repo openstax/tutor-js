@@ -2,10 +2,19 @@ _ = require 'underscore'
 unescape = require 'lodash/unescape'
 htmlparser = require 'htmlparser2'
 {makeSimpleStore} = require './helpers'
+{ StepHelpsHelper} = require 'shared'
 
 TEXT_LENGTH_CHECK = 110
 TEXT_LENGTH = 125
 TEXT_CHECK_RANGE = TEXT_LENGTH - TEXT_LENGTH_CHECK
+{
+  PERSONALIZED_GROUP,
+  INDIVIDUAL_REVIEW,
+  SPACED_PRACTICE_GROUP,
+  TWO_STEP_ALIAS,
+  INTRO_ALIASES,
+  TITLES
+} = StepHelpsHelper
 
 isLearningObjectives = (element) ->
   (element?.attribs?['class']? and
@@ -175,6 +184,30 @@ StepTitleConfig =
 
     hasLearningObjectives: (contentId) -> @_meta[contentId]?.hasLearningObjectives
 
+    getTitleForCrumb: (crumb) ->
+      if crumb.id and store.get(crumb.id)
+        return store.get(crumb.id)
+      if crumb.type is 'reading' and crumb.related_content?[0]?.title?
+        relatedTitle = crumb.related_content[0].title
+
+        if title is 'Summary'
+          title = "#{title} of #{relatedTitle}"
+        else if not title
+          title = relatedTitle
+      else
+        switch crumb.type
+          when 'end'
+            "#{crumb.task.title} Completed"
+          when 'coach'
+            TITLES[SPACED_PRACTICE_GROUP]
+          when INTRO_ALIASES[SPACED_PRACTICE_GROUP]
+            TITLES[SPACED_PRACTICE_GROUP]
+          when INTRO_ALIASES[PERSONALIZED_GROUP]
+            TITLES[PERSONALIZED_GROUP]
+          when INTRO_ALIASES[TWO_STEP_ALIAS]
+            TITLES[TWO_STEP_ALIAS]
+          when INTRO_ALIASES[INDIVIDUAL_REVIEW]
+            TITLES[INDIVIDUAL_REVIEW]
 
 {actions, store} = makeSimpleStore(StepTitleConfig)
 module.exports = {StepTitleActions:actions, StepTitleStore:store}

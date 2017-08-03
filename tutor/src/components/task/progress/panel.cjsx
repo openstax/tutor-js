@@ -4,11 +4,12 @@ PureRenderMixin = require 'react-addons-pure-render-mixin'
 keymaster = require 'keymaster'
 classnames = require 'classnames'
 
-PagingNavigation  = require '../../paging-navigation'
+{default: PagingNavigation}  = require '../../paging-navigation'
 
 {TaskStore, TaskActions} = require '../../../flux/task'
 {StepPanel} = require '../../../helpers/policies'
 {TaskStepStore} = require '../../../flux/task-step'
+{TaskPanelStore} = require '../../../flux/task-panel'
 
 isEqual = require 'lodash/isEqual'
 pick    = require 'lodash/pick'
@@ -67,10 +68,8 @@ ProgressPanel = React.createClass
   render: ->
     {isCompleting} = @state
     isLoading = TaskStepStore.isLoading(@props.stepId)
-
-    className = classnames('progress-panel',
-      'page-loading': isCompleting or isLoading
-    )
+    titles = TaskPanelStore.getTitlesForStepIndex(@props.taskId, this.props.stepKey)
+    className = classnames('progress-panel', 'page-loading': isCompleting or isLoading)
 
     <PagingNavigation
       className={className}
@@ -79,6 +78,7 @@ ProgressPanel = React.createClass
       isBackwardEnabled={@state.shouldShowLeft}
       onForwardNavigation={@goForward}
       onBackwardNavigation={@goBackward}
+      titles={titles}
     >
       {@props.children}
     </PagingNavigation>
