@@ -4,7 +4,7 @@ extend = require 'lodash/extend'
 OXFancyLoader = React.createClass
   displayName: 'OXFancyLoader'
   propTypes:
-    isLoading: React.PropTypes.bool.isRequired
+    isLoading: React.PropTypes.bool
   render: ->
     {isLoading} = @props
     return null unless isLoading

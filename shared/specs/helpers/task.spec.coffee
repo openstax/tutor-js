@@ -152,7 +152,8 @@ describe 'Task Helper', ->
 
     testForSpacedPractice = (task, steps) ->
       expect(steps.length).to.equal(task.steps.length + 3)
-      expect(steps[12].type).to.equal('spaced-practice-intro')
+      expect(steps[12].type).to.equal('individual-review-intro')
+      expect(steps[13].type).to.equal('spaced-practice-intro')
       expect(UiSettings.get("spaced-practice-info-#{task.type}").stepId).to.equal('12')
 
     beforeEach ->
@@ -167,7 +168,8 @@ describe 'Task Helper', ->
       steps = TaskHelper.mapSteps(readingTask)
 
       expect(steps.length).to.equal(readingTask.steps.length + 3)
-      expect(steps[12].type).to.equal('spaced-practice-intro')
+      expect(steps[12].type).to.equal('individual-review-intro')
+      expect(steps[13].type).to.equal('spaced-practice-intro')
       expect(UiSettings.get("spaced-practice-info-#{readingTask.type}")).to.be.not.ok
       expect(_.where(steps, isAvailable: true).length)
         .to.equal(1)
