@@ -27,7 +27,7 @@ Placeholder = React.createClass
 
     message = if exists
       if isLoading
-        "Your personalized questions are loading.  Please wait."
+        "Your personalized question is loading. Please wait."
       else
         "Unlock this personalized question by answering more #{type} problems for this assignment."
     else
