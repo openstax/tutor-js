@@ -17,7 +17,7 @@ export default class CourseEnrollment extends BaseModel {
   @session status;
 
   @observable isComplete = false;
-
+  @observable isLoadingCourses;
   constructor(...args) {
     super(...args);
     when(
@@ -46,8 +46,16 @@ export default class CourseEnrollment extends BaseModel {
     return Boolean(get(this.apiErrors, 'already_enrolled') || this.status == 'processed');
   }
 
+  @computed get isLoading() {
+    return this.hasApiRequestPending || this.isLoadingCourses;
+  }
+
   fetchCourses() {
-    CourseListingStore.once('loaded', () => this.isComplete = true);
+    this.isLoadingCourses = true;
+    CourseListingStore.once('loaded', () => {
+      this.isLoadingCourses = false;
+      this.isComplete = true;
+    });
     CourseListingActions.load();
   }
 
