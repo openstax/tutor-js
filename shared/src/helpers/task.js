@@ -139,6 +139,13 @@ const isPersonalized = (task, step) => get(find(task.steps, { group: PERSONALIZE
 // befores['intro'] = (task, step, stepIndex) ->
 //   makeStep(task, {type: 'task-intro'}, stepIndex)
 
+befores[INDIVIDUAL_REVIEW] = function(task, step, stepIndex) {
+  if (includes(['reading', 'homework'], task.type) && isSpacedPractice(task, step, stepIndex)) {
+    return makeStep(task, { type: INTRO_ALIASES[INDIVIDUAL_REVIEW] }, stepIndex);
+  }
+  return null;
+};
+
 befores[SPACED_PRACTICE_GROUP] = function(task, step, stepIndex, isAvailable) {
 
   if (isPractice(task)) { return null; }
@@ -154,13 +161,6 @@ befores[SPACED_PRACTICE_GROUP] = function(task, step, stepIndex, isAvailable) {
     isAvailable,
     ...arguments
   );
-};
-
-befores[INDIVIDUAL_REVIEW] = function(task, step, stepIndex) {
-  if (includes(['reading', 'homework'], task.type) && isSpacedPractice(task, step, stepIndex)) {
-    return makeStep(task, { type: INTRO_ALIASES[INDIVIDUAL_REVIEW] }, stepIndex);
-  }
-  return null;
 };
 
 
