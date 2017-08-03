@@ -6,6 +6,7 @@ import User from '../models/user';
 import { Modal, Button } from 'react-bootstrap';
 import { map, isEmpty } from 'lodash';
 import String from '../helpers/string';
+import Activity from './ox-fancy-loader';
 
 @observer
 export default class TermsModal extends React.PureComponent {
@@ -23,11 +24,11 @@ export default class TermsModal extends React.PureComponent {
   }
 
   render() {
-    if (isEmpty(User.unsignedTerms)) { return null; }
-
+    if (!User.terms_signatures_needed) { return null; }
 
     return (
       <Modal
+        animation={false}
         show={true}
         backdrop="static"
         className="user-terms"
@@ -36,6 +37,7 @@ export default class TermsModal extends React.PureComponent {
           <Branding isBeta={true} /> {this.title}
         </Modal.Header>
         <Modal.Body>
+          <Activity isLoading={User.terms.hasApiRequestPending} />
           {map(User.unsignedTerms, (t) =>
             <div key={t.id}>
               <h1 className="title">{t.title}</h1>
