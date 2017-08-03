@@ -29,7 +29,7 @@ export class UserTerms extends BaseModel {
   }
 
   onLoaded({ data }) {
-    this.terms = data; //map(data, (t) => new Term(t))
+    this.terms = data;
   }
 
   @computed get unsigned() {

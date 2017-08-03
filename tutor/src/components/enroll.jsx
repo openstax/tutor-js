@@ -5,7 +5,6 @@ import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import { Modal, Button, Alert } from 'react-bootstrap';
 import Enroll from '../models/course/enroll';
-
 import Activity from './ox-fancy-loader';
 
 @observer
@@ -70,7 +69,7 @@ export default class CourseEnroll extends React.PureComponent {
     const { enrollment } = this;
     let body;
 
-    if (enrollment.hasApiRequestPending) {
+    if (enrollment.isLoading) {
       body = <Activity isLoading={true} />;
     } else if (enrollment.isInvalid) {
       body = this.renderInvalid();

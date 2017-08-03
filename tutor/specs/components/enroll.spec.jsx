@@ -19,10 +19,10 @@ describe('Student Enrollment', () => {
   });
 
   it('loads when mounted', () => {
-    EnrollModel.prototype.hasApiRequestPending = true;
+    EnrollModel.prototype.isLoading = true;
     const enroll = shallow(<Enroll />, context);
     expect(enroll).toHaveRendered('OXFancyLoader');
-    EnrollModel.prototype.hasApiRequestPending = false;
+    EnrollModel.prototype.isLoading = false;
     enroll.setState({});
     expect(enroll).not.toHaveRendered('OXFancyLoader');
   });

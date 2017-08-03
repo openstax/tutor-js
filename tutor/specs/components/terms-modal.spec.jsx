@@ -22,10 +22,12 @@ describe('Terms agreement modal', () => {
     });
     term.sign = jest.fn();
     User.terms = { sign: jest.fn() };
+    User.terms_signatures_needed = true;
     User.unsignedTerms = [ term ];
     const modal = shallow(<TermsModal />);
     modal.find('Button').simulate('click');
     expect(User.terms.sign).toHaveBeenCalled();
   });
+
 
 });
