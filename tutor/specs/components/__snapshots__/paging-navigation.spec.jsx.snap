@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Student Enrollment renders and matches snapshot 1`] = `
+<div
+  className="tutor-paging-navigation my-nav-test"
+>
+  <a
+    className="paging-control prev"
+    disabled={false}
+    href="#"
+    onClick={[Function]}
+    tabIndex={0}
+    target="_blank"
+    title="The Page Before This One"
+  >
+    <div
+      className="arrow-wrapper"
+    >
+      <svg
+        className="icon arrow left"
+        version="1.1"
+        viewBox="0 0 370 735"
+        x="0px"
+        xmlns="http://www.w3.org/2000/svg"
+        y="0px"
+      >
+        <path
+          d="M369.225,658.604l0,76.396l-369.225,-369.225l0.3,-0.3l368.925,-365.475l0,77.168l-291.449,290.332l291.449,291.104Z"
+        />
+      </svg>
+    </div>
+  </a>
+  <div
+    className="paged-content"
+    tabIndex="0"
+  >
+    <h1>
+      Imma child
+    </h1>
+  </div>
+  <a
+    className="paging-control next"
+    disabled={false}
+    href="#"
+    onClick={[Function]}
+    tabIndex={0}
+    title="The Page That Comes After This One"
+  >
+    <div
+      className="arrow-wrapper"
+    >
+      <svg
+        className="icon arrow right"
+        version="1.1"
+        viewBox="0 0 370 735"
+        x="0px"
+        xmlns="http://www.w3.org/2000/svg"
+        y="0px"
+      >
+        <path
+          d="M0,658.604l0,76.396l369.225,-369.225l-0.3,-0.3l-368.925,-365.475l0,77.168l291.449,290.332l-291.449,291.104Z"
+        />
+      </svg>
+    </div>
+  </a>
+</div>
+`;
