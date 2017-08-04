@@ -1,12 +1,12 @@
 import React from 'react';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { action, computed } from 'mobx';
+import { Modal, Button } from 'react-bootstrap';
+import classnames from 'classnames';
 import Branding from './branding/course';
 import User from '../models/user';
-import { Modal, Button } from 'react-bootstrap';
-import { map, isEmpty } from 'lodash';
+import { map } from 'lodash';
 import String from '../helpers/string';
-import Activity from './ox-fancy-loader';
 
 @observer
 export default class TermsModal extends React.PureComponent {
@@ -31,13 +31,12 @@ export default class TermsModal extends React.PureComponent {
         animation={false}
         show={true}
         backdrop="static"
-        className="user-terms"
+        className={classnames('user-terms', { 'is-loading': User.terms.hasApiRequestPending })}
       >
         <Modal.Header>
           <Branding isBeta={true} /> {this.title}
         </Modal.Header>
         <Modal.Body>
-          <Activity isLoading={User.terms.hasApiRequestPending} />
           {map(User.unsignedTerms, (t) =>
             <div key={t.id}>
               <h1 className="title">{t.title}</h1>

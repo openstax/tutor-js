@@ -1,6 +1,13 @@
 .modal.user-terms {
   @spacing: 20px;
   .ost-hero-background(0px);
+  .modal-dialog {
+    opacity: 1;
+    transition: opacity .4s ease-in-out;
+  }
+  &.is-loading {
+    .modal-dialog { opacity: 0; }
+  }
   .modal-content {
     background-color: @tutor-neutral-bright;
   }
