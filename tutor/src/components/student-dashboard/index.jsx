@@ -40,6 +40,7 @@ export default class StudentDashboardShell extends React.PureComponent {
   render() {
     const { params, params: { courseId } } = this.props;
 
+    // if student is past due BE will raise "forbidden" if we load the dashboard data
     if (this.ux.paymentIsPastDue) {
       return <CourseNagModal ux={this.ux} />;
     }
