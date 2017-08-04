@@ -41,13 +41,13 @@ export class UserTerms extends BaseModel {
 
   onSigned() {
     this.user.terms_signatures_needed = false;
+    this.unsigned.forEach((t) => (t.is_signed = true));
   }
 
   sign() {
     const ids = [];
     this.unsigned.forEach((t) => {
       ids.push(t.id);
-      t.is_signed = true;
     });
     return { ids };
   }

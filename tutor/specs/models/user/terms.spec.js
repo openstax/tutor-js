@@ -26,7 +26,7 @@ describe('User Terms Store', function() {
       { id: 1, is_signed: false, title: 'TEST' },
     ] });
     const term = terms.unsigned[0];
-    terms.sign();
+    terms.onSigned();
     expect(term.is_signed).toBe(true);
     expect(terms.unsigned).toHaveLength(0);
   });
