@@ -47,7 +47,8 @@ export default class CourseNagModal extends React.PureComponent {
 
     return (
       <Modal
-        className={classnames("onboarding", NagComponent.className)}
+        animation={false}
+        className={classnames('onboarding', NagComponent.className)}
         show={!this.isDismissed}
         onHide={this.onClose}
       >
