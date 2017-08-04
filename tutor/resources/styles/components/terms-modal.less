@@ -5,9 +5,6 @@
     opacity: 1;
     transition: opacity .4s ease-in-out;
   }
-  &.is-loading {
-    .modal-dialog { opacity: 0; }
-  }
   .modal-content {
     background-color: @tutor-neutral-bright;
   }
@@ -38,6 +35,12 @@
       font-size: 20px;
       font-weight: normal;
       padding: 15px 30px;
+    }
+  }
+  &.is-loading {
+    .modal-dialog { opacity: 0; }
+    .modal-footer {
+      .btn { visibility: hidden; }
     }
   }
 }
