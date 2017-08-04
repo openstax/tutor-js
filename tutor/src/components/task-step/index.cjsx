@@ -38,10 +38,10 @@ TaskStep = React.createClass
   bindStore: TaskStepStore
 
   onStepCompleted: (id) ->
-    {id, taskId} = @props
+    {id} = @props unless id? # need to allow `id` from arguments pass through, especially for multi-part
 
     if StepPanel.canWrite(id)
-      TaskActions.completeStep(id, taskId)
+      TaskActions.completeStep(id, @props.taskId)
 
   render: ->
     {id, taskId} = @props

@@ -99,10 +99,10 @@ TaskConfig =
   completeStep: (id, taskId) ->
     TaskStepActions.complete(id)
     @emit('step.completing', id)
-    if @exports.hasNonCore.call(@, taskId) and
+    if @exports.hasPlaceholders.call(@, taskId) and
       not @exports.hasIncompleteCoreStepsIndexes.call(@, taskId)
-        nonCoreSteps = @exports.getNonCore.call(@, taskId)
-        _.forEach(nonCoreSteps, (step) ->
+        placeholderSteps = @exports.getPlaceholders.call(@, taskId)
+        _.forEach(placeholderSteps, (step) ->
           TaskStepActions._loadPersonalized(step.id)
         )
 
@@ -188,11 +188,9 @@ TaskConfig =
       )
       steps?
 
-    getNonCore: (taskId) ->
+    getPlaceholders: (taskId) ->
       allSteps = getSteps(@_steps[taskId])
-      _.filter(allSteps, (step) ->
-        step? and not TaskStepStore.isCore(step.id)
-      )
+      _.where(allSteps, type: 'placeholder')
 
     getFirstNonCoreIndex: (taskId) ->
       allSteps = getSteps(@_steps[taskId])
@@ -200,12 +198,8 @@ TaskConfig =
         step? and not TaskStepStore.isCore(step.id)
       )
 
-    hasNonCore: (taskId) ->
-      @exports.getFirstNonCoreIndex.call(@, taskId)?
-
-    getPlaceholder: (taskId) ->
-      allSteps = getSteps(@_steps[taskId])
-      _.findWhere(allSteps, type: 'placeholder')
+    hasPlaceholders: (taskId) ->
+      not _.isEmpty(@exports.getPlaceholders.call(@, taskId))
 
     isTaskCompleted: (taskId) ->
       incompleteStep = getCurrentStep(getSteps(@_steps[taskId]))
