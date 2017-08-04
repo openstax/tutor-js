@@ -39,10 +39,9 @@ TaskStep = React.createClass
 
   onStepCompleted: (id) ->
     {id} = @props unless id? # need to allow `id` from arguments pass through, especially for multi-part
-    {taskId} = @props
 
     if StepPanel.canWrite(id)
-      TaskActions.completeStep(id, taskId)
+      TaskActions.completeStep(id, @props.taskId)
 
   render: ->
     {id, taskId} = @props
