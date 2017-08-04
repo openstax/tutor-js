@@ -62,7 +62,14 @@
   margin-bottom: @milestone-bottom-margin;
   .tutor-shadow(1);
 
+  font-family: 'Helvetica Neue';
+  font-weight: normal;
+  font-size: 14px;
+  color: @openstax-neutral-dark;
+  line-height: 20px;
+
   &.milestone-two-step-intro,
+  &.milestone-spaced-practice-intro,
   &.milestone-personalized-intro {
     background-color: @openstax-blue;
     color: @tutor-white;
@@ -98,7 +105,7 @@
   }
 
   &:hover {
-    cursor: pointer;
+    cursor: 'pointer'
   }
 
   &:hover,
@@ -116,7 +123,7 @@
   display: block;
   max-height: 125px;
   overflow: hidden;
-  font-weight: 600;
+
   padding: 0;
   margin-top: 20px;
   hyphens: auto;
