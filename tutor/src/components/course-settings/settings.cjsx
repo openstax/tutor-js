@@ -12,6 +12,7 @@ Roster = require './roster'
 TeacherRoster = require './teacher-roster'
 RenameCourse  = require './rename-course'
 SetTimezone   = require './set-timezone'
+{default: LMSInfo } = require './lms-info'
 
 module.exports = React.createClass
   displayName: 'CourseSettings'
@@ -23,11 +24,15 @@ module.exports = React.createClass
     termDates = CourseDataHelper.getCourseBounds(@props.courseId)
 
     <BS.Panel className='course-settings'>
+      <BS.Row>
+        <BS.Col xs={9} className='course-settings-title'>
+          {course.name}
+          <RenameCourse courseId={@props.courseId} course={course}/>
+        </BS.Col>
 
-      <div className='course-settings-title'>{course.name}
-        <RenameCourse courseId={@props.courseId}  course={course}/>
-      </div>
+        <LMSInfo xs={3} courseId={@props.courseId} />
 
+      </BS.Row>
       <h4 className='course-settings-term'>
         {CourseStore.getTerm(@props.courseId)}
       </h4>
