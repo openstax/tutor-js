@@ -13,6 +13,7 @@ export default class CourseLMS extends BaseModel {
   @observable course;
 
   @session url    = '';
+  @session xml    = '';
   @session key    = '';
   @session name   = '';
   @session secret = '';

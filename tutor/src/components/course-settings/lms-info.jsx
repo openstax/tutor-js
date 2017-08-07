@@ -34,7 +34,8 @@ class InfoModal extends React.PureComponent {
       <Modal
         show={true}
         onHide={onClose}
-        className="settings-edit-course-modal">
+        className="settings-lms-info-modal"
+      >
         <Modal.Header closeButton={true}>
           <Modal.Title>
             LMS Connection information
@@ -43,16 +44,24 @@ class InfoModal extends React.PureComponent {
         <Modal.Body>
           <Activity isLoading={this.lmsInfo.hasApiRequestPending} />
           <Row>
-            <Col xs={3}>Launch URL:</Col>
-            <Col xs={9}><CopyOnFocusInput value={this.lmsInfo.url} /></Col>
-          </Row>
-          <Row>
             <Col xs={3}>Key:</Col>
             <Col xs={9}><CopyOnFocusInput value={this.lmsInfo.key} /></Col>
           </Row>
           <Row>
             <Col xs={3}>Secret:</Col>
             <Col xs={9}><CopyOnFocusInput value={this.lmsInfo.secret} /></Col>
+          </Row>
+          <Row>
+            <Col xs={3}>Config URL:</Col>
+            <Col xs={9}><CopyOnFocusInput value={this.lmsInfo.url} /></Col>
+          </Row>
+          <Row>
+            <Col xs={12}>XML (if needed):</Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <textarea value={this.lmsInfo.xml} />
+            </Col>
           </Row>
         </Modal.Body>
         <div className="modal-footer">
@@ -61,7 +70,7 @@ class InfoModal extends React.PureComponent {
           </Button>
         </div>
       </Modal>
-    )
+    );
   }
 }
 
