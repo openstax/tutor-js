@@ -62,9 +62,15 @@ export default class CourseStudent extends BaseModel {
     return Boolean(
       this.course.does_cost &&
       !this.course.is_preview &&
-      !this.is_paid &&
-      !this.is_comped
+      (
+        this.is_refund_pending || (!this.is_paid && !this.is_comped)
+      )
     );
+  }
+
+  @action markRefunded() {
+    this.is_refund_pending = true;
+    this.prompt_student_to_pay = true;
   }
 
   @action markPaid() {

@@ -53,8 +53,7 @@ export default class Purchase extends BaseModel {
   onRefunded() {
     this.is_refunded = true;
     if (this.course) {
-      this.course.userStudentRecord.is_paid = false;
-      this.course.userStudentRecord.prompt_student_to_pay = true;
+      this.course.userStudentRecord.markRefunded();
     }
   }
 
