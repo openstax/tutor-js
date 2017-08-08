@@ -1,9 +1,9 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import { Grid, Table, Button } from 'react-bootstrap';
 import moment from 'moment';
-import { map, extend, isFunction } from 'lodash';
+import { map, extend, flatten, isFunction } from 'lodash';
 import cn from 'classnames';
 import Router from '../../helpers/router';
 import BackButton from '../buttons/back-button';
@@ -96,6 +96,12 @@ export default class ManagePayments extends React.PureComponent {
     }
   }
 
+  @computed get purchases() {
+    return flatten(map(Purchases.array, (purchase) =>
+      purchase.is_refunded ? [ purchase, purchase.refundRecord ] : [ purchase ],
+    ));
+  }
+
   renderTable() {
     if (Purchases.isEmpty) { return this.renderEmpty(); }
 
@@ -111,12 +117,12 @@ export default class ManagePayments extends React.PureComponent {
           </tr>
         </thead>
         <tbody>
-          {Purchases.array.map(purchase =>
+          {this.purchases.map(purchase =>
             <tr key={purchase.identifier}>
               <td>{purchase.product.name}</td>
               <td>{moment(purchase.purchased_at).format('MMMM Do YYYY')}</td>
               <td>{purchase.identifier}</td>
-              <td className={cn('right', 'total', { refunded: purchase.is_refunded })}>
+              <td className={cn('right', 'total', { refunded: purchase.is_refund_record })}>
                 {purchase.formattedTotal}
               </td>
               {this.renderRefundCell(purchase)}

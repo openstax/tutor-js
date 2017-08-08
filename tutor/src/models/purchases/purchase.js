@@ -1,7 +1,7 @@
-import { find } from 'lodash';
+import { find, pick, extend } from 'lodash';
 import moment from 'moment';
 import {
-  BaseModel, identifiedBy, field, identifier, belongsTo, computed, observable,
+  BaseModel, identifiedBy, field, identifier, belongsTo, computed,
 } from '../base';
 import Courses from '../courses-map';
 import { TimeStore } from '../../flux/time';
@@ -32,6 +32,18 @@ export default class Purchase extends BaseModel {
       c.userStudentRecord && c.userStudentRecord.uuid == this.product_instance_uuid);
   }
 
+  @computed get refundRecord() {
+    if (!this.is_refunded) { return null; }
+    return extend(pick(this, [
+      'is_refunded', 'sales_tax', 'total', 'purchased_at', 'updated_at',
+    ]), {
+      is_refund_record: true,
+      formattedTotal: `-${this.formattedTotal}`,
+      identifier: `${this.identifier}:refund`,
+      product: { name: `${this.product.name} refund` },
+    });
+  }
+
   @computed get isRefundable() {
     return !this.is_refunded &&
            moment(this.purchased_at).add(14, 'days').isAfter(TimeStore.getNow());
@@ -43,7 +55,7 @@ export default class Purchase extends BaseModel {
 
   @computed get formattedTotal() {
     const amount = numberWithTwoDecimalPlaces(this.total);
-    return this.is_refunded ? `-${amount}` : amount;
+    return amount;
   }
 
   refund() {
