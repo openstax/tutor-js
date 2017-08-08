@@ -26,7 +26,7 @@ export default class FreeTrialActivated extends React.PureComponent {
           <p>You will have access to {ux.course.name} for 14 days.</p>
           <p>
             To continue accessing your course beyond your trial period, click
-            the Get Access button on your OpenStax Tutor Beta dashboard and
+            the Pay Now button on your OpenStax Tutor Beta dashboard and
             enter your one-time {CourseUX.formattedStudentCost} payment for the semester
           </p>
         </Body>

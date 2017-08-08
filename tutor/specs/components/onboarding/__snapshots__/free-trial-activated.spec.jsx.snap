@@ -18,7 +18,7 @@ exports[`Free trial ended modal renders and matches snapshot 1`] = `
        for 14 days.
     </p>
     <p>
-      To continue accessing your course beyond your trial period, click the Get Access button on your OpenStax Tutor Beta dashboard and enter your one-time 
+      To continue accessing your course beyond your trial period, click the Pay Now button on your OpenStax Tutor Beta dashboard and enter your one-time 
       $10
        payment for the semester
     </p>
