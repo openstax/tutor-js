@@ -35,8 +35,9 @@ export default class Purchase extends BaseModel {
   @computed get refundRecord() {
     if (!this.is_refunded) { return null; }
     return extend(pick(this, [
-      'is_refunded', 'sales_tax', 'total', 'purchased_at', 'updated_at',
+      'is_refunded', 'sales_tax', 'total',
     ]), {
+      purchased_at: this.updated_at,
       is_refund_record: true,
       formattedTotal: `-${this.formattedTotal}`,
       identifier: `${this.identifier}:refund`,

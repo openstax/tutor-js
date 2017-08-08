@@ -77,7 +77,7 @@
             "sales_tax": "105.97",
             "is_refunded": true,
             "purchased_at": "2017-07-16T21:03:02.776716+00:00",
-            "updated_at": "2017-07-16T21:03:05.177857+00:00",
+            "updated_at": "2017-07-18T21:03:05.177857+00:00",
             "product": {
                 "uuid": "fe929a90-cf75-4dbc-be9e-b7f62da718f9",
                 "name": "unit test product",
@@ -91,7 +91,7 @@
             "sales_tax": "121.49",
             "is_refunded": true,
             "purchased_at": "2017-07-16T21:03:07.498508+00:00",
-            "updated_at": "2017-07-16T21:03:09.595732+00:00",
+            "updated_at": "2017-07-19T21:03:09.595732+00:00",
             "product": {
                 "uuid": "f614444b-4b53-4146-991a-c5e5f2e147f6",
                 "name": "unit test product",

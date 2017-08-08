@@ -40,7 +40,9 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr
+        className=""
+      >
         <td>
           OpenStax Tutor
         </td>
@@ -79,7 +81,9 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           </a>
         </td>
       </tr>
-      <tr>
+      <tr
+        className=""
+      >
         <td>
           OpenStax Tutor
         </td>
@@ -118,7 +122,9 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           </a>
         </td>
       </tr>
-      <tr>
+      <tr
+        className=""
+      >
         <td>
           OpenStax Tutor
         </td>
@@ -157,7 +163,9 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           </a>
         </td>
       </tr>
-      <tr>
+      <tr
+        className=""
+      >
         <td>
           OpenStax Tutor
         </td>
@@ -196,7 +204,9 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           </a>
         </td>
       </tr>
-      <tr>
+      <tr
+        className=""
+      >
         <td>
           unit test product
         </td>
@@ -235,7 +245,9 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           </a>
         </td>
       </tr>
-      <tr>
+      <tr
+        className=""
+      >
         <td>
           unit test product
         </td>
@@ -262,36 +274,29 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           </a>
         </td>
       </tr>
-      <tr>
+      <tr
+        className="refunded"
+      >
         <td>
           unit test product refund
         </td>
         <td>
-          July 16th 2017
+          July 18th 2017
         </td>
         <td>
           kjxdvs9wd7rw:refund
         </td>
         <td
-          className="right total refunded"
+          className="right total"
         >
           -1388.07
         </td>
         <td />
-        <td>
-          <button
-            className="btn btn-link"
-            data-identifier="kjxdvs9wd7rw:refund"
-            disabled={false}
-            href={undefined}
-            onClick={[Function]}
-            type="button"
-          >
-            Invoice
-          </button>
-        </td>
+        <td />
       </tr>
-      <tr>
+      <tr
+        className=""
+      >
         <td>
           unit test product
         </td>
@@ -318,34 +323,25 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           </a>
         </td>
       </tr>
-      <tr>
+      <tr
+        className="refunded"
+      >
         <td>
           unit test product refund
         </td>
         <td>
-          July 16th 2017
+          July 19th 2017
         </td>
         <td>
           cufu6hr4xicy:refund
         </td>
         <td
-          className="right total refunded"
+          className="right total"
         >
           -1591.48
         </td>
         <td />
-        <td>
-          <button
-            className="btn btn-link"
-            data-identifier="cufu6hr4xicy:refund"
-            disabled={false}
-            href={undefined}
-            onClick={[Function]}
-            type="button"
-          >
-            Invoice
-          </button>
-        </td>
+        <td />
       </tr>
     </tbody>
   </table>

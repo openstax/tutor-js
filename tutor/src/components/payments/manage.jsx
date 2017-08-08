@@ -102,6 +102,19 @@ export default class ManagePayments extends React.PureComponent {
     ));
   }
 
+  renderInvoiceButton(purchase) {
+    if (purchase.is_refund_record) { return null; }
+    return (
+      <Button bsStyle="link"
+        data-identifier={purchase.identifier}
+        onClick={this.onShowInvoiceClick}
+        href={purchase.invoiceURL}
+      >
+        Invoice
+      </Button>
+    );
+  }
+
   renderTable() {
     if (Purchases.isEmpty) { return this.renderEmpty(); }
 
@@ -118,22 +131,16 @@ export default class ManagePayments extends React.PureComponent {
         </thead>
         <tbody>
           {this.purchases.map(purchase =>
-            <tr key={purchase.identifier}>
+            <tr key={purchase.identifier} className={cn({ refunded: purchase.is_refund_record })}>
               <td>{purchase.product.name}</td>
               <td>{moment(purchase.purchased_at).format('MMMM Do YYYY')}</td>
               <td>{purchase.identifier}</td>
-              <td className={cn('right', 'total', { refunded: purchase.is_refund_record })}>
+              <td className="right total">
                 {purchase.formattedTotal}
               </td>
               {this.renderRefundCell(purchase)}
               <td>
-                <Button bsStyle="link"
-                  data-identifier={purchase.identifier}
-                  onClick={this.onShowInvoiceClick}
-                  href={purchase.invoiceURL}
-                >
-                  Invoice
-                </Button>
+                {this.renderInvoiceButton(purchase)}
               </td>
             </tr>
           )}
