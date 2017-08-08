@@ -26,12 +26,10 @@ ExMode = React.createClass
     answerId: answer_id
 
   componentDidMount: ->
-    {mode} = @props
-    @setFreeResponseFocusState() if mode is 'free-response'
+    @setFreeResponseFocusState()
 
   componentDidUpdate: (prevProps) ->
-    {mode, focus} = prevProps
-    @setFreeResponseFocusState() if mode is 'free-response' and focus isnt @props.focus
+    @setFreeResponseFocusState(prevProps)
 
   componentWillReceiveProps: (nextProps) ->
     {free_response, answer_id, cachedFreeResponse} = nextProps
@@ -44,14 +42,21 @@ ExMode = React.createClass
 
     @setState(nextAnswers) unless _.isEmpty(nextAnswers)
 
-  setFreeResponseFocusState: ->
-    {focus} = @props
+  setFreeResponseFocusState: (prevProps = {}) ->
+    {mode, focus, id} = prevProps
+    return unless (
+      @props.mode is 'free-response' and (
+        focus isnt @props.focus or
+        id isnt @props.id
+      )
+    )
+
     el = ReactDOM.findDOMNode(@refs.freeResponse)
-    if focus
-      el.focus?()
-      window.scrollTo(0, 0);
-    else
-      el.blur?()
+    if el
+      if @props.focus
+        el.focus?()
+      else
+        el.blur?()
 
   onFreeResponseChange: ->
     freeResponse = ReactDOM.findDOMNode(@refs.freeResponse)?.value
