@@ -73,7 +73,5 @@ describe('Teacher Task Plans', function() {
       expect(tp.opens_at).toEqual(plan.tasking_plans[i].opens_at);
       expect(tp.due_at).toEqual(plan.tasking_plans[i].due_at);
     });
-    plans.addClone({ id: 'foo' });
-    expect(plans.get(plan.id)).toBeUndefined();
   });
 });
