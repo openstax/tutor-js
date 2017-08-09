@@ -11,7 +11,7 @@ exports[`Notifications MissingStudentId notice renders and matches snapshot 1`] 
       className="icon fa fa-info-circle"
     />
     <span>
-      The first semester of this course has ended.
+      This course has ended.
     </span>
     <a
       className="action"

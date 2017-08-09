@@ -26,7 +26,7 @@ CourseHasEndedNotification = React.createClass
     <div className='notification course-has-ended'>
       <span className="body">
         <i className="icon fa fa-info-circle" />
-        <span>The first semester of this course has ended.</span>
+        <span>This course has ended.</span>
         {@actionsLink()}
       </span>
     </div>
