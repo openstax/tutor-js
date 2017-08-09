@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
 import { Grid, Table, Button } from 'react-bootstrap';
 import moment from 'moment';
-import { map, extend, flatten, isFunction } from 'lodash';
+import { map, extend, isFunction } from 'lodash';
 import cn from 'classnames';
 import Router from '../../helpers/router';
 import BackButton from '../buttons/back-button';
@@ -96,11 +96,6 @@ export default class ManagePayments extends React.PureComponent {
     }
   }
 
-  @computed get purchases() {
-    return flatten(map(Purchases.array, (purchase) =>
-      purchase.is_refunded ? [ purchase, purchase.refundRecord ] : [ purchase ],
-    ));
-  }
 
   renderInvoiceButton(purchase) {
     if (purchase.is_refund_record) { return null; }
@@ -130,7 +125,7 @@ export default class ManagePayments extends React.PureComponent {
           </tr>
         </thead>
         <tbody>
-          {this.purchases.map(purchase =>
+          {Purchases.withRefunds.map(purchase =>
             <tr key={purchase.identifier} className={cn({ refunded: purchase.is_refund_record })}>
               <td>{purchase.product.name}</td>
               <td>{moment(purchase.purchased_at).format('MMMM Do YYYY')}</td>
