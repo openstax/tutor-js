@@ -21,20 +21,11 @@ class CourseTaskPlans extends Map {
     this._courseId = courseId;
   }
 
-  clearPendingClones() {
-    for(const plan of this.array) {
-      if (plan.isClone && plan.isNew) {
-        this.delete(plan.id);
-      }
-    }
-  }
-
   addPublishingPlan(planAttrs) {
     this.set(planAttrs.id, new TaskPlan(planAttrs));
   }
 
   addClone(planAttrs) {
-    this.clearPendingClones();
     this.set(planAttrs.id, new TaskPlan(planAttrs));
   }
 

@@ -113,10 +113,6 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
     this.date = this.getDateFromParams(this.courseDates);
   }
 
-  componentWillUpdate() {
-    TaskPlans.forCourseId(this.course.id).clearPendingClones();
-  }
-
   componentDidMount() {
     // the unmount from the builder often get's called after
     // the initial `componentWillMount` so this is needed to make sure
