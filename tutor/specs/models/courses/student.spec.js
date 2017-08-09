@@ -24,8 +24,9 @@ describe('Course Student', () => {
     expect(student.needsPayment).toBe(true);
     student.is_paid = true;
     expect(student.needsPayment).toBe(false);
+    student.is_refund_pending = true;
+    expect(student.needsPayment).toBe(true);
   });
-
 
   test('#mustPayImmediately', () => {
     Payments.config.is_enabled = true;
