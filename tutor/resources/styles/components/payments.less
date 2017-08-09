@@ -22,7 +22,12 @@
       text-align: right;
     }
     .refunded {
-      color: @currency-green;
+      .total {
+        color: @currency-green;
+      }
+      td:first-child {
+        text-indent: 20px;
+      }
     }
     tbody tr td {
       vertical-align: middle;
@@ -37,8 +42,10 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    .help a { margin-left: 0.5rem; }
     a { .tutor-external-link-indicator(); }
   }
+
 }
 
 

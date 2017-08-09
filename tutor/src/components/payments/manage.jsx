@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import { Grid, Table, Button } from 'react-bootstrap';
 import moment from 'moment';
 import { map, extend, isFunction } from 'lodash';
@@ -96,6 +96,20 @@ export default class ManagePayments extends React.PureComponent {
     }
   }
 
+
+  renderInvoiceButton(purchase) {
+    if (purchase.is_refund_record) { return null; }
+    return (
+      <Button bsStyle="link"
+        data-identifier={purchase.identifier}
+        onClick={this.onShowInvoiceClick}
+        href={purchase.invoiceURL}
+      >
+        Invoice
+      </Button>
+    );
+  }
+
   renderTable() {
     if (Purchases.isEmpty) { return this.renderEmpty(); }
 
@@ -111,23 +125,17 @@ export default class ManagePayments extends React.PureComponent {
           </tr>
         </thead>
         <tbody>
-          {Purchases.array.map(purchase =>
-            <tr key={purchase.identifier}>
+          {Purchases.withRefunds.map(purchase =>
+            <tr key={purchase.identifier} className={cn({ refunded: purchase.is_refund_record })}>
               <td>{purchase.product.name}</td>
               <td>{moment(purchase.purchased_at).format('MMMM Do YYYY')}</td>
               <td>{purchase.identifier}</td>
-              <td className={cn('right', 'total', { refunded: purchase.is_refunded })}>
+              <td className="right total">
                 {purchase.formattedTotal}
               </td>
               {this.renderRefundCell(purchase)}
               <td>
-                <Button bsStyle="link"
-                  data-identifier={purchase.identifier}
-                  onClick={this.onShowInvoiceClick}
-                  href={purchase.invoiceURL}
-                >
-                  Invoice
-                </Button>
+                {this.renderInvoiceButton(purchase)}
               </td>
             </tr>
           )}

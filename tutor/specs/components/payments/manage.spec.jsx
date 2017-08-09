@@ -7,14 +7,11 @@ import PaymentModel from '../../../src/models/payments';
 import mockData from '../../../api/purchases.json';
 import { TimeStore } from '../../../src/flux/time';
 import TimeHelper from '../../../src/helpers/time';
+import chronokinesis from 'chronokinesis';
 
 jest.mock('../../../src/helpers/router');
 jest.mock('../../../src/models/payments');
-jest.mock('../../../src/flux/time', () => ({
-  TimeStore: {
-    getNow: () => new Date('2017-07-01'),
-  },
-}));
+
 
 describe('Student Payments Management', () => {
   beforeEach(() => {
@@ -22,10 +19,15 @@ describe('Student Payments Management', () => {
       is_enabled: true,
       base_url: 'url-for-test',
     };
+    chronokinesis.travel(new Date('2017-07-01'));
+
     Router.currentParams.mockReturnValue({ courseId: '2' });
     Router.makePathname.mockImplementation(() => '/foo');
-    mockData.orders.forEach((o) => o.purchased_at = '2017-06-24');
     Purchases.onLoaded({ data: mockData });
+  });
+
+  afterEach(() => {
+    chronokinesis.reset();
   });
 
   it('renders and matches snapshot', () => {

@@ -1,6 +1,7 @@
 import Map from './map';
 import { find } from 'lodash';
 import { computed } from 'mobx';
+import { map, flatten } from 'lodash';
 import Purchase from './purchases/purchase';
 
 class PurchasesMap extends Map {
@@ -8,6 +9,13 @@ class PurchasesMap extends Map {
   @computed get isAnyRefundable() {
     return find(this.array, 'isRefundable');
   }
+
+  @computed get withRefunds() {
+    return flatten(map(this.array, (purchase) =>
+      purchase.is_refunded ? [ purchase, purchase.refundRecord ] : [ purchase ],
+    ));
+  }
+
 
   // called by API
   fetch() {}

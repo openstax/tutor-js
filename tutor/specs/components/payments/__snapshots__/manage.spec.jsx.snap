@@ -40,12 +40,14 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr
+        className=""
+      >
         <td>
           OpenStax Tutor
         </td>
         <td>
-          June 24th 2017
+          July 13th 2017
         </td>
         <td>
           33uqbxbi324n
@@ -79,12 +81,14 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           </a>
         </td>
       </tr>
-      <tr>
+      <tr
+        className=""
+      >
         <td>
           OpenStax Tutor
         </td>
         <td>
-          June 24th 2017
+          July 13th 2017
         </td>
         <td>
           nuvwqun23ztq
@@ -118,12 +122,14 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           </a>
         </td>
       </tr>
-      <tr>
+      <tr
+        className=""
+      >
         <td>
           OpenStax Tutor
         </td>
         <td>
-          June 24th 2017
+          July 13th 2017
         </td>
         <td>
           ru6ifviicwki
@@ -157,12 +163,14 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           </a>
         </td>
       </tr>
-      <tr>
+      <tr
+        className=""
+      >
         <td>
           OpenStax Tutor
         </td>
         <td>
-          June 24th 2017
+          July 14th 2017
         </td>
         <td>
           fxa4s2kj75fr
@@ -196,12 +204,14 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           </a>
         </td>
       </tr>
-      <tr>
+      <tr
+        className=""
+      >
         <td>
           unit test product
         </td>
         <td>
-          June 24th 2017
+          July 16th 2017
         </td>
         <td>
           3dmy8nu4v4bg
@@ -235,20 +245,22 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           </a>
         </td>
       </tr>
-      <tr>
+      <tr
+        className=""
+      >
         <td>
           unit test product
         </td>
         <td>
-          June 24th 2017
+          July 16th 2017
         </td>
         <td>
           kjxdvs9wd7rw
         </td>
         <td
-          className="right total refunded"
+          className="right total"
         >
-          -1388.07
+          1388.07
         </td>
         <td />
         <td>
@@ -262,20 +274,42 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
           </a>
         </td>
       </tr>
-      <tr>
+      <tr
+        className="refunded"
+      >
+        <td>
+          unit test product refund
+        </td>
+        <td>
+          July 18th 2017
+        </td>
+        <td>
+          kjxdvs9wd7rw:refund
+        </td>
+        <td
+          className="right total"
+        >
+          -1388.07
+        </td>
+        <td />
+        <td />
+      </tr>
+      <tr
+        className=""
+      >
         <td>
           unit test product
         </td>
         <td>
-          June 24th 2017
+          July 16th 2017
         </td>
         <td>
           cufu6hr4xicy
         </td>
         <td
-          className="right total refunded"
+          className="right total"
         >
-          -1591.48
+          1591.48
         </td>
         <td />
         <td>
@@ -288,6 +322,26 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
             Invoice
           </a>
         </td>
+      </tr>
+      <tr
+        className="refunded"
+      >
+        <td>
+          unit test product refund
+        </td>
+        <td>
+          July 19th 2017
+        </td>
+        <td>
+          cufu6hr4xicy:refund
+        </td>
+        <td
+          className="right total"
+        >
+          -1591.48
+        </td>
+        <td />
+        <td />
       </tr>
     </tbody>
   </table>
