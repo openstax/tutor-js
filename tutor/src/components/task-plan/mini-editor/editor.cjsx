@@ -92,9 +92,13 @@ TaskPlanMiniEditor = React.createClass
     publishing = @publish()
     @setState({saving: false, publishing: publishing})
 
-  afterSave: ->
+  afterSave: (plan) ->
+    TeacherTaskPlans
+      .forCourseId(@props.courseId)
+      .get(@props.id)
+      .onPlanSave(plan)
     @setState({saving: false, publishing: false})
-    @onCancel()
+    @props.onHide()
 
   onCancel: ->
     @props.onHide()

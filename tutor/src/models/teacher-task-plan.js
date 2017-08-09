@@ -2,9 +2,10 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany,
 } from './base';
 
-import { computed } from 'mobx';
-
+import { action, computed } from 'mobx';
+import PlanHelper from '../helpers/plan';
 import TaskingPlan from './tasking-plan';
+import { TaskPlanStore } from '../flux/task-plan';
 
 @identifiedBy('teacher-task-plan')
 export default class TeacherTaskPlan extends BaseModel {
@@ -30,6 +31,21 @@ export default class TeacherTaskPlan extends BaseModel {
 
   @computed get isClone() {
     return !!this.cloned_from_id;
+  }
+
+  @action
+  onPlanSave(plan) {
+    this.update(plan);
+    PlanHelper.subscribeToPublishing(plan, this.onPlanPublish);
+  }
+
+  @action.bound
+  onPlanPublish(publish) {
+    if (publish.status === 'succeeded') {
+      const plan = TaskPlanStore.get(this.id);
+      this.update(plan);
+      PlanHelper.unsubscribeFromPublishing(this.id, this.onPlanPublish);
+    }
   }
 
 }
