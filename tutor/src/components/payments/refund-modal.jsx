@@ -30,7 +30,7 @@ class ProcessRefund extends React.PureComponent {
           <Modal.Title>We will refund the following amount to the original form of payment</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h1 className="amount">{purchase.formattedTotal}</h1>
+          <h1 className="amount">${purchase.formattedTotal}</h1>
           <p>
             You will see a record of this transaction on your payments page.
           </p>
