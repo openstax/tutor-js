@@ -1,6 +1,7 @@
 EventEmitter2 = require 'eventemitter2'
 moment = require 'moment'
 
+remove    = require 'lodash/remove'
 cloneDeep = require 'lodash/cloneDeep'
 reject    = require 'lodash/reject'
 find      = require 'lodash/find'
@@ -65,6 +66,10 @@ Notifications = {
     HIDDEN.push(notice)
     @emit('change')
 
+  removeType: (type) ->
+    remove(NOTICES, {type})
+    @emit('change')
+
   unhide: (notice) ->
     HIDDEN = reject(HIDDEN, notice)
     @emit('change')
@@ -101,9 +106,14 @@ Notifications = {
     if isEmpty(studentId) and moment().diff(role.joined_at, 'days') > 7
       id = @POLLING_TYPES.MISSING_STUDENT_ID
       @display({id, type: id, course, role})
+    else
+      @removeType(@POLLING_TYPES.MISSING_STUDENT_ID)
     if moment(course.ends_at).isBefore(moment(), 'day')
       id = @POLLING_TYPES.COURSE_HAS_ENDED
-      @display({id,  type: id, course, role})
+      @display({id, type: id, course, role})
+    else
+      @removeType(@POLLING_TYPES.COURSE_HAS_ENDED)
+
 
 }
 

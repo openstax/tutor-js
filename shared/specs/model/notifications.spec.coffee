@@ -60,6 +60,22 @@ describe 'Notifications', ->
     expect(active.role).to.deep.equal(role)
     undefined
 
+  it 'clears old notices when course role is set', ->
+    changeListener = sinon.stub()
+    Notifications.setCourseRole(
+      {id: '1', students: [{role_id: '111'}], ends_at: '2011-11-11T01:15:43.807Z'},
+      {id: '111'}
+    )
+    expect(Notifications.getActive()).toHaveLength(1)
+    expect(Notifications.getActive()[0].type).to.equal('course_has_ended')
+    Notifications.setCourseRole(
+      {id: '1', students: [{role_id: '111'}], ends_at: moment().add('1 month').toISOString()},
+      {id: '111'}
+    )
+    expect(Notifications.getActive()).toHaveLength(0)
+    undefined
+
+
   it 'adds course has ended when course role is set', ->
     changeListener = sinon.stub()
     notice = {message: 'hello world', icon: 'globe'}
