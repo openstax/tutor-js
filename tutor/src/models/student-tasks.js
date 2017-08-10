@@ -1,66 +1,60 @@
-{CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
-{TimeStore} = require './time'
-_ = require 'underscore'
-moment = require 'moment'
+import Map from './map';
+import moment from 'moment';
+import { computed } from 'mobx';
+import { filter, groupBy, sortBy, pickBy } from 'lodash';
+import { TimeStore } from '../flux/time';
+import Task from './student/task';
 
-StudentDashboardConfig = {
-  _asyncStatusStats: {}
+export class CourseStudentTasks extends Map {
 
-  hide:(taskId) ->
-    @_asyncStatusStats[taskId] = 'hiding'
+  constructor(courseId) {
+    super();
+    this.courseId = courseId;
+  }
 
-  hidden:(taskId) ->
-    @_asyncStatusStats[taskId] = 'hidden'
-    @emit("hidden", taskId)
+  @computed get byWeek() {
+    const weeks = groupBy(this.array, event => moment(event.due_at).startOf('isoweek').format('YYYYww'));
+    const sorted = {};
+    for (let weekId in weeks) {
+      const events = weeks[weekId];
+      sorted[weekId] = sortBy(events, 'due_at');
+    }
+    return sorted;
+  }
 
-  exports:
+  @computed get pastEventsByWeek() {
+    const thisWeek = moment(TimeStore.getNow()).startOf('isoweek').format('YYYYww');
+    return pickBy(this.byWeek, (events, week) => week < thisWeek);
+  }
 
-    eventsByWeek: (courseId) ->
-      data = @_get(courseId)
-      tasks = data.tasks or []
-      weeks = _.groupBy tasks, (event) ->
-        moment(event.due_at).startOf('isoweek').format('YYYYww')
-      sorted = {}
-      for weekId, events of weeks
-        sorted[weekId] = _.sortBy(events, 'due_at')
-      sorted
+  weeklyEventsForDay(day) {
+    return this.byWeek[moment(day).startOf('isoweek').format('YYYYww')] || [];
+  }
 
-    pastEventsByWeek: (courseId) ->
-      weeks = this.exports.eventsByWeek.call(this, courseId)
-      thisWeek = moment(TimeStore.getNow()).startOf('isoweek').format('YYYYww')
-      _.pick(weeks, (events, week) -> week < thisWeek)
+  // Returns events who's due date has not passed
+  upcomingEvents(now) {
+    if (now == null) { now = TimeStore.getNow(); }
+    return sortBy(filter(this.array, 'isUpcoming'), 'due_at');
+  }
 
-    weeklyEventsForDay: (courseId, day) ->
-      events = this.exports.eventsByWeek.call(this, courseId)
-      events[moment(day).startOf('isoweek').format('YYYYww')] or []
-
-    canWorkTask: (event) ->
-      #students cannot work or view a task if it has been deleted and they haven't started it
-      (
-        new Date(event.opens_at) < TimeStore.getNow() and
-        not (
-          event.is_deleted and
-          event.complete_exercise_count is 0
-        )
-      )
-
-    isDeleted: (event) -> event.is_deleted
-
-    # Returns events who's due date has not passed
-    upcomingEvents: (courseId, now = TimeStore.getNow()) ->
-      _.chain(@_get(courseId)?.tasks or [])
-        .filter( (event) -> new Date(event.due_at) > now )
-        .sortBy('due_at')
-        .value()
-
-    # Returns events who's due date is in the past
-    pastDueEvents: (courseId, now = TimeStore.getNow()) ->
-      _.chain(@_get(courseId)?.tasks or [])
-        .filter( (event) -> new Date(event.due_at) < now )
-        .sortBy('due_at')
-        .value()
+  // note: the response also contains limited course and role information but they're currently unused
+  onLoaded({ data: { tasks } }) {
+    tasks.forEach(task => this.set(task.id, new Task(task)));
+  }
 }
 
-extendConfig(StudentDashboardConfig, new CrudConfig())
-{actions, store} = makeSimpleStore(StudentDashboardConfig)
-module.exports = {StudentDashboardActions:actions, StudentDashboardStore:store}
+class StudentTasks extends Map {
+
+  forCourseId(courseId) {
+    let courseMap = this.get(courseId);
+    if (!courseMap) {
+      courseMap = new CourseStudentTasks(courseId);
+      this.set(courseId, courseMap);
+    }
+    return courseMap;
+  }
+
+}
+
+const studentTasks = new StudentTasks;
+export default studentTasks;
