@@ -1,7 +1,7 @@
 import React from 'react';
 import { Panel } from 'react-bootstrap';
 
-const EmptyPanel = ({ children = 'No events this week', title }) => {
+const EmptyPanel = ({ children = 'No assignments this week', title }) => {
   return (
     <Panel className="empty" header={title}>
       {children}
