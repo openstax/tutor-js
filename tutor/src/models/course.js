@@ -12,6 +12,7 @@ import TeacherTaskPlans   from './teacher-task-plans';
 import TimeHelper from '../helpers/time';
 import { TimeStore } from '../flux/time';
 import moment from 'moment-timezone';
+import StudentTasks from './student-tasks';
 
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
 const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
@@ -55,6 +56,10 @@ export default class Course extends BaseModel {
   @computed get userStudentRecord() {
     const role = find(this.roles, 'isStudent');
     return role ? find(this.students, { role_id: role.id }) : null;
+  }
+
+  @computed get studentTasks() {
+    return StudentTasks.forCourseId(this.id);
   }
 
   @computed get nameCleaned() {
