@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StudentDashboardStore, StudentDashboardActions } from '../../flux/student-dashboard';
+import StudentTasks from '../../models/student-tasks';
 import LoadableItem from '../loadable-item';
 import { observable, computed, action, observe } from 'mobx';
 import { observer, inject } from 'mobx-react';
@@ -10,9 +10,7 @@ import TermsModal from '../terms-modal';
 import onboardingForCourse from '../../models/course/onboarding';
 import Courses from '../../models/courses-map';
 
-@inject((allStores, props) => ({
-  tourContext: ( props.tourContext || allStores.tourContext ),
-}))
+@inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
 @observer
 export default class StudentDashboardShell extends React.PureComponent {
 
@@ -30,6 +28,7 @@ export default class StudentDashboardShell extends React.PureComponent {
   ux = onboardingForCourse(this.course, this.props.tourContext);
 
   componentWillMount() {
+    this.course.studentTasks.fetch();
     this.ux.mount(); // ux will use this to start silencing tours while it's displaying payment nags
   }
 
@@ -49,12 +48,7 @@ export default class StudentDashboardShell extends React.PureComponent {
       <div className="student-dashboard ">
         <TermsModal />
         <CourseNagModal ux={this.ux} />
-        <LoadableItem
-          id={courseId}
-          store={StudentDashboardStore}
-          actions={StudentDashboardActions}
-          renderItem={() => <StudentDashboard params={params} courseId={courseId} />}
-        />
+        <StudentDashboard params={params} courseId={courseId} />
       </div>
     );
   }
