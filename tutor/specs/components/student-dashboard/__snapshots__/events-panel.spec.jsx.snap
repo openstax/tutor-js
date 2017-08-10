@@ -18,13 +18,13 @@ exports[`EventsPanel renders with events 1`] = `
           className="date-range"
         >
           <time>
-            Aug 10, 2017
+            Oct 14, 2017
           </time>
           <span>
             –
           </span>
           <time>
-            Aug 10, 2017
+            Oct 14, 2017
           </time>
         </span>
       </div>

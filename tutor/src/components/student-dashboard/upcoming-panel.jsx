@@ -18,7 +18,7 @@ export default class UpcomingPanel extends React.PureComponent {
   render() {
     const { courseId } = this.props;
     const startAt = moment(TimeStore.getNow()).startOf('isoweek').add(1, 'week');
-    const events  = StudentTasks.get(this.props.courseId).upcomingEvents(startAt);
+    const events  = StudentTasks.get(courseId).upcomingEvents(startAt);
 
     if (isEmpty(events)) {
       return <EmptyPanel courseId={courseId} message='No upcoming assignments' />;

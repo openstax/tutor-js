@@ -1,18 +1,27 @@
 import React from 'react';
 import SnapShot from 'react-test-renderer';
 import { filter, map } from 'lodash';
+import moment from 'moment-timezone';
 
 import MOCK_DASHBOARD_RESPONSE from '../../../api/courses/1/dashboard';
 import EventsPanel from '../../../src/components/student-dashboard/events-panel';
+import chronokinesis from 'chronokinesis';
 
 describe('EventsPanel', function() {
 
   beforeEach(function() {
+    chronokinesis.travel(new Date('2017-10-14T12:00:00.000Z'));
+    moment.tz.setDefault('America/Chicago');
     this.props = {
       events: MOCK_DASHBOARD_RESPONSE.tasks,
       courseId: '1',
       isCollege: false,
     };
+  });
+
+  afterEach(() => {
+    chronokinesis.reset();
+    moment.tz.setDefault();
   });
 
   it('renders with events', function() {

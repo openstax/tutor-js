@@ -1,13 +1,14 @@
 import {React, SnapShot, Wrapper} from '../helpers/component-testing';
 import Dashboard from '../../../src/components/student-dashboard/dashboard';
-import EnzymeContext from '../helpers/enzyme-context';
 import StudentTasks from '../../../src/models/student-tasks';
 import { bootstrapCoursesList } from '../../courses-test-data';
+import chronokinesis from 'chronokinesis';
 
 describe('Student Dashboard', () => {
   let props;
 
   beforeEach(() => {
+    chronokinesis.travel(new Date('2015-10-14T12:00:00.000Z'));
     bootstrapCoursesList();
     props = {
       courseId: '1',
@@ -25,6 +26,10 @@ describe('Student Dashboard', () => {
       'exercise_count': 3,
       'complete_exercise_count': 3,
     }] } });
+  });
+
+  afterEach(() => {
+    chronokinesis.reset();
   });
 
   it('matches snapshot', function() {

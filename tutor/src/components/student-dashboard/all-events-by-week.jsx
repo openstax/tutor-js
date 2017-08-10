@@ -31,9 +31,11 @@ export default class AllEventsByWeek extends React.PureComponent {
   }
 
   render() {
-    const weeks = StudentTasks.get(this.props.courseId).pastEventsByWeek;
+    const { courseId } = this.props;
+    const weeks = StudentTasks.get(courseId).pastEventsByWeek;
+
     if (isEmpty(weeks)) {
-      return <EmptyPanel>No past assignments</EmptyPanel>;
+      return <EmptyPanel courseId={courseId} message="No past assignments" />;
     }
 
     return (

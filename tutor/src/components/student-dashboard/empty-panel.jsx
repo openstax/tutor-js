@@ -8,7 +8,7 @@ const EmptyPanel = ({ courseId, message, title }) => {
   if (StudentTasks.get(courseId).isFetchingInitialUpdates) {
     return (
       <Panel className="empty" header={title}>
-        <Icon type="spinner" spin />  Loading assignments for course
+        <Icon type="spinner" spin /> Loading assignments for course
       </Panel>
     );
   }
