@@ -55,9 +55,10 @@ export default class CourseEnrollment extends BaseModel {
   fetchCourses() {
     this.isLoadingCourses = true;
     CourseListingStore.once('loaded', () => {
-      if (this.to.period.pending_assigment_count) {
+      const assignments_count = get(this, 'to.period.assignments_count', 0);
+      if (assignments_count) {
         const tasks = StudentTasks.forCourseId(this.courseId);
-        tasks.pollForUpdates({ expectedCount: this.to.period.assignments_count });
+        tasks.pollForUpdates({ expectedCount: assignments_count });
       }
       this.isLoadingCourses = false;
       this.isComplete = true;
