@@ -15,15 +15,16 @@ export default class ThisWeekPanel extends React.PureComponent {
   }
 
   render() {
+    const { courseId } = this.props;
     const startAt = moment(TimeStore.getNow()).startOf('isoweek');
     const events  = StudentTasks.get(this.props.courseId).weeklyEventsForDay(startAt);
 
-    if (!events.length) { return <EmptyPanel />; }
+    if (!events.length) { return <EmptyPanel courseId={courseId} message='No assignments this week' />; }
 
     return (
       <Events
         className="-this-week"
-        courseId={this.props.courseId}
+        courseId={courseId}
         isCollege={this.props.isCollege}
         events={events}
         startAt={startAt}

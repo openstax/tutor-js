@@ -42,6 +42,10 @@ export class CourseStudentTasks extends Map {
     return sortBy(filter(this.array, 'isUpcoming'), 'due_at');
   }
 
+  @computed get isFetchingInitialUpdates() {
+    return Boolean(this.array.length == 0 && this._updatesPoller);
+  }
+
   @action
   pollForUpdates({ expectedCount }) {
     if (this._updatesPoller){ return; }
