@@ -4,6 +4,8 @@ import {
 import { when, observable } from 'mobx';
 import { get, pick, isEmpty } from 'lodash';
 import { CourseListingActions, CourseListingStore } from '../../flux/course-listing';
+import StudentTasks from '../student-tasks';
+import Courses from '../courses-map';
 
 @identifiedBy('course/student')
 export default class CourseEnrollment extends BaseModel {
@@ -53,6 +55,10 @@ export default class CourseEnrollment extends BaseModel {
   fetchCourses() {
     this.isLoadingCourses = true;
     CourseListingStore.once('loaded', () => {
+      if (this.to.period.pending_assigment_count) {
+        const tasks = StudentTasks.forCourseId(this.courseId);
+        tasks.pollForUpdates({ expectedCount: this.to.period.assignments_count });
+      }
       this.isLoadingCourses = false;
       this.isComplete = true;
     });

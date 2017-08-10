@@ -33,7 +33,6 @@ PerformanceForecast = require '../flux/performance-forecast'
 
 {TocActions} = require '../flux/toc'
 {ExerciseActions, ExerciseStore} = require '../flux/exercise'
-{StudentDashboardActions} = require '../flux/student-dashboard'
 {CourseListingActions} = require '../flux/course-listing'
 {CCDashboardActions} = require '../flux/cc-dashboard'
 
@@ -55,7 +54,8 @@ PerformanceForecast = require '../flux/performance-forecast'
 { default: Payments } = require '../models/payments'
 { default: Purchases } = require '../models/purchases'
 { default: Purchase } = require '../models/purchases/purchase'
-
+{ CourseStudentTasks } = require '../models/student-tasks'
+{ default: StudentTask } = require '../models/student/task'
 
 startAPI = ->
   connectRead(TaskActions, pattern: 'tasks/{id}')
@@ -207,10 +207,6 @@ startAPI = ->
   connectRead(ReferenceBookPageActions, pattern: 'pages/{id}', trigger: 'loadSilent', handledErrors: ['*'])
   connectRead(ReferenceBookExerciseActions, url: (url) -> url)
 
-  connectRead(StudentDashboardActions, pattern: 'courses/{id}/dashboard')
-  connectDelete(StudentDashboardActions,
-    trigger: 'hide', onSuccess: 'hidden', pattern: 'tasks/{id}'
-  )
   connectRead(NotificationActions,
     trigger: 'loadUpdates', onSuccess: 'loadedUpdates', url: 'notifications', handledErrors: ['*']
   )
@@ -250,6 +246,8 @@ startAPI = ->
     pattern: 'enrollment_changes/{id}/approve', method: 'PUT'
     onSuccess: 'onApiRequestComplete', onFail: 'setApiErrors')
 
+  connectModelRead(CourseStudentTasks, 'fetch', onSuccess: 'onLoaded', pattern: 'courses/{courseId}/dashboard')
+  connectModelDelete(StudentTask, 'hide', onSuccess: 'onHidden', pattern: 'tasks/{id}')
 
 BOOTSTRAPED_MODELS = {
   user:     User,
