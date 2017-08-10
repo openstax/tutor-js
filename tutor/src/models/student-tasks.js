@@ -1,11 +1,16 @@
 import Map from './map';
 import moment from 'moment';
-import { computed } from 'mobx';
+import { computed, action, observable } from 'mobx';
 import { filter, groupBy, sortBy, pickBy } from 'lodash';
 import { TimeStore } from '../flux/time';
 import Task from './student/task';
 
+const MAX_POLLING_ATTEMPTS = 10;
+const POLL_SECONDS = 30;
+
 export class CourseStudentTasks extends Map {
+
+  @observable _updatesPoller;
 
   constructor(courseId) {
     super();
@@ -36,6 +41,24 @@ export class CourseStudentTasks extends Map {
     if (now == null) { now = TimeStore.getNow(); }
     return sortBy(filter(this.array, 'isUpcoming'), 'due_at');
   }
+
+  @action
+  pollForUpdates({ expectedCount }) {
+    if (this._updatesPoller){ return; }
+    let attempts = 0;
+    this._updatesPoller = () => {
+      attempts += 1;
+      if (attempts < MAX_POLLING_ATTEMPTS && this.array.length < expectedCount) {
+        this.fetch().then(() => {
+          setTimeout(this._updatesPoller, POLL_SECONDS * 1000);
+        });
+      } else {
+        this._updatesPoller = null;
+      }
+    };
+    this._updatesPoller();
+  }
+
 
   // note: the response also contains limited course and role information but they're currently unused
   onLoaded({ data: { tasks } }) {

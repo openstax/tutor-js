@@ -95,7 +95,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
             <div
               className="panel-body"
             >
-              No upcoming events
+              No upcoming assignments
             </div>
           </div>
         </div>

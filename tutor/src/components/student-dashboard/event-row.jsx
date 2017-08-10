@@ -35,8 +35,9 @@ export default class EventRow extends React.PureComponent {
     }
   }
 
-  hideTask(event) {
-    event.hide();
+  @action.bound
+  onHideTask() {
+    this.props.event.hide();
   }
 
   stopEventPropagation(event) {
@@ -55,13 +56,13 @@ export default class EventRow extends React.PureComponent {
 
     const classes = classnames(`task row ${this.props.eventType}`, {
       workable: this.isWorkable,
-      deleted: event.deleted,
+      deleted: event.is_deleted,
     });
 
-    if (event.deleted) {
+    if (event.is_deleted) {
       const guardProps = {
         okButtonLabel: 'Yes',
-        onConfirm: this.hideTask,
+        onConfirm: this.onHideTask,
         placement: 'top',
         message: (
           <div>

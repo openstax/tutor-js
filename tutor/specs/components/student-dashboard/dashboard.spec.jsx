@@ -1,7 +1,7 @@
 import {React, SnapShot, Wrapper} from '../helpers/component-testing';
 import Dashboard from '../../../src/components/student-dashboard/dashboard';
 import EnzymeContext from '../helpers/enzyme-context';
-import {StudentDashboardActions } from '../../../src/flux/student-dashboard';
+import StudentTasks from '../../../src/models/student-tasks';
 import { bootstrapCoursesList } from '../../courses-test-data';
 
 describe('Student Dashboard', () => {
@@ -9,7 +9,11 @@ describe('Student Dashboard', () => {
 
   beforeEach(() => {
     bootstrapCoursesList();
-    StudentDashboardActions.loaded({ tasks: [{
+    props = {
+      courseId: '1',
+      params: {},
+    };
+    StudentTasks.forCourseId(1).onLoaded({ data: { tasks: [{
       'id': '118',
       'title': 'Read Chapter 1',
       'opens_at': (new Date(Date.now() - 1000 * 3600 * 24)).toString(),
@@ -20,11 +24,7 @@ describe('Student Dashboard', () => {
       'is_deleted': false,
       'exercise_count': 3,
       'complete_exercise_count': 3,
-    }] }, '1');
-    props = {
-      courseId: '1',
-      params: {},
-    };
+    }] } });
   });
 
   it('matches snapshot', function() {
@@ -32,4 +32,5 @@ describe('Student Dashboard', () => {
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
+
 });
