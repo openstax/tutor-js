@@ -89,13 +89,72 @@ exports[`Student Dashboard matches snapshot 1`] = `
             </div>
           </div>
           <div
-            className="empty panel panel-default"
+            className="-upcoming panel panel-default"
             id={undefined}
           >
             <div
               className="panel-body"
             >
-              No upcoming assignments
+              <div
+                className="row labels"
+              >
+                <div
+                  className="col-sm-7 col-xs-12"
+                >
+                  <span
+                    className="title"
+                  >
+                    Coming Up
+                  </span>
+                </div>
+                <div
+                  className="progress-label col-sm-3 col-sm-offset-0 col-xs-5 col-xs-offset-2"
+                >
+                  Progress
+                </div>
+                <div
+                  className="due-at-label col-sm-2 col-xs-5"
+                >
+                  Due
+                </div>
+              </div>
+              <a
+                aria-labelledby="Work on reading: Read Chapter 1"
+                className="task row reading workable"
+                data-event-id="118"
+                href="/course/1/task/118"
+                onClick={[Function]}
+                onKeyDown={undefined}
+                tabIndex={0}
+              >
+                <div
+                  className="column-icon col-sm-1 col-xs-2"
+                >
+                  <i
+                    aria-label="reading icon"
+                    className="icon icon-lg icon-reading"
+                  />
+                </div>
+                <div
+                  className="title col-sm-6 col-xs-10"
+                >
+                  Read Chapter 1
+                </div>
+                <div
+                  className="feedback col-sm-3 col-xs-5"
+                >
+                  <span>
+                    Complete
+                  </span>
+                </div>
+                <div
+                  className="due-at col-sm-2 col-xs-5"
+                >
+                  <time>
+                    May 19, 7:00am
+                  </time>
+                </div>
+              </a>
             </div>
           </div>
         </div>

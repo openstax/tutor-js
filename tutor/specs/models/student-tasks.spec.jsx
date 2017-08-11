@@ -3,25 +3,36 @@ import COURSE_1_DATA from '../../api/courses/1/dashboard.json';
 import COURSE_2_DATA from '../../api/courses/2/dashboard.json';
 import { keys, times } from 'lodash';
 import chronokinesis from 'chronokinesis';
+import moment from 'moment-timezone';
 
 jest.useFakeTimers();
 
 describe('Student Tasks Model', () => {
+  let mockedNow;
 
   beforeEach(() => {
-    chronokinesis.travel(new Date('2015-10-14T12:00:00.000Z'));
+    mockedNow = moment('2017-10-14T12:00:00.000Z');
+    moment.tz.setDefault('America/Chicago');
+    chronokinesis.travel(mockedNow);
+    jest.mock('../../src/flux/time', () => ({
+      TimeStore: {
+        getNow: jest.fn(() => mockedNow),
+      },
+    }));
+
     StudentTasks.forCourseId(1).onLoaded({ data: COURSE_1_DATA });
     StudentTasks.forCourseId(2).onLoaded({ data: COURSE_2_DATA });
   });
 
   afterEach(() => {
     StudentTasks.clear();
+    moment.tz.setDefault();
     chronokinesis.reset();
   });
 
   it('splits into weeks', () => {
     expect(keys(StudentTasks.forCourseId(1).byWeek)).toEqual([
-      '201515', '201516', '201517', '201519', '201521', '201618',
+      '201515', '201516', '201517', '201519', '201521', '201617',
     ]);
     expect(keys(StudentTasks.forCourseId(2).byWeek)).toEqual([
       '201515', '201516', '201517', '201519', '201521',
@@ -46,4 +57,10 @@ describe('Student Tasks Model', () => {
     expect(tasks._updatesPoller).toBeNull();
   });
 
+  it('#upcomingEvents', () => {
+    const tasks = StudentTasks.forCourseId(1);
+    const task = tasks.array[0];
+    task.due_at = mockedNow.add(1, 'week').toDate();
+    expect(tasks.upcomingEvents()).toEqual([task]);
+  });
 });

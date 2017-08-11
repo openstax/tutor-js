@@ -3,11 +3,13 @@ import Dashboard from '../../../src/components/student-dashboard/dashboard';
 import StudentTasks from '../../../src/models/student-tasks';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import chronokinesis from 'chronokinesis';
+import moment from 'moment-timezone';
 
 describe('Student Dashboard', () => {
   let props;
 
   beforeEach(() => {
+    moment.tz.setDefault('America/Chicago');
     chronokinesis.travel(new Date('2015-10-14T12:00:00.000Z'));
     bootstrapCoursesList();
     props = {
@@ -30,6 +32,7 @@ describe('Student Dashboard', () => {
 
   afterEach(() => {
     chronokinesis.reset();
+    moment.tz.setDefault();
   });
 
   it('matches snapshot', function() {
