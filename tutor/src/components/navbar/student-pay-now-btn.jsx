@@ -36,12 +36,17 @@ export default class StudentPayNowBtn extends React.PureComponent {
     this.isShowingModal = false;
   }
 
+  @action.bound
+  onCancel() {
+    this.isShowingModal = false;
+  }
+
   renderModal() {
     if (this.isShowingModal) {
       return (
         <PaymentsModal
           onPaymentComplete={this.onComplete}
-          onCancel={this.onComplete}
+          onCancel={this.onCancel}
           course={this.course}
         />
       );

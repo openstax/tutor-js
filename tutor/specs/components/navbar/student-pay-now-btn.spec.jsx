@@ -38,4 +38,16 @@ describe('Student get access button', function() {
     btn.instance().onComplete();
     expect(course.userStudentRecord.markPaid).toHaveBeenCalled();
   });
+
+  it('hides and does not mark as paid when complete', () => {
+    course.needsPayment = true;
+    course.userStudentRecord = { trialDaysRemaining: '1', markPaid: jest.fn() };
+    const btn = shallow(<GetAccess courseId='1' />);
+    btn.find('Button').simulate('click');
+    expect(btn).toHaveRendered('PaymentsModal');
+    btn.instance().onCancel();
+    expect(btn).not.toHaveRendered('PaymentsModal');
+    expect(course.userStudentRecord.markPaid).not.toHaveBeenCalled();
+  });
+
 });
