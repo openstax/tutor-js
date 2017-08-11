@@ -16,7 +16,8 @@ export default class CourseNumbers extends React.PureComponent {
 
   @action.bound
   updateStudentCount(ev) {
-    this.props.ux.newCourse.estimated_student_count = ev.target.value;
+    this.props.ux.newCourse.estimated_student_count = ev.target.max ?
+        Math.min(ev.target.value, ev.target.max) : ev.target.value;
   }
 
   @action.bound
@@ -59,6 +60,7 @@ export default class CourseNumbers extends React.PureComponent {
             <FormControl
               type="number"
               min="1"
+              max="999"
               value={newCourse.estimated_student_count || ''}
               onChange={this.updateStudentCount} />
           </InputGroup>
