@@ -37,9 +37,8 @@ export class CourseStudentTasks extends Map {
   }
 
   // Returns events who's due date has not passed
-  upcomingEvents(now) {
-    if (now == null) { now = TimeStore.getNow(); }
-    return sortBy(filter(this.array, 'isUpcoming'), 'due_at');
+  upcomingEvents(now = TimeStore.getNow()) {
+    return sortBy(filter(this.array, event => event.due_at > now), 'due_at');
   }
 
   @computed get isFetchingInitialUpdates() {

@@ -26,9 +26,10 @@ export default class StudentTask extends BaseModel {
   @computed get canWork() {
     //students cannot work or view a task if it has been deleted and they haven't started it
     return Boolean(
-      this.opens_at < TimeStore.getNow() &&
-           !this.is_deleted &&
-           this.complete_exercise_count === 0
+      this.opens_at < TimeStore.getNow() && !(
+        this.is_deleted &&
+        this.complete_exercise_count === 0
+      )
     );
   }
 

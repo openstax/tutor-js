@@ -28,12 +28,12 @@ describe('User Model', () => {
     Courses.forEach((c) => (c.is_preview = true));
     expect(User.tourAudienceTags).toEqual(['teacher-preview']);
     Courses.forEach((c) => {
-      c.is_concept_coach = true
-      c.is_preview = false
+      c.is_concept_coach = true;
+      c.is_preview = false;
     });
     expect(User.tourAudienceTags).toEqual(['teacher', 'teacher-coach-no-migration']);
     Courses.forEach((c) => {
-      c.appearance_code = 'intro_sociology'
+      c.appearance_code = 'intro_sociology';
     });
     expect(User.tourAudienceTags).toEqual(['teacher', 'teacher-coach-with-migration']);
     Courses.clear();
@@ -64,4 +64,13 @@ describe('User Model', () => {
     User.faculty_status = 'confirmed_faculty';
     expect(User.isProbablyTeacher).toBe(true);
   });
+
+  it('#logEvent', () => {
+    User.self_reported_role = 'student';
+    const ev = { category: 'test', code: 'test', data: {} };
+    expect(User.logEvent(ev)).toEqual('ABORT');
+    User.self_reported_role = 'teacher';
+    expect(User.logEvent(ev)).toEqual(ev);
+  });
+
 });

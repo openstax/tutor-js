@@ -138,7 +138,7 @@ export class User extends BaseModel {
 
   logEvent({ category, code, data }) {
     // students do not track events
-    if (!this.isConfirmedFaculty && this.self_reported_role === 'student') { return 'ABORT'; }
+    if (this.self_reported_role === 'student') { return 'ABORT'; }
     return { category, code, data };
   }
 
