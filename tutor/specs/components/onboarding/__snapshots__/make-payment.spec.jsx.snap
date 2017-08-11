@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`make payment modal renders and matches snapshot 1`] = `
+<div
+  className="onboarding-nag make-payment"
+>
+  <div
+    className="payments-panel"
+  >
+    <div
+      className="payments-wrapper"
+    />
+  </div>
+</div>
+`;

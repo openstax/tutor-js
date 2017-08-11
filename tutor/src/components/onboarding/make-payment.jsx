@@ -18,7 +18,7 @@ export default class MakePayment extends React.PureComponent {
 
     return (
       <OnboardingNag className="make-payment">
-        <PaymentsPanel onCancel={ux.payLater} onPaymentComplete={ux.onPaymentComplete} course={ux.course} />
+        <PaymentsPanel onCancel={ux.onPayLater} onPaymentComplete={ux.onPaymentComplete} course={ux.course} />
       </OnboardingNag>
     );
   }
