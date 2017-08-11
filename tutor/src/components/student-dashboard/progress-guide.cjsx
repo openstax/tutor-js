@@ -54,7 +54,7 @@ ProgressGuidePanels = React.createClass
 
   mixins: [ChapterSectionMixin]
   viewPerformanceForecast: ->
-    @context.router.transitionTo(
+    @context.router.history.push(
       Router.makePathname('viewPerformanceGuide', @props)
     )
 

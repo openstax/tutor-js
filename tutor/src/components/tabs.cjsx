@@ -2,6 +2,7 @@ React = require 'react'
 classnames = require 'classnames'
 _ = require 'underscore'
 Router = require '../helpers/router'
+qs = require 'qs'
 
 # Used to cancel router transitions the same way an onClick event is
 class FakeEvent
@@ -55,7 +56,7 @@ Tabs = React.createClass
     ev = new FakeEvent
     @props.onSelect(activeIndex, ev)
     if ev.isDefaultPrevented()
-      @context.router?.transitionTo(@context.router?.getCurrentPathname(), {},
+      @context.router?.history.push(@context.router?.getCurrentPathname(), {},
         {tab: @state.activeIndex})
     else
       @setState({activeIndex})
@@ -63,7 +64,10 @@ Tabs = React.createClass
   # callable from the parent component via a ref
   selectTabIndex: (activeIndex) ->
     query = _.extend(Router.currentQuery(@props.windowImpl), tab: activeIndex)
-    @context.router?.transitionTo(pathname: @props.windowImpl.location.pathname, query: query)
+    this.context.router?.history.push(
+      @props.windowImpl.location.pathname + "?" + qs.stringify(query)
+    )
+
     @setState({activeIndex})
 
   onTabClick: (activeIndex, ev) ->

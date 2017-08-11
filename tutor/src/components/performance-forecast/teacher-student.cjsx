@@ -36,7 +36,7 @@ module.exports = React.createClass
     {courseId} = @props
     PerformanceForecast.TeacherStudent.actions.load(courseId, {roleId})
     @setState({roleId})
-    @context.router.transitionTo(
+    @context.router.history.push(
       Router.makePathname('viewPerformanceGuide', {courseId, roleId})
     )
 

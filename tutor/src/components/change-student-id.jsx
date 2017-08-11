@@ -43,7 +43,7 @@ export default class ChangeStudentId extends React.PureComponent {
 
   @action.bound
   goToDashboard() {
-    this.context.router.transitionTo(Router.makePathname('dashboard', { courseId: this.courseId }));
+    this.context.router.history.push(Router.makePathname('dashboard', { courseId: this.courseId }));
   }
 
   @action.bound

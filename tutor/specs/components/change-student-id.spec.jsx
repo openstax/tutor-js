@@ -35,7 +35,7 @@ describe('Change Student ID', () => {
     const form = mount(<ChangeStudentId />, context);
     form.find('.btn.cancel').simulate('click');
     expect(Router.makePathname).toHaveBeenCalledWith('dashboard', params);
-    expect(context.context.router.transitionTo).to.have.been.calledWith('go-to-dash');
+    expect(context.context.router.history.push).toHaveBeenCalledWith('go-to-dash');
   });
 
   it('warns when invalid', () => {

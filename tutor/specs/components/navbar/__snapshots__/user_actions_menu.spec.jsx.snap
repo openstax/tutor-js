@@ -90,9 +90,8 @@ exports[`Student Navbar Component has user actions menu that matches snapshot 1`
     >
       <a
         className="view-reference-guide"
-        href="/"
+        href="/books/1"
         onClick={[Function]}
-        style={Object {}}
         tabIndex={0}
         target="_blank"
       >
@@ -312,9 +311,8 @@ exports[`Teacher Navbar Component has user actions menu that matches snapshot 1`
     >
       <a
         className="view-reference-guide"
-        href="/"
+        href="/books/1"
         onClick={[Function]}
-        style={Object {}}
         tabIndex={0}
         target="_blank"
       >

@@ -16,9 +16,8 @@ exports[`Task Teacher Review: Breadcrumbs renders and matches snapshot 1`] = `
   </span>
   <a
     className="btn btn-default"
-    href="/"
+    href="/bread"
     onClick={[Function]}
-    style={Object {}}
   >
     Back to Calendar
   </a>

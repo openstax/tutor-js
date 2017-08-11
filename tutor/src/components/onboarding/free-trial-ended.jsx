@@ -22,7 +22,7 @@ export default class FreeTrialEnded extends React.PureComponent {
 
   @action.bound
   goToMyCourses() {
-    this.context.router.transitionTo(TutorRouter.makePathname('myCourses'));
+    this.context.router.history.push(TutorRouter.makePathname('myCourses'));
   }
 
   render() {

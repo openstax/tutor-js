@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router';
+import { Redirect } from 'react-router-dom';
 import Router from '../helpers/router';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
@@ -24,7 +24,7 @@ export default class CourseEnroll extends React.PureComponent {
 
   @action.bound
   onCancel() {
-    this.context.router.transitionTo({ pathname: Router.makePathname('myCourses') });
+    this.context.router.history.push({ pathname: Router.makePathname('myCourses') });
   }
 
   @action.bound

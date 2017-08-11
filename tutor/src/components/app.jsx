@@ -12,7 +12,7 @@ import User from '../models/user';
 import { SpyMode } from 'shared';
 import { CourseStore } from '../flux/course';
 import { TransitionActions } from '../flux/transition';
-import { LocationSubscriber } from 'react-router/Broadcasts';
+
 import TourConductor from './tours/conductor';
 
 const RouteChange = function(props) {
@@ -66,9 +66,6 @@ class App extends React.PureComponent {
 
     return (
       <div className={classNames}>
-        <LocationSubscriber>
-          {RouteChange}
-        </LocationSubscriber>
         <SpyMode.Wrapper>
           <TourConductor>
             <Navbar {...this.props} />

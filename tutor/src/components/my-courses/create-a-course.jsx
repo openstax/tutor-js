@@ -25,7 +25,7 @@ export default class CreateACourse extends React.PureComponent {
 
   onDrop(course) {
     const url = Router.makePathname('createNewCourse', { sourceId: course.id });
-    this.context.router.transitionTo(url);
+    this.context.router.history.push(url);
   }
 
   renderAddZone() {

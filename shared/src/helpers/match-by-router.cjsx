@@ -2,10 +2,11 @@ React    = require 'react'
 defaults = require 'lodash/defaults'
 omit     = require 'lodash/omit'
 extend   = require 'lodash/extend'
-{Match, Miss}  = require 'react-router'
+{ Switch, Route }  = require 'react-router-dom'
 
-matchProps = (Router, props, parentParams) ->
-  extend({}, props, render: (renderedProps) ->
+matchProps = (Router, props, parent) ->
+  path = if parent.match then "#{parent.match.path}/#{props.path}" else props.path
+  extend({}, props, { path }, render: (renderedProps) ->
     componentProps = extend({}, omit(props, 'render', 'getParamsForPath'), renderedProps)
 
     # ideally this would just be checking against the relevant path based on
@@ -16,15 +17,16 @@ matchProps = (Router, props, parentParams) ->
     <props.render {...componentProps} params={params} />
   )
 
+
 matchByRouter = (Router, InvalidPage, displayName = 'RouterMatch') ->
   match = (props) ->
     return null unless props.routes
 
-    <span>
+    <Switch>
       {for route, i in props.routes
-        <Match key={i} {...matchProps(Router, route, props.params)} />}
-      <Miss component={InvalidPage} />
-    </span>
+        <Route key={i} {...matchProps(Router, route, props)} />}
+      <Route component={InvalidPage} />
+    </Switch>
   match.displayName = displayName
   match
 

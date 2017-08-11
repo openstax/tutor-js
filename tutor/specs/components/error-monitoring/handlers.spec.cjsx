@@ -45,7 +45,7 @@ describe 'Error monitoring: handlers', ->
     expect(wrapper.text()).to.include('not yet started')
     attrs.onOk()
     expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', {courseId: COURSE_ID})
-    expect(@args.context.router.transitionTo).to.have.been.calledWith('/go/to/dash')
+    expect(@args.context.router.history.push).toHaveBeenCalledWith('/go/to/dash')
     undefined
 
   it 'renders course ended message', ->
@@ -55,7 +55,7 @@ describe 'Error monitoring: handlers', ->
     expect(wrapper.text()).to.include('course ended')
     attrs.onOk()
     expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', {courseId: COURSE_ID})
-    expect(@args.context.router.transitionTo).to.have.been.calledWith('/go/to/dash')
+    expect(@args.context.router.history.push).toHaveBeenCalledWith('/go/to/dash')
     undefined
 
   it 'renders exercises not found', ->
@@ -65,5 +65,5 @@ describe 'Error monitoring: handlers', ->
     expect(wrapper.text()).to.include('no problems to show')
     attrs.onOk()
     expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', {courseId: COURSE_ID})
-    expect(@args.context.router.transitionTo).to.have.been.calledWith('/go/to/dash')
+    expect(@args.context.router.history.push).toHaveBeenCalledWith('/go/to/dash')
     undefined

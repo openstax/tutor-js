@@ -32,12 +32,12 @@ describe('Second Session Warning', () => {
     expect(ux.dismissNag).toHaveBeenCalled();
   });
 
-  it('navigates and logs on add', () => {
+  fit('navigates and logs on add', () => {
     const context =  EnzymeContext.build();
     const warning = shallow(<SecondSessionWarning ux={ux} />, context);
     warning.find('Button[bsStyle="primary"]').simulate('click');
     expect(User.logEvent).toHaveBeenCalledWith({ category: 'onboarding', code: 'like_preview_yes' });
-    expect(context.context.router.transitionTo).to.have.been.calledWith('/dashboard');
+    expect(context.context.router.history.push).toHaveBeenCalledWith('/dashboard');
   });
 
 });

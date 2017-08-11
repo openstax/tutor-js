@@ -34,10 +34,10 @@ exports[`Center Controls matches snapshot 1`] = `
         </strong>
       </span>
       <a
+        activeClassName=""
         className="milestones-toggle"
-        href="/"
+        href="/course/1/task/4/step/1/milestones"
         onClick={[Function]}
-        style={Object {}}
       >
         <i
           className="tutor-icon fa fa-th"

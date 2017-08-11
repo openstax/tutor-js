@@ -40,7 +40,7 @@ LoadPractice = React.createClass
     CoursePracticeStore.off("loaded.#{@props.courseId}", @onPracticeLoad)
 
   onPracticeLoad: (taskId) ->
-    @context.router.transitionTo(
+    @context.router.history.push(
       Router.makePathname('practiceTopics', {taskId, courseId: @props.courseId})
     )
 
