@@ -20,6 +20,7 @@
 }
 
 .ost-hero-background(@top: @tutor-navbar-height) {
+  top: @top;
   &::before {
     position: fixed;
     top: @top;
@@ -34,7 +35,7 @@
     background-position: center 20px, center;
   }
   .modal-dialog { // move modal down so the ox logo appears
-    transform: translateY(80px + @top);
+    transform: translateY(80px);
     margin: 0 auto; // override bootstrap 30px vertical margin
   }
 }
