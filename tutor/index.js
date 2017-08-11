@@ -21,6 +21,7 @@ import TEACHER_TASK_PLANS from './src/models/teacher-task-plans';
 import Chat from './src/models/chat';
 import { Logging, ReactHelpers } from 'shared';
 import PAYMENTS from './src/models/payments';
+import STUDENT_TASKS from './src/models/student-tasks';
 
 window._STORES = {
   SETTINGS: UiSettings,
@@ -29,7 +30,6 @@ window._STORES = {
   EXERCISE:             require('./src/flux/exercise'),
   PERFORMANCE_FORECAST: require('./src/flux/performance-forecast'),
   SCORES:               require('./src/flux/scores'),
-  STUDENT_DASHBOARD:    require('./src/flux/student-dashboard'),
   TASK_PLAN:            require('./src/flux/task-plan'),
   TASK_STEP:            require('./src/flux/task-step'),
   TASK:                 require('./src/flux/task'),
@@ -44,6 +44,7 @@ window._MODELS = {
   TEACHER_TASK_PLANS,
   OFFERINGS,
   PAYMENTS,
+  STUDENT_TASKS,
 };
 
 window._LOGGING = Logging;

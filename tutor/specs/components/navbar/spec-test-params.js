@@ -1,6 +1,5 @@
 import { extend, clone, invoke } from 'lodash';
 
-import { StudentDashboardActions, StudentDashboardStore } from '../../../src/flux/student-dashboard';
 import User from '../../../src/models/user';
 import Courses from '../../../src/models/courses-map';
 
@@ -106,7 +105,6 @@ const testParams = {
     dashboard: STUDENT_DASHBOARD_MODEL,
     dashroute: STUDENT_DASHROUTE,
     menu: STUDENT_MENU,
-    actions: StudentDashboardActions,
     dashpath: '/courses/1/list/',
   },
 
