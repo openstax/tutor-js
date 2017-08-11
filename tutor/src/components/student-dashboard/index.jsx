@@ -28,7 +28,9 @@ export default class StudentDashboardShell extends React.PureComponent {
   ux = onboardingForCourse(this.course, this.props.tourContext);
 
   componentWillMount() {
-    this.course.studentTasks.fetch();
+    if (!this.ux.paymentIsPastDue) {
+      this.course.studentTasks.fetch();
+    }
     this.ux.mount(); // ux will use this to start silencing tours while it's displaying payment nags
   }
 
