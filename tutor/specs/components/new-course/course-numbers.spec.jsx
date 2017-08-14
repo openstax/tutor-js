@@ -17,20 +17,23 @@ describe('CreateCourse: entering details', function() {
   it('sets field values', function() {
     ux.newCourse.cloned_from = courses.get(COURSE_ID);
     const wrapper = shallow(<CourseNumbers ux={ux} />);
-    expect(wrapper).toHaveRendered('.course-details-sections FormControl[type="number"][value=0]');
-    ux.newCourse.estimated_student_count = 4;
-    expect(wrapper).toHaveRendered('.course-details-numbers FormControl[type="number"][value=4]');
+    expect(wrapper).toHaveRendered('.course-details-sections FormControl[type="number"][defaultValue=0]');
   });
 
 
-  it('updates flux values when edited', function() {
+  it('updates values when edited', function() {
     const wrapper = mount(<CourseNumbers ux={ux} />);
     wrapper.find('.course-details-numbers .form-control')
            .simulate('change', { target: { value: 3 } });
     wrapper.find('.course-details-sections .form-control')
            .simulate('change', { target: { value: 12 } });
     expect(ux.newCourse.estimated_student_count).toEqual(3);
-    expect(ux.newCourse.num_sections).toEqual(12);
+    expect(ux.newCourse.num_sections).not.toEqual(12);
+    expect(SnapShot.create(<CourseNumbers ux={ux} />).toJSON()).toMatchSnapshot();
+    wrapper.find('.course-details-sections .form-control')
+           .simulate('change', { target: { value: 3 } });
+    expect(ux.newCourse.num_sections).toEqual(3);
+    expect(SnapShot.create(<CourseNumbers ux={ux} />).toJSON()).toMatchSnapshot();
   });
 
 

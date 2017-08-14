@@ -106,9 +106,6 @@ describe('Course Builder UX Model', () => {
     expect(ux.stage).toEqual('name'); // new_or_copy is skipped
     expect(ux.canGoForward).toBe(true);
     expect(ux.newCourse.name).toEqual(course.name);
-
-    expect(ux.newCourse.num_sections).toEqual(course.periods.length);
-
     expect(ux.canGoForward).toBe(true);
     ux.goForward();
     expect(ux.newCourse.num_sections).toEqual(course.periods.length);

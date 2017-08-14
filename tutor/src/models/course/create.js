@@ -32,17 +32,17 @@ export default class CourseCreate extends BaseModel {
   @readonly validations = {
     num_sections: {
       name: 'sections',
-      range: [ 1, 10 ], // range works as between, so 1-9 is valid
+      range: [ 1, 10 ],
     },
     estimated_student_count: {
       name: 'student count',
-      range: [ 1, 1501 ],
+      range: [ 1, 1500 ],
     },
   }
 
   @action setValue(attr, count) {
     const range = this.validations[attr].range;
-    if (range && inRange(count, ...range)) {
+    if (range && inRange(count, range[0], range[1]+1)) {
       this[attr] = count;
       this.errors.delete(attr);
     } else {
