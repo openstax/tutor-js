@@ -1,11 +1,13 @@
 import {
   BaseModel, identifiedBy, field, belongsTo, computed, session,
 } from '../base';
-import { observable } from 'mobx';
-import { extend, omit } from 'lodash';
+import { observable, action } from 'mobx';
+import { extend, omit, inRange } from 'lodash';
 import Offerings from './offerings';
 import Courses from '../courses-map';
 import Term from './offerings/term';
+
+const SECTIONS_RANGE = [ 1, 9 ];
 
 @identifiedBy('course/create')
 export default class CourseCreate extends BaseModel {
@@ -23,6 +25,24 @@ export default class CourseCreate extends BaseModel {
   @observable createdCourse;
 
   @belongsTo({ model: Term }) term;
+
+  @observable errors = observable.map();
+
+  constructor(attrs) {
+    super(attrs);
+  }
+
+  @action setNumSections(count) {
+    if (inRange(count, ...SECTIONS_RANGE)) {
+      this.num_sections = count;
+      this.errors.delete('sections');
+    } else {
+      this.errors.set(
+        'sections',
+        `Sections must be between ${SECTIONS_RANGE[0]} and ${SECTIONS_RANGE[1]}`
+      );
+    }
+  }
 
   @computed get offering() {
     return Offerings.get(this.offering_id);
