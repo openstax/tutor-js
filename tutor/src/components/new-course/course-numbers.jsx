@@ -1,8 +1,8 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
-
-import { Form, FormControl, FormGroup, InputGroup } from 'react-bootstrap';
+import { isEmpty } from 'lodash';
+import { Alert, Form, FormControl, FormGroup, InputGroup } from 'react-bootstrap';
 import BuilderUX from '../../models/course/builder-ux';
 import BestPracticesIcon from '../icons/best-practices';
 
@@ -15,13 +15,20 @@ export default class CourseNumbers extends React.PureComponent {
   }
 
   @action.bound
-  updateStudentCount(ev) {
-    this.props.ux.newCourse.estimated_student_count = ev.target.value;
+  updateStudentCount({ target: { value } }) {
+    this.props.ux.newCourse.setValue('estimated_student_count', value);
   }
 
   @action.bound
-  updateSectionCount(ev) {
-    this.props.ux.newCourse.num_sections = ev.target.max ? Math.min(ev.target.value, ev.target.max) : ev.target.value;
+  updateSectionCount({ target: { value } }) {
+    this.props.ux.newCourse.setValue('num_sections', value);
+  }
+
+  renderErrors() {
+    if (isEmpty(this.props.ux.newCourse.errorMessage)) {
+      return null;
+    }
+    return <Alert bsStyle="danger">{this.props.ux.newCourse.errorMessage}</Alert>;
   }
 
   render() {
@@ -43,9 +50,7 @@ export default class CourseNumbers extends React.PureComponent {
             </InputGroup.Addon>
             <FormControl
               type="number"
-              min="1"
-              max={ux.maximumSectionCount}
-              value={newCourse.num_sections}
+              defaultValue={this.props.ux.newCourse.num_sections}
               onChange={this.updateSectionCount} />
           </InputGroup>
         </FormGroup>
@@ -64,6 +69,7 @@ export default class CourseNumbers extends React.PureComponent {
           </InputGroup>
         </FormGroup>
 
+        {this.renderErrors()}
       </Form>
     );
   }
