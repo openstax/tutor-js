@@ -2,12 +2,13 @@ import {
   BaseModel, identifiedBy, field, belongsTo, computed, session,
 } from '../base';
 import { observable, action } from 'mobx';
+import { readonly } from 'core-decorators';
 import { extend, omit, inRange } from 'lodash';
 import Offerings from './offerings';
 import Courses from '../courses-map';
 import Term from './offerings/term';
+import S from '../../helpers/string';
 
-const SECTIONS_RANGE = [ 1, 9 ];
 
 @identifiedBy('course/create')
 export default class CourseCreate extends BaseModel {
@@ -28,20 +29,40 @@ export default class CourseCreate extends BaseModel {
 
   @observable errors = observable.map();
 
-  constructor(attrs) {
-    super(attrs);
+  @readonly validations = {
+    num_sections: {
+      name: 'sections',
+      range: [ 1, 10 ], // range works as between, so 1-9 is valid
+    },
+    estimated_student_count: {
+      name: 'student count',
+      range: [ 1, 1501 ],
+    },
   }
 
-  @action setNumSections(count) {
-    if (inRange(count, ...SECTIONS_RANGE)) {
-      this.num_sections = count;
-      this.errors.delete('sections');
+  @action setValue(attr, count) {
+    const range = this.validations[attr].range;
+    if (range && inRange(count, ...range)) {
+      this[attr] = count;
+      this.errors.delete(attr);
     } else {
       this.errors.set(
-        'sections',
-        `Sections must be between ${SECTIONS_RANGE[0]} and ${SECTIONS_RANGE[1]}`
+        attr,
+        `${this.validations[attr].name} must be between ${range[0]}-${range[1]}`,
       );
     }
+  }
+
+  @computed get hasError() {
+    return Boolean(this.errors.size);
+  }
+
+  @computed get errorMessage() {
+    const msgs = this.errors.values();
+    if (msgs.length) {
+      return S.capitalize(S.toSentence(msgs));
+    }
+    return '';
   }
 
   @computed get offering() {
