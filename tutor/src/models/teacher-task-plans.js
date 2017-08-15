@@ -1,15 +1,14 @@
-import { computed } from 'mobx';
-import { filter } from 'lodash';
-
+import { computed, observable } from 'mobx';
 import Map from './map';
 import TaskPlan from './teacher-task-plan';
-import moment from 'moment';
 import { TaskPlanStore } from '../flux/task-plan';
 
 let TaskPlans;
 
-TaskPlanStore.on('deleted', (planId) => {
-  TaskPlans.forEach((plans) => plans.delete(planId));
+const DELETED = observable.map();
+
+TaskPlanStore.on('deleting', (planId) => {
+  DELETED.set(planId, true);
 });
 
 class CourseTaskPlans extends Map {
@@ -30,7 +29,7 @@ class CourseTaskPlans extends Map {
   }
 
   @computed get active() {
-    return this.where(plan => plan.is_deleting !== true);
+    return this.where(plan => !DELETED.has(plan.id) && !plan.is_deleting);
   }
 
   @computed get isPublishing() {
@@ -70,6 +69,10 @@ class TeacherTaskPlans extends Map {
     );
   }
 
+  clear() {
+    super.clear();
+    DELETED.clear();
+  }
 
 }
 
