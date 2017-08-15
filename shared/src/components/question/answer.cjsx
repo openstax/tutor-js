@@ -145,7 +145,7 @@ Answer = React.createClass
         >
           <div
             className='answer-letter'
-            aria-labelledby={"Answer choice: #{ALPHABET[iter]}"}
+            aria-label={"Choice #{ALPHABET[iter]}:"}
           >
             {ALPHABET[iter]}
           </div>

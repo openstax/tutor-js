@@ -56,9 +56,9 @@ CardBody = React.createClass
           {footer}
         </PinnableFooter>
 
-    <div className={classes}>
+    <section className={classes} tabIndex="0" role="main">
       {children}
       {pinnableFooter}
-    </div>
+    </section>
 
 module.exports = {PinnedHeader, CardBody, PinnableFooter}
