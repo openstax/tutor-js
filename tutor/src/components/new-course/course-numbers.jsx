@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import { isEmpty } from 'lodash';
 import { Alert, Form, FormControl, FormGroup, InputGroup } from 'react-bootstrap';
+import UserMenu from '../../models/user/menu';
 import BuilderUX from '../../models/course/builder-ux';
 import BestPracticesIcon from '../icons/best-practices';
 
@@ -25,10 +26,16 @@ export default class CourseNumbers extends React.PureComponent {
   }
 
   renderErrors() {
-    if (isEmpty(this.props.ux.newCourse.errorMessage)) {
-      return null;
-    }
-    return <Alert bsStyle="danger">{this.props.ux.newCourse.errorMessage}</Alert>;
+    const { error } = this.props.ux.newCourse;
+    if (!error) { return null; }
+    return (
+      <Alert bsStyle="danger">
+        We do not recommend adding more than {error.value} {error.attribute} to one
+        course. If your course has more than {error.value} {error.attribute}, please
+        contact <a href={`mailto:${UserMenu.supportEmail}`}>{UserMenu.supportEmail}</a> for
+        assistance."
+      </Alert>
+    );
   }
 
   render() {

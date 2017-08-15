@@ -35,7 +35,7 @@ export default class CourseCreate extends BaseModel {
       range: [ 1, 10 ],
     },
     estimated_student_count: {
-      name: 'student count',
+      name: 'students',
       range: [ 1, 1500 ],
     },
   }
@@ -46,23 +46,12 @@ export default class CourseCreate extends BaseModel {
       this[attr] = count;
       this.errors.delete(attr);
     } else {
-      this.errors.set(
-        attr,
-        `${this.validations[attr].name} must be between ${range[0]}-${range[1]}`,
-      );
+      this.errors.set(attr, { attribute: this.validations[attr].name, value: range[1] });
     }
   }
 
-  @computed get hasError() {
-    return Boolean(this.errors.size);
-  }
-
-  @computed get errorMessage() {
-    const msgs = this.errors.values();
-    if (msgs.length) {
-      return S.capitalize(S.toSentence(msgs));
-    }
-    return '';
+  @computed get error() {
+    return this.errors.size ? this.errors.values()[0] : null;
   }
 
   @computed get offering() {
