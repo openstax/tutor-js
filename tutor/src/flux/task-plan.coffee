@@ -103,6 +103,9 @@ TaskPlanConfig =
 
   FAILED: -> # used by API
 
+  _delete: (id) ->
+    @emit('deleting', id)
+
   _deleted: (result, id, args...) ->
     @emit('deleted', id, result)
 
