@@ -163,25 +163,27 @@ export default class CenterControls extends React.PureComponent {
           <span className="center-control-assignment">
             {assignment}
           </span>
-          <span className="due-date fa-stack">
-            <Icon
-              className="due-date"
-              type="calendar-o"
-              onNavbar={true}
-              className="fa-stack-2x"
-              tooltipProps={{ placement: 'bottom' }}
-              tooltip={due} />
-            <strong className="fa-stack-1x calendar-text">
-              {date}
-            </strong>
-          </span>
-          <TutorLink
-            {...linkProps}
-            ref="milestonesToggle"
-            activeClassName=""
-            className={milestonesToggleClasses}>
-            <Icon type="th" />
-          </TutorLink>
+          <div className="icons">
+            <span className="due-date fa-stack">
+              <Icon
+                className="due-date"
+                type="calendar-o"
+                onNavbar={true}
+                className="fa-stack-2x"
+                tooltipProps={{ placement: 'bottom' }}
+                tooltip={due} />
+              <strong className="fa-stack-1x calendar-text">
+                {date}
+              </strong>
+            </span>
+            <TutorLink
+              {...linkProps}
+              ref="milestonesToggle"
+              activeClassName=""
+              className={milestonesToggleClasses}>
+              <Icon type="th" />
+            </TutorLink>
+          </div>
         </div>
       </div>
     );

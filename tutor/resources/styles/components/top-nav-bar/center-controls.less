@@ -6,6 +6,7 @@
   flex-wrap: wrap;
   pointer-events: auto;
   align-items: center;
+  justify-content: center;
   .fa-stack {
     .tutor-icon {
       // icon needs to be hoverable for tooltip
@@ -27,6 +28,12 @@
     font-size: 0.9em;
   }
 
+  icons {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+  }
   > * {
     margin: 0 0.5rem;
     @media screen and ( min-width: @screen-md-min ){
