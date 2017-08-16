@@ -57,6 +57,8 @@ startMathJax = ->
     tex2jax:
       displayMath: [[MATH_MARKER_BLOCK, MATH_MARKER_BLOCK]]
       inlineMath:  [[MATH_MARKER_INLINE, MATH_MARKER_INLINE]]
+     menuSettings:
+       inTabOrder: false
      AssistiveMML:
        disabled: false
        styles:
