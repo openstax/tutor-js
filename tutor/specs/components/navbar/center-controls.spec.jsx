@@ -2,6 +2,7 @@ import React from 'react';
 import CenterControls from '../../../src/components/navbar/center-controls';
 import { TaskActions, TaskStore } from '../../../src/flux/task';
 import EnzymeContext from '../helpers/enzyme-context';
+import { Wrapper, SnapShot } from '../helpers/component-testing';
 
 const TASK_ID = '4';
 
@@ -26,9 +27,11 @@ describe('Center Controls', function() {
     TaskActions.reset();
   });
 
-  it('renders with task title', () => {
-    const cntrl = mount(<CenterControls {...props} shouldShow={true} />, EnzymeContext.build());
-    expect(cntrl.find('.center-control-assignment').text()).toEqual(VALID_MODEL.title);
+
+  it('matches snapshot', () => {
+    expect(
+      SnapShot.create(<Wrapper {...props} shouldShow={true} _wrapped_component={CenterControls} />).toJSON()
+    ).toMatchSnapshot();
   });
 
   it('renders milestones link when not on milestones path', () => {

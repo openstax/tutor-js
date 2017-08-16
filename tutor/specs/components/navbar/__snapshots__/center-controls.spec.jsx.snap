@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Center Controls matches snapshot 1`] = `
+<div
+  className="navbar-overlay"
+>
+  <div
+    className="center-control"
+  >
+    <span
+      className="center-control-assignment"
+    >
+      Chapter 5 and Chapter 6 Reading
+    </span>
+    <div
+      className="icons"
+    >
+      <span
+        className="due-date fa-stack"
+      >
+        <button
+          aria-describedby="icon-tooltip-1"
+          className="tutor-icon fa fa-calendar-o fa-stack-2x"
+          onBlur={[Function]}
+          onClick={null}
+          onFocus={[Function]}
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}
+        />
+        <strong
+          className="fa-stack-1x calendar-text"
+        >
+          9
+        </strong>
+      </span>
+      <a
+        className="milestones-toggle"
+        href="/"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <i
+          className="tutor-icon fa fa-th"
+          type="th"
+        />
+      </a>
+    </div>
+  </div>
+</div>
+`;
