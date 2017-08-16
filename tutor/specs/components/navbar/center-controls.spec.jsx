@@ -1,4 +1,6 @@
 import React from 'react';
+import chronokinesis from 'chronokinesis';
+import moment from 'moment-timezone';
 import CenterControls from '../../../src/components/navbar/center-controls';
 import { TaskActions, TaskStore } from '../../../src/flux/task';
 import EnzymeContext from '../helpers/enzyme-context';
@@ -12,7 +14,9 @@ describe('Center Controls', function() {
   let props;
 
   beforeEach(() => {
+    moment.tz.setDefault('America/Chicago');
     TaskActions.loaded(VALID_MODEL, TASK_ID);
+    chronokinesis.travel(new Date('2017-08-16T21:29:21.411Z'));
     props = {
       shouldShow: false,
       params: {
@@ -25,6 +29,8 @@ describe('Center Controls', function() {
 
   afterEach(() => {
     TaskActions.reset();
+    chronokinesis.reset();
+    moment.tz.setDefault();
   });
 
 
