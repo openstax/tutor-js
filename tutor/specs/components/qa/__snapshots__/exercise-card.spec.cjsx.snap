@@ -52,7 +52,7 @@ exports[`QA Exercises Card matches snapshot 1`] = `
                 onKeyPress={[Function]}
               >
                 <div
-                  aria-labelledby="Answer choice: a"
+                  aria-label="Choice a:"
                   className="answer-letter"
                 >
                   a
@@ -97,7 +97,7 @@ exports[`QA Exercises Card matches snapshot 1`] = `
                 onKeyPress={[Function]}
               >
                 <div
-                  aria-labelledby="Answer choice: b"
+                  aria-label="Choice b:"
                   className="answer-letter"
                 >
                   b
@@ -142,7 +142,7 @@ exports[`QA Exercises Card matches snapshot 1`] = `
                 onKeyPress={[Function]}
               >
                 <div
-                  aria-labelledby="Answer choice: c"
+                  aria-label="Choice c:"
                   className="answer-letter"
                 >
                   c
@@ -187,7 +187,7 @@ exports[`QA Exercises Card matches snapshot 1`] = `
                 onKeyPress={[Function]}
               >
                 <div
-                  aria-labelledby="Answer choice: d"
+                  aria-label="Choice d:"
                   className="answer-letter"
                 >
                   d

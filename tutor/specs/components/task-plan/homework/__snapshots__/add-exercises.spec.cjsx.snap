@@ -227,7 +227,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             onKeyPress={[Function]}
                           >
                             <div
-                              aria-labelledby="Answer choice: a"
+                              aria-label="Choice a:"
                               className="answer-letter"
                             >
                               a
@@ -259,7 +259,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             onKeyPress={[Function]}
                           >
                             <div
-                              aria-labelledby="Answer choice: b"
+                              aria-label="Choice b:"
                               className="answer-letter"
                             >
                               b
@@ -291,7 +291,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             onKeyPress={[Function]}
                           >
                             <div
-                              aria-labelledby="Answer choice: c"
+                              aria-label="Choice c:"
                               className="answer-letter"
                             >
                               c
@@ -323,7 +323,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             onKeyPress={[Function]}
                           >
                             <div
-                              aria-labelledby="Answer choice: d"
+                              aria-label="Choice d:"
                               className="answer-letter"
                             >
                               d
@@ -432,7 +432,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             onKeyPress={[Function]}
                           >
                             <div
-                              aria-labelledby="Answer choice: a"
+                              aria-label="Choice a:"
                               className="answer-letter"
                             >
                               a
@@ -469,7 +469,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             onKeyPress={[Function]}
                           >
                             <div
-                              aria-labelledby="Answer choice: b"
+                              aria-label="Choice b:"
                               className="answer-letter"
                             >
                               b
@@ -506,7 +506,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             onKeyPress={[Function]}
                           >
                             <div
-                              aria-labelledby="Answer choice: c"
+                              aria-label="Choice c:"
                               className="answer-letter"
                             >
                               c
@@ -543,7 +543,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             onKeyPress={[Function]}
                           >
                             <div
-                              aria-labelledby="Answer choice: d"
+                              aria-label="Choice d:"
                               className="answer-letter"
                             >
                               d
@@ -657,7 +657,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             onKeyPress={[Function]}
                           >
                             <div
-                              aria-labelledby="Answer choice: a"
+                              aria-label="Choice a:"
                               className="answer-letter"
                             >
                               a
@@ -689,7 +689,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             onKeyPress={[Function]}
                           >
                             <div
-                              aria-labelledby="Answer choice: b"
+                              aria-label="Choice b:"
                               className="answer-letter"
                             >
                               b
@@ -721,7 +721,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             onKeyPress={[Function]}
                           >
                             <div
-                              aria-labelledby="Answer choice: c"
+                              aria-label="Choice c:"
                               className="answer-letter"
                             >
                               c
@@ -753,7 +753,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             onKeyPress={[Function]}
                           >
                             <div
-                              aria-labelledby="Answer choice: d"
+                              aria-label="Choice d:"
                               className="answer-letter"
                             >
                               d
@@ -862,7 +862,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             onKeyPress={[Function]}
                           >
                             <div
-                              aria-labelledby="Answer choice: a"
+                              aria-label="Choice a:"
                               className="answer-letter"
                             >
                               a
@@ -894,7 +894,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             onKeyPress={[Function]}
                           >
                             <div
-                              aria-labelledby="Answer choice: b"
+                              aria-label="Choice b:"
                               className="answer-letter"
                             >
                               b
@@ -926,7 +926,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             onKeyPress={[Function]}
                           >
                             <div
-                              aria-labelledby="Answer choice: c"
+                              aria-label="Choice c:"
                               className="answer-letter"
                             >
                               c
@@ -958,7 +958,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             onKeyPress={[Function]}
                           >
                             <div
-                              aria-labelledby="Answer choice: d"
+                              aria-label="Choice d:"
                               className="answer-letter"
                             >
                               d
@@ -1067,7 +1067,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             onKeyPress={[Function]}
                           >
                             <div
-                              aria-labelledby="Answer choice: a"
+                              aria-label="Choice a:"
                               className="answer-letter"
                             >
                               a
@@ -1099,7 +1099,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             onKeyPress={[Function]}
                           >
                             <div
-                              aria-labelledby="Answer choice: b"
+                              aria-label="Choice b:"
                               className="answer-letter"
                             >
                               b
@@ -1131,7 +1131,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             onKeyPress={[Function]}
                           >
                             <div
-                              aria-labelledby="Answer choice: c"
+                              aria-label="Choice c:"
                               className="answer-letter"
                             >
                               c
@@ -1163,7 +1163,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             onKeyPress={[Function]}
                           >
                             <div
-                              aria-labelledby="Answer choice: d"
+                              aria-label="Choice d:"
                               className="answer-letter"
                             >
                               d
