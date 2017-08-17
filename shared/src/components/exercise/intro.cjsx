@@ -35,7 +35,7 @@ ExerciseIntro =  React.createClass
         <span>{TITLES[stepGroup]}</span>
       </h1>
       {getIntroText[stepGroup](project)}
-      <BS.Button onClick={onContinue}>Continue</BS.Button>
+      <a className="btn continue" onClick={onContinue}>Continue</a>
     </CardBody>
 
 module.exports = ExerciseIntro
