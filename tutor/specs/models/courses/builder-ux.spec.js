@@ -19,13 +19,13 @@ describe('Course Builder UX Model', () => {
 
 
   function advanceToSave() {
-    ux.goForward();
     expect(ux.stage).toEqual('numbers');
+    ux.newCourse.setValue('num_sections', 11);
+    ux.newCourse.setValue('estimated_student_count', 110);
+    expect(ux.newCourse.error).toMatchObject({ attribute: 'sections', value: 10 });
     expect(ux.canGoForward).toBe(false);
-    extend(ux.newCourse, {
-      num_sections: 3,
-      estimated_student_count: 100,
-    });
+    ux.newCourse.setValue('num_sections', 9);
+    expect(ux.newCourse.error).toBeNull();
     expect(ux.canGoForward).toBe(true);
 
     ux.newCourse.save = jest.fn(() => Promise.resolve());
@@ -89,9 +89,8 @@ describe('Course Builder UX Model', () => {
     ux.goForward();
     expect(ux.stage).toEqual('name');
     expect(ux.newCourse.name).toEqual(course.name);
-
+    ux.goForward();
     expect(ux.newCourse.num_sections).toEqual(course.periods.length);
-    expect(ux.canGoForward).toBe(true);
     advanceToSave();
   });
 
@@ -107,11 +106,11 @@ describe('Course Builder UX Model', () => {
     expect(ux.stage).toEqual('name'); // new_or_copy is skipped
     expect(ux.canGoForward).toBe(true);
     expect(ux.newCourse.name).toEqual(course.name);
-    expect(ux.newCourse.num_sections).toEqual(course.periods.length);
     expect(ux.canGoForward).toBe(true);
+    ux.goForward();
+    expect(ux.newCourse.num_sections).toEqual(course.periods.length);
     advanceToSave();
   });
-
 
   it('goes to dashboard after canceling', () => {
     ux.router = { transitionTo: jest.fn() };

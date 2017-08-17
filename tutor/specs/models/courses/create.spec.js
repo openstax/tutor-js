@@ -9,11 +9,11 @@ jest.mock('../../../src/models/course/offerings', () => ({
 }));
 
 describe('Course Builder UX Model', () => {
-  let creater;
+  let creator;
 
   beforeEach(() => {
 
-    creater = new CourseCreate({
+    creator = new CourseCreate({
       name: 'TEST COURSE FOR TESTING',
       estimated_student_count: 100,
       offering_id: 1,
@@ -23,19 +23,29 @@ describe('Course Builder UX Model', () => {
   });
 
   it('creates a course', () => {
-    expect(creater.cloned_from_id).toBe(false);
-    const saved = creater.save();
+    expect(creator.cloned_from_id).toBe(false);
+    const saved = creator.save();
     expect(saved.url).toEqual('/courses');
     expect(saved.data).toMatchSnapshot();
   });
 
   it('clones a course', () => {
     const course = bootstrapCoursesList().get('2');
-    creater.cloned_from = course;
-    expect(creater.cloned_from_id).toBe(course.id);
-    const saved = creater.save();
+    creator.cloned_from = course;
+    expect(creator.cloned_from_id).toBe(course.id);
+    const saved = creator.save();
     expect(saved.url).toEqual('/courses/2/clone');
     expect(saved.data).toMatchSnapshot();
+  });
+
+  it('validates ranges', () => {
+    expect(creator.error).toBeNull();
+    creator.setValue('estimated_student_count', 2000);
+    expect(creator.error).toEqual({ attribute: 'students', value: 1500 });
+    creator.setValue('estimated_student_count', 20);
+    expect(creator.error).toBeNull();
+    creator.setValue('num_sections', 20);
+    expect(creator.error).toEqual({ attribute: 'sections', value: 10 });
   });
 
 });

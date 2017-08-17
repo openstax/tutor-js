@@ -1,8 +1,9 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
-
-import { Form, FormControl, FormGroup, InputGroup } from 'react-bootstrap';
+import { isEmpty } from 'lodash';
+import { Alert, Form, FormControl, FormGroup, InputGroup } from 'react-bootstrap';
+import UserMenu from '../../models/user/menu';
 import BuilderUX from '../../models/course/builder-ux';
 import BestPracticesIcon from '../icons/best-practices';
 
@@ -15,17 +16,29 @@ export default class CourseNumbers extends React.PureComponent {
   }
 
   @action.bound
-  updateStudentCount(ev) {
-    this.props.ux.newCourse.estimated_student_count = ev.target.value;
+  updateStudentCount({ target: { value } }) {
+    this.props.ux.newCourse.setValue('estimated_student_count', value);
   }
 
   @action.bound
-  updateSectionCount(ev) {
-    this.props.ux.newCourse.num_sections = ev.target.max ? Math.min(ev.target.value, ev.target.max) : ev.target.value;
+  updateSectionCount({ target: { value } }) {
+    this.props.ux.newCourse.setValue('num_sections', value);
+  }
+
+  renderErrors() {
+    const { error } = this.props.ux.newCourse;
+    if (!error) { return null; }
+    return (
+      <Alert bsStyle="danger">
+        More than {error.value} {error.attribute} is not supported. Need
+        more? <a href={`mailto:${UserMenu.supportEmail}`}>Contact
+        Support</a> for help.
+      </Alert>
+    );
   }
 
   render() {
-    const { ux, ux: { newCourse } } = this.props;
+    const { ux: { newCourse } } = this.props;
 
     return (
       <Form>
@@ -44,8 +57,7 @@ export default class CourseNumbers extends React.PureComponent {
             <FormControl
               type="number"
               min="1"
-              max={ux.maximumSectionCount}
-              value={newCourse.num_sections}
+              defaultValue={newCourse.num_sections}
               onChange={this.updateSectionCount} />
           </InputGroup>
         </FormGroup>
@@ -64,6 +76,7 @@ export default class CourseNumbers extends React.PureComponent {
           </InputGroup>
         </FormGroup>
 
+        {this.renderErrors()}
       </Form>
     );
   }

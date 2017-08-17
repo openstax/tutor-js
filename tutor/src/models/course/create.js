@@ -1,11 +1,14 @@
 import {
   BaseModel, identifiedBy, field, belongsTo, computed, session,
 } from '../base';
-import { observable } from 'mobx';
-import { extend, omit } from 'lodash';
+import { observable, action } from 'mobx';
+import { readonly } from 'core-decorators';
+import { extend, omit, inRange } from 'lodash';
 import Offerings from './offerings';
 import Courses from '../courses-map';
 import Term from './offerings/term';
+import S from '../../helpers/string';
+
 
 @identifiedBy('course/create')
 export default class CourseCreate extends BaseModel {
@@ -23,6 +26,33 @@ export default class CourseCreate extends BaseModel {
   @observable createdCourse;
 
   @belongsTo({ model: Term }) term;
+
+  @observable errors = observable.map();
+
+  @readonly validations = {
+    num_sections: {
+      name: 'sections',
+      range: [ 1, 10 ],
+    },
+    estimated_student_count: {
+      name: 'students',
+      range: [ 1, 1500 ],
+    },
+  }
+
+  @action setValue(attr, count) {
+    const range = this.validations[attr].range;
+    if (range && inRange(count, range[0], range[1]+1)) {
+      this[attr] = count;
+      this.errors.delete(attr);
+    } else {
+      this.errors.set(attr, { attribute: this.validations[attr].name, value: range[1] });
+    }
+  }
+
+  @computed get error() {
+    return this.errors.size ? this.errors.values()[0] : null;
+  }
 
   @computed get offering() {
     return Offerings.get(this.offering_id);
