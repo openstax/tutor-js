@@ -127,6 +127,7 @@ CrudConfig = ->
 
     delete: (id) ->
       @_asyncStatus[id] = DELETING
+      @_delete?(id)
 
     deleted: (result, id, args...) ->
       @_asyncStatus[id] = DELETED
