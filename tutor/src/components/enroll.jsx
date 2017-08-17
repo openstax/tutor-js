@@ -6,6 +6,7 @@ import { action } from 'mobx';
 import { Modal, Button, Alert } from 'react-bootstrap';
 import Enroll from '../models/course/enroll';
 import Activity from './ox-fancy-loader';
+import UserMenu from '../models/user/menu'
 
 @observer
 export default class CourseEnroll extends React.PureComponent {
@@ -22,6 +23,11 @@ export default class CourseEnroll extends React.PureComponent {
   }
 
   @action.bound
+  onCancel() {
+    this.context.router.transitionTo({ pathname: Router.makePathname('myCourses') });
+  }
+
+  @action.bound
   onSubmit() {
     this.enrollment.student_identifier = this.input.value;
     this.enrollment.confirm();
@@ -29,11 +35,11 @@ export default class CourseEnroll extends React.PureComponent {
 
   renderForm(enrollment) {
     return (
-      <div>
+      <div className="enroll-form">
         <Modal.Body>
           <div className="title">
             <p className="joining">You are joining</p>
-            <h3>{enrollment.courseDescription}</h3>
+            <h3>{enrollment.courseName}</h3>
           </div>
 
           <div className="sub-title">Enter your school-issued student ID number *</div>
@@ -65,12 +71,39 @@ export default class CourseEnroll extends React.PureComponent {
     );
   }
 
+  renderTeacher() {
+    return (
+      <div className="is-teacher">
+        <Modal.Body>
+          <h3>Sorry, but that is not permitted.</h3>
+          <p>
+            It looks like you’re trying to enroll in {this.enrollment.courseName} using your instructor account.
+          </p>
+          <p>
+            Sorry, but that is not permitted.
+          </p>
+          <p>
+            Contact <a href="mailto:{UserMenu.supportEmail}">Support</a> if you need help.
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button bsStyle="primary" className="cancel" onClick={this.onCancel}>
+            Continue to my courses
+          </Button>
+        </Modal.Footer>
+      </div>
+    );
+  }
+
+
   render() {
     const { enrollment } = this;
     let body;
 
     if (enrollment.isLoading) {
       body = <Activity isLoading={true} />;
+    } else if (enrollment.isTeacher) {
+      body = this.renderTeacher();
     } else if (enrollment.isInvalid) {
       body = this.renderInvalid();
     } else if (enrollment.isComplete) {

@@ -1,5 +1,67 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Student Enrollment blocks teavher enrollment 1`] = `
+<div
+  className="course-enroll modal"
+  role="dialog"
+  style={
+    Object {
+      "display": "block",
+    }
+  }
+  tabIndex="-1"
+>
+  <div
+    className="modal-dialog"
+  >
+    <div
+      className="modal-content"
+      role="document"
+    >
+      <div
+        className="is-teacher"
+      >
+        <div
+          className="modal-body"
+        >
+          <h3>
+            Sorry, but that is not permitted.
+          </h3>
+          <p>
+            It looks like you’re trying to enroll in 
+             using your instructor account.
+          </p>
+          <p>
+            Sorry, but that is not permitted.
+          </p>
+          <p>
+            Contact 
+            <a
+              href="mailto:{UserMenu.supportEmail}"
+            >
+              Support
+            </a>
+             if you need help.
+          </p>
+        </div>
+        <div
+          className="modal-footer"
+        >
+          <button
+            className="cancel btn btn-primary"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            Continue to my courses
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Student Enrollment renders and matches snapshot 1`] = `
 <div
   className="course-enroll modal"
@@ -18,7 +80,9 @@ exports[`Student Enrollment renders and matches snapshot 1`] = `
       className="modal-content"
       role="document"
     >
-      <div>
+      <div
+        className="enroll-form"
+      >
         <div
           className="modal-body"
         >

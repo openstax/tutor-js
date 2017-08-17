@@ -40,7 +40,7 @@ export class BaseModel {
     const errors = get(error, 'response.data.errors');
     if (errors) {
       this.apiErrors = {};
-      errors.forEach(e => this.apiErrors[e.code] = e.message);
+      errors.forEach(e => this.apiErrors[e.code] = e);
       error.isRecorded = true;
     } else {
       this.apiErrors = null;

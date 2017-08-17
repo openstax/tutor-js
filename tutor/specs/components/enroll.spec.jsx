@@ -15,7 +15,7 @@ describe('Student Enrollment', () => {
     params = { courseId: '1' };
     context = EnzymeContext.build();
     Router.currentParams.mockReturnValue(params);
-    Router.makePathname = jest.fn((name, params) => name);
+    Router.makePathname = jest.fn((name) => name);
   });
 
   it('loads when mounted', () => {
@@ -52,4 +52,15 @@ describe('Student Enrollment', () => {
     const enroll = shallow(<Enroll />, context);
     expect(enroll).toHaveRendered('Redirect[to="myCourses"]');
   });
+
+  it('blocks teavher enrollment', () => {
+    EnrollModel.prototype.isTeacher = true;
+    expect(SnapShot.create(<Enroll />).toJSON()).toMatchSnapshot();
+    const enroll = shallow(<Enroll />, context);
+    Router.makePathname = jest.fn(() => '/courses');
+    enroll.find('Button').simulate('click');
+    expect(Router.makePathname).toHaveBeenCalledWith('myCourses');
+    expect(context.context.router.transitionTo).to.have.been.calledWith({ pathname: '/courses' });
+  });
+
 });

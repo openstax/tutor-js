@@ -28,7 +28,10 @@ export default class CourseEnrollment extends BaseModel {
     );
   }
 
-  @computed get courseDescription() {
+  @computed get courseName() {
+    if (this.isTeacher) {
+      return get(this.apiErrors, 'is_teacher.data.course_name', '');
+    }
     return get(this, 'to.course.name', '');
   }
 
@@ -42,6 +45,10 @@ export default class CourseEnrollment extends BaseModel {
 
   @computed get isInvalid() {
     return Boolean(this.apiErrors && this.apiErrors.invalid_enrollment_code);
+  }
+
+  @computed get isTeacher() {
+    return Boolean(get(this.apiErrors, 'is_teacher'));
   }
 
   @computed get isRegistered() {
