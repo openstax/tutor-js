@@ -39,16 +39,13 @@ describe('Course Builder UX Model', () => {
   });
 
   it('validates ranges', () => {
-    expect(creator.hasError).toBe(false);
+    expect(creator.error).toBeNull();
     creator.setValue('estimated_student_count', 2000);
-    expect(creator.hasError).toBe(true);
-    expect(creator.errorMessage).toContain('must be between 1-1500');
+    expect(creator.error).toEqual({ attribute: 'students', value: 1500 });
     creator.setValue('estimated_student_count', 20);
-    expect(creator.hasError).toBe(false);
-    expect(creator.errorMessage).toEqual('');
+    expect(creator.error).toBeNull();
     creator.setValue('num_sections', 20);
-    expect(creator.hasError).toBe(true);
-    expect(creator.errorMessage).toContain('must be between 1-9');
+    expect(creator.error).toEqual({ attribute: 'sections', value: 10 });
   });
 
 });

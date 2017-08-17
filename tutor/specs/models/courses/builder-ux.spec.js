@@ -22,10 +22,10 @@ describe('Course Builder UX Model', () => {
     expect(ux.stage).toEqual('numbers');
     ux.newCourse.setValue('num_sections', 11);
     ux.newCourse.setValue('estimated_student_count', 110);
-    expect(ux.newCourse.hasError).toBe(true);
+    expect(ux.newCourse.error).toMatchObject({ attribute: 'sections', value: 10 });
     expect(ux.canGoForward).toBe(false);
     ux.newCourse.setValue('num_sections', 9);
-    expect(ux.newCourse.hasError).toBe(false);
+    expect(ux.newCourse.error).toBeNull();
     expect(ux.canGoForward).toBe(true);
 
     ux.newCourse.save = jest.fn(() => Promise.resolve());
