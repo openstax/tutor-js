@@ -53,7 +53,7 @@ describe('Student Enrollment', () => {
     expect(enroll).toHaveRendered('Redirect[to="myCourses"]');
   });
 
-  it('blocks teavher enrollment', () => {
+  it('blocks teacher enrollment', () => {
     EnrollModel.prototype.isTeacher = true;
     expect(SnapShot.create(<Enroll />).toJSON()).toMatchSnapshot();
     const enroll = shallow(<Enroll />, context);

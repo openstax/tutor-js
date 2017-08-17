@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Student Enrollment blocks teavher enrollment 1`] = `
+exports[`Student Enrollment blocks teacher enrollment 1`] = `
 <div
   className="course-enroll modal"
   role="dialog"
@@ -32,9 +32,6 @@ exports[`Student Enrollment blocks teavher enrollment 1`] = `
              using your instructor account.
           </p>
           <p>
-            Sorry, but that is not permitted.
-          </p>
-          <p>
             Contact 
             <a
               href="mailto:{UserMenu.supportEmail}"
@@ -53,7 +50,7 @@ exports[`Student Enrollment blocks teavher enrollment 1`] = `
             onClick={[Function]}
             type="button"
           >
-            Continue to my courses
+            Continue to My courses
           </button>
         </div>
       </div>
