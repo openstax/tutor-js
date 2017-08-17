@@ -21,9 +21,11 @@ describe('Course Enrollment', function() {
     expect(enroll.isPending).toBe(false);
   });
 
-  it('#courseDescription', () => {
+  it('#courseName', () => {
     enroll.to = { course: { name: 'test course' } };
-    expect(enroll.courseDescription).toEqual('test course');
+    expect(enroll.courseName).toEqual('test course');
+    enroll.apiErrors = { is_teacher: { data: { course_name: 'TEST COURSE' } } };
+    expect(enroll.courseName).toEqual('TEST COURSE');
   });
 
   it('#isInvalid', () => {
