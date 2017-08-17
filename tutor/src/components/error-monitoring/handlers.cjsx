@@ -78,6 +78,22 @@ ERROR_HANDLERS =
       <BS.Button key='ok' onClick={-> Dialog.hide()} bsStyle='primary'>OK</BS.Button>
     ]
 
+  # No exercises were generated because BL was not available
+  biglearn_not_ready: (error, message, context) ->
+    navigateAction = partial(goToDashboard, context, getCurrentCourse().id)
+    title: 'No exercises are available'
+    body:
+      <div className="no-exercises">
+        <p className="lead">
+          There are no practice questions available at this time. Please try again later.
+          </p>
+      </div>
+    buttons: [
+      <BS.Button key='ok' onClick={navigateAction} bsStyle='primary'>OK</BS.Button>
+    ]
+    onOk: navigateAction
+    onCancel: navigateAction
+
   # No exercises were found, usually for personalized practice
   no_exercises: (error, message, context) ->
     navigateAction = partial(goToDashboard, context, getCurrentCourse().id)
