@@ -2,10 +2,11 @@
 .center-control {
   font-size: 1.8rem;
   font-weight: bold;
-  z-index: 1;
-  box-shadow: 0 0 5px 10px @tutor-white;
+  display: flex;
+  flex-wrap: wrap;
   pointer-events: auto;
-
+  align-items: center;
+  justify-content: center;
   .fa-stack {
     .tutor-icon {
       // icon needs to be hoverable for tooltip
@@ -27,10 +28,21 @@
     font-size: 0.9em;
   }
 
-  > * {
-    margin: 0 1rem;
+  icons {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
   }
-
+  > * {
+    margin: 0 0.5rem;
+    @media screen and ( min-width: @screen-md-min ){
+      margin: 0 1rem;
+    }
+  }
+  .due-date, .milestones-toggle {
+    height: 32px; // match heights so they align
+  }
   .milestones-toggle {
     padding: 0;
 
