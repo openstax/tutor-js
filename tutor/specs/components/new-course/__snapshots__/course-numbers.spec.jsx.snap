@@ -129,7 +129,17 @@ exports[`CreateCourse: entering details updates values when edited 1`] = `
     className="alert alert-danger"
     role="alert"
   >
-    Sections must be between 1-9
+    More than 
+    10
+     
+    sections
+     is not supported. Need more? 
+    <a
+      href="mailto:support@openstaxtutor.org"
+    >
+      Contact Support
+    </a>
+     for help.
   </div>
 </form>
 `;

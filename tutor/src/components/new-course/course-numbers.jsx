@@ -30,16 +30,15 @@ export default class CourseNumbers extends React.PureComponent {
     if (!error) { return null; }
     return (
       <Alert bsStyle="danger">
-        We do not recommend adding more than {error.value} {error.attribute} to one
-        course. If your course has more than {error.value} {error.attribute}, please
-        contact <a href={`mailto:${UserMenu.supportEmail}`}>{UserMenu.supportEmail}</a> for
-        assistance."
+        More than {error.value} {error.attribute} is not supported. Need
+        more? <a href={`mailto:${UserMenu.supportEmail}`}>Contact
+        Support</a> for help.
       </Alert>
     );
   }
 
   render() {
-    const { ux, ux: { newCourse } } = this.props;
+    const { ux: { newCourse } } = this.props;
 
     return (
       <Form>
@@ -57,7 +56,7 @@ export default class CourseNumbers extends React.PureComponent {
             </InputGroup.Addon>
             <FormControl
               type="number"
-              defaultValue={this.props.ux.newCourse.num_sections}
+              defaultValue={newCourse.num_sections}
               onChange={this.updateSectionCount} />
           </InputGroup>
         </FormGroup>
