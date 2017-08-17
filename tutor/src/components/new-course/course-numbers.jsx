@@ -56,6 +56,7 @@ export default class CourseNumbers extends React.PureComponent {
             </InputGroup.Addon>
             <FormControl
               type="number"
+              min="1"
               defaultValue={newCourse.num_sections}
               onChange={this.updateSectionCount} />
           </InputGroup>

@@ -30,6 +30,7 @@ exports[`CreateCourse: entering details matches snapshot 1`] = `
         className="form-control"
         defaultValue={1}
         id={undefined}
+        min="1"
         onChange={[Function]}
         type="number"
       />
@@ -94,6 +95,7 @@ exports[`CreateCourse: entering details updates values when edited 1`] = `
         className="form-control"
         defaultValue={1}
         id={undefined}
+        min="1"
         onChange={[Function]}
         type="number"
       />
@@ -174,6 +176,7 @@ exports[`CreateCourse: entering details updates values when edited 2`] = `
         className="form-control"
         defaultValue={3}
         id={undefined}
+        min="1"
         onChange={[Function]}
         type="number"
       />
