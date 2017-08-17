@@ -53,12 +53,24 @@ typesetMath = (root, windowImpl = window) ->
 startMathJax = ->
   MATHJAX_CONFIG =
     showProcessingMessages: false
+    extensions: ["AssistiveMML.js"]
     tex2jax:
       displayMath: [[MATH_MARKER_BLOCK, MATH_MARKER_BLOCK]]
       inlineMath:  [[MATH_MARKER_INLINE, MATH_MARKER_INLINE]]
-    styles:
-      '#MathJax_Message':    visibility: 'hidden', left: '', right: 0
-      '#MathJax_MSIE_Frame': visibility: 'hidden', left: '', right: 0
+     menuSettings:
+       inTabOrder: false
+     AssistiveMML:
+       disabled: false
+       styles:
+         ".MJX_Assistive_MathML":
+           position:"absolute!important",
+           clip: "rect(1px, 1px, 1px, 1px)",
+           padding: "1px 0 0 0!important",
+           border: "0!important",
+           height: "1px!important",
+           width: "1px!important",
+           overflow: "hidden!important",
+           display:"block!important"
 
   configuredCallback = ->
     window.MathJax.Hub.Configured()
