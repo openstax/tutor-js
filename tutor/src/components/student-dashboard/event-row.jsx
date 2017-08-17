@@ -103,7 +103,7 @@ export default class EventRow extends React.PureComponent {
       <a
         className={classes}
         href={Router.makePathname('viewTask', { courseId, id: event.id })}
-        aria-labelledby={`Work on ${this.props.eventType}: ${this.props.event.title}`}
+        aria-label={`Work on ${this.props.eventType}: ${this.props.event.title}`}
         tabIndex={this.isWorkable ? 0 : -1}
         onClick={this.onClick}
         onKeyDown={this.isWorkable ? this.onKey : undefined}

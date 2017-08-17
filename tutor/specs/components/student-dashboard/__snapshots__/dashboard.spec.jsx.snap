@@ -119,7 +119,7 @@ exports[`Student Dashboard matches snapshot 1`] = `
                 </div>
               </div>
               <a
-                aria-labelledby="Work on reading: Read Chapter 1"
+                aria-label="Work on reading: Read Chapter 1"
                 className="task row reading workable"
                 data-event-id="118"
                 href="/course/1/task/118"

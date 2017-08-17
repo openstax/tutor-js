@@ -40,7 +40,7 @@ exports[`EventsPanel renders with events 1`] = `
       </div>
     </div>
     <a
-      aria-labelledby="Work on homework: Chapter 6 Homework Before Due, no feedback"
+      aria-label="Work on homework: Chapter 6 Homework Before Due, no feedback"
       className="task row homework"
       data-event-id="6"
       href="/course/1/task/6"
@@ -86,7 +86,7 @@ exports[`EventsPanel renders with events 1`] = `
       </div>
     </a>
     <a
-      aria-labelledby="Work on reading: Chapter 5 and Chapter 6 Reading"
+      aria-label="Work on reading: Chapter 5 and Chapter 6 Reading"
       className="task row reading"
       data-event-id="4"
       href="/course/1/task/4"
@@ -123,7 +123,7 @@ exports[`EventsPanel renders with events 1`] = `
       </div>
     </a>
     <a
-      aria-labelledby="Work on reading: Chapter 10 and Chapter 11 Reading, multi-part"
+      aria-label="Work on reading: Chapter 10 and Chapter 11 Reading, multi-part"
       className="task row reading"
       data-event-id="9"
       href="/course/1/task/9"
@@ -160,7 +160,7 @@ exports[`EventsPanel renders with events 1`] = `
       </div>
     </a>
     <a
-      aria-labelledby="Work on reading: iReading 1: Force"
+      aria-label="Work on reading: iReading 1: Force"
       className="task row reading"
       data-event-id="3"
       href="/course/1/task/3"
@@ -197,7 +197,7 @@ exports[`EventsPanel renders with events 1`] = `
       </div>
     </a>
     <a
-      aria-labelledby="Work on reading: iReading 2: Newton's First Law of Motion: Inertia"
+      aria-label="Work on reading: iReading 2: Newton's First Law of Motion: Inertia"
       className="task row reading"
       data-event-id="5"
       href="/course/1/task/5"
@@ -234,7 +234,7 @@ exports[`EventsPanel renders with events 1`] = `
       </div>
     </a>
     <a
-      aria-labelledby="Work on reading: iReading 3: Newton's Second Law of Motion:"
+      aria-label="Work on reading: iReading 3: Newton's Second Law of Motion:"
       className="task row reading"
       data-event-id="7"
       href="/course/1/task/7"
@@ -271,7 +271,7 @@ exports[`EventsPanel renders with events 1`] = `
       </div>
     </a>
     <a
-      aria-labelledby="Work on reading: iReading 4: Newton's Third Law of Motion"
+      aria-label="Work on reading: iReading 4: Newton's Third Law of Motion"
       className="task row reading"
       data-event-id="10"
       href="/course/1/task/10"
@@ -308,7 +308,7 @@ exports[`EventsPanel renders with events 1`] = `
       </div>
     </a>
     <a
-      aria-labelledby="Work on homework: Homework #1"
+      aria-label="Work on homework: Homework #1"
       className="task row homework"
       data-event-id="11"
       href="/course/1/task/11"
@@ -345,7 +345,7 @@ exports[`EventsPanel renders with events 1`] = `
       </div>
     </a>
     <a
-      aria-labelledby="Work on homework: Homework #2"
+      aria-label="Work on homework: Homework #2"
       className="task row homework"
       data-event-id="13"
       href="/course/1/task/13"
@@ -382,7 +382,7 @@ exports[`EventsPanel renders with events 1`] = `
       </div>
     </a>
     <a
-      aria-labelledby="Work on homework: Homework #3"
+      aria-label="Work on homework: Homework #3"
       className="task row homework"
       data-event-id="15"
       href="/course/1/task/15"
@@ -419,7 +419,7 @@ exports[`EventsPanel renders with events 1`] = `
       </div>
     </a>
     <a
-      aria-labelledby="Work on homework: Homework #4 (final)"
+      aria-label="Work on homework: Homework #4 (final)"
       className="task row homework"
       data-event-id="17"
       href="/course/1/task/17"
