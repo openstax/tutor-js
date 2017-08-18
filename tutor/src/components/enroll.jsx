@@ -80,15 +80,12 @@ export default class CourseEnroll extends React.PureComponent {
             It looks like you’re trying to enroll in {this.enrollment.courseName} using your instructor account.
           </p>
           <p>
-            Sorry, but that is not permitted.
-          </p>
-          <p>
             Contact <a href="mailto:{UserMenu.supportEmail}">Support</a> if you need help.
           </p>
         </Modal.Body>
         <Modal.Footer>
           <Button bsStyle="primary" className="cancel" onClick={this.onCancel}>
-            Continue to my courses
+            Continue to My courses
           </Button>
         </Modal.Footer>
       </div>
