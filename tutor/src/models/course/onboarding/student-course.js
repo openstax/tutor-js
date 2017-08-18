@@ -70,6 +70,8 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
   @action.bound
   onPaymentComplete() {
     this.displayPayment = false;
+    // fetch tasks since they could not be fetched while student was in unpaid status
+    this.course.studentTasks.fetch();
     this.course.userStudentRecord.markPaid();
   }
 
