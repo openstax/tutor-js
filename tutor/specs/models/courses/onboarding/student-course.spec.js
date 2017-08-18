@@ -50,11 +50,13 @@ describe('Full Course Onboarding', () => {
 
   it('#onPaymentComplete', () => {
     ux.course.needsPayment = true;
+    ux.course.studentTasks = { fetch: jest.fn() };
     ux.payNow();
     ux.course.userStudentRecord = {
       markPaid: jest.fn(),
     };
     ux.onPaymentComplete();
+    expect(ux.course.studentTasks.fetch).toHaveBeenCalled();
     expect(ux.course.userStudentRecord.markPaid).toHaveBeenCalled();
   });
 
