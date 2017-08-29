@@ -80,7 +80,7 @@ export default class CourseEnroll extends React.PureComponent {
             It looks like you’re trying to enroll in {this.enrollment.courseName} using your instructor account.
           </p>
           <p>
-            Contact <a href="mailto:{UserMenu.supportEmail}">Support</a> if you need help.
+            Contact <a href={`mailto:${UserMenu.supportEmail}`}>Support</a> if you need help.
           </p>
         </Modal.Body>
         <Modal.Footer>
