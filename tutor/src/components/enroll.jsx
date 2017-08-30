@@ -75,9 +75,9 @@ export default class CourseEnroll extends React.PureComponent {
     return (
       <div className="is-teacher">
         <Modal.Body>
-          <h3>Sorry, but that is not permitted.</h3>
+          <h3>Sorry, you can’t enroll as a student in your course</h3>
           <p>
-            It looks like you’re trying to enroll in {this.enrollment.courseName} using your instructor account.
+            It looks like you’re trying to enroll in {this.enrollment.courseName} as a student using your instructor account.
           </p>
           <p>
             Contact <a href="mailto:{UserMenu.supportEmail}">Support</a> if you need help.
