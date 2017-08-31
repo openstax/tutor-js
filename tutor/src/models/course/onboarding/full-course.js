@@ -1,13 +1,17 @@
 import {
   computed, observable,
 } from 'mobx';
-import { includes } from 'lodash';
+import { includes, isNil } from 'lodash';
 
 import BaseOnboarding from './base';
+import { UiSettings } from 'shared';
 import Nags from '../../../components/onboarding/nags';
 import User from '../../user';
-import { UiSettings } from 'shared';
+import { TimeStore } from '../../../flux/time';
+
 const ONBOARDING_CHOICE = 'OBC';
+const LAST_NAG_TIME = 'OBNT';
+const NAG_INTERVAL = 1000 * 60 * 60 * 24 * 7; // 1 week in milliseconds
 
 // NOTE - the strings for the key's below are meaningful and MUST match what's expected by the BE
 const CHOICES = {
@@ -38,18 +42,28 @@ export default class FullCourseOnboarding extends BaseOnboarding {
   }
 
   @computed get displayInitialPrompt() {
-    return this.response === false && (
-      this.courseIsNaggable && this.isOnboardingUndecided
+    return Boolean(
+      this.response === false && this.courseIsNaggable && isNil(this.lastNaggedAgo)
     );
   }
 
+  @computed get lastNaggedAgo() {
+    const timestamp = UiSettings.get(LAST_NAG_TIME, this.course.id);
+    if (!isNil(timestamp)) {
+      return TimeStore.getNow().getTime() - timestamp;
+    }
+    return null;
+  }
+
   @computed get isOnboardingUndecided() {
+    if (this.lastNaggedAgo && this.lastNaggedAgo < NAG_INTERVAL) { return false; }
     return includes(['dn', undefined], UiSettings.get(ONBOARDING_CHOICE, this.course.id));
   }
 
   recordExpectedUse(decision) {
     this.response = decision;
     UiSettings.set(ONBOARDING_CHOICE, this.course.id, decision);
+    UiSettings.set(LAST_NAG_TIME, this.course.id, TimeStore.getNow().getTime());
 
     User.logEvent({
       category: 'onboarding', code: 'made_adoption_decision',
