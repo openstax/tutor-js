@@ -1,98 +1,13 @@
+import SnapShot from 'react-test-renderer';
 import Courses from '../../../src/models/courses-map';
 import UserMenu from '../../../src/models/user/menu';
 import User from '../../../src/models/user';
+import { bootstrapCoursesList } from '../../courses-test-data';
+
 jest.mock('../../../src/models/user', () => ({
   isConfirmedFaculty: true,
 }));
 
-import { bootstrapCoursesList, STUDENT_COURSE_ONE_MODEL, TEACHER_COURSE_TWO_MODEL, TEACHER_AND_STUDENT_COURSE_THREE_MODEL, MASTER_COURSES_LIST } from '../../courses-test-data';
-
-const STUDENT_MENU = [
-  {
-    name: 'myCourses',
-    options: { separator: 'after' },
-    label: 'My Courses',
-  },
-  {
-    name: 'dashboard',
-    params: { courseId: '1' },
-    label: 'Dashboard',
-  },
-  {
-    name: 'browseBook',
-    params: { courseId: '1' },
-    label: 'Browse the Book',
-  },
-  {
-    name: 'viewPerformanceGuide',
-    params: { courseId: '1' },
-    label: 'Performance Forecast',
-  },
-  {
-    name: 'changeStudentId',
-    params: { courseId: '1' },
-    label: 'Change Student ID',
-    options: { separator: 'after' },
-  },
-];
-
-const TEACHER_MENU = [
-  {
-    name: 'myCourses',
-    options: { separator: 'after' },
-    label: 'My Courses',
-  },
-  {
-    name: 'dashboard',
-    label: 'Dashboard',
-    params: { courseId: '2' },
-  },
-  {
-    name: 'browseBook',
-    params: { courseId: '2' },
-    label: 'Browse the Book',
-  },
-  {
-    name: 'viewPerformanceGuide',
-    params: { courseId: '2' },
-    label: 'Performance Forecast',
-  },
-  {
-    name: 'viewQuestionsLibrary',
-    params: { courseId: '2' },
-    label: 'Question Library',
-  },
-  {
-    name: 'viewScores',
-    label: 'Student Scores',
-    params: { courseId: '2' },
-  },
-  {
-    name: 'courseSettings',
-    label: 'Course Settings and Roster',
-    params: { courseId: '2' },
-  },
-  {
-    name: 'createNewCourse',
-    options: { separator: 'before' },
-    params: { courseId: '2' },
-    label: 'Create a Course',
-  },
-  {
-    name: 'createNewCourse',
-    options: { key: 'clone-course', separator: 'after' },
-    params: { sourceId: '2' },
-    label: 'Copy this Course',
-  },
-];
-
-const TEACHER_NO_COURSE_MENU = [
-  {
-    name: 'createNewCourse',
-    options: { separator: 'both' },
-    label: 'Create a Course',
-  },
-];
 
 describe('Current User Store', function() {
 
@@ -114,10 +29,9 @@ describe('Current User Store', function() {
 
   it('should return expected menu routes for courses', function() {
     User.isConfirmedFaculty = false;
-    expect(UserMenu.getRoutes('1')).to.deep.equal(STUDENT_MENU);
-    User.isConfirmedFaculty = true;
-    expect(UserMenu.getRoutes('2')).to.deep.equal(TEACHER_MENU);
+    expect(UserMenu.getRoutes('1')).toMatchSnapshot();
+    expect(UserMenu.getRoutes('2')).toMatchSnapshot();
     Courses.clear();
-    expect(UserMenu.getRoutes()).to.deep.equal(TEACHER_NO_COURSE_MENU);
+    expect(UserMenu.getRoutes()).toMatchSnapshot();
   });
 });

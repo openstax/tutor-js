@@ -1,6 +1,6 @@
 import { map } from 'lodash';
 import { shallow } from 'enzyme';
-
+import { Wrapper, SnapShot } from '../helpers/component-testing';
 import UserActionsMenu from '../../../src/components/navbar/user-actions-menu';
 import { setupStores, resetStores, courseModel } from './spec-test-params';
 import FakeWindow from 'shared/specs/helpers/fake-window';
@@ -14,21 +14,19 @@ const testWithRole = roleType =>
     beforeEach(function() {
       roleTestParams = setupStores(roleType);
       return (
-          props = {
-            courseId: courseModel.id,
-            windowImpl: new FakeWindow,
-          }
+        props = {
+          courseId: courseModel.id,
+          windowImpl: new FakeWindow,
+        }
       );
     });
 
     afterEach(() => resetStores(roleType));
 
-    it('should have expected dropdown menu', function() {
-      const menu = shallow(<UserActionsMenu {...props} />);
-      const labels = map(roleTestParams.menu, 'label');
-      menu.find('MenuItem').forEach((item, index) => {
-        expect(item.render().text()).to.equal(labels[index]);
-      });
+    it('has user actions menu that matches snapshot', function() {
+      expect(SnapShot.create(
+        <Wrapper _wrapped_component={UserActionsMenu}  {...props} />).toJSON()
+      ).toMatchSnapshot();
     });
 
     it('should have link to browse the book', () => {
