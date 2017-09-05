@@ -43,7 +43,9 @@ export default class FullCourseOnboarding extends BaseOnboarding {
 
   @computed get displayInitialPrompt() {
     return Boolean(
-      this.response === false && this.courseIsNaggable && isNil(this.lastNaggedAgo)
+      this.response === false && // haven't selected anything
+      this.courseIsNaggable &&   // base method, have joined at least 4 hours ago
+      this.isOnboardingUndecided // haven't prompted recently and are undecided
     );
   }
 

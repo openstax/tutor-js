@@ -33,7 +33,8 @@ describe('Full Course Onboarding', () => {
   it('#nagComponent', () => {
     expect(ux.nagComponent).not.toBeNull();
     UiSettings.get.mockImplementation(() => 'dn');
-    ux.course.primaryRole.joined_at = moment(ux.course.primaryRole.joined_at).subtract(2, 'hours');
+    ux.course.primaryRole.joined_at = moment(ux.course.primaryRole.joined_at).add(2, 'hours');
+    expect(ux.courseIsNaggable).toBe(false);
     expect(ux.nagComponent).toBeNull();
     ux.recordExpectedUse('dn');
     expect(ux.nagComponent).not.toBeNull();
