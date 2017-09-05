@@ -5,6 +5,8 @@ import UiSettings from 'shared/src/model/ui-settings';
 import User from '../../../../src/models/user';
 import moment from 'moment';
 import { TimeStore } from '../../../../src/flux/time';
+import Nags from '../../../../src/components/onboarding/nags';
+
 jest.mock('shared/src/model/ui-settings');
 jest.mock('../../../../src/flux/time', () => ({
   TimeStore: {
@@ -63,15 +65,21 @@ describe('Full Course Onboarding', () => {
 
   it('wont nag until after interval', () => {
     ux.recordExpectedUse('dn');
+    ux.response = false;
+    User.terms_signatures_needed = false;
     UiSettings.get.mockImplementation((id) => id == 'OBNT' ? 1504216390000 : 'dn');
     expect(UiSettings.set).toHaveBeenCalledWith('OBC', 1, 'dn');
     expect(UiSettings.set).toHaveBeenCalledWith('OBNT', 1, 1504216392000);
     expect(ux.lastNaggedAgo).toEqual(2000);
     expect(ux.isOnboardingUndecided).toBe(false);
+    expect(ux.nagComponent).toBeNull();
+
     TimeStore.getNow.mockImplementation(() =>
       new Date('Thu Sept 7 2017 16:53:12 GMT-0500 (CDT)')
     );
     expect(ux.lastNaggedAgo).toEqual(604802000);
     expect(ux.isOnboardingUndecided).toBe(true);
+    expect(ux.nagComponent).toBe(Nags.freshlyCreatedCourse);
   });
+
 });
