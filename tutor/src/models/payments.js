@@ -1,14 +1,15 @@
+import React from 'react';
 import {
-  BaseModel, identifiedBy, field, hasMany,
+  BaseModel, identifiedBy,
 } from './base';
-import {  extend } from 'lodash';
+import { merge, extend } from 'lodash';
 import { action, observable, when,computed } from 'mobx';
 import loadjs from 'loadjs';
 import { readonly } from 'core-decorators';
 import invariant from 'invariant';
-import { Logging } from 'shared';
+import { NotificationActions, Logging } from 'shared';
 import User from './user';
-import { NotificationActions } from 'shared';
+import UserMenu from './user/menu';
 
 NotificationActions.on('tutor-update', ({ payments }) => {
   extend(Payments.config, payments);
@@ -32,16 +33,23 @@ export default class Payments extends BaseModel {
     extend(this.config, data);
   }
 
-  @observable isBusy = false;
+  @observable pendingTimeout;
   @observable errorMessage = ''
   @observable element;
   @observable parentCallbacks;
 
-  constructor(options) {
+  constructor(options = {}) {
     super();
-    this.options = options;
+    this.options = merge({
+      timeoutLength: 60000,
+      messageHandlers: {
+        timeout: this.onTimeout,
+      },
+    }, options);
+
     REQUIRED_OPTIONS.forEach((key) =>
-      invariant(options[key], `option ${key} was not set for payments`));
+      invariant(this.options[key], `option ${key} was not set for payments`));
+
     when(
       () => !!this.element,
       this.fetch,
@@ -52,6 +60,10 @@ export default class Payments extends BaseModel {
     if (this.remote) {
       this.remote.close();
     }
+  }
+
+  @computed get isBusy() {
+    return Boolean(this.pendingTimeout);
   }
 
   @computed get callbacks() {
@@ -67,25 +79,39 @@ export default class Payments extends BaseModel {
   @action.bound
   fetch() {
     if (!Payments.config.js_url) { return this.logFailure('Attempted to load payments without a url set'); }
-    this.isBusy = true;
-    if (window.OSPayments) { // may already be loaded
+    this.pendingTimeout = setTimeout(this.onTimeout, this.options.timeoutLength);
+    if (this.OSaymentClass) { // may already be loaded
       return this.createIframe();
     } else {
       return loadjs(Payments.config.js_url, {
         success: this.createIframe,
-        error: (e) => this.logFailure(`Unable to request assets: ${e}`),
+        error: this.onTimeout,
       });
     }
   }
 
+  @action.bound
+  onTimeout() {
+    this.logFailure('Payments load timed out');
+    this.errorMessage = (
+      <p>
+        Sorry, we’re unable to process a payment right now. Please try again,
+        and if the problem persists please
+        contact <a href={`mailto:${UserMenu.supportEmail}`}>Customer Support</a>
+      </p>
+    );
+    clearTimeout(this.pendingTimeout);
+    this.pendingTimeout = null;
+  }
+
   logFailure(msg) {
     this.errorMessage = msg;
-    this.isBusy = false;
+    clearTimeout(this.pendingTimeout);
+    this.pendingTimeout = null;
     Logging.error(msg);
   }
 
   get remotePaymentOptions() {
-
     const { options: { course } } = this;
     return extend({}, this.options, {
       product_uuid: Payments.config.product_uuid,
@@ -96,12 +122,16 @@ export default class Payments extends BaseModel {
     });
   }
 
+  get OSaymentClass() {
+    return (this.options.windowImpl || window)['OSPayments'];
+  }
+
   @action.bound
   createIframe() {
-    const { OSPayments } = window;
-    this.remote = new OSPayments(this.remotePaymentOptions);
+    this.remote = new this.OSaymentClass(this.remotePaymentOptions);
     this.remote.createIframe(this.element).then(() => {
-      this.isBusy = false;
+      clearTimeout(this.pendingTimeout);
+      this.pendingTimeout = null;
     });
   }
 
