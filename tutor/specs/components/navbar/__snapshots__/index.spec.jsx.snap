@@ -112,6 +112,28 @@ exports[`Main navbar renders and matches snapshot 1`] = `
           role="menu"
         >
           <li
+            className="i11yStatement"
+            role="presentation"
+            style={undefined}
+          >
+            <a
+              data-name="i11yStatement"
+              href="/accessibility-statement"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              role="menuitem"
+              tabIndex="-1"
+            >
+              <div
+                className="tour-anchor"
+                data-tour-anchor-id="menu-option-i11yStatement"
+                id="menu-option-i11yStatement"
+              >
+                Accessibility statement
+              </div>
+            </a>
+          </li>
+          <li
             className="logout"
           >
             <a

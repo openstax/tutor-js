@@ -89,6 +89,9 @@ getCreateEnrollmentChange = ->
   {default: CourseEnroll} = require './components/enroll'
   CourseEnroll
 
+getAccessibilityStatement = ->
+  {default: AccessibilityStatement} = require './components/accessibility-statement'
+  AccessibilityStatement
 
 getStudentPreview = ->
   {default: StudentPreview} = require './components/student-preview'
@@ -155,6 +158,8 @@ ROUTES = [
 
   }
   {
+    pattern: '/accessibility-statement', name: 'accessibilityStatement', renderer: getAccessibilityStatement
+  }, {
     pattern: '/student-preview/:courseId?', name: 'studentPreview',       renderer: getStudentPreview
   }
   { pattern: '/payments',                name: 'managePayments',           renderer: getPaymentsShell     }
