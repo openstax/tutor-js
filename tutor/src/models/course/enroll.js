@@ -3,9 +3,14 @@ import {
 } from '../base';
 import { when, observable } from 'mobx';
 import { get, pick, isEmpty } from 'lodash';
+import { Redirect } from 'react-router';
+import Router from '../../../src/helpers/router';
 import { CourseListingActions, CourseListingStore } from '../../flux/course-listing';
 import StudentTasks from '../student-tasks';
 import Courses from '../courses-map';
+
+import Activity from '../../../src/components/ox-fancy-loader';
+import Enroll from '../../../src/components/enroll';
 
 @identifiedBy('course/student')
 export default class CourseEnrollment extends BaseModel {
@@ -17,7 +22,7 @@ export default class CourseEnrollment extends BaseModel {
 
   @session({ type: 'object' }) to = {};
   @session status;
-
+  @session router;
   @observable isComplete = false;
   @observable isLoadingCourses;
   constructor(...args) {
@@ -26,6 +31,36 @@ export default class CourseEnrollment extends BaseModel {
       () => this.isRegistered,
       () => this.fetchCourses(),
     );
+  }
+
+  @computed get bodyContents() {
+    const props = { enroll: this };
+
+    if (this.isLoading) {
+      return <Activity isLoading={true} />;
+    } else if (this.isTeacher) {
+      return <Enroll.Components.invalidTeacher {...props} />;
+    } else if (this.isInvalid) {
+      return <Enroll.Components.invalidCode {...props} />;
+    } else if (this.isComplete) {
+      if (this.courseId)
+        return <Redirect to={Router.makePathname('dashboard', { courseId: this.courseId })} />;
+      else
+        return <Redirect to={Router.makePathname('myCourses')} />;
+    } else {
+      return <Enroll.Components.studentIDForm {...props} />;
+    }
+  }
+
+  @action.bound
+  onCancel() {
+    this.context.router.transitionTo({ pathname: Router.makePathname('myCourses') });
+  }
+
+  @action.bound
+  onSubmit() {
+    this.enrollment.student_identifier = this.input.value;
+    this.enrollment.confirm();
   }
 
   @computed get courseName() {
