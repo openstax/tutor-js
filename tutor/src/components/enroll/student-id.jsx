@@ -1,7 +1,8 @@
 import React from 'react';
-import { Modal } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 
 export default function StudentIDForm({ enrollment }) {
+  const onChange = ({ target: { value } }) => enrollment.student_identifier = value;
   return (
     <div className="enroll-form">
       <Modal.Body>
@@ -15,15 +16,15 @@ export default function StudentIDForm({ enrollment }) {
           <span className="student-id-icon"></span>
           <input
             autoFocus
-            ref={i => (this.input = i)}
+            onChange={onChange}
             placeholder='School issued ID'
           />
         </div>
         <div className="required">* required for course credit</div>
       </Modal.Body>
       <Modal.Footer>
-        <Button bsStyle="primary" className="btn btn-success" onClick={this.onSubmit}>Continue</Button>
-        <Button className="cancel" bsStyle="link" onClick={this.onSubmit}>Add it later</Button>
+        <Button bsStyle="primary" className="btn btn-success" onClick={enrollment.onStudentIdContinue}>Continue</Button>
+        <Button className="cancel" bsStyle="link" onClick={enrollment.onCancelStudentId}>Add it later</Button>
       </Modal.Footer>
     </div>
   );

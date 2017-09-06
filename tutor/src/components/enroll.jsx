@@ -7,6 +7,7 @@ import Router from '../helpers/router';
 import StudentID from './enroll/student-id';
 import invalidCode from './enroll/invalid-code';
 import invalidTeacher from './enroll/invalid-teacher';
+import SelectPeriod from './enroll/select-periods';
 
 @observer
 export default class CourseEnroll extends React.PureComponent {
@@ -17,12 +18,14 @@ export default class CourseEnroll extends React.PureComponent {
 
   static Components = {
     studentIDForm: StudentID,
+    selectPeriod: SelectPeriod,
     invalidCode: invalidCode,
     invalidTeacher: invalidTeacher,
   }
 
   enrollmentCode = Router.currentParams().enrollmentCode;
-  enrollment = new Enroll({ enrollment_code: this.enrollmentCode, router: this.context.router });
+  enrollment = this.props.enrollment ||
+    new Enroll({ enrollment_code: this.enrollmentCode, router: this.context.router });
 
   componentDidMount() {
     this.enrollment.create();
@@ -33,7 +36,7 @@ export default class CourseEnroll extends React.PureComponent {
 
     return (
       <Modal.Dialog className="course-enroll">
-        {enrollment.bodyContents()}
+        {enrollment.bodyContents}
       </Modal.Dialog>
     );
   }

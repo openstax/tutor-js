@@ -214,9 +214,9 @@ startAPI = ->
   connectModelUpdate(Student, 'unDrop', pattern: 'students/{id}/undrop', method: 'PUT', onSuccess: 'onApiRequestComplete' )
 
 
-  connectModelCreate(CourseEnroll, 'create', url: 'enrollment_changes', onSuccess: 'onApiRequestComplete', onFail: 'setApiErrors')
+  connectModelCreate(CourseEnroll, 'create', url: 'enrollment', onSuccess: 'onEnrollmentCreate', onFail: 'setApiErrors')
   connectModelUpdate(CourseEnroll, 'confirm',
-    pattern: 'enrollment_changes/{id}/approve', method: 'PUT'
+    pattern: 'enrollment/{id}/approve', method: 'PUT'
     onSuccess: 'onApiRequestComplete', onFail: 'setApiErrors')
 
   connectModelRead(CourseStudentTasks, 'fetch', onSuccess: 'onLoaded', pattern: 'courses/{courseId}/dashboard')
