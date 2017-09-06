@@ -1,6 +1,5 @@
 import React from 'react';
 import { observer, propTypes as MobxPropTypes } from 'mobx-react';
-import { ListGroup } from 'react-bootstrap';
 import { partial, map } from 'lodash';
 import { action } from 'mobx';
 
@@ -8,7 +7,7 @@ import CCLogo from 'shared/src/components/logos/concept-coach-horizontal';
 import TutorLogo from 'shared/src/components/logos/tutor-horizontal';
 
 import BuilderUX from '../../models/course/builder-ux';
-import Choice from './choice';
+import { Listing, Choice } from '../choices-listing';
 
 @observer
 export default class SelectType extends React.PureComponent {
@@ -30,7 +29,7 @@ export default class SelectType extends React.PureComponent {
     };
 
     return (
-      <ListGroup>
+      <Listing>
         {map(types, (Logo, type) =>
           <Choice
             key={type}
@@ -40,8 +39,8 @@ export default class SelectType extends React.PureComponent {
           >
             <Logo />
           </Choice>
-         )}
-      </ListGroup>
+        )}
+      </Listing>
     );
   }
 }

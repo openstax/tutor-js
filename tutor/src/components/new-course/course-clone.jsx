@@ -3,9 +3,8 @@ import { observer } from 'mobx-react';
 import { partial } from 'lodash';
 
 import { action } from 'mobx';
-import { ListGroup } from 'react-bootstrap';
+import { Listing, Choice } from '../choices-listing';
 
-import Choice from './choice';
 import BuilderUX from '../../models/course/builder-ux';
 
 @observer
@@ -26,7 +25,7 @@ export default class CourseClone extends React.PureComponent {
     const { ux } = this.props;
 
     return (
-      <ListGroup>
+      <Listing>
         {ux.cloneSources.map(course =>
           <Choice
             key={`course-clone-${course.id}`}
@@ -43,8 +42,8 @@ export default class CourseClone extends React.PureComponent {
               </div>
             </div>
           </Choice>
-         )}
-      </ListGroup>
+        )}
+      </Listing>
     );
   }
 }
