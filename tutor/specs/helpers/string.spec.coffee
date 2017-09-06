@@ -123,3 +123,7 @@ describe 'String helpers', ->
   it 'join into a sentence', ->
     expect(S.toSentence(['foo', 'bar', 'baz'])).toEqual('foo, bar and baz')
     expect(S.toSentence('foo bar baz')).toEqual('foo, bar and baz')
+
+  it 'matches uuid', ->
+    expect(S.isUUID('blah')).toEqual(false)
+    expect(S.isUUID('cc3c6ff9-83d8-4375-94be-8c7ae3024938')).toEqual(true)
