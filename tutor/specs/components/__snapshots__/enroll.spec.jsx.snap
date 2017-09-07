@@ -25,10 +25,11 @@ exports[`Student Enrollment blocks teacher enrollment 1`] = `
           className="modal-body"
         >
           <h3>
-            Sorry, you can’t enroll as a student in your course
+            Sorry, you can’t enroll as a student in your course.
           </h3>
           <p>
             It looks like you’re trying to enroll in 
+            My Fairly Graded Course
              using your instructor account.
           </p>
           <p>

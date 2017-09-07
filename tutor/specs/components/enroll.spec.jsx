@@ -29,7 +29,7 @@ describe('Student Enrollment', () => {
 
 
   it('blocks teacher enrollment', () => {
-    enrollment.apiErrors = { is_teacher: true };
+    enrollment.apiErrors = { is_teacher: { data: { course_name: 'My Fairly Graded Course' } } };
     expect(SnapShot.create(<Enroll enrollment={enrollment} />).toJSON()).toMatchSnapshot();
     const enroll = mount(<Enroll enrollment={enrollment} />);
 
