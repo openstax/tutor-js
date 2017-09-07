@@ -156,13 +156,13 @@ exports[`Student Navbar Component has user actions menu that matches snapshot 1`
       style={undefined}
     />
     <li
-      className="i11yStatement"
+      className="accessibilityStatement"
       role="presentation"
       style={undefined}
     >
       <a
-        data-name="i11yStatement"
-        href="/accessibility-statement"
+        data-name="accessibilityStatement"
+        href="/accessibility-statement/1"
         onClick={[Function]}
         onKeyDown={[Function]}
         role="menuitem"
@@ -170,8 +170,8 @@ exports[`Student Navbar Component has user actions menu that matches snapshot 1`
       >
         <div
           className="tour-anchor"
-          data-tour-anchor-id="menu-option-i11yStatement"
-          id="menu-option-i11yStatement"
+          data-tour-anchor-id="menu-option-accessibilityStatement"
+          id="menu-option-accessibilityStatement"
         >
           Accessibility statement
         </div>
@@ -472,13 +472,13 @@ exports[`Teacher Navbar Component has user actions menu that matches snapshot 1`
       style={undefined}
     />
     <li
-      className="i11yStatement"
+      className="accessibilityStatement"
       role="presentation"
       style={undefined}
     >
       <a
-        data-name="i11yStatement"
-        href="/accessibility-statement"
+        data-name="accessibilityStatement"
+        href="/accessibility-statement/1"
         onClick={[Function]}
         onKeyDown={[Function]}
         role="menuitem"
@@ -486,8 +486,8 @@ exports[`Teacher Navbar Component has user actions menu that matches snapshot 1`
       >
         <div
           className="tour-anchor"
-          data-tour-anchor-id="menu-option-i11yStatement"
-          id="menu-option-i11yStatement"
+          data-tour-anchor-id="menu-option-accessibilityStatement"
+          id="menu-option-accessibilityStatement"
         >
           Accessibility statement
         </div>

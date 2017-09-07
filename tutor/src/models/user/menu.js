@@ -109,9 +109,11 @@ const ROUTES = {
     href: '/content_analyst',
     isAllowed() { return !!User.is_content_analyst; },
   },
-  i11yStatement: {
+  accessibilityStatement: {
     label: 'Accessibility statement',
-    href: '/accessibility-statement',
+    params(course) {
+      return { courseId: course.courseId };
+    },
   },
 
 };

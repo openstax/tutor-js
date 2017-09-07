@@ -158,7 +158,7 @@ ROUTES = [
 
   }
   {
-    pattern: '/accessibility-statement', name: 'accessibilityStatement', renderer: getAccessibilityStatement
+    pattern: '/accessibility-statement/:courseId?', name: 'accessibilityStatement', renderer: getAccessibilityStatement
   }, {
     pattern: '/student-preview/:courseId?', name: 'studentPreview',       renderer: getStudentPreview
   }

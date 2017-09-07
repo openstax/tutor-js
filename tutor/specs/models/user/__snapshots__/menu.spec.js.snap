@@ -41,9 +41,8 @@ Array [
     },
   },
   Object {
-    "href": "/accessibility-statement",
     "label": "Accessibility statement",
-    "name": "i11yStatement",
+    "name": "accessibilityStatement",
     "params": Object {
       "courseId": "1",
     },
@@ -103,9 +102,8 @@ Array [
     },
   },
   Object {
-    "href": "/accessibility-statement",
     "label": "Accessibility statement",
-    "name": "i11yStatement",
+    "name": "accessibilityStatement",
     "params": Object {
       "courseId": "2",
     },
@@ -116,9 +114,11 @@ Array [
 exports[`Current User Store should return expected menu routes for courses 3`] = `
 Array [
   Object {
-    "href": "/accessibility-statement",
     "label": "Accessibility statement",
-    "name": "i11yStatement",
+    "name": "accessibilityStatement",
+    "params": Object {
+      "courseId": undefined,
+    },
   },
 ]
 `;
