@@ -53,29 +53,18 @@ typesetMath = (root, windowImpl = window) ->
 startMathJax = ->
   MATHJAX_CONFIG =
     showProcessingMessages: false
-    extensions: ["AssistiveMML.js"]
+    extensions: ["[a11y]/explorer.js"]
     tex2jax:
       displayMath: [[MATH_MARKER_BLOCK, MATH_MARKER_BLOCK]]
       inlineMath:  [[MATH_MARKER_INLINE, MATH_MARKER_INLINE]]
-     menuSettings:
-       inTabOrder: false
-     AssistiveMML:
-       disabled: false
-       styles:
-         ".MJX_Assistive_MathML":
-           position:"absolute!important",
-           clip: "rect(1px, 1px, 1px, 1px)",
-           padding: "1px 0 0 0!important",
-           border: "0!important",
-           height: "1px!important",
-           width: "1px!important",
-           overflow: "hidden!important",
-           display:"block!important"
-
+    styles:
+      '#MathJax_Message':    visibility: 'hidden', left: '', right: 0
+      '#MathJax_MSIE_Frame': visibility: 'hidden', left: '', right: 0
   configuredCallback = ->
     window.MathJax.Hub.Configured()
 
   if window.MathJax?.Hub
+    window.MathJax.Ajax.config.path["a11y"] = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/extensions/a11y"
     window.MathJax.Hub.Config(MATHJAX_CONFIG)
     # Does not seem to work when passed to Config
     window.MathJax.Hub.processSectionDelay = 0
