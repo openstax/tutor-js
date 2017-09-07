@@ -155,12 +155,12 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                   style={undefined}
                 />
                 <li
-                  className="i11yStatement"
+                  className="accessibilityStatement"
                   role="presentation"
                   style={undefined}
                 >
                   <a
-                    data-name="i11yStatement"
+                    data-name="accessibilityStatement"
                     href="/accessibility-statement"
                     onClick={[Function]}
                     onKeyDown={[Function]}
@@ -169,8 +169,8 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                   >
                     <div
                       className="tour-anchor"
-                      data-tour-anchor-id="menu-option-i11yStatement"
-                      id="menu-option-i11yStatement"
+                      data-tour-anchor-id="menu-option-accessibilityStatement"
+                      id="menu-option-accessibilityStatement"
                     >
                       Accessibility statement
                     </div>
