@@ -39,6 +39,10 @@ export class User extends BaseModel {
     return this.first_name || this.name ? this.name.replace(/ .*/, '') : '';
   }
 
+  @computed get isHypothesis() {
+    return !!find(Courses.active, { appearance_code: 'college_biology'})
+  }
+
   @computed get isConfirmedFaculty() {
     return this.faculty_status === 'confirmed_faculty';
   }

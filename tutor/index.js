@@ -6,6 +6,7 @@ Recordo.initialize();
 import { BootstrapURLs, UiSettings, ExerciseHelpers } from 'shared';
 
 import api from './src/api';
+import hypothesis from './src/hypothesis'
 import Notices from './src/helpers/notifications';
 import dom from './src/helpers/dom';
 import { startMathJax } from 'shared/src/helpers/mathjax';
@@ -59,6 +60,7 @@ const loadApp = function() {
 
   const bootstrapData = dom.readBootstrapData();
   api.start(bootstrapData);
+  hypothesis.start(bootstrapData['hypothesis']);
   BootstrapURLs.update(bootstrapData);
 
   UiSettings.initialize(bootstrapData.ui_settings);
