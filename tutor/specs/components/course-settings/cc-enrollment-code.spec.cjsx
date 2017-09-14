@@ -1,6 +1,6 @@
 {React, Testing, pause, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
 
-CcEnrollment = require '../../../src/components/course-settings/cc-enrollment-code'
+CcEnrollment = require '../../../src/components/course-roster/cc-enrollment-code'
 {CourseActions} = require '../../../src/flux/course'
 COURSE = require '../../../api/user/courses/1.json'
 COURSE_ID = '1'

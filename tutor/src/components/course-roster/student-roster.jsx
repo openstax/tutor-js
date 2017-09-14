@@ -11,7 +11,7 @@ import StudentIdField from './student-id-field';
 import Period from '../../models/course/period';
 
 @observer
-export default class PeriodRoster extends React.PureComponent {
+export default class StudentsRoster extends React.PureComponent {
 
   static propTypes = {
     period: React.PropTypes.instanceOf(Period).isRequired,
@@ -66,7 +66,8 @@ export default class PeriodRoster extends React.PureComponent {
         bordered={true}
         condensed={true}
         hover={true}
-        className="roster">
+        className="roster students"
+      >
         <thead>
           <tr>
             <th>

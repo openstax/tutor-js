@@ -1,4 +1,4 @@
-import StudentEnrollment from '../../../src/components/course-settings/student-enrollment';
+import StudentEnrollment from '../../../src/components/course-roster/student-enrollment';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import Courses from '../../../src/models/courses-map';
 import Renderer from 'react-test-renderer';
