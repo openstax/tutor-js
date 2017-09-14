@@ -1,13 +1,14 @@
 import {
   BaseModel, identifiedBy, field, identifier, hasMany,
 } from './base';
-import { computed, action } from 'mobx';
-import { first, sortBy, find, get, endsWith, capitalize } from 'lodash';
+import { computed, action, observable } from 'mobx';
+import { first, sortBy, find, get, endsWith, capitalize, filter, pick } from 'lodash';
 import { UiSettings } from 'shared';
 import Period  from './course/period';
 import Role    from './course/role';
 import Student from './course/student';
 import CourseInformation from './course/information';
+import Roster from './course/roster';
 import TeacherTaskPlans   from './teacher-task-plans';
 import TimeHelper from '../helpers/time';
 import { TimeStore } from '../flux/time';
@@ -49,7 +50,7 @@ export default class Course extends BaseModel {
   @field webview_url;
   @field year;
 
-  @hasMany({ model: Period }) periods;
+  @hasMany({ model: Period, inverseOf: 'course' }) periods;
   @hasMany({ model: Role }) roles;
   @hasMany({ model: Student, inverseOf: 'course' }) students;
 
@@ -60,6 +61,11 @@ export default class Course extends BaseModel {
 
   @computed get studentTasks() {
     return StudentTasks.forCourseId(this.id);
+  }
+
+  @observable _roster;
+  get roster() {
+    return this._roster || ( this._roster = new Roster(this) );
   }
 
   @computed get nameCleaned() {
@@ -130,6 +136,15 @@ export default class Course extends BaseModel {
     return Boolean(this.does_cost && this.userStudentRecord && !this.userStudentRecord.isUnPaid);
   }
 
+  @computed get archivedPeriods() {
+    return filter(this.periods, period => period.is_archived);
+  }
+
+  @computed get activePeriods() {
+    return filter(this.periods, period => !period.is_archived);
+  }
+
+
   @computed get tourAudienceTags() {
     let tags = [];
     if (this.isTeacher) {
@@ -165,5 +180,9 @@ export default class Course extends BaseModel {
         /physics/.test(this.appearance_code) ||
         /sociology/.test(this.appearance_code)
     ));
+  }
+
+  save() {
+    return { id: this.id, data: pick(this, 'name') };
   }
 }

@@ -43,10 +43,16 @@ const ROUTES = {
       teacher: 'viewScores',
     },
   },
-  course: {
-    label: 'Course Settings and Roster',
+  courseSettings: {
+    label: 'Course Settings',
     roles: {
       teacher: 'courseSettings',
+    },
+  },
+  courseRoster: {
+    label: 'Course Roster',
+    roles: {
+      teacher: 'courseRoster',
     },
   },
   get_started: {

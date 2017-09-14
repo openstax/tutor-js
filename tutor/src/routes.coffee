@@ -55,6 +55,10 @@ getPerformanceForecastGuide = ->
 getCourseSettings = ->
   require './components/course-settings'
 
+getCourseRoster = ->
+  {default: CourseRoster} = require './components/course-roster'
+  CourseRoster
+
 getPractice = ->
   require './components/task/practice'
 
@@ -152,6 +156,7 @@ ROUTES = [
       { path: 'event/new',           name: 'createEvent'                                           }
       { path: 'event/:id',           name: 'editEvent',                renderer: getEventShell          }
       { path: 'settings',            name: 'courseSettings',           renderer: getCourseSettings      }
+      { path: 'roster',              name: 'courseRoster',             renderer: getCourseRoster        }
       { path: 'questions',           name: 'viewQuestionsLibrary',     renderer: getQuestionsLibrary    }
       { path: 'change-student-id',   name: 'changeStudentId',          renderer: getChangeStudentId     }
     ]
