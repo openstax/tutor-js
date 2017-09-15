@@ -105,6 +105,14 @@ class SupportMenuDropDown extends React.PureComponent {
         >
           <span>Help Articles</span>
         </MenuItem>
+        <MenuItem
+          key="nav-keyboard-shortcuts"
+          className="-help-link"
+          onSelect={this.onSelect}
+          href="/accessibility-statement/"
+        >
+          <span>Keyboard Shortcuts</span>
+        </MenuItem>
         {this.renderChat()}
       </TourAnchor>
     );
