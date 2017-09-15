@@ -7,7 +7,7 @@ classnames = require 'classnames'
 
 {CourseActions, CourseStore} = require '../flux/course'
 {default: PeriodHelper} = require '../helpers/period'
-Tabs = require './tabs'
+{default: Tabs} = require './tabs'
 
 CoursePeriodsNav = React.createClass
   displayName: 'CoursePeriodsNav'

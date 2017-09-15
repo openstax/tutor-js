@@ -1,6 +1,5 @@
 import React from 'react';
 import { Panel } from 'react-bootstrap';
-import { autobind } from 'core-decorators';
 import { computed, observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import { map } from 'lodash';
@@ -9,7 +8,6 @@ import Tabs from '../tabs';
 import Courses from '../../models/courses-map';
 import TeacherRoster from './teacher-roster';
 import StudentRoster from './student-roster';
-import RenameCourse from './rename-course';
 import ViewArchivedPeriods from './view-archived-periods';
 import TourRegion from '../tours/region';
 import AddPeriodLink       from './add-period';
@@ -81,7 +79,6 @@ export default class CourseRoster extends React.PureComponent {
         <Panel className="course-settings">
           <div className="course-settings-title">
             {course.name}
-            <RenameCourse course={course} />
           </div>
           <h4 className="course-settings-term">
             {course.term}

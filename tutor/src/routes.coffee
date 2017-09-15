@@ -53,7 +53,8 @@ getPerformanceForecastGuide = ->
   PerformanceForecast.Guide
 
 getCourseSettings = ->
-  require './components/course-settings'
+  {default: CourseSettings} = require './components/course-settings'
+  CourseSettings
 
 getCourseRoster = ->
   {default: CourseRoster} = require './components/course-roster'

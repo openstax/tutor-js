@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Course Page renders and matches snapshot 1`] = `
+<div
+  className="course-page test-page"
+>
+  <header>
+    <div
+      className="title"
+      data-appearance="biology"
+      data-book-title="Biology"
+      data-is-preview={false}
+      data-term="Fall 2015"
+      data-title="Local Test Course"
+    >
+      <h1>
+        A Big Bad Page
+      </h1>
+    </div>
+    <div
+      className="controls"
+    >
+      <button>
+        Click Me
+      </button>
+    </div>
+  </header>
+  <div
+    className="body"
+  >
+    <h3>
+      Hello, this is the body
+    </h3>
+  </div>
+</div>
+`;

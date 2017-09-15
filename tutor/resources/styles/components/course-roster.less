@@ -1,0 +1,270 @@
+.course-settings-control-link() {
+  cursor: pointer;
+  display: inline;
+  margin-left: 10px;
+  color: @tutor-tertiary-light;
+  transistion: color 0.4s;
+  &:hover {
+    color: darken(@tutor-tertiary-light, 10%);
+    text-decoration: none;
+  }
+  a, button {
+    color: @tutor-tertiary-light;
+    .tutor-icon { margin-right: 0.5rem; }
+  }
+}
+
+.settings-edit-course-modal .modal-body {
+
+  .control {
+    .course-settings-control-link();
+  }
+  input[type=radio]{
+    margin-right: 0.5rem;
+  }
+
+  .settings-section {
+    margin-top: 50px;
+  }
+}
+
+.course-settings {
+  .course-settings-title {
+    #fonts > .main-title();
+    display: inline-block;
+  }
+  .course-settings-subtitle {
+    #fonts > .main-subtitle();
+    &.tabbed { padding-top: 20px; }
+    padding-bottom: 15px;
+    display: inline-block;
+  }
+  .course-settings-term {
+    margin-top: 0;
+  }
+  .course-settings-detail {
+    color: @tutor-neutral-lite;
+    margin-right: 1rem;
+  }
+  .course-settings-timezone {
+    .edit-course {
+      padding: 0;
+    }
+  }
+
+  .nav-tabs {
+    span { max-width: 100px; }
+  }
+
+  .period-edit-controls {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    input{
+      // fixed height for ie
+      height:36px;
+    }
+    .spacer { flex: 1; }
+  }
+
+  .enrollment-code-link {
+    input,
+    .disabled-for-preview {
+      margin-left: 5px;
+    }
+    .disabled-for-preview {
+      border: 1px solid @tutor-neutral-light;
+      padding: 5px;
+    }
+  }
+
+  .delete-period {
+    color: @tutor-tertiary-light;
+  }
+
+
+  .enrollment-code {
+    padding: 0 0.5rem;
+    border: 1px solid @tutor-neutral-light;
+    color: @tutor-neutral;
+    .title { margin-right: 0.5rem; }
+    input {
+      border: 0;
+    }
+  }
+
+  .dropped-students tbody {
+    font-style: italic;
+    color: @tutor-neutral;
+  }
+}
+
+
+.roster {
+  .actions {
+    a {
+      .course-settings-control-link();
+    }
+  }
+
+  .periods {
+    position: relative;
+
+    .control {
+      margin-left: 10px;
+      &.add-period, &.view-deleted-periods {
+        background-color: white;
+      }
+    }
+
+  }
+
+  .student-id {
+    width: 200px;
+    height: 25px;
+
+    .identifier,
+    input {
+      display: inline-block;
+      width: 175px;
+    }
+    &.with-error {
+      color: @form-error-color;
+      border-bottom: 1px dashed @form-error-color;
+      .tutor-icon { color: @form-error-color; }
+    }
+    .identifier {
+      cursor: pointer;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .tutor-icon { margin-left: 0.5rem; }
+  }
+}
+
+.roster-empty-info {
+  line-height: 2.2rem;
+  padding: 0px 20px 0px 20px;
+  color: @tutor-neutral;
+}
+
+.course-settings .no-archive-help {
+  .btn-link {
+    text-transform: inherit;
+  }
+}
+// Popovers and modals render directly under <body>, outside the normal .tutor root element
+.teacher-add-student-form {
+  .tutor-input {
+    margin-bottom: 10px;
+  }
+}
+
+.settings-view-archived-periods-modal {
+  table { width: 100%; }
+  .control {
+    button.btn-link {
+      color: @tutor-tertiary-light;
+      text-transform: capitalize;
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.settings-cc-enrollment-code-modal {
+  textarea {
+    width: 100%;
+    height: 48rem;
+    resize: none;
+    #fonts > .sans(1.5rem, 2rem);
+    padding: 1rem;
+  }
+  .enrollment-code {
+    .code {
+      font-weight: 800;
+      font-size: 2rem;
+      text-align: center;
+    }
+    .emphasis {
+      font-style: italic;
+      font-weight: 600;
+      margin-right: .2em;
+    }
+    .callout {
+      line-height: 1.6rem;
+    }
+
+  }
+}
+
+.settings-edit-period-form {
+  margin: 20px 0px 10px 0px;
+  .warning {
+    color: @form-error-color;
+  }
+}
+
+.settings-edit-course-modal,
+.settings-cc-enrollment-code-modal,
+.settings-edit-period-modal,
+.settings-delete-period-modal,
+.settings-add-instructor-modal,
+.settings-view-archived-periods-modal {
+  .tutor-modal();
+  .modal-header {
+    color: @tutor-neutral-darker;
+    background-color: @tutor-neutral-bright;
+    button.close {
+      opacity: 0.8;
+      font-size: 3rem;
+      color: @tutor-neutral-darker;
+    }
+  }
+  .modal-footer {
+    border-top: 0;
+  }
+}
+
+.course-timezone-preview {
+  margin-top: 1rem;
+  margin-bottom: 0;
+  .course-timezone-preview-description {
+    padding-right: 1rem;
+  }
+}
+
+.settings-remove-teacher {
+  .warning {
+    width: 200px;
+  }
+}
+
+.settings-delete-period-modal {
+  #fonts > .sans(1.4rem, 1.6rem);
+  .modal-footer {
+    text-align: left;
+  }
+}
+
+.change-period.popover {
+  .popover-title {
+    min-width: 185px;
+    height: 35px;
+  }
+}
+
+.settings-add-instructor-modal {
+  .warning {
+    text-align: center;
+    color: @tutor-danger;
+  }
+}
+
+
+.openstax-debug-content.is-enabled {
+  .visible-when-debugging.view-archived-periods{
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+}

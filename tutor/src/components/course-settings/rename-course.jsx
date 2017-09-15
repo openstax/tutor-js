@@ -48,12 +48,11 @@ export default class RenameCourse extends React.PureComponent {
   }
 
   render() {
+    const { course } = this.props;
+
     return (
       <Button onClick={this.open} bsStyle="link" className="control edit-course">
         <Icon type="pencil" />
-
-        Rename Course
-
         <Modal
           show={this.showModal}
           onHide={this.close}
@@ -69,7 +68,7 @@ export default class RenameCourse extends React.PureComponent {
               ref={i => this.input = i}
               name="course-name"
               onChange={this.onChange}
-              default={this.props.course.name}
+              default={course.name}
               validate={this.validate}
               autoFocus={true} />
           </Modal.Body>
@@ -77,7 +76,7 @@ export default class RenameCourse extends React.PureComponent {
             <AsyncButton
               className="-edit-course-confirm"
               onClick={this.performUpdate}
-              isWaiting={this.props.course.hasApiRequestPending}
+              isWaiting={course.hasApiRequestPending}
               waitingText="Saving..."
               disabled={false === this.isValid}
             >

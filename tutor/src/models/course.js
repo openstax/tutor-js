@@ -39,7 +39,8 @@ export default class Course extends BaseModel {
   @field is_preview;
   @field num_sections;
   @field offering_id;
-
+  @field is_lms_enabling_allowed;
+  @field is_lms_enabled;
   @field salesforce_book_name;
 
   @field({ type: 'date' }) starts_at;
