@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, field, hasMany,
 } from './base';
 import {  extend } from 'lodash';
-import { action, observable, when,computed } from 'mobx';
+import { action, observable, when, computed } from 'mobx';
 import loadjs from 'loadjs';
 import { readonly } from 'core-decorators';
 import invariant from 'invariant';

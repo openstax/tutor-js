@@ -43,7 +43,7 @@ CourseConfig =
     validateCourseName: (name, courses, active) ->
       for course in courses
         if course.name is name
-          return['courseNameExists'] unless name is active
+          return ['courseNameExists'] unless name is active
         if not name? or name is ''
           return ['required']
 

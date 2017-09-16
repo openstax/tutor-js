@@ -6,7 +6,7 @@ Recordo.initialize();
 import { BootstrapURLs, UiSettings, ExerciseHelpers } from 'shared';
 
 import api from './src/api';
-import hypothesis from './src/hypothesis'
+// import Hypothesis from './src/hypothesis'
 import Notices from './src/helpers/notifications';
 import dom from './src/helpers/dom';
 import { startMathJax } from 'shared/src/helpers/mathjax';
@@ -22,6 +22,7 @@ import TEACHER_TASK_PLANS from './src/models/teacher-task-plans';
 import Chat from './src/models/chat';
 import { Logging, ReactHelpers } from 'shared';
 import PAYMENTS from './src/models/payments';
+import HYPOTHESIS from './src/models/hypothesis';
 import STUDENT_TASKS from './src/models/student-tasks';
 
 window._STORES = {
@@ -46,9 +47,11 @@ window._MODELS = {
   OFFERINGS,
   PAYMENTS,
   STUDENT_TASKS,
+  HYPOTHESIS
 };
 
 window._LOGGING = Logging;
+
 
 // In dev builds this enables hot-reloading,
 // in production it simply renders the root app
@@ -60,7 +63,7 @@ const loadApp = function() {
 
   const bootstrapData = dom.readBootstrapData();
   api.start(bootstrapData);
-  hypothesis.start(bootstrapData['hypothesis']);
+  // hypothesis.start(bootstrapData['hypothesis']);
   BootstrapURLs.update(bootstrapData);
 
   UiSettings.initialize(bootstrapData.ui_settings);
@@ -71,6 +74,9 @@ const loadApp = function() {
   startMathJax();
   TransitionAssistant.startMonitoring();
 
+  // Load the hypothesis config into the header
+  const hypothesis = new HYPOTHESIS();
+  hypothesis.initialize(bootstrapData['hypothesis']);
   // Both require and module.hot.accept must be passed a bare string, not variable
   const Renderer = ReactHelpers.renderRoot( () => require('./src/components/root').default);
   if (module.hot) { module.hot.accept('./src/components/root', Renderer); }

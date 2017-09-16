@@ -27,6 +27,10 @@ ReferenceBookShell = React.createClass
       CourseActions.load(courseId)
       CourseStore.once('course.loaded', @setIds)
 
+  componentDidMount: ->
+
+
+
   componentWillReceiveProps: ->
     @setIds()
 
