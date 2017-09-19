@@ -3,7 +3,7 @@ import {
 } from '../base';
 import { action, when, observable } from 'mobx';
 import { get, pick, isEmpty } from 'lodash';
-import { Redirect } from 'react-router';
+import { Redirect } from 'react-router-dom';
 import S from '../../helpers/string';
 import Router from '../../../src/helpers/router';
 import { CourseListingActions, CourseListingStore } from '../../flux/course-listing';
