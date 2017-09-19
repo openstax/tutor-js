@@ -56,6 +56,8 @@ PerformanceForecast = require '../flux/performance-forecast'
 { default: Purchase } = require '../models/purchases/purchase'
 { CourseStudentTasks } = require '../models/student-tasks'
 { default: StudentTask } = require '../models/student/task'
+{ default: LMS } = require '../models/course/lms'
+
 
 startAPI = ->
   connectRead(TaskActions, pattern: 'tasks/{id}')
@@ -216,6 +218,7 @@ startAPI = ->
     pattern: 'user/tours/{id}'
    )
 
+  connectModelRead(LMS, 'fetch', onSuccess: 'onLoaded', pattern: 'lms/{courseId}')
   connectModelRead(UserTerms, 'fetch', onSuccess: 'onLoaded', url: 'terms')
   connectModelUpdate(UserTerms, 'sign', onSuccess: 'onSigned', pattern: 'terms/{ids}', method: 'PUT')
   connectModelRead(Purchases.constructor, 'fetch', onSuccess: 'onLoaded', url: 'purchases')
