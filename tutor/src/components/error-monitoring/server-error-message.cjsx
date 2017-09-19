@@ -28,9 +28,9 @@ ServerErrorMessage = React.createClass
   displayName: 'ServerErrorMessage'
 
   propTypes:
-    status: React.PropTypes.number.isRequired
-    statusMessage: React.PropTypes.string.isRequired
-    config: React.PropTypes.object.isRequired
+    status: React.PropTypes.number
+    statusMessage: React.PropTypes.string
+    config: React.PropTypes.object
     supportLinkBase: React.PropTypes.string
     debug: React.PropTypes.bool
 

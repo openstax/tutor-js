@@ -8,7 +8,6 @@ jest.mock('../../../src/models/user', () => ({
   isConfirmedFaculty: true,
 }));
 
-
 describe('Current User Store', function() {
 
   beforeEach(function() {

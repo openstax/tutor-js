@@ -19,8 +19,8 @@ PerformanceForecast = require '../flux/performance-forecast'
 
 {ScoresActions} = require '../flux/scores'
 {ScoresExportActions} = require '../flux/scores-export'
-{RosterActions, RosterStore} = require '../flux/roster'
-{PeriodActions} = require '../flux/period'
+
+## //{PeriodActions} = require '../flux/period'
 
 {TaskActions} = require '../flux/task'
 {TaskPanelActions} = require '../flux/task-panel'
@@ -45,6 +45,8 @@ PerformanceForecast = require '../flux/performance-forecast'
 
 { default: User } = require '../models/user'
 { UserTerms, Term } = require '../models/user/terms'
+{ default: Course } = require '../models/course'
+{ default: Period } = require '../models/course/period'
 { default: Courses } = require '../models/courses-map'
 { default: Offerings } = require '../models/course/offerings'
 { default: CourseCreate } = require '../models/course/create'
@@ -56,6 +58,8 @@ PerformanceForecast = require '../flux/performance-forecast'
 { default: Purchase } = require '../models/purchases/purchase'
 { CourseStudentTasks } = require '../models/student-tasks'
 { default: StudentTask } = require '../models/student/task'
+{ default: CourseRoster } = require '../models/course/roster'
+{ default: CourseTeacher } = require '../models/course/teacher'
 
 startAPI = ->
   connectRead(TaskActions, pattern: 'tasks/{id}')
@@ -105,9 +109,6 @@ startAPI = ->
   connectRead(TocActions, pattern: 'ecosystems/{id}/readings')
   connectRead(CourseGuideActions, pattern: 'courses/{id}/guide')
   connectRead(CourseActions, pattern: 'courses/{id}')
-  connectUpdate(CourseActions, pattern: 'courses/{id}',
-    data: (id, data) -> data
-  )
 
   connectRead(CCDashboardActions, pattern: 'courses/{id}/cc/dashboard')
   connectRead(CoursePracticeActions, pattern: 'courses/{id}/practice')
@@ -143,39 +144,7 @@ startAPI = ->
 
   connectRead(JobActions, pattern: 'jobs/{id}', handledErrors: ['*'])
   connectRead(EcosystemsActions, url: 'ecosystems')
-  connectDelete(RosterActions,
-    pattern: 'teachers/{id}', trigger: 'teacherDelete', onSuccess: 'teacherDeleted'
-  )
-  connectDelete(RosterActions, pattern: 'students/{id}')
-  connectUpdate(RosterActions, pattern: 'students/{id}',
-    data: (id, data) -> data
-  )
 
-  connectModify(RosterActions, pattern: 'students/{studentId}/undrop', trigger: 'undrop', onSuccess: 'undropped',
-    errorHandlers:
-      already_active: 'onUndropAlreadyActive'
-      student_identifier_has_already_been_taken: 'recordDuplicateStudentIdError'
-  )
-  connectUpdate(RosterActions,
-    pattern: 'students/{studentId}', trigger: 'saveStudentIdentifier', onSuccess: 'savedStudentIdentifier',
-    errorHandlers:
-      student_identifier_has_already_been_taken: 'recordDuplicateStudentIdError'
-    data: ({courseId, studentId}) ->
-      student_identifier: RosterStore.getStudentIdentifier(courseId, studentId)
-  )
-  # this isn't currently used, it's the old endpoint for a teacher adding a student
-  # connectCreate(RosterActions, pattern: 'courses/{id}/roster')
-  connectRead(RosterActions, pattern: 'courses/{id}/roster')
-
-  connectCreate(PeriodActions, pattern: 'courses/{id}/periods',
-    data: (id, data) -> data
-  )
-  connectUpdate(PeriodActions,
-    url: (courseId, periodId, data) -> "periods/#{periodId}"
-    data: (courseId, periodId, data) -> data
-  )
-  connectDelete(PeriodActions, pattern: 'periods/{id}')
-  connectModify(PeriodActions, pattern: 'periods/{id}/restore', trigger: 'restore', onSuccess: 'restored')
 
   connectRead(TaskStepActions, pattern: 'steps/{id}')
   connectRead(TaskStepActions, pattern: 'steps/{id}', trigger: 'loadPersonalized',
@@ -239,7 +208,11 @@ startAPI = ->
       end_at: endAt
   )
 
-  connectModelUpdate(Student, 'save', pattern: 'user/courses/{courseId}/student', onSuccess: 'onSaved')
+  connectModelUpdate(Student, 'saveStudentId', pattern: 'students/{id}', onSuccess: 'onApiRequestComplete')
+  connectModelUpdate(Student, 'savePeriod', pattern: 'students/{id}', onSuccess: 'onApiRequestComplete')
+  connectModelDelete(Student, 'drop', pattern: 'students/{id}', onSuccess: 'onApiRequestComplete' )
+  connectModelUpdate(Student, 'unDrop', pattern: 'students/{id}/undrop', method: 'PUT', onSuccess: 'onApiRequestComplete' )
+
 
   connectModelCreate(CourseEnroll, 'create', url: 'enrollment_changes', onSuccess: 'onApiRequestComplete', onFail: 'setApiErrors')
   connectModelUpdate(CourseEnroll, 'confirm',
@@ -248,6 +221,50 @@ startAPI = ->
 
   connectModelRead(CourseStudentTasks, 'fetch', onSuccess: 'onLoaded', pattern: 'courses/{courseId}/dashboard')
   connectModelDelete(StudentTask, 'hide', onSuccess: 'onHidden', pattern: 'tasks/{id}')
+
+  connectModelUpdate(Course, 'save', pattern: 'courses/{id}', onSuccess: 'onApiRequestComplete')
+
+
+  connectModelRead(CourseRoster, 'fetch', pattern: 'courses/{courseId}/roster', onSuccess: 'onApiRequestComplete')
+
+
+  connectModelDelete(CourseTeacher, 'drop', pattern: 'teachers/{id}', onSuccess: 'onDropped')
+
+  connectModelCreate(Period, 'create', pattern: 'courses/{courseId}/periods', onSuccess: 'afterCreate')
+  connectModelUpdate(Period, 'save', pattern: 'periods/{id}', onSuccess: 'onApiRequestComplete')
+  connectModelDelete(Period, 'archive', pattern: 'periods/{id}', onSuccess: 'onApiRequestComplete')
+  connectModelUpdate(Period, 'unarchive', pattern: 'periods/{id}', onSuccess: 'onApiRequestComplete')
+
+  # connectCreate(PeriodActions, pattern: 'courses/{id}/periods',
+  #   data: (id, data) -> data
+  # )
+  # connectUpdate(PeriodActions,
+  #   url: (courseId, periodId, data) -> "periods/#{periodId}"
+  #   data: (courseId, periodId, data) -> data
+  # )
+  # connectDelete(PeriodActions, pattern: 'periods/{id}')
+  # connectModify(PeriodActions, pattern: 'periods/{id}/restore', trigger: 'restore', onSuccess: 'restored')
+
+
+
+
+  # connectDelete(RosterActions, pattern: 'students/{id}')
+  # connectUpdate(RosterActions, pattern: 'students/{id}',
+  #   data: (id, data) -> data
+  # )
+
+  # connectModify(RosterActions, pattern: 'students/{studentId}/undrop', trigger: 'undrop', onSuccess: 'undropped',
+  #   errorHandlers:
+  #     already_active: 'onUndropAlreadyActive'
+  #     student_identifier_has_already_been_taken: 'recordDuplicateStudentIdError'
+  # )
+  # connectUpdate(RosterActions,
+  #   pattern: 'students/{studentId}', trigger: 'saveStudentIdentifier', onSuccess: 'savedStudentIdentifier',
+  #   errorHandlers:
+  #     student_identifier_has_already_been_taken: 'recordDuplicateStudentIdError'
+  #   data: ({courseId, studentId}) ->
+  #     student_identifier: RosterStore.getStudentIdentifier(courseId, studentId)
+  # )
 
 BOOTSTRAPED_MODELS = {
   user:     User,

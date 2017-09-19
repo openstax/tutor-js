@@ -1,6 +1,7 @@
 .tutor-tabs {
   display: flex;
   border-bottom: 1px solid @nav-tabs-border-color;
+
   > .nav-tabs {
     background: none;
     display: flex;
@@ -13,16 +14,20 @@
       border: none;
       padding: 1px;
       padding-bottom: 0;
-      .transition(background 0.2s);
-
+      transition: border-bottom-color 0.2s;
+      display: flex;
+      align-items: center;
+      border-bottom: 4px solid transparent;
       a {
-        color: @tutor-neutral !important;
+        color: @tutor-neutral-darker;
         display: flex;
-        font-size: inherit;
-        font-weight: 400;
+        font-size: 16px;
+        font-weight: normal;
         justify-content: center;
+        border: 0;
         margin: 0;
         outline: 0;
+        text-transform: uppercase;
         span.tab-item-period-name {
           overflow: hidden;
           text-overflow: ellipsis;
@@ -46,15 +51,17 @@
         }
 
         &:hover {
-          color: lighten(@tutor-neutral, 14%) !important;
+          background-color: inherit;
         }
+      }
 
-        &[aria-selected="true"] {
-          background: @tutor-white;
-          border-bottom: none;
-          color: @tutor-neutral-darker !important;
-          font-weight: 900;
+      &.active {
+        a {
+          border: 0;
+          background-color: inherit;
+          color: @tutor-neutral-darker;
         }
+        border-bottom-color: @tutor-secondary;
       }
 
       &.is-trouble {
@@ -70,8 +77,6 @@
           }
         }
       }
-
     }
-
   }
 }

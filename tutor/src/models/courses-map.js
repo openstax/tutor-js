@@ -3,7 +3,7 @@ import { computed, action } from 'mobx';
 import { CourseListingActions, CourseListingStore } from '../flux/course-listing';
 import { CourseStore } from '../flux/course';
 import Course from './course';
-import { once } from 'lodash';
+import { once, isEmpty } from 'lodash';
 
 function onCourseSave(courseData) {
   coursesMap.get(courseData.id).update(courseData);
@@ -67,11 +67,15 @@ class CoursesMap extends Map {
     return course;
   }
 
+  isNameValid(name) {
+    return Boolean(!isEmpty(name) && !find(this.array, { name }));
+  }
+
   bootstrap( courseData, options = {} ) {
     CourseListingActions.loaded(courseData);
     if (options.clear) { this.clear(); }
     onLoaded(courseData);
-    listenForLoad();
+    setTimeout(listenForLoad, 10); // wait for the initial onload to fire
     return coursesMap;
   }
 

@@ -95,8 +95,15 @@ Array [
     },
   },
   Object {
-    "label": "Course Settings and Roster",
+    "label": "Course Settings",
     "name": "courseSettings",
+    "params": Object {
+      "courseId": "2",
+    },
+  },
+  Object {
+    "label": "Course Roster",
+    "name": "courseRoster",
     "params": Object {
       "courseId": "2",
     },

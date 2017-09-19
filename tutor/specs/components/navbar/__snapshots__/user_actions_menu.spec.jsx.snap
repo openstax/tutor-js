@@ -409,7 +409,29 @@ exports[`Teacher Navbar Component has user actions menu that matches snapshot 1`
           data-tour-anchor-id="menu-option-courseSettings"
           id="menu-option-courseSettings"
         >
-          Course Settings and Roster
+          Course Settings
+        </div>
+      </a>
+    </li>
+    <li
+      className="courseRoster"
+      role="presentation"
+      style={undefined}
+    >
+      <a
+        data-name="courseRoster"
+        href="/course/1/roster"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="menuitem"
+        tabIndex="-1"
+      >
+        <div
+          className="tour-anchor"
+          data-tour-anchor-id="menu-option-courseRoster"
+          id="menu-option-courseRoster"
+        >
+          Course Roster
         </div>
       </a>
     </li>

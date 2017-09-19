@@ -5,6 +5,8 @@
   "ecosystem_id": "1",
   "appearance_code": "biology",
   "offering_id": "1",
+  "term": "fall",
+  "year": 2015,
   "periods": [{
     "id": "1",
     "name" : "1st",
