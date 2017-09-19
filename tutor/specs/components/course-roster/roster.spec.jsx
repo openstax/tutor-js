@@ -1,6 +1,6 @@
 import { React } from '../helpers/component-testing';
 import Renderer from 'react-test-renderer';
-import { Roster, Courses, courseRosterBootstrap } from './bootstrap-data';
+import { Roster, courseRosterBootstrap } from './bootstrap-data';
 
 describe('Course Settings', function() {
 

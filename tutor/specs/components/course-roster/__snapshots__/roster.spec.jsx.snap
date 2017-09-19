@@ -16,18 +16,6 @@ exports[`Course Settings matches snapshot 1`] = `
         className="course-settings-title"
       >
         Local Test Course
-        <button
-          className="control edit-course btn btn-link"
-          disabled={false}
-          onClick={[Function]}
-          type="button"
-        >
-          <i
-            className="tutor-icon fa fa-pencil"
-            type="pencil"
-          />
-          Rename Course
-        </button>
       </div>
       <h4
         className="course-settings-term"

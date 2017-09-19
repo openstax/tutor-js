@@ -1,9 +1,9 @@
-import StudentEnrollmentLink from '../../../src/components/course-roster/student-enrollment-link';
+import StudentAccess from '../../../src/components/course-settings/student-access';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import Courses from '../../../src/models/courses-map';
 import Renderer from 'react-test-renderer';
 
-describe('Course Settings, student enrollment link', () => {
+xdescribe('Course Settings, student access', () => {
 
   let props;
 

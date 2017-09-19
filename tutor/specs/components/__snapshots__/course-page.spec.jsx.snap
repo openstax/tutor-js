@@ -3,22 +3,26 @@
 exports[`Course Page renders and matches snapshot 1`] = `
 <div
   className="course-page test-page"
+  data-appearance="biology"
+  data-book-title="Biology"
+  data-is-preview={false}
+  data-term="Fall 2015"
+  data-title="Local Test Course"
 >
   <header>
     <div
-      className="title"
-      data-appearance="biology"
-      data-book-title="Biology"
-      data-is-preview={false}
-      data-term="Fall 2015"
-      data-title="Local Test Course"
+      className="title-wrapper"
     >
-      <h1>
-        A Big Bad Page
-      </h1>
+      <div
+        className="title"
+      >
+        <h1>
+          A Big Bad Page
+        </h1>
+      </div>
     </div>
     <div
-      className="controls"
+      className="controls-wrapper"
     >
       <button>
         Click Me
