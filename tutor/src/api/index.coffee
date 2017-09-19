@@ -254,6 +254,7 @@ BOOTSTRAPED_MODELS = {
   user:     User,
   courses:  Courses,
   payments: Payments,
+  hypothesis: Hypothesis
 }
 
 start = (bootstrapData) ->

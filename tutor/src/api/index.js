@@ -481,7 +481,8 @@
   BOOTSTRAPED_MODELS = {
     user: User,
     courses: Courses,
-    payments: Payments
+    payments: Payments,
+    hypothesis: Hypothesis
   };
 
   start = function(bootstrapData) {

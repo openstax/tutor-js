@@ -12,4 +12,3 @@ archive.tar.gz
 /phantomjsdriver.log
 */test/some-tests.*
 *.idea
-package-lock.json

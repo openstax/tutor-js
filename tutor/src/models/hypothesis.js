@@ -1,15 +1,22 @@
 import {
-  BaseModel, identifiedBy
+  BaseModel, field, identifiedBy
 } from './base';
-import {  extend } from 'lodash';
 import { action, observable, when, computed } from 'mobx';
 import loadjs from 'loadjs';
-import { readonly } from 'core-decorators';
+import {Logging } from 'shared';
 
+@identifiedBy('hypotheis')
+class Hypothesis extends BaseModel {
 
-export default class Hypothesis {
+  @action.bound
+  bootstrap(data) {
+    this.update(data);
+  }
 
-
+  @field embed_url;
+  @field api_url;
+  @field authority;
+  @field grant_token;
 
   logFailure(msg) {
     this.errorMessage = msg;
@@ -17,48 +24,39 @@ export default class Hypothesis {
     Logging.error(msg)
   }
 
-  initialize(config) {
-
-    console.log('Hypothesis is initializing...');
-    // Apply config items
-    this.config = config;
-
-    window.hypothesisConfig = this.loadSidebarConfig;
-    this.loadSidebar()
+  initialize() {
+    window.hypothesisConfig = this.sidebarConfig;
   }
 
-  loadSidebarConfig(){
-    console.log('Loading hypothesis config obj into head');
+
+  @action.bound
+  sidebarConfig() {
     return {
       'services':
-        {
-          'apiUrl': this.config.api_url,
-          'grantToken': 'blah',
-          'client_id': this.config.client_id,
+        [{
+          'apiUrl': this.api_url,
+          'grantToken': this.grant_token,
+          'clientId': this.client_id,
           'authority': this.authority
-        }
+        }]
     }
-
   }
 
   @action.bound
   loadSidebar() {
-    console.log('load the hypothesis embed_url');
-    if (!this.config.embed_url) {
+    if (!this.embed_url) {
       return this.logFailure('Attempted to load hypothesis without an embed_url')
     }
     this.isBusy = true;
     if (!window.hypothesisConfig) {
-      console.log('no hypothesis config detected');
-      return this.initialize()
+      logFailure('No window.hypothesisConfig detected');
     } else {
-      return loadjs(this.config.embed_url, {
-        success: () =>
-          console.log('loading sidebar'),
+      return loadjs(this.embed_url, {
         error: (e) => this.logFailure(`Unable to request assets ${e}`),
       })
     }
   }
-
-
 }
+
+const hypothesis = new Hypothesis;
+export default hypothesis
