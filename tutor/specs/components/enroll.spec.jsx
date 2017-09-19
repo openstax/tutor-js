@@ -36,7 +36,7 @@ describe('Student Enrollment', () => {
     Router.makePathname = jest.fn(() => '/courses');
     enroll.find('Button').simulate('click');
     expect(Router.makePathname).toHaveBeenCalledWith('myCourses');
-    expect(enrollment.router.transitionTo).to.have.been.calledWith({ pathname: '/courses' });
+    expect(enrollment.router.history.push).toHaveBeenCalledWith('/courses');
   });
 
 

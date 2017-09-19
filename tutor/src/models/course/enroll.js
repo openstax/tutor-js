@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   BaseModel, identifiedBy, field, identifier, computed, session,
 } from '../base';
@@ -8,8 +9,6 @@ import S from '../../helpers/string';
 import Router from '../../../src/helpers/router';
 import { CourseListingActions, CourseListingStore } from '../../flux/course-listing';
 import StudentTasks from '../student-tasks';
-import Courses from '../courses-map';
-import React from 'react';
 import Activity from '../../../src/components/ox-fancy-loader';
 import Enroll from '../../../src/components/enroll';
 import Course from '../course';
@@ -63,7 +62,7 @@ export default class CourseEnrollment extends BaseModel {
 
   @action.bound
   onCancel() {
-    this.router.transitionTo({ pathname: Router.makePathname('myCourses') });
+    this.router.history.push(Router.makePathname('myCourses'));
   }
 
   @action.bound
