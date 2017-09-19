@@ -1,5 +1,5 @@
 React = require 'react'
-Router = require 'react-router'
+Router = require 'react-router-dom'
 
 Router = require '../../helpers/router'
 DesktopImage = require './desktop-image'

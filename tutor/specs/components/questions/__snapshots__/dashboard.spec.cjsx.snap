@@ -20,7 +20,6 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
           className="btn btn-default"
           href="/"
           onClick={[Function]}
-          style={Object {}}
         >
           Back to Dashboard
         </a>

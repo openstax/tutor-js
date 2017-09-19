@@ -200,7 +200,7 @@ Task = React.createClass
     if silent
       @context.router.replaceWith(Router.makePathname('viewTaskStep', params))
     else
-      @context.router.transitionTo(Router.makePathname('viewTaskStep', params))
+      @context.router.history.push(Router.makePathname('viewTaskStep', params))
 
     true
 
@@ -209,7 +209,7 @@ Task = React.createClass
 
   closeMilestones: ->
     params = Router.currentParams()
-    @context.router.transitionTo(
+    @context.router.history.push(
       Router.makePathname('viewTaskStep', params)
     )
 

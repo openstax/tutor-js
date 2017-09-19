@@ -647,10 +647,8 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                             className="review-link"
                           >
                             <a
-                              className=""
-                              href="/"
+                              href="/course/1/metrics/2"
                               onClick={[Function]}
-                              style={Object {}}
                             >
                               Review
                             </a>
@@ -730,10 +728,8 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                             className="review-link"
                           >
                             <a
-                              className=""
-                              href="/"
+                              href="/course/1/metrics/1"
                               onClick={[Function]}
-                              style={Object {}}
                             >
                               Review
                             </a>
@@ -911,9 +907,8 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                         >
                           <a
                             className="name-cell"
-                            href="/"
+                            href="/course/1/guide/9"
                             onClick={[Function]}
-                            style={Object {}}
                           >
                             <span
                               aria-describedby="name-tooltip-Rabbit-Angstrom"
@@ -1015,11 +1010,9 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                             className="score"
                           >
                             <a
-                              className=""
                               data-assignment-type="homework"
-                              href="/"
+                              href="/course/1/task/17/step/1"
                               onClick={[Function]}
-                              style={Object {}}
                             >
                               50%
                             </a>
@@ -1143,9 +1136,8 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                           <a
                             className="task-result status-cell undefined"
                             data-assignment-type="external"
-                            href="/"
+                            href="/course/1/task/702"
                             onClick={[Function]}
-                            style={Object {}}
                           >
                             <span>
                               ---
@@ -1233,9 +1225,8 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                         >
                           <a
                             className="name-cell"
-                            href="/"
+                            href="/course/1/guide/8"
                             onClick={[Function]}
-                            style={Object {}}
                           >
                             <span
                               aria-describedby="name-tooltip-Molly-Bloom"
@@ -1337,11 +1328,9 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                             className="score"
                           >
                             <a
-                              className=""
                               data-assignment-type="homework"
-                              href="/"
+                              href="/course/1/task/16/step/1"
                               onClick={[Function]}
-                              style={Object {}}
                             >
                               100%
                             </a>
@@ -1473,9 +1462,8 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                           <a
                             className="task-result status-cell undefined"
                             data-assignment-type="external"
-                            href="/"
+                            href="/course/1/task/703"
                             onClick={[Function]}
-                            style={Object {}}
                           >
                             <span>
                               ---
@@ -1563,9 +1551,8 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                         >
                           <a
                             className="name-cell"
-                            href="/"
+                            href="/course/1/guide/10"
                             onClick={[Function]}
-                            style={Object {}}
                           >
                             <span
                               aria-describedby="name-tooltip-Seymour-Glass"
@@ -1667,11 +1654,9 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                             className="score"
                           >
                             <a
-                              className=""
                               data-assignment-type="homework"
-                              href="/"
+                              href="/course/1/task/18/step/1"
                               onClick={[Function]}
-                              style={Object {}}
                             >
                               50%
                             </a>
@@ -1809,9 +1794,8 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                           <a
                             className="task-result status-cell undefined"
                             data-assignment-type="external"
-                            href="/"
+                            href="/course/1/task/704"
                             onClick={[Function]}
-                            style={Object {}}
                           >
                             <span>
                               ---
@@ -1899,9 +1883,8 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                         >
                           <a
                             className="name-cell"
-                            href="/"
+                            href="/course/1/guide/4"
                             onClick={[Function]}
-                            style={Object {}}
                           >
                             <span
                               aria-describedby="name-tooltip-Bettie-Hackett"
@@ -2003,11 +1986,9 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                             className="score"
                           >
                             <a
-                              className=""
                               data-assignment-type="homework"
-                              href="/"
+                              href="/course/1/task/12/step/1"
                               onClick={[Function]}
-                              style={Object {}}
                             >
                               0%
                             </a>
@@ -2077,9 +2058,8 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                           <a
                             className="task-result status-cell undefined"
                             data-assignment-type="external"
-                            href="/"
+                            href="/course/1/task/705"
                             onClick={[Function]}
-                            style={Object {}}
                           >
                             <span>
                               Clicked
@@ -2176,9 +2156,8 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                         >
                           <a
                             className="name-cell"
-                            href="/"
+                            href="/course/1/guide/5"
                             onClick={[Function]}
-                            style={Object {}}
                           >
                             <span
                               aria-describedby="name-tooltip-Giovanny-Jaskolski"
@@ -2336,9 +2315,8 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                           <a
                             className="task-result status-cell undefined"
                             data-assignment-type="external"
-                            href="/"
+                            href="/course/1/task/706"
                             onClick={[Function]}
-                            style={Object {}}
                           >
                             <span>
                               Clicked
@@ -2435,9 +2413,8 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                         >
                           <a
                             className="name-cell"
-                            href="/"
+                            href="/course/1/guide/2"
                             onClick={[Function]}
-                            style={Object {}}
                           >
                             <span
                               aria-describedby="name-tooltip-Albin-Kirlin"
@@ -2595,9 +2572,8 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                           <a
                             className="task-result status-cell undefined"
                             data-assignment-type="external"
-                            href="/"
+                            href="/course/1/task/707"
                             onClick={[Function]}
-                            style={Object {}}
                           >
                             <span>
                               ---
@@ -2685,9 +2661,8 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                         >
                           <a
                             className="name-cell"
-                            href="/"
+                            href="/course/1/guide/6"
                             onClick={[Function]}
-                            style={Object {}}
                           >
                             <span
                               aria-describedby="name-tooltip-Kevin-Lowe"
@@ -2789,11 +2764,9 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                             className="score"
                           >
                             <a
-                              className=""
                               data-assignment-type="homework"
-                              href="/"
+                              href="/course/1/task/14/step/1"
                               onClick={[Function]}
-                              style={Object {}}
                             >
                               0%
                             </a>
@@ -2873,9 +2846,8 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                           <a
                             className="task-result status-cell undefined"
                             data-assignment-type="external"
-                            href="/"
+                            href="/course/1/task/708"
                             onClick={[Function]}
-                            style={Object {}}
                           >
                             <span>
                               ---
@@ -2963,9 +2935,8 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                         >
                           <a
                             className="name-cell"
-                            href="/"
+                            href="/course/1/guide/7"
                             onClick={[Function]}
-                            style={Object {}}
                           >
                             <span
                               aria-describedby="name-tooltip-Ignatius-Reilly"
@@ -3123,9 +3094,8 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                           <a
                             className="task-result status-cell undefined"
                             data-assignment-type="external"
-                            href="/"
+                            href="/course/1/task/709"
                             onClick={[Function]}
-                            style={Object {}}
                           >
                             <span>
                               ---
@@ -3213,9 +3183,8 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                         >
                           <a
                             className="name-cell"
-                            href="/"
+                            href="/course/1/guide/3"
                             onClick={[Function]}
-                            style={Object {}}
                           >
                             <span
                               aria-describedby="name-tooltip-Alyce-Tromp"
@@ -3373,9 +3342,8 @@ exports[`Scores Report renders and matches snapshot 1`] = `
                           <a
                             className="task-result status-cell undefined"
                             data-assignment-type="external"
-                            href="/"
+                            href="/course/1/task/709"
                             onClick={[Function]}
-                            style={Object {}}
                           >
                             <span>
                               ---

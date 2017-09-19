@@ -25,7 +25,7 @@ ReferenceViewPageNavigation = React.createClass
 
   onNavigation: (info, href) ->
     @props.onPageNavigationClick?(info.chapter_section, ev)
-    @context.router.transitionTo(href)
+    @context.router.history.push(href)
 
   render: ->
 

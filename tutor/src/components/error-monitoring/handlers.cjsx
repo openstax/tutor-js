@@ -15,7 +15,7 @@ ServerErrorMessage = require './server-error-message'
 UserMenu = require('../../models/user/menu').default
 
 goToDashboard = (context, courseId) ->
-  context.router.transitionTo(
+  context.router.history.push(
     TutorRouter.makePathname('dashboard', {courseId})
   )
   Dialog.hide()

@@ -162,7 +162,7 @@ PlanMixin =
 
   goBackToCalendar: ->
     {to, params} = @getBackToCalendarParams()
-    @context.router.transitionTo(Router.makePathname(to, params))
+    @context.router.history.push(Router.makePathname(to, params))
 
   builderHeader: (type, label = 'Assignment') ->
     {id} = @props

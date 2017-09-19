@@ -29,7 +29,7 @@ export default class EventRow extends React.PureComponent {
   @action.bound onClick(ev) {
     ev.preventDefault();
     if (this.isWorkable) {
-      this.context.router.transitionTo(
+      this.context.router.history.push(
         ev.currentTarget.getAttribute('href')
       );
     }

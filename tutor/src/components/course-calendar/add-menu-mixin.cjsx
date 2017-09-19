@@ -25,7 +25,7 @@ CourseAddMenuMixin =
   goToBuilder: (link) ->
     (clickEvent) =>
       clickEvent.preventDefault()
-      @context.router.transitionTo(link.pathname)
+      @context.router.history.push(link.pathname)
 
   renderAddActions: ->
     {courseId} = @props

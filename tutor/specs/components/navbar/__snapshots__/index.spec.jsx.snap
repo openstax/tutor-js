@@ -12,9 +12,8 @@ exports[`Main navbar renders and matches snapshot 1`] = `
     >
       <a
         className="brand"
-        href="/"
+        href="/dashboard"
         onClick={[Function]}
-        style={Object {}}
       >
         <i
           className="ui-brand-logo"

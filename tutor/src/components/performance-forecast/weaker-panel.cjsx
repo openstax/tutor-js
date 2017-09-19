@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+Router = require 'react-router-dom'
 _ = require 'underscore'
 
 PerformanceForecast  = require '../../flux/performance-forecast'

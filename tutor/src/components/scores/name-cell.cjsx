@@ -1,5 +1,5 @@
 React    = require 'react'
-Router = require 'react-router'
+Router = require 'react-router-dom'
 Name = require '../name'
 classnames = require 'classnames'
 TutorLink = require '../link'

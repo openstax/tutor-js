@@ -1,5 +1,5 @@
 React = require 'react'
-{Link} = require 'react-router'
+{Link} = require 'react-router-dom'
 concat    = require 'lodash/concat'
 BS = require 'react-bootstrap'
 

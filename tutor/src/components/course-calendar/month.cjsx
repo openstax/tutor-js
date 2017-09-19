@@ -64,7 +64,7 @@ CourseMonth = React.createClass
     params.date = date.format(@props.dateFormat)
 
     date = date.format(@props.dateFormat)
-    @context.router.transitionTo(TutorRouter.makePathname('calendarByDate', params))
+    @context.router.history.push(TutorRouter.makePathname('calendarByDate', params))
 
   setDate: (date) ->
     unless moment(date).isSame(@props.date, 'month')
@@ -198,7 +198,7 @@ CourseMonth = React.createClass
       url = item.pathname + "?" + qs.stringify({
         due_at: @state.hoveredDay.format(@props.dateFormat)
       })
-      @context.router.transitionTo(url)
+      @context.router.history.push(url)
     else # is a task plan to clone
       @setState(
         cloningPlan: extend({}, item,

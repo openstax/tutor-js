@@ -21,7 +21,7 @@ describe 'Course Periods Navigation', ->
       @selectedPeriod = period
     @transitionSpy = sinon.spy()
     Component = StubContext(CoursePeriodsNav, {router: {
-      transitionTo: @transitionSpy
+      history.push: @transitionSpy
       getCurrentQuery: -> {tab: 0}
       getCurrentPathname: -> '/test/test/test'
     }})

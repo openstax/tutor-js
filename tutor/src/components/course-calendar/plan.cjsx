@@ -108,7 +108,7 @@ CoursePlan = React.createClass
     currentParams = Router.currentParams()
     unless _.isEqual(currentParams, expectedParams)
       expectedParams.date ?= @context.dateFormatted
-      @context.router.transitionTo(Router.makePathname(expectedRoute, expectedParams))
+      @context.router.history.push(Router.makePathname(expectedRoute, expectedParams))
 
   # handles when route changes and modal show/hide needs to sync
   # i.e. when using back or forward on browser

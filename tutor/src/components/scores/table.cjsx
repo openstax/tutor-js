@@ -16,7 +16,7 @@ AssignmentCell   = require './assignment-cell'
 AssignmentHeader = require './assignment-header'
 NameCell     = require './name-cell'
 
-Router = require 'react-router'
+Router = require 'react-router-dom'
 
 FIRST_DATA_COLUMN = 2
 COLUMN_WIDTH = 160

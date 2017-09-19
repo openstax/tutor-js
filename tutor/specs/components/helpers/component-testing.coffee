@@ -15,8 +15,9 @@ TestBackend = require('react-dnd-test-backend').default
 # No longer exists, needs further investigation if we're using it
 # ReactContext   = require('react/lib/ReactContext')
 
-{LocationBroadcast} = require 'react-router/Broadcasts'
-{createRouterLocation} = require 'react-router/LocationUtils'
+createHistory = require 'history/createMemoryHistory'
+{ Router: ReactRouter } = require 'react-router-dom'
+
 {Promise}      = require 'es6-promise'
 {commonActions} = require './utilities'
 sandbox = null
@@ -40,16 +41,17 @@ Wrapper = React.createClass
   childContextTypes:
     router: React.PropTypes.object
     dragDropManager: React.PropTypes.object,
-    broadcasts: React.PropTypes.object
+
   getChildContext: ->
     router: ROUTER
     dragDropManager: new DragDropManager(TestBackend),
-    broadcasts: { location: (cb) -> cb(pathname: (options.pathname or '/')) }
+
   render: ->
-    location = createRouterLocation('/')
+    location = { pathname: '/' }
     props = _.omit(@props, '_wrapped_component')
     props.ref = 'element' unless @props.noReference
-    React.createElement(LocationBroadcast, value: location,
+
+    React.createElement(ReactRouter, { history: createHistory.default( initialEntries: ['/dashboard'] ) },
       React.createElement(@props._wrapped_component, props)
     )
 

@@ -4,6 +4,7 @@ import App from '../../src/components/app';
 import User from '../../src/models/user';
 jest.mock('../../src/models/user', () => ({
   recordSessionStart: jest.fn(),
+  logEvent: jest.fn(),
   verifiedRoleForCourse() {
     return 'teacher';
   },

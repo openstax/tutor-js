@@ -10,9 +10,8 @@ exports[`Student Preview Builder renders and matches snapshot 1`] = `
     </h1>
     <a
       className="btn btn-default"
-      href="/"
+      href="/foo"
       onClick={[Function]}
-      style={Object {}}
     >
       Back to Dashboard
     </a>

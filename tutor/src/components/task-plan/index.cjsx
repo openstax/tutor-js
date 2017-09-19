@@ -80,7 +80,7 @@ PlanShell = React.createClass
     {id} = Router.currentParams()
     type = @props.type
     if not getPlanType(type)
-      @context.router.transitionTo(Router.makePathname('NotFoundRoute'))
+      @context.router.history.push(Router.makePathname('NotFoundRoute'))
       return
 
     if not id or id is 'new'

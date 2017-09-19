@@ -1,6 +1,6 @@
 React = require 'react'
 extend = require 'lodash/extend'
-{Redirect, Link} = require 'react-router'
+{Redirect, Link} = require 'react-router-dom'
 
 TutorRouter = require '../helpers/router'
 {default: InvalidPage} = require '../components/invalid-page'
@@ -30,7 +30,7 @@ module.exports =
     course = CourseStore.get(courseId)
     unless course
       return <InvalidPage message="course was not found" />
-    unless props.isExact
+    unless props.match.isExact
       return <MatchForTutor {...props} />
 
     if CourseStore.isTeacher(courseId)

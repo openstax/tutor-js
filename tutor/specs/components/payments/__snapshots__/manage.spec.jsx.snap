@@ -10,9 +10,8 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
     </h1>
     <a
       className="btn btn-default"
-      href="/"
+      href="/foo"
       onClick={[Function]}
-      style={Object {}}
     >
       Back to Dashboard
     </a>
@@ -350,9 +349,8 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
   >
     <a
       className="refund-policy"
-      href="/"
+      href="/foo"
       onClick={[Function]}
-      style={Object {}}
       tabIndex={0}
       target="_blank"
     >
@@ -363,10 +361,8 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
     >
       Need help?
       <a
-        className=""
-        href="/"
+        href="/foo"
         onClick={[Function]}
-        style={Object {}}
         tabIndex={0}
         target="_blank"
       >
@@ -387,9 +383,8 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
     </h1>
     <a
       className="btn btn-default"
-      href="/"
+      href="/foo"
       onClick={[Function]}
-      style={Object {}}
     >
       Back to Dashboard
     </a>
@@ -406,9 +401,8 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
   >
     <a
       className="refund-policy"
-      href="/"
+      href="/foo"
       onClick={[Function]}
-      style={Object {}}
       tabIndex={0}
       target="_blank"
     >
@@ -419,10 +413,8 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
     >
       Need help?
       <a
-        className=""
-        href="/"
+        href="/foo"
         onClick={[Function]}
-        style={Object {}}
         tabIndex={0}
         target="_blank"
       >
