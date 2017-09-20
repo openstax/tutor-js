@@ -17,7 +17,6 @@ assign = require 'lodash/assign'
 {EcosystemsActions} = require '../flux/ecosystems'
 PerformanceForecast = require '../flux/performance-forecast'
 
-{ScoresActions} = require '../flux/scores'
 {ScoresExportActions} = require '../flux/scores-export'
 
 ## //{PeriodActions} = require '../flux/period'
@@ -59,6 +58,7 @@ PerformanceForecast = require '../flux/performance-forecast'
 { CourseStudentTasks } = require '../models/student-tasks'
 { default: StudentTask } = require '../models/student/task'
 { default: CourseRoster } = require '../models/course/roster'
+{ default: CourseScores } = require '../models/course/scores'
 { default: CourseTeacher } = require '../models/course/teacher'
 
 startAPI = ->
@@ -128,18 +128,9 @@ startAPI = ->
     {url, data}
   )
 
-  connectRead(ScoresActions, pattern: 'courses/{id}/performance')
   connectRead(ScoresExportActions, pattern: 'courses/{id}/performance/exports')
   connectCreate(ScoresExportActions,
     pattern: 'courses/{id}/performance/export', trigger: 'export', onSuccess: 'exported'
-  )
-
-  connectModify(ScoresActions,
-    trigger: 'acceptLate', onSuccess: 'acceptedLate', pattern: 'tasks/{id}/accept_late_work'
-  )
-
-  connectModify(ScoresActions,
-    trigger: 'rejectLate', onSuccess: 'rejectedLate', pattern: 'tasks/{id}/reject_late_work'
   )
 
   connectRead(JobActions, pattern: 'jobs/{id}', handledErrors: ['*'])
@@ -234,6 +225,21 @@ startAPI = ->
   connectModelUpdate(Period, 'save', pattern: 'periods/{id}', onSuccess: 'onApiRequestComplete')
   connectModelDelete(Period, 'archive', pattern: 'periods/{id}', onSuccess: 'onApiRequestComplete')
   connectModelUpdate(Period, 'unarchive', pattern: 'periods/{id}', onSuccess: 'onApiRequestComplete')
+
+  connectModelRead(CourseScores, 'fetch',
+    pattern: 'courses/{courseId}/performance',
+    onSuccess: 'onFetchComplete'
+  )
+
+
+  # connectRead(ScoresActions, )
+  # connectModify(ScoresActions,
+  #   trigger: 'acceptLate', onSuccess: 'acceptedLate', pattern: 'tasks/{id}/accept_late_work'
+  # )
+  # connectModify(ScoresActions,
+  #   trigger: 'rejectLate', onSuccess: 'rejectedLate', pattern: 'tasks/{id}/reject_late_work'
+  # )
+
 
   # connectCreate(PeriodActions, pattern: 'courses/{id}/periods',
   #   data: (id, data) -> data

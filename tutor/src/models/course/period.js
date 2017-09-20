@@ -1,4 +1,5 @@
 import { find, pick } from 'lodash';
+import { computed } from 'mobx';
 import {
   BaseModel, identifiedBy, field, identifier, belongsTo,
 } from '../base';
@@ -16,6 +17,10 @@ export default class CoursePeriod extends BaseModel {
   @field teacher_student_role_id;
 
   @belongsTo({ model: 'course' }) course;
+
+  @computed get scores() {
+    return this.course.scores.periods.get(this.id);
+  }
 
   isNameValid( name ) {
     return Boolean(
