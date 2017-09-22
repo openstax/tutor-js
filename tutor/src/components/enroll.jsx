@@ -85,7 +85,7 @@ export default class CourseEnroll extends React.PureComponent {
         </Modal.Body>
         <Modal.Footer>
           <Button bsStyle="primary" className="cancel" onClick={this.onCancel}>
-            Continue to My courses
+            Continue to My Courses
           </Button>
         </Modal.Footer>
       </div>
