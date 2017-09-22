@@ -59,6 +59,7 @@ PerformanceForecast = require '../flux/performance-forecast'
 { default: StudentTask } = require '../models/student/task'
 { default: CourseRoster } = require '../models/course/roster'
 { default: CourseScores } = require '../models/course/scores'
+{ default: TaskResult } = require '../models/course/scores/task-result'
 { default: CourseTeacher } = require '../models/course/teacher'
 
 startAPI = ->
@@ -227,9 +228,11 @@ startAPI = ->
   connectModelUpdate(Period, 'unarchive', pattern: 'periods/{id}', onSuccess: 'onApiRequestComplete')
 
   connectModelRead(CourseScores, 'fetch',
-    pattern: 'courses/{courseId}/performance',
-    onSuccess: 'onFetchComplete'
-  )
+    pattern: 'courses/{courseId}/performance', onSuccess: 'onFetchComplete')
+
+  connectModelUpdate(TaskResult, 'acceptLate', method: 'PUT', pattern: 'tasks/{id}/accept_late_work', onSuccess: 'onLateWorkAccepted')
+
+  connectModelUpdate(TaskResult, 'rejectLate', method: 'PUT', pattern: 'tasks/{id}/reject_late_work', onSuccess: 'onLateWorkRejected')
 
 
   # connectRead(ScoresActions, )

@@ -1,4 +1,6 @@
 import React from 'react';
+import TutorLink from '../link';
+import LateIcon from '../late-icon';
 
 const STATUS = {
   'completed':   'Clicked',

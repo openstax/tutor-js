@@ -108,7 +108,7 @@ const AssignmentSortingHeader = (props) => {
 
 
 const AssignmentHeader = function(props) {
-  const { data: { data_headings }, isConceptCoach, periodIndex, period_id, courseId, sort, onSort, columnIndex, width } = props;
+  const { period: { data_headings }, isConceptCoach, periodIndex, courseId, sort, onSort, columnIndex, width } = props;
   const heading = data_headings[columnIndex];
 
   return (

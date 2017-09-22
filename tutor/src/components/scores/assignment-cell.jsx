@@ -8,7 +8,7 @@ import ConceptCoachCell from './concept-coach-cell';
 import { extend } from 'lodash';
 
 const AssignmentCell = function(props) {
-  const student = props.data.students[props.rowIndex];
+  const student = props.students[props.rowIndex];
 
   props = extend({}, props, {
     student,

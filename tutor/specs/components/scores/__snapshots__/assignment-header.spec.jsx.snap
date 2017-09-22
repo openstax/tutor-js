@@ -102,7 +102,7 @@ exports[`Scores Report: assignment column header renders and matches snapshot 1`
       className="review-link"
     >
       <a
-        href="/course/1/metrics/2"
+        href="/course/2/metrics/2"
         onClick={[Function]}
       >
         Review

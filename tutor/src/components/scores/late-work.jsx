@@ -1,12 +1,13 @@
 import React from 'react';
 import { Popover, Overlay, Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
-import { observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import Time from '../time';
 import classnames from 'classnames';
 import ReactDOM from 'react-dom';
 import omit from 'lodash/omit';
-// import { ScoresActions } from '../../flux/scores';
+import { AsyncButton } from 'shared';
+import TaskResult from '../../models/course/scores/task-result';
 
 import TH from '../../helpers/task';
 
@@ -108,7 +109,7 @@ class HomeworkContent extends LateWorkMessages {
   <div className="body">
     {'\
       This student worked '}
-    {TH.lateStepCount(this.task)}
+    {this.task.lateStepCount}
     {` questions
       after you accepted a late score
       on `}
@@ -151,39 +152,37 @@ class ReadingContent extends LateWorkMessages {
   }
 }
 
-class LateWorkPopover extends React.PureComponent {
+export class LateWorkPopover extends React.PureComponent {
 
   static propTypes = {
     columnIndex: React.PropTypes.number.isRequired,
     hide: React.PropTypes.func.isRequired,
-    task: React.PropTypes.shape({
-      id: React.PropTypes.number,
-      type: React.PropTypes.string,
-    }).isRequired,
+    task: React.PropTypes.instanceOf(TaskResult).isRequired,
   }
 
-  componentWillMount() {
+  @computed get content() {
     const Content = this.props.task.type === 'homework' ? HomeworkContent : ReadingContent;
-    this.setState({
-      content: new Content(this.props.task),
-    });
+    return new Content(this.props.task);
   }
 
-  onButtonClick() {
-    if (this.state.content.isAccepted && !TH.hasAdditionalLateWork(this.props.task)) {
-      this.props.task.acceptLate()
-      ScoresActions.rejectLate(this.state.content.task.id, this.props.columnIndex);
+  @action.bound onButtonClick() {
+    if (this.content.isAccepted && !TH.hasAdditionalLateWork(this.props.task)) {
+      this.props.task.rejectLate().then(this.props.hide);
+      //      ScoresActions.rejectLate(this.content.task.id, this.props.columnIndex);
     } else {
-      ScoresActions.acceptLate(this.state.content.task.id, this.props.columnIndex);
+      this.props.task.acceptLate().then(this.props.hide);
+
+      //      ScoresActions.acceptLate(this.content.task.id, this.props.columnIndex);
     }
-    this.props.hide();
+    // this.props.hide();
   }
 
   render() {
-    const { content } = this.state;
+    const { content } = this;
+
     const status = this.props.task.type === 'homework' ? content.score() : content.progress();
     const arrowOffsetTop = TH.hasAdditionalLateWork(this.props.task) ? 128 : 95;
-    const popoverProps = omit(this.props, 'hide', 'task', 'show');
+    const popoverProps = omit(this.props, 'hide', 'task', 'show', 'columnIndex');
     return (
       <Popover
         {...popoverProps}
@@ -201,9 +200,14 @@ class LateWorkPopover extends React.PureComponent {
               {status}
             </span>
           </div>
-          <Button className="late-button" onClick={this.onButtonClick}>
+          <AsyncButton
+            className="late-button"
+            onClick={this.onButtonClick}
+            isWaiting={this.props.task.hasApiRequestPending}
+            waitingText="Saving…"
+          >
             {content.get('button')}
-          </Button>
+          </AsyncButton>
         </div>
       </Popover>
     );
@@ -218,7 +222,7 @@ export class LateWork extends React.PureComponent {
     onMouseOver:  React.PropTypes.func.isRequired,
     onMouseLeave: React.PropTypes.func.isRequired,
     columnIndex: React.PropTypes.number.isRequired,
-    task: React.PropTypes.object.isRequired,
+    task: React.PropTypes.instanceOf(TaskResult).isRequired,
   }
 
   @observable isShown = false;
@@ -231,12 +235,12 @@ export class LateWork extends React.PureComponent {
     this.isShown = false;
   }
 
-  getTarget() {
-    return ReactDOM.findDOMNode(this.refs.caret);
+  @action.bound getTarget() {
+    return this.refs.caret;
   }
 
   render() {
-    if (!TH.isLate(this.props.task)) { return null; }
+    if (!this.props.task.isLate) { return null; }
 
     const caretClass = classnames('late-caret', {
       accepted: this.props.task.is_late_work_accepted && !TH.hasAdditionalLateWork(this.props.task),
@@ -246,20 +250,20 @@ export class LateWork extends React.PureComponent {
       <div
         className="late-caret-trigger"
         onMouseOver={this.props.onMouseOver}
-        onClick={() => this.isShown = true }
+        onClick={this.show}
         onMouseLeave={this.props.onMouseLeave}>
         <Overlay
           ref="overlay"
           placement="top"
           trigger="click"
           rootClose={true}
-          onHide={this.onHide}
+          onHide={this.hide}
           show={this.isShown}
           target={this.getTarget}>
           <LateWorkPopover
             task={this.props.task}
             columnIndex={this.props.columnIndex}
-            hide={this.onHide} />
+            hide={this.hide} />
         </Overlay>
         <div ref="caret" className={caretClass} />
       </div>

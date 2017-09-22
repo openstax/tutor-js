@@ -36,7 +36,7 @@ export default class ReadingCell extends React.PureComponent {
     this.isShowingPopover = false;
   }
 
-  getPieChartTarget() {
+  @action.bound getPieChartTarget() {
     return ReactDOM.findDOMNode(this.refs.pieChart);
   }
 

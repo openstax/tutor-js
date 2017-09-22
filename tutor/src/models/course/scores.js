@@ -1,39 +1,16 @@
 import { filter, find } from 'lodash';
-import { computed, observable } from 'mobx';
+import { computed, observable, action } from 'mobx';
 import {
-  BaseModel, identifiedBy, field, hasMany, session, identifier,
+  BaseModel, identifiedBy, field, hasMany, session, belongsTo,
 } from '../base';
+import { TimeStore } from '../../flux/time';
 
+import TaskResult from './scores/task-result';
 
-@identifiedBy('course/roster/assignment_stat')
-class AssignmentStat extends BaseModel {
-  @identifier id;
-  @session type;
-  @session status;
-  @session score;
-  @session step_count;
-  @session completed_step_count;
-  @session completed_accepted_late_exercise_count;
-  @session completed_accepted_late_step_count;
-  @session completed_exercise_count;
-  @session completed_on_time_exercise_count;
-  @session completed_on_time_step_count;
-  @session completed_step_count;
-  @session correct_accepted_late_exercise_count
-  @session correct_exercise_count
-  @session correct_on_time_exercise_count
-  @session({ type: 'date' }) due_at;
-  @session exercise_count;
-  @session is_included_in_averages;
-  @session is_late_work_accepted;
-  @session recovered_exercise_count;
-}
-
-
-@identifiedBy('course/roster/student')
+@identifiedBy('course/scores/student')
 class Student extends BaseModel {
   @session average_score = 0;
-  @hasMany({ model: AssignmentStat }) data;
+  @hasMany({ model: TaskResult, inverseOf: 'student' }) data;
   @session first_name;
   @session last_name;
   @session is_dropped;
@@ -42,8 +19,7 @@ class Student extends BaseModel {
   @session student_identifier;
 }
 
-
-@identifiedBy('course/roster/heading')
+@identifiedBy('course/scores/heading')
 class Heading extends BaseModel {
   @session average_score = 0;
   @session completion_rate = 0;
@@ -51,15 +27,16 @@ class Heading extends BaseModel {
   @session plan_id;
   @session title;
   @session type;
+  @belongsTo({ model: 'course/scores/period' }) period;
 }
 
-@identifiedBy('course/roster/section')
-class CourseScoresSection extends BaseModel {
+@identifiedBy('course/scores/period')
+export class CourseScoresPeriod extends BaseModel {
 
   @hasMany({ model: Heading }) data_headings;
   @session overall_average_score = 0;
   @session period_id;
-  @hasMany({ model: Student }) students;
+  @hasMany({ model: Student, inverseOf: 'period' }) students;
 
   @computed get courseStudents() {
     return this.course.roster.studentsForPeriod(
@@ -77,7 +54,7 @@ class CourseScoresSection extends BaseModel {
   }
 }
 
-@identifiedBy('course/roster')
+@identifiedBy('course/scores')
 export default class CourseScores extends BaseModel {
 
   @observable course;
@@ -92,23 +69,31 @@ export default class CourseScores extends BaseModel {
   fetch() {
     return { courseId: this.course.id };
   }
-  onFetchComplete({ data }) {
-    console.log("ON COM", data)
-    data.forEach(s => this.periods.set(s.period_id, new CourseScoresSection(s, this.course)));
+
+  @action onFetchComplete({ data }) {
+    data.forEach(s => this.periods.set(s.period_id, new CourseScoresPeriod(s, this.course)));
   }
 
   getTask(taskId) {
-    //
+    const periods = this.periods.values();
+    for(let p=0; p < periods.length; p+=1) {
+      const period = periods[p];
+      for(let i=0; i < period.students.length; i +=1 ){
+        const task = find(period.students[i].data, { id: taskId });
+        if (task) return task;
+      }
+    }
+    return null;
   }
 
-  forPeriod(period) {
-    let section = this.periods.get(period.id);
-    if (!section) {
-      section = new CourseScoresSection({period_id: period.id}, this.course);
-//      this.sections.set(period.id, section);
-    }
-    return section;
-  }
+  // forPeriod(period) {
+  //   let period = this.periods.get(period.id);
+  //   if (!period) {
+  //     period = new CourseScoresPeriod({period_id: period.id}, this.course);
+  //      this.periods.set(period.id, period);
+  //   }
+  //   return period;
+  // }
 
 }
 

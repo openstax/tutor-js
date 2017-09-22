@@ -1,28 +1,22 @@
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
 import React from 'react';
 import ReactDOM from 'react-dom';
 //import BS from 'react-bootstrap';
-import { range, isEmpty } from 'lodash';
-import { observer } from 'mobx-react';
+import { range, isEmpty, sortBy } from 'lodash';
+import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { computed } from 'mobx';
 import { Table, Column, ColumnGroup, Cell } from 'fixed-data-table-2';
 import { autobind } from 'core-decorators';
 
 import Time from '../time';
 import Icon from '../icon';
-
+import StudentDataSorter from './student-data-sorter';
 import SortingHeader from './sorting-header';
 import AverageInfo from './average-info';
 import AssignmentCell from './assignment-cell';
 import AssignmentHeader from './assignment-header';
 import NameCell from './name-cell';
-
-import Period from '../../models/course/period';
+import Sorter from './student-data-sorter';
+import { CourseScoresPeriod } from '../../models/course/scores';
 
 import Router from 'react-router-dom';
 
@@ -34,7 +28,7 @@ const COLUMN_WIDTH = 160;
 export default class ScoresTable extends React.PureComponent {
 
   static propTypes = {
-    period: React.PropTypes.instanceOf(Period).isRequired,
+    period: React.PropTypes.instanceOf(CourseScoresPeriod).isRequired,
     //    periodIndex:  React.PropTypes.number.isRequired,
 
     // rows: React.PropTypes.array.isRequired,
@@ -49,13 +43,21 @@ export default class ScoresTable extends React.PureComponent {
     isConceptCoach: React.PropTypes.bool.isRequired,
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      tableWidth: 500,
-      tableHeight: 400,
-    };
+  @computed get students() {
+    const students = sortBy( this.props.period.students, StudentDataSorter({
+      sort: this.props.sort,
+      displayAs: this.props.displayAs,
+    }));
+    return this.props.sort.asc ? students : students.reverse();
   }
+
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     tableWidth: 500,
+  //     tableHeight: 400,
+  //   };
+  // }
 
   // componentDidMount() { this.sizeTable(); }
   // componentDidUpdate() { this.sizeTable(); }
@@ -105,7 +107,7 @@ export default class ScoresTable extends React.PureComponent {
         </div>
         <div className="header-row">
           <span>
-            {(this.props.period.scores.overall_average_score * 100).toFixed(0)}%
+            {(this.props.period.overall_average_score * 100).toFixed(0)}%
           </span>
         </div>
         <div className="header-row short" />
@@ -114,8 +116,8 @@ export default class ScoresTable extends React.PureComponent {
   }
 
   @autobind
-  OverallCell({ data, rowIndex }) {
-    const avg = data.students[rowIndex].average_score || 0;
+  OverallCell({ students, rowIndex }) {
+    const avg = students[rowIndex].average_score || 0;
     return (
       <Cell className="overall-cell">
         {(avg * 100).toFixed(0)} %
@@ -123,10 +125,9 @@ export default class ScoresTable extends React.PureComponent {
     );
   }
 
-
   @autobind
   NameCell(props) {
-    const student = props.data.students[props.rowIndex];
+    const student = props.students[props.rowIndex];
     return (
       <div className="name-cell-wrapper">
         <NameCell key="name" {...this.props} courseId={props.courseId} student={student} />
@@ -159,11 +160,12 @@ export default class ScoresTable extends React.PureComponent {
   }
 
   render() {
-    const { period, height, width, headings, isConceptCoach } = this.props;
+    const { students, props: { period, headings, isConceptCoach } } = this;
+    const height = Math.max(this.props.height, 700);
+    const width = Math.max(this.props.width, 600);
     const courseId = period.course.id;
-    const data = period.scores;
 
-    if (isEmpty(data.students)) { return this.renderNoStudents(); }
+    if (isEmpty(students)) { return this.renderNoStudents(); }
 
     // const groupHeaderHeight = isConceptCoach ? 50 : 85;
 
@@ -174,7 +176,7 @@ export default class ScoresTable extends React.PureComponent {
         height={height}
         width={width}
         headerHeight={150}
-        rowsCount={data.students.length}
+        rowsCount={students.length}
       >
         <ColumnGroup fixed={true}>
           <Column
@@ -183,7 +185,7 @@ export default class ScoresTable extends React.PureComponent {
             flexGrow={0}
             allowCellsRecycling={true}
             isResizable={false}
-            cell={React.createElement(this.NameCell, { data, courseId })}
+            cell={React.createElement(this.NameCell, { students, courseId })}
             header={React.createElement(this.NameHeader, { courseId })}
           />
           <Column
@@ -192,24 +194,24 @@ export default class ScoresTable extends React.PureComponent {
             flexGrow={0}
             allowCellsRecycling={true}
             isResizable={false}
-            cell={React.createElement(this.OverallCell, { data })}
+            cell={React.createElement(this.OverallCell, { students })}
             header={React.createElement(this.OverallHeader)}
           />
         </ColumnGroup>
         <ColumnGroup>
-          {range(0, data.numAssignments).map((columnIndex) =>
+          {range(0, period.numAssignments).map((columnIndex) =>
             <Column
               key={columnIndex}
               width={COLUMN_WIDTH}
               flexGrow={0}
               allowCellsRecycling={true}
               cell={React.createElement(AssignmentCell, Object.assign({}, this.props, {
-                  data,
+                  students,
                   courseId,
                   width: (COLUMN_WIDTH),
                   columnIndex: (columnIndex) }))}
               header={React.createElement(AssignmentHeader, Object.assign({}, this.props, {
-                  data,
+                  students,
                   courseId,
                   width: (COLUMN_WIDTH),
                   columnIndex: (columnIndex) }))} />)}

@@ -17,14 +17,14 @@ export default class ScoresExport extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.setState({
+    this.state = {
       downloadUrl: null,
       finalDownloadUrl: null,
       lastExported: null,
       tryToDownload: false,
       downloadedSinceLoad: false,
       downloadHasError: false,
-    });
+    };
   }
 
   isUpdateValid(id) {
