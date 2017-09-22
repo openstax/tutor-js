@@ -219,7 +219,6 @@ startAPI = ->
 
   connectModelRead(CourseRoster, 'fetch', pattern: 'courses/{courseId}/roster', onSuccess: 'onApiRequestComplete')
 
-
   connectModelDelete(CourseTeacher, 'drop', pattern: 'teachers/{id}', onSuccess: 'onDropped')
 
   connectModelCreate(Period, 'create', pattern: 'courses/{courseId}/periods', onSuccess: 'afterCreate')
@@ -234,46 +233,6 @@ startAPI = ->
 
   connectModelUpdate(TaskResult, 'rejectLate', method: 'PUT', pattern: 'tasks/{id}/reject_late_work', onSuccess: 'onLateWorkRejected')
 
-
-  # connectRead(ScoresActions, )
-  # connectModify(ScoresActions,
-  #   trigger: 'acceptLate', onSuccess: 'acceptedLate', pattern: 'tasks/{id}/accept_late_work'
-  # )
-  # connectModify(ScoresActions,
-  #   trigger: 'rejectLate', onSuccess: 'rejectedLate', pattern: 'tasks/{id}/reject_late_work'
-  # )
-
-
-  # connectCreate(PeriodActions, pattern: 'courses/{id}/periods',
-  #   data: (id, data) -> data
-  # )
-  # connectUpdate(PeriodActions,
-  #   url: (courseId, periodId, data) -> "periods/#{periodId}"
-  #   data: (courseId, periodId, data) -> data
-  # )
-  # connectDelete(PeriodActions, pattern: 'periods/{id}')
-  # connectModify(PeriodActions, pattern: 'periods/{id}/restore', trigger: 'restore', onSuccess: 'restored')
-
-
-
-
-  # connectDelete(RosterActions, pattern: 'students/{id}')
-  # connectUpdate(RosterActions, pattern: 'students/{id}',
-  #   data: (id, data) -> data
-  # )
-
-  # connectModify(RosterActions, pattern: 'students/{studentId}/undrop', trigger: 'undrop', onSuccess: 'undropped',
-  #   errorHandlers:
-  #     already_active: 'onUndropAlreadyActive'
-  #     student_identifier_has_already_been_taken: 'recordDuplicateStudentIdError'
-  # )
-  # connectUpdate(RosterActions,
-  #   pattern: 'students/{studentId}', trigger: 'saveStudentIdentifier', onSuccess: 'savedStudentIdentifier',
-  #   errorHandlers:
-  #     student_identifier_has_already_been_taken: 'recordDuplicateStudentIdError'
-  #   data: ({courseId, studentId}) ->
-  #     student_identifier: RosterStore.getStudentIdentifier(courseId, studentId)
-  # )
 
 BOOTSTRAPED_MODELS = {
   user:     User,

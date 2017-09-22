@@ -91,7 +91,7 @@ export default class StudentScores extends React.PureComponent {
           afterTabsItem={this.renderAfterTabsItem()}
         />
         <TableFilters displayAs={this.displayAs} changeDisplayAs={this.changeDisplayAs} />
-        {isEmpty(this.course.students) ? null : <ScoresExport courseId={courseId} />}
+        {isEmpty(this.course.students) ? null : <ScoresExport courseId={this.course.id} />}
       </div>
     );
   }
