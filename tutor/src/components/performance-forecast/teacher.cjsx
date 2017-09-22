@@ -5,7 +5,7 @@ TutorLink = require '../link'
 
 _ = require 'underscore'
 
-{CoursePeriodsNavShell} = require '../course-periods-nav'
+{default: CoursePeriodsNavShell} = require '../course-periods-nav'
 CourseGroupingLabel = require '../course-grouping-label'
 PerformanceForecast = require '../../flux/performance-forecast'
 {default: TourRegion} = require '../tours/region'
