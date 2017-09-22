@@ -64,7 +64,6 @@ startMathJax = ->
     window.MathJax.Hub.Configured()
 
   if window.MathJax?.Hub
-    window.MathJax.Ajax.config.path["a11y"] = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/#{window.MathJax.version}/extensions/a11y"
     window.MathJax.Hub.Config(MATHJAX_CONFIG)
     # Does not seem to work when passed to Config
     window.MathJax.Hub.processSectionDelay = 0

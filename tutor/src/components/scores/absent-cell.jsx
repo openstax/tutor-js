@@ -1,17 +1,16 @@
 import React from 'react';
+import { PropTypes as MobxPropTypes } from 'mobx-react';
 
 export default class AbsentCell extends React.PureComponent {
 
   static propTypes = {
-    headings: React.PropTypes.array.isRequired,
+    headings: MobxPropTypes.observableArray.isRequired,
     columnIndex: React.PropTypes.number.isRequired,
   }
 
   findTypeFromColumn() {
     const { headings, columnIndex } = this.props;
-    return (
-      (headings[columnIndex] != null ? headings[columnIndex].type : undefined)
-    );
+    return headings[columnIndex] ? headings[columnIndex].type : null;
   }
 
   render() {

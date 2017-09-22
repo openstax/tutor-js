@@ -6,22 +6,57 @@ import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { computed } from 'mobx';
 import { Table, Column, ColumnGroup, Cell } from 'fixed-data-table-2';
 import { autobind } from 'core-decorators';
+import TutorLink from '../link';
 
-import Time from '../time';
-import Icon from '../icon';
 import StudentDataSorter from './student-data-sorter';
 import SortingHeader from './sorting-header';
 import AverageInfo from './average-info';
 import AssignmentCell from './assignment-cell';
 import AssignmentHeader from './assignment-header';
 import NameCell from './name-cell';
-import Sorter from './student-data-sorter';
 import { CourseScoresPeriod } from '../../models/course/scores';
-
-import Router from 'react-router-dom';
 
 const FIRST_DATA_COLUMN = 2;
 const COLUMN_WIDTH = 160;
+const MIN_TABLE_WIDTH = 500;
+const MIN_TABLE_HEIGHT = 600;
+
+const NameHeader = observer(({ sort, onSort, isConceptCoach }) => (
+  <div className="header-cell-wrapper student-names">
+    <div className="overall-header-cell" />
+    <div className="header-row">
+      Class Performance
+      <AverageInfo isConceptCoach={isConceptCoach} />
+    </div>
+    <div className="header-row short">
+      <SortingHeader sortKey="name" sortState={sort} onSort={onSort} dataType="name">
+        <div className="student-name">
+          Name and Student ID
+        </div>
+      </SortingHeader>
+    </div>
+  </div>
+));
+
+const OverallHeader = observer(({ period }) => (
+  <div className="header-cell-wrapper overall-average">
+    <div className="overall-header-cell">
+      Overall
+    </div>
+    <div className="header-row">
+      <span>
+        {(period.overall_average_score * 100).toFixed(0)}%
+      </span>
+    </div>
+    <div className="header-row short" />
+  </div>
+));
+
+const OverallCell = observer(({ students, rowIndex }) => (
+  <Cell className="overall-cell">
+    {((students[rowIndex].average_score || 0) * 100).toFixed(0)} %
+  </Cell>
+));
 
 
 @observer
@@ -29,11 +64,6 @@ export default class ScoresTable extends React.PureComponent {
 
   static propTypes = {
     period: React.PropTypes.instanceOf(CourseScoresPeriod).isRequired,
-    //    periodIndex:  React.PropTypes.number.isRequired,
-
-    // rows: React.PropTypes.array.isRequired,
-    // headings: React.PropTypes.array.isRequired,
-    // overall_average_score: React.PropTypes.number.isRequired,
     sort: React.PropTypes.object.isRequired,
     onSort: React.PropTypes.func.isRequired,
     width: React.PropTypes.number,
@@ -51,130 +81,34 @@ export default class ScoresTable extends React.PureComponent {
     return this.props.sort.asc ? students : students.reverse();
   }
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     tableWidth: 500,
-  //     tableHeight: 400,
-  //   };
-  // }
-
-  // componentDidMount() { this.sizeTable(); }
-  // componentDidUpdate() { this.sizeTable(); }
-
-  // sizeTable() {
-  //   this.setState({ tableWidth: this.tableWidth(), tableHeight: this.tableHeight() })
-  // }
-
-  // tableWidth() {
-  //   console.log( "tw", tableContainerWidth)
-
-  //   const windowEl = this._getWindowSize();
-  //   const tableContainer = ReactDOM.findDOMNode(this.refs.tableContainer) || { currentStyle: {} };
-  //   const style = tableContainer.currentStyle || window.getComputedStyle(tableContainer);
-  //   const padding = parseInt(style.paddingLeft || 0) + parseInt(style.paddingRight || 0);
-  //   const tableContainerWidth = ((tableContainer != null ? tableContainer.clientWidth : undefined) || 0) - padding;
-  //   const tableHorzSpacing = (document.body.clientWidth || 0) - tableContainerWidth;
-  //   // since table.clientWidth returns 0 on initial load in IE, include windowEl as a fallback
-  //   return (
-  //     Math.max(windowEl.width - tableHorzSpacing, tableContainerWidth)
-  //   );
-  // }
-
-  // tableHeight() {
-  //   const windowEl = this._getWindowSize();
-  //   const table = ReactDOM.findDOMNode(this.refs.tableContainer) || {};
-  //   const bottomMargin = 140;
-  //   windowEl.height - (table.offsetTop || 0) - bottomMargin;
-  // }
-
   renderNoStudents() {
     return (
       <div className="course-scores-container" ref="tableContainer">
-        <span className="course-scores-notice">
-          No students have joined yet
-        </span>
-      </div>
-    );
-  }
-
-  @autobind
-  OverallHeader() {
-    return (
-      <div className="header-cell-wrapper overall-average">
-        <div className="overall-header-cell">
-          Overall
-        </div>
-        <div className="header-row">
-          <span>
-            {(this.props.period.overall_average_score * 100).toFixed(0)}%
-          </span>
-        </div>
-        <div className="header-row short" />
-      </div>
-    );
-  }
-
-  @autobind
-  OverallCell({ students, rowIndex }) {
-    const avg = students[rowIndex].average_score || 0;
-    return (
-      <Cell className="overall-cell">
-        {(avg * 100).toFixed(0)} %
-      </Cell>
-    );
-  }
-
-  @autobind
-  NameCell(props) {
-    const student = props.students[props.rowIndex];
-    return (
-      <div className="name-cell-wrapper">
-        <NameCell key="name" {...this.props} courseId={props.courseId} student={student} />
-        <div className="overall-cell">
-          {(student.average_score != null) ? `${(student.average_score * 100).toFixed(0)}%` : undefined}
-        </div>
-      </div>
-    );
-  }
-
-  @autobind
-  NameHeader(props) {
-    const { sort, onSort, isConceptCoach } = this.props;
-    return (
-      <div className="header-cell-wrapper student-names">
-        <div className="overall-header-cell" />
-        <div className="header-row">
-          Class Performance
-          <AverageInfo isConceptCoach={isConceptCoach} />
-        </div>
-        <div className="header-row short">
-          <SortingHeader sortKey="name" sortState={sort} onSort={onSort} dataType="name">
-            <div className="student-name">
-              Name and Student ID
-            </div>
-          </SortingHeader>
+        <div className="no-students">
+          <p>
+            No students have enrolled in this section yet, and there are no assignments to
+            score.  Manage student access to this section
+            in <TutorLink to="settings" params={{ courseId: this.props.period.course.id }}>Settings</TutorLink>.
+          </p>
+          <TutorLink className="btn btn-default" to="settings" params={{ courseId: this.props.period.course.id }}>Manage student access</TutorLink>
         </div>
       </div>
     );
   }
 
   render() {
-    const { students, props: { period, headings, isConceptCoach } } = this;
-    const height = Math.max(this.props.height, 700);
-    const width = Math.max(this.props.width, 600);
+    const { students, props: { period } } = this;
     const courseId = period.course.id;
+    const width = COLUMN_WIDTH;
 
     if (isEmpty(students)) { return this.renderNoStudents(); }
-
-    // const groupHeaderHeight = isConceptCoach ? 50 : 85;
 
     return (
       <Table
         className="course-scores-table"
         rowHeight={50}
-        height={height}
-        width={width}
+        height={Math.max(this.props.height, MIN_TABLE_WIDTH)}
+        width={Math.max(this.props.width, MIN_TABLE_HEIGHT)}
         headerHeight={150}
         rowsCount={students.length}
       >
@@ -185,8 +119,8 @@ export default class ScoresTable extends React.PureComponent {
             flexGrow={0}
             allowCellsRecycling={true}
             isResizable={false}
-            cell={React.createElement(this.NameCell, { students, courseId })}
-            header={React.createElement(this.NameHeader, { courseId })}
+            cell={<NameCell {...this.props} {...{ students, courseId }} />}
+            header={<NameHeader {...this.props} />}
           />
           <Column
             fixed={true}
@@ -194,8 +128,8 @@ export default class ScoresTable extends React.PureComponent {
             flexGrow={0}
             allowCellsRecycling={true}
             isResizable={false}
-            cell={React.createElement(this.OverallCell, { students })}
-            header={React.createElement(this.OverallHeader)}
+            cell={<OverallCell students={students} />}
+            header={<OverallHeader {...this.props} />}
           />
         </ColumnGroup>
         <ColumnGroup>
@@ -205,16 +139,9 @@ export default class ScoresTable extends React.PureComponent {
               width={COLUMN_WIDTH}
               flexGrow={0}
               allowCellsRecycling={true}
-              cell={React.createElement(AssignmentCell, Object.assign({}, this.props, {
-                  students,
-                  courseId,
-                  width: (COLUMN_WIDTH),
-                  columnIndex: (columnIndex) }))}
-              header={React.createElement(AssignmentHeader, Object.assign({}, this.props, {
-                  students,
-                  courseId,
-                  width: (COLUMN_WIDTH),
-                  columnIndex: (columnIndex) }))} />)}
+              cell={<AssignmentCell {...this.props} {...{ students, courseId, width, columnIndex }} />}
+              header={<AssignmentHeader {...this.props} {...{ students, courseId, width, columnIndex }} />}
+            />)}
         </ColumnGroup>
       </Table>
     );

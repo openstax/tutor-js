@@ -85,11 +85,6 @@ export default class StudentScores extends React.PureComponent {
   renderControls() {
     return (
       <div className="course-nav-container">
-        <CoursePeriodsNav
-          handleSelect={this.selectPeriod}
-          courseId={this.course.id}
-          afterTabsItem={this.renderAfterTabsItem()}
-        />
         <TableFilters displayAs={this.displayAs} changeDisplayAs={this.changeDisplayAs} />
         {isEmpty(this.course.students) ? null : <ScoresExport courseId={this.course.id} />}
       </div>
@@ -108,6 +103,11 @@ export default class StudentScores extends React.PureComponent {
         title="Scores"
         controls={this.renderControls()}
       >
+        <CoursePeriodsNav
+          handleSelect={this.selectPeriod}
+          courseId={this.course.id}
+          afterTabsItem={this.renderAfterTabsItem()}
+        />
         <TourRegion id="scores" courseId={courseId} otherTours={['preview-scores']}>
           <ContainerDimensions>
             <ScoresTable

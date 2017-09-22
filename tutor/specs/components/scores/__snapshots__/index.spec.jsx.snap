@@ -1,0 +1,3191 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Scores Report matches snapshot 1`] = `
+<div
+  className="course-page course-scores-report"
+  data-appearance="testing"
+  data-book-title="Testing"
+  data-is-preview={false}
+  data-term="Spring 2017"
+  data-title="Local Test Course Two"
+>
+  <header>
+    <div
+      className="title-wrapper"
+    >
+      <div
+        className="title"
+      >
+        Scores
+      </div>
+    </div>
+    <div
+      className="controls-wrapper"
+    >
+      <div
+        className="course-nav-container"
+      >
+        <nav
+          className="tutor-tabs"
+        >
+          <ul
+            className="nav nav-tabs"
+          >
+            <li
+              className="active"
+            >
+              <a
+                aria-selected={true}
+                href="#"
+                onClick={[Function]}
+              >
+                <h2>
+                  <div
+                    className=""
+                  >
+                    <span
+                      aria-describedby="course-periods-nav-tab-0"
+                      className="tab-item-period-name"
+                      onBlur={[Function]}
+                      onClick={null}
+                      onFocus={[Function]}
+                      onMouseOut={[Function]}
+                      onMouseOver={[Function]}
+                    >
+                      1st
+                    </span>
+                  </div>
+                </h2>
+              </a>
+            </li>
+          </ul>
+          <span
+            className="course-scores-note tab"
+          >
+            Scores reflect work submitted on time. To accept late work, click the orange triangle.
+          </span>
+        </nav>
+        <div
+          className="filter-row"
+        >
+          <div
+            className="filter-item"
+          >
+            <div
+              className="filter-label"
+            >
+              Display as
+            </div>
+            <div
+              className="filter-group btn-group"
+            >
+              <button
+                className="selected btn btn-sm btn-default"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                percentage
+              </button>
+              <button
+                className="btn btn-sm btn-default"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                number
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div
+    className="body"
+  >
+    <div
+      className=""
+      data-tour-region-id="scores"
+    >
+      <div
+        className="course-scores-table fixedDataTableLayout_main public_fixedDataTable_main"
+        onTouchCancel={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        onWheel={[Function]}
+        style={
+          Object {
+            "height": 1024,
+            "width": 1200,
+          }
+        }
+      >
+        <div
+          className="fixedDataTableLayout_rowsContainer"
+          style={
+            Object {
+              "height": 1022,
+              "width": 1200,
+            }
+          }
+        >
+          <div
+            className="fixedDataTableColumnResizerLineLayout_main fixedDataTableColumnResizerLineLayout_hiddenElem public_fixedDataTableColumnResizerLine_main"
+            style={
+              Object {
+                "height": 1024,
+                "left": 0,
+                "width": 0,
+              }
+            }
+          >
+            <div
+              className="fixedDataTableColumnResizerLineLayout_mouseArea"
+              style={
+                Object {
+                  "height": 1024,
+                }
+              }
+            />
+          </div>
+          <div
+            className="fixedDataTableRowLayout_rowWrapper"
+            style={
+              Object {
+                "height": 0,
+                "left": "0px",
+                "top": "0px",
+                "width": 1200,
+                "zIndex": 1,
+              }
+            }
+          >
+            <div
+              className="fixedDataTableRowLayout_main public_fixedDataTableRow_main public_fixedDataTableRow_even fixedDataTableLayout_header public_fixedDataTable_header"
+              onClick={null}
+              onDoubleClick={null}
+              onMouseDown={null}
+              onMouseEnter={null}
+              onMouseLeave={null}
+              style={
+                Object {
+                  "height": 0,
+                  "width": 1200,
+                }
+              }
+            >
+              <div
+                className="fixedDataTableRowLayout_body"
+              >
+                <div
+                  className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                  style={
+                    Object {
+                      "height": 0,
+                      "left": 0,
+                    }
+                  }
+                >
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroup"
+                    style={
+                      Object {
+                        "height": 0,
+                        "left": "0px",
+                        "position": "absolute",
+                        "top": "0px",
+                        "width": 240,
+                        "zIndex": 2,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                      style={
+                        Object {
+                          "height": 0,
+                          "left": 0,
+                          "width": 240,
+                        }
+                      }
+                    >
+                      <div
+                        className="fixedDataTableCellLayout_wrap1 public_fixedDataTableCell_wrap1"
+                        style={
+                          Object {
+                            "height": 0,
+                            "width": 240,
+                          }
+                        }
+                      >
+                        <div
+                          className="fixedDataTableCellLayout_wrap2 public_fixedDataTableCell_wrap2"
+                        >
+                          <div
+                            className="fixedDataTableCellLayout_wrap3 public_fixedDataTableCell_wrap3"
+                          >
+                            <div
+                              className="public_fixedDataTableCell_cellContent"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                  style={
+                    Object {
+                      "height": 0,
+                      "left": 240,
+                    }
+                  }
+                >
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroup"
+                    style={
+                      Object {
+                        "height": 0,
+                        "left": "0px",
+                        "position": "absolute",
+                        "top": "0px",
+                        "width": 480,
+                        "zIndex": 0,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                      style={
+                        Object {
+                          "height": 0,
+                          "left": 0,
+                          "width": 480,
+                        }
+                      }
+                    >
+                      <div
+                        className="fixedDataTableCellLayout_wrap1 public_fixedDataTableCell_wrap1"
+                        style={
+                          Object {
+                            "height": 0,
+                            "width": 480,
+                          }
+                        }
+                      >
+                        <div
+                          className="fixedDataTableCellLayout_wrap2 public_fixedDataTableCell_wrap2"
+                        >
+                          <div
+                            className="fixedDataTableCellLayout_wrap3 public_fixedDataTableCell_wrap3"
+                          >
+                            <div
+                              className="public_fixedDataTableCell_cellContent"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="fixedDataTableRowLayout_fixedColumnsDivider public_fixedDataTableRow_fixedColumnsDivider"
+                  style={
+                    Object {
+                      "height": 0,
+                      "left": 240,
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            className="fixedDataTableRowLayout_rowWrapper"
+            style={
+              Object {
+                "height": 150,
+                "left": "0px",
+                "top": "0px",
+                "width": 1200,
+                "zIndex": 1,
+              }
+            }
+          >
+            <div
+              className="fixedDataTableRowLayout_main public_fixedDataTableRow_main fixedDataTableLayout_header public_fixedDataTable_header"
+              onClick={null}
+              onDoubleClick={null}
+              onMouseDown={null}
+              onMouseEnter={null}
+              onMouseLeave={null}
+              style={
+                Object {
+                  "height": 150,
+                  "width": 1200,
+                }
+              }
+            >
+              <div
+                className="fixedDataTableRowLayout_body"
+              >
+                <div
+                  className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                  style={
+                    Object {
+                      "height": 150,
+                      "left": 0,
+                    }
+                  }
+                >
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroup"
+                    style={
+                      Object {
+                        "height": 150,
+                        "left": "0px",
+                        "position": "absolute",
+                        "top": "0px",
+                        "width": 240,
+                        "zIndex": 2,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                      style={
+                        Object {
+                          "height": 150,
+                          "left": 0,
+                          "width": 160,
+                        }
+                      }
+                    >
+                      <div
+                        className="header-cell-wrapper student-names"
+                      >
+                        <div
+                          className="overall-header-cell"
+                        />
+                        <div
+                          className="header-row"
+                        >
+                          Class Performance
+                          <i
+                            aria-describedby="scores-average-info-popover"
+                            className="tutor-icon fa fa-info-circle clickable"
+                            onClick={[Function]}
+                            type="info-circle"
+                          />
+                        </div>
+                        <div
+                          className="header-row short"
+                        >
+                          <div
+                            className="header-cell sortable"
+                            data-assignment-type={undefined}
+                            onClick={[Function]}
+                          >
+                            <div
+                              className="student-name"
+                            >
+                              Name and Student ID
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                      style={
+                        Object {
+                          "height": 150,
+                          "left": 160,
+                          "width": 80,
+                        }
+                      }
+                    >
+                      <div
+                        className="header-cell-wrapper overall-average"
+                      >
+                        <div
+                          className="overall-header-cell"
+                        >
+                          Overall
+                        </div>
+                        <div
+                          className="header-row"
+                        >
+                          <span>
+                            17
+                            %
+                          </span>
+                        </div>
+                        <div
+                          className="header-row short"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                  style={
+                    Object {
+                      "height": 150,
+                      "left": 240,
+                    }
+                  }
+                >
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroup"
+                    style={
+                      Object {
+                        "height": 150,
+                        "left": "0px",
+                        "position": "absolute",
+                        "top": "0px",
+                        "width": 480,
+                        "zIndex": 0,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                      style={
+                        Object {
+                          "height": 150,
+                          "left": 0,
+                          "width": 160,
+                        }
+                      }
+                    >
+                      <div
+                        className="header-cell-wrapper assignment"
+                      >
+                        <div
+                          aria-describedby="header-cell-title-0"
+                          className="tour-anchor expanded-header-row"
+                          data-tour-anchor-id="scores-homework-header"
+                          id="scores-homework-header"
+                          onBlur={[Function]}
+                          onClick={null}
+                          onFocus={[Function]}
+                          onMouseOut={[Function]}
+                          onMouseOver={[Function]}
+                        >
+                          <div
+                            className="header-cell group title"
+                            data-assignment-type="homework"
+                          >
+                            Homework Test
+                          </div>
+                          <div
+                            className="due"
+                          >
+                            due 
+                            <time>
+                              5/31
+                            </time>
+                          </div>
+                        </div>
+                        <div
+                          className="header-row"
+                        >
+                          <span
+                            className="average"
+                          >
+                            ---
+                          </span>
+                          <span
+                            className="review-link"
+                          >
+                            <a
+                              href="/course/2/metrics/2"
+                              onClick={[Function]}
+                            >
+                              Review
+                            </a>
+                          </span>
+                        </div>
+                        <div
+                          className="header-row short"
+                        >
+                          <div
+                            className="scores-cell"
+                          >
+                            <div
+                              className="header-cell sortable"
+                              data-assignment-type="homework"
+                              onClick={[Function]}
+                            >
+                              <div>
+                                Score
+                              </div>
+                            </div>
+                            <div
+                              className="header-cell sortable"
+                              data-assignment-type="homework"
+                              onClick={[Function]}
+                            >
+                              <div>
+                                Progress
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                      style={
+                        Object {
+                          "height": 150,
+                          "left": 160,
+                          "width": 160,
+                        }
+                      }
+                    >
+                      <div
+                        className="header-cell-wrapper assignment"
+                      >
+                        <div
+                          aria-describedby="header-cell-title-1"
+                          className="tour-anchor expanded-header-row"
+                          data-tour-anchor-id="scores-reading-header"
+                          id="scores-reading-header"
+                          onBlur={[Function]}
+                          onClick={null}
+                          onFocus={[Function]}
+                          onMouseOut={[Function]}
+                          onMouseOver={[Function]}
+                        >
+                          <div
+                            className="header-cell group title"
+                            data-assignment-type="reading"
+                          >
+                            Reading Test
+                          </div>
+                          <div
+                            className="due"
+                          >
+                            due 
+                            <time>
+                              5/31
+                            </time>
+                          </div>
+                        </div>
+                        <div
+                          className="header-row"
+                        >
+                          <span
+                            className="review-link"
+                          >
+                            <a
+                              href="/course/2/metrics/1"
+                              onClick={[Function]}
+                            >
+                              Review
+                            </a>
+                          </span>
+                        </div>
+                        <div
+                          className="header-row short"
+                        >
+                          <div
+                            className="scores-cell"
+                          >
+                            <div
+                              className="header-cell sortable wide"
+                              data-assignment-type="reading"
+                              onClick={[Function]}
+                            >
+                              <div
+                                className="completed"
+                              >
+                                Progress
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                      style={
+                        Object {
+                          "height": 150,
+                          "left": 320,
+                          "width": 160,
+                        }
+                      }
+                    >
+                      <div
+                        className="header-cell-wrapper assignment"
+                      >
+                        <div
+                          aria-describedby="header-cell-title-2"
+                          className="tour-anchor expanded-header-row"
+                          data-tour-anchor-id="scores-external-header"
+                          id="scores-external-header"
+                          onBlur={[Function]}
+                          onClick={null}
+                          onFocus={[Function]}
+                          onMouseOut={[Function]}
+                          onMouseOver={[Function]}
+                        >
+                          <div
+                            className="header-cell group title"
+                            data-assignment-type="external"
+                          >
+                            eternal assignment
+                          </div>
+                          <div
+                            className="due"
+                          >
+                            due 
+                            <time>
+                              2/4
+                            </time>
+                          </div>
+                        </div>
+                        <div
+                          className="header-row"
+                        >
+                          <span
+                            className="click-rate"
+                          >
+                            0
+                             % have clicked link
+                          </span>
+                        </div>
+                        <div
+                          className="header-row short"
+                        >
+                          <div
+                            className="scores-cell"
+                          >
+                            <div
+                              className="header-cell sortable wide"
+                              data-assignment-type="external"
+                              onClick={[Function]}
+                            >
+                              <div
+                                className="completed"
+                              >
+                                Progress
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="fixedDataTableRowLayout_fixedColumnsDivider public_fixedDataTableRow_fixedColumnsDivider"
+                  style={
+                    Object {
+                      "height": 150,
+                      "left": 240,
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              className="fixedDataTableRowLayout_rowWrapper"
+              style={
+                Object {
+                  "height": 50,
+                  "left": "0px",
+                  "top": "150px",
+                  "width": 1200,
+                  "zIndex": 0,
+                }
+              }
+            >
+              <div
+                className="fixedDataTableRowLayout_main public_fixedDataTableRow_main public_fixedDataTableRow_even public_fixedDataTable_bodyRow"
+                onClick={null}
+                onDoubleClick={null}
+                onMouseDown={null}
+                onMouseEnter={null}
+                onMouseLeave={null}
+                style={
+                  Object {
+                    "height": 50,
+                    "width": 1200,
+                  }
+                }
+              >
+                <div
+                  className="fixedDataTableRowLayout_body"
+                >
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 0,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellGroupLayout_cellGroup"
+                      style={
+                        Object {
+                          "height": 50,
+                          "left": "0px",
+                          "position": "absolute",
+                          "top": "0px",
+                          "width": 240,
+                          "zIndex": 2,
+                        }
+                      }
+                    >
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 0,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="name-cell-wrapper"
+                        >
+                          <a
+                            className="name-cell"
+                            href="/course/2/guide/9"
+                            onClick={[Function]}
+                          >
+                            <span
+                              aria-describedby="name-tooltip-Rabbit-Angstrom"
+                              className="student-name"
+                              onBlur={[Function]}
+                              onClick={null}
+                              onFocus={[Function]}
+                              onMouseOut={[Function]}
+                              onMouseOver={[Function]}
+                            >
+                              Rabbit Angstrom
+                            </span>
+                            <span
+                              className="student-id"
+                            >
+                              O7I5E8YQBR
+                            </span>
+                          </a>
+                          <div
+                            className="overall-cell"
+                          >
+                            50%
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 160,
+                            "width": 80,
+                          }
+                        }
+                      >
+                        <div
+                          className="fixedDataTableCellLayout_wrap1 public_fixedDataTableCell_wrap1 overall-cell"
+                          style={
+                            Object {
+                              "height": undefined,
+                              "width": undefined,
+                            }
+                          }
+                        >
+                          <div
+                            className="fixedDataTableCellLayout_wrap2 public_fixedDataTableCell_wrap2"
+                          >
+                            <div
+                              className="fixedDataTableCellLayout_wrap3 public_fixedDataTableCell_wrap3"
+                            >
+                              <div
+                                className="public_fixedDataTableCell_cellContent"
+                              >
+                                50
+                                 %
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 240,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellGroupLayout_cellGroup"
+                      style={
+                        Object {
+                          "height": 50,
+                          "left": "0px",
+                          "position": "absolute",
+                          "top": "0px",
+                          "width": 480,
+                          "zIndex": 0,
+                        }
+                      }
+                    >
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 0,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="scores-cell"
+                        >
+                          <div
+                            className="score"
+                          >
+                            <a
+                              data-assignment-type="homework"
+                              href="/course/2/task/17/step/1"
+                              onClick={[Function]}
+                            >
+                              50%
+                            </a>
+                          </div>
+                          <div
+                            className="worked"
+                            onMouseLeave={[Function]}
+                            onMouseOver={[Function]}
+                          >
+                            <svg
+                              className="pie-progress"
+                              height="20"
+                              viewBox="0 0 24 24"
+                              width="20"
+                            >
+                              <g
+                                id="q4"
+                              >
+                                <circle
+                                  className="slice late"
+                                  cx="12.03"
+                                  cy="11.583"
+                                  r="12"
+                                />
+                                <g>
+                                  <line
+                                    fill="none"
+                                    stroke="#FFFFFF"
+                                    strokeMiterlimit="10"
+                                    x1="12.03"
+                                    x2="12.03"
+                                    y1="-0.418"
+                                    y2="23.582"
+                                  />
+                                  <line
+                                    fill="none"
+                                    stroke="#FFFFFF"
+                                    strokeMiterlimit="10"
+                                    x1="0.03"
+                                    x2="24.03"
+                                    y1="11.582"
+                                    y2="11.582"
+                                  />
+                                </g>
+                              </g>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 160,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="scores-cell"
+                          onMouseLeave={[Function]}
+                          onMouseOver={[Function]}
+                        >
+                          <div
+                            className="worked wide"
+                          >
+                            <svg
+                              className="pie-progress"
+                              height="20"
+                              viewBox="0 0 24 24"
+                              width="20"
+                            >
+                              <g
+                                id="q4"
+                              >
+                                <circle
+                                  className="slice late"
+                                  cx="12.03"
+                                  cy="11.583"
+                                  r="12"
+                                />
+                                <g>
+                                  <line
+                                    fill="none"
+                                    stroke="#FFFFFF"
+                                    strokeMiterlimit="10"
+                                    x1="12.03"
+                                    x2="12.03"
+                                    y1="-0.418"
+                                    y2="23.582"
+                                  />
+                                  <line
+                                    fill="none"
+                                    stroke="#FFFFFF"
+                                    strokeMiterlimit="10"
+                                    x1="0.03"
+                                    x2="24.03"
+                                    y1="11.582"
+                                    y2="11.582"
+                                  />
+                                </g>
+                              </g>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 320,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="external-cell"
+                        >
+                          <a
+                            className="task-result status-cell undefined"
+                            data-assignment-type="external"
+                            href="/course/2/task/702"
+                            onClick={[Function]}
+                          >
+                            <span>
+                              ---
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="fixedDataTableRowLayout_fixedColumnsDivider public_fixedDataTableRow_fixedColumnsDivider"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 240,
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="fixedDataTableRowLayout_rowWrapper"
+              style={
+                Object {
+                  "height": 50,
+                  "left": "0px",
+                  "top": "200px",
+                  "width": 1200,
+                  "zIndex": 0,
+                }
+              }
+            >
+              <div
+                className="fixedDataTableRowLayout_main public_fixedDataTableRow_main public_fixedDataTableRow_highlighted public_fixedDataTableRow_odd public_fixedDataTable_bodyRow"
+                onClick={null}
+                onDoubleClick={null}
+                onMouseDown={null}
+                onMouseEnter={null}
+                onMouseLeave={null}
+                style={
+                  Object {
+                    "height": 50,
+                    "width": 1200,
+                  }
+                }
+              >
+                <div
+                  className="fixedDataTableRowLayout_body"
+                >
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 0,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellGroupLayout_cellGroup"
+                      style={
+                        Object {
+                          "height": 50,
+                          "left": "0px",
+                          "position": "absolute",
+                          "top": "0px",
+                          "width": 240,
+                          "zIndex": 2,
+                        }
+                      }
+                    >
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 0,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="name-cell-wrapper"
+                        >
+                          <a
+                            className="name-cell"
+                            href="/course/2/guide/8"
+                            onClick={[Function]}
+                          >
+                            <span
+                              aria-describedby="name-tooltip-Molly-Bloom"
+                              className="student-name"
+                              onBlur={[Function]}
+                              onClick={null}
+                              onFocus={[Function]}
+                              onMouseOut={[Function]}
+                              onMouseOver={[Function]}
+                            >
+                              Molly Bloom
+                            </span>
+                            <span
+                              className="student-id"
+                            >
+                              52VY7XAW4Q
+                            </span>
+                          </a>
+                          <div
+                            className="overall-cell"
+                          >
+                            50%
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 160,
+                            "width": 80,
+                          }
+                        }
+                      >
+                        <div
+                          className="fixedDataTableCellLayout_wrap1 public_fixedDataTableCell_wrap1 overall-cell"
+                          style={
+                            Object {
+                              "height": undefined,
+                              "width": undefined,
+                            }
+                          }
+                        >
+                          <div
+                            className="fixedDataTableCellLayout_wrap2 public_fixedDataTableCell_wrap2"
+                          >
+                            <div
+                              className="fixedDataTableCellLayout_wrap3 public_fixedDataTableCell_wrap3"
+                            >
+                              <div
+                                className="public_fixedDataTableCell_cellContent"
+                              >
+                                50
+                                 %
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 240,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellGroupLayout_cellGroup"
+                      style={
+                        Object {
+                          "height": 50,
+                          "left": "0px",
+                          "position": "absolute",
+                          "top": "0px",
+                          "width": 480,
+                          "zIndex": 0,
+                        }
+                      }
+                    >
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 0,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="scores-cell"
+                        >
+                          <div
+                            className="score"
+                          >
+                            <a
+                              data-assignment-type="homework"
+                              href="/course/2/task/16/step/1"
+                              onClick={[Function]}
+                            >
+                              100%
+                            </a>
+                          </div>
+                          <div
+                            className="worked"
+                            onMouseLeave={[Function]}
+                            onMouseOver={[Function]}
+                          >
+                            <svg
+                              className="pie-progress"
+                              height="20"
+                              viewBox="0 0 24 24"
+                              width="20"
+                            >
+                              <g
+                                id="q2"
+                              >
+                                <g>
+                                  <circle
+                                    cx="11.566"
+                                    cy="11.582"
+                                    fill="#DDDDDD"
+                                    r="12"
+                                  />
+                                  <path
+                                    className="slice late"
+                                    d="M11.566-0.417v24c6.629,0,12-5.371,12-12C23.566,4.955,18.195-0.417,11.566-0.417z"
+                                  />
+                                </g>
+                                <line
+                                  fill="none"
+                                  stroke="#FFFFFF"
+                                  strokeMiterlimit="10"
+                                  x1="11.566"
+                                  x2="11.566"
+                                  y1="-0.417"
+                                  y2="23.582"
+                                />
+                                <line
+                                  fill="none"
+                                  stroke="#FFFFFF"
+                                  strokeMiterlimit="10"
+                                  x1="-0.434"
+                                  x2="23.566"
+                                  y1="11.583"
+                                  y2="11.583"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 160,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="scores-cell"
+                          onMouseLeave={[Function]}
+                          onMouseOver={[Function]}
+                        >
+                          <div
+                            className="worked wide"
+                          >
+                            <svg
+                              className="pie-progress"
+                              height="20"
+                              viewBox="0 0 24 24"
+                              width="20"
+                            >
+                              <g
+                                id="q1"
+                              >
+                                <g>
+                                  <circle
+                                    cx="12.334"
+                                    cy="11.583"
+                                    fill="#DDDDDD"
+                                    r="12"
+                                  />
+                                  <path
+                                    className="slice late"
+                                    d="M12.334,11.582h12l0,0c0-6.628-5.371-12-12-12V11.582z"
+                                  />
+                                </g>
+                                <line
+                                  fill="none"
+                                  stroke="#FFFFFF"
+                                  strokeMiterlimit="10"
+                                  x1="12.334"
+                                  x2="12.334"
+                                  y1="-0.417"
+                                  y2="23.582"
+                                />
+                                <line
+                                  fill="none"
+                                  stroke="#FFFFFF"
+                                  strokeMiterlimit="10"
+                                  x1="0.334"
+                                  x2="24.334"
+                                  y1="11.583"
+                                  y2="11.583"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 320,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="external-cell"
+                        >
+                          <a
+                            className="task-result status-cell undefined"
+                            data-assignment-type="external"
+                            href="/course/2/task/703"
+                            onClick={[Function]}
+                          >
+                            <span>
+                              ---
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="fixedDataTableRowLayout_fixedColumnsDivider public_fixedDataTableRow_fixedColumnsDivider"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 240,
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="fixedDataTableRowLayout_rowWrapper"
+              style={
+                Object {
+                  "height": 50,
+                  "left": "0px",
+                  "top": "250px",
+                  "width": 1200,
+                  "zIndex": 0,
+                }
+              }
+            >
+              <div
+                className="fixedDataTableRowLayout_main public_fixedDataTableRow_main public_fixedDataTableRow_even public_fixedDataTable_bodyRow"
+                onClick={null}
+                onDoubleClick={null}
+                onMouseDown={null}
+                onMouseEnter={null}
+                onMouseLeave={null}
+                style={
+                  Object {
+                    "height": 50,
+                    "width": 1200,
+                  }
+                }
+              >
+                <div
+                  className="fixedDataTableRowLayout_body"
+                >
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 0,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellGroupLayout_cellGroup"
+                      style={
+                        Object {
+                          "height": 50,
+                          "left": "0px",
+                          "position": "absolute",
+                          "top": "0px",
+                          "width": 240,
+                          "zIndex": 2,
+                        }
+                      }
+                    >
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 0,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="name-cell-wrapper"
+                        >
+                          <a
+                            className="name-cell"
+                            href="/course/2/guide/10"
+                            onClick={[Function]}
+                          >
+                            <span
+                              aria-describedby="name-tooltip-Seymour-Glass"
+                              className="student-name"
+                              onBlur={[Function]}
+                              onClick={null}
+                              onFocus={[Function]}
+                              onMouseOut={[Function]}
+                              onMouseOver={[Function]}
+                            >
+                              Seymour Glass
+                            </span>
+                            <span
+                              className="student-id"
+                            >
+                              4C5208Z6SW
+                            </span>
+                          </a>
+                          <div
+                            className="overall-cell"
+                          >
+                            50%
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 160,
+                            "width": 80,
+                          }
+                        }
+                      >
+                        <div
+                          className="fixedDataTableCellLayout_wrap1 public_fixedDataTableCell_wrap1 overall-cell"
+                          style={
+                            Object {
+                              "height": undefined,
+                              "width": undefined,
+                            }
+                          }
+                        >
+                          <div
+                            className="fixedDataTableCellLayout_wrap2 public_fixedDataTableCell_wrap2"
+                          >
+                            <div
+                              className="fixedDataTableCellLayout_wrap3 public_fixedDataTableCell_wrap3"
+                            >
+                              <div
+                                className="public_fixedDataTableCell_cellContent"
+                              >
+                                50
+                                 %
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 240,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellGroupLayout_cellGroup"
+                      style={
+                        Object {
+                          "height": 50,
+                          "left": "0px",
+                          "position": "absolute",
+                          "top": "0px",
+                          "width": 480,
+                          "zIndex": 0,
+                        }
+                      }
+                    >
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 0,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="scores-cell"
+                        >
+                          <div
+                            className="score"
+                          >
+                            <a
+                              data-assignment-type="homework"
+                              href="/course/2/task/18/step/1"
+                              onClick={[Function]}
+                            >
+                              50%
+                            </a>
+                          </div>
+                          <div
+                            className="worked"
+                            onMouseLeave={[Function]}
+                            onMouseOver={[Function]}
+                          >
+                            <svg
+                              className="pie-progress"
+                              height="20"
+                              viewBox="0 0 24 24"
+                              width="20"
+                            >
+                              <g
+                                id="q2"
+                              >
+                                <g>
+                                  <circle
+                                    cx="11.566"
+                                    cy="11.582"
+                                    fill="#DDDDDD"
+                                    r="12"
+                                  />
+                                  <path
+                                    className="slice late"
+                                    d="M11.566-0.417v24c6.629,0,12-5.371,12-12C23.566,4.955,18.195-0.417,11.566-0.417z"
+                                  />
+                                </g>
+                                <line
+                                  fill="none"
+                                  stroke="#FFFFFF"
+                                  strokeMiterlimit="10"
+                                  x1="11.566"
+                                  x2="11.566"
+                                  y1="-0.417"
+                                  y2="23.582"
+                                />
+                                <line
+                                  fill="none"
+                                  stroke="#FFFFFF"
+                                  strokeMiterlimit="10"
+                                  x1="-0.434"
+                                  x2="23.566"
+                                  y1="11.583"
+                                  y2="11.583"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                          <div
+                            className="late-caret-trigger"
+                            onClick={[Function]}
+                            onMouseLeave={[Function]}
+                            onMouseOver={[Function]}
+                          >
+                            <div
+                              className="late-caret"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 160,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="scores-cell"
+                          onMouseLeave={[Function]}
+                          onMouseOver={[Function]}
+                        >
+                          <div
+                            className="worked wide"
+                          >
+                            <svg
+                              className="pie-progress"
+                              height="20"
+                              viewBox="0 0 24 24"
+                              width="20"
+                            >
+                              <g
+                                id="q1"
+                              >
+                                <g>
+                                  <circle
+                                    cx="12.334"
+                                    cy="11.583"
+                                    fill="#DDDDDD"
+                                    r="12"
+                                  />
+                                  <path
+                                    className="slice late"
+                                    d="M12.334,11.582h12l0,0c0-6.628-5.371-12-12-12V11.582z"
+                                  />
+                                </g>
+                                <line
+                                  fill="none"
+                                  stroke="#FFFFFF"
+                                  strokeMiterlimit="10"
+                                  x1="12.334"
+                                  x2="12.334"
+                                  y1="-0.417"
+                                  y2="23.582"
+                                />
+                                <line
+                                  fill="none"
+                                  stroke="#FFFFFF"
+                                  strokeMiterlimit="10"
+                                  x1="0.334"
+                                  x2="24.334"
+                                  y1="11.583"
+                                  y2="11.583"
+                                />
+                              </g>
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 320,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="external-cell"
+                        >
+                          <a
+                            className="task-result status-cell undefined"
+                            data-assignment-type="external"
+                            href="/course/2/task/704"
+                            onClick={[Function]}
+                          >
+                            <span>
+                              ---
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="fixedDataTableRowLayout_fixedColumnsDivider public_fixedDataTableRow_fixedColumnsDivider"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 240,
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="fixedDataTableRowLayout_rowWrapper"
+              style={
+                Object {
+                  "height": 50,
+                  "left": "0px",
+                  "top": "300px",
+                  "width": 1200,
+                  "zIndex": 0,
+                }
+              }
+            >
+              <div
+                className="fixedDataTableRowLayout_main public_fixedDataTableRow_main public_fixedDataTableRow_highlighted public_fixedDataTableRow_odd public_fixedDataTable_bodyRow"
+                onClick={null}
+                onDoubleClick={null}
+                onMouseDown={null}
+                onMouseEnter={null}
+                onMouseLeave={null}
+                style={
+                  Object {
+                    "height": 50,
+                    "width": 1200,
+                  }
+                }
+              >
+                <div
+                  className="fixedDataTableRowLayout_body"
+                >
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 0,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellGroupLayout_cellGroup"
+                      style={
+                        Object {
+                          "height": 50,
+                          "left": "0px",
+                          "position": "absolute",
+                          "top": "0px",
+                          "width": 240,
+                          "zIndex": 2,
+                        }
+                      }
+                    >
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 0,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="name-cell-wrapper"
+                        >
+                          <a
+                            className="name-cell"
+                            href="/course/2/guide/4"
+                            onClick={[Function]}
+                          >
+                            <span
+                              aria-describedby="name-tooltip-Bettie-Hackett"
+                              className="student-name"
+                              onBlur={[Function]}
+                              onClick={null}
+                              onFocus={[Function]}
+                              onMouseOut={[Function]}
+                              onMouseOver={[Function]}
+                            >
+                              Bettie Hackett
+                            </span>
+                            <span
+                              className="student-id"
+                            >
+                              3UPNAI8JD2
+                            </span>
+                          </a>
+                          <div
+                            className="overall-cell"
+                          >
+                            0%
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 160,
+                            "width": 80,
+                          }
+                        }
+                      >
+                        <div
+                          className="fixedDataTableCellLayout_wrap1 public_fixedDataTableCell_wrap1 overall-cell"
+                          style={
+                            Object {
+                              "height": undefined,
+                              "width": undefined,
+                            }
+                          }
+                        >
+                          <div
+                            className="fixedDataTableCellLayout_wrap2 public_fixedDataTableCell_wrap2"
+                          >
+                            <div
+                              className="fixedDataTableCellLayout_wrap3 public_fixedDataTableCell_wrap3"
+                            >
+                              <div
+                                className="public_fixedDataTableCell_cellContent"
+                              >
+                                0
+                                 %
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 240,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellGroupLayout_cellGroup"
+                      style={
+                        Object {
+                          "height": 50,
+                          "left": "0px",
+                          "position": "absolute",
+                          "top": "0px",
+                          "width": 480,
+                          "zIndex": 0,
+                        }
+                      }
+                    >
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 0,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="scores-cell"
+                        >
+                          <div
+                            className="score"
+                          >
+                            <a
+                              data-assignment-type="homework"
+                              href="/course/2/task/12/step/1"
+                              onClick={[Function]}
+                            >
+                              0%
+                            </a>
+                          </div>
+                          <div
+                            className="worked"
+                            onMouseLeave={[Function]}
+                            onMouseOver={[Function]}
+                          >
+                            <span
+                              className="not-started"
+                            >
+                              ---
+                            </span>
+                          </div>
+                          <div
+                            className="late-caret-trigger"
+                            onClick={[Function]}
+                            onMouseLeave={[Function]}
+                            onMouseOver={[Function]}
+                          >
+                            <div
+                              className="late-caret"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 160,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="scores-cell"
+                          onMouseLeave={[Function]}
+                          onMouseOver={[Function]}
+                        >
+                          <div
+                            className="worked wide"
+                          >
+                            <span
+                              className="not-started"
+                            >
+                              ---
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 320,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="external-cell"
+                        >
+                          <a
+                            className="task-result status-cell undefined"
+                            data-assignment-type="external"
+                            href="/course/2/task/705"
+                            onClick={[Function]}
+                          >
+                            <span>
+                              Clicked
+                            </span>
+                            <i
+                              aria-describedby="late-icon-tooltip-705"
+                              className="late"
+                              onBlur={[Function]}
+                              onClick={null}
+                              onFocus={[Function]}
+                              onMouseOut={[Function]}
+                              onMouseOver={[Function]}
+                            />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="fixedDataTableRowLayout_fixedColumnsDivider public_fixedDataTableRow_fixedColumnsDivider"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 240,
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="fixedDataTableRowLayout_rowWrapper"
+              style={
+                Object {
+                  "height": 50,
+                  "left": "0px",
+                  "top": "350px",
+                  "width": 1200,
+                  "zIndex": 0,
+                }
+              }
+            >
+              <div
+                className="fixedDataTableRowLayout_main public_fixedDataTableRow_main public_fixedDataTableRow_even public_fixedDataTable_bodyRow"
+                onClick={null}
+                onDoubleClick={null}
+                onMouseDown={null}
+                onMouseEnter={null}
+                onMouseLeave={null}
+                style={
+                  Object {
+                    "height": 50,
+                    "width": 1200,
+                  }
+                }
+              >
+                <div
+                  className="fixedDataTableRowLayout_body"
+                >
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 0,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellGroupLayout_cellGroup"
+                      style={
+                        Object {
+                          "height": 50,
+                          "left": "0px",
+                          "position": "absolute",
+                          "top": "0px",
+                          "width": 240,
+                          "zIndex": 2,
+                        }
+                      }
+                    >
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 0,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="name-cell-wrapper"
+                        >
+                          <a
+                            className="name-cell"
+                            href="/course/2/guide/5"
+                            onClick={[Function]}
+                          >
+                            <span
+                              aria-describedby="name-tooltip-Giovanny-Jaskolski"
+                              className="student-name"
+                              onBlur={[Function]}
+                              onClick={null}
+                              onFocus={[Function]}
+                              onMouseOut={[Function]}
+                              onMouseOver={[Function]}
+                            >
+                              Giovanny Jaskolski
+                            </span>
+                            <span
+                              className="student-id"
+                            >
+                              W4OQZ5CV2S
+                            </span>
+                          </a>
+                          <div
+                            className="overall-cell"
+                          >
+                            0%
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 160,
+                            "width": 80,
+                          }
+                        }
+                      >
+                        <div
+                          className="fixedDataTableCellLayout_wrap1 public_fixedDataTableCell_wrap1 overall-cell"
+                          style={
+                            Object {
+                              "height": undefined,
+                              "width": undefined,
+                            }
+                          }
+                        >
+                          <div
+                            className="fixedDataTableCellLayout_wrap2 public_fixedDataTableCell_wrap2"
+                          >
+                            <div
+                              className="fixedDataTableCellLayout_wrap3 public_fixedDataTableCell_wrap3"
+                            >
+                              <div
+                                className="public_fixedDataTableCell_cellContent"
+                              >
+                                0
+                                 %
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 240,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellGroupLayout_cellGroup"
+                      style={
+                        Object {
+                          "height": 50,
+                          "left": "0px",
+                          "position": "absolute",
+                          "top": "0px",
+                          "width": 480,
+                          "zIndex": 0,
+                        }
+                      }
+                    >
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 0,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="scores-cell"
+                        >
+                          <div
+                            className="score not-started"
+                          >
+                            ---
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 160,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="scores-cell"
+                          onMouseLeave={[Function]}
+                          onMouseOver={[Function]}
+                        >
+                          <div
+                            className="worked wide"
+                          >
+                            <span
+                              className="not-started"
+                            >
+                              ---
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 320,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="external-cell"
+                        >
+                          <a
+                            className="task-result status-cell undefined"
+                            data-assignment-type="external"
+                            href="/course/2/task/706"
+                            onClick={[Function]}
+                          >
+                            <span>
+                              Clicked
+                            </span>
+                            <i
+                              aria-describedby="late-icon-tooltip-706"
+                              className="late"
+                              onBlur={[Function]}
+                              onClick={null}
+                              onFocus={[Function]}
+                              onMouseOut={[Function]}
+                              onMouseOver={[Function]}
+                            />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="fixedDataTableRowLayout_fixedColumnsDivider public_fixedDataTableRow_fixedColumnsDivider"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 240,
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="fixedDataTableRowLayout_rowWrapper"
+              style={
+                Object {
+                  "height": 50,
+                  "left": "0px",
+                  "top": "400px",
+                  "width": 1200,
+                  "zIndex": 0,
+                }
+              }
+            >
+              <div
+                className="fixedDataTableRowLayout_main public_fixedDataTableRow_main public_fixedDataTableRow_highlighted public_fixedDataTableRow_odd public_fixedDataTable_bodyRow"
+                onClick={null}
+                onDoubleClick={null}
+                onMouseDown={null}
+                onMouseEnter={null}
+                onMouseLeave={null}
+                style={
+                  Object {
+                    "height": 50,
+                    "width": 1200,
+                  }
+                }
+              >
+                <div
+                  className="fixedDataTableRowLayout_body"
+                >
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 0,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellGroupLayout_cellGroup"
+                      style={
+                        Object {
+                          "height": 50,
+                          "left": "0px",
+                          "position": "absolute",
+                          "top": "0px",
+                          "width": 240,
+                          "zIndex": 2,
+                        }
+                      }
+                    >
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 0,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="name-cell-wrapper"
+                        >
+                          <a
+                            className="name-cell"
+                            href="/course/2/guide/2"
+                            onClick={[Function]}
+                          >
+                            <span
+                              aria-describedby="name-tooltip-Albin-Kirlin"
+                              className="student-name"
+                              onBlur={[Function]}
+                              onClick={null}
+                              onFocus={[Function]}
+                              onMouseOut={[Function]}
+                              onMouseOver={[Function]}
+                            >
+                              Albin Kirlin
+                            </span>
+                            <span
+                              className="student-id"
+                            >
+                              UQ5NDASCJX
+                            </span>
+                          </a>
+                          <div
+                            className="overall-cell"
+                          >
+                            0%
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 160,
+                            "width": 80,
+                          }
+                        }
+                      >
+                        <div
+                          className="fixedDataTableCellLayout_wrap1 public_fixedDataTableCell_wrap1 overall-cell"
+                          style={
+                            Object {
+                              "height": undefined,
+                              "width": undefined,
+                            }
+                          }
+                        >
+                          <div
+                            className="fixedDataTableCellLayout_wrap2 public_fixedDataTableCell_wrap2"
+                          >
+                            <div
+                              className="fixedDataTableCellLayout_wrap3 public_fixedDataTableCell_wrap3"
+                            >
+                              <div
+                                className="public_fixedDataTableCell_cellContent"
+                              >
+                                0
+                                 %
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 240,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellGroupLayout_cellGroup"
+                      style={
+                        Object {
+                          "height": 50,
+                          "left": "0px",
+                          "position": "absolute",
+                          "top": "0px",
+                          "width": 480,
+                          "zIndex": 0,
+                        }
+                      }
+                    >
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 0,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="scores-cell"
+                        >
+                          <div
+                            className="score not-started"
+                          >
+                            ---
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 160,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="scores-cell"
+                          onMouseLeave={[Function]}
+                          onMouseOver={[Function]}
+                        >
+                          <div
+                            className="worked wide"
+                          >
+                            <span
+                              className="not-started"
+                            >
+                              ---
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 320,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="external-cell"
+                        >
+                          <a
+                            className="task-result status-cell undefined"
+                            data-assignment-type="external"
+                            href="/course/2/task/707"
+                            onClick={[Function]}
+                          >
+                            <span>
+                              ---
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="fixedDataTableRowLayout_fixedColumnsDivider public_fixedDataTableRow_fixedColumnsDivider"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 240,
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="fixedDataTableRowLayout_rowWrapper"
+              style={
+                Object {
+                  "height": 50,
+                  "left": "0px",
+                  "top": "450px",
+                  "width": 1200,
+                  "zIndex": 0,
+                }
+              }
+            >
+              <div
+                className="fixedDataTableRowLayout_main public_fixedDataTableRow_main public_fixedDataTableRow_even public_fixedDataTable_bodyRow"
+                onClick={null}
+                onDoubleClick={null}
+                onMouseDown={null}
+                onMouseEnter={null}
+                onMouseLeave={null}
+                style={
+                  Object {
+                    "height": 50,
+                    "width": 1200,
+                  }
+                }
+              >
+                <div
+                  className="fixedDataTableRowLayout_body"
+                >
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 0,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellGroupLayout_cellGroup"
+                      style={
+                        Object {
+                          "height": 50,
+                          "left": "0px",
+                          "position": "absolute",
+                          "top": "0px",
+                          "width": 240,
+                          "zIndex": 2,
+                        }
+                      }
+                    >
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 0,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="name-cell-wrapper"
+                        >
+                          <a
+                            className="name-cell"
+                            href="/course/2/guide/6"
+                            onClick={[Function]}
+                          >
+                            <span
+                              aria-describedby="name-tooltip-Kevin-Lowe"
+                              className="student-name"
+                              onBlur={[Function]}
+                              onClick={null}
+                              onFocus={[Function]}
+                              onMouseOut={[Function]}
+                              onMouseOver={[Function]}
+                            >
+                              Kevin Lowe
+                            </span>
+                            <span
+                              className="student-id"
+                            >
+                              AJZ0CVERLD
+                            </span>
+                          </a>
+                          <div
+                            className="overall-cell"
+                          >
+                            0%
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 160,
+                            "width": 80,
+                          }
+                        }
+                      >
+                        <div
+                          className="fixedDataTableCellLayout_wrap1 public_fixedDataTableCell_wrap1 overall-cell"
+                          style={
+                            Object {
+                              "height": undefined,
+                              "width": undefined,
+                            }
+                          }
+                        >
+                          <div
+                            className="fixedDataTableCellLayout_wrap2 public_fixedDataTableCell_wrap2"
+                          >
+                            <div
+                              className="fixedDataTableCellLayout_wrap3 public_fixedDataTableCell_wrap3"
+                            >
+                              <div
+                                className="public_fixedDataTableCell_cellContent"
+                              >
+                                0
+                                 %
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 240,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellGroupLayout_cellGroup"
+                      style={
+                        Object {
+                          "height": 50,
+                          "left": "0px",
+                          "position": "absolute",
+                          "top": "0px",
+                          "width": 480,
+                          "zIndex": 0,
+                        }
+                      }
+                    >
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 0,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="scores-cell"
+                        >
+                          <div
+                            className="score"
+                          >
+                            <a
+                              data-assignment-type="homework"
+                              href="/course/2/task/14/step/1"
+                              onClick={[Function]}
+                            >
+                              0%
+                            </a>
+                          </div>
+                          <div
+                            className="worked"
+                            onMouseLeave={[Function]}
+                            onMouseOver={[Function]}
+                          >
+                            <span
+                              className="not-started"
+                            >
+                              ---
+                            </span>
+                          </div>
+                          <div
+                            className="late-caret-trigger"
+                            onClick={[Function]}
+                            onMouseLeave={[Function]}
+                            onMouseOver={[Function]}
+                          >
+                            <div
+                              className="late-caret"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 160,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="scores-cell"
+                          onMouseLeave={[Function]}
+                          onMouseOver={[Function]}
+                        >
+                          <div
+                            className="worked wide"
+                          >
+                            <span
+                              className="not-started"
+                            >
+                              ---
+                            </span>
+                          </div>
+                          <div
+                            className="late-caret-trigger"
+                            onClick={[Function]}
+                            onMouseLeave={[Function]}
+                            onMouseOver={[Function]}
+                          >
+                            <div
+                              className="late-caret"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 320,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="external-cell"
+                        >
+                          <a
+                            className="task-result status-cell undefined"
+                            data-assignment-type="external"
+                            href="/course/2/task/708"
+                            onClick={[Function]}
+                          >
+                            <span>
+                              ---
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="fixedDataTableRowLayout_fixedColumnsDivider public_fixedDataTableRow_fixedColumnsDivider"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 240,
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="fixedDataTableRowLayout_rowWrapper"
+              style={
+                Object {
+                  "height": 50,
+                  "left": "0px",
+                  "top": "500px",
+                  "width": 1200,
+                  "zIndex": 0,
+                }
+              }
+            >
+              <div
+                className="fixedDataTableRowLayout_main public_fixedDataTableRow_main public_fixedDataTableRow_highlighted public_fixedDataTableRow_odd public_fixedDataTable_bodyRow"
+                onClick={null}
+                onDoubleClick={null}
+                onMouseDown={null}
+                onMouseEnter={null}
+                onMouseLeave={null}
+                style={
+                  Object {
+                    "height": 50,
+                    "width": 1200,
+                  }
+                }
+              >
+                <div
+                  className="fixedDataTableRowLayout_body"
+                >
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 0,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellGroupLayout_cellGroup"
+                      style={
+                        Object {
+                          "height": 50,
+                          "left": "0px",
+                          "position": "absolute",
+                          "top": "0px",
+                          "width": 240,
+                          "zIndex": 2,
+                        }
+                      }
+                    >
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 0,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="name-cell-wrapper"
+                        >
+                          <a
+                            className="name-cell"
+                            href="/course/2/guide/7"
+                            onClick={[Function]}
+                          >
+                            <span
+                              aria-describedby="name-tooltip-Ignatius-Reilly"
+                              className="student-name"
+                              onBlur={[Function]}
+                              onClick={null}
+                              onFocus={[Function]}
+                              onMouseOut={[Function]}
+                              onMouseOver={[Function]}
+                            >
+                              Ignatius Reilly
+                            </span>
+                            <span
+                              className="student-id"
+                            >
+                              RG1TOYCQFJ
+                            </span>
+                          </a>
+                          <div
+                            className="overall-cell"
+                          >
+                            0%
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 160,
+                            "width": 80,
+                          }
+                        }
+                      >
+                        <div
+                          className="fixedDataTableCellLayout_wrap1 public_fixedDataTableCell_wrap1 overall-cell"
+                          style={
+                            Object {
+                              "height": undefined,
+                              "width": undefined,
+                            }
+                          }
+                        >
+                          <div
+                            className="fixedDataTableCellLayout_wrap2 public_fixedDataTableCell_wrap2"
+                          >
+                            <div
+                              className="fixedDataTableCellLayout_wrap3 public_fixedDataTableCell_wrap3"
+                            >
+                              <div
+                                className="public_fixedDataTableCell_cellContent"
+                              >
+                                0
+                                 %
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 240,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellGroupLayout_cellGroup"
+                      style={
+                        Object {
+                          "height": 50,
+                          "left": "0px",
+                          "position": "absolute",
+                          "top": "0px",
+                          "width": 480,
+                          "zIndex": 0,
+                        }
+                      }
+                    >
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 0,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="scores-cell"
+                        >
+                          <div
+                            className="score not-started"
+                          >
+                            ---
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 160,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="scores-cell"
+                          onMouseLeave={[Function]}
+                          onMouseOver={[Function]}
+                        >
+                          <div
+                            className="worked wide"
+                          >
+                            <span
+                              className="not-started"
+                            >
+                              ---
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 320,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="external-cell"
+                        >
+                          <a
+                            className="task-result status-cell undefined"
+                            data-assignment-type="external"
+                            href="/course/2/task/709"
+                            onClick={[Function]}
+                          >
+                            <span>
+                              ---
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="fixedDataTableRowLayout_fixedColumnsDivider public_fixedDataTableRow_fixedColumnsDivider"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 240,
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              className="fixedDataTableRowLayout_rowWrapper"
+              style={
+                Object {
+                  "height": 50,
+                  "left": "0px",
+                  "top": "550px",
+                  "width": 1200,
+                  "zIndex": 0,
+                }
+              }
+            >
+              <div
+                className="fixedDataTableRowLayout_main public_fixedDataTableRow_main public_fixedDataTableRow_even public_fixedDataTable_bodyRow fixedDataTableLayout_hasBottomBorder public_fixedDataTable_hasBottomBorder"
+                onClick={null}
+                onDoubleClick={null}
+                onMouseDown={null}
+                onMouseEnter={null}
+                onMouseLeave={null}
+                style={
+                  Object {
+                    "height": 50,
+                    "width": 1200,
+                  }
+                }
+              >
+                <div
+                  className="fixedDataTableRowLayout_body"
+                >
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 0,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellGroupLayout_cellGroup"
+                      style={
+                        Object {
+                          "height": 50,
+                          "left": "0px",
+                          "position": "absolute",
+                          "top": "0px",
+                          "width": 240,
+                          "zIndex": 2,
+                        }
+                      }
+                    >
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 0,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="name-cell-wrapper"
+                        >
+                          <a
+                            className="name-cell"
+                            href="/course/2/guide/3"
+                            onClick={[Function]}
+                          >
+                            <span
+                              aria-describedby="name-tooltip-Alyce-Tromp"
+                              className="student-name"
+                              onBlur={[Function]}
+                              onClick={null}
+                              onFocus={[Function]}
+                              onMouseOut={[Function]}
+                              onMouseOver={[Function]}
+                            >
+                              Alyce Tromp
+                            </span>
+                            <span
+                              className="student-id"
+                            >
+                              LSH4YEFUZB
+                            </span>
+                          </a>
+                          <div
+                            className="overall-cell"
+                          >
+                            0%
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 160,
+                            "width": 80,
+                          }
+                        }
+                      >
+                        <div
+                          className="fixedDataTableCellLayout_wrap1 public_fixedDataTableCell_wrap1 overall-cell"
+                          style={
+                            Object {
+                              "height": undefined,
+                              "width": undefined,
+                            }
+                          }
+                        >
+                          <div
+                            className="fixedDataTableCellLayout_wrap2 public_fixedDataTableCell_wrap2"
+                          >
+                            <div
+                              className="fixedDataTableCellLayout_wrap3 public_fixedDataTableCell_wrap3"
+                            >
+                              <div
+                                className="public_fixedDataTableCell_cellContent"
+                              >
+                                0
+                                 %
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="fixedDataTableCellGroupLayout_cellGroupWrapper"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 240,
+                      }
+                    }
+                  >
+                    <div
+                      className="fixedDataTableCellGroupLayout_cellGroup"
+                      style={
+                        Object {
+                          "height": 50,
+                          "left": "0px",
+                          "position": "absolute",
+                          "top": "0px",
+                          "width": 480,
+                          "zIndex": 0,
+                        }
+                      }
+                    >
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 0,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="scores-cell"
+                        >
+                          <div
+                            className="score not-started"
+                          >
+                            ---
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 160,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="scores-cell"
+                          onMouseLeave={[Function]}
+                          onMouseOver={[Function]}
+                        >
+                          <div
+                            className="worked wide"
+                          >
+                            <span
+                              className="not-started"
+                            >
+                              ---
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="fixedDataTableCellLayout_main public_fixedDataTableCell_main"
+                        style={
+                          Object {
+                            "height": 50,
+                            "left": 320,
+                            "width": 160,
+                          }
+                        }
+                      >
+                        <div
+                          className="external-cell"
+                        >
+                          <a
+                            className="task-result status-cell undefined"
+                            data-assignment-type="external"
+                            href="/course/2/task/709"
+                            onClick={[Function]}
+                          >
+                            <span>
+                              ---
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="fixedDataTableRowLayout_fixedColumnsDivider public_fixedDataTableRow_fixedColumnsDivider"
+                    style={
+                      Object {
+                        "height": 50,
+                        "left": 240,
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

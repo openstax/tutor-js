@@ -53,6 +53,10 @@ export default class TaskResult extends BaseModel {
     return this.completed_on_time_step_count < this.completed_step_count;
   }
 
+  @computed get isStarted() {
+    return Boolean(this.completed_step_count || this.completed_exercise_count);
+  }
+
   // called by API
   acceptLate() {}
   rejectLate() {}

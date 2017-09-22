@@ -10,12 +10,12 @@ describe('Student Scores Name Cell', function() {
     props = {
       courseId: '1',
       isConceptCoach: false,
-      student: {
+      students: [ {
         first_name: 'Molly',
         last_name: 'Bloom',
         role: 1,
         student_identifier: '123456',
-      },
+      } ],
     };
   });
 

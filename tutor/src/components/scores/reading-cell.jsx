@@ -40,43 +40,50 @@ export default class ReadingCell extends React.PureComponent {
     return ReactDOM.findDOMNode(this.refs.pieChart);
   }
 
+  renderPopover() {
+    const { task, courseId, period_id } = this.props;
+    if (!task.isStarted) { return null; }
+
+    return (
+      <Overlay
+        target={this.getPieChartTarget}
+        show={this.isShowingPopover}
+        onHide={this.hide}
+        placement="left">
+        <Popover
+          onMouseOver={this.show}
+          onMouseLeave={this.hide}
+          id={`scores-cell-info-popover-${task.id}`}
+          className="scores-scores-tooltip-completed-info">
+          <div className="info">
+            <div className="row">
+              <div>
+                Completed {TH.getHumanCompletedPercent(task)}
+              </div>
+            </div>
+            <div className="row">
+              <div>
+                <TutorLink
+                  to="viewTaskStep"
+                  data-assignment-type={`${task.type}`}
+                  params={{ courseId, id: task.id, stepIndex: 1 }}
+                >
+                  Review
+                </TutorLink>
+              </div>
+            </div>
+          </div>
+        </Popover>
+      </Overlay>
+    );
+  }
   render() {
-    const { task, courseId, isConceptCoach, columnIndex, period_id } = this.props;
+    const { task, isConceptCoach, columnIndex, period_id } = this.props;
 
     return (
       <div className="scores-cell" onMouseOver={this.show} onMouseLeave={this.hide}>
         <div className="worked wide">
-          <Overlay
-            target={this.getPieChartTarget}
-            show={this.isShowingPopover}
-            onHide={this.hide}
-            placement="left">
-            <Popover
-              onMouseOver={this.show}
-              onMouseLeave={this.hide}
-              id={`scores-cell-info-popover-${task.id}`}
-              className="scores-scores-tooltip-completed-info">
-              <div className="info">
-                <div className="row">
-                  <div>
-                    {'Completed '}
-                    {TH.getHumanCompletedPercent(task)}
-                  </div>
-                </div>
-                <div className="row">
-                  <div>
-                    <TutorLink
-                      to="viewTaskStep"
-                      data-assignment-type={`${task.type}`}
-                      params={{ courseId, id: task.id, stepIndex: 1 }}
-                    >
-                      Review
-                    </TutorLink>
-                  </div>
-                </div>
-              </div>
-            </Popover>
-          </Overlay>
+          {this.renderPopover()}
           <PieProgress
             ref="pieChart"
             isConceptCoach={isConceptCoach}

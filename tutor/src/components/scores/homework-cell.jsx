@@ -8,6 +8,8 @@ import TutorLink from '../link';
 import { LateWork } from './late-work';
 import PieProgress from './pie-progress';
 
+import TaskResult from '../../models/course/scores/task-result';
+
 const HomeworkScore = ({ task, displayAs, courseId }) => {
 
   const scorePercent = TH.getHumanScorePercent(task);
@@ -45,11 +47,7 @@ export default class HomeworkCell extends React.PureComponent {
     courseId: React.PropTypes.string.isRequired,
     isConceptCoach: React.PropTypes.bool,
     columnIndex: React.PropTypes.number.isRequired,
-    task: React.PropTypes.shape({
-      id: React.PropTypes.number,
-      type: React.PropTypes.string,
-      status: React.PropTypes.string,
-    }).isRequired,
+    task: React.PropTypes.instanceOf(TaskResult).isRequired,
   }
 
   @observable isShowingPopover = false;
@@ -68,45 +66,56 @@ export default class HomeworkCell extends React.PureComponent {
     );
   }
 
+
+  renderPopover() {
+    const { task, isConceptCoach } = this.props;
+    if (!task.isStarted) { return null; }
+
+    return (
+      <div className="worked" onMouseOver={this.show} onMouseLeave={this.hide}>
+
+        <Overlay
+          target={this.getPieChartTarget}
+          show={this.isShowingPopover}
+          onHide={this.hide}
+          placement="left">
+          <Popover
+            onMouseOver={this.show}
+            onMouseLeave={this.hide}
+            id={`scores-cell-info-popover-${task.id}`}
+            className="scores-scores-tooltip-completed-info"
+          >
+            <div className="info">
+              <div className="row">
+                <div>
+                  Completed {TH.getHumanCompletedPercent(task)}
+                </div>
+              </div>
+              <div className="row">
+                <div>
+                  {TH.getHumanProgress(task)} questions
+                </div>
+              </div>
+            </div>
+          </Popover>
+        </Overlay>
+        <PieProgress
+          ref="pieChart"
+          isConceptCoach={isConceptCoach}
+          size={20}
+          value={TH.getCompletedPercent(task)}
+          isLate={TH.isDue(task)} />
+      </div>
+    );
+  }
+
   render() {
-    const { task, isConceptCoach, columnIndex } = this.props;
+    const { task, columnIndex } = this.props;
 
     return (
       <div className="scores-cell">
         <HomeworkScore {...this.props} />
-        <div className="worked" onMouseOver={this.show} onMouseLeave={this.hide}>
-          <Overlay
-            target={this.getPieChartTarget}
-            show={this.isShowingPopover}
-            onHide={this.hide}
-            placement="left">
-            <Popover
-              onMouseOver={this.show}
-              onMouseLeave={this.hide}
-              id={`scores-cell-info-popover-${task.id}`}
-              className="scores-scores-tooltip-completed-info">
-              <div className="info">
-                <div className="row">
-                  <div>
-                    {'Completed '}
-                    {TH.getHumanCompletedPercent(task)}
-                  </div>
-                </div>
-                <div className="row">
-                  <div>
-                    {TH.getHumanProgress(task)} questions
-                  </div>
-                </div>
-              </div>
-            </Popover>
-          </Overlay>
-          <PieProgress
-            ref="pieChart"
-            isConceptCoach={isConceptCoach}
-            size={20}
-            value={TH.getCompletedPercent(task)}
-            isLate={TH.isDue(task)} />
-        </div>
+        {this.renderPopover()}
         <LateWork
           onMouseOver={this.show}
           onMouseLeave={this.hide}

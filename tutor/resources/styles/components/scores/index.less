@@ -1,4 +1,4 @@
-.scores-report {
+.course-scores-report {
   @nav-tab-height: 50px;
   @display-as-btn-height: 40px;
 
@@ -118,8 +118,6 @@
       display: block;
       width: 100%;
       height: inherit;
-
-
     }
   }
 
@@ -127,6 +125,16 @@
     border: none;
   }
 
+  // override course-page settings to allow table to expand full-screen
+  & > .body {
+    max-width: inherit;
+    padding: 0 20px;
+    .tutor-tabs {
+      .course-page.wrapper-child();
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
 
 
 }

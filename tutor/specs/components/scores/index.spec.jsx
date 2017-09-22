@@ -5,6 +5,12 @@ import EnzymeContext from '../helpers/enzyme-context';
 import Scores from '../../../src/components/scores/index';
 import Sorter from '../../../src/components/scores/student-data-sorter';
 
+function mockedContainerDimensions({ height = 1024, width = 1200 } = {}) {
+  return ({ children, ...childProps }) => (
+    React.cloneElement(children, { ...childProps, height, width })
+  );
+}
+jest.mock('react-container-dimensions', () => mockedContainerDimensions());
 
 const getStudentNames = function(wrapper) {
   const names = wrapper.find('.student-name').map(el => el.text());
@@ -34,6 +40,14 @@ describe('Scores Report', function() {
     const wrapper = mount(<Scores {...props} />, EnzymeContext.build());
     expect(getStudentNames(wrapper)).to.deep.equal(map(period.students, 'name'));
     wrapper.unmount();
+  });
+
+  it('matches snapshot', () => {
+    const scores = SnapShot.create(
+      <Wrapper _wrapped_component={Scores} noReference {...props}/>
+    );
+    expect(scores.toJSON()).toMatchSnapshot();
+    scores.unmount();
   });
 
   it('sorts', function() {
