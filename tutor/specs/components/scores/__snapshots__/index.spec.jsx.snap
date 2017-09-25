@@ -25,46 +25,6 @@ exports[`Scores Report matches snapshot 1`] = `
       <div
         className="course-nav-container"
       >
-        <nav
-          className="tutor-tabs"
-        >
-          <ul
-            className="nav nav-tabs"
-          >
-            <li
-              className="active"
-            >
-              <a
-                aria-selected={true}
-                href="#"
-                onClick={[Function]}
-              >
-                <h2>
-                  <div
-                    className=""
-                  >
-                    <span
-                      aria-describedby="course-periods-nav-tab-0"
-                      className="tab-item-period-name"
-                      onBlur={[Function]}
-                      onClick={null}
-                      onFocus={[Function]}
-                      onMouseOut={[Function]}
-                      onMouseOver={[Function]}
-                    >
-                      1st
-                    </span>
-                  </div>
-                </h2>
-              </a>
-            </li>
-          </ul>
-          <span
-            className="course-scores-note tab"
-          >
-            Scores reflect work submitted on time. To accept late work, click the orange triangle.
-          </span>
-        </nav>
         <div
           className="filter-row"
         >
@@ -104,6 +64,46 @@ exports[`Scores Report matches snapshot 1`] = `
   <div
     className="body"
   >
+    <nav
+      className="tutor-tabs"
+    >
+      <ul
+        className="nav nav-tabs"
+      >
+        <li
+          className="active"
+        >
+          <a
+            aria-selected={true}
+            href="#"
+            onClick={[Function]}
+          >
+            <h2>
+              <div
+                className=""
+              >
+                <span
+                  aria-describedby="course-periods-nav-tab-0"
+                  className="tab-item-period-name"
+                  onBlur={[Function]}
+                  onClick={null}
+                  onFocus={[Function]}
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  1st
+                </span>
+              </div>
+            </h2>
+          </a>
+        </li>
+      </ul>
+      <span
+        className="course-scores-note tab"
+      >
+        Scores reflect work submitted on time. To accept late work, click the orange triangle.
+      </span>
+    </nav>
     <div
       className=""
       data-tour-region-id="scores"
