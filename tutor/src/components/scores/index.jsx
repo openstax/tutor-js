@@ -100,7 +100,7 @@ export default class StudentScores extends React.PureComponent {
       <CoursePage
         course={this.course}
         className="course-scores-report"
-        title="Scores"
+        title="Student Scores"
         controls={this.renderControls()}
       >
         <CoursePeriodsNav

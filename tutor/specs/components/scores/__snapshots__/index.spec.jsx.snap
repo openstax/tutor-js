@@ -16,7 +16,7 @@ exports[`Scores Report matches snapshot 1`] = `
       <div
         className="title"
       >
-        Scores
+        Student Scores
       </div>
     </div>
     <div
