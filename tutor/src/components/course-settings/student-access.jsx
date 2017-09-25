@@ -23,13 +23,11 @@ export default class StudentAccess extends React.PureComponent {
     course: React.PropTypes.instanceOf(Course).isRequired,
   };
 
-  @observable activeKey = '1';
-
   renderDirectHeader() {
     return (
       <div className="choice">
         <Icon type="square-o" />
-        <div class="heading">
+        <div className="heading">
           <p className="title">
             Access through direct links
           </p>
@@ -45,7 +43,7 @@ export default class StudentAccess extends React.PureComponent {
     return (
       <div className="choice">
         <Icon type="square-o" />
-        <div class="heading">
+        <div className="heading">
           <p className="title">
             Access from paired LMS <i className="advanced">Advanced</i>
           </p>
@@ -58,12 +56,31 @@ export default class StudentAccess extends React.PureComponent {
     );
   }
 
-  @action.bound onSelectOption(k) {
-    this.activeKey = k;
+  @action.bound onSelectOption(isEnabled) {
+    const { course } = this.props;
+    course.is_lms_enabled = isEnabled;
+    course.save();
+  }
+
+  renderDirectLinks() {
+    const { course } = this.props;
+
+    return (
+      <div className="direct-links">
+        <p>
+          Give these links to your students in each section to enroll.
+        </p>
+        {course.activePeriods.map(p => <PeriodLink period={p}/>)}
+      </div>
+    );
   }
 
   render() {
     const { course } = this.props;
+
+    if (course.is_lms_enabling_allowed) {
+      return this.renderDirectLinks();
+    }
 
     return (
       <div className="student-access">
@@ -75,11 +92,13 @@ export default class StudentAccess extends React.PureComponent {
           <Icon type="info-circle" /> Which option is right for my course?
         </a>
 
-        <PanelGroup activeKey={this.activatedKey} onSelect={this.onSelectOption} accordion>
-          <Panel className="links" header={this.renderDirectHeader()} eventKey="1">
+        <PanelGroup activeKey={course.is_lms_enabled} onSelect={this.onSelectOption} accordion>
+          <Panel className="links" header={this.renderDirectHeader()} eventKey={false}>
             {course.activePeriods.map(p => <PeriodLink period={p}/>)}
           </Panel>
-          <Panel header={this.renderLMSHeader()} eventKey="2">Panel 2 content</Panel>
+          <Panel header={this.renderLMSHeader()} eventKey={true}>
+            LMS!
+          </Panel>
         </PanelGroup>
       </div>
     );

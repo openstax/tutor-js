@@ -43,8 +43,10 @@ export default class CoursePage extends React.PureComponent {
           {this.renderTitle()}
           {this.renderControls()}
         </header>
-        <div className="body">
-          {this.props.children}
+        <div className="body-wrapper">
+          <div className="body">
+            {this.props.children}
+          </div>
         </div>
       </div>
     );

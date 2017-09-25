@@ -9,7 +9,6 @@
       flex-direction: column;
       margin: 0 auto;
   }
-
   .apply-booksplash-background(@code; @fg; @bg) {
     &[data-appearance=@{code}] > header > .title-wrapper {
       color: @@fg;
@@ -21,16 +20,20 @@
   }
 
   > header {
+    .title-wrapper {
+      padding: 0 20px;
+    }
 
     .title {
+      .wrapper-child();
       font-weight: bold;
       min-height: 100px;
       font-size: 36px;
-      .wrapper-child();
     }
 
     .controls-wrapper {
       background-color: @tutor-neutral-bright;
+      padding: 0 20px;
       > * {
         .wrapper-child();
       }
@@ -51,8 +54,12 @@
       }
     }
   }
-  > .body {
-    .wrapper-child();
-    display: block;
+  > .body-wrapper {
+    padding: 0 20px;
+    > .body {
+      .wrapper-child();
+      display: block;
+    }
   }
+
 }

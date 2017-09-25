@@ -190,6 +190,6 @@ export default class Course extends BaseModel {
   }
 
   save() {
-    return { id: this.id, data: pick(this, 'name') };
+    return { id: this.id, data: pick(this, 'name', 'is_lms_enabled') };
   }
 }
