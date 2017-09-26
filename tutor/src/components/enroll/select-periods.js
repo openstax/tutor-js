@@ -34,7 +34,10 @@ export default class SelectPeriod extends React.PureComponent {
           </Listing>
         </Modal.Body>
         <Modal.Footer>
-          <Button bsStyle="primary" className="btn btn-success" onClick={enrollment.onSubmitPeriod}>
+          <Button
+            disabled={enrollment.needsPeriodSelection}
+            bsStyle="primary"
+            className="btn btn-success" onClick={enrollment.onSubmitPeriod}>
             Continue
           </Button>
         </Modal.Footer>

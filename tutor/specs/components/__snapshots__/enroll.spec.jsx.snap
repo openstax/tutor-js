@@ -236,7 +236,7 @@ exports[`Student Enrollment select periods matches snapshot 1`] = `
         >
           <button
             className="btn btn-success btn btn-primary"
-            disabled={false}
+            disabled={true}
             onClick={[Function]}
             type="button"
           >
