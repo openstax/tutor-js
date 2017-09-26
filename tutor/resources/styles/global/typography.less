@@ -21,7 +21,7 @@
 @tutor-default-font-face: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 #fonts {
-  .sans (@size: 1.5rem, @line-height: normal) {
+  .sans (@size: 1.5rem, @line-height: @size * 1.5) {
     font-family: @tutor-default-font-face;
     font-weight: 400;
     font-style: normal;
