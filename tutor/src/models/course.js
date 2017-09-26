@@ -41,7 +41,8 @@ export default class Course extends BaseModel {
   @field is_preview;
   @field num_sections;
   @field offering_id;
-  @field is_lms_enabling_allowed;
+  @field is_lms_enabling_allowed = false;
+  @field is_access_switchable = true;
   @field is_lms_enabled;
   @field salesforce_book_name;
 
@@ -60,6 +61,19 @@ export default class Course extends BaseModel {
   @computed get userStudentRecord() {
     const role = find(this.roles, 'isStudent');
     return role ? find(this.students, { role_id: role.id }) : null;
+  }
+
+  @computed get canOnlyUseEnrollmentLinks() {
+    return Boolean(
+      !this.is_lms_enabling_allowed || (
+        !this.is_lms_enabled && !this.is_access_switchable
+      )
+    );
+  }
+  @computed get canOnlyUseLMS() {
+    return Boolean(
+      this.is_lms_enabled && !this.is_access_switchable
+    );
   }
 
   @computed get studentTasks() {

@@ -1,25 +1,47 @@
 .student-access {
 
+  .rows-of-inputs(){
+    display: flex;
+    flex-direction: column;
+    label {
+      font-weight: normal;
+      display: block;
+      input {
+        margin-top: 10px;
+        padding: 15px;
+      }
+      & + label {
+        margin-top: 20px;
+      }
+    }
+  }
+
   max-width: 670px;
 
-  .panel>.panel-heading {
+  .panel-heading {
     color: black;
     background-color: white;
-
+    border-bottom: 0;
     &:hover {
       cursor: pointer;
     }
 
     p { margin-bottom: 0; }
-    .box {
-      height: 30px;
-      width: 30px;
-      min-width: 30px;
-      border: 1px solid @tutor-neutral-light;
-      margin-right: 1rem;
-      border-radius: 5px;
+    .choice {
+      .box {
+        height: 30px;
+        width: 30px;
+        min-width: 30px;
+        border: 1px solid @tutor-neutral-light;
+        margin-right: 1rem;
+        border-radius: 5px;
+      }
+      .tutor-icon {
+        font-size: 30px;
+      }
+      .info { font-style: italic; }
       &.checked {
-        &::after {
+        .box::after {
           .fa-icon();
           content: @fa-var-check;
           color: @tutor-secondary;
@@ -28,10 +50,9 @@
           margin-left: -5px;
           margin-top: -15px;
         }
+        .info { display: none; }
       }
-    }
-    .tutor-icon {
-      font-size: 30px;
+
     }
     .panel-title { line-height: inherit; }
     .choice a {
@@ -53,30 +74,34 @@
     }
   }
 
-  &.direct-links-only,
-  .lms .panel-body,
-  .links .panel-body
-  {
+  .panel-body {
+    border-top: 0;
     padding: 40px;
-    display: flex;
-    flex-direction: column;
-    label {
-      font-weight: normal;
-      display: block;
-      input {
-        margin-top: 10px;
-        padding: 15px;
-      }
-      & + label {
-        margin-top: 20px;
-      }
-    }
   }
 
+  &.direct-links-only,
+  .lms-access,
+  .links .panel-body {
+    .rows-of-inputs();
+  }
+
+
+}
+
+// .modal.lms-pairing-keys {
+
+// }
+.modal.lms-pairing-keys,
+.student-access
+{
   .lms-access {
+    .student-access.rows-of-inputs();
     a {
       margin-top: 30px;
       display: block;
+    }
+    &.enrolled {
+
     }
   }
 }
