@@ -38,7 +38,7 @@ export default class StudentAccess extends React.PureComponent {
       <div className="choice">
         <div
           className={cn('box', { checked })}
-          ariaLabel={checked ? 'Selected' : ''}
+          aria-label={checked ? 'Selected' : ''}
         />
         <div className="heading">
           <p className="title">
@@ -59,7 +59,7 @@ export default class StudentAccess extends React.PureComponent {
       <div className="choice">
         <div
           className={cn('box', { checked })}
-          ariaLabel={checked ? 'Selected' : ''}
+          aria-label={checked ? 'Selected' : ''}
         />
         <div className="heading">
           <p className="title">
@@ -88,7 +88,7 @@ export default class StudentAccess extends React.PureComponent {
         <p>
           Give these links to your students in each section to enroll.
         </p>
-        {course.activePeriods.map(p => <CopyOnFocusInput label={p.name} value={p.enrollment_url} />)}
+        {course.activePeriods.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url} />)}
       </div>
     );
   }
@@ -117,7 +117,7 @@ export default class StudentAccess extends React.PureComponent {
 
         <PanelGroup activeKey={course.is_lms_enabled} onSelect={this.onSelectOption} accordion>
           <Panel className="links" header={this.renderDirectHeader()} eventKey={false}>
-            {course.activePeriods.map(p => <CopyOnFocusInput label={p.name} value={p.enrollment_url} />)}
+            {course.activePeriods.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url} />)}
           </Panel>
           <Panel className="lms" header={this.renderLMSHeader()} eventKey={true}>
             {this.renderLMS()}
