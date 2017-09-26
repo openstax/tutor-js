@@ -1,7 +1,11 @@
 import React from 'react';
+import { observable } from 'mobx'
+import { observer } from 'mobx-react'
 import { autobind } from 'core-decorators';
+
 import Clipboard from '../helpers/clipboard';
 
+@observer
 export default class CopyOnFocusInput extends React.PureComponent {
 
   static propTypes = {
@@ -11,19 +15,22 @@ export default class CopyOnFocusInput extends React.PureComponent {
     focusOnMount: React.PropTypes.bool,
   }
 
+  @observable input;
+
   static defaultProps = {
     focusOnMount: false,
   }
 
   focus() {
-    this.refs.input.focus();
+    this.input.focus();
   }
 
-  @autobind
-  copy() {
-    this.refs.input.select();
+  @autobind copy() {
+    this.input.select();
     Clipboard.copy();
   }
+
+  @autobind setInput(i) { this.input = i; }
 
   componentDidMount() {
     if (this.props.focusOnMount) {
@@ -38,7 +45,7 @@ export default class CopyOnFocusInput extends React.PureComponent {
     const input = (
       <input
         className={label ? null : className}
-        ref="input"
+        ref={this.setInput}
         className="copy-on-focus"
         readOnly={true}
         onFocus={this.copy}
