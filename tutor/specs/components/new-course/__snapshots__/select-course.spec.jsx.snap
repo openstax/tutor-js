@@ -2,7 +2,7 @@
 
 exports[`CreateCourse: Selecting course subject matches snapshot 1`] = `
 <div
-  className="list-group"
+  className="choices-listing list-group"
 >
   <div
     className="list-group-item choice"

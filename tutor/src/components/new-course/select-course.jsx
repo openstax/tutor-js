@@ -1,10 +1,9 @@
 import React from 'react';
-import { ListGroup } from 'react-bootstrap';
+
+import { Listing, Choice } from '../choices-listing';
 import { observer, propTypes as MobxPropTypes } from 'mobx-react';
 import { action } from 'mobx';
 import { partial } from 'lodash';
-
-import Choice from './choice';
 
 @observer
 export default class SelectCourse extends React.PureComponent {
@@ -23,18 +22,18 @@ export default class SelectCourse extends React.PureComponent {
     const { offering, validOfferings } = this.props.ux;
 
     return (
-      <ListGroup>
+      <Listing>
         {validOfferings.map(choice =>
           <Choice
             key={`course-choice-offering-${choice.id}`}
             data-appearance={choice.appearance_code}
             active={(choice === offering)}
             onClick={partial(this.onSelect, choice)}
-            >
+          >
             {choice.title}
           </Choice>
         )}
-      </ListGroup>
+      </Listing>
     );
   }
 }

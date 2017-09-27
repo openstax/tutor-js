@@ -1,11 +1,17 @@
+import React from 'react';
 import {
   BaseModel, identifiedBy, field, identifier, computed, session,
 } from '../base';
-import { when, observable } from 'mobx';
+import { action, when, observable } from 'mobx';
 import { get, pick, isEmpty } from 'lodash';
+import { Redirect } from 'react-router-dom';
+import S from '../../helpers/string';
+import Router from '../../../src/helpers/router';
 import { CourseListingActions, CourseListingStore } from '../../flux/course-listing';
 import StudentTasks from '../student-tasks';
-import Courses from '../courses-map';
+import Activity from '../../../src/components/ox-fancy-loader';
+import Enroll from '../../../src/components/enroll';
+import Course from '../course';
 
 @identifiedBy('course/student')
 export default class CourseEnrollment extends BaseModel {
@@ -17,8 +23,9 @@ export default class CourseEnrollment extends BaseModel {
 
   @session({ type: 'object' }) to = {};
   @session status;
-
+  @session({ type: 'object' }) router;
   @observable isComplete = false;
+  @observable courseToJoin;
   @observable isLoadingCourses;
   constructor(...args) {
     super(...args);
@@ -26,6 +33,53 @@ export default class CourseEnrollment extends BaseModel {
       () => this.isRegistered,
       () => this.fetchCourses(),
     );
+  }
+
+  @computed get bodyContents() {
+    const props = { enrollment: this };
+    if (this.isLoading) {
+      return <Activity isLoading={true} />;
+    } else if (this.isTeacher) {
+      return <Enroll.Components.invalidTeacher {...props} />;
+    } else if (this.isInvalid) {
+      return <Enroll.Components.invalidCode {...props} />;
+    } else if (this.courseToJoin) {
+      return <Enroll.Components.selectPeriod {...props} />;
+    } else if (this.isComplete) {
+      if (this.courseId)
+        return <Redirect to={Router.makePathname('dashboard', { courseId: this.courseId })} />;
+      else
+        return <Redirect to={Router.makePathname('myCourses')} />;
+    } else {
+      return <Enroll.Components.studentIDForm {...props} />;
+    }
+  }
+
+  @action.bound
+  selectPeriod(period) {
+    this.enrollment_code = period.enrollment_code;
+  }
+
+  @action.bound
+  onCancel() {
+    this.router.history.push(Router.makePathname('myCourses'));
+  }
+
+  @action.bound
+  onCancelStudentId() {
+    this.student_identifier = '';
+    this.onConfirm();
+  }
+
+  @action.bound
+  onSubmitPeriod() {
+    this.courseToJoin = null;
+    this.create();
+  }
+
+  @action.bound
+  onStudentIdContinue() {
+    this.confirm();
   }
 
   @computed get courseName() {
@@ -56,7 +110,11 @@ export default class CourseEnrollment extends BaseModel {
   }
 
   @computed get isLoading() {
-    return this.hasApiRequestPending || this.isLoadingCourses;
+    return Boolean(this.hasApiRequestPending || this.isLoadingCourses);
+  }
+
+  @computed get needsPeriodSelection() {
+    return S.isUUID(this.enrollment_code);
   }
 
   fetchCourses() {
@@ -73,9 +131,21 @@ export default class CourseEnrollment extends BaseModel {
     CourseListingActions.load();
   }
 
+
   // called by api
   create() {
+    if (this.needsPeriodSelection) {
+      return { method: 'GET', url: `enrollment/${this.enrollment_code }/choices` };
+    }
     return { data: pick(this, 'enrollment_code') };
+  }
+
+  onEnrollmentCreate({ data }) {
+    if(this.needsPeriodSelection) {
+      this.courseToJoin = new Course(data);
+    } else {
+      this.update(data);
+    }
   }
 
   confirm() {
