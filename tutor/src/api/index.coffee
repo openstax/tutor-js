@@ -13,13 +13,8 @@ assign = require 'lodash/assign'
 {CourseActions} = require '../flux/course'
 {CoursePracticeActions} = require '../flux/practice'
 {CourseGuideActions} = require '../flux/guide'
-{JobActions} = require '../flux/job'
 {EcosystemsActions} = require '../flux/ecosystems'
 PerformanceForecast = require '../flux/performance-forecast'
-
-{ScoresExportActions} = require '../flux/scores-export'
-
-## //{PeriodActions} = require '../flux/period'
 
 {TaskActions} = require '../flux/task'
 {TaskPanelActions} = require '../flux/task-panel'
@@ -42,6 +37,7 @@ PerformanceForecast = require '../flux/performance-forecast'
 
 {default: TaskPlanHelpers} = require '../helpers/task-plan'
 
+{ default: Job} = require '../models/job'
 { default: User } = require '../models/user'
 { UserTerms, Term } = require '../models/user/terms'
 { default: Course } = require '../models/course'
@@ -60,6 +56,7 @@ PerformanceForecast = require '../flux/performance-forecast'
 { default: CourseRoster } = require '../models/course/roster'
 { default: CourseLMS } = require '../models/course/lms'
 { default: CourseScores } = require '../models/course/scores'
+{ default: ScoresExport } = require '../models/jobs/scores-export'
 { default: TaskResult } = require '../models/course/scores/task-result'
 { default: CourseTeacher } = require '../models/course/teacher'
 
@@ -130,12 +127,8 @@ startAPI = ->
     {url, data}
   )
 
-  connectRead(ScoresExportActions, pattern: 'courses/{id}/performance/exports')
-  connectCreate(ScoresExportActions,
-    pattern: 'courses/{id}/performance/export', trigger: 'export', onSuccess: 'exported'
-  )
 
-  connectRead(JobActions, pattern: 'jobs/{id}', handledErrors: ['*'])
+
   connectRead(EcosystemsActions, url: 'ecosystems')
 
 
@@ -235,6 +228,16 @@ startAPI = ->
 
   connectModelUpdate(TaskResult, 'rejectLate', method: 'PUT', pattern: 'tasks/{id}/reject_late_work', onSuccess: 'onLateWorkRejected')
 
+  connectModelRead(Job, 'update', onSuccess: 'onUpdate', pattern: 'jobs/{id}')
+
+
+  connectModelCreate(ScoresExport, onSuccess: 'onCreated', pattern: 'courses/{id}/performance/exports')
+
+
+  # connectRead(ScoresExportActions, pattern: 'courses/{id}/performance/exports')
+  # connectCreate(ScoresExportActions,
+  #   pattern: 'courses/{id}/performance/export', trigger: 'export', onSuccess: 'exported'
+  # )
 
 BOOTSTRAPED_MODELS = {
   user:     User,

@@ -1,4 +1,4 @@
-{JobActions, JobStore} = require '../flux/job'
+# {JobActions, JobStore} = require '../flux/job'
 _ = require 'underscore'
 
 JOB_REQUESTING = 'job_requesting'

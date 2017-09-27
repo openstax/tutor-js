@@ -1,7 +1,7 @@
 import React from 'react';
 import { observable, computed, action } from 'mobx';
 import { observer } from 'mobx-react';
-import { PanelGroup, Panel } from 'react-bootstrap';
+import { Button, Modal, PanelGroup, Panel } from 'react-bootstrap';
 import Course from '../../models/course';
 import Icon from '../icon';
 import cn from 'classnames';
@@ -24,6 +24,7 @@ export default class StudentAccess extends React.PureComponent {
   };
 
   @observable forceKeyDisplay = false;
+  @observable displayLinksWarning = false;
 
   renderCheckboxFor(lms) {
     const { course } = this.props;
@@ -76,8 +77,20 @@ export default class StudentAccess extends React.PureComponent {
     );
   }
 
-  @action.bound onSelectOption(isEnabled) {
+  @action.bound onSelectOption(isEnabled, ev, force = false) {
     const { course } = this.props;
+
+    if (course.is_lms_enabled === isEnabled){ return; }
+
+    if (!this.forceKeyDisplay && course.is_lms_enabled) {
+      if (!force) {
+        this.displayLinksWarning = true;
+        return;
+      } else {
+        this.displayLinksWarning = false;
+      }
+    }
+
     course.is_lms_enabled = isEnabled;
     this.forceKeyDisplay = isEnabled;
     course.save();
@@ -101,6 +114,37 @@ export default class StudentAccess extends React.PureComponent {
     return course.is_lms_enabled ? <LMS course={course} forceKeys={this.forceKeyDisplay} /> : null;
   }
 
+  @action.bound onHideLinkSwitch() {
+    this.displayLinksWarning = false;
+  }
+
+  @action.bound forceLinksSwitch() {
+    this.onSelectOption(true, true);
+  }
+
+  renderLinkSwitchWarning() {
+    return (
+      <Modal
+        show={this.displayLinksWarning}
+        onHide={this.onHideLinkSwitch}
+        className="warn-before-links"
+      >
+        <Modal.Header closeButton={true}>
+          <Modal.Title>Change access options?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          If you opt to use direct links, you won't be able to use LMS integration
+          features such as student single sign-on and scores sync.  Are you sure you
+          want to change access options now?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button bsStyle="primary" onClick={this.forceLinksSwitch}>I'm sure</Button>
+          <Button onClick={this.onHideLinkSwitch}>Cancel</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+
   render() {
     const { course } = this.props;
     let body = null;
@@ -116,6 +160,7 @@ export default class StudentAccess extends React.PureComponent {
 
     return (
       <div className="student-access">
+        {this.renderLinkSwitchWarning()}
         <p>
           Choose how students enroll in and access OpenStax Tutor.
           Access settings cannot be changed once at least one student has enrolled.

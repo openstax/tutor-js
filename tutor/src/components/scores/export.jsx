@@ -6,7 +6,7 @@ import BindStoreMixin from '../bind-store-mixin';
 import { AsyncButton } from 'shared';
 import TourAnchor from '../tours/anchor';
 
-import { ScoresExportStore, ScoresExportActions } from '../../flux/scores-export';
+//import { ScoresExportStore, ScoresExportActions } from '../../flux/scores-export';
 
 export default class ScoresExport extends React.PureComponent {
 
