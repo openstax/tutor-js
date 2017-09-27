@@ -7,7 +7,9 @@ module.exports = React.createClass
   displayName: 'LateIcon'
   propTypes:
     task: React.PropTypes.shape(
-      due_at:          React.PropTypes.string
+      due_at:          React.PropTypes.oneOfType([
+        React.PropTypes.string, React.PropTypes.instanceOf(Date)
+      ])
       last_worked_at:  React.PropTypes.string
       type:            React.PropTypes.string
       status:          React.PropTypes.string

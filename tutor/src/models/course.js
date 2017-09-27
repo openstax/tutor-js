@@ -9,6 +9,7 @@ import Role    from './course/role';
 import Student from './course/student';
 import CourseInformation from './course/information';
 import Roster from './course/roster';
+import Scores from './course/scores';
 import TeacherTaskPlans   from './teacher-task-plans';
 import TimeHelper from '../helpers/time';
 import { TimeStore } from '../flux/time';
@@ -67,6 +68,11 @@ export default class Course extends BaseModel {
   @observable _roster;
   get roster() {
     return this._roster || ( this._roster = new Roster(this) );
+  }
+
+  @observable _scores;
+  get scores() {
+    return this._scores || ( this._scores = new Scores(this) );
   }
 
   @computed get nameCleaned() {

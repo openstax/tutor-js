@@ -4,7 +4,7 @@ UserMenu = require('../../models/user/menu').default
 
 SUPPORT_LINK_PARAMS = '&cu=1&fs=ContactUs&q='
 
-makeContactMessage = (status, message, request) ->
+makeContactMessage = (status, message, request = { method: 'unknown', url: '' }) ->
   userAgent = window.navigator.userAgent
   location = window.location.href
 

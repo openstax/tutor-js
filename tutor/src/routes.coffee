@@ -45,8 +45,8 @@ getEventShell = ->
   EventShell
 
 getScoresShell = ->
-  {ScoresShell} = require './components/scores'
-  ScoresShell
+  {default: StudentScores} = require './components/scores'
+  StudentScores
 
 getPerformanceForecastGuide = ->
   PerformanceForecast = require './components/performance-forecast'

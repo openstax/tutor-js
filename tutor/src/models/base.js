@@ -31,6 +31,7 @@ export class BaseModel {
     this.update(req.data);
   }
 
+  @action
   onApiRequestComplete({ data }) {
     this.update(data);
   }

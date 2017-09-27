@@ -6,8 +6,9 @@ LoadableItem = require '../loadable-item'
 TeacherComponent = require './teacher'
 StudentComponent = require './student'
 TeacherStudentComponent = require './teacher-student'
-{ScoresStore, ScoresActions} = require '../../flux/scores'
+
 {CourseStore} = require '../../flux/course'
+{default: Courses} = require '../../models/courses-map'
 
 Student = React.createClass
   displayName: 'PerformanceForecastStudentShell'
@@ -30,12 +31,7 @@ TeacherStudent = React.createClass
 
   render: ->
     {courseId, roleId} = Router.currentParams()
-    <LoadableItem
-      id={courseId}
-      store={ScoresStore}
-      actions={ScoresActions}
-      renderItem={-> <TeacherStudentComponent courseId={courseId} roleId={roleId}/>}
-    />
+    <TeacherStudentComponent courseId={courseId} roleId={roleId}/>
 
 
 Teacher = React.createClass

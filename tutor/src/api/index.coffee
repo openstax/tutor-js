@@ -17,7 +17,6 @@ assign = require 'lodash/assign'
 {EcosystemsActions} = require '../flux/ecosystems'
 PerformanceForecast = require '../flux/performance-forecast'
 
-{ScoresActions} = require '../flux/scores'
 {ScoresExportActions} = require '../flux/scores-export'
 
 ## //{PeriodActions} = require '../flux/period'
@@ -59,6 +58,8 @@ PerformanceForecast = require '../flux/performance-forecast'
 { CourseStudentTasks } = require '../models/student-tasks'
 { default: StudentTask } = require '../models/student/task'
 { default: CourseRoster } = require '../models/course/roster'
+{ default: CourseScores } = require '../models/course/scores'
+{ default: TaskResult } = require '../models/course/scores/task-result'
 { default: CourseTeacher } = require '../models/course/teacher'
 
 startAPI = ->
@@ -128,18 +129,9 @@ startAPI = ->
     {url, data}
   )
 
-  connectRead(ScoresActions, pattern: 'courses/{id}/performance')
   connectRead(ScoresExportActions, pattern: 'courses/{id}/performance/exports')
   connectCreate(ScoresExportActions,
     pattern: 'courses/{id}/performance/export', trigger: 'export', onSuccess: 'exported'
-  )
-
-  connectModify(ScoresActions,
-    trigger: 'acceptLate', onSuccess: 'acceptedLate', pattern: 'tasks/{id}/accept_late_work'
-  )
-
-  connectModify(ScoresActions,
-    trigger: 'rejectLate', onSuccess: 'rejectedLate', pattern: 'tasks/{id}/reject_late_work'
   )
 
   connectRead(JobActions, pattern: 'jobs/{id}', handledErrors: ['*'])
@@ -227,7 +219,6 @@ startAPI = ->
 
   connectModelRead(CourseRoster, 'fetch', pattern: 'courses/{courseId}/roster', onSuccess: 'onApiRequestComplete')
 
-
   connectModelDelete(CourseTeacher, 'drop', pattern: 'teachers/{id}', onSuccess: 'onDropped')
 
   connectModelCreate(Period, 'create', pattern: 'courses/{courseId}/periods', onSuccess: 'afterCreate')
@@ -235,36 +226,13 @@ startAPI = ->
   connectModelDelete(Period, 'archive', pattern: 'periods/{id}', onSuccess: 'onApiRequestComplete')
   connectModelUpdate(Period, 'unarchive', pattern: 'periods/{id}', onSuccess: 'onApiRequestComplete')
 
-  # connectCreate(PeriodActions, pattern: 'courses/{id}/periods',
-  #   data: (id, data) -> data
-  # )
-  # connectUpdate(PeriodActions,
-  #   url: (courseId, periodId, data) -> "periods/#{periodId}"
-  #   data: (courseId, periodId, data) -> data
-  # )
-  # connectDelete(PeriodActions, pattern: 'periods/{id}')
-  # connectModify(PeriodActions, pattern: 'periods/{id}/restore', trigger: 'restore', onSuccess: 'restored')
+  connectModelRead(CourseScores, 'fetch',
+    pattern: 'courses/{courseId}/performance', onSuccess: 'onFetchComplete')
 
+  connectModelUpdate(TaskResult, 'acceptLate', method: 'PUT', pattern: 'tasks/{id}/accept_late_work', onSuccess: 'onLateWorkAccepted')
 
+  connectModelUpdate(TaskResult, 'rejectLate', method: 'PUT', pattern: 'tasks/{id}/reject_late_work', onSuccess: 'onLateWorkRejected')
 
-
-  # connectDelete(RosterActions, pattern: 'students/{id}')
-  # connectUpdate(RosterActions, pattern: 'students/{id}',
-  #   data: (id, data) -> data
-  # )
-
-  # connectModify(RosterActions, pattern: 'students/{studentId}/undrop', trigger: 'undrop', onSuccess: 'undropped',
-  #   errorHandlers:
-  #     already_active: 'onUndropAlreadyActive'
-  #     student_identifier_has_already_been_taken: 'recordDuplicateStudentIdError'
-  # )
-  # connectUpdate(RosterActions,
-  #   pattern: 'students/{studentId}', trigger: 'saveStudentIdentifier', onSuccess: 'savedStudentIdentifier',
-  #   errorHandlers:
-  #     student_identifier_has_already_been_taken: 'recordDuplicateStudentIdError'
-  #   data: ({courseId, studentId}) ->
-  #     student_identifier: RosterStore.getStudentIdentifier(courseId, studentId)
-  # )
 
 BOOTSTRAPED_MODELS = {
   user:     User,

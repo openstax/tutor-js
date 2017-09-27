@@ -29,7 +29,6 @@ window._STORES = {
   COURSE:               require('./src/flux/course'),
   EXERCISE:             require('./src/flux/exercise'),
   PERFORMANCE_FORECAST: require('./src/flux/performance-forecast'),
-  SCORES:               require('./src/flux/scores'),
   TASK_PLAN:            require('./src/flux/task-plan'),
   TASK_STEP:            require('./src/flux/task-step'),
   TASK:                 require('./src/flux/task'),

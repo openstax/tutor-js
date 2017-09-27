@@ -8,8 +8,8 @@ TutorLink = require '../link'
 Name = require '../name'
 BindStoreMixin = require '../bind-store-mixin'
 PerformanceForecast = require '../../flux/performance-forecast'
-{ScoresStore} = require '../../flux/scores'
-
+# {ScoresStore} = require '../../flux/scores'
+{default: Courses} = require '../../models/courses-map'
 Guide = require './guide'
 InfoLink = require './info-link'
 
@@ -41,8 +41,8 @@ module.exports = React.createClass
     )
 
   renderHeading: ->
-    students = ScoresStore.getAllStudents(@props.courseId)
-    selected = ScoresStore.getStudent(@props.courseId, @state.roleId)
+    students = Courses.get(@props.courseId).students
+    selected = find(students, { role_id: @state.roleId })
     return null unless selected
     name = <Name {...selected} />
     <div className='guide-heading'>
