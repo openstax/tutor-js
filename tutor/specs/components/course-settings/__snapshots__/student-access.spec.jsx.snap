@@ -1,0 +1,488 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Course Settings, student access can switch to links 1`] = `
+<div
+  className="student-access"
+>
+  <p>
+    Choose how students enroll in and access OpenStax Tutor. Access settings cannot be changed once at least one student has enrolled.
+  </p>
+  <a
+    href="http://4tk3oi.axshare.com/salesforce_support_page_results.html"
+    target="_blank"
+  >
+    <i
+      className="tutor-icon fa fa-info-circle"
+      type="info-circle"
+    />
+     Which option is right for my course?
+  </a>
+  <div
+    className="panel-group"
+    role="tablist"
+  >
+    <div
+      className="links panel panel-default"
+      id={null}
+    >
+      <div
+        className="panel-heading"
+      >
+        <div
+          className="choice panel-title"
+        >
+          <a
+            aria-controls={undefined}
+            aria-expanded={true}
+            aria-selected={true}
+            className={null}
+            href={undefined}
+            onClick={[Function]}
+            role="tab"
+          >
+            <div
+              aria-label="Selected"
+              className="box checked"
+            />
+            <div
+              className="heading"
+            >
+              <p
+                className="title"
+              >
+                Access through direct links
+              </p>
+              <p>
+                Give these links to your students in each section to enroll
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div
+        aria-expanded={null}
+        aria-hidden={false}
+        className="panel-collapse collapse in"
+        id={undefined}
+        role="tabpanel"
+      >
+        <div
+          className="panel-body"
+        >
+          <label
+            className={undefined}
+          >
+            1st
+            <input
+              className="copy-on-focus"
+              onFocus={[Function]}
+              readOnly={true}
+              value="http://test/period/1"
+            />
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+      className="lms panel panel-default"
+      id={null}
+    >
+      <div
+        className="panel-heading"
+      >
+        <div
+          className="choice panel-title"
+        >
+          <a
+            aria-controls={undefined}
+            aria-expanded={false}
+            aria-selected={false}
+            className="collapsed"
+            href={undefined}
+            onClick={[Function]}
+            role="tab"
+          >
+            <div
+              aria-label=""
+              className="box"
+            />
+            <div
+              className="heading"
+            >
+              <p
+                className="title"
+              >
+                Access from paired LMS 
+                <i
+                  className="advanced"
+                >
+                  Advanced
+                </i>
+              </p>
+              <p>
+                Connect OpenStax Tutor to your learning management system to enable single sign-on and course grade sync. Students will use pre-established links in their LMS.
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div
+        aria-expanded={null}
+        aria-hidden={true}
+        className="panel-collapse collapse"
+        id={undefined}
+        role="tabpanel"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Course Settings, student access can switch to lms 1`] = `
+<div
+  className="student-access"
+>
+  <p>
+    Choose how students enroll in and access OpenStax Tutor. Access settings cannot be changed once at least one student has enrolled.
+  </p>
+  <a
+    href="http://4tk3oi.axshare.com/salesforce_support_page_results.html"
+    target="_blank"
+  >
+    <i
+      className="tutor-icon fa fa-info-circle"
+      type="info-circle"
+    />
+     Which option is right for my course?
+  </a>
+  <div
+    className="panel-group"
+    role="tablist"
+  >
+    <div
+      className="links panel panel-default"
+      id={null}
+    >
+      <div
+        className="panel-heading"
+      >
+        <div
+          className="choice panel-title"
+        >
+          <a
+            aria-controls={undefined}
+            aria-expanded={false}
+            aria-selected={false}
+            className="collapsed"
+            href={undefined}
+            onClick={[Function]}
+            role="tab"
+          >
+            <div
+              aria-label=""
+              className="box"
+            />
+            <div
+              className="heading"
+            >
+              <p
+                className="title"
+              >
+                Access through direct links
+              </p>
+              <p>
+                Give these links to your students in each section to enroll
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div
+        aria-expanded={null}
+        aria-hidden={true}
+        className="panel-collapse collapse"
+        id={undefined}
+        role="tabpanel"
+      >
+        <div
+          className="panel-body"
+        >
+          <label
+            className={undefined}
+          >
+            1st
+            <input
+              className="copy-on-focus"
+              onFocus={[Function]}
+              readOnly={true}
+              value="http://test/period/1"
+            />
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+      className="lms panel panel-default"
+      id={null}
+    >
+      <div
+        className="panel-heading"
+      >
+        <div
+          className="choice panel-title"
+        >
+          <a
+            aria-controls={undefined}
+            aria-expanded={true}
+            aria-selected={true}
+            className={null}
+            href={undefined}
+            onClick={[Function]}
+            role="tab"
+          >
+            <div
+              aria-label="Selected"
+              className="box checked"
+            />
+            <div
+              className="heading"
+            >
+              <p
+                className="title"
+              >
+                Access from paired LMS 
+                <i
+                  className="advanced"
+                >
+                  Advanced
+                </i>
+              </p>
+              <p>
+                Connect OpenStax Tutor to your learning management system to enable single sign-on and course grade sync. Students will use pre-established links in their LMS.
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div
+        aria-expanded={null}
+        aria-hidden={false}
+        className="panel-collapse collapse in"
+        id={undefined}
+        role="tabpanel"
+      >
+        <div
+          className="panel-body"
+        >
+          <div
+            className="lms-access"
+          >
+            <label
+              className={undefined}
+            >
+              Secret
+              <input
+                className="copy-on-focus"
+                onFocus={[Function]}
+                readOnly={true}
+                value="secret-sshhh"
+              />
+            </label>
+            <label
+              className={undefined}
+            >
+              Key
+              <input
+                className="copy-on-focus"
+                onFocus={[Function]}
+                readOnly={true}
+                value="key-123"
+              />
+            </label>
+            <label
+              className={undefined}
+            >
+              URL
+              <input
+                className="copy-on-focus"
+                onFocus={[Function]}
+                readOnly={true}
+                value="test.url.com"
+              />
+            </label>
+            <a
+              href="http://4tk3oi.axshare.com/salesforce_support_page_results.html"
+              target="_blank"
+            >
+              <i
+                className="tutor-icon fa fa-info-circle"
+                type="info-circle"
+              />
+               How do I do this?
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Course Settings, student access renders chooser when lms is enabled 1`] = `
+<div
+  className="student-access"
+>
+  <p>
+    Choose how students enroll in and access OpenStax Tutor. Access settings cannot be changed once at least one student has enrolled.
+  </p>
+  <a
+    href="http://4tk3oi.axshare.com/salesforce_support_page_results.html"
+    target="_blank"
+  >
+    <i
+      className="tutor-icon fa fa-info-circle"
+      type="info-circle"
+    />
+     Which option is right for my course?
+  </a>
+  <div
+    className="panel-group"
+    role="tablist"
+  >
+    <div
+      className="links panel panel-default"
+      id={null}
+    >
+      <div
+        className="panel-heading"
+      >
+        <div
+          className="choice panel-title"
+        >
+          <a
+            aria-controls={undefined}
+            aria-expanded={false}
+            aria-selected={false}
+            className="collapsed"
+            href={undefined}
+            onClick={[Function]}
+            role="tab"
+          >
+            <div
+              aria-label="Selected"
+              className="box checked"
+            />
+            <div
+              className="heading"
+            >
+              <p
+                className="title"
+              >
+                Access through direct links
+              </p>
+              <p>
+                Give these links to your students in each section to enroll
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div
+        aria-expanded={null}
+        aria-hidden={true}
+        className="panel-collapse collapse"
+        id={undefined}
+        role="tabpanel"
+      >
+        <div
+          className="panel-body"
+        >
+          <label
+            className={undefined}
+          >
+            1st
+            <input
+              className="copy-on-focus"
+              onFocus={[Function]}
+              readOnly={true}
+              value="http://test/period/1"
+            />
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+      className="lms panel panel-default"
+      id={null}
+    >
+      <div
+        className="panel-heading"
+      >
+        <div
+          className="choice panel-title"
+        >
+          <a
+            aria-controls={undefined}
+            aria-expanded={false}
+            aria-selected={false}
+            className="collapsed"
+            href={undefined}
+            onClick={[Function]}
+            role="tab"
+          >
+            <div
+              aria-label=""
+              className="box"
+            />
+            <div
+              className="heading"
+            >
+              <p
+                className="title"
+              >
+                Access from paired LMS 
+                <i
+                  className="advanced"
+                >
+                  Advanced
+                </i>
+              </p>
+              <p>
+                Connect OpenStax Tutor to your learning management system to enable single sign-on and course grade sync. Students will use pre-established links in their LMS.
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div
+        aria-expanded={null}
+        aria-hidden={true}
+        className="panel-collapse collapse"
+        id={undefined}
+        role="tabpanel"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Course Settings, student access renders with only link for non-lms enabled 1`] = `
+<div
+  className="student-access direct-links-only"
+>
+  <p>
+    Give these links to your students in each section to enroll.
+  </p>
+  <label
+    className={undefined}
+  >
+    1st
+    <input
+      className="copy-on-focus"
+      onFocus={[Function]}
+      readOnly={true}
+      value="http://test/period/1"
+    />
+  </label>
+</div>
+`;

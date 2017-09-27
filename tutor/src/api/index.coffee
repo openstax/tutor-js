@@ -58,6 +58,7 @@ PerformanceForecast = require '../flux/performance-forecast'
 { CourseStudentTasks } = require '../models/student-tasks'
 { default: StudentTask } = require '../models/student/task'
 { default: CourseRoster } = require '../models/course/roster'
+{ default: CourseLMS } = require '../models/course/lms'
 { default: CourseScores } = require '../models/course/scores'
 { default: TaskResult } = require '../models/course/scores/task-result'
 { default: CourseTeacher } = require '../models/course/teacher'
@@ -216,6 +217,7 @@ startAPI = ->
 
   connectModelUpdate(Course, 'save', pattern: 'courses/{id}', onSuccess: 'onApiRequestComplete')
 
+  connectModelRead(CourseLMS, 'fetch', pattern: 'lms/{courseId}', onSuccess: 'onApiRequestComplete')
 
   connectModelRead(CourseRoster, 'fetch', pattern: 'courses/{courseId}/roster', onSuccess: 'onApiRequestComplete')
 

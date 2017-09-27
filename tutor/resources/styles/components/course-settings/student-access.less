@@ -1,0 +1,82 @@
+.student-access {
+
+  max-width: 670px;
+
+  .panel>.panel-heading {
+    color: black;
+    background-color: white;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    p { margin-bottom: 0; }
+    .box {
+      height: 30px;
+      width: 30px;
+      min-width: 30px;
+      border: 1px solid @tutor-neutral-light;
+      margin-right: 1rem;
+      border-radius: 5px;
+      &.checked {
+        &::after {
+          .fa-icon();
+          content: @fa-var-check;
+          color: @tutor-secondary;
+          font-size: 45px;
+          border-radius: 50%;
+          margin-left: -5px;
+          margin-top: -15px;
+        }
+      }
+    }
+    .tutor-icon {
+      font-size: 30px;
+    }
+    .panel-title { line-height: inherit; }
+    .choice a {
+      &:hover {
+        text-decoration: none;
+      }
+      display: flex;
+      padding: 20px;
+
+      .title {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        .advanced {
+          color: @tutor-primary;
+
+        }
+      }
+    }
+  }
+
+  &.direct-links-only,
+  .lms .panel-body,
+  .links .panel-body
+  {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    label {
+      font-weight: normal;
+      display: block;
+      input {
+        margin-top: 10px;
+        padding: 15px;
+      }
+      & + label {
+        margin-top: 20px;
+      }
+    }
+  }
+
+  .lms-access {
+    a {
+      margin-top: 30px;
+      display: block;
+    }
+  }
+}

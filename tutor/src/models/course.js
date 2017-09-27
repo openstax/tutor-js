@@ -10,6 +10,7 @@ import Student from './course/student';
 import CourseInformation from './course/information';
 import Roster from './course/roster';
 import Scores from './course/scores';
+import LMS from './course/lms';
 import TeacherTaskPlans   from './teacher-task-plans';
 import TimeHelper from '../helpers/time';
 import { TimeStore } from '../flux/time';
@@ -63,6 +64,11 @@ export default class Course extends BaseModel {
 
   @computed get studentTasks() {
     return StudentTasks.forCourseId(this.id);
+  }
+
+  @observable _lms;
+  get lms() {
+    return this._lms || ( this._lms = new LMS(this) );
   }
 
   @observable _roster;
@@ -190,6 +196,6 @@ export default class Course extends BaseModel {
   }
 
   save() {
-    return { id: this.id, data: pick(this, 'name') };
+    return { id: this.id, data: pick(this, 'name', 'is_lms_enabled') };
   }
 }

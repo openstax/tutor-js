@@ -4,17 +4,17 @@ import { observer } from 'mobx-react';
 import { PanelGroup, Panel } from 'react-bootstrap';
 import Course from '../../models/course';
 import Icon from '../icon';
-
+import cn from 'classnames';
 import CopyOnFocusInput from '../copy-on-focus-input';
-
-const PeriodLink = ({ period }) => (
-  <label className="period">
-    {period.name}
-    <CopyOnFocusInput value={period.enrollment_url} />
-  </label>
-
-);
-
+import LMS from './lms-panel';
+//
+// const PeriodLink = ({ period }) => (
+//   <label className="period">
+//     {period.name}
+//     <CopyOnFocusInput value={period.enrollment_url} />
+//   </label>
+// );
+//
 
 @observer
 export default class StudentAccess extends React.PureComponent {
@@ -23,13 +23,24 @@ export default class StudentAccess extends React.PureComponent {
     course: React.PropTypes.instanceOf(Course).isRequired,
   };
 
-  @observable activeKey = '1';
+  renderCheckboxFor(lms) {
+    const { course } = this.props;
+    if (lms === course.is_lms_enabled) {
+      return <Icon type="check" />;
+    }
+    return null;
+  }
 
   renderDirectHeader() {
+    const checked = !this.props.course.is_lms_enabled;
+
     return (
       <div className="choice">
-        <Icon type="square-o" />
-        <div class="heading">
+        <div
+          className={cn('box', { checked })}
+          aria-label={checked ? 'Selected' : ''}
+        />
+        <div className="heading">
           <p className="title">
             Access through direct links
           </p>
@@ -42,10 +53,15 @@ export default class StudentAccess extends React.PureComponent {
   }
 
   renderLMSHeader() {
+    const checked = !!this.props.course.is_lms_enabled;
+
     return (
       <div className="choice">
-        <Icon type="square-o" />
-        <div class="heading">
+        <div
+          className={cn('box', { checked })}
+          aria-label={checked ? 'Selected' : ''}
+        />
+        <div className="heading">
           <p className="title">
             Access from paired LMS <i className="advanced">Advanced</i>
           </p>
@@ -58,12 +74,36 @@ export default class StudentAccess extends React.PureComponent {
     );
   }
 
-  @action.bound onSelectOption(k) {
-    this.activeKey = k;
+  @action.bound onSelectOption(isEnabled) {
+    const { course } = this.props;
+    course.is_lms_enabled = isEnabled;
+    course.save();
+  }
+
+  renderDirectLinks() {
+    const { course } = this.props;
+
+    return (
+      <div className="student-access direct-links-only">
+        <p>
+          Give these links to your students in each section to enroll.
+        </p>
+        {course.activePeriods.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url} />)}
+      </div>
+    );
+  }
+
+  renderLMS() {
+    const { course } = this.props;
+    return course.is_lms_enabled ? <LMS course={course} /> : null;
   }
 
   render() {
     const { course } = this.props;
+
+    if (!course.is_lms_enabling_allowed) {
+      return this.renderDirectLinks();
+    }
 
     return (
       <div className="student-access">
@@ -75,11 +115,13 @@ export default class StudentAccess extends React.PureComponent {
           <Icon type="info-circle" /> Which option is right for my course?
         </a>
 
-        <PanelGroup activeKey={this.activatedKey} onSelect={this.onSelectOption} accordion>
-          <Panel className="links" header={this.renderDirectHeader()} eventKey="1">
-            {course.activePeriods.map(p => <PeriodLink period={p}/>)}
+        <PanelGroup activeKey={course.is_lms_enabled} onSelect={this.onSelectOption} accordion>
+          <Panel className="links" header={this.renderDirectHeader()} eventKey={false}>
+            {course.activePeriods.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url} />)}
           </Panel>
-          <Panel header={this.renderLMSHeader()} eventKey="2">Panel 2 content</Panel>
+          <Panel className="lms" header={this.renderLMSHeader()} eventKey={true}>
+            {this.renderLMS()}
+          </Panel>
         </PanelGroup>
       </div>
     );
