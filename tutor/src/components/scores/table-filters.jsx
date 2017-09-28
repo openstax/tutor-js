@@ -40,14 +40,10 @@ export default class TableFilters extends React.PureComponent {
     const { displayAs } = this.props;
     return (
       <div className="filter-row">
-        <div className="filter-item">
-          <div className="filter-label">
-            Display as
-          </div>
-          <ButtonGroup className="filter-group">
-            {this.renderButtons(this.clickDisplay, displayAs, ['percentage', 'number'])}
-          </ButtonGroup>
-        </div>
+        Display as
+        <ButtonGroup className="filter-group">
+          {this.renderButtons(this.clickDisplay, displayAs, ['%', '#'])}
+        </ButtonGroup>
       </div>
     );
   }

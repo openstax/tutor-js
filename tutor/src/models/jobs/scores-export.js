@@ -1,67 +1,49 @@
 import {
-  identifiedBy,
+  identifiedBy, session,
 } from '../base';
 
-import { merge, extend } from 'lodash';
-import { action, observable, when,computed } from 'mobx';
-
+import moment from 'moment';
+import { observable, computed } from 'mobx';
 import Job from '../job';
+import { UiSettings } from 'shared';
+import { TimeStore } from '../../flux/time';
+
+const CURRENT = observable.map();
+const LAST_EXPORT = 'sce';
 
 @identifiedBy('jobs/scores-export')
 export default class ScoresExport extends Job {
 
-
-  create() {
-
+  static forCourse(course) {
+    let exp = CURRENT.get(course.id);
+    if (!exp){
+      exp = new ScoresExport(course);
+      CURRENT.set(course.id, exp);
+    }
+    return exp;
   }
 
+  @observable course;
+  @session url;
+
+  @computed get lastExportedAt() {
+    const date = UiSettings.set(LAST_EXPORT, this.course.id);
+    return date ? moment(date).format('M/D/YY, h:mma') : 'Never';
+  }
+
+  constructor(course) {
+    super({ maxAttempts: 120, interval: 5 }); // every 5 seconds for max of 10 mins
+    this.course = course;
+  }
+
+  onPollComplete() {
+    UiSettings.set(LAST_EXPORT, this.course.id, TimeStore.getNow().toISOString());
+  }
+
+  create() { }
 
   onCreated({ data }) {
-    this.id = data.job;
-    this.startPolling();
+    this.startPolling(data.job);
   }
 
 }
-
-
-// {CrudConfig, makeSimpleStore, extendConfig} = require './helpers'
-// {JobActions, JobStore} = require './job'
-// {JobListenerConfig, getJobIdFromJobUrl} = require '../helpers/job'
-//
-// _ = require 'underscore'
-//
-// ScoresExportConfig =
-//   _loaded: (obj, id) ->
-// @emit('loaded', id)
-//
-// _getId: (obj, id) ->
-// {job} = obj
-// jobId = getJobIdFromJobUrl(job)
-// {jobId, id}
-//
-// exports:
-//         getLatestExport: (id) ->
-// perfExports = @_get(id)
-//
-// _.chain(perfExports)
-//  .sortBy((perfExport) ->
-//    perfExport.created_at
-//  ).last().value()
-//
-// JobCrudConfig = extendConfig(new JobListenerConfig(null, 60 * 60), new CrudConfig())
-// extendConfig(ScoresExportConfig, JobCrudConfig)
-//
-// ScoresExportConfig.exports.isExported = ScoresExportConfig.exports.isSucceeded
-// ScoresExportConfig.exports.isExporting = ScoresExportConfig.exports.isProgressing
-//
-// ScoresExportConfig.export = (args...) ->
-// @que.call(@, args...)
-//   @emitChange()
-//
-// ScoresExportConfig.exported = (args...) ->
-//   @queued.call(@, args...)
-//   {id, jobId} = @_getId(args...)
-//   @startChecking.call(@, id, jobId)
-//
-// {actions, store} = makeSimpleStore(ScoresExportConfig)
-// module.exports = {ScoresExportActions:actions, ScoresExportStore:store}

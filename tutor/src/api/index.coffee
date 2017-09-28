@@ -57,6 +57,7 @@ PerformanceForecast = require '../flux/performance-forecast'
 { default: CourseLMS } = require '../models/course/lms'
 { default: CourseScores } = require '../models/course/scores'
 { default: ScoresExport } = require '../models/jobs/scores-export'
+{ default: LmsPushScores } = require '../models/jobs/lms-score-push'
 { default: TaskResult } = require '../models/course/scores/task-result'
 { default: CourseTeacher } = require '../models/course/teacher'
 
@@ -210,7 +211,9 @@ startAPI = ->
 
   connectModelUpdate(Course, 'save', pattern: 'courses/{id}', onSuccess: 'onApiRequestComplete')
 
-  connectModelRead(CourseLMS, 'fetch', pattern: 'lms/{courseId}', onSuccess: 'onApiRequestComplete')
+  connectModelRead(CourseLMS, 'fetch', pattern: 'lms/{course.id}', onSuccess: 'onApiRequestComplete')
+
+  connectModelUpdate(LmsPushScores, 'start', method: 'PUT', pattern: 'lms/courses/{course.id}/push_scores', onSuccess: 'onStarted')
 
   connectModelRead(CourseRoster, 'fetch', pattern: 'courses/{courseId}/roster', onSuccess: 'onApiRequestComplete')
 
@@ -228,10 +231,9 @@ startAPI = ->
 
   connectModelUpdate(TaskResult, 'rejectLate', method: 'PUT', pattern: 'tasks/{id}/reject_late_work', onSuccess: 'onLateWorkRejected')
 
-  connectModelRead(Job, 'update', onSuccess: 'onUpdate', pattern: 'jobs/{id}')
+  connectModelRead(Job, 'updateJobStatus', onSuccess: 'onJobUpdate', onFail: 'onJobUpdateFailure', pattern: 'jobs/{jobId}')
 
-
-  connectModelCreate(ScoresExport, onSuccess: 'onCreated', pattern: 'courses/{id}/performance/exports')
+  connectModelCreate(ScoresExport, 'create', onSuccess: 'onCreated', pattern: 'courses/{course.id}/performance/export')
 
 
   # connectRead(ScoresExportActions, pattern: 'courses/{id}/performance/exports')
