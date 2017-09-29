@@ -57,6 +57,7 @@ PerformanceForecast = require '../flux/performance-forecast'
 { default: CourseLMS } = require '../models/course/lms'
 { default: CourseScores } = require '../models/course/scores'
 { default: ScoresExport } = require '../models/jobs/scores-export'
+{ default: TaskPlanPublish } = require '../models/jobs/task-plan-publish'
 { default: LmsPushScores } = require '../models/jobs/lms-score-push'
 { default: TaskResult } = require '../models/course/scores/task-result'
 { default: CourseTeacher } = require '../models/course/teacher'
@@ -231,7 +232,7 @@ startAPI = ->
 
   connectModelUpdate(TaskResult, 'rejectLate', method: 'PUT', pattern: 'tasks/{id}/reject_late_work', onSuccess: 'onLateWorkRejected')
 
-  connectModelRead(Job, 'updateJobStatus', onSuccess: 'onJobUpdate', onFail: 'onJobUpdateFailure', pattern: 'jobs/{jobId}')
+  connectModelRead(Job, 'requestJobStatus', onSuccess: 'onJobUpdate', onFail: 'onJobUpdateFailure', pattern: 'jobs/{jobId}')
 
   connectModelCreate(ScoresExport, 'create', onSuccess: 'onCreated', pattern: 'courses/{course.id}/performance/export')
 

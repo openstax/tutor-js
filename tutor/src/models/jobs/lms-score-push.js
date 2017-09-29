@@ -5,8 +5,7 @@ import {
 import moment from 'moment';
 import { UiSettings } from 'shared';
 import { TimeStore } from '../../flux/time';
-import { merge, extend } from 'lodash';
-import { action, observable, when, computed, box } from 'mobx';
+import { observable, computed } from 'mobx';
 
 import Job from '../job';
 

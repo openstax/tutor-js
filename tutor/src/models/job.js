@@ -25,10 +25,9 @@ export default class Job extends BaseModel {
     console.log("CHECK FOR UPDATE", this.attempts, this.maxAttempts)
     if (this.attempts < this.maxAttempts) {
       this.attempts += 1;
-      // skip if updates are stacking up
-      if (!this.hasApiRequestPending) { this.updateJobStatus(); }
+      this.requestJobStatus();
     } else {
-      this.stopPolling()
+      this.stopPolling();
       this.onPollTimeout();
     }
   }
@@ -38,20 +37,26 @@ export default class Job extends BaseModel {
   }
 
   @computed get hasFailed() {
-    return Boolean(this.attempts >= this.maxAttempts)
+    return Boolean(this.attempts >= this.maxAttempts);
   }
 
-  @computed get isPending() {
-    return Boolean(this.pollingId);
+  // match existing API; right now these do the same but might not later
+  @computed get isPolling() { return Boolean(this.pollingId);  }
+  @computed get isPending() { return Boolean(this.pollingId);  }
+
+  @computed get jobStatus() {
+    if (this.isComplete) { return 'succeeded'; }
+    if (this.isPending)  { return 'started';   }
+    if ( this.hasFailed) { return 'failed';    }
+    return 'unknown';
   }
 
   startPolling(job) {
-    this.jobId = last(job.split('/'))
-    console.log("START PULL",   this.interval, this.interval * 1000)
+    this.jobId = last(job.split('/'));
     invariant(!this.pollingId, 'poll already in progress, cannot start polling twice!');
     invariant(this.jobId, 'job url is not set');
     this.attempts = 0;
-    this.pollingId = setInterval(this.checkForUpdate, this.interval * 1000);
+    this.pollingId = setTimeout(this.checkForUpdate, this.interval * 1000);
   }
 
   stopPolling() {
@@ -65,18 +70,21 @@ export default class Job extends BaseModel {
   onPollFailure() {}
 
   // called by API
-  updateJobStatus() { }
+  requestJobStatus() { }
 
   onJobUpdateFailure() {
-    this.stopPolling()
+    this.stopPolling();
     this.onPollFailure();
   }
 
   onJobUpdate({ data }) {
     this.update(data);
+    console.log("ON UPDATE", this.isComplete, data)
     if (this.isComplete) {
-      this.stopPolling()
+      this.stopPolling();
       this.onPollComplete(data);
+    } else {
+      this.pollingId = setTimeout(this.checkForUpdate, this.interval * 1000);
     }
   }
 }

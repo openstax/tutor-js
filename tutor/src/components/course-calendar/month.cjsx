@@ -25,8 +25,8 @@ CourseCalendarHeader = require './header'
 CourseAddMenuMixin   = require './add-menu-mixin'
 CourseDuration       = require './duration'
 MonthTitleNav        = require './month-title-nav'
-CoursePlan           = require './plan'
 CourseAdd            = require './add'
+{default: CoursePlan} = require './plan'
 
 
 CourseMonth = React.createClass
@@ -244,6 +244,7 @@ CourseMonth = React.createClass
     )
 
     plansList = TeacherTaskPlans.forCourseId(courseId).active.array
+
     if plansList?
       plans = <CourseDuration
         referenceDate={moment(TimeStore.getNow())}

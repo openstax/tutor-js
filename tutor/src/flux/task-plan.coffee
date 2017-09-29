@@ -12,7 +12,8 @@ moment = require 'moment'
 {TocStore} = require './toc'
 TimeHelper  = require '../helpers/time'
 {ExerciseStore} = require './exercise'
-{PlanPublishActions, PlanPublishStore} = require './plan-publish'
+{ default: Publishing } = require '../models/jobs/task-plan-publish'
+
 {CourseStore} = require './course'
 ContentHelpers = require '../helpers/content'
 
@@ -80,7 +81,6 @@ TaskPlanConfig =
 
   _loaded: (obj, planId) ->
     @_server_copy[planId] = JSON.stringify(obj) if _.isObject(obj)
-    PlanPublishActions.queued(obj, planId) if obj.is_publishing
     @emit("loaded.#{planId}")
     obj
 
@@ -244,10 +244,7 @@ TaskPlanConfig =
 
   _saved: (obj, id) ->
     @emit("saved.#{id}", obj)
-    if obj.is_publishing
-      PlanPublishActions.queued(obj, id)
-      @emit('publish-queued', obj)
-    obj
+
 
   erroredSilent: (obj, id, courseId) ->
     @emit('errored', obj)
@@ -366,7 +363,8 @@ TaskPlanConfig =
       not @_isDeleteRequested(id)
 
     isPublishing: (id) ->
-      @_changed[id]?.is_publishing or PlanPublishStore.isPublishing(id)
+      return false if @exports.isNew.call(@, id)
+      @_changed[id]?.is_publishing or Publishing.isPublishing(@_getPlan(id))
 
     canDecreaseTutorExercises: (id) ->
       plan = @_getPlan(id)

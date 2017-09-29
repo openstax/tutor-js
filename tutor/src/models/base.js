@@ -3,9 +3,9 @@
 
 import { observable, computed, action } from 'mobx';
 import { find, isNil, get } from 'lodash';
+import { nonenumerable } from 'core-decorators';
 
-
-const FLUX_NEW = /_CREATING_/;
+  const FLUX_NEW = /_CREATING_/;
 
 export class BaseModel {
 
@@ -13,8 +13,8 @@ export class BaseModel {
     if (attrs) { this.update(attrs); }
   }
 
-  apiRequestsInProgress = observable.map();
-  @observable apiErrors;
+  @nonenumerable apiRequestsInProgress = observable.map();
+  @nonenumerable apiErrors;
 
   @computed get hasApiRequestPending() {
     return !!this.apiRequestsInProgress.size;
