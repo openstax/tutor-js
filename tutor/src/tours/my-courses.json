@@ -5,7 +5,7 @@
   "standalone": true,
   "showOverlay": true,
   "audience_tags": [
-    "teacher-no-coach"
+    "teacher"
   ],
   "steps": [
     {
