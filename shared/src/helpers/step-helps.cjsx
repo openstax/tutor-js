@@ -2,6 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 capitalize = require 'lodash/capitalize'
 
+REVIEW_LABEL = 'review'
 PERSONALIZED_GROUP = 'personalized'
 SPACED_PRACTICE_GROUP = 'spaced practice'
 TWO_STEP_ALIAS = 'two-step'
