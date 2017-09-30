@@ -236,12 +236,6 @@ startAPI = ->
 
   connectModelCreate(ScoresExport, 'create', onSuccess: 'onCreated', pattern: 'courses/{course.id}/performance/export')
 
-
-  # connectRead(ScoresExportActions, pattern: 'courses/{id}/performance/exports')
-  # connectCreate(ScoresExportActions,
-  #   pattern: 'courses/{id}/performance/export', trigger: 'export', onSuccess: 'exported'
-  # )
-
 BOOTSTRAPED_MODELS = {
   user:     User,
   courses:  Courses,

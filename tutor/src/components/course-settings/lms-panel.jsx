@@ -21,8 +21,6 @@ export default class LMSAccessPanel extends React.PureComponent {
     }
   }
 
-  // @observable showLinks
-
   @observable showModal = false;
   @action.bound close() {
     this.showModal = false;

@@ -2,8 +2,6 @@ import React from 'react';
 import { action } from 'mobx';
 import { observer } from 'mobx-react';
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
-// import { PlanPublishStore } from '../../../flux/plan-publish';
-//import PlanHelper from '../../../helpers/plan';
 import PlanPublishing from '../../../models/jobs/task-plan-publish';
 import HelpTooltip from './help-tooltip';
 import SaveButton from './save-button';
@@ -40,31 +38,6 @@ export default class PlanFooter extends React.PureComponent {
       saving: TaskPlanStore.isSaving(this.props.id),
     };
   }
-
-  // componentWillUnmount() {
-  //   PlanHelper.unsubscribeFromPublishing(this.props.id, this.checkPublishingStatus);
-  // }
-  //
-  //   componentWillMount() {
-  //     const plan = TaskPlanStore.get(this.props.id);
-  //     const publishState = PlanHelper.subscribeToPublishing(plan, this.checkPublishingStatus);
-  //     this.setState({ publishing: publishState.isPublishing });
-  //   }
-  //
-  // @action.bound
-  // checkPublishingStatus(published) {
-  //   const planId = this.props.id;
-  //   if (published.for === planId) {
-  //     const planStatus =
-  //       { publishing: PlanPublishStore.isPublishing(planId) };
-
-  //     this.setState(planStatus);
-  //     if (PlanPublishStore.isDone(planId)) {
-  //       PlanHelper.unsubscribeFromPublishing(planId, this.checkPublishingStatus);
-  //       TaskPlanActions.load(planId);
-  //     }
-  //   }
-  // }
 
   @action.bound
   onDelete() {
