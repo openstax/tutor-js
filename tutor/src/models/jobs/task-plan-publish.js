@@ -8,7 +8,7 @@ import Job from '../job';
 
 const CURRENT = observable.map();
 
-@identifiedBy('jobs/plan-publish')
+@identifiedBy('jobs/task-plan-publish')
 export default class TaskPlanPublish extends Job {
 
   static forPlan(plan) {
@@ -29,8 +29,11 @@ export default class TaskPlanPublish extends Job {
     return Boolean(pub ? pub.isPending : false);
   }
 
-  @observable plan;
+  static _reset() {
+    CURRENT.clear();
+  }
 
+  @observable plan;
 
   constructor(plan) {
     super({ maxAttempts: 60, interval: 10 }); // every 10 seconds for max of 10 mins
@@ -46,7 +49,6 @@ export default class TaskPlanPublish extends Job {
   @computed get shouldPoll() {
     return Boolean(this.plan && this.plan.is_publishing && this.plan.publish_job_url);
   }
-
 
   onPollComplete() {
     this.plan.onPublishComplete();

@@ -13,8 +13,8 @@ export class BaseModel {
     if (attrs) { this.update(attrs); }
   }
 
-  @nonenumerable apiRequestsInProgress = observable.map();
-  @nonenumerable apiErrors;
+  @observable apiRequestsInProgress = observable.map();
+  @observable apiErrors;
 
   @computed get hasApiRequestPending() {
     return !!this.apiRequestsInProgress.size;
