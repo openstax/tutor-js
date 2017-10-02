@@ -95,8 +95,8 @@ TaskPlanMiniEditor = React.createClass
   afterSave: (plan) ->
     TeacherTaskPlans
       .forCourseId(@props.courseId)
-      .get(@props.id)
-      .onPlanSave(plan)
+      .onPlanSave(@props.id, plan)
+
     @setState({saving: false, publishing: false})
     @props.onHide()
 
@@ -174,6 +174,7 @@ TaskPlanMiniEditor = React.createClass
           isEditable={!!@state.isEditable}
           isPublishing={!!@state.publishing}
           isPublished={isPublished}
+          isFailed={false}
           hasError={hasError}
         />
         <DraftButton

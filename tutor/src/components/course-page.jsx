@@ -9,7 +9,7 @@ export default class CoursePage extends React.PureComponent {
 
   static propTypes = {
     course: React.PropTypes.instanceOf(Course).isRequired,
-    children: React.PropTypes.element.isRequired,
+    children: React.PropTypes.node.isRequired,
     controls: React.PropTypes.node,
     title: React.PropTypes.node,
     className: React.PropTypes.string,

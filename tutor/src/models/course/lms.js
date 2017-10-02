@@ -22,8 +22,8 @@ export default class CourseLMS extends BaseModel {
     this.course = course;
   }
 
-  fetch() {
-    return { courseId: this.course.id };
-  }
+  // called by API
+  pushScores() {}
+  fetch() { }
 
 }

@@ -75,4 +75,18 @@ describe('Course Model', () => {
     expect(course.isSunsetting).toEqual(true);
   });
 
+  it('restricts joining to links', () => {
+    const course = Courses.get(2);
+    expect(course.is_lms_enabling_allowed).toEqual(false);
+    expect(course.canOnlyUseEnrollmentLinks).toEqual(true);
+    course.is_lms_enabling_allowed = true;
+    expect(course.canOnlyUseEnrollmentLinks).toEqual(false);
+    course.is_lms_enabled = true;
+    course.is_access_switchable = false;
+    expect(course.canOnlyUseEnrollmentLinks).toEqual(false);
+    expect(course.canOnlyUseLMS).toEqual(true);
+    course.is_lms_enabled = false;
+    expect(course.canOnlyUseEnrollmentLinks).toEqual(true);
+    expect(course.canOnlyUseLMS).toEqual(false);
+  });
 });

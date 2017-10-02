@@ -4,7 +4,6 @@
 import { observable, computed, action } from 'mobx';
 import { find, isNil, get } from 'lodash';
 
-
 const FLUX_NEW = /_CREATING_/;
 
 export class BaseModel {
@@ -13,7 +12,7 @@ export class BaseModel {
     if (attrs) { this.update(attrs); }
   }
 
-  apiRequestsInProgress = observable.map();
+  @observable apiRequestsInProgress = observable.map();
   @observable apiErrors;
 
   @computed get hasApiRequestPending() {

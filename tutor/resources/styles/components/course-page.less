@@ -21,7 +21,7 @@
 
   > header {
     .title-wrapper {
-      padding: 0 20px;
+      padding: 0 40px;
     }
 
     .title {
@@ -33,7 +33,7 @@
 
     .controls-wrapper {
       background-color: @tutor-neutral-bright;
-      padding: 0 20px;
+      padding: 0 40px;
       > * {
         .wrapper-child();
       }
@@ -45,7 +45,6 @@
         align-items: center;
       }
       .tutor-icon {
-        color: @tutor-blue-control;
         font-size: 20px;
         transistion: color 0.3s;
         &:hover {
@@ -55,10 +54,14 @@
     }
   }
   > .body-wrapper {
-    padding: 0 20px;
+    padding: 0 40px;
     > .body {
       .wrapper-child();
       display: block;
+
+      > .loading-screen-animation {
+        margin-top: 120px;
+      }
     }
   }
 

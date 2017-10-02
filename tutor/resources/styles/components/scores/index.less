@@ -1,9 +1,17 @@
+@import './controls';
+@import './table';
+
 .course-scores-report {
+
   @nav-tab-height: 50px;
   @display-as-btn-height: 40px;
 
   // negates bottom padding on body to eliminate scrollbar
   margin-bottom: -50px;
+
+  &.loading-screen-animation {
+    margin-top: 120px;
+  }
 
   .blank {
     background: white;

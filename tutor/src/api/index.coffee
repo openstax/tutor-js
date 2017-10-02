@@ -13,13 +13,8 @@ assign = require 'lodash/assign'
 {CourseActions} = require '../flux/course'
 {CoursePracticeActions} = require '../flux/practice'
 {CourseGuideActions} = require '../flux/guide'
-{JobActions} = require '../flux/job'
 {EcosystemsActions} = require '../flux/ecosystems'
 PerformanceForecast = require '../flux/performance-forecast'
-
-{ScoresExportActions} = require '../flux/scores-export'
-
-## //{PeriodActions} = require '../flux/period'
 
 {TaskActions} = require '../flux/task'
 {TaskPanelActions} = require '../flux/task-panel'
@@ -42,6 +37,7 @@ PerformanceForecast = require '../flux/performance-forecast'
 
 {default: TaskPlanHelpers} = require '../helpers/task-plan'
 
+{ default: Job} = require '../models/job'
 { default: User } = require '../models/user'
 { UserTerms, Term } = require '../models/user/terms'
 { default: Course } = require '../models/course'
@@ -60,6 +56,9 @@ PerformanceForecast = require '../flux/performance-forecast'
 { default: CourseRoster } = require '../models/course/roster'
 { default: CourseLMS } = require '../models/course/lms'
 { default: CourseScores } = require '../models/course/scores'
+{ default: ScoresExport } = require '../models/jobs/scores-export'
+{ default: TaskPlanPublish } = require '../models/jobs/task-plan-publish'
+{ default: LmsPushScores } = require '../models/jobs/lms-score-push'
 { default: TaskResult } = require '../models/course/scores/task-result'
 { default: CourseTeacher } = require '../models/course/teacher'
 
@@ -130,12 +129,8 @@ startAPI = ->
     {url, data}
   )
 
-  connectRead(ScoresExportActions, pattern: 'courses/{id}/performance/exports')
-  connectCreate(ScoresExportActions,
-    pattern: 'courses/{id}/performance/export', trigger: 'export', onSuccess: 'exported'
-  )
 
-  connectRead(JobActions, pattern: 'jobs/{id}', handledErrors: ['*'])
+
   connectRead(EcosystemsActions, url: 'ecosystems')
 
 
@@ -217,7 +212,9 @@ startAPI = ->
 
   connectModelUpdate(Course, 'save', pattern: 'courses/{id}', onSuccess: 'onApiRequestComplete')
 
-  connectModelRead(CourseLMS, 'fetch', pattern: 'lms/{courseId}', onSuccess: 'onApiRequestComplete')
+  connectModelRead(CourseLMS, 'fetch', pattern: 'lms/{course.id}', onSuccess: 'onApiRequestComplete')
+
+  connectModelUpdate(LmsPushScores, 'start', method: 'PUT', pattern: 'lms/courses/{course.id}/push_scores', onSuccess: 'onStarted')
 
   connectModelRead(CourseRoster, 'fetch', pattern: 'courses/{courseId}/roster', onSuccess: 'onApiRequestComplete')
 
@@ -235,6 +232,9 @@ startAPI = ->
 
   connectModelUpdate(TaskResult, 'rejectLate', method: 'PUT', pattern: 'tasks/{id}/reject_late_work', onSuccess: 'onLateWorkRejected')
 
+  connectModelRead(Job, 'requestJobStatus', onSuccess: 'onJobUpdate', onFail: 'onJobUpdateFailure', pattern: 'jobs/{jobId}')
+
+  connectModelCreate(ScoresExport, 'create', onSuccess: 'onCreated', pattern: 'courses/{course.id}/performance/export')
 
 BOOTSTRAPED_MODELS = {
   user:     User,

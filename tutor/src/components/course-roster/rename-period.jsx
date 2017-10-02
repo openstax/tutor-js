@@ -54,6 +54,10 @@ export default class RenamePeriod extends React.PureComponent {
   @observable isValid = true;
   @observable newName = '';
 
+  @action.bound close() {
+    this.showModal = false;
+  }
+
   @action.bound open() {
     this.showModal = true;
   }

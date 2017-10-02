@@ -20,8 +20,17 @@ class CourseTaskPlans extends Map {
     this._courseId = courseId;
   }
 
-  addPublishingPlan(planAttrs) {
-    this.set(planAttrs.id, new TaskPlan(planAttrs));
+  onPlanSave(oldId, planAttrs) {
+    let tp = this.get(oldId);
+    if (tp) {
+      tp.update(planAttrs);
+    } else {
+      tp = new TaskPlan(planAttrs);
+    }
+    if (oldId != planAttrs.id) {
+      this.delete(oldId);
+    }
+    this.set(planAttrs.id, tp);
   }
 
   addClone(planAttrs) {
@@ -64,8 +73,12 @@ class TeacherTaskPlans extends Map {
   // note: the response also contains course, tasks and role but they're currently unused
   onLoaded({ data: { plans } }, [{ courseId }] ) {
     const map = this.forCourseId(courseId);
+
     plans.forEach(
-      plan => map.set(plan.id, new TaskPlan(plan))
+      plan => {
+        const tp = map.get(plan.id);
+        tp ? tp.update(plan) : map.set(plan.id, new TaskPlan(plan));
+      }
     );
   }
 

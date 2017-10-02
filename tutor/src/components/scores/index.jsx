@@ -8,7 +8,8 @@ import ScoresTable from './table';
 import TableFilters from './table-filters';
 import NoPeriods from '../no-periods';
 import Courses from '../../models/courses-map';
-import ScoresExport from './export';
+import Export from './export';
+import LmsPush from './lms-push';
 import CoursePeriodsNav from '../course-periods-nav';
 import TourRegion from '../tours/region';
 import LoadingScreen from '../loading-screen';
@@ -84,16 +85,25 @@ export default class StudentScores extends React.PureComponent {
 
   renderControls() {
     return (
-      <div className="course-nav-container">
+      <div className="controls">
         <TableFilters displayAs={this.displayAs} changeDisplayAs={this.changeDisplayAs} />
-        {isEmpty(this.course.students) ? null : <ScoresExport courseId={this.course.id} />}
+        <div className="spacer" />
+        <LmsPush course={this.course} />
+        <Export course={this.course} />
       </div>
     );
   }
 
   render() {
+
     const courseId = this.course.id;
-    if (this.isLoading) {  return <LoadingScreen message="Loading Scores…" />; }
+
+    if (this.isLoading) {
+      return (
+        <LoadingScreen className="course-scores-report" message="Loading Scores…" />
+      );
+    }
+
     if (isEmpty(this.course.activePeriods)) { return <NoPeriods courseId={courseId} />; }
 
     return (
