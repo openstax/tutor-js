@@ -42,7 +42,6 @@ export default class Course extends BaseModel {
   @session is_college;
   @session is_concept_coach;
   @session is_preview;
-  @session num_sections;
   @session offering_id;
   @session is_lms_enabling_allowed = false;
   @session is_access_switchable = true;
@@ -59,6 +58,10 @@ export default class Course extends BaseModel {
   @hasMany({ model: Period, inverseOf: 'course' }) periods;
   @hasMany({ model: Role }) roles;
   @hasMany({ model: Student, inverseOf: 'course' }) students;
+
+  @computed get num_enrolled_students() {
+    return sumBy(this.periods, 'num_enrolled_students');
+  }
 
   @computed get userStudentRecord() {
     const role = find(this.roles, 'isStudent');
