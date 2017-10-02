@@ -1,7 +1,7 @@
 import { find, pick } from 'lodash';
 import { computed } from 'mobx';
 import {
-  BaseModel, identifiedBy, field, identifier, belongsTo,
+  BaseModel, identifiedBy, field, identifier, belongsTo, session,
 } from '../base';
 
 @identifiedBy('course/period')
@@ -9,12 +9,14 @@ export default class CoursePeriod extends BaseModel {
   @identifier id;
 
   @field name;
-  @field default_due_time;
-  @field default_open_time;
-  @field enrollment_code;
-  @field enrollment_url;
-  @field is_archived;
-  @field teacher_student_role_id;
+  @session default_due_time;
+  @session default_open_time;
+  @session enrollment_code;
+  @session enrollment_url;
+  @session is_archived;
+  @session teacher_student_role_id;
+
+  @session num_enrolled_students = 0;
 
   @belongsTo({ model: 'course' }) course;
 
