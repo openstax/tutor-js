@@ -131,20 +131,20 @@ const stepMapOneTimeCardForGroup = function(group, condition, isAvailable, task,
 
 const befores = {};
 
-const isReview = (task, step) => get(find(task.steps, function(step) {
-  includes(step.labels, REVIEW_LABEL)
+const isFirstReview = (task, step) => get(find(task.steps, function(step) {
+  return includes(step.labels, REVIEW_LABEL)
 }), 'id') === step.id;
 
-const isSpacedPractice = (task, step) => get(find(task.steps, { group: SPACED_PRACTICE_GROUP }), 'id') === step.id;
+const isFirstSpacedPractice = (task, step) => get(find(task.steps, { group: SPACED_PRACTICE_GROUP }), 'id') === step.id;
 
-const isPersonalized = (task, step) => get(find(task.steps, { group: PERSONALIZED_GROUP }), 'id') === step.id;
+const isFirstPersonalized = (task, step) => get(find(task.steps, { group: PERSONALIZED_GROUP }), 'id') === step.id;
 
 // TODO for future implementation of instructions card.
 // befores['intro'] = (task, step, stepIndex) ->
 //   makeStep(task, {type: 'task-intro'}, stepIndex)
 
 befores[INDIVIDUAL_REVIEW] = function(task, step, stepIndex) {
-  if (includes(['reading', 'homework'], task.type) && isReview(task, step, stepIndex)) {
+  if (includes(['reading', 'homework'], task.type) && isFirstReview(task, step, stepIndex)) {
     return makeStep(task, { type: INTRO_ALIASES[INDIVIDUAL_REVIEW] }, stepIndex);
   }
   return null;
@@ -155,13 +155,13 @@ befores[SPACED_PRACTICE_GROUP] = function(task, step, stepIndex, isAvailable) {
   if (isPractice(task)) { return null; }
 
   if (task.type === 'reading') {
-    if (isSpacedPractice(task, step, stepIndex)) {
+    if (isFirstSpacedPractice(task, step, stepIndex)) {
       return makeStep(task, { type: INTRO_ALIASES[SPACED_PRACTICE_GROUP] }, stepIndex);
     }
   }
   return stepMapOneTimeCardForGroup(
     SPACED_PRACTICE_GROUP,
-    isSpacedPractice,
+    isFirstSpacedPractice,
     isAvailable,
     ...arguments
   );
@@ -174,7 +174,7 @@ befores[PERSONALIZED_GROUP] = function(task, step, stepIndex, isAvailable) {
 
   return stepMapOneTimeCardForGroup(
     PERSONALIZED_GROUP,
-    isPersonalized,
+    isFirstPersonalized,
     isAvailable,
     ...arguments
   );

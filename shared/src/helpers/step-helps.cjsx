@@ -131,6 +131,7 @@ getHelpInfo = (group) ->
 
 
 module.exports = {
+  REVIEW_LABEL,
   PERSONALIZED_GROUP,
   SPACED_PRACTICE_GROUP,
   TWO_STEP_ALIAS,
