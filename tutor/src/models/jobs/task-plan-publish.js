@@ -38,26 +38,34 @@ export default class TaskPlanPublish extends Job {
   constructor(plan) {
     super({ maxAttempts: 60, interval: 10 }); // every 10 seconds for max of 10 mins
     this.plan = plan;
+  }
+
+  stopListening() {
+    if (this.publishChangeListener) {
+      this.publishChangeListener();
+      this.publishChangeListener = null;
+      this.stopPolling();
+    }
+  }
+
+  startListening() {
+    if (this.publishChangeListener) { return; }
     this.publishChangeListener = reaction(
       () => this.shouldPoll,
       () => (this.shouldPoll && !this.isPolling) ?
         this.startPolling(this.plan.publish_job_url) : this.stopPolling(),
       { fireImmediately: true }
     );
+
   }
 
   @computed get shouldPoll() {
-    return Boolean(this.plan && this.plan.is_publishing && this.plan.publish_job_url);
+    return Boolean(this.plan && this.plan.publish_job_url);
   }
 
   onPollComplete() {
     this.plan.onPublishComplete();
   }
 
-  stopListening() {
-    this.publishChangeListener();
-    this.stopPolling();
-    this.plan = null;
-  }
 
 }

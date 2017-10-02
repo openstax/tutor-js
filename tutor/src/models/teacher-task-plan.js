@@ -42,8 +42,8 @@ export default class TeacherTaskPlan extends BaseModel {
     super(attrs);
     this.publishing = new Atom(
       'TaskPlanUpdates',
-      () => { this.updateListener = TaskPlanPublish.forPlan(this); },
-      () => this.updateListener.stopListening(),
+      () => { TaskPlanPublish.forPlan(this).startListening(); },
+      () => { TaskPlanPublish.forPlan(this).stopListening(); },
     );
 
   }
@@ -66,6 +66,7 @@ export default class TeacherTaskPlan extends BaseModel {
   @action onPublishComplete() {
     this.is_published = true;
     this.is_publishing = false;
+    this.publish_job_url = null;
   }
 
 

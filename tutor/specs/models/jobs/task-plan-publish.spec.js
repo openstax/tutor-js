@@ -1,5 +1,6 @@
 import TaskPlanPublish from '../../../src/models/jobs/task-plan-publish';
 import TaskPlan from '../../../src/models/teacher-task-plan';
+import { autorun } from 'mobx';
 jest.useFakeTimers();
 const PLAN_ID = 1;
 
@@ -26,10 +27,11 @@ describe('Task Plan Publish job', () => {
       is_publishing: true,
     });
     job.requestJobStatus = jest.fn();
+    const dispose = autorun(() => plan.publishing.reportObserved());
     expect(job.isPolling).toBe(true);
     jest.runAllTimers();
     expect(job.requestJobStatus).toHaveBeenCalledTimes(1);
-    plan.is_publishing = false;
+    dispose();
     expect(job.isPolling).toBe(false);
   });
 
