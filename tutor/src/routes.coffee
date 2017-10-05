@@ -81,8 +81,8 @@ getCreateCourse = ->
   Wizard
 
 getTeacherReview = ->
-  {TaskTeacherReviewShell} = require './components/task-teacher-review'
-  TaskTeacherReviewShell
+  {default: TaskTeacherReview} = require './components/task-teacher-review'
+  TaskTeacherReview
 
 getCCHelp = ->
   require './components/cc-dashboard/help'
