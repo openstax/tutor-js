@@ -24,6 +24,10 @@ export default class CoursePeriod extends BaseModel {
     return this.course.scores.periods.get(this.id);
   }
 
+  @computed get hasEnrollments() {
+    return this.num_enrolled_students > 0;
+  }
+
   isNameValid( name ) {
     return Boolean(
       this.name == name || !find(this.course.periods, { name })
