@@ -2,7 +2,7 @@ import React from 'react';
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import { autobind } from 'core-decorators';
-
+import classnames from 'classnames';
 import Clipboard from '../helpers/clipboard';
 
 @observer
@@ -41,12 +41,11 @@ export default class CopyOnFocusInput extends React.PureComponent {
 
   render() {
     const { label, className, focusOnMount: _, ...inputProps } = this.props;
-
+    const cn = classnames('copy-on-focus', className);
     const input = (
       <input
-        className={label ? null : className}
+        className={label ? null : cn}
         ref={this.setInput}
-        className="copy-on-focus"
         readOnly={true}
         onFocus={this.copy}
         {...inputProps} />
@@ -54,7 +53,7 @@ export default class CopyOnFocusInput extends React.PureComponent {
 
     if (label) {
       return (
-        <label className={className}>
+        <label className={cn}>
           {label}
           {input}
         </label>
