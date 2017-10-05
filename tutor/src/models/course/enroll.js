@@ -45,11 +45,11 @@ export default class CourseEnrollment extends BaseModel {
     } else if (!this.isFromLms && true === this.courseIsLmsEnabled) {
       return this.renderComponent('invalidLinks');
     } else if (this.isTeacher) {
-      this.renderComponent('invalidTeacher');
+      return this.renderComponent('invalidTeacher');
     } else if (this.isInvalid) {
-      this.renderComponent('invalidCode');
+      return this.renderComponent('invalidCode');
     } else if (this.courseToJoin) {
-      this.renderComponent('selectPeriod');
+      return this.renderComponent('selectPeriod');
     } else if (this.isComplete) {
       if (this.courseId)
         return <Redirect to={Router.makePathname('dashboard', { courseId: this.courseId })} />;
