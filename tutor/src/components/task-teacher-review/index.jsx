@@ -9,7 +9,7 @@ import Breadcrumbs from './breadcrumbs';
 import Stats from '../plan-stats';
 import Review from './review';
 import { PinnedHeaderFooterCard } from 'shared';
-import ScrollTo from '../../models/scroll-to';
+import ScrollTo from '../../helpers/scroll-to';
 
 @observer
 export default class TaskTeacherReview extends React.Component {
