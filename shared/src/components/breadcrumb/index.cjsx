@@ -11,7 +11,9 @@ Breadcrumb = React.createClass
   displayName: 'Breadcrumb'
   propTypes:
     crumb: React.PropTypes.object.isRequired
-    stepIndex: React.PropTypes.number.isRequired
+    stepIndex: React.PropTypes.oneOfType([
+      React.PropTypes.number, React.PropTypes.string,
+    ]).isRequired
     goToStep: React.PropTypes.func.isRequired
     step: React.PropTypes.object.isRequired
     canReview: React.PropTypes.bool
