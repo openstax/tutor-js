@@ -57,4 +57,18 @@ describe('Course Enrollment', function() {
     expect(enroll.confirm()).toEqual({ data: { student_identifier: '1234' } });
   });
 
+  it('blocks lms and links from the wrong way', () => {
+    enroll.to = { course: { is_lms_enabled: true } };
+    let comp = mount(enroll.bodyContents);
+    expect(comp.text()).toContain('this enrollment link isn’t valid');
+
+    enroll.to.is_lms_enabled = false;
+    enroll.enrollment_code = 'e1e1a822-0985-4b54-b5ab-f0963d98c494';
+    enroll.courseToJoin = { is_lms_enabled: false };
+    expect(enroll.isFromLms).toBe(true);
+    expect(enroll.courseIsLmsEnabled).toBe(false);
+    comp = mount(enroll.bodyContents);
+    expect(comp.text()).toContain('you need an enrollment link');
+  });
+
 });
