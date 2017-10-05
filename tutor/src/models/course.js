@@ -1,8 +1,11 @@
 import {
   BaseModel, identifiedBy, field, identifier, hasMany, session,
 } from './base';
+import {
+  sumBy, first, sortBy, find, get, endsWith, capitalize, filter, pick
+} from 'lodash';
 import { computed, action, observable } from 'mobx';
-import { first, sortBy, find, get, endsWith, capitalize, filter, pick } from 'lodash';
+import { lazyInitialize } from 'core-decorators';
 import { UiSettings } from 'shared';
 import Period  from './course/period';
 import Role    from './course/role';
@@ -85,20 +88,9 @@ export default class Course extends BaseModel {
     return StudentTasks.forCourseId(this.id);
   }
 
-  @observable _lms;
-  get lms() {
-    return this._lms || ( this._lms = new LMS(this) );
-  }
-
-  @observable _roster;
-  get roster() {
-    return this._roster || ( this._roster = new Roster(this) );
-  }
-
-  @observable _scores;
-  get scores() {
-    return this._scores || ( this._scores = new Scores(this) );
-  }
+  @lazyInitialize lms = new LMS(this);
+  @lazyInitialize roster = new Roster(this);
+  @lazyInitialize scores = new Scores(this);
 
   @computed get nameCleaned() {
     const previewSuffix = ' Preview';
@@ -175,7 +167,6 @@ export default class Course extends BaseModel {
   @computed get activePeriods() {
     return filter(this.periods, period => !period.is_archived);
   }
-
 
   @computed get tourAudienceTags() {
     let tags = [];
