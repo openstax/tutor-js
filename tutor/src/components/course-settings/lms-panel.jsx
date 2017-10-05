@@ -12,7 +12,7 @@ export default class LMSAccessPanel extends React.PureComponent {
 
   static propTypes = {
     course: React.PropTypes.instanceOf(Course).isRequired,
-    forceKeys: React.PropTypes.boolean,
+    forceKeys: React.PropTypes.bool,
   };
 
   componentWillMount() {
