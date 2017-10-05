@@ -1,6 +1,6 @@
 import { computed, observable } from 'mobx';
 import Map from './map';
-import TaskPlan from './teacher-task-plan';
+import TaskPlan from './task-plan/teacher';
 import { TaskPlanStore } from '../flux/task-plan';
 
 let TaskPlans;
@@ -18,6 +18,15 @@ class CourseTaskPlans extends Map {
   constructor(courseId) {
     super();
     this._courseId = courseId;
+  }
+
+  withPlanId(planId) {
+    let plan = this.get(planId);
+    if (!plan) {
+      plan = new TaskPlan({ id: planId });
+      this.set(planId, plan);
+    }
+    return plan;
   }
 
   onPlanSave(oldId, planAttrs) {
