@@ -112,5 +112,3 @@ export class PracticesPerformance extends React.PureComponent {
     );
   }
 }
-
-// export default { ChaptersPerformance, PracticesPerformance };

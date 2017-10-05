@@ -1,3 +1,6 @@
+import CourseGroupingLabel from '../course-grouping-label';
+import TutorLink from '../link';
+
 const NoStudents = ({courseId}) =>
   <div className="no-students">
     <p>
