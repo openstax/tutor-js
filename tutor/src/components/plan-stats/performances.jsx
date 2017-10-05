@@ -1,78 +1,116 @@
-React = require 'react'
-_ = require 'underscore'
-BS = require 'react-bootstrap'
+import React from 'react';
+import { isEmpty, map } from 'lodash';
+import { observer } from 'mobx-react';
+import { observable, computed } from 'mobx';
 
-Progress = require './progress'
+import Progress from './progress';
 
-ChaptersPerformance = React.createClass
-  displayName: 'ChaptersPerformance'
-  propTypes:
-    currentPages: React.PropTypes.array.isRequired
-    activeSection: React.PropTypes.string
+export function ChaptersPerformance(props) {
+  let chapters;
+  const { currentPages, activeSection } = props;
 
-  render: ->
-    {currentPages, activeSection} = @props
+  if (!isEmpty(currentPages)) {
+    chapters = map(currentPages, (data, i) =>
+      <Progress
+        key={`chapter-performance-${data.id}-${i}`}
+        data={data}
+        type="chapter"
+        index={i}
+        activeSection={activeSection} />
+    );
+    chapters = <section>
+      <label>
+        Current Topics Performance
+      </label>
+      {chapters}
+    </section>;
+  }
 
-    unless _.isEmpty(currentPages)
-      chapters = _.map(currentPages, (data, i) ->
-        <Progress
-          key="chapter-performance-#{data.id}-#{i}"
-          data={data}
-          type='chapter'
-          index={i}
-          activeSection={activeSection}/>
-      )
-      chapters = <section>
-        <label>Current Topics Performance</label>
-        {chapters}
-      </section>
+  return (
 
-    chapters or null
+    chapters || null
 
-PracticesPerformance = React.createClass
-  displayName: 'PracticesPerformance'
-  propTypes:
-    spacedPages: React.PropTypes.array.isRequired
-    activeSection: React.PropTypes.string
+  );
+}
 
-  calculatePercentDelta: (a, b) ->
-    if a > b
-      change = a - b
-      op = '+'
-    else if a is b
-      change = 0
-      op = ''
-    else
-      change = b - a
-      op = '-'
-    op + ' ' + Math.round((change / b) * 100)
+ChaptersPerformance.displayName = 'ChaptersPerformance';
 
-  renderPracticeBars: (data, i) ->
-    {activeSection} = @props
+ChaptersPerformance.propTypes = {
+  currentPages: React.PropTypes.object.isRequired,
+  activeSection: React.PropTypes.string,
+};
 
-    if data.previous_attempt
+
+@observer
+export class PracticesPerformance extends React.PureComponent {
+
+  static propTypes = {
+    spacedPages: React.PropTypes.object.isRequired,
+    activeSection: React.PropTypes.string,
+  };
+
+  calculatePercentDelta = (a, b) => {
+    let change, op;
+    if (a > b) {
+      change = a - b;
+      op = '+';
+    } else if (a === b) {
+      change = 0;
+      op = '';
+    } else {
+      change = b - a;
+      op = '-';
+    }
+    return (
+      op + ' ' + Math.round((change / b) * 100)
+    );
+  };
+
+  renderPracticeBars = (data, i) => {
+    let previous;
+    const { activeSection } = this.props;
+
+    if (data.previous_attempt) {
       previous =
-        <div className='reading-progress-delta'>
-          {@calculatePercentDelta(data.correct_count, data.previous_attempt.correct_count)}% change
-        </div>
-    <Progress
-      key="practice-performance-#{data.id}-#{i}"
-      data={data}
-      type='practice'
-      index={i}
-      previous={previous}
-      activeSection={activeSection}/>
+        <div className="reading-progress-delta">
+          {this.calculatePercentDelta(data.correct_count, data.previous_attempt.correct_count)}
+          {'% change\
+  '}
+        </div>;
+    }
+    return (
+      (
+        <Progress
+          key={`practice-performance-${data.id}-${i}`}
+          data={data}
+          type="practice"
+          index={i}
+          previous={previous}
+          activeSection={activeSection} />
+      )
+    );
+  };
 
-  render: ->
-    {spacedPages} = @props
+  render() {
+    let practices;
+    const { spacedPages } = this.props;
 
-    unless _.isEmpty(spacedPages)
-      practices = _.map(spacedPages, @renderPracticeBars)
+    if (!isEmpty(spacedPages)) {
+      practices = map(spacedPages, this.renderPracticeBars);
       practices = <section>
-        <label>Spaced Practice Performance</label>
+        <label>
+          Spaced Practice Performance
+        </label>
         {practices}
-      </section>
+      </section>;
+    }
 
-    practices or null
+    return (
 
-module.exports = {ChaptersPerformance, PracticesPerformance}
+      practices || null
+
+    );
+  }
+}
+
+// export default { ChaptersPerformance, PracticesPerformance };

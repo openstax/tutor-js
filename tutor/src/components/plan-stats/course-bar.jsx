@@ -1,94 +1,111 @@
-React = require 'react'
-_ = require 'underscore'
-BS = require 'react-bootstrap'
+import React from 'react';
+import { map, partial } from 'lodash';
+import { Grid, Row, Col } from 'react-bootstrap';
 
-Icon = require '../icon'
+import Icon from '../icon';
 
-CourseBar = React.createClass
-  displayName: 'CourseBar'
-  propTypes:
-    data: React.PropTypes.object.isRequired
-    type: React.PropTypes.string.isRequired
-    totalCols: React.PropTypes.number
-  getDefaultProps: ->
-    totalCols: 12
+class CourseBar extends React.Component {
+  static displayName = 'CourseBar';
 
-  getCorrectLabel: (data) ->
-    tooltipMsg = '''
-      Percent correct out of total attempted.
-      This score does not take unanswered questions into account,
-      so it may differ from the average you see in Student Scores.
-    '''
-    icon =
-      <Icon type='info-circle' tooltip={tooltipMsg}
-        tooltipProps={placement: 'top'}
-      />
-    label =
+  static propTypes = {
+    data: React.PropTypes.object.isRequired,
+    type: React.PropTypes.string.isRequired,
+    totalCols: React.PropTypes.number,
+  };
+
+  static defaultProps = { totalCols: 12 };
+
+  getCorrectLabel = (data) => {
+    const tooltipMsg = `\
+Percent correct out of total attempted.
+This score does not take unanswered questions into account,
+so it may differ from the average you see in Student Scores.\
+`;
+    const icon =
+      <Icon type="info-circle" tooltip={tooltipMsg} tooltipProps={{ placement: 'top' }} />;
+    const label =
       <span>
-        Percent Correct {icon}
-      </span>
-    { label, type: 'average', value: "#{data.mean_grade_percent}%" }
+        {'\
+  Percent Correct '}
+        {icon}
+      </span>;
+    return (
+      { label, type: 'average', value: `${data.mean_grade_percent}%` }
+    );
+  };
 
-  getStats: ->
-    {data, type} = @props
+  getStats = () => {
+    const { data, type } = this.props;
+    let completeLabel = 'Complete';
+    let inProgressLabel = 'In Progress';
+    const notStartedLabel = 'Not Started';
 
-    completeLabel = 'Complete'
-    inProgressLabel = 'In Progress'
-    notStartedLabel = 'Not Started'
+    let stats = [{
+      type: 'complete',
+      label: completeLabel,
+      value: data.complete_count,
+    }, {
+      type: 'in-progress',
+      label: inProgressLabel,
+      value: data.partially_complete_count,
+    }, {
+      type: 'not-started',
+      label: notStartedLabel,
+      value: data.total_count - (data.complete_count + data.partially_complete_count),
+    }];
 
-    stats = [{
-        type: 'complete'
-        label: completeLabel
-        value: data.complete_count
-      }, {
-        type: 'in-progress'
-        label: inProgressLabel
-        value: data.partially_complete_count
-      }, {
-        type: 'not-started'
-        label: notStartedLabel
-        value: data.total_count - (data.complete_count + data.partially_complete_count)
-    }]
-
-    if type is 'external'
-      completeLabel = 'Clicked'
-      inProgressLabel = 'Viewed'
+    if (type === 'external') {
+      completeLabel = 'Clicked';
+      inProgressLabel = 'Viewed';
 
       stats = [{
-          type: 'complete'
-          label: completeLabel
-          value: data.complete_count
-        }, {
-          type: 'not-started'
-          label: notStartedLabel
-          value: data.total_count - (data.complete_count + data.partially_complete_count)
-      }]
+        type: 'complete',
+        label: completeLabel,
+        value: data.complete_count,
+      }, {
+        type: 'not-started',
+        label: notStartedLabel,
+        value: data.total_count - (data.complete_count + data.partially_complete_count),
+      }];
+    }
 
-    if type is 'homework' and data.mean_grade_percent
-      stats.unshift(@getCorrectLabel(data))
+    if ((type === 'homework') && data.mean_grade_percent) {
+      stats.unshift(this.getCorrectLabel(data));
+    }
 
-    stats
+    return stats;
+  };
 
-  renderCourseStat: (stat, cols = 4) ->
-    key = "stat #{stat.type}"
-    <BS.Col xs={cols} className={key} key={key}>
-      <label>{stat.label}</label>
-      <div className = "data-container-value text-#{stat.type}">
-        {stat.value}
-      </div>
-    </BS.Col>
+  renderCourseStat = (stat, cols) => {
+    if (cols == null) { cols = 4; }
 
-  render: ->
-    {totalCols} = @props
-    stats = @getStats()
+    return (
+      <Col xs={cols} className={stat.type} key={stat.type}>
+        <label>
+          {stat.label}
+        </label>
+        <div className={`data-container-value text-${stat.type}`}>
+          {stat.value}
+        </div>
+      </Col>
+    );
+  };
 
-    cols = totalCols / stats.length
-    statsColumns = _.map stats, _.partial(@renderCourseStat, _, cols)
+  render() {
+    const { totalCols } = this.props;
+    const stats = this.getStats();
 
-    <BS.Grid className='data-container' key='course-bar'>
-      <BS.Row className='stats'>
-        {statsColumns}
-      </BS.Row>
-    </BS.Grid>
+    const cols = totalCols / stats.length;
+    const statsColumns = map(stats, partial(this.renderCourseStat, partial.placeholder, cols));
 
-module.exports = CourseBar
+    return (
+      <Grid className="data-container" key="course-bar">
+        <Row className="stats">
+          {statsColumns}
+        </Row>
+      </Grid>
+    );
+  }
+}
+
+export default CourseBar;

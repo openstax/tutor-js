@@ -1,37 +1,27 @@
-React = require 'react'
-_ = require 'underscore'
-BS = require 'react-bootstrap'
-Router = require 'react-router-dom'
+import React from 'react';
+import { map } from 'lodash';
+import { Panel } from 'react-bootstrap';
+import TeacherTaskPlan from '../../models/task-plan/teacher';
+import Courses from '../../models/courses-map';
+import { Markdown } from 'shared';
 
-{TaskPlanStatsStore, TaskPlanStatsActions} = require '../../flux/task-plan-stats'
-LoadableItem = require '../loadable-item'
-{Markdown} = require 'shared'
-
-Event = React.createClass
-  propTypes:
-    id: React.PropTypes.string.isRequired
-
-  render: ->
-    {id, courseId} = @props
-    plan = TaskPlanStatsStore.get(id)
-    periods = TaskPlanStatsStore.getPeriods(id)
-
-    periodsNames = _.pluck(periods, 'name').join(', ')
-    description = <Markdown text={plan.description} block={true}/> if plan.description
-
-    <BS.Panel className='reading-stats'>
-      <h3>For <strong>{periodsNames}</strong></h3>
+export default function Event({ plan, courseId }) {
+  let description;
+  const periodNames = map(Courses.get(courseId).periods, 'name').join(', ');
+  if (plan.description) {
+    description = <Markdown text={plan.description} block={true} />;
+  }
+  return (
+    <Panel className="event-stats">
+      <h3>
+        For <strong>{periodNames}</strong>
+      </h3>
       {description}
-    </BS.Panel>
+    </Panel>
+  );
+}
 
-EventModalShell = React.createClass
-  render: ->
-    {id} = @props
-    <LoadableItem
-      id={id}
-      store={TaskPlanStatsStore}
-      actions={TaskPlanStatsActions}
-      renderItem={=> <Event {...@props}/>}
-    />
-
-module.exports = {EventModalShell, Event}
+Event.propTypes = {
+  plan: React.PropTypes.instanceOf(TeacherTaskPlan).isRequired,
+  courseId: React.PropTypes.string.isRequired,
+};

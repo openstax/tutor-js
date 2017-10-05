@@ -1,86 +1,111 @@
-React = require 'react'
-_ = require 'underscore'
-BS = require 'react-bootstrap'
-classnames = require 'classnames'
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * DS207: Consider shorter variations of null checks
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
+ */
+import React from 'react';
+import createReactClass from 'create-react-class';
+import { map, partial } from 'lodash';
+import { ProgressBar } from 'react-bootstrap';
+import classnames from 'classnames';
+import { observer } from 'mobx-react';
 
-{ChapterSectionMixin} = require 'shared'
+@observer
+export default class Progress extends React.PureComponent {
 
-Progress = React.createClass
-  displayName: 'Progress'
-  propTypes:
-    data: React.PropTypes.object.isRequired
-    type: React.PropTypes.string.isRequired
-    activeSection: React.PropTypes.string
-  mixins: [ChapterSectionMixin]
+  static propTypes = {
+    data: React.PropTypes.object.isRequired,
+    type: React.PropTypes.string.isRequired,
+    activeSection: React.PropTypes.string,
+  }
 
-  _calculatePercent: (num, total) ->
-    Math.round((num / total) * 100)
+  _calculatePercent(num, total) {
+    return Math.round((num / total) * 100);
+  }
 
-  calculatePercent: (data, correctOrIncorrect) ->
-    correctOrIncorrect ?= 'correct'
-    count = correctOrIncorrect + '_count'
+  calculatePercent(data, correctOrIncorrect) {
+    if (correctOrIncorrect == null) { correctOrIncorrect = 'correct'; }
+    const count = correctOrIncorrect + '_count';
 
-    total_count = data.correct_count + data.incorrect_count
-    if total_count then @_calculatePercent(data[count], total_count) else 0
+    const total_count = data.correct_count + data.incorrect_count;
+    return total_count ? this._calculatePercent(data[count], total_count) : 0;
+  }
 
-  renderPercentBar: (data, type, percent, correctOrIncorrect) ->
-    classes = 'reading-progress-bar'
-    classes += " progress-bar-#{correctOrIncorrect}"
-    classes += ' no-progress' unless percent
+  renderPercentBar(data, type, percent, correctOrIncorrect) {
+    let correct;
+    let classes = 'reading-progress-bar';
+    classes += ` progress-bar-${correctOrIncorrect}`;
+    if (!percent) { classes += ' no-progress'; }
 
-    label = "#{percent}%"
-    label = "#{label} #{correctOrIncorrect}" if percent is 100
+    let label = `${percent}%`;
+    if (percent === 100) { label = `${label} ${correctOrIncorrect}`; }
 
-    correct = <BS.ProgressBar
-                className={classes}
-                label={label}
-                now={percent}
-                key="page-progress-#{type}-#{data.id}-#{correctOrIncorrect}"
-                type="#{correctOrIncorrect}"
-                alt="#{percent}% #{correctOrIncorrect}"/>
+    return (
+      <ProgressBar
+        className={classes}
+        label={label}
+        now={percent}
+        key={`page-progress-${type}-${data.id}-${correctOrIncorrect}`}
+        type={`${correctOrIncorrect}`}
+        alt={`${percent}% ${correctOrIncorrect}`} />
+    );
+  }
 
-  renderPercentBars: ->
-    {data, type} = @props
+  renderPercentBars() {
+    const { data, type } = this.props;
 
-    percents =
-      correct: @calculatePercent(data, 'correct')
-      incorrect: @calculatePercent(data, 'incorrect')
+    const percents = {
+      correct: this.calculatePercent(data, 'correct'),
+      incorrect: this.calculatePercent(data, 'incorrect'),
+    };
 
-    # make sure percents add up to 100
-    if percents.incorrect + percents.correct > 100
-      percents.incorrect = 100 - percents.correct
+    // make sure percents add up to 100
+    if ((percents.incorrect + percents.correct) > 100) {
+      percents.incorrect = 100 - percents.correct;
+    }
 
-    _.map percents, _.partial(@renderPercentBar, data, type)
+    return map(percents, partial(this.renderPercentBar, data, type));
+  }
 
-  render: ->
-    {data, type, index, previous, activeSection} = @props
+  render() {
+    const { data, type, index, previous, activeSection } = this.props;
 
-    studentCount = <span className='reading-progress-student-count'>
+    const studentCount = (
+      <span className="reading-progress-student-count">
         ({data.student_count} students)
       </span>
+    );
 
-    sectionLabel = @sectionFormat(data.chapter_section, @props.sectionSeparator)
+    const sectionLabel = data.chapter_section.asString;
 
-    active = activeSection is sectionLabel
+    const active = activeSection === sectionLabel;
 
-    progressClass = classnames 'reading-progress',
-      'active': active
-      'inactive': activeSection and not active
+    const progressClass = classnames('reading-progress', {
+      'active': active,
+      'inactive': activeSection && !active,
+    });
 
-    <div key="#{type}-bar-#{index}" className={progressClass}>
-      <div className='reading-progress-heading'>
-        <strong>
-          <span className='text-success'>
-            {sectionLabel}
-          </span> {data.title}
-        </strong> {studentCount}
+    return (
+      <div key={`${type}-bar-${index}`} className={progressClass}>
+        <div className="reading-progress-heading">
+          <strong>
+            <span className="text-success">
+              {sectionLabel}
+            </span>
+            {' '}
+            {data.title}
+          </strong>
+          {' '}
+          {studentCount}
+        </div>
+        <div className="reading-progress-container">
+          <ProgressBar className="reading-progress-group">
+            {this.renderPercentBars()}
+          </ProgressBar>
+          {previous}
+        </div>
       </div>
-      <div className='reading-progress-container'>
-        <BS.ProgressBar className='reading-progress-group'>
-          {@renderPercentBars()}
-        </BS.ProgressBar>
-        {previous}
-      </div>
-    </div>
-
-module.exports = Progress
+    );
+  }
+}
