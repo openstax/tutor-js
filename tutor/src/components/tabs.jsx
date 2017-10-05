@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-
+import { autobind } from 'core-decorators';
 import { isNil, extend, partial, map, get } from 'lodash';
 import Router from '../helpers/router';
 import qs from 'qs';
@@ -103,7 +103,7 @@ export default class CourseSettings extends React.PureComponent {
     );
   }
 
-  @action.bound renderTab(tab, index) {
+  @autobind renderTab(tab, index) {
     const isSelected = index === this.activeIndex;
 
     return (
