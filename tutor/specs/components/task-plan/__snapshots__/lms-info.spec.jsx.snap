@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LmsInfo Component matches snapshot 1`] = `
+<div
+  className="lms-info"
+>
+  <a
+    className="back"
+    onClick={[Function]}
+  >
+    <i
+      className="tutor-icon fa fa-chevron-left"
+      type="chevron-left"
+    />
+     Back
+  </a>
+  <p>
+    Copy and send to your students directly, or paste manually into your LMS.
+  </p>
+  <label
+    className="copy-on-focus"
+  >
+    Assignment URL
+    <input
+      className={null}
+      onFocus={[Function]}
+      readOnly={true}
+      value=""
+    />
+  </label>
+  <label
+    className="copy-on-focus"
+  >
+    Due date
+    <input
+      className={null}
+      onFocus={[Function]}
+      readOnly={true}
+      value="2/1/2012 at 12:00am"
+    />
+  </label>
+</div>
+`;

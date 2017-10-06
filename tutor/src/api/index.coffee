@@ -20,8 +20,6 @@ PerformanceForecast = require '../flux/performance-forecast'
 {TaskPanelActions} = require '../flux/task-panel'
 {TaskStepActions} = require '../flux/task-step'
 {TaskPlanActions, TaskPlanStore} = require '../flux/task-plan'
-{TaskTeacherReviewActions} = require '../flux/task-teacher-review'
-{TaskPlanStatsActions} = require '../flux/task-plan-stats'
 
 {PastTaskPlansActions} = require '../flux/past-task-plans'
 
@@ -61,6 +59,8 @@ PerformanceForecast = require '../flux/performance-forecast'
 { default: LmsPushScores } = require '../models/jobs/lms-score-push'
 { default: TaskResult } = require '../models/course/scores/task-result'
 { default: CourseTeacher } = require '../models/course/teacher'
+{ default: TeacherTaskPlan } = require '../models/task-plan/teacher'
+{ default: TaskPlanStats } = require '../models/task-plan/stats'
 
 startAPI = ->
   connectRead(TaskActions, pattern: 'tasks/{id}')
@@ -78,9 +78,6 @@ startAPI = ->
       true
     data: TaskPlanStore.getChanged
   }, TaskPlanHelpers.apiEndpointOptions)
-
-  connectRead(TaskPlanStatsActions, pattern: 'plans/{id}/stats')
-  connectRead(TaskTeacherReviewActions, pattern: 'plans/{id}/review')
 
   connectRead(ExerciseActions, {trigger: 'loadForEcosystem', onSuccess: 'loadedForEcosystem'},
     (id, pageIds, requestType = 'homework_core') ->
@@ -236,6 +233,12 @@ startAPI = ->
 
   connectModelCreate(ScoresExport, 'create', onSuccess: 'onCreated', pattern: 'courses/{course.id}/performance/export')
 
+  connectModelRead(TeacherTaskPlan, 'fetch', onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}')
+  connectModelRead(TaskPlanStats, 'fetch', onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}/stats')
+
+  connectModelRead(TaskPlanStats, 'fetchReview', onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}/review')
+
+
 BOOTSTRAPED_MODELS = {
   user:     User,
   courses:  Courses,
@@ -243,6 +246,7 @@ BOOTSTRAPED_MODELS = {
 }
 
 start = (bootstrapData) ->
+  console.log(bootstrapData)
   for storeId, model of BOOTSTRAPED_MODELS
     data = bootstrapData[storeId]
     model.bootstrap(data)

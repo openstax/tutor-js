@@ -13,7 +13,7 @@ import TaskPlanPublish from '../../models/jobs/task-plan-publish';
 //  {PlanPublishStore, PlanPublishActions} = require '../../flux/plan-publish'
 //import PlanHelper from '../../helpers/plan';
 import Router from '../../helpers/router';
-import TeacherTaskPlan from '../../models/teacher-task-plan';
+import TeacherTaskPlan from '../../models/task-plan/teacher';
 
 // TODO drag and drop, and resize behavior
 

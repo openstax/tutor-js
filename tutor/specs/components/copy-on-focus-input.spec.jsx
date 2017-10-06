@@ -32,7 +32,7 @@ describe('CopyOnFocusInput', () => {
     props.label = 'Click me!';
     props.className = 'test-123';
     const input = mount(<CopyOnFocusInput {...props} />);
-    expect(input).toHaveRendered(`label[className="${props.className}"]`);
+    expect(input).toHaveRendered(`label[className="copy-on-focus ${props.className}"]`);
     expect(input).toHaveRendered(`input[value="${props.value}"]`);
     expect(input.text()).toContain('Click me!');
   });

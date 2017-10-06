@@ -1,15 +1,17 @@
 import {
   BaseModel, identifiedBy, field, session, identifier, hasMany,
-} from './base';
+} from '../base';
 import { action, computed, observable, Atom } from 'mobx';
 import { sortBy, first, map, union } from 'lodash';
-import TaskingPlan from './tasking-plan';
-import TaskPlanPublish from './jobs/task-plan-publish';
-import * as Dates from '../helpers/dates';
-import { TimeStore } from '../flux/time';
+import { lazyInitialize } from 'core-decorators';
+import TaskingPlan from '../tasking-plan';
+import TaskPlanPublish from '../jobs/task-plan-publish';
+import * as Dates from '../../helpers/dates';
+import { TimeStore } from '../../flux/time';
+import TaskPlanStats from './stats';
+import TaskPlanReview from './review';
 
-
-@identifiedBy('teacher-task-plan')
+@identifiedBy('task-plan/teacher')
 export default class TeacherTaskPlan extends BaseModel {
 
   @identifier id;
@@ -47,6 +49,10 @@ export default class TeacherTaskPlan extends BaseModel {
     );
 
   }
+
+  @lazyInitialize analytics = new TaskPlanStats({ taskPlan: this });
+
+  @computed get isEvent() { return 'event' === this.type; }
 
   @computed get durationLength() {
     return this.duration.length('days');

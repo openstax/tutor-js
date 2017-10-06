@@ -1,110 +1,103 @@
 import React from 'react';
+import { observer } from 'mobx-react';
+import { computed, observable, action } from 'mobx';
 import camelCase from 'lodash/camelCase';
 import classnames from 'classnames';
-import { Modal } from 'react-bootstrap';
-import { computed, observable } from 'mobx';
-
+import { Modal, Button } from 'react-bootstrap';
 import TourRegion from '../tours/region';
-import TourAnchor from '../tours/anchor';
-import { StatsModalShell } from '../plan-stats';
-import { EventModalShell } from '../plan-stats/event';
-import { TaskPlanStore } from '../../flux/task-plan';
+import Stats from '../plan-stats';
+import Event from '../plan-stats/event';
 import LmsInfo from '../task-plan/lms-info';
 import TutorLink from '../link';
+import TeacherTaskPlan from '../../models/task-plan/teacher';
 
-class CoursePlanDetails extends React.PureComponent {
+
+@observer
+export default class CoursePlanDetails extends React.PureComponent {
 
   static defaultProps = {
     hasReview: false,
   }
 
   static propTypes = {
-    plan: React.PropTypes.shape({
-      id: React.PropTypes.string.isRequired,
-      title: React.PropTypes.string.isRequired,
-      type: React.PropTypes.string.isRequired,
-    }).isRequired,
+    plan: React.PropTypes.instanceOf(TeacherTaskPlan).isRequired,
     courseId: React.PropTypes.string.isRequired,
     onHide: React.PropTypes.func.isRequired,
     hasReview: React.PropTypes.bool,
-    isPublishing: React.PropTypes.bool,
-    isPublished: React.PropTypes.bool,
+
     className: React.PropTypes.string,
   }
 
-  @observable keepVisible = false;
-
-  componentWillReceiveProps() {
-    // Sometimes, this plan modal will be asked to update while it's opened.
-    // i.e. when a plan is mid-publish on open, but completes publishing
-    // while the modal is open.
-    // In that case, make sure the modal remains open while it's content
-    // is updating.
-    this.keepVisible = true;
-  }
-
-  get isExternal() {
-    this.props.plan.type === 'external';
-  }
-
-  renderReviewButton() {
-    if (!this.props.hasReview) { return null; }
-
-    return (
-      <TourAnchor id="view-metrics">
-        <TutorLink
-          className='btn btn-default -view-scores'
-          to={this.isExternal ? 'viewScores' : 'reviewTask'}
-          params={this.linkParams}>
-          {this.isExternal ? 'View Scores' : 'Review Metrics'}
-        </TutorLink>
-      </TourAnchor>
-    );
-  }
-
+  @observable showAssignmentLinks = false;
 
   @computed get linkParams() {
     return { courseId: this.props.courseId, id: this.props.plan.id };
   }
 
+  @action.bound onShowAssignmentLinks() {
+    this.showAssignmentLinks = true;
+  }
+  @action.bound onDisplayStats() {
+    this.showAssignmentLinks = false;
+  }
+
   @computed get footer() {
-    if (! this.props.isPublished) { return null; }
+    const { plan } = this.props;
+    if (this.showAssignmentLinks || !plan.isPublished) { return null; }
+
     const editLinkName = camelCase(`edit-${this.props.plan.type}`);
 
     return (
       <div className="modal-footer">
-        <div className="left-buttons">
-          {this.renderReviewButton()}
-          <TourAnchor id="edit-assignment-button">
-            <TutorLink
-              className="btn btn-default -edit-assignment"
-              to={editLinkName}
-              params={this.linkParams}
-            >
-              {TaskPlanStore.isEditable(this.props.plan.id) ? 'Edit' : 'View'}
-              {' '}
-              {this.props.plan.type === 'event' ? 'Event' : 'Assignment'}
-            </TutorLink>
-          </TourAnchor>
-        </div>
-        <LmsInfo plan={this.props.plan} courseId={this.props.courseId} />
+
+        <TutorLink
+          disabled={!plan.isPublished}
+          className="btn btn-default"
+          to={plan.isExternal ? 'viewScores' : 'reviewTask'}
+          params={this.linkParams}>
+          {plan.isExternal ? 'View Scores' : 'Review Metrics'}
+        </TutorLink>
+
+        <TutorLink
+          className="btn btn-default"
+          to={editLinkName}
+          params={this.linkParams}
+        >
+          {plan.isEditable ? 'Edit' : 'View'}
+          {' '}
+          {plan.type === 'event' ? 'Event' : 'Assignment'}
+        </TutorLink>
+
+        <Button onClick={this.onShowAssignmentLinks}>
+          Get assignment link
+        </Button>
+
+
       </div>
     );
   }
 
   @computed get body() {
-    const { courseId, plan: { type, id } } = this.props;
-    if (this.props.isPublished) {
-      if (type === 'event') {
+    const { courseId, plan } = this.props;
+    if (this.showAssignmentLinks) {
+      return (
+        <LmsInfo
+          onBack={this.onDisplayStats}
+          plan={plan} courseId={this.props.courseId} />
+      );
+    }
+
+    if (plan.isPublished) {
+      if (plan.isEvent) {
         return (
-          <EventModalShell id={id} courseId={courseId} />
+          <Event plan={plan} courseId={courseId} />
         );
       } else {
         return (
-          <StatsModalShell id={id} courseId={courseId} />
+          <Stats plan={plan} courseId={courseId} />
         );
       }
-    } else if (this.props.isPublishing) {
+    } else if (plan.isPublishing) {
       return (
         <p>
           This assignment is publishing.
@@ -115,8 +108,7 @@ class CoursePlanDetails extends React.PureComponent {
   }
 
   render() {
-    const { plan: { title, type }, className, onHide, isPublishing, isPublished } = this.props;
-    if (!isPublishing && !isPublished) { return null; }
+    const { plan: { title, type }, className, onHide } = this.props;
 
     return (
       <Modal
@@ -124,7 +116,7 @@ class CoursePlanDetails extends React.PureComponent {
         show={true}
         enforceFocus={false}
         data-assignment-type={type}
-        className={classnames('plan-modal', className, { 'in': this.keepVisible })}
+        className={classnames('plan-modal', className)}
       >
         <TourRegion
           id="analytics-modal"
@@ -144,5 +136,3 @@ class CoursePlanDetails extends React.PureComponent {
     );
   }
 }
-
-export default CoursePlanDetails;
