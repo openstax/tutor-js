@@ -7,14 +7,6 @@ import Icon from '../icon';
 import cn from 'classnames';
 import CopyOnFocusInput from '../copy-on-focus-input';
 import LMS from './lms-panel';
-//
-// const PeriodLink = ({ period }) => (
-//   <label className="period">
-//     {period.name}
-//     <CopyOnFocusInput value={period.enrollment_url} />
-//   </label>
-// );
-//
 
 @observer
 export default class StudentAccess extends React.PureComponent {
@@ -35,7 +27,7 @@ export default class StudentAccess extends React.PureComponent {
   }
 
   renderDirectHeader() {
-    const checked = !this.props.course.is_lms_enabled;
+    const checked = false === this.props.course.is_lms_enabled;
 
     return (
       <div className={cn('choice', { checked })}>
@@ -56,7 +48,7 @@ export default class StudentAccess extends React.PureComponent {
   }
 
   renderLMSHeader() {
-    const checked = !!this.props.course.is_lms_enabled;
+    const checked = true === this.props.course.is_lms_enabled;
 
     return (
       <div className={cn('choice', { checked })}>
