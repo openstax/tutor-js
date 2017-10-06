@@ -43,7 +43,4 @@ describe('Course Settings', function() {
       .to.equal('Kirlin');
   });
 
-  it('matches snapshot', () => {
-    expect(Renderer.create(<Wrapper noReference _wrapped_component={Roster} {...props} />).toJSON()).toMatchSnapshot();
-  });
 });
