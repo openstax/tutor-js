@@ -14,6 +14,10 @@ describe('User Model', () => {
     User.viewed_tour_stats.clear();
   });
 
+  it('has terms', () => {
+    expect(User.terms.api.isPending).toBe(false);
+  });
+
   it('can be bootstrapped', () => {
     const spy = jest.fn();
     autorun(() => spy(User.name));
