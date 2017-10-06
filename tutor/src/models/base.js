@@ -1,10 +1,12 @@
 // will eventually hook into data loading/saving using the
 // derived model's identifiedBy strings
 
-import { observable, computed, action } from 'mobx';
+import { computed, action } from 'mobx';
 import { find, isNil, get } from 'lodash';
 
 const FLUX_NEW = /_CREATING_/;
+import lazyGetter from '../helpers/lazy-getter.js';
+import ModelApi from './api';
 
 export class BaseModel {
 
@@ -12,12 +14,7 @@ export class BaseModel {
     if (attrs) { this.update(attrs); }
   }
 
-  @observable apiRequestsInProgress = observable.map();
-  @observable apiErrors;
-
-  @computed get hasApiRequestPending() {
-    return !!this.apiRequestsInProgress.size;
-  }
+  @lazyGetter api = new ModelApi();
 
   @computed get isNew() {
     const idField = find(Array.from(this.constructor.$schema.values()), { type: 'identifier' });
@@ -39,11 +36,11 @@ export class BaseModel {
   setApiErrors(error) {
     const errors = get(error, 'response.data.errors');
     if (errors) {
-      this.apiErrors = {};
-      errors.forEach(e => this.apiErrors[e.code] = e);
+      this.api.errors = {};
+      errors.forEach(e => this.api.errors[e.code] = e);
       error.isRecorded = true;
     } else {
-      this.apiErrors = null;
+      this.api.errors = null;
     }
   }
 
