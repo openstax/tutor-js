@@ -246,7 +246,6 @@ BOOTSTRAPED_MODELS = {
 }
 
 start = (bootstrapData) ->
-  console.log(bootstrapData)
   for storeId, model of BOOTSTRAPED_MODELS
     data = bootstrapData[storeId]
     model.bootstrap(data)
