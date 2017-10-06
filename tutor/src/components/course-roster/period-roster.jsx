@@ -9,7 +9,6 @@ import ChangePeriodLink from './change-period';
 import DropStudentLink from './drop-student';
 import CourseGroupingLabel from '../course-grouping-label';
 import StudentIdField from './student-id-field';
-import Icon from '../icon';
 import Period from '../../models/course/period';
 
 @observer
@@ -21,7 +20,6 @@ export default class PeriodRoster extends React.PureComponent {
 
   @autobind
   renderStudentRow(student) {
-    //console.log("RENDE SR", student)
     const course = this.props.period.course;
 
     return (
