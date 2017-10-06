@@ -10,6 +10,7 @@ import Router from '../../../src/helpers/router';
 import { CourseListingActions, CourseListingStore } from '../../flux/course-listing';
 import StudentTasks from '../student-tasks';
 import Activity from '../../../src/components/ox-fancy-loader';
+
 import Enroll from '../../../src/components/enroll';
 import Course from '../course';
 
@@ -27,6 +28,7 @@ export default class CourseEnrollment extends BaseModel {
   @observable isComplete = false;
   @observable courseToJoin;
   @observable isLoadingCourses;
+
   constructor(...args) {
     super(...args);
     when(
@@ -36,28 +38,41 @@ export default class CourseEnrollment extends BaseModel {
   }
 
   @computed get bodyContents() {
-    const props = { enrollment: this };
     if (this.isLoading) {
       return <Activity isLoading={true} />;
+    } else if (this.isFromLms && false === this.courseIsLmsEnabled) {
+      return this.renderComponent('invalidLMS');
+    } else if (!this.isFromLms && true === this.courseIsLmsEnabled) {
+      return this.renderComponent('invalidLinks');
     } else if (this.isTeacher) {
-      return <Enroll.Components.invalidTeacher {...props} />;
+      return this.renderComponent('invalidTeacher');
     } else if (this.isInvalid) {
-      return <Enroll.Components.invalidCode {...props} />;
+      return this.renderComponent('invalidCode');
     } else if (this.courseToJoin) {
-      return <Enroll.Components.selectPeriod {...props} />;
+      return this.renderComponent('selectPeriod');
     } else if (this.isComplete) {
       if (this.courseId)
         return <Redirect to={Router.makePathname('dashboard', { courseId: this.courseId })} />;
       else
         return <Redirect to={Router.makePathname('myCourses')} />;
     } else {
-      return <Enroll.Components.studentIDForm {...props} />;
+      return this.renderComponent('studentIDForm');
     }
+  }
+
+  renderComponent(name) {
+    const Tag = Enroll.Components[name];
+    return <Tag enrollment={this} />;
   }
 
   @action.bound
   selectPeriod(period) {
     this.enrollment_code = period.enrollment_code;
+  }
+
+  @computed get courseIsLmsEnabled() {
+    return this.courseToJoin ?
+      this.courseToJoin.is_lms_enabled : get(this, 'to.course.is_lms_enabled', null);
   }
 
   @action.bound
@@ -114,6 +129,10 @@ export default class CourseEnrollment extends BaseModel {
   }
 
   @computed get needsPeriodSelection() {
+    return this.isFromLms;
+  }
+
+  @computed get isFromLms() {
     return S.isUUID(this.enrollment_code);
   }
 

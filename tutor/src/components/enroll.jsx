@@ -4,23 +4,31 @@ import { Modal } from 'react-bootstrap';
 import Enroll from '../models/course/enroll';
 import Router from '../helpers/router';
 
-import StudentID from './enroll/student-id';
+import studentIDForm from './enroll/student-id';
 import invalidCode from './enroll/invalid-code';
+import invalidLinks from './enroll/invalid-links-use';
+import invalidLMS from './enroll/invalid-lms-use';
 import invalidTeacher from './enroll/invalid-teacher';
-import SelectPeriod from './enroll/select-periods';
+import selectPeriod from './enroll/select-periods';
 
 @observer
 export default class CourseEnroll extends React.PureComponent {
+
+  static propTypes = {
+    enrollment: React.PropTypes.object,
+  }
 
   static contextTypes = {
     router: React.PropTypes.object,
   }
 
   static Components = {
-    studentIDForm: StudentID,
-    selectPeriod: SelectPeriod,
-    invalidCode: invalidCode,
-    invalidTeacher: invalidTeacher,
+    studentIDForm,
+    selectPeriod,
+    invalidLMS,
+    invalidLinks,
+    invalidCode,
+    invalidTeacher,
   }
 
   enrollmentCode = Router.currentParams().enrollmentCode;
