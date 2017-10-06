@@ -17,7 +17,7 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
   @observable displayTrialActive = false;
 
   @computed get nagComponent() {
-    if (User.terms_signatures_needed) { return null; }
+    if (this.needsTermsSigned) { return null; }
 
     if (this.displayPayment) { return Nags.makePayment; }
     if (!Payments.config.is_enabled && this.course.does_cost){
@@ -35,6 +35,10 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
     }
 
     return null;
+  }
+
+  @computed get needsTermsSigned() {
+    return Boolean(User.terms_signatures_needed && !this.paymentIsPastDue);
   }
 
   @computed get isDisplaying() {
