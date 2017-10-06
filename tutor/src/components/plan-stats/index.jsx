@@ -80,7 +80,7 @@ export default class Stats extends React.PureComponent {
       return this.renderWrapped(<NoStudents courseId={courseId} />);
     }
 
-    if (this.analytics.hasApiRequestPending) {
+    if (!this.analytics.api.hasBeenFetched) {
       return this.renderWrapped(<LoadingScreen />);
     }
 

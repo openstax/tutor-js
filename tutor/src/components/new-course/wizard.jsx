@@ -81,7 +81,7 @@ export default class NewCourseWizard extends React.PureComponent {
   render() {
     const wizardClasses = classnames('new-course-wizard', this.ux.stage, {
       'is-loading': this.isBusy,
-      'is-building': this.ux.newCourse.apiRequestsInProgress,
+      'is-building': this.ux.newCourse.api.requestsInProgress,
     });
     const Component = componentFor(this.ux.stage);
 
