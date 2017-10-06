@@ -170,7 +170,9 @@ const UserMenu = observable({
     let course;
     if (courseId) {
       course = Courses.get(courseId);
-      ({ isTeacher, primaryRole: { type: menuRole } } = course);
+      if (course) {
+        ({ isTeacher, primaryRole: { type: menuRole } } = course);
+      }
     }
     const options = { courseId, menuRole };
     const validRoutes = pickBy(
