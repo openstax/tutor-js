@@ -1,7 +1,6 @@
 {Promise} = require 'es6-promise'
 interpolate = require 'interpolate'
 {METHODS_TO_ACTIONS} = require './collections'
-{ extendObservable, observable } = require 'mobx'
 
 partial   = require 'lodash/partial'
 map       = require 'lodash/map'
@@ -146,7 +145,7 @@ connectModelAction = (action, apiHandler, klass, method, options) ->
       this.api?.requestCounts[action] += 1
       this.api?.requestsInProgress.delete(action)
       reply
-    ).catch( => this.apiRequestsInProgress.delete(action))
+    ).catch( => this.api?.requestsInProgress.delete(action))
 
   klass.prototype[method] = wrap(klass.prototype[method] or emptyFn, handler)
 
