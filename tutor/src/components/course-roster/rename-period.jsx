@@ -110,7 +110,7 @@ export default class RenamePeriod extends React.PureComponent {
           <AsyncButton
             className="-edit-period-confirm"
             onClick={this.performUpdate}
-            isWaiting={period.hasApiRequestPending}
+            isWaiting={period.api.isPending}
             waitingText="Saving..."
             disabled={!this.isValid}
           >

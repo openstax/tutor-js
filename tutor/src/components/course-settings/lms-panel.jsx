@@ -62,7 +62,7 @@ export default class LMSAccessPanel extends React.PureComponent {
 
   renderKeys() {
     const { course: { lms } } = this.props;
-    if (lms.hasApiRequestPending) { return <LoadingScreen />; }
+    if (lms.api.isPending) { return <LoadingScreen />; }
     return (
       <div className="lms-access">
         <p>

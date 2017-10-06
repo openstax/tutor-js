@@ -75,7 +75,7 @@ export default class NewCourseWizard extends React.PureComponent {
   }
 
   @computed get isBusy() {
-    return Boolean(this.props.isLoading || this.ux.newCourse.hasApiRequestPending);
+    return Boolean(this.props.isLoading || this.ux.newCourse.api.isPending);
   }
 
   render() {

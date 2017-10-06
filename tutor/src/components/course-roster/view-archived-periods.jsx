@@ -41,7 +41,7 @@ class ArchivedPeriodRow extends React.PureComponent {
               className="unarchive-section"
               bsStyle="link"
               onClick={this.restore}
-              isWaiting={period.hasApiRequestPending}
+              isWaiting={period.api.isPending}
             >
               <Icon type="recycle" /> Unarchive
             </AsyncButton>

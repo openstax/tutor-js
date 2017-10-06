@@ -203,7 +203,7 @@ export class LateWorkPopover extends React.PureComponent {
           <AsyncButton
             className="late-button"
             onClick={this.onButtonClick}
-            isWaiting={this.props.task.hasApiRequestPending}
+            isWaiting={this.props.task.api.isPending}
             waitingText="Saving…"
           >
             {content.get('button')}

@@ -98,7 +98,7 @@ export default class ChangeStudentId extends React.PureComponent {
             disabled={!this.isValid}
             bsStyle="primary"
             className="btn btn-success"
-            isWaiting={!!this.student.hasApiRequestPending}
+            isWaiting={!!this.student.api.isPending}
             waitingText={'Confirming…'}
             onClick={this.onSubmit}
           >

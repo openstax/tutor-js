@@ -110,7 +110,7 @@ export default class CourseEnrollment extends BaseModel {
   }
 
   @computed get isLoading() {
-    return Boolean(this.hasApiRequestPending || this.isLoadingCourses);
+    return Boolean(this.api.isPending || this.isLoadingCourses);
   }
 
   @computed get needsPeriodSelection() {

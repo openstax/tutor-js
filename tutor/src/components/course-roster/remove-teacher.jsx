@@ -54,7 +54,7 @@ export default class RemoveTeacherLink extends React.PureComponent {
         <AsyncButton
           bsStyle="danger"
           onClick={this.performDeletion}
-          isWaiting={this.props.teacher.hasApiRequestPending}
+          isWaiting={this.props.teacher.api.isPending}
           waitingText="Removing..."
         >
           <Icon type="ban" /> Remove

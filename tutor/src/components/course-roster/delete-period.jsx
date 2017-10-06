@@ -83,7 +83,7 @@ export default class DeletePeriodLink extends React.PureComponent {
           period={this.props.period}
           onClose={this.onClose}
           section={section}
-          isBusy={this.props.period.hasApiRequestPending}
+          isBusy={this.props.period.api.isPending}
           onDelete={this.performDelete}
         />
         <Icon type="trash" />Delete {section}

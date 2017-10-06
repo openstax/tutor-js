@@ -175,7 +175,7 @@ export default class SetTimezone extends React.PureComponent {
           <AsyncButton
             className="-edit-course-confirm"
             onClick={this.performUpdate}
-            isWaiting={this.props.course.hasApiRequestPending}
+            isWaiting={this.props.course.api.isPending}
             waitingText="Saving..."
             disabled={this.invalid}
           >

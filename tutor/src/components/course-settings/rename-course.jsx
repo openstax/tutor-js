@@ -76,7 +76,7 @@ export default class RenameCourse extends React.PureComponent {
             <AsyncButton
               className="-edit-course-confirm"
               onClick={this.performUpdate}
-              isWaiting={course.hasApiRequestPending}
+              isWaiting={course.api.isPending}
               waitingText="Saving..."
               disabled={false === this.isValid}
             >

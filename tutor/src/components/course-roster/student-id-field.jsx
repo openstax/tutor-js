@@ -91,7 +91,7 @@ export default class StudentIdField extends React.PureComponent {
           }} />
       );
     }
-    const busy = this.props.student.hasApiRequestPending;
+    const busy = this.props.student.api.isPending;
     return (
       <Icon
         type={busy ? 'spinner' : 'edit'}
