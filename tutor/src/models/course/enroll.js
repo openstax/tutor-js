@@ -84,7 +84,7 @@ export default class CourseEnrollment extends BaseModel {
 
   @computed get courseName() {
     if (this.isTeacher) {
-      return get(this.apiErrors, 'is_teacher.data.course_name', '');
+      return get(this.api.errors, 'is_teacher.data.course_name', '');
     }
     return get(this, 'to.course.name', '');
   }
@@ -94,19 +94,19 @@ export default class CourseEnrollment extends BaseModel {
   }
 
   @computed get isPending() {
-    return Boolean(isEmpty(this.apiErrors) && isEmpty(this.to));
+    return Boolean(isEmpty(this.api.errors) && isEmpty(this.to));
   }
 
   @computed get isInvalid() {
-    return Boolean(this.apiErrors && this.apiErrors.invalid_enrollment_code);
+    return Boolean(this.api.errors && this.api.errors.invalid_enrollment_code);
   }
 
   @computed get isTeacher() {
-    return Boolean(get(this.apiErrors, 'is_teacher'));
+    return Boolean(get(this.api.errors, 'is_teacher'));
   }
 
   @computed get isRegistered() {
-    return Boolean(get(this.apiErrors, 'already_enrolled') || this.status == 'processed');
+    return Boolean(get(this.api.errors, 'already_enrolled') || this.status == 'processed');
   }
 
   @computed get isLoading() {
