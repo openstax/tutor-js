@@ -12,7 +12,6 @@ export default class LMSAccessPanel extends React.PureComponent {
 
   static propTypes = {
     course: React.PropTypes.instanceOf(Course).isRequired,
-    forceKeys: React.PropTypes.bool,
   };
 
   componentWillMount() {
@@ -85,10 +84,8 @@ export default class LMSAccessPanel extends React.PureComponent {
     if (course.canOnlyUseLMS) {
       return this.renderPaired();
     }
-    if (this.props.forceKeys) {
-      return this.renderKeys();
-    }
-    return this.renderPaired();
+
+    return this.renderKeys();
   }
 
 
