@@ -14,6 +14,8 @@ import AddPeriodLink       from './add-period';
 import RenamePeriodLink    from './rename-period';
 import DeletePeriodLink    from './delete-period';
 import DroppedRoster from './dropped-roster';
+import CoursePage from '../course-page';
+
 
 @observer
 export default class CourseRoster extends React.PureComponent {
@@ -66,23 +68,34 @@ export default class CourseRoster extends React.PureComponent {
     );
   }
 
+  renderControls(course) {
+    return [
+      <div key="name" className="course-settings-title">
+        {course.name}
+      </div>,
+      <h4 key="term" className="course-settings-term">
+        {course.term}
+      </h4>,
+    ];
+  }
+
   render() {
     const { course, course: { activePeriods: periods } } = this;
 
     const activePeriod = periods[this.periodIndex];
 
     return (
-      <TourRegion
-        id="course-settings"
-        otherTours={['course-settings-preview']}
-        courseId={course.id}>
-        <Panel className="course-settings">
-          <div className="course-settings-title">
-            {course.name}
-          </div>
-          <h4 className="course-settings-term">
-            {course.term}
-          </h4>
+      <CoursePage
+        className="roster"
+        title="Roster"
+        course={course}
+        controls={this.renderControls(course)}
+      >
+        <TourRegion
+          id="course-settings"
+          otherTours={['course-settings-preview']}
+          courseId={course.id}
+        >
           <div className="settings-section teachers">
             <TeacherRoster course={course} />
           </div>
@@ -109,8 +122,8 @@ export default class CourseRoster extends React.PureComponent {
               </div>
             </div>
           </div>
-        </Panel>
-      </TourRegion>
+        </TourRegion>
+      </CoursePage>
     );
   }
 }
