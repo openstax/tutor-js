@@ -1,4 +1,4 @@
-import { React } from '../helpers/component-testing';
+import { React, Wrapper } from '../helpers/component-testing';
 import Renderer from 'react-test-renderer';
 import { Roster, courseRosterBootstrap } from './bootstrap-data';
 
@@ -18,7 +18,7 @@ describe('Course Settings', function() {
       expect(wrapper.find('.periods .nav-tabs li').at(i).text())
         .to.equal(period);
     }
-
+    wrapper.unmount();
   });
 
   it('renders students in the panels', function() {
@@ -29,6 +29,7 @@ describe('Course Settings', function() {
       expect(wrapper.find('.roster.students tbody tr').at(i).find('td').at(1).text())
         .to.equal(name);
     }
+    wrapper.unmount();
 
   });
 
@@ -43,6 +44,6 @@ describe('Course Settings', function() {
   });
 
   it('matches snapshot', () => {
-    expect(Renderer.create(<Roster {...props} />).toJSON()).toMatchSnapshot();
+    expect(Renderer.create(<Wrapper noReference _wrapped_component={Roster} {...props} />).toJSON()).toMatchSnapshot();
   });
 });

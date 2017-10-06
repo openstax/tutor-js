@@ -10,6 +10,7 @@ import CourseGroupingLabel from '../course-grouping-label';
 import StudentIdField from './student-id-field';
 import Period from '../../models/course/period';
 
+
 @observer
 export default class StudentsRoster extends React.PureComponent {
 
@@ -41,11 +42,13 @@ export default class StudentsRoster extends React.PureComponent {
   }
 
   renderEmpty(course) {
+    const courseId = course.id;
     return (
       <div className="roster-empty-info">
         <p>
-          No students have enrolled in this section yet. Manage student access
-          in <TutorLink to="settings" params={{ courseId: this.props.period.course.id }}>Settings</TutorLink>.
+          No students have enrolled in
+          this <CourseGroupingLabel lowercase courseId={courseId} /> yet. Manage student access
+          in <TutorLink to="settings" params={{ courseId: courseId }}>Settings</TutorLink>.
         </p>
         <TutorLink className="btn btn-default" to="settings" params={{ courseId: this.props.period.course.id }}>Manage student access</TutorLink>
       </div>

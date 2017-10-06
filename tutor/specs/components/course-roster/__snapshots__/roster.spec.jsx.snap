@@ -2,15 +2,25 @@
 
 exports[`Course Settings matches snapshot 1`] = `
 <div
-  className=""
-  data-tour-region-id="course-settings"
+  className="course-page roster"
+  data-appearance={undefined}
+  data-book-title=""
+  data-is-preview={false}
+  data-term=" undefined"
+  data-title="Local Test Course"
 >
-  <div
-    className="course-settings panel panel-default"
-    id={undefined}
-  >
+  <header>
     <div
-      className="panel-body"
+      className="title-wrapper"
+    >
+      <div
+        className="title"
+      >
+        Roster
+      </div>
+    </div>
+    <div
+      className="controls-wrapper"
     >
       <div
         className="course-settings-title"
@@ -20,214 +30,47 @@ exports[`Course Settings matches snapshot 1`] = `
       <h4
         className="course-settings-term"
       />
+    </div>
+  </header>
+  <div
+    className="body-wrapper"
+  >
+    <div
+      className="body"
+    >
       <div
-        className="settings-section teachers"
+        className=""
+        data-tour-region-id="course-settings"
       >
         <div
-          className="teachers-table"
+          className="settings-section teachers"
         >
           <div
-            className="heading"
-          >
-            <span
-              className="course-settings-subtitle"
-            >
-              Instructors
-            </span>
-            <button
-              className="control add-teacher btn btn-link"
-              disabled={false}
-              onClick={[Function]}
-              type="button"
-            >
-              <i
-                className="tutor-icon fa fa-plus"
-                type="plus"
-              />
-              Add Instructor
-            </button>
-          </div>
-          <table
-            className="roster table table-striped table-bordered table-condensed table-hover"
-          >
-            <thead>
-              <tr>
-                <th>
-                  First Name
-                </th>
-                <th>
-                  Last Name
-                </th>
-                <th>
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody />
-          </table>
-        </div>
-      </div>
-      <div
-        className="roster"
-      >
-        <div
-          className="settings-section periods"
-        >
-          <nav
-            className="tutor-tabs"
-          >
-            <ul
-              className="nav nav-tabs"
-            >
-              <li
-                className="active"
-              >
-                <a
-                  aria-selected={true}
-                  href="#"
-                  onClick={[Function]}
-                >
-                  <h2>
-                    1st
-                  </h2>
-                </a>
-              </li>
-              <li
-                className=""
-              >
-                <a
-                  aria-selected={false}
-                  href="#"
-                  onClick={[Function]}
-                >
-                  <h2>
-                    2nd
-                  </h2>
-                </a>
-              </li>
-              <li
-                className=""
-              >
-                <a
-                  aria-selected={false}
-                  href="#"
-                  onClick={[Function]}
-                >
-                  <h2>
-                    3rd
-                  </h2>
-                </a>
-              </li>
-              <li
-                className=""
-              >
-                <a
-                  aria-selected={false}
-                  href="#"
-                  onClick={[Function]}
-                >
-                  <h2>
-                    5th
-                  </h2>
-                </a>
-              </li>
-              <li
-                className=""
-              >
-                <a
-                  aria-selected={false}
-                  href="#"
-                  onClick={[Function]}
-                >
-                  <h2>
-                    6th
-                  </h2>
-                </a>
-              </li>
-              <li
-                className=""
-              >
-                <a
-                  aria-selected={false}
-                  href="#"
-                  onClick={[Function]}
-                >
-                  <h2>
-                    10th
-                  </h2>
-                </a>
-              </li>
-            </ul>
-            <button
-              className="control add-period btn btn-link"
-              disabled={false}
-              onClick={[Function]}
-              type="button"
-            >
-              <i
-                className="tutor-icon fa fa-plus"
-                type="plus"
-              />
-              Add
-              <span>
-                Period
-              </span>
-            </button>
-            <div
-              className="visible-when-debugging view-archived-periods unstyled"
-            >
-              <button
-                className="control view-archived-periods btn btn-link"
-                disabled={false}
-                onClick={[Function]}
-                type="button"
-              >
-                View Archived 
-                <span>
-                  Period
-                </span>
-              </button>
-            </div>
-          </nav>
-          <div
-            className="active-period"
+            className="teachers-table"
           >
             <div
-              className="period-edit-controls"
+              className="heading"
             >
               <span
-                className="spacer"
-              />
+                className="course-settings-subtitle"
+              >
+                Instructors
+              </span>
               <button
-                className="control rename-period btn btn-link"
+                className="control add-teacher btn btn-link"
                 disabled={false}
                 onClick={[Function]}
                 type="button"
               >
                 <i
-                  className="tutor-icon fa fa-pencil"
-                  type="pencil"
+                  className="tutor-icon fa fa-plus"
+                  type="plus"
                 />
-                 Rename
-              </button>
-              <button
-                className="control delete-period btn btn-link"
-                disabled={false}
-                onClick={[Function]}
-                type="button"
-              >
-                <i
-                  className="tutor-icon fa fa-trash"
-                  type="trash"
-                />
-                Delete 
-                <span>
-                  Period
-                </span>
+                Add Instructor
               </button>
             </div>
             <table
-              className="roster students table table-striped table-bordered table-condensed table-hover"
+              className="roster table table-striped table-bordered table-condensed table-hover"
             >
               <thead>
                 <tr>
@@ -237,469 +80,199 @@ exports[`Course Settings matches snapshot 1`] = `
                   <th>
                     Last Name
                   </th>
-                  <th
-                    className="student-id"
-                  >
-                    Student ID
-                  </th>
                   <th>
                     Actions
                   </th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    Rabbit
-                  </td>
-                  <td>
-                    Angstrom
-                  </td>
-                  <td>
-                    <div
-                      className="student-id"
-                    >
-                      <div
-                        className="identifier"
-                        onClick={[Function]}
-                      />
-                      <a
-                        href="#"
-                        onClick={[Function]}
-                        tabIndex={0}
-                      >
-                        <i
-                          className="tutor-icon fa fa-edit"
-                          type="edit"
-                        />
-                      </a>
-                    </div>
-                  </td>
-                  <td
-                    className="actions"
-                  >
-                    <a
-                      aria-describedby="change-period"
-                      onClick={[Function]}
-                    >
-                      <i
-                        className="tutor-icon fa fa-clock-o"
-                        type="clock-o"
-                      />
-                       Change 
-                      <span>
-                        Period
-                      </span>
-                    </a>
-                    <a
-                      aria-describedby="drop-student"
-                      onClick={[Function]}
-                    >
-                      <i
-                        className="tutor-icon fa fa-ban"
-                        type="ban"
-                      />
-                       Drop
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Seymour
-                  </td>
-                  <td>
-                    Glass
-                  </td>
-                  <td>
-                    <div
-                      className="student-id"
-                    >
-                      <div
-                        className="identifier"
-                        onClick={[Function]}
-                      />
-                      <a
-                        href="#"
-                        onClick={[Function]}
-                        tabIndex={0}
-                      >
-                        <i
-                          className="tutor-icon fa fa-edit"
-                          type="edit"
-                        />
-                      </a>
-                    </div>
-                  </td>
-                  <td
-                    className="actions"
-                  >
-                    <a
-                      aria-describedby="change-period"
-                      onClick={[Function]}
-                    >
-                      <i
-                        className="tutor-icon fa fa-clock-o"
-                        type="clock-o"
-                      />
-                       Change 
-                      <span>
-                        Period
-                      </span>
-                    </a>
-                    <a
-                      aria-describedby="drop-student"
-                      onClick={[Function]}
-                    >
-                      <i
-                        className="tutor-icon fa fa-ban"
-                        type="ban"
-                      />
-                       Drop
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Bettie
-                  </td>
-                  <td>
-                    Hackett
-                  </td>
-                  <td>
-                    <div
-                      className="student-id"
-                    >
-                      <div
-                        className="identifier"
-                        onClick={[Function]}
-                      />
-                      <a
-                        href="#"
-                        onClick={[Function]}
-                        tabIndex={0}
-                      >
-                        <i
-                          className="tutor-icon fa fa-edit"
-                          type="edit"
-                        />
-                      </a>
-                    </div>
-                  </td>
-                  <td
-                    className="actions"
-                  >
-                    <a
-                      aria-describedby="change-period"
-                      onClick={[Function]}
-                    >
-                      <i
-                        className="tutor-icon fa fa-clock-o"
-                        type="clock-o"
-                      />
-                       Change 
-                      <span>
-                        Period
-                      </span>
-                    </a>
-                    <a
-                      aria-describedby="drop-student"
-                      onClick={[Function]}
-                    >
-                      <i
-                        className="tutor-icon fa fa-ban"
-                        type="ban"
-                      />
-                       Drop
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Giovanny
-                  </td>
-                  <td>
-                    Jaskolski
-                  </td>
-                  <td>
-                    <div
-                      className="student-id"
-                    >
-                      <div
-                        className="identifier"
-                        onClick={[Function]}
-                      />
-                      <a
-                        href="#"
-                        onClick={[Function]}
-                        tabIndex={0}
-                      >
-                        <i
-                          className="tutor-icon fa fa-edit"
-                          type="edit"
-                        />
-                      </a>
-                    </div>
-                  </td>
-                  <td
-                    className="actions"
-                  >
-                    <a
-                      aria-describedby="change-period"
-                      onClick={[Function]}
-                    >
-                      <i
-                        className="tutor-icon fa fa-clock-o"
-                        type="clock-o"
-                      />
-                       Change 
-                      <span>
-                        Period
-                      </span>
-                    </a>
-                    <a
-                      aria-describedby="drop-student"
-                      onClick={[Function]}
-                    >
-                      <i
-                        className="tutor-icon fa fa-ban"
-                        type="ban"
-                      />
-                       Drop
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Kevin
-                  </td>
-                  <td>
-                    Lowe
-                  </td>
-                  <td>
-                    <div
-                      className="student-id"
-                    >
-                      <div
-                        className="identifier"
-                        onClick={[Function]}
-                      />
-                      <a
-                        href="#"
-                        onClick={[Function]}
-                        tabIndex={0}
-                      >
-                        <i
-                          className="tutor-icon fa fa-edit"
-                          type="edit"
-                        />
-                      </a>
-                    </div>
-                  </td>
-                  <td
-                    className="actions"
-                  >
-                    <a
-                      aria-describedby="change-period"
-                      onClick={[Function]}
-                    >
-                      <i
-                        className="tutor-icon fa fa-clock-o"
-                        type="clock-o"
-                      />
-                       Change 
-                      <span>
-                        Period
-                      </span>
-                    </a>
-                    <a
-                      aria-describedby="drop-student"
-                      onClick={[Function]}
-                    >
-                      <i
-                        className="tutor-icon fa fa-ban"
-                        type="ban"
-                      />
-                       Drop
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Alyce
-                  </td>
-                  <td>
-                    Tromp
-                  </td>
-                  <td>
-                    <div
-                      className="student-id"
-                    >
-                      <div
-                        className="identifier"
-                        onClick={[Function]}
-                      >
-                        1234
-                      </div>
-                      <a
-                        href="#"
-                        onClick={[Function]}
-                        tabIndex={0}
-                      >
-                        <i
-                          className="tutor-icon fa fa-edit"
-                          type="edit"
-                        />
-                      </a>
-                    </div>
-                  </td>
-                  <td
-                    className="actions"
-                  >
-                    <a
-                      aria-describedby="change-period"
-                      onClick={[Function]}
-                    >
-                      <i
-                        className="tutor-icon fa fa-clock-o"
-                        type="clock-o"
-                      />
-                       Change 
-                      <span>
-                        Period
-                      </span>
-                    </a>
-                    <a
-                      aria-describedby="drop-student"
-                      onClick={[Function]}
-                    >
-                      <i
-                        className="tutor-icon fa fa-ban"
-                        type="ban"
-                      />
-                       Drop
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
+              <tbody />
             </table>
-            <div
-              className="settings-section dropped-students"
+          </div>
+        </div>
+        <div
+          className="roster"
+        >
+          <div
+            className="settings-section periods"
+          >
+            <nav
+              className="tutor-tabs"
             >
-              <div>
-                <span
-                  className="course-settings-subtitle tabbed"
-                >
-                  Dropped Students
-                </span>
-              </div>
-              <table
-                className="roster table table-striped table-bordered table-condensed table-hover"
+              <ul
+                className="nav nav-tabs"
               >
-                <thead>
-                  <tr>
-                    <th>
-                      First Name
-                    </th>
-                    <th>
-                      Last Name
-                    </th>
-                    <th
-                      className="student-id"
-                    >
-                      Student ID
-                    </th>
-                    <th>
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      Albin
-                    </td>
-                    <td>
-                      Kirlin
-                    </td>
-                    <td>
-                      <div
-                        className="student-id"
-                      >
-                        <div
-                          className="identifier"
-                          onClick={[Function]}
-                        />
-                        <a
-                          href="#"
-                          onClick={[Function]}
-                          tabIndex={0}
-                        >
-                          <i
-                            className="tutor-icon fa fa-edit"
-                            type="edit"
-                          />
-                        </a>
-                      </div>
-                    </td>
-                    <td
-                      className="actions"
-                    >
-                      <a
-                        aria-describedby="drop-student-popover-1"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="tutor-icon fa fa-plus"
-                          type="plus"
-                        />
-                         Add Back to Active Roster
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Ignatius
-                    </td>
-                    <td>
-                      Reilly
-                    </td>
-                    <td>
-                      <div
-                        className="student-id"
-                      >
-                        <div
-                          className="identifier"
-                          onClick={[Function]}
-                        />
-                        <a
-                          href="#"
-                          onClick={[Function]}
-                          tabIndex={0}
-                        >
-                          <i
-                            className="tutor-icon fa fa-edit"
-                            type="edit"
-                          />
-                        </a>
-                      </div>
-                    </td>
-                    <td
-                      className="actions"
-                    >
-                      <a
-                        aria-describedby="drop-student-popover-6"
-                        onClick={[Function]}
-                      >
-                        <i
-                          className="tutor-icon fa fa-plus"
-                          type="plus"
-                        />
-                         Add Back to Active Roster
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                <li
+                  className="active"
+                >
+                  <a
+                    aria-selected={true}
+                    href="#"
+                    onClick={[Function]}
+                  >
+                    <h2>
+                      1st
+                    </h2>
+                  </a>
+                </li>
+                <li
+                  className=""
+                >
+                  <a
+                    aria-selected={false}
+                    href="#"
+                    onClick={[Function]}
+                  >
+                    <h2>
+                      2nd
+                    </h2>
+                  </a>
+                </li>
+                <li
+                  className=""
+                >
+                  <a
+                    aria-selected={false}
+                    href="#"
+                    onClick={[Function]}
+                  >
+                    <h2>
+                      3rd
+                    </h2>
+                  </a>
+                </li>
+                <li
+                  className=""
+                >
+                  <a
+                    aria-selected={false}
+                    href="#"
+                    onClick={[Function]}
+                  >
+                    <h2>
+                      5th
+                    </h2>
+                  </a>
+                </li>
+                <li
+                  className=""
+                >
+                  <a
+                    aria-selected={false}
+                    href="#"
+                    onClick={[Function]}
+                  >
+                    <h2>
+                      6th
+                    </h2>
+                  </a>
+                </li>
+                <li
+                  className=""
+                >
+                  <a
+                    aria-selected={false}
+                    href="#"
+                    onClick={[Function]}
+                  >
+                    <h2>
+                      10th
+                    </h2>
+                  </a>
+                </li>
+              </ul>
+              <button
+                className="control add-period btn btn-link"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                <i
+                  className="tutor-icon fa fa-plus"
+                  type="plus"
+                />
+                Add
+                <span>
+                  Period
+                </span>
+              </button>
+              <div
+                className="visible-when-debugging view-archived-periods unstyled"
+              >
+                <button
+                  className="control view-archived-periods btn btn-link"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  View Archived 
+                  <span>
+                    Period
+                  </span>
+                </button>
+              </div>
+            </nav>
+            <div
+              className="active-period"
+            >
+              <div
+                className="period-edit-controls"
+              >
+                <span
+                  className="spacer"
+                />
+                <button
+                  className="control rename-period btn btn-link"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <i
+                    className="tutor-icon fa fa-pencil"
+                    type="pencil"
+                  />
+                   Rename
+                </button>
+                <button
+                  className="control delete-period btn btn-link"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <i
+                    className="tutor-icon fa fa-trash"
+                    type="trash"
+                  />
+                  Delete 
+                  <span>
+                    Period
+                  </span>
+                </button>
+              </div>
+              <div
+                className="roster-empty-info"
+              >
+                <p>
+                  No students have enrolled in this 
+                  <span>
+                    period
+                  </span>
+                   yet. Manage student access in 
+                  <a
+                    href="settings"
+                    onClick={[Function]}
+                  >
+                    Settings
+                  </a>
+                  .
+                </p>
+                <a
+                  className="btn btn-default"
+                  href="settings"
+                  onClick={[Function]}
+                >
+                  Manage student access
+                </a>
+              </div>
             </div>
           </div>
         </div>
