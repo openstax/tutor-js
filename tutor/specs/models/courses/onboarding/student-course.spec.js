@@ -36,10 +36,11 @@ describe('Full Course Onboarding', () => {
     ux.course.needsPayment = true;
     ux.course.userStudentRecord = {};
     expect(ux.nagComponent).toBe(Nags.payNowOrLater);
+    User.terms_signatures_needed = false;
     ux.course.userStudentRecord = { mustPayImmediately: true };
     expect(ux.nagComponent).toBe(Nags.freeTrialEnded);
     User.terms_signatures_needed = true;
-    expect(ux.nagComponent).toBeNull();
+    expect(ux.nagComponent).toBe(Nags.freeTrialEnded);
   });
 
   it('#payNow', () => {
