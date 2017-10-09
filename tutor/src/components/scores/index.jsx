@@ -80,7 +80,7 @@ export default class StudentScores extends React.PureComponent {
 
   @computed get isLoading() {
     const { course: { scores } } = this;
-    return Boolean(0 === scores.periods.size && scores.hasApiRequestPending);
+    return Boolean(0 === scores.periods.size && scores.api.isPending);
   }
 
   renderControls() {

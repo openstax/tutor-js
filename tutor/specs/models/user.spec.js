@@ -1,6 +1,7 @@
 import { autorun } from 'mobx';
 
 import User from '../../src/models/user';
+import { UserTerms } from '../../src/models/user/terms';
 import Courses from '../../src/models/courses-map';
 import UiSettings from 'shared/src/model/ui-settings';
 
@@ -12,6 +13,13 @@ jest.mock('shared/src/model/ui-settings');
 describe('User Model', () => {
   afterEach(() => {
     User.viewed_tour_stats.clear();
+  });
+
+  it('has terms', () => {
+    User.terms_signatures_needed = false;
+    expect(User.terms).toBeNull();
+    User.terms_signatures_needed = true;
+    expect(User.terms).toBeInstanceOf(UserTerms);
   });
 
   it('can be bootstrapped', () => {

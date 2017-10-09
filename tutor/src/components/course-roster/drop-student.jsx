@@ -19,7 +19,7 @@ export default class DropStudentLink extends React.PureComponent {
   }
 
   popOverTitle() {
-    if (this.props.student.hasApiRequestPending) {
+    if (this.props.student.api.isPending) {
       return (
         <span><Icon type="spinner" spin />Dropping…</span>
       );

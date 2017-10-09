@@ -1,6 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
+import { isEmpty } from 'lodash';
 import { observable, action, computed } from 'mobx';
 
 import Icon from '../icon';
@@ -74,7 +75,7 @@ export default class StudentIdField extends React.PureComponent {
   @computed get hasError() {
     const { student } = this.props;
     return Boolean(
-      !student.apiRequestsInProgress && student.apiErrors
+      !student.api.requestsInProgress && !isEmpty(student.api.errors)
     );
   }
 
@@ -90,7 +91,7 @@ export default class StudentIdField extends React.PureComponent {
           }} />
       );
     }
-    const busy = this.props.student.hasApiRequestPending;
+    const busy = this.props.student.api.isPending;
     return (
       <Icon
         type={busy ? 'spinner' : 'edit'}

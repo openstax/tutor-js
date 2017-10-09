@@ -13,9 +13,9 @@ describe('Course Enrollment', function() {
 
   it('#isPending', () => {
     expect(enroll.isPending).toBe(true);
-    enroll.apiErrors = { foo: 'bar' };
+    enroll.api.errors = { foo: 'bar' };
     expect(enroll.isPending).toBe(false);
-    enroll.apiErrors = null;
+    enroll.api.errors = null;
     expect(enroll.isPending).toBe(true);
     enroll.to = { course: { name: 'test' } };
     expect(enroll.isPending).toBe(false);
@@ -24,21 +24,21 @@ describe('Course Enrollment', function() {
   it('#courseName', () => {
     enroll.to = { course: { name: 'test course' } };
     expect(enroll.courseName).toEqual('test course');
-    enroll.apiErrors = { is_teacher: { data: { course_name: 'TEST COURSE' } } };
+    enroll.api.errors = { is_teacher: { data: { course_name: 'TEST COURSE' } } };
     expect(enroll.courseName).toEqual('TEST COURSE');
   });
 
   it('#isInvalid', () => {
     expect(enroll.isInvalid).toBe(false);
-    enroll.apiErrors = { invalid_enrollment_code: 'true' };
+    enroll.api.errors = { invalid_enrollment_code: 'true' };
     expect(enroll.isInvalid).toBe(true);
   });
 
   it('#isRegistered', () => {
     expect(enroll.isRegistered).toBe(false);
-    enroll.apiErrors = { already_enrolled: 'true' };
+    enroll.api.errors = { already_enrolled: 'true' };
     expect(enroll.isRegistered).toBe(true);
-    enroll.apiErrors = null;
+    enroll.api.errors = null;
     expect(enroll.isRegistered).toBe(false);
     enroll.status = 'processed';
     expect(enroll.isRegistered).toBe(true);

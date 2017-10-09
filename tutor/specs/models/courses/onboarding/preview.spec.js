@@ -19,6 +19,7 @@ jest.mock('../../../../src/models/teacher-task-plans', () => ({
       active: mockActiveCoursePlans,
     };
   },
+  api: {},
 }));
 
 describe('Course Preview Onboarding', () => {

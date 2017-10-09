@@ -46,7 +46,7 @@ export default class CourseBuilderUX extends BaseModel {
     }, true);
 
     observe(this, 'currentStageIndex', ({ newValue: index }) => {
-      if (index === this.stages.length - 1 && !this.newCourse.hasApiRequestPending) {
+      if (index === this.stages.length - 1 && !this.newCourse.api.isPending) {
         this.newCourse.save().then(this.afterCreate);
       }
     });

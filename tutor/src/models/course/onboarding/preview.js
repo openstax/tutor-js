@@ -32,7 +32,7 @@ export default class PreviewOnboarding extends BaseOnboarding {
   @computed get shouldWarnPreviewOnly() {
     if (!HAS_PUBLISHED.get() ||
         this.hasCreatedRealCourse ||
-        TeacherTaskPlans.hasApiRequestPending
+        TeacherTaskPlans.api.isPending
     ) { return false; }
 
     const plans = TeacherTaskPlans.forCourseId(this.course.id).active;

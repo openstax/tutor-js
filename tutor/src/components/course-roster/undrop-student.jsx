@@ -31,7 +31,7 @@ export default class UnDropStudentLink extends React.PureComponent {
   }
 
   popOverBody() {
-    if (this.props.student.hasApiRequestPending) {
+    if (this.props.student.api.isPending) {
       return (
         <span><Icon type="spinner" spin />Restoring…</span>
       );
@@ -49,7 +49,7 @@ export default class UnDropStudentLink extends React.PureComponent {
 
 
   popOverTitle() {
-    if (this.props.student.hasApiRequestPending) {
+    if (this.props.student.api.isPending) {
       return (
         <span><Icon type="spinner" spin />Restoring…</span>
       );

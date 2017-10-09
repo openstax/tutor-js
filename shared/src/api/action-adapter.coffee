@@ -139,11 +139,13 @@ connectModelAction = (action, apiHandler, klass, method, options) ->
       bind(this[options.onFail] , this, bind.placeholder, reqArgs, requestConfig)
     else
       apiHandler.getOptions().handlers.onFail
-    this.apiRequestsInProgress?.set(action, requestConfig)
+
+    this.api?.requestsInProgress.set(action, requestConfig)
     apiHandler.send(requestConfig, perRequestOptions, firstArg).then((reply) =>
-      this.apiRequestsInProgress?.delete(action)
+      this.api?.requestCounts[action] += 1
+      this.api?.requestsInProgress.delete(action)
       reply
-    ).catch( => this.apiRequestsInProgress?.delete(action))
+    ).catch( => this.api?.requestsInProgress.delete(action))
 
   klass.prototype[method] = wrap(klass.prototype[method] or emptyFn, handler)
 
@@ -151,7 +153,7 @@ connectModelAction = (action, apiHandler, klass, method, options) ->
 adaptHandler = (apiHandler) ->
   connectHandler: partial(connectHandler, apiHandler)
   connectCreate:  partial(connectAction, 'create', apiHandler)
-  connectRead:    partial(connectAction, 'read', apiHandler)
+  connectRead:    partial(connectAction, 'read',   apiHandler)
   connectUpdate:  partial(connectAction, 'update', apiHandler)
   connectDelete:  partial(connectAction, 'delete', apiHandler)
   connectModify:  partial(connectAction, 'modify', apiHandler)

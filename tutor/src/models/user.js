@@ -48,8 +48,7 @@ export class User extends BaseModel {
   }
 
   @computed get terms() {
-    return this.terms_signatures_needed ?
-           new UserTerms({ user: this }) : null;
+    return this.terms_signatures_needed ? new UserTerms({ user: this }) : null;
   }
 
   @computed get unsignedTerms() {

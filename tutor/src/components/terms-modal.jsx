@@ -31,7 +31,7 @@ export default class TermsModal extends React.PureComponent {
         animation={false}
         show={true}
         backdrop="static"
-        className={classnames('user-terms', { 'is-loading': User.terms.hasApiRequestPending })}
+        className={classnames('user-terms', { 'is-loading': User.terms.api.isPending })}
       >
         <Modal.Header>
           <Branding isBeta={true} /> {this.title}

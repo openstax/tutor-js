@@ -75,13 +75,13 @@ export default class NewCourseWizard extends React.PureComponent {
   }
 
   @computed get isBusy() {
-    return Boolean(this.props.isLoading || this.ux.newCourse.hasApiRequestPending);
+    return Boolean(this.props.isLoading || this.ux.newCourse.api.isPending);
   }
 
   render() {
     const wizardClasses = classnames('new-course-wizard', this.ux.stage, {
       'is-loading': this.isBusy,
-      'is-building': this.ux.newCourse.apiRequestsInProgress,
+      'is-building': this.ux.newCourse.api.requestsInProgress,
     });
     const Component = componentFor(this.ux.stage);
 
