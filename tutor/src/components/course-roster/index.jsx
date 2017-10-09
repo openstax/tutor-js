@@ -74,7 +74,7 @@ export default class CourseRoster extends React.PureComponent {
         {course.name}
       </div>,
       <h4 key="term" className="course-settings-term">
-        {course.term}
+        {course.termFull}
       </h4>,
     ];
   }
