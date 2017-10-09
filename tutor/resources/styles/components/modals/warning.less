@@ -1,0 +1,25 @@
+.modal {
+  .ost-hero-background();
+
+  &.warning.in {
+    z-index: 1;
+    .modal-dialog {
+      transform: translateY(110px);
+    }
+  }
+
+  &.warning .modal-header,
+  .modal-header.warning
+  {
+    background-color: #f5e9ea;
+    color: #b33238;
+    display: flex;
+    align-items: center;
+    .tutor-icon {
+      font-size: 24px;
+      color: @tutor-danger;
+      margin-right: 0.5rem;
+    }
+  }
+
+}

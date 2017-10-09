@@ -7,6 +7,7 @@ TutorRouter = require '../helpers/router'
 
 {default: CCStudentRedirect}       = require '../components/cc-student-redirect'
 {default: StudentDashboardShell} = require '../components/student-dashboard'
+{default: WarningModal} = require '../components/warning-modal'
 CCDashboard = require '../components/cc-dashboard'
 {CourseStore} = require '../flux/course'
 
@@ -29,7 +30,12 @@ module.exports =
     extend(props, {courseId})
     course = CourseStore.get(courseId)
     unless course
-      return <InvalidPage message="course was not found" />
+      return (
+        <WarningModal
+          title="Sorry, you can’t access this course"
+          message="You are no longer a student in this course. Please contact your instructor if you are still enrolled in this course and need to be re-added."
+        />
+      )
     unless props.match.isExact
       return <MatchForTutor {...props} />
 

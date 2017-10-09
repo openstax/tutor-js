@@ -209,7 +209,7 @@ startAPI = ->
 
   connectModelUpdate(Course, 'save', pattern: 'courses/{id}', onSuccess: 'onApiRequestComplete')
 
-  connectModelRead(CourseLMS, 'fetch', pattern: 'lms/{course.id}', onSuccess: 'onApiRequestComplete')
+  connectModelRead(CourseLMS, 'fetch', pattern: 'lms/courses/{course.id}', onSuccess: 'onApiRequestComplete')
 
   connectModelUpdate(LmsPushScores, 'start', method: 'PUT', pattern: 'lms/courses/{course.id}/push_scores', onSuccess: 'onStarted')
 
@@ -246,7 +246,6 @@ BOOTSTRAPED_MODELS = {
 }
 
 start = (bootstrapData) ->
-  console.log(bootstrapData)
   for storeId, model of BOOTSTRAPED_MODELS
     data = bootstrapData[storeId]
     model.bootstrap(data)

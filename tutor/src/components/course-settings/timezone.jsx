@@ -146,7 +146,7 @@ export default class SetTimezone extends React.PureComponent {
     this.invalid = !TimeHelper.isTimezoneValid(timezone);
   }
 
-  performUpdate() {
+  @action.bound performUpdate() {
     if (this.invalid) { return; }
     this.props.course.time_zone = this.course_timezone;
     this.props.course.save().then(this.close);

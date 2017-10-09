@@ -2,13 +2,14 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { isEmpty, sortBy } from 'lodash';
 import { Table } from 'react-bootstrap';
-
+import TutorLink from '../link';
 import { autobind } from 'core-decorators';
 import ChangePeriodLink from './change-period';
 import DropStudentLink from './drop-student';
 import CourseGroupingLabel from '../course-grouping-label';
 import StudentIdField from './student-id-field';
 import Period from '../../models/course/period';
+
 
 @observer
 export default class StudentsRoster extends React.PureComponent {
@@ -41,14 +42,15 @@ export default class StudentsRoster extends React.PureComponent {
   }
 
   renderEmpty(course) {
+    const courseId = course.id;
     return (
       <div className="roster-empty-info">
-        Use the "Get Student Enrollment Code" link above to get the code for
-        this <CourseGroupingLabel lowercase={true} courseId={course.id} /> of your course.
-        As your students login to Concept Coach, they will start appearing here.
-        You will be able to drop students or change
-        their <CourseGroupingLabel lowercase={true} plural={true} courseId={course.id} /> from
-        this page.
+        <p>
+          No students have enrolled in
+          this <CourseGroupingLabel lowercase courseId={courseId} /> yet. Manage student access
+          in <TutorLink to="settings" params={{ courseId: courseId }}>Settings</TutorLink>.
+        </p>
+        <TutorLink className="btn btn-default" to="settings" params={{ courseId: this.props.period.course.id }}>Manage student access</TutorLink>
       </div>
     );
   }

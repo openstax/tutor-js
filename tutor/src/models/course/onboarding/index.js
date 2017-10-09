@@ -4,6 +4,8 @@ import Preview from './preview';
 
 export default function onboardingForCourse(course, context) {
   let Klass;
+  if (!course) { return {}; }
+
   if (course.isStudent) {
     Klass = StudentCourse;
   } else {

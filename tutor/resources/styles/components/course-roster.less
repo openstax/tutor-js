@@ -28,16 +28,15 @@
   }
 }
 
-.course-settings {
+.course-page.roster  {
+
   .course-settings-title {
     #fonts > .main-title();
-    display: inline-block;
   }
   .course-settings-subtitle {
     #fonts > .main-subtitle();
     &.tabbed { padding-top: 20px; }
     padding-bottom: 15px;
-    display: inline-block;
   }
   .course-settings-term {
     margin-top: 0;
@@ -52,8 +51,8 @@
     }
   }
 
-  .nav-tabs {
-    span { max-width: 100px; }
+  .settings-section.teachers {
+    margin-top: 40px;
   }
 
   .period-edit-controls {
@@ -146,6 +145,9 @@
   line-height: 2.2rem;
   padding: 0px 20px 0px 20px;
   color: @tutor-neutral;
+  margin: 40px;
+  text-align: center;
+  p { margin: 20px; }
 }
 
 .course-settings .no-archive-help {
