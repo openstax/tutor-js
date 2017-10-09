@@ -8,6 +8,10 @@ const COURSE_ID = '123';
 describe('Teacher Task Plans', function() {
   afterEach(() => TeacherTaskPlans.clear());
 
+  it('has api', () => {
+    expect(TeacherTaskPlans.api).not.toBeUndefined();
+  });
+
   it('should load tasks and notify', () => {
     const changeSpy = jest.fn();
     autorun(() => {
