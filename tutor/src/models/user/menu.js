@@ -115,12 +115,6 @@ const ROUTES = {
     href: '/content_analyst',
     isAllowed() { return !!User.is_content_analyst; },
   },
-  accessibilityStatement: {
-    label: 'Accessibility statement',
-    params(course) {
-      return { courseId: course.courseId };
-    },
-  },
 
 };
 

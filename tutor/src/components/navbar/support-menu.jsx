@@ -26,6 +26,10 @@ class SupportMenuDropDown extends React.PureComponent {
     tourContext: React.PropTypes.object.isRequired,
   }
 
+  static contextTypes = {
+    router: React.PropTypes.object,
+  }
+
   componentDidMount() {
     Chat.setElementVisiblity(findDOMNode(this.chatEnabled), findDOMNode(this.chatDisabled));
   }
@@ -109,9 +113,9 @@ class SupportMenuDropDown extends React.PureComponent {
           key="nav-keyboard-shortcuts"
           className="-help-link"
           onSelect={this.onSelect}
-          href="/accessibility-statement/"
+          onClick={() => this.context.router.history.push("/accessibility-statement/")}
         >
-          <span>Keyboard Shortcuts</span>
+          <span>Accessibility statement</span>
         </MenuItem>
         {this.renderChat()}
       </TourAnchor>

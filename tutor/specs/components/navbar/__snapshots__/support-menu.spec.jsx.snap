@@ -72,6 +72,22 @@ exports[`Support Menu renders and matches snapshot 1`] = `
         </span>
       </a>
     </li>
+    <li
+      className="-help-link"
+      role="presentation"
+      style={undefined}
+    >
+      <a
+        href="#"
+        onClick={[Function]}
+        role="menuitem"
+        tabIndex="-1"
+      >
+        <span>
+          Accessibility statement
+        </span>
+      </a>
+    </li>
   </ul>
 </div>
 `;
