@@ -5,7 +5,6 @@ import freshlyCreatedCourse from './freshly-created-course';
 import courseUseTips from './course-use-tips';
 
 import thanksForNow from './thank-you-for-now';
-import thanksAnways from './thanks-anyways';
 
 import payNowOrLater      from './pay-now-or-later';
 import makePayment        from './make-payment';
@@ -21,7 +20,6 @@ export default {
   freshlyCreatedCourse,
   courseUseTips,
   thanksForNow,
-  thanksAnways,
 
   payNowOrLater,
   payDisabled,

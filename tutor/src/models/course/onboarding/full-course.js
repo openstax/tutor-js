@@ -13,13 +13,13 @@ const ONBOARDING_CHOICE = 'OBC';
 const LAST_NAG_TIME = 'OBNT';
 const NAG_INTERVAL = 1000 * 60 * 60 * 24 * 7; // 1 week in milliseconds
 
-// NOTE - the strings for the key's below are meaningful and MUST match what's expected by the BE
+// NOTE - the strings for the key's below are meaningful and MUST
+// match what's expected by the BE
+// To update what's displayed to the user, see the `usageOptions` method
 const CHOICES = {
   cc: 'For course credit',
   exc: 'For extra credit',
-  adr: 'As an additional resource',
   dn: 'I dont know yet',
-  wu: 'I wont be using it',
 };
 
 export default class FullCourseOnboarding extends BaseOnboarding {
@@ -31,12 +31,10 @@ export default class FullCourseOnboarding extends BaseOnboarding {
 
     if (this.displayInitialPrompt) {
       return Nags.freshlyCreatedCourse;
-    } else if (includes(['cc', 'exc', 'adr'], this.response)) {
+    } else if (includes(['cc', 'exc'], this.response)) {
       return Nags.courseUseTips;
     } else if (this.response === 'dn') {
       return Nags.thanksForNow;
-    } else if (this.response === 'wu') {
-      return Nags.thanksAnways;
     }
     return null;
   }
@@ -75,11 +73,9 @@ export default class FullCourseOnboarding extends BaseOnboarding {
 
   get usageOptions() {
     return {
-      cc: 'Required for some course credit',
+      cc: 'Required as part of the grade',
       exc: 'For extra credit',
-      adr: 'As an additional resource',
       dn: 'I don’t know yet',
-      wu: 'I won’t be using it',
     };
   }
 
