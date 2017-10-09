@@ -1,6 +1,7 @@
 import { autorun } from 'mobx';
 
 import User from '../../src/models/user';
+import { UserTerms } from '../../src/models/user/terms';
 import Courses from '../../src/models/courses-map';
 import UiSettings from 'shared/src/model/ui-settings';
 
@@ -15,7 +16,10 @@ describe('User Model', () => {
   });
 
   it('has terms', () => {
-    expect(User.terms.api.isPending).toBe(false);
+    User.terms_signatures_needed = false;
+    expect(User.terms).toBeNull();
+    User.terms_signatures_needed = true;
+    expect(User.terms).toBeInstanceOf(UserTerms);
   });
 
   it('can be bootstrapped', () => {
