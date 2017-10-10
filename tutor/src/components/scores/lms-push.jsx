@@ -24,7 +24,8 @@ export default class LmsPush extends React.PureComponent {
   }
 
   render() {
-    const { lmsPush } = this;
+    const { lmsPush, props: { course } } = this;
+    if (!course.is_lms_enabled) { return null; }
 
     return (
       <TourAnchor className="scores-push" id="scores-export-button">
