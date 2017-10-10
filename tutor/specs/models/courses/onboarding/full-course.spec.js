@@ -46,12 +46,12 @@ describe('Full Course Onboarding', () => {
   });
 
   it('#recordExpectedUse(decision)', () => {
-    ux.recordExpectedUse('wu');
+    ux.recordExpectedUse('cc');
     expect(User.logEvent).toHaveBeenCalledWith({
       category: 'onboarding', code: 'made_adoption_decision',
-      data: { decision: 'I wont be using it' },
+      data: { decision: 'For course credit' },
     });
-    expect(UiSettings.set).toHaveBeenCalledWith('OBC', 1, 'wu');
+    expect(UiSettings.set).toHaveBeenCalledWith('OBC', 1, 'cc');
   });
 
   it('hides itself if tour is being displayed', () => {
