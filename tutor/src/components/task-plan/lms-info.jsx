@@ -92,13 +92,25 @@ export default class LmsInfoPanel extends React.PureComponent {
     );
   }
 
+  renderPreview() {
+    return (
+      <div className="lms-info preview">
+        <a className="back" onClick={this.props.onBack}>
+          <Icon type="chevron-left" /> Back
+        </a>
+        <p>
+          Assignment links are not available in preview courses. In
+          a live course, you can send assignment links directly
+          to your students or manually paste them into your
+          learning management system.
+        </p>
+      </div>
+    );
+  }
+
   render() {
     if (this.isPreview) {
-      return (
-        <div className="lms-info preview">
-          No assignment links for preview courses
-        </div>
-      );
+      return this.renderPreview();
     }
     return (
       <div className="lms-info">
