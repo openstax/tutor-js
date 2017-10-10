@@ -297,23 +297,23 @@ exports[`Course Settings, student access can switch to lms 1`] = `
             <label
               className="copy-on-focus"
             >
-              Secret
-              <input
-                className={null}
-                onFocus={[Function]}
-                readOnly={true}
-                value="secret-sshhh"
-              />
-            </label>
-            <label
-              className="copy-on-focus"
-            >
               Key
               <input
                 className={null}
                 onFocus={[Function]}
                 readOnly={true}
                 value="key-123"
+              />
+            </label>
+            <label
+              className="copy-on-focus"
+            >
+              Secret
+              <input
+                className={null}
+                onFocus={[Function]}
+                readOnly={true}
+                value="secret-sshhh"
               />
             </label>
             <label
