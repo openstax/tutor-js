@@ -157,10 +157,9 @@ export default class CourseEnrollment extends BaseModel {
     CourseListingActions.load();
   }
 
-
   // called by api
   create() {
-    if (this.isFromLms) {
+    if (this.needsPeriodSelection) {
       this.courseToJoin = new Course();
       return { method: 'GET', url: `enrollment/${this.originalEnrollmentCode}/choices` };
     }
@@ -168,7 +167,7 @@ export default class CourseEnrollment extends BaseModel {
   }
 
   onEnrollmentCreate({ data }) {
-    if (this.isFromLms) {
+    if (this.needsPeriodSelection) {
       if (!this.courseToJoin) { this.courseToJoin = new Course(); }
       this.courseToJoin.update(data);
     } else {
