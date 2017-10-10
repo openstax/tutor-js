@@ -68,8 +68,8 @@ export default class LMSAccessPanel extends React.PureComponent {
           Copy the information below and paste into your LMS where prompted. Then
           launch OpenStax Tutor from your LMS to pair.
         </p>
-        <CopyOnFocusInput label="Secret" value={lms.secret} />
         <CopyOnFocusInput label="Key" value={lms.key} />
+        <CopyOnFocusInput label="Secret" value={lms.secret} />
         <CopyOnFocusInput label="URL" value={lms.url} />
         <a href="http://4tk3oi.axshare.com/salesforce_support_page_results.html" target="_blank">
           <Icon type="info-circle" /> How do I do this?
