@@ -57,6 +57,26 @@ describe('Course Enrollment', function() {
     expect(enroll.confirm()).toEqual({ data: { student_identifier: '1234' } });
   });
 
+  test('confirmation api flow', () => {
+    enroll.enrollment_code = enroll.originalEnrollmentCode = 'e1e1a822-0985-4b54-b5ab-f0963d98c494';
+    expect(enroll.needsPeriodSelection).toBe(true);
+    expect(enroll.courseToJoin).toBeUndefined();
+    expect(enroll.create()).toEqual({ method: 'GET', url: `enrollment/${enroll.originalEnrollmentCode}/choices` });
+    expect(enroll.courseToJoin).not.toBeUndefined();
+    enroll.onEnrollmentCreate({ data: { id: '1234' } });
+    expect(enroll.courseToJoin.id).toEqual('1234');
+    expect(enroll.id).toBeUndefined();
+    enroll.enrollment_code = '1234';
+    expect(enroll.needsPeriodSelection).toBe(false);
+    expect(enroll.create()).toEqual({ data: { enrollment_code: '1234' } });
+    enroll.onEnrollmentCreate({ data: { id: '1234' } });
+    expect(enroll.id).toEqual('1234');
+    enroll.student_identifier = 'student-id-1234';
+    expect(enroll.confirm()).toEqual(
+      { data: { student_identifier: 'student-id-1234' } }
+    );
+  });
+
   it('blocks lms and links from the wrong way', () => {
     enroll.to = { course: { is_lms_enabled: true } };
     let comp = mount(enroll.bodyContents);
