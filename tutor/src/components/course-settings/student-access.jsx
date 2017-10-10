@@ -136,10 +136,16 @@ export default class StudentAccess extends React.PureComponent {
     );
   }
 
+  renderPreviewMessage() {
+    return <p>Create a live course to view student access options.</p>;
+  }
+
   render() {
     const { course } = this.props;
     let body = null;
-    if (course.canOnlyUseEnrollmentLinks) {
+    if (course.is_preview) {
+      body = this.renderPreviewMessage();
+    } else if (course.canOnlyUseEnrollmentLinks) {
       body = this.renderDirectLinks();
     } else if (course.canOnlyUseLMS) {
       body = <LMS course={course} />;
