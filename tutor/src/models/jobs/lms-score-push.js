@@ -4,8 +4,9 @@ import {
 
 import moment from 'moment';
 import { UiSettings } from 'shared';
-import { TimeStore } from '../../flux/time';
 import { observable, computed } from 'mobx';
+import { TimeStore } from '../../flux/time';
+import { Completed } from './queue';
 
 import Job from '../job';
 
@@ -37,10 +38,14 @@ export default class LmsScorePush extends Job {
     return date ? moment(date).format('M/D/YY, h:mma') : 'Never';
   }
 
-  onPollComplete() {
+  onPollComplete(info) {
     UiSettings.set(LAST_PUSH, this.course.id, TimeStore.getNow().toISOString());
+    Completed.push({
+      type: 'lms',
+      succeeded: !this.hasFailed,
+      info,
+    });
   }
-
 
   start() { }
 
