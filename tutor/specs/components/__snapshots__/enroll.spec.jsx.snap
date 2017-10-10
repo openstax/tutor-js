@@ -205,9 +205,9 @@ exports[`Student Enrollment select periods matches snapshot 1`] = `
             >
               You are joining
             </p>
-            <h3>
+            <h4>
               My Grand Course
-            </h3>
+            </h4>
           </div>
           <p>
             Please select the section you are a member of
@@ -281,9 +281,9 @@ exports[`Student Enrollment submits with student id when form is clicked 1`] = `
             >
               You are joining
             </p>
-            <h3>
+            <h4>
               
-            </h3>
+            </h4>
           </div>
           <div
             className="sub-title"

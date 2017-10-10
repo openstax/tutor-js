@@ -8,7 +8,7 @@ export default function StudentIDForm({ enrollment }) {
       <Modal.Body>
         <div className="title">
           <p className="joining">You are joining</p>
-          <h3>{enrollment.courseName}</h3>
+          <h4>{enrollment.courseName}</h4>
         </div>
 
         <div className="sub-title">Enter your school-issued student ID number *</div>
