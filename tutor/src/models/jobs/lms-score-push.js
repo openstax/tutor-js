@@ -33,7 +33,7 @@ export default class LmsScorePush extends Job {
   }
 
   @computed get lastPushedAt() {
-    const date = UiSettings.set(LAST_PUSH, this.course.id);
+    const date = UiSettings.get(LAST_PUSH, this.course.id);
     return date ? moment(date).format('M/D/YY, h:mma') : 'Never';
   }
 

@@ -27,7 +27,7 @@ export default class ScoresExport extends Job {
   @session url;
 
   @computed get lastExportedAt() {
-    const date = UiSettings.set(LAST_EXPORT, this.course.id);
+    const date = UiSettings.get(LAST_EXPORT, this.course.id);
     return date ? moment(date).format('M/D/YY, h:mma') : 'Never';
   }
 
