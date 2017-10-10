@@ -63,7 +63,7 @@ describe('Course Enrollment', function() {
     expect(comp.text()).toContain('this enrollment link isn’t valid');
 
     enroll.to.is_lms_enabled = false;
-    enroll.enrollment_code = 'e1e1a822-0985-4b54-b5ab-f0963d98c494';
+    enroll.originalEnrollmentCode = 'e1e1a822-0985-4b54-b5ab-f0963d98c494';
     enroll.courseToJoin = { is_lms_enabled: false };
     expect(enroll.isFromLms).toBe(true);
     expect(enroll.courseIsLmsEnabled).toBe(false);

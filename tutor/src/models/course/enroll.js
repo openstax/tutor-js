@@ -21,7 +21,8 @@ export default class CourseEnrollment extends BaseModel {
   @field enrollment_code;
 
   @field student_identifier;
-
+  @session pendingEnrollmentCode;
+  @session originalEnrollmentCode;
   @session({ type: 'object' }) to = {};
   @session status;
   @session({ type: 'object' }) router;
@@ -31,6 +32,7 @@ export default class CourseEnrollment extends BaseModel {
 
   constructor(...args) {
     super(...args);
+    this.originalEnrollmentCode = this.enrollment_code;
     when(
       () => this.isRegistered,
       () => this.fetchCourses(),
@@ -48,7 +50,7 @@ export default class CourseEnrollment extends BaseModel {
       return this.renderComponent('invalidTeacher');
     } else if (this.isInvalid) {
       return this.renderComponent('invalidCode');
-    } else if (this.courseToJoin) {
+    } else if (this.needsPeriodSelection) {
       return this.renderComponent('selectPeriod');
     } else if (this.isComplete) {
       if (this.courseId)
@@ -67,12 +69,23 @@ export default class CourseEnrollment extends BaseModel {
 
   @action.bound
   selectPeriod(period) {
-    this.enrollment_code = period.enrollment_code;
+    this.pendingEnrollmentCode = period.enrollment_code;
+  }
+
+  @computed get periodIsSelected() {
+    return Boolean(this.pendingEnrollmentCode);
+  }
+
+  @action.bound
+  onSubmitPeriod() {
+    this.courseToJoin = null;
+    this.enrollment_code = this.pendingEnrollmentCode;
+    this.create();
   }
 
   @computed get courseIsLmsEnabled() {
     return this.courseToJoin ?
-      this.courseToJoin.is_lms_enabled : get(this, 'to.course.is_lms_enabled', null);
+           this.courseToJoin.is_lms_enabled : get(this, 'to.course.is_lms_enabled', null);
   }
 
   @action.bound
@@ -84,12 +97,6 @@ export default class CourseEnrollment extends BaseModel {
   onCancelStudentId() {
     this.student_identifier = '';
     this.onConfirm();
-  }
-
-  @action.bound
-  onSubmitPeriod() {
-    this.courseToJoin = null;
-    this.create();
   }
 
   @action.bound
@@ -129,11 +136,11 @@ export default class CourseEnrollment extends BaseModel {
   }
 
   @computed get needsPeriodSelection() {
-    return this.isFromLms;
+    return Boolean(this.isFromLms && S.isUUID(this.enrollment_code));
   }
 
   @computed get isFromLms() {
-    return S.isUUID(this.enrollment_code);
+    return S.isUUID(this.originalEnrollmentCode);
   }
 
   fetchCourses() {
@@ -153,15 +160,17 @@ export default class CourseEnrollment extends BaseModel {
 
   // called by api
   create() {
-    if (this.needsPeriodSelection) {
-      return { method: 'GET', url: `enrollment/${this.enrollment_code }/choices` };
+    if (this.isFromLms) {
+      this.courseToJoin = new Course();
+      return { method: 'GET', url: `enrollment/${this.originalEnrollmentCode}/choices` };
     }
     return { data: pick(this, 'enrollment_code') };
   }
 
   onEnrollmentCreate({ data }) {
-    if(this.needsPeriodSelection) {
-      this.courseToJoin = new Course(data);
+    if (this.isFromLms) {
+      if (!this.courseToJoin) { this.courseToJoin = new Course(); }
+      this.courseToJoin.update(data);
     } else {
       this.update(data);
     }

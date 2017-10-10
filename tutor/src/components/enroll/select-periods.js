@@ -18,7 +18,7 @@ export default class SelectPeriod extends React.PureComponent {
         <Modal.Body>
           <div className="title">
             <p className="joining">You are joining</p>
-            <h3>{course.name}</h3>
+            <h4>{course.name}</h4>
           </div>
           <p>Please select the section you are a member of</p>
           <Listing>
@@ -26,8 +26,8 @@ export default class SelectPeriod extends React.PureComponent {
               <Choice key={pr.enrollment_code}
                 record={pr}
                 onClick={enrollment.selectPeriod}
-                active={pr.enrollment_code == enrollment.enrollment_code}
-                >
+                active={pr.enrollment_code == enrollment.pendingEnrollmentCode}
+              >
                 {pr.name}
               </Choice>
             ))}
@@ -35,7 +35,7 @@ export default class SelectPeriod extends React.PureComponent {
         </Modal.Body>
         <Modal.Footer>
           <Button
-            disabled={enrollment.needsPeriodSelection}
+            disabled={!enrollment.periodIsSelected}
             bsStyle="primary"
             className="btn btn-success" onClick={enrollment.onSubmitPeriod}>
             Continue

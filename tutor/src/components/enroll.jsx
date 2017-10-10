@@ -35,7 +35,7 @@ export default class CourseEnroll extends React.PureComponent {
   enrollment = this.props.enrollment ||
     new Enroll({ enrollment_code: this.enrollmentCode, router: this.context.router });
 
-  componentDidMount() {
+  componentWillMount() {
     this.enrollment.create();
   }
 
