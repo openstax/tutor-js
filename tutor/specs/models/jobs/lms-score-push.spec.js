@@ -34,6 +34,7 @@ describe('LMS Score push job', () => {
   it('adds to queue on complete', () => {
     const data = {
       status: 'succeeded',
+      data: { num_callbacks: 1 },
     };
     job.onJobUpdate({ data });
     expect(UiSettings.set).toHaveBeenCalledWith(

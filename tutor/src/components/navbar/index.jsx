@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Router                from '../../helpers/router';
-import Courses               from '../../models/courses-map';
 import TutorLink             from '../link';
 import ServerErrorMonitoring from '../error-monitoring';
 import UserActionsMenu       from './user-actions-menu';
@@ -11,11 +10,11 @@ import PreviewAddCourseBtn   from './preview-add-course-btn';
 import SupportMenu           from './support-menu';
 import StudentPreviewLink    from './student-previews-link';
 import StudentPayNowBtn      from './student-pay-now-btn';
+import BackgroundJobToasts   from './background-toasts';
 
 export default function NavigationBar() {
   const params = Router.currentParams();
   const { courseId } = params;
-  const course = courseId ? Courses.get(courseId) : null;
 
   return (
     <nav className="tutor-top-navbar">
@@ -36,6 +35,7 @@ export default function NavigationBar() {
         </div>
       </div>
       <ServerErrorMonitoring />
+      <BackgroundJobToasts />
     </nav>
   );
 }
