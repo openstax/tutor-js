@@ -40,13 +40,6 @@ Array [
       "courseId": "1",
     },
   },
-  Object {
-    "label": "Accessibility statement",
-    "name": "accessibilityStatement",
-    "params": Object {
-      "courseId": "1",
-    },
-  },
 ]
 `;
 
@@ -108,24 +101,7 @@ Array [
       "courseId": "2",
     },
   },
-  Object {
-    "label": "Accessibility statement",
-    "name": "accessibilityStatement",
-    "params": Object {
-      "courseId": "2",
-    },
-  },
 ]
 `;
 
-exports[`Current User Store should return expected menu routes for courses 3`] = `
-Array [
-  Object {
-    "label": "Accessibility statement",
-    "name": "accessibilityStatement",
-    "params": Object {
-      "courseId": undefined,
-    },
-  },
-]
-`;
+exports[`Current User Store should return expected menu routes for courses 3`] = `Array []`;

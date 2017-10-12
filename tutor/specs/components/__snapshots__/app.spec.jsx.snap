@@ -83,6 +83,22 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                     </span>
                   </a>
                 </li>
+                <li
+                  className="-help-link"
+                  role="presentation"
+                  style={undefined}
+                >
+                  <a
+                    href="/accessibility-statement/"
+                    onClick={[Function]}
+                    role="menuitem"
+                    tabIndex="-1"
+                  >
+                    <span>
+                      Accessibility statement
+                    </span>
+                  </a>
+                </li>
               </ul>
             </div>
             <div
@@ -152,28 +168,6 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                   role="separator"
                   style={undefined}
                 />
-                <li
-                  className="accessibilityStatement"
-                  role="presentation"
-                  style={undefined}
-                >
-                  <a
-                    data-name="accessibilityStatement"
-                    href="/accessibility-statement"
-                    onClick={[Function]}
-                    onKeyDown={[Function]}
-                    role="menuitem"
-                    tabIndex="-1"
-                  >
-                    <div
-                      className="tour-anchor"
-                      data-tour-anchor-id="menu-option-accessibilityStatement"
-                      id="menu-option-accessibilityStatement"
-                    >
-                      Accessibility statement
-                    </div>
-                  </a>
-                </li>
                 <li
                   className="logout"
                 >

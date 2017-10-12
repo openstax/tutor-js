@@ -11,6 +11,7 @@ import Chat from '../../models/chat';
 import UserMenu from '../../models/user/menu';
 import Icon from '../icon';
 import TourContext from '../../models/tour/context';
+import Router from '../../helpers/router';
 
 @observer
 class SupportMenuDropDown extends React.PureComponent {
@@ -24,6 +25,10 @@ class SupportMenuDropDown extends React.PureComponent {
     courseId: React.PropTypes.string,
     onClose:  React.PropTypes.func,
     tourContext: React.PropTypes.object.isRequired,
+  }
+
+  static contextTypes = {
+    router: React.PropTypes.object,
   }
 
   componentDidMount() {
@@ -81,9 +86,20 @@ class SupportMenuDropDown extends React.PureComponent {
     this.props.tourContext.playTriggeredTours();
   }
 
+  @action.bound
+  goToAccessibility(ev) {
+    ev.preventDefault();
+    this.context.router.history.push(this.accessibilityLink);
+  }
+
+  get accessibilityLink() {
+    const { courseId } = Router.currentParams();
+    return `/accessibility-statement/${courseId || ''}`;
+  }
 
   render() {
-    const { open, courseId, onClose, rootCloseEvent } = this.props;
+    const { open, onClose, rootCloseEvent } = this.props;
+    const { courseId } = Router.currentParams();
 
     const menu = (
       <TourAnchor
@@ -104,6 +120,15 @@ class SupportMenuDropDown extends React.PureComponent {
           href={UserMenu.helpLinkForCourseId(courseId)}
         >
           <span>Help Articles</span>
+        </MenuItem>
+        <MenuItem
+          key="nav-keyboard-shortcuts"
+          className="-help-link"
+          onSelect={this.onSelect}
+          href={this.accessibilityLink}
+          onClick={this.goToAccessibility}
+        >
+          <span>Accessibility statement</span>
         </MenuItem>
         {this.renderChat()}
       </TourAnchor>
