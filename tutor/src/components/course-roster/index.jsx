@@ -15,7 +15,7 @@ import RenamePeriodLink    from './rename-period';
 import DeletePeriodLink    from './delete-period';
 import DroppedRoster from './dropped-roster';
 import CoursePage from '../course-page';
-
+import NoPeriods from '../no-periods';
 
 @observer
 export default class CourseRoster extends React.PureComponent {
@@ -81,6 +81,7 @@ export default class CourseRoster extends React.PureComponent {
 
   render() {
     const { course, course: { activePeriods: periods } } = this;
+    if (0 === periods.length) { return this.renderEmpty(); }
 
     const activePeriod = periods[this.periodIndex];
 
