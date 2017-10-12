@@ -19,7 +19,7 @@ CourseDataHelper = require '../../../helpers/course-data'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 {TaskingStore, TaskingActions} = require '../../../flux/tasking'
 {TutorInput, TutorTextArea} = require '../../tutor-input'
-{CourseStore, CourseActions}   = require '../../../flux/course'
+{default: Courses} = require '../../../models/courses-map'
 {AsyncButton} = require 'shared'
 
 Tasking = require './tasking'
@@ -64,7 +64,7 @@ TaskPlanBuilder = React.createClass
 
     # better to have `syncCourseTimezone` out here to make the symmetry
     # of the unsync in the unmount obvious.
-    courseTimezone = CourseStore.getTimezone(courseId)
+    courseTimezone = Courses.get(courseId).time_zone
     TimeHelper.syncCourseTimezone(courseTimezone)
 
     nextState = taskPlanEditingInitialize(id, courseId, term)
@@ -208,7 +208,7 @@ TaskPlanBuilder = React.createClass
       </BS.Col>
     </BS.Row>
 
-    periodsChoice = _.map(CourseStore.getPeriods(@props.courseId), @renderTaskPlanRow) if @state.showingPeriods
+    periodsChoice = Courses.get(@props.courseId).periods.map(@renderTaskPlanRow) if @state.showingPeriods
     periodsChoice ?= []
     periodsChoice.unshift(choiceLabel)
     periodsChoice

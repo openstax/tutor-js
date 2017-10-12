@@ -7,7 +7,7 @@ import { get, pick, isEmpty } from 'lodash';
 import { Redirect } from 'react-router-dom';
 import S from '../../helpers/string';
 import Router from '../../../src/helpers/router';
-import { CourseListingActions, CourseListingStore } from '../../flux/course-listing';
+import User from '../user';
 import StudentTasks from '../student-tasks';
 import Activity from '../../../src/components/ox-fancy-loader';
 
@@ -145,7 +145,7 @@ export default class CourseEnrollment extends BaseModel {
 
   fetchCourses() {
     this.isLoadingCourses = true;
-    CourseListingStore.once('loaded', () => {
+    User.refreshCourses().then(() => {
       const assignments_count = get(this, 'to.period.assignments_count', 0);
       if (assignments_count) {
         const tasks = StudentTasks.forCourseId(this.courseId);
@@ -154,7 +154,6 @@ export default class CourseEnrollment extends BaseModel {
       this.isLoadingCourses = false;
       this.isComplete = true;
     });
-    CourseListingActions.load();
   }
 
   // called by api

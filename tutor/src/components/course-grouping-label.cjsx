@@ -1,6 +1,6 @@
 React = require 'react'
 
-{CourseStore}   = require '../flux/course'
+{default: Courses} = require '../models/courses-map'
 
 CourseGroupingLabel = React.createClass
 
@@ -16,7 +16,7 @@ CourseGroupingLabel = React.createClass
     if @props.lowercase then 'period' else 'Period'
 
   render: ->
-    name = if CourseStore.isCollege(@props.courseId) then @section() else @period()
+    name = if Courses.get(@props.courseId).is_college then @section() else @period()
     if @props.plural then name += 's'
     <span>{name}</span>
 

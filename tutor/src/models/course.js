@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany, session,
 } from './base';
 import {
-  sumBy, first, sortBy, find, get, endsWith, capitalize, filter, pick
+  sumBy, first, sortBy, find, get, endsWith, capitalize, filter, pick,
 } from 'lodash';
 import { computed, action, observable } from 'mobx';
 import lazyGetter from '../helpers/lazy-getter';
@@ -62,6 +62,11 @@ export default class Course extends BaseModel {
   @hasMany({ model: Role }) roles;
   @hasMany({ model: Student, inverseOf: 'course' }) students;
 
+  constructor(attrs, map) {
+    super(attrs);
+    this.map = map;
+  }
+
   @computed get num_enrolled_students() {
     return sumBy(this.periods, 'num_enrolled_students');
   }
@@ -78,6 +83,7 @@ export default class Course extends BaseModel {
       )
     );
   }
+
   @computed get canOnlyUseLMS() {
     return Boolean(
       this.is_lms_enabled && !this.is_access_switchable
@@ -168,6 +174,10 @@ export default class Course extends BaseModel {
     return filter(this.periods, period => !period.is_archived);
   }
 
+  @computed get defaultTimes() {
+    return pick(this, 'default_due_time', 'default_open_time');
+  }
+
   @computed get tourAudienceTags() {
     let tags = [];
     if (this.isTeacher) {
@@ -205,6 +215,8 @@ export default class Course extends BaseModel {
     ));
   }
 
+  // called by API
+  fetch() { }
   save() {
     return { id: this.id, data: pick(this, 'name', 'is_lms_enabled', 'time_zone') };
   }

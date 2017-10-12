@@ -9,7 +9,7 @@ classnames = require 'classnames'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 {TaskPanelActions, TaskPanelStore} = require '../../flux/task-panel'
 {TaskProgressActions, TaskProgressStore} = require '../../flux/task-progress'
-{CourseStore} = require '../../flux/course'
+{default: Courses} = require '../../models/courses-map'
 
 StepFooterMixin = require '../task-step/step-footer-mixin'
 Router = require '../../helpers/router'
@@ -44,7 +44,7 @@ Task = React.createClass
 
   getChildContext: ->
     {courseId} = Router.currentParams()
-    bookUUID: CourseStore.getBookUUID(courseId)
+    bookUUID: Courses.get(courseId).ecosystem_book_uuid
     oxProject: 'tutor'
 
   contextTypes:

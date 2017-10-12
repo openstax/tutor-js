@@ -5,7 +5,7 @@ BS = require 'react-bootstrap'
 Router = require '../helpers/router'
 BindStoreMixin = require './bind-store-mixin'
 {ReferenceBookActions, ReferenceBookStore} = require '../flux/reference-book'
-{CourseStore} = require '../flux/course'
+{default: Courses} = require '../models/courses-map'
 
 AssignmentLinks = React.createClass
   displayName: 'AssignmentLinks'
@@ -15,7 +15,7 @@ AssignmentLinks = React.createClass
   componentWillMount: ->
     {courseId} = _.defaults(Router.currentParams(), @props)
 
-    course = CourseStore.get(courseId)
+    course = Courses.get(courseId)
     @setState(ecosystem_id: course.ecosystem_id)
     ReferenceBookActions.load(course.ecosystem_id)
 

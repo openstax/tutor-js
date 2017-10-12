@@ -6,7 +6,7 @@ moment = require 'moment-timezone'
 {TimeStore} = require '../../../flux/time'
 TimeHelper  = require '../../../helpers/time'
 {PeriodActions, PeriodStore}     = require '../../../flux/period'
-{CourseStore, CourseActions}     = require '../../../flux/course'
+{default: Courses} = require '../../../models/courses-map'
 {TaskingActions, TaskingStore} = require '../../../flux/tasking'
 
 Icon = require '../../icon'
@@ -38,11 +38,9 @@ TaskingDateTimes = React.createClass
 
   setDefaultTime: (timeChange) ->
     {courseId, period} = @props
-
-    if period?
-      PeriodActions.save(courseId, period.id, timeChange)
-    else
-      CourseActions.save(courseId, timeChange)
+    model = if period then Courses.get(courseId) else period
+    model.time_zone = timeChange
+    model.save()
 
   isSetting: ->
     {courseId, period} = @props

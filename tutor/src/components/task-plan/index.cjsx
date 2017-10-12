@@ -4,7 +4,7 @@ React = require 'react'
 {ExternalPlan} = require './external'
 {EventPlan} = require './event'
 LoadableItem = require '../loadable-item'
-{CourseStore, CourseActions} = require '../../flux/course'
+
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 Router = require '../../helpers/router'
 { default: TourRegion } = require '../tours/region'

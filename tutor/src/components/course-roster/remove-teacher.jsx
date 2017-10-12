@@ -2,10 +2,6 @@ import React from 'react';
 import { action, computed } from 'mobx';
 import { observer } from 'mobx-react';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
-
-//import BindStoreMixin from '../bind-store-mixin';
-// import { CourseStore, CourseActions } from '../../flux/course';
-// import { RosterStore, RosterActions } from '../../flux/roster';
 import Router from '../../helpers/router';
 
 import Icon from '../icon';

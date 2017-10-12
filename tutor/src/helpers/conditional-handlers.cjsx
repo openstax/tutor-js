@@ -8,9 +8,8 @@ TutorRouter = require '../helpers/router'
 {default: CCStudentRedirect}       = require '../components/cc-student-redirect'
 {default: StudentDashboardShell} = require '../components/student-dashboard'
 {default: WarningModal} = require '../components/warning-modal'
+{default: Courses} = require '../models/courses-map'
 CCDashboard = require '../components/cc-dashboard'
-{CourseStore} = require '../flux/course'
-
 MatchForTutor = require '../components/match-for-tutor'
 
 module.exports =
@@ -18,7 +17,7 @@ module.exports =
     (props) ->
       {courseId} = props.params
       componentProps = extend(props, defaultProps)
-      if CourseStore.isTeacher(courseId)
+      if Courses.get(courseId).isTeacher
         <TeacherComponent courseId={courseId} {...componentProps} />
       else
         <StudentComponent courseId={courseId} {...componentProps} />
@@ -28,7 +27,7 @@ module.exports =
     {courseId} = props.params
 
     extend(props, {courseId})
-    course = CourseStore.get(courseId)
+    course = Courses.get(courseId)
     unless course
       return (
         <WarningModal title="Sorry, you can’t access this course">
@@ -38,8 +37,8 @@ module.exports =
     unless props.match.isExact
       return <MatchForTutor {...props} />
 
-    if CourseStore.isTeacher(courseId)
-      if CourseStore.isConceptCoach(courseId)
+    if course.isTeacher
+      if course.is_concept_coach
         <CCDashboard  courseId={courseId} {...props} />
       else
         <Redirect to={{
@@ -47,7 +46,7 @@ module.exports =
           query: TutorRouter.currentQuery()
         }}/>
     else
-      if CourseStore.isConceptCoach(courseId)
+      if course.is_concept_coach
         <CCStudentRedirect courseId={courseId} />
       else
         <StudentDashboardShell courseId={courseId} {...props} />

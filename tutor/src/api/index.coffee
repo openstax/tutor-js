@@ -10,7 +10,7 @@
 } = require './adapter'
 pick = require 'lodash/pick'
 assign = require 'lodash/assign'
-{CourseActions} = require '../flux/course'
+
 {CoursePracticeActions} = require '../flux/practice'
 {CourseGuideActions} = require '../flux/guide'
 {EcosystemsActions} = require '../flux/ecosystems'
@@ -25,7 +25,6 @@ PerformanceForecast = require '../flux/performance-forecast'
 
 {TocActions} = require '../flux/toc'
 {ExerciseActions, ExerciseStore} = require '../flux/exercise'
-{CourseListingActions} = require '../flux/course-listing'
 {CCDashboardActions} = require '../flux/cc-dashboard'
 
 {ReferenceBookActions} = require '../flux/reference-book'
@@ -61,6 +60,7 @@ PerformanceForecast = require '../flux/performance-forecast'
 { default: CourseTeacher } = require '../models/course/teacher'
 { default: TeacherTaskPlan } = require '../models/task-plan/teacher'
 { default: TaskPlanStats } = require '../models/task-plan/stats'
+{ default: Course } = require '../models/course'
 
 startAPI = ->
   connectRead(TaskActions, pattern: 'tasks/{id}')
@@ -106,7 +106,6 @@ startAPI = ->
 
   connectRead(TocActions, pattern: 'ecosystems/{id}/readings')
   connectRead(CourseGuideActions, pattern: 'courses/{id}/guide')
-  connectRead(CourseActions, pattern: 'courses/{id}')
 
   connectRead(CCDashboardActions, pattern: 'courses/{id}/cc/dashboard')
   connectRead(CoursePracticeActions, pattern: 'courses/{id}/practice')
@@ -154,8 +153,6 @@ startAPI = ->
       clone_status: 'unused_source'
   )
 
-  connectRead(CourseListingActions, url: 'user/courses')
-
   connectRead(ReferenceBookActions, pattern: 'ecosystems/{id}/readings')
   connectRead(ReferenceBookPageActions, pattern: 'pages/{id}')
   connectRead(ReferenceBookPageActions, pattern: 'pages/{id}', trigger: 'loadSilent', handledErrors: ['*'])
@@ -169,6 +166,8 @@ startAPI = ->
   connectModelUpdate(User.constructor, 'saveTourView',
     pattern: 'user/tours/{id}'
    )
+
+  connectModelRead(Course, 'fetch', pattern: 'courses/{id}')
 
   connectModelRead(UserTerms, 'fetch', onSuccess: 'onLoaded', url: 'terms')
   connectModelUpdate(UserTerms, 'sign', onSuccess: 'onSigned', pattern: 'terms/{ids}', method: 'PUT')
@@ -238,6 +237,7 @@ startAPI = ->
 
   connectModelRead(TaskPlanStats, 'fetchReview', onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}/review')
 
+  connectModelRead(Courses.constructor, 'fetch', url: 'user/courses')
 
 BOOTSTRAPED_MODELS = {
   user:     User,
