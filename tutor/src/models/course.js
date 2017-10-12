@@ -5,7 +5,7 @@ import {
   sumBy, first, sortBy, find, get, endsWith, capitalize, filter, pick
 } from 'lodash';
 import { computed, action, observable } from 'mobx';
-import { lazyInitialize } from 'core-decorators';
+import lazyGetter from '../helpers/lazy-getter';
 import { UiSettings } from 'shared';
 import Period  from './course/period';
 import Role    from './course/role';
@@ -88,9 +88,9 @@ export default class Course extends BaseModel {
     return StudentTasks.forCourseId(this.id);
   }
 
-  @lazyInitialize lms = new LMS(this);
-  @lazyInitialize roster = new Roster(this);
-  @lazyInitialize scores = new Scores(this);
+  @lazyGetter lms = new LMS({ course: this });
+  @lazyGetter roster = new Roster({ course: this });
+  @lazyGetter scores = new Scores({ course: this });
 
   @computed get nameCleaned() {
     const previewSuffix = ' Preview';

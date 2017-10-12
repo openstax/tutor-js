@@ -57,14 +57,9 @@ export class CourseScoresPeriod extends BaseModel {
 @identifiedBy('course/scores')
 export default class CourseScores extends BaseModel {
 
-  @observable course;
+  @belongsTo({ model: 'course' }) course;
 
   @observable periods = observable.map();
-
-  constructor(course) {
-    super();
-    this.course = course;
-  }
 
   fetch() {
     return { courseId: this.course.id };
