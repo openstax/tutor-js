@@ -1,4 +1,4 @@
-import { computed, observable } from 'mobx';
+import { computed, observable, action } from 'mobx';
 import Map from './map';
 import TaskPlan from './task-plan/teacher';
 import { TaskPlanStore } from '../flux/task-plan';
@@ -29,7 +29,7 @@ class CourseTaskPlans extends Map {
     return plan;
   }
 
-  onPlanSave(oldId, planAttrs) {
+  @action onPlanSave(oldId, planAttrs) {
     let tp = this.get(oldId);
     if (tp) {
       tp.update(planAttrs);
