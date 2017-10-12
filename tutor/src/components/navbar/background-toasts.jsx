@@ -5,7 +5,7 @@ import  { Completed as JobCompletion } from '../../models/jobs/queue';
 import * as lms from './toasts/lms';
 import * as scores from './toasts/scores';
 
-const REMOVE_AFTER = 1000 * 10;
+const REMOVE_AFTER = 1000 * 7;
 
 const Toasts = {
   lms,
