@@ -36,10 +36,10 @@ class CourseTaskPlans extends Map {
     } else {
       tp = new TaskPlan(planAttrs);
     }
-    if (oldId != planAttrs.id) {
+    this.set(planAttrs.id, tp);
+    if (oldId != tp.id) {
       this.delete(oldId);
     }
-    this.set(planAttrs.id, tp);
   }
 
   addClone(planAttrs) {
