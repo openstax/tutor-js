@@ -39,6 +39,10 @@ export class User extends BaseModel {
     return this.first_name || this.name ? this.name.replace(/ .*/, '') : '';
   }
 
+  @action removeCourse(course) {
+    return Courses.delete(course.id);
+  }
+
   @computed get isConfirmedFaculty() {
     return this.faculty_status === 'confirmed_faculty';
   }
