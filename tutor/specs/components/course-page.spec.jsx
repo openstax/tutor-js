@@ -19,9 +19,15 @@ describe('Course Page', () => {
 
   it('renders and matches snapshot', () => {
     expect(Renderer.create(
+      <CoursePage {...props}>
+        <h3>Hello, this is the body</h3>
+      </CoursePage>
+    ).toJSON()).toMatchSnapshot();
+    expect(Renderer.create(
       <CoursePage
         {...props}
         title={<Title />}
+        subtitle="This is a subtitle"
         controls={<button>Click Me</button>}
       >
         <h3>Hello, this is the body</h3>

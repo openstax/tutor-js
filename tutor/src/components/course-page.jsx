@@ -12,6 +12,7 @@ export default class CoursePage extends React.PureComponent {
     children: React.PropTypes.node.isRequired,
     controls: React.PropTypes.node,
     title: React.PropTypes.node,
+    subtitle: React.PropTypes.node,
     className: React.PropTypes.string,
   }
 
@@ -21,10 +22,11 @@ export default class CoursePage extends React.PureComponent {
 
   renderTitle() {
     if (isNil(this.props.title)) { return null; }
-
+    const subtitle = this.props.subtitle ? <div className="subtitle">{this.props.subtitle}</div> : null;
     return (
       <div className="title-wrapper">
         <div className="title">{this.props.title}</div>
+        {subtitle}
       </div>
     );
   }
