@@ -78,7 +78,7 @@ exports[`Support Menu renders and matches snapshot 1`] = `
       style={undefined}
     >
       <a
-        href="#"
+        href="/accessibility-statement/"
         onClick={[Function]}
         role="menuitem"
         tabIndex="-1"
