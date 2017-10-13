@@ -27,6 +27,7 @@ describe('Course Page', () => {
       <CoursePage
         {...props}
         title={<Title />}
+        notices={<h1>This is a test notice</h1>}
         subtitle="This is a subtitle"
         controls={<button>Click Me</button>}
       >

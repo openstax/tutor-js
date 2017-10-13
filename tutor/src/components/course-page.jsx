@@ -12,6 +12,7 @@ export default class CoursePage extends React.PureComponent {
     children: React.PropTypes.node.isRequired,
     controls: React.PropTypes.node,
     title: React.PropTypes.node,
+    notices: React.PropTypes.node,
     subtitle: React.PropTypes.node,
     className: React.PropTypes.string,
   }
@@ -43,6 +44,7 @@ export default class CoursePage extends React.PureComponent {
       >
         <header>
           {this.renderTitle()}
+          {this.props.notices}
           {this.renderControls()}
         </header>
         <div className="body-wrapper">

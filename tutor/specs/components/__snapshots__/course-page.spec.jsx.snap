@@ -50,6 +50,9 @@ exports[`Course Page renders and matches snapshot 2`] = `
         This is a subtitle
       </div>
     </div>
+    <h1>
+      This is a test notice
+    </h1>
     <div
       className="controls-wrapper"
     >

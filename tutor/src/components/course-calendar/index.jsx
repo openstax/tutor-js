@@ -182,15 +182,16 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
         subtitle={course.termFull}
         course={course}
         controls={this.renderCourseCalendarHeader(courseId, hasPeriods)}
+        notices={
+          <NotificationsBar
+            course={course}
+            role={course.primaryRole}
+            callbacks={NotificationHelpers.buildCallbackHandlers(this)}
+          />
+        }
       >
-        <NotificationsBar
-          course={course}
-          role={course.primaryRole}
-          callbacks={NotificationHelpers.buildCallbackHandlers(this)}
-        />
         <TermsModal />
         <CourseNagModal ux={this.ux} />
-
         <CourseCalendar {...calendarProps} />
       </CoursePage>
     );
