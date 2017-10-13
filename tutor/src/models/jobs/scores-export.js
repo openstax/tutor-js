@@ -7,6 +7,7 @@ import { observable, computed } from 'mobx';
 import Job from '../job';
 import { UiSettings } from 'shared';
 import { TimeStore } from '../../flux/time';
+import { Completed } from './queue';
 
 const CURRENT = observable.map();
 const LAST_EXPORT = 'sce';
@@ -36,8 +37,13 @@ export default class ScoresExport extends Job {
     this.course = course;
   }
 
-  onPollComplete() {
+  onPollComplete(info) {
     UiSettings.set(LAST_EXPORT, this.course.id, TimeStore.getNow().toISOString());
+    Completed.push({
+      type: 'scores',
+      succeeded: !this.hasFailed,
+      info,
+    });
   }
 
   create() { }

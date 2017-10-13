@@ -23,6 +23,13 @@ export default class LmsPush extends React.PureComponent {
     this.lmsPush.start();
   }
 
+  @computed get message() {
+    if (this.lmsPush.isPending) {
+      return <span className="busy">Sending to LMS…</span>;
+    }
+    return <span>Last sent to LMS: {this.lmsPush.lastPushedAt}</span>;
+  }
+
   render() {
     const { lmsPush, props: { course } } = this;
     if (!course.is_lms_enabled) { return null; }
@@ -34,12 +41,7 @@ export default class LmsPush extends React.PureComponent {
         >
           <Icon type="paper-plane" />
         </Button>
-        Last sent to LMS: {lmsPush.lastPushedAt}
-        <Modal show={lmsPush.isPending}>
-          <Modal.Body>
-            <LoadingScreen message="Sending course averages to your LMS gradebook…" />
-          </Modal.Body>
-        </Modal>
+        {this.message}
       </TourAnchor>
     );
   }

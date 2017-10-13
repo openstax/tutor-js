@@ -6,7 +6,6 @@ import TourAnchor from '../tours/anchor';
 import Icon from '../icon';
 import Course from '../../models/course';
 import Export from '../../models/jobs/scores-export';
-import LoadingScreen from '../loading-screen';
 
 @observer
 export default class ScoresExport extends React.PureComponent {
@@ -23,23 +22,23 @@ export default class ScoresExport extends React.PureComponent {
     this.scoresExport.create();
   }
 
-  render() {
-    const { scoresExport } = this;
+  @computed get message() {
+    if (this.scoresExport.isPending) {
+      return <span className="busy">Exporting spreadsheet…</span>;
+    }
+    return <span>Last exported: {this.scoresExport.lastExportedAt}</span>;
+  }
 
+  render() {
     return (
-      <TourAnchor className="scores-export" id="scores-export-button">
+      <TourAnchor className="job scores-export" id="scores-export-button">
         <Button
+          disabled={this.scoresExport.isPending}
           onClick={this.startExport}
         >
           <Icon type="download" />
         </Button>
-        Last exported: {scoresExport.lastExportedAt}
-        <iframe id="downloadExport" src={scoresExport.url} />
-        <Modal show={scoresExport.isPending}>
-          <Modal.Body>
-            <LoadingScreen message="Exporting all scores as a spreadsheet…" />
-          </Modal.Body>
-        </Modal>
+        {this.message}
       </TourAnchor>
     );
   }

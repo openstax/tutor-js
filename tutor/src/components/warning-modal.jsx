@@ -10,9 +10,15 @@ export default class WarningModal extends React.PureComponent {
 
   static propTypes = {
     title: React.PropTypes.string.isRequired,
-    message: React.PropTypes.string.isRequired,
+    children: React.PropTypes.any,
+    footer: React.PropTypes.element,
     onDismiss: React.PropTypes.func,
     className: React.PropTypes.string,
+    backdrop: React.PropTypes.bool,
+  }
+
+  static defaultProps = {
+    backdrop: true,
   }
 
   @observable isShowing = true;
@@ -24,10 +30,16 @@ export default class WarningModal extends React.PureComponent {
     }
   }
 
-  render() {
-    const { title, message } = this.props;
-    const className = classnames('warning', this.props.className);
+  renderFooter() {
+    if (!this.props.footer) { return null; }
+    return (
+      <Modal.Footer>{this.props.footer}</Modal.Footer>
+    );
+  }
 
+  render() {
+    const { title, children, backdrop } = this.props;
+    const className = classnames('warning', this.props.className, { backdrop });
     return (
       <Modal
         backdropClassName={className}
@@ -40,7 +52,10 @@ export default class WarningModal extends React.PureComponent {
           <Icon type="exclamation-triangle" />
           {title}
         </Modal.Header>
-        <Modal.Body>{message}</Modal.Body>
+        <Modal.Body>
+          {children}
+        </Modal.Body>
+        {this.renderFooter()}
       </Modal>
     );
   }
