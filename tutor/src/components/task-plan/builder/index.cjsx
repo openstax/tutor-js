@@ -14,7 +14,7 @@ taskPlanEditingInitialize = require '../initialize-editing'
 {TimeStore} = require '../../../flux/time'
 TimeHelper = require '../../../helpers/time'
 CourseDataHelper = require '../../../helpers/course-data'
-{PeriodActions, PeriodStore} = require '../../../flux/period'
+
 
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 {TaskingStore, TaskingActions} = require '../../../flux/tasking'

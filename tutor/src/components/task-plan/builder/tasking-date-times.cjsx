@@ -5,7 +5,6 @@ moment = require 'moment-timezone'
 
 {TimeStore} = require '../../../flux/time'
 TimeHelper  = require '../../../helpers/time'
-{PeriodActions, PeriodStore}     = require '../../../flux/period'
 {default: Courses} = require '../../../models/courses-map'
 {TaskingActions, TaskingStore} = require '../../../flux/tasking'
 

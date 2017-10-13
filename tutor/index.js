@@ -26,7 +26,6 @@ import STUDENT_TASKS from './src/models/student-tasks';
 window._STORES = {
   SETTINGS: UiSettings,
   APP:                  require('./src/flux/app'),
-  COURSE:               require('./src/flux/course'),
   EXERCISE:             require('./src/flux/exercise'),
   PERFORMANCE_FORECAST: require('./src/flux/performance-forecast'),
   TASK_PLAN:            require('./src/flux/task-plan'),

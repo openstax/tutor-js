@@ -14,7 +14,7 @@ TimeHelper  = require '../helpers/time'
 {ExerciseStore} = require './exercise'
 { default: Publishing } = require '../models/jobs/task-plan-publish'
 
-{CourseStore} = require './course'
+{default: Courses} = require '../models/course'
 ContentHelpers = require '../helpers/content'
 
 planCrudConfig = new CrudConfig()
@@ -277,10 +277,10 @@ TaskPlanConfig =
       true
     )
 
-    periods = CourseStore.getPeriods(courseId)
-    tasking_plans = map( periods, (period) ->
+    course = Courses.get(courseId)
+    tasking_plans = course.periods.map((period) ->
       {
-        opens_at: CourseStore.get(courseId).starts_at
+        opens_at: course.starts_at
         target_id: period.id,
         target_type: 'period',
         due_at: due_at
@@ -317,7 +317,7 @@ TaskPlanConfig =
 
     getEcosystemId: (id, courseId) ->
       plan = @_getPlan(id)
-      plan.ecosystem_id or CourseStore.get(courseId)?.ecosystem_id
+      plan.ecosystem_id or Courses.get(courseId)?.ecosystem_id
 
     hasExercise: (id, exerciseId) ->
       plan = @_getPlan(id)
