@@ -27,7 +27,7 @@ describe 'CourseCalendar Helper', ->
     expect(Helper.isSidebarOpen(@courseId)).to.be.true
     undefined
 
-  it 'will schedule intro callbacks', ->
+  xit 'will schedule intro callbacks', ->
     Router.currentQuery.mockReturnValueOnce({showIntro: 'true'})
     cbSpy = sinon.spy()
     Helper.scheduleIntroEvent(cbSpy, 1, 2, 3)

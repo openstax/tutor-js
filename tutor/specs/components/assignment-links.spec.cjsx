@@ -3,7 +3,7 @@ React          = require 'react'
 
 AssignmentLinks = require '../../src/components/assignment-links'
 {ReferenceBookActions} = require '../../src/flux/reference-book'
-{CourseActions} = require '../../src/flux/course'
+{default: Courses} = require '../../src/models/courses-map'
 
 COURSE_ID = '1'
 ECOSYSTEM_ID = '1'
@@ -16,7 +16,7 @@ READINGS = require '../../api/ecosystems/1/readings'
 describe 'Assignment Links', ->
 
   beforeEach ->
-    CourseActions.loaded(COURSE, courseId)
+    Courses.bootstrap([COURSE], { clear: true })
     ReferenceBookActions.loaded(READINGS, ECOSYSTEM_ID)
     @props =
       courseId = COURSE_ID

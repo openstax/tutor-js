@@ -9,7 +9,7 @@ ld = require 'lodash'
 Dashboard = require '../../../src/components/questions/dashboard'
 
 {TocStore, TocActions} = require '../../../src/flux/toc'
-{CourseActions} = require '../../../src/flux/course'
+{ default: Courses } = require '../../../src/models/courses-map'
 COURSE = require '../../../api/user/courses/1.json'
 TOC = require '../../../api/ecosystems/2/readings.json'
 COURSE_ID = '1'
@@ -22,7 +22,7 @@ describe 'Questions Dashboard Component', ->
       courseId: COURSE_ID
       ecosystemId: ECOSYSTEM_ID
     }
-    CourseActions.loaded(COURSE, COURSE_ID)
+    Courses.bootstrap([COURSE], { clear: true })
     TocActions.loaded([TOC[0]], ECOSYSTEM_ID)
 
   it 'matches snapshot', ->

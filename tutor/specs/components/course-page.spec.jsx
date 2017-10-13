@@ -32,6 +32,5 @@ describe('Course Page', () => {
       >
         <h3>Hello, this is the body</h3>
       </CoursePage>
-    ).toJSON()).toMatchSnapshot();
-  });
+    ).toJSON()).toMatchSnapshot()});
 });

@@ -42,7 +42,7 @@ PerformanceForecast = require '../flux/performance-forecast'
 { default: Courses } = require '../models/courses-map'
 { default: Offerings } = require '../models/course/offerings'
 { default: CourseCreate } = require '../models/course/create'
-{ default: TeacherTaskPlans } = require '../models/teacher-task-plans'
+{ default: TeacherTaskPlans } = require '../models/course/task-plans'
 { default: Student } = require '../models/course/student'
 { default: CourseEnroll } = require '../models/course/enroll'
 { default: Payments } = require '../models/payments'
@@ -184,8 +184,8 @@ startAPI = ->
 
   connectModelCreate(CourseCreate, 'save', onSuccess: 'onCreated')
 
-  connectModelRead(TeacherTaskPlans.constructor, 'fetch',
-    pattern: 'courses/{courseId}/dashboard',
+  connectModelRead(TeacherTaskPlans, 'fetch',
+    pattern: 'courses/{course.id}/dashboard',
     onSuccess: 'onLoaded'
     params: ({ id, startAt, endAt }) ->
       start_at: startAt

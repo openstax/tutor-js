@@ -14,12 +14,12 @@ import CourseInformation from './course/information';
 import Roster from './course/roster';
 import Scores from './course/scores';
 import LMS from './course/lms';
-import TeacherTaskPlans   from './teacher-task-plans';
 import TimeHelper from '../helpers/time';
 import { TimeStore } from '../flux/time';
 import moment from 'moment-timezone';
 import StudentTasks from './student-tasks';
-
+import TeacherTaskPlans from './course/task-plans';
+import PH from '../helpers/period';
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
 const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
 
@@ -50,8 +50,8 @@ export default class Course extends BaseModel {
   @session is_access_switchable = true;
   @session salesforce_book_name;
 
-  @session({ type: 'date' }) starts_at;
-  @session({ type: 'date' }) ends_at;
+  @session starts_at;
+  @session ends_at;
 
   @session term;
   @session time_zone;
@@ -97,6 +97,7 @@ export default class Course extends BaseModel {
   @lazyGetter lms = new LMS({ course: this });
   @lazyGetter roster = new Roster({ course: this });
   @lazyGetter scores = new Scores({ course: this });
+  @lazyGetter taskPlans = new TeacherTaskPlans({ course: this });
 
   @computed get nameCleaned() {
     const previewSuffix = ' Preview';
@@ -152,10 +153,6 @@ export default class Course extends BaseModel {
 
   @computed get isTeacher() {
     return !!find(this.roles, 'isTeacher');
-  }
-
-  @computed get taskPlans() {
-    return TeacherTaskPlans.forCourseId(this.id);
   }
 
   @computed get needsPayment() {

@@ -42,12 +42,8 @@ TaskingDateTimes = React.createClass
     model.save()
 
   isSetting: ->
-    {courseId, period} = @props
-
-    if period?
-      CourseStore.isLoading(courseId)
-    else
-      CourseStore.isSaving(courseId)
+    {courseId} = @props
+    Courses.get(courseId).api.isPending
 
   setDate: (type, value) ->
     {id, period} = @props

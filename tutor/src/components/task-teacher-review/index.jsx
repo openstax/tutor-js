@@ -3,7 +3,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
 import { first, find } from 'lodash';
-import TeacherTaskPlans from '../../models/teacher-task-plans';
+import TeacherTaskPlans from '../../models/course/task-plans';
 import Courses from '../../models/courses-map';
 import Breadcrumbs from './breadcrumbs';
 import Stats from '../plan-stats';

@@ -9,11 +9,15 @@ export default class Map extends ObservableMap {
   }
 
   where(condition) {
-    const map = new this.constructor();
+    const map = new this.constructor(this.chainedValues);
     this.forEach(c => {
       if(condition(c)) { map.set(c.id, c); }
     });
     return map;
+  }
+
+  get chainedValues() {
+    return {};
   }
 
   @computed get isEmpty() {

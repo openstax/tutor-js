@@ -12,7 +12,7 @@ ReactTestUtils = require 'react-addons-test-utils'
 {TaskPlanStatsStore, TaskPlanStatsActions} = require '../../../../src/flux/task-plan-stats'
 {TimeActions, TimeStore} = require '../../../../src/flux/time'
 TimeHelper = require '../../../../src/helpers/time'
-{CourseStore} = require '../../../../src/flux/course'
+{ default: Courses } = require '../../../../src/models/courses-map'
 
 Add = require '../../../../src/components/course-calendar/add'
 {CoursePlanDisplayEdit, CoursePlanDisplayQuickLook} = require '../../../../src/components/course-calendar/plan-display'

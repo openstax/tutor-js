@@ -7,7 +7,7 @@ ReactTestUtils = require 'react-addons-test-utils'
 
 {TeacherTaskPlanStore, TeacherTaskPlanActions} = require '../../../../src/flux/teacher-task-plan'
 {TaskPlanStatsStore, TaskPlanStatsActions} = require '../../../../src/flux/task-plan-stats'
-{CourseActions, CourseStore} = require '../../../../src/flux/course'
+{ default: Courses } = require '../../../../src/models/courses-map'
 
 Add = require '../../../../src/components/course-calendar/add'
 
@@ -27,7 +27,7 @@ actions =
   clickPrevious: commonActions.clickMatch('.previous')
   clickPlan: (planId) ->
     TaskPlanStatsActions.loaded(VALID_PLAN_MODEL, planId)
-    CourseActions.loaded(VALID_COURSE_MODEL, courseId)
+    Courses.bootstrap([VALID_COURSE_MODEL], { clear: true })
     commonActions.clickMatch(".course-plan-#{planId}")
   clickAdd: (args...) ->
     {component} = args[0]

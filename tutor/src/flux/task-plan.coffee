@@ -14,7 +14,8 @@ TimeHelper  = require '../helpers/time'
 {ExerciseStore} = require './exercise'
 { default: Publishing } = require '../models/jobs/task-plan-publish'
 
-{default: Courses} = require '../models/course'
+{default: Courses} = require '../models/courses-map'
+
 ContentHelpers = require '../helpers/content'
 
 planCrudConfig = new CrudConfig()
@@ -400,4 +401,5 @@ TaskPlanConfig =
 
 extendConfig(TaskPlanConfig, planCrudConfig)
 {actions, store} = makeSimpleStore(TaskPlanConfig)
+
 module.exports = {TaskPlanActions:actions, TaskPlanStore:store}

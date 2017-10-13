@@ -65,10 +65,8 @@ class CoursesMap extends Map {
 
   bootstrap( courseData, options = {} ) {
     if (options.clear) { this.clear(); }
-    courseData.forEach(cd => coursesMap.set(String(cd.id), new Course(cd, this)));
-    //onLoaded(courseData);
-    //    setTimeout(listenForLoad, 10); // wait for the initial onload to fire
-    return coursesMap;
+    courseData.forEach(cd => this.set(String(cd.id), new Course(cd, this)));
+    return this;
   }
 
   // called by API

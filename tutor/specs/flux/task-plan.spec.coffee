@@ -3,8 +3,7 @@ moment = require 'moment'
 cloneDeep = require 'lodash/cloneDeep'
 
 {TaskPlanActions, TaskPlanStore} = require '../../src/flux/task-plan'
-
-{CourseActions, CourseStore} = require '../../src/flux/course'
+{ default: Courses } = require '../../src/models/courses-map'
 
 COURSE  = require '../../api/courses/1.json'
 COURSE_ID = '1'
@@ -16,7 +15,7 @@ HOMEWORK_WITH_FALSE = _.findWhere(DATA.plans, id: '29')
 describe 'TaskPlan Store', ->
 
   beforeEach ->
-    CourseActions.loaded(COURSE, COURSE_ID)
+    Courses.bootstrap([COURSE], { clear: true })
     TaskPlanActions.loaded(PLAN, PLAN.id)
 
   it 'can clone a task plan', ->

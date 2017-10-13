@@ -2,6 +2,7 @@ moment = require 'moment-timezone'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {default: Courses} = require '../../models/courses-map'
 TimeHelper = require '../../helpers/time'
+{ toJS } = require 'mobx';
 {TimeStore} = require '../../flux/time'
 {TaskingStore, TaskingActions} = require '../../flux/tasking'
 _ = require 'underscore'
@@ -65,7 +66,8 @@ setPeriodDefaults = (courseId, planId, term) ->
 
 loadCourseDefaults = (courseId) ->
   course = Courses.get(courseId)
-  TaskingActions.loadDefaults(courseId, course.defaultTimes, course.periods)
+  periods = course.periods.map((p) -> p.serialize())
+  TaskingActions.loadDefaults(courseId, course.defaultTimes, periods)
 
 
 module.exports = (planId, courseId, term) ->

@@ -14,8 +14,6 @@ TaskingDateTimes = require '../builder/tasking-date-times'
 BindStoresMixin = require '../../bind-stores-mixin'
 {TutorInput, TutorTextArea} = require '../../tutor-input'
 {TaskingStore, TaskingActions} = require '../../../flux/tasking'
-{default: TeacherTaskPlans } = require '../../../models/teacher-task-plans'
-
 {default: Courses} = require '../../../models/courses-map'
 
 TimeHelper = require '../../../helpers/time'
@@ -54,7 +52,7 @@ TaskPlanMiniEditor = React.createClass
     {id, courseId} = @props
 
     taskings = TaskingStore.getChanged(id)
-    TeacherTaskPlans.forCourseId(courseId).get(id).taskings = taskings
+    Courses.get(@props.courseId).taskPlans.get(id).taskings = taskings
 
   setTitle: (title) ->
     {id} = @props
@@ -93,9 +91,7 @@ TaskPlanMiniEditor = React.createClass
     @setState({saving: false, publishing: publishing})
 
   afterSave: (plan) ->
-    TeacherTaskPlans
-      .forCourseId(@props.courseId)
-      .onPlanSave(@props.id, plan)
+    Courses.get(@props.courseId).taskPlans.onPlanSave(@props.id, plan)
 
     @setState({saving: false, publishing: false})
     @props.onHide()
@@ -104,7 +100,7 @@ TaskPlanMiniEditor = React.createClass
     @props.onHide()
     if TaskPlanStore.isNew(@props.id)
       TaskPlanActions.removeUnsavedDraftPlan(@props.id)
-      TeacherTaskPlans.forCourseId(@props.courseId).delete(@props.id)
+      Courses.get(@props.courseId).taskPlans.delete(@props.id)
 
   render: ->
     {id, courseId, termStart, termEnd} = @props
