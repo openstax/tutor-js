@@ -16,7 +16,7 @@ NoPeriods = React.createClass
 
   onAddSection: ->
     @context.router.history.push(
-      Router.makePathname('courseSettings',
+      Router.makePathname('courseRoster',
         {courseId: @props.courseId},
         query: {add: true}
       )

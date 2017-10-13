@@ -43,6 +43,7 @@ CourseMonth = React.createClass
     termEnd:    TimeHelper.PropTypes.moment
     hasPeriods: React.PropTypes.bool.isRequired
     courseId:   React.PropTypes.string.isRequired
+    showingSideBar: React.PropTypes.bool.isRequired
 
   childContextTypes:
     date: TimeHelper.PropTypes.moment
@@ -53,7 +54,6 @@ CourseMonth = React.createClass
     dateFormatted: @props.date.format(@props.dateFormat)
 
   getInitialState: ->
-    showingSideBar: false
     activeAddDate: null
 
   getDefaultProps: ->
@@ -224,8 +224,7 @@ CourseMonth = React.createClass
 
   onDragHover: (day) ->
     @setState(hoveredDay: TimeHelper.getMomentPreserveDate(day))
-  onSidebarToggle: (isOpen) ->
-    @setState(showingSideBar: isOpen)
+
   onEditorHide: ->
     @setState(editingPlanId: null, cloningPlanId: null)
   onIfIsEditing: (plan) ->
@@ -239,8 +238,8 @@ CourseMonth = React.createClass
     {courseId, className, date, hasPeriods, termStart, termEnd} = @props
     {calendarDuration, calendarWeeks} = @getDurationInfo(date)
 
-    calendarClassName = classnames('calendar-container', 'container', className,
-      'with-sidebar-open': @state.showingSideBar
+    calendarClassName = classnames('calendar-container', className,
+      'with-sidebar-open': @props.showingSideBar
     )
 
     plansList = TeacherTaskPlans.forCourseId(courseId).active.array
@@ -271,17 +270,10 @@ CourseMonth = React.createClass
         termEnd={termEnd}
       />
 
-      <CourseCalendarHeader
-        defaultOpen={@state.showingSideBar}
-        onSidebarToggle={@onSidebarToggle}
-        courseId={courseId}
-        hasPeriods={hasPeriods}
-      />
-
       <div className='calendar-body'>
 
         <AddAssignmentSidebar
-          isOpen={@state.showingSideBar}
+          isOpen={@props.showingSideBar}
           courseId={@props.courseId}
           hasPeriods={hasPeriods}
           cloningPlanId={@state.cloningPlanId or @state.cloningPlan?.id}

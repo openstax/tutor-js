@@ -9,6 +9,30 @@ exports[`Course Page renders and matches snapshot 1`] = `
   data-term="Fall 2015"
   data-title="Local Test Course"
 >
+  <header />
+  <div
+    className="body-wrapper"
+  >
+    <div
+      className="body"
+    >
+      <h3>
+        Hello, this is the body
+      </h3>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Course Page renders and matches snapshot 2`] = `
+<div
+  className="course-page test-page"
+  data-appearance="biology"
+  data-book-title="Biology"
+  data-is-preview={false}
+  data-term="Fall 2015"
+  data-title="Local Test Course"
+>
   <header>
     <div
       className="title-wrapper"
@@ -19,6 +43,11 @@ exports[`Course Page renders and matches snapshot 1`] = `
         <h1>
           A Big Bad Page
         </h1>
+      </div>
+      <div
+        className="subtitle"
+      >
+        This is a subtitle
       </div>
     </div>
     <div
