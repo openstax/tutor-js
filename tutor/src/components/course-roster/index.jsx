@@ -38,7 +38,7 @@ export default class CourseRoster extends React.PureComponent {
   @observable periodIndex = 0;
 
   @action.bound onTabSelection(periodIndex, ev) {
-    if (this.course.activePeriods[periodIndex]) {
+    if (this.course.periods.active[periodIndex]) {
       this.periodIndex = periodIndex;
     } else {
       ev.preventDefault();
@@ -49,8 +49,8 @@ export default class CourseRoster extends React.PureComponent {
     let periodIndex;
     if (this.periodIndex > 0) {
       periodIndex = this.periodIndex - 1;
-      if (periodIndex >= this.course.activePeriods.length - 1) {
-        periodIndex = this.course.activePeriods.length - 2;
+      if (periodIndex >= this.course.periods.active.length - 1) {
+        periodIndex = this.course.periods.active.length - 2;
       }
     } else {
       periodIndex = 0;

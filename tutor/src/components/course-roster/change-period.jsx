@@ -52,7 +52,7 @@ export default class ChangePeriodLink extends React.PureComponent {
   }
 
   @computed get otherPeriods() {
-    return without(this.course.activePeriods, this.props.period);
+    return without(this.course.periods.active, this.props.period);
   }
 
   selectNewPeriod() {

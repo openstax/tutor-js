@@ -1,11 +1,14 @@
-import S from './string';
 import { filter, isEmpty, sortBy, toNumber, isNumber } from 'lodash';
+import { addComputedProperty } from './computed-property';
+import S from './string';
 
 // Used to filter periods by helper methods
 const isArchivedCheckFn = period => period.is_archived;
 const isActiveCheckFn   = period => !period.is_archived;
 
 const NumberLike = /[^0-9]+/;
+
+
 
 const PeriodHelper = {
   getOrder(period) {
@@ -34,17 +37,23 @@ const PeriodHelper = {
     });
   },
 
-  activePeriods(course) {
-    return filter(course.periods, isActiveCheckFn);
+  extend(periods) {
+
+    addComputedProperty(periods, 'sorted', function() {
+      return PeriodHelper.sort(this);
+    });
+
+    addComputedProperty(periods, 'archived', function() {
+      return filter(this, period => !period.is_archived);
+    });
+
+    addComputedProperty(periods, 'active', function() {
+      return filter(this, period => !period.is_archived);
+    });
+
   },
 
-  hasPeriods(course) {
-    return !isEmpty(this.activePeriods(course));
-  },
-
-  archivedPeriods(course) {
-    return filter(course.periods, isArchivedCheckFn);
-  },
 };
+
 
 export default PeriodHelper;

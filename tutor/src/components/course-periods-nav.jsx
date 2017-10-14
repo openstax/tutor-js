@@ -28,7 +28,7 @@ export default class CoursePeriodsNav extends React.PureComponent {
 
   @computed get sortedPeriods() {
     return PeriodHelper.sort(
-      Courses.get(this.props.courseId).activePeriods
+      Courses.get(this.props.courseId).periods.active
     );
   }
 

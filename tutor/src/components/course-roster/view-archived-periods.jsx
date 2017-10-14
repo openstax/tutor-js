@@ -73,7 +73,7 @@ export default class ViewArchivedPeriods extends React.PureComponent {
 
   render() {
 
-    const archived = this.props.course.archivedPeriods;
+    const { archived } = this.props.course.periods;
     if (isEmpty(archived)) { return null; }
 
     const section = <CourseGroupingLabel courseId={this.props.course.id} />;

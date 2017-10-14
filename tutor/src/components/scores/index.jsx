@@ -30,7 +30,7 @@ export default class StudentScores extends React.PureComponent {
 
   @computed get period() {
     return this.course.scores.periods.get(
-      this.course.activePeriods[this.periodIndex].id
+      this.course.periods.active[this.periodIndex].id
     );
   }
 
@@ -104,7 +104,7 @@ export default class StudentScores extends React.PureComponent {
       );
     }
 
-    if (isEmpty(this.course.activePeriods)) { return <NoPeriods courseId={courseId} />; }
+    if (isEmpty(this.course.periods.active)) { return <NoPeriods courseId={courseId} />; }
 
     return (
       <CoursePage

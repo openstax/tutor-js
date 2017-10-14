@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { extend, pick } from 'lodash';
+import { extend, pick, isEmpty } from 'lodash';
 import { observable, computed, action, observe } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
@@ -163,7 +163,7 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
       calendarParams: { date, termStart, termEnd },
     } = this;
 
-    const hasPeriods = PH.hasPeriods(course);
+    const hasPeriods = !isEmpty(course.periods.active);
     const calendarProps = {
       courseId, date, displayAs, hasPeriods, params,
       termStart, termEnd, showingSideBar,

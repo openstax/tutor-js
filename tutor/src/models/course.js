@@ -57,8 +57,8 @@ export default class Course extends BaseModel {
   @session time_zone;
   @session webview_url;
   @session year;
-
-  @hasMany({ model: Period, inverseOf: 'course' }) periods;
+  //
+  @hasMany({ model: Period, inverseOf: 'course', extend: PH.extend }) periods;
   @hasMany({ model: Role }) roles;
   @hasMany({ model: Student, inverseOf: 'course' }) students;
 
@@ -161,14 +161,6 @@ export default class Course extends BaseModel {
 
   @computed get isInTrialPeriod() {
     return Boolean(this.does_cost && this.userStudentRecord && !this.userStudentRecord.isUnPaid);
-  }
-
-  @computed get archivedPeriods() {
-    return filter(this.periods, period => period.is_archived);
-  }
-
-  @computed get activePeriods() {
-    return filter(this.periods, period => !period.is_archived);
   }
 
   @computed get defaultTimes() {
