@@ -26,14 +26,12 @@ export default class TaskTeacherReview extends React.Component {
     router: React.PropTypes.object,
   };
 
-  @computed get taskPlan() {
-    return TeacherTaskPlans
-      .forCourseId(this.props.params.courseId)
-      .withPlanId(this.props.params.id);
-  }
-
   @computed get course() {
     return Courses.get(this.props.params.courseId);
+  }
+
+  @computed get taskPlan() {
+    return this.course.taskPlans.withPlanId(this.props.params.id);
   }
 
   scroller = new ScrollTo({

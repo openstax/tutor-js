@@ -6,10 +6,6 @@ import {
   BaseModel, identifiedBy, identifier, field, session, belongsTo,
 } from '../base';
 
-// let TaskPlans;
-
-const DELETED = observable.map();
-
 export default class CourseTaskPlans extends Map {
 
   @observable course;
@@ -52,7 +48,7 @@ export default class CourseTaskPlans extends Map {
   }
 
   @computed get active() {
-    return this.where(plan => !DELETED.has(plan.id) && !plan.is_deleting);
+    return this.where(plan => !plan.is_deleting);
   }
 
   @computed get isPublishing() {
@@ -81,27 +77,3 @@ export default class CourseTaskPlans extends Map {
   }
 
 }
-
-//
-// class TeacherTaskPlans extends Map {
-//
-//   forCourseId(courseId) {
-//     let courseMap = this.get(courseId);
-//     if (!courseMap) {
-//       courseMap = new CourseTaskPlans(courseId);
-//       this.set(courseId, courseMap);
-//     }
-//     return courseMap;
-//   }
-//
-//   // note: the response also contains course, tasks and role but they're currently unused
-//
-//   clear() {
-//     super.clear();
-//     DELETED.clear();
-//   }
-//
-// }
-//
-// TaskPlans = new TeacherTaskPlans();
-// export default TaskPlans;

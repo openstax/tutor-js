@@ -208,7 +208,7 @@ TaskPlanBuilder = React.createClass
       </BS.Col>
     </BS.Row>
 
-    periodsChoice = Courses.get(@props.courseId).periods.map(@renderTaskPlanRow) if @state.showingPeriods
+    periodsChoice = Courses.get(@props.courseId).periods.sorted.map(@renderTaskPlanRow) if @state.showingPeriods
     periodsChoice ?= []
     periodsChoice.unshift(choiceLabel)
     periodsChoice

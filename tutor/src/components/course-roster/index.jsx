@@ -80,7 +80,7 @@ export default class CourseRoster extends React.PureComponent {
   }
 
   render() {
-    const { course, course: { activePeriods: periods } } = this;
+    const { course, course: { periods: { active: periods } } } = this;
     if (0 === periods.length) { return this.renderEmpty(); }
 
     const activePeriod = periods[this.periodIndex];

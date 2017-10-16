@@ -14,7 +14,6 @@ AssignmentLinks = React.createClass
 
   componentWillMount: ->
     {courseId} = _.defaults(Router.currentParams(), @props)
-
     course = Courses.get(courseId)
     @setState(ecosystem_id: course.ecosystem_id)
     ReferenceBookActions.load(course.ecosystem_id)

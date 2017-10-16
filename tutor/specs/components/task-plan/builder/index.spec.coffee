@@ -155,7 +155,7 @@ describe 'Task Plan Builder', ->
       element.setIndividualPeriods()
       expect(dom.querySelectorAll('.tasking-plan.tutor-date-input').length).to.equal(COURSES[0].periods.length)
 
-  fit 'sorts individual periods alphanumerically', ->
+  it 'sorts individual periods alphanumerically', ->
     helper(NEW_READING).then ({dom, element}) ->
       element.setIndividualPeriods()
       labels = _.pluck(dom.querySelectorAll('.tasking-plan label'), 'textContent')

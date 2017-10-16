@@ -66,7 +66,7 @@ setPeriodDefaults = (courseId, planId, term) ->
 
 loadCourseDefaults = (courseId) ->
   course = Courses.get(courseId)
-  periods = course.periods.map((p) -> p.serialize())
+  periods = course.periods.sorted.map((p) -> p.serialize())
   TaskingActions.loadDefaults(courseId, course.defaultTimes, periods)
 
 

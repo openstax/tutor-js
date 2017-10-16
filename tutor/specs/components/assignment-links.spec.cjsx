@@ -19,7 +19,7 @@ describe 'Assignment Links', ->
     Courses.bootstrap([COURSE], { clear: true })
     ReferenceBookActions.loaded(READINGS, ECOSYSTEM_ID)
     @props =
-      courseId = COURSE_ID
+      courseId: COURSE_ID
 
   it 'renders', ->
     wrapper = mount(<AssignmentLinks {...@props} />)

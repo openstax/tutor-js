@@ -4,29 +4,32 @@ import Course from '../../../../src/models/course';
 import CoursePreviewUX from '../../../../src/models/course/onboarding/preview';
 
 let mockCourses = observable.array();
-Object.defineProperty(mockCourses, 'isEmpty', {
-  get: function() { return this.length === 0; },
+Object.defineProperties(mockCourses, {
+  isEmpty: {
+    get: function() { return this.length === 0; },
+  },
+  api: {
+    get: function() { return {} },
+  },
 });
+
 let mockActiveCoursePlans = observable.array();
 jest.mock('../../../../src/models/courses-map', () => ({
   tutor: { currentAndFuture: { get nonPreview() { return mockCourses; } } },
 }));
 import { TimeStore } from '../../../../src/flux/time';
 
-jest.mock('../../../../src/models/teacher-task-plans', () => ({
-  forCourseId() {
-    return {
-      active: mockActiveCoursePlans,
-    };
-  },
-  api: {},
-}));
+jest.mock('../../../../src/models/course');
+jest.mock('../../../../src/models/course/task-plans');
 
 describe('Course Preview Onboarding', () => {
   let ux;
 
   beforeEach(() => {
-    ux = new CoursePreviewUX(new Course(TEACHER_COURSE_TWO_MODEL), { tour: null });
+    const course = new Course(TEACHER_COURSE_TWO_MODEL);
+    course.taskPlans = { active: mockActiveCoursePlans };
+    course.taskPlans.api = {};
+    ux = new CoursePreviewUX(course, { tour: null });
     ux._setTaskPlanPublish(false);
   });
 
@@ -54,7 +57,7 @@ describe('Course Preview Onboarding', () => {
     mockCourses.clear();
     expect(ux.nagComponent).toBeNull();
     ux.course.ends_at = TimeStore.getNow() - 100;
-    expect(ux.course.hasEnded).toBe(true);
+    ux.course.hasEnded = true;
     mockActiveCoursePlans.clear();
     expect(ux.nagComponent).not.toBeNull();
   });

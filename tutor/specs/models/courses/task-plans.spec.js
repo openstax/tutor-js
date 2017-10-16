@@ -1,24 +1,35 @@
-import TeacherTaskPlans from '../../src/models/teacher-task-plans';
+import Courses from '../../../src/models/courses-map';
+import TeacherTaskPlans from '../../../src/models/course/task-plans';
 import { autorun } from 'mobx';
 import { map } from 'lodash';
-import { TaskPlanStore } from '../../src/flux/task-plan';
+import { TaskPlanStore } from '../../../src/flux/task-plan';
+
 
 const COURSE_ID = '123';
 
 describe('Teacher Task Plans', function() {
-  afterEach(() => TeacherTaskPlans.clear());
+  let course;
+
+  beforeEach(() => {
+    Courses.bootstrap([{ id: COURSE_ID }], { clear: true });
+    course = Courses.get(COURSE_ID);
+  });
+  afterEach(() => {
+    Courses.clear();
+    course.taskPlans.clear();
+  });
 
   it('has api', () => {
-    expect(TeacherTaskPlans.api).not.toBeUndefined();
+    expect(course.taskPlans.api).not.toBeUndefined();
   });
 
   it('should load tasks and notify', () => {
     const changeSpy = jest.fn();
     autorun(() => {
-      changeSpy(map(TeacherTaskPlans.forCourseId(COURSE_ID).array, 'id'));
+      changeSpy(map(course.taskPlans.array, 'id'));
     });
     expect(changeSpy).toHaveBeenCalledWith([]);
-    TeacherTaskPlans.onLoaded({
+    course.taskPlans.onLoaded({
       data: { plans: [
         { id: '1', hello: 'world', steps: [] },
       ] } }, [ { courseId: COURSE_ID } ]);
@@ -26,25 +37,14 @@ describe('Teacher Task Plans', function() {
   });
 
   it('filters out deleting plans', () => {
-    TeacherTaskPlans.onLoaded({
+    course.taskPlans.onLoaded({
       data: { plans: [
         { id: '1', hello: 'world', steps: [] },
         { id: '2', hello: 'world', steps: [] },
       ] } }, [ { courseId: COURSE_ID } ]);
 
-    TeacherTaskPlans.get(COURSE_ID).get(1).is_deleting = true;
-    expect(TeacherTaskPlans.get(COURSE_ID).active.array).toHaveLength(1);
-  });
-
-  it('removes deleted plans when flux deletes', () => {
-    TeacherTaskPlans.onLoaded(
-      { data: { plans: [ { id: '211', hello: 'world', steps: [] } ] } },
-      [ { courseId: COURSE_ID } ]
-    );
-    expect(TeacherTaskPlans.get(COURSE_ID).get(211)).not.toBeUndefined();
-    TaskPlanStore.emit('deleting', 211);
-    expect(TeacherTaskPlans.get(COURSE_ID).active.get(211)).toBeUndefined();
-    expect(TeacherTaskPlans.get(COURSE_ID).active.array).toHaveLength(0);
+    course.taskPlans.get(1).is_deleting = true;
+    expect(course.taskPlans.active.array).toHaveLength(1);
   });
 
   it('can store a cloned plan', () => {
@@ -69,7 +69,7 @@ describe('Teacher Task Plans', function() {
           'target_id': '62','target_type': 'period','due_at': '2017-06-20' },
       ],
     };
-    const plans = TeacherTaskPlans.get(COURSE_ID);
+    const plans = course.taskPlans;
     plans.addClone(plan);
     const model = plans.get(plan.id);
     expect(model.tasking_plans).toHaveLength(2);

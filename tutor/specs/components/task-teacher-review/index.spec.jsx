@@ -6,7 +6,7 @@ import statsData from '../../../api/plans/1/review.json';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import TaskTeacherReview from '../../../src/components/task-teacher-review';
 import Exercise from '../../../src/components/task-teacher-review/exercise';
-import TeacherTaskPlans from '../../../src/models/teacher-task-plans';
+import TeacherTaskPlans from '../../../src/models/course/task-plans';
 
 describe('Task Teacher Review', () => {
   let plan;
@@ -15,7 +15,7 @@ describe('Task Teacher Review', () => {
 
   beforeEach(() => {
     course = bootstrapCoursesList().get(2);
-    plan = TeacherTaskPlans.forCourseId(course.id).withPlanId(1);
+    plan = course.taskPlans.withPlanId(1);
     plan.fetch = jest.fn(() => Promise.resolve());
     plan.onApiRequestComplete({ data: planData });
     plan.analytics.fetch = jest.fn();
@@ -34,6 +34,7 @@ describe('Task Teacher Review', () => {
     expect(review).toHaveRendered('Stats');
     expect(review).toHaveRendered('Review');
     expect(review).toHaveRendered('Breadcrumbs');
+    review.unmount();
   });
 
 });
