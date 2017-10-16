@@ -37,22 +37,6 @@ const PeriodHelper = {
     });
   },
 
-  extend(periods) {
-
-    addComputedProperty(periods, 'sorted', function() {
-      return PeriodHelper.sort(this);
-    });
-
-    addComputedProperty(periods, 'archived', function() {
-      return filter(this, period => !period.is_archived);
-    });
-
-    addComputedProperty(periods, 'active', function() {
-      return filter(this, period => !period.is_archived);
-    });
-
-  },
-
 };
 
 

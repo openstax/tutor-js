@@ -101,7 +101,7 @@ describe('Course Model', () => {
     expect(course.canOnlyUseLMS).toEqual(false);
   });
 
-  fit('extends periods', () => {
+  it('extends periods', () => {
     const data = clone(COURSE);
     data.periods = shuffle(data.periods);
     jest.spyOn(PH, 'sort');

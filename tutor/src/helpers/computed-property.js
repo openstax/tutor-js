@@ -1,3 +1,4 @@
+import { forIn } from 'lodash';
 import { computed } from 'mobx';
 
 export function addComputedProperty(obj, name, fn) {
@@ -14,4 +15,12 @@ export function addComputedProperty(obj, name, fn) {
     },
   });
 
+}
+
+export function extendHasMany(properties) {
+  return (collection) => {
+    forIn(properties, (fn, prop) => {
+      addComputedProperty(collection, prop, fn);
+    });
+  };
 }

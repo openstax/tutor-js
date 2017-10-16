@@ -14,12 +14,14 @@ import CourseInformation from './course/information';
 import Roster from './course/roster';
 import Scores from './course/scores';
 import LMS from './course/lms';
+import PH from '../helpers/period';
 import TimeHelper from '../helpers/time';
 import { TimeStore } from '../flux/time';
+import { extendHasMany } from '../helpers/computed-property';
 import moment from 'moment-timezone';
 import StudentTasks from './student-tasks';
 import TeacherTaskPlans from './course/task-plans';
-import PH from '../helpers/period';
+
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
 const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
 
@@ -57,8 +59,13 @@ export default class Course extends BaseModel {
   @session time_zone;
   @session webview_url;
   @session year;
-  //
-  @hasMany({ model: Period, inverseOf: 'course', extend: PH.extend }) periods;
+
+  @hasMany({ model: Period, inverseOf: 'course', extend: extendHasMany({
+    sorted()   { return PH.sort(this);                               },
+    archived() { return filter(this, period => !period.is_archived); },
+    active()   { return filter(this, period => !period.is_archived); },
+  }) }) periods;
+
   @hasMany({ model: Role }) roles;
   @hasMany({ model: Student, inverseOf: 'course' }) students;
 

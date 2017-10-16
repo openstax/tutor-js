@@ -22,7 +22,7 @@ export default class SelectPeriod extends React.PureComponent {
           </div>
           <p>Please select the section you are a member of</p>
           <Listing>
-            {course.periods.map(pr => (
+            {course.periods.sorted.map(pr => (
               <Choice key={pr.enrollment_code}
                 record={pr}
                 onClick={enrollment.selectPeriod}
