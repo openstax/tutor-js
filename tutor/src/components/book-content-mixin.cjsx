@@ -170,7 +170,7 @@ ReadingContentMixin =
     @updateCanonicalLink()
 
   updateCanonicalLink: ->
-    cnxId = @props.cnxId or @getCnxId?()
+    cnxId = @props.cnxId or @getCnxId?() or ''
     # leave versioning out of canonical link
     canonicalCNXId = _.first(cnxId.split('@'))
     {courseId} = Router.currentParams()
