@@ -33,7 +33,7 @@ export default class ChangeStudentId extends React.PureComponent {
   @action.bound
   onSubmit() {
     this.student.student_identifier = this.input.value;
-    this.student.save().then(this.onSaved);
+    this.student.saveOwnStudentId().then(this.onSaved);
   }
 
   @action.bound

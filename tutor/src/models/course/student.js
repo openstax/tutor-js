@@ -90,5 +90,8 @@ export default class CourseStudent extends BaseModel {
   saveStudentId() {
     return { id: this.id, data: pick(this, 'student_identifier') };
   }
+  saveOwnStudentId() {
+    return { id: this.id, data: pick(this, 'student_identifier') };
+  }
 
 }
