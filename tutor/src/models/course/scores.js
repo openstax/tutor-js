@@ -70,11 +70,12 @@ export default class CourseScores extends BaseModel {
   }
 
   getTask(taskId) {
+    const id = Number(taskId);
     const periods = this.periods.values();
     for(let p=0; p < periods.length; p+=1) {
       const period = periods[p];
       for(let i=0; i < period.students.length; i +=1 ){
-        const task = find(period.students[i].data, { id: taskId });
+        const task = find(period.students[i].data, { id });
         if (task) return task;
       }
     }
