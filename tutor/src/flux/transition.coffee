@@ -37,7 +37,8 @@ TransitionStore = flux.createStore
     @_local
 
   exports:
-    getPrevious: (current = window.location.pathname) ->
+    getPrevious: (current) ->
+      current = window.document?.location unless current
       for path in @_local by -1
         if path isnt current
           return {path, name: DestinationHelper.destinationFromPath(path)}
