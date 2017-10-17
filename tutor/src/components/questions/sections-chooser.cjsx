@@ -36,8 +36,9 @@ QLSectionsChooser = React.createClass
       <div className="header">
         <div className="wrapper">
           <h2>Question Library</h2>
+
           <BackButton fallbackLink={
-            text: 'Back to Dashboard', to: 'viewTeacherDashBoard', params: {courseId: @props.courseId}
+            text: 'Back to Dashboard', to: 'dashboard', params: {courseId: @props.courseId}
           }/>
         </div>
       </div>
