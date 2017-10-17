@@ -197,10 +197,8 @@ Task = React.createClass
 
     @scrollToTop() unless @_isSameStep({id}, {currentStep: stepKey})
 
-    if silent
-      @context.router.replaceWith(Router.makePathname('viewTaskStep', params))
-    else
-      @context.router.history.push(Router.makePathname('viewTaskStep', params))
+    action = if silent then 'replace' else 'push'
+    @context.router.history[action](Router.makePathname('viewTaskStep', params))
 
     true
 
