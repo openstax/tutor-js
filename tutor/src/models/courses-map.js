@@ -69,6 +69,13 @@ class CoursesMap extends Map {
   // called by API
   fetch() { }
 
+  @action onLoaded({ data }) {
+    data.forEach((cd) => {
+      const course = this.get(cd.id);
+      course ? course.update(cd) : this.set(cd.id, new Course(cd));
+    });
+  }
+
 }
 
 const coursesMap = new CoursesMap();
