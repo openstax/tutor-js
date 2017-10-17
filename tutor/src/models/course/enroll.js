@@ -169,6 +169,10 @@ export default class CourseEnrollment extends BaseModel {
     if (this.needsPeriodSelection) {
       if (!this.courseToJoin) { this.courseToJoin = new Course(); }
       this.courseToJoin.update(data);
+      if (this.courseToJoin.periods.length == 3) {
+        this.enrollment_code = this.courseToJoin.periods[0].enrollment_code;
+        this.create();
+      }
     } else {
       this.update(data);
     }

@@ -238,7 +238,7 @@ startAPI = ->
 
   connectModelRead(TaskPlanStats, 'fetchReview', onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}/review')
 
-  connectModelRead(Courses.constructor, 'fetch', url: 'user/courses')
+  connectModelRead(Courses.constructor, 'fetch', onSuccess: 'onLoaded', url: 'user/courses')
 
 BOOTSTRAPED_MODELS = {
   user:     User,
