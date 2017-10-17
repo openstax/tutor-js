@@ -3,8 +3,6 @@ import Courses from '../../src/models/courses-map';
 import Course from '../../src/models/course';
 import PH from '../../src/helpers/period';
 
-//jest.mock('../../src/helpers/period');
-
 import { autorun } from 'mobx';
 import { bootstrapCoursesList } from '../courses-test-data';
 
@@ -14,12 +12,12 @@ import COURSE from '../../api/courses/1.json';
 
 import TeacherTaskPlans from '../../src/models/course/task-plans';
 jest.mock('shared/src/model/ui-settings');
-jest.mock('../../src/models/course/task-plans', () => ({
-  forCourseId: jest.fn(() => ({
-    reading:  { hasPublishing: false },
-    homework: { hasPublishing: false },
-  })),
-}));
+// jest.mock('../../src/models/course/task-plans', () => ({
+//   forCourseId: jest.fn(() => ({
+//     reading:  { hasPublishing: false },
+//     homework: { hasPublishing: false },
+//   })),
+// }));
 describe('Course Model', () => {
 
   beforeEach(() => bootstrapCoursesList());
@@ -55,18 +53,14 @@ describe('Course Model', () => {
   it('calculates audience tags', () => {
     expect(Courses.get(1).tourAudienceTags).toEqual(['student']);
     const teacher = Courses.get(2);
-    // expect(teacher.tourAudienceTags).toEqual(['teacher']);
-    // teacher.is_preview = true;
-    // expect(teacher.tourAudienceTags).toEqual(['teacher-preview']);
-    // const course = Courses.get(3);
-    // expect(course.tourAudienceTags).toEqual(['teacher', 'student']);
-    // course.is_preview = false;
-
-    // TeacherTaskPlans.forCourseId.mockImplementation(() => ({
-    //   reading: { hasPublishing: true },
-    //   homework: { hasPublishing: false },
-    // }));
-    // expect(course.tourAudienceTags).toEqual(['teacher', 'teacher-reading-published', 'student' ]);
+    expect(teacher.tourAudienceTags).toEqual(['teacher']);
+    teacher.is_preview = true;
+    expect(teacher.tourAudienceTags).toEqual(['teacher-preview']);
+    const course = Courses.get(3);
+    expect(course.tourAudienceTags).toEqual(['teacher', 'student']);
+    course.is_preview = false;
+    course.taskPlans.set('1', { id: 1, type: 'reading', is_publishing: true });
+    expect(course.tourAudienceTags).toEqual(['teacher', 'teacher-reading-published', 'student' ]);
   });
 
 

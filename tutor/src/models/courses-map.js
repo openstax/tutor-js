@@ -1,17 +1,14 @@
 import Map from './map';
 import { computed, action } from 'mobx';
 import Course from './course';
-import { once, isEmpty } from 'lodash';
-//
-// function onCourseSave(courseData) {
-//   coursesMap.get(courseData.id).update(courseData);
-// }
-//
-// function onLoaded(courseData) {
-//   courseData.forEach(cd => coursesMap.set(String(cd.id), new Course(cd, this)));
-// }
-//
+import { isEmpty, sortBy } from 'lodash';
+
 class CoursesMap extends Map {
+
+  // override array in Map to return a sorted list
+  @computed get array() {
+    return sortBy(this.values(), 'sortKey');
+  }
 
   @computed get active() {
     return this.where(c => c.is_active);
