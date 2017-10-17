@@ -12,7 +12,6 @@ BindStoreMixin = require '../bind-store-mixin'
 StepFooterMixin = require './step-footer-mixin'
 
 TaskStep = require './index'
-{CourseStore} = require '../../flux/course'
 {CoursePracticeStore} = require '../../flux/practice'
 {TaskStore} = require '../../flux/task'
 {TaskStepStore} = require '../../flux/task-step'

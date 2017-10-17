@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { extend, pick } from 'lodash';
+import { extend, pick, isEmpty } from 'lodash';
 import { observable, computed, action, observe } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import { NotificationsBar } from 'shared';
 import CoursePage from '../course-page';
 import ModelLoader from '../../models/loader';
-import TaskPlans from '../../models/teacher-task-plans';
+import TaskPlans from '../../models/course/task-plans';
 import onboardingForCourse from '../../models/course/onboarding';
 import Courses from '../../models/courses-map';
 import { TimeStore } from '../../flux/time';
@@ -82,7 +82,7 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
 
   ux = onboardingForCourse(this.course, this.props.tourContext);
 
-  @observable loader = new ModelLoader({ model: TaskPlans });
+  @observable loader = new ModelLoader({ model: this.course.taskPlans });
 
   @observable displayAs = 'month';
   @observable showingSideBar = false;
@@ -163,7 +163,7 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
       calendarParams: { date, termStart, termEnd },
     } = this;
 
-    const hasPeriods = PH.hasPeriods(course);
+    const hasPeriods = !isEmpty(course.periods.active);
     const calendarProps = {
       courseId, date, displayAs, hasPeriods, params,
       termStart, termEnd, showingSideBar,

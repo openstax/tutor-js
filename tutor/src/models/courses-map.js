@@ -1,23 +1,16 @@
 import Map from './map';
 import { computed, action } from 'mobx';
-import { CourseListingActions, CourseListingStore } from '../flux/course-listing';
-import { CourseStore } from '../flux/course';
 import Course from './course';
 import { once, isEmpty } from 'lodash';
-
-function onCourseSave(courseData) {
-  coursesMap.get(courseData.id).update(courseData);
-}
-
-function onLoaded(courseData) {
-  courseData.forEach(cd => coursesMap.set(String(cd.id), new Course(cd)));
-}
-
-const listenForLoad = once(() => {
-  CourseListingStore.on('loaded', onLoaded);
-  CourseStore.on('saved', onCourseSave);
-});
-
+//
+// function onCourseSave(courseData) {
+//   coursesMap.get(courseData.id).update(courseData);
+// }
+//
+// function onLoaded(courseData) {
+//   courseData.forEach(cd => coursesMap.set(String(cd.id), new Course(cd, this)));
+// }
+//
 class CoursesMap extends Map {
 
   @computed get active() {
@@ -63,7 +56,6 @@ class CoursesMap extends Map {
   @action addNew(courseData) {
     const course = new Course(courseData);
     this.set(course.id, course);
-    CourseListingActions.loaded([courseData]);
     return course;
   }
 
@@ -72,12 +64,13 @@ class CoursesMap extends Map {
   }
 
   bootstrap( courseData, options = {} ) {
-    CourseListingActions.loaded(courseData);
     if (options.clear) { this.clear(); }
-    onLoaded(courseData);
-    setTimeout(listenForLoad, 10); // wait for the initial onload to fire
-    return coursesMap;
+    courseData.forEach(cd => this.set(String(cd.id), new Course(cd, this)));
+    return this;
   }
+
+  // called by API
+  fetch() { }
 
 }
 

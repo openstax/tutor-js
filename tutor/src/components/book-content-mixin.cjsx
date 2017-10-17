@@ -5,9 +5,10 @@ S = require '../helpers/string'
 dom = require '../helpers/dom'
 
 {MediaPreview} = require './media-preview'
-{CourseStore} = require '../flux/course'
 {TaskStepStore} = require '../flux/task-step'
 {MediaStore} = require '../flux/media'
+{default: Courses} = require '../models/courses-map'
+
 ScrollToLinkMixin = require './scroll-to-link-mixin'
 
 Router = require '../helpers/router'
@@ -43,7 +44,7 @@ LinkContentMixin =
     {query, id} = @props
 
     if ecosystemId and not courseId
-      courseId = CourseStore.getByEcosystemId(ecosystemId)?.id
+      courseId = _.findWhere(Courses.array, {ecosystem_id: ecosystemId})?.id
 
     # suboptimal but is the best we can as long as the reference book depends on having a courseId in url
     return null unless courseId
@@ -173,7 +174,7 @@ ReadingContentMixin =
     # leave versioning out of canonical link
     canonicalCNXId = _.first(cnxId.split('@'))
     {courseId} = Router.currentParams()
-    {webview_url} = CourseStore.get(courseId)
+    {webview_url} = Courses.get(courseId)
     baseWebviewUrl = _.first(webview_url.split('/contents/'))
 
     # webview actually links to webview_url as it's canonical url.

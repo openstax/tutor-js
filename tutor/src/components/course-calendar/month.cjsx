@@ -11,7 +11,7 @@ find = require 'lodash/find'
 {DropTarget} = require 'react-dnd'
 {Calendar, Month, Week, Day} = require 'react-calendar'
 { default: TourRegion } = require '../tours/region'
-{ default: TeacherTaskPlans } = require '../../models/teacher-task-plans'
+{ default: Courses } = require '../../models/courses-map'
 {TimeStore} = require '../../flux/time'
 TimeHelper = require '../../helpers/time'
 TutorRouter = require '../../helpers/router'
@@ -242,7 +242,7 @@ CourseMonth = React.createClass
       'with-sidebar-open': @props.showingSideBar
     )
 
-    plansList = TeacherTaskPlans.forCourseId(courseId).active.array
+    plansList = Courses.get(courseId).taskPlans.active.array
 
     if plansList?
       plans = <CourseDuration

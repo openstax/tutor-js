@@ -2,10 +2,10 @@ import {
   BaseModel, identifiedBy, field, identifier, hasMany, session,
 } from './base';
 import {
-  sumBy, first, sortBy, find, get, endsWith, capitalize, filter, pick
+  sumBy, first, sortBy, find, get, endsWith, capitalize, filter, pick,
 } from 'lodash';
 import { computed, action, observable } from 'mobx';
-import { lazyInitialize } from 'core-decorators';
+import lazyGetter from '../helpers/lazy-getter';
 import { UiSettings } from 'shared';
 import Period  from './course/period';
 import Role    from './course/role';
@@ -14,11 +14,13 @@ import CourseInformation from './course/information';
 import Roster from './course/roster';
 import Scores from './course/scores';
 import LMS from './course/lms';
-import TeacherTaskPlans   from './teacher-task-plans';
+import PH from '../helpers/period';
 import TimeHelper from '../helpers/time';
 import { TimeStore } from '../flux/time';
+import { extendHasMany } from '../helpers/computed-property';
 import moment from 'moment-timezone';
 import StudentTasks from './student-tasks';
+import TeacherTaskPlans from './course/task-plans';
 
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
 const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
@@ -50,17 +52,27 @@ export default class Course extends BaseModel {
   @session is_access_switchable = true;
   @session salesforce_book_name;
 
-  @session({ type: 'date' }) starts_at;
-  @session({ type: 'date' }) ends_at;
+  @session starts_at;
+  @session ends_at;
 
   @session term;
   @session time_zone;
   @session webview_url;
   @session year;
 
-  @hasMany({ model: Period, inverseOf: 'course' }) periods;
+  @hasMany({ model: Period, inverseOf: 'course', extend: extendHasMany({
+    sorted()   { return PH.sort(this);                               },
+    archived() { return filter(this, period => !period.is_archived); },
+    active()   { return filter(this, period => !period.is_archived); },
+  }) }) periods;
+
   @hasMany({ model: Role }) roles;
   @hasMany({ model: Student, inverseOf: 'course' }) students;
+
+  constructor(attrs, map) {
+    super(attrs);
+    this.map = map;
+  }
 
   @computed get num_enrolled_students() {
     return sumBy(this.periods, 'num_enrolled_students');
@@ -78,6 +90,7 @@ export default class Course extends BaseModel {
       )
     );
   }
+
   @computed get canOnlyUseLMS() {
     return Boolean(
       this.is_lms_enabled && !this.is_access_switchable
@@ -88,9 +101,10 @@ export default class Course extends BaseModel {
     return StudentTasks.forCourseId(this.id);
   }
 
-  @lazyInitialize lms = new LMS(this);
-  @lazyInitialize roster = new Roster(this);
-  @lazyInitialize scores = new Scores(this);
+  @lazyGetter lms = new LMS({ course: this });
+  @lazyGetter roster = new Roster({ course: this });
+  @lazyGetter scores = new Scores({ course: this });
+  @lazyGetter taskPlans = new TeacherTaskPlans({ course: this });
 
   @computed get nameCleaned() {
     const previewSuffix = ' Preview';
@@ -148,10 +162,6 @@ export default class Course extends BaseModel {
     return !!find(this.roles, 'isTeacher');
   }
 
-  @computed get taskPlans() {
-    return TeacherTaskPlans.forCourseId(this.id);
-  }
-
   @computed get needsPayment() {
     return Boolean(this.does_cost && this.userStudentRecord && this.userStudentRecord.needsPayment);
   }
@@ -160,12 +170,8 @@ export default class Course extends BaseModel {
     return Boolean(this.does_cost && this.userStudentRecord && !this.userStudentRecord.isUnPaid);
   }
 
-  @computed get archivedPeriods() {
-    return filter(this.periods, period => period.is_archived);
-  }
-
-  @computed get activePeriods() {
-    return filter(this.periods, period => !period.is_archived);
+  @computed get defaultTimes() {
+    return pick(this, 'default_due_time', 'default_open_time');
   }
 
   @computed get tourAudienceTags() {
@@ -205,6 +211,8 @@ export default class Course extends BaseModel {
     ));
   }
 
+  // called by API
+  fetch() { }
   save() {
     return { id: this.id, data: pick(this, 'name', 'is_lms_enabled', 'time_zone') };
   }

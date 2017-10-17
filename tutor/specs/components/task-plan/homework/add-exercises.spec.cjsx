@@ -7,7 +7,7 @@ ReactDOM = require 'react-dom'
 {TocActions, TocStore} = require '../../../../src/flux/toc'
 {TaskPlanActions, TaskPlanStore} = require '../../../../src/flux/task-plan'
 {ExtendBasePlan, PlanRenderHelper} = require '../../helpers/task-plan'
-{CourseActions, CourseStore} = require '../../../../src/flux/course'
+{default: Courses} = require '../../../../src/models/courses-map'
 {ExerciseActions} = require  '../../../../src/flux/exercise'
 
 FakeDOMNode = require 'shared/specs/helpers/fake-dom-node'
@@ -33,7 +33,7 @@ describe 'choose exercises component', ->
       planId: PLAN_ID
       onAddClick: sinon.spy()
       sectionIds: SECTION_IDS
-    CourseActions.loaded(COURSE, COURSE_ID)
+    Courses.bootstrap([COURSE], { clear: true })
     ExerciseActions.loadedForCourse(EXERCISES, COURSE_ID, SECTION_IDS)
     TocActions.loaded(READINGS, ECOSYSTEM_ID)
     TaskPlanActions.loaded(NEW_PLAN, PLAN_ID)

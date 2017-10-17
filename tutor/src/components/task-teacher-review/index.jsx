@@ -3,7 +3,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
 import { first, find } from 'lodash';
-import TeacherTaskPlans from '../../models/teacher-task-plans';
+import TeacherTaskPlans from '../../models/course/task-plans';
 import Courses from '../../models/courses-map';
 import Breadcrumbs from './breadcrumbs';
 import Stats from '../plan-stats';
@@ -26,14 +26,12 @@ export default class TaskTeacherReview extends React.Component {
     router: React.PropTypes.object,
   };
 
-  @computed get taskPlan() {
-    return TeacherTaskPlans
-      .forCourseId(this.props.params.courseId)
-      .withPlanId(this.props.params.id);
-  }
-
   @computed get course() {
     return Courses.get(this.props.params.courseId);
+  }
+
+  @computed get taskPlan() {
+    return this.course.taskPlans.withPlanId(this.props.params.id);
   }
 
   scroller = new ScrollTo({

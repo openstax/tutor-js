@@ -10,7 +10,7 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import User from '../models/user';
 import { SpyMode } from 'shared';
-import { CourseStore } from '../flux/course';
+import Courses from '../models/courses-map';
 import { TransitionActions } from '../flux/transition';
 
 import TourConductor from './tours/conductor';
@@ -58,10 +58,10 @@ class App extends React.PureComponent {
   render() {
     const params = Router.currentParams();
     const { courseId } = params;
-
+    const course = courseId ? Courses.get(courseId) : null;
     const classNames = classnames('tutor-app', 'openstax-wrapper', {
-      'is-college':     (courseId != null) && CourseStore.isCollege(courseId),
-      'is-high-school': (courseId != null) && CourseStore.isHighSchool(courseId),
+      'is-college':     course && course.is_college,
+      'is-high-school': course && !course.is_college,
     });
 
     return (

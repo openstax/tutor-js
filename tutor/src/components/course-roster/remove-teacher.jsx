@@ -2,10 +2,6 @@ import React from 'react';
 import { action, computed } from 'mobx';
 import { observer } from 'mobx-react';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
-
-//import BindStoreMixin from '../bind-store-mixin';
-// import { CourseStore, CourseActions } from '../../flux/course';
-// import { RosterStore, RosterActions } from '../../flux/roster';
 import Router from '../../helpers/router';
 
 import Icon from '../icon';
@@ -29,39 +25,37 @@ export default class RemoveTeacherLink extends React.PureComponent {
     router: React.PropTypes.object,
   }
 
-  @computed get isSelfRemoval() {
-    return this.props.course.primaryRole.id === this.props.teacher.role_id;
-  }
-
   @action.bound goToDashboard() {
     this.context.router.history.push(Router.makePathname('myCourses'));
   }
 
   @action.bound performDeletion() {
     const request = this.props.teacher.drop();
-    if (this.isSelfRemoval) {
+    if (this.props.teacher.isTeacherOfCourse) {
       request.then(this.goToDashboard);
     }
   }
 
   confirmPopOver() {
+    const { teacher } = this.props;
+
     return (
       <Popover
-        id={`settings-remove-popover-${this.props.teacher.id}`}
+        id={`settings-remove-popover-${teacher.id}`}
         className="settings-remove-teacher"
-        title={<span>Remove <Name {...this.props.teacher} />?</span>}
+        title={<span>Remove <Name {...teacher} />?</span>}
       >
         <AsyncButton
           bsStyle="danger"
           onClick={this.performDeletion}
-          isWaiting={this.props.teacher.api.isPending}
+          isWaiting={teacher.api.isPending}
           waitingText="Removing..."
         >
           <Icon type="ban" /> Remove
         </AsyncButton>
 
         <div className="warning">
-          {this.isSelfRemoval ? WARN_REMOVE_CURRENT : undefined}
+          {teacher.isTeacherOfCourse ? WARN_REMOVE_CURRENT : undefined}
         </div>
       </Popover>
     );

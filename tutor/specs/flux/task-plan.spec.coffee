@@ -3,8 +3,7 @@ moment = require 'moment'
 cloneDeep = require 'lodash/cloneDeep'
 
 {TaskPlanActions, TaskPlanStore} = require '../../src/flux/task-plan'
-
-{CourseActions, CourseStore} = require '../../src/flux/course'
+{ default: Courses } = require '../../src/models/courses-map'
 
 COURSE  = require '../../api/courses/1.json'
 COURSE_ID = '1'
@@ -16,7 +15,7 @@ HOMEWORK_WITH_FALSE = _.findWhere(DATA.plans, id: '29')
 describe 'TaskPlan Store', ->
 
   beforeEach ->
-    CourseActions.loaded(COURSE, COURSE_ID)
+    Courses.bootstrap([COURSE], { clear: true })
     TaskPlanActions.loaded(PLAN, PLAN.id)
 
   it 'can clone a task plan', ->
@@ -29,7 +28,7 @@ describe 'TaskPlan Store', ->
       expect(clone[attr]).to.deep.equal(PLAN[attr])
 
     expect(clone.cloned_from_id).to.equal(PLAN.id)
-    for period in CourseStore.getPeriods(COURSE_ID)
+    for period in Courses.get(COURSE_ID).periods.active
       tasking_plan = _.find(clone.tasking_plans, target_id: period.id)
       expect(tasking_plan).to.exist
 
@@ -46,7 +45,7 @@ describe 'TaskPlan Store', ->
       expect(clone[attr]).to.deep.equal(HOMEWORK_WITH_FALSE[attr])
 
     expect(clone.cloned_from_id).to.equal(HOMEWORK_WITH_FALSE.id)
-    for period in CourseStore.getPeriods(COURSE_ID)
+    for period in Courses.get(COURSE_ID).periods.active
       tasking_plan = _.find(clone.tasking_plans, target_id: period.id)
       expect(tasking_plan).to.exist
 

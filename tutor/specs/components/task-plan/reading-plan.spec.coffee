@@ -2,7 +2,7 @@ _ = require 'underscore'
 moment = require 'moment-timezone'
 
 {TaskPlanActions, TaskPlanStore} = require '../../../src/flux/task-plan'
-{CourseActions, CourseStore} = require '../../../src/flux/course'
+{default: Courses} = require '../../../src/models/courses-map'
 {TocActions, TocStore} = require '../../../src/flux/toc'
 {TimeStore} = require '../../../src/flux/time'
 TimeHelper = require '../../../src/helpers/time'
@@ -31,7 +31,7 @@ helper = (model) -> PlanRenderHelper(model, ReadingPlan)
 
 describe 'Reading Plan', ->
   beforeEach ->
-    CourseActions.loaded(COURSE, COURSE_ID)
+    Courses.bootstrap([COURSE], { clear: true })
     TaskPlanActions.reset()
 
   it 'should allow add sections when not visible', ->

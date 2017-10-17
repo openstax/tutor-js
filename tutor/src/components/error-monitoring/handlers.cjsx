@@ -11,7 +11,8 @@ TimeHelper  = require '../../helpers/time'
 ServerErrorMessage = require './server-error-message'
 
 {AppStore}    = require '../../flux/app'
-{CourseStore} = require '../../flux/course'
+{default: Courses} = require '../../models/courses-map'
+
 UserMenu = require('../../models/user/menu').default
 
 goToDashboard = (context, courseId) ->
@@ -22,7 +23,7 @@ goToDashboard = (context, courseId) ->
 
 getCurrentCourse = ->
   {courseId} = TutorRouter.currentParams()
-  if courseId then CourseStore.get(courseId) else {}
+  if courseId then Courses.get(courseId) else {}
 
 reloadOnce = ->
   navigation = AppStore.errorNavigation()

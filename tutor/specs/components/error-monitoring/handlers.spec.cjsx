@@ -3,7 +3,7 @@
 jest.mock('../../../src/helpers/router')
 TutorRouter = require '../../../src/helpers/router'
 
-{CourseActions, CourseStore} = require '../../../src/flux/course'
+{default: Courses} = require '../../../src/models/courses-map'
 
 TestRouter = require '../helpers/test-router'
 COURSE_ID = '1'
@@ -17,8 +17,8 @@ Wrapper = (props) ->
 describe 'Error monitoring: handlers', ->
 
   beforeEach ->
-    CourseActions.loaded(COURSE, COURSE_ID)
-    @course = CourseStore.get(COURSE_ID)
+    Courses.bootstrap([COURSE], { clear: true })
+    @course = Courses.get(COURSE_ID)
     TutorRouter.currentParams.mockReturnValue({courseId: COURSE_ID})
     TutorRouter.makePathname.mockReturnValue('/go/to/dash')
     @args =

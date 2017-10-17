@@ -3,7 +3,7 @@ moment = require 'moment-timezone'
 
 {TaskPlanActions, TaskPlanStore} = require '../../../src/flux/task-plan'
 {TaskingActions} = require '../../../src/flux/tasking'
-{CourseActions, CourseStore} = require '../../../src/flux/course'
+{default: Courses} = require '../../../src/models/courses-map'
 {TimeStore} = require '../../../src/flux/time'
 TimeHelper = require '../../../src/helpers/time'
 
@@ -30,7 +30,7 @@ helper = (model) -> PlanRenderHelper(model, ExternalPlan)
 
 describe 'External Homework Plan', ->
   beforeEach ->
-    CourseActions.loaded(COURSE, COURSE_ID)
+    Courses.bootstrap([COURSE], { clear: true })
     TaskPlanActions.reset()
     TaskingActions.reset()
 

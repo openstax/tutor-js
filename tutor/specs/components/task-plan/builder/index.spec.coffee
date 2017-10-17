@@ -16,8 +16,7 @@ CourseDataHelper = require '../../../../src/helpers/course-data'
 {commonActions} = require '../../helpers/utilities'
 {ExtendBasePlan, PlanRenderHelper} = require '../../helpers/task-plan'
 
-{CourseListingActions, CourseListingStore} = require '../../../../src/flux/course-listing'
-{CourseStore, CourseActions} = require '../../../../src/flux/course'
+{default: Courses} = require '../../../../src/models/courses-map'
 
 {TimeStore} = require '../../../../src/flux/time'
 TimeHelper = require '../../../../src/helpers/time'
@@ -118,7 +117,7 @@ describe 'Task Plan Builder', ->
   beforeEach ->
     TaskPlanActions.reset()
     TaskingActions.reset()
-    CourseListingActions.loaded(COURSES)
+    Courses.bootstrap(COURSES, { clear: true })
 
   it 'should load expected plan', ->
     helper(PUBLISHED_MODEL).then ({dom}) ->
@@ -160,6 +159,7 @@ describe 'Task Plan Builder', ->
     helper(NEW_READING).then ({dom, element}) ->
       element.setIndividualPeriods()
       labels = _.pluck(dom.querySelectorAll('.tasking-plan label'), 'textContent')
+      console.log(labels)
       expect( labels ).to.be.deep.equal(['1st', '3rd', '4th', '5th', '6th', '10th', 'AAA', 'zZZ'])
 
   it 'does not load a default due at for all periods', ->
@@ -293,7 +293,7 @@ describe 'Task Plan Builder', ->
   it 'sets the correct moment timezone on mount', ->
     courseId = COURSES[0].periods[0].id
     helper(NEW_READING).then ({dom, element}) ->
-      expect([undefined, CourseStore.getTimezone(courseId)]).to.contain(moment().tz())
+      expect([undefined, Courses.get(courseId).time_zone]).to.contain(moment().tz())
 
   it 'name and description fields are enabled when plan is past due', ->
     helper(PUBLISHED_MODEL).then ({dom}) ->
@@ -311,7 +311,7 @@ describe 'Task Plan Builder', ->
     starts_at_iso = TimeHelper.getZonedMoment(starts_at).format(ISO_DATE_FORMAT)
     course.starts_at = starts_at_iso
     course.ends_at = starts_at.clone().add(3, 'month').format(ISO_DATE_FORMAT)
-    CourseActions.loaded(course, COURSE_ID)
+    Courses.bootstrap([course], { clear: true })
     extendedReading =
       due_at: starts_at_iso
       opens_at: starts_at_iso

@@ -1,8 +1,9 @@
 import CourseEnroll from '../../../src/models/course/enroll';
-import CL from '../../../src/flux/course-listing';
-jest.mock('../../../src/flux/course-listing', () => ({
-  CourseListingStore: { once: jest.fn((signal, cb) => cb()) },
-  CourseListingActions: { load: jest.fn() },
+import Courses from '../../../src/models/courses-map';
+jest.mock('../../../src/models/courses-map', () => ({
+  fetch: jest.fn(() => ({
+    then: jest.fn((cb) => cb()),
+  })),
 }));
 
 describe('Course Enrollment', function() {
@@ -47,8 +48,7 @@ describe('Course Enrollment', function() {
   it('fetches on complete', () => {
     enroll.status = 'processed';
     expect(enroll.isRegistered).toBe(true);
-    expect(CL.CourseListingStore.once).toHaveBeenCalled();
-    expect(CL.CourseListingActions.load).toHaveBeenCalled();
+    expect(Courses.fetch).toHaveBeenCalled();
     expect(enroll.isComplete).toBe(true);
   });
 

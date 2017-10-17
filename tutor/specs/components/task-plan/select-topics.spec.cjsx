@@ -1,8 +1,8 @@
 {React, SnapShot} = require '../helpers/component-testing'
 
 SelectTopics = require '../../../src/components/task-plan/select-topics'
+{default: Courses} = require '../../../src/models/courses-map'
 
-{CourseActions, CourseStore} = require '../../../src/flux/course'
 {TaskPlanActions, TaskPlanStore} = require '../../../src/flux/task-plan'
 {TocStore, TocActions} = require '../../../src/flux/toc'
 
@@ -22,7 +22,7 @@ describe 'Select Topics', ->
   beforeEach ->
     TocActions.reset()
     TaskPlanActions.reset()
-    CourseActions.loaded(COURSE, COURSE_ID)
+    Courses.bootstrap([COURSE], { clear: true })
     TocActions.loaded(READINGS, ECOSYSTEM_ID)
     TaskPlanActions.loaded(HOMEWORK, HOMEWORK.id)
     @props =

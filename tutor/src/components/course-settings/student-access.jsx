@@ -95,7 +95,7 @@ export default class StudentAccess extends React.PureComponent {
         <p>
           Give these links to your students in each section to enroll.
         </p>
-        {course.activePeriods.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url} />)}
+        {course.periods.active.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url} />)}
       </div>
     );
   }
@@ -168,7 +168,7 @@ export default class StudentAccess extends React.PureComponent {
         <PanelGroup activeKey={course.is_lms_enabled} onSelect={this.onSelectOption} accordion>
           <Panel className="links" header={this.renderDirectHeader()} eventKey={false}>
             <p>Give these links to your students in each section to enroll.</p>
-            {course.activePeriods.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url} />)}
+            {course.periods.active.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url} />)}
           </Panel>
           <Panel className="lms" header={this.renderLMSHeader()} eventKey={true}>
             {this.renderLMS()}

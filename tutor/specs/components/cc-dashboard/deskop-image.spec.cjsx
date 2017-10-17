@@ -1,7 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
 
-{CourseStore, CourseActions} = require '../../../src/flux/course'
+{default: Courses} = require '../../../src/models/courses-map'
 
 COURSE  = require '../../../api/courses/1.json'
 COURSE_ID = '1'
@@ -12,13 +12,12 @@ Context = require '../helpers/enzyme-context'
 
 describe 'CC Dashboard desktop image', ->
   beforeEach ->
-    CourseActions.loaded(COURSE, COURSE_ID)
+    Courses.bootstrap([COURSE], { clear: true })
     @props =
       courseId: COURSE_ID
 
   it 'list a truncated course title', ->
-    course = _.extend({}, COURSE, name: 'A long name that should be truncated somewhere')
-    CourseActions.loaded(course, COURSE_ID)
+    Courses.get(COURSE_ID).name = 'A long name that should be truncated somewhere'
     image = shallow(<Image {...@props} />, Context.build())
     expect(image).toHaveRendered('text[className="course-name"]')
     expect(image.find('text[className="course-name"]').text()).toEqual('A long name that should be truncated so…')

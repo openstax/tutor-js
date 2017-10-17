@@ -3,7 +3,7 @@ BS     = require 'react-bootstrap'
 
 TutorLink = require '../../link'
 
-{CourseStore} = require '../../../flux/course'
+{default: Courses} = require '../../../models/courses-map'
 
 TimeZoneSettingsLink = React.createClass
 
@@ -24,7 +24,7 @@ TimeZoneSettingsLink = React.createClass
       params={courseId: @props.courseId}
     >
       <BS.OverlayTrigger placement='top' overlay={tooltip}>
-        <span>{CourseStore.getTimezone(@props.courseId)}</span>
+        <span>{Courses.get(@props.courseId).time_zone}</span>
       </BS.OverlayTrigger>
     </TutorLink>
 

@@ -10,7 +10,7 @@ import BackButton from './back-button';
 import DraftButton from './save-as-draft';
 import DeleteLink from './delete-link';
 import PreviewButton from './preview-button';
-
+import Courses from '../../../models/courses-map';
 import TourAnchor from '../../tours/anchor';
 
 @observer
@@ -41,7 +41,8 @@ export default class PlanFooter extends React.PureComponent {
 
   @action.bound
   onDelete() {
-    const { id } = this.props;
+    const { courseId, id } = this.props;
+    Courses.get(courseId).taskPlans.delete(id);
     TaskPlanActions.delete(id);
     this.props.goBackToCalendar();
   }
