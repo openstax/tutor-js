@@ -6,18 +6,10 @@ import PH from '../../src/helpers/period';
 import { autorun } from 'mobx';
 import { bootstrapCoursesList } from '../courses-test-data';
 
-import { observable, extendObservable, computed } from 'mobx';
-
 import COURSE from '../../api/courses/1.json';
 
-import TeacherTaskPlans from '../../src/models/course/task-plans';
 jest.mock('shared/src/model/ui-settings');
-// jest.mock('../../src/models/course/task-plans', () => ({
-//   forCourseId: jest.fn(() => ({
-//     reading:  { hasPublishing: false },
-//     homework: { hasPublishing: false },
-//   })),
-// }));
+
 describe('Course Model', () => {
 
   beforeEach(() => bootstrapCoursesList());
@@ -59,7 +51,9 @@ describe('Course Model', () => {
     const course = Courses.get(3);
     expect(course.tourAudienceTags).toEqual(['teacher', 'student']);
     course.is_preview = false;
-    course.taskPlans.set('1', { id: 1, type: 'reading', is_publishing: true });
+    expect(course.isTeacher).toEqual(true);
+    course.taskPlans.set('1', { id: 1, type: 'reading', is_publishing: true, isPublishing: true });
+    expect(course.taskPlans.reading.hasPublishing).toEqual(true);
     expect(course.tourAudienceTags).toEqual(['teacher', 'teacher-reading-published', 'student' ]);
   });
 
@@ -127,4 +121,5 @@ describe('Course Model', () => {
     expect(PH.sort).toHaveBeenCalledTimes(3);
     expect(sortedSpy).toHaveBeenCalledTimes(2);
   });
+
 });

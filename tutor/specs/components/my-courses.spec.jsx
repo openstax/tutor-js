@@ -21,18 +21,29 @@ describe('My Courses Component', function() {
     User.self_reported_role = '';
   });
 
-  it('renders the listing', function() {
+  it('matches snapshot', function() {
+    const component = SnapShot.create(
+      <Wrapper _wrapped_component={CourseListing} noReference />
+    );
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+    component.unmount();
+  });
+
+  it('renders the listing sorted', function() {
     const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
     for (let i = 0; i < MASTER_COURSES_LIST.length; i++) {
       const course = MASTER_COURSES_LIST[i];
       expect(wrapper).toHaveRendered(`.my-courses [data-course-id='${course.id}']`);
     }
+    wrapper.unmount();
   });
 
   it('renders the listing without archived courses', function() {
     Courses.bootstrap(flatten([MASTER_COURSES_LIST, STUDENT_ARCHIVED_COURSE]), { clear: true });
     const wrapper = shallow(<CourseListing />, EnzymeContext.withDnD());
     expect(wrapper).not.toHaveRendered(`CourseLink[courseId='${STUDENT_ARCHIVED_COURSE.id}']`);
+    wrapper.unmount();
   });
 
   it('renders add course action if user is teacher', function() {
@@ -40,6 +51,7 @@ describe('My Courses Component', function() {
     const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
     expect(User.isConfirmedFaculty).toBeTruthy();
     expect(wrapper).toHaveRendered('.my-courses-add-zone');
+    wrapper.unmount();
   });
 
   it('renders controls for course if user is teacher of course', function() {
@@ -51,6 +63,7 @@ describe('My Courses Component', function() {
         expect(wrapper).toHaveRendered(`[data-course-id='${course.id}'] .my-courses-item-controls`);
       }
     }
+    wrapper.unmount();
   });
 
   it('does not render controls for course if user is student of course', function() {
@@ -62,6 +75,7 @@ describe('My Courses Component', function() {
         expect(wrapper).not.toHaveRendered(`[data-course-id='${course.id}'] .my-courses-item-controls`);
       }
     }
+    wrapper.unmount();
   });
 
   it('renders past courses in past courses listing', function() {
@@ -103,6 +117,7 @@ describe('My Courses Component', function() {
     User.self_reported_role = 'instructor';
     const wrapper = shallow(<CourseListing />, EnzymeContext.withDnD());
     expect(wrapper).toHaveRendered('PendingVerification');
+    wrapper.unmount();
   });
 
   it('displays popover help for verified instructor without courses', () => {
@@ -110,5 +125,6 @@ describe('My Courses Component', function() {
     loadTeacherUser();
     const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
     expect(wrapper).toHaveRendered('[data-tour-anchor-id="create-course-zone"]');
+    wrapper.unmount();
   });
 });
