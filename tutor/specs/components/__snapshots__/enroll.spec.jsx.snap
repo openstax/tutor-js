@@ -35,7 +35,7 @@ exports[`Student Enrollment blocks teacher enrollment 1`] = `
           <p>
             Contact 
             <a
-              href="mailto:support@openstaxtutor.org"
+              href="mailto:support@openstax.org"
             >
               Support
             </a>
