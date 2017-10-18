@@ -75,6 +75,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
             data-identifier="33uqbxbi324n"
             href="url-for-test/invoice/33uqbxbi324n"
             onClick={[Function]}
+            onKeyDown={[Function]}
           >
             Invoice
           </a>
@@ -116,6 +117,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
             data-identifier="nuvwqun23ztq"
             href="url-for-test/invoice/nuvwqun23ztq"
             onClick={[Function]}
+            onKeyDown={[Function]}
           >
             Invoice
           </a>
@@ -157,6 +159,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
             data-identifier="ru6ifviicwki"
             href="url-for-test/invoice/ru6ifviicwki"
             onClick={[Function]}
+            onKeyDown={[Function]}
           >
             Invoice
           </a>
@@ -198,6 +201,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
             data-identifier="fxa4s2kj75fr"
             href="url-for-test/invoice/fxa4s2kj75fr"
             onClick={[Function]}
+            onKeyDown={[Function]}
           >
             Invoice
           </a>
@@ -239,6 +243,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
             data-identifier="3dmy8nu4v4bg"
             href="url-for-test/invoice/3dmy8nu4v4bg"
             onClick={[Function]}
+            onKeyDown={[Function]}
           >
             Invoice
           </a>
@@ -268,6 +273,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
             data-identifier="kjxdvs9wd7rw"
             href="url-for-test/invoice/kjxdvs9wd7rw"
             onClick={[Function]}
+            onKeyDown={[Function]}
           >
             Invoice
           </a>
@@ -317,6 +323,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
             data-identifier="cufu6hr4xicy"
             href="url-for-test/invoice/cufu6hr4xicy"
             onClick={[Function]}
+            onKeyDown={[Function]}
           >
             Invoice
           </a>

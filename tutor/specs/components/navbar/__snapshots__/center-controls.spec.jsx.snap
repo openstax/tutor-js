@@ -19,7 +19,6 @@ exports[`Center Controls matches snapshot 1`] = `
         className="due-date fa-stack"
       >
         <button
-          aria-describedby="icon-tooltip-1"
           className="tutor-icon fa fa-calendar-o fa-stack-2x"
           onBlur={[Function]}
           onClick={null}

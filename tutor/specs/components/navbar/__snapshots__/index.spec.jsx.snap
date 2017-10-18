@@ -65,6 +65,7 @@ exports[`Main navbar renders and matches snapshot 1`] = `
             <a
               href="http://openstax.force.com/support?l=en_US&c=Products%3ATutor"
               onClick={[Function]}
+              onKeyDown={[Function]}
               role="menuitem"
               tabIndex="-1"
               target="_blank"
@@ -82,6 +83,7 @@ exports[`Main navbar renders and matches snapshot 1`] = `
             <a
               href="/accessibility-statement/"
               onClick={[Function]}
+              onKeyDown={[Function]}
               role="menuitem"
               tabIndex="-1"
             >
