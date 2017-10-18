@@ -44,11 +44,14 @@ export default class CourseNagModal extends React.PureComponent {
     if (this.props.tourContext.tour || this.isDismissed || !NagComponent) {
       return null;
     }
+    const className = classnames('onboarding', NagComponent.className);
 
     return (
       <Modal
         animation={false}
-        className={classnames('onboarding', NagComponent.className)}
+        dialogClassName={className}
+        backdropClassName={className}
+        className={className}
         show={!this.isDismissed}
         onHide={this.onClose}
       >
