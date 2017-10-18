@@ -71,7 +71,6 @@ const loadApp = function() {
   Chat.initialize();
   startMathJax();
   TransitionAssistant.startMonitoring();
-  HYPOTHESIS.initialize();
 
   // Both require and module.hot.accept must be passed a bare string, not variable
   const Renderer = ReactHelpers.renderRoot( () => require('./src/components/root').default);

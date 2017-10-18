@@ -20,6 +20,9 @@ ReferenceBookShell = React.createClass
     @getIds()
 
   componentWillMount: ->
+    window._MODELS.HYPOTHESIS.initialize()
+    window._MODELS.HYPOTHESIS.loadSidebar();
+
     {courseId} = Router.currentParams()
     @setIds()
 
@@ -28,7 +31,6 @@ ReferenceBookShell = React.createClass
       CourseStore.once('course.loaded', @setIds)
 
   componentDidMount: ->
-
 
 
   componentWillReceiveProps: ->
