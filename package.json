@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "description": "Frontend Code for OpenStax",
   "main": "index.js",
+  "engines": {
+    "node": "8.6.0",
+    "npm": "5.3.0"
+  },
   "scripts": {
     "preci": "npm run validate",
     "ci": "./bin/test-ci",
