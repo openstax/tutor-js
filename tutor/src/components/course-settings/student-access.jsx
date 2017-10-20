@@ -36,10 +36,10 @@ export default class StudentAccess extends React.PureComponent {
         />
         <div className="heading">
           <p className="title">
-            Access through direct links
+            Give students direct links
           </p>
           <p className="info">
-            Give these links to your students in each section to enroll
+            You will give students links to access OpenStax Tutor directly.
           </p>
         </div>
       </div>
@@ -60,8 +60,8 @@ export default class StudentAccess extends React.PureComponent {
             Access from paired LMS <i className="advanced">Advanced</i>
           </p>
           <p className="info">
-            Connect OpenStax Tutor to your learning management system to enable single sign-on
-            and course grade sync. Students will use pre-established links in their LMS.
+            Integrate OpenStax Tutor with your Learning Management System (LMS) to send average course scores to your 
+            LMS and enable single sign on.
           </p>
         </div>
       </div>
@@ -159,8 +159,7 @@ export default class StudentAccess extends React.PureComponent {
       <div className="student-access">
         {this.renderLinkSwitchWarning()}
         <p>
-          Choose how students enroll in and access OpenStax Tutor.
-          Access settings cannot be changed once at least one student has enrolled.
+          Choose how students access OpenStax Tutor. Access settings cannot be changed after students begin to enroll.
         </p>
         <a href="http://4tk3oi.axshare.com/salesforce_support_page_results.html" target="_blank">
           <Icon type="info-circle" /> Which option is right for my course?
