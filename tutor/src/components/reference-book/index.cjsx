@@ -12,6 +12,8 @@ LoadableItem = require '../loadable-item'
 
 ReferenceBook = require './reference-book'
 TeacherContentToggle = require './teacher-content-toggle'
+require './highlighter.js'
+serializeSelection = require('serialize-selection')
 
 ReferenceBookShell = React.createClass
   displayName: 'ReferenceBookShell'
@@ -20,9 +22,6 @@ ReferenceBookShell = React.createClass
     @getIds()
 
   componentWillMount: ->
-    window._MODELS.HYPOTHESIS.initialize()
-    window._MODELS.HYPOTHESIS.loadSidebar();
-
     {courseId} = Router.currentParams()
     @setIds()
 
@@ -31,10 +30,29 @@ ReferenceBookShell = React.createClass
       CourseStore.once('course.loaded', @setIds)
 
   componentDidMount: ->
-
+    window.document.addEventListener('selectionchange', @handleSelectionChange)
+    window.document.addEventListener('keyup', @handleKeyUp)
 
   componentWillReceiveProps: ->
     @setIds()
+
+  componentWillUnmount: ->
+    window.document.removeEventListener('selectionchange', @handleSelectionChange)
+    window.document.removeEventListener('keyup', @handleKeyUp)
+
+  handleSelectionChange: ->
+    #console.debug("Handling selection change", window.getSelection())
+
+  handleKeyUp: (e) ->
+    # For now, because it's easier than putting a widget in
+    selection = window.getSelection()
+    if (not selection.isCollapsed)
+      serialization = serializeSelection.save()
+      console.debug("Serialize?", serialization)
+      highlighter = new TextHighlighter(document.body)
+      highlighter.doHighlight()
+      highlights = highlighter.serializeHighlights()
+      console.debug("You highlighted", highlights)
 
   getIds: ->
     {courseId, section} = Router.currentParams()
