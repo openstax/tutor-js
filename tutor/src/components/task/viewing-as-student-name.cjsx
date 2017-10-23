@@ -18,7 +18,8 @@ ViewingAsStudentName = React.createClass
 
   getStudentState: (props) ->
     {courseId, taskId} = props or @props
-    Courses.get(courseId).scores.getTask(taskId).student
+    task = Courses.get(courseId).scores.getTask(taskId)
+    if task then { student: task.student } else {}
 
   updateStudent: (props) ->
     props ?= @props
@@ -27,10 +28,9 @@ ViewingAsStudentName = React.createClass
   componentWillMount: ->
     {courseId, taskId} = @props
     {student} = @state
-
-    unless student?
-      ScoresStore.once('change', @updateStudent)
-      ScoresActions.load(courseId)
+    scores = Courses.get(courseId).scores
+    unless student? or scores.api.hasBeenFetched
+      scores.fetch().then(=> @updateStudent())
 
   componentWillReceiveProps: (nextProps) ->
     @updateStudent(nextProps)
@@ -38,7 +38,6 @@ ViewingAsStudentName = React.createClass
   render: ->
     {className} = @props
     studentName = null
-
     className = classnames className, 'task-student'
     {student} = @state
 

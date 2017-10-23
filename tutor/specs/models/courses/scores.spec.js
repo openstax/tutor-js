@@ -115,6 +115,11 @@ describe('scores store', function() {
     expect(period.overall_average_score).closeTo(0.2222, 0.0001);
   });
 
+  it('can get task by id', () => {
+    const task = Courses.get(COURSE_ID).scores.getTask('17');
+    expect(task.id).toEqual(COMPLETED_TASK_ID);
+  });
+
   it('resets properties after a rejection', function() {
     let task = gT(PARTIALLY_WORKED_LATE_TASK_ID);
 

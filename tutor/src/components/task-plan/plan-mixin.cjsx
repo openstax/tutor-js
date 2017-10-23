@@ -144,25 +144,18 @@ PlanMixin =
   # TODO move to helper type thing.
   getBackToCalendarParams: ->
     {id, courseId} = @props
-    calendarRoute = 'calendarByDate'
     dueAt = TaskingStore.getFirstDueDate(id) or @context.router.getCurrentQuery().due_at
     if dueAt?
       date = dueAt
     else
       date = TimeStore.getNow()
-
     date = moment(date).format(CALENDAR_DATE_FORMAT)
-
-    unless TaskPlanStore.isNew(id) or TaskPlanStore.isPublishing(id) or TaskPlanStore.isDeleteRequested(id)
-      calendarRoute = 'calendarViewPlanStats'
-      planId = id
-
-    to: calendarRoute
-    params: {courseId, date, planId}
+    {courseId, date}
 
   goBackToCalendar: ->
-    {to, params} = @getBackToCalendarParams()
-    @context.router.history.push(Router.makePathname(to, params))
+    @context.router.history.push(
+      Router.makePathname('calendarByDate', @getBackToCalendarParams())
+    )
 
   builderHeader: (type, label = 'Assignment') ->
     {id} = @props

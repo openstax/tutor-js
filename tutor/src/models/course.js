@@ -74,6 +74,10 @@ export default class Course extends BaseModel {
     this.map = map;
   }
 
+  @computed get sortKey() {
+    return this.primaryRole.joined_at;
+  }
+
   @computed get num_enrolled_students() {
     return sumBy(this.periods, 'num_enrolled_students');
   }

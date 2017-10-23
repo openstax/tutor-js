@@ -1,9 +1,3 @@
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
 import React from 'react';
 import createReactClass from 'create-react-class';
 import { map, partial } from 'lodash';
@@ -20,20 +14,7 @@ export default class Progress extends React.PureComponent {
     activeSection: React.PropTypes.string,
   }
 
-  _calculatePercent(num, total) {
-    return Math.round((num / total) * 100);
-  }
-
-  calculatePercent(data, correctOrIncorrect) {
-    if (correctOrIncorrect == null) { correctOrIncorrect = 'correct'; }
-    const count = correctOrIncorrect + '_count';
-
-    const total_count = data.correct_count + data.incorrect_count;
-    return total_count ? this._calculatePercent(data[count], total_count) : 0;
-  }
-
   renderPercentBar(data, type, percent, correctOrIncorrect) {
-    let correct;
     let classes = 'reading-progress-bar';
     classes += ` progress-bar-${correctOrIncorrect}`;
     if (!percent) { classes += ' no-progress'; }
@@ -55,16 +36,15 @@ export default class Progress extends React.PureComponent {
   renderPercentBars() {
     const { data, type } = this.props;
 
-    const percents = {
-      correct: this.calculatePercent(data, 'correct'),
-      incorrect: this.calculatePercent(data, 'incorrect'),
-    };
-
-    // make sure percents add up to 100
-    if ((percents.incorrect + percents.correct) > 100) {
+    const total_count = data.correct_count + data.incorrect_count;
+    const correct = total_count ? Math.round((data.correct_count / total_count) * 100) : 0;
+    const percents = {};
+    if (correct >=5) {
+      percents.correct = correct;
+    }
+    if (correct < 95) {
       percents.incorrect = 100 - percents.correct;
     }
-
     return map(percents, partial(this.renderPercentBar, data, type));
   }
 

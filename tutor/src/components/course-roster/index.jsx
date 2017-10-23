@@ -92,38 +92,32 @@ export default class CourseRoster extends React.PureComponent {
         course={course}
         controls={this.renderControls(course)}
       >
-        <TourRegion
-          id="course-settings"
-          otherTours={['course-settings-preview']}
-          courseId={course.id}
-        >
-          <div className="settings-section teachers">
-            <TeacherRoster course={course} />
-          </div>
+        <div className="settings-section teachers">
+          <TeacherRoster course={course} />
+        </div>
 
-          <div className="roster">
-            <div className="settings-section periods">
-              <Tabs ref="tabs" tabs={map(periods, 'name')} onSelect={this.onTabSelection}>
-                <AddPeriodLink show={false} course={course} />
-                <ViewArchivedPeriods course={course} onComplete={this.selectPreviousPeriod} />
-              </Tabs>
-              <div className="active-period">
-                <div className="period-edit-controls">
-                  <span className="spacer" />
-                  <RenamePeriodLink course={course} period={activePeriod} />
-                  <DeletePeriodLink
-                    course={course}
-                    period={activePeriod}
-                    onDelete={this.selectPreviousPeriod} />
-                </div>
-
-                <StudentRoster period={activePeriod} />
-
-                <DroppedRoster course={course} />
+        <div className="roster">
+          <div className="settings-section periods">
+            <Tabs ref="tabs" tabs={map(periods, 'name')} onSelect={this.onTabSelection}>
+              <AddPeriodLink show={false} course={course} />
+              <ViewArchivedPeriods course={course} onComplete={this.selectPreviousPeriod} />
+            </Tabs>
+            <div className="active-period">
+              <div className="period-edit-controls">
+                <span className="spacer" />
+                <RenamePeriodLink course={course} period={activePeriod} />
+                <DeletePeriodLink
+                  course={course}
+                  period={activePeriod}
+                  onDelete={this.selectPreviousPeriod} />
               </div>
+
+              <StudentRoster period={activePeriod} />
+
+              <DroppedRoster course={course} />
             </div>
           </div>
-        </TourRegion>
+        </div>
       </CoursePage>
     );
   }

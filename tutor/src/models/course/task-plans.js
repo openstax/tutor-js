@@ -1,4 +1,5 @@
 import { computed, observable, action } from 'mobx';
+import { find } from 'lodash';
 import Map from '../map';
 import TaskPlan from '../task-plan/teacher';
 
@@ -52,11 +53,11 @@ export default class CourseTaskPlans extends Map {
   }
 
   @computed get isPublishing() {
-    return this.where(plan => plan.is_publishing);
+    return this.where(plan => plan.isPublishing);
   }
 
   @computed get hasPublishing() {
-    return this.isPublishing.any;
+    return Boolean(find(this.array, 'isPublishing'));
   }
 
   @computed get reading() {

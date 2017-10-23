@@ -123,7 +123,7 @@ const TUTOR_CONTACT = 'http://openstax.force.com/support/?cu=1&fs=ContactUs&l=en
 const CONCEPT_COACH_HELP = 'http://openstax.force.com/support?l=en_US&c=Products%3AConcept_Coach';
 const CONCEPT_COACH_CONTACT = 'http://openstax.force.com/support/?cu=1&fs=ContactUs&l=en_US&c=Products%3AConcept_Coach';
 
-const SUPPORT_EMAIL = 'support@openstaxtutor.org';
+const SUPPORT_EMAIL = 'support@openstax.org';
 
 function getRouteByRole(routeName, menuRole) {
   if (!ROUTES[routeName].roles) { return routeName; }

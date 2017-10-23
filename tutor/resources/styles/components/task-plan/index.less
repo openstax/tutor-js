@@ -10,6 +10,7 @@
 @import './teacher-task-plans-listing';
 @import './controls';
 
+
 .task-plan {
   .panel-default {
     border: none;
@@ -17,6 +18,13 @@
 
   .panel-heading {
     border-bottom: none;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    button.close {
+      top: 0;
+      transistion: opacity 0.3s;
+    }
   }
 
   .select-topics {

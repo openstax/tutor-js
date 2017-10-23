@@ -99,7 +99,7 @@ LinkContentMixin =
     mediaCNXId = @getCnxIdOfHref(link.getAttribute('href')) or @props.cnxId or @getCnxId?()
     previewNode = document.createElement('span')
     previewNode.classList.add('media-preview-wrapper')
-    link.parentNode.replaceChild(previewNode, link)
+    link.parentNode?.replaceChild(previewNode, link)
 
     mediaProps =
       mediaId: mediaId
@@ -170,7 +170,7 @@ ReadingContentMixin =
     @updateCanonicalLink()
 
   updateCanonicalLink: ->
-    cnxId = @props.cnxId or @getCnxId?()
+    cnxId = @props.cnxId or @getCnxId?() or ''
     # leave versioning out of canonical link
     canonicalCNXId = _.first(cnxId.split('@'))
     {courseId} = Router.currentParams()
@@ -237,7 +237,7 @@ sizeImage = ->
   aspectRatio = @naturalWidth / @naturalHeight
 
   # let wide, square, and almost square figures be natural.
-  if aspectRatio > 0.9 or figure.parentNode.dataset.orient is 'horizontal'
+  if aspectRatio > 0.9 or figure.parentNode?.dataset.orient is 'horizontal'
     figure.classList.add('tutor-ui-horizontal-img')
     if @naturalWidth > 450 and figure.parentNode?.nodeName isnt 'FIGURE'
       figure.classList.add('full-width')
