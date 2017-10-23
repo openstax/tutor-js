@@ -156,6 +156,7 @@ const UserMenu = observable({
   helpLinkForCourseId(courseId) {
     if (!courseId) { return this.helpURL; }
     const course = Courses.get(courseId);
+    if (!course) { return this.helpURL; }
     return course.is_concept_coach ? CONCEPT_COACH_HELP : TUTOR_HELP;
   },
 
@@ -172,8 +173,8 @@ const UserMenu = observable({
     const validRoutes = pickBy(
       ROUTES, (route, routeName) =>
         (invoke(route, 'isAllowed', course) !== false) &&
-        (!route.isTeacher || isTeacher) &&
-        getRouteByRole(routeName, menuRole)
+                                  (!route.isTeacher || isTeacher) &&
+                                  getRouteByRole(routeName, menuRole)
     );
     const routes = [];
 
