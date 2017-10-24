@@ -15,6 +15,9 @@ RelatedContent = require '../related-content'
 {ReferenceBookStore} = require '../../flux/reference-book'
 {ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
 
+Dialog = require '../dialog'
+{default: AnnotationWidget} = require './annotation'
+
 module.exports = React.createClass
   displayName: 'ReferenceBookPage'
   propTypes:
@@ -22,6 +25,13 @@ module.exports = React.createClass
   mixins: [BookContentMixin, GetPositionMixin]
   componentWillMount: ->
     @setState(skipZeros: false)
+
+  componentDidMount: ->
+    window.document.addEventListener('selectionchange', @handleSelectionChange)
+
+  componentWillUnmount: ->
+    window.document.removeEventListener('selectionchange', @handleSelectionChange)
+
   getSplashTitle: ->
     ReferenceBookStore.getPageTitle(@props)
 
@@ -41,6 +51,17 @@ module.exports = React.createClass
 
     images.length > 0
 
+  handleSelectionChange: ->
+    selection = window.getSelection()
+    @setState( ->
+      activeSelection: !selection.isCollapsed or @state.annotaterActive
+    )
+
+  setAnnotaterActive: (whether) ->
+    @setState(
+      annotaterActive: whether
+    )
+
   renderExercises: (exerciseLinks) ->
     ReferenceBookExerciseStore.setMaxListeners(exerciseLinks.length)
     allExercises = _.pluck(exerciseLinks, 'href')
@@ -53,6 +74,23 @@ module.exports = React.createClass
     exerciseAPIUrl = link.href
     exerciseNode = link.parentNode.parentNode
     ReactDOM.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl}/>, exerciseNode) if exerciseNode?
+
+  renderAnnotationWidget: ->
+
+    return if (@state.activeSelection)
+      <Dialog
+        className='annotater-dialog'
+        header='Manage Annotation'
+        isChanged={-> true}
+        onCancel={(->
+          @setAnnotaterActive(false)
+          window.getSelection().empty()
+        ).bind(this)}
+        >
+        <AnnotationWidget onHighlight={@setAnnotaterActive} />
+      </Dialog>
+    else
+      null
 
   render: ->
     {courseId, cnxId, ecosystemId} = @props
@@ -71,6 +109,7 @@ module.exports = React.createClass
       title: @getSplashTitle()
 
     <div className={classnames('page-wrapper', @props.className)}>
+      <tutor-highlight></tutor-highlight>
       {@props.children}
       <div className='page center-panel'>
         <RelatedContent contentId={cnxId} {...related} />
@@ -82,4 +121,5 @@ module.exports = React.createClass
         PageId: {@props.cnxId}, Ecosystem: {JSON.stringify(page?.spy)}
       </SpyMode.Content>
 
+      {@renderAnnotationWidget()}
     </div>

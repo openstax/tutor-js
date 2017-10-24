@@ -37,7 +37,6 @@
      * @returns {boolean}
      */
     function haveSameColor(a, b) {
-        console.debug("Compare", a.dataset.timestamp, "to", b.dataset.timestamp);
         return a.dataset.timestamp === b.dataset.timestamp;
         // return dom(a).color() === dom(b).color();
     }
@@ -457,8 +456,10 @@
             return;
         }
 
+        console.debug("Highlighting", range.toString());
+        console.debug("which is", window.getSelection().toString());
         if (this.options.onBeforeHighlight(range) === true) {
-            timestamp = +new Date();
+            timestamp = Date.now();
             wrapper = TextHighlighter.createWrapper(this.options);
             wrapper.setAttribute(TIMESTAMP_ATTR, timestamp);
 
