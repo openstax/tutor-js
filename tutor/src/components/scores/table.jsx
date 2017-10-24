@@ -86,8 +86,8 @@ export default class ScoresTable extends React.PureComponent {
       <div className="course-scores-container" ref="tableContainer">
         <div className="no-students">
           <p>
-            No students have enrolled in this section yet, and there are no assignments to
-            score.  Manage student access to this section
+            There are no students enrolled in this section yet, and there are no assignments to
+            score.  Manage student access for this section
             in <TutorLink to="settings" params={{ courseId: this.props.period.course.id }}>Settings</TutorLink>.
           </p>
           <TutorLink className="btn btn-default" to="settings" params={{ courseId: this.props.period.course.id }}>Manage student access</TutorLink>
