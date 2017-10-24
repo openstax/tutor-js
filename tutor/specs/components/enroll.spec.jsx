@@ -50,7 +50,8 @@ describe('Student Enrollment', () => {
       enrollment.enrollment_code = enrollment.originalEnrollmentCode = 'cc3c6ff9-83d8-4375-94be-8c7ae3024938';
 
       enrollment.onEnrollmentCreate({ data: { name: 'My Grand Course', periods: [
-        { name: 'Period #1', enrollment_code: '1234' }, { name: 'Period #2', enrollment_code: '4321' },
+        { name: 'Period #1', enrollment_code: '1234' }, {
+          name: 'Period #2', enrollment_code: '4321' },
       ] } });
     });
 
@@ -66,6 +67,17 @@ describe('Student Enrollment', () => {
       enroll.find('.btn-primary').simulate('click');
       expect(enrollment.pendingEnrollmentCode).toEqual('4321');
       expect(enrollment.onSubmitPeriod).toHaveBeenCalled();
+    });
+
+    it('skips period selection when course has only one', () => {
+      enrollment.create = jest.fn();
+      enrollment.onEnrollmentCreate({ data: {
+        name: 'My Grand Course', periods: [{
+          name: 'single period', enrollment_code: '4321',
+        }],
+      } });
+      const enroll = mount(<Enroll enrollment={enrollment} />);
+      expect(enroll).toHaveRendered('StudentIDForm');
     });
   });
 
