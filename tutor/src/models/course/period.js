@@ -35,7 +35,9 @@ export default class CoursePeriod extends BaseModel {
   }
 
   // called from API
-  save() { }
+  save() {
+    return { courseId: this.course.id, data: pick(this, 'name') };
+  }
   create() {
     return { courseId: this.course.id, data: pick(this, 'name') };
   }
