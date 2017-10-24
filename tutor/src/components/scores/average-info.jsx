@@ -3,9 +3,8 @@ import { Popover, OverlayTrigger } from 'react-bootstrap';
 import Icon from '../icon';
 
 const TUTOR_AVERAGE_INFO = `\
-Class averages are not displayed or included in the overall average until
- after the assignment due date.
- At that time, scores from all assignments, both complete and incomplete, are included.\
+Class performance reflects class-wide averages of assignment scores and assignment progress. This metric includes scores and work 
+completed by the due date.\
 `;
 
 const CC_AVERAGE_INFO = `\
@@ -22,7 +21,7 @@ export default class AverageInfo extends React.PureComponent {
   }
 
   render() {
-    const title = 'Class and Overall Averages';
+    const title = 'Class performance';
 
     const body =
       this.props.isConceptCoach ?
