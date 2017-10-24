@@ -20,12 +20,12 @@ class RenamePeriodField extends React.PureComponent {
     default: React.PropTypes.string.isRequired,
     onChange:  React.PropTypes.func.isRequired,
     autofocus: React.PropTypes.bool,
-    validate: React.PropTypes.func.isRequired
+    validate: React.PropTypes.func.isRequired,
   }
 
   componentDidMount() {
     if (this.props.autofocus) { this.refs.input.focus(); }
-    if (this.props.autofocus) { return this.refs.input.cursorToEnd(); }
+    if (this.props.autofocus) { this.refs.input.cursorToEnd(); }
   }
 
   render() {
