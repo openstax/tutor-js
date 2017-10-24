@@ -25,7 +25,7 @@ export default class LmsPush extends React.PureComponent {
 
   @computed get message() {
     if (this.lmsPush.isPending) {
-      return <span className="busy">Sending to LMS…</span>;
+      return <span className="busy">Sending course averages to LMS…</span>;
     }
     return <span>Last sent to LMS: {this.lmsPush.lastPushedAt}</span>;
   }
