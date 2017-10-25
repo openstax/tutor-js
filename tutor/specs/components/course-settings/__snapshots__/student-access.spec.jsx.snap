@@ -72,7 +72,7 @@ exports[`Course Settings, student access can switch to links 1`] = `
           className="panel-body"
         >
           <p>
-            Give these links to your students in each section to enroll.
+            Give students direct links
           </p>
           <label
             className="copy-on-focus"
@@ -117,7 +117,7 @@ exports[`Course Settings, student access can switch to links 1`] = `
               <p
                 className="title"
               >
-                Access from paired LMS 
+                Integrate with your LMS 
                 <i
                   className="advanced"
                 >
@@ -217,7 +217,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
           className="panel-body"
         >
           <p>
-            Give these links to your students in each section to enroll.
+            Give students direct links
           </p>
           <label
             className="copy-on-focus"
@@ -262,7 +262,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
               <p
                 className="title"
               >
-                Access from paired LMS 
+                Integrate with your LMS 
                 <i
                   className="advanced"
                 >
@@ -417,7 +417,7 @@ exports[`Course Settings, student access renders chooser when lms is enabled 1`]
           className="panel-body"
         >
           <p>
-            Give these links to your students in each section to enroll.
+            Give students direct links
           </p>
           <label
             className="copy-on-focus"
@@ -462,7 +462,7 @@ exports[`Course Settings, student access renders chooser when lms is enabled 1`]
               <p
                 className="title"
               >
-                Access from paired LMS 
+                Integrate with your LMS 
                 <i
                   className="advanced"
                 >
@@ -498,7 +498,7 @@ exports[`Course Settings, student access renders with only link for non-lms enab
     className="student-access direct-links-only"
   >
     <p>
-      Give these links to your students in each section to enroll.
+      Send your students their section's direct links to enroll.
     </p>
     <label
       className="copy-on-focus"
