@@ -1,6 +1,12 @@
 class TestRouter
 
-  constructor: ->
+  constructor: (pathname = '/') ->
+    @route = {
+      hash: ''
+      search: ''
+      location: { pathname }
+    }
+
     @history = {
       createHref: jest.fn()
       push: jest.fn()

@@ -19,7 +19,7 @@ EnzymeContext =
   build: (options = {}) ->
     merge({
       context:
-        router: new TestRouter()
+        router: new TestRouter(options.pathname or '/')
         broadcasts: { location: (cb) -> cb(pathname: (options.pathname or '/')) }
       childContextTypes:
         broadcasts: React.PropTypes.object

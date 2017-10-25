@@ -1,5 +1,5 @@
 import { Wrapper, SnapShot } from './helpers/component-testing';
-
+import EnzymeContext from './helpers/enzyme-context';
 import App from '../../src/components/app';
 import User from '../../src/models/user';
 jest.mock('../../src/models/user', () => ({
@@ -34,4 +34,14 @@ describe('main Tutor App', () => {
     shallow(<App {...props} />);
     expect(User.recordSessionStart).toHaveBeenCalled();
   });
+
+  it('renders even if course that doesn\'t exist', () => {
+    const pathname = '/course/123';
+    props.location.pathname = pathname;
+    const app = mount(<App {...props} />, EnzymeContext.build({ pathname }));
+    expect(app).toHaveRendered('WarningModal');
+    expect(app.find('WarningModal').props().title).toContain('can’t access this cours');
+    app.unmount();
+  });
+
 });
