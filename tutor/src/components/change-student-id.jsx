@@ -53,7 +53,10 @@ export default class ChangeStudentId extends React.PureComponent {
 
   renderSuccess() {
     return (
-      <Modal.Dialog className="change-student-id">
+      <Modal.Dialog
+        className="change-student-id"
+        backdropClassName="change-student-id"
+      >
         <Modal.Body>
           <h3>You have successfully updated your student ID.</h3>
         </Modal.Body>
@@ -74,7 +77,10 @@ export default class ChangeStudentId extends React.PureComponent {
     if (this.isSaved) { return this.renderSuccess(); }
 
     return (
-      <Modal.Dialog className="change-student-id">
+      <Modal.Dialog
+        className="change-student-id"
+        backdropClassName="change-student-id"
+      >
         <Modal.Body>
           <div className="title">
             <h3>Update your student ID</h3>

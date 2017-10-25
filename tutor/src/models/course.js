@@ -1,5 +1,5 @@
 import {
-  BaseModel, identifiedBy, field, identifier, hasMany, session,
+  BaseModel, identifiedBy, field, identifier, hasMany,
 } from './base';
 import {
   sumBy, first, sortBy, find, get, endsWith, capitalize, filter, pick,
@@ -33,32 +33,32 @@ export default class Course extends BaseModel {
   @field name;
   @field is_lms_enabled;
 
-  @session appearance_code;
-  @session uuid;
-  @session does_cost;
-  @session book_pdf_url;
-  @session cloned_from_id;
-  @session default_due_time;
-  @session default_open_time;
-  @session ecosystem_book_uuid;
-  @session ecosystem_id;
+  @field appearance_code;
+  @field uuid;
+  @field does_cost;
+  @field book_pdf_url;
+  @field cloned_from_id;
+  @field default_due_time;
+  @field default_open_time;
+  @field ecosystem_book_uuid;
+  @field ecosystem_id;
 
-  @session is_active;
-  @session is_college;
-  @session is_concept_coach;
-  @session is_preview;
-  @session offering_id;
-  @session is_lms_enabling_allowed = false;
-  @session is_access_switchable = true;
-  @session salesforce_book_name;
+  @field is_active;
+  @field is_college;
+  @field is_concept_coach;
+  @field is_preview;
+  @field offering_id;
+  @field is_lms_enabling_allowed = false;
+  @field is_access_switchable = true;
+  @field salesforce_book_name;
 
-  @session starts_at;
-  @session ends_at;
+  @field starts_at;
+  @field ends_at;
 
-  @session term;
-  @session time_zone;
-  @session webview_url;
-  @session year;
+  @field term;
+  @field time_zone;
+  @field webview_url;
+  @field year;
 
   @hasMany({ model: Period, inverseOf: 'course', extend: extendHasMany({
     sorted()   { return PH.sort(this);                               },

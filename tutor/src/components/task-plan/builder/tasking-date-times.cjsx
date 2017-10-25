@@ -31,7 +31,7 @@ TaskingDateTimes = React.createClass
 
     {id, period} = @props
 
-    return false if TaskingStore.isTaskingValid(id, period)
+    return false if TaskingStore.isTaskingValid(id, period?.serialize())
 
     _.first(TaskingStore.getTaskingErrors(id, period))
 
@@ -48,16 +48,16 @@ TaskingDateTimes = React.createClass
   setDate: (type, value) ->
     {id, period} = @props
     value = value.format(TimeHelper.ISO_DATE_FORMAT) if moment.isMoment(value)
-    TaskingActions.updateDate(id, period, type, value)
+    TaskingActions.updateDate(id, period?.serialize(), type, value)
 
   setTime: (type, value) ->
     {id, period} = @props
     value = value.format(TimeHelper.ISO_DATE_FORMAT) if moment.isMoment(value)
-    TaskingActions.updateTime(id, period, type, value)
+    TaskingActions.updateTime(id, period?.serialize(), type, value)
 
   render: ->
     {isVisibleToStudents, isEditable, period, id, termStart, termEnd} = @props
-
+    period = period.serialize() if period
     commonDateTimesProps = _.pick @props, 'required', 'currentLocale', 'taskingIdentifier'
 
     defaults = TaskingStore.getDefaultsForTasking(id, period)
