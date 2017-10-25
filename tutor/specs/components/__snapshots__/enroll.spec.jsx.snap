@@ -52,7 +52,7 @@ exports[`Student Enrollment blocks teacher enrollment 1`] = `
             onClick={[Function]}
             type="button"
           >
-            Continue to My Courses
+            Continue to My courses
           </button>
         </div>
       </div>
