@@ -27,13 +27,10 @@ const renderFailedToSend = (footer) => (
     footer={footer}
   >
     <p>
-      You may need to perform extra steps in your LMS to send
-      OpenStax Tutor course averages to your gradebook.
+      Your course averages could not be sent, either due to a network timeout or a problem in your LMS. Try again on the Scores page. 
+      If this problem persists, you may need to perform extra steps in your LMS. This support article shows you how: 
     </p>
     <div>
-      <p>
-        For more instructions, consult this support article:
-      </p>
       <p>
         <NewTabLink
           to="http://4tk3oi.axshare.com/salesforce_support_page_results.html#choose_support_article=All&CSUM=1"
