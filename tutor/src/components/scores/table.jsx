@@ -1,6 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-//import BS from 'react-bootstrap';
 import { range, isEmpty, sortBy } from 'lodash';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { computed } from 'mobx';
@@ -14,6 +12,7 @@ import AverageInfo from './average-info';
 import AssignmentCell from './assignment-cell';
 import AssignmentHeader from './assignment-header';
 import NameCell from './name-cell';
+import OverallHeader from './overall-header';
 import { CourseScoresPeriod } from '../../models/course/scores';
 
 const FIRST_DATA_COLUMN = 2;
@@ -38,19 +37,6 @@ const NameHeader = observer(({ sort, onSort, isConceptCoach }) => (
   </div>
 ));
 
-const OverallHeader = observer(({ period }) => (
-  <div className="header-cell-wrapper overall-average">
-    <div className="overall-header-cell">
-      Overall
-    </div>
-    <div className="header-row">
-      <span>
-        {(period.overall_average_score * 100).toFixed(0)}%
-      </span>
-    </div>
-    <div className="header-row short" />
-  </div>
-));
 
 const OverallCell = observer(({ students, rowIndex }) => (
   <Cell className="overall-cell">

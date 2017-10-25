@@ -70,6 +70,23 @@
     .overall-header-cell {
       line-height: @row-height;
     }
+
+    > .overall-header-cell {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .tutor-icon {
+        align-self: flex-end;
+        margin: 4px;
+      }
+      span {
+        line-height: 16px;
+        margin-bottom: 4px;
+      }
+    }
+
+
     .header-row {
       border-width: 2px;
       border-top: @thick-grey-border;
