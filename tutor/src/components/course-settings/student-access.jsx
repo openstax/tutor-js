@@ -57,11 +57,10 @@ export default class StudentAccess extends React.PureComponent {
         />
         <div className="heading">
           <p className="title">
-            Access from paired LMS <i className="advanced">Advanced</i>
+            Integrate with your LMS <i className="advanced">Advanced</i>
           </p>
           <p className="info">
-            Integrate OpenStax Tutor with your Learning Management System (LMS) to send average course scores to your 
-            LMS and enable single sign on.
+            Integrate OpenStax Tutor with your Learning Management System (LMS) to send average course scores to your LMS and enable single sign on.
           </p>
         </div>
       </div>
@@ -93,7 +92,7 @@ export default class StudentAccess extends React.PureComponent {
     return (
       <div className="student-access direct-links-only">
         <p>
-          Give these links to your students in each section to enroll.
+          Send your students their section's direct links to enroll.
         </p>
         {course.periods.active.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url} />)}
       </div>
@@ -125,7 +124,7 @@ export default class StudentAccess extends React.PureComponent {
         </Modal.Header>
         <Modal.Body>
           If you opt to use direct links, you won't be able to use LMS integration
-          features such as student single sign-on and scores sync.  Are you sure you
+          features such as student single sign on and sending course averages to your LMS. Are you sure you
           want to change access options now?
         </Modal.Body>
         <Modal.Footer>
@@ -159,14 +158,15 @@ export default class StudentAccess extends React.PureComponent {
       <div className="student-access">
         {this.renderLinkSwitchWarning()}
         <p>
-          Choose how students access OpenStax Tutor. Access settings cannot be changed after students begin to enroll.
+          Choose how students access OpenStax Tutor.
+          Access settings cannot be changed after students begin to enroll.
         </p>
         <a href="http://4tk3oi.axshare.com/salesforce_support_page_results.html" target="_blank">
           <Icon type="info-circle" /> Which option is right for my course?
         </a>
         <PanelGroup activeKey={course.is_lms_enabled} onSelect={this.onSelectOption} accordion>
           <Panel className="links" header={this.renderDirectHeader()} eventKey={false}>
-            <p>Give these links to your students in each section to enroll.</p>
+            <p>Give students direct links</p>
             {course.periods.active.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url} />)}
           </Panel>
           <Panel className="lms" header={this.renderLMSHeader()} eventKey={true}>
