@@ -24,7 +24,6 @@ export default class CoursePlanDetails extends React.PureComponent {
     courseId: React.PropTypes.string.isRequired,
     onHide: React.PropTypes.func.isRequired,
     hasReview: React.PropTypes.bool,
-
     className: React.PropTypes.string,
   }
 
@@ -39,6 +38,16 @@ export default class CoursePlanDetails extends React.PureComponent {
   }
   @action.bound onDisplayStats() {
     this.showAssignmentLinks = false;
+  }
+
+
+  @computed get assignmentLinksButton() {
+    if (this.props.plan.type === 'event'){ return null; }
+    return (
+      <Button onClick={this.onShowAssignmentLinks}>
+        Get assignment link
+      </Button>
+    );
   }
 
   @computed get footer() {
@@ -68,11 +77,7 @@ export default class CoursePlanDetails extends React.PureComponent {
           {plan.type === 'event' ? 'Event' : 'Assignment'}
         </TutorLink>
 
-        <Button onClick={this.onShowAssignmentLinks}>
-          Get assignment link
-        </Button>
-
-
+        {this.assignmentLinksButton}
       </div>
     );
   }
