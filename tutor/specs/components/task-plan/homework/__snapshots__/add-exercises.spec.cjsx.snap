@@ -84,7 +84,6 @@ exports[`choose exercises component matches snapshot 1`] = `
             OpenStax Tutor Selections
           </span>
           <button
-            aria-describedby="homework-selections-popover"
             className="btn btn-link"
             disabled={false}
             id="homework-selections-trigger"

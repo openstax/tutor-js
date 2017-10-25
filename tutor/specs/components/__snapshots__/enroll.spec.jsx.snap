@@ -2,6 +2,7 @@
 
 exports[`Student Enrollment blocks teacher enrollment 1`] = `
 <div
+  backdropClassName="course-enroll"
   className="course-enroll modal"
   role="dialog"
   style={
@@ -62,6 +63,7 @@ exports[`Student Enrollment blocks teacher enrollment 1`] = `
 
 exports[`Student Enrollment displays an invalid message 1`] = `
 <div
+  backdropClassName="course-enroll"
   className="course-enroll modal"
   role="dialog"
   style={
@@ -95,6 +97,7 @@ exports[`Student Enrollment displays an invalid message 1`] = `
 
 exports[`Student Enrollment loads when mounted 1`] = `
 <div
+  backdropClassName="course-enroll"
   className="course-enroll modal"
   role="dialog"
   style={
@@ -175,6 +178,7 @@ exports[`Student Enrollment loads when mounted 1`] = `
 
 exports[`Student Enrollment select periods matches snapshot 1`] = `
 <div
+  backdropClassName="course-enroll"
   className="course-enroll modal"
   role="dialog"
   style={
@@ -251,6 +255,7 @@ exports[`Student Enrollment select periods matches snapshot 1`] = `
 
 exports[`Student Enrollment submits with student id when form is clicked 1`] = `
 <div
+  backdropClassName="course-enroll"
   className="course-enroll modal"
   role="dialog"
   style={

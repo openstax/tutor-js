@@ -39,7 +39,7 @@ export default class CourseStudent extends BaseModel {
   }
 
   get trialDaysRemaining() {
-    return moment(this.payment_due_at).diff(TimeStore.getNow(), 'days');
+    return Math.max(moment(this.payment_due_at).diff(TimeStore.getNow(), 'days'), 0);
   }
 
   onSaved({ data }) {

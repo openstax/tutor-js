@@ -68,7 +68,6 @@ exports[`EventsPanel renders with events 1`] = `
           0/2 answered
         </span>
         <i
-          aria-describedby="event-info-icon-6"
           className="info late"
           onBlur={[Function]}
           onClick={null}

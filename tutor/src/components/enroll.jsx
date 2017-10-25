@@ -43,7 +43,10 @@ export default class CourseEnroll extends React.PureComponent {
     const { enrollment } = this;
 
     return (
-      <Modal.Dialog className="course-enroll">
+      <Modal.Dialog
+        backdropClassName="course-enroll"
+        className="course-enroll"
+      >
         {enrollment.bodyContents}
       </Modal.Dialog>
     );

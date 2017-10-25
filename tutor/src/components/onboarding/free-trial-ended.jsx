@@ -4,7 +4,7 @@ import { action } from 'mobx';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { OnboardingNag, Heading, Body, Footer } from './onboarding-nag';
 import CourseUX from '../../models/course/ux';
-
+import Courses from '../../models/courses-map';
 import TutorRouter from '../../helpers/router';
 
 @observer
@@ -25,6 +25,16 @@ export default class FreeTrialEnded extends React.PureComponent {
     this.context.router.history.push(TutorRouter.makePathname('myCourses'));
   }
 
+  renderBackLink() {
+    if (Courses.active.size <= 1) { return null; }
+
+    return (
+      <Button bsStyle="link" onClick={this.goToMyCourses}>
+        Return to my courses
+      </Button>
+    );
+  }
+
   render() {
     const { ux } = this.props;
 
@@ -43,9 +53,7 @@ export default class FreeTrialEnded extends React.PureComponent {
           <Button bsStyle="primary" onClick={ux.payNow}>
             Buy access now
           </Button>
-          <Button bsStyle="link" onClick={this.goToMyCourses}>
-            Return to my courses
-          </Button>
+          {this.renderBackLink()}
         </Footer>
       </OnboardingNag>
     );
