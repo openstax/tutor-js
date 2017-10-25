@@ -30,7 +30,7 @@ describe('Preview Only Warning', () => {
     const context =  EnzymeContext.build();
     const warning = shallow(<PreviewOnlyWarning ux={ux} />, context);
     warning.find('Button[bsStyle="primary"]').simulate('click');
-    expect(context.context.router.transitionTo).to.have.been.calledWith('/dashboard');
+    expect(context.context.router.history.push).toHaveBeenCalledWith('/dashboard');
   });
 
 });

@@ -31,9 +31,8 @@ exports[`Invalid Page renders and matches snapshot 1`] = `
   </p>
   <a
     className="home"
-    href="/"
+    href="/dashboard"
     onClick={[Function]}
-    style={Object {}}
   >
     Return Home
     <i

@@ -4,7 +4,7 @@ TimeHelper = require '../../helpers/time'
 Icon = require '../icon'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TaskingActions} = require '../../flux/tasking'
-{ default: TeacherTaskPlans } = require '../../models/teacher-task-plans'
+{ default: Courses } = require '../../models/courses-map'
 
 PlanClonePlaceholder = React.createClass
 
@@ -32,7 +32,7 @@ PlanClonePlaceholder = React.createClass
       planId, courseId
       due_at: TimeHelper.toISO(@props.due_at)
     })
-    TeacherTaskPlans.forCourseId(courseId).addClone(TaskPlanStore.get(taskPlanId))
+    Courses.get(courseId).taskPlans.addClone(TaskPlanStore.get(taskPlanId))
     @props.onLoad(taskPlanId)
 
   render: ->

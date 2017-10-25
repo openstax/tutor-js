@@ -137,7 +137,7 @@ exports[`CreateCourse: entering details updates values when edited 1`] = `
     sections
      is not supported. Need more? 
     <a
-      href="mailto:support@openstaxtutor.org"
+      href="mailto:support@openstax.org"
     >
       Contact Support
     </a>

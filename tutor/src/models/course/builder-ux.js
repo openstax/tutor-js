@@ -46,7 +46,7 @@ export default class CourseBuilderUX extends BaseModel {
     }, true);
 
     observe(this, 'currentStageIndex', ({ newValue: index }) => {
-      if (index === this.stages.length - 1 && !this.newCourse.hasApiRequestPending) {
+      if (index === this.stages.length - 1 && !this.newCourse.api.isPending) {
         this.newCourse.save().then(this.afterCreate);
       }
     });
@@ -81,7 +81,7 @@ export default class CourseBuilderUX extends BaseModel {
   }
 
   @action.bound onCancel() {
-    this.router.transitionTo('/dashboard');
+    this.router.history.push('/dashboard');
   }
 
   @computed get stage() {
@@ -126,7 +126,7 @@ export default class CourseBuilderUX extends BaseModel {
     if (!c) { return; }
     const url = c.is_concept_coach ?
           `/course/${c.id}/cc/help?showIntro=true` : `/course/${c.id}?showIntro=true`;
-    this.router.transitionTo(url);
+    this.router.history.push(url);
   }
 
   // per step tests - must return true in order to navigate to next step

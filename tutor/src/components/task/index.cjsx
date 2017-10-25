@@ -9,7 +9,7 @@ classnames = require 'classnames'
 {TaskStepActions, TaskStepStore} = require '../../flux/task-step'
 {TaskPanelActions, TaskPanelStore} = require '../../flux/task-panel'
 {TaskProgressActions, TaskProgressStore} = require '../../flux/task-progress'
-{CourseStore} = require '../../flux/course'
+{default: Courses} = require '../../models/courses-map'
 
 StepFooterMixin = require '../task-step/step-footer-mixin'
 Router = require '../../helpers/router'
@@ -44,7 +44,7 @@ Task = React.createClass
 
   getChildContext: ->
     {courseId} = Router.currentParams()
-    bookUUID: CourseStore.getBookUUID(courseId)
+    bookUUID: Courses.get(courseId).ecosystem_book_uuid
     oxProject: 'tutor'
 
   contextTypes:
@@ -197,10 +197,8 @@ Task = React.createClass
 
     @scrollToTop() unless @_isSameStep({id}, {currentStep: stepKey})
 
-    if silent
-      @context.router.replaceWith(Router.makePathname('viewTaskStep', params))
-    else
-      @context.router.transitionTo(Router.makePathname('viewTaskStep', params))
+    action = if silent then 'replace' else 'push'
+    @context.router.history[action](Router.makePathname('viewTaskStep', params))
 
     true
 
@@ -209,7 +207,7 @@ Task = React.createClass
 
   closeMilestones: ->
     params = Router.currentParams()
-    @context.router.transitionTo(
+    @context.router.history.push(
       Router.makePathname('viewTaskStep', params)
     )
 

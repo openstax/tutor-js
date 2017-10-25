@@ -10,30 +10,21 @@
 } = require './adapter'
 pick = require 'lodash/pick'
 assign = require 'lodash/assign'
-{CourseActions} = require '../flux/course'
+
 {CoursePracticeActions} = require '../flux/practice'
 {CourseGuideActions} = require '../flux/guide'
-{JobActions} = require '../flux/job'
 {EcosystemsActions} = require '../flux/ecosystems'
 PerformanceForecast = require '../flux/performance-forecast'
-
-{ScoresActions} = require '../flux/scores'
-{ScoresExportActions} = require '../flux/scores-export'
-{RosterActions, RosterStore} = require '../flux/roster'
-{PeriodActions} = require '../flux/period'
 
 {TaskActions} = require '../flux/task'
 {TaskPanelActions} = require '../flux/task-panel'
 {TaskStepActions} = require '../flux/task-step'
 {TaskPlanActions, TaskPlanStore} = require '../flux/task-plan'
-{TaskTeacherReviewActions} = require '../flux/task-teacher-review'
-{TaskPlanStatsActions} = require '../flux/task-plan-stats'
 
 {PastTaskPlansActions} = require '../flux/past-task-plans'
 
 {TocActions} = require '../flux/toc'
 {ExerciseActions, ExerciseStore} = require '../flux/exercise'
-{CourseListingActions} = require '../flux/course-listing'
 {CCDashboardActions} = require '../flux/cc-dashboard'
 
 {ReferenceBookActions} = require '../flux/reference-book'
@@ -43,12 +34,15 @@ PerformanceForecast = require '../flux/performance-forecast'
 
 {default: TaskPlanHelpers} = require '../helpers/task-plan'
 
+{ default: Job} = require '../models/job'
 { default: User } = require '../models/user'
 { UserTerms, Term } = require '../models/user/terms'
+{ default: Course } = require '../models/course'
+{ default: Period } = require '../models/course/period'
 { default: Courses } = require '../models/courses-map'
 { default: Offerings } = require '../models/course/offerings'
 { default: CourseCreate } = require '../models/course/create'
-{ default: TeacherTaskPlans } = require '../models/teacher-task-plans'
+{ default: TeacherTaskPlans } = require '../models/course/task-plans'
 { default: Student } = require '../models/course/student'
 { default: CourseEnroll } = require '../models/course/enroll'
 { default: Payments } = require '../models/payments'
@@ -56,6 +50,17 @@ PerformanceForecast = require '../flux/performance-forecast'
 { default: Purchase } = require '../models/purchases/purchase'
 { CourseStudentTasks } = require '../models/student-tasks'
 { default: StudentTask } = require '../models/student/task'
+{ default: CourseRoster } = require '../models/course/roster'
+{ default: CourseLMS } = require '../models/course/lms'
+{ default: CourseScores } = require '../models/course/scores'
+{ default: ScoresExport } = require '../models/jobs/scores-export'
+{ default: TaskPlanPublish } = require '../models/jobs/task-plan-publish'
+{ default: LmsPushScores } = require '../models/jobs/lms-score-push'
+{ default: TaskResult } = require '../models/course/scores/task-result'
+{ default: CourseTeacher } = require '../models/course/teacher'
+{ default: TeacherTaskPlan } = require '../models/task-plan/teacher'
+{ default: TaskPlanStats } = require '../models/task-plan/stats'
+{ default: Course } = require '../models/course'
 
 startAPI = ->
   connectRead(TaskActions, pattern: 'tasks/{id}')
@@ -73,9 +78,6 @@ startAPI = ->
       true
     data: TaskPlanStore.getChanged
   }, TaskPlanHelpers.apiEndpointOptions)
-
-  connectRead(TaskPlanStatsActions, pattern: 'plans/{id}/stats')
-  connectRead(TaskTeacherReviewActions, pattern: 'plans/{id}/review')
 
   connectRead(ExerciseActions, {trigger: 'loadForEcosystem', onSuccess: 'loadedForEcosystem'},
     (id, pageIds, requestType = 'homework_core') ->
@@ -104,10 +106,6 @@ startAPI = ->
 
   connectRead(TocActions, pattern: 'ecosystems/{id}/readings')
   connectRead(CourseGuideActions, pattern: 'courses/{id}/guide')
-  connectRead(CourseActions, pattern: 'courses/{id}')
-  connectUpdate(CourseActions, pattern: 'courses/{id}',
-    data: (id, data) -> data
-  )
 
   connectRead(CCDashboardActions, pattern: 'courses/{id}/cc/dashboard')
   connectRead(CoursePracticeActions, pattern: 'courses/{id}/practice')
@@ -127,55 +125,10 @@ startAPI = ->
     {url, data}
   )
 
-  connectRead(ScoresActions, pattern: 'courses/{id}/performance')
-  connectRead(ScoresExportActions, pattern: 'courses/{id}/performance/exports')
-  connectCreate(ScoresExportActions,
-    pattern: 'courses/{id}/performance/export', trigger: 'export', onSuccess: 'exported'
-  )
 
-  connectModify(ScoresActions,
-    trigger: 'acceptLate', onSuccess: 'acceptedLate', pattern: 'tasks/{id}/accept_late_work'
-  )
 
-  connectModify(ScoresActions,
-    trigger: 'rejectLate', onSuccess: 'rejectedLate', pattern: 'tasks/{id}/reject_late_work'
-  )
-
-  connectRead(JobActions, pattern: 'jobs/{id}', handledErrors: ['*'])
   connectRead(EcosystemsActions, url: 'ecosystems')
-  connectDelete(RosterActions,
-    pattern: 'teachers/{id}', trigger: 'teacherDelete', onSuccess: 'teacherDeleted'
-  )
-  connectDelete(RosterActions, pattern: 'students/{id}')
-  connectUpdate(RosterActions, pattern: 'students/{id}',
-    data: (id, data) -> data
-  )
 
-  connectModify(RosterActions, pattern: 'students/{studentId}/undrop', trigger: 'undrop', onSuccess: 'undropped',
-    errorHandlers:
-      already_active: 'onUndropAlreadyActive'
-      student_identifier_has_already_been_taken: 'recordDuplicateStudentIdError'
-  )
-  connectUpdate(RosterActions,
-    pattern: 'students/{studentId}', trigger: 'saveStudentIdentifier', onSuccess: 'savedStudentIdentifier',
-    errorHandlers:
-      student_identifier_has_already_been_taken: 'recordDuplicateStudentIdError'
-    data: ({courseId, studentId}) ->
-      student_identifier: RosterStore.getStudentIdentifier(courseId, studentId)
-  )
-  # this isn't currently used, it's the old endpoint for a teacher adding a student
-  # connectCreate(RosterActions, pattern: 'courses/{id}/roster')
-  connectRead(RosterActions, pattern: 'courses/{id}/roster')
-
-  connectCreate(PeriodActions, pattern: 'courses/{id}/periods',
-    data: (id, data) -> data
-  )
-  connectUpdate(PeriodActions,
-    url: (courseId, periodId, data) -> "periods/#{periodId}"
-    data: (courseId, periodId, data) -> data
-  )
-  connectDelete(PeriodActions, pattern: 'periods/{id}')
-  connectModify(PeriodActions, pattern: 'periods/{id}/restore', trigger: 'restore', onSuccess: 'restored')
 
   connectRead(TaskStepActions, pattern: 'steps/{id}')
   connectRead(TaskStepActions, pattern: 'steps/{id}', trigger: 'loadPersonalized',
@@ -200,8 +153,6 @@ startAPI = ->
       clone_status: 'unused_source'
   )
 
-  connectRead(CourseListingActions, url: 'user/courses')
-
   connectRead(ReferenceBookActions, pattern: 'ecosystems/{id}/readings')
   connectRead(ReferenceBookPageActions, pattern: 'pages/{id}')
   connectRead(ReferenceBookPageActions, pattern: 'pages/{id}', trigger: 'loadSilent', handledErrors: ['*'])
@@ -215,6 +166,8 @@ startAPI = ->
   connectModelUpdate(User.constructor, 'saveTourView',
     pattern: 'user/tours/{id}'
    )
+
+  connectModelRead(Course, 'fetch', pattern: 'courses/{id}')
 
   connectModelRead(UserTerms, 'fetch', onSuccess: 'onLoaded', url: 'terms')
   connectModelUpdate(UserTerms, 'sign', onSuccess: 'onSigned', pattern: 'terms/{ids}', method: 'PUT')
@@ -231,23 +184,61 @@ startAPI = ->
 
   connectModelCreate(CourseCreate, 'save', onSuccess: 'onCreated')
 
-  connectModelRead(TeacherTaskPlans.constructor, 'fetch',
-    pattern: 'courses/{courseId}/dashboard',
+  connectModelRead(TeacherTaskPlans, 'fetch',
+    pattern: 'courses/{course.id}/dashboard',
     onSuccess: 'onLoaded'
     params: ({ id, startAt, endAt }) ->
       start_at: startAt
       end_at: endAt
   )
 
-  connectModelUpdate(Student, 'save', pattern: 'user/courses/{courseId}/student', onSuccess: 'onSaved')
+  connectModelUpdate(Student, 'saveOwnStudentId', pattern: 'user/courses/{course.id}/student', onSuccess: 'onApiRequestComplete')
+  connectModelUpdate(Student, 'saveStudentId', pattern: 'students/{id}', onSuccess: 'onApiRequestComplete')
+  connectModelUpdate(Student, 'savePeriod', pattern: 'students/{id}', onSuccess: 'onApiRequestComplete')
+  connectModelDelete(Student, 'drop', pattern: 'students/{id}', onSuccess: 'onApiRequestComplete' )
+  connectModelUpdate(Student, 'unDrop', pattern: 'students/{id}/undrop', method: 'PUT', onSuccess: 'onApiRequestComplete' )
 
-  connectModelCreate(CourseEnroll, 'create', url: 'enrollment_changes', onSuccess: 'onApiRequestComplete', onFail: 'setApiErrors')
+
+  connectModelCreate(CourseEnroll, 'create', url: 'enrollment', onSuccess: 'onEnrollmentCreate', onFail: 'setApiErrors')
   connectModelUpdate(CourseEnroll, 'confirm',
-    pattern: 'enrollment_changes/{id}/approve', method: 'PUT'
+    pattern: 'enrollment/{id}/approve', method: 'PUT'
     onSuccess: 'onApiRequestComplete', onFail: 'setApiErrors')
 
   connectModelRead(CourseStudentTasks, 'fetch', onSuccess: 'onLoaded', pattern: 'courses/{courseId}/dashboard')
   connectModelDelete(StudentTask, 'hide', onSuccess: 'onHidden', pattern: 'tasks/{id}')
+
+  connectModelUpdate(Course, 'save', pattern: 'courses/{id}', onSuccess: 'onApiRequestComplete')
+
+  connectModelRead(CourseLMS, 'fetch', pattern: 'lms/courses/{course.id}', onSuccess: 'onApiRequestComplete')
+
+  connectModelUpdate(LmsPushScores, 'start', method: 'PUT', pattern: 'lms/courses/{course.id}/push_scores', onSuccess: 'onStarted')
+
+  connectModelRead(CourseRoster, 'fetch', pattern: 'courses/{courseId}/roster', onSuccess: 'onApiRequestComplete')
+
+  connectModelDelete(CourseTeacher, 'drop', pattern: 'teachers/{id}', onSuccess: 'onDropped')
+
+  connectModelCreate(Period, 'create', pattern: 'courses/{courseId}/periods', onSuccess: 'afterCreate')
+  connectModelUpdate(Period, 'save', pattern: 'periods/{id}', onSuccess: 'onApiRequestComplete')
+  connectModelDelete(Period, 'archive', pattern: 'periods/{id}', onSuccess: 'onApiRequestComplete')
+  connectModelUpdate(Period, 'unarchive', pattern: 'periods/{id}', onSuccess: 'onApiRequestComplete')
+
+  connectModelRead(CourseScores, 'fetch',
+    pattern: 'courses/{courseId}/performance', onSuccess: 'onFetchComplete')
+
+  connectModelUpdate(TaskResult, 'acceptLate', method: 'PUT', pattern: 'tasks/{id}/accept_late_work', onSuccess: 'onLateWorkAccepted')
+
+  connectModelUpdate(TaskResult, 'rejectLate', method: 'PUT', pattern: 'tasks/{id}/reject_late_work', onSuccess: 'onLateWorkRejected')
+
+  connectModelRead(Job, 'requestJobStatus', onSuccess: 'onJobUpdate', onFail: 'onJobUpdateFailure', pattern: 'jobs/{jobId}')
+
+  connectModelCreate(ScoresExport, 'create', onSuccess: 'onCreated', pattern: 'courses/{course.id}/performance/export')
+
+  connectModelRead(TeacherTaskPlan, 'fetch', onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}')
+  connectModelRead(TaskPlanStats, 'fetch', onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}/stats')
+
+  connectModelRead(TaskPlanStats, 'fetchReview', onSuccess: 'onApiRequestComplete', pattern: 'plans/{id}/review')
+
+  connectModelRead(Courses.constructor, 'fetch', onSuccess: 'onLoaded', url: 'user/courses')
 
 BOOTSTRAPED_MODELS = {
   user:     User,

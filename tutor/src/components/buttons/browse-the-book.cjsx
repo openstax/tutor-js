@@ -1,7 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
 NewTabLink = require '../new-tab-link'
-{CourseStore} = require '../../flux/course'
+{default: Courses} = require '../../models/courses-map'
 
 module.exports = React.createClass
   displayName: 'BrowseTheBook'
@@ -46,7 +46,7 @@ module.exports = React.createClass
   buildRouteProps: (courseId) ->
     unless @props.page
       {ecosystemId} = @props
-      courseEcosystemId = CourseStore.get(courseId)?.ecosystem_id
+      courseEcosystemId = Courses.get(courseId)?.ecosystem_id
 
       # only link with ecosystem id if needed.
       if ecosystemId isnt courseEcosystemId
@@ -63,10 +63,10 @@ module.exports = React.createClass
     }
 
   getCourseId: ->
-    @props.courseId or @context.courseId or CourseStore.getByEcosystemId(@props.ecosystemId)?.id
+    @props.courseId or @context.courseId or _.findWhere(Courses.array, { ecosystem_id: @props.ecosystemId })?.id
 
   canBrowse: (courseId) ->
-    courseId? and not CourseStore.get(courseId)?.is_concept_coach
+    courseId? and not Courses.get(courseId)?.is_concept_coach
 
   render: ->
     courseId = @getCourseId()

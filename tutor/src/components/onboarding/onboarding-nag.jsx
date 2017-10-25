@@ -21,7 +21,7 @@ export class GotItOnboardingNag extends React.PureComponent {
 
   @action.bound
   onAddCourse() {
-    this.context.router.transitionTo(
+    this.context.router.history.push(
       Router.makePathname('myCourses')
     );
   }

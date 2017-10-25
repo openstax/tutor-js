@@ -1,0 +1,111 @@
+import React from 'react';
+import { map, partial } from 'lodash';
+import { Grid, Row, Col } from 'react-bootstrap';
+
+import Icon from '../icon';
+
+class CourseBar extends React.Component {
+  static displayName = 'CourseBar';
+
+  static propTypes = {
+    data: React.PropTypes.object.isRequired,
+    type: React.PropTypes.string.isRequired,
+    totalCols: React.PropTypes.number,
+  };
+
+  static defaultProps = { totalCols: 12 };
+
+  getCorrectLabel = (data) => {
+    const tooltipMsg = `\
+Percent correct out of total attempted.
+This score does not take unanswered questions into account,
+so it may differ from the average you see in Student Scores.\
+`;
+    const icon =
+      <Icon type="info-circle" tooltip={tooltipMsg} tooltipProps={{ placement: 'top' }} />;
+    const label =
+      <span>
+        {'\
+  Percent Correct '}
+        {icon}
+      </span>;
+    return (
+      { label, type: 'average', value: `${data.mean_grade_percent}%` }
+    );
+  };
+
+  getStats = () => {
+    const { data, type } = this.props;
+    let completeLabel = 'Complete';
+    let inProgressLabel = 'In Progress';
+    const notStartedLabel = 'Not Started';
+
+    let stats = [{
+      type: 'complete',
+      label: completeLabel,
+      value: data.complete_count,
+    }, {
+      type: 'in-progress',
+      label: inProgressLabel,
+      value: data.partially_complete_count,
+    }, {
+      type: 'not-started',
+      label: notStartedLabel,
+      value: data.total_count - (data.complete_count + data.partially_complete_count),
+    }];
+
+    if (type === 'external') {
+      completeLabel = 'Clicked';
+      inProgressLabel = 'Viewed';
+
+      stats = [{
+        type: 'complete',
+        label: completeLabel,
+        value: data.complete_count,
+      }, {
+        type: 'not-started',
+        label: notStartedLabel,
+        value: data.total_count - (data.complete_count + data.partially_complete_count),
+      }];
+    }
+
+    if ((type === 'homework') && data.mean_grade_percent) {
+      stats.unshift(this.getCorrectLabel(data));
+    }
+
+    return stats;
+  };
+
+  renderCourseStat = (stat, cols) => {
+    if (cols == null) { cols = 4; }
+
+    return (
+      <Col xs={cols} className={stat.type} key={stat.type}>
+        <label>
+          {stat.label}
+        </label>
+        <div className={`data-container-value text-${stat.type}`}>
+          {stat.value}
+        </div>
+      </Col>
+    );
+  };
+
+  render() {
+    const { totalCols } = this.props;
+    const stats = this.getStats();
+
+    const cols = totalCols / stats.length;
+    const statsColumns = map(stats, partial(this.renderCourseStat, partial.placeholder, cols));
+
+    return (
+      <Grid className="data-container" key="course-bar">
+        <Row className="stats">
+          {statsColumns}
+        </Row>
+      </Grid>
+    );
+  }
+}
+
+export default CourseBar;

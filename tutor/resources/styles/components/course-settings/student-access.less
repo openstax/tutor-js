@@ -1,0 +1,111 @@
+.student-access {
+
+  .rows-of-inputs(){
+    display: flex;
+    flex-direction: column;
+    label {
+      font-weight: normal;
+      display: block;
+      input {
+        margin-top: 10px;
+        padding: 15px;
+      }
+      & + label {
+        margin-top: 20px;
+      }
+    }
+  }
+
+  max-width: 670px;
+  .panel-group .panel-heading+.panel-collapse>.panel-body {
+    border-top: 0;
+  }
+  .panel-heading {
+    color: black;
+    background-color: white;
+    border-bottom: 0;
+    transition: background-color 0.3s;
+    &:hover {
+      cursor: pointer;
+      background-color: @tutor-neutral-lighter;
+    }
+
+    p { margin-bottom: 0; }
+    .choice {
+      .box {
+        transition: background-color 0.2s;
+        &:hover {
+          background-color: white;
+        }
+        height: 30px;
+        width: 30px;
+        min-width: 30px;
+        border: 1px solid @tutor-neutral-light;
+        margin-right: 1rem;
+        border-radius: 5px;
+      }
+      .tutor-icon {
+        font-size: 30px;
+      }
+      .info { font-style: italic; }
+      &.checked {
+        .box::after {
+          .fa-icon();
+          content: @fa-var-check;
+          color: @tutor-secondary;
+          font-size: 45px;
+          border-radius: 50%;
+          margin-left: -5px;
+          margin-top: -15px;
+        }
+        .info { display: none; }
+      }
+
+    }
+    .panel-title { line-height: inherit; }
+    .choice a {
+      &:hover {
+        text-decoration: none;
+      }
+      display: flex;
+      padding: 20px;
+
+      .title {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        .advanced {
+          color: @tutor-primary;
+
+        }
+      }
+    }
+  }
+
+  .panel-body {
+    border-top: 0;
+    padding: 40px;
+  }
+
+  &.direct-links-only,
+  .lms-access,
+  .links .panel-body {
+    .rows-of-inputs();
+  }
+
+}
+
+.modal.lms-pairing-keys,
+.student-access
+{
+  .lms-access {
+    .student-access.rows-of-inputs();
+    a {
+      margin-top: 30px;
+      display: block;
+    }
+    &.enrolled {
+
+    }
+  }
+}

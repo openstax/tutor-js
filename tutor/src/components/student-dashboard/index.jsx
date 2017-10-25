@@ -9,6 +9,7 @@ import CourseNagModal from '../onboarding/course-nag';
 import TermsModal from '../terms-modal';
 import onboardingForCourse from '../../models/course/onboarding';
 import Courses from '../../models/courses-map';
+import WarningModal from '../warning-modal';
 
 @inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
 @observer
@@ -25,9 +26,11 @@ export default class StudentDashboardShell extends React.PureComponent {
     return Courses.get(this.props.params.courseId);
   }
 
-  ux = onboardingForCourse(this.course, this.props.tourContext);
+  @observable ux;
 
   componentWillMount() {
+    if (!this.course) { return; }
+    this.ux = onboardingForCourse(this.course, this.props.tourContext);
     if (!this.ux.paymentIsPastDue) {
       this.course.studentTasks.fetch();
     }
@@ -38,13 +41,27 @@ export default class StudentDashboardShell extends React.PureComponent {
     this.ux.close(); // ux will tell context it's ok to display tours
   }
 
+
+
+  renderNotAStudent() {
+    let onDismiss;
+    if (Courses.size) { onDismiss = this.goToMyCourses; }
+    return (
+      <WarningModal
+        onDismiss={onDismiss}
+        title="Sorry, you can’t access this course"
+        message="You are no longer a student in this course. Please contact your instructor if you are still enrolled in this course and need to be re-added."
+      />
+    );
+  }
+
   render() {
+    if (!this.course) { return this.renderNotAStudent(); }
+
     const { params, params: { courseId } } = this.props;
 
     // if student is past due BE will raise "forbidden" if we load the dashboard data
-    if (this.ux.paymentIsPastDue) {
-      return <CourseNagModal ux={this.ux} />;
-    }
+    if (this.ux.paymentIsPastDue) { return <CourseNagModal ux={this.ux} />; }
 
     return (
       <div className="student-dashboard ">

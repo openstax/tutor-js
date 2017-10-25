@@ -3,8 +3,9 @@ _ = require 'underscore'
 jest.mock('../../src/flux/task-plan')
 TaskPlanFlux = require '../../src/flux/task-plan'
 
+
 { default: TaskPlan } = require '../../src/helpers/task-plan'
-{CourseListingActions} = require '../../src/flux/course-listing'
+{ default: Courses } = require '../../src/models/courses-map'
 
 COURSE_ID = 1
 COURSE = require '../../api/courses/1'
@@ -17,7 +18,7 @@ DIFFER = _.findWhere(DATA.plans, id: '9')
 describe 'task-plan helper', ->
 
   beforeEach ->
-    CourseListingActions.load(COURSE, COURSE_ID)
+    Courses.bootstrap([COURSE], { clear: true })
 
   it 'returns a single due date for single task plan', ->
     dates = TaskPlan.dates(SINGLE)

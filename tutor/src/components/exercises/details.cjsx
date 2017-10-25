@@ -110,6 +110,7 @@ ExerciseDetails = React.createClass
           isBackwardEnabled={moves.prev}
           onForwardNavigation={@onNext}
           onBackwardNavigation={@onPrev}
+          scrollOnNavigation={false}
         >
           <ExercisePreview
             className='exercise-card'

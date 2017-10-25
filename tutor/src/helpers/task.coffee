@@ -84,15 +84,6 @@ module.exports = {
     !!task.completed_exercise_count
 
   # called by readings and homework UI to determine if there's late work
-  hasLateWork: (task) ->
-    @lateStepCount(task) > 0
-  lateStepCount: (task) ->
-    if task.type is 'homework'
-      task.completed_exercise_count - task.completed_on_time_exercise_count -
-        task.completed_accepted_late_exercise_count
-    else
-      task.completed_step_count - task.completed_on_time_step_count -
-        task.completed_accepted_late_step_count
 
   getHumanProgress: (task) ->
     complete = @getCompletedSteps(task)
@@ -116,6 +107,5 @@ module.exports = {
     else
       @getHumanCompletedPercent(task)
 
-  isLate: (task) ->
-    task.completed_on_time_step_count < task.completed_step_count
+
 }

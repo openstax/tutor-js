@@ -1,34 +1,24 @@
 import React from 'react';
-import { uniqueId } from 'lodash';
-import { Popover, OverlayTrigger } from 'react-bootstrap';
-import { Markdown } from 'shared';
 import { observer } from 'mobx-react';
 import { action, computed } from 'mobx';
 import moment from 'moment';
 import { autobind } from 'core-decorators';
-
-import TourAnchor from '../tours/anchor';
-import BindStoreMixin from '../bind-store-mixin';
 import TaskPlanHelper from '../../helpers/task-plan';
-import LoadableItem from '../loadable-item';
 import CopyOnFocusInput from '../copy-on-focus-input';
 import Icon from '../icon';
 import Courses from '../../models/courses-map';
-import { TaskPlanStatsStore, TaskPlanStatsActions } from '../../flux/task-plan-stats';
-import TeacherTaskPlans from '../../models/teacher-task-plans';
+import CopyOnfocusInput from '../copy-on-focus-input';
+import TeacherTaskPlan from '../../models/task-plan/teacher';
 
 const DUE_FORMAT = 'M/D/YYYY [at] h:mma';
 
 @observer
-export class LmsInfoLink extends React.PureComponent {
+export default class LmsInfoPanel extends React.PureComponent {
 
   static propTypes = {
     courseId: React.PropTypes.string.isRequired,
-    plan: React.PropTypes.shape({
-      id: React.PropTypes.string.isRequired,
-      title: React.PropTypes.string.isRequired,
-      description: React.PropTypes.string,
-    }).isRequired,
+    plan: React.PropTypes.instanceOf(TeacherTaskPlan).isRequired,
+    onBack: React.PropTypes.func.isRequired,
   }
 
   @action.bound
@@ -43,26 +33,28 @@ export class LmsInfoLink extends React.PureComponent {
 
   @autobind
   renderDueDates() {
-    const taskPlan = TeacherTaskPlans
-      .forCourseId(this.props.courseId)
-      .get(this.props.plan.id);
+    const { plan } = this.props;
 
-    const taskPlanDates = TaskPlanHelper.dates( taskPlan, { only: 'due_at' } );
+    const taskPlanDates = TaskPlanHelper.dates( plan, { only: 'due_at' } );
     if (taskPlanDates.all != null) {
       return (
-        <p>
-          {'Due: '}
-          {moment(taskPlanDates.all.due_at).format(DUE_FORMAT)}
-        </p>
+        <CopyOnFocusInput
+          label="Due date"
+          value={moment(taskPlanDates.all.due_at).format(DUE_FORMAT)}
+        />
       );
     }
     const course = Courses.get(this.props.courseId);
-    const periodDates = course.periods.map(period =>
-      <li key={period.id}>{period.name}: {moment(taskPlanDates[period.id].due_at).format(DUE_FORMAT)}</li>
-    );
+    const periodDates = course.periods.map(period => (
+      <CopyOnFocusInput
+        label={period.name}
+        value={moment(taskPlanDates[period.id].due_at).format(DUE_FORMAT)}
+      />
+    ));
+
     return (
       <div>
-        <p>Due:</p>
+        <p>Due dates:</p>
         <ul>
           {periodDates}
         </ul>
@@ -72,8 +64,8 @@ export class LmsInfoLink extends React.PureComponent {
 
   @computed get url() {
     const l = window.location;
-    const { shareable_url } = this.getStats();
-    return shareable_url ? `${l.protocol}//${l.host}${shareable_url}` : null;
+    const { shareable_url } = this.props.plan.analytics;
+    return shareable_url ? `${l.protocol}//${l.host}${shareable_url}` : '';
   }
 
   @computed get isPreview() {
@@ -100,92 +92,37 @@ export class LmsInfoLink extends React.PureComponent {
     );
   }
 
-  @computed get popoverTitle() {
-    return this.isPreview ? 'No assignment links for preview courses' :
-           'Copy information for your LMS';
-  }
-
-  @computed get popoverDescription() {
-    const { description } = this.props.plan;
-    return description ? (
-      <div>
-        Description:
-        <Markdown className="description" text={description} block={true} />
-      </div>
-    ) : undefined;
-  }
-
-  @computed get popOver() {
+  renderPreview() {
     return (
-      <Popover
-        id={uniqueId('sharable-link-popover')}
-        className="lms-sharable-link"
-        title={
-          <span>
-            {this.popoverTitle}
-            <Icon type="close" onClick={this.closePopOver} className="close" />
-          </span>
-        }
-      >
-        {this.popOverBody}
-      </Popover>
+      <div className="lms-info preview">
+        <a className="back" onClick={this.props.onBack}>
+          <Icon type="chevron-left" /> Back
+        </a>
+        <p>
+          Assignment links are not available in preview courses. In
+          a live course, you can send assignment links directly
+          to your students or manually paste them into your
+          learning management system.
+        </p>
+      </div>
     );
   }
 
-  getStats() {
-    return TaskPlanStatsStore.get(this.props.plan.id) || {};
-  }
-
   render() {
-
+    if (this.isPreview) {
+      return this.renderPreview();
+    }
     return (
       <div className="lms-info">
-        <OverlayTrigger
-          trigger="click"
-          placement="top"
-          ref="overlay"
-          overlay={this.popOver}
-        >
-          <TourAnchor
-            tag='a'
-            onClick={this.togglePopover}
-            className='get-link' id="lms-info-link"
-          >
-            Get assignment link
-          </TourAnchor>
-        </OverlayTrigger>
+        <a className="back" onClick={this.props.onBack}>
+          <Icon type="chevron-left" /> Back
+        </a>
+        <p>
+          Copy and send to your students directly, or paste manually into your LMS.
+        </p>
+        <CopyOnfocusInput label="Assignment URL" value={this.url} />
+        {this.renderDueDates()}
       </div>
     );
   }
-}
-
-
-export default class LmsInfo extends React.PureComponent {
-
-  static propTypes = {
-    courseId: React.PropTypes.string.isRequired,
-    plan: React.PropTypes.shape({
-      id: React.PropTypes.string.isRequired,
-      title: React.PropTypes.string.isRequired,
-      shareable_url: React.PropTypes.string,
-    }).isRequired,
-  }
-
-  @autobind
-  renderLink() {
-    return (
-      <LmsInfoLink {...this.props} />
-    );
-  }
-
-  render() {
-    return (
-      <LoadableItem
-        id={this.props.plan.id}
-        store={TaskPlanStatsStore}
-        actions={TaskPlanStatsActions}
-        renderItem={this.renderLink} />
-    );
-  }
-
 }

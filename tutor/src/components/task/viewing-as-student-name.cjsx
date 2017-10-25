@@ -2,7 +2,9 @@ React = require 'react'
 classnames = require 'classnames'
 
 Name = require '../name'
-{ScoresStore, ScoresActions} = require '../../flux/scores'
+
+{default: Courses} = require '../../models/courses-map'
+# {ScoresStore, ScoresActions} = require '../../flux/scores'
 
 ViewingAsStudentName = React.createClass
   displayName: 'ViewingAsStudentName'
@@ -16,8 +18,8 @@ ViewingAsStudentName = React.createClass
 
   getStudentState: (props) ->
     {courseId, taskId} = props or @props
-    student = ScoresStore.getStudentOfTask(courseId, taskId)
-    {student}
+    task = Courses.get(courseId).scores.getTask(taskId)
+    if task then { student: task.student } else {}
 
   updateStudent: (props) ->
     props ?= @props
@@ -26,10 +28,9 @@ ViewingAsStudentName = React.createClass
   componentWillMount: ->
     {courseId, taskId} = @props
     {student} = @state
-
-    unless student?
-      ScoresStore.once('change', @updateStudent)
-      ScoresActions.load(courseId)
+    scores = Courses.get(courseId).scores
+    unless student? or scores.api.hasBeenFetched
+      scores.fetch().then(=> @updateStudent())
 
   componentWillReceiveProps: (nextProps) ->
     @updateStudent(nextProps)
@@ -37,7 +38,6 @@ ViewingAsStudentName = React.createClass
   render: ->
     {className} = @props
     studentName = null
-
     className = classnames className, 'task-student'
     {student} = @state
 

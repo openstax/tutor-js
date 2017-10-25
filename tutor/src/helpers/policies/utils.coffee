@@ -2,8 +2,8 @@ _ = require 'underscore'
 
 policies = require './policies'
 {TaskStore} = require '../../flux/task'
-User = require('../../models/user').default
-
+{default: Courses} = require '../../models/courses-map'
+Router = require '../router'
 DEFAULT = 'default'
 
 utils =
@@ -13,7 +13,10 @@ utils =
 
     state
 
-  _role: -> User.viewing_course_role
+  _role: ->
+    { courseId } = Router.currentParams()
+    course = Courses.get(courseId)
+    if course then course.primaryRole.type else 'unknown'
 
   _checkQuestionFormat: (task, step, panel) ->
     # assuming 1 question right now

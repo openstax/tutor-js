@@ -58,7 +58,7 @@ exports[`Freshly Created Course prompt renders and matches snapshot 1`] = `
       onClick={[Function]}
       type="button"
     >
-      Required for some course credit
+      Required as part of the grade
     </button>
     <button
       className="btn btn-default"
@@ -74,23 +74,7 @@ exports[`Freshly Created Course prompt renders and matches snapshot 1`] = `
       onClick={[Function]}
       type="button"
     >
-      As an additional resource
-    </button>
-    <button
-      className="btn btn-default"
-      disabled={false}
-      onClick={[Function]}
-      type="button"
-    >
       I don’t know yet
-    </button>
-    <button
-      className="btn btn-default"
-      disabled={false}
-      onClick={[Function]}
-      type="button"
-    >
-      I won’t be using it
     </button>
   </div>
 </div>

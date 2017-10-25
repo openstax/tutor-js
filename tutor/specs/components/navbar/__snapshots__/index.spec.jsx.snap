@@ -12,9 +12,8 @@ exports[`Main navbar renders and matches snapshot 1`] = `
     >
       <a
         className="brand"
-        href="/"
+        href="/dashboard"
         onClick={[Function]}
-        style={Object {}}
       >
         <i
           className="ui-brand-logo"
@@ -66,12 +65,30 @@ exports[`Main navbar renders and matches snapshot 1`] = `
             <a
               href="http://openstax.force.com/support?l=en_US&c=Products%3ATutor"
               onClick={[Function]}
+              onKeyDown={[Function]}
               role="menuitem"
               tabIndex="-1"
               target="_blank"
             >
               <span>
                 Help Articles
+              </span>
+            </a>
+          </li>
+          <li
+            className="-help-link"
+            role="presentation"
+            style={undefined}
+          >
+            <a
+              href="/accessibility-statement/"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              role="menuitem"
+              tabIndex="-1"
+            >
+              <span>
+                Accessibility statement
               </span>
             </a>
           </li>
@@ -111,28 +128,6 @@ exports[`Main navbar renders and matches snapshot 1`] = `
           className="dropdown-menu dropdown-menu-right"
           role="menu"
         >
-          <li
-            className="accessibilityStatement"
-            role="presentation"
-            style={undefined}
-          >
-            <a
-              data-name="accessibilityStatement"
-              href="/accessibility-statement"
-              onClick={[Function]}
-              onKeyDown={[Function]}
-              role="menuitem"
-              tabIndex="-1"
-            >
-              <div
-                className="tour-anchor"
-                data-tour-anchor-id="menu-option-accessibilityStatement"
-                id="menu-option-accessibilityStatement"
-              >
-                Accessibility statement
-              </div>
-            </a>
-          </li>
           <li
             className="logout"
           >

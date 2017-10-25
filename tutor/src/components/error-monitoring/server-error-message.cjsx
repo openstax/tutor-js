@@ -4,7 +4,7 @@ UserMenu = require('../../models/user/menu').default
 
 SUPPORT_LINK_PARAMS = '&cu=1&fs=ContactUs&q='
 
-makeContactMessage = (status, message, request) ->
+makeContactMessage = (status, message, request = { method: 'unknown', url: '' }) ->
   userAgent = window.navigator.userAgent
   location = window.location.href
 
@@ -28,9 +28,9 @@ ServerErrorMessage = React.createClass
   displayName: 'ServerErrorMessage'
 
   propTypes:
-    status: React.PropTypes.number.isRequired
-    statusMessage: React.PropTypes.string.isRequired
-    config: React.PropTypes.object.isRequired
+    status: React.PropTypes.number
+    statusMessage: React.PropTypes.string
+    config: React.PropTypes.object
     supportLinkBase: React.PropTypes.string
     debug: React.PropTypes.bool
 

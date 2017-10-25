@@ -6,7 +6,7 @@ Courses = require('../../models/courses-map').default
 
 {NotificationsBar} = require 'shared'
 {CCDashboardStore} = require '../../flux/cc-dashboard'
-{CoursePeriodsNav} = require '../course-periods-nav'
+{default: CoursePeriodsNav} = require '../course-periods-nav'
 
 Icon = require '../icon'
 DashboardChapter = require './chapter'

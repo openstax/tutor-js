@@ -2,6 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 capitalize = require 'lodash/capitalize'
 
+REVIEW_LABEL = 'review'
 PERSONALIZED_GROUP = 'personalized'
 SPACED_PRACTICE_GROUP = 'spaced practice'
 TWO_STEP_ALIAS = 'two-step'
@@ -130,6 +131,7 @@ getHelpInfo = (group) ->
 
 
 module.exports = {
+  REVIEW_LABEL,
   PERSONALIZED_GROUP,
   SPACED_PRACTICE_GROUP,
   TWO_STEP_ALIAS,

@@ -4,6 +4,7 @@ BS    = require 'react-bootstrap'
 
 TimeHelper = require '../../../helpers/time'
 TaskingDateTimes = require './tasking-date-times'
+{toJS} = require 'mobx'
 {TaskingActions, TaskingStore} = require '../../../flux/tasking'
 
 Tasking = React.createClass
@@ -18,9 +19,9 @@ Tasking = React.createClass
     {id, period} = @props
 
     if toggleEvent.target.checked
-      TaskingActions.enableTasking(id, period)
+      TaskingActions.enableTasking(id, period.serialize())
     else
-      TaskingActions.disableTasking(id, period)
+      TaskingActions.disableTasking(id, period.serialize())
 
   render: ->
     {

@@ -4,7 +4,6 @@ keys = require('lodash/keys')
 
 LoadingExercises = require './loading-exercises-mixin'
 {PinnedHeaderFooterCard, ScrollToMixin} = require 'shared'
-{CourseStore} = require '../../../flux/course'
 {ExerciseStore, ExerciseActions} = require '../../../flux/exercise'
 {TaskPlanStore, TaskPlanActions} = require '../../../flux/task-plan'
 ExerciseHelpers  = require '../../../helpers/exercise'

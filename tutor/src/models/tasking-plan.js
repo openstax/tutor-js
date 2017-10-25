@@ -1,6 +1,9 @@
 import {
   BaseModel, identifiedBy, field,
 } from './base';
+import { computed } from 'mobx';
+import moment from 'moment-timezone';
+import twix from 'twix';
 
 @identifiedBy('tasking-plan')
 export default class TaskingPlan extends BaseModel {
@@ -15,5 +18,11 @@ export default class TaskingPlan extends BaseModel {
   // To work around this the model makes no assumptions about the format of the "date" it's holding
   @field opens_at;
   @field due_at;
+
+  @computed get opensAtDay() {
+    return moment(this.opens_at)
+      .startOf('day')
+      .twix(moment(this.opens_at).endOf('day'), { allDay: true });
+  }
 
 }

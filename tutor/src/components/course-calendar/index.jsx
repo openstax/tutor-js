@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { extend, pick } from 'lodash';
+import { extend, pick, isEmpty } from 'lodash';
 import { observable, computed, action, observe } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import { NotificationsBar } from 'shared';
-
+import CoursePage from '../course-page';
 import ModelLoader from '../../models/loader';
-import TaskPlans from '../../models/teacher-task-plans';
+import TaskPlans from '../../models/course/task-plans';
 import onboardingForCourse from '../../models/course/onboarding';
 import Courses from '../../models/courses-map';
 import { TimeStore } from '../../flux/time';
@@ -19,6 +19,7 @@ import CourseNagModal from '../onboarding/course-nag';
 import NotificationHelpers from '../../helpers/notifications';
 import TermsModal from '../terms-modal';
 import CourseMonth from './month';
+import CourseCalendarHeader from './header';
 
 const displayAsHandler = {
   month: CourseMonth,
@@ -81,10 +82,10 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
 
   ux = onboardingForCourse(this.course, this.props.tourContext);
 
-  @observable loader = new ModelLoader({ model: TaskPlans });
+  @observable loader = new ModelLoader({ model: this.course.taskPlans });
 
   @observable displayAs = 'month';
-
+  @observable showingSideBar = false;
   @observable date = this.getDateFromParams(this.courseDates);
 
   @computed get bounds() {
@@ -140,16 +141,32 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
     }
   }
 
+  @action.bound onSidebarToggle(isOpen) {
+    this.showingSideBar = isOpen;
+  }
+
+  renderCourseCalendarHeader(courseId, hasPeriods) {
+    return (
+      <CourseCalendarHeader
+        defaultOpen={this.showingSideBar}
+        onSidebarToggle={this.onSidebarToggle}
+        courseId={courseId}
+        hasPeriods={hasPeriods}
+      />
+    );
+  }
+
   render() {
     const {
-      course,
-      displayAs, props: { params, params: { courseId } },
+      course, showingSideBar, displayAs,
+      props: { params, params: { courseId } },
       calendarParams: { date, termStart, termEnd },
     } = this;
 
-    const hasPeriods = PH.hasPeriods(course);
+    const hasPeriods = !isEmpty(course.periods.active);
     const calendarProps = {
-      courseId, date, displayAs, hasPeriods, params, termStart, termEnd,
+      courseId, date, displayAs, hasPeriods, params,
+      termStart, termEnd, showingSideBar,
     };
 
     if (this.loader.isBusy) {
@@ -159,17 +176,24 @@ export default class TeacherTaskPlanListing extends React.PureComponent {
     const CourseCalendar = displayAsHandler[this.displayAs];
 
     return (
-      <div className="list-task-plans">
-        <NotificationsBar
-          course={course}
-          role={course.primaryRole}
-          callbacks={NotificationHelpers.buildCallbackHandlers(this)}
-        />
+      <CoursePage
+        className="list-task-plans"
+        title={course.name}
+        subtitle={course.termFull}
+        course={course}
+        controls={this.renderCourseCalendarHeader(courseId, hasPeriods)}
+        notices={
+          <NotificationsBar
+            course={course}
+            role={course.primaryRole}
+            callbacks={NotificationHelpers.buildCallbackHandlers(this)}
+          />
+        }
+      >
         <TermsModal />
         <CourseNagModal ux={this.ux} />
-        <CourseTitleBanner courseId={course.id} />
         <CourseCalendar {...calendarProps} />
-      </div>
+      </CoursePage>
     );
   }
 

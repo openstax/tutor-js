@@ -40,13 +40,6 @@ Array [
       "courseId": "1",
     },
   },
-  Object {
-    "label": "Accessibility statement",
-    "name": "accessibilityStatement",
-    "params": Object {
-      "courseId": "1",
-    },
-  },
 ]
 `;
 
@@ -95,15 +88,15 @@ Array [
     },
   },
   Object {
-    "label": "Course Settings and Roster",
+    "label": "Course Settings",
     "name": "courseSettings",
     "params": Object {
       "courseId": "2",
     },
   },
   Object {
-    "label": "Accessibility statement",
-    "name": "accessibilityStatement",
+    "label": "Course Roster",
+    "name": "courseRoster",
     "params": Object {
       "courseId": "2",
     },
@@ -111,14 +104,4 @@ Array [
 ]
 `;
 
-exports[`Current User Store should return expected menu routes for courses 3`] = `
-Array [
-  Object {
-    "label": "Accessibility statement",
-    "name": "accessibilityStatement",
-    "params": Object {
-      "courseId": undefined,
-    },
-  },
-]
-`;
+exports[`Current User Store should return expected menu routes for courses 3`] = `Array []`;

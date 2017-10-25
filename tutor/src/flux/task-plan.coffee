@@ -12,8 +12,10 @@ moment = require 'moment'
 {TocStore} = require './toc'
 TimeHelper  = require '../helpers/time'
 {ExerciseStore} = require './exercise'
-{PlanPublishActions, PlanPublishStore} = require './plan-publish'
-{CourseStore} = require './course'
+{ default: Publishing } = require '../models/jobs/task-plan-publish'
+
+{default: Courses} = require '../models/courses-map'
+
 ContentHelpers = require '../helpers/content'
 
 planCrudConfig = new CrudConfig()
@@ -80,7 +82,6 @@ TaskPlanConfig =
 
   _loaded: (obj, planId) ->
     @_server_copy[planId] = JSON.stringify(obj) if _.isObject(obj)
-    PlanPublishActions.queued(obj, planId) if obj.is_publishing
     @emit("loaded.#{planId}")
     obj
 
@@ -244,10 +245,7 @@ TaskPlanConfig =
 
   _saved: (obj, id) ->
     @emit("saved.#{id}", obj)
-    if obj.is_publishing
-      PlanPublishActions.queued(obj, id)
-      @emit('publish-queued', obj)
-    obj
+
 
   erroredSilent: (obj, id, courseId) ->
     @emit('errored', obj)
@@ -280,10 +278,10 @@ TaskPlanConfig =
       true
     )
 
-    periods = CourseStore.getPeriods(courseId)
-    tasking_plans = map( periods, (period) ->
+    course = Courses.get(courseId)
+    tasking_plans = course.periods.map((period) ->
       {
-        opens_at: CourseStore.get(courseId).starts_at
+        opens_at: course.starts_at
         target_id: period.id,
         target_type: 'period',
         due_at: due_at
@@ -320,7 +318,7 @@ TaskPlanConfig =
 
     getEcosystemId: (id, courseId) ->
       plan = @_getPlan(id)
-      plan.ecosystem_id or CourseStore.get(courseId)?.ecosystem_id
+      plan.ecosystem_id or Courses.get(courseId)?.ecosystem_id
 
     hasExercise: (id, exerciseId) ->
       plan = @_getPlan(id)
@@ -366,7 +364,8 @@ TaskPlanConfig =
       not @_isDeleteRequested(id)
 
     isPublishing: (id) ->
-      @_changed[id]?.is_publishing or PlanPublishStore.isPublishing(id)
+      return false if @exports.isNew.call(@, id)
+      @_changed[id]?.is_publishing or Publishing.isPublishing(@_getPlan(id))
 
     canDecreaseTutorExercises: (id) ->
       plan = @_getPlan(id)
@@ -402,4 +401,5 @@ TaskPlanConfig =
 
 extendConfig(TaskPlanConfig, planCrudConfig)
 {actions, store} = makeSimpleStore(TaskPlanConfig)
+
 module.exports = {TaskPlanActions:actions, TaskPlanStore:store}

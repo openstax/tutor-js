@@ -173,9 +173,8 @@ exports[`Student Dashboard matches snapshot 1`] = `
           <a
             className="view-reference-guide"
             data-appearance="testing"
-            href="/"
+            href="/books/1"
             onClick={[Function]}
-            style={Object {}}
             tabIndex={0}
             target="_blank"
           >

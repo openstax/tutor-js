@@ -33,7 +33,7 @@ export class PreviewCourseOffering extends Course {
   }
 
   @computed get isBuilding() {
-    return !!(this.courseCreate && this.courseCreate.hasApiRequestPending);
+    return !!(this.courseCreate && this.courseCreate.api.isPending);
   }
 
   @action build() {

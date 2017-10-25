@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _} = require 'shared/specs/helpers'
+{Testing, sinon, _} = require 'shared/specs/helpers'
 
 Group = require 'components/exercise/group'
 
@@ -27,4 +27,4 @@ describe 'Exercise Group Component', ->
   it 'renders the exercise uid when passed in', ->
     @props.group = 'spaced practice'
     Testing.renderComponent( Group, props: @props ).then ({dom, wrapper, root, element}) ->
-      expect(dom.querySelector('i[aria-describedby="instructions"]')).to.not.be.null
+      expect(dom.textContent).toContain('Spaced Practice')

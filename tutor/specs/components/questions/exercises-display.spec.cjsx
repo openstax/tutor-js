@@ -11,7 +11,7 @@ COURSE_ID = '1'
 ECOSYSTEM_ID = '1'
 
 {ExerciseActions, ExerciseStore} = require '../../../src/flux/exercise'
-{CourseActions} = require '../../../src/flux/course'
+{ default: Courses } = require '../../../src/models/courses-map'
 {TocActions, TocStore} = require '../../../src/flux/toc'
 
 describe 'QL exercises display', ->
@@ -22,7 +22,7 @@ describe 'QL exercises display', ->
       courseId: COURSE_ID
       helpTooltip: 'This is help'
       sectionIds: SECTION_IDS
-    CourseActions.loaded(COURSE, COURSE_ID)
+    Courses.bootstrap([COURSE], { clear: true })
     ExerciseActions.loadedForCourse(EXERCISES, COURSE_ID, SECTION_IDS)
     TocActions.loaded(READINGS, ECOSYSTEM_ID)
     sinon.stub(ExerciseActions, 'saveExerciseExclusion').returns(null)

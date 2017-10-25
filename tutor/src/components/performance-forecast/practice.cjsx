@@ -18,7 +18,7 @@ module.exports = React.createClass
   onClick: ->
     {courseId, page_ids} = @props
     route = Router.makePathname('practiceTopics', {courseId}, query: {page_ids})
-    @context.router.transitionTo( route )
+    @context.router.history.push( route )
 
   isDisabled: ->
     {page_ids, courseId} = @props

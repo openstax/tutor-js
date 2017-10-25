@@ -1,5 +1,6 @@
 import React from 'react';
-import Router from 'react-router';
+
+import { Link } from 'react-router-dom';
 
 export default class BackButton extends React.PureComponent {
 
@@ -14,9 +15,9 @@ export default class BackButton extends React.PureComponent {
     const backToCalendarParams = this.props.getBackToCalendarParams();
 
     return (
-      <Router.Link {...backToCalendarParams} className="btn btn-default">
+      <Link {...backToCalendarParams} className="btn btn-default">
         Back to Calendar
-      </Router.Link>
+      </Link>
     );
   }
 }

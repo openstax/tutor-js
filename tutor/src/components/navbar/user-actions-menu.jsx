@@ -47,7 +47,7 @@ export default class UserActionsMenu extends React.PureComponent {
   @autobind
   transitionToMenuItem(href, evKey, clickEvent) {
     clickEvent.preventDefault();
-    this.context.router.transitionTo(href);
+    this.context.router.history.push(href);
   }
 
   @autobind

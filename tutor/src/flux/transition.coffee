@@ -17,7 +17,7 @@ TransitionActions = flux.createActions [
 # 'transitioned' to and not those that 'replace' location,
 # as is the case with router.replaceWith
 #
-# TLDR: Use router.transitionTo or Router.Link for routes you want
+# TLDR: Use router.history.push or Router.Link for routes you want
 # in History and back button.  Only use router.replaceWith when you
 # want that route to be ignored in History and back.
 
@@ -37,7 +37,8 @@ TransitionStore = flux.createStore
     @_local
 
   exports:
-    getPrevious: (current = window.location.pathname) ->
+    getPrevious: (current) ->
+      current = window.document?.location unless current
       for path in @_local by -1
         if path isnt current
           return {path, name: DestinationHelper.destinationFromPath(path)}

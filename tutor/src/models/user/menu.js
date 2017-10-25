@@ -43,10 +43,16 @@ const ROUTES = {
       teacher: 'viewScores',
     },
   },
-  course: {
-    label: 'Course Settings and Roster',
+  courseSettings: {
+    label: 'Course Settings',
     roles: {
       teacher: 'courseSettings',
+    },
+  },
+  courseRoster: {
+    label: 'Course Roster',
+    roles: {
+      teacher: 'courseRoster',
     },
   },
   get_started: {
@@ -109,12 +115,6 @@ const ROUTES = {
     href: '/content_analyst',
     isAllowed() { return !!User.is_content_analyst; },
   },
-  accessibilityStatement: {
-    label: 'Accessibility statement',
-    params(course) {
-      return { courseId: course.courseId };
-    },
-  },
 
 };
 
@@ -123,7 +123,7 @@ const TUTOR_CONTACT = 'http://openstax.force.com/support/?cu=1&fs=ContactUs&l=en
 const CONCEPT_COACH_HELP = 'http://openstax.force.com/support?l=en_US&c=Products%3AConcept_Coach';
 const CONCEPT_COACH_CONTACT = 'http://openstax.force.com/support/?cu=1&fs=ContactUs&l=en_US&c=Products%3AConcept_Coach';
 
-const SUPPORT_EMAIL = 'support@openstaxtutor.org';
+const SUPPORT_EMAIL = 'support@openstax.org';
 
 function getRouteByRole(routeName, menuRole) {
   if (!ROUTES[routeName].roles) { return routeName; }
@@ -156,6 +156,7 @@ const UserMenu = observable({
   helpLinkForCourseId(courseId) {
     if (!courseId) { return this.helpURL; }
     const course = Courses.get(courseId);
+    if (!course) { return this.helpURL; }
     return course.is_concept_coach ? CONCEPT_COACH_HELP : TUTOR_HELP;
   },
 
@@ -164,14 +165,16 @@ const UserMenu = observable({
     let course;
     if (courseId) {
       course = Courses.get(courseId);
-      ({ isTeacher, primaryRole: { type: menuRole } } = course);
+      if (course) {
+        ({ isTeacher, primaryRole: { type: menuRole } } = course);
+      }
     }
     const options = { courseId, menuRole };
     const validRoutes = pickBy(
       ROUTES, (route, routeName) =>
         (invoke(route, 'isAllowed', course) !== false) &&
-        (!route.isTeacher || isTeacher) &&
-        getRouteByRole(routeName, menuRole)
+                                  (!route.isTeacher || isTeacher) &&
+                                  getRouteByRole(routeName, menuRole)
     );
     const routes = [];
 

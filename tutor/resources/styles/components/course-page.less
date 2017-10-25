@@ -1,0 +1,79 @@
+.course-page {
+
+  .wrapper-child() {
+      display: flex;
+      margin: 0 auto;
+      max-width: 1200px;
+      align-items: stretch;
+      justify-content: center;
+      flex-direction: column;
+      margin: 0 auto;
+  }
+  .apply-booksplash-background(@code; @fg; @bg) {
+    &[data-appearance=@{code}] > header > .title-wrapper {
+      color: @@fg;
+      background-color: @@bg;
+    }
+  }
+  .for(@openstax-book-appearance-codes); .-each(@code) {
+    .apply-booksplash-background(@code, "openstax-book-@{code}-fg", "openstax-book-@{code}-bg");
+  }
+
+  > header {
+    .title-wrapper {
+      padding: 10px 40px;
+      min-height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .title {
+//      .wrapper-child();
+      font-weight: bold;
+      font-size: 36px;
+      line-height: 45px;
+    }
+
+    .subtitle {
+  //    .wrapper-child();
+      font-weight: 200;
+      line-height: 1em;
+      font-size: 1.6rem;
+    }
+
+    .controls-wrapper {
+      background-color: @tutor-neutral-bright;
+      padding: 10px 40px;
+      > * {
+        .wrapper-child();
+      }
+      .sub-title {
+        font-weight: bold;
+        font-size: 24px;
+        min-height: 55px;
+        display: flex;
+        align-items: center;
+      }
+      .tutor-icon {
+        font-size: 20px;
+        transistion: color 0.3s;
+        &:hover {
+          color: darken(@tutor-blue-control, 10%);
+        }
+      }
+    }
+  }
+  > .body-wrapper {
+    padding: 0 40px;
+    > .body {
+      .wrapper-child();
+      display: block;
+
+      > .loading-screen-animation {
+        margin-top: 120px;
+      }
+    }
+  }
+
+}

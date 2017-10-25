@@ -2,8 +2,7 @@
 
 React = require 'react'
 truncate = require 'lodash/truncate'
-
-{CourseStore} = require '../../flux/course'
+{default: Courses} = require '../../models/courses-map'
 
 DesktopImage = React.createClass
 
@@ -11,8 +10,8 @@ DesktopImage = React.createClass
     courseId: React.PropTypes.string
 
   render: ->
-    course = CourseStore.get(@props.courseId)
-    appearance = CourseStore.getAppearanceCode(@props.courseId)
+    course = Courses.get(@props.courseId)
+    appearance = course.appearance_code
     <svg className={"desktop #{appearance}"}
         width="100%" height="100%" viewBox="0 0 430 337" version="1.1"
         xmlns="http://www.w3.org/2000/svg"

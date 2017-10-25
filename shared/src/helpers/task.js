@@ -21,7 +21,7 @@ import {
 } from 'lodash';
 import UiSettings from '../model/ui-settings';
 import { formatSection } from './step-content';
-import { INDIVIDUAL_REVIEW, PERSONALIZED_GROUP, SPACED_PRACTICE_GROUP, TWO_STEP_ALIAS, INTRO_ALIASES, makeAliases } from './step-helps';
+import { INDIVIDUAL_REVIEW, REVIEW_LABEL, PERSONALIZED_GROUP, SPACED_PRACTICE_GROUP, TWO_STEP_ALIAS, INTRO_ALIASES, makeAliases } from './step-helps';
 
 const ONE_TIME_CARD_DEFAULTS = {
   taskId: '',
@@ -61,7 +61,7 @@ const makeStep = function(task, step, stepIndex) {
 
   step = pick(step,
     'id', 'type', 'is_completed', 'related_content', 'group', 'chapter_section',
-    'is_correct', 'answer_id', 'correct_answer_id', 'label', 'sectionLabel'
+    'is_correct', 'answer_id', 'correct_answer_id', 'labels', 'sectionLabel'
   );
   task = pick(task, 'title', 'type', 'due_at', 'description', 'id');
 
@@ -131,16 +131,20 @@ const stepMapOneTimeCardForGroup = function(group, condition, isAvailable, task,
 
 const befores = {};
 
-const isSpacedPractice = (task, step) => get(find(task.steps, { group: SPACED_PRACTICE_GROUP }), 'id') === step.id;
+const isFirstReview = (task, step) => get(find(task.steps, function(step) {
+  return includes(step.labels, REVIEW_LABEL)
+}), 'id') === step.id;
 
-const isPersonalized = (task, step) => get(find(task.steps, { group: PERSONALIZED_GROUP }), 'id') === step.id;
+const isFirstSpacedPractice = (task, step) => get(find(task.steps, { group: SPACED_PRACTICE_GROUP }), 'id') === step.id;
+
+const isFirstPersonalized = (task, step) => get(find(task.steps, { group: PERSONALIZED_GROUP }), 'id') === step.id;
 
 // TODO for future implementation of instructions card.
 // befores['intro'] = (task, step, stepIndex) ->
 //   makeStep(task, {type: 'task-intro'}, stepIndex)
 
 befores[INDIVIDUAL_REVIEW] = function(task, step, stepIndex) {
-  if (includes(['reading', 'homework'], task.type) && isSpacedPractice(task, step, stepIndex)) {
+  if (includes(['reading', 'homework'], task.type) && isFirstReview(task, step, stepIndex)) {
     return makeStep(task, { type: INTRO_ALIASES[INDIVIDUAL_REVIEW] }, stepIndex);
   }
   return null;
@@ -151,13 +155,13 @@ befores[SPACED_PRACTICE_GROUP] = function(task, step, stepIndex, isAvailable) {
   if (isPractice(task)) { return null; }
 
   if (task.type === 'reading') {
-    if (isSpacedPractice(task, step, stepIndex)) {
+    if (isFirstSpacedPractice(task, step, stepIndex)) {
       return makeStep(task, { type: INTRO_ALIASES[SPACED_PRACTICE_GROUP] }, stepIndex);
     }
   }
   return stepMapOneTimeCardForGroup(
     SPACED_PRACTICE_GROUP,
-    isSpacedPractice,
+    isFirstSpacedPractice,
     isAvailable,
     ...arguments
   );
@@ -170,7 +174,7 @@ befores[PERSONALIZED_GROUP] = function(task, step, stepIndex, isAvailable) {
 
   return stepMapOneTimeCardForGroup(
     PERSONALIZED_GROUP,
-    isPersonalized,
+    isFirstPersonalized,
     isAvailable,
     ...arguments
   );
@@ -219,7 +223,7 @@ befores[TWO_STEP_ALIAS] = function(task, step, stepIndex, isAvailable) {
 
 const afters = {
   ['end'](task, step, stepIndex) {
-    if (stepIndex === (task.steps.length - 1)) { return makeStep(task, { type: 'end', label: 'summary' }, stepIndex); }
+    if (stepIndex === (task.steps.length - 1)) { return makeStep(task, { type: 'end', labels: ['summary'] }, stepIndex); }
     return null;
   },
 };

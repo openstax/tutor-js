@@ -1,7 +1,7 @@
 React = require 'react'
-{Link} = require 'react-router'
-concat    = require 'lodash/concat'
-
+{Link} = require 'react-router-dom'
+concat = require 'lodash/concat'
+qs = require 'qs'
 {filterProps} = require '../helpers/react'
 filterPropsBase = filterProps
 
@@ -27,7 +27,8 @@ make = (router, name = 'OpenStax') ->
 
       to =
         pathname: pathname or to
-        query: query
+      if query
+        to.search = qs.stringify(query)
 
       # TODO see about isActive
       <Link to={to} {...filterProps(@props)} />

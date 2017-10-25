@@ -33,7 +33,7 @@ export default class ChangeStudentId extends React.PureComponent {
   @action.bound
   onSubmit() {
     this.student.student_identifier = this.input.value;
-    this.student.save().then(this.onSaved);
+    this.student.saveOwnStudentId().then(this.onSaved);
   }
 
   @action.bound
@@ -43,7 +43,7 @@ export default class ChangeStudentId extends React.PureComponent {
 
   @action.bound
   goToDashboard() {
-    this.context.router.transitionTo(Router.makePathname('dashboard', { courseId: this.courseId }));
+    this.context.router.history.push(Router.makePathname('dashboard', { courseId: this.courseId }));
   }
 
   @action.bound
@@ -98,7 +98,7 @@ export default class ChangeStudentId extends React.PureComponent {
             disabled={!this.isValid}
             bsStyle="primary"
             className="btn btn-success"
-            isWaiting={!!this.student.hasApiRequestPending}
+            isWaiting={!!this.student.api.isPending}
             waitingText={'Confirming…'}
             onClick={this.onSubmit}
           >

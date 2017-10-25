@@ -30,7 +30,7 @@ describe 'Student Dashboard Progress Panel', ->
       props: { courseId: COURSE_ID }
     ).then ({dom, element}) ->
       Testing.actions.click(dom.querySelector('.view-performance-forecast'))
-      expect(Testing.router.transitionTo).to.have.been.calledWith(
+      expect(Testing.router.history.push).to.have.been.calledWith(
         'viewPerformanceForecast', { courseId: COURSE_ID }
       )
 

@@ -5,9 +5,10 @@ _ = require 'underscore'
 camelCase = require 'lodash/camelCase'
 padStart = require 'lodash/padStart'
 
-
+{ observer } = require 'mobx-react'
 CoursePlan = require './plan'
-PlanHelper = require '../../helpers/plan'
+
+{ default: PlanPublish } = require '../../models/jobs/task-plan-publish'
 TimeHelper = require '../../helpers/time'
 {TimeStore} = require '../../flux/time'
 {isNew} = require '../../flux/helpers'
@@ -64,7 +65,6 @@ CourseDuration = React.createClass
     durationsInView = _.chain(durations)
       .clone()
       # TODO these parts actually seem like they should be in flux
-      .each(@setDuration(viewingDuration))
       .filter(@isInDuration(viewingDuration))
       .sortBy((plan) =>
         expectedLength = 13
@@ -160,55 +160,14 @@ CourseDuration = React.createClass
       current.union(nextDay)
     , @_getDay(listOfMoments[0])
 
-
-  _getDurationRange: (plan) ->
-    openDates = _.pluck(plan.tasking_plans, 'opens_at')
-    dueDates = _.pluck(plan.tasking_plans, 'due_at')
-
-    rangeDates = _.union(openDates, dueDates)
-
-    @_getDurationFromMoments(rangeDates)
-
   _getEarliestOpensAt: (plan) ->
     openDates = _.pluck(plan.tasking_plans, 'opens_at')
     rangeDates = _.union(openDates)
     openRange = @_getDurationFromMoments(rangeDates)
     openRange.start()
 
-  # For displaying ranges for units in the future
-  setDurationRange: (plan) ->
-    plan.duration = @_getDurationRange(plan)
-
   isPlanPublishing: (plan) ->
-    PlanHelper.isPublishing(plan)
-
-  setDurationDay: (plan) ->
-    {referenceDate} = @props
-    dueDates = _.pluck(plan.tasking_plans, 'due_at')
-
-    plan.duration = @_getDurationFromMoments(dueDates)
-
-  setPlanStatus: (plan) ->
-    {referenceDate} = @props
-    openRange = @_getDurationRange(plan)
-
-    plan.isOpen = openRange.start().isBefore(referenceDate)
-    plan.isPublished = plan.is_published
-    plan.isPublishing = @isPlanPublishing(plan)
-    plan.isTrouble = plan.is_trouble
-    plan.isEditable = plan.duration.start().isAfter(referenceDate)
-
-
-  # TODO see how to pull out plan specific logic to show that this
-  # can be reused for units, for example
-  setDuration: (duration) ->
-    (plan) =>
-      # pinned to 'day' display for now. can be 'range' for units in the future.
-      plan.mode = 'day'
-      durationMethod = camelCase("set-duration-#{plan.mode}")
-      @[durationMethod](plan)
-
-      @setPlanStatus(plan)
+    PlanPublish.isPublishing(plan)
 
   isInDuration: (duration) ->
     (plan) ->
@@ -216,17 +175,6 @@ CourseDuration = React.createClass
 
   _calcDayHeight: (plans) ->
     plans * 3.6 + 1
-
-  _getSimplePlan: (plan) ->
-    # Make a simple plan that omits duration/time related information
-    # and adds back in only the relevant time information needed by the
-    # CoursePlan component.
-    simplePlan = _.omit(plan, 'duration', 'tasking_plans')
-    earliestOpensAt = @_getEarliestOpensAt(plan)
-    simplePlan.opensAt = moment(earliestOpensAt).format('M/D')
-    simplePlan.durationLength = plan.duration.length('days')
-
-    simplePlan
 
   groupByRanges: (durationsInView) ->
     counter = {}
@@ -238,17 +186,15 @@ CourseDuration = React.createClass
         plansByDays: []
         plansInRange: []
 
-      simplePlans = {}
-
       _.each(durationsInView, (plan) =>
         if plan.duration.overlaps(range)
           counter[plan.id] ?= 0
-          simplePlans[plan.id] ?= @_getSimplePlan(plan)
+
 
           planForRange =
             rangeDuration: plan.duration.intersection(range)
             offset: range.start().twix(plan.duration.start()).length('days')
-            plan: simplePlans[plan.id]
+            plan: plan
             index: counter[plan.id]
 
           planForRange.offsetFromPlanStart = planForRange.rangeDuration.start().diff(plan.duration.start(), 'days')
@@ -291,4 +237,4 @@ CourseDuration = React.createClass
     </div>
 
 
-module.exports = CourseDuration
+module.exports = observer(CourseDuration)

@@ -90,9 +90,8 @@ exports[`Student Navbar Component has user actions menu that matches snapshot 1`
     >
       <a
         className="view-reference-guide"
-        href="/"
+        href="/books/1"
         onClick={[Function]}
-        style={Object {}}
         tabIndex={0}
         target="_blank"
       >
@@ -155,28 +154,6 @@ exports[`Student Navbar Component has user actions menu that matches snapshot 1`
       role="separator"
       style={undefined}
     />
-    <li
-      className="accessibilityStatement"
-      role="presentation"
-      style={undefined}
-    >
-      <a
-        data-name="accessibilityStatement"
-        href="/accessibility-statement/1"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        role="menuitem"
-        tabIndex="-1"
-      >
-        <div
-          className="tour-anchor"
-          data-tour-anchor-id="menu-option-accessibilityStatement"
-          id="menu-option-accessibilityStatement"
-        >
-          Accessibility statement
-        </div>
-      </a>
-    </li>
     <li
       role="presentation"
     >
@@ -312,9 +289,8 @@ exports[`Teacher Navbar Component has user actions menu that matches snapshot 1`
     >
       <a
         className="view-reference-guide"
-        href="/"
+        href="/books/1"
         onClick={[Function]}
-        style={Object {}}
         tabIndex={0}
         target="_blank"
       >
@@ -411,7 +387,29 @@ exports[`Teacher Navbar Component has user actions menu that matches snapshot 1`
           data-tour-anchor-id="menu-option-courseSettings"
           id="menu-option-courseSettings"
         >
-          Course Settings and Roster
+          Course Settings
+        </div>
+      </a>
+    </li>
+    <li
+      className="courseRoster"
+      role="presentation"
+      style={undefined}
+    >
+      <a
+        data-name="courseRoster"
+        href="/course/1/roster"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="menuitem"
+        tabIndex="-1"
+      >
+        <div
+          className="tour-anchor"
+          data-tour-anchor-id="menu-option-courseRoster"
+          id="menu-option-courseRoster"
+        >
+          Course Roster
         </div>
       </a>
     </li>
@@ -471,28 +469,6 @@ exports[`Teacher Navbar Component has user actions menu that matches snapshot 1`
       role="separator"
       style={undefined}
     />
-    <li
-      className="accessibilityStatement"
-      role="presentation"
-      style={undefined}
-    >
-      <a
-        data-name="accessibilityStatement"
-        href="/accessibility-statement/1"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        role="menuitem"
-        tabIndex="-1"
-      >
-        <div
-          className="tour-anchor"
-          data-tour-anchor-id="menu-option-accessibilityStatement"
-          id="menu-option-accessibilityStatement"
-        >
-          Accessibility statement
-        </div>
-      </a>
-    </li>
     <li
       role="presentation"
     >

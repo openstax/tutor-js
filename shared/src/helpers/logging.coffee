@@ -30,7 +30,7 @@ transmitPending = debounce(->
     data: {entries: PENDING}
   )
   PENDING = []
-)
+, 300)
 
 loggerFactory = (level) ->
   (msg, args...) ->

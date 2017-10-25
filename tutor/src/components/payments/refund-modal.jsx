@@ -25,7 +25,7 @@ class ProcessRefund extends React.PureComponent {
       <Modal.Dialog
         className="refund process"
       >
-        <OXFancyLoader isLoading={purchase.hasApiRequestPending} />
+        <OXFancyLoader isLoading={purchase.api.isPending} />
         <Modal.Header>
           <Modal.Title>We will refund the following amount to the original form of payment</Modal.Title>
         </Modal.Header>
@@ -39,7 +39,7 @@ class ProcessRefund extends React.PureComponent {
           <AsyncButton
             bsStyle="primary"
             data-identifier={purchase.identifier}
-            isWaiting={purchase.hasApiRequestPending}
+            isWaiting={purchase.api.isPending}
             onClick={this.onRequestRefund}
           >
             Process refund

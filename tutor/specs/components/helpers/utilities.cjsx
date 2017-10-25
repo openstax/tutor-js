@@ -1,5 +1,5 @@
 React = require 'react'
-Router = require 'react-router'
+Router = require 'react-router-dom'
 routes = require '../../../src/routes'
 {Promise} = require 'es6-promise'
 _ = require 'underscore'

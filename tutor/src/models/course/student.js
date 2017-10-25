@@ -1,13 +1,12 @@
-import {
-  computed, action,
-} from 'mobx'
-
+import { computed, action } from 'mobx';
 import {
   BaseModel, identifiedBy, field, identifier, belongsTo,
 } from '../base';
 import { TimeStore } from '../../flux/time';
 import moment from 'moment';
+import { pick } from 'lodash';
 import Payments from '../payments';
+
 @identifiedBy('course/student')
 export default class CourseStudent extends BaseModel {
   @identifier id;
@@ -29,12 +28,10 @@ export default class CourseStudent extends BaseModel {
   @field student_identifier;
 
   @belongsTo course;
+  @belongsTo({ model: 'course/roster' }) roster;
 
-  // called by api
-  save() {
-    return {
-      courseId: this.course.id, data: this.serialize(),
-    };
+  @computed get courseId() {
+    return this.course ? this.courseId : this.roster.course.id;
   }
 
   get mustPayImmediately() {
@@ -42,7 +39,7 @@ export default class CourseStudent extends BaseModel {
   }
 
   get trialDaysRemaining() {
-    return moment(this.payment_due_at).diff(TimeStore.getNow(), 'days');
+    return Math.max(moment(this.payment_due_at).diff(TimeStore.getNow(), 'days'), 0);
   }
 
   onSaved({ data }) {
@@ -77,4 +74,24 @@ export default class CourseStudent extends BaseModel {
     this.is_paid = true;
     this.prompt_student_to_pay = false;
   }
+
+  changePeriod(period) {
+    this.period_id = period.id;
+    return this.savePeriod();
+  }
+
+
+  // following methods are called by api
+  drop() { }
+  unDrop() {}
+  savePeriod() {
+    return { id: this.id, data: pick(this, 'period_id') };
+  }
+  saveStudentId() {
+    return { id: this.id, data: pick(this, 'student_identifier') };
+  }
+  saveOwnStudentId() {
+    return { id: this.id, data: pick(this, 'student_identifier') };
+  }
+
 }

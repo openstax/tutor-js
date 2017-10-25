@@ -124,7 +124,7 @@ export default class TourContext extends BaseModel {
 
   @computed get hasTriggeredTour() {
     return !!find(this.allTours, (tour) =>
-        !(tour.autoplay || isEmpty(intersection(tour.audience_tags, this.audienceTags)))
+      !(tour.autoplay || isEmpty(intersection(tour.audience_tags, this.audienceTags)))
     );
   }
 

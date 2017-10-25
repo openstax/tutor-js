@@ -1,7 +1,7 @@
 React = require 'react'
 
 {TocStore, TocActions} = require '../../flux/toc'
-{CourseStore} = require '../../flux/course'
+{default: Courses} = require '../../models/courses-map'
 LoadableItem = require '../loadable-item'
 {UnsavedStateMixin} = require '../unsaved-state'
 {ExerciseStore} = require '../../flux/exercise'
@@ -19,7 +19,7 @@ QuestionsDashboardShell = React.createClass
 
   render: ->
     {courseId} = Router.currentParams()
-    ecosystemId = CourseStore.get(courseId).ecosystem_id
+    ecosystemId = Courses.get(courseId).ecosystem_id
 
     <LoadableItem
       id={ecosystemId}

@@ -82,7 +82,7 @@ export default class ManagePayments extends React.PureComponent {
         <td className="refund">
           <AsyncButton
             data-identifier={purchase.identifier}
-            isWaiting={purchase.hasApiRequestPending}
+            isWaiting={purchase.api.isPending}
             onClick={this.onRequestRefund}
           >
             Request Refund
@@ -167,7 +167,7 @@ export default class ManagePayments extends React.PureComponent {
           <h1>Manage payments</h1>
           <BackButton fallbackLink={this.backLink} />
         </header>
-        {Purchases.hasApiRequestPending ? <OXFancyLoader isLoading /> : this.renderTable()}
+        {Purchases.api.isPending ? <OXFancyLoader isLoading /> : this.renderTable()}
         <div className="footer">
           <NewTabLink
             className="refund-policy"

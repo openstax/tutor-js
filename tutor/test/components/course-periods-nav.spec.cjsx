@@ -21,15 +21,15 @@ describe 'Course Periods Navigation', ->
       @selectedPeriod = period
     @transitionSpy = sinon.spy()
     Component = StubContext(CoursePeriodsNav, {router: {
-      transitionTo: @transitionSpy
+      history.push: @transitionSpy
       getCurrentQuery: -> {tab: 0}
       getCurrentPathname: -> '/test/test/test'
     }})
     componentStub
-      .render(<Component
-        courseId={COURSE_ID}
-        handleSelect={handleSelect}
-        periods={COURSE_PERIODS}/>)
+      .render(React.createElement(Component, { \
+        "courseId": (COURSE_ID),  \
+        "handleSelect": (handleSelect),  \
+        "periods": (COURSE_PERIODS)}))
       .then((result) =>
         @result = result
 

@@ -15,7 +15,7 @@ export default class BuildCourse extends React.PureComponent {
   redirectToCourse(course) {
     const to = course.is_concept_coach ? 'ccDashboardHelp' : 'dashboard';
     return (
-      this.context.router.transitionTo(Router.makePathname(
+      this.context.router.history.push(Router.makePathname(
         to, { courseId: course.id }, { query: { showIntro: 'true' } }
       ))
     );

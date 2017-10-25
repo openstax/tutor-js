@@ -11,7 +11,7 @@ find = require 'lodash/find'
 {DropTarget} = require 'react-dnd'
 {Calendar, Month, Week, Day} = require 'react-calendar'
 { default: TourRegion } = require '../tours/region'
-{ default: TeacherTaskPlans } = require '../../models/teacher-task-plans'
+{ default: Courses } = require '../../models/courses-map'
 {TimeStore} = require '../../flux/time'
 TimeHelper = require '../../helpers/time'
 TutorRouter = require '../../helpers/router'
@@ -25,8 +25,8 @@ CourseCalendarHeader = require './header'
 CourseAddMenuMixin   = require './add-menu-mixin'
 CourseDuration       = require './duration'
 MonthTitleNav        = require './month-title-nav'
-CoursePlan           = require './plan'
 CourseAdd            = require './add'
+{default: CoursePlan} = require './plan'
 
 
 CourseMonth = React.createClass
@@ -43,6 +43,7 @@ CourseMonth = React.createClass
     termEnd:    TimeHelper.PropTypes.moment
     hasPeriods: React.PropTypes.bool.isRequired
     courseId:   React.PropTypes.string.isRequired
+    showingSideBar: React.PropTypes.bool.isRequired
 
   childContextTypes:
     date: TimeHelper.PropTypes.moment
@@ -53,7 +54,6 @@ CourseMonth = React.createClass
     dateFormatted: @props.date.format(@props.dateFormat)
 
   getInitialState: ->
-    showingSideBar: false
     activeAddDate: null
 
   getDefaultProps: ->
@@ -64,7 +64,7 @@ CourseMonth = React.createClass
     params.date = date.format(@props.dateFormat)
 
     date = date.format(@props.dateFormat)
-    @context.router.transitionTo(TutorRouter.makePathname('calendarByDate', params))
+    @context.router.history.push(TutorRouter.makePathname('calendarByDate', params))
 
   setDate: (date) ->
     unless moment(date).isSame(@props.date, 'month')
@@ -198,7 +198,7 @@ CourseMonth = React.createClass
       url = item.pathname + "?" + qs.stringify({
         due_at: @state.hoveredDay.format(@props.dateFormat)
       })
-      @context.router.transitionTo(url)
+      @context.router.history.push(url)
     else # is a task plan to clone
       @setState(
         cloningPlan: extend({}, item,
@@ -224,8 +224,7 @@ CourseMonth = React.createClass
 
   onDragHover: (day) ->
     @setState(hoveredDay: TimeHelper.getMomentPreserveDate(day))
-  onSidebarToggle: (isOpen) ->
-    @setState(showingSideBar: isOpen)
+
   onEditorHide: ->
     @setState(editingPlanId: null, cloningPlanId: null)
   onIfIsEditing: (plan) ->
@@ -239,11 +238,12 @@ CourseMonth = React.createClass
     {courseId, className, date, hasPeriods, termStart, termEnd} = @props
     {calendarDuration, calendarWeeks} = @getDurationInfo(date)
 
-    calendarClassName = classnames('calendar-container', 'container', className,
-      'with-sidebar-open': @state.showingSideBar
+    calendarClassName = classnames('calendar-container', className,
+      'with-sidebar-open': @props.showingSideBar
     )
 
-    plansList = TeacherTaskPlans.forCourseId(courseId).active.array
+    plansList = Courses.get(courseId).taskPlans.active.array
+
     if plansList?
       plans = <CourseDuration
         referenceDate={moment(TimeStore.getNow())}
@@ -270,17 +270,10 @@ CourseMonth = React.createClass
         termEnd={termEnd}
       />
 
-      <CourseCalendarHeader
-        defaultOpen={@state.showingSideBar}
-        onSidebarToggle={@onSidebarToggle}
-        courseId={courseId}
-        hasPeriods={hasPeriods}
-      />
-
       <div className='calendar-body'>
 
         <AddAssignmentSidebar
-          isOpen={@state.showingSideBar}
+          isOpen={@props.showingSideBar}
           courseId={@props.courseId}
           hasPeriods={hasPeriods}
           cloningPlanId={@state.cloningPlanId or @state.cloningPlan?.id}

@@ -39,6 +39,14 @@ export class User extends BaseModel {
     return this.first_name || this.name ? this.name.replace(/ .*/, '') : '';
   }
 
+  @action removeCourse(course) {
+    return Courses.delete(course.id);
+  }
+
+  @action refreshCourses() {
+    return Courses.fetch();
+  }
+
   @computed get isConfirmedFaculty() {
     return this.faculty_status === 'confirmed_faculty';
   }
@@ -48,8 +56,7 @@ export class User extends BaseModel {
   }
 
   @computed get terms() {
-    return this.terms_signatures_needed ?
-           new UserTerms({ user: this }) : null;
+    return this.terms_signatures_needed ? new UserTerms({ user: this }) : null;
   }
 
   @computed get unsignedTerms() {

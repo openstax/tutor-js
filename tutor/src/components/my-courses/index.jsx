@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router';
+import { Redirect } from 'react-router-dom';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import User from '../../models/user';
