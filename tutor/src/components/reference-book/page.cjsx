@@ -26,8 +26,18 @@ module.exports = React.createClass
   componentWillMount: ->
     @setState(skipZeros: false)
 
+  documentId: ->
+    JSON.stringify({
+      cnxId: @props.cnxId,
+      section: @props.section
+    });
+
   componentDidMount: ->
     window.document.addEventListener('selectionchange', @handleSelectionChange)
+    window.document.addEventListener('click', AnnotationWidget.handleAnnotationClick)
+
+  componentDidUpdate: ->
+    AnnotationWidget.restoreAnnotations(@documentId())
 
   componentWillUnmount: ->
     window.document.removeEventListener('selectionchange', @handleSelectionChange)
@@ -87,7 +97,7 @@ module.exports = React.createClass
           window.getSelection().empty()
         ).bind(this)}
         >
-        <AnnotationWidget onHighlight={@setAnnotaterActive} />
+        <AnnotationWidget documentId={@documentId()} onHighlight={@setAnnotaterActive} />
       </Dialog>
     else
       null

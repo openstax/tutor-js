@@ -5,13 +5,67 @@ import HYPOTHESIS from '../../models/hypothesis';
 
 const highlighter = new TextHighlighter(document.body);
 
+const _store = {};
+const store = {
+  save: (documentId, selection, annotation) => {
+    if (!(documentId in _store)) {
+      _store[documentId] = [];
+    }
+
+    _store[documentId][selection] = {
+      selection,
+      annotation
+    };
+  },
+  getAnnotationsForDocument: (documentId) => {
+    return Object.values(_store[documentId] || {});
+  }
+};
+
+let currentDocumentId;
+let preload;
+
 export default class AnnotationWidget extends React.PureComponent {
+
+  static restoreAnnotations(documentId) {
+    if (documentId !== currentDocumentId) {
+      const annotations = store.getAnnotationsForDocument(documentId);
+
+      for (const entry of annotations) {
+        serializeSelection.restore(JSON.parse(entry.selection));
+        highlighter.doHighlight();
+      }
+      currentDocumentId = documentId;
+    }
+  }
+
+  static handleAnnotationClick(event) {
+    let el = event.target;
+    while (el !== document && el.tagName !== 'TUTOR-HIGHLIGHT') {
+      el = el.parentNode
+    }
+    if (el.tagName == 'TUTOR-HIGHLIGHT') {
+      const start = serializeSelection.save().start;
+      const annotations = store.getAnnotationsForDocument(currentDocumentId);
+      const match = annotations.find((entry) => {
+        const sel = JSON.parse(entry.selection);
+
+        return sel.start <= start && sel.end >= start;
+      });
+
+      preload = match;
+      // Set selection, which will cause the widget to render
+      serializeSelection.restore(JSON.parse(match.selection))
+    }
+  }
+
 
   constructor(props) {
     super(props);
     this.state = {
       highlighting: false,
-      annotated: false
+      annotated: false,
+      annotation: ''
     };
   }
 
@@ -23,7 +77,6 @@ export default class AnnotationWidget extends React.PureComponent {
     if (whether) {
       if (this.savedSelection) {
         serializeSelection.restore(this.savedSelection);
-        console.debug("Selection fixed at:", window.getSelection().toString());
       } else {
         this.savedSelection = serializeSelection.save();
         this.props.onHighlight(true);
@@ -46,7 +99,12 @@ export default class AnnotationWidget extends React.PureComponent {
   }
 
   updateAnnotation(event) {
-    this.setState({annotated: event.target.value.length > 0})
+    const newValue = event.target.value;
+
+    this.setState({
+      annotation: newValue,
+      annotated: newValue.length > 0
+    });
   }
 
   serializedSelection() {
@@ -58,25 +116,51 @@ export default class AnnotationWidget extends React.PureComponent {
       '';
   }
 
+  saveAnnotation(event) {
+    event.preventDefault();
+    store.save(this.props.documentId, this.serializedSelection(), this.state.annotation);
+    this.props.onHighlight(false);
+    window.getSelection().empty();
+  }
+
+  componentDidMount() {
+    if (this.preload) {
+      // Click the highlight checkbox
+      this.checkThe(this.refs.cb);
+      this.setState({annotation: this.preload.annotation});
+    }
+  }
+
+  checkThe(el) {
+    el.checked = true;
+    this.highlightSelection({target: el});
+  }
+
   renderTextBox() {
     return this.state.highlighting ?
       <div className="control-group">
-        <textarea name="text" onChange={this.updateAnnotation.bind(this)}></textarea>
+        <textarea value={this.state.annotation} name="text" onChange={this.updateAnnotation.bind(this)}></textarea>
       </div>
     : null;
   }
 
   renderSaveButton() {
-    return <div className="control-group">
-      <button type="submit">{this.state.highlighting ? 'Save' : 'Delete'}</button>
-    </div>
+    return this.state.highlighting ?
+      <div className="control-group">
+        <button type="submit">Save</button>
+      </div> : null
   }
 
   render() {
     const hypothesisConfig = HYPOTHESIS.sidebarConfig().services[0];
 
+    // Gets a value on first render only
+    this.preload = preload;
+    preload = null;
+
     return <div className="annotater">
-      <form action={hypothesisConfig.apiUrl + 'token'} method="post">
+      <form action={hypothesisConfig.apiUrl + 'token'} method="post"
+        onSubmit={this.saveAnnotation.bind(this)}>
         <input type="hidden" name="uri" />
         <input type="hidden" name="target" value={this.serializedSelection()} />
         <input type="hidden" name="assertion" value="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMjcuMC4wLjEiLCJpc3MiOiJkNjE2NzU2YS1iNDI3LTExZTctYjI4MS1hMzlkZDY3NjE3NzAiLCJzdWIiOiJhY2N0OjcwODY2Mjk0OUBvcGVuc3RheC5vcmciLCJuYmYiOjE1MDg4NTQ0NDIsImV4cCI6MTUwODg1NTA0Mn0.6vWNDMULqthN3bndolsscIlHF7EtBNRdavWxXvMTu-g" />
@@ -85,7 +169,7 @@ export default class AnnotationWidget extends React.PureComponent {
         <div className="control-group">
           <label>
             Highlight
-            <input type="checkbox" onChange={this.highlightSelection.bind(this)} disabled={this.state.annotated}/>
+            <input ref="cb" type="checkbox" onChange={this.highlightSelection.bind(this)} disabled={this.state.annotated}/>
           </label>
         </div>
         {this.renderTextBox()}
