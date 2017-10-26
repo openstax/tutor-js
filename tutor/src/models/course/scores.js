@@ -38,20 +38,23 @@ export class CourseScoresPeriod extends BaseModel {
   @session period_id;
   @hasMany({ model: Student, inverseOf: 'period' }) students;
 
+  constructor(attrs, course) {
+    super(attrs);
+    this.course = course;
+  }
+
   @computed get courseStudents() {
-    return this.course.roster.studentsForPeriod(
-      find(this.course.periods, { period_id: this.period_id })
-    );
+    return this.course.roster.studentsForPeriod(this.coursePeriod);
   }
 
   @computed get numAssignments() {
     return this.data_headings.length;
   }
 
-  constructor(attrs, course) {
-    super(attrs);
-    this.course = course;
+  @computed get coursePeriod() {
+    return find(this.course.periods, { id: this.period_id });
   }
+
 }
 
 @identifiedBy('course/scores')
