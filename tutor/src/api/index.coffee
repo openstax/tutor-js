@@ -247,6 +247,7 @@ BOOTSTRAPED_MODELS = {
 }
 
 start = (bootstrapData) ->
+  window._MODELS.bootstrapData = bootstrapData
   for storeId, model of BOOTSTRAPED_MODELS
     data = bootstrapData[storeId]
     model.bootstrap(data)
