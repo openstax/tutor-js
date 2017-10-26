@@ -109,7 +109,7 @@ export class MyCoursesCurrent extends React.PureComponent {
 
   render () {
     const baseName = ReactHelpers.getBaseName(this);
-    const courses = Courses.nonPreview.currentAndFuture.array;
+    const courses = Courses.tutor.nonPreview.currentAndFuture.array;
 
     return (
       <div className={baseName}>
@@ -156,7 +156,7 @@ export class MyCoursesPast extends React.PureComponent {
   render() {
     return (
       <MyCoursesBasic
-        courses={Courses.nonPreview.completed.array}
+        courses={Courses.tutor.nonPreview.completed.array}
         baseName={ReactHelpers.getBaseName(this)}
         title="Past Courses"
       />
@@ -170,7 +170,7 @@ export class MyCoursesFuture extends React.PureComponent {
   render() {
     return (
       <MyCoursesBasic
-        courses={Courses.nonPreview.future.array}
+        courses={Courses.tutor.nonPreview.future.array}
         baseName={ReactHelpers.getBaseName(this)}
         title="Future Courses"
       />
