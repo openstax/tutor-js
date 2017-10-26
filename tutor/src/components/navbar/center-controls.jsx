@@ -4,8 +4,7 @@ import { observer } from 'mobx-react';
 
 import moment from 'moment';
 import classnames from 'classnames';
-import { cloneDeep, extend, get, omit, pick } from 'lodash';
-import _ from 'underscore';
+import { cloneDeep, extend, includes, omit, pick, get } from 'lodash';
 
 import Icon from '../icon';
 import { TaskStore } from '../../flux/task';
@@ -14,8 +13,10 @@ import { TaskPanelStore } from '../../flux/task-panel';
 import TutorRouter from '../../helpers/router';
 import TutorLink from '../link';
 
+const VALID_ROUTE_NAMES = ['viewTaskStepMilestones', 'viewTaskStep'];
+
 @observer
-export default class CenterControls extends React.PureComponent {
+export default class CenterControls extends React.Component {
 
   static propTypes = {
     shouldShow: React.PropTypes.bool,
@@ -63,12 +64,9 @@ export default class CenterControls extends React.PureComponent {
   shouldShow(path) {
     const { shouldShow } = this.props;
     if (shouldShow) { return true; }
-
     if (path == null) { path = this.props.pathname; }
     const match = TutorRouter.currentMatch(path);
-    if (!get(match, 'entry.paths')) { return false; }
-
-    return Array.from(match.entry.paths).includes('viewTask');
+    return includes(VALID_ROUTE_NAMES, match.entry.name);
   }
 
   update(getState, params, path) {
