@@ -82,12 +82,26 @@ export default class ScoresTable extends React.PureComponent {
     );
   }
 
+  renderNoAssignments() {
+    return (
+      <div className="course-scores-container" ref="tableContainer">
+        <div className="no-assignments">
+          <p>
+            Students have enrolled in this section, but there are no assignments to score.  Add an assignment from your <TutorLink to="dashboard" params={{ courseId: this.props.period.course.id }}>dashboard</TutorLink>.
+          </p>
+          <TutorLink className="btn btn-default" to="dashboard" params={{ courseId: this.props.period.course.id }}>Back to dashboard</TutorLink>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const { students, props: { period } } = this;
     const courseId = period.course.id;
     const width = COLUMN_WIDTH;
 
-    if (isEmpty(students)) { return this.renderNoStudents(); }
+    if (!period.coursePeriod.num_enrolled_students) { return this.renderNoStudents(); }
+    if (isEmpty(students)) { return this.renderNoAssignments(); }
 
     return (
       <Table
