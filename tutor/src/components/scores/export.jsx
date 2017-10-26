@@ -26,7 +26,7 @@ export default class ScoresExport extends React.PureComponent {
     if (this.scoresExport.isPending) {
       return <span className="busy">Exporting spreadsheet…</span>;
     }
-    const { lastExportedAt } = this.lmsPush;
+    const { lastExportedAt } = this.scoresExport;
     if (lastExportedAt) {
       return <span>Last exported: {lastExportedAt}</span>;
     }
