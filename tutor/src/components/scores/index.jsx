@@ -78,11 +78,6 @@ export default class StudentScores extends React.PureComponent {
     );
   }
 
-  @computed get isLoading() {
-    const { course: { scores } } = this;
-    return Boolean(0 === scores.periods.size && scores.api.isPending);
-  }
-
   renderControls() {
     return (
       <div className="controls">
@@ -98,13 +93,13 @@ export default class StudentScores extends React.PureComponent {
 
     const courseId = this.course.id;
 
-    if (this.isLoading) {
-      return (
-        <LoadingScreen className="course-scores-report" message="Loading Scores…" />
-      );
+    if (!this.course.scores.api.hasBeenFetched) {
+      return <LoadingScreen className="course-scores-report" message="Loading Scores…" />;
     }
 
-    if (isEmpty(this.course.periods.active)) { return <NoPeriods courseId={courseId} />; }
+    if (isEmpty(this.course.periods.active)) {
+      return <NoPeriods courseId={courseId} />;
+    }
 
     return (
       <CoursePage
