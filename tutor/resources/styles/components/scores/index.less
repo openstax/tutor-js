@@ -5,7 +5,7 @@
 
   @nav-tab-height: 50px;
   @display-as-btn-height: 40px;
-  
+
   // negates bottom padding on body to eliminate scrollbar
   margin-bottom: -50px;
 
@@ -107,12 +107,13 @@
     font-style: italic;
     font-size: 1.2rem;
     color: @tutor-neutral;
-
+    flex: 1;
+    text-align: right;
     &.tab {
-      margin-left: 25px;
       line-height: @nav-tab-height;
     }
   }
+
 
   .course-scores-container {
     overflow: hidden;

@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
 import ContainerDimensions from 'react-container-dimensions';
-import { isEmpty } from 'lodash';
+import { isEmpty, get } from 'lodash';
 import CoursePage from '../course-page';
 import ScoresTable from './table';
 import TableFilters from './table-filters';
@@ -62,6 +62,8 @@ export default class StudentScores extends React.PureComponent {
   }
 
   renderAfterTabsItem() {
+    if (!get(this.period, 'students.length')) { return null; }
+
     if (this.course.is_concept_coach) {
       return (
         <span className="course-scores-note tab">
