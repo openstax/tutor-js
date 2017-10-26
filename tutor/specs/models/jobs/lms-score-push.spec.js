@@ -25,7 +25,7 @@ describe('LMS Score push job', () => {
 
   it('reports last sync time', () => {
     UiSettings.get = jest.fn(() => undefined);
-    expect(job.lastPushedAt).toEqual('Never');
+    expect(job.lastPushedAt).toBeNull();
     expect(UiSettings.get).toHaveBeenCalledWith('sclp', '2');
     UiSettings.get = jest.fn(() => mockNowDate);
     expect(job.lastPushedAt).toEqual(expect.stringMatching(/\d+\/\d+\/\d+/));

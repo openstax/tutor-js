@@ -25,7 +25,7 @@ describe('Scores export job', () => {
 
   it('reports last sync time', () => {
     UiSettings.get = jest.fn(() => undefined);
-    expect(job.lastExportedAt).toEqual('Never');
+    expect(job.lastExportedAt).toBeNull();
     expect(UiSettings.get).toHaveBeenCalledWith('sce', '2');
     UiSettings.get = jest.fn(() => mockNowDate);
     expect(job.lastExportedAt).toEqual(expect.stringMatching(/\d+\/\d+\/\d+/));
