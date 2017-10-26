@@ -100,7 +100,7 @@ export class Exercise extends BaseModel {
 
 
 @identifiedBy('task-plan/stats/page')
-class Page extends BaseModel {
+export class Page extends BaseModel {
 
   @identifier id;
   @field({ model: ChapterSection }) chapter_section
