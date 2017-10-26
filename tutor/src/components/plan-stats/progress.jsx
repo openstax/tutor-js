@@ -4,12 +4,13 @@ import { map, partial } from 'lodash';
 import { ProgressBar } from 'react-bootstrap';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
+import { Page } from '../../models/task-plan/stats';
 
 @observer
 export default class Progress extends React.PureComponent {
 
   static propTypes = {
-    data: React.PropTypes.object.isRequired,
+    data: React.PropTypes.instanceOf(Page).isRequired,
     type: React.PropTypes.string.isRequired,
     activeSection: React.PropTypes.string,
   }
@@ -43,7 +44,7 @@ export default class Progress extends React.PureComponent {
       percents.correct = correct;
     }
     if (correct < 95) {
-      percents.incorrect = 100 - percents.correct;
+      percents.incorrect = 100 - percents.correct || 0;
     }
     return map(percents, partial(this.renderPercentBar, data, type));
   }
