@@ -10,11 +10,13 @@ import User from '../../user';
 
 const PAY_LATER_CHOICE  = 'PL';
 const TRIAL_ACKNOWLEDGED = 'FTA';
+const REFRESH_TASKS_INTERVAL = 1000 * 60 * 60 * 4; // every 4 hours
 
 export default class StudentCourseOnboarding extends BaseOnboarding {
 
   @observable displayPayment = false;
   @observable displayTrialActive = false;
+  @observable refreshTasksTimer = null;
 
   @computed get nagComponent() {
     if (this.needsTermsSigned) { return null; }
@@ -75,17 +77,33 @@ export default class StudentCourseOnboarding extends BaseOnboarding {
   onPaymentComplete() {
     this.displayPayment = false;
     // fetch tasks since they could not be fetched while student was in unpaid status
-    this.course.studentTasks.fetch();
+    this.startTaskFetching();
     this.course.userStudentRecord.markPaid();
+  }
+
+  @action startTaskFetching() {
+    this.fetchTasks();
+    this.refreshTasksTimer = setInterval(this.fetchTasks, REFRESH_TASKS_INTERVAL);
+  }
+
+  @action.bound fetchTasks() {
+    this.course.studentTasks.fetch();
   }
 
   mount() {
     super.mount();
+    if (!this.paymentIsPastDue) {
+      this.startTaskFetching();
+    }
     this.tourContext.otherModal = this;
   }
 
   close() {
     super.close();
+    if (this.refreshTasksTimer) {
+      clearInterval(this.refreshTasksTimer);
+      this.refreshTasksTimer = null;
+    }
     this.tourContext.otherModal = null;
   }
 
