@@ -15,9 +15,7 @@
 // .btn-group { border-radius: @btn-border-radius; }
 
 .btn-round() {
-  padding: 9px 18px;
   font-size: 1.6rem;
-  // border-radius: @btn-border-radius;
   transition: box-shadow 0.2s, background 0.2s;
   &:hover,
   &:focus {
@@ -29,7 +27,6 @@
   color: #424242;
   background: @default-background;
   border: 1px solid @default-border;
-
   &:hover,
   &:focus {
     background: @default-background-hover;
@@ -73,6 +70,7 @@
   &:not(.btn-link){
     .btn-round();
   }
+  padding: 9px 18px;
 
   &.btn-lg {
     font-size: 1.8rem;
@@ -90,6 +88,14 @@
 
   &.btn-primary {
     .btn-tutor-primary();
+  }
+
+  &.active {
+    background-color: @tutor-neutral-light;
+    box-shadow: none;
+    &:hover, &:focus {
+      background-color: @tutor-neutral-light;
+    }
   }
 }
 

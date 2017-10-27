@@ -291,52 +291,141 @@ exports[`Course Settings, student access can switch to lms 1`] = `
           <div
             className="lms-access"
           >
+            <div
+              className="btn-group btn-group-sm"
+              data-toggle="buttons"
+            >
+              <label
+                className="btn btn-default active"
+                disabled={false}
+                type="button"
+              >
+                <input
+                  autoComplete="off"
+                  checked={true}
+                  disabled={false}
+                  name="vendor"
+                  onChange={[Function]}
+                  type="radio"
+                  value="blackboard"
+                />
+                Blackboard
+              </label>
+              <label
+                className="btn btn-default"
+                disabled={false}
+                type="button"
+              >
+                <input
+                  autoComplete="off"
+                  checked={false}
+                  disabled={false}
+                  name="vendor"
+                  onChange={[Function]}
+                  type="radio"
+                  value="canvas"
+                />
+                Canvas
+              </label>
+              <label
+                className="btn btn-default"
+                disabled={false}
+                type="button"
+              >
+                <input
+                  autoComplete="off"
+                  checked={false}
+                  disabled={false}
+                  name="vendor"
+                  onChange={[Function]}
+                  type="radio"
+                  value="moodle"
+                />
+                Moodle
+              </label>
+              <label
+                className="btn btn-default"
+                disabled={false}
+                type="button"
+              >
+                <input
+                  autoComplete="off"
+                  checked={false}
+                  disabled={false}
+                  name="vendor"
+                  onChange={[Function]}
+                  type="radio"
+                  value="d2l"
+                />
+                Desire2Learn
+              </label>
+              <label
+                className="btn btn-default"
+                disabled={false}
+                type="button"
+              >
+                <input
+                  autoComplete="off"
+                  checked={false}
+                  disabled={false}
+                  name="vendor"
+                  onChange={[Function]}
+                  type="radio"
+                  value="sakai"
+                />
+                Sakai
+              </label>
+            </div>
             <p>
               Copy the information below and paste into your LMS where prompted. Then launch OpenStax Tutor from your LMS to pair.
             </p>
-            <label
-              className="copy-on-focus"
+            <div
+              className="blackboard"
             >
-              Key
-              <input
-                className={null}
-                onFocus={[Function]}
-                readOnly={true}
-                value="key-123"
-              />
-            </label>
-            <label
-              className="copy-on-focus"
-            >
-              Secret
-              <input
-                className={null}
-                onFocus={[Function]}
-                readOnly={true}
-                value="secret-sshhh"
-              />
-            </label>
-            <label
-              className="copy-on-focus"
-            >
-              URL
-              <input
-                className={null}
-                onFocus={[Function]}
-                readOnly={true}
-                value="test.url.com"
-              />
-            </label>
-            <a
-              href="http://4tk3oi.axshare.com/salesforce_support_page_results.html"
-              target="_blank"
-            >
-              <i
-                className="tutor-icon fa fa-info-circle"
-                type="info-circle"
-              />
-               How do I do this?
-            </a>
+              <label
+                className="copy-on-focus"
+              >
+                URL
+                <input
+                  className={null}
+                  onFocus={[Function]}
+                  readOnly={true}
+                  value={undefined}
+                />
+              </label>
+              <label
+                className="copy-on-focus"
+              >
+                Key
+                <input
+                  className={null}
+                  onFocus={[Function]}
+                  readOnly={true}
+                  value="key-123"
+                />
+              </label>
+              <label
+                className="copy-on-focus"
+              >
+                Secret
+                <input
+                  className={null}
+                  onFocus={[Function]}
+                  readOnly={true}
+                  value="secret-sshhh"
+                />
+              </label>
+              <a
+                href="http://4tk3oi.axshare.com/salesforce_support_page_results.html"
+                target="_blank"
+              >
+                <i
+                  className="tutor-icon fa fa-info-circle"
+                  type="info-circle"
+                />
+                 How do I integrate with Blackboard?
+              </a>
+            </div>
           </div>
         </div>
       </div>

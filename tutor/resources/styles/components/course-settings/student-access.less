@@ -3,12 +3,11 @@
   .rows-of-inputs(){
     display: flex;
     flex-direction: column;
-    label {
+    label:not(.btn) {
       font-weight: normal;
       display: block;
       input {
         margin-top: 10px;
-        padding: 15px;
       }
       & + label {
         margin-top: 20px;
@@ -99,6 +98,11 @@
 .student-access
 {
   .lms-access {
+    .btn-group {
+      display: flex;
+      .btn { flex: 1; }
+      margin-bottom: 15px;
+    }
     .student-access.rows-of-inputs();
     a {
       margin-top: 30px;

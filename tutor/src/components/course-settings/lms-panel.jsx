@@ -1,11 +1,71 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, ToggleButtonGroup, ToggleButton, Button } from 'react-bootstrap';
 import { observable, computed, action } from 'mobx';
 import { observer } from 'mobx-react';
+
 import LoadingScreen from '../loading-screen';
 import Course from '../../models/course';
 import CopyOnFocusInput from '../copy-on-focus-input';
 import Icon from '../icon';
+
+
+const blackboard = ({ lms }) => (
+  <div className="blackboard">
+    <CopyOnFocusInput label="URL" value={lms.launch_url} />
+    <CopyOnFocusInput label="Key" value={lms.key} />
+    <CopyOnFocusInput label="Secret" value={lms.secret} />
+    <a href="http://4tk3oi.axshare.com/salesforce_support_page_results.html" target="_blank">
+      <Icon type="info-circle" /> How do I integrate with Blackboard?
+    </a>
+  </div>
+);
+
+const canvas = ({ lms }) => (
+  <div className="canvas">
+    <CopyOnFocusInput label="Consumer key" value={lms.key} />
+    <CopyOnFocusInput label="Shared secret" value={lms.secret} />
+    <CopyOnFocusInput label="Configuration URL" value={lms.configuration_url} />
+    <a href="http://4tk3oi.axshare.com/salesforce_support_page_results.html" target="_blank">
+      <Icon type="info-circle" /> How do I integrate with Canvas?
+    </a>
+  </div>
+);
+
+const moodle = ({ lms }) => (
+  <div className="moodle">
+    <CopyOnFocusInput label="Secure tool URL" value={lms.launch_url} />
+    <CopyOnFocusInput label="Consumer key" value={lms.key} />
+    <CopyOnFocusInput label="Shared secret" value={lms.secret} />
+
+    <a href="http://4tk3oi.axshare.com/salesforce_support_page_results.html" target="_blank">
+      <Icon type="info-circle" /> How do I integrate with Moodle?
+    </a>
+  </div>
+);
+
+const d2l = ({ lms }) => (
+  <div className="d2l">
+    <CopyOnFocusInput label="URL" value={lms.launch_url} />
+    <CopyOnFocusInput label="Key" value={lms.key} />
+    <CopyOnFocusInput label="Secret" value={lms.secret} />
+    <a href="http://4tk3oi.axshare.com/salesforce_support_page_results.html" target="_blank">
+      <Icon type="info-circle" /> How do I integrate with Desire2Learn?
+    </a>
+  </div>
+);
+
+const sakai = ({ lms }) => (
+  <div className="sakai">
+    <CopyOnFocusInput label="Launch URL" value={lms.launch_url} />
+    <CopyOnFocusInput label="Launch key" value={lms.key} />
+    <CopyOnFocusInput label="Launch secret" value={lms.secret} />
+    <a href="http://4tk3oi.axshare.com/salesforce_support_page_results.html" target="_blank">
+      <Icon type="info-circle" /> How do I integrate with Sakai?
+    </a>
+  </div>
+);
+
+const VENDORS = { blackboard, canvas, moodle, d2l, sakai };
 
 @observer
 export default class LMSAccessPanel extends React.PureComponent {
@@ -62,18 +122,31 @@ export default class LMSAccessPanel extends React.PureComponent {
   renderKeys() {
     const { course: { lms } } = this.props;
     if (lms.api.isPending) { return <LoadingScreen />; }
+    const VendorPanel = VENDORS[lms.vendor];
+
     return (
       <div className="lms-access">
+
+        <ToggleButtonGroup
+          bsSize="small"
+          name="vendor"
+          onChange={lms.setVendor}
+          value={lms.vendor}
+        >
+          <ToggleButton value="blackboard">Blackboard</ToggleButton>
+          <ToggleButton value="canvas">Canvas</ToggleButton>
+          <ToggleButton value="moodle">Moodle</ToggleButton>
+          <ToggleButton value="d2l">Desire2Learn</ToggleButton>
+          <ToggleButton value="sakai">Sakai</ToggleButton>
+        </ToggleButtonGroup>
+
         <p>
           Copy the information below and paste into your LMS where prompted. Then
           launch OpenStax Tutor from your LMS to pair.
         </p>
-        <CopyOnFocusInput label="Key" value={lms.key} />
-        <CopyOnFocusInput label="Secret" value={lms.secret} />
-        <CopyOnFocusInput label="URL" value={lms.url} />
-        <a href="http://4tk3oi.axshare.com/salesforce_support_page_results.html" target="_blank">
-          <Icon type="info-circle" /> How do I do this?
-        </a>
+
+        <VendorPanel lms={lms} />
+
       </div>
     );
   }
