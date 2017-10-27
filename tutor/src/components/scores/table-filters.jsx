@@ -1,7 +1,13 @@
 import React from 'react';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { map } from 'lodash';
+import { action } from 'mobx';
+import { ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { autobind } from 'core-decorators';
 
+const FILTERS = {
+  '%': 'percentage',
+  '#': 'number',
+};
 
 export default class TableFilters extends React.PureComponent {
 
@@ -10,29 +16,18 @@ export default class TableFilters extends React.PureComponent {
     changeDisplayAs: React.PropTypes.func.isRequired,
   }
 
-  @autobind
-  clickDisplay(mode) {
+  @action.bound onFilterChange(mode) {
     this.props.changeDisplayAs(mode);
   }
 
-  activeButton(state, option) {
-    if (state === option) {
-      return 'selected';
-    }
-    return '';
-  }
-
-  renderButtons(method, state, options) {
+  @autobind renderButton(filter, label) {
     return (
-      Array.from(options).map((option, i) =>
-        <Button
-          onClick={method.bind(this, option)}
-          bsStyle="default"
-          bsSize="small"
-          className={this.activeButton(state, option)}
-          key={i}>
-          {option}
-        </Button>)
+      <ToggleButton
+        value={filter}
+        key={filter}
+      >
+        {label}
+      </ToggleButton>
     );
   }
 
@@ -41,9 +36,15 @@ export default class TableFilters extends React.PureComponent {
     return (
       <div className="filter-row">
         Display as
-        <ButtonGroup className="filter-group">
-          {this.renderButtons(this.clickDisplay, displayAs, ['%', '#'])}
-        </ButtonGroup>
+        <ToggleButtonGroup
+          value={displayAs}
+          onChange={this.onFilterChange}
+          bsSize="small"
+          name="filter-by"
+          className="filter-group"
+        >
+          {map(FILTERS, this.renderButton)}
+        </ToggleButtonGroup>
       </div>
     );
   }
