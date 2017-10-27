@@ -14,7 +14,8 @@ export default class CourseLMS extends BaseModel {
   @identifier id;
   @session key;
   @session secret;
-  @session url;
+  @session launch_url;
+  @session configuration_url;
   @session xml;
 
   @session({ type: 'date' }) created_at;
