@@ -1,11 +1,13 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, ToggleButtonGroup, ToggleButton, Button } from 'react-bootstrap';
 import { observable, computed, action } from 'mobx';
 import { observer } from 'mobx-react';
+
 import LoadingScreen from '../loading-screen';
 import Course from '../../models/course';
 import CopyOnFocusInput from '../copy-on-focus-input';
 import Icon from '../icon';
+
 
 @observer
 export default class LMSAccessPanel extends React.PureComponent {
@@ -64,6 +66,20 @@ export default class LMSAccessPanel extends React.PureComponent {
     if (lms.api.isPending) { return <LoadingScreen />; }
     return (
       <div className="lms-access">
+
+        <ToggleButtonGroup
+          bsSize="small"
+          name="vendor"
+          onChange={lms.setVendor}
+          value={lms.vendor}
+        >
+          <ToggleButton value="blackboard">Blackboard</ToggleButton>
+          <ToggleButton value="canvas">Canvas</ToggleButton>
+          <ToggleButton value="moodle">Moodle</ToggleButton>
+          <ToggleButton value="d2l">Desire2Learn</ToggleButton>
+          <ToggleButton value="sakai">Sakai</ToggleButton>
+        </ToggleButtonGroup>
+
         <p>
           Copy the information below and paste into your LMS where prompted. Then
           launch OpenStax Tutor from your LMS to pair.

@@ -1,8 +1,10 @@
-import { filter } from 'lodash';
-import { computed, observable } from 'mobx';
+import { action, observable, computed } from 'mobx';
 import {
-  BaseModel, identifiedBy, identifier, field, session, belongsTo,
+  BaseModel, identifiedBy, identifier, session, belongsTo,
 } from '../base';
+import { UiSettings } from 'shared';
+
+const LMS_VENDOR = 'lmsv';
 
 @identifiedBy('course/lms')
 export default class CourseLMS extends BaseModel {
@@ -19,6 +21,15 @@ export default class CourseLMS extends BaseModel {
   @session({ type: 'date' }) updated_at;
 
   @belongsTo({ model: 'course' }) course;
+
+  @computed get vendor() {
+    return UiSettings.get(LMS_VENDOR, this.course.id) || 'blackboard';
+  }
+
+  @action.bound setVendor(vendor) {
+    console.log(vendor)
+    return UiSettings.set(LMS_VENDOR, this.course.id, vendor);
+  }
 
   // called by API
   pushScores() {}
