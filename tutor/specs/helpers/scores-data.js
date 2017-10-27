@@ -7,6 +7,7 @@ export default function bootstrapScoresReport() {
   const course = bootstrapCoursesList().get(COURSE_ID);
   const scores = course.scores;
   scores.onFetchComplete({ data: DATA });
+  scores.api.requestCounts.read = 1;
   const period = course.scores.periods.get('1');
   return { course, scores, period };
 }

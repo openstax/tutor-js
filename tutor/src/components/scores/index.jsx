@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
 import ContainerDimensions from 'react-container-dimensions';
-import { isEmpty } from 'lodash';
+import { isEmpty, get } from 'lodash';
 import CoursePage from '../course-page';
 import ScoresTable from './table';
 import TableFilters from './table-filters';
@@ -62,6 +62,8 @@ export default class StudentScores extends React.PureComponent {
   }
 
   renderAfterTabsItem() {
+    if (!get(this.period, 'students.length')) { return null; }
+
     if (this.course.is_concept_coach) {
       return (
         <span className="course-scores-note tab">
@@ -76,11 +78,6 @@ export default class StudentScores extends React.PureComponent {
         To accept late work, click the orange triangle.
       </span>
     );
-  }
-
-  @computed get isLoading() {
-    const { course: { scores } } = this;
-    return Boolean(0 === scores.periods.size && scores.api.isPending);
   }
 
   renderControls() {
@@ -98,13 +95,13 @@ export default class StudentScores extends React.PureComponent {
 
     const courseId = this.course.id;
 
-    if (this.isLoading) {
-      return (
-        <LoadingScreen className="course-scores-report" message="Loading Scores…" />
-      );
+    if (!this.course.scores.api.hasBeenFetched) {
+      return <LoadingScreen className="course-scores-report" message="Loading Scores…" />;
     }
 
-    if (isEmpty(this.course.periods.active)) { return <NoPeriods courseId={courseId} />; }
+    if (isEmpty(this.course.periods.active)) {
+      return <NoPeriods courseId={courseId} />;
+    }
 
     return (
       <CoursePage

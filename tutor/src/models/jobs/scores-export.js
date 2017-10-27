@@ -29,7 +29,7 @@ export default class ScoresExport extends Job {
 
   @computed get lastExportedAt() {
     const date = UiSettings.get(LAST_EXPORT, this.course.id);
-    return date ? moment(date).format('M/D/YY, h:mma') : 'Never';
+    return date ? moment(date).format('M/D/YY, h:mma') : null;
   }
 
   constructor(course) {

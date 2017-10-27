@@ -1,5 +1,22 @@
 @pie-color-late: #268FBE;
 
+.course-average-help {
+  h3 {
+    margin: 0;
+    border-bottom: 1px solid @tutor-neutral-light;
+  }
+  p {
+    #fonts > .sans(1.3rem, 2rem);
+//    font-size: 16px;
+//    line-height: 18px;
+    margin: 10px 0;
+  }
+  .no-reading-heading {
+    margin-top: 20px;
+    font-weight: bolder;
+  }
+}
+
 .course-scores-report {
   @student-header-bg-color: #ccccce;
   @student-header-fg-color: #f2f2f2;
@@ -206,7 +223,8 @@
     }
   }
 
-  .no-students {
+  .no-students,
+  .no-assignments {
     #fonts > .sans(1.5rem, 2.1rem);
     display: flex;
     flex-direction: column;
