@@ -117,8 +117,8 @@ export default class AddPeriodLink extends React.PureComponent {
   render() {
     return (
       <Button onClick={this.open} bsStyle="link" className="control add-period">
-        <Icon type="plus" />Add
-        <CourseGroupingLabel courseId={this.props.course.id} />
+        <Icon type="plus" />
+        Add <CourseGroupingLabel courseId={this.props.course.id} />
         {this.renderForm()}
       </Button>
     );
