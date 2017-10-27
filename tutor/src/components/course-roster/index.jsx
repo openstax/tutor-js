@@ -62,7 +62,7 @@ export default class CourseRoster extends React.PureComponent {
   renderEmpty() {
     return (
       <NoPeriods
-        course={this.course}
+        courseId={this.course.id}
         button={<AddPeriodLink course={this.course} />}
       />
     );
@@ -82,7 +82,6 @@ export default class CourseRoster extends React.PureComponent {
   render() {
     const { course, course: { periods: { active: periods } } } = this;
     if (0 === periods.length) { return this.renderEmpty(); }
-
     const activePeriod = periods[this.periodIndex];
 
     return (
@@ -99,7 +98,7 @@ export default class CourseRoster extends React.PureComponent {
         <div className="roster">
           <div className="settings-section periods">
             <Tabs ref="tabs" tabs={map(periods, 'name')} onSelect={this.onTabSelection}>
-              <AddPeriodLink show={false} course={course} />
+              <AddPeriodLink course={course} />
               <ViewArchivedPeriods course={course} onComplete={this.selectPreviousPeriod} />
             </Tabs>
             <div className="active-period">

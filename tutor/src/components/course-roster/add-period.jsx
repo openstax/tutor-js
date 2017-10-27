@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
 import { Modal, Button } from 'react-bootstrap';
-
+import Router from '../../helpers/router';
 import { TutorInput } from '../tutor-input';
 import { AsyncButton } from 'shared';
 import CourseGroupingLabel from '../course-grouping-label';
@@ -48,7 +48,7 @@ export default class AddPeriodLink extends React.PureComponent {
     course: React.PropTypes.instanceOf(Course).isRequired,
   }
 
-  @observable showModal = false;
+  @observable showModal = Router.currentQuery().add;
   @observable period_name = '';
   @observable isValid = true;
   @observable isWaiting = false;
