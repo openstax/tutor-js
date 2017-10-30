@@ -11,7 +11,12 @@ import S from '../../../helpers/string';
 import { downloadData, arrayToCSV } from '../../../helpers/download-data';
 
 @observer
-  class Errors extends React.Component {
+class Errors extends React.Component {
+
+  static propTypes = {
+    job: React.PropTypes.instanceOf(JobCompletion).isRequired,
+    footer: React.PropTypes.node.isRequired,
+  }
 
   @observable displayInfo = false;
 
@@ -76,7 +81,7 @@ import { downloadData, arrayToCSV } from '../../../helpers/download-data';
           </Table>
         </Panel>
       </WarningModal>
-);
+    );
   }
 }
 
