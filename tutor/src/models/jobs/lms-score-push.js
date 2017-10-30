@@ -40,12 +40,12 @@ export default class LmsScorePush extends Job {
 
   onPollComplete(info) {
     UiSettings.set(LAST_PUSH, this.course.id, TimeStore.getNow().toISOString());
-
-    Completed.push({
-      type: 'lms',
-      succeeded: Boolean(!this.hasFailed && info.data.num_callbacks),
-      info,
-    });
+    const succeeded = Boolean(
+      !this.hasFailed &&
+      info.data.num_callbacks &&
+      info.data.num_callbacks == 12
+    );
+    Completed.push({ type: 'lms', succeeded, info });
   }
 
   start() { }
