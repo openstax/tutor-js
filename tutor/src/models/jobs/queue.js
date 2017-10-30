@@ -11,9 +11,9 @@ import {
 export class JobCompletion extends BaseModel {
 
   @readonly id = uniqueId();
-
   @session succeeded;
   @session type;
+
   @session({ type: 'object' }) info;
   @session({ type: 'object' }) component;
 
