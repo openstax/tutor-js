@@ -8,7 +8,12 @@
     padding-top: 40px;
   }
   .controls-wrapper {
-    padding: 0;
+    padding-bottom: 0;
+    border-bottom: 1px solid @nav-tabs-border-color;
+    .tutor-tabs {
+      border-bottom: 0;
+      .nav li:first-child a { padding-left: 0; }
+    }
   }
   .controls {
     align-items: stretch;
