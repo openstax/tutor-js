@@ -1,5 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
+import pluralize from 'pluralize';
 import { observable, action, computed } from 'mobx';
 import { Button, Panel, Table } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
@@ -11,7 +12,7 @@ import S from '../../../helpers/string';
 import { downloadData, arrayToCSV } from '../../../helpers/download-data';
 
 @observer
-class Errors extends React.Component {
+export class LMSErrors extends React.Component {
 
   static propTypes = {
     job: React.PropTypes.instanceOf(JobCompletion).isRequired,
@@ -48,15 +49,15 @@ class Errors extends React.Component {
         footer={footer}
       >
         <p>
-          Course averages for {job.info.errors.length} could not be
+          Course averages for {pluralize('student', job.info.errors.length, true)} could not be
           sent successfully to your LMS.  There may be an issue with
           your LMS, or something may have happened when students enrolled.
         </p>
         <div className="actions">
-          <Button bsStyle="link" onClick={this.toggleInfo}>
+          <Button bsStyle="link" className="toggle" onClick={this.toggleInfo}>
             {displayInfo ? 'Hide' : 'Show'} scores not sent
           </Button>
-          <Button bsStyle="link" onClick={this.startDownload}>
+          <Button bsStyle="link" className="download" onClick={this.startDownload}>
             <Icon type="download" /> Download failures
           </Button>
         </div>
@@ -70,8 +71,8 @@ class Errors extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {this.errorData.map(([id, name, score]) => (
-                <tr>
+              {this.errorData.map(([id, name, score], key) => (
+                <tr key={key}>
                   <td>{id}</td>
                   <td>{name}</td>
                   <td>{score}</td>
@@ -147,7 +148,7 @@ export class Failure extends React.Component {
     if (this.showDetails) {
       const footer = <Button onClick={this.props.dismiss}>Close</Button>;
       if (!isEmpty(errors)) {
-        return <Errors {...{ job, footer }} />;
+        return <LMSErrors {...{ job, footer }} />;
       } else if (num_callbacks) {
         return renderFailedToSend(footer);
       } else {
