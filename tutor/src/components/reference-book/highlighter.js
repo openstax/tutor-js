@@ -456,8 +456,6 @@
             return;
         }
 
-        console.debug("Highlighting", range.toString());
-        console.debug("which is", window.getSelection().toString());
         if (this.options.onBeforeHighlight(range) === true) {
             timestamp = Date.now();
             wrapper = TextHighlighter.createWrapper(this.options);

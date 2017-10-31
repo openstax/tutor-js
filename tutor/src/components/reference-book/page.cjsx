@@ -35,12 +35,14 @@ module.exports = React.createClass
   componentDidMount: ->
     window.document.addEventListener('selectionchange', @handleSelectionChange)
     window.document.addEventListener('click', AnnotationWidget.handleAnnotationClick)
+    AnnotationWidget.restoreAnnotations(@documentId())
 
   componentDidUpdate: ->
     AnnotationWidget.restoreAnnotations(@documentId())
 
   componentWillUnmount: ->
     window.document.removeEventListener('selectionchange', @handleSelectionChange)
+    window.document.removeEventListener('click', AnnotationWidget.handleAnnotationClick);
 
   getSplashTitle: ->
     ReferenceBookStore.getPageTitle(@props)
