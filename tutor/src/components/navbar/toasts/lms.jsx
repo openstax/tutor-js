@@ -39,8 +39,17 @@ export class LMSErrors extends React.Component {
     downloadData(arrayToCSV(rows), 'failed-scores.csv', 'text/csv');
   }
 
+  renderToggle() {
+    if (this.displayInfo) {
+      return <span><Icon type="chevron-down" /> Hide scores not sent</span>;
+    }
+    return (
+      <span><Icon type="chevron-right" /> Show scores not sent</span>
+    );
+  }
+
   render() {
-    const { displayInfo, props: { footer, job } } = this;
+    const { props: { footer, job } } = this;
     return (
       <WarningModal
         className="lms-push-partial-failure"
@@ -55,7 +64,7 @@ export class LMSErrors extends React.Component {
         </p>
         <div className="actions">
           <Button bsStyle="link" className="toggle" onClick={this.toggleInfo}>
-            {displayInfo ? 'Hide' : 'Show'} scores not sent
+            {this.renderToggle()}
           </Button>
           <Button bsStyle="link" className="download" onClick={this.startDownload}>
             <Icon type="download" /> Download failures
