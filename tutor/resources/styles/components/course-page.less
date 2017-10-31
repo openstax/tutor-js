@@ -3,6 +3,7 @@
   .wrapper-child() {
       display: flex;
       margin: 0 auto;
+      width: 100%;
       max-width: 1200px;
       align-items: stretch;
       justify-content: center;
@@ -22,9 +23,13 @@
     .title-wrapper {
       padding: 10px 40px;
       min-height: 100px;
-      display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
+      display: flex;
+      > * {
+        .wrapper-child();
+      }
     }
 
     .title {
@@ -32,7 +37,6 @@
       font-size: 36px;
       line-height: 45px;
     }
-
     .subtitle {
       font-weight: 200;
       line-height: 1em;
