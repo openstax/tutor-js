@@ -48,14 +48,14 @@
 
 .ost-hero-modal(@full-screen: false) {
   &.modal-backdrop {
-    z-index: 1;
+    z-index: @zindex-navbar-fixed - 2;
     & when (@full-screen) {
       z-index: @zindex-navbar-fixed + 1;
     }
   }
   &.modal {
     top: @tutor-navbar-height;
-    z-index: 1;
+    z-index: @zindex-navbar-fixed - 1;
     .ost-hero-backdrop(@full-screen);
     .modal-dialog { // move modal down so the ox logo appears
       transform: translateY(80px);

@@ -1,7 +1,7 @@
 import {
   identifiedBy, session,
 } from '../base';
-
+import { isEmpty } from 'lodash';
 import moment from 'moment';
 import { UiSettings } from 'shared';
 import { observable, computed } from 'mobx';
@@ -40,12 +40,12 @@ export default class LmsScorePush extends Job {
 
   onPollComplete(info) {
     UiSettings.set(LAST_PUSH, this.course.id, TimeStore.getNow().toISOString());
-
-    Completed.push({
-      type: 'lms',
-      succeeded: Boolean(!this.hasFailed && info.data.num_callbacks),
-      info,
-    });
+    const succeeded = Boolean(
+      !this.hasFailed &&
+      info.data.num_callbacks &&
+      isEmpty(info.errors)
+    );
+    Completed.push({ type: 'lms', succeeded, info, errors: info.errors });
   }
 
   start() { }
