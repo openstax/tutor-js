@@ -67,22 +67,17 @@ export default class StudentAccess extends React.PureComponent {
     );
   }
 
-  @action.bound onSelectOption(isEnabled, ev, force = false) {
+  @action.bound onSelectOption(isLMSEnabled, ev, displayLinksWarning = true) {
     const { course } = this.props;
-
-    if (course.is_lms_enabled === isEnabled){ return; }
+    if (course.is_lms_enabled === isLMSEnabled){ return; }
 
     if (course.is_lms_enabled) {
-      if (!force) {
-        this.displayLinksWarning = true;
+      this.displayLinksWarning = displayLinksWarning;
+      if (this.displayLinksWarning) {
         return;
-      } else {
-        this.displayLinksWarning = false;
       }
     }
-
-    course.is_lms_enabled = isEnabled;
-
+    course.is_lms_enabled = isLMSEnabled;
     course.save();
   }
 
@@ -109,7 +104,7 @@ export default class StudentAccess extends React.PureComponent {
   }
 
   @action.bound forceLinksSwitch() {
-    this.onSelectOption(true, true);
+      this.onSelectOption(false, {}, false);
   }
 
   renderLinkSwitchWarning() {
