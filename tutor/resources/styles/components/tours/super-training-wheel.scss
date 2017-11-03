@@ -1,0 +1,44 @@
+.super-training-wheel {
+  &-wrapper {
+    .joyride-overlay {
+      height: 100% !important;
+    }
+
+    @media only screen and (max-height:550px) {
+      &.centered-wheel-wrapper {
+        .joyride-overlay {
+          align-items: flex-start;
+        }
+      }
+    }
+  }
+
+  &.joyride-tooltip {
+    width: 1000px;
+    @media only screen and (max-width:1050px) {
+      width: 800px;
+    }
+    @media only screen and (max-width:850px) {
+      width: 550px;
+    }
+    padding: 0;
+  }
+
+  .joyride-tooltip__ {
+    &footer {
+      text-align: center;
+      padding-bottom: 40px;
+    }
+
+    &button {
+      &--primary {
+        padding: 15px 40px;
+      }
+    }
+
+    &main {
+      padding-bottom: 0;
+    }
+
+  }
+}

@@ -1,0 +1,74 @@
+.new-registration {
+  $content-width: 400px;
+  text-align: center;
+
+  .title {
+    color: $gray-darker;
+    font-size: 24px;
+    font-weight: 700;
+    border-bottom: 2px solid grey;
+    padding: 20px 50px; // extend border past sides of text
+    margin: 20px auto;
+    border-bottom: 2px solid $openstax-neutral-light;
+
+    .join { font-size: 26px; }
+
+    &.no-border { border-bottom: none; }
+  }
+
+  .controls {
+    width: $content-width;
+    margin: 3rem auto;
+    border-radius: 4px;
+
+    .form-control {
+      display: inline;
+      width: calc("100% - 190px");
+    }
+  }
+
+  .label {
+    font-size: 1.6rem;
+    color: $gray-darker;
+    font-weight: 400;
+  }
+
+  .required {
+    color: $orange;
+    font-size: 13px;
+    width: $content-width;
+    text-align: left;
+  }
+
+  .btn.continue {
+    background-color: $openstax-secondary;
+    color: white;
+    font-weight: bold;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .help-text {
+    color: $openstax-neutral;
+    font-size: 11px;
+    width: $content-width;
+    margin: 30px auto 0 auto;
+    text-align: center;
+  }
+
+  a:not(.btn) {
+    text-decoration: initial;
+    border-bottom: 0;
+    color: $link-color;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+      color: $link-color;
+    }
+  }
+}

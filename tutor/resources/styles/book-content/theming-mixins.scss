@@ -1,0 +1,161 @@
+@mixin tutor-book-theme-learning-objectives($theme-primary: $tutor-book-primary, $theme-accent: $tutor-book-accent, $text-color: $tutor-book-text-on-dark-labels) {
+  .learning-objectives,
+  [data-type=abstract] {
+    background: $theme-primary;
+    color: $text-color;
+
+    &::before {
+      color: fade($text-color, 75%);
+    }
+
+    ul {
+      border-left-color: fade($text-color, 40%);
+    }
+  }
+
+  .related-content[data-has-learning-objectives=true] + .book-content {
+    .learning-objectives,
+    [data-type=abstract] {
+      background: $theme-accent;
+    }
+  }
+}
+
+@mixin tutor-book-theme-related-content($theme-primary: $tutor-book-primary, $text-color: $tutor-book-text-on-dark-labels) {
+  .related-content[data-has-learning-objectives=true] {
+    background: $theme-primary;
+    color: $text-color;
+  }
+}
+
+@mixin tutor-book-theme-note($label-background: $tutor-book-primary, $label-text: $tutor-book-text-on-dark-labels) {
+  // @include tutor-style-note-variants($except-teacher-title-rules: {
+  //   color: $label-text,
+  //   background: $label-background,
+  // }),
+}
+
+@mixin tutor-book-theme-quote($border-color: $openstax-book-default-fg) {
+  blockquote {
+    border-left-color: $border-color;
+  }
+}
+
+@mixin tutor-book-theme-note-borders($border-color: $openstax-book-default-fg) {
+  .grasp-check {
+    border-top: solid 8px $border-color;
+  }
+}
+
+@mixin tutor-book-theme-typography($heading-border: $openstax-book-default-fg) {
+  h1 {
+    border-top-color: $heading-border;
+  }
+}
+
+@mixin tutor-book-theme-first-letter($letter-color: $openstax-book-default-fg) {
+  // References should not get drop-cap styling or color
+  section:not(.references) h1 + p:first-of-type,
+  div[data-type="document-title"] ~ p:first-of-type {
+    &::first-letter {
+      color: $letter-color;
+    }
+  }
+}
+
+@mixin tutor-book-theme-splash-image($overlay: $tutor-book-splash-overlay, $text-color: $tutor-book-splash-text) {
+  .splash {
+    .tutor-ui-overlay {
+      background-color: $overlay;
+      color: $text-color;
+    }
+  }
+}
+@mixin tutor-bullet-lists($bullet-color: $openstax-book-default-fg) {
+  ul > li {
+    &::before {
+      background: $bullet-color;
+    }
+  }
+}
+
+
+@mixin tutor-book-content-theme($book-code) {
+  $fg: openstax-book-color($book-code, primary);
+  $bg: openstax-book-color($book-code, secondary);
+
+  // $book-theme-primary: "tutor-book-#{$book-theme-name}-primary";
+  // $book-theme-secondary: "tutor-book-#{$book-theme-name}-secondary";
+  // $book-theme-tertiary: "tutor-book-#{$book-theme-name}-tertiary";
+  // $book-theme-quaternary: "tutor-book-#{$book-theme-name}-quaternary";
+  // $book-theme-highlight: "tutor-book-#{$book-theme-name}-highlight";
+
+  @extend tutor-book-theme-first-letter($fg);
+  @include tutor-book-theme-typography($fg);
+  @include tutor-book-theme-quote($fg);
+  @include tutor-book-theme-learning-objectives($bg);
+  @include tutor-book-theme-note($bg, $fg);
+}
+
+@mixin tutor-book-theme-tables($table-accent-color) {
+  $table-accent-style: solid 4px $table-accent-color;
+  table {
+      caption {
+        caption-side: top;
+        font-style: italic;
+        font-weight: 400;
+        font-size: inherit;
+      }
+      caption + thead {
+        tr:first-child {
+          font-style: normal;
+          th {
+            background: $tutor-white;
+            font-weight: 800;
+          }
+          border-bottom: $table-accent-style;
+        }
+      }
+      caption + tbody, thead + tbody, tbody:only-child, colgroup + tbody {
+        border-top: $table-accent-style;
+        tr {
+          td:first-child{
+            font-weight: 400;
+          }
+        }
+      }
+    thead {
+      tr:first-child {
+        font-style: italic;
+        th {
+          font-weight: 400;
+          border-bottom: none;
+          background: $tutor-white;
+        }
+      }
+      tr:nth-child(2) {
+        th {
+          background: $tutor-white;
+          font-weight: 800;
+        }
+        border-bottom: $table-accent-style;
+      }
+    }
+    tbody{
+      border-bottom: none;
+      tr{
+        td:first-child{
+          font-weight: 800;
+        }
+      }
+      ul{
+        font-family: inherit;
+        font-size: inherit;
+        padding-left: 10px;
+        li::before{
+          background: $tutor-neutral-darker;
+        }
+      }
+    }
+  }
+}

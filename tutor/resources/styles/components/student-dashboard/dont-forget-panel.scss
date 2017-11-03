@@ -1,0 +1,18 @@
+.student-dashboard {
+  .dont-forget {
+    .panel-body { text-align: center; }
+    .title {
+      @include tutor-sans-font(1.2rem, 1.2rem);
+      font-weight: 400;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      margin: 0 0 5px 0;
+    }
+    .summary {
+      @include tutor-sans-font(1.4rem, 1.4rem);
+      font-weight: 900;
+      color: #79B142;
+    }
+  }
+}

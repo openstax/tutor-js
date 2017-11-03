@@ -1,0 +1,208 @@
+// @mixin tutor-plan-cell($plan-type) {
+//   @include tutor-plan-cell(task-plan-color($plan-type));
+// }
+
+// @mixin tutor-plan-cell-active($plan-type) {
+//   $plan-color-name: "#{$plan-type}-color";
+//   $plan-color: $$plan-color-name;
+//   @include tutor-plan-cell-active($plan-color);
+// }
+
+// @mixin tutor-plan-heading($plan-type, $plan-border-size: 'small') {
+//   $plan-border-name: "plan-border-#{$plan-border-size}";
+//   $plan-border-normal: 12px;
+//   $plan-border-small: 5px;
+//   $plan-border: $$plan-border-name;
+
+//   $plan-color-name: "#{$plan-type}-color";
+//   $plan-color: $$plan-color-name;
+//   @include tutor-plan-heading($plan-color, $plan-border);
+// }
+
+// @mixin tutor-plan-header($plan-type, $plan-border-size: 'normal') {
+//   $plan-border-name: "plan-border-#{$plan-border-size}";
+//   $plan-border-normal: 12px;
+//   $plan-border-small: 5px;
+//   $plan-border: $$plan-border-name;
+
+//   $plan-color-name: "#{$plan-type}-color";
+//   $plan-color: $$plan-color-name;
+//   @include tutor-plan-header($plan-color, $plan-border);
+// }
+
+// @mixin tutor-plan-modal($plan-type) {
+//   $plan-color-name: "#{$plan-type}-color";
+//   $plan-color: $$plan-color-name;
+//   @include tutor-plan-modal($plan-color);
+// }
+
+// @mixin tutor-plan-add($plan-type) {
+//   $plan-color-name: "#{$plan-type}-color";
+//   $plan-color: $$plan-color-name;
+//   @include tutor-plan-add($plan-color);
+// }
+
+// @mixin tutor-plan-sidebar($plan-type) {
+//   $plan-color-name: "#{$plan-type}-color";
+//   $plan-color: $$plan-color-name;
+//   @include tutor-plan-sidebar($plan-color);
+// }
+
+// @mixin tutor-plan-display($plan-type) {
+//   $plan-color-name: "#{$plan-type}-color";
+//   $plan-color: $$plan-color-name;
+//   @mixin tutor-plan-display($plan-color),
+// }
+
+@mixin tutor-plan-cell($plan-type) {
+  $plan-color: task-plan-color($plan-type);
+  color: $plan-color;
+  background-color: fade($plan-color, 2.5%);
+  transition: background-color 0.1s ease-in;
+}
+
+@mixin tutor-plan-cell-active($plan-type) {
+  $plan-color: task-plan-color($plan-type);
+  text-decoration: none;
+  background-color: fade($plan-color, 25%);
+}
+
+@mixin tutor-plan-heading($plan-type, $plan-border-width: 5px) {
+  $plan-color: task-plan-color($plan-type);
+  color: $tutor-neutral-darker;
+  background-color: fade($plan-color, 20%);
+  border-top-color: $plan-color;
+  border-top-width: $plan-border-width;
+  border-top-style: solid;
+}
+
+@mixin tutor-plan-header($plan-type, $plan-border-width: 12px) {
+  $plan-color: task-plan-color($plan-type);
+
+  color: $tutor-neutral-darker;
+  background-color: fade($plan-color, 20%);
+  border-left-color: $plan-color;
+  border-left-width: $plan-border-width;
+  border-left-style: solid;
+
+  button.close {
+    opacity: 0.5;
+    color: $close-color;
+    text-shadow: $close-text-shadow;
+
+    &:hover,
+    &:focus {
+      opacity: 0.75;
+    }
+  }
+}
+
+@mixin tutor-plan-modal($plan-type) {
+  $plan-color: task-plan-color($plan-type);
+
+  .modal-content {
+    .modal-header {
+      @include tutor-plan-header($plan-type);
+    }
+  }
+}
+
+@mixin tutor-plan-sidebar($plan-type) {
+  $plan-color: task-plan-color($plan-type);
+
+  color: $tutor-neutral-darker;
+  border-left: 4px solid transparent;
+  .grabby-dots {
+    fill: $plan-color;
+  }
+  &:hover {
+    border-left: 4px solid $plan-color;
+  }
+}
+
+@mixin tutor-plan-add($plan-type) {
+  $plan-color: task-plan-color($plan-type);
+
+  color: $tutor-neutral-darker;
+  border-left: 4px solid transparent;
+
+  > * {
+    color: $tutor-neutral-darker;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+      background: transparent;
+    }
+  }
+
+  &:hover,
+  &.active,
+  &.open {
+    border-left: 4px solid $plan-color;
+    text-decoration: none;
+    @include tutor-shadow(subtle);
+  }
+}
+
+@mixin tutor-plan-display($plan-type) {
+  $plan-color: task-plan-color($plan-type);
+
+  color: $tutor-neutral-darker;
+  border-left: 3px solid $plan-color;
+
+  a {
+    color: $tutor-neutral-darker;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  label{
+    background: fade($plan-color, 20%);
+  }
+
+  &:hover,
+  &.active,
+  &.open {
+    text-decoration: none;
+    label{
+      background: fade($plan-color, 50%);
+    }
+  }
+}
+
+@mixin tutor-plan-set($selector: '') {
+
+  @each $type in 'reading', 'homework', 'external', 'event' {
+    &[data-assignment-type='#{$type}'] $selector {
+      @include tutor-plan-cell($type);
+      @include tutor-plan-cell-active($type);
+      @include tutor-plan-heading($type);
+      @include tutor-plan-header($type);
+      @include tutor-plan-modal($type);
+      @include tutor-plan-sidebar($type);
+      @include tutor-plan-add($type);
+      @include tutor-plan-display($type);
+    }
+  }
+
+  // &[data-assignment-type=homework]#{$selector} {
+  //   @include tutor-plan-cell(homework);
+  // }
+
+  // &[data-assignment-type=external]#{$selector} {
+  //   @include tutor-plan-cell(external);
+  // }
+
+  // &[data-assignment-type=event]#{$selector} {
+  //   @include tutor-plan-cell(event);
+  // }
+
+  // &[data-assignment-type=extras]#{$selector} {
+  //   @include tutor-plan-cell(extras);
+  // }
+}

@@ -1,0 +1,270 @@
+// // If this is updated, the scroll-to component's DEFAULT_TOP_OFFSET should also be adjusted
+
+// // override bootstrap navbar collapse width for book-links space
+// $grid-float-breakpoint: $screen-md-min;
+
+// // TODO see how much of this is unnecessary now that bootstrap material is gone
+
+// .navbar-fixed-top {
+//   height: $tutor-navbar-height;
+//   // override bootstrap material design media query for (max-width: 1199px)
+//   .navbar-brand {
+//     height: 60px;
+//     padding: 15px;
+//     .course-name {
+//       max-width: 180px;
+//       white-space: nowrap;
+//       overflow: hidden;
+//       text-overflow: ellipsis;
+//       padding-top: 1px;
+//     }
+//   }
+
+//   .navbar-toggle{
+//     margin-top: 14px;
+//   }
+
+//   .transition(transform 0.2s ease-out);
+
+//   // override the bootstrap defaults with tutor defaults
+//   &.navbar.navbar{
+//     border-bottom: 1px solid $border-color;
+
+//     &, .navbar-collapse.collapsing, .navbar-collapse.in {
+//       background-color: $tutor-white;
+//     }
+//   }
+
+//   .container-fluid { padding: 0 $tutor-navbar-padding-horizontal; }
+
+//   .ui-brand-logo {
+//     display: inline-block;
+//     height: 30px;
+//     width: 126px;
+//     background-repeat: no-repeat;
+//     .tutor-background-image('openstax-logo.svg');
+//   }
+
+//   .ui-rice-logo {
+//     display: inline-block;
+//     margin: 15px 0 15px 20px;
+//     height: 30px;
+//     width: 132px;
+//     background-repeat: no-repeat;
+//     .tutor-background-image('rice-logo.png');
+//   }
+//   .book-links {
+//     border-right: 1px solid $tutor-neutral-light;
+
+//     a {
+//       height: $tutor-navbar-height;
+//       display: table-cell;
+//       vertical-align: middle;
+//       padding-left: 1rem;
+//       padding-right: 1rem;
+//       border-left: 1px solid $tutor-neutral-light;
+//     }
+//   }
+//   .navbar-brand {
+//     font-size: 1.6rem;
+//     line-height: 2.7rem;
+//     margin-top: 1px;
+//   }
+
+//   @media screen and (max-width: ($screen-md - 1px)) {
+//     .container-fluid {
+//       height: $tutor-navbar-height
+//     }
+
+//     .navbar-collapse {
+//       max-width: 230px;
+//       max-height: 350px;
+//       float: right;
+//       .tutor-shadow(1);
+//       border-top: none;
+//     }
+
+//     .navbar-nav .navbar-brand,
+//     #navbar-dropdown {
+//       display: none;
+//     }
+
+//     .navbar-nav > li > a,
+//     .navbar-nav > li.book-links > a,
+//     .navbar-nav > li.dropdown > ul.dropdown-menu > li > a {
+//       height: initial;
+//       display: block;
+//       padding: 3px 20px;
+//       border: none;
+//       clear: both;
+//       float: none;
+//       font-weight: normal;
+//       font-size: 14px;
+//       line-height: 1.42857143;
+//       white-space: nowrap;
+//     }
+
+//     .book-links {
+//       border: none;
+//     }
+
+//     .dropdown {
+//       > .dropdown-toggle {
+//         display: none;
+//       }
+
+//       > .dropdown-menu {
+//         position: relative;
+//         float: none;
+//         width: auto;
+//         margin-top: -7.5px;
+//         padding-top: 0;
+//         background-color: transparent;
+//         box-shadow: none;
+//         display: block;
+//       }
+
+//       &.is-concept-coach {
+//         > .dropdown-menu {
+//           border-top: 1px solid $tutor-neutral-light;
+//           padding-top: 8px;
+//           margin-top: 0;
+//         }
+//       }
+//     }
+//   }
+
+//   .navbar-overlay {
+//     align-items: center;
+//     display: flex;
+//     height: 100%;
+//     justify-content: center;
+//     left: 0;
+//     position: absolute;
+//     top: 0;
+//     width: 100%;
+//     pointer-events: none;
+//   }
+//   .center-control {
+//     align-items: baseline;
+//     display: flex;
+//     font-size: 1.8rem;
+//     font-weight: bold;
+//     background: $tutor-white;
+//     z-index: 1;
+//     box-shadow: 0 0 5px 10px $tutor-white;
+//     pointer-events: auto;
+
+//     .fa-stack {
+//       height: 1.3em;
+
+//       .tutor-icon {
+//         // icon needs to be hoverable for tooltip
+//         z-index: 10;
+//       }
+//     }
+
+//     .fa {
+//       color: #888;
+//       font-size: 2.6rem;
+
+//       &.fa-th {
+//         position: relative;
+//         top: 0.1em;
+//       }
+//     }
+
+//     .calendar-text {
+//       font-size: 0.9em;
+//     }
+
+//     > * {
+//         margin: 0 1rem;
+//     }
+
+//     .milestones-toggle {
+//       padding: 0;
+
+//       i {
+//         margin-right: 0;
+//       }
+
+//       &:hover,
+//       &.active {
+//         i {
+//           color: $tutor-info;
+//         }
+//       }
+
+//       // TODO find out about universal focus style.
+//       &:focus {}
+//     }
+//   }
+
+//   // TODO make actually ellipsis when out of space
+//   .center-control-assignment {
+//     white-space: nowrap;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//     min-width: 0;
+//   }
+
+//   .dropdown-menu .logout {
+//     input[type=submit] {
+//       @include tutor-sans-font(1.4rem, 1.4rem);
+//       border: 0;
+//       background-color: transparent;
+//       width: 100%;
+//       padding-left: 0;
+//       text-transform: none;
+//       text-align: left;
+//       &:hover { text-decoration: initial; }
+//     }
+//   }
+
+//   .dropdown {
+//     &.btn-group, &.btn-group:hover {
+//       box-shadow: none;
+//     }
+//     :not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
+//       // override btn-default styles
+//       background: none !important;
+//       border: 0 !important;
+//       color: $tutor-neutral-dark !important;
+//     }
+//   }
+
+//   .user-actions-menu {
+//     a.dropdown-toggle {
+//       height: $tutor-navbar-height;
+//       display: flex;
+//       align-items: center;
+//     }
+//     .dropdown-menu {
+//       border-top: 1px solid white;
+//       margin-top: -1px;
+//     }
+//   }
+// }
+
+// .navbar-default .navbar-nav > li.book-links > a {
+//   @media screen and (max-width: ($screen-md - 1px)) {
+//     color: $openstax-neutral;
+
+//     &:hover,
+//     &:focus {
+//       color: $openstax-neutral;
+//       background-color: $openstax-neutral-lighter;
+//     }
+
+//     &.active {
+//       color: $openstax-white;
+//       background-color: $openstax-primary;
+//     }
+//   }
+// }
+
+
+// .tooltip.on-navbar {
+//   z-index: ($zindex-navbar-fixed + 1);
+// }

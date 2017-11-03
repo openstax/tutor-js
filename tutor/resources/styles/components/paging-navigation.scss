@@ -1,0 +1,70 @@
+@mixin paging-handle-browser-left-offset($left-offset: -75px) {
+  // Only Chrome properly positions the right arrow properly.
+  // (Firefox/Safari/IE) place it to the right of the .arrow-wrapper element
+  // this rule shifts it back inside
+  #ox-react-root-container[data-browser="ie"]      &,
+  #ox-react-root-container[data-browser="safari"]  &,
+  #ox-react-root-container[data-browser="firefox"] &
+  {
+    margin-left: $left-offset;
+  }
+}
+
+
+.tutor-paging-navigation {
+  $arrow-height: 150px;
+  $arrow-width: 75px;
+  display: flex;
+  justify-content: center;
+
+  .paging-control {
+    flex: 1;
+    .arrow-wrapper {
+      width: 100%;
+      height: 100%;
+      max-width: $arrow-height;  // keep left edge of icons no more than 60px from edge
+      .icon {
+        z-index: 1; //appear above content when page is extremely narrow
+        position: fixed;
+        top: calc("55vh - "$arrow-height);
+        path {
+          transition: fill 150ms linear;
+          fill: $tutor-neutral-light;
+        }
+        height: $arrow-height;
+        width: $arrow-height / 2;
+      }
+    }
+
+    &:focus {
+        outline: 0;
+
+        .arrow-wrapper > .arrow.icon > path {
+            fill: lightblue;
+        }
+    }
+
+    &.next {
+      .arrow-wrapper {
+        display: flex;
+        justify-content: flex-end;
+        .icon { @include paging-handle-browser-left-offset(-$arrow-width);  }
+      }
+    }
+    &.prev {
+      .arrow-wrapper { float: right; }
+    }
+    &[disabled] {
+      cursor: default; // otherwise it's "pointer" since it's an a tag
+      .icon{ display: none; }
+    }
+    &:not([disabled]) {
+      &.active,
+      &:hover {
+        text-decoration: none;
+        .icon path { fill: $tutor-neutral-lite; }
+      }
+      &:focus { text-decoration: none; }
+    }
+  }
+}

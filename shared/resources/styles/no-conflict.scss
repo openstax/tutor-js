@@ -1,0 +1,22 @@
+@import './variables/paths';
+
+@import './variables/index';
+@import './variables/colors';
+@import './variables/openstax-bootstrap';
+@import './mixins/index';
+
+@import "#{$bootstrap-path}/mixins";
+@import "#{$fa-path}less/variables.scss";
+@import "#{$fa-path}less/mixins.scss";
+
+.openstax {
+  @import "#{$bootstrap-path}/popovers";
+  @import './_components';
+
+  &-wrapper {
+    @import './components/breadcrumbs/index';
+    @import './components/breadcrumbs/icons';
+    @import './components/enroll/new-registration';
+    @import './globals/icons';
+  }
+}

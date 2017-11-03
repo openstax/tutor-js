@@ -1,0 +1,70 @@
+@import './details';
+@import './progress';
+@import './milestones';
+@import './teacher-review-controls';
+
+body.task-view {
+  background-color: @tutor-neutral-lighter;
+}
+
+.task {
+
+  max-width: $tutor-task-width;
+  margin: 0 auto;
+
+  &.task-reading {
+    max-width: inherit;
+
+    // small screens
+    @media screen and (max-width: ($tutor-task-width + 200px)){
+      .icon.arrow.left  { margin-left: -30px; }
+      .icon.arrow.right {
+        margin-left: 30px;
+        @include paging-handle-browser-left-offset(-45px);
+      }
+    }
+  }
+
+  @include step-footer-mixin();
+
+  // no such thing as a late reading
+  &.task-reading {
+    .task-footer-details {
+      i.late {
+        display: none;
+      }
+    }
+  }
+
+  .paged-content {
+    position: relative;
+    @include tutor-subtle-load('will-load', 'Loading...', 0.1s);
+  }
+
+  .page-loading {
+    .refresh-button {
+      position: absolute;
+      left: 50%;
+      z-index: 2;
+    }
+    .paged-content {
+      @include tutor-subtle-load('loading');
+    }
+  }
+}
+
+.task-view {
+
+  .pinned-header {
+    @include tutor-shadow(1);
+    background: fadeout($tutor-white, 20%);
+    padding: 8px $tutor-navbar-padding-horizontal 0;
+    margin: 0;
+  }
+
+  &.pinned-on {
+    .pinned-container {
+      padding-bottom: 1.5 * $tutor-navbar-height;
+    }
+  }
+}

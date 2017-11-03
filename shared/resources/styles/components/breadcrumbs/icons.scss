@@ -1,0 +1,34 @@
+// Note: Use tokens instead of strings to be able to do LESS compile-time validation
+
+.icon-feedback        { @include x-icon-bg(feedback);       }
+.icon-exercise        { @include x-icon-bg(homework);       }
+.icon-homework        { @include x-icon-bg(homework);       }
+.icon-external        { @include x-icon-bg(external);       }
+.icon-event           { @include x-icon-bg(event);          }
+.icon-end             { @include x-icon-bg(end);            }
+.icon-interactive     { @include x-icon-bg(interactive);    }
+.icon-coach           { @include x-icon-bg(test);           }
+.icon-video           { @include x-icon-bg(video);          }
+.icon-reading         { @include x-icon-bg(reading);        }
+.icon-recover         { @include x-icon-bg(recover);        }
+.icon-test            { @include x-icon-bg(test);           }
+.icon-spaced-practice { @include x-icon-bg(spaced-practice);}
+.icon-personalized    { @include x-icon-bg(personalized);   }
+
+.icon-worked-example  { @include x-icon-bg(worked-example); }
+
+.icon-two-step-intro            { @include x-icon-bg(two-step-intro);   }
+.icon-personalized-intro        { @include x-icon-bg(personalized-intro);   }
+.icon-spaced-practice-intro     { @include x-icon-bg(spaced-practice-intro);   }
+.icon-individual-review-intro   { @include x-icon-bg(individual-review);   }
+
+// The following are usually overlays on other icons
+.icon-correct   { @include x-icon-bg(correct);   }
+.icon-incorrect { @include x-icon-bg(incorrect); }
+
+.icon-placeholder {
+  &:before {
+    content: '?';
+    font-style: normal;
+  }
+}

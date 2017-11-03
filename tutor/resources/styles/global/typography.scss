@@ -1,0 +1,114 @@
+@mixin tutor-font-face($family, $name, $filename, $weight, $style: normal) {
+  @font-face {
+    font-family: $name;
+    font-weight: $weight;
+    font-style: $style;
+  }
+}
+
+// @include tutor-font-face('MerriWeather'; 'MerriWeather-Light';          'merriweather-v8-latin-300';       300);
+// @include tutor-font-face('MerriWeather'; 'MerriWeather-LightItalic';    'merriweather-v8-latin-300italic'; 300; $style: 'italic');
+// @include tutor-font-face('MerriWeather'; 'MerriWeather-Bold';           'merriweather-v8-latin-700';       700);
+// @include tutor-font-face('MerriWeather'; 'MerriWeather-BoldItalic';     'merriweather-v8-latin-700italic'; 700; $style: 'italic');
+// @include tutor-font-face('MerriWeather'; 'MerriWeather';                'merriweather-v8-latin-regular';   400);
+// @include tutor-font-face('MerriWeather'; 'MerriWeather-Italic';         'merriweather-v8-latin-regularitalic'; 400; $style: 'italic');
+// @include tutor-font-face('Architects Daughter'; 'Architects Daughter';  'architects-daughter-v6-latin-regular'; 400);
+
+$body-font-color: $tutor-neutral-darker;
+$caption-font-color: #646464;
+$html-font-size: 10px;
+$tutor-default-font-face: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+
+@mixin tutor-sans-font($size: 1.5rem, $line-height: 2.25rem) {
+  font-family: $tutor-default-font-face;
+  font-weight: 400;
+  font-style: normal;
+  font-size: $size;
+  line-height: $line-height;
+}
+@mixin tutor-serif-font($size: 1rem, $line-height: 1.5rem) {
+  font-family: 'Merriweather', Georgia, Times, serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: $size;
+  line-height: $line-height;
+  font-smooth: antialiased;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+@mixin tutor-script-font($size: 1.5rem, $line-height: 3rem, $style: normal) {
+  font-family: 'Architects Daughter', cursive;
+  font-size: $size;
+  font-weight: 400;
+  font-style: normal;
+  line-height: $line-height;
+  font-style: $style;
+}
+@mixin guide-label() {
+  font-family: $tutor-default-font-face;
+}
+@mixin guide-header() {
+  font-family: $tutor-default-font-face;
+}
+@mixin tutor-book-cover-font() {
+  font-family: $tutor-default-font-face;
+  font-weight: 900;
+}
+@mixin tutor-scores-cells-font() {
+  font-family: $tutor-default-font-face;
+}
+@mixin tutor-main-title-font() {
+   @include tutor-sans-font(3rem);
+  color: $tutor-neutral-darker;
+  font-weight: 600;
+}
+@mixin tutor-main-subtitle-font() {
+  @include tutor-sans-font(2.5rem);
+  color: $tutor-neutral-darker;
+  font-weight: 500;
+}
+@mixin tutor-section-title-font() {
+   @include tutor-sans-font(2.5rem);
+  color: $tutor-neutral-darker;
+  font-weight: 500;
+}
+
+
+html {
+  font-size: $html-font-size; // 10px by default, with deference to user's settings
+}
+
+body {
+  @include tutor-sans-font;
+  color: $body-font-color;
+}
+
+h1 {
+   @include tutor-sans-font(3.8rem, 4.6rem);
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+h2 {
+   @include tutor-sans-font(3rem, 4.6rem);
+  font-weight: 900;
+}
+
+::-webkit-input-placeholder {
+  font-weight: 300;
+  font-style: italic;
+}
+:-moz-placeholder { /* Firefox 18- */
+  font-weight: 300;
+  font-style: italic;
+}
+::-moz-placeholder {  /* Firefox 19+ */
+  font-weight: 300;
+  font-style: italic;
+}
+:-ms-input-placeholder {
+  font-weight: 300;
+  font-style: italic;
+}

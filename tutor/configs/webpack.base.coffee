@@ -3,7 +3,7 @@ module.exports =
     tutor: [
       "babel-polyfill",
       "index.js",
-      "resources/styles/tutor.less"
+      "resources/styles/tutor.scss"
     ]
     qa: [
       "babel-polyfill",

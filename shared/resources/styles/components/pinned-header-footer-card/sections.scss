@@ -1,0 +1,20 @@
+.pinned-footer {
+  @include fixed-bar();
+  background: fadeout($openstax-white, 20%);
+  padding: 10px $openstax-navbar-padding-horizontal;
+  bottom: 0;
+}
+
+.pinned-header {
+  @include make-shy-animate();
+}
+
+.pinned-on {
+  .pinned-header {
+    top: $openstax-navbar-height;
+    @include fixed-bar();
+  }
+}
+
+// always wrap around elements by extending bootstrap's clearfix
+.card-body { @include clearfix; }

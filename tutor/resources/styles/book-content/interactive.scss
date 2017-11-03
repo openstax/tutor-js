@@ -1,0 +1,18 @@
+// The number of pixels the iframe will be inset from the task in the end
+$desired-iframe-inset: ($reference-book-page-width - $tutor-interactive-iframe-width) / 2;
+
+@mixin book-content-interactives-base-rules {
+  // when < than sim width, go responsive.
+  // this is a temporary solution for sims on small devices.
+  width: 100%;
+  height: $tutor-interactive-iframe-height;
+
+  margin: 20px auto;
+  border: none;
+};
+
+@mixin book-content-interactives-tight-width-rules {
+  // for any screen with > than sim width, be sim width
+  width: $tutor-interactive-iframe-width;
+  margin-left: calc("50% - " $tutor-interactive-iframe-width / 2);
+};

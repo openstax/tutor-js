@@ -1,0 +1,144 @@
+$milestone-active-indicator-height: 8px;
+$milestone-bottom-margin: 50px;
+$milestone-height: 250px;
+$milestone-icon-size: 60px;
+
+.task-view {
+  .task-with-progress {
+    .task-step {
+      margin-top: 40px;
+    }
+
+    &.task-with-milestones-entered {
+      .task-step {
+        display: none;
+      }
+    }
+  }
+}
+
+.task-with-milestones-enter, .task-with-milestones-appear {
+  @include transform-origin(0 bottom);
+  @include translate(0, -90%);
+
+  &.task-with-milestones-enter-active,
+  &.task-with-milestones-appear-active {
+    @include transition(transform 0.5s ease-out);
+    @include translate(0, 0);
+  }
+}
+
+.task-with-milestones-leave {
+  @include transform-origin(0 bottom);
+  @include translate(0, 0);
+
+  &.task-with-milestones-leave-active {
+    @include transition(transform 0.3s ease-in);
+    @include translate(0, -90%);
+  }
+}
+
+.milestones-wrapper {
+  position: fixed;
+  z-index: 3;
+  min-height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin-top: $openstax-navbar-height;
+  overflow-y: auto;
+  padding: 5%;
+  background: $tutor-neutral-light;
+  @include transition(margin-top 0.2s ease-out);
+}
+
+.milestone {
+  display: block;
+  padding: 1.25rem;
+  background: $tutor-white;
+  height: $milestone-height;
+  width: 100%;
+  margin-bottom: $milestone-bottom-margin;
+  @include tutor-shadow(1);
+
+  font-family: 'Helvetica Neue';
+  font-weight: normal;
+  font-size: 14px;
+  color: $openstax-neutral-dark;
+  line-height: 20px;
+
+  &.milestone-two-step-intro,
+  &.milestone-spaced-practice-intro,
+  &.milestone-personalized-intro {
+    background-color: $openstax-blue;
+    color: $tutor-white;
+  }
+
+  .openstax-breadcrumbs-step {
+    display: block;
+    margin: auto;
+    width: $milestone-icon-size;
+    height: $milestone-icon-size;
+    background: transparent;
+    &::before {
+      line-height: $milestone-icon-size;
+      width: 100%;
+      height: 100%;
+    }
+
+    .icon-lg {
+      height: 100%;
+      width: 100%;
+      background-size: contain;
+    }
+
+    &:hover,
+    &.active {
+      @include scale(1.0);
+      box-shadow: none;
+    }
+
+    &.breadcrumb-individual-review-intro .icon-lg {
+      background-size: 50px; // icon is tall, shrink it so it matches
+    }
+  }
+
+  &:hover {
+    cursor: 'pointer'
+  }
+
+  &:hover,
+  &:focus {
+    @include tutor-shadow(2);
+  }
+  &.active {
+    border-bottom: $milestone-active-indicator-height solid $tutor-success;
+    height: $milestone-height + $milestone-active-indicator-height;
+    margin-bottom: $milestone-bottom-margin - $milestone-active-indicator-height;
+  }
+}
+
+.milestone-preview {
+  display: block;
+  max-height: 125px;
+  overflow: hidden;
+
+  padding: 0;
+  margin-top: 20px;
+  hyphens: auto;
+}
+
+body.pinned-shy {
+  &.task-view {
+    .task-with-progress {
+      .milestones-wrapper {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+body.prevent-scroll {
+  overflow: hidden;
+}

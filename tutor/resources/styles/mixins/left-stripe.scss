@@ -1,0 +1,20 @@
+@mixin left-stripe($color, $stripe-color: darken($color, 30%), $width: 20px) {
+
+  background-color: $color;
+  padding-left: $width + 5px;
+  position: relative;
+  &:before {
+    content: "";
+    display: block;
+    width: 20px;
+    background-color: $stripe-color;
+    content: "";
+    display: block;
+    width: $width;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+}

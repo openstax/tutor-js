@@ -1,0 +1,174 @@
+$progress-bar-height: 3rem;
+$progress-on-hover-label-height: 24px;
+
+.task-plan-stats {
+
+  .tutor-tabs {
+    margin-bottom: 20px;
+  }
+
+  section {
+
+    > div {
+      max-width: 450px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    > label {
+      text-align: center;
+      display: block;
+      margin: 0;
+    }
+
+    &:not(:first-child){
+      padding-top: 10px;
+
+      &:not(:last-child){
+        padding-bottom: 20px;
+      }
+    }
+
+    &:not(:last-child) {
+      border-bottom: $tutor-teacher-plan-stats-border-style;
+    }
+
+    .reading-progress:last-child {
+      margin-bottom: 0;
+    }
+
+  }
+
+  &-none {
+    text-align: center;
+    color: $gray-light;
+  }
+
+  &-average {
+    border-right: $tutor-teacher-plan-stats-border-style;
+  }
+
+}
+
+.progress {
+  background: $gray-lighter;
+  margin-bottom: 0;
+
+  &-bar{
+    line-height: $progress-bar-height;
+  }
+}
+
+.reading-progress {
+
+  margin-bottom: 20px;
+
+  &.inactive {
+    opacity: 0.5;
+  }
+
+  &-container {
+    position: relative;
+  }
+
+  &-group {
+    height: $progress-bar-height;
+    overflow: visible;
+  }
+
+  &-bar{
+
+    position: relative;
+    margin-bottom: $progress-on-hover-label-height;
+
+    &.no-progress {
+      span {
+        display: none;
+      }
+    }
+
+    span {
+      cursor: default;
+    }
+
+    &:not(.no-progress) {
+      min-width:15px;
+    }
+
+    &::after {
+      content: attr(type);
+      position: absolute;
+      bottom: -$progress-on-hover-label-height;
+      left: 50%;
+      width: 100px;
+      margin-left: -50px;
+      text-align: center;
+      color: $tutor-neutral;
+      @include opacity(0);
+      @include transition(opacity 1s);
+    }
+
+    &:hover {
+      &::after {
+        @include opacity(1);
+      }
+    }
+  }
+
+  &-delta {
+    right:0px;
+    top:0px;
+    height:20px;
+    line-height: 1rem;
+    position:absolute;
+    color:red;
+  }
+
+  &-student-count {
+    font-style: italic;
+    font-weight: 300;
+  }
+}
+
+.data-container {
+  text-align: center;
+  margin: 1.75rem 0;
+  .stats {
+    display: flex;
+    align-items: flex-end;
+    .stat { padding: 0; }
+  }
+
+  &.container {
+    width: 100%;
+  }
+
+  label {
+    font-weight: 300;
+    margin: 10px 0;
+    line-height: 1.8rem;
+    display: block;
+  }
+
+  &-value {
+    font-size: 4rem;
+    font-weight: 300;
+    margin-bottom: 0.75rem;
+  }
+}
+
+.text-complete {
+  color: $tutor-info;
+}
+
+.text-in-progress {
+  color: $tutor-warning;
+}
+
+.text-not-started {
+  color: $tutor-neutral;
+}
+
+.text-average {
+  color: $tutor-success;
+}

@@ -1,0 +1,31 @@
+.modal {
+  $padding: 50px;
+
+  .modal-content {
+    border-radius: 0;
+    border: 0;
+  }
+
+  .modal-header {
+    padding: $padding/2 $padding;
+    font-size: 18px;
+    background-color: $tutor-neutral-bright;
+    border-bottom: 1px solid $tutor-neutral-light;
+  }
+
+  .modal-body {
+    padding: $padding;
+    background-color: white;
+  }
+
+  .modal-footer {
+    padding: 0 $padding $padding $padding;
+    text-align: left;
+    border-top: 0;
+  }
+
+}
+
+@import './modals/warning';
+@import './modals/terms';
+@import './modals/onboarding';

@@ -1,0 +1,134 @@
+$tutor-navbar-height: 60px;
+$tutor-navbar-padding-horizontal: 4rem;
+
+// the $navbar-XX vars are bootstrap defaults
+
+.tutor-top-navbar {
+
+  @mixin top-nav-action() {
+    font-size: 1.6rem;
+
+    .tutor-icon {
+      font-size: 1.6rem;
+      margin-left: 0;
+      margin-right: 0.5rem;
+      @media screen and ( min-width: $screen-md-min ){
+        margin-right: 1rem;
+      }
+    }
+    @media screen and ( max-width: $screen-md ){
+      .control-label { display: none; }
+    }
+  }
+
+
+  background: $tutor-white;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+  color: $tutor-gray;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  min-height: $tutor-navbar-height;
+  padding-right: $navbar-padding-horizontal;
+  padding-left:  $navbar-padding-horizontal;
+  z-index: $zindex-navbar-fixed;
+
+  .tutor-nav-controls {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 15px;
+    width: 1200px;
+  }
+
+  #student-preview-link {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    align-self: stretch;
+    @include top-nav-action();
+  }
+
+  @include make-shy-animate();
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover,
+    &[aria-expanded="true"] {
+      color: #333;
+    }
+  }
+
+  > * {
+    display: flex;
+  }
+
+  .navbar-overlay {
+    align-items: center;
+    display: flex;
+  }
+
+  .ui-brand-logo {
+    display: inline-block;
+    margin-top: 12px;
+    height: 34px;
+    width: 200px;
+    background-repeat: no-repeat;
+    @include tutor-background-image('openstax-tutor-beta-logo.svg');
+  }
+
+  .right-side-controls {
+    display: flex;
+    > * {
+      margin-left: 20px;
+      @media screen and (min-width: $screen-md-min ) {
+        margin-left: 40px;
+      }
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+
+  .book-links {
+    border-right: 1px solid $tutor-neutral-light;
+    display: flex;
+    align-self: stretch;
+    align-items: stretch;
+    a {
+      display: flex;
+      align-items: center;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      border-left: 1px solid $tutor-neutral-light;
+      .tutor-icon { margin-left: 0.5rem; }
+    }
+  }
+  .student-preview-link {
+    @include top-nav-action();
+  }
+  .student-pay-now {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap-reverse;
+    .btn { margin-left: 10px; }
+  }
+
+  @import './top-nav-bar/center-controls';
+  @import './top-nav-bar/drop-down-menu';
+
+}
+
+@import './top-nav-bar/toasts';
+
+
+.pinned-shy .tutor-top-navbar {
+  @include make-shy();
+}

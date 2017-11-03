@@ -1,0 +1,342 @@
+@mixin psuedo-background() {
+  position: absolute;
+  top: $tutor-navbar-height;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  content: "";
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@mixin ost-hero-backdrop($full-screen: false) {
+    &::before {
+      position: fixed;
+      top: $tutor-navbar-height;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      content: "";
+      z-index: -1;
+      background-image: url('../images/ost-hero.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+    @if $full-screen {
+      top: 0;
+      z-index: $zindex-navbar-fixed + 1;
+      &::before {
+        background-image: url('../images/openstax-logo-white.png'), url('../images/ost-hero.jpg');
+        top: 0;
+        background-repeat: no-repeat, no-repeat;
+        background-size: 174px 40px, cover;
+        background-position: center 20px, center;
+      }
+    }
+}
+
+@mixin ost-hero-modal($full-screen: false) {
+  &.modal-backdrop {
+    z-index: $zindex-navbar-fixed - 2;
+    if $full-screen {
+      z-index: $zindex-navbar-fixed + 1;
+    }
+  }
+  &.modal {
+    top: $tutor-navbar-height;
+    z-index: $zindex-navbar-fixed - 1;
+    @include ost-hero-backdrop($full-screen);
+    .modal-dialog { // move modal down so the ox logo appears
+      transform: translateY(80px);
+      margin: 0 auto; // override bootstrap 30px vertical margin
+    }
+  }
+}
+
+@mixin no-select() {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@mixin fixed-bar() {
+  left: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+}
+
+@mixin tutor-background-image($img) { background-image:url("../images/#{$img}"), }
+
+$tutor-shadow-types: (
+  1: (0 1px 6px 0 rgba(0, 0, 0, 0.12), 0 1px 6px 0 rgba(0, 0, 0, 0.12)),
+  2: (0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)),
+  button: 0 2px 3px 0 rgba(0, 0, 0, 0.1),
+  1-inset: (
+    inset 0 2px 2px 0 rgba(0, 0, 0, 0.2),
+    inset 0 2px 6px 0 rgba(0, 0, 0, 0.4),
+  ),
+  2-inst: (
+    inset 0 8px 17px 0 rgba(0, 0, 0, 0.2),
+     inset 0 6px 20px 0 rgba(0, 0, 0, 0.19),
+  ),
+  pop: (
+    0 1px 2px 0 rgba(0, 0, 0, 0.12),
+    0 2px 2px 0 rgba(0, 0, 0, 0.1),
+    0 2px 6px 0 rgba(0, 0, 0, 0.1),
+  ),
+  subtle: (
+    0 0 2px 0 rgba(0, 0, 0, 0.12),
+    0 1px 2px 0 rgba(0, 0, 0, 0.1),
+    0 1px 6px 0 rgba(0, 0, 0, 0.1),
+  ),
+  draggable: (
+    0 0 2px 0 rgba(0, 0, 0, 0.12),
+    0 1px 2px 0 rgba(0, 0, 0, 0.12),
+    0 2px 2px 0 rgba(0, 0, 0, 0.1),
+    0 2px 6px 0 rgba(0, 0, 0, 0.1),
+  ),
+  draggable-well: (
+    inset 0 2px 2px 0 rgba(0, 0, 0, 0.1),
+    inset 0 2px 6px 0 rgba(0, 0, 0, 0.1),
+  ),
+);
+
+@mixin tutor-shadow($type) {
+
+  @if map-has-key($tutor-shadow-types, $type) {
+    box-shadow: map-get($tutor-shadow-types, $type);
+  } @else {
+    @warn 'Unknown tutor-shadow type: `#{$type}`';
+  }
+}
+
+
+
+// @mixin tutor-shadow(1, inset) {
+//   box-shadow:
+//     inset 0 2px 2px 0 rgba(0, 0, 0, 0.2),
+//     inset 0 2px 6px 0 rgba(0, 0, 0, 0.4);
+// }
+
+// @mixin tutor-shadow(2, inset) {
+//   box-shadow:
+//     inset 0 8px 17px 0 rgba(0, 0, 0, 0.2),
+//     inset 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+// }
+
+@mixin tutor-framed-video($iframe-width:  $tutor-video-iframe-width,
+                    $iframe-height: $tutor-video-iframe-height,
+                    $iframe-shadow-size: 0px) {
+  position: relative;
+  width:  $iframe-width  + $iframe-shadow-size * 2;
+  height: $iframe-height + $iframe-shadow-size * 2;
+  margin: auto;
+  padding: 0;
+  box-shadow: 0 $iframe-shadow-size $iframe-shadow-size 0 $tutor-neutral-dark inset;
+  iframe {
+    position: absolute;
+    top:    $iframe-shadow-size;
+    left:   $iframe-shadow-size;
+    width:  $iframe-width;
+    height: $iframe-height;
+  }
+}
+
+@mixin tutor-completed-message() {
+  text-align: center;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  h1 {
+    @include tutor-sans-font(4.5rem);
+    font-weight: 700;
+  }
+  h3 {
+    @include tutor-sans-font(4rem);
+    font-weight: 700;
+  }
+  .btn {
+    margin-top: 3rem;
+  }
+}
+
+@mixin tutor-icon-active($scale: 1.4, $shadow: 0.12) {
+  @include scale($scale);
+  @include box-shadow(0 1px 6px rgba(0, 0, 0, $shadow));
+  border-radius: 50%;
+}
+
+@mixin tutor-late-icon() {
+  &::after {
+    @include fa-icon();
+    content: $fa-var-clock-o;
+    color: $tutor-warning;
+  }
+}
+
+@mixin tutor-popover() {
+  font-size: 0.8em;
+  max-width: 500px;
+
+  .popover-title {
+    color: $tutor-primary;
+  }
+
+  .has-html {
+    h1, h2, h3, h4, h5, h6 {
+      &:first-child {
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  &.left .arrow:after{
+    border-left-color: $popover-title-bg;
+  }
+
+  &.right .arrow:after{
+    border-right-color: $popover-title-bg;
+  }
+
+  &.top .arrow:after{
+    border-top-color: $popover-title-bg;
+  }
+
+  &.bottom .arrow:after{
+    border-bottom-color: $popover-title-bg;
+  }
+}
+
+
+@mixin tutor-subtle-load($type, $loading-text: 'Loading...', $trans-time: 0.25s, $bg-fade: 90%, $bg-base: $tutor-white) {
+  &::after {
+    transition: opacity $trans-time ease-in-out;
+
+    @if $type == 'will-load' {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      content: $loading-text;
+      background: fade($bg-base, $bg-fade);
+      top: 0;
+      text-align: center;
+      font-size: 3rem;
+      line-height: 10em;
+      opacity: 0;
+      display: none;
+
+    } @else if $type == 'loading' {
+      opacity: 1;
+      display: block;
+    }
+  }
+}
+
+@mixin tutor-fade-in($fade-time) {
+  animation: fadein $fade-time;
+  @keyframes fadein {
+    from { opacity:0; }
+    to { opacity:1; }
+  }
+}
+
+@mixin tutor-figure() {
+  figure {
+    display: table;
+    text-align: left;
+    padding: 0;
+    float: left;
+    img {
+      max-width: 100%;
+      border: 1px solid $border-color;
+      margin: 10px 0 0 0;
+      padding: 0;
+    }
+
+    figcaption {
+      display: table-caption;
+      caption-side: bottom;
+      color: $caption-font-color;
+      padding: 10px 0;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 150%;
+    }
+  }
+}
+
+@mixin tutor-tables($table-header, $table-bottom-color) {
+  table {
+    thead {
+      th {
+        background: $table-header;
+      }
+    }
+    tbody {
+      border-bottom: solid 4px $table-bottom-color;
+    }
+  }
+  caption {
+     @include tutor-sans-font(1.3rem, 2rem);
+    color: $tutor-neutral-dark;
+    margin-top: 0.5rem;
+    text-align: left;
+    caption-side: bottom;
+    [data-type='title'] {
+      font-weight: bold;
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+@mixin printer-safe($display: inherit, $position: inherit, $top: inherit, $margin-top: inherit) {
+  @media print {
+    display: $display;
+    position: $position;
+    top: $top;
+    margin-top: $margin-top;
+    transition: none;
+  }
+}
+
+@mixin tutor-external-link-indicator() {
+  &::after {
+    @include fa-icon();
+    display: inline;
+    font-size: 80%;
+    content: " #{$fa-var-external-link}";
+  }
+}
+
+@mixin tutor-pad-panel() {
+  .panel-body { padding: $tutor-panel-padding; }
+
+  @media (max-width: $tutor-panel-collapse-breakpoint) {
+    .panel-body { padding: $tutor-panel-padding-collapsed; }
+  }
+}
+
+@mixin tutor-spy-mode-content() {
+    border: 1px solid $tutor-neutral-dark;
+    background-color: $tutor-white;
+    border-radius: $input-border-radius;
+    text-align: center;
+    margin: 20px auto;
+}
+
+@import './book-content/ap-bio/variables';
+@import './book-content/hs-physics/variables';
+@import './mixins/tutor-plans';
+@import './mixins/exercise-cards-column-layout';
+@import './mixins/tutor-modal';
+@import './mixins/drag-and-drop';
+@import './mixins/tasks';
+@import './mixins/left-stripe';

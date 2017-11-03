@@ -1,0 +1,95 @@
+.student-dashboard {
+  .due-at, .due-at-label { padding: 0; }
+
+  .task {
+    background: $tutor-white;
+    border-top: thin dotted $tutor-neutral-light;
+    position: relative;
+    display: block;
+    color: $tutor-neutral-darker;
+    overflow: hidden;
+    // if the screen is wide enought, set a hight and use line-height to vertically center content.
+    // This breaks when the responsive small view kicks in and it becomes multi-line
+    .column-icon {
+      height: $student-dashboard-row-height;
+      padding: 0;
+    }
+    &.deleted:not(.workable) {
+      cursor: default;
+      background-color: $tutor-neutral-lightest;
+    }
+    .icon {
+      background-position: center;
+      // * 10 on icon-size-lg because less doesn't automatically convert icon-size-lg to px
+      margin: ($student-dashboard-row-height - $icon-size-lg * 10)/2;
+    }
+    .title {
+      padding-left: 0;
+    }
+    .title, .feedback, .due-at {
+      line-height: $student-dashboard-row-height;
+      white-space: nowrap;
+    }
+    .title, .feedback {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    i.info {
+      @include fa-icon();
+      margin-left: 0.5rem;
+      &.incomplete::before {
+        content: $fa-var-exclamation-circle;
+        color: $tutor-warning;
+      }
+      &.late::before {
+        content: $fa-var-clock-o;
+        color: $tutor-danger;
+      }
+    }
+    //.btn prefix is needed to override material design styles
+    .btn.hide-task {
+      line-height: 12px;
+      padding: 5px 7px;
+      background: #fff;
+      margin-right: 0.4rem;
+      .fa {
+        font-size: 12px;
+        font-weight: normal;
+        margin: 0;
+      }
+    }
+
+    // Adjust height for when the columns collapse and progress appears below task title
+    @media screen and ( max-width: $screen-sm-min ) {
+      .column-icon {
+        text-align: center;
+        height: $student-dashboard-row-height;
+      }
+      .title, .feedback, .due-at {
+        line-height: $student-dashboard-row-height / 2;
+      }
+      // match the 0 left padding of the description
+      .feedback { padding-left: 0; }
+    }
+
+    // A task that is workable can be clicked
+    &.workable {
+      cursor: pointer;
+      &:hover {
+        background-color: $tutor-neutral-lightest;
+        .icon { @include tutor-icon-active(1.2); }
+      }
+    }
+    &.deleted {
+      color: $tutor-neutral;
+      filter: grayscale(100%);
+      -webkit-filter: grayscale(100%);
+    }
+    transition: all 0.1s ease-in;
+
+  }
+}
+
+.student-dashboard-instructions-popover {
+  @include tutor-popover();
+}

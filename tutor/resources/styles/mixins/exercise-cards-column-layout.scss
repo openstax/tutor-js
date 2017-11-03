@@ -1,0 +1,24 @@
+@mixin exercise-cards-column-layout($column-width: 450px) {
+  margin-top: $tutor-panel-padding-vertical;
+
+  .exercise-sections {
+    margin-top: $tutor-panel-padding-vertical;
+  }
+
+  .exercises {
+    -webkit-column-width: $column-width;
+    -moz-column-width: $column-width;
+    column-width: $column-width;
+  }
+
+  @media (min-width: $screen-md-min) {
+    .panel { margin: 5px; }
+  }
+
+  .exercise-card {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    display: inline-block;
+    width: 100%;
+  }
+}

@@ -1,0 +1,42 @@
+@import './guide';
+@import './reading';
+@import './builder';
+@import './task-plan-stats';
+@import './homework';
+@import './reading';
+@import './chapter-section';
+@import './lms-info';
+@import './mini-editor';
+@import './teacher-task-plans-listing';
+@import './controls';
+
+
+.task-plan {
+  .panel-default {
+    border: none;
+  }
+
+  .panel-heading {
+    border-bottom: none;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    button.close {
+      top: 0;
+      transistion: opacity 0.3s;
+    }
+  }
+
+  .select-topics {
+    > .panel-body {
+      overflow: auto;
+      max-height: "calc(100vh - 200px)";
+    }
+  }
+
+  @include tutor-plan-set('.dialog > .panel-heading');
+
+  > .dialog {
+    @include tutor-pad-panel();
+  }
+}

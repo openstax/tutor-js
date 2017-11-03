@@ -1,0 +1,56 @@
+$progress-bar-width: 100%;
+$modal-padding: 20px;
+
+body.modal-open {
+  overflow: auto;
+}
+
+.plan-modal {
+
+// @include tutor-plan-modal($calendar-inactive-background);
+
+  &.is-published {
+    @include tutor-plan-set(modal);
+  }
+
+  &.is-publishing {
+    .modal-title::before {
+      @include is-publishing();
+      margin-right: $modal-padding/2;
+      margin-left: -$modal-padding/2;
+    }
+  }
+
+  &.is-published{
+    &.is-open.is-trouble {
+      .modal-title::before {
+        @include is-trouble();
+        margin-right: $modal-padding/2;
+        margin-left: -$modal-padding/2;
+      }
+    }
+  }
+
+  @include tutor-modal();
+
+  .panel {
+    margin: 0;
+    box-shadow: none;
+    border: none;
+
+    .panel-body { padding: 0; }
+  }
+
+  .modal-header {
+    border-bottom: none;
+  }
+
+  .modal-footer {
+    text-align: inherit;
+    display: flex;
+    justify-content: space-between;
+    > * { flex: 1; }
+
+  }
+
+}

@@ -1,0 +1,108 @@
+.onboarding {
+  @include ost-hero-modal();
+}
+
+.onboarding.modal {
+
+  .modal-dialog {
+    width: 500px;
+    margin: 0 auto;
+    transform: translateY(130px);
+  }
+  .modal-content {
+    border-radius: 0;
+  }
+  &.pay-now-or-later,
+  &.free-trial-ended,
+  &.make-payment {
+    .modal-dialog {
+      transform: translateY(80px);
+    }
+  }
+
+  .onboarding-nag {
+    background-color: $tutor-neutral-lighter;
+
+    .heading {
+      font-weight: 700;
+      font-size: 18px;
+      padding: 50px 50px 0 50px;
+    }
+
+    .body {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      padding: 50px;
+    }
+
+    .footer {
+      padding: 0 50px 50px 50px;
+      .btn {
+        width: 100%;
+        margin-top: 0.5rem;
+        & + .btn { margin-left: 0; }
+      }
+      &.got-it {
+        .btn { width: inherit; }
+      }
+    }
+
+    &.freshly-created-course {
+      .why-ask-heading { cursor: pointer; }
+      .footer button:first-child {
+        @extend .btn-primary;
+      }
+    }
+
+    &.free-trial-ended,
+    &.free-trial-activated
+    {
+      .footer {
+        .btn { width: inherit; }
+      }
+    }
+
+    &.pay-now-or-later,
+    &.payments-disabled {
+      padding: 50px;
+      background-color: $tutor-neutral-bright;
+      text-align: center;
+      .btn.later {
+        background-color: $tutor-neutral;
+        color: $tutor-neutral-lightest;
+      }
+      p {
+        font-size: 1.4rem;
+        margin: 20px 0;
+
+      }
+      .or {
+        overflow: hidden;
+        text-align: center;
+        margin: 20px 0;
+        &:before,
+        &:after {
+          background-color: $tutor-neutral-light;
+          content: "";
+          display: inline-block;
+          height: 1px;
+          position: relative;
+          vertical-align: middle;
+          width: 50%;
+        }
+        &:before {
+          right: 0.5em;
+          margin-left: -50%;
+        }
+        &:after {
+          left: 0.5em;
+          margin-right: -50%;
+        }
+      }
+    }
+    &.payments-disabled {
+      h3 { margin-bottom: 20px; }
+    }
+  }
+}

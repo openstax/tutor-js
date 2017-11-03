@@ -1,0 +1,135 @@
+@mixin openstax-bubble() {
+  $diameter: $openstax-answer-bubble-size;
+  $border-size: 2px;
+
+  width: $diameter;
+  height: $diameter;
+  line-height: $diameter * .90;
+  border-radius: $diameter / 2;
+  border-width: $border-size;
+  border-style: solid;
+
+  &::after {
+    width: $diameter;
+    height: $diameter;
+    line-height: $diameter;
+    margin-left: -1 * $border-size;
+    margin-top: -1 * $border-size;
+    text-align: center;
+    display: inline-block;
+  }
+};
+
+@mixin answer-fa-icon() {
+  @include fa-icon();
+  // em used here for line-height for compatibility with IE
+  // http://caniuse.com/#feat=rem -- rem ignored in pseudo elements
+  line-height: 1.6em;
+  font-size: 2.5rem;
+};
+
+@mixin answer-bubble() {
+  @include openstax-bubble();
+  border-color: lighten($openstax-answer-label-color, 15%);
+  color: $openstax-answer-label-color-hover;
+
+  transition: color $openstax-answer-transition, border-color $openstax-answer-transition, background-color $openstax-answer-transition;
+};
+
+@mixin answer-bubble-hover {
+  border-color: $openstax-answer-label-color-selected;
+}
+
+@mixin answer-bubble-checked {
+  border-color: $openstax-answer-label-color-selected;
+  background-color: $openstax-answer-label-color-selected;
+  color: $openstax-white;
+}
+
+@mixin answer-bubble-wrong {
+  border-color: $openstax-wrong-answer-color;
+  background-color: $openstax-wrong-answer-color;
+  color: $openstax-white;
+
+  &::after {
+    @include answer-fa-icon();
+    content: $fa-var-close;
+  }
+}
+
+@mixin answer-bubble-correct {
+  border-color: $openstax-correct-answer-color;
+  background-color: $openstax-correct-answer-color;
+  color: $openstax-white;
+
+  &::after {
+    @include answer-fa-icon();
+    content: $fa-var-check;
+  }
+}
+
+@mixin answer-bubble-correct-answer {
+  border-color: $openstax-correct-answer-color;
+  color: $openstax-correct-answer-color;
+}
+
+@mixin answer-left-block() {
+  display: block;
+  float: left;
+}
+
+@mixin answer() {
+  color: $openstax-answer-label-color;
+  .answer-letter {
+    @include answer-bubble();
+  }
+}
+
+@mixin answer-hover {
+  color: $openstax-answer-label-color-hover;
+  .answer-letter {
+    @include answer-bubble-hover();
+  }
+}
+
+@mixin answer-checked {
+  color: $openstax-answer-label-color-selected;
+  .answer-letter {
+    @include answer-bubble-checked();
+  }
+}
+
+@mixin answer-wrong {
+  color: $openstax-wrong-answer-color;
+  .answer-letter {
+    @include answer-bubble-wrong();
+  }
+}
+
+@mixin answer-correct {
+  color: $openstax-correct-answer-color;
+  .answer-letter {
+    @include answer-bubble-correct();
+  }
+}
+
+@mixin answer-correct-answer {
+  color: $openstax-correct-answer-color;
+  .answer-letter {
+    @include answer-bubble-correct-answer();
+  }
+
+  &::before {
+    content: 'correct answer';
+    color: $openstax-answer-label-color;
+    margin-left: -1.25 * $openstax-answer-bubble-size;
+    width: 1.25 * $openstax-answer-bubble-size;
+    text-align: center;
+    font-size: 1.2rem;
+    // em used here for line-height for compatibility with IE
+    // http://caniuse.com/#feat=rem -- rem ignored in pseudo elements
+    line-height: 1em;
+    margin-top: 0.8rem;
+    @include answer-left-block();
+  }
+}

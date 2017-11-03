@@ -1,0 +1,131 @@
+.reference-book {
+  .content {
+    padding-top: 75px;
+    margin-left: -40px;
+    margin-right: -40px;
+    background-color: @tutor-neutral-lighter;
+    .center-panel {
+      margin: 0 auto;
+
+      // always wrap around elements by extending bootstrap's clearfix
+      @extend .clearfix;
+    }
+
+    @include book-paged-content();
+
+    .page {
+      counter-reset: question;
+      border: 1px solid $tutor-neutral-bright;
+      background-color: $tutor-white;
+      @include tutor-book-content();
+      // shown if parent is-teacher present below.
+      // Must be kept in sync with reference-book/teacher-content-toggle.cjsx
+      .os-teacher {
+        display: none;
+      }
+
+      > section {
+        > h1, h2 {
+          clear: both;
+        }
+
+        .os-teacher {
+
+          > ul {
+            padding-left: 40px;
+          }
+        }
+      }
+
+    }
+    // only visible when "spy mode" is enabled
+    .ecosystem-info {
+      @include tutor-spy-mode-content();
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      padding: 0;
+      margin: 0;
+      border: 0;
+      @include tutor-shadow(2);
+    }
+  }
+
+  // &[data-appearance=hs_physics],
+  // &[data-appearance=college_physics] {
+  //   .content {
+  //     .page {
+  //       @include tutor-book-content-theme-physics();
+  //     }
+  //   }
+  // }
+
+  // &[data-appearance=ap_biology],
+  // &[data-appearance=college_biology] {
+  //   .content {
+  //     .page {
+  //       @include tutor-book-content-theme-biology();
+  //     }
+  //   }
+  // }
+
+  // &[data-appearance=intro_sociology] {
+  //   .content {
+  //     .page {
+  //       @include tutor-book-content-theme-sociology();
+  //     }
+  //   }
+  // }
+  // &[data-appearance=ap_us_history] {
+  //   .content {
+  //     .page {
+  //       @include tutor-book-content-theme-ap-us-history();
+  //     }
+  //   }
+  // }
+
+  &.is-teacher {
+    .content .page {
+      .os-teacher {
+        display: inline-block;
+      }
+    }
+  }
+
+
+  .reference-book-page {
+    transition: margin-left 0.2s linear;
+    .page {
+      position: relative;
+      @include tutor-subtle-load('will-load', 'Loading page...', 0.1s);
+
+      &::after {
+        left: 0;
+        top: -20px;
+      }
+    }
+
+    .page-loading {
+      .refresh-button {
+        position: absolute;
+        left: 50%;
+        z-index: 2;
+      }
+      .page {
+        @include tutor-subtle-load(loading);
+      }
+    }
+    @include printer-safe(block, absolute, 0, 0);
+  }
+  // when menu is open and the screen is wide enough, slide everything to the right so it's still visible
+  &.menu-open {
+    @media screen and (min-width: ($reference-book-page-width + $reference-book-menu-width + 50px) ) {
+      .reference-book-page{ margin-left: $reference-book-menu-width; }
+    }
+    .content .ecosystem-info{
+      left: $reference-book-menu-width;
+    }
+  }
+
+}

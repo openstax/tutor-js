@@ -1,0 +1,196 @@
+&-question {
+
+  @include clearfix;
+
+  .detailed-solution {
+    margin-bottom: 1.5rem;
+
+    .header {
+      color: $openstax-neutral-darker;
+      margin-bottom: 0.5rem;
+      @include sans(1.3rem, 1.3rem);
+    }
+
+    .solution {
+      color: $openstax-neutral;
+      @include sans(1.1rem, 1.1rem);
+      font-style: italic;
+    }
+  }
+
+  img {
+    display: block;
+    margin: auto;
+    max-width: 100%;
+  }
+
+  .question-stem {
+    margin-bottom: 0;
+  }
+
+  .answers-table {
+    margin-bottom: 20px;
+  }
+
+  .instructions {
+    font-size: 1.4rem;
+    font-style: italic;
+    margin-top: 10px;
+
+    i {
+      margin-left: 5px;
+    }
+
+    .text-info{
+      color: $openstax-light-blue;
+      padding-left: 5px;
+      cursor: pointer;
+      font-style: normal;
+    }
+
+  }
+
+  .multiple-choice-prompt {
+    font-weight: 600;
+  }
+
+  // free response
+  .free-response {
+    padding: $openstax-answer-horizontal-spacing $openstax-answer-horizontal-buffer;
+    margin: $openstax-answer-vertical-spacing 0 $openstax-answer-horizontal-spacing $openstax-answer-vertical-spacing;
+    border-left: $openstax-answer-horizontal-spacing solid $openstax-free-response-background;
+    font-style: italic;
+  }
+
+
+  &:not(.openstax-question-preview) {
+    .answers-answer {
+      width: initial;
+      &:not(.disabled){
+        .answer-label:focus{
+          background-color: $openstax-neutral-lightest;
+        }
+      }
+    }
+
+    .answer-content {
+      width: calc('100% - #{$openstax-answer-label-spacing}');
+      margin-left: $openstax-answer-horizontal-spacing;
+      margin-top: 0.5 * $openstax-answer-horizontal-spacing;
+      @include answer-left-block();
+    }
+
+    .answer-letter {
+      @include answer-left-block();
+      text-align: center;
+    }
+
+
+    .answer-label {
+      font-weight: normal;
+      width: 100%;
+      padding: $openstax-answer-vertical-spacing 0 0 0;
+      margin: 0;
+
+      transition: color $openstax-answer-transition;
+      @include answer();
+    }
+
+    // a selectable answer
+    .answer-input-box:not([disabled]) ~ .answer-label {
+      cursor: pointer;
+
+      &:hover {
+        @include answer-hover();
+      }
+    }
+
+    // a selected answer
+    &:not(.has-correct-answer) {
+      .answer-input-box {
+        display: none;
+
+        &:checked {
+          + .answer-label,
+          + .answer-label:hover {
+            @include answer-checked();
+          }
+        }
+      }
+
+      .answer-checked{
+        .answer-label {
+          @include answer-checked();
+        }
+      }
+    }
+
+    // answer that has been checked
+    &.has-correct-answer {
+      .answer-checked {
+        &:not(.answer-correct) {
+          .answer-label {
+            @include answer-wrong();
+          }
+        }
+
+        &.answer-correct {
+          .answer-label {
+            @include answer-correct();
+          }
+        }
+      }
+
+      .answer-correct:not(.answer-checked) {
+        .answer-label {
+          @include answer-correct-answer();
+        }
+      }
+    }
+
+    .question-feedback {
+      @extend .popover;
+
+      font-style: italic;
+      color: $openstax-answer-label-color;
+
+      position: relative;
+      display: block;
+      width: calc('100% + #{$openstax-feedback-horizontal-buffer}');
+      max-width: calc('100% + #{$openstax-feedback-horizontal-buffer}');
+      margin-left: -1 * $openstax-feedback-horizontal-spacing;
+      margin-top: -1 * (($openstax-answer-vertical-spacing - px2rem($popover-arrow-width))/10);
+      margin-bottom: $openstax-answer-horizontal-spacing;
+      z-index: 1;
+      @include box-shadow(0 0 10px rgba(0, 0, 0, .25));
+      border: none;
+
+      .arrow {
+        &::after {
+          border-width: $popover-arrow-width;
+          content: "";
+        }
+        // @extend .popover > .arrow;
+      }
+
+      &.bottom,
+      &.top {
+        > .arrow {
+          left: $openstax-answer-bubble-size/2 + $openstax-feedback-horizontal-spacing;
+        }
+
+      }
+      &.bottom {
+        margin-top: -5px;
+      }
+      &.top {
+        margin-bottom: -5px;
+      }
+
+      .question-feedback-content {
+        @extend .popover-content;
+        padding: $openstax-feedback-vertical-spacing $openstax-feedback-horizontal-spacing;
+      }
+    }
+  }
+}
