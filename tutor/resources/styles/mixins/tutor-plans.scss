@@ -54,6 +54,7 @@
 //   @mixin tutor-plan-display($plan-color),
 // }
 
+
 @mixin tutor-plan-cell($plan-type) {
   $plan-color: task-plan-color($plan-type);
   color: $plan-color;
@@ -107,16 +108,23 @@
   }
 }
 
-@mixin tutor-plan-sidebar($plan-type) {
+@mixin tutor-plan-sidebar-type($plan-type) {
   $plan-color: task-plan-color($plan-type);
-
-  color: $tutor-neutral-darker;
-  border-left: 4px solid transparent;
-  .grabby-dots {
-    fill: $plan-color;
+  &[data-assignment-type=#{$plan-type}] {
+    color: $tutor-neutral-darker;
+    border-left: 4px solid transparent;
+    .grabby-dots {
+      fill: $plan-color;
+    }
+    &:hover {
+      border-left: 4px solid $plan-color;
+    }
   }
-  &:hover {
-    border-left: 4px solid $plan-color;
+}
+
+@mixin tutor-plan-sidebar() {
+  @each $plan-type in map-keys($task-plan-colors) {
+    @include tutor-plan-sidebar-type($plan-type);
   }
 }
 
@@ -184,7 +192,7 @@
       @include tutor-plan-heading($type);
       @include tutor-plan-header($type);
       @include tutor-plan-modal($type);
-      @include tutor-plan-sidebar($type);
+      //@include tutor-plan-sidebar($type);
       @include tutor-plan-add($type);
       @include tutor-plan-display($type);
     }

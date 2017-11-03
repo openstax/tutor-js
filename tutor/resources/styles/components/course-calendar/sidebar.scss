@@ -14,6 +14,7 @@
     border-radius: 2px;
   }
 }
+
 .add-assignment-sidebar {
   border-right: 1px solid $tutor-neutral-light;
   position: absolute;
@@ -95,7 +96,7 @@
   &.is-open {
     ul.is-intro {
       li:first-child {
-        @include tutor-plan-sidebar(reading);
+        @include tutor-plan-sidebar-type('reading');
         border-color: $reading-color;
         @include tutor-shadow(draggable);
       }
@@ -128,7 +129,7 @@
       padding-left: 10px;
       border-left: 4px solid transparent;
       &:hover {
-        @include tutor-plan-set(sidebar);
+        @include tutor-plan-sidebar();
       }
 
       a {
@@ -157,7 +158,8 @@
     }
 
     .task-plan {
-      @include tutor-plan-set(sidebar);
+      @include tutor-plan-sidebar();
+
       @include draggable();
       background-color: $tutor-neutral-lighter;
       display: flex;
