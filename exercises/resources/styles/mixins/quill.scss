@@ -1,6 +1,6 @@
 @import './generic';
 
-.x-quill() {
+@mixin x-quill() {
   // Style the question-stem/exercise-background differently from other quill instances
   > .quill-wrapper {
     // Make the main editable area visibly different so you know you can edit
@@ -43,7 +43,7 @@
 
       // Make sure all math in the editor has a gray background
       [data-math] {
-        .x-user-select(all);
+        @include x-user-select(all);
         .katex-inner {
           // use .katex-inner to get the whole bounding box
           background-color: #efefef;
@@ -63,7 +63,7 @@
       border: 1px solid #999;
       width: 25rem;
       overflow-x: hidden;
-      .x-user-select(none);
+      @include x-user-select(none);
 
       .title {
         color: #9e9e9e;
@@ -91,7 +91,7 @@
         padding-top: .5rem;
 
         button {
-          .x-btn-dialog();
+          @include x-btn-dialog();
         }
       }
     }

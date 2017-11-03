@@ -4,7 +4,7 @@
   counter-increment: question 1;
   counter-reset: answer 0;
 
-  .x-card();
+  @include x-card();
 
   .card-content {
 

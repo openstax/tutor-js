@@ -1,4 +1,4 @@
-.x-toolbar() {
+@mixin x-toolbar() {
   nav {
     cursor: default;
 
@@ -24,7 +24,7 @@
       }
 
       // Common stying for both rows in the toolbar
-      .x-header-row() {
+      @mixin x-header-row() {
         i {
           // Need to keep the question-toolbar-formats in so the close button remains in place
           line-height: 32px;
@@ -40,12 +40,12 @@
       }
 
       .header-row-1 {
-        .x-header-row();
+        @include x-header-row();
         margin-top: 1rem;
         line-height: 1rem;
       }
       .header-row-2 {
-        .x-header-row();
+        @include x-header-row();
         margin-left: 1rem;
         line-height: 30px;
       }

@@ -1,11 +1,11 @@
 @import (reference) './quill';
 @import (reference) './toolbar';
 
-.x-card() {
-  .x-toolbar();
+@mixin x-card() {
+  @include x-toolbar();
 
   .card-content {
-    .x-quill();
+    @include x-quill();
 
     // Materialize HACK. they remove formatting on all unordered lists ; (
     ul > li { list-style-type: initial; }

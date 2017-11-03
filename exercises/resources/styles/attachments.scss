@@ -9,7 +9,7 @@
     min-height: 200px;
     max-width: 400px;
     flex: 1;
-    border: 1px solid @openstax-neutral;
+    border: 1px solid $openstax-neutral;
     margin: 5px;
     position: relative;
 
@@ -29,8 +29,8 @@
     }
 
     label.selector {
-      &:extend(.btn);
-      &:extend(.btn-default);
+      @extend .btn;
+      @extend .btn-default;
     }
 
     .controls {
@@ -48,7 +48,7 @@
       position: absolute;
       height: 130px;
       max-height: 80%;
-      width: ~"calc(100% - 20px)";
+      width: "calc(100% - 20px)";
       background: white;
       left: 10px;
       bottom: 10px;

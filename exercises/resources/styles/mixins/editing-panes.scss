@@ -1,4 +1,4 @@
-.editing-panes() {
+@mixin editing-panes() {
   display: flex;
 
   .openstax-exercise-preview,

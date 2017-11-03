@@ -1,10 +1,10 @@
 // Mostly for the toolbar, but also used to style the quill math popup
-.x-user-select(@var) {
-     -moz-user-select: @var;
-  -webkit-user-select: @var;
+@mixin x-user-select($var) {
+     -moz-user-select: $var;
+  -webkit-user-select: $var;
 }
 
-.x-btn-dialog() {
+@mixin x-btn-dialog() {
   margin-bottom: 0;
   box-shadow: none;
   border: none;

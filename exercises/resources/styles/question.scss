@@ -10,7 +10,7 @@
       font-size: 2rem;
     }
     .remove-question {
-      color: @red;
+      color: $red;
       i { margin-right: 0.5rem; }
     }
   }
@@ -25,10 +25,10 @@
 
   li.correct-answer {
     label {
-      color: @green;
+      color: $green;
     }
     textarea {
-      border-color: @green;
+      border-color: $green;
     }
   }
 
@@ -39,10 +39,10 @@
       line-height: 2rem;
 
       &.is-correct {
-        color: @openstax-neutral;
+        color: $openstax-neutral;
       }
       &.is-correct.correct-answer {
-        color: @green;
+        color: $green;
       }
 
       i.fa {

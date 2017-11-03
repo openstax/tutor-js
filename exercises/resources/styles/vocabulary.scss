@@ -2,7 +2,7 @@
 
 .vocabulary-editor {
 
-  .editing-panes();
+  @include editing-panes();
 
   .distractors {
     .heading {

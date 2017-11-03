@@ -1,0 +1,52 @@
+@import './variables/paths';
+
+$fa-font-path: '~font-awesome/fonts';
+@import '~font-awesome/scss/font-awesome';
+//@import 'katex.css';
+
+@import './vendor-variables';
+
+@import 'variables';
+
+@import './mixins/generic';
+
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/variables";
+
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/forms";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/navs";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/popovers";
+
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/navbar";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/buttons";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/button-groups";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/responsive-embed";
+
+$rw-img-path: '~react-widgets/dist/img';
+@import "~react-widgets/lib/scss/variables";
+@import "~react-widgets/lib/scss/bootstrap-theme";
+@import "~react-widgets/lib/scss/mixins";
+@import "~react-widgets/lib/scss/core";
+@import "~react-widgets/lib/scss/popup";
+@import "~react-widgets/lib/scss/selectlist";
+@import "~react-widgets/lib/scss/multiselect";
+
+@import '~shared/resources/styles/main.scss';
+
+
+@import "global/defaults";
+@import "global/widgets";
+@import "./navbar";
+
+@import "./exercises";
+@import "./exercise/preview";
+@import "./vocabulary";
+@import './tags';
+@import './preview';
+
+.editor-app {
+  padding: 10px;
+  min-height: 100vh;
+
+}
