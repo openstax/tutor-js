@@ -3,34 +3,6 @@ import HYPOTHESIS from '../../models/hypothesis';
 // Hypothesis token handshaking
 const hypothesisConfig = HYPOTHESIS.sidebarConfig().services[0];
 let hypothesisTokens;
-(function () {
-  const fetchProfile = () => {
-    const xhProfile = new XMLHttpRequest();
-    xhProfile.open('GET', `${hypothesisConfig.apiUrl}profile?authority=openstax.org`, true);
-    xhProfile.setRequestHeader('Authorization', `Bearer ${hypothesisTokens.access_token}`);
-    xhProfile.onreadystatechange = function () {
-      if (this.readyState === 4 && this.status === 200) {
-        const data = JSON.parse(this.response);
-        console.debug("Profile response:", data);
-      }
-    };
-    xhProfile.send();
-  };
-
-  const doSearch = () => {
-    const xhSearch = new XMLHttpRequest();
-    xhSearch.open('GET', `${hypothesisConfig.apiUrl}search`, true);
-    xhSearch.setRequestHeader('Authorization', `Bearer ${hypothesisTokens.access_token}`);
-    xhSearch.onreadystatechange = function () {
-      if (this.readyState === 4 && this.status === 200) {
-        const data = JSON.parse(this.response);
-        console.debug("Search response:", data);
-      }
-    }
-    xhSearch.send();
-  };
-}());
-
 
 class HypothesisStore {
 
@@ -44,14 +16,17 @@ class HypothesisStore {
       sendData: `grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=${hypothesisConfig.grantToken}`
     }).then((response) => {
       this.accessToken = response.access_token;
+      console.debug("Access token received:", response.access_token);
       return response.access_token;
     });
     const gotProfile = gotToken.then(() => {
+      console.debug("Pulling profile");
       return this.request({
         mode: 'GET',
-        service: 'profile?authority="openstax.org"'
+        service: 'profile?authority=openstax.org'
       }).then((response) => {
         this.userInfo = response.groups[0];
+        console.debug("Profile token received:", this.userInfo);
         return response.groups[0];
       });
     });
@@ -79,31 +54,41 @@ class HypothesisStore {
         if (this.readyState === 4 && this.status === 200) {
           resolve(JSON.parse(this.response));
         }
+        if (options.service === 'profile?authority=openstax.org' && this.readyState === 4 && this.status === 0) {
+          console.warn("Empty user info. Making something up.");
+          resolve({
+            groups: [{name: 'MadeUp', id:-999}]
+          });
+        }
       };
       xhr.send(options.sendData);
     });
   }
 
+  // options can be an object or a function returning an object, which will
+  // be evaulated after logging in
   loggedInRequest(options) {
     return new Promise((resolve) => {
       this.whenLoggedIn.then(() => {
-        this.request(options).then(resolve);
+        const actualOptions = typeof options === 'function' ? options() : options;
+
+        this.request(actualOptions).then(resolve);
       });
     });
   }
 
   fetch(documentId) {
-    return this.loggedInRequest({
+    return this.loggedInRequest(() => ({
       mode: 'GET',
       service: `search?uri=${documentId}&user=${this.userInfo.name}` //
-    }).then((response) => {
+    })).then((response) => {
       console.debug("GOT SEARCH RESULTS", response);
       return response;
     });
   }
 
   save(documentId, selection, annotation) {
-    return this.loggedInRequest({
+    return this.loggedInRequest(() => ({
       mode: 'POST',
       service: 'annotations',
       sendData: JSON.stringify({
@@ -118,7 +103,7 @@ class HypothesisStore {
         }],
         group: this.userInfo.id
       })
-    });
+    }));
   }
 
   update(selectionId, annotation) {
