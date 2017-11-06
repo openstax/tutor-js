@@ -42,7 +42,7 @@ export default class CourseSettings extends React.PureComponent {
           <RenameCourseLink course={this.course} />
         </div>
         <Tabs
-          tabs={['dates and time', 'student access']}
+          tabs={['STUDENT ACCESS', 'DATES AND TIME']}
           onSelect={this.onTabSelect}
         />
       </div>
@@ -81,7 +81,7 @@ export default class CourseSettings extends React.PureComponent {
         course={course}
         controls={this.renderControls()}
       >
-        {tabIndex ? this.renderAccess() : this.renderDates()}
+        {tabIndex ? this.renderDates() : this.renderAccess()}
       </CoursePage>
     );
   }
