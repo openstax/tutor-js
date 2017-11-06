@@ -154,7 +154,7 @@ HomeworkEnd = React.createClass
           {feedback}
           <p className="link-to-forecast">
             <TutorLink to="viewPerformanceGuide" params={{courseId}}>
-              View your Performance Forcast
+              View your Performance Forecast
             </TutorLink> to see your progress in the course and get more practice.
           </p>
         </div>
