@@ -48,7 +48,7 @@ CourseCalendarHeader = React.createClass
           </TutorLink>
         </TourAnchor>
 
-        <TourAnchor id="performance-forcast-button">
+        <TourAnchor id="performance-forecast-button">
           <TutorLink
             className='btn btn-default'
             to='viewPerformanceGuide'
