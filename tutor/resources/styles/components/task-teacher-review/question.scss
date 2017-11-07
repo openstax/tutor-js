@@ -106,12 +106,12 @@ $free-response-background:  $tutor-neutral-lighter;
 
   .teacher-review-answers {
     &.panel {
-      .box-shadow(none);
+      @include box-shadow(none);
       &:not(.active) {
-        .height-limited-panel(200px);
+        @include height-limited-panel(200px);
       }
       > .panel-heading {
-        color: @free-response-color;
+        color: $free-response-color;
         background: transparent;
         border-bottom: 0;
       }
