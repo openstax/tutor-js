@@ -13,6 +13,10 @@
 
     .book-paged-content();
 
+    .page-wrapper {
+      position: relative;
+    }
+
     .page {
       counter-reset: question;
       border: 1px solid @tutor-neutral-bright;
@@ -96,6 +100,15 @@
     background-color: rgba(255, 0, 0, 0.2);
   }
 
+  .sidebar-button {
+    background-color: transparent;
+    border: none;
+    font-size: 2.5rem;
+    margin-right: 0.3rem;
+    opacity: 0.25;
+    transform: translateY(-50%);
+  }
+
   .annotater {
     .widget {
       background: @tutor-white;
@@ -103,7 +116,7 @@
       font-size: 2rem;
       padding: 1rem 0;
       position: absolute;
-      transform: translate(calc(10px - 50%), calc(48px + 100%));
+      transform: translate(calc(10px - 50%), 10px);
       user-select: none;
       -webkit-user-select: none;
       -ms-user-select: none;
