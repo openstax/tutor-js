@@ -47,13 +47,13 @@ describe('Tour Context Model', () => {
     region.otherTours = []; // id of foo is invalid
     context.openRegion(region);
     expect(context.tourIds).toEqual(['foo']);
-    expect(context.elgibleTours).toHaveLength(0);
+    expect(context.eligibleTours).toHaveLength(0);
     region.otherTours = [ 'teacher-calendar', 'bar', 'baz' ];
     expect(context.tourIds).toEqual(['foo', 'teacher-calendar', 'bar', 'baz']);
-    expect(context.elgibleTours).toHaveLength(1);
-    expect(context.elgibleTours[0].id).toEqual('teacher-calendar');
+    expect(context.eligibleTours).toHaveLength(1);
+    expect(context.eligibleTours[0].id).toEqual('teacher-calendar');
     context.closeRegion(region);
-    expect(context.elgibleTours).toHaveLength(0);
+    expect(context.eligibleTours).toHaveLength(0);
   });
 
   it('calculates tours', () => {
@@ -61,7 +61,7 @@ describe('Tour Context Model', () => {
     autorun(() => tourSpy(context.tour));
     expect(tourSpy).toHaveBeenCalledWith(null);
     context.openRegion(region);
-    expect(context.elgibleTours).toHaveLength(1);
+    expect(context.eligibleTours).toHaveLength(1);
     context.playTriggeredTours();
     expect(context.tour).not.toBeNull();
     expect(tourSpy).toHaveBeenCalledWith(Tour.forIdentifier('teacher-calendar'));
@@ -111,13 +111,13 @@ describe('Tour Context Model', () => {
     context.openRegion(region);
     expect(context.debugStatus).toContain('available regions: [foo]');
     expect(context.debugStatus).toContain('region tour ids: [foo,teacher-calendar]');
-    expect(context.debugStatus).toContain('elgible tours: [teacher-calendar]');
+    expect(context.debugStatus).toContain('eligible tours: [teacher-calendar]');
   });
 
   it('replays all valid tours', () => {
     region.id = 'homework-assignment-editor';
     context.openRegion(region);
-    expect(context.elgibleTours).toHaveLength(2);
+    expect(context.eligibleTours).toHaveLength(2);
     expect(context.tour).toBeNull();
     context.playTriggeredTours();
     expect(context.tour).toBe(Tour.forIdentifier('homework-assignment-editor'));
