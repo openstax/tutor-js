@@ -25,7 +25,7 @@ const canvas = ({ lms }) => (
     <CopyOnFocusInput label="Consumer key" value={lms.key} />
     <CopyOnFocusInput label="Shared secret" value={lms.secret} />
     <CopyOnFocusInput label="Configuration URL" value={lms.configuration_url} />
-    <a href="http://4tk3oi.axshare.com/salesforce_support_page_results.html" target="_blank">
+    <a href="http://4tk3oi.axshare.com/#g=1&p=salesforce_support_page_results_canvas&c=1" target="_blank">
       <Icon type="info-circle" /> How do I integrate with Canvas?
     </a>
   </div>
