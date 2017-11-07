@@ -94,7 +94,7 @@ export default class TaskTeacherReview extends React.Component {
         header={this.renderBreadcrumbs()}
         cardType="task"
       >
-        <Grid fluid={true}>
+        <Grid fluid={true} className="task-teacher-review">
           <Row>
             <Col sm={8}>
               {this.renderReviewPanel()}

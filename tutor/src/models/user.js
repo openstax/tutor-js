@@ -119,6 +119,8 @@ export class User extends BaseModel {
 
   logEvent({ category, code, data }) {
     // students do not track events
+    return 'ABORT';
+    // A background job exception occurred: OpenStax::Salesforce::UserMissing [994085] <The Salesforce client was requested but no user is available.>
     if (this.self_reported_role === 'student') { return 'ABORT'; }
     return { category, code, data };
   }

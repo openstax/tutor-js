@@ -1,4 +1,4 @@
-# For handling steps logic outside of breadcrumb and task review rendering.
+// For handling steps logic outside of breadcrumb and task review rendering.
 _ = require 'underscore'
 camelCase = require 'lodash/camelCase'
 
