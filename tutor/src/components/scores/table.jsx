@@ -102,7 +102,7 @@ export default class ScoresTable extends React.PureComponent {
   render() {
     const { courseId, students, props: { period } } = this;
     const width = COLUMN_WIDTH;
-return this.renderNoStudents();
+
     if (!period.coursePeriod.num_enrolled_students) { return this.renderNoStudents(); }
     if (isEmpty(students)) { return this.renderNoAssignments(); }
 

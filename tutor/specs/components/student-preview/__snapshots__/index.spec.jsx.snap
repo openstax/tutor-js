@@ -9,7 +9,7 @@ exports[`Student Preview Builder renders and matches snapshot 1`] = `
       Preview the Student Experience
     </h1>
     <a
-      className="btn btn-default"
+      className=" btn btn-default btn-primary"
       href="/foo"
       onClick={[Function]}
     >

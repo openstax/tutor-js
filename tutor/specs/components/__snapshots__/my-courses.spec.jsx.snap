@@ -46,6 +46,7 @@ exports[`My Courses Component matches snapshot 1`] = `
                 className="my-courses-item-title"
               >
                 <a
+                  className=""
                   href="/course/2"
                   onClick={[Function]}
                 >
@@ -57,6 +58,7 @@ exports[`My Courses Component matches snapshot 1`] = `
                 data-has-controls={false}
               >
                 <a
+                  className=""
                   href="/course/2"
                   onClick={[Function]}
                 >
@@ -69,7 +71,7 @@ exports[`My Courses Component matches snapshot 1`] = `
                   <p
                     className="my-courses-item-term"
                   >
-                    Spring
+                    spring
                      
                     2017
                   </p>
@@ -99,6 +101,7 @@ exports[`My Courses Component matches snapshot 1`] = `
                 className="my-courses-item-title"
               >
                 <a
+                  className=""
                   href="/course/1"
                   onClick={[Function]}
                 >
@@ -110,6 +113,7 @@ exports[`My Courses Component matches snapshot 1`] = `
                 data-has-controls={false}
               >
                 <a
+                  className=""
                   href="/course/1"
                   onClick={[Function]}
                 >
@@ -122,7 +126,7 @@ exports[`My Courses Component matches snapshot 1`] = `
                   <p
                     className="my-courses-item-term"
                   >
-                    Spring
+                    spring
                      
                     2017
                   </p>
@@ -152,6 +156,7 @@ exports[`My Courses Component matches snapshot 1`] = `
                 className="my-courses-item-title"
               >
                 <a
+                  className=""
                   href="/course/3"
                   onClick={[Function]}
                 >
@@ -163,6 +168,7 @@ exports[`My Courses Component matches snapshot 1`] = `
                 data-has-controls={false}
               >
                 <a
+                  className=""
                   href="/course/3"
                   onClick={[Function]}
                 >
@@ -175,7 +181,7 @@ exports[`My Courses Component matches snapshot 1`] = `
                   <p
                     className="my-courses-item-term"
                   >
-                    Spring
+                    spring
                      
                     2017
                   </p>
