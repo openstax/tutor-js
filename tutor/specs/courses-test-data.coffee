@@ -12,7 +12,7 @@ STUDENT_COURSE_ONE_MODEL = {
   is_college: true,
   does_cost: true,
   year: 2017
-  term: 'Spring'
+  term: 'spring'
   starts_at: moment().subtract(1, 'month').format(),
   ends_at: moment().add(1, 'month').format(),
   webview_url: 'http://cnx.org/',
@@ -40,7 +40,7 @@ TEACHER_COURSE_TWO_MODEL = {
   is_active: true
   is_concept_coach: false
   year: 2017
-  term: 'Spring'
+  term: 'spring'
   starts_at: moment().subtract(1, 'month').format(),
   ends_at: moment().add(1, 'month').format(),
   webview_url: 'http://cnx.org/',
@@ -65,7 +65,7 @@ TEACHER_AND_STUDENT_COURSE_THREE_MODEL = {
   is_active: true
   is_concept_coach: false
   year: 2017
-  term: 'Spring'
+  term: 'spring'
   starts_at: moment().subtract(1, 'month').format(),
   ends_at: moment().add(1, 'month').format(),
   roles: [{
@@ -95,7 +95,7 @@ STUDENT_ARCHIVED_COURSE = {
   is_active: false
   is_concept_coach: false
   year: 2016
-  term: 'Spring'
+  term: 'spring'
   starts_at: moment().subtract(1, 'month').format(),
   ends_at: moment().add(1, 'month').format(),
   webview_url: 'http://cnx.org/',
@@ -116,7 +116,7 @@ TEACHER_PAST_COURSE = {
   is_active: false
   is_concept_coach: false
   year: 2016
-  term: 'Spring'
+  term: 'spring'
   starts_at: moment().subtract(6, 'month').format(),
   ends_at: moment().subtract(1, 'month').format(),
   webview_url: 'http://cnx.org/',
@@ -137,7 +137,7 @@ STUDENT_PAST_COURSE = {
   is_active: false
   is_concept_coach: false
   year: 2016
-  term: 'Spring'
+  term: 'spring'
   starts_at: moment().subtract(6, 'month').format(),
   ends_at: moment().subtract(1, 'month').format(),
   webview_url: 'http://cnx.org/',
