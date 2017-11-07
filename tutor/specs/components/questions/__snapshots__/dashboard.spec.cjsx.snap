@@ -17,7 +17,7 @@ exports[`Questions Dashboard Component matches snapshot 1`] = `
           Question Library
         </h2>
         <a
-          className=" btn btn-default btn-primary"
+          className="btn btn-default btn-primary"
           href="/course/1"
           onClick={[Function]}
         >
