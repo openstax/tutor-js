@@ -13,7 +13,7 @@ import { TaskPanelStore } from '../../flux/task-panel';
 import TutorRouter from '../../helpers/router';
 import TutorLink from '../link';
 
-const VALID_ROUTE_NAMES = ['viewTaskStepMilestones', 'viewTaskStep'];
+const VALID_ROUTE_NAMES = ['viewTaskStepMilestones', 'viewTaskStep', 'viewTask'];
 
 @observer
 export default class CenterControls extends React.Component {
@@ -97,7 +97,6 @@ export default class CenterControls extends React.Component {
   getTaskInfo(params) {
     const { id } = params;
     const task = TaskStore.get(id);
-
     if (!task || get(task, 'type') !== 'reading') { return { show: false }; }
 
     return {
