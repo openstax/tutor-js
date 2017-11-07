@@ -7,6 +7,7 @@ import {
 import { computed, action, observable } from 'mobx';
 import lazyGetter from '../helpers/lazy-getter';
 import { UiSettings } from 'shared';
+import Offering from './course/offerings/offering';
 import Period  from './course/period';
 import Role    from './course/role';
 import Student from './course/student';
@@ -183,6 +184,9 @@ export default class Course extends BaseModel {
     if (this.isTeacher) {
       tags.push(this.is_preview ? 'teacher-preview' : 'teacher');
       if (!this.is_preview) {
+        if (this.isBeforeTerm('fall', 2017)) {
+          tags.push('teacher-settings-roster-split');
+        }
         if (this.taskPlans.reading.hasPublishing) {
           tags.push('teacher-reading-published');
         }
@@ -193,6 +197,15 @@ export default class Course extends BaseModel {
     }
     if (this.isStudent) { tags.push('student'); }
     return tags;
+  }
+
+  isBeforeTerm(term, year) {
+    if (this.year === year) {
+      return Boolean(
+        Offering.possibleTerms.indexOf(this.term) < Offering.possibleTerms.indexOf(term)
+      );
+    }
+    return (this.year < year);
   }
 
   @action trackDashboardView() {

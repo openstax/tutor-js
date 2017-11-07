@@ -122,4 +122,11 @@ describe('Course Model', () => {
     expect(sortedSpy).toHaveBeenCalledTimes(2);
   });
 
+  it('calculates if terms are before', () => {
+    const course = Courses.get(2);
+    expect(course.isBeforeTerm('spring', 2013)).toBe(false);
+    expect(course.isBeforeTerm('spring', (new Date()).getFullYear()+1)).toBe(true);
+    expect(course.isBeforeTerm(course.term, course.year)).toBe(false);
+  });
+
 });
