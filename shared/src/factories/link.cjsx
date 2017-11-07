@@ -20,8 +20,14 @@ make = (router, name = 'OpenStax') ->
       to:     React.PropTypes.string.isRequired
       params: React.PropTypes.object
       query:  React.PropTypes.object
+      className: React.PropTypes.string
+      primaryBtn:  React.PropTypes.bool
+
     render: ->
-      {to, params, query} = @props
+      {to, params, query, primaryBtn, className = ''} = @props
+
+      if primaryBtn
+        className += ' btn btn-default btn-primary'
 
       pathname = router.makePathname(to, params)
 
@@ -31,6 +37,6 @@ make = (router, name = 'OpenStax') ->
         to.search = qs.stringify(query)
 
       # TODO see about isActive
-      <Link to={to} {...filterProps(@props)} />
+      <Link to={to} {...filterProps(@props)} className={className} />
 
 module.exports = {make, filterProps}

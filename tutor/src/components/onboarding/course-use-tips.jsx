@@ -34,7 +34,7 @@ export default class CourseUseTips extends React.PureComponent {
         </Heading>
         <Body>
           Your students can access your course as soon as you send them the enrollment code, found on
-          the <TutorLink to="courseSettings" params={{ courseId: this.course.id }}>Course Settings and Roster page</TutorLink>. {this.downloadHelp}
+          the <TutorLink to="courseSettings" params={{ courseId: this.course.id }}>Course settings</TutorLink>. {this.downloadHelp}
         </Body>
         <Footer className="got-it">
           <Button bsStyle="primary" onClick={this.props.onDismiss}>Got it</Button>

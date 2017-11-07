@@ -48,7 +48,7 @@ export default class StudentsRoster extends React.PureComponent {
         <p>
           No students have enrolled in
           this <CourseGroupingLabel lowercase courseId={courseId} /> yet. Manage student access
-          in <TutorLink to="settings" params={{ courseId: courseId }}>Settings</TutorLink>.
+          in <TutorLink to="settings" params={{ courseId: courseId }}>Course settings</TutorLink>.
         </p>
         <TutorLink className="btn btn-default" to="settings" params={{ courseId: this.props.period.course.id }}>Manage student access</TutorLink>
       </div>
