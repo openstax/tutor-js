@@ -2,11 +2,17 @@ import {
   BaseModel, field, identifier, hasMany, identifiedBy,
 } from '../../base';
 import { filter, includes, first } from 'lodash';
+import { readonly } from 'core-decorators';
 import { computed } from 'mobx';
 import Term from './term';
 
 @identifiedBy('offerings/offering')
 export default class Offering extends BaseModel {
+
+  @readonly static possibleTerms = [
+    'winter', 'sprint', 'summer', 'fall',
+  ];
+
   @identifier id;
   @field title;
   @field description;
