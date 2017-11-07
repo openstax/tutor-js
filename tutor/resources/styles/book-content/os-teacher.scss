@@ -1,6 +1,8 @@
-.os-teacher {
-  &:before {
-    color: $tutor-neutral-dark;
-    background: $tutor-quaternary;
+%tutor-book-content-teacher {
+  .os-teacher {
+    &:before {
+      color: $tutor-neutral-dark;
+      background: $tutor-quaternary;
+    }
   }
 }

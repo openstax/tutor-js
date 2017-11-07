@@ -1,14 +1,14 @@
-// External Libraries
-@import './variables/paths';
-@import './global/externals';
-// @import '~recordo/recordo.css';
-
 // Variables and Mixins
 // TODO to many renamed variables running around.
 @import './variables';
 @import './mixins';
 @import './variables/tutor-bootstrap';
 @import './variables/tutor-material';
+
+// External Libraries
+@import './variables/paths';
+@import './global/externals';
+// @import '~recordo/recordo.css';
 
 // shared openstax components
 @import '~shared/resources/styles/main';

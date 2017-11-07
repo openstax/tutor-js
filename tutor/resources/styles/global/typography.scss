@@ -27,6 +27,7 @@ $tutor-default-font-face: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, s
   font-size: $size;
   line-height: $line-height;
 }
+
 @mixin tutor-serif-font($size: 1rem, $line-height: 1.5rem) {
   font-family: 'Merriweather', Georgia, Times, serif;
   font-weight: 400;

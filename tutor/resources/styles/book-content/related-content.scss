@@ -1,13 +1,17 @@
-.related-content {
-  font-weight: bold;
-  padding: 2rem 0;
-  @include printer-safe(inline-flex, inherit, inherit, 10px);
+%tutor-book-content-related-content {
 
-  &[data-has-learning-objectives=true] {
-    @include book-content-full-width();
-    display: inline-flex;
-    margin-top: -$tutor-card-body-padding-vertical;
-    padding: 3rem;
-    font-size: 2.4rem;
+  .related-content {
+    font-weight: bold;
+    padding: 2rem 0;
+    @include printer-safe(inline-flex, inherit, inherit, 10px);
+
+    &[data-has-learning-objectives=true] {
+      @include book-content-full-width();
+      display: inline-flex;
+      margin-top: -$tutor-card-body-padding-vertical;
+      padding: 3rem;
+      font-size: 2.4rem;
+    }
   }
+
 }

@@ -26,7 +26,7 @@
       .icon {
         z-index: 1; //appear above content when page is extremely narrow
         position: fixed;
-        top: calc("55vh - "$arrow-height);
+        top: calc(55vh - #{$arrow-height});
         path {
           transition: fill 150ms linear;
           fill: $tutor-neutral-light;

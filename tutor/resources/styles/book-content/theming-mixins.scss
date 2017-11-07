@@ -1,4 +1,8 @@
-@mixin tutor-book-theme-learning-objectives($theme-primary: $tutor-book-primary, $theme-accent: $tutor-book-accent, $text-color: $tutor-book-text-on-dark-labels) {
+@mixin tutor-book-theme-learning-objectives(
+  $theme-primary: $tutor-book-primary,
+  $theme-accent: $tutor-book-accent,
+  $text-color: $tutor-book-text-on-dark-labels
+) {
   .learning-objectives,
   [data-type=abstract] {
     background: $theme-primary;
@@ -83,6 +87,7 @@
 @mixin tutor-book-content-theme($book-code) {
   $fg: openstax-book-color($book-code, primary);
   $bg: openstax-book-color($book-code, secondary);
+  $accent: openstax-book-color($book-code, accent);
 
   // $book-theme-primary: "tutor-book-#{$book-theme-name}-primary";
   // $book-theme-secondary: "tutor-book-#{$book-theme-name}-secondary";
@@ -90,11 +95,33 @@
   // $book-theme-quaternary: "tutor-book-#{$book-theme-name}-quaternary";
   // $book-theme-highlight: "tutor-book-#{$book-theme-name}-highlight";
 
-  @extend tutor-book-theme-first-letter($fg);
+  @include tutor-book-theme-first-letter($fg);
   @include tutor-book-theme-typography($fg);
-  @include tutor-book-theme-quote($fg);
-  @include tutor-book-theme-learning-objectives($bg);
-  @include tutor-book-theme-note($bg, $fg);
+
+  @include tutor-book-theme-learning-objectives(
+    $theme-primary: $fg,
+    $theme-accent: $accent
+  );
+
+  @include tutor-book-theme-related-content(
+    $theme-primary: $fg,
+    $text-color: $tutor-book-text-on-dark-labels
+  );
+
+
+
+    // type specific styling comes last so it can override the above styles
+    // default theming, also shows all available themes/customization mixins
+
+    //
+    // @include tutor-book-theme-related-content();
+    // @include tutor-book-theme-splash-image();
+    // @include tutor-book-theme-note();
+
+  // @include tutor-book-theme-typography($fg);
+  // @include tutor-book-theme-quote($fg);
+  // @include tutor-book-theme-learning-objectives($bg);
+  // @include tutor-book-theme-note($bg, $fg);
 }
 
 @mixin tutor-book-theme-tables($table-accent-color) {

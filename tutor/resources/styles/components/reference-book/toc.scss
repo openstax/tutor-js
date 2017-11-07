@@ -30,8 +30,9 @@
               font-weight: 900;
             }
 
-            @include tutor-sans-font( unit-less((2.0 - ($depth / 3)) rem) );
-            padding-left: (unit-less((1 * ($depth )), rem));
+            @include tutor-sans-font( (2.0 - ($depth / 3)) + rem);
+
+            padding-left: (1 * ($depth )) + rem;
             padding-right: 1rem;
             line-height: 2.25rem;
             .section-number {

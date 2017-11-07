@@ -19,8 +19,8 @@ $brand-success:         $tutor-success; // tutor-secondary, green
 $brand-info:            $tutor-info;    // tutor-tertiary-light, light blue-ish
 $brand-warning:         $tutor-warning; // tutor-quaternary, yellow
 $brand-danger:          $tutor-danger;  // tutor-danger, red
-
-$container-large-desktop:      (1200px + $grid-gutter-width);
+$grid-gutter-width: 30px;
+$container-large-desktop:      (1200px + 30px);
 
 $link-hover-color:      darken($link-color, 5%);
 

@@ -1,4 +1,7 @@
 .reference-book {
+
+  @include tutor-book-content();
+
   .content {
     padding-top: 75px;
     margin-left: -40px;
@@ -17,7 +20,6 @@
       counter-reset: question;
       border: 1px solid $tutor-neutral-bright;
       background-color: $tutor-white;
-      @include tutor-book-content();
       // shown if parent is-teacher present below.
       // Must be kept in sync with reference-book/teacher-content-toggle.cjsx
       .os-teacher {
