@@ -382,6 +382,16 @@ exports[`Course Settings, student access can switch to lms 1`] = `
             <div
               className="blackboard"
             >
+              <a
+                href="http://4tk3oi.axshare.com/salesforce_support_page_results.html"
+                target="_blank"
+              >
+                <i
+                  className="tutor-icon fa fa-info-circle"
+                  type="info-circle"
+                />
+                 How do I integrate with Blackboard?
+              </a>
               <label
                 className="copy-on-focus"
               >
@@ -415,16 +425,6 @@ exports[`Course Settings, student access can switch to lms 1`] = `
                   value="secret-sshhh"
                 />
               </label>
-              <a
-                href="http://4tk3oi.axshare.com/salesforce_support_page_results.html"
-                target="_blank"
-              >
-                <i
-                  className="tutor-icon fa fa-info-circle"
-                  type="info-circle"
-                />
-                 How do I integrate with Blackboard?
-              </a>
             </div>
           </div>
         </div>

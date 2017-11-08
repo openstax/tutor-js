@@ -11,57 +11,56 @@ import Icon from '../icon';
 
 const blackboard = ({ lms }) => (
   <div className="blackboard">
-    <CopyOnFocusInput label="URL" value={lms.launch_url} />
-    <CopyOnFocusInput label="Key" value={lms.key} />
-    <CopyOnFocusInput label="Secret" value={lms.secret} />
     <a href="http://4tk3oi.axshare.com/salesforce_support_page_results.html" target="_blank">
       <Icon type="info-circle" /> How do I integrate with Blackboard?
     </a>
+    <CopyOnFocusInput label="URL" value={lms.launch_url} />
+    <CopyOnFocusInput label="Key" value={lms.key} />
+    <CopyOnFocusInput label="Secret" value={lms.secret} />
   </div>
 );
 
 const canvas = ({ lms }) => (
   <div className="canvas">
-    <CopyOnFocusInput label="Consumer key" value={lms.key} />
-    <CopyOnFocusInput label="Shared secret" value={lms.secret} />
-    <CopyOnFocusInput label="Configuration URL" value={lms.configuration_url} />
     <a href="http://4tk3oi.axshare.com/#g=1&p=salesforce_support_page_results_canvas&c=1" target="_blank">
       <Icon type="info-circle" /> How do I integrate with Canvas?
     </a>
+    <CopyOnFocusInput label="Consumer key" value={lms.key} />
+    <CopyOnFocusInput label="Shared secret" value={lms.secret} />
+    <CopyOnFocusInput label="Configuration URL" value={lms.configuration_url} />
   </div>
 );
 
 const moodle = ({ lms }) => (
   <div className="moodle">
-    <CopyOnFocusInput label="Secure tool URL" value={lms.launch_url} />
-    <CopyOnFocusInput label="Consumer key" value={lms.key} />
-    <CopyOnFocusInput label="Shared secret" value={lms.secret} />
-
     <a href="http://4tk3oi.axshare.com/salesforce_support_page_results.html" target="_blank">
       <Icon type="info-circle" /> How do I integrate with Moodle?
     </a>
+    <CopyOnFocusInput label="Secure tool URL" value={lms.launch_url} />
+    <CopyOnFocusInput label="Consumer key" value={lms.key} />
+    <CopyOnFocusInput label="Shared secret" value={lms.secret} />
   </div>
 );
 
 const d2l = ({ lms }) => (
   <div className="d2l">
-    <CopyOnFocusInput label="URL" value={lms.launch_url} />
-    <CopyOnFocusInput label="Key" value={lms.key} />
-    <CopyOnFocusInput label="Secret" value={lms.secret} />
     <a href="http://4tk3oi.axshare.com/salesforce_support_page_results.html" target="_blank">
       <Icon type="info-circle" /> How do I integrate with Desire2Learn?
     </a>
+    <CopyOnFocusInput label="URL" value={lms.launch_url} />
+    <CopyOnFocusInput label="Key" value={lms.key} />
+    <CopyOnFocusInput label="Secret" value={lms.secret} />
   </div>
 );
 
 const sakai = ({ lms }) => (
   <div className="sakai">
-    <CopyOnFocusInput label="Launch URL" value={lms.launch_url} />
-    <CopyOnFocusInput label="Launch key" value={lms.key} />
-    <CopyOnFocusInput label="Launch secret" value={lms.secret} />
     <a href="http://4tk3oi.axshare.com/salesforce_support_page_results.html" target="_blank">
       <Icon type="info-circle" /> How do I integrate with Sakai?
     </a>
+    <CopyOnFocusInput label="Launch URL" value={lms.launch_url} />
+    <CopyOnFocusInput label="Launch key" value={lms.key} />
+    <CopyOnFocusInput label="Launch secret" value={lms.secret} />
   </div>
 );
 
