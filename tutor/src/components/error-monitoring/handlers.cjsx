@@ -60,7 +60,7 @@ ERROR_HANDLERS =
     body:
       <p className="lead">
         This course ended on {TimeHelper.toHumanDate(course.ends_at)}.
-        No new activity can be peformed on it, but you can still review past activity.
+        No new activity can be performed on it, but you can still review past activity.
       </p>
     buttons: [
       <BS.Button key='ok' onClick={navigateAction} bsStyle='primary'>OK</BS.Button>
