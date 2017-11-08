@@ -52,7 +52,7 @@ PracticeEnd = React.createClass
     # custom footer for practices
     footer =
       <div className="-#{type}-end">
-        <BackButton bsStyle="primary" fallbackLink={fallbackLink} />
+        <BackButton fallbackLink={fallbackLink} />
       </div>
 
     completeSteps = TaskStore.getCompletedStepsCount(taskId)

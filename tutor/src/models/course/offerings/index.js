@@ -4,10 +4,6 @@ import Offering from './offering';
 
 class OfferingsMap extends Map {
 
-  @computed get array() {
-    return this.values();
-  }
-
   onLoaded({ data: { items } }) {
     items.forEach(offering => this.set(offering.id, new Offering(offering)));
   }

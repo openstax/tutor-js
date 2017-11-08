@@ -14,6 +14,7 @@ import AssignmentHeader from './assignment-header';
 import NameCell from './name-cell';
 import OverallHeader from './overall-header';
 import { CourseScoresPeriod } from '../../models/course/scores';
+import CGL from '../course-grouping-label';
 
 const FIRST_DATA_COLUMN = 2;
 const COLUMN_WIDTH = 160;
@@ -67,16 +68,19 @@ export default class ScoresTable extends React.PureComponent {
     return this.props.sort.asc ? students : students.reverse();
   }
 
+  get courseId() {
+    return this.props.period.course.id;
+  }
+
   renderNoStudents() {
     return (
       <div className="course-scores-container" ref="tableContainer">
         <div className="no-students">
           <p>
-            There are no students enrolled in this section yet, and there are no assignments to
-            score.  Manage student access for this section
-            in <TutorLink to="settings" params={{ courseId: this.props.period.course.id }}>Settings</TutorLink>.
+            There are no students enrolled in this section yet.  Manage student access for this section
+            in <TutorLink to="settings" params={{ courseId: this.courseId }}>Course settings</TutorLink>.
           </p>
-          <TutorLink className="btn btn-default" to="settings" params={{ courseId: this.props.period.course.id }}>Manage student access</TutorLink>
+          <TutorLink primaryBtn to="settings" params={{ courseId: this.courseId }}>Manage student access</TutorLink>
         </div>
       </div>
     );
@@ -87,17 +91,16 @@ export default class ScoresTable extends React.PureComponent {
       <div className="course-scores-container" ref="tableContainer">
         <div className="no-assignments">
           <p>
-            Students have enrolled in this section, but there are no assignments to score.  Add an assignment from your <TutorLink to="dashboard" params={{ courseId: this.props.period.course.id }}>dashboard</TutorLink>.
+            Students have enrolled in this <CGL lowercase courseId={this.courseId} />, but there are no assignments to score.  Add an assignment from your <TutorLink to="dashboard" params={{ courseId: this.courseId }}>dashboard</TutorLink>.
           </p>
-          <TutorLink className="btn btn-default" to="dashboard" params={{ courseId: this.props.period.course.id }}>Back to dashboard</TutorLink>
+          <TutorLink primaryBtn to="dashboard" params={{ courseId: this.courseId }}>Back to dashboard</TutorLink>
         </div>
       </div>
     );
   }
 
   render() {
-    const { students, props: { period } } = this;
-    const courseId = period.course.id;
+    const { courseId, students, props: { period } } = this;
     const width = COLUMN_WIDTH;
 
     if (!period.coursePeriod.num_enrolled_students) { return this.renderNoStudents(); }

@@ -14,10 +14,11 @@ exports[`Course Use Tips renders and matches snapshot 1`] = `
   >
     Your students can access your course as soon as you send them the enrollment code, found on the 
     <a
+      className={undefined}
       href="/course/42/settings"
       onClick={[Function]}
     >
-      Course Settings and Roster page
+      Course settings
     </a>
     . 
     <span>

@@ -88,7 +88,7 @@ export default class TourContext extends BaseModel {
   @computed get tour() {
     // do not interfere with terms agreement
     if (!isEmpty(this.courses) && User.terms_signatures_needed) { return null; }
-    return find(this.elgibleTours, 'isViewable') || null;
+    return find(this.eligibleTours, 'isViewable') || null;
   }
 
   @computed get tourRide() {
@@ -114,12 +114,12 @@ export default class TourContext extends BaseModel {
     return compact(this.tourIds.map(id => Tour.forIdentifier(id)));
   }
 
-  @computed get elgibleTours() {
+  @computed get eligibleTours() {
     return filter(this.allTours, (tour) => (!isEmpty(intersection(tour.audience_tags, this.audienceTags))));
   }
 
   @computed get needsPageTipsReminders() {
-    return this.hasTriggeredTour && !find(this.elgibleTours, 'autoplay');
+    return this.hasTriggeredTour && !find(this.eligibleTours, 'autoplay');
   }
 
   @computed get hasTriggeredTour() {
@@ -129,11 +129,11 @@ export default class TourContext extends BaseModel {
   }
 
   @computed get debugStatus() {
-    return `available regions: [${map(this.regions, 'id')}]; region tour ids: [${this.tourIds}]; audience tags: [${this.audienceTags}]; tour tags: [${this.toursTags}]; elgible tours: [${map(this.elgibleTours,'id')}]; TOUR RIDE: ${this.tourRide ? this.tourRide.tour.id : '<none>'}`;
+    return `available regions: [${map(this.regions, 'id')}]; region tour ids: [${this.tourIds}]; audience tags: [${this.audienceTags}]; tour tags: [${this.toursTags}]; eligible tours: [${map(this.eligibleTours,'id')}]; TOUR RIDE: ${this.tourRide ? this.tourRide.tour.id : '<none>'}`;
   }
 
   @action playTriggeredTours() {
-    this.elgibleTours.forEach((tour) => {
+    this.eligibleTours.forEach((tour) => {
       if (!tour.autoplay){ tour.play(); }
     });
   }

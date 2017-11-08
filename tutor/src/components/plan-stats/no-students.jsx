@@ -8,7 +8,7 @@ const NoStudents = ({courseId}) =>
       No students enrolled. This assignment will automatically be given to students in
       this <CourseGroupingLabel courseId={courseId} lowercase={true} /> when they enroll.
       Manage student enrollment
-      in <TutorLink to="courseSettings" params={{ courseId }}>Settings</TutorLink>.
+      in <TutorLink to="courseSettings" params={{ courseId }}>Course settings</TutorLink>.
     </p>
   </div>
 ;

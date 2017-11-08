@@ -3,10 +3,11 @@ $tutor-tertiary-light: rgb(0, 193, 222); // light blue
 $joyride-color: $tutor-tertiary-light;
 
 
-// set both medium and large sizes to be 360
-$joyride-tooltip-width: (290px, 360px, 360px);
+// set both medium and large sizes to be 370
+$joyride-tooltip-width: (290px, 370px, 370px);
 $joyride-tooltip-color: #232E66;
 $joyride-close: (color: $joyride-tooltip-color, size: 12px, top: 10px, right: 10px);
+$joyride-header-font-size: 18px;
 
 @import '~react-joyride/lib/react-joyride';
 

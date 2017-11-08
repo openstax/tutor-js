@@ -65,7 +65,7 @@ exports[`Task Teacher Review: Breadcrumbs renders and matches snapshot 1`] = `
     />
   </span>
   <a
-    className="btn btn-default"
+    className="btn btn-default btn-primary"
     href="/bread"
     onClick={[Function]}
   >

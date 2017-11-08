@@ -9,7 +9,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
       Manage payments
     </h1>
     <a
-      className="btn btn-default"
+      className="btn btn-default btn-primary"
       href="/foo"
       onClick={[Function]}
     >
@@ -368,6 +368,7 @@ exports[`Student Payments Management renders and matches snapshot 1`] = `
     >
       Need help?
       <a
+        className={undefined}
         href="/foo"
         onClick={[Function]}
         tabIndex={0}
@@ -389,7 +390,7 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
       Manage payments
     </h1>
     <a
-      className="btn btn-default"
+      className="btn btn-default btn-primary"
       href="/foo"
       onClick={[Function]}
     >
@@ -420,6 +421,7 @@ exports[`Student Payments Management renders empty when no payments 1`] = `
     >
       Need help?
       <a
+        className={undefined}
         href="/foo"
         onClick={[Function]}
         tabIndex={0}
