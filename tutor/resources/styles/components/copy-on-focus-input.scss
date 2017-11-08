@@ -13,7 +13,11 @@
   &::-moz-selection {
     background: $tutor-highlight;
   }
+}
 
+.copy-on-focus input,
+input.copy-on-focus {
+  padding: 0 1rem;
 }
 
 .copy-on-focus input,

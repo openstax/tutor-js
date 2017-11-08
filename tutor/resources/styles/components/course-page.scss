@@ -22,10 +22,6 @@
       > * {
         @include course-page-wrapper-child();
       }
-      @each $book in map-keys($openstax-books) {
-        color: openstax-book-color($book, primary);
-        background-color: openstax-book-color($book, secondary);
-      }
     }
 
     .title {
@@ -71,4 +67,10 @@
     }
   }
 
+  @each $book in map-keys($openstax-books) {
+    &[data-appearance=#{$book}] .title-wrapper {
+      color: openstax-book-color($book, primary);
+      background-color: openstax-book-color($book, secondary);
+    }
+  }
 }

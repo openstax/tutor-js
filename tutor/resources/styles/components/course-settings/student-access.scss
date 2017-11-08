@@ -24,7 +24,7 @@
     transition: box-shadow 0.2s;
     &:hover {
       cursor: pointer;
-      .tutor-shadow(pop);
+      @include tutor-shadow(pop);
     }
   }
   .panel-heading {

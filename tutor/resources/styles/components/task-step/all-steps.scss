@@ -78,7 +78,7 @@
         padding: 20px 40px;
         width: 100%;
 
-        @include tutor-book-note-style();
+        //@include tutor-book-note-style();
       }
     }
 
@@ -90,7 +90,7 @@
   }
   // only visible when "spy mode" is enabled
   .task-spy-info {
-    @include tutor-spy-mode-content()
+    @include tutor-spy-mode-content();
   };
 
   // &.task-concept_coach {

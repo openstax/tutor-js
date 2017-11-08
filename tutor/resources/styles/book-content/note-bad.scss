@@ -1,0 +1,207 @@
+$has-data-label-selector: '[data-label]:not([data-label=""])';
+$feature-title-is-element: '[data-has-label=true][data-label=""]';
+$tutor-note-title-element: '[data-type=title]:first-child';
+
+$tutor-note-margin-horizontal: 38px;
+
+@mixin tutor-book-note-style() {
+    .openstax-question {
+      &::before {
+        display: none;
+      }
+    }
+
+    :last-child:not(.embed-responsive) {
+      padding-bottom: 0;
+    }
+
+    .title {
+      @include tutor-sans-font(2.4rem, 3.2rem);
+      font-weight: 900;
+      clear: both;
+    }
+
+    p,
+    ul,
+    li {
+      @include tutor-sans-font(1.8rem, 1.75em);
+      margin: 0 0  1.5rem 0;
+      color: $tutor-neutral-dark;
+    }
+    li {
+      padding: 5px 0;
+    }
+    .problem {
+      clear: both;
+    }
+    .solution,
+    .commentary {
+      clear: both;
+
+      [data-type=title] {
+        @include tutor-sans-font(1.8rem, 1.75em);
+        font-weight: bold;
+      }
+    }
+}
+
+// %tutor-book-label-style {
+//   position: absolute;
+//   @include tutor-sans-font($tutor-book-ui-top-height - 18px, $tutor-book-ui-top-height);
+//   font-weight: 900;
+//   padding: 0 40px;
+//   height: $tutor-book-ui-top-height;
+//   display: inline-block;
+//   top: $book-content-note-with-background-top;
+//   left: $book-content-note-with-background-left;
+// };
+
+// @mixin tutor-book-before-manual-label($content: attr(data-label)) {
+//   &::before {
+//     content: $content;
+//     @extend %tutor-book-label-style;
+//   }
+
+//   &#{$feature-title-is-element} {
+//     // undo auto title. todo
+//     > #{$tutor-note-title-element} {
+//       display: none;
+//     }
+//   }
+// }
+
+@mixin tutor-style-note-title-variants($tutor-title-rules: $tutor-empty-rules) {
+
+  &#{$has-data-label-selector},
+
+  &.example {
+
+    &::before {
+      @extend $tutor-title-rules;
+    }
+  }
+
+  &#{$feature-title-is-element},
+  &[data-element-type="check-understanding"] {
+    > #{$tutor-note-title-element} {
+      @extend $tutor-title-rules;
+    }
+  }
+
+  &#{$has-data-label-selector}::before {
+    content: attr(data-label);
+  }
+}
+
+// @mixin tutor-style-note(
+//   $note-rules: $tutor-empty-rules,
+//   $title-rules: $tutor-empty-rules
+// ) {
+//   @extend $note-rules;
+//   @extend tutor-style-note-title-variants($title-rules);
+// }
+
+@mixin tutor-style-note-variants(
+  $all-note-rules: $tutor-empty-rules,
+  $title-rules: $tutor-empty-rules,
+  $except-teacher-rules: $tutor-empty-rules,
+  $except-teacher-title-rules: $tutor-empty-rules
+) {
+
+}
+
+@mixin tutor-book-theme-notes($background, $text-color) {
+
+  .book-content > .note,
+  section > section > .note,
+  .book-content > section > .note:not(.learning-objectives),
+
+  .grasp-check,
+
+  .book-content > [data-element-type="check-understanding"],
+  section > [data-element-type="check-understanding"],
+
+  &:not(.os-teacher),
+  .book-content > .example,
+  section > .example {
+
+    background: $background;
+    margin: $tutor-note-margin-horizontal 0 32px 0;
+    clear: both;
+    border-top: solid 8px $tutor-neutral-lighter;
+    border-bottom: solid 8px $tutor-neutral-lighter;
+    padding: $tutor-note-padding;
+    width: 100%;
+    position: relative;
+
+    .exercise[data-type=exercise] .solution {
+      // undo general hiding of solutions
+      display: block;
+    }
+
+  }
+
+  // .tutor-style-note-variants($all-note-rules,
+  //   $title-rules: $tutor-book-label-style;
+  //   $except-teacher-rules: {
+  //     display: inline-block;
+  //   }
+  // );
+
+  // .grasp-check specific styles
+  // .grasp-check {
+  //   margin: 68px 0 32px 0;
+  //   padding: $tutor-note-padding-vertical 0;
+  //   border-top: solid 8px $tutor-secondary;
+  //   border-bottom: none;
+
+  //   &#{$has-data-label-selector}::before {
+  //     margin: $book-content-note-without-background-margin;
+  //   }
+  // }
+
+  // // .example, check-understanding content currently lacks a data-label attribute
+  // .book-content > .example,
+  // section > .example {
+  //   @include tutor-book-before-manual-label("Worked Example");
+  // }
+
+  // Any other notes missing
+  //  * `data-label` value and
+  //  * `.title[data-type=title]:first-child`
+  // should have their content defined manually here
+  // or in subject specific themes.
+  //
+  // Also, their selectors should be appended to the selectors in
+  // `.tutor-style-note-variants` and `.tutor-style-note-title-variants`
+  // so that all places where notes are being styled,
+  // the non-`[data-label]`led notes will also be affected like a fully featured note.
+}
+
+%tutor-note-plain-style {
+  $desired-iframe-inset: ($reference-book-page-width - $tutor-interactive-iframe-width) / 2;
+
+  background: none;
+  padding: 20px 0;
+  border-bottom: none;
+
+};
+
+%tutor-note-plain-title-style {
+  margin: $book-content-note-without-background-margin;
+};
+
+@mixin tutor-book-step-note() {
+//  @include tutor-style-note($tutor-note-plain-style, $tutor-note-plain-title-style),
+}
+
+@mixin tutor-book-step-notes() {
+  // tutor-book-step specific modifications
+//  @include tutor-style-note-variants($tutor-note-plain-style, $tutor-note-plain-title-style),
+}
+
+@mixin tutor-book-reading-titles() {
+  section > h1 {
+    clear: both;
+  }
+}

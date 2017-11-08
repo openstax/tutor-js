@@ -119,11 +119,11 @@
     .choice {
 
       &[data-new-or-copy=new]::before {
-        background-image: url('../images/icons/icon-new-course.svg');
+        background-image: url('../../images/icons/icon-new-course.svg');
       }
 
       &[data-new-or-copy=copy]::before {
-        background-image: url('../images/icons/icon-copy-course.svg');
+        background-image: url('../../images/icons/icon-copy-course.svg');
       }
     }
 

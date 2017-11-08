@@ -6,27 +6,27 @@
         .action {
           &.include {
             background-color: #009acc; // blue
-            &:before { background-image: url("../images/icons/exercise-include-action.svg"); }
+            &:before { background-image: url("../../images/icons/exercise-include-action.svg"); }
           }
           &.exclude {
             background-color: $openstax-primary;
-            &:before { background-image: url("../images/icons/exercise-exclude-card-view-action.svg"); }
+            &:before { background-image: url("../../images/icons/exercise-exclude-card-view-action.svg"); }
           }
           &.details {
             background-color: $openstax-neutral-dark;
-            &:before { background-image: url("../images/icons/exercise-details-action.svg"); }
+            &:before { background-image: url("../../images/icons/exercise-details-action.svg"); }
           }
           &.feedback-on {
             background-color: $openstax-neutral-dark;
-            &:before { background-image: url("../images/icons/exercise-feedback-on-action.svg"); }
+            &:before { background-image: url("../../images/icons/exercise-feedback-on-action.svg"); }
           }
           &.feedback-off {
             background-color: $openstax-neutral-dark;
-            &:before { background-image: url("../images/icons/exercise-feedback-off-action.svg"); }
+            &:before { background-image: url("../../images/icons/exercise-feedback-off-action.svg"); }
           }
           &.report-error {
             background-color: #fdbd3e; // yellow
-            &:before { background-image: url("../images/icons/exercise-report-error-action.svg"); }
+            &:before { background-image: url("../../images/icons/exercise-report-error-action.svg"); }
           }
         }
       }
@@ -41,7 +41,7 @@
           .action {
             &.exclude {
               background-color: $openstax-primary;
-              &:before { background-image: url("../images/icons/exercise-exclude-details-view-action.svg"); }
+              &:before { background-image: url("../../images/icons/exercise-exclude-details-view-action.svg"); }
             }
           }
         }

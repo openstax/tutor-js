@@ -21,6 +21,7 @@ $openstax-book-default-bg: $openstax-book-gray;
 $openstax-book-default-accent: $openstax-book-gray-accent;
 $openstax-book-default-fg-inverse: $openstax-gold;
 
+$openstax-book-text-on-dark-labels: #fff;
 // NOTE:
 //  * The 'biology' and 'physics' codes are deprecated, but are retained for older courses that may have them
 //  * These must be kept in sync with the books in src/flux/course-information.coffee
@@ -28,6 +29,7 @@ $openstax-books: (
   default: (
     primary    : $openstax-book-default-fg,
     secondary  : $openstax-book-default-bg,
+    text       : $openstax-book-text-on-dark-labels,
     tertiary   : $tutor-tertiary,  // dark blue
     quaternary : $tutor-quaternary,
     highlight  : $tutor-highlight,
@@ -36,6 +38,7 @@ $openstax-books: (
   physics: (
     primary    : $openstax-book-green,
     secondary  : $openstax-book-blue,
+    text       : $openstax-book-text-on-dark-labels,
     tertiary   : rgb(119, 175, 65), // green
     quaternary : rgb(244, 208, 25), // yellow
     highlight  : rgb(255, 255, 187), // pale yellow
@@ -44,6 +47,7 @@ $openstax-books: (
   hs_physics: (
     primary    : $openstax-book-green,
     secondary  : $openstax-book-blue,
+    text       : $openstax-book-text-on-dark-labels,
     tertiary   : rgb(119, 175, 65), // green
     quaternary : rgb(244, 208, 25), // yellow
     highlight  : rgb(255, 255, 187), // pale yellow
@@ -52,6 +56,7 @@ $openstax-books: (
   college_physics: (
     primary    : $openstax-book-green,
     secondary  : $openstax-book-blue,
+    text       : $openstax-book-text-on-dark-labels,
     tertiary   : rgb(119, 175, 65), // green
     quaternary : rgb(244, 208, 25), // yellow
     highlight  : rgb(255, 255, 187), // pale yellow
@@ -60,6 +65,7 @@ $openstax-books: (
   biology: (
     primary    : $openstax-book-gray,
     secondary  : $openstax-book-brighter-green,
+    text       : $openstax-book-text-on-dark-labels,
     tertiary   : rgb(35, 48, 102), // dark blue
     quaternary : rgb(244, 208, 25), // yellow
     accent     : $openstax-book-brighter-green-accent,
@@ -68,6 +74,7 @@ $openstax-books: (
   ap_biology: (
     primary    : $openstax-book-gray,
     secondary  : $openstax-book-brighter-green,
+    text       : $openstax-book-text-on-dark-labels,
     tertiary   : rgb(35, 48, 102), // dark blue
     quaternary : rgb(244, 208, 25), // yellow
     accent     : $openstax-book-brighter-green-accent,
@@ -76,6 +83,7 @@ $openstax-books: (
   concepts_biology: (
     primary    : $openstax-book-gray,
     secondary  : $openstax-book-brighter-green,
+    text       : $openstax-book-text-on-dark-labels,
     tertiary   : rgb(35, 48, 102), // dark blue
     quaternary : rgb(244, 208, 25), // yellow
     accent     : $openstax-book-brighter-green-accent,
@@ -84,6 +92,7 @@ $openstax-books: (
   college_biology: (
     primary    : $openstax-book-gray,
     secondary  : $openstax-book-brighter-green,
+    text       : $openstax-book-text-on-dark-labels,
     tertiary   : rgb(35, 48, 102), // dark blue
     quaternary : rgb(244, 208, 25), // yellow
     accent     : $openstax-book-brighter-green-accent,
@@ -92,6 +101,7 @@ $openstax-books: (
   principles_economics: (
     primary    : $openstax-book-gray,
     secondary  : $openstax-book-white,
+    text       : $openstax-book-text-on-dark-labels,
     tertiary   : $tutor-tertiary,  // dark blue
     quaternary : $tutor-quaternary,
     highlight  : $tutor-highlight,
@@ -100,6 +110,7 @@ $openstax-books: (
   macro_economics: (
     primary    : $openstax-book-brighter-green,
     secondary  : $openstax-book-gray,
+    text       : $openstax-book-text-on-dark-labels,
     tertiary   : $tutor-tertiary,  // dark blue
     quaternary : $tutor-quaternary,
     highlight  : $tutor-highlight,
@@ -108,6 +119,7 @@ $openstax-books: (
   micro_economics: (
     primary    : $openstax-book-yellow,
     secondary  : $openstax-book-gray,
+    text       : $openstax-book-text-on-dark-labels,
     tertiary   : $tutor-tertiary,  // dark blue
     quaternary : $tutor-quaternary,
     highlight  : $tutor-highlight,
@@ -116,6 +128,7 @@ $openstax-books: (
   intro_sociology: (
     primary    : $openstax-book-warmer-blue,
     secondary  : $openstax-book-yellow,
+    text       : $openstax-book-text-on-dark-labels,
     tertiary   : $tutor-tertiary,  // dark blue
     quaternary : $tutor-quaternary,
     highlight  : $tutor-highlight,
@@ -124,6 +137,7 @@ $openstax-books: (
   anatomy_physiology: (
     primary    : $openstax-book-orange,
     secondary  : $openstax-book-gray,
+    text       : $openstax-book-text-on-dark-labels,
     tertiary   : $tutor-tertiary,  // dark blue
     quaternary : $tutor-quaternary,
     highlight  : $tutor-highlight,
@@ -132,6 +146,7 @@ $openstax-books: (
   ap_us_history: (
     primary    : $openstax-book-orange,
     secondary  : $openstax-book-blue,
+    text       : $openstax-book-text-on-dark-labels,
     tertiary   : $tutor-tertiary,  // dark blue
     quaternary : $tutor-quaternary,
     highlight  : $tutor-highlight,

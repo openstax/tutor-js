@@ -1,7 +1,6 @@
 // Mixins used internally by the book-content mixin
 
 // TODO: refactor internally to replace the "tutor-reading-" prefix with "book-content-"
-$tutor-empty-rules: ();
 
 @mixin tutor-reading-step-banner-icon($img) {
   background: $tutor-tertiary url($img);
