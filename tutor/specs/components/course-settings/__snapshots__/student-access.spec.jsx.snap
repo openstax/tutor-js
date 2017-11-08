@@ -22,7 +22,7 @@ exports[`Course Settings, student access can switch to links 1`] = `
     role="tablist"
   >
     <div
-      className="links panel panel-default"
+      className="links active panel panel-default"
       id={null}
     >
       <div
@@ -234,7 +234,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
       </div>
     </div>
     <div
-      className="lms panel panel-default"
+      className="lms active panel panel-default"
       id={null}
     >
       <div
@@ -456,7 +456,7 @@ exports[`Course Settings, student access renders chooser when lms is enabled 1`]
     role="tablist"
   >
     <div
-      className="links panel panel-default"
+      className="links active panel panel-default"
       id={null}
     >
       <div

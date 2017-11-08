@@ -160,11 +160,19 @@ export default class StudentAccess extends React.PureComponent {
           <Icon type="info-circle" /> Which option is right for my course?
         </a>
         <PanelGroup activeKey={course.is_lms_enabled} onSelect={this.onSelectOption} accordion>
-          <Panel className="links" header={this.renderDirectHeader()} eventKey={false}>
+          <Panel
+            className={cn('links', { active: !course.is_lms_enabled })}
+            header={this.renderDirectHeader()}
+            eventKey={false}
+          >
             <p>Give students direct links</p>
             {course.periods.active.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url} />)}
           </Panel>
-          <Panel className="lms" header={this.renderLMSHeader()} eventKey={true}>
+          <Panel
+            className={cn('lms', { active: course.is_lms_enabled })}
+            header={this.renderLMSHeader()}
+            eventKey={true}
+          >
             {this.renderLMS()}
           </Panel>
         </PanelGroup>
