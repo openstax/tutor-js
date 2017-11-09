@@ -1,7 +1,6 @@
 {React, _} = require '../../helpers/component-testing'
 
 MiniEditor = require '../../../../src/components/task-plan/mini-editor'
-{CourseActions} = require '../../../../src/flux/course'
 {TaskPlanActions} = require '../../../../src/flux/task-plan'
 
 COURSE  = require '../../../../api/courses/1.json'

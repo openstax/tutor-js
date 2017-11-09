@@ -2,7 +2,7 @@ _ = require 'underscore'
 moment = require 'moment-timezone'
 
 TimeHelper = require '../../src/helpers/time'
-{CourseActions, CourseStore} = require '../../src/flux/course'
+{ default: Courses } = require '../../src/models/courses-map'
 
 COURSE_ID = 'TEST_COURSE_ID'
 TEST_TIMEZONE = 'Pacific Time (US & Canada)'
@@ -11,13 +11,12 @@ TODAY_IN_CURRENT_ZONE = moment().startOf('day').format()
 describe 'Time Helpers', ->
 
   beforeEach ->
-    CourseActions.loaded(time_zone: TEST_TIMEZONE, COURSE_ID)
+    Courses.bootstrap([{ id: COURSE_ID, time_zone: TEST_TIMEZONE }], { clear: true })
 
   afterEach ->
-    CourseActions.reset()
+    Courses.clear()
 
   it 'can get current locale', ->
-
     currentLocale = TimeHelper.getCurrentLocales()
 
     # check on the essential properties for being able to use
@@ -31,7 +30,8 @@ describe 'Time Helpers', ->
 
 
   it 'will set the default timezone', ->
-    courseTimezone = CourseStore.getTimezone(COURSE_ID)
+    courseTimezone = Courses.get(COURSE_ID).time_zone
+
     TimeHelper.syncCourseTimezone(courseTimezone)
     expect(moment()._z).to.have.property('name').and.to.equal(TEST_TIMEZONE)
     expect(moment().startOf('day').format()).to.not.equal(TODAY_IN_CURRENT_ZONE)
@@ -47,7 +47,7 @@ describe 'Time Helpers', ->
 
 
   it 'can check the default timezone', ->
-    courseTimezone = CourseStore.getTimezone(COURSE_ID)
+    courseTimezone = Courses.get(COURSE_ID).time_zone
 
     isCourseTimezone = TimeHelper.isCourseTimezone(courseTimezone)
     expect(isCourseTimezone).to.be.false

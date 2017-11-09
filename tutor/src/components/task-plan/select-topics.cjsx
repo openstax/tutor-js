@@ -5,7 +5,6 @@ Dialog = require '../dialog'
 LoadableItem = require '../loadable-item'
 {TocStore, TocActions} = require '../../flux/toc'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
-{CourseStore} = require '../../flux/course'
 SectionsChooser = require '../sections-chooser'
 LoadableItem = require '../loadable-item'
 

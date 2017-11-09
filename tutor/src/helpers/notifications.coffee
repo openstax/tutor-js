@@ -16,6 +16,6 @@ module.exports =
       throw new Error("Component's context must have router present")
     missing_student_id:
       onAdd: ({course}) ->
-        router.transitionTo(
+        router.history.push(
           Router.makePathname('changeStudentId', courseId: course.id)
         )

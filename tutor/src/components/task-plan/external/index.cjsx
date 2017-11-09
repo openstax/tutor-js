@@ -1,7 +1,7 @@
 React = require 'react'
 _ = require 'underscore'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+Router = require 'react-router-dom'
 validator = require 'validator'
 classnames = require 'classnames'
 

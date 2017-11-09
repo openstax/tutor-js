@@ -12,7 +12,7 @@ failToCreatePractice = (pageIds) ->
   CoursePracticeActions._failed({}, COURSE_ID, params)
 
 didRouterGoToPractice = ->
-  expect(Testing.router.transitionTo).to.have.been.calledWith( 'viewPractice',
+  expect(Testing.router.history.push).to.have.been.calledWith( 'viewPractice',
     { courseId: COURSE_ID }, { page_ids: ['2', '3'] }
   )
 

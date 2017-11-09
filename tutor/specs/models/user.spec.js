@@ -1,6 +1,7 @@
 import { autorun } from 'mobx';
 
 import User from '../../src/models/user';
+import { UserTerms } from '../../src/models/user/terms';
 import Courses from '../../src/models/courses-map';
 import UiSettings from 'shared/src/model/ui-settings';
 
@@ -14,6 +15,13 @@ describe('User Model', () => {
     User.viewed_tour_stats.clear();
   });
 
+  it('has terms', () => {
+    User.terms_signatures_needed = false;
+    expect(User.terms).toBeNull();
+    User.terms_signatures_needed = true;
+    expect(User.terms).toBeInstanceOf(UserTerms);
+  });
+
   it('can be bootstrapped', () => {
     const spy = jest.fn();
     autorun(() => spy(User.name));
@@ -24,18 +32,18 @@ describe('User Model', () => {
 
   it('calculates audience tags', () => {
     bootstrapCoursesList();
-    expect(User.tourAudienceTags).toEqual(['teacher', 'teacher-no-coach']);
+    expect(User.tourAudienceTags).toEqual(['teacher']);
     Courses.forEach((c) => (c.is_preview = true));
     expect(User.tourAudienceTags).toEqual(['teacher-preview']);
     Courses.forEach((c) => {
       c.is_concept_coach = true;
       c.is_preview = false;
     });
-    expect(User.tourAudienceTags).toEqual(['teacher', 'teacher-coach-no-migration']);
+    expect(User.tourAudienceTags).toEqual(['teacher']);
     Courses.forEach((c) => {
       c.appearance_code = 'intro_sociology';
     });
-    expect(User.tourAudienceTags).toEqual(['teacher', 'teacher-coach-with-migration']);
+    expect(User.tourAudienceTags).toEqual(['teacher']);
     Courses.clear();
     expect(User.tourAudienceTags).toEqual([]);
   });

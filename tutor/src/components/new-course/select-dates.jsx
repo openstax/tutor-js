@@ -4,9 +4,7 @@ import { action } from 'mobx';
 
 import { partial } from 'lodash';
 
-import { ListGroup } from 'react-bootstrap';
-
-import Choice from './choice';
+import { Listing, Choice } from '../choices-listing';
 import BuilderUX from '../../models/course/builder-ux';
 
 @observer
@@ -26,7 +24,7 @@ export default class SelectDates extends React.PureComponent {
     const { ux, ux: { offering } } = this.props;
 
     return (
-      <ListGroup>
+      <Listing>
         {offering.validTerms.map((term, index) =>
           <Choice
             key={index}
@@ -40,7 +38,7 @@ export default class SelectDates extends React.PureComponent {
               {term.year}
             </span>
           </Choice>)}
-      </ListGroup>
+      </Listing>
     );
   }
 }

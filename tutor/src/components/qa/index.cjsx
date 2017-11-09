@@ -1,7 +1,7 @@
 _     = require 'underscore'
 React = require 'react'
 MatchForTutor = require '../match-for-tutor'
-{Redirect} = require 'react-router'
+{Redirect} = require 'react-router-dom'
 {EcosystemsStore, EcosystemsActions} = require '../../flux/ecosystems'
 
 BindStore = require '../bind-store-mixin'
@@ -25,7 +25,7 @@ QADashboard = React.createClass
 
   redirectToFirst: ->
     ecosystemId = EcosystemsStore.first()?.id
-    @context.router.transitionTo(
+    @context.router.history.push(
       Router.makePathname('QAViewBook', {ecosystemId})
     )
 

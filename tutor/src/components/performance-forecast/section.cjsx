@@ -1,6 +1,6 @@
 React = require 'react'
 BS = require 'react-bootstrap'
-Router = require 'react-router'
+Router = require 'react-router-dom'
 {ChapterSectionMixin} = require 'shared'
 ChapterSectionType  = require './chapter-section-type'
 ProgressBar = require './progress-bar'

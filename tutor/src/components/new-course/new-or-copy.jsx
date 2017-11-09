@@ -1,10 +1,9 @@
 import React from 'react';
-import { ListGroup } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { action } from 'mobx';
 import { partial } from 'lodash';
 
-import Choice from './choice';
+import { Listing, Choice } from '../choices-listing';
 import BuilderUX from '../../models/course/builder-ux';
 
 @observer
@@ -23,7 +22,7 @@ export default class NewOrCopy extends React.PureComponent {
 
   render() {
     return (
-      <ListGroup>
+      <Listing>
         <Choice
           key="course-new"
           active={this.props.ux.newCourse.new_or_copy === 'new'}
@@ -40,7 +39,7 @@ export default class NewOrCopy extends React.PureComponent {
         >
           Copy a past course
         </Choice>
-      </ListGroup>
+      </Listing>
     );
   }
 }

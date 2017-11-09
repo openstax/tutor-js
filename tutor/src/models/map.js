@@ -1,5 +1,6 @@
-import { ObservableMap, computed, observable } from 'mobx';
-import { nonenumerable } from 'core-decorators';
+import { ObservableMap, computed } from 'mobx';
+import ModelApi from './api';
+import lazyGetter from '../helpers/lazy-getter.js';
 
 export default class Map extends ObservableMap {
 
@@ -8,11 +9,15 @@ export default class Map extends ObservableMap {
   }
 
   where(condition) {
-    const map = new this.constructor();
+    const map = new this.constructor(this.chainedValues);
     this.forEach(c => {
       if(condition(c)) { map.set(c.id, c); }
     });
     return map;
+  }
+
+  get chainedValues() {
+    return {};
   }
 
   @computed get isEmpty() {
@@ -23,11 +28,6 @@ export default class Map extends ObservableMap {
     return ! this.isEmpty;
   }
 
-  @nonenumerable
-  apiRequestsInProgress = observable.map();
-
-  @computed get hasApiRequestPending() {
-    return !!this.apiRequestsInProgress.size;
-  }
+  @lazyGetter api = new ModelApi();
 
 }

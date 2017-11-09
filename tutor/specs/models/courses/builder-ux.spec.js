@@ -113,15 +113,15 @@ describe('Course Builder UX Model', () => {
   });
 
   it('goes to dashboard after canceling', () => {
-    ux.router = { transitionTo: jest.fn() };
+    ux.router = { history: { push: jest.fn() } };
     const { onCancel } = ux;
     onCancel();
-    expect(ux.router.transitionTo).toHaveBeenCalledWith('/dashboard');
+    expect(ux.router.history.push).toHaveBeenCalledWith('/dashboard');
   });
 
   describe('after course is created', function() {
     beforeEach(() => {
-      ux.router = { transitionTo: jest.fn() };
+      ux.router = { history: { push: jest.fn() } };
       ux.newCourseMock = { id: 42 };
       ux.newCourse.term = { year: 2018, term: 'spring' };
       ux.newCourse.save = jest.fn(() => ({ then: (c) => {
@@ -132,13 +132,13 @@ describe('Course Builder UX Model', () => {
 
     it('redirects to Tutor for Tutor', function() {
       ux.currentStageIndex = ux.stages.length - 1;
-      expect(ux.router.transitionTo).toHaveBeenCalledWith('/course/42?showIntro=true');
+      expect(ux.router.history.push).toHaveBeenCalledWith('/course/42?showIntro=true');
     });
 
     it('redirects to CC', function() {
       ux.newCourseMock.is_concept_coach = true;
       ux.currentStageIndex = ux.stages.length - 1;
-      expect(ux.router.transitionTo).toHaveBeenCalledWith('/course/42/cc/help?showIntro=true');
+      expect(ux.router.history.push).toHaveBeenCalledWith('/course/42/cc/help?showIntro=true');
     });
   });
 

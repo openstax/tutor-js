@@ -5,6 +5,11 @@
   "ecosystem_id": "1",
   "is_concept_coach": false,
   "is_college": false,
+  "roles": [{
+    "id": "1",
+    "type": "teacher",
+    "joined_at": "2016-02-03T01:10:10.125Z"
+  }],
   "periods": [{
     "id": "1",
     "name" : "1st",

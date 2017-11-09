@@ -11,18 +11,19 @@ TimeHelper  = require '../../helpers/time'
 ServerErrorMessage = require './server-error-message'
 
 {AppStore}    = require '../../flux/app'
-{CourseStore} = require '../../flux/course'
+{default: Courses} = require '../../models/courses-map'
+
 UserMenu = require('../../models/user/menu').default
 
 goToDashboard = (context, courseId) ->
-  context.router.transitionTo(
+  context.router.history.push(
     TutorRouter.makePathname('dashboard', {courseId})
   )
   Dialog.hide()
 
 getCurrentCourse = ->
   {courseId} = TutorRouter.currentParams()
-  if courseId then CourseStore.get(courseId) else {}
+  if courseId then Courses.get(courseId) else {}
 
 reloadOnce = ->
   navigation = AppStore.errorNavigation()
@@ -59,7 +60,7 @@ ERROR_HANDLERS =
     body:
       <p className="lead">
         This course ended on {TimeHelper.toHumanDate(course.ends_at)}.
-        No new activity can be peformed on it, but you can still review past activity.
+        No new activity can be performed on it, but you can still review past activity.
       </p>
     buttons: [
       <BS.Button key='ok' onClick={navigateAction} bsStyle='primary'>OK</BS.Button>

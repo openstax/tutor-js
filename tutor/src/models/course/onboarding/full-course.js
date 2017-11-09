@@ -1,21 +1,25 @@
 import {
   computed, observable,
 } from 'mobx';
-import { includes } from 'lodash';
+import { includes, isNil } from 'lodash';
 
 import BaseOnboarding from './base';
+import { UiSettings } from 'shared';
 import Nags from '../../../components/onboarding/nags';
 import User from '../../user';
-import { UiSettings } from 'shared';
-const ONBOARDING_CHOICE = 'OBC';
+import { TimeStore } from '../../../flux/time';
 
-// NOTE - the strings for the key's below are meaningful and MUST match what's expected by the BE
+const ONBOARDING_CHOICE = 'OBC';
+const LAST_NAG_TIME = 'OBNT';
+const NAG_INTERVAL = 1000 * 60 * 60 * 24 * 7; // 1 week in milliseconds
+
+// NOTE - the strings for the key's below are meaningful and MUST
+// match what's expected by the BE
+// To update what's displayed to the user, see the `usageOptions` method
 const CHOICES = {
   cc: 'For course credit',
   exc: 'For extra credit',
-  adr: 'As an additional resource',
   dn: 'I dont know yet',
-  wu: 'I wont be using it',
 };
 
 export default class FullCourseOnboarding extends BaseOnboarding {
@@ -27,29 +31,39 @@ export default class FullCourseOnboarding extends BaseOnboarding {
 
     if (this.displayInitialPrompt) {
       return Nags.freshlyCreatedCourse;
-    } else if (includes(['cc', 'exc', 'adr'], this.response)) {
+    } else if (includes(['cc', 'exc'], this.response)) {
       return Nags.courseUseTips;
     } else if (this.response === 'dn') {
       return Nags.thanksForNow;
-    } else if (this.response === 'wu') {
-      return Nags.thanksAnways;
     }
     return null;
   }
 
   @computed get displayInitialPrompt() {
-    return this.response === false && (
-      this.courseIsNaggable && this.isOnboardingUndecided
+    return Boolean(
+      this.response === false && // haven't selected anything
+      this.courseIsNaggable &&   // base method, have joined at least 4 hours ago
+      this.isOnboardingUndecided // haven't prompted recently and are undecided
     );
   }
 
+  @computed get lastNaggedAgo() {
+    const timestamp = UiSettings.get(LAST_NAG_TIME, this.course.id);
+    if (!isNil(timestamp)) {
+      return TimeStore.getNow().getTime() - timestamp;
+    }
+    return null;
+  }
+
   @computed get isOnboardingUndecided() {
+    if (this.lastNaggedAgo && this.lastNaggedAgo < NAG_INTERVAL) { return false; }
     return includes(['dn', undefined], UiSettings.get(ONBOARDING_CHOICE, this.course.id));
   }
 
   recordExpectedUse(decision) {
     this.response = decision;
     UiSettings.set(ONBOARDING_CHOICE, this.course.id, decision);
+    UiSettings.set(LAST_NAG_TIME, this.course.id, TimeStore.getNow().getTime());
 
     User.logEvent({
       category: 'onboarding', code: 'made_adoption_decision',
@@ -59,11 +73,9 @@ export default class FullCourseOnboarding extends BaseOnboarding {
 
   get usageOptions() {
     return {
-      cc: 'Required for some course credit',
+      cc: 'Required as part of the grade',
       exc: 'For extra credit',
-      adr: 'As an additional resource',
       dn: 'I don’t know yet',
-      wu: 'I won’t be using it',
     };
   }
 

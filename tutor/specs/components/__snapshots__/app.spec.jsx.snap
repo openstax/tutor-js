@@ -4,7 +4,6 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
 <div
   className="tutor-app openstax-wrapper"
 >
-  <span />
   <div
     className="openstax-debug-content"
   >
@@ -22,9 +21,8 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
           >
             <a
               className="brand"
-              href="/"
+              href="/dashboard"
               onClick={[Function]}
-              style={Object {}}
             >
               <i
                 className="ui-brand-logo"
@@ -76,12 +74,30 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                   <a
                     href="http://openstax.force.com/support?l=en_US&c=Products%3ATutor"
                     onClick={[Function]}
+                    onKeyDown={[Function]}
                     role="menuitem"
                     tabIndex="-1"
                     target="_blank"
                   >
                     <span>
                       Help Articles
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="-help-link"
+                  role="presentation"
+                  style={undefined}
+                >
+                  <a
+                    href="/accessibility-statement/"
+                    onClick={[Function]}
+                    onKeyDown={[Function]}
+                    role="menuitem"
+                    tabIndex="-1"
+                  >
+                    <span>
+                      Accessibility statement
                     </span>
                   </a>
                 </li>
@@ -190,14 +206,100 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
           </div>
         </div>
       </nav>
-      <span />
+      <div
+        className="my-courses"
+        data-tour-region-id="my-courses"
+      >
+        <div
+          className="my-courses-current"
+        >
+          <div
+            className="container"
+          >
+            <div
+              className="my-courses-title row"
+            >
+              <div
+                className="col-md-12"
+              >
+                <h1>
+                  Current Courses
+                </h1>
+              </div>
+            </div>
+            <div
+              className="my-courses-none row"
+            >
+              <div
+                className="col-md-12"
+              >
+                <p>
+                  There are no current courses.
+                </p>
+              </div>
+            </div>
+            <div
+              className="my-courses-section my-courses-current-section row"
+            >
+              <div
+                className="col-md-3 col-sm-6 col-xs-12"
+              >
+                <div
+                  className="tour-anchor"
+                  data-tour-anchor-id="create-course-zone"
+                  id="create-course-zone"
+                >
+                  <div
+                    className="my-courses-add-zone"
+                  >
+                    <a
+                      className=""
+                      href="/new-course"
+                      onClick={[Function]}
+                    >
+                      <div>
+                        <svg
+                          height="28px"
+                          viewBox="0 0 28 28"
+                          width="28px"
+                        >
+                          <g
+                            fill="none"
+                            fillRule="evenodd"
+                            id="Symbols"
+                            stroke="none"
+                            strokeWidth="1"
+                          >
+                            <g
+                              fill="#575958"
+                              id="icon-add-class"
+                            >
+                              <path
+                                d="M28,0 L28,28 L0,28 L0,0 L28,0 Z M0,1 L1,1 L1,27 L0,27 L28,27 L27,27 L27,1 L28,1 L0,1 Z M13.4,9 L14.6,9 L14.6,13.4 L19,13.4 L19,14.6 L14.6,14.6 L14.6,19 L13.4,19 L13.4,14.6 L9,14.6 L9,13.4 L13.4,13.4 L13.4,9 Z"
+                                id="Combined-Shape"
+                              />
+                            </g>
+                          </g>
+                        </svg>
+                        <span>
+                          CREATE A COURSE
+                        </span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div
         className="visible-when-debugging"
       >
         <div
           className="tour-spy-info"
         >
-          available regions: []; region tour ids: []; audience tags: [undefined]; tour tags: []; elgible tours: []; TOUR RIDE: &lt;none&gt;
+          available regions: []; region tour ids: []; audience tags: [undefined]; tour tags: []; eligible tours: []; TOUR RIDE: &lt;none&gt;
         </div>
       </div>
     </div>

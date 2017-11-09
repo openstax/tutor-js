@@ -13,8 +13,9 @@ describe('Course Onboarding base class', () => {
   });
 
   it('#courseIsNaggable', () => {
+    ux.course.roles[0].joined_at = moment().subtract(1, 'hours');
     expect(ux.courseIsNaggable).toBe(false);
-    ux.course.primaryRole.joined_at = moment().subtract(4, 'hours').subtract(1, 'second');
+    ux.course.roles[0].joined_at = moment().subtract(4, 'hours').subtract(1, 'second');
     expect(ux.courseIsNaggable).toBe(true);
     ux.course.ends_at = moment().subtract(1, 'day');
     expect(ux.courseIsNaggable).toBe(false);

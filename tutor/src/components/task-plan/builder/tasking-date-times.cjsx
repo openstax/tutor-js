@@ -5,8 +5,7 @@ moment = require 'moment-timezone'
 
 {TimeStore} = require '../../../flux/time'
 TimeHelper  = require '../../../helpers/time'
-{PeriodActions, PeriodStore}     = require '../../../flux/period'
-{CourseStore, CourseActions}     = require '../../../flux/course'
+{default: Courses} = require '../../../models/courses-map'
 {TaskingActions, TaskingStore} = require '../../../flux/tasking'
 
 Icon = require '../../icon'
@@ -32,39 +31,33 @@ TaskingDateTimes = React.createClass
 
     {id, period} = @props
 
-    return false if TaskingStore.isTaskingValid(id, period)
+    return false if TaskingStore.isTaskingValid(id, period?.serialize())
 
     _.first(TaskingStore.getTaskingErrors(id, period))
 
   setDefaultTime: (timeChange) ->
     {courseId, period} = @props
-
-    if period?
-      PeriodActions.save(courseId, period.id, timeChange)
-    else
-      CourseActions.save(courseId, timeChange)
+    model = if period then Courses.get(courseId) else period
+    model.time_zone = timeChange
+    model.save()
 
   isSetting: ->
-    {courseId, period} = @props
-
-    if period?
-      CourseStore.isLoading(courseId)
-    else
-      CourseStore.isSaving(courseId)
+    {courseId} = @props
+    Courses.get(courseId).api.isPending
 
   setDate: (type, value) ->
     {id, period} = @props
     value = value.format(TimeHelper.ISO_DATE_FORMAT) if moment.isMoment(value)
-    TaskingActions.updateDate(id, period, type, value)
+    TaskingActions.updateDate(id, period?.serialize(), type, value)
 
   setTime: (type, value) ->
     {id, period} = @props
     value = value.format(TimeHelper.ISO_DATE_FORMAT) if moment.isMoment(value)
-    TaskingActions.updateTime(id, period, type, value)
+    TaskingActions.updateTime(id, period?.serialize(), type, value)
 
   render: ->
     {isVisibleToStudents, isEditable, period, id, termStart, termEnd} = @props
-
+    period = period.serialize() if period
     commonDateTimesProps = _.pick @props, 'required', 'currentLocale', 'taskingIdentifier'
 
     defaults = TaskingStore.getDefaultsForTasking(id, period)

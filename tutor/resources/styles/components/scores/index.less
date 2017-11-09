@@ -1,9 +1,17 @@
-.scores-report {
+@import './controls';
+@import './table';
+
+.course-scores-report {
+
   @nav-tab-height: 50px;
   @display-as-btn-height: 40px;
 
   // negates bottom padding on body to eliminate scrollbar
   margin-bottom: -50px;
+
+  &.loading-screen-animation {
+    margin-top: 120px;
+  }
 
   .blank {
     background: white;
@@ -17,24 +25,6 @@
 
     nav {
       float: left;
-    }
-
-    .nav.nav-tabs {
-
-      border-bottom: none;
-      clear: both;
-
-      > li {
-        &.active {
-          position: relative;
-        }
-
-        > a {
-          line-height: @nav-tab-height;
-          padding-top: 0;
-          padding-bottom: 0;
-        }
-      }
     }
 
     .filter-row {
@@ -113,12 +103,13 @@
     font-style: italic;
     font-size: 1.2rem;
     color: @tutor-neutral;
-
+    flex: 1;
+    text-align: right;
     &.tab {
-      margin-left: 25px;
       line-height: @nav-tab-height;
     }
   }
+
 
   .course-scores-container {
     overflow: hidden;
@@ -136,8 +127,6 @@
       display: block;
       width: 100%;
       height: inherit;
-
-
     }
   }
 
@@ -145,6 +134,16 @@
     border: none;
   }
 
+  // override course-page settings to allow table to expand full-screen
+  & > .body {
+    max-width: inherit;
+    padding: 0 20px;
+    .tutor-tabs {
+      .course-page.wrapper-child();
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
 
 
 }

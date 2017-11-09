@@ -3,7 +3,7 @@
 jest.mock('../../../src/helpers/router')
 TutorRouter = require '../../../src/helpers/router'
 
-{CourseActions, CourseStore} = require '../../../src/flux/course'
+{default: Courses} = require '../../../src/models/courses-map'
 
 TestRouter = require '../helpers/test-router'
 COURSE_ID = '1'
@@ -17,8 +17,8 @@ Wrapper = (props) ->
 describe 'Error monitoring: handlers', ->
 
   beforeEach ->
-    CourseActions.loaded(COURSE, COURSE_ID)
-    @course = CourseStore.get(COURSE_ID)
+    Courses.bootstrap([COURSE], { clear: true })
+    @course = Courses.get(COURSE_ID)
     TutorRouter.currentParams.mockReturnValue({courseId: COURSE_ID})
     TutorRouter.makePathname.mockReturnValue('/go/to/dash')
     @args =
@@ -45,7 +45,7 @@ describe 'Error monitoring: handlers', ->
     expect(wrapper.text()).to.include('not yet started')
     attrs.onOk()
     expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', {courseId: COURSE_ID})
-    expect(@args.context.router.transitionTo).to.have.been.calledWith('/go/to/dash')
+    expect(@args.context.router.history.push).toHaveBeenCalledWith('/go/to/dash')
     undefined
 
   it 'renders course ended message', ->
@@ -55,7 +55,7 @@ describe 'Error monitoring: handlers', ->
     expect(wrapper.text()).to.include('course ended')
     attrs.onOk()
     expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', {courseId: COURSE_ID})
-    expect(@args.context.router.transitionTo).to.have.been.calledWith('/go/to/dash')
+    expect(@args.context.router.history.push).toHaveBeenCalledWith('/go/to/dash')
     undefined
 
   it 'renders exercises not found', ->
@@ -65,5 +65,5 @@ describe 'Error monitoring: handlers', ->
     expect(wrapper.text()).to.include('no problems to show')
     attrs.onOk()
     expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', {courseId: COURSE_ID})
-    expect(@args.context.router.transitionTo).to.have.been.calledWith('/go/to/dash')
+    expect(@args.context.router.history.push).toHaveBeenCalledWith('/go/to/dash')
     undefined

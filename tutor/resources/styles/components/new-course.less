@@ -1,13 +1,8 @@
-.make-wizard-choice-active() {
-  background-color: fade(@tutor-neutral-light, 60%);
-  border-color: @tutor-neutral-light;
-  color: inherit;
-  position: relative;
-}
-
 .new-course {
   @panel-choice-height: 70px;
   @panel-body-height: @panel-choice-height * 3.5;
+
+  .ost-hero-backdrop();
 
   .book-icon-style(){
     &::before{
@@ -26,8 +21,6 @@
 
   max-width: 440px;
   margin: 134px auto 0 auto;
-
-  .ost-hero-background();
 
   .panel {
     padding: 3rem 4rem;
@@ -116,75 +109,15 @@
       height: @panel-body-height;
     }
 
-    .list-group {
+    .choices-listing {
       max-height: @panel-body-height;
-      overflow-y: auto;
-      border-top: 1px solid @tutor-neutral-light;
-      border-bottom: 1px solid @tutor-neutral-light;
-
-      .list-group-item:first-child {
-        border-top: none;
-      }
-      .list-group-item:last-child {
-        border-bottom: none;
-      }
     }
   }
 
   .new-course-wizard {
 
     .choice {
-      padding: 8px;
-      display: flex;
-      align-content: center;
-      height: @panel-choice-height;
-      position: relative;
-      font-size: 1.6rem;
-      font-weight: 800;
-      line-height: 1em;
-      flex-direction: row;
-      align-items: center;
-      cursor: pointer;
-      &:focus {
-        outline: none;
-      }
-      &::before {
-        content: '';
-        background-size: contain;
-        background-repeat: no-repeat;
-        height: 2.5rem;
-        margin-right: 1rem;
-        display: block;
-        margin-top: 0;
-      }
-      &::after {
-        content: '';
-        position: absolute;
-        background-repeat: no-repeat;
-        background-position: center center;
-        display: block;
-      }
 
-      &.active {
-        .make-wizard-choice-active();
-        &:hover,
-        &:focus {
-          .make-wizard-choice-active();
-        }
-        &::after {
-          right: 16px;
-          top: calc(50% - 4px);
-          .fa-icon();
-          content: @fa-var-check;
-          color: @tutor-secondary;
-          margin-bottom: 0;
-          font-size: 20px;
-          margin-top: -11px;
-          background-color: @tutor-white;
-          border-radius: 50%;
-          padding: 4px;
-        }
-      }
       &[data-new-or-copy=new]::before {
         background-image: url('../../images/icons/icon-new-course.svg');
       }

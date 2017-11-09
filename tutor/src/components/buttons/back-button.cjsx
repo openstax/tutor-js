@@ -11,15 +11,11 @@ BackButton = React.createClass
   displayName: 'BackButton'
 
   propTypes:
-    bsStyle: React.PropTypes.string
     fallbackLink: React.PropTypes.shape(
       to: React.PropTypes.string
       params: React.PropTypes.object
       text: React.PropTypes.string
     ).isRequired
-
-  getDefaultProps: ->
-    bsStyle: 'default'
 
   render: ->
     # Gets route to last path that was not the same as the current one
@@ -34,7 +30,7 @@ BackButton = React.createClass
       @props.fallbackLink.to, @props.fallbackLink.params
     )
 
-    <TutorLink className={"btn btn-#{@props.bsStyle}"} to={to}>
+    <TutorLink primaryBtn to={to}>
       {backText}
     </TutorLink>
 

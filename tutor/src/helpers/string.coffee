@@ -1,7 +1,7 @@
 _ = require 'underscore'
 
 SMALL_WORDS = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i
-
+UUID_REGEX = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/
 module.exports = {
 
   numberWithTwoDecimalPlaces: (num) ->
@@ -53,4 +53,6 @@ module.exports = {
       arry.slice(0, arry.length - 1).join(', ') + " #{join} " + arry.slice(-1)
     else
       arry[0]
+
+  isUUID: (uuid = '') -> UUID_REGEX.test(uuid)
 }

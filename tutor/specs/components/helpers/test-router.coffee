@@ -1,10 +1,16 @@
 class TestRouter
 
-  constructor: ->
-    @transitionTo     = sinon.spy()
-    @replaceWith      = sinon.spy()
-    @createHref       = sinon.spy( -> '/' )
-    @blockTransitions = sinon.spy()
+  constructor: (pathname = '/') ->
+    @route = {
+      hash: ''
+      search: ''
+      location: { pathname }
+    }
 
+    @history = {
+      createHref: jest.fn()
+      push: jest.fn()
+      replace: jest.fn()
+    }
 
 module.exports = TestRouter

@@ -2,6 +2,7 @@
 
 exports[`Change Student ID renders and matches snapshot for various states 1`] = `
 <div
+  backdropClassName="change-student-id"
   className="change-student-id modal"
   role="dialog"
   style={

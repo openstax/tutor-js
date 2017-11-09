@@ -5,10 +5,10 @@ S = require '../helpers/string'
 dom = require '../helpers/dom'
 
 {MediaPreview} = require './media-preview'
-{CourseStore} = require '../flux/course'
 {TaskStepStore} = require '../flux/task-step'
 {MediaStore} = require '../flux/media'
-{CourseStore} = require '../flux/course'
+{default: Courses} = require '../models/courses-map'
+
 ScrollToLinkMixin = require './scroll-to-link-mixin'
 
 Router = require '../helpers/router'
@@ -44,7 +44,7 @@ LinkContentMixin =
     {query, id} = @props
 
     if ecosystemId and not courseId
-      courseId = CourseStore.getByEcosystemId(ecosystemId)?.id
+      courseId = _.findWhere(Courses.array, {ecosystem_id: ecosystemId})?.id
 
     # suboptimal but is the best we can as long as the reference book depends on having a courseId in url
     return null unless courseId
@@ -99,7 +99,7 @@ LinkContentMixin =
     mediaCNXId = @getCnxIdOfHref(link.getAttribute('href')) or @props.cnxId or @getCnxId?()
     previewNode = document.createElement('span')
     previewNode.classList.add('media-preview-wrapper')
-    link.parentNode.replaceChild(previewNode, link)
+    link.parentNode?.replaceChild(previewNode, link)
 
     mediaProps =
       mediaId: mediaId
@@ -146,16 +146,44 @@ ReadingContentMixin =
 
   componentDidMount:  ->
     @_linkContentIsMounted = true
+    @insertCanonicalLink()
     @insertOverlays()
     @detectImgAspectRatio()
     @cleanUpAbstracts()
     @processLinks()
 
   componentDidUpdate: ->
+    @updateCanonicalLink()
     @insertOverlays()
     @detectImgAspectRatio()
     @cleanUpAbstracts()
     @processLinks()
+
+  componentWillUnmount: ->
+    @removeCanonicalLink()
+
+  insertCanonicalLink: ->
+    @linkNode = document.createElement('link')
+    @linkNode.rel = 'canonical'
+    document.head.appendChild(@linkNode)
+
+    @updateCanonicalLink()
+
+  updateCanonicalLink: ->
+    cnxId = @props.cnxId or @getCnxId?() or ''
+    # leave versioning out of canonical link
+    canonicalCNXId = _.first(cnxId.split('@'))
+    {courseId} = Router.currentParams()
+    {webview_url} = Courses.get(courseId)
+    baseWebviewUrl = _.first(webview_url.split('/contents/'))
+
+    # webview actually links to webview_url as it's canonical url.
+    # will need to ask them why.
+    @linkNode.href = "#{baseWebviewUrl}/contents/#{canonicalCNXId}"
+
+  removeCanonicalLink: ->
+    # document.head.
+    @linkNode.remove()
 
   insertOverlays: ->
     title = @getSplashTitle()
@@ -209,7 +237,7 @@ sizeImage = ->
   aspectRatio = @naturalWidth / @naturalHeight
 
   # let wide, square, and almost square figures be natural.
-  if aspectRatio > 0.9 or figure.parentNode.dataset.orient is 'horizontal'
+  if aspectRatio > 0.9 or figure.parentNode?.dataset.orient is 'horizontal'
     figure.classList.add('tutor-ui-horizontal-img')
     if @naturalWidth > 450 and figure.parentNode?.nodeName isnt 'FIGURE'
       figure.classList.add('full-width')

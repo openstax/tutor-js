@@ -32,7 +32,7 @@ describe 'Weaker Section Panel', ->
       practice = dom.querySelector('.practice.btn')
       expect(practice).to.not.be.null
       Testing.actions.click(practice)
-      expect(Testing.router.transitionTo).to.have.been.calledWith(
+      expect(Testing.router.history.push).to.have.been.calledWith(
         'viewPractice', { courseId: COURSE_ID }, { page_ids: ["6", "5"] }
       )
 

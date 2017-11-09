@@ -13,7 +13,6 @@ classnames = require 'classnames'
 CourseAddMenuMixin = require './add-menu-mixin'
 BindStoreMixin = require '../bind-store-mixin'
 CalendarHelper = require './helper'
-{CourseStore} = require '../../flux/course'
 {PastTaskPlansStore} = require '../../flux/past-task-plans'
 
 IS_INTRO_VIEWED = 'viewed-plan-dnd-intro'

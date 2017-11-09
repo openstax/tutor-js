@@ -7,7 +7,8 @@ first   = require 'lodash/first'
 isEmpty = require 'lodash/isEmpty'
 
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
-{CourseStore} = require '../../flux/course'
+{default: Courses} = require '../../models/courses-map'
+
 {AsyncButton, ScrollToMixin} = require 'shared'
 showDialog = require './unsaved-dialog'
 {default: TourAnchor} = require '../tours/anchor'
@@ -52,7 +53,7 @@ QuestionsControls = React.createClass
 
     selected = @props.selectedSection or first(sections)
 
-    isConceptCoach = CourseStore.isConceptCoach(@props.courseId)
+    isConceptCoach = Courses.get(@props.courseId).is_concept_coach
     filters =
       <TourAnchor id="exercise-type-toggle">
         <BS.ButtonGroup className="filters">

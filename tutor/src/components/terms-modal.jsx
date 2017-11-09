@@ -26,12 +26,15 @@ export default class TermsModal extends React.PureComponent {
   render() {
     if (!User.terms_signatures_needed) { return null; }
 
+    const className = classnames('user-terms', { 'is-loading': User.terms.api.isPending });
+
     return (
       <Modal
         animation={false}
         show={true}
         backdrop="static"
-        className={classnames('user-terms', { 'is-loading': User.terms.hasApiRequestPending })}
+        backdropClassName={className}
+        className={className}
       >
         <Modal.Header>
           <Branding isBeta={true} /> {this.title}

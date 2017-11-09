@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Course Page renders and matches snapshot 1`] = `
+<div
+  className="course-page test-page"
+  data-appearance="biology"
+  data-book-title="Biology"
+  data-is-preview={false}
+  data-term="Fall 2015"
+  data-title="Local Test Course"
+>
+  <header />
+  <div
+    className="body-wrapper"
+  >
+    <div
+      className="body"
+    >
+      <h3>
+        Hello, this is the body
+      </h3>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Course Page renders and matches snapshot 2`] = `
+<div
+  className="course-page test-page"
+  data-appearance="biology"
+  data-book-title="Biology"
+  data-is-preview={false}
+  data-term="Fall 2015"
+  data-title="Local Test Course"
+>
+  <header>
+    <div
+      className="title-wrapper"
+    >
+      <div
+        className="title"
+      >
+        <h1>
+          A Big Bad Page
+        </h1>
+      </div>
+      <div
+        className="subtitle"
+      >
+        This is a subtitle
+      </div>
+    </div>
+    <h1>
+      This is a test notice
+    </h1>
+    <div
+      className="controls-wrapper"
+    >
+      <button>
+        Click Me
+      </button>
+    </div>
+  </header>
+  <div
+    className="body-wrapper"
+  >
+    <div
+      className="body"
+    >
+      <h3>
+        Hello, this is the body
+      </h3>
+    </div>
+  </div>
+</div>
+`;

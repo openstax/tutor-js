@@ -19,7 +19,7 @@ exports[`Creating a course matches snapshot 1`] = `
       className="panel-content"
     >
       <div
-        className="list-group"
+        className="choices-listing list-group"
       >
         <div
           className="list-group-item choice"

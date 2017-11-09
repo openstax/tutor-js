@@ -1,6 +1,23 @@
 @pie-color-late: #268FBE;
 
-.scores-report {
+.course-average-help {
+  h3 {
+    margin: 0;
+    border-bottom: 1px solid @tutor-neutral-light;
+  }
+  p {
+    #fonts > .sans(1.3rem, 2rem);
+//    font-size: 16px;
+//    line-height: 18px;
+    margin: 10px 0;
+  }
+  .no-reading-heading {
+    margin-top: 20px;
+    font-weight: bolder;
+  }
+}
+
+.course-scores-report {
   @student-header-bg-color: #ccccce;
   @student-header-fg-color: #f2f2f2;
   @left-column-padding: 8px;
@@ -21,6 +38,11 @@
     border-style: solid;
     border-width: 2px;
     border-color: @tutor-tertiary-light;
+  }
+
+
+  .course-scores-table {
+    min-height: 70vh;
   }
 
   .overall-cell {
@@ -201,6 +223,18 @@
     }
   }
 
+  .no-students,
+  .no-assignments {
+    #fonts > .sans(1.5rem, 2.1rem);
+    display: flex;
+    flex-direction: column;
+    margin: 120px auto;
+    width: 500px;
+    p { text-align: center; }
+    .btn {
+      margin: 20px auto;
+    }
+  }
 }
 
 .scores-scores-tooltip-completed-info {

@@ -97,4 +97,21 @@
       }
     }
   ]
+}, {
+  "id": "teacher-settings-roster-split",
+  "autoplay": true,
+  "standalone": true,
+  "audience_tags": [
+    "teacher-settings-roster-split"
+  ],
+  "steps": [{
+    "title": "Student enrollment links have moved",
+    "body": "You can now find student enrollment links and other course info in Course Settings.",
+    "anchor_id": "menu-option-courseSettings",
+    "position": "left",
+    "is_fixed": true,
+    "action": {
+      "id": "open-user-menu"
+    }
+  }]
 }]

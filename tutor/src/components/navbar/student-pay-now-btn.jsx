@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import { get } from 'lodash';
 import { observer } from 'mobx-react';
 import { computed, action, observable } from 'mobx';
 import PaymentsModal from '../payments/modal';
@@ -55,6 +56,9 @@ export default class StudentPayNowBtn extends React.PureComponent {
   }
 
   render() {
+    // if the student is locked out then the pay now modal is already being displayed
+    if (get(this.course, 'userStudentRecord.mustPayImmediately')) { return null; }
+
     if (!Payments.config.is_enabled && this.course && this.course.isInTrialPeriod) {
       return (
         <span className="student-pay-now">

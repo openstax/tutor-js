@@ -19,24 +19,48 @@
   background-size: cover;
 }
 
-.ost-hero-background(@top: @tutor-navbar-height) {
-  top: @top;
-  &::before {
-    position: fixed;
-    top: @top;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    content: "";
-    z-index: -1;
-    background-image: url('../images/openstax-logo-white.png'), url('../images/ost-hero.jpg');
-    background-repeat: no-repeat, no-repeat;
-    background-size: 174px 40px, cover;
-    background-position: center 20px, center;
+.ost-hero-backdrop(@full-screen: false) {
+    &::before {
+      position: fixed;
+      top: @tutor-navbar-height;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      content: "";
+      z-index: -1;
+      background-image: url('../images/ost-hero.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+    & when (@full-screen) {
+      top: 0;
+      z-index: @zindex-navbar-fixed + 1;
+      &::before {
+        background-image: url('../images/openstax-logo-white.png'), url('../images/ost-hero.jpg');
+        top: 0;
+        background-repeat: no-repeat, no-repeat;
+        background-size: 174px 40px, cover;
+        background-position: center 20px, center;
+      }
+    }
+}
+
+.ost-hero-modal(@full-screen: false) {
+  &.modal-backdrop {
+    z-index: @zindex-navbar-fixed - 2;
+    & when (@full-screen) {
+      z-index: @zindex-navbar-fixed + 1;
+    }
   }
-  .modal-dialog { // move modal down so the ox logo appears
-    transform: translateY(80px);
-    margin: 0 auto; // override bootstrap 30px vertical margin
+  &.modal {
+    top: @tutor-navbar-height;
+    z-index: @zindex-navbar-fixed - 1;
+    .ost-hero-backdrop(@full-screen);
+    .modal-dialog { // move modal down so the ox logo appears
+      transform: translateY(80px);
+      margin: 0 auto; // override bootstrap 30px vertical margin
+    }
   }
 }
 

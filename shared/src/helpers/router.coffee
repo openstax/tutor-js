@@ -14,7 +14,10 @@ forEach      = require 'lodash/forEach'
 mapValues    = require 'lodash/mapValues'
 cloneDeep    = require 'lodash/cloneDeep'
 pathToRegexp = require 'path-to-regexp'
-matchPattern = require('react-router/matchPattern').default
+
+
+{ matchPath } = require('react-router-dom')
+
 
 class OXRouter
 
@@ -27,13 +30,12 @@ class OXRouter
     @getRoutesMap = -> mappedRoutes
 
   currentMatch: (path = window.location.pathname) =>
-    cloneDeep(findRoutePatternMemoed(path, @getRoutesMap()))
+    cloneDeep(findRoutePathMemoed(path, @getRoutesMap()))
 
   currentQuery: (options = {}) ->
     qs.parse((options.window or window).location.search.slice(1))
 
   currentParams: (options = {}) =>
-    # needed until https://github.com/ReactTraining/react-router/pull/4064 is released
     params = @currentMatch( (options.window or window).location.pathname)?.params or {}
     mapValues(params, (value) -> if value is "undefined" then undefined else value )
 
@@ -63,7 +65,7 @@ class OXRouter
       return null unless renderers[route.name]?
 
       route.render = renderers[route.name]()
-      route.getParamsForPath = partial(getParamsByPattern, routesMap[route.name].pattern)
+      route.getParamsForPath = partial(getParamsByPath, routesMap[route.name].path)
       route
     )
 
@@ -72,14 +74,14 @@ OXRouter.separateRendersFromRoutes = (routes) ->
 
   routeSettings = traverseRoutes(routes, (route) ->
     renderers[route.name] = route.renderer if route.renderer?
-    pick(route, 'pattern', 'name', 'routes')
+    pick(route, 'path', 'name', 'routes')
   )
 
   {renderers, routeSettings}
 
 
-getParamsByPattern = (pattern, pathname = window.location.pathname) ->
-  match = matchPattern(pattern, {pathname}, false)
+getParamsByPath = (path, pathname = window.location.pathname) ->
+  match = matchPath(pathname, { path: path })
   match?.params
 
 traverseRoutes = (routes, transformRoute) ->
@@ -107,25 +109,21 @@ mapRoutes = (routes, paths = {}, parentPath = {}) ->
 
   paths
 
-buildPath = (route, parentPath) ->
-  path = omit(cloneDeep(parentPath), 'toPath', 'name')
+buildPath = (route, parent) ->
+  path = omit(cloneDeep(parent), 'toPath', 'name')
   path.name = route.name
-  path.paths ?= []
-  path.paths.push(route.name)
-  path.patterns ?= []
-  path.patterns.push(route.pattern)
-  path.pattern = path.patterns.join('/')
-  path.toPath = pathToRegexp.compile(path.pattern)
+  path.path = if parent.path then "#{parent.path}/#{route.path}" else route.path
+  path.toPath = pathToRegexp.compile(path.path)
 
   path
 
 buildPathMemoed = memoize(buildPath)
 
-findRoutePattern = (pathname, mappedPaths) ->
+findRoutePath = (pathname, mappedPaths) ->
   matchedEntrys = []
 
   matchedPaths = compact(map(mappedPaths, (path) ->
-    match = matchPattern(path.pattern, {pathname}, false)
+    match = matchPath(pathname, { path: path.path })
     matchedEntrys.push(path) if match
     match
   ))
@@ -139,6 +137,6 @@ findRoutePattern = (pathname, mappedPaths) ->
     null
 
 
-findRoutePatternMemoed = memoize(findRoutePattern)
+findRoutePathMemoed = memoize(findRoutePath)
 
 module.exports = OXRouter

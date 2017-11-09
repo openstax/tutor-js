@@ -4,7 +4,8 @@ _ = require 'underscore'
 moment = require 'moment'
 
 MiniEditor = require '../../../../src/components/task-plan/mini-editor/editor'
-{CourseActions} = require '../../../../src/flux/course'
+{default: Courses} = require '../../../../src/models/courses-map'
+
 {TaskPlanActions, TaskPlanStore} = require '../../../../src/flux/task-plan'
 {TimeStore} = require '../../../../src/flux/time'
 TimeHelper = require '../../../../src/helpers/time'
@@ -49,7 +50,7 @@ describe 'TaskPlan MiniEditor wrapper', ->
     @sandbox.stub(TaskPlanStore, 'isValid', -> true)
     @sandbox.stub(TaskPlanStore, 'hasChanged', -> true)
 
-    CourseActions.loaded(COURSE, COURSE_ID)
+    Courses.bootstrap([COURSE], { clear: true })
 
     TaskPlanActions.loaded(PLAN, PLAN.id)
 

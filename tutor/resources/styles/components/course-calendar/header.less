@@ -1,15 +1,13 @@
 @calendar-header-padding: 2rem;
-
 .list-task-plans {
-
-  .calendar-header {
-    margin-top: 20px;
-    background-color: @tutor-neutral-lighter;
-    .clearfix();
+  .controls-wrapper {
+    background-color: white;
+    padding-bottom: 0;
+  }
+  .controls-wrapper > .calendar-header {
     .flex-display();
+    .flex-direction(row);
     .flex-flow(row wrap);
-
-    > * { margin-bottom: 20px; }
 
     // expand "no sections" message so it completely fills course
     .no-periods-message { min-width: 100%; }
@@ -30,30 +28,29 @@
       color: white;
       .tutor-icon { margin-right: 2rem; }
       &.open { background-color: @tutor-neutral-lite; }
-      .flex-order(2);
     }
     .calendar-header-actions-buttons {
       .flex-display();
       .flex(auto);
       .justify-content(flex-end);
-      .flex-order(1);
-
       > * { margin-left: 0.5rem; }
     }
 
-    @media (min-width: @screen-md-min) {
+    @media (max-width: 1050px) {
+      .flex-direction(column-reverse);
       .sidebar-toggle {
-        .flex-order(1);
       }
       .calendar-header-actions-buttons {
-        .flex-order(2);
+        margin-bottom: 20px;
       }
     }
 
     .no-periods-text {
       display: block;
     }
+  }
 
+  .calendar-header {
     &-actions {
       border-bottom: 1px solid @tutor-neutral-light;
       padding-top: 1rem;

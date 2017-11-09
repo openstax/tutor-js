@@ -5,7 +5,7 @@ moment = require 'moment-timezone'
 {TocActions, TocStore} = require '../../../../src/flux/toc'
 {TaskPlanActions, TaskPlanStore} = require '../../../../src/flux/task-plan'
 {ExtendBasePlan, PlanRenderHelper} = require '../../helpers/task-plan'
-{CourseActions, CourseStore} = require '../../../../src/flux/course'
+{default: Courses} = require '../../../../src/models/courses-map'
 
 ECOSYSTEM_ID = '1'
 COURSE_ID    = '1'
@@ -22,7 +22,7 @@ describe 'choose exercises component', ->
   beforeEach ->
     TocActions.loaded(READINGS, ECOSYSTEM_ID)
     TaskPlanActions.loaded(NEW_PLAN, PLAN_ID)
-    CourseActions.loaded(COURSE, COURSE_ID)
+    Courses.bootstrap([COURSE], { clear: true })
     @props =
       ecosystemId: ECOSYSTEM_ID
       courseId: COURSE_ID

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import Payments from '../../models/payments';
 import OXFancyLoader from '../ox-fancy-loader';
@@ -14,7 +14,6 @@ export default class PaymentsPanel extends React.PureComponent {
   }
 
   payments = new Payments({
-    product_uuid: 'e6d22dbc-0a01-5131-84ba-2214bbe4d74d', // FIXME get this from course once it's on representer
     course: this.props.course,
     messageHandlers: {
       cancel: this.props.onCancel,
@@ -28,7 +27,14 @@ export default class PaymentsPanel extends React.PureComponent {
 
   renderErrors(payments) {
     if (payments.hasError) {
-      return <Alert bsStyle="danger" onDismiss={this.props.onCancel}>{payments.errorMessage}</Alert>;
+      return (
+        <div className="error-message">
+          <p>{payments.errorMessage}</p>
+          <Button bsStyle="primary" onClick={this.props.onCancel}>
+            Close
+          </Button>
+        </div>
+      );
     }
     return null;
   }

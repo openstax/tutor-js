@@ -45,15 +45,20 @@ getEventShell = ->
   EventShell
 
 getScoresShell = ->
-  {ScoresShell} = require './components/scores'
-  ScoresShell
+  {default: StudentScores} = require './components/scores'
+  StudentScores
 
 getPerformanceForecastGuide = ->
   PerformanceForecast = require './components/performance-forecast'
   PerformanceForecast.Guide
 
 getCourseSettings = ->
-  require './components/course-settings'
+  {default: CourseSettings} = require './components/course-settings'
+  CourseSettings
+
+getCourseRoster = ->
+  {default: CourseRoster} = require './components/course-roster'
+  CourseRoster
 
 getPractice = ->
   require './components/task/practice'
@@ -76,8 +81,8 @@ getCreateCourse = ->
   Wizard
 
 getTeacherReview = ->
-  {TaskTeacherReviewShell} = require './components/task-teacher-review'
-  TaskTeacherReviewShell
+  {default: TaskTeacherReview} = require './components/task-teacher-review'
+  TaskTeacherReview
 
 getCCHelp = ->
   require './components/cc-dashboard/help'
@@ -89,80 +94,85 @@ getCreateEnrollmentChange = ->
   {default: CourseEnroll} = require './components/enroll'
   CourseEnroll
 
+getAccessibilityStatement = ->
+  {default: AccessibilityStatement} = require './components/accessibility-statement'
+  AccessibilityStatement
 
 getStudentPreview = ->
   {default: StudentPreview} = require './components/student-preview'
   StudentPreview
 
 ROUTES = [
-  { pattern: '/dashboard',              name: 'myCourses',                renderer: getMyCourses }
-  { pattern: '/enroll/start/:enrollmentCode', name: 'createEnrollmentChange',   renderer: getCreateEnrollmentChange }
-  { pattern: '/new-course/:sourceId?',  name: 'createNewCourse',          renderer: getCreateCourse  }
+  { path: '/dashboard',              name: 'myCourses',                renderer: getMyCourses }
+  { path: '/enroll/start/:enrollmentCode', name: 'createEnrollmentChange',   renderer: getCreateEnrollmentChange }
+  { path: '/new-course/:sourceId?',  name: 'createNewCourse',          renderer: getCreateCourse  }
   {
-    pattern: '/qa',                     name: 'QADashboard',              renderer: getQADashboard
+    path: '/qa',                     name: 'QADashboard',              renderer: getQADashboard
     routes: [
       {
-        pattern: ':ecosystemId',        name: 'QAViewBook',               renderer: getQABook
+        path: ':ecosystemId',        name: 'QAViewBook',               renderer: getQABook
         routes: [{
-          pattern: 'section/:section',  name: 'QAViewBookSection',        renderer: getQABook
+          path: 'section/:section',  name: 'QAViewBookSection',        renderer: getQABook
         }]
       }
     ]
   }
   {
-    pattern: '/course/:courseId',       name: 'dashboard',                renderer: getDashboard
+    path: '/course/:courseId',       name: 'dashboard',                renderer: getDashboard
     routes: [
-      { pattern: 'scores',              name: 'viewScores',               renderer: getScoresShell }
-      { pattern: 'cc/help',             name: 'ccDashboardHelp',          renderer: getCCHelp      }
-      { pattern: 'guide/:roleId?',      name: 'viewPerformanceGuide',     renderer: getPerformanceForecastGuide }
+      { path: 'scores',              name: 'viewScores',               renderer: getScoresShell }
+      { path: 'cc/help',             name: 'ccDashboardHelp',          renderer: getCCHelp      }
+      { path: 'guide/:roleId?',      name: 'viewPerformanceGuide',     renderer: getPerformanceForecastGuide }
       {
-        pattern: 't',                   name: 'viewTeacherDashboard',     renderer: getTeacherTaskPlans
+        path: 't',                   name: 'viewTeacherDashboard',     renderer: getTeacherTaskPlans
         routes: [
           {
-            pattern: 'month/:date',     name: 'calendarByDate',           renderer: getTeacherTaskPlans
+            path: 'month/:date',     name: 'calendarByDate',           renderer: getTeacherTaskPlans
             routes: [{
-              pattern: 'plan/:planId',  name: 'calendarViewPlanStats',    renderer: getTeacherTaskPlans
+              path: 'plan/:planId',  name: 'calendarViewPlanStats',    renderer: getTeacherTaskPlans
             }]
           }
         ]
       }
-      { pattern: 'assignment-links',    name: 'viewAssignmentLinks',      renderer: getAssignmentLinks }
-      { pattern: 'metrics/:id',         name: 'reviewTask',               renderer: getTeacherReview }
+      { path: 'assignment-links',    name: 'viewAssignmentLinks',      renderer: getAssignmentLinks }
+      { path: 'metrics/:id',         name: 'reviewTask',               renderer: getTeacherReview }
       {
-        pattern: 'task/:id',            name: 'viewTask',                 renderer: getTaskShell
+        path: 'task/:id',            name: 'viewTask',                 renderer: getTaskShell
         routes: [
           {
-            pattern: 'step/:stepIndex', name: 'viewTaskStep',             renderer: getTaskShell
+            path: 'step/:stepIndex', name: 'viewTaskStep',             renderer: getTaskShell
             routes: [{
-              pattern: ':milestones',   name: 'viewTaskStepMilestones',   renderer: getTaskShell
+              path: ':milestones',   name: 'viewTaskStepMilestones',   renderer: getTaskShell
             }]
           }
         ]
       }
-      { pattern: 'practice/:taskId?',   name: 'practiceTopics',           renderer: getPractice            }
-      { pattern: 'homework/new',        name: 'createHomework'                                        }
-      { pattern: 'homework/:id',        name: 'editHomework',             renderer: getHomeworkShell       }
-      { pattern: 'reading/new',         name: 'createReading'                                         }
-      { pattern: 'reading/:id',         name: 'editReading',              renderer: getReadingShell        }
-      { pattern: 'external/new',        name: 'createExternal'                                        }
-      { pattern: 'external/:id',        name: 'editExternal',             renderer: getExternalShell       }
-      { pattern: 'event/new',           name: 'createEvent'                                           }
-      { pattern: 'event/:id',           name: 'editEvent',                renderer: getEventShell          }
-      { pattern: 'settings',            name: 'courseSettings',           renderer: getCourseSettings      }
-      { pattern: 'questions',           name: 'viewQuestionsLibrary',     renderer: getQuestionsLibrary    }
-      { pattern: 'change-student-id',   name: 'changeStudentId',          renderer: getChangeStudentId     }
+      { path: 'practice/:taskId?',   name: 'practiceTopics',           renderer: getPractice            }
+      { path: 'homework/new',        name: 'createHomework'                                        }
+      { path: 'homework/:id',        name: 'editHomework',             renderer: getHomeworkShell       }
+      { path: 'reading/new',         name: 'createReading'                                         }
+      { path: 'reading/:id',         name: 'editReading',              renderer: getReadingShell        }
+      { path: 'external/new',        name: 'createExternal'                                        }
+      { path: 'external/:id',        name: 'editExternal',             renderer: getExternalShell       }
+      { path: 'event/new',           name: 'createEvent'                                           }
+      { path: 'event/:id',           name: 'editEvent',                renderer: getEventShell          }
+      { path: 'settings',            name: 'courseSettings',           renderer: getCourseSettings      }
+      { path: 'roster',              name: 'courseRoster',             renderer: getCourseRoster        }
+      { path: 'questions',           name: 'viewQuestionsLibrary',     renderer: getQuestionsLibrary    }
+      { path: 'change-student-id',   name: 'changeStudentId',          renderer: getChangeStudentId     }
     ]
 
+  }, {
+    path: '/accessibility-statement/:courseId?', name: 'accessibilityStatement', renderer: getAccessibilityStatement
+  }, {
+    path: '/student-preview/:courseId?', name: 'studentPreview',       renderer: getStudentPreview
   }
+  { path: '/payments',                name: 'managePayments',           renderer: getPaymentsShell     }
   {
-    pattern: '/student-preview/:courseId?', name: 'studentPreview',       renderer: getStudentPreview
-  }
-  { pattern: '/payments',                name: 'managePayments',           renderer: getPaymentsShell     }
-  {
-    pattern: '/books/:courseId',        name: 'viewReferenceBook',        renderer: getReferenceBookShell
+    path: '/books/:courseId',        name: 'viewReferenceBook',        renderer: getReferenceBookShell
     routes: [
-      { pattern: 'section/:section',    name: 'viewReferenceBookSection', renderer: getReferenceBookShell  }
-      { pattern: 'page/:cnxId',         name: 'viewReferenceBookPage',    renderer: getReferenceBookPageShell  }
+      { path: 'section/:section',    name: 'viewReferenceBookSection', renderer: getReferenceBookShell  }
+      { path: 'page/:cnxId',         name: 'viewReferenceBookPage',    renderer: getReferenceBookPageShell  }
     ]
   }
 ]

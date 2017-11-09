@@ -8,9 +8,6 @@ import ForceScrollOnMount       from './force-scroll-on-mount';
 import TipsNowOrLater           from './tips-now-or-later';
 
 import InstructorWelcomeToTutor     from './instructor-welcome-to-tutor';
-import WelcomeToTutorWithCoach      from './welcome-to-tutor-with-coach';
-import LookingForCoach              from './looking-for-coach';
-import LookingForCoachNoMigration   from './looking-for-coach-no-migration';
 import StudentWelcomeToTutor        from './student-welcome-to-tutor';
 
 export default {
@@ -24,8 +21,5 @@ export default {
   TipsNowOrLater,
 
   InstructorWelcomeToTutor,
-  WelcomeToTutorWithCoach,
-  LookingForCoach,
-  LookingForCoachNoMigration,
   StudentWelcomeToTutor,
 };

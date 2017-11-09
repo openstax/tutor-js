@@ -1,14 +1,14 @@
 import React        from 'react';
 import ReactDOM     from 'react-dom';
 import { Tooltip }  from 'react-joyride';
-
+import { get }      from 'lodash';
 import classnames   from 'classnames';
 
 export default class ViewedOnBlur extends React.PureComponent {
   className = 'viewed-on-blur-tooltip'
 
   static contextTypes = {
-    history: React.PropTypes.object,
+    router: React.PropTypes.object,
   }
 
   constructor(props) {
@@ -25,12 +25,11 @@ export default class ViewedOnBlur extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.step.joyrideRef.next) {
+    if (get(nextProps.step, 'joyrideRef.next')) {
       if (this.unlistenRouteChange) {
         this.unlistenRouteChange();
       }
-
-      this.unlistenRouteChange = this.context.history.listen(nextProps.step.joyrideRef.next);
+      this.unlistenRouteChange = this.context.router.history.listen(nextProps.step.joyrideRef.next);
     }
   }
 

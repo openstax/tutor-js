@@ -13,7 +13,9 @@ export default class StudentWelcomeToTutor extends React.PureComponent {
     return (
       <SuperTrainingWheel {...this.props}>
         <WelcomeToTutorMessage withoutCost>
-          <p>We use research-based technology to change the way you learn. Here's what to look out for:</p>
+          <p className="sub-heading">
+            We use research-based technology to change the way you learn. Here's what to look out for:
+          </p>
         </WelcomeToTutorMessage>
       </SuperTrainingWheel>
     );

@@ -5,41 +5,11 @@
   "standalone": true,
   "showOverlay": true,
   "audience_tags": [
-    "teacher-no-coach"
+    "teacher"
   ],
   "steps": [
     {
       "customComponent": "InstructorWelcomeToTutor"
-    }
-  ]
-}, {
-  "id": "my-courses-coach-migrate",
-  "autoplay": true,
-  "standalone": true,
-  "showOverlay": true,
-  "audience_tags": [
-    "teacher-coach-with-migration"
-  ],
-  "steps": [
-    {
-      "customComponent": "WelcomeToTutorWithCoach"
-    }, {
-      "customComponent": "LookingForCoach"
-    }
-  ]
-}, {
-  "id": "my-courses-coach-no-migrate",
-  "autoplay": true,
-  "standalone": true,
-  "showOverlay": true,
-  "audience_tags": [
-    "teacher-coach-no-migration"
-  ],
-  "steps": [
-    {
-      "customComponent": "WelcomeToTutorWithCoach"
-    }, {
-      "customComponent": "LookingForCoachNoMigration"
     }
   ]
 }, {

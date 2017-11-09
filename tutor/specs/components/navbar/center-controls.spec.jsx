@@ -5,6 +5,9 @@ import CenterControls from '../../../src/components/navbar/center-controls';
 import { TaskActions, TaskStore } from '../../../src/flux/task';
 import EnzymeContext from '../helpers/enzyme-context';
 import { Wrapper, SnapShot } from '../helpers/component-testing';
+import Router from '../../../src/helpers/router';
+
+jest.mock('../../../src/helpers/router');
 
 const TASK_ID = '4';
 
@@ -35,19 +38,39 @@ describe('Center Controls', function() {
 
 
   it('matches snapshot', () => {
+    Router.makePathname.mockImplementation(() =>
+      '/course/1/task/4/step/1/milestones'
+    );
     expect(
       SnapShot.create(<Wrapper {...props} shouldShow={true} _wrapped_component={CenterControls} />).toJSON()
     ).toMatchSnapshot();
   });
 
+  it('hides itself when not on milestones path', () => {
+    Router.currentMatch.mockImplementation(() => ({
+      entry: { name: 'myCourses' },
+    }));
+    const cntrl = mount(<CenterControls {...props} />, EnzymeContext.build());
+    cntrl.setProps({});
+    expect(cntrl).not.toHaveRendered('.milestones-toggle');
+  });
+
   it('renders milestones link when not on milestones path', () => {
-    const cntrl = mount(<CenterControls {...props} shouldShow={true} />, EnzymeContext.build());
+    Router.currentMatch.mockImplementation(() => ({
+      entry: { name: 'viewTaskStep' },
+    }));
+    const cntrl = mount(<CenterControls {...props} />, EnzymeContext.build());
+    expect(cntrl).toHaveRendered('.milestones-toggle');
     expect(cntrl).not.toHaveRendered('.milestones-toggle.active');
   });
 
   it('renders close milestones link when on milestones path', () => {
+    Router.currentMatch.mockImplementation(() => ({
+      entry: { name: 'viewTaskStepMilestones' },
+    }));
     props.params.milestones = true;
-    const cntrl = mount(<CenterControls {...props} shouldShow={true} />, EnzymeContext.build());
+    const cntrl = mount(<CenterControls {...props} />, EnzymeContext.build());
     expect(cntrl).toHaveRendered('.milestones-toggle.active');
   });
+
 });

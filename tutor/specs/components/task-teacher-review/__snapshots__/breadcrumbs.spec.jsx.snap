@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Task Teacher Review: Breadcrumbs renders and matches snapshot 1`] = `
+<div
+  className="task-breadcrumbs"
+>
+  <span
+    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-reading"
+    data-chapter="2.2"
+    onClick={[Function]}
+    title={undefined}
+  >
+    <i
+      className="icon-lg icon-reading"
+    />
+  </span>
+  <span
+    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-reading"
+    data-chapter="3.3"
+    onClick={[Function]}
+    title={undefined}
+  >
+    <i
+      className="icon-lg icon-reading"
+    />
+  </span>
+  <span
+    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-reading"
+    data-chapter="5.4"
+    onClick={[Function]}
+    title={undefined}
+  >
+    <i
+      className="icon-lg icon-reading"
+    />
+  </span>
+  <span
+    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-reading"
+    data-chapter="8.3"
+    onClick={[Function]}
+    title={undefined}
+  >
+    <i
+      className="icon-lg icon-reading"
+    />
+  </span>
+  <span
+    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-reading"
+    data-chapter="13.2"
+    onClick={[Function]}
+    title={undefined}
+  >
+    <i
+      className="icon-lg icon-reading"
+    />
+  </span>
+  <span
+    className="openstax-breadcrumbs-step icon-stack icon-lg breadcrumb-reading"
+    data-chapter="21.3"
+    onClick={[Function]}
+    title={undefined}
+  >
+    <i
+      className="icon-lg icon-reading"
+    />
+  </span>
+  <a
+    className="btn btn-default btn-primary"
+    href="/bread"
+    onClick={[Function]}
+  >
+    Back to Calendar
+  </a>
+  <div
+    className="task-title"
+  >
+    Read Pages 9-11
+  </div>
+</div>
+`;

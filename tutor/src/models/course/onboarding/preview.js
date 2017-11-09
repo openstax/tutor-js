@@ -7,14 +7,10 @@ import { filter, includes } from 'lodash';
 import BaseOnboarding from './base';
 import Courses from '../../courses-map';
 
-import TeacherTaskPlans from '../../teacher-task-plans';
-import { TaskPlanStore } from '../../../flux/task-plan';
-
 import Nags from '../../../components/onboarding/nags';
 
 const IS_DISMISSED = observable.box(false);
 const HAS_PUBLISHED = observable.box(false);
-TaskPlanStore.on('publish-queued', () => HAS_PUBLISHED.set(true));
 
 const NAG_PLAN_TYPES = [ 'homework', 'reading' ];
 
@@ -32,10 +28,10 @@ export default class PreviewOnboarding extends BaseOnboarding {
   @computed get shouldWarnPreviewOnly() {
     if (!HAS_PUBLISHED.get() ||
         this.hasCreatedRealCourse ||
-        TeacherTaskPlans.hasApiRequestPending
+        this.course.taskPlans.api.isPending
     ) { return false; }
 
-    const plans = TeacherTaskPlans.forCourseId(this.course.id).active;
+    const plans = this.course.taskPlans.active;
     const realPlanCount = filter(
       plans, (plan) => !plan.is_preview && includes(NAG_PLAN_TYPES, plan.type)
     ).length;

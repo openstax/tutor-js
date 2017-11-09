@@ -3,8 +3,8 @@ BS = require 'react-bootstrap'
 _  = require 'underscore'
 classnames = require 'classnames'
 Router = require '../../helpers/router'
+{default: Courses} = require '../../models/courses-map'
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
-{CourseActions, CourseStore} = require '../../flux/course'
 CourseData = require '../../helpers/course-data'
 
 ReferenceBookPageShell = require './page-shell'
@@ -22,10 +22,9 @@ ReferenceBookShell = React.createClass
   componentWillMount: ->
     {courseId} = Router.currentParams()
     @setIds()
-
-    unless CourseStore.isLoaded(courseId)
-      CourseActions.load(courseId)
-      CourseStore.once('course.loaded', @setIds)
+    course = Courses.get(courseId) or Courses.addNew({ id: courseId })
+    unless course.api.hasBeenFetched
+      course.fetch().then(@setIds)
 
   componentWillReceiveProps: ->
     @setIds()
@@ -33,7 +32,7 @@ ReferenceBookShell = React.createClass
   getIds: ->
     {courseId, section} = Router.currentParams()
     {ecosystemId} = Router.currentQuery()
-    ecosystemId ?= CourseStore.get(courseId)?.ecosystem_id
+    ecosystemId ?= Courses.get(courseId)?.ecosystem_id
     {courseId, section, ecosystemId}
 
   setIds: ->
@@ -43,7 +42,7 @@ ReferenceBookShell = React.createClass
     @setState(isShowingTeacherContent: isShowing)
 
   renderNavbarControls: ->
-    return null unless CourseStore.isTeacher(@state.courseId)
+    return null unless Courses.get(@state.courseId).isTeacher
 
     <BS.NavItem key='teacher-content'>
       <TeacherContentToggle isShowing={@state.isShowingTeacherContent} onChange={@setTeacherContent} />
@@ -65,7 +64,7 @@ ReferenceBookShell = React.createClass
   render: ->
     {courseId, ecosystemId} = @state
     <LoadableItem
-      id={ecosystemId or CourseStore.get(courseId).ecosystem_id}
+      id={ecosystemId or Courses.get(courseId).ecosystem_id}
       store={ReferenceBookStore}
       actions={ReferenceBookActions}
       renderItem={@renderBook} />

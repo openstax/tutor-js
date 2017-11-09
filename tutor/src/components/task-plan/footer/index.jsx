@@ -1,9 +1,8 @@
 import React from 'react';
 import { action } from 'mobx';
+import { observer } from 'mobx-react';
 import { TaskPlanStore, TaskPlanActions } from '../../../flux/task-plan';
-import { PlanPublishStore } from '../../../flux/plan-publish';
-import PlanHelper from '../../../helpers/plan';
-
+import PlanPublishing from '../../../models/jobs/task-plan-publish';
 import HelpTooltip from './help-tooltip';
 import SaveButton from './save-button';
 import CancelButton from './cancel-button';
@@ -11,9 +10,10 @@ import BackButton from './back-button';
 import DraftButton from './save-as-draft';
 import DeleteLink from './delete-link';
 import PreviewButton from './preview-button';
-
+import Courses from '../../../models/courses-map';
 import TourAnchor from '../../tours/anchor';
 
+@observer
 export default class PlanFooter extends React.PureComponent {
 
   static propTypes = {
@@ -35,39 +35,14 @@ export default class PlanFooter extends React.PureComponent {
     super(props);
     this.state = {
       isEditable: TaskPlanStore.isEditable(this.props.id),
-      publishing: TaskPlanStore.isPublishing(this.props.id),
       saving: TaskPlanStore.isSaving(this.props.id),
     };
   }
 
-  componentWillUnmount() {
-    PlanHelper.unsubscribeFromPublishing(this.props.id, this.checkPublishingStatus);
-  }
-
-  componentWillMount() {
-    const plan = TaskPlanStore.get(this.props.id);
-    const publishState = PlanHelper.subscribeToPublishing(plan, this.checkPublishingStatus);
-    this.setState({ publishing: publishState.isPublishing });
-  }
-
-  @action.bound
-  checkPublishingStatus(published) {
-    const planId = this.props.id;
-    if (published.for === planId) {
-      const planStatus =
-        { publishing: PlanPublishStore.isPublishing(planId) };
-
-      this.setState(planStatus);
-      if (PlanPublishStore.isDone(planId)) {
-        PlanHelper.unsubscribeFromPublishing(planId, this.checkPublishingStatus);
-        TaskPlanActions.load(planId);
-      }
-    }
-  }
-
   @action.bound
   onDelete() {
-    const { id } = this.props;
+    const { courseId, id } = this.props;
+    Courses.get(courseId).taskPlans.delete(id);
     TaskPlanActions.delete(id);
     this.props.goBackToCalendar();
   }
@@ -75,17 +50,18 @@ export default class PlanFooter extends React.PureComponent {
   @action.bound
   onSave() {
     const saving = this.props.onSave();
-    this.setState({ saving, publishing: false });
+    this.setState({ saving });
   }
 
   @action.bound
   onPublish() {
-    const publishing = this.props.onPublish();
-    this.setState({ publishing, saving: false, isEditable: TaskPlanStore.isEditable(this.props.id) });
+    this.props.onPublish();
+    this.setState({ saving: false, isEditable: TaskPlanStore.isEditable(this.props.id) });
   }
 
   render() {
     const { id, hasError } = this.props;
+    const publishing  = PlanPublishing.isPublishing({ id });
     const isWaiting   = TaskPlanStore.isSaving(id) || TaskPlanStore.isPublishing(id) || TaskPlanStore.isDeleteRequested(id);
     const isFailed    = TaskPlanStore.isFailed(id);
     const isPublished = TaskPlanStore.isPublished(id);
@@ -99,7 +75,7 @@ export default class PlanFooter extends React.PureComponent {
             isWaiting={isWaiting}
             isSaving={this.state.saving}
             isEditable={this.state.isEditable}
-            isPublishing={this.state.publishing}
+            isPublishing={publishing}
             isPublished={isPublished}
             isFailed={isFailed}
             hasError={hasError} />
@@ -108,7 +84,7 @@ export default class PlanFooter extends React.PureComponent {
           <DraftButton
             onClick={this.onSave}
             isWaiting={isWaiting && this.state.saving}
-            isPublishing={this.state.publishing}
+            isPublishing={publishing}
             isFailed={isFailed}
             hasError={hasError}
             isPublished={isPublished} />

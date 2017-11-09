@@ -36,7 +36,7 @@ describe 'Learning Guide Practice Button', ->
       sections: GUIDE_DATA.children[0].children
     }).then ({dom}) ->
       Testing.actions.click(dom)
-      expect(Testing.router.transitionTo).to.have.been.calledWith( 'viewPractice',
+      expect(Testing.router.history.push).to.have.been.calledWith( 'viewPractice',
         { courseId: COURSE_ID }, { page_ids: ['2', '3'] }
       )
 

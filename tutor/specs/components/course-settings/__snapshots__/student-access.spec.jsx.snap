@@ -1,0 +1,605 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Course Settings, student access can switch to links 1`] = `
+<div
+  className="student-access"
+>
+  <p>
+    Choose how students access OpenStax Tutor. Access settings cannot be changed after students begin to enroll.
+  </p>
+  <a
+    href="http://4tk3oi.axshare.com/salesforce_support_page_results.html"
+    target="_blank"
+  >
+    <i
+      className="tutor-icon fa fa-info-circle"
+      type="info-circle"
+    />
+     Which option is right for my course?
+  </a>
+  <div
+    className="panel-group"
+    role="tablist"
+  >
+    <div
+      className="links active panel panel-default"
+      id={null}
+    >
+      <div
+        className="panel-heading"
+      >
+        <div
+          className="choice checked panel-title"
+        >
+          <a
+            aria-controls={undefined}
+            aria-expanded={true}
+            aria-selected={true}
+            className={null}
+            href={undefined}
+            onClick={[Function]}
+            role="tab"
+          >
+            <div
+              aria-label="Selected"
+              className="box"
+            />
+            <div
+              className="heading"
+            >
+              <p
+                className="title"
+              >
+                Give students direct links
+              </p>
+              <p
+                className="info"
+              >
+                You will give students links to access OpenStax Tutor directly.
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div
+        aria-expanded={null}
+        aria-hidden={false}
+        className="panel-collapse collapse in"
+        id={undefined}
+        role="tabpanel"
+      >
+        <div
+          className="panel-body"
+        >
+          <p>
+            Give students direct links
+          </p>
+          <label
+            className="copy-on-focus"
+          >
+            1st
+            <input
+              className={null}
+              onFocus={[Function]}
+              readOnly={true}
+              value="http://test/period/1"
+            />
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+      className="lms panel panel-default"
+      id={null}
+    >
+      <div
+        className="panel-heading"
+      >
+        <div
+          className="choice panel-title"
+        >
+          <a
+            aria-controls={undefined}
+            aria-expanded={false}
+            aria-selected={false}
+            className="collapsed"
+            href={undefined}
+            onClick={[Function]}
+            role="tab"
+          >
+            <div
+              aria-label=""
+              className="box"
+            />
+            <div
+              className="heading"
+            >
+              <p
+                className="title"
+              >
+                Integrate with your LMS 
+                <i
+                  className="advanced"
+                >
+                  Advanced
+                </i>
+              </p>
+              <p
+                className="info"
+              >
+                Integrate OpenStax Tutor with your Learning Management System (LMS) to send average course scores to your LMS and enable single sign on.
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div
+        aria-expanded={null}
+        aria-hidden={true}
+        className="panel-collapse collapse"
+        id={undefined}
+        role="tabpanel"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Course Settings, student access can switch to lms 1`] = `
+<div
+  className="student-access"
+>
+  <p>
+    Choose how students access OpenStax Tutor. Access settings cannot be changed after students begin to enroll.
+  </p>
+  <a
+    href="http://4tk3oi.axshare.com/salesforce_support_page_results.html"
+    target="_blank"
+  >
+    <i
+      className="tutor-icon fa fa-info-circle"
+      type="info-circle"
+    />
+     Which option is right for my course?
+  </a>
+  <div
+    className="panel-group"
+    role="tablist"
+  >
+    <div
+      className="links panel panel-default"
+      id={null}
+    >
+      <div
+        className="panel-heading"
+      >
+        <div
+          className="choice panel-title"
+        >
+          <a
+            aria-controls={undefined}
+            aria-expanded={false}
+            aria-selected={false}
+            className="collapsed"
+            href={undefined}
+            onClick={[Function]}
+            role="tab"
+          >
+            <div
+              aria-label=""
+              className="box"
+            />
+            <div
+              className="heading"
+            >
+              <p
+                className="title"
+              >
+                Give students direct links
+              </p>
+              <p
+                className="info"
+              >
+                You will give students links to access OpenStax Tutor directly.
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div
+        aria-expanded={null}
+        aria-hidden={true}
+        className="panel-collapse collapse"
+        id={undefined}
+        role="tabpanel"
+      >
+        <div
+          className="panel-body"
+        >
+          <p>
+            Give students direct links
+          </p>
+          <label
+            className="copy-on-focus"
+          >
+            1st
+            <input
+              className={null}
+              onFocus={[Function]}
+              readOnly={true}
+              value="http://test/period/1"
+            />
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+      className="lms active panel panel-default"
+      id={null}
+    >
+      <div
+        className="panel-heading"
+      >
+        <div
+          className="choice checked panel-title"
+        >
+          <a
+            aria-controls={undefined}
+            aria-expanded={true}
+            aria-selected={true}
+            className={null}
+            href={undefined}
+            onClick={[Function]}
+            role="tab"
+          >
+            <div
+              aria-label="Selected"
+              className="box"
+            />
+            <div
+              className="heading"
+            >
+              <p
+                className="title"
+              >
+                Integrate with your LMS 
+                <i
+                  className="advanced"
+                >
+                  Advanced
+                </i>
+              </p>
+              <p
+                className="info"
+              >
+                Integrate OpenStax Tutor with your Learning Management System (LMS) to send average course scores to your LMS and enable single sign on.
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div
+        aria-expanded={null}
+        aria-hidden={false}
+        className="panel-collapse collapse in"
+        id={undefined}
+        role="tabpanel"
+      >
+        <div
+          className="panel-body"
+        >
+          <div
+            className="lms-access"
+          >
+            <div
+              className="btn-group btn-group-sm"
+              data-toggle="buttons"
+            >
+              <label
+                className="btn btn-default active"
+                disabled={false}
+                type="button"
+              >
+                <input
+                  autoComplete="off"
+                  checked={true}
+                  disabled={false}
+                  name="vendor"
+                  onChange={[Function]}
+                  type="radio"
+                  value="blackboard"
+                />
+                Blackboard
+              </label>
+              <label
+                className="btn btn-default"
+                disabled={false}
+                type="button"
+              >
+                <input
+                  autoComplete="off"
+                  checked={false}
+                  disabled={false}
+                  name="vendor"
+                  onChange={[Function]}
+                  type="radio"
+                  value="canvas"
+                />
+                Canvas
+              </label>
+              <label
+                className="btn btn-default"
+                disabled={false}
+                type="button"
+              >
+                <input
+                  autoComplete="off"
+                  checked={false}
+                  disabled={false}
+                  name="vendor"
+                  onChange={[Function]}
+                  type="radio"
+                  value="moodle"
+                />
+                Moodle
+              </label>
+              <label
+                className="btn btn-default"
+                disabled={false}
+                type="button"
+              >
+                <input
+                  autoComplete="off"
+                  checked={false}
+                  disabled={false}
+                  name="vendor"
+                  onChange={[Function]}
+                  type="radio"
+                  value="d2l"
+                />
+                Desire2Learn
+              </label>
+              <label
+                className="btn btn-default"
+                disabled={false}
+                type="button"
+              >
+                <input
+                  autoComplete="off"
+                  checked={false}
+                  disabled={false}
+                  name="vendor"
+                  onChange={[Function]}
+                  type="radio"
+                  value="sakai"
+                />
+                Sakai
+              </label>
+            </div>
+            <p>
+              Copy the information below and paste into your LMS where prompted. Then launch OpenStax Tutor from your LMS to pair.
+            </p>
+            <div
+              className="blackboard"
+            >
+              <a
+                href="http://4tk3oi.axshare.com/salesforce_support_page_results.html"
+                target="_blank"
+              >
+                <i
+                  className="tutor-icon fa fa-info-circle"
+                  type="info-circle"
+                />
+                 How do I integrate with Blackboard?
+              </a>
+              <label
+                className="copy-on-focus"
+              >
+                URL
+                <input
+                  className={null}
+                  onFocus={[Function]}
+                  readOnly={true}
+                  value={undefined}
+                />
+              </label>
+              <label
+                className="copy-on-focus"
+              >
+                Key
+                <input
+                  className={null}
+                  onFocus={[Function]}
+                  readOnly={true}
+                  value="key-123"
+                />
+              </label>
+              <label
+                className="copy-on-focus"
+              >
+                Secret
+                <input
+                  className={null}
+                  onFocus={[Function]}
+                  readOnly={true}
+                  value="secret-sshhh"
+                />
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Course Settings, student access renders chooser when lms is enabled 1`] = `
+<div
+  className="student-access"
+>
+  <p>
+    Choose how students access OpenStax Tutor. Access settings cannot be changed after students begin to enroll.
+  </p>
+  <a
+    href="http://4tk3oi.axshare.com/salesforce_support_page_results.html"
+    target="_blank"
+  >
+    <i
+      className="tutor-icon fa fa-info-circle"
+      type="info-circle"
+    />
+     Which option is right for my course?
+  </a>
+  <div
+    className="panel-group"
+    role="tablist"
+  >
+    <div
+      className="links active panel panel-default"
+      id={null}
+    >
+      <div
+        className="panel-heading"
+      >
+        <div
+          className="choice panel-title"
+        >
+          <a
+            aria-controls={undefined}
+            aria-expanded={false}
+            aria-selected={false}
+            className="collapsed"
+            href={undefined}
+            onClick={[Function]}
+            role="tab"
+          >
+            <div
+              aria-label=""
+              className="box"
+            />
+            <div
+              className="heading"
+            >
+              <p
+                className="title"
+              >
+                Give students direct links
+              </p>
+              <p
+                className="info"
+              >
+                You will give students links to access OpenStax Tutor directly.
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div
+        aria-expanded={null}
+        aria-hidden={true}
+        className="panel-collapse collapse"
+        id={undefined}
+        role="tabpanel"
+      >
+        <div
+          className="panel-body"
+        >
+          <p>
+            Give students direct links
+          </p>
+          <label
+            className="copy-on-focus"
+          >
+            1st
+            <input
+              className={null}
+              onFocus={[Function]}
+              readOnly={true}
+              value="http://test/period/1"
+            />
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+      className="lms panel panel-default"
+      id={null}
+    >
+      <div
+        className="panel-heading"
+      >
+        <div
+          className="choice panel-title"
+        >
+          <a
+            aria-controls={undefined}
+            aria-expanded={false}
+            aria-selected={false}
+            className="collapsed"
+            href={undefined}
+            onClick={[Function]}
+            role="tab"
+          >
+            <div
+              aria-label=""
+              className="box"
+            />
+            <div
+              className="heading"
+            >
+              <p
+                className="title"
+              >
+                Integrate with your LMS 
+                <i
+                  className="advanced"
+                >
+                  Advanced
+                </i>
+              </p>
+              <p
+                className="info"
+              >
+                Integrate OpenStax Tutor with your Learning Management System (LMS) to send average course scores to your LMS and enable single sign on.
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div
+        aria-expanded={null}
+        aria-hidden={true}
+        className="panel-collapse collapse"
+        id={undefined}
+        role="tabpanel"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Course Settings, student access renders with only link for non-lms enabled 1`] = `
+<div
+  className="student-access"
+>
+  <div
+    className="student-access direct-links-only"
+  >
+    <p>
+      Send your students their section's direct links to enroll.
+    </p>
+    <label
+      className="copy-on-focus"
+    >
+      1st
+      <input
+        className={null}
+        onFocus={[Function]}
+        readOnly={true}
+        value="http://test/period/1"
+      />
+    </label>
+  </div>
+</div>
+`;

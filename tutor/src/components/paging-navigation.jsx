@@ -6,7 +6,7 @@ import Icon from './icon';
 import Arrow from './icons/arrow';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
-
+import ScrollTo from '../helpers/scroll-to';
 const KEYBINDING_SCOPE  = 'page-navigation';
 
 @observer
@@ -22,6 +22,7 @@ export default class PagingNavigation extends React.PureComponent {
     forwardHref:          React.PropTypes.string,
     backwardHref:         React.PropTypes.string,
     enableKeys:           React.PropTypes.bool,
+    scrollOnNavigation:   React.PropTypes.bool,
     titles:               React.PropTypes.shape({
       next:     React.PropTypes.string,
       current:  React.PropTypes.string,
@@ -33,6 +34,7 @@ export default class PagingNavigation extends React.PureComponent {
   }
 
   static defaultProps = {
+    scrollOnNavigation: true,
     enableKeys: true,
     forwardHref: '#',
     backwardHref: '#',
@@ -45,6 +47,7 @@ export default class PagingNavigation extends React.PureComponent {
 
   @observable activeNav;
   @observable pendingTimeOut;
+  scrollTo = new ScrollTo();
 
   componentWillMount() {
     if (this.props.enableKeys) { this.enableKeys(); }
@@ -109,10 +112,13 @@ export default class PagingNavigation extends React.PureComponent {
     }
   }
 
+  @action.bound
   clickHandler(action, href, ev) {
     ev.preventDefault();
     if (isFunction(action)) { action(href); }
-    window.scrollTo(0,0);
+    if (this.props.scrollOnNavigation) {
+      this.scrollTo.scrollToTop();
+    }
   }
 
   renderPrev() {

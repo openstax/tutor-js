@@ -15,8 +15,8 @@ NoPeriods = React.createClass
     router: React.PropTypes.object
 
   onAddSection: ->
-    @context.router.transitionTo(
-      Router.makePathname('courseSettings',
+    @context.router.history.push(
+      Router.makePathname('courseRoster',
         {courseId: @props.courseId},
         query: {add: true}
       )

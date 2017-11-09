@@ -17,7 +17,7 @@ import ErrorMonitoring from 'shared/src/helpers/error-monitoring';
 import OFFERINGS from './src/models/course/offerings';
 import USER from './src/models/user';
 import COURSES from './src/models/courses-map';
-import TEACHER_TASK_PLANS from './src/models/teacher-task-plans';
+
 import Chat from './src/models/chat';
 import { Logging, ReactHelpers } from 'shared';
 import PAYMENTS from './src/models/payments';
@@ -27,10 +27,8 @@ import STUDENT_TASKS from './src/models/student-tasks';
 window._STORES = {
   SETTINGS: UiSettings,
   APP:                  require('./src/flux/app'),
-  COURSE:               require('./src/flux/course'),
   EXERCISE:             require('./src/flux/exercise'),
   PERFORMANCE_FORECAST: require('./src/flux/performance-forecast'),
-  SCORES:               require('./src/flux/scores'),
   TASK_PLAN:            require('./src/flux/task-plan'),
   TASK_STEP:            require('./src/flux/task-step'),
   TASK:                 require('./src/flux/task'),
@@ -42,7 +40,7 @@ window._STORES = {
 window._MODELS = {
   USER,
   COURSES,
-  TEACHER_TASK_PLANS,
+
   OFFERINGS,
   PAYMENTS,
   STUDENT_TASKS,

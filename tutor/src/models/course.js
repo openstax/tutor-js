@@ -1,18 +1,27 @@
 import {
   BaseModel, identifiedBy, field, identifier, hasMany,
 } from './base';
-import { computed, action } from 'mobx';
-import { first, sortBy, find, get, endsWith, capitalize } from 'lodash';
+import {
+  sumBy, first, sortBy, find, get, endsWith, capitalize, filter, pick,
+} from 'lodash';
+import { computed, action, observable } from 'mobx';
+import lazyGetter from '../helpers/lazy-getter';
 import { UiSettings } from 'shared';
+import Offering from './course/offerings/offering';
 import Period  from './course/period';
 import Role    from './course/role';
 import Student from './course/student';
 import CourseInformation from './course/information';
-import TeacherTaskPlans   from './teacher-task-plans';
+import Roster from './course/roster';
+import Scores from './course/scores';
+import LMS from './course/lms';
+import PH from '../helpers/period';
 import TimeHelper from '../helpers/time';
 import { TimeStore } from '../flux/time';
+import { extendHasMany } from '../helpers/computed-property';
 import moment from 'moment-timezone';
 import StudentTasks from './student-tasks';
+import TeacherTaskPlans from './course/task-plans';
 
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
 const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
@@ -22,8 +31,10 @@ export default class Course extends BaseModel {
 
   @identifier id;
 
-  @field appearance_code;
   @field name;
+  @field is_lms_enabled;
+
+  @field appearance_code;
   @field uuid;
   @field does_cost;
   @field book_pdf_url;
@@ -32,35 +43,73 @@ export default class Course extends BaseModel {
   @field default_open_time;
   @field ecosystem_book_uuid;
   @field ecosystem_id;
+
   @field is_active;
   @field is_college;
   @field is_concept_coach;
   @field is_preview;
-  @field num_sections;
   @field offering_id;
-
+  @field is_lms_enabling_allowed = false;
+  @field is_access_switchable = true;
   @field salesforce_book_name;
 
-  @field({ type: 'date' }) starts_at;
-  @field({ type: 'date' }) ends_at;
+  @field starts_at;
+  @field ends_at;
 
   @field term;
   @field time_zone;
   @field webview_url;
   @field year;
 
-  @hasMany({ model: Period }) periods;
+  @hasMany({ model: Period, inverseOf: 'course', extend: extendHasMany({
+    sorted()   { return PH.sort(this);                               },
+    archived() { return filter(this, period => !period.is_archived); },
+    active()   { return filter(this, period => !period.is_archived); },
+  }) }) periods;
+
   @hasMany({ model: Role }) roles;
   @hasMany({ model: Student, inverseOf: 'course' }) students;
+
+  constructor(attrs, map) {
+    super(attrs);
+    this.map = map;
+  }
+
+  @computed get sortKey() {
+    return this.primaryRole.joined_at;
+  }
+
+  @computed get num_enrolled_students() {
+    return sumBy(this.periods, 'num_enrolled_students');
+  }
 
   @computed get userStudentRecord() {
     const role = find(this.roles, 'isStudent');
     return role ? find(this.students, { role_id: role.id }) : null;
   }
 
+  @computed get canOnlyUseEnrollmentLinks() {
+    return Boolean(
+      !this.is_lms_enabling_allowed || (
+        !this.is_lms_enabled && !this.is_access_switchable
+      )
+    );
+  }
+
+  @computed get canOnlyUseLMS() {
+    return Boolean(
+      this.is_lms_enabled && !this.is_access_switchable
+    );
+  }
+
   @computed get studentTasks() {
     return StudentTasks.forCourseId(this.id);
   }
+
+  @lazyGetter lms = new LMS({ course: this });
+  @lazyGetter roster = new Roster({ course: this });
+  @lazyGetter scores = new Scores({ course: this });
+  @lazyGetter taskPlans = new TeacherTaskPlans({ course: this });
 
   @computed get nameCleaned() {
     const previewSuffix = ' Preview';
@@ -118,10 +167,6 @@ export default class Course extends BaseModel {
     return !!find(this.roles, 'isTeacher');
   }
 
-  @computed get taskPlans() {
-    return TeacherTaskPlans.forCourseId(this.id);
-  }
-
   @computed get needsPayment() {
     return Boolean(this.does_cost && this.userStudentRecord && this.userStudentRecord.needsPayment);
   }
@@ -130,11 +175,18 @@ export default class Course extends BaseModel {
     return Boolean(this.does_cost && this.userStudentRecord && !this.userStudentRecord.isUnPaid);
   }
 
+  @computed get defaultTimes() {
+    return pick(this, 'default_due_time', 'default_open_time');
+  }
+
   @computed get tourAudienceTags() {
     let tags = [];
     if (this.isTeacher) {
       tags.push(this.is_preview ? 'teacher-preview' : 'teacher');
       if (!this.is_preview) {
+        if (this.isBeforeTerm('fall', 2017)) {
+          tags.push('teacher-settings-roster-split');
+        }
         if (this.taskPlans.reading.hasPublishing) {
           tags.push('teacher-reading-published');
         }
@@ -145,6 +197,15 @@ export default class Course extends BaseModel {
     }
     if (this.isStudent) { tags.push('student'); }
     return tags;
+  }
+
+  isBeforeTerm(term, year) {
+    if (this.year === year) {
+      return Boolean(
+        Offering.possibleTerms.indexOf(this.term) < Offering.possibleTerms.indexOf(term)
+      );
+    }
+    return (this.year < year);
   }
 
   @action trackDashboardView() {
@@ -165,5 +226,11 @@ export default class Course extends BaseModel {
         /physics/.test(this.appearance_code) ||
         /sociology/.test(this.appearance_code)
     ));
+  }
+
+  // called by API
+  fetch() { }
+  save() {
+    return { id: this.id, data: pick(this, 'name', 'is_lms_enabled', 'time_zone') };
   }
 }

@@ -43,6 +43,14 @@ export class User extends BaseModel {
     return !!find(Courses.active, { appearance_code: 'college_biology'})
   }
 
+  @action removeCourse(course) {
+    return Courses.delete(course.id);
+  }
+
+  @action refreshCourses() {
+    return Courses.fetch();
+  }
+
   @computed get isConfirmedFaculty() {
     return this.faculty_status === 'confirmed_faculty';
   }
@@ -52,47 +60,20 @@ export class User extends BaseModel {
   }
 
   @computed get terms() {
-    return this.terms_signatures_needed ?
-           new UserTerms({ user: this }) : null;
+    return this.terms_signatures_needed ? new UserTerms({ user: this }) : null;
   }
 
   @computed get unsignedTerms() {
     return this.terms ? this.terms.unsigned : [];
   }
 
-  @computed get isCoachTeacher() {
-    return Courses.conceptCoach.any;
-  }
-
-  @computed get isCoachTeacherWithoutMigration() {
-
-    if (!this.isCoachTeacher) {
-      return false;
-    }
-
-    const sunset = Courses.where((c) => c.isSunsetting);
-    return (sunset.any && sunset.size === Courses.nonPreview.size);
-  }
-
   @computed get tourAudienceTags() {
     let tags = [];
-
     if (
       (Courses.active.isEmpty && this.isConfirmedFaculty) ||
       Courses.active.teaching.nonPreview.any
     ) {
       tags.push('teacher');
-
-      if (this.isCoachTeacher) {
-        if (this.isCoachTeacherWithoutMigration) {
-          tags.push('teacher-coach-no-migration');
-        } else {
-          tags.push('teacher-coach-with-migration');
-        }
-      } else {
-        tags.push('teacher-no-coach');
-      }
-
     } else if (Courses.active.teaching.any) {
       tags.push('teacher-preview');
     }

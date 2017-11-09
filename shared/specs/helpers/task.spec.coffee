@@ -143,18 +143,18 @@ describe 'Task Helper', ->
       expect(steps.length).to.equal(homeworkTask.steps.length + 1)
       undefined
 
-  describe 'will add intro step for first spaced practice', ->
+  describe 'will add review/intro step for first review/spaced practice in the right order', ->
 
     numberOfSteps = 20
     stepModifications = {}
     stepModification =
       group: EXERCISE_SPACED_PRACTICE_GROUP
+      labels: [ 'review' ]
 
-    testForSpacedPractice = (task, steps) ->
+    testReviewAndSpacedPractice = (task, steps) ->
       expect(steps.length).to.equal(task.steps.length + 3)
       expect(steps[12].type).to.equal('individual-review-intro')
       expect(steps[13].type).to.equal('spaced-practice-intro')
-      expect(UiSettings.get("spaced-practice-info-#{task.type}").stepId).to.equal('12')
 
     beforeEach ->
       stepModifications =
@@ -167,10 +167,8 @@ describe 'Task Helper', ->
       readingTask = makeTask(TASK_READING_TYPE, numberOfSteps, stepModifications)
       steps = TaskHelper.mapSteps(readingTask)
 
-      expect(steps.length).to.equal(readingTask.steps.length + 3)
-      expect(steps[12].type).to.equal('individual-review-intro')
-      expect(steps[13].type).to.equal('spaced-practice-intro')
-      expect(UiSettings.get("spaced-practice-info-#{readingTask.type}")).to.be.not.ok
+      testReviewAndSpacedPractice(readingTask, steps)
+      expect(UiSettings.get("spaced-practice-info-reading")).to.be.not.ok
       expect(_.where(steps, isAvailable: true).length)
         .to.equal(1)
       undefined
@@ -180,7 +178,8 @@ describe 'Task Helper', ->
       homeworkTask = makeTask(TASK_HOMEWORK_TYPE, numberOfSteps, stepModifications)
       steps = TaskHelper.mapSteps(homeworkTask)
 
-      testForSpacedPractice(homeworkTask, steps)
+      testReviewAndSpacedPractice(homeworkTask, steps)
+      expect(UiSettings.get("spaced-practice-info-homework").stepId).to.equal('12')
       expect(_.where(steps, isAvailable: true).length)
         .to.equal(homeworkTask.steps.length + 3)
       undefined
@@ -202,7 +201,7 @@ describe 'Task Helper', ->
       expect(steps.length).to.equal(practiceTask.steps.length + 1)
       undefined
 
-    it 'does not place intro card if placed elsewhere', ->
+    it 'does not place spaced practice intro card if placed elsewhere', ->
       UiSettings.initialize(
         'spaced-practice-info-homework':
           stepId: 'test'
