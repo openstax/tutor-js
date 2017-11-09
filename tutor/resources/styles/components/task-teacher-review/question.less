@@ -30,6 +30,13 @@
   font-weight: normal;
   color: inherit;
 }
+
+.openstax-exercise {
+  &:focus { outline: none; }
+  .card-body:focus { outline: none; }
+  .openstax-question:focus { outline: none; }
+}
+
 .openstax-question {
 
   .size-exercise-card();
@@ -93,18 +100,20 @@
     }
   }
 
-  .panel-group .teacher-review-answers .panel-heading + .panel-collapse > .panel-body {
+  .teacher-review-answers .panel-heading + .panel-collapse > .panel-body {
     border: none;
   }
 
   .teacher-review-answers {
     &.panel {
       .box-shadow(none);
-
+      &:not(.active) {
+        .height-limited-panel(200px);
+      }
       > .panel-heading {
-        // color: @free-response-color;
+        color: @free-response-color;
         background: transparent;
-        padding: 0;
+        border-bottom: 0;
       }
     }
     .free-response {

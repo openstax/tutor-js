@@ -53,7 +53,8 @@ class ReviewQuestion {
   get id() { return this.q.question_id; }
   @computed get answers() { return this.q.answer_stats; }
   @computed get formats() { return this.q.content.formats; }
-
+  @computed get stem_html(){ return this.q.content.stem_html; }
+  @computed get stimulus_html() { return this.q.content.stimulus_html; }
 }
 
 

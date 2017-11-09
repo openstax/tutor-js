@@ -2,8 +2,10 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
 import { isEmpty, map, pick, find } from 'lodash';
-import { Accordion, Panel } from 'react-bootstrap';
+import { Panel } from 'react-bootstrap';
+import classnames from 'classnames';
 import { Exercise, Question as QuestionModel } from '../../models/task-plan/stats';
+import Icon from '../icon';
 import {
   ArbitraryHtmlAndMath, Question, CardBody, FreeResponse,
   ExerciseGroup, ExerciseIdentifierLink,
@@ -18,15 +20,15 @@ class TaskTeacherReviewQuestion extends React.PureComponent {
     question: React.PropTypes.instanceOf(QuestionModel).isRequired,
   };
 
-  @observable showAnswers = false;
+  @observable showFreeResponse = false;
 
   @action.bound onChangeAnswerAttempt() {
     // TODO show cannot change answer message here
     return null;
   }
 
-  toggleAnswers = () => {
-    this.showAnswers = !this.showAnswers;
+  toggleFreeResponse = () => {
+    this.showFreeResponse = !this.showFreeResponse;
   };
 
   renderNoFreeResponse = () => {
@@ -40,34 +42,39 @@ class TaskTeacherReviewQuestion extends React.PureComponent {
     );
   };
 
-  @computed get toggleAnswersText() {
-    if (this.showAnswers) { return 'Hide student text responses'; }
-    return `View student text responses (${this.props.question.answers.length})`;
+  @computed get toggleFreeResponseControls() {
+    let msg, icon;
+    if (this.showFreeResponse) {
+      msg = 'Hide student text responses';
+      icon = 'chevron-up';
+    } else {
+      msg = `View student text responses (${this.props.question.answers.length})`;
+      icon = 'chevron-right';
+    }
+    return <a onClick={this.toggleFreeResponse}>{msg} <Icon type={icon} /></a>;
   }
 
   renderFreeResponse = () => {
-    const { showAnswers, toggleAnswersText, props: { question } } = this;
+    const { showFreeResponse, toggleFreeResponseControls, props: { question } } = this;
 
     let freeResponsesClasses = 'teacher-review-answers';
-    if (showAnswers) { freeResponsesClasses += ' active'; }
-    const freeResponses = map(question.answers, function(answer, index) {
-      const freeResponseKey = `free-response-${question.id}-${index}`;
-      return (
-        <FreeResponse {...answer} key={freeResponseKey} />
-      );
-    });
+    if (showFreeResponse) { freeResponsesClasses += ' active'; }
+
+    const freeResponses = map(question.answers, (answer, index) => (
+      <FreeResponse {...answer} key={`free-response-${question.id}-${index}`} />
+    ));
 
     return (
-      <Accordion onSelect={this.toggleAnswers}>
-        <TourAnchor id="student-responses">
-          <Panel
-            header={toggleAnswersText}
-            eventKey={question.id}
-            className={freeResponsesClasses}>
-            {freeResponses}
-          </Panel>
-        </TourAnchor>
-      </Accordion>
+      <TourAnchor id="student-responses">
+        <Panel
+          header={toggleFreeResponseControls}
+          eventKey={question.id}
+          className={freeResponsesClasses}
+        >
+          {freeResponses}
+        </Panel>
+      </TourAnchor>
+
     );
   };
 
