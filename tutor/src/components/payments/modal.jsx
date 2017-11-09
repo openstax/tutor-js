@@ -22,7 +22,7 @@ export default class PaymentsModal extends React.PureComponent {
   render() {
 
     return (
-      <Modal show className="payments">
+      <Modal show className="make-payment">
         <Panel {...this.props} />
       </Modal>
     );

@@ -1,3 +1,12 @@
+.make-payment.modal .modal-dialog {
+  width: 570px;
+  .error-message {
+    margin: 50px;
+    button { margin-top: 2rem; }
+  }
+}
+
+
 .manage-payments {
   margin-top: 2rem;
   &:extend(.container);
@@ -45,21 +54,14 @@
 
 }
 
-.modal.payments {
-  .error-message {
-    margin: 2rem;
-    button { margin-top: 2rem; }
-  }
-}
 
 // TODO - make this a mixin or standard style once UX finishes style guide
 .modal.refund {
-  @spacing: 40px;
+  @spacing: 50px;
   overflow: scroll;
 
   .modal-dialog {
     margin-top: 130px;
-    width: 500px;
   }
   .modal-content {
     border-radius: 0;
