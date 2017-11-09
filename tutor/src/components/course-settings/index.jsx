@@ -33,22 +33,6 @@ export default class CourseSettings extends React.PureComponent {
     this.tabIndex = tabIndex;
   }
 
-  renderControls() {
-
-    return (
-      <div className="controls">
-        <div className="sub-title">
-          {this.course.name}
-          <RenameCourseLink course={this.course} />
-        </div>
-        <Tabs
-          tabs={['STUDENT ACCESS', 'DATES AND TIME']}
-          onSelect={this.onTabSelect}
-        />
-      </div>
-    );
-  }
-
   renderAccess() {
     return (
       <StudentAccess course={this.course} />
@@ -79,8 +63,18 @@ export default class CourseSettings extends React.PureComponent {
         className="settings"
         title="Course settings"
         course={course}
-        controls={this.renderControls()}
       >
+        <div className="course-settings-title">
+          {course.name}
+          <RenameCourseLink course={this.course} />
+        </div>
+        <h4 className="course-settings-term">
+          {course.termFull}
+        </h4>
+        <Tabs
+          tabs={['STUDENT ACCESS', 'DATES AND TIME']}
+          onSelect={this.onTabSelect}
+        />
         {tabIndex ? this.renderDates() : this.renderAccess()}
       </CoursePage>
     );
