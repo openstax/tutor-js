@@ -15,26 +15,18 @@ class HypothesisStore {
       },
       sendData: `grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=${hypothesisConfig.grantToken}`
     }).then((response) => {
-      this.accessToken = response.access_token;
-      console.debug("Access token received:", response.access_token);
-      return response.access_token;
+      return this.accessToken = response.access_token;
     });
     const gotProfile = gotToken.then(() => {
-      console.debug("Pulling profile");
       return this.request({
         mode: 'GET',
         service: 'profile?authority=openstax.org'
       }).then((response) => {
-        this.userInfo = response.groups[0];
-        console.debug("Profile token received:", this.userInfo);
-        return response.groups[0];
+        return this.userInfo = response.groups[0];
       });
     });
 
     this.whenLoggedIn = Promise.all([gotToken, gotProfile]);
-    this.whenLoggedIn.then((foo) => {
-      console.debug("LOGGED IN", foo);
-    });
   }
 
   request(options) {
@@ -82,7 +74,6 @@ class HypothesisStore {
       mode: 'GET',
       service: `search?uri=${documentId}&user=${this.userInfo.name}` //
     })).then((response) => {
-      console.debug("GOT SEARCH RESULTS", response);
       return response;
     });
   }
@@ -95,11 +86,9 @@ class HypothesisStore {
         uri: documentId,
         text: annotation,
         target: [{
-          selector: [{
-            type: 'TextPositionSelector',
-            start: selection.start,
-            end: selection.end
-          }]
+          selector: [
+            Object.assign({type: 'TextPositionSelector'}, selection)
+          ]
         }],
         group: this.userInfo.id
       })

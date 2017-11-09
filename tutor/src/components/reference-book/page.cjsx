@@ -16,7 +16,7 @@ RelatedContent = require '../related-content'
 {ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
 
 Dialog = require '../dialog'
-{default: AnnotationWidget} = require './annotation'
+{default: AnnotationWidget} = require '../annotations/annotation'
 
 module.exports = React.createClass
   displayName: 'ReferenceBookPage'

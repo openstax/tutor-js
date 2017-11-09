@@ -1,0 +1,117 @@
+tutor-highlight {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
+.annotater {
+  .widget {
+    background: @tutor-white;
+    border: thin solid @tutor-neutral-light;
+    font-size: 2rem;
+    padding: 1rem 0;
+    position: absolute;
+    transform: translate(calc(10px - 50%), 10px);
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    z-index: 20;
+
+    [role="button"] {
+      padding: 0 1.5rem;
+
+      &:first-child {
+        border-right: thin solid lightgray;
+      }
+    }
+  }
+
+  .arrow_box {
+
+    &:after,
+    &:before {
+      bottom: 100%;
+      left: 50%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+
+    &:after {
+      border-color: rgba(255, 255, 255, 0);
+      border-bottom-color: @tutor-white;
+      border-width: 12px;
+      margin-left: -12px;
+    }
+
+    &:before {
+      border-color: rgba(211, 211, 211, 0);
+      border-bottom-color: @tutor-neutral-light;
+      border-width: 13px;
+      margin-left: -13px;
+    }
+  }
+
+  .edit-box {
+    background-color: @tutor-neutral-bright;
+    border: thin solid @tutor-neutral-light;
+    box-shadow: 0 14px 6px -6px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transition: 0.3s;
+    width: 40rem;
+    z-index: 20;
+
+    &.closed {
+      right: -40rem;
+    }
+
+    textarea {
+      border: thin solid @tutor-neutral-light;
+      height: 10rem;
+      width: 100%;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      button {
+        background-color: @tutor-white;
+        border: thin solid @tutor-neutral-light;
+        border-radius: 3px;
+        color: @tutor-neutral;
+        margin: 5px;
+        min-width: 46px;
+        padding: 5px 10px;
+
+        &.primary {
+          background-color: @tutor-primary;
+          color: @tutor-neutral-bright;
+        }
+
+        &.secondary {
+          background-color: @tutor-neutral;
+          color: @tutor-neutral-bright;
+        }
+
+        > * {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .sidebar-button {
+    background-color: transparent;
+    border: none;
+    font-size: 2.5rem;
+    margin-right: 0.5rem;
+    opacity: 0.25;
+    transform: translateY(-30%);
+  }
+}

@@ -6,6 +6,7 @@ CourseData = require '../../helpers/course-data'
 {BookContentMixin, LinkContentMixin} = require '../book-content-mixin'
 RelatedContent = require '../related-content'
 Router = require '../../helpers/router'
+{default: AnnotationWidget} = require '../annotations/annotation'
 
 # TODO: will combine with below, after BookContentMixin clean up
 ReadingStepContent = React.createClass
@@ -43,6 +44,7 @@ ReadingStepContent = React.createClass
           html={content_html}
         />
       </div>
+      {if stepType == 'reading' then <AnnotationWidget documentId={this.getCnxId()} />}
     </div>
 
 StepContent = React.createClass

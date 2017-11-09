@@ -4,6 +4,7 @@ import './highlighter';
 import HYPOTHESIS from '../../models/hypothesis';
 import hypothesisStore from './hypothesis-store';
 import _ from 'underscore';
+import {ReferenceBookPageStore} from '../../flux/reference-book-page';
 
 const highlighter = new TextHighlighter(document.body);
 
@@ -25,24 +26,6 @@ function getSelectionRect(selection) {
     top: rect.top + wTop,
     left: rect.left + wLeft,
     right: rect.right + wLeft
-  }
-}
-
-function highlightEntry(entry) {
-  const selection = serializeSelection.restore(entry.selection);
-
-  entry.rect = getSelectionRect(selection);
-  highlighter.doHighlight();
-}
-
-function unhighlightEntry(entry) {
-  // Highlight the entry, then unhighlight the highlights with the latest timestamp
-  highlightEntry(entry);
-  const highlights = highlighter.getHighlights({grouped: true});
-  const lastHighlight = highlights.reduce((a, b) => a.timestamp > b.timestamp ? a : b);
-
-  for (const el of lastHighlight.chunks) {
-    highlighter.removeHighlights(el);
   }
 }
 
@@ -84,11 +67,10 @@ const EditBox = (props) => {
 
 const SidebarButtons = ({items, offsetTop, onClick}) => (
   <div>
-    {items.map((item) => {
-      const rect = item.rect;
+    {items.filter((item) => item.rect).map((item, index) => {
       const style = {
         right: 0,
-        top: rect ? rect.top - offsetTop : 0,
+        top: item.rect.top - offsetTop,
         position: 'absolute'
       };
 
@@ -109,10 +91,9 @@ export default class AnnotationWidget extends React.PureComponent {
     this.state = {
       activeHighlight: null,
       widgetStyle: {display: 'none'},
-      preload: []
+      preload: [],
+      needToLoadAnnotations: true
     };
-    // This is state that only affects post-rendering processes, so not proper state
-    this.needToLoadAnnotations = true;
   }
 
   componentDidMount() {
@@ -126,7 +107,9 @@ export default class AnnotationWidget extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.needToLoadAnnotations = nextProps.documentId !== this.props.documentId
+    this.setState({
+      needToLoadAnnotations: nextProps.documentId !== this.props.documentId
+    });
   }
 
   componentDidUpdate() {
@@ -137,8 +120,28 @@ export default class AnnotationWidget extends React.PureComponent {
     window.document.removeEventListener('selectionchange', this.handleSelectionChange)
   }
 
+  highlightEntry(entry) {
+    const selection = serializeSelection.restore(entry.selection, this.articleElement);
+
+    if (! ('rect' in entry)) {
+      entry.rect = getSelectionRect(selection);
+    }
+    highlighter.doHighlight();
+  }
+
+  unhighlightEntry(entry) {
+    // Highlight the entry, then unhighlight the highlights with the latest timestamp
+    this.highlightEntry(entry);
+    const highlights = highlighter.getHighlights({grouped: true});
+    const lastHighlight = highlights.reduce((a, b) => a.timestamp > b.timestamp ? a : b);
+
+    for (const el of lastHighlight.chunks) {
+      highlighter.removeHighlights(el);
+    }
+  }
+
   findOverlap() {
-    const selection = serializeSelection.save();
+    const selection = serializeSelection.save(this.articleElement);
     const start = selection.start;
     const end = selection.end;
 
@@ -158,7 +161,7 @@ export default class AnnotationWidget extends React.PureComponent {
     if (selection.isCollapsed) {
       this.setState({widgetStyle: null});
       this.savedSelection = null;
-      const start = serializeSelection.save().start;
+      const start = serializeSelection.save(this.articleElement).start;
       this.setState({
         activeHighlight: this.state.preload.find((entry) => {
           const sel = entry.selection;
@@ -169,13 +172,13 @@ export default class AnnotationWidget extends React.PureComponent {
 
       // Set selection, which will cause the widget to render
       if (this.state.activeHighlight) {
-        serializeSelection.restore(this.state.activeHighlight.selection);
+        serializeSelection.restore(this.state.activeHighlight.selection, this.articleElement);
       }
     } else if (this.findOverlap()){
       console.warn("NO OVERLAPPING SELECTIONS!");
       this.setState({widgetStyle: null});
     } else {
-      this.savedSelection = serializeSelection.save();
+      this.savedSelection = serializeSelection.save(this.articleElement);
       const rect = getSelectionRect(selection);
       const pwRect = this.parentRect;
 
@@ -189,21 +192,27 @@ export default class AnnotationWidget extends React.PureComponent {
   }
 
   restoreAnnotations() {
-    if (this.needToLoadAnnotations) {
+    if (this.state.needToLoadAnnotations) {
       hypothesisStore.fetch(this.props.documentId).then((response) => {
-        this.setState({preload: response.rows.map(dbEntryToPreload)});
-        for (const entry of this.state.preload) {
-          highlightEntry(entry);
+        const newPreload = response.rows.map(dbEntryToPreload);
+
+        for (const entry of newPreload) {
+          this.highlightEntry(entry);
         }
+        this.setState({
+          preload: newPreload
+        });
       });
-      this.needToLoadAnnotations = false;
+      this.setState({
+        needToLoadAnnotations: false
+      });
     }
   }
 
   highlightAndClose() {
     return this.saveAnnotation().then((response) => {
       this.setState({widgetStyle: null});
-      highlightEntry(response);
+      this.highlightEntry(response);
       return response;
     });
   }
@@ -262,7 +271,7 @@ export default class AnnotationWidget extends React.PureComponent {
   }
 
   deleteEntry() {
-    unhighlightEntry(this.state.activeHighlight);
+    this.unhighlightEntry(this.state.activeHighlight);
     hypothesisStore.delete(this.state.activeHighlight.savedId).then((response) => {
       const oldIndex = this.state.preload.findIndex((e) => e.savedId === response.id);
       const newPreload = this.state.preload.slice();
@@ -283,7 +292,7 @@ export default class AnnotationWidget extends React.PureComponent {
 
     if (nextIndex < entries.length) {
       this.setState({activeHighlight: entries[nextIndex]});
-      serializeSelection.restore(entries[nextIndex].selection);
+      serializeSelection.restore(entries[nextIndex].selection, this.articleElement);
     }
   }
 
@@ -306,6 +315,7 @@ export default class AnnotationWidget extends React.PureComponent {
       const wTop = window.pageYOffset || document.documentElement.scrollTop;
       const parentRect = el.parentNode.getBoundingClientRect();
 
+      this.articleElement = el.parentNode;
       this.parentRect = {
         bottom: wTop + parentRect.bottom,
         left: wLeft + parentRect.left,
