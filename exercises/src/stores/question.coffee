@@ -71,7 +71,7 @@ QuestionConfig = {
     formats = @_get(id).formats
 
     formats = if isSelected
-      formats.concat(name)
+      formats.concat(name) unless _.includes(formats, name)
     else
       _.without(formats, name)
 
