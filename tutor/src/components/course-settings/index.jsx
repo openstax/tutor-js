@@ -77,7 +77,7 @@ export default class CourseSettings extends React.PureComponent {
     return (
       <CoursePage
         className="settings"
-        title="Settings"
+        title="Course settings"
         course={course}
         controls={this.renderControls()}
       >

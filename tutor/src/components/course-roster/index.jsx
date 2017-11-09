@@ -87,7 +87,7 @@ export default class CourseRoster extends React.PureComponent {
     return (
       <CoursePage
         className="roster"
-        title="Roster"
+        title="Course roster"
         course={course}
         controls={this.renderControls(course)}
       >
