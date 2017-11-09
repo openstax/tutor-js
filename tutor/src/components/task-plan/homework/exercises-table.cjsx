@@ -40,7 +40,7 @@ ExerciseTable = React.createClass
       <td>
         <ChapterSection section={section}/>
       </td>
-      <td className="ellipses">
+      <td>
         <ArbitraryHtmlAndMath block={false} html={content} />
       </td>
       <td className="ellipses">{lo}</td>
