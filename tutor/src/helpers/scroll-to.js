@@ -76,8 +76,10 @@ export default class ScrollTo {
     if (options.updateHistory) {
       this.windowImpl.history.pushState(null, null, `#${el.id}`);
     }
-    this.whenScrollCompete();
-    this.whenScrollCompete = null;
+    if (this.whenScrollCompete) {
+      this.whenScrollCompete();
+      this.whenScrollCompete = null;
+    }
     return (typeof this.onAfterScroll === 'function' ? this.onAfterScroll(el) : undefined);
 
   }
