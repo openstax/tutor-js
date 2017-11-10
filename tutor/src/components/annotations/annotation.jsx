@@ -59,7 +59,7 @@ const EditBox = (props) => {
           <button aria-label="previous annotation" onClick={props.previous}>
             <Icon type="chevron-up" />
           </button>
-          <button aria-label="next annotation">
+          <button aria-label="next annotation" onClick={props.next}>
             <Icon type="chevron-down" />
           </button>
           <button>See all</button>
@@ -357,8 +357,8 @@ export default class AnnotationWidget extends React.Component {
           updateAnnotation={this.updateActiveAnnotation}
           save={this.updateAnnotation}
           delete={this.deleteEntry}
-          next={this.nextAnnotation.bind(this)}
-          previous={this.previousAnnotation.bind(this)}
+          next={this.nextAnnotation}
+          previous={this.previousAnnotation}
         />
         <SidebarButtons items={this.withAnnotations}
           offsetTop={this.parentRect ? this.parentRect.top : 0}
