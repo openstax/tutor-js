@@ -13,6 +13,8 @@ class Hypothesis extends BaseModel {
     this.update(data);
   }
 
+  @observable isBusy;
+  @observable errorMessage;
   @field embed_url;
   @field api_url;
   @field authority;
@@ -26,6 +28,10 @@ class Hypothesis extends BaseModel {
     this.errorMessage = msg;
     this.isBusy = false;
     Logging.error(msg)
+  }
+
+  initialize() {
+    window.hypothesisConfig = this.sidebarConfig;
   }
 
   @action.bound
