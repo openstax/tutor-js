@@ -68,17 +68,6 @@ export default class CourseRoster extends React.PureComponent {
     );
   }
 
-  renderControls(course) {
-    return [
-      <div key="name" className="course-settings-title">
-        {course.name}
-      </div>,
-      <h4 key="term" className="course-settings-term">
-        {course.termFull}
-      </h4>,
-    ];
-  }
-
   render() {
     const { course, course: { periods: { active: periods } } } = this;
     if (0 === periods.length) { return this.renderEmpty(); }
@@ -87,10 +76,15 @@ export default class CourseRoster extends React.PureComponent {
     return (
       <CoursePage
         className="roster"
-        title="Roster"
+        title="Course roster"
         course={course}
-        controls={this.renderControls(course)}
       >
+        <div className="course-settings-title">
+          {course.name}
+        </div>
+        <h4 className="course-settings-term">
+          {course.termFull}
+        </h4>
         <div className="settings-section teachers">
           <TeacherRoster course={course} />
         </div>

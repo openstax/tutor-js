@@ -1,39 +1,35 @@
 @import "./course-settings/student-access";
 
-.course-page.settings {
-
-  .body {
-    font-size: 16px;
-    line-height: 24px;
-    padding-top: 40px;
-  }
-  .controls-wrapper {
-    padding-bottom: 0;
-    border-bottom: 1px solid @nav-tabs-border-color;
-    .tutor-tabs {
-      border-bottom: 0;
-      .nav li:first-child a { padding-left: 0; }
+.course-page {
+  &.roster,
+  &.settings {
+    .course-settings-title {
+      #fonts > .main-title();
+    }
+    .course-settings-subtitle {
+      #fonts > .main-subtitle();
+      padding-bottom: 15px;
     }
   }
-  .controls {
-    align-items: stretch;
-    .tutor-icon {
-      color: @tutor-blue-control;
-      &:hover {
-        color: darken(@tutor-blue-control, 10%);
+
+  &.settings {
+    .body {
+      font-size: 16px;
+      line-height: 24px;
+      padding-top: 40px;
+    }
+    .tutor-tabs {
+      margin-left: -@tutor-tabs-horizontal-padding;
+      max-width: 670px + @tutor-tabs-horizontal-padding;
+      margin-bottom: 50px;
+    }
+    .dates-and-times {
+      > div {
+        display: flex;
+        align-items: center;
+        min-height: 35px;
       }
     }
-    .edit-course {
-    }
+
   }
-
-  .dates-and-times {
-    > div {
-      display: flex;
-      align-items: center;
-      min-height: 35px;
-    }
-  }
-
-
 }
