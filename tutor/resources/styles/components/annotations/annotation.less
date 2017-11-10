@@ -1,5 +1,5 @@
 tutor-highlight {
-  background-color: rgba(255, 0, 0, 0.2);
+  background-color: @tutor-highlight;
 }
 
 .annotater {
@@ -10,10 +10,8 @@ tutor-highlight {
     padding: 1rem 0;
     position: absolute;
     transform: translate(calc(10px - 50%), 10px);
-    user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
     z-index: 20;
+    .no-select();
 
     [role="button"] {
       padding: 0 1.5rem;
@@ -56,7 +54,6 @@ tutor-highlight {
   .edit-box {
     background-color: @tutor-neutral-bright;
     border: thin solid @tutor-neutral-light;
-    box-shadow: 0 14px 6px -6px rgba(0, 0, 0, 0.1);
     padding: 1rem;
     position: fixed;
     right: 0;
@@ -64,6 +61,7 @@ tutor-highlight {
     transition: 0.3s;
     width: 40rem;
     z-index: 20;
+    .tutor-shadow(subtle);
 
     &.closed {
       right: -40rem;
@@ -107,11 +105,9 @@ tutor-highlight {
   }
 
   .sidebar-button {
-    background-color: transparent;
-    border: none;
     font-size: 2.5rem;
-    margin-right: 0.5rem;
     opacity: 0.25;
-    transform: translateY(-30%);
+    right: 1.5rem;
+    transform: translateY(-25%);
   }
 }

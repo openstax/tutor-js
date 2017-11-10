@@ -44,7 +44,7 @@ ReadingStepContent = React.createClass
           html={content_html}
         />
       </div>
-      {if stepType == 'reading' then <AnnotationWidget documentId={this.getCnxId()} />}
+      <AnnotationWidget pageType={stepType} documentId={this.getCnxId()} />
     </div>
 
 StepContent = React.createClass

@@ -1,7 +1,8 @@
 import HYPOTHESIS from '../../models/hypothesis';
+import axios from 'axios';
 
 // Hypothesis token handshaking
-const hypothesisConfig = HYPOTHESIS.sidebarConfig().services[0];
+const hypothesisConfig = HYPOTHESIS.config().services[0];
 let hypothesisTokens;
 
 class HypothesisStore {
@@ -17,6 +18,7 @@ class HypothesisStore {
     }).then((response) => {
       return this.accessToken = response.access_token;
     });
+
     const gotProfile = gotToken.then(() => {
       return this.request({
         mode: 'GET',
@@ -30,30 +32,18 @@ class HypothesisStore {
   }
 
   request(options) {
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-
-      xhr.open(options.mode, `${hypothesisConfig.apiUrl}${options.service}`, true);
-      if (this.accessToken) {
-        xhr.setRequestHeader('Authorization', `Bearer ${this.accessToken}`);
-      }
-      if (options.headers) {
-        for (const label of Object.keys(options.headers)) {
-          xhr.setRequestHeader(label, options.headers[label]);
-        }
-      }
-      xhr.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-          resolve(JSON.parse(this.response));
-        }
-        if (options.service === 'profile?authority=openstax.org' && this.readyState === 4 && this.status === 0) {
-          console.warn("Empty user info. Making something up.");
-          resolve({
-            groups: [{name: 'MadeUp', id:-999}]
-          });
-        }
-      };
-      xhr.send(options.sendData);
+    return axios({
+      method: options.mode,
+      baseURL: hypothesisConfig.apiUrl,
+      url: options.service,
+      responseType: 'json',
+      headers: Object.assign({},
+        options.headers,
+        this.accessToken ? {Authorization: `Bearer ${this.accessToken}`} : {}
+      ),
+      data: options.sendData
+    }).then((axiosResponse) => {
+      return axiosResponse.data;
     });
   }
 

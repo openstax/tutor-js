@@ -1,10 +1,14 @@
 import React from 'react';
+import { observer } from 'mobx-react';
+import { observable, action, computed } from 'mobx';
+import { autobind } from 'core-decorators';
 import serializeSelection from 'serialize-selection';
 import './highlighter';
 import HYPOTHESIS from '../../models/hypothesis';
 import hypothesisStore from './hypothesis-store';
-import _ from 'underscore';
+import {debounce} from 'lodash';
 import {ReferenceBookPageStore} from '../../flux/reference-book-page';
+import Icon from '../icon';
 
 const highlighter = new TextHighlighter(document.body);
 
@@ -32,8 +36,8 @@ function getSelectionRect(selection) {
 const HighlightWidget = ({style, annotate, highlight}) => (
   style ?
     <div className="widget arrow_box" style={style}>
-      <i className="fa fa-comment" role="button" alt="annotate" onClick={annotate}></i>
-      <i className="fa fa-pencil" role="button" alt="highlight" onClick={highlight}></i>
+      <Icon type="comment" alt="annotate" onClick={annotate} />
+      <Icon type="pencil" alt="highlight" onClick={highlight} />
     </div>
   : null
 );
@@ -45,18 +49,18 @@ const EditBox = (props) => {
       <div className="button-row">
         <div className="button-group">
           <button aria-label="save" className="primary" onClick={props.save}>
-            <i className="fa fa-check"></i>
+            <Icon type="check" />
           </button>
           <button aria-label="delete" className="secondary" onClick={props.delete}>
-            <i className="fa fa-trash"></i>
+            <Icon type="trash" />
           </button>
         </div>
         <div className="button-group">
           <button aria-label="previous annotation" onClick={props.previous}>
-            <i className="fa fa-chevron-up" role="button" ></i>
+            <Icon type="chevron-up" />
           </button>
           <button aria-label="next annotation">
-            <i className="fa fa-chevron-down" role="button" onClick={props.next}></i>
+            <Icon type="chevron-down" />
           </button>
           <button>See all</button>
         </div>
@@ -67,49 +71,67 @@ const EditBox = (props) => {
 
 const SidebarButtons = ({items, offsetTop, onClick}) => (
   <div>
-    {items.filter((item) => item.rect).map((item, index) => {
+    {items.map((item, index) => {
       const style = {
-        right: 0,
         top: item.rect.top - offsetTop,
         position: 'absolute'
       };
 
-      return item.annotation.length ?
-        <button className="sidebar-button" style={style} key={item.selection.start} onClick={() => onClick(item)}>
-          <i className="fa fa-comment"></i>
-        </button>
-        :
-        null;
+      return (
+        <Icon type="comment"
+          className="sidebar-button"
+          style={style}
+          alt="view annotation"
+          key={item.selection.start}
+          onClick={() => onClick(item)}
+        />
+      );
     })}
   </div>
 );
 
-export default class AnnotationWidget extends React.PureComponent {
+@observer
+export default class AnnotationWidget extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeHighlight: null,
-      widgetStyle: {display: 'none'},
-      preload: [],
-      needToLoadAnnotations: true
-    };
+  static propTypes = {
+    documentId: React.PropTypes.string.isRequired,
+    windowImpl: React.PropTypes.shape({
+      open: React.PropTypes.func
+    }),
+    pageType: React.PropTypes.string
+  };
+
+  static defaultProps = {
+    windowImpl: window,
+    pageType: 'reading'
+  };
+
+  @observable activeHighlight = null;
+  @observable widgetStyle = {display: 'none'};
+  @observable preload = [];
+  @observable needToLoadAnnotations = true;
+
+  @computed get withAnnotations() {
+    return this.preload.filter((item) => item.annotation.length > 0 && item.rect);
+  }
+
+  @autobind
+  updateWidgetStyle() {
+
   }
 
   componentDidMount() {
-    this.handleSelectionChange = _.debounce(() => {
-      if (!this.state.activeHighlight) {
+    this.handleSelectionChange = debounce(() => {
+      if (!this.activeHighlight) {
         this.setWidgetStyle();
       }
     }, 80);
-    window.document.addEventListener('selectionchange', this.handleSelectionChange)
+    this.props.windowImpl.document.addEventListener('selectionchange', this.handleSelectionChange)
     this.restoreAnnotations();
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      needToLoadAnnotations: nextProps.documentId !== this.props.documentId
-    });
+    this.needToLoadAnnotations = nextProps.documentId !== this.props.documentId;
   }
 
   componentDidUpdate() {
@@ -117,7 +139,7 @@ export default class AnnotationWidget extends React.PureComponent {
   }
 
   componentWillUnmount() {
-    window.document.removeEventListener('selectionchange', this.handleSelectionChange)
+    this.props.windowImpl.document.removeEventListener('selectionchange', this.handleSelectionChange)
   }
 
   highlightEntry(entry) {
@@ -145,7 +167,7 @@ export default class AnnotationWidget extends React.PureComponent {
     const start = selection.start;
     const end = selection.end;
 
-    return this.state.preload.find((entry) => {
+    return this.preload.find((entry) => {
       const sel = entry.selection;
 
       return (sel.start >= start && sel.start <= end) ||
@@ -153,166 +175,162 @@ export default class AnnotationWidget extends React.PureComponent {
     });
   }
 
+  @action.bound
   setWidgetStyle() {
-    const selection = window.getSelection();
+    const selection = this.props.windowImpl.getSelection();
 
     // If it's a cursor placement with no highlighted text, check
     // for whether it's in an existing highlight
     if (selection.isCollapsed) {
-      this.setState({widgetStyle: null});
+      this.widgetStyle = null;
       this.savedSelection = null;
       const start = serializeSelection.save(this.articleElement).start;
-      this.setState({
-        activeHighlight: this.state.preload.find((entry) => {
-          const sel = entry.selection;
+      this.activeHighlight = this.preload.find((entry) => {
+        const sel = entry.selection;
 
-          return sel.start <= start && sel.end >= start;
-        })
-      });
+        return sel.start <= start && sel.end >= start;
+      })
 
       // Set selection, which will cause the widget to render
-      if (this.state.activeHighlight) {
-        serializeSelection.restore(this.state.activeHighlight.selection, this.articleElement);
+      if (this.activeHighlight) {
+        serializeSelection.restore(this.activeHighlight.selection, this.articleElement);
       }
     } else if (this.findOverlap()){
       console.warn("NO OVERLAPPING SELECTIONS!");
-      this.setState({widgetStyle: null});
+      this.widgetStyle = null;
     } else {
       this.savedSelection = serializeSelection.save(this.articleElement);
       const rect = getSelectionRect(selection);
       const pwRect = this.parentRect;
 
-      this.setState({
-        widgetStyle: {
-          top: `${rect.bottom - pwRect.top}px`,
-          left: `${rect.left - pwRect.left}px`
-        }
-      });
+      this.widgetStyle = {
+        top: `${rect.bottom - pwRect.top}px`,
+        left: `${rect.left - pwRect.left}px`
+      };
     }
   }
 
   restoreAnnotations() {
-    if (this.state.needToLoadAnnotations) {
-      hypothesisStore.fetch(this.props.documentId).then((response) => {
-        const newPreload = response.rows.map(dbEntryToPreload);
+    if (this.needToLoadAnnotations) {
+      hypothesisStore.fetch(this.props.documentId).then(action(
+        (response) => {
+          const newPreload = response.rows.map(dbEntryToPreload);
 
-        for (const entry of newPreload) {
-          this.highlightEntry(entry);
-        }
-        this.setState({
-          preload: newPreload
-        });
-      });
-      this.setState({
-        needToLoadAnnotations: false
-      });
+          for (const entry of newPreload) {
+            this.highlightEntry(entry);
+          }
+          this.preload = newPreload;
+        }));
+      this.needToLoadAnnotations = false;
     }
   }
 
+  @action.bound
   highlightAndClose() {
-    return this.saveAnnotation().then((response) => {
-      this.setState({widgetStyle: null});
-      this.highlightEntry(response);
-      return response;
-    });
+    return this.saveAnnotation().then(
+      action((response) => {
+        this.widgetStyle = null;
+        this.highlightEntry(response);
+        return response;
+      }));
   }
 
+  @autobind
   openAnnotator() {
-    return this.highlightAndClose().then((response) => {
-      this.setState({activeHighlight: response});
-    });
+    return this.highlightAndClose().then(
+      action((response) => {
+        this.activeHighlight = response;
+      }));
   }
 
+  @action.bound
   updateActiveAnnotation(event) {
     const newValue = event.target.value;
 
-    this.setState({
-      activeHighlight: Object.assign(
-        {},
-        this.state.activeHighlight,
-        {annotation: newValue}
-      )
-    });
+    this.activeHighlight = Object.assign(
+      {},
+      this.activeHighlight,
+      {annotation: newValue}
+    );
   }
 
+  @action.bound
   updateAnnotation() {
-    const oldEntry = this.state.preload.find((e) => e.savedId === this.state.activeHighlight.savedId);
+    const oldEntry = this.preload.find((e) => e.savedId === this.activeHighlight.savedId);
 
-    this.setState({activeHighlight: null});
-    window.getSelection().empty();
-    if (oldEntry.annotation !== this.state.activeHighlight.annotation) {
-      hypothesisStore.update(this.state.activeHighlight.savedId, this.state.activeHighlight.annotation).then((response) => {
-        const newPreload = this.state.preload.slice();
-        const oldEntry = newPreload.find((e) => e.savedId === response.id);
+    this.props.windowImpl.getSelection().empty();
+    if (oldEntry.annotation !== this.activeHighlight.annotation) {
+      hypothesisStore.update(this.activeHighlight.savedId, this.activeHighlight.annotation).then(
+        action((response) => {
+          const oldEntry = this.preload.find((e) => e.savedId === response.id);
 
-        Object.assign(oldEntry, dbEntryToPreload(response));
-        this.setState({
-          preload: newPreload
-        });
-        return oldEntry;
-      });
+          Object.assign(oldEntry, dbEntryToPreload(response));
+          return oldEntry;
+        }));
     }
+    this.activeHighlight = null;
   }
 
+  @action.bound
   saveAnnotation() {
-    window.getSelection().empty();
+    this.props.windowImpl.getSelection().empty();
 
     return hypothesisStore.save(this.props.documentId, this.savedSelection, '')
-      .then((response) => {
+      .then(action((response) => {
         const newEntry = dbEntryToPreload(response);
-        const newPreload = this.state.preload.slice();
+        const newPreload = this.preload.slice();
 
         newPreload.push(newEntry);
-        this.setState({
-          preload: newPreload
-        });
+        this.preload = newPreload;
         return newEntry;
-      });
+      }));
   }
 
+  @action.bound
   deleteEntry() {
-    this.unhighlightEntry(this.state.activeHighlight);
-    hypothesisStore.delete(this.state.activeHighlight.savedId).then((response) => {
-      const oldIndex = this.state.preload.findIndex((e) => e.savedId === response.id);
-      const newPreload = this.state.preload.slice();
+    this.unhighlightEntry(this.activeHighlight);
+    hypothesisStore.delete(this.activeHighlight.savedId).then(
+      action((response) => {
+        const oldIndex = this.preload.findIndex((e) => e.savedId === response.id);
+        const newPreload = this.preload.slice();
 
-      newPreload.splice(oldIndex, 1);
-      this.setState({
-        preload: newPreload
-      });
-    });
-    this.setState({
-      activeHighlight: null
-    });
-    window.getSelection().empty();
+        newPreload.splice(oldIndex, 1);
+        this.preload = newPreload;
+      }));
+    this.activeHighlight = null;
+    this.props.windowImpl.getSelection().empty();
   }
 
+  @action
   nextAnnotationInSortedList(entries) {
-    const nextIndex = 1 + entries.findIndex((e) => e.selection.start === this.state.activeHighlight.selection.start);
+    const nextIndex = 1 + entries.findIndex((e) => e.selection.start === this.activeHighlight.selection.start);
 
     if (nextIndex < entries.length) {
-      this.setState({activeHighlight: entries[nextIndex]});
+      this.activeHighlight = entries[nextIndex];
       serializeSelection.restore(entries[nextIndex].selection, this.articleElement);
     }
   }
 
+  @autobind
   nextAnnotation() {
-    const entries = this.state.preload.sort((a, b) => a.selection.start - b.selection.start);
+    const entries = this.preload.sort((a, b) => a.selection.start - b.selection.start);
 
     this.nextAnnotationInSortedList(entries);
   }
 
+  @autobind
   previousAnnotation() {
     // The trick is that the sort is reversed
-    const entries = this.state.preload.sort((a, b) => b.selection.start - a.selection.start);
+    const entries = this.preload.sort((a, b) => b.selection.start - a.selection.start);
 
     this.nextAnnotationInSortedList(entries);
   }
 
+  @autobind
   getParentRect(el) {
     if (el) {
-      const wLeft = window.pageXOffset || document.documentElement.scrollLeft;
-      const wTop = window.pageYOffset || document.documentElement.scrollTop;
+      const wLeft = this.props.windowImpl.pageXOffset || document.documentElement.scrollLeft;
+      const wTop = this.props.windowImpl.pageYOffset || document.documentElement.scrollTop;
       const parentRect = el.parentNode.getBoundingClientRect();
 
       this.articleElement = el.parentNode;
@@ -326,28 +344,30 @@ export default class AnnotationWidget extends React.PureComponent {
   }
 
   render() {
-    return (
-      <div className="annotater" ref={this.getParentRect.bind(this)}>
+    return this.props.pageType === 'reading' ?
+      <div className="annotater" ref={this.getParentRect}>
         <HighlightWidget
-          style={this.state.widgetStyle}
-          annotate={this.openAnnotator.bind(this)}
-          highlight={this.highlightAndClose.bind(this)}
+          style={this.widgetStyle}
+          annotate={this.openAnnotator}
+          highlight={this.highlightAndClose}
         />
         <EditBox
-          show={this.state.activeHighlight ? 'open' : 'closed'}
-          annotation={this.state.activeHighlight ? this.state.activeHighlight.annotation : ''}
-          updateAnnotation={this.updateActiveAnnotation.bind(this)}
-          save={this.updateAnnotation.bind(this)}
-          delete={this.deleteEntry.bind(this)}
+          show={this.activeHighlight ? 'open' : 'closed'}
+          annotation={this.activeHighlight ? this.activeHighlight.annotation : ''}
+          updateAnnotation={this.updateActiveAnnotation}
+          save={this.updateAnnotation}
+          delete={this.deleteEntry}
           next={this.nextAnnotation.bind(this)}
           previous={this.previousAnnotation.bind(this)}
         />
-        <SidebarButtons items={this.state.preload}
+        <SidebarButtons items={this.withAnnotations}
           offsetTop={this.parentRect ? this.parentRect.top : 0}
-          onClick={(item) => this.setState({activeHighlight: item})}
+          onClick={(item) => {this.activeHighlight = item}}
         />
       </div>
-    );
+      :
+      null
+    ;
   }
 
 }

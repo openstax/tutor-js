@@ -75,7 +75,6 @@ module.exports = React.createClass
       title: @getSplashTitle()
 
     <div className={classnames('page-wrapper', @props.className)}>
-      <tutor-highlight></tutor-highlight>
       {@props.children}
       <div className='page center-panel'>
         <RelatedContent contentId={cnxId} {...related} />

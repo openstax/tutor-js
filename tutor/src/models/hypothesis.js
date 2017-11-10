@@ -18,19 +18,18 @@ class Hypothesis extends BaseModel {
   @field authority;
   @field grant_token;
 
+  @observable errorMessage = '';
+  @observable isBusy;
+
+  @action.bound
   logFailure(msg) {
     this.errorMessage = msg;
     this.isBusy = false;
     Logging.error(msg)
   }
 
-  initialize() {
-    window.hypothesisConfig = this.sidebarConfig;
-  }
-
-
   @action.bound
-  sidebarConfig() {
+  config() {
     return {
       'services':
         [{
@@ -42,21 +41,6 @@ class Hypothesis extends BaseModel {
     }
   }
 
-  @action.bound
-  loadSidebar() {
-    if (!this.embed_url) {
-      return this.logFailure('Attempted to load hypothesis without an embed_url')
-    }
-    this.isBusy = true;
-    if (!window.hypothesisConfig) {
-      logFailure('No window.hypothesisConfig detected');
-    } else {
-      return loadjs(this.embed_url, {
-        error: (e) => this.logFailure(`Unable to request assets ${e}`),
-      })
-    }
-  }
 }
 
-const hypothesis = new Hypothesis;
-export default hypothesis
+export default new Hypothesis
