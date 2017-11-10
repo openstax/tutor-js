@@ -14,19 +14,19 @@
 @import './questions';
 
 // mixins
-@import './interactive';
 @import './note';
 
-@mixin tutor-book-content() {
+@mixin tutor-book-content-body() {
+  @media screen and ( min-width: $book-content-collapse-breakpoint ){
+    padding: 0 $tutor-book-padding-horizontal $tutor-book-padding-vertical $tutor-book-padding-horizontal;
+  }
+}
 
+@mixin tutor-book-content() {
   display: block;
   padding-left:  $book-content-narrow-horizontal-padding;
   padding-right: $book-content-narrow-horizontal-padding;
   width: 100%;
-
-  @media screen and ( min-width: $book-content-collapse-breakpoint ){
-    padding: 0 $tutor-book-padding-horizontal $tutor-book-padding-vertical $tutor-book-padding-horizontal;
-  }
 
   @extend %tutor-book-content-base-styles;
   @extend %tutor-book-content-typography;
@@ -39,78 +39,11 @@
 
   @include tutor-book-notes();
 
+
   @each $book in map-keys($openstax-books) {
     &[data-appearance=#{$book}] {
+
       @include tutor-book-content-theme($book);
     }
   }
 }
-
-// @mixin tutor-book-content-theme-physics() {
-//   $book-theme-name: 'hs-physics';
-//   @import './#{$book-theme-name}/index.scss';
-//   @include tutor-book-theme-hs-physics-specific();
-
-//   @include tutor-book-theme-first-letter($tutor-book-hs-physics-secondary);
-//   @include tutor-book-theme-typography($tutor-book-hs-physics-primary);
-//   .tutor-book-theme-learning-objectives($tutor-book-hs-physics-primary; $tutor-book-hs-physics-accent; rgba(255,255,255,.8));
-//   @mixin tutor-book-theme-related-content($tutor-book-hs-physics-primary),
-//   .tutor-book-theme-splash-image($tutor-book-hs-physics-primary),
-//   .tutor-book-theme-note($tutor-book-hs-physics-primary, $tutor-book-hs-physics-secondary),
-//   .tutor-book-theme-note-borders($tutor-book-hs-physics-secondary),
-//   .tutor-book-theme-quote($tutor-book-hs-physics-secondary),
-//   .tutor-bullet-lists($tutor-book-hs-physics-secondary),
-//   .tutor-book-theme-tables($tutor-book-hs-physics-primary),
-// }
-
-// @mixin tutor-book-content-theme-biology() {
-//   $book-theme-name: 'ap-bio';
-//   @import './#{$book-theme-name}/index.scss';
-//   @mixin tutor-book-theme-ap-bio-specific(),
-
-//   .tutor-book-theme-first-letter($tutor-book-ap-bio-secondary),
-//   .tutor-book-theme-typography($tutor-book-ap-bio-primary),
-//   .tutor-book-theme-learning-objectives($tutor-book-ap-bio-primary, $tutor-book-ap-bio-accent),
-//   .tutor-book-theme-related-content($tutor-book-ap-bio-primary),
-//   .tutor-book-theme-splash-image($tutor-book-ap-bio-primary),
-//   .tutor-book-theme-note($tutor-book-ap-bio-primary, $tutor-book-text-on-dark-labels),
-//   .tutor-book-theme-note-borders($tutor-book-text-on-dark-labels),
-//   .tutor-book-theme-quote($tutor-book-ap-bio-secondary),
-//   .tutor-bullet-lists($tutor-book-ap-bio-primary),
-//   .tutor-book-theme-tables($tutor-book-ap-bio-primary),
-// }
-
-// @mixin tutor-book-content-theme-sociology() {
-//   $book-theme-name: 'intro-sociology';
-//   @import './#{$book-theme-name}/index.scss';
-//   @mixin tutor-book-theme-intro-sociology-specific(),
-
-//   .tutor-book-theme-first-letter($tutor-book-intro-sociology-primary),
-//   .tutor-book-theme-typography($tutor-book-intro-sociology-secondary),
-//   .tutor-book-theme-learning-objectives($tutor-book-intro-sociology-primary, $tutor-book-intro-sociology-accent, $tutor-book-intro-sociology-secondary),
-//   .tutor-book-theme-related-content($tutor-book-intro-sociology-primary, $tutor-book-intro-sociology-secondary),
-//   .tutor-book-theme-splash-image($tutor-book-intro-sociology-primary, $tutor-book-intro-sociology-secondary),
-//   .tutor-book-theme-note($tutor-book-intro-sociology-primary, $tutor-book-intro-sociology-secondary),
-//   .tutor-book-theme-note-borders($tutor-book-text-on-dark-labels),
-//   .tutor-book-theme-quote($tutor-book-intro-sociology-primary),
-//   .tutor-bullet-lists($tutor-book-intro-sociology-primary),
-//   .tutor-book-theme-tables($tutor-book-intro-sociology-primary),
-// }
-
-
-// @mixin tutor-book-content-theme-ap-us-history() {
-//   $book-theme-name: 'ap-us-history';
-//   @import './#{$book-theme-name}/index.scss';
-//   @include tutor-book-theme-ap-us-history-specific();
-
-//   @include tutor-book-theme-first-letter($tutor-book-ap-us-history-secondary);
-//   @include tutor-book-theme-typography($tutor-book-ap-us-history-primary);
-//   .tutor-book-theme-learning-objectives($tutor-book-ap-us-history-primary; $tutor-book-ap-us-history-accent);
-//   .tutor-book-theme-related-content($tutor-book-ap-us-history-primary; $tutor-book-ap-us-history-secondary);
-//   .tutor-book-theme-splash-image($tutor-book-ap-us-history-primary; $tutor-book-ap-us-history-secondary);
-//   .tutor-book-theme-note($tutor-book-ap-us-history-primary; $tutor-book-ap-us-history-secondary);
-//   @include tutor-book-theme-note-borders($tutor-book-text-on-dark-labels);
-//   @include tutor-book-theme-quote($tutor-book-ap-us-history-secondary);
-//   @include tutor-bullet-lists($tutor-book-ap-us-history-primary);
-//   @include tutor-book-theme-tables($tutor-book-ap-us-history-primary);
-// }

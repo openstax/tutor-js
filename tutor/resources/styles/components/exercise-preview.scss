@@ -50,22 +50,13 @@
   }
 }
 
-.openstax-exercise-preview {
 
-  // when < than sim width, go responsive.
-  // this is a temporary solution for sims on small devices.
+.openstax-exercise-preview {
   width: 100%;
   height: $tutor-interactive-iframe-height;
-
   margin: 20px auto;
   border: none;
-
-  //   $tight-width-rules: {
-  //     // for any screen with > than sim width, be sim width
-  //     width: $tutor-interactive-iframe-width;
-  //     margin-left: calc("50% - " (($tutor-interactive-iframe-width + 30px) / 2));
-  //   };
-  // );
+  @include book-content-interactives();
 }
 
 .is-college {

@@ -20,8 +20,7 @@
     }
     .icon {
       background-position: center;
-      // * 10 on icon-size-lg because less doesn't automatically convert icon-size-lg to px
-      margin: ($student-dashboard-row-height - $icon-size-lg * 10)/2;
+      margin: ($student-dashboard-row-height - $icon-size-lg)/2;
     }
     .title {
       padding-left: 0;

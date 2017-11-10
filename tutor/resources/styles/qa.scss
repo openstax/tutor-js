@@ -73,7 +73,7 @@
   .navbar-nav {
     // clip so that a long title doesn't push the menus below the navbar
     .section-title {
-      max-width: calc("100% - 500px");
+      max-width: calc(100% - 500px);
     }
     .available-books ul.dropdown-menu {
       max-height: 350px;

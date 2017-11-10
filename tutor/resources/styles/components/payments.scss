@@ -6,7 +6,6 @@
   }
 }
 
-
 .manage-payments {
   margin-top: 2rem;
   @extend .container;
@@ -54,10 +53,9 @@
 
 }
 
-
 // TODO - make this a mixin or standard style once UX finishes style guide
 .modal.refund {
-  @spacing: 50px;
+  $spacing: 50px;
   overflow: scroll;
 
   .modal-dialog {

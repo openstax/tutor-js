@@ -29,7 +29,7 @@
       @media (max-width: $screen-sm-max) and (min-width: $screen-sm-min) {
         > button,
         > .progress {
-          width: calc("50% - " $grid-gutter-width / 2);
+          width: calc(50% - #{$grid-gutter-width / 2});
         }
       }
 

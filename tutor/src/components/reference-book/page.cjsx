@@ -70,7 +70,7 @@ module.exports = React.createClass
       chapter_section: @props.section
       title: @getSplashTitle()
 
-    <div className={classnames('page-wrapper', @props.className)}>
+    <div className={classnames('page-wrapper', @props.className)} {...@props.dataProps}>
       {@props.children}
       <div className='page center-panel'>
         <RelatedContent contentId={cnxId} {...related} />

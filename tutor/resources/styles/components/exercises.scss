@@ -1,4 +1,4 @@
-$exercise-details-body-height: calc("100vh - 150px");
+$exercise-details-body-height: calc(100vh - 150px);
 
 .exercise-details {
   min-height: $exercise-details-body-height;
@@ -77,11 +77,11 @@ $exercise-details-body-height: calc("100vh - 150px");
         height: 100vh;
         position: fixed;
         top: 0px;
-        left: calc("50% - " 400px );
+        left: calc(50% - 400px);
       }
       &.has-interactive {
         .controls-overlay {
-          left: calc("50% - " $tutor-interactive-iframe-width/2 );
+          left: calc(50% - #{$tutor-interactive-iframe-width/2} );
         }
       }
     }

@@ -1,12 +1,14 @@
 .reference-book {
 
-  @include tutor-book-content();
+  .page-wrapper {
+    @include tutor-book-content();
+  }
 
   .content {
     padding-top: 75px;
     margin-left: -40px;
     margin-right: -40px;
-    background-color: @tutor-neutral-lighter;
+    background-color: $tutor-neutral-lighter;
     .center-panel {
       margin: 0 auto;
 
@@ -17,6 +19,7 @@
     @include book-paged-content();
 
     .page {
+      @include tutor-book-content-body();
       counter-reset: question;
       border: 1px solid $tutor-neutral-bright;
       background-color: $tutor-white;
@@ -53,39 +56,6 @@
       @include tutor-shadow(2);
     }
   }
-
-  // &[data-appearance=hs_physics],
-  // &[data-appearance=college_physics] {
-  //   .content {
-  //     .page {
-  //       @include tutor-book-content-theme-physics();
-  //     }
-  //   }
-  // }
-
-  // &[data-appearance=ap_biology],
-  // &[data-appearance=college_biology] {
-  //   .content {
-  //     .page {
-  //       @include tutor-book-content-theme-biology();
-  //     }
-  //   }
-  // }
-
-  // &[data-appearance=intro_sociology] {
-  //   .content {
-  //     .page {
-  //       @include tutor-book-content-theme-sociology();
-  //     }
-  //   }
-  // }
-  // &[data-appearance=ap_us_history] {
-  //   .content {
-  //     .page {
-  //       @include tutor-book-content-theme-ap-us-history();
-  //     }
-  //   }
-  // }
 
   &.is-teacher {
     .content .page {

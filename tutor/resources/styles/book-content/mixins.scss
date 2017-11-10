@@ -72,20 +72,16 @@
   }
 }
 
-// @mixin book-content-interactives(
-//   $base-rules: $tutor-empty-rules,
-//   $tight-width-rules: $tutor-empty-rules,
-//   $full-width-rules: $tutor-empty-rules,
-// ) {
-//   iframe.interactive {
-//     $base-rules();
+@mixin book-content-interactives() {
+  iframe.interactive {
+    width: 100%;
+    height: $tutor-interactive-iframe-height;
 
-//     @media (min-width: $tutor-interactive-iframe-width) {
-//       $tight-width-rules();
-//     }
-
-//     @media (min-width: $book-content-collapse-breakpoint) {
-//       $full-width-rules();
-//     }
-//   }
-// }
+    margin: 20px auto;
+    border: none;
+    @media (min-width: $tutor-interactive-iframe-width) {
+      width: $tutor-interactive-iframe-width;
+      margin-left: calc(50% - #{(($tutor-interactive-iframe-width + 30px) / 2)});
+    }
+  }
+}

@@ -20,7 +20,7 @@
     border-top: 4px solid $green;
     box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
     margin-top: -4px;
-    min-width: "calc(100% + 15px)";
+    min-width: calc(100% + 15px);
     right: -15px;
 
     > li > a {

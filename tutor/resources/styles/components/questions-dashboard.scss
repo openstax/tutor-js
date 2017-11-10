@@ -59,7 +59,7 @@
     padding: $padding;
     background-color: $tutor-white;
     overflow: auto;
-    max-height: "calc(100vh - 250px)";
+    max-height: calc(100vh - 250px);
   }
 
   .pinned-header {
@@ -83,7 +83,7 @@
   .loading {
     position: fixed;
     width: 400px;
-    left: calc("50% - 150px");
+    left: calc(50% - 150px);
     top: 40%;
     z-index: 1;
     background-color: $tutor-neutral-bright;

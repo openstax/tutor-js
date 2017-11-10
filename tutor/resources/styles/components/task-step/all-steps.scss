@@ -9,25 +9,6 @@
   .interactive-content,
   .reading-content {
     @include tutor-book-content();
-    @include tutor-book-reading-titles();
-
-    // &[data-appearance=hs_physics],
-    // &[data-appearance=college_physics] {
-    //   @include tutor-book-content-theme-physics();
-    // }
-
-    // &[data-appearance=ap_biology],
-    // &[data-appearance=college_biology] {
-    //   @include tutor-book-content-theme-biology();
-    // }
-
-    // &[data-appearance=intro_sociology] {
-    //   @include tutor-book-content-theme-sociology();
-    // }
-
-    // &[data-appearance=ap_us_history] {
-    //   @include tutor-book-content-theme-ap-us-history();
-    // }
 
     .splash {
       margin-top: -20px;
