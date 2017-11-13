@@ -33,7 +33,6 @@ class Hypothesis extends BaseModel {
     window.hypothesisConfig = this.sidebarConfig;
   }
 
-  @action.bound
   config() {
     return {
       'services':

@@ -16,6 +16,7 @@ exports[`Student Navbar Component has user actions menu that matches snapshot 1`
   >
     <i
       className="tutor-icon fa fa-user"
+      role="presentation"
       type="user"
     />
     <span
@@ -215,6 +216,7 @@ exports[`Teacher Navbar Component has user actions menu that matches snapshot 1`
   >
     <i
       className="tutor-icon fa fa-user"
+      role="presentation"
       type="user"
     />
     <span

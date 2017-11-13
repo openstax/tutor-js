@@ -40,7 +40,7 @@ export class User extends BaseModel {
   }
 
   @computed get isHypothesis() {
-    return !!find(Courses.active, { appearance_code: 'college_biology'})
+    return !!find(Courses.nonPreview.active, { appearance_code: 'college_biology'})
   }
 
   @action removeCourse(course) {

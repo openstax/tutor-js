@@ -40,6 +40,7 @@ exports[`Center Controls matches snapshot 1`] = `
       >
         <i
           className="tutor-icon fa fa-th"
+          role="presentation"
           type="th"
         />
       </a>
