@@ -15,7 +15,6 @@ class Hypothesis extends BaseModel {
 
   @observable isBusy;
   @observable errorMessage;
-  @field embed_url;
   @field api_url;
   @field authority;
   @field grant_token;
