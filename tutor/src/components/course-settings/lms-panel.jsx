@@ -11,7 +11,7 @@ import Icon from '../icon';
 
 const blackboard = ({ lms }) => (
   <div className="blackboard">
-    <a href="http://4tk3oi.axshare.com/salesforce_support_page_results.html" target="_blank">
+    <a href="http://openstax.force.com/support/articles/How_To/How-can-I-integrate-OpenStax-Tutor-with-Blackboard/?q=LMS+integration&l=en_US&c=Products%3ATutor&fs=Search&pn=1" target="_blank">
       <Icon type="info-circle" /> How do I integrate with Blackboard?
     </a>
     <CopyOnFocusInput label="URL" value={lms.launch_url} />
@@ -22,7 +22,7 @@ const blackboard = ({ lms }) => (
 
 const canvas = ({ lms }) => (
   <div className="canvas">
-    <a href="http://4tk3oi.axshare.com/#g=1&p=salesforce_support_page_results_canvas&c=1" target="_blank">
+    <a href="http://openstax.force.com/support/articles/How_To/How-can-I-integrate-OpenStax-Tutor-with-Canvas/?q=LMS+integration&l=en_US&c=Products%3ATutor&fs=Search&pn=1" target="_blank">
       <Icon type="info-circle" /> How do I integrate with Canvas?
     </a>
     <CopyOnFocusInput label="Consumer key" value={lms.key} />
@@ -33,7 +33,7 @@ const canvas = ({ lms }) => (
 
 const moodle = ({ lms }) => (
   <div className="moodle">
-    <a href="http://4tk3oi.axshare.com/salesforce_support_page_results.html" target="_blank">
+    <a href="http://openstax.force.com/support/articles/How_To/How-can-I-integrate-OpenStax-Tutor-with-Moodle/?q=LMS+integration&l=en_US&c=Products%3ATutor&fs=Search&pn=1" target="_blank">
       <Icon type="info-circle" /> How do I integrate with Moodle?
     </a>
     <CopyOnFocusInput label="Secure tool URL" value={lms.launch_url} />
@@ -44,7 +44,7 @@ const moodle = ({ lms }) => (
 
 const d2l = ({ lms }) => (
   <div className="d2l">
-    <a href="http://4tk3oi.axshare.com/salesforce_support_page_results.html" target="_blank">
+    <a href="http://openstax.force.com/support/articles/FAQ/How-can-I-integrate-OpenStax-Tutor-with-Desire2Learn/?q=LMS+integration&l=en_US&c=Products%3ATutor&fs=Search&pn=1" target="_blank">
       <Icon type="info-circle" /> How do I integrate with Desire2Learn?
     </a>
     <CopyOnFocusInput label="URL" value={lms.launch_url} />
@@ -55,7 +55,7 @@ const d2l = ({ lms }) => (
 
 const sakai = ({ lms }) => (
   <div className="sakai">
-    <a href="http://4tk3oi.axshare.com/salesforce_support_page_results.html" target="_blank">
+    <a href="http://openstax.force.com/support/articles/FAQ/How-can-I-integrate-OpenStax-Tutor-with-Sakai/?q=LMS+integration&l=en_US&c=Products%3ATutor&fs=Search&pn=1" target="_blank">
       <Icon type="info-circle" /> How do I integrate with Sakai?
     </a>
     <CopyOnFocusInput label="Launch URL" value={lms.launch_url} />

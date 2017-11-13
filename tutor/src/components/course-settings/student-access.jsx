@@ -100,7 +100,7 @@ export default class StudentAccess extends React.PureComponent {
   }
 
   @action.bound onHideLinkSwitch() {
-    this.displayLinksWarning = false;
+      this.displayLinksWarning = false;
   }
 
   @action.bound forceLinksSwitch() {
@@ -156,7 +156,7 @@ export default class StudentAccess extends React.PureComponent {
           Choose how students access OpenStax Tutor.
           Access settings cannot be changed after students begin to enroll.
         </p>
-        <a href="http://4tk3oi.axshare.com/salesforce_support_page_results.html" target="_blank">
+        <a href="http://openstax.force.com/support/articles/FAQ/What-is-the-difference-between-using-a-direct-link-and-using-LMS-integration-to-give-your-students-access-to-OpenStax-Tutor/?q=LMS+integration&l=en_US&c=Products%3ATutor&fs=Search&pn=1" target="_blank">
           <Icon type="info-circle" /> Which option is right for my course?
         </a>
         <PanelGroup activeKey={course.is_lms_enabled} onSelect={this.onSelectOption} accordion>
