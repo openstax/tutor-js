@@ -8,7 +8,19 @@
       "type": "homework",
       "complete": false,
       "exercise_count": 2,
-      "complete_exercise_count": 0
+      "complete_exercise_count": 0,
+      "first_published_at": "2016-04-02T14:15:58.856Z",
+      "last_published_at": "2016-04-02T14:15:58.856Z",
+      "is_draft": false,
+      "is_preview": false,
+      "is_published": true,
+      "is_publishing": false,
+      "is_trouble": false,
+      "settings": {
+        "exercise_ids": ["48", "532", "27", "91", "548", "533", "540", "590", "534", "21"],
+        "exercises_count_dynamic": 4,
+        "page_ids": ["2", "3", "4"]
+      }
     },
     {
       "id": "4",
