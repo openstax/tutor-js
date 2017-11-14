@@ -3,6 +3,7 @@ classnames = require 'classnames'
 
 {TaskStepStore} = require '../../flux/task-step'
 {TaskStore} = require '../../flux/task'
+{TaskPanelStore} = require '../../flux/task-panel'
 {StepContent, ReadingStepContent} = require './step-with-reading-content'
 Exercise = require './exercise'
 Placeholder = require './placeholder'
@@ -22,10 +23,14 @@ Reading = React.createClass
     @props.onStepCompleted()
     @props.onNextStep()
   renderBody: ->
-    {id} = @props
+    {id, taskId} = @props
     {courseId} = Router.currentParams()
 
-    <ReadingStepContent id={id} stepType='reading' courseId={courseId} />
+    <ReadingStepContent
+      nextStepTitle={TaskPanelStore.getNextStepTitle(taskId, id)}
+      onContinue={@onContinue}
+      id={id} stepType='reading' courseId={courseId}
+    />
 
 Interactive = React.createClass
   displayName: 'Interactive'

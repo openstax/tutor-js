@@ -27,6 +27,13 @@ TaskPanel =
 
     getStepByKey: (id, stepKey) -> @exports.getStep.call(@, id, stepKey - 1)
 
+    getNextStepTitle: (id, taskStepId) ->
+      steps = @_get(id)
+      index = _.findIndex(steps, { id: taskStepId })
+      nextStep = if index is -1 then null else steps[index + 1]
+      if nextStep then StepTitleStore.getTitleForCrumb(nextStep) else ''
+
+
     getStepIndex: (id, stepInfo) ->
       steps = @_get(id)
       stepIndex = _.findIndex(steps, stepInfo)
