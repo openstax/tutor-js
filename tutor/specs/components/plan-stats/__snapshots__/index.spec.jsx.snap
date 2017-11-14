@@ -1,0 +1,219 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TaskPlan stats progress bar deals with missing stats for a period 1`] = `
+<div
+  className="task-stats panel panel-default"
+  id={undefined}
+>
+  <div
+    className="panel-body"
+  >
+    <nav
+      className="tutor-tabs"
+    >
+      <ul
+        className="nav nav-tabs"
+      >
+        <li
+          className="active"
+        >
+          <a
+            aria-selected={true}
+            href="#"
+            onClick={[Function]}
+          >
+            <h2>
+              <div
+                className=""
+              >
+                <span
+                  className="tab-item-period-name"
+                  onBlur={[Function]}
+                  onClick={null}
+                  onFocus={[Function]}
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  1st
+                </span>
+              </div>
+            </h2>
+          </a>
+        </li>
+        <li
+          className=""
+        >
+          <a
+            aria-selected={false}
+            href="#"
+            onClick={[Function]}
+          >
+            <h2>
+              <div
+                className=""
+              >
+                <span
+                  className="tab-item-period-name"
+                  onBlur={[Function]}
+                  onClick={null}
+                  onFocus={[Function]}
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  testing
+                </span>
+              </div>
+            </h2>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div
+      className="task-stats-data"
+    >
+      <section>
+        <div
+          className="data-container container"
+        >
+          <div
+            className="stats row"
+          >
+            <div
+              className="complete col-xs-4"
+            >
+              <label>
+                Complete
+              </label>
+              <div
+                className="data-container-value text-complete"
+              >
+                0
+              </div>
+            </div>
+            <div
+              className="in-progress col-xs-4"
+            >
+              <label>
+                In Progress
+              </label>
+              <div
+                className="data-container-value text-in-progress"
+              >
+                0
+              </div>
+            </div>
+            <div
+              className="not-started col-xs-4"
+            >
+              <label>
+                Not Started
+              </label>
+              <div
+                className="data-container-value text-not-started"
+              >
+                0
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`TaskPlan stats progress bar matches snapshot 1`] = `
+<div
+  className="task-stats panel panel-default"
+  id={undefined}
+>
+  <div
+    className="panel-body"
+  >
+    <nav
+      className="tutor-tabs"
+    >
+      <ul
+        className="nav nav-tabs"
+      >
+        <li
+          className="active"
+        >
+          <a
+            aria-selected={true}
+            href="#"
+            onClick={[Function]}
+          >
+            <h2>
+              <div
+                className=""
+              >
+                <span
+                  className="tab-item-period-name"
+                  onBlur={[Function]}
+                  onClick={null}
+                  onFocus={[Function]}
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  1st
+                </span>
+              </div>
+            </h2>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div
+      className="task-stats-data"
+    >
+      <section>
+        <div
+          className="data-container container"
+        >
+          <div
+            className="stats row"
+          >
+            <div
+              className="complete col-xs-4"
+            >
+              <label>
+                Complete
+              </label>
+              <div
+                className="data-container-value text-complete"
+              >
+                0
+              </div>
+            </div>
+            <div
+              className="in-progress col-xs-4"
+            >
+              <label>
+                In Progress
+              </label>
+              <div
+                className="data-container-value text-in-progress"
+              >
+                0
+              </div>
+            </div>
+            <div
+              className="not-started col-xs-4"
+            >
+              <label>
+                Not Started
+              </label>
+              <div
+                className="data-container-value text-not-started"
+              >
+                0
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+`;

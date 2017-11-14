@@ -45,7 +45,7 @@ export default class Stats extends React.PureComponent {
   }
 
   @computed get stats() {
-    return find(this.analytics.stats, { period_id: this.period.id });
+    return find(this.analytics.stats, { period_id: this.period.id }) || {};
   }
 
   componentWillMount() {
@@ -70,11 +70,27 @@ export default class Stats extends React.PureComponent {
     );
   }
 
+  renderCurrentPages() {
+    if (isEmpty(this.stats.current_pages)) { return null; }
+    return (
+      <ChaptersPerformance
+        currentPages={this.stats.current_pages}
+        activeSection={this.props.activeSection} />
+    );
+  }
+
+  renderSpacedPages() {
+    if (isEmpty(this.stats.spaced_pages)) { return null; }
+    return (
+      <PracticesPerformance
+        spacedPages={this.stats.spaced_pages}
+        activeSection={this.props.activeSection} />
+    );
+  }
+
   render() {
-    let chapters, course, dataComponent, practice;
-    const { stats, props: {
-      courseId, shouldOverflowData, activeSection,
-    } } = this;
+    let course, dataComponent;
+    const { stats, props: { courseId, shouldOverflowData } } = this;
 
     if (!this.period.hasEnrollments) {
       return this.renderWrapped(<NoStudents courseId={courseId} />);
@@ -86,38 +102,21 @@ export default class Stats extends React.PureComponent {
 
     course = <CourseBar data={stats} type={this.props.plan.type} />;
 
-    if (!isEmpty(stats.current_pages)) {
-      chapters = (
-        <ChaptersPerformance
-          currentPages={stats.current_pages}
-          activeSection={activeSection} />
-      );
-    }
-
-    if (!isEmpty(stats.spaced_pages)) {
-      practice = (
-        <PracticesPerformance
-          spacedPages={stats.spaced_pages}
-          activeSection={activeSection} />
-      );
-    }
-
-
     if (shouldOverflowData) {
       dataComponent = <SmartOverflow className="task-stats-data" heightBuffer={24}>
         <section>
           {course}
         </section>
-        {chapters}
-        {practice}
+        {this.renderCurrentPages()}
+        {this.renderSpacedPages()}
       </SmartOverflow>;
     } else {
       dataComponent = <div className="task-stats-data">
         <section>
           {course}
         </section>
-        {chapters}
-        {practice}
+        {this.renderCurrentPages()}
+        {this.renderSpacedPages()}
       </div>;
     }
 
