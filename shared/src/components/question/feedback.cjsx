@@ -16,6 +16,7 @@ SimpleFeedback = React.createClass
 
     <ArbitraryHtmlAndMath
       {...htmlAndMathProps}
+      aria-label="Answer Feedback"
       className='question-feedback-content has-html'
       html={@props.children}
       block={true}/>
@@ -33,8 +34,11 @@ Feedback = React.createClass
     wrapperClasses = classnames 'question-feedback', @props.position
     htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
 
-    <div className={wrapperClasses}>
-      <div className='arrow'/>
+    <div
+      className={wrapperClasses}
+      aria-label="Answer Feedback"
+    >
+      <div className='arrow' />
       <SimpleFeedback {...htmlAndMathProps}>{@props.children}</SimpleFeedback>
     </div>
 
