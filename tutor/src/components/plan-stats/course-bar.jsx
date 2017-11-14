@@ -39,19 +39,24 @@ so it may differ from the average you see in Student Scores.\
     let completeLabel = 'Complete';
     let inProgressLabel = 'In Progress';
     const notStartedLabel = 'Not Started';
+    const {
+      complete_count = 0,
+      partially_complete_count = 0,
+      total_count = 0,
+    } = data;
 
     let stats = [{
       type: 'complete',
       label: completeLabel,
-      value: data.complete_count,
+      value: complete_count,
     }, {
       type: 'in-progress',
       label: inProgressLabel,
-      value: data.partially_complete_count,
+      value: partially_complete_count,
     }, {
       type: 'not-started',
       label: notStartedLabel,
-      value: data.total_count - (data.complete_count + data.partially_complete_count),
+      value: total_count - (complete_count + partially_complete_count),
     }];
 
     if (type === 'external') {
@@ -61,11 +66,11 @@ so it may differ from the average you see in Student Scores.\
       stats = [{
         type: 'complete',
         label: completeLabel,
-        value: data.complete_count,
+        value: complete_count,
       }, {
         type: 'not-started',
         label: notStartedLabel,
-        value: data.total_count - (data.complete_count + data.partially_complete_count),
+        value: total_count - (complete_count + partially_complete_count),
       }];
     }
 
