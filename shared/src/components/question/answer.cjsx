@@ -127,25 +127,37 @@ Answer = React.createClass
     if @props.show_all_feedback and answer.feedback_html
       feedback = <SimpleFeedback key='question-mc-feedback'>{answer.feedback_html}</SimpleFeedback>
 
+    ariaLabel = "#{if isChecked then 'Selected ' else ''}Choice #{ALPHABET[iter]}"
+    # somewhat misleading - this means that there is a correct answer,
+    # not necessarily that this answer is correct
+    if @props.hasCorrectAnswer
+      ariaLabel += "(#{if isCorrect then 'Correct' else 'Incorrect'} Answer)"
+
     htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
 
     unless @props.disabled
       accessbilityProps =
         tabIndex: 0
 
-    <div className='openstax-answer'>
-      <div className={classes}>
+    <div className='openstax-answer'
+
+    >
+      <div
+        className={classes}
+
+      >
         {selectedCount}
         {radioBox}
         <label
           {...accessbilityProps}
+
           onKeyPress={_.partial(@onKeyPress, _, answer)}
           htmlFor="#{qid}-option-#{iter}"
           className='answer-label'
         >
           <div
             className='answer-letter'
-            aria-label={"Choice #{ALPHABET[iter]}:"}
+            aria-label={"#{ariaLabel}:"}
           >
             {ALPHABET[iter]}
           </div>
