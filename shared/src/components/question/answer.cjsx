@@ -139,18 +139,12 @@ Answer = React.createClass
       accessbilityProps =
         tabIndex: 0
 
-    <div className='openstax-answer'
-
-    >
-      <div
-        className={classes}
-
-      >
+    <div className='openstax-answer'>
+      <div className={classes}>
         {selectedCount}
         {radioBox}
         <label
           {...accessbilityProps}
-
           onKeyPress={_.partial(@onKeyPress, _, answer)}
           htmlFor="#{qid}-option-#{iter}"
           className='answer-label'
