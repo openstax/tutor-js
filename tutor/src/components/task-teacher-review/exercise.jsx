@@ -22,6 +22,10 @@ class TaskTeacherReviewQuestion extends React.PureComponent {
 
   @observable showFreeResponse = false;
 
+  @computed get isExpandable() {
+    return this.props.question.answers.length > 3;
+  }
+
   @action.bound onChangeAnswerAttempt() {
     // TODO show cannot change answer message here
     return null;
@@ -43,21 +47,28 @@ class TaskTeacherReviewQuestion extends React.PureComponent {
   };
 
   @computed get toggleFreeResponseControls() {
+    const numAnswers = this.props.question.answers.length;
     let msg, icon;
+    if (!this.isExpandable) {
+      return <span>Student text responses</span>;
+    }
     if (this.showFreeResponse) {
       msg = 'Hide student text responses';
-      icon = 'chevron-up';
+      icon = 'chevron-down';
     } else {
-      msg = `View student text responses (${this.props.question.answers.length})`;
+      msg = `View student text responses (${numAnswers})`;
       icon = 'chevron-right';
     }
-    return <a onClick={this.toggleFreeResponse}>{msg} <Icon type={icon} /></a>;
+    return <a onClick={this.toggleFreeResponse}><Icon type={icon} /> {msg}</a>;
   }
 
   renderFreeResponse = () => {
     const { showFreeResponse, toggleFreeResponseControls, props: { question } } = this;
 
-    let freeResponsesClasses = 'teacher-review-answers';
+    let freeResponsesClasses = classnames('teacher-review-answers', {
+      active: showFreeResponse,
+      'is-expandable': this.isExpandable,
+    })
     if (showFreeResponse) { freeResponsesClasses += ' active'; }
 
     const freeResponses = map(question.answers, (answer, index) => (

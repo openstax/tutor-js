@@ -20,7 +20,7 @@
 }
 
 .answer-text-label() {
-  #fonts > .script(1.4rem);
+  #fonts > .sans(1.4rem);
   color: @answer-label-color;
 }
 
@@ -100,20 +100,26 @@
     }
   }
 
-  .teacher-review-answers .panel-heading + .panel-collapse > .panel-body {
-    border: none;
-  }
-
   .teacher-review-answers {
+    .panel,
+    .panel-heading + .panel-collapse > .panel-body {
+      border: none;
+    }
+
     &.panel {
       .box-shadow(none);
-      &:not(.active) {
-        .height-limited-panel(200px);
+      border-width: 0;
+      &.is-expandable:not(.active) {
+        .height-limited-panel(250px);
       }
       > .panel-heading {
-        color: @free-response-color;
         background: transparent;
         border-bottom: 0;
+        a, span {
+          color: @free-response-color;
+          font-weight: normal;
+          #fonts > .sans(1.8rem);
+        }
       }
     }
     .free-response {
