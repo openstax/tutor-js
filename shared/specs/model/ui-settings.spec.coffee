@@ -1,17 +1,21 @@
 {sinon, _} = require 'shared/specs/helpers'
-{ autorun } = require 'mobx';
+{ autorun } = require 'mobx'
+saveSettingsMock = jest.fn()
+jest.mock('lodash/debounce', -> jest.fn(-> saveSettingsMock ))
+
 UiSettings = require 'model/ui-settings'
 Networking = require 'model/networking'
+mockedDebounce = require 'lodash/debounce'
 
-jest.useFakeTimers();
+
 
 describe 'UiSettings', ->
 
   beforeEach ->
+    saveSettingsMock.mockReset()
     sinon.stub(Networking, 'perform').returns(
       then: (fn) -> fn({})
     )
-
 
   afterEach ->
     UiSettings._reset()
@@ -26,13 +30,9 @@ describe 'UiSettings', ->
   it 'saves when set', ->
     initialSetting = {'one': 1, 'two':'II'}
     UiSettings.initialize(initialSetting)
+
     UiSettings.set(one: 'five')
-    jest.runAllTimers()
-    expect(Networking.perform).to.have.been.called
-    expect(Networking.perform.lastCall.args[0].data?.ui_settings).to.eql(
-      one: 'five', two: 'II'
-    )
-    undefined
+    expect(saveSettingsMock).toHaveBeenCalledTimes(1)
 
   it 'groups saves together', ->
     initialSetting = {one: 18, two:'III', deep: {key: 'value', bar: 'bz'}}
@@ -40,12 +40,7 @@ describe 'UiSettings', ->
     UiSettings.set(one: 'five')
     UiSettings.set(one: 'six', deep: {bar: 'foo'})
     UiSettings.set(one: 'seven')
-    jest.runAllTimers()
-    expect(Networking.perform).to.have.been.calledOnce
-
-    expect(Networking.perform.lastCall.args[0].data?.ui_settings).to.eql(
-      one: 'seven', two: 'III', deep: { bar: 'foo'}
-    )
+    expect(saveSettingsMock).toHaveBeenCalledTimes(3)
     undefined
 
   it 'can set with key and id', ->

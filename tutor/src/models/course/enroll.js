@@ -96,7 +96,7 @@ export default class CourseEnrollment extends BaseModel {
   @action.bound
   onCancelStudentId() {
     this.student_identifier = '';
-    this.onConfirm();
+    this.confirm();
   }
 
   @action.bound

@@ -35,6 +35,13 @@ describe('Course Enrollment', function() {
     expect(enroll.isInvalid).toBe(true);
   });
 
+  it('#onCancelStudentId', () => {
+    enroll.confirm = jest.fn();
+    enroll.onCancelStudentId();
+    expect(enroll.student_identifier).toEqual('');
+    expect(enroll.confirm).toHaveBeenCalled();
+  });
+
   it('#isRegistered', () => {
     expect(enroll.isRegistered).toBe(false);
     enroll.api.errors = { already_enrolled: 'true' };
