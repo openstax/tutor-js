@@ -12,6 +12,7 @@ import {
 } from 'shared';
 import TourAnchor from '../tours/anchor';
 
+const TOGGLE_FREE_RESPONSE_LIMIT = 3;
 
 @observer
 class TaskTeacherReviewQuestion extends React.PureComponent {
@@ -23,7 +24,7 @@ class TaskTeacherReviewQuestion extends React.PureComponent {
   @observable showFreeResponse = false;
 
   @computed get isExpandable() {
-    return this.props.question.answers.length > 3;
+    return this.props.question.answers.withFreeResponse().length > TOGGLE_FREE_RESPONSE_LIMIT;
   }
 
   @action.bound onChangeAnswerAttempt() {
@@ -47,7 +48,7 @@ class TaskTeacherReviewQuestion extends React.PureComponent {
   };
 
   @computed get toggleFreeResponseControls() {
-    const numAnswers = this.props.question.answers.length;
+    const numAnswers = this.props.question.answers.withFreeResponse().length;
     let msg, icon;
     if (!this.isExpandable) {
       return <span>Student text responses</span>;
@@ -68,10 +69,10 @@ class TaskTeacherReviewQuestion extends React.PureComponent {
     let freeResponsesClasses = classnames('teacher-review-answers', {
       active: showFreeResponse,
       'is-expandable': this.isExpandable,
-    })
-    if (showFreeResponse) { freeResponsesClasses += ' active'; }
+    });
 
-    const freeResponses = map(question.answers, (answer, index) => (
+
+    const freeResponses = map(question.answers.withFreeResponse(), (answer, index) => (
       <FreeResponse {...answer} key={`free-response-${question.id}-${index}`} />
     ));
 
