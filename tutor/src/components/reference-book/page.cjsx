@@ -15,6 +15,7 @@ RelatedContent = require '../related-content'
 {ReferenceBookStore} = require '../../flux/reference-book'
 {ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
 
+Router = require '../../helpers/router'
 Dialog = require '../dialog'
 {default: AnnotationWidget} = require '../annotations/annotation'
 
@@ -60,6 +61,9 @@ module.exports = React.createClass
 
   render: ->
     {courseId, cnxId, ecosystemId} = @props
+    if (not courseId)
+      {courseId} = Router.currentParams()
+
     # read the id from props, or failing that the url
     page = ReferenceBookPageStore.get(cnxId)
 
@@ -86,5 +90,11 @@ module.exports = React.createClass
         PageId: {@props.cnxId}, Ecosystem: {JSON.stringify(page?.spy)}
       </SpyMode.Content>
 
-      <AnnotationWidget documentId={@props.cnxId} />
+      <AnnotationWidget
+        ecosystemId={courseId}
+        chapter={page.chapter_section[0]}
+        section={page.chapter_section[1]}
+        title={related.title}
+        documentId={@props.cnxId}
+      />
     </div>

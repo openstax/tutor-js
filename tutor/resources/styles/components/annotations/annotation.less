@@ -51,7 +51,7 @@ tutor-highlight {
     }
   }
 
-  .edit-box {
+  .slide-out-edit-box {
     background-color: @tutor-neutral-bright;
     border: thin solid @tutor-neutral-light;
     padding: 1rem;
@@ -110,4 +110,144 @@ tutor-highlight {
     right: 1.5rem;
     transform: translateY(-25%);
   }
+
+  .highlights-windowshade {
+    background-color: @tutor-neutral-light;
+    bottom: 100%;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+    transition: 0.3s;
+    z-index: 3;
+    .no-select();
+
+    &.down {
+      bottom: 0;
+      overflow: auto;
+      padding-top: 10rem;
+    }
+
+    h1 {
+      font-size: 18px;
+    }
+  }
+
+  .centered-content {
+    width: 100%;
+    max-width: 100rem;
+
+    > .dismiss {
+      float: right;
+      font-size: 18px;
+    }
+  }
+
+  .filter-widget {
+    display: flex;
+    position: relative;
+    width: 40rem;
+
+    .selected-item {
+      background-color: @tutor-white;
+      border: thin solid @tutor-neutral-light;
+      height: 3rem;
+      flex: 1 1 100%;
+    }
+
+    .activator {
+      background-color: @tutor-neutral-bright;
+      border: thin solid @tutor-neutral-light;
+      display: flex;
+      justify-content: center;
+      padding: 0 1rem;
+
+      > i {
+        margin: 0;
+        padding-bottom: 0.25em;
+      }
+    }
+
+    .options-dropdown {
+      border: thin solid @tutor-neutral-light;
+      display: none;
+
+      &.down {
+        background-color: @tutor-white;
+        display: block;
+        position: absolute;
+        min-height: 4rem;
+        width: 100%;
+        top: 100%;
+      }
+
+      label {
+        display: block;
+        padding: 0.5rem;
+      }
+
+      [type="checkbox"] {
+        margin: 0 1rem;
+      }
+    }
+
+  }
+
+  .annotation-card {
+    background-color: @tutor-white;
+    display: flex;
+    margin-bottom: 3rem;
+    padding: 3rem;
+    width: 100%;
+
+    button {
+      background-color: @tutor-white;
+      border: thin solid @tutor-neutral-light;
+      border-radius: 2px;
+      height: 3rem;
+      margin-right: 0.5rem;
+      width: 4.6rem;
+
+      &:last-child {
+        margin: 0;
+      }
+
+      .tutor-icon {
+        color: @tutor-neutral-dark;
+        margin: 0;
+      }
+    }
+
+    .controls {
+      flex: 0 0 16rem;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .annotation-content {
+      flex: 1 1 90%;
+
+      .selected-text {
+        border-left: 3px solid @tutor-neutral-light;
+        font-family: Georgia, serif;
+        font-style: italic;
+        padding: 1rem;
+      }
+
+      .edit-box,
+      .plain-text:not(:empty) {
+        margin-top: 2rem;
+
+        textarea {
+          border: thin solid @tutor-neutral-light;
+          padding: 1rem;
+          width: 100%;
+        }
+      }
+    }
+  }
+
 }
