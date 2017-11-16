@@ -132,7 +132,7 @@ Answer = React.createClass
     # not necessarily that this answer is correct
     if @props.hasCorrectAnswer
       ariaLabel += "(#{if isCorrect then 'Correct' else 'Incorrect'} Answer)"
-
+    ariaLabel += ":"
     htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
 
     unless @props.disabled
@@ -149,10 +149,7 @@ Answer = React.createClass
           htmlFor="#{qid}-option-#{iter}"
           className='answer-label'
         >
-          <div
-            className='answer-letter'
-            aria-label={"#{ariaLabel}:"}
-          >
+          <div className='answer-letter' aria-label={ariaLabel}>
             {ALPHABET[iter]}
           </div>
           <div className='answer-answer'>
