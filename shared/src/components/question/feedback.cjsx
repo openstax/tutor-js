@@ -11,12 +11,10 @@ SimpleFeedback = React.createClass
   contextTypes:
     processHtmlAndMath: React.PropTypes.func
   render: ->
-    wrapperClasses = classnames 'question-feedback-content', 'has-html', @props.className
     htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
-
     <ArbitraryHtmlAndMath
       {...htmlAndMathProps}
-      className='question-feedback-content has-html'
+      className={classnames 'question-feedback-content', 'has-html', @props.className}
       html={@props.children}
       block={true}/>
 
@@ -33,8 +31,10 @@ Feedback = React.createClass
     wrapperClasses = classnames 'question-feedback', @props.position
     htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
 
-    <div className={wrapperClasses}>
-      <div className='arrow'/>
+    <div
+      className={wrapperClasses}
+    >
+      <div className='arrow' aria-label="Answer Feedback"/>
       <SimpleFeedback {...htmlAndMathProps}>{@props.children}</SimpleFeedback>
     </div>
 

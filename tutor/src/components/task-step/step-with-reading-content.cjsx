@@ -1,12 +1,14 @@
 React = require 'react'
 
 {TaskStepStore} = require '../../flux/task-step'
+{TaskPanelStore} = require '../../flux/task-panel'
 {ArbitraryHtmlAndMath, ChapterSectionMixin} = require 'shared'
 CourseData = require '../../helpers/course-data'
 {BookContentMixin, LinkContentMixin} = require '../book-content-mixin'
 RelatedContent = require '../related-content'
 Router = require '../../helpers/router'
 {default: AnnotationWidget} = require '../annotations/annotation'
+Icon = require '../icon'
 
 # TODO: will combine with below, after BookContentMixin clean up
 ReadingStepContent = React.createClass
@@ -27,6 +29,16 @@ ReadingStepContent = React.createClass
   shouldExcludeFrame: ->
     @props.stepType is 'interactive'
 
+  renderNextStepLink: ->
+    return null unless @props.nextStepTitle
+    <div className="continue-to-next-task-step">
+      <a onClick={@props.onContinue}>
+        Continue to “<span className="next-step-title">
+          {@props.nextStepTitle}
+        </span>” <Icon type="chevron-right" />
+      </a>
+    </div>
+
   shouldOpenNewTab: -> true
   render: ->
     {id, stepType} = @props
@@ -43,6 +55,7 @@ ReadingStepContent = React.createClass
           shouldExcludeFrame={@shouldExcludeFrame}
           html={content_html}
         />
+        {@renderNextStepLink()}
       </div>
       <AnnotationWidget pageType={stepType} documentId={this.getCnxId()} />
     </div>
