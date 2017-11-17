@@ -74,7 +74,6 @@ exports[`QA Exercises Card matches snapshot 1`] = `
                     }
                   />
                   <div
-                    aria-label="Answer Feedback"
                     className="openstax-has-html question-feedback-content has-html"
                     dangerouslySetInnerHTML={
                       Object {
@@ -120,7 +119,6 @@ exports[`QA Exercises Card matches snapshot 1`] = `
                     }
                   />
                   <div
-                    aria-label="Answer Feedback"
                     className="openstax-has-html question-feedback-content has-html"
                     dangerouslySetInnerHTML={
                       Object {
@@ -166,7 +164,6 @@ exports[`QA Exercises Card matches snapshot 1`] = `
                     }
                   />
                   <div
-                    aria-label="Answer Feedback"
                     className="openstax-has-html question-feedback-content has-html"
                     dangerouslySetInnerHTML={
                       Object {
@@ -212,7 +209,6 @@ exports[`QA Exercises Card matches snapshot 1`] = `
                     }
                   />
                   <div
-                    aria-label="Answer Feedback"
                     className="openstax-has-html question-feedback-content has-html"
                     dangerouslySetInnerHTML={
                       Object {
