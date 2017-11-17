@@ -58,6 +58,12 @@ class ReviewQuestion {
 }
 
 
+const AnswersAssociation = {
+  withFreeResponse() {
+    return this.filter(ans => !isEmpty(ans.free_response));
+  }
+};
+
 @identifiedBy('task-plan/stats/question')
 export class Question extends BaseModel {
 
@@ -65,7 +71,7 @@ export class Question extends BaseModel {
   @session answered_count;
 
   @belongsTo({ model: 'task-plan/stats/exercise' }) exercise;
-  @hasMany({ model: Answer, inverseOf: 'question' }) answers;
+  @hasMany({ model: Answer, inverseOf: 'question', extend: AnswersAssociation }) answers;
   @hasMany({ model: AnswerStat, inverseOf: 'question' }) answer_stats;
   @lazyInitialize forReview = new ReviewQuestion(this);
 
