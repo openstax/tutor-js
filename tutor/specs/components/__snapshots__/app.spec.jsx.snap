@@ -47,6 +47,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
               >
                 <i
                   className="tutor-icon fa fa-question-circle"
+                  role="presentation"
                   type="question-circle"
                 />
                 <span
@@ -118,6 +119,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
               >
                 <i
                   className="tutor-icon fa fa-user"
+                  role="presentation"
                   type="user"
                 />
                 <span

@@ -16,6 +16,7 @@ exports[`Support Menu renders and matches snapshot 1`] = `
   >
     <i
       className="tutor-icon fa fa-question-circle"
+      role="presentation"
       type="question-circle"
     />
     <span

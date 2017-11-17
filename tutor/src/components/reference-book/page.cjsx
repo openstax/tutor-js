@@ -15,6 +15,9 @@ RelatedContent = require '../related-content'
 {ReferenceBookStore} = require '../../flux/reference-book'
 {ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
 
+Dialog = require '../dialog'
+{default: AnnotationWidget} = require '../annotations/annotation'
+
 module.exports = React.createClass
   displayName: 'ReferenceBookPage'
   propTypes:
@@ -22,6 +25,7 @@ module.exports = React.createClass
   mixins: [BookContentMixin, GetPositionMixin]
   componentWillMount: ->
     @setState(skipZeros: false)
+
   getSplashTitle: ->
     ReferenceBookStore.getPageTitle(@props)
 
@@ -82,4 +86,5 @@ module.exports = React.createClass
         PageId: {@props.cnxId}, Ecosystem: {JSON.stringify(page?.spy)}
       </SpyMode.Content>
 
+      <AnnotationWidget documentId={@props.cnxId} />
     </div>

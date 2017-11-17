@@ -39,6 +39,10 @@ export class User extends BaseModel {
     return this.first_name || this.name ? this.name.replace(/ .*/, '') : '';
   }
 
+  @computed get isHypothesis() {
+    return !!find(Courses.nonPreview.active, { appearance_code: 'college_biology'})
+  }
+
   @action removeCourse(course) {
     return Courses.delete(course.id);
   }

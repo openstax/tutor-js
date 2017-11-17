@@ -10,6 +10,7 @@ exports[`LmsInfo Component matches snapshot 1`] = `
   >
     <i
       className="tutor-icon fa fa-chevron-left"
+      role="presentation"
       type="chevron-left"
     />
      Back
