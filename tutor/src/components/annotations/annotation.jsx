@@ -101,26 +101,28 @@ const EditBox = (props) => {
   );
 };
 
-const SidebarButtons = ({items, offsetTop, onClick}) => (
+const SidebarButtons = ({items, onClick, highlightEntry}) => {
+  return (
   <div>
     {items.map((item, index) => {
-      const style = {
-        top: item.rect.top - offsetTop,
-        position: 'absolute'
-      };
+      if (highlightEntry) {
+        highlightEntry(item);
+      }
 
-      return (
+      return (item.annotation.length ?
         <Icon type="comment"
           className="sidebar-button"
-          style={style}
+          style={item.style}
           alt="view annotation"
           key={item.selection.start}
           onClick={() => onClick(item)}
         />
+        :
+        null
       );
     })}
   </div>
-);
+);}
 
 const WindowShade = ({show, dismiss, children}) => (
   <div className={`highlights-windowshade ${show ? 'down' : 'up'}`}>
@@ -149,25 +151,22 @@ export default class AnnotationWidget extends React.Component {
   };
 
   @observable activeHighlight = null;
-  @observable widgetStyle = {display: 'none'};
-  @observable needToLoadAnnotations = true;
+  @observable widgetStyle = null;
+  @observable needToGetReferenceElements = true;
   @observable showWindowShade = false;
   @observable allAnnotationsForThisBook = [];
   @observable parentRect = {};
 
   @computed get annotationsForThisPage() {
+    setTimeout(() => this.forceUpdate(), 1000);
     return this.allAnnotationsForThisBook.filter((item) =>
       (item.selection.chapter === this.props.chapter) &&
       (item.selection.section === this.props.section)
     );
   }
 
-  @computed get withAnnotations() {
-    return this.annotationsForThisPage.filter((item) => item.annotation.length > 0 && item.rect);
-  }
-
   componentWillMount() {
-    this.fetchedAnnotations = hypothesisStore.fetchAll().then(action((response) => {
+    hypothesisStore.fetchAll().then(action((response) => {
       this.allAnnotationsForThisBook = response
       .map(dbEntryToPreload)
       .filter(e => e.selection.ecosystemId === this.props.ecosystemId)
@@ -185,25 +184,32 @@ export default class AnnotationWidget extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.needToLoadAnnotations = nextProps.documentId !== this.props.documentId;
+    this.needToGetReferenceElements = nextProps.documentId !== this.props.documentId;
+    if (this.needToGetReferenceElements) {
+      this.widgetStyle = null;
+      this.activeHighlight = null;
+    }
   }
 
   componentDidUpdate() {
-    this.restoreAnnotations();
+    this.getReferenceElements();
   }
 
   componentWillUnmount() {
     this.props.windowImpl.document.removeEventListener('selectionchange', this.handleSelectionChange)
   }
 
-  @action
+  @action.bound
   highlightEntry(entry) {
     const selection = this.restoreSelectionWithReferenceId(entry.selection);
 
     if (selection) {
-      if (entry.rect === null) {
-        entry.rect = getSelectionRect(this.props.windowImpl, selection);
-      }
+      const rect = getSelectionRect(this.props.windowImpl, selection);
+
+      entry.style = {
+        top: rect.top - this.parentRect.top,
+        position: 'absolute'
+      };
       highlighter.doHighlight();
     }
   }
@@ -255,7 +261,7 @@ export default class AnnotationWidget extends React.Component {
       const referenceElement = document.getElementById(sel.elementId);
       const {start, end} = serializeSelection.save(referenceElement);
 
-      return (sel.start >= start && sel.start <= end) ||
+      return (start > 0 && sel.start >= start && sel.start <= end) ||
         (sel.end >= start && sel.end <= end)
     });
   }
@@ -297,19 +303,9 @@ export default class AnnotationWidget extends React.Component {
   }
 
   @action
-  restoreAnnotations() {
-    if (this.needToLoadAnnotations) {
-      this.fetchedAnnotations.then(() => {
-        // This is a little hacky: if you don't give the page time to finish
-        // rendering, the `rect` property that is recorded to position the sidebar
-        // buttons will be off
-        setTimeout(() => {
-          for (const entry of this.annotationsForThisPage) {
-            this.highlightEntry(entry);
-          }
-        }, 1000);
-      });
-      this.needToLoadAnnotations = false;
+  getReferenceElements() {
+    if (this.needToGetReferenceElements) {
+      this.needToGetReferenceElements = false;
 
       this.referenceElements = Array.from(
         this.articleElement.querySelectorAll('.book-content > [id]')
@@ -483,9 +479,9 @@ export default class AnnotationWidget extends React.Component {
           previous={this.previousAnnotation}
           seeAll={this.seeAll}
         />
-        <SidebarButtons items={this.withAnnotations}
-          offsetTop={this.parentRect.top}
+        <SidebarButtons items={this.annotationsForThisPage}
           onClick={(item) => {this.activeHighlight = item}}
+          highlightEntry={this.activeHighlight || this.widgetStyle ? null : this.highlightEntry}
         />
         <WindowShade
           show={this.showWindowShade}
