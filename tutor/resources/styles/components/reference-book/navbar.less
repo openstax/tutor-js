@@ -1,38 +1,26 @@
 .reference-book {
 
   @navbar-spacing: 15px;
-  .navbar {
-    height: @tutor-navbar-height; // set in global/navbar.less
-    // override responsive collapse when screen is small,
-    // we handle hiding items via media rules instead
-    .navbar-nav,
-    .navbar-nav > li {
-      margin: 0;
-      float: left;
-      &.navbar-right { float: right; }
-    }
-    .ui-brand-logo { margin: @navbar-spacing 0 0 @navbar-spacing; }
-    .container-fluid {
-      padding: 0;
-    }
-    ul.nav > li > a {
-      margin: 0 @navbar-spacing 0 0;
-      padding: 0;
-      line-height: @tutor-navbar-height;
-    }
+  .tutor-top-navbar {
+    justify-content: space-between;
     .menu-toggle {
-      padding-left: @navbar-spacing;
+      padding: 0 @navbar-spacing;
       height: @tutor-navbar-height;
       cursor: pointer;
       svg { margin-top: @navbar-spacing; }
     }
 
+    &.menu-open {
+      .menu-toggle {
+        border-right: 1px solid @tutor-neutral-light;
+        background: @tutor-neutral-lightest;
+      }
+    }
     .section-title {
       font-size: 1.8rem;
       margin: 0 0 0 2rem;
-      padding-top: 14px;
       display: flex;
-      max-width: calc(~"100% - 550px");
+      max-width: calc(~"100vw - 550px");
       .chapter-section {
         margin-right: 0.5rem;
         text-align: center;
@@ -45,19 +33,4 @@
       }
     }
   }
-  .teacher-edition {
-    .no-content { color: @tutor-neutral-light; }
-  }
-  // hide non-important items when the screen gets narrow
-  @media screen and ( max-width: @reference-book-page-width ){
-    .full-width-only { display: none; }
-  }
-
-  &.menu-open {
-    .menu-toggle {
-      border-right: 1px solid @tutor-neutral-light;
-      background: @tutor-neutral-lightest;
-    }
-  }
-
 }

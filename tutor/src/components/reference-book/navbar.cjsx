@@ -1,7 +1,7 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 _  = require 'underscore'
-
+cn = require 'classnames'
 TutorLink = require '../link'
 ChapterSection = require '../task-plan/chapter-section'
 BindStoreMixin = require '../bind-store-mixin'
@@ -26,47 +26,44 @@ module.exports = React.createClass
     {section, ecosystemId} = @props
     title = ReferenceBookStore.getPageTitle({section, ecosystemId})
 
-    <ul className="nav navbar-nav section-title">
-      <li>
+    <div className="section-title">
+      <span>
         <ChapterSection section={section} />
-      </li>
-      <li className="title">
+      </span>
+      <span className="title">
         {title}
-      </li>
-    </ul>
+      </span>
+    </div>
 
   render: ->
-    <nav className="tutor-top-navbar">
-      <div className="tutor-nav-controls">
-        <div className="left-side-controls">
-          <a
-            className="menu-toggle"
-            onClick={@props.toggleTocMenu} tabIndex=0
-            aria-label={if @props.isMenuVisible then "Close Sections Menu" else "Open Sections Menu"}
-          >
-            <SlideOutMenuToggle isMenuVisible={@props.isMenuVisible} />
-          </a>
+    <nav
+      className={cn('tutor-top-navbar', { 'menu-open': @props.isMenuVisible })}
+    >
+      <div className="left-side-controls">
+        <a
+          className="menu-toggle"
+          onClick={@props.toggleTocMenu} tabIndex=0
+          aria-label={if @props.isMenuVisible then "Close Sections Menu" else "Open Sections Menu"}
+        >
+          <SlideOutMenuToggle isMenuVisible={@props.isMenuVisible} />
+        </a>
 
-          <TutorLink to="myCourses" className="brand">
-            <i className="ui-brand-logo" />
-          </TutorLink>
+        {@renderSectionTitle()}
 
-          {@renderSectionTitle()}
+      </div>
 
-        </div>
-
-        <div className='center-control'>
-          <div className='icons'>
-            <AnnotationsSummaryToggle
-              type="refbook"
-              section={@props.section}
-              courseId={@props.courseId}
-              ecosystemId={@props.ecosystemId}
-            />
-          </div>
-        </div>
-        <div className="right-side-controls">
-          {@props.extraControls}
+      <div className='center-control'>
+        <div className='icons'>
+          <AnnotationsSummaryToggle
+            type="refbook"
+            section={@props.section}
+            courseId={@props.courseId}
+            ecosystemId={@props.ecosystemId}
+          />
         </div>
       </div>
+      <div className="right-side-controls">
+        {@props.extraControls}
+      </div>
+
     </nav>
