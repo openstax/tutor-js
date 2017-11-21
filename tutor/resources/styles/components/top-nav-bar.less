@@ -20,6 +20,10 @@
   padding-left:  @navbar-padding-horizontal;
   z-index: @zindex-navbar-fixed;
 
+  @media print {
+    display: none;
+  }
+
   .tutor-nav-controls {
     display: flex;
     justify-content: space-between;
