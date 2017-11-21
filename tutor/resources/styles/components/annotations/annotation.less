@@ -109,6 +109,10 @@ tutor-highlight {
     opacity: 0.25;
     right: 1.5rem;
     transform: translateY(-25%);
+
+    @media print {
+      display: none;
+    }
   }
 
   .highlights-windowshade {
@@ -122,18 +126,18 @@ tutor-highlight {
     right: 0;
     top: 0;
     transition: 0.3s;
-    z-index: 3;
+    z-index: 20;
     .no-select();
-
-    @media print {
-      background-color: @tutor-white;
-      overflow: hidden !important;
-    }
 
     &.down {
       bottom: 0;
       overflow: auto;
       padding-top: 10rem;
+
+      @media print {
+        padding: 0;
+        position: static;
+      }
     }
 
     h1 {
@@ -142,12 +146,25 @@ tutor-highlight {
   }
 
   .centered-content {
-    width: 100%;
+    flex-basis: 100%;
     max-width: 100rem;
+
+    @media print {
+      flex-basis: calc(100% - 8rem);
+      transform: translateX(1rem);
+    }
 
     > .dismiss {
       float: right;
       font-size: 18px;
+    }
+  }
+
+  @media print {
+    .filter-area,
+    .dismiss,
+    .controls {
+      display: none;
     }
   }
 
@@ -207,6 +224,10 @@ tutor-highlight {
     margin-bottom: 3rem;
     padding: 3rem;
     width: 100%;
+
+    @media print {
+      padding: 0;
+    }
 
     button {
       background-color: @tutor-white;

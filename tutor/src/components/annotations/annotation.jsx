@@ -160,12 +160,14 @@ export default class AnnotationWidget extends React.Component {
   @observable showWindowShade = false;
   @observable allAnnotationsForThisBook = [];
   @observable parentRect = {};
+  @observable referenceElements = [];
 
   @computed get annotationsForThisPage() {
     setTimeout(() => this.forceUpdate(), 1000);
     return this.allAnnotationsForThisBook.filter((item) =>
       (item.selection.chapter === this.props.chapter) &&
-      (item.selection.section === this.props.section)
+      (item.selection.section === this.props.section) &&
+      this.referenceElements.find((el) => el.id === item.selection.elementId)
     );
   }
 
@@ -205,15 +207,13 @@ export default class AnnotationWidget extends React.Component {
       }
     }
 
-    const rootDiv = document.querySelector('.tutor-root');
+    const navElements = document.querySelectorAll([
+      '.center-panel',
+      '.reading-content'
+    ].join(','));
 
-    if (this.showWindowShade) {
-      rootDiv.style.overflow = 'hidden';
-      rootDiv.style.height = 0;
-      rootDiv.style.position = 'absolute';
-      rootDiv.style.bottom = '100%';
-    } else {
-      rootDiv.style = {};
+    for (const el of navElements) {
+      el.style.display = this.showWindowShade ? 'none' : '';
     }
 
   }
@@ -427,7 +427,8 @@ export default class AnnotationWidget extends React.Component {
   nextAnnotation() {
     // Because the referenceElements are reversed
     const referenceElementIds = this.referenceElements.map(el => el.id).reverse();
-    const entries = this.annotationsForThisPage.sort(
+    const entries = this.annotationsForThisPage
+    .sort(
       (a, b) => (referenceElementIds.indexOf(a.selection.elementId) - referenceElementIds.indexOf(b.selection.elementId) )
       || (a.selection.start - b.selection.start)
     );
@@ -468,6 +469,13 @@ export default class AnnotationWidget extends React.Component {
   }
 
   @action.bound
+  dismissWindowShade() {
+    this.showWindowShade = false;
+    // markup gets a little wonky due to the content being moved
+    setTimeout(() => this.forceUpdate(), 100);
+  }
+
+  @action.bound
   seeAll() {
     this.showWindowShade = true;
     this.activeHighlight = null;
@@ -497,7 +505,7 @@ export default class AnnotationWidget extends React.Component {
         />
         <WindowShade
           show={this.showWindowShade}
-          dismiss={action(() => this.showWindowShade = false)}>
+          dismiss={this.dismissWindowShade}>
           <SummaryPage
             items={this.allAnnotationsForThisBook.slice()}
             deleteEntry={this.deleteEntry}
