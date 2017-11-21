@@ -157,11 +157,12 @@ export default class AnnotationWidget extends React.Component {
   @observable referenceElements = [];
 
   @computed get annotationsForThisPage() {
-    return this.allAnnotationsForThisBook.filter((item) =>
+    return filter(this.allAnnotationsForThisBook, (item) =>
       (item.selection.chapter === this.props.chapter) &&
       (item.selection.section === this.props.section) &&
       this.referenceElements.find((el) => el.id === item.selection.elementId)
     );
+  }
 
   @computed get withAnnotations() {
     return filter(this.annotationsForThisPage, (note) => note.text.length > 0 && note.rect);
@@ -169,12 +170,6 @@ export default class AnnotationWidget extends React.Component {
 
   @computed get allAnnotationsForThisBook() {
     return filter(User.annotations.array, { ecosystemId: this.props.ecosystemId });
-  }
-
-  @computed get annotationsForThisPage() {
-    return filter(
-      this.allAnnotationsForThisBook, pick(this.props, 'chapter', 'section')
-    );
   }
 
   componentDidMount() {
@@ -318,13 +313,7 @@ export default class AnnotationWidget extends React.Component {
       this.referenceElements = Array.from(
         this.articleElement.querySelectorAll('.book-content > [id]')
       ).reverse();
-      // =======
-      //   restoreAnnotations() {
-      //
-      //     for (const entry of this.annotationsForThisPage) {
-      //       this.highlightEntry(entry);
-      // >>>>>>> Stashed changes
-      //     }
+
     }
   }
 
