@@ -62,13 +62,35 @@ class HypothesisStore {
   fetch(documentId) {
     return this.loggedInRequest(() => ({
       mode: 'GET',
-      service: `search?uri=${documentId}&user=${this.userInfo.name}` //
+      service: `search?uri=${documentId}&user=${this.userInfo.name}`,
+      limit: 200
     })).then((response) => {
       return response;
     });
   }
 
-  save(documentId, selection, annotation) {
+  fetchAll() {
+    const perFetch = 100;
+    let rows = [];
+    const fetchASet = () => this.loggedInRequest(() => ({
+      mode: 'GET',
+      service: `search?user=${this.userInfo.name}&limit=${perFetch}&offset=${rows.length}`
+    }));
+    const promiseBody = (resolve) => {
+      fetchASet().then((response) => {
+        if (response.rows.length > 0) {
+          rows = rows.concat(response.rows);
+          promiseBody(resolve);
+        } else {
+          resolve(rows);
+        }
+      });
+    };
+
+    return new Promise(promiseBody);
+  }
+
+  save(documentId, selection, annotation, additionalData) {
     return this.loggedInRequest(() => ({
       mode: 'POST',
       service: 'annotations',
@@ -77,7 +99,7 @@ class HypothesisStore {
         text: annotation,
         target: [{
           selector: [
-            Object.assign({type: 'TextPositionSelector'}, selection)
+            Object.assign({type: 'TextPositionSelector'}, additionalData, selection)
           ]
         }],
         group: this.userInfo.id

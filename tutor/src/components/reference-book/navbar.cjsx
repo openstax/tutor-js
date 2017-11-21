@@ -47,6 +47,12 @@ module.exports = React.createClass
 
       </BS.Nav>
       {@renderSectionTitle()}
+      <div className='navbar-overlay'>
+        <div className='center-control'>
+          <div className='icons'>
+          </div>
+        </div>
+      </div>
       <BS.Nav className='full-width-only' pullRight>
         {@props.extraControls}
         <BS.NavItem><i className='ui-brand-logo' /></BS.NavItem>

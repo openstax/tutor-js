@@ -4,11 +4,15 @@ import { observable, action, computed } from 'mobx';
 import { autobind } from 'core-decorators';
 import serializeSelection from 'serialize-selection';
 import './highlighter';
-import HYPOTHESIS from '../../models/hypothesis';
 import hypothesisStore from './hypothesis-store';
 import {debounce} from 'lodash';
-import {ReferenceBookPageStore} from '../../flux/reference-book-page';
 import Icon from '../icon';
+import SummaryPage from './summary-page';
+
+/*
+  NOTE: Nathan pointed out that putting this into book-content-mixin could save
+  having to explicitly include it in the pages that display book-content.
+*/
 
 const highlighter = new TextHighlighter(document.body);
 
@@ -16,14 +20,15 @@ function dbEntryToPreload(entry) {
   return {
     savedId: entry.id,
     annotation: entry.text,
-    selection: entry.target[0].selector[0]
+    selection: entry.target[0].selector[0],
+    rect: null
   };
 }
 
-function getSelectionRect(selection) {
+function getSelectionRect(win, selection) {
   const rect = selection.getRangeAt(0).getBoundingClientRect();
-  const wLeft = window.pageXOffset || document.documentElement.scrollLeft;
-  const wTop = window.pageYOffset || document.documentElement.scrollTop;
+  const wLeft = win.pageXOffset;
+  const wTop = win.pageYOffset;
 
   return {
     bottom: rect.bottom + wTop,
@@ -31,6 +36,33 @@ function getSelectionRect(selection) {
     left: rect.left + wLeft,
     right: rect.right + wLeft
   }
+}
+
+function scrollToSelection(win, selection) {
+  const sRect = getSelectionRect(win, selection);
+  const marginTop = (win.innerHeight - sRect.bottom + sRect.top) / 2;
+  const startPos = win.pageYOffset;
+  const startTime = Date.now();
+  const endPos = sRect.top - marginTop;
+  const duration = 400; // milliseconds
+  // Formulas lifted from ScrollToMixin, which I can't use here
+  const EASE_IN_OUT = (t) => (
+    t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1
+  );
+  const POSITION = (start, end, elapsed, duration) => (
+    elapsed > duration ? end : start + (end - start) * EASE_IN_OUT(elapsed / duration)
+  );
+
+  const step = () => {
+    const elapsed = Date.now() - startTime;
+
+    win.scrollTo(0, POSITION(startPos, endPos, elapsed, duration));
+    if (elapsed < duration) {
+      requestAnimationFrame(step);
+    }
+  };
+
+  step();
 }
 
 const HighlightWidget = ({style, annotate, highlight}) => (
@@ -44,7 +76,7 @@ const HighlightWidget = ({style, annotate, highlight}) => (
 
 const EditBox = (props) => {
   return (
-    <div className={`edit-box ${props.show}`}>
+    <div className={`slide-out-edit-box ${props.show}`}>
       <textarea value={props.annotation} onChange={props.updateAnnotation}></textarea>
       <div className="button-row">
         <div className="button-group">
@@ -62,31 +94,46 @@ const EditBox = (props) => {
           <button aria-label="next annotation" onClick={props.next}>
             <Icon type="chevron-down" />
           </button>
-          <button>See all</button>
+          <button onClick={props.seeAll}>See all</button>
         </div>
       </div>
     </div>
   );
 };
 
-const SidebarButtons = ({items, offsetTop, onClick}) => (
+const SidebarButtons = ({items, onClick, highlightEntry}) => {
+  if (highlightEntry) {
+    highlighter.removeHighlights();
+  }
+
+  return (
   <div>
     {items.map((item, index) => {
-      const style = {
-        top: item.rect.top - offsetTop,
-        position: 'absolute'
-      };
+      if (highlightEntry) {
+        highlightEntry(item);
+      }
 
-      return (
+      return (item.annotation.length ?
         <Icon type="comment"
           className="sidebar-button"
-          style={style}
+          style={item.style}
           alt="view annotation"
           key={item.selection.start}
           onClick={() => onClick(item)}
         />
+        :
+        null
       );
     })}
+  </div>
+);}
+
+const WindowShade = ({show, dismiss, children}) => (
+  <div className={`highlights-windowshade ${show ? 'down' : 'up'}`}>
+    <div className='centered-content'>
+      <Icon className="dismiss" type="times" alt="Dismiss Highlights Summary" onClick={dismiss} />
+      {children}
+    </div>
   </div>
 );
 
@@ -94,6 +141,7 @@ const SidebarButtons = ({items, offsetTop, onClick}) => (
 export default class AnnotationWidget extends React.Component {
 
   static propTypes = {
+    ecosystemId: React.PropTypes.string.isRequired,
     documentId: React.PropTypes.string.isRequired,
     windowImpl: React.PropTypes.shape({
       open: React.PropTypes.func
@@ -107,17 +155,27 @@ export default class AnnotationWidget extends React.Component {
   };
 
   @observable activeHighlight = null;
-  @observable widgetStyle = {display: 'none'};
-  @observable preload = [];
-  @observable needToLoadAnnotations = true;
+  @observable widgetStyle = null;
+  @observable needToGetReferenceElements = true;
+  @observable showWindowShade = false;
+  @observable allAnnotationsForThisBook = [];
+  @observable parentRect = {};
 
-  @computed get withAnnotations() {
-    return this.preload.filter((item) => item.annotation.length > 0 && item.rect);
+  @computed get annotationsForThisPage() {
+    setTimeout(() => this.forceUpdate(), 1000);
+    return this.allAnnotationsForThisBook.filter((item) =>
+      (item.selection.chapter === this.props.chapter) &&
+      (item.selection.section === this.props.section)
+    );
   }
 
-  @autobind
-  updateWidgetStyle() {
-
+  componentWillMount() {
+    hypothesisStore.fetchAll().then(action((response) => {
+      this.allAnnotationsForThisBook = response
+      .map(dbEntryToPreload)
+      .filter(e => e.selection.ecosystemId === this.props.ecosystemId)
+      .filter(e => e.selection.chapter); // because I have some old entries that cause problems in dev
+    }));
   }
 
   componentDidMount() {
@@ -126,51 +184,96 @@ export default class AnnotationWidget extends React.Component {
         this.setWidgetStyle();
       }
     }, 80);
-    this.props.windowImpl.document.addEventListener('selectionchange', this.handleSelectionChange)
-    this.restoreAnnotations();
+    this.props.windowImpl.document.addEventListener('selectionchange', this.handleSelectionChange);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.needToLoadAnnotations = nextProps.documentId !== this.props.documentId;
+    this.needToGetReferenceElements = nextProps.documentId !== this.props.documentId;
+    if (this.needToGetReferenceElements) {
+      this.widgetStyle = null;
+      this.activeHighlight = null;
+    }
   }
 
   componentDidUpdate() {
-    this.restoreAnnotations();
+    this.getReferenceElements();
+    if (this.savedSelection) {
+      const selection = this.props.windowImpl.getSelection();
+
+      if (selection.isCollapsed) {
+        this.savedSelection.restore();
+      }
+    }
+
+    const rootDiv = document.querySelector('.tutor-root');
+
+    if (this.showWindowShade) {
+      rootDiv.style.overflow = 'hidden';
+      rootDiv.style.height = 0;
+      rootDiv.style.position = 'absolute';
+      rootDiv.style.bottom = '100%';
+    } else {
+      rootDiv.style = {};
+    }
+
   }
 
   componentWillUnmount() {
     this.props.windowImpl.document.removeEventListener('selectionchange', this.handleSelectionChange)
   }
 
+  @action.bound
   highlightEntry(entry) {
-    const selection = serializeSelection.restore(entry.selection, this.articleElement);
+    const selection = this.restoreSelectionWithReferenceId(entry.selection);
 
-    if (! ('rect' in entry)) {
-      entry.rect = getSelectionRect(selection);
-    }
-    highlighter.doHighlight();
-  }
+    if (selection) {
+      const rect = getSelectionRect(this.props.windowImpl, selection);
 
-  unhighlightEntry(entry) {
-    // Highlight the entry, then unhighlight the highlights with the latest timestamp
-    this.highlightEntry(entry);
-    const highlights = highlighter.getHighlights({grouped: true});
-    const lastHighlight = highlights.reduce((a, b) => a.timestamp > b.timestamp ? a : b);
-
-    for (const el of lastHighlight.chunks) {
-      highlighter.removeHighlights(el);
+      entry.style = {
+        top: rect.top - this.parentRect.top,
+        position: 'absolute'
+      };
+      highlighter.doHighlight();
     }
   }
 
-  findOverlap() {
-    const selection = serializeSelection.save(this.articleElement);
-    const start = selection.start;
-    const end = selection.end;
+  saveSelectionWithReferenceId() {
+    let selection;
+    for (const re of this.referenceElements) {
+      selection = serializeSelection.save(re);
+      if (selection.start > 0) {
+        selection.elementId = re.id;
+        return selection;
+      }
+    }
+    return null;
+  }
 
-    return this.preload.find((entry) => {
+  restoreSelectionWithReferenceId(savedSelection) {
+    const el = document.getElementById(savedSelection.elementId);
+
+    if (!el) {
+      console.warn("Element not present:", savedSelection.elementId);
+      return;
+    }
+    return serializeSelection.restore(savedSelection, el);
+  }
+
+  // Needs fixed
+  isNotHighlightable() {
+    // Is it a selectable area?
+    if (!this.saveSelectionWithReferenceId()) {
+      return true;
+    }
+
+    // Is it free from overlaps with other selections?
+    // Compare by using the same reference node
+    return this.annotationsForThisPage.find((entry) => {
       const sel = entry.selection;
+      const referenceElement = document.getElementById(sel.elementId);
+      const {start, end} = serializeSelection.save(referenceElement);
 
-      return (sel.start >= start && sel.start <= end) ||
+      return (start > 0 && sel.start >= start && sel.start <= end) ||
         (sel.end >= start && sel.end <= end)
     });
   }
@@ -184,23 +287,25 @@ export default class AnnotationWidget extends React.Component {
     if (selection.isCollapsed) {
       this.widgetStyle = null;
       this.savedSelection = null;
-      const start = serializeSelection.save(this.articleElement).start;
-      this.activeHighlight = this.preload.find((entry) => {
+      this.activeHighlight = this.annotationsForThisPage.find((entry) => {
         const sel = entry.selection;
+        const el = document.getElementById(sel.elementId);
+        const {start} = serializeSelection.save(el);
 
         return sel.start <= start && sel.end >= start;
       })
 
       // Set selection, which will cause the widget to render
       if (this.activeHighlight) {
-        serializeSelection.restore(this.activeHighlight.selection, this.articleElement);
+        this.restoreSelectionWithReferenceId(this.activeHighlight.selection);
       }
-    } else if (this.findOverlap()){
-      console.warn("NO OVERLAPPING SELECTIONS!");
+    } else if (this.isNotHighlightable()){
+      this.savedSelection = this.saveSelectionWithReferenceId();
+      console.warn("Selection must be in .book-content and not overlap other selections");
       this.widgetStyle = null;
     } else {
-      this.savedSelection = serializeSelection.save(this.articleElement);
-      const rect = getSelectionRect(selection);
+      this.savedSelection = this.saveSelectionWithReferenceId();
+      const rect = getSelectionRect(this.props.windowImpl, selection);
       const pwRect = this.parentRect;
 
       this.widgetStyle = {
@@ -210,24 +315,20 @@ export default class AnnotationWidget extends React.Component {
     }
   }
 
-  restoreAnnotations() {
-    if (this.needToLoadAnnotations) {
-      hypothesisStore.fetch(this.props.documentId).then(action(
-        (response) => {
-          const newPreload = response.rows.map(dbEntryToPreload);
+  @action
+  getReferenceElements() {
+    if (this.needToGetReferenceElements) {
+      this.needToGetReferenceElements = false;
 
-          for (const entry of newPreload) {
-            this.highlightEntry(entry);
-          }
-          this.preload = newPreload;
-        }));
-      this.needToLoadAnnotations = false;
+      this.referenceElements = Array.from(
+        this.articleElement.querySelectorAll('.book-content > [id]')
+      ).reverse();
     }
   }
 
-  @action.bound
+  @autobind
   highlightAndClose() {
-    return this.saveAnnotation().then(
+    return this.saveHighlight().then(
       action((response) => {
         this.widgetStyle = null;
         this.highlightEntry(response);
@@ -247,100 +348,129 @@ export default class AnnotationWidget extends React.Component {
   updateActiveAnnotation(event) {
     const newValue = event.target.value;
 
-    this.activeHighlight = Object.assign(
-      {},
-      this.activeHighlight,
-      {annotation: newValue}
-    );
+    this.activeHighlight.annotation = newValue;
+  }
+
+  @autobind
+  updateAnnotation(entry) {
+    if (entry.lastSavedAnnotation !== entry.annotation) {
+      hypothesisStore.update(entry.savedId, entry.annotation).then(
+        action((response) => {
+          entry.lastSavedAnnotation = entry.annotation;
+          return entry;
+        }));
+    }
   }
 
   @action.bound
-  updateAnnotation() {
-    const oldEntry = this.preload.find((e) => e.savedId === this.activeHighlight.savedId);
+  updateHighlightedAnnotation() {
+    const entry = this.activeHighlight;
 
     this.props.windowImpl.getSelection().empty();
-    if (oldEntry.annotation !== this.activeHighlight.annotation) {
-      hypothesisStore.update(this.activeHighlight.savedId, this.activeHighlight.annotation).then(
-        action((response) => {
-          const oldEntry = this.preload.find((e) => e.savedId === response.id);
-
-          Object.assign(oldEntry, dbEntryToPreload(response));
-          return oldEntry;
-        }));
-    }
+    this.updateAnnotation(entry);
     this.activeHighlight = null;
   }
 
-  @action.bound
-  saveAnnotation() {
+  @autobind
+  saveHighlight() {
     this.props.windowImpl.getSelection().empty();
 
-    return hypothesisStore.save(this.props.documentId, this.savedSelection, '')
-      .then(action((response) => {
-        const newEntry = dbEntryToPreload(response);
-        const newPreload = this.preload.slice();
+    return hypothesisStore.save(this.props.documentId, this.savedSelection, '',
+      {
+        ecosystemId: this.props.ecosystemId,
+        chapter: this.props.chapter,
+        section: this.props.section,
+        title: this.props.title
+      }
+    ).then(action((response) => {
+        // Have to make it observable before pushing it, or it won't be the same
+        // object as what is in the observable array
+        const newEntry = observable(dbEntryToPreload(response));
 
-        newPreload.push(newEntry);
-        this.preload = newPreload;
+        this.allAnnotationsForThisBook.push(newEntry);
         return newEntry;
       }));
   }
 
-  @action.bound
-  deleteEntry() {
-    this.unhighlightEntry(this.activeHighlight);
-    hypothesisStore.delete(this.activeHighlight.savedId).then(
+  @autobind
+  deleteEntry(savedId) {
+    hypothesisStore.delete(savedId).then(
       action((response) => {
-        const oldIndex = this.preload.findIndex((e) => e.savedId === response.id);
-        const newPreload = this.preload.slice();
+        const oldIndex = this.allAnnotationsForThisBook.findIndex((e) => e.savedId === response.id);
 
-        newPreload.splice(oldIndex, 1);
-        this.preload = newPreload;
+        this.allAnnotationsForThisBook.splice(oldIndex, 1);
       }));
+  }
+
+  @action.bound
+  deleteActiveHighlightEntry() {
+    this.deleteEntry(this.activeHighlight.savedId);
     this.activeHighlight = null;
     this.props.windowImpl.getSelection().empty();
   }
 
   @action
   nextAnnotationInSortedList(entries) {
-    const nextIndex = 1 + entries.findIndex((e) => e.selection.start === this.activeHighlight.selection.start);
+    const nextIndex = 1 + entries.findIndex(
+      (e) => (e.selection.elementId === this.activeHighlight.selection.elementId)
+      && (e.selection.start === this.activeHighlight.selection.start)
+    );
 
     if (nextIndex < entries.length) {
       this.activeHighlight = entries[nextIndex];
-      serializeSelection.restore(entries[nextIndex].selection, this.articleElement);
+      const selection = this.restoreSelectionWithReferenceId(this.activeHighlight.selection);
+      scrollToSelection(this.props.windowImpl, selection);
     }
   }
 
   @autobind
   nextAnnotation() {
-    const entries = this.preload.sort((a, b) => a.selection.start - b.selection.start);
+    // Because the referenceElements are reversed
+    const referenceElementIds = this.referenceElements.map(el => el.id).reverse();
+    const entries = this.annotationsForThisPage.sort(
+      (a, b) => (referenceElementIds.indexOf(a.selection.elementId) - referenceElementIds.indexOf(b.selection.elementId) )
+      || (a.selection.start - b.selection.start)
+    );
 
     this.nextAnnotationInSortedList(entries);
   }
 
   @autobind
   previousAnnotation() {
+    const referenceElementIds = this.referenceElements.map(el => el.id).reverse();
     // The trick is that the sort is reversed
-    const entries = this.preload.sort((a, b) => b.selection.start - a.selection.start);
+    const entries = this.annotationsForThisPage.sort(
+      (a, b) => (referenceElementIds.indexOf(b.selection.elementId) - referenceElementIds.indexOf(a.selection.elementId) )
+      || (b.selection.start - a.selection.start)
+    );
 
     this.nextAnnotationInSortedList(entries);
   }
 
-  @autobind
+  @action.bound
   getParentRect(el) {
     if (el) {
-      const wLeft = this.props.windowImpl.pageXOffset || document.documentElement.scrollLeft;
-      const wTop = this.props.windowImpl.pageYOffset || document.documentElement.scrollTop;
+      const wLeft = this.props.windowImpl.pageXOffset;
+      const wTop = this.props.windowImpl.pageYOffset;
       const parentRect = el.parentNode.getBoundingClientRect();
 
+      action(() => {
+        Object.assign(this.parentRect, {
+          bottom: wTop + parentRect.bottom,
+          left: wLeft + parentRect.left,
+          right: wLeft + parentRect.right,
+          top: wTop + parentRect.top
+        });
+      })();
+
       this.articleElement = el.parentNode;
-      this.parentRect = {
-        bottom: wTop + parentRect.bottom,
-        left: wLeft + parentRect.left,
-        right: wLeft + parentRect.right,
-        top: wTop + parentRect.top
-      }
     }
+  }
+
+  @action.bound
+  seeAll() {
+    this.showWindowShade = true;
+    this.activeHighlight = null;
   }
 
   render() {
@@ -355,15 +485,27 @@ export default class AnnotationWidget extends React.Component {
           show={this.activeHighlight ? 'open' : 'closed'}
           annotation={this.activeHighlight ? this.activeHighlight.annotation : ''}
           updateAnnotation={this.updateActiveAnnotation}
-          save={this.updateAnnotation}
-          delete={this.deleteEntry}
+          save={this.updateHighlightedAnnotation}
+          delete={this.deleteActiveHighlightEntry}
           next={this.nextAnnotation}
           previous={this.previousAnnotation}
+          seeAll={this.seeAll}
         />
-        <SidebarButtons items={this.withAnnotations}
-          offsetTop={this.parentRect ? this.parentRect.top : 0}
+        <SidebarButtons items={this.annotationsForThisPage}
           onClick={(item) => {this.activeHighlight = item}}
+          highlightEntry={this.activeHighlight || this.widgetStyle ? null : this.highlightEntry}
         />
+        <WindowShade
+          show={this.showWindowShade}
+          dismiss={action(() => this.showWindowShade = false)}>
+          <SummaryPage
+            items={this.allAnnotationsForThisBook.slice()}
+            deleteEntry={this.deleteEntry}
+            updateAnnotation={this.updateAnnotation}
+            currentChapter={this.props.chapter}
+            showing={this.showWindowShade}
+          />
+        </WindowShade>
       </div>
       :
       null

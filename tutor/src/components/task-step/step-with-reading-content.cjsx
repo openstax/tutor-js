@@ -57,7 +57,15 @@ ReadingStepContent = React.createClass
         />
         {@renderNextStepLink()}
       </div>
-      <AnnotationWidget pageType={stepType} documentId={this.getCnxId()} />
+      <AnnotationWidget
+        ecosystemId={courseId}
+        chapter={related_content[0].chapter_section[0]}
+        section={related_content[0].chapter_section[1]}
+        title={related_content[0].title}
+        documentId={@getCnxId()}
+        pageType={stepType}
+      />
+
     </div>
 
 StepContent = React.createClass
