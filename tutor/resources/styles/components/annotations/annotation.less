@@ -125,6 +125,11 @@ tutor-highlight {
     z-index: 3;
     .no-select();
 
+    @media print {
+      background-color: @tutor-white;
+      overflow: hidden !important;
+    }
+
     &.down {
       bottom: 0;
       overflow: auto;

@@ -102,6 +102,10 @@ const EditBox = (props) => {
 };
 
 const SidebarButtons = ({items, onClick, highlightEntry}) => {
+  if (highlightEntry) {
+    highlighter.removeHighlights();
+  }
+
   return (
   <div>
     {items.map((item, index) => {
@@ -193,6 +197,25 @@ export default class AnnotationWidget extends React.Component {
 
   componentDidUpdate() {
     this.getReferenceElements();
+    if (this.savedSelection) {
+      const selection = this.props.windowImpl.getSelection();
+
+      if (selection.isCollapsed) {
+        this.savedSelection.restore();
+      }
+    }
+
+    const rootDiv = document.querySelector('.tutor-root');
+
+    if (this.showWindowShade) {
+      rootDiv.style.overflow = 'hidden';
+      rootDiv.style.height = 0;
+      rootDiv.style.position = 'absolute';
+      rootDiv.style.bottom = '100%';
+    } else {
+      rootDiv.style = {};
+    }
+
   }
 
   componentWillUnmount() {
@@ -211,17 +234,6 @@ export default class AnnotationWidget extends React.Component {
         position: 'absolute'
       };
       highlighter.doHighlight();
-    }
-  }
-
-  unhighlightEntry(entry) {
-    // Highlight the entry, then unhighlight the highlights with the latest timestamp
-    this.highlightEntry(entry);
-    const highlights = highlighter.getHighlights({grouped: true});
-    const lastHighlight = highlights.reduce((a, b) => a.timestamp > b.timestamp ? a : b);
-
-    for (const el of lastHighlight.chunks) {
-      highlighter.removeHighlights(el);
     }
   }
 
@@ -288,6 +300,7 @@ export default class AnnotationWidget extends React.Component {
         this.restoreSelectionWithReferenceId(this.activeHighlight.selection);
       }
     } else if (this.isNotHighlightable()){
+      this.savedSelection = this.saveSelectionWithReferenceId();
       console.warn("Selection must be in .book-content and not overlap other selections");
       this.widgetStyle = null;
     } else {
@@ -391,7 +404,6 @@ export default class AnnotationWidget extends React.Component {
 
   @action.bound
   deleteActiveHighlightEntry() {
-    this.unhighlightEntry(this.activeHighlight);
     this.deleteEntry(this.activeHighlight.savedId);
     this.activeHighlight = null;
     this.props.windowImpl.getSelection().empty();
