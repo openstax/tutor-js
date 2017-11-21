@@ -152,7 +152,7 @@ class AnnotationCard extends React.Component {
 
   @action.bound
   saveAnnotation(newText) {
-    this.props.entry.annotation = newText;
+    this.props.entry.text = newText;
     this.props.updateAnnotation(this.props.entry);
   }
 
@@ -179,7 +179,7 @@ class AnnotationCard extends React.Component {
           </div>
           <EditBox
             show={this.editing}
-            text={entry.annotation}
+            text={entry.text}
             dismiss={this.stopEditing}
             save={this.saveAnnotation}
           />
