@@ -34,18 +34,7 @@ export default class AnnotationSummaryToggle extends React.Component {
     router: React.PropTypes.object,
   }
 
-  @action.bound onClick() {
-
-    this.context.router.history.push(
-      Router.makePathname('annotations', {
-        courseId: this.props.courseId,
-        chapter: this.chapter_section.firstjoin('.'),
-      })
-    );
-  }
-
   @computed get chapter_section() {
-
     if (this.props.type === 'reading') {
       return get(
         TaskStore.getStepByIndex(
