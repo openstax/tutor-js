@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
 import { autobind } from 'core-decorators';
 import Icon from '../icon';
-import hypothesisStore from './hypothesis-store';
+import Annotations from '../../models/annotations';
 import SuretyGuard from 'shared/src/components/surety-guard';
 
 

@@ -6,7 +6,8 @@ import { action, computed, observable } from 'mobx';
 import UiSettings from 'shared/src/model/ui-settings';
 import Courses from './courses-map';
 import { UserTerms } from './user/terms';
-
+import Annotations from './annotations';
+import lazyGetter from '../helpers/lazy-getter';
 import ViewedTourStat from './user/viewed-tour-stat';
 
 @identifiedBy('user')
@@ -39,9 +40,11 @@ export class User extends BaseModel {
     return this.first_name || this.name ? this.name.replace(/ .*/, '') : '';
   }
 
-  @computed get isHypothesis() {
-    return !!find(Courses.nonPreview.active, { appearance_code: 'college_biology'})
+  @computed get canAnnotate() {
+    return !!find(Courses.nonPreview.active.array, { appearance_code: 'college_biology'});
   }
+
+  @lazyGetter annotations = new Annotations();
 
   @action removeCourse(course) {
     return Courses.delete(course.id);
