@@ -475,7 +475,6 @@ export default class AnnotationWidget extends React.Component {
           onClick={(item) => {this.activeHighlight = item}}
           highlightEntry={this.activeHighlight || this.widgetStyle ? null : this.highlightEntry}
         />
-
         <WindowShade show={this.showWindowShade}>
           <SummaryPage
             items={this.allAnnotationsForThisBook.slice()}
