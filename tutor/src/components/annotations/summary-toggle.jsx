@@ -1,6 +1,6 @@
 import React from 'react';
 import { get } from 'lodash';
-import { observable, action, computed } from 'mobx';
+import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import Icon from '../icon';
 import User from '../../models/user';
@@ -17,7 +17,7 @@ export default class AnnotationSummaryToggle extends React.Component {
         pathname: React.PropTypes.string,
       }),
     }),
-    courseId: React.PropTypes.string.isRequired,
+    courseId: React.PropTypes.string,
     type: React.PropTypes.oneOf(['reading', 'refbook']),
     taskId: React.PropTypes.string,
     taskStepIndex: React.PropTypes.any,
@@ -32,7 +32,9 @@ export default class AnnotationSummaryToggle extends React.Component {
   }
 
   @computed get isViewable() {
-    if (!Courses.get(this.props.courseId).canAnnotate) { return false; }
+    if (!this.props.courseId || !get(Courses.get(this.props.courseId), 'canAnnotate')) {
+      return false;
+    }
 
     if (this.props.type === 'refbook') {
       return true;
