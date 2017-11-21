@@ -40,6 +40,9 @@ export default class AnnotationSummaryToggle extends React.Component {
         TaskStore.getStepByIndex(
           this.props.taskId, this.props.taskStepIndex
         ), 'related_content[0].chapter_section');
+    } else {
+      const course = Courses.get(this.props.courseId);
+
     }
     return null;
   }
@@ -47,7 +50,7 @@ export default class AnnotationSummaryToggle extends React.Component {
   render() {
 
     console.log(this.props)
-    console.log(TaskStore.getStepByIndex(this.props.taskId, this.props.taskStepIndex));
+
 
     // TODO: Also check we're on hypothesis bio content?
     if (!this.chapter_section) { return null; }

@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import moment from 'moment';
 import classnames from 'classnames';
 import { cloneDeep, extend, includes, omit, pick, get } from 'lodash';
-import AnnotationsSummaryLink from '../annotations/summary-link';
+import AnnotationsSummaryToggle from '../annotations/summary-toggle';
 import Icon from '../icon';
 import { TaskStore } from '../../flux/task';
 import { TaskPanelStore } from '../../flux/task-panel';
@@ -180,7 +180,7 @@ export default class CenterControls extends React.Component {
               className={milestonesToggleClasses}>
               <Icon type="th" />
             </TutorLink>
-            <AnnotationsSummaryLink
+            <AnnotationsSummaryToggle
               courseId={this.state.params.courseId}
               type="reading"
               taskId={linkProps.params.id}
