@@ -3,6 +3,8 @@ import { observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
 import { autobind } from 'core-decorators';
 import Icon from '../icon';
+import cn from 'classnames';
+import User from '../../models/user';
 import Annotations from '../../models/annotations';
 import SuretyGuard from 'shared/src/components/surety-guard';
 
@@ -76,10 +78,8 @@ class FilterWidget extends React.Component {
     return (
       <div className="filter-widget">
         <div className="selected-item" onClick={this.toggle}></div>
-        <button className="activator" onClick={this.toggle}>
-          <Icon type={this.isOpen ? 'chevron-up' : 'chevron-down'} />
-        </button>
-        <div className={`options-dropdown ${this.isOpen ? 'down' : ''}`}>
+
+        <div className={cn('options-dropdown', { down: this.isOpen })}>
           <CheckBoxEntry
             value={-1}
             text={'All'}
