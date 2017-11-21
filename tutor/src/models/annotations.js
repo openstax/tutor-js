@@ -1,7 +1,9 @@
 import { action } from 'mobx';
 import Map from './map';
+import lazyGetter from '../helpers/lazy-getter';
 import Hypothesis from './annotations/hypothesis';
 import Annotation from './annotations/annotation';
+import AnnotationsUX from './annotations/ux';
 
 export default class Annotations extends Map {
 
@@ -9,6 +11,8 @@ export default class Annotations extends Map {
     super();
     Hypothesis.fetchUserInfo().then(this.updateAnnotations);
   }
+
+  @lazyGetter ux = new AnnotationsUX();
 
   @action.bound updateAnnotations(annotations) {
     annotations.forEach((an) => {

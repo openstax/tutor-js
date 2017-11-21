@@ -121,10 +121,9 @@ const SidebarButtons = ({items, onClick, highlightEntry}) => {
     </div>
   );}
 
-const WindowShade = ({show, dismiss, children}) => (
+const WindowShade = ({show, children}) => (
   <div className={`highlights-windowshade ${show ? 'down' : 'up'}`}>
     <div className='centered-content'>
-      <Icon className="dismiss" type="times" alt="Dismiss Highlights Summary" onClick={dismiss} />
       {children}
     </div>
   </div>
@@ -150,7 +149,9 @@ export default class AnnotationWidget extends React.Component {
   @observable activeHighlight = null;
   @observable widgetStyle = null;
   @observable needToGetReferenceElements = true;
-  @observable showWindowShade = false;
+  @computed get showWindowShade() {
+    return User.annotations.ux.isSummaryVisible;
+  }
 
   @observable parentRect = {};
   @observable referenceElements = [];
@@ -468,7 +469,7 @@ export default class AnnotationWidget extends React.Component {
 
   @action.bound
   seeAll() {
-    this.showWindowShade = true;
+    User.annotations.ux.isSummaryVisible = true;
     this.activeHighlight = null;
   }
 
@@ -494,15 +495,13 @@ export default class AnnotationWidget extends React.Component {
           onClick={(item) => {this.activeHighlight = item}}
           highlightEntry={this.activeHighlight || this.widgetStyle ? null : this.highlightEntry}
         />
-        <WindowShade
-          show={this.showWindowShade}
-          dismiss={this.dismissWindowShade}>
+
+        <WindowShade show={this.showWindowShade}>
           <SummaryPage
             items={this.allAnnotationsForThisBook.slice()}
             deleteEntry={this.deleteEntry}
             updateAnnotation={this.updateAnnotation}
             currentChapter={this.props.chapter}
-            showing={this.showWindowShade}
           />
         </WindowShade>
       </div>
