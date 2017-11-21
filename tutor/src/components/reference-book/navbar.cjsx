@@ -2,6 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 _  = require 'underscore'
 
+TutorLink = require '../link'
 ChapterSection = require '../task-plan/chapter-section'
 BindStoreMixin = require '../bind-store-mixin'
 {ReferenceBookStore} = require '../../flux/reference-book'
@@ -35,21 +36,25 @@ module.exports = React.createClass
     </ul>
 
   render: ->
-    <BS.Navbar fixedTop fluid>
-      <BS.Nav navbar>
-        <BS.NavItem className="menu-toggle" onClick={@props.toggleTocMenu} tabIndex=0
-          aria-label={if @props.isMenuVisible then "Close Sections Menu" else "Open Sections Menu"}
-        >
-          <SlideOutMenuToggle isMenuVisible={@props.isMenuVisible} />
-        </BS.NavItem>
-      </BS.Nav>
-      <BS.Nav className='full-width-only'>
+    <nav className="tutor-top-navbar">
+      <div className="tutor-nav-controls">
+        <div className="left-side-controls">
+          <a
+            className="menu-toggle"
+            onClick={@props.toggleTocMenu} tabIndex=0
+            aria-label={if @props.isMenuVisible then "Close Sections Menu" else "Open Sections Menu"}
+          >
+            <SlideOutMenuToggle isMenuVisible={@props.isMenuVisible} />
+          </a>
 
-        <BS.NavItem><i className='ui-brand-logo' /></BS.NavItem>
+          <TutorLink to="myCourses" className="brand">
+            <i className="ui-brand-logo" />
+          </TutorLink>
 
-      </BS.Nav>
-      {@renderSectionTitle()}
-      <div className='navbar-overlay'>
+          {@renderSectionTitle()}
+
+        </div>
+
         <div className='center-control'>
           <div className='icons'>
             <AnnotationsSummaryToggle
@@ -60,9 +65,8 @@ module.exports = React.createClass
             />
           </div>
         </div>
+        <div className="right-side-controls">
+          {@props.extraControls}
+        </div>
       </div>
-      <BS.Nav className='full-width-only' pullRight>
-        {@props.extraControls}
-        <BS.NavItem><i className='ui-brand-logo' /></BS.NavItem>
-      </BS.Nav>
-    </BS.Navbar>
+    </nav>
