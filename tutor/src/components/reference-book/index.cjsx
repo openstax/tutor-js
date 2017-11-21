@@ -69,5 +69,4 @@ ReferenceBookShell = React.createClass
       actions={ReferenceBookActions}
       renderItem={@renderBook} />
 
-
 module.exports = {ReferenceBookShell, ReferenceBookPageShell}

@@ -5,6 +5,10 @@
   .pinned-container {
     max-width: @tutor-max-panel-width;
     margin: 0 auto;
+
+    @media print {
+      height: 0;
+    }
   }
   .exercise-cards {
     .exercise-cards-column-layout();

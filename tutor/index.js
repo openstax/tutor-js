@@ -21,6 +21,7 @@ import COURSES from './src/models/courses-map';
 import Chat from './src/models/chat';
 import { Logging, ReactHelpers } from 'shared';
 import PAYMENTS from './src/models/payments';
+import HYPOTHESIS from './src/models/hypothesis';
 import STUDENT_TASKS from './src/models/student-tasks';
 
 window._STORES = {
@@ -43,9 +44,11 @@ window._MODELS = {
   OFFERINGS,
   PAYMENTS,
   STUDENT_TASKS,
+  HYPOTHESIS
 };
 
 window._LOGGING = Logging;
+
 
 // In dev builds this enables hot-reloading,
 // in production it simply renders the root app

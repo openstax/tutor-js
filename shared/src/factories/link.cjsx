@@ -7,7 +7,7 @@ filterPropsBase = filterProps
 classnames = require 'classnames'
 
 LINK_PROPS = [
-  'alt', 'title', 'activeOnlyWhenExact', 'activeStyle', 'activeClassName', 'isActive', 'location', 'disabled'
+  'alt', 'title', 'activeOnlyWhenExact', 'activeStyle', 'isActive', 'location', 'disabled'
 ]
 
 filterProps = (props, options = {}) ->

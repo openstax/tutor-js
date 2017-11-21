@@ -22,7 +22,7 @@ The Front-end code for Openstax Tutor related projects
 ## Development
 
 - `npm run serve <project>` starts up a local development webserver which rebuilds files when changed
-- `npm test` runs unit tests for all projects
+- `npm test <project>` runs unit tests for all projects
 - `npm run coverage` generates a code coverage report
 - `npm run build <project> archive` builds minified files for production
 

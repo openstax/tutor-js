@@ -2,8 +2,6 @@ React = require 'react'
 
 {EcosystemsStore} = require '../../flux/ecosystems'
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
-
-{ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
 ReferenceBook = require '../reference-book/reference-book'
 LoadableItem = require '../loadable-item'
 

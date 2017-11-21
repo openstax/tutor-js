@@ -38,6 +38,7 @@ exports[`Main navbar renders and matches snapshot 1`] = `
         >
           <i
             className="tutor-icon fa fa-question-circle"
+            role="presentation"
             type="question-circle"
           />
           <span
@@ -109,6 +110,7 @@ exports[`Main navbar renders and matches snapshot 1`] = `
         >
           <i
             className="tutor-icon fa fa-user"
+            role="presentation"
             type="user"
           />
           <span

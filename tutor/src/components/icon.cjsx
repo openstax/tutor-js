@@ -26,14 +26,15 @@ module.exports = React.createClass
       trigger: ['hover', 'focus']
 
   render: ->
+    isButton = @props.onClick or (@props.tooltip and @props.tooltipProps.trigger is 'click')
     classNames = classnames('tutor-icon', 'fa', "fa-#{@props.type}", @props.className, {
       'fa-spin': @props.spin
-      'clickable': @props.onClick or (@props.tooltip and @props.tooltipProps.trigger is 'click')
+      'clickable': isButton
     })
 
     unless @props.tooltip
       iconProps = _.omit(@props, 'tooltipProps', 'spin')
-      return <i {...iconProps} className={classNames} />
+      return <i {...iconProps} role={if isButton then "button" else "presentation"} className={classNames} />
     buttonProps = propHelpers.removeDefined(@)
     icon = <button {...buttonProps} className={classNames} />
     tooltip =
