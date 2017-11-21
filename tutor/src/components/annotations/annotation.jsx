@@ -156,9 +156,7 @@ export default class AnnotationWidget extends React.Component {
   @observable parentRect = {};
   @observable referenceElements = [];
 
-
   @computed get annotationsForThisPage() {
-    setTimeout(() => this.forceUpdate(), 1000);
     return this.allAnnotationsForThisBook.filter((item) =>
       (item.selection.chapter === this.props.chapter) &&
       (item.selection.section === this.props.section) &&
@@ -458,13 +456,6 @@ export default class AnnotationWidget extends React.Component {
 
       this.articleElement = el.parentNode;
     }
-  }
-
-  @action.bound
-  dismissWindowShade() {
-    this.showWindowShade = false;
-    // markup gets a little wonky due to the content being moved
-    setTimeout(() => this.forceUpdate(), 100);
   }
 
   @action.bound
