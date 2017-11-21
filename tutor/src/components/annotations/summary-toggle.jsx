@@ -6,7 +6,7 @@ import Icon from '../icon';
 import User from '../../models/user';
 import Courses from '../../models/courses-map';
 import Router from '../../helpers/router';
-import { TaskStore } from '../../flux/task';
+import { TaskPanelStore } from '../../flux/task-panel';
 
 @observer
 export default class AnnotationSummaryToggle extends React.Component {
@@ -19,11 +19,8 @@ export default class AnnotationSummaryToggle extends React.Component {
     }),
     courseId: React.PropTypes.string.isRequired,
     type: React.PropTypes.oneOf(['reading', 'refbook']),
-    // params: React.PropTypes.shape({
-    //   courseId: React.PropTypes.string,
-    // }),
     taskId: React.PropTypes.string,
-    taskStepIndex: React.PropTypes.number,
+    taskStepIndex: React.PropTypes.any,
   }
 
   static defaultProps = {
@@ -34,27 +31,18 @@ export default class AnnotationSummaryToggle extends React.Component {
     router: React.PropTypes.object,
   }
 
-  @computed get chapter_section() {
-    if (this.props.type === 'reading') {
-      return get(
-        TaskStore.getStepByIndex(
-          this.props.taskId, this.props.taskStepIndex
-        ), 'related_content[0].chapter_section');
-    } else {
-      const course = Courses.get(this.props.courseId);
+  @computed get isViewable() {
+    if (!Courses.get(this.props.courseId).canAnnotate) { return false; }
 
+    if (this.props.type === 'refbook') {
+      return true;
     }
-    return null;
+    const crumbs = TaskPanelStore.get(this.props.taskId);
+    return 'reading' === get(crumbs, `[${this.props.taskStepIndex-1}].type`);
   }
 
   render() {
-
-    console.log(this.props)
-
-
-    // TODO: Also check we're on hypothesis bio content?
-    if (!this.chapter_section) { return null; }
-
+    if (!this.isViewable) { return null; }
 
     return (
       <div className="annotation-summary-toggle">
