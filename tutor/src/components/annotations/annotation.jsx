@@ -346,6 +346,7 @@ export default class AnnotationWidget extends React.Component {
   @action.bound
   updateHighlightedAnnotation() {
     const annotation = this.activeHighlight;
+
     this.props.windowImpl.getSelection().empty();
     this.updateAnnotation(annotation);
     this.activeHighlight = null;
