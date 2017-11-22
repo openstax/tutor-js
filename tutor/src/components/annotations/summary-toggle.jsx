@@ -12,19 +12,10 @@ import { TaskPanelStore } from '../../flux/task-panel';
 export default class AnnotationSummaryToggle extends React.Component {
 
   static propTypes = {
-    windowImpl: React.PropTypes.shape({
-      location: React.PropTypes.shape({
-        pathname: React.PropTypes.string,
-      }),
-    }),
     courseId: React.PropTypes.string,
     type: React.PropTypes.oneOf(['reading', 'refbook']),
     taskId: React.PropTypes.string,
     taskStepIndex: React.PropTypes.any,
-  }
-
-  static defaultProps = {
-    windowImpl: window,
   }
 
   static contextTypes = {
