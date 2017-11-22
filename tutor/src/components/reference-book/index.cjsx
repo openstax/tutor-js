@@ -58,6 +58,7 @@ ReferenceBookShell = React.createClass
         menuRouterLinkTarget='viewReferenceBookSection'
         className={classnames('is-teacher': @state.isShowingTeacherContent)}
         dataProps={CourseData.getCourseDataProps(courseId) if courseId}
+        courseId={courseId}
         ecosystemId={ecosystemId}
     />
 

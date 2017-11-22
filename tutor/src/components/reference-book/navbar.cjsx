@@ -7,12 +7,14 @@ BindStoreMixin = require '../bind-store-mixin'
 {ReferenceBookStore} = require '../../flux/reference-book'
 {ReferenceBookPageStore} = require '../../flux/reference-book-page'
 SlideOutMenuToggle = require './slide-out-menu-toggle'
+{default: AnnotationsSummaryToggle} = require '../annotations/summary-toggle'
 
 module.exports = React.createClass
   displayName: 'ReferenceBookNavBar'
   mixins: [BindStoreMixin]
   bindStore: ReferenceBookPageStore
   propTypes:
+    courseId: React.PropTypes.string.isRequired
     ecosystemId: React.PropTypes.string.isRequired
     toggleTocMenu: React.PropTypes.func.isRequired
     section: React.PropTypes.string.isRequired
@@ -50,6 +52,12 @@ module.exports = React.createClass
       <div className='navbar-overlay'>
         <div className='center-control'>
           <div className='icons'>
+            <AnnotationsSummaryToggle
+              type="refbook"
+              section={@props.section}
+              courseId={@props.courseId}
+              ecosystemId={@props.ecosystemId}
+            />
           </div>
         </div>
       </div>
