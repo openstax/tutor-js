@@ -1,60 +1,41 @@
 import React from 'react';
 import { get } from 'lodash';
-import { observable, action, computed } from 'mobx';
+import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import Icon from '../icon';
 import User from '../../models/user';
 import Courses from '../../models/courses-map';
 import Router from '../../helpers/router';
-import { TaskStore } from '../../flux/task';
+import { TaskPanelStore } from '../../flux/task-panel';
 
 @observer
 export default class AnnotationSummaryToggle extends React.Component {
 
   static propTypes = {
-    windowImpl: React.PropTypes.shape({
-      location: React.PropTypes.shape({
-        pathname: React.PropTypes.string,
-      }),
-    }),
-    courseId: React.PropTypes.string.isRequired,
+    courseId: React.PropTypes.string,
     type: React.PropTypes.oneOf(['reading', 'refbook']),
-    // params: React.PropTypes.shape({
-    //   courseId: React.PropTypes.string,
-    // }),
     taskId: React.PropTypes.string,
-    taskStepIndex: React.PropTypes.number,
-  }
-
-  static defaultProps = {
-    windowImpl: window,
+    taskStepIndex: React.PropTypes.any,
   }
 
   static contextTypes = {
     router: React.PropTypes.object,
   }
 
-  @computed get chapter_section() {
-    if (this.props.type === 'reading') {
-      return get(
-        TaskStore.getStepByIndex(
-          this.props.taskId, this.props.taskStepIndex
-        ), 'related_content[0].chapter_section');
-    } else {
-      const course = Courses.get(this.props.courseId);
-
+  @computed get isViewable() {
+    if (!this.props.courseId || !get(Courses.get(this.props.courseId), 'canAnnotate')) {
+      return false;
     }
-    return null;
+
+    if (this.props.type === 'refbook') {
+      return true;
+    }
+    const crumbs = TaskPanelStore.get(this.props.taskId);
+    return 'reading' === get(crumbs, `[${this.props.taskStepIndex-1}].type`);
   }
 
   render() {
-
-    console.log(this.props)
-
-
-    // TODO: Also check we're on hypothesis bio content?
-    if (!this.chapter_section) { return null; }
-
+    if (!this.isViewable) { return null; }
 
     return (
       <div className="annotation-summary-toggle">

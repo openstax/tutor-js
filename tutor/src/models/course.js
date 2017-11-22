@@ -167,6 +167,10 @@ export default class Course extends BaseModel {
     return !!find(this.roles, 'isTeacher');
   }
 
+  @computed get canAnnotate() {
+    return Boolean(this.isActive && 'college_biology' == this.appearance_code);
+  }
+
   @computed get needsPayment() {
     return Boolean(this.does_cost && this.userStudentRecord && this.userStudentRecord.needsPayment);
   }

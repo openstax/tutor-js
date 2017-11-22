@@ -91,7 +91,7 @@ module.exports = React.createClass
       </SpyMode.Content>
 
       <AnnotationWidget
-        ecosystemId={courseId}
+        courseId={courseId}
         chapter={page.chapter_section[0]}
         section={page.chapter_section[1]}
         title={related.title}

@@ -41,7 +41,7 @@ export class User extends BaseModel {
   }
 
   @computed get canAnnotate() {
-    return !!find(Courses.nonPreview.active.array, { appearance_code: 'college_biology'});
+    return !!find(Courses.nonPreview.active.array, { canAnnotate: true });
   }
 
   @lazyGetter annotations = new Annotations();

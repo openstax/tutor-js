@@ -5,7 +5,6 @@ import { autobind } from 'core-decorators';
 import serializeSelection from 'serialize-selection';
 import './highlighter';
 import User from '../../models/user';
-//import annotations from './hypothesis-store';
 import { pick, debounce, filter } from 'lodash';
 import Icon from '../icon';
 import SummaryPage from './summary-page';
@@ -133,7 +132,7 @@ const WindowShade = ({show, children}) => (
 export default class AnnotationWidget extends React.Component {
 
   static propTypes = {
-    ecosystemId: React.PropTypes.string.isRequired,
+    courseId: React.PropTypes.string.isRequired,
     documentId: React.PropTypes.string.isRequired,
     windowImpl: React.PropTypes.shape({
       open: React.PropTypes.func
@@ -157,19 +156,15 @@ export default class AnnotationWidget extends React.Component {
   @observable referenceElements = [];
 
   @computed get annotationsForThisPage() {
-    return filter(this.allAnnotationsForThisBook, (item) =>
+    return this.allAnnotationsForThisBook.filter(item =>
       (item.selection.chapter === this.props.chapter) &&
       (item.selection.section === this.props.section) &&
       this.referenceElements.find((el) => el.id === item.selection.elementId)
     );
   }
 
-  @computed get withAnnotations() {
-    return filter(this.annotationsForThisPage, (note) => note.text.length > 0 && note.rect);
-  }
-
   @computed get allAnnotationsForThisBook() {
-    return filter(User.annotations.array, { ecosystemId: this.props.ecosystemId });
+    return filter(User.annotations.array, { courseId: this.props.courseId });
   }
 
   componentDidMount() {
@@ -338,26 +333,19 @@ export default class AnnotationWidget extends React.Component {
   @action.bound
   updateActiveAnnotation(event) {
     const newValue = event.target.value;
+
     this.activeHighlight.text = newValue;
   }
 
   @autobind
   updateAnnotation(annotation) {
     return annotation.save();
-    // debugger
-
-    // if (entry.lastSavedAnnotation !== entry.annotation) {
-    //   hypothesisStore.update(entry.savedId, entry.annotation).then(
-    //     action((response) => {
-    //       entry.lastSavedAnnotation = entry.annotation;
-    //       return entry;
-    //     }));
-    // }
   }
 
   @action.bound
   updateHighlightedAnnotation() {
     const annotation = this.activeHighlight;
+
     this.props.windowImpl.getSelection().empty();
     this.updateAnnotation(annotation);
     this.activeHighlight = null;
@@ -369,7 +357,7 @@ export default class AnnotationWidget extends React.Component {
     return User.annotations.create({
       documentId: this.props.documentId,
       selection: this.savedSelection,
-      ecosystemId: this.props.ecosystemId,
+      courseId: this.props.courseId,
       chapter: this.props.chapter,
       section: this.props.section,
       title: this.props.title,
@@ -475,7 +463,6 @@ export default class AnnotationWidget extends React.Component {
           onClick={(item) => {this.activeHighlight = item}}
           highlightEntry={this.activeHighlight || this.widgetStyle ? null : this.highlightEntry}
         />
-
         <WindowShade show={this.showWindowShade}>
           <SummaryPage
             items={this.allAnnotationsForThisBook.slice()}
