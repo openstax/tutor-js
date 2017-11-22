@@ -5,7 +5,6 @@ import { autobind } from 'core-decorators';
 import serializeSelection from 'serialize-selection';
 import './highlighter';
 import User from '../../models/user';
-//import annotations from './hypothesis-store';
 import { pick, debounce, filter } from 'lodash';
 import Icon from '../icon';
 import SummaryPage from './summary-page';
