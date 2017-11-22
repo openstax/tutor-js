@@ -157,15 +157,11 @@ export default class AnnotationWidget extends React.Component {
   @observable referenceElements = [];
 
   @computed get annotationsForThisPage() {
-    return filter(this.allAnnotationsForThisBook, (item) =>
+    return this.allAnnotationsForThisBook.filter(item =>
       (item.selection.chapter === this.props.chapter) &&
       (item.selection.section === this.props.section) &&
       this.referenceElements.find((el) => el.id === item.selection.elementId)
     );
-  }
-
-  @computed get withAnnotations() {
-    return filter(this.annotationsForThisPage, (note) => note.text.length > 0 && note.rect);
   }
 
   @computed get allAnnotationsForThisBook() {
@@ -338,21 +334,13 @@ export default class AnnotationWidget extends React.Component {
   @action.bound
   updateActiveAnnotation(event) {
     const newValue = event.target.value;
+
     this.activeHighlight.text = newValue;
   }
 
   @autobind
   updateAnnotation(annotation) {
     return annotation.save();
-    // debugger
-
-    // if (entry.lastSavedAnnotation !== entry.annotation) {
-    //   hypothesisStore.update(entry.savedId, entry.annotation).then(
-    //     action((response) => {
-    //       entry.lastSavedAnnotation = entry.annotation;
-    //       return entry;
-    //     }));
-    // }
   }
 
   @action.bound
