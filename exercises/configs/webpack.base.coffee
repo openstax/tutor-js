@@ -3,5 +3,5 @@ module.exports =
     exercises: [
       "babel-polyfill",
       'src/index.coffee',
-      'resources/styles/app.less'
+      'resources/styles/app.scss'
     ]

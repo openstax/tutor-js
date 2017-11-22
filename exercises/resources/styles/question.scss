@@ -1,0 +1,72 @@
+.question {
+
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    .move-question {
+      cursor: pointer;
+      margin: 0 1rem;
+      font-size: 2rem;
+    }
+    .remove-question {
+      color: $red;
+      i { margin-right: 0.5rem; }
+    }
+  }
+  .format-type {
+    input { margin-right: 0.5rem; }
+  }
+  textarea {
+    margin-bottom: 2rem;
+    width: 100%;
+    height: 8rem;
+  }
+
+  li.correct-answer {
+    label {
+      color: $green;
+    }
+    textarea {
+      border-color: $green;
+    }
+  }
+
+  .answer-actions {
+    > a {
+      margin-left: 10px;
+      cursor: pointer;
+      line-height: 2rem;
+
+      &.is-correct {
+        color: $openstax-neutral;
+      }
+      &.is-correct.correct-answer {
+        color: $green;
+      }
+
+      i.fa {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  .tags select {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  p.add-exercise {
+    width: 100%;
+    margin-bottom: 2em;
+    a {
+      font-size: 2rem;
+      color: white;
+      text-align: center;
+
+      i {
+        margin-right: 10px;
+      }
+    }
+  }
+}

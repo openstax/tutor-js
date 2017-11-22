@@ -1,0 +1,184 @@
+.public_fixedDataTableCell_main {
+  border-right: 1px solid $nav-tabs-border-color;
+}
+
+.header-cell-wrapper {
+  $row-height: 30px;
+  $short-row-height: 26px;
+
+  height: 100%;
+  line-height: normal;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  .expanded-header-row {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header-row {
+    display: flex;
+    flex-basis: $row-height;
+    > * {
+      height: $row-height;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &.short {
+      flex-basis: $short-row-height;
+      > * {
+        height: $short-row-height;
+      }
+    }
+  }
+
+  &.student-names {
+    .header-row {
+      border-top:  $scores-table-outer-border-width solid $scores-table-outer-border-color;
+      border-left: $scores-table-outer-border-width solid $scores-table-outer-border-color;
+      padding-left: $scores-left-column-padding - $scores-table-outer-border-width;
+      font-weight: 500;
+      white-space: nowrap;
+      &.short {
+        background: $scores-student-header-bg-color;
+        .sortable { justify-content: space-between; }
+      }
+      align-items: center;
+      .tutor-icon {
+        margin-left: 0.5rem;
+        align-self: center;
+        font-size: 75%;
+      }
+    }
+  }
+
+  &.overall-average {
+    flex: 1;
+    @include overall-border-style();
+    background: $tutor-info-bg;
+    font-weight: normal;
+    border-bottom: 0;
+    > * {
+      justify-content: center;
+      text-align: center;
+    }
+    .overall-header-cell {
+      line-height: $row-height;
+    }
+
+    > .overall-header-cell {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .tutor-icon {
+        align-self: flex-end;
+        margin: 4px;
+      }
+      span {
+        line-height: 16px;
+        margin-bottom: 4px;
+      }
+    }
+
+
+    .header-row {
+      border-width: 2px;
+      border-top: $scores-thick-grey-border;
+      border-bottom: 0;
+      &.short {
+        background: $scores-student-header-bg-color;
+        borderom-bottom: 0;
+        border-top: 0;
+      }
+    }
+  }
+
+  &.assignment {
+
+    &[data-assignment-type] {
+      font-weight: 400;
+    }
+
+    .due, .click-rate {
+      width: 100%;
+      text-align: center;
+      font-weight: normal;
+      font-size: 1.2rem;
+      line-height: $row-height;
+      font-style: italic;
+      color: $tutor-neutral-lite;
+    }
+
+    .header-row {
+      font-weight: normal;
+      border-top: $scores-thick-grey-border;
+
+      > * {
+        border-right: 1px solid $nav-tabs-border-color;
+        width: 50%;
+        &:only-child { // override "split" styling if it's the only child
+          border-right: 0;
+          width: 100%;
+        }
+      }
+
+      .average {
+        font-weight: 600;
+      }
+      .scores-cell {
+        text-align: center;
+      }
+    }
+  }
+
+
+  .header-cell {
+    @include no-select();
+    cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    position: relative;
+    &.sortable {
+      font-size: 1.2rem;
+      background-color: $scores-student-header-bg-color;
+      &:not(.is-descending):not(.is-ascending):hover::after { content: $fa-var-sort-desc; }
+      &.is-descending:hover::after { content: $fa-var-sort-asc;  }
+      &.is-ascending:hover::after  { content: $fa-var-sort-desc; }
+    }
+    &.is-ascending,
+    &.is-descending,
+    &.sortable:hover {
+      &:after {
+        position: absolute;
+        right: 6px;
+        top: 6px;
+        @include fa-icon();
+      }
+    }
+    &.is-ascending::after  { content: $fa-var-sort-asc;  }
+    &.is-descending::after { content: $fa-var-sort-desc; }
+    &.group.title {
+      // border-top rules are defaults for the cell and are overridden by .tutor-plan-set() mixin
+      // for various assignment types
+      border-top-width: 1px;
+      border-top-style: solid;
+      border-top-color: $nav-tabs-border-color;
+      // @include tutor-plan-set(heading);
+      flex: 1;
+      padding: 8px;
+      cursor: default;
+      text-align: center;
+    }
+    &.sortable:hover {
+      background: lighten($scores-student-header-bg-color, 4%);
+      @include transition(background 0.2s);
+    }
+  }
+}

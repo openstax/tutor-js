@@ -1,0 +1,75 @@
+@mixin highlight-animation() {
+  -webkit-animation: book-content-target-highlight 1.5s ease-out;
+  animation: book-content-target-highlight 1.5s ease-out;
+}
+
+@mixin highlight-target($will-transition: false) {
+  @if $will-transition {
+    @include transition(background-color .5s ease-out);
+  } @else {
+    background-color: $tutor-highlight;
+  }
+}
+
+%tutor-book-content-target {
+  a[target=_blank] { @include tutor-external-link-indicator(); }
+
+  figure {
+    @include highlight-target(will-transition);
+
+    &:target, &.link-target {
+      @include highlight-animation();
+
+      > * {
+        @include highlight-animation();
+      }
+    }
+
+    &.target-scroll {
+      @include highlight-target();
+
+      > * {
+        @include highlight-target();
+      }
+    }
+
+  }
+
+  section, div, span, table {
+
+    &::after {
+      @include highlight-target(will-transition);
+    }
+
+    &:target, &.link-target, &.target-scroll {
+      position: relative;
+
+      &::after {
+        content: ' ';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+      }
+    }
+
+    &:target, &.link-target {
+      &::after {
+        @include highlight-animation();
+      }
+    }
+
+    &.target-scroll::after {
+      @include highlight-target();
+    }
+  }
+
+  @keyframes book-content-target-highlight {
+    0% {
+      @include highlight-target();
+    }
+    100% {
+      background-color: transparent;
+    }
+  }
+}

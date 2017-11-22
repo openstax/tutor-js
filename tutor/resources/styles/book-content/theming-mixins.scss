@@ -1,0 +1,171 @@
+@mixin tutor-book-theme-learning-objectives($background, $theme-accent, $text-color) {
+  .learning-objectives,
+  [data-type=abstract] {
+    background: $background;
+    color: $text-color;
+
+    &::before {
+      color: fade($text-color, 75%);
+    }
+
+    ul {
+      border-left-color: fade($text-color, 40%);
+    }
+  }
+
+  .related-content[data-has-learning-objectives=true] + .book-content {
+    .learning-objectives,
+    [data-type=abstract] {
+      background: $theme-accent;
+    }
+  }
+}
+
+@mixin tutor-book-theme-related-content($background, $text-color) {
+  .related-content[data-has-learning-objectives=true] {
+    background: $background;
+    color: $text-color;
+  }
+}
+
+
+@mixin tutor-book-theme-quote($border-color) {
+  blockquote {
+    border-left-color: $border-color;
+  }
+}
+
+@mixin tutor-book-theme-note-borders($border-color) {
+  .grasp-check {
+    border-top: solid 8px $border-color;
+  }
+}
+
+@mixin tutor-book-theme-typography($heading-border) {
+  h1 {
+    border-top-color: $heading-border;
+  }
+}
+
+@mixin tutor-book-theme-first-letter($letter-color: $openstax-book-default-fg) {
+  // References should not get drop-cap styling or color
+  section:not(.references) h1 + p:first-of-type,
+  div[data-type="document-title"] ~ p:first-of-type {
+    &::first-letter {
+      color: $letter-color;
+    }
+  }
+}
+
+@mixin tutor-book-theme-splash-image($overlay, $text-color) {
+  .splash {
+    .tutor-ui-overlay {
+      background-color: $overlay;
+      color: $text-color;
+    }
+  }
+}
+
+@mixin tutor-book-theme-bullet-lists($bullet-color) {
+  ul > li {
+    &::before {
+      background: $bullet-color;
+    }
+  }
+}
+
+@mixin tutor-book-theme-tables($table-accent) {
+
+  $table-accent-style: solid 4px $table-accent;
+  table {
+      caption {
+        caption-side: top;
+        font-style: italic;
+        font-weight: 400;
+        font-size: inherit;
+      }
+      caption + thead {
+        tr:first-child {
+          font-style: normal;
+          th {
+            background: $tutor-white;
+            font-weight: 800;
+          }
+          border-bottom: $table-accent-style;
+        }
+      }
+      caption + tbody, thead + tbody, tbody:only-child, colgroup + tbody {
+        border-top: $table-accent-style;
+        tr {
+          td:first-child{
+            font-weight: 400;
+          }
+        }
+      }
+    thead {
+      tr:first-child {
+        font-style: italic;
+        th {
+          font-weight: 400;
+          border-bottom: none;
+          background: $tutor-white;
+        }
+      }
+      tr:nth-child(2) {
+        th {
+          background: $tutor-white;
+          font-weight: 800;
+        }
+        border-bottom: $table-accent-style;
+      }
+    }
+    tbody{
+      border-bottom: none;
+      tr{
+        td:first-child{
+          font-weight: 800;
+        }
+      }
+      ul{
+        font-family: inherit;
+        font-size: inherit;
+        padding-left: 10px;
+        li::before{
+          background: $tutor-neutral-darker;
+        }
+      }
+    }
+  }
+}
+
+@mixin tutor-book-content-theme($book-code) {
+  $primary: openstax-book-color($book-code, primary);
+  $secondary: openstax-book-color($book-code, secondary);
+  $text: openstax-book-color($book-code, text);
+  $accent: openstax-book-color($book-code, accent);
+
+  @include tutor-book-theme-first-letter($primary);
+  @include tutor-book-theme-typography($secondary);
+  @include tutor-book-theme-bullet-lists($bullet-color: $secondary);
+  @include tutor-book-theme-note-borders($border-color: $secondary);
+  @include tutor-book-theme-tables($table-accent: $accent);
+  @include tutor-book-theme-quote($border-color: $secondary);
+  @include tutor-book-theme-learning-objectives(
+    $background: $secondary,
+    $text-color: $text,
+    $theme-accent: $accent
+  );
+  @include tutor-book-theme-related-content(
+    $background: $secondary,
+    $text-color: $text
+  );
+  @include tutor-book-theme-splash-image(
+    $overlay: $secondary,
+    $text-color: $text
+  );
+  @include tutor-book-theme-notes(
+    $background: $secondary,
+    $text-color: $primary
+  );
+
+}

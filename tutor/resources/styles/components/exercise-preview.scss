@@ -1,0 +1,67 @@
+.openstax-exercise-preview.has-actions {
+  .panel-body,
+  .panel-body:hover {
+    .controls-overlay {
+      .message {
+        .action {
+          &.include {
+            background-color: #009acc; // blue
+            &:before { background-image: url("../../images/icons/exercise-include-action.svg"); }
+          }
+          &.exclude {
+            background-color: $openstax-primary;
+            &:before { background-image: url("../../images/icons/exercise-exclude-card-view-action.svg"); }
+          }
+          &.details {
+            background-color: $openstax-neutral-dark;
+            &:before { background-image: url("../../images/icons/exercise-details-action.svg"); }
+          }
+          &.feedback-on {
+            background-color: $openstax-neutral-dark;
+            &:before { background-image: url("../../images/icons/exercise-feedback-on-action.svg"); }
+          }
+          &.feedback-off {
+            background-color: $openstax-neutral-dark;
+            &:before { background-image: url("../../images/icons/exercise-feedback-off-action.svg"); }
+          }
+          &.report-error {
+            background-color: #fdbd3e; // yellow
+            &:before { background-image: url("../../images/icons/exercise-report-error-action.svg"); }
+          }
+        }
+      }
+    }
+  }
+
+  &.actions-on-side {
+    .panel-body,
+    .panel-body:hover {
+      .controls-overlay {
+        .message {
+          .action {
+            &.exclude {
+              background-color: $openstax-primary;
+              &:before { background-image: url("../../images/icons/exercise-exclude-details-view-action.svg"); }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.openstax-exercise-preview {
+  width: 100%;
+  height: $tutor-interactive-iframe-height;
+  margin: 20px auto;
+  border: none;
+  @include book-content-interactives();
+}
+
+.is-college {
+  // LO tags are hidden for college courses.
+  .openstax-exercise-preview {
+    .lo-tag { display: none; }
+  }
+}

@@ -1,0 +1,20 @@
+@mixin openstax-animated-focus-input() {
+  box-shadow: none;
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid $openstax-neutral-light;
+  padding-left: 0;
+  padding-right: 0;
+  transition: all 0.3s ease;
+  background: linear-gradient(to bottom, white 96%, $openstax-primary 4%);
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-size: 0px 100%;
+  &:focus,
+  &.focus {
+    outline:none;
+    outline:none;
+    background-position: 0 0;
+    background-size: 100% 100%;
+  }
+}

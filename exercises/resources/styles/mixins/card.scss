@@ -1,0 +1,27 @@
+@import (reference) './quill';
+@import (reference) './toolbar';
+
+@mixin x-card() {
+  @include x-toolbar();
+
+  .card-content {
+    @include x-quill();
+
+    // Materialize HACK. they remove formatting on all unordered lists ; (
+    ul > li { list-style-type: initial; }
+    ul { padding-left: 40px; }
+    .ql-editor ul { padding: 0; }
+
+    &.has-default-action { cursor: pointer; }
+
+    // Style contenteditable text differently because we do not have control over it
+    .has-html {
+      // So far:
+      // .exercise-background
+      // .answer-content
+      // .question-stem
+      div { margin-top: 1rem; }
+    }
+
+  }
+}

@@ -1,0 +1,45 @@
+.accessibility-statement,
+.student-preview {
+  margin-top: 2rem;
+  padding: 40px 30px 0 50px;
+  @extend .container;
+  background-color: $tutor-white;
+  @include tutor-shadow(pop);
+
+  .btn {
+    border-radius: 3px;
+  }
+
+  header {
+    align-items: baseline;
+    border-bottom: 1px solid $tutor-neutral-light;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 60px;
+    h1 {
+      #fonts > .main-title();
+      margin-bottom: 30px;
+    }
+  }
+
+  .section {
+    margin-bottom: 6rem;
+    h3 {
+      margin: 0 0 2.5rem 0;
+      #fonts > .section-title();
+    }
+    p {
+       @include tutor-sans-font(16px, 25px);
+    }
+    .txt { padding: 0 30px 0 15px; }
+    .vid {
+      padding: 0 15px 0 30px;
+
+      iframe {
+        border: inset 2px;
+      }
+    }
+  }
+
+}

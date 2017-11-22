@@ -1,0 +1,98 @@
+&-notifications-bar {
+  background-color: $openstax-primary;
+
+  .notification {
+    display: flex;
+    flex: 1;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+    transition: height 0.5s;
+    height: 60px;
+    &.acknowledged {
+      height: 0px;
+    }
+
+    color: $openstax-neutral-lighter;
+
+    font-size: 2rem;
+    line-height: 2rem;
+
+    .body, .error {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      .message {
+        text-align: right,
+      }
+    }
+    .body {
+      flex: 1;
+    }
+
+    & + .notification:not(.acknowledged) {
+      border-top: 1px solid darken($openstax-primary, 5%);
+    }
+
+    .icon {
+      margin-right: 1rem;
+      font-size: 3rem;
+    }
+
+    .action,
+    .dismiss {
+      color: $openstax-neutral-lighter;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.4s;
+    }
+    .dismiss {
+      font-size: 1.5rem;
+      &:hover {
+        color: $openstax-neutral-light;
+      }
+    }
+    .action {
+      font-size: 1.8rem;
+      border: 2px solid white;
+      border-radius: 25px;
+      padding: 8px 10px;
+      margin-left: 1rem;
+      &:hover {
+        text-decoration: none;
+        background-color: white;
+        color: $openstax-primary;
+        border-color: $openstax-neutral-light;
+      }
+    }
+
+    // Customization for specific types
+    &.email {
+      input {
+        width: 10rem;
+        margin-left: 1rem;
+        color: $openstax-neutral-darker;
+      }
+      .form-group { margin: 0; }
+      .pin-check {
+        border: 2px solid $openstax-neutral-lighter;
+        border-radius: 20px;
+        padding: 4px;
+        width: 60px;
+        text-align: center;
+      }
+    }
+
+    &.course-has-ended {
+      .action {
+        background-color: white;
+        border-radius: 5px;
+        color: $openstax-primary;
+        &:hover {
+          background-color: lighten($openstax-neutral-lighter, 10%);
+        }
+      }
+    }
+  }
+}

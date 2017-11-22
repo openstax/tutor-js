@@ -1,0 +1,18 @@
+.cc-student-redirect {
+   @include tutor-sans-font(2rem, 3rem);
+  text-align: center;
+  min-height: 300px;
+  padding: 40px 0;
+  .countdown {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+    .go-now { margin-left: 0.5rem; }
+  }
+  // The logout link is a list since it's normally in the navbar menu. Remove those styles
+  ul { list-style-type: none; padding:0; };
+  .logout input {
+    border: 0;
+    background: white;
+  }
+}

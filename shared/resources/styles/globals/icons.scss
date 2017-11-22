@@ -1,0 +1,43 @@
+// # Overview
+//
+// - add `<i class="icon-homework icon-sm" />` tag in the HTML
+//   - Similar to font-awesome icons
+// - use `<span class="icon-stack icon-lg">` for stacking icons
+
+// # Support stacking icons
+//
+// Example:
+//
+// ```html
+// <span class="icon-stack icon-lg">
+//   <i class="icon-lg icon-homework"></i>
+//   <i class="icon-lg icon-correct"></i>
+// </span>
+// ```
+
+
+
+.icon-stack {
+  position: relative;
+}
+
+.icon-stack > .icon-sm,
+.icon-stack > .icon-lg {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+// # Icon Classes
+
+.icon-xs  { @include x-icon-size($icon-size-xs); }
+.icon-sm  { @include x-icon-size($icon-size-sm); }
+.icon-md  { @include x-icon-size($icon-size-md); }
+.icon-lg  { @include x-icon-size($icon-size-lg); }
+.icon-xlg { @include x-icon-size($icon-size-xlg); }
+
+.icon-sm.icon-personalized {
+  width: $icon-size-sm * 2;
+  background-size: $icon-size-sm * 2 $icon-size-sm;
+}

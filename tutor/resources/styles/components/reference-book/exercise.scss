@@ -1,0 +1,16 @@
+.reference-book {
+  .exercise[data-type=exercise] {
+    margin-bottom: 40px;
+    .openstax-question {
+      @include tutor-serif-font(1.75rem, 190%);
+      padding: 0;
+    }
+    .solution {
+      display: none;
+    }
+  }
+
+  .reference-book-missing-exercise {
+    opacity: 0.75;
+  }
+}

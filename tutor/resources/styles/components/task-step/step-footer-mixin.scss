@@ -1,0 +1,58 @@
+@mixin step-footer-mixin() {
+  .task-title {
+    font-weight: 600;
+  }
+  .task-student {
+    font-weight: 600;
+
+    &::before {
+      content: 'Viewing as: ';
+      font-style: italic;
+      font-weight: 100;
+      padding-right: 5px;
+    }
+  }
+  .task-footer-buttons {
+    display: inline-block;
+  }
+
+  .task-covers {
+    color: $tutor-neutral;
+    font-style: italic;
+  }
+
+  .task-footer-details {
+    float: right;
+    display: flex;
+    align-items: center;
+    height: 3.6rem;
+    margin-top: 2px;
+
+    .task-footer-detail {
+      display: inline-block;
+      line-height: 1.25em;
+      padding-right: 20px;
+
+      &:last-of-type {
+        padding-right: 0;
+      }
+    }
+
+    i.late {
+      @include tutor-late-icon();
+      padding-left: 8px;
+    }
+
+    // Has a "Covers sections ..." message
+    &.has-sections {
+      // align details to top
+      align-items: flex-start;
+
+      .continue.btn {
+        margin-top: 5px;
+      }
+      .view-reference-guide { margin-left: 0.5rem; }
+    }
+  }
+
+}

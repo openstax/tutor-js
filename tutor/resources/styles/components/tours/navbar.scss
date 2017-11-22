@@ -1,0 +1,21 @@
+.tutor-top-navbar .tours-replay {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.4s;
+  &.is-visible {
+    opacity: 1;
+  }
+  svg {
+    height: 24px;
+    path {
+      fill: $tutor-neutral;
+      transition: fill 0.2s;
+    }
+  }
+
+  &:hover {
+    svg path { fill: $tutor-neutral-lite; }
+  }
+}

@@ -1,0 +1,11 @@
+@mixin performance-forecast-colors() {
+  &.high .progress-bar {
+    background: $tutor-secondary;
+  }
+  &.medium .progress-bar {
+    background: $tutor-quaternary;
+  }
+  &.low .progress-bar {
+    background: $tutor-primary;
+  }
+}

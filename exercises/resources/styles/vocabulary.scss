@@ -1,0 +1,27 @@
+@import "./mixins/editing-panes";
+
+.vocabulary-editor {
+
+  @include editing-panes();
+
+  .distractors {
+    .heading {
+      display: flex;
+      justify-content: space-between;
+      .label { font-weight: bolder; font-size: 110%; }
+      .controls i {
+        cursor: pointer;
+        font-size: 120%;
+      }
+
+    }
+  }
+
+  // remove when vocab id is in spy mode
+  .vocabulary-hidden-id {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    color: lightgrey;
+  }
+}

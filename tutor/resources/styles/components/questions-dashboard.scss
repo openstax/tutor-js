@@ -1,0 +1,135 @@
+.questions-dashboard {
+  $padding: 20px;
+  .wrapper {
+    max-width: 1200px; // match panel width
+    margin: 0 auto;
+
+  }
+
+  .sections-chooser {
+
+    .header {
+      background-color: $tutor-white;
+      padding: 0 $padding+5px;
+      border-bottom: 1px solid $tutor-neutral-light;
+      .wrapper {
+        height: 95px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        h2 {
+          @include tutor-sans-font(2.8rem, 2.8rem);
+        }
+      }
+    }
+  }
+
+  .instructions {
+    background-color: $tutor-secondary;
+    color: $tutor-white;
+    @include tutor-sans-font(1.6rem, 1.6rem);
+    font-weight: 700;
+    font-style: italic;
+    margin: 0;
+    padding: $padding - 8px;
+
+    .tutor-icon {
+      position: relative;
+      left: 0.5rem;
+    }
+  }
+
+  .exercises-display {
+    max-width: $tutor-max-panel-width;
+    margin: 0 auto;
+    .instructions { margin-bottom: $padding; }
+  }
+
+  .instructions-addon {
+    margin: 0 $padding;
+    font-size: 1.4rem;
+    text-align: center;
+    color: $tutor-neutral-lite;
+  }
+  .secondary-help {
+    text-align: center;
+    color: $tutor-neutral;
+  }
+  .sections-list {
+    padding: $padding;
+    background-color: $tutor-white;
+    overflow: auto;
+    max-height: calc(100vh - 250px);
+  }
+
+  .pinned-header {
+    @include tutor-shadow(1);
+
+    .panel {
+      @include box-shadow(none);
+    }
+  }
+
+  .exercise-controls-bar {
+    background-color: $tutor-white;
+    height: 60px;
+  }
+
+  .sectionizer {
+    flex: 0;
+    justify-content: center;
+  }
+
+  .loading {
+    position: fixed;
+    width: 400px;
+    left: calc(50% - 150px);
+    top: 40%;
+    z-index: 1;
+    background-color: $tutor-neutral-bright;
+    border: 1px solid $tutor-neutral-light;
+    height: 200px;
+    text-align: center;
+    @include tutor-sans-font(3rem, 200px);
+  }
+
+  .exercise-card {
+    &.is-selected {
+      .selected-mask {
+        background-color: $tutor-neutral-light;
+      }
+    }
+  }
+  .exercise-cards {
+    @include exercise-cards-column-layout();
+    // specificity to match exercise preview nesting
+    .exercise-card.has-actions .controls-overlay .message .action { width: 160px; }
+  }
+}
+
+.question-library-min-exercise-exclusions {
+  top: 30%;
+  .modal-dialog {
+    width: 500px;
+  }
+  .modal-body {
+    @include tutor-sans-font(1.8rem, 1.8rem);
+    padding: 1rem 3rem 3rem 3rem;
+    min-width: 500px;
+    display: flex;
+    .tutor-icon {
+      font-size: 4rem;
+      margin: 0 2.5rem 0 1rem;
+      color: $tutor-primary;
+    }
+  }
+  .modal-footer{
+    text-align: right;
+    .btn-primary {
+      color: $tutor-white;
+      background-color: $tutor-tertiary-light !important; // material design override
+      border: 1px solid darken($tutor-tertiary-light, 10%) !important;
+    }
+  }
+
+}

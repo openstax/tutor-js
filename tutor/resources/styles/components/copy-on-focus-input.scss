@@ -1,0 +1,26 @@
+.copy-on-focus,
+.copy-on-focus input {
+  width: 100%;
+  font-weight: normal;
+  line-height: 50px;
+  font-size: 16px;
+  &label {
+    display: block;
+  }
+  &::selection {
+    background: $tutor-highlight;
+  }
+  &::-moz-selection {
+    background: $tutor-highlight;
+  }
+}
+
+.copy-on-focus input,
+input.copy-on-focus {
+  padding: 0 1rem;
+}
+
+.copy-on-focus input,
+input.copy-on-focus {
+  padding: 0 1rem;
+}

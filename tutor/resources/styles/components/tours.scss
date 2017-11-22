@@ -1,0 +1,24 @@
+@import './tours/navbar';
+@import './tours/anchor';
+@import './tours/value-prop';
+@import './tours/super-training-wheel';
+@import './tours/tips-now-or-later';
+@import './tours/centered-wheel';
+
+.joyride-tooltip {
+
+  .tour-step-best-practices {
+    @extend .tutor-icon.best-practices;
+  }
+
+  &[data-target^='[data-tour-anchor-id="menu-option-'] {
+    margin-top: -26px;
+  }
+
+}
+
+.openstax-exercise-preview.has-actions .panel-body.on-demo-hover .controls-overlay {
+  visibility: visible;
+  background-color: fade( $openstax-neutral-light, 80%);
+  .message { opacity: 1; }
+}

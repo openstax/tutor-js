@@ -1,0 +1,86 @@
+.task {
+  .spacer-step {
+    padding: $tutor-card-body-padding;
+  }
+
+  @include book-paged-content();
+
+  .video-content,
+  .interactive-content,
+  .reading-content {
+    @include tutor-book-content();
+
+    .splash {
+      margin-top: -20px;
+    }
+  }
+
+  .video-content,
+  .interactive-content {
+    @include tutor-book-step-notes();
+  }
+
+  .reading-content {
+    > .note:first-child {
+      @include tutor-book-step-note();
+    }
+  }
+
+  .task-step-personalized {
+    @include exercise-typography();
+    padding-top: $tutor-card-body-padding-horizontal/2;
+    padding-bottom: $tutor-card-body-padding-horizontal/2;
+
+    &:not(.task-step-personalized-missing) {
+      display: flex;
+      align-items: center;
+
+      &::before {
+        @include fa-icon();
+        content: $fa-var-lock;
+        font-size: 6rem;
+        color: $tutor-neutral;
+        padding-right: 2rem;
+      }
+    }
+  }
+
+  .openstax-exercise-card {
+    padding: $tutor-panel-padding-vertical $tutor-card-body-padding-horizontal;
+
+    .openstax-exercise {
+      font-size: 2rem;
+
+      .question-context {
+        // Copied from styles/book-content/note.scss
+        background: $tutor-neutral-lightest;
+        border-top: solid 8px $tutor-neutral-lighter;
+        border-bottom: solid 8px $tutor-neutral-lighter;
+        padding: 20px 40px;
+        width: 100%;
+
+        //@include tutor-book-note-style();
+      }
+    }
+
+    .exercise-uid {
+      opacity: 0.5;
+      font-weight: 100;
+    }
+    .exercise-identifier-link { white-space: nowrap; }
+  }
+  // only visible when "spy mode" is enabled
+  .task-spy-info {
+    @include tutor-spy-mode-content();
+  };
+
+  // &.task-concept_coach {
+  //   @include concept-coach-breadcrumbs();
+  // }
+}
+
+@import './external';
+@import './reading';
+@import './video';
+@import './ends';
+@import './exercise';

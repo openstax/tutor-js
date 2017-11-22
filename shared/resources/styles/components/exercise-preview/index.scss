@@ -1,0 +1,297 @@
+&-exercise-preview {
+  position: relative;
+  $action-square-width: 140px;
+  $action-square-height: 130px;
+
+  $action-icon-circle-size: 80px;
+  @mixin sans($size: 1.5rem, $line-height: 3rem) {
+    font-family: 'Lato', Helvetica, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: $size;
+    line-height: $line-height;
+  }
+  iframe {
+    width: 100%;
+    border: none;
+  }
+  img {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto 20px auto;
+  }
+
+  &.non-interactive {
+
+    .placeholder {
+      height: 200px;
+      margin: 0 auto;
+      display: block;
+    }
+
+    .frame-wrapper,
+    iframe {
+      display: none;
+    }
+  }
+
+  &.is-vertically-truncated {
+    .context {
+      @include height-limited-panel(300px);
+    }
+    .question-stem {
+      @include height-limited-panel(370px);
+    }
+    .panel-body > .exercise-body {
+      @include height-limited-panel(700px);
+    }
+  }
+
+
+  &.has-actions {
+    .panel-body {
+      &:hover {
+        .controls-overlay {
+          visibility: visible;
+          background-color: fade( $openstax-neutral-light, 80%);
+          .message { opacity: 1; }
+        }
+      }
+    }
+    .controls-overlay {
+      cursor: pointer;
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;  // completely cover panel body
+      visibility: hidden;
+      z-index: 1;
+      display: flex;
+      border: none;
+      justify-content: center;
+      align-items: center;
+      @include transition(all .25s ease-in-out);
+
+      .message {
+        display: block;
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+        font-weight: 700;
+        opacity: 0;
+        @include transition(all .25s ease-in-out);
+        @include openstax-disable-text-select();
+        .action {
+          display: inline-block;
+          text-align: center;
+          color: white;
+          user-select:  none;
+          width: $action-square-width;
+          height: $action-square-height;
+          &:hover { box-shadow: 0 0 5px rgba(0,0,0,0.5); }
+
+          &:before {
+            @include fa-icon();
+            content: "";
+            display: block;
+            margin: 10% auto;
+            background-repeat: no-repeat;
+            background-size: 100%;
+            padding-top: 0;
+            margin-bottom: 5px;
+            font-weight: 300;
+            text-align: center;
+            background-color: white;
+            font-size: $action-icon-circle-size * 0.75;
+            border-radius: $action-icon-circle-size / 2;
+            width: $action-icon-circle-size;
+            height: $action-icon-circle-size;
+          }
+        }
+      }
+    }
+  } // end controls-overlay
+
+
+  &.actions-on-side {
+    $action-square-width: 67px;
+    $action-square-height: 75px;
+    $size-scale: 0.5;
+    .panel-body, .panel-body:hover {
+      padding-left: 90px;
+      position: relative;
+      .controls-overlay {
+        visibility: visible;
+        right: inherit;
+        width: $action-square-width;
+        background-color: transparent;
+        pointer-events: none;
+        .message { opacity: 1; }
+      }
+      .message {
+        pointer-events: all;
+        flex-direction: column;
+        .action {
+          height: $action-square-height;
+          width:  $action-square-width;
+          font-size: 12px;
+          line-height: 12px;
+          &:before {
+            padding-top: 4px;
+            margin-bottom: 0;
+            font-size: $action-icon-circle-size * 0.75 * $size-scale;
+            border-radius: ($action-icon-circle-size / 2) * $size-scale;
+            width: $action-icon-circle-size * $size-scale;
+            height: $action-icon-circle-size * $size-scale;
+          }
+          &.report-error:before{ padding-top: 0px; font-size: 90px * $size-scale; };
+        }
+      }
+    }
+
+  }
+
+  .selected-mask {
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;  // completely cover panel body
+      z-index: 1;
+      opacity: 0.4;
+      background-color: $openstax-neutral-light;
+      pointer-events: none;
+  }
+
+  .panel-body {
+    position: relative;
+
+    // used by formats and tags
+    @mixin metadata-styles() {
+      color: $openstax-neutral;
+      font-size: 1.2rem;
+      line-height: 1.4em;
+    }
+    .question-stem {
+      font-weight: 700;
+      margin-bottom: 1rem;
+      font-size: 1.6rem;
+      line-height: 1.4em;
+    }
+
+    .answers-table {
+      font-size: 1.4rem;
+      line-height: 1.4em;
+      margin-bottom: 2rem;
+
+      .answers-answer {
+        padding-left: 15px;
+        display: table;
+
+        &.answer-correct {
+          color: $openstax-secondary;
+          padding-left: 0;
+
+          &:before {
+            @include fa-icon();
+            padding-top: 0.15em;
+            padding-right: .125em;
+            content: $fa-var-check;
+            display: table-cell;
+          }
+        }
+
+        .answer-label {
+          font-weight: 400;
+          display: table-cell;
+        }
+
+        .answer-letter {
+          padding-right: 1rem;
+          display: table-cell;
+          &:after {
+            content: ')';
+          }
+        }
+
+        .answer-answer {
+          display: table-cell;
+          padding-bottom: 5px;
+        }
+      }
+
+      .question-feedback-content {
+        display: none;
+        margin-bottom: 5px;
+        color: $openstax-neutral;
+        margin-left: 0;
+        @include sans(1.1rem, 1.1rem);
+        font-style: italic;
+      }
+
+    }
+
+    .formats-listing {
+      @include metadata-styles();
+      .header {
+        display: inline-block;
+        margin-right: 1rem;
+      }
+      span {
+        &:after { content: ", "; }
+        &:last-of-type {
+          &:after{ content: ""; }
+        }
+      }
+
+    }
+
+    .detailed-solution {
+      display: none;
+    }
+
+    .exercise-tags {
+      @include metadata-styles();
+      .exercise-tag + .exercise-tag:before {
+        content: ',';
+        margin-right: 1rem;
+      }
+
+      .lo-tag {
+        margin-right: 1rem;
+        content: '';
+      }
+    }
+  }
+
+  &.is-displaying-feedback {
+    .panel-body .answers-table .question-feedback-content { display: table; }
+    .detailed-solution{ display: block; }
+  }
+
+  .stimulus {
+    margin-bottom: 1rem;
+    .preview {
+      width: 200px;
+      height: 200px;
+      margin: auto;
+      overflow: hidden;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      text-indent: 400px; // move text out of the frame so only background image shows up
+      &.video       { @include x-icon-bg("video-placeholder");       }
+      &.interactive { @include x-icon-bg("interactive-placeholder"); }
+    }
+  }
+
+  // use absolute positioning for the identifer so it's link is clickable through the overlay
+  .panel-footer .controls {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    color: $openstax-neutral;
+
+    .exercise-identifier-link a { color: $openstax-neutral; }
+
+    .toggle {
+      border: 0;
+      background-color: transparent;
+      font-size: 1.2rem;
+    }
+  }
+
+} // end of exercise.card styles

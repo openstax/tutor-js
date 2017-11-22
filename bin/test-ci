@@ -7,7 +7,4 @@ set -ev
 
 $(npm bin)/jest --maxWorkers=2 --verbose --coverage --config ./configs/test/jest.$OX_PROJECT.json
 
-# add build check for all projects except tutor, because karma by itself already takes too long"
-if [ "$OX_PROJECT" != "tutor" ]; then
-  bin/build "$OX_PROJECT"
-fi
+bin/build "$OX_PROJECT"

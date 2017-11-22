@@ -1,0 +1,44 @@
+&-change-student-id-form {
+  &,
+  .controls,
+  .main,
+  .inputs {
+    display: flex;
+    justify-content: center;
+  }
+  &, .main {
+    flex-direction: column;
+  }
+  .title, .cancel {
+    align-self: center;
+  }
+  .title {
+    margin-bottom: 50px;
+  }
+  .main {
+    border-right: 1px solid $openstax-neutral-light;
+    margin-right: 3rem;
+    padding-right: 3rem;
+    min-width: 450px;
+  }
+  .inputs {
+    justify-content: space-between;
+    input {
+      margin-right: 2rem;
+      height: 40px;
+      border: 0px;
+      width: 100%;
+      @include openstax-animated-focus-input();
+    }
+  }
+  .blank-warning {
+    &:not(.visible) { visibility: hidden; }
+    color: $openstax-primary;
+  }
+  .ask-for-it {
+    text-align: center;
+    color: $openstax-neutral;
+    font-style: italic;
+    font-size: 13px;
+  }
+}

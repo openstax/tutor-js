@@ -1,0 +1,15 @@
+.centered-wheel {
+  &-wrapper {
+    .joyride-overlay {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .centered-wheel {
+      position: relative !important;
+      top: initial !important;
+      left: initial !important;
+    }
+  }
+}

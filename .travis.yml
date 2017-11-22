@@ -3,7 +3,6 @@ sudo: false
 language: node_js
 env:
   - OX_PROJECT=tutor
-  - OX_PROJECT=coach
   - OX_PROJECT=exercises
   - OX_PROJECT=shared
 script:

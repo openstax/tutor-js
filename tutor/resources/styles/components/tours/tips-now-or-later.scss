@@ -1,0 +1,20 @@
+.tips-now-or-later {
+  .joyride-tooltip__ {
+    &footer {
+      width: 220px;
+    }
+
+    &button {
+      &--primary {
+        float: left;
+      }
+
+      &--skip {
+        float: right;
+        padding: 6px 12px;
+        margin: 0;
+        color: $tutor-dark-blue;
+      }
+    }
+  }
+}

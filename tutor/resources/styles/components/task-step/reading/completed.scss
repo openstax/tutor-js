@@ -1,0 +1,5 @@
+.task-reading {
+  .completed-message {
+    @include tutor-completed-message();
+  }
+}

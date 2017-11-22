@@ -1,0 +1,61 @@
+.ap-connection {
+  h1 {
+    border-top: 0;
+  }
+  h1 + p:first-of-type{
+  &::first-letter{
+    float: none;
+     @include tutor-sans-font(1.75rem, 3.15rem); //setting line-height in em to scale on browser zoom
+    font-weight: 400;
+    color: $tutor-neutral-dark;
+    margin: .0; //best combination on line-height and margin to look good in chrome and ff
+  }
+  // ensure that the p is heigh enough for the drop cap
+  // to fit beside it, otherwise it will overlay on top of the next element
+  min-height: auto;
+}
+  background: $tutor-neutral-lightest;
+  margin: 0 0 32px 0;
+  clear: both;
+  border-top: solid 8px $tutor-neutral-lighter;
+  border-bottom: solid 8px $tutor-neutral-lighter;
+  padding: 20px 40px;
+
+  p {
+     @include tutor-sans-font(1.8rem, 1.75em);
+    color: $tutor-neutral-dark;
+    .ost-standards-name {
+        display: block;
+      }
+    }
+  &:before {
+    display: none;
+    position: absolute;
+     @include tutor-sans-font($tutor-book-ui-top-height - 18px, $tutor-book-ui-top-height);
+    font-weight: 900;
+    color: $tutor-book-ap-bio-primary;
+    background: $tutor-book-ap-bio-secondary;
+    padding: 0 40px;
+    height: $tutor-book-ui-top-height;
+    display: inline-block;
+    margin: -68px 0 0 -40px;
+  }
+  [data-type="title"] {
+     @include tutor-sans-font(3rem, 4.6rem);
+    font-weight: 900;
+    border: 0;
+    margin-top: 0;
+    padding-top: 0;
+  }
+  table {
+    tr {
+      border: solid 1px $tutor-neutral-light;
+    }
+      tr:nth-child(odd) {
+      background: $tutor-neutral-lighter;
+   }
+     tr:nth-child(even) {
+      background: $tutor-white;
+   }
+  }
+}

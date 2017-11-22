@@ -14,7 +14,7 @@ LOADERS =
   style:  'style-loader'
   css:    'css-loader?minimize=true'
   less:   'less-loader'
-  scss:   'sass-loader'
+  scss:   'fast-sass-loader'
 
 RESOLVABLES =
   js:     { test: /\.js$/,     use: LOADERS.babel,  exclude: /node_modules/ }

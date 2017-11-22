@@ -1,0 +1,101 @@
+.task-concept_coach,
+.task-practice,
+.task-chapter_practice,
+.task-page_practice,
+.task-practice_worst_topics {
+  .completed-message {
+    @include tutor-completed-message();
+  }
+}
+
+.task-homework {
+  .completed-message {
+    @include tutor-completed-message();
+    @include size-exercise-card();
+
+    ul li {
+      text-align: left;
+    }
+
+    p.link-to-forecast {
+      margin-top: 30px;
+      font-size: 1.6rem;
+    }
+  }
+
+  .task-review {
+    .card-body {
+      @include transition("max-height 0.5s ease-in, padding 0.5s ease-in, margin 0.5s ease-in");
+      max-height: 3000px;
+      overflow: hidden;
+    }
+
+    .homework-review-problem-leave-active {
+      .card-body {
+        max-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        margin: 0;
+      }
+    }
+
+    .homework-review-problem-enter {
+      .card-body {
+        max-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        margin: 0;
+        overflow: hidden;
+      }
+    }
+
+    .homework-review-problem-enter-active {
+      .card-body {
+        @include transition("max-height 0.5s ease-in, padding 0.5s ease-in, margin 0.5s ease-in");
+        max-height: 3000px;
+        padding: $tutor-card-body-padding;
+        margin-bottom: 4rem;
+      }
+    }
+  }
+
+}
+
+.task-practice,
+.task-chapter_practice,
+.task-page_practice,
+.task-practice_worst_topics,
+.task-homework {
+  .exercise-wrapper[data-step-number] {
+    position: relative;
+    &::before {
+      content: attr(data-step-number) ")";
+      position: absolute;
+      z-index: 1;
+      left: $tutor-card-body-padding-horizontal - 32px;
+      top: $tutor-panel-padding-vertical;
+      @include exercise-typography();
+    }
+  }
+  .openstax-question .question-stem[data-question-number] {
+    position: relative;
+    &::before {
+      content: attr(data-question-number) ")";
+      position: absolute;
+      z-index: 1;
+      right: 100%;
+      margin-right: 0.5rem;
+      top: -2px;
+      @include exercise-typography();
+    }
+  }
+}
+
+
+.task-step {
+  .external-step {
+    @include size-exercise-card();
+  }
+}
+
+@import './concept-coach-end';

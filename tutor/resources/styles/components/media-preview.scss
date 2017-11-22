@@ -1,0 +1,51 @@
+.media-preview {
+  max-width: 50%;
+
+  &.popover {
+    z-index: 1;
+  }
+
+  &.scrollable {
+    .popover-content {
+      overflow: auto;
+      width: 100%;
+      height: inherit;
+    }
+  }
+
+  @include tutor-figure();
+  @include tutor-tables($tutor-neutral-light, $tutor-neutral-light);
+
+  table {
+    text-align: left;
+
+    td {
+      padding: 4px;
+    }
+  }
+
+  figure > figcaption + span {
+    min-height: 1.75rem;
+    min-width: 100%;
+    position: relative;
+    @include tutor-subtle-load(will-load, 'Loading...');
+
+    &::after {
+      font-size: 1.75rem;
+      line-height: 1em;
+    }
+  }
+
+  .image-loading {
+    figure {
+      min-width: 300px;
+      span {
+        @include tutor-subtle-load(loading);
+      }
+    }
+  }
+}
+
+.media-preview-link {
+  display: inline-block;
+}

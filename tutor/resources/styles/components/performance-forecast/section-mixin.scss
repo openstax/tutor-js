@@ -1,0 +1,63 @@
+@mixin performance-forecast-panel($spacing: 20px) {
+  padding-top: $spacing;
+  padding-bottom: $spacing;
+  background: $tutor-white;
+  margin-bottom: $spacing;
+  border: 1px solid $tutor-neutral-light;
+  @include make-row();
+}
+
+@mixin performance-forecast-section() {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @include tutor-sans-font(1.4rem, 1.4rem);
+
+  // if the .progress is a direct desendant then it's not inside a button
+  > .progress {
+    margin: 0.5rem 0;
+  }
+
+  .heading {
+    display: flex;
+    .number {
+      margin-right: 0.5rem;
+    }
+    .title {
+      flex: 1;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+
+  .progress-bar-button {
+    margin-top: 0px;
+    width: 100%;
+  }
+  .amount-worked {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 1rem;
+    .count {
+      color: $tutor-neutral;
+      letter-spacing: 0.05rem;
+      &.chapter {
+        margin-top: 10px;
+      }
+    }
+  }
+
+  .progress {
+    height: 0.8rem;
+    margin: 8px;
+    @include performance-forecast-colors();
+  }
+
+  // class is being applied when practice errors
+  // commenting out for now to further discuss with UX
+  // button.is-errored {
+  //   opacity: 0.5;
+  // }
+}

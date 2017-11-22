@@ -1,0 +1,365 @@
+$my-courses-buffer: 40px;
+$my-courses-tablet-buffer: 29px;
+
+$my-courses-item-height: 200px;
+$my-courses-item-tablet-height: 139px;
+
+$my-courses-item-offset: 140px;
+
+$course-transition: 200ms ease-in-out;
+$my-courses-card-padding: 20px;
+
+// use shadow on after for quick fading shadows
+@mixin after-shadow() {
+  position: relative;
+  &::after {
+    @include tutor-shadow(1-inset);
+    content: ' ';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: $course-transition opacity;
+    z-index: -1;
+  }
+}
+
+.my-courses {
+  @mixin card-title() {
+    @include tutor-book-cover-font();
+    font-weight: 800;
+    font-size: 2rem;
+    line-height: 1.25em;
+  }
+
+  .my-courses-current,
+  .my-courses-preview,
+  .my-courses-past {
+    padding-bottom: $my-courses-buffer;
+    background: $tutor-neutral-lighter;
+    border-bottom: 1px solid rgb(200, 200, 200);;
+  }
+  .my-courses-title,{
+    color: $tutor-tertiary;
+  }
+  .course-teacher {
+    &.is-dragging {
+      @include element-is-dragging();
+    }
+  }
+
+  .my-courses-add-zone,
+  .disabled-create-zone {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px dashed $tutor-neutral;
+    a,
+    .mock-tutor-link {
+      color: $tutor-neutral;
+      height: 100%;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      transition: $course-transition color;
+      @include after-shadow();
+      &::after{
+        opacity: 1;
+      }
+      &:hover, &.is-hovering {
+        color: $tutor-info;
+        text-decoration: none;
+        &::after {
+          opacity: 0;
+        }
+      }
+      svg,
+      div > svg {
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    div {
+      text-transform: uppercase;
+      text-align: center;
+      margin: auto;
+
+      svg {
+        display: block;
+        margin: auto;
+      }
+    }
+
+    #icon-add-class {
+      transition: course-transition fill;
+      fill: $tutor-neutral;
+    }
+
+    &:hover {
+      #icon-add-class {
+        fill: $tutor-info;
+      }
+    }
+  }
+
+  .my-courses-title {
+    h1, h2, h3, h4, h5, h6 {
+      margin-bottom: 0;
+    }
+  }
+
+  .my-courses-item,
+  .my-courses-add-zone {
+    position: relative;
+    overflow: hidden;
+    height: 26rem;
+    margin-top: 3rem;
+  }
+
+  .my-courses-past {
+    .my-courses-item[data-is-teacher=false] {
+      opacity: 0.7;
+      transition: $course-transition opacity;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .my-courses-item-wrapper {
+    @include after-shadow();
+
+    &::after {
+      @include tutor-shadow(pop);
+      opacity: 0;
+    }
+
+    .my-courses-item-details {
+      transition: $course-transition transform;
+      &[data-has-controls=true] {
+        @include translate(0, 0);
+      }
+    }
+
+    &:hover {
+      .my-courses-item-details[data-has-controls=true] {
+        @include translate(0, -5.55rem);
+      }
+
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+
+  .my-courses-item {
+    a:hover {
+      text-decoration: none;
+    }
+
+    .my-courses-item-title,
+    .my-courses-item-details {
+      > a {
+        display: block;
+        padding: $my-courses-card-padding;
+        text-decoration: none;
+      }
+    }
+
+    &.preview {
+      box-shadow: 0;
+      transition: box-shadow 0.3s ease-in-out;
+      position: relative;
+      cursor: pointer;
+      &:hover {
+         box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      }
+      > a {
+        padding: $my-courses-card-padding 0;
+        height: 100%;
+        .name {
+          margin: 0;
+          padding: $my-courses-card-padding;
+          @include card-title();
+        }
+        .preview-belt {
+          position: absolute;
+          width: 100%;
+          bottom: 50%;
+          transform: translateY(50%);
+          height: 90px;
+          padding: 0 $my-courses-card-padding;
+          background-color: $tutor-neutral-lightest;
+          background: linear-gradient(140deg, $tutor-white, $tutor-neutral-lighter);
+          box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.2);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          h4 {
+            color: $openstax-gold;
+            text-transform: uppercase;
+          }
+          > * { margin: 0; }
+          p {
+            margin-top: 0.5rem;
+             @include tutor-sans-font(1.4rem);
+            font-weight: 400;
+            color: $tutor-neutral-darker;
+          }
+        }
+      }
+      &.is-building {
+        .preview-belt {
+          align-items: center;
+          h4 { font-size: 14px; }
+        }
+        .ox-loader { width: 100%; }
+      }
+    }
+
+    .my-courses-item-controls {
+      padding: 0 1em $my-courses-card-padding 1em;
+    }
+
+    .my-courses-item-details {
+      background: $tutor-white;
+      color: $tutor-neutral;
+      font-weight: 100;
+
+      a {
+        color: $tutor-neutral;
+      }
+
+      .btn {
+        font-weight: 400;
+      }
+
+      .my-courses-item-brand,
+      .my-courses-item-term {
+        line-height: 1.25em;
+        margin-bottom: 0;
+      }
+
+      .my-courses-item-brand {
+        font-weight: 600;
+      }
+
+      .my-courses-item-term {
+        text-transform: capitalize;
+        font-size: 0.9em;
+      }
+    }
+
+    .my-courses-item-title {
+      line-height: 1.25em;
+      a {
+        height: 19rem;
+        @include card-title();
+        display: block,
+      }
+    }
+    @each $book in map-keys($openstax-books) {
+      $fg: openstax-book-color($book, primary);
+      $bg: openstax-book-color($book, secondary);
+      &[data-appearance=#{$book}] {
+        .my-courses-item-title {
+          color: $fg;
+          a {
+            color: $fg;
+          }
+        }
+        background-color: $bg;
+      }
+    }
+
+  }
+
+  &.pending-faculty-verification {
+    border-bottom: 1px solid $tutor-neutral-light;
+    padding: 3rem;
+
+    .courses {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .locked-card {
+      height: 244px;
+      width: 252px;
+    }
+
+    .locked-card {
+      align-items: center;
+      margin-right: 4rem;
+      position: relative;
+
+      .disabled-create-zone,
+      .mock-tutor-link,
+      .overlay {
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+      }
+
+      .overlay {
+        align-items: center;
+        background-color: fadeout($tutor-neutral-dark, 40%);
+        color: $tutor-neutral-lightest;
+        display: flex;
+        flex-direction: column;
+        font-size: 16px;
+        justify-content: center;
+        padding: 2rem;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .pending-verification-icon {
+        height: 64px;
+        width: 64px;
+        @include tutor-background-image('icons/pending-verification.svg');
+      }
+    }
+    .explain {
+      max-width: 54rem;
+
+      h3 {
+        font-size: 25px;
+      }
+
+      .lead {
+        font-size: 16px;
+        line-height: 25px;
+      }
+    }
+    .chat.btn {
+      background-color: $tutor-dark-blue;
+      border-radius: 3px;
+      color: $tutor-white;
+      cursor: pointer;
+      transition: color 0.3s ease 0s;
+      &:hover {
+        color: $tutor-neutral-lightest;
+      }
+    }
+  }
+
+  #add-course-popover {
+    width: 250px;
+    display: block;
+    top: 50px;
+    left: calc(100% - 10px);
+    width: 250px;
+    z-index: 1;
+  }
+}
+
+.joyride-tooltip[data-target*=create-course-zone] {
+  .joyride-tooltip__footer,
+  .joyride-tooltip__close {
+    display: none;
+  }
+
+}

@@ -1,0 +1,10 @@
+.ox-colored-stripe {
+  height: 10px;
+  display: flex;
+  // flex values are the relative amount each will take up
+  .orange { flex: 1;   background-color: $openstax-primary; }
+  .blue   { flex: 0.6; background-color: $openstax-tertiary; }
+  .red    { flex: 0.4; background-color: $red; }
+  .yellow { flex: 0.5; background-color: $openstax-quaternary; }
+  .teal   { flex: 0.4; background-color: $teal; }
+}

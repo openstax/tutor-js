@@ -1,0 +1,12 @@
+@mixin element-is-dragging() {
+  & > * {
+    visibility: hidden;
+  }
+
+  // need the important for some reason to stop the well
+  // from having the border
+  border-left: 0 !important;
+  background-color: $tutor-neutral-light;
+  @include tutor-shadow(draggable-well);
+
+}

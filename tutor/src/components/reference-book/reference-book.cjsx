@@ -4,7 +4,7 @@ classnames = require 'classnames'
 {SpyMode} = require 'shared'
 
 {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
-
+CourseData = require '../../helpers/course-data'
 NavBar = require './navbar'
 Menu = require './slide-out-menu'
 {ResizeListenerMixin, ChapterSectionMixin} = require 'shared'
@@ -70,6 +70,7 @@ module.exports = React.createClass
       cnxId: @state.cnxId
       section: @state.section
       ecosystemId: @props.ecosystemId
+      dataProps: @props.dataProps
 
     <div {...@props.dataProps} className={className}>
 

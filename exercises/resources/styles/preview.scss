@@ -1,0 +1,20 @@
+.preview-screen {
+
+  padding: 40px;
+}
+
+.preview-navbar-controls {
+  justify-content: center;
+
+  .paging-controls {
+    display: flex;
+    align-items: center;
+    span {
+      border-top: 1px solid;
+      border-bottom: 1px solid;
+      border-color: $btn-default-border;
+      padding: 6px 12px;
+
+    }
+  }
+}

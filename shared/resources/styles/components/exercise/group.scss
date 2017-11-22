@@ -1,0 +1,17 @@
+&-step-group {
+  font-size: 1.6rem;
+  color: $openstax-neutral;
+  padding-bottom: 2rem;
+  padding-top: 0;
+	text-align: right;
+
+	i.fa {
+		display: inline-block;
+		margin: 0 5px;
+	}
+}
+
+&-step-group-label {
+  display: inline-block;
+  margin-left: 0.5rem;
+}

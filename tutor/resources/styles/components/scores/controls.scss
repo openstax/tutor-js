@@ -1,0 +1,47 @@
+.course-scores-report {
+  .controls-wrapper > .controls {
+
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+
+    .spacer {
+      flex: 1;
+    }
+
+    .btn {
+      width: 50px;
+      height: 30px;
+      text-align: center;
+      border-radius: 0;
+      display: inline-flex;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+      &.selected {
+        background-color: $tutor-neutral-light;
+      }
+    }
+
+    .job {
+      font-weight: 200;
+      font-size: 14px;
+      .busy {
+        font-style: italic;
+      }
+    }
+
+    .scores-push,
+    .scores-export {
+      .btn {
+        margin: 0 0.5rem;
+      }
+    }
+
+    .filter-group {
+      height: 30px;
+      margin: 0 0.5rem;
+    }
+
+  }
+}

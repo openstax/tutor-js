@@ -1,0 +1,67 @@
+// Applies a fixed background effect to a container that includes a large fixed header
+//
+// It's intended to be customized for different looks depending on the type of content
+// the user is styling, i.e. Physics, Biology, etc
+
+@mixin tutor-booksplash-background() {
+
+  color: $openstax-book-default-fg;
+  background-color: $openstax-book-default-bg;
+  padding: 3rem 0;
+  @include tutor-book-cover-font();
+
+  > .book-title,
+  > .course-term {
+    @extend .container;
+  }
+
+  > .book-title {
+    font-size: 3.8rem;
+    letter-spacing: 3.8rem * -0.04;
+    line-height: 4.4rem;
+    margin-top: -0.3rem;
+
+    .book-title-text {
+      margin: 0;
+    }
+  }
+
+  &[data-is-preview=true] {
+    .book-title-text::after {
+      content: ' preview';
+      color: $openstax-book-default-fg-inverse;
+      font-weight: normal;
+      font-variant: small-caps;
+      letter-spacing: normal;
+    }
+    .course-term {
+      display: none;
+    }
+
+    @each $book in map-keys($openstax-books) {
+      &[data-appearance='#{$book}'] .book-title-text::after {
+        color: openstax-book-color($book, primary);
+      }
+    }
+  }
+
+  > .course-term {
+    font-weight: 200;
+    line-height: 1em;
+    font-size: 1.6rem;
+    text-transform: capitalize;
+  }
+
+  @each $book in map-keys($openstax-books) {
+    &[data-appearance='#{$book}'] {
+      color: openstax-book-color($book, primary);
+      background-color: openstax-book-color($book, secondary);
+    }
+  }
+
+
+}
+
+@mixin tutor-booksplash-adjust-top-margin($normal-top-margin: 100px, $short-top-margin: 35px) {
+  margin-top: $normal-top-margin;
+}

@@ -1,0 +1,35 @@
+@import "./course-settings/student-access";
+
+.course-page {
+  &.roster,
+  &.settings {
+    .course-settings-title {
+      @include tutor-main-title-font();
+    }
+    .course-settings-subtitle {
+      @include tutor-main-subtitle-font();
+      padding-bottom: 15px;
+    }
+  }
+
+  &.settings {
+    .body {
+      font-size: 16px;
+      line-height: 24px;
+      padding-top: 40px;
+    }
+    .tutor-tabs {
+      margin-left: -$tutor-tabs-horizontal-padding;
+      max-width: 670px + $tutor-tabs-horizontal-padding;
+      margin-bottom: 50px;
+    }
+    .dates-and-times {
+      > div {
+        display: flex;
+        align-items: center;
+        min-height: 35px;
+      }
+    }
+
+  }
+}

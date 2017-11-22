@@ -1,0 +1,84 @@
+%tutor-book-content-questions {
+
+  section {
+    counter-reset: question;
+  }
+
+  @mixin question-number {
+    counter-increment: question;
+    content: counter(question) ". ";
+    display: block;
+    float: left;
+    width: 4%;
+  };
+
+  .exercise[data-type=exercise]:not(.unnumbered) {
+    > [data-type=problem] {
+      > p {
+        margin: 0;
+
+        &::before {
+          @include question-number();
+        }
+      }
+
+      // make fully imported questions imitate embedded exercises
+      // If the list follows something else in the problem,
+      // kinda assume it is most likely multiple-choices.
+      > ol:not(:first-child) {
+        counter-reset: lowerAlpha;
+        list-style: none;
+        padding-left: 3rem;
+
+        li {
+          counter-increment: lowerAlpha;
+          padding-top: 1.5rem;
+          color: $openstax-answer-label-color;
+
+          &::before {
+            content: counter(lowerAlpha, lower-alpha);
+            @include answer-bubble();
+            line-height: 4rem;
+            display: inline-block;
+            text-align: center;
+            margin-right: 1rem;
+          }
+        }
+      }
+
+    }
+
+    &[data-element-type$=quiz] {
+      > [data-type=problem] + [data-type=solution] {
+        display: none;
+      }
+    }
+  }
+
+  .openstax-question {
+    @include tutor-tables($tutor-white, $tutor-white);
+
+    &::before {
+      @include question-number();
+    }
+
+    .question-stem {
+      float: left;
+      width: 96%;
+      img { display: block; }
+
+      p::before {
+        display: none;
+      }
+    }
+
+    .answers-answer {
+      clear: both;
+      margin-left: 30px;
+
+      ol, ul {
+        font-size: inherit;
+      }
+    }
+  }
+}

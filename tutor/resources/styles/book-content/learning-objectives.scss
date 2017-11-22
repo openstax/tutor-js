@@ -1,0 +1,82 @@
+%tutor-book-content-learning-objectives {
+
+  .learning-objectives,
+  [data-type=abstract] {
+
+    // hide the "Section learning Objectives" phrase
+    > div[data-type=title],
+    &:empty,
+    p {
+      display: none;
+    }
+
+    width: 100%;
+    min-height: 100px;
+    @include book-content-full-width();
+    display: inline-flex;
+    margin-top: -$tutor-card-body-padding-vertical;
+    padding: $tutor-book-padding-vertical;
+    border: none;
+
+    &::before {
+      @include tutor-sans-font(1.4rem, 1.8em);
+      text-transform: uppercase;
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0 20px 0 0;
+    }
+
+    &[data-is-intro=true]::before {
+      content: 'In this chapter you will learn about:';
+    }
+
+    &[data-is-intro=false]::before {
+      width: 220px; // keep line length consistent
+
+      content: 'By the end of this section, you will be able to:';
+    }
+
+    &[data-preamble]::before {
+      content: attr(data-preamble);
+    }
+
+    &[data-is-intro=false] {
+      margin-bottom: 3rem;
+      margin-top: -1rem;
+    }
+
+
+    ul {
+      text-transform: none;
+      list-style: disc;
+      margin: 0 0;
+      padding: 0 20px;
+      @include tutor-sans-font(1.8rem, 1.8rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex: 1;
+      border-left-width: 1px;
+      border-left-style: solid;
+
+      li {
+        @include tutor-sans-font(1.5rem, 1.4em);
+        justify-content: center;
+        margin-left: 20px;
+        padding-bottom: 5px;
+        font-weight: 300;
+
+        &::before {
+          content: none;
+          display: none;
+        }
+        .MathJax {
+          margin-left: 2rem;
+        }
+      }
+    }
+    @include printer-safe(inline-flex, inherit, inherit, 10px);
+  }
+}

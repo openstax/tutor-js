@@ -1,0 +1,189 @@
+$exercise-details-body-height: calc(100vh - 150px);
+
+.exercise-details {
+  min-height: $exercise-details-body-height;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .content {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+  }
+  .tutor-paging-navigation {
+    flex: 1;
+  }
+  .controls {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    margin-left: 450px;
+    z-index: 1; // above details forward/back nav when scrolling up
+
+    .pinned-on & {
+      position: fixed;
+      top: 190px;
+      z-index: 10;
+    }
+
+    .pinned-shy & {
+      top: 130px;
+      @include transition('top 0.2s ease-out');
+    }
+
+    .show-cards {
+      color: $tutor-neutral;
+      cursor: pointer;
+    }
+  }
+
+  .exercise-card {
+    width: 800px;
+    &:focus { outline: none; }
+
+    .panel-body {
+      min-height: 600px;
+      padding: 70px 70px 70px 100px !important;
+
+    }
+
+    .controls-overlay {
+      transition: none;
+      height: 100vh;
+    }
+    &.has-interactive {
+      .controls-overlay {
+        left: 400px - $tutor-interactive-iframe-width/2;
+      }
+    }
+  }
+
+  .paging-control {
+    .icon.arrow { position: absolute; }
+  }
+
+}
+
+// switch controls to fixed when not scrolling up
+.pinned-view.pinned-on {
+  .paging-control {
+    .icon.arrow { position: fixed; }
+  }
+
+  .exercise-details {
+    .exercise-card {
+      .controls-overlay {
+        height: 100vh;
+        position: fixed;
+        top: 0px;
+        left: calc(50% - 400px);
+      }
+      &.has-interactive {
+        .controls-overlay {
+          left: calc(50% - #{$tutor-interactive-iframe-width/2} );
+        }
+      }
+    }
+  }
+
+}
+
+.no-exercises-found {
+  text-align: center;
+}
+
+.exercise-controls-bar {
+  $padding-horizontal: 16px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 $padding-horizontal;
+
+  .sectionizer {
+    $size: 40px;
+    flex-wrap: nowrap;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    text-align: center;
+    div {
+      cursor: pointer;
+      display: inline-block;
+      font-size: 12px;
+      width: $size;
+      line-height: $size;
+
+      &.section {
+        border: 1px solid $default-border;
+        height: $size;
+        position: relative;
+        margin-right: 0;
+        margin-left: -1px;
+
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+      &.active {
+        background-color: $tutor-neutral-light;
+        z-index: 10;
+      }
+      &.disabled {
+        cursor: default;
+        color: $tutor-neutral-light;
+      }
+    }
+  }
+
+  .btn-group {
+    box-shadow: none;
+    button:not(.btn-link):not(.btn-flat):not(.btn-fab).btn-default {
+      font-size: 12px;
+      background-size: $icon-size-lg $icon-size-lg;
+      background-repeat: no-repeat;
+      border-radius: 0;
+      box-shadow: none !important;
+      border: 1px solid $tutor-neutral;
+      height: 40px;
+      margin-right: 0;
+      margin-left: -1px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+      &.active {
+        background-color: $tutor-neutral-light;
+        z-index: 10;
+      }
+      .tutor-icon {
+        margin: 0;
+      }
+    }
+    &.filters {
+      button {
+        width: 90px;
+      }
+    }
+    &.display-types {
+      margin-left: 10px;
+      button {
+        width: 40px;
+      }
+    }
+  }
+  .save-cancel {
+    width: 200px;
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+.exercise-cards {
+  .exercise-card {
+    &:focus {
+      @include tab-focus();
+    }
+  }
+}

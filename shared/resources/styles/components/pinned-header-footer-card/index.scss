@@ -1,0 +1,10 @@
+body.pinned-shy {
+  .pinned-header, .navbar-fixed-top {
+    @include make-shy();
+  }
+}
+
+body.pinned-force-shy {
+  // force min height to allow shy scroll on a short task step
+  min-height: 120%;
+}

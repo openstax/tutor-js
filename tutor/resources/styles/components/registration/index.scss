@@ -1,0 +1,10 @@
+.tutor-registration {
+  overflow: hidden;
+  position: relative;
+  margin: $registration-top-margin auto;
+  background: $openstax-white;
+  padding: $registration-base-x-padding $registration-base-y-padding;
+  width: 100%;
+  max-width: 840px;
+  line-height: 2rem;
+}

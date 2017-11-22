@@ -1,0 +1,63 @@
+@import './openstax-bootstrap';
+@import './font-awesome';
+
+@mixin make-tooltip-arrow-border() {
+  content: '';
+  position: inherit;
+  z-index: -1;
+  width: inherit;
+  height: inherit;
+  border-color: inherit;
+  border-style: inherit;
+
+  margin-left: inherit;
+  margin-bottom: inherit;
+  margin-top: inherit;
+  margin-right: inherit;
+}
+
+.tooltip {
+  .tooltip-inner {
+    @include openstax-shadow(pop-center);
+  }
+  &.top {
+    .tooltip-arrow::before {
+      @include make-tooltip-arrow-border();
+
+      bottom: -1px;
+      left: -1px;
+      border-width: ($tooltip-arrow-width + 1px) ($tooltip-arrow-width + 1px) 0;
+      border-top-color: $openstax-neutral;
+    }
+  }
+  &.right {
+    .tooltip-arrow::before {
+      @include make-tooltip-arrow-border();
+
+      top: -1px;
+      left: -1px;
+      border-width: ($tooltip-arrow-width + 1px) ($tooltip-arrow-width + 1px) ($tooltip-arrow-width + 1px) 0;
+      border-right-color: $openstax-neutral;
+    }
+  }
+  &.bottom {
+    .tooltip-arrow::before {
+      @include make-tooltip-arrow-border();
+
+      top: -1px;
+      left: -1px;
+      border-width: 0 ($tooltip-arrow-width + 1px) ($tooltip-arrow-width + 1px);
+      border-bottom-color: $openstax-neutral;
+    }
+  }
+  &.left {
+    .tooltip-arrow::before {
+      @include make-tooltip-arrow-border();
+
+      top: -1px;
+      right: -1px;
+      border-width: ($tooltip-arrow-width + 1px) 0 ($tooltip-arrow-width + 1px) ($tooltip-arrow-width + 1px);
+      border-left-color: $openstax-neutral;
+    }
+  }
+}
