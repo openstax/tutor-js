@@ -9,7 +9,7 @@ import DropStudentLink from './drop-student';
 import CourseGroupingLabel from '../course-grouping-label';
 import StudentIdField from './student-id-field';
 import Period from '../../models/course/period';
-
+import LoadingScreen from '../loading-screen';
 
 @observer
 export default class StudentsRoster extends React.PureComponent {
@@ -50,16 +50,18 @@ export default class StudentsRoster extends React.PureComponent {
           this <CourseGroupingLabel lowercase courseId={courseId} /> yet. Manage student access
           in <TutorLink to="settings" params={{ courseId: courseId }}>Course settings</TutorLink>.
         </p>
-        <TutorLink className="btn btn-default" to="settings" params={{ courseId: this.props.period.course.id }}>Manage student access</TutorLink>
+        <TutorLink primaryBtn to="settings" params={{ courseId: this.props.period.course.id }}>Manage student access</TutorLink>
       </div>
     );
   }
 
   render() {
     const course = this.props.period.course;
-
     const students = course.roster.studentsForPeriod(this.props.period);
 
+    if (!course.roster.api.hasBeenFetched){
+      return <LoadingScreen message="Loading Roster…" />;
+    }
     if (isEmpty(students)) { return this.renderEmpty(course); }
 
     return (
