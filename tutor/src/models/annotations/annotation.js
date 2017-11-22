@@ -12,7 +12,7 @@ export class AnnotationSelector extends BaseModel {
 
   @field chapter;
   @field content;
-  @field ecosystemId;
+  @field courseId;
   @field end;
   @field section;
   @field start;
@@ -51,8 +51,8 @@ export default class Annotation extends BaseModel {
     return get(this, 'target[0].selector[0]', {});
   }
 
-  @computed get ecosystemId() {
-    return this.selection.ecosystemId;
+  @computed get courseId() {
+    return this.selection.courseId;
   }
 
   @computed get chapter() {

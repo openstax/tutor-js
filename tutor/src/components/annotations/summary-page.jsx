@@ -158,8 +158,8 @@ class AnnotationCard extends React.Component {
 
   @autobind
   openPage() {
-    const {ecosystemId, chapter, section} = this.props.entry.selection;
-    let url = `/books/${ecosystemId}/section/${chapter}`;
+    const { courseId, chapter, section } = this.props.entry.selection;
+    let url = `/books/${courseId}/section/${chapter}`;
 
     if (section) {
       url += `.${section}`;

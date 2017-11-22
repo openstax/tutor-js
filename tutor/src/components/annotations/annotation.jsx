@@ -133,7 +133,7 @@ const WindowShade = ({show, children}) => (
 export default class AnnotationWidget extends React.Component {
 
   static propTypes = {
-    ecosystemId: React.PropTypes.string.isRequired,
+    courseId: React.PropTypes.string.isRequired,
     documentId: React.PropTypes.string.isRequired,
     windowImpl: React.PropTypes.shape({
       open: React.PropTypes.func
@@ -169,7 +169,7 @@ export default class AnnotationWidget extends React.Component {
   }
 
   @computed get allAnnotationsForThisBook() {
-    return filter(User.annotations.array, { ecosystemId: this.props.ecosystemId });
+    return filter(User.annotations.array, { courseId: this.props.courseId });
   }
 
   componentDidMount() {
@@ -369,7 +369,7 @@ export default class AnnotationWidget extends React.Component {
     return User.annotations.create({
       documentId: this.props.documentId,
       selection: this.savedSelection,
-      ecosystemId: this.props.ecosystemId,
+      courseId: this.props.courseId,
       chapter: this.props.chapter,
       section: this.props.section,
       title: this.props.title,
