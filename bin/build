@@ -38,13 +38,13 @@ if [ "$2" = "archive" ]; then
     ext="${filename:${#base} + 1}"  # Substring from len of base thru end
     hashed=$base-$SHA.$ext
     if [ "$LAST_FILE" ]; then
-        echo -n "," >> ./rev-manifest.json
+        echo "," >> ./rev-manifest.json
     fi
     echo -n '  "'$minified'": "'$hashed'"' >> ./rev-manifest.json
     LAST_FILE=$hashed
     cp $minified $hashed
   done
-  echo "}" >> ./rev-manifest.json
+  echo -e "\n}" >> ./rev-manifest.json
   cd ..
   tar -czf ../archive.tar.gz -C ./dist .
   mv ../archive.tar.gz ./dist/
