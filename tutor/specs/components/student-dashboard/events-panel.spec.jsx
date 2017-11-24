@@ -8,11 +8,12 @@ import EventsPanel from '../../../src/components/student-dashboard/events-panel'
 import chronokinesis from 'chronokinesis';
 
 describe('EventsPanel', function() {
+  let props;
 
   beforeEach(function() {
     chronokinesis.travel(new Date('2017-10-14T12:00:00.000Z'));
     moment.tz.setDefault('America/Chicago');
-    this.props = {
+    props = {
       events: MOCK_DASHBOARD_RESPONSE.tasks,
       courseId: '1',
       isCollege: false,
@@ -25,18 +26,18 @@ describe('EventsPanel', function() {
   });
 
   it('renders with events', function() {
-    expect(SnapShot.create(<EventsPanel {...this.props} />).toJSON()).toMatchSnapshot();
+    expect(SnapShot.create(<EventsPanel {...props} />).toJSON()).toMatchSnapshot();
   });
 
   it('renders with events as named', function() {
-    const wrapper = mount(<EventsPanel {...this.props} />);
+    const wrapper = mount(<EventsPanel {...props} />);
     const renderedTitles = wrapper.find('.title').map(item => item.text());
     const mockTitles = map(MOCK_DASHBOARD_RESPONSE.tasks, 'title');
     expect(renderedTitles).to.deep.equal(mockTitles);
   });
 
   it('renders late only for homework when isCollege is false', function() {
-    const wrapper = mount(<EventsPanel {...this.props} />);
+    const wrapper = mount(<EventsPanel {...props} />);
     const mockHomeworkTasks = filter(
       MOCK_DASHBOARD_RESPONSE.tasks, { type: 'homework', complete: false }
     );
@@ -44,9 +45,10 @@ describe('EventsPanel', function() {
   });
 
   it('renders late only for all tasks when isCollege is true', function() {
-    this.props.isCollege = true;
-    const wrapper = mount(<EventsPanel {...this.props} />);
+    props.isCollege = true;
+    const wrapper = mount(<EventsPanel {...props} />);
     const mockTasks = filter(MOCK_DASHBOARD_RESPONSE.tasks, { complete: false });
     expect(wrapper.find('.late').length).to.equal(mockTasks.length);
   });
+
 });
