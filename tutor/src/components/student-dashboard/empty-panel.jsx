@@ -1,10 +1,10 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 import { Panel } from 'react-bootstrap';
 import StudentTasks from '../../models/student-tasks';
 import Icon from '../icon';
 
-const EmptyPanel = ({ courseId, message, title }) => {
-
+const EmptyPanel = observer(({ courseId, message, title }) => {
   if (StudentTasks.get(courseId).isFetchingInitialUpdates) {
     return (
       <Panel className="empty" header={title}>
@@ -18,7 +18,7 @@ const EmptyPanel = ({ courseId, message, title }) => {
       {message}
     </Panel>
   );
-};
+});
 
 EmptyPanel.propTypes = {
   courseId: React.PropTypes.string.isRequired,
