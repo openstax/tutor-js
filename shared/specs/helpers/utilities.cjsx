@@ -1,6 +1,5 @@
 React = require 'react'
-ReactTestUtils = require 'react-addons-test-utils'
-
+ReactTestUtils = require 'react-dom/test-utils'
 {Promise} = require 'es6-promise'
 _ = require 'underscore'
 
