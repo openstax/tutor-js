@@ -203,7 +203,7 @@ export default class Course extends BaseModel {
   @computed get notifyAboutRosterSplit() {
     return Boolean(
       !this.is_preview &&
-      this.primaryRole.joinedAgo('days') > 7 &&
+      this.primaryRole.joinedAgo('days') <= 7 &&
       find(this.map.nonPreview.teaching.array,
            c => c != this && c.isBeforeTerm('winter', 2017))
     );
