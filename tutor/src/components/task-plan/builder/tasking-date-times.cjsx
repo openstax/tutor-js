@@ -7,6 +7,7 @@ moment = require 'moment-timezone'
 TimeHelper  = require '../../../helpers/time'
 {default: Courses} = require '../../../models/courses-map'
 {TaskingActions, TaskingStore} = require '../../../flux/tasking'
+BindStoreMixin     = require '../../bind-store-mixin'
 
 Icon = require '../../icon'
 DateTime = require './date-time'
@@ -25,6 +26,12 @@ TaskingDateTimes = React.createClass
 
   getDefaultProps: ->
     bsSizes: { sm: 8, md: 9 }
+
+  mixins: [BindStoreMixin]
+  bindStore: TaskingStore
+  bindEvent: ->
+    type = if @props.period then @props.period.id else 'all'
+    "taskings.#{@props.id}.#{type}.changed"
 
   getError: ->
     return false unless @refs?.due?.hasValidInputs() and @refs?.open?.hasValidInputs()
