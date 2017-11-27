@@ -45,8 +45,9 @@ describe('Course Model', () => {
   it('calculates audience tags', () => {
     expect(Courses.get(1).tourAudienceTags).toEqual(['student']);
     const teacher = Courses.get(2);
+    expect(teacher.tourAudienceTags).toEqual(['teacher']);
+    teacher.primaryRole.joined_at = new Date();
     expect(teacher.tourAudienceTags).toEqual(['teacher', 'teacher-settings-roster-split']);
-
     teacher.is_preview = true;
     expect(teacher.tourAudienceTags).toEqual(['teacher-preview']);
     const course = Courses.get(3);
