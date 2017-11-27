@@ -10,8 +10,8 @@ ERROR_CODES =
 class Email extends EventEmitter2
 
   constructor: (@user, attrs) ->
-    _.extend(@, attrs)
     super()
+    _.extend(@, attrs)
 
   sendVerification: (pin, successCallBack) ->
     @makeRequest('confirm_by_pin', {pin}).then (resp) =>
@@ -55,6 +55,7 @@ class User extends EventEmitter2
     @_current_user = new User(data)
 
   constructor: (data) ->
+    super()
     @attibutes = data
     @emails = _.map @attibutes.contact_infos, (ci) => new Email(@, ci)
 
