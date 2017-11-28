@@ -5,8 +5,6 @@ chai.use(sinonChai)
 isFunction = require('lodash/isFunction')
 
 global.enzyme = require 'enzyme'
-chaiEnzyme = require('chai-enzyme')
-chai.use(chaiEnzyme())
 
 global.Promise = require.requireActual('es6-promise')
 

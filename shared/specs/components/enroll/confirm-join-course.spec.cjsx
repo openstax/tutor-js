@@ -1,4 +1,4 @@
-{Testing, expect, sinon, _, ReactTestUtils} = require 'shared/specs/helpers'
+{Testing, sinon, _, ReactTestUtils} = require 'shared/specs/helpers'
 
 React = require 'react'
 
@@ -82,7 +82,7 @@ describe 'ConfirmJoinCourse Component', ->
         courseEnrollmentActions={@courseEnrollmentActions}
         courseEnrollmentStore={COURSE_ENROLLMENT_STORE_WITHOUT_CONFLICT}
         />)
-      expect(wrapper.find('.conflicts li')).to.be.empty
+        expect(wrapper.find('.conflicts li').length).toEqual(0)
       undefined
 
     it 'displays info about the course being joined', ->
