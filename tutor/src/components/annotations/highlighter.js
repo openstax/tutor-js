@@ -928,9 +928,9 @@
      * @static
      */
     TextHighlighter.createWrapper = function (options) {
-        var span = document.createElement('tutor-highlight');
-
-        return span;
+      var span = document.createElement('span');
+      span.className = 'tutor-highlight';
+      return span;
     };
 
     global.TextHighlighter = TextHighlighter;
