@@ -151,8 +151,8 @@ export default class AnnotationWidget extends React.Component {
   @computed get annotationsForThisPage() {
     return this.allAnnotationsForThisBook.filter(item =>
       (item.selection.chapter === this.props.chapter) &&
-                                                       (item.selection.section === this.props.section) &&
-                                                       this.referenceElements.find((el) => el.id === item.selection.elementId)
+      (item.selection.section === this.props.section) &&
+      this.referenceElements.find((el) => el.id === item.selection.elementId)
     );
   }
 
@@ -199,34 +199,13 @@ export default class AnnotationWidget extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.documentId !== this.props.documentId) {
       this.initializePage();
-    };
+    }
     this.widgetStyle = null;
     this.activeHighlight = null;
   }
 
-  // componentDidUpdate() {
-  //   this.getReferenceElements();
-  //   if (this.savedSelection) {
-  //     const selection = this.props.windowImpl.getSelection();
-
-  //     if (selection.isCollapsed) {
-  //       this.savedSelection.restore();
-  //     }
-  //   }
-
-  //   const navElements = document.querySelectorAll([
-  //     '.center-panel',
-  //     '.reading-content'
-  //   ].join(','));
-
-  //   for (const el of navElements) {
-  //     el.style.display = this.showWindowShade ? 'none' : '';
-  //   }
-
-  // }
-
   componentWillUnmount() {
-    this.props.windowImpl.document.removeEventListener('selectionchange', this.handleSelectionChange)
+    this.props.windowImpl.document.removeEventListener('selectionchange', this.handleSelectionChange);
   }
 
   initializePage() {
