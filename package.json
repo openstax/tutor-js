@@ -117,7 +117,6 @@
     "blanket": "1.2.3",
     "chai": "3.5.0",
     "chai-as-promised": "6.0.0",
-    "chai-enzyme": "0.6.1",
     "check-dependencies": "1.0.1",
     "chronokinesis": "1.3.2",
     "coffee-jsx-loader": "0.1.5",
