@@ -2,7 +2,7 @@ import { get } from 'lodash';
 import { computed, action } from 'mobx';
 import Hypothesis from './hypothesis';
 import {
-  BaseModel, identifiedBy, field, identifier, belongsTo, hasMany,
+  BaseModel, identifiedBy, field, identifier, session, hasMany,
 } from '../base';
 
 @identifiedBy('annotations/annotation/target')
@@ -45,6 +45,7 @@ export default class Annotation extends BaseModel {
   @field({ type: 'object' }) links;
   @field({ type: 'object' }) permissions;
   @field({ type: 'array' }) tags;
+  @session({ type: 'object' }) style;
   @hasMany({ model: AnnotationTarget }) target;
 
   @computed get selection() {

@@ -6,6 +6,7 @@ import Icon from '../icon';
 import cn from 'classnames';
 import User from '../../models/user';
 import Annotations from '../../models/annotations';
+import Annotation from '../../models/annotations/annotation';
 import SuretyGuard from 'shared/src/components/surety-guard';
 
 
@@ -87,8 +88,8 @@ class FilterWidget extends React.Component {
             checked={this.props.selectedChapters.length === this.parsedChapters.length}
           />
           {
-            this.parsedChapters.map((ch) => (
-              <CheckBoxEntry key={ch}
+            this.parsedChapters.map((ch, i) => (
+              <CheckBoxEntry key={i}
                 value={ch}
                 text={`Chapter ${ch}`}
                 changeSelection={this.setChapter}
@@ -132,11 +133,11 @@ class EditBox extends React.Component {
 @observer
 class AnnotationCard extends React.Component {
 
-  // static propTypes = {
-  //   entry: React.PropTypes.object required
-  //   doDelete: React.PropTypes.func.isRequired
-  //   updateAnnotation: React.PropTypes.func.isRequired
-  // };
+  static propTypes = {
+    entry: React.PropTypes.instanceOf(Annotation).isRequired,
+    doDelete: React.PropTypes.func.isRequired,
+    updateAnnotation: React.PropTypes.func.isRequired,
+  };
 
   @observable editing = false;
 
@@ -158,13 +159,12 @@ class AnnotationCard extends React.Component {
 
   @autobind
   openPage() {
-    const { courseId, chapter, section } = this.props.entry.selection;
+    const { id, selection: { courseId, chapter, section } } = this.props.entry;
     let url = `/books/${courseId}/section/${chapter}`;
-
     if (section) {
       url += `.${section}`;
     }
-
+    url += `#highlight-${id}`;
     window.open(url, '_blank');
   }
 
@@ -296,20 +296,19 @@ export default class AnnotationSummaryPage extends React.Component {
         </div>
         <div className="annotations">
           {
-            this.selectedHighlightedPages
-            .map((ch) =>
-              <div key={ch}>
+            this.selectedHighlightedPages.map((ch, i) =>
+              <div key={i}>
                 <h1>{ch}</h1>
                 {
                   this.annotationsFromThisBook
-                  .filter((e) => this.chapterAndSection(e) === ch)
-                  .map((entry) => (
-                    <AnnotationCard key={entry.selection.start}
-                      entry={entry}
-                      doDelete={() => this.props.deleteEntry(entry.savedId)}
-                      updateAnnotation={this.props.updateAnnotation}
-                    />
-                  ))
+                      .filter((e) => this.chapterAndSection(e) === ch)
+                      .map((entry) => (
+                        <AnnotationCard key={entry.id}
+                          entry={entry}
+                          doDelete={() => this.props.deleteEntry(entry.savedId)}
+                          updateAnnotation={this.props.updateAnnotation}
+                        />
+                      ))
                 }
               </div>
             )
