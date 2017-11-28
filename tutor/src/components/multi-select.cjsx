@@ -44,7 +44,7 @@ MultiSelect = React.createClass
 
   render: ->
     <div className={classnames('multi-select', @props.className)}>
-       <BS.DropdownButton pullRight
+       <BS.DropdownButton
          id='multi-select'
          onSelect={@onSelect}
          title={@props.title}
