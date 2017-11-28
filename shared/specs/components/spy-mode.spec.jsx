@@ -5,7 +5,6 @@ import { Wrapper, Content } from 'components/spy-mode';
 
 function TestChildComponent() {
   return React.createElement('span', {}, 'i am a test');
-
 }
 
 describe('SpyMode', function() {
