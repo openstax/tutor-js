@@ -188,7 +188,7 @@ export default class AnnotationWidget extends React.Component {
     }, 80);
 
     when(
-      () => User.annotations.any,
+      () => !User.annotations.api.isPending,
       () => {
         this.props.windowImpl.document.addEventListener('selectionchange', this.handleSelectionChange);
         this.initializePage();
