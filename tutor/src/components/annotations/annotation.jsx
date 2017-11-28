@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, when } from 'mobx';
 import { autobind } from 'core-decorators';
 import serializeSelection from 'serialize-selection';
 import './highlighter';
@@ -8,11 +8,12 @@ import User from '../../models/user';
 import { pick, debounce, filter } from 'lodash';
 import Icon from '../icon';
 import SummaryPage from './summary-page';
-
+import imagesComplete from '../../helpers/images-complete';
+import { Logging } from 'shared';
 /*
-  NOTE: Nathan pointed out that putting this into book-content-mixin could save
-  having to explicitly include it in the pages that display book-content.
-*/
+   NOTE: Nathan pointed out that putting this into book-content-mixin could save
+   having to explicitly include it in the pages that display book-content.
+ */
 
 const highlighter = new TextHighlighter(document.body);
 
@@ -36,6 +37,7 @@ function scrollToSelection(win, selection) {
   const startPos = win.pageYOffset;
   const startTime = Date.now();
   const endPos = sRect.top - marginTop;
+
   const duration = 400; // milliseconds
   // Formulas lifted from ScrollToMixin, which I can't use here
   const EASE_IN_OUT = (t) => (
@@ -47,7 +49,6 @@ function scrollToSelection(win, selection) {
 
   const step = () => {
     const elapsed = Date.now() - startTime;
-
     win.scrollTo(0, POSITION(startPos, endPos, elapsed, duration));
     if (elapsed < duration) {
       requestAnimationFrame(step);
@@ -59,10 +60,10 @@ function scrollToSelection(win, selection) {
 
 const HighlightWidget = ({style, annotate, highlight}) => (
   style ?
-    <div className="widget arrow-box" style={style}>
-      <Icon type="comment" alt="annotate" onClick={annotate} />
-      <Icon type="pencil" alt="highlight" onClick={highlight} />
-    </div>
+  <div className="widget arrow-box" style={style}>
+    <Icon type="comment" alt="annotate" onClick={annotate} />
+    <Icon type="pencil" alt="highlight" onClick={highlight} />
+  </div>
   : null
 );
 
@@ -94,17 +95,9 @@ const EditBox = (props) => {
 };
 
 const SidebarButtons = ({items, onClick, highlightEntry}) => {
-  if (highlightEntry) {
-    highlighter.removeHighlights();
-  }
-
   return (
     <div>
       {items.map((item, index) => {
-         if (highlightEntry) {
-           highlightEntry(item);
-         }
-
          return (item.text.length ?
                  <Icon type="comment"
                    className="sidebar-button"
@@ -147,19 +140,19 @@ export default class AnnotationWidget extends React.Component {
 
   @observable activeHighlight = null;
   @observable widgetStyle = null;
-  @observable needToGetReferenceElements = true;
+  @observable scrollToPendingAnnotation;
   @computed get showWindowShade() {
     return User.annotations.ux.isSummaryVisible;
   }
-
+  @observable canRenderSidebarButtons = false;
   @observable parentRect = {};
   @observable referenceElements = [];
 
   @computed get annotationsForThisPage() {
     return this.allAnnotationsForThisBook.filter(item =>
       (item.selection.chapter === this.props.chapter) &&
-      (item.selection.section === this.props.section) &&
-      this.referenceElements.find((el) => el.id === item.selection.elementId)
+                                                       (item.selection.section === this.props.section) &&
+                                                       this.referenceElements.find((el) => el.id === item.selection.elementId)
     );
   }
 
@@ -167,58 +160,98 @@ export default class AnnotationWidget extends React.Component {
     return filter(User.annotations.array, { courseId: this.props.courseId });
   }
 
+  setupPendingHighlightScroll(windowHash) {
+    const highlightMatch = windowHash.match(/highlight-(.*)/);
+    if (!highlightMatch) { return; }
+    this.scrollToPendingAnnotation = () => {
+      const id = highlightMatch[1];
+      const annotation = User.annotations.get(id);
+      if (annotation) {
+        const selection = this.restoreSelectionWithReferenceId(annotation.selection);
+        scrollToSelection(this.props.windowImpl, selection);
+      } else {
+        Logging.error(`Page attempted to scroll to annotation id '${id}' but it was not found`);
+      }
+      this.scrollToPendingAnnotation = null;
+    };
+  }
+
   componentDidMount() {
+    if (this.props.windowImpl.location.hash) {
+      this.setupPendingHighlightScroll(this.props.windowImpl.location.hash);
+    }
+
     this.handleSelectionChange = debounce(() => {
       if (!this.activeHighlight) {
         this.setWidgetStyle();
       }
     }, 80);
-    this.props.windowImpl.document.addEventListener('selectionchange', this.handleSelectionChange);
+
+    when(
+      () => User.annotations.any,
+      () => {
+        this.props.windowImpl.document.addEventListener('selectionchange', this.handleSelectionChange);
+        this.initializePage();
+      },
+    );
   }
 
   componentWillReceiveProps(nextProps) {
-    this.needToGetReferenceElements = nextProps.documentId !== this.props.documentId;
-    if (this.needToGetReferenceElements) {
-      this.widgetStyle = null;
-      this.activeHighlight = null;
-    }
+    if (nextProps.documentId !== this.props.documentId) {
+      this.initializePage();
+    };
+    this.widgetStyle = null;
+    this.activeHighlight = null;
   }
 
-  componentDidUpdate() {
-    this.getReferenceElements();
-    if (this.savedSelection) {
-      const selection = this.props.windowImpl.getSelection();
+  // componentDidUpdate() {
+  //   this.getReferenceElements();
+  //   if (this.savedSelection) {
+  //     const selection = this.props.windowImpl.getSelection();
 
-      if (selection.isCollapsed) {
-        this.savedSelection.restore();
-      }
-    }
+  //     if (selection.isCollapsed) {
+  //       this.savedSelection.restore();
+  //     }
+  //   }
 
-    const navElements = document.querySelectorAll([
-      '.center-panel',
-      '.reading-content'
-    ].join(','));
+  //   const navElements = document.querySelectorAll([
+  //     '.center-panel',
+  //     '.reading-content'
+  //   ].join(','));
 
-    for (const el of navElements) {
-      el.style.display = this.showWindowShade ? 'none' : '';
-    }
+  //   for (const el of navElements) {
+  //     el.style.display = this.showWindowShade ? 'none' : '';
+  //   }
 
-  }
+  // }
 
   componentWillUnmount() {
     this.props.windowImpl.document.removeEventListener('selectionchange', this.handleSelectionChange)
   }
 
+  initializePage() {
+    this.getReferenceElements();
+    imagesComplete(
+      this.props.windowImpl.document.querySelector('.book-content')
+    ).then(() => {
+      this.annotationsForThisPage.forEach((annotation) => {
+        this.highlightEntry(annotation);
+      });
+      this.canRenderSidebarButtons = true;
+      if (this.scrollToPendingAnnotation) {
+        this.scrollToPendingAnnotation();
+      }
+    });
+  }
+
   @action.bound
   highlightEntry(entry) {
     const selection = this.restoreSelectionWithReferenceId(entry.selection);
-
     if (selection) {
       const rect = getSelectionRect(this.props.windowImpl, selection);
-
       entry.style = {
         top: rect.top - this.parentRect.top,
-        position: 'absolute'
+        position: 'absolute',
       };
       highlighter.doHighlight();
     }
@@ -266,7 +299,6 @@ export default class AnnotationWidget extends React.Component {
   @action.bound
   setWidgetStyle() {
     const selection = this.props.windowImpl.getSelection();
-
     // If it's a cursor placement with no highlighted text, check
     // for whether it's in an existing highlight
     if (selection.isCollapsed) {
@@ -286,6 +318,7 @@ export default class AnnotationWidget extends React.Component {
       }
     } else if (this.isNotHighlightable()){
       this.savedSelection = this.saveSelectionWithReferenceId();
+
       console.warn("Selection must be in .book-content and not overlap other selections");
       this.widgetStyle = null;
     } else {
@@ -302,14 +335,10 @@ export default class AnnotationWidget extends React.Component {
 
   @action
   getReferenceElements() {
-    if (this.needToGetReferenceElements) {
-      this.needToGetReferenceElements = false;
+    this.referenceElements = Array.from(
+      this.articleElement.querySelectorAll('.book-content > [id]')
+    ).reverse();
 
-      this.referenceElements = Array.from(
-        this.articleElement.querySelectorAll('.book-content > [id]')
-      ).reverse();
-
-    }
   }
 
   @autobind
@@ -441,6 +470,16 @@ export default class AnnotationWidget extends React.Component {
     this.activeHighlight = null;
   }
 
+  renderSideBarButtons() {
+    if (!this.canRenderSidebarButtons) { return null; }
+    return (
+      <SidebarButtons items={this.annotationsForThisPage}
+        onClick={(item) => {this.activeHighlight = item}}
+        highlightEntry={this.activeHighlight || this.widgetStyle ? null : this.highlightEntry}
+      />
+    );
+  }
+
   render() {
     return this.props.pageType === 'reading' ?
       <div className="annotater" ref={this.getParentRect}>
@@ -459,10 +498,8 @@ export default class AnnotationWidget extends React.Component {
           previous={this.previousAnnotation}
           seeAll={this.seeAll}
         />
-        <SidebarButtons items={this.annotationsForThisPage}
-          onClick={(item) => {this.activeHighlight = item}}
-          highlightEntry={this.activeHighlight || this.widgetStyle ? null : this.highlightEntry}
-        />
+        {this.renderSideBarButtons()}
+
         <WindowShade show={this.showWindowShade}>
           <SummaryPage
             items={this.allAnnotationsForThisBook.slice()}
