@@ -219,13 +219,13 @@ export default class AnnotationSummaryPage extends React.Component {
 
   @computed get annotationsFromThisBook() {
     return this.props.items
-    .sort((a, b) => (
-      (a.selection.chapter - b.selection.chapter) ||
-      (a.selection.section - b.selection.section) ||
-      (a.selection.start - b.selection.start)
-    ))
-    .filter(e => e.selection.chapter);
-  };
+      .filter(e => e.selection.chapter)
+      .sort((a, b) => (
+        (a.selection.chapter - b.selection.chapter) ||
+        (a.selection.section - b.selection.section) ||
+        (a.selection.start - b.selection.start)
+      ));
+  }
 
   // unique list of pages that contain highlights
   @computed get highlightedPages() {
