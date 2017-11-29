@@ -10,6 +10,8 @@ import Icon from '../icon';
 import SummaryPage from './summary-page';
 import imagesComplete from '../../helpers/images-complete';
 import { Logging } from 'shared';
+import Courses from '../../models/courses-map';
+
 /*
    NOTE: Nathan pointed out that putting this into book-content-mixin could save
    having to explicitly include it in the pages that display book-content.
@@ -148,6 +150,10 @@ export default class AnnotationWidget extends React.Component {
   @observable parentRect = {};
   @observable referenceElements = [];
 
+  @computed get course() {
+    return Courses.get(this.props.courseId);
+  }
+
   @computed get annotationsForThisPage() {
     return this.allAnnotationsForThisBook.filter(item =>
       (item.selection.chapter === this.props.chapter) &&
@@ -177,6 +183,8 @@ export default class AnnotationWidget extends React.Component {
   }
 
   componentDidMount() {
+    if (!this.course.canAnnotate) { return; }
+
     if (this.props.windowImpl.location.hash) {
       this.setupPendingHighlightScroll(this.props.windowImpl.location.hash);
     }
@@ -197,6 +205,8 @@ export default class AnnotationWidget extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (!this.course.canAnnotate) { return; }
+
     if (nextProps.documentId !== this.props.documentId) {
       this.initializePage();
     }
@@ -460,7 +470,9 @@ export default class AnnotationWidget extends React.Component {
   }
 
   render() {
-    return this.props.pageType === 'reading' ?
+    if (!this.course.canAnnotate) { return null; }
+
+    return (
       <div className="annotater" ref={this.getParentRect}>
         <HighlightWidget
           style={this.widgetStyle}
@@ -488,9 +500,7 @@ export default class AnnotationWidget extends React.Component {
           />
         </WindowShade>
       </div>
-      :
-      null
-    ;
+    );
   }
 
 }

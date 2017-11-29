@@ -170,52 +170,9 @@
 
   .filter-widget {
     display: flex;
-    position: relative;
+    flex-direction: column;
     width: 40rem;
-
-    .selected-item {
-      background-color: @tutor-white;
-      border: thin solid @tutor-neutral-light;
-      height: 3rem;
-      flex: 1 1 100%;
-    }
-
-    .activator {
-      background-color: @tutor-neutral-bright;
-      border: thin solid @tutor-neutral-light;
-      display: flex;
-      justify-content: center;
-      padding: 0 1rem;
-
-      > i {
-        margin: 0;
-        padding-bottom: 0.25em;
-      }
-    }
-
-    .options-dropdown {
-      border: thin solid @tutor-neutral-light;
-      display: none;
-
-      &.down {
-        background-color: @tutor-white;
-        display: block;
-        position: absolute;
-        min-height: 4rem;
-        width: 100%;
-        top: 100%;
-      }
-
-      label {
-        display: block;
-        padding: 0.5rem;
-      }
-
-      [type="checkbox"] {
-        margin: 0 1rem;
-      }
-    }
-
+    .rw-widget { width: 100%; }
   }
 
   .annotation-card {
