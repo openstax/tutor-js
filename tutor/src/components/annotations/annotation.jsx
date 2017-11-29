@@ -275,7 +275,6 @@ export default class AnnotationWidget extends React.Component {
     return serializeSelection.restore(savedSelection, el);
   }
 
-  // Needs fixed
   cantHighlightReason() {
     // Is it a selectable area?
     if (!this.saveSelectionWithReferenceId()) {
@@ -414,7 +413,7 @@ export default class AnnotationWidget extends React.Component {
     });
   }
 
-  @autobind
+  @action.bound
   deleteEntry(annotation) {
     User.annotations.destroy(annotation).then(() => {
       const selection = this.restoreSelectionWithReferenceId(annotation.selection);
