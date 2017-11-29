@@ -38,7 +38,7 @@ export default class AnnotationSummaryPage extends React.Component {
   @observable _displayedChapters;
 
   @computed get displayedChapters() {
-    return this._displayedChapters ? this._displayedChapters : this.highlightedPages;
+    return this._displayedChapters || this.highlightedPages;
   }
 
   set displayedChapters(values) { this._displayedChapters = values; }
