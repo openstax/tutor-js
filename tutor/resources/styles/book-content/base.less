@@ -2,9 +2,6 @@
 // Hide titles, abstracts and CNX Processing instructions
 
 // Default font for text content
-&:focus {
-  outline: 0;
-}
 p,
 ul,
 ol {
@@ -98,4 +95,9 @@ figure {
       }
     }
   }
+}
+
+// don't display outline when focused
+&:focus {
+  outline: 0;
 }
