@@ -9,6 +9,13 @@ import SuretyGuard from 'shared/src/components/surety-guard';
 @observer
 class EditBox extends React.Component {
 
+  static propTypes = {
+    text: React.PropTypes.string.isRequired,
+    dismiss: React.PropTypes.func.isRequired,
+    save: React.PropTypes.func.isRequired,
+    show: React.PropTypes.bool.isRequired,
+  };
+
   @autobind
   callUpdateText() {
     this.props.save(this.refs.textarea.value);
@@ -16,19 +23,18 @@ class EditBox extends React.Component {
   }
 
   render() {
-    const {show, text, save, dismiss} = this.props;
-
-    return show ?
-           <div className="edit-box">
-             <textarea ref="textarea" defaultValue={text}></textarea>
-             <button onClick={this.callUpdateText}><Icon type="check" /></button>
-             <button onClick={dismiss}><Icon type="times" /></button>
-           </div>
-:
-           <div className="plain-text">
-             {text}
-           </div>
-    ;
+    const { show, text, dismiss } = this.props;
+    return show ? (
+      <div className="edit-box">
+        <textarea ref="textarea" defaultValue={text}></textarea>
+        <button onClick={this.callUpdateText}><Icon type="check" /></button>
+        <button onClick={dismiss}><Icon type="times" /></button>
+      </div>
+    ) : (
+      <div className="plain-text">
+        {text}
+      </div>
+    );
   }
 }
 
