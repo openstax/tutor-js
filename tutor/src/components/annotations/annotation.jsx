@@ -344,9 +344,11 @@ export default class AnnotationWidget extends React.Component {
         const rect = getSelectionRect(this.props.windowImpl, selection);
         const pwRect = this.parentRect;
         this.hideErrorDisplay();
+        const middle = (rect.bottom - rect.top) / 2;
+        const center = (rect.right - rect.left) / 2;
         this.widgetStyle = {
-          top: `${rect.bottom - pwRect.top}px`,
-          left: `${rect.left - pwRect.left}px`
+          top: `${rect.bottom - middle - pwRect.top}px`,
+          left: `${(rect.left + center) - pwRect.left}px`,
         };
       }
     }
