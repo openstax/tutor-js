@@ -2,6 +2,21 @@
   .ost-hero-modal();
 }
 
+.warning.modal .modal-header,
+.modal-header.warning {
+  background-color: #f5e9ea;
+  color: #b33238;
+  display: flex;
+  align-items: center;
+  padding: 25px 50px;
+  .tutor-icon {
+    font-size: 24px;
+    color: @tutor-danger;
+    margin-right: 0.5rem;
+  }
+}
+
+
 .warning.modal {
 
   &.warning.in {
@@ -10,19 +25,5 @@
     }
   }
 
-  &.warning .modal-header,
-  .modal-header.warning
-  {
-    background-color: #f5e9ea;
-    color: #b33238;
-    display: flex;
-    align-items: center;
-    padding: 25px 50px;
-    .tutor-icon {
-      font-size: 24px;
-      color: @tutor-danger;
-      margin-right: 0.5rem;
-    }
-  }
 
 }
