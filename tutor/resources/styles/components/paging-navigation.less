@@ -16,7 +16,11 @@
   @arrow-width: 75px;
   .flex-display();
   .justify-content(center);
-
+  .paged-content {
+    &:focus {
+      outline: 0;
+    }
+  }
   .paging-control {
     .flex(1);
     .arrow-wrapper {

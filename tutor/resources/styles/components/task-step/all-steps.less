@@ -7,6 +7,12 @@
     padding: @tutor-card-body-padding;
   }
 
+  .task-step {
+    &:focus {
+      outline: 0;
+    }
+  }
+
   .book-paged-content();
 
   .video-content,
@@ -14,7 +20,6 @@
   .reading-content {
     .tutor-book-content();
     .tutor-book-reading-titles();
-
     &[data-appearance=hs_physics],
     &[data-appearance=college_physics] {
       .tutor-book-content-theme-physics();
@@ -44,6 +49,10 @@
   }
 
   .reading-content {
+    &:focus {
+      outline: 0;
+    }
+
     > .note:first-child {
       .tutor-book-step-note();
     }

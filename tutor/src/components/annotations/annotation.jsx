@@ -12,13 +12,7 @@ import imagesComplete from '../../helpers/images-complete';
 import { Logging } from 'shared';
 import Courses from '../../models/courses-map';
 
-/*
-   NOTE: Nathan pointed out that putting this into book-content-mixin could save
-   having to explicitly include it in the pages that display book-content.
- */
-
 const highlighter = new TextHighlighter(document.body);
-
 
 function getSelectionRect(win, selection) {
   const rect = selection.getRangeAt(0).getBoundingClientRect();
@@ -60,14 +54,20 @@ function scrollToSelection(win, selection) {
   step();
 }
 
-const HighlightWidget = ({style, annotate, highlight}) => (
-  style ?
-  <div className="widget arrow-box" style={style}>
-    <Icon type="comment" alt="annotate" onClick={annotate} />
-    <Icon type="pencil" alt="highlight" onClick={highlight} />
-  </div>
-  : null
+const HighlightWidget = ({ style, annotate, highlight }) => (
+  style ? (
+    <div className="widget arrow-box" style={style}>
+      <Icon type="comment" alt="annotate" onClick={annotate} />
+      <Icon type="pencil" alt="highlight" onClick={highlight} />
+    </div>
+  ) : null
 );
+
+HighlightWidget.propTypes = {
+  annotate: React.PropTypes.func.isRequired,
+  highlight: React.PropTypes.func.isRequired,
+  style: React.PropTypes.object,
+};
 
 const EditBox = (props) => {
   return (
