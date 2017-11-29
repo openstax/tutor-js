@@ -81,17 +81,15 @@ export default class AnnotationSummaryPage extends React.Component {
             this.selectedHighlightedPages.map((ch, i) =>
               <div key={i}>
                 <h1>{ch}</h1>
-                {
-                  this.annotationsFromThisBook
-                      .filter((e) => this.chapterAndSection(e) === ch)
-                      .map((entry) => (
-                        <AnnotationCard key={entry.id}
-                          entry={entry}
-                          doDelete={() => this.props.deleteEntry(entry.savedId)}
-                          updateAnnotation={this.props.updateAnnotation}
-                        />
-                      ))
-                }
+                {this.annotationsFromThisBook
+                  .filter((e) => this.chapterAndSection(e) === ch)
+                  .map((entry) => (
+                    <AnnotationCard key={entry.id}
+                      entry={entry}
+                      doDelete={() => this.props.deleteEntry(entry)}
+                      updateAnnotation={this.props.updateAnnotation}
+                    />
+                  ))}
               </div>
             )
           }

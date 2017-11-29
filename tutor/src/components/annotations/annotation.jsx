@@ -5,20 +5,16 @@ import { autobind } from 'core-decorators';
 import serializeSelection from 'serialize-selection';
 import './highlighter';
 import User from '../../models/user';
-import { pick, debounce, filter } from 'lodash';
+import { pick, debounce, filter, defer } from 'lodash';
 import Icon from '../icon';
 import SummaryPage from './summary-page';
 import imagesComplete from '../../helpers/images-complete';
 import { Logging } from 'shared';
 import Courses from '../../models/courses-map';
 
-/*
-   NOTE: Nathan pointed out that putting this into book-content-mixin could save
-   having to explicitly include it in the pages that display book-content.
- */
-
 const highlighter = new TextHighlighter(document.body);
 
+const ERROR_DISPLAY_TIMEOUT = 1000 * 2;
 
 function getSelectionRect(win, selection) {
   const rect = selection.getRangeAt(0).getBoundingClientRect();
@@ -60,14 +56,20 @@ function scrollToSelection(win, selection) {
   step();
 }
 
-const HighlightWidget = ({style, annotate, highlight}) => (
-  style ?
-  <div className="widget arrow-box" style={style}>
-    <Icon type="comment" alt="annotate" onClick={annotate} />
-    <Icon type="pencil" alt="highlight" onClick={highlight} />
-  </div>
-  : null
+const HighlightWidget = ({ style, annotate, highlight }) => (
+  style ? (
+    <div className="widget arrow-box" style={style}>
+      <Icon type="comment" alt="annotate" onClick={annotate} />
+      <Icon type="pencil" alt="highlight" onClick={highlight} />
+    </div>
+  ) : null
 );
+
+HighlightWidget.propTypes = {
+  annotate: React.PropTypes.func.isRequired,
+  highlight: React.PropTypes.func.isRequired,
+  style: React.PropTypes.object,
+};
 
 const EditBox = (props) => {
   return (
@@ -137,9 +139,10 @@ export default class AnnotationWidget extends React.Component {
 
   static defaultProps = {
     windowImpl: window,
-    pageType: 'reading'
+    pageType: 'reading',
   };
 
+  @observable errorMessage = false;
   @observable activeHighlight = null;
   @observable widgetStyle = null;
   @observable scrollToPendingAnnotation;
@@ -193,13 +196,18 @@ export default class AnnotationWidget extends React.Component {
       if (!this.activeHighlight) {
         this.setWidgetStyle();
       }
-    }, 80);
+    }, 1);
 
     when(
       () => !User.annotations.api.isPending,
       () => {
-        this.props.windowImpl.document.addEventListener('selectionchange', this.handleSelectionChange);
-        this.initializePage();
+        this.initializePage().then(() => {
+          defer(() => { // defer so that pending selections are complete
+            this.props.windowImpl.document.addEventListener(
+              'selectionchange', this.handleSelectionChange
+            );
+          })
+        });
       },
     );
   }
@@ -220,7 +228,7 @@ export default class AnnotationWidget extends React.Component {
 
   initializePage() {
     this.getReferenceElements();
-    imagesComplete(
+    return imagesComplete(
       this.props.windowImpl.document.querySelector('.book-content')
     ).then(() => {
       this.annotationsForThisPage.forEach((annotation) => {
@@ -267,27 +275,45 @@ export default class AnnotationWidget extends React.Component {
     return serializeSelection.restore(savedSelection, el);
   }
 
-  // Needs fixed
-  isNotHighlightable() {
+  cantHighlightReason() {
     // Is it a selectable area?
     if (!this.saveSelectionWithReferenceId()) {
-      return true;
+      return 'Only content can be highlighted';
     }
     // Is it free from overlaps with other selections?
     // Compare by using the same reference node
-    return this.annotationsForThisPage.find((entry) => {
-      const sel = entry.selection;
+    for (const hl of this.annotationsForThisPage) {
+      const sel = hl.selection;
       const referenceElement = document.getElementById(sel.elementId);
       const {start, end} = serializeSelection.save(referenceElement);
 
-      return (start > 0 && sel.start >= start && sel.start <= end) ||
-             (sel.end >= start && sel.end <= end)
-    });
+      if ((start > 0 && sel.start >= start && sel.start <= end) || (sel.end >= start && sel.end <= end)) {
+        return 'Highlights cannot overlap one another';
+      }
+    }
+    return null;
+  }
+
+  @action.bound hideErrorDisplay() {
+    this.errorMessage = false;
+    this.errorHideTimer = null;
+  }
+
+  @action startErrorDisplay(msg) {
+    if (this.erorrHideTimer) {
+      this.props.windowImpl.clearTimeout(this.errorHideTimer);
+    }
+    this.errorMessage = msg;
+    this.errorHideTimer = this.props.windowImpl.setTimeout(
+      this.hideErrorDisplay,
+      ERROR_DISPLAY_TIMEOUT
+    );
   }
 
   @action.bound
   setWidgetStyle() {
     const selection = this.props.windowImpl.getSelection();
+
     // If it's a cursor placement with no highlighted text, check
     // for whether it's in an existing highlight
     if (selection.isCollapsed) {
@@ -296,7 +322,7 @@ export default class AnnotationWidget extends React.Component {
       this.activeHighlight = this.annotationsForThisPage.find((entry) => {
         const sel = entry.selection;
         const el = document.getElementById(sel.elementId);
-        const {start} = serializeSelection.save(el);
+        const { start } = serializeSelection.save(el);
 
         return sel.start <= start && sel.end >= start;
       });
@@ -305,20 +331,25 @@ export default class AnnotationWidget extends React.Component {
       if (this.activeHighlight) {
         this.restoreSelectionWithReferenceId(this.activeHighlight.selection);
       }
-    } else if (this.isNotHighlightable()){
-      this.savedSelection = this.saveSelectionWithReferenceId();
-
-      console.warn("Selection must be in .book-content and not overlap other selections");
-      this.widgetStyle = null;
+      this.hideErrorDisplay();
     } else {
-      this.savedSelection = this.saveSelectionWithReferenceId();
-      const rect = getSelectionRect(this.props.windowImpl, selection);
-      const pwRect = this.parentRect;
-
-      this.widgetStyle = {
-        top: `${rect.bottom - pwRect.top}px`,
-        left: `${rect.left - pwRect.left}px`
-      };
+      const errorMessage = this.cantHighlightReason();
+      if (errorMessage) {
+        this.savedSelection = null;
+        this.startErrorDisplay(errorMessage);
+        this.widgetStyle = null;
+      } else {
+        this.savedSelection = this.saveSelectionWithReferenceId();
+        const rect = getSelectionRect(this.props.windowImpl, selection);
+        const pwRect = this.parentRect;
+        this.hideErrorDisplay();
+        const middle = (rect.bottom - rect.top) / 2;
+        const center = (rect.right - rect.left) / 2;
+        this.widgetStyle = {
+          top: `${rect.bottom - middle - pwRect.top}px`,
+          left: `${(rect.left + center) - pwRect.left}px`,
+        };
+      }
     }
   }
 
@@ -382,9 +413,14 @@ export default class AnnotationWidget extends React.Component {
     });
   }
 
-  @autobind
+  @action.bound
   deleteEntry(annotation) {
-    User.annotations.destroy(annotation);
+    User.annotations.destroy(annotation).then(() => {
+      const selection = this.restoreSelectionWithReferenceId(annotation.selection);
+      if (selection) {
+        highlighter.removeHighlights(selection.baseNode.parentElement);
+      }
+    });
   }
 
   @action.bound
@@ -469,6 +505,15 @@ export default class AnnotationWidget extends React.Component {
     );
   }
 
+  renderErrors() {
+    if (!this.errorMessage) { return null; }
+    return (
+      <div className="error-message-toast">
+        <Icon type="exclamation-triangle" /> {this.errorMessage}
+      </div>
+    );
+  }
+
   render() {
     if (!this.course.canAnnotate) { return null; }
 
@@ -490,7 +535,7 @@ export default class AnnotationWidget extends React.Component {
           seeAll={this.seeAll}
         />
         {this.renderSideBarButtons()}
-
+        {this.renderErrors()}
         <WindowShade show={this.showWindowShade}>
           <SummaryPage
             items={this.allAnnotationsForThisBook.slice()}
