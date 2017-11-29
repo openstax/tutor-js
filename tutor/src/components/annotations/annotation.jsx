@@ -416,7 +416,12 @@ export default class AnnotationWidget extends React.Component {
 
   @autobind
   deleteEntry(annotation) {
-    User.annotations.destroy(annotation);
+    User.annotations.destroy(annotation).then(() => {
+      const selection = this.restoreSelectionWithReferenceId(annotation.selection);
+      if (selection) {
+        highlighter.removeHighlights(selection.baseNode.parentElement);
+      }
+    });
   }
 
   @action.bound
