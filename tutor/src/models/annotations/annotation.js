@@ -1,9 +1,11 @@
 import { get } from 'lodash';
-import { computed, action } from 'mobx';
+import { computed, action, observable } from 'mobx';
+import serializeSelection from 'serialize-selection';
 import Hypothesis from './hypothesis';
 import {
-  BaseModel, identifiedBy, field, identifier, session, hasMany,
+  BaseModel, identifiedBy, field, identifier, session, belongsTo, hasMany,
 } from '../base';
+import DOM from '../../helpers/dom';
 
 @identifiedBy('annotations/annotation/target')
 export class AnnotationSelector extends BaseModel {
@@ -18,6 +20,18 @@ export class AnnotationSelector extends BaseModel {
   @field start;
   @field title;
   @field type = 'TextPositionSelector'
+  @observable bounds;
+
+  @action restore(highlighter) {
+    const el = document.getElementById(this.elementId);
+    if (!el) { return null; }
+    const selection = serializeSelection.restore(this, el);
+    this.bounds = selection.getRangeAt(0).getBoundingClientRect();
+    if (highlighter) {
+      highlighter.doHighlight();
+    }
+    return selection;
+  }
 
 }
 
@@ -38,6 +52,7 @@ export default class Annotation extends BaseModel {
   @field uri;
   @field hidden;
   @field flagged;
+
   @field({ type: 'date' }) created;
   @field({ type: 'date' }) updated;
   @field({ type: 'object' }) rect;
@@ -47,9 +62,22 @@ export default class Annotation extends BaseModel {
   @field({ type: 'array' }) tags;
   @session({ type: 'object' }) style;
   @hasMany({ model: AnnotationTarget }) target;
+  @belongsTo({ model: 'annotations' }) listing;
 
   @computed get selection() {
     return get(this, 'target[0].selector[0]', {});
+  }
+
+  @computed get elementId() {
+    return get(this.selection, 'elementId');
+  }
+
+  @computed get element() {
+    return this.elementId ? document.getElementById(this.elementId) : null;
+  }
+
+  @computed get referenceElement() {
+    return this.element ? DOM.closest(this.element, '[id]') : null;
   }
 
   @computed get courseId() {
@@ -65,18 +93,34 @@ export default class Annotation extends BaseModel {
   }
 
   @action save() {
-    return Hypothesis.request({
-      method: 'PATCH',
-      service: `annotations/${this.id}`,
-      data: { text: this.text },
-    });
+    return this.listing.update(this);
   }
 
   @action destroy() {
-    return Hypothesis.request({
-      method: 'DELETE',
-      service: `annotations/${this.id}`,
-    });
+    return this.listing.destroy(this);
   }
+
+  // get style() {
+  //   const rect = this.selection.restore();
+  //   console.log(rect)
+  //   return {
+  //     top: rect.top - this.parentRect.top,
+  //     position: 'absolute',
+  //   }
+  // }
+
+  isSiblingOfElement(el) {
+    if (!el) { return; }
+    if (el === this.referenceElement) { return true; }
+    let node = el.parentNode;
+    while (node != null) {
+      if (node == this.referenceElement) {
+        return true;
+      }
+      node = node.parentNode;
+    }
+    return false;
+  }
+
 
 }
