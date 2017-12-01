@@ -65,7 +65,21 @@ export default class AnnotationSummaryPage extends React.Component {
     this.displayedChapters = values;
   }
 
+  renderEmpty() {
+    return (
+      <div className="summary-page">
+        <div className="annotations">
+          <h3>No annotations have been created yet</h3>
+        </div>
+      </div>
+    );
+  }
+
   render() {
+    if (!this.annotationsFromThisBook.length) {
+      return this.renderEmpty();
+    }
+
     return (
       <div className="summary-page">
         <div className="filter-area">
@@ -76,25 +90,23 @@ export default class AnnotationSummaryPage extends React.Component {
           />
         </div>
         <div className="annotations">
-          {
-            this.selectedHighlightedPages.map((ch, i) =>
-              <div key={i}>
-                <h1>{ch}</h1>
-                {this.annotationsFromThisBook
-                  .filter((e) => this.chapterAndSection(e) === ch)
-                  .map((annotation) => (
-                    <AnnotationCard
-                      key={annotation.id}
-                      annotation={annotation}
-                      onDelete={this.props.onDelete}
-                    />
-                  ))}
-              </div>
-            )
-          }
+          {this.selectedHighlightedPages.map((ch, i) =>
+            <div key={i}>
+              <h1>{ch}</h1>
+              {this.annotationsFromThisBook
+                .filter((e) => this.chapterAndSection(e) === ch)
+                .map((annotation) => (
+                  <AnnotationCard
+                    key={annotation.id}
+                    annotation={annotation}
+                    onDelete={this.props.onDelete}
+                  />
+                ))}
+          </div>
+          )}
         </div>
       </div>
-    );
+      );
   }
 
 }

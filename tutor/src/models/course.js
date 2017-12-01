@@ -168,7 +168,7 @@ export default class Course extends BaseModel {
   }
 
   @computed get canAnnotate() {
-    return Boolean(this.isActive && 'college_biology' == this.appearance_code);
+    return Boolean(this.isStudent && this.isActive && 'college_biology' == this.appearance_code);
   }
 
   @computed get needsPayment() {
