@@ -10,6 +10,7 @@ import TourAnchor from '../tours/anchor'
 import Chat from '../../models/chat';
 import UserMenu from '../../models/user/menu';
 import Icon from '../icon';
+import SupportDocument from './support-document-link';
 import TourContext from '../../models/tour/context';
 import Router from '../../helpers/router';
 
@@ -121,6 +122,7 @@ class SupportMenuDropDown extends React.PureComponent {
         >
           <span>Help Articles</span>
         </MenuItem>
+        <SupportDocument courseId={courseId} />
         <MenuItem
           key="nav-keyboard-shortcuts"
           className="-help-link"
