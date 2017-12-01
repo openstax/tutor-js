@@ -9,9 +9,8 @@ import AnnotationCard from './annotation-card';
 export default class AnnotationSummaryPage extends React.Component {
 
   static propTypes = {
-    items: React.PropTypes.array.isRequired,
-    deleteEntry: React.PropTypes.func.isRequired,
-    updateAnnotation: React.PropTypes.func.isRequired,
+    annotations: React.PropTypes.array.isRequired,
+    onDelete: React.PropTypes.func.isRequired,
     currentChapter: React.PropTypes.number.isRequired,
   };
 
@@ -20,7 +19,7 @@ export default class AnnotationSummaryPage extends React.Component {
   }
 
   @computed get annotationsFromThisBook() {
-    return this.props.items
+    return this.props.annotations
       .filter(e => e.selection.chapter)
       .sort((a, b) => (
         (a.selection.chapter - b.selection.chapter) ||
@@ -83,11 +82,11 @@ export default class AnnotationSummaryPage extends React.Component {
                 <h1>{ch}</h1>
                 {this.annotationsFromThisBook
                   .filter((e) => this.chapterAndSection(e) === ch)
-                  .map((entry) => (
-                    <AnnotationCard key={entry.id}
-                      entry={entry}
-                      doDelete={() => this.props.deleteEntry(entry)}
-                      updateAnnotation={this.props.updateAnnotation}
+                  .map((annotation) => (
+                    <AnnotationCard
+                      key={annotation.id}
+                      annotation={annotation}
+                      onDelete={this.props.onDelete}
                     />
                   ))}
               </div>

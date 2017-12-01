@@ -18,9 +18,26 @@ export default class Annotations extends Map {
   @action.bound updateAnnotations(annotations) {
     this.api.requestsInProgress.delete('fetch');
     this.api.requestCounts.read += 1;
-    annotations.forEach((an) => {
-      const note = this.get(an.id);
-      note ? note.update(an) : this.set(an.id, new Annotation(an));
+    if (annotations) {
+      annotations.forEach((an) => {
+        const note = this.get(an.id);
+        an.listing = this;
+        note ? note.update(an) : this.set(an.id, new Annotation(an));
+      });
+    }
+  }
+
+  update(annotation) {
+    this.api.requestsInProgress.set('update', true);
+    return Hypothesis.request({
+      method: 'PATCH',
+      service: `annotations/${annotation.id}`,
+      data: { text: annotation.text },
+    }).then((annotationData) => {
+      annotation.update(annotationData);
+      this.api.requestsInProgress.delete('update');
+      this.api.requestCounts.update += 1;
+      return annotation;
     });
   }
 
@@ -32,6 +49,7 @@ export default class Annotations extends Map {
     ).then((annotationData) => {
       this.api.requestsInProgress.delete('create');
       this.api.requestCounts.create += 1;
+      annotationData.listing = this;
       const annotation = new Annotation(annotationData);
       this.set(annotation.id, annotation);
       return annotation;
@@ -40,11 +58,15 @@ export default class Annotations extends Map {
 
   destroy(annotation) {
     this.api.requestsInProgress.set('delete', true);
-    return annotation.destroy().then(() => {
+    return Hypothesis.request({
+      method: 'DELETE',
+      service: `annotations/${annotation.id}`,
+    }).then(() => {
+      annotation.isDeleted = true;
       this.api.requestsInProgress.delete('delete');
       this.api.requestCounts.delete += 1;
       this.delete(annotation.id);
-      return null;
+      return annotation;
     });
   }
 

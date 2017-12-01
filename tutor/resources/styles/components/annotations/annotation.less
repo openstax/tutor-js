@@ -1,5 +1,6 @@
 .tutor-highlight {
   background-color: @tutor-highlight;
+  cursor: pointer;
 }
 
 .annotater {
@@ -21,13 +22,20 @@
       }
     }
   }
-  .error-message-toast {
-    background-color: @tutor-warning;
+  .status-message-toast {
     position: fixed;
     right: 0;
     bottom: 0;
-    padding: 0.5rem 2rem;
+    padding: 1rem 2rem;
+    opacity: 0.8;
     border-top-left-radius: @border-radius-small;
+    background-color: #e1f3df;
+    color: #75a048;
+    &.error {
+      color: @tutor-neutral-darker;
+      background-color: @tutor-warning;
+    }
+
   }
 
   .arrow-box {
@@ -94,12 +102,14 @@
         margin: 5px;
         min-width: 46px;
         padding: 5px 10px;
-
+        &[disabled] {
+          color: @tutor-neutral-light;
+          cursor: not-allowed;
+        }
         &.primary {
           background-color: @tutor-primary;
           color: @tutor-neutral-bright;
         }
-
         &.secondary {
           background-color: @tutor-neutral;
           color: @tutor-neutral-bright;
@@ -117,7 +127,16 @@
     opacity: 0.25;
     right: 1.5rem;
     transform: translateY(-25%);
-
+    color: @tutor-neutral;
+    transition: 0.3s color;
+    &:hover { color: @tutor-neutral-dark; }
+    &.active {
+      color: @tutor-blue-icon;
+      &:hover {
+        color: @tutor-blue-icon;
+        cursor: default;
+      }
+    }
     @media print {
       display: none;
     }

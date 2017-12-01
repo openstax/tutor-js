@@ -11,10 +11,10 @@ module.exports = {
     return null unless el
     if @matches(el, selector) then el else @closest(el.parentNode, selector)
 
+  read_csrf: ->
+    document.querySelector('meta[name=csrf-token]')?.getAttribute('content')
 
   readBootstrapData: (root = document) ->
-    User.csrf_token = root.querySelector('meta[name=csrf-token]')?.getAttribute('content')
-
     el = root.querySelector('#tutor-boostrap-data')
     if el
       el.parentNode.removeChild(el)
