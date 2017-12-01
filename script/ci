@@ -1,0 +1,5 @@
+#!/bin/bash
+cd "$(dirname "$0")/.." || exit 111
+source ./script/bootstrap || exit 111
+
+npm run-script ci -- $@
