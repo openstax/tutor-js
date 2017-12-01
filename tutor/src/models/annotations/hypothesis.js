@@ -5,6 +5,7 @@ import axios from 'axios';
 import { action, observable, computed } from 'mobx';
 import { isEmpty, defaultsDeep } from 'lodash';
 import { Logging } from 'shared';
+import { AppActions } from '../../flux/app';
 
 @identifiedBy('hypotheis')
 class Hypothesis extends BaseModel {
@@ -52,14 +53,18 @@ class Hypothesis extends BaseModel {
       headers: { 'Content-type': 'application/x-www-form-urlencoded' },
       data: `grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=${this.grant_token}`,
     }).then((response) => {
-      this.accessToken = response.access_token;
+      if (response) {
+        this.accessToken = response.access_token;
+      }
     }).then(() => {
-      return this.performRequest({
-        service: 'profile?authority=openstax.org',
-      }).then((response) => {
-        this.userInfo = response.groups[0];
-        return this.fetchAllAnnotations();
-      });
+      if (this.accessToken) {
+        return this.performRequest({
+          service: 'profile?authority=openstax.org',
+        }).then((response) => {
+          this.userInfo = response.groups[0];
+          return this.fetchAllAnnotations();
+        });
+      }
     });
   }
 
@@ -127,6 +132,9 @@ class Hypothesis extends BaseModel {
       headers,
     })).then((axiosResponse) => {
       return axiosResponse.data;
+    }).catch((err) => {
+
+      AppActions.setServerError(err)
     });
   }
 
