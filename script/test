@@ -4,4 +4,8 @@ source ./script/bootstrap || exit 111
 
 do_progress "Running Tests"
 
+# shellcheck disable=SC2068
 try ./bin/test tutor $@
+
+do_progress_quiet "Linting Shell Scripts" \
+  shellcheck ./script/*   # ./bin/*

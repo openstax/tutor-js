@@ -2,4 +2,5 @@
 cd "$(dirname "$0")/.." || exit 111
 source ./script/bootstrap || exit 111
 
-npm run-script ci -- $@
+# shellcheck disable=SC2068
+try npm run-script ci -- $@

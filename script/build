@@ -2,5 +2,6 @@
 cd "$(dirname "$0")/.." || exit 111
 source ./script/bootstrap || exit 111
 
+# shellcheck disable=SC2068
 do_progress_quiet "Building dist" \
   ./bin/build tutor $@
