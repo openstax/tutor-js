@@ -5,8 +5,38 @@ env:
   - OX_PROJECT=tutor
   - OX_PROJECT=exercises
   - OX_PROJECT=shared
-script:
-  - npm run ci
+
+addons:
+  apt:
+    packages:
+      - shellcheck
+      # For building kcov
+      - libcurl4-openssl-dev
+      - libelf-dev
+      - libdw-dev
+      - cmake
+
+# Cache the 3rd-party packages. From https://blog.travis-ci.com/2016-11-21-travis-ci-now-supports-yarn
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
+before_install:
+  # Build https://github.com/SimonKagstrom/kcov (shell code coverage)
+  - wget https://github.com/SimonKagstrom/kcov/archive/master.tar.gz &&
+    tar xzf master.tar.gz &&
+    rm master.tar.gz &&
+    cd kcov-master &&
+    mkdir build &&
+    cd build &&
+    cmake .. &&
+    make &&
+    sudo make install &&
+    cd ../.. &&
+    rm -rf kcov-master
+script: kcov ./coverage/ ./script/ci
+
 after_failure:
   - npm list
 after_success:

@@ -2,5 +2,10 @@
 cd "$(dirname "$0")/.." || exit 111
 source ./script/bootstrap || exit 111
 
+if [[ ! ${OX_PROJECT} ]]; then
+  declare -x OX_PROJECT="tutor"
+  _say "Running tutor tests because OX_PROJECT environment variable was not specified"
+fi
+
 # shellcheck disable=SC2068
 try npm run-script ci -- $@
