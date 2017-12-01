@@ -7,7 +7,6 @@ moment = require 'moment-timezone'
 TimeHelper  = require '../../../helpers/time'
 {default: Courses} = require '../../../models/courses-map'
 {TaskingActions, TaskingStore} = require '../../../flux/tasking'
-BindStoreMixin     = require '../../bind-store-mixin'
 
 Icon = require '../../icon'
 DateTime = require './date-time'
