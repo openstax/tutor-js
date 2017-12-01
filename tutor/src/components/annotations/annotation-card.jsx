@@ -42,9 +42,8 @@ class EditBox extends React.Component {
 export default class AnnotationCard extends React.Component {
 
   static propTypes = {
-    entry: React.PropTypes.instanceOf(Annotation).isRequired,
-    doDelete: React.PropTypes.func.isRequired,
-    updateAnnotation: React.PropTypes.func.isRequired,
+    onDelete: React.PropTypes.func.isRequired,
+    annotation: React.PropTypes.instanceOf(Annotation).isRequired,
   };
 
   @observable editing = false;
@@ -61,13 +60,19 @@ export default class AnnotationCard extends React.Component {
 
   @action.bound
   saveAnnotation(newText) {
-    this.props.entry.text = newText;
-    this.props.updateAnnotation(this.props.entry);
+    this.props.annotation.text = newText;
+    this.props.annotation.save();
+  }
+
+  @action.bound doDelete() {
+    this.props.annotation.destroy().then(
+      this.props.onDelete
+    );
   }
 
   @autobind
   openPage() {
-    const { id, selection: { courseId, chapter, section } } = this.props.entry;
+    const { id, selection: { courseId, chapter, section } } = this.props.annotation;
     let url = `/books/${courseId}/section/${chapter}`;
     if (section) {
       url += `.${section}`;
@@ -77,17 +82,17 @@ export default class AnnotationCard extends React.Component {
   }
 
   render() {
-    const { entry, doDelete } = this.props;
+    const { annotation } = this.props;
 
     return (
       <div className="annotation-card">
         <div className="annotation-content">
           <div className="selected-text">
-            {entry.selection.content}
+            {annotation.selection.content}
           </div>
           <EditBox
             show={this.editing}
-            text={entry.text}
+            text={annotation.text}
             dismiss={this.stopEditing}
             save={this.saveAnnotation}
           />
@@ -99,7 +104,7 @@ export default class AnnotationCard extends React.Component {
             title="Are you sure you want to delete this note?"
             message="If you delete this note, your work cannot be recovered."
             okButtonLabel="Delete"
-            onConfirm={doDelete}
+            onConfirm={this.doDelete}
           >
             <button><Icon type="trash" /></button>
           </SuretyGuard>
