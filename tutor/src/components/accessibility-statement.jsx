@@ -1,6 +1,6 @@
 import React from 'react';
 import Router from '../helpers/router';
-import CourseBranding from './branding/course'
+import CourseBranding from './branding/course';
 import BackButton from './buttons/back-button';
 import { Grid, Table } from 'react-bootstrap';
 

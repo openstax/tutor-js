@@ -2,6 +2,7 @@ import React from 'react';
 import { map, includes } from 'lodash';
 import browser from 'detect-browser';
 
+import CourseBranding from '../branding/course';
 import WarningModal from '../warning-modal';
 
 const EXCLUDED_BROWSERS = ['ie'];
@@ -42,7 +43,7 @@ const BrowserWarning = (props) => {
       title="We're sorry, your browser isn't supported."
     >
       <p>
-        You can't pay for OpenStax Tutor using this browser.
+        You can't pay for <CourseBranding /> using this browser.
         We recommend using a recent version of 
         {map(BROWSERS_AND_LINKS, (browser, index) => {
           const connector = getConnector(index);
