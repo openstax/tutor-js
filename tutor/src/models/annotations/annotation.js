@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import { get, pick } from 'lodash';
 import { computed, action, observable } from 'mobx';
 import serializeSelection from 'serialize-selection';
 import Hypothesis from './hypothesis';
@@ -16,6 +16,7 @@ export class AnnotationSelector extends BaseModel {
   @field content;
   @field courseId;
   @field end;
+  @field researchId;
   @field section;
   @field start;
   @field title;
@@ -26,7 +27,9 @@ export class AnnotationSelector extends BaseModel {
     const el = document.getElementById(this.elementId);
     if (!el) { return null; }
     const selection = serializeSelection.restore(this, el);
-    this.bounds = selection.getRangeAt(0).getBoundingClientRect();
+    this.bounds = pick(selection.getRangeAt(0).getBoundingClientRect(), 'x', 'y', 'width', 'height', 'top', 'bottom', 'left');
+    this.bounds.top += window.pageYOffset;
+    this.bounds.left += window.pageXOffset;
     if (highlighter) {
       highlighter.doHighlight();
     }
@@ -52,7 +55,6 @@ export default class Annotation extends BaseModel {
   @field uri;
   @field hidden;
   @field flagged;
-
   @field({ type: 'date' }) created;
   @field({ type: 'date' }) updated;
   @field({ type: 'object' }) rect;
