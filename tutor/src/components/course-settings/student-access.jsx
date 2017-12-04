@@ -105,7 +105,7 @@ export default class StudentAccess extends React.PureComponent {
   }
 
   @action.bound forceLinksSwitch() {
-      this.onSelectOption(false, {}, false);
+    this.onSelectOption(false, {}, false);
   }
 
   renderLinkSwitchWarning() {
@@ -136,8 +136,17 @@ export default class StudentAccess extends React.PureComponent {
     return <p>Create a live course to view student access options.</p>;
   }
 
+  @computed get isLMS() {
+    return this.props.course.is_lms_enabled === true;
+  }
+
+  @computed get isLinks() {
+    return this.props.course.is_lms_enabled === false;
+  }
+
   render() {
-    const { course } = this.props;
+    const { isLMS, isLinks, props: { course } } = this;
+
     let body = null;
     if (course.is_preview) {
       body = this.renderPreviewMessage();
@@ -151,9 +160,6 @@ export default class StudentAccess extends React.PureComponent {
       return <div className="student-access">{body}</div>;
     }
 
-    const is_lms = course.is_lms_enabled === true;
-    const is_links = course.is_lms_enabled === false;
-
     return (
       <div className="student-access">
         {this.renderLinkSwitchWarning()}
@@ -166,11 +172,11 @@ export default class StudentAccess extends React.PureComponent {
         </a>
         <PanelGroup
           accordion
-          activeKey={is_lms ? true : is_links ? false : 'none'}
+          activeKey={isLMS ? true : isLinks ? false : 'none'}
           onSelect={this.onSelectOption}
         >
           <Panel
-            className={cn('links', { active: is_links })}
+            className={cn('links', { active: isLinks })}
             header={this.renderDirectHeader()}
             eventKey={false}
           >
@@ -178,7 +184,7 @@ export default class StudentAccess extends React.PureComponent {
             {course.periods.active.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url} />)}
           </Panel>
           <Panel
-            className={cn('lms', { active: is_lms })}
+            className={cn('lms', { active: isLMS })}
             eventKey={true}
             header={this.renderLMSHeader()}
           >
