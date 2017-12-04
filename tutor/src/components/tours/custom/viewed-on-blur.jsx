@@ -1,7 +1,7 @@
 import React        from 'react';
 import ReactDOM     from 'react-dom';
 import { Tooltip }  from 'react-joyride';
-import { get }      from 'lodash';
+import { get, defaultsDeep }      from 'lodash';
 import classnames   from 'classnames';
 
 export default class ViewedOnBlur extends React.PureComponent {
@@ -47,6 +47,12 @@ export default class ViewedOnBlur extends React.PureComponent {
   }
 
   render () {
+    defaultsDeep(this.props.step.style, {
+      footer: {
+        display: 'none',
+      },
+    });
+
     const className = classnames(this.className,  this.props.className);
 
     return (
