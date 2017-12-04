@@ -8,8 +8,6 @@ import UiSettings from 'shared/src/model/ui-settings';
 import USER_DATA from '../../api/user.json';
 import { bootstrapCoursesList } from '../courses-test-data';
 
-jest.mock('shared/src/model/ui-settings');
-
 describe('User Model', () => {
   afterEach(() => {
     User.viewed_tour_stats.clear();
@@ -33,17 +31,24 @@ describe('User Model', () => {
   it('calculates audience tags', () => {
     bootstrapCoursesList();
     expect(User.tourAudienceTags).toEqual(['teacher']);
+
     Courses.forEach((c) => (c.is_preview = true));
+    expect(User.tourAudienceTags).toEqual(['teacher-preview', 'teacher-not-previewed']);
+
+    Courses.forEach((c) => { c.trackDashboardView(); });
     expect(User.tourAudienceTags).toEqual(['teacher-preview']);
+
     Courses.forEach((c) => {
       c.is_concept_coach = true;
       c.is_preview = false;
     });
     expect(User.tourAudienceTags).toEqual(['teacher']);
+
     Courses.forEach((c) => {
       c.appearance_code = 'intro_sociology';
     });
     expect(User.tourAudienceTags).toEqual(['teacher']);
+
     Courses.clear();
     expect(User.tourAudienceTags).toEqual([]);
   });
@@ -56,9 +61,14 @@ describe('User Model', () => {
   });
 
   it('#recordSessionStart', () => {
+    const spy = jest.spyOn(UiSettings, 'set');
+
     User.recordSessionStart();
     expect(UiSettings.set).toHaveBeenCalled();
     expect(UiSettings.set).toHaveBeenCalledWith('sessionCount', 1);
+
+    spy.mockReset();
+    spy.mockRestore();
   });
 
   it('#isProbablyTeacher', () => {

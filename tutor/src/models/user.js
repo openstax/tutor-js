@@ -47,7 +47,7 @@ export class User extends BaseModel {
   }
 
   @computed get hasPreviewed() {
-    return Courses.preview.isViewed.size;
+    return Courses.preview.size == 0 || Courses.preview.isViewed.size > 0;
   }
 
   @computed get shouldPreview() {
