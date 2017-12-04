@@ -4,7 +4,6 @@ import { flatten } from 'lodash';
 import EnzymeContext from './helpers/enzyme-context';
 import Courses from '../../src/models/courses-map';
 import User from '../../src/models/user';
-import PreviewCourseOffering from '../../src/models/course/offerings/previews';
 import Offerings from '../../src/models/course/offerings/index';
 import OFFERINGS from '../../api/offerings';
 import moment from 'moment';
