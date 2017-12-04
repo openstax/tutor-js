@@ -69,7 +69,7 @@ export default class AnnotationSummaryPage extends React.Component {
     return (
       <div className="summary-page">
         <div className="annotations">
-          <h3>No annotations have been created yet</h3>
+          <h3>No notes have been created yet</h3>
         </div>
       </div>
     );
