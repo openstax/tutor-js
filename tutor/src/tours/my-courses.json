@@ -27,7 +27,7 @@
       "position": "top-left",
       "title": "Explore a Preview!",
       "body":  "See all features in action with a preview course first.  When you're ready, create a real course above.",
-      "customComponent": "ViewedOnBlur"
+      "customComponent": "NoFooter"
     }
   ]
 }
