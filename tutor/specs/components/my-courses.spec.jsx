@@ -15,7 +15,7 @@ import { bootstrapCoursesList, STUDENT_COURSE_ONE_MODEL, TEACHER_COURSE_TWO_MODE
 const loadTeacherUser = () => User.faculty_status = 'confirmed_faculty'
 
 const loadOfferings = () => {
-  Offerings.onLoaded({ data: {items: OFFERINGS }});
+  OFFERINGS.forEach(offering => Offerings.set(offering.id, new Offering(offering)));
 }
 
 describe('My Courses Component', function() {
