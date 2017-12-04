@@ -18,7 +18,7 @@
   "standalone": true,
   "showOverlay": false,
   "audience_tags": [
-    "teacher", "teacher-preview"
+    "teacher-not-previewed"
   ],
   "steps": [
     {

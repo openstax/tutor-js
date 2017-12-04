@@ -9,6 +9,7 @@ import { UserTerms } from './user/terms';
 import Annotations from './annotations';
 import lazyGetter from '../helpers/lazy-getter';
 import ViewedTourStat from './user/viewed-tour-stat';
+import PreviewCourseOffering from './course/offerings/previews';
 import DOM from '../helpers/dom';
 
 @identifiedBy('user')
@@ -46,6 +47,14 @@ export class User extends BaseModel {
     return !!find(Courses.nonPreview.active.array, { canAnnotate: true });
   }
 
+  @computed get hasPreviewed() {
+    return PreviewCourseOffering.hasCreated;
+  }
+
+  @computed get shouldPreview() {
+    return this.viewed_tour_stats.find((stat) => stat.id === 'explore-a-preview').view_count < 4;
+  }
+
   @lazyGetter annotations = new Annotations();
 
   @action removeCourse(course) {
@@ -81,6 +90,9 @@ export class User extends BaseModel {
       tags.push('teacher');
     } else if (Courses.active.teaching.any) {
       tags.push('teacher-preview');
+    }
+    if (!this.hasPreviewed && this.shouldPreview) {
+      tags.push('teacher-not-previewed');
     }
     return tags;
   }

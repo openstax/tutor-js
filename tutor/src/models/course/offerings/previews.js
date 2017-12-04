@@ -61,4 +61,12 @@ export default {
     return tutor.map(o => new PreviewCourseOffering(o));
   },
 
+  @computed get created() {
+    return filter(this.all, p => p.isCreated);
+  },
+
+  @computed get hasCreated() {
+    return !!this.created;
+  },
+
 };
