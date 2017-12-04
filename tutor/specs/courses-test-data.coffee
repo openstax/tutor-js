@@ -158,6 +158,94 @@ MASTER_COURSES_LIST = [
 TUTOR_HELP = 'http://openstax.force.com/support?l=en_US&c=Products%3ATutor'
 CONCEPT_COACH_HELP = 'http://openstax.force.com/support?l=en_US&c=Products%3AConcept_Coach'
 
+
+OFFERINGS = [{
+  "id": "1",
+  "title": "Biology",
+  "description": "Biology with Concept Coach",
+  "is_concept_coach": true,
+  "is_tutor": false,
+  "appearance_code": "college_biology",
+  "does_cost": false,
+  "active_term_years": [{
+    "term": "fall",
+    "year": 2017
+  }, {
+    "term": "spring",
+    "year": 2018
+  }, {
+    "term": "summer",
+    "year": 2018
+  }, {
+    "term": "winter",
+    "year": 2018
+  }]
+}, {
+  "id": "2",
+  "title": "Biology w Courseware",
+  "description": "College Biology",
+  "is_concept_coach": false,
+  "is_tutor": true,
+  "appearance_code": "college_biology",
+  "does_cost": false,
+  "active_term_years": [{
+    "term": "fall",
+    "year": 2017
+    }, {
+    "term": "spring",
+    "year": 2018
+    }, {
+    "term": "summer",
+    "year": 2018
+    }, {
+    "term": "winter",
+    "year": 2018
+  }]
+}, {
+  "id": "3",
+  "title": "Physics w Courseware",
+  "description": "College Physics",
+  "is_concept_coach": false,
+  "is_tutor": true,
+  "appearance_code": "college_physics",
+  "does_cost": false,
+  "active_term_years": [{
+    "term": "fall",
+    "year": 2017
+    }, {
+    "term": "spring",
+    "year": 2018
+    }, {
+    "term": "summer",
+    "year": 2018
+    }, {
+    "term": "winter",
+    "year": 2018
+  }]
+}, {
+  "id": "4",
+  "title": "High School Physics",
+  "description": "High School Physics",
+  "is_concept_coach": false,
+  "is_tutor": true,
+  "appearance_code": "hs_physics",
+  "does_cost": false,
+  "active_term_years": [{
+    "term": "fall",
+    "year": 2017
+  }, {
+    "term": "spring",
+    "year": 2018
+  }, {
+    "term": "summer",
+    "year": 2018
+  }, {
+    "term": "winter",
+    "year": 2018
+  }]
+}];
+
+
 bootstrapCoursesList = ->
   CoursesMap.bootstrap(MASTER_COURSES_LIST)
 
@@ -171,5 +259,6 @@ module.exports = {
   CONCEPT_COACH_HELP,
   TEACHER_PAST_COURSE,
   STUDENT_PAST_COURSE,
+  OFFERINGS,
   bootstrapCoursesList,
 }

@@ -4,12 +4,19 @@ import { flatten } from 'lodash';
 import EnzymeContext from './helpers/enzyme-context';
 import Courses from '../../src/models/courses-map';
 import User from '../../src/models/user';
+import PreviewCourseOffering from '../../src/models/course/offerings/previews';
+import Offerings from '../../src/models/course/offerings/index';
+import Offering from '../../src/models/course/offerings/offering';
 import moment from 'moment';
 jest.mock('../../src/models/chat');
 
-import { bootstrapCoursesList, STUDENT_COURSE_ONE_MODEL, TEACHER_COURSE_TWO_MODEL, TEACHER_AND_STUDENT_COURSE_THREE_MODEL, MASTER_COURSES_LIST, TUTOR_HELP, CONCEPT_COACH_HELP, STUDENT_ARCHIVED_COURSE, TEACHER_PAST_COURSE, STUDENT_PAST_COURSE } from '../courses-test-data';
+import { bootstrapCoursesList, STUDENT_COURSE_ONE_MODEL, TEACHER_COURSE_TWO_MODEL, TEACHER_AND_STUDENT_COURSE_THREE_MODEL, MASTER_COURSES_LIST, TUTOR_HELP, CONCEPT_COACH_HELP, STUDENT_ARCHIVED_COURSE, TEACHER_PAST_COURSE, STUDENT_PAST_COURSE, OFFERINGS } from '../courses-test-data';
 
 const loadTeacherUser = () => User.faculty_status = 'confirmed_faculty'
+
+const loadOfferings = () => {
+  Offerings.onLoaded({ data: {items: OFFERINGS }});
+}
 
 describe('My Courses Component', function() {
 
@@ -123,8 +130,9 @@ describe('My Courses Component', function() {
   it('displays popover help for verified instructor without courses', () => {
     Courses.clear();
     loadTeacherUser();
+    loadOfferings();
     const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
-    expect(wrapper).toHaveRendered('[data-tour-anchor-id="create-course-zone"]');
+    expect(wrapper).toHaveRendered('[data-tour-anchor-id="explore-a-preview-zone"]');
     wrapper.unmount();
   });
 });
