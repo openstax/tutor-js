@@ -100,17 +100,8 @@ export default class Annotation extends BaseModel {
     return this.listing.destroy(this);
   }
 
-  // get style() {
-  //   const rect = this.selection.restore();
-  //   console.log(rect)
-  //   return {
-  //     top: rect.top - this.parentRect.top,
-  //     position: 'absolute',
-  //   }
-  // }
-
   isSiblingOfElement(el) {
-    if (!el) { return; }
+    if (!el) { return false; }
     if (el === this.referenceElement) { return true; }
     let node = el.parentNode;
     while (node != null) {

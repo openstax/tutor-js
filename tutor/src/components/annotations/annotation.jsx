@@ -21,8 +21,10 @@ import WindowShade from './window-shade';
 const highlighter = new TextHighlighter(document.body);
 
 const ERROR_DISPLAY_TIMEOUT = 1000 * 2;
+const LINE_HEIGHT = 14;
 
 function getSelectionRect(win, selection) {
+
   const rect = selection.getRangeAt(0).getBoundingClientRect();
   const wLeft = win.pageXOffset;
   const wTop = win.pageYOffset;
@@ -133,9 +135,9 @@ export default class AnnotationWidget extends React.Component {
       }
 
     } else {
-      this.setWidgetStyle();
+      this.onSelection();
     }
-  }, 1);
+  }, 10);
 
   componentDidMount() {
     if (!this.course.canAnnotate) { return; }
@@ -207,32 +209,35 @@ export default class AnnotationWidget extends React.Component {
     }
   }
 
-  saveSelectionWithReferenceId() {
-    let selection;
+  getCurrentSelectionInfo() {
+    const selection = document.getSelection();
     for (const re of this.referenceElements) {
-      selection = serializeSelection.save(re);
-      if (selection.start >= 0) {
-        selection.elementId = re.id;
-        return selection;
+      if (DOM.isParent(re, selection.anchorNode)) {
+        return Object.assign(serializeSelection.save(re), {
+          rect: getSelectionRect(this.props.windowImpl, selection),
+          elementId: re.id,
+          isCollapsed: selection.isCollapsed,
+        });
       }
     }
-    return null;
+    return { isCollapsed: true };
   }
 
-  cantHighlightReason() {
+  cantHighlightReason(selection) {
     // Is it a selectable area?
-    if (!this.saveSelectionWithReferenceId()) {
+    if (!selection || !selection.elementId) {
       return 'Only content can be highlighted';
     }
     // Is it free from overlaps with other selections?
     // Compare by using the same reference node
-    const selection = document.getSelection().anchorNode;
-    for (const annotation of this.annotationsForThisPage) {
-      if (annotation.isSiblingOfElement(selection)) {
-        const sel = annotation.selection;
-        const ss = serializeSelection.save(annotation.referenceElement);
-        const { start, end } = ss;
-        if ((start >= 0 && sel.start >= start && sel.start <= end) || (sel.end >= start && sel.end <= end)) {
+    for (const other of this.annotationsForThisPage) {
+      if (selection.elementId === other.elementId) {
+        if (selection.start >= 0 &&
+          (other.selection.start >= selection.start &&
+            other.selection.start <= selection.end) ||
+          (other.selection.end >= selection.start &&
+            other.selection.end <= selection.end)) {
+
           return 'Highlights cannot overlap one another';
         }
       }
@@ -241,42 +246,41 @@ export default class AnnotationWidget extends React.Component {
   }
 
 
-  @action.bound
-  setWidgetStyle() {
-    const selection = this.props.windowImpl.getSelection();
+  @action onSelection() {
+    const selection = this.getCurrentSelectionInfo();
 
     // If it's a cursor placement with no highlighted text, check
     // for whether it's in an existing highlight
     if (selection.isCollapsed) {
       this.widgetStyle = null;
       this.savedSelection = null;
-      const referenceEl = DOM.closest(selection.baseNode, '[id]');
-      const { start } = serializeSelection.save(referenceEl);
-
-      this.activeAnnotation = this.annotationsForThisPage.find((entry) => {
-        if (entry.isSiblingOfElement(referenceEl)) {
-          const sel = entry.selection;
-          return sel.start <= start && sel.end >= start;
+      const referenceEl = document.getElementById(selection.elementId);
+      this.activeAnnotation = this.annotationsForThisPage.find((note) => {
+        if (note.element === referenceEl) {
+          return note.selection.start <= selection.start &&
+            note.selection.end >= selection.start;
         }
       });
       this.ux.statusMessage.hide();
     } else {
-      const errorMessage = this.cantHighlightReason();
+      const errorMessage = this.cantHighlightReason(selection);
       if (errorMessage) {
         this.savedSelection = null;
         this.ux.statusMessage.show({ message: errorMessage, autoHide: true });
         this.widgetStyle = null;
       } else {
-        this.savedSelection = this.saveSelectionWithReferenceId();
-        const rect = getSelectionRect(this.props.windowImpl, selection);
+        const { rect } = selection;
+
         const pwRect = this.parentRect;
         this.ux.statusMessage.hide();
         const middle = (rect.bottom - rect.top) / 2;
         const center = (rect.right - rect.left) / 2;
         this.widgetStyle = {
-          top: `${rect.bottom - middle - pwRect.top}px`,
+          top: `${rect.bottom - middle - LINE_HEIGHT - pwRect.top}px`,
           left: `${(rect.left + center) - pwRect.left}px`,
         };
+
+        this.savedSelection = selection;
       }
     }
   }
@@ -370,6 +374,8 @@ export default class AnnotationWidget extends React.Component {
   @action.bound hideActiveHighlight() {
     if (this.activeAnnotation.isDeleted) {
       this.onAnnotationDelete(this.activeAnnotation);
+    } else {
+      this.activeAnnotation.selection.restore(highlighter);
     }
     this.activeAnnotation = null;
   }

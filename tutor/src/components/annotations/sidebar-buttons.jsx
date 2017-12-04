@@ -26,6 +26,7 @@ export default class SidebarButtons extends React.Component {
     } = this.props;
 
     if (disabled) { return null; }
+    const wTop = window.pageYOffset;
 
     return (
       <div>
@@ -37,7 +38,7 @@ export default class SidebarButtons extends React.Component {
                 cn('sidebar-button', { active: note === activeAnnotation })
               }
               style={{
-                top: get(note.selection, 'bounds.top', 0) - parentRect.top,
+                top: get(note.selection, 'bounds.top', 0) - parentRect.top + wTop,
                 position: 'absolute',
               }}
               alt="View annotation"
