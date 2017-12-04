@@ -6,6 +6,14 @@ module.exports = {
     method = el.matches or el.mozMatchesSelector or el.msMatchesSelector or el.oMatchesSelector or el.webkitMatchesSelector
     method?.call(el, selector)
 
+  isParent: (parent, child, options = { matchSame: true }) ->
+    return false unless parent and child
+    return true if options.matchSame and parent is child
+    node = child.parentNode
+    while node
+      return true if node is parent
+      node = node.parentNode
+    return false
 
   closest: (el, selector) ->
     return null unless el
