@@ -3,7 +3,7 @@ import {
 } from '../base';
 import axios from 'axios';
 import { action, observable, computed } from 'mobx';
-import { isEmpty, defaultsDeep } from 'lodash';
+import { isEmpty, defaultsDeep, find } from 'lodash';
 import { Logging } from 'shared';
 import { AppActions } from '../../flux/app';
 
@@ -61,10 +61,10 @@ class Hypothesis extends BaseModel {
         return this.performRequest({
           service: 'profile?authority=openstax.org',
         }).then((response) => {
-          this.userInfo = response.groups[0];
+          this.userInfo = find(response.groups, { public: false });
           return this.fetchAllAnnotations();
         });
-      }
+      } else { return this; }
     });
   }
 
@@ -108,6 +108,7 @@ class Hypothesis extends BaseModel {
     });
     const promiseBody = (resolve) => {
       fetchASet().then((response) => {
+
         if (response.rows.length > 0) {
           rows = rows.concat(response.rows);
           promiseBody(resolve);
