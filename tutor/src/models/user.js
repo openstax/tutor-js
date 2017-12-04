@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, field, hasMany,
 } from './base';
-import { find } from 'lodash';
+import { find, startsWith } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import UiSettings from 'shared/src/model/ui-settings';
 import Courses from './courses-map';
@@ -46,6 +46,18 @@ export class User extends BaseModel {
     return !!find(Courses.nonPreview.active.array, { canAnnotate: true });
   }
 
+  @computed get hasPreviewed() {
+    return Courses.preview.size == 0 || Courses.preview.isViewed.size > 0;
+  }
+
+  @computed get shouldPreview() {
+    const exploreViewStats = this.viewed_tour_stats.find((stat) => stat.id === 'explore-a-preview');
+    if (exploreViewStats) {
+      return exploreViewStats.view_count < 4;
+    }
+    return true;
+  }
+
   @lazyGetter annotations = new Annotations();
 
   @action removeCourse(course) {
@@ -82,6 +94,13 @@ export class User extends BaseModel {
     } else if (Courses.active.teaching.any) {
       tags.push('teacher-preview');
     }
+
+    if (find(tags, tag => startsWith(tag, 'teacher'))) {
+      if (this.shouldPreview && !this.hasPreviewed) {
+        tags.push('teacher-not-previewed');
+      }
+    }
+
     return tags;
   }
 

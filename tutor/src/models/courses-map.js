@@ -50,6 +50,14 @@ class CoursesMap extends Map {
     return this.where(c => !c.is_preview);
   }
 
+  @computed get preview() {
+    return this.where(c => c.is_preview);
+  }
+
+  @computed get isViewed() {
+    return this.where(c => c.dashboardViewCount > 0);
+  }
+
   @action addNew(courseData) {
     const course = new Course(courseData, this);
     this.set(course.id, course);
