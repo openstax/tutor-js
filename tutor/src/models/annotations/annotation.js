@@ -16,6 +16,7 @@ export class AnnotationSelector extends BaseModel {
   @field content;
   @field courseId;
   @field end;
+  @field researchId;
   @field section;
   @field start;
   @field title;
@@ -54,7 +55,6 @@ export default class Annotation extends BaseModel {
   @field uri;
   @field hidden;
   @field flagged;
-
   @field({ type: 'date' }) created;
   @field({ type: 'date' }) updated;
   @field({ type: 'object' }) rect;

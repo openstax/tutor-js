@@ -165,7 +165,6 @@ export default class AnnotationWidget extends React.Component {
 
     if (nextProps.documentId !== this.props.documentId) {
       this.canRenderSidebarButtons = false;
-      //      this.widgetStyle = null;
       this.activeAnnotation = null;
       this.initializePage();
     }
@@ -314,6 +313,7 @@ export default class AnnotationWidget extends React.Component {
   @autobind
   saveNewHighlight() {
     return User.annotations.create({
+      research_identifier: this.course.userStudentRecord.research_identifier,
       documentId: this.props.documentId,
       selection: this.savedSelection,
       courseId: this.props.courseId,
