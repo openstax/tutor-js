@@ -11,6 +11,14 @@ import { JobCompletion } from '../../../models/jobs/queue';
 import S from '../../../helpers/string';
 import { downloadData, arrayToCSV } from '../../../helpers/download-data';
 
+const Troubleshoot = () => (
+  <NewTabLink
+    to="http://4tk3oi.axshare.com/salesforce_support_page_results.html#choose_support_article=All&CSUM=1"
+  >
+    Troubleshoot sending scores to your LMS
+  </NewTabLink>
+);
+
 @observer
 export class LMSErrors extends React.Component {
 
@@ -21,7 +29,10 @@ export class LMSErrors extends React.Component {
 
   @observable displayInfo = false;
 
-  @action.bound toggleInfo() { this.displayInfo = !this.displayInfo; }
+  @action.bound toggleInfo() {
+    this.displayInfo = !this.displayInfo;
+    console.log(this.displayInfo)
+  }
 
   @computed get errorData() {
     return this.props.job.info.errors.map((e) =>
@@ -39,60 +50,83 @@ export class LMSErrors extends React.Component {
     downloadData(arrayToCSV(rows), 'failed-scores.csv', 'text/csv');
   }
 
-  renderToggle() {
-    if (this.displayInfo) {
-      return <span><Icon type="chevron-down" /> Hide scores not sent</span>;
-    }
-    return (
-      <span><Icon type="chevron-right" /> Show scores not sent</span>
-    );
-  }
-
   render() {
-    const { props: { footer, job } } = this;
     return (
       <WarningModal
         className="lms-push-partial-failure"
         backdrop={false}
         title="Some scores not sent"
-        footer={footer}
       >
-        <p>
-          Course averages for {pluralize('student', job.info.errors.length, true)} could not be
-          sent successfully to your LMS.  There may be an issue with
-          your LMS, or something may have happened when students enrolled.
-        </p>
-        <div className="actions">
-          <Button bsStyle="link" className="toggle" onClick={this.toggleInfo}>
-            {this.renderToggle()}
-          </Button>
-          <Button bsStyle="link" className="download" onClick={this.startDownload}>
-            <Icon type="download" /> Download failures
-          </Button>
-        </div>
-        <Panel collapsible expanded={this.displayInfo}>
-          <Table>
-            <thead>
-              <tr>
-                <td>Student ID</td>
-                <td>Name</td>
-                <td>Course Average</td>
-              </tr>
-            </thead>
-            <tbody>
-              {this.errorData.map(([id, name, score], key) => (
-                <tr key={key}>
-                  <td>{id}</td>
-                  <td>{name}</td>
-                  <td>{score}</td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </Panel>
+        {this.displayInfo ? this.renderInfo() : this.renderMessage()}
       </WarningModal>
     );
   }
+
+  renderMessage() {
+    const { props: { job } } = this;
+
+    return (
+      <div>
+        <p>
+          Course averages
+          for {pluralize('student', job.info.errors.length, true)} could not be
+          sent successfully to your LMS.  There may be an issue with
+          your LMS, or something may have happened when students enrolled.
+        </p>
+        <Troubleshoot />
+        <div className="controls">
+          <Button bsStyle="primary" onClick={this.toggleInfo}>
+            View those scores
+          </Button>
+          <Button onClick={this.props.dismiss}>
+            Close
+          </Button>
+        </div>
+      </div>
+    );
+
+  }
+
+  renderInfo() {
+
+    return (
+      <div>
+        <p>SCORES NOT SENT</p>
+
+        <Table>
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Name</th>
+              <th className="average">
+                Course Average
+                <Icon type="download" onClick={this.startDownload}/>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.errorData.map(([id, name, score], key) => (
+              <tr key={key}>
+                <td>{id}</td>
+                <td>{name}</td>
+                <td>{score}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+        <div className="controls">
+          <Button className="dark" onClick={this.toggleInfo}>
+            Back
+          </Button>
+          <Button onClick={this.props.dismiss}>
+            Close
+          </Button>
+        </div>
+
+      </div>
+    );
+  }
+
 }
 
 const renderNoScores = (footer) => (
@@ -105,11 +139,7 @@ const renderNoScores = (footer) => (
       This course has no scores to send, either because there are no
       students enrolled or no assignments have been created.
     </p>
-    <NewTabLink
-      to="http://4tk3oi.axshare.com/salesforce_support_page_results.html#choose_support_article=All&CSUM=1"
-    >
-      Troubleshoot sending scores to your LMS
-    </NewTabLink>
+    <Troubleshoot />
 
   </WarningModal>
 );
@@ -148,16 +178,16 @@ export class Failure extends React.Component {
   @action.bound onShowDetails() { this.showDetails = true; }
 
   render() {
-    const { job } = this.props;
+    const { job, dismiss } = this.props;
 
     const { info: { errors, data: {
       num_callbacks,
     } } } = job;
 
     if (this.showDetails) {
-      const footer = <Button onClick={this.props.dismiss}>Close</Button>;
+      const footer = <Button onClick={dismiss}>Close</Button>;
       if (!isEmpty(errors)) {
-        return <LMSErrors {...{ job, footer }} />;
+        return <LMSErrors {...{ job, footer, dismiss }} />;
       } else if (num_callbacks) {
         return renderFailedToSend(footer);
       } else {
@@ -168,7 +198,7 @@ export class Failure extends React.Component {
     return (
       <div className="toast scores failure">
         <div className="heading">
-          {num_callbacks ? 'Scores not sent' : 'Some scores not sent'}
+          {num_callbacks ? 'Some scores not sent' : 'Scores not sent'}
           <Icon type="close" onClick={this.props.dismiss} />
         </div>
         <Button bsStyle="link" onClick={this.onShowDetails}>Details</Button>

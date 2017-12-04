@@ -45,7 +45,6 @@
         font-size: 26px;
         font-weight: normal;
         content: @fa-var-exclamation-triangle;
-//        color: #63A524;
         margin-right: 0.5rem;
       }
     }
@@ -67,6 +66,9 @@
 
 .lms-push-partial-failure {
   .modal-body {
+    .controls {
+      margin-top: 40px;
+    }
     .actions {
       display: flex;
       justify-content: space-between;
@@ -74,6 +76,17 @@
         color: @tutor-neutral-dark;
         font-size: 16px;
         padding: 20px 0;
+      }
+    }
+    table th {
+      vertical-align: bottom;
+      &.average {
+        display: flex;
+        justify-content: space-between;
+        .tutor-icon {
+          border: 1px solid @tutor-neutral;
+          padding: 4px;
+        }
       }
     }
     .panel {
