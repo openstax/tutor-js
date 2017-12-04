@@ -96,9 +96,9 @@ export class User extends BaseModel {
     }
 
     if (
-      Courses.active.teaching.any &&
+      Courses.teaching.any &&
       this.hasPreviewed &&
-      Courses.active.teaching.nonPreview.isEmpty
+      Courses.teaching.nonPreview.isEmpty
     ) {
       // Teacher has previewed a course but has no active real course.
       // This means the teacher needs a reminder about how to create a course.
