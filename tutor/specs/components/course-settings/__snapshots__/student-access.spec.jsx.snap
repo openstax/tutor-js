@@ -118,17 +118,12 @@ exports[`Course Settings, student access can switch to links 1`] = `
               <p
                 className="title"
               >
-                Integrate with your LMS 
-                <i
-                  className="advanced"
-                >
-                  Advanced
-                </i>
+                Integrate with your learning management system (LMS)
               </p>
               <p
                 className="info"
               >
-                Integrate OpenStax Tutor with your Learning Management System (LMS) to send average course scores to your LMS and enable single sign on.
+                Integrate OpenStax Tutor with Blackboard, Canvas, etc., to send student course averages to your LMS and enable single sign on.
               </p>
             </div>
           </a>
@@ -264,17 +259,12 @@ exports[`Course Settings, student access can switch to lms 1`] = `
               <p
                 className="title"
               >
-                Integrate with your LMS 
-                <i
-                  className="advanced"
-                >
-                  Advanced
-                </i>
+                Integrate with your learning management system (LMS)
               </p>
               <p
                 className="info"
               >
-                Integrate OpenStax Tutor with your Learning Management System (LMS) to send average course scores to your LMS and enable single sign on.
+                Integrate OpenStax Tutor with Blackboard, Canvas, etc., to send student course averages to your LMS and enable single sign on.
               </p>
             </div>
           </a>
@@ -460,7 +450,7 @@ exports[`Course Settings, student access renders chooser when lms is enabled 1`]
     role="tablist"
   >
     <div
-      className="links active panel panel-default"
+      className="links panel panel-default"
       id={null}
     >
       <div
@@ -555,17 +545,12 @@ exports[`Course Settings, student access renders chooser when lms is enabled 1`]
               <p
                 className="title"
               >
-                Integrate with your LMS 
-                <i
-                  className="advanced"
-                >
-                  Advanced
-                </i>
+                Integrate with your learning management system (LMS)
               </p>
               <p
                 className="info"
               >
-                Integrate OpenStax Tutor with your Learning Management System (LMS) to send average course scores to your LMS and enable single sign on.
+                Integrate OpenStax Tutor with Blackboard, Canvas, etc., to send student course averages to your LMS and enable single sign on.
               </p>
             </div>
           </a>
