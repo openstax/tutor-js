@@ -26,6 +26,12 @@ export default class PreviewAddCourseBtn extends React.PureComponent {
     tourContext: React.PropTypes.instanceOf(TourContext),
   }
 
+  constructor(props) {
+    super(props);
+
+    this.onAddCourse.bind(this);
+  }
+
   @computed get course() {
     return this.props.courseId ? Courses.get(this.props.courseId) : null;
   }

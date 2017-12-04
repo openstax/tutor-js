@@ -30,7 +30,7 @@ export default class NoFooter extends React.PureComponent {
         display: 'none',
       },
       main: {
-        'padding-bottom': 0,
+        paddingBottom: 0,
       },
       close: {
         display: 'none',

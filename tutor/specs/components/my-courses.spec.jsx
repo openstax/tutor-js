@@ -132,6 +132,7 @@ describe('My Courses Component', function() {
     loadOfferings();
     const wrapper = mount(<CourseListing />, EnzymeContext.withDnD());
     expect(wrapper).toHaveRendered('[data-tour-anchor-id="explore-a-preview-zone"]');
+    expect(wrapper).toHaveRendered('[data-tour-anchor-id="create-course-zone"]');
     wrapper.unmount();
   });
 });

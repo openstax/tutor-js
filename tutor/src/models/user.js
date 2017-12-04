@@ -47,7 +47,7 @@ export class User extends BaseModel {
   }
 
   @computed get hasPreviewed() {
-    return Courses.preview.size == 0 || Courses.preview.isViewed.size > 0;
+    return Courses.teaching.preview.isEmpty || Courses.teaching.preview.isViewed.any;
   }
 
   @computed get shouldPreview() {
@@ -95,8 +95,17 @@ export class User extends BaseModel {
       tags.push('teacher-preview');
     }
 
-    if (find(tags, tag => startsWith(tag, 'teacher'))) {
+    if (
+      Courses.active.teaching.any &&
+      this.hasPreviewed &&
+      Courses.active.teaching.nonPreview.isEmpty
+    ) {
+      // Teacher has previewed a course but has no active real course.
+      // This means the teacher needs a reminder about how to create a course.
+      tags.push('teacher-need-real');
+    } else if (find(tags, tag => startsWith(tag, 'teacher'))) {
       if (this.shouldPreview && !this.hasPreviewed) {
+        // Otherwise, the teacher may need to preview a course
         tags.push('teacher-not-previewed');
       }
     }

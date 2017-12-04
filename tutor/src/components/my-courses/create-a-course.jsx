@@ -8,6 +8,7 @@ import { wrapCourseDropComponent } from './course-dnd';
 import TutorLink from '../link';
 import IconAdd from '../icons/add';
 import Courses from '../../models/courses-map';
+import TourAnchor from '../tours/anchor';
 
 @wrapCourseDropComponent @observer
 export default class CreateACourse extends React.PureComponent {
@@ -46,6 +47,9 @@ export default class CreateACourse extends React.PureComponent {
   }
 
   render() {
-    return this.renderAddZone();
+    return (
+      <TourAnchor id="create-course-zone">
+        {this.renderAddZone()}
+      </TourAnchor>);
   }
 }
