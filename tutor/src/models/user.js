@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, field, hasMany,
 } from './base';
-import { find } from 'lodash';
+import { find, startsWith } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import UiSettings from 'shared/src/model/ui-settings';
 import Courses from './courses-map';
@@ -9,7 +9,6 @@ import { UserTerms } from './user/terms';
 import Annotations from './annotations';
 import lazyGetter from '../helpers/lazy-getter';
 import ViewedTourStat from './user/viewed-tour-stat';
-import PreviewCourseOffering from './course/offerings/previews';
 import DOM from '../helpers/dom';
 
 @identifiedBy('user')
@@ -48,11 +47,15 @@ export class User extends BaseModel {
   }
 
   @computed get hasPreviewed() {
-    return PreviewCourseOffering.hasCreated;
+    return Courses.preview.isViewed.size;
   }
 
   @computed get shouldPreview() {
-    return this.viewed_tour_stats.find((stat) => stat.id === 'explore-a-preview').view_count < 4;
+    const exploreViewStats = this.viewed_tour_stats.find((stat) => stat.id === 'explore-a-preview');
+    if (exploreViewStats) {
+      return exploreViewStats.view_count < 4;
+    }
+    return true;
   }
 
   @lazyGetter annotations = new Annotations();
@@ -91,9 +94,13 @@ export class User extends BaseModel {
     } else if (Courses.active.teaching.any) {
       tags.push('teacher-preview');
     }
-    if (!this.hasPreviewed && this.shouldPreview) {
-      tags.push('teacher-not-previewed');
+
+    if (find(tags, tag => startsWith(tag, 'teacher'))) {
+      if (this.shouldPreview && !this.hasPreviewed) {
+        tags.push('teacher-not-previewed');
+      }
     }
+
     return tags;
   }
 
