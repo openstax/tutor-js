@@ -40,7 +40,6 @@ export default class PreviewAddCourseBtn extends React.PureComponent {
 
   @action.bound
   onAddCourse() {
-    User.replayTour({id: 'create-a-course'});
     this.context.router.history.push(
       Router.makePathname('myCourses')
     );

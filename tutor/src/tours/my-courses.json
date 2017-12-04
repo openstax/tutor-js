@@ -13,7 +13,7 @@
     }
   ]
 }, {
-  "id": "create-a-course",
+  "id": "explore-a-preview",
   "autoplay": true,
   "standalone": true,
   "showOverlay": false,
@@ -22,11 +22,11 @@
   ],
   "steps": [
     {
-      "anchor_id": "create-course-zone",
+      "anchor_id": "explore-a-preview-zone",
       "className": "button-less",
-      "position": "right",
-      "title": "Create a course anytime!",
-      "body":  "Click here to create a real course.",
+      "position": "top",
+      "title": "Explore a Preview!",
+      "body":  "See all features in action with a preview course first.  When you're ready, create a real course above.",
       "customComponent": "ViewedOnBlur"
     }
   ]
