@@ -18,6 +18,7 @@
   "standalone": true,
   "showOverlay": false,
   "isEnabled": false,
+  "sticky": true,
   "audience_tags": [
     "teacher-not-previewed"
   ],
@@ -36,6 +37,7 @@
   "standalone": true,
   "showOverlay": false,
   "isEnabled": false,
+  "sticky": true,
   "audience_tags": [
     "teacher-need-real"
   ],
