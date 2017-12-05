@@ -162,7 +162,7 @@ makeProductionBase = (projectConfig) ->
         parallel: true,
         sourceMap: true,
         uglifyOptions:
-          mange: false
+          mangle: false
       )
 
       # Use the production version of React (no warnings/runtime checks)
