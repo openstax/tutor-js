@@ -46,7 +46,7 @@ export default class PreviewAddCourseBtn extends React.PureComponent {
   }
 
   render() {
-    // if (!get(this, 'ux.showCreateCourseAction')) { return null; }
+    if (!get(this, 'ux.showCreateCourseAction')) { return null; }
 
     return (
       <TourAnchor id="preview-add-course-nav-button">
