@@ -49,7 +49,8 @@ export default class MyCourses extends React.PureComponent {
         otherTours={[
           'my-courses-coach-migrate',
           'my-courses-coach-no-migrate',
-          'explore-a-preview'
+          'explore-a-preview',
+          'create-a-course',
         ]}
         className="my-courses"
       >

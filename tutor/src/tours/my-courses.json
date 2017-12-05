@@ -14,19 +14,39 @@
   ]
 }, {
   "id": "explore-a-preview",
-  "autoplay": true,
+  "autoplay": false,
   "standalone": true,
   "showOverlay": false,
+  "isEnabled": false,
+  "sticky": true,
   "audience_tags": [
     "teacher-not-previewed"
   ],
   "steps": [
     {
       "anchor_id": "explore-a-preview-zone",
-      "className": "button-less",
       "position": "top-left",
-      "title": "Explore a Preview!",
+      "title": "Explore a preview!",
       "body":  "See all features in action with a preview course first.  When you're ready, create a real course above.",
+      "customComponent": "NoFooter"
+    }
+  ]
+}, {
+  "id": "create-a-course",
+  "autoplay": false,
+  "standalone": true,
+  "showOverlay": false,
+  "isEnabled": false,
+  "sticky": true,
+  "audience_tags": [
+    "teacher-need-real"
+  ],
+  "steps": [
+    {
+      "anchor_id": "create-course-zone",
+      "position": "right",
+      "title": "Create a course anytime!",
+      "body":  "Click here to create a real course.",
       "customComponent": "NoFooter"
     }
   ]

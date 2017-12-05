@@ -36,7 +36,7 @@ describe('User Model', () => {
     expect(User.tourAudienceTags).toEqual(['teacher-preview', 'teacher-not-previewed']);
 
     Courses.forEach((c) => { c.trackDashboardView(); });
-    expect(User.tourAudienceTags).toEqual(['teacher-preview']);
+    expect(User.tourAudienceTags).toEqual(['teacher-preview', 'teacher-need-real']);
 
     Courses.forEach((c) => {
       c.is_concept_coach = true;
