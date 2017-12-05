@@ -38,7 +38,6 @@ export default class SidebarButtons extends React.Component {
               }
               style={{
                 top: get(note.selection, 'bounds.top', 0) - parentRect.top,
-                position: 'absolute',
               }}
               alt="View annotation"
               onClick={() => onClick(note)}
