@@ -1,4 +1,4 @@
-import { get, pick } from 'lodash';
+import { get, pick, omit } from 'lodash';
 import { computed, action, observable } from 'mobx';
 import serializeSelection from 'serialize-selection';
 import Hypothesis from './hypothesis';
@@ -102,6 +102,12 @@ export default class Annotation extends BaseModel {
     return this.listing.destroy(this);
   }
 
+  @action updateAfterSave(data) {
+    // update target so it doesn't overwrite and lose the serialized bounds
+    this.update(omit(data, 'target'));
+    this.selection.update(get(data, 'target[0].selector[0]'));
+  }
+
   isSiblingOfElement(el) {
     if (!el) { return false; }
     if (el === this.referenceElement) { return true; }
@@ -114,6 +120,5 @@ export default class Annotation extends BaseModel {
     }
     return false;
   }
-
 
 }

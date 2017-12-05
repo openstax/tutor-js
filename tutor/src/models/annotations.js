@@ -34,7 +34,7 @@ export default class Annotations extends Map {
       service: `annotations/${annotation.id}`,
       data: { text: annotation.text },
     }).then((annotationData) => {
-      annotation.update(annotationData);
+      annotation.updateAfterSave(annotationData);
       this.api.requestsInProgress.delete('update');
       this.api.requestCounts.update += 1;
       return annotation;
