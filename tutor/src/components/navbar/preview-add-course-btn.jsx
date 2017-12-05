@@ -26,12 +26,6 @@ export default class PreviewAddCourseBtn extends React.PureComponent {
     tourContext: React.PropTypes.instanceOf(TourContext),
   }
 
-  constructor(props) {
-    super(props);
-
-    this.onAddCourse.bind(this);
-  }
-
   @computed get course() {
     return this.props.courseId ? Courses.get(this.props.courseId) : null;
   }
@@ -52,7 +46,7 @@ export default class PreviewAddCourseBtn extends React.PureComponent {
   }
 
   render() {
-    if (!get(this, 'ux.showCreateCourseAction')) { return null; }
+    // if (!get(this, 'ux.showCreateCourseAction')) { return null; }
 
     return (
       <TourAnchor id="preview-add-course-nav-button">
