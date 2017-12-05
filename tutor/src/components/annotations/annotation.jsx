@@ -6,7 +6,7 @@ import serializeSelection from 'serialize-selection';
 import cn from 'classnames';
 import './highlighter';
 import User from '../../models/user';
-import { debounce, filter, defer, sortBy, flatMap } from 'lodash';
+import { debounce, filter, defer, sortBy, get, find, findLast, map } from 'lodash';
 import Icon from '../icon';
 import SummaryPage from './summary-page';
 import DOM from '../../helpers/dom';
@@ -37,8 +37,8 @@ function getSelectionRect(win, selection) {
   };
 }
 
-function scrollToSelection(win, selection) {
-  const sRect = getSelectionRect(win, selection);
+function scrollToAnnotation(win, annotation) {
+  const sRect = annotation.selection.bounds;
   const marginTop = (win.innerHeight - sRect.bottom + sRect.top) / 2;
   const startPos = win.pageYOffset;
   const startTime = Date.now();
@@ -118,7 +118,7 @@ export default class AnnotationWidget extends React.Component {
       const annotation = User.annotations.get(id);
       if (annotation) {
         const selection = annotation.selection.restore();
-        scrollToSelection(this.props.windowImpl, selection);
+        scrollToAnnotation(this.props.windowImpl, annotation);
       } else {
         Logging.error(`Page attempted to scroll to annotation id '${id}' but it was not found`);
       }
@@ -324,27 +324,30 @@ export default class AnnotationWidget extends React.Component {
   }
 
   @computed get sortedAnnotationsForPage() {
-    return flatMap(sortBy(this.referenceElements, 'offsetTop'), (el) => (
-      sortBy(
-        filter(this.annotationsForThisPage, { elementId: el.id }),
-        'selection.start'
-      )
-    ));
+    return sortBy(
+      this.annotationsForThisPage,
+      ['selection.bounds.top', 'selection.start']
+    );
   }
 
   @computed get nextAnnotation() {
     if (!this.activeAnnotation) { return null; }
-    const { start } = this.activeAnnotation.selection;
-    return this.sortedAnnotationsForPage.find((hl) =>
-      hl.selection.start > start
+
+    const { start, bounds: { top } } = this.activeAnnotation.selection;
+    return find(this.sortedAnnotationsForPage, (hl) =>
+      (hl.selection.bounds.top == top && hl.selection.start > start) || (
+        hl.selection.bounds.top > top
+      )
     );
   }
 
   @computed get previousAnnotation() {
     if (!this.activeAnnotation) { return null; }
-    const { start } = this.activeAnnotation.selection;
-    return this.sortedAnnotationsForPage.find((hl) =>
-      hl.selection.start < start
+    const { start, bounds: { top } } = this.activeAnnotation.selection;
+    return findLast(this.sortedAnnotationsForPage, (hl) =>
+      (hl.selection.bounds.top == top && hl.selection.start < start) || (
+        hl.selection.bounds.top < top
+      )
     );
   }
 
@@ -387,6 +390,7 @@ export default class AnnotationWidget extends React.Component {
 
   @action.bound editAnnotation(annotation) {
     this.activeAnnotation = annotation;
+    scrollToAnnotation(this.props.windowImpl, annotation);
   }
 
 
@@ -416,7 +420,6 @@ export default class AnnotationWidget extends React.Component {
           annotation={this.activeAnnotation}
           onHide={this.hideActiveHighlight}
           goToAnnotation={this.editAnnotation}
-
           next={this.nextAnnotation}
           previous={this.previousAnnotation}
           seeAll={this.seeAll}
