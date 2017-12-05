@@ -45,16 +45,19 @@ describe('Course Model', () => {
   it('calculates audience tags', () => {
     expect(Courses.get(1).tourAudienceTags).toEqual(['student']);
     const teacher = Courses.get(2);
+    expect(teacher.tourAudienceTags).toEqual(['teacher']);
+    teacher.primaryRole.joined_at = new Date();
     expect(teacher.tourAudienceTags).toEqual(['teacher', 'teacher-settings-roster-split']);
     teacher.is_preview = true;
     expect(teacher.tourAudienceTags).toEqual(['teacher-preview']);
     const course = Courses.get(3);
-    expect(course.tourAudienceTags).toEqual(['teacher', 'teacher-settings-roster-split', 'student']);
+    expect(course.tourAudienceTags).toEqual(['teacher', 'student']);
     course.is_preview = false;
     expect(course.isTeacher).toEqual(true);
     course.taskPlans.set('1', { id: 1, type: 'reading', is_publishing: true, isPublishing: true });
     expect(course.taskPlans.reading.hasPublishing).toEqual(true);
-    expect(course.tourAudienceTags).toEqual(['teacher', 'teacher-settings-roster-split', 'teacher-reading-published', 'student' ]);
+    expect(course.tourAudienceTags).toEqual(['teacher', 'teacher-reading-published', 'student' ]);
+
   });
 
 
@@ -62,6 +65,7 @@ describe('Course Model', () => {
     expect(Courses.get(1).primaryRole.type).to.equal('student');
     expect(Courses.get(2).primaryRole.type).to.equal('teacher');
     expect(Courses.get(3).primaryRole.type).to.equal('teacher');
+    expect(Courses.get(1).primaryRole.joinedAgo('days')).toEqual(7);
   });
 
   it('sunsets cc courses', () => {

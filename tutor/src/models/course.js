@@ -188,7 +188,7 @@ export default class Course extends BaseModel {
     if (this.isTeacher) {
       tags.push(this.is_preview ? 'teacher-preview' : 'teacher');
       if (!this.is_preview) {
-        if (this.isBeforeTerm('fall', 2017)) {
+        if (this.notifyAboutRosterSplit) {
           tags.push('teacher-settings-roster-split');
         }
         if (this.taskPlans.reading.hasPublishing) {
@@ -201,6 +201,16 @@ export default class Course extends BaseModel {
     }
     if (this.isStudent) { tags.push('student'); }
     return tags;
+  }
+
+  // remove after 2018 spring semester
+  @computed get notifyAboutRosterSplit() {
+    return Boolean(
+      !this.is_preview &&
+      this.primaryRole.joinedAgo('days') <= 7 &&
+      find(this.map.nonPreview.teaching.array,
+           c => c != this && c.isBeforeTerm('winter', 2017))
+    );
   }
 
   isBeforeTerm(term, year) {
