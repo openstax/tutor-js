@@ -17,6 +17,7 @@ import Scores from './course/scores';
 import LMS from './course/lms';
 import PH from '../helpers/period';
 import TimeHelper from '../helpers/time';
+import FeatureFlags from './feature_flags';
 import { TimeStore } from '../flux/time';
 import { extendHasMany } from '../helpers/computed-property';
 import moment from 'moment-timezone';
@@ -168,7 +169,12 @@ export default class Course extends BaseModel {
   }
 
   @computed get canAnnotate() {
-    return Boolean(this.isStudent && this.isActive && 'college_biology' == this.appearance_code);
+    return Boolean(
+      FeatureFlags.is_highlighting_allowed &&
+        this.isStudent &&
+        this.isActive &&
+        'college_biology' == this.appearance_code
+    );
   }
 
   @computed get needsPayment() {
