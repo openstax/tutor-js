@@ -20,9 +20,6 @@ class StatusMessage {
     this.hideTimer = null;
   }
 
-  @action.bound hideStatusMessage() {
-  }
-
   show({ message, type = 'error', autoHide = false }) {
     if (this.hideTimer) {
       clearTimeout(this.hideTimer);
