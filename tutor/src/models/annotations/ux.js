@@ -1,7 +1,7 @@
 import { observable, action, computed } from 'mobx';
 import { readonly } from 'core-decorators';
 
-const ERROR_DISPLAY_TIMEOUT = 1000 * 2;
+const ERROR_DISPLAY_TIMEOUT = 1000 * 4;
 
 class StatusMessage {
 
