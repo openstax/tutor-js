@@ -1,18 +1,18 @@
 .tutor-highlight {
-  background-color: @tutor-highlight;
+  background-color: $tutor-highlight;
   cursor: pointer;
 }
 
 .annotater {
   .widget {
-    background: @tutor-white;
-    border: thin solid @tutor-neutral-light;
+    background: $tutor-white;
+    border: thin solid $tutor-neutral-light;
     font-size: 2rem;
     padding: 1rem 0;
     position: absolute;
     transform: translate(calc(10px - 50%), 10px);
     z-index: 20;
-    .no-select();
+    @include no-select();
 
     [role="button"] {
       padding: 0 1.5rem;
@@ -29,12 +29,12 @@
     bottom: 0;
     padding: 1rem 2rem;
     opacity: 0.8;
-    border-top-left-radius: @border-radius-small;
+    border-top-left-radius: $border-radius-small;
     background-color: #e1f3df;
     color: #75a048;
     &.error {
-      color: @tutor-neutral-darker;
-      background-color: @tutor-warning;
+      color: $tutor-neutral-darker;
+      background-color: $tutor-warning;
     }
 
   }
@@ -55,22 +55,22 @@
 
     &:after {
       border-color: rgba(255, 255, 255, 0);
-      border-bottom-color: @tutor-white;
+      border-bottom-color: $tutor-white;
       border-width: 12px;
       margin-left: -12px;
     }
 
     &:before {
       border-color: rgba(211, 211, 211, 0);
-      border-bottom-color: @tutor-neutral-light;
+      border-bottom-color: $tutor-neutral-light;
       border-width: 13px;
       margin-left: -13px;
     }
   }
 
   .slide-out-edit-box {
-    background-color: @tutor-neutral-bright;
-    border: thin solid @tutor-neutral-light;
+    background-color: $tutor-neutral-bright;
+    border: thin solid $tutor-neutral-light;
     padding: 1rem;
     position: fixed;
     right: 0;
@@ -78,14 +78,14 @@
     transition: 0.3s;
     width: 40rem;
     z-index: 20;
-    .tutor-shadow(subtle);
+    @include tutor-shadow(subtle);
 
     &.closed {
       right: -40rem;
     }
 
     textarea {
-      border: thin solid @tutor-neutral-light;
+      border: thin solid $tutor-neutral-light;
       height: 10rem;
       width: 100%;
     }
@@ -96,24 +96,24 @@
       width: 100%;
 
       button {
-        background-color: @tutor-white;
-        border: thin solid @tutor-neutral-light;
+        background-color: $tutor-white;
+        border: thin solid $tutor-neutral-light;
         border-radius: 3px;
-        color: @tutor-neutral;
+        color: $tutor-neutral;
         margin: 5px;
         min-width: 46px;
         padding: 5px 10px;
         &[disabled] {
-          color: @tutor-neutral-light;
+          color: $tutor-neutral-light;
           cursor: not-allowed;
         }
         &.primary {
-          background-color: @tutor-primary;
-          color: @tutor-neutral-bright;
+          background-color: $tutor-primary;
+          color: $tutor-neutral-bright;
         }
         &.secondary {
-          background-color: @tutor-neutral;
-          color: @tutor-neutral-bright;
+          background-color: $tutor-neutral;
+          color: $tutor-neutral-bright;
         }
 
         > * {
@@ -129,13 +129,13 @@
     opacity: 0.25;
     right: 2.5rem;
     transform: translateY(-25%);
-    color: @tutor-neutral;
+    color: $tutor-neutral;
     transition: 0.3s color;
-    &:hover { color: @tutor-neutral-dark; }
+    &:hover { color: $tutor-neutral-dark; }
     &.active {
-      color: @tutor-blue-icon;
+      color: $tutor-blue-icon;
       &:hover {
-        color: @tutor-blue-icon;
+        color: $tutor-blue-icon;
         cursor: default;
       }
     }
@@ -145,7 +145,7 @@
   }
 
   .highlights-windowshade {
-    background-color: @tutor-neutral-light;
+    background-color: $tutor-neutral-light;
     bottom: 100%;
     display: flex;
     justify-content: center;
@@ -156,7 +156,7 @@
     top: 0;
     transition: 0.3s;
     z-index: 20;
-    .no-select();
+    @include no-select();
 
     &.down {
       bottom: 0;
@@ -205,7 +205,7 @@
   }
 
   .annotation-card {
-    background-color: @tutor-white;
+    background-color: $tutor-white;
     display: flex;
     margin-bottom: 3rem;
     padding: 3rem;
@@ -216,8 +216,8 @@
     }
 
     button {
-      background-color: @tutor-white;
-      border: thin solid @tutor-neutral-light;
+      background-color: $tutor-white;
+      border: thin solid $tutor-neutral-light;
       border-radius: 2px;
       height: 3rem;
       margin-right: 0.5rem;
@@ -228,7 +228,7 @@
       }
 
       .tutor-icon {
-        color: @tutor-neutral-dark;
+        color: $tutor-neutral-dark;
         margin: 0;
       }
     }
@@ -243,7 +243,7 @@
       flex: 1 1 90%;
 
       .selected-text {
-        border-left: 3px solid @tutor-neutral-light;
+        border-left: 3px solid $tutor-neutral-light;
         font-family: Georgia, serif;
         font-style: italic;
         padding: 1rem;
@@ -254,7 +254,7 @@
         margin-top: 2rem;
 
         textarea {
-          border: thin solid @tutor-neutral-light;
+          border: thin solid $tutor-neutral-light;
           padding: 1rem;
           width: 100%;
         }
