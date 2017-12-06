@@ -11,7 +11,7 @@ classnames = require 'classnames'
 String         = require '../../helpers/string'
 BindStoreMixin = require '../bind-store-mixin'
 ExerciseCard   = require './exercise-card'
-MultiSelect    = require '../multi-select'
+{default: MultiSelect} = require '../multi-select'
 
 QAExercises = React.createClass
   displayName: 'QAExercises'
