@@ -32,6 +32,7 @@ export default class SectionsFilter extends React.Component {
     return (
       <div className="filter-widget">
         <Multiselect
+          closeAfterSelect={false}
           title="Display sections"
           onSelect={this.setChapter}
           data={this.props.pages}
