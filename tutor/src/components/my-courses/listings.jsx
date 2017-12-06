@@ -2,7 +2,7 @@ import React from 'react';
 
 import { observer } from 'mobx-react';
 import { computed, observable } from 'mobx';
-import { isEmpty, merge, map, reject } from 'lodash';
+import { isEmpty, merge, map, reject, last, take } from 'lodash';
 import { Col, Row, Grid } from 'react-bootstrap';
 import classnames from 'classnames';
 
@@ -13,6 +13,7 @@ import User from '../../models/user';
 import CourseModel from '../../models/course';
 import CreateACourse from './create-a-course';
 import { CoursePreview, Course, CourseTeacher } from './course';
+import TourAnchor from '../tours/anchor';
 
 function wrapCourseItem(Item, course = {}) {
   return (
@@ -23,7 +24,6 @@ function wrapCourseItem(Item, course = {}) {
     </Col>
   );
 }
-
 
 function MyCoursesNone() {
   return (
@@ -135,7 +135,7 @@ class MyCoursesBasic extends React.PureComponent {
   }
 
   render() {
-    const { courses, baseName, title } = this.props;
+    const { courses, baseName, title, before, after } = this.props;
     if (isEmpty(courses)) { return null; }
 
     return (
@@ -143,7 +143,12 @@ class MyCoursesBasic extends React.PureComponent {
         <div className={baseName}>
           <Grid>
             <MyCoursesTitle title={title} />
-            <MyCoursesBase className={`${baseName}-section`} courses={courses} />
+            <MyCoursesBase
+              className={`${baseName}-section`}
+              courses={courses}
+              before={before}
+              after={after}
+            />
           </Grid>
         </div>
       )
@@ -178,6 +183,18 @@ export class MyCoursesFuture extends React.PureComponent {
   }
 }
 
+function ExploreAPreview({ course }) {
+  return (
+    <Col key={`my-courses-item-wrapper-${course.id}`} md={3} sm={6} xs={12}>
+      <TourAnchor id='explore-a-preview-zone'>
+        <CoursePreview
+          course={course}
+        />
+      </TourAnchor>
+    </Col>
+  );
+}
+
 @observer
 export class MyCoursesPreview extends React.PureComponent {
 
@@ -192,10 +209,13 @@ export class MyCoursesPreview extends React.PureComponent {
   render() {
     if (!User.isConfirmedFaculty) { return null; }
 
+    const courses = PreviewCourseOffering.all;
+
     return (
       <MyCoursesBasic
-        courses={PreviewCourseOffering.all}
+        courses={take(courses, courses.length - 1)}
         baseName={ReactHelpers.getBaseName(this)}
+        after={<ExploreAPreview course={last(courses)} />}
         title="Preview Courses"
       />
     );

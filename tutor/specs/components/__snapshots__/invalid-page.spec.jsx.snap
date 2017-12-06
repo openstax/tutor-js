@@ -37,6 +37,7 @@ exports[`Invalid Page renders and matches snapshot 1`] = `
     Return Home
     <i
       className="tutor-icon fa fa-caret-right"
+      role="presentation"
       type="caret-right"
     />
   </a>

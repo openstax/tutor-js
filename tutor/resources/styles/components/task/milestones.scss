@@ -7,6 +7,10 @@ $milestone-icon-size: 60px;
   .task-with-progress {
     .task-step {
       margin-top: 40px;
+
+      @media print {
+        margin: 0;
+      }
     }
 
     &.task-with-milestones-entered {

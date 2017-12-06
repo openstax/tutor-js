@@ -1,0 +1,265 @@
+.tutor-highlight {
+  background-color: $tutor-highlight;
+  cursor: pointer;
+}
+
+.annotater {
+  .widget {
+    background: $tutor-white;
+    border: thin solid $tutor-neutral-light;
+    font-size: 2rem;
+    padding: 1rem 0;
+    position: absolute;
+    transform: translate(calc(10px - 50%), 10px);
+    z-index: 20;
+    @include no-select();
+
+    [role="button"] {
+      padding: 0 1.5rem;
+
+      &:first-child {
+        border-right: thin solid lightgray;
+      }
+    }
+  }
+
+  .status-message-toast {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    padding: 1rem 2rem;
+    opacity: 0.8;
+    border-top-left-radius: $border-radius-small;
+    background-color: #e1f3df;
+    color: #75a048;
+    &.error {
+      color: $tutor-neutral-darker;
+      background-color: $tutor-warning;
+    }
+
+  }
+
+  .arrow-box {
+
+    &:after,
+    &:before {
+      bottom: 100%;
+      left: 50%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+
+    &:after {
+      border-color: rgba(255, 255, 255, 0);
+      border-bottom-color: $tutor-white;
+      border-width: 12px;
+      margin-left: -12px;
+    }
+
+    &:before {
+      border-color: rgba(211, 211, 211, 0);
+      border-bottom-color: $tutor-neutral-light;
+      border-width: 13px;
+      margin-left: -13px;
+    }
+  }
+
+  .slide-out-edit-box {
+    background-color: $tutor-neutral-bright;
+    border: thin solid $tutor-neutral-light;
+    padding: 1rem;
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transition: 0.3s;
+    width: 40rem;
+    z-index: 20;
+    @include tutor-shadow(subtle);
+
+    &.closed {
+      right: -40rem;
+    }
+
+    textarea {
+      border: thin solid $tutor-neutral-light;
+      height: 10rem;
+      width: 100%;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      button {
+        background-color: $tutor-white;
+        border: thin solid $tutor-neutral-light;
+        border-radius: 3px;
+        color: $tutor-neutral;
+        margin: 5px;
+        min-width: 46px;
+        padding: 5px 10px;
+        &[disabled] {
+          color: $tutor-neutral-light;
+          cursor: not-allowed;
+        }
+        &.primary {
+          background-color: $tutor-primary;
+          color: $tutor-neutral-bright;
+        }
+        &.secondary {
+          background-color: $tutor-neutral;
+          color: $tutor-neutral-bright;
+        }
+
+        > * {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .sidebar-button {
+    position: absolute;
+    font-size: 2.5rem;
+    opacity: 0.25;
+    right: 2.5rem;
+    transform: translateY(-25%);
+    color: $tutor-neutral;
+    transition: 0.3s color;
+    &:hover { color: $tutor-neutral-dark; }
+    &.active {
+      color: $tutor-blue-icon;
+      &:hover {
+        color: $tutor-blue-icon;
+        cursor: default;
+      }
+    }
+    @media print {
+      display: none;
+    }
+  }
+
+  .highlights-windowshade {
+    background-color: $tutor-neutral-light;
+    bottom: 100%;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+    transition: 0.3s;
+    z-index: 20;
+    @include no-select();
+
+    &.down {
+      bottom: 0;
+      overflow: auto;
+      padding-top: 10rem;
+
+      @media print {
+        padding: 0;
+        position: static;
+      }
+    }
+
+    h1 {
+      font-size: 18px;
+    }
+  }
+
+  .centered-content {
+    flex-basis: 100%;
+    max-width: 100rem;
+
+    @media print {
+      flex-basis: calc(100% - 8rem);
+      transform: translateX(1rem);
+    }
+
+    > .dismiss {
+      float: right;
+      font-size: 18px;
+    }
+  }
+
+  @media print {
+    .filter-area,
+    .dismiss,
+    .controls {
+      display: none;
+    }
+  }
+
+  .filter-widget {
+    display: flex;
+    flex-direction: column;
+    width: 40rem;
+    .rw-widget { width: 100%; }
+  }
+
+  .annotation-card {
+    background-color: $tutor-white;
+    display: flex;
+    margin-bottom: 3rem;
+    padding: 3rem;
+    width: 100%;
+
+    @media print {
+      padding: 0;
+    }
+
+    button {
+      background-color: $tutor-white;
+      border: thin solid $tutor-neutral-light;
+      border-radius: 2px;
+      height: 3rem;
+      margin-right: 0.5rem;
+      width: 4.6rem;
+
+      &:last-child {
+        margin: 0;
+      }
+
+      .tutor-icon {
+        color: $tutor-neutral-dark;
+        margin: 0;
+      }
+    }
+
+    .controls {
+      flex: 0 0 16rem;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .annotation-content {
+      flex: 1 1 90%;
+
+      .selected-text {
+        border-left: 3px solid $tutor-neutral-light;
+        font-family: Georgia, serif;
+        font-style: italic;
+        padding: 1rem;
+      }
+
+      .edit-box,
+      .plain-text:not(:empty) {
+        margin-top: 2rem;
+
+        textarea {
+          border: thin solid $tutor-neutral-light;
+          padding: 1rem;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+}

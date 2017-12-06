@@ -37,6 +37,10 @@ $tutor-navbar-padding-horizontal: 4rem;
   padding-left:  $navbar-padding-horizontal;
   z-index: $zindex-navbar-fixed;
 
+  @media print {
+    display: none;
+  }
+
   .tutor-nav-controls {
     display: flex;
     justify-content: space-between;
@@ -66,6 +70,7 @@ $tutor-navbar-padding-horizontal: 4rem;
 
   > * {
     display: flex;
+    align-items: center;
   }
 
   .navbar-overlay {
@@ -84,6 +89,7 @@ $tutor-navbar-padding-horizontal: 4rem;
 
   .right-side-controls {
     display: flex;
+    min-height: 100%;
     > * {
       margin-left: 20px;
       @media screen and (min-width: $screen-md-min ) {
@@ -127,6 +133,7 @@ $tutor-navbar-padding-horizontal: 4rem;
 }
 
 @import './top-nav-bar/toasts';
+@import './top-nav-bar/preview-add-course-btn';
 
 
 .pinned-shy .tutor-top-navbar {

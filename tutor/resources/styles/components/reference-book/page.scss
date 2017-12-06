@@ -13,10 +13,17 @@
       margin: 0 auto;
 
       // always wrap around elements by extending bootstrap's clearfix
-      @extend .clearfix;
+      @include clearfix;
     }
 
     @include book-paged-content();
+
+    .page-wrapper {
+      position: relative;
+      &:focus {
+        outline: 0;
+      }
+    }
 
     .page {
       @include tutor-book-content-body();
@@ -64,7 +71,6 @@
       }
     }
   }
-
 
   .reference-book-page {
     transition: margin-left 0.2s linear;

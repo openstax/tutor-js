@@ -1,18 +1,21 @@
 React = require 'react'
 BS = require 'react-bootstrap'
 _  = require 'underscore'
-
+cn = require 'classnames'
+TutorLink = require '../link'
 ChapterSection = require '../task-plan/chapter-section'
 BindStoreMixin = require '../bind-store-mixin'
 {ReferenceBookStore} = require '../../flux/reference-book'
 {ReferenceBookPageStore} = require '../../flux/reference-book-page'
 SlideOutMenuToggle = require './slide-out-menu-toggle'
+{default: AnnotationsSummaryToggle} = require '../annotations/summary-toggle'
 
 module.exports = React.createClass
   displayName: 'ReferenceBookNavBar'
   mixins: [BindStoreMixin]
   bindStore: ReferenceBookPageStore
   propTypes:
+    courseId: React.PropTypes.string.isRequired
     ecosystemId: React.PropTypes.string.isRequired
     toggleTocMenu: React.PropTypes.func.isRequired
     section: React.PropTypes.string.isRequired
@@ -23,32 +26,44 @@ module.exports = React.createClass
     {section, ecosystemId} = @props
     title = ReferenceBookStore.getPageTitle({section, ecosystemId})
 
-    <ul className="nav navbar-nav section-title">
-      <li>
+    <div className="section-title">
+      <span>
         <ChapterSection section={section} />
-      </li>
-      <li className="title">
+      </span>
+      <span className="title">
         {title}
-      </li>
-    </ul>
+      </span>
+    </div>
 
   render: ->
-    <BS.Navbar fixedTop fluid>
-      <BS.Nav navbar>
-        <BS.NavItem className="menu-toggle" onClick={@props.toggleTocMenu} tabIndex=0
+    <nav
+      className={cn('tutor-top-navbar', { 'menu-open': @props.isMenuVisible })}
+    >
+      <div className="left-side-controls">
+        <a
+          className="menu-toggle"
+          onClick={@props.toggleTocMenu} tabIndex=0
           aria-label={if @props.isMenuVisible then "Close Sections Menu" else "Open Sections Menu"}
         >
           <SlideOutMenuToggle isMenuVisible={@props.isMenuVisible} />
-        </BS.NavItem>
-      </BS.Nav>
-      <BS.Nav className='full-width-only'>
+        </a>
 
-        <BS.NavItem><i className='ui-brand-logo' /></BS.NavItem>
+        {@renderSectionTitle()}
 
-      </BS.Nav>
-      {@renderSectionTitle()}
-      <BS.Nav className='full-width-only' pullRight>
+      </div>
+
+      <div className='center-control'>
+        <div className='icons'>
+          <AnnotationsSummaryToggle
+            type="refbook"
+            section={@props.section}
+            courseId={@props.courseId}
+            ecosystemId={@props.ecosystemId}
+          />
+        </div>
+      </div>
+      <div className="right-side-controls">
         {@props.extraControls}
-        <BS.NavItem><i className='ui-brand-logo' /></BS.NavItem>
-      </BS.Nav>
-    </BS.Navbar>
+      </div>
+
+    </nav>

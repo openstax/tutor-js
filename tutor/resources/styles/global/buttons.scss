@@ -88,7 +88,16 @@ $primary-background-hover: #fa804d;
   &.btn-primary {
     @include btn-tutor-primary();
   }
-
+  &.dark {
+    color: white;
+    background: $tutor-neutral;
+    border: 1px solid $tutor-neutral-dark;
+    &:hover,
+    &:focus {
+      background: $tutor-neutral-dark;
+      border: 1px solid $tutor-neutral-darker;
+    }
+  }
   &.active {
     background-color: $tutor-neutral-light;
     box-shadow: none;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { isNil } from 'lodash';
 import { observer } from 'mobx-react';
 import EventRow from './event-row';
 
@@ -12,9 +13,9 @@ export default class HomeworkRow extends React.PureComponent {
 
   render() {
     const { event } = this.props;
-    const feedback = event.correct_exercise_count ?
-                     `${event.correct_exercise_count}/${event.exercise_count} correct` :
-                     `${event.complete_exercise_count}/${event.exercise_count} answered`;
+    const feedback = isNil(event.correct_exercise_count) ?
+      `${event.complete_exercise_count}/${event.exercise_count} answered` :
+      `${event.correct_exercise_count}/${event.exercise_count} correct`;
 
     return (
       <EventRow {...this.props} feedback={feedback} eventType="homework">

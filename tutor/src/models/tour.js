@@ -52,12 +52,16 @@ export default class Tour extends BaseModel {
   @field showOverlay;
   @field autoplay = false;
   @field standalone = false;
+  @field sticky = false;
   @field isEnabled = false;
   @field className;
 
   @hasMany({ model: TourStep, inverseOf: 'tour' }) steps;
 
   @computed get isViewable() {
+    if (this.sticky) {
+      return true;
+    }
     if (this.autoplay) {
       const unViewed = !this.isViewed;
       if (this.standalone){

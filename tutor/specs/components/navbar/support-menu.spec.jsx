@@ -5,15 +5,21 @@ import { bootstrapCoursesList } from '../../courses-test-data';
 import TourRegion from '../../../src/models/tour/region';
 import TourContext from '../../../src/models/tour/context';
 import Chat from '../../../src/models/chat';
+import Router from '../../../src/helpers/router';
 jest.mock('../../../src/models/chat');
+
+jest.mock('../../../src/helpers/router');
 
 describe('Support Menu', () => {
   let context;
   let region;
+  let courses;
   beforeEach(() => {
+    Router.currentParams.mockReturnValue({});
+    Chat.isEnabled = false;
     context = new TourContext({ isEnabled: true });
     region = new TourRegion({ id: 'teacher-calendar', courseId: '2' });
-    bootstrapCoursesList();
+    courses = bootstrapCoursesList();
   });
 
   it('only renders page tips option if available', () => {
@@ -39,4 +45,20 @@ describe('Support Menu', () => {
     menu.find('.chat.enabled a').simulate('click');
     expect(Chat.start).toHaveBeenCalled();
   });
+
+  it('renders support links when in a course for student', () => {
+    Router.currentParams.mockReturnValue({ courseId: '1' });
+    expect(SnapShot.create(
+      <Wrapper _wrapped_component={SupportMenu} courseId="2" tourContext={context} />).toJSON()
+    ).toMatchSnapshot();
+  });
+
+  it('renders support links when in a course for teacher', () => {
+    courses.get('2').appearance_code = 'college_biology';
+    Router.currentParams.mockReturnValue({ courseId: '2' });
+    expect(SnapShot.create(
+      <Wrapper _wrapped_component={SupportMenu} courseId="2" tourContext={context} />).toJSON()
+    ).toMatchSnapshot();
+  });
+
 });

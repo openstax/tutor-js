@@ -13,7 +13,7 @@ export default class ReadingRow extends React.PureComponent {
   render() {
     let feedback;
     if (this.props.event.complete) { feedback = 'Complete';
-    } else if (this.props.event.complete_exercise_count <= 0) {
+    } else if (this.props.event.complete_exercise_count > 0) {
       feedback = 'In progress';
     } else {
       feedback = 'Not started';

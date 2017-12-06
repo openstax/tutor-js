@@ -19,6 +19,7 @@ $free-response-background:  $tutor-neutral-lighter;
   padding-right: 8px;
 }
 
+
 @mixin answer-text-label() {
   @include tutor-script-font(1.4rem);
   color: $answer-label-color;
@@ -35,13 +36,16 @@ $free-response-background:  $tutor-neutral-lighter;
   &:focus { outline: none; }
   .card-body:focus { outline: none; }
   .openstax-question:focus { outline: none; }
+  #errata-link {
+    margin-right: 2rem;
+  }
 }
 
 .openstax-question {
 
   @include size-exercise-card();
   padding-right: 20px;
-   @include tutor-sans-font(1.8rem, 2.4rem);
+  @include tutor-sans-font(1.8rem, 2.4rem);
 
   .answers-answer {
     &::before {
@@ -100,20 +104,27 @@ $free-response-background:  $tutor-neutral-lighter;
     }
   }
 
-  .teacher-review-answers .panel-heading + .panel-collapse > .panel-body {
-    border: none;
-  }
-
   .teacher-review-answers {
+    .panel,
+    .panel-heading + .panel-collapse > .panel-body {
+      border: none;
+    }
+
     &.panel {
       @include box-shadow(none);
-      &:not(.active) {
-        @include height-limited-panel(200px);
+      border-width: 0;
+      &.is-expandable:not(.active) {
+        @include height-limited-panel(250px);
       }
       > .panel-heading {
         color: $free-response-color;
         background: transparent;
         border-bottom: 0;
+        a, span {
+          color: $free-response-color;
+          font-weight: normal;
+          @include tutor-sans-font(1.4rem);
+        }
       }
     }
     .free-response {

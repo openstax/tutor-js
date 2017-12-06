@@ -34,6 +34,8 @@ describe('Course Settings, student access', () => {
     course.save = jest.fn();
     const access = mount(<StudentAccess {...props} />);
     access.find('.panel.links .panel-heading a').simulate('click');
+    expect(course.save).not.toHaveBeenCalled();
+    document.querySelector('.modal.warn-before-links .btn-primary').click();
     expect(course.save).toHaveBeenCalled();
     expect(course.is_lms_enabled).toEqual(false);
     expect(Renderer.create(<StudentAccess {...props} />).toJSON()).toMatchSnapshot();

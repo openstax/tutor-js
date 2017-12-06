@@ -66,6 +66,15 @@
         "id": "open-user-menu"
       }
     }, {
+      "title": "Student enrollment",
+      "body": "Find student access options in Course settings.",
+      "anchor_id": "menu-option-courseSettings",
+      "position": "left",
+      "is_fixed": true,
+      "action": {
+        "id": "open-user-menu"
+      }
+    }, {
       "title": "Browse the book",
       "body": "Review the OpenStax textbook here.",
       "anchor_id": "menu-option-browse-book",

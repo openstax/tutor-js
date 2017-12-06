@@ -9,7 +9,7 @@ import Clipboard from '../helpers/clipboard';
 export default class CopyOnFocusInput extends React.PureComponent {
 
   static propTypes = {
-    value: React.PropTypes.string.isRequired,
+    value: React.PropTypes.string,
     label: React.PropTypes.string,
     className: React.PropTypes.string,
     focusOnMount: React.PropTypes.bool,

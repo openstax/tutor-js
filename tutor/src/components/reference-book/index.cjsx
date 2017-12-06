@@ -44,9 +44,9 @@ ReferenceBookShell = React.createClass
   renderNavbarControls: ->
     return null unless Courses.get(@state.courseId).isTeacher
 
-    <BS.NavItem key='teacher-content'>
+    <span key='teacher-content'>
       <TeacherContentToggle isShowing={@state.isShowingTeacherContent} onChange={@setTeacherContent} />
-    </BS.NavItem>
+    </span>
 
   renderBook: ->
     {courseId, ecosystemId} = @state
@@ -58,6 +58,7 @@ ReferenceBookShell = React.createClass
         menuRouterLinkTarget='viewReferenceBookSection'
         className={classnames('is-teacher': @state.isShowingTeacherContent)}
         dataProps={CourseData.getCourseDataProps(courseId) if courseId}
+        courseId={courseId}
         ecosystemId={ecosystemId}
     />
 
@@ -68,6 +69,5 @@ ReferenceBookShell = React.createClass
       store={ReferenceBookStore}
       actions={ReferenceBookActions}
       renderItem={@renderBook} />
-
 
 module.exports = {ReferenceBookShell, ReferenceBookPageShell}

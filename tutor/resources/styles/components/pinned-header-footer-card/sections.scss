@@ -16,4 +16,9 @@
   padding: $tutor-card-body-padding-vertical 0;
   margin-bottom: 4rem;
   position: relative; // needed so components inside can position themselves using absolute
+
+  @media print {
+    padding: 0;
+    margin: 0;
+  }
 }

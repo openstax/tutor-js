@@ -16,6 +16,7 @@ exports[`Support Menu renders and matches snapshot 1`] = `
   >
     <i
       className="tutor-icon fa fa-question-circle"
+      role="presentation"
       type="question-circle"
     />
     <span
@@ -81,6 +82,188 @@ exports[`Support Menu renders and matches snapshot 1`] = `
     >
       <a
         href="/accessibility-statement/"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="menuitem"
+        tabIndex="-1"
+      >
+        <span>
+          Accessibility statement
+        </span>
+      </a>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`Support Menu renders support links when in a course for student 1`] = `
+<div
+  className="support-menu dropdown btn-group"
+>
+  <a
+    aria-expanded={false}
+    aria-haspopup={true}
+    className="dropdown-toggle"
+    href="#"
+    id="support-menu"
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    role="button"
+  >
+    <i
+      className="tutor-icon fa fa-question-circle"
+      role="presentation"
+      type="question-circle"
+    />
+    <span
+      className="control-label"
+      title="Page tips and support"
+    >
+      Help
+    </span>
+     
+    <span
+      className="caret"
+    />
+  </a>
+  <ul
+    className="tour-anchor dropdown-menu dropdown-menu-right"
+    data-tour-anchor-id="support-menu-button"
+    id="support-menu-button"
+    onSelect={[Function]}
+  >
+    <li
+      className="-help-link"
+      role="presentation"
+      style={undefined}
+    >
+      <a
+        href="http://openstax.force.com/support?l=en_US&c=Products%3ATutor"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="menuitem"
+        tabIndex="-1"
+        target="_blank"
+      >
+        <span>
+          Help Articles
+        </span>
+      </a>
+    </li>
+    <li
+      className="support-document-link"
+      role="presentation"
+      style={undefined}
+    >
+      <a
+        href="https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_student_getting_started_guide.pdf"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="menuitem"
+        tabIndex="-1"
+        target="_blank"
+      >
+        Getting started guide
+      </a>
+    </li>
+    <li
+      className="-help-link"
+      role="presentation"
+      style={undefined}
+    >
+      <a
+        href="/accessibility-statement/1"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="menuitem"
+        tabIndex="-1"
+      >
+        <span>
+          Accessibility statement
+        </span>
+      </a>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`Support Menu renders support links when in a course for teacher 1`] = `
+<div
+  className="support-menu dropdown btn-group"
+>
+  <a
+    aria-expanded={false}
+    aria-haspopup={true}
+    className="dropdown-toggle"
+    href="#"
+    id="support-menu"
+    onClick={[Function]}
+    onKeyDown={[Function]}
+    role="button"
+  >
+    <i
+      className="tutor-icon fa fa-question-circle"
+      role="presentation"
+      type="question-circle"
+    />
+    <span
+      className="control-label"
+      title="Page tips and support"
+    >
+      Help
+    </span>
+     
+    <span
+      className="caret"
+    />
+  </a>
+  <ul
+    className="tour-anchor dropdown-menu dropdown-menu-right"
+    data-tour-anchor-id="support-menu-button"
+    id="support-menu-button"
+    onSelect={[Function]}
+  >
+    <li
+      className="-help-link"
+      role="presentation"
+      style={undefined}
+    >
+      <a
+        href="http://openstax.force.com/support?l=en_US&c=Products%3ATutor"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="menuitem"
+        tabIndex="-1"
+        target="_blank"
+      >
+        <span>
+          Help Articles
+        </span>
+      </a>
+    </li>
+    <li
+      className="support-document-link"
+      role="presentation"
+      style={undefined}
+    >
+      <a
+        href="https://s3-us-west-2.amazonaws.com/openstax-assets/oscms-prodcms/media/documents/oxt-biology-best-practices.pdf"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="menuitem"
+        tabIndex="-1"
+        target="_blank"
+      >
+        Best practices guide
+      </a>
+    </li>
+    <li
+      className="-help-link"
+      role="presentation"
+      style={undefined}
+    >
+      <a
+        href="/accessibility-statement/2"
         onClick={[Function]}
         onKeyDown={[Function]}
         role="menuitem"

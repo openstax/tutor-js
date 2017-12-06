@@ -5,6 +5,10 @@ $hovered-exercise-background: rgba(241, 241, 241, 0.4);
   .pinned-container {
     max-width: $tutor-max-panel-width;
     margin: 0 auto;
+
+    @media print {
+      height: 0;
+    }
   }
   .exercise-cards {
     @include exercise-cards-column-layout();

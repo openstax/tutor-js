@@ -50,8 +50,16 @@ class CoursesMap extends Map {
     return this.where(c => !c.is_preview);
   }
 
+  @computed get preview() {
+    return this.where(c => c.is_preview);
+  }
+
+  @computed get isViewed() {
+    return this.where(c => c.dashboardViewCount > 0);
+  }
+
   @action addNew(courseData) {
-    const course = new Course(courseData);
+    const course = new Course(courseData, this);
     this.set(course.id, course);
     return course;
   }
@@ -72,7 +80,7 @@ class CoursesMap extends Map {
   @action onLoaded({ data }) {
     data.forEach((cd) => {
       const course = this.get(cd.id);
-      course ? course.update(cd) : this.set(cd.id, new Course(cd));
+      course ? course.update(cd) : this.set(cd.id, new Course(cd, this));
     });
   }
 

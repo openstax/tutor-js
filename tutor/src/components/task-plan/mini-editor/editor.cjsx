@@ -53,6 +53,7 @@ TaskPlanMiniEditor = React.createClass
 
     taskings = TaskingStore.getChanged(id)
     Courses.get(@props.courseId).taskPlans.get(id).taskings = taskings
+    TaskPlanActions.replaceTaskings(id, taskings)
 
   setTitle: (title) ->
     {id} = @props

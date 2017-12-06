@@ -10,7 +10,7 @@ import Term from './term';
 export default class Offering extends BaseModel {
 
   @readonly static possibleTerms = [
-    'winter', 'sprint', 'summer', 'fall',
+    'spring', 'summer', 'fall', 'winter',
   ];
 
   @identifier id;

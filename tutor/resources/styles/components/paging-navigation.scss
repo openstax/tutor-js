@@ -12,11 +12,16 @@
 
 
 .tutor-paging-navigation {
+
   $arrow-height: 150px;
   $arrow-width: 75px;
   display: flex;
   justify-content: center;
-
+  .paged-content {
+    &:focus {
+      outline: 0;
+    }
+  }
   .paging-control {
     flex: 1;
     .arrow-wrapper {
@@ -34,6 +39,10 @@
         height: $arrow-height;
         width: $arrow-height / 2;
       }
+    }
+
+    @media print {
+      display: none;
     }
 
     &:focus {
