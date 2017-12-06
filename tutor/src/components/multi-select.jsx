@@ -1,57 +1,94 @@
-_     = require 'underscore'
-React = require 'react'
-BS    = require 'react-bootstrap'
-classnames = require 'classnames'
+import React from 'react';
+import { MenuItem, DropdownButton } from 'react-bootstrap';
+import { find } from 'lodash';
+import classnames from 'classnames';
+import { action, observable } from 'mobx';
+import { observer } from 'mobx-react';
+import Icon from './icon';
 
-Icon = require './icon'
+@observer
+class MultiSelect extends React.Component {
 
-MultiSelect = React.createClass
-
-  propTypes:
-    title:      React.PropTypes.string.isRequired
-    className:  React.PropTypes.string
+  static propTypes = {
+    title:      React.PropTypes.string.isRequired,
+    className:  React.PropTypes.string,
+    closeAfterSelect: React.PropTypes.bool,
     selections: React.PropTypes.arrayOf(
-      React.PropTypes.shape(
-        id:       React.PropTypes.string
-        title:    React.PropTypes.string
-        selected: React.PropTypes.bool
-      )
-    ).isRequired
-    onOnlySelection: React.PropTypes.func
-    onSelect: React.PropTypes.func
+      React.PropTypes.shape({
+        id:       React.PropTypes.string,
+        title:    React.PropTypes.string,
+        selected: React.PropTypes.bool,
+      })
+    ).isRequired,
+    onOnlySelection: React.PropTypes.func,
+    onSelect: React.PropTypes.func,
+  };
 
-  toggleOnly: (ev) ->
-    ev.preventDefault()
-    ev.stopPropagation()
-    @props.onOnlySelection(ev.target.getAttribute('data-id'))
+  static defaultProps = {
+    closeAfterSelect: true,
+  }
 
-  onSelect: (selection) ->
-    @props.onSelect?( _.findWhere(@props.selections, id: selection))
+  @observable isOpen = false;
 
-  renderMenuSelection: (selection) ->
-    if @props.onOnlySelection
-      onlyToggle = <span className="only" data-id={selection.id} onClick={@toggleOnly}>only</span>
+  @action.bound toggleOnly(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+    return this.props.onOnlySelection(ev.target.getAttribute('data-id'));
+  }
 
-    <BS.MenuItem
-      key={selection.id}
-      eventKey={selection.id}
-      className="multi-selection-option"
-    >
-      <Icon type={if selection.selected then 'check-square-o' else 'square-o'} />
-      <span className="title">{selection.title}</span>
-      {onlyToggle}
-    </BS.MenuItem>
+  @action.bound onSelect(selection) {
+    if (this.props.onSelect) {
+      this.props.onSelect(
+        find(this.props.selections, { id: selection })
+      );
+    }
+  }
 
-  render: ->
-    <div className={classnames('multi-select', @props.className)}>
-       <BS.DropdownButton
-         id='multi-select'
-         onSelect={@onSelect}
-         title={@props.title}
-       >
-         {@renderMenuSelection(selection) for selection in @props.selections}
-       </BS.DropdownButton>
-    </div>
+  @action.bound onToggle(isOpen, ev, { source }) {
+    if (this.props.closeAfterSelect || 'select' !== source) {
+      this.isOpen = isOpen;
+    }
+  }
+
+  renderMenuSelection = (selection) => {
+    let onlyToggle;
+    if (this.props.onOnlySelection) {
+      onlyToggle = <span className="only" data-id={selection.id} onClick={this.toggleOnly}>
+        only
+      </span>;
+    }
+
+    return (
+      <MenuItem
+        key={selection.id}
+        eventKey={selection.id}
+        className="multi-selection-option"
+      >
+        <Icon type={selection.selected ? 'check-square-o' : 'square-o'} />
+        <span className="title">
+          {selection.title}
+        </span>
+        {onlyToggle}
+      </MenuItem>
+    );
+  };
+
+  render() {
+    return (
+      <div className={classnames('multi-select', this.props.className)}>
+        <DropdownButton
+          id="multi-select"
+          onSelect={this.onSelect}
+          title={this.props.title}
+          onToggle={this.onToggle}
+          open={this.isOpen}
+        >
+          {Array.from(this.props.selections).map((selection) => this.renderMenuSelection(selection))}
+        </DropdownButton>
+      </div>
+    );
+  }
+}
 
 
-module.exports = MultiSelect
+export default MultiSelect;
