@@ -20,7 +20,7 @@ export default class BuilderPopup extends React.Component {
     }),
   }
 
-  static defaulProps = {
+  static defaultProps = {
     windowImpl: window,
   }
 

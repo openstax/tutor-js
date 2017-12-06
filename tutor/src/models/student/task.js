@@ -18,6 +18,7 @@ export default class StudentTask extends BaseModel {
   @field is_deleted;
   @field is_college;
   @field complete_exercise_count;
+  @field correct_exercise_count;
   @field exercise_count;
   @field({ type: 'date' }) due_at;
   @field({ type: 'date' }) opens_at;

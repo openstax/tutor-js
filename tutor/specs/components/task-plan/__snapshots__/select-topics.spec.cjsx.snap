@@ -64,6 +64,7 @@ exports[`Select Topics matches snapshot 1`] = `
                         <i
                           className="tutor-icon fa fa-square-o clickable"
                           onClick={[Function]}
+                          role="button"
                           style={
                             Object {
                               "cursor": "pointer",
@@ -248,6 +249,7 @@ exports[`Select Topics matches snapshot 1`] = `
                         <i
                           className="tutor-icon fa fa-square-o clickable"
                           onClick={[Function]}
+                          role="button"
                           style={
                             Object {
                               "cursor": "pointer",
@@ -458,6 +460,7 @@ exports[`Select Topics matches snapshot 1`] = `
                         <i
                           className="tutor-icon fa fa-square-o clickable"
                           onClick={[Function]}
+                          role="button"
                           style={
                             Object {
                               "cursor": "pointer",
@@ -616,6 +619,7 @@ exports[`Select Topics matches snapshot 1`] = `
                         <i
                           className="tutor-icon fa fa-square-o clickable"
                           onClick={[Function]}
+                          role="button"
                           style={
                             Object {
                               "cursor": "pointer",
@@ -826,6 +830,7 @@ exports[`Select Topics matches snapshot 1`] = `
                         <i
                           className="tutor-icon fa fa-square-o clickable"
                           onClick={[Function]}
+                          role="button"
                           style={
                             Object {
                               "cursor": "pointer",
@@ -1062,6 +1067,7 @@ exports[`Select Topics matches snapshot 1`] = `
                         <i
                           className="tutor-icon fa fa-square-o clickable"
                           onClick={[Function]}
+                          role="button"
                           style={
                             Object {
                               "cursor": "pointer",
@@ -1246,6 +1252,7 @@ exports[`Select Topics matches snapshot 1`] = `
                         <i
                           className="tutor-icon fa fa-square-o clickable"
                           onClick={[Function]}
+                          role="button"
                           style={
                             Object {
                               "cursor": "pointer",
@@ -1404,6 +1411,7 @@ exports[`Select Topics matches snapshot 1`] = `
                         <i
                           className="tutor-icon fa fa-square-o clickable"
                           onClick={[Function]}
+                          role="button"
                           style={
                             Object {
                               "cursor": "pointer",
@@ -1588,6 +1596,7 @@ exports[`Select Topics matches snapshot 1`] = `
                         <i
                           className="tutor-icon fa fa-square-o clickable"
                           onClick={[Function]}
+                          role="button"
                           style={
                             Object {
                               "cursor": "pointer",
@@ -1772,6 +1781,7 @@ exports[`Select Topics matches snapshot 1`] = `
                         <i
                           className="tutor-icon fa fa-square-o clickable"
                           onClick={[Function]}
+                          role="button"
                           style={
                             Object {
                               "cursor": "pointer",

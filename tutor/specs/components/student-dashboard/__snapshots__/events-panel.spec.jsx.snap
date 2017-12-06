@@ -110,7 +110,7 @@ exports[`EventsPanel renders with events 1`] = `
         className="feedback col-sm-3 col-xs-5"
       >
         <span>
-          In progress
+          Not started
         </span>
       </div>
       <div
@@ -147,7 +147,7 @@ exports[`EventsPanel renders with events 1`] = `
         className="feedback col-sm-3 col-xs-5"
       >
         <span>
-          In progress
+          Not started
         </span>
       </div>
       <div
@@ -184,7 +184,7 @@ exports[`EventsPanel renders with events 1`] = `
         className="feedback col-sm-3 col-xs-5"
       >
         <span>
-          In progress
+          Not started
         </span>
       </div>
       <div
@@ -258,7 +258,7 @@ exports[`EventsPanel renders with events 1`] = `
         className="feedback col-sm-3 col-xs-5"
       >
         <span>
-          Not started
+          In progress
         </span>
       </div>
       <div
@@ -295,7 +295,7 @@ exports[`EventsPanel renders with events 1`] = `
         className="feedback col-sm-3 col-xs-5"
       >
         <span>
-          In progress
+          Not started
         </span>
       </div>
       <div

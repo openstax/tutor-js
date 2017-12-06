@@ -6,7 +6,8 @@
     }
     .visible-when-debugging {
       display: block;
-      &:not(.unstyled){
+
+      &:not(.unstyled) {
         border: 1px solid;
         padding: 5px;
         border-radius: 4px;
@@ -28,5 +29,8 @@
     font-size: 1.5rem;
     color: transparent;
     &:hover { color: $openstax-neutral; }
+    @media print {
+      display: none;
+    }
   }
 }

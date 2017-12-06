@@ -32,7 +32,7 @@ $scores-left-column-padding: 8px;
 
   .course-nav-container {
     margin-top: 20px;
-    @include clearfix();
+    @include clearfix;
 
     nav {
       float: left;

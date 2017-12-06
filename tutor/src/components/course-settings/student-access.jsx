@@ -57,10 +57,11 @@ export default class StudentAccess extends React.PureComponent {
         />
         <div className="heading">
           <p className="title">
-            Integrate with your LMS <i className="advanced">Advanced</i>
+            Integrate with your learning management system (LMS)
           </p>
           <p className="info">
-            Integrate OpenStax Tutor with your Learning Management System (LMS) to send average course scores to your LMS and enable single sign on.
+            Integrate OpenStax Tutor with Blackboard, Canvas, etc., to send
+            student course averages to your LMS and enable single sign on.
           </p>
         </div>
       </div>
@@ -71,7 +72,7 @@ export default class StudentAccess extends React.PureComponent {
     const { course } = this.props;
     if (course.is_lms_enabled === isLMSEnabled){ return; }
 
-    if (course.is_lms_enabled) {
+    if (!isLMSEnabled) {
       this.displayLinksWarning = displayLinksWarning;
       if (this.displayLinksWarning) {
         return;
@@ -100,11 +101,11 @@ export default class StudentAccess extends React.PureComponent {
   }
 
   @action.bound onHideLinkSwitch() {
-    this.displayLinksWarning = false;
+      this.displayLinksWarning = false;
   }
 
   @action.bound forceLinksSwitch() {
-      this.onSelectOption(false, {}, false);
+    this.onSelectOption(false, {}, false);
   }
 
   renderLinkSwitchWarning() {
@@ -115,12 +116,13 @@ export default class StudentAccess extends React.PureComponent {
         className="warn-before-links"
       >
         <Modal.Header closeButton={true}>
-          <Modal.Title>Change access options?</Modal.Title>
+          <Modal.Title>Direct links instead of LMS integration?</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          If you opt to use direct links, you won't be able to use LMS integration
-          features such as student single sign on and sending course averages to your LMS. Are you sure you
-          want to change access options now?
+          If you give students direct links, you won't be able to use
+          LMS integration features such as single sign on and sending
+          course averages to your LMS.  Are you sure you want students
+          to enroll using direct links?
         </Modal.Body>
         <Modal.Footer>
           <Button bsStyle="primary" onClick={this.forceLinksSwitch}>I'm sure</Button>
@@ -134,8 +136,17 @@ export default class StudentAccess extends React.PureComponent {
     return <p>Create a live course to view student access options.</p>;
   }
 
+  @computed get isLMS() {
+    return this.props.course.is_lms_enabled === true;
+  }
+
+  @computed get isLinks() {
+    return this.props.course.is_lms_enabled === false;
+  }
+
   render() {
-    const { course } = this.props;
+    const { isLMS, isLinks, props: { course } } = this;
+
     let body = null;
     if (course.is_preview) {
       body = this.renderPreviewMessage();
@@ -156,12 +167,16 @@ export default class StudentAccess extends React.PureComponent {
           Choose how students access OpenStax Tutor.
           Access settings cannot be changed after students begin to enroll.
         </p>
-        <a href="http://4tk3oi.axshare.com/salesforce_support_page_results.html" target="_blank">
+        <a href="http://openstax.force.com/support/articles/FAQ/What-is-the-difference-between-using-a-direct-link-and-using-LMS-integration-to-give-your-students-access-to-OpenStax-Tutor/?q=LMS+integration&l=en_US&c=Products%3ATutor&fs=Search&pn=1" target="_blank">
           <Icon type="info-circle" /> Which option is right for my course?
         </a>
-        <PanelGroup activeKey={course.is_lms_enabled} onSelect={this.onSelectOption} accordion>
+        <PanelGroup
+          accordion
+          activeKey={isLMS ? true : isLinks ? false : 'none'}
+          onSelect={this.onSelectOption}
+        >
           <Panel
-            className={cn('links', { active: !course.is_lms_enabled })}
+            className={cn('links', { active: isLinks })}
             header={this.renderDirectHeader()}
             eventKey={false}
           >
@@ -169,9 +184,9 @@ export default class StudentAccess extends React.PureComponent {
             {course.periods.active.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url} />)}
           </Panel>
           <Panel
-            className={cn('lms', { active: course.is_lms_enabled })}
-            header={this.renderLMSHeader()}
+            className={cn('lms', { active: isLMS })}
             eventKey={true}
+            header={this.renderLMSHeader()}
           >
             {this.renderLMS()}
           </Panel>

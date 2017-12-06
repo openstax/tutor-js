@@ -42,6 +42,8 @@ export default class CourseEnrollment extends BaseModel {
   @computed get bodyContents() {
     if (this.isLoading) {
       return <Activity isLoading={true} />;
+    } else if (get(this.api.errors, 'dropped_student')) {
+      return this.renderComponent('droppedStudent');
     } else if (this.isFromLms && false === this.courseIsLmsEnabled) {
       return this.renderComponent('invalidLMS');
     } else if (!this.isFromLms && true === this.courseIsLmsEnabled) {

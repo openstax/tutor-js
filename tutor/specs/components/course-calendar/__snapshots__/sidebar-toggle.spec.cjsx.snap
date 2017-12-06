@@ -10,6 +10,7 @@ exports[`CourseCalendar Sidebar Toggle matches snapshot 1`] = `
 >
   <i
     className="tutor-icon fa fa-bars"
+    role="presentation"
     type="bars"
   />
   <span

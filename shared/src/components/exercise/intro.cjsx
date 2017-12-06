@@ -1,5 +1,6 @@
 BS = require 'react-bootstrap'
 React = require 'react'
+ReactDOM = require 'react-dom'
 _ = require 'underscore'
 classnames = require 'classnames'
 
@@ -22,6 +23,13 @@ ExerciseIntro =  React.createClass
   propTypes:
     onContinue: React.PropTypes.func.isRequired
     project: React.PropTypes.string.isRequired
+    stepIntroType: React.PropTypes.string.isRequired
+
+  componentWillReceiveProps: (nextProps) ->
+    # focus the cardbody when paging through
+    # Otherwise the continue button may still be focused, causing screenreaders to fail
+    if nextProps.stepIntroType isnt this.props.stepIntroType
+      ReactDOM.findDOMNode(@refs.body).focus()
 
   render: ->
     {stepIntroType, project, onContinue} = @props
@@ -30,7 +38,7 @@ ExerciseIntro =  React.createClass
 
     classes = classnames 'task-step', "openstax-#{ALIASES[stepGroup]}-intro", project
 
-    <CardBody className={classes}>
+    <CardBody ref={'body'} className={classes}>
       <h1>
         <span>{TITLES[stepGroup]}</span>
       </h1>

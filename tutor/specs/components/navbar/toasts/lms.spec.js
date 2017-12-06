@@ -49,13 +49,13 @@ describe('Background job toasts', () => {
   it('toggles error list', () => {
     toast = mount(<LMSErrors {...props} />, EnzyeContext.build());
     expect(
-      PC(toast).querySelector('.btn.toggle').textContent
-    ).toContain('Show');
-    PC(toast).querySelector('.btn.toggle').click();
+      PC(toast).textContent
+    ).toContain('There may be an issue');
+    PC(toast).querySelector('.btn-primary').click();
     const body = PC(toast);
     expect(
-      body.querySelector('.btn.toggle').textContent
-    ).toContain('Hide');
+      body.textContent
+    ).toContain('SCORES NOT SENT');
     expect(body.querySelector('tbody').textContent).toContain(
       'Bob'
     );

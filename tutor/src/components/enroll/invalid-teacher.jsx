@@ -7,7 +7,7 @@ export default function InvalidTeacher({ enrollment }) {
   return (
     <div className="is-teacher">
       <Modal.Body>
-        <h3>Sorry, you can’t enroll as a student in your course.</h3>
+        <h3>Sorry, you can’t enroll as a student in your course using this email address.</h3>
         <p>
           It looks like you’re trying to enroll in {enrollment.courseName} using your instructor account.
         </p>

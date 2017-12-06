@@ -22,6 +22,7 @@ module.exports = React.createClass
 
   propTypes:
     navbarControls: React.PropTypes.element
+    courseId: React.PropTypes.string.isRequired
     ecosystemId: React.PropTypes.string.isRequired
     dataProps:   React.PropTypes.object
     section:     React.PropTypes.string
@@ -78,6 +79,7 @@ module.exports = React.createClass
 
         <NavBar
           ecosystemId={@props.ecosystemId}
+          courseId={@props.courseId}
           section={@state.section}
           toggleTocMenu={@toggleMenuState}
           isMenuVisible={@state.isMenuVisible}

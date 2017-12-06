@@ -4,6 +4,10 @@
 
 @import './variables/index';
 
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/variables";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+@import '~font-awesome/scss/font-awesome';
+
 // @import './variables/openstax-bootstrap';
 @import './mixins/index';
 

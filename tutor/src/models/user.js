@@ -1,13 +1,15 @@
 import {
   BaseModel, identifiedBy, field, hasMany,
 } from './base';
-import { find } from 'lodash';
+import { find, startsWith } from 'lodash';
 import { action, computed, observable } from 'mobx';
 import UiSettings from 'shared/src/model/ui-settings';
 import Courses from './courses-map';
 import { UserTerms } from './user/terms';
-
+import Annotations from './annotations';
+import lazyGetter from '../helpers/lazy-getter';
 import ViewedTourStat from './user/viewed-tour-stat';
+import DOM from '../helpers/dom';
 
 @identifiedBy('user')
 export class User extends BaseModel {
@@ -15,6 +17,7 @@ export class User extends BaseModel {
   @action.bound
   bootstrap(data) {
     this.update(data);
+    this.csrf_token = DOM.read_csrf();
   }
 
   @observable csrf_token;
@@ -38,6 +41,24 @@ export class User extends BaseModel {
   @computed get firstName() {
     return this.first_name || this.name ? this.name.replace(/ .*/, '') : '';
   }
+
+  @computed get canAnnotate() {
+    return !!find(Courses.nonPreview.active.array, { canAnnotate: true });
+  }
+
+  @computed get hasPreviewed() {
+    return Courses.teaching.preview.isEmpty || Courses.teaching.preview.isViewed.any;
+  }
+
+  @computed get shouldPreview() {
+    const exploreViewStats = this.viewed_tour_stats.find((stat) => stat.id === 'explore-a-preview');
+    if (exploreViewStats) {
+      return exploreViewStats.view_count < 4;
+    }
+    return true;
+  }
+
+  @lazyGetter annotations = new Annotations();
 
   @action removeCourse(course) {
     return Courses.delete(course.id);
@@ -73,6 +94,22 @@ export class User extends BaseModel {
     } else if (Courses.active.teaching.any) {
       tags.push('teacher-preview');
     }
+
+    if (
+      Courses.teaching.any &&
+      this.hasPreviewed &&
+      Courses.teaching.nonPreview.isEmpty
+    ) {
+      // Teacher has previewed a course but has no active real course.
+      // This means the teacher needs a reminder about how to create a course.
+      tags.push('teacher-need-real');
+    } else if (find(tags, tag => startsWith(tag, 'teacher'))) {
+      if (this.shouldPreview && !this.hasPreviewed) {
+        // Otherwise, the teacher may need to preview a course
+        tags.push('teacher-not-previewed');
+      }
+    }
+
     return tags;
   }
 

@@ -1,3 +1,6 @@
+// shared openstax components
+@import '~shared/resources/styles/main';
+
 // Variables and Mixins
 // TODO to many renamed variables running around.
 @import './variables';
@@ -10,8 +13,6 @@
 @import './global/externals';
 // @import '~recordo/recordo.css';
 
-// shared openstax components
-@import '~shared/resources/styles/main';
 
 // App Global Styling
 @import './global/scaffold';

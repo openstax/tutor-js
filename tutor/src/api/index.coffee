@@ -32,7 +32,8 @@ PerformanceForecast = require '../flux/performance-forecast'
 {ReferenceBookExerciseActions} = require '../flux/reference-book-exercise'
 {NotificationActions} = require '../flux/notifications'
 
-{default: TaskPlanHelpers} = require '../helpers/task-plan'
+{ default: TaskPlanHelpers} = require '../helpers/task-plan'
+{ FeatureFlagsApi: FeatureFlags } = require '../models/feature_flags'
 
 { default: Job} = require '../models/job'
 { default: User } = require '../models/user'
@@ -46,6 +47,7 @@ PerformanceForecast = require '../flux/performance-forecast'
 { default: Student } = require '../models/course/student'
 { default: CourseEnroll } = require '../models/course/enroll'
 { default: Payments } = require '../models/payments'
+{ default: Hypothesis } = require '../models/annotations/hypothesis'
 { default: Purchases } = require '../models/purchases'
 { default: Purchase } = require '../models/purchases/purchase'
 { CourseStudentTasks } = require '../models/student-tasks'
@@ -244,6 +246,8 @@ BOOTSTRAPED_MODELS = {
   user:     User,
   courses:  Courses,
   payments: Payments,
+  hypothesis: Hypothesis,
+  feature_flags: FeatureFlags,
 }
 
 start = (bootstrapData) ->
