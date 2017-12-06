@@ -109,7 +109,7 @@ export class LMSErrors extends React.Component {
               <tr key={key}>
                 <td>{id}</td>
                 <td>{name}</td>
-                <td>{score}</td>
+                <td>{score}%</td>
               </tr>
             ))}
           </tbody>
