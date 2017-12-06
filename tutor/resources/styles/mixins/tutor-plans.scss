@@ -58,20 +58,20 @@
 @mixin tutor-plan-cell($plan-type) {
   $plan-color: task-plan-color($plan-type);
   color: $plan-color;
-  background-color: fade($plan-color, 2.5%);
+  background-color: fade_out($plan-color, 0.975);
   transition: background-color 0.1s ease-in;
 }
 
 @mixin tutor-plan-cell-active($plan-type) {
   $plan-color: task-plan-color($plan-type);
   text-decoration: none;
-  background-color: fade($plan-color, 25%);
+  background-color: fade_out($plan-color, 0.75);
 }
 
 @mixin tutor-plan-heading($plan-type, $plan-border-width: 5px) {
   $plan-color: task-plan-color($plan-type);
   color: $tutor-neutral-darker;
-  background-color: fade($plan-color, 20%);
+  background-color: fade_out($plan-color, 0.8);
   border-top-color: $plan-color;
   border-top-width: $plan-border-width;
   border-top-style: solid;
@@ -81,7 +81,7 @@
   $plan-color: task-plan-color($plan-type);
 
   color: $tutor-neutral-darker;
-  background-color: fade($plan-color, 20%);
+  background-color: fade_out($plan-color, 0.8);
   border-left-color: $plan-color;
   border-left-width: $plan-border-width;
   border-left-style: solid;
@@ -170,7 +170,7 @@
   }
 
   label{
-    background: fade($plan-color, 20%);
+    background: fade_out($plan-color, 0.8);
   }
 
   &:hover,
@@ -178,7 +178,7 @@
   &.open {
     text-decoration: none;
     label{
-      background: fade($plan-color, 50%);
+      background: fade_out($plan-color, 0.5);
     }
   }
 }

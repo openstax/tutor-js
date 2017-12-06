@@ -187,9 +187,9 @@
       left: 0;
       content: '';
       background-image: linear-gradient(
-        fade($openstax-neutral-lighter, 0),
-        fade($openstax-neutral-lighter, 60%) 30%,
-        fade($openstax-neutral-lighter, 90%)
+        fade_out($openstax-neutral-lighter, 0),
+        fade_out($openstax-neutral-lighter, 0.4) 30%,
+        fade_out($openstax-neutral-lighter, 0.1)
       );
     }
   }

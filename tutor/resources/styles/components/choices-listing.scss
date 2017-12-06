@@ -1,5 +1,5 @@
 @mixin make-wizard-choice-active() {
-  background-color: fade($tutor-neutral-light, 60%);
+  background-color: fade_out($tutor-neutral-light, 0.4);
   border-color: $tutor-neutral-light;
   color: inherit;
   position: relative;
