@@ -11,7 +11,7 @@ import { ChaptersPerformance, PracticesPerformance } from './performances';
 import Courses from '../../models/courses-map';
 import TeacherTaskPlan from '../../models/task-plan/teacher';
 import LoadingScreen from '../loading-screen';
-import NoStudents from './no-students.jsx';
+import NoStudents from './no-students';
 
 @observer
 export default class Stats extends React.PureComponent {

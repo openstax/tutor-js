@@ -11,6 +11,8 @@ import Review from './review';
 import { PinnedHeaderFooterCard } from 'shared';
 import ScrollTo from '../../helpers/scroll-to';
 
+import NoStats from './no-stats';
+
 @observer
 export default class TaskTeacherReview extends React.Component {
   static propTypes = {
@@ -62,7 +64,6 @@ export default class TaskTeacherReview extends React.Component {
   }
 
   renderBreadcrumbs() {
-    if (!this.stats) { return null; }
     return (
       <Breadcrumbs
         stats={this.stats}
@@ -75,7 +76,12 @@ export default class TaskTeacherReview extends React.Component {
   }
 
   renderReviewPanel() {
-    if (!this.stats) { return null; }
+
+    if (!this.stats) {
+      return (
+        <NoStats taskPlan={this.taskPlan} header={this.renderBreadcrumbs()} course={this.course} period={this.period} />
+      );
+    }
     return (
       <Review
         goToStep={this.goToStep}
