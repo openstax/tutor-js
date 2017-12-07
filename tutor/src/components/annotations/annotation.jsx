@@ -126,7 +126,6 @@ export default class AnnotationWidget extends React.Component {
   }
 
   handleSelectionChange = debounce((ev) => {
-    console.log(ev.target)
     if (this.activeAnnotation) {
       // ignore clicks outside of book content
       if (DOM.closest(ev.target, '.book-content')) {
