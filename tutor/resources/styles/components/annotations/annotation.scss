@@ -234,13 +234,15 @@
     }
 
     .controls {
-      flex: 0 0 16rem;
-      justify-content: space-between;
-      width: 100%;
+      display: flex;
+      @media screen and (max-width: 758px) {
+        flex-direction: column;
+        button + button { margin-top: 0.5rem; }
+      }
     }
 
     .annotation-content {
-      flex: 1 1 90%;
+      flex: 1;
 
       .selected-text {
         border-left: 3px solid $tutor-neutral-light;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { action } from 'mobx';
+import { action, observable } from 'mobx';
 import cn from 'classnames';
 import './highlighter';
 import Icon from '../icon';
@@ -24,11 +24,20 @@ export default class EditBox extends React.Component {
     );
   }
 
+  @observable text = this.props.annotation ? this.props.annotation.text : '';
+
+  componentWillUpdate(nextProps) {
+    if (nextProps.annotation !== this.props.annotation) {
+      this.text = nextProps.annotation ? nextProps.annotation.text : '';
+    }
+  }
+
   @action.bound onUpdate(ev) {
-    this.props.annotation.text = ev.target.value;
+    this.text = ev.target.value;
   }
 
   @action.bound onSave() {
+    this.props.annotation.text = this.text;
     this.props.annotation.save().then(
       this.props.onHide
     );
@@ -43,8 +52,8 @@ export default class EditBox extends React.Component {
   }
 
   render() {
-    const { props: {
-      annotation, onHide, previous, next, seeAll,
+    const { text, props: {
+      annotation, previous, next, seeAll,
     } } = this;
 
     if (!annotation) { return null; }
@@ -56,7 +65,7 @@ export default class EditBox extends React.Component {
       >
         <textarea
           autoFocus
-          value={annotation.text}
+          value={text}
           onChange={this.onUpdate}
         />
 

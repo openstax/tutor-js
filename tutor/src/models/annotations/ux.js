@@ -1,7 +1,7 @@
 import { observable, action, computed } from 'mobx';
 import { readonly } from 'core-decorators';
 
-const ERROR_DISPLAY_TIMEOUT = 1000 * 2;
+const ERROR_DISPLAY_TIMEOUT = 1000 * 4;
 
 class StatusMessage {
 
@@ -18,9 +18,6 @@ class StatusMessage {
   @action.bound hide() {
     this.display = false;
     this.hideTimer = null;
-  }
-
-  @action.bound hideStatusMessage() {
   }
 
   show({ message, type = 'error', autoHide = false }) {

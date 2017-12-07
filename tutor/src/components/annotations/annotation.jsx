@@ -21,7 +21,6 @@ import WindowShade from './window-shade';
 const highlighter = new TextHighlighter(document.body);
 
 const ERROR_DISPLAY_TIMEOUT = 1000 * 2;
-const LINE_HEIGHT = 14;
 
 function getSelectionRect(win, selection) {
 
@@ -128,9 +127,8 @@ export default class AnnotationWidget extends React.Component {
 
   handleSelectionChange = debounce((ev) => {
     if (this.activeAnnotation) {
-      if (!DOM.closest(
-        document.getSelection().baseNode, '.slide-out-edit-box')
-      ) {
+      // ignore clicks outside of book content
+      if (DOM.closest(ev.target, '.book-content')) {
         this.activeAnnotation = null;
       }
 
@@ -142,21 +140,17 @@ export default class AnnotationWidget extends React.Component {
   componentDidMount() {
     if (!this.course.canAnnotate) { return; }
 
+    this.props.windowImpl.document.addEventListener(
+      'mouseup', this.handleSelectionChange
+    );
+
     if (this.props.windowImpl.location.hash) {
       this.setupPendingHighlightScroll(this.props.windowImpl.location.hash);
     }
 
     when(
       () => !User.annotations.api.isPending,
-      () => {
-        this.initializePage().then(() => {
-          defer(() => { // defer so that pending selections are complete
-            this.props.windowImpl.document.addEventListener(
-              'selectionchange', this.handleSelectionChange
-            );
-          });
-        });
-      },
+      () => this.initializePage(),
     );
   }
 
@@ -171,7 +165,7 @@ export default class AnnotationWidget extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.windowImpl.document.removeEventListener('selectionchange', this.handleSelectionChange);
+    this.props.windowImpl.document.removeEventListener('mouseup', this.handleSelectionChange);
   }
 
   initializePage() {
@@ -275,7 +269,7 @@ export default class AnnotationWidget extends React.Component {
         const middle = (rect.bottom - rect.top) / 2;
         const center = (rect.right - rect.left) / 2;
         this.widgetStyle = {
-          top: `${rect.bottom - middle - LINE_HEIGHT - pwRect.top}px`,
+          top: `${rect.bottom - middle - pwRect.top}px`,
           left: `${(rect.left + center) - pwRect.left}px`,
         };
 
@@ -385,7 +379,9 @@ export default class AnnotationWidget extends React.Component {
 
   @action.bound onAnnotationDelete(annotation) {
     const selection = annotation.selection.restore();
-    highlighter.removeHighlights(selection.baseNode.parentElement);
+    highlighter.removeHighlights(
+      DOM.closest(selection.anchorNode, '.tutor-highlight')
+    );
   }
 
   @action.bound editAnnotation(annotation) {
