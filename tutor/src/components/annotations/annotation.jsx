@@ -204,6 +204,10 @@ export default class AnnotationWidget extends React.Component {
 
   getCurrentSelectionInfo() {
     const selection = document.getSelection();
+    if (!DOM.closest(selection.anchorNode, '.book-content')) {
+      return { isCollapsed: selection.isCollapsed, outOfBounds: true };
+    }
+
     for (const re of this.referenceElements) {
       if (DOM.isParent(re, selection.anchorNode)) {
         return Object.assign(serializeSelection.save(re), {
@@ -218,7 +222,7 @@ export default class AnnotationWidget extends React.Component {
 
   cantHighlightReason(selection) {
     // Is it a selectable area?
-    if (!selection || !selection.elementId) {
+    if (selection.outOfBounds) {
       return 'Only content can be highlighted';
     }
     // Is it free from overlaps with other selections?
