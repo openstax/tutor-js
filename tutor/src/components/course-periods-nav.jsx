@@ -27,9 +27,7 @@ export default class CoursePeriodsNav extends React.PureComponent {
   @observable tabIndex = this.props.initialActive;
 
   @computed get sortedPeriods() {
-    return PeriodHelper.sort(
-      Courses.get(this.props.courseId).periods.active
-    );
+    return Courses.get(this.props.courseId).periods.sorted;
   }
 
   @action.bound onTabSelection(tabIndex, ev) {

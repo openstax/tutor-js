@@ -11,7 +11,7 @@ import { ChaptersPerformance, PracticesPerformance } from './performances';
 import Courses from '../../models/courses-map';
 import TeacherTaskPlan from '../../models/task-plan/teacher';
 import LoadingScreen from '../loading-screen';
-import NoStudents from './no-students.jsx';
+import NoStudents from './no-students';
 
 @observer
 export default class Stats extends React.PureComponent {
@@ -41,7 +41,7 @@ export default class Stats extends React.PureComponent {
   }
 
   @computed get period() {
-    return this.course.periods[this.currentPeriodIndex];
+    return this.course.periods.sorted[this.currentPeriodIndex];
   }
 
   @computed get stats() {

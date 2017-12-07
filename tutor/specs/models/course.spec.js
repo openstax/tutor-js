@@ -109,13 +109,13 @@ describe('Course Model', () => {
     const sortedSpy = jest.fn(() => course.periods.sorted);
     autorun(sortedSpy);
 
-    expect(course.periods.sorted).toHaveLength(len);
+    expect(course.periods.sorted).toHaveLength(len - 2);
     expect(sortedSpy).toHaveBeenCalledTimes(1);
     expect(PH.sort).toHaveBeenCalledTimes(2);
 
     course.periods.pop();
     expect(course.periods.length).toEqual(len - 1);
-    expect(course.periods.sorted.length).toEqual(len - 1);
+    expect(course.periods.sorted.length).toEqual(len - 3);
 
     expect(PH.sort).toHaveBeenCalledTimes(3);
     expect(sortedSpy).toHaveBeenCalledTimes(2);
