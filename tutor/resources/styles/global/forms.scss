@@ -12,7 +12,7 @@ textarea {
   border: 1px solid $tutor-neutral;
   &:focus {
     border: 1px solid $tutor-tertiary-light;
-    box-shadow: 0 0 10px fade($tutor-tertiary-light, 25%);
+    box-shadow: 0 0 10px fade_out($tutor-tertiary-light, 0.75);
   }
 }
 

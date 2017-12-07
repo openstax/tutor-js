@@ -216,7 +216,7 @@ $tutor-shadow-types: (
 }
 
 
-@mixin tutor-subtle-load($type, $loading-text: 'Loading...', $trans-time: 0.25s, $bg-fade: 90%, $bg-base: $tutor-white) {
+@mixin tutor-subtle-load($type, $loading-text: 'Loading...', $trans-time: 0.25s, $bg-fade: 0.1, $bg-base: $tutor-white) {
   &::after {
     transition: opacity $trans-time ease-in-out;
 
@@ -225,7 +225,8 @@ $tutor-shadow-types: (
       width: 100%;
       height: 100%;
       content: $loading-text;
-      background: fade($bg-base, $bg-fade);
+      background: fade_out($bg-base, $bg-fade);
+
       top: 0;
       text-align: center;
       font-size: 3rem;

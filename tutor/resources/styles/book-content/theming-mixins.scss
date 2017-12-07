@@ -5,11 +5,11 @@
     color: $text-color;
 
     &::before {
-      color: fade($text-color, 75%);
+      color: fade_out($text-color, 0.25);
     }
 
     ul {
-      border-left-color: fade($text-color, 40%);
+      border-left-color: fade_out($text-color, 0.6);
     }
   }
 

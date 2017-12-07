@@ -75,7 +75,7 @@
       z-index: 1;
       .ox-loader--inner {
         padding: 1.6rem 0;
-        @include tutor-subtle-load('will-load', $loading-text: 'Loading...', $bg-fade: 100%);
+        @include tutor-subtle-load('will-load', $loading-text: 'Loading...', $bg-fade: 0.0);
         &::after {
           display: block;
           position: absolute;
