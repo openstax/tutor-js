@@ -60,7 +60,7 @@ describe('Background job toasts', () => {
       'Bob'
     );
     expect(body.querySelector('tbody').textContent).toContain(
-      '12.3'
+      '12%'
     );
     expect(PC(toast).innerHTML).toMatchSnapshot();
   });
