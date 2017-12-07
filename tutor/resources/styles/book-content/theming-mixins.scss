@@ -67,7 +67,7 @@
 }
 
 @mixin tutor-book-theme-bullet-lists($bullet-color) {
-  ul > li {
+  ul::not([role="menu"]) > li {
     &::before {
       background: $bullet-color;
     }

@@ -30,7 +30,7 @@
     display: none;
   }
 
-  ul {
+  ul::not([role="menu"]) {
     list-style-type: none;
     > li {
       &::before {
