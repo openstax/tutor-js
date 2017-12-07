@@ -40,7 +40,7 @@ export default class TaskTeacherReview extends React.Component {
     windowImpl: this.props.windowImpl,
   })
 
-  @observable period = first(this.course.periods);
+  @observable period = first(this.course.periods.sorted);
 
   @action.bound setPeriod(period) {
     this.period = period;
@@ -76,7 +76,6 @@ export default class TaskTeacherReview extends React.Component {
   }
 
   renderReviewPanel() {
-
     if (!this.stats) {
       return (
         <NoStats taskPlan={this.taskPlan} header={this.renderBreadcrumbs()} course={this.course} period={this.period} />

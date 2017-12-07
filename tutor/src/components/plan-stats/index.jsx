@@ -41,7 +41,7 @@ export default class Stats extends React.PureComponent {
   }
 
   @computed get period() {
-    return this.course.periods[this.currentPeriodIndex];
+    return this.course.periods.sorted[this.currentPeriodIndex];
   }
 
   @computed get stats() {
