@@ -1,11 +1,17 @@
 import React from 'react';
-import { map, includes } from 'lodash';
+import { map, matches, find, pick } from 'lodash';
 import browser from 'detect-browser';
 
 import CourseBranding from '../branding/course';
 import WarningModal from '../warning-modal';
 
-const EXCLUDED_BROWSERS = ['ie'];
+const EXCLUDED_BROWSERS = [{
+  name: 'ie',
+  version: () => true
+}, {
+  name: 'safari',
+  version: (version) => (parseFloat(version) < 10)
+}];
 
 const BROWSERS_AND_LINKS = [{
   name: 'Chrome',
@@ -21,7 +27,10 @@ const BROWSERS_AND_LINKS = [{
   link: 'https://www.microsoft.com/en-us/windows/microsoft-edge',
 }];
 
-const isBrowserExcluded = () => ( includes(EXCLUDED_BROWSERS, browser.name) )
+const isBrowserExcluded = () => {
+  const excludedBrowser = find(EXCLUDED_BROWSERS, matches(pick(browser, 'name')));
+  return excludedBrowser && excludedBrowser.version(browser.version);
+};
 
 const getConnector = (browserIndex) => {
   let connector = ', ';
@@ -49,10 +58,9 @@ const BrowserWarning = (props) => {
           const connector = getConnector(index);
 
           return (
-            <span> <a
+            <span key={`browser-${browser.name}-link`}> <a
                 href={browser.link}
                 target='_blank'
-                key={`browser-${browser.name}-link`}
               >
                 {browser.name}
               </a>

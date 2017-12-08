@@ -6,7 +6,6 @@ import { computed, action, observable } from 'mobx';
 import PaymentsModal from '../payments/modal';
 import Payments from '../../models/payments';
 import Courses from '../../models/courses-map';
-import BrowserWarning, { isBrowserExcluded } from '../browser-warning-modal';
 import Icon from '../icon';
 
 const FREE_TRIAL_MESSAGE = `
@@ -45,12 +44,6 @@ export default class StudentPayNowBtn extends React.PureComponent {
 
   renderModal() {
     if (this.isShowingModal) {
-
-      if (isBrowserExcluded()) {
-        return <BrowserWarning />;
-      }
-
-
       return (
         <PaymentsModal
           onPaymentComplete={this.onComplete}

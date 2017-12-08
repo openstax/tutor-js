@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import Payments from '../../models/payments';
 import OXFancyLoader from '../ox-fancy-loader';
+import BrowserWarning, { isBrowserExcluded } from '../browser-warning-modal';
 
 @observer
 export default class PaymentsPanel extends React.PureComponent {
@@ -41,6 +42,10 @@ export default class PaymentsPanel extends React.PureComponent {
 
   render() {
     const { payments } = this;
+
+    if (isBrowserExcluded()) {
+      return (<BrowserWarning />);
+    }
 
     return (
       <div className="payments-panel">
