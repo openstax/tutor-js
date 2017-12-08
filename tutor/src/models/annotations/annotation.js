@@ -1,4 +1,4 @@
-import { get, pick, omit } from 'lodash';
+import { get, pick, omit, extend } from 'lodash';
 import { computed, action, observable } from 'mobx';
 import serializeSelection from 'serialize-selection';
 import Hypothesis from './hypothesis';
@@ -94,6 +94,20 @@ export default class Annotation extends BaseModel {
     return this.selection.section;
   }
 
+  @computed get chapter_section() {
+    return [ this.chapter, this.section ];
+  }
+
+  @computed get formattedChapterSection() {
+    let cs = `${this.chapter}`;
+    if (this.section) { cs += `.${this.section}`; }
+    return cs;
+  }
+
+  @computed get title() {
+    return this.selection.title;
+  }
+
   @action save() {
     return this.listing.update(this);
   }
@@ -106,6 +120,13 @@ export default class Annotation extends BaseModel {
     // update target so it doesn't overwrite and lose the serialized bounds
     this.update(omit(data, 'target'));
     this.selection.update(get(data, 'target[0].selector[0]'));
+  }
+
+  @computed get asPage() {
+    return extend(
+      { csId: `${this.chapter}.${this.section}`, annotation: this },
+      pick(this.selection, ['courseId', 'title', 'chapter', 'section']),
+    );
   }
 
   isSiblingOfElement(el) {
