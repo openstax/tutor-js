@@ -434,9 +434,11 @@ export default class AnnotationWidget extends React.Component {
         {this.renderStatusMessage()}
         <WindowShade show={this.showWindowShade}>
           <SummaryPage
+            courseId={this.props.courseId}
             annotations={this.allAnnotationsForThisBook}
             onDelete={this.onAnnotationDelete}
             currentChapter={this.props.chapter}
+            currentSection={this.props.section}
           />
         </WindowShade>
       </div>

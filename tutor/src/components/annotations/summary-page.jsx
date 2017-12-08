@@ -1,9 +1,11 @@
 import React from 'react';
+import { readonly } from 'core-decorators';
+import { map, keys, pickBy } from 'lodash';
 import { observer } from 'mobx-react';
-import { observable, action, computed } from 'mobx';
-import { autobind } from 'core-decorators';
+import { observable, computed } from 'mobx';
 import SectionsFilter from './sections-filter';
 import AnnotationCard from './annotation-card';
+import User from '../../models/user';
 
 @observer
 export default class AnnotationSummaryPage extends React.Component {
@@ -12,57 +14,36 @@ export default class AnnotationSummaryPage extends React.Component {
     annotations: React.PropTypes.array.isRequired,
     onDelete: React.PropTypes.func.isRequired,
     currentChapter: React.PropTypes.number.isRequired,
+    currentSection: React.PropTypes.number.isRequired,
+    courseId: React.PropTypes.string.isRequired,
   };
 
-  @computed get displayedChaptersSorted() {
-    return this.displayedChapters.sort((a, b) => a - b);
+  @readonly selectedSections = observable.map();
+
+  resetToSection(chapter, section) {
+    this.selectedSections.clear();
+    this.selectedSections.set(`${chapter}.${section}`, true);
   }
 
-  @computed get annotationsFromThisBook() {
-    return this.props.annotations
-      .filter(e => e.selection.chapter)
-      .sort((a, b) => (
-        (a.selection.chapter - b.selection.chapter) ||
-          (a.selection.section - b.selection.section) ||
-          (a.selection.start - b.selection.start)
-      ));
+  componentWillMount() {
+    this.resetToSection(this.props.currentChapter, this.props.currentSection);
   }
 
-  // unique list of pages that contain highlights
-  @computed get highlightedPages() {
-    const s = new Set(this.annotationsFromThisBook.map(this.chapterAndSection));
-    return Array.from(s).sort();
-  }
-
-  @observable _displayedChapters;
-
-  @computed get displayedChapters() {
-    return this._displayedChapters || this.highlightedPages;
-  }
-
-  set displayedChapters(values) { this._displayedChapters = values; }
-
-  // The pages whose highlights/annotations get displayed
-  @computed get selectedHighlightedPages() {
-    return this.highlightedPages
-      .filter(ch => {
-        return this.displayedChapters.includes(ch) //ch => ch === m[0]);
-      });
-  }
-
-  chapterAndSection(entry) {
-    const {chapter, section, title} = entry.selection;
-    let result = chapter;
-    if (section) {
-      result += `.${section}`;
+  componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.currentSection !== this.props.currentSection ||
+        nextProps.currentChapter !== this.props.currentChapter
+    ) {
+      this.resetToSection(nextProps.currentChapter, nextProps.currentSection);
     }
-    result += ` ${title}` || ' (no title)';
-    return result;
   }
 
-  @action.bound
-  setSelectedChapters(values) {
-    this.displayedChapters = values;
+  @computed get annotationsBySection() {
+    return User.annotations.byCourseAndPage[this.props.courseId];
+  }
+
+  @computed get selectedAnnotations() {
+    return pickBy(this.annotationsBySection, (notes, cs) => this.selectedSections.get(cs));
   }
 
   renderEmpty() {
@@ -76,7 +57,7 @@ export default class AnnotationSummaryPage extends React.Component {
   }
 
   render() {
-    if (!this.annotationsFromThisBook.length) {
+    if (!keys(this.annotationsBySection).length) {
       return this.renderEmpty();
     }
 
@@ -84,29 +65,26 @@ export default class AnnotationSummaryPage extends React.Component {
       <div className="summary-page">
         <div className="filter-area">
           <SectionsFilter
-            pages={this.highlightedPages}
-            selectedChapters={this.displayedChaptersSorted}
-            setSelectedChapters={this.setSelectedChapters}
+            sections={this.annotationsBySection}
+            selected={this.selectedSections}
           />
         </div>
         <div className="annotations">
-          {this.selectedHighlightedPages.map((ch, i) =>
-            <div key={i}>
-              <h1>{ch}</h1>
-              {this.annotationsFromThisBook
-                .filter((e) => this.chapterAndSection(e) === ch)
-                .map((annotation) => (
-                  <AnnotationCard
-                    key={annotation.id}
-                    annotation={annotation}
-                    onDelete={this.props.onDelete}
-                  />
-                ))}
-          </div>
+          {map(this.selectedAnnotations, (notes, ch) =>
+            <div key={ch}>
+              <h1>{notes[0].formattedChapterSection} {notes[0].title}</h1>
+              {map(notes, (annotation) => (
+                <AnnotationCard
+                  key={annotation.id}
+                  annotation={annotation}
+                  onDelete={this.props.onDelete}
+                />
+              ))}
+            </div>
           )}
         </div>
       </div>
-      );
+    );
   }
 
 }
