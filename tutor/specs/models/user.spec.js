@@ -30,18 +30,14 @@ describe('User Model', () => {
 
   it('calculates audience tags', () => {
     bootstrapCoursesList();
+    expect(User.tourAudienceTags).toEqual(['teacher', 'teacher-not-previewed']);
+    const course = Courses.array[0];
+    course.is_preview = true;
+    UiSettings.set('DBVC', course.id, 1);
+
     expect(User.tourAudienceTags).toEqual(['teacher']);
 
-    Courses.forEach((c) => (c.is_preview = true));
-    expect(User.tourAudienceTags).toEqual(['teacher-preview', 'teacher-not-previewed']);
-
     Courses.forEach((c) => { c.trackDashboardView(); });
-    expect(User.tourAudienceTags).toEqual(['teacher-preview', 'teacher-need-real']);
-
-    Courses.forEach((c) => {
-      c.is_concept_coach = true;
-      c.is_preview = false;
-    });
     expect(User.tourAudienceTags).toEqual(['teacher']);
 
     Courses.forEach((c) => {
