@@ -1,10 +1,11 @@
-import { action } from 'mobx';
+import { action, computed } from 'mobx';
+import { pick, sortBy, map, groupBy, mapValues, extend } from 'lodash';
 import Map from './map';
 import lazyGetter from '../helpers/lazy-getter';
+import { chapterSectionToNumber } from '../helpers/content';
 import Hypothesis from './annotations/hypothesis';
 import Annotation from './annotations/annotation';
 import AnnotationsUX from './annotations/ux';
-
 export default class Annotations extends Map {
 
   constructor() {
@@ -14,6 +15,17 @@ export default class Annotations extends Map {
   }
 
   @lazyGetter ux = new AnnotationsUX();
+
+
+  @computed get byCourseAndPage() {
+    return mapValues(
+      groupBy(this.array, 'courseId'),
+      (cpgs) => groupBy(
+        sortBy(cpgs, c=>chapterSectionToNumber(c.chapter_section)),
+        a => a.chapter_section.join('.')
+      )
+    );
+  }
 
   @action.bound updateAnnotations(annotations) {
     this.api.requestsInProgress.delete('fetch');
