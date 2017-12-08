@@ -9,6 +9,7 @@
   .interactive-content,
   .reading-content {
     @include tutor-book-content();
+    @include tutor-book-content-body();
 
     .splash {
       margin-top: -20px;
