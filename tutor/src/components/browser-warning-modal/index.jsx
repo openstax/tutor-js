@@ -10,7 +10,7 @@ const EXCLUDED_BROWSERS = [{
   version: () => true,
 }, {
   name: 'safari',
-  version: (version) => (parseFloat(version) < 10),
+  version: (version) => (parseFloat(version) < 9),
 }];
 
 const BROWSERS_AND_LINKS = [{
