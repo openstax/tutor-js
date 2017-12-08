@@ -14,7 +14,7 @@ export default class Breadcrumbs extends React.PureComponent {
 
   static propTypes = {
     taskPlan: React.PropTypes.instanceOf(TeacherTaskPlan).isRequired,
-    stats: React.PropTypes.instanceOf(Stats).isRequired,
+    stats: React.PropTypes.instanceOf(Stats),
     courseId: React.PropTypes.string.isRequired,
     currentStep: React.PropTypes.number,
     scrollToStep: React.PropTypes.func.isRequired,

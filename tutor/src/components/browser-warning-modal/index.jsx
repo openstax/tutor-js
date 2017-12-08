@@ -1,11 +1,17 @@
 import React from 'react';
-import { map, includes } from 'lodash';
+import { map, matches, find, pick } from 'lodash';
 import browser from 'detect-browser';
 
 import CourseBranding from '../branding/course';
 import WarningModal from '../warning-modal';
 
-const EXCLUDED_BROWSERS = ['ie'];
+const EXCLUDED_BROWSERS = [{
+  name: 'ie',
+  version: () => true,
+}, {
+  name: 'safari',
+  version: (version) => (parseFloat(version) < 9),
+}];
 
 const BROWSERS_AND_LINKS = [{
   name: 'Chrome',
@@ -21,7 +27,10 @@ const BROWSERS_AND_LINKS = [{
   link: 'https://www.microsoft.com/en-us/windows/microsoft-edge',
 }];
 
-const isBrowserExcluded = () => ( includes(EXCLUDED_BROWSERS, browser.name) )
+const isBrowserExcluded = () => {
+  const excludedBrowser = find(EXCLUDED_BROWSERS, matches(pick(browser, 'name')));
+  return excludedBrowser && excludedBrowser.version(browser.version);
+};
 
 const getConnector = (browserIndex) => {
   let connector = ', ';
@@ -35,7 +44,7 @@ const getConnector = (browserIndex) => {
   }
 
   return connector;
-}
+};
 
 const BrowserWarning = (props) => {
   return (
@@ -44,18 +53,15 @@ const BrowserWarning = (props) => {
     >
       <p>
         You can't pay for <CourseBranding /> using this browser.
-        We recommend using a recent version of 
-        {map(BROWSERS_AND_LINKS, (browser, index) => {
+        We recommend using a recent version
+        of {map(BROWSERS_AND_LINKS, (browser, index) => {
           const connector = getConnector(index);
-
           return (
-            <span> <a
-                href={browser.link}
-                target='_blank'
-                key={`browser-${browser.name}-link`}
-              >
-                {browser.name}
-              </a>
+            <span key={`browser-${browser.name}-link`}> <a
+              href={browser.link}
+              target='_blank'
+            >
+              {browser.name}</a>
               {connector}
             </span>
           );
@@ -66,9 +72,9 @@ const BrowserWarning = (props) => {
       </p>
     </WarningModal>
   );
-}
+};
 
 export {
   BrowserWarning as default,
-  isBrowserExcluded
-}
+  isBrowserExcluded,
+};

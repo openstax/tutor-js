@@ -63,7 +63,7 @@ export default class Course extends BaseModel {
   @field year;
 
   @hasMany({ model: Period, inverseOf: 'course', extend: extendHasMany({
-    sorted()   { return PH.sort(this);                               },
+    sorted()   { return PH.sort(this.active);                        },
     archived() { return filter(this, period => !period.is_archived); },
     active()   { return filter(this, period => !period.is_archived); },
   }) }) periods;
