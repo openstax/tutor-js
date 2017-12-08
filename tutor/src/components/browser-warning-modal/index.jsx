@@ -7,10 +7,10 @@ import WarningModal from '../warning-modal';
 
 const EXCLUDED_BROWSERS = [{
   name: 'ie',
-  version: () => true
+  version: () => true,
 }, {
   name: 'safari',
-  version: (version) => (parseFloat(version) < 10)
+  version: (version) => (parseFloat(version) < 10),
 }];
 
 const BROWSERS_AND_LINKS = [{
@@ -44,7 +44,7 @@ const getConnector = (browserIndex) => {
   }
 
   return connector;
-}
+};
 
 const BrowserWarning = (props) => {
   return (
@@ -53,17 +53,15 @@ const BrowserWarning = (props) => {
     >
       <p>
         You can't pay for <CourseBranding /> using this browser.
-        We recommend using a recent version of 
-        {map(BROWSERS_AND_LINKS, (browser, index) => {
+        We recommend using a recent version
+        of {map(BROWSERS_AND_LINKS, (browser, index) => {
           const connector = getConnector(index);
-
           return (
             <span key={`browser-${browser.name}-link`}> <a
-                href={browser.link}
-                target='_blank'
-              >
-                {browser.name}
-              </a>
+              href={browser.link}
+              target='_blank'
+            >
+              {browser.name}</a>
               {connector}
             </span>
           );
@@ -74,9 +72,9 @@ const BrowserWarning = (props) => {
       </p>
     </WarningModal>
   );
-}
+};
 
 export {
   BrowserWarning as default,
-  isBrowserExcluded
-}
+  isBrowserExcluded,
+};
