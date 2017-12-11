@@ -29,10 +29,10 @@ export default class SupportDocumentLink extends React.Component {
     let url, name;
     if (course.isStudent) {
       url = CourseInformation.studentGettingStartedURL;
-      name = 'Getting started guide';
+      name = 'Getting Started Guide';
     } else {
       url = course.bestPracticesDocumentURL;
-      name = 'Best practices guide';
+      name = 'Best Practices Guide';
     }
 
     if (!url) { return null; }
