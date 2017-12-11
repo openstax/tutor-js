@@ -31,7 +31,6 @@ export class LMSErrors extends React.Component {
 
   @action.bound toggleInfo() {
     this.displayInfo = !this.displayInfo;
-    console.log(this.displayInfo)
   }
 
   @computed get errorData() {
