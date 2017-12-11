@@ -52,7 +52,8 @@ export default class Job extends BaseModel {
 
   startPolling(job) {
     this.jobId = last(job.split('/'));
-    invariant(!this.pollingId, 'poll already in progress, cannot start polling twice!');
+    invariant((!this.pollingId || this.pollingId === 'pending'),
+      'poll already in progress, cannot start polling twice!');
     invariant(this.jobId, 'job url is not set');
     this.attempts = 0;
     this.pollingId = setTimeout(this.checkForUpdate, this.interval * 1000);
