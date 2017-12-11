@@ -1,80 +1,79 @@
+import { isFunction } from 'lodash';
 import Analytics from '../../src/helpers/analytics';
 import Courses from '../../src/models/courses-map';
-
 import COURSE from '../../api/user/courses/1.json';
 const COURSE_ID = '1';
 
+function mockGa(name = 'tutor') {
+  const ga = jest.fn( (a) => {
+    if (isFunction(a)) { a(ga); }
+  });
+  ga.getAll = jest.fn(() => [ ga ]);
+
+  ga.get = (arg) => {
+    if (arg !=='name') { console.warn(`unknown get for ${name}`); }
+    return name;
+  };
+  return ga;
+}
+
 describe('Analytics', function() {
-  let originalView = Analytics.sendPageView;
+  let ga;
 
   beforeEach(function() {
-    this.ga = jest.fn();
-    Analytics.setGa(this.ga);
+    ga = mockGa();
+    Analytics.setGa(ga);
     Courses.bootstrap([ COURSE ]);
-    this.sendPageView = Analytics.sendPageView = jest.fn();
+    ga.mockReset();
   });
 
-  afterEach(() => Analytics.sendPageView = originalView);
+  afterEach(() => Analytics.setGa(undefined));
 
-  it('sets page view with unknown route events', function() {
+  it('sets page view with unknown route events', () => {
     Analytics.onNavigation('/bad/courses/1/list');
-    expect(Analytics.sendPageView).toHaveBeenCalledWith('/not-found/bad/courses/1/list');
-    return undefined;
+    expect(ga).toHaveBeenCalledWith('tutor.send', 'pageview', '/not-found/bad/courses/1/list');
   });
 
   it('skips sending pageviews if ga isn\'t present', function() {
     Analytics.setGa(undefined);
     Analytics.onNavigation('/course/1');
-    expect(Analytics.sendPageView).not.toHaveBeenCalled()
-    return undefined;
+    expect(ga).not.toHaveBeenCalled();
   });
 
   it('sends the same commands to all trackers', function() {
     // Set up a mock GA function/object
-    function Tracker(name) {
-      this.name = name;
-      this.get = function(fieldName) {
-        if ('name' == fieldName) { return this.name; }
-      };
-    }
+    const secondGa = mockGa('GA2');
+    secondGa.getAll.mockImplementation(() => [ga, secondGa]);
 
-    const mockGa = function() {
-      if (arguments.length == 0) { return; }
-      if (arguments.length == 1 && typeof(arguments[0]) == 'function') {
-        return arguments[0]();
-      }
-      if (arguments[0] == 'create') {
-        mockGa.trackers.push(new Tracker(arguments[3]))
-      }
-    }
-    mockGa.trackers = [];
-    mockGa.getAll = function() { return this.trackers; }
-
-    // Create two trackers in our mock
-    mockGa('create', 42, 42, 't0');
-    mockGa('create', 42, 42, 't1');
-
-    Analytics.setGa(mockGa);
-
-    let originalRealGa = Analytics.realGa;
-    Analytics.realGa = jest.fn();
+    Analytics.setGa(secondGa);
 
     // Fire off a tracking event and then check that it went to both trackers
-    Analytics.ga('send', 'blah');
+    Analytics.sendEvent('blah', 'bar', { label: 'baz', value: 'one' });
 
-    expect(Analytics.realGa).toHaveBeenCalledWith('t0.send', 'blah');
-    expect(Analytics.realGa).toHaveBeenCalledWith('t1.send', 'blah');
 
-    Analytics.realGa = originalRealGa;
-    return undefined;
+    Analytics.onNavigation('/course/1');
+    ['tutor', 'GA2'].forEach((name) => {
+      expect(secondGa).toHaveBeenCalledWith(`${name}.send`, 'event', 'blah', 'bar', 'baz', 'one');
+      expect(secondGa).toHaveBeenCalledWith(`${name}.send`, 'event', 'blah', 'bar', 'baz', 'one');
+
+      expect(secondGa).toHaveBeenCalledWith(`${name}.set`, 'page', '/student/dashboard/1');
+      expect(secondGa).toHaveBeenCalledWith(`${name}.send`, 'pageview', undefined);
+    });
+
   });
 
-  return it('translates known urls when sending', function() {
+  it('records custom dimension', () => {
+    Analytics.onNavigation('/course/1');
+    expect(ga).toHaveBeenCalledWith('tutor.set', 'dimension1', COURSE.appearance_code);
+  });
+
+
+  it('translates known urls when sending', function() {
     const c = '/course/1';
     const tests = {
-      [c]:                             '/student/dashboard/1',
-      [`${c}/practice`]:                   '/student/practice/1',
-      [`${c}/guide`]:                      '/student/performance-forecast/1',
+      [c]:                                  '/student/dashboard/1',
+      [`${c}/practice`]:                    '/student/practice/1',
+      [`${c}/guide`]:                       '/student/performance-forecast/1',
       [`${c}/t/month/2011-11-11`]:          '/teacher/calendar/1',
       [`${c}/scores`]:                      '/teacher/student-scores/1',
       [`${c}/settings`]:                    '/teacher/roster/1',
@@ -85,16 +84,14 @@ describe('Analytics', function() {
       [`${c}/homework/new`]:                '/teacher/assignment/create/homework/1',
       [`${c}/external/new`]:                '/teacher/assignment/create/external/1',
       [`${c}/t/month/2011-11-11/plan/66`]:  '/teacher/metrics/quick/1',
-      '/books/12':                        '/reference-view/12',
-      '/books/12/section/2':              '/reference-view/12/section/2',
-      '/books/12/page/22222-333':         '/reference-view/12/page/22222-333',
+      '/books/12':                          '/reference-view/12',
+      '/books/12/section/2':                '/reference-view/12/section/2',
+      '/books/12/page/22222-333':           '/reference-view/12/page/22222-333',
     };
     for (let route in tests) {
       const translated = tests[route];
       Analytics.onNavigation(route);
-      expect(Analytics.sendPageView).toHaveBeenCalledWith(translated);
+      expect(ga).toHaveBeenCalledWith('tutor.set', 'page', translated);
     }
-
-    return undefined;
   });
 });
