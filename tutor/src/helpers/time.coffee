@@ -132,7 +132,7 @@ TimeHelper =
     timezone in _.values(TimeHelper.getTimezones())
 
   isCourseTimezone: (courseTimezone) ->
-    return false unless courseTimezone?
+    return false if _.isEmpty(courseTimezone)
 
     {offsets} = moment()._z or moment.tz(TimeHelper.getLocalTimezone())._z
     courseTimezoneOffsets = moment.tz(courseTimezone)._z.offsets
