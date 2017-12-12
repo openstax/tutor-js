@@ -217,13 +217,16 @@ export default class AnnotationWidget extends React.Component {
         });
       }
     }
-    return { isCollapsed: true };
+    return { isCollapsed: selection.isCollapsed, noParent: true };
   }
 
   cantHighlightReason(selection) {
     // Is it a selectable area?
     if (selection.outOfBounds) {
       return 'Only content can be highlighted';
+    }
+    if (selection.noParent) {
+      return 'Only content that is enclosed in paragraphs can be highlighted';
     }
     // Is it free from overlaps with other selections?
     // Compare by using the same reference node
@@ -287,7 +290,6 @@ export default class AnnotationWidget extends React.Component {
     this.referenceElements = Array.from(
       this.articleElement.querySelectorAll('.book-content > [id]')
     ).reverse();
-
   }
 
   @autobind
