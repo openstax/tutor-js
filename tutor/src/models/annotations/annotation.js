@@ -1,7 +1,7 @@
-import { get, pick, omit, extend } from 'lodash';
-import { computed, action, observable } from 'mobx';
+import { get, pick, omit, extend, isString } from 'lodash';
+import { computed, action, observable, intercept } from 'mobx';
 import serializeSelection from 'serialize-selection';
-import Hypothesis from './hypothesis';
+import { readonly } from 'core-decorators';
 import {
   BaseModel, identifiedBy, field, identifier, session, belongsTo, hasMany,
 } from '../base';
@@ -49,6 +49,8 @@ export class AnnotationTarget extends BaseModel {
 @identifiedBy('annotations/annotation')
 export default class Annotation extends BaseModel {
 
+  @readonly static MAX_TEXT_LENGTH = 500;
+
   @identifier id;
   @field user;
   @field text;
@@ -65,6 +67,18 @@ export default class Annotation extends BaseModel {
   @session({ type: 'object' }) style;
   @hasMany({ model: AnnotationTarget }) target;
   @belongsTo({ model: 'annotations' }) listing;
+
+  constructor(attrs) {
+    super(attrs);
+    intercept(this, 'text', this.validateTextLength);
+  }
+
+  validateTextLength(change) {
+    if (isString(change.newValue) && change.newValue.length > Annotation.MAX_TEXT_LEN) {
+      change.newValue = change.newValue.slice(0, Annotation.MAX_TEXT_LEN);
+    }
+    return change;
+  }
 
   @computed get selection() {
     return get(this, 'target[0].selector[0]', {});

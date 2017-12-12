@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
+import { Label } from 'react-bootstrap';
 import { autobind } from 'core-decorators';
 import Annotation from '../../models/annotations/annotation';
 import Icon from '../icon';
@@ -13,26 +14,37 @@ class EditBox extends React.Component {
     text: React.PropTypes.string.isRequired,
     dismiss: React.PropTypes.func.isRequired,
     save: React.PropTypes.func.isRequired,
-    show: React.PropTypes.bool.isRequired,
   };
+
+  @observable text = this.props.text;
+
+  @action.bound onUpdate(ev) {
+    this.text = ev.target.value;
+  }
+
+  renderWarning() {
+    if (this.text.length > Annotation.MAX_TEXT_LENGTH) {
+      return <Label bsStyle="danger">Text cannot be longer than {Annotation.MAX_TEXT_LENGTH} characters</Label>;
+    }
+    return null;
+  }
 
   @autobind
   callUpdateText() {
-    this.props.save(this.refs.textarea.value);
+    this.props.save(this.text);
     this.props.dismiss();
   }
 
   render() {
-    const { show, text, dismiss } = this.props;
-    return show ? (
+    const { text, props: { dismiss } } = this;
+    return (
       <div className="edit-box">
-        <textarea ref="textarea" defaultValue={text}></textarea>
-        <button onClick={this.callUpdateText}><Icon type="check" /></button>
-        <button onClick={dismiss}><Icon type="times" /></button>
-      </div>
-    ) : (
-      <div className="plain-text">
-        {text}
+        <textarea autoFocus ref="textarea" onChange={this.onUpdate} value={text}></textarea>
+        {this.renderWarning()}
+        <div className="button-group">
+          <button onClick={this.callUpdateText}><Icon type="check" /></button>
+          <button onClick={dismiss}><Icon type="times" /></button>
+        </div>
       </div>
     );
   }
@@ -90,12 +102,17 @@ export default class AnnotationCard extends React.Component {
           <div className="selected-text">
             {annotation.selection.content}
           </div>
-          <EditBox
-            show={this.editing}
-            text={annotation.text}
-            dismiss={this.stopEditing}
-            save={this.saveAnnotation}
-          />
+          {this.editing ? (
+            <EditBox
+              text={annotation.text}
+              dismiss={this.stopEditing}
+              save={this.saveAnnotation}
+            />
+          ) : (
+            <div className="plain-text">
+              {annotation.text}
+            </div>
+          )}
         </div>
         <div className="controls">
           <button onClick={this.startEditing}><Icon type="edit" /></button>
