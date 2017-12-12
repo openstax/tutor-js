@@ -78,6 +78,7 @@
     transition: 0.3s;
     width: 40rem;
     z-index: 20;
+    min-height: 175px;
     @include tutor-shadow(subtle);
 
     &.closed {

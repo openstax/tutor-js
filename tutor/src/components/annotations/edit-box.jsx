@@ -66,13 +66,8 @@ class EditBox extends React.Component {
       annotation, previous, next, seeAll,
     } } = this;
 
-    if (!annotation) { return null; }
-    const show = !!annotation;
-
     return (
-      <div
-        className={cn('slide-out-edit-box', { open: show, closed: !show })}
-      >
+      <div className={"edit-box"}>
         <textarea
           autoFocus
           ref={i => this.input = i}
@@ -112,6 +107,10 @@ class EditBox extends React.Component {
 
 
 export default function EditBoxWrapper(props) {
-  if (!props.annotation) { return null; }
-  return <EditBox {...props} />
+  const show = !!props.annotation;
+  return (
+    <div className={cn('slide-out-edit-box', { open: show, closed: !show })}>
+      {props.annotation && <EditBox {...props} />}
+    </div>
+  );
 }
