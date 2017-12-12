@@ -20,9 +20,14 @@ export default class Annotations extends Map {
   @computed get byCourseAndPage() {
     return mapValues(
       groupBy(this.array, 'courseId'),
-      (cpgs) => groupBy(
-        sortBy(cpgs, c=>chapterSectionToNumber(c.chapter_section)),
-        a => a.chapter_section.join('.')
+      (cpgs) => mapValues(
+        groupBy(
+          sortBy(cpgs, c=>chapterSectionToNumber(c.chapter_section)),
+          a => a.chapter_section.join('.')
+        ),
+        (annotations) => sortBy(annotations, (annotation) =>
+          [annotation.selection.rect.top, annotation.selection.start]
+        )
       )
     );
   }
