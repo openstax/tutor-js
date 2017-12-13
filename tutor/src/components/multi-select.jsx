@@ -16,7 +16,9 @@ class MultiSelect extends React.Component {
     selections: React.PropTypes.arrayOf(
       React.PropTypes.shape({
         id:       React.PropTypes.string,
-        title:    React.PropTypes.string,
+        title:    React.PropTypes.oneOfType([
+          React.PropTypes.string, React.PropTypes.element,
+        ]),
         selected: React.PropTypes.bool,
       })
     ).isRequired,
@@ -65,9 +67,7 @@ class MultiSelect extends React.Component {
         className="multi-selection-option"
       >
         <Icon type={selection.selected ? 'check-square-o' : 'square-o'} />
-        <span className="title">
-          {selection.title}
-        </span>
+        <span className="title">{selection.title}</span>
         {onlyToggle}
       </MenuItem>
     );

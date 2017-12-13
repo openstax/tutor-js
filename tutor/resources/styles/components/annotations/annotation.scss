@@ -202,6 +202,12 @@
     flex-direction: column;
     width: 40rem;
     .rw-widget { width: 100%; }
+    .section {
+      display: inline-block;
+      margin-left: 0.5rem;
+      min-width: 2.8rem;
+      font-weight: bold;
+    }
   }
 
   .annotation-card {

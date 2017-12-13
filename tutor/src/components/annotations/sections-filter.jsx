@@ -2,29 +2,32 @@ import React from 'react';
 import Multiselect from '../multi-select';
 import { observer } from 'mobx-react';
 import { action, computed } from 'mobx';
-import { filter } from 'lodash';
+import { filter, map } from 'lodash';
 
 @observer
 export default class SectionsFilter extends React.Component {
 
   static propTypes = {
-    pages: React.PropTypes.array.isRequired,
-    selectedChapters: React.PropTypes.array.isRequired,
-    setSelectedChapters: React.PropTypes.func.isRequired,
+    sections: React.PropTypes.object.isRequired,
+    selected: React.PropTypes.object.isRequired,
   };
 
-  @action.bound
-  setChapter(choice) {
-    this.props.setSelectedChapters(
-      choice.selected ?
-        filter(this.props.selectedChapters, c => c !== choice.id) :
-        this.props.selectedChapters.concat(choice.id)
-    );
+  @action.bound onSelect({ id, selected }) {
+    this.props.selected.set(id, !selected);
   }
 
   @computed get choices() {
-    return this.props.pages.map(title => (
-      { title, id: title, selected: this.props.selectedChapters.includes(title) }
+    return map(this.props.sections, (notes, id) => (
+      {
+        id,
+        title: (
+          <span>
+            <span className="section">{notes[0].formattedChapterSection}</span>
+            <span>{notes[0].title}</span>
+          </span>
+        ),
+        selected: this.props.selected.get(id),
+      }
     ));
   }
 
@@ -34,8 +37,7 @@ export default class SectionsFilter extends React.Component {
         <Multiselect
           closeAfterSelect={false}
           title="Display sections"
-          onSelect={this.setChapter}
-          data={this.props.pages}
+          onSelect={this.onSelect}
           selections={this.choices}
         />
       </div>

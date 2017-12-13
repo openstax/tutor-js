@@ -5,11 +5,6 @@
     box-shadow: 0 0 8px $link-color;
   }
 
-  button & {
-    border: 0;
-    background-color: transparent;
-  }
-
   &.best-practices {
     display: block;
     @include tutor-background-image("icons/best-practices.svg");
@@ -18,4 +13,9 @@
     height: 1.8rem;
     margin: 1rem 0;
   }
+}
+
+button.tutor-icon {
+  border: 0;
+  background-color: transparent;
 }
