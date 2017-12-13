@@ -89,7 +89,7 @@ exports[`Main navbar renders and matches snapshot 1`] = `
               tabIndex="-1"
             >
               <span>
-                Accessibility statement
+                Accessibility Statement
               </span>
             </a>
           </li>

@@ -88,7 +88,7 @@ exports[`Support Menu renders and matches snapshot 1`] = `
         tabIndex="-1"
       >
         <span>
-          Accessibility statement
+          Accessibility Statement
         </span>
       </a>
     </li>
@@ -163,7 +163,7 @@ exports[`Support Menu renders support links when in a course for student 1`] = `
         tabIndex="-1"
         target="_blank"
       >
-        Getting started guide
+        Getting Started Guide
       </a>
     </li>
     <li
@@ -179,7 +179,7 @@ exports[`Support Menu renders support links when in a course for student 1`] = `
         tabIndex="-1"
       >
         <span>
-          Accessibility statement
+          Accessibility Statement
         </span>
       </a>
     </li>
@@ -254,7 +254,7 @@ exports[`Support Menu renders support links when in a course for teacher 1`] = `
         tabIndex="-1"
         target="_blank"
       >
-        Best practices guide
+        Best Practices Guide
       </a>
     </li>
     <li
@@ -270,7 +270,7 @@ exports[`Support Menu renders support links when in a course for teacher 1`] = `
         tabIndex="-1"
       >
         <span>
-          Accessibility statement
+          Accessibility Statement
         </span>
       </a>
     </li>

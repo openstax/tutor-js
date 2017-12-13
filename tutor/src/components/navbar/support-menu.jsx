@@ -70,7 +70,7 @@ class SupportMenuDropDown extends React.PureComponent {
         onSelect={this.onSelect}
         ref={opt => this.chatDisabled = opt}
       >
-        <Icon type='comments-o' /><span>Chat support offline</span>
+        <Icon type='comments-o' /><span>Chat Support Offline</span>
       </MenuItem>,
     ];
   }
@@ -130,7 +130,7 @@ class SupportMenuDropDown extends React.PureComponent {
           href={this.accessibilityLink}
           onClick={this.goToAccessibility}
         >
-          <span>Accessibility statement</span>
+          <span>Accessibility Statement</span>
         </MenuItem>
         {this.renderChat()}
       </TourAnchor>

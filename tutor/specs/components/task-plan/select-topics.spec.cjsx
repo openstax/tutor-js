@@ -18,6 +18,7 @@ READINGS  = require '../../../api/ecosystems/3/readings.json'
 helper = (model) -> PlanRenderHelper(model, HomeworkPlan)
 
 describe 'Select Topics', ->
+  props = null
 
   beforeEach ->
     TocActions.reset()
@@ -25,7 +26,7 @@ describe 'Select Topics', ->
     Courses.bootstrap([COURSE], { clear: true })
     TocActions.loaded(READINGS, ECOSYSTEM_ID)
     TaskPlanActions.loaded(HOMEWORK, HOMEWORK.id)
-    @props =
+    props =
       ecosystemId: HOMEWORK.ecosystem_id
       planId: HOMEWORK.id
       courseId: COURSE_ID
@@ -36,10 +37,10 @@ describe 'Select Topics', ->
       cancel: jest.fn()
 
   it 'renders using ecosystem of task', ->
-    wrapper = mount(<SelectTopics {...@props} />)
-    expect(wrapper.find(".select-chapters[data-ecosystem-id=\"#{@props.ecosystemId}\"]")).to.have.length(1)
+    wrapper = mount(<SelectTopics {...props} />)
+    expect(wrapper.find(".select-chapters[data-ecosystem-id=\"#{props.ecosystemId}\"]")).to.have.length(1)
     undefined
 
   it 'matches snapshot', ->
-    expect(SnapShot.create(<SelectTopics {...@props} />).toJSON()).toMatchSnapshot()
+    expect(SnapShot.create(<SelectTopics {...props} />).toJSON()).toMatchSnapshot()
     undefined
