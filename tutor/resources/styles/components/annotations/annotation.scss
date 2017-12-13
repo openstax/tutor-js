@@ -12,14 +12,14 @@
     background: $tutor-white;
     border: thin solid $tutor-neutral-light;
     font-size: 2rem;
-    padding: 1rem 0;
+    padding: 0;
     position: absolute;
     transform: translate(calc(10px - 50%), 10px);
     z-index: 20;
     @include no-select();
 
     [role="button"] {
-      padding: 0 1.5rem;
+      padding: 1.5rem;
 
       &:first-child {
         border-right: thin solid lightgray;
