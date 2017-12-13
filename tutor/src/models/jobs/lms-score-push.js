@@ -4,7 +4,7 @@ import {
 import { isEmpty } from 'lodash';
 import moment from 'moment';
 import { UiSettings } from 'shared';
-import { observable, computed } from 'mobx';
+import { observable, computed, action } from 'mobx';
 import { TimeStore } from '../../flux/time';
 import { Completed } from './queue';
 
@@ -48,9 +48,12 @@ export default class LmsScorePush extends Job {
     Completed.push({ type: 'lms', succeeded, info, errors: info.errors });
   }
 
-  start() { }
+  @action start() {
+    // set this now so status updates immediately
+    this.pollingId = 'pending';
+  }
 
-  onStarted({ data }) {
+  @action onStarted({ data }) {
     this.startPolling(data.job);
   }
 

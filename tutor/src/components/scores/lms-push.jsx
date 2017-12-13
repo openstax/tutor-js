@@ -6,7 +6,6 @@ import TourAnchor from '../tours/anchor';
 import Icon from '../icon';
 import Course from '../../models/course';
 import Push from '../../models/jobs/lms-score-push';
-import LoadingScreen from '../loading-screen';
 
 @observer
 export default class LmsPush extends React.PureComponent {
@@ -31,11 +30,11 @@ export default class LmsPush extends React.PureComponent {
     if (lastPushedAt) {
       return <span>Last sent to LMS: {lastPushedAt}</span>;
     }
-    return <span>Send course averages to LMS</span>;
+    return <span>Send individual course averages to LMS</span>;
   }
 
   render() {
-    const { lmsPush, props: { course } } = this;
+    const { course } = this.props;
     if (!course.is_lms_enabled) { return null; }
 
     return (

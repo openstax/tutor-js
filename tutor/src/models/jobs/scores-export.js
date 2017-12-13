@@ -46,7 +46,10 @@ export default class ScoresExport extends Job {
     });
   }
 
-  create() { }
+  create() {
+    // set this now so status updates immediately
+    this.pollingId = 'pending';
+  }
 
   onCreated({ data }) {
     this.startPolling(data.job);

@@ -31,7 +31,6 @@ export class LMSErrors extends React.Component {
 
   @action.bound toggleInfo() {
     this.displayInfo = !this.displayInfo;
-    console.log(this.displayInfo)
   }
 
   @computed get errorData() {
@@ -197,11 +196,13 @@ export class Failure extends React.Component {
 
     return (
       <div className="toast scores failure">
-        <div className="heading">
+        <div className="title">
           {num_callbacks ? 'Some scores not sent' : 'Scores not sent'}
           <Icon type="close" onClick={this.props.dismiss} />
         </div>
-        <Button bsStyle="link" onClick={this.onShowDetails}>Details</Button>
+        <div className="body">
+          <Button bsStyle="link" onClick={this.onShowDetails}>Details</Button>
+        </div>
       </div>
     );
   }
@@ -210,7 +211,8 @@ export class Failure extends React.Component {
 export function Success() {
   return (
     <div className="toast success">
-      Scores successfully sent
+      <div className="title">Scores sent successfully</div>
+      <div className="body">Check your LMS gradebook for the updates</div>
     </div>
   );
 }

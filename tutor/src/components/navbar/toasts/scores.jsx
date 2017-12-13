@@ -10,7 +10,10 @@ import { JobCompletion } from '../../../models/jobs/queue';
 export function Success({ job: { info: { url } } }) {
   return (
     <div className="toast scores success">
-      Scores successfully exported
+      <div className="title">Scores successfully exported</div>
+      <div className="body">
+        Check your computer's Downloads folder for the spreadsheet.
+      </div>
       <iframe id="downloadExport" src={url} />
     </div>
   );
@@ -43,11 +46,13 @@ export class Failure extends React.Component {
     }
     return (
       <div className="toast scores failure">
-        <div className="heading">
+        <div className="title">
           Scores not exported
           <Icon type="close" onClick={this.props.dismiss} />
         </div>
-        <Button bsStyle="link" onClick={this.onShowDetails}>Details</Button>
+        <div className="body">
+          <Button bsStyle="link" onClick={this.onShowDetails}>Details</Button>
+        </div>
       </div>
     );
   }
