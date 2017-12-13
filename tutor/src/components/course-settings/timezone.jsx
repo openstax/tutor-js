@@ -55,7 +55,8 @@ class TimezonePreview extends React.PureComponent {
   }
 
   render() {
-    const { time, props: { timezone } } = this;
+    let { time, props: { timezone } } = this;
+    if (!timezone) { timezone = moment.tz.guess(); }
     const timePreview = time.tz(timezone).format('h:mm a');
 
     return (
@@ -133,7 +134,7 @@ export default class SetTimezone extends React.PureComponent {
 
   @observable showModal = false
   @observable invalid = false;
-  @observable course_timezone = '';
+  @observable course_timezone = this.props.course.time_zone;
 
   @action.bound open() {
     this.showModal = true;
