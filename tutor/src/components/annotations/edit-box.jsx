@@ -35,6 +35,13 @@ class EditBox extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    if (this.text !== this.props.annotation.text) {
+      this.props.annotation.text = this.text;
+      this.props.annotation.save();
+    }
+  }
+
   @action.bound onUpdate(ev) {
     this.text = ev.target.value;
   }

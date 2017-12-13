@@ -7,7 +7,7 @@ import {
 } from '../base';
 import DOM from '../../helpers/dom';
 
-@identifiedBy('annotations/annotation/target')
+@identifiedBy('annotations/annotation/selector')
 export class AnnotationSelector extends BaseModel {
 
   @identifier elementId;
@@ -21,6 +21,7 @@ export class AnnotationSelector extends BaseModel {
   @field section;
   @field start;
   @field title;
+  @belongsTo({ model: 'annotations/annotation/target' }) target;
   @field type = 'TextPositionSelector'
   @observable bounds;
 
@@ -32,7 +33,7 @@ export class AnnotationSelector extends BaseModel {
     this.bounds.top += window.pageYOffset;
     this.bounds.left += window.pageXOffset;
     if (highlighter) {
-      highlighter.doHighlight();
+      highlighter.doHighlight({ data_id: this.target.annotation.id });
     }
     return selection;
   }
@@ -43,7 +44,11 @@ export class AnnotationSelector extends BaseModel {
 export class AnnotationTarget extends BaseModel {
 
   @identifier source;
-  @hasMany({ model: AnnotationSelector }) selector;
+  @belongsTo({ model: 'annotations/annotation' }) annotation;
+
+  @hasMany({
+    model: AnnotationSelector, inverseOf: 'target',
+  }) selector;
 
 }
 
@@ -65,7 +70,7 @@ export default class Annotation extends BaseModel {
   @field({ type: 'object' }) permissions;
   @field({ type: 'array' }) tags;
   @session({ type: 'object' }) style;
-  @hasMany({ model: AnnotationTarget }) target;
+  @hasMany({ model: AnnotationTarget, inverseOf: 'annotation' }) target;
   @belongsTo({ model: 'annotations' }) listing;
 
   constructor(attrs) {
@@ -84,16 +89,16 @@ export default class Annotation extends BaseModel {
     return get(this, 'target[0].selector[0]', {});
   }
 
-  @computed get elementId() {
+  @computed get referenceElementId() {
     return get(this.selection, 'elementId');
   }
 
-  @computed get element() {
-    return this.elementId ? document.getElementById(this.elementId) : null;
+  get referenceElement() {
+    return this.referenceElementId ? document.getElementById(this.referenceElementId) : null;
   }
 
-  @computed get referenceElement() {
-    return this.element ? DOM.closest(this.element, '[id]') : null;
+  get element() {
+    return document.querySelector(`[data-id="${this.id}"]`);
   }
 
   @computed get courseId() {

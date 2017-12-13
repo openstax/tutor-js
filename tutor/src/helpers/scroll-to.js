@@ -27,14 +27,17 @@ function POSITION(start, end, elapsed, duration) {
 
 export default class ScrollTo {
 
-  constructor({ windowImpl = window, onAfterScroll, root } = {}) {
+  constructor({ windowImpl = window, onAfterScroll, root, scrollingTargetClass } = {}) {
     this.onAfterScroll = onAfterScroll;
     this.windowImpl = windowImpl;
     this.root = root || this.windowImpl.document.body;
+    this.scrollingTargetClass = scrollingTargetClass;
   }
 
   scrollToSelector(selector, options) {
-    options = extend({ updateHistory: true, unlessInView: false }, options);
+    options = extend({
+      updateHistory: true, unlessInView: false,
+    }, options);
 
     const el = this.getElement(selector);
 
@@ -64,7 +67,8 @@ export default class ScrollTo {
   }
 
   _onBeforeScroll(el) {
-    el.classList.add('target-scroll');
+    if (this.scrollingTargetClass) { el.classList.add(this.scrollingTargetClass); }
+    // 'target-scroll');
     return (typeof this.onBeforeScroll === 'function' ? this.onBeforeScroll(el) : undefined);
   }
 

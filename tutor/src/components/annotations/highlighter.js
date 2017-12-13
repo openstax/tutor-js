@@ -1,22 +1,25 @@
+// -*- mode: web; web-mode-code-indent-offset: 4; -*-
+/* eslint-disable */
 // Modified from http://mir3z.github.io/texthighlighter/
 // under MIT License
 (function (global) {
     'use strict';
 
+
     var
-        /**
-         * Attribute added by default to every highlight.
-         * @type {string}
-         */
-        DATA_ATTR = 'data-highlighted',
+    HIGHLIGHT_CSS = 'tutor-highlight',
 
-        /**
-         * Attribute used to group highlight wrappers.
-         * @type {string}
-         */
-        TIMESTAMP_ATTR = 'data-timestamp',
+    FOCUS_CSS = 'focus',
 
-        NODE_TYPE = {
+    DATA_ATTR = 'data-highlighted',
+
+    /**
+     * Attribute used to group highlight wrappers.
+     * @type {string}
+     */
+    TIMESTAMP_ATTR = 'data-timestamp',
+
+    NODE_TYPE = {
             ELEMENT_NODE: 1,
             TEXT_NODE: 3
         },
@@ -438,14 +441,22 @@
      */
     TextHighlighter.prototype.destroy = function () {
         dom(this.el).removeClass(this.options.contextClass);
-    };
+    }
+
+    TextHighlighter.prototype.focus = function(el) {
+        el.classList.add(FOCUS_CSS);
+    }
+
+    TextHighlighter.prototype.unfocusAll = function() {
+        document.querySelectorAll(`.${HIGHLIGHT_CSS}.${FOCUS_CSS}`).forEach((n) => n.classList.remove(FOCUS_CSS))
+    }
 
     /**
-     * Highlights current range.
+     * highlights current range.
      * @param {boolean} keepRange - Don't remove range after highlighting. Default: false.
      * @memberof TextHighlighter
      */
-    TextHighlighter.prototype.doHighlight = function (keepRange) {
+    TextHighlighter.prototype.doHighlight = function (options = {}) {
         var range = dom(this.el).getRange(),
             wrapper,
             createdHighlights,
@@ -457,9 +468,10 @@
         }
 
         if (this.options.onBeforeHighlight(range) === true) {
-            timestamp = Date.now();
-            wrapper = TextHighlighter.createWrapper(this.options);
-            wrapper.setAttribute(TIMESTAMP_ATTR, timestamp);
+
+            wrapper = TextHighlighter.createWrapper(Object.assign({
+                timestamp: Date.now(),
+            }, options));
 
             createdHighlights = this.highlightRange(range, wrapper);
             normalizedHighlights = this.normalizeHighlights(createdHighlights);
@@ -467,7 +479,7 @@
             this.options.onAfterHighlight(range, normalizedHighlights, timestamp);
         }
 
-        if (!keepRange) {
+        if (!options.keepRange) {
             dom(this.el).removeAllRanges();
         }
     };
@@ -898,7 +910,7 @@
 
         if (wnd.find) {
             while (wnd.find(text, caseSens)) {
-                this.doHighlight(true);
+                this.doHighlight({ keepRange: true });
             }
         } else if (wnd.document.body.createTextRange) {
             var textRange = wnd.document.body.createTextRange();
@@ -909,7 +921,7 @@
                 }
 
                 textRange.select();
-                this.doHighlight(true);
+                this.doHighlight({ keepRange: true });
                 textRange.collapse(false);
             }
         }
@@ -928,9 +940,15 @@
      * @static
      */
     TextHighlighter.createWrapper = function (options) {
-      var span = document.createElement('span');
-      span.className = 'tutor-highlight';
-      return span;
+        var span = document.createElement('span');
+        span.className = HIGHLIGHT_CSS;
+        if (options.timestamp) {
+            span.setAttribute(TIMESTAMP_ATTR, options.timestamp);
+        }
+        if (options.data_id) {
+            span.setAttribute('data-id', options.data_id)
+        }
+        return span;
     };
 
     global.TextHighlighter = TextHighlighter;

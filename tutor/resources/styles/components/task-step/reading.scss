@@ -1,5 +1,7 @@
 .task-step {
-
+  &:focus {
+    outline: 0;
+  }
   .reading-step {
     position: relative;
 
