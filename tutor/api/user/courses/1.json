@@ -5,6 +5,7 @@
   "ecosystem_id": "1",
   "is_concept_coach": false,
   "is_college": false,
+  "appearance_code": "college_biology",
   "roles": [{
     "id": "1",
     "type": "teacher",

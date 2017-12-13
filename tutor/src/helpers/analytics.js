@@ -70,7 +70,6 @@ var Analytics = {
   setGa(ga) {
     trackerNames = undefined;
     GA = ga;
-
     if (GA) {
       GA(function() {
         trackerNames = GA.getAll().map(function(tracker) { return tracker.get('name'); });
@@ -81,48 +80,54 @@ var Analytics = {
   },
 
   // Calls all trackers with the command and arguments given here
-  ga() {
+  ga(command, ...params) {
     if (!GA || !trackerNames) { return; }
-
-    var params = Array.prototype.slice.call(arguments);
-    var command = params.shift();
-    var that = this;
-
-    trackerNames.forEach(function(trackerName) {
-      that.realGa(trackerName + '.' + command, ...params)
+    trackerNames.forEach((trackerName) => {
+      this.realGa(trackerName + '.' + command, ...params);
     });
   },
 
   // Exists largely for spec mocking
-  realGa() {
-    GA(arguments);
+  realGa(...args) {
+    GA(...args);
   },
 
   sendPageView(url) {
     this.ga('send', 'pageview', url);
   },
 
+  recordCourseDimension(courseId) {
+    const course = Courses.get(courseId);
+    if (course) {
+      this.ga('set', 'dimension1', course.appearance_code);
+    }
+  },
+
   onNavigation(path) {
     if (!GA) { return; }
     const route = Router.currentMatch(path);
 
-    if (!route) { return this.sendPageView(`/not-found${path}`); }
+    if (!route) {
+      this.sendPageView(`/not-found${path}`);
+      return;
+    }
+    const { courseId } = route.params;
+    if (courseId) { this.recordCourseDimension(courseId); }
 
     const translatedPath = Translators[route.entry.name] ?
-          Translators[route.entry.name]( route.params ) : route.pathname;
+      Translators[route.entry.name]( route.params ) : route.pathname;
 
+    this.ga('set', 'page', translatedPath);
     // if we're also going to send custom events then we set the page
     if (Events[route.entry.name]) {
-      ga('set', 'page', translatedPath);
       Events[route.entry.name]( route.params );
-      return this.sendPageView(); // url's not needed since it was set before events
-    } else {
-      return this.sendPageView(translatedPath);
     }
+
+    this.sendPageView(); // url's not needed since it was set before events
   },
 
-  sendEvent(category, action, attrs) {
-    ga('send', 'event', category, action, attrs.label, attrs.value);
+  sendEvent(category, action, attrs = {}) {
+    this.ga('send', 'event', category, action, attrs.label, attrs.value);
   },
 };
 
