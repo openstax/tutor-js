@@ -122,7 +122,9 @@ class SupportMenuDropDown extends React.PureComponent {
         >
           <span>Help Articles</span>
         </MenuItem>
-        <SupportDocument courseId={courseId} />
+        <TourAnchor id="menu-support-document">
+          <SupportDocument courseId={courseId} />
+        </TourAnchor>
         <MenuItem
           key="nav-keyboard-shortcuts"
           className="-help-link"
