@@ -1,5 +1,5 @@
 import { action, computed } from 'mobx';
-import { pick, sortBy, map, groupBy, mapValues, extend } from 'lodash';
+import { pick, sortBy, map, groupBy, mapValues, extend, isArray } from 'lodash';
 import Map from './map';
 import lazyGetter from '../helpers/lazy-getter';
 import { chapterSectionToNumber } from '../helpers/content';
@@ -33,7 +33,7 @@ export default class Annotations extends Map {
   @action.bound updateAnnotations(annotations) {
     this.api.requestsInProgress.delete('fetch');
     this.api.requestCounts.read += 1;
-    if (annotations) {
+    if (isArray(annotations)) {
       annotations.forEach((an) => {
         const note = this.get(an.id);
         an.listing = this;

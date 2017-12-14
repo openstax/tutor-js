@@ -1,0 +1,38 @@
+[
+{
+  "id": "student-highlighting-reading",
+  "autoplay": true,
+  "standalone": true,
+  "audience_tags": [
+    "student"
+  ],
+  "steps": [
+    {
+      "title": "Highlight and take notes",
+      "body": "Here’s where you can see a summary of your highlights and annotations. To highlight, select text from your reading and click to highlight it or add a note.",
+      "anchor_id": "student-highlighting-button",
+      "position": "bottom",
+      "is_fixed": true,
+      "customComponent": "NoClose"
+    }
+  ]
+},
+{
+  "id": "student-highlighting-reference",
+  "autoplay": true,
+  "standalone": true,
+  "audience_tags": [
+    "student"
+  ],
+  "steps": [
+    {
+      "title": "Highlight and take notes",
+      "body": "Here’s where you can see a summary of your highlights and annotations. To highlight, select text from your reading and click to highlight it or add a note.",
+      "anchor_id": "student-highlighting-button",
+      "position": "bottom",
+      "is_fixed": true,
+      "customComponent": "NoClose"
+    }
+  ]
+}
+]

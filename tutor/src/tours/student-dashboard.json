@@ -16,7 +16,12 @@
     }, {
       "title": "Here’s where you see personal analytics",
       "body": "The Performance Forecast is the compass in your pocket: it helps you measure how you’re are doing on each topic, and it gives you an opportunity to get extra practice.",
-      "customComponent": "CenteredNoHoleWheel"
+      "anchor_id": "menu-option-viewPerformanceGuide",
+      "position": "left",
+      "is_fixed": true,
+      "action": {
+        "id": "open-user-menu"
+      }
     }, {
       "title": "Browse the book",
       "body": "Review the OpenStax textbook here.",

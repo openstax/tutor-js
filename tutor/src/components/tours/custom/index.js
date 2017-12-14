@@ -1,7 +1,8 @@
 import HowToUseQL               from './how-to-use-ql';
 import HowToUsePreview          from './how-to-use-preview';
 import ViewedOnBlur             from './viewed-on-blur';
-import NoFooter                 from './no-footer';
+import NoClose                  from './no-close';
+import NoCloseAndFooter         from './no-close-and-footer';
 import CenteredWheel            from './centered-wheel';
 import CenteredNoHoleWheel      from './centered-no-hole-wheel';
 import HowToBuildYourReading    from './how-to-build-your-reading';
@@ -15,7 +16,8 @@ export default {
   HowToUseQL,
   HowToUsePreview,
   ViewedOnBlur,
-  NoFooter,
+  NoClose,
+  NoCloseAndFooter,
   CenteredWheel,
   CenteredNoHoleWheel,
   HowToBuildYourReading,
