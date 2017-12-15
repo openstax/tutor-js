@@ -239,8 +239,8 @@ export default class AnnotationWidget extends React.Component {
         this.widgetStyle = null;
       } else {
         const { rect } = selection;
-
         const pwRect = this.parentRect;
+        this.activeAnnotation = null;
         this.ux.statusMessage.hide();
         const middle = (rect.bottom - rect.top) / 2;
         const center = (rect.right - rect.left) / 2;
