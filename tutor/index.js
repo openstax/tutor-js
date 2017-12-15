@@ -7,7 +7,7 @@ import { BootstrapURLs, UiSettings, ExerciseHelpers } from 'shared';
 
 import api from './src/api';
 import Notices from './src/helpers/notifications';
-import dom from './src/helpers/dom';
+import { readBootstrapData } from './src/helpers/dom';
 import { startMathJax } from 'shared/src/helpers/mathjax';
 import { TransitionAssistant } from './src/components/unsaved-state';
 
@@ -56,7 +56,7 @@ const loadApp = function() {
     return false;
   }
 
-  const bootstrapData = dom.readBootstrapData();
+  const bootstrapData = readBootstrapData();
   api.start(bootstrapData);
   BootstrapURLs.update(bootstrapData);
 
