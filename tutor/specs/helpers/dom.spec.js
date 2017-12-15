@@ -1,4 +1,4 @@
-import DOM, { readBootstrapData } from '../src/helpers/dom';
+import DOM, { readBootstrapData } from '../../src/helpers/dom';
 
 const HTML = `\
 <div class="dc">
