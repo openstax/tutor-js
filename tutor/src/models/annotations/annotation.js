@@ -1,16 +1,15 @@
-import { get, pick, omit, extend, isString } from 'lodash';
+import { get, pick, omit, extend, isString, isEmpty, toArray } from 'lodash';
 import { computed, action, observable, intercept } from 'mobx';
 import serializeSelection from 'serialize-selection';
 import { readonly } from 'core-decorators';
 import {
   BaseModel, identifiedBy, field, identifier, session, belongsTo, hasMany,
 } from '../base';
-import DOM from '../../helpers/dom';
 
 @identifiedBy('annotations/annotation/selector')
 export class AnnotationSelector extends BaseModel {
 
-  @identifier elementId;
+  @identifier referenceElementId;
 
   @field chapter;
   @field content;
@@ -26,13 +25,16 @@ export class AnnotationSelector extends BaseModel {
   @observable bounds;
 
   @action restore(highlighter) {
-    const el = document.getElementById(this.elementId);
+    const el = document.getElementById(this.referenceElementId);
     if (!el) { return null; }
+
     const selection = serializeSelection.restore(this, el);
+
     this.bounds = pick(selection.getRangeAt(0).getBoundingClientRect(), 'x', 'y', 'width', 'height', 'top', 'bottom', 'left');
     this.bounds.top += window.pageYOffset;
     this.bounds.left += window.pageXOffset;
     if (highlighter) {
+
       highlighter.doHighlight({ data_id: this.target.annotation.id });
     }
     return selection;
@@ -90,15 +92,19 @@ export default class Annotation extends BaseModel {
   }
 
   @computed get referenceElementId() {
-    return get(this.selection, 'elementId');
+    return get(this.selection, 'referenceElementId');
   }
 
   get referenceElement() {
     return this.referenceElementId ? document.getElementById(this.referenceElementId) : null;
   }
 
-  get element() {
-    return document.querySelector(`[data-id="${this.id}"]`);
+  get elements() {
+    return toArray(document.querySelectorAll(`[data-id="${this.id}"]`));
+  }
+
+  @computed get isAttached() {
+    return !isEmpty(this.elements);
   }
 
   @computed get courseId() {
