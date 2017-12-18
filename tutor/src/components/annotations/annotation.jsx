@@ -6,7 +6,7 @@ import serializeSelection from 'serialize-selection';
 import cn from 'classnames';
 import './highlighter';
 import User from '../../models/user';
-import { filter, last, sortBy, get, find, findLast, isEmpty } from 'lodash';
+import { filter, last, sortBy, get, find, findLast, isEmpty, invokeMap } from 'lodash';
 import Icon from '../icon';
 import SummaryPage from './summary-page';
 import dom from '../../helpers/dom';
@@ -146,12 +146,11 @@ export default class AnnotationWidget extends React.Component {
     });
 
     this.getReferenceElements();
-    return imagesComplete(
-      this.props.windowImpl.document.querySelector('.book-content')
-    ).then(() => {
-      this.annotationsForThisPage.forEach((annotation) => {
-        annotation.selection.restore(highlighter);
-      });
+    invokeMap(this.annotationsForThisPage, 'selection.restore', highlighter);
+    return imagesComplete({
+      body: this.props.windowImpl.document.querySelector('.book-content'),
+    }).then(() => {
+      invokeMap(this.annotationsForThisPage, 'selection.measure');
       this.canRenderSidebarButtons = true;
       if (this.scrollToPendingAnnotation) {
         this.scrollToPendingAnnotation();

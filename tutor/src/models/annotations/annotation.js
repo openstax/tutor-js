@@ -25,19 +25,18 @@ export class AnnotationSelector extends BaseModel {
   @observable bounds;
 
   @action restore(highlighter) {
+    this.measure();
+    highlighter.doHighlight({ data_id: this.target.annotation.id });
+  }
+
+  @action measure() {
     const el = document.getElementById(this.referenceElementId);
-    if (!el) { return null; }
-
+    if (!el) { return false; }
     const selection = serializeSelection.restore(this, el);
-
     this.bounds = pick(selection.getRangeAt(0).getBoundingClientRect(), 'x', 'y', 'width', 'height', 'top', 'bottom', 'left');
     this.bounds.top += window.pageYOffset;
     this.bounds.left += window.pageXOffset;
-    if (highlighter) {
-
-      highlighter.doHighlight({ data_id: this.target.annotation.id });
-    }
-    return selection;
+    return true;
   }
 
 }
