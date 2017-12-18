@@ -1,5 +1,5 @@
 export default function imagesComplete({
-  body = document,
+  body = document.body,
   timeoutAfter = 10000, // in ms, 10 seconds
 } = {}) {
   return new Promise((resolve) => {

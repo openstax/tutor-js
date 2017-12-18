@@ -1,0 +1,149 @@
+{
+    "rows": [
+        {
+            "updated": "2017-12-18T17:54:23.229208+00:00",
+            "group": "8i7iq1dv",
+            "target": [
+                {
+                    "source": "be8818d0-2dba-4bf3-859a-737c25fb2c99@20",
+                    "selector": [
+                        {
+                            "chapter": 2,
+                            "isCollapsed": false,
+                            "selection": {
+                                "isCollapsed": false,
+                                "end": 622,
+                                "content": "Hydrogen (H)\n                10%\n                trace\n                0.1%",
+                                "start": 547,
+                                "referenceElementId": "tab-ch02_01_01",
+                                "rect": {
+                                    "top": 1322,
+                                    "right": 1095.34375,
+                                    "bottom": 1363,
+                                    "left": 553.5
+                                }
+                            },
+                            "end": 622,
+                            "title": "Atoms, Isotopes, Ions, and Molecules: The Building Blocks",
+                            "courseId": "1",
+                            "research_identifier": "1b7952dd",
+                            "section": 1,
+                            "content": "Hydrogen (H)\n                10%\n                trace\n                0.1%",
+                            "start": 547,
+                            "referenceElementId": "tab-ch02_01_01",
+                            "documentId": "be8818d0-2dba-4bf3-859a-737c25fb2c99@20",
+                            "type": "TextPositionSelector",
+                            "rect": {
+                                "top": 1322,
+                                "right": 1095.34375,
+                                "bottom": 1363,
+                                "left": 553.5
+                            }
+                        }
+                    ]
+                }
+            ],
+            "links": {
+                "json": "http://localhost:5000/api/annotations/exEtFuQcEeekRjuMbCHxHw",
+                "html": "http://localhost:5000/a/exEtFuQcEeekRjuMbCHxHw"
+            },
+            "tags": [],
+            "text": "",
+            "created": "2017-12-18T17:54:23.229208+00:00",
+            "uri": "be8818d0-2dba-4bf3-859a-737c25fb2c99@20",
+            "flagged": false,
+            "user": "acct:1486573998@openstax.org",
+            "hidden": false,
+            "document": {
+            },
+            "id": "exEtFuQcEeekRjuMbCHxHw",
+            "permissions": {
+                "read": [
+                    "acct:1486573998@openstax.org"
+                ],
+                "admin": [
+                    "acct:1486573998@openstax.org"
+                ],
+                "update": [
+                    "acct:1486573998@openstax.org"
+                ],
+                "delete": [
+                    "acct:1486573998@openstax.org"
+                ]
+            }
+        },
+        {
+            "updated": "2017-12-15T22:53:46.923955+00:00",
+            "group": "8i7iq1dv",
+            "target": [
+                {
+                    "source": "be8818d0-2dba-4bf3-859a-737c25fb2c99@20",
+                    "selector": [
+                        {
+                            "chapter": 2,
+                            "isCollapsed": false,
+                            "selection": {
+                                "isCollapsed": false,
+                                "end": 301,
+                                "content": "ng world, elements are found in different proportions, and some elements common to living organisms are relatively rare on the earth as a whole, as shown in See Table. For examp",
+                                "start": 124,
+                                "referenceElementId": "fs-idp140338796747920",
+                                "rect": {
+                                    "top": 847,
+                                    "right": 1209.296875,
+                                    "bottom": 933,
+                                    "left": 543.5
+                                }
+                            },
+                            "end": 301,
+                            "title": "Atoms, Isotopes, Ions, and Molecules: The Building Blocks",
+                            "courseId": "1",
+                            "research_identifier": "1b7952dd",
+                            "section": 1,
+                            "content": "ng world, elements are found in different proportions, and some elements common to living organisms are relatively rare on the earth as a whole, as shown in See Table. For examp",
+                            "start": 124,
+                            "referenceElementId": "fs-idp140338796747920",
+                            "documentId": "be8818d0-2dba-4bf3-859a-737c25fb2c99@20",
+                            "type": "TextPositionSelector",
+                            "rect": {
+                                "top": 847,
+                                "right": 1209.296875,
+                                "bottom": 933,
+                                "left": 543.5
+                            }
+                        }
+                    ]
+                }
+            ],
+            "links": {
+                "json": "http://localhost:5000/api/annotations/zNsirOHqEee09UcZxkcH2g",
+                "html": "http://localhost:5000/a/zNsirOHqEee09UcZxkcH2g"
+            },
+            "tags": [],
+            "text": "ee",
+            "created": "2017-12-15T22:53:43.339183+00:00",
+            "uri": "be8818d0-2dba-4bf3-859a-737c25fb2c99@20",
+            "flagged": false,
+            "user": "acct:1486573998@openstax.org",
+            "hidden": false,
+            "document": {
+            },
+            "id": "zNsirOHqEee09UcZxkcH2g",
+            "permissions": {
+                "read": [
+                    "acct:1486573998@openstax.org"
+                ],
+                "admin": [
+                    "acct:1486573998@openstax.org"
+                ],
+                "update": [
+                    "acct:1486573998@openstax.org"
+                ],
+                "delete": [
+                    "acct:1486573998@openstax.org"
+                ]
+            }
+        }
+    ],
+    "total": 2
+}

@@ -44,13 +44,13 @@ export default class AnnotationWidget extends React.Component {
     windowImpl: React.PropTypes.shape({
       open: React.PropTypes.func,
     }),
-    pageType: React.PropTypes.string,
     title: React.PropTypes.string,
+    chapter: React.PropTypes.number.isRequired,
+    section: React.PropTypes.number.isRequired,
   };
 
   static defaultProps = {
     windowImpl: window,
-    pageType: 'reading',
   };
 
   scrollTo = new ScrollTo({ windowImpl: this.props.windowImpl, scrollingTargetClass: false });
@@ -59,7 +59,6 @@ export default class AnnotationWidget extends React.Component {
   @computed get showWindowShade() {
     return this.ux.isSummaryVisible;
   }
-  @observable canRenderSidebarButtons = false;
   @observable parentRect = {};
   @observable referenceElements = [];
   @observable _activeAnnotation;
@@ -83,7 +82,6 @@ export default class AnnotationWidget extends React.Component {
     if (!this.course.canAnnotate) { return; }
 
     if (nextProps.documentId !== this.props.documentId) {
-      this.canRenderSidebarButtons = false;
       this.activeAnnotation = null;
       this.initializePage();
     }
@@ -151,7 +149,6 @@ export default class AnnotationWidget extends React.Component {
       body: this.props.windowImpl.document.querySelector('.book-content'),
     }).then(() => {
       invokeMap(this.annotationsForThisPage, 'selection.measure');
-      this.canRenderSidebarButtons = true;
       if (this.scrollToPendingAnnotation) {
         this.scrollToPendingAnnotation();
       }
@@ -256,7 +253,7 @@ export default class AnnotationWidget extends React.Component {
   @action
   getReferenceElements() {
     this.referenceElements = Array.from(
-      this.articleElement.querySelectorAll('.book-content > [id]')
+      this.props.windowImpl.document.querySelectorAll('.book-content > [id]')
     ).reverse();
   }
 
@@ -318,6 +315,7 @@ export default class AnnotationWidget extends React.Component {
 
   @action.bound
   getParentRect(el) {
+
     if (el) {
       const wLeft = this.props.windowImpl.pageXOffset;
       const wTop = this.props.windowImpl.pageYOffset;
@@ -401,7 +399,6 @@ export default class AnnotationWidget extends React.Component {
           seeAll={this.seeAll}
         />
         <SidebarButtons
-          disabled={!this.canRenderSidebarButtons}
           annotations={this.annotationsForThisPage}
           parentRect={this.parentRect}
           onClick={this.editAnnotation}
