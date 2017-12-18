@@ -2,10 +2,10 @@ import React from 'react';
 import { get } from 'lodash';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
+import cn from 'classnames';
 import Icon from '../icon';
 import User from '../../models/user';
 import Courses from '../../models/courses-map';
-import Router from '../../helpers/router';
 import { TaskPanelStore } from '../../flux/task-panel';
 
 @observer
@@ -38,7 +38,11 @@ export default class AnnotationSummaryToggle extends React.Component {
     if (!this.isViewable) { return null; }
 
     return (
-      <div className="annotation-summary-toggle">
+      <div
+        className={cn('annotation-summary-toggle', {
+            active: User.annotations.ux.isSummaryVisible,
+        })}
+      >
         <Icon
           type="pencil-square-o"
           onClick={User.annotations.ux.toggleSummary}
