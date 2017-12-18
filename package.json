@@ -56,6 +56,7 @@
     "htmlparser2": "3.9.2",
     "interpolate": "0.1.0",
     "invariant": "2.2.2",
+    "jest-cli": "19.0.2",
     "keymaster": "1.6.2",
     "loadjs": "3.5.0",
     "lodash": "4.17.4",
