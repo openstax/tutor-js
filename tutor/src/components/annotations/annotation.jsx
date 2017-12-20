@@ -80,7 +80,6 @@ export default class AnnotationWidget extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (!this.course.canAnnotate) { return; }
-
     if (nextProps.documentId !== this.props.documentId) {
       this.activeAnnotation = null;
       this.initializePage();
@@ -121,6 +120,7 @@ export default class AnnotationWidget extends React.Component {
   }
 
   setupPendingHighlightScroll(windowHash) {
+    if (!windowHash) { return; }
     const highlightMatch = windowHash.match(/highlight-(.*)/);
     if (!highlightMatch) { return; }
     this.scrollToPendingAnnotation = () => {
@@ -148,7 +148,7 @@ export default class AnnotationWidget extends React.Component {
     return imagesComplete({
       body: this.props.windowImpl.document.querySelector('.book-content'),
     }).then(() => {
-      invokeMap(this.annotationsForThisPage, 'selection.measure');
+      invokeMap(this.annotationsForThisPage, 'selection.restore', highlighter);
       if (this.scrollToPendingAnnotation) {
         this.scrollToPendingAnnotation();
       }
@@ -158,9 +158,10 @@ export default class AnnotationWidget extends React.Component {
 
   getCurrentSelectionInfo() {
     const selection = document.getSelection();
+    // can happen if dom was modified after mouseup
+    if (!selection.anchorNode) { return { isCollapsed: true }; }
     const node = dom(selection.anchorNode);
     const { isCollapsed } = selection;
-
     if (!node.closest('.book-content')) {
       return { isCollapsed, outOfBounds: true };
     }
