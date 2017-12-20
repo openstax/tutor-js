@@ -4,13 +4,13 @@ BS = require 'react-bootstrap'
 
 Router = require '../helpers/router'
 BindStoreMixin = require './bind-store-mixin'
-{ReferenceBookActions, ReferenceBookStore} = require '../flux/reference-book'
+# {ReferenceBookActions, ReferenceBookStore} = require '../flux/reference-book'
 {default: Courses} = require '../models/courses-map'
 
 AssignmentLinks = React.createClass
   displayName: 'AssignmentLinks'
-  mixins: [BindStoreMixin]
-  bindStore: ReferenceBookStore
+#  mixins: [BindStoreMixin]
+#  bindStore: ReferenceBookStore
 
   componentWillMount: ->
     {courseId} = _.defaults(Router.currentParams(), @props)

@@ -1,5 +1,5 @@
 _     = require 'underscore'
-BS    = require 'react-bootstrap'
+import { Popover }    = require 'react-bootstrap'
 React = require 'react'
 
 # NOTE: this selector must be kept in sync with CNX as well as
@@ -38,9 +38,7 @@ TeacherContentToggle = React.createClass
     )
 
   renderNoContentTooltip: ->
-    <BS.Popover id='no-content'>
-      No teacher edition content is available for this page.
-    </BS.Popover>
+    <Popover id="no-content">No teacher edition content is available for this page.</Popover>
 
   render: ->
     teacherLinkText = if @props.isShowing
@@ -49,13 +47,13 @@ TeacherContentToggle = React.createClass
       'Show Teacher Edition'
 
     if @state.hasTeacherContent
-      <span className="has-content">{teacherLinkText}</span>
+      React.createElement("span", {"className": "has-content"}, (teacherLinkText))
     else
-      <BS.OverlayTrigger
-        placement='bottom' trigger='click' overlay={@renderNoContentTooltip()}
-      >
-        <span className="no-content">{teacherLinkText}</span>
-      </BS.OverlayTrigger>
+      React.createElement(BS.OverlayTrigger, { \
+        "placement": 'bottom', "trigger": 'click', "overlay": (@renderNoContentTooltip())
+      },
+        React.createElement("span", {"className": "no-content"}, (teacherLinkText))
+      )
 
 
 module.exports = TeacherContentToggle

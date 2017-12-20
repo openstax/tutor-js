@@ -17,11 +17,11 @@ getTaskShell = ->
   TaskShell
 
 getReferenceBookShell = ->
-  {ReferenceBookShell} = require './components/reference-book'
+  {default: ReferenceBookShell} = require './components/reference-book'
   ReferenceBookShell
 
 getReferenceBookPageShell = ->
-  {ReferenceBookPageShell} = require './components/reference-book'
+  {default: ReferenceBookPageShell} = require './components/reference-book'
   ReferenceBookPageShell
 
 getReadingShell = ->

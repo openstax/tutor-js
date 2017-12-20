@@ -4,7 +4,7 @@ React = require 'react'
 classnames = require 'classnames'
 {SpyMode} = require 'shared'
 
-{ReferenceBookStore} = require '../../flux/reference-book'
+# {ReferenceBookStore} = require '../../flux/reference-book'
 {ExerciseStore, ExerciseActions} = require '../../flux/exercise'
 {EcosystemsStore} = require '../../flux/ecosystems'
 

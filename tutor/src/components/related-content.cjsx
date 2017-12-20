@@ -10,6 +10,7 @@ RelatedContent = React.createClass
   propTypes:
     contentId: React.PropTypes.string.isRequired
     title: React.PropTypes.string.isRequired
+    hasLearningObjectives: React.PropTypes.bool
     chapter_section: React.PropTypes.oneOfType([
       React.PropTypes.array
       React.PropTypes.string
@@ -21,7 +22,7 @@ RelatedContent = React.createClass
     (_.isArray(@props.chapter_section) and
       (@props.chapter_section.length is 1 or
       @props.chapter_section[1] is 0)) or
-      (_.isString(@props.chapter_section) and 
+      (_.isString(@props.chapter_section) and
       @props.chapter_section.indexOf('.') is -1)
 
   render: ->
@@ -31,9 +32,12 @@ RelatedContent = React.createClass
 
     section = @sectionFormat(chapter_section)
 
+    unless hasLearningObjectives?
+      hasLearningObjectives = StepTitleStore.hasLearningObjectives(contentId)
+
     <h4
       className='related-content'
-      data-has-learning-objectives={StepTitleStore.hasLearningObjectives(contentId)}
+      data-has-learning-objectives={hasLearningObjectives}
     >
       <span className="part">
         <span className="section">{section} </span>

@@ -27,8 +27,9 @@ PerformanceForecast = require '../flux/performance-forecast'
 {ExerciseActions, ExerciseStore} = require '../flux/exercise'
 {CCDashboardActions} = require '../flux/cc-dashboard'
 
-{ReferenceBookActions} = require '../flux/reference-book'
-{ReferenceBookPageActions} = require '../flux/reference-book-page'
+{default: ReferenceBook} = require '../models/reference-book'
+{default: ReferenceBookPage} = require '../models/reference-book/page';
+
 {ReferenceBookExerciseActions} = require '../flux/reference-book-exercise'
 {NotificationActions} = require '../flux/notifications'
 
@@ -155,14 +156,16 @@ startAPI = ->
       clone_status: 'unused_source'
   )
 
-  connectRead(ReferenceBookActions, pattern: 'ecosystems/{id}/readings')
-  connectRead(ReferenceBookPageActions, pattern: 'pages/{id}')
-  connectRead(ReferenceBookPageActions, pattern: 'pages/{id}', trigger: 'loadSilent', handledErrors: ['*'])
-  connectRead(ReferenceBookExerciseActions, url: (url) -> url)
+
+  # connectRead(ReferenceBookPageActions, pattern: 'pages/{id}', trigger: 'loadSilent', handledErrors: ['*'])
+  # connectRead(ReferenceBookExerciseActions, url: (url) -> url)
 
   connectRead(NotificationActions,
     trigger: 'loadUpdates', onSuccess: 'loadedUpdates', url: 'notifications', handledErrors: ['*']
   )
+
+  connectModelRead(ReferenceBook, 'fetch', pattern: 'ecosystems/{id}/readings', onSuccess: 'onApiRequestComplete')
+  connectModelRead(ReferenceBookPage, 'fetchContent', pattern: 'pages/{cnx_id}', onSuccess: 'onContentFetchComplete')
 
   # "User" is actually an instance, but connectModel works at the class level
   connectModelUpdate(User.constructor, 'saveTourView',

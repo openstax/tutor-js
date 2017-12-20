@@ -23,6 +23,7 @@ import { extendHasMany } from '../helpers/computed-property';
 import moment from 'moment-timezone';
 import StudentTasks from './student-tasks';
 import TeacherTaskPlans from './course/task-plans';
+import ReferenceBook from './reference-book';
 
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
 const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
@@ -110,6 +111,7 @@ export default class Course extends BaseModel {
   @lazyGetter lms = new LMS({ course: this });
   @lazyGetter roster = new Roster({ course: this });
   @lazyGetter scores = new Scores({ course: this });
+  @lazyGetter referenceBook = new ReferenceBook({ course: this });
   @lazyGetter taskPlans = new TeacherTaskPlans({ course: this });
 
   @computed get nameCleaned() {

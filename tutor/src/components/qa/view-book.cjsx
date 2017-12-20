@@ -6,7 +6,7 @@ BS = require 'react-bootstrap'
 Router = require '../../helpers/router'
 
 {EcosystemsStore} = require '../../flux/ecosystems'
-{ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
+# {ReferenceBookActions, ReferenceBookStore} = require '../../flux/reference-book'
 
 ReferenceBook        = require '../reference-book/reference-book'
 TeacherContentToggle = require '../reference-book/teacher-content-toggle'
