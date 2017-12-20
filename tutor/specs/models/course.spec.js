@@ -1,4 +1,4 @@
-import { map, clone, shuffle } from 'lodash';
+import { map, cloneDeep, shuffle } from 'lodash';
 import Courses from '../../src/models/courses-map';
 import Course from '../../src/models/course';
 import PH from '../../src/helpers/period';
@@ -94,7 +94,7 @@ describe('Course Model', () => {
   });
 
   it('extends periods', () => {
-    const data = clone(COURSE);
+    const data = cloneDeep(COURSE);
     data.periods = shuffle(data.periods);
     jest.spyOn(PH, 'sort');
 
