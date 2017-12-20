@@ -1,5 +1,6 @@
 // is imported inside .tutor-top-navbar
 .center-control {
+  $icon-color: $tutor-neutral-dark;
   font-size: 1.8rem;
   font-weight: bold;
   display: flex;
@@ -15,7 +16,7 @@
   }
 
   .fa {
-    color: #888;
+    color: $icon-color;
     font-size: 2.6rem;
 
     &.fa-th {
@@ -44,8 +45,7 @@
     }
   }
 
-  .milestones-toggle,
-  .annotation-summary-toggle {
+  .milestones-toggle {
     &:hover,
     &.active {
       .tutor-icon {
@@ -56,6 +56,15 @@
     &:focus {}
   }
   .annotation-summary-toggle {
-    margin-top: 4px;
+    .i {
+      fill: $icon-color;
+    }
+    &:hover,
+    &.active {
+      .i {
+        fill: $tutor-info;
+      }
+    }
+    height: 26px;
   }
 }
