@@ -146,6 +146,7 @@ exports[`Annotations renders and matches snapshot 1`] = `
               >
                 <button
                   onClick={[Function]}
+                  title="Edit"
                 >
                   <i
                     className="tutor-icon fa fa-edit"
@@ -155,6 +156,7 @@ exports[`Annotations renders and matches snapshot 1`] = `
                 </button>
                 <button
                   onClick={[Function]}
+                  title="View in book"
                 >
                   <i
                     className="tutor-icon fa fa-external-link"
@@ -164,6 +166,7 @@ exports[`Annotations renders and matches snapshot 1`] = `
                 </button>
                 <button
                   onClick={[Function]}
+                  title="Delete"
                 >
                   <i
                     className="tutor-icon fa fa-trash"
@@ -198,6 +201,7 @@ exports[`Annotations renders and matches snapshot 1`] = `
               >
                 <button
                   onClick={[Function]}
+                  title="Edit"
                 >
                   <i
                     className="tutor-icon fa fa-edit"
@@ -207,6 +211,7 @@ exports[`Annotations renders and matches snapshot 1`] = `
                 </button>
                 <button
                   onClick={[Function]}
+                  title="View in book"
                 >
                   <i
                     className="tutor-icon fa fa-external-link"
@@ -216,6 +221,7 @@ exports[`Annotations renders and matches snapshot 1`] = `
                 </button>
                 <button
                   onClick={[Function]}
+                  title="Delete"
                 >
                   <i
                     className="tutor-icon fa fa-trash"
