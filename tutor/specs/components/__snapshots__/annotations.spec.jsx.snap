@@ -133,15 +133,12 @@ exports[`Annotations renders and matches snapshot 1`] = `
                 <div
                   className="selected-text"
                 >
-                  Hydrogen (H)
-                                  10%
-                                  trace
-                                  0.1%
+                  ng world, elements are found in different proportions, and some elements common to living organisms are relatively rare on the earth as a whole, as shown in See Table. For examp
                 </div>
                 <div
                   className="plain-text"
                 >
-                  
+                  ee
                 </div>
               </div>
               <div
@@ -185,12 +182,15 @@ exports[`Annotations renders and matches snapshot 1`] = `
                 <div
                   className="selected-text"
                 >
-                  ng world, elements are found in different proportions, and some elements common to living organisms are relatively rare on the earth as a whole, as shown in See Table. For examp
+                  Hydrogen (H)
+                                  10%
+                                  trace
+                                  0.1%
                 </div>
                 <div
                   className="plain-text"
                 >
-                  ee
+                  
                 </div>
               </div>
               <div
