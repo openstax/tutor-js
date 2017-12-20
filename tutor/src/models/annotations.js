@@ -25,9 +25,7 @@ export default class Annotations extends Map {
           sortBy(cpgs, c=>chapterSectionToNumber(c.chapter_section)),
           a => a.chapter_section.join('.')
         ),
-        (annotations) => sortBy(annotations, (annotation) =>
-          [annotation.selection.rect.top, annotation.selection.start]
-        )
+        (annotations) => sortBy(annotations, ['selection.rect.top', 'selection.start'])
       )
     );
   }
