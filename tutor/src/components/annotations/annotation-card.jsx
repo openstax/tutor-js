@@ -42,8 +42,8 @@ class EditBox extends React.Component {
         <textarea autoFocus ref="textarea" onChange={this.onUpdate} value={text}></textarea>
         {this.renderWarning()}
         <div className="button-group">
-          <button onClick={this.callUpdateText}><Icon type="check" /></button>
-          <button onClick={dismiss}><Icon type="times" /></button>
+          <button title="Save" onClick={this.callUpdateText}><Icon type="check" /></button>
+          <button title="Cancel editing" onClick={dismiss}><Icon type="times" /></button>
         </div>
       </div>
     );
