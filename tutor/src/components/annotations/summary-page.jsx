@@ -11,7 +11,6 @@ import User from '../../models/user';
 export default class AnnotationSummaryPage extends React.Component {
 
   static propTypes = {
-    annotations: React.PropTypes.array.isRequired,
     onDelete: React.PropTypes.func.isRequired,
     currentChapter: React.PropTypes.number.isRequired,
     currentSection: React.PropTypes.number.isRequired,
