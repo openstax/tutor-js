@@ -9,7 +9,7 @@ import { UserTerms } from './user/terms';
 import Annotations from './annotations';
 import lazyGetter from '../helpers/lazy-getter';
 import ViewedTourStat from './user/viewed-tour-stat';
-import DOM from '../helpers/dom';
+import { read_csrf } from '../helpers/dom';
 
 @identifiedBy('user')
 export class User extends BaseModel {
@@ -17,7 +17,7 @@ export class User extends BaseModel {
   @action.bound
   bootstrap(data) {
     this.update(data);
-    this.csrf_token = DOM.read_csrf();
+    this.csrf_token = read_csrf();
   }
 
   @observable csrf_token;

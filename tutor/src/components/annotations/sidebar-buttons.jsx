@@ -9,7 +9,6 @@ import Annotation from '../../models/annotations/annotation';
 @observer
 export default class SidebarButtons extends React.Component {
   static propTypes = {
-    disabled: React.PropTypes.bool.isRequired,
     annotations: React.PropTypes.arrayOf(
       React.PropTypes.instanceOf(Annotation)
     ).isRequired,
@@ -22,13 +21,11 @@ export default class SidebarButtons extends React.Component {
 
   render() {
     const {
-      disabled, annotations, parentRect, onClick, activeAnnotation,
+      annotations, parentRect, onClick, activeAnnotation,
     } = this.props;
 
-    if (disabled) { return null; }
-
     return (
-      <div>
+      <div className="annotation-edit-buttons">
         {annotations.map(note => (
           note.text.length ?
             <Icon type="comment"

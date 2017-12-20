@@ -1,6 +1,10 @@
 .tutor-highlight {
   background-color: $tutor-highlight;
   cursor: pointer;
+  transition: 0.3s box-shadow;
+  &.focus {
+    box-shadow: 0 0 4px $tutor-neutral-dark;
+  }
 }
 
 .annotater {
@@ -8,14 +12,14 @@
     background: $tutor-white;
     border: thin solid $tutor-neutral-light;
     font-size: 2rem;
-    padding: 1rem 0;
+    padding: 0;
     position: absolute;
     transform: translate(calc(10px - 50%), 10px);
-    z-index: 20;
+    z-index: 2;
     @include no-select();
 
     [role="button"] {
-      padding: 0 1.5rem;
+      padding: 1.5rem;
 
       &:first-child {
         border-right: thin solid lightgray;
@@ -78,6 +82,7 @@
     transition: 0.3s;
     width: 40rem;
     z-index: 20;
+    min-height: 175px;
     @include tutor-shadow(subtle);
 
     &.closed {
@@ -256,7 +261,9 @@
         font-style: italic;
         padding: 1rem;
       }
-
+      .plain-text {
+        white-space: pre-line;
+      }
       .edit-box,
       .plain-text:not(:empty) {
         margin-top: 2rem;

@@ -1,13 +1,15 @@
 import React from 'react';
+import { defer } from 'lodash';
 import { observer } from 'mobx-react';
 import { action, observable } from 'mobx';
 import cn from 'classnames';
 import './highlighter';
 import Icon from '../icon';
+import { Label } from 'react-bootstrap';
 import Annotation from '../../models/annotations/annotation';
 
 @observer
-export default class EditBox extends React.Component {
+class EditBox extends React.Component {
 
   static propTypes = {
     annotation: React.PropTypes.instanceOf(Annotation),
@@ -26,9 +28,17 @@ export default class EditBox extends React.Component {
 
   @observable text = this.props.annotation ? this.props.annotation.text : '';
 
-  componentWillUpdate(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.annotation !== this.props.annotation) {
       this.text = nextProps.annotation ? nextProps.annotation.text : '';
+      defer(() => this.input.focus());
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.text !== this.props.annotation.text) {
+      this.props.annotation.text = this.text;
+      this.props.annotation.save();
     }
   }
 
@@ -51,24 +61,27 @@ export default class EditBox extends React.Component {
     this.props.goToAnnotation(this.props.next);
   }
 
+  renderWarning() {
+    if (this.text.length > Annotation.MAX_TEXT_LENGTH) {
+      return <Label bsStyle="danger">Text cannot be longer than {Annotation.MAX_TEXT_LENGTH} characters</Label>;
+    }
+    return null;
+  }
+
   render() {
     const { text, props: {
       annotation, previous, next, seeAll,
     } } = this;
 
-    if (!annotation) { return null; }
-    const show = !!annotation;
-
     return (
-      <div
-        className={cn('slide-out-edit-box', { open: show, closed: !show })}
-      >
+      <div className={"edit-box"}>
         <textarea
           autoFocus
+          ref={i => this.input = i}
           value={text}
           onChange={this.onUpdate}
         />
-
+        {this.renderWarning()}
         <div className="button-row">
           <div className="button-group">
             <button aria-label="save" className="primary" onClick={this.onSave}>
@@ -97,4 +110,14 @@ export default class EditBox extends React.Component {
       </div>
     );
   }
+}
+
+
+export default function EditBoxWrapper(props) {
+  const show = !!props.annotation;
+  return (
+    <div className={cn('slide-out-edit-box', { open: show, closed: !show })}>
+      {props.annotation && <EditBox {...props} />}
+    </div>
+  );
 }

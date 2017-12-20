@@ -6,10 +6,10 @@ import serializeSelection from 'serialize-selection';
 import cn from 'classnames';
 import './highlighter';
 import User from '../../models/user';
-import { debounce, filter, defer, sortBy, get, find, findLast, map } from 'lodash';
+import { filter, last, sortBy, get, find, findLast, isEmpty, invokeMap } from 'lodash';
 import Icon from '../icon';
 import SummaryPage from './summary-page';
-import DOM from '../../helpers/dom';
+import dom from '../../helpers/dom';
 import imagesComplete from '../../helpers/images-complete';
 import { Logging } from 'shared';
 import Courses from '../../models/courses-map';
@@ -17,50 +17,21 @@ import EditBox from './edit-box';
 import SidebarButtons from './sidebar-buttons';
 import InlineControls from './inline-controls';
 import WindowShade from './window-shade';
+import ScrollTo from '../../helpers/scroll-to';
+import TextHighlighter from './highlighter';
 
 const highlighter = new TextHighlighter(document.body);
 
-const ERROR_DISPLAY_TIMEOUT = 1000 * 2;
-
 function getSelectionRect(win, selection) {
-
   const rect = selection.getRangeAt(0).getBoundingClientRect();
   const wLeft = win.pageXOffset;
   const wTop = win.pageYOffset;
-
   return {
     bottom: rect.bottom + wTop,
     top: rect.top + wTop,
     left: rect.left + wLeft,
     right: rect.right + wLeft,
   };
-}
-
-function scrollToAnnotation(win, annotation) {
-  const sRect = annotation.selection.bounds;
-  const marginTop = (win.innerHeight - sRect.bottom + sRect.top) / 2;
-  const startPos = win.pageYOffset;
-  const startTime = Date.now();
-  const endPos = sRect.top - marginTop;
-
-  const duration = 400; // milliseconds
-  // Formulas lifted from ScrollToMixin, which I can't use here
-  const EASE_IN_OUT = (t) => (
-    t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1
-  );
-  const POSITION = (start, end, elapsed, duration) => (
-    elapsed > duration ? end : start + (end - start) * EASE_IN_OUT(elapsed / duration)
-  );
-
-  const step = () => {
-    const elapsed = Date.now() - startTime;
-    win.scrollTo(0, POSITION(startPos, endPos, elapsed, duration));
-    if (elapsed < duration) {
-      requestAnimationFrame(step);
-    }
-  };
-
-  step();
 }
 
 
@@ -73,76 +44,29 @@ export default class AnnotationWidget extends React.Component {
     windowImpl: React.PropTypes.shape({
       open: React.PropTypes.func,
     }),
-    pageType: React.PropTypes.string,
     title: React.PropTypes.string,
+    chapter: React.PropTypes.number.isRequired,
+    section: React.PropTypes.number.isRequired,
   };
 
   static defaultProps = {
     windowImpl: window,
-    pageType: 'reading',
   };
 
-
-  @observable activeAnnotation = null;
+  scrollTo = new ScrollTo({ windowImpl: this.props.windowImpl, scrollingTargetClass: false });
   @observable widgetStyle = null;
   @observable scrollToPendingAnnotation;
   @computed get showWindowShade() {
     return this.ux.isSummaryVisible;
   }
-  @observable canRenderSidebarButtons = false;
   @observable parentRect = {};
   @observable referenceElements = [];
-
-  @computed get course() {
-    return Courses.get(this.props.courseId);
-  }
-
-  @computed get annotationsForThisPage() {
-    return this.allAnnotationsForThisBook.filter(item =>
-      (item.selection.chapter === this.props.chapter) &&
-      (item.selection.section === this.props.section) &&
-      this.referenceElements.find((el) => el.id === item.selection.elementId)
-    );
-  }
-
-  @computed get allAnnotationsForThisBook() {
-    return filter(User.annotations.array, { courseId: this.props.courseId });
-  }
-
-  setupPendingHighlightScroll(windowHash) {
-    const highlightMatch = windowHash.match(/highlight-(.*)/);
-    if (!highlightMatch) { return; }
-    this.scrollToPendingAnnotation = () => {
-      const id = highlightMatch[1];
-      const annotation = User.annotations.get(id);
-      if (annotation) {
-        const selection = annotation.selection.restore();
-        scrollToAnnotation(this.props.windowImpl, annotation);
-      } else {
-        Logging.error(`Page attempted to scroll to annotation id '${id}' but it was not found`);
-      }
-      this.scrollToPendingAnnotation = null;
-    };
-  }
-
-  handleSelectionChange = debounce((ev) => {
-    if (this.activeAnnotation) {
-      // ignore clicks outside of book content
-      if (DOM.closest(ev.target, '.book-content')) {
-        this.activeAnnotation = null;
-      }
-
-    } else {
-      this.onSelection();
-    }
-  }, 10);
+  @observable _activeAnnotation;
 
   componentDidMount() {
     if (!this.course.canAnnotate) { return; }
 
-    this.props.windowImpl.document.addEventListener(
-      'mouseup', this.handleSelectionChange
-    );
+    this.props.windowImpl.document.addEventListener('mouseup', this.onSelection);
 
     if (this.props.windowImpl.location.hash) {
       this.setupPendingHighlightScroll(this.props.windowImpl.location.hash);
@@ -156,17 +80,62 @@ export default class AnnotationWidget extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (!this.course.canAnnotate) { return; }
-
     if (nextProps.documentId !== this.props.documentId) {
-      this.canRenderSidebarButtons = false;
       this.activeAnnotation = null;
       this.initializePage();
     }
   }
 
   componentWillUnmount() {
-    this.props.windowImpl.document.removeEventListener('mouseup', this.handleSelectionChange);
+    this.props.windowImpl.document.removeEventListener('mouseup', this.onSelection);
   }
+
+  set activeAnnotation(note) {
+    this._activeAnnotation = note;
+    highlighter.unfocusAll();
+    if (note) {
+      highlighter.focus(note.elements);
+    }
+    if (this.activeAnnotation) { this.scrollToAnnotation(this.activeAnnotation); }
+  }
+
+  @computed get activeAnnotation() {
+    return this._activeAnnotation;
+  }
+
+  @computed get course() {
+    return Courses.get(this.props.courseId);
+  }
+
+  @computed get annotationsForThisPage() {
+    return this.allAnnotationsForThisBook.filter(item =>
+      (item.selection.chapter === this.props.chapter) &&
+      (item.selection.section === this.props.section) &&
+      this.referenceElements.find((el) => el.id === item.referenceElementId)
+    );
+  }
+
+  @computed get allAnnotationsForThisBook() {
+    return filter(User.annotations.array, { courseId: this.props.courseId });
+  }
+
+  setupPendingHighlightScroll(windowHash) {
+    if (!windowHash) { return; }
+    const highlightMatch = windowHash.match(/highlight-(.*)/);
+    if (!highlightMatch) { return; }
+    this.scrollToPendingAnnotation = () => {
+      const id = highlightMatch[1];
+      const annotation = User.annotations.get(id);
+      if (annotation) {
+        highlighter.focus(annotation.elements);
+        this.scrollToAnnotation(annotation);
+      } else {
+        Logging.error(`Page attempted to scroll to annotation id '${id}' but it was not found`);
+      }
+      this.scrollToPendingAnnotation = null;
+    };
+  }
+
 
   initializePage() {
     this.ux.statusMessage.show({
@@ -175,13 +144,11 @@ export default class AnnotationWidget extends React.Component {
     });
 
     this.getReferenceElements();
-    return imagesComplete(
-      this.props.windowImpl.document.querySelector('.book-content')
-    ).then(() => {
-      this.annotationsForThisPage.forEach((annotation) => {
-        annotation.selection.restore(highlighter);
-      });
-      this.canRenderSidebarButtons = true;
+    invokeMap(this.annotationsForThisPage, 'selection.restore', highlighter);
+    return imagesComplete({
+      body: this.props.windowImpl.document.querySelector('.book-content'),
+    }).then(() => {
+      invokeMap(this.annotationsForThisPage, 'selection.restore', highlighter);
       if (this.scrollToPendingAnnotation) {
         this.scrollToPendingAnnotation();
       }
@@ -189,35 +156,31 @@ export default class AnnotationWidget extends React.Component {
     });
   }
 
-  @action.bound
-  highlightEntry(entry) {
-    const selection = entry.selection.restore();
-    if (selection) {
-      const rect = getSelectionRect(this.props.windowImpl, selection);
-      entry.style = {
-        top: rect.top - this.parentRect.top,
-        position: 'absolute',
-      };
-      highlighter.doHighlight();
-    }
-  }
-
   getCurrentSelectionInfo() {
     const selection = document.getSelection();
-    if (!DOM.closest(selection.anchorNode, '.book-content')) {
-      return { isCollapsed: selection.isCollapsed, outOfBounds: true };
+    // can happen if dom was modified after mouseup
+    if (!selection.anchorNode) { return { isCollapsed: true }; }
+    const node = dom(selection.anchorNode);
+    const { isCollapsed } = selection;
+    if (!node.closest('.book-content')) {
+      return { isCollapsed, outOfBounds: true };
     }
 
     for (const re of this.referenceElements) {
-      if (DOM.isParent(re, selection.anchorNode)) {
+      if (node.isParent(re)) {
+
+        if (!dom(selection.focusNode).isParent(re)) {
+          return { isCollapsed, splitParts: true };
+        }
+
         return Object.assign(serializeSelection.save(re), {
+          isCollapsed,
+          referenceElementId: re.id,
           rect: getSelectionRect(this.props.windowImpl, selection),
-          elementId: re.id,
-          isCollapsed: selection.isCollapsed,
         });
       }
     }
-    return { isCollapsed: true };
+    return { isCollapsed, noParent: true };
   }
 
   cantHighlightReason(selection) {
@@ -225,15 +188,21 @@ export default class AnnotationWidget extends React.Component {
     if (selection.outOfBounds) {
       return 'Only content can be highlighted';
     }
+    if (selection.noParent) {
+      return 'Only content that is enclosed in paragraphs can be highlighted';
+    }
+    if (selection.splitParts) {
+      return 'Only a single paragraphs can be highlighted at a time';
+    }
     // Is it free from overlaps with other selections?
     // Compare by using the same reference node
     for (const other of this.annotationsForThisPage) {
-      if (selection.elementId === other.elementId) {
+      if (selection.referenceElementId === other.referenceElementId) {
         if (selection.start >= 0 &&
-          (other.selection.start >= selection.start &&
-            other.selection.start <= selection.end) ||
-          (other.selection.end >= selection.start &&
-            other.selection.end <= selection.end)) {
+          (other.selection.start > selection.start &&
+            other.selection.start < selection.end) ||
+          (other.selection.end > selection.start &&
+            other.selection.end < selection.end)) {
 
           return 'Highlights cannot overlap one another';
         }
@@ -242,8 +211,9 @@ export default class AnnotationWidget extends React.Component {
     return null;
   }
 
+  @action.bound onSelection(ev) {
+    if (dom(ev.target).closest('.slide-out-edit-box')) { return; }
 
-  @action onSelection() {
     const selection = this.getCurrentSelectionInfo();
 
     // If it's a cursor placement with no highlighted text, check
@@ -251,12 +221,11 @@ export default class AnnotationWidget extends React.Component {
     if (selection.isCollapsed) {
       this.widgetStyle = null;
       this.savedSelection = null;
-      const referenceEl = document.getElementById(selection.elementId);
+      const referenceEl = document.getElementById(selection.referenceElementId);
       this.activeAnnotation = this.annotationsForThisPage.find((note) => {
-        if (note.element === referenceEl) {
-          return note.selection.start <= selection.start &&
-            note.selection.end >= selection.start;
-        }
+        return (note.referenceElement === referenceEl) &&
+          note.selection.start <= selection.start &&
+          note.selection.end >= selection.start;
       });
       this.ux.statusMessage.hide();
     } else {
@@ -267,8 +236,8 @@ export default class AnnotationWidget extends React.Component {
         this.widgetStyle = null;
       } else {
         const { rect } = selection;
-
         const pwRect = this.parentRect;
+        this.activeAnnotation = null;
         this.ux.statusMessage.hide();
         const middle = (rect.bottom - rect.top) / 2;
         const center = (rect.right - rect.left) / 2;
@@ -285,27 +254,23 @@ export default class AnnotationWidget extends React.Component {
   @action
   getReferenceElements() {
     this.referenceElements = Array.from(
-      this.articleElement.querySelectorAll('.book-content > [id]')
+      this.props.windowImpl.document.querySelectorAll('.book-content > [id]')
     ).reverse();
-
   }
 
   @autobind
   highlightAndClose() {
     return this.saveNewHighlight().then(
-      action((response) => {
+      action((annotation) => {
         this.widgetStyle = null;
-        this.highlightEntry(response);
-        return response;
+        annotation.selection.restore(highlighter);
+        return annotation;
       }));
   }
 
   @autobind
   openAnnotator() {
-    return this.highlightAndClose()
-      .then((response) => {
-        this.activeAnnotation = response;
-      });
+    return this.highlightAndClose().then((annotation) => this.activeAnnotation = annotation);
   }
 
   @autobind
@@ -351,6 +316,7 @@ export default class AnnotationWidget extends React.Component {
 
   @action.bound
   getParentRect(el) {
+
     if (el) {
       const wLeft = this.props.windowImpl.pageXOffset;
       const wTop = this.props.windowImpl.pageYOffset;
@@ -382,15 +348,24 @@ export default class AnnotationWidget extends React.Component {
   }
 
   @action.bound onAnnotationDelete(annotation) {
-    const selection = annotation.selection.restore();
-    highlighter.removeHighlights(
-      DOM.closest(selection.anchorNode, '.tutor-highlight')
-    );
+    // just in case the annotation hasn't been mounted
+    annotation.selection.restore(highlighter);
+    if (annotation.isAttached) {
+      annotation.elements.forEach(el => highlighter.removeHighlights(el));
+    }
+  }
+
+  scrollToAnnotation(annotation) {
+    if (annotation.isAttached) {
+      this.scrollTo.scrollToElement(last(annotation.elements), {
+        scrollTopOffset: (window.innerHeight / 2) - 80,
+      });
+    }
   }
 
   @action.bound editAnnotation(annotation) {
     this.activeAnnotation = annotation;
-    scrollToAnnotation(this.props.windowImpl, annotation);
+    this.scrollToAnnotation(annotation);
   }
 
 
@@ -425,7 +400,6 @@ export default class AnnotationWidget extends React.Component {
           seeAll={this.seeAll}
         />
         <SidebarButtons
-          disabled={!this.canRenderSidebarButtons}
           annotations={this.annotationsForThisPage}
           parentRect={this.parentRect}
           onClick={this.editAnnotation}
@@ -435,7 +409,6 @@ export default class AnnotationWidget extends React.Component {
         <WindowShade show={this.showWindowShade}>
           <SummaryPage
             courseId={this.props.courseId}
-            annotations={this.allAnnotationsForThisBook}
             onDelete={this.onAnnotationDelete}
             currentChapter={this.props.chapter}
             currentSection={this.props.section}

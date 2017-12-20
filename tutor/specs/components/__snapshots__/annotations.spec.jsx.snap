@@ -1,0 +1,240 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Annotations renders and matches snapshot 1`] = `
+<div
+  className="annotater"
+>
+  <div
+    className="slide-out-edit-box closed"
+  />
+  <div
+    className="annotation-edit-buttons"
+  >
+    <i
+      alt="View annotation"
+      className="tutor-icon fa fa-comment sidebar-button clickable"
+      onClick={[Function]}
+      role="button"
+      style={
+        Object {
+          "top": NaN,
+        }
+      }
+      type="comment"
+    />
+  </div>
+  <div
+    className="status-message-toast info"
+  >
+    <i
+      className="tutor-icon fa fa-info-circle"
+      role="presentation"
+      type="info-circle"
+    />
+     
+    Waiting for page to finish loading…
+  </div>
+  <div
+    className="highlights-windowshade up"
+  >
+    <div
+      className="centered-content"
+    >
+      <div
+        className="summary-page"
+      >
+        <div
+          className="filter-area"
+        >
+          <div
+            className="filter-widget"
+          >
+            <div
+              className="multi-select"
+            >
+              <div
+                className="dropdown btn-group"
+              >
+                <button
+                  aria-expanded={false}
+                  aria-haspopup={true}
+                  className="dropdown-toggle btn btn-default"
+                  disabled={false}
+                  id="multi-select"
+                  onClick={[Function]}
+                  onKeyDown={[Function]}
+                  role="button"
+                  type="button"
+                >
+                  Display sections
+                   
+                  <span
+                    className="caret"
+                  />
+                </button>
+                <ul
+                  aria-labelledby="multi-select"
+                  className="dropdown-menu"
+                  role="menu"
+                >
+                  <li
+                    className="multi-selection-option"
+                    role="presentation"
+                    style={undefined}
+                  >
+                    <a
+                      href="#"
+                      onClick={[Function]}
+                      onKeyDown={[Function]}
+                      role="menuitem"
+                      tabIndex="-1"
+                    >
+                      <i
+                        className="tutor-icon fa fa-check-square-o"
+                        role="presentation"
+                        type="check-square-o"
+                      />
+                      <span
+                        className="title"
+                      >
+                        <span>
+                          <span
+                            className="section"
+                          >
+                            2.1
+                          </span>
+                          <span>
+                            Atoms, Isotopes, Ions, and Molecules: The Building Blocks
+                          </span>
+                        </span>
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="annotations"
+        >
+          <div>
+            <h1>
+              2.1
+               
+              Atoms, Isotopes, Ions, and Molecules: The Building Blocks
+            </h1>
+            <div
+              className="annotation-card"
+            >
+              <div
+                className="annotation-content"
+              >
+                <div
+                  className="selected-text"
+                >
+                  ng world, elements are found in different proportions, and some elements common to living organisms are relatively rare on the earth as a whole, as shown in See Table. For examp
+                </div>
+                <div
+                  className="plain-text"
+                >
+                  ee
+                </div>
+              </div>
+              <div
+                className="controls"
+              >
+                <button
+                  onClick={[Function]}
+                  title="Edit"
+                >
+                  <i
+                    className="tutor-icon fa fa-edit"
+                    role="presentation"
+                    type="edit"
+                  />
+                </button>
+                <button
+                  onClick={[Function]}
+                  title="View in book"
+                >
+                  <i
+                    className="tutor-icon fa fa-external-link"
+                    role="presentation"
+                    type="external-link"
+                  />
+                </button>
+                <button
+                  onClick={[Function]}
+                  title="Delete"
+                >
+                  <i
+                    className="tutor-icon fa fa-trash"
+                    role="presentation"
+                    type="trash"
+                  />
+                </button>
+              </div>
+            </div>
+            <div
+              className="annotation-card"
+            >
+              <div
+                className="annotation-content"
+              >
+                <div
+                  className="selected-text"
+                >
+                  Hydrogen (H)
+                                  10%
+                                  trace
+                                  0.1%
+                </div>
+                <div
+                  className="plain-text"
+                >
+                  
+                </div>
+              </div>
+              <div
+                className="controls"
+              >
+                <button
+                  onClick={[Function]}
+                  title="Edit"
+                >
+                  <i
+                    className="tutor-icon fa fa-edit"
+                    role="presentation"
+                    type="edit"
+                  />
+                </button>
+                <button
+                  onClick={[Function]}
+                  title="View in book"
+                >
+                  <i
+                    className="tutor-icon fa fa-external-link"
+                    role="presentation"
+                    type="external-link"
+                  />
+                </button>
+                <button
+                  onClick={[Function]}
+                  title="Delete"
+                >
+                  <i
+                    className="tutor-icon fa fa-trash"
+                    role="presentation"
+                    type="trash"
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

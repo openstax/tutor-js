@@ -1,39 +1,42 @@
-import { get, pick, omit, extend } from 'lodash';
-import { computed, action, observable } from 'mobx';
+import { get, pick, omit, extend, isString, isEmpty, toArray } from 'lodash';
+import { computed, action, observable, intercept } from 'mobx';
 import serializeSelection from 'serialize-selection';
-import Hypothesis from './hypothesis';
+import { readonly } from 'core-decorators';
 import {
   BaseModel, identifiedBy, field, identifier, session, belongsTo, hasMany,
 } from '../base';
-import DOM from '../../helpers/dom';
 
-@identifiedBy('annotations/annotation/target')
+@identifiedBy('annotations/annotation/selector')
 export class AnnotationSelector extends BaseModel {
 
-  @identifier elementId;
+  @identifier referenceElementId;
 
   @field chapter;
   @field content;
   @field courseId;
   @field end;
+  @field({ type: 'object' }) rect;
   @field researchId;
   @field section;
   @field start;
   @field title;
+  @belongsTo({ model: 'annotations/annotation/target' }) target;
   @field type = 'TextPositionSelector'
   @observable bounds;
 
   @action restore(highlighter) {
-    const el = document.getElementById(this.elementId);
-    if (!el) { return null; }
+    this.measure();
+    highlighter.doHighlight({ data_id: this.target.annotation.id });
+  }
+
+  @action measure() {
+    const el = document.getElementById(this.referenceElementId);
+    if (!el) { return false; }
     const selection = serializeSelection.restore(this, el);
     this.bounds = pick(selection.getRangeAt(0).getBoundingClientRect(), 'x', 'y', 'width', 'height', 'top', 'bottom', 'left');
     this.bounds.top += window.pageYOffset;
     this.bounds.left += window.pageXOffset;
-    if (highlighter) {
-      highlighter.doHighlight();
-    }
-    return selection;
+    return true;
   }
 
 }
@@ -42,12 +45,18 @@ export class AnnotationSelector extends BaseModel {
 export class AnnotationTarget extends BaseModel {
 
   @identifier source;
-  @hasMany({ model: AnnotationSelector }) selector;
+  @belongsTo({ model: 'annotations/annotation' }) annotation;
+
+  @hasMany({
+    model: AnnotationSelector, inverseOf: 'target',
+  }) selector;
 
 }
 
 @identifiedBy('annotations/annotation')
 export default class Annotation extends BaseModel {
+
+  @readonly static MAX_TEXT_LENGTH = 500;
 
   @identifier id;
   @field user;
@@ -57,29 +66,44 @@ export default class Annotation extends BaseModel {
   @field flagged;
   @field({ type: 'date' }) created;
   @field({ type: 'date' }) updated;
-  @field({ type: 'object' }) rect;
   @field({ type: 'object' }) document;
   @field({ type: 'object' }) links;
   @field({ type: 'object' }) permissions;
   @field({ type: 'array' }) tags;
   @session({ type: 'object' }) style;
-  @hasMany({ model: AnnotationTarget }) target;
+  @hasMany({ model: AnnotationTarget, inverseOf: 'annotation' }) target;
   @belongsTo({ model: 'annotations' }) listing;
+
+  constructor(attrs) {
+    super(attrs);
+    intercept(this, 'text', this.validateTextLength);
+  }
+
+  validateTextLength(change) {
+    if (isString(change.newValue) && change.newValue.length > Annotation.MAX_TEXT_LEN) {
+      change.newValue = change.newValue.slice(0, Annotation.MAX_TEXT_LEN);
+    }
+    return change;
+  }
 
   @computed get selection() {
     return get(this, 'target[0].selector[0]', {});
   }
 
-  @computed get elementId() {
-    return get(this.selection, 'elementId');
+  @computed get referenceElementId() {
+    return get(this.selection, 'referenceElementId');
   }
 
-  @computed get element() {
-    return this.elementId ? document.getElementById(this.elementId) : null;
+  get referenceElement() {
+    return this.referenceElementId ? document.getElementById(this.referenceElementId) : null;
   }
 
-  @computed get referenceElement() {
-    return this.element ? DOM.closest(this.element, '[id]') : null;
+  get elements() {
+    return toArray(document.querySelectorAll(`[data-id="${this.id}"]`));
+  }
+
+  @computed get isAttached() {
+    return !isEmpty(this.elements);
   }
 
   @computed get courseId() {

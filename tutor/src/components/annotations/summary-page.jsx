@@ -11,7 +11,6 @@ import User from '../../models/user';
 export default class AnnotationSummaryPage extends React.Component {
 
   static propTypes = {
-    annotations: React.PropTypes.array.isRequired,
     onDelete: React.PropTypes.func.isRequired,
     currentChapter: React.PropTypes.number.isRequired,
     currentSection: React.PropTypes.number.isRequired,
@@ -50,7 +49,9 @@ export default class AnnotationSummaryPage extends React.Component {
     return (
       <div className="summary-page">
         <div className="annotations">
-          <h3>No notes have been created yet</h3>
+          <h4>
+            Here’s where you will see a summary of your highlights and annotations. To highlight, select text from your reading and click to highlight it or add a note.
+          </h4>
         </div>
       </div>
     );

@@ -2,7 +2,7 @@ React = require 'react'
 ReactDOM = require 'react-dom'
 _ = require 'underscore'
 S = require '../helpers/string'
-dom = require '../helpers/dom'
+{default: dom } = require '../helpers/dom'
 
 {MediaPreview} = require './media-preview'
 {TaskStepStore} = require '../flux/task-step'
@@ -231,7 +231,7 @@ ReadingContentMixin =
 
 # called with the context set to the image
 sizeImage = ->
-  figure = dom.closest(@, 'figure')
+  figure = dom(@).closest('figure')
   return unless figure
 
   aspectRatio = @naturalWidth / @naturalHeight
