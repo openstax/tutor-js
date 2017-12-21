@@ -39,15 +39,17 @@ export default class EventInfoIcon extends React.PureComponent {
         </b>
       </Tooltip>;
 
-    return (
-      <TourAnchor
+    let icon = <OverlayTrigger placement="top" overlay={tooltip}>
+      <i className={`info ${status}`} />
+    </OverlayTrigger>
+
+    if (pastDue) {
+      icon = <TourAnchor
         id="about-late-icon"
         tag="span"
-      >
-        <OverlayTrigger placement="top" overlay={tooltip}>
-          <i className={`info ${status}`} />
-        </OverlayTrigger>
-      </TourAnchor>
-    );
+      >{icon}</TourAnchor>
+    }
+
+    return icon;
   }
 }

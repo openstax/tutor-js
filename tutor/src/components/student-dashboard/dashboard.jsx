@@ -70,7 +70,7 @@ export default class StudentDashboard extends React.PureComponent {
         <CourseTitleBanner courseId={courseId} />
         <TourRegion
           id="student-dashboard"
-          otherTours={["about-late"]}
+          otherTours={["about-late", "assignment-progress"]}
           courseId={courseId}
           className="container"
         >
