@@ -29,14 +29,20 @@ exports[`Homework Row renders with completed count 1`] = `
     <span>
       0/2 answered
     </span>
-    <i
-      className="info late"
-      onBlur={[Function]}
-      onClick={null}
-      onFocus={[Function]}
-      onMouseOut={[Function]}
-      onMouseOver={[Function]}
-    />
+    <span
+      className="tour-anchor"
+      data-tour-anchor-id="about-late-icon"
+      id="about-late-icon"
+    >
+      <i
+        className="info late"
+        onBlur={[Function]}
+        onClick={null}
+        onFocus={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+      />
+    </span>
   </div>
   <div
     className="due-at col-sm-2 col-xs-5"
@@ -77,14 +83,20 @@ exports[`Homework Row renders with correct count 1`] = `
     <span>
       0/2 correct
     </span>
-    <i
-      className="info late"
-      onBlur={[Function]}
-      onClick={null}
-      onFocus={[Function]}
-      onMouseOut={[Function]}
-      onMouseOver={[Function]}
-    />
+    <span
+      className="tour-anchor"
+      data-tour-anchor-id="about-late-icon"
+      id="about-late-icon"
+    >
+      <i
+        className="info late"
+        onBlur={[Function]}
+        onClick={null}
+        onFocus={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+      />
+    </span>
   </div>
   <div
     className="due-at col-sm-2 col-xs-5"
@@ -125,14 +137,20 @@ exports[`Homework Row renders with correct count 2`] = `
     <span>
       2/2 correct
     </span>
-    <i
-      className="info late"
-      onBlur={[Function]}
-      onClick={null}
-      onFocus={[Function]}
-      onMouseOut={[Function]}
-      onMouseOver={[Function]}
-    />
+    <span
+      className="tour-anchor"
+      data-tour-anchor-id="about-late-icon"
+      id="about-late-icon"
+    >
+      <i
+        className="info late"
+        onBlur={[Function]}
+        onClick={null}
+        onFocus={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+      />
+    </span>
   </div>
   <div
     className="due-at col-sm-2 col-xs-5"

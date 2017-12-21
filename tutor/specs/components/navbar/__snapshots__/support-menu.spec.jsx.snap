@@ -75,6 +75,11 @@ exports[`Support Menu renders and matches snapshot 1`] = `
         </span>
       </a>
     </li>
+    <div
+      className="tour-anchor"
+      data-tour-anchor-id="menu-support-document"
+      id="menu-support-document"
+    />
     <li
       className="-help-link"
       role="presentation"
@@ -150,22 +155,28 @@ exports[`Support Menu renders support links when in a course for student 1`] = `
         </span>
       </a>
     </li>
-    <li
-      className="support-document-link"
-      role="presentation"
-      style={undefined}
+    <div
+      className="tour-anchor"
+      data-tour-anchor-id="menu-support-document"
+      id="menu-support-document"
     >
-      <a
-        href="https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_student_getting_started_guide.pdf"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        role="menuitem"
-        tabIndex="-1"
-        target="_blank"
+      <li
+        className="support-document-link"
+        role="presentation"
+        style={undefined}
       >
-        Getting Started Guide
-      </a>
-    </li>
+        <a
+          href="https://d3bxy9euw4e147.cloudfront.net/oscms-prodcms/media/documents/openstax_tutor_student_getting_started_guide.pdf"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="menuitem"
+          tabIndex="-1"
+          target="_blank"
+        >
+          Getting Started Guide
+        </a>
+      </li>
+    </div>
     <li
       className="-help-link"
       role="presentation"
@@ -241,22 +252,28 @@ exports[`Support Menu renders support links when in a course for teacher 1`] = `
         </span>
       </a>
     </li>
-    <li
-      className="support-document-link"
-      role="presentation"
-      style={undefined}
+    <div
+      className="tour-anchor"
+      data-tour-anchor-id="menu-support-document"
+      id="menu-support-document"
     >
-      <a
-        href="https://s3-us-west-2.amazonaws.com/openstax-assets/oscms-prodcms/media/documents/oxt-biology-best-practices.pdf"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        role="menuitem"
-        tabIndex="-1"
-        target="_blank"
+      <li
+        className="support-document-link"
+        role="presentation"
+        style={undefined}
       >
-        Best Practices Guide
-      </a>
-    </li>
+        <a
+          href="https://s3-us-west-2.amazonaws.com/openstax-assets/oscms-prodcms/media/documents/oxt-biology-best-practices.pdf"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="menuitem"
+          tabIndex="-1"
+          target="_blank"
+        >
+          Best Practices Guide
+        </a>
+      </li>
+    </div>
     <li
       className="-help-link"
       role="presentation"
