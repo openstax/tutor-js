@@ -5,6 +5,8 @@ import { TimeStore } from '../../flux/time';
 import moment from 'moment';
 import { observer } from 'mobx-react';
 
+import TourAnchor from '../tours/anchor';
+
 @observer
 export default class EventInfoIcon extends React.PureComponent {
   static propTypes = {
@@ -38,9 +40,14 @@ export default class EventInfoIcon extends React.PureComponent {
       </Tooltip>;
 
     return (
-      <OverlayTrigger placement="top" overlay={tooltip}>
-        <i className={`info ${status}`} />
-      </OverlayTrigger>
+      <TourAnchor
+        id="about-late-icon"
+        tag="span"
+      >
+        <OverlayTrigger placement="top" overlay={tooltip}>
+          <i className={`info ${status}`} />
+        </OverlayTrigger>
+      </TourAnchor>
     );
   }
 }

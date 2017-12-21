@@ -68,7 +68,12 @@ export default class StudentDashboard extends React.PureComponent {
           course={course.serialize()}
           callbacks={NotificationHelpers.buildCallbackHandlers(this)} />
         <CourseTitleBanner courseId={courseId} />
-        <TourRegion courseId={courseId} id="student-dashboard" className="container">
+        <TourRegion
+          id="student-dashboard"
+          otherTours={["about-late"]}
+          courseId={courseId}
+          className="container"
+        >
           <Row>
             <Col xs={12} md={8} lg={9}>
               <Tabs

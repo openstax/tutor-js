@@ -37,5 +37,21 @@
       }
     }
   ]
+},
+{
+  "id": "about-late",
+  "autoplay": true,
+  "standalone": true,
+  "audience_tags": [
+    "student"
+  ],
+  "steps": [
+    {
+      "title": "The red clock means your assignment is past due",
+      "body": "If an assignment is late, a red clock will appear on the dashboard. Your instructor decides whether or not to accept late work.",
+      "anchor_id": "about-late-icon",
+      "customComponent": "NoClose"
+    }
+  ]
 }
 ]
