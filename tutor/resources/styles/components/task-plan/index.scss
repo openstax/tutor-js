@@ -34,7 +34,7 @@
     }
   }
 
-  @include tutor-plan-set('.dialog > .panel-heading');
+  @include tutor-plan-set(header, '.dialog > .panel-heading');
 
   > .dialog {
     @include tutor-pad-panel();

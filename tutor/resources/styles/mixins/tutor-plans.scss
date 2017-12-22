@@ -183,34 +183,33 @@
   }
 }
 
-@mixin tutor-plan-set($selector: '') {
-
-  @each $type in 'reading', 'homework', 'external', 'event' {
-    &[data-assignment-type='#{$type}'] $selector {
-      @include tutor-plan-cell($type);
-      @include tutor-plan-cell-active($type);
-      @include tutor-plan-heading($type);
-      @include tutor-plan-header($type);
-      @include tutor-plan-modal($type);
-      //@include tutor-plan-sidebar($type);
-      @include tutor-plan-add($type);
-      @include tutor-plan-display($type);
+@mixin tutor-plan-set($element, $selector: '') {
+  @each $plan-type in map-keys($task-plan-colors) {
+    &[data-assignment-type='#{$plan-type}'] #{$selector} {
+      @if $element == cell {
+        @include tutor-plan-cell($plan-type);
+      }
+      @if $element == cell-active {
+        @include tutor-plan-cell-active($plan-type);
+      }
+      @if $element == heading {
+        @include tutor-plan-heading($plan-type);
+      }
+      @if $element == header {
+        @include tutor-plan-header($plan-type);
+      }
+      @if $element == modal {
+        @include tutor-plan-modal($plan-type);
+      }
+      @if $element == sidebar {
+        @include tutor-plan-sidebar($plan-type);
+      }
+      @if $element == add {
+        @include tutor-plan-add($plan-type);
+      }
+      @if $element == display {
+        @include tutor-plan-display($plan-type);
+      }
     }
   }
-
-  // &[data-assignment-type=homework]#{$selector} {
-  //   @include tutor-plan-cell(homework);
-  // }
-
-  // &[data-assignment-type=external]#{$selector} {
-  //   @include tutor-plan-cell(external);
-  // }
-
-  // &[data-assignment-type=event]#{$selector} {
-  //   @include tutor-plan-cell(event);
-  // }
-
-  // &[data-assignment-type=extras]#{$selector} {
-  //   @include tutor-plan-cell(extras);
-  // }
 }
