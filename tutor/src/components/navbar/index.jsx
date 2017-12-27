@@ -63,7 +63,8 @@ class NavBarContextProvider extends React.Component {
 export default {
   context: NavBarContextProvider,
   bar() {
-    const { params, entry: { settings } } = Router.currentMatch();
+    const settings = get(Router.currentMatch(), 'entry.settings');
+    const params = Router.currentParams();
     const NavbarComponent = NavBarTypes[get(settings, 'navBar', 'Default')];
     return <NavbarComponent params={params} />;
   },
