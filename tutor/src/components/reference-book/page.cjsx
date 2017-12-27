@@ -35,6 +35,9 @@ ReferenceBookPage = React.createClass
   getSplashTitle: ->
     this.props.ux.activePage.title
 
+  componentDidUpdate: ->
+    this.props.ux.checkForTeacherContent()
+
   # used by BookContentMixin
   shouldOpenNewTab: -> true
 
@@ -70,7 +73,7 @@ ReferenceBookPage = React.createClass
     if not page or page.api.isPending
       if ux.lastSection
         isLoading = true
-        page = ux.allPagesMap.get(ux.lastSection)
+        page = ux.pages.get(ux.lastSection)
       else
         return <Loading />
 

@@ -1,45 +1,19 @@
-import { defer } from 'lodash';
-import { Popover } from 'react-bootstrap';
 import React from 'react';
+
+import { observable, action } from 'mobx';
+import { observer } from 'mobx-react';
+import { Popover, OverlayTrigger } from 'react-bootstrap';
 
 // NOTE: this selector must be kept in sync with CNX as well as
 // the style in components/reference-book/page.less
-const TEACHER_CONTENT_SELECTOR = '.os-teacher';
 
+
+
+@observer
 class TeacherContentToggle extends React.Component {
+
   static propTypes = {
-    onChange:   React.PropTypes.func.isRequired,
-    isShowing:  React.PropTypes.bool,
-    section:    React.PropTypes.string,
-    windowImpl: React.PropTypes.object,
-  };
-
-  static defaultProps = { windowImpl: window };
-  state = { hasTeacherContent: false };
-
-  onClick = (ev) => {
-    ev.preventDefault();
-    if (this.state.hasTeacherContent === true) { return this.props.onChange(!this.props.isShowing); }
-  };
-
-  componentDidMount() { return this.scheduleCheckForTeacherContent(); }
-  componentDidUpdate() { return this.scheduleCheckForTeacherContent(); }
-  componentWillUnmount() { if (this.state.pendingCheck) { return clearTimeout(this.state.pendingCheck); } }
-
-  scheduleCheckForTeacherContent = () => {
-    if (this.state.pendingCheck) { return; }
-    return (
-      this.setState({ pendingCheck: defer(this.checkForTeacherContent) })
-    );
-  };
-
-  checkForTeacherContent = () => {
-    return (
-      this.setState({
-        pendingCheck: false,
-        hasTeacherContent: !!this.props.windowImpl.document.querySelector(TEACHER_CONTENT_SELECTOR),
-      })
-    );
+    ux:  React.PropTypes.object.isRequired,
   };
 
   renderNoContentTooltip = () => {
@@ -51,31 +25,31 @@ class TeacherContentToggle extends React.Component {
   };
 
   render() {
-    const teacherLinkText = this.props.isShowing ?
-      'Hide Teacher Edition'
-      :
-      'Show Teacher Edition';
+    const { ux } = this.props;
 
-    if (this.state.hasTeacherContent) {
+    const teacherLinkText = ux.isShowingTeacherContent ?
+      'Hide Teacher Edition' : 'Show Teacher Edition';
+
+    if (ux.hasTeacherContent) {
       return (
-        (
-          <span className="has-content">
-            {teacherLinkText}
-          </span>
-        )
+        <button
+          className="teacher-content-toggle has-content"
+          onClick={ux.toggleTeacherContent}
+        >
+          {teacherLinkText}
+        </button>
       );
     } else {
       return (
-        (
-          <BS.OverlayTrigger
-            placement="bottom"
-            trigger="click"
-            overlay={this.renderNoContentTooltip()}>
-            <span className="no-content">
-              {teacherLinkText}
-            </span>
-          </BS.OverlayTrigger>
-        )
+        <OverlayTrigger
+          placement="bottom"
+          trigger="click"
+          overlay={this.renderNoContentTooltip()}
+        >
+          <span className="no-content teacher-content-toggle">
+            {teacherLinkText}
+          </span>
+        </OverlayTrigger>
       );
     }
   }

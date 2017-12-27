@@ -1,27 +1,26 @@
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
-// coffeelint: disable=max_line_length
-
 import React from 'react';
+import cn from 'classnames';
+import { observer } from 'mobx-react';
 
-function SlideOutMenuToggle(props) {
+function SlideOutMenuToggle({ ux, width, height }) {
   // The css also sets the transistion,
   // but it must also be specified in the SVG because IE doesn't support animations
-  const transform = props.isMenuVisible ?
+  const transform = ux.isMenuVisible ?
     { triangle: 'translate(0 0)', line: 'scale(1 1) translate(0 0)' }
     :
     { triangle: 'translate(-30 0)', line: 'scale(2 1) translate(-50 0)' };
 
   return (
-
-    (
+    <a
+      className={cn('menu-toggle', { open: ux.isMenuVisible })}
+      onClick={ux.toggleTocMenu}
+      tabIndex={0}
+      aria-label={ux.isMenuVisible ? 'Close Sections Menu' : 'Open Sections Menu'}
+    >
       <svg
         className="slide-out-menu-toggle"
-        width={props.width}
-        height={props.height}
+        width={width}
+        height={height}
         viewBox="0 0 100 100"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg">
@@ -48,15 +47,16 @@ function SlideOutMenuToggle(props) {
           </g>
         </g>
       </svg>
-    )
-
+    </a>
   );
 }
 
 SlideOutMenuToggle.defaultProps = { height: 28, width: 28 };
 
 SlideOutMenuToggle.propTypes = {
-  isMenuVisible: React.PropTypes.bool.isRequired,
+  width: React.PropTypes.number.isRequired,
+  height: React.PropTypes.number.isRequired,
+  ux: React.PropTypes.object.isRequired,
 };
 
-export default SlideOutMenuToggle;
+export default observer(SlideOutMenuToggle);

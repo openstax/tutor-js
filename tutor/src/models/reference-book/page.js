@@ -39,7 +39,7 @@ export default class ReferenceBookPage extends BaseModel {
   }
 
   ensureLoaded() {
-    if (!this.hasBeenFetched) { this.fetchContent(); }
+    if (!this.api.hasBeenFetched) { this.fetchContent(); }
   }
 
   @computed get contents() {
@@ -54,7 +54,7 @@ export default class ReferenceBookPage extends BaseModel {
   //   return `${this.chapter_section.format()} ${this.title}`;
   // }
 
-  fetchContent() {}
+  fetchContent() { }
 
   @action onContentFetchComplete({ data }) {
     this.update(data);

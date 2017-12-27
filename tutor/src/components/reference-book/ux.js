@@ -1,29 +1,26 @@
 import { observable, computed, action } from 'mobx';
 import Router from '../../helpers/router';
-import { extend, first, last, findIndex } from 'lodash';
-import Page from '../reference-book/page';
+import { extend } from 'lodash';
+
+import SlideOutMenuToggle from './slide-out-menu-toggle';
+import SectionTitle from './section-title';
+import AnnotationsSummaryToggle from './annotation-summary-toggle';
+import TeacherContentToggle from './teacher-content-toggle';
+
+const TEACHER_CONTENT_SELECTOR = '.os-teacher';
 
 // menu width (300) + page width (1000) + 50 px padding
 // corresponds to @reference-book-page-width and @reference-book-menu-width in variables.scss
 const MENU_VISIBLE_BREAKPOINT = 1350;
 
-function findAllPages(section, map) {
-  if (section.isPage) {
-    const lastPage = last(map.values());
-    if (lastPage) { lastPage.linkNextPage(section); }
-    map.set(section.chapter_section.asString, section);
-  }
-  (section.children || []).forEach(child => {
-    findAllPages(child, map);
-  });
-  return map;
-}
-
 export default class ReferenceBookUX {
 
-  @observable isMenuVisible = true;
+  @observable isMenuVisible = window.innerWidth > MENU_VISIBLE_BREAKPOINT;
   @observable activeSection = '1';
+  @observable isShowingTeacherContent = false;
+  @observable hasTeacherContent = false;
   @observable lastSection;
+  @observable navBar;
 
   constructor(course) {
     this.course = course;
@@ -41,6 +38,23 @@ export default class ReferenceBookUX {
     };
   }
 
+  @action.bound toggleTeacherContent() {
+    this.isShowingTeacherContent = !this.isShowingTeacherContent;
+  }
+
+  @action checkForTeacherContent() {
+    this.hasTeacherContent = Boolean(
+      document.querySelector(TEACHER_CONTENT_SELECTOR)
+    );
+    this.pendingCheck = null;
+  }
+
+
+  @action.bound toggleTocMenu() {
+    this.isMenuVisible = !this.isMenuVisible;
+  }
+
+
   @action.bound setSection(section = '1') {
     if (this.activeSection !== section) {
       this.lastSection = this.activeSection;
@@ -49,16 +63,34 @@ export default class ReferenceBookUX {
     if (this.activePage) { this.activePage.ensureLoaded(); }
   }
 
+  @action setNavBar(nav) {
+    nav.childProps.set('ux', this);
+    nav.left.merge({
+      'slide-out-menu-toggle': SlideOutMenuToggle,
+      'section-title': SectionTitle,
+    });
+    nav.center.merge({
+      'annotation-toggle': AnnotationsSummaryToggle,
+    });
+    if (this.course.isTeacher) {
+      nav.right.merge({
+        'teacher-content-toggle': TeacherContentToggle,
+      });
+    }
+
+    this.navBar = nav;
+  }
+
+  @computed get pages() {
+    return this.course.referenceBook.pages;
+  }
+
   @computed get activePage() {
-    return this.allPagesMap.get(this.activeSection);
+    return this.pages.get(this.activeSection);
   }
 
   @computed get toc() {
     return this.course.referenceBook.children;
-  }
-
-  @computed get allPagesMap() {
-    return findAllPages(this.course.referenceBook, observable.map());
   }
 
   routerLinkProps(section) {

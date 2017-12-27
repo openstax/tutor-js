@@ -1,42 +1,48 @@
-.reference-book {
+.reference-book.tutor-top-navbar {
 
   $navbar-spacing: 15px;
-  .tutor-top-navbar {
-    justify-content: space-between;
-    .left-side-controls, .right-side-controls {
-      flex: 1;
-    }
-    .right-side-controls {
-      justify-content: flex-end;
-    }
-    .menu-toggle {
-      padding: 0 $navbar-spacing;
-      height: $tutor-navbar-height;
-      cursor: pointer;
-      svg { margin-top: $navbar-spacing; }
-    }
 
-    &.menu-open {
-      .menu-toggle {
-        border-right: 1px solid $tutor-neutral-light;
-        background: $tutor-neutral-lightest;
-      }
+  justify-content: space-between;
+  .left-side-controls, .right-side-controls {
+    flex: 1;
+  }
+  .right-side-controls {
+    justify-content: flex-end;
+  }
+
+  .menu-toggle {
+    cursor: pointer;
+    @include tutor-top-navbar-item();
+    padding-right: 1rem;
+    margin-right: 1rem;
+    &.open {
+      border-right: 1px solid $tutor-neutral-light;
+      background: $tutor-neutral-lightest;
     }
-    .section-title {
-      font-size: 1.8rem;
-      margin: 0 0 0 2rem;
-      display: flex;
-      max-width: calc(100vw - 550px);
-      .chapter-section {
-        margin-right: 0.5rem;
-        text-align: center;
-      }
-      .title {
-        flex: 1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+    margin: 0 0 0 2rem;
+    display: flex;
+    max-width: calc(100vw - 550px);
+    .chapter-section {
+      margin-right: 0.5rem;
+      text-align: center;
     }
+    .title {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .teacher-content-toggle {
+    &.has-content {
+      cursor: pointer;
+    }
+    background: transparent;
+    border: 0;
   }
 }

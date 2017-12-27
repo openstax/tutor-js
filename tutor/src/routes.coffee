@@ -169,10 +169,10 @@ ROUTES = [
   }
   { path: '/payments',                name: 'managePayments',           renderer: getPaymentsShell     }
   {
-    path: '/books/:courseId',        name: 'viewReferenceBook',        renderer: getReferenceBookShell
+    path: '/books/:courseId',        name: 'viewReferenceBook',        renderer: getReferenceBookShell, settings: { navBar: 'ReferenceBook' }
     routes: [
-      { path: 'section/:section',    name: 'viewReferenceBookSection', renderer: getReferenceBookShell  }
-      { path: 'page/:cnxId',         name: 'viewReferenceBookPage',    renderer: getReferenceBookPageShell  }
+      { path: 'section/:section',    name: 'viewReferenceBookSection', renderer: getReferenceBookShell, settings: { navBar: 'ReferenceBook' }  }
+      { path: 'page/:cnxId',         name: 'viewReferenceBookPage',    renderer: getReferenceBookPageShell, settings: { navBar: 'ReferenceBook' }  }
     ]
   }
 ]

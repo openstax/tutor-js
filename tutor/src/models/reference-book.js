@@ -1,6 +1,6 @@
 import { readonly } from 'core-decorators';
-import { merge, extend, defer, last } from 'lodash';
-import { action, observable, when,computed } from 'mobx';
+import { last } from 'lodash';
+import { action, observable, computed } from 'mobx';
 import {
   BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
 } from './base';
@@ -16,6 +16,18 @@ class ReferenceBookPart extends BaseModel {
   @session book;
   @hasMany({ model: ReferenceBookPage, inverseOf: 'part' }) children;
   @readonly depth = 1;
+}
+
+function findAllPages(section, map) {
+  if (section.isPage) {
+    const lastPage = last(map.values());
+    if (lastPage) { lastPage.linkNextPage(section); }
+    map.set(section.chapter_section.asString, section);
+  }
+  (section.children || []).forEach(child => {
+    findAllPages(child, map);
+  });
+  return map;
 }
 
 @identifiedBy('reference-book')
@@ -43,8 +55,12 @@ export default class ReferenceBook extends BaseModel {
     this.update(data[0]);
   }
 
+  @computed get pages() {
+    return findAllPages(this, observable.map());
+  }
+
 }
-  //
+
   //   /*
   //    * decaffeinate suggestions:
   //    * DS101: Remove unnecessary use of Array.from

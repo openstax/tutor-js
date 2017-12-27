@@ -1,11 +1,6 @@
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
 import React from 'react';
 import _ from 'underscore';
+import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import { SpyMode } from 'shared';
 
@@ -18,12 +13,12 @@ import ReferenceViewPageNavigation from './page-navigation';
 import UX from './ux';
 
 
+@observer
 export default class ReferenceBook extends React.Component {
 
   //  mixins: [ResizeListenerMixin, ChapterSectionMixin]
 
   static propTypes = {
-    navbarControls: React.PropTypes.element,
     ux: React.PropTypes.instanceOf(UX).isRequired,
   };
 

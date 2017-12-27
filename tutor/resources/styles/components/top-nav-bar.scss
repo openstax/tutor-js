@@ -3,6 +3,12 @@ $tutor-navbar-padding-horizontal: 4rem;
 
 // the $navbar-XX vars are bootstrap defaults
 
+@mixin tutor-top-navbar-item(){
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
 .tutor-top-navbar {
 
   @mixin top-nav-action() {
@@ -39,6 +45,10 @@ $tutor-navbar-padding-horizontal: 4rem;
 
   @media print {
     display: none;
+  }
+
+  .navbar-item {
+    @include tutor-top-navbar-item();
   }
 
   .tutor-nav-controls {
@@ -90,6 +100,7 @@ $tutor-navbar-padding-horizontal: 4rem;
   .right-side-controls {
     display: flex;
     height: 100%;
+    min-height: $tutor-navbar-height;
     > * {
       margin-left: 20px;
       @media screen and (min-width: $screen-md-min ) {

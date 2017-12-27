@@ -1,15 +1,8 @@
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * DS103: Rewrite code to no longer use __guard__
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
 import { ReferenceBookExerciseActions, ReferenceBookExerciseStore } from '../../flux/reference-book-exercise';
-
+import { get } from 'lodash';
 import LoadableItem from '../loadable-item';
 import { ArbitraryHtmlAndMath, Question } from 'shared';
 
@@ -31,9 +24,10 @@ ReferenceBookMissingExercise.displayName = 'ReferenceBookMissingExercise';
 
 function ReferenceBookExercise(props) {
   const {exerciseAPIUrl} = props;
-  const {items} = ReferenceBookExerciseStore.get(exerciseAPIUrl);
+  const ex = ReferenceBookExerciseStore.get(exerciseAPIUrl);
 
-  if (!(items != null ? items.length : undefined) || (__guard__(__guard__(items != null ? items[0] : undefined, x1 => x1.questions), x => x[0]) == null)) {
+  const question = get(ex, 'items[0].questions[0]');
+  if (!question) {
     // warning about missing exercise --
     // is there a need to show the reader anything?
     console.warn(`WARNING: ${exerciseAPIUrl} appears to be missing.`);
@@ -41,9 +35,6 @@ function ReferenceBookExercise(props) {
       <ReferenceBookMissingExercise exerciseAPIUrl={exerciseAPIUrl} />
     );
   }
-
-  const {questions} = items[0];
-  const question = questions[0];
 
   return (
     <Question model={question} />
@@ -98,9 +89,3 @@ class ReferenceBookExerciseShell extends React.Component {
 }
 
 export default {ReferenceBookExercise, ReferenceBookExerciseShell};
-
-function __guard__(value, transform) {
-  return (
-      (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined
-  );
-}
