@@ -87,9 +87,6 @@ getTeacherReview = ->
 getCCHelp = ->
   require './components/cc-dashboard/help'
 
-getAssignmentLinks = ->
-  require './components/assignment-links'
-
 getCreateEnrollmentChange = ->
   {default: CourseEnroll} = require './components/enroll'
   CourseEnroll
@@ -134,7 +131,6 @@ ROUTES = [
           }
         ]
       }
-      { path: 'assignment-links',    name: 'viewAssignmentLinks',      renderer: getAssignmentLinks }
       { path: 'metrics/:id',         name: 'reviewTask',               renderer: getTeacherReview }
       {
         path: 'task/:id',            name: 'viewTask',                 renderer: getTaskShell
