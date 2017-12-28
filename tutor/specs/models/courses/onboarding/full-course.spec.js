@@ -49,7 +49,7 @@ describe('Full Course Onboarding', () => {
     ux.recordExpectedUse('cc');
     expect(User.logEvent).toHaveBeenCalledWith({
       category: 'onboarding', code: 'made_adoption_decision',
-      data: { decision: 'For course credit' },
+      data: { decision: 'For course credit', course_id: ux.course.id },
     });
     expect(UiSettings.set).toHaveBeenCalledWith('OBC', 1, 'cc');
   });
