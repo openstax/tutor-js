@@ -27,4 +27,4 @@ describe 'Exercise Cards Component', ->
   it 'scrolls to exercse id on mount', ->
     @props.focusedExerciseId = EXERCISES.items[0].id
     Testing.renderComponent( Cards, props: @props ).then ({element}) =>
-      expect(@props.windowImpl.scroll).to.have.been.called
+      expect(@props.windowImpl.scroll).toHaveBeenCalled()
