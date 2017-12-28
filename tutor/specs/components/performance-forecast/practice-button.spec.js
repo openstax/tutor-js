@@ -30,12 +30,4 @@ describe('Learning Guide Practice Button', function() {
     ).then(({ dom }) => expect(dom.textContent).to.equal('Practice moar'))
   );
 
-  it('is disabled if no page ids exist', function() {
-    const newdata = { 'title': 'Physics' };
-    PerformanceForecast.Student.actions.loaded(newdata, COURSE_ID);
-    return Testing.renderComponent( Button,
-      { props: { courseId: COURSE_ID, title: 'title' } }
-    ).then(({ dom, element }) => expect(dom.disabled).to.be.true);
-  });
-
 });

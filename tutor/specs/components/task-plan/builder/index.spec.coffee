@@ -159,7 +159,6 @@ describe 'Task Plan Builder', ->
     helper(NEW_READING).then ({dom, element}) ->
       element.setIndividualPeriods()
       labels = _.pluck(dom.querySelectorAll('.tasking-plan label'), 'textContent')
-      console.log(labels)
       expect( labels ).to.be.deep.equal(['1st', '3rd', '4th', '5th', '6th', '10th', 'AAA', 'zZZ'])
 
   it 'does not load a default due at for all periods', ->
