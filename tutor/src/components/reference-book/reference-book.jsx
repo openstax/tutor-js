@@ -1,22 +1,15 @@
 import React from 'react';
-import _ from 'underscore';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import { SpyMode } from 'shared';
 
-import CourseData from '../../helpers/course-data';
-import Course from '../../models/course';
 import Menu from './slide-out-menu';
-import { ResizeListenerMixin, ChapterSectionMixin } from 'shared';
 import Page from './page';
 import ReferenceViewPageNavigation from './page-navigation';
 import UX from './ux';
 
-
 @observer
 export default class ReferenceBook extends React.Component {
-
-  //  mixins: [ResizeListenerMixin, ChapterSectionMixin]
 
   static propTypes = {
     ux: React.PropTypes.instanceOf(UX).isRequired,

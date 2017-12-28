@@ -18,14 +18,14 @@ class ReferenceBookPart extends BaseModel {
   @readonly depth = 1;
 }
 
-function findAllPages(section, map) {
+function mapPages(section, map) {
   if (section.isPage) {
     const lastPage = last(map.values());
     if (lastPage) { lastPage.linkNextPage(section); }
     map.set(section.chapter_section.asString, section);
   }
   (section.children || []).forEach(child => {
-    findAllPages(child, map);
+    mapPages(child, map);
   });
   return map;
 }
@@ -39,7 +39,7 @@ export default class ReferenceBook extends BaseModel {
   @field archive_url;
   @field webview_url;
   @field({ model: ChapterSection }) chapter_section
-
+  @readonly pages = observable.map();
   @hasMany({ model: ReferenceBookPart, inverseOf: 'book' }) children;
   @field cnx_id;
   @field short_id;
@@ -53,10 +53,7 @@ export default class ReferenceBook extends BaseModel {
 
   @action onApiRequestComplete({ data }) {
     this.update(data[0]);
-  }
-
-  @computed get pages() {
-    return findAllPages(this, observable.map());
+    mapPages(this, this.pages);
   }
 
 }

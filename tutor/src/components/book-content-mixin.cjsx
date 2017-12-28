@@ -203,7 +203,7 @@ ReadingContentMixin =
     root = ReactDOM.findDOMNode(@)
     abstract = root.querySelector(LEARNING_OBJECTIVE_SELECTORS)
     # dont clean up if abstract does not exist or if it has already been cleaned up
-    return if not abstract? or abstract.dataset.isIntro?
+    return if not abstract? or not abstract.dataset or abstract.dataset.isIntro?
 
     for abstractChild in abstract.childNodes
       # leave the list alone -- this is the main content
