@@ -6,6 +6,7 @@ import SlideOutMenuToggle from './slide-out-menu-toggle';
 import SectionTitle from './section-title';
 import AnnotationsSummaryToggle from './annotation-summary-toggle';
 import TeacherContentToggle from './teacher-content-toggle';
+import WindowSize from '../../models/window-size';
 
 const TEACHER_CONTENT_SELECTOR = '.os-teacher';
 
@@ -20,12 +21,17 @@ export default class ReferenceBookUX {
   @observable isShowingTeacherContent = false;
   @observable hasTeacherContent = false;
   @observable navBar;
+  windowSize = new WindowSize();
 
   constructor(course) {
     this.course = course;
     this.course.referenceBook.fetch().then(() => {
       if (this.activePage) { this.activePage.ensureLoaded(); }
     });
+  }
+
+  @computed get isMenuOnTop() {
+    return this.windowSize.width < MENU_VISIBLE_BREAKPOINT;
   }
 
   @computed get courseDataProps() {
@@ -53,6 +59,10 @@ export default class ReferenceBookUX {
     this.isMenuVisible = !this.isMenuVisible;
   }
 
+  @action.bound onMenuSelection(section) {
+    this.setSection();
+    if (this.isMenuOnTop) { this.isMenuVisible = false; }
+  }
 
   @action.bound setSection(section = '1') {
     this.activeSection = section;

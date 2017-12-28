@@ -3,8 +3,6 @@ import { computed } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import classnames from 'classnames';
 import Courses from '../../models/courses-map';
-
-import { action, observable } from 'mobx';
 import ReferenceBook from './reference-book';
 import LoadingScreen from '../loading-screen';
 import UX from './ux';

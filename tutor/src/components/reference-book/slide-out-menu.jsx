@@ -1,7 +1,8 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import TutorLink from '../link';
 import { map, partial } from 'lodash';
+import cn from 'classnames';
+import TutorLink from '../link';
 import UX from './ux';
 
 @observer
@@ -25,7 +26,7 @@ class Section extends React.Component {
             {...ux.routerLinkProps(section)}
             tabIndex={ux.isMenuVisible ? 0 : -1}
             className={section === ux.activePage ? 'active' : ''}
-            onClick={partial(ux.setSection, section.chapter_section.asString)}
+            onClick={partial(ux.onMenuSelection, section.chapter_section.asString)}
           >
             <span className="section-number">
               {section.chapter_section.asString}
