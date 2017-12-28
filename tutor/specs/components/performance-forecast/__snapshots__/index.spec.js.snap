@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Learning Guide renders panel for each chapter 1`] = `
+<div
+  className="guide-container is-empty"
+/>
+`;
