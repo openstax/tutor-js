@@ -67,7 +67,7 @@ export default class FullCourseOnboarding extends BaseOnboarding {
 
     User.logEvent({
       category: 'onboarding', code: 'made_adoption_decision',
-      data: { decision: CHOICES[decision] },
+      data: { decision: CHOICES[decision], course_id: this.course.id },
     });
   }
 
