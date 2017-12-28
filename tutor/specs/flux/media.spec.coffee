@@ -4,9 +4,10 @@ _ = require 'underscore'
 
 {MediaActions, MediaStore} = require '../../src/flux/media'
 {TaskActions, TaskStore} = require '../../src/flux/task'
-{ReferenceBookPageActions, ReferenceBookPageStore} = require '../../src/flux/reference-book-page'
+{ bootstrapCoursesList } = require '../courses-test-data'
 
 TASK_DATA = require '../../api/tasks/4.json'
+REFERENCE_BOOK = require '../../api/ecosystems/1/readings.json'
 REFERENCE_BOOK_PAGE_DATA = require '../../api/pages/17f6ff53-2d92-4669-acdd-9a958ea7fd0a@12.json'
 
 TEST_MEDIA_ID = 'test-media'
@@ -37,7 +38,6 @@ describe 'Media flux', ->
   afterEach ->
     MediaActions.reset()
     TaskActions.reset()
-    ReferenceBookPageActions.reset()
 
   it 'should have expected functions', ->
 
@@ -92,7 +92,9 @@ describe 'Media flux', ->
     undefined
 
   it 'should be able to parse HTML from reference book pages', ->
-    ReferenceBookPageActions.loaded(REFERENCE_BOOK_PAGE_DATA)
+    course = bootstrapCoursesList().get(1)
+    course.referenceBook.onApiRequestComplete({ data: REFERENCE_BOOK })
+    course.referenceBook.pages.get('1.2').onContentFetchComplete({ data: REFERENCE_BOOK_PAGE_DATA })
     mediaIds = MediaStore.getMediaIds()
 
     expect(mediaIds)

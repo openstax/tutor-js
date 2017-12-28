@@ -6,8 +6,6 @@ Wrapper = require '../../src/components/qa'
 Exercises = require '../../src/components/qa/exercises'
 
 {ExerciseActions, ExerciseStore} = require '../../src/flux/exercise'
-{EcosystemsActions, EcosystemsStore} = require '../../src/flux/ecosystems'
-{ReferenceBookActions, ReferenceBookStore} = require '../../src/flux/reference-book'
 
 EXERCISES  = require '../../api/exercises.json'
 ECOSYSTEMS = require '../../api/ecosystems.json'
@@ -17,7 +15,7 @@ ECOSYSTEM_ID = '3'
 CNX_ID = '17f6ff53-2d92-4669-acdd-9a958ea7fd0a@12'
 
 
-describe 'QA Exercises Component', ->
+xdescribe 'QA Exercises Component', ->
 
   beforeEach (done) ->
     @props = {

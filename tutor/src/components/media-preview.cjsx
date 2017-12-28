@@ -7,7 +7,6 @@ _ = require 'underscore'
 S = require '../helpers/string'
 
 {MediaStore} = require '../flux/media'
-{ReferenceBookPageStore, ReferenceBookPageActions} = require '../flux/reference-book-page'
 
 
 MediaPreview = React.createClass
@@ -37,10 +36,6 @@ MediaPreview = React.createClass
     {mediaId, cnxId} = @props
     media = MediaStore.get(mediaId)
     @updateMedia(media) if media?
-
-    unless media? or ReferenceBookPageStore.isLoading(cnxId) or ReferenceBookPageStore.isLoaded(cnxId)
-      ReferenceBookPageActions.loadSilent(cnxId)
-      MediaStore.once("loaded.#{mediaId}", @updateMedia)
 
   componentWillUnmount: ->
     {mediaId} = @props

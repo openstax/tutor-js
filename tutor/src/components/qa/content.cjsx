@@ -1,5 +1,5 @@
 React = require 'react'
-ReferenceBookPage = require '../reference-book/page-shell'
+ReferenceBookPage = require '../reference-book/page'
 
 QAContent = React.createClass
   displayName: 'QAContent'

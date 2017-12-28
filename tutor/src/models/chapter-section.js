@@ -14,7 +14,7 @@ export default class ChapterSection extends BaseModel {
   }
 
   format({ sectionSeparator = '.', skipZeros = true } = {}) {
-    if (skipZeros && this.section === 0) {
+    if (skipZeros && !this.section) {
       return this.chapter;
     }
     return `${this.chapter}${sectionSeparator}${this.section}`;
@@ -22,6 +22,10 @@ export default class ChapterSection extends BaseModel {
 
   @computed get asString() {
     return this.format();
+  }
+
+  @computed get asArray() {
+    return [this.chapter, this.section];
   }
 
 }

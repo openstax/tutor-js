@@ -5,6 +5,7 @@ extend   = require 'lodash/extend'
 { Switch, Route }  = require 'react-router-dom'
 
 matchProps = (Router, props, parent) ->
+
   path = if parent.match then "#{parent.match.path}/#{props.path}" else props.path
   extend({}, props, { path }, render: (renderedProps) ->
     componentProps = extend({}, omit(props, 'render', 'getParamsForPath'), renderedProps)

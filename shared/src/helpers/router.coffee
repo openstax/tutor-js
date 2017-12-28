@@ -74,7 +74,7 @@ OXRouter.separateRendersFromRoutes = (routes) ->
 
   routeSettings = traverseRoutes(routes, (route) ->
     renderers[route.name] = route.renderer if route.renderer?
-    pick(route, 'path', 'name', 'routes')
+    pick(route, 'path', 'name', 'routes', 'settings')
   )
 
   {renderers, routeSettings}
@@ -111,10 +111,10 @@ mapRoutes = (routes, paths = {}, parentPath = {}) ->
 
 buildPath = (route, parent) ->
   path = omit(cloneDeep(parent), 'toPath', 'name')
-  path.name = route.name
-  path.path = if parent.path then "#{parent.path}/#{route.path}" else route.path
+  extend(path, pick(route, 'settings', 'name'), {
+    path: if parent.path then "#{parent.path}/#{route.path}" else route.path
+  })
   path.toPath = pathToRegexp.compile(path.path)
-
   path
 
 buildPathMemoed = memoize(buildPath)

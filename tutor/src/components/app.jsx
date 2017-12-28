@@ -67,10 +67,12 @@ class App extends React.PureComponent {
     return (
       <div className={classNames}>
         <SpyMode.Wrapper>
-          <TourConductor>
-            <Navbar {...this.props} />
-            <MatchForTutor routes={Router.getRenderableRoutes()} />
-          </TourConductor>
+          <Navbar.context>
+            <TourConductor>
+              <Navbar.bar {...this.props} />
+              <MatchForTutor routes={Router.getRenderableRoutes()} />
+            </TourConductor>
+          </Navbar.context>
         </SpyMode.Wrapper>
       </div>
     );

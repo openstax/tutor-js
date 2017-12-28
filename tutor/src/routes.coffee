@@ -17,11 +17,11 @@ getTaskShell = ->
   TaskShell
 
 getReferenceBookShell = ->
-  {ReferenceBookShell} = require './components/reference-book'
+  {default: ReferenceBookShell} = require './components/reference-book'
   ReferenceBookShell
 
 getReferenceBookPageShell = ->
-  {ReferenceBookPageShell} = require './components/reference-book'
+  {default: ReferenceBookPageShell} = require './components/reference-book'
   ReferenceBookPageShell
 
 getReadingShell = ->
@@ -87,9 +87,6 @@ getTeacherReview = ->
 getCCHelp = ->
   require './components/cc-dashboard/help'
 
-getAssignmentLinks = ->
-  require './components/assignment-links'
-
 getCreateEnrollmentChange = ->
   {default: CourseEnroll} = require './components/enroll'
   CourseEnroll
@@ -134,7 +131,6 @@ ROUTES = [
           }
         ]
       }
-      { path: 'assignment-links',    name: 'viewAssignmentLinks',      renderer: getAssignmentLinks }
       { path: 'metrics/:id',         name: 'reviewTask',               renderer: getTeacherReview }
       {
         path: 'task/:id',            name: 'viewTask',                 renderer: getTaskShell
@@ -169,10 +165,10 @@ ROUTES = [
   }
   { path: '/payments',                name: 'managePayments',           renderer: getPaymentsShell     }
   {
-    path: '/books/:courseId',        name: 'viewReferenceBook',        renderer: getReferenceBookShell
+    path: '/books/:courseId',        name: 'viewReferenceBook',        renderer: getReferenceBookShell, settings: { navBar: 'ReferenceBook' }
     routes: [
-      { path: 'section/:section',    name: 'viewReferenceBookSection', renderer: getReferenceBookShell  }
-      { path: 'page/:cnxId',         name: 'viewReferenceBookPage',    renderer: getReferenceBookPageShell  }
+      { path: 'section/:section',    name: 'viewReferenceBookSection', renderer: getReferenceBookShell, settings: { navBar: 'ReferenceBook' }  }
+      { path: 'page/:cnxId',         name: 'viewReferenceBookPage',    renderer: getReferenceBookPageShell, settings: { navBar: 'ReferenceBook' }  }
     ]
   }
 ]

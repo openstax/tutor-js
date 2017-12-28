@@ -2,16 +2,13 @@
 
 Content = require '../../../src/components/qa/content'
 
-{EcosystemsActions, EcosystemsStore} = require '../../../src/flux/ecosystems'
-{ReferenceBookActions, ReferenceBookStore} = require '../../../src/flux/reference-book'
-
 ECOSYSTEMS = require '../../../api/ecosystems.json'
 PAGE = require '../../../api/ecosystems/3/readings.json'
 ECOSYSTEM_ID = '3'
 CNX_ID = '17f6ff53-2d92-4669-acdd-9a958ea7fd0a@12'
 
 
-describe 'QA Exercises Content', ->
+xdescribe 'QA Exercises Content', ->
 
   beforeEach ->
     EcosystemsActions.loaded(ECOSYSTEMS)

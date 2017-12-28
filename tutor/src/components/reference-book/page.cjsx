@@ -1,8 +1,7 @@
 React = require 'react'
 ReactDOM  = require 'react-dom'
 {SpyMode} = require 'shared'
-
-_  = require 'underscore'
+{observer} = require 'mobx-react'
 classnames = require 'classnames'
 
 {BookContentMixin} = require '../book-content-mixin'
@@ -10,25 +9,34 @@ classnames = require 'classnames'
 
 {ReferenceBookExerciseShell} = require './exercise'
 RelatedContent = require '../related-content'
-
-{ReferenceBookPageStore} = require '../../flux/reference-book-page'
-{ReferenceBookStore} = require '../../flux/reference-book'
-{ReferenceBookExerciseActions, ReferenceBookExerciseStore} = require '../../flux/reference-book-exercise'
+{default: Loading} = require '../loading-screen'
 
 Router = require '../../helpers/router'
 Dialog = require '../dialog'
 {default: AnnotationWidget} = require '../annotations/annotation'
 
-module.exports = React.createClass
+ReferenceBookPage = React.createClass
   displayName: 'ReferenceBookPage'
+
   propTypes:
-    cnxId: React.PropTypes.string.isRequired
+    ux: React.PropTypes.object.isRequired
+
   mixins: [BookContentMixin, GetPositionMixin]
+
+  getCnxId: ->
+    this.props.ux.activePage.cnx_id
+
   componentWillMount: ->
-    @setState(skipZeros: false)
+    this.props.ux.activePage.ensureLoaded()
+
+  componentWillReceiveProps: (nextProps) ->
+    @props.ux.activePage.ensureLoaded()
 
   getSplashTitle: ->
-    ReferenceBookStore.getPageTitle(@props)
+    this.props.ux.activePage.title
+
+  componentDidUpdate: ->
+    this.props.ux.checkForTeacherContent()
 
   # used by BookContentMixin
   shouldOpenNewTab: -> true
@@ -60,41 +68,46 @@ module.exports = React.createClass
     ReactDOM.render(<ReferenceBookExerciseShell exerciseAPIUrl={exerciseAPIUrl}/>, exerciseNode) if exerciseNode?
 
   render: ->
-    {courseId, cnxId, ecosystemId} = @props
-    if (not courseId)
-      {courseId} = Router.currentParams()
+    { ux, ux: { activePage: page } } = @props
 
-    # read the id from props, or failing that the url
-    page = ReferenceBookPageStore.get(cnxId)
+    if not page or page.api.isPending
+      if ux.lastSection
+        isLoading = true
+        page = ux.pages.get(ux.lastSection)
+      else
+        return <Loading />
 
-    html = page?.content_html or ''
-    # FIXME the BE sends HTML with head and body
-    # Fixing it with nasty regex for now
-    html = html
-      .replace(/^[\s\S]*<body[\s\S]*?>/, '')
-      .replace(/<\/body>[\s\S]*$/, '')
 
     related =
-      chapter_section: @props.section
+      chapter_section: page.chapter_section.asArray
       title: @getSplashTitle()
 
-    <div className={classnames('page-wrapper', @props.className)} {...@props.dataProps}>
+    <div
+      className={
+        classnames('page-wrapper', @props.className,
+          {'page-loading loadable is-loading': isLoading})
+      }
+      {...ux.courseDataProps}
+    >
       {@props.children}
       <div className='page center-panel'>
-        <RelatedContent contentId={cnxId} {...related} />
-
-        <ArbitraryHtmlAndMath className='book-content' block html={html} />
+        <RelatedContent
+          contentId={page.cnx_id} {...related}
+        />
+        <ArbitraryHtmlAndMath className='book-content' block html={page.contents} />
       </div>
 
       <SpyMode.Content className="ecosystem-info">
-        PageId: {@props.cnxId}, Ecosystem: {JSON.stringify(page?.spy)}
+        PageId: {page.cnx_id}, Ecosystem: {JSON.stringify(page?.spy)}
       </SpyMode.Content>
 
       <AnnotationWidget
-        courseId={courseId}
-        chapter={page.chapter_section[0]}
-        section={page.chapter_section[1]}
+        courseId={ux.course.id}
+        chapter={page.chapter_section.chapter}
+        section={page.chapter_section.section}
         title={related.title}
-        documentId={@props.cnxId}
+        documentId={page.cnx_id}
       />
     </div>
+
+module.exports = observer(ReferenceBookPage)
