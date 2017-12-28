@@ -6,14 +6,8 @@ import {
   BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
 } from '../base';
 import ChapterSection from '../chapter-section';
-import {StepTitleActions} from '../../flux/step-title';
-
-const isLearningObjectives = (element) => {
-  console.log(element);
-  return (get(element, 'attribs.class') &&
-    element.attribs.class.search(/learning-objectives/) > -1) ||
-    'abstract' === element.attribs['data-type'];
-}
+import { StepTitleActions } from '../../flux/step-title';
+import { MediaActions } from '../../flux/media';
 
 @identifiedBy('reference-book/page')
 export default class ReferenceBookPage extends BaseModel {
@@ -50,14 +44,11 @@ export default class ReferenceBookPage extends BaseModel {
       .replace(/<\/body>[\s\S]*$/, '');
   }
 
-  // @computed get completeTitle() {
-  //   return `${this.chapter_section.format()} ${this.title}`;
-  // }
-
   fetchContent() { }
 
   @action onContentFetchComplete({ data }) {
     this.update(data);
+    MediaActions.parse(this.content_html);
     StepTitleActions.parseMetaOnly(this.cnx_id, this.content_html);
   }
 
