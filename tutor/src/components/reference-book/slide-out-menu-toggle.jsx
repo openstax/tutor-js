@@ -1,8 +1,11 @@
 import React from 'react';
 import cn from 'classnames';
 import { observer } from 'mobx-react';
+import User from '../../models/user';
 
 function SlideOutMenuToggle({ ux, width, height }) {
+  const invisible = (User.canAnnotate && User.annotations.ux.isSummaryVisible);
+
   // The css also sets the transistion,
   // but it must also be specified in the SVG because IE doesn't support animations
   const transform = ux.isMenuVisible ?
@@ -12,7 +15,7 @@ function SlideOutMenuToggle({ ux, width, height }) {
 
   return (
     <a
-      className={cn('menu-toggle', { open: ux.isMenuVisible })}
+      className={cn('menu-toggle', { invisible, open: ux.isMenuVisible })}
       onClick={ux.toggleTocMenu}
       tabIndex={0}
       aria-label={ux.isMenuVisible ? 'Close Sections Menu' : 'Open Sections Menu'}
