@@ -113,7 +113,7 @@ describe('Course Model', () => {
     expect(sortedSpy).toHaveBeenCalledTimes(1);
     expect(PH.sort).toHaveBeenCalledTimes(2);
 
-    course.periods.pop();
+    course.periods.remove(course.periods.find(p => p.id == 1));
     expect(course.periods.length).toEqual(len - 1);
     expect(course.periods.sorted.length).toEqual(len - 3);
 
