@@ -19,7 +19,6 @@ export default class ReferenceBookUX {
   @observable activeSection = '1';
   @observable isShowingTeacherContent = false;
   @observable hasTeacherContent = false;
-  @observable lastSection;
   @observable navBar;
 
   constructor(course) {
@@ -56,9 +55,6 @@ export default class ReferenceBookUX {
 
 
   @action.bound setSection(section = '1') {
-    if (this.activeSection !== section) {
-      this.lastSection = this.activeSection;
-    }
     this.activeSection = section;
     if (this.activePage) { this.activePage.ensureLoaded(); }
   }

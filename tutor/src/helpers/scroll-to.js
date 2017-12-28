@@ -111,7 +111,6 @@ export default class ScrollTo {
     if (root) {
       return this.scrollToElement(root, { updateHistory: false });
     }
-    return Promise.reject();
   }
 
   scrollToElement(el, options ) {

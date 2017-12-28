@@ -24,7 +24,7 @@ class Section extends React.Component {
           <TutorLink
             {...ux.routerLinkProps(section)}
             tabIndex={ux.isMenuVisible ? 0 : -1}
-            className={section === ux.activeSection ? 'active' : ''}
+            className={section === ux.activePage ? 'active' : ''}
             onClick={partial(ux.setSection, section.chapter_section.asString)}
           >
             <span className="section-number">
