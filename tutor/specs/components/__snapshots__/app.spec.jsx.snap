@@ -85,11 +85,6 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                     </span>
                   </a>
                 </li>
-                <div
-                  className="tour-anchor"
-                  data-tour-anchor-id="menu-support-document"
-                  id="menu-support-document"
-                />
                 <li
                   className="-help-link"
                   role="presentation"

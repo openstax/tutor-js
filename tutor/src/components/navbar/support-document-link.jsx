@@ -1,17 +1,7 @@
 import React from 'react';
-
-import { Dropdown, MenuItem } from 'react-bootstrap';
-import { get } from 'lodash';
-import { action, computed } from 'mobx';
-import { observer, inject } from 'mobx-react';
-import RootCloseWrapper from 'react-overlays/lib/RootCloseWrapper';
-
-import TourAnchor from '../tours/anchor'
-import Chat from '../../models/chat';
-import UserMenu from '../../models/user/menu';
-import Icon from '../icon';
-import TourContext from '../../models/tour/context';
-import Router from '../../helpers/router';
+import { MenuItem } from 'react-bootstrap';
+import { observer } from 'mobx-react';
+import TourAnchor from '../tours/anchor';
 import Courses from '../../models/courses-map';
 import CourseInformation from '../../models/course/information';
 
@@ -21,7 +11,6 @@ export default class SupportDocumentLink extends React.Component {
   static propTypes = {
     courseId: React.PropTypes.string,
   }
-
 
   render() {
     if (!this.props.courseId) { return null; }
@@ -43,7 +32,9 @@ export default class SupportDocumentLink extends React.Component {
         target="_blank"
         href={url}
       >
-        {name}
+        <TourAnchor id="menu-support-document">
+          {name}
+        </TourAnchor>
       </MenuItem>
     );
   }

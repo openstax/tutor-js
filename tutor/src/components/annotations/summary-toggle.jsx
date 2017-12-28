@@ -44,7 +44,7 @@ export default class AnnotationSummaryToggle extends React.Component {
         viewBox="0 0 26 26"
         onClick={User.annotations.ux.toggleSummary}
         className={cn('annotation-summary-toggle', {
-          active: User.annotations.ux.isSummaryVisible,
+            active: User.annotations.ux.isSummaryVisible,
         })}
       >
         <rect x="3.6" y="21" className="i" width="7" height="1"/>
