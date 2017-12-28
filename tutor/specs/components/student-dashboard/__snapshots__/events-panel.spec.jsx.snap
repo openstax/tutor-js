@@ -67,14 +67,20 @@ exports[`EventsPanel renders with events 1`] = `
         <span>
           0/2 answered
         </span>
-        <i
-          className="info late"
-          onBlur={[Function]}
-          onClick={null}
-          onFocus={[Function]}
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
-        />
+        <span
+          className="tour-anchor"
+          data-tour-anchor-id="about-late-icon"
+          id="about-late-icon"
+        >
+          <i
+            className="info late"
+            onBlur={[Function]}
+            onClick={null}
+            onFocus={[Function]}
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+          />
+        </span>
       </div>
       <div
         className="due-at col-sm-2 col-xs-5"
@@ -332,7 +338,13 @@ exports[`EventsPanel renders with events 1`] = `
         className="feedback col-sm-3 col-xs-5"
       >
         <span>
-          6/7 correct
+          <span
+            className="tour-anchor"
+            data-tour-anchor-id="assignment-progress-status"
+            id="assignment-progress-status"
+          >
+            6/7 correct
+          </span>
         </span>
       </div>
       <div
@@ -369,7 +381,13 @@ exports[`EventsPanel renders with events 1`] = `
         className="feedback col-sm-3 col-xs-5"
       >
         <span>
-          7/8 correct
+          <span
+            className="tour-anchor"
+            data-tour-anchor-id="assignment-progress-status"
+            id="assignment-progress-status"
+          >
+            7/8 correct
+          </span>
         </span>
       </div>
       <div
@@ -406,7 +424,13 @@ exports[`EventsPanel renders with events 1`] = `
         className="feedback col-sm-3 col-xs-5"
       >
         <span>
-          6/6 answered
+          <span
+            className="tour-anchor"
+            data-tour-anchor-id="assignment-progress-status"
+            id="assignment-progress-status"
+          >
+            6/6 answered
+          </span>
         </span>
       </div>
       <div
@@ -443,7 +467,13 @@ exports[`EventsPanel renders with events 1`] = `
         className="feedback col-sm-3 col-xs-5"
       >
         <span>
-          7/3 answered
+          <span
+            className="tour-anchor"
+            data-tour-anchor-id="assignment-progress-status"
+            id="assignment-progress-status"
+          >
+            7/3 answered
+          </span>
         </span>
       </div>
       <div

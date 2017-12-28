@@ -6,7 +6,7 @@ import { action } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import RootCloseWrapper from 'react-overlays/lib/RootCloseWrapper';
 
-import TourAnchor from '../tours/anchor'
+import TourAnchor from '../tours/anchor';
 import Chat from '../../models/chat';
 import UserMenu from '../../models/user/menu';
 import Icon from '../icon';
@@ -122,7 +122,9 @@ class SupportMenuDropDown extends React.PureComponent {
         >
           <span>Help Articles</span>
         </MenuItem>
+
         <SupportDocument courseId={courseId} />
+
         <MenuItem
           key="nav-keyboard-shortcuts"
           className="-help-link"

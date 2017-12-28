@@ -9,7 +9,6 @@ import AnnotationsSummaryToggle from '../annotations/summary-toggle';
 import Icon from '../icon';
 import { TaskStore } from '../../flux/task';
 import { TaskPanelStore } from '../../flux/task-panel';
-
 import TutorRouter from '../../helpers/router';
 import TutorLink from '../link';
 

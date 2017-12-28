@@ -163,7 +163,13 @@ exports[`Support Menu renders support links when in a course for student 1`] = `
         tabIndex="-1"
         target="_blank"
       >
-        Getting Started Guide
+        <div
+          className="tour-anchor"
+          data-tour-anchor-id="menu-support-document"
+          id="menu-support-document"
+        >
+          Getting Started Guide
+        </div>
       </a>
     </li>
     <li
@@ -254,7 +260,13 @@ exports[`Support Menu renders support links when in a course for teacher 1`] = `
         tabIndex="-1"
         target="_blank"
       >
-        Best Practices Guide
+        <div
+          className="tour-anchor"
+          data-tour-anchor-id="menu-support-document"
+          id="menu-support-document"
+        >
+          Best Practices Guide
+        </div>
       </a>
     </li>
     <li
