@@ -2,9 +2,6 @@
 
 Content = require '../../../src/components/qa/content'
 
-{EcosystemsActions, EcosystemsStore} = require '../../../src/flux/ecosystems'
-{ReferenceBookActions, ReferenceBookStore} = require '../../../src/flux/reference-book'
-
 ECOSYSTEMS = require '../../../api/ecosystems.json'
 PAGE = require '../../../api/ecosystems/3/readings.json'
 ECOSYSTEM_ID = '3'
