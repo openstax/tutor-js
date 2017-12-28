@@ -39,6 +39,6 @@ module.exports = React.createClass
     className = classnames(
       'is-errored': @isErrored()
     )
-    props = {isDisabled, onClick: @onClick, className}
+    props = {disabled: isDisabled, onClick: @onClick, className}
 
     React.cloneElement(@props.children, props)

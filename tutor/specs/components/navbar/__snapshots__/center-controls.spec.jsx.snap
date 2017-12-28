@@ -43,10 +43,6 @@ exports[`Center Controls matches snapshot 1`] = `
           type="th"
         />
       </a>
-      <div
-        className=""
-        data-tour-region-id="student-highlighting-reading"
-      />
     </div>
   </div>
 </div>

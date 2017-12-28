@@ -18,7 +18,9 @@ export default class EventRow extends React.PureComponent {
     eventType: React.PropTypes.string.isRequired,
     event:     React.PropTypes.object.isRequired,
     courseId:  React.PropTypes.string.isRequired,
-    feedback:  React.PropTypes.string.isRequired,
+    feedback:  React.PropTypes.oneOfType([
+      React.PropTypes.string, React.PropTypes.element,
+    ]).isRequired,
     isCollege:  React.PropTypes.bool.isRequired,
   }
 

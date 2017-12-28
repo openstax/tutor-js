@@ -25,7 +25,7 @@ module.exports = React.createClass
     buttonProps = _.pick(@props, 'className', 'bsStyle', 'block')
     buttonProps.disabled = isDisabled
     buttonProps.onClick = onClick unless isDisabled
-
+    console.log(buttonProps)
     if disabledState? and isDisabled
       button = disabledState
     else
