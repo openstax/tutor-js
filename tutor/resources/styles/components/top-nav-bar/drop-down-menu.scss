@@ -56,8 +56,11 @@
     }
 
     .chat {
+      .tutor-icon {
+        font-size: 18px;
+      }
       &.enabled {
-        a { color: $tutor-dark-blue; }
+        .tutor-icon { color: $tutor-secondary; }
       }
       &.disabled {
         a { color: $tutor-neutral-lite; }

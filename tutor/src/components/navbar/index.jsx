@@ -10,7 +10,6 @@ import BookLinks             from './book-links';
 import CenterControls        from './center-controls';
 import PreviewAddCourseBtn   from './preview-add-course-btn';
 import SupportMenu           from './support-menu';
-import StudentPreviewLink    from './student-previews-link';
 import StudentPayNowBtn      from './student-pay-now-btn';
 import BackgroundJobToasts   from './background-toasts';
 import ReferenceBookNavBar   from '../reference-book/navbar';
@@ -29,11 +28,10 @@ function DefaultNavBar({ params }) {
         </div>
         <CenterControls params={params} />
         <div className="right-side-controls">
-          <PreviewAddCourseBtn courseId={courseId} />
           <SupportMenu />
           <StudentPayNowBtn    courseId={courseId} />
-          <StudentPreviewLink  courseId={courseId} />
           <ActionsMenu         courseId={courseId} />
+          <PreviewAddCourseBtn courseId={courseId} />
           <UserMenu />
         </div>
       </div>

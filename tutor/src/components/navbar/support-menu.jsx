@@ -13,6 +13,7 @@ import Icon from '../icon';
 import SupportDocument from './support-document-link';
 import TourContext from '../../models/tour/context';
 import Router from '../../helpers/router';
+import StudentPreviewLink from './student-previews-link';
 
 @observer
 class SupportMenuDropDown extends React.PureComponent {
@@ -122,7 +123,7 @@ class SupportMenuDropDown extends React.PureComponent {
         >
           <span>Help Articles</span>
         </MenuItem>
-
+        <StudentPreviewLink  courseId={courseId} />
         <SupportDocument courseId={courseId} />
 
         <MenuItem
