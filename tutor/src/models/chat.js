@@ -7,8 +7,14 @@ import User from './user';
 
 export default {
 
-  @computed get isEnabled() {
-    return Boolean(window.liveagent && User.isProbablyTeacher);
+  get isEnabled() {
+    return Boolean(window.liveagent);
+  },
+
+  get isOnline() {
+    if (!this.isEnabled) { return false; }
+    const chat = document.querySelector('.chat.enabled');
+    return chat && chat.style.display !== 'none';
   },
 
   initialize() {
