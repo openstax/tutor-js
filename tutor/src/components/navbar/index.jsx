@@ -4,7 +4,8 @@ import { Provider } from 'mobx-react';
 import Router                from '../../helpers/router';
 import TutorLink             from '../link';
 import ServerErrorMonitoring from '../error-monitoring';
-import UserActionsMenu       from './user-actions-menu';
+import ActionsMenu           from './actions-menu';
+import UserMenu              from './user-menu';
 import BookLinks             from './book-links';
 import CenterControls        from './center-controls';
 import PreviewAddCourseBtn   from './preview-add-course-btn';
@@ -32,7 +33,8 @@ function DefaultNavBar({ params }) {
           <SupportMenu />
           <StudentPayNowBtn    courseId={courseId} />
           <StudentPreviewLink  courseId={courseId} />
-          <UserActionsMenu     courseId={courseId} />
+          <ActionsMenu         courseId={courseId} />
+          <UserMenu />
         </div>
       </div>
       <ServerErrorMonitoring />

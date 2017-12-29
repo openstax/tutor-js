@@ -15,7 +15,7 @@ QAContent            = require './content'
 QAExercises          = require './exercises'
 BookLink             = require './book-link'
 QAContentToggle      = require './content-toggle'
-UserActionsMenu      = require '../navbar/user-actions-menu'
+ActionsMenu      = require '../navbar/actions-menu'
 
 QAViewBook = React.createClass
   displayName: 'QAViewBook'

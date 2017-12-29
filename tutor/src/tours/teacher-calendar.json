@@ -63,7 +63,7 @@
       "position": "left",
       "is_fixed": true,
       "action": {
-        "id": "open-user-menu"
+        "id": "open-actions-menu"
       }
     }, {
       "title": "Student enrollment",
@@ -72,7 +72,7 @@
       "position": "left",
       "is_fixed": true,
       "action": {
-        "id": "open-user-menu"
+        "id": "open-actions-menu"
       }
     }, {
       "title": "Browse the book",
@@ -81,7 +81,7 @@
       "position": "left",
       "is_fixed": true,
       "action": {
-        "id": "open-user-menu"
+        "id": "open-actions-menu"
       }
     }, {
       "title": "Student preview videos",
@@ -120,7 +120,7 @@
     "position": "left",
     "is_fixed": true,
     "action": {
-      "id": "open-user-menu"
+      "id": "open-actions-menu"
     }
   }]
 }]
