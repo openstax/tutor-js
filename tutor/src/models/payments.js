@@ -10,6 +10,7 @@ import invariant from 'invariant';
 import { NotificationActions, Logging } from 'shared';
 import User from './user';
 import UserMenu from './user/menu';
+import Chat from './chat';
 
 NotificationActions.on('tutor-update', ({ payments }) => {
   extend(Payments.config, payments);
@@ -44,6 +45,7 @@ export default class Payments extends BaseModel {
       timeoutLength: 60000,
       messageHandlers: {
         timeout: this.onTimeout,
+        chat: Chat.isOnline ? this.onChat : null,
       },
     }, options);
 
@@ -88,6 +90,12 @@ export default class Payments extends BaseModel {
         error: this.onTimeout,
       });
     }
+  }
+
+  @action.bound
+  onChat({ error } = {}) { // we're ignoring the error, not sure how to prefill chat
+    const chatLink = document.querySelector('.chat.enabled a');
+    if (chatLink) { chatLink.click(); }
   }
 
   @action.bound
