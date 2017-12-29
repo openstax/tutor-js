@@ -3,8 +3,6 @@ import { observable, observe } from 'mobx';
 import { Provider, observer, inject } from 'mobx-react';
 import { autobind } from 'core-decorators';
 import Joyride from 'react-joyride';
-// When/if we move to using scss this can be imported in the main scss import
-import 'resources/styles/components/tours/joyride.scss';
 import TourContext from '../../models/tour/context';
 import User from '../../models/user';
 import { SpyModeContext, Content as SpyModeContent } from 'shared/src/components/spy-mode';
