@@ -21,7 +21,7 @@ class TaskTeacherReviewQuestion extends React.PureComponent {
     question: React.PropTypes.instanceOf(QuestionModel).isRequired,
   };
 
-  @observable showFreeResponse = false;
+  @observable showNamesAndFreeResponse = false;
 
   @computed get isExpandable() {
     return this.props.question.answers.withFreeResponse().length > TOGGLE_FREE_RESPONSE_LIMIT;
@@ -33,7 +33,7 @@ class TaskTeacherReviewQuestion extends React.PureComponent {
   }
 
   toggleFreeResponse = () => {
-    this.showFreeResponse = !this.showFreeResponse;
+    this.showNamesAndFreeResponse = !this.showNamesAndFreeResponse;
   };
 
   renderNoFreeResponse = () => {
@@ -50,24 +50,32 @@ class TaskTeacherReviewQuestion extends React.PureComponent {
   @computed get toggleFreeResponseControls() {
     const numAnswers = this.props.question.answers.withFreeResponse().length;
     let msg, icon;
-    if (!this.isExpandable) {
-      return <span>Student text responses</span>;
-    }
-    if (this.showFreeResponse) {
-      msg = 'Hide student text responses';
-      icon = 'chevron-down';
+
+    if (this.isExpandable) {
+      if (this.showNamesAndFreeResponse) {
+        msg = 'Hide student text responses';
+        icon = 'chevron-down';
+      } else {
+        msg = `View student text responses (${numAnswers})`;
+        icon = 'chevron-right';
+      }
     } else {
-      msg = `View student text responses (${numAnswers})`;
-      icon = 'chevron-right';
+      if (this.showNamesAndFreeResponse) {
+        msg = 'Hide student names';
+        icon = 'eye-slash';
+      } else {
+        msg = 'Show student names';
+        icon = 'eye';
+      }
     }
     return <a onClick={this.toggleFreeResponse}><Icon type={icon} /> {msg}</a>;
   }
 
   renderFreeResponse = () => {
-    const { showFreeResponse, toggleFreeResponseControls, props: { question } } = this;
+    const { showNamesAndFreeResponse, toggleFreeResponseControls, props: { question } } = this;
 
     let freeResponsesClasses = classnames('teacher-review-answers', {
-      active: showFreeResponse,
+      active: showNamesAndFreeResponse,
       'is-expandable': this.isExpandable,
     });
 
