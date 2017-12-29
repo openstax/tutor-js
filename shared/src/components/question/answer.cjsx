@@ -88,10 +88,12 @@ Answer = React.createClass
   contextTypes:
     processHtmlAndMath: React.PropTypes.func
 
-  onKeyPress: (ev, answer) ->
-    @props.onChangeAnswer(answer) if ev.key is 'Enter' and @props.disabled isnt true
+  onKeyPress: (ev) ->
+    @onChange() if ev.key is 'Enter' and @props.disabled isnt true
     null # silence react event return value warning
 
+  onChange: ->
+    @props.onChangeAnswer(@props.answer)
 
   render: ->
     {answer, iter, qid, type, correctAnswerId, answered_count, hasCorrectAnswer, chosenAnswer, onChangeAnswer, disabled} = @props
@@ -106,13 +108,16 @@ Answer = React.createClass
       'answer-correct': isCorrect
 
     unless (hasCorrectAnswer or type is 'teacher-review' or type is 'teacher-preview')
+      onChange = this.onChange
+
+    if onChange
       radioBox = <input
         type='radio'
         className='answer-input-box'
         checked={isChecked}
         id="#{qid}-option-#{iter}"
         name="#{qid}-options"
-        onChange={_.partial(onChangeAnswer, answer)}
+        onChange={onChange}
         disabled={disabled}
       />
 
@@ -135,23 +140,21 @@ Answer = React.createClass
     ariaLabel += ":"
     htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
 
-    unless @props.disabled
-      accessbilityProps =
-        tabIndex: 0
-
     <div className='openstax-answer'>
       <div className={classes}>
         {selectedCount}
         {radioBox}
         <label
-          {...accessbilityProps}
-          onKeyPress={_.partial(@onKeyPress, _, answer)}
+          onKeyPress={@onKeyPress}
           htmlFor="#{qid}-option-#{iter}"
           className='answer-label'
         >
-          <div className='answer-letter' aria-label={ariaLabel}>
+          <button
+            onClick={onChange}
+            className='answer-letter' aria-label={ariaLabel}
+          >
             {ALPHABET[iter]}
-          </div>
+          </button>
           <div className='answer-answer'>
             <ArbitraryHtmlAndMath
               {...htmlAndMathProps}
