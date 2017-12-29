@@ -3,8 +3,8 @@ $tutor-tertiary-light: rgb(0, 193, 222); // light blue
 $joyride-color: $tutor-tertiary-light;
 
 
-// set both medium and large sizes to be 370
-$joyride-tooltip-width: (290px, 370px, 370px);
+// set both medium and large sizes to be same as other popovers
+$joyride-tooltip-width: (290px, $popover-max-width, $popover-max-width);
 $joyride-tooltip-color: #232E66;
 $joyride-close: (color: $joyride-tooltip-color, size: 12px, top: 10px, right: 10px);
 $joyride-header-font-size: 18px;
