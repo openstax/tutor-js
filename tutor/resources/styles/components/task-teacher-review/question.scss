@@ -126,7 +126,16 @@ $free-response-background:  $tutor-neutral-lighter;
           @include tutor-sans-font(1.4rem);
         }
       }
+
+      &.active {
+        .free-response[data-student-names] {
+          &::before {
+            content: attr(data-student-names);
+          }
+        }
+      }
     }
+
     .free-response {
       font-style: italic;
       font-weight: 300;
@@ -138,8 +147,8 @@ $free-response-background:  $tutor-neutral-lighter;
       &[data-student-names] {
         &::before {
           @include answer-text-label();
+          content: '';
           line-height: 1.25em;
-          content: attr(data-student-names);
           display: inline-block;
           margin-left: -255px;
           margin-right: 1rem;
@@ -149,6 +158,7 @@ $free-response-background:  $tutor-neutral-lighter;
         }
       }
     }
+
 
     .panel-title {
       display: block;
