@@ -105,7 +105,7 @@ export default class StudentAccess extends React.PureComponent {
   }
 
   @action.bound forceLinksSwitch() {
-    this.onSelectOption(false, {}, false);
+      this.onSelectOption(false, {}, false);
   }
 
   renderLinkSwitchWarning() {
@@ -180,7 +180,7 @@ export default class StudentAccess extends React.PureComponent {
             header={this.renderDirectHeader()}
             eventKey={false}
           >
-            <p>Give students direct links</p>
+            <p>Send your students their section's direct links to enroll.</p>
             {course.periods.active.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url} />)}
           </Panel>
           <Panel

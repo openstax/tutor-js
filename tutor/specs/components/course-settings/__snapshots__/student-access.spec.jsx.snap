@@ -73,7 +73,7 @@ exports[`Course Settings, student access can switch to links 1`] = `
           className="panel-body"
         >
           <p>
-            Give students direct links
+            Send your students their section's direct links to enroll.
           </p>
           <label
             className="copy-on-focus"
@@ -214,7 +214,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
           className="panel-body"
         >
           <p>
-            Give students direct links
+            Send your students their section's direct links to enroll.
           </p>
           <label
             className="copy-on-focus"
@@ -500,7 +500,7 @@ exports[`Course Settings, student access renders chooser when lms is enabled 1`]
           className="panel-body"
         >
           <p>
-            Give students direct links
+            Send your students their section's direct links to enroll.
           </p>
           <label
             className="copy-on-focus"
