@@ -225,12 +225,13 @@ exports[`choose exercises component matches snapshot 1`] = `
                             htmlFor="1663-option-0"
                             onKeyPress={[Function]}
                           >
-                            <div
+                            <button
                               aria-label="Choice a:"
                               className="answer-letter"
+                              onClick={undefined}
                             >
                               a
-                            </div>
+                            </button>
                             <div
                               className="answer-answer"
                             >
@@ -257,12 +258,13 @@ exports[`choose exercises component matches snapshot 1`] = `
                             htmlFor="1663-option-1"
                             onKeyPress={[Function]}
                           >
-                            <div
+                            <button
                               aria-label="Choice b:"
                               className="answer-letter"
+                              onClick={undefined}
                             >
                               b
-                            </div>
+                            </button>
                             <div
                               className="answer-answer"
                             >
@@ -289,12 +291,13 @@ exports[`choose exercises component matches snapshot 1`] = `
                             htmlFor="1663-option-2"
                             onKeyPress={[Function]}
                           >
-                            <div
+                            <button
                               aria-label="Choice c:"
                               className="answer-letter"
+                              onClick={undefined}
                             >
                               c
-                            </div>
+                            </button>
                             <div
                               className="answer-answer"
                             >
@@ -321,12 +324,13 @@ exports[`choose exercises component matches snapshot 1`] = `
                             htmlFor="1663-option-3"
                             onKeyPress={[Function]}
                           >
-                            <div
+                            <button
                               aria-label="Choice d:"
                               className="answer-letter"
+                              onClick={undefined}
                             >
                               d
-                            </div>
+                            </button>
                             <div
                               className="answer-answer"
                             >
@@ -430,12 +434,13 @@ exports[`choose exercises component matches snapshot 1`] = `
                             htmlFor="1664-option-0"
                             onKeyPress={[Function]}
                           >
-                            <div
+                            <button
                               aria-label="Choice a:"
                               className="answer-letter"
+                              onClick={undefined}
                             >
                               a
-                            </div>
+                            </button>
                             <div
                               className="answer-answer"
                             >
@@ -467,12 +472,13 @@ exports[`choose exercises component matches snapshot 1`] = `
                             htmlFor="1664-option-1"
                             onKeyPress={[Function]}
                           >
-                            <div
+                            <button
                               aria-label="Choice b:"
                               className="answer-letter"
+                              onClick={undefined}
                             >
                               b
-                            </div>
+                            </button>
                             <div
                               className="answer-answer"
                             >
@@ -504,12 +510,13 @@ exports[`choose exercises component matches snapshot 1`] = `
                             htmlFor="1664-option-2"
                             onKeyPress={[Function]}
                           >
-                            <div
+                            <button
                               aria-label="Choice c:"
                               className="answer-letter"
+                              onClick={undefined}
                             >
                               c
-                            </div>
+                            </button>
                             <div
                               className="answer-answer"
                             >
@@ -541,12 +548,13 @@ exports[`choose exercises component matches snapshot 1`] = `
                             htmlFor="1664-option-3"
                             onKeyPress={[Function]}
                           >
-                            <div
+                            <button
                               aria-label="Choice d:"
                               className="answer-letter"
+                              onClick={undefined}
                             >
                               d
-                            </div>
+                            </button>
                             <div
                               className="answer-answer"
                             >
@@ -655,12 +663,13 @@ exports[`choose exercises component matches snapshot 1`] = `
                             htmlFor="1665-option-0"
                             onKeyPress={[Function]}
                           >
-                            <div
+                            <button
                               aria-label="Choice a:"
                               className="answer-letter"
+                              onClick={undefined}
                             >
                               a
-                            </div>
+                            </button>
                             <div
                               className="answer-answer"
                             >
@@ -687,12 +696,13 @@ exports[`choose exercises component matches snapshot 1`] = `
                             htmlFor="1665-option-1"
                             onKeyPress={[Function]}
                           >
-                            <div
+                            <button
                               aria-label="Choice b:"
                               className="answer-letter"
+                              onClick={undefined}
                             >
                               b
-                            </div>
+                            </button>
                             <div
                               className="answer-answer"
                             >
@@ -719,12 +729,13 @@ exports[`choose exercises component matches snapshot 1`] = `
                             htmlFor="1665-option-2"
                             onKeyPress={[Function]}
                           >
-                            <div
+                            <button
                               aria-label="Choice c:"
                               className="answer-letter"
+                              onClick={undefined}
                             >
                               c
-                            </div>
+                            </button>
                             <div
                               className="answer-answer"
                             >
@@ -751,12 +762,13 @@ exports[`choose exercises component matches snapshot 1`] = `
                             htmlFor="1665-option-3"
                             onKeyPress={[Function]}
                           >
-                            <div
+                            <button
                               aria-label="Choice d:"
                               className="answer-letter"
+                              onClick={undefined}
                             >
                               d
-                            </div>
+                            </button>
                             <div
                               className="answer-answer"
                             >
@@ -860,12 +872,13 @@ exports[`choose exercises component matches snapshot 1`] = `
                             htmlFor="1666-option-0"
                             onKeyPress={[Function]}
                           >
-                            <div
+                            <button
                               aria-label="Choice a:"
                               className="answer-letter"
+                              onClick={undefined}
                             >
                               a
-                            </div>
+                            </button>
                             <div
                               className="answer-answer"
                             >
@@ -892,12 +905,13 @@ exports[`choose exercises component matches snapshot 1`] = `
                             htmlFor="1666-option-1"
                             onKeyPress={[Function]}
                           >
-                            <div
+                            <button
                               aria-label="Choice b:"
                               className="answer-letter"
+                              onClick={undefined}
                             >
                               b
-                            </div>
+                            </button>
                             <div
                               className="answer-answer"
                             >
@@ -924,12 +938,13 @@ exports[`choose exercises component matches snapshot 1`] = `
                             htmlFor="1666-option-2"
                             onKeyPress={[Function]}
                           >
-                            <div
+                            <button
                               aria-label="Choice c:"
                               className="answer-letter"
+                              onClick={undefined}
                             >
                               c
-                            </div>
+                            </button>
                             <div
                               className="answer-answer"
                             >
@@ -956,12 +971,13 @@ exports[`choose exercises component matches snapshot 1`] = `
                             htmlFor="1666-option-3"
                             onKeyPress={[Function]}
                           >
-                            <div
+                            <button
                               aria-label="Choice d:"
                               className="answer-letter"
+                              onClick={undefined}
                             >
                               d
-                            </div>
+                            </button>
                             <div
                               className="answer-answer"
                             >
@@ -1065,12 +1081,13 @@ exports[`choose exercises component matches snapshot 1`] = `
                             htmlFor="1667-option-0"
                             onKeyPress={[Function]}
                           >
-                            <div
+                            <button
                               aria-label="Choice a:"
                               className="answer-letter"
+                              onClick={undefined}
                             >
                               a
-                            </div>
+                            </button>
                             <div
                               className="answer-answer"
                             >
@@ -1097,12 +1114,13 @@ exports[`choose exercises component matches snapshot 1`] = `
                             htmlFor="1667-option-1"
                             onKeyPress={[Function]}
                           >
-                            <div
+                            <button
                               aria-label="Choice b:"
                               className="answer-letter"
+                              onClick={undefined}
                             >
                               b
-                            </div>
+                            </button>
                             <div
                               className="answer-answer"
                             >
@@ -1129,12 +1147,13 @@ exports[`choose exercises component matches snapshot 1`] = `
                             htmlFor="1667-option-2"
                             onKeyPress={[Function]}
                           >
-                            <div
+                            <button
                               aria-label="Choice c:"
                               className="answer-letter"
+                              onClick={undefined}
                             >
                               c
-                            </div>
+                            </button>
                             <div
                               className="answer-answer"
                             >
@@ -1161,12 +1180,13 @@ exports[`choose exercises component matches snapshot 1`] = `
                             htmlFor="1667-option-3"
                             onKeyPress={[Function]}
                           >
-                            <div
+                            <button
                               aria-label="Choice d:"
                               className="answer-letter"
+                              onClick={undefined}
                             >
                               d
-                            </div>
+                            </button>
                             <div
                               className="answer-answer"
                             >
