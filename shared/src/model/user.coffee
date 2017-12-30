@@ -14,19 +14,17 @@ class Email extends EventEmitter2
     _.extend(@, attrs)
 
   sendVerification: (pin, successCallBack) ->
-    @makeRequest('confirm_by_pin', {pin}).then((resp) =>
+    @makeRequest('confirm_by_pin', {pin}).then (resp) =>
       if resp.status is 204
         delete @error
         @is_verified = true
         successCallBack(@)
       else
         code = _.first(resp.data?.errors)?.code
-        console.log(code)
         @error = ERROR_CODES[code]
         if code is 'no_pin_confirmation_attempts_remaining'
           @verificationFailed = true
       @emit('change')
-    )
 
 
   sendConfirmation: ->
@@ -38,7 +36,6 @@ class Email extends EventEmitter2
     @requestInProgress = true
 
     afterRequest = (resp) =>
-
       @requestInProgress = false
       @emit('change')
       resp
