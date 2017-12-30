@@ -4,7 +4,6 @@
   "description": "Frontend Code for OpenStax",
   "main": "index.js",
   "engines": {
-    "node": "8.6.0",
     "npm": "5.3.0"
   },
   "scripts": {
