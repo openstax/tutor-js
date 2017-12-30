@@ -71,6 +71,7 @@
     "moment-timezone": "0.5.11",
     "object-hash": "1.1.7",
     "path-to-regexp": "1.7.0",
+    "phantomjs-prebuilt": "^2.1.16",
     "pluralize": "3.1.0",
     "promise-loader": "1.0.0",
     "qs": "6.3.0",
