@@ -10,14 +10,14 @@
       @include tutor-main-subtitle-font();
       padding-bottom: 15px;
     }
-  }
-
-  &.settings {
     .body {
       font-size: 16px;
       line-height: 24px;
       padding-top: 40px;
     }
+  }
+
+  &.settings {
     .tutor-tabs {
       margin-left: -$tutor-tabs-horizontal-padding;
       max-width: 670px + $tutor-tabs-horizontal-padding;
