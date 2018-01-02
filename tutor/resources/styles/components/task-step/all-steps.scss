@@ -60,7 +60,8 @@
         padding: 20px 40px;
         width: 100%;
 
-        //@include tutor-book-note-style();
+        @include tutor-book-note-style();
+        @include book-content-interactives();
       }
     }
 
