@@ -64,7 +64,7 @@ export default class TeacherRoster extends React.PureComponent {
             </tr>
           </thead>
           <tbody>
-            {roster.teachers.map(this.renderRow)}
+            {roster.teachers.active.map(this.renderRow)}
           </tbody>
         </Table>
       </div>
