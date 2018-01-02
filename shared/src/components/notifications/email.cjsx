@@ -59,7 +59,7 @@ EmailNotification = React.createClass
       @onPinCheck()
 
   renderPin: ->
-    _.defer => @refs.verifyInput.focus()
+    _.defer => @refs.verifyInput?.focus()
     <span className="body verify">
       <i className='icon fa fa-envelope-o' />
       <span className="message">

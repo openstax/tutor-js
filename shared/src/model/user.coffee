@@ -41,6 +41,7 @@ class Email extends EventEmitter2
       resp
     Networking.perform(
       method: 'PUT',
+      silenceErrors: true,
       url: URLs.construct('accounts_api', "contact_infos", @id, "#{type}.json")
       withCredentials: true
       data: data

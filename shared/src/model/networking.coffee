@@ -17,7 +17,10 @@ Networking = {
     defaultsDeep(OPTIONS, options)
 
   perform: (opts) ->
-    axios(extend({}, OPTIONS?.xhr, opts)).catch(emitError)
+    axios(extend({}, OPTIONS?.xhr, opts)).catch((err) ->
+      emitError(err) unless opts.silenceErrors
+      err.response
+    )
 }
 
 module.exports = Networking

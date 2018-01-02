@@ -23,7 +23,9 @@ describe 'User mode', ->
     expect(email).to.exist
     email.sendConfirmation()
     expect(Networking.perform).to.have.been.calledWith({
-      method: 'PUT', url: 'http://localhost:2999/api/contact_infos/1234/resend_confirmation.json',
+      method: 'PUT',
+      url: 'http://localhost:2999/api/contact_infos/1234/resend_confirmation.json',
+      silenceErrors: true,
       withCredentials: true, data: {send_pin: true}
     })
     undefined
@@ -33,6 +35,7 @@ describe 'User mode', ->
     email.sendVerification("1234")
     expect(Networking.perform).to.have.been.calledWith({
       method: 'PUT', url: 'http://localhost:2999/api/contact_infos/1234/confirm_by_pin.json',
+      silenceErrors: true,
       withCredentials: true, data: { pin: "1234" }
     })
     undefined
