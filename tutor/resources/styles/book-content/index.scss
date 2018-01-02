@@ -37,6 +37,7 @@
   @extend %tutor-book-content-teacher;
   @extend %tutor-book-content-questions;
 
+  @include book-content-interactives();
   @include tutor-book-notes();
 
 
