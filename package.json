@@ -22,7 +22,7 @@
     "build-archive": "./bin/build tutor archive",
     "check-dependencies": "node ./bin/check-dependencies",
     "lint-cjsx": "./bin/lint-cjsx-files.sh",
-    "validate": "node ./bin/validate-console-messages.sh",
+    "validate": "./bin/validate-console-messages.sh",
     "prestart": "npm run validate",
     "start": "./bin/tdd"
   },
