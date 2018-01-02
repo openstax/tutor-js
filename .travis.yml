@@ -22,20 +22,7 @@ cache:
   directories:
     - node_modules
 
-before_install:
-  # Build https://github.com/SimonKagstrom/kcov (shell code coverage)
-  - wget https://github.com/SimonKagstrom/kcov/archive/master.tar.gz &&
-    tar xzf master.tar.gz &&
-    rm master.tar.gz &&
-    cd kcov-master &&
-    mkdir build &&
-    cd build &&
-    cmake .. &&
-    make &&
-    sudo make install &&
-    cd ../.. &&
-    rm -rf kcov-master
-script: kcov ./coverage/ ./script/ci
+script: ./script/ci
 
 after_failure:
   - npm list
