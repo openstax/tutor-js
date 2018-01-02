@@ -7,4 +7,6 @@ set -ev
 
 $(npm bin)/jest --maxWorkers=2 --verbose --coverage --config ./configs/test/jest.$OX_PROJECT.json
 
+echo -en 'travis_fold:start:build\\r'
 bin/build "$OX_PROJECT"
+echo -en 'travis_fold:end:build\\r'
