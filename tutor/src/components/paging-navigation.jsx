@@ -130,6 +130,7 @@ export default class PagingNavigation extends React.PureComponent {
         tabIndex={this.props.isBackwardEnabled ? 0 : -1}
         disabled={cb == null}
         title={this.props.titles.previous}
+        aria-controls="paged-content"
         onClick={partial(this.clickHandler, cb, this.props.backwardHref)}
         className={classnames('paging-control', 'prev', { active: this.activeNav === 'prev' })}
       >
@@ -148,6 +149,7 @@ export default class PagingNavigation extends React.PureComponent {
         tabIndex={this.props.isForwardEnabled ? 0 : -1}
         disabled={cb == null}
         title={this.props.titles.next}
+        aria-controls="paged-content"
         onClick={partial(this.clickHandler, cb, this.props.forwardHref)}
         className={classnames('paging-control', 'next', { active: this.activeNav === 'next' })}
       >
@@ -162,7 +164,7 @@ export default class PagingNavigation extends React.PureComponent {
     return (
       <div className={classnames('tutor-paging-navigation', this.props.className)}>
         {this.renderPrev()}
-        <div className="paged-content" tabIndex="0">
+        <div className="paged-content" role="region" id="paged-content" tabIndex="0" aria-live="polite">
           {this.props.children}
         </div>
         {this.renderNext()}
