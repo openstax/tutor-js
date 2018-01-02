@@ -160,6 +160,8 @@ ReadingContentMixin =
     @processLinks()
 
   componentWillUnmount: ->
+    @_linkContentIsMounted = false
+    @cleanUpLinks()
     @removeCanonicalLink()
 
   insertCanonicalLink: ->

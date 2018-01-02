@@ -1,19 +1,20 @@
 React = require 'react'
 ReactDOM  = require 'react-dom'
-{SpyMode} = require 'shared'
+{SpyMode, ArbitraryHtmlAndMath, GetPositionMixin} = require 'shared'
 {observer} = require 'mobx-react'
 classnames = require 'classnames'
 
 {BookContentMixin} = require '../book-content-mixin'
-{ArbitraryHtmlAndMath, GetPositionMixin} = require 'shared'
 
-{ReferenceBookExerciseShell} = require './exercise'
+{default: {ReferenceBookExerciseShell}} = require './exercise'
 RelatedContent = require '../related-content'
 {default: Loading} = require '../loading-screen'
 
 Router = require '../../helpers/router'
 Dialog = require '../dialog'
 {default: AnnotationWidget} = require '../annotations/annotation'
+{ ReferenceBookExerciseActions, ReferenceBookExerciseStore } = require '../../flux/reference-book-exercise'
+{ map, forEach } = require 'lodash'
 
 ReferenceBookPage = React.createClass
   displayName: 'ReferenceBookPage'
@@ -56,11 +57,11 @@ ReferenceBookPage = React.createClass
 
   renderExercises: (exerciseLinks) ->
     ReferenceBookExerciseStore.setMaxListeners(exerciseLinks.length)
-    allExercises = _.pluck(exerciseLinks, 'href')
+    allExercises = map(exerciseLinks, 'href')
     multipleUrl = ReferenceBookExerciseStore.getMultipleUrl(allExercises)
     ReferenceBookExerciseActions.load(multipleUrl) unless ReferenceBookExerciseStore.isLoaded(multipleUrl)
 
-    _.each(exerciseLinks, @renderExercise)
+    forEach(exerciseLinks, @renderExercise)
 
   renderExercise: (link) ->
     exerciseAPIUrl = link.href

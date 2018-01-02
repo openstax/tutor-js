@@ -158,7 +158,7 @@ startAPI = ->
 
 
   # connectRead(ReferenceBookPageActions, pattern: 'pages/{id}', trigger: 'loadSilent', handledErrors: ['*'])
-  # connectRead(ReferenceBookExerciseActions, url: (url) -> url)
+  connectRead(ReferenceBookExerciseActions, url: (url) -> url)
 
   connectRead(NotificationActions,
     trigger: 'loadUpdates', onSuccess: 'loadedUpdates', url: 'notifications', handledErrors: ['*']
