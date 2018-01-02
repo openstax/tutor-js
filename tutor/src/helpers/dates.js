@@ -1,5 +1,6 @@
-import moment from 'moment-timezone';
+import moment from 'moment';
 import 'twix';
+import 'moment-timezone';
 import { reduce, pluck, union } from 'lodash';
 
 export function getDay(oneMoment) {

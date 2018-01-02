@@ -1,7 +1,7 @@
 {React} = require '../../helpers/component-testing'
 _ = require 'underscore'
 
-moment = require 'moment'
+moment = require 'moment-timezone'
 
 MiniEditor = require '../../../../src/components/task-plan/mini-editor/editor'
 {default: Courses} = require '../../../../src/models/courses-map'
@@ -49,7 +49,7 @@ describe 'TaskPlan MiniEditor wrapper', ->
     @sandbox.stub(TaskPlanActions, 'publish')
     @sandbox.stub(TaskPlanStore, 'isValid', -> true)
     @sandbox.stub(TaskPlanStore, 'hasChanged', -> true)
-
+    moment.tz.setDefault('America/Chicago')
     Courses.bootstrap([COURSE], { clear: true })
 
     TaskPlanActions.loaded(PLAN, PLAN.id)

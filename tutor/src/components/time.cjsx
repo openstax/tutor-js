@@ -1,4 +1,4 @@
-moment = require 'moment'
+moment = require 'moment-timezone'
 {TimeStore} = require '../flux/time'
 React = require 'react'
 
