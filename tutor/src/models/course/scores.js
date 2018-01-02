@@ -44,7 +44,7 @@ export class CourseScoresPeriod extends BaseModel {
   }
 
   @computed get courseStudents() {
-    return this.course.roster.studentsForPeriod(this.coursePeriod);
+    return this.course.roster.students.activeByPeriod[this.period_id] || [];
   }
 
   @computed get numAssignments() {
