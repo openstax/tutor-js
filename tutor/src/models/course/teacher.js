@@ -9,8 +9,8 @@ export default class CourseTeacher extends BaseModel {
 
   @identifier id;
 
-  @field first_name;
-  @field last_name;
+  @field first_name = '';
+  @field last_name = '';
   @field role_id;
 
   @belongsTo({ model: 'course/roster' }) roster;

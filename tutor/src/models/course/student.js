@@ -13,8 +13,8 @@ export default class CourseStudent extends BaseModel {
 
   @field name;
   @field uuid;
-  @field first_name;
-  @field last_name;
+  @field first_name = '';
+  @field last_name = '';
   @field is_active;
   @field is_comped;
   @field is_paid;
