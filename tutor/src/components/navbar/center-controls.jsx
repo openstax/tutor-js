@@ -2,7 +2,7 @@ import React from 'react';
 import { action } from 'mobx';
 import { observer } from 'mobx-react';
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 import classnames from 'classnames';
 import { cloneDeep, extend, includes, omit, pick, get } from 'lodash';
 import AnnotationsSummaryToggle from '../annotations/summary-toggle';

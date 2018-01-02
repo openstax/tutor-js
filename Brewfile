@@ -1,0 +1,2 @@
+brew "yarn"
+brew "shellcheck"

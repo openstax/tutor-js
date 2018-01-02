@@ -1,5 +1,5 @@
 import Map from './map';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { computed, action, observable } from 'mobx';
 import { filter, groupBy, sortBy, pickBy } from 'lodash';
 import { TimeStore } from '../flux/time';

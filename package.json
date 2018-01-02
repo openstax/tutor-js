@@ -4,7 +4,6 @@
   "description": "Frontend Code for OpenStax",
   "main": "index.js",
   "engines": {
-    "node": "8.6.0",
     "npm": "5.3.0"
   },
   "scripts": {
@@ -23,7 +22,7 @@
     "build-archive": "./bin/build tutor archive",
     "check-dependencies": "node ./bin/check-dependencies",
     "lint-cjsx": "./bin/lint-cjsx-files.sh",
-    "validate": "node ./bin/validate-package-json.js && ./bin/validate-console-messages.sh",
+    "validate": "./bin/validate-console-messages.sh",
     "prestart": "npm run validate",
     "start": "./bin/tdd"
   },
@@ -72,6 +71,7 @@
     "moment-timezone": "0.5.11",
     "object-hash": "1.1.7",
     "path-to-regexp": "1.7.0",
+    "phantomjs-prebuilt": "^2.1.16",
     "pluralize": "3.1.0",
     "promise-loader": "1.0.0",
     "qs": "6.3.0",
@@ -146,7 +146,6 @@
     "mocha": "3.2.0",
     "node-sass": "4.7.2",
     "parallelshell": "2.0.0",
-    "phantomjs-prebuilt-that-works": "3.0.1",
     "react-dnd-test-backend": "2.2.3",
     "react-hot-loader": "3.0.0-beta.6",
     "react-stub-context": "0.7.0",
