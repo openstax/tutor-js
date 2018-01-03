@@ -5,6 +5,7 @@ exports[`Student Enrollment renders and matches snapshot 1`] = `
   className="tutor-paging-navigation my-nav-test"
 >
   <a
+    aria-controls="paged-content"
     className="paging-control prev"
     disabled={false}
     href="#"
@@ -31,7 +32,10 @@ exports[`Student Enrollment renders and matches snapshot 1`] = `
     </div>
   </a>
   <div
+    aria-live="polite"
     className="paged-content"
+    id="paged-content"
+    role="region"
     tabIndex="0"
   >
     <h1>
@@ -39,6 +43,7 @@ exports[`Student Enrollment renders and matches snapshot 1`] = `
     </h1>
   </div>
   <a
+    aria-controls="paged-content"
     className="paging-control next"
     disabled={false}
     href="#"

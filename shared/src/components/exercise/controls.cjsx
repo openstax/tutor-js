@@ -25,8 +25,9 @@ ExContinueButton = React.createClass
       disabled={not isContinueEnabled}
       isWaiting={!!waitingText}
       waitingText={waitingText}
+      aria-controls="paged-content"
       isFailed={isContinueFailed}
-      >
+    >
       {buttonText}
     </AsyncButton>
 
