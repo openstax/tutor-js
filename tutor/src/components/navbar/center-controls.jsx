@@ -65,7 +65,7 @@ export default class CenterControls extends React.Component {
     if (shouldShow) { return true; }
     if (path == null) { path = this.props.pathname; }
     const match = TutorRouter.currentMatch(path);
-    return includes(VALID_ROUTE_NAMES, match.entry.name);
+    return match && includes(VALID_ROUTE_NAMES, match.entry.name);
   }
 
   update(getState, params, path) {
