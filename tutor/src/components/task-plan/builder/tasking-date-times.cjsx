@@ -40,6 +40,7 @@ TaskingDateTimes = React.createClass
     model = if period then period else Courses.get(courseId)
     _.assign(model, timeChange)
     model.save()
+    @forceUpdate()
 
   isSetting: ->
     {courseId} = @props
@@ -56,9 +57,12 @@ TaskingDateTimes = React.createClass
     TaskingActions.updateTime(id, period?.serialize(), type, value)
 
   render: ->
-    {isVisibleToStudents, isEditable, period, id, termStart, termEnd} = @props
+    {isVisibleToStudents, isEditable, period, courseId, id, termStart, termEnd} = @props
     period = period.serialize() if period
     commonDateTimesProps = _.pick @props, 'required', 'currentLocale', 'taskingIdentifier'
+
+    model = if period then period else Courses.get(courseId)
+    { default_open_time, default_due_time } = model
 
     defaults = TaskingStore.getDefaultsForTasking(id, period)
     {open_time, open_date, due_time, due_date} = TaskingStore._getTaskingFor(id, period)
@@ -103,7 +107,7 @@ TaskingDateTimes = React.createClass
         setTime={_.partial(@setTime, 'open')}
         value={ openDate }
         defaultValue={open_time or defaults.open_time}
-        defaultTime={defaults.open_time}
+        defaultTime={default_open_time}
         setDefaultTime={@setDefaultTime}
         timeLabel='default_open_time'
         isSetting={@isSetting}
@@ -119,7 +123,7 @@ TaskingDateTimes = React.createClass
         setTime={_.partial(@setTime, 'due')}
         value={due_date}
         defaultValue={due_time or defaults.due_time}
-        defaultTime={defaults.due_time}
+        defaultTime={default_due_time}
         setDefaultTime={@setDefaultTime}
         timeLabel='default_due_time'
         isSetting={@isSetting}
