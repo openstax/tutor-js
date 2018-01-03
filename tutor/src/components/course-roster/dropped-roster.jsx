@@ -37,9 +37,9 @@ export default class DroppedRoster extends React.PureComponent {
   }
 
   render() {
-    const { droppedStudents } = this.props.course.roster;
+    const { dropped } = this.props.course.roster.students;
 
-    if (isEmpty(droppedStudents)) { return null; }
+    if (isEmpty(dropped)) { return null; }
 
     return (
       <div className="settings-section dropped-students">
@@ -71,7 +71,7 @@ export default class DroppedRoster extends React.PureComponent {
             </tr>
           </thead>
           <tbody>
-            {map(sortBy(droppedStudents, 'last_name'), this.renderStudentRow)}
+            {map(sortBy(dropped, 'last_name'), this.renderStudentRow)}
           </tbody>
         </Table>
       </div>

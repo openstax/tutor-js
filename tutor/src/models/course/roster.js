@@ -1,10 +1,11 @@
-import { filter } from 'lodash';
+import { filter, groupBy } from 'lodash';
 import {
   BaseModel, identifiedBy, field, hasMany, computed, belongsTo,
 } from '../base';
 
 import Teacher from './teacher';
 import Student from './student';
+import { extendHasMany } from '../../helpers/computed-property';
 
 @identifiedBy('course/roster')
 export default class CourseRoster extends BaseModel {
@@ -12,18 +13,20 @@ export default class CourseRoster extends BaseModel {
   @field teach_url;
 
   @belongsTo({ model: 'course' }) course;
-  @hasMany({ model: Teacher, inverseOf: 'roster' }) teachers;
-  @hasMany({ model: Student, inverseOf: 'roster' }) students;
+
+  @hasMany({ model: Teacher, inverseOf: 'roster', extend: extendHasMany({
+    active() { return filter(this, t => t.is_active); },
+    dropped(){ return filter(this, t => !t.is_active); },
+  }) }) teachers;
+
+  @hasMany({ model: Student, inverseOf: 'roster', extend: extendHasMany({
+    active() { return filter(this, t => t.is_active); },
+    activeByPeriod() { return groupBy(filter(this, t => t.is_active), 'period_id'); },
+    dropped(){ return filter(this, t => !t.is_active); },
+  }) }) students;
 
   fetch() {
     return { courseId: this.course.id };
   }
 
-  studentsForPeriod(period) {
-    return filter(this.students, { is_active: true, period_id: period.id });
-  }
-
-  @computed get droppedStudents() {
-    return filter(this.students, { is_active: false });
-  }
 }

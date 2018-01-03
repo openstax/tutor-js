@@ -56,7 +56,7 @@ export default class PeriodRoster extends React.PureComponent {
 
   render() {
     const course = this.props.period.course;
-    const students = course.roster.studentsForPeriod(this.props.period);
+    const students = course.roster.students.activeByPeriod[this.props.period.id];
 
     if (isEmpty(students)) { return this.renderEmpty(course); }
 

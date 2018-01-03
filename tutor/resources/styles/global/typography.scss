@@ -61,17 +61,17 @@ $tutor-default-font-face: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, s
   font-family: $tutor-default-font-face;
 }
 @mixin tutor-main-title-font() {
-   @include tutor-sans-font(3rem);
+  @include tutor-sans-font(3rem, 3.7rem);
   color: $tutor-neutral-darker;
   font-weight: 600;
 }
 @mixin tutor-main-subtitle-font() {
-  @include tutor-sans-font(2.5rem);
+  @include tutor-sans-font(2.5rem, 2.7rem);
   color: $tutor-neutral-darker;
   font-weight: 500;
 }
 @mixin tutor-section-title-font() {
-   @include tutor-sans-font(2.5rem);
+  @include tutor-sans-font(2.5rem, 2.7rem);
   color: $tutor-neutral-darker;
   font-weight: 500;
 }
