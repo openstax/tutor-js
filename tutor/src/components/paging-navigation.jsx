@@ -164,7 +164,13 @@ export default class PagingNavigation extends React.PureComponent {
     return (
       <div className={classnames('tutor-paging-navigation', this.props.className)}>
         {this.renderPrev()}
-        <div className="paged-content" role="region" id="paged-content" tabIndex="0" aria-live="polite">
+        <div
+          tabIndex="0"
+          role="region"
+          aria-live="polite"
+          id="paged-content"
+          className="paged-content"
+        >
           {this.props.children}
         </div>
         {this.renderNext()}
