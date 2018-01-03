@@ -49,8 +49,11 @@ export default class AnnotationSummaryPage extends React.Component {
     return (
       <div className="summary-page">
         <div className="annotations">
+          <h1>
+            Highlights and annotations
+          </h1>
           <h4>
-            Here’s where you will see a summary of your highlights and annotations. To highlight, select text from your reading and click to highlight it or add a note.
+            Here’s where you will see a summary of your highlights and annotations.
           </h4>
         </div>
       </div>
@@ -64,6 +67,9 @@ export default class AnnotationSummaryPage extends React.Component {
 
     return (
       <div className="summary-page">
+        <h1>
+          Highlights and annotations
+        </h1>
         <div className="filter-area">
           <SectionsFilter
             sections={this.annotationsBySection}
@@ -73,7 +79,7 @@ export default class AnnotationSummaryPage extends React.Component {
         <div className="annotations">
           {map(this.selectedAnnotations, (notes, ch) =>
             <div key={ch}>
-              <h1>{notes[0].formattedChapterSection} {notes[0].title}</h1>
+              <h2>{notes[0].formattedChapterSection} {notes[0].title}</h2>
               {map(notes, (annotation) => (
                 <AnnotationCard
                   key={annotation.id}

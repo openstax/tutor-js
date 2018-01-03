@@ -17,7 +17,7 @@
     transform: translate(calc(10px - 50%), 10px);
     z-index: 2;
     @include no-select();
-
+    @include tutor-shadow(subtle);
     [role="button"] {
       padding: 1.5rem;
 
@@ -175,8 +175,11 @@
     }
 
     h1 {
-      font-size: 18px;
+      @include tutor-main-title-font();
       border-top-width: 0;
+    }
+    h2 {
+      @include tutor-main-subtitle-font();
     }
   }
 
