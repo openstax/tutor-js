@@ -11,12 +11,17 @@ jest.mock('../../src/helpers/router');
 const COURSE_ID = '1';
 
 describe('Reference Book Component', function() {
-  let props, ux, course, REFERENCE_BOOK, REFERENCE_BOOK_PAGE_DATA;
+  let props, ux, course, REFERENCE_BOOK, REFERENCE_BOOK_PAGE_DATA, router;
 
   beforeEach(function() {
     REFERENCE_BOOK = require('../../api/ecosystems/1/readings.json');
     REFERENCE_BOOK_PAGE_DATA = require('../../api/pages/17f6ff53-2d92-4669-acdd-9a958ea7fd0a@12.json');
     course = bootstrapCoursesList().get(COURSE_ID);
+    router = {
+      history: {
+        push: jest.fn(),
+      },
+    };
     course.referenceBook.fetch=jest.fn(function() {
       this.onApiRequestComplete({ data: REFERENCE_BOOK });
       this.pages.values().forEach((pg) => pg.fetch = jest.fn());
@@ -25,7 +30,7 @@ describe('Reference Book Component', function() {
       return Promise.resolve(this);
     });
     Router.currentParams.mockReturnValue({ courseId: COURSE_ID });
-    ux = new ReferenceBookUX(course);
+    ux = new ReferenceBookUX(course, router);
     ux.setSection('2.1');
     props = {
       ux,
@@ -51,13 +56,10 @@ describe('Reference Book Component', function() {
 
   it('navigates forward and back between pages', function() {
     expect(ux.activePage.chapter_section.asString).toEqual('2.1');
+    Router.makePathname.mockReturnValue('/test/route/3');
     const book = mount(<ReferenceBook {...props} />, EnzymeContext.build());
     book.find('.paging-control.next').simulate('click');
-    expect(ux.activePage.chapter_section.asString).toEqual('2.2');
-    book.find('.paging-control.prev').simulate('click');
-    expect(ux.activePage.chapter_section.asString).toEqual('2.1');
-    book.find('.paging-control.prev').simulate('click');
-    expect(ux.activePage.chapter_section.asString).toEqual('1.3');
+    expect(router.history.push).toHaveBeenCalledWith('/test/route/3');
   });
 
 

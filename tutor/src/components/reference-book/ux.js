@@ -98,7 +98,6 @@ export default class ReferenceBookUX {
     }, { query: Router.currentQuery() });
   }
 
-
   sectionLinkProps(section) {
     if (!section) { return null; }
     return {
