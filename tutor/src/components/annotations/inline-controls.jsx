@@ -1,11 +1,14 @@
 import React from 'react';
 import Icon from '../icon';
+import HighlightIcon from './highlight-icon';
 
 const InlineControls = ({ style, annotate, highlight }) => (
   style ? (
     <div className="widget arrow-box" style={style}>
-      <Icon type="comment" alt="annotate" onClick={annotate} />
-      <Icon type="pencil" alt="highlight" onClick={highlight} />
+      <Icon className="comment" type="comment" alt="annotate" onClick={annotate} />
+      <button className="annotate" onClick={annotate}>
+        <HighlightIcon role="button" alt="highlight" onClick={highlight} />
+      </button>
     </div>
   ) : null
 );

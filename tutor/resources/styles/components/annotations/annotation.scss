@@ -18,12 +18,36 @@
     z-index: 2;
     @include no-select();
     @include tutor-shadow(subtle);
-    [role="button"] {
-      padding: 1.5rem;
-
-      &:first-child {
-        border-right: thin solid lightgray;
+    display: flex;
+    align-items: center;
+    > * {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .annotate {
+      svg {
+        width: 30px;
+        height: 30px;
+        path {
+          fill: $tutor-neutral-darker;
+        }
       }
+      .outline { display: none; }
+      border: 0;
+      &:hover {
+        svg path { fill: $tutor-black; }
+      }
+    }
+    .comment {
+      border-right: thin solid $tutor-neutral-light;
+      color: $tutor-neutral-darker;
+      &:hover {
+        color: $tutor-black;
+      }
+
     }
   }
 
