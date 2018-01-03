@@ -120,7 +120,7 @@ const ROUTES = [
   { path: '/enroll/start/:enrollmentCode', name: 'createEnrollmentChange', renderer: getCreateEnrollmentChange },
   { path: '/new-course/:sourceId?', name: 'createNewCourse', renderer: getCreateCourse },
   {
-    path: '/qa', name: 'QADashboard', renderer: () => loadAsync(() => System.import('./screens/qa/index.jsx')),
+    path: '/qa', name: 'QADashboard', renderer: loadAsync(() => System.import('./screens/qa/index.jsx')),
 
     // routes: [
     //   {

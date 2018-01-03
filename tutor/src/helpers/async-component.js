@@ -10,9 +10,13 @@ const ErrorComponent = () => (
 );
 
 export function loadAsync(resolve) {
-  return asyncComponent({
-    resolve,
-    LoadingComponent,
-    ErrorComponent,
-  });
+  // return a function so the router will only evaluate it when it's needed
+  // in the future we can insert role dependant logic here
+  return () => (
+    asyncComponent({
+      resolve,
+      LoadingComponent,
+      ErrorComponent,
+    })
+  );
 }
