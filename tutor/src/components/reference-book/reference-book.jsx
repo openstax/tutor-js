@@ -15,31 +15,13 @@ export default class ReferenceBook extends React.Component {
     ux: React.PropTypes.instanceOf(UX).isRequired,
   };
 
-  isMenuOnTop = () => {
-    return (
-      this.state.windowEl.width < MENU_VISIBLE_BREAKPOINT
-    );
-  };
-
-  onMenuClick = (section, ev) => {
-    if (this.isMenuOnTop()) { this.toggleMenuState(); }
-    return (
-      (typeof this.props.onSectionSelection === 'function' ? this.props.onSectionSelection(section, ev) : undefined)
-    );
-  };
-
-  toggleMenuState = (ev) => {
-    this.setState({ isMenuVisible: !this.state.isMenuVisible });
-    return (
-      (ev != null ? ev.preventDefault() : undefined)
-    );
-  }; // needed to prevent scrolling to top
-
   render() {
     const { ux } = this.props;
 
-    const className = classnames('reference-book', this.props.className,
-      { 'menu-open': ux.isMenuVisible });
+    const className = classnames('reference-book', this.props.className, {
+      'menu-open': ux.isMenuVisible,
+      'menu-on-top': ux.isMenuOnTop,
+    });
 
     return (
       <div {...ux.dataProps} className={className}>

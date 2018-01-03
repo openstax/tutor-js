@@ -1,24 +1,28 @@
 .reference-book {
-    .menu {
-      position: fixed;
-      top: 60px;
-      left: 0;
-      background: white;
-     // border-right: 1px solid $tutor-neutral;
-      margin-left: -$reference-book-menu-width;
-      bottom: 0;
-      width: $reference-book-menu-width;
-      z-index: 3;  // on top of book elements (booksplash, forward/prev controls)
-      @include transition(margin-left 0.2s linear);
-      @include printer-safe(none);
-    }
+  .menu {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    background: white;
+    margin-left: -$reference-book-menu-width;
+    bottom: 0;
+    width: $reference-book-menu-width;
+    z-index: 3;  // on top of book elements (booksplash, forward/prev controls)
+    @include transition(margin-left 0.2s linear);
+    @include printer-safe(none);
 
-
+  }
 
   &.menu-open {
     .menu {
       margin-left: 0;
       @include tutor-shadow(2);
+    }
+    &.menu-on-top {
+      .menu {
+        z-index: $zindex-navbar + 100;
+        box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+      }
     }
   }
 

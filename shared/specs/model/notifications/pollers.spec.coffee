@@ -40,11 +40,11 @@ describe 'Notification Pollers', ->
 
   it 'polls when url is set', ->
     for poller in @pollers
-      expect(@notices.windowImpl.setInterval).not.to.have.been.called
+      expect(@notices.windowImpl.setInterval).not.toHaveBeenCalled()
       poller.setUrl('/test')
       expect(poller.url).toEqual('/test')
-      expect(@notices.windowImpl.setInterval).to.have.been.called
-      @notices.windowImpl.setInterval.reset()
+      expect(@notices.windowImpl.setInterval).toHaveBeenCalled()
+      @notices.windowImpl.setInterval.mockClear()
     undefined
 
   it 'returns list of active notices', ->

@@ -9,7 +9,7 @@ EmptyFn = ->
 
 class FakeWindow
   clearInterval: EmptyFn
-  setInterval: -> sinon.spy( -> Math.random() )
+  setInterval: -> jest.fn( -> Math.random() )
   document:
     hidden: false
   pageYOffset: 0
@@ -22,25 +22,27 @@ class FakeWindow
   location:
     pathname: '/'
     search: ''
+  innerHeight: 1024
+  innerWidth:  768
 
   constructor: (attrs = {}) ->
     merge(@, attrs)
     for name, method of @ when isFunction(method)
-      # sinon.spy(@, name) was causing some weird stack trace on the above methods...
-      @[name] = sinon.spy(method)
+      # jest.fn(@, name) was causing some weird stack trace on the above methods...
+      @[name] = jest.fn(method)
     @localStorage =
       getItem: sinon.stub().returns('[]')
       setItem: sinon.stub()
     @history =
-      pushState: sinon.spy()
-    @open = sinon.spy( =>
+      pushState: jest.fn()
+    @open = jest.fn( =>
       @openedDOM = new JSDOM('<!DOCTYPE html><body></body>')
       return @openedDOM.window
     )
     @screen =
       height: 1024
       width:  768
-    @addEventListener = sinon.spy()
-    @removeEventListener = sinon.spy()
+    @addEventListener = jest.fn()
+    @removeEventListener = jest.fn()
 
 module.exports = FakeWindow
