@@ -71,17 +71,14 @@
           background-color: $openstax-neutral-lightest;
         }
       }
+      @include answer();
     }
 
-    .answer-content {
-      width: calc('100% - #{$openstax-answer-label-spacing}');
+    .answer-answer {
       margin-left: $openstax-answer-horizontal-spacing;
-      margin-top: 0.5 * $openstax-answer-horizontal-spacing;
-      @include answer-left-block();
     }
 
     .answer-letter {
-      @include answer-left-block();
       text-align: center;
     }
 
@@ -93,7 +90,6 @@
       margin: 0;
 
       transition: color $openstax-answer-transition;
-      @include answer();
     }
 
     // a selectable answer

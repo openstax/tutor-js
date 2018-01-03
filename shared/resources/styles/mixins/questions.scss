@@ -1,23 +1,13 @@
 @mixin openstax-bubble() {
   $diameter: $openstax-answer-bubble-size;
   $border-size: 2px;
-
   width: $diameter;
   height: $diameter;
-  line-height: $diameter * .90;
+  min-width: $diameter;
+  min-height: $diameter;
   border-radius: $diameter / 2;
   border-width: $border-size;
   border-style: solid;
-
-  &::after {
-    width: $diameter;
-    height: $diameter;
-    line-height: $diameter;
-    margin-left: -1 * $border-size;
-    margin-top: -1 * $border-size;
-    text-align: center;
-    display: inline-block;
-  }
 };
 
 @mixin answer-fa-icon() {
@@ -32,7 +22,7 @@
   @include openstax-bubble();
   border-color: lighten($openstax-answer-label-color, 15%);
   color: $openstax-answer-label-color-hover;
-
+  margin-top: $openstax-answer-bubble-size * .25;
   transition: color $openstax-answer-transition, border-color $openstax-answer-transition, background-color $openstax-answer-transition;
 };
 
@@ -50,7 +40,6 @@
   border-color: $openstax-wrong-answer-color;
   background-color: $openstax-wrong-answer-color;
   color: $openstax-white;
-
   &::after {
     @include answer-fa-icon();
     content: $fa-var-close;
@@ -73,12 +62,10 @@
   color: $openstax-correct-answer-color;
 }
 
-@mixin answer-left-block() {
-  display: block;
-  float: left;
-}
-
 @mixin answer() {
+  .answer-label {
+    display: flex;
+  }
   color: $openstax-answer-label-color;
   .answer-letter {
     @include answer-bubble();
@@ -130,6 +117,5 @@
     // http://caniuse.com/#feat=rem -- rem ignored in pseudo elements
     line-height: 1em;
     margin-top: 0.8rem;
-    @include answer-left-block();
   }
 }
