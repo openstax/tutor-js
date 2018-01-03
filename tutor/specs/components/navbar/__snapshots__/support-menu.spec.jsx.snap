@@ -25,9 +25,10 @@ exports[`Support Menu renders and matches snapshot 1`] = `
     >
       Help
     </span>
-     
-    <span
-      className="caret"
+    <i
+      className="tutor-icon fa fa-angle-down"
+      role="presentation"
+      type="angle-down"
     />
   </a>
   <ul
@@ -121,9 +122,10 @@ exports[`Support Menu renders support links when in a course for student 1`] = `
     >
       Help
     </span>
-     
-    <span
-      className="caret"
+    <i
+      className="tutor-icon fa fa-angle-down"
+      role="presentation"
+      type="angle-down"
     />
   </a>
   <ul
@@ -218,9 +220,10 @@ exports[`Support Menu renders support links when in a course for teacher 1`] = `
     >
       Help
     </span>
-     
-    <span
-      className="caret"
+    <i
+      className="tutor-icon fa fa-angle-down"
+      role="presentation"
+      type="angle-down"
     />
   </a>
   <ul

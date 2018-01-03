@@ -42,6 +42,17 @@ export class User extends BaseModel {
     return this.first_name || this.name ? this.name.replace(/ .*/, '') : '';
   }
 
+  @computed get lastName() {
+    return this.last_name || this.name ? this.name.replace(/.* /, '') : '';
+  }
+
+  @computed get initials() {
+    let initials = [];
+    if (this.firstName) { initials.push(this.firstName[0]); }
+    if (this.lastName)  { initials.push(this.lastName[0]); }
+    return initials.join(' ');
+  }
+
   @computed get canAnnotate() {
     return !!find(Courses.nonPreview.active.array, { canAnnotate: true });
   }

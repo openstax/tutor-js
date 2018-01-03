@@ -8,9 +8,7 @@ import { autobind } from 'core-decorators';
 import Icon from '../icon';
 
 import TourAnchor from '../tours/anchor';
-import AccountLink from './account-link';
 import BrowseTheBook from '../buttons/browse-the-book';
-import LogOut from './logout';
 import Router from '../../helpers/router';
 import User from '../../models/user';
 import UserMenu from '../../models/user/menu';
@@ -31,7 +29,7 @@ const CustomComponents = {
 };
 
 @observer
-export default class UserActionsMenu extends React.PureComponent {
+export default class ActionsMenu extends React.Component {
 
   static defaultProps = { windowImpl: window }
 
@@ -97,26 +95,22 @@ export default class UserActionsMenu extends React.PureComponent {
   }
 
   render() {
-
-    const course = Courses.get(this.props.courseId);
-    const isConceptCoach = get(course, 'is_concept_coach', false);
-
     return (
       <Dropdown
-        id="user-actions-menu"
+        id="actions-menu"
         pullRight
-        className={classnames('user-actions-menu', { 'is-concept-coach': isConceptCoach })}
+        className={classnames('actions-menu')}
       >
         <Dropdown.Toggle
           useAnchor={true}
+          noCaret
         >
-          <Icon type="user" />
-          <span className="control-label" title="Menu and settings">Hi {User.firstName}</span>
+          <Icon type="bars" />
+          <span className="control-label" title="Menu and settings">Menu</span>
+          <Icon type="angle-down" />
         </Dropdown.Toggle>
         <Dropdown.Menu >
           {flatMap(UserMenu.getRoutes(this.props.courseId), this.renderMenuItem)}
-          <AccountLink bsRole="menu-item" />
-          <LogOut bsRole="menu" isConceptCoach={isConceptCoach} />
         </Dropdown.Menu>
       </Dropdown>
     );

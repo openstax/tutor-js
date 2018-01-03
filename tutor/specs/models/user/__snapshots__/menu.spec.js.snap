@@ -33,9 +33,6 @@ Array [
   Object {
     "label": "Change Student ID",
     "name": "changeStudentId",
-    "options": Object {
-      "separator": "after",
-    },
     "params": Object {
       "courseId": "1",
     },

@@ -4,12 +4,12 @@ import { Provider } from 'mobx-react';
 import Router                from '../../helpers/router';
 import TutorLink             from '../link';
 import ServerErrorMonitoring from '../error-monitoring';
-import UserActionsMenu       from './user-actions-menu';
+import ActionsMenu           from './actions-menu';
+import UserMenu              from './user-menu';
 import BookLinks             from './book-links';
 import CenterControls        from './center-controls';
 import PreviewAddCourseBtn   from './preview-add-course-btn';
 import SupportMenu           from './support-menu';
-import StudentPreviewLink    from './student-previews-link';
 import StudentPayNowBtn      from './student-pay-now-btn';
 import BackgroundJobToasts   from './background-toasts';
 import ReferenceBookNavBar   from '../reference-book/navbar';
@@ -28,11 +28,11 @@ function DefaultNavBar({ params }) {
         </div>
         <CenterControls params={params} />
         <div className="right-side-controls">
-          <PreviewAddCourseBtn courseId={courseId} />
           <SupportMenu />
           <StudentPayNowBtn    courseId={courseId} />
-          <StudentPreviewLink  courseId={courseId} />
-          <UserActionsMenu     courseId={courseId} />
+          <ActionsMenu         courseId={courseId} />
+          <PreviewAddCourseBtn courseId={courseId} />
+          <UserMenu />
         </div>
       </div>
       <ServerErrorMonitoring />

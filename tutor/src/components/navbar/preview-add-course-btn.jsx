@@ -3,12 +3,12 @@ import { Button } from 'react-bootstrap';
 import { observer, inject } from 'mobx-react';
 import { computed, action } from 'mobx';
 import { get } from 'lodash';
-
+import Icon from '../icon';
 import TourAnchor from '../tours/anchor';
 import TourContext from '../../models/tour/context';
 import Router from '../../helpers/router';
 import Courses from '../../models/courses-map.js';
-import User from '../../models/user.js';
+
 import onboardingForCourse from '../../models/course/onboarding';
 
 @inject((allStores, props) => ({
@@ -50,7 +50,10 @@ export default class PreviewAddCourseBtn extends React.PureComponent {
 
     return (
       <TourAnchor id="preview-add-course-nav-button">
-        <Button bsStyle="primary" onClick={this.onAddCourse}>Create a course</Button>
+        <Button onClick={this.onAddCourse}>
+          <Icon type="plus" />
+          Create a course
+        </Button>
       </TourAnchor>
     );
   }

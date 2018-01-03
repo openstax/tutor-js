@@ -63,7 +63,7 @@
       "position": "left",
       "is_fixed": true,
       "action": {
-        "id": "open-user-menu"
+        "id": "open-actions-menu"
       }
     }, {
       "title": "Student enrollment",
@@ -72,7 +72,7 @@
       "position": "left",
       "is_fixed": true,
       "action": {
-        "id": "open-user-menu"
+        "id": "open-actions-menu"
       }
     }, {
       "title": "Browse the book",
@@ -81,14 +81,17 @@
       "position": "left",
       "is_fixed": true,
       "action": {
-        "id": "open-user-menu"
+        "id": "open-actions-menu"
       }
     }, {
       "title": "Student preview videos",
       "body": "View the student experience here.",
       "anchor_id": "student-preview-link",
       "position": "bottom-center",
-      "is_fixed": true
+      "is_fixed": true,
+      "action": {
+        "id": "open-support-menu"
+      }
     }, {
       "title": "Remember, this is a preview course",
       "body": "You're in a preview course with pre-populated data. When you're done exploring the preview course, here's where you can create a real course.",
@@ -120,7 +123,7 @@
     "position": "left",
     "is_fixed": true,
     "action": {
-      "id": "open-user-menu"
+      "id": "open-actions-menu"
     }
   }]
 }]

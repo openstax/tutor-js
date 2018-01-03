@@ -52,16 +52,36 @@
     }
 
     .tutor-icon {
-      margin-right: 0.5rem;
+      margin: 0 0.5rem;
     }
 
     .chat {
+      .tutor-icon {
+        font-size: 18px;
+      }
       &.enabled {
-        a { color: $tutor-dark-blue; }
+        .tutor-icon { color: $tutor-secondary; }
       }
       &.disabled {
         a { color: $tutor-neutral-lite; }
       }
+    }
+
+  }
+
+  &.user-menu {
+    .initials {
+      $diameter: 35px;
+      height: $diameter;
+      width: $diameter;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: $diameter/2;
+      font-size: $diameter * 0.4;
+      color: white;
+      background-color: #2e7194;
+      letter-spacing: -2px;
     }
   }
 

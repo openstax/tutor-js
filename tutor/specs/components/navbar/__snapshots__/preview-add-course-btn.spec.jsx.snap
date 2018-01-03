@@ -7,11 +7,16 @@ exports[`Preview Add Course Button renders and matches snapshot 1`] = `
   id="preview-add-course-nav-button"
 >
   <button
-    className="btn btn-primary"
+    className="btn btn-default"
     disabled={false}
     onClick={[Function]}
     type="button"
   >
+    <i
+      className="tutor-icon fa fa-plus"
+      role="presentation"
+      type="plus"
+    />
     Create a course
   </button>
 </div>

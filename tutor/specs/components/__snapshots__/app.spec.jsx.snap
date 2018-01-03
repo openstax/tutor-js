@@ -56,9 +56,10 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                 >
                   Help
                 </span>
-                 
-                <span
-                  className="caret"
+                <i
+                  className="tutor-icon fa fa-angle-down"
+                  role="presentation"
+                  type="angle-down"
                 />
               </a>
               <ul
@@ -105,36 +106,37 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
               </ul>
             </div>
             <div
-              className="user-actions-menu dropdown btn-group"
+              className="actions-menu dropdown btn-group"
             >
               <a
                 aria-expanded={false}
                 aria-haspopup={true}
                 className="dropdown-toggle"
                 href="#"
-                id="user-actions-menu"
+                id="actions-menu"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
               >
                 <i
-                  className="tutor-icon fa fa-user"
+                  className="tutor-icon fa fa-bars"
                   role="presentation"
-                  type="user"
+                  type="bars"
                 />
                 <span
                   className="control-label"
                   title="Menu and settings"
                 >
-                  Hi 
+                  Menu
                 </span>
-                 
-                <span
-                  className="caret"
+                <i
+                  className="tutor-icon fa fa-angle-down"
+                  role="presentation"
+                  type="angle-down"
                 />
               </a>
               <ul
-                aria-labelledby="user-actions-menu"
+                aria-labelledby="actions-menu"
                 className="dropdown-menu dropdown-menu-right"
                 role="menu"
               >
@@ -172,6 +174,30 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                   role="separator"
                   style={undefined}
                 />
+              </ul>
+            </div>
+            <div
+              className="user-menu dropdown btn-group"
+            >
+              <a
+                aria-expanded={false}
+                aria-haspopup={true}
+                className="dropdown-toggle"
+                href="#"
+                id="user-menu"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+              >
+                <span
+                  className="initials"
+                />
+              </a>
+              <ul
+                aria-labelledby="user-menu"
+                className="dropdown-menu dropdown-menu-right"
+                role="menu"
+              >
                 <li
                   className="logout"
                 >

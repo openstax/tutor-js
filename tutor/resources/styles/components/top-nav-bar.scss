@@ -16,17 +16,26 @@ $tutor-navbar-padding-horizontal: 4rem;
 
     .tutor-icon {
       font-size: 1.6rem;
-      margin-left: 0;
-      margin-right: 0.5rem;
+
+      &:first-child {
+        margin: 0 0.5rem 0 0;
+      }
+      &:last-child {
+        margin: 0 0 0 0.5rem;
+      }
       @media screen and ( min-width: $screen-md-min ){
-        margin-right: 1rem;
+        &:first-child {
+          margin: 0 1rem 0 0;
+        }
+        &:last-child {
+          margin: 0 0 0 1rem;
+        }
       }
     }
     @media screen and ( max-width: $screen-md ){
       .control-label { display: none; }
     }
   }
-
 
   background: $tutor-white;
   box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);

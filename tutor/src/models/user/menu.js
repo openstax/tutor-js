@@ -67,9 +67,6 @@ const ROUTES = {
     roles: {
       student: 'changeStudentId',
     },
-    options: {
-      separator: 'after',
-    },
   },
   createNewCourse: {
     label: 'Create a Course',
