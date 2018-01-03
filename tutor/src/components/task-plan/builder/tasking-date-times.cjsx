@@ -37,8 +37,8 @@ TaskingDateTimes = React.createClass
 
   setDefaultTime: (timeChange) ->
     {courseId, period} = @props
-    model = if period then Courses.get(courseId) else period
-    model.time_zone = timeChange
+    model = if period then period else Courses.get(courseId)
+    _.assign(model, timeChange)
     model.save()
 
   isSetting: ->
