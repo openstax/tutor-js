@@ -22,12 +22,16 @@ export default class ReferenceBookShell extends React.Component {
     navBar: React.PropTypes.instanceOf(NavbarContext).isRequired,
   }
 
+  static contextTypes = {
+    router: React.PropTypes.object,
+  }
+
   @computed get course() {
     const { courseId } = this.props.params;
     return Courses.get(courseId);
   }
 
-  ux = new UX(this.course);
+  ux = new UX(this.course, this.context.router);
 
   componentWillMount() {
     this.ux.setSection(this.props.params.section);

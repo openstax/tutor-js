@@ -21,8 +21,9 @@ export default class ReferenceBookUX {
   @observable hasTeacherContent = false;
   @observable navBar;
 
-  constructor(course) {
+  constructor(course, router) {
     this.course = course;
+    this.router = router;
     this.course.referenceBook.fetch().then(() => {
       if (this.activePage) { this.activePage.ensureLoaded(); }
     });
@@ -89,7 +90,16 @@ export default class ReferenceBookUX {
     return this.course.referenceBook.children;
   }
 
-  routerLinkProps(section) {
+  sectionHref(section) {
+    if (!section) { return null; }
+    return Router.makePathname('viewReferenceBookSection', {
+      courseId: this.course.id,
+      section: section.chapter_section.asString,
+    }, { query: Router.currentQuery() });
+  }
+
+
+  sectionLinkProps(section) {
     if (!section) { return null; }
     return {
       to: 'viewReferenceBookSection',
@@ -98,12 +108,8 @@ export default class ReferenceBookUX {
     };
   }
 
-  @action.bound onPrevSection() {
-    this.setSection(this.activePage.prevPage.chapter_section.asString);
-  }
-
-  @action.bound onNextSection() {
-    this.setSection(this.activePage.nextPage.chapter_section.asString);
+  @action.bound onNavSetSection(path) {
+    this.router.history.push(path);
   }
 
   @computed get pageProps() {
@@ -112,12 +118,12 @@ export default class ReferenceBookUX {
 
   @computed get pagingProps() {
     return {
-      onForwardNavigation: this.onNextSection,
-      onBackwardNavigation: this.onPrevSection,
+      onForwardNavigation: this.onNavSetSection,
+      onBackwardNavigation: this.onNavSetSection,
       isForwardEnabled: !!this.activePage.nextPage,
       isBackwardEnabled: !!this.activePage.prevPage,
-      forwardRouterProps: this.routerLinkProps(this.activePage.nextPage),
-      backwardRouterProps: this.routerLinkProps(this.activePage.prevPage),
+      forwardHref: this.sectionHref(this.activePage.nextPage),
+      backwardHref: this.sectionHref(this.activePage.prevPage),
     };
   }
 

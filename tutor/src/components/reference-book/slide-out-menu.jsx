@@ -22,7 +22,7 @@ class Section extends React.Component {
       >
         <li data-section={section.chapter_section.asString}>
           <TutorLink
-            {...ux.routerLinkProps(section)}
+            {...ux.sectionLinkProps(section)}
             tabIndex={ux.isMenuVisible ? 0 : -1}
             className={section === ux.activePage ? 'active' : ''}
             onClick={partial(ux.setSection, section.chapter_section.asString)}
