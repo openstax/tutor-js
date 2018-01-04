@@ -43,6 +43,9 @@ exports[`Annotations renders and matches snapshot 1`] = `
       <div
         className="summary-page"
       >
+        <h1>
+          Highlights and annotations
+        </h1>
         <div
           className="filter-area"
         >
@@ -119,11 +122,11 @@ exports[`Annotations renders and matches snapshot 1`] = `
           className="annotations"
         >
           <div>
-            <h1>
+            <h2>
               2.1
                
               Atoms, Isotopes, Ions, and Molecules: The Building Blocks
-            </h1>
+            </h2>
             <div
               className="annotation-card"
             >

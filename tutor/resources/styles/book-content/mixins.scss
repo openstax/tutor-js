@@ -30,14 +30,6 @@
     margin: .1em .08em 0 -.06em; //best combination on line-height and margin to look good in chrome and ff
   }
 
-  & > .tutor-highlight:first-child {
-    display: inline-block;
-    &::first-letter {
-      float: none;
-      @include tutor-sans-font(1.75rem, .7em); //setting line-height in em to scale on browser zoom
-    }
-  }
-
   // use clearfix hack to ensure the paragraph's first-leter does not flow into the following block
   &:after {
     content: " ";
