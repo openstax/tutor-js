@@ -27,7 +27,7 @@
       align-items: center;
       justify-content: center;
     }
-    .annotate {
+    .highlight {
       svg {
         width: 30px;
         height: 30px;
@@ -41,7 +41,7 @@
         svg path { fill: $tutor-black; }
       }
     }
-    .comment {
+    .annotate {
       border-right: thin solid $tutor-neutral-light;
       color: $tutor-neutral-darker;
       &:hover {
