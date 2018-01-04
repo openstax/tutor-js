@@ -115,6 +115,7 @@ export default class ScrollTo {
 
   scrollToElement(el, options ) {
     if (options == null) { options = {}; }
+    if (!el.parentElement) { return Promise.resolve(); } // the element has been deleted
     const win       = this.windowImpl;
     const endPos    = this._desiredTopPosition(el, options);
 
