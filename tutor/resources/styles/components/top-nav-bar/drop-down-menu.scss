@@ -67,6 +67,10 @@
       }
     }
 
+    .divider:last-child {
+      display: none;
+    }
+
   }
 
   &.user-menu {

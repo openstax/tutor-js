@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dropdown, MenuItem } from 'react-bootstrap';
 
-import {  partial, flatMap, get } from 'lodash';
+import {  partial, flatMap, get, isEmpty } from 'lodash';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
 import { autobind } from 'core-decorators';
@@ -95,6 +95,12 @@ export default class ActionsMenu extends React.Component {
   }
 
   render() {
+    const menuRoutes = UserMenu.getRoutes(this.props.courseId);
+
+    if (isEmpty(menuRoutes)) {
+      return null;
+    }
+
     return (
       <Dropdown
         id="actions-menu"
@@ -110,7 +116,7 @@ export default class ActionsMenu extends React.Component {
           <Icon type="angle-down" />
         </Dropdown.Toggle>
         <Dropdown.Menu >
-          {flatMap(UserMenu.getRoutes(this.props.courseId), this.renderMenuItem)}
+          {flatMap(menuRoutes, this.renderMenuItem)}
         </Dropdown.Menu>
       </Dropdown>
     );
