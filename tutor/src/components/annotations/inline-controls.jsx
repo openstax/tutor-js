@@ -5,9 +5,9 @@ import HighlightIcon from './highlight-icon';
 const InlineControls = ({ style, annotate, highlight }) => (
   style ? (
     <div className="widget arrow-box" style={style}>
-      <Icon className="comment" type="comment" alt="annotate" onClick={annotate} />
-      <button className="annotate" onClick={annotate}>
-        <HighlightIcon role="button" alt="highlight" onClick={highlight} />
+      <Icon className="annotate" type="comment" alt="annotate" onClick={annotate} />
+      <button className="highlight" onClick={highlight}>
+        <HighlightIcon role="button" alt="highlight" />
       </button>
     </div>
   ) : null
