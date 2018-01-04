@@ -97,42 +97,6 @@ exports[`Main navbar renders and matches snapshot 1`] = `
         </ul>
       </div>
       <div
-        className="actions-menu dropdown btn-group"
-      >
-        <a
-          aria-expanded={false}
-          aria-haspopup={true}
-          className="dropdown-toggle"
-          href="#"
-          id="actions-menu"
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          role="button"
-        >
-          <i
-            className="tutor-icon fa fa-bars"
-            role="presentation"
-            type="bars"
-          />
-          <span
-            className="control-label"
-            title="Menu and settings"
-          >
-            Menu
-          </span>
-          <i
-            className="tutor-icon fa fa-angle-down"
-            role="presentation"
-            type="angle-down"
-          />
-        </a>
-        <ul
-          aria-labelledby="actions-menu"
-          className="dropdown-menu dropdown-menu-right"
-          role="menu"
-        />
-      </div>
-      <div
         className="user-menu dropdown btn-group"
       >
         <a
