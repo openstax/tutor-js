@@ -32,10 +32,8 @@ export default class TourConductor extends React.PureComponent {
 
   @autobind
   onSpyModelChange({ newValue: isEnabled }) {
-    this.tourContext.emitDebugInfo = isEnabled;
     if (isEnabled) {
       User.resetTours();
-
     }
   }
 
