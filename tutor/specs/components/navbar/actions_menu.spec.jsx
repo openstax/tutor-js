@@ -30,12 +30,12 @@ const testWithRole = roleType =>
     });
 
     it('should have link to browse the book', () => {
-      const menu = shallow(<UserActionsMenu {...props} />);
+      const menu = mount(<Wrapper _wrapped_component={UserActionsMenu}  {...props} />);
       expect(menu).toHaveRendered('BrowseBookMenuItem');
     });
 
     it('should have performance forecast menu', () => {
-      const menu = shallow(<UserActionsMenu {...props} />);
+      const menu = mount(<Wrapper _wrapped_component={UserActionsMenu}  {...props} />);
       expect(menu).toHaveRendered('[data-name="viewPerformanceGuide"]');
     });
   };
