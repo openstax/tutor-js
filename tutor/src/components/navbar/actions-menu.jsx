@@ -1,7 +1,9 @@
 import React from 'react';
 import { Dropdown, MenuItem } from 'react-bootstrap';
+import TutorRouter from '../../helpers/router'
+import { Route } from 'react-router';
 
-import {  partial, flatMap, get, isEmpty } from 'lodash';
+import {  partial, flatMap, get, isEmpty, omit } from 'lodash';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
 import { autobind } from 'core-decorators';
@@ -14,9 +16,26 @@ import User from '../../models/user';
 import UserMenu from '../../models/user/menu';
 import Courses from '../../models/courses-map';
 
-function BrowseBookMenuItem({ params: { courseId }, label }) {
+const RoutedMenuItem = (props) => {
+  const { label, name, tourId, className, route } = props;
+  const isActive = TutorRouter.isActive(route.name, route.params, route.options);
+
+  return (<Route path={props.href} exact>
+    <MenuItem
+      className={classnames(name, className, { 'active': isActive })}
+      data-name={name}
+      {...omit(props, ['label', 'name', 'tourId', 'className', 'route'])}
+    >
+      <TourAnchor id={tourId}>
+        {label}
+      </TourAnchor>
+    </MenuItem>
+  </Route>);
+}
+
+function BrowseBookMenuItem({ params: { courseId }, className, active, label }) {
   return (
-    <li role="presentation">
+    <li role="presentation" className={classnames(className, { 'active': active })}>
       <BrowseTheBook unstyled courseId={courseId}>
         <TourAnchor id="menu-option-browse-book">{label}</TourAnchor>
       </BrowseTheBook>
@@ -51,7 +70,7 @@ export default class ActionsMenu extends React.Component {
   @autobind
   renderMenuItem(menuOption) {
     const options = menuOption.options || {};
-    const isActive = false;
+    const isActive = TutorRouter.isActive(menuOption.name, menuOption.params, menuOption.options);
     const key = `menu-option-${options.key || menuOption.name || menuOption.key || menuOption.label}`;
     const Component = CustomComponents[menuOption.name];
 
@@ -67,18 +86,14 @@ export default class ActionsMenu extends React.Component {
       props = { href, onSelect: partial(this.transitionToMenuItem, href) };
     }
 
-    const item = (
-      <MenuItem
-        {...props}
-        className={classnames(menuOption.name, options.className, { 'active': isActive })}
-        key={key}
-        data-name={menuOption.name}
-      >
-        <TourAnchor id={key}>
-          {menuOption.label}
-        </TourAnchor>
-      </MenuItem>
-    );
+    const item = (<RoutedMenuItem {...props}
+      route={menuOption}
+      key={key}
+      tourId={key}
+      label={menuOption.label}
+      name={menuOption.name}
+    />);
+
     if (options.separator) {
       const separator = (suffix = 'divider') =>
         <MenuItem divider={true} key={`${key}-${suffix}`} />;
