@@ -75,8 +75,11 @@
       }
     }
 
-    .divider:last-child {
-      display: none;
+    .divider {
+      &:first-child,
+      &:last-child {
+        display: none;
+      }
     }
 
   }
