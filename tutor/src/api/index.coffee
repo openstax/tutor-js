@@ -29,7 +29,7 @@ PerformanceForecast = require '../flux/performance-forecast'
 
 {default: ReferenceBook} = require '../models/reference-book'
 {default: ReferenceBookPage} = require '../models/reference-book/page';
-
+{default: Ecosystems} = require '../models/ecosystems';
 {ReferenceBookExerciseActions} = require '../flux/reference-book-exercise'
 {NotificationActions} = require '../flux/notifications'
 
@@ -107,7 +107,7 @@ startAPI = ->
       _.map ExerciseStore.getUnsavedExclusions(), (is_excluded, id) -> {id, is_excluded}
   )
 
-  connectRead(TocActions, pattern: 'ecosystems/{id}/readings')
+#  connectRead(TocActions, pattern: 'ecosystems/{id}/readings')
   connectRead(CourseGuideActions, pattern: 'courses/{id}/guide')
 
   connectRead(CCDashboardActions, pattern: 'courses/{id}/cc/dashboard')
@@ -130,7 +130,7 @@ startAPI = ->
 
 
 
-  connectRead(EcosystemsActions, url: 'ecosystems')
+#  connectRead(EcosystemsActions, url: 'ecosystems')
 
 
   connectRead(TaskStepActions, pattern: 'steps/{id}')
@@ -157,12 +157,16 @@ startAPI = ->
   )
 
 
+#
   # connectRead(ReferenceBookPageActions, pattern: 'pages/{id}', trigger: 'loadSilent', handledErrors: ['*'])
   connectRead(ReferenceBookExerciseActions, url: (url) -> url)
 
   connectRead(NotificationActions,
     trigger: 'loadUpdates', onSuccess: 'loadedUpdates', url: 'notifications', handledErrors: ['*']
   )
+
+
+  connectModelRead(Ecosystems.constructor, 'fetch', onSuccess: 'onLoaded', url: 'ecosystems')
 
   connectModelRead(ReferenceBook, 'fetch', pattern: 'ecosystems/{id}/readings', onSuccess: 'onApiRequestComplete')
   connectModelRead(ReferenceBookPage, 'fetchContent', pattern: 'pages/{cnx_id}', onSuccess: 'onContentFetchComplete')

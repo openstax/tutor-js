@@ -5,8 +5,11 @@ const LoadingComponent = () => (
   <h1>loading</h1>
 );
 
-const ErrorComponent = () => (
-  <h1>error</h1>
+const ErrorComponent = ({ error }) => (
+  <div>
+    <h1>error</h1>
+    <p>{String(error)}</p>
+  </div>
 );
 
 export function loadAsync(resolve) {

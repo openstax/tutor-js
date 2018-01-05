@@ -120,8 +120,10 @@ const ROUTES = [
   { path: '/enroll/start/:enrollmentCode', name: 'createEnrollmentChange', renderer: getCreateEnrollmentChange },
   { path: '/new-course/:sourceId?', name: 'createNewCourse', renderer: getCreateCourse },
   {
-    path: '/qa', name: 'QADashboard', renderer: loadAsync(() => System.import('./screens/qa/index.jsx')),
-
+    name: 'QADashboard',
+    path: '/qa/:ecosystemId?/:section?',
+    settings: { navBar: 'ReferenceBook' },
+    renderer: loadAsync(() => System.import('./screens/qa/index.jsx')),
     // routes: [
     //   {
     //     path: ':ecosystemId', name: 'QAViewBook', renderer: getQABook,

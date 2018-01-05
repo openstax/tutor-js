@@ -7,9 +7,6 @@ import NavbarContext from '../navbar/context';
 export default class ReferenceBookNavBar extends React.Component {
 
   static propTypes = {
-    params: React.PropTypes.shape({
-      courseId: React.PropTypes.string.isRequired,
-    }).isRequired,
     navBar: React.PropTypes.instanceOf(NavbarContext).isRequired,
   };
 

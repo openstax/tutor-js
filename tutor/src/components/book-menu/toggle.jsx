@@ -15,7 +15,7 @@ function SlideOutMenuToggle({ ux, width, height }) {
 
   return (
     <a
-      className={cn('menu-toggle', { invisible, open: ux.isMenuVisible })}
+      className={cn('book-menu-toggle', { invisible, open: ux.isMenuVisible })}
       onClick={ux.toggleTocMenu}
       tabIndex={0}
       aria-label={ux.isMenuVisible ? 'Close Sections Menu' : 'Open Sections Menu'}

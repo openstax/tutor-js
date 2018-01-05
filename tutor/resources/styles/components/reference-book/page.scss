@@ -98,11 +98,11 @@
   }
   // when menu is open and the screen is wide enough, slide everything to the right so it's still visible
   &.menu-open {
-    @media screen and (min-width: ($reference-book-page-width + $reference-book-menu-width + 50px) ) {
-      .reference-book-page{ margin-left: $reference-book-menu-width; }
+    @media screen and (min-width: ($reference-book-page-width + $book-menu-width + 50px) ) {
+      .reference-book-page{ margin-left: $book-menu-width; }
     }
     .content .ecosystem-info{
-      left: $reference-book-menu-width;
+      left: $book-menu-width;
     }
   }
 

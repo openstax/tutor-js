@@ -1,16 +1,14 @@
 import React from 'react';
-import { observer } from 'mobx-react';
+import { observer, propTypes as mobxPropTypes } from 'mobx-react';
 import { map, partial } from 'lodash';
 import cn from 'classnames';
 import TutorLink from '../link';
-import UX from './ux';
 
 @observer
-class Section extends React.Component {
-  static displayName = 'ReferenceBookTocSection';
+class BookMenuTocSection extends React.Component {
 
   static propTypes = {
-    ux: React.PropTypes.instanceOf(UX).isRequired,
+    ux: mobxPropTypes.observableObject.isRequired,
     section: React.PropTypes.object,
   };
 
@@ -36,7 +34,7 @@ class Section extends React.Component {
         </li>
         {map(this.props.section.children, child => (
           <li key={child.id} data-section={child.chapter_section.asString}>
-            <Section ux={ux} section={child} />
+            <BookMenuTocSection ux={ux} section={child} />
           </li>
         ))}
       </ul>
@@ -46,19 +44,19 @@ class Section extends React.Component {
 
 
 @observer
-export default class ReferenceBookTOC extends React.Component {
+export default class BookMenu extends React.Component {
 
   static propTypes = {
-    ux: React.PropTypes.instanceOf(UX).isRequired,
+    ux: mobxPropTypes.observableObject.isRequired,
   }
 
   render() {
     const { ux } = this.props;
 
     return (
-      <div className="menu">
+      <div className={cn('book-menu', { open: ux.isMenuVisible, ontop: ux.isMenuOnTop })}>
         {map(ux.toc, child => (
-          <Section
+          <BookMenuTocSection
             ux={ux}
             key={child.id}
             section={child}
