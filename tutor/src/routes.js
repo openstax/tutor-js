@@ -84,10 +84,6 @@ const getChangeStudentId = function() {
   return StudentId;
 };
 
-const getQADashboard = () => require('./components/qa/index');
-
-const getQABook = () => require('./components/qa/view-book');
-
 const getCreateCourse = function() {
   const { default: Wizard } =  require('./components/new-course');
   return Wizard;
@@ -124,14 +120,6 @@ const ROUTES = [
     path: '/qa/:ecosystemId?/:section?',
     settings: { navBar: 'ReferenceBook' },
     renderer: loadAsync(() => System.import('./screens/qa/index.jsx')),
-    // routes: [
-    //   {
-    //     path: ':ecosystemId', name: 'QAViewBook', renderer: getQABook,
-    //     routes: [{
-    //       path: 'section/:section', name: 'QAViewBookSection', renderer: getQABook,
-    //     }],
-    //   },
-    // ],
   },
   {
     path: '/course/:courseId', name: 'dashboard', renderer: getDashboard,
