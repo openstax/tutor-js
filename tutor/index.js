@@ -17,7 +17,7 @@ import ErrorMonitoring from 'shared/src/helpers/error-monitoring';
 import OFFERINGS from './src/models/course/offerings';
 import USER from './src/models/user';
 import COURSES from './src/models/courses-map';
-
+import EXERCISES from './src/models/exercises';
 import Chat from './src/models/chat';
 import { Logging, ReactHelpers } from 'shared';
 import PAYMENTS from './src/models/payments';
@@ -39,7 +39,7 @@ window._STORES = {
 window._MODELS = {
   USER,
   COURSES,
-
+  EXERCISES,
   OFFERINGS,
   PAYMENTS,
   STUDENT_TASKS,

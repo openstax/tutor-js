@@ -1,14 +1,17 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import { asyncComponent } from 'react-async-component';
+import OXColoredStripe from 'shared/src/components/ox-colored-stripe';
+import LoadingScreen from '../components/loading-screen';
 
-const LoadingComponent = () => (
-  <h1>loading</h1>
-);
-
-const ErrorComponent = ({ error }) => (
-  <div>
-    <h1>error</h1>
+const ErrorComponent = ({ error, retry }) => (
+  <div className="invalid-page">
+    <OXColoredStripe />
+    <h1>
+      Uh-oh, the page failed to load
+    </h1>
     <p>{String(error)}</p>
+    <Button bsStyle="primary" onClick={retry}>Retry</Button>
   </div>
 );
 
@@ -18,7 +21,7 @@ export function loadAsync(resolve) {
   return () => (
     asyncComponent({
       resolve,
-      LoadingComponent,
+      LoadingScreen,
       ErrorComponent,
     })
   );

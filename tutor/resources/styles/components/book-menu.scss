@@ -49,8 +49,6 @@
     }
   }
 
-
-
   position: fixed;
   top: 60px;
   left: 0;
@@ -65,7 +63,10 @@
   @include toc-indented-levels(4);
   max-height: 100%;
   overflow-y: scroll;
-
+  .section-number {
+    color: $tutor-secondary;
+    margin-right: 0.4rem;
+  }
   &.open {
 
     margin-left: 0;
@@ -106,4 +107,15 @@
       path#line3    { transform: scale(1, 1) translate(0, 0);}
     }
   }
+
+
+  &.menu-open {
+    @media screen and (min-width: ($reference-book-page-width + $book-menu-width + 50px) ) {
+      .book-menu-content{ margin-left: $book-menu-width; }
+    }
+    .book-menu-content .ecosystem-info{
+      left: $book-menu-width;
+    }
+  }
+
 }

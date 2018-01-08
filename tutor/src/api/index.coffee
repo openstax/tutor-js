@@ -26,7 +26,7 @@ PerformanceForecast = require '../flux/performance-forecast'
 {TocActions} = require '../flux/toc'
 {ExerciseActions, ExerciseStore} = require '../flux/exercise'
 {CCDashboardActions} = require '../flux/cc-dashboard'
-
+{default: Exercises} = require '../models/exercises'
 {default: ReferenceBook} = require '../models/reference-book'
 {default: ReferenceBookPage} = require '../models/reference-book/page';
 {default: Ecosystems} = require '../models/ecosystems';
@@ -165,6 +165,7 @@ startAPI = ->
     trigger: 'loadUpdates', onSuccess: 'loadedUpdates', url: 'notifications', handledErrors: ['*']
   )
 
+  connectModelRead(Exercises.constructor, 'fetch', onSuccess: 'onLoaded')
 
   connectModelRead(Ecosystems.constructor, 'fetch', onSuccess: 'onLoaded', url: 'ecosystems')
 
