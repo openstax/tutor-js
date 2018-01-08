@@ -1,6 +1,6 @@
 moment = require 'moment-timezone'
 require 'moment-timezone/moment-timezone-utils'
-_ = require 'underscore'
+_ = require 'lodash'
 # Map http://www.iana.org/time-zones names to timezone names in Rails
 # https://github.com/openstax/tutor-server/pull/1057#issuecomment-212678167
 TIME_LINKS =
@@ -67,7 +67,7 @@ TimeHelper =
   linkZoneNames: ->
     # uses moment-timezone-utils to alias loaded timezone data to timezone names in Rails
     ALIAS_TIMEZONE_DATA = _.map TIME_LINKS, (alternativeZoneName, loadedZoneName) ->
-      loadedUnpackedObject = _.pick moment.tz.zone(loadedZoneName), 'abbrs', 'offsets', 'untils'
+      loadedUnpackedObject = _.pick moment.tz.zone(loadedZoneName), ['abbrs', 'offsets', 'untils']
       loadedUnpackedObject.name = alternativeZoneName
 
       moment.tz.pack(loadedUnpackedObject)
@@ -134,8 +134,12 @@ TimeHelper =
   isCourseTimezone: (courseTimezone) ->
     return false if _.isEmpty(courseTimezone)
 
+    courseMomentZone = moment.tz(courseTimezone)
+
+    return false if _.isEmpty(courseMomentZone._z)
+
     {offsets} = moment()._z or moment.tz(TimeHelper.getLocalTimezone())._z
-    courseTimezoneOffsets = moment.tz(courseTimezone)._z.offsets
+    courseTimezoneOffsets = courseMomentZone._z.offsets
 
     # Use moment offsets to check if set timezone is matching.
     # Zone abbr/zone name are not globally unique
