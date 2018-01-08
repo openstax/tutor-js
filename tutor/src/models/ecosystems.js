@@ -9,8 +9,8 @@ class Ecosystems extends Map {
 
   @action onLoaded({ data }) {
     data.forEach((eco) => {
-      const course = this.get(eco.id);
-      course ? course.update(eco) : this.set(eco.id, new Ecosystem(eco, this));
+      const ecosystem = this.get(eco.id);
+      ecosystem ? ecosystem.update(eco) : this.set(eco.id, new Ecosystem(eco, this));
     });
   }
 
