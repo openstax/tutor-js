@@ -170,7 +170,7 @@
       border-top-width: 1px;
       border-top-style: solid;
       border-top-color: $nav-tabs-border-color;
-      // @include tutor-plan-set(heading);
+      @include tutor-plan-set(heading);
       flex: 1;
       padding: 8px;
       cursor: default;
