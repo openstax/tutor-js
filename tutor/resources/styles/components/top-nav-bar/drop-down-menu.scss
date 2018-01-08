@@ -23,20 +23,28 @@
     min-width: calc(100% + 15px);
     right: -15px;
 
-    > li > a {
-      color: inherit;
-      height: auto;
-      line-height: 2;
-      padding: 15 20px;
-
-      &:hover,
-      &:active {
-        background-color: $tutor-neutral-lighter;
-        color: $tutor-neutral-darker;
+    > li {
+      > a {
+        color: inherit;
+        height: auto;
+        line-height: 2;
+        padding: 15 20px;
+  
+        &:hover {
+          background-color: $tutor-neutral-lighter;
+          color: $tutor-neutral-darker;
+        }
+  
+        form input[type="submit"] {
+          line-height: inherit;
+        }
       }
 
-      form input[type="submit"] {
-        line-height: inherit;
+      &.active {
+        > a {
+          background-color: $tutor-neutral-lighter;
+          color: $tutor-neutral-darker;
+        }
       }
     }
 
@@ -67,8 +75,11 @@
       }
     }
 
-    .divider:last-child {
-      display: none;
+    .divider {
+      &:first-child,
+      &:last-child {
+        display: none;
+      }
     }
 
   }
