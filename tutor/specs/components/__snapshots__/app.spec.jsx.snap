@@ -74,7 +74,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                   style={undefined}
                 >
                   <a
-                    href="http://openstax.force.com/support?l=en_US&c=Products%3ATutor"
+                    href="https://openstax.secure.force.com/help"
                     onClick={[Function]}
                     onKeyDown={[Function]}
                     role="menuitem"
