@@ -8,7 +8,7 @@ export default function EmptyCourses() {
         We cannot find an OpenStax course associated with your account.
       </p>
       <p className="lead">
-        <a target="_blank" href="https://openstax.secure.force.com/help/">
+        <a target="_blank" href="https://openstax.secure.force.com/help">
           Get help >
         </a>
       </p>
