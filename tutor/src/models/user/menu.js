@@ -115,11 +115,8 @@ const ROUTES = {
 
 };
 
-const TUTOR_HELP = 'http://openstax.force.com/support?l=en_US&c=Products%3ATutor';
-const TUTOR_CONTACT = 'http://openstax.force.com/support/?cu=1&fs=ContactUs&l=en_US&c=Products%3ATutor';
-const CONCEPT_COACH_HELP = 'http://openstax.force.com/support?l=en_US&c=Products%3AConcept_Coach';
-const CONCEPT_COACH_CONTACT = 'http://openstax.force.com/support/?cu=1&fs=ContactUs&l=en_US&c=Products%3AConcept_Coach';
-
+const TUTOR_HELP = 'https://openstax.secure.force.com/help';
+const TUTOR_CONTACT = 'https://openstax.org/contact';
 const SUPPORT_EMAIL = 'support@openstax.org';
 
 function getRouteByRole(routeName, menuRole) {
@@ -154,7 +151,7 @@ const UserMenu = observable({
     if (!courseId) { return this.helpURL; }
     const course = Courses.get(courseId);
     if (!course) { return this.helpURL; }
-    return course.is_concept_coach ? CONCEPT_COACH_HELP : TUTOR_HELP;
+    return TUTOR_HELP;
   },
 
   getRoutes(courseId) {
