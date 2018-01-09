@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import PagingNavigation from '../paging-navigation';
+import PagingNavigation from '../../components/paging-navigation';
 import UX from './ux';
 
 

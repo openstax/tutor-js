@@ -4,17 +4,18 @@ ReactDOM  = require 'react-dom'
 {observer} = require 'mobx-react'
 classnames = require 'classnames'
 
-{BookContentMixin} = require '../book-content-mixin'
+{BookContentMixin} = require '../../components/book-content-mixin'
 
 {default: {ReferenceBookExerciseShell}} = require './exercise'
-RelatedContent = require '../related-content'
-{default: Loading} = require '../loading-screen'
+RelatedContent = require '../../components/related-content'
+{default: Loading} = require '../../components/loading-screen'
 
 Router = require '../../helpers/router'
-Dialog = require '../dialog'
-{default: AnnotationWidget} = require '../annotations/annotation'
+Dialog = require '../../components/dialog'
+{default: AnnotationWidget} = require '../../components/annotations/annotation'
 { ReferenceBookExerciseActions, ReferenceBookExerciseStore } = require '../../flux/reference-book-exercise'
-{ map, forEach } = require 'lodash'
+map = require 'lodash/map'
+forEach = require 'lodash/forEach'
 
 ReferenceBookPage = React.createClass
   displayName: 'ReferenceBookPage'

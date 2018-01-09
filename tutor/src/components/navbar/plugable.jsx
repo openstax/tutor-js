@@ -1,10 +1,10 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import NavbarContext from '../navbar/context';
+import NavbarContext from './context';
 
 @inject('navBar')
 @observer
-export default class ReferenceBookNavBar extends React.Component {
+export default class PlugableNavBar extends React.Component {
 
   static propTypes = {
     navBar: React.PropTypes.instanceOf(NavbarContext).isRequired,

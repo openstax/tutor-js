@@ -1,0 +1,12 @@
+@import '../screen-styles';
+@import '../../../resources/styles/book-content/index';
+@import './styles/navbar';
+@import './styles/page';
+@import './styles/exercise';
+
+.reference-book {
+  .section-number {
+    color: $tutor-secondary;
+    margin-right: 0.4rem;
+  }
+}

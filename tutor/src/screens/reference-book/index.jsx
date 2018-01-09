@@ -4,9 +4,10 @@ import { inject, observer } from 'mobx-react';
 import classnames from 'classnames';
 import Courses from '../../models/courses-map';
 import ReferenceBook from './reference-book';
-import LoadingScreen from '../loading-screen';
+import LoadingScreen from '../../components/loading-screen';
 import UX from './ux';
-import NavbarContext from '../navbar/context';
+import NavbarContext from '../../components/navbar/context';
+import './styles.scss';
 
 @inject('navBar')
 @observer

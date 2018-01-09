@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import ChapterSection from '../task-plan/chapter-section';
+import ChapterSection from '../../components/task-plan/chapter-section';
 
 const SectionTitle = observer(({ ux }) =>
   ux.activePage ? (

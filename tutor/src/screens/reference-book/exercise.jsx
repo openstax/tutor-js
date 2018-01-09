@@ -3,7 +3,7 @@ import ReactDOMServer from 'react-dom/server';
 
 import { ReferenceBookExerciseActions, ReferenceBookExerciseStore } from '../../flux/reference-book-exercise';
 import { get } from 'lodash';
-import LoadableItem from '../loadable-item';
+import LoadableItem from '../../components/loadable-item';
 import { ArbitraryHtmlAndMath, Question } from 'shared';
 
 function ReferenceBookMissingExercise(props) {
@@ -49,7 +49,7 @@ class ReferenceBookExerciseShell extends React.Component {
   isLoading = () => {
     const {exerciseAPIUrl} = this.props;
     return (
-        ReferenceBookExerciseStore.isLoading(exerciseAPIUrl) || ReferenceBookExerciseStore.isQueued(exerciseAPIUrl)
+      ReferenceBookExerciseStore.isLoading(exerciseAPIUrl) || ReferenceBookExerciseStore.isQueued(exerciseAPIUrl)
     );
   };
 
@@ -61,7 +61,7 @@ class ReferenceBookExerciseShell extends React.Component {
   renderExercise = () => {
     const exerciseHtml = ReactDOMServer.renderToStaticMarkup(<ReferenceBookExercise {...this.props} />);
     return (
-        <ArbitraryHtmlAndMath html={exerciseHtml} />
+      <ArbitraryHtmlAndMath html={exerciseHtml} />
     );
   };
 

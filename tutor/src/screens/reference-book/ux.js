@@ -2,7 +2,7 @@ import { observable, computed, action } from 'mobx';
 import Router from '../../helpers/router';
 import { extend } from 'lodash';
 
-import MenuToggle from '../book-menu/toggle';
+import MenuToggle from '../../components/book-menu/toggle';
 import SectionTitle from './section-title';
 import AnnotationsSummaryToggle from './annotation-summary-toggle';
 import TeacherContentToggle from './teacher-content-toggle';
@@ -26,9 +26,12 @@ export default class ReferenceBookUX {
   constructor(course, router) {
     this.course = course;
     this.router = router;
-    this.course.referenceBook.fetch().then(() => {
-      if (this.activePage) { this.activePage.ensureLoaded(); }
-    });
+
+    if (!this.course.referenceBook.api.hasBeenFetched) {
+      this.course.referenceBook.fetch().then(() => {
+        if (this.activePage) { this.activePage.ensureLoaded(); }
+      });
+    }
   }
 
   @computed get isMenuOnTop() {
