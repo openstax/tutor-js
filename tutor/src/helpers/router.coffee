@@ -1,5 +1,8 @@
 OXRouter = require 'shared/src/helpers/router'
-{default:routes} = require '../routes'
-TutorRouter = new OXRouter(routes)
+{ getRoutes } = require '../routes'
+
+TutorRouter = new OXRouter
+
+TutorRouter.setRoutes(getRoutes(TutorRouter))
 
 module.exports = TutorRouter

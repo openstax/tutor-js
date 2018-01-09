@@ -1,34 +1,48 @@
-import { loadAsync } from './helpers/async-component';
+import { loadAsync, asyncComponent } from './helpers/async-component';
+import { getConditionalHandlers } from './helpers/conditional-handlers';
 
 const getMyCourses = function() {
   const { default: MyCourses } = require('./components/my-courses');
   return MyCourses;
 };
 
-const getDashboard = function() {
-  const ConditionalHandlers = require('./helpers/conditional-handlers');
-  return ConditionalHandlers.dashboard;
-};
+const TeacherDashboard = asyncComponent(
+  () => System.import('./screens/teacher-dashboard')
+);
+const getTeacherDashboard = () => TeacherDashboard;
 
-const getTeacherTaskPlans = function() {
-  const { default: TeacherTaskPlans } = require('./components/course-calendar');
-  return TeacherTaskPlans;
-};
+
+const ReferenceBook = asyncComponent(
+  () => System.import('./screens/reference-book/index.jsx')
+)
+const getReferenceBook = () => ReferenceBook;
+
+
+
+// const getDashboard = function() {
+//   const ConditionalHandlers = require('./helpers/conditional-handlers');
+//   return ConditionalHandlers.dashboard;
+// };
+
+// const getTeacherDashboard = function() {
+//   const { default: TeacherTaskPlans } = require('./components/course-calendar');
+//   return TeacherTaskPlans;
+// };
 
 const getTaskShell = function() {
   const { TaskShell } = require('./components/task');
   return TaskShell;
 };
 
-const getReferenceBookShell = function() {
-  const { default: ReferenceBookShell } = require('./components/reference-book');
-  return ReferenceBookShell;
-};
+// const getReferenceBookShell = function() {
+//   const { default: ReferenceBookShell } = require('./components/reference-book');
+//   return ReferenceBookShell;
+// };
 
-const getReferenceBookPageShell = function() {
-  const { default: ReferenceBookPageShell } = require('./components/reference-book');
-  return ReferenceBookPageShell;
-};
+// const getReferenceBookPageShell = function() {
+//   const { default: ReferenceBookPageShell } = require('./components/reference-book');
+//   return ReferenceBookPageShell;
+// };
 
 const getReadingShell = function() {
   const { ReadingShell } = require('./components/task-plan');
@@ -111,73 +125,83 @@ const getStudentPreview = function() {
   return StudentPreview;
 };
 
-const ROUTES = [
-  { path: '/dashboard', name: 'myCourses', renderer: getMyCourses },
-  { path: '/enroll/start/:enrollmentCode', name: 'createEnrollmentChange', renderer: getCreateEnrollmentChange },
-  { path: '/new-course/:sourceId?', name: 'createNewCourse', renderer: getCreateCourse },
-  {
-    name: 'QADashboard',
-    path: '/qa/:ecosystemId?/:section?',
-    settings: { navBar: 'ReferenceBook' },
-    renderer: loadAsync(() => System.import('./screens/qa/index.jsx')),
-  },
-  {
-    path: '/course/:courseId', name: 'dashboard', renderer: getDashboard,
-    routes: [
-      { path: 'scores', name: 'viewScores', renderer: getScoresShell },
-      { path: 'cc/help', name: 'ccDashboardHelp', renderer: getCCHelp },
-      { path: 'guide/:roleId?', name: 'viewPerformanceGuide', renderer: getPerformanceForecastGuide },
-      {
-        path: 't', name: 'viewTeacherDashboard', renderer: getTeacherTaskPlans,
-        routes: [
-          {
-            path: 'month/:date', name: 'calendarByDate', renderer: getTeacherTaskPlans,
-            routes: [{
-              path: 'plan/:planId', name: 'calendarViewPlanStats', renderer: getTeacherTaskPlans,
-            }],
-          },
-        ],
-      },
-      { path: 'metrics/:id', name: 'reviewTask', renderer: getTeacherReview },
-      {
-        path: 'task/:id', name: 'viewTask', renderer: getTaskShell,
-        routes: [
-          {
-            path: 'step/:stepIndex', name: 'viewTaskStep', renderer: getTaskShell,
-            routes: [{
-              path: ':milestones', name: 'viewTaskStepMilestones', renderer: getTaskShell,
-            }],
-          },
-        ],
-      },
-      { path: 'practice/:taskId?', name: 'practiceTopics', renderer: getPractice },
-      { path: 'homework/new', name: 'createHomework' },
-      { path: 'homework/:id', name: 'editHomework', renderer: getHomeworkShell },
-      { path: 'reading/new', name: 'createReading' },
-      { path: 'reading/:id', name: 'editReading', renderer: getReadingShell },
-      { path: 'external/new', name: 'createExternal' },
-      { path: 'external/:id', name: 'editExternal', renderer: getExternalShell },
-      { path: 'event/new', name: 'createEvent' },
-      { path: 'event/:id', name: 'editEvent', renderer: getEventShell },
-      { path: 'settings', name: 'courseSettings', renderer: getCourseSettings },
-      { path: 'roster', name: 'courseRoster', renderer: getCourseRoster },
-      { path: 'questions', name: 'viewQuestionsLibrary', renderer: getQuestionsLibrary },
-      { path: 'change-student-id', name: 'changeStudentId', renderer: getChangeStudentId },
-    ],
+const getRoutes = (router) => {
+  const ConditionalHandlers = getConditionalHandlers(router);
 
-  }, {
-    path: '/accessibility-statement/:courseId?', name: 'accessibilityStatement', renderer: getAccessibilityStatement,
-  }, {
-    path: '/student-preview/:courseId?', name: 'studentPreview', renderer: getStudentPreview,
-  },
-  { path: '/payments', name: 'managePayments', renderer: getPaymentsShell },
-  {
-    path: '/books/:courseId', name: 'viewReferenceBook', renderer: getReferenceBookShell, settings: { navBar: 'ReferenceBook' },
-    routes: [
-      { path: 'section/:section', name: 'viewReferenceBookSection', renderer: getReferenceBookShell, settings: { navBar: 'ReferenceBook' } },
-      { path: 'page/:cnxId', name: 'viewReferenceBookPage', renderer: getReferenceBookPageShell, settings: { navBar: 'ReferenceBook' } },
-    ],
-  },
-];
+  return [
+    { path: '/dashboard', name: 'myCourses', renderer: getMyCourses },
+    { path: '/enroll/start/:enrollmentCode', name: 'createEnrollmentChange', renderer: getCreateEnrollmentChange },
+    { path: '/new-course/:sourceId?', name: 'createNewCourse', renderer: getCreateCourse },
+    {
+      name: 'QADashboard',
+      path: '/qa/:ecosystemId?/:section?',
+      settings: { navBar: 'Plugable' },
+      renderer: loadAsync(() => System.import('./screens/qa/index.jsx')),
+    },
+    {
+      path: '/course/:courseId', name: 'dashboard', renderer:  ConditionalHandlers.dashboard,
 
-export default ROUTES;
+      routes: [
+        { path: 'scores', name: 'viewScores', renderer: getScoresShell },
+        { path: 'cc/help', name: 'ccDashboardHelp', renderer: getCCHelp },
+        { path: 'guide/:roleId?', name: 'viewPerformanceGuide', renderer: getPerformanceForecastGuide },
+        {
+          path: 't', name: 'viewTeacherDashboard', renderer: getTeacherDashboard,
+          routes: [
+            {
+              path: 'month/:date', name: 'calendarByDate', renderer: getTeacherDashboard,
+              routes: [{
+                path: 'plan/:planId', name: 'calendarViewPlanStats', renderer: getTeacherDashboard,
+              }],
+            },
+          ],
+        },
+        { path: 'metrics/:id', name: 'reviewTask', renderer: getTeacherReview },
+        {
+          path: 'task/:id', name: 'viewTask', renderer: getTaskShell,
+          routes: [
+            {
+              path: 'step/:stepIndex', name: 'viewTaskStep', renderer: getTaskShell,
+              routes: [{
+                path: ':milestones', name: 'viewTaskStepMilestones', renderer: getTaskShell,
+              }],
+            },
+          ],
+        },
+        { path: 'practice/:taskId?', name: 'practiceTopics', renderer: getPractice },
+        { path: 'homework/new', name: 'createHomework' },
+        { path: 'homework/:id', name: 'editHomework', renderer: getHomeworkShell },
+        { path: 'reading/new', name: 'createReading' },
+        { path: 'reading/:id', name: 'editReading', renderer: getReadingShell },
+        { path: 'external/new', name: 'createExternal' },
+        { path: 'external/:id', name: 'editExternal', renderer: getExternalShell },
+        { path: 'event/new', name: 'createEvent' },
+        { path: 'event/:id', name: 'editEvent', renderer: getEventShell },
+        { path: 'settings', name: 'courseSettings', renderer: getCourseSettings },
+        { path: 'roster', name: 'courseRoster', renderer: getCourseRoster },
+        { path: 'questions', name: 'viewQuestionsLibrary', renderer: getQuestionsLibrary },
+        { path: 'change-student-id', name: 'changeStudentId', renderer: getChangeStudentId },
+      ],
+
+    }, {
+      path: '/accessibility-statement/:courseId?', name: 'accessibilityStatement', renderer: getAccessibilityStatement,
+    }, {
+      path: '/student-preview/:courseId?', name: 'studentPreview', renderer: getStudentPreview,
+    },
+    { path: '/payments', name: 'managePayments', renderer: getPaymentsShell },
+    {
+      path: '/books/:courseId',
+      name: 'viewReferenceBook',
+      renderer: getReferenceBook,
+      settings: { navBar: 'Plugable' },
+      routes: [
+        { path: 'section/:section', name: 'viewReferenceBookSection',
+          renderer: getReferenceBook, settings: { navBar: 'Plugable' } },
+        { path: 'page/:cnxId', name: 'viewReferenceBookPage',
+          renderer: getReferenceBook, settings: { navBar: 'Plugable' } },
+      ],
+    },
+  ];
+}
+
+export { getRoutes };
