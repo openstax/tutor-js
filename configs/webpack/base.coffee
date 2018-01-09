@@ -2,10 +2,13 @@ path = require 'path'
 
 _ = require 'lodash'
 webpack = require 'webpack'
+UglifyJsPlugin = require 'uglifyjs-webpack-plugin'
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
+HappyPack = require 'happypack'
+happyThreadPool = HappyPack.ThreadPool(size: 8);
+HardSourceWebpackPlugin = require 'hard-source-webpack-plugin'
 
-
-LOADERS =
+BASE_LOADERS =
   babel:  'babel-loader'
   file:   'file-loader?name=[name].[ext]'
   url:    'url-loader?limit=30000&name=[name]-[hash].[ext]'
@@ -15,6 +18,12 @@ LOADERS =
   css:    'css-loader?minimize=true'
   less:   'less-loader'
   scss:   'fast-sass-loader'
+
+LOADERS = _.mapValues(BASE_LOADERS, (loader, name) -> "happypack/loader?id=#{name}")
+
+HAPPY_PACK_PLUGINS = _.map(BASE_LOADERS, (loader, name) ->
+  new HappyPack(id: name, threadPool: happyThreadPool, loaders: [ loader ])
+)
 
 RESOLVABLES =
   js:     { test: /\.js$/,     use: LOADERS.babel,  exclude: /node_modules/ }
@@ -69,7 +78,9 @@ BASE_CONFIG =
     ]
     rules: _.values(STATICS)
   plugins: [
-    new ExtractTextPlugin('[name].css')
+    new ExtractTextPlugin('[name].css'),
+    new HardSourceWebpackPlugin(),
+    HAPPY_PACK_PLUGINS...
   ]
 
 
@@ -146,10 +157,12 @@ makeProductionBase = (projectConfig) ->
       # Minify
       # https://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
       # https://github.com/webpack/webpack/issues/2704
-      new webpack.optimize.UglifyJsPlugin(
-        mangle: false
-        comments: false
-        sourceMap: true
+      new UglifyJsPlugin(
+        cache: true,
+        parallel: true,
+        sourceMap: true,
+        uglifyOptions:
+          mangle: false
       )
 
       # Use the production version of React (no warnings/runtime checks)
