@@ -10,7 +10,7 @@ isEmpty = require 'lodash/isEmpty'
 partial = require 'lodash/partial'
 
 {PastTaskPlansActions, PastTaskPlansStore} = require '../../flux/past-task-plans'
-LoadableItem = require '../loadable-item'
+LoadableItem = require '../../components/loadable-item'
 
 
 PastAssignmentsLoading = ({className}) ->

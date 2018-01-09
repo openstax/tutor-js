@@ -5,7 +5,7 @@ import { observable, computed, action, observe } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import { NotificationsBar } from 'shared';
-import CoursePage from '../course-page';
+import CoursePage from '../../components/course-page';
 import ModelLoader from '../../models/loader';
 import TaskPlans from '../../models/course/task-plans';
 import onboardingForCourse from '../../models/course/onboarding';
@@ -14,12 +14,13 @@ import { TimeStore } from '../../flux/time';
 import TimeHelper from '../../helpers/time';
 import CourseDataHelper from '../../helpers/course-data';
 import PH from '../../helpers/period';
-import CourseTitleBanner from '../course-title-banner';
-import CourseNagModal from '../onboarding/course-nag';
+import CourseTitleBanner from '../../components/course-title-banner';
+import CourseNagModal from '../../components/onboarding/course-nag';
 import NotificationHelpers from '../../helpers/notifications';
-import TermsModal from '../terms-modal';
+import TermsModal from '../../components/terms-modal';
 import CourseMonth from './month';
 import CourseCalendarHeader from './header';
+import './styles.scss';
 
 const displayAsHandler = {
   month: CourseMonth,

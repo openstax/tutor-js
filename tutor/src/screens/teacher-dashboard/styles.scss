@@ -1,3 +1,4 @@
+@import '../screen-styles';
 // Component Styling
 
 $calendar-sidebar-width: 250px;
@@ -32,12 +33,12 @@ $calendar-sidebar-width: 250px;
   background-size: 600px 104px;
 }
 
-@import './add';
-@import './month';
-@import './header';
-@import './plan';
-@import './sidebar';
-@import './plan-details';
+@import './styles/add';
+@import './styles/month';
+@import './styles/header';
+@import './styles/plan';
+@import './styles/sidebar';
+@import './styles/plan-details';
 
 .calendar-container {
   $sidebar-animation-duration: 0.5s;

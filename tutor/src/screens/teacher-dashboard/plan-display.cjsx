@@ -4,8 +4,8 @@ camelCase = require 'lodash/camelCase'
 BS = require 'react-bootstrap'
 _ = require 'underscore'
 
-TutorLink = require '../link'
-TaskPlanMiniEditor = require '../task-plan/mini-editor'
+TutorLink = require '../../components/link'
+TaskPlanMiniEditor = require '../../components/task-plan/mini-editor'
 
 DisplayProperties =
   plan: React.PropTypes.shape(

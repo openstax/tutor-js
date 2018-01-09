@@ -4,11 +4,11 @@ import { computed, observable, action } from 'mobx';
 import camelCase from 'lodash/camelCase';
 import classnames from 'classnames';
 import { Modal, Button } from 'react-bootstrap';
-import TourRegion from '../tours/region';
-import Stats from '../plan-stats';
-import Event from '../plan-stats/event';
-import LmsInfo from '../task-plan/lms-info';
-import TutorLink from '../link';
+import TourRegion from '../../components/tours/region';
+import Stats from '../../components/plan-stats';
+import Event from '../../components/plan-stats/event';
+import LmsInfo from '../../components/task-plan/lms-info';
+import TutorLink from '../../components/link';
 import TeacherTaskPlan from '../../models/task-plan/teacher';
 
 

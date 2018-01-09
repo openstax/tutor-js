@@ -5,7 +5,7 @@ partial = require 'lodash/partial'
 {DragSource} = require 'react-dnd'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 
-GrabbyDots = require '../grabby-dots'
+GrabbyDots = require '../../components/grabby-dots'
 
 NewTaskDrag =
   beginDrag: (props) ->

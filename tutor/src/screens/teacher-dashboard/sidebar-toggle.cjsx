@@ -2,7 +2,7 @@ React = require 'react'
 
 classnames = require 'classnames'
 {Button} = require 'react-bootstrap'
-Icon = require '../icon'
+Icon = require '../../components/icon'
 CalendarHelper = require './helper'
 
 OPEN_ICON = 'times'

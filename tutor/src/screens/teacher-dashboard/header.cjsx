@@ -3,10 +3,10 @@ BS = require 'react-bootstrap'
 moment = require 'moment'
 _ = require 'underscore'
 
-{ default: TourAnchor } = require '../tours/anchor'
-TutorLink     = require '../link'
-BrowseTheBook = require '../buttons/browse-the-book'
-NoPeriods     = require '../no-periods'
+{ default: TourAnchor } = require '../../components/tours/anchor'
+TutorLink     = require '../../components/link'
+BrowseTheBook = require '../../components/buttons/browse-the-book'
+NoPeriods     = require '../../components/no-periods'
 SidebarToggle = require './sidebar-toggle'
 
 CourseCalendarHeader = React.createClass

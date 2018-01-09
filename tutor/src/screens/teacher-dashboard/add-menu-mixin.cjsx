@@ -5,7 +5,7 @@ BS = require 'react-bootstrap'
 
 Router = require '../../helpers/router'
 
-CourseGroupingLabel = require '../course-grouping-label'
+CourseGroupingLabel = require '../../components/course-grouping-label'
 
 CourseAddMenuMixin =
   contextTypes:

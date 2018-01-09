@@ -5,7 +5,7 @@ import { TimeStore } from '../../flux/time';
 import moment from 'moment';
 import { observer } from 'mobx-react';
 
-import TourAnchor from '../tours/anchor';
+import TourAnchor from '../../components/tours/anchor';
 
 @observer
 export default class EventInfoIcon extends React.PureComponent {

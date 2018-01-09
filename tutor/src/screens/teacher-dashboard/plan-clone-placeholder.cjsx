@@ -1,7 +1,7 @@
 React = require 'react'
 
 TimeHelper = require '../../helpers/time'
-Icon = require '../icon'
+Icon = require '../../components/icon'
 {TaskPlanStore, TaskPlanActions} = require '../../flux/task-plan'
 {TaskingActions} = require '../../flux/tasking'
 { default: Courses } = require '../../models/courses-map'

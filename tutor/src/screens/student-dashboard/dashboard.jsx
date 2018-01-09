@@ -8,14 +8,14 @@ import AllEventsByWeek from './all-events-by-week';
 import ThisWeekPanel from './this-week-panel';
 
 import ProgressGuideShell from './progress-guide';
-import BrowseTheBook from '../buttons/browse-the-book';
-import CourseTitleBanner from '../course-title-banner';
+import BrowseTheBook from '../../components/buttons/browse-the-book';
+import CourseTitleBanner from '../../components/course-title-banner';
 
 import Courses from '../../models/courses-map';
-import Tabs from '../tabs';
+import Tabs from '../../components/tabs';
 import { NotificationsBar } from 'shared';
 import NotificationHelpers from '../../helpers/notifications';
-import TourRegion from '../tours/region';
+import TourRegion from '../../components/tours/region';
 
 export default class StudentDashboard extends React.PureComponent {
 

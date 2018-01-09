@@ -3,11 +3,11 @@ import { observer } from 'mobx-react';
 import { computed, action } from 'mobx';
 import { Col, Button } from 'react-bootstrap';
 import { get } from 'lodash';
-import Time from '../time';
+import Time from '../../components/time';
 import Router from '../../helpers/router';
-import Icon from '../icon';
+import Icon from '../../components/icon';
 import EventInfoIcon from './event-info-icon';
-import { Instructions } from '../task/details';
+import { Instructions } from '../../components/task/details';
 import { SuretyGuard } from 'shared';
 import classnames from 'classnames';
 

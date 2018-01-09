@@ -7,4 +7,7 @@ $fa-font-path: '~font-awesome/fonts';
 @import '~font-awesome/scss/font-awesome';
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/variables";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+@import '~shared/resources/styles/mixins/index';
+@import '~shared/resources/styles/variables/index';
 @import '../../resources/styles/mixins';
+@import '../../resources/styles/global/typography';

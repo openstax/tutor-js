@@ -8,10 +8,10 @@ classnames = require 'classnames'
 {AddAssignmentLink} = require './task-dnd'
 
 {PastAssignmentsShell} = require './past-assignments'
-{ default: TourAnchor } = require '../tours/anchor'
+{ default: TourAnchor } = require '../../components/tours/anchor'
 
 CourseAddMenuMixin = require './add-menu-mixin'
-BindStoreMixin = require '../bind-store-mixin'
+BindStoreMixin = require '../../components/bind-store-mixin'
 CalendarHelper = require './helper'
 {PastTaskPlansStore} = require '../../flux/past-task-plans'
 

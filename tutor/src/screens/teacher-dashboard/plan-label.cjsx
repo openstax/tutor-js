@@ -1,6 +1,6 @@
 React = require 'react'
 twix = require 'twix'
-{ default: TourAnchor } = require '../tours/anchor'
+{ default: TourAnchor } = require '../../components/tours/anchor'
 
 CoursePlanLabel = React.createClass
   displayName: 'CoursePlanLabel'

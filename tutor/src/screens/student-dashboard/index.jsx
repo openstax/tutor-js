@@ -1,15 +1,14 @@
 import React from 'react';
 
-import StudentTasks from '../../models/student-tasks';
-import LoadableItem from '../loadable-item';
 import { observable, computed, action, observe } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import StudentDashboard from './dashboard';
-import CourseNagModal from '../onboarding/course-nag';
-import TermsModal from '../terms-modal';
+import CourseNagModal from '../../components/onboarding/course-nag';
+import TermsModal from '../../components/terms-modal';
 import onboardingForCourse from '../../models/course/onboarding';
 import Courses from '../../models/courses-map';
-import WarningModal from '../warning-modal';
+import WarningModal from '../../components/warning-modal';
+import './styles.scss';
 
 @inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
 @observer

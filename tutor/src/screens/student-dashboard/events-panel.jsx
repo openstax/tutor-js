@@ -3,7 +3,7 @@ import { Panel, Col } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { map } from 'lodash';
 import { autobind } from 'core-decorators';
-import Time from '../time';
+import Time from '../../components/time';
 import moment from 'moment';
 import ReadingRow from './reading-row';
 import HomeworkRow from './homework-row';

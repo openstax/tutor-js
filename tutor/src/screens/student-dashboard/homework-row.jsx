@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { computed } from 'mobx';
 import EventRow from './event-row';
 // complete_exercise_count
-import TourAnchor from '../tours/anchor';
+import TourAnchor from '../../components/tours/anchor';
 
 @observer
 export default class HomeworkRow extends React.PureComponent {
