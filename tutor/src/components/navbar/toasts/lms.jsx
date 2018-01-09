@@ -13,10 +13,10 @@ import { downloadData, arrayToCSV } from '../../../helpers/download-data';
 
 const Troubleshoot = () => (
   <NewTabLink
-    to="http://openstax.force.com/support/articles/FAQ/How-do-I-send-student-scores-from-OpenStax-Tutor-to-my-learning-management-system/?q=lms+scores&l=en_US&c=Products%3ATutor&fs=Search&pn=1"
-  >
+    to="https://openstax.secure.force.com/help/articles/FAQ/How-do-I-send-student-scores-from-OpenStax-Tutor-to-my-learning-management-system"
+    >
     Troubleshoot sending scores to your LMS
-  </NewTabLink>
+    </NewTabLink>
 );
 
 @observer
@@ -156,7 +156,7 @@ const renderFailedToSend = (footer) => (
     <div>
       <p>
         <NewTabLink
-          to="http://4tk3oi.axshare.com/salesforce_support_page_results.html#choose_support_article=All&CSUM=1"
+          to="https://openstax.secure.force.com/help/articles/FAQ/How-do-I-send-student-scores-from-OpenStax-Tutor-to-my-learning-management-system"
         >
           send course averages to your LMS
         </NewTabLink>
