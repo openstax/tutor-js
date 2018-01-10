@@ -13,7 +13,7 @@
     h1,h2,h3 { margin: 0; text-align: left; }
 
     .panel-title {
-       @include tutor-sans-font(2.5rem, 1.3);
+      @include tutor-sans-font(2rem, 1.3);
       font-weight: 900;
       border-bottom: thin dotted $tutor-neutral-light;
       margin-bottom: 1rem;
