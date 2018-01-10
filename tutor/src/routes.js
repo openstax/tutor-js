@@ -201,7 +201,7 @@ const getRoutes = (router) => {
       ],
     },
     {
-      path: '/surveys/:surveyId', name: 'researchSurvey',
+      path: '/surveys/:courseId/:surveyId', name: 'researchSurvey',
       renderer: loadAsync(() => System.import('./screens/surveys/index.jsx')),
     },
   ];

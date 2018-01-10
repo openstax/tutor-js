@@ -35,7 +35,7 @@ PerformanceForecast = require '../flux/performance-forecast'
 
 { default: TaskPlanHelpers} = require '../helpers/task-plan'
 { FeatureFlagsApi: FeatureFlags } = require '../models/feature_flags'
-
+{ default: Survey } = require '../models/research-surveys/survey';
 { default: Job} = require '../models/job'
 { default: User } = require '../models/user'
 { UserTerms, Term } = require '../models/user/terms'
@@ -181,6 +181,9 @@ startAPI = ->
 
   connectModelRead(UserTerms, 'fetch', onSuccess: 'onLoaded', url: 'terms')
   connectModelUpdate(UserTerms, 'sign', onSuccess: 'onSigned', pattern: 'terms/{ids}', method: 'PUT')
+  connectModelUpdate(Survey, 'save',
+    pattern: 'research_surveys/{id}'
+   )
   connectModelRead(Purchases.constructor, 'fetch', onSuccess: 'onLoaded', url: 'purchases')
   connectModelUpdate(Purchase, 'refund', {
     onSuccess: 'onRefunded', pattern: 'purchases/{item_uuid}/refund', method: 'PUT',

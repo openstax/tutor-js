@@ -23,7 +23,8 @@ export default class Surveys extends React.PureComponent {
 
   @action.bound onClick() {
     this.context.router.history.push(
-      Router.makePathname('researchSurvey', { surveyId: this.survey.id })
+      Router.makePathname('researchSurvey',
+        { courseId: this.props.course.id, surveyId: this.survey.id })
     );
   }
 
