@@ -82,7 +82,7 @@ exports[`Support Menu renders and matches snapshot 1`] = `
       style={undefined}
     >
       <a
-        href="/accessibility-statement/"
+        href="/accessibility-statement/2"
         onClick={[Function]}
         onKeyDown={[Function]}
         role="menuitem"

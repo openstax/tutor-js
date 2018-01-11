@@ -2,7 +2,7 @@ import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { Dropdown, MenuItem } from 'react-bootstrap';
 import { get } from 'lodash';
-import { action } from 'mobx';
+import { action, computed } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import RootCloseWrapper from 'react-overlays/lib/RootCloseWrapper';
 
@@ -12,7 +12,6 @@ import UserMenu from '../../models/user/menu';
 import Icon from '../icon';
 import SupportDocument from './support-document-link';
 import TourContext from '../../models/tour/context';
-import Router from '../../helpers/router';
 import StudentPreviewLink from './student-previews-link';
 
 @observer
@@ -94,9 +93,9 @@ class SupportMenuDropDown extends React.PureComponent {
     this.context.router.history.push(this.accessibilityLink);
   }
 
+  @computed
   get accessibilityLink() {
-    const { courseId } = Router.currentParams();
-    return `/accessibility-statement/${courseId || ''}`;
+    return `/accessibility-statement/${this.props.courseId || ''}`;
   }
 
   render() {
