@@ -15,7 +15,7 @@ export default class ChapterSection extends BaseModel {
 
   format({ sectionSeparator = '.', skipZeros = true } = {}) {
     if (skipZeros && !this.section) {
-      return this.chapter;
+      return `${this.chapter}`;
     }
     return `${this.chapter}${sectionSeparator}${this.section}`;
   }

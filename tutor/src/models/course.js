@@ -112,7 +112,7 @@ export default class Course extends BaseModel {
   @lazyGetter lms = new LMS({ course: this });
   @lazyGetter roster = new Roster({ course: this });
   @lazyGetter scores = new Scores({ course: this });
-  @lazyGetter referenceBook = new ReferenceBook({ course: this });
+  @lazyGetter referenceBook = new ReferenceBook({ id: this.ecosystem_id });
   @lazyGetter taskPlans = new TeacherTaskPlans({ course: this });
 
   @computed get nameCleaned() {

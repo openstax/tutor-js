@@ -65,7 +65,7 @@ describe('Reference Book Component', function() {
 
   it('sets the menu item to be active based on the current page', function() {
     const book = mount(<ReferenceBook {...props} />, EnzymeContext.build());
-    expect(book).toHaveRendered(`.menu [data-section='${ux.activePage.chapter_section.asString}'] .active`);
+    expect(book).toHaveRendered(`.book-menu [data-section='${ux.activePage.chapter_section.asString}'] .active`);
   });
 
   xit('closes TOC when using TOC to nav and window is small', function(done) {

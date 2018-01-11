@@ -25,4 +25,7 @@ export default class ModelApi {
     );
   }
 
+  @computed get isFetchedOrFetching() {
+    return Boolean(this.isPending || this.hasBeenFetched);
+  }
 }

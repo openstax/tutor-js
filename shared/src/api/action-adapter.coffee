@@ -129,7 +129,10 @@ connectModelAction = (action, apiHandler, klass, method, options) ->
     updatedConfig = originalMethod.call(this, reqArgs..., requestConfig)
     return if updatedConfig is "ABORT"
     merge(requestConfig, updatedConfig)
-    requestConfig.url ?= interpolate(options.pattern, defaults({}, firstArg, requestConfig, this))
+    if options.pattern
+      requestConfig.url ?= interpolate(options.pattern, defaults({}, firstArg, requestConfig, this))
+    if options.query
+      requestConfig.url += "?#{qs(options.query)}"
     perRequestOptions = clone(options)
     if options.onSuccess
       perRequestOptions.onSuccess = bind(

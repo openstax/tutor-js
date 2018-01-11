@@ -29,9 +29,6 @@
 @import './global/menus';
 @import './global/misc';
 
-// qa view
-@import './qa.scss';
-
 @import './book-content/index';
 
 // Component Styling
@@ -72,6 +69,7 @@
 @import './components/questions-dashboard';
 @import './components/tutor-input';
 @import './components/reference-book/index';
+@import './components/book-menu';
 @import './components/tri-state-checkbox';
 @import './components/exercise-preview';
 @import './components/assignment-links';

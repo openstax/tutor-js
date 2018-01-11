@@ -2,7 +2,7 @@ import { observable, computed, action } from 'mobx';
 import Router from '../../helpers/router';
 import { extend } from 'lodash';
 
-import SlideOutMenuToggle from './slide-out-menu-toggle';
+import MenuToggle from '../book-menu/toggle';
 import SectionTitle from './section-title';
 import AnnotationsSummaryToggle from './annotation-summary-toggle';
 import TeacherContentToggle from './teacher-content-toggle';
@@ -61,7 +61,7 @@ export default class ReferenceBookUX {
   }
 
   @action.bound onMenuSelection(section) {
-    this.setSection();
+    this.setSection(section);
     if (this.isMenuOnTop) { this.isMenuVisible = false; }
   }
 
@@ -73,7 +73,7 @@ export default class ReferenceBookUX {
   @action setNavBar(nav) {
     nav.childProps.set('ux', this);
     nav.left.merge({
-      'slide-out-menu-toggle': SlideOutMenuToggle,
+      'slide-out-menu-toggle': MenuToggle,
       'section-title': SectionTitle,
     });
     nav.center.merge({

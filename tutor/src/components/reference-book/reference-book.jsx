@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import { SpyMode } from 'shared';
 
-import Menu from './slide-out-menu';
+import Menu from '../book-menu/menu';
 import Page from './page';
 import ReferenceViewPageNavigation from './page-navigation';
 import UX from './ux';

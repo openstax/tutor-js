@@ -33,8 +33,6 @@ function mapPages(section, map) {
 @identifiedBy('reference-book')
 export default class ReferenceBook extends BaseModel {
 
-  @belongsTo({ model: 'course' }) course;
-
   @identifier id;
   @field archive_url;
   @field webview_url;
@@ -48,7 +46,7 @@ export default class ReferenceBook extends BaseModel {
   @field uuid;
 
   fetch() {
-    return { id: this.course.ecosystem_id };
+    return { id: this.id };
   }
 
   @action onApiRequestComplete({ data }) {

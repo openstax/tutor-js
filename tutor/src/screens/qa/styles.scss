@@ -1,6 +1,13 @@
-.qa {
-  // qa mode has it's own links at the top and doesn't need to add top margin
-  &.reference-book .content { margin-top: 0; }
+@import '../screen-styles.scss';
+
+.screen.qa {
+
+  &.menu-open {
+    @media screen and (min-width: ($reference-book-page-width + $book-menu-width + 50px) ) {
+      .book-page{ margin-left: $book-menu-width; }
+    }
+  }
+
   .exercises {
     width: $reference-book-page-width;
     > .heading {
@@ -21,7 +28,7 @@
 
         &::after{
           content: "Enter your response";
-           @include tutor-sans-font(1.8rem, 3rem);
+     //     @include tutor-sans-font(1.8rem, 3rem);
           margin-left: 1rem;
           font-style: italic;
           color: lightgrey;
@@ -106,7 +113,7 @@
 }
 
 .is-college {
-  .qa {
+  .screen.qa {
     // LO tags are normally hidden for college courses, but QA should see all
     .openstax-exercise-preview {
       .lo-tag { display: block; }

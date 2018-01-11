@@ -8,6 +8,7 @@ import {
 import ChapterSection from '../chapter-section';
 import { StepTitleActions } from '../../flux/step-title';
 import { MediaActions } from '../../flux/media';
+import Exercises from '../exercises';
 
 @identifiedBy('reference-book/page')
 export default class ReferenceBookPage extends BaseModel {
@@ -32,8 +33,12 @@ export default class ReferenceBookPage extends BaseModel {
     return pg;
   }
 
-  ensureLoaded() {
-    if (!this.api.hasBeenFetched) { this.fetchContent(); }
+  //
+  @action fetchExercises() {
+  }
+
+  @action ensureLoaded() {
+    if (!this.api.isPending && !this.api.hasBeenFetched) { this.fetchContent(); }
   }
 
   @computed get contents() {
