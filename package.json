@@ -24,7 +24,8 @@
     "lint-cjsx": "./bin/lint-cjsx-files.sh",
     "validate": "./bin/validate-console-messages.sh",
     "prestart": "npm run validate",
-    "start": "./bin/tdd"
+    "start": "./bin/tdd",
+    "clear-build-cache": "rm -r ./tutor/node_modules/.cache/hard-source"
   },
   "repository": {
     "type": "git",
