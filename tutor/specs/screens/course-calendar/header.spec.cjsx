@@ -1,6 +1,4 @@
-{React} = require '../helpers/component-testing'
-
-Header = require '../../../src/components/course-calendar/header'
+Header = require '../../../src/screens/teacher-dashboard/header'
 moment = require 'moment'
 
 describe 'CourseCalendar Header', ->

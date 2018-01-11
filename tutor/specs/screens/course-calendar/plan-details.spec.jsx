@@ -1,12 +1,12 @@
-import { React, ReactTestUtils } from '../helpers/component-testing';
+import { React, ReactTestUtils } from '../../components/helpers/component-testing';
 import { last } from 'lodash';
 import { ReactWrapper } from 'enzyme';
-import PlanDetails from '../../../src/components/course-calendar/plan-details';
+import PlanDetails from '../../../src/screens/teacher-dashboard/plan-details';
 import COURSE from '../../../api/courses/1.json';
 import PLANS from '../../../api/courses/1/dashboard.json';
 import TaskPlan from '../../../src/models/task-plan/teacher';
 import Courses from '../../../src/models/courses-map';
-import EnzymeContext from '../helpers/enzyme-context';
+import EnzymeContext from '../../components/helpers/enzyme-context';
 
 const COURSE_ID = '1';
 

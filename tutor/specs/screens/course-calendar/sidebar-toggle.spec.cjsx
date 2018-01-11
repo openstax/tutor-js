@@ -1,10 +1,10 @@
-{React, SnapShot} = require '../helpers/component-testing'
+{React, SnapShot} = require '../../components/helpers/component-testing'
 {UiSettings} = require 'shared'
 
-jest.mock('../../../src/components/course-calendar/helper')
-Helper = require '../../../src/components/course-calendar/helper'
+jest.mock('../../../src/screens/teacher-dashboard/helper')
+Helper = require '../../../src/screens/teacher-dashboard/helper'
 
-Toggle = require '../../../src/components/course-calendar/sidebar-toggle'
+Toggle = require '../../../src/screens/teacher-dashboard/sidebar-toggle'
 
 describe 'CourseCalendar Sidebar Toggle', ->
 

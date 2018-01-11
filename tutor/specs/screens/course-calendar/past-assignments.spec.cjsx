@@ -1,9 +1,9 @@
-{React, SnapShot} = require '../helpers/component-testing'
+{React, SnapShot} = require '../../components/helpers/component-testing'
 
 PLANS  = require '../../../api/courses/1/plans.json'
 {PastTaskPlansActions, PastTaskPlansStore} = require '../../../src/flux/past-task-plans'
 
-{PastAssignments} = require '../../../src/components/course-calendar/past-assignments'
+{PastAssignments} = require '../../../src/screens/teacher-dashboard/past-assignments'
 COURSE_ID = '1'
 
 describe 'CourseCalendar Past Assignments listing', ->

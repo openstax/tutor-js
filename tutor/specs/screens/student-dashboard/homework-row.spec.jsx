@@ -5,7 +5,7 @@ import moment from 'moment-timezone';
 import chronokinesis from 'chronokinesis';
 
 import MOCK_DASHBOARD_RESPONSE from '../../../api/courses/1/dashboard';
-import HomeworkRow from '../../../src/components/student-dashboard/homework-row';
+import HomeworkRow from '../../../src/screens/student-dashboard/homework-row';
 
 
 describe('Homework Row', function() {

@@ -1,5 +1,5 @@
-import {React, SnapShot, Wrapper} from '../helpers/component-testing';
-import Dashboard from '../../../src/components/student-dashboard/dashboard';
+import {React, SnapShot, Wrapper} from '../../components/helpers/component-testing';
+import Dashboard from '../../../src/screens/student-dashboard/dashboard';
 import StudentTasks from '../../../src/models/student-tasks';
 import { bootstrapCoursesList } from '../../courses-test-data';
 import chronokinesis from 'chronokinesis';

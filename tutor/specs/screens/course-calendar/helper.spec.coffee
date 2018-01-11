@@ -1,4 +1,3 @@
-{React} = require '../helpers/component-testing'
 {UiSettings} = require 'shared'
 
 jest.mock('../../../src/helpers/router', ->
@@ -6,7 +5,7 @@ jest.mock('../../../src/helpers/router', ->
 )
 Router = require '../../../src/helpers/router'
 
-Helper = require '../../../src/components/course-calendar/helper'
+Helper = require '../../../src/screens/teacher-dashboard/helper'
 jest.useFakeTimers()
 
 describe 'CourseCalendar Helper', ->

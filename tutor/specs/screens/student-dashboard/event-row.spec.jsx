@@ -1,5 +1,5 @@
-import EventRow from '../../../src/components/student-dashboard/event-row';
-import { Testing, _, React } from '../helpers/component-testing';
+import EventRow from '../../../src/screens/student-dashboard/event-row';
+import { Testing, _, React } from '../../components/helpers/component-testing';
 
 const EVENT = {
   'id': '118',

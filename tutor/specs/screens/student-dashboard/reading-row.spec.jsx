@@ -5,7 +5,7 @@ import moment from 'moment-timezone';
 import chronokinesis from 'chronokinesis';
 
 import MOCK_DASHBOARD_RESPONSE from '../../../api/courses/1/dashboard';
-import ReadingRow from '../../../src/components/student-dashboard/reading-row';
+import ReadingRow from '../../../src/screens/student-dashboard/reading-row';
 
 
 describe('Reading Row', function() {

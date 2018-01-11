@@ -1,9 +1,9 @@
-import { React, SnapShot } from './helpers/component-testing';
+import { React, SnapShot } from '../components/helpers/component-testing';
 import { Promise } from 'es6-promise';
 import Router from '../../src/helpers/router';
-import ReferenceBook from '../../src/components/reference-book/reference-book';
+import ReferenceBook from '../../src/screens/reference-book/reference-book';
 import { bootstrapCoursesList } from '../courses-test-data';
-import ReferenceBookUX from '../../src/components/reference-book/ux';
+import ReferenceBookUX from '../../src/screens/reference-book/ux';
 import EnzymeContext from '../components/helpers/enzyme-context';
 
 jest.mock('../../src/helpers/router');

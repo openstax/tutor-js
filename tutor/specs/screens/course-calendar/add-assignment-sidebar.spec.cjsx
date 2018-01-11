@@ -1,13 +1,9 @@
-{React} = require '../helpers/component-testing'
-
 last = require 'lodash/last'
 
-jest.mock('../../../src/components/course-calendar/helper')
-Helper = require '../../../src/components/course-calendar/helper'
-
-Sidebar = require '../../../src/components/course-calendar/add-assignment-sidebar'
-
-EnzymeContext = require '../helpers/enzyme-context'
+jest.mock('../../../src/screens/teacher-dashboard/helper')
+Helper = require '../../../src/screens/teacher-dashboard/helper'
+Sidebar = require '../../../src/screens/teacher-dashboard/add-assignment-sidebar'
+EnzymeContext = require '../../components/helpers/enzyme-context'
 
 describe 'CourseCalendar AddAssignmentMenu', ->
 

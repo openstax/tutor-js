@@ -4,7 +4,7 @@ import { filter, map } from 'lodash';
 import moment from 'moment-timezone';
 
 import MOCK_DASHBOARD_RESPONSE from '../../../api/courses/1/dashboard';
-import EventsPanel from '../../../src/components/student-dashboard/events-panel';
+import EventsPanel from '../../../src/screens/student-dashboard/events-panel';
 import chronokinesis from 'chronokinesis';
 
 describe('EventsPanel', function() {
