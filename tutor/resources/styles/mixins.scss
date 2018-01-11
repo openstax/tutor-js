@@ -105,10 +105,12 @@ $tutor-shadow-types: (
     inset 0 2px 2px 0 rgba(0, 0, 0, 0.1),
     inset 0 2px 6px 0 rgba(0, 0, 0, 0.1),
   ),
+  outline: (
+    0 0 8px $link-color,
+  ),
 );
 
 @mixin tutor-shadow($type) {
-
   @if map-has-key($tutor-shadow-types, $type) {
     box-shadow: map-get($tutor-shadow-types, $type);
   } @else {
