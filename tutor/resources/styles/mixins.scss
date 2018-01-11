@@ -333,6 +333,12 @@ $tutor-shadow-types: (
     margin: 20px auto;
 }
 
+@mixin tutor-top-navbar-item(){
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
 @import './book-content/ap-bio/variables';
 @import './book-content/hs-physics/variables';
 @import './mixins/tutor-plans';
@@ -341,3 +347,4 @@ $tutor-shadow-types: (
 @import './mixins/drag-and-drop';
 @import './mixins/tasks';
 @import './mixins/left-stripe';
+@import './mixins/performance-forecast';

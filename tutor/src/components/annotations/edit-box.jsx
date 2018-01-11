@@ -74,7 +74,7 @@ class EditBox extends React.Component {
     } } = this;
 
     return (
-      <div className={"edit-box"}>
+      <div className="edit-box">
         <textarea
           autoFocus
           ref={i => this.input = i}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { asyncComponent } from 'react-async-component';
+import { asyncComponent as asyncLoader } from 'react-async-component';
 import OXColoredStripe from 'shared/src/components/ox-colored-stripe';
 import LoadingScreen from '../components/loading-screen';
 
@@ -15,14 +15,17 @@ const ErrorComponent = ({ error, retry }) => (
   </div>
 );
 
+
+export function asyncComponent(resolve) {
+  return asyncLoader({
+    resolve,
+    LoadingComponent: LoadingScreen,
+    ErrorComponent,
+  });
+}
+
 export function loadAsync(resolve) {
   // return a function so the router will only evaluate it when it's needed
   // in the future we can insert role dependant logic here
-  return () => (
-    asyncComponent({
-      resolve,
-      LoadingScreen,
-      ErrorComponent,
-    })
-  );
+  return () => asyncComponent(resolve);
 }

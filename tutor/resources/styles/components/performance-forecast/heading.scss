@@ -1,5 +1,3 @@
-@import "guide-key-mixin";
-
 .performance-forecast {
   .guide-heading {
     @include performance-forecast-panel();

@@ -3,12 +3,6 @@ $tutor-navbar-padding-horizontal: 4rem;
 
 // the $navbar-XX vars are bootstrap defaults
 
-@mixin tutor-top-navbar-item(){
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
 .tutor-top-navbar {
 
   @mixin top-nav-action() {

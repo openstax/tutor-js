@@ -12,7 +12,7 @@ import PreviewAddCourseBtn   from './preview-add-course-btn';
 import SupportMenu           from './support-menu';
 import StudentPayNowBtn      from './student-pay-now-btn';
 import BackgroundJobToasts   from './background-toasts';
-import ReferenceBookNavBar   from '../reference-book/navbar';
+import PlugableNavBar        from './plugable';
 import NavbarContext         from './context';
 
 function DefaultNavBar({ params }) {
@@ -42,7 +42,7 @@ function DefaultNavBar({ params }) {
 }
 
 const NavBarTypes = {
-  ReferenceBook: ReferenceBookNavBar,
+  Plugable: PlugableNavBar,
   Default: DefaultNavBar,
 };
 

@@ -41,7 +41,6 @@
 @import './components/related-content-link';
 @import './components/paging-navigation';
 @import './components/pinned-header-footer-card/sections';
-@import './components/course-calendar/index';
 @import './components/enrollment-student-id';
 @import './components/dialog';
 @import './components/tutor-input';
@@ -53,14 +52,12 @@
 @import './components/task/index';
 @import './components/task-step/index';
 @import './components/task-teacher-review/index';
-
 @import './components/task-step/all-steps';
 @import './components/task-step/reading';
 @import './components/task-plan/index';
 @import './components/plan-stats';
 @import './components/course-settings';
 @import './components/course-roster';
-@import './components/student-dashboard';
 @import './components/multi-select';
 @import './components/sections-chooser';
 @import './components/scores/index';
@@ -68,7 +65,6 @@
 @import './components/exercises';
 @import './components/questions-dashboard';
 @import './components/tutor-input';
-@import './components/reference-book/index';
 @import './components/book-menu';
 @import './components/tri-state-checkbox';
 @import './components/exercise-preview';

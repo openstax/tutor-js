@@ -1,0 +1,61 @@
+// guide-dashboard-progress component inherits from above
+// dashboard specific styles only inside .dashboard-container below
+
+.student-dashboard {
+  .progress-guide {
+    .section {
+      @include performance-forecast-section();
+      text-align: left;
+      margin-bottom: 20px;
+      &:last-of-type{ margin-bottom: 0; }
+    }
+
+    h1,h2,h3 { margin: 0; text-align: left; }
+
+    .panel-title {
+       @include tutor-sans-font(2.5rem, 1.3);
+      font-weight: 900;
+      border-bottom: thin dotted $tutor-neutral-light;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .recent {
+      color: $tutor-neutral-darker;
+      font-size: 1.4rem;
+      font-weight: 400;
+      padding: 0.75rem 0 1.5rem;
+    }
+    .current {  @include tutor-sans-font(1.6rem, 5rem); }
+
+    .heading {
+       @include tutor-sans-font(1.4rem, 1.4rem);
+      margin: 0;
+    }
+
+    .btn {
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+
+    }
+
+    .guide-key {
+      margin: 10px 0;
+      @include performance-forecast-key();
+    }
+
+    // full width buttons
+    .practice,
+    .view-performance-forecast {
+      margin-left: 0;
+      margin-bottom: 0.5rem;
+      width: 100%;
+    }
+
+    &.empty .actions-box{
+      text-align: left;
+      line-height: 1.5em;
+      margin-top: 10px;
+    }
+  }
+}

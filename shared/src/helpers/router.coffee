@@ -21,7 +21,7 @@ pathToRegexp = require 'path-to-regexp'
 
 class OXRouter
 
-  constructor: (routes) ->
+  setRoutes: (routes) ->
     {routeSettings, renderers} = OXRouter.separateRendersFromRoutes(routes)
     mappedRoutes = mapRoutes(routeSettings)
 
