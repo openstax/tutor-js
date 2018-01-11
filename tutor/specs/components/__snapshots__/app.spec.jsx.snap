@@ -57,7 +57,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                   Help
                 </span>
                 <i
-                  className="tutor-icon fa fa-angle-down"
+                  className="tutor-icon fa fa-angle-down toggle"
                   role="presentation"
                   type="angle-down"
                 />
@@ -130,7 +130,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                   Menu
                 </span>
                 <i
-                  className="tutor-icon fa fa-angle-down"
+                  className="tutor-icon fa fa-angle-down toggle"
                   role="presentation"
                   type="angle-down"
                 />

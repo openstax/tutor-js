@@ -26,7 +26,7 @@ exports[`Student Navbar Component has actions menu that matches snapshot 1`] = `
       Menu
     </span>
     <i
-      className="tutor-icon fa fa-angle-down"
+      className="tutor-icon fa fa-angle-down toggle"
       role="presentation"
       type="angle-down"
     />
@@ -180,7 +180,7 @@ exports[`Teacher Navbar Component has actions menu that matches snapshot 1`] = `
       Menu
     </span>
     <i
-      className="tutor-icon fa fa-angle-down"
+      className="tutor-icon fa fa-angle-down toggle"
       role="presentation"
       type="angle-down"
     />
