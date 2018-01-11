@@ -7,4 +7,4 @@ bin/checkinputs "$@"
 export OX_PROJECT=$1
 echo Serving: $OX_PROJECT
 
-$(npm bin)/webpack-dev-server --debug --progress --config webpack.config.js
+node --max_old_space_size=2048 $(npm bin)/webpack-dev-server --debug --progress --config webpack.config.js
