@@ -8,7 +8,7 @@ exports[`Course Settings, student access can switch to links 1`] = `
     Choose how students access OpenStax Tutor. Access settings cannot be changed after students begin to enroll.
   </p>
   <a
-    href="http://openstax.force.com/support/articles/FAQ/What-is-the-difference-between-using-a-direct-link-and-using-LMS-integration-to-give-your-students-access-to-OpenStax-Tutor/?q=LMS+integration&l=en_US&c=Products%3ATutor&fs=Search&pn=1"
+    href="https://openstax.secure.force.com/help/articles/FAQ/What-is-the-difference-between-using-a-direct-link-and-using-LMS-integration-to-give-your-students-access-to-OpenStax-Tutor"
     target="_blank"
   >
     <i
@@ -149,7 +149,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
     Choose how students access OpenStax Tutor. Access settings cannot be changed after students begin to enroll.
   </p>
   <a
-    href="http://openstax.force.com/support/articles/FAQ/What-is-the-difference-between-using-a-direct-link-and-using-LMS-integration-to-give-your-students-access-to-OpenStax-Tutor/?q=LMS+integration&l=en_US&c=Products%3ATutor&fs=Search&pn=1"
+    href="https://openstax.secure.force.com/help/articles/FAQ/What-is-the-difference-between-using-a-direct-link-and-using-LMS-integration-to-give-your-students-access-to-OpenStax-Tutor"
     target="_blank"
   >
     <i
@@ -375,7 +375,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
               className="blackboard"
             >
               <a
-                href="http://openstax.force.com/support/articles/How_To/How-can-I-integrate-OpenStax-Tutor-with-Blackboard/?q=LMS+integration&l=en_US&c=Products%3ATutor&fs=Search&pn=1"
+                href="https://openstax.secure.force.com/help/articles/How_To/Integrating-OpenStax-Tutor-into-Blackboard-LMS"
                 target="_blank"
               >
                 <i
@@ -435,7 +435,7 @@ exports[`Course Settings, student access renders chooser when lms is enabled 1`]
     Choose how students access OpenStax Tutor. Access settings cannot be changed after students begin to enroll.
   </p>
   <a
-    href="http://openstax.force.com/support/articles/FAQ/What-is-the-difference-between-using-a-direct-link-and-using-LMS-integration-to-give-your-students-access-to-OpenStax-Tutor/?q=LMS+integration&l=en_US&c=Products%3ATutor&fs=Search&pn=1"
+    href="https://openstax.secure.force.com/help/articles/FAQ/What-is-the-difference-between-using-a-direct-link-and-using-LMS-integration-to-give-your-students-access-to-OpenStax-Tutor"
     target="_blank"
   >
     <i
