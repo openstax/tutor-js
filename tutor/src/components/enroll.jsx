@@ -11,6 +11,8 @@ import invalidLMS from './enroll/invalid-lms-use';
 import invalidTeacher from './enroll/invalid-teacher';
 import selectPeriod from './enroll/select-periods';
 import droppedStudent from './enroll/dropped-student';
+import courseEnded from './enroll/course-ended';
+import unknownError from './enroll/unknown-error';
 
 @observer
 export default class CourseEnroll extends React.PureComponent {
@@ -31,6 +33,8 @@ export default class CourseEnroll extends React.PureComponent {
     invalidCode,
     invalidTeacher,
     droppedStudent,
+    courseEnded,
+    unknownError,
   }
 
   enrollmentCode = Router.currentParams().enrollmentCode;

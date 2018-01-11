@@ -95,6 +95,51 @@ exports[`Student Enrollment displays an invalid message 1`] = `
 </div>
 `;
 
+exports[`Student Enrollment displays generic error message 1`] = `
+<div
+  backdropClassName="course-enroll"
+  className="course-enroll modal"
+  role="dialog"
+  style={
+    Object {
+      "display": "block",
+    }
+  }
+  tabIndex="-1"
+>
+  <div
+    className="modal-dialog"
+  >
+    <div
+      className="modal-content"
+      role="document"
+    >
+      <div>
+        <div
+          className="warning modal-header"
+        >
+          <i
+            className="tutor-icon fa fa-exclamation-triangle"
+            role="presentation"
+            type="exclamation-triangle"
+          />
+          <span>
+            Sorry, an error occured
+          </span>
+        </div>
+        <div
+          className="modal-body"
+        >
+          <p>
+            blah: this is a error that we cant handle
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Student Enrollment loads when mounted 1`] = `
 <div
   backdropClassName="course-enroll"
