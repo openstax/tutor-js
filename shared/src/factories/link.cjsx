@@ -29,8 +29,6 @@ make = (router, name = 'OpenStax') ->
 
       if primaryBtn
         className = classnames(className, 'btn', 'btn-default', 'btn-primary')
-      unless router.makePathname
-        return <p>no router?</p>
 
       pathname = router.makePathname(to, params)
 
