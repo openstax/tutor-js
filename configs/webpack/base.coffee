@@ -8,21 +8,23 @@ HappyPack = require 'happypack'
 happyThreadPool = HappyPack.ThreadPool(size: 8);
 HardSourceWebpackPlugin = require 'hard-source-webpack-plugin'
 
-BASE_LOADERS =
+HAPPY_LOADERS =
   babel:  'babel-loader'
-  file:   'file-loader?name=[name].[ext]'
-  url:    'url-loader?limit=30000&name=[name]-[hash].[ext]'
   coffee: 'coffee-loader'
   cjsx:   'coffee-jsx-loader'
+
+STYLE_LOADERS =
+  file:   'file-loader?name=[name].[ext]'
+  url:    'url-loader?limit=30000&name=[name]-[hash].[ext]'
   style:  'style-loader'
   css:    'css-loader?minimize=true'
   less:   'less-loader'
   scss:   'fast-sass-loader'
 
-LOADERS = _.mapValues(BASE_LOADERS, (loader, name) -> "happypack/loader?id=#{name}")
+LOADERS = _.mapValues(HAPPY_LOADERS, (loader, name) -> "happypack/loader?id=#{name}")
 
-HAPPY_PACK_PLUGINS = _.map(BASE_LOADERS, (loader, name) ->
-  new HappyPack(id: name, threadPool: happyThreadPool, loaders: [ loader ])
+HAPPY_PACK_PLUGINS = _.map(HAPPY_LOADERS, (loader, name) ->
+  new HappyPack(id: name, threadPool: happyThreadPool, loaders: [ loader ], debug: true)
 )
 
 RESOLVABLES =
@@ -32,17 +34,17 @@ RESOLVABLES =
   cjsx:   { test: /\.cjsx$/,   use: LOADERS.cjsx,   exclude: /node_modules/ }
 
 STATICS =
-  image: { test: /\.(png|jpg|svg|gif)/,    use: [ LOADERS.file ] }
-  font:  { test: /\.(woff|woff2|eot|ttf)/, use: [ LOADERS.url  ] }
+  image: { test: /\.(png|jpg|svg|gif)/,    use: [ STYLE_LOADERS.file ] }
+  font:  { test: /\.(woff|woff2|eot|ttf)/, use: [ STYLE_LOADERS.url  ] }
 
 BASE_BUILD =
   js:     RESOLVABLES.js
   jsx:    RESOLVABLES.jsx
   coffee: RESOLVABLES.coffee
   cjsx:   RESOLVABLES.cjsx
-  css:  { test: /\.css$/,  use: ExtractTextPlugin.extract([ LOADERS.css ]) }
-  less: { test: /\.less$/, use: ExtractTextPlugin.extract([ LOADERS.css, LOADERS.less ]) }
-  scss: { test: /\.scss$/, use: ExtractTextPlugin.extract([ LOADERS.css, LOADERS.scss ]) }
+  css:  { test: /\.css$/,  use: ExtractTextPlugin.extract([ STYLE_LOADERS.css ]) }
+  less: { test: /\.less$/, use: ExtractTextPlugin.extract([ STYLE_LOADERS.css, LOADERS.less ]) }
+  scss: { test: /\.scss$/, use: ExtractTextPlugin.extract([ STYLE_LOADERS.css, STYLE_LOADERS.scss ]) }
 
 DEV_LOADERS = ['react-hot-loader/webpack']
 
@@ -51,7 +53,7 @@ BASE_DEV_LOADER_RULES = _.map(BASE_BUILD, (loaderConfig, type) ->
   config.use ||= []
 
   if type is 'less' or type is 'scss'
-    config.use = config.use.concat DEV_LOADERS.concat(LOADERS.style, LOADERS.css, LOADERS[type])
+    config.use = config.use.concat DEV_LOADERS.concat(STYLE_LOADERS.style, STYLE_LOADERS.css, STYLE_LOADERS[type])
   else
     config.use = loaderConfig.use
   config
@@ -215,15 +217,7 @@ makeDevelopmentBase = (projectConfig) ->
       host: "#{host}",
       filename: '[name].js'
       hot: true
-      stats:
-        # Config for minimal console.log mess.
-        assets: false,
-        colors: true,
-        version: false,
-        hash: false,
-        timings: false,
-        chunks: false,
-        chunkModules: false
+      stats: 'errors-only'
 
   developmentBase
 
