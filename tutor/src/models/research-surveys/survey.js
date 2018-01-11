@@ -17,9 +17,13 @@ export default class ResearchSurvey extends BaseModel {
     return eval(`(${this.model})`);
   }
 
+  @computed get isComplete() {
+    return Boolean(this.response && !this.api.isPending);
+  }
+
   // called from API
   save() {
-    return pick(this, 'response');
+    return { id: this.id, data: pick(this, 'response') };
   }
 
 }

@@ -1,12 +1,32 @@
 import React from 'react';
-import { Survey, Model } from 'survey-react';
+import { Survey, Model, StylesManager } from 'survey-react';
 import { observable, computed, action, observe } from 'mobx';
+import { Panel } from 'react-bootstrap';
+import Router from '../../helpers/router';
 import { observer, inject } from 'mobx-react';
 import Courses from '../../models/courses-map';
 import StudentTasks from '../../models/student-tasks';
 import LoadingScreen from '../../components/loading-screen';
 import NotFound from '../../components/invalid-page';
 import CoursePage from '../../components/course-page';
+import BackButton from '../../components/buttons/back-button';
+import './styles.scss';
+
+const ThankYou = ({ survey }) => {
+  const params = Router.currentParams();
+  const backLink = params.courseId ? { to: 'dashboard', text: 'Back to Dashboard', params } :
+    { to: 'myCourses', text: 'Back to My Courses' };
+
+  return (
+    <Panel>
+      <h3>Thank you for completing the survey!</h3>
+      <p>
+        <BackButton fallbackLink={backLink} />
+      </p>
+    </Panel>
+  );
+};
+
 
 @observer
 export default class Surveys extends React.PureComponent {
@@ -22,7 +42,7 @@ export default class Surveys extends React.PureComponent {
     if (!this.studentTasks.api.isFetchedOrFetching) {
       this.studentTasks.fetch();
     }
-    Survey.cssType = 'bootstrap';
+    StylesManager.applyTheme('orange');
   }
 
   @computed get course() {
@@ -44,7 +64,7 @@ export default class Surveys extends React.PureComponent {
 
   @action.bound onComplete(survey) {
     this.survey.response = survey.data;
-    this.survey.save(); //response = survey.data;
+    this.survey.save()
   }
 
   render() {
@@ -52,6 +72,8 @@ export default class Surveys extends React.PureComponent {
     const { course, model, survey } = this;
 
     if (!survey) { return <NotFound />; }
+    if (survey.api.isPending) { return <LoadingScreen message="Saving response…" />; }
+    if (survey.isComplete) { return <ThankYou survey={survey} /> };
 
     return (
       <CoursePage
