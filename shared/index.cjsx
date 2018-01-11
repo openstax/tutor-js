@@ -5,7 +5,7 @@
 
 module.exports = {
 
-  OXRouter:               require './src/helpers/router'
+  OXRouter:               require('./src/helpers/router').default,
   OXLink:                 require './src/factories/link'
   OXButtonLink:           require './src/factories/button-link'
   OXMatchByRouter:        require './src/helpers/match-by-router'
