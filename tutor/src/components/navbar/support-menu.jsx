@@ -100,8 +100,7 @@ class SupportMenuDropDown extends React.PureComponent {
   }
 
   render() {
-    const { open, onClose, rootCloseEvent } = this.props;
-    const { courseId } = Router.currentParams();
+    const { open, onClose, rootCloseEvent, courseId } = this.props;
 
     const menu = (
       <TourAnchor
