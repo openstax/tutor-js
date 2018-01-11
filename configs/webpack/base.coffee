@@ -43,7 +43,7 @@ BASE_BUILD =
   coffee: RESOLVABLES.coffee
   cjsx:   RESOLVABLES.cjsx
   css:  { test: /\.css$/,  use: ExtractTextPlugin.extract([ STYLE_LOADERS.css ]) }
-  less: { test: /\.less$/, use: ExtractTextPlugin.extract([ STYLE_LOADERS.css, LOADERS.less ]) }
+  less: { test: /\.less$/, use: ExtractTextPlugin.extract([ STYLE_LOADERS.css, STYLE_LOADERS.less ]) }
   scss: { test: /\.scss$/, use: ExtractTextPlugin.extract([ STYLE_LOADERS.css, STYLE_LOADERS.scss ]) }
 
 DEV_LOADERS = ['react-hot-loader/webpack']
