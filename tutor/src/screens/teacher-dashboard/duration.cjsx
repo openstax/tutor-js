@@ -1,5 +1,5 @@
 React = require 'react'
-moment = require 'moment-timezone'
+moment = require 'moment'
 twix = require 'twix'
 _ = require 'underscore'
 camelCase = require 'lodash/camelCase'
