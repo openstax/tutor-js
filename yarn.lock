@@ -2763,9 +2763,9 @@ findup-sync@^0.4.2:
     micromatch "^2.3.7"
     resolve-dir "^0.1.0"
 
-fixed-data-table-2@0.8.1:
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/fixed-data-table-2/-/fixed-data-table-2-0.8.1.tgz#e4e5138d30747997edb9f540d2989eb97760484d"
+fixed-data-table-2@0.8.8:
+  version "0.8.8"
+  resolved "https://registry.yarnpkg.com/fixed-data-table-2/-/fixed-data-table-2-0.8.8.tgz#0e9cd5cb5418c084f1f757743ddffe8a94817e1a"
   dependencies:
     create-react-class "^15.5.2"
     prop-types "^15.5.8"
@@ -4658,6 +4658,10 @@ mobx-react@4.2.2:
   resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-4.2.2.tgz#db9cc3cafefbd830d0584c1149af5aae67829201"
   dependencies:
     hoist-non-react-statics "^1.2.0"
+
+mobx-utils@3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/mobx-utils/-/mobx-utils-3.2.2.tgz#1979fe85a27df496d4f17af288813ac4fd356fd5"
 
 mobx@3.2.2:
   version "3.2.2"
