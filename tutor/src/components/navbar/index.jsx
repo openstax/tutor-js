@@ -28,7 +28,7 @@ function DefaultNavBar({ params }) {
         </div>
         <CenterControls params={params} />
         <div className="right-side-controls">
-          <SupportMenu />
+          <SupportMenu         courseId={courseId} />
           <StudentPayNowBtn    courseId={courseId} />
           <ActionsMenu         courseId={courseId} />
           <PreviewAddCourseBtn courseId={courseId} />

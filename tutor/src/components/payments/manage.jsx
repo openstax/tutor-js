@@ -171,7 +171,7 @@ export default class ManagePayments extends React.PureComponent {
         <div className="footer">
           <NewTabLink
             className="refund-policy"
-            to="http://openstax.force.com/support/articles/FAQ/OpenStax-Tutor-Student-Refund-Policy/?q=refund&l=en_US&c=Products%3ATutor&fs=Search&pn=1"
+            to="https://openstax.secure.force.com/help/articles/FAQ/OpenStax-Tutor-Student-Refund-Policy"
           >
             Refund policy for OpenStax Tutor Beta courses
           </NewTabLink>

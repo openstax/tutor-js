@@ -5,6 +5,7 @@ import NoClose                  from './no-close';
 import NoCloseAndFooter         from './no-close-and-footer';
 import CenteredWheel            from './centered-wheel';
 import CenteredNoHoleWheel      from './centered-no-hole-wheel';
+import NoHoleWheel              from './no-hole-wheel';
 import HowToBuildYourReading    from './how-to-build-your-reading';
 import ForceScrollOnMount       from './force-scroll-on-mount';
 import TipsNowOrLater           from './tips-now-or-later';
@@ -20,6 +21,7 @@ export default {
   NoCloseAndFooter,
   CenteredWheel,
   CenteredNoHoleWheel,
+  NoHoleWheel,
   HowToBuildYourReading,
   ForceScrollOnMount,
   TipsNowOrLater,

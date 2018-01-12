@@ -64,7 +64,7 @@ exports[`Support Menu renders and matches snapshot 1`] = `
       style={undefined}
     >
       <a
-        href="http://openstax.force.com/support?l=en_US&c=Products%3ATutor"
+        href="https://openstax.secure.force.com/help"
         onClick={[Function]}
         onKeyDown={[Function]}
         role="menuitem"
@@ -82,7 +82,7 @@ exports[`Support Menu renders and matches snapshot 1`] = `
       style={undefined}
     >
       <a
-        href="/accessibility-statement/"
+        href="/accessibility-statement/2"
         onClick={[Function]}
         onKeyDown={[Function]}
         role="menuitem"
@@ -140,7 +140,7 @@ exports[`Support Menu renders support links when in a course for student 1`] = `
       style={undefined}
     >
       <a
-        href="http://openstax.force.com/support?l=en_US&c=Products%3ATutor"
+        href="https://openstax.secure.force.com/help"
         onClick={[Function]}
         onKeyDown={[Function]}
         role="menuitem"
@@ -238,7 +238,7 @@ exports[`Support Menu renders support links when in a course for teacher 1`] = `
       style={undefined}
     >
       <a
-        href="http://openstax.force.com/support?l=en_US&c=Products%3ATutor"
+        href="https://openstax.secure.force.com/help"
         onClick={[Function]}
         onKeyDown={[Function]}
         role="menuitem"

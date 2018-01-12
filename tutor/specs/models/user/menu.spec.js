@@ -19,11 +19,7 @@ describe('Current User Store', function() {
   });
 
   it('computes help URL', () => {
-    expect(UserMenu.helpURL).toContain('Tutor');
-    expect(UserMenu.helpLinkForCourseId(1)).toContain('Tutor');
-    Courses.get(1).is_concept_coach = true;
-    expect(UserMenu.helpURL).toContain('Tutor');
-    expect(UserMenu.helpLinkForCourseId(1)).toContain('Coach');
+    expect(UserMenu.helpURL).toContain('help');
   });
 
   it('should return expected menu routes for courses', function() {
