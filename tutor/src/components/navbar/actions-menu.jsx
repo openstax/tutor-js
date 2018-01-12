@@ -87,23 +87,23 @@ export default class ActionsMenu extends React.Component {
     }
 
     const item = (<RoutedMenuItem {...props}
-      route={menuOption}
-      key={key}
-      tourId={key}
-      label={menuOption.label}
-      name={menuOption.name}
+                    route={menuOption}
+                    key={key}
+                    tourId={key}
+                    label={menuOption.label}
+                    name={menuOption.name}
     />);
 
     if (options.separator) {
       const separator = (suffix = 'divider') =>
         <MenuItem divider={true} key={`${key}-${suffix}`} />;
       switch (options.separator) {
-      case 'after':
-        return [item, separator()];
-      case 'before':
-        return [separator(), item];
-      case 'both':
-        return [separator('before'), item, separator('after')];
+        case 'after':
+          return [item, separator()];
+        case 'before':
+          return [separator(), item];
+        case 'both':
+          return [separator('before'), item, separator('after')];
       }
     }
     return item;
@@ -128,7 +128,7 @@ export default class ActionsMenu extends React.Component {
         >
           <Icon type="bars" />
           <span className="control-label" title="Menu and settings">Menu</span>
-          <Icon type="angle-down" />
+          <Icon type="angle-down" className="toggle" />
         </Dropdown.Toggle>
         <Dropdown.Menu >
           {flatMap(menuRoutes, this.renderMenuItem)}

@@ -10,7 +10,15 @@
     align-items: center;
     align-self: stretch;
     @include top-nav-action();
+
+    &:focus {
+      .tutor-icon.toggle {
+        @include tutor-shadow(outline);
+      }
+    }
+
   }
+
 
   &.open > a {
     box-shadow: none;
@@ -29,12 +37,12 @@
         height: auto;
         line-height: 2;
         padding: 15 20px;
-  
+
         &:hover {
           background-color: $tutor-neutral-lighter;
           color: $tutor-neutral-darker;
         }
-  
+
         form input[type="submit"] {
           line-height: inherit;
         }
@@ -97,7 +105,16 @@
       color: white;
       background-color: #2e7194;
       letter-spacing: -2px;
+
+
     }
+
+    .dropdown-toggle:focus {
+      .initials {
+        @include tutor-shadow(outline);
+      }
+    }
+
   }
 
 }

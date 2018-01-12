@@ -171,7 +171,7 @@ export default class SupportMenu extends React.PureComponent {
         >
           <Icon type="question-circle" />
           <span title="Page tips and support" className="control-label">Help</span>
-          <Icon type="angle-down" />
+          <Icon type="angle-down" className="toggle" />
         </Dropdown.Toggle>
         <SupportMenuDropDown {...this.props} />
       </Dropdown>
