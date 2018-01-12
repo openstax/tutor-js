@@ -45,6 +45,11 @@ describe('Student Enrollment', () => {
     expect(SnapShot.create(<Enroll enrollment={enrollment} />).toJSON()).toMatchSnapshot();
   });
 
+  it('displays generic error message', () => {
+    enrollment.api.errors = [{ code: 'blah', message: 'this is a error that we cant handle' }];
+    expect(SnapShot.create(<Enroll enrollment={enrollment} />).toJSON()).toMatchSnapshot();
+  });
+
   describe('select periods', () => {
     beforeEach(() => {
       enrollment.enrollment_code = enrollment.originalEnrollmentCode = 'cc3c6ff9-83d8-4375-94be-8c7ae3024938';

@@ -42,8 +42,6 @@ export default class CourseEnrollment extends BaseModel {
   @computed get bodyContents() {
     if (this.isLoading) {
       return <Activity isLoading={true} />;
-    } else if (get(this.api.errors, 'dropped_student')) {
-      return this.renderComponent('droppedStudent');
     } else if (this.isFromLms && false === this.courseIsLmsEnabled) {
       return this.renderComponent('invalidLMS');
     } else if (!this.isFromLms && true === this.courseIsLmsEnabled) {
@@ -52,6 +50,14 @@ export default class CourseEnrollment extends BaseModel {
       return this.renderComponent('invalidTeacher');
     } else if (this.isInvalid) {
       return this.renderComponent('invalidCode');
+    } else if (!isEmpty(this.api.errors)) {
+      if (this.api.errors.dropped_student) {
+        return this.renderComponent('droppedStudent');
+      } else if (this.api.errors.course_ended) {
+        return this.renderComponent('courseEnded');
+      } else {
+        return this.renderComponent('unknownError');
+      }
     } else if (this.needsPeriodSelection) {
       return this.renderComponent('selectPeriod');
     } else if (this.isComplete) {
@@ -66,7 +72,7 @@ export default class CourseEnrollment extends BaseModel {
 
   renderComponent(name) {
     const Tag = Enroll.Components[name];
-    return <Tag enrollment={this} />;
+    return <Tag enrollment={this} errors={this.api.errors} />;
   }
 
   @action.bound
