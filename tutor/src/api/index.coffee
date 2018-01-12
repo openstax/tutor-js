@@ -107,7 +107,7 @@ startAPI = ->
       _.map ExerciseStore.getUnsavedExclusions(), (is_excluded, id) -> {id, is_excluded}
   )
 
-#  connectRead(TocActions, pattern: 'ecosystems/{id}/readings')
+  connectRead(TocActions, pattern: 'ecosystems/{id}/readings')
   connectRead(CourseGuideActions, pattern: 'courses/{id}/guide')
 
   connectRead(CCDashboardActions, pattern: 'courses/{id}/cc/dashboard')
