@@ -1,0 +1,5 @@
+{
+    "id": "1",
+    "title": "What are your favorites?",
+    "model": "{pages:[{elements:[{type:\"radiogroup\",choices:[{value:\"bananas\",text:\"Bananas\"},{value:\"oranges\",text:\"Oranges\"},{value:\"apples\",text:\"Apples\"}],name:\"favs\",title:\"Which fruit is best?\"}],name:\"page1\"}]}"
+}

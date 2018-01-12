@@ -64,7 +64,7 @@ export default class Surveys extends React.PureComponent {
 
   @action.bound onComplete(survey) {
     this.survey.response = survey.data;
-    this.survey.save()
+    this.survey.save();
   }
 
   render() {
