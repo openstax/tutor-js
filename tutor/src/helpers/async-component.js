@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { asyncComponent as asyncLoader } from 'react-async-component';
 import OXColoredStripe from 'shared/src/components/ox-colored-stripe';
-import LoadingScreen from '../components/loading-screen';
+import LoadingComponent from '../components/loading-screen';
 
 const ErrorComponent = ({ error, retry }) => (
   <div className="invalid-page">
@@ -19,7 +19,7 @@ const ErrorComponent = ({ error, retry }) => (
 export function asyncComponent(resolve) {
   return asyncLoader({
     resolve,
-    LoadingComponent: LoadingScreen,
+    LoadingComponent,
     ErrorComponent,
   });
 }

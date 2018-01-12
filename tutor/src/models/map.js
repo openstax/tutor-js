@@ -1,8 +1,16 @@
-import { ObservableMap, computed } from 'mobx';
+import { ObservableMap, computed, action } from 'mobx';
+import { isArray } from 'lodash';
 import ModelApi from './api';
 import lazyGetter from '../helpers/lazy-getter.js';
 
 export default class Map extends ObservableMap {
+
+  constructor(data) {
+    super();
+    if (isArray(data)) {
+      this.mergeModelData(data);
+    }
+  }
 
   @computed get array() {
     return this.values();
@@ -30,4 +38,10 @@ export default class Map extends ObservableMap {
 
   @lazyGetter api = new ModelApi();
 
+  @action mergeModelData(data) {
+    data.forEach((modelData) => {
+      const model = this.get(modelData.id);
+      model ? model.update(modelData) : this.set(modelData.id, new this.constructor.Model(modelData, this));
+    });
+  }
 }

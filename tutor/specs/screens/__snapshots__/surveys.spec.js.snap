@@ -1,0 +1,264 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Surveys Screen renders and matches snapshot 1`] = `
+<div
+  className="course-page research-surveys"
+  data-appearance="testing"
+  data-book-title="Testing"
+  data-is-preview={false}
+  data-term="Spring 2017"
+  data-title="Local Test Course One"
+>
+  <header>
+    <div
+      className="title-wrapper"
+    >
+      <div
+        className="title"
+      >
+        Local Test Course One
+      </div>
+      <div
+        className="subtitle"
+      >
+        Spring 2017
+      </div>
+    </div>
+  </header>
+  <div
+    className="body-wrapper"
+  >
+    <div
+      className="body"
+    >
+      <h1>
+        Survey “
+        What are your favorites?
+        ”
+      </h1>
+      <div
+        className="sv_main sv_default_css"
+      >
+        <div
+          className="sv_custom_header"
+        />
+        <div
+          className="sv_container"
+        >
+          <div
+            className="sv_header"
+          >
+            <h3 />
+          </div>
+          <div
+            className="sv_body"
+            id="sp_100"
+          >
+            <div
+              className="sv_p_root"
+            >
+              <div
+                className="sv_row"
+              >
+                <div
+                  className="sv_q sv_qstn"
+                  id="sq_100"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                  <div
+                    className={null}
+                  >
+                    <h5
+                      className="sv_q_title"
+                    >
+                      <span
+                        style={null}
+                      >
+                        1. Which fruit is best?
+                      </span>
+                    </h5>
+                  </div>
+                  <div
+                    className={null}
+                  >
+                    <fieldset
+                      className="sv_qcbc"
+                    >
+                      <div
+                        className="sv_q_radiogroup"
+                        style={
+                          Object {
+                            "display": "inline-block",
+                            "width": "100%",
+                          }
+                        }
+                      >
+                        <label
+                          className="sv_q_radiogroup_label"
+                        >
+                          <input
+                            aria-label="1. Which fruit is best?"
+                            checked={false}
+                            className="sv_q_radiogroup_control_item"
+                            disabled={false}
+                            id="sq_100i"
+                            name="favs_sq_100"
+                            onChange={[Function]}
+                            type="radio"
+                            value="bananas"
+                          />
+                          <span
+                            className="circle"
+                          />
+                          <span
+                            className="check"
+                          />
+                          <span
+                            className=""
+                          >
+                            <span
+                              style={
+                                Object {
+                                  "display": "inline",
+                                  "marginLeft": "3px",
+                                  "position": "static",
+                                }
+                              }
+                            >
+                              Bananas
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                      <div
+                        className="sv_q_radiogroup"
+                        style={
+                          Object {
+                            "display": "inline-block",
+                            "width": "100%",
+                          }
+                        }
+                      >
+                        <label
+                          className="sv_q_radiogroup_label"
+                        >
+                          <input
+                            aria-label="1. Which fruit is best?"
+                            checked={false}
+                            className="sv_q_radiogroup_control_item"
+                            disabled={false}
+                            id={null}
+                            name="favs_sq_100"
+                            onChange={[Function]}
+                            type="radio"
+                            value="oranges"
+                          />
+                          <span
+                            className="circle"
+                          />
+                          <span
+                            className="check"
+                          />
+                          <span
+                            className=""
+                          >
+                            <span
+                              style={
+                                Object {
+                                  "display": "inline",
+                                  "marginLeft": "3px",
+                                  "position": "static",
+                                }
+                              }
+                            >
+                              Oranges
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                      <div
+                        className="sv_q_radiogroup"
+                        style={
+                          Object {
+                            "display": "inline-block",
+                            "width": "100%",
+                          }
+                        }
+                      >
+                        <label
+                          className="sv_q_radiogroup_label"
+                        >
+                          <input
+                            aria-label="1. Which fruit is best?"
+                            checked={false}
+                            className="sv_q_radiogroup_control_item"
+                            disabled={false}
+                            id={null}
+                            name="favs_sq_100"
+                            onChange={[Function]}
+                            type="radio"
+                            value="apples"
+                          />
+                          <span
+                            className="circle"
+                          />
+                          <span
+                            className="check"
+                          />
+                          <span
+                            className=""
+                          >
+                            <span
+                              style={
+                                Object {
+                                  "display": "inline",
+                                  "marginLeft": "3px",
+                                  "position": "static",
+                                }
+                              }
+                            >
+                              Apples
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                      <legend
+                        style={
+                          Object {
+                            "display": "none",
+                          }
+                        }
+                      >
+                        1. Which fruit is best?
+                      </legend>
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="sv_nav"
+            >
+              <input
+                className=" sv_complete_btn"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "marginRight": "5px",
+                  }
+                }
+                type="button"
+                value="Complete"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

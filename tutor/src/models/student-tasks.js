@@ -1,16 +1,20 @@
 import Map from './map';
 import moment from 'moment-timezone';
+import { readonly } from 'core-decorators';
 import { computed, action, observable } from 'mobx';
 import { filter, groupBy, sortBy, pickBy } from 'lodash';
 import { TimeStore } from '../flux/time';
 import Task from './student/task';
+import ResearchSurveys from './research-surveys';
 
 const MAX_POLLING_ATTEMPTS = 10;
 const POLL_SECONDS = 30;
 
 export class CourseStudentTasks extends Map {
+  @readonly static Model = Task;
 
   @observable _updatesPoller;
+  @observable researchSurveys;
 
   constructor(courseId) {
     super();
@@ -62,10 +66,10 @@ export class CourseStudentTasks extends Map {
     this._updatesPoller();
   }
 
-
   // note: the response also contains limited course and role information but they're currently unused
-  onLoaded({ data: { tasks } }) {
-    tasks.forEach(task => this.set(task.id, new Task(task)));
+  onLoaded({ data: { tasks, research_surveys } }) {
+    this.researchSurveys = research_surveys ? new ResearchSurveys(research_surveys) : null;
+    this.mergeModelData(tasks);
   }
 }
 

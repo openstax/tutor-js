@@ -6950,6 +6950,10 @@ supports-color@^4.0.0, supports-color@^4.4.0:
   dependencies:
     has-flag "^2.0.0"
 
+survey-react@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/survey-react/-/survey-react-1.0.1.tgz#89d24a71db660f0968ceb29e04d26b2657ca54d8"
+
 svg-url-loader@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/svg-url-loader/-/svg-url-loader-2.0.1.tgz#b8edb3d117649e0f6fa2246867352093cc1dbd96"

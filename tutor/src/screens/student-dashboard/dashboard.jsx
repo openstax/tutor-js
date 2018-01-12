@@ -16,6 +16,7 @@ import Tabs from '../../components/tabs';
 import { NotificationsBar } from 'shared';
 import NotificationHelpers from '../../helpers/notifications';
 import TourRegion from '../../components/tours/region';
+import Surveys from './surveys';
 
 export default class StudentDashboard extends React.PureComponent {
 
@@ -83,6 +84,7 @@ export default class StudentDashboard extends React.PureComponent {
               {tabIndex === 0 ? this.renderThisWeek(course) : this.renderPastWork(course)}
             </Col>
             <Col xs={12} md={4} lg={3}>
+              <Surveys course={course} />
               <ProgressGuideShell courseId={courseId} />
               <div className="actions-box">
                 <BrowseTheBook

@@ -11,7 +11,6 @@ const TeacherDashboard = asyncComponent(
 );
 const getTeacherDashboard = () => TeacherDashboard;
 
-
 const ReferenceBook = asyncComponent(
   () => System.import('./screens/reference-book/index.jsx')
 )
@@ -201,7 +200,11 @@ const getRoutes = (router) => {
           renderer: getReferenceBook, settings: { navBar: 'Plugable' } },
       ],
     },
+    {
+      path: '/surveys/:courseId/:surveyId', name: 'researchSurvey',
+      renderer: loadAsync(() => System.import('./screens/surveys/index.jsx')),
+    },
   ];
-}
+};
 
 export { getRoutes };
