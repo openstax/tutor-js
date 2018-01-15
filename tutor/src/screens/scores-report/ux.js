@@ -7,7 +7,7 @@ export default class ScoresReportUX {
 
   @observable averagesWidth = CELL_AVERAGES_SINGLE_WIDTH;
 
-  @observable isAveragesExpanded;
+  @observable isAveragesExpanded = false;
 
   @action.bound toggleAverageExpansion() {
     const fromTo = [CELL_AVERAGES_SINGLE_WIDTH, CELL_AVERAGES_SINGLE_WIDTH * 3];

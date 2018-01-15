@@ -31,6 +31,9 @@ $pie-color-late: #268FBE;
 
   .course-scores-table {
     min-height: 70vh;
+    &:focus {
+      outline: 0
+    }
   }
 
   .overall-cell {
