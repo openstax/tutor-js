@@ -3,8 +3,6 @@
 }
 
 .header-cell-wrapper {
-  $row-height: 30px;
-  $short-row-height: 26px;
 
   height: 100%;
   line-height: normal;
@@ -21,17 +19,17 @@
 
   .header-row {
     display: flex;
-    flex-basis: $row-height;
+    flex-basis: $scores-row-height;
     > * {
-      height: $row-height;
+      height: $scores-row-height;
       display: flex;
       align-items: center;
       justify-content: center;
     }
     &.short {
-      flex-basis: $short-row-height;
+      flex-basis: $scores-short-row-height;
       > * {
-        height: $short-row-height;
+        height: $scores-short-row-height;
       }
     }
   }
@@ -56,48 +54,6 @@
     }
   }
 
-  &.overall-average {
-    flex: 1;
-    @include overall-border-style();
-    background: $tutor-info-bg;
-    font-weight: normal;
-    border-bottom: 0;
-    > * {
-      justify-content: center;
-      text-align: center;
-    }
-    .overall-header-cell {
-      line-height: $row-height;
-    }
-
-    > .overall-header-cell {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      .tutor-icon {
-        align-self: flex-end;
-        margin: 4px;
-      }
-      span {
-        line-height: 16px;
-        margin-bottom: 4px;
-      }
-    }
-
-
-    .header-row {
-      border-width: 2px;
-      border-top: $scores-thick-grey-border;
-      border-bottom: 0;
-      &.short {
-        background: $scores-student-header-bg-color;
-        borderom-bottom: 0;
-        border-top: 0;
-      }
-    }
-  }
-
   &.assignment {
 
     &[data-assignment-type] {
@@ -109,7 +65,7 @@
       text-align: center;
       font-weight: normal;
       font-size: 1.2rem;
-      line-height: $row-height;
+      line-height: $scores-row-height;
       font-style: italic;
       color: $tutor-neutral-lite;
     }

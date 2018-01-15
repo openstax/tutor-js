@@ -1,0 +1,74 @@
+.overall-average {
+  flex: 1;
+  @include overall-border-style();
+  background: $tutor-info-bg;
+  font-weight: normal;
+  border-bottom: 0;
+  > * {
+    justify-content: center;
+    text-align: center;
+  }
+
+  > .overall-header-cell {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .tutor-icon {
+      align-self: flex-end;
+      margin: 4px;
+    }
+    span {
+      line-height: 16px;
+      margin-bottom: 4px;
+    }
+  }
+
+  .header-row {
+    border-width: 2px;
+    border-top: $scores-thick-grey-border;
+    border-bottom: 0;
+    &.short {
+      background: $scores-student-header-bg-color;
+      borderom-bottom: 0;
+      border-top: 0;
+    }
+  }
+
+  .labels,
+  .values
+  {
+    display: flex;
+    overflow: hidden;
+    justify-content: flex-start;
+    > * {
+      min-width: $scores-overall-values-width;
+      flex-basis: $scores-overall-values-width;
+    }
+  }
+  .labels {
+    align-items: flex-end;
+    > * {
+      line-height: $scores-row-height / 2;
+    }
+
+  }
+}
+
+.overall-cell {
+  > * {
+    display: flex;
+    overflow: hidden;
+    justify-content: flex-start;
+  }
+  .public_fixedDataTableCell_cellContent {
+    display: flex;
+    overflow: hidden;
+    justify-content: flex-start;
+    > * {
+      min-width: $scores-overall-values-width;
+      flex-basis: $scores-overall-values-width;
+      text-align: center;
+    }
+  }
+}

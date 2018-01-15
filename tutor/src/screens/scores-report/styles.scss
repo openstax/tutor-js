@@ -6,6 +6,9 @@ $scores-thick-grey-border: 2px solid $nav-tabs-border-color;
 $scores-table-outer-border-width: 2px;
 $scores-table-outer-border-color: $scores-student-header-bg-color;
 $scores-left-column-padding: 8px;
+$scores-row-height: 30px;
+$scores-short-row-height: 26px;
+$scores-overall-values-width: 75px;
 
 @mixin overall-border-style() {
   border-style: solid;
@@ -162,4 +165,5 @@ $scores-left-column-padding: 8px;
 
 @import './styles/controls';
 @import './styles/table';
-@import "./styles/header";
+@import './styles/header';
+@import './styles/overall-cell';

@@ -15,6 +15,8 @@ import NameCell from './name-cell';
 import OverallHeader from './overall-header';
 import { CourseScoresPeriod } from '../../models/course/scores';
 import CGL from '../../components/course-grouping-label';
+import OverallCell from './overall-cell';
+import UX from './ux';
 
 const FIRST_DATA_COLUMN = 2;
 const COLUMN_WIDTH = 160;
@@ -39,13 +41,6 @@ const NameHeader = observer(({ sort, onSort, isConceptCoach }) => (
 ));
 
 
-const OverallCell = observer(({ students, rowIndex }) => (
-  <Cell className="overall-cell">
-    {((students[rowIndex].average_score || 0) * 100).toFixed(0)} %
-  </Cell>
-));
-
-
 @observer
 export default class ScoresTable extends React.PureComponent {
 
@@ -59,6 +54,8 @@ export default class ScoresTable extends React.PureComponent {
     dataType: React.PropTypes.string,
     isConceptCoach: React.PropTypes.bool.isRequired,
   }
+
+  ux = new UX();
 
   @computed get students() {
     const students = sortBy( this.props.period.students, StudentDataSorter({
@@ -100,7 +97,7 @@ export default class ScoresTable extends React.PureComponent {
   }
 
   render() {
-    const { courseId, students, props: { period } } = this;
+    const { ux, courseId, students, props: { period } } = this;
     const width = COLUMN_WIDTH;
 
     if (!period.coursePeriod.num_enrolled_students) { return this.renderNoStudents(); }
@@ -127,12 +124,12 @@ export default class ScoresTable extends React.PureComponent {
           />
           <Column
             fixed={true}
-            width={COLUMN_WIDTH / 2}
+            width={ux.averagesWidth}
             flexGrow={0}
             allowCellsRecycling={true}
             isResizable={false}
-            cell={<OverallCell students={students} />}
-            header={<OverallHeader {...this.props} />}
+            cell={<OverallCell ux={ux} students={students} />}
+            header={<OverallHeader ux={ux} {...this.props} />}
           />
         </ColumnGroup>
         <ColumnGroup>

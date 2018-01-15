@@ -28,21 +28,45 @@ const CourseAverageInfo = (props) => {
   );
 };
 
-const OverallHeader = observer(({ period }) => (
-  <div className="header-cell-wrapper overall-average">
-    <div className="overall-header-cell">
-      <OverlayTrigger trigger="click" rootClose overlay={<CourseAverageInfo />}>
-        <Icon type="info-circle" />
-      </OverlayTrigger>
-      <span>Course average</span>
+const OverallHeader = observer(({ ux, period }) => {
+  let labels = [
+    <div key="overall">Course average</div>,
+  ];
+  let values = [
+    <div key="overall">{(period.overall_average_score * 100).toFixed(0)}%</div>,
+  ];
+  if (ux.isAveragesExpanded) {
+    labels = labels.concat([
+      <div key="overall-1">H#1</div>,
+      <div key="overall-2">H#2</div>,
+    ]);
+    values = values.concat([
+      <div key="value-1">V#1</div>,
+      <div key="value-2">V#2</div>,
+    ]);
+  }
+
+  return (
+    <div className="header-cell-wrapper overall-average">
+      <div className="overall-header-cell">
+        <OverlayTrigger trigger="click" rootClose overlay={<CourseAverageInfo />}>
+          <Icon type="info-circle" />
+        </OverlayTrigger>
+        <Icon
+          className="toggle-expanded"
+          type={ux.isAveragesExpanded ? 'compress' : 'expand'}
+          onClick={ux.toggleAverageExpansion}
+        />
+        <div className="labels">
+          {labels}
+        </div>
+      </div>
+      <div className="header-row values">
+        {values}
+      </div>
+      <div className="header-row short" />
     </div>
-    <div className="header-row">
-      <span>
-        {(period.overall_average_score * 100).toFixed(0)}%
-      </span>
-    </div>
-    <div className="header-row short" />
-  </div>
-));
+  );
+});
 
 export default OverallHeader;
