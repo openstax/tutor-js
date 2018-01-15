@@ -1,14 +1,3 @@
-@mixin course-page-wrapper-child() {
-  display: flex;
-  margin: 0 auto;
-  width: 100%;
-  max-width: 1200px;
-  align-items: stretch;
-  justify-content: center;
-  flex-direction: column;
-  margin: 0 auto;
-}
-
 .course-page {
 
   header {

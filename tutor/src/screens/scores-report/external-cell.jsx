@@ -1,6 +1,6 @@
 import React from 'react';
-import TutorLink from '../link';
-import LateIcon from '../late-icon';
+import TutorLink from '../../components/link';
+import LateIcon from '../../components/late-icon';
 
 const STATUS = {
   'completed':   'Clicked',
