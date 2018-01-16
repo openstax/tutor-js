@@ -103,22 +103,12 @@ const AssignmentSortingHeader = (props) => {
   );
 };
 
-
-const AveragesToggle = observer(({ ux }) => (
-  <Icon
-    className="averages-toggle"
-    type={ux.isAveragesExpanded ? 'chevron-left' : 'chevron-right'}
-    onClick={ux.toggleAverageExpansion}
-  />
-));
-
 const AssignmentHeader = function(props) {
   const { period: { data_headings }, isConceptCoach, periodIndex, courseId, sort, onSort, columnIndex, width, ux } = props;
   const heading = data_headings[columnIndex];
 
   return (
     <div className={`header-cell-wrapper col-${columnIndex} assignment`}>
-      {columnIndex === 0 && <AveragesToggle ux={ux} />}
       <OverlayTrigger
         placement="top"
         delayShow={1000}

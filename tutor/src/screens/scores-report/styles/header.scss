@@ -17,21 +17,6 @@
     flex-direction: column;
   }
 
-  .averages-toggle {
-    position: absolute;
-    top: 6px;
-    background-color: white;
-    height: 30px;
-    width: 14px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
-    &::before {
-      color: $tutor-neutral;
-    }
-  }
-
   .header-row {
     display: flex;
     flex-basis: $scores-row-height;

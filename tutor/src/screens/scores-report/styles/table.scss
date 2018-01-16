@@ -226,6 +226,14 @@ $pie-color-late: #268FBE;
       margin: 20px auto;
     }
   }
+
+  // needed for toggle control to be shown while shifted outside it's box
+  .fixedDataTableCellGroupLayout_cellGroup {
+    overflow: visible;
+    .fixedDataTableCellLayout_main {
+      overflow: visible;
+    }
+  }
 }
 
 .scores-scores-tooltip-completed-info {

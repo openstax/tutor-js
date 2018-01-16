@@ -30,12 +30,22 @@ const CourseAverageInfo = (props) => {
   );
 };
 
+
+const AveragesToggle = observer(({ ux }) => (
+  <Icon
+    className="averages-toggle"
+    type={ux.isAveragesExpanded ? 'chevron-left' : 'chevron-right'}
+    onClick={ux.toggleAverageExpansion}
+  />
+));
+
 const OverallHeader = observer(({ ux, period }) => {
 
   return (
     <div className={cn('header-cell-wrapper', 'overall-average', { 'is-expanded': ux.isAveragesExpanded })}>
       <SetWeights ux={ux} />
       <div className="overall-header-cell">
+        <AveragesToggle ux={ux} />
         <OverlayTrigger trigger="click" rootClose overlay={<CourseAverageInfo />}>
           <Icon type="info-circle" />
         </OverlayTrigger>

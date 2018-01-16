@@ -6,7 +6,7 @@ const CELL_AVERAGES_SINGLE_WIDTH = 80;
 export default class ScoresReportUX {
 
   @observable averagesWidth = CELL_AVERAGES_SINGLE_WIDTH;
-  @observable isAveragesExpanded = true;
+  @observable isAveragesExpanded = false;
 
   @observable weights = new WeightsUX();
 

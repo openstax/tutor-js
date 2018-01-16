@@ -4,12 +4,6 @@ exports[`Scores Report: assignment column header for a CC course matches snapsho
 <div
   className="header-cell-wrapper col-0 assignment"
 >
-  <i
-    className="tutor-icon fa fa-chevron-right averages-toggle clickable"
-    onClick={[Function]}
-    role="button"
-    type="chevron-right"
-  />
   <div
     className="tour-anchor expanded-header-row"
     data-tour-anchor-id="scores-homework-header"
@@ -69,12 +63,6 @@ exports[`Scores Report: assignment column header renders and matches snapshot 1`
 <div
   className="header-cell-wrapper col-0 assignment"
 >
-  <i
-    className="tutor-icon fa fa-chevron-right averages-toggle clickable"
-    onClick={[Function]}
-    role="button"
-    type="chevron-right"
-  />
   <div
     className="tour-anchor expanded-header-row"
     data-tour-anchor-id="scores-homework-header"
