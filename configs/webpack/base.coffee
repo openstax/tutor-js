@@ -6,7 +6,6 @@ UglifyJsPlugin = require 'uglifyjs-webpack-plugin'
 ExtractTextPlugin = require 'extract-text-webpack-plugin'
 HappyPack = require 'happypack'
 happyThreadPool = HappyPack.ThreadPool(size: 8);
-HardSourceWebpackPlugin = require 'hard-source-webpack-plugin'
 
 HAPPY_LOADERS =
   babel:  'babel-loader'
@@ -81,7 +80,6 @@ BASE_CONFIG =
     rules: _.values(STATICS)
   plugins: [
     new ExtractTextPlugin('[name].css'),
-    new HardSourceWebpackPlugin(),
     HAPPY_PACK_PLUGINS...
   ]
 

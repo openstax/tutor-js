@@ -24,8 +24,7 @@
     "lint-cjsx": "./bin/lint-cjsx-files.sh",
     "validate": "./bin/validate-console-messages.sh",
     "prestart": "npm run validate",
-    "start": "./bin/tdd",
-    "clear-build-cache": "rm -r ./tutor/node_modules/.cache/hard-source"
+    "start": "./bin/tdd"
   },
   "repository": {
     "type": "git",
@@ -53,7 +52,6 @@
     "flux-react": "3.0.0",
     "font-awesome": "4.7.0",
     "happypack": "^4.0.0",
-    "hard-source-webpack-plugin": "^0.5.15",
     "history": "4.5.1",
     "htmlparser2": "3.9.2",
     "interpolate": "0.1.0",
