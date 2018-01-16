@@ -2,7 +2,7 @@ import React from 'react';
 import { Popover, Overlay, Button } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { observable, action, computed } from 'mobx';
-import Time from '../time';
+import Time from '../../components/time';
 import classnames from 'classnames';
 import ReactDOM from 'react-dom';
 import omit from 'lodash/omit';
@@ -19,9 +19,9 @@ class LateWorkMessages {
     this.task = task;
     this.isAccepted = this.task.is_late_work_accepted;
     this.status = this.isAccepted ?
-                  TH.hasAdditionalLateWork(this.task) ? 'additional' : 'accepted'
-:
-                  'pending';
+      TH.hasAdditionalLateWork(this.task) ? 'additional' : 'accepted'
+      :
+      'pending';
   }
 
   score() {
@@ -106,17 +106,17 @@ class HomeworkContent extends LateWorkMessages {
     return (
       {
         additional:
-  <div className="body">
-    {'\
+    <div className="body">
+      {'\
       This student worked '}
-    {this.task.lateStepCount}
-    {` questions
+      {this.task.lateStepCount}
+      {` questions
       after you accepted a late score
       on `}
-    <Time date={this.task.accepted_late_at} format="shortest" />
-    {'.\
+      <Time date={this.task.accepted_late_at} format="shortest" />
+      {'.\
       '}
-  </div>,
+    </div>,
       }
     );
   }

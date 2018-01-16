@@ -1,6 +1,6 @@
-import { Testing, _ } from '../helpers/component-testing';
-import EnzymeContext from '../helpers/enzyme-context';
-import NameCell from '../../../src/components/scores/name-cell';
+import { Testing, _ } from '../../components/helpers/component-testing';
+import EnzymeContext from '../../components/helpers/enzyme-context';
+import NameCell from '../../../src/screens/scores-report/name-cell';
 
 
 describe('Student Scores Name Cell', function() {

@@ -16,32 +16,10 @@ const ReferenceBook = asyncComponent(
 )
 const getReferenceBook = () => ReferenceBook;
 
-
-
-// const getDashboard = function() {
-//   const ConditionalHandlers = require('./helpers/conditional-handlers');
-//   return ConditionalHandlers.dashboard;
-// };
-
-// const getTeacherDashboard = function() {
-//   const { default: TeacherTaskPlans } = require('./components/course-calendar');
-//   return TeacherTaskPlans;
-// };
-
 const getTaskShell = function() {
   const { TaskShell } = require('./components/task');
   return TaskShell;
 };
-
-// const getReferenceBookShell = function() {
-//   const { default: ReferenceBookShell } = require('./components/reference-book');
-//   return ReferenceBookShell;
-// };
-
-// const getReferenceBookPageShell = function() {
-//   const { default: ReferenceBookPageShell } = require('./components/reference-book');
-//   return ReferenceBookPageShell;
-// };
 
 const getReadingShell = function() {
   const { ReadingShell } = require('./components/task-plan');
@@ -66,11 +44,6 @@ const getPaymentsShell = function() {
 const getEventShell = function() {
   const { EventShell } = require('./components/task-plan');
   return EventShell;
-};
-
-const getScoresShell = function() {
-  const { default: StudentScores } = require('./components/scores');
-  return StudentScores;
 };
 
 const getPerformanceForecastGuide = function() {
@@ -141,7 +114,8 @@ const getRoutes = (router) => {
       path: '/course/:courseId', name: 'dashboard', renderer:  ConditionalHandlers.dashboard,
 
       routes: [
-        { path: 'scores', name: 'viewScores', renderer: getScoresShell },
+        { path: 'scores', name: 'viewScores',
+          renderer: loadAsync(() => System.import('./screens/scores-report/index.jsx')) },
         { path: 'cc/help', name: 'ccDashboardHelp', renderer: getCCHelp },
         { path: 'guide/:roleId?', name: 'viewPerformanceGuide', renderer: getPerformanceForecastGuide },
         {

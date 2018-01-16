@@ -4,7 +4,7 @@ import { Overlay, Popover } from 'react-bootstrap';
 import { observer } from 'mobx-react';
 import { observable, action } from 'mobx';
 import TH from '../../helpers/task';
-import TutorLink from '../link';
+import TutorLink from '../../components/link';
 import { LateWork } from './late-work';
 import PieProgress from './pie-progress';
 

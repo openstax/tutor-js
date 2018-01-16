@@ -2,10 +2,10 @@ import React from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import classnames from 'classnames';
 
-import TutorLink from '../link';
+import TutorLink from '../../components/link';
 import SortingHeader from './sorting-header';
-import Time from '../time';
-import TourAnchor from '../tours/anchor';
+import Time from '../../components/time';
+import TourAnchor from '../../components/tours/anchor';
 
 const ReviewLink = (props) => {
   if (props.isConceptCoach || (props.heading.type === 'external') || (props.heading.plan_id == null)) {

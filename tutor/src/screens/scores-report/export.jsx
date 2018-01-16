@@ -2,8 +2,8 @@ import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { computed, action } from 'mobx';
 import { observer } from 'mobx-react';
-import TourAnchor from '../tours/anchor';
-import Icon from '../icon';
+import TourAnchor from '../../components/tours/anchor';
+import Icon from '../../components/icon';
 import Course from '../../models/course';
 import Export from '../../models/jobs/scores-export';
 

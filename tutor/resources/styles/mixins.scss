@@ -341,6 +341,17 @@ $tutor-shadow-types: (
   align-items: center;
 }
 
+@mixin course-page-wrapper-child() {
+  display: flex;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+  align-items: stretch;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
 @import './book-content/ap-bio/variables';
 @import './book-content/hs-physics/variables';
 @import './mixins/tutor-plans';

@@ -1,9 +1,9 @@
-import { React, SnapShot, Wrapper } from '../helpers/component-testing';
+import { React, SnapShot, Wrapper } from '../../components/helpers/component-testing';
 import { map, sortBy } from 'lodash';
-import bootstrapScores from '../../helpers/scores-data.js';
-import EnzymeContext from '../helpers/enzyme-context';
-import Scores from '../../../src/components/scores/index';
-import Sorter from '../../../src/components/scores/student-data-sorter';
+import bootstrapScores from '../../helpers/scores-data';
+import EnzymeContext from '../../components/helpers/enzyme-context';
+import Scores from '../../../src/screens/scores-report/index';
+import Sorter from '../../../src/screens/scores-report/student-data-sorter';
 
 function mockedContainerDimensions({ height = 1024, width = 1200 } = {}) {
   return ({ children, ...childProps }) => (

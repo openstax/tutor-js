@@ -1,7 +1,7 @@
-import { Testing } from '../helpers/component-testing';
+import { Testing } from '../../components/helpers/component-testing';
 import bootstrapScores from '../../helpers/scores-data.js';
 
-import { LateWorkPopover } from '../../../src/components/scores/late-work';
+import { LateWorkPopover } from '../../../src/screens/scores-report/late-work';
 
 describe('Student Scores Latework Popover', function() {
 

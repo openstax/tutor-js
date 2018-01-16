@@ -1,9 +1,9 @@
 import React from 'react';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
-import Icon from '../icon';
+import Icon from '../../components/icon';
 
 const TUTOR_AVERAGE_INFO = `\
-Class performance reflects class-wide averages of assignment scores and assignment progress. This metric includes scores and work 
+Class performance reflects class-wide averages of assignment scores and assignment progress. This metric includes scores and work
 completed by the due date.\
 `;
 

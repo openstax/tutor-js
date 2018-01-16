@@ -1,7 +1,7 @@
-import { React, SnapShot, Wrapper } from '../helpers/component-testing';
+import { React, SnapShot, Wrapper } from '../../components/helpers/component-testing';
 import bootstrapScores from '../../helpers/scores-data.js';
 
-import Header from '../../../src/components/scores/assignment-header';
+import Header from '../../../src/screens/scores-report/assignment-header';
 
 describe('Scores Report: assignment column header', function() {
   let props;

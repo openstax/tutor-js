@@ -1,8 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
-import Name from '../name';
-import TutorLink from '../link';
+import Name from '../../components/name';
+import TutorLink from '../../components/link';
 const TOOLTIP_OPTIONS = { enable: true, placement: 'top', delayShow: 1500, delayHide: 150 };
 
 @observer

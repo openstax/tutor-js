@@ -1,7 +1,7 @@
-import { React } from '../helpers/component-testing';
+import { React } from '../../components/helpers/component-testing';
 import bootstrapScores from '../../helpers/scores-data.js';
-import Cell from '../../../src/components/scores/homework-cell';
-import EnzymeContext from '../helpers/enzyme-context';
+import Cell from '../../../src/screens/scores-report/homework-cell';
+import EnzymeContext from '../../components/helpers/enzyme-context';
 
 import TH from '../../../src/helpers/task';
 
