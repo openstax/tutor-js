@@ -1,7 +1,9 @@
 import React from 'react';
+import cn from 'classnames';
 import Icon from '../../components/icon';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
+import SetWeights from './set-weights-modal';
 
 const CourseAverageInfo = (props) => {
   const { style } = props;
@@ -29,42 +31,46 @@ const CourseAverageInfo = (props) => {
 };
 
 const OverallHeader = observer(({ ux, period }) => {
-  let labels = [
-    <div key="overall">Course average</div>,
-  ];
-  let values = [
-    <div key="overall">{(period.overall_average_score * 100).toFixed(0)}%</div>,
-  ];
-  if (ux.isAveragesExpanded) {
-    labels = labels.concat([
-      <div key="overall-1">H#1</div>,
-      <div key="overall-2">H#2</div>,
-    ]);
-    values = values.concat([
-      <div key="value-1">V#1</div>,
-      <div key="value-2">V#2</div>,
-    ]);
-  }
 
   return (
-    <div className="header-cell-wrapper overall-average">
+    <div className={cn('header-cell-wrapper', 'overall-average', { 'is-expanded': ux.isAveragesExpanded })}>
+      <SetWeights ux={ux} />
       <div className="overall-header-cell">
         <OverlayTrigger trigger="click" rootClose overlay={<CourseAverageInfo />}>
           <Icon type="info-circle" />
         </OverlayTrigger>
-        <Icon
-          className="toggle-expanded"
-          type={ux.isAveragesExpanded ? 'compress' : 'expand'}
-          onClick={ux.toggleAverageExpansion}
-        />
-        <div className="labels">
-          {labels}
+        <div className="avg">
+          <b>Averages</b>
+          <a className="set-weights" onClick={ux.weights.onSetClick}>Set weights</a>
+        </div>
+      </div>
+      <div className="header-row labels">
+        <div>Course</div>
+        <div className="homework">Homework</div>
+        <div className="reading">Reading</div>
+      </div>
+      <div className="header-row labels types">
+        <div></div>
+        <div className="homework">
+          <div>Score</div>
+          <div>Progress</div>
+        </div>
+        <div className="reading">
+          <div>Score</div>
+          <div>Progress</div>
         </div>
       </div>
       <div className="header-row values">
-        {values}
+        <div>{(period.overall_average_score * 100).toFixed(0)}%</div>
+        <div className="homework">
+          <div>S Val</div>
+          <div>P Val</div>
+        </div>
+        <div className="reading">
+          <div>S Val</div>
+          <div>P Val</div>
+        </div>
       </div>
-      <div className="header-row short" />
     </div>
   );
 });

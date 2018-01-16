@@ -24,10 +24,10 @@ describe('Scores Report summary columns', function() {
   it('toggles expanding/collapsing', function() {
     const table = mount(<Scores {...props} />, EnzymeContext.build());
     expect(table.render().find('.overall-average').parent().css('width')).toEqual('80px');
-    table.find('.overall-header-cell .toggle-expanded').simulate('click');
+    table.find('.averages-toggle').simulate('click');
     jest.runAllTimers();
-    expect(table.render().find('.overall-average').parent().css('width')).toEqual('240px');
-    table.find('.overall-header-cell .toggle-expanded').simulate('click');
+    expect(table.render().find('.overall-average').parent().css('width')).toEqual('400px');
+    table.find('.averages-toggle').simulate('click');
     jest.runAllTimers();
     expect(table.render().find('.overall-average').parent().css('width')).toEqual('80px');
     table.unmount();

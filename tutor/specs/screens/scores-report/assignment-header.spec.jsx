@@ -1,16 +1,18 @@
 import { React, SnapShot, Wrapper } from '../../components/helpers/component-testing';
 import bootstrapScores from '../../helpers/scores-data.js';
-
+import UX from '../../../src/screens/scores-report/ux';
 import Header from '../../../src/screens/scores-report/assignment-header';
 
 describe('Scores Report: assignment column header', function() {
   let props;
   let heading;
+
   beforeEach(function() {
     const { course, period } = bootstrapScores();
     heading = period.data_headings[0];
     props = {
       courseId: course.id,
+      ux: new UX(),
       columnIndex: 0,
       onSort: jest.fn(),
       sort: {},

@@ -140,7 +140,7 @@ export default class ScoresTable extends React.PureComponent {
               flexGrow={0}
               allowCellsRecycling={true}
               cell={<AssignmentCell {...this.props} {...{ students, courseId, width, columnIndex }} />}
-              header={<AssignmentHeader {...this.props} {...{ students, courseId, width, columnIndex }} />}
+              header={<AssignmentHeader {...this.props} {...{ ux, students, courseId, width, columnIndex }} />}
             />)}
         </ColumnGroup>
       </Table>

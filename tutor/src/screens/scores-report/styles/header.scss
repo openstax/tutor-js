@@ -17,6 +17,21 @@
     flex-direction: column;
   }
 
+  .averages-toggle {
+    position: absolute;
+    top: 6px;
+    background-color: white;
+    height: 30px;
+    width: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    &::before {
+      color: $tutor-neutral;
+    }
+  }
+
   .header-row {
     display: flex;
     flex-basis: $scores-row-height;
@@ -132,9 +147,15 @@
       cursor: default;
       text-align: center;
     }
+
     &.sortable:hover {
       background: lighten($scores-student-header-bg-color, 4%);
       @include transition(background 0.2s);
+    }
+  }
+  &.col-0 {
+    .header-cell.group.title {
+      padding-left: 15px;
     }
   }
 }

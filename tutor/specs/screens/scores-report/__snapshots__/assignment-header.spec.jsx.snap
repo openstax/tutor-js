@@ -2,8 +2,14 @@
 
 exports[`Scores Report: assignment column header for a CC course matches snapshot 1`] = `
 <div
-  className="header-cell-wrapper assignment"
+  className="header-cell-wrapper col-0 assignment"
 >
+  <i
+    className="tutor-icon fa fa-chevron-right averages-toggle clickable"
+    onClick={[Function]}
+    role="button"
+    type="chevron-right"
+  />
   <div
     className="tour-anchor expanded-header-row"
     data-tour-anchor-id="scores-homework-header"
@@ -23,15 +29,6 @@ exports[`Scores Report: assignment column header for a CC course matches snapsho
   </div>
   <div
     className="header-row"
-  >
-    <span
-      className="average"
-    >
-      ---
-    </span>
-  </div>
-  <div
-    className="header-row short"
   >
     <div
       className="scores-cell"
@@ -56,13 +53,28 @@ exports[`Scores Report: assignment column header for a CC course matches snapsho
       </div>
     </div>
   </div>
+  <div
+    className="header-row"
+  >
+    <span
+      className="average"
+    >
+      ---
+    </span>
+  </div>
 </div>
 `;
 
 exports[`Scores Report: assignment column header renders and matches snapshot 1`] = `
 <div
-  className="header-cell-wrapper assignment"
+  className="header-cell-wrapper col-0 assignment"
 >
+  <i
+    className="tutor-icon fa fa-chevron-right averages-toggle clickable"
+    onClick={[Function]}
+    role="button"
+    type="chevron-right"
+  />
   <div
     className="tour-anchor expanded-header-row"
     data-tour-anchor-id="scores-homework-header"
@@ -91,26 +103,6 @@ exports[`Scores Report: assignment column header renders and matches snapshot 1`
   <div
     className="header-row"
   >
-    <span
-      className="average"
-    >
-      ---
-    </span>
-    <span
-      className="review-link"
-    >
-      <a
-        className={undefined}
-        href="/course/2/metrics/2"
-        onClick={[Function]}
-      >
-        Review
-      </a>
-    </span>
-  </div>
-  <div
-    className="header-row short"
-  >
     <div
       className="scores-cell"
     >
@@ -133,6 +125,26 @@ exports[`Scores Report: assignment column header renders and matches snapshot 1`
         </div>
       </div>
     </div>
+  </div>
+  <div
+    className="header-row"
+  >
+    <span
+      className="average"
+    >
+      ---
+    </span>
+    <span
+      className="review-link"
+    >
+      <a
+        className={undefined}
+        href="/course/2/metrics/2"
+        onClick={[Function]}
+      >
+        Review
+      </a>
+    </span>
   </div>
 </div>
 `;

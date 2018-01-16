@@ -1,0 +1,27 @@
+.set-weights.modal {
+  .modal-header {
+    font-weight: bolder;
+  }
+  .weight {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+    font-weight: normal;
+    :first-child {
+      flex: 1;
+    }
+    input {
+      height: 50px;
+      width: 80px;
+      padding: 1rem;
+      margin-right: 0.5rem;
+      text-align: right;
+    }
+  }
+  .valid-msg {
+    &.invalid {
+      color: $form-error-color;
+    }
+  }
+
+}
