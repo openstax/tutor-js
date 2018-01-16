@@ -1,6 +1,14 @@
 moment = require 'moment-timezone'
 require 'moment-timezone/moment-timezone-utils'
-_ = require 'underscore'
+
+map = require 'lodash/map'
+isEmpty = require 'lodash/isEmpty'
+isEqual = require 'lodash/isEqual'
+clone = require 'lodash/clone'
+values = require 'lodash/values'
+pick = require 'lodash/pick'
+first = require 'lodash/first'
+
 # Map http://www.iana.org/time-zones names to timezone names in Rails
 # https://github.com/openstax/tutor-server/pull/1057#issuecomment-212678167
 TIME_LINKS =
@@ -59,15 +67,15 @@ TimeHelper =
     ISO_DATE_REGEX.test(stringToCheck)
 
   getTimeOnly: (stringToCheck) ->
-    _.first(stringToCheck.match(ISO_TIME_REGEX))
+    first(stringToCheck.match(ISO_TIME_REGEX))
 
   getDateOnly: (stringToCheck) ->
-    _.first(stringToCheck.match(ISO_DATE_REGEX))
+    first(stringToCheck.match(ISO_DATE_REGEX))
 
   linkZoneNames: ->
     # uses moment-timezone-utils to alias loaded timezone data to timezone names in Rails
-    ALIAS_TIMEZONE_DATA = _.map TIME_LINKS, (alternativeZoneName, loadedZoneName) ->
-      loadedUnpackedObject = _.pick moment.tz.zone(loadedZoneName), 'abbrs', 'offsets', 'untils'
+    ALIAS_TIMEZONE_DATA = map TIME_LINKS, (alternativeZoneName, loadedZoneName) ->
+      loadedUnpackedObject = pick moment.tz.zone(loadedZoneName), ['abbrs', 'offsets', 'untils']
       loadedUnpackedObject.name = alternativeZoneName
 
       moment.tz.pack(loadedUnpackedObject)
@@ -126,20 +134,24 @@ TimeHelper =
     @_local = null
 
   getTimezones: ->
-    _.clone(TIME_LINKS)
+    clone(TIME_LINKS)
 
   isTimezoneValid: (timezone) ->
-    timezone in _.values(TimeHelper.getTimezones())
+    timezone in values(TimeHelper.getTimezones())
 
   isCourseTimezone: (courseTimezone) ->
-    return false if _.isEmpty(courseTimezone)
+    return false if isEmpty(courseTimezone)
+
+    courseMomentZone = moment.tz(courseTimezone)
+
+    return false if isEmpty(courseMomentZone._z)
 
     {offsets} = moment()._z or moment.tz(TimeHelper.getLocalTimezone())._z
-    courseTimezoneOffsets = moment.tz(courseTimezone)._z.offsets
+    courseTimezoneOffsets = courseMomentZone._z.offsets
 
     # Use moment offsets to check if set timezone is matching.
     # Zone abbr/zone name are not globally unique
-    _.isEqual(offsets, courseTimezoneOffsets)
+    isEqual(offsets, courseTimezoneOffsets)
 
 # link on require.
 TimeHelper.linkZoneNames()
