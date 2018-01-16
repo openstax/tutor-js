@@ -1,7 +1,7 @@
 import { observable, computed, action } from 'mobx';
 import bezierAnimation from '../../helpers/bezier';
 import WeightsUX from './weights-ux';
-const CELL_AVERAGES_SINGLE_WIDTH = 80;
+const CELL_AVERAGES_SINGLE_WIDTH = 90;
 
 export default class ScoresReportUX {
 

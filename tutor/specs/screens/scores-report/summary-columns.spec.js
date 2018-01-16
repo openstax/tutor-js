@@ -23,13 +23,13 @@ describe('Scores Report summary columns', function() {
 
   it('toggles expanding/collapsing', function() {
     const table = mount(<Scores {...props} />, EnzymeContext.build());
-    expect(table.render().find('.overall-average').parent().css('width')).toEqual('80px');
+    expect(table.render().find('.overall-average').parent().css('width')).toEqual('77px');
     table.find('.averages-toggle').simulate('click');
     jest.runAllTimers();
-    expect(table.render().find('.overall-average').parent().css('width')).toEqual('400px');
+    expect(table.render().find('.overall-average').parent().css('width')).toEqual('385px');
     table.find('.averages-toggle').simulate('click');
     jest.runAllTimers();
-    expect(table.render().find('.overall-average').parent().css('width')).toEqual('80px');
+    expect(table.render().find('.overall-average').parent().css('width')).toEqual('77px');
     table.unmount();
   });
 

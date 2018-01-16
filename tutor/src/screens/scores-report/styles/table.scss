@@ -233,6 +233,9 @@ $pie-color-late: #268FBE;
     .fixedDataTableCellLayout_main {
       overflow: visible;
     }
+    .public_fixedDataTableCell_cellContent {
+      padding: 0;
+    }
   }
 }
 
