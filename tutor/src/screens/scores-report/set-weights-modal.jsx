@@ -19,7 +19,6 @@ export default class SetWeightsModal extends React.Component {
 
     return (
       <Modal
-        animation={false}
         show={true}
         backdrop="static"
         className="set-weights"
@@ -32,12 +31,11 @@ export default class SetWeightsModal extends React.Component {
             We recommend using homework scores and reading progress.
           </div>
           <ExternalLink
-            to="http://google.com"
+            to="https://openstax.org/blog/new-openstax-tutor-scoring-feature"
             className="set-weights--external-link"
           >
             See why <Icon type="external-link"/>
           </ExternalLink>
-
           <label className="weight">
             <div>Homework scores</div>
             <div>

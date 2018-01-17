@@ -12,7 +12,7 @@ describe('Scores Report: assignment column header', function() {
     heading = period.data_headings[0];
     props = {
       courseId: course.id,
-      ux: new UX(),
+      ux: new UX(course),
       columnIndex: 0,
       onSort: jest.fn(),
       sort: {},
