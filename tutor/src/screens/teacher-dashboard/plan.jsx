@@ -116,20 +116,6 @@ class CoursePlan extends React.Component {
     this.setState({ isViewingStats });
   };
 
-  checkPublishingStatus = (published) => {
-    const { plan } = this.props.item;
-    const planId = plan.id;
-
-    if (published.for === planId) {
-      const planStatus = {
-        publishStatus: published.status,
-        isPublishing: plan.isPublishing,
-        isPublished: plan.isPublished,
-      };
-      this.setState(planStatus);
-    }
-  };
-
   componentWillMount() {
     const isViewingStats = this._doesPlanMatchesRoute();
     const state = _.extend({ isViewingStats });
@@ -160,11 +146,6 @@ class CoursePlan extends React.Component {
     }
   }
 
-//  stopCheckingPlan = (plan) => {};
-
-  //    PlanPublishActions.stopChecking(plan.id) if @state.isPublishing
-  //    PlanPublishStore.removeAllListeners("progress.#{plan.id}.*")
-
   setIsViewing = (isViewingStats) => {
     if (this.state.isViewingStats !== isViewingStats) {
       this.syncIsViewingStats(isViewingStats);
@@ -194,10 +175,10 @@ class CoursePlan extends React.Component {
     );
   };
 
-  buildPlanClasses = (plan, isPublished, isActive) => {
+  buildPlanClasses = (plan, isActive) => {
     return (
       classnames('plan-label-long', `course-plan-${plan.id}`, {
-        'is-published': isPublished,
+        'is-published': plan.isPublished,
         'is-publishing': plan.isPublishing,
         'is-open': plan.isOpen,
         'is-new': plan.isNew,
@@ -248,15 +229,12 @@ class CoursePlan extends React.Component {
   render() {
     let planModal;
     const { item, courseId } = this.props;
-    const { publishStatus, isPublishing, isPublished, isHovered, isViewingStats } = this.state;
+    const { isPublishing, isPublished, isHovered, isViewingStats } = this.state;
     const { plan, displays } = item;
     plan.publishing.reportObserved(); // let plan know that it's observed
 
     const hasReview = this.hasReview();
     let planClasses = this.buildPlanClasses(plan,
-      publishStatus,
-      isPublishing,
-      isPublished,
       isHovered || isViewingStats
     );
 
