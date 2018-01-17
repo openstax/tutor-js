@@ -29,7 +29,11 @@ export default class ScoresReportUX {
 
   @observable averagesWidth = first(this.fromTo);
 
-  @observable weights = new WeightsUX();
+  @observable weights = new WeightsUX(this);
+
+  constructor(course) {
+    this.course = course;
+  }
 
   @action.bound toggleAverageExpansion() {
     let onComplete = () => {

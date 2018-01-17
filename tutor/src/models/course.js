@@ -64,6 +64,11 @@ export default class Course extends BaseModel {
   @field webview_url;
   @field year;
 
+  @field homework_score_weight;
+  @field homework_progress_weight;
+  @field reading_score_weight;
+  @field reading_progress_weight;
+
   @hasMany({ model: Period, inverseOf: 'course', extend: extendHasMany({
     sorted()   { return PH.sort(this.active);                        },
     archived() { return filter(this, period => !period.is_archived); },
