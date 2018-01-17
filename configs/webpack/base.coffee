@@ -41,19 +41,15 @@ BASE_BUILD =
   coffee: RESOLVABLES.coffee
   cjsx:   RESOLVABLES.cjsx
   css:  { test: /\.css$/,  use: STYLE_LOADERS.css }
-  less: { test: /\.less$/, use: [ STYLE_LOADERS.css, STYLE_LOADERS.less ] }
-  scss: { test: /\.scss$/, use: [ STYLE_LOADERS.css, STYLE_LOADERS.scss ] }
+  less: { test: /\.less$/, use: [ STYLE_LOADERS.style, STYLE_LOADERS.css, STYLE_LOADERS.less ] }
+  scss: { test: /\.scss$/, use: [ STYLE_LOADERS.style, STYLE_LOADERS.css, STYLE_LOADERS.scss ] }
 
 DEV_LOADERS = ['react-hot-loader/webpack']
 
 BASE_DEV_LOADER_RULES = _.map(BASE_BUILD, (loaderConfig, type) ->
   config = _.pick(loaderConfig, 'test', 'exclude')
   config.use ||= []
-
-  if type is 'less' or type is 'scss'
-    config.use = config.use.concat DEV_LOADERS.concat(STYLE_LOADERS.style, STYLE_LOADERS.css, STYLE_LOADERS[type])
-  else
-    config.use = loaderConfig.use
+  config.use = loaderConfig.use
   config
 )
 
