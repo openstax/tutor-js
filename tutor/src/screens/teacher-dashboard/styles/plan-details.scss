@@ -6,7 +6,8 @@ body.modal-open {
 
 // @include tutor-plan-modal($calendar-inactive-background);
 
-  &.is-published {
+  &.is-published,
+  &.is-publishing {
     @include tutor-plan-set(modal);
   }
 

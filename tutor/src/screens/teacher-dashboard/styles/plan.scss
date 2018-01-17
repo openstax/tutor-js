@@ -47,7 +47,8 @@ $calendar-inactive-background: $tutor-neutral;
       }
     }
 
-    &.is-published {
+    &.is-published,
+    &.is-publishing {
       @include tutor-plan-set(display);
     }
 
@@ -61,13 +62,13 @@ $calendar-inactive-background: $tutor-neutral;
         @include tutor-plan-display(failure);
       }
     }
-    &.is-publishing{
+    &.is-publishing {
       label:not(.continued)::before {
         @include is-publishing();
         margin-right: $calendar-plan-left-label-offset;
       }
     }
-    &.is-published{
+    &.is-published {
       &:not(.is-open):not(.is-publishing) {
         label:not(.continued)::before {
           @include is-not-open();
