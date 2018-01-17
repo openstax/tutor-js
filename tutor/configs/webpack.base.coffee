@@ -3,5 +3,4 @@ module.exports =
     tutor: [
       "babel-polyfill",
       "index.js",
-      "resources/styles/tutor.scss"
     ]

@@ -2,6 +2,7 @@
 import Recordo from 'recordo';
 Recordo.initialize();
 // Recordo.start()
+import './resources/styles/tutor.scss';
 
 import { BootstrapURLs, UiSettings, ExerciseHelpers } from 'shared';
 
