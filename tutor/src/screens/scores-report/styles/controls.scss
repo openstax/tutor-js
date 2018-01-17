@@ -4,6 +4,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
+    @include tutor-sans-light-font(14px);
 
     .spacer {
       flex: 1;
@@ -40,7 +41,7 @@
 
     .filter-group {
       height: 30px;
-      margin: 0 0.5rem;
+      margin: 0 1rem;
     }
 
   }

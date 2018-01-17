@@ -111,6 +111,7 @@ export default class ScoresTable extends React.PureComponent {
         width={Math.max(this.props.width, MIN_TABLE_HEIGHT)}
         headerHeight={150}
         rowsCount={students.length}
+        insetScrollbarX={true}
       >
         <ColumnGroup fixed={true}>
           <Column

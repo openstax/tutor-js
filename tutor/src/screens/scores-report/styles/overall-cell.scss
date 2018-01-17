@@ -1,6 +1,10 @@
 .overall-average {
   flex: 1;
-  @include overall-border-style();
+
+  border-top-color: $tutor-neutral;
+  border-top-width: 5px;
+  border-top-style: solid;
+
   background: $tutor-info-bg;
   font-weight: normal;
   border-bottom: 0;
