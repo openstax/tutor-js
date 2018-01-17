@@ -30,6 +30,7 @@ SHA=`git rev-parse HEAD`
 
 if [ "$2" = "archive" ]; then
   cd $OX_PROJECT/dist
+  echo '// unused' > tutor.min.css
   echo "{" > ./rev-manifest.json
   LAST_FILE=""
   for minified in *.min.*; do

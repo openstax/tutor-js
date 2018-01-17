@@ -3,7 +3,6 @@ path = require 'path'
 _ = require 'lodash'
 webpack = require 'webpack'
 UglifyJsPlugin = require 'uglifyjs-webpack-plugin'
-ExtractTextPlugin = require 'extract-text-webpack-plugin'
 HappyPack = require 'happypack'
 happyThreadPool = HappyPack.ThreadPool(size: 8);
 
@@ -41,20 +40,16 @@ BASE_BUILD =
   jsx:    RESOLVABLES.jsx
   coffee: RESOLVABLES.coffee
   cjsx:   RESOLVABLES.cjsx
-  css:  { test: /\.css$/,  use: ExtractTextPlugin.extract([ STYLE_LOADERS.css ]) }
-  less: { test: /\.less$/, use: ExtractTextPlugin.extract([ STYLE_LOADERS.css, STYLE_LOADERS.less ]) }
-  scss: { test: /\.scss$/, use: ExtractTextPlugin.extract([ STYLE_LOADERS.css, STYLE_LOADERS.scss ]) }
+  css:  { test: /\.css$/,  use: STYLE_LOADERS.css }
+  less: { test: /\.less$/, use: [ STYLE_LOADERS.style, STYLE_LOADERS.css, STYLE_LOADERS.less ] }
+  scss: { test: /\.scss$/, use: [ STYLE_LOADERS.style, STYLE_LOADERS.css, STYLE_LOADERS.scss ] }
 
 DEV_LOADERS = ['react-hot-loader/webpack']
 
 BASE_DEV_LOADER_RULES = _.map(BASE_BUILD, (loaderConfig, type) ->
   config = _.pick(loaderConfig, 'test', 'exclude')
   config.use ||= []
-
-  if type is 'less' or type is 'scss'
-    config.use = config.use.concat DEV_LOADERS.concat(STYLE_LOADERS.style, STYLE_LOADERS.css, STYLE_LOADERS[type])
-  else
-    config.use = loaderConfig.use
+  config.use = loaderConfig.use
   config
 )
 
@@ -79,7 +74,6 @@ BASE_CONFIG =
     ]
     rules: _.values(STATICS)
   plugins: [
-    new ExtractTextPlugin('[name].css'),
     HAPPY_PACK_PLUGINS...
   ]
 
@@ -104,16 +98,10 @@ makeBuildOutputs = (projectConfig) ->
   path: "#{projectConfig.basePath}/dist"
   publicPath: "/assets/"
 
+# This used to return extractText plugin but that's no longer used
+# Method is left in case there's more plugins that only are used in build later
 makeBuildPlugins = (projectConfig) ->
-  {styleFilename} = projectConfig
-
-  styleFilename ?= '[name].css'
-
-  [
-    new ExtractTextPlugin(
-      styleFilename
-    )
-  ]
+  []
 
 makePathsBase = (projectConfig) ->
   {basePath} = projectConfig
