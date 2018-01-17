@@ -63,6 +63,10 @@ export default class TeacherTaskPlan extends BaseModel {
     return tp ? tp.opensAtDay : null;
   }
 
+  @computed get opensAt() {
+    return this.opensAtDay.start().format('M/D');
+  }
+
   @computed get duration() {
     return Dates.getDurationFromMoments(
       map(this.tasking_plans, 'due_at'),
