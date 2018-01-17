@@ -150,7 +150,7 @@ class APIHandlerBase
 
   # send can now be used separately without initializing routes
   send: (requestConfig, routeOptions, args...) ->
-    return if @records.isPending(requestConfig)
+    return Promise.reject('already-in-progress') if @records.isPending(requestConfig)
 
     requestInfo = pick(routeOptions, 'subject', 'topic', 'action')
     requestInfo = guessInfoFromConfig(requestConfig) if isEmpty(requestInfo)
