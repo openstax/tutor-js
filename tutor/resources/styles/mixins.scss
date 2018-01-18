@@ -158,11 +158,11 @@ $tutor-shadow-types: (
   align-items: center;
   justify-content: center;
   h1 {
-    @include tutor-sans-font(4.5rem);
+    @include tutor-sans-font(4.5rem, 3.8rem);
     font-weight: 700;
   }
   h3 {
-    @include tutor-sans-font(4rem);
+    @include tutor-sans-font(4rem, 3.5rem);
     font-weight: 700;
   }
   .btn {
