@@ -197,21 +197,19 @@
 
         .answer-label {
           font-weight: 400;
-          display: table-cell;
+          display: flex;
         }
 
         .answer-letter {
           padding-right: 1rem;
-          display: table-cell;
+          border-color: transparent;
+          background-color: transparent;
+          color: $openstax-answer-label-color-hover;
           &:after {
             content: ')';
           }
         }
 
-        .answer-answer {
-          display: table-cell;
-          padding-bottom: 5px;
-        }
       }
 
       .question-feedback-content {

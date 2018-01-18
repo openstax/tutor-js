@@ -22,7 +22,6 @@
   @include openstax-bubble();
   border-color: lighten($openstax-answer-label-color, 15%);
   color: $openstax-answer-label-color-hover;
-  margin-top: $openstax-answer-bubble-size * .25;
   transition: color $openstax-answer-transition, border-color $openstax-answer-transition, background-color $openstax-answer-transition;
 };
 
