@@ -1,0 +1,11 @@
+&.plugable {
+
+  justify-content: space-between;
+  .left-side-controls, .right-side-controls {
+    flex: 1;
+  }
+  .right-side-controls {
+    justify-content: flex-end;
+  }
+
+}

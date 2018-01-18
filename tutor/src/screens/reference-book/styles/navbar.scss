@@ -2,14 +2,6 @@
 
   $navbar-spacing: 15px;
 
-  justify-content: space-between;
-  .left-side-controls, .right-side-controls {
-    flex: 1;
-  }
-  .right-side-controls {
-    justify-content: flex-end;
-  }
-
   .menu-toggle {
     cursor: pointer;
     @include tutor-top-navbar-item();
