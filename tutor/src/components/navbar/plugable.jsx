@@ -13,7 +13,7 @@ export default class PlugableNavBar extends React.Component {
   render() {
     const { left, right, center } = this.props.navBar;
     return (
-      <nav className="tutor-top-navbar reference-book">
+      <nav className="tutor-top-navbar plugable">
         <div className="left-side-controls">
           {left.components}
         </div>
