@@ -49,23 +49,6 @@ export class CourseStudentTasks extends Map {
     return Boolean(this.array.length == 0 && this._updatesPoller);
   }
 
-  @action
-  pollForUpdates({ expectedCount }) {
-    if (this._updatesPoller){ return; }
-    let attempts = 0;
-    this._updatesPoller = () => {
-      attempts += 1;
-      if (attempts < MAX_POLLING_ATTEMPTS && this.array.length < expectedCount) {
-        this.fetch().then(() => {
-          setTimeout(this._updatesPoller, POLL_SECONDS * 1000);
-        });
-      } else {
-        this._updatesPoller = null;
-      }
-    };
-    this._updatesPoller();
-  }
-
   // note: the response also contains limited course and role information but they're currently unused
   onLoaded({ data: { tasks, research_surveys } }) {
     this.researchSurveys = research_surveys ? new ResearchSurveys(research_surveys) : null;
