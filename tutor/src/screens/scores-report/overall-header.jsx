@@ -41,7 +41,7 @@ const OverallHeader = observer(({ ux, period }) => {
           <div>Progress</div>
         </div>
       </div>
-      <div className="header-row values">
+      <div className="header-row values overview-row">
         <div>{(period.overall_average_score * 100).toFixed(0)}%</div>
         <div className="homework">
           <div>S Val</div>

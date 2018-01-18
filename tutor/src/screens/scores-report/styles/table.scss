@@ -221,10 +221,13 @@ $pie-color-late: #268FBE;
         text-overflow: ellipsis;
         overflow: hidden;
       }
-      .student-name { color: $tutor-neutral-dark; }
+      .student-name {
+        color: $tutor-neutral-dark;
+        @include tutor-sans-font(1.6rem);
+      }
       .student-id {
-        font-size: 1.1rem;
         color: $tutor-neutral-lite;
+        @include tutor-sans-light-font(1.4rem);
       }
     }
   }

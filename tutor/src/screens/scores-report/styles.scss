@@ -1,14 +1,16 @@
 @import '../screen-styles';
 
-$scores-student-header-bg-color: #ccccce;
+$scores-student-header-bg-color: $tutor-neutral-light;
 $scores-student-header-fg-color: #f2f2f2;
 $scores-thick-grey-border: 2px solid $nav-tabs-border-color;
 $scores-table-outer-border-width: 2px;
 $scores-table-outer-border-color: $scores-student-header-bg-color;
 $scores-left-column-padding: 8px;
-$scores-row-height: 30px;
+$scores-row-height: 35px;
 $scores-short-row-height: 26px;
 $scores-overall-values-width: 90px;
+$scores-overview-row-height: 50px;
+$scores-group-row-height: 60px;
 
 @mixin overall-border-style() {
   border-style: solid;
@@ -24,6 +26,8 @@ $scores-overall-values-width: 90px;
 
   // negates bottom padding on body to eliminate scrollbar
   margin-bottom: -50px;
+
+  font-size: 1.6rem;
 
   &.loading-screen-animation {
     margin-top: 120px;

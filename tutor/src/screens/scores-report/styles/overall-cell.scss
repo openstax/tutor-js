@@ -5,7 +5,6 @@
   border-top-width: 5px;
   border-top-style: solid;
 
-  background: $tutor-info-bg;
   font-weight: normal;
   border-bottom: 0;
   > * {
@@ -19,6 +18,7 @@
     flex-direction: column;
     justify-content: flex-end;
     background-color: $tutor-neutral-light;
+    flex-basis: $scores-group-row-height;
 
     .tutor-icon {
       position: absolute;
@@ -27,15 +27,19 @@
 
       &.averages-toggle {
         position: absolute;
-        top: 6px;
-        right: -15px;
+        top: 7px;
+        right: -21px;
         background-color: white;
-        height: 30px;
-        width: 14px;
+        height: 42px;
+        width: 20px;
         display: flex;
         justify-content: center;
         align-items: center;
         z-index: 2;
+        border-bottom-right-radius: 2px;
+        border-top-right-radius: 2px;
+        border: 1px solid $tutor-neutral-light;
+
         &::before {
           color: $tutor-neutral;
         }
@@ -72,8 +76,8 @@
     border-width: 2px;
     border-top: $scores-thick-grey-border;
     border-bottom: 0;
+
     &.labels.types {
-      font-size: 1.2rem;
       background: $scores-student-header-bg-color;
       border-top: 0;
     }
@@ -100,6 +104,7 @@
 
   }
   .labels {
+    font-size: 1.4rem;
     align-items: flex-end;
     > * {
       line-height: $scores-row-height / 2;

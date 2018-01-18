@@ -127,7 +127,7 @@ const AssignmentHeader = function(props) {
       <div className="header-row">
         <AssignmentSortingHeader {...props} heading={heading} />
       </div>
-      <div className="header-row">
+      <div className="header-row overview-row">
         <AverageLabel {...props} heading={heading} />
         <ReviewLink {...props} heading={heading} />
       </div>
