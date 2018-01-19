@@ -36,16 +36,20 @@ export default class ScoresReportWeightsUX {
     this.isSetting = false;
   }
 
+  @action.bound onSaveWeights() {
+
+  }
+
   @action.bound setWeight(ev) {
     this[ev.target.name] = parseInt(ev.target.value);
   }
 
   @computed get isValid() {
-    return 100 === reduce(DEFAULTS, (ttl, w) => this[w] + ttl, 0);
+    return 100 === reduce(DEFAULTS, (ttl, v, attr) => this[attr] + ttl, 0);
   }
 
   @action.bound setDefaults() {
-    Object.assign(this, DEFAULTS)
+    Object.assign(this, DEFAULTS);
   }
 
 }
