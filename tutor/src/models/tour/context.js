@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, computed, observable, field,
 } from '../base';
 import {
-  find, isEmpty, intersection, compact, uniq, flatMap, map, get, filter, delay,
+  find, isEmpty, intersection, compact, uniq, flatMap, map, get, filter, delay, forEach,
 } from 'lodash';
 import { observe, action } from 'mobx';
 
@@ -76,6 +76,9 @@ export default class TourContext extends BaseModel {
   }
 
   closeRegion(region) {
+    forEach(this.allTours, (tour) => {
+      tour.justViewed = false;
+    });
     this.regions.remove(region);
   }
 

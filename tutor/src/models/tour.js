@@ -54,6 +54,7 @@ export default class Tour extends BaseModel {
   @field standalone = false;
   @field sticky = false;
   @field isEnabled = false;
+  @field justViewed = false;
   @field className;
 
   @hasMany({ model: TourStep, inverseOf: 'tour' }) steps;
@@ -73,7 +74,7 @@ export default class Tour extends BaseModel {
   }
 
   @computed get isViewed() {
-    return this.viewCounts >= this.maxRequiredViewCounts;
+    return this.justViewed || this.viewCounts >= this.maxRequiredViewCounts;
   }
 
   @computed get othersInGroup() {
@@ -98,6 +99,7 @@ export default class Tour extends BaseModel {
 
   @action
   markViewed({ exitedEarly }){
+    this.justViewed = true;
     this.isEnabled = false;
     User.viewedTour(this, { exitedEarly });
     if (exitedEarly) {
