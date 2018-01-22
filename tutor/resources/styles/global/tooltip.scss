@@ -1,12 +1,11 @@
-// this overrides the bad styles that are supplied by bootstrap material design (grey text on gray bg?)
-$tooltip-border-color: $tutor-info;
-$tooltip-color: $tutor-neutral-darker;
-$tooltip-arrow-color: $tutor-white;
-$tooltip-arrow-outer-fallback-color: $tutor-info;
-$tooltip-arrow-outer-color: $tutor-info;
 .tooltip {
   .tooltip-inner {
     color: $tutor-neutral-darker;
+    @include tutor-shadow(2);
   }
   .tooltip-arrow { display: block; }
+}
+
+.popover-title {
+  @include tutor-sans-font(1.75rem, 1.75rem);
 }
