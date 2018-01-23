@@ -1,7 +1,3 @@
-.public_fixedDataTableCell_main {
-  border-right: 1px solid $nav-tabs-border-color;
-}
-
 .header-cell-wrapper {
 
   height: 100%;
@@ -29,7 +25,8 @@
 
     &.overview-row {
       flex-basis: $scores-overview-row-height;
-      background-color: $tutor-neutral-lighter;
+      background-color: $tutor-neutral-cool;
+      border-top: $scores-thick-grey-border;
 
       > * {
         height: $scores-overview-row-height;
@@ -71,20 +68,17 @@
 
     .header-row {
       font-weight: normal;
-      border-top: $scores-thick-grey-border;
 
       > * {
-        border-right: 1px solid $nav-tabs-border-color;
         width: 50%;
         &:only-child { // override "split" styling if it's the only child
-          border-right: 0;
           width: 100%;
+        }
+        &:last-child {
+          border-right: 0;
         }
       }
 
-      .average {
-        font-weight: 600;
-      }
       .scores-cell {
         text-align: center;
         font-size: 1.4rem;

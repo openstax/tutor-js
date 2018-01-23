@@ -24,6 +24,13 @@ $pie-color-late: #268FBE;
   $pie-color-hover: #0DC0DC;
   $finished-icon-size: 24px;
 
+  a {
+    color: $dull-blue;
+
+    &:hover {
+      color: $dark-dull-blue;
+    }
+  }
 
   .tutor-tabs {
     border-bottom: 1px solid $tutor-neutral-light;
@@ -98,9 +105,9 @@ $pie-color-late: #268FBE;
     justify-content: center;
   }
 
-  .external-cell {
-    border-right: 1px solid $nav-tabs-border-color;
-  }
+  // .external-cell {
+  //   border-right: $scores-thin-grey-border;
+  // }
   .scores-cell,
   .external-cell {
     display: flex;
@@ -117,7 +124,7 @@ $pie-color-late: #268FBE;
         left: 0;
         width: 100%;
         pointer-events: none;
-        border: $scores-thick-grey-border;
+        // border: $scores-thick-grey-border;
         border-left-width: 1px;
       }
       > .late-caret-trigger { z-index: 1; }
@@ -132,7 +139,6 @@ $pie-color-late: #268FBE;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      border-right: 1px solid $nav-tabs-border-color;
     }
 
     a.not-complete {
@@ -222,11 +228,10 @@ $pie-color-late: #268FBE;
         overflow: hidden;
       }
       .student-name {
-        color: $tutor-neutral-dark;
+        color: $tutor-neutral-darker;
         @include tutor-sans-font(1.6rem);
       }
       .student-id {
-        color: $tutor-neutral-lite;
         @include tutor-sans-light-font(1.4rem);
       }
     }
@@ -245,9 +250,29 @@ $pie-color-late: #268FBE;
     }
   }
 
+  .fixedDataTableCellGroupLayout_cellGroupWrapper:first-child {
+    .fixedDataTableCellLayout_main {
+      border-right: $scores-thick-grey-border;
+
+      &:first-child > * > * {
+        border-left: $scores-thick-grey-border;
+      }
+    }
+  }
+
+  .public_fixedDataTable_header {
+    .fixedDataTableCellGroupLayout_cellGroupWrapper:first-child {
+      .fixedDataTableCellLayout_main:first-child > * > *:first-child {
+        border-top: $scores-thick-grey-border;
+      }
+    }
+  }
+
   // needed for toggle control to be shown while shifted outside it's box
   .fixedDataTableCellGroupLayout_cellGroup {
     overflow: visible;
+
+
     .fixedDataTableCellLayout_main {
       overflow: visible;
     }

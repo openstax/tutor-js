@@ -19,7 +19,11 @@
       padding: 0;
       align-items: center;
       justify-content: center;
-      &.selected {
+      @include tutor-sans-font(14px);
+      background-color: $tutor-white;
+
+      &.selected,
+      &.active {
         background-color: $tutor-neutral-light;
       }
     }

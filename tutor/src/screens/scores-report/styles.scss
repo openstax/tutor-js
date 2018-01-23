@@ -1,10 +1,12 @@
 @import '../screen-styles';
 
-$scores-student-header-bg-color: $tutor-neutral-light;
+$scores-table-border-color: rgb(210, 210, 210);
+$scores-student-header-bg-color: $tutor-neutral-lighter;
 $scores-student-header-fg-color: #f2f2f2;
-$scores-thick-grey-border: 2px solid $nav-tabs-border-color;
+$scores-thin-grey-border: 1px solid $scores-table-border-color;
+$scores-thick-grey-border: 2px solid $scores-table-border-color;
 $scores-table-outer-border-width: 2px;
-$scores-table-outer-border-color: $scores-student-header-bg-color;
+$scores-table-outer-border-color: $scores-table-border-color;
 $scores-left-column-padding: 8px;
 $scores-row-height: 35px;
 $scores-short-row-height: 26px;
@@ -104,7 +106,7 @@ $scores-group-row-height: 60px;
 
   .course-scores-container {
     padding: 15px;
-    border: 1px solid $nav-tabs-border-color;
+    border: $scores-thin-grey-border;
   }
 
   .course-scores-title {
