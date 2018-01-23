@@ -514,6 +514,14 @@ $dropdown-link-active-bg:        $gray;
 // //
 // //##
 
+$tooltip-border-color: $tutor-info;
+$tooltip-color: $tutor-neutral-darker;
+$tooltip-arrow-color: $tutor-white;
+$tooltip-arrow-outer-fallback-color: $tutor-info;
+$tooltip-arrow-outer-color: $tutor-info;
+$tooltip-bg: $tutor-white;
+
+
 // //** Tooltip max width
 // $tooltip-max-width:           200px;
 // //** Tooltip text color
@@ -531,6 +539,13 @@ $dropdown-link-active-bg:        $gray;
 // //== Popovers
 // //
 // //##
+// This is largely taken from bootstrap since they do not provide a mixin for popovers
+$popover-title-bg: $tutor-white;
+$popover-border-color: transparent;
+$popover-arrow-color: $tutor-white;
+$popover-arrow-outer-fallback-color: $tutor-neutral-light;
+$popover-arrow-outer-color: $tutor-neutral-light;
+$popover-background: $tutor-white;
 
 // //** Popover body background color
 // $popover-bg:                          #fff;

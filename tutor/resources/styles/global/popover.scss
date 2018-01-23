@@ -1,11 +1,3 @@
-// This is largely taken from bootstrap since they do not provide a mixin for popovers
-$popover-title-bg: $tutor-white;
-$popover-border-color: transparent;
-$popover-arrow-color: $tutor-white;
-$popover-arrow-outer-fallback-color: $tutor-neutral-light;
-$popover-arrow-outer-color: $tutor-neutral-light;
-$popover-background: $tutor-white;
-
 .popover-title {
    @include tutor-sans-font(1.75rem, 1.75rem);
 }
