@@ -26,7 +26,9 @@ const MIN_TABLE_HEIGHT = 600;
 const NameHeader = observer(({ sort, onSort, isConceptCoach }) => (
   <div className="header-cell-wrapper student-names">
     <div className="header-row overview-row">
-      Overall
+      <SortingHeader sortKey="name" sortState={sort} onSort={onSort} dataType="name">
+        <span>Overall</span>
+      </SortingHeader>
     </div>
   </div>
 ));

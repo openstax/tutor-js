@@ -36,13 +36,16 @@
 
   &.student-names {
     .header-row {
-      border-top:  $scores-table-outer-border-width solid $scores-table-outer-border-color;
-      border-left: $scores-table-outer-border-width solid $scores-table-outer-border-color;
-      padding: 0 0 0 $scores-left-column-padding;
-
       font-weight: 500;
       white-space: nowrap;
       align-items: center;
+
+      .header-cell {
+        border-top:  $scores-thin-grey-border;
+        justify-content: start;
+        padding-left: 8px;
+        background-color: $tutor-neutral-cool;
+      }
 
       .tutor-icon {
         margin-left: 0.5rem;

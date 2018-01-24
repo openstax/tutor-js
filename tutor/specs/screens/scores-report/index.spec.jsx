@@ -13,10 +13,7 @@ function mockedContainerDimensions({ height = 1024, width = 1200 } = {}) {
 jest.mock('react-container-dimensions', () => mockedContainerDimensions());
 
 const getStudentNames = function(wrapper) {
-  const names = wrapper.find('.student-name').map(el => el.text());
-  return (
-    names.slice(1)
-  );
+  return wrapper.find('.student-name').map(el => el.text());
 };
 
 describe('Scores Report', function() {
