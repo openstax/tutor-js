@@ -51,6 +51,7 @@ export default class CoursePage extends React.PureComponent {
           <div className="body">
             {this.props.children}
           </div>
+          {this.props.fullWidthChildren}
         </div>
       </div>
     );
