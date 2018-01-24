@@ -88,7 +88,7 @@ export default class SetWeightsModal extends React.Component {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={weights.saveWeights} disabled={!weights.isValid}>Save</Button>
-          <Button onClick={weights.setDefaultWeights} disabled={!weights.isValid}>Restore default</Button>
+          <Button onClick={weights.setDefaultWeights}>Restore default</Button>
           <Button onClick={weights.onCancelClick}>Cancel</Button>
         </Modal.Footer>
       </Modal>
