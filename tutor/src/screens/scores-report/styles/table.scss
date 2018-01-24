@@ -24,14 +24,6 @@ $pie-color-late: #268FBE;
   $pie-color-hover: #0DC0DC;
   $finished-icon-size: 24px;
 
-  a {
-    color: $dull-blue;
-
-    &:hover {
-      color: $dark-dull-blue;
-    }
-  }
-
   .tutor-tabs {
     border-bottom: 1px solid $tutor-neutral-light;
     margin-bottom: 40px;
