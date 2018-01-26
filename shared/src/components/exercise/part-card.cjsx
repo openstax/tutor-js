@@ -153,6 +153,7 @@ ExerciseStepCard = React.createClass
       <div className="exercise-#{panel}" data-step={@props.stepPartIndex}>
         {exerciseGroup}
         <ExMode
+          focusParent={@}
           {...step}
           {...panelProps}
           mode={panel}/>
