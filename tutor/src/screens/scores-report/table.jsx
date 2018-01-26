@@ -19,22 +19,15 @@ import OverallCell from './overall-cell';
 import UX from './ux';
 
 const FIRST_DATA_COLUMN = 2;
-const COLUMN_WIDTH = 160;
+const COLUMN_WIDTH = 170;
 const MIN_TABLE_WIDTH = 500;
 const MIN_TABLE_HEIGHT = 600;
 
 const NameHeader = observer(({ sort, onSort, isConceptCoach }) => (
   <div className="header-cell-wrapper student-names">
-    <div className="overall-header-cell" />
-    <div className="header-row">
-      Class Performance
-      <AverageInfo isConceptCoach={isConceptCoach} />
-    </div>
-    <div className="header-row short">
+    <div className="header-row overview-row">
       <SortingHeader sortKey="name" sortState={sort} onSort={onSort} dataType="name">
-        <div className="student-name">
-          Name and Student ID
-        </div>
+        <span>Overall</span>
       </SortingHeader>
     </div>
   </div>
@@ -109,8 +102,9 @@ export default class ScoresTable extends React.PureComponent {
         rowHeight={50}
         height={Math.max(this.props.height, MIN_TABLE_WIDTH)}
         width={Math.max(this.props.width, MIN_TABLE_HEIGHT)}
-        headerHeight={150}
+        headerHeight={180}
         rowsCount={students.length}
+        insetScrollbarX={true}
       >
         <ColumnGroup fixed={true}>
           <Column

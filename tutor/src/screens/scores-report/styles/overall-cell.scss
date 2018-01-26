@@ -1,7 +1,10 @@
 .overall-average {
   flex: 1;
-  @include overall-border-style();
-  background: $tutor-info-bg;
+
+  border-top-color: $tutor-neutral;
+  border-top-width: 5px;
+  border-top-style: solid;
+
   font-weight: normal;
   border-bottom: 0;
   > * {
@@ -13,8 +16,8 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    background-color: $tutor-neutral-light;
+    background-color: $scores-student-header-bg-color;
+    // flex-basis: $scores-group-row-height;
 
     .tutor-icon {
       position: absolute;
@@ -24,16 +27,28 @@
       &.averages-toggle {
         position: absolute;
         top: 6px;
-        right: -15px;
+        right: -22px;
         background-color: white;
-        height: 30px;
-        width: 14px;
+        height: 42px;
+        width: 20px;
         display: flex;
         justify-content: center;
         align-items: center;
         z-index: 2;
+
+        border-bottom-right-radius: 2px;
+        border-top-right-radius: 2px;
+
+        border-right: 1px solid $tutor-neutral-light;
+        border-top: 1px solid $tutor-neutral-light;
+        border-bottom: 1px solid $tutor-neutral-light;
+
         &::before {
           color: $tutor-neutral;
+        }
+
+        &:hover {
+          background-color: $tutor-neutral-cool;
         }
       }
     }
@@ -49,7 +64,7 @@
       padding-bottom: 5px;
       .set-weights {
         white-space: nowrap;
-        font-size: 13px;
+        font-size: 1.4rem;
       }
     }
   }
@@ -66,10 +81,9 @@
 
   .header-row {
     border-width: 2px;
-    border-top: $scores-thick-grey-border;
     border-bottom: 0;
+
     &.labels.types {
-      font-size: 1.2rem;
       background: $scores-student-header-bg-color;
       border-top: 0;
     }
@@ -86,7 +100,7 @@
       flex-basis: $scores-overall-values-width;
       display: flex;
       justify-content: space-around;
-      border-right: $scores-thick-grey-border;
+      border-right: $scores-thin-grey-border;
     }
     .homework,
     .reading {
@@ -96,6 +110,7 @@
 
   }
   .labels {
+    font-size: 1.4rem;
     align-items: flex-end;
     > * {
       line-height: $scores-row-height / 2;
@@ -119,7 +134,7 @@
     overflow: hidden;
     justify-content: flex-start;
     > * {
-      border-right: $scores-thick-grey-border;
+      border-right: $scores-thin-grey-border;
     }
     * {
       flex: 1;

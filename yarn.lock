@@ -2850,7 +2850,7 @@ findup-sync@^0.4.2:
 
 "fixed-data-table-2@github:openstax/fixed-data-table-2#trying-scroll-thing":
   version "0.8.9"
-  resolved "https://codeload.github.com/openstax/fixed-data-table-2/tar.gz/e55bd2b5c2b2467e54cd07adaaf7d440f740a8aa"
+  resolved "https://codeload.github.com/openstax/fixed-data-table-2/tar.gz/e0df78e91591b9d764026cb72cbab99fc759a042"
   dependencies:
     create-react-class "^15.5.2"
     prop-types "^15.5.8"

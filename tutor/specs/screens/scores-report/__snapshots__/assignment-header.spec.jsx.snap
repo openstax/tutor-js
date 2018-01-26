@@ -48,7 +48,7 @@ exports[`Scores Report: assignment column header for a CC course matches snapsho
     </div>
   </div>
   <div
-    className="header-row"
+    className="header-row overview-row"
   >
     <span
       className="average"
@@ -115,7 +115,7 @@ exports[`Scores Report: assignment column header renders and matches snapshot 1`
     </div>
   </div>
   <div
-    className="header-row"
+    className="header-row overview-row"
   >
     <span
       className="average"

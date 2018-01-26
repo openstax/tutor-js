@@ -1,7 +1,3 @@
-.public_fixedDataTableCell_main {
-  border-right: 1px solid $nav-tabs-border-color;
-}
-
 .header-cell-wrapper {
 
   height: 100%;
@@ -26,26 +22,31 @@
       align-items: center;
       justify-content: center;
     }
-    &.short {
-      flex-basis: $scores-short-row-height;
+
+    &.overview-row {
+      flex-basis: $scores-overview-row-height;
+      background-color: $tutor-neutral-cool;
+      border-top: $scores-thick-grey-border;
+
       > * {
-        height: $scores-short-row-height;
+        height: $scores-overview-row-height;
       }
     }
   }
 
   &.student-names {
     .header-row {
-      border-top:  $scores-table-outer-border-width solid $scores-table-outer-border-color;
-      border-left: $scores-table-outer-border-width solid $scores-table-outer-border-color;
-      padding-left: $scores-left-column-padding - $scores-table-outer-border-width;
       font-weight: 500;
       white-space: nowrap;
-      &.short {
-        background: $scores-student-header-bg-color;
-        .sortable { justify-content: space-between; }
-      }
       align-items: center;
+
+      .header-cell {
+        border-top:  $scores-thin-grey-border;
+        justify-content: start;
+        padding-left: 8px;
+        background-color: $tutor-neutral-cool;
+      }
+
       .tutor-icon {
         margin-left: 0.5rem;
         align-self: center;
@@ -64,30 +65,26 @@
       width: 100%;
       text-align: center;
       font-weight: normal;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       line-height: $scores-row-height;
-      font-style: italic;
-      color: $tutor-neutral-lite;
     }
 
     .header-row {
       font-weight: normal;
-      border-top: $scores-thick-grey-border;
 
       > * {
-        border-right: 1px solid $nav-tabs-border-color;
         width: 50%;
         &:only-child { // override "split" styling if it's the only child
-          border-right: 0;
           width: 100%;
+        }
+        &:last-child {
+          border-right: 0;
         }
       }
 
-      .average {
-        font-weight: 600;
-      }
       .scores-cell {
         text-align: center;
+        font-size: 1.4rem;
       }
     }
   }
@@ -102,7 +99,6 @@
     width: 100%;
     position: relative;
     &.sortable {
-      font-size: 1.2rem;
       background-color: $scores-student-header-bg-color;
       &:not(.is-descending):not(.is-ascending):hover::after { content: $fa-var-sort-desc; }
       &.is-descending:hover::after { content: $fa-var-sort-asc;  }
@@ -131,6 +127,7 @@
       padding: 8px;
       cursor: default;
       text-align: center;
+      flex-basis: $scores-group-row-height;
     }
 
     &.sortable:hover {
@@ -138,6 +135,7 @@
       @include transition(background 0.2s);
     }
   }
+
   &.col-0 {
     .header-cell.group.title {
       padding-left: 15px;

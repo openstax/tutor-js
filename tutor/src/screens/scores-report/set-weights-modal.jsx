@@ -31,7 +31,12 @@ export default class SetWeightsModal extends React.Component {
           <div>
             We recommend using homework scores and reading progress.
           </div>
-          <ExternalLink to="http://google.com">See why</ExternalLink>
+          <ExternalLink
+            to="http://google.com"
+            className="set-weights--external-link"
+          >
+            See why <Icon type="external-link"/>
+          </ExternalLink>
 
           <label className="weight">
             <div>Homework scores</div>
@@ -82,7 +87,7 @@ export default class SetWeightsModal extends React.Component {
           </p>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={weights.saveWeights}>Save</Button>
+          <Button onClick={weights.saveWeights} disabled={!weights.isValid}>Save</Button>
           <Button onClick={weights.setDefaultWeights}>Restore default</Button>
           <Button onClick={weights.onCancelClick}>Cancel</Button>
         </Modal.Footer>

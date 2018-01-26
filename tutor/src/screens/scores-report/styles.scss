@@ -1,14 +1,18 @@
 @import '../screen-styles';
 
-$scores-student-header-bg-color: #ccccce;
+$scores-table-border-color: rgb(210, 210, 210);
+$scores-student-header-bg-color: $tutor-neutral-lighter;
 $scores-student-header-fg-color: #f2f2f2;
-$scores-thick-grey-border: 2px solid $nav-tabs-border-color;
+$scores-thin-grey-border: 1px solid $scores-table-border-color;
+$scores-thick-grey-border: 2px solid $scores-table-border-color;
 $scores-table-outer-border-width: 2px;
-$scores-table-outer-border-color: $scores-student-header-bg-color;
+$scores-table-outer-border-color: $scores-table-border-color;
 $scores-left-column-padding: 8px;
-$scores-row-height: 30px;
+$scores-row-height: 35px;
 $scores-short-row-height: 26px;
 $scores-overall-values-width: 90px;
+$scores-overview-row-height: 50px;
+$scores-group-row-height: 60px;
 
 @mixin overall-border-style() {
   border-style: solid;
@@ -24,6 +28,8 @@ $scores-overall-values-width: 90px;
 
   // negates bottom padding on body to eliminate scrollbar
   margin-bottom: -50px;
+
+  font-size: 1.6rem;
 
   &.loading-screen-animation {
     margin-top: 120px;
@@ -100,7 +106,7 @@ $scores-overall-values-width: 90px;
 
   .course-scores-container {
     padding: 15px;
-    border: 1px solid $nav-tabs-border-color;
+    border: $scores-thin-grey-border;
   }
 
   .course-scores-title {
@@ -116,13 +122,12 @@ $scores-overall-values-width: 90px;
   }
 
   .course-scores-note {
-    font-style: italic;
-    font-size: 1.2rem;
     color: $tutor-neutral;
+    @include tutor-sans-light-font(14px);
     flex: 1;
     text-align: right;
     &.tab {
-      line-height: $nav-tab-height;
+      align-self: flex-end;
     }
   }
 

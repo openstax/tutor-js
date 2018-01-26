@@ -106,16 +106,13 @@ export default class StudentScores extends React.PureComponent {
     return (
       <CoursePage
         course={this.course}
-        className="course-scores-report"
         title="Student Scores"
+        className="course-scores-report"
         controls={this.renderControls()}
-      >
-        <CoursePeriodsNav
-          handleSelect={this.selectPeriod}
-          courseId={this.course.id}
-          afterTabsItem={this.renderAfterTabsItem()}
-        />
-        <TourRegion id="scores" courseId={courseId} otherTours={['preview-scores']}>
+        fullWidthChildren={<TourRegion
+          id="scores"
+          courseId={courseId}
+          otherTours={['preview-scores']}>
           <ContainerDimensions>
             <ScoresTable
               period={this.period}
@@ -127,7 +124,13 @@ export default class StudentScores extends React.PureComponent {
               isConceptCoach={this.course.is_concept_coach}
             />
           </ContainerDimensions>
-        </TourRegion>
+        </TourRegion>}
+      >
+        <CoursePeriodsNav
+          handleSelect={this.selectPeriod}
+          courseId={this.course.id}
+          afterTabsItem={this.renderAfterTabsItem()}
+        />
       </CoursePage>
     );
   }

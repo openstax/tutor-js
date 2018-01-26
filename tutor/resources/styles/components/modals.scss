@@ -1,5 +1,6 @@
 .modal {
-  $padding: 50px;
+  $header-padding: 35px;
+  $modal-padding: 30px;
 
   .modal-content {
     border-radius: 0;
@@ -7,19 +8,19 @@
   }
 
   .modal-header {
-    padding: $padding/2 $padding;
-    font-size: 18px;
+    padding: $header-padding $modal-padding;
+    font-size: 16px;
     background-color: $tutor-neutral-bright;
     border-bottom: 1px solid $tutor-neutral-light;
   }
 
   .modal-body {
-    padding: $padding;
+    padding: $modal-padding;
     background-color: white;
   }
 
   .modal-footer {
-    padding: 0 $padding $padding $padding;
+    padding: 0 $modal-padding $modal-padding $modal-padding;
     text-align: left;
     border-top: 0;
   }

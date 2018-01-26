@@ -24,9 +24,17 @@ $pie-color-late: #268FBE;
   $pie-color-hover: #0DC0DC;
   $finished-icon-size: 24px;
 
-
   .tutor-tabs {
-    border-bottom: 0; // Prevent double border; report has a top border that meets the tabs bottom one
+    border-bottom: 1px solid $tutor-neutral-light;
+    margin-bottom: 40px;
+
+    > .nav-tabs li a {
+      text-transform: none;
+
+      span.tab-item-period-name {
+        font-size: 16px;
+      }
+    }
   }
 
   .course-scores-table {
@@ -37,7 +45,6 @@ $pie-color-late: #268FBE;
   }
 
   .overall-cell {
-    @include overall-border-style();
     height: 100%;
     border-width: 0 2px 0 2px;
   }
@@ -64,6 +71,13 @@ $pie-color-late: #268FBE;
     background: $tutor-white;
   }
 
+  .ScrollbarLayout_mainHorizontal {
+    &.public_Scrollbar_main.public_Scrollbar_mainActive,
+    &.public_Scrollbar_main {
+      background: transparent;
+    }
+  }
+
   .public_fixedDataTable_header,
   .public_fixedDataTable_hasBottomBorder {
     border: none;
@@ -83,9 +97,9 @@ $pie-color-late: #268FBE;
     justify-content: center;
   }
 
-  .external-cell {
-    border-right: 1px solid $nav-tabs-border-color;
-  }
+  // .external-cell {
+  //   border-right: $scores-thin-grey-border;
+  // }
   .scores-cell,
   .external-cell {
     display: flex;
@@ -102,7 +116,7 @@ $pie-color-late: #268FBE;
         left: 0;
         width: 100%;
         pointer-events: none;
-        border: $scores-thick-grey-border;
+        // border: $scores-thick-grey-border;
         border-left-width: 1px;
       }
       > .late-caret-trigger { z-index: 1; }
@@ -117,7 +131,6 @@ $pie-color-late: #268FBE;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      border-right: 1px solid $nav-tabs-border-color;
     }
 
     a.not-complete {
@@ -206,10 +219,12 @@ $pie-color-late: #268FBE;
         text-overflow: ellipsis;
         overflow: hidden;
       }
-      .student-name { color: $tutor-neutral-dark; }
+      .student-name {
+        color: $tutor-neutral-darker;
+        @include tutor-sans-font(1.6rem);
+      }
       .student-id {
-        font-size: 1.1rem;
-        color: $tutor-neutral-lite;
+        @include tutor-sans-light-font(1.4rem);
       }
     }
   }
@@ -227,9 +242,29 @@ $pie-color-late: #268FBE;
     }
   }
 
+  .fixedDataTableCellGroupLayout_cellGroupWrapper:first-child {
+    .fixedDataTableCellLayout_main {
+      border-right: $scores-thick-grey-border;
+
+      &:first-child > * > * {
+        border-left: $scores-thick-grey-border;
+      }
+    }
+  }
+
+  .public_fixedDataTable_header {
+    .fixedDataTableCellGroupLayout_cellGroupWrapper:first-child {
+      .fixedDataTableCellLayout_main:first-child > * > *:first-child {
+        border-top: $scores-thick-grey-border;
+      }
+    }
+  }
+
   // needed for toggle control to be shown while shifted outside it's box
   .fixedDataTableCellGroupLayout_cellGroup {
     overflow: visible;
+
+
     .fixedDataTableCellLayout_main {
       overflow: visible;
     }
