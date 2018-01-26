@@ -30,8 +30,8 @@ export default class BuilderPopup extends React.Component {
     this.isOpen = false;
   }
 
-  @autobind
-  openPreviewWindow() {
+  @action.bound openPreviewWindow() {
+    this.isOpen = true;
     this.popup.open();
   }
 
