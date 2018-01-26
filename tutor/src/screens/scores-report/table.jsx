@@ -4,7 +4,7 @@ import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { computed } from 'mobx';
 import { Table, Column, ColumnGroup, Cell } from 'fixed-data-table-2';
 import { autobind } from 'core-decorators';
-import TutorLink from '../link';
+import TutorLink from '../../components/link';
 
 import StudentDataSorter from './student-data-sorter';
 import SortingHeader from './sorting-header';
@@ -14,7 +14,7 @@ import AssignmentHeader from './assignment-header';
 import NameCell from './name-cell';
 import OverallHeader from './overall-header';
 import { CourseScoresPeriod } from '../../models/course/scores';
-import CGL from '../course-grouping-label';
+import CGL from '../../components/course-grouping-label';
 
 const FIRST_DATA_COLUMN = 2;
 const COLUMN_WIDTH = 160;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Popover, OverlayTrigger } from 'react-bootstrap';
 
-import TutorLink from '../link';
-import Time from '../time';
+import TutorLink from '../../components/link';
+import Time from '../../components/time';
 import PieProgress from './pie-progress';
 
 

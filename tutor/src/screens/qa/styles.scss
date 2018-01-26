@@ -2,6 +2,9 @@
 
 .screen.qa {
 
+
+
+
   &.menu-open {
     @media screen and (min-width: ($reference-book-page-width + $book-menu-width + 50px) ) {
       .book-page{ margin-left: $book-menu-width; }

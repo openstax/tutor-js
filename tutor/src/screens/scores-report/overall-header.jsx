@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from '../icon';
+import Icon from '../../components/icon';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 

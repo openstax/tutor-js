@@ -39,24 +39,6 @@ describe('Student Tasks Model', () => {
     ]);
   });
 
-  it('polls for updates', () => {
-    const tasks = StudentTasks.forCourseId(1);
-    tasks.fetch = jest.fn(() => Promise.resolve({}));
-    tasks.pollForUpdates({ expectedCount: 42 });
-    expect(tasks.fetch).toHaveBeenCalled();
-    expect(tasks._updatesPoller).not.toBeNull();
-    jest.runAllTimers();
-    expect(tasks.fetch).toHaveBeenCalledTimes(2);
-    times(41, (i) => tasks.set(i, {}));
-    jest.runAllTimers();
-    expect(tasks.fetch).toHaveBeenCalledTimes(3);
-    tasks.set(42, {});
-    expect(tasks.array).toHaveLength(42);
-    jest.runAllTimers();
-    expect(tasks.fetch).toHaveBeenCalledTimes(3);
-    expect(tasks._updatesPoller).toBeNull();
-  });
-
   it('#upcomingEvents', () => {
     const tasks = StudentTasks.forCourseId(1);
     const task = tasks.array[0];

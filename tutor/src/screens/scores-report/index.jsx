@@ -3,17 +3,17 @@ import { observer } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
 import ContainerDimensions from 'react-container-dimensions';
 import { isEmpty, get } from 'lodash';
-import CoursePage from '../course-page';
+import CoursePage from '../../components/course-page';
 import ScoresTable from './table';
 import TableFilters from './table-filters';
-import NoPeriods from '../no-periods';
+import NoPeriods from '../../components/no-periods';
 import Courses from '../../models/courses-map';
 import Export from './export';
 import LmsPush from './lms-push';
-import CoursePeriodsNav from '../course-periods-nav';
-import TourRegion from '../tours/region';
-import LoadingScreen from '../loading-screen';
-
+import CoursePeriodsNav from '../../components/course-periods-nav';
+import TourRegion from '../../components/tours/region';
+import LoadingScreen from '../../components/loading-screen';
+import './styles.scss';
 
 @observer
 export default class StudentScores extends React.PureComponent {

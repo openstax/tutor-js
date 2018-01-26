@@ -24,12 +24,13 @@ if [ "$(version "$npm_version")" -lt "$(version "$required_version")" ]; then
 fi
 
 [ -d $OX_PROJECT/dist ] && rm -r $OX_PROJECT/dist
-$(npm bin)/webpack --progress --config webpack.config.js
+node --max_old_space_size=4096 $(npm bin)/webpack --progress --config webpack.config.js
 
 SHA=`git rev-parse HEAD`
 
 if [ "$2" = "archive" ]; then
   cd $OX_PROJECT/dist
+  echo '// unused' > tutor.min.css
   echo "{" > ./rev-manifest.json
   LAST_FILE=""
   for minified in *.min.*; do

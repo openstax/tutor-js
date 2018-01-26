@@ -2,7 +2,7 @@ import {
   BaseModel, identifiedBy, field,
 } from './base';
 import { computed } from 'mobx';
-import moment from 'moment-timezone';
+import moment from 'moment';
 import twix from 'twix';
 
 @identifiedBy('tasking-plan')

@@ -1,3 +1,5 @@
+@import '../screen-styles';
+
 $scores-student-header-bg-color: #ccccce;
 $scores-student-header-fg-color: #f2f2f2;
 $scores-thick-grey-border: 2px solid $nav-tabs-border-color;
@@ -158,6 +160,6 @@ $scores-left-column-padding: 8px;
 
 }
 
-@import './controls';
-@import './table';
-@import "./header";
+@import './styles/controls';
+@import './styles/table';
+@import "./styles/header";

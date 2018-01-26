@@ -1,60 +1,3 @@
-// @mixin tutor-plan-cell($plan-type) {
-//   @include tutor-plan-cell(task-plan-color($plan-type));
-// }
-
-// @mixin tutor-plan-cell-active($plan-type) {
-//   $plan-color-name: "#{$plan-type}-color";
-//   $plan-color: $$plan-color-name;
-//   @include tutor-plan-cell-active($plan-color);
-// }
-
-// @mixin tutor-plan-heading($plan-type, $plan-border-size: 'small') {
-//   $plan-border-name: "plan-border-#{$plan-border-size}";
-//   $plan-border-normal: 12px;
-//   $plan-border-small: 5px;
-//   $plan-border: $$plan-border-name;
-
-//   $plan-color-name: "#{$plan-type}-color";
-//   $plan-color: $$plan-color-name;
-//   @include tutor-plan-heading($plan-color, $plan-border);
-// }
-
-// @mixin tutor-plan-header($plan-type, $plan-border-size: 'normal') {
-//   $plan-border-name: "plan-border-#{$plan-border-size}";
-//   $plan-border-normal: 12px;
-//   $plan-border-small: 5px;
-//   $plan-border: $$plan-border-name;
-
-//   $plan-color-name: "#{$plan-type}-color";
-//   $plan-color: $$plan-color-name;
-//   @include tutor-plan-header($plan-color, $plan-border);
-// }
-
-// @mixin tutor-plan-modal($plan-type) {
-//   $plan-color-name: "#{$plan-type}-color";
-//   $plan-color: $$plan-color-name;
-//   @include tutor-plan-modal($plan-color);
-// }
-
-// @mixin tutor-plan-add($plan-type) {
-//   $plan-color-name: "#{$plan-type}-color";
-//   $plan-color: $$plan-color-name;
-//   @include tutor-plan-add($plan-color);
-// }
-
-// @mixin tutor-plan-sidebar($plan-type) {
-//   $plan-color-name: "#{$plan-type}-color";
-//   $plan-color: $$plan-color-name;
-//   @include tutor-plan-sidebar($plan-color);
-// }
-
-// @mixin tutor-plan-display($plan-type) {
-//   $plan-color-name: "#{$plan-type}-color";
-//   $plan-color: $$plan-color-name;
-//   @mixin tutor-plan-display($plan-color),
-// }
-
-
 @mixin tutor-plan-cell($plan-type) {
   $plan-color: task-plan-color($plan-type);
   color: $plan-color;
@@ -154,8 +97,7 @@
   }
 }
 
-@mixin tutor-plan-display($plan-type) {
-  $plan-color: task-plan-color($plan-type);
+@mixin tutor-plan-display($plan-color) {
 
   color: $tutor-neutral-darker;
   border-left: 3px solid $plan-color;
@@ -208,7 +150,7 @@
         @include tutor-plan-add($plan-type);
       }
       @if $element == display {
-        @include tutor-plan-display($plan-type);
+        @include tutor-plan-display(task-plan-color($plan-type));
       }
     }
   }

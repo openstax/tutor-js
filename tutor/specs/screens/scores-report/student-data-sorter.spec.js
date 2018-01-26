@@ -1,5 +1,5 @@
 import { first, last, sortBy, map, shuffle } from 'lodash';
-import StudentDataSorter from '../../../src/components/scores/student-data-sorter';
+import StudentDataSorter from '../../../src/screens/scores-report/student-data-sorter';
 
 import DATA from '../../../api/courses/1/performance';
 

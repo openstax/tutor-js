@@ -149,9 +149,9 @@
 
       font-style: italic;
       color: $openstax-answer-label-color;
-
-      position: relative;
-      display: block;
+      // marked as important so they override the extended .popover styles
+      position: relative !important;
+      display: block !important;
       width: calc('100% + #{$openstax-feedback-horizontal-buffer}');
       max-width: calc('100% + #{$openstax-feedback-horizontal-buffer}');
       margin-left: -1 * $openstax-feedback-horizontal-spacing;

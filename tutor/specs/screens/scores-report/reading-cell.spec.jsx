@@ -1,7 +1,7 @@
-import { React, Testing, _ } from '../helpers/component-testing';
+import { React, Testing, _ } from '../../components/helpers/component-testing';
 import bootstrapScores from '../../helpers/scores-data.js';
-import Cell from '../../../src/components/scores/reading-cell';
-import PieProgress from '../../../src/components/scores/pie-progress';
+import Cell from '../../../src/screens/scores-report/reading-cell';
+import PieProgress from '../../../src/screens/scores-report/pie-progress';
 import TH from '../../../src/helpers/task';
 
 describe('Student Scores Report Reading Cell', function() {

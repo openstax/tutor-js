@@ -158,11 +158,11 @@ $tutor-shadow-types: (
   align-items: center;
   justify-content: center;
   h1 {
-    @include tutor-sans-font(4.5rem);
+    @include tutor-sans-font(4.5rem, 3.8rem);
     font-weight: 700;
   }
   h3 {
-    @include tutor-sans-font(4rem);
+    @include tutor-sans-font(4rem, 3.5rem);
     font-weight: 700;
   }
   .btn {
@@ -339,6 +339,17 @@ $tutor-shadow-types: (
   height: 100%;
   display: flex;
   align-items: center;
+}
+
+@mixin course-page-wrapper-child() {
+  display: flex;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+  align-items: stretch;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 auto;
 }
 
 @import './book-content/ap-bio/variables';
