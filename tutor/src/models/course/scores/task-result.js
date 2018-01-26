@@ -99,6 +99,7 @@ export default class TaskResult extends BaseModel {
     const oldScore = this.score;
 
     const period = this.student.period;
+
     let student = this.student;
 
     // Update score for the task without rounding so the calculations below will use it's full precision
@@ -123,17 +124,22 @@ export default class TaskResult extends BaseModel {
     } else {
       heading.average_score =
         ( heading.average_score - ( oldScore / numStudentsTask ) ) +
-                           ( this.score / numStudentsTask );
+                             ( this.score / numStudentsTask );
     }
 
     // Overall course averages
+    // care must be taken that these methods match the BE routine tasks/get_tp_performance_report.rb
     let taskCount = reduce(period.students, (scount, student) => {
       return scount + reduce(student.data, (tcount, task) => task.is_included_in_averages ? tcount + 1 : tcount, 0);
     }, 0);
 
-    period.overall_average_score =
-      (period.overall_average_score - ( oldScore / taskCount ) ) +
-                 ( this.score / taskCount );
+
+    const { course } = period.coursePeriod;
+
+    period.overall_course_average_score =
+      (period.overall_course_average_score - ( oldScore / taskCount ) ) +
+                     ( this.score / taskCount );
+
 
     // Now round the score
     return this.score = Math.round(this.score * 100 ) / 100;

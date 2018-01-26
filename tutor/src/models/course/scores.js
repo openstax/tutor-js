@@ -9,7 +9,6 @@ import TaskResult from './scores/task-result';
 
 @identifiedBy('course/scores/student')
 class Student extends BaseModel {
-  @session average_score = 0;
   @hasMany({ model: TaskResult, inverseOf: 'student' }) data;
   @session first_name;
   @session last_name;
@@ -17,6 +16,12 @@ class Student extends BaseModel {
   @session name;
   @session role;
   @session student_identifier;
+
+  @session course_average = 0;
+  @session homework_score = 0;
+  @session homework_progress = 0;
+  @session reading_score = 0;
+  @session reading_progress = 0;
 }
 
 @identifiedBy('course/scores/heading')
@@ -34,7 +39,13 @@ class Heading extends BaseModel {
 export class CourseScoresPeriod extends BaseModel {
 
   @hasMany({ model: Heading }) data_headings;
-  @session overall_average_score = 0;
+
+  @session overall_course_average = 0;
+  @session overall_reading_score = 0;
+  @session overall_reading_progress = 0;
+  @session overall_homework_score = 0;
+  @session overall_homework_progress = 0;
+
   @session period_id;
   @hasMany({ model: Student, inverseOf: 'period' }) students;
 
