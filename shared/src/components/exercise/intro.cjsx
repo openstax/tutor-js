@@ -31,6 +31,9 @@ ExerciseIntro =  React.createClass
     if nextProps.stepIntroType isnt this.props.stepIntroType
       ReactDOM.findDOMNode(@refs.body).focus()
 
+  componentDidMount: ->
+    ReactDOM.findDOMNode(@refs.body).focus()
+
   render: ->
     {stepIntroType, project, onContinue} = @props
 
