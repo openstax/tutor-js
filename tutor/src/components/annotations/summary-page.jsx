@@ -6,6 +6,7 @@ import { observable, computed } from 'mobx';
 import SectionsFilter from './sections-filter';
 import AnnotationCard from './annotation-card';
 import User from '../../models/user';
+import SummaryPopup from "./summary-popup";
 
 @observer
 export default class AnnotationSummaryPage extends React.Component {
