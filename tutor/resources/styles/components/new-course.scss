@@ -139,7 +139,7 @@
     }
 
     @each $book in map-keys($openstax-book-thumbnails) {
-      &[data-appearance=#{$book}] {
+      [data-appearance="#{$book}"]:before {
         @include book-content-thumbnail($book);
       }
     }
