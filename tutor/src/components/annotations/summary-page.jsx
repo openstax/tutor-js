@@ -76,6 +76,7 @@ export default class AnnotationSummaryPage extends React.Component {
             sections={this.annotationsBySection}
             selected={this.selectedSections}
           />
+          <SummaryPopup annotations={this.selectedAnnotations}/>
         </div>
         <div className="annotations">
           {map(this.selectedAnnotations, (notes, ch) =>
