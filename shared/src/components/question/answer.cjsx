@@ -152,6 +152,7 @@ Answer = React.createClass
           <button
             onClick={onChange}
             className='answer-letter' aria-label={ariaLabel}
+            disabled={disabled}
           >
             {ALPHABET[iter]}
           </button>
