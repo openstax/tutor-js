@@ -26,7 +26,11 @@ export default class SetWeightsModal extends React.Component {
         <Modal.Header>
           Set course average weights
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body
+          className={
+            cn({'page-loading loadable is-loading': true})
+          }
+        >
           <div>
             We recommend using homework scores and reading progress.
           </div>
@@ -85,7 +89,7 @@ export default class SetWeightsModal extends React.Component {
           </p>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={weights.onSaveWeights} disabled={!weights.isValid}>Save</Button>
+          <Button onClick={weights.onSaveWeights} disabled={!weights.isValid || weights.isBusy}>Save</Button>
           <Button onClick={weights.setDefaults}>Restore default</Button>
           <Button onClick={weights.onCancelClick}>Cancel</Button>
         </Modal.Footer>

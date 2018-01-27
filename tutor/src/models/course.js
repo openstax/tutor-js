@@ -27,7 +27,11 @@ import ReferenceBook from './reference-book';
 
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
 const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
-const SAVEABLE_ATTRS = ['name', 'is_lms_enabled', 'time_zone', 'default_open_time', 'default_due_time'];
+const SAVEABLE_ATTRS = [
+  'name', 'is_lms_enabled', 'time_zone', 'default_open_time', 'default_due_time',
+  'homework_score_weight', 'homework_progress_weight',
+  'reading_score_weight', 'reading_progress_weight',
+];
 
 @identifiedBy('course')
 export default class Course extends BaseModel {

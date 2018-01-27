@@ -1,5 +1,5 @@
 import { observable, computed, action } from 'mobx';
-import { reduce } from 'lodash';
+import { reduce, each } from 'lodash';
 
 const CELL_AVERAGES_SINGLE_WIDTH = 80;
 
@@ -8,6 +8,13 @@ const DEFAULTS = {
   homework_progress: 0,
   reading_scores: 0,
   reading_progress: 0,
+};
+
+const CW = {
+  homework_score_weight: 'homework_scores',
+  homework_progress_weight: 'homework_progress',
+  reading_score_weight: 'reading_scores',
+  reading_progress_weight: 'reading_progress',
 };
 
 export default class ScoresReportWeightsUX {
@@ -24,12 +31,11 @@ export default class ScoresReportWeightsUX {
   }
 
   @action.bound onSetClick() {
-    const { course } = this.scoresUx;
+    const { course } = this;
     this.isSetting = true;
-    this.homework_scores = course.homework_score_weight;
-    this.homework_progress = course.homework_progress_weight;
-    this.reading_scores = course.reading_score_weight;
-    this.reading_progress = course.reading_progress_weight;
+    each(CW, (w, c) => {
+      this[w] = (course[c] || 0) * 100;
+    });
   }
 
   @action.bound onCancelClick() {
@@ -37,7 +43,19 @@ export default class ScoresReportWeightsUX {
   }
 
   @action.bound onSaveWeights() {
+    const { course } = this.scoresUx;
+    each(CW, (w, c) => {
+      course[c] = this[w] / 100;
+    });
+    course.save();
+  }
 
+  @computed get course() {
+    return this.scoresUx.course;
+  }
+
+  @computed get isBusy() {
+    return this.course.api.isPending;
   }
 
   @action.bound setWeight(ev) {
