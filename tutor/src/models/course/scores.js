@@ -1,7 +1,7 @@
 import { filter, find } from 'lodash';
 import { computed, observable, action } from 'mobx';
 import {
-  BaseModel, identifiedBy, field, hasMany, session, belongsTo,
+  BaseModel, identifiedBy, field, hasMany, belongsTo,
 } from '../base';
 import { TimeStore } from '../../flux/time';
 
@@ -10,28 +10,28 @@ import TaskResult from './scores/task-result';
 @identifiedBy('course/scores/student')
 class Student extends BaseModel {
   @hasMany({ model: TaskResult, inverseOf: 'student' }) data;
-  @session first_name;
-  @session last_name;
-  @session is_dropped;
-  @session name;
-  @session role;
-  @session student_identifier;
+  @field first_name;
+  @field last_name;
+  @field is_dropped;
+  @field name;
+  @field role;
+  @field student_identifier;
 
-  @session course_average = 0;
-  @session homework_score = 0;
-  @session homework_progress = 0;
-  @session reading_score = 0;
-  @session reading_progress = 0;
+  @field course_average = 0;
+  @field homework_score = 0;
+  @field homework_progress = 0;
+  @field reading_score = 0;
+  @field reading_progress = 0;
 }
 
 @identifiedBy('course/scores/heading')
 class Heading extends BaseModel {
-  @session average_score = 0;
-  @session completion_rate = 0;
-  @session({ type: 'date' }) due_at;
-  @session plan_id;
-  @session title;
-  @session type;
+  @field average_score = 0;
+  @field completion_rate = 0;
+  @field({ type: 'date' }) due_at;
+  @field plan_id;
+  @field title;
+  @field type;
   @belongsTo({ model: 'course/scores/period' }) period;
 }
 
@@ -40,13 +40,13 @@ export class CourseScoresPeriod extends BaseModel {
 
   @hasMany({ model: Heading }) data_headings;
 
-  @session overall_course_average = 0;
-  @session overall_reading_score = 0;
-  @session overall_reading_progress = 0;
-  @session overall_homework_score = 0;
-  @session overall_homework_progress = 0;
+  @field overall_course_average = 0;
+  @field overall_reading_score = 0;
+  @field overall_reading_progress = 0;
+  @field overall_homework_score = 0;
+  @field overall_homework_progress = 0;
 
-  @session period_id;
+  @field period_id;
   @hasMany({ model: Student, inverseOf: 'period' }) students;
 
   constructor(attrs, course) {

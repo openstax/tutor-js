@@ -1,32 +1,32 @@
-import { filter, find, findIndex, reduce, isNil } from 'lodash';
+import { filter, find, includes, findIndex, reduce, isNil } from 'lodash';
 import { computed, observable, action } from 'mobx';
 import {
-  BaseModel, identifiedBy, belongsTo, hasMany, session, identifier,
+  BaseModel, identifiedBy, belongsTo, hasMany, session, identifier, field,
 } from '../../base';
 import { TimeStore } from '../../../flux/time';
 
 @identifiedBy('course/scores/task-result')
 export default class TaskResult extends BaseModel {
   @identifier id;
-  @session type;
-  @session status;
-  @session score;
-  @session step_count;
-  @session completed_step_count;
-  @session completed_accepted_late_exercise_count;
-  @session completed_accepted_late_step_count;
-  @session completed_exercise_count;
-  @session completed_on_time_exercise_count;
-  @session completed_on_time_step_count;
-  @session completed_step_count;
-  @session correct_accepted_late_exercise_count
-  @session correct_exercise_count
-  @session correct_on_time_exercise_count
-  @session({ type: 'date' }) due_at;
-  @session exercise_count;
-  @session is_included_in_averages;
-  @session is_late_work_accepted;
-  @session recovered_exercise_count;
+  @field type;
+  @field status;
+  @field score;
+  @field step_count;
+  @field completed_step_count;
+  @field completed_accepted_late_exercise_count;
+  @field completed_accepted_late_step_count;
+  @field completed_exercise_count;
+  @field completed_on_time_exercise_count;
+  @field completed_on_time_step_count;
+  @field completed_step_count;
+  @field correct_accepted_late_exercise_count
+  @field correct_exercise_count
+  @field correct_on_time_exercise_count
+  @field({ type: 'date' }) due_at;
+  @field exercise_count;
+  @field is_included_in_averages;
+  @field is_late_work_accepted;
+  @field recovered_exercise_count;
 
   @belongsTo({ model: 'course/scores/student' }) student;
 
@@ -64,6 +64,7 @@ export default class TaskResult extends BaseModel {
   onLateWorkAccepted() {
     // nothing to do if it's not actually late
     if (!this.hasLateWork) { return; }
+    const previous_steps = this.completed_accepted_late_step_count;
 
     this.is_late_work_accepted = true;
 
@@ -77,11 +78,14 @@ export default class TaskResult extends BaseModel {
     this.accepted_late_at = TimeStore.getNow().toISOString();
 
     if (this.is_included_in_averages) {
-      this.adjustAverages();
+      this.adjustAverages(
+        this.completed_accepted_late_step_count - previous_steps
+      );
     }
   }
 
   onLateWorkRejected() {
+    const previous_steps = this.completed_accepted_late_step_count;
     this.is_late_work_accepted = false;
     this.correct_accepted_late_exercise_count = 0;
     this.completed_accepted_late_exercise_count = 0;
@@ -89,12 +93,14 @@ export default class TaskResult extends BaseModel {
     this.accepted_late_at = null;
 
     if (this.is_included_in_averages) {
-      this.adjustAverages(this);
+      this.adjustAverages(
+        this.completed_accepted_late_step_count - previous_steps
+      );
     }
   }
 
 
-  adjustAverages() {
+  adjustAverages(stepCountDifference) {
 
     const oldScore = this.score;
 
@@ -109,8 +115,8 @@ export default class TaskResult extends BaseModel {
     // Student's course average
     let numTasksStudent = reduce(student.data, (count, task) => task.is_included_in_averages ? count + 1 : count, 0);
 
-    student.average_score =
-      ( student.average_score - ( oldScore / numTasksStudent ) ) + ( this.score / numTasksStudent );
+    student.course_average =
+      ( student.course_average - ( oldScore / numTasksStudent ) ) + ( this.score / numTasksStudent );
 
     // Assignment averages
     let numStudentsTask = reduce(period.students, (count, student) => {
@@ -124,22 +130,31 @@ export default class TaskResult extends BaseModel {
     } else {
       heading.average_score =
         ( heading.average_score - ( oldScore / numStudentsTask ) ) +
-                             ( this.score / numStudentsTask );
+                                     ( this.score / numStudentsTask );
     }
 
     // Overall course averages
-    // care must be taken that these methods match the BE routine tasks/get_tp_performance_report.rb
+
     let taskCount = reduce(period.students, (scount, student) => {
       return scount + reduce(student.data, (tcount, task) => task.is_included_in_averages ? tcount + 1 : tcount, 0);
     }, 0);
 
+    if (includes(['homework', 'reading'], this.type)) {
+      period[`overall_${this.type}_progress`] =
+        (period[`overall_${this.type}_progress`] -
+          ( stepCountDifference / taskCount ) ) +
+                      ( this.completed_accepted_late_step_count -
+                        stepCountDifference / taskCount );
 
-    const { course } = period.coursePeriod;
+      period[`overall_${this.type}_score`] =
+        (period[`overall_${this.type}_score`] -
+          ( oldScore / taskCount ) ) +
+                        ( this.score / taskCount );
+    }
 
-    period.overall_course_average_score =
-      (period.overall_course_average_score - ( oldScore / taskCount ) ) +
-                     ( this.score / taskCount );
-
+    period.overall_course_average =
+      (period.overall_course_average - ( oldScore / taskCount ) ) +
+                             ( this.score / taskCount );
 
     // Now round the score
     return this.score = Math.round(this.score * 100 ) / 100;

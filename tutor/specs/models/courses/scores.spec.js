@@ -72,15 +72,13 @@ describe('scores store', function() {
 
   it('moves counts into accepted', function() {
     // no changes
-    expect( acceptTask(UNWORKED_TASK_ID).completed_accepted_late_exercise_count ).to.equal(0);
-    expect( acceptTask(UNWORKED_TASK_ID).correct_accepted_late_exercise_count ).to.equal(0);
+    expect( acceptTask(UNWORKED_TASK_ID).completed_accepted_late_exercise_count ).toEqual(0);
+    expect( acceptTask(UNWORKED_TASK_ID).correct_accepted_late_exercise_count ).toEqual(0);
 
-    expect( acceptTask(PARTIALLY_WORKED_LATE_TASK_ID).completed_accepted_late_exercise_count ).to.equal(2);
-    expect( acceptTask(PARTIALLY_WORKED_LATE_TASK_ID).correct_accepted_late_exercise_count ).to.equal(1);
-
-    expect( acceptTask(ALL_LATE_TASK_ID ).completed_accepted_late_exercise_count ).to.equal(2);
-    expect( acceptTask(ALL_LATE_TASK_ID ).correct_accepted_late_exercise_count ).to.equal(1);
-    return undefined;
+    expect( acceptTask(PARTIALLY_WORKED_LATE_TASK_ID).completed_accepted_late_exercise_count ).toEqual(2);
+    expect( acceptTask(PARTIALLY_WORKED_LATE_TASK_ID).correct_accepted_late_exercise_count ).toEqual(1);
+    expect( acceptTask(ALL_LATE_TASK_ID ).completed_accepted_late_exercise_count ).toEqual(2);
+    expect( acceptTask(ALL_LATE_TASK_ID ).correct_accepted_late_exercise_count ).toEqual(0);
   });
 
   it('adjusts average when late work is accepted', function() {
@@ -95,26 +93,33 @@ describe('scores store', function() {
     testChangedScoreBy(ALL_LATE_TASK_ID, { from: 0, to: 0.25 });
   });
 
-  fit('adjusts other averages', function() {
+  it('adjusts other averages', function() {
+    const task = gT(PARTIALLY_WORKED_LATE_TASK_ID);
 
-    expect(period.data_headings[0].average_score).toBeCloseTo(0.1666, 0.0001);
+    expect(parseFloat(task.student.course_average)).toBeCloseTo(0.0512, 5);
+    expect(period.data_headings[0].average_score).toBeCloseTo(0.166666, 5);
+    expect(parseFloat(period.overall_course_average)).toBeCloseTo(0.16857, 5);
+    expect(parseFloat(period.overall_homework_progress)).toBeCloseTo(0.222857, 5);
+    expect(parseFloat(period.overall_homework_score)).toBeCloseTo(0.111857, 5);
 
-    expect(parseFloat(period.students[1].course_average)).toEqual('0.0')
-    // expect(period.overall_average_score).to.be.closeTo(0.16666, 0.001);
+    expect(task.score).toBeCloseTo(0.5, 5);
 
-    // const task=gT(PARTIALLY_WORKED_LATE_TASK_ID);
-    // task.onLateWorkAccepted();
+    task.onLateWorkAccepted();
 
-    // expect(period.data_headings[0].average_score).to.be.closeTo(0.1944, 0.0001);
-    // expect(period.students[2].course_average).to.be.closeTo(0.75, 0.001);
-    // expect(period.overall_average_score).to.be.closeTo(0.1944, 0.001);
+    expect(task.score).toBeCloseTo(0.75, 5);
+
+    expect(parseFloat(task.student.course_average)).toBeCloseTo(0.3012, 5);
+    expect(period.data_headings[0].average_score).toBeCloseTo(0.19444, 5);
+    expect(parseFloat(period.overall_course_average)).toBeCloseTo(0.196349, 5);
+    expect(parseFloat(period.overall_homework_progress)).toBeCloseTo(1.778412, 5);
+    expect(parseFloat(period.overall_homework_score)).toBeCloseTo(0.13963, 5);
   });
 
-  it('adjusts overal course average', function() {
-    expect(period.overall_average_score).closeTo(0.1666, 0.0001);
+  it('adjusts overall course average', function() {
+    expect(parseFloat(period.overall_course_average)).toBeCloseTo(0.16857, 5);
     gT(PARTIALLY_WORKED_LATE_TASK_ID).onLateWorkAccepted();
     gT(ALL_LATE_TASK_ID).onLateWorkAccepted();
-    expect(period.overall_average_score).closeTo(0.2222, 0.0001);
+    expect(period.overall_course_average).toBeCloseTo(0.224126, 5);
   });
 
   it('can get task by id', () => {
@@ -127,18 +132,17 @@ describe('scores store', function() {
 
     task.onLateWorkAccepted();
     expect(task.is_late_work_accepted).toBe(true);
-    expect(task.correct_accepted_late_exercise_count ).to.equal( 1 );
-    expect(task.completed_accepted_late_exercise_count ).to.equal( 2 );
-    expect(task.completed_accepted_late_step_count ).to.equal( 2 );
-    expect(task.accepted_late_at ).to.exist;
-    expect(period.overall_average_score).closeTo(0.1944, 0.0001);
+    expect(task.correct_accepted_late_exercise_count ).toEqual( 1 );
+    expect(task.completed_accepted_late_exercise_count ).toEqual( 2 );
+    expect(task.completed_accepted_late_step_count ).toEqual( 2 );
+
+    expect(period.overall_course_average).toBeCloseTo(0.1963492, 5);
 
     task.onLateWorkRejected();
     expect(task.is_late_work_accepted).toBe(false);
-    expect(task.correct_accepted_late_exercise_count ).to.equal( 0 );
-    expect(task.completed_accepted_late_exercise_count ).to.equal( 0 );
-    expect(task.completed_accepted_late_step_count ).to.equal( 0 );
-    expect(task.accepted_late_at ).not.to.exist;
-    expect(period.overall_average_score).closeTo(0.1666, 0.0001);
+    expect(task.correct_accepted_late_exercise_count ).toEqual( 0 );
+    expect(task.completed_accepted_late_exercise_count ).toEqual( 0 );
+    expect(task.completed_accepted_late_step_count ).toEqual( 0 );
+    expect(period.overall_course_average).toBeCloseTo(0.16857142, 5);
   });
 });
