@@ -29,7 +29,6 @@ export default class SummaryPopup extends React.Component {
   @action.bound openSummaryWindow() {
     this.isOpen = true;
     this.popup.open();
-    console.log(this.popup)
   }
 
   @action.bound onPopupReady(popup) {
