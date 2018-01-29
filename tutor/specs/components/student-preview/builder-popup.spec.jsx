@@ -23,4 +23,21 @@ describe('Student Preview Builder', () => {
     );
   });
 
+  it('can re-open popup', () => {
+    const builder = mount(<BuilderPopup {...props} />);
+    expect(builder.instance().isOpen).toEqual(false);
+    builder.simulate('click');
+    expect(props.windowImpl.open).toHaveBeenCalledTimes(1);
+
+    expect(builder.instance().isOpen).toEqual(true);
+    // jsdom doesn't call this :(
+    props.windowImpl.openedDOM.window.onbeforeunload();
+
+    props.windowImpl.openedDOM.window.close();
+    expect(builder.instance().isOpen).toEqual(false);
+    builder.simulate('click');
+
+    expect(props.windowImpl.open).toHaveBeenCalledTimes(2);
+  });
+
 });

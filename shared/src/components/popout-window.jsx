@@ -93,12 +93,13 @@ export default class PopoutWindow extends React.PureComponent {
     invoke(this.props, 'onClose');
     ReactDOM.unmountComponentAtNode(this.containerEl);
     this.containerEl.parentNode.removeChild( this.containerEl );
+    this.popup = null;
   }
 
   @autobind
   onWindowLoad() {
-    // called twice
-    if (this.containerEl) { return; }
+    // called after popups closed, or after already creating containerEl
+    if (!this.popup || this.containerEl) { return; }
 
     this.popup.document.title = this.props.title;
     const container = this.popup.document.createElement('div');
