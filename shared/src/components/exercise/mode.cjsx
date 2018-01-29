@@ -11,6 +11,7 @@ RESPONSE_CHAR_LIMIT = 10000
 {propTypes, props} = require './props'
 modeType = propTypes.ExerciseStepCard.panel
 modeProps = _.extend {}, propTypes.ExFreeResponse, propTypes.ExMulitpleChoice, propTypes.ExReview, mode: modeType
+modeProps.focusParent = React.PropTypes.element
 
 ExMode = React.createClass
   displayName: 'ExMode'
@@ -26,10 +27,10 @@ ExMode = React.createClass
     answerId: answer_id
 
   componentDidMount: ->
-    @setFreeResponseFocusState()
+    @setFocus()
 
   componentDidUpdate: (prevProps) ->
-    @setFreeResponseFocusState(prevProps)
+    @setFocus(prevProps)
 
   componentWillReceiveProps: (nextProps) ->
     {free_response, answer_id, cachedFreeResponse} = nextProps
@@ -42,21 +43,20 @@ ExMode = React.createClass
 
     @setState(nextAnswers) unless _.isEmpty(nextAnswers)
 
-  setFreeResponseFocusState: (prevProps = {}) ->
+  setFocus: (prevProps = {}) ->
     {mode, focus, id} = prevProps
-    return unless (
-      @props.mode is 'free-response' and (
-        focus isnt @props.focus or
-        id isnt @props.id
-      )
-    )
+    return if @props.mode is mode
 
-    el = ReactDOM.findDOMNode(@refs.freeResponse)
-    if el
+    if @props.mode is 'free-response'
+      focusEl = ReactDOM.findDOMNode(@refs.freeResponse)
+    else
+      focusEl = ReactDOM.findDOMNode(@props.focusParent)
+
+    if focusEl
       if @props.focus
-        el.focus?()
+        focusEl.focus?()
       else
-        el.blur?()
+        focusEl.blur?()
 
   onFreeResponseChange: ->
     freeResponse = ReactDOM.findDOMNode(@refs.freeResponse)?.value

@@ -31,6 +31,9 @@ ExerciseIntro =  React.createClass
     if nextProps.stepIntroType isnt this.props.stepIntroType
       ReactDOM.findDOMNode(@refs.body).focus()
 
+  componentDidMount: ->
+    ReactDOM.findDOMNode(@refs.body).focus()
+
   render: ->
     {stepIntroType, project, onContinue} = @props
 
@@ -43,7 +46,7 @@ ExerciseIntro =  React.createClass
         <span>{TITLES[stepGroup]}</span>
       </h1>
       {getIntroText[stepGroup](project)}
-      <a className="btn continue" onClick={onContinue}>Continue</a>
+      <button className="btn continue" onClick={onContinue}>Continue</button>
     </CardBody>
 
 module.exports = ExerciseIntro

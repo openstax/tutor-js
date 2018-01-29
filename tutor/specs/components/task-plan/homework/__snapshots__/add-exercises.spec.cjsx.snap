@@ -228,6 +228,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             <button
                               aria-label="Choice a:"
                               className="answer-letter"
+                              disabled={true}
                               onClick={undefined}
                             >
                               a
@@ -261,6 +262,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             <button
                               aria-label="Choice b:"
                               className="answer-letter"
+                              disabled={true}
                               onClick={undefined}
                             >
                               b
@@ -294,6 +296,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             <button
                               aria-label="Choice c:"
                               className="answer-letter"
+                              disabled={true}
                               onClick={undefined}
                             >
                               c
@@ -327,6 +330,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             <button
                               aria-label="Choice d:"
                               className="answer-letter"
+                              disabled={true}
                               onClick={undefined}
                             >
                               d
@@ -437,6 +441,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             <button
                               aria-label="Choice a:"
                               className="answer-letter"
+                              disabled={true}
                               onClick={undefined}
                             >
                               a
@@ -475,6 +480,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             <button
                               aria-label="Choice b:"
                               className="answer-letter"
+                              disabled={true}
                               onClick={undefined}
                             >
                               b
@@ -513,6 +519,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             <button
                               aria-label="Choice c:"
                               className="answer-letter"
+                              disabled={true}
                               onClick={undefined}
                             >
                               c
@@ -551,6 +558,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             <button
                               aria-label="Choice d:"
                               className="answer-letter"
+                              disabled={true}
                               onClick={undefined}
                             >
                               d
@@ -666,6 +674,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             <button
                               aria-label="Choice a:"
                               className="answer-letter"
+                              disabled={true}
                               onClick={undefined}
                             >
                               a
@@ -699,6 +708,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             <button
                               aria-label="Choice b:"
                               className="answer-letter"
+                              disabled={true}
                               onClick={undefined}
                             >
                               b
@@ -732,6 +742,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             <button
                               aria-label="Choice c:"
                               className="answer-letter"
+                              disabled={true}
                               onClick={undefined}
                             >
                               c
@@ -765,6 +776,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             <button
                               aria-label="Choice d:"
                               className="answer-letter"
+                              disabled={true}
                               onClick={undefined}
                             >
                               d
@@ -875,6 +887,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             <button
                               aria-label="Choice a:"
                               className="answer-letter"
+                              disabled={true}
                               onClick={undefined}
                             >
                               a
@@ -908,6 +921,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             <button
                               aria-label="Choice b:"
                               className="answer-letter"
+                              disabled={true}
                               onClick={undefined}
                             >
                               b
@@ -941,6 +955,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             <button
                               aria-label="Choice c:"
                               className="answer-letter"
+                              disabled={true}
                               onClick={undefined}
                             >
                               c
@@ -974,6 +989,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             <button
                               aria-label="Choice d:"
                               className="answer-letter"
+                              disabled={true}
                               onClick={undefined}
                             >
                               d
@@ -1084,6 +1100,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             <button
                               aria-label="Choice a:"
                               className="answer-letter"
+                              disabled={true}
                               onClick={undefined}
                             >
                               a
@@ -1117,6 +1134,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             <button
                               aria-label="Choice b:"
                               className="answer-letter"
+                              disabled={true}
                               onClick={undefined}
                             >
                               b
@@ -1150,6 +1168,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             <button
                               aria-label="Choice c:"
                               className="answer-letter"
+                              disabled={true}
                               onClick={undefined}
                             >
                               c
@@ -1183,6 +1202,7 @@ exports[`choose exercises component matches snapshot 1`] = `
                             <button
                               aria-label="Choice d:"
                               className="answer-letter"
+                              disabled={true}
                               onClick={undefined}
                             >
                               d
