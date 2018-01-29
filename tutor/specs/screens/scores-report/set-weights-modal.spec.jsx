@@ -8,10 +8,10 @@ import { wrapModalContents } from '../../helpers/modal-wrapper';
 
 describe('Scores Report: set weights modal', () => {
 
-  let props, modal, ux;
+  let props, modal, ux, course;
 
   beforeEach(() => {
-    const { course } = bootstrapScores();
+    course = bootstrapScores().course;
     ux = new UX(course);
     props = { ux };
     props.ux.weights.onSetClick();
@@ -45,10 +45,9 @@ describe('Scores Report: set weights modal', () => {
       } });
     });
     expect(ux.weights.isValid).toBe(true);
+    course.save = jest.fn();
     modal.find('Button').first().simulate('click');
-    // TODO test save fires
-    // console.log(modal.debug())
-
+    expect(course.save).toHaveBeenCalled()
   });
 
 });
