@@ -32,6 +32,11 @@ export default class SummaryPopup extends React.Component {
     console.log(this.popup)
   }
 
+  @action.bound onPopupReady(popup) {
+    this.popup = popup;
+    this.popup.print();
+  }
+
   render() {
     return (
       <Button
@@ -40,7 +45,7 @@ export default class SummaryPopup extends React.Component {
       >
         <PopoutWindow
           title="Annotation Summary Print Page"
-          ref={pw => (this.popup = pw)}
+          onReady={this.onPopupReady}
           windowImpl={this.props.windowImpl}
           onClose={this.onSummaryWindowClose}
           options={{
