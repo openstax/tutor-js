@@ -4,7 +4,7 @@
 // under MIT License
 //(function (global) {
 import dom from '../../helpers/dom';
-
+import { each } from 'lodash';
 const HIGHLIGHT_CSS = 'tutor-highlight',
   FOCUS_CSS = 'focus',
 
@@ -216,7 +216,7 @@ TextHighlighter.prototype.focus = function(elements) {
 }
 
 TextHighlighter.prototype.unfocusAll = function() {
-  document.querySelectorAll(`.${HIGHLIGHT_CSS}.${FOCUS_CSS}`).forEach((el) => el.classList.remove(FOCUS_CSS))
+  each(document.querySelectorAll(`.${HIGHLIGHT_CSS}.${FOCUS_CSS}`), (el) => el.classList.remove(FOCUS_CSS));
 }
 
 /**
