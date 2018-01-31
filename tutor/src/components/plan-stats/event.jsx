@@ -7,7 +7,7 @@ import { Markdown } from 'shared';
 
 export default function Event({ plan, courseId }) {
   let description;
-  const periodNames = map(Courses.get(courseId).periods, 'name').join(', ');
+  const periodNames = map(Courses.get(courseId).periods.active, 'name').join(', ');
   if (plan.description) {
     description = <Markdown text={plan.description} block={true} />;
   }
