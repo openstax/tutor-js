@@ -10,7 +10,6 @@ import Courses   from '../courses-map';
 import User      from '../user';
 import Tour      from '../tour';
 import TourRide  from './ride';
-import invariant from 'invariant';
 
 // TourContext
 // Created by the upper-most React element (the Conductor)
@@ -63,9 +62,7 @@ export default class TourContext extends BaseModel {
 
   openRegion(region) {
     const existing = find(this.regions, { id: region.id });
-    if (existing){
-      invariant(existing === region, `attempted to add region ${region.id}, but it already exists!`);
-    } else { // no need to add if existing is the same object
+    if (!existing){
       this.regions.push(region);
 
       if ( this.autoRemind && !this.tour && this.needsPageTipsReminders ) {
