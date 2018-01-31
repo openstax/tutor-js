@@ -117,6 +117,21 @@ exports[`Annotations renders and matches snapshot 1`] = `
               </div>
             </div>
           </div>
+          <div>
+            <button
+              className="print-btn btn btn-default"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              <i
+                className="tutor-icon fa fa-print"
+                role="presentation"
+                type="print"
+              />
+               Print this page
+            </button>
+          </div>
         </div>
         <div
           className="annotations"
@@ -127,112 +142,36 @@ exports[`Annotations renders and matches snapshot 1`] = `
                
               Atoms, Isotopes, Ions, and Molecules: The Building Blocks
             </h2>
-            <div
-              className="annotation-card"
-            >
-              <div
-                className="annotation-content"
+            <div>
+              <p
+                style={
+                  Object {
+                    "fontStyle": "italic",
+                  }
+                }
               >
-                <div
-                  className="selected-text"
-                >
-                  ng world, elements are found in different proportions, and some elements common to living organisms are relatively rare on the earth as a whole, as shown in See Table. For examp
-                </div>
-                <div
-                  className="plain-text"
-                >
-                  ee
-                </div>
-              </div>
-              <div
-                className="controls"
-              >
-                <button
-                  onClick={[Function]}
-                  title="Edit"
-                >
-                  <i
-                    className="tutor-icon fa fa-edit"
-                    role="presentation"
-                    type="edit"
-                  />
-                </button>
-                <button
-                  onClick={[Function]}
-                  title="View in book"
-                >
-                  <i
-                    className="tutor-icon fa fa-external-link"
-                    role="presentation"
-                    type="external-link"
-                  />
-                </button>
-                <button
-                  onClick={[Function]}
-                  title="Delete"
-                >
-                  <i
-                    className="tutor-icon fa fa-trash"
-                    role="presentation"
-                    type="trash"
-                  />
-                </button>
-              </div>
+                ng world, elements are found in different proportions, and some elements common to living organisms are relatively rare on the earth as a whole, as shown in See Table. For examp
+              </p>
+              <p>
+                ee
+              </p>
             </div>
-            <div
-              className="annotation-card"
-            >
-              <div
-                className="annotation-content"
+            <div>
+              <p
+                style={
+                  Object {
+                    "fontStyle": "italic",
+                  }
+                }
               >
-                <div
-                  className="selected-text"
-                >
-                  Hydrogen (H)
-                                  10%
-                                  trace
-                                  0.1%
-                </div>
-                <div
-                  className="plain-text"
-                >
-                  
-                </div>
-              </div>
-              <div
-                className="controls"
-              >
-                <button
-                  onClick={[Function]}
-                  title="Edit"
-                >
-                  <i
-                    className="tutor-icon fa fa-edit"
-                    role="presentation"
-                    type="edit"
-                  />
-                </button>
-                <button
-                  onClick={[Function]}
-                  title="View in book"
-                >
-                  <i
-                    className="tutor-icon fa fa-external-link"
-                    role="presentation"
-                    type="external-link"
-                  />
-                </button>
-                <button
-                  onClick={[Function]}
-                  title="Delete"
-                >
-                  <i
-                    className="tutor-icon fa fa-trash"
-                    role="presentation"
-                    type="trash"
-                  />
-                </button>
-              </div>
+                Hydrogen (H)
+                                10%
+                                trace
+                                0.1%
+              </p>
+              <p>
+                
+              </p>
             </div>
           </div>
         </div>
