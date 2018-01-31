@@ -1,10 +1,12 @@
 import React from 'react';
 import {observer} from 'mobx-react';
+import { isEmpty, map } from 'lodash';
 import {action, observable, computed} from 'mobx';
 import {Button} from 'react-bootstrap';
 import Icon from '../icon';
+import SummaryListing from './summary-listing';
 import PopoutWindow from 'shared/src/components/popout-window';
-import {map} from "lodash";
+
 
 @observer
 export default class SummaryPopup extends React.Component {
@@ -37,11 +39,17 @@ export default class SummaryPopup extends React.Component {
   }
 
   render() {
+    const { annotations } = this.props;
+    if (isEmpty(annotations)) { return null; }
+
     return (
-      <Button
-        className="print-btn pull-right"
-        onClick={this.openSummaryWindow}
-      >
+      <div>
+        <Button
+          className="print-btn"
+          onClick={this.openSummaryWindow}
+        >
+          <Icon type="print"/> Print this page
+        </Button>
         <PopoutWindow
           title="Annotation Summary Print Page"
           onReady={this.onPopupReady}
@@ -54,28 +62,10 @@ export default class SummaryPopup extends React.Component {
           }}
         >
           <div className="summary-preview summary-popup">
-            <div className="annotations">
-              {map(this.props.annotations, (notes, ch) =>
-                <div key={ch}>
-                  <h2>{notes[0].formattedChapterSection} {notes[0].title}</h2>
-                  {map(notes, (annotation) => (
-                    <div key={annotation.id}>
-                    <p style={{fontStyle: 'italic'}}>
-                      {annotation.selection.content}
-                    </p>
-                    <p>
-                    {annotation.text}
-                    </p>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            <SummaryListing annotations={annotations} />
           </div>
         </PopoutWindow>
-        <Icon type="print"/>
-        Print this page
-      </Button>
+      </div>
     );
   }
 }

@@ -1,12 +1,13 @@
 import React from 'react';
 import { readonly } from 'core-decorators';
-import { map, keys, pickBy } from 'lodash';
+import { map, keys, pickBy, isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
 import { observable, computed } from 'mobx';
 import SectionsFilter from './sections-filter';
 import AnnotationCard from './annotation-card';
 import User from '../../models/user';
 import SummaryPopup from "./summary-popup";
+import SummaryListing from './summary-listing';
 
 @observer
 export default class AnnotationSummaryPage extends React.Component {
@@ -61,6 +62,19 @@ export default class AnnotationSummaryPage extends React.Component {
     );
   }
 
+  renderEmptyMessage() {
+    if (isEmpty(this.selectedAnnotations)) {
+      return (
+        <div className="annotations">
+          <h2>No sections are selected</h2>
+          <h3>Select at least one section to display it’s annotations</h3>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
   render() {
     if (!keys(this.annotationsBySection).length) {
       return this.renderEmpty();
@@ -76,22 +90,10 @@ export default class AnnotationSummaryPage extends React.Component {
             sections={this.annotationsBySection}
             selected={this.selectedSections}
           />
-          <SummaryPopup annotations={this.selectedAnnotations}/>
+          <SummaryPopup annotations={this.selectedAnnotations} />
         </div>
-        <div className="annotations">
-          {map(this.selectedAnnotations, (notes, ch) =>
-            <div key={ch}>
-              <h2>{notes[0].formattedChapterSection} {notes[0].title}</h2>
-              {map(notes, (annotation) => (
-                <AnnotationCard
-                  key={annotation.id}
-                  annotation={annotation}
-                  onDelete={this.props.onDelete}
-                />
-              ))}
-            </div>
-          )}
-        </div>
+        {this.renderEmptyMessage()}
+        <SummaryListing annotations={this.selectedAnnotations} />
       </div>
     );
   }
