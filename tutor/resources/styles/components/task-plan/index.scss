@@ -21,6 +21,7 @@
     height: 50px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     button.close {
       top: 0;
       transistion: opacity 0.3s;
