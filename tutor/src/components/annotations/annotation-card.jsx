@@ -99,9 +99,9 @@ export default class AnnotationCard extends React.Component {
     return (
       <div className="annotation-card">
         <div className="annotation-content">
-          <div className="selected-text">
+          <blockquote className="selected-text">
             {annotation.selection.content}
-          </div>
+          </blockquote>
           {this.editing ? (
             <EditBox
               text={annotation.text}

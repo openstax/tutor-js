@@ -365,7 +365,7 @@ export default class AnnotationWidget extends React.Component {
 
   @action.bound editAnnotation(annotation) {
     this.activeAnnotation = annotation;
-    this.scrollToAnnotation(annotation);
+
   }
 
 
