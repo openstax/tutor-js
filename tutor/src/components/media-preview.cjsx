@@ -50,17 +50,17 @@ MediaPreview = React.createClass
 
   isMediaInViewport: ->
     {mediaDOMOnParent, buffer, windowImpl} = @props
-    mediaRect = mediaDOMOnParent.getBoundingClientRect()
+    mediaRect = mediaDOMOnParent?.getBoundingClientRect()
 
     0 <= (mediaRect.top + buffer) <= windowImpl.innerHeight
 
   highlightMedia: ->
     {mediaDOMOnParent} = @props
-    mediaDOMOnParent.classList.add('link-target')
+    mediaDOMOnParent?.classList.add('link-target')
 
   unhighlightMedia: ->
     {mediaDOMOnParent} = @props
-    mediaDOMOnParent.classList.remove('link-target')
+    mediaDOMOnParent?.classList.remove('link-target')
 
   stickMedia: ->
     @setState(stick: true)
