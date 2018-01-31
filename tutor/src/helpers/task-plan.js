@@ -32,7 +32,7 @@ export default {
 
 
   earliestDueDate(plan) {
-    const dates = map(get(plan, 'x.tasking_plans'), 'due_at');
+    const dates = map(get(plan, 'tasking_plans'), 'due_at');
     return first(dates.sort()) || '';
   },
 
