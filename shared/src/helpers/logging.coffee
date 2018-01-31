@@ -38,7 +38,7 @@ loggerFactory = (level) ->
     loglevel[level](msg, args...)
     options = defaults(options, DEFAULT_OPTIONS[level])
     if options.persist
-      PENDING.push({ message: msg, level: level })
+      PENDING.push({ location: window.location.href, message: msg, level: level })
       transmitPending()
     msg
 

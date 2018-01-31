@@ -1,5 +1,11 @@
 jest.mock 'model/networking'
 jest.mock 'loglevel'
+jest.mock 'lodash/debounce', ->
+  jest.fn(
+    (fn) -> -> fn()
+  )
+
+debounce = require 'lodash/debounce'
 Networking = require 'model/networking'
 ConsoleLogger = require 'loglevel'
 
@@ -31,7 +37,7 @@ describe 'Loggging', ->
     expect(ConsoleLogger.info).toHaveBeenLastCalledWith(msg)
     jest.runAllTimers()
     expect(Networking.perform).toHaveBeenLastCalledWith(
-      data: { entries: [{level: 'info', message: msg}] },
+      data: { entries: [{location: 'about:blank', level: 'info', message: msg}] },
       method: 'POST', url: 'http://foo.bar.com/log/entry'
     )
 
@@ -51,7 +57,7 @@ describe 'Loggging', ->
     jest.runAllTimers()
 
     expect(Networking.perform).toHaveBeenLastCalledWith(
-      data: { entries: [{level: 'error', message: msg}] },
+      data: { entries: [{location: 'about:blank', level: 'error', message: msg}] },
       method: 'POST', url: 'http://foo.bar.com/log/entry'
     )
 
@@ -67,7 +73,5 @@ describe 'Loggging', ->
     expect(
       ConsoleLogger.error
     ).toHaveBeenCalledTimes(10)
-    jest.runAllTimers()
-    expect(Networking.perform).toHaveBeenCalledTimes(1)
-    expect(Networking.perform.mock.calls[0][0].data.entries).to.have.length(10)
+    expect(debounce).toHaveBeenCalled()
     undefined
