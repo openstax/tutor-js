@@ -185,6 +185,7 @@ StepTitleConfig =
     hasLearningObjectives: (contentId) -> @_meta[contentId]?.hasLearningObjectives
 
     getTitleForCrumb: (crumb) ->
+      return '' unless crumb
       if crumb.id and store.get(crumb.id)
         return store.get(crumb.id)
       if crumb.type is 'reading' and crumb.related_content?[0]?.title?
