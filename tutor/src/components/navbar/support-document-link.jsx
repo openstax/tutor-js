@@ -15,8 +15,9 @@ export default class SupportDocumentLink extends React.Component {
   render() {
     if (!this.props.courseId) { return null; }
     const course = Courses.get(this.props.courseId);
+
     let url, name;
-    if (course.isStudent) {
+    if (!course || course.isStudent) {
       url = CourseInformation.studentGettingStartedURL;
       name = 'Getting Started Guide';
     } else {
