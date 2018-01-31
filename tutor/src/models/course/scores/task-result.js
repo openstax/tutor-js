@@ -57,104 +57,116 @@ export default class TaskResult extends BaseModel {
     return Boolean(this.completed_step_count || this.completed_exercise_count);
   }
 
+  @computed get reportHeading() {
+    return this.student.period.data_headings[this.columnIndex];
+  }
+
   // called by API
   acceptLate() {}
   rejectLate() {}
 
+
+  onLateWorkRejected() {
+    const prevLateSteps = this.completed_accepted_late_step_count;
+    const prevCorrect = this.correct_accepted_late_exercise_count;
+
+    this.is_late_work_accepted = false;
+    this.completed_accepted_late_exercise_count = 0;
+    this.correct_accepted_late_exercise_count = 0;
+    this.completed_accepted_late_step_count = 0;
+    this.accepted_late_at = null;
+
+    if (this.is_included_in_averages) {
+      this.adjustAverages(
+        prevLateSteps + this.completed_on_time_step_count,
+        prevCorrect + this.correct_on_time_exercise_count,
+      );
+    }
+  }
+
   onLateWorkAccepted() {
     // nothing to do if it's not actually late
     if (!this.hasLateWork) { return; }
-    const previous_steps = this.completed_accepted_late_step_count;
+
+    const prevLateSteps = this.completed_accepted_late_step_count;
+    const prevCorrect = this.correct_accepted_late_exercise_count;
 
     this.is_late_work_accepted = true;
-
     this.completed_accepted_late_exercise_count =
       this.completed_exercise_count - this.completed_on_time_exercise_count;
     this.correct_accepted_late_exercise_count =
       this.correct_exercise_count - this.correct_on_time_exercise_count;
     this.completed_accepted_late_step_count =
       this.completed_step_count - this.completed_on_time_step_count;
-
     this.accepted_late_at = TimeStore.getNow().toISOString();
 
     if (this.is_included_in_averages) {
       this.adjustAverages(
-        this.completed_accepted_late_step_count - previous_steps
+        prevLateSteps + this.completed_on_time_step_count,
+        prevCorrect + this.correct_on_time_exercise_count,
       );
     }
   }
 
-  onLateWorkRejected() {
-    const previous_steps = this.completed_accepted_late_step_count;
-    this.is_late_work_accepted = false;
-    this.correct_accepted_late_exercise_count = 0;
-    this.completed_accepted_late_exercise_count = 0;
-    this.completed_accepted_late_step_count = 0;
-    this.accepted_late_at = null;
-
-    if (this.is_included_in_averages) {
-      this.adjustAverages(
-        this.completed_accepted_late_step_count - previous_steps
-      );
-    }
+  @computed get completedStepCount() {
+    return this.completed_accepted_late_step_count + this.completed_on_time_step_count;
   }
 
+  @computed get scoredStepCount() {
+    return this.completed_on_time_exercise_count + this.completed_accepted_late_exercise_count;
+  }
 
-  adjustAverages(stepCountDifference) {
+  @computed get scoredCorrectCount() {
+    return this.correct_on_time_exercise_count + this.correct_accepted_late_exercise_count;
+  }
 
+  adjustAverages(prevCompletedStepCount, prevCorrect) {
     const oldScore = this.score;
-
     const period = this.student.period;
-
+    const { course } = period.coursePeriod;
+    const { type } = this;
     let student = this.student;
 
     // Update score for the task without rounding so the calculations below will use it's full precision
-    this.score =
-      (this.correct_on_time_exercise_count + this.correct_accepted_late_exercise_count ) / this.exercise_count;
+    this.score = (
+      this.correct_on_time_exercise_count + this.correct_accepted_late_exercise_count
+    ) / this.exercise_count;
 
-    // Student's course average
-    let numTasksStudent = reduce(student.data, (count, task) => task.is_included_in_averages ? count + 1 : count, 0);
+    //----------------------------------------------------------------+
+    // scores                                                         |
+    //----------------------------------------------------------------+
 
-    student.course_average =
-      ( student.course_average - ( oldScore / numTasksStudent ) ) + ( this.score / numTasksStudent );
+    // student
+    student[`${type}_score`] += (
+      this.scoredCorrectCount / student.scoredStepCount[type]
+    ) - ( prevCorrect / student.scoredStepCount[type] );
+    // assignment
+    this.reportHeading.average_score += (
+      this.scoredCorrectCount / this.reportHeading.scoredStepCount
+    ) - ( prevCorrect / this.reportHeading.scoredStepCount );
+    // period
+    period[`overall_${type}_score`] += course[`${type}_score_weight`] * (
+      ( this.scoredCorrectCount / period.scoredStepCount[type] ) -
+        ( prevCorrect / period.scoredStepCount[type] )
+    );
 
-    // Assignment averages
-    let numStudentsTask = reduce(period.students, (count, student) => {
-      const task = student.data[this.columnIndex];
-      return task.is_included_in_averages ? count + 1 : count;
-    }, 0);
+    //----------------------------------------------------------------+
+    // progress                                                       |
+    //----------------------------------------------------------------+
 
-    const heading = this.student.period.data_headings[this.columnIndex];
-    if (isNil(heading.average_score)) {
-      heading.average_score = this.score / numStudentsTask;
-    } else {
-      heading.average_score =
-        ( heading.average_score - ( oldScore / numStudentsTask ) ) +
-                                     ( this.score / numStudentsTask );
-    }
-
-    // Overall course averages
-
-    let taskCount = reduce(period.students, (scount, student) => {
-      return scount + reduce(student.data, (tcount, task) => task.is_included_in_averages ? tcount + 1 : tcount, 0);
-    }, 0);
-
-    if (includes(['homework', 'reading'], this.type)) {
-      period[`overall_${this.type}_progress`] =
-        (period[`overall_${this.type}_progress`] -
-          ( stepCountDifference / taskCount ) ) +
-                      ( this.completed_accepted_late_step_count -
-                        stepCountDifference / taskCount );
-
-      period[`overall_${this.type}_score`] =
-        (period[`overall_${this.type}_score`] -
-          ( oldScore / taskCount ) ) +
-                        ( this.score / taskCount );
-    }
-
-    period.overall_course_average =
-      (period.overall_course_average - ( oldScore / taskCount ) ) +
-                             ( this.score / taskCount );
+    // student
+    student[`${type}_progress`] += (
+      this.completedStepCount / student.scoredStepCount[type]
+    ) - ( prevCompletedStepCount / student.scoredStepCount[type] );
+    // assignment
+    this.reportHeading.average_progress += (
+      this.completedStepCount / this.reportHeading.scoredStepCount
+    ) - ( prevCompletedStepCount / this.reportHeading.scoredStepCount );
+    // period
+    period[`overall_${type}_progress`] += course[`${type}_progress_weight`] * (
+      ( this.completedStepCount / period.scoredStepCount[type] ) -
+        ( prevCompletedStepCount / period.scoredStepCount[type] )
+    );
 
     // Now round the score
     return this.score = Math.round(this.score * 100 ) / 100;

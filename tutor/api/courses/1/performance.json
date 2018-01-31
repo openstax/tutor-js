@@ -181,6 +181,10 @@
           }
         ],
         "course_average": 0.0512,
+        "homework_score": 0.23,
+        "homework_progress": 0.98,
+        "reading_score": 0.42,
+        "reading_progress": 0.09,
         "student_identifier": "4C5208Z6SW",
         "role": 10,
         "last_name": "Glass",
