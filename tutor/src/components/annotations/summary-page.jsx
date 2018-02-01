@@ -1,11 +1,12 @@
 import React from 'react';
 import { readonly } from 'core-decorators';
-import { map, keys, pickBy } from 'lodash';
+import { map, keys, pickBy, isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
 import { observable, computed } from 'mobx';
 import SectionsFilter from './sections-filter';
 import AnnotationCard from './annotation-card';
 import User from '../../models/user';
+import SummaryPopup from "./summary-popup";
 
 @observer
 export default class AnnotationSummaryPage extends React.Component {
@@ -60,6 +61,19 @@ export default class AnnotationSummaryPage extends React.Component {
     );
   }
 
+  renderEmptyMessage() {
+    if (isEmpty(this.selectedAnnotations)) {
+      return (
+        <div className="annotations">
+          <h3>This page has no annotations</h3>
+          <p>Select a section from the picker above to display it’s annotations</p>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
   render() {
     if (!keys(this.annotationsBySection).length) {
       return this.renderEmpty();
@@ -75,7 +89,9 @@ export default class AnnotationSummaryPage extends React.Component {
             sections={this.annotationsBySection}
             selected={this.selectedSections}
           />
+          <SummaryPopup annotations={this.selectedAnnotations} courseId={this.props.courseId} />
         </div>
+        {this.renderEmptyMessage()}
         <div className="annotations">
           {map(this.selectedAnnotations, (notes, ch) =>
             <div key={ch}>

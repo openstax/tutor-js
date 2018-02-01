@@ -13,6 +13,7 @@ export default class PopoutWindow extends React.PureComponent {
     title:      React.PropTypes.string.isRequired,
     children:   React.PropTypes.node.isRequired,
     onClose:    React.PropTypes.func.isRequired,
+    onReady:    React.PropTypes.func,
     url:        React.PropTypes.string,
     options:    React.PropTypes.object,
     windowImpl: React.PropTypes.shape({
@@ -62,6 +63,12 @@ export default class PopoutWindow extends React.PureComponent {
     ReactDOM.render(children, this.containerEl);
   }
 
+  print() {
+    if (this.isOpen) {
+      this.popup.print();
+    }
+  }
+
   open(){
     if (this.isOpen) {
       this.reRender();
@@ -98,8 +105,8 @@ export default class PopoutWindow extends React.PureComponent {
 
   @autobind
   onWindowLoad() {
-    // called after popups closed, or after already creating containerEl
-    if (!this.popup || this.containerEl) { return; }
+    // called twice
+    if (this.containerEl) { return; }
 
     this.popup.document.title = this.props.title;
     const container = this.popup.document.createElement('div');
@@ -107,6 +114,7 @@ export default class PopoutWindow extends React.PureComponent {
     this.popup.document.body.appendChild(container);
 
     ReactDOM.render(this.props.children, container);
+    invoke(this.props, 'onReady', this);
   }
 
   render(){

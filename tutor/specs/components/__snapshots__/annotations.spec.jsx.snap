@@ -117,6 +117,21 @@ exports[`Annotations renders and matches snapshot 1`] = `
               </div>
             </div>
           </div>
+          <div>
+            <button
+              className="print-btn btn btn-default"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              <i
+                className="tutor-icon fa fa-print"
+                role="presentation"
+                type="print"
+              />
+               Print this page
+            </button>
+          </div>
         </div>
         <div
           className="annotations"
@@ -133,11 +148,11 @@ exports[`Annotations renders and matches snapshot 1`] = `
               <div
                 className="annotation-content"
               >
-                <div
+                <blockquote
                   className="selected-text"
                 >
                   ng world, elements are found in different proportions, and some elements common to living organisms are relatively rare on the earth as a whole, as shown in See Table. For examp
-                </div>
+                </blockquote>
                 <div
                   className="plain-text"
                 >
@@ -185,14 +200,14 @@ exports[`Annotations renders and matches snapshot 1`] = `
               <div
                 className="annotation-content"
               >
-                <div
+                <blockquote
                   className="selected-text"
                 >
                   Hydrogen (H)
                                   10%
                                   trace
                                   0.1%
-                </div>
+                </blockquote>
                 <div
                   className="plain-text"
                 >
