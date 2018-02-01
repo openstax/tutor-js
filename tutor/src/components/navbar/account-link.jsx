@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { MenuItem } from 'react-bootstrap';
 import User from '../../models/user';
 import { observer } from 'mobx-react';
 
@@ -14,11 +14,9 @@ export default class AccountLink extends React.PureComponent {
     const { profile_url } = User;
     if (!profile_url) { return null; }
     return (
-      <li role="presentation">
-        <a href={profile_url} target="_blank">
-          My Account
-        </a>
-      </li>
+      <MenuItem {...this.props} href={profile_url} target="_blank">
+        My Account
+      </MenuItem>
     );
   }
 }

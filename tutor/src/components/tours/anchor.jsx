@@ -44,7 +44,7 @@ export default class TourAnchor extends React.PureComponent {
       className: cn('tour-anchor', className),
       'data-tour-anchor-id': this.props.id,
       ref: ref => (this.wrapperEl = ref),
-    }, ReactHelpers.filterProps(otherProps)), this.props.children);
+    }, otherProps), this.props.children);
   }
 
 }

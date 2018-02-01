@@ -2,15 +2,13 @@ import React from 'react';
 import { Dropdown, MenuItem } from 'react-bootstrap';
 import TutorRouter from '../../helpers/router'
 import { Route } from 'react-router';
-
 import {  partial, flatMap, get, isEmpty, omit } from 'lodash';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
 import { autobind } from 'core-decorators';
 import Icon from '../icon';
-
+import NewTabLink from '../new-tab-link';
 import TourAnchor from '../tours/anchor';
-import BrowseTheBook from '../buttons/browse-the-book';
 import Router from '../../helpers/router';
 import User from '../../models/user';
 import UserMenu from '../../models/user/menu';
@@ -20,26 +18,32 @@ const RoutedMenuItem = (props) => {
   const { label, name, tourId, className, route } = props;
   const isActive = TutorRouter.isActive(route.name, route.params, route.options);
 
-  return (<Route path={props.href} exact>
-    <MenuItem
-      className={classnames(name, className, { 'active': isActive })}
-      data-name={name}
-      {...omit(props, ['label', 'name', 'tourId', 'className', 'route'])}
-    >
-      <TourAnchor id={tourId}>
-        {label}
-      </TourAnchor>
-    </MenuItem>
-  </Route>);
+  return (
+    <Route path={props.href} exact>
+      <MenuItem
+        className={classnames(name, className, { 'active': isActive })}
+        data-name={name}
+        {...omit(props, ['label', 'name', 'tourId', 'className', 'route'])}
+      >
+        <TourAnchor id={tourId}>
+          {label}
+        </TourAnchor>
+      </MenuItem>
+    </Route>
+  );
 }
 
-function BrowseBookMenuItem({ params: { courseId }, className, active, label }) {
+function BrowseBookMenuItem({ params: { courseId }, className, active, label, ...props }) {
   return (
-    <li role="presentation" className={classnames(className, { 'active': active })}>
-      <BrowseTheBook unstyled courseId={courseId}>
-        <TourAnchor id="menu-option-browse-book">{label}</TourAnchor>
-      </BrowseTheBook>
-    </li>
+      <MenuItem
+        {...props}
+        href={`/books/${courseId}`}
+        target="_blank"
+      >
+        <TourAnchor id="menu-option-browse-book">
+          Browse the Book
+        </TourAnchor>
+      </MenuItem>
   );
 }
 

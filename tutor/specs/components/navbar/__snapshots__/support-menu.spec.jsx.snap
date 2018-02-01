@@ -14,28 +14,35 @@ exports[`Support Menu renders and matches snapshot 1`] = `
     onKeyDown={[Function]}
     role="button"
   >
-    <i
-      className="tutor-icon fa fa-question-circle"
-      role="presentation"
-      type="question-circle"
-    />
-    <span
-      className="control-label"
-      title="Page tips and support"
+    <div
+      ariaLabelledby="support-menu"
+      className="tour-anchor"
+      data-tour-anchor-id="support-menu-button"
+      id="support-menu-button"
+      onSelect={[Function]}
     >
-      Help
-    </span>
-    <i
-      className="tutor-icon fa fa-angle-down toggle"
-      role="presentation"
-      type="angle-down"
-    />
+      <i
+        className="tutor-icon fa fa-question-circle"
+        role="presentation"
+        type="question-circle"
+      />
+      <span
+        className="control-label"
+        title="Page tips and support"
+      >
+        Help
+      </span>
+      <i
+        className="tutor-icon fa fa-angle-down toggle"
+        role="presentation"
+        type="angle-down"
+      />
+    </div>
   </a>
   <ul
-    className="tour-anchor dropdown-menu dropdown-menu-right"
-    data-tour-anchor-id="support-menu-button"
-    id="support-menu-button"
-    onSelect={[Function]}
+    aria-labelledby="support-menu"
+    className="dropdown-menu dropdown-menu-right dropdown-menu"
+    role="menu"
   >
     <li
       className="page-tips"
@@ -111,28 +118,35 @@ exports[`Support Menu renders support links when in a course for student 1`] = `
     onKeyDown={[Function]}
     role="button"
   >
-    <i
-      className="tutor-icon fa fa-question-circle"
-      role="presentation"
-      type="question-circle"
-    />
-    <span
-      className="control-label"
-      title="Page tips and support"
+    <div
+      ariaLabelledby="support-menu"
+      className="tour-anchor"
+      data-tour-anchor-id="support-menu-button"
+      id="support-menu-button"
+      onSelect={[Function]}
     >
-      Help
-    </span>
-    <i
-      className="tutor-icon fa fa-angle-down toggle"
-      role="presentation"
-      type="angle-down"
-    />
+      <i
+        className="tutor-icon fa fa-question-circle"
+        role="presentation"
+        type="question-circle"
+      />
+      <span
+        className="control-label"
+        title="Page tips and support"
+      >
+        Help
+      </span>
+      <i
+        className="tutor-icon fa fa-angle-down toggle"
+        role="presentation"
+        type="angle-down"
+      />
+    </div>
   </a>
   <ul
-    className="tour-anchor dropdown-menu dropdown-menu-right"
-    data-tour-anchor-id="support-menu-button"
-    id="support-menu-button"
-    onSelect={[Function]}
+    aria-labelledby="support-menu"
+    className="dropdown-menu dropdown-menu-right dropdown-menu"
+    role="menu"
   >
     <li
       className="-help-link"
@@ -209,28 +223,35 @@ exports[`Support Menu renders support links when in a course for teacher 1`] = `
     onKeyDown={[Function]}
     role="button"
   >
-    <i
-      className="tutor-icon fa fa-question-circle"
-      role="presentation"
-      type="question-circle"
-    />
-    <span
-      className="control-label"
-      title="Page tips and support"
+    <div
+      ariaLabelledby="support-menu"
+      className="tour-anchor"
+      data-tour-anchor-id="support-menu-button"
+      id="support-menu-button"
+      onSelect={[Function]}
     >
-      Help
-    </span>
-    <i
-      className="tutor-icon fa fa-angle-down toggle"
-      role="presentation"
-      type="angle-down"
-    />
+      <i
+        className="tutor-icon fa fa-question-circle"
+        role="presentation"
+        type="question-circle"
+      />
+      <span
+        className="control-label"
+        title="Page tips and support"
+      >
+        Help
+      </span>
+      <i
+        className="tutor-icon fa fa-angle-down toggle"
+        role="presentation"
+        type="angle-down"
+      />
+    </div>
   </a>
   <ul
-    className="tour-anchor dropdown-menu dropdown-menu-right"
-    data-tour-anchor-id="support-menu-button"
-    id="support-menu-button"
-    onSelect={[Function]}
+    aria-labelledby="support-menu"
+    className="dropdown-menu dropdown-menu-right dropdown-menu"
+    role="menu"
   >
     <li
       className="-help-link"
