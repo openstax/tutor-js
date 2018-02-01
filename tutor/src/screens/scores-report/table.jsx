@@ -48,7 +48,7 @@ export default class ScoresTable extends React.PureComponent {
     isConceptCoach: React.PropTypes.bool.isRequired,
   }
 
-  ux = new UX();
+  ux = new UX(this.props.period.course);
 
   @computed get students() {
     const students = sortBy( this.props.period.students, StudentDataSorter({

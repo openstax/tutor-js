@@ -33,6 +33,10 @@ STUDENT_COURSE_ONE_MODEL = {
 
 TEACHER_COURSE_TWO_MODEL = {
   id: '2'
+  homework_score_weight: 0.80
+  homework_progress_weight: 0.15
+  reading_score_weight: 0.05
+  reading_progress_weight: 0.0
   name: 'Local Test Course Two'
   book_id: '123'
   appearance_code: 'testing'

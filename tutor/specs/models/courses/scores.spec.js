@@ -1,14 +1,11 @@
 import { bootstrapCoursesList } from '../../courses-test-data';
+import { isObject, find, map } from 'lodash';
 import DATA from '../../../api/courses/1/performance.json';
 import Courses from '../../../src/models/courses-map';
 const COURSE_ID = 2;
-import { isObject, find } from 'lodash';
 //
 // helpers to make specs more concise
 
-
-// const courseData = () => ScoresStore.get(COURSE_ID)[0];
-//
 
 const gT = id => {
   return Courses.get(COURSE_ID).scores.getTask(id);
@@ -72,15 +69,13 @@ describe('scores store', function() {
 
   it('moves counts into accepted', function() {
     // no changes
-    expect( acceptTask(UNWORKED_TASK_ID).completed_accepted_late_exercise_count ).to.equal(0);
-    expect( acceptTask(UNWORKED_TASK_ID).correct_accepted_late_exercise_count ).to.equal(0);
+    expect( acceptTask(UNWORKED_TASK_ID).completed_accepted_late_exercise_count ).toEqual(0);
+    expect( acceptTask(UNWORKED_TASK_ID).correct_accepted_late_exercise_count ).toEqual(0);
 
-    expect( acceptTask(PARTIALLY_WORKED_LATE_TASK_ID).completed_accepted_late_exercise_count ).to.equal(2);
-    expect( acceptTask(PARTIALLY_WORKED_LATE_TASK_ID).correct_accepted_late_exercise_count ).to.equal(1);
-
-    expect( acceptTask(ALL_LATE_TASK_ID ).completed_accepted_late_exercise_count ).to.equal(2);
-    expect( acceptTask(ALL_LATE_TASK_ID ).correct_accepted_late_exercise_count ).to.equal(1);
-    return undefined;
+    expect( acceptTask(PARTIALLY_WORKED_LATE_TASK_ID).completed_accepted_late_exercise_count ).toEqual(2);
+    expect( acceptTask(PARTIALLY_WORKED_LATE_TASK_ID).correct_accepted_late_exercise_count ).toEqual(1);
+    expect( acceptTask(ALL_LATE_TASK_ID ).completed_accepted_late_exercise_count ).toEqual(2);
+    expect( acceptTask(ALL_LATE_TASK_ID ).correct_accepted_late_exercise_count ).toEqual(0);
   });
 
   it('adjusts average when late work is accepted', function() {
@@ -95,48 +90,22 @@ describe('scores store', function() {
     testChangedScoreBy(ALL_LATE_TASK_ID, { from: 0, to: 0.25 });
   });
 
-  it('adjusts other averages', function() {
-    expect(period.data_headings[0].average_score).toBeCloseTo(0.1666, 0.0001);
-    expect(period.students[2].average_score).to.be.closeTo(0.5, 0.001);
-    expect(period.overall_average_score).to.be.closeTo(0.16666, 0.001);
-
-    const task=gT(PARTIALLY_WORKED_LATE_TASK_ID);
-    task.onLateWorkAccepted();
-
-    expect(period.data_headings[0].average_score).to.be.closeTo(0.1944, 0.0001);
-    expect(period.students[2].average_score).to.be.closeTo(0.75, 0.001);
-    expect(period.overall_average_score).to.be.closeTo(0.1944, 0.001);
-  });
-
-  it('adjusts overal course average', function() {
-    expect(period.overall_average_score).closeTo(0.1666, 0.0001);
-    gT(PARTIALLY_WORKED_LATE_TASK_ID).onLateWorkAccepted();
-    gT(ALL_LATE_TASK_ID).onLateWorkAccepted();
-    expect(period.overall_average_score).closeTo(0.2222, 0.0001);
-  });
-
   it('can get task by id', () => {
     const task = Courses.get(COURSE_ID).scores.getTask('17');
     expect(task.id).toEqual(COMPLETED_TASK_ID);
   });
 
-  it('resets properties after a rejection', function() {
-    let task = gT(PARTIALLY_WORKED_LATE_TASK_ID);
-
-    task.onLateWorkAccepted();
-    expect(task.is_late_work_accepted).toBe(true);
-    expect(task.correct_accepted_late_exercise_count ).to.equal( 1 );
-    expect(task.completed_accepted_late_exercise_count ).to.equal( 2 );
-    expect(task.completed_accepted_late_step_count ).to.equal( 2 );
-    expect(task.accepted_late_at ).to.exist;
-    expect(period.overall_average_score).closeTo(0.1944, 0.0001);
-
-    task.onLateWorkRejected();
-    expect(task.is_late_work_accepted).toBe(false);
-    expect(task.correct_accepted_late_exercise_count ).to.equal( 0 );
-    expect(task.completed_accepted_late_exercise_count ).to.equal( 0 );
-    expect(task.completed_accepted_late_step_count ).to.equal( 0 );
-    expect(task.accepted_late_at ).not.to.exist;
-    expect(period.overall_average_score).closeTo(0.1666, 0.0001);
+  it('calculates scored counts', function() {
+    expect(period.students[0].scoredStepCount).toMatchObject({
+      external: 0, homework: 4, reading: 29
+    })
+    expect(period.scoredStepCount).toMatchObject({
+      external: 0, homework: 36, reading: 261
+    })
+    expect(map(period.data_headings, 'scoredStepCount')).toEqual([
+      36, 0, 0
+    ])
   });
+
+
 });

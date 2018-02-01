@@ -19,7 +19,6 @@ export default class SetWeightsModal extends React.Component {
 
     return (
       <Modal
-        animation={false}
         show={true}
         backdrop="static"
         className="set-weights"
@@ -27,17 +26,20 @@ export default class SetWeightsModal extends React.Component {
         <Modal.Header>
           Set course average weights
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body
+          className={
+            cn({'page-loading loadable is-loading': true})
+          }
+        >
           <div>
             We recommend using homework scores and reading progress.
           </div>
           <ExternalLink
-            to="http://google.com"
+            to="https://openstax.org/blog/new-openstax-tutor-scoring-feature"
             className="set-weights--external-link"
           >
             See why <Icon type="external-link"/>
           </ExternalLink>
-
           <label className="weight">
             <div>Homework scores</div>
             <div>
@@ -87,8 +89,8 @@ export default class SetWeightsModal extends React.Component {
           </p>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={weights.saveWeights} disabled={!weights.isValid}>Save</Button>
-          <Button onClick={weights.setDefaultWeights}>Restore default</Button>
+          <Button onClick={weights.onSaveWeights} disabled={!weights.isValid || weights.isBusy}>Save</Button>
+          <Button onClick={weights.setDefaults}>Restore default</Button>
           <Button onClick={weights.onCancelClick}>Cancel</Button>
         </Modal.Footer>
       </Modal>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { computed } from 'mobx';
+import { action, observable } from 'mobx';
 import { autobind } from 'core-decorators';
 import YouTube from 'react-youtube';
 import { Button } from 'react-bootstrap';
@@ -20,11 +20,13 @@ export default class BuilderPopup extends React.Component {
     }),
   }
 
+  @observable isOpen = false;
+
   static defaultProps = {
     windowImpl: window,
   }
 
-  onPreviewWindowClose() {
+  @action.bound onPreviewWindowClose() {
     this.isOpen = false;
   }
 

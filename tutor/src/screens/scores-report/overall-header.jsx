@@ -1,6 +1,7 @@
 import React from 'react';
 import cn from 'classnames';
 import Icon from '../../components/icon';
+import { asPercent } from '../../helpers/string';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import SetWeights from './set-weights-modal';
@@ -42,14 +43,14 @@ const OverallHeader = observer(({ ux, period }) => {
         </div>
       </div>
       <div className="header-row values overview-row">
-        <div>{(period.overall_average_score * 100).toFixed(0)}%</div>
+        <div>{asPercent(period.overall_course_average)}%</div>
         <div className="homework">
-          <div>S Val</div>
-          <div>P Val</div>
+          <div>{asPercent(period.overall_homework_score)}%</div>
+          <div>{asPercent(period.overall_homework_progress)}%</div>
         </div>
         <div className="reading">
-          <div>S Val</div>
-          <div>P Val</div>
+          <div>{asPercent(period.overall_reading_score)}%</div>
+          <div>{asPercent(period.overall_reading_progress)}%</div>
         </div>
       </div>
     </div>

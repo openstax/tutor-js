@@ -1,30 +1,61 @@
 import { observable, computed, action } from 'mobx';
-import { reduce } from 'lodash';
+import { reduce, each } from 'lodash';
 
 const CELL_AVERAGES_SINGLE_WIDTH = 80;
 
-const WEIGHT_KEYS = [
-  'homework_scores',
-  'homework_progress',
-  'reading_scores',
-  'reading_progress',
-];
+const DEFAULTS = {
+  homework_scores: 100,
+  homework_progress: 0,
+  reading_scores: 0,
+  reading_progress: 0,
+};
+
+const CW = {
+  homework_score_weight: 'homework_scores',
+  homework_progress_weight: 'homework_progress',
+  reading_score_weight: 'reading_scores',
+  reading_progress_weight: 'reading_progress',
+};
 
 export default class ScoresReportWeightsUX {
 
-  @observable homework_scores = 10;
-  @observable homework_progress = 10;
-  @observable reading_scores = 40;
-  @observable reading_progress = 40;
+  @observable homework_scores;
+  @observable homework_progress;
+  @observable reading_scores;
+  @observable reading_progress;
 
   @observable isSetting = false;
 
+  constructor(scoresUx) {
+    this.scoresUx = scoresUx;
+  }
+
   @action.bound onSetClick() {
+    const { course } = this;
     this.isSetting = true;
+    each(CW, (w, c) => {
+      this[w] = (course[c] || 0) * 100;
+    });
   }
 
   @action.bound onCancelClick() {
     this.isSetting = false;
+  }
+
+  @action.bound onSaveWeights() {
+    const { course } = this.scoresUx;
+    each(CW, (w, c) => {
+      course[c] = this[w] / 100;
+    });
+    course.save();
+  }
+
+  @computed get course() {
+    return this.scoresUx.course;
+  }
+
+  @computed get isBusy() {
+    return this.course.api.isPending;
   }
 
   @action.bound setWeight(ev) {
@@ -32,6 +63,11 @@ export default class ScoresReportWeightsUX {
   }
 
   @computed get isValid() {
-    return 100 === reduce(WEIGHT_KEYS, (ttl, w) => this[w] + ttl, 0);
+    return 100 === reduce(DEFAULTS, (ttl, v, attr) => this[attr] + ttl, 0);
   }
+
+  @action.bound setDefaults() {
+    Object.assign(this, DEFAULTS);
+  }
+
 }

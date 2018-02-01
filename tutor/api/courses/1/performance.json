@@ -56,7 +56,7 @@
             "is_included_in_averages": false
           }
         ],
-        "average_score": 0.5,
+        "course_average": 0.5,
         "student_identifier": "O7I5E8YQBR",
         "role": 9,
         "last_name": "Angstrom",
@@ -118,7 +118,7 @@
             "is_included_in_averages": false
           }
         ],
-        "average_score": 0.5,
+        "course_average": 0.5,
         "student_identifier": "52VY7XAW4Q",
         "role": 8,
         "last_name": "Bloom",
@@ -180,7 +180,11 @@
             "is_included_in_averages": false
           }
         ],
-        "average_score": 0.5,
+        "course_average": 0.0512,
+        "homework_score": 0.23,
+        "homework_progress": 0.98,
+        "reading_score": 0.42,
+        "reading_progress": 0.09,
         "student_identifier": "4C5208Z6SW",
         "role": 10,
         "last_name": "Glass",
@@ -197,7 +201,7 @@
             "recovered_exercise_count": 0,
             "score": 0.0,
             "correct_accepted_late_exercise_count": 0,
-            "correct_on_time_exercise_count": 0,
+            "correct_on_time_exercise_count": 1,
             "correct_exercise_count": 1,
             "completed_accepted_late_exercise_count": 0,
             "completed_on_time_exercise_count": 0,
@@ -241,7 +245,7 @@
             "is_included_in_averages": false
           }
         ],
-        "average_score": 0.0,
+        "course_average": 0.0,
         "student_identifier": "3UPNAI8JD2",
         "role": 4,
         "last_name": "Hackett",
@@ -257,7 +261,7 @@
             "recovered_exercise_count": 0,
             "score": 0.0,
             "correct_accepted_late_exercise_count": 0,
-            "correct_on_time_exercise_count": 1,
+            "correct_on_time_exercise_count": 3,
             "correct_exercise_count": 0,
             "completed_accepted_late_exercise_count": 0,
             "completed_on_time_exercise_count": 0,
@@ -301,7 +305,7 @@
             "is_included_in_averages": false
           }
         ],
-        "average_score": 0.0,
+        "course_average": 0.0,
         "student_identifier": "W4OQZ5CV2S",
         "role": 5,
         "last_name": "Jaskolski",
@@ -361,7 +365,7 @@
             "is_included_in_averages": false
           }
         ],
-        "average_score": 0.0,
+        "course_average": 0.0,
         "student_identifier": "UQ5NDASCJX",
         "role": 2,
         "last_name": "Kirlin",
@@ -423,7 +427,7 @@
             "is_included_in_averages": false
           }
         ],
-        "average_score": 0.0,
+        "course_average": 0.0,
         "student_identifier": "AJZ0CVERLD",
         "role": 6,
         "last_name": "Lowe",
@@ -483,7 +487,7 @@
             "is_included_in_averages": false
           }
         ],
-        "average_score": 0.0,
+        "course_average": 0.0,
         "student_identifier": "RG1TOYCQFJ",
         "role": 7,
         "last_name": "Reilly",
@@ -543,7 +547,7 @@
             "is_included_in_averages": false
           }
         ],
-        "average_score": 0.0,
+        "course_average": 0.0,
         "student_identifier": "LSH4YEFUZB",
         "role": 3,
         "last_name": "Tromp",
@@ -553,27 +557,36 @@
     ],
     "data_headings": [
       {
-        "average_score": 0.16666666666666666,
         "due_at": "2016-05-31T12:00:00.000Z",
         "type": "homework",
         "plan_id": 2,
-        "title": "Homework Test"
+        "title": "Homework Test",
+        "average_score": 0.16666666666666666,
+        "average_progress": 0
       },
       {
         "due_at": "2016-05-31T12:00:00.000Z",
         "type": "reading",
         "plan_id": 1,
-        "title": "Reading Test"
+        "title": "Reading Test",
+        "average_score": 0,
+        "average_progress": 0
       },
       {
         "title": "eternal assignment",
         "plan_id": 60,
         "type": "external",
         "due_at": "2017-02-04T13:00:00.000Z",
-        "completion_rate": 0
+        "completion_rate": 0,
+        "average_score": 0,
+        "average_progress": 0
       }
     ],
-    "overall_average_score": 0.16666666666666666,
+    "overall_course_average": "0.16857142857142855",
+    "overall_homework_score": 0.1118571428571429,
+    "overall_homework_progress": 0.222857142857143,
+    "overall_reading_score": 0.152777777777778,
+    "overall_reading_progress": 0.160477022977023,
     "period_id": "1"
   }
 ]
