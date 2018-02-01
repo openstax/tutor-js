@@ -136,16 +136,16 @@ export class User extends BaseModel {
   }
 
   viewedTour(tour, options) {
-    let stats = this.viewed_tour_stats.find((stat) => stat.id === tour.id);
+    let stats = this.viewed_tour_stats.find((stat) => stat.id === tour.countId);
 
     if (stats) {
       stats.view_count ++;
     } else {
-      stats = new ViewedTourStat({ id: tour.id });
+      stats = new ViewedTourStat({ id: tour.countId });
       this.viewed_tour_stats.push(stats);
     }
 
-    this.saveTourView(tour, options);
+    this.saveTourView({id: tour.countId}, options);
   }
 
   verifiedRoleForCourse(course) {

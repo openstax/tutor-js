@@ -52,12 +52,18 @@ export default class Tour extends BaseModel {
   @field showOverlay;
   @field autoplay = false;
   @field standalone = false;
+  @field perCourse = false;
   @field sticky = false;
   @field isEnabled = false;
   @field justViewed = false;
   @field className;
+  @field count_id;
 
   @hasMany({ model: TourStep, inverseOf: 'tour' }) steps;
+
+  @computed get countId() {
+    return this.count_id || this.id;
+  }
 
   @computed get isViewable() {
     if (this.sticky) {
@@ -83,7 +89,7 @@ export default class Tour extends BaseModel {
   }
 
   @computed get viewCounts() {
-    const stat = User.viewed_tour_stats.find((stat) => stat.id === this.id);
+    const stat = User.viewed_tour_stats.find((stat) => stat.id === this.countId);
     return stat? stat.view_count : 0;
   }
 

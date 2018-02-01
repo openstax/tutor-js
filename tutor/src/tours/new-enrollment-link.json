@@ -1,0 +1,25 @@
+[{
+  "id": "new-enrollment-link",
+  "autoplay": true,
+  "standalone": true,
+  "perCourse": true,
+  "audience_tags": [
+    "teacher-with-previous-courses"
+  ],
+  "steps": [
+    {
+      "title": "Your new course has new enrollment links",
+      "body": "We're glad you're using OpenStax Tutor Beta again! Remember that you need to send your students new enrollment links for this course. Do not reuse a past enrollment link, and please update your syllabus with the new links.",
+      "customComponent": "NewEnrollmentLink"
+    },
+    {
+      "body": "Remember, you can find the enrollment links in Course settings.",
+      "anchor_id": "menu-option-courseSettings",
+      "position": "left",
+      "is_fixed": true,
+      "action": {
+        "id": "open-actions-menu"
+      }
+    }
+  ]
+}]

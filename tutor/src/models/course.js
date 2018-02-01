@@ -180,6 +180,12 @@ export default class Course extends BaseModel {
     return !!find(this.roles, 'isTeacher');
   }
 
+  @computed get shouldRemindNewEnrollmentLink() {
+    return (!this.is_lms_enabled &&
+            (this.isActive || this.isFuture) &&
+            this.map.completed.any);
+  }
+
   @computed get canAnnotate() {
     return Boolean(
       FeatureFlags.is_highlighting_allowed &&
@@ -214,6 +220,9 @@ export default class Course extends BaseModel {
         }
         if (this.taskPlans.homework.hasPublishing) {
           tags.push('teacher-homework-published');
+        }
+        if (this.shouldRemindNewEnrollmentLink) {
+          tags.push('teacher-with-previous-courses');
         }
       }
     }

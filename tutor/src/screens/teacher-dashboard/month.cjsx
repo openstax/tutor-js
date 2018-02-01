@@ -261,7 +261,7 @@ CourseMonth = React.createClass
       id="teacher-calendar"
       otherTours={[
         'teacher-calendar-super', 'reading-published', 'homework-published',
-        'teacher-settings-roster-split',
+        'teacher-settings-roster-split', 'new-enrollment-link',
       ]}
       courseId={courseId}
     >

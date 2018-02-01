@@ -90,7 +90,7 @@ export default class StudentAccess extends React.PureComponent {
         <p>
           Send your students their section's direct links to enroll.
         </p>
-        {course.periods.active.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url} />)}
+        {course.periods.active.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url_with_details} />)}
       </div>
     );
   }
@@ -181,7 +181,7 @@ export default class StudentAccess extends React.PureComponent {
             eventKey={false}
           >
             <p>Send your students their section's direct links to enroll.</p>
-            {course.periods.active.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url} />)}
+            {course.periods.active.map(p => <CopyOnFocusInput key={p.id} label={p.name} value={p.enrollment_url_with_details} />)}
           </Panel>
           <Panel
             className={cn('lms', { active: isLMS })}

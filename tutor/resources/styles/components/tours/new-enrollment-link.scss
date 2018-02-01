@@ -1,0 +1,87 @@
+.new-enrollment-link-wheel {
+  color: $openstax-neutral;
+
+  &.joyride-tooltip {
+    color: inherit;
+    width: 540px;
+    font-size: 1.6rem;
+
+    @media only screen and (max-width:1050px) {
+      width: 540px;
+    }
+    @media only screen and (max-width:850px) {
+      width: 540px;
+    }
+    padding: 0;
+    border-radius: 0;
+
+  }
+
+  .joyride-tooltip__{
+    &header {
+      color: inherit;
+      font-size: inherit;
+      font-weight: 800;
+      line-height: 3.6rem;
+      border: none;
+      background: rgba($openstax-quaternary, 0.4);
+      display: flex;
+      padding: 2rem 3rem;
+
+      &::before {
+        @include fa-icon();
+        color: $openstax-quaternary;
+        content: $fa-var-hand-paper-o;
+        font-size: 3.6rem;
+        margin-right: 1rem;
+        align-items: center;
+      }
+    }
+
+    &main {
+      line-height: 1.8em;
+      font-size: inherit;
+    }
+
+    &header~.joyride-tooltip__main {
+      padding: 3rem 3rem 1rem 3rem;
+    }
+
+    &footer {
+      text-align: left;
+      padding: 1rem 3rem 3rem 3rem;
+    }
+
+    &button--skip,
+    &button--primary {
+      padding: 1.7rem 3rem;
+      border-radius: 2px;
+    }
+
+    &button--primary {
+      background-color: $tutor-white;
+      color: $openstax-neutral-dark;
+      border: thin solid $tutor-neutral-light;
+
+      &:hover {
+        color: $openstax-neutral-dark;
+        background-color: $openstax-neutral-lightest;
+      }
+    }
+
+    &button--skip {
+      font-weight: bold;
+      background-color: $tutor-primary;
+      color: $tutor-white;
+
+      &:hover {
+        background-color: darken($tutor-primary, 5);
+      }
+    }
+
+    &close--header {
+      top: 3rem;
+      right: 3rem;
+    }
+  }
+}

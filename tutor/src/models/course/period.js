@@ -28,6 +28,14 @@ export default class CoursePeriod extends BaseModel {
     return this.num_enrolled_students > 0;
   }
 
+  @computed get encodedDetails() {
+    return encodeURIComponent(`${this.course.name} ${this.course.termFull}`);
+  }
+
+  @computed get enrollment_url_with_details() {
+    return `${this.enrollment_url}?course=${this.encodedDetails}`;
+  }
+
   isNameValid( name ) {
     return Boolean(
       this.name == name || !find(this.course.periods, { name })

@@ -15,6 +15,7 @@ const TOURS = {};
   require('./course-settings.json'),
   require('./my-courses.json'),
   require('./page-tips-reminder.json'),
+  require('./new-enrollment-link.json'),
   require('./student-dashboard.json'),
   require('./student-highlighting.json'),
 ].forEach(tours => tours.forEach(tour => TOURS[tour.id] = tour));
