@@ -11,10 +11,7 @@ export default function droppedStudent() {
       </Modal.Header>
       <Modal.Body>
         <p>
-          The course that this enrollment link belongs to has ended and cannot be joined.
-        </p>
-        <p>
-          Please contact your instructor for an updated link.
+          This is an old course enrollment link. Ask your instructor for the new link.
         </p>
       </Modal.Body>
     </div>
