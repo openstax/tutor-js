@@ -21,6 +21,7 @@ TimeZoneSettingsLink = React.createClass
     <TutorLink
       className='course-time-zone'
       to='courseSettings'
+      query={ tab: 1 }
       params={courseId: @props.courseId}
     >
       <BS.OverlayTrigger placement='top' overlay={tooltip}>
