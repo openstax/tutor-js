@@ -19,7 +19,7 @@ describe('Course Settings, student access', () => {
   it('renders with only link for non-lms enabled', () => {
     const access = mount(<StudentAccess {...props} />);
     expect(access).toHaveRendered(
-      `.direct-links-only input[value="${course.periods[0].enrollment_url}"]`,
+      `.direct-links-only input[value="${course.periods[0].enrollment_url_with_details}"]`,
     );
     expect(Renderer.create(<StudentAccess {...props} />).toJSON()).toMatchSnapshot();
   });

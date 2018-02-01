@@ -111,7 +111,18 @@ export default class TourContext extends BaseModel {
   }
 
   @computed get allTours() {
-    return compact(this.tourIds.map(id => Tour.forIdentifier(id)));
+    const tours = compact(this.tourIds.map(id => Tour.forIdentifier(id)));
+
+    forEach(tours, (tour) => {
+      if (tour.perCourse) {
+        // for now, this only pulls the last courseId off of regions.
+        forEach(this.courseIds, (courseId) => {
+          tour.count_id = `${tour.id}-${courseId}`;
+        });
+      }
+    })
+
+    return tours;
   }
 
   @computed get eligibleTours() {

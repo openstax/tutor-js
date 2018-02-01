@@ -38,7 +38,7 @@ export default class CenteredWheel extends React.PureComponent {
   }
 
   render () {
-    const className = classnames(this.className,  this.props.className);
+    const className = classnames(this.className,  this.props.className, this.props.step.className);
 
     return (
       <Tooltip {...this.props} className={className}/>
