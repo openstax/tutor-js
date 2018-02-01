@@ -83,7 +83,7 @@ exports[`Course Settings, student access can switch to links 1`] = `
               className={null}
               onFocus={[Function]}
               readOnly={true}
-              value="http://test/period/1"
+              value="http://test/period/1?course=Local%20Test%20Course%20Two%20Spring%202017"
             />
           </label>
         </div>
@@ -224,7 +224,7 @@ exports[`Course Settings, student access can switch to lms 1`] = `
               className={null}
               onFocus={[Function]}
               readOnly={true}
-              value="http://test/period/1"
+              value="http://test/period/1?course=Local%20Test%20Course%20Two%20Spring%202017"
             />
           </label>
         </div>
@@ -510,7 +510,7 @@ exports[`Course Settings, student access renders chooser when lms is enabled 1`]
               className={null}
               onFocus={[Function]}
               readOnly={true}
-              value="http://test/period/1"
+              value="http://test/period/1?course=Local%20Test%20Course%20Two%20Spring%202017"
             />
           </label>
         </div>
@@ -586,7 +586,7 @@ exports[`Course Settings, student access renders with only link for non-lms enab
         className={null}
         onFocus={[Function]}
         readOnly={true}
-        value="http://test/period/1"
+        value="http://test/period/1?course=Local%20Test%20Course%20Two%20Spring%202017"
       />
     </label>
   </div>
