@@ -9,7 +9,6 @@ export default class UserMenu extends React.Component {
 
 
   render() {
-
     return (
       <Dropdown
         id="user-menu"

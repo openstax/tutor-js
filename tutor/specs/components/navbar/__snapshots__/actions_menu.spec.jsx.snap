@@ -89,12 +89,15 @@ exports[`Student Navbar Component has actions menu that matches snapshot 1`] = `
     <li
       className=""
       role="presentation"
+      style={undefined}
     >
       <a
-        className="view-reference-guide"
         href="/books/1"
+        name="browseBook"
         onClick={[Function]}
-        tabIndex={0}
+        onKeyDown={[Function]}
+        role="menuitem"
+        tabIndex="-1"
         target="_blank"
       >
         <div
@@ -243,12 +246,15 @@ exports[`Teacher Navbar Component has actions menu that matches snapshot 1`] = `
     <li
       className=""
       role="presentation"
+      style={undefined}
     >
       <a
-        className="view-reference-guide"
         href="/books/1"
+        name="browseBook"
         onClick={[Function]}
-        tabIndex={0}
+        onKeyDown={[Function]}
+        role="menuitem"
+        tabIndex="-1"
         target="_blank"
       >
         <div

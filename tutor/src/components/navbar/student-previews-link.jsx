@@ -3,12 +3,12 @@ import User from '../../models/user';
 import TutorLink from '../link';
 import TourAnchor from '../tours/anchor';
 
-export default function StudentPreviewLinks({ courseId }) {
+export default function StudentPreviewLinks({ courseId, ...props }) {
 
   if( !courseId || !( User.isConfirmedFaculty || User.isUnverifiedInstructor ) ) { return null; }
 
   return (
-    <TourAnchor tag="li" id="student-preview-link">
+    <TourAnchor tag="li" id="student-preview-link" {...props}>
       <TutorLink
         className="student-preview-link"
         to='studentPreview'

@@ -13,8 +13,9 @@ export default class SupportDocumentLink extends React.Component {
   }
 
   render() {
-    if (!this.props.courseId) { return null; }
-    const course = Courses.get(this.props.courseId);
+    const { courseId, ...props } = this.props;
+    const course = Courses.get(courseId);
+    if (!course) { return null; }
 
     let url, name;
     if (!course || course.isStudent) {
@@ -32,6 +33,7 @@ export default class SupportDocumentLink extends React.Component {
         className="support-document-link"
         target="_blank"
         href={url}
+        {...props}
       >
         <TourAnchor id="menu-support-document">
           {name}

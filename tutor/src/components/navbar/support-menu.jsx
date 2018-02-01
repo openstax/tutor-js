@@ -5,17 +5,62 @@ import { get } from 'lodash';
 import { action, computed } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import RootCloseWrapper from 'react-overlays/lib/RootCloseWrapper';
-
+import User from '../../models/user';
 import TourAnchor from '../tours/anchor';
 import Chat from '../../models/chat';
 import UserMenu from '../../models/user/menu';
 import Icon from '../icon';
 import SupportDocument from './support-document-link';
 import TourContext from '../../models/tour/context';
-import StudentPreviewLink from './student-previews-link';
+import Router from '../../helpers/router';
+import TutorLink from '../link';
 
+
+const StudentPreview = observer(({ courseId, ...props }, { router }) => {
+  if( !courseId || !( User.isConfirmedFaculty || User.isUnverifiedInstructor ) ) { return null; }
+  return (
+    <MenuItem
+      {...props}
+      onClick={() => {
+          router.history.push(Router.makePathname('studentPreview'))
+      }}
+    >
+      <TourAnchor id="student-preview-link">
+        <span className="control-label" title="See what students see">Student preview videos</span>
+      </TourAnchor>
+    </MenuItem>
+  );
+});
+
+StudentPreview.contextTypes = {
+  router: React.PropTypes.object,
+}
+
+const PageTips = observer(({ courseId, onPlayClick, tourContext, ...props }) => {
+  if (!get(tourContext, 'hasTriggeredTour', false)){ return null; }
+  return (
+    <MenuItem
+      className="page-tips"
+      {...props}
+      onSelect={onPlayClick}
+    >
+      <TourAnchor id="menu-option-page-tips">
+        Page Tips
+      </TourAnchor>
+    </MenuItem>
+  );
+});
+
+
+
+@inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
 @observer
-class SupportMenuDropDown extends React.PureComponent {
+export default class SupportMenu extends React.PureComponent {
+  static propTypes = {
+    tourContext: React.PropTypes.instanceOf(TourContext),
+    courseId: React.PropTypes.string,
+  }
+
 
   static defaultProps = {
     bsRole: 'menu',
@@ -34,20 +79,6 @@ class SupportMenuDropDown extends React.PureComponent {
 
   componentDidMount() {
     Chat.setElementVisiblity(findDOMNode(this.chatEnabled), findDOMNode(this.chatDisabled));
-  }
-
-  renderPageTipsOption() {
-    if (!get(this.props, 'tourContext.hasTriggeredTour', false)){ return null; }
-    return (
-      <MenuItem
-        className="page-tips"
-        onSelect={this.onPlayTourClick}
-      >
-        <TourAnchor id="menu-option-page-tips">
-          Page Tips
-        </TourAnchor>
-      </MenuItem>
-    );
   }
 
   renderChat() {
@@ -98,67 +129,22 @@ class SupportMenuDropDown extends React.PureComponent {
     return `/accessibility-statement/${this.props.courseId || ''}`;
   }
 
-  render() {
+  renderF() {
     const { open, onClose, rootCloseEvent, courseId } = this.props;
 
-    const menu = (
-      <TourAnchor
-        tag="ul"
-        bsRole="menu"
-        id="support-menu-button"
-        ariaLabelledby="support-menu"
-        onSelect={this.onSelect}
-        className="dropdown-menu dropdown-menu-right"
-      >
-
-        {this.renderPageTipsOption()}
-        <MenuItem
-          key="nav-help-link"
-          className="-help-link"
-          target="_blank"
-          onSelect={this.onSelect}
-          href={UserMenu.helpLinkForCourseId(courseId)}
-        >
-          <span>Help Articles</span>
-        </MenuItem>
-        <StudentPreviewLink  courseId={courseId} />
-        <SupportDocument courseId={courseId} />
-
-        <MenuItem
-          key="nav-keyboard-shortcuts"
-          className="-help-link"
-          onSelect={this.onSelect}
-          href={this.accessibilityLink}
-          onClick={this.goToAccessibility}
-        >
-          <span>Accessibility Statement</span>
-        </MenuItem>
-        {this.renderChat()}
-      </TourAnchor>
-    );
     return (
       <RootCloseWrapper noWrap
         onRootClose={onClose}
         disabled={!open}
         event={rootCloseEvent}
       >
-        {menu}
       </RootCloseWrapper>
     );
   }
 
-}
-
-
-@inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
-@observer
-export default class SupportMenu extends React.PureComponent {
-  static propTypes = {
-    tourContext: React.PropTypes.instanceOf(TourContext),
-    courseId: React.PropTypes.string,
-  }
-
   render() {
+    const { open, onClose, rootCloseEvent, courseId } = this.props;
+
     return (
       <Dropdown
         id="support-menu"
@@ -169,13 +155,44 @@ export default class SupportMenu extends React.PureComponent {
           useAnchor={true}
           noCaret
         >
-          <Icon type="question-circle" />
-          <span title="Page tips and support" className="control-label">Help</span>
-          <Icon type="angle-down" className="toggle" />
+          <TourAnchor
+            id="support-menu-button"
+            aria-labelledby="support-menu"
+            onSelect={this.onSelect}
+          >
+            <Icon type="question-circle" />
+            <span title="Page tips and support" className="control-label">Help</span>
+            <Icon type="angle-down" className="toggle" />
+          </TourAnchor>
         </Dropdown.Toggle>
-        <SupportMenuDropDown {...this.props} />
+        <Dropdown.Menu
+          className="dropdown-menu dropdown-menu-right"
+        >
+          <PageTips onPlayClick={this.onPlayTourClick} {...this.props} />
+          <MenuItem
+            key="nav-help-link"
+            className="-help-link"
+            target="_blank"
+            onSelect={this.onSelect}
+            href={UserMenu.helpLinkForCourseId(courseId)}
+          >
+            <span>Help Articles</span>
+          </MenuItem>
+          <StudentPreview courseId={courseId} {...this.props} />
+          <SupportDocument courseId={courseId} />
+          <MenuItem
+            key="nav-keyboard-shortcuts"
+            className="-help-link"
+            onSelect={this.onSelect}
+            href={this.accessibilityLink}
+            onClick={this.goToAccessibility}
+          >
+            <span>Accessibility Statement</span>
+          </MenuItem>
+          {this.renderChat()}
+        </Dropdown.Menu>
       </Dropdown>
     );
-
   }
+
 }
