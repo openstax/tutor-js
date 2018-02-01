@@ -27,7 +27,11 @@ import ReferenceBook from './reference-book';
 
 const ROLE_PRIORITY = [ 'guest', 'student', 'teacher', 'admin' ];
 const DASHBOARD_VIEW_COUNT_KEY = 'DBVC';
-const SAVEABLE_ATTRS = ['name', 'is_lms_enabled', 'time_zone', 'default_open_time', 'default_due_time'];
+const SAVEABLE_ATTRS = [
+  'name', 'is_lms_enabled', 'time_zone', 'default_open_time', 'default_due_time',
+  'homework_score_weight', 'homework_progress_weight',
+  'reading_score_weight', 'reading_progress_weight',
+];
 
 @identifiedBy('course')
 export default class Course extends BaseModel {
@@ -63,6 +67,11 @@ export default class Course extends BaseModel {
   @field time_zone;
   @field webview_url;
   @field year;
+
+  @field homework_score_weight;
+  @field homework_progress_weight;
+  @field reading_score_weight;
+  @field reading_progress_weight;
 
   @hasMany({ model: Period, inverseOf: 'course', extend: extendHasMany({
     sorted()   { return PH.sort(this.active);                        },

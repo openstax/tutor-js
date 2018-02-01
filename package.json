@@ -48,7 +48,7 @@
     "es6-promise": "4.0.5",
     "eventemitter2": "3.0.0",
     "fast-sass-loader": "1.4.0",
-    "fixed-data-table-2": "0.8.8",
+    "fixed-data-table-2": "github:openstax/fixed-data-table-2#trying-scroll-thing",
     "flux-react": "3.0.0",
     "font-awesome": "4.7.0",
     "happypack": "^4.0.0",

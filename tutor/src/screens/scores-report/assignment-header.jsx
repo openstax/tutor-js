@@ -1,7 +1,8 @@
 import React from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { observer } from 'mobx-react';
 import classnames from 'classnames';
-
+import Icon from '../../components/icon';
 import TutorLink from '../../components/link';
 import SortingHeader from './sorting-header';
 import Time from '../../components/time';
@@ -32,38 +33,34 @@ const AverageLabel = (props) => {
         {(props.average_score * 100).toFixed(0)} %
       </span>
     );
-  } else {
-    if (props.heading.type === 'homework') {
-      return (
-        <span className="average">
-          ---
-        </span>
-      );
-    } else if (props.heading.type === 'external') {
-      const p = props.heading.completion_rate;
-      const percent = (() => {
-        switch (false) {
-          case (!(p < 1) || !(p > 0.99)): return 99; // Don't round to 100% when it's not 100%!
-          case (!(p > 0) || !(p < 0.01)): return 1; // Don't round to 0% when it's not 0%!
-          case (!(p > 1)): return 100; // Don't let it go over 100%!
-          default: return Math.round(p * 100);
-        }
-      })();
+  } if (props.heading.type === 'external') {
+    const p = props.heading.completion_rate;
+    const percent = (() => {
+      switch (false) {
+        case (!(p < 1) || !(p > 0.99)): return 99; // Don't round to 100% when it's not 100%!
+        case (!(p > 0) || !(p < 0.01)): return 1; // Don't round to 0% when it's not 0%!
+        case (!(p > 1)): return 100; // Don't let it go over 100%!
+        default: return Math.round(p * 100);
+      }
+    })();
 
-      return (
-        <span className="click-rate">
-          {percent} % have clicked link
-        </span>
-      );
-    }
-    return null;
+    return (
+      <span className="click-rate">
+        {percent} % have clicked link
+      </span>
+    );
+  } else {
+    return (
+      <span className="average">
+        ---
+      </span>
+    );
   }
 };
 
-
 const AssignmentSortingHeader = (props) => {
   const { heading, dataType, columnIndex, sort, onSort } = props;
-  if ((heading.type === 'reading') || (heading.type === 'external')) {
+  if (heading.type === 'external') {
     return (
       <div className="scores-cell">
         <SortingHeader
@@ -106,13 +103,12 @@ const AssignmentSortingHeader = (props) => {
   );
 };
 
-
 const AssignmentHeader = function(props) {
-  const { period: { data_headings }, isConceptCoach, periodIndex, courseId, sort, onSort, columnIndex, width } = props;
+  const { period: { data_headings }, isConceptCoach, periodIndex, courseId, sort, onSort, columnIndex, width, ux } = props;
   const heading = data_headings[columnIndex];
 
   return (
-    <div className="header-cell-wrapper assignment">
+    <div className={`header-cell-wrapper col-${columnIndex} assignment`}>
       <OverlayTrigger
         placement="top"
         delayShow={1000}
@@ -129,11 +125,11 @@ const AssignmentHeader = function(props) {
         </TourAnchor>
       </OverlayTrigger>
       <div className="header-row">
+        <AssignmentSortingHeader {...props} heading={heading} />
+      </div>
+      <div className="header-row overview-row">
         <AverageLabel {...props} heading={heading} />
         <ReviewLink {...props} heading={heading} />
-      </div>
-      <div className="header-row short">
-        <AssignmentSortingHeader {...props} heading={heading} />
       </div>
     </div>
   );

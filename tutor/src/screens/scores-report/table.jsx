@@ -15,34 +15,22 @@ import NameCell from './name-cell';
 import OverallHeader from './overall-header';
 import { CourseScoresPeriod } from '../../models/course/scores';
 import CGL from '../../components/course-grouping-label';
+import OverallCell from './overall-cell';
+import UX from './ux';
 
 const FIRST_DATA_COLUMN = 2;
-const COLUMN_WIDTH = 160;
+const COLUMN_WIDTH = 170;
 const MIN_TABLE_WIDTH = 500;
 const MIN_TABLE_HEIGHT = 600;
 
 const NameHeader = observer(({ sort, onSort, isConceptCoach }) => (
   <div className="header-cell-wrapper student-names">
-    <div className="overall-header-cell" />
-    <div className="header-row">
-      Class Performance
-      <AverageInfo isConceptCoach={isConceptCoach} />
-    </div>
-    <div className="header-row short">
+    <div className="header-row overview-row">
       <SortingHeader sortKey="name" sortState={sort} onSort={onSort} dataType="name">
-        <div className="student-name">
-          Name and Student ID
-        </div>
+        <span>Overall</span>
       </SortingHeader>
     </div>
   </div>
-));
-
-
-const OverallCell = observer(({ students, rowIndex }) => (
-  <Cell className="overall-cell">
-    {((students[rowIndex].average_score || 0) * 100).toFixed(0)} %
-  </Cell>
 ));
 
 
@@ -59,6 +47,8 @@ export default class ScoresTable extends React.PureComponent {
     dataType: React.PropTypes.string,
     isConceptCoach: React.PropTypes.bool.isRequired,
   }
+
+  ux = new UX(this.props.period.course);
 
   @computed get students() {
     const students = sortBy( this.props.period.students, StudentDataSorter({
@@ -100,7 +90,7 @@ export default class ScoresTable extends React.PureComponent {
   }
 
   render() {
-    const { courseId, students, props: { period } } = this;
+    const { ux, courseId, students, props: { period } } = this;
     const width = COLUMN_WIDTH;
 
     if (!period.coursePeriod.num_enrolled_students) { return this.renderNoStudents(); }
@@ -112,8 +102,9 @@ export default class ScoresTable extends React.PureComponent {
         rowHeight={50}
         height={Math.max(this.props.height, MIN_TABLE_WIDTH)}
         width={Math.max(this.props.width, MIN_TABLE_HEIGHT)}
-        headerHeight={150}
+        headerHeight={180}
         rowsCount={students.length}
+        insetScrollbarX={true}
       >
         <ColumnGroup fixed={true}>
           <Column
@@ -127,12 +118,12 @@ export default class ScoresTable extends React.PureComponent {
           />
           <Column
             fixed={true}
-            width={COLUMN_WIDTH / 2}
+            width={ux.averagesWidth}
             flexGrow={0}
             allowCellsRecycling={true}
             isResizable={false}
-            cell={<OverallCell students={students} />}
-            header={<OverallHeader {...this.props} />}
+            cell={<OverallCell ux={ux} students={students} />}
+            header={<OverallHeader ux={ux} {...this.props} />}
           />
         </ColumnGroup>
         <ColumnGroup>
@@ -143,7 +134,7 @@ export default class ScoresTable extends React.PureComponent {
               flexGrow={0}
               allowCellsRecycling={true}
               cell={<AssignmentCell {...this.props} {...{ students, courseId, width, columnIndex }} />}
-              header={<AssignmentHeader {...this.props} {...{ students, courseId, width, columnIndex }} />}
+              header={<AssignmentHeader {...this.props} {...{ ux, students, courseId, width, columnIndex }} />}
             />)}
         </ColumnGroup>
       </Table>

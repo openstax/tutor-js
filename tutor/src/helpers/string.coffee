@@ -4,6 +4,9 @@ SMALL_WORDS = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\
 UUID_REGEX = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/
 module.exports = {
 
+  asPercent: (num) ->
+    Math.round(num * 100)
+
   numberWithTwoDecimalPlaces: (num) ->
     return parseFloat(Math.round(parseFloat(num) * 100) / 100).toFixed(2)
 

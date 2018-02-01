@@ -31,7 +31,7 @@ describe('Student Scores Data Sorter', function() {
     args.sort.key = 0;
     args.sort.asc = false;
     const scores = map(sortBy(students, StudentDataSorter(args)), s => s.data[0].correct_on_time_exercise_count);
-    expect(scores).to.deep.equal([0, 0, 0, 0, 0, 1, 2, 2, 4]);
+    expect(scores).to.deep.equal([0, 0, 0, 0, 1, 2, 2, 3, 4]);
   });
 
   it('can sort by reading progress', function() {

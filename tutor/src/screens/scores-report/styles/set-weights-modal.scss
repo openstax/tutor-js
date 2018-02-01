@@ -1,0 +1,50 @@
+.set-weights.modal {
+  font-size: 1.6rem;
+
+  .modal-header {
+    font-weight: bolder;
+  }
+
+  @media (min-width: $screen-sm-min) {
+    .modal-dialog {
+      width: 540px;
+    }
+  }
+
+  .set-weights--external-link {
+    .fa {
+      margin-left: 0.3rem;
+    }
+  }
+
+  .weight {
+    display: flex;
+    align-items: center;
+    margin: 2rem 0;
+    font-weight: normal;
+    :first-child {
+      flex: 1;
+    }
+    input {
+      height: 50px;
+      width: 75px;
+      padding: 1rem;
+      margin-right: 0.5rem;
+      text-align: right;
+    }
+  }
+
+  .valid-msg {
+    color: $dull-blue;
+    line-height: 2rem;
+
+    &.invalid {
+      color: $form-error-color;
+    }
+    .fa {
+      font-size: 2rem;
+      margin-right: 0.3rem;
+    }
+  }
+
+}

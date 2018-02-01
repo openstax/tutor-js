@@ -41,7 +41,7 @@ export default class NameCell extends React.PureComponent {
           params={{ roleId: student.role, courseId: this.props.courseId }}>
           {children}
         </TutorLink>
-        <div className="overall-cell">
+        <div className="name-cell">
           {(student.average_score != null) ? `${(student.average_score * 100).toFixed(0)}%` : undefined}
         </div>
       </div>

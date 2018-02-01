@@ -81,8 +81,9 @@ export default class ReadingCell extends React.PureComponent {
     const { task, isConceptCoach, columnIndex, period_id } = this.props;
 
     return (
-      <div className="scores-cell" onMouseOver={this.show} onMouseLeave={this.hide}>
-        <div className="worked wide">
+      <div className="scores-cell">
+        {task.isStarted && <div className="score">{TH.getScorePercent(task)}%</div>}
+        <div className="worked" onMouseOver={this.show} onMouseLeave={this.hide}>
           {this.renderPopover()}
           <PieProgress
             ref="pieChart"
