@@ -25,6 +25,9 @@ export class User extends BaseModel {
   @field account_uuid;
 
   @field name;
+  @field first_name;
+  @field last_name;
+
   @field self_reported_role;
   @field account_uuid;
 
