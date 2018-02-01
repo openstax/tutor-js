@@ -79,7 +79,6 @@ $progress-on-hover-label-height: 24px;
   &-bar{
 
     position: relative;
-    margin-bottom: $progress-on-hover-label-height;
 
     &.no-progress {
       span {
@@ -95,24 +94,6 @@ $progress-on-hover-label-height: 24px;
       min-width:15px;
     }
 
-    &::after {
-      content: attr(type);
-      position: absolute;
-      bottom: -$progress-on-hover-label-height;
-      left: 50%;
-      width: 100px;
-      margin-left: -50px;
-      text-align: center;
-      color: $tutor-neutral;
-      @include opacity(0);
-      @include transition(opacity 1s);
-    }
-
-    &:hover {
-      &::after {
-        @include opacity(1);
-      }
-    }
   }
 
   &-delta {
