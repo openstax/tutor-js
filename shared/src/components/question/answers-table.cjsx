@@ -77,7 +77,7 @@ AnswersTable = React.createClass
       @setState(answer_id: answer.id)
       @props.onChange(answer)
     else
-      changeEvent.preventDefault()
+      changeEvent?.preventDefault()
       @props.onChangeAttempt?(answer)
 
   shouldInstructionsShow: ->
