@@ -1,6 +1,7 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import NavbarContext from './context';
+import cn from 'classnames';
 
 @inject('navBar')
 @observer
@@ -11,9 +12,9 @@ export default class PlugableNavBar extends React.Component {
   };
 
   render() {
-    const { left, right, center } = this.props.navBar;
+    const { className, left, right, center } = this.props.navBar;
     return (
-      <nav className="tutor-top-navbar plugable">
+      <nav className={cn('tutor-top-navbar', 'plugable', className)}>
         <div className="left-side-controls">
           {left.components}
         </div>

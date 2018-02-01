@@ -74,6 +74,7 @@ export default class ReferenceBookUX {
   }
 
   @action setNavBar(nav) {
+    nav.className='reference-book';
     nav.childProps.set('ux', this);
     nav.left.merge({
       'slide-out-menu-toggle': MenuToggle,

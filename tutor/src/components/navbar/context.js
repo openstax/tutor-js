@@ -33,6 +33,7 @@ class Region extends ObservableMap {
 export default class NavbarContext {
 
   childProps = observable.map();
+  @observable className;
 
   left = new Region(this);
   right = new Region(this);
