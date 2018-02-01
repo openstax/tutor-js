@@ -3,27 +3,17 @@ path = require 'path'
 _ = require 'lodash'
 webpack = require 'webpack'
 UglifyJsPlugin = require 'uglifyjs-webpack-plugin'
-HappyPack = require 'happypack'
-happyThreadPool = HappyPack.ThreadPool(size: 8);
 
-HAPPY_LOADERS =
+LOADERS =
   babel:  'babel-loader'
   coffee: 'coffee-loader'
   cjsx:   'coffee-jsx-loader'
-
-STYLE_LOADERS =
   file:   'file-loader?name=[name].[ext]'
   url:    'url-loader?limit=30000&name=[name]-[hash].[ext]'
   style:  'style-loader'
   css:    'css-loader?minimize=true'
   less:   'less-loader'
   scss:   'fast-sass-loader'
-
-LOADERS = _.mapValues(HAPPY_LOADERS, (loader, name) -> "happypack/loader?id=#{name}")
-
-HAPPY_PACK_PLUGINS = _.map(HAPPY_LOADERS, (loader, name) ->
-  new HappyPack(id: name, threadPool: happyThreadPool, loaders: [ loader ], debug: true)
-)
 
 RESOLVABLES =
   js:     { test: /\.js$/,     use: LOADERS.babel,  exclude: /node_modules/ }
@@ -32,17 +22,17 @@ RESOLVABLES =
   cjsx:   { test: /\.cjsx$/,   use: LOADERS.cjsx,   exclude: /node_modules/ }
 
 STATICS =
-  image: { test: /\.(png|jpg|svg|gif)/,    use: [ STYLE_LOADERS.file ] }
-  font:  { test: /\.(woff|woff2|eot|ttf)/, use: [ STYLE_LOADERS.url  ] }
+  image: { test: /\.(png|jpg|svg|gif)/,    use: [ LOADERS.file ] }
+  font:  { test: /\.(woff|woff2|eot|ttf)/, use: [ LOADERS.url  ] }
 
 BASE_BUILD =
   js:     RESOLVABLES.js
   jsx:    RESOLVABLES.jsx
   coffee: RESOLVABLES.coffee
   cjsx:   RESOLVABLES.cjsx
-  css:  { test: /\.css$/,  use: STYLE_LOADERS.css }
-  less: { test: /\.less$/, use: [ STYLE_LOADERS.style, STYLE_LOADERS.css, STYLE_LOADERS.less ] }
-  scss: { test: /\.scss$/, use: [ STYLE_LOADERS.style, STYLE_LOADERS.css, STYLE_LOADERS.scss ] }
+  css:  { test: /\.css$/,  use: LOADERS.css }
+  less: { test: /\.less$/, use: [ LOADERS.style, LOADERS.css, LOADERS.less ] }
+  scss: { test: /\.scss$/, use: [ LOADERS.style, LOADERS.css, LOADERS.scss ] }
 
 DEV_LOADERS = ['react-hot-loader/webpack']
 
@@ -52,7 +42,6 @@ BASE_DEV_LOADER_RULES = _.map(BASE_BUILD, (loaderConfig, type) ->
   config.use = loaderConfig.use
   config
 )
-
 
 BASE_BUILD_LOADERS = _.values(BASE_BUILD)
 
@@ -73,9 +62,6 @@ BASE_CONFIG =
       /\/sinon\.js/
     ]
     rules: _.values(STATICS)
-  plugins: [
-    HAPPY_PACK_PLUGINS...
-  ]
 
 
 mergeWebpackConfigs = ->
