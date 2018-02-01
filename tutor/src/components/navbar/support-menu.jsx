@@ -16,7 +16,7 @@ import Router from '../../helpers/router';
 import TutorLink from '../link';
 
 
-const StudentPreview = ({ courseId, ...props }, { router }) => {
+const StudentPreview = observer(({ courseId, ...props }, { router }) => {
   if( !courseId || !( User.isConfirmedFaculty || User.isUnverifiedInstructor ) ) { return null; }
   return (
     <MenuItem
@@ -30,14 +30,13 @@ const StudentPreview = ({ courseId, ...props }, { router }) => {
       </TourAnchor>
     </MenuItem>
   );
-
-}
+});
 
 StudentPreview.contextTypes = {
   router: React.PropTypes.object,
 }
 
-const PageTips = ({ courseId, onPlayClick, tourContext, ...props }) => {
+const PageTips = observer(({ courseId, onPlayClick, tourContext, ...props }) => {
   if (!get(tourContext, 'hasTriggeredTour', false)){ return null; }
   return (
     <MenuItem
@@ -50,7 +49,7 @@ const PageTips = ({ courseId, onPlayClick, tourContext, ...props }) => {
       </TourAnchor>
     </MenuItem>
   );
-}
+});
 
 
 
@@ -158,7 +157,7 @@ export default class SupportMenu extends React.PureComponent {
         >
           <TourAnchor
             id="support-menu-button"
-            ariaLabelledby="support-menu"
+            aria-labelledby="support-menu"
             onSelect={this.onSelect}
           >
             <Icon type="question-circle" />

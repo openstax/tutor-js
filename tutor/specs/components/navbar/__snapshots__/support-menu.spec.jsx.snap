@@ -15,7 +15,7 @@ exports[`Support Menu renders and matches snapshot 1`] = `
     role="button"
   >
     <div
-      ariaLabelledby="support-menu"
+      aria-labelledby="support-menu"
       className="tour-anchor"
       data-tour-anchor-id="support-menu-button"
       id="support-menu-button"
@@ -119,7 +119,7 @@ exports[`Support Menu renders support links when in a course for student 1`] = `
     role="button"
   >
     <div
-      ariaLabelledby="support-menu"
+      aria-labelledby="support-menu"
       className="tour-anchor"
       data-tour-anchor-id="support-menu-button"
       id="support-menu-button"
@@ -224,7 +224,7 @@ exports[`Support Menu renders support links when in a course for teacher 1`] = `
     role="button"
   >
     <div
-      ariaLabelledby="support-menu"
+      aria-labelledby="support-menu"
       className="tour-anchor"
       data-tour-anchor-id="support-menu-button"
       id="support-menu-button"

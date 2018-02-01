@@ -13,6 +13,6 @@ describe('Account Link', function() {
   it('renders link with profile url and target set to _blank', function() {
     User.profile_url = 'a.test.url';
     const link = shallow(<Link />);
-    expect(link).toHaveRendered('a[target="_blank"][href="a.test.url"]');
+    expect(link).toHaveRendered('[href="a.test.url"][target="_blank"]');
   });
 });

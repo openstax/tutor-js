@@ -46,7 +46,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
                 role="button"
               >
                 <div
-                  ariaLabelledby="support-menu"
+                  aria-labelledby="support-menu"
                   className="tour-anchor"
                   data-tour-anchor-id="support-menu-button"
                   id="support-menu-button"

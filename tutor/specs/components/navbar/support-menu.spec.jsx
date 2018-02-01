@@ -24,15 +24,8 @@ describe('Support Menu', () => {
     region = new TourRegion({ id: 'foo', courseId: '2', otherTours: ['teacher-calendar'] });
     context.openRegion(region);
     expect(context.hasTriggeredTour).toBe(true);
-    expect(context.hasTriggeredTour).toBe(true);
     expect(menu).toHaveRendered('.page-tips');
-  });
-
-  it('renders and matches snapshot', () => {
-    context.openRegion(region);
-    expect(SnapShot.create(
-      <Wrapper _wrapped_component={SupportMenu} courseId="2" tourContext={context} />).toJSON()
-    ).toMatchSnapshot();
+    menu.unmount();
   });
 
   it('calls chat when clicked', () => {
@@ -40,6 +33,7 @@ describe('Support Menu', () => {
     const menu = mount(<SupportMenu courseId="2" tourContext={context} />);
     menu.find('.chat.enabled a').simulate('click');
     expect(Chat.start).toHaveBeenCalled();
+    menu.unmount();
   });
 
   it('renders support links when in a course for student', () => {
@@ -50,6 +44,13 @@ describe('Support Menu', () => {
 
   it('renders support links when in a course for teacher', () => {
     courses.get('2').appearance_code = 'college_biology';
+    expect(SnapShot.create(
+      <Wrapper _wrapped_component={SupportMenu} courseId="2" tourContext={context} />).toJSON()
+    ).toMatchSnapshot();
+  });
+
+  it('renders and matches snapshot', () => {
+    context.openRegion(region);
     expect(SnapShot.create(
       <Wrapper _wrapped_component={SupportMenu} courseId="2" tourContext={context} />).toJSON()
     ).toMatchSnapshot();
