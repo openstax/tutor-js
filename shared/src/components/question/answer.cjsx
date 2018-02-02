@@ -1,5 +1,7 @@
 React = require 'react'
-{partial, pick, debounce} = require 'lodash'
+partial = require 'lodash/partial'
+pick = require 'lodash/pick'
+debounce = require 'lodash/debounce'
 classnames = require 'classnames'
 keymaster = require 'keymaster'
 
