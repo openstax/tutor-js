@@ -11,7 +11,7 @@ RESPONSE_CHAR_LIMIT = 10000
 {propTypes, props} = require './props'
 modeType = propTypes.ExerciseStepCard.panel
 modeProps = _.extend {}, propTypes.ExFreeResponse, propTypes.ExMulitpleChoice, propTypes.ExReview, mode: modeType
-modeProps.focusParent = React.PropTypes.element
+modeProps.focusParent = React.PropTypes.object
 
 ExMode = React.createClass
   displayName: 'ExMode'

@@ -18,7 +18,7 @@ isAnswerCorrect = (answer, correctAnswerId) ->
   isCorrect
 
 isAnswerChecked = (answer, chosenAnswer) ->
-  isChecked = answer.id in (chosenAnswer or [])
+  isChecked = answer.id is chosenAnswer
 
 Answer = React.createClass
   displayName: 'Answer'
@@ -42,7 +42,7 @@ Answer = React.createClass
     hasCorrectAnswer: React.PropTypes.bool.isRequired
     onChangeAnswer: React.PropTypes.func.isRequired
     disabled: React.PropTypes.bool
-    chosenAnswer: React.PropTypes.array
+    chosenAnswer: React.PropTypes.string
     correctAnswerId: React.PropTypes.string
     answered_count: React.PropTypes.number
     show_all_feedback: React.PropTypes.bool
