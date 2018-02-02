@@ -181,9 +181,13 @@ export default class Course extends BaseModel {
   }
 
   @computed get shouldRemindNewEnrollmentLink() {
-    return (!this.is_lms_enabled &&
-            (this.isActive || this.isFuture) &&
-            this.map.completed.any);
+    return Boolean(
+            !this.is_preview &&
+            !this.is_lms_enabled &&
+            this.primaryRole.joinedAgo('days') <= 7 &&
+            this.map.completed.any &&
+            (this.isActive || this.isFuture)
+    );
   }
 
   @computed get canAnnotate() {
