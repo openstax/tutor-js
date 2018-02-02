@@ -1,3 +1,4 @@
+import UiSettings from 'shared/src/model/ui-settings';
 import { map, cloneDeep, shuffle } from 'lodash';
 import Courses from '../../src/models/courses-map';
 import Course from '../../src/models/course';
@@ -43,6 +44,7 @@ describe('Course Model', () => {
   });
 
   it('calculates audience tags', () => {
+    UiSettings.get = jest.fn(() => 2)
     expect(Courses.get(1).tourAudienceTags).toEqual(['student']);
     const teacher = Courses.get(2);
     expect(teacher.tourAudienceTags).toEqual(['teacher']);
