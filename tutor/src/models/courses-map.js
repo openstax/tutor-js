@@ -50,6 +50,10 @@ class CoursesMap extends Map {
     return this.where(c => !c.is_preview);
   }
 
+  @computed get previouslyCreated() {
+    return this.where(c => !c.just_created);
+  }
+
   @computed get preview() {
     return this.where(c => c.is_preview);
   }

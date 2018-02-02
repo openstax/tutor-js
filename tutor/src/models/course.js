@@ -185,8 +185,8 @@ export default class Course extends BaseModel {
     return Boolean(
             !this.is_preview &&
             !this.is_lms_enabled &&
-            this.just_created &&
-            this.map.completed.any &&
+            (this.just_created || this.dashboardViewCount <= 1) &&
+            this.map.nonPreview.previouslyCreated.any &&
             (this.isActive || this.isFuture)
     );
   }
