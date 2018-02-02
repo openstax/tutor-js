@@ -44,9 +44,12 @@ describe('Course Model', () => {
   });
 
   it('calculates audience tags', () => {
-    UiSettings.get = jest.fn(() => 2)
     expect(Courses.get(1).tourAudienceTags).toEqual(['student']);
     const teacher = Courses.get(2);
+    teacher.just_created = true;
+    expect(teacher.tourAudienceTags).toEqual(['teacher', 'teacher-with-previous-courses']);
+    UiSettings.get = jest.fn(() => 2);
+    teacher.just_created = false;
     expect(teacher.tourAudienceTags).toEqual(['teacher']);
     teacher.primaryRole.joined_at = new Date();
     expect(teacher.tourAudienceTags).toEqual(['teacher', 'teacher-settings-roster-split']);
