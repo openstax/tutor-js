@@ -1,5 +1,7 @@
 React = require 'react'
-_ = require 'underscore'
+partial = require 'lodash/partial'
+pick = require 'lodash/pick'
+debounce = require 'lodash/debounce'
 classnames = require 'classnames'
 keymaster = require 'keymaster'
 
@@ -18,7 +20,7 @@ isAnswerCorrect = (answer, correctAnswerId) ->
   isCorrect
 
 isAnswerChecked = (answer, chosenAnswer) ->
-  isChecked = answer.id in (chosenAnswer or [])
+  isChecked = answer.id in (chosenAnswer || [])
 
 Answer = React.createClass
   displayName: 'Answer'
@@ -81,7 +83,10 @@ Answer = React.createClass
   setUpKeys: ->
     {answer, onChangeAnswer, keyControl} = @props
 
-    keyInAnswer = _.partial onChangeAnswer, answer
+    keyInAnswer = debounce(partial(onChangeAnswer, answer), 200, {
+      leading: true,
+      trailing: false,
+    })
     keysHelper.on keyControl, 'multiple-choice', keyInAnswer
     keymaster.setScope('multiple-choice')
 
@@ -138,7 +143,7 @@ Answer = React.createClass
     if @props.hasCorrectAnswer
       ariaLabel += "(#{if isCorrect then 'Correct' else 'Incorrect'} Answer)"
     ariaLabel += ":"
-    htmlAndMathProps = _.pick(@context, 'processHtmlAndMath')
+    htmlAndMathProps = pick(@context, ['processHtmlAndMath'])
 
     <div className='openstax-answer'>
       <div className={classes}>

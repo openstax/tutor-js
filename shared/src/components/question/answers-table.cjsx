@@ -54,6 +54,7 @@ AnswersTable = React.createClass
   componentWillReceiveProps: (nextProps) ->
     originalKeyScope = @getOriginalKeyScope(nextProps)
     @setState({originalKeyScope}) if originalKeyScope?
+    @setState({answer_id: null}) if nextProps.answer_id isnt @state.answer_id
 
     @resetToOriginalKeyScope() if not _.isNull(@props.keySet) and _.isNull(nextProps.keySet)
 
