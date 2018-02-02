@@ -1,9 +1,10 @@
 import React from 'react';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import { computed, observable, action } from 'mobx';
 import camelCase from 'lodash/camelCase';
 import classnames from 'classnames';
 import { Modal, Button } from 'react-bootstrap';
+import TourContext from '../../models/tour/context';
 import TourRegion from '../../components/tours/region';
 import Stats from '../../components/plan-stats';
 import Event from '../../components/plan-stats/event';
@@ -12,6 +13,9 @@ import TutorLink from '../../components/link';
 import TeacherTaskPlan from '../../models/task-plan/teacher';
 
 
+@inject((allStores, props) => ({
+  tourContext: ( props.tourContext || allStores.tourContext ),
+}))
 @observer
 export default class CoursePlanDetails extends React.PureComponent {
 
@@ -25,6 +29,19 @@ export default class CoursePlanDetails extends React.PureComponent {
     onHide: React.PropTypes.func.isRequired,
     hasReview: React.PropTypes.bool,
     className: React.PropTypes.string,
+    tourContext: React.PropTypes.instanceOf(TourContext),
+  }
+
+  componentWillMount() {
+    this.props.tourContext.otherModal = this;
+  }
+
+  componentWillUnmount() {
+    this.props.tourContext.otherModal = null;
+  }
+
+  @computed get isDisplaying() {
+    return true;
   }
 
   @observable showAssignmentLinks = false;

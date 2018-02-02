@@ -2,7 +2,8 @@ import {
   BaseModel, identifiedBy, computed, observable, field,
 } from '../base';
 import {
-  find, isEmpty, intersection, compact, uniq, flatMap, map, get, filter, delay, forEach,
+  find, isEmpty, intersection, compact, uniq, flatMap, map, get,
+  filter, delay, forEach, flatten, first, includes,
 } from 'lodash';
 import { observe, action } from 'mobx';
 
@@ -64,11 +65,7 @@ export default class TourContext extends BaseModel {
     const existing = find(this.regions, { id: region.id });
     if (!existing){
       this.regions.push(region);
-
-      if ( this.autoRemind && !this.tour && this.needsPageTipsReminders ) {
-        delay(() => region.otherTours.push('page-tips-reminders'), 500);
-      }
-
+      this.checkReminders(region);
     }
   }
 
@@ -77,6 +74,16 @@ export default class TourContext extends BaseModel {
       tour.justViewed = false;
     });
     this.regions.remove(region);
+  }
+
+  checkReminders(region) {
+    const checkRegion = region || first(this.regions);
+    const remindersTourId = 'page-tips-reminders';
+    if ( checkRegion && this.autoRemind && !this.tour &&
+      this.needsPageTipsReminders && !this.tourIds.includes(remindersTourId)
+    ) {
+      delay(() => checkRegion.otherTours.push(remindersTourId), 500);
+    }
   }
 
   @computed get activeRegion() {
@@ -111,18 +118,10 @@ export default class TourContext extends BaseModel {
   }
 
   @computed get allTours() {
-    const tours = compact(this.tourIds.map(id => Tour.forIdentifier(id)));
-
-    forEach(tours, (tour) => {
-      if (tour.perCourse) {
-        // for now, this only pulls the last courseId off of regions.
-        forEach(this.courseIds, (courseId) => {
-          tour.count_id = `${tour.id}-${courseId}`;
-        });
-      }
-    })
-
-    return tours;
+    return compact(flatten(this.tourIds.map(id => {
+        return this.courseIds.map(courseId => Tour.forIdentifier(id, {courseId}));
+      })
+    ));
   }
 
   @computed get eligibleTours() {
@@ -130,7 +129,7 @@ export default class TourContext extends BaseModel {
   }
 
   @computed get needsPageTipsReminders() {
-    return this.hasTriggeredTour && !find(this.eligibleTours, 'autoplay');
+    return this.hasTriggeredTour && !find(this.eligibleTours, (tour) => tour.autoplay && !tour.perCourse);
   }
 
   @computed get hasTriggeredTour() {
@@ -150,6 +149,7 @@ export default class TourContext extends BaseModel {
   }
 
   _onTourRideChange({ type, oldValue: oldRide }) {
+    this.checkReminders();
     if (type !== 'update') { return; }
     if (oldRide) { oldRide.dispose(); }
   }
