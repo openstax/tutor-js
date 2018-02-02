@@ -72,6 +72,7 @@ export default class Course extends BaseModel {
   @field homework_progress_weight;
   @field reading_score_weight;
   @field reading_progress_weight;
+  @field just_created = false;
 
   @hasMany({ model: Period, inverseOf: 'course', extend: extendHasMany({
     sorted()   { return PH.sort(this.active);                        },
@@ -184,7 +185,7 @@ export default class Course extends BaseModel {
     return Boolean(
             !this.is_preview &&
             !this.is_lms_enabled &&
-            this.primaryRole.joinedAgo('days') <= 2 &&
+            this.just_created &&
             this.map.completed.any &&
             (this.isActive || this.isFuture)
     );

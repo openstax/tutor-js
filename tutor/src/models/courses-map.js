@@ -60,6 +60,7 @@ class CoursesMap extends Map {
 
   @action addNew(courseData) {
     const course = new Course(courseData, this);
+    course.just_created = true;
     this.set(course.id, course);
     return course;
   }
