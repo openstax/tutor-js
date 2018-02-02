@@ -16,7 +16,7 @@ const TourInstances = new Map();
 
 function getTour(id, options) {
   const tourSettings = TourData[id];
-  const {courseId} = options;
+  const courseId = (options && options.courseId);
   let tourData = tourSettings;
   let tourId = id;
 
@@ -43,7 +43,7 @@ export default class Tour extends BaseModel {
   }
 
   @computed static get all() {
-    return map(TourData, (_, id) => this.forIdentifier(id));
+    return map(TourData, (_, id) => this.forIdentifier(id, {courseId: this.courseId}));
   }
 
   static forAudienceTags(tags) {
