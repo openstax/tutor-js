@@ -24,7 +24,7 @@ idCounter = 0
 
 
 isAnswerChecked = (answer, chosenAnswer) ->
-  isChecked = answer.id is chosenAnswer
+  isChecked = answer.id in chosenAnswer
 
 AnswersTable = React.createClass
   displayName: 'AnswersTable'
@@ -54,6 +54,7 @@ AnswersTable = React.createClass
   componentWillReceiveProps: (nextProps) ->
     originalKeyScope = @getOriginalKeyScope(nextProps)
     @setState({originalKeyScope}) if originalKeyScope?
+    @setState({answer_id: null}) if nextProps.answer_id isnt @state.answer_id
 
     @resetToOriginalKeyScope() if not _.isNull(@props.keySet) and _.isNull(nextProps.keySet)
 
@@ -74,6 +75,7 @@ AnswersTable = React.createClass
 
   onChangeAnswer: (answer, changeEvent) ->
     if @props.onChange?
+      @setState(answer_id: answer.id)
       @props.onChange(answer)
     else
       changeEvent?.preventDefault()
@@ -103,7 +105,7 @@ AnswersTable = React.createClass
     {answers, id} = model
     return null unless answers?.length > 0
 
-    chosenAnswer = answer_id
+    chosenAnswer = [answer_id, @state.answer_id]
     checkedAnswerIndex = null
 
     questionAnswerProps =
