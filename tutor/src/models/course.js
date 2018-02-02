@@ -184,7 +184,7 @@ export default class Course extends BaseModel {
     return Boolean(
             !this.is_preview &&
             !this.is_lms_enabled &&
-            this.primaryRole.joinedAgo('days') <= 7 &&
+            this.primaryRole.joinedAgo('days') <= 2 &&
             this.map.completed.any &&
             (this.isActive || this.isFuture)
     );
