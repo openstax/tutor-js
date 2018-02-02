@@ -19,7 +19,11 @@ export default class NewEnrollmentLink extends React.PureComponent {
   }
 
   @action.bound
-  handleClick = bindClickHandler.call(this, {next: this.triggerNext.bind(this), skip: this.triggerView.bind(this)});
+  handleClick = bindClickHandler.call(this, {
+    next: this.triggerNext.bind(this),
+    close: this.triggerNext.bind(this),
+    skip: this.triggerView.bind(this),
+  });
 
   triggerNext() {
     if (this.props.step.step.tour.autoplay) {

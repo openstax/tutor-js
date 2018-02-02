@@ -1,7 +1,7 @@
 import {
   BaseModel, identifiedBy, identifier, hasMany, field,
 } from './base';
-import { partial, some, each, compact, map, filter, max } from 'lodash';
+import { partial, some, each, compact, map, filter, max, defaults } from 'lodash';
 import includes from 'lodash/includes'; // babel-traverse blows up with includes is in list above?
 import TourStep from './tour/step';
 import { computed, action } from 'mobx';
@@ -14,11 +14,23 @@ import User from './user';
 
 const TourInstances = new Map();
 
-function getTour(id) {
-  let tour = TourInstances.get(id);
+function getTour(id, options) {
+  const tourSettings = TourData[id];
+  const courseId = (options && options.courseId);
+  let tourData = tourSettings;
+  let tourId = id;
+
+  if (courseId) {
+    if (tourSettings.perCourse) {
+      tourId = `${id}-${courseId}`;
+    }
+    tourData = defaults({courseId}, tourSettings);
+  }
+
+  let tour = TourInstances.get(tourId);
   if (!tour){
-    tour = new Tour(TourData[id]);
-    TourInstances.set(id, tour);
+    tour = new Tour(tourData);
+    TourInstances.set(tourId, tour);
   }
   return tour;
 }
@@ -26,12 +38,12 @@ function getTour(id) {
 @identifiedBy('tour')
 export default class Tour extends BaseModel {
 
-  static forIdentifier(id) {
-    return TourData[id] ? getTour(id) : undefined;
+  static forIdentifier(id, options) {
+    return TourData[id] ? getTour(id, options) : undefined;
   }
 
   @computed static get all() {
-    return map(TourData, (_, id) => this.forIdentifier(id));
+    return map(TourData, (_, id) => this.forIdentifier(id, {courseId: this.courseId}));
   }
 
   static forAudienceTags(tags) {
@@ -57,12 +69,16 @@ export default class Tour extends BaseModel {
   @field isEnabled = false;
   @field justViewed = false;
   @field className;
-  @field count_id;
+  @field courseId;
 
   @hasMany({ model: TourStep, inverseOf: 'tour' }) steps;
 
   @computed get countId() {
-    return this.count_id || this.id;
+    if (this.perCourse && this.courseId) {
+      return `${this.id}-${this.courseId}`;
+    }
+
+    return this.id;
   }
 
   @computed get isViewable() {
