@@ -1,18 +1,23 @@
 import { React, ReactTestUtils } from '../../components/helpers/component-testing';
 import { last } from 'lodash';
 import { ReactWrapper } from 'enzyme';
+import { Provider } from 'mobx-react';
 import PlanDetails from '../../../src/screens/teacher-dashboard/plan-details';
 import COURSE from '../../../api/courses/1.json';
 import PLANS from '../../../api/courses/1/dashboard.json';
 import TaskPlan from '../../../src/models/task-plan/teacher';
 import Courses from '../../../src/models/courses-map';
 import EnzymeContext from '../../components/helpers/enzyme-context';
+import TourContext from '../../../src/models/tour/context';
 
 const COURSE_ID = '1';
 
 const renderModal = props =>
   new Promise( function(resolve) {
-    const wrapper = mount(<PlanDetails {...props} />, EnzymeContext.build());
+    const planDetails = <Provider tourContext={new TourContext()}>
+      <PlanDetails {...props} />
+    </Provider>;
+    const wrapper = mount(planDetails, EnzymeContext.build());
     resolve(last(document.querySelectorAll('.modal')));
     wrapper.unmount();
   })
