@@ -50,6 +50,10 @@ class CoursesMap extends Map {
     return this.where(c => !c.is_preview);
   }
 
+  @computed get previouslyCreated() {
+    return this.where(c => !c.just_created);
+  }
+
   @computed get preview() {
     return this.where(c => c.is_preview);
   }
@@ -60,6 +64,7 @@ class CoursesMap extends Map {
 
   @action addNew(courseData) {
     const course = new Course(courseData, this);
+    course.just_created = true;
     this.set(course.id, course);
     return course;
   }

@@ -72,6 +72,7 @@ export default class Course extends BaseModel {
   @field homework_progress_weight;
   @field reading_score_weight;
   @field reading_progress_weight;
+  @field just_created = false;
 
   @hasMany({ model: Period, inverseOf: 'course', extend: extendHasMany({
     sorted()   { return PH.sort(this.active);                        },
@@ -181,9 +182,13 @@ export default class Course extends BaseModel {
   }
 
   @computed get shouldRemindNewEnrollmentLink() {
-    return (!this.is_lms_enabled &&
-            (this.isActive || this.isFuture) &&
-            this.map.completed.any);
+    return Boolean(
+            !this.is_preview &&
+            !this.is_lms_enabled &&
+            (this.just_created || this.dashboardViewCount <= 1) &&
+            this.map.nonPreview.previouslyCreated.any &&
+            (this.isActive || this.isFuture)
+    );
   }
 
   @computed get canAnnotate() {
