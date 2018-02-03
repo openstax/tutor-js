@@ -24,6 +24,7 @@ export default class ScoresReportWeightsUX {
   @observable reading_scores;
   @observable reading_progress;
 
+  @observable hasChanged = false;
   @observable isSetting = false;
 
   constructor(scoresUx) {
@@ -59,11 +60,36 @@ export default class ScoresReportWeightsUX {
   }
 
   @action.bound setWeight(ev) {
+    this.hasChanged = true;
     this[ev.target.name] = parseInt(ev.target.value);
   }
 
   @computed get isValid() {
     return 100 === reduce(DEFAULTS, (ttl, v, attr) => this[attr] + ttl, 0);
+  }
+
+  @computed get isRestorable() {
+    return this.hasChanged;
+  }
+
+  @computed get isSaveable() {
+    return this.hasChanged && this.isValid && !this.isBusy;
+  }
+
+  @computed get showIsInvalid() {
+    return this.hasChanged && !this.isValid;
+  }
+
+  @computed get showIsValid() {
+    return this.hasChanged && this.isValid;
+  }
+
+  @computed get msgIconType() {
+    return (this.showIsValid && 'check-circle') || 'info-circle';
+  }
+
+  @computed get msg() {
+    return (this.showIsValid && ' Weights total 100%') || ' Weights must total 100%';
   }
 
   @action.bound setDefaults() {

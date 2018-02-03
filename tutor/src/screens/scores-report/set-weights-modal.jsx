@@ -84,14 +84,28 @@ export default class SetWeightsModal extends React.Component {
               />%
             </div>
           </label>
-          <p className={cn('valid-msg', { invalid: !weights.isValid })}>
-            <Icon type="info-circle"/> Weights must total 100%
+          <p className={cn('weights-msg', {
+                                            invalid: weights.showIsInvalid,
+                                            valid: weights.showIsValid,
+                                          })}>
+            <Icon type={weights.msgIconType}/>{weights.msg}
           </p>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={weights.onSaveWeights} disabled={!weights.isValid || weights.isBusy}>Save</Button>
-          <Button onClick={weights.setDefaults}>Restore default</Button>
-          <Button onClick={weights.onCancelClick}>Cancel</Button>
+          <Button
+            onClick={weights.onSaveWeights}
+            disabled={!weights.isSaveable}
+            bsStyle={(weights.isSaveable && 'primary') || 'default'}
+          >Save</Button>
+          <Button
+            onClick={weights.setDefaults}
+            disabled={!weights.isRestorable}
+            className={weights.isRestorable && 'btn-secondary'}
+          >Restore default</Button>
+          <Button
+            onClick={weights.onCancelClick}
+            className={'btn-outline-secondary'}
+          >Cancel</Button>
         </Modal.Footer>
       </Modal>
     );

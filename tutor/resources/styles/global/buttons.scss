@@ -1,3 +1,8 @@
+// TODO get rid of this after we upgrade to Bootstrap 4.
+// This was only needed when we were using bootstrap-material-design.
+// Modifications on the default bootstrap styles should be made by adjust
+// the bootstrap variables.
+
 $default-border: rgba(66,66,66,.1);
 $default-background: rgba(245,245,245,.4);
 $default-background-hover: rgba(255,255,255,.8);
@@ -16,6 +21,7 @@ $primary-background-hover: #fa804d;
 @mixin btn-round() {
   font-size: 1.6rem;
   transition: box-shadow 0.2s, background 0.2s;
+  border-radius: 2px;
   &:hover,
   &:focus {
     @include tutor-shadow(button);
@@ -88,6 +94,15 @@ $primary-background-hover: #fa804d;
   &.btn-primary {
     @include btn-tutor-primary();
   }
+
+  &.btn-secondary {
+    @include button-variant($openstax-white, $openstax-neutral, $openstax-neutral);
+  }
+
+  &.btn-outline-secondary {
+    @include button-variant($openstax-neutral-dark, $openstax-white, $openstax-neutral-light);
+  }
+
   &.dark {
     color: white;
     background: $tutor-neutral;

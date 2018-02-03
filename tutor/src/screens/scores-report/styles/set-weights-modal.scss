@@ -34,12 +34,15 @@
     }
   }
 
-  .valid-msg {
+  .weights-msg {
     color: $dull-blue;
     line-height: 2rem;
 
     &.invalid {
       color: $form-error-color;
+    }
+    &.valid {
+      color: $openstax-correct-color;
     }
     .fa {
       font-size: 2rem;
