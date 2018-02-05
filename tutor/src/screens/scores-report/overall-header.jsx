@@ -11,6 +11,7 @@ const AveragesToggle = observer(({ ux }) => (
     className="averages-toggle"
     type={ux.isAveragesExpanded ? 'chevron-left' : 'chevron-right'}
     onClick={ux.toggleAverageExpansion}
+    tooltip={`${(ux.isAveragesExpanded && 'Hide') || 'Show'} assignment averages`}
   />
 ));
 
