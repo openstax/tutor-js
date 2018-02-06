@@ -1,8 +1,7 @@
 import React from 'react';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import cn from 'classnames';
-import { action, computed } from 'mobx';
-import { Modal, Button, Alert } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
 import ExternalLink from '../../components/new-tab-link';
 import Icon from '../../components/icon';
