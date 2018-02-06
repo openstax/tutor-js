@@ -42,11 +42,11 @@ export class User extends BaseModel {
   @hasMany({ model: ViewedTourStat }) viewed_tour_stats;
 
   @computed get firstName() {
-    return this.first_name || this.name ? this.name.replace(/ .*/, '') : '';
+    return this.first_name || (this.name ? this.name.replace(/ .*/, '') : '');
   }
 
   @computed get lastName() {
-    return this.last_name || this.name ? this.name.replace(/.* /, '') : '';
+    return this.last_name || (this.name ? this.name.replace(/.* /, '') : '');
   }
 
   @computed get initials() {
