@@ -1,8 +1,8 @@
 import React from 'react';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import cn from 'classnames';
-import { action, computed } from 'mobx';
 import { Modal, Button } from 'react-bootstrap';
+import { AsyncButton } from 'shared';
 import ExternalLink from '../../components/new-tab-link';
 import Icon from '../../components/icon';
 
@@ -46,6 +46,8 @@ export default class SetWeightsModal extends React.Component {
               <input
                 type="number"
                 name="homework_scores"
+                min={0}
+                max={100}
                 value={weights.homework_scores}
                 onChange={weights.setWeight}
               />%
@@ -57,6 +59,8 @@ export default class SetWeightsModal extends React.Component {
               <input
                 type="number"
                 name="homework_progress"
+                min={0}
+                max={100}
                 value={weights.homework_progress}
                 onChange={weights.setWeight}
               />%
@@ -68,6 +72,8 @@ export default class SetWeightsModal extends React.Component {
               <input
                 type="number"
                 name="reading_scores"
+                min={0}
+                max={100}
                 value={weights.reading_scores}
                 onChange={weights.setWeight}
               />%
@@ -79,24 +85,27 @@ export default class SetWeightsModal extends React.Component {
               <input
                 type="number"
                 name="reading_progress"
+                min={0}
+                max={100}
                 value={weights.reading_progress}
                 onChange={weights.setWeight}
               />%
             </div>
           </label>
           <p className={cn('weights-msg', {
-                                            invalid: weights.showIsInvalid,
-                                            valid: weights.showIsValid,
-                                          })}>
+              invalid: weights.showIsInvalid,
+              valid: weights.showIsValid,
+          })}>
             <Icon type={weights.msgIconType}/>{weights.msg}
           </p>
         </Modal.Body>
         <Modal.Footer>
-          <Button
+          <AsyncButton
+            isWaiting={weights.isBusy}
             onClick={weights.onSaveWeights}
             disabled={!weights.isSaveable}
             bsStyle={(weights.isSaveable && 'primary') || 'default'}
-          >Save</Button>
+          >Save</AsyncButton>
           <Button
             onClick={weights.setDefaults}
             disabled={!weights.isRestorable}
