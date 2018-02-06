@@ -31,6 +31,12 @@
       padding: 1rem;
       margin-right: 0.5rem;
       text-align: right;
+      -moz-appearance: textfield;
+      &::-webkit-inner-spin-button,
+      &::-webkit-inner-spin-button {
+         -webkit-appearance: none;
+         margin: 0;
+      }
     }
   }
 
