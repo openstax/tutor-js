@@ -2,7 +2,8 @@ import React from 'react';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import cn from 'classnames';
 import { action, computed } from 'mobx';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Alert } from 'react-bootstrap';
+import { AsyncButton } from 'shared';
 import ExternalLink from '../../components/new-tab-link';
 import Icon from '../../components/icon';
 
@@ -11,6 +12,16 @@ export default class SetWeightsModal extends React.Component {
 
   static propTypes = {
     ux: MobxPropTypes.observableObject,
+  }
+
+  renderErrors() {
+    const { errorMessage } = this.props.ux.weights;
+    if (!errorMessage) { return null; }
+    return (
+      <Alert bsStyle="danger">
+        {errorMessage}
+      </Alert>
+    );
   }
 
   render() {
@@ -85,18 +96,20 @@ export default class SetWeightsModal extends React.Component {
             </div>
           </label>
           <p className={cn('weights-msg', {
-                                            invalid: weights.showIsInvalid,
-                                            valid: weights.showIsValid,
-                                          })}>
+              invalid: weights.showIsInvalid,
+              valid: weights.showIsValid,
+          })}>
             <Icon type={weights.msgIconType}/>{weights.msg}
           </p>
+          {this.renderErrors()}
         </Modal.Body>
         <Modal.Footer>
-          <Button
+          <AsyncButton
+            isWaiting={weights.isBusy}
             onClick={weights.onSaveWeights}
             disabled={!weights.isSaveable}
             bsStyle={(weights.isSaveable && 'primary') || 'default'}
-          >Save</Button>
+          >Save</AsyncButton>
           <Button
             onClick={weights.setDefaults}
             disabled={!weights.isRestorable}

@@ -26,6 +26,7 @@ export default class ScoresReportWeightsUX {
 
   @observable hasChanged = false;
   @observable isSetting = false;
+  @observable errorMessage = '';
 
   constructor(scoresUx) {
     this.scoresUx = scoresUx;
@@ -44,11 +45,15 @@ export default class ScoresReportWeightsUX {
   }
 
   @action.bound onSaveWeights() {
-    const { course } = this.scoresUx;
+    const { course } = this;
     each(CW, (w, c) => {
       course[c] = this[w] / 100;
     });
-    course.save();
+    course.save().then(() => {
+      course.scores.fetch();
+      this.errorMessage = '';
+      this.isSetting = false;
+    });
   }
 
   @computed get course() {
@@ -65,7 +70,9 @@ export default class ScoresReportWeightsUX {
   }
 
   @computed get isValid() {
-    return 100 === reduce(DEFAULTS, (ttl, v, attr) => this[attr] + ttl, 0);
+    return 100 === Math.round(
+      reduce(DEFAULTS, (ttl, v, attr) => this[attr] + ttl, 0)
+    );
   }
 
   @computed get isRestorable() {
