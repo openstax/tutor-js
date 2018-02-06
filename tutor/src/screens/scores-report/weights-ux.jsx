@@ -26,7 +26,6 @@ export default class ScoresReportWeightsUX {
 
   @observable hasChanged = false;
   @observable isSetting = false;
-  @observable errorMessage = '';
 
   constructor(scoresUx) {
     this.scoresUx = scoresUx;
@@ -51,7 +50,6 @@ export default class ScoresReportWeightsUX {
     });
     course.save().then(() => {
       course.scores.fetch();
-      this.errorMessage = '';
       this.isSetting = false;
     });
   }

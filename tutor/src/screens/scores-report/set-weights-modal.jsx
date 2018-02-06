@@ -14,16 +14,6 @@ export default class SetWeightsModal extends React.Component {
     ux: MobxPropTypes.observableObject,
   }
 
-  renderErrors() {
-    const { errorMessage } = this.props.ux.weights;
-    if (!errorMessage) { return null; }
-    return (
-      <Alert bsStyle="danger">
-        {errorMessage}
-      </Alert>
-    );
-  }
-
   render() {
     const { ux: { weights } } = this.props;
     if (!weights.isSetting) { return null; }
@@ -109,7 +99,6 @@ export default class SetWeightsModal extends React.Component {
           })}>
             <Icon type={weights.msgIconType}/>{weights.msg}
           </p>
-          {this.renderErrors()}
         </Modal.Body>
         <Modal.Footer>
           <AsyncButton
