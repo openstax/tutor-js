@@ -87,4 +87,15 @@ describe('User Model', () => {
     expect(User.logEvent(ev)).toEqual(ev);
   });
 
+  it('checks for names then splits', () => {
+    User.name = 'Sir Alex Williams IV';
+    User.first_name = User.last_name = '';
+    expect(User.initials).toEqual('S I');
+    User.first_name = 'Bob';
+    expect(User.firstName).toEqual('Bob');
+    User.last_name = 'Smith';
+    expect(User.lastName).toEqual('Smith');
+    expect(User.initials).toEqual('B S');
+  });
+
 });
