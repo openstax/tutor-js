@@ -40,12 +40,11 @@ export default class Progress extends React.PureComponent {
     const total_count = data.correct_count + data.incorrect_count;
     const correct = total_count ? Math.round((data.correct_count / total_count) * 100) : 0;
     const percents = {};
-    if (correct >=5) {
+    if (data.student_count > 0) {
       percents.correct = correct;
     }
-    if (correct < 95) {
-      percents.incorrect = 100 - percents.correct || 0;
-    }
+    percents.incorrect = 100 - percents.correct || 0;
+
     return map(percents, partial(this.renderPercentBar, data, type));
   }
 
