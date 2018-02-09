@@ -92,12 +92,13 @@ $progress-on-hover-label-height: 24px;
       cursor: default;
     }
 
-    &:not([aria-valuenow="0"])::before {
+    &::before {
       content: attr(aria-valuenow) '%';
       text-shadow: 1px 1px 0 rgba(0, 0, 0, .2);
     }
 
     &.progress-bar-correct {
+      &[aria-valuenow="0"],
       &[aria-valuenow="1"],
       &[aria-valuenow="2"],
       &[aria-valuenow="3"] {
@@ -110,6 +111,21 @@ $progress-on-hover-label-height: 24px;
       &[aria-valuenow="2"],
       &[aria-valuenow="3"] {
         justify-content: flex-end;
+      }
+
+      &[aria-valuenow="0"] {
+        &:first-child {
+          justify-content: right;
+
+          &::before {
+            color: $openstax-neutral-darker;
+            margin-left: 10px;
+            text-shadow: none;
+          }
+        }
+        &:not(:first-child)::before {
+          content: none;
+        }
       }
     }
 

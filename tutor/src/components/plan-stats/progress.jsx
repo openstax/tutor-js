@@ -30,7 +30,8 @@ export default class Progress extends React.PureComponent {
         now={percent}
         key={`page-progress-${type}-${data.id}-${correctOrIncorrect}`}
         type={`${correctOrIncorrect}`}
-        alt={`${percent}% ${correctOrIncorrect}`} />
+        alt={`${percent}% ${correctOrIncorrect}`}
+        srOnly />
     );
   }
 
