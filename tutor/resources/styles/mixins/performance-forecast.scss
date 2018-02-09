@@ -64,7 +64,9 @@
 
 @mixin performance-forecast-key() {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  min-width: 280px;
+
   .item {
     display: flex;
     align-items: center;
@@ -78,11 +80,6 @@
       @include tutor-sans-font(1.2rem, 1.2rem);
       font-weight: 300;
       font-style: italic;
-    }
-    &+.item {
-      .progress-bar {
-        margin-left: 15px;
-      }
     }
   }
 }

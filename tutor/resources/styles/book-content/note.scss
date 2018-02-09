@@ -3,6 +3,7 @@ $feature-title-is-element: '[data-has-label=true][data-label=""]';
 $tutor-note-title-element: '[data-type=title]:first-child';
 
 $tutor-note-margin-horizontal: 38px;
+$tutor-note-margin-vertical: 71px;
 %tutor-empty-rules { }
 
 
@@ -44,6 +45,10 @@ $tutor-note-margin-horizontal: 38px;
       @include tutor-sans-font(1.8rem, 1.75em);
       font-weight: bold;
     }
+  }
+
+  figure {
+    float: none;
   }
 }
 
@@ -146,7 +151,7 @@ $tutor-note-margin-horizontal: 38px;
 
 %tutor-all-note-rules {
   background: $tutor-neutral-lightest;
-  margin: $tutor-note-margin-horizontal 0 32px 0;
+  margin: $tutor-note-margin-vertical 0 32px 0;
   clear: both;
   border-top: solid 8px $tutor-neutral-lighter;
   border-bottom: solid 8px $tutor-neutral-lighter;
@@ -158,7 +163,8 @@ $tutor-note-margin-horizontal: 38px;
     // undo general hiding of solutions
     display: block;
   }
-  //    @include tutor-book-note-style();
+
+  @include tutor-book-note-style();
 }
 
 // .reference-book .content .page section>[data-element-type=check-understanding][data-element-type=check-understanding]>[data-type=title]:first-child
@@ -198,7 +204,7 @@ $tutor-book-note-selector: '
     @extend %tutor-all-note-rules;
 
     .grasp-check {
-      margin: 68px 0 32px 0;
+      margin: $tutor-note-margin-vertical 0 32px 0;
       padding: $tutor-note-padding-vertical 0;
       border-top: solid 8px $tutor-secondary;
       border-bottom: none;
