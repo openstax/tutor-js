@@ -257,6 +257,15 @@ $tutor-shadow-types: (
     text-align: left;
     padding: 0;
     float: left;
+
+    + figure {
+      float: none;
+    }
+
+    > figure + figure {
+      float: left;
+    }
+
     img {
       max-width: 100%;
       border: 1px solid $border-color;

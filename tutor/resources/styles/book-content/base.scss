@@ -12,6 +12,10 @@
     margin: 0 0 2.4rem 0;
   }
 
+  section {
+    clear: both;
+  }
+
   blockquote {
     @include tutor-serif-font(1.75rem, 190%);
     font-style: italic;

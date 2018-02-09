@@ -3,7 +3,7 @@ $feature-title-is-element: '[data-has-label=true][data-label=""]';
 $tutor-note-title-element: '[data-type=title]:first-child';
 
 $tutor-note-margin-horizontal: 38px;
-$tutor-note-margin-vertical: 71px;
+$tutor-note-margin-vertical: 48px;
 %tutor-empty-rules { }
 
 
@@ -151,13 +151,14 @@ $tutor-note-margin-vertical: 71px;
 
 %tutor-all-note-rules {
   background: $tutor-neutral-lightest;
-  margin: $tutor-note-margin-vertical 0 32px 0;
+  margin: 0 0 71px 0;
   clear: both;
   border-top: solid 8px $tutor-neutral-lighter;
   border-bottom: solid 8px $tutor-neutral-lighter;
   padding: $tutor-note-padding;
   width: 100%;
   position: relative;
+  top: $tutor-note-margin-vertical;
 
   .exercise[data-type=exercise] .solution {
     // undo general hiding of solutions
@@ -204,7 +205,7 @@ $tutor-book-note-selector: '
     @extend %tutor-all-note-rules;
 
     .grasp-check {
-      margin: $tutor-note-margin-vertical 0 32px 0;
+      margin: 0 0 71px 0;
       padding: $tutor-note-padding-vertical 0;
       border-top: solid 8px $tutor-secondary;
       border-bottom: none;
@@ -249,6 +250,11 @@ $tutor-book-note-selector: '
       content: attr(data-label);
     }
 
+    #{$tutor-book-note-selector} {
+      @include tutor-book-label-style() {
+        top: auto;
+      };
+    }
   }
 
 }
