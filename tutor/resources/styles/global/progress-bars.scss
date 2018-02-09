@@ -6,11 +6,6 @@
   @include progress-bar-variant($progress-bar-danger-bg);
   // #gradient > .striped(rgba(255,255,255,.15), 135deg);
   background-size: 20px 20px;
-
-  &[aria-valuenow="0"] {
-    color: $tutor-black;
-    margin-left: 20px;
-  }
 }
 
 .loading-screen-animation {
