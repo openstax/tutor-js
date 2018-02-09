@@ -1,13 +1,15 @@
 import Map from './map';
 import { computed, action } from 'mobx';
 import Course from './course';
-import { isEmpty, sortBy } from 'lodash';
+import { isEmpty } from 'lodash';
 
 class CoursesMap extends Map {
 
-  // override array in Map to return a sorted list
+  // override array in Map to return a sorted list with latest join date first
   @computed get array() {
-    return sortBy(this.values(), 'sortKey');
+    return this.values().sort((a, b) =>
+      a.sortKey > b.sortKey ? -1 : a.sortKey < b.sortKey ? 1 : 0
+    );
   }
 
   @computed get active() {

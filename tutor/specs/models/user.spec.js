@@ -31,7 +31,7 @@ describe('User Model', () => {
   it('calculates audience tags', () => {
     bootstrapCoursesList();
     expect(User.tourAudienceTags).toEqual(['teacher', 'teacher-not-previewed']);
-    const course = Courses.array[0];
+    const course = Courses.get(2);
     course.is_preview = true;
     UiSettings.set('DBVC', course.id, 1);
 
