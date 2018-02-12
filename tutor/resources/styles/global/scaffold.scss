@@ -4,8 +4,9 @@ html {
 
 body {
   padding-top: 60px; // For the top navbar
-  padding-bottom: 50px;
-  background: $tutor-white;
+  padding-bottom: 0px;
+  background: ui-color(white);
+  margin: 0;
   @media print {
     padding: 0;
   }
