@@ -30,36 +30,24 @@ exports[`TaskPlan stats progress bar matches snapshot 1`] = `
       className="reading-progress-group progress"
     >
       <div
-        alt="50% correct"
+        alt="0% incorrect"
         aria-valuemax={100}
         aria-valuemin={0}
-        aria-valuenow={50}
-        className="reading-progress-bar progress-bar-correct progress-bar"
+        aria-valuenow={0}
+        className="reading-progress-bar progress-bar-incorrect no-progress progress-bar"
         role="progressbar"
         style={
           Object {
-            "width": "50%",
-          }
-        }
-        type="correct"
-      >
-        50%
-      </div>
-      <div
-        alt="50% incorrect"
-        aria-valuemax={100}
-        aria-valuemin={0}
-        aria-valuenow={50}
-        className="reading-progress-bar progress-bar-incorrect progress-bar"
-        role="progressbar"
-        style={
-          Object {
-            "width": "50%",
+            "width": "0%",
           }
         }
         type="incorrect"
       >
-        50%
+        <span
+          className="sr-only"
+        >
+          0%
+        </span>
       </div>
     </div>
   </div>

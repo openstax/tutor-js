@@ -76,9 +76,11 @@ $progress-on-hover-label-height: 24px;
     overflow: visible;
   }
 
-  &-bar{
+  &-bar {
 
     position: relative;
+    display: flex;
+    justify-content: center;
 
     &.no-progress {
       span {
@@ -90,8 +92,41 @@ $progress-on-hover-label-height: 24px;
       cursor: default;
     }
 
-    &:not(.no-progress) {
-      min-width:15px;
+    &::before {
+      content: attr(aria-valuenow) '%';
+      text-shadow: 1px 1px 0 rgba(0, 0, 0, .2);
+    }
+
+    &.progress-bar-correct {
+      &[aria-valuenow="0"],
+      &[aria-valuenow="1"],
+      &[aria-valuenow="2"],
+      &[aria-valuenow="3"] {
+        justify-content: flex-start;
+      }
+    }
+
+    &.progress-bar-incorrect {
+      &[aria-valuenow="1"],
+      &[aria-valuenow="2"],
+      &[aria-valuenow="3"] {
+        justify-content: flex-end;
+      }
+
+      &[aria-valuenow="0"] {
+        &:first-child {
+          justify-content: right;
+
+          &::before {
+            color: $openstax-neutral-darker;
+            margin-left: 10px;
+            text-shadow: none;
+          }
+        }
+        &:not(:first-child)::before {
+          content: none;
+        }
+      }
     }
 
   }
