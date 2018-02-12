@@ -43,7 +43,11 @@ ReadingStepContent = React.createClass
 
   getContentChapterSection: ->
     {chapter_section, related_content} = TaskStepStore.get(@props.id)
-    (related_content && related_content[0]) || chapter_section || []
+    (
+      related_content &&
+      related_content[0] &&
+      related_content[0].chapter_section
+    ) || chapter_section || []
 
   getContentChapter: ->
     @getContentChapterSection()?[0]
