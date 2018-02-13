@@ -5851,9 +5851,9 @@ react-addons-test-utils@15.4.2:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
 
-"react-async-component@github:nathanstitt/react-async-component#retry-on-err":
+react-async-component@^1.0.2:
   version "1.0.2"
-  resolved "https://codeload.github.com/nathanstitt/react-async-component/tar.gz/80c276a4b121c050db08c991b8704f2cb02edbb1"
+  resolved "https://registry.yarnpkg.com/react-async-component/-/react-async-component-1.0.2.tgz#b041722bf7734a95c51dc9fc2f28ec9e918e9659"
 
 react-autobind@^1.0:
   version "1.0.6"
