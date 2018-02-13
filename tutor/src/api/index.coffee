@@ -18,7 +18,7 @@ PerformanceForecast = require '../flux/performance-forecast'
 
 {TaskActions} = require '../flux/task'
 {TaskPanelActions} = require '../flux/task-panel'
-{TaskStepActions} = require '../flux/task-step'
+{TaskStepActions, TaskStepStore} = require '../flux/task-step'
 {TaskPlanActions, TaskPlanStore} = require '../flux/task-plan'
 
 {PastTaskPlansActions} = require '../flux/past-task-plans'
@@ -139,7 +139,11 @@ startAPI = ->
       TaskStepActions.loadedNoPersonalized(args...)
       true
   )
-  connectModify(TaskActions, pattern: 'steps/{id}/completed', trigger: 'completeStep', onSuccess: 'stepCompleted')
+  connectModify(TaskActions, pattern: 'steps/{id}/completed', trigger: 'completeStep', onSuccess: 'stepCompleted',
+    data: (id) ->
+      step = TaskStepStore.get(id)
+      pick(step, ['free_response', 'answer_id'])
+  )
 
   connectUpdate(TaskStepActions, pattern: 'steps/{id}', trigger: 'setFreeResponseAnswer',
     data: (id, freeResponse) ->
