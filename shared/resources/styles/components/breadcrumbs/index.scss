@@ -29,7 +29,9 @@
 }
 
 // label readings with chapter info if it exists
-.task-reading {
+.task-reading,
+.task-homework
+{
   .openstax-breadcrumbs-step[data-chapter] {
 
     background: $reading-color;
