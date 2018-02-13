@@ -57,6 +57,7 @@ BASE_CONFIG =
     filename: '[name].js'
     # path: defined in project/environment specific
     # publicPath: defined in project/environment specific
+    chunkFilename: "[name]-chunk-[hash].js"
   module:
     noParse: [
       /\/sinon\.js/
