@@ -261,7 +261,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
               className="my-courses-title row"
             >
               <div
-                className="col-md-12"
+                className="col-xs-12"
               >
                 <h1>
                   Current Courses
@@ -272,7 +272,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
               className="my-courses-none row"
             >
               <div
-                className="col-md-12"
+                className="col-xs-12"
               >
                 <p>
                   There are no current courses.
@@ -283,7 +283,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
               className="my-courses-section my-courses-current-section row"
             >
               <div
-                className="col-md-3 col-sm-6 col-xs-12"
+                className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
               >
                 <div
                   className="tour-anchor"
