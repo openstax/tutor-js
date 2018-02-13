@@ -50,6 +50,11 @@ export default class CourseEnrollment extends BaseModel {
       return this.renderComponent('invalidTeacher');
     } else if (this.isInvalid) {
       return this.renderComponent('invalidCode');
+    } else if (this.isComplete) {
+      if (this.courseId)
+        return <Redirect to={Router.makePathname('dashboard', { courseId: this.courseId })} />;
+      else
+        return <Redirect to={Router.makePathname('myCourses')} />;
     } else if (!isEmpty(this.api.errors)) {
       if (this.api.errors.dropped_student) {
         return this.renderComponent('droppedStudent');
@@ -60,11 +65,6 @@ export default class CourseEnrollment extends BaseModel {
       }
     } else if (this.needsPeriodSelection) {
       return this.renderComponent('selectPeriod');
-    } else if (this.isComplete) {
-      if (this.courseId)
-        return <Redirect to={Router.makePathname('dashboard', { courseId: this.courseId })} />;
-      else
-        return <Redirect to={Router.makePathname('myCourses')} />;
     } else {
       return this.renderComponent('studentIDForm');
     }

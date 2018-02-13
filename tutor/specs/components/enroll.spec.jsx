@@ -5,6 +5,9 @@ import Enroll from '../../src/components/enroll';
 import EnzymeContext from './helpers/enzyme-context';
 import Router from '../../src/helpers/router';
 import EnrollModel from '../../src/models/course/enroll';
+jest.mock('../../src/models/user', () => ({
+  refreshCourses: jest.fn(() => Promise.resolve()),
+}));
 jest.mock('../../src/helpers/router');
 
 describe('Student Enrollment', () => {
@@ -39,6 +42,19 @@ describe('Student Enrollment', () => {
     expect(enrollment.router.history.push).toHaveBeenCalledWith('/courses');
   });
 
+  it('forwards to your course if already a member', (done) => {
+    enrollment.api.errors = { already_enrolled: { data: { course_name: 'My Course' } } };
+    const enroll = mount(<Enroll enrollment={enrollment} />, context);
+    expect(enroll).toHaveRendered('OXFancyLoader');
+    enrollment.isComplete = true;
+    enroll.update();
+    setTimeout(() => {
+      //console.log(enroll.debug());
+      expect(enroll).toHaveRendered('Redirect');
+      enroll.unmount();
+      done();
+    }, 100);
+  });
 
   it('displays an invalid message', () => {
     enrollment.api.errors = { invalid_enrollment_code: true };
