@@ -59,7 +59,7 @@ ProgressGuidePanels = React.createClass
     )
 
   renderEmpty: (sections) ->
-    <div className='progress-guide empty'>
+    <div className='progress-guide panel empty'>
       <div className='actions-box'>
         <h1 className='panel-title'>Performance Forecast</h1>
           <p>
@@ -84,7 +84,7 @@ ProgressGuidePanels = React.createClass
     recent = PerformanceForecast.Helpers.recentSections(sections)
     return @renderEmpty(sections) if _.isEmpty(recent)
 
-    <div className='progress-guide'>
+    <div className='progress-guide panel'>
       <div className='actions-box'>
 
         <ProgressGuide sections={recent} {...@props} />

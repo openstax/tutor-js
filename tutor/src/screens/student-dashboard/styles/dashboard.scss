@@ -1,5 +1,7 @@
 .student-dashboard {
   $small-height-breakpoint: 600px;
+  background-color: ui-color(page-bg);
+  min-height: calc(100vh - #{$tutor-navbar-height});
   .container {
     margin-top: 2rem;
   }
