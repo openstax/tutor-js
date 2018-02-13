@@ -23,6 +23,12 @@ const ROUTES = {
     label: 'Browse the Book',
     isAllowed(course) { return !!course; },
   },
+  studentScores: {
+    label: 'Scores',
+    roles: {
+      student: 'viewScores',
+    },
+  },
   guide: {
     label: 'Performance Forecast',
     isAllowed(course) { return get(course, 'is_concept_coach') !== true; },

@@ -109,18 +109,30 @@ export default class HomeworkCell extends React.PureComponent {
     );
   }
 
-  render() {
+  renderLateWork() {
     const { task, columnIndex } = this.props;
+
+
+    if (!this.props.period.course.isTeacher) {
+      return null;
+    }
+
+    return (<LateWork
+        task={task}
+        onMouseOver={this.show}
+        onMouseLeave={this.hide}
+        columnIndex={columnIndex}
+      />
+    );
+  }
+
+  render() {
 
     return (
       <div className="scores-cell">
         <HomeworkScore {...this.props} />
         {this.renderPopover()}
-        <LateWork
-          onMouseOver={this.show}
-          onMouseLeave={this.hide}
-          task={task}
-          columnIndex={columnIndex} />
+        {this.renderLateWork()}
       </div>
     );
   }

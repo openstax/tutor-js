@@ -17,6 +17,8 @@ const AveragesToggle = observer(({ ux }) => (
 
 const OverallHeader = observer(({ ux, period }) => {
 
+  const viewWeightsLabel = (period.course.isTeacher && 'Set weights') || 'View weights';
+
   return (
     <div className={cn('header-cell-wrapper', 'overall-average', { 'is-expanded': ux.isAveragesExpanded })}>
       <SetWeights ux={ux} />
@@ -24,7 +26,7 @@ const OverallHeader = observer(({ ux, period }) => {
         <AveragesToggle ux={ux} />
         <div className="avg">
           <b>Averages</b>
-          <a className="set-weights" onClick={ux.weights.onSetClick}>Set weights</a>
+          <a className="set-weights" onClick={ux.weights.onSetClick}>{viewWeightsLabel}</a>
         </div>
       </div>
       <div className="header-row labels">

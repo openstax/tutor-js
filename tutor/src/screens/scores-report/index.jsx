@@ -8,9 +8,8 @@ import ScoresTable from './table';
 import TableFilters from './table-filters';
 import NoPeriods from '../../components/no-periods';
 import Courses from '../../models/courses-map';
-import Export from './export';
-import LmsPush from './lms-push';
-import CoursePeriodsNav from '../../components/course-periods-nav';
+import ScoresReportExportControls from './export-controls';
+import ScoresReportNav from './nav';
 import TourRegion from '../../components/tours/region';
 import LoadingScreen from '../../components/loading-screen';
 import './styles.scss';
@@ -32,6 +31,10 @@ export default class StudentScores extends React.PureComponent {
     return this.course.scores.periods.get(
       this.course.periods.active[this.periodIndex].id
     );
+  }
+
+  @computed get title() {
+    return (this.course.isTeacher && 'Student Scores') || 'Scores';
   }
 
   @observable sortIndex;
@@ -85,8 +88,7 @@ export default class StudentScores extends React.PureComponent {
       <div className="controls">
         <TableFilters displayAs={this.displayAs} changeDisplayAs={this.changeDisplayAs} />
         <div className="spacer" />
-        <LmsPush course={this.course} />
-        <Export course={this.course} />
+        <ScoresReportExportControls course={this.course}/>
       </div>
     );
   }
@@ -106,7 +108,7 @@ export default class StudentScores extends React.PureComponent {
     return (
       <CoursePage
         course={this.course}
-        title="Student Scores"
+        title={this.title}
         className="course-scores-report"
         controls={this.renderControls()}
         fullWidthChildren={<TourRegion
@@ -126,9 +128,9 @@ export default class StudentScores extends React.PureComponent {
           </ContainerDimensions>
         </TourRegion>}
       >
-        <CoursePeriodsNav
+        <ScoresReportNav
+          course={this.course}
           handleSelect={this.selectPeriod}
-          courseId={this.course.id}
           afterTabsItem={this.renderAfterTabsItem()}
         />
       </CoursePage>

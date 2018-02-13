@@ -89,6 +89,49 @@ export default class ScoresTable extends React.PureComponent {
     );
   }
 
+  renderLeftColumnGroup() {
+    const { ux, courseId, students, props: { period } } = this;
+
+    if (!period.course.isTeacher) {
+      return (
+        <ColumnGroup fixed={true}>
+          <Column
+            fixed={true}
+            width={ux.averagesWidth}
+            flexGrow={0}
+            allowCellsRecycling={true}
+            isResizable={false}
+            cell={<OverallCell ux={ux} students={students} />}
+            header={<OverallHeader ux={ux} {...this.props} />}
+          />
+        </ColumnGroup>
+      );
+    }
+
+    return (
+      <ColumnGroup fixed={true}>
+        <Column
+          fixed={true}
+          width={COLUMN_WIDTH}
+          flexGrow={0}
+          allowCellsRecycling={true}
+          isResizable={false}
+          cell={<NameCell {...this.props} {...{ students, courseId }} />}
+          header={<NameHeader {...this.props} />}
+        />
+        <Column
+          fixed={true}
+          width={ux.averagesWidth}
+          flexGrow={0}
+          allowCellsRecycling={true}
+          isResizable={false}
+          cell={<OverallCell ux={ux} students={students} />}
+          header={<OverallHeader ux={ux} {...this.props} />}
+        />
+      </ColumnGroup>
+    );
+  }
+
   render() {
     const { ux, courseId, students, props: { period } } = this;
     const width = COLUMN_WIDTH;
@@ -106,26 +149,7 @@ export default class ScoresTable extends React.PureComponent {
         rowsCount={students.length}
         insetScrollbarX={true}
       >
-        <ColumnGroup fixed={true}>
-          <Column
-            fixed={true}
-            width={COLUMN_WIDTH}
-            flexGrow={0}
-            allowCellsRecycling={true}
-            isResizable={false}
-            cell={<NameCell {...this.props} {...{ students, courseId }} />}
-            header={<NameHeader {...this.props} />}
-          />
-          <Column
-            fixed={true}
-            width={ux.averagesWidth}
-            flexGrow={0}
-            allowCellsRecycling={true}
-            isResizable={false}
-            cell={<OverallCell ux={ux} students={students} />}
-            header={<OverallHeader ux={ux} {...this.props} />}
-          />
-        </ColumnGroup>
+        {this.renderLeftColumnGroup()}
         <ColumnGroup>
           {range(0, period.numAssignments).map((columnIndex) =>
             <Column
