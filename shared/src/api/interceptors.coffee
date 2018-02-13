@@ -74,6 +74,7 @@ class Interceptors
 
   broadcastError: (response) =>
     {config} = response
+
     @_apiHandler.channel.emit(config.events.failure, response) if config?.events?.failure
     Promise.reject(response)
 

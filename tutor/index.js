@@ -61,7 +61,7 @@ const loadApp = function() {
   api.start(bootstrapData);
   BootstrapURLs.update(bootstrapData);
 
-  UiSettings.initialize(bootstrapData.ui_settings);
+  UiSettings.initialize(bootstrapData.ui_settings || {});
   Notices.start(bootstrapData);
   ExerciseHelpers.setErrataFormURL(bootstrapData.errata_form_url);
   ErrorMonitoring.start();

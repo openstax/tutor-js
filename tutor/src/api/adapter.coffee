@@ -9,7 +9,7 @@ _ = require 'lodash'
 User = require('../models/user').default
 tutorAPIHandler = null
 
-IS_LOCAL = window.location.port is '8000' or window.__karma__
+baseUrl = if window.location.port is '8000' then 'http://localhost:3001/api' else "#{window.location.origin}/api"
 
 setNow = (headers) ->
   # axios will lower case headers https://github.com/axios/axios/issues/413
@@ -25,7 +25,7 @@ updateHeadersWithToken = (token) ->
 
 OPTIONS =
   xhr:
-    baseURL: "#{window.location.origin}/api"
+    baseURL: baseUrl
     headers:
       'X-CSRF-Token': User.csrf_token
       token: User.csrf_token
@@ -37,7 +37,7 @@ OPTIONS =
   hooks:
     handleMalformedRequest: -> # at one time this logged out the user, but that seems too drastic
       null
-  isLocal: IS_LOCAL
+  isLocal: false
 
 tutorAPIHandler = new APIHandler(OPTIONS)
 tutorAPIHandler.channel.on('*.*.*.receive.*', (response) ->

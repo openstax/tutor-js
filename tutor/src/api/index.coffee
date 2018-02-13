@@ -257,6 +257,8 @@ startAPI = ->
 
   connectModelRead(Courses.constructor, 'fetch', onSuccess: 'onLoaded', url: 'user/courses')
 
+
+
 BOOTSTRAPED_MODELS = {
   user:     User,
   courses:  Courses,
@@ -265,11 +267,17 @@ BOOTSTRAPED_MODELS = {
   feature_flags: FeatureFlags,
 }
 
-start = (bootstrapData) ->
+bootstrap = (bootstrapData) ->
   window._MODELS.bootstrapData = bootstrapData
   for storeId, model of BOOTSTRAPED_MODELS
     data = bootstrapData[storeId]
-    model.bootstrap(data)
+    model.bootstrap(data) if data
   startAPI()
+
+start = (bootstrapData) ->
+  if bootstrapData
+    bootstrap(bootstrapData)
+  else
+
 
 module.exports = {startAPI, start}

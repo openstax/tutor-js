@@ -169,7 +169,8 @@ makeDevelopmentBase = (projectConfig) ->
     module:
       rules: BASE_DEV_LOADER_RULES
     plugins: [
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+
     ]
     devServer:
       contentBase: "#{projectConfig.basePath}/"
