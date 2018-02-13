@@ -9,7 +9,7 @@ Dialog      = require '../tutor-dialog'
 TutorRouter = require '../../helpers/router'
 TimeHelper  = require '../../helpers/time'
 ServerErrorMessage = require './server-error-message'
-
+{reloadOnce} = require '../../helpers/reload'
 {AppStore}    = require '../../flux/app'
 {default: Courses} = require '../../models/courses-map'
 
@@ -25,12 +25,11 @@ getCurrentCourse = ->
   {courseId} = TutorRouter.currentParams()
   if courseId then Courses.get(courseId) else {}
 
-reloadOnce = ->
+reloadOnceIfShouldReload = ->
   navigation = AppStore.errorNavigation()
   return if isEmpty navigation
   if navigation.shouldReload
-    join = if window.location.search then '&' else '?'
-    window.location.href = window.location.href + join + 'reloaded'
+    reloadOnce()
   else if navigation.href
     window.location.href = navigation.href
 
@@ -119,8 +118,8 @@ ERROR_HANDLERS =
     buttons: [
       <BS.Button key='ok' onClick={-> Dialog.hide()} bsStyle='primary'>OK</BS.Button>
     ]
-    onOk: reloadOnce
-    onCancel: reloadOnce
+    onOk: reloadOnceIfShouldReload
+    onCancel: reloadOnceIfShouldReload
 
 
 module.exports = {

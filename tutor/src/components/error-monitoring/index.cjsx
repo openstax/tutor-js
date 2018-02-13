@@ -4,7 +4,7 @@ BS = require 'react-bootstrap'
 isEmpty = require 'lodash/isEmpty'
 
 ErrorHandlers = require './handlers'
-
+{ isReloaded } = require '../../helpers/reload';
 {AppStore, AppActions} = require '../../flux/app'
 
 Dialog = require '../tutor-dialog'
@@ -23,7 +23,7 @@ module.exports = React.createClass
   bindUpdate: ->
     error = AppStore.getError()
 
-    return unless error and -1 is window.location.search.indexOf('reloaded')
+    return unless error and not isReloaded()
     dialogAttrs = ErrorHandlers.forError(error, @context)
 
     Dialog.show( dialogAttrs ).then(dialogAttrs.onOk, dialogAttrs.onCancel)
