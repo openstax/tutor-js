@@ -73,7 +73,10 @@
       }
     }
 
-    img { width: 100%; }
+    img {
+      width: 100%;
+      height: auto;
+    }
 
     figcaption {
       border-bottom: 1px solid;
