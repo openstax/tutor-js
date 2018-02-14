@@ -33,8 +33,6 @@
 .task-homework
 {
   .openstax-breadcrumbs-step[data-chapter] {
-
-    background: $reading-color;
     color: $openstax-white;
 
     &.active,
@@ -49,6 +47,18 @@
     i:not(.icon-incorrect):not(.icon-correct) {
       display: none;
     }
+  }
+}
+
+.task-reading {
+  .openstax-breadcrumbs-step[data-chapter] {
+    background: $reading-color;
+  }
+}
+
+.task-homework {
+  .openstax-breadcrumbs-step[data-chapter] {
+    background: $homework-color;
   }
 }
 
