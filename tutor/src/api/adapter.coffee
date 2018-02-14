@@ -12,8 +12,8 @@ tutorAPIHandler = null
 IS_LOCAL = window.location.port is '8000' or window.__karma__
 
 setNow = (headers) ->
-  # X-App-Date with fallback to nginx date
-  date = headers['X-App-Date'] or headers['Date']
+  # axios will lower case headers https://github.com/axios/axios/issues/413
+  date = headers['x-app-date'] or headers['date']
   TimeActions.setFromString(date)
 
 updateHeadersWithToken = (token) ->
