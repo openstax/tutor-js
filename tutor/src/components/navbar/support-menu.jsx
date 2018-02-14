@@ -2,7 +2,7 @@ import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { Dropdown, MenuItem } from 'react-bootstrap';
 import { get } from 'lodash';
-import { action, computed } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import RootCloseWrapper from 'react-overlays/lib/RootCloseWrapper';
 import User from '../../models/user';
@@ -13,16 +13,15 @@ import Icon from '../icon';
 import SupportDocument from './support-document-link';
 import TourContext from '../../models/tour/context';
 import Router from '../../helpers/router';
-import TutorLink from '../link';
 
 
-const StudentPreview = observer(({ courseId, ...props }, { router }) => {
+const StudentPreview = observer(({ courseId, tourContext, ...props }, { router }) => {
   if( !courseId || !( User.isConfirmedFaculty || User.isUnverifiedInstructor ) ) { return null; }
   return (
     <MenuItem
       {...props}
       onClick={() => {
-          router.history.push(Router.makePathname('studentPreview'))
+        router.history.push(Router.makePathname('studentPreview'));
       }}
     >
       <TourAnchor id="student-preview-link">
@@ -34,7 +33,7 @@ const StudentPreview = observer(({ courseId, ...props }, { router }) => {
 
 StudentPreview.contextTypes = {
   router: React.PropTypes.object,
-}
+};
 
 const PageTips = observer(({ courseId, onPlayClick, tourContext, ...props }) => {
   if (!get(tourContext, 'hasTriggeredTour', false)){ return null; }
@@ -50,7 +49,6 @@ const PageTips = observer(({ courseId, onPlayClick, tourContext, ...props }) => 
     </MenuItem>
   );
 });
-
 
 
 @inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
@@ -142,6 +140,11 @@ export default class SupportMenu extends React.PureComponent {
     );
   }
 
+  @observable isOpen;
+  @action.bound onMouseEnter() { this.isOpen = true; }
+  @action.bound onMouseLeave() { this.isOpen = false; }
+  @action.bound onToggle(isOpen) { this.isOpen = isOpen; }
+
   render() {
     const { open, onClose, rootCloseEvent, courseId } = this.props;
 
@@ -149,6 +152,10 @@ export default class SupportMenu extends React.PureComponent {
       <Dropdown
         id="support-menu"
         className="support-menu"
+        onMouseEnter={this.onMouseEnter}
+        onMouseLeave={this.onMouseLeave}
+        onToggle={this.onToggle}
+        open={this.isOpen}
       >
         <Dropdown.Toggle
           ref={m => (this.dropdownToggle = m)}

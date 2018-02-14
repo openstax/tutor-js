@@ -1,18 +1,16 @@
 import React from 'react';
 import { Dropdown, MenuItem } from 'react-bootstrap';
-import TutorRouter from '../../helpers/router'
+import TutorRouter from '../../helpers/router';
 import { Route } from 'react-router';
-import {  partial, flatMap, get, isEmpty, omit } from 'lodash';
+import { partial, flatMap, isEmpty, omit } from 'lodash';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
+import { observable, action } from 'mobx';
 import { autobind } from 'core-decorators';
 import Icon from '../icon';
-import NewTabLink from '../new-tab-link';
 import TourAnchor from '../tours/anchor';
 import Router from '../../helpers/router';
-import User from '../../models/user';
 import UserMenu from '../../models/user/menu';
-import Courses from '../../models/courses-map';
 
 const RoutedMenuItem = (props) => {
   const { label, name, tourId, className, route } = props;
@@ -31,19 +29,19 @@ const RoutedMenuItem = (props) => {
       </MenuItem>
     </Route>
   );
-}
+};
 
 function BrowseBookMenuItem({ params: { courseId }, className, active, label, ...props }) {
   return (
-      <MenuItem
-        {...props}
-        href={`/books/${courseId}`}
-        target="_blank"
-      >
-        <TourAnchor id="menu-option-browse-book">
-          Browse the Book
-        </TourAnchor>
-      </MenuItem>
+    <MenuItem
+      {...props}
+      href={`/books/${courseId}`}
+      target="_blank"
+    >
+      <TourAnchor id="menu-option-browse-book">
+        Browse the Book
+      </TourAnchor>
+    </MenuItem>
   );
 }
 
@@ -90,13 +88,16 @@ export default class ActionsMenu extends React.Component {
       props = { href, onSelect: partial(this.transitionToMenuItem, href) };
     }
 
-    const item = (<RoutedMenuItem {...props}
-                    route={menuOption}
-                    key={key}
-                    tourId={key}
-                    label={menuOption.label}
-                    name={menuOption.name}
-    />);
+    const item = (
+      <RoutedMenuItem
+        {...props}
+        route={menuOption}
+        key={key}
+        tourId={key}
+        label={menuOption.label}
+        name={menuOption.name}
+      />
+    );
 
     if (options.separator) {
       const separator = (suffix = 'divider') =>
@@ -113,6 +114,11 @@ export default class ActionsMenu extends React.Component {
     return item;
   }
 
+  @observable isOpen;
+  @action.bound onMouseEnter() { this.isOpen = true; }
+  @action.bound onMouseLeave() { this.isOpen = false; }
+  @action.bound onToggle(isOpen) { this.isOpen = isOpen; }
+
   render() {
     const menuRoutes = UserMenu.getRoutes(this.props.courseId);
 
@@ -123,6 +129,10 @@ export default class ActionsMenu extends React.Component {
     return (
       <Dropdown
         id="actions-menu"
+        onMouseEnter={this.onMouseEnter}
+        onMouseLeave={this.onMouseLeave}
+        onToggle={this.onToggle}
+        open={this.isOpen}
         pullRight
         className={classnames('actions-menu')}
       >
