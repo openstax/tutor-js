@@ -137,9 +137,10 @@ StepTitleConfig =
           lastPart.data = grabTruncatedText(lastPart.data, start)
           truncatedExercise[truncatedExercise.length - 1] = lastPart
         else
-          truncatedExercise.push({data: '...', type: 'text'})
+          truncatedExercise.push({data: '…', type: 'text'})
 
-      text = htmlparser.DomUtils.getOuterHTML(truncatedExercise)
+      text = htmlparser.DomUtils.getText(truncatedExercise)
+      text = text.slice(0, TEXT_LENGTH - 1) + '…' if text.length >= TEXT_LENGTH
 
     actions.loaded(id, text)
     actions.loadedMetaData(id)
