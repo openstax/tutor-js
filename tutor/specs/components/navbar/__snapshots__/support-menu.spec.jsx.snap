@@ -3,6 +3,8 @@
 exports[`Support Menu renders and matches snapshot 1`] = `
 <div
   className="support-menu dropdown btn-group"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
 >
   <a
     aria-expanded={false}
@@ -107,6 +109,8 @@ exports[`Support Menu renders and matches snapshot 1`] = `
 exports[`Support Menu renders support links when in a course for student 1`] = `
 <div
   className="support-menu dropdown btn-group"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
 >
   <a
     aria-expanded={false}
@@ -212,6 +216,8 @@ exports[`Support Menu renders support links when in a course for student 1`] = `
 exports[`Support Menu renders support links when in a course for teacher 1`] = `
 <div
   className="support-menu dropdown btn-group"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
 >
   <a
     aria-expanded={false}

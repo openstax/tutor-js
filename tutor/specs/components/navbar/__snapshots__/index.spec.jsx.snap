@@ -25,6 +25,8 @@ exports[`Main navbar renders and matches snapshot 1`] = `
     >
       <div
         className="support-menu dropdown btn-group"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
       >
         <a
           aria-expanded={false}
@@ -105,6 +107,8 @@ exports[`Main navbar renders and matches snapshot 1`] = `
       </div>
       <div
         className="user-menu dropdown btn-group"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
       >
         <a
           aria-expanded={false}
