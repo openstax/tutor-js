@@ -110,6 +110,28 @@ exports[`Student Navbar Component has actions menu that matches snapshot 1`] = `
       </a>
     </li>
     <li
+      className="viewScores"
+      role="presentation"
+      style={undefined}
+    >
+      <a
+        data-name="viewScores"
+        href="/course/1/scores"
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="menuitem"
+        tabIndex="-1"
+      >
+        <div
+          className="tour-anchor"
+          data-tour-anchor-id="menu-option-viewScores"
+          id="menu-option-viewScores"
+        >
+          Scores
+        </div>
+      </a>
+    </li>
+    <li
       className="viewPerformanceGuide"
       role="presentation"
       style={undefined}

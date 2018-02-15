@@ -24,6 +24,13 @@ Array [
     },
   },
   Object {
+    "label": "Scores",
+    "name": "viewScores",
+    "params": Object {
+      "courseId": "1",
+    },
+  },
+  Object {
     "label": "Performance Forecast",
     "name": "viewPerformanceGuide",
     "params": Object {
