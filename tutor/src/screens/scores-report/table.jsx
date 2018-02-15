@@ -51,7 +51,7 @@ export default class ScoresTable extends React.PureComponent {
 
 
   @computed get students() {
-    const students = sortBy( this.props.ux.students, StudentDataSorter({
+    const students = sortBy( this.props.ux.period.students, StudentDataSorter({
       sort: this.props.sort,
       displayAs: this.props.displayAs,
     }));
@@ -160,8 +160,10 @@ export default class ScoresTable extends React.PureComponent {
               width={COLUMN_WIDTH}
               flexGrow={0}
               allowCellsRecycling={true}
-              cell={<AssignmentCell {...this.props} {...{ students, courseId, width, columnIndex }} />}
-              header={<AssignmentHeader {...this.props} {...{ ux, students, courseId, width, columnIndex }} />}
+              cell={<AssignmentCell {...this.props}
+                      {...{ period, students, courseId, width: COLUMN_WIDTH, columnIndex }} />}
+              header={<AssignmentHeader {...this.props}
+                        {...{ period, ux, students, courseId, width: COLUMN_WIDTH, columnIndex }} />}
             />)}
         </ColumnGroup>
       </Table>

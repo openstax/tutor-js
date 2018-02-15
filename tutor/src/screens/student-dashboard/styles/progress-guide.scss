@@ -46,6 +46,8 @@
     .guide-key {
       margin: 10px 0;
       @include performance-forecast-key();
+      flex-wrap: wrap;
+      min-width: initial;
     }
 
     // full width buttons
