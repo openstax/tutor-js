@@ -18,6 +18,7 @@ export default class SetWeightsModal extends React.Component {
       <Modal
         show={true}
         backdrop="static"
+        onHide={weights.onCancelClick}
         className="set-weights view-weights"
       >
         <Modal.Header closeButton>
