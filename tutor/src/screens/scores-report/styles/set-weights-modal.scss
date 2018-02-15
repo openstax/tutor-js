@@ -17,6 +17,11 @@
     }
   }
 
+  .header {
+    text-align: right;
+    @include tutor-sans-light-font(14px);
+  }
+
   .weight {
     display: flex;
     align-items: center;

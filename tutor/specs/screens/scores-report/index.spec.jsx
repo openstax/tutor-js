@@ -27,6 +27,8 @@ describe('Scores Report', function() {
     ({ course, period } = bootstrapScores());
     props = {
       params: { courseId: course.id },
+      course,
+      period,
     };
   });
 

@@ -103,6 +103,21 @@ const AssignmentSortingHeader = (props) => {
   );
 };
 
+const TeacherAssignmentHeaderRow = function(props) {
+  const { heading } = props;
+
+  if (!props.period.course.isTeacher) {
+    return null;
+  }
+
+  return (<div className="header-row overview-row">
+      <AverageLabel {...props} heading={heading} />
+      <ReviewLink {...props} heading={heading} />
+    </div>
+  );
+
+}
+
 const AssignmentHeader = function(props) {
   const { period: { data_headings }, isConceptCoach, periodIndex, courseId, sort, onSort, columnIndex, width, ux } = props;
   const heading = data_headings[columnIndex];
@@ -127,10 +142,7 @@ const AssignmentHeader = function(props) {
       <div className="header-row">
         <AssignmentSortingHeader {...props} heading={heading} />
       </div>
-      <div className="header-row overview-row">
-        <AverageLabel {...props} heading={heading} />
-        <ReviewLink {...props} heading={heading} />
-      </div>
+      <TeacherAssignmentHeaderRow {...props} heading={heading} />
     </div>
   );
 };

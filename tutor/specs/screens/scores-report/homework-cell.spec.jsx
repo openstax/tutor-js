@@ -9,9 +9,10 @@ describe('Student Scores Homework Cell', function() {
   let props;
   let scores;
   let task;
+  let period;
 
   beforeEach(() => {
-    scores = bootstrapScores().scores;
+    ({ scores, period } = bootstrapScores());
     task = scores.getTask(18);
     props = {
       courseId: '1',
@@ -22,6 +23,7 @@ describe('Student Scores Homework Cell', function() {
         role: 1,
       },
       task,
+      period,
     };
   });
 
