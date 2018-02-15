@@ -1,7 +1,7 @@
-a {
-  color: $dull-blue;
-
+a,
+.btn-link {
+  color: text-color(link);
   &:hover {
-    color: $dark-dull-blue;
+    color: text-color(link-hover);
   }
 }
