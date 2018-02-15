@@ -9,6 +9,7 @@ import S from '../../helpers/string';
 import Router from '../../../src/helpers/router';
 import User from '../user';
 import StudentTasks from '../student-tasks';
+import Courses from '../courses-map';
 import Activity from '../../../src/components/ox-fancy-loader';
 
 import Enroll from '../../../src/components/enroll';
@@ -50,6 +51,14 @@ export default class CourseEnrollment extends BaseModel {
       return this.renderComponent('invalidTeacher');
     } else if (this.isInvalid) {
       return this.renderComponent('invalidCode');
+    } else if (this.isComplete) {
+      if (this.courseId) {
+        return <Redirect to={Router.makePathname('dashboard', { courseId: this.courseId })} />;
+      } else {
+        // the BE says we're registered but we didn't find the course
+        // most likely because they're coming from LMS or have a non-standard enrollment
+        return <Redirect to={Router.makePathname('myCourses')} />;
+      }
     } else if (!isEmpty(this.api.errors)) {
       if (this.api.errors.dropped_student) {
         return this.renderComponent('droppedStudent');
@@ -60,11 +69,6 @@ export default class CourseEnrollment extends BaseModel {
       }
     } else if (this.needsPeriodSelection) {
       return this.renderComponent('selectPeriod');
-    } else if (this.isComplete) {
-      if (this.courseId)
-        return <Redirect to={Router.makePathname('dashboard', { courseId: this.courseId })} />;
-      else
-        return <Redirect to={Router.makePathname('myCourses')} />;
     } else {
       return this.renderComponent('studentIDForm');
     }
@@ -119,8 +123,16 @@ export default class CourseEnrollment extends BaseModel {
     return get(this, 'to.course.name', '');
   }
 
+  @computed get course() {
+    return Courses.array.find(c =>
+      c.periods.find(p =>
+        p.enrollment_code == this.enrollment_code
+      )
+    );
+  }
+
   @computed get courseId() {
-    return get(this, 'to.course.id', '');
+    return get(this, 'to.course.id', this.course ? this.course.id : '');
   }
 
   @computed get isPending() {
