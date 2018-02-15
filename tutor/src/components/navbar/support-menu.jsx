@@ -13,16 +13,15 @@ import Icon from '../icon';
 import SupportDocument from './support-document-link';
 import TourContext from '../../models/tour/context';
 import Router from '../../helpers/router';
-import TutorLink from '../link';
 
 
-const StudentPreview = observer(({ courseId, ...props }, { router }) => {
+const StudentPreview = observer(({ courseId, tourContext, ...props }, { router }) => {
   if( !courseId || !( User.isConfirmedFaculty || User.isUnverifiedInstructor ) ) { return null; }
   return (
     <MenuItem
       {...props}
       onClick={() => {
-          router.history.push(Router.makePathname('studentPreview'))
+        router.history.push(Router.makePathname('studentPreview'));
       }}
     >
       <TourAnchor id="student-preview-link">
@@ -34,7 +33,7 @@ const StudentPreview = observer(({ courseId, ...props }, { router }) => {
 
 StudentPreview.contextTypes = {
   router: React.PropTypes.object,
-}
+};
 
 const PageTips = observer(({ courseId, onPlayClick, tourContext, ...props }) => {
   if (!get(tourContext, 'hasTriggeredTour', false)){ return null; }
@@ -50,7 +49,6 @@ const PageTips = observer(({ courseId, onPlayClick, tourContext, ...props }) => 
     </MenuItem>
   );
 });
-
 
 
 @inject((allStores, props) => ({ tourContext: ( props.tourContext || allStores.tourContext ) }))
