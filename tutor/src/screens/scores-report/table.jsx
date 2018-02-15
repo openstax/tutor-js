@@ -135,9 +135,13 @@ export default class ScoresTable extends React.PureComponent {
   render() {
     const { ux, courseId, students, props: { period } } = this;
     const width = COLUMN_WIDTH;
+    let headerHeight = 140;
 
     if (!period.coursePeriod.num_enrolled_students) { return this.renderNoStudents(); }
     if (isEmpty(students)) { return this.renderNoAssignments(); }
+    if (period.course.isTeacher) {
+      headerHeight = 180;
+    }
 
     return (
       <Table
@@ -145,7 +149,7 @@ export default class ScoresTable extends React.PureComponent {
         rowHeight={50}
         height={Math.max(this.props.height, MIN_TABLE_WIDTH)}
         width={Math.max(this.props.width, MIN_TABLE_HEIGHT)}
-        headerHeight={180}
+        headerHeight={headerHeight}
         rowsCount={students.length}
         insetScrollbarX={true}
       >
