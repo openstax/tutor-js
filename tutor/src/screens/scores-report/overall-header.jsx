@@ -16,8 +16,8 @@ const AveragesToggle = observer(({ ux }) => (
   />
 ));
 
-const OverallHeader = observer(({ ux, period }) => {
-
+const OverallHeader = observer(({ ux }) => {
+  const { period } = ux;
   const viewWeightsLabel = (period.course.isTeacher && 'Set weights') || 'View weights';
   let overviewHeaderRow = null;
   let weightsModal = <ViewWeights ux={ux} />
@@ -41,33 +41,32 @@ const OverallHeader = observer(({ ux, period }) => {
   }
 
   return (
-    <div className={cn('header-cell-wrapper', 'overall-average', { 'is-expanded': ux.isAveragesExpanded })}>
-      {weightsModal}
-      <div className="overall-header-cell">
-        <AveragesToggle ux={ux} />
-        <div className="avg">
-          <b>Averages</b>
-          <a className="set-weights" onClick={ux.weights.onSetClick}>{viewWeightsLabel}</a>
-        </div>
+  <div className={cn('header-cell-wrapper', 'overall-average', { 'is-expanded': ux.isAveragesExpanded })}>
+    {weightsModal}
+    <div className="overall-header-cell">
+      <AveragesToggle ux={ux} />
+      <div className="avg">
+        <b>Averages</b>
+        <a className="set-weights" onClick={ux.weights.onSetClick}>{viewWeightsLabel}</a>
       </div>
-      <div className="header-row labels">
-        <div>Course</div>
-        <div className="homework">Homework</div>
-        <div className="reading">Reading</div>
-      </div>
-      <div className="header-row labels types">
-        <div></div>
-        <div className="homework">
-          <div>Score</div>
-          <div>Progress</div>
-        </div>
-        <div className="reading">
-          <div>Score</div>
-          <div>Progress</div>
-        </div>
-      </div>
-      {overviewHeaderRow}
     </div>
+    <div className="header-row labels">
+      <div>Course</div>
+      <div className="homework">Homework</div>
+      <div className="reading">Reading</div>
+    </div>
+    <div className="header-row labels types">
+      <div></div>
+      <div className="homework">
+        <div>Score</div>
+        <div>Progress</div>
+      </div>
+      <div className="reading">
+        <div>Score</div>
+        <div>Progress</div>
+      </div>
+    </div>
+  </div>
   );
 });
 

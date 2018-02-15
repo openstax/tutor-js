@@ -13,6 +13,7 @@ import ScoresReportNav from './nav';
 import TourRegion from '../../components/tours/region';
 import LoadingScreen from '../../components/loading-screen';
 import './styles.scss';
+import UX from './ux';
 
 @observer
 export default class StudentScores extends React.PureComponent {
@@ -27,18 +28,13 @@ export default class StudentScores extends React.PureComponent {
     return Courses.get(this.props.params.courseId);
   }
 
-  @computed get period() {
-    return this.course.scores.periods.get(
-      this.course.periods.active[this.periodIndex].id
-    );
-  }
+  ux = new UX(this.course);
 
   @computed get title() {
     return (this.course.isTeacher && 'Student Scores') || 'Scores';
   }
 
   @observable sortIndex;
-  @observable periodIndex = 0;
   @observable sort = { key: 'name', asc: true, dataType: 'score' };
   @observable displayAs = 'percentage';
 
@@ -53,19 +49,15 @@ export default class StudentScores extends React.PureComponent {
   }
 
   @action.bound selectPeriod(period, key) {
-    this.periodIndex = key;
+    this.ux.periodIndex = key;
   }
 
   @action.bound changeDisplayAs(mode) {
     this.displayAs = mode;
   }
 
-  @computed get data() {
-    return this.course.scores.periods.get(this.period.id);
-  }
-
   renderAfterTabsItem() {
-    if (!get(this.period, 'students.length')) { return null; }
+    if (!get(this.ux.period, 'students.length')) { return null; }
 
     if (this.course.is_concept_coach) {
       return (
@@ -111,22 +103,24 @@ export default class StudentScores extends React.PureComponent {
         title={this.title}
         className="course-scores-report"
         controls={this.renderControls()}
-        fullWidthChildren={<TourRegion
-          id="scores"
-          courseId={courseId}
-          otherTours={['preview-scores']}>
-          <ContainerDimensions>
-            <ScoresTable
-              period={this.period}
-              sort={this.sort}
-              onSort={this.changeSortingOrder}
-              colSetWidth={this.colSetWidth}
-              displayAs={this.displayAs}
-              dataType={this.sort.dataType}
-              isConceptCoach={this.course.is_concept_coach}
-            />
-          </ContainerDimensions>
-        </TourRegion>}
+        fullWidthChildren={
+          <TourRegion
+            id="scores"
+            courseId={courseId}
+            otherTours={['preview-scores']}
+          >
+            <ContainerDimensions>
+              <ScoresTable
+                ux={this.ux}
+                sort={this.sort}
+                onSort={this.changeSortingOrder}
+                displayAs={this.displayAs}
+                dataType={this.sort.dataType}
+                isConceptCoach={this.course.is_concept_coach}
+              />
+            </ContainerDimensions>
+          </TourRegion>
+        }
       >
         <ScoresReportNav
           course={this.course}
