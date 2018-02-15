@@ -41,7 +41,7 @@ export default class ReadingCell extends React.PureComponent {
   }
 
   renderReviewLink() {
-    const { task, period } = this.props;
+    const { task, courseId, period } = this.props;
 
     if (!period.course.isTeacher) {
       return null;
