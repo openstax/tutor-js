@@ -152,10 +152,6 @@ export default class SupportMenu extends React.PureComponent {
       <Dropdown
         id="support-menu"
         className="support-menu"
-        onMouseEnter={this.onMouseEnter}
-        onMouseLeave={this.onMouseLeave}
-        onToggle={this.onToggle}
-        open={this.isOpen}
       >
         <Dropdown.Toggle
           ref={m => (this.dropdownToggle = m)}

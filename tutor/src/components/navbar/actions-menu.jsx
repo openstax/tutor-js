@@ -5,7 +5,6 @@ import { Route } from 'react-router';
 import { partial, flatMap, isEmpty, omit } from 'lodash';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
-import { observable, action } from 'mobx';
 import { autobind } from 'core-decorators';
 import Icon from '../icon';
 import TourAnchor from '../tours/anchor';
@@ -114,11 +113,6 @@ export default class ActionsMenu extends React.Component {
     return item;
   }
 
-  @observable isOpen;
-  @action.bound onMouseEnter() { this.isOpen = true; }
-  @action.bound onMouseLeave() { this.isOpen = false; }
-  @action.bound onToggle(isOpen) { this.isOpen = isOpen; }
-
   render() {
     const menuRoutes = UserMenu.getRoutes(this.props.courseId);
 
@@ -129,10 +123,6 @@ export default class ActionsMenu extends React.Component {
     return (
       <Dropdown
         id="actions-menu"
-        onMouseEnter={this.onMouseEnter}
-        onMouseLeave={this.onMouseLeave}
-        onToggle={this.onToggle}
-        open={this.isOpen}
         pullRight
         className={classnames('actions-menu')}
       >
