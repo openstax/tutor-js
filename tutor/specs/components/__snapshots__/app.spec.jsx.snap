@@ -34,8 +34,6 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
           >
             <div
               className="support-menu dropdown btn-group"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
             >
               <a
                 aria-expanded={false}
@@ -116,8 +114,6 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
             </div>
             <div
               className="actions-menu dropdown btn-group"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
             >
               <a
                 aria-expanded={false}
@@ -189,8 +185,6 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
             </div>
             <div
               className="user-menu dropdown btn-group"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
             >
               <a
                 aria-expanded={false}
