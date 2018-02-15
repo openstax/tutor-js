@@ -59,7 +59,7 @@ export default class ScoresTable extends React.PureComponent {
   }
 
   get courseId() {
-    return this.props.ux.period.course.id;
+    return this.props.ux.course.id;
   }
 
   renderNoStudents() {
@@ -90,9 +90,9 @@ export default class ScoresTable extends React.PureComponent {
   }
 
   renderLeftColumnGroup() {
-    const { ux, courseId, students, props: { period } } = this;
+    const { props: { ux, ux: { COLUMN_WIDTH, course } }, courseId, students } = this;
 
-    if (!period.course.isTeacher) {
+    if (!course.isTeacher) {
       return (
         <ColumnGroup fixed={true}>
           <Column
@@ -133,22 +133,18 @@ export default class ScoresTable extends React.PureComponent {
   }
 
   render() {
-    const { courseId, students, props: { ux, ux: { COLUMN_WIDTH, period } } } = this;
-    let headerHeight = 140;
+    const { courseId, students, props: { ux, ux: { course, COLUMN_WIDTH, period } } } = this;
 
     if (!period.coursePeriod.num_enrolled_students) { return this.renderNoStudents(); }
     if (isEmpty(students)) { return this.renderNoAssignments(); }
-    if (period.course.isTeacher) {
-      headerHeight = 180;
-    }
 
     return (
       <Table
         className="course-scores-table"
         rowHeight={50}
         height={Math.max(this.props.height, MIN_TABLE_WIDTH)}
-        headerHeight={headerHeight}
-        width={ux.width}
+        headerHeight={course.isTeacher ? 180 : 140}
+        width={ux.tableWidth}
         rowsCount={students.length}
         insetScrollbarX={true}
       >
