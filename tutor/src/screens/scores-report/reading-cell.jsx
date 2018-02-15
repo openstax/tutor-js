@@ -40,6 +40,28 @@ export default class ReadingCell extends React.PureComponent {
     return ReactDOM.findDOMNode(this.refs.pieChart);
   }
 
+  renderReviewLink() {
+    const { task, period } = this.props;
+
+    if (!period.course.isTeacher) {
+      return null;
+    }
+
+    return (
+      <div className="row">
+        <div>
+          <TutorLink
+            to="viewTaskStep"
+            data-assignment-type={`${task.type}`}
+            params={{ courseId, id: task.id, stepIndex: 1 }}
+          >
+            Review
+          </TutorLink>
+        </div>
+      </div>
+    );
+  }
+
   renderPopover() {
     const { task, courseId, period_id } = this.props;
     if (!task.isStarted) { return null; }
@@ -61,17 +83,7 @@ export default class ReadingCell extends React.PureComponent {
                 Completed {TH.getHumanCompletedPercent(task)}
               </div>
             </div>
-            <div className="row">
-              <div>
-                <TutorLink
-                  to="viewTaskStep"
-                  data-assignment-type={`${task.type}`}
-                  params={{ courseId, id: task.id, stepIndex: 1 }}
-                >
-                  Review
-                </TutorLink>
-              </div>
-            </div>
+            {this.renderReviewLink()}
           </div>
         </Popover>
       </Overlay>
