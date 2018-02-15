@@ -103,21 +103,24 @@ export default class StudentScores extends React.PureComponent {
         title={this.title}
         className="course-scores-report"
         controls={this.renderControls()}
-        fullWidthChildren={<TourRegion
-                             id="scores"
-                                 courseId={courseId}
-                                 otherTours={['preview-scores']}>
-          <ContainerDimensions>
-            <ScoresTable
-              ux={this.ux}
-                 sort={this.sort}
-                 onSort={this.changeSortingOrder}
-                 displayAs={this.displayAs}
-                 dataType={this.sort.dataType}
-                 isConceptCoach={this.course.is_concept_coach}
-            />
-          </ContainerDimensions>
-        </TourRegion>}
+        fullWidthChildren={
+          <TourRegion
+            id="scores"
+            courseId={courseId}
+            otherTours={['preview-scores']}
+          >
+            <ContainerDimensions>
+              <ScoresTable
+                ux={this.ux}
+                sort={this.sort}
+                onSort={this.changeSortingOrder}
+                displayAs={this.displayAs}
+                dataType={this.sort.dataType}
+                isConceptCoach={this.course.is_concept_coach}
+              />
+            </ContainerDimensions>
+          </TourRegion>
+        }
       >
         <ScoresReportNav
           course={this.course}
