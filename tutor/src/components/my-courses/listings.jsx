@@ -17,7 +17,7 @@ import TourAnchor from '../tours/anchor';
 
 function wrapCourseItem(Item, course = {}) {
   return (
-    <Col key={`my-courses-item-wrapper-${course.id}`} md={3} sm={6} xs={12}>
+    <Col key={`my-courses-item-wrapper-${course.id}`} lg={3} md={4} sm={6} xs={12}>
       <Item
         course={course}
       />
@@ -28,7 +28,7 @@ function wrapCourseItem(Item, course = {}) {
 function MyCoursesNone() {
   return (
     <Row className="my-courses-none">
-      <Col md={12}>
+      <Col xs={12}>
         <p>
           There are no current courses.
         </p>
@@ -96,7 +96,7 @@ class MyCoursesTitle extends React.Component {
     const { title } = this.props;
     return (
       <Row className="my-courses-title">
-        <Col md={12}>
+        <Col xs={12}>
           <h1>{title}</h1>
         </Col>
       </Row>
@@ -185,7 +185,7 @@ export class MyCoursesFuture extends React.PureComponent {
 
 function ExploreAPreview({ course }) {
   return (
-    <Col key={`my-courses-item-wrapper-${course.id}`} md={3} sm={6} xs={12}>
+    <Col key={`my-courses-item-wrapper-${course.id}`} lg={3} md={4} sm={6} xs={12}>
       <TourAnchor id='explore-a-preview-zone'>
         <CoursePreview
           course={course}
