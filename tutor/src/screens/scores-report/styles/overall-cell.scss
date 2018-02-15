@@ -1,9 +1,6 @@
 .overall-average {
   flex: 1;
-
-  border-top-color: $tutor-neutral;
-  border-top-width: 5px;
-  border-top-style: solid;
+  border-top-width: 0;
 
   font-weight: normal;
   border-bottom: 0;
@@ -17,7 +14,9 @@
     display: flex;
     flex-direction: column;
     background-color: $scores-student-header-bg-color;
-    // flex-basis: $scores-group-row-height;
+    border-top-color: $tutor-neutral;
+    border-top-width: 5px;
+    border-top-style: solid;
 
     .tutor-icon {
       position: absolute;
@@ -61,7 +60,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-bottom: 5px;
+      // padding-bottom: 5px;
       .set-weights {
         white-space: nowrap;
         font-size: 1.4rem;
