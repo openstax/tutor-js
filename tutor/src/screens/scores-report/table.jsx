@@ -16,10 +16,11 @@ import OverallHeader from './overall-header';
 import { CourseScoresPeriod } from '../../models/course/scores';
 import CGL from '../../components/course-grouping-label';
 import OverallCell from './overall-cell';
+
 import UX from './ux';
 
 const FIRST_DATA_COLUMN = 2;
-const COLUMN_WIDTH = 170;
+
 const MIN_TABLE_WIDTH = 500;
 const MIN_TABLE_HEIGHT = 600;
 
@@ -38,7 +39,7 @@ const NameHeader = observer(({ sort, onSort, isConceptCoach }) => (
 export default class ScoresTable extends React.PureComponent {
 
   static propTypes = {
-    period: React.PropTypes.instanceOf(CourseScoresPeriod).isRequired,
+    ux: React.PropTypes.instanceOf(UX).isRequired,
     sort: React.PropTypes.object.isRequired,
     onSort: React.PropTypes.func.isRequired,
     width: React.PropTypes.number,
@@ -48,10 +49,9 @@ export default class ScoresTable extends React.PureComponent {
     isConceptCoach: React.PropTypes.bool.isRequired,
   }
 
-  ux = new UX(this.props.period.course);
 
   @computed get students() {
-    const students = sortBy( this.props.period.students, StudentDataSorter({
+    const students = sortBy( this.props.ux.students, StudentDataSorter({
       sort: this.props.sort,
       displayAs: this.props.displayAs,
     }));
@@ -59,7 +59,7 @@ export default class ScoresTable extends React.PureComponent {
   }
 
   get courseId() {
-    return this.props.period.course.id;
+    return this.props.ux.period.course.id;
   }
 
   renderNoStudents() {
@@ -133,8 +133,7 @@ export default class ScoresTable extends React.PureComponent {
   }
 
   render() {
-    const { ux, courseId, students, props: { period } } = this;
-    const width = COLUMN_WIDTH;
+    const { courseId, students, props: { ux, ux: { COLUMN_WIDTH, period } } } = this;
     let headerHeight = 140;
 
     if (!period.coursePeriod.num_enrolled_students) { return this.renderNoStudents(); }
@@ -148,8 +147,8 @@ export default class ScoresTable extends React.PureComponent {
         className="course-scores-table"
         rowHeight={50}
         height={Math.max(this.props.height, MIN_TABLE_WIDTH)}
-        width={Math.max(this.props.width, MIN_TABLE_HEIGHT)}
         headerHeight={headerHeight}
+        width={ux.width}
         rowsCount={students.length}
         insetScrollbarX={true}
       >

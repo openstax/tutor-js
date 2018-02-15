@@ -1,6 +1,8 @@
 import { observable, computed, action } from 'mobx';
 import bezierAnimation from '../../helpers/bezier';
+import WindowSize from '../../models/window-size';
 import WeightsUX from './weights-ux';
+
 import { UiSettings } from 'shared';
 import { first, isUndefined, clone, reverse } from 'lodash';
 
@@ -10,6 +12,10 @@ const CLOSED_TO_OPENED = [CELL_AVERAGES_SINGLE_WIDTH, CELL_AVERAGES_SINGLE_WIDTH
 const OPENED_TO_CLOSED = reverse(clone(CLOSED_TO_OPENED));
 
 export default class ScoresReportUX {
+
+  COLUMN_WIDTH = 170;
+
+  windowSize = new WindowSize();
 
   @computed get isAveragesExpanded() {
     const isAveragesExpanded = UiSettings.get(IS_AVERAGES_EXPANDED_KEY);
@@ -28,11 +34,22 @@ export default class ScoresReportUX {
   }
 
   @observable averagesWidth = first(this.fromTo);
-
+  @observable periodIndex = 0;
   @observable weights = new WeightsUX(this);
 
   constructor(course) {
     this.course = course;
+  }
+
+
+  @computed get period() {
+    return this.course.scores.periods.get(
+      this.course.periods.active[this.periodIndex].id
+    );
+  }
+
+  @computed get data() {
+    return this.course.scores.periods.get(this.period.id);
   }
 
   @action.bound toggleAverageExpansion() {
@@ -46,6 +63,19 @@ export default class ScoresReportUX {
       onStep: (width) => { this.averagesWidth = width; },
       onComplete,
     });
+  }
+
+  @computed get tableWidth() {
+    return this.averagesWidth + this.COLUMN_WIDTH;
+  }
+
+  @computed get width() {
+    return this.tableWidth;
+    // this.windowSize.width
+    // Math.max(
+    //   Math.min(, this.tableWidth),
+    //
+    // )
   }
 
 }
