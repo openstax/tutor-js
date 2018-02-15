@@ -2,7 +2,7 @@ import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { Dropdown, MenuItem } from 'react-bootstrap';
 import { get } from 'lodash';
-import { action, computed, observable } from 'mobx';
+import { action, computed } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import RootCloseWrapper from 'react-overlays/lib/RootCloseWrapper';
 import User from '../../models/user';
@@ -139,11 +139,6 @@ export default class SupportMenu extends React.PureComponent {
       </RootCloseWrapper>
     );
   }
-
-  @observable isOpen;
-  @action.bound onMouseEnter() { this.isOpen = true; }
-  @action.bound onMouseLeave() { this.isOpen = false; }
-  @action.bound onToggle(isOpen) { this.isOpen = isOpen; }
 
   render() {
     const { open, onClose, rootCloseEvent, courseId } = this.props;
