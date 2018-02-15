@@ -10,6 +10,7 @@ const CELL_AVERAGES_SINGLE_WIDTH = 90;
 const IS_AVERAGES_EXPANDED_KEY = 'is_scores_averages_expanded';
 const CLOSED_TO_OPENED = [CELL_AVERAGES_SINGLE_WIDTH, CELL_AVERAGES_SINGLE_WIDTH * 5];
 const OPENED_TO_CLOSED = reverse(clone(CLOSED_TO_OPENED));
+const PADDING = 50;
 
 export default class ScoresReportUX {
 
@@ -41,7 +42,6 @@ export default class ScoresReportUX {
     this.course = course;
   }
 
-
   @computed get period() {
     return this.course.scores.periods.get(
       this.course.periods.active[this.periodIndex].id
@@ -66,16 +66,11 @@ export default class ScoresReportUX {
   }
 
   @computed get tableWidth() {
-    return this.averagesWidth + this.COLUMN_WIDTH;
-  }
-
-  @computed get width() {
-    return this.tableWidth;
-    // this.windowSize.width
-    // Math.max(
-    //   Math.min(, this.tableWidth),
-    //
-    // )
+    const desiredWidth = this.averagesWidth +
+      (this.COLUMN_WIDTH * (this.period.numAssignments + 1));
+    return Math.min(
+      desiredWidth, (this.windowSize.width - PADDING)
+    );
   }
 
 }
