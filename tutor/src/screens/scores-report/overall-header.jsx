@@ -66,6 +66,7 @@ const OverallHeader = observer(({ ux }) => {
         <div>Progress</div>
       </div>
     </div>
+    {overviewHeaderRow}
   </div>
   );
 });
