@@ -143,7 +143,7 @@ export default class ScoresTable extends React.PureComponent {
       <Table
         className={classnames('course-scores-table')}
         rowHeight={ROW_HEIGHT}
-        height={ux.tableHeight}
+        height={(this.props.height || ux.tableHeight)}
         headerHeight={ux.headerHeight}
         width={ux.tableWidth}
         rowsCount={students.length}
