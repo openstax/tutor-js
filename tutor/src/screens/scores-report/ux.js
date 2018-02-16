@@ -10,11 +10,16 @@ const CELL_AVERAGES_SINGLE_WIDTH = 90;
 const IS_AVERAGES_EXPANDED_KEY = 'is_scores_averages_expanded';
 const CLOSED_TO_OPENED = [CELL_AVERAGES_SINGLE_WIDTH, CELL_AVERAGES_SINGLE_WIDTH * 5];
 const OPENED_TO_CLOSED = reverse(clone(CLOSED_TO_OPENED));
-const PADDING = 50;
+const PADDING = 80;
+const ROW_HEIGHT = 50;
+const TABLE_PADDING = 18;
+const WINDOW_HEIGHT_PADDING = 260;
 
 export default class ScoresReportUX {
 
   COLUMN_WIDTH = 170;
+
+  ROW_HEIGHT = ROW_HEIGHT;
 
   windowSize = new WindowSize();
 
@@ -65,11 +70,33 @@ export default class ScoresReportUX {
     });
   }
 
+  @computed get headerHeight() {
+    return (this.period.course.isTeacher && 180) || 140;
+  }
+
+  @computed get windowHeightPadding() {
+    return (this.period.course.isTeacher && (WINDOW_HEIGHT_PADDING + 95)) || WINDOW_HEIGHT_PADDING;
+  }
+
   @computed get tableWidth() {
     const desiredWidth = this.averagesWidth +
       (this.COLUMN_WIDTH * (this.period.numAssignments + 1));
     return Math.min(
       desiredWidth, (this.windowSize.width - PADDING)
+    );
+  }
+
+  @computed get desiredHeight() {
+    return this.period.students.length * ROW_HEIGHT + this.headerHeight + TABLE_PADDING;
+  }
+
+  @computed get expectedHeight() {
+    return this.windowSize.height - this.windowHeightPadding;
+  }
+
+  @computed get tableHeight() {
+    return Math.min(
+      this.desiredHeight, this.expectedHeight
     );
   }
 

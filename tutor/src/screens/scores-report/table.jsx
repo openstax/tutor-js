@@ -4,6 +4,7 @@ import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import { computed } from 'mobx';
 import { Table, Column, ColumnGroup, Cell } from 'fixed-data-table-2';
 import { autobind } from 'core-decorators';
+import classnames from 'classnames';
 import TutorLink from '../../components/link';
 
 import StudentDataSorter from './student-data-sorter';
@@ -133,17 +134,17 @@ export default class ScoresTable extends React.PureComponent {
   }
 
   render() {
-    const { courseId, students, props: { ux, ux: { course, COLUMN_WIDTH, period } } } = this;
+    const { courseId, students, props: { ux, ux: { course, COLUMN_WIDTH, ROW_HEIGHT, period } } } = this;
 
     if (!period.coursePeriod.num_enrolled_students) { return this.renderNoStudents(); }
     if (isEmpty(students)) { return this.renderNoAssignments(); }
 
     return (
       <Table
-        className="course-scores-table"
-        rowHeight={50}
-        height={Math.max(this.props.height, MIN_TABLE_WIDTH)}
-        headerHeight={course.isTeacher ? 180 : 140}
+        className={classnames('course-scores-table')}
+        rowHeight={ROW_HEIGHT}
+        height={ux.tableHeight}
+        headerHeight={ux.headerHeight}
         width={ux.tableWidth}
         rowsCount={students.length}
         insetScrollbarX={true}
