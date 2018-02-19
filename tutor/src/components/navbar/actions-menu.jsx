@@ -123,7 +123,6 @@ export default class ActionsMenu extends React.Component {
     return (
       <Dropdown
         id="actions-menu"
-        pullRight
         className={classnames('actions-menu')}
       >
         <Dropdown.Toggle

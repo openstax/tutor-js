@@ -41,7 +41,7 @@ exports[`Support Menu renders and matches snapshot 1`] = `
   </a>
   <ul
     aria-labelledby="support-menu"
-    className="dropdown-menu dropdown-menu-right dropdown-menu"
+    className="dropdown-menu"
     role="menu"
   >
     <li
@@ -145,7 +145,7 @@ exports[`Support Menu renders support links when in a course for student 1`] = `
   </a>
   <ul
     aria-labelledby="support-menu"
-    className="dropdown-menu dropdown-menu-right dropdown-menu"
+    className="dropdown-menu"
     role="menu"
   >
     <li
@@ -250,7 +250,7 @@ exports[`Support Menu renders support links when in a course for teacher 1`] = `
   </a>
   <ul
     aria-labelledby="support-menu"
-    className="dropdown-menu dropdown-menu-right dropdown-menu"
+    className="dropdown-menu"
     role="menu"
   >
     <li
