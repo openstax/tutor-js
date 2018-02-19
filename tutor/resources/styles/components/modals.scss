@@ -21,10 +21,10 @@
 
   .modal-footer {
     padding: 0 $modal-padding $modal-padding $modal-padding;
-    text-align: left;
     border-top: 0;
+    display: flex;
     button {
-      height: 50px;
+      @include button(); // openstax pattern-library
     }
   }
 
