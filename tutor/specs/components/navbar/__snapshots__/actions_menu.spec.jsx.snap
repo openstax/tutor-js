@@ -33,7 +33,7 @@ exports[`Student Navbar Component has actions menu that matches snapshot 1`] = `
   </a>
   <ul
     aria-labelledby="actions-menu"
-    className="dropdown-menu dropdown-menu-right"
+    className="dropdown-menu"
     role="menu"
   >
     <li
@@ -212,7 +212,7 @@ exports[`Teacher Navbar Component has actions menu that matches snapshot 1`] = `
   </a>
   <ul
     aria-labelledby="actions-menu"
-    className="dropdown-menu dropdown-menu-right"
+    className="dropdown-menu"
     role="menu"
   >
     <li

@@ -72,7 +72,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
               </a>
               <ul
                 aria-labelledby="support-menu"
-                className="dropdown-menu dropdown-menu-right dropdown-menu"
+                className="dropdown-menu"
                 role="menu"
               >
                 <li
@@ -144,7 +144,7 @@ exports[`main Tutor App renders and matches snapshot 1`] = `
               </a>
               <ul
                 aria-labelledby="actions-menu"
-                className="dropdown-menu dropdown-menu-right"
+                className="dropdown-menu"
                 role="menu"
               >
                 <li
