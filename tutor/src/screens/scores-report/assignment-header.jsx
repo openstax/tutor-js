@@ -34,19 +34,21 @@ const AverageLabel = (props) => {
       </span>
     );
   } if (props.heading.type === 'external') {
-    const p = props.heading.completion_rate;
-    const percent = (() => {
-      switch (false) {
-        case (!(p < 1) || !(p > 0.99)): return 99; // Don't round to 100% when it's not 100%!
-        case (!(p > 0) || !(p < 0.01)): return 1; // Don't round to 0% when it's not 0%!
-        case (!(p > 1)): return 100; // Don't let it go over 100%!
-        default: return Math.round(p * 100);
-      }
-    })();
+    const p = props.heading.average_progress;
+    let percent;
+    if (p < 1 && p > 0.99) {
+      percent = 99; // Don't round to 100% when it's not 100%!
+    } else if (p > 0 && p < 0.01) {
+      percent = 1; // Don't round to 0% when it's not 0%!
+    } else if (p > 1) {
+      percent = 100; // Don't let it go over 100%!
+    } else {
+      percent = Math.round(p * 100);
+    }
 
     return (
       <span className="click-rate">
-        {percent} % have clicked link
+        {percent}% have clicked link
       </span>
     );
   } else {
@@ -111,9 +113,9 @@ const TeacherAssignmentHeaderRow = function(props) {
   }
 
   return (<div className="header-row overview-row">
-      <AverageLabel {...props} heading={heading} />
-      <ReviewLink {...props} heading={heading} />
-    </div>
+    <AverageLabel {...props} heading={heading} />
+    <ReviewLink {...props} heading={heading} />
+  </div>
   );
 
 }
