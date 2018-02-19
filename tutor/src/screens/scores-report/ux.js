@@ -71,16 +71,17 @@ export default class ScoresReportUX {
   }
 
   @computed get headerHeight() {
-    return (this.period.course.isTeacher && 180) || 140;
+    return (this.course.isTeacher && 180) || 140;
   }
 
   @computed get windowHeightPadding() {
-    return (this.period.course.isTeacher && (WINDOW_HEIGHT_PADDING + 95)) || WINDOW_HEIGHT_PADDING;
+    return (this.course.isTeacher && (WINDOW_HEIGHT_PADDING + 95)) || WINDOW_HEIGHT_PADDING;
   }
 
   @computed get tableWidth() {
+    const extraCol = this.course.isTeacher ? 1 : 0;
     const desiredWidth = this.averagesWidth +
-      (this.COLUMN_WIDTH * (this.period.numAssignments + 1));
+      (this.COLUMN_WIDTH * (this.period.numAssignments + extraCol));
     return Math.min(
       desiredWidth, (this.windowSize.width - PADDING)
     );
