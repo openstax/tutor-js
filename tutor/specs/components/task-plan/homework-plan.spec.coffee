@@ -74,7 +74,7 @@ describe 'Homework Plan', ->
       ReactTestUtils.Simulate.change(dom.querySelector('#feedback-select'), target: {value: 'immediate'})
       expect(TaskPlanActions.setImmediateFeedback).to.have.been.calledWith(NEW_HW.id, true)
 
-  it 'should load the plan\'s specified ecosystem_id', ->
+  xit 'should load the plan\'s specified ecosystem_id', ->
     TocActions.load = sinon.spy()
     helper(ECO_HOMEWORK).then ({element}) ->
       element.showSectionTopics()

@@ -1,5 +1,4 @@
 const { gitCommit } = require('./git');
-const Server = require('./server');
 const DIR = require('./working-directory');
 const fs = require('fs-extra');
 

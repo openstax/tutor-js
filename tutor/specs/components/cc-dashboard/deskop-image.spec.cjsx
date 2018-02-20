@@ -11,14 +11,15 @@ Context = require '../helpers/enzyme-context'
 
 
 describe 'CC Dashboard desktop image', ->
+  props = {}
   beforeEach ->
     Courses.bootstrap([COURSE], { clear: true })
-    @props =
+    props =
       courseId: COURSE_ID
 
   it 'list a truncated course title', ->
     Courses.get(COURSE_ID).name = 'A long name that should be truncated somewhere'
-    image = shallow(<Image {...@props} />, Context.build())
+    image = shallow(<Image {...props} />, Context.build())
     expect(image).toHaveRendered('text[className="course-name"]')
     expect(image.find('text[className="course-name"]').text()).toEqual('A long name that should be truncated so…')
     undefined

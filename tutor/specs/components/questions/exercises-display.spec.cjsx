@@ -15,9 +15,9 @@ ECOSYSTEM_ID = '1'
 {TocActions, TocStore} = require '../../../src/flux/toc'
 
 describe 'QL exercises display', ->
-
+  props = {}
   beforeEach ->
-    @props =
+    props =
       ecosystemId: '1'
       courseId: COURSE_ID
       helpTooltip: 'This is help'
@@ -35,14 +35,14 @@ describe 'QL exercises display', ->
       ECOSYSTEM_ID, SECTION_IDS, withExcluded: true
     )?['reading']
 
-    Testing.renderComponent( ExercisesDisplay, props: @props, unmountAfter: 20 ).then ({dom}) ->
+    Testing.renderComponent( ExercisesDisplay, props: props, unmountAfter: 20 ).then ({dom}) ->
       expect( dom.querySelectorAll('.openstax-exercise-preview').length ).to
         .equal(defaultReadingCards.count)
 
 
   it 'displays dialog when exercises are at minimum (5)', ->
     expect(EXERCISES.items.length).to.equal(5)
-    Testing.renderComponent( ExercisesDisplay, props: @props ).then ({dom}) ->
+    Testing.renderComponent( ExercisesDisplay, props: props ).then ({dom}) ->
       Testing.actions.click(dom.querySelector('.openstax-exercise-preview .action.exclude'))
       expect( ExerciseActions.saveExerciseExclusion ).not.to.have.been.called
       expect( document.querySelector('.question-library-min-exercise-exclusions') ).to.exist

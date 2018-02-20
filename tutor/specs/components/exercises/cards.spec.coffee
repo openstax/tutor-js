@@ -1,4 +1,4 @@
-{Testing, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
+{Testing, _, ReactTestUtils} = require '../helpers/component-testing'
 
 Cards = require '../../../src/components/exercises/cards'
 {ExerciseActions, ExerciseStore} = require '../../../src/flux/exercise'
@@ -10,21 +10,20 @@ EXERCISES = require '../../../api/exercises'
 ECOSYSTEM_ID = '1'
 
 describe 'Exercise Cards Component', ->
-
+  props = {}
   beforeEach ->
-
-    @props =
+    props =
       ecosystemId: ECOSYSTEM_ID
       exercises: {grouped: { '1.1': EXERCISES.items} }
-      onExerciseToggle:       sinon.spy()
-      getExerciseIsSelected:  sinon.stub().returns(false)
-      getExerciseActions:     sinon.stub().returns({})
-      onShowDetailsViewClick: sinon.spy()
+      onExerciseToggle:       jest.fn()
+      getExerciseIsSelected:  jest.fn().mockReturnValue(false)
+      getExerciseActions:     jest.fn().mockReturnValue({})
+      onShowDetailsViewClick: jest.fn()
       windowImpl: new FakeWindow
       watchStore: ExerciseStore
       watchEvent: 'testing-'
 
   it 'scrolls to exercse id on mount', ->
-    @props.focusedExerciseId = EXERCISES.items[0].id
-    Testing.renderComponent( Cards, props: @props ).then ({element}) =>
-      expect(@props.windowImpl.scroll).toHaveBeenCalled()
+    props.focusedExerciseId = EXERCISES.items[0].id
+    Testing.renderComponent( Cards, props: props ).then ({element}) =>
+      expect(props.windowImpl.scroll).toHaveBeenCalled()

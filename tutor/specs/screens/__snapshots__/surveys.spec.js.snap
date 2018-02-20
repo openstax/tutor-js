@@ -46,11 +46,6 @@ exports[`Surveys Screen renders and matches snapshot 1`] = `
           className="sv_container"
         >
           <div
-            className="sv_header"
-          >
-            <h3 />
-          </div>
-          <div
             className="sv_body"
             id="sp_100"
           >

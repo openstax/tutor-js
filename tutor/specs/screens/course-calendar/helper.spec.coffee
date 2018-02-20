@@ -9,9 +9,8 @@ Helper = require '../../../src/screens/teacher-dashboard/helper'
 jest.useFakeTimers()
 
 describe 'CourseCalendar Helper', ->
-
+  courseId = 99
   beforeEach ->
-    @courseId = 99
     UiSettings._reset()
 
   it 'detects if sidebar should show intro', ->
@@ -21,9 +20,9 @@ describe 'CourseCalendar Helper', ->
     undefined
 
   it 'stores sidebar state in settings', ->
-    expect(Helper.isSidebarOpen(@courseId)).to.be.false
-    Helper.setSidebarOpen(@courseId, true)
-    expect(Helper.isSidebarOpen(@courseId)).to.be.true
+    expect(Helper.isSidebarOpen(courseId)).to.be.false
+    Helper.setSidebarOpen(courseId, true)
+    expect(Helper.isSidebarOpen(courseId)).to.be.true
     undefined
 
   xit 'will schedule intro callbacks', ->

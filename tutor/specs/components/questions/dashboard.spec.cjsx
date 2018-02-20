@@ -16,9 +16,9 @@ COURSE_ID = '1'
 ECOSYSTEM_ID = '2'
 
 describe 'Questions Dashboard Component', ->
-
+  props = {}
   beforeEach ->
-    @props = {
+    props = {
       courseId: COURSE_ID
       ecosystemId: ECOSYSTEM_ID
     }
@@ -28,6 +28,6 @@ describe 'Questions Dashboard Component', ->
   it 'matches snapshot', ->
     ReactDOM.findDOMNode = jest.fn(-> new FakeDOMNode)
     expect(SnapShot.create(
-      <Wrapper _wrapped_component={Dashboard} noReference {...@props}/>).toJSON()
+      <Wrapper _wrapped_component={Dashboard} noReference {...props}/>).toJSON()
     ).toMatchSnapshot()
     undefined

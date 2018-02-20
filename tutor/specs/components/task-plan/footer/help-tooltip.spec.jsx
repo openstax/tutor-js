@@ -11,34 +11,32 @@ const displayPopover = props =>
 
 
 describe('Task Plan Builder: Help tooltip', function() {
+  let props;
 
   beforeEach(function() {
-    return (
-        this.props =
-          {isPublished: false}
-    );
+    props = {isPublished: false};
   });
 
   it('displays popover that mentions publishing', function() {
     return (
-        displayPopover(this.props).then(dom => expect(dom.textContent).to.include("Publish"))
+        displayPopover(props).then(dom => expect(dom.textContent).to.include("Publish"))
     );
   });
 
   it('doesn’t mention publishing if task plan is published', function() {
-    this.props.isPublished = true;
+    props.isPublished = true;
     return (
-        displayPopover(this.props).then(dom => expect(dom.textContent).to.not.include("Publish"))
+        displayPopover(props).then(dom => expect(dom.textContent).to.not.include("Publish"))
     );
   });
 
 
   it('doesn’t mention delete unless task plan is published', function() {
-    displayPopover(this.props)
+    displayPopover(props)
       .then(dom => expect(dom.textContent).not.to.include("Delete Assignment"));
 
-    this.props.isPublished = true;
-    displayPopover(this.props)
+    props.isPublished = true;
+    displayPopover(props)
       .then(dom => expect(dom.textContent).to.include("Delete Assignment"));
   });
 });

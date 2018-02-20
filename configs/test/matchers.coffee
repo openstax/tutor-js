@@ -5,9 +5,9 @@ jasmine.addMatchers
       matchCount = wrapper.find(selector).length
       result = { pass: matchCount is 1 }
       if result.pass
-        result.message =  "#{selector} was found"
+        result.message =  ->"#{selector} was found"
       else
-        result.message =  "Expected wrapper to contain `#{selector}` only once, but it was found #{matchCount} times"
+        result.message =  -> "Expected wrapper to contain `#{selector}` only once, but it was found #{matchCount} times"
       result
 
 
@@ -38,8 +38,8 @@ expect.extend({
       testValue(i, 'changed value', expected, test.value())
 
     if failures.length
-      { pass: false, message: failures.join("\n") }
+      { pass: false, message: -> failures.join("\n") }
     else
-      { pass: true, message: 'all matched' }
+      { pass: true, message: -> 'all matched' }
 
 })

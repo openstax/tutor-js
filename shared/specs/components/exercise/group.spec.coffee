@@ -3,9 +3,10 @@
 Group = require 'components/exercise/group'
 
 describe 'Exercise Group Component', ->
+  props = null
 
   beforeEach ->
-    @props =
+    props =
       project: 'tutor'
       group: 'personalized'
       related_content: [
@@ -14,17 +15,17 @@ describe 'Exercise Group Component', ->
 
 
   it 'renders the label and icon', ->
-    Testing.renderComponent( Group, props: @props ).then ({dom, wrapper}) ->
+    Testing.renderComponent( Group, props: props ).then ({dom, wrapper}) ->
       expect(dom.textContent).equal('Personalized')
       expect(dom.querySelector('i.icon-personalized')).not.to.be.null
 
   it 'renders null label and icon for groups that should not be visible', ->
-    @props.group = 'core'
-    Testing.renderComponent( Group, props: @props ).then ({dom, wrapper}) ->
+    props.group = 'core'
+    Testing.renderComponent( Group, props: props ).then ({dom, wrapper}) ->
       expect(dom.querySelector('i.icon-personalized')).to.be.null
       expect(dom.textContent).equal('')
 
   it 'renders the exercise uid when passed in', ->
-    @props.group = 'spaced practice'
-    Testing.renderComponent( Group, props: @props ).then ({dom, wrapper, root, element}) ->
+    props.group = 'spaced practice'
+    Testing.renderComponent( Group, props: props ).then ({dom, wrapper, root, element}) ->
       expect(dom.textContent).toContain('Spaced Practice')

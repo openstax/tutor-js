@@ -6,10 +6,10 @@ Sidebar = require '../../../src/screens/teacher-dashboard/add-assignment-sidebar
 EnzymeContext = require '../../components/helpers/enzyme-context'
 
 describe 'CourseCalendar AddAssignmentMenu', ->
+  props = {}
 
   beforeEach ->
-
-    @props =
+    props =
       courseId: '1'
       onSidebarToggle: sinon.spy()
       isOpen: false
@@ -17,7 +17,7 @@ describe 'CourseCalendar AddAssignmentMenu', ->
       hasPeriods: true
 
   it 'renders with style for periods', ->
-    wrapper = mount(<Sidebar {...@props} />, EnzymeContext.withDnD())
+    wrapper = mount(<Sidebar {...props} />, EnzymeContext.withDnD())
     links = wrapper.find('.new-assignments li').map (el) -> el.render().text()
     expect(links).to.deep.equal([
       'Add Reading', 'Add Homework', 'Add External Assignment', 'Add Event'
@@ -26,7 +26,7 @@ describe 'CourseCalendar AddAssignmentMenu', ->
 
 
   it 'set state as events are called', ->
-    wrapper = mount(<Sidebar {...@props} />, EnzymeContext.withDnD())
+    wrapper = mount(<Sidebar {...props} />, EnzymeContext.withDnD())
     expect(Helper.scheduleIntroEvent).not.toHaveBeenCalled()
     wrapper.setState(willShowIntro: true)
     wrapper.setProps(isOpen: true)
@@ -43,7 +43,7 @@ describe 'CourseCalendar AddAssignmentMenu', ->
 
   it 'clears timeout on unmount', ->
     Helper.scheduleIntroEvent.mockReturnValueOnce('one')
-    wrapper = mount(<Sidebar {...@props} />, EnzymeContext.withDnD())
+    wrapper = mount(<Sidebar {...props} />, EnzymeContext.withDnD())
     wrapper.setState(willShowIntro: true)
     wrapper.setProps(isOpen: true)
     expect(Helper.scheduleIntroEvent).toHaveBeenCalled()

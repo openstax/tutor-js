@@ -8,8 +8,7 @@ const server = jsonServer.create();
 const DIR = require('../helpers/working-directory');
 const DB = path.join(DIR, 'backend/db.json');
 fs.copySync(path.join(__dirname, './backend/db.json'), DB);
-console.log(chalk.green(`Starting api server on port ${be_port}; DB: ${DB}`));
-
+// console.log(chalk.green(`Starting api server on port ${be_port}; DB: ${DB}`));
 
 const router = jsonServer.router(DB);
 const middlewares = jsonServer.defaults();

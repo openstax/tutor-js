@@ -5,6 +5,7 @@ env:
   - OX_PROJECT=tutor
   - OX_PROJECT=exercises
   - OX_PROJECT=shared
+  - OX_PROJECT=tutor-acceptance
 
 addons:
   apt:

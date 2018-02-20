@@ -6,11 +6,12 @@ UiSettings = require 'model/ui-settings'
 Networking = require 'model/networking'
 
 describe 'User mode', ->
+  user = null
 
   beforeEach ->
     sinon.spy(Networking, 'perform')
     URLs.update(accounts_api_url: 'http://localhost:2999/api')
-    @user = new User(contact_infos: [
+    user = new User(contact_infos: [
       {id: 1234, is_verified: false}
     ])
 
@@ -19,7 +20,7 @@ describe 'User mode', ->
     Networking.perform.restore()
 
   it 'can request email confirmation', ->
-    email = _.first @user.unVerfiedEmails()
+    email = _.first user.unVerfiedEmails()
     expect(email).to.exist
     email.sendConfirmation()
     expect(Networking.perform).to.have.been.calledWith({
@@ -31,7 +32,7 @@ describe 'User mode', ->
     undefined
 
   it 'can send an email confirmation', ->
-    email = _.first @user.unVerfiedEmails()
+    email = _.first user.unVerfiedEmails()
     email.sendVerification("1234")
     expect(Networking.perform).to.have.been.calledWith({
       method: 'PUT', url: 'http://localhost:2999/api/contact_infos/1234/confirm_by_pin.json',

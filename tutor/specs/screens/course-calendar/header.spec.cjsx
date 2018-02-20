@@ -2,9 +2,10 @@ Header = require '../../../src/screens/teacher-dashboard/header'
 moment = require 'moment'
 
 describe 'CourseCalendar Header', ->
+  props = {}
 
   beforeEach ->
-    @props =
+    props =
       courseId: '1'
       duration: 'month'
       setDate: sinon.spy()
@@ -14,7 +15,7 @@ describe 'CourseCalendar Header', ->
       onSidebarToggle: sinon.spy()
 
   it 'renders with links', ->
-    wrapper = shallow(<Header {...@props} />)
+    wrapper = shallow(<Header {...props} />)
     expect(wrapper.find('TutorLink[to="viewPerformanceGuide"]')).to.not.be.empty
     expect(wrapper.find('TutorLink[to="viewScores"]')).to.not.be.empty
     undefined

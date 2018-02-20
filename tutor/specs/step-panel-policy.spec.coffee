@@ -40,6 +40,9 @@ fakeComplete = (stepId) ->
 # test for exercise step based on task id so that these tests can be repeated for different tasks
 testForExerciseStepWithReview = (taskId) ->
   ->
+    answerId = null
+    stepId = null
+
     beforeEach ->
       TaskActions.loaded(models[taskId], taskId)
       steps = TaskStore.getSteps(taskId)
@@ -50,8 +53,8 @@ testForExerciseStepWithReview = (taskId) ->
       answerId = firstUnansweredExercise.content.questions[0].answers[0].id
       stepId = firstUnansweredExercise.id
 
-      @answerId = answerId
-      @stepId = stepId
+      answerId = answerId
+      stepId = stepId
 
     afterEach ->
       TaskActions.reset()
@@ -59,7 +62,7 @@ testForExerciseStepWithReview = (taskId) ->
 
 
     it 'should return free-response and multiple-choice as available panels', ->
-      panels = StepPanel.getPanelsWithStatus @stepId
+      panels = StepPanel.getPanelsWithStatus stepId
       expect(panels.length).to.equal(3)
       expect(panels[0].name).to.equal('free-response')
       expect(panels[1].name).to.equal('multiple-choice')
@@ -67,28 +70,28 @@ testForExerciseStepWithReview = (taskId) ->
       undefined
 
     it 'should allow review for past due homework', ->
-      canReview = StepPanel.canReview @stepId
+      canReview = StepPanel.canReview stepId
       expect(canReview).to.equal(true)
       undefined
 
     it 'should return multiple-choice as the panel after free-response answered', ->
-      TaskStepActions.setFreeResponseAnswer @stepId, 'Hello!'
-      panel = StepPanel.getPanel @stepId
+      TaskStepActions.setFreeResponseAnswer stepId, 'Hello!'
+      panel = StepPanel.getPanel stepId
       expect(panel).to.equal('multiple-choice')
       undefined
 
     it 'should return multiple-choice as the panel after multiple-choice answered', ->
-      TaskStepActions.setFreeResponseAnswer @stepId, 'Hello!'
-      TaskStepActions.setAnswerId @stepId, @answerId
-      panel = StepPanel.getPanel @stepId
+      TaskStepActions.setFreeResponseAnswer stepId, 'Hello!'
+      TaskStepActions.setAnswerId stepId, answerId
+      panel = StepPanel.getPanel stepId
       expect(panel).to.equal('multiple-choice')
       undefined
 
     it 'should return review as the panel after completed', ->
-      TaskStepActions.setFreeResponseAnswer @stepId, 'Hello!'
-      TaskStepActions.setAnswerId @stepId, @answerId
-      fakeComplete @stepId
-      panel = StepPanel.getPanel @stepId
+      TaskStepActions.setFreeResponseAnswer stepId, 'Hello!'
+      TaskStepActions.setAnswerId stepId, answerId
+      fakeComplete stepId
+      panel = StepPanel.getPanel stepId
       expect(panel).to.equal('review')
       undefined
 
