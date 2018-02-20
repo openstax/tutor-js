@@ -1,6 +1,6 @@
 .modal {
   $header-padding: 35px;
-  $modal-padding: 30px;
+  $modal-padding: 50px;
 
   .modal-content {
     border-radius: 0;
@@ -23,9 +23,6 @@
     padding: 0 $modal-padding $modal-padding $modal-padding;
     border-top: 0;
     display: flex;
-    button {
-      @include button(); // openstax pattern-library
-    }
   }
 
 }
