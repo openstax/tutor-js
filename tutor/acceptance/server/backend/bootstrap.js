@@ -10,8 +10,8 @@ const { clone, merge } = require('lodash');
 let ROLE = 'teacher';
 
 function addCourses(courses, attrs) {
-  courses.push(Factory.create('Course', merge(attrs, { type: 'biology' months_ago: 1 })));
-  courses.push(Factory.create('Course', merge(attrs, { type: 'physics' months_ago: 2 })));
+  courses.push(Factory.create('Course', merge(attrs, { type: 'biology', months_ago: 1 })));
+  courses.push(Factory.create('Course', merge(attrs, { type: 'physics', months_ago: 2 })));
   courses.push(Factory.create('Course', merge(attrs, { type: 'physics', months_ago: -6 })));
   courses.push(Factory.create('Course', merge(attrs, { type: 'biology', months_ago: -7 })));
 }

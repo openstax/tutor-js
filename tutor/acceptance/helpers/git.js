@@ -1,5 +1,6 @@
 const gitP = require('simple-git/promise');
 const path = require('path');
+const fs = require('fs-extra');
 const { imagesDir } = require('./images-dir');
 const chalk = require('chalk');
 
@@ -34,7 +35,8 @@ async function gitCommit() {
   await g.push('origin', currentBranchName);
 }
 
-function gitInit() {
+async function gitInit() {
+  await fs.ensureDir(imagesDir);
   const git = gitP(imagesDir);
   return git.cwd(imagesDir)
     .then(() => git.checkIsRepo())
@@ -44,6 +46,7 @@ function gitInit() {
 }
 
 function git() {
+  process.exit(1)
   return gitP(imagesDir);
 }
 

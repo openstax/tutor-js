@@ -1,6 +1,8 @@
 module.exports = {
   coverageDirectory: '../coverage/tutor/',
   rootDir: '../../tutor',
+  collectCoverage: false,
+  collectCoverageFrom: [],
   testRegex: 'acceptance/.*\.spec\.js$',
   testEnvironment: '<rootDir>/acceptance/helpers/jest-environment.js',
   setupTestFrameworkScriptFile: '<rootDir>/acceptance/setup.js',
