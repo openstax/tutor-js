@@ -1,6 +1,0 @@
-{
-  "/api/user/ui_settings": "/ui-settings",
-  "/api/log/entry": "/log",
-  "/api/log/event/onboarding/:id": "/onboarding",
-  "/api/:key": "/:key"
-}
