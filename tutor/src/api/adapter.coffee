@@ -1,4 +1,4 @@
-_ = require 'lodash'
+merge = require 'lodash/merge'
 {APIHandler} = require 'shared'
 {APIActionAdapter} = require 'shared'
 { observe } = require 'mobx'
@@ -8,8 +8,13 @@ _ = require 'lodash'
 {AppActions} = require '../flux/app'
 User = require('../models/user').default
 tutorAPIHandler = null
-
-baseUrl = if window.location.port is '8000' then 'http://localhost:3001/api' else "#{window.location.origin}/api"
+baseUrl =
+  if process.env.BACKEND_SERVER_URL
+    process.env.BACKEND_SERVER_URL
+  else if window.location.port is '8000'
+    'http://localhost:3001/api'
+  else
+    "#{window.location.origin}/api"
 
 setNow = (headers) ->
   # axios will lower case headers https://github.com/axios/axios/issues/413
@@ -49,4 +54,4 @@ observe(User, 'csrf_token', (change) ->
   tutorAPIHandler.channel.emit('set.tokens', change.newValue) if change.newValue
 )
 
-module.exports = _.merge({handler: tutorAPIHandler}, APIActionAdapter(tutorAPIHandler))
+module.exports = merge({handler: tutorAPIHandler}, APIActionAdapter(tutorAPIHandler))

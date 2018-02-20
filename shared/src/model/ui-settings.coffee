@@ -18,12 +18,6 @@ saveSettings = debounce( ->
     method: 'PUT',
     url: URLs.construct('tutor_api', 'user', 'ui_settings')
     withCredentials: true
-    config:
-      BANG: false
-      events:
-        failure: false
-    onFail: ->
-      debugger
     data:
       ui_settings: mobx.toJS(SETTINGS)
   )
