@@ -1,8 +1,8 @@
 path = require 'path'
-
 _ = require 'lodash'
 webpack = require 'webpack'
 UglifyJsPlugin = require 'uglifyjs-webpack-plugin'
+ProgressBarPlugin = require 'progress-bar-webpack-plugin'
 
 LOADERS =
   babel:  'babel-loader'
@@ -157,7 +157,8 @@ makeProductionWithCoverageBase = (projectConfig) ->
 
 makeDevelopmentBase = (projectConfig) ->
   host = process.env.OX_PROJECT_HOST or projectConfig.host or 'localhost'
-  servePath = "http://#{host}:#{projectConfig.devPort}"
+  port = process.env.DEV_PORT or projectConfig.devPort
+  servePath = "http://#{host}:#{port}"
   publicPath = "#{servePath}/dist/"
   outputPath = "#{projectConfig.basePath}/"
 
@@ -170,7 +171,7 @@ makeDevelopmentBase = (projectConfig) ->
       rules: BASE_DEV_LOADER_RULES
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
-
+      new ProgressBarPlugin(),
     ]
     devServer:
       contentBase: "#{projectConfig.basePath}/"
