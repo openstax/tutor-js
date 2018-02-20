@@ -5,9 +5,9 @@ const chalk = require('chalk');
 const { fe_port, be_port } = require('./ports');
 const server = jsonServer.create();
 
-const DIR = require('../working-directory');
-const DB = path.join(DIR, 'server.db.json');
-fs.copySync(path.join(__dirname, './backend.db.json'), DB);
+const DIR = require('../helpers/working-directory');
+const DB = path.join(DIR, 'backend/db.json');
+fs.copySync(path.join(__dirname, './backend/db.json'), DB);
 console.log(chalk.green(`Starting api server on port ${be_port}; DB: ${DB}`));
 
 
@@ -19,8 +19,8 @@ let role = 'teacher';
 
 server.use(middlewares);
 const HANDLERS = {
-  '/api/bootstrap': require('./bootstrap-data-handler'),
-  '/api/offerings': require('./offerings-data-handler'),
+  '/api/bootstrap': require('./backend/bootstrap'),
+  '/api/offerings': require('./backend/offerings'),
 };
 
 // routes that have custom logic

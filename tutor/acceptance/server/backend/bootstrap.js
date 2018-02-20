@@ -1,9 +1,9 @@
 const Factory = require('object-factory-bot');
 
-const BOOTSTRAP_DATA = require('../../data/bootstrap.json');
+const BOOTSTRAP_DATA = require('./static-bootstra-data.json');
 require('../../../factories/user');
 require('../../../factories/course');
-const { fe_port, be_port } = require('./ports');
+const { fe_port, be_port } = require('../ports');
 
 const { clone, merge } = require('lodash');
 

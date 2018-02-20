@@ -163,7 +163,6 @@ class APIHandlerBase
     {handlers} = @getOptions()
     {onSuccess, onFail} = routeOptions
 
-    onFail = requestConfig.onFail if requestConfig.onFail
     onSuccess ?= DEFAULT_SUCCESS
     onFail ?= DEFAULT_FAIL
 

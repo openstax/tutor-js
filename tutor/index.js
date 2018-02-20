@@ -5,7 +5,7 @@ Recordo.initialize();
 import './resources/styles/tutor.scss';
 
 import { UiSettings } from 'shared';
-import Bootstrap from './src/models/bootstrap';
+import App from './src/models/app';
 
 import OFFERINGS from './src/models/course/offerings';
 import USER from './src/models/user';
@@ -46,7 +46,7 @@ const loadApp = function() {
   if (document.readyState !== 'interactive') {
     return false;
   }
-  const app = new Bootstrap();
+  const app = new App();
   app.boot().then(() => {
     // Both require and module.hot.accept must be passed a bare string, not variable
     const Renderer = ReactHelpers.renderRoot( () => require('./src/components/root').default);

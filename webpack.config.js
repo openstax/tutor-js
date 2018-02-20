@@ -8,7 +8,7 @@ if (!process.env.OX_PROJECT){
 }
 
 var mode = process.env.NODE_ENV || 'development';
-
+console.log("mode: ", mode);
 config = makeConfig(process.env.OX_PROJECT, mode);
 
 

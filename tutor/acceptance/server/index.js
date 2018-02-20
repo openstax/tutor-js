@@ -20,7 +20,7 @@ class Server {
       new Promise((resolve, reject) => {
         this.pending[server] = { resolve, reject };
         this[server] = fork(
-          path.join(__dirname, `./server/${server}.js`),
+          path.join(__dirname, `./${server}.js`),
           [this.ports.frontend, this.ports.backend], {},
         );
         this[server].on('message', bind(this._onMessage, this, server));

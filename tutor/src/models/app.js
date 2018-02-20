@@ -23,7 +23,7 @@ const BOOTSTRAPED_MODELS = {
   feature_flags: FeatureFlagsApi,
 };
 
-export default class Bootstrap {
+export default class TutorApp {
 
   boot() {
     startAPI();
@@ -62,4 +62,4 @@ export default class Bootstrap {
   }
 }
 
-connectModelRead(Bootstrap, 'fetch', { url: '/bootstrap', onSuccess: 'onLoaded' });
+connectModelRead(TutorApp, 'fetch', { url: '/bootstrap', onSuccess: 'onLoaded' });

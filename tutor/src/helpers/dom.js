@@ -268,7 +268,6 @@ export function read_csrf() {
 
 export function readBootstrapData(root = document) {
   const el = root.querySelector('#tutor-boostrap-data');
-  console.log(el)
   if (el) {
     el.parentNode.removeChild(el);
     return JSON.parse(el.textContent);
