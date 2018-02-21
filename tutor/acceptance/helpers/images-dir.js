@@ -1,3 +1,3 @@
-const imagesDir = process.env.SCREENSHOTS_DIR;
+const path = require('path');
 
-module.exports = { imagesDir };
+module.exports = { imagesDir: path.join(__dirname, '../../../screenshots') };

@@ -2,12 +2,4 @@
 
 set -e
 
-if [ $# -eq 0 ]; then
-    echo "No directory to store screenshots was given. usage:"
-    echo "$0 <images directory>"
-    exit 1
-fi
-
-export SCREENSHOTS_DIR="$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
-
 $(npm bin)/jest --config ./configs/test/jest.tutor-acceptance.js "${@:2}"

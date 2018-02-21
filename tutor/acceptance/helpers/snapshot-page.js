@@ -1,6 +1,5 @@
 import path from 'path';
 import fs from 'fs';
-import { git } from './git';
 import pixelmatch from 'pixelmatch';
 import { PNG } from 'pngjs';
 const { imagesDir } = require('./images-dir');
