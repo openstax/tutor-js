@@ -5,8 +5,6 @@ set -ev
 # travis should be setting the OX_PROJECT variable
 # export OX_PROJECT='tutor'
 
-export SCREENSHOTS_DIR="../tutor-images"
-
 $(npm bin)/jest --maxWorkers=2 --verbose --coverage --config ./configs/test/jest.$OX_PROJECT.js
 
 echo -en 'travis_fold:start:build\\r'

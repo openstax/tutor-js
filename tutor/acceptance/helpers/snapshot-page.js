@@ -21,11 +21,16 @@ async function compare(file) {
       if (++filesRead < 2) return;
 
       var diff = new PNG({width: old.width, height: old.height});
-      const mismatched = pixelmatch(old.data, current.data, diff.data, old.width, old.height, { threshold: 0.1 });
+      const mismatched = pixelmatch(old.data, current.data, diff.data, old.width, old.height, { threshold: 0.4 });
       if (mismatched > 100) {
         const diffFile = `${file}-diff.png`;
         diff.pack().pipe(fs.createWriteStream(diffFile));
-        resolve({ differences: diffFile, file: prevFile, testFile, status: 'MODIFIED' });
+        resolve({
+          status: 'MODIFIED',
+          mismatchCount: mismatched,
+          differences: diffFile,
+          file: prevFile, testFile,
+        });
       } else {
         fs.unlinkSync(testFile);
         resolve({ file: prevFile, status: 'OK' });

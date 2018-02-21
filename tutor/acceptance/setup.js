@@ -14,7 +14,7 @@ expect.extend({
         return { pass: true, message: () => 'snapshot was updated' };
       } else {
         this.snapshotState.unmatched += 1;
-        return { pass: false, message: () => `Image did not match previous. Differences are highlighted in ${EXPECTED_COLOR(source.differences)}` };
+        return { pass: false, message: () => `Image did not match previous (${RECEIVED_COLOR(source.mismatchCount)} mismatched). Differences are highlighted in ${EXPECTED_COLOR(source.differences)}` };
 
       }
     } else if ('NEW' === source.status) {
