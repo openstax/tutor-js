@@ -6,7 +6,10 @@ import UiSettings from 'shared/model/ui-settings';
 import User from '../../../../src/models/user';
 import Payments from '../../../../src/models/payments';
 
-jest.mock('shared/model/ui-settings' );
+jest.mock('shared/model/ui-settings', () => ({
+  set: jest.fn(),
+  get: jest.fn(),
+}));
 jest.mock('../../../../src/models/course');
 jest.mock('../../../../src/models/payments' );
 jest.useFakeTimers();

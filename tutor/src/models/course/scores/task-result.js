@@ -2,7 +2,7 @@ import { filter, find, includes, findIndex, reduce, isNil } from 'lodash';
 import { computed, observable, action } from 'mobx';
 import {
   BaseModel, identifiedBy, belongsTo, hasMany, session, identifier, field,
-} from '../../base';
+} from 'shared/model';
 import { TimeStore } from '../../../flux/time';
 
 @identifiedBy('course/scores/task-result')

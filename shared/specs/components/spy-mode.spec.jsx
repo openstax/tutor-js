@@ -1,7 +1,7 @@
 import { Testing, _ } from 'shared/specs/helpers';
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { Wrapper, Content } from 'components/spy-mode';
+import { SpyModeContent as Content, SpyModeWrapper as Wrapper } from 'shared/components/spy-mode';
 
 function TestChildComponent() {
   return React.createElement('span', {}, 'i am a test');

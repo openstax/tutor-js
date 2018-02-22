@@ -5,7 +5,7 @@ import { uniqueId } from 'lodash';
 
 import {
   BaseModel, identifiedBy, session,
-} from '../base';
+} from 'shared/model';
 
 @identifiedBy('jobs/queue')
 export class JobCompletion extends BaseModel {

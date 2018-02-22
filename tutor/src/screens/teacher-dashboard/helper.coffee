@@ -1,5 +1,5 @@
 TutorRouter = require '../../helpers/router'
-{UiSettings} = require 'shared'
+UiSettings = require 'shared/model/ui-settings'
 
 _ = require 'lodash'
 

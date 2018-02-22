@@ -2,7 +2,7 @@ React = require 'react'
 BS = require 'react-bootstrap'
 
 {ExerciseActions, ExerciseStore} = require 'stores/exercise'
-AsyncButton = require 'shared/src/components/buttons/async-button.cjsx'
+AsyncButton = require 'shared/components/buttons/async-button.cjsx'
 MPQToggle = require 'components/exercise/mpq-toggle'
 {SuretyGuard} = require 'shared'
 

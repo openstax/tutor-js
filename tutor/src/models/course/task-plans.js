@@ -1,11 +1,11 @@
 import { computed, observable, action } from 'mobx';
 import { find } from 'lodash';
-import Map from '../map';
+import Map from 'shared/model/map';
 import TaskPlan from '../task-plan/teacher';
 
 import {
   BaseModel, identifiedBy, identifier, field, session, belongsTo,
-} from '../base';
+} from 'shared/model';
 
 export default class CourseTaskPlans extends Map {
 

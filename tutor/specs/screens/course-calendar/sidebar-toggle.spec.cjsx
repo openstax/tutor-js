@@ -1,5 +1,5 @@
 {React, SnapShot} = require '../../components/helpers/component-testing'
-{UiSettings} = require 'shared'
+UiSettings = require 'shared/model/ui-settings'
 
 jest.mock('../../../src/screens/teacher-dashboard/helper')
 Helper = require '../../../src/screens/teacher-dashboard/helper'

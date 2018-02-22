@@ -1,7 +1,7 @@
 import { action, computed } from 'mobx';
 import { pick, sortBy, map, groupBy, mapValues, extend, isArray } from 'lodash';
-import Map from './map';
-import lazyGetter from '../helpers/lazy-getter';
+import Map from 'shared/model/map';
+import lazyGetter from 'shared/helpers/lazy-getter';
 import { chapterSectionToNumber } from '../helpers/content';
 import Hypothesis from './annotations/hypothesis';
 import Annotation from './annotations/annotation';

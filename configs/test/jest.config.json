@@ -12,10 +12,11 @@
   "moduleFileExtensions": [ "coffee", "js", "cjsx", "jsx", "json" ],
   "setupTestFrameworkScriptFile": "<rootDir>../configs/test/jest.setup.coffee",
   "modulePaths": [
-    "<rootDir>/src",
-    "<rootDir>/../"
+    "<rootDir>/src"
   ],
   "moduleNameMapper": {
+    "^shared/specs/(.*)$": "<rootDir>/../shared/specs/$1",
+    "^shared/(.*)$": "<rootDir>/../shared/src/$1",
     "^shared$": "<rootDir>/../shared/src/index.js",
     "\\.(css|less|scss)$": "<rootDir>/../configs/test/jest.style-mock.js"
   },

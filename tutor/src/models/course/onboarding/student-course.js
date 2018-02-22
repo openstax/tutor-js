@@ -2,7 +2,7 @@ import {
   computed, observable, action,
 } from 'mobx';
 import { get } from 'lodash';
-import { UiSettings } from 'shared';
+import UiSettings from 'shared/model/ui-settings';
 import BaseOnboarding from './base';
 import Nags from '../../../components/onboarding/nags';
 import Payments from '../../payments';

@@ -2,7 +2,7 @@ import { find, pick, extend } from 'lodash';
 import moment from 'moment';
 import {
   BaseModel, identifiedBy, field, identifier, belongsTo, computed,
-} from '../base';
+} from 'shared/model';
 import Courses from '../courses-map';
 import { TimeStore } from '../../flux/time';
 import { numberWithTwoDecimalPlaces } from '../../helpers/string';

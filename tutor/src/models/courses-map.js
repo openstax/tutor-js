@@ -1,4 +1,4 @@
-import Map from './map';
+import Map from 'shared/model/map';
 import { computed, action } from 'mobx';
 import Course from './course';
 import { isEmpty } from 'lodash';

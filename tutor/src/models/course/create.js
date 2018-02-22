@@ -1,6 +1,6 @@
 import {
   BaseModel, identifiedBy, field, belongsTo, computed, session,
-} from '../base';
+} from 'shared/model';
 import { observable, action } from 'mobx';
 import { readonly } from 'core-decorators';
 import { extend, omit, inRange } from 'lodash';

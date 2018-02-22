@@ -4,7 +4,7 @@ Recordo.initialize();
 // Recordo.start()
 import './resources/styles/tutor.scss';
 
-import { UiSettings } from 'shared';
+import UiSettings from 'shared/model/ui-settings';
 import App from './src/models/app';
 
 

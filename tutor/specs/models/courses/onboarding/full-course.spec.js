@@ -7,7 +7,10 @@ import moment from 'moment';
 import { TimeStore } from '../../../../src/flux/time';
 import Nags from '../../../../src/components/onboarding/nags';
 
-jest.mock('shared/model/ui-settings');
+jest.mock('shared/model/ui-settings', () => ({
+  set: jest.fn(),
+  get: jest.fn(),
+}));
 jest.mock('../../../../src/flux/time', () => ({
   TimeStore: {
     getNow: jest.fn(() => new Date('Thu Aug 31 2017 16:53:12 GMT-0500 (CDT)')),

@@ -4,7 +4,7 @@ import {
 import { includes, isNil } from 'lodash';
 
 import BaseOnboarding from './base';
-import { UiSettings } from 'shared';
+import UiSettings from 'shared/model/ui-settings';
 import Nags from '../../../components/onboarding/nags';
 import User from '../../user';
 import { TimeStore } from '../../../flux/time';

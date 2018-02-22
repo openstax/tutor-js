@@ -1,6 +1,6 @@
 import {
   BaseModel, identifiedBy, field,
-} from './base';
+} from 'shared/model';
 import { computed } from 'mobx';
 import moment from 'moment';
 import twix from 'twix';

@@ -1,4 +1,4 @@
-import Map from './map';
+import Map from 'shared/model/map';
 import moment from 'moment-timezone';
 import { readonly } from 'core-decorators';
 import { computed, action, observable } from 'mobx';

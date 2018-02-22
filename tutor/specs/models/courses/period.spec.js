@@ -10,6 +10,7 @@ describe('Course Periods Model', () => {
   });
 
 
+
   it('calculates a join url', () => {
     expect(period.enrollment_url_with_details).toContain(
       period.enrollment_code

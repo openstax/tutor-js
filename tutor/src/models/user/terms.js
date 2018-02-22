@@ -1,6 +1,6 @@
 import {
   BaseModel, identifiedBy, identifier, field, belongsTo, hasMany,
-} from '../base';
+} from 'shared/model';
 
 import { action, computed, observable } from 'mobx';
 import { filter } from 'lodash';

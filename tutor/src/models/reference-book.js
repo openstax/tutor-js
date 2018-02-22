@@ -3,7 +3,7 @@ import { last } from 'lodash';
 import { action, observable, computed } from 'mobx';
 import {
   BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
-} from './base';
+} from 'shared/model';
 import ChapterSection from './chapter-section';
 import ReferenceBookPage from './reference-book/page';
 

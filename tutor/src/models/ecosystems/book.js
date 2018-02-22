@@ -1,7 +1,7 @@
 import { computed } from 'mobx';
 import {
   BaseModel, identifiedBy, field, identifier, belongsTo,
-} from '../base';
+} from 'shared/model';
 
 @identifiedBy('ecosystems/ecosystem')
 export default class EcosystemBook extends BaseModel {

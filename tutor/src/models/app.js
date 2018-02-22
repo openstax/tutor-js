@@ -1,6 +1,7 @@
 import { isEmpty, forIn } from 'lodash';
 import { observable, action } from 'mobx';
-import { BootstrapURLs, UiSettings, ExerciseHelpers } from 'shared';
+import { BootstrapURLs, ExerciseHelpers } from 'shared';
+import UiSettings from 'shared/model/ui-settings';
 import ErrorMonitoring from 'shared/helpers/error-monitoring';
 import { startMathJax } from 'shared/helpers/mathjax';
 import { connectModelRead } from '../api/adapter';

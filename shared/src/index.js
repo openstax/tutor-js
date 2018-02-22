@@ -23,8 +23,6 @@ export Markdown from './components/markdown';
 export AsyncButton from './components/buttons/async-button';
 export BootstrapURLs from './model/urls';
 export ChangeStudentIdForm from './components/change-student-id-form';
-export UiSettings from './model/ui-settings';
-export Networking from './model/networking';
 export Breadcrumb from './components/breadcrumb';
 
 export ChapterSectionMixin from './components/chapter-section-mixin';

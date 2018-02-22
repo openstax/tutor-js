@@ -1,6 +1,6 @@
 import {
   BaseModel, field, identifiedBy,
-} from '../../base';
+} from 'shared/model';
 
 @identifiedBy('offerings/term')
 export default class Term extends BaseModel {

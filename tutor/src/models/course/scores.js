@@ -2,7 +2,7 @@ import { filter, find, reduce, map, each, findIndex, groupBy, mapValues, sumBy }
 import { computed, observable, action } from 'mobx';
 import {
   BaseModel, identifiedBy, field, hasMany, belongsTo,
-} from '../base';
+} from 'shared/model';
 import { TimeStore } from '../../flux/time';
 
 import TaskResult from './scores/task-result';

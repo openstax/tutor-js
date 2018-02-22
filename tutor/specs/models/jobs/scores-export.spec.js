@@ -9,7 +9,10 @@ jest.mock('../../../src/flux/time', () => ({
   TimeStore: { getNow: jest.fn(() => mockNowDate) },
 }));
 
-jest.mock('shared/model/ui-settings');
+jest.mock('shared/model/ui-settings', () => ({
+  set: jest.fn(),
+  get: jest.fn(),
+}));
 
 describe('Scores export job', () => {
 
