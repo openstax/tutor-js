@@ -1,5 +1,5 @@
 import { observable, computed, action } from 'mobx';
-import { reduce, each } from 'lodash';
+import { reduce, each, inRange } from 'lodash';
 
 const CELL_AVERAGES_SINGLE_WIDTH = 80;
 
@@ -64,7 +64,10 @@ export default class ScoresReportWeightsUX {
 
   @action.bound setWeight(ev) {
     this.hasChanged = true;
-    this[ev.target.name] = parseInt(ev.target.value);
+    const weight = parseInt(ev.target.value);
+    if (inRange(weight, 0, 101)) { // inRange is up to but not including end
+      this[ev.target.name] = weight;
+    }
   }
 
   @computed get isValid() {
