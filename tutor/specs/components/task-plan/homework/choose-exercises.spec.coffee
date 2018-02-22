@@ -18,12 +18,12 @@ NEW_PLAN = ExtendBasePlan({id: PLAN_ID})
 ChooseExercises = require '../../../../src/components/task-plan/homework/choose-exercises'
 
 describe 'choose exercises component', ->
-
+  props = {}
   beforeEach ->
     TocActions.loaded(READINGS, ECOSYSTEM_ID)
     TaskPlanActions.loaded(NEW_PLAN, PLAN_ID)
     Courses.bootstrap([COURSE], { clear: true })
-    @props =
+    props =
       ecosystemId: ECOSYSTEM_ID
       courseId: COURSE_ID
       canEdit: false
@@ -32,10 +32,10 @@ describe 'choose exercises component', ->
       hide: sinon.spy()
 
   it 'renders selections', ->
-    Testing.renderComponent( ChooseExercises, props: @props ).then ({dom}) ->
+    Testing.renderComponent( ChooseExercises, props: props ).then ({dom}) ->
       expect(dom.querySelector('[data-chapter-section="1.1"]')).to.exist
 
   it 'hides exercises onSectionChange', ->
-    Testing.renderComponent( ChooseExercises, props: @props, unmountAfter: 10 ).then ({dom, element}) ->
+    Testing.renderComponent( ChooseExercises, props: props, unmountAfter: 10 ).then ({dom, element}) ->
       Testing.actions.click( dom.querySelector('.section') )
       expect(element.state.showProblems).to.be.false

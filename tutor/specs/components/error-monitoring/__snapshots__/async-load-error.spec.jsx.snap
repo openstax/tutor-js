@@ -32,7 +32,7 @@ exports[`AsyncLoadErrors Component renders and matches snapshot if page is reloa
   <button
     className="btn btn-primary"
     disabled={false}
-    onClick={[Function]}
+    onClick={[MockFunction]}
     type="button"
   >
     Retry

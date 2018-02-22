@@ -1,19 +1,18 @@
-import { bootstrapCoursesList } from '../../courses-test-data';
-
+import Factories from '../../factories';
 
 describe('Course Periods Model', () => {
 
-  let courses, period;
+  let course, period;
 
   beforeEach(() => {
-    courses = bootstrapCoursesList();
-    period = courses.get(2).periods[0];
+    course = Factories.Course();
+    period = course.periods[0];
   });
 
 
   it('calculates a join url', () => {
-    expect(period.enrollment_url_with_details).toEqual(
-      'http://test/period/1/Local-Test-Course-Two-Spring-2017'
+    expect(period.enrollment_url_with_details).toContain(
+      period.enrollment_code
     );
   });
 

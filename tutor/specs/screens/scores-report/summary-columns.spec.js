@@ -4,7 +4,10 @@ import bootstrapScores from '../../helpers/scores-data';
 import EnzymeContext from '../../components/helpers/enzyme-context';
 import Scores from '../../../src/screens/scores-report/index';
 
-jest.useFakeTimers();
+jest.mock('../../../src/helpers/bezier', () => ({ range, onStep, onComplete }) => {
+  onStep(range[1]);
+  onComplete();
+});
 
 describe('Scores Report summary columns', function() {
 
@@ -13,7 +16,6 @@ describe('Scores Report summary columns', function() {
   let period;
 
   beforeEach(() => {
-
     ({ course, period } = bootstrapScores());
     props = {
       params: { courseId: course.id },
@@ -24,9 +26,7 @@ describe('Scores Report summary columns', function() {
     const table = mount(<Scores {...props} />, EnzymeContext.build());
     expect(table.render().find('.overall-average').parent().css('width')).toEqual('450px');
     table.find('.averages-toggle').simulate('click');
-    jest.runAllTimers();
     expect(table.render().find('.overall-average').parent().css('width')).toEqual('90px');
-    table.find('.averages-toggle').simulate('click');
     table.unmount();
   });
 

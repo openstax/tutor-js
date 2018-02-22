@@ -15,13 +15,14 @@ Wrapper = (props) ->
   <span>{props.body}</span>
 
 describe 'Error monitoring: handlers', ->
+  course = args = null
 
   beforeEach ->
     Courses.bootstrap([COURSE], { clear: true })
-    @course = Courses.get(COURSE_ID)
+    course = Courses.get(COURSE_ID)
     TutorRouter.currentParams.mockReturnValue({courseId: COURSE_ID})
     TutorRouter.makePathname.mockReturnValue('/go/to/dash')
-    @args =
+    args =
       error: {}
       data: {}
       context:
@@ -29,41 +30,41 @@ describe 'Error monitoring: handlers', ->
 
 
   it 'renders default if code isnt recognized', ->
-    @args.error = {
+    args.error = {
       status: 500, statusMessage: '500 Error fool!', config: {}
     }
-    attrs = Handlers.getAttributesForCode('blarg', @args)
+    attrs = Handlers.getAttributesForCode('blarg', args)
     expect(attrs.title).to.include('Server Error')
     wrapper = shallow(<Wrapper body={attrs.body} />)
     expect(wrapper.find('ServerErrorMessage')).to.have.length(1)
     undefined
 
   it 'renders not started message', ->
-    attrs = Handlers.getAttributesForCode('course_not_started', @args)
+    attrs = Handlers.getAttributesForCode('course_not_started', args)
     expect(attrs.title).to.include('Future')
     wrapper = shallow(<Wrapper body={attrs.body} />)
     expect(wrapper.text()).to.include('not yet started')
     attrs.onOk()
     expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', {courseId: COURSE_ID})
-    expect(@args.context.router.history.push).toHaveBeenCalledWith('/go/to/dash')
+    expect(args.context.router.history.push).toHaveBeenCalledWith('/go/to/dash')
     undefined
 
   it 'renders course ended message', ->
-    attrs = Handlers.getAttributesForCode('course_ended', @args)
+    attrs = Handlers.getAttributesForCode('course_ended', args)
     expect(attrs.title).to.include('Past')
     wrapper = shallow(<Wrapper body={attrs.body} />)
     expect(wrapper.text()).to.include('course ended')
     attrs.onOk()
     expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', {courseId: COURSE_ID})
-    expect(@args.context.router.history.push).toHaveBeenCalledWith('/go/to/dash')
+    expect(args.context.router.history.push).toHaveBeenCalledWith('/go/to/dash')
     undefined
 
   it 'renders exercises not found', ->
-    attrs = Handlers.getAttributesForCode('no_exercises', @args)
+    attrs = Handlers.getAttributesForCode('no_exercises', args)
     expect(attrs.title).to.include('No exercises are available')
     wrapper = shallow(<Wrapper body={attrs.body} />)
     expect(wrapper.text()).to.include('no problems to show')
     attrs.onOk()
     expect(TutorRouter.makePathname).toHaveBeenCalledWith('dashboard', {courseId: COURSE_ID})
-    expect(@args.context.router.history.push).toHaveBeenCalledWith('/go/to/dash')
+    expect(args.context.router.history.push).toHaveBeenCalledWith('/go/to/dash')
     undefined

@@ -7,15 +7,16 @@ PLANS  = require '../../../api/courses/1/plans.json'
 COURSE_ID = '1'
 
 describe 'CourseCalendar Past Assignments listing', ->
+  props = {}
 
   beforeEach ->
     PastTaskPlansActions.loaded(PLANS, COURSE_ID)
-    @props =
+    props =
       courseId: COURSE_ID
       cloningPlanId: ''
 
   it 'lists plans in due date order', ->
-    wrapper = shallow(<PastAssignments {...@props} />)
+    wrapper = shallow(<PastAssignments {...props} />)
     expect(PastTaskPlansStore.hasPlans(COURSE_ID)).to.be.true
     dueTimes = wrapper.find('DragSource(CloneAssignmentLink)').map (ds) -> ds.prop('plan').due_at
     expect(dueTimes).to.deep.equal([

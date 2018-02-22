@@ -10,9 +10,9 @@ DATA   = require '../../../../api/courses/1/dashboard'
 PLAN = _.findWhere(DATA.plans, id: '7')
 
 describe 'TaskPlan MiniEditor wrapper', ->
-
+  props = {}
   beforeEach ->
-    @props =
+    props =
       courseId: '1'
       planId:   '42'
       findPopOverTarget: sinon.spy()
@@ -20,6 +20,6 @@ describe 'TaskPlan MiniEditor wrapper', ->
       position: { x: 100, y: 100 }
 
   it 'renders with loadable', ->
-    wrapper = shallow(<MiniEditor {...@props} />)
+    wrapper = shallow(<MiniEditor {...props} />)
     expect(wrapper.find('LoadableItem[id="42"]')).length.to.be(1)
     undefined

@@ -4,9 +4,10 @@ SnapShot = require 'react-test-renderer'
 MissingStudentId = require '../../../src/components/notifications/missing-student-id'
 
 describe 'Notifications MissingStudentId notice', ->
+  props = null
 
   beforeEach ->
-    @props =
+    props =
       callbacks:
         onAdd: jest.fn()
       notice:
@@ -19,12 +20,12 @@ describe 'Notifications MissingStudentId notice', ->
           id: '1'
 
   it 'renders and matches snapshot', ->
-    component = SnapShot.create(<MissingStudentId {...@props} />)
+    component = SnapShot.create(<MissingStudentId {...props} />)
     expect(component.toJSON()).toMatchSnapshot()
     undefined
 
   it 'calls onAdd callback', ->
-    wrapper = shallow(<MissingStudentId {...@props} />)
+    wrapper = shallow(<MissingStudentId {...props} />)
     wrapper.find('a.action').simulate('click')
-    expect(@props.callbacks.onAdd).toHaveBeenCalled()
+    expect(props.callbacks.onAdd).toHaveBeenCalled()
     undefined

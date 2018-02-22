@@ -6,7 +6,7 @@ exports[`LmsInfo Component matches snapshot 1`] = `
 >
   <a
     className="back"
-    onClick={[Function]}
+    onClick={[MockFunction]}
   >
     <i
       className="tutor-icon fa fa-chevron-left"

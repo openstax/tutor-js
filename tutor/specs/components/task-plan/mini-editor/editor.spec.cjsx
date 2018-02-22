@@ -42,21 +42,24 @@ fakeTerm = ->
   {start, end}
 
 describe 'TaskPlan MiniEditor wrapper', ->
+  sandbox = {}
+  props = {}
+  options = {}
 
   beforeEach ->
-    @sandbox = sinon.sandbox.create()
-    @sandbox.stub(TaskPlanActions, 'save')
-    @sandbox.stub(TaskPlanActions, 'publish')
-    @sandbox.stub(TaskPlanStore, 'isValid', -> true)
-    @sandbox.stub(TaskPlanStore, 'hasChanged', -> true)
+    sandbox = sinon.sandbox.create()
+    sandbox.stub(TaskPlanActions, 'save')
+    sandbox.stub(TaskPlanActions, 'publish')
+    sandbox.stub(TaskPlanStore, 'isValid', -> true)
+    sandbox.stub(TaskPlanStore, 'hasChanged', -> true)
     moment.tz.setDefault('America/Chicago')
     Courses.bootstrap([COURSE], { clear: true })
 
     TaskPlanActions.loaded(PLAN, PLAN.id)
 
     term = fakeTerm()
-    @options = EnzymeContext.build()
-    @props =
+    options = EnzymeContext.build()
+    props =
       id: PLAN.id
       courseId: COURSE_ID
       onHide: sinon.spy()
@@ -66,27 +69,27 @@ describe 'TaskPlan MiniEditor wrapper', ->
 
 
   afterEach ->
-    @sandbox.restore()
+    sandbox.restore()
 
   it 'can update title', ->
     sinon.stub(TaskPlanActions, 'updateTitle')
-    wrapper = mount(<MiniEditor {...@props} />, @options)
+    wrapper = mount(<MiniEditor {...props} />, options)
     title = wrapper.find("input[value=\"#{PLAN.title}\"]")
     expect(title).length.to.be(1)
     title.simulate('change', target: value: 'foo')
-    expect(TaskPlanActions.updateTitle).to.have.been.calledWith(@props.id, 'foo')
+    expect(TaskPlanActions.updateTitle).to.have.been.calledWith(props.id, 'foo')
     undefined
 
   it 'hides itself when cancel is clicked', ->
-    wrapper = mount(<MiniEditor {...@props} />, @options)
+    wrapper = mount(<MiniEditor {...props} />, options)
     wrapper.find('.cancel').simulate('click')
-    expect(@props.onHide).to.have.been.called
+    expect(props.onHide).to.have.been.called
     undefined
 
   it 'publishes and sets button state', ->
-    wrapper = mount(<MiniEditor {...@props} />, @options)
+    wrapper = mount(<MiniEditor {...props} />, options)
     {publish, save, cancel} = getButtons(wrapper)
-    @sandbox.stub(TaskPlanStore, 'isSaving', -> true)
+    sandbox.stub(TaskPlanStore, 'isSaving', -> true)
     expect(publish.text()).to.equal('Publish')
     publish.simulate('click')
     expect(TaskPlanActions.publish).to.have.been.called
@@ -99,11 +102,11 @@ describe 'TaskPlan MiniEditor wrapper', ->
     undefined
 
   it 'saves as draft and sets button state', ->
-    wrapper = mount(<MiniEditor {...@props} />, @options)
+    wrapper = mount(<MiniEditor {...props} />, options)
     {publish, save, cancel} = getButtons(wrapper)
 
     expect(save.text()).to.equal('Save as Draft')
-    @sandbox.stub(TaskPlanStore, 'isSaving', -> true)
+    sandbox.stub(TaskPlanStore, 'isSaving', -> true)
     save.simulate('click')
 
     expect(TaskPlanActions.save).to.have.been.called
@@ -115,28 +118,28 @@ describe 'TaskPlan MiniEditor wrapper', ->
     undefined
 
   it 'hides when cancel is clicked', ->
-    wrapper = mount(<MiniEditor {...@props} />, @options)
+    wrapper = mount(<MiniEditor {...props} />, options)
     {cancel} = getButtons(wrapper)
     cancel.simulate('click')
-    expect(@props.onHide).to.have.been.called
+    expect(props.onHide).to.have.been.called
     undefined
 
   it 'calls handleError when server error is thrown', ->
-    wrapper = shallow(<MiniEditor {...@props} />)
+    wrapper = shallow(<MiniEditor {...props} />)
     TaskPlanStore.emit('errored', {status: 404, statusMessage: "There's been an error", config: {method: 'GET'}})
-    expect(@props.handleError).to.have.been.called
+    expect(props.handleError).to.have.been.called
     undefined
 
   it 'renders error when server error is thrown', ->
-    wrapper = mount(<MiniEditor {...@props} />, @options)
+    wrapper = mount(<MiniEditor {...props} />, options)
     TaskPlanStore.emit('errored', {status: 404, statusMessage: "There's been an error", config: {method: 'POST'}})
     expect(wrapper.find('ServerErrorMessage')).length.to.be(1)
     undefined
 
   it 'limits opens date and due date to term dates', ->
-    wrapper = mount(<MiniEditor {...@props} />, @options)
+    wrapper = mount(<MiniEditor {...props} />, options)
     datePickers = wrapper.find("DatePicker")
 
-    expect(datePickers.at(0).props().minDate.isSame(@props.termStart, 'day')).to.equal(true)
-    expect(datePickers.at(1).props().maxDate.isSame(@props.termEnd, 'day')).to.equal(true)
+    expect(datePickers.at(0).props().minDate.isSame(props.termStart, 'day')).to.equal(true)
+    expect(datePickers.at(1).props().maxDate.isSame(props.termEnd, 'day')).to.equal(true)
     undefined

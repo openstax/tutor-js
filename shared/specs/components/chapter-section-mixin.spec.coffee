@@ -11,18 +11,19 @@ Component = React.createClass
     )
 
 describe 'Chapter Section Mixin', ->
+  props = null
 
   beforeEach ->
-    @props =
+    props =
       section: [1, 2]
       separator: '.'
 
   it 'can use custom separator', ->
-    @props.separator = '-'
-    Testing.renderComponent( Component, props: @props ).then ({dom}) ->
+    props.separator = '-'
+    Testing.renderComponent( Component, props: props ).then ({dom}) ->
       expect(dom.textContent).equal('1-2')
 
   it 'can render chapter/section thats a string', ->
-    @props.section = '3.4'
-    Testing.renderComponent( Component, props: @props ).then ({dom}) ->
+    props.section = '3.4'
+    Testing.renderComponent( Component, props: props ).then ({dom}) ->
       expect(dom.textContent).equal('3.4')

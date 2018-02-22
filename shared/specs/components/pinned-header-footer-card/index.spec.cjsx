@@ -8,15 +8,16 @@ TestChildComponent = React.createClass
   render: -> <span>i am a test</span>
 
 describe 'Pinned Header/Footer Card Component', ->
+  props = null
 
   beforeEach ->
-    @props =
+    props =
       cardType: 'test'
 
 
   it 'renders child components', ->
     wrapper = shallow(
-      <PinnedHeaderFooterCard {...@props}><TestChildComponent /></PinnedHeaderFooterCard>
+      <PinnedHeaderFooterCard {...props}><TestChildComponent /></PinnedHeaderFooterCard>
     )
     expect(wrapper.find('TestChildComponent')).to.have.length(1)
     undefined
@@ -26,7 +27,7 @@ describe 'Pinned Header/Footer Card Component', ->
     testClass = 'foo-test-bar'
     document.body.classList.add(testClass)
     wrapper = mount(
-      <PinnedHeaderFooterCard {...@props}><TestChildComponent /></PinnedHeaderFooterCard>
+      <PinnedHeaderFooterCard {...props}><TestChildComponent /></PinnedHeaderFooterCard>
     )
     expect(document.body.classList.contains(testClass)).to.be.true
     expect(document.body.classList.contains('test-view')).to.be.true
@@ -38,9 +39,9 @@ describe 'Pinned Header/Footer Card Component', ->
 
 
   it 'sets pinned-shy when scrolled down', ->
-    @props.header = React.createElement('span', {}, 'i am header')
+    props.header = React.createElement('span', {}, 'i am header')
     wrapper = mount(
-      <PinnedHeaderFooterCard {...@props}><TestChildComponent /></PinnedHeaderFooterCard>
+      <PinnedHeaderFooterCard {...props}><TestChildComponent /></PinnedHeaderFooterCard>
     )
     expect(document.body.classList.contains('pinned-shy')).to.be.false
     wrapper.setState(scrollTop: 400) # imitate react-scroll-components

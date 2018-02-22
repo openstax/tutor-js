@@ -32,7 +32,7 @@ ExerciseIdentifierLink = React.createClass
     else
       @props
 
-    pick(info, 'chapter_section', 'title')      
+    pick(info, 'chapter_section', 'title')
 
   render: ->
     url = Exercise.troubleUrl(extend(@getLocationInfo(), {

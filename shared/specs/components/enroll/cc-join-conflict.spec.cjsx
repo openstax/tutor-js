@@ -13,12 +13,13 @@ COURSE_ENROLLMENT_STORE = {
 }
 
 describe 'CcJoinConflict Component', ->
+  courseEnrollmentActions = null
 
-  beforeEach -> @courseEnrollmentActions = { conflictContinue: sinon.spy() }
+  beforeEach -> courseEnrollmentActions = { conflictContinue: sinon.spy() }
 
   it 'displays info about the conflicting CC course', ->
     wrapper = mount(<CcJoinConflict
-      courseEnrollmentActions={@courseEnrollmentActions}
+      courseEnrollmentActions={courseEnrollmentActions}
       courseEnrollmentStore={COURSE_ENROLLMENT_STORE}
       />)
     expect(wrapper.find('.conflict li').text()).to.eq(
@@ -31,7 +32,7 @@ describe 'CcJoinConflict Component', ->
 
   it 'displays info about the course being joined', ->
     wrapper = shallow(<CcJoinConflict
-      courseEnrollmentActions={@courseEnrollmentActions}
+      courseEnrollmentActions={courseEnrollmentActions}
       courseEnrollmentStore={COURSE_ENROLLMENT_STORE}
       />)
     expect(wrapper.find('.title .join').text()).to.eq('You are joining')
@@ -41,16 +42,16 @@ describe 'CcJoinConflict Component', ->
 
   it 'calls conflictContinue() on the courseEnrollmentActions object when the button is clicked', ->
     wrapper = shallow(<CcJoinConflict
-      courseEnrollmentActions={@courseEnrollmentActions}
+      courseEnrollmentActions={courseEnrollmentActions}
       courseEnrollmentStore={COURSE_ENROLLMENT_STORE}
       />)
     wrapper.find('.btn.continue').simulate('click')
-    expect(@courseEnrollmentActions.conflictContinue.calledOnce).to.be.true
+    expect(courseEnrollmentActions.conflictContinue.calledOnce).to.be.true
     undefined
 
   xit 'calls conflictContinue() on the courseEnrollmentActions object when enter is pressed', ->
     wrapper = mount(<CcJoinConflict
-      courseEnrollmentActions={@courseEnrollmentActions}
+      courseEnrollmentActions={courseEnrollmentActions}
       courseEnrollmentStore={COURSE_ENROLLMENT_STORE}
       />)
 
@@ -58,5 +59,5 @@ describe 'CcJoinConflict Component', ->
     # http://airbnb.io/enzyme/docs/api/ShallowWrapper/simulate.html
     wrapper.simulate('keyPress', key: 'Enter')
     wrapper.find('.btn.continue').simulate('keyPress', key: 'Enter')
-    expect(@courseEnrollmentActions.conflictContinue.called).to.be.true
+    expect(courseEnrollmentActions.conflictContinue.called).to.be.true
     undefined

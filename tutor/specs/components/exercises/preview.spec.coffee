@@ -1,4 +1,4 @@
-{Testing, sinon, _, ReactTestUtils} = require '../helpers/component-testing'
+{Testing, _, ReactTestUtils} = require '../helpers/component-testing'
 
 ExercisePreviewWrapper = require '../../../src/components/exercises/preview'
 {ExerciseActions, ExerciseStore} = require '../../../src/flux/exercise'
@@ -6,25 +6,24 @@ ExercisePreviewWrapper = require '../../../src/components/exercises/preview'
 EXERCISES = require '../../../api/exercises'
 
 describe 'Exercise Preview Wrapper Component', ->
-
-
+  props = {}
   beforeEach ->
-    @props =
+    props =
       exercise: EXERCISES.items[0]
-      onShowDetailsViewClick: sinon.spy()
-      onExerciseToggle:       sinon.spy()
-      getExerciseIsSelected:  sinon.spy()
-      getExerciseActions:     sinon.stub().returns({})
+      onShowDetailsViewClick: jest.fn()
+      onExerciseToggle:       jest.fn()
+      getExerciseIsSelected:  jest.fn()
+      getExerciseActions:     jest.fn().mockReturnValue({})
       watchStore: ExerciseStore
       watchEvent: 'testing-'
 
   it 'renders', ->
-    Testing.renderComponent( ExercisePreviewWrapper, props: @props ).then ({dom}) ->
+    Testing.renderComponent( ExercisePreviewWrapper, props: props ).then ({dom}) ->
       expect( dom ).to.exist
       expect(dom.textContent).to.include('aims and topics of natural philosophy')
 
   it 'listens for store updates', ->
-    Testing.renderComponent( ExercisePreviewWrapper, props: @props ).then ({dom}) =>
-      expect(@props.getExerciseActions.callCount).equal(1)
-      ExerciseStore.emit("testing-#{@props.exercise.id}")
-      expect(@props.getExerciseActions.callCount).equal(2)
+    Testing.renderComponent( ExercisePreviewWrapper, props: props ).then ({dom}) =>
+      expect(props.getExerciseActions).toHaveBeenCalledTimes(1)
+      ExerciseStore.emit("testing-#{props.exercise.id}")
+      expect(props.getExerciseActions).toHaveBeenCalledTimes(2)

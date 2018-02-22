@@ -14,12 +14,17 @@ Poller = require 'model/notifications/pollers'
 FakeWindow = require 'shared/specs/helpers/fake-window'
 
 describe 'Notification Pollers', ->
-  beforeEach ->
-    @notices = Notifications
-    @notices.windowImpl = new FakeWindow
+  notices = null
+  tutor = null
+  accounts = null
+  pollers = null
 
-    @tutor = Poller.forType(@notices, 'tutor')
-    @tutor.onReply({
+  beforeEach ->
+    notices = Notifications
+    notices.windowImpl = new FakeWindow
+
+    tutor = Poller.forType(notices, 'tutor')
+    tutor.onReply({
       data: {
         notifications: [
           { id: 'test', message: 'A test notice' }
@@ -27,36 +32,36 @@ describe 'Notification Pollers', ->
       }
     })
 
-    @accounts = Poller.forType(@notices, 'accounts')
-    @accounts.onReply({
+    accounts = Poller.forType(notices, 'accounts')
+    accounts.onReply({
       data: {
         contact_infos: [
           {id: 1234, is_verified: false}
         ]
       }
     })
-    @pollers = [@tutor, @accounts]
+    pollers = [tutor, accounts]
 
 
   it 'polls when url is set', ->
-    for poller in @pollers
-      expect(@notices.windowImpl.setInterval).not.toHaveBeenCalled()
+    for poller in pollers
+      expect(notices.windowImpl.setInterval).not.toHaveBeenCalled()
       poller.setUrl('/test')
       expect(poller.url).toEqual('/test')
-      expect(@notices.windowImpl.setInterval).toHaveBeenCalled()
-      @notices.windowImpl.setInterval.mockClear()
+      expect(notices.windowImpl.setInterval).toHaveBeenCalled()
+      notices.windowImpl.setInterval.mockClear()
     undefined
 
   it 'returns list of active notices', ->
-    expect(@tutor.getActiveNotifications()).toEqual([
+    expect(tutor.getActiveNotifications()).toEqual([
       { id: 'test', message: 'A test notice', type: 'tutor' }
     ])
-    expect(@accounts.getActiveNotifications()).toMatchObject([
+    expect(accounts.getActiveNotifications()).toMatchObject([
       {id: 1234, is_verified: false, type: 'accounts'}
     ])
 
   it 'remembers when acknowledged', ->
-    for poller in @pollers
+    for poller in pollers
       notice = _.first poller.getActiveNotifications()
       poller.acknowledge(notice)
       expect(UiSettings.set).toHaveBeenLastCalledWith("ox-notifications-#{poller.type}", [notice.id])
@@ -64,18 +69,18 @@ describe 'Notification Pollers', ->
 
   it 'does not list items that are already acknowledged', ->
     UiSettings.get.mockReturnValue(["2"])
-    @tutor.onReply(data: TEST_NOTICES)
-    active = @tutor.getActiveNotifications()
+    tutor.onReply(data: TEST_NOTICES)
+    active = tutor.getActiveNotifications()
     expect( _.pluck(active, 'id') ).to.deep.equal(['1']) # no id "2"
     undefined
 
   it 'removes outdated ids from prefs', ->
     # mock that we've observed the current notices
     UiSettings.get.mockReturnValue(['1', '2'])
-    @tutor.onReply(data: TEST_NOTICES)
+    tutor.onReply(data: TEST_NOTICES)
 
     # load a new set of messages that do not include the previous ones
-    @tutor.onReply(
+    tutor.onReply(
       data: { notifications: [{id: '3', message: 'message three'}] }
     )
     # 1 and 2 are removed
