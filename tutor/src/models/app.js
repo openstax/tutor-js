@@ -1,8 +1,8 @@
 import { isEmpty, forIn } from 'lodash';
 import { observable, action } from 'mobx';
 import { BootstrapURLs, UiSettings, ExerciseHelpers } from 'shared';
-import ErrorMonitoring from 'shared/src/helpers/error-monitoring';
-import { startMathJax } from 'shared/src/helpers/mathjax';
+import ErrorMonitoring from 'shared/helpers/error-monitoring';
+import { startMathJax } from 'shared/helpers/mathjax';
 import { connectModelRead } from '../api/adapter';
 import { TransitionAssistant } from '../components/unsaved-state';
 import { readBootstrapData } from '../helpers/dom';
