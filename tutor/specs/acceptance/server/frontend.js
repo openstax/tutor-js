@@ -7,7 +7,7 @@ process.env['OX_PROJECT'] = 'tutor';
 process.env['NODE_ENV'] = 'development';
 process.env['DEV_PORT'] = fe_port;
 
-const config = require('../../../webpack.config.js');
+const config = require('../../../../webpack.config.js');
 
 function WebpackDriverStatusPlugin() { }
 

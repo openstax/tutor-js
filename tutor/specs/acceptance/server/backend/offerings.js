@@ -1,5 +1,5 @@
 const Factory = require('object-factory-bot');
-require('../../../factories/offering');
+require('../../../../factories/offering');
 
 const teacher = {
   total_count: 4,

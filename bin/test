@@ -7,4 +7,4 @@ bin/checkinputs "$@"
 export OX_PROJECT=$1
 echo Test: $OX_PROJECT
 
-$(npm bin)/jest --watch --config ./configs/test/jest.$OX_PROJECT.json "${@:2}"
+$(npm bin)/jest --watch --config ./configs/test/jest.$OX_PROJECT.js "${@:2}"

@@ -1,5 +1,0 @@
-#!/bin/bash
-
-set -e
-
-$(npm bin)/jest --config ./configs/test/jest.tutor-acceptance.js "${@:2}"
