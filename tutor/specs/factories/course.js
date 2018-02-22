@@ -3,7 +3,7 @@ const {
   TITLES, APPEARANCE_CODES,
 } = require('./helpers');
 const moment = require('moment');
-const { ordinal } = require('../src/helpers/number');
+const { ordinal } = require('../../src/helpers/number');
 
 
 Factory.define('Period')

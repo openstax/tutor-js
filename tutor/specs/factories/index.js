@@ -1,8 +1,7 @@
 import Factory from 'object-factory-bot';
 import { each } from 'lodash';
-import Course from '../src/models/course';
+import Course from '../../src/models/course';
 import './course';
-
 
 const Factories = {};
 

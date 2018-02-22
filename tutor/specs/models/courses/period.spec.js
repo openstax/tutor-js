@@ -1,15 +1,11 @@
-import Factories from '../../../factories';
-import Factory from 'object-factory-bot';
-
-// import { bootstrapCoursesList } from '../../courses-test-data';
-
+import Factories from '../../factories';
 
 describe('Course Periods Model', () => {
 
   let course, period;
 
   beforeEach(() => {
-    course = Factories.Course()
+    course = Factories.Course();
     period = course.periods[0];
   });
 
