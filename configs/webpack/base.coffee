@@ -3,6 +3,7 @@ _ = require 'lodash'
 webpack = require 'webpack'
 UglifyJsPlugin = require 'uglifyjs-webpack-plugin'
 ProgressBarPlugin = require 'progress-bar-webpack-plugin'
+HardSourceWebpackPlugin = require 'hard-source-webpack-plugin'
 
 LOADERS =
   babel:  'babel-loader'
@@ -172,6 +173,7 @@ makeDevelopmentBase = (projectConfig) ->
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new ProgressBarPlugin(),
+      new HardSourceWebpackPlugin(),
     ]
     devServer:
       contentBase: "#{projectConfig.basePath}/"
