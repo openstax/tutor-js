@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import OXColoredStripe from 'shared/src/components/ox-colored-stripe';
+import OXColoredStripe from 'shared/components/ox-colored-stripe';
 import { isReloaded, reloadOnce, forceReload } from '../../helpers/reload';
 
 export default class AsyncLoadError extends React.PureComponent {

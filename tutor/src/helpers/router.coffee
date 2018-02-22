@@ -1,4 +1,4 @@
-OXRouter = require 'shared/src/helpers/router'
+OXRouter = require 'shared/helpers/router'
 { getRoutes } = require '../routes'
 
 TutorRouter = new OXRouter

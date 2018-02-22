@@ -3,7 +3,7 @@ import {
 } from './base';
 import { find, startsWith } from 'lodash';
 import { action, computed, observable } from 'mobx';
-import UiSettings from 'shared/src/model/ui-settings';
+import UiSettings from 'shared/model/ui-settings';
 import Courses from './courses-map';
 import { UserTerms } from './user/terms';
 import Annotations from './annotations';

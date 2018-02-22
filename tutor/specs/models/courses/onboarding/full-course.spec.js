@@ -1,13 +1,13 @@
 import { TEACHER_COURSE_TWO_MODEL } from '../../../courses-test-data';
 
 import CourseUX from '../../../../src/models/course/onboarding/full-course';
-import UiSettings from 'shared/src/model/ui-settings';
+import UiSettings from 'shared/model/ui-settings';
 import User from '../../../../src/models/user';
 import moment from 'moment';
 import { TimeStore } from '../../../../src/flux/time';
 import Nags from '../../../../src/components/onboarding/nags';
 
-jest.mock('shared/src/model/ui-settings');
+jest.mock('shared/model/ui-settings');
 jest.mock('../../../../src/flux/time', () => ({
   TimeStore: {
     getNow: jest.fn(() => new Date('Thu Aug 31 2017 16:53:12 GMT-0500 (CDT)')),

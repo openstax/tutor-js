@@ -3,7 +3,7 @@ import { autorun } from 'mobx';
 import User from '../../src/models/user';
 import { UserTerms } from '../../src/models/user/terms';
 import Courses from '../../src/models/courses-map';
-import UiSettings from 'shared/src/model/ui-settings';
+import UiSettings from 'shared/model/ui-settings';
 
 import USER_DATA from '../../api/user.json';
 import { bootstrapCoursesList } from '../courses-test-data';

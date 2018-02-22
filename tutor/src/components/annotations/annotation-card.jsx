@@ -5,7 +5,7 @@ import { Label } from 'react-bootstrap';
 import { autobind } from 'core-decorators';
 import Annotation from '../../models/annotations/annotation';
 import Icon from '../icon';
-import SuretyGuard from 'shared/src/components/surety-guard';
+import SuretyGuard from 'shared/components/surety-guard';
 
 @observer
 class EditBox extends React.Component {

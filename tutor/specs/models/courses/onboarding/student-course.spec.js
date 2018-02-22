@@ -2,11 +2,11 @@ import Course from '../../../../src/models/course';
 import Nags from '../../../../src/components/onboarding/nags';
 
 import CourseUX from '../../../../src/models/course/onboarding/student-course';
-import UiSettings from 'shared/src/model/ui-settings';
+import UiSettings from 'shared/model/ui-settings';
 import User from '../../../../src/models/user';
 import Payments from '../../../../src/models/payments';
 
-jest.mock('shared/src/model/ui-settings' );
+jest.mock('shared/model/ui-settings' );
 jest.mock('../../../../src/models/course');
 jest.mock('../../../../src/models/payments' );
 jest.useFakeTimers();

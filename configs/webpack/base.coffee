@@ -103,7 +103,7 @@ makePathsBase = (projectConfig) ->
         path.resolve(basePath, 'api')
       ]
       alias:
-        'shared': path.resolve('shared')
+        'shared': path.resolve('shared', 'src')
 
   pathConfigs
 

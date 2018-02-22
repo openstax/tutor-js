@@ -7,6 +7,7 @@ import './resources/styles/tutor.scss';
 import { UiSettings } from 'shared';
 import App from './src/models/app';
 
+
 import OFFERINGS from './src/models/course/offerings';
 import USER from './src/models/user';
 import COURSES from './src/models/courses-map';
