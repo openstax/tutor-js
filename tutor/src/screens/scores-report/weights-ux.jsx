@@ -1,5 +1,5 @@
 import { observable, computed, action } from 'mobx';
-import { reduce, each, inRange } from 'lodash';
+import { reduce, each, inRange, keys, isEqual, pick, some, invert, mapValues } from 'lodash';
 
 const CELL_AVERAGES_SINGLE_WIDTH = 80;
 
@@ -17,6 +17,10 @@ const CW = {
   reading_progress_weight: 'reading_progress',
 };
 
+const WC = invert(CW);
+
+const SETTINGS = keys(DEFAULTS);
+
 export default class ScoresReportWeightsUX {
 
   @observable homework_scores;
@@ -24,7 +28,7 @@ export default class ScoresReportWeightsUX {
   @observable reading_scores;
   @observable reading_progress;
 
-  @observable hasChanged = false;
+  @observable hasTouched = false;
   @observable isSetting = false;
 
   constructor(scoresUx) {
@@ -34,9 +38,7 @@ export default class ScoresReportWeightsUX {
   @action.bound onSetClick() {
     const { course } = this;
     this.isSetting = true;
-    each(CW, (w, c) => {
-      this[w] = (course[c] || 0) * 100;
-    });
+    Object.assign(this, this.savedCourseWeightsAsPercents);
   }
 
   @action.bound onCancelClick() {
@@ -45,9 +47,7 @@ export default class ScoresReportWeightsUX {
 
   @action.bound onSaveWeights() {
     const { course } = this;
-    each(CW, (w, c) => {
-      course[c] = this[w] / 100;
-    });
+    Object.assign(course, this.uxPercentsAsCourseWeights);
     course.save().then(() => {
       course.scores.fetch();
       this.isSetting = false;
@@ -58,12 +58,21 @@ export default class ScoresReportWeightsUX {
     return this.scoresUx.course;
   }
 
+  @computed get savedCourseWeightsAsPercents() {
+    const { course } = this;
+    return mapValues(WC, (c, w) => ((course[c] || 0) * 100));
+  }
+
+  @computed get uxPercentsAsCourseWeights() {
+    return mapValues(CW, (w, c) => (this[w] / 100));
+  }
+
   @computed get isBusy() {
     return this.course.api.isPending;
   }
 
   @action.bound setWeight(ev) {
-    this.hasChanged = true;
+    this.hasTouched = true;
     const weight = parseInt(ev.target.value);
     if (inRange(weight, 0, 101)) { // inRange is up to but not including end
       this[ev.target.name] = weight;
@@ -76,6 +85,14 @@ export default class ScoresReportWeightsUX {
     );
   }
 
+  @computed get isDefault() {
+    return isEqual(pick(this, SETTINGS), DEFAULTS);
+  }
+
+  @computed get hasChanged() {
+    return !isEqual(pick(this, SETTINGS), this.savedCourseWeightsAsPercents);
+  }
+
   @computed get isRestorable() {
     return this.hasChanged;
   }
@@ -85,11 +102,11 @@ export default class ScoresReportWeightsUX {
   }
 
   @computed get showIsInvalid() {
-    return this.hasChanged && !this.isValid;
+    return this.hasTouched && !this.isValid;
   }
 
   @computed get showIsValid() {
-    return this.hasChanged && this.isValid;
+    return this.hasTouched && this.isValid;
   }
 
   @computed get msgIconType() {
