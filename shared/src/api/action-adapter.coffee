@@ -152,6 +152,7 @@ connectModelAction = (action, apiHandler, klass, method, options) ->
       this.api?.requestsInProgress.delete(action)
       console.warn(e)
       perRequestOptions.onFail(e)
+      Promise.reject(e)
     )
 
   klass.prototype[method] = wrap(klass.prototype[method] or emptyFn, handler)
