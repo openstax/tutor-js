@@ -23,7 +23,7 @@ AppConfig =
       else
         isGET404 = status is 404 and request.method is 'GET'
         isInRange = 400 <= status < 600
-        {shouldReload: isInRange and not isGET404}
+        {shouldReload: false}
 
 {actions, store} = makeSimpleStore(AppConfig)
 module.exports = {AppActions:actions, AppStore:store}
