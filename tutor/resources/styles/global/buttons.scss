@@ -36,6 +36,13 @@ $primary-background-hover: #fa804d;
   &:focus {
     background: $default-background-hover;
   }
+
+  &:disabled {
+    font-weight: 800;
+    background: $openstax-neutral-light;
+    border-color: $openstax-neutral-light;
+    color: $openstax-neutral;
+  }
 }
 
 @mixin btn-tutor-primary() {

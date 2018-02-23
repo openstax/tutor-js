@@ -1,6 +1,9 @@
+$modal-header-height: 75px;
+$modal-header-font-size: 16px;
+
 .modal {
-  $header-padding: 35px;
-  $modal-padding: 50px;
+  $header-padding: ($modal-header-height - $modal-header-font-size) / 2;
+  $modal-padding: 30px;
 
   .modal-content {
     border-radius: 0;
@@ -9,7 +12,7 @@
 
   .modal-header {
     padding: $header-padding $modal-padding;
-    font-size: 16px;
+    font-size: $modal-header-font-size;
     background-color: $tutor-neutral-bright;
     border-bottom: 1px solid $tutor-neutral-light;
   }

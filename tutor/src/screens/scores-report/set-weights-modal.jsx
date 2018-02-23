@@ -1,10 +1,35 @@
 import React from 'react';
 import { observer, PropTypes as MobxPropTypes } from 'mobx-react';
 import cn from 'classnames';
+import { snakeCase, map } from 'lodash';
 import { Modal, Button } from 'react-bootstrap';
 import { AsyncButton } from 'shared';
 import ExternalLink from '../../components/new-tab-link';
 import Icon from '../../components/icon';
+
+const WEIGHTS = [
+  'Homework scores',
+  'Homework progress',
+  'Reading scores',
+  'Reading progress',
+];
+
+const WeightControl = ( { weightLabel, weightName, weights } ) => (
+  <label className="weight">
+    <div>{weightLabel}</div>
+    <div>
+      <input
+        type="number"
+        name={weightName}
+        min={0}
+        max={100}
+        value={weights[weightName]}
+        onChange={weights.setWeight}
+      />%
+    </div>
+  </label>
+);
+
 
 @observer
 export default class SetWeightsModal extends React.Component {
@@ -40,65 +65,26 @@ export default class SetWeightsModal extends React.Component {
           >
             See why <Icon type="external-link"/>
           </ExternalLink>
-          <label className="weight">
-            <div>Homework scores</div>
-            <div>
-              <input
-                type="number"
-                name="homework_scores"
-                min={0}
-                max={100}
-                value={weights.homework_scores}
-                onChange={weights.setWeight}
-              />%
-            </div>
-          </label>
-          <label className="weight">
-            <div>Homework progress</div>
-            <div>
-              <input
-                type="number"
-                name="homework_progress"
-                min={0}
-                max={100}
-                value={weights.homework_progress}
-                onChange={weights.setWeight}
-              />%
-            </div>
-          </label>
-          <label className="weight">
-            <div>Reading scores</div>
-            <div>
-              <input
-                type="number"
-                name="reading_scores"
-                min={0}
-                max={100}
-                value={weights.reading_scores}
-                onChange={weights.setWeight}
-              />%
-            </div>
-          </label>
-          <label className="weight">
-            <div>Reading progress</div>
-            <div>
-              <input
-                type="number"
-                name="reading_progress"
-                min={0}
-                max={100}
-                value={weights.reading_progress}
-                onChange={weights.setWeight}
-              />%
-            </div>
-          </label>
+          <div className='weights-controls--wrapper'>
+            {
+              map(WEIGHTS, (weightLabel) => {
+                const weightName = snakeCase(weightLabel);
+                return (<WeightControl
+                  weightLabel={weightLabel}
+                  weightName={weightName}
+                  weights={weights}
+                  key={`weight-control-${weightName}`}
+                />);
+              })
+            }
+          </div>
           <div className='weights-set'>
           { !weights.isDefault?
             <Button
               onClick={weights.setDefaults}
               bsStyle='link'
             >Restore default</Button>
-            : ' '
+            : null
           }
           </div>
           <p className={cn('weights-msg', {
