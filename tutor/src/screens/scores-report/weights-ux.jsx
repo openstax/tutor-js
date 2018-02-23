@@ -1,5 +1,5 @@
 import { observable, computed, action } from 'mobx';
-import { reduce, each, inRange, keys, isEqual, pick, some, invert, mapValues } from 'lodash';
+import { sum, toArray, flow, each, inRange, keys, isEqual, pick, some, invert, mapValues } from 'lodash';
 
 const CELL_AVERAGES_SINGLE_WIDTH = 80;
 
@@ -8,6 +8,13 @@ const DEFAULTS = {
   homework_progress: 0,
   reading_scores: 0,
   reading_progress: 0,
+};
+
+const RECOMMENDED = {
+  homework_scores: 50,
+  homework_progress: 0,
+  reading_scores: 0,
+  reading_progress: 50,
 };
 
 const CW = {
@@ -20,6 +27,13 @@ const CW = {
 const WC = invert(CW);
 
 const SETTINGS = keys(DEFAULTS);
+
+const MIN = 0;
+const MAX = 100;
+const RANGE = MAX - MIN;
+
+const weightToPercent = (weight) => ((weight || MIN) * RANGE );
+const percentToWeight = (percent) => ((percent || MIN) / RANGE );
 
 export default class ScoresReportWeightsUX {
 
@@ -35,10 +49,18 @@ export default class ScoresReportWeightsUX {
     this.scoresUx = scoresUx;
   }
 
+  @computed get course() {
+    return this.scoresUx.course;
+  }
+
+  @computed get isBusy() {
+    return this.course.api.isPending;
+  }
+
   @action.bound onSetClick() {
     const { course } = this;
     this.isSetting = true;
-    Object.assign(this, this.savedCourseWeightsAsPercents);
+    Object.assign(this, this.current);
   }
 
   @action.bound onCancelClick() {
@@ -47,50 +69,68 @@ export default class ScoresReportWeightsUX {
 
   @action.bound onSaveWeights() {
     const { course } = this;
-    Object.assign(course, this.uxPercentsAsCourseWeights);
+    Object.assign(course, this.next);
     course.save().then(() => {
       course.scores.fetch();
       this.isSetting = false;
     });
   }
 
-  @computed get course() {
-    return this.scoresUx.course;
-  }
-
-  @computed get savedCourseWeightsAsPercents() {
-    const { course } = this;
-    return mapValues(WC, (c, w) => ((course[c] || 0) * 100));
-  }
-
-  @computed get uxPercentsAsCourseWeights() {
-    return mapValues(CW, (w, c) => (this[w] / 100));
-  }
-
-  @computed get isBusy() {
-    return this.course.api.isPending;
-  }
-
   @action.bound setWeight(ev) {
     this.hasTouched = true;
     const weight = parseInt(ev.target.value);
-    if (inRange(weight, 0, 101)) { // inRange is up to but not including end
+    if (inRange(weight, MIN, MAX + 1)) { // inRange is up to but not including end
       this[ev.target.name] = weight;
     }
   }
 
+  @computed get savedCourseWeightsAsPercents() {
+    const { course } = this;
+    return mapValues(WC, (c) => weightToPercent(course[c]));
+  }
+
+  @computed get uxPercentsAsCourseWeights() {
+    return mapValues(CW, (w) => percentToWeight(this[w]));
+  }
+
+  @computed get current() {
+    return this.savedCourseWeightsAsPercents;
+  }
+
+  @computed get next() {
+    return this.uxPercentsAsCourseWeights;
+  }
+
+  @computed get values() {
+    return pick(this, SETTINGS);
+  }
+
+  @computed get total() {
+    return flow(
+      toArray,
+      sum,
+      Math.round,
+    )(this.values);
+  }
+
   @computed get isValid() {
-    return 100 === Math.round(
-      reduce(DEFAULTS, (ttl, v, attr) => this[attr] + ttl, 0)
-    );
+    return this.total === MAX;
+  }
+
+  matches(comparisonSettings) {
+    return isEqual(this.values, comparisonSettings);
+  }
+
+  @computed get isRecommended() {
+    return this.matches(RECOMMENDED);
   }
 
   @computed get isDefault() {
-    return isEqual(pick(this, SETTINGS), DEFAULTS);
+    return this.matches(DEFAULTS);
   }
 
   @computed get hasChanged() {
-    return !isEqual(pick(this, SETTINGS), this.savedCourseWeightsAsPercents);
+    return !this.matches(this.current);
   }
 
   @computed get isRestorable() {
