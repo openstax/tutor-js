@@ -77,15 +77,15 @@ export default class SetWeightsModal extends React.Component {
                 />);
               })
             }
-          </div>
-          <div className='weights-set'>
-          { !weights.isDefault?
-            <Button
-              onClick={weights.setDefaults}
-              bsStyle='link'
-            >Restore default</Button>
-            : null
-          }
+            <div className='weights-set'>
+            { !weights.isDefault?
+              <Button
+                onClick={weights.setDefaults}
+                bsStyle='link'
+              >Restore default</Button>
+              : null
+            }
+            </div>
           </div>
           <p className={cn('weights-msg', {
               invalid: weights.showIsInvalid,
