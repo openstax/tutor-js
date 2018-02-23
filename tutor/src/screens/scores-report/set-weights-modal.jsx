@@ -92,6 +92,15 @@ export default class SetWeightsModal extends React.Component {
               />%
             </div>
           </label>
+          <div className='weights-set'>
+          { !weights.isDefault?
+            <Button
+              onClick={weights.setDefaults}
+              bsStyle='link'
+            >Restore default</Button>
+            : ' '
+          }
+          </div>
           <p className={cn('weights-msg', {
               invalid: weights.showIsInvalid,
               valid: weights.showIsValid,
@@ -102,15 +111,11 @@ export default class SetWeightsModal extends React.Component {
         <Modal.Footer>
           <AsyncButton
             isWaiting={weights.isBusy}
+            waitingText='Saving…'
             onClick={weights.onSaveWeights}
             disabled={!weights.isSaveable}
             bsStyle={(weights.isSaveable && 'primary') || 'default'}
           >Save</AsyncButton>
-          <Button
-            onClick={weights.setDefaults}
-            disabled={!weights.isRestorable}
-            className={weights.isRestorable && 'btn-secondary'}
-          >Restore default</Button>
           <Button
             onClick={weights.onCancelClick}
             className={'btn-outline-secondary'}

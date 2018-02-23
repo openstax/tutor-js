@@ -35,6 +35,9 @@ const RANGE = MAX - MIN;
 const weightToPercent = (weight) => ((weight || MIN) * RANGE );
 const percentToWeight = (percent) => ((percent || MIN) / RANGE );
 
+const weightsToPercents = (weights) => mapValues(WC, (c) => weightToPercent(weights[c]));
+const percentsToWeights = (percents) => mapValues(CW, (w) => percentToWeight(percents[w]));
+
 export default class ScoresReportWeightsUX {
 
   @observable homework_scores;
@@ -60,7 +63,7 @@ export default class ScoresReportWeightsUX {
   @action.bound onSetClick() {
     const { course } = this;
     this.isSetting = true;
-    Object.assign(this, this.current);
+    Object.assign(this, this.currentPercents);
   }
 
   @action.bound onCancelClick() {
@@ -68,12 +71,21 @@ export default class ScoresReportWeightsUX {
   }
 
   @action.bound onSaveWeights() {
-    const { course } = this;
-    Object.assign(course, this.next);
-    course.save().then(() => {
-      course.scores.fetch();
-      this.isSetting = false;
-    });
+    const { course, currentPercents } = this;
+    Object.assign(course, this.nextWeights);
+    course
+      .save()
+      .then(() => {
+        return course.scores
+          .fetch();
+      })
+      .catch(() => {
+        // reset course weights to previous values
+        Object.assign(course, percentsToWeights(currentPercents));
+      })
+      .then(() => {
+        this.isSetting = false;
+      });
   }
 
   @action.bound setWeight(ev) {
@@ -86,18 +98,18 @@ export default class ScoresReportWeightsUX {
 
   @computed get savedCourseWeightsAsPercents() {
     const { course } = this;
-    return mapValues(WC, (c) => weightToPercent(course[c]));
+    return weightsToPercents(course);
   }
 
   @computed get uxPercentsAsCourseWeights() {
-    return mapValues(CW, (w) => percentToWeight(this[w]));
+    return percentsToWeights(this);
   }
 
-  @computed get current() {
+  @computed get currentPercents() {
     return this.savedCourseWeightsAsPercents;
   }
 
-  @computed get next() {
+  @computed get nextWeights() {
     return this.uxPercentsAsCourseWeights;
   }
 
@@ -130,23 +142,19 @@ export default class ScoresReportWeightsUX {
   }
 
   @computed get hasChanged() {
-    return !this.matches(this.current);
-  }
-
-  @computed get isRestorable() {
-    return this.hasChanged;
+    return !this.matches(this.currentPercents);
   }
 
   @computed get isSaveable() {
-    return this.hasChanged && this.isValid && !this.isBusy;
+    return this.isValid && !this.isBusy;
   }
 
   @computed get showIsInvalid() {
-    return this.hasTouched && !this.isValid;
+    return !this.isValid;
   }
 
   @computed get showIsValid() {
-    return this.hasTouched && this.isValid;
+    return this.isValid;
   }
 
   @computed get msgIconType() {
@@ -159,6 +167,10 @@ export default class ScoresReportWeightsUX {
 
   @action.bound setDefaults() {
     Object.assign(this, DEFAULTS);
+  }
+
+  @action.bound resetToCurrent() {
+    Object.assign(this, this.currentPercents);
   }
 
 }

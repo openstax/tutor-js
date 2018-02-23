@@ -45,6 +45,15 @@
     }
   }
 
+  .weights-set {
+    display: flex;
+    justify-content: flex-end;
+
+    .btn-link {
+      padding: 0;
+    }
+  }
+
   .weights-msg {
     color: $dull-blue;
     line-height: 2rem;
