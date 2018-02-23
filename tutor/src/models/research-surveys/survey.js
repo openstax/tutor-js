@@ -2,7 +2,7 @@ import { pick } from 'lodash';
 import { observable, computed, action } from 'mobx';
 import {
   BaseModel, identifiedBy, field, identifier, hasMany,
-} from '../base';
+} from 'shared/model';
 
 @identifiedBy('student/task')
 export default class ResearchSurvey extends BaseModel {

@@ -1,13 +1,13 @@
 import {
   BaseModel, identifiedBy, field, hasMany,
-} from './base';
+} from 'shared/model';
 import { find, startsWith } from 'lodash';
 import { action, computed, observable } from 'mobx';
-import UiSettings from 'shared/src/model/ui-settings';
+import UiSettings from 'shared/model/ui-settings';
 import Courses from './courses-map';
 import { UserTerms } from './user/terms';
 import Annotations from './annotations';
-import lazyGetter from '../helpers/lazy-getter';
+import lazyGetter from 'shared/helpers/lazy-getter';
 import ViewedTourStat from './user/viewed-tour-stat';
 import { read_csrf } from '../helpers/dom';
 

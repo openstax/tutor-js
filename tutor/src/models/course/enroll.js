@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   BaseModel, identifiedBy, field, identifier, computed, session,
-} from '../base';
+} from 'shared/model';
 import { action, when, observable } from 'mobx';
 import { get, pick, isEmpty } from 'lodash';
 import { Redirect } from 'react-router-dom';

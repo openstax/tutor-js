@@ -1,6 +1,6 @@
 import React from 'react';
 
-import OXColoredStripe from 'shared/src/components/ox-colored-stripe';
+import OXColoredStripe from 'shared/components/ox-colored-stripe';
 import TutorLink from './link';
 import Icon from './icon';
 

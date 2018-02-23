@@ -2,7 +2,7 @@ import { last, map, filter } from 'lodash';
 import { computed } from 'mobx';
 import {
   BaseModel, identifiedBy, belongsTo, identifier, field, hasMany,
-} from '../base';
+} from 'shared/model';
 import Tag from './tag';
 
 @identifiedBy('exercises/exercise')

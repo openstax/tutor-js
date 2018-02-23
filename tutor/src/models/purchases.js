@@ -1,4 +1,4 @@
-import Map from './map';
+import Map from 'shared/model/map';
 import { find } from 'lodash';
 import { computed } from 'mobx';
 import { map, flatten } from 'lodash';

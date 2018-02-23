@@ -1,6 +1,6 @@
 import {
   identifiedBy, session,
-} from '../base';
+} from 'shared/model';
 
 import { observable, computed, reaction } from 'mobx';
 import invariant from 'invariant';

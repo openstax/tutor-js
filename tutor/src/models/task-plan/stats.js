@@ -1,6 +1,6 @@
 import {
   BaseModel, belongsTo, identifiedBy, session, hasMany, field, identifier,
-} from '../base';
+} from 'shared/model';
 import {
   get, flatMap, groupBy, find, isNil, isObject, isEmpty, keys,
 } from 'lodash';

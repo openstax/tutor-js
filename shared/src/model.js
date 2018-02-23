@@ -5,8 +5,8 @@ import { computed, action } from 'mobx';
 import { find, isNil, get } from 'lodash';
 
 const FLUX_NEW = /_CREATING_/;
-import lazyGetter from '../helpers/lazy-getter.js';
-import ModelApi from './api';
+import lazyGetter from './helpers/lazy-getter.js';
+import ModelApi from './model/api';
 
 export class BaseModel {
 

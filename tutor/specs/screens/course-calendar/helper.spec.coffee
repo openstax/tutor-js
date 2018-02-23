@@ -1,4 +1,4 @@
-{UiSettings} = require 'shared'
+UiSettings = require 'shared/model/ui-settings'
 
 jest.mock('../../../src/helpers/router', ->
   { currentQuery: jest.fn(-> {}) }

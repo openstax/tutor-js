@@ -3,7 +3,7 @@ import { computed, action } from 'mobx';
 import { TimeStore } from '../../flux/time';
 import {
   BaseModel, identifiedBy, field, identifier, hasMany,
-} from '../base';
+} from 'shared/model';
 
 @identifiedBy('student/task')
 export default class StudentTask extends BaseModel {

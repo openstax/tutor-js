@@ -1,6 +1,6 @@
 import {
   BaseModel, identifiedBy, computed, observable, field,
-} from '../base';
+} from 'shared/model';
 import {
   find, isEmpty, intersection, compact, uniq, flatMap, map, get,
   filter, delay, forEach, flatten, first, includes,

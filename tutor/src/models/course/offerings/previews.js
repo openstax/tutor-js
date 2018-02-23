@@ -1,6 +1,6 @@
 import { filter, sortBy, find } from 'lodash';
 import { action, observable, computed } from 'mobx';
-import { identifiedBy } from '../../base';
+import { identifiedBy } from 'shared/model';
 import Course from '../../course';
 import Courses from '../../courses-map';
 import Offerings from './index';

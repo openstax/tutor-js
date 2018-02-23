@@ -1,6 +1,6 @@
 import {
   BaseModel, identifiedBy, field, session, identifier, hasMany,
-} from '../base';
+} from 'shared/model';
 import { action, computed, observable, Atom } from 'mobx';
 import { sortBy, first, map, union } from 'lodash';
 import { lazyInitialize } from 'core-decorators';

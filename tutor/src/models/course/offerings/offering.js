@@ -1,6 +1,6 @@
 import {
   BaseModel, field, identifier, hasMany, identifiedBy,
-} from '../../base';
+} from 'shared/model';
 import { filter, includes, first } from 'lodash';
 import { readonly } from 'core-decorators';
 import { computed } from 'mobx';

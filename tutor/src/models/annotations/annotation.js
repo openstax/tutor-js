@@ -4,7 +4,7 @@ import serializeSelection from 'serialize-selection';
 import { readonly } from 'core-decorators';
 import {
   BaseModel, identifiedBy, field, identifier, session, belongsTo, hasMany,
-} from '../base';
+} from 'shared/model';
 
 @identifiedBy('annotations/annotation/selector')
 export class AnnotationSelector extends BaseModel {

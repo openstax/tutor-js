@@ -5,7 +5,7 @@ import { autobind } from 'core-decorators';
 import Joyride from 'react-joyride';
 import TourContext from '../../models/tour/context';
 import User from '../../models/user';
-import { SpyModeContext, Content as SpyModeContent } from 'shared/src/components/spy-mode';
+import { SpyModeContext, SpyModeContent } from 'shared/components/spy-mode';
 
 @inject("spyMode") @observer
 export default class TourConductor extends React.PureComponent {

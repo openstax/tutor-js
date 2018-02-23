@@ -1,5 +1,5 @@
 import { computed } from 'mobx';
-import Map from '../../map';
+import Map from 'shared/model/map';
 import Offering from './offering';
 
 class OfferingsMap extends Map {

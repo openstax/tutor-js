@@ -1,4 +1,4 @@
-import Map from './map';
+import Map from 'shared/model/map';
 import { readonly } from 'core-decorators';
 import Survey from './research-surveys/survey';
 

@@ -4,7 +4,7 @@ import htmlparser from 'htmlparser2';
 import { action, observable, when,computed } from 'mobx';
 import {
   BaseModel, identifiedBy, belongsTo, identifier, field, session, hasMany,
-} from '../base';
+} from 'shared/model';
 import ChapterSection from '../chapter-section';
 import { StepTitleActions } from '../../flux/step-title';
 import { MediaActions } from '../../flux/media';

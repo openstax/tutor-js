@@ -1,6 +1,6 @@
 import {
   BaseModel, field, identifiedBy,
-} from '../base';
+} from 'shared/model';
 import axios from 'axios';
 import { action, observable, computed } from 'mobx';
 import { isEmpty, defaultsDeep, find } from 'lodash';

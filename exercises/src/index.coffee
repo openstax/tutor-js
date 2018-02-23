@@ -4,7 +4,7 @@ React = require 'react'
 {QuestionActions, QuestionStore} = require './stores/answer'
 {ExerciseActions, ExerciseStore} = require './stores/exercise'
 
-MathJaxHelper =  require 'shared/src/helpers/mathjax'
+MathJaxHelper =  require 'shared/helpers/mathjax'
 Exercise = require './components/exercise'
 api = require './api'
 

@@ -1,4 +1,4 @@
-import Map from './map';
+import Map from 'shared/model/map';
 import Ecosystem from './ecosystems/ecosystem';
 import { computed, action } from 'mobx';
 

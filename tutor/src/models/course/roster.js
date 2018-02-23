@@ -1,7 +1,7 @@
 import { filter, groupBy } from 'lodash';
 import {
   BaseModel, identifiedBy, field, hasMany, computed, belongsTo,
-} from '../base';
+} from 'shared/model';
 
 import Teacher from './teacher';
 import Student from './student';

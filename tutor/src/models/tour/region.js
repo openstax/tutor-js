@@ -1,6 +1,6 @@
 import {
   BaseModel, identifiedBy, field, identifier, computed,
-} from '../base';
+} from 'shared/model';
 
 // TourRegion
 // Wraps an area of the screen, maps it's id to a given set of audience tags

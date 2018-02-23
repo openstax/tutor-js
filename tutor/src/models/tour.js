@@ -1,6 +1,6 @@
 import {
   BaseModel, identifiedBy, identifier, hasMany, field,
-} from './base';
+} from 'shared/model';
 import { partial, some, each, compact, map, filter, max, defaults } from 'lodash';
 import includes from 'lodash/includes'; // babel-traverse blows up with includes is in list above?
 import TourStep from './tour/step';
