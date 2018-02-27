@@ -11,7 +11,7 @@ describe('AsyncLoadErrors Component', function() {
 
   it('does not render if page isnt reloaded', () => {
     const err = mount(<AsyncLoadErrors {...props} />);
-    expect(reloadOnce).toHaveBeenCalled();
+    expect(reloadOnce).not.toHaveBeenCalled();
     expect(err.html()).toBeNull();
   });
 
