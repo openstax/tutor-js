@@ -163,6 +163,13 @@ makeDevelopmentBase = (projectConfig) ->
   publicPath = "#{servePath}/dist/"
   outputPath = "#{projectConfig.basePath}/"
 
+  plugins = [
+    new webpack.HotModuleReplacementPlugin(),
+    new ProgressBarPlugin(),
+  ]
+
+  plugins.push(new HardSourceWebpackPlugin()) unless process.env.SOFT
+
   developmentBase =
     context: path.resolve(__dirname, '../../', projectConfig.basePath)
     output:
@@ -170,11 +177,7 @@ makeDevelopmentBase = (projectConfig) ->
       publicPath: publicPath
     module:
       rules: BASE_DEV_LOADER_RULES
-    plugins: [
-      new webpack.HotModuleReplacementPlugin(),
-      new ProgressBarPlugin(),
-      new HardSourceWebpackPlugin(),
-    ]
+    plugins: plugins
     devServer:
       contentBase: "#{projectConfig.basePath}/"
       headers:
